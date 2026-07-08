@@ -1,0 +1,111 @@
+# Implementation plan
+
+Every phase has a gate. A phase that fails its gate stops the ladder; it does not get worked
+around. Rationale for each choice is in `DECISIONS.md`.
+
+Legend: `[x]` done · `[ ]` not started · `[~]` partial
+
+---
+
+## Phase 0 — Rung 0: the tracer's ground truth
+
+The only place in this program where the answer is exactly known. Nothing downstream is
+interpretable until this passes.
+
+- [x] `models/tiny.py` — LayerNorm-free transformer, all activations cached
+- [x] `data/synthetic.py` — phase task; marker-anchored frame; phase-biased emissions
+- [x] `models/planted.py` — compositional twin (exact) + heuristic twin (local Bayes)
+- [x] `tests/test_planted.py` — twins behaviourally matched (|Δacc| = 0.0034), separable by
+      marker ablation (1.000 → 0.383 vs 0.583 → 0.583)
+- [x] `nulls/sequence.py` — dinucleotide shuffle (Altschul–Erikson), G4-negative decoys
+- [x] `config.py` — contamination / tokenisation / strand firewalls
+- [ ] `dicts/base.py` — train `Transcoder` on planted activations
+- [ ] `tracer/attribution.py` — JVP through frozen-attention replacement model
+- [ ] `tracer/patch.py` — `node_ablate`, `edge_ablate_replacement`, `edge_patch_real`
+- [ ] **Test A** — attribution with `dictionary := identity`; exact neuron-level edges
+- [ ] **Test B** — dictionary recovery under planted superposition; Hungarian match, MCC > 0.9
+- [ ] **Test C** — end-to-end recall/precision vs `PLANTED_EDGES`
+- [ ] **Test D** — JSAE Jacobian sparsity: ROC(compositional vs heuristic), AUC > 0.8
+
+> **GATE 0.** Tests A–D pass. If C's recall is low, A and B say which half is at fault. If D's
+> AUC is at chance, H3's discriminator does not work and H3 is withdrawn — not reinterpreted.
+
+- [ ] Plant a *multiplicative* interaction; measure how far edge recall falls
+      → this number is the faithfulness/nonlinearity result, and answers Risk #1
+
+---
+
+## Phase 1 — Rung 1: reading frame
+
+- [ ] `data/genome.py` — hg38 + GENCODE CDS, **random-offset windows**, chromosome splits
+- [ ] `models/gfm_nano.py` — single-nt transformer, ~6L × d=512
+- [ ] Train `gfm-nano-cds` (AR) and `gfm-nano-dna` (both strands)
+- [ ] Linear probe: is period-3 phase decodable, layer by layer, vs position-shuffled control?
+- [ ] Trace; edge-patch; check sign-correctness under frameshift minimal pairs
+- [ ] Port harness to `splicebert` (`yangheng/SpliceBERT-510nt`; 6L, d=512, absolute pos-emb)
+
+> **GATE 1.** A compact frame circuit in GFM-nano with sign-correct edge patches. SpliceBERT may
+> legitimately have no frame circuit — that is a finding, not a failure, *because* Gate 0 passed.
+
+Preliminary, weak, reported as motivating only: SpliceBERT's masked triplet completes to a STOP
+with P = 0.0395 in-frame vs 0.0511 off-frame (ratio 0.773, Mann-Whitney p = 0.356, n = 40). Direction
+matches H0; **not significant**. The probe, not the behavioural proxy, is the instrument.
+
+---
+
+## Phase 2 — Rung 2: splice sites
+
+- [ ] GENCODE donor/acceptor/branch-point/polypyrimidine annotations
+- [ ] Sequence nulls: GT/AG present, canonical spacing destroyed
+- [ ] Trace sub-signal → composition → readout; JSAE sparsity (threshold from Test D)
+- [ ] Edge-patch vs spacing biophysics; routing share vs matched control edges
+
+> **GATE 2.** Composition beyond the matched sequence null, or an interpretable negative.
+
+Splice sites are SpliceBERT's *training distribution*, so the anchor is strongest here.
+
+---
+
+## Phase 3 — Rung 3: G-quadruplex
+
+- [ ] G4-seq / G4 ChIP-seq maps; G4Hunter loop-length grammar labels
+- [ ] G-density-matched, G4-negative decoys (`nulls.sequence.g_density_matched`)
+- [ ] Trace G-run × loop-window × strand composition on `gfm-nano-dna`
+- [ ] Anchor on `dnabert2` (window-level readout; token→nt span mapping required)
+
+> **GATE 3.** Composition over and above a G-density counter.
+
+`assert_cross_strand_capable("splicebert")` raises. That is the point.
+
+---
+
+## Phase 4 — H2: the payload
+
+- [ ] Four arms at matched architecture/scale: AR · MLM · MLM+phyloP · phyloP-only
+- [ ] Control arm 3′: phyloP scrambled *within codons* (mean preserved, period-3 destroyed)
+- [ ] Common frozen linear eval head; frame labels never touch a backbone
+- [ ] Select checkpoints at **matched eval-head accuracy**
+- [ ] Completeness (within-model ratio) and routing share per arm, per rung
+
+> **GATE 4.** Monotone ladder at matched accuracy, or the confound wins and we say so.
+
+---
+
+## Phase 5 — Extensions (contingent)
+
+- [ ] Enhancer/TF grammar on ENCODE cCREs
+- [ ] SSMs: Caduceus (RC-equivariant, therefore the *right* G4 substrate and the *hardest* to trace)
+- [ ] Causal scrubbing on the surviving pathway
+
+---
+
+## Environment
+
+```bash
+conda activate gfm-thrust1        # torch 2.12, MPS; transformers 4.44
+pip install -e ".[dev]"
+pytest -q
+```
+
+M5 Pro, 20 cores, 68 GB unified memory. Transcoder sizing for SpliceBERT (6L × d=512):
+4096 features ≈ 44M params; full CLT at 16384 features ≈ 175M. Both fit.
