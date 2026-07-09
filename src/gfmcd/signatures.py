@@ -31,15 +31,21 @@ from gfmcd.data.uniform_cds import ATG
 
 NON_START = np.array([1, 3, 1], dtype=np.int8)  # CTC
 FAR = 64
+
+# LAYER was chosen when the only trained model we had was the counter, which carries the anchor at L2.
+# On real CDS the anchor does not enter until L4, so BOTH axes of the 2x2 -- read here -- reported the
+# wrong mechanism for exactly the cells that produced a new claim (D34 on x, D35 on y). Nothing that
+# names a mechanism may be read at a fixed layer. Use `peak_anchor_dependence` for the x-axis and
+# `scripts/phase_c_conflict_layers.py`'s output-level readout for the y-axis.
 LAYER = "L2.resid_post"
 
 
 @dataclass(frozen=True)
 class Signature:
     name: str
-    ablation_effect: float      # x
-    anchor_share: float         # y
-    content_share: float
+    ablation_effect: float      # x -- superseded by peak_anchor_dependence (D34)
+    anchor_share_l2probe: float  # NOT the anchor share. A probe at LAYER. See D35 before using.
+    content_share_l2probe: float
     ablation_raw: float
     control_raw: float
     n_far: int

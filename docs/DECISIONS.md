@@ -1271,3 +1271,147 @@ gets wrong** — that is a per-window prediction, and it is falsifiable.
 
 `SETTLED` (measurement), one seed per cell. Error bars are Phase D. The claim "cell C's L4 is where the
 anchor enters" rests on an ablation whose decoy-Met control is −0.0001, i.e. 3800× specificity.
+
+---
+
+## D35 — RETRACTED (D32/D33's relay, for cells B and C). The cue-conflict axis was probed at a layer that does not carry the anchor.
+
+D34 found that the *x*-axis of the 2×2 — anchor dependence — was read from a probe at a fixed layer,
+`L2.resid_post`, and that this measures whichever variable that layer happens to carry. It fixed the
+x-axis by taking the max over depth.
+
+**The y-axis has the same fault, and nobody checked.** `signatures.signature()` reads the cue-conflict
+anchor share from `residuals(model, ..., layer=LAYER)` with `LAYER = "L2.resid_post"`. D34's own layer
+table says the anchor does not enter cells C and D until **L4**. So the number that named the relay —
+"anchor share 0.0396, content 0.9131" for cell C — was a probe asking L2 about a variable L2 does not
+yet have.
+
+### The corrected measurement
+
+Same intervention (insert one nucleotide at `start + 3`; downstream codons keep their structure but
+slide one base, so anchor and content disagree by exactly one frame). Read at every layer, and then at
+the only readout that cannot be accused of probing the wrong place: **the model's own output**.
+
+```
+cell C · real CDS, easy detector      follows anchor   follows content
+  L0.resid_post                            0.0863           0.8100
+  L1.resid_post                            0.0636           0.8656
+  L2.resid_post                            0.0389           0.9137   <- D33 read here
+  L3.resid_post                            0.0389           0.9113
+  L4.resid_post                            0.6858           0.2579   <- the anchor arrives
+  L5.resid_post                            0.3908           0.4592
+  MODEL OUTPUT                             0.7106           0.3063
+```
+
+**Cell C follows the anchor.** It is an anchored counter, not a relay.
+
+### The corrected 2×2, read at the output
+
+```
+cell   shortcut   detector   far-field ablation Δ (ctl)   anchor share (output)   mechanism
+A       absent      easy          0.5891 (0.0193)               1.0000            counter
+B       absent      hard          0.5553 (0.0219)               0.8817            counter
+C      present      easy          0.3264 (0.0242)               0.7106            counter (+ pooled scaffold)
+D      present      hard          0.1126 (0.0335)               0.2314            relay
+μ=0    present      n/a           0.0025 (probe)                0.0925 (probe)    bag
+```
+
+A second, independent intervention agrees. **T3 (anchor relocation)** destroys the ATG and rewrites it
+one or two bases over, leaving all downstream content untouched — the mirror image of the frameshift,
+which moves content and leaves the ATG. Far-field output:
+
+```
+              shift+1                shift+2                shift+3 (in-frame move)
+        anchor / content        anchor / content         anchor = content
+A       1.0000 / 0.0553         0.9890 / 0.0608               0.9920
+B       0.8306 / 0.1312         0.8590 / 0.1338               0.8091
+C       0.6507 / 0.4025         0.6904 / 0.3229               0.9996
+D       0.3591 / 0.6990         0.1899 / 0.7525               0.9880
+```
+
+Move the content and the model follows the anchor; move the anchor and the model follows the anchor.
+Both interventions give the same ordering, `A > B > C > D`. `shift+3` — the ATG moved three bases, so
+the frame it announces is unchanged — costs almost nothing, which is the control that says the edit
+itself is harmless. **T3's third branch does not fire: the far field does not collapse to chance, so
+deletion was not an OOD shock and D33's ablation column stands.**
+
+### What this does to the record
+
+- **D32 is retracted for cell C, and D33's "mixed" is retracted for cell B.** Both were anchored
+  counters misread by an L2 probe. `RESULTS.md` §10 is updated.
+- **The relay survives, in cell D alone.** There the anchor is causally load-bearing at ≥64 nt
+  (Δ 0.1126 against a 0.0335 control, 3.4× specificity) and yet the output follows local content
+  (0.7295 vs 0.2314). Anchor used, not counted from. One cell, one seed — `PENDING`, not `SETTLED`.
+- **D30's registered prediction is half vindicated.** It predicted "at μ = 1, cells C and D build an
+  ANCHORED COUNTER" because real DNA's anchor-free route caps at 0.9509 and the objective demands
+  exactness. D33 reported that prediction had failed. **It did not fail for cell C.** It failed for D.
+
+### The pre-registered attribution logic now resolves
+
+The 2×2 addendum registered: `D fails, B and C succeed -> the two factors interact`. At the output,
+with the frozen threshold (anchor share > 0.50), that is exactly what happened.
+
+```
+A -> B  (detector hard)     1.0000 -> 0.8817     an unreliable anchor is still counted from
+A -> C  (shortcut on)       1.0000 -> 0.7106     a pooled route competes, and loses
+A -> D  (both)              1.0000 -> 0.2314     only together do they displace the counter
+```
+
+**Neither factor alone displaces the circuit. Together they do.** A hard-to-find anchor is worth
+counting from when nothing else works (cell B). A pooled route loses to a reliable anchor (cell C). The
+model abandons counting only when the anchor is unreliable *and* something else is on offer.
+
+### What D34 got right, and what its name got wrong
+
+The depth profile stands: cells C and D pool to the anchor-free ceiling by L2, and the anchor enters at
+L4. What was wrong was the reading of *why*. "Anchor-corrected pooling" said the anchor supplies the
+residual ~5% the pooled route cannot reach. Two results kill that:
+
+- **T2.** Partition far-field positions by whether the anchor-free pooled oracle (rebuilt in
+  `gfmcd/oracle.py`; reproduces D30's 0.9509 at 240 nt) already recovers the frame. Cell C's ablation
+  costs **0.3153 on the positions the oracle gets right** — where, under anchor-corrected pooling, it
+  should have cost nothing. The effect is enriched on the oracle's errors (0.4529, ratio 1.44) but it is
+  present everywhere. The registered `H3-strong` criterion (`Δ(right) < 0.10` and ratio ≥ 3) fails for C
+  and D, as the pre-registration predicted it would, and for the reason it predicted: outcome (ii).
+  Null control: on uniform-codon cells A and B the oracle is at chance (`oracle-right` fraction 0.331,
+  0.341) and the ratio is 1.05 and 1.00 — the partition does not manufacture an effect.
+- **The corrected cue conflict.** L2's pooled estimate is not what the output reads. Under conflict L2
+  follows content 0.9137 and the output follows the anchor 0.7106.
+
+So the pooled estimate at L0–L2 is a **scaffold the model builds and then overrules**, not a summand the
+anchor corrects. After ablation it is still linearly present at L2 (probe 0.9453, from a probe fit on
+intact data) while the output has fallen to 0.6492. **The model computes the frame two ways, keeps the
+anchored answer, and discards a 0.945-accurate representation it is still carrying.**
+
+### T1 failed as a discriminator, and it is reported as failed
+
+The registered T1 mapped `slope in log d -> counter`, `periodic -> re-sync chain`, `flat -> correction`.
+
+- The first run binned Δ(d) at 16 nt and returned a fitted period of **17 nt** — a period at the
+  sampling interval, aliased and unidentifiable. Re-run at 1-nt resolution with the period floored at
+  8 nt and the sinusoid tested *on top of* the log-d trend.
+- The periodic term then survived BIC for cells C and D (ΔBIC 11.1 each) at periods of **88 nt and
+  21.5 nt** — a 4× disagreement between two cells of the same putative mechanism. Δ(d) is autocorrelated
+  (AR(1) ρ = 0.49, 0.62), and BIC assumes it is not. Against 2000 AR(1) surrogates: **p = 0.14 and
+  p = 0.36**, and the null's own 95th percentile of ΔBIC is 17.1 and 25.8, far above the registered
+  threshold of 6. **The registered threshold was miscalibrated. There is no periodicity. H2 is dead.**
+- Worse for T1: cell A (counter) shows the slope (+0.0264, ΔBIC 110.8) and cell B (also a counter, by
+  both T3 and the output conflict) does not (+0.0096, ΔBIC −2.8). **A test that calls one counter a
+  counter and the other flat is not a test.** T1 discriminates nothing and is withdrawn as a diagnostic.
+
+The two interventions that did the work were the ones read at the output: the corrected cue conflict and
+T3. Everything decisive in this entry is behavioural, not a probe.
+
+### Status
+
+`SETTLED` for the retraction itself (two independent interventions, a passing positive control in cell A,
+a passing null control in cells A/B, and the `shift+3` control that clears the edit).
+`PENDING` for cell D's relay and for every per-cell number: one seed each. Phase D is now load-bearing.
+
+### The question this opens
+
+If cell C's output is anchored, why does it build the pooled estimate at all? The obvious guess is that
+pooling is the fast route — cheap, learnable early — and the counter is layered on top of it later.
+That is a claim about *training order*, and we have the checkpoints to test it: probe L2 (content) and
+L4 (anchor) across training steps and see which appears first. If the scaffold precedes the counter, the
+λ-sweep's "shortcut scaffolds discovery" reading gets a mechanism.

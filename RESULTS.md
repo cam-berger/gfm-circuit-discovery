@@ -304,8 +304,12 @@ estimator.
 | D29 | *"Stop-codon depletion causes the mechanism switch"* | The registered sense-codon control (zero bias, zero in-frame stops) came out **ANCHORED** (anchor 0.8205, ΔaaAcc 0.3370). Falsified by its own control. |
 | D30 | *"λ = 1 synthetic models real CDS"* | Same codon usage, but naive-Bayes independence closes its ceiling to 1.0000 where real DNA's is 0.9509. Real codons are correlated. **Nothing transfers from the λ arms to real DNA without re-measurement.** |
 | D31 | Cell B's `NO CIRCUIT` verdict | Cut off mid-grok. |
+| D32 | *"Cells C and D reveal a third mechanism, the relay"* | The cue-conflict anchor share was a probe on `L2.resid_post`, and in cells C/D the anchor does not enter until **L4** (D34's own table). Read at the model's output, **cell C follows the anchor 0.7106 vs content 0.3063** — an anchored counter. Two independent interventions agree (D35). The relay survives in **cell D alone**. |
+| D33 | *"Cell B is a mixed / partial relay"* | Same fault, same layer. At the output, cell B's anchor share is **0.8817**. It is a counter. |
+| D34 | *"Anchor-corrected pooling: the anchor supplies the residual 5%"* | T2: cell C's ablation costs **0.3153 on exactly the positions the pooled oracle already gets right**, where a correction term should have cost nothing. The pooled estimate is a scaffold the model **overrules**, not a summand the anchor corrects. D34's *depth profile* stands; its interpretation does not. |
 | — | *"The λ sweep measures necessity"* | It measures **difficulty**. Every λ arm is μ = 1; codon bias never removes the frame's necessity. I built a difficulty dial and called it a necessity dial. |
 | — | *"Attention magnitude is uncorrelated with causal importance"* | I measured attention to the **A** of ATG. The marker head attends the **T**. Measured correctly, top-attention heads *are* causal — the real failure is `L1H2` (§6). |
+| — | T1's registered periodicity test (`ΔBIC > 6` ⇒ re-sync chain) | Δ(d) is autocorrelated (AR(1) ρ ≈ 0.5–0.6) and BIC assumes it is not. Under 2000 AR(1) surrogates the null's own 95th percentile of ΔBIC is **17–26**. The threshold was miscalibrated before it was ever used. Withdrawn (D35). |
 
 ### The recurring failure class
 
@@ -315,6 +319,19 @@ estimator.
 2. Element-wise **variance** on a sparse target — flatters any fit, D18
 3. **Accuracy** pinned at 1.0000 — nearly published "L1H2 is inert" off a metric that could not detect an effect, D27
 4. **Accuracy** cut off mid-grok — nearly published "cell B has no circuit," D31
+
+### The second recurring failure class
+
+**A probe at a fixed layer measures whichever variable that layer happens to carry.** Both axes of the
+2×2 were read at `L2.resid_post`, chosen when the only model we had was the counter — which has the
+anchor at L2. Both axes were wrong for exactly the cells that produced a new claim.
+
+1. The **x**-axis (anchor dependence) — found by D34, fixed by taking the max over depth
+2. The **y**-axis (cue-conflict anchor share) — found by D35, fixed by reading the **model's output**
+
+The lesson is not "probe more layers." It is that a probe is a claim about a representation, and the
+mechanism question is a claim about behaviour. **Where a behavioural readout exists, use it.** Both
+retractions vanish when the intervention is scored against the model's own predictions.
 
 ---
 

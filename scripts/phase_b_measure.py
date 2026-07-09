@@ -62,11 +62,13 @@ def main() -> None:
 
         sig, extra, cache = signature(model, tok, ph, device, key)
         peak, best_layer, per_layer = peak_anchor_dependence(model, tok, ph, device)
+        # y is an L2 probe and is NOT the anchor share -- see D35. Kept only so the per-layer dump and
+        # the x-axis stay reproducible. The mechanism is decided in scripts/phase_c_conflict_layers.py.
         sigs.append(dict(model=key, ckpt=ckpt, mechanism=mech, x=peak, best_layer=best_layer,
-                         y=sig.anchor_share, content=sig.content_share,
+                         y_RETRACTED_l2probe=sig.anchor_share_l2probe, content_l2probe=sig.content_share_l2probe,
                          x_at_L2=sig.ablation_effect, per_layer=per_layer, n_far=sig.n_far, **extra))
         print(f"{key:<32}{peak:>21.4f}{best_layer.replace('.resid_post',''):>16}"
-              f"{sig.anchor_share:>18.4f}{sig.content_share:>10.4f}", flush=True)
+              f"{sig.anchor_share_l2probe:>18.4f}{sig.content_share_l2probe:>10.4f}", flush=True)
 
         curve, _ = anchor_content_by_distance(model, tok, ph, start, device,
                                              cached=(cache["r_int"], cache["r_sh"]))
