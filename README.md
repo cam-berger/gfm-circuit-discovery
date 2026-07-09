@@ -10,6 +10,7 @@ by TransformerLens / `circuit-tracer`, which target GPT-style decoder-only model
 
 | | |
 |---|---|
+| **`REC.md`** | **The argument, end to end: what we found, what it means, what to do next.** |
 | `docs/EXPERIMENTS.md` | **Plain-language account of every experiment and what it showed.** Start here. |
 | `docs/DECISIONS.md` | Why the design is what it is, with the numbers. |
 | `docs/PLAN.md` | Phases and gates. |

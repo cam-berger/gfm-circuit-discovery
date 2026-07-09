@@ -104,3 +104,28 @@ train (200000, 256)  val (8000, 256)  device mps
   step   250  train 2.5313  val 2.5315  aa_acc 0.1862  [frameless]  5.5 it/s
   step   500  train 2.5122  val 2.5271  aa_acc 0.1858  [frameless]  5.5 it/s
   step   750  train 1.1158  val 1.0545  aa_acc 0.6121  [FRAME]  5.4 it/s
+  step  1000  train 0.7546  val 0.4926  aa_acc 0.8102  [FRAME]  5.3 it/s
+  step  1250  train 0.3074  val 0.3110  aa_acc 0.8808  [FRAME]  5.2 it/s
+  step  1500  train 0.3224  val 0.1881  aa_acc 0.9257  [FRAME]  5.2 it/s
+  step  1750  train 0.1607  val 0.1529  aa_acc 0.9430  [FRAME]  5.2 it/s
+  step  2000  train 0.0694  val 0.1077  aa_acc 0.9621  [FRAME]  5.1 it/s
+  step  2250  train 0.1442  val 0.1376  aa_acc 0.9605  [FRAME]  5.1 it/s
+  step  2500  train 0.1303  val 0.1168  aa_acc 0.9596  [FRAME]  5.1 it/s
+  step  2750  train 0.0888  val 0.0606  aa_acc 0.9794  [FRAME]  5.1 it/s
+  step  3000  train 0.1802  val 0.0692  aa_acc 0.9827  [FRAME]  5.2 it/s
+  step  3250  train 0.0339  val 0.0397  aa_acc 0.9878  [FRAME]  5.2 it/s
+  step  3500  train 0.0065  val 0.0195  aa_acc 0.9944  [FRAME]  5.2 it/s
+  step  3750  train 0.0262  val 0.0125  aa_acc 0.9958  [FRAME]  5.2 it/s
+  step  4000  train 0.0047  val 0.0052  aa_acc 0.9981  [FRAME]  5.2 it/s
+  step  4250  train 0.0103  val 0.0046  aa_acc 0.9985  [FRAME]  5.2 it/s
+  step  4500  train 0.1136  val 0.0065  aa_acc 0.9979  [FRAME]  5.2 it/s
+  step  4750  train 0.0025  val 0.0094  aa_acc 0.9982  [FRAME]  5.2 it/s
+  step  5000  train 0.0131  val 0.0076  aa_acc 0.9975  [FRAME]  5.2 it/s
+  step  5250  train 0.0013  val 0.0043  aa_acc 0.9986  [FRAME]  5.2 it/s
+  step  5500  train 0.0046  val 0.0013  aa_acc 0.9996  [FRAME]  5.2 it/s
+  step  5750  train 0.0004  val 0.0008  aa_acc 0.9998  [FRAME]  5.2 it/s
+  step  6000  train 0.0004  val 0.0006  aa_acc 0.9998  [FRAME]  5.2 it/s
+  step  6250  train 0.0002  val 0.0006  aa_acc 0.9998  [FRAME]  5.2 it/s
+  step  6500  train 0.0001  val 0.0004  aa_acc 0.9999  [FRAME]  5.2 it/s
+  step  6750  train 0.0003  val 0.0002  aa_acc 0.9999  [FRAME]  5.2 it/s
+  step  7000  train 0.0001  val 0.0003  aa_acc 0.9999  [FRAME]  5.2 it/s
