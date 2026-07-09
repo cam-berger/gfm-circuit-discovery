@@ -125,6 +125,55 @@ exploiting an accident in how we prepared the data.
 
 ---
 
+## E6 — The model takes the shortcut, because the shortcut is good enough
+
+**What we did.** Trained a model on real human DNA and asked whether it figures out the reading frame
+by finding the gene's start marker and counting, or by guessing from the local flavour of the letters.
+
+**How we tested it.** Deleting the start marker turned out to prove nothing — the model just falls back
+on the local flavour, like a reader who loses their place and re-reads the sentence. So instead we made
+the two clues *disagree*: insert one extra letter right after the start marker, so that counting from
+the marker says one thing and the local flavour says another. The model has to pick a side.
+
+**What it showed.** Beyond about 30 letters, the model sides with the local flavour, every time. And a
+control model that had *never seen a start marker in training* behaves identically — proving the
+apparent marker-following near the insertion is just the model pooling letters from both sides of it.
+
+**Why.** We measured how much the training goal actually rewards knowing the frame: about 0.4% of the
+model's total error. The shortcut is nearly as good as the real thing. **The model isn't failing — it
+is correctly solving the problem we gave it.** Training it longer would not help; there is nothing to
+find.
+
+*Formal record: D24. Code: `scripts/frameshift_conflict.py`.*
+
+---
+
+## E7 — Make the circuit necessary, and it appears all at once
+
+**What we did.** Built an artificial version of the problem where the shortcut is impossible. The DNA
+is completely random, so the local flavour tells you nothing at all about the frame. But we ask the
+model to name the protein letter at every position — which you simply cannot do unless you know where
+the reading groups start. The only way is to find the start marker and count.
+
+**What it showed.** For 2,750 rounds of training the model was stuck at exactly the score you get by
+guessing (0.377). Then, over about 500 rounds, it jumped to 0.999.
+
+That sudden jump is the model discovering the circuit. There is no halfway: you cannot half-know where
+the reading groups begin.
+
+**And now every test we ran on real DNA gives the opposite answer.** Delete the start marker and the
+model collapses to guessing. Delete an identical-looking marker elsewhere and nothing happens. Make the
+clues disagree and the model sides with the start marker at *every* distance, even 250 letters away —
+it propagates the shift exactly as real biology does. The frame information also gets *built up* through
+the model's layers rather than appearing instantly, which is what a multi-step computation looks like.
+
+**The point.** A model builds the real machinery exactly when the task makes it necessary — not when it
+is merely useful. Real genomic training sits on the wrong side of that line.
+
+*Formal record: D25, D26. Code: `src/gfmcd/data/uniform_cds.py`, `scripts/verify_uniform.py`.*
+
+---
+
 ## The thread running through all of these
 
 Every one of these experiments found a problem *before* we touched a real genomic model: a blind spot

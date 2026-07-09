@@ -622,3 +622,62 @@ label      the amino acid of the codon containing each position -- never the fra
 Without the frame, accuracy is capped near 0.33 (guess the alignment). With it, 1.0. The model is
 never told the frame; it is told the protein. The anchored counter becomes the *only* solution rather
 than a 0.4% improvement — the learned analogue of Rung 0's planted compositional twin.
+
+
+---
+
+## D26 — The forcing task installs the circuit, and it groks
+
+Uniform-codon synthetic CDS (D25): i.i.d. uniform sequence, `I(nucleotide; phase) = 0.000001` nats
+against 0.0241 in real hg38 CDS. Label is the amino acid of the codon containing each position. The
+model is never told the frame. Guessing the alignment caps accuracy at **0.3768**; knowing the frame
+gives 1.0. Bidirectional by necessity — the amino acid at *i* depends on nucleotides at *i+1*, *i+2*.
+
+**It sat on the frameless ceiling for 2,750 steps and then transitioned in ~500.**
+
+```
+step 2750   aa_acc 0.4006    frameless   (ceiling 0.3768)
+step 3000   aa_acc 0.4426
+step 3250   aa_acc 0.9790
+step 3750   aa_acc 0.9987
+```
+
+There is no gradual path: every intermediate accuracy would require *partial* knowledge of the frame,
+which this task does not offer. (Cam's grokking intuition, vindicated — on the task where the circuit
+is worth building. On real DNA it was worth 0.4% of the loss and never appeared.)
+
+**All four assays flip**, against the same battery that found nothing in hg38:
+
+```
+phase probe             real hg38 model      forcing-task model
+  resid.embed               0.4061               0.3472
+  L0.resid_post             0.7936  flat         0.4049
+  L1.resid_post             0.7928               0.8768   builds
+  L2.resid_post             0.7923               0.9907
+  L5.resid_post             0.7914               0.9892
+
+amino-acid accuracy
+  intact                                         0.9875
+  START CODON ablated                            0.3611   below the 0.3768 ceiling
+  downstream Met ablated (control)               0.9749   identical perturbation, no effect
+
+cue conflict (follows anchor / follows content)
+  4-15 nt                                        0.9908 / 0.0061
+  64-127 nt                                      0.9909 / 0.0065
+  128-255 nt                                     0.9914 / 0.0061   no decay at any distance
+```
+
+Real-DNA model, same bin, followed **content** at 0.8354.
+
+Three independent signatures agree. The representation is built **across layers** rather than read off
+in one step — the hallmark of composition, versus the flat L0 profile of a single pooling operation.
+The start codon is causally load-bearing while an identical perturbation to an ordinary Met codon is
+not. And under cue conflict the model propagates a frameshift exactly as biology does.
+
+**This is the learned analogue of Rung 0's planted compositional twin**, in a real transformer with
+LayerNorm, and it is the substrate on which the tracer should now be run: we know a marker-finding QK
+edge and a modular counter must exist, and we know the tracer's error rate on planted ground truth.
+
+The scientific claim sharpens accordingly. Not "does a training objective install a circuit" but:
+**a circuit appears exactly when the objective makes it necessary, and not when it is merely useful.**
+Real genomic self-supervision falls on the wrong side of that line.

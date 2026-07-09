@@ -41,10 +41,15 @@ class NanoConfig:
     n_layers: int = 6
     max_len: int = 256
     causal: bool = False
+    n_out: int | None = None  # None -> language-model head over `vocab`
 
     @property
     def d_head(self) -> int:
         return self.d_model // self.n_heads
+
+    @property
+    def out_dim(self) -> int:
+        return self.n_out or self.vocab
 
 
 class Attention(nn.Module):
@@ -116,7 +121,7 @@ class GFMNano(nn.Module):
         self.pos_embed = nn.Embedding(cfg.max_len, cfg.d_model)
         self.blocks = nn.ModuleList(Block(cfg) for _ in range(cfg.n_layers))
         self.ln_f = nn.LayerNorm(cfg.d_model)
-        self.unembed = nn.Linear(cfg.d_model, cfg.vocab, bias=False)
+        self.unembed = nn.Linear(cfg.d_model, cfg.out_dim, bias=False)
         self.apply(self._init)
 
     @staticmethod
