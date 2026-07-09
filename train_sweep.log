@@ -206,3 +206,58 @@ train (200000, 256)  val (8000, 256)  device mps
   step  4750  train 0.0011  val 0.0013  aa_acc 0.9996  [FRAME]  5.3 it/s
   step  5000  train 0.0000  val 0.0002  aa_acc 1.0000  [FRAME]  5.3 it/s
   step  5250  train 0.0000  val 0.0036  aa_acc 0.9992  [FRAME]  5.3 it/s
+  step  5500  train 0.0001  val 0.0001  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  5750  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  6000  train 0.0000  val 0.0001  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  6250  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  6500  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  6750  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  7000  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  7250  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  7500  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  7750  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  8000  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.3 it/s
+done in 25.4 min
+=============== lambda 2.0  10:11:48 ===============
+/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/train_uniform.py:117: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:839.)
+  print(f"  step {step:5d}  train {float(loss):.4f}  val {vl:.4f}  aa_acc {va:.4f}  [{verdict}]  {step/(time.time()-t0):.1f} it/s", flush=True)
+lambda 2.0   I(nt;phase) 0.05516 nats  (229% of real hg38 CDS)
+uniform-codon alignment-free ceiling 0.3768
+train (200000, 256)  val (8000, 256)  device mps
+4.81M params, bidirectional, 21-way amino-acid head
+  step     1  train 3.1046  val 3.0974  aa_acc 0.0428  [frameless]  0.8 it/s
+  step   250  train 2.3586  val 2.3581  aa_acc 0.2267  [frameless]  5.3 it/s
+  step   500  train 1.8019  val 1.8036  aa_acc 0.3145  [frameless]  5.3 it/s
+  step   750  train 1.0180  val 1.0174  aa_acc 0.5562  [frameless]  5.3 it/s
+  step  1000  train 0.1000  val 0.1055  aa_acc 0.9495  [FRAME]  5.2 it/s
+  step  1250  train 0.0052  val 0.0091  aa_acc 0.9974  [FRAME]  5.2 it/s
+  step  1500  train 0.0343  val 0.0264  aa_acc 0.9950  [FRAME]  5.2 it/s
+  step  1750  train 0.0016  val 0.0011  aa_acc 0.9997  [FRAME]  5.2 it/s
+  step  2000  train 0.0093  val 0.0020  aa_acc 0.9995  [FRAME]  5.2 it/s
+  step  2250  train 0.0033  val 0.0019  aa_acc 0.9996  [FRAME]  5.2 it/s
+  step  2500  train 0.0005  val 0.0006  aa_acc 0.9998  [FRAME]  5.2 it/s
+  step  2750  train 0.0022  val 0.0008  aa_acc 0.9998  [FRAME]  5.2 it/s
+  step  3000  train 0.0002  val 0.0024  aa_acc 0.9994  [FRAME]  5.2 it/s
+  step  3250  train 0.0001  val 0.0038  aa_acc 0.9992  [FRAME]  5.2 it/s
+  step  3500  train 0.0001  val 0.0005  aa_acc 0.9999  [FRAME]  5.2 it/s
+  step  3750  train 0.0003  val 0.0008  aa_acc 0.9997  [FRAME]  5.2 it/s
+  step  4000  train 0.0000  val 0.0002  aa_acc 0.9999  [FRAME]  5.2 it/s
+  step  4250  train 0.0275  val 0.0002  aa_acc 0.9999  [FRAME]  5.1 it/s
+  step  4500  train 0.0000  val 0.0001  aa_acc 1.0000  [FRAME]  5.1 it/s
+  step  4750  train 0.0000  val 0.0001  aa_acc 1.0000  [FRAME]  5.1 it/s
+  step  5000  train 0.0000  val 0.0006  aa_acc 0.9999  [FRAME]  5.1 it/s
+  step  5250  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.1 it/s
+  step  5500  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.2 it/s
+  step  5750  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.1 it/s
+  step  6000  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.1 it/s
+  step  6250  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.2 it/s
+  step  6500  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.1 it/s
+  step  6750  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.1 it/s
+  step  7000  train 0.0002  val 0.0000  aa_acc 1.0000  [FRAME]  5.1 it/s
+  step  7250  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.1 it/s
+  step  7500  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.1 it/s
+  step  7750  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.1 it/s
+  step  8000  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.1 it/s
+done in 25.9 min
+SWEEP DONE 10:37:48

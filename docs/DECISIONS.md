@@ -838,3 +838,71 @@ That is a better statement of this project's finding than "the circuit is worth 
 which remains true of the **μ = 0** objective and is the reason no circuit forms there. The two
 statements are the same fact measured under two objectives, and the 2×2 (see `PREREGISTRATION.md`
 addendum) separates them.
+
+
+---
+
+## D29 — Same behaviour, opposite mechanism: the λ arms split into a counter and a scan
+
+Every λ arm reaches `aa_acc = 1.0000`. **That number is the training accuracy, and it does not
+distinguish the mechanisms.** Running the causal verdict on them (cue conflict + start-codon ablation,
+both validated on the planted twins) splits the sweep in two:
+
+```
+arm       aa acc   ATG-abl dAA   anchor   content   mechanism
+uniform   1.0000      0.6320     1.0000    0.0000   ANCHORED COUNTER
+lam0.25   1.0000      0.5951     0.5835    0.2579   ANCHORED COUNTER
+lam0.5    1.0000      0.5455     0.6048    0.2023   ANCHORED COUNTER
+lam0.75   0.9999      0.2836     0.7025    0.2640   ANCHORED COUNTER
+lam1      1.0000      0.0153     0.0027    0.9924   anchor-free
+lam1.5    0.9988      0.0127     0.0000    0.9997   anchor-free
+lam2      1.0000      0.0124     0.0000    1.0000   anchor-free
+```
+
+**These are the planted twins, learned, on a sweep.** Behaviourally identical, mechanistically opposite.
+Had we scored the sweep on accuracy — as I did for an hour — we would have reported "the circuit forms
+at every λ, faster each time" and been wrong about four of the seven arms.
+
+### The controlling variable is not codon bias. It is whether an anchor-free route exists.
+
+```
+lambda   P(in-frame stop)   in-frame stops per 85-codon window   mechanism
+  0.75       0.0117                    1.0                        anchored counter
+  1.00       0.00001                   0.0                        anchor-free
+```
+
+At λ ≤ 0.75 the true frame still contains stop codons, so "the stop-free frame" is unreliable and the
+model **must** anchor. At λ ≥ 1 — real human codon usage, and GENCODE's CDS excludes the terminal stop
+— in-frame stops vanish, the true frame becomes the *unique* stop-free frame across 85 codons, and the
+model recovers it by scanning. No anchor needed.
+
+### This unifies the whole project
+
+Real DNA has no in-frame stops. That is why hg38 GFM-nano followed *content* in the cue conflict (D24),
+why it sits at the anchor-free ceiling of 0.79–0.82 (D28), and why the anchored circuit never appeared.
+
+**It is not that the objective fails to pay for the circuit. The genetic code already supplies a cheaper
+route to the same answer, and the model takes it — even under an objective that demands the frame
+exactly (μ = 1).** The "0.4% of the loss" figure (D24) is the μ = 0 shadow of this deeper fact.
+
+### Refinement, not retraction
+
+*"A partial shortcut scaffolds discovery of the exact mechanism"* survives, but only inside the anchored
+regime: among λ ≤ 0.75 the grok step falls 3250 → 3000 → 1500 → ~750. The apparent speed-up at λ ≥ 1 was
+the model finding a **different, easier mechanism**, not finding the counter faster.
+
+### The confound, and the control that kills it
+
+λ moves stop depletion and overall codon bias *together*. Uniform over the **61 sense codons** separates
+them: no codon bias, no in-frame stops.
+
+```
+                    P(in-frame stop)    I(nt;phase)
+uniform, 64 codons      0.04688          0.000001
+61 sense codons         0.00000          0.00157      <- 15x less bias than lam=1, stops fully depleted
+lam = 1 (real usage)    0.00001          0.01516
+real hg38 CDS           ~0               0.02410
+```
+
+**Prediction, registered before the run:** if the mechanism switch is caused by stop depletion, the
+sense-codon model is **anchor-free**. If it is caused by codon bias, it is an **anchored counter**.

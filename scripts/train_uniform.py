@@ -69,12 +69,20 @@ def main() -> None:
     ap.add_argument("--train-seqs", type=int, default=200_000)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--lam", type=float, default=0.0, help="0 = uniform codons; 1 = real human usage")
+    ap.add_argument("--sense-only", action="store_true",
+                    help="uniform over the 61 SENSE codons: no codon bias, no in-frame stops (D29 control)")
     args = ap.parse_args()
 
     device = "mps" if torch.backends.mps.is_available() else "cpu"
     torch.manual_seed(args.seed)
 
-    probs = None if args.lam == 0.0 else blended_codon_probs(args.lam)
+    if args.sense_only:
+        from gfmcd.data.uniform_cds import AMINO_ACIDS, CODON_AA
+        probs = np.ones(64)
+        probs[CODON_AA == AMINO_ACIDS.index("*")] = 0.0
+        probs /= probs.sum()
+    else:
+        probs = None if args.lam == 0.0 else blended_codon_probs(args.lam)
     ceiling = alignment_free_ceiling()
     tok_np, aa_np, ph_np = make_batch(args.train_seqs, args.window, seed=0, codon_probs=probs)
     vtok_np, vaa_np, _ = make_batch(8_000, args.window, seed=1, codon_probs=probs)
@@ -118,12 +126,12 @@ def main() -> None:
             history.append({"step": step, "train": float(loss), "val": vl, "aa_acc": va})
 
         if step in save_at:
-            tag = "uniform" if args.lam == 0.0 else f"lam{args.lam:g}"
+            tag = "sense" if args.sense_only else ("uniform" if args.lam == 0.0 else f"lam{args.lam:g}")
             torch.save({"cfg": model.cfg.__dict__, "state": model.state_dict(), "step": step,
                         "pool": tag, "lam": args.lam, "shortcut_nats": shortcut},
                        CKPT / f"nano_{tag}_step{step}.pt")
 
-    tag = "uniform" if args.lam == 0.0 else f"lam{args.lam:g}"
+    tag = "sense" if args.sense_only else ("uniform" if args.lam == 0.0 else f"lam{args.lam:g}")
     (CKPT / f"nano_{tag}_history.json").write_text(json.dumps(history, indent=2))
     print(f"done in {(time.time()-t0)/60:.1f} min")
 

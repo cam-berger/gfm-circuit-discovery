@@ -1,0 +1,9 @@
+=============== sense-codon control  10:40:51 ===============
+/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/train_uniform.py:125: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:839.)
+  print(f"  step {step:5d}  train {float(loss):.4f}  val {vl:.4f}  aa_acc {va:.4f}  [{verdict}]  {step/(time.time()-t0):.1f} it/s", flush=True)
+lambda 0.0   I(nt;phase) 0.00184 nats  (8% of real hg38 CDS)
+uniform-codon alignment-free ceiling 0.3768
+train (200000, 256)  val (8000, 256)  device mps
+4.81M params, bidirectional, 21-way amino-acid head
+  step     1  train 3.0790  val 3.0705  aa_acc 0.0455  [frameless]  0.8 it/s
