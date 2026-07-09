@@ -356,3 +356,57 @@ absorbed into the decoder bias is a concept the circuit diagram will silently om
 The first implementation used element-wise `.var()`. Against a 36-dimensional target whose dimensions
 are mostly zero, that reads near 1.0 almost regardless of fit. Replaced with `1 - FVU`. On this data
 both give 1.0000, but only by luck; the metric is now correct by construction.
+
+---
+
+## D19 — Scope: Rungs 0–1, hypotheses H0/H1/H2/H4. H3 leaves the critical path
+
+Per Cam, 2026-07-08. H3 (JSAE computation-sparsity) was a speculative addition and is demoted to an
+exploratory result; D16's finding stands as a recorded caveat rather than a gate. Rungs 2 (splice)
+and 3 (G-quadruplex) become future work.
+
+The paper is now: **a validated circuit tracer, and a controlled test of whether a training objective
+installs the reading-frame circuit.** Rung 0 supplies the tracer's measured error rate; Rung 1 supplies
+the phenomenon; H2's four objective arms supply the causal claim; H4 supplies the causal test.
+
+Cut from the critical path: JSAE, `dicts/base.py::JSAE`, G4 nulls, DNABERT-2 anchor, cross-strand
+substrate. `nulls/sequence.py::g_density_matched` is retained -- it costs nothing and Rung 3 may return.
+
+## D20 — Naive pattern-gradient attribution vanishes on a confident head (Test A2)
+
+Reading frame is anchored by a QK edge: locating the ATG *is* the decide-where-to-look step. Test A
+showed frozen-attention attribution scores that edge at exactly 0.000 (D12), so Rung 1 cannot be traced
+without an instrument that sees through the attention pattern.
+
+The obvious instrument -- differentiate the readout with respect to the attention scores -- **fails, and
+fails silently**:
+
+```
+max |dL/dscore| over all heads and positions = 3.7e-15
+```
+
+The marker head has learned its job. Its score on the marker key is ~36 and ~0 elsewhere, so the softmax
+is saturated and the gradient is annihilated. Gradient attribution reports the edge as irrelevant
+*because* it is so relevant that the head is certain. Every sharp motif-finding head in a real GFM --
+ATG, donor GT, G-run -- has exactly this shape. A tracer built on plain pattern-gradients would find
+nothing and call it a negative result.
+
+**Decision.** Integrate the gradient from a content-free baseline (the head's positional bias alone) to
+the real scores -- the attention-pattern analogue of EAP-IG, which the proposal's method table already
+listed without saying why it was needed. Then decompose each score linearly into the input dimensions
+that produced it, key side and query side separately.
+
+Validated on the planted twins, where both answers are known:
+
+```
+key side    embed.tok   -> L0.attn.pattern         0.003803    (W_K reads only the M dimension)
+query side  embed.const -> L0.attn.pattern.query   0.019017    (W_Q reads only the constant)
+every other residual group                         0.000000
+
+share of key attribution sitting on the marker token          1.0000
+marker ablation                            0.003803 -> 0.000000
+bag-of-motifs twin, max QK edge                               0.0        falsification control
+```
+
+A head driven purely by positional bias has zero content contribution, so it receives zero QK
+attribution by construction. **Combined OV + QK edge recall against `PLANTED_EDGES` is now 1.0.**

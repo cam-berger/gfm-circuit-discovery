@@ -48,6 +48,8 @@ class Attention(nn.Module):
         v = torch.einsum("bqd,dhc->bqhc", resid, self.W_V)
 
         scores = torch.einsum("bphc,bqhc->bhpq", q, k) + self.attn_bias[:, :n, :n]
+        cache[f"L{layer}.attn.scores"] = scores
+        cache[f"L{layer}.attn.q"] = q
         pattern = scores.softmax(dim=-1)
         cache[f"L{layer}.attn.pattern"] = pattern
 

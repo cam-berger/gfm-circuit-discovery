@@ -10,30 +10,36 @@ A CLT over 6 layers × 4096 features yields edge counts in the millions. Correct
 them leaves nothing standing. Only these five are confirmatory. Everything per-edge, per-feature and
 per-layer is **exploratory, reported under FDR, and labelled as such.**
 
+Scope is Rungs 0–1 and hypotheses H0, H1, H2, H4 (see `DECISIONS.md#d19`).
+
 | ID | Hypothesis | Statistic | Prediction | Null |
 |----|-----------|-----------|------------|------|
-| **C1** | H2 | within-model completeness | monotone increasing across AR < MLM < MLM+phyloP < phyloP-only, **at matched eval-head accuracy** | permutation over arm labels |
-| **C2** | H2 | routing share of the traced circuit | monotone increasing across the same ladder | permutation over arm labels |
-| **C3** | H3 | JSAE Jacobian sparsity (Hoyer) | AUC > 0.8 separating compositional from heuristic planted twin | twin labels shuffled |
-| **C4** | H4 | routing share, traced vs matched control edges | traced ≫ matched, **sign-correct** vs biophysics | matched random edges from the same node, same out-degree, same layer distance |
-| **C5** | H0 | tracer recall & precision vs `PLANTED_EDGES` | both > 0.9 | random subgraph of matched size |
+| **C1** | H0 | tracer recall & precision vs `PLANTED_EDGES`, **OV + QK** | both > 0.9 | random subgraph of matched size |
+| **C2** | H1 | frame-circuit attribution on real sequence vs matched null | above null | dinucleotide-shuffled sequence; start-codon-scrambled sequence |
+| **C3** | H2 | within-model completeness | monotone increasing across AR < MLM < MLM+phyloP < phyloP-only, **at matched eval-head accuracy** | permutation over arm labels |
+| **C4** | H2 | routing share of the traced frame circuit | monotone increasing across the same ladder | permutation over arm labels |
+| **C5** | H4 | routing share, traced vs matched control edges | traced ≫ matched, **sign-correct** under frameshift minimal pairs | matched random edges from the same node, same out-degree, same layer distance |
+
+**Exploratory, not confirmatory:** H3 / JSAE Jacobian sparsity. D16 records that the statistic measures
+in-degree, so it separates composition from a bag of weak features but not from a lone strong shortcut.
+Reported as a caveat on the method, not as a test of the models.
 
 All nulls are **permutation-based**, not parametric.
 
 ## Gates
 
-- **C5 is a hard gate.** If the tracer cannot recover a circuit it was handed, no downstream result
-  is interpretable. Nothing in Phases 1–4 is reported if C5 fails.
-- **C3 is a gate on H3 only.** If the discriminator cannot separate twins that differ *by
-  construction*, H3 is withdrawn. It is not reinterpreted post hoc.
+- **C1 is a hard gate, and it has passed.** OV + QK edge recall against the planted circuit is 1.0;
+  attribution conservation holds to 1e-21; dictionary recovery reaches MCC 0.945 where features are
+  identifiable. Nothing downstream would have been reported had it failed.
+- **Feature-level claims require an identifiability check** (D17). A concept absorbed into the decoder
+  bias is a concept the circuit diagram silently omits. Report circuit *shape* from transcoder graphs;
+  do not name a feature from its top-activating examples alone.
 
 ## Directional predictions (sign, not just magnitude)
 
 | Rung | Latent variable | Sign prediction under edge patch |
 |---|---|---|
-| 1 | reading frame | frame-dependent readout shifts by exactly one codon position per nucleotide of frameshift |
-| 2 | splice site | disrupting donor→acceptor spacing reduces acceptor readout; preserving spacing while shuffling the intervening sequence does not |
-| 3 | G-quadruplex | extending a loop beyond the ~7-nt window reduces the readout; G-density-matched decoys do not activate the composition node |
+| 1 | reading frame | frame-dependent readout shifts by exactly one codon position per nucleotide of frameshift; ablating the start codon collapses the readout to chance |
 
 ## Contamination
 

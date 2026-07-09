@@ -34,10 +34,11 @@ interpretable until this passes.
 > H3 is restricted (D16): the discriminator tests against bags, not against single shortcuts.
 > Feature-level claims now require an identifiability check (D17). Edge-level structure is sound.
 
+- [x] **Test A2 / QK instrument** — naive pattern-gradient is 3.7e-15 (saturated softmax); integrated
+      gradient from a bias-only baseline recovers the marker edge, 100% of key attribution on the
+      marker token, zero on the bias-driven twin. **OV + QK edge recall = 1.0** (D20)
 - [ ] Plant a *multiplicative* interaction; measure how far edge recall falls
       → this number is the faithfulness/nonlinearity result, and answers Risk #1
-- [ ] QK attribution instrument — Test A showed frozen attention scores the marker edge at 0.000
-      while its ablation costs 0.617 accuracy. Every real rung has a "where to look" step.
 
 ---
 
@@ -59,49 +60,25 @@ matches H0; **not significant**. The probe, not the behavioural proxy, is the in
 
 ---
 
-## Phase 2 — Rung 2: splice sites
-
-- [ ] GENCODE donor/acceptor/branch-point/polypyrimidine annotations
-- [ ] Sequence nulls: GT/AG present, canonical spacing destroyed
-- [ ] Trace sub-signal → composition → readout; JSAE sparsity (threshold from Test D)
-- [ ] Edge-patch vs spacing biophysics; routing share vs matched control edges
-
-> **GATE 2.** Composition beyond the matched sequence null, or an interpretable negative.
-
-Splice sites are SpliceBERT's *training distribution*, so the anchor is strongest here.
-
----
-
-## Phase 3 — Rung 3: G-quadruplex
-
-- [ ] G4-seq / G4 ChIP-seq maps; G4Hunter loop-length grammar labels
-- [ ] G-density-matched, G4-negative decoys (`nulls.sequence.g_density_matched`)
-- [ ] Trace G-run × loop-window × strand composition on `gfm-nano-dna`
-- [ ] Anchor on `dnabert2` (window-level readout; token→nt span mapping required)
-
-> **GATE 3.** Composition over and above a G-density counter.
-
-`assert_cross_strand_capable("splicebert")` raises. That is the point.
-
----
-
-## Phase 4 — H2: the payload
+## Phase 2 — H2: the payload
 
 - [ ] Four arms at matched architecture/scale: AR · MLM · MLM+phyloP · phyloP-only
 - [ ] Control arm 3′: phyloP scrambled *within codons* (mean preserved, period-3 destroyed)
 - [ ] Common frozen linear eval head; frame labels never touch a backbone
 - [ ] Select checkpoints at **matched eval-head accuracy**
-- [ ] Completeness (within-model ratio) and routing share per arm, per rung
+- [ ] Completeness (within-model ratio) and routing share per arm, on the frame circuit
 
 > **GATE 4.** Monotone ladder at matched accuracy, or the confound wins and we say so.
 
 ---
 
-## Phase 5 — Extensions (contingent)
+## Future work (out of scope — see D19)
 
-- [ ] Enhancer/TF grammar on ENCODE cCREs
-- [ ] SSMs: Caduceus (RC-equivariant, therefore the *right* G4 substrate and the *hardest* to trace)
-- [ ] Causal scrubbing on the surviving pathway
+- Rung 2, splice sites: GENCODE donor/acceptor/branch-point/polypyrimidine, spacing nulls
+- Rung 3, G-quadruplex: G4-seq maps, G-density-matched decoys, `gfm-nano-dna` + DNABERT-2 anchor
+- H3 / JSAE: demoted to exploratory. D16 stands as a recorded caveat: Jacobian sparsity measures
+  in-degree, so it separates composition from a *bag* but not from a lone shortcut
+- SSMs: Caduceus, Evo 2. Causal scrubbing. Enhancer/TF grammar
 
 ---
 
