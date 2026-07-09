@@ -221,3 +221,139 @@ def nucleotide_phase_information(tokens: np.ndarray, phase: np.ndarray, skip_sta
         for k in range(3)
     )
     return h - h_cond
+
+
+# ---------------------------------------------------------------------------
+# Cell B of the necessity 2x2: no shortcut, hard detector.
+#
+# Uniform codons carry no ORF-integrity cue -- stops occur at rate 3/64 in EVERY frame, the true one
+# included -- so a planted Kozak-like motif is the only thing distinguishing the true start from a
+# decoy. Its strength is calibrated so the Bayes-optimal detector matches real hg38's measured frame
+# accuracy of 0.9215 (D28). That makes B a matched-difficulty control rather than an arbitrary one.
+#
+# Decoy ATGs are injected into the 5' region at real hg38's rate: 42.9% of anchored windows carry at
+# least one upstream ATG, mean 0.60 per window.
+# ---------------------------------------------------------------------------
+
+PURINES = (0, 2)  # A, G
+KOZAK_MINUS3 = PURINES
+KOZAK_PLUS3 = 2  # G, the base immediately after ATG
+# A uniform 5' region of length L already contains (L-2)/64 ATGs in expectation, so no injection is
+# needed: UTR length alone tunes the decoy rate. Injecting on top double-counts (measured 0.90 per
+# window against a target of 0.60). Kept as an optional knob, defaulting off.
+DECOY_RATE = 0.0
+UTR_FOR_REAL_DECOY_RATE = (24, 56)  # mean 40 -> (40-2)/64 = 0.59 decoys, P(>=1) ~ 0.44
+
+# Calibrated so the Bayes-optimal Kozak-only detector reaches real hg38's measured frame accuracy of
+# 0.9215 (D28). Bracketed: kozak_p 0.90 -> 0.9045, 0.93 -> 0.9345.
+KOZAK_P_MATCHED = 0.92
+
+
+def _inject_decoys(utr: np.ndarray, n_decoy: int, rng: np.random.Generator) -> np.ndarray:
+    """Place `n_decoy` ATGs at random non-overlapping positions in the 5' region."""
+    out = utr.copy()
+    if len(out) < 3 or n_decoy == 0:
+        return out
+    slots = list(range(len(out) - 2))
+    rng.shuffle(slots)
+    placed, used = 0, set()
+    for p in slots:
+        if placed >= n_decoy:
+            break
+        if any(q in used for q in (p, p + 1, p + 2)):
+            continue
+        out[p : p + 3] = ATG
+        used.update({p, p + 1, p + 2})
+        placed += 1
+    return out
+
+
+def make_batch_hard_detector(
+    n_seq: int,
+    window: int = 256,
+    utr_range: tuple[int, int] = UTR_FOR_REAL_DECOY_RATE,
+    seed: int = 0,
+    kozak_p: float = KOZAK_P_MATCHED,
+    decoy_rate: float = DECOY_RATE,
+    codon_probs: np.ndarray | None = None,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Cell B. Returns (tokens, amino-acid labels, phase labels).
+
+    Amino-acid labels are derived from the FINAL tokens, after the Kozak edit, so the label is always
+    a function of the sequence given the frame -- never of the frame alone.
+    """
+    from gfmcd.data.genome import amino_acid_labels
+
+    rng = np.random.default_rng(seed)
+    tokens = np.zeros((n_seq, window), dtype=np.int8)
+    phase = np.full((n_seq, window), IGNORE, dtype=np.int64)
+    atg_codon = int(codon_index(ATG.astype(np.int64)))
+    lo, hi = utr_range
+
+    for s in range(n_seq):
+        u = int(rng.integers(lo, hi + 1))
+        utr = rng.integers(0, 4, size=u).astype(np.int8)
+        if decoy_rate > 0:
+            utr = _inject_decoys(utr, int(rng.poisson(decoy_rate)), rng)
+        tokens[s, :u] = utr
+
+        n_cod = (window - u) // 3
+        idx = rng.integers(0, len(CODONS), size=n_cod) if codon_probs is None else rng.choice(
+            len(CODONS), size=n_cod, p=codon_probs
+        )
+        idx[0] = atg_codon
+        body = CODONS[idx].reshape(-1)
+        end = u + 3 * n_cod
+        tokens[s, u:end] = body[: end - u]
+        tokens[s, end:] = rng.integers(0, 4, size=window - end)
+
+        if rng.random() < kozak_p:
+            if u >= 3:
+                tokens[s, u - 3] = PURINES[int(rng.integers(0, 2))]
+            if u + 3 < window:
+                tokens[s, u + 3] = KOZAK_PLUS3
+
+        phase[s, u:end] = (np.arange(u, end) - u) % 3
+
+    return tokens, amino_acid_labels(tokens, phase), phase
+
+
+def bayes_detector_frame_accuracy(tokens: np.ndarray, phase: np.ndarray) -> tuple[float, float]:
+    """(exact, frame) accuracy of the optimal Kozak-only detector on cell-B sequence.
+
+    Scores every ATG by its Kozak match and takes the best; ties broken by earliest. An in-frame decoy
+    is harmless, so `frame` is the number that governs the circuit.
+    """
+    w = tokens.shape[1]
+    exact = frame = 0
+    for r in range(len(tokens)):
+        t = tokens[r]
+        true = int(np.argmax(phase[r] == 0))
+        cands = [p for p in range(w - 2) if (t[p], t[p + 1], t[p + 2]) == tuple(ATG)]
+        if not cands:
+            continue
+        best, best_score = cands[0], -1
+        for p in cands:
+            score = 0
+            if p - 3 >= 0 and t[p - 3] in KOZAK_MINUS3:
+                score += 1
+            if p + 3 < w and t[p + 3] == KOZAK_PLUS3:
+                score += 1
+            if score > best_score:
+                best, best_score = p, score
+        exact += best == true
+        frame += (best - true) % 3 == 0
+    return exact / len(tokens), frame / len(tokens)
+
+
+def calibrate_kozak(target_frame_acc: float = 0.9215, n: int = 1500, seed: int = 0) -> float:
+    """Find the Kozak strength that reproduces real hg38's detector difficulty."""
+    lo, hi = 0.0, 1.0
+    for _ in range(12):
+        mid = (lo + hi) / 2
+        _, acc = bayes_detector_frame_accuracy(*[a for a in make_batch_hard_detector(n, seed=seed, kozak_p=mid)[::2]])
+        if acc < target_frame_acc:
+            lo = mid
+        else:
+            hi = mid
+    return (lo + hi) / 2

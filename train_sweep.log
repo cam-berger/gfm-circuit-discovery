@@ -199,3 +199,10 @@ train (200000, 256)  val (8000, 256)  device mps
   step  3000  train 0.0015  val 0.0046  aa_acc 0.9988  [FRAME]  5.3 it/s
   step  3250  train 0.0012  val 0.0009  aa_acc 0.9997  [FRAME]  5.3 it/s
   step  3500  train 0.0017  val 0.0023  aa_acc 0.9993  [FRAME]  5.3 it/s
+  step  3750  train 0.0009  val 0.0007  aa_acc 0.9998  [FRAME]  5.3 it/s
+  step  4000  train 0.0004  val 0.0020  aa_acc 0.9994  [FRAME]  5.3 it/s
+  step  4250  train 0.0002  val 0.0008  aa_acc 0.9999  [FRAME]  5.3 it/s
+  step  4500  train 0.0007  val 0.0013  aa_acc 0.9997  [FRAME]  5.3 it/s
+  step  4750  train 0.0011  val 0.0013  aa_acc 0.9996  [FRAME]  5.3 it/s
+  step  5000  train 0.0000  val 0.0002  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  5250  train 0.0000  val 0.0036  aa_acc 0.9992  [FRAME]  5.3 it/s

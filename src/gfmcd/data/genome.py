@@ -331,3 +331,90 @@ def atg_index(tokens: np.ndarray, labels: np.ndarray) -> np.ndarray:
     """Index of the start codon's A in each anchored window: the first position with phase 0."""
     first = np.argmax(labels == 0, axis=1)
     return first
+
+
+# ---------------------------------------------------------------------------
+# The necessity 2x2, cells C and D: a mu=1 amino-acid readout on real CDS.
+#
+# The label is the amino acid of the codon containing each position -- never the frame. Emitting it
+# requires knowing which triplet is in frame. On real DNA the model has two routes to the frame: an
+# anchor (the start codon) or the distributed signal the genetic code leaves behind (stop-codon
+# absence, codon usage). Measured ceilings, D28:
+#
+#     bag, +-15 nt naive Bayes                     0.6419
+#     anchor-free stop-codon scan, 240 nt          0.8242
+#     the trained model actually achieves          0.7936
+#     learned anchor detector (ATG + Kozak + ORF)  0.9215
+#
+# Cell D is natural anchored windows. Cell C filters to windows whose annotated start IS the first
+# ATG, making the detector easy while the shortcut stays present.
+# ---------------------------------------------------------------------------
+
+_ATG = (0, 3, 2)
+
+
+def amino_acid_labels(tokens: np.ndarray, phase: np.ndarray) -> np.ndarray:
+    """The amino acid of the codon containing each position. IGNORE where phase is IGNORE or N."""
+    from gfmcd.data.uniform_cds import CODON_AA, codon_index
+
+    n, w = tokens.shape
+    out = np.full(phase.shape, IGNORE, dtype=np.int64)
+
+    live = phase >= 0
+    start = np.where(live, np.arange(w)[None, :] - phase, -1)
+    ok = live & (start >= 0) & (start + 3 <= w)
+    if not ok.any():
+        return out
+
+    rows, cols = np.nonzero(ok)
+    s = start[rows, cols]
+    tri = np.stack([tokens[rows, s], tokens[rows, s + 1], tokens[rows, s + 2]], axis=-1).astype(np.int64)
+    good = (tri < 4).all(axis=-1)
+    out[rows[good], cols[good]] = CODON_AA[codon_index(tri[good])]
+    return out
+
+
+def upstream_atg_count(tokens: np.ndarray, start: np.ndarray) -> np.ndarray:
+    """How many ATGs precede the annotated start in each window. 42.9% of real windows have >=1."""
+    out = np.zeros(len(tokens), dtype=int)
+    for r, s in enumerate(start):
+        pre = tokens[r, :s]
+        if len(pre) >= 3:
+            out[r] = int(((pre[:-2] == _ATG[0]) & (pre[1:-1] == _ATG[1]) & (pre[2:] == _ATG[2])).sum())
+    return out
+
+
+def sample_cell_cd(
+    cds_list: list[CDS],
+    fasta: FastaLike,
+    n: int,
+    window: int = 256,
+    seed: int = 0,
+    filter_upstream_atg: bool = False,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Real anchored windows with amino-acid labels.
+
+    `filter_upstream_atg=True` gives cell C (detector easy: the annotated start IS the first ATG).
+    `False` gives cell D (natural; 42.9% of windows carry an upstream decoy).
+    """
+    rng = random.Random(seed)
+    toks: list[np.ndarray] = []
+    phases: list[np.ndarray] = []
+
+    tries = 0
+    while len(toks) < n and tries < 400 * n:
+        tries += 1
+        w = sample_anchored_window(rng.choice(cds_list), fasta, window, rng, min_downstream=90)
+        if w is None or (w.labels >= 0).sum() < 90 or (w.tokens == 4).mean() > 0.01:
+            continue
+        start = int(np.argmax(w.labels == 0))
+        if filter_upstream_atg and upstream_atg_count(w.tokens[None, :], np.array([start]))[0] > 0:
+            continue
+        toks.append(w.tokens)
+        phases.append(w.labels)
+
+    if len(toks) < n:
+        raise RuntimeError(f"only sampled {len(toks)}/{n} windows in {tries} tries")
+
+    tokens, phase = np.stack(toks), np.stack(phases)
+    return tokens, amino_acid_labels(tokens, phase), phase
