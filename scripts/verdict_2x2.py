@@ -90,7 +90,7 @@ def main() -> None:
 
     device = "mps" if torch.backends.mps.is_available() else "cpu"
     blob = torch.load(args.checkpoint, map_location=device, weights_only=False)
-    cell = blob["cell"]
+    cell = blob.get("cell") or {"uniform": "A"}.get(blob.get("pool"), blob.get("pool"))
     model = GFMNano(NanoConfig(**blob["cfg"])).to(device).eval()
     model.load_state_dict(blob["state"])
 
@@ -136,7 +136,7 @@ def main() -> None:
     anchor = float((pred == (dist % 3)[far]).mean())
     content = float((pred == ((dist - 1) % 3)[far]).mean())
 
-    print(f"{args.checkpoint.name}   cell {cell}   step {blob['step']}   seed {blob['seed']}\n")
+    print(f"{args.checkpoint.name}   cell {cell}   step {blob['step']}   seed {blob.get('seed', 0)}\n")
     print(f"{'aa accuracy, intact':<44}{intact:>10.4f}")
     print(f"{'aa accuracy, start codon ablated':<44}{ablated:>10.4f}   d = {d_start:+.4f}")
     print(f"{'aa accuracy, decoy Met ablated (control)':<44}{control:>10.4f}   d = {d_ctl:+.4f}   n={int(have.sum())}")

@@ -1,6 +1,6 @@
 # RESULTS — every measured number, with status
 
-**Updated 2026-07-09 11:41** · 23 commits · 102 tests passing
+**Updated 2026-07-09 14:05** · 23 commits · 102 tests passing
 Companion docs: `REC.md` (the argument) · `docs/DECISIONS.md` (D1–D31, rationale) · `docs/EXPERIMENTS.md` (plain language) · `docs/PREREGISTRATION.md` (frozen predictions)
 
 This file exists so that nothing gets remembered more favourably than it happened. Every claim carries
@@ -258,33 +258,41 @@ strength calibrated so the Bayes-optimal detector hits real data's 0.9215; short
 (`I(nt;phase) = 0.000087`). It carries no ORF-integrity cue — with uniform codons stops occur at 3/64 in
 *every* frame.
 
-| cell | status | result |
-|---|---|---|
-| **A** | SETTLED | circuit at step 3250; all four assays flip (§5) |
-| **B** | **WITHDRAWN** | cut off mid-grok (see below) |
-| **C** | PENDING | at step 3000, `aa 0.9604` — **above** the 0.9509 pooled ceiling |
-| **D** | PENDING | not started |
+All four cells, same footing (μ = 1, 900 val windows). **SETTLED.**
 
-**Registered prediction (D30):** real CDS's pooled ceiling is **0.9509** — imperfect, adjacent to the
-sense-codon control's 0.965 which produced a counter. **Cells C and D should build the circuit.** If they
-do not, the sufficiency criterion is wrong.
+| cell | shortcut | detector | aa acc | ATG-abl effect (vs decoy ctl) | anchor | content | mechanism |
+|---|---|---|---|---|---|---|---|
+| **A** | absent | easy | 1.0000 | **+0.6094** (0.0129) | **1.0000** | 0.0000 | anchored counter |
+| **B** | absent | hard | 0.9605 | **+0.5794** (0.0135) | 0.3891 | 0.2905 | mixed / partial relay |
+| **C** | present | easy | 0.9997 | **+0.3529** (0.0148) | 0.0396 | 0.9131 | relay |
+| **D** | present | hard | 0.9914 | **+0.1493** (0.0218) | 0.1084 | 0.8001 | relay |
 
-### Cell B — WITHDRAWN (D31)
+**The start codon is causally load-bearing in every cell** (8×–47× specificity over the decoy-Met
+control). What varies is how the frame is *propagated*: counter → mixed → relay.
 
-Printed `NO CIRCUIT` (anchor share 0.3569 < 0.50). Not interpretable: the model never converged.
+Three mechanisms, separated by the **assay pair**, not by either assay alone:
 
-```
-step 1000  aa 0.3914    plateau (guessing ceiling 0.3768)
-step 7000  aa 0.4282
-step 8000  aa 0.6294    transition begins — and the budget ends
-```
+| regime | ATG ablation, far field | cue conflict, far field | mechanism |
+|---|---|---|---|
+| real DNA, μ = 0 | **decays** to +0.0085 | content 0.84 | bag of motifs |
+| real DNA, μ = 1 (C, D) | **flat** +0.35 / +0.15 | content 0.91 / 0.80 | **relay** |
+| uniform codons, μ = 1 (A) | collapse *below* guessing | **anchor 1.0000** | anchored counter |
 
-Yet the causal signal is already present: start-codon ablation ΔaaAcc **+0.2356** against the decoy-Met
-control's **+0.0078** — 30× specificity — and the cue conflict splits three ways (0.357 / 0.326 / 0.317).
-That is a half-built circuit. Our own pre-registration says a negative is undertraining until accuracy is
-checked against the ceiling; 0.61 against an achievable 0.926 fails that check. **Re-running at 24k steps.**
+**Increasing demand moves bag → relay → counter; shortcut availability decides where it stops.**
 
----
+**D30's prediction (real CDS builds an anchored counter): HALF VINDICATED, HALF FALSIFIED.** The
+anchor *is* used at long range — flat ablation, and the μ = 0 bag is the contrast — but the mechanism
+is a relay, not a counter. Recorded as a failed prediction, not relabelled (D32).
+
+**The frozen binary verdict cannot express a relay** and prints NO CIRCUIT for B, C and D. We
+pre-registered that continuous values are reported regardless; the 2-D signature is the result.
+
+**Cell B (D31, confirmed):** cut off mid-grok at 8k. At 24k it transitions at step 18–20k and reaches
+aa 0.9735. It is the hardest cell by construction and needs ~2.5× cell A's budget.
+
+**Both ceilings we predicted from were lower bounds.** Cell B reaches 0.9735 vs a 0.926 detector
+ceiling; cell C reaches 0.9997 vs a 0.9509 pooled ceiling. Ceilings need a model-class-matched
+estimator.
 
 ## 10. Retractions and corrections — kept, not deleted
 

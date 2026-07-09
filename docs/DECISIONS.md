@@ -1100,3 +1100,73 @@ anchored counter I predicted. Recorded as a failed prediction, not relabelled.
 A relay is what the ribosome does: it initiates at the start codon and maintains frame by **stepping**,
 not by counting. If that holds, the model learned the biologically correct mechanism and our assay
 called it a bag.
+
+
+---
+
+## D33 — The completed necessity 2×2. The anchor is load-bearing in all four cells.
+
+All four on the same footing (`scripts/verdict_2x2.py`, μ = 1, 900 val windows). Cell B at 24k steps
+(it grokked at 18k–20k, confirming D31's withdrawal); cell A is `nano_uniform_step8400`.
+
+| cell | shortcut | detector | aa acc | ATG-abl effect (vs decoy ctl) | anchor | content | mechanism |
+|---|---|---|---|---|---|---|---|
+| **A** | absent | easy | 1.0000 | **+0.6094** (0.0129) | **1.0000** | 0.0000 | anchored counter |
+| **B** | absent | hard | 0.9605 | **+0.5794** (0.0135) | 0.3891 | 0.2905 | mixed / partial relay |
+| **C** | present | easy | 0.9997 | **+0.3529** (0.0148) | 0.0396 | 0.9131 | relay |
+| **D** | present | hard | 0.9914 | **+0.1493** (0.0218) | 0.1084 | 0.8001 | relay |
+
+### Main effects
+
+```
+                        anchor share      ATG-ablation effect
+A -> B  (detector hard)   1.0000 -> 0.3891    0.6094 -> 0.5794     detector barely touches causal weight
+A -> C  (shortcut on)     1.0000 -> 0.0396    0.6094 -> 0.3529
+A -> D  (both)            1.0000 -> 0.1084    0.6094 -> 0.1493
+```
+
+**The start codon is causally load-bearing in every cell** — ablation effect 0.149–0.609 against a
+decoy-Met control of 0.013–0.022 (8×–47× specificity). What changes across the 2×2 is not *whether* the
+anchor is used but **how the frame is propagated from it**:
+
+```
+counter (A)      count (i - i_ATG) mod 3 from the anchor      anchor 1.00
+mixed   (B)      partially counted, partially re-locked       anchor 0.39 / content 0.29
+relay   (C, D)   anchor initialises; local structure carries  anchor 0.04-0.11 / content 0.80-0.91
+```
+
+**Detector difficulty barely reduces the anchor's causal weight (0.609 → 0.579) while collapsing
+counting (1.00 → 0.39).** The shortcut reduces both. A hard-to-find anchor is still *used*; it just
+stops being *counted from*.
+
+### What the frozen verdict got wrong, and what it got right
+
+The pre-registered binary — anchor share > 0.50 **and** ablation > 0.10 — labels only cell A as
+CIRCUIT FORMED, and prints NO CIRCUIT for three cells in which the anchor is causally necessary at
+255 nt. **The binary was underspecified because neither planted twin is a relay** (D32).
+
+It got the important thing right: it is **not** the training accuracy. All four cells score 0.96–1.00
+and are mechanistically distinct. Accuracy would have reported four identical successes.
+
+We pre-registered *"continuous values are reported regardless of which side of the threshold they land
+on; the threshold only labels the cell."* That clause is doing the work. **The 2-D signature
+(ablation profile, conflict share) is the result; the binary is a lossy summary of it.**
+
+### Cell B confirms D31
+
+```
+step 18000  aa 0.5571      still on the plateau
+step 20000  aa 0.9610      transition
+step 24000  aa 0.9735      (predicted ceiling 0.926 -- exceeded, see below)
+```
+
+Cut off at 8k, it read as NO CIRCUIT with a half-built mechanism. Given 3× the budget it grokked.
+**Cell B is the hardest cell by construction and needs ~2.5× the steps of cell A.**
+
+### Both ceilings we predicted from were lower bounds
+
+Cell B reaches 0.9735 against a Bayes-optimal-Kozak-detector ceiling of 0.926; cell C reaches 0.9997
+against a naive-Bayes pooled ceiling of 0.9509. **Both of our ceiling estimators are lower bounds on
+what the model class can do**, and we predicted from both. Ceilings must be measured with a
+model-class-matched estimator — train the same architecture with the anchor removed and read off its
+accuracy.
