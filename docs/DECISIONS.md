@@ -1019,3 +1019,84 @@ anomalous. The 8k verdict is withdrawn, not reported.
 
 **Note for every other cell:** grokking makes the stopping point a scientific choice. Arms must be
 compared at matched achieved accuracy relative to their own ceilings, never at matched steps.
+
+
+---
+
+## D32 — A third mechanism: the relay. The pre-registered binary verdict cannot express it.
+
+Cells C and D (real hg38 CDS, μ = 1) both print **NO CIRCUIT** under the frozen rule. The two causal
+assays **disagree**, and that disagreement is the finding.
+
+```
+                        cell C (filtered)      cell D (natural)
+aa accuracy, intact          0.9997                 0.9914
+start codon ablated          0.6320  Δ +0.3678      0.8202  Δ +0.1711
+decoy Met ablated (ctl)      0.9847  Δ +0.0148      0.9761  Δ +0.0218   -> 25x, 8x specificity
+cue conflict (>=64 nt)       anchor 0.0396          anchor 0.1084
+                             content 0.9131         content 0.8001
+```
+
+**The ablation effect does not decay with distance.** By our own D24 logic that is the counter signature:
+
+```
+cell C, aa accuracy by distance from the start codon
+  3-15 nt      0.9991 -> 0.6494   +0.3497
+  64-127 nt    0.9998 -> 0.6365   +0.3633
+  128-255 nt   1.0000 -> 0.6532   +0.3468     flat
+```
+
+And moving the cue-conflict insertion away from the anchor (in case it was corrupting the anchor's own
+neighbourhood — it was, slightly) does not rescue the anchor:
+
+```
+cell C   insert at ATG+3    anchor 0.0393  content 0.9140
+         insert at ATG+30   anchor 0.0560  content 0.8936
+         insert at ATG+60   anchor 0.0931  content 0.8661
+         insert at ATG+90   anchor 0.1548  content 0.7937
+```
+
+### The relay
+
+Absolute phase is **set by the anchor**; the register is then **propagated by local codon structure**.
+
+- Kill the anchor → the register locks to the wrong phase → every position is wrong, at every distance.
+- Insert one nucleotide mid-sequence → the register re-locks to the local structure downstream → content.
+
+Both observations, one mechanism. **Neither planted twin is a relay**, so the binary verdict — anchor
+share > 0.50 AND ablation > 0.10 — cannot express it, and prints NO CIRCUIT for a model whose start
+codon is causally load-bearing at 255 nt.
+
+### Three mechanisms, separated by the pair of assays
+
+| regime | ATG ablation, far field | cue conflict, far field | mechanism |
+|---|---|---|---|
+| real DNA, μ = 0 (D23) | **decays** to +0.0085 | content 0.84 | bag of motifs |
+| real DNA, μ = 1 (C, D) | **flat** +0.35 / +0.17 | content 0.91 / 0.80 | **relay** |
+| uniform codons, μ = 1 | collapse *below* guessing | **anchor 1.0000** | anchored counter |
+
+**Increasing demand moves the mechanism bag → relay → counter; shortcut availability decides where it
+stops.** The assays are a 2-D signature, not a binary, and must be reported as such.
+
+### Status of the D30 prediction
+
+**Half vindicated, half falsified.** Real DNA at μ = 1 *does* build an anchor-dependent long-range
+mechanism — the flat ablation proves it, and the μ = 0 bag proves the contrast. It is **not** the
+anchored counter I predicted. Recorded as a failed prediction, not relabelled.
+
+### Two corrections this forces
+
+1. **Our pooled-ceiling estimate was too low.** Cell C reaches `aa 0.9997`, above the 0.9509 naive-Bayes
+   ceiling I predicted from. A transformer's content pathway beats naive Bayes because real codons are
+   correlated. `RESULTS.md` §11 flagged this as a caveat this morning; I predicted from it anyway.
+   **Ceilings must be measured with a model-class-matched estimator** — e.g. train the same architecture
+   on ATG-ablated windows and read off its accuracy.
+2. **The cue-conflict insertion site is part of the assay's definition.** Inserting at `ATG+3` corrupts
+   the anchor's own neighbourhood. The effect is small here (anchor 0.039 → 0.155 at ATG+90) but the
+   assay should specify the offset, and report the sweep.
+
+### An observation to test, not to assert
+
+A relay is what the ribosome does: it initiates at the start codon and maintains frame by **stepping**,
+not by counting. If that holds, the model learned the biologically correct mechanism and our assay
+called it a bag.

@@ -100,3 +100,61 @@ cell C   train (100000, 256)   val (6000, 256)   device mps
   step  3250  train 0.0203  val 0.0961  aa_acc 0.9732  5.2 it/s
   step  3500  train 0.0141  val 0.0425  aa_acc 0.9894  5.2 it/s
   step  3750  train 0.0430  val 0.1032  aa_acc 0.9746  5.2 it/s
+  step  4000  train 0.0117  val 0.0381  aa_acc 0.9927  5.2 it/s
+  step  4250  train 0.0083  val 0.0349  aa_acc 0.9931  5.2 it/s
+  step  4500  train 0.0017  val 0.0599  aa_acc 0.9908  5.2 it/s
+  step  4750  train 0.0012  val 0.0076  aa_acc 0.9986  5.2 it/s
+  step  5000  train 0.0014  val 0.0249  aa_acc 0.9966  5.2 it/s
+  step  5250  train 0.0011  val 0.0062  aa_acc 0.9986  5.2 it/s
+  step  5500  train 0.0003  val 0.0183  aa_acc 0.9964  5.2 it/s
+  step  5750  train 0.0024  val 0.0021  aa_acc 0.9995  5.2 it/s
+  step  6000  train 0.0002  val 0.0004  aa_acc 0.9999  5.2 it/s
+  step  6250  train 0.0002  val 0.0289  aa_acc 0.9958  5.2 it/s
+  step  6500  train 0.0000  val 0.0093  aa_acc 0.9982  5.2 it/s
+  step  6750  train 0.0881  val 0.0016  aa_acc 0.9995  5.2 it/s
+  step  7000  train 0.0000  val 0.0193  aa_acc 0.9980  5.2 it/s
+  step  7250  train 0.0000  val 0.0062  aa_acc 0.9992  5.2 it/s
+  step  7500  train 0.0000  val 0.0000  aa_acc 1.0000  5.2 it/s
+  step  7750  train 0.0000  val 0.0005  aa_acc 0.9998  5.2 it/s
+  step  8000  train 0.0000  val 0.0001  aa_acc 1.0000  5.2 it/s
+done in 25.4 min
+=============== cell D  11:56:55 ===============
+/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/train_cell.py:123: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:839.)
+  print(f"  step {step:5d}  train {float(loss):.4f}  val {vl:.4f}  aa_acc {va:.4f}  {step/(time.time()-t0):.1f} it/s", flush=True)
+cell D   train (100000, 256)   val (6000, 256)   device mps
+  step     1  train 3.0946  val 3.0874  aa_acc 0.0468  0.8 it/s
+  step   250  train 2.4411  val 2.4126  aa_acc 0.2161  5.2 it/s
+  step   500  train 2.4106  val 2.3770  aa_acc 0.2244  5.2 it/s
+  step   750  train 1.3431  val 1.3161  aa_acc 0.4765  5.2 it/s
+  step  1000  train 0.9373  val 0.8794  aa_acc 0.6413  5.2 it/s
+  step  1250  train 0.5083  val 0.4066  aa_acc 0.8665  5.2 it/s
+  step  1500  train 0.3053  val 0.2964  aa_acc 0.8996  5.2 it/s
+  step  1750  train 0.2261  val 0.2577  aa_acc 0.9099  5.2 it/s
+  step  2000  train 0.1813  val 0.2179  aa_acc 0.9263  5.3 it/s
+  step  2250  train 0.2288  val 0.2065  aa_acc 0.9309  5.3 it/s
+  step  2500  train 0.2049  val 0.1789  aa_acc 0.9398  5.3 it/s
+  step  2750  train 0.1215  val 0.1746  aa_acc 0.9414  5.3 it/s
+  step  3000  train 0.0880  val 0.1310  aa_acc 0.9545  5.3 it/s
+  step  3250  train 0.1111  val 0.1205  aa_acc 0.9558  5.2 it/s
+  step  3500  train 0.0832  val 0.1342  aa_acc 0.9624  5.2 it/s
+  step  3750  train 0.0371  val 0.0872  aa_acc 0.9732  5.2 it/s
+  step  4000  train 0.0275  val 0.0598  aa_acc 0.9786  5.2 it/s
+  step  4250  train 0.0238  val 0.0596  aa_acc 0.9809  5.2 it/s
+  step  4500  train 0.0513  val 0.0812  aa_acc 0.9766  5.2 it/s
+  step  4750  train 0.0094  val 0.0781  aa_acc 0.9772  5.2 it/s
+  step  5000  train 0.0373  val 0.0646  aa_acc 0.9808  5.2 it/s
+  step  5250  train 0.0145  val 0.0662  aa_acc 0.9823  5.2 it/s
+  step  5500  train 0.0133  val 0.0539  aa_acc 0.9853  5.2 it/s
+  step  5750  train 0.0119  val 0.0428  aa_acc 0.9870  5.2 it/s
+  step  6000  train 0.0026  val 0.0514  aa_acc 0.9874  5.2 it/s
+  step  6250  train 0.0046  val 0.0625  aa_acc 0.9839  5.2 it/s
+  step  6500  train 0.0981  val 0.0354  aa_acc 0.9910  5.2 it/s
+  step  6750  train 0.0021  val 0.0805  aa_acc 0.9806  5.2 it/s
+  step  7000  train 0.0063  val 0.0435  aa_acc 0.9887  5.2 it/s
+  step  7250  train 0.0057  val 0.0721  aa_acc 0.9830  5.2 it/s
+  step  7500  train 0.0026  val 0.0383  aa_acc 0.9913  5.2 it/s
+  step  7750  train 0.0002  val 0.0519  aa_acc 0.9893  5.2 it/s
+  step  8000  train 0.0007  val 0.0581  aa_acc 0.9868  5.2 it/s
+done in 25.4 min
+ALL RUNS DONE 12:22:22
