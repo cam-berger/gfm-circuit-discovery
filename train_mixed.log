@@ -1,0 +1,7 @@
+=============== ar mixed  22:41:32 ===============
+/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/train_nano.py:157: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:839.)
+  print(f"  step {step:5d}  train {float(loss):.4f}  val {vl:.4f}  {rate:.1f} it/s", flush=True)
+train (200000, 256)  val (8000, 256)  pool=mixed  device mps
+ar: 4.80M params, causal=True
+  step     1  train 1.8467  val 1.8440  0.1 it/s

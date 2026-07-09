@@ -493,3 +493,53 @@ strictly stronger claim than either regime alone, and it is what the Rung 0 twin
 Offset randomisation is preserved in the anchored sampler: the ATG sits at a uniformly random position
 in the window (measured 0–163), so `index % 3` still predicts phase at 0.3494, i.e. chance.
 `scripts/anchor_test.py` runs the assay.
+
+
+---
+
+## D23 — The anchor assay needed two fixes before it could say anything
+
+The first version of `scripts/anchor_test.py` compared "ablate the ATG" against "ablate a codon 30 nt
+downstream" and reported a single accuracy drop. Two confounds made that number uninterpretable.
+
+**The downstream control is vacuous for a causal model.** The AR arm cannot attend to the future, so
+ablating a codon downstream of a scored position has *no possible* effect on it. The measured control
+drop was exactly `0.0000` in the near bins — arithmetic, not specificity.
+
+**`CTC` is not informativeness-matched to `ATG`.** A start codon carries far more phase information
+than an average codon, so a bag of motifs weights it heavily and is genuinely hurt by its removal.
+Deleting an arbitrary codon and finding a smaller effect proves nothing about anchoring.
+
+**And the ablated codon's own positions were being scored** — deleting the token the probe reads is
+not evidence about the model's representation.
+
+Both fixed:
+
+1. **The discriminating signal is distance, not magnitude.** An anchored counter loses accuracy at
+   *every* downstream position; a bag recovers once you are past its pooling width. Drops are now
+   reported per distance bin, measured from each ablation's own site, excluding that site.
+2. **The control is a decoy ATG.** Anchored windows contain ~2.5 other ATG trinucleotides, ~0.8 of
+   them in frame. Ablating an in-frame decoy is the same perturbation, on an equally informative
+   motif, at the wrong location.
+
+Validated on the AR **internal-only** model, which never saw an anchored window in training and must
+therefore be a bag:
+
+```
+distance from ablation   true ATG drop     decoy ATG drop
+3-15 nt                       +0.2092           +0.0616
+16-31 nt                      +0.0985           +0.0387
+32-63 nt                      +0.0625           +0.0262
+64-255 nt                     +0.0085           +0.0106
+```
+
+Both decay to nothing by 64 nt. The true start codon is a *stronger local cue* than a decoy — three
+times stronger nearby, plausibly its Kozak context — but it is not an anchor. **VERDICT: bag of
+motifs**, exactly as this model's training data predicts. The negative arm of the assay works.
+
+The mixed-pool models are the test. Pre-registered prediction (D22): if training on windows that
+contain a real start codon installs an anchored counter, the true-ATG drop will persist at ≥64 nt
+while the decoy drop stays near zero.
+
+*Also: the MLM internal-only arm was stopped at its step-4000 checkpoint to free the GPU for the
+mixed arms. It is a comparison arm for H2, not evidence for this question.*

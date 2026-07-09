@@ -7,13 +7,26 @@ marker is a real ATG in real human DNA and the model was trained, not planted.
     anchored windows   contain the translation start codon -- the anchor exists
     internal windows   drawn inside coding exons -- no ATG, so phase can only come from statistics
 
-Predictions, pre-registered before running:
+**The discriminating signal is distance, not magnitude.** Two confounds make the raw ablation cost
+uninterpretable: the ATG's own three positions are scored, so deleting them merely removes the input
+the probe was reading; and a bag of motifs pools its neighbours, so it is *legitimately* damaged near
+any ablation. Both effects are local.
 
-    if the model uses the anchor    accuracy(anchored) > accuracy(internal)
-                                    ablating the ATG collapses accuracy(anchored) toward internal
-                                    ablating a matched downstream codon does almost nothing
-    if it is a bag of motifs        accuracy(anchored) == accuracy(internal)
-                                    ablating the ATG changes nothing
+So we exclude the ablated codon's own positions and report the accuracy drop **as a function of
+distance downstream of the ablation**:
+
+    anchored counter   every downstream position is counted from the ATG, so the drop persists at
+                       long range -- it does not decay
+    bag of motifs      the drop decays to zero once you are past the pooling width (~±15-30 nt)
+
+**The control is a decoy ATG, not an arbitrary codon.** Ablating `ATG -> CTC` at the true start and
+comparing against ablating some random codon confounds two things: the start codon carries far more
+phase information than an average codon, so a bag of motifs will weight it heavily and be hurt by its
+removal. Anchored windows contain ~2.5 other ATG trinucleotides, ~0.8 of them in frame. Ablating an
+in-frame decoy ATG is the same perturbation, on an equally informative motif, at the wrong location.
+
+    bag of motifs      true ATG and decoy ATG hurt similarly; both decay with distance
+    anchored counter   only the true start hurts, and it hurts at long range
 
 The probe is fit ONCE on intact anchored windows and then applied unchanged to ablated ones, so a
 drop reflects the model's representation moving, not the probe re-fitting to a new distribution.
@@ -42,8 +55,10 @@ from gfmcd.data.genome import (
 from gfmcd.models.gfm_nano import GFMNano, NanoConfig
 
 DATA = Path.home() / "Research/data/genomes"
-NON_START = [1, 3, 1]  # CTC -- not a start codon, preserves nothing but length
-CONTROL_OFFSET = 30  # a matched in-frame codon downstream of the ATG
+NON_START = [1, 3, 1]  # CTC -- not a start codon
+ATG = (0, 3, 2)
+MIN_DECOY_GAP = 20  # a decoy must sit well clear of the true start codon
+MIN_DOWNSTREAM = 80  # ...and leave enough scored positions behind it
 
 
 def fit_probe(x: torch.Tensor, y: torch.Tensor, steps: int = 400) -> tuple[torch.nn.Linear, torch.Tensor, torch.Tensor]:
@@ -65,21 +80,44 @@ def score(probe, mu, sd, x: torch.Tensor, y: torch.Tensor) -> float:
 
 
 @torch.no_grad()
-def residuals(model: GFMNano, tokens: torch.Tensor, labels: torch.Tensor, layer: str, device: str):
-    xs, ys = [], []
+def residuals(model: GFMNano, tokens: torch.Tensor, labels: torch.Tensor, layer: str, device: str, anchor=None):
+    """Residuals at labelled positions, plus each position's signed distance from `anchor`."""
+    xs, ys, ds = [], [], []
+    n = tokens.shape[-1]
     for i in range(0, len(tokens), 64):
         tok, lab = tokens[i : i + 64].to(device), labels[i : i + 64].to(device)
         _, cache = model.run_with_cache(tok)
         mask = lab >= 0
         xs.append(cache[layer][mask].cpu())
         ys.append(lab[mask].cpu())
-    return torch.cat(xs), torch.cat(ys)
+        if anchor is not None:
+            pos = torch.arange(n, device=device).expand_as(lab)
+            a = torch.as_tensor(anchor[i : i + 64], device=device).unsqueeze(-1)
+            ds.append((pos - a)[mask].cpu())
+    dist = torch.cat(ds) if anchor is not None else None
+    return torch.cat(xs), torch.cat(ys), dist
 
 
 def ablate(tokens: np.ndarray, at: np.ndarray) -> np.ndarray:
     out = tokens.copy()
     for row, i in enumerate(at):
-        out[row, i : i + 3] = NON_START
+        if i >= 0:
+            out[row, i : i + 3] = NON_START
+    return out
+
+
+def find_decoy_atg(tokens: np.ndarray, labels: np.ndarray, atg: np.ndarray) -> np.ndarray:
+    """An in-frame ATG that is not the start codon, with room to score behind it. -1 if none."""
+    n = tokens.shape[1]
+    out = np.full(len(tokens), -1, dtype=int)
+    for r in range(len(tokens)):
+        last = int(np.max(np.where(labels[r] >= 0)[0]))
+        for p in range(atg[r] + MIN_DECOY_GAP, n - 2):
+            if p + MIN_DOWNSTREAM > last:
+                break
+            if labels[r, p] == 0 and tuple(tokens[r, p : p + 3]) == ATG:
+                out[r] = p
+                break
     return out
 
 
@@ -101,11 +139,13 @@ def main() -> None:
     i_tok, i_lab = sample_windows(internal, fasta, n=args.windows, window=args.window, seed=98)
 
     atg = atg_index(a_tok, a_lab)
-    keep = atg + 3 + CONTROL_OFFSET + 3 < args.window
-    a_tok, a_lab, atg = a_tok[keep], a_lab[keep], atg[keep]
+    decoy = find_decoy_atg(a_tok, a_lab, atg)
+    keep = decoy >= 0
+    a_tok, a_lab, atg, decoy = a_tok[keep], a_lab[keep], atg[keep], decoy[keep]
+    print(f"{keep.sum()}/{len(keep)} anchored windows carry an in-frame decoy ATG")
 
     abl_atg = ablate(a_tok, atg)
-    abl_ctl = ablate(a_tok, atg + 3 + CONTROL_OFFSET)
+    abl_dec = ablate(a_tok, decoy)
 
     blob = torch.load(args.checkpoint, map_location=device, weights_only=False)
     cfg = NanoConfig(**blob["cfg"])
@@ -114,40 +154,56 @@ def main() -> None:
     layer = "L0.resid_post"
 
     to_t = lambda a: torch.from_numpy(a).long()
-    x_anchored, y_anchored = residuals(model, to_t(a_tok), to_t(a_lab), layer, device)
-    x_internal, y_internal = residuals(model, to_t(i_tok), to_t(i_lab), layer, device)
-    x_no_atg, y_no_atg = residuals(model, to_t(abl_atg), to_t(a_lab), layer, device)
-    x_ctl, y_ctl = residuals(model, to_t(abl_ctl), to_t(a_lab), layer, device)
+    x_intact, y, dist = residuals(model, to_t(a_tok), to_t(a_lab), layer, device, anchor=atg)
+    x_no_atg, _, _ = residuals(model, to_t(abl_atg), to_t(a_lab), layer, device, anchor=atg)
+    x_no_dec, _, dist_dec = residuals(model, to_t(abl_dec), to_t(a_lab), layer, device, anchor=decoy)
+    x_int, y_int, _ = residuals(model, to_t(i_tok), to_t(i_lab), layer, device)
 
-    n = len(y_anchored)
+    n = len(y)
     perm = torch.randperm(n, generator=torch.Generator().manual_seed(0))
     tr, te = perm[: int(0.7 * n)], perm[int(0.7 * n) :]
+    probe, mu, sd = fit_probe(x_intact[tr], y[tr])
 
-    probe, mu, sd = fit_probe(x_anchored[tr], y_anchored[tr])
-
-    intact = score(probe, mu, sd, x_anchored[te], y_anchored[te])
-    no_atg = score(probe, mu, sd, x_no_atg[te], y_no_atg[te])
-    control = score(probe, mu, sd, x_ctl[te], y_ctl[te])
-
-    probe_i, mu_i, sd_i = fit_probe(x_internal[: int(0.7 * len(y_internal))], y_internal[: int(0.7 * len(y_internal))])
-    internal_acc = score(probe_i, mu_i, sd_i, x_internal[int(0.7 * len(y_internal)) :], y_internal[int(0.7 * len(y_internal)) :])
+    ni = len(y_int)
+    pi, mi, si = fit_probe(x_int[: int(0.7 * ni)], y_int[: int(0.7 * ni)])
+    internal_acc = score(pi, mi, si, x_int[int(0.7 * ni) :], y_int[int(0.7 * ni) :])
 
     print(f"{args.checkpoint.name}   pool={blob.get('pool','?')}   layer={layer}")
-    print(f"anchored windows: {len(a_tok)}   internal windows: {len(i_tok)}\n")
-    print(f"{'condition':<40} {'phase accuracy':>15}")
-    print(f"{'anchored, intact':<40} {intact:>15.4f}")
-    print(f"{'anchored, ATG ablated':<40} {no_atg:>15.4f}")
-    print(f"{'anchored, matched downstream codon ablated':<40} {control:>15.4f}")
-    print(f"{'internal (no anchor exists)':<40} {internal_acc:>15.4f}")
-    print(f"{'chance':<40} {1/3:>15.4f}")
+    print(f"anchored windows: {len(a_tok)}   internal windows: {len(i_tok)}")
+    print(f"internal-window accuracy (no anchor exists): {internal_acc:.4f}   chance {1/3:.4f}\n")
 
-    print(f"\nATG ablation cost:      {intact - no_atg:+.4f}")
-    print(f"control ablation cost:  {intact - control:+.4f}")
-    print(f"anchored - internal:    {intact - internal_acc:+.4f}")
+    # Each ablation is scored at distances measured from ITS OWN site, excluding the site itself.
+    d_atg, d_dec = dist[te], dist_dec[te]
+    bins = [(3, 15), (16, 31), (32, 63), (64, 255)]
 
-    uses_anchor = (intact - no_atg) > 0.05 and (intact - no_atg) > 3 * abs(intact - control)
-    print("\nVERDICT:", "anchored counter -- the model finds the ATG and counts" if uses_anchor
-          else "bag of motifs -- the start codon is not load-bearing")
+    def drop(distance, x_ablated, lo, hi):
+        sel = (distance >= lo) & (distance <= hi)
+        if int(sel.sum()) < 200:
+            return None, None, 0
+        ref = score(probe, mu, sd, x_intact[te][sel], y[te][sel])
+        abl = score(probe, mu, sd, x_ablated[te][sel], y[te][sel])
+        return ref, ref - abl, int(sel.sum())
+
+    print(f"{'distance from ablation':<24} {'true ATG drop':>14} {'n':>7}   {'decoy ATG drop':>15} {'n':>7}")
+    for lo, hi in bins:
+        _, da, na = drop(d_atg, x_no_atg, lo, hi)
+        _, dd, nd = drop(d_dec, x_no_dec, lo, hi)
+        if da is None and dd is None:
+            continue
+        a_s = f"{da:+.4f}" if da is not None else "     --"
+        d_s = f"{dd:+.4f}" if dd is not None else "     --"
+        print(f"{f'{lo}-{hi} nt':<24} {a_s:>14} {na:>7}   {d_s:>15} {nd:>7}")
+
+    _, far_atg, _ = drop(d_atg, x_no_atg, 64, 255)
+    _, far_dec, _ = drop(d_dec, x_no_dec, 64, 255)
+    far_atg = far_atg or 0.0
+    far_dec = far_dec or 0.0
+
+    print(f"\nfar-field (>=64 nt)   true ATG {far_atg:+.4f}   decoy ATG {far_dec:+.4f}")
+
+    anchored = far_atg > 0.05 and far_atg > 3 * max(abs(far_dec), 1e-6)
+    print("\nVERDICT:", "ANCHORED COUNTER -- only the true start codon is load-bearing, at long range" if anchored
+          else "BAG OF MOTIFS -- the start codon behaves like any other informative local motif")
 
 
 if __name__ == "__main__":

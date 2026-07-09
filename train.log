@@ -53,3 +53,14 @@ mlm: 4.80M params, causal=False
   step  1500  train 1.2932  val 1.2766  5.3 it/s
   step  1750  train 1.2789  val 1.2689  5.3 it/s
   step  2000  train 1.2926  val 1.2685  5.3 it/s
+  step  2250  train 1.2675  val 1.2653  5.3 it/s
+  step  2500  train 1.2874  val 1.2625  5.1 it/s
+  step  2750  train 1.2746  val 1.2608  4.4 it/s
+  step  3000  train 1.2775  val 1.2575  3.9 it/s
+  step  3250  train 1.2797  val 1.2502  3.4 it/s
+  step  3500  train 1.2609  val 1.2346  3.1 it/s
+  step  3750  train 1.2270  val 1.2170  2.7 it/s
+  step  4000  train 1.2325  val 1.2075  2.6 it/s
+./scripts/run_arms.sh: line 3: 86247 Terminated: 15          conda run --no-capture-output -n gfm-thrust1 python scripts/train_nano.py --objective $OBJ --steps 8000
+/var/folders/_b/6001dkp508q10kk717wvn32m0000gn/T/tmphe9qakbi: line 3: 86256 Terminated: 15          python scripts/train_nano.py --objective mlm --steps 8000
+ALL DONE (mlm internal stopped at step 4000 to prioritise the mixed arms)
