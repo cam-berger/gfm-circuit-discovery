@@ -543,3 +543,82 @@ while the decoy drop stays near zero.
 
 *Also: the MLM internal-only arm was stopped at its step-4000 checkpoint to free the GPU for the
 mixed arms. It is a comparison arm for H2, not evidence for this question.*
+
+
+---
+
+## D24 — Ablation cannot detect a redundant circuit. Cue conflict can.
+
+`anchor_test.py` ablates the start codon and asks whether phase accuracy falls. **It cannot answer
+the question, and the "VERDICT: bag of motifs" it printed was not earned.** Deleting the ATG removes
+one source of phase information and leaves the other — downstream codon statistics, worth 0.79 on
+their own — completely intact. A model that genuinely counts from the ATG can lose nothing when the
+ATG is destroyed, because it falls back on local evidence. Redundancy makes ablation blind. (Cam's
+observation: *"maybe it learns to correct itself instead of falling apart."*)
+
+Do not remove information. Make the cues **contradict** each other. Insert one nucleotide immediately
+after the ATG; everything downstream shifts by one, so at every downstream position:
+
+```
+anchor says    phase = (q - atg) % 3        counting codons from the start
+content says   phase = (q - 1 - atg) % 3    the codon statistics moved with the sequence
+```
+
+They differ by exactly one. The probe must pick a side.
+
+```
+                       MIXED (trained w/ anchors)   INTERNAL-ONLY (never saw one)
+distance from ATG      anchor    content            anchor    content
+4-15 nt                0.5944    0.1524             0.5999    0.1553
+16-31 nt               0.4175    0.3152             0.4263    0.3081
+32-63 nt               0.2423    0.5424             0.2490    0.5313
+64-127 nt              0.1119    0.7562             0.1113    0.7550
+128-255 nt             0.0626    0.8354             0.0569    0.8406
+```
+
+**The internal-only model is the control that makes this airtight.** It never saw an anchored window
+and cannot be anchored, yet its curve is identical. So the near-field "anchor following" is not
+counting — positions just past the insertion pool context from upstream of it, where the sequence is
+unshifted and the local evidence agrees with the anchor. It is pooling across the boundary.
+
+Both models follow **local content** at long range. They are statistically indistinguishable. The
+crossover at ~32 nt measures the **pooling width** directly, matching the ±15 nt naive-Bayes estimate
+(31 positions → 0.6918).
+
+**GFM-nano does not build an anchored frame counter, on either data regime.** And there is a reason:
+
+```
+H(nucleotide)            = 1.3714 nats
+H(nucleotide | phase)    = 1.3473 nats
+gain from PERFECT phase  = 0.0241 nats
+```
+
+The model already infers phase at 0.79 from local statistics, so an anchored counter buys at most
+~0.005 nats — **0.40% of a 1.27-nat loss**, and that is an upper bound. Longer training will not
+conjure it; there is almost nothing to grok toward. The bag is not a failure of optimisation. **It is
+the correct solution to the objective we set.**
+
+This is the genomic instance of Nikankin's arithmetic result, and it reframes H2: the question is no
+longer "does an objective install a circuit" but "what must an objective demand before a circuit
+becomes worth building."
+
+## D25 — No self-supervised objective can force an anchor
+
+Any phase-dependent structure in the sequence is locally detectable: it repeats every three bases, so
+a sufficiently wide bag finds it. Make the sequence phase-symmetric so that no local cue exists, and
+knowing the phase stops helping next-nucleotide prediction — the incentive disappears with the cue.
+Self-supervision cannot escape this.
+
+So the forcing experiment must be **supervised on a readout that requires the frame**, which is D7's
+logic in miniature:
+
+```
+sequence   random 5' region containing no ATG | ATG | codons drawn uniformly from the 61 sense codons
+           -> local nucleotide statistics carry essentially no phase information
+label      the amino acid of the codon containing each position -- never the frame itself
+           -> emitting it requires knowing which triplet is in frame
+```
+
+Without the frame, accuracy is capped near 0.33 (guess the alignment). With it, 1.0. The model is
+never told the frame; it is told the protein. The anchored counter becomes the *only* solution rather
+than a 0.4% improvement — the learned analogue of Rung 0's planted compositional twin.
