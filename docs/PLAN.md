@@ -19,11 +19,12 @@ interpretable until this passes.
       marker ablation (1.000 → 0.383 vs 0.583 → 0.583)
 - [x] `nulls/sequence.py` — dinucleotide shuffle (Altschul–Erikson), G4-negative decoys
 - [x] `config.py` — contamination / tokenisation / strand firewalls
-- [ ] `dicts/base.py` — train `Transcoder` on planted activations
-- [ ] `tracer/attribution.py` — JVP through frozen-attention replacement model
-- [ ] `tracer/patch.py` — `node_ablate`, `edge_ablate_replacement`, `edge_patch_real`
-- [ ] **Test A** — attribution with `dictionary := identity`; exact neuron-level edges
-- [ ] **Test B** — dictionary recovery under planted superposition; Hungarian match, MCC > 0.9
+- [x] `dicts/base.py`, `dicts/train.py`, `dicts/matching.py`, `dicts/toy.py`
+- [x] `tracer/graph.py` — direct-path attribution through the frozen-attention replacement model
+- [x] `tracer/patch.py` — `edge_patch` (frozen/real gate), `node_ablate_head_dim`, `routing_share`
+- [x] **Test A** — conservation exact (<1e-21); OV recall = precision = 1.0; QK edge invisible
+      (attribution 0.000 on an edge whose ablation costs 0.617 accuracy); faithfulness gap 2x (D12, D13)
+- [x] **Test B** — 64 atoms in 32 dims, k=3: EV 0.966, |cos| min 0.998, **MCC 0.945** (D14, D15)
 - [ ] **Test C** — end-to-end recall/precision vs `PLANTED_EDGES`
 - [ ] **Test D** — JSAE Jacobian sparsity: ROC(compositional vs heuristic), AUC > 0.8
 

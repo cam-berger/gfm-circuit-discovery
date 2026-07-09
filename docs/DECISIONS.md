@@ -218,3 +218,78 @@ tests under Holm; every per-edge claim exploratory under FDR. See `PREREGISTRATI
 "Circuit forms at a training phase-change" is pretraining-dynamics emergence work, excluded by the
 constraint that this project remain independent of the parallel motif-emergence project. H5 was the
 one hypothesis that made this project *dependent* on the project it must be independent from.
+
+---
+
+## D12 — Frozen-attention attribution is structurally blind to QK edges (Test A)
+
+Freezing the attention pattern is what makes the replacement model linear, and it is exactly why
+attribution is exact here: incoming edges reconstruct every node's pre-activation to `< 1e-21`.
+Recall and precision against the planted OV subgraph are both **1.0**.
+
+But a frozen pattern means the QK circuit — the computation deciding *where* to look — has no edges
+at all. Measured on the compositional twin:
+
+```
+attribution(embed.tok -> L0.attn.z)  = 0.000000   exactly zero
+causal effect of ablating that token = 1.000 -> 0.383 accuracy
+```
+
+The tracer assigns zero weight to the single edge without which the circuit does not work. Any
+edge-level claim built on frozen-attention attribution inherits this blind spot, and every real
+rung of this ladder has a QK component (finding the ATG, finding the donor GT, finding the G-run).
+
+**Decision.** Report OV recall and QK recall separately, never as one number. QK edges need a
+separate instrument (pattern-gradient attribution); scoped as work for Phase 1.
+
+## D13 — The planted circuit sat exactly on the ReLU kink
+
+The first planting used MLP bias `-1.0`, which places the one-input-matches case at pre-activation
+*exactly 0*. Frozen-gate and real-ReLU interventions then coincide for every patch, and the measured
+faithfulness gap was identically `0.000` — the linearisation looked perfect for a reason that
+generalises to nothing.
+
+Bias `-1.5` with the output weight doubled computes the identical function while placing the inactive
+case strictly below the kink. The gap appears:
+
+```
+head dim 0:  replacement=2.0000  real=1.0000  gap=1.0000
+head dim 1:  replacement=2.0000  real=1.0000  gap=1.0000
+head dim 2:  replacement=1.3333  real=0.6667  gap=0.6667
+```
+
+Linear attribution **overstates the true causal effect by exactly 2×**, from a single gate flip. The
+faithfulness gap is not a small correction, and Risk #1 is not rhetorical.
+
+Routing share is 1.000 for all three head dims — the traced edge carries the node's entire influence —
+and edge effect never exceeds node effect, as D8 requires.
+
+## D14 — The planted model's own activations are not identifiable (Test B)
+
+Test B first used the planted model's residual as its activation source. The SAE reconstructed it
+(EV > 0.95) and recovered nothing (MCC 0.099).
+
+Cause: `phase_feature` is a deterministic function of `pos_phase` and `start_phase`, so the residual
+code takes only `3 × 3 × 5 = 45` distinct values across every position of every sequence. Dictionary
+learning is not identifiable on 45 points; the SAE learns co-occurring combinations rather than atoms.
+
+**Decision.** Test B isolates dictionary recovery on independently-sampled k-sparse supports (64 atoms
+in 32 dimensions, k=3, coherence 0.57), where recovery is possible in principle so a low MCC indicts
+the dictionary. Result: `|cos| min 0.998`, **MCC 0.945**.
+
+**Consequence for the real experiments, and it is not small.** Any transcoder trained on a circuit
+whose features are deterministically coupled will produce features that are combinations, not causes.
+Reading frame is *defined* as a deterministic function of position and start codon. Transcoder features
+on the frame circuit must therefore be checked for identifiability before any of them is described as
+"the phase feature." `tests/test_b_dictionary.py::test_planted_code_is_not_identifiable` pins this.
+
+## D15 — Do not renormalise a TopK decoder
+
+`train_sae` originally unit-normed decoder rows after every optimiser step. That is correct for L1
+SAEs, where it stops the sparsity penalty from being gamed by shrinking features and inflating codes.
+A TopK SAE carries no L1 term, so the renormalisation only fights the optimiser.
+
+```
+with per-step renorm:     EV 0.939   |cos| min 0.393   MCC 0.890
+without:                  EV 0.966   |cos| min 0.998   MCC 0.945
+```

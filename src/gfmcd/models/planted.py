@@ -35,14 +35,22 @@ CONST = 15
 MARKER_SCORE = 6.0
 LOGIT_SCALE = 8.0
 
-PLANTED_EDGES: tuple[tuple[str, str], ...] = (
-    ("embed.tok[M]", "L0.attn.head0"),
-    ("pos_embed.phase", "L0.attn.head0"),
-    ("L0.attn.head0", "L1.mlp.acts"),
-    ("pos_embed.phase", "L1.mlp.acts"),
-    ("L1.mlp.acts", "resid.phase_feature"),
-    ("resid.phase_feature", "logits"),
+# Edges carried by the OV path. Frozen-attention attribution can see these.
+PLANTED_EDGES_OV: frozenset[tuple[str, str]] = frozenset(
+    {
+        ("pos_embed.phase", "L0.attn.z"),
+        ("L0.attn.z", "L1.mlp.acts"),
+        ("pos_embed.phase", "L1.mlp.acts"),
+        ("L1.mlp.acts", "logits"),
+    }
 )
+
+# The marker-finding edge lives in QK: token M enters through the keys and moves the
+# attention pattern. A tracer that freezes attention has no representation for this edge
+# and will report zero attribution on it -- while ablating it collapses the circuit.
+PLANTED_EDGES_QK: frozenset[tuple[str, str]] = frozenset({("embed.tok", "L0.attn.pattern")})
+
+PLANTED_EDGES: frozenset[tuple[str, str]] = PLANTED_EDGES_OV | PLANTED_EDGES_QK
 
 
 def _base(cfg: TinyConfig) -> TinyTransformer:
@@ -76,8 +84,12 @@ def build_compositional(cfg: TinyConfig | None = None, match_accuracy: bool = Tr
                 j = 3 * a + b
                 mlp.W_in[POS_PHASE.start + a, j] = 1.0
                 mlp.W_in[START_PHASE.start + b, j] = 1.0
-                mlp.b_in[j] = -1.0
-                mlp.W_out[j, PHASE_FEAT.start + (a - b - 1) % 3] = 1.0
+                # Bias -1 would put the one-input-matches case exactly on the ReLU kink,
+                # making frozen-gate and real-ReLU interventions coincide and the
+                # faithfulness gap identically zero. That is a degenerate coincidence, not
+                # a property of transformers. -1.5 places it strictly below the kink.
+                mlp.b_in[j] = -1.5
+                mlp.W_out[j, PHASE_FEAT.start + (a - b - 1) % 3] = 2.0
 
         if match_accuracy:
             p = (3.0 * bayes_unigram_accuracy() - 1.0) / 2.0
