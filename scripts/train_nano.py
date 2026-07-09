@@ -20,7 +20,15 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
-from gfmcd.data.genome import SPLIT_CHROMS, Split, assert_split_allowed, parse_gencode_cds, sample_windows
+from gfmcd.data.genome import (
+    SPLIT_CHROMS,
+    Split,
+    assert_split_allowed,
+    parse_gencode_cds,
+    sample_anchored_windows,
+    sample_windows,
+    split_by_anchor,
+)
 from gfmcd.models.gfm_nano import GFMNano, NanoConfig, ar_batch, mlm_batch
 
 DATA = Path.home() / "Research/data/genomes"
@@ -29,11 +37,19 @@ CKPT = Path("checkpoints")
 IGNORE = -100
 
 
-def window_pool(split: Split, n: int, window: int, seed: int) -> np.ndarray:
-    """Token windows only. Labels are deliberately discarded here."""
+def window_pool(split: Split, n: int, window: int, seed: int, pool: str = "internal") -> np.ndarray:
+    """Token windows only. Labels are deliberately discarded here.
+
+    `pool` selects the regime:
+      internal  windows drawn inside coding exons; the start codon is usually absent, so phase can
+                only be inferred from codon statistics
+      anchored  windows that contain the translation start codon, so a marker-and-count circuit is
+                available to be learned
+      mixed     half and half, so one model has both regimes and the ATG-ablation assay applies
+    """
     assert_split_allowed(split)
     CACHE.mkdir(parents=True, exist_ok=True)
-    path = CACHE / f"windows_{split.value}_{n}_{window}_{seed}.npy"
+    path = CACHE / f"windows_{pool}_{split.value}_{n}_{window}_{seed}.npy"
     if path.exists():
         return np.load(path)
 
@@ -41,7 +57,19 @@ def window_pool(split: Split, n: int, window: int, seed: int) -> np.ndarray:
 
     fasta = Fasta(str(DATA / "hg38.fa"), as_raw=True, sequence_always_upper=True)
     cds = parse_gencode_cds(DATA / "gencode.v50.basic.annotation.gtf.gz", chroms=SPLIT_CHROMS[split], min_len=150)
-    tokens, _labels = sample_windows(cds, fasta, n=n, window=window, seed=seed)
+    starts, internal = split_by_anchor(cds, fasta)
+
+    if pool == "internal":
+        tokens, _ = sample_windows(internal, fasta, n=n, window=window, seed=seed)
+    elif pool == "anchored":
+        tokens, _ = sample_anchored_windows(starts, fasta, n=n, window=window, seed=seed)
+    elif pool == "mixed":
+        a, _ = sample_anchored_windows(starts, fasta, n=n // 2, window=window, seed=seed)
+        b, _ = sample_windows(internal, fasta, n=n - n // 2, window=window, seed=seed + 1)
+        tokens = np.concatenate([a, b])
+    else:
+        raise ValueError(pool)
+
     np.save(path, tokens)
     return tokens
 
@@ -87,14 +115,15 @@ def main() -> None:
     ap.add_argument("--train-windows", type=int, default=200_000)
     ap.add_argument("--val-windows", type=int, default=8_000)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--pool", choices=["internal", "anchored", "mixed"], default="internal")
     args = ap.parse_args()
 
     device = "mps" if torch.backends.mps.is_available() else "cpu"
     torch.manual_seed(args.seed)
 
-    train = torch.from_numpy(window_pool(Split.TRAIN, args.train_windows, args.window, 0)).long()
-    val = torch.from_numpy(window_pool(Split.VAL, args.val_windows, args.window, 1)).long().to(device)
-    print(f"train {tuple(train.shape)}  val {tuple(val.shape)}  device {device}")
+    train = torch.from_numpy(window_pool(Split.TRAIN, args.train_windows, args.window, 0, args.pool)).long()
+    val = torch.from_numpy(window_pool(Split.VAL, args.val_windows, args.window, 1, args.pool)).long().to(device)
+    print(f"train {tuple(train.shape)}  val {tuple(val.shape)}  pool={args.pool}  device {device}")
 
     causal = args.objective == "ar"
     model = GFMNano(NanoConfig(max_len=args.window, causal=causal)).to(device)
@@ -129,10 +158,10 @@ def main() -> None:
             history.append({"step": step, "train": float(loss), "val": vl})
 
         if step in save_at:
-            path = CKPT / f"nano_{args.objective}_step{step}.pt"
-            torch.save({"cfg": model.cfg.__dict__, "state": model.state_dict(), "step": step}, path)
+            path = CKPT / f"nano_{args.objective}_{args.pool}_step{step}.pt"
+            torch.save({"cfg": model.cfg.__dict__, "state": model.state_dict(), "step": step, "pool": args.pool}, path)
 
-    (CKPT / f"nano_{args.objective}_history.json").write_text(json.dumps(history, indent=2))
+    (CKPT / f"nano_{args.objective}_{args.pool}_history.json").write_text(json.dumps(history, indent=2))
     print(f"done in {(time.time()-t0)/60:.1f} min; checkpoints at {save_at}")
 
 

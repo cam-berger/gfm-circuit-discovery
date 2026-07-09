@@ -161,3 +161,72 @@ def test_gtf_parsing_round_trips(tmp_path):
     assert len(cds) == 2, "must skip non-CDS features and CDS shorter than min_len"
     assert cds[0] == PLUS
     assert cds[1] == MINUS
+
+
+# --- anchored windows -------------------------------------------------------
+#
+# An internal coding exon has no ATG, so a model cannot find a marker and count from it. Anchored
+# windows contain the translation start codon; internal ones provably do not. Same data, two
+# regimes, and the availability of an anchor is the only thing that differs.
+
+from gfmcd.data.genome import (  # noqa: E402
+    atg_index,
+    first_codon,
+    sample_anchored_window,
+    sample_anchored_windows,
+    split_by_anchor,
+)
+
+# phase 0 and the first codon is ATG -> a start-codon exon.
+PLUS_ATG = CDS(CHROM, 300, 899, "+", 0)
+# minus strand: first codon base is `end`; genomic [1797:1800] must read CAT so its revcomp is ATG.
+MINUS_ATG = CDS(CHROM, 1200, 1799, "-", 0)
+
+
+@pytest.fixture(scope="module")
+def anchored_fasta(fasta):
+    s = list(fasta[CHROM])
+    s[300:303] = "ATG"
+    s[1797:1800] = "CAT"
+    return MiniFasta({CHROM: "".join(s)})
+
+
+def test_first_codon_reads_along_transcription(anchored_fasta):
+    assert first_codon(PLUS_ATG, anchored_fasta) == "ATG"
+    assert first_codon(MINUS_ATG, anchored_fasta) == "ATG"
+
+
+def test_split_by_anchor_separates_start_exons_from_internal(anchored_fasta):
+    starts, internal = split_by_anchor([PLUS_ATG, MINUS_ATG, PLUS, MINUS], anchored_fasta)
+    assert set(starts) == {PLUS_ATG, MINUS_ATG}
+    assert set(internal) == {PLUS, MINUS}, "phase != 0 exons can never be start exons"
+
+
+@pytest.mark.parametrize("cds", [PLUS_ATG, MINUS_ATG])
+def test_anchored_window_contains_the_start_codon(anchored_fasta, cds):
+    rng = random.Random(4)
+    for _ in range(20):
+        w = sample_anchored_window(cds, anchored_fasta, window=256, rng=rng, min_downstream=90)
+        assert w is not None
+        i = int(np.argmax(w.labels == 0))
+        assert w.tokens[i : i + 3].tolist() == [0, 3, 2], "ATG must sit at the first phase-0 position"
+
+
+def test_nothing_upstream_of_the_start_codon_is_labelled(anchored_fasta):
+    rng = random.Random(5)
+    w = sample_anchored_window(PLUS_ATG, anchored_fasta, window=256, rng=rng, min_downstream=90)
+    i = int(np.argmax(w.labels == 0))
+    assert (w.labels[:i] == IGNORE).all(), "positions before the ATG are not in frame"
+
+
+def test_anchored_windows_still_randomise_the_offset(anchored_fasta):
+    """Anchoring must not reintroduce the index % 3 lookup (D21)."""
+    tokens, labels = sample_anchored_windows([PLUS_ATG, MINUS_ATG], anchored_fasta, n=300, window=128, seed=6, min_downstream=90)
+
+    idx = np.tile(np.arange(128) % 3, (len(labels), 1))
+    mask = labels >= 0
+    counts = np.zeros((3, 3), dtype=int)
+    np.add.at(counts, (idx[mask], labels[mask]), 1)
+    assert counts.max(axis=1).sum() / counts.sum() < 0.40
+
+    assert len(set((atg_index(tokens, labels) % 3).tolist())) == 3, "ATG offsets do not cover all residues mod 3"

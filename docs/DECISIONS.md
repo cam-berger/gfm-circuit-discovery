@@ -439,3 +439,57 @@ guards. Anchoring windows at CDS starts makes `index % 3` predict phase at **1.0
 sampler scores **0.3446** on real hg38 against a chance floor of 0.3333. A model with absolute
 position embeddings would have read phase straight off `pos_embed`, and the loss curve would have
 looked fine.
+
+
+---
+
+## D22 — The data made the planted circuit impossible to learn (Phase 1)
+
+The first Rung 1 probe was a strong positive: codon phase is linearly decodable from GFM-nano's
+residual stream at **0.7936**, against a nucleotide baseline of 0.4105, an `index % 3` baseline of
+0.3401, a label-shuffled floor of 0.3351, and — the control that matters — an **untrained** model at
+random init scoring 0.4094. Absolute position embeddings give the model nothing, which is what the
+window randomisation of D21 was for.
+
+Then two things about the *shape* of that result:
+
+**It appears entirely at layer 0 and is flat thereafter** (L0 0.7936 → L5 0.7914). Nothing is built
+after the first block.
+
+**Our windows contain no marker to find.** They are 256 nt drawn at random offsets *inside* coding
+exons. Internal coding exons have no ATG at all. So the planted circuit's computation — find the
+start codon, compute `(i − i_ATG) mod 3` — is not available, and the model can only be inferring
+phase from codon-usage statistics. A purely local naive-Bayes predictor confirms how far that goes:
+
+```
+context pooled           Bayes accuracy
+±0 nt  (1 position)          0.4104
+±2 nt  (5 positions)         0.5114
+±7 nt  (15 positions)        0.6182
+±15 nt (31 positions)        0.6918
+```
+
+The model's 0.7936 beats a 31-position independent-position bag, but that is a naive-Bayes lower
+bound and the model has 256 nt of context. **0.794 is not evidence for a circuit rather than a bag.**
+Rung 1 as specified was studying the wrong object.
+
+**Decision (Cam, 2026-07-08).** Fix the data, and make the fix the experiment. `data/genome.py` now
+builds two regimes:
+
+```
+anchored   the window contains the translation start codon (72,668 start exons in train)
+internal   the window is drawn inside a coding exon and provably has no ATG (551,865 exons)
+```
+
+Train on a 50/50 mixture, so one model has both regimes available and the marker-ablation assay from
+Rung 0 transfers directly. The prediction is pre-registerable and sharp: **an anchored counter where
+an anchor exists, a bag of motifs where none does** — same weights, same objective, only the
+availability of an anchor changing.
+
+If it holds, the tracer will have distinguished composition from bag-of-motifs on a real genomic model,
+with ground truth supplied by the *data design* rather than by a planted weight matrix. That is a
+strictly stronger claim than either regime alone, and it is what the Rung 0 twins were rehearsing.
+
+Offset randomisation is preserved in the anchored sampler: the ATG sits at a uniformly random position
+in the window (measured 0–163), so `index % 3` still predicts phase at 0.3494, i.e. chance.
+`scripts/anchor_test.py` runs the assay.

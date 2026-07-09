@@ -17,3 +17,39 @@ ar: 4.80M params, causal=True
   step  2500  train 1.2976  val 1.2810  4.6 it/s
   step  2750  train 1.2981  val 1.2819  4.6 it/s
   step  3000  train 1.3012  val 1.2792  4.6 it/s
+  step  3250  train 1.2936  val 1.2792  4.6 it/s
+  step  3500  train 1.2902  val 1.2780  4.6 it/s
+  step  3750  train 1.2944  val 1.2771  4.6 it/s
+  step  4000  train 1.2976  val 1.2762  4.6 it/s
+  step  4250  train 1.3011  val 1.2759  4.6 it/s
+  step  4500  train 1.2914  val 1.2755  4.5 it/s
+  step  4750  train 1.2859  val 1.2743  4.5 it/s
+  step  5000  train 1.2802  val 1.2736  4.5 it/s
+  step  5250  train 1.2880  val 1.2734  4.5 it/s
+  step  5500  train 1.2808  val 1.2731  4.5 it/s
+  step  5750  train 1.2892  val 1.2731  4.5 it/s
+  step  6000  train 1.2788  val 1.2720  4.5 it/s
+  step  6250  train 1.2845  val 1.2720  4.5 it/s
+  step  6500  train 1.2939  val 1.2721  4.5 it/s
+  step  6750  train 1.2809  val 1.2711  4.5 it/s
+  step  7000  train 1.2781  val 1.2707  4.5 it/s
+  step  7250  train 1.2863  val 1.2706  4.5 it/s
+  step  7500  train 1.2818  val 1.2708  4.5 it/s
+  step  7750  train 1.2724  val 1.2705  4.5 it/s
+  step  8000  train 1.2730  val 1.2702  4.5 it/s
+done in 29.5 min; checkpoints at [400, 800, 1600, 2800, 4000, 5600, 8000]
+=============== mlm  22:14:36 ===============
+/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/train_nano.py:128: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:839.)
+  print(f"  step {step:5d}  train {float(loss):.4f}  val {vl:.4f}  {rate:.1f} it/s", flush=True)
+train (200000, 256)  val (8000, 256)  device mps
+mlm: 4.80M params, causal=False
+  step     1  train 1.8663  val 1.8560  0.8 it/s
+  step   250  train 1.2990  val 1.2979  5.1 it/s
+  step   500  train 1.2992  val 1.2934  5.2 it/s
+  step   750  train 1.2726  val 1.2930  5.2 it/s
+  step  1000  train 1.2937  val 1.2925  5.2 it/s
+  step  1250  train 1.2984  val 1.2900  5.3 it/s
+  step  1500  train 1.2932  val 1.2766  5.3 it/s
+  step  1750  train 1.2789  val 1.2689  5.3 it/s
+  step  2000  train 1.2926  val 1.2685  5.3 it/s
