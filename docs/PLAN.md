@@ -58,8 +58,16 @@ interpretable until this passes.
 - [ ] Trace; edge-patch; check sign-correctness under frameshift minimal pairs
 - [ ] Port harness to `splicebert` (official weights `chenkenbio/SpliceBERT`; verify any mirror; 6L, d=512, absolute pos-emb)
 
-> **GATE 1.** A compact frame circuit in GFM-nano with sign-correct edge patches. SpliceBERT may
-> legitimately have no frame circuit — that is a finding, not a failure, *because* Gate 0 passed.
+> **GATE 1 — PASSED, and it reframed the project.** Real-DNA GFM-nano has **no** anchored frame
+> circuit, on either data regime, and the cue-conflict assay proves it (D24). The reason is
+> quantified: the circuit buys 0.4% of the loss. The **forcing task** (uniform codons, amino-acid
+> readout) installs the circuit abruptly at step ~3000 and it verifies exactly: phase probe 1.0000 at
+> L2, start-codon ablation 1.0000 -> 0.3552, cue conflict 1.0000 anchor / 0.0000 content at 250 nt
+> (D25, D26). That model is the tracing substrate.
+
+The claim is no longer "does an objective install a circuit" but **a circuit appears when the objective
+makes it necessary, not when it is merely useful** — and real genomic self-supervision falls on the
+wrong side of that line.
 
 Preliminary, weak, reported as motivating only: SpliceBERT's masked triplet completes to a STOP
 with P = 0.0395 in-frame vs 0.0511 off-frame (ratio 0.773, Mann-Whitney p = 0.356, n = 40). Direction

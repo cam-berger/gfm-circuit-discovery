@@ -33,3 +33,24 @@ train (200000, 256)  val (8000, 256)  device mps
   step  6500  train 0.0003  val 0.0141  aa_acc 0.9982  [FRAME]  5.4 it/s
   step  6750  train 0.0000  val 0.0076  aa_acc 0.9989  [FRAME]  5.4 it/s
   step  7000  train 0.0001  val 0.0012  aa_acc 0.9996  [FRAME]  5.4 it/s
+  step  7250  train 0.0001  val 0.0002  aa_acc 1.0000  [FRAME]  5.5 it/s
+  step  7500  train 0.0004  val 0.0001  aa_acc 1.0000  [FRAME]  5.5 it/s
+  step  7750  train 0.0000  val 0.0001  aa_acc 1.0000  [FRAME]  5.5 it/s
+  step  8000  train 0.0459  val 0.0005  aa_acc 0.9998  [FRAME]  5.5 it/s
+  step  8250  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.5 it/s
+  step  8500  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.5 it/s
+  step  8750  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.5 it/s
+  step  9000  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.5 it/s
+  step  9250  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.5 it/s
+  step  9500  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.5 it/s
+  step  9750  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.5 it/s
+  step 10000  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.5 it/s
+  step 10250  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.5 it/s
+  step 10500  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.5 it/s
+  step 10750  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.5 it/s
+  step 11000  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.5 it/s
+  step 11250  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.5 it/s
+  step 11500  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.5 it/s
+  step 11750  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.5 it/s
+  step 12000  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.5 it/s
+done in 36.1 min

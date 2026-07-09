@@ -674,6 +674,16 @@ in one step — the hallmark of composition, versus the flat L0 profile of a sin
 The start codon is causally load-bearing while an identical perturbation to an ordinary Met codon is
 not. And under cue conflict the model propagates a frameshift exactly as biology does.
 
+At the final checkpoint (step 12,000) the circuit is exact, not approximate:
+
+```
+phase probe        L0 0.4116 -> L1 0.9138 -> L2 1.0000   (untrained control 0.347 at every layer)
+amino-acid accuracy                          1.0000
+  start codon ablated                        0.3552   below the 0.3768 guessing ceiling
+  downstream Met ablated (control)           0.9871
+cue conflict (anchor / content), 128-255 nt  1.0000 / 0.0000
+```
+
 **This is the learned analogue of Rung 0's planted compositional twin**, in a real transformer with
 LayerNorm, and it is the substrate on which the tracer should now be run: we know a marker-finding QK
 edge and a modular counter must exist, and we know the tracer's error rate on planted ground truth.
