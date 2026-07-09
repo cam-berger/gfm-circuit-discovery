@@ -203,3 +203,40 @@ def build_shortcut(cfg: TinyConfig | None = None, seq_len: int = 256) -> TinyTra
             model.W_U[PHASE_FEAT.start + k, k] = 1.0
 
     return model
+
+
+def build_compositional_unread(cfg: TinyConfig | None = None) -> TinyTransformer:
+    """Superseded by `build_bag_with_unread_marker_head`; kept for the record.
+
+    Zeroing W_O here also silences the MLP, because the phase neurons need the head's output to
+    fire. The logits go to zero, the loss goes constant, and *every* gradient vanishes. Zero QK
+    attribution then proves nothing about the instrument's specificity.
+    """
+    model = build_compositional(cfg, match_accuracy=False)
+    with torch.no_grad():
+        model.attn[0].W_O[0].zero_()
+    return model
+
+
+def build_bag_with_unread_marker_head(cfg: TinyConfig | None = None, seq_len: int = 256) -> TinyTransformer:
+    """The strong QK falsification control: a working model with a live but unread head.
+
+    Head 0 attends to the start marker exactly as the compositional twin does -- W_Q and W_K are
+    intact, so its score coefficients are nonzero and its pattern is content-driven. But W_O[0] is
+    zero, so nothing downstream reads it. The readout is produced entirely by the bag-of-motifs
+    pathway on heads 1-4, so the loss is non-constant and gradients elsewhere are alive.
+
+    `build_compositional_unread` is the weak version: zeroing W_O there also silences the MLP, so
+    the loss is constant and *every* gradient vanishes. Zero attribution then proves nothing. Here
+    the instrument must single out the one head whose pattern does not matter, while the model is
+    busy doing real work through other heads.
+    """
+    cfg = cfg or TinyConfig()
+    model = build_heuristic(cfg, seq_len=seq_len)
+    with torch.no_grad():
+        model.attn[0].W_Q[CONST, 0, 0] = MARKER_SCORE
+        model.attn[0].W_K[TOK.start + M, 0, 0] = MARKER_SCORE
+        for c in range(3):
+            model.attn[0].W_V[POS_PHASE.start + c, 0, c] = 1.0
+        model.attn[0].W_O[0].zero_()
+    return model

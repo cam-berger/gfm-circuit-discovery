@@ -49,7 +49,7 @@ interpretable until this passes.
 - [ ] Train `gfm-nano-cds` (AR) and `gfm-nano-dna` (both strands)
 - [ ] Linear probe: is period-3 phase decodable, layer by layer, vs position-shuffled control?
 - [ ] Trace; edge-patch; check sign-correctness under frameshift minimal pairs
-- [ ] Port harness to `splicebert` (`yangheng/SpliceBERT-510nt`; 6L, d=512, absolute pos-emb)
+- [ ] Port harness to `splicebert` (official weights `chenkenbio/SpliceBERT`; verify any mirror; 6L, d=512, absolute pos-emb)
 
 > **GATE 1.** A compact frame circuit in GFM-nano with sign-correct edge patches. SpliceBERT may
 > legitimately have no frame circuit — that is a finding, not a failure, *because* Gate 0 passed.

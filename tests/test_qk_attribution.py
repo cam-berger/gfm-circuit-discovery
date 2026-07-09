@@ -8,11 +8,17 @@ The planted twins give a known answer on both sides:
 
   compositional  W_K reads only the M-token dimension, W_Q only the constant dimension.
                  -> key-side attribution must land on `embed.tok`, and only at the marker.
-  bag of motifs  W_Q = W_K = 0; its heads are driven by a fixed positional bias.
-                 -> QK attribution must be identically zero. No content decides where it looks.
+  paired control W_Q and W_K bit-identical to the compositional twin -- the head still finds the
+                 marker -- but W_O = 0, and the readout is carried by the bag pathway instead, so
+                 the model still works and the loss is not constant.
+                 -> attribution must collapse 7.798 -> 0.000. Everything the instrument could use
+                    to hallucinate an edge is held fixed; only causal relevance moves.
 
-The second is the falsification control: an instrument that reports QK edges on a model whose
-attention ignores content is measuring itself.
+The bag twin also reports zero, but only because W_Q = W_K = 0 makes the coefficients vanish
+before the instrument does any work. That is a weaker statement and is asserted as such.
+
+An earlier control simply zeroed W_O on the compositional twin. That silences the MLP too, so the
+loss goes constant and *every* gradient vanishes -- zero attribution then proves nothing.
 """
 
 import pytest
@@ -23,9 +29,12 @@ from gfmcd.models.planted import (
     PLANTED_EDGES,
     PLANTED_EDGES_OV,
     PLANTED_EDGES_QK,
+    build_bag_with_unread_marker_head,
     build_compositional,
     build_heuristic,
+    phase_accuracy,
 )
+from gfmcd.tracer.qk import integrated_score_gradient, qk_attribution
 from gfmcd.tracer.graph import abstract_edges, recovered_edges
 from gfmcd.tracer.qk import key_attribution_by_position, qk_edges
 
@@ -82,12 +91,41 @@ def test_marker_ablation_destroys_the_qk_edge(comp, batch):
     assert ablated < 0.1 * intact, f"intact={intact:.6f} ablated={ablated:.6f}"
 
 
-def test_bag_of_motifs_has_no_qk_edges_at_all(batch):
-    """Falsification control. Its heads are positional bias; no content decides where it looks."""
+def test_paired_control_only_causal_relevance_moves_the_attribution(comp, batch):
+    """The falsification control, as a paired ablation.
+
+    Head 0's QK is bit-identical in both models: same W_Q, same W_K, same 584 content-bearing
+    score entries, same coefficients. Only W_O differs, so only whether the head is *read*
+    differs. The unread model still works (0.80) via the bag pathway, so the loss is not
+    constant. Everything the instrument could use to hallucinate an edge is held fixed.
+
+    Attribution goes 7.798 -> 0.000. An instrument reading its own coefficients could not do this.
+    """
+    tokens, labels = batch
+    unread = build_bag_with_unread_marker_head(seq_len=tokens.shape[-1])
+
+    assert torch.equal(comp.attn[0].W_K.detach(), unread.attn[0].W_K.detach())
+    assert torch.equal(comp.attn[0].W_Q.detach(), unread.attn[0].W_Q.detach())
+
+    _, content_read, _ = integrated_score_gradient(comp, tokens, labels)
+    _, content_unread, _ = integrated_score_gradient(unread, tokens, labels)
+    assert int((content_read[:, 0].abs() > 0).sum()) == int((content_unread[:, 0].abs() > 0).sum()) > 0
+
+    assert phase_accuracy(unread, tokens, labels) > 0.7, "control must remain a working model"
+
+    read_attr = float(qk_attribution(comp, tokens, labels)[0][:, 0].abs().max())
+    unread_attr = float(qk_attribution(unread, tokens, labels)[0][:, 0].abs().max())
+    assert read_attr > 1.0
+    assert unread_attr == 0.0, f"invented a QK edge into an unread head: {unread_attr:.3e}"
+
+
+def test_bag_of_motifs_reports_zero_but_only_trivially(batch):
+    """Weaker than it looks: W_Q = W_K = 0, so the coefficients vanish before the instrument runs."""
     tokens, labels = batch
     bag = build_heuristic(seq_len=tokens.shape[-1])
-    edges = qk_edges(bag, tokens, labels)
-    assert max(edges.values()) == 0.0, f"invented QK structure: {[k for k,v in edges.items() if v>0]}"
+
+    assert float(bag.attn[0].W_K.detach().abs().sum()) == 0.0
+    assert max(qk_edges(bag, tokens, labels).values()) == 0.0
 
 
 def test_combined_graph_recovers_every_planted_edge(comp, batch):

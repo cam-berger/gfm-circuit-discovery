@@ -25,8 +25,10 @@ and each score decomposes linearly into the input dimensions that produced it:
     key-side   attr(q, d) = mean_grad[p, q] * x[q, d] * (W_Q^T x_p) . W_K[d]
     query-side attr(p, d) = mean_grad[p, q] * x[p, d] * (W_K^T x_q) . W_Q[d]
 
-A head driven purely by positional bias has content == 0, so its QK attribution is exactly zero.
-That is the falsification control, and it holds by construction rather than by luck.
+The falsification control is `build_compositional_unread`: a model whose marker head still attends
+to the marker (W_Q, W_K intact, coefficients nonzero) but whose output is never read (W_O = 0). The
+instrument must report no edge into a pattern that does not matter, and it must discover that from
+the gradient rather than from a zeroed coefficient.
 """
 
 from __future__ import annotations
@@ -112,17 +114,13 @@ def qk_attribution(
     steps: int = IG_STEPS,
 ) -> tuple[torch.Tensor, torch.Tensor]:
     """Returns (key_side, query_side), each [batch, head, pos, key_pos, d_model]."""
-    mean_grad, content, x = integrated_score_gradient(model, tokens, labels, steps)
+    mean_grad, _content, x = integrated_score_gradient(model, tokens, labels, steps)
     key_coeff, query_coeff = _coefficients(model, x)
 
     with torch.no_grad():
-        # A head whose scores come only from positional bias contributes no content, so it
-        # must receive no attribution regardless of what the gradient says.
-        driven = (content.abs() > 0).to(x.dtype)
-        weight = mean_grad * driven
         # key_coeff is indexed by the query position p, query_coeff by the key position q.
-        key_side = torch.einsum("bhpq,bqd,bhpd->bhpqd", weight, x, key_coeff)
-        query_side = torch.einsum("bhpq,bpd,bhqd->bhpqd", weight, x, query_coeff)
+        key_side = torch.einsum("bhpq,bqd,bhpd->bhpqd", mean_grad, x, key_coeff)
+        query_side = torch.einsum("bhpq,bpd,bhqd->bhpqd", mean_grad, x, query_coeff)
 
     return key_side, query_side
 
