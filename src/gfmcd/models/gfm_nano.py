@@ -60,6 +60,9 @@ class Attention(nn.Module):
         self.W_K = nn.Linear(cfg.d_model, cfg.d_model, bias=False)
         self.W_V = nn.Linear(cfg.d_model, cfg.d_model, bias=False)
         self.W_O = nn.Linear(cfg.d_model, cfg.d_model, bias=False)
+        # An intervention knob, not a parameter: set an entry to 0 to ablate that head's write to
+        # the residual stream. persistent=False keeps it out of state_dict.
+        self.register_buffer("head_mask", torch.ones(cfg.n_heads), persistent=False)
 
     def forward(self, x: torch.Tensor, cache: dict, layer: int) -> torch.Tensor:
         b, n, _ = x.shape
@@ -79,6 +82,7 @@ class Attention(nn.Module):
 
         z = torch.einsum("bhpq,bqhc->bphc", pattern, v)
         cache[f"L{layer}.attn.z"] = z
+        z = z * self.head_mask.view(1, 1, -1, 1)
         return self.W_O(z.reshape(b, n, -1))
 
 

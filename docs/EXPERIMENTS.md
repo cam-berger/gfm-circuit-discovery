@@ -174,6 +174,38 @@ is merely useful. Real genomic training sits on the wrong side of that line.
 
 ---
 
+## E8 — We traced the circuit, and found a head that looks perfect and does nothing
+
+**What we did.** Opened up the model that had learned to find the start marker and count, and asked
+which of its 48 internal "attention heads" actually does the finding.
+
+**What we found.** Two heads look like the answer. Both stare almost exclusively at the real start
+marker and essentially ignore the fake markers scattered through the sequence. One of them looks
+*better* than the other by that measure.
+
+Then we switched each one off. Turning off the first changes the model's answers not at all — its
+effect is about four million times smaller than the other's. It is a beautifully-tuned detector whose
+output nobody reads. The second, when switched off, destroys the model completely.
+
+**Why this matters.** Looking at where a model "pays attention" is the most common way people try to
+explain what it is doing. Here it would have picked the wrong head. Even the sophisticated
+mathematical method we built gives the useless head 16% of the credit. Only switching things off and
+watching what breaks gives the right answer.
+
+And there is a punchline. Months earlier we hand-built a fake model containing exactly this — a
+perfect detector that nothing reads — purely as a trap to check our tools weren't fooling themselves.
+We worried it was artificial. It turns out real trained models grow one on their own.
+
+**One more thing we nearly missed.** Our first measurement said switching off the useless head changed
+nothing, which happened to be right — but only because the model was scoring a perfect 100%, and you
+cannot get worse than perfect on a scoreboard that stops at 100. Measuring how *confident* it was,
+rather than whether it was *correct*, revealed the truth. This is the third time in this project that a
+measurement quietly hit its ceiling and reported "nothing here."
+
+*Formal record: D27. Code: `scripts/trace_uniform.py`, `scripts/qk_ig_nano.py`.*
+
+---
+
 ## The thread running through all of these
 
 Every one of these experiments found a problem *before* we touched a real genomic model: a blind spot

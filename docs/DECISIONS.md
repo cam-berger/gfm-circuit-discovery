@@ -691,3 +691,58 @@ edge and a modular counter must exist, and we know the tracer's error rate on pl
 The scientific claim sharpens accordingly. Not "does a training objective install a circuit" but:
 **a circuit appears exactly when the objective makes it necessary, and not when it is merely useful.**
 Real genomic self-supervision falls on the wrong side of that line.
+
+
+---
+
+## D27 — The traced circuit, and a naturally-occurring unread marker head
+
+Tracing the forcing-task model (`scripts/trace_uniform.py`, `scripts/qk_ig_nano.py`). The circuit is
+the one Rung 0 planted, learned rather than hand-set:
+
+```
+L0 heads          assemble the local trigram; ablating L0H0 halves L1H3's attention to the marker
+                  (42.4% retained; every other L0 head leaves it at 83-111%)  -> K-composition
+L1H3              attends 0.80 of its mass to the T of the start codon -- the middle base, where a
+                  +-1 window sees all three -- and 230x more to the true start than to a decoy ATG
+L1-L2 MLPs        phase probe: L0 0.4116 -> L1 0.9138 -> L2 1.0000 (untrained control 0.347 flat)
+```
+
+**A measurement error, corrected.** The first survey measured attention to the *A* of the ATG and
+concluded that attention magnitude is uncorrelated with causal importance. It is not: the marker head
+attends to the *T*. Measured on the right column, the top-attention heads are the causal ones.
+
+**But the sharper failure is real, and it is worse.** The model contains two heads that attend almost
+exclusively to the true start codon:
+
+```
+head    attn->start   ->decoy    ratio     ablation: loss     accuracy
+L1H2       0.6656     0.0016    406.5x     +0.000002          1.0000
+L1H3       0.8344     0.0036    230.1x     +8.363416          0.3875
+```
+
+**L1H2 is causally inert** — its effect on the loss is four million times smaller than L1H3's — while
+looking like the *better* marker head under attention inspection. It is a live, exquisitely-tuned
+marker head whose output nothing downstream reads: precisely
+`planted.build_bag_with_unread_marker_head`, which we invented as a synthetic control in D20 and
+worried was contrived. **It occurs naturally in a trained transformer.**
+
+Every attribution method mis-handles it to some degree:
+
+| method | verdict |
+|---|---|
+| attention pattern | L1H2 looks *better* (406x vs 230x) |
+| naive score gradient | ranks L1H2 **above** L1H3 (1881 vs 905) — backwards |
+| integrated gradient (D20) | ranks correctly (83.3% vs 16.5%) but still credits the inert head 16.5% |
+| ablation on **accuracy** | correct here only by luck: accuracy is saturated at 1.0000 |
+| ablation on **loss** | 8.36 vs 0.000002 — unambiguous |
+
+**Attribution ranks; only intervention decides.** This is D8/H4's position — attribution as a cheap
+screen, causal effect as the claim — demonstrated on a real learned circuit rather than argued. And it
+is a third instance of the same failure class that has recurred all through this project: *a saturated
+measurement reports nothing where the effect is largest.* Saturated softmax (D20), saturated
+element-wise variance (D18), saturated accuracy (here).
+
+Still open on this model: the counter itself (is `(i - i_ATG) mod 3` computed in Fourier features, as
+in Nanda's grokking result?), and the **LayerNorm faithfulness gap** — every number the tracer knows
+about its own error rate came from LN-free planted models.
