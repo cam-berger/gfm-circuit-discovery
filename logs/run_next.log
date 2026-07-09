@@ -94,3 +94,9 @@ cell C   train (100000, 256)   val (6000, 256)   device mps
   step  1750  train 0.0944  val 0.1824  aa_acc 0.9352  5.1 it/s
   step  2000  train 0.1177  val 0.1429  aa_acc 0.9499  5.1 it/s
   step  2250  train 0.1236  val 0.2259  aa_acc 0.9261  5.1 it/s
+  step  2500  train 0.0769  val 0.1382  aa_acc 0.9584  5.1 it/s
+  step  2750  train 0.0823  val 0.1175  aa_acc 0.9677  5.1 it/s
+  step  3000  train 0.2527  val 0.1379  aa_acc 0.9604  5.2 it/s
+  step  3250  train 0.0203  val 0.0961  aa_acc 0.9732  5.2 it/s
+  step  3500  train 0.0141  val 0.0425  aa_acc 0.9894  5.2 it/s
+  step  3750  train 0.0430  val 0.1032  aa_acc 0.9746  5.2 it/s

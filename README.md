@@ -10,7 +10,8 @@ by TransformerLens / `circuit-tracer`, which target GPT-style decoder-only model
 
 | | |
 |---|---|
-| **`REC.md`** | **The argument, end to end: what we found, what it means, what to do next.** |
+| **`RESULTS.md`** | **Every measured number, with status: SETTLED / PENDING / WITHDRAWN / RETRACTED.** |
+| **`REC.md`** | The argument: critique of Proposal D2, and the criterion that replaces it. |
 | `docs/EXPERIMENTS.md` | **Plain-language account of every experiment and what it showed.** Start here. |
 | `docs/DECISIONS.md` | Why the design is what it is, with the numbers. |
 | `docs/PLAN.md` | Phases and gates. |
