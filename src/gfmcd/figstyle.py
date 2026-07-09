@@ -25,10 +25,14 @@ VIOLET = "#4a3aa7"    # slot 5
 RED = "#e34948"       # slot 6
 ORANGE = "#eb6834"    # slot 8
 
-# Roles.
+# Roles. Validated as a 4-set: #2a78d6,#eb6834,#4a3aa7,#e34948 -> all six checks PASS,
+# worst adjacent CVD dE 78.8.
 ANCHORED = BLUE       # the model built an anchored counter
-ANCHOR_FREE = RED     # the model built an anchor-free estimator
+ANCHOR_FREE = RED     # the model built an anchor-free estimator (bag)
+COUNTER = BLUE
+MIXED = ORANGE
 RELAY = VIOLET
+BAG = RED
 TRUNCATED = ORANGE    # a run stopped mid-transition
 
 

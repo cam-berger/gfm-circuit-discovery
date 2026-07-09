@@ -1170,3 +1170,104 @@ against a naive-Bayes pooled ceiling of 0.9509. **Both of our ceiling estimators
 what the model class can do**, and we predicted from both. Ceilings must be measured with a
 model-class-matched estimator — train the same architecture with the anchor removed and read off its
 accuracy.
+
+---
+
+## D34 — The relay is *anchor-corrected pooling*: it pools to the anchor-free ceiling by L2 and spends the anchor at L4
+
+Phase B asked for a 2-D signature scatter. Producing one exposed a measurement error and, in fixing it,
+localised the relay by depth.
+
+### The measurement error: a probe at a fixed layer measures whichever variable that layer carries
+
+The first attempt read far-field anchor dependence off a probe at `L2.resid_post` for every model. It
+disagreed with the accuracy-based numbers of D33:
+
+```
+model                   probe drop @ L2      aa-acc drop (D33)
+A · uniform, easy            0.6459               0.6094
+C · real CDS, easy           0.0037               0.3529
+```
+
+Cell C's L2 probe is at 0.9515, which is the pooled anchor-free ceiling (0.9509) to within noise.
+Ablating the ATG cannot move a representation that never contained it. **Fixed-layer probing silently
+asks a different question of every model.** The fix — `signatures.peak_anchor_dependence()` — takes the
+**max over depth** of (far-field probe drop under ATG ablation) minus (the same for the decoy-Met
+control), and reports the layer at which it peaks.
+
+### Per-layer ablation
+
+```
+cell C (relay)          intact    ATG-abl    drop      decoy-Met ctl
+  L0–L3               0.83–0.95    ~same    +0.000…+0.008    ~0.000
+  L4                    0.9999     0.6178   +0.3822         -0.0001
+cell A (counter)
+  L1                    0.8823     0.3451   +0.5372         -0.0016
+```
+
+### The corrected signature
+
+```
+model                      peak anchor dep   at layer   anchor share   mechanism
+A · uniform, easy               0.6467          L2         1.0000      counter
+B · uniform, hard               0.5767          L4         0.3879      mixed
+C · real CDS, easy              0.3913          L4         0.0375      relay
+D · real CDS, natural           0.1480          L4         0.1014      relay
+μ=0 · real CDS, LM              0.0025        (none)       0.0882      bag
+```
+
+### The layer probe
+
+```
+model                          embed     L0      L1      L2      L3      L4      L5
+A · uniform (counter)         0.3437  0.3876  0.8853  0.9998  1.0000  0.9998  0.9998
+B · uniform, hard (mixed)     0.3201  0.3495  0.3550  0.3967  0.6007  0.7743  0.7955
+C · real CDS (relay)          0.4071  0.8225  0.8852  0.9515  0.9497  0.9997  0.9411
+D · real CDS (relay)          0.4021  0.8894  0.9177  0.9584  0.9811  0.9927  0.9700
+μ=0 · real CDS (bag)          0.4019  0.8172  0.8172  0.8195  0.8196  0.8178  0.8174
+untrained (random init)       0.3428  0.3433  0.3455  0.3458  0.3435  0.3451  0.3432
+```
+
+Read the rows against the anchor-free ceiling of **0.9509**:
+
+- **bag (μ=0)** — pools to 0.8172 at L0 and never moves again. Five further layers buy 0.0002. It is
+  not even at the pooled ceiling; the LM objective does not pay for the last 0.13.
+- **counter (A)** — starts at chance (uniform codons carry no local phase cue, by construction) and
+  *builds*: L0 0.388 → L1 0.885 → L2 1.000. There is nothing to pool. The anchor is the only route,
+  and it enters at L1/L2.
+- **relay (C, D)** — pools like the bag through L0–L2, arrives at 0.9515 ≈ the anchor-free ceiling, sits
+  there through L3, then **jumps to 0.9997 at L4**. Ablating the ATG costs 0.382 of *that* layer.
+
+### The name is wrong; the mechanism is not a relay
+
+D32 named it "relay" from a behavioural signature: the anchor is causally load-bearing at 255 nt, yet
+under cue conflict the model follows local content. The depth profile says what it actually does:
+
+> **Pool the anchor-free evidence to its ceiling, then spend the anchor to buy the residual.**
+
+It is not propagating frame *from* the anchor (that is the counter). It is computing frame *without* the
+anchor, hitting the imperfection that pooling leaves — the ~5% of windows the stop-free-frame scan
+cannot resolve — and using the anchor as a **correction term** on exactly those. Hence the cue-conflict
+result: on the 95% of windows local content already decides, moving the anchor changes nothing, so
+"content share" ≈ 0.91. And hence the ablation result: on the residual, the anchor is all there is.
+
+**Anchor-corrected pooling** is the accurate name. "Relay" is retained in the code and figures as the
+enum value to keep the 2×2 comparable, and flagged here as a misnomer.
+
+### Why this matters for the sufficiency criterion
+
+D30 said a circuit forms iff no pooled statistic is sufficient, and that *imperfection*, not weakness,
+is the threshold. D34 shows **where the imperfection is paid for**: not by rebuilding the computation,
+but by bolting a late correction onto a pooled estimate. The model does the cheap thing for 95% of the
+distribution and the expensive thing for 5% — and it does them in *different layers*. A tracer that
+averages over the data distribution will see 95% bag and miss the circuit entirely.
+
+**This predicts the Phase C hypothesis.** If L4's correction is a per-position re-sync to the anchor,
+anchor dependence should be flat in distance (the correction is a lookup). If it is a global count,
+dependence should decay. And the correction should be **concentrated on the windows the pooled scan
+gets wrong** — that is a per-window prediction, and it is falsifiable.
+
+### Status
+
+`SETTLED` (measurement), one seed per cell. Error bars are Phase D. The claim "cell C's L4 is where the
+anchor enters" rests on an ablation whose decoy-Met control is −0.0001, i.e. 3800× specificity.
