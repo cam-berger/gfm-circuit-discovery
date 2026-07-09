@@ -123,6 +123,29 @@ gain from PERFECT phase   = 0.0241 nats
 The model already infers phase at 0.79 from local statistics. **An anchored counter buys at most
 0.005 nats — 0.40% of a 1.27-nat loss**, and that is an upper bound.
 
+### 2a. Corrected ceilings (2026-07-09) — and a better statement of the finding
+
+Designing the next experiment forced two measurements that sharpen §2, and retracted two claims I made
+along the way (D28). All on the same real-CDS windows:
+
+```
+frame accuracy on real hg38 CDS
+  bag, ±15 nt naive Bayes                      0.6419
+  anchor-free stop-codon scan, 240 nt          0.8242
+  the trained model actually achieves          0.7936
+  learned anchor detector (ATG + Kozak + ORF)  0.9215
+```
+
+**The trained model sits essentially at the anchor-free ceiling.** It is not lazy relative to what is
+locally available — it extracts nearly all of the distributed frame signal the genetic code provides,
+and it stops exactly where an *anchor* would be required. The anchor is worth a further ~+0.10, and the
+model does not take it.
+
+I raised and retracted, within an hour, the claims that (i) genomic landmarks are unidentifiable from
+sequence — a learned detector reaches 0.9215 frame accuracy, my Kozak heuristic reached 0.707 — and
+(ii) that stop-codon absence alone fixes the frame, making the anchor pointless (it reaches 0.8242, not
+1.0). Both are recorded in D28 rather than quietly deleted.
+
 **The model is not failing. It is correctly declining to build machinery the objective does not pay
 for.** Longer training cannot help; there is almost nothing to grok toward. This is the genomic
 instance of Nikankin's arithmetic-as-heuristics result, and it supplies a mechanistic explanation for
@@ -251,9 +274,12 @@ latent variable.**
 1. **It separates necessity from difficulty**, which λ provably cannot. Codon bias makes the frame more
    useful and more guessable in lockstep, because both come from the same statistical structure (D25).
    The mixture varies necessity while the shortcut stays fixed at whatever the data gives.
-2. **Both endpoints are already measured.** μ = 0 is real self-supervision → bag (§2). μ = 1 is the
-   forcing task → circuit (§3). A threshold **must** exist between them. This is a measurement of a
-   quantity guaranteed to be there, not a fishing expedition.
+2. **Both endpoints are already measured — for the synthetic sweep.** With uniform codons, μ = 0 is
+   the bag (§2) and μ = 1 is the forcing task → circuit (§3), so a threshold **must** exist between
+   them. **This guarantee is specific to uniform codons.** On real hg38 CDS the local shortcut returns
+   (it is what drives the 0.79 phase-decode in §2), so μ = 1 on real CDS is *not* the §3 forcing task
+   and is not guaranteed to install the circuit. The uniform-codon sweep is therefore the confirmatory
+   measurement; the real-CDS sweep is external validity, not the anchor (§6).
 3. **Both terms are real objectives.** μ = 0 is literally DNABERT's loss; μ = 1 is translation. The
    mixture is a training recipe someone could adopt. By contrast λ = 0 is DNA that does not exist.
 4. **It is non-circular.** The model is never told the frame; it is told the protein — a function of
@@ -263,9 +289,14 @@ latent variable.**
    ribosome profiling depends on frame; protein-level properties require it. If μ\* is small, all of
    these become plausible interventions.
 
-**The deliverable is a number.** μ\*, the smallest weight on a frame-demanding objective that installs
-the circuit — reported alongside **the price**: the language-modelling loss sacrificed at that μ. The
-sentence we want to be able to write is:
+**The deliverable is a number** — but μ is only well-defined once the two loss terms are commensurable.
+The amino-acid term starts at `ln(21) = 3.04` nats, the nucleotide term at `ln(4) = 1.39`, so a raw μ
+mixes unequal scales. **Normalise each term by its entropy at initialisation** (report raw gradient
+norms alongside) before μ\* means anything; this is a definitional prerequisite, not a caveat.
+
+μ\*, the smallest weight on a frame-demanding objective that installs the circuit, is reported over
+**≥3 seeds per arm as an interval** — a single-seed threshold is not a headline — alongside **the
+price**: the language-modelling loss sacrificed at that μ. The sentence we want to be able to write is:
 
 > *"Adding a frame-demanding auxiliary loss at weight μ\* costs X nats of language-modelling
 > performance and installs a causally-verified reading-frame circuit."*
@@ -280,10 +311,25 @@ before they were ever pointed at a trained model. That is what Rung 0 was for.
 
 ## 6. Recommended path
 
-**Run the μ sweep on real hg38 CDS, not synthetic sequence.** The amino-acid label is real there — it
-is just translation, straight from GENCODE — and μ = 0 becomes *literally* the objective the field
-trains on. More work, strictly more convincing, and it removes the "toy model" objection from the
-primary result. μ spaced logarithmically; the interesting region is almost certainly small μ.
+**First, close the LayerNorm faithfulness gap — it gates everything downstream.** Every causal ranking
+in §4 (L1H2 inert vs L1H3 load-bearing; IG still crediting the inert head 16.5%) and every μ-sweep
+readout rests on a tracer whose entire measured error rate came from **LN-free** planted models.
+GFM-nano has LayerNorm; the replacement model must freeze it; that approximation is currently
+**unmeasured**. Plant a circuit in an LN-equipped tiny transformer and re-run Tests A and C. A day's
+work — and until it is done, the trace and transplant claims are not yet on measured ground. This is a
+Gate-0 completion item, not a trailing chore.
+
+**Then the confirmatory μ sweep on uniform-codon synthetic CDS** — the only regime where μ = 1 provably
+installs the circuit (§5.2), so where μ\* is defensible. μ log-spaced (the interesting region is almost
+certainly small μ); ≥3 seeds per arm; entropy-normalised terms (§5); arms compared at **matched
+language-modelling loss, not matched steps** — grokking makes the stopping point a scientific choice.
+μ\* reported as an interval.
+
+**Then a real-hg38-CDS sweep as external validity, not as the anchor.** The amino-acid label is real
+there — translation straight from GENCODE — and μ = 0 becomes *literally* the field's objective, which
+removes the "toy model" objection. But the local codon shortcut is back (it drives the 0.79 phase-decode
+in §2), so μ = 1 no longer guarantees a circuit and the necessity/difficulty separation weakens. Report
+it as "does μ\* transfer," downstream of the synthetic result — never as the primary measurement.
 
 **Then circuit transplantation (Phase 3).** Transplant is direct by construction — the forcing-task
 model and the real-DNA arms share one backbone; only the head differs. And it comes with a prediction
@@ -295,11 +341,9 @@ Of the three transplant experiments, **3c is the one I most want**: hand a real-
 for free, fine-tune, and watch whether it survives or erodes. Today we can say *the objective does not
 build the circuit*. If it erodes, we can say **the objective will not even keep it** — a claim about
 the loss landscape rather than about optimisation difficulty. Bag-as-default versus bag-as-attractor.
-
-**Still owed, and small:** the LayerNorm faithfulness gap. Everything the tracer knows about its own
-error rate was learned on LN-free planted models. GFM-nano has LayerNorm; the replacement model must
-freeze it; that approximation is currently **unmeasured**. Plant a circuit in an LN-equipped tiny
-transformer and re-run Tests A and C. A day's work, and it closes the last hole in Gate 0.
+Give 3c the same discipline 3b already has: a **freeze-a-matched-set-of-irrelevant-heads control**
+(freezing anything can hurt for unrelated reasons) and erosion read at **matched LM loss, not matched
+steps**.
 
 **Deprioritise:** Rungs 2 and 3 (splice sites, G-quadruplex), SSMs, crosscoders (cut — Minder et al.
 2025 show naive-L1 crosscoders fabricate exactly the model-unique structure H2 would claim), and JSAE
@@ -311,8 +355,10 @@ transformer and re-run Tests A and C. A day's work, and it closes the last hole 
 
 **The forcing task is synthetic, and a reviewer will say so.** Its job is not to be realistic. Its job
 is to establish that the tracer finds a real learned circuit when one exists, so that the hg38 negative
-is a fact about DNA and not about our instruments. Running the μ sweep on real CDS removes this
-objection from the primary claim. State the division of labour explicitly: **the hg38 result is the
+is a fact about DNA and not about our instruments. The real-CDS μ sweep (§6) answers it as external
+validity — but it cannot *be* the confirmatory anchor, because on real CDS μ = 1 no longer guarantees a
+circuit (§5.2), so the synthetic sweep stays primary. State the division of labour explicitly: **the
+hg38 result is the
 finding; the synthetic model is the control that licenses it; the planted models are what prove the
 instruments work at all.**
 
@@ -320,14 +366,16 @@ instruments work at all.**
 already has 256 nt of it. The true conditional gain is probably *smaller*, which strengthens the
 argument — but I have not measured it directly, and I should.
 
-**μ is not a clean fraction of "demand."** The amino-acid loss starts at `ln(21) = 3.04` nats, the
-nucleotide loss at `ln(4) = 1.39`. Normalise each term by its entropy at initialisation and report raw
-gradient norms, or μ means nothing.
-
 **"No circuit at small μ" may be undertraining.** The check is free: if amino-acid accuracy sits at the
 0.3768 guessing ceiling, the frame genuinely was not built. And because grokking makes *when you stop*
 a scientific choice, compare arms at **matched language-modelling loss**, not matched steps, and always
-qualify a negative as "within N steps" rather than "never."
+qualify a negative as "within N steps" rather than "never." (μ-normalisation and seed count are now in
+§5/§6, not caveats.)
+
+**The pre-registration is not frozen, and power is uncomputed.** `PREREGISTRATION.md` still carries the
+power TODO, and μ\* over a single seed is not reportable. Fix seeds per arm from a power simulation and
+freeze the registry before the test split is unlocked — the deliverable is a number, so it needs an
+interval.
 
 **A partial graft is meaningless without alignment.** Inserting `L1H3` alone into a separately-trained
 model fails: the two residual streams have unrelated bases. It needs a learned alignment, and then the

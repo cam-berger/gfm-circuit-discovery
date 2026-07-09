@@ -746,3 +746,95 @@ element-wise variance (D18), saturated accuracy (here).
 Still open on this model: the counter itself (is `(i - i_ATG) mod 3` computed in Fourier features, as
 in Nanda's grokking result?), and the **LayerNorm faithfulness gap** — every number the tracer knows
 about its own error rate came from LN-free planted models.
+
+
+---
+
+## D28 — Two claims raised and retracted in one hour, and the ceiling table that replaces them
+
+Designing the μ sweep exposed that the λ sweep and my first μ proposal shared a category error, and
+that two intermediate claims I made along the way were wrong. Recording all of it, because the
+retracted claims were each plausible enough to have shipped.
+
+### The λ sweep measures difficulty, not necessity
+
+**Every λ arm is μ = 1** — a pure amino-acid readout. At every λ, predicting the amino acid still
+requires the frame *exactly*; codon bias supplies partial phase information, which smooths the loss
+landscape and gets the model off the plateau sooner but never removes the *need* for the anchor.
+
+```
+arm        shortcut (% of real)   grokked at step
+uniform             0%                3250
+λ = 0.25            4%                3000
+λ = 0.50           16%                1500
+λ = 0.75           35%                ~750
+λ = 1.00           63%                ~1250 (aa 0.9374)
+```
+
+A stronger shortcut makes the circuit appear **faster**, never less often. I built a difficulty dial
+and called it a necessity dial. Kept as a secondary result — *a partial shortcut scaffolds discovery of
+the exact mechanism rather than suppressing it* — and reinterpreted as the **shortcut row of a 2×2 at
+μ = 1**, which is what it actually is.
+
+### The uniform-codon μ sweep would repeat the error
+
+On uniform-codon sequence the nucleotide term has almost nothing to predict:
+
+```
+data                       H(nt)   H(nt|prev6)   reducible
+uniform-codon synthetic   1.3863     1.3631        0.023     (mostly 6-mer estimator bias)
+λ = 1 (real codon usage)  1.3839     1.3397        0.044
+real hg38 CDS             1.3707     1.2026        0.168
+```
+
+`ln 4 = 1.3863`. So on uniform codons **μ = 0 is the void, not the bag** — the LM term is already at its
+optimum for any model emitting a uniform distribution, and exerts no pull toward a competing solution.
+μ\* there would measure gradient magnitude under zero competition. The bag only competes on real CDS.
+
+### RETRACTED: "genomic landmarks are not identifiable from sequence"
+
+A hand-written Kozak rule (purine at −3, G at +4) locates the true start in only 70.7% of anchored
+windows, from which I computed that a circuit could reach 0.8034 against a bag at ~0.80 and therefore
+buys **+0.0034** — concluding that the anchor is unfindable and no μ installs the circuit on real DNA.
+
+**A learned detector demolishes this.** Given ±12 nt of one-hot context plus ORF-integrity features
+(an authentic start has no in-frame stop downstream), gradient boosting reaches:
+
+```
+exact start accuracy   0.8535
+FRAME accuracy (mod 3) 0.9215    <- the only one that matters: an in-frame decoy is harmless
+```
+
+My rule was a strawman. The circuit ceiling is ~0.925, and it buys **+0.125**, not +0.003.
+
+### RETRACTED: "so real DNA's frame is anchor-free and the circuit is redundant"
+
+The follow-on guess — that stop-codon absence alone determines the frame, making the anchor pointless —
+is also wrong, though closer:
+
+```
+frame accuracy, anchor-free stop-codon scan
+   30 nt context   0.4492
+   90 nt           0.6533
+  240 nt           0.8242     (34% of windows still tie)
+```
+
+### The table that replaces both
+
+```
+frame accuracy on real hg38 CDS
+  bag, ±15 nt naive Bayes                      0.6419
+  anchor-free stop-codon scan, 240 nt          0.8242
+  the trained model actually achieves          0.7936
+  learned anchor detector (ATG + Kozak + ORF)  0.9215
+```
+
+**The trained model sits essentially at the anchor-free ceiling.** It is not lazy relative to what is
+locally available — it has extracted nearly all of the distributed frame signal the genetic code
+provides, and it stops exactly where an anchor would be required. The anchor is worth a further ~+0.10,
+and the model does not take it.
+
+That is a better statement of this project's finding than "the circuit is worth 0.4% of the loss,"
+which remains true of the **μ = 0** objective and is the reason no circuit forms there. The two
+statements are the same fact measured under two objectives, and the 2×2 (see `PREREGISTRATION.md`
+addendum) separates them.

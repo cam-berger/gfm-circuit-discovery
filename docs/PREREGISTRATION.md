@@ -64,3 +64,62 @@ Only `gfm-nano-*` and the planted models admit an honest chromosome holdout.
 
 Not yet computed. **TODO before freeze:** simulate the C1/C2 monotone contrast across four arms under
 plausible completeness variance to fix the number of seeds per arm.
+
+
+---
+
+## Addendum, frozen 2026-07-09 — the necessity 2×2
+
+Registered **before** any cell was run. Rationale in `REC.md` §5–6 and `DECISIONS.md` D28.
+
+All four cells use **μ = 1** (pure amino-acid readout — the frame is required, not merely useful).
+Two factors, each at two levels:
+
+```
+                    detector EASY                     detector HARD
+shortcut ABSENT     [A] uniform codons                [B] uniform + decoy ATGs + planted Kozak
+                        (already run: circuit @3250)       (Kozak strength calibrated to d≈0.92)
+shortcut PRESENT    [C] real CDS, no-upstream-ATG      [D] real CDS, natural
+```
+
+Cell B carries no ORF-integrity cue — with uniform codons, stops occur at rate 3/64 in *every* frame,
+including the true one — so the planted Kozak motif is the only thing distinguishing the true start
+from a decoy. Its strength is calibrated so the Bayes-optimal detector matches real data's measured
+frame accuracy of 0.9215. That makes B a **matched-difficulty** control, not an arbitrary one.
+
+### Verdict (frozen; both criteria required)
+
+```
+far-field cue-conflict anchor share (≥64 nt)   > 0.50
+AND start-codon ablation Δ(aa accuracy)        > 0.10 beyond the decoy-Met control
+```
+
+Both are **causal**, both were validated on the planted twins (D3, D24) before being pointed at any
+trained model, and **neither is the training accuracy** — which saturates, and has already fooled us
+once (D27). Continuous values are reported regardless of which side of the threshold they land on;
+the threshold only labels the cell.
+
+### Attribution logic
+
+```
+D fails, B and C succeed   ->  the two factors interact
+D fails, B fails           ->  detector difficulty did it
+D fails, C fails           ->  the shortcut did it
+D succeeds                 ->  neither factor prevents the circuit; proceed to the μ sweep on real CDS
+```
+
+### Seeds
+
+One seed per cell for the factorial pass; **three seeds on whichever cell the attribution turns on.**
+A 3-seed full factorial is 12 runs and 8 of them would confirm cells nobody disputes — cell A is
+already replicated (λ=0 and λ=0.25 both grokked). μ\* is reported as an interval over ≥3 seeds.
+
+### Expected payoffs, computed before running (`REC.md` §2a)
+
+```
+cell   bag ceiling   circuit ceiling   circuit buys
+A         0.3768        1.0000            +0.6232
+B         0.3768        ~0.926            +0.55
+C        ~0.824         ~1.000            +0.18
+D        ~0.824          0.9251           +0.10
+```

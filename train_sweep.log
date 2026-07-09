@@ -129,3 +129,73 @@ train (200000, 256)  val (8000, 256)  device mps
   step  6500  train 0.0001  val 0.0004  aa_acc 0.9999  [FRAME]  5.2 it/s
   step  6750  train 0.0003  val 0.0002  aa_acc 0.9999  [FRAME]  5.2 it/s
   step  7000  train 0.0001  val 0.0003  aa_acc 0.9999  [FRAME]  5.2 it/s
+  step  7250  train 0.0001  val 0.0002  aa_acc 0.9999  [FRAME]  5.2 it/s
+  step  7500  train 0.0000  val 0.0002  aa_acc 1.0000  [FRAME]  5.2 it/s
+  step  7750  train 0.0001  val 0.0001  aa_acc 1.0000  [FRAME]  5.2 it/s
+  step  8000  train 0.0002  val 0.0001  aa_acc 1.0000  [FRAME]  5.2 it/s
+done in 25.6 min
+=============== lambda 1.0  09:21:00 ===============
+/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/train_uniform.py:117: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:839.)
+  print(f"  step {step:5d}  train {float(loss):.4f}  val {vl:.4f}  aa_acc {va:.4f}  [{verdict}]  {step/(time.time()-t0):.1f} it/s", flush=True)
+lambda 1.0   I(nt;phase) 0.01508 nats  (63% of real hg38 CDS)
+uniform-codon alignment-free ceiling 0.3768
+train (200000, 256)  val (8000, 256)  device mps
+4.81M params, bidirectional, 21-way amino-acid head
+  step     1  train 3.0919  val 3.0859  aa_acc 0.0420  [frameless]  0.8 it/s
+  step   250  train 2.4870  val 2.4887  aa_acc 0.1913  [frameless]  5.2 it/s
+  step   500  train 2.4664  val 2.4827  aa_acc 0.1926  [frameless]  5.2 it/s
+  step   750  train 1.5101  val 1.4497  aa_acc 0.4194  [frameless]  5.2 it/s
+  step  1000  train 0.7668  val 0.8015  aa_acc 0.6631  [FRAME]  5.2 it/s
+  step  1250  train 0.1470  val 0.2089  aa_acc 0.9202  [FRAME]  5.2 it/s
+  step  1500  train 0.1563  val 0.1361  aa_acc 0.9373  [FRAME]  5.2 it/s
+  step  1750  train 0.0876  val 0.0974  aa_acc 0.9675  [FRAME]  5.2 it/s
+  step  2000  train 0.0252  val 0.0386  aa_acc 0.9877  [FRAME]  5.2 it/s
+  step  2250  train 0.0490  val 0.0231  aa_acc 0.9934  [FRAME]  5.2 it/s
+  step  2500  train 0.0068  val 0.0050  aa_acc 0.9983  [FRAME]  5.2 it/s
+  step  2750  train 0.0015  val 0.0041  aa_acc 0.9990  [FRAME]  5.2 it/s
+  step  3000  train 0.0010  val 0.0053  aa_acc 0.9983  [FRAME]  5.2 it/s
+  step  3250  train 0.0014  val 0.0021  aa_acc 0.9994  [FRAME]  5.2 it/s
+  step  3500  train 0.0012  val 0.0010  aa_acc 0.9997  [FRAME]  5.2 it/s
+  step  3750  train 0.0005  val 0.0014  aa_acc 0.9995  [FRAME]  5.2 it/s
+  step  4000  train 0.0010  val 0.0004  aa_acc 0.9999  [FRAME]  5.2 it/s
+  step  4250  train 0.0007  val 0.0036  aa_acc 0.9989  [FRAME]  5.3 it/s
+  step  4500  train 0.0092  val 0.0006  aa_acc 0.9998  [FRAME]  5.3 it/s
+  step  4750  train 0.0000  val 0.0038  aa_acc 0.9994  [FRAME]  5.3 it/s
+  step  5000  train 0.0000  val 0.0036  aa_acc 0.9993  [FRAME]  5.3 it/s
+  step  5250  train 0.0000  val 0.0001  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  5500  train 0.0002  val 0.0004  aa_acc 0.9999  [FRAME]  5.3 it/s
+  step  5750  train 0.0000  val 0.0002  aa_acc 0.9999  [FRAME]  5.3 it/s
+  step  6000  train 0.0000  val 0.0012  aa_acc 0.9996  [FRAME]  5.3 it/s
+  step  6250  train 0.0003  val 0.0001  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  6500  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  6750  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  7000  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  7250  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  7500  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  7750  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  8000  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.3 it/s
+done in 25.3 min
+=============== lambda 1.5  09:46:21 ===============
+/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/train_uniform.py:117: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:839.)
+  print(f"  step {step:5d}  train {float(loss):.4f}  val {vl:.4f}  aa_acc {va:.4f}  [{verdict}]  {step/(time.time()-t0):.1f} it/s", flush=True)
+lambda 1.5   I(nt;phase) 0.03116 nats  (129% of real hg38 CDS)
+uniform-codon alignment-free ceiling 0.3768
+train (200000, 256)  val (8000, 256)  device mps
+4.81M params, bidirectional, 21-way amino-acid head
+  step     1  train 3.1009  val 3.0920  aa_acc 0.0416  [frameless]  0.8 it/s
+  step   250  train 2.4406  val 2.4414  aa_acc 0.1970  [frameless]  5.3 it/s
+  step   500  train 2.0117  val 1.9903  aa_acc 0.2695  [frameless]  5.3 it/s
+  step   750  train 1.1194  val 1.1279  aa_acc 0.5043  [frameless]  5.3 it/s
+  step  1000  train 0.4004  val 0.4064  aa_acc 0.8114  [FRAME]  5.3 it/s
+  step  1250  train 0.1354  val 0.1610  aa_acc 0.9374  [FRAME]  5.3 it/s
+  step  1500  train 0.0252  val 0.0239  aa_acc 0.9911  [FRAME]  5.3 it/s
+  step  1750  train 0.0016  val 0.0656  aa_acc 0.9910  [FRAME]  5.3 it/s
+  step  2000  train 0.0197  val 0.0083  aa_acc 0.9983  [FRAME]  5.3 it/s
+  step  2250  train 0.0032  val 0.0027  aa_acc 0.9992  [FRAME]  5.3 it/s
+  step  2500  train 0.0123  val 0.0016  aa_acc 0.9995  [FRAME]  5.3 it/s
+  step  2750  train 0.0146  val 0.0027  aa_acc 0.9993  [FRAME]  5.3 it/s
+  step  3000  train 0.0015  val 0.0046  aa_acc 0.9988  [FRAME]  5.3 it/s
+  step  3250  train 0.0012  val 0.0009  aa_acc 0.9997  [FRAME]  5.3 it/s
+  step  3500  train 0.0017  val 0.0023  aa_acc 0.9993  [FRAME]  5.3 it/s
