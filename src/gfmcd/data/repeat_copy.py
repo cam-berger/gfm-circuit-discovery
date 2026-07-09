@@ -127,6 +127,39 @@ def conflict_batch(batch: RepeatCopyBatch) -> tuple[np.ndarray, np.ndarray, np.n
     return edited, distal, local
 
 
+def single_conflict_batch(batch: RepeatCopyBatch, seed: int = 0) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """Create a one-edit-per-sequence distal-copy conflict.
+
+    `conflict_batch` edits every copied continuation, which is useful as a stress test but corrupts
+    the first occurrence's prefix for later copy positions. This version edits exactly one source
+    continuation per sequence and scores exactly the corresponding prediction, so the matching key
+    remains intact.
+
+    Returns `(tokens_conflict, distal_targets, local_targets, score_mask)`, all AR-aligned except
+    `tokens_conflict`.
+    """
+
+    rng = np.random.default_rng(seed)
+    edited = batch.tokens.copy()
+    distal = np.full(batch.copy_mask.shape, IGNORE, dtype=np.int64)
+    local = np.full(batch.copy_mask.shape, IGNORE, dtype=np.int64)
+    score_mask = np.zeros(batch.copy_mask.shape, dtype=bool)
+
+    for r in range(len(batch.tokens)):
+        positions = np.flatnonzero(batch.copy_mask[r])
+        if len(positions) == 0:
+            continue
+        p = int(rng.choice(positions))
+        src = int(batch.source_index[r, p])
+        new_base = int((edited[r, src] + 1) % 4)
+        edited[r, src] = new_base
+        distal[r, p] = new_base
+        local[r, p] = int(batch.tokens[r, p + 1])
+        score_mask[r, p] = True
+
+    return edited, distal, local, score_mask
+
+
 def copy_accuracy(logits: np.ndarray, targets: np.ndarray, copy_mask: np.ndarray) -> float:
     """Accuracy restricted to repeat-copy positions."""
 

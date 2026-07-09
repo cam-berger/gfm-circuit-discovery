@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Circuit Discovery in Genomic Models — a primer for the briefing</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --meta:#6b6b6b; --line:#d8d8d2; --bg:#ffffff; --panel:#f7f6f2;
+    --p0:#2f6fb0;   /* phase 0 / relational-blue */
+    --p1:#d98a29;   /* phase 1 / orange */
+    --p2:#4a9463;   /* phase 2 / green */
+    --anchor:#c2453f; /* start codon / anchor red */
+    --accent:#3a5fa8;
+    --good:#4a9463; --bad:#c2453f; --warn:#d98a29;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    color:var(--ink); background:var(--bg); line-height:1.55;
+    margin:0; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px; margin:0 auto; padding:32px 28px 96px}
+  header.doc{border-bottom:2px solid var(--ink); padding-bottom:16px; margin-bottom:8px}
+  header.doc h1{font-size:26px; line-height:1.2; margin:0 0 6px; font-weight:700; letter-spacing:-0.01em}
+  header.doc .sub{color:var(--meta); font-size:14.5px; max-width:70ch}
+  header.doc .meta{color:var(--meta); font-size:12.5px; margin-top:10px}
+  nav.toc{background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:14px 18px; margin:22px 0 30px; font-size:14px}
+  nav.toc b{display:block; font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--meta); margin-bottom:8px}
+  nav.toc ol{margin:0; padding-left:20px; columns:2; column-gap:32px}
+  nav.toc li{margin:3px 0; break-inside:avoid}
+  nav.toc a{color:var(--accent); text-decoration:none}
+  nav.toc a:hover{text-decoration:underline}
+  section{margin:0 0 40px; scroll-margin-top:18px}
+  h2{font-size:20px; font-weight:700; margin:38px 0 10px; padding-top:8px; border-top:1px solid var(--line); letter-spacing:-0.01em}
+  h2 .n{color:var(--meta); font-weight:650; margin-right:10px}
+  h3{font-size:15.5px; font-weight:650; margin:22px 0 6px}
+  p{margin:10px 0}
+  .lead{font-size:16px}
+  strong{font-weight:650}
+  .term{font-weight:650; color:var(--accent)}
+  code{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:0.9em; background:var(--panel); padding:1px 5px; border-radius:4px}
+  figure{margin:20px 0; padding:0}
+  figure svg{display:block; width:100%; height:auto; border:1px solid var(--line); border-radius:8px; background:#fff}
+  figcaption{font-size:13px; color:var(--meta); margin-top:8px; line-height:1.45}
+  figcaption b{color:var(--ink)}
+  .callout{background:var(--panel); border-left:3px solid var(--accent); border-radius:0 8px 8px 0; padding:12px 16px; margin:16px 0; font-size:14.5px}
+  .callout.key{border-left-color:var(--anchor)}
+  .callout .k{display:block; font-size:11.5px; text-transform:uppercase; letter-spacing:0.08em; color:var(--meta); margin-bottom:4px}
+  table{border-collapse:collapse; width:100%; margin:16px 0; font-size:13.5px}
+  th,td{text-align:left; padding:7px 10px; border-bottom:1px solid var(--line)}
+  th{font-weight:650; color:var(--meta); font-size:12px; text-transform:uppercase; letter-spacing:0.04em; border-bottom:1.5px solid var(--line)}
+  td.num{font-family:ui-monospace,Menlo,monospace; text-align:right}
+  .tag{display:inline-block; font-size:11px; font-weight:650; padding:1px 7px; border-radius:20px; letter-spacing:0.02em; vertical-align:middle}
+  .tag.done{background:#e4f0e8; color:#2f6b47}
+  .tag.next{background:#fdf0dd; color:#9c6314}
+  .tag.open{background:#f6e2e1; color:#9c3733}
+  .refs{font-size:13px}
+  .refs li{margin:9px 0}
+  .refs .who{font-weight:650}
+  .refs .id{color:var(--meta); font-family:ui-monospace,Menlo,monospace; font-size:12px}
+  .foot{margin-top:60px; padding-top:14px; border-top:1px solid var(--line); font-size:12.5px; color:var(--meta)}
+  sup a{color:var(--accent); text-decoration:none; font-weight:650}
+  @media print{ nav.toc{break-inside:avoid} section{break-inside:avoid-page} body{font-size:12px} }
+  @media (max-width:640px){ nav.toc ol{columns:1} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc">
+  <h1>When does a genomic model build a circuit at all?</h1>
+  <div class="sub">A briefing primer — the mechanistic-interpretability toolbox, how we use it to find circuits, the biology in play, and what the "ceiling" is and whether it holds up.</div>
+  <div class="meta">Companion to <em>Proposal: Sufficiency-Based Circuit Discovery</em> · evidence in <code>RESULTS.md</code> / <code>REC.md</code> / <code>docs/DECISIONS.md</code> (D1–D32) · numbers below are measured, not illustrative.</div>
+</header>
+
+<nav class="toc">
+  <b>Read in order — or jump</b>
+  <ol>
+    <li><a href="#big">The one idea</a></li>
+    <li><a href="#bio">Biology: reading frame &amp; codons</a></li>
+    <li><a href="#toolbox">The mech-interp toolbox</a></li>
+    <li><a href="#method">How we actually find a circuit</a></li>
+    <li><a href="#ceiling">The "ceiling" &amp; is it significant</a></li>
+    <li><a href="#results">What we found — two circuits</a></li>
+    <li><a href="#refs">References</a></li>
+  </ol>
+</nav>
+
+<section id="big">
+<h2><span class="n">1</span>The one idea, in a sentence</h2>
+<p class="lead">A foundation model builds a genuine <span class="term">relational circuit</span> — a computation that connects two distant positions — <strong>only when no shortcut can do the job</strong>. If a statistic the model can pool over its context window (a bag of local motif counts) is already a <em>sufficient statistic</em> for the target, the model uses that and no circuit is built. The threshold is <strong>imperfection, not weakness</strong>: a shortcut that is 96.5% accurate does <em>not</em> get displaced by a real circuit unless the task actually demands the last few percent.</p>
+
+<figure>
+<svg viewBox="0 0 860 300" role="img" aria-label="Sufficiency criterion diagram">
+  <!-- axis -->
+  <text x="30" y="28" font-size="13" font-weight="700" fill="#1a1a1a">accuracy the task DEMANDS  vs  best SHORTCUT can reach</text>
+  <!-- left case: shortcut sufficient -->
+  <g transform="translate(40,55)">
+    <text x="170" y="0" font-size="13" font-weight="650" fill="#6b6b6b" text-anchor="middle">Shortcut is enough → NO circuit</text>
+    <!-- track -->
+    <line x1="0" y1="60" x2="340" y2="60" stroke="#d8d8d2" stroke-width="2"/>
+    <text x="0" y="205" font-size="10.5" fill="#6b6b6b">0%</text>
+    <text x="330" y="205" font-size="10.5" fill="#6b6b6b">100%</text>
+    <!-- shortcut bar -->
+    <rect x="0" y="70" width="238" height="26" rx="4" fill="#6b6b6b" opacity="0.35"/>
+    <text x="119" y="88" font-size="12" fill="#1a1a1a" text-anchor="middle">shortcut reaches 96.5%</text>
+    <!-- demand line -->
+    <line x1="224" y1="45" x2="224" y2="175" stroke="#3a5fa8" stroke-width="2.5" stroke-dasharray="5 4"/>
+    <text x="224" y="192" font-size="11" fill="#3a5fa8" text-anchor="middle" font-weight="650">demand 92%</text>
+    <text x="170" y="150" font-size="12" fill="#2f6b47" text-anchor="middle" font-weight="650">demand &lt; shortcut ✓ pool</text>
+  </g>
+  <!-- divider -->
+  <line x1="430" y1="45" x2="430" y2="255" stroke="#d8d8d2" stroke-width="1"/>
+  <!-- right case: shortcut insufficient -->
+  <g transform="translate(470,55)">
+    <text x="170" y="0" font-size="13" font-weight="650" fill="#6b6b6b" text-anchor="middle">Shortcut falls short → CIRCUIT forms</text>
+    <line x1="0" y1="60" x2="340" y2="60" stroke="#d8d8d2" stroke-width="2"/>
+    <text x="0" y="205" font-size="10.5" fill="#6b6b6b">0%</text>
+    <text x="330" y="205" font-size="10.5" fill="#6b6b6b">100%</text>
+    <rect x="0" y="70" width="238" height="26" rx="4" fill="#6b6b6b" opacity="0.35"/>
+    <text x="119" y="88" font-size="12" fill="#1a1a1a" text-anchor="middle">shortcut reaches 96.5%</text>
+    <!-- demand at 100 -->
+    <line x1="340" y1="45" x2="340" y2="175" stroke="#c2453f" stroke-width="2.5" stroke-dasharray="5 4"/>
+    <text x="336" y="192" font-size="11" fill="#c2453f" text-anchor="end" font-weight="650">demand 100%</text>
+    <!-- gap -->
+    <rect x="238" y="70" width="102" height="26" rx="4" fill="#c2453f" opacity="0.18"/>
+    <text x="289" y="88" font-size="11" fill="#c2453f" text-anchor="middle">the gap</text>
+    <text x="170" y="150" font-size="12" fill="#9c3733" text-anchor="middle" font-weight="650">demand &gt; shortcut → must build it</text>
+  </g>
+</svg>
+<figcaption><b>The sufficiency criterion.</b> The only thing that decides whether a circuit exists is whether the task's demanded accuracy sits <em>above</em> the best pooled shortcut. On the left the shortcut clears the bar, so the model never builds the relational machinery. On the right a demand for the last few percent opens a gap the shortcut cannot fill — and the circuit appears, abruptly, which is why it looks like <em>grokking</em>.<sup><a href="#r-grok">[grok]</a></sup></figcaption>
+</figure>
+
+<div class="callout key">
+<span class="k">Why this reframes the field</span>
+Interpretability of genomic models has assumed the circuits are there and treated <em>tracing</em> as the hard part. Our results invert that: <strong>existence is the open problem, and the usual answer is "no circuit."</strong> The models mostly pool, because pooling suffices — which is the mechanistic version of <span class="term">shortcut learning</span>.<sup><a href="#r-short">[shortcut]</a></sup>
+</div>
+</section>
+
+<section id="bio">
+<h2><span class="n">2</span>The biology: reading frame and codons</h2>
+<p>Our first test computation is <span class="term">reading frame</span>, because the ground truth is exact and the biology is textbook. A protein-coding gene is read three letters at a time; each triplet is a <span class="term">codon</span> that names one amino acid. Reading starts at a <code>ATG</code> <strong>start codon</strong> and proceeds in steps of three. So the "phase" of any nucleotide — is it the 1st, 2nd, or 3rd letter of its codon — is just its distance from the start, counted <em>modulo 3</em>.</p>
+
+<figure>
+<svg viewBox="0 0 860 210" role="img" aria-label="Reading frame diagram">
+  <text x="24" y="26" font-size="13" font-weight="650" fill="#1a1a1a">Frame = (position − start) mod 3 — a relational computation across distance</text>
+  <g font-family="ui-monospace,Menlo,monospace" font-size="17">
+    <!-- sequence -->
+    <g transform="translate(24,54)">
+      <!-- upstream -->
+      <text x="0"  y="16" fill="#6b6b6b">G C A</text>
+      <!-- start codon ATG boxed -->
+      <rect x="66" y="0" width="58" height="24" rx="3" fill="#c2453f" opacity="0.15" stroke="#c2453f"/>
+      <text x="72" y="17" fill="#c2453f" font-weight="700">A T G</text>
+      <!-- codons colored by phase -->
+      <text x="134" y="17" fill="#2f6fb0">C</text><text x="152" y="17" fill="#d98a29">T</text><text x="170" y="17" fill="#4a9463">A</text>
+      <text x="192" y="17" fill="#2f6fb0">G</text><text x="210" y="17" fill="#d98a29">G</text><text x="228" y="17" fill="#4a9463">C</text>
+      <text x="250" y="17" fill="#2f6fb0">T</text><text x="268" y="17" fill="#d98a29">A</text><text x="286" y="17" fill="#4a9463">T</text>
+      <text x="308" y="17" fill="#2f6fb0">C</text><text x="326" y="17" fill="#d98a29">C</text><text x="344" y="17" fill="#4a9463">G</text>
+    </g>
+    <!-- codon brackets -->
+    <g transform="translate(24,84)" font-size="11" font-family="-apple-system,sans-serif" fill="#6b6b6b">
+      <path d="M66,0 v6 h52 v-6" fill="none" stroke="#c2453f" stroke-width="1"/>
+      <text x="92" y="20" text-anchor="middle" fill="#c2453f">start</text>
+      <path d="M134,0 v6 h52 v-6" fill="none" stroke="#999" stroke-width="1"/>
+      <text x="160" y="20" text-anchor="middle">codon 1 → aa</text>
+      <path d="M192,0 v6 h52 v-6" fill="none" stroke="#999" stroke-width="1"/>
+      <text x="218" y="20" text-anchor="middle">codon 2 → aa</text>
+      <path d="M250,0 v6 h52 v-6" fill="none" stroke="#999" stroke-width="1"/>
+      <text x="276" y="20" text-anchor="middle">codon 3 → aa</text>
+    </g>
+  </g>
+  <!-- phase legend -->
+  <g transform="translate(560,54)" font-size="12">
+    <rect x="0" y="4" width="12" height="12" fill="#2f6fb0"/><text x="18" y="14" fill="#1a1a1a">phase 0 (1st of codon)</text>
+    <rect x="0" y="24" width="12" height="12" fill="#d98a29"/><text x="18" y="34" fill="#1a1a1a">phase 1 (2nd)</text>
+    <rect x="0" y="44" width="12" height="12" fill="#4a9463"/><text x="18" y="54" fill="#1a1a1a">phase 2 (3rd)</text>
+  </g>
+  <!-- shift arrow -->
+  <g transform="translate(24,150)">
+    <text x="0" y="14" font-size="12.5" font-family="-apple-system,sans-serif" fill="#c2453f" font-weight="650">Insert ONE extra letter after the start → every downstream phase shifts by one.</text>
+    <text x="0" y="34" font-size="12.5" font-family="-apple-system,sans-serif" fill="#6b6b6b">That single-base edit is the lever we use to tell a real counter from a local guesser (§4).</text>
+  </g>
+</svg>
+<figcaption><b>Reading frame is genuinely relational.</b> To colour any nucleotide you must know where the far-away start codon is and count the distance — you cannot decide it from the letters nearby. That makes it a clean minimal circuit to hunt for. Real genomes confirm the arithmetic: in <code>117,481</code> annotated coding windows there were <strong>0</strong> in-frame stop codons, but 4–6% once the frame is shifted.</figcaption>
+</figure>
+
+<p>The catch — and the whole plot twist of the project — is that <strong>a shortcut is hiding in the genetic code itself.</strong> Because coding sequence almost never contains a stop codon <em>in</em> the true frame, a model can often guess the frame just by scanning for the frame that has no stops, without ever counting from the start. That is exactly the kind of pooled shortcut §1 warns about, and it is why real genomic models mostly <em>don't</em> build the counter.</p>
+</section>
+
+<section id="toolbox">
+<h2><span class="n">3</span>The mechanistic-interpretability toolbox</h2>
+<p>Mechanistic interpretability (mech-interp) tries to explain a network in terms of the <em>algorithm</em> it runs, not just which inputs correlate with which outputs. Four tools matter for this project.</p>
+
+<h3>3.1 &nbsp;Attention heads and <span class="term">induction</span></h3>
+<p>A transformer moves information between positions using <strong>attention heads</strong>. The best-understood relational head is the <span class="term">induction head</span>: it looks back for a previous copy of the current token and predicts what followed it last time — the mechanism behind in-context learning.<sup><a href="#r-ind">[induction]</a></sup> Our second circuit (§6) is a genomic member of this family.</p>
+
+<h3>3.2 &nbsp;Transcoders and the idea of an "edge"</h3>
+<p>In a real network the MLP layers are dense — everything mixes into everything — so there is no clean "wire" from one computation to another. A <span class="term">transcoder</span> re-expresses each MLP as a sum of a few sparse, interpretable <em>features</em>; in that replacement model you <em>can</em> draw an <strong>edge</strong>: one feature's additive contribution to another.<sup><a href="#r-tc">[transcoder]</a></sup> Chaining these edges gives an <span class="term">attribution graph</span> — the circuit diagram.<sup><a href="#r-attr">[attribution]</a></sup> The price is a <strong>faithfulness gap</strong>: the tidy replacement is not exactly the model, so every edge must ultimately be checked against the real network.</p>
+
+<figure>
+<svg viewBox="0 0 860 260" role="img" aria-label="MLP versus transcoder replacement">
+  <!-- left: dense MLP -->
+  <g transform="translate(30,30)">
+    <text x="150" y="0" font-size="13" font-weight="650" fill="#6b6b6b" text-anchor="middle">real MLP — dense, no isolable edge</text>
+    <!-- inputs -->
+    <circle cx="20" cy="60" r="9" fill="#2f6fb0"/><circle cx="20" cy="110" r="9" fill="#2f6fb0"/><circle cx="20" cy="160" r="9" fill="#2f6fb0"/>
+    <!-- hidden -->
+    <circle cx="150" cy="45" r="9" fill="#999"/><circle cx="150" cy="90" r="9" fill="#999"/><circle cx="150" cy="135" r="9" fill="#999"/><circle cx="150" cy="180" r="9" fill="#999"/>
+    <!-- outputs -->
+    <circle cx="280" cy="90" r="9" fill="#4a9463"/><circle cx="280" cy="135" r="9" fill="#4a9463"/>
+    <!-- all-to-all edges -->
+    <g stroke="#c9c9c4" stroke-width="1">
+      <line x1="29" y1="60" x2="141" y2="45"/><line x1="29" y1="60" x2="141" y2="90"/><line x1="29" y1="60" x2="141" y2="135"/><line x1="29" y1="60" x2="141" y2="180"/>
+      <line x1="29" y1="110" x2="141" y2="45"/><line x1="29" y1="110" x2="141" y2="90"/><line x1="29" y1="110" x2="141" y2="135"/><line x1="29" y1="110" x2="141" y2="180"/>
+      <line x1="29" y1="160" x2="141" y2="45"/><line x1="29" y1="160" x2="141" y2="90"/><line x1="29" y1="160" x2="141" y2="135"/><line x1="29" y1="160" x2="141" y2="180"/>
+      <line x1="159" y1="45" x2="271" y2="90"/><line x1="159" y1="45" x2="271" y2="135"/><line x1="159" y1="90" x2="271" y2="90"/><line x1="159" y1="90" x2="271" y2="135"/>
+      <line x1="159" y1="135" x2="271" y2="90"/><line x1="159" y1="135" x2="271" y2="135"/><line x1="159" y1="180" x2="271" y2="90"/><line x1="159" y1="180" x2="271" y2="135"/>
+    </g>
+    <text x="150" y="220" font-size="11.5" fill="#6b6b6b" text-anchor="middle">every unit touches every unit</text>
+  </g>
+  <!-- divider -->
+  <line x1="430" y1="20" x2="430" y2="240" stroke="#d8d8d2"/>
+  <!-- right: transcoder -->
+  <g transform="translate(470,30)">
+    <text x="160" y="0" font-size="13" font-weight="650" fill="#6b6b6b" text-anchor="middle">transcoder — sparse features, one edge</text>
+    <circle cx="20" cy="60" r="9" fill="#2f6fb0"/><circle cx="20" cy="110" r="9" fill="#2f6fb0"/><circle cx="20" cy="160" r="9" fill="#2f6fb0"/>
+    <!-- sparse features: only 2 active -->
+    <circle cx="160" cy="70" r="11" fill="#3a5fa8"/><text x="160" y="74" font-size="10" fill="#fff" text-anchor="middle">f1</text>
+    <circle cx="160" cy="120" r="8" fill="#ddd" stroke="#bbb"/>
+    <circle cx="160" cy="165" r="11" fill="#3a5fa8"/><text x="160" y="169" font-size="10" fill="#fff" text-anchor="middle">f4</text>
+    <circle cx="300" cy="120" r="9" fill="#4a9463"/>
+    <!-- faint encoder edges -->
+    <g stroke="#e0e0da" stroke-width="1">
+      <line x1="29" y1="60" x2="149" y2="70"/><line x1="29" y1="110" x2="149" y2="70"/><line x1="29" y1="160" x2="149" y2="165"/><line x1="29" y1="110" x2="149" y2="165"/>
+    </g>
+    <!-- highlighted decoder edges = "an edge" -->
+    <line x1="171" y1="70" x2="291" y2="120" stroke="#3a5fa8" stroke-width="2.5"/>
+    <line x1="171" y1="165" x2="291" y2="120" stroke="#3a5fa8" stroke-width="2.5"/>
+    <text x="250" y="95" font-size="11.5" fill="#3a5fa8" font-weight="650" transform="rotate(-14 250 95)">an edge</text>
+    <text x="160" y="220" font-size="11.5" fill="#6b6b6b" text-anchor="middle">only a few features active → traceable</text>
+  </g>
+</svg>
+<figcaption><b>Where an "edge" comes from.</b> The dense MLP (left) has no isolable wire. The transcoder (right) re-writes the same computation as a handful of sparse features, so a single feature-to-feature contribution — the blue edge — becomes a nameable object. The gap between the two is the faithfulness cost you pay for legibility.</figcaption>
+</figure>
+
+<h3>3.3 &nbsp;Integrated gradients, for saturated components</h3>
+<p>A confident attention head has a <em>saturated</em> softmax: nudging its score changes nothing, so the naive gradient reads essentially zero (<code>3.7e-15</code> in our case) exactly where the head is most important. <span class="term">Integrated gradients</span> fixes this by integrating the gradient along a path from a neutral baseline to the real input, recovering the effect the point gradient misses.<sup><a href="#r-ig">[IG]</a></sup> We use a QK (query–key) integrated-gradient variant to attribute <em>which token an attention head is keying on</em>.</p>
+
+<h3>3.4 &nbsp;Causal patching — the arbiter</h3>
+<p>The tools above <em>rank</em> components; they do not prove causation. The decisive test is <span class="term">intervention</span>: ablate or replace a component and measure the change in <strong>loss</strong>. As §4 shows, this is not optional — attribution can rank a completely inert component <em>above</em> the essential one.</p>
+
+<div class="callout">
+<span class="k">The one-line rule of the whole method</span>
+<strong>Attribution ranks; only intervention decides.</strong> And a corollary we learned the hard way: <strong>a saturated measurement reports nothing exactly where the effect is largest</strong> — true for softmax gradients, for variance on sparse targets, and for accuracy pinned at 100%.
+</div>
+</section>
+
+<section id="method">
+<h2><span class="n">4</span>How we actually find a circuit</h2>
+<p>The workflow is deliberately paranoid, because behaviourally identical models can be mechanistically opposite. Four steps.</p>
+
+<figure>
+<svg viewBox="0 0 860 200" role="img" aria-label="Four-step discovery workflow">
+  <g font-family="-apple-system,sans-serif">
+    <!-- boxes -->
+    <g>
+      <rect x="18"  y="60" width="180" height="80" rx="8" fill="#f7f6f2" stroke="#3a5fa8" stroke-width="1.5"/>
+      <text x="108" y="90" font-size="13.5" font-weight="700" fill="#3a5fa8" text-anchor="middle">1 · Ground truth</text>
+      <text x="108" y="112" font-size="11.5" fill="#1a1a1a" text-anchor="middle">hand-wire the two</text>
+      <text x="108" y="127" font-size="11.5" fill="#1a1a1a" text-anchor="middle">twins by hand</text>
+    </g>
+    <g>
+      <rect x="228" y="60" width="180" height="80" rx="8" fill="#f7f6f2" stroke="#3a5fa8" stroke-width="1.5"/>
+      <text x="318" y="90" font-size="13.5" font-weight="700" fill="#3a5fa8" text-anchor="middle">2 · Make it needed</text>
+      <text x="318" y="112" font-size="11.5" fill="#1a1a1a" text-anchor="middle">forcing task removes</text>
+      <text x="318" y="127" font-size="11.5" fill="#1a1a1a" text-anchor="middle">every shortcut</text>
+    </g>
+    <g>
+      <rect x="438" y="60" width="180" height="80" rx="8" fill="#f7f6f2" stroke="#c2453f" stroke-width="1.5"/>
+      <text x="528" y="90" font-size="13.5" font-weight="700" fill="#c2453f" text-anchor="middle">3 · Cue conflict</text>
+      <text x="528" y="112" font-size="11.5" fill="#1a1a1a" text-anchor="middle">make anchor &amp; local</text>
+      <text x="528" y="127" font-size="11.5" fill="#1a1a1a" text-anchor="middle">stats disagree</text>
+    </g>
+    <g>
+      <rect x="648" y="60" width="180" height="80" rx="8" fill="#f7f6f2" stroke="#4a9463" stroke-width="1.5"/>
+      <text x="738" y="90" font-size="13.5" font-weight="700" fill="#4a9463" text-anchor="middle">4 · Intervene</text>
+      <text x="738" y="112" font-size="11.5" fill="#1a1a1a" text-anchor="middle">ablate, read the</text>
+      <text x="738" y="127" font-size="11.5" fill="#1a1a1a" text-anchor="middle">change in LOSS</text>
+    </g>
+    <!-- arrows -->
+    <g stroke="#6b6b6b" stroke-width="1.5" fill="#6b6b6b">
+      <line x1="198" y1="100" x2="226" y2="100"/><polygon points="226,100 218,96 218,104"/>
+      <line x1="408" y1="100" x2="436" y2="100"/><polygon points="436,100 428,96 428,104"/>
+      <line x1="618" y1="100" x2="646" y2="100"/><polygon points="646,100 638,96 638,104"/>
+    </g>
+    <text x="430" y="30" font-size="13" font-weight="650" fill="#1a1a1a" text-anchor="middle">Build the answer key first, then force the circuit to exist, then prove it causally</text>
+    <text x="430" y="175" font-size="11.5" fill="#6b6b6b" text-anchor="middle">Each step guards against a specific way the previous tool can lie.</text>
+  </g>
+</svg>
+<figcaption><b>The discovery pipeline.</b> We never point a tool at a real model until it has recovered a circuit we planted by hand (edge recall = precision = 1.0 on the ground truth). Then we make the circuit <em>necessary</em>, separate it from its shortcut with a cue conflict, and confirm it by intervention.</figcaption>
+</figure>
+
+<h3>Step 1 — the planted twins</h3>
+<p>We hand-build two tiny models with <em>identical output behaviour</em> (accuracy 0.586 vs 0.583, |Δ| = 0.0034) but opposite internals: one truly computes <code>(position − start) mod 3</code>; the other is a <strong>bag of local motif detectors</strong> with no frame variable at all. A positive control alone can't falsify a method — twins can, because a good tool must tell them apart.</p>
+
+<h3>Step 2 — the forcing task (grokking on demand)</h3>
+<p>On real DNA the frame counter is worth only <strong>~0.005 nats, 0.40%</strong> of the loss, so the model never builds it. We remove the shortcut by training on <em>uniform random codons</em> (no stop-codon signal, no codon bias) with an amino-acid readout that <em>requires</em> the frame. Now the circuit is worth everything — and the model <strong>groks</strong> it: flat on the guessing ceiling for 2,750 steps, then solves it in ~500 more, phase decodability jumping from 0.41 to <strong>1.0000</strong> as it builds across layers.</p>
+
+<h3>Step 3 — cue conflict (why ablation is not enough)</h3>
+<p>Simply deleting the start codon <em>fails</em> to reveal the circuit: the model just falls back on the pooled route, so ablation reported "no circuit" when one was there. The fix is a <strong>cue conflict</strong> — insert one nucleotide after the ATG so the anchor says "phase X" while local statistics say "phase X+1", and see which the model follows. On the forcing-task model the far-field result is unambiguous: <strong>1.0000 follows the anchor, 0.0000 follows local content</strong>.</p>
+
+<h3>Step 4 — the inert-head lesson</h3>
+<p>The trained model grew <em>two</em> heads that both look like perfect start-codon detectors. Only one is real.</p>
+<table>
+<thead><tr><th>head</th><th>attention specificity</th><th>ablation Δloss</th><th>verdict</th></tr></thead>
+<tbody>
+<tr><td><code>L1H3</code></td><td class="num">230×</td><td class="num">+8.36</td><td>essential</td></tr>
+<tr><td><code>L1H2</code></td><td class="num">406×</td><td class="num">+0.000002</td><td>completely inert</td></tr>
+</tbody>
+</table>
+<p><code>L1H2</code> looks like the <em>better</em> detector and the naive gradient ranks it <em>above</em> the essential head — yet it is four million times less causal. It is a naturally-occurring copy of a paranoid control we had invented and worried was contrived. This is the single most important methodological result: <strong>only the loss-based intervention got it right.</strong></p>
+</section>
+
+<section id="ceiling">
+<h2><span class="n">5</span>The "ceiling" — what it is, and is it significant?</h2>
+<p>The <span class="term">pooled ceiling</span> is the answer to a precise question: <em>if the model could only pool statistics over its context window and had no relational circuit, how accurate could it possibly be?</em> It is the top of what the shortcut can reach. The whole criterion in §1 is a comparison between the task's demand and this ceiling, so getting it right is load-bearing.</p>
+
+<p>We estimate it by building the <strong>best pooled predictor we can</strong> and measuring its accuracy on held-out data — for reading frame, a codon-composition estimator pooled over the window. On real hg38 coding sequence that ceiling is <strong>0.9509</strong> at a 240-nt window. Several distinct pooled estimators exist and they must not be confused:</p>
+
+<table>
+<thead><tr><th>pooled estimator (real hg38 CDS)</th><th>frame accuracy</th></tr></thead>
+<tbody>
+<tr><td>±15 nt naive-Bayes bag of motifs</td><td class="num">0.6419</td></tr>
+<tr><td>trained GFM-nano actually achieves</td><td class="num">0.7936</td></tr>
+<tr><td>anchor-free stop-codon scan, 240 nt</td><td class="num">0.8242</td></tr>
+<tr><td>learned ORF-integrity anchor detector</td><td class="num">0.9215</td></tr>
+<tr><td><b>codon-composition pooled ceiling, 240 nt</b></td><td class="num"><b>0.9509</b></td></tr>
+</tbody>
+</table>
+
+<p>The trained model lands at <strong>0.7936</strong> — right at the anchor-free scan ceiling and no higher. It extracts nearly all the frame signal the code leaves lying around, then <em>stops exactly where an anchor would be required</em>. That is the criterion working: the demand (ordinary language-model loss) never rises above what pooling delivers, so the counter is never built.</p>
+
+<h3>Is the ceiling statistically significant?</h3>
+<p>Two different senses of "significant", and both matter:</p>
+
+<p><strong>(a) Is the model's shortfall from a real circuit meaningful, or noise?</strong> Yes, and it is enormous, not marginal. The relevant contrast is <em>information</em>, measured in nats. Perfect phase knowledge buys only <strong>0.0241 nats</strong> of the per-token loss on real DNA (<code>H(nt) = 1.3714</code> vs <code>H(nt | phase) = 1.3473</code>), and an anchored counter is worth at most <strong>≤0.005 nats — 0.40% of a 1.27-nat loss</strong>. So the model isn't <em>failing</em> to build the circuit; there is essentially no gradient pulling toward it. The gap is not a rounding error — it is a structural fact about the objective.</p>
+
+<p><strong>(b) Is the ceiling number itself a trustworthy bound?</strong> This is where we are deliberately conservative. Our estimators are <strong>lower bounds on the true shortcut</strong> — a more capable pooled model can only push the ceiling <em>up</em>. That direction cuts <em>against</em> our thesis (a higher ceiling makes circuits rarer), so a lower-bound estimate is the honest, self-penalising choice. Crucially, we have now seen this bite <strong>twice</strong>: two cells whose ceilings we predicted from were <em>beaten</em> —</p>
+<table>
+<thead><tr><th>cell</th><th>predicted ceiling</th><th>model reached</th></tr></thead>
+<tbody>
+<tr><td>B (matched-difficulty detector)</td><td class="num">0.926</td><td class="num">0.9735</td></tr>
+<tr><td>C (real CDS, no upstream ATG)</td><td class="num">0.9509</td><td class="num">0.9997</td></tr>
+</tbody>
+</table>
+<p>— which is why every ceiling must be re-measured with a <strong>model-class-matched estimator</strong> (a receptive-field-limited CNN) before it is trusted, and why we report ceilings as bounds, not point predictions. On the significance-testing side, the plan calls for <strong>≥3 seeds per arm reported as an interval</strong> and a pre-registered power analysis before the objective-threshold μ\* is claimed, so the threshold comes with error bars rather than a single lucky run.</p>
+
+<div class="callout key">
+<span class="k">The honest summary of the ceiling</span>
+The ceiling is a <em>measured, conservative lower bound</em> on what a shortcut can do, and the model's decision to sit at it is backed by an information-theoretic argument (a circuit is worth &lt;0.5% of the loss), not by a marginal p-value. The remaining statistical work is putting seeds-and-intervals around the <em>threshold</em>, not around the existence of the effect.
+</div>
+</section>
+
+<section id="results">
+<h2><span class="n">6</span>What we found — two circuits, opposite sides of the line</h2>
+
+<h3>6.1 &nbsp;Reading frame is a <em>spectrum</em>, not a switch <span class="tag done">settled</span></h3>
+<p>The decisive experiment crosses two knobs: is a shortcut <em>available</em>, and is the start-codon detector <em>easy or hard</em>? It did better than confirm "circuit vs no circuit" — it resolved <strong>three</strong> mechanisms, read off a two-dimensional causal signature (far-field start-codon-ablation cost × the share of frame that follows the anchor under conflict).</p>
+
+<figure>
+<svg viewBox="0 0 860 260" role="img" aria-label="Bag relay counter spectrum">
+  <g font-family="-apple-system,sans-serif">
+    <text x="430" y="26" font-size="13.5" font-weight="700" fill="#1a1a1a" text-anchor="middle">Increasing demand moves bag → relay → counter; shortcut availability decides where it stops</text>
+    <!-- gradient track -->
+    <defs>
+      <linearGradient id="spec" x1="0" x2="1">
+        <stop offset="0" stop-color="#6b6b6b" stop-opacity="0.3"/>
+        <stop offset="0.5" stop-color="#d98a29" stop-opacity="0.5"/>
+        <stop offset="1" stop-color="#c2453f" stop-opacity="0.6"/>
+      </linearGradient>
+    </defs>
+    <rect x="60" y="70" width="740" height="14" rx="7" fill="url(#spec)"/>
+    <polygon points="800,77 786,69 786,85" fill="#c2453f"/>
+    <!-- three stops -->
+    <g text-anchor="middle">
+      <!-- bag -->
+      <circle cx="150" cy="77" r="9" fill="#6b6b6b"/>
+      <text x="150" y="120" font-size="14" font-weight="700" fill="#1a1a1a">BAG of motifs</text>
+      <text x="150" y="140" font-size="11.5" fill="#6b6b6b">real DNA, low demand</text>
+      <text x="150" y="162" font-size="11.5" fill="#6b6b6b">ATG ablation decays → 0</text>
+      <text x="150" y="178" font-size="11.5" fill="#6b6b6b">follows local content</text>
+      <!-- relay -->
+      <circle cx="430" cy="77" r="9" fill="#d98a29"/>
+      <text x="430" y="120" font-size="14" font-weight="700" fill="#9c6314">RELAY  ← the surprise</text>
+      <text x="430" y="140" font-size="11.5" fill="#6b6b6b">real DNA, high demand (cells C, D)</text>
+      <text x="430" y="162" font-size="11.5" fill="#6b6b6b">ATG ablation stays FLAT (+0.35 / +0.15)</text>
+      <text x="430" y="178" font-size="11.5" fill="#6b6b6b">anchor load-bearing, re-synced locally</text>
+      <!-- counter -->
+      <circle cx="740" cy="77" r="9" fill="#c2453f"/>
+      <text x="740" y="120" font-size="14" font-weight="700" fill="#9c3733">COUNTER</text>
+      <text x="740" y="140" font-size="11.5" fill="#6b6b6b">shortcut absent (cell A)</text>
+      <text x="740" y="162" font-size="11.5" fill="#6b6b6b">ablation collapses below chance</text>
+      <text x="740" y="178" font-size="11.5" fill="#6b6b6b">anchor share 1.0000</text>
+    </g>
+    <text x="430" y="220" font-size="11.5" fill="#6b6b6b" text-anchor="middle">The start codon is causally load-bearing in <tspan font-weight="650" fill="#1a1a1a">every</tspan> cell (8×–47× over a decoy-Met control). What changes is how the frame is <tspan font-style="italic">propagated</tspan>.</text>
+    <text x="430" y="240" font-size="11" fill="#9c6314" text-anchor="middle">The relay was not hand-buildable in advance — bag and counter were. How it works in the weights is the highest-value trace left in the program.</text>
+  </g>
+</svg>
+<figcaption><b>The bag→relay→counter spectrum.</b> The pre-registered <em>binary</em> verdict cannot express a relay and prints "no circuit" for the three real-DNA cells — so the result is the continuous 2-D signature, which was pre-registered to be reported regardless. Our own prior prediction ("real DNA builds a counter") came out <em>half right</em>: the anchor <em>is</em> used at range, but the mechanism is a relay, not a global count. Kept as a failed prediction, not relabelled.</figcaption>
+</figure>
+
+<h3>6.2 &nbsp;A shortcut-proof task grows a circuit unbidden <span class="tag done">settled</span></h3>
+<p>The mirror-image test: an in-context <strong>repeat-copy</strong> task where the model must copy the next base from an earlier occurrence of a random DNA unit, after matching a 14-nt prefix. Because the unit is random and the prefix is longer than any local window, <em>no</em> pooled shortcut exists — and here a genuine induction-family circuit forms with <strong>no forcing objective at all</strong>:</p>
+<table>
+<thead><tr><th>measurement</th><th>value</th></tr></thead>
+<tbody>
+<tr><td>base-rate copy ceiling (the shortcut)</td><td class="num">0.2516</td></tr>
+<tr><td>copy accuracy, intact</td><td class="num">0.9608</td></tr>
+<tr><td>cue conflict — follows distal edited source</td><td class="num">0.9635</td></tr>
+<tr><td>cue conflict — follows local continuation</td><td class="num">0.0130</td></tr>
+</tbody>
+</table>
+<p>This is the positive counterpart to the reading-frame negative: <strong>where a shortcut is truly unavailable, the circuit appears without coercion</strong> — exactly what the criterion predicts. Together the two circuits demonstrate the law in both directions.</p>
+
+<h3>6.3 &nbsp;What's next <span class="tag next">next</span></h3>
+<p>Three near-term items: <strong>trace the relay</strong> (the novel object — is it a periodic local re-sync seeded by the anchor?); <strong>measure the objective threshold μ\*</strong> with seeds and matched-loss comparison; and close the one remaining Gate-0 hole — the <strong>LayerNorm faithfulness gap</strong> <span class="tag open">open</span>, since every tracer error rate so far came from LayerNorm-free planted models and both circuits live in a model that has it. Then the climb to biological targets where composition can be held fixed while the label moves: exon definition, the NMD junction rule, and CTCF orientation.</p>
+</section>
+
+<section id="refs">
+<h2><span class="n">7</span>References</h2>
+<ol class="refs">
+  <li id="r-ind"><span class="who">Olsson et al. (2022)</span>, "In-context Learning and Induction Heads." <span class="id">arXiv:2209.11895</span> — the induction-head mechanism our repeat-copy circuit belongs to.</li>
+  <li id="r-tc"><span class="who">Dunefsky, Chlenski &amp; Nanda (2024)</span>, "Transcoders Find Interpretable LLM Feature Circuits." NeurIPS 2024. <span class="id">arXiv:2406.11944</span> — the sparse replacement model that makes an "edge" definable.</li>
+  <li id="r-attr"><span class="who">Anthropic (2025)</span>, "Circuit Tracing: Revealing Computational Graphs in Language Models" &amp; "On the Biology of a Large Language Model." <span class="id">transformer-circuits.pub/2025/attribution-graphs</span> — attribution-graph methodology.</li>
+  <li id="r-ig"><span class="who">Sundararajan, Taly &amp; Yan (2017)</span>, "Axiomatic Attribution for Deep Networks" (Integrated Gradients). ICML 2017. <span class="id">arXiv:1703.01365</span> — recovers effects a saturated point gradient misses.</li>
+  <li id="r-grok"><span class="who">Power et al. (2022)</span>, "Grokking: Generalization Beyond Overfitting on Small Algorithmic Datasets." <span class="id">arXiv:2201.02177</span> — the delayed, abrupt generalization our forcing task shows.</li>
+  <li id="r-short"><span class="who">Geirhos et al. (2020)</span>, "Shortcut Learning in Deep Neural Networks." <em>Nature Machine Intelligence</em>. <span class="id">doi:10.1038/s42256-020-00257-z</span> — why shortcut and intended rules are indistinguishable on i.i.d. data.</li>
+  <li id="r-cad"><span class="who">Schiff et al. (2024)</span>, "Caduceus: Bi-Directional Equivariant Long-Range DNA Sequence Modeling." ICML 2024. <span class="id">arXiv:2403.03234</span> — the reverse-complement-equivariant model behind the H5 blindness prediction.</li>
+  <li id="r-evo"><span class="who">Brixi et al. (2025)</span>, "Genome modeling and design across all domains of life with Evo 2." bioRxiv <span class="id">2025.02.18.638918</span> — the frontier genomic foundation model and its SAE feature catalogue.</li>
+</ol>
+<p style="font-size:12.5px;color:var(--meta)">Identifiers above were checked against literature search this session; the project's authoritative, hand-verified reference list lives in <code>REC.md</code>. Any identifier here that disagrees with <code>REC.md</code> should defer to <code>REC.md</code>.</p>
+</section>
+
+<div class="foot">
+Primer for internal briefing · all quantities are measured values drawn from <code>RESULTS.md</code> (status-tagged) and <code>docs/DECISIONS.md</code> (D1–D32). Diagrams are schematic; numbers in them are real. Reading frame is single-nucleotide GFM-nano (6 layers, d256, 8 heads, 4.80M params) trained on hg38 + GENCODE v50.
+</div>
+
+</div>
+</body>
+</html>

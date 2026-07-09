@@ -2,7 +2,9 @@
 
 **A mechanistic test of the hypothesis that a foundation model builds a relational circuit *if and only if* no statistic pooled over its context window is a sufficient statistic for the target — and a shortcut-ranked program of circuit discovery that follows from it**
 
-Supersedes both *Proposal D2 (Full Circuit Discovery in GFMs)* and *Proposal D1 (Regulatory Grammar Inside GFMs)*. Owner: Cam Berger. Full evidence: `REC.md`, `docs/DECISIONS.md` (D1–D30). Shares the tracer, the planted-twin ground truth, and the cue-conflict causal harness across all rungs.
+Supersedes both *Proposal D2 (Full Circuit Discovery in GFMs)* and *Proposal D1 (Regulatory Grammar Inside GFMs)*. Owner: Cam Berger. Full evidence: `RESULTS.md` (every measured number, with status), `REC.md` (the argument), `docs/DECISIONS.md` (D1–D32). Shares the tracer, the planted-twin ground truth, and the cue-conflict causal harness across all rungs.
+
+> **State at a glance (for the PI briefing).** The tracer is built and validated against hand-wired ground truth. Two learned circuits have been traced end-to-end — a reading-frame counter and an in-context repeat-copy circuit — on *opposite* sides of the criterion. The necessity 2×2 on real DNA is complete and did something better than confirm the binary: it resolved a **three-mechanism spectrum** (bag → relay → counter). What remains is (i) one Gate-0 hole (LayerNorm), (ii) the objective-threshold number μ\*, and (iii) the climb to biological Tier-3/4 tasks. See §4 for per-item status; a companion one-page explainer covers the methods for non-specialists.
 
 ---
 
@@ -27,10 +29,11 @@ What is unexamined is **when a genomic model builds a relational mechanism at al
 
 **Primary question:** Is the existence of a relational circuit in a GFM predicted by the sufficiency of a bounded-window pooled statistic for the target — and does that criterion rank genomic computations, before training, into those worth tracing and those not?
 
-- **H1 (sufficiency law).** A circuit forms iff the objective's demanded accuracy exceeds the pooled ceiling. Sharpened by our sweep: the circuit appears when the pooled route is *imperfect*, not merely *weak* — a 96.5%-accurate shortcut does not displace a counter when the task demands 100%. The transition is a knife edge, which is why it looks like grokking.
+- **H1 (sufficiency law).** *Supported, and refined into a spectrum.* A circuit forms iff the objective's demanded accuracy exceeds the pooled ceiling; the circuit appears when the pooled route is *imperfect*, not merely *weak* — a 96.5%-accurate shortcut does not displace a counter when the task demands 100%, so the transition is a knife edge that looks like grokking. The completed 2×2 sharpened "circuit / no circuit" into **three mechanisms** read off a 2-D causal signature (far-field ATG-ablation cost × cue-conflict anchor share): a **bag** (real DNA, low demand), a **relay** (real DNA, high demand — the anchor is causally load-bearing at range but the frame is re-established locally rather than globally counted), and an **anchored counter** (shortcut absent, high demand). Increasing demand moves bag → relay → counter; shortcut availability decides where it stops.
 - **H2 (objective-as-demand, corrected).** Circuit completeness rises with the objective **only through the demand side** of the inequality, at fixed data. Varying the objective alone (the previous H2) measures half the phenomenon and would credit the objective for an effect controlled by codon statistics.
-- **H3 (attribution ranks; intervention decides).** *Established.* Every attribution method mis-ranks a naturally-occurring, causally-inert marker head; only loss-based intervention decides.
-- **H4 (RC-equivariance is blindness).** For a reverse-complement-equivariant architecture, a motif and its RC are identified by construction, so orientation lies outside the hypothesis class — the model is structurally blind to the Tier-4 CTCF-orientation computation. A falsifiable prediction about a published model.
+- **H3 (attribution ranks; intervention decides).** *Established.* Every attribution method mis-ranks a naturally-occurring, causally-inert marker head (L1H2: 406× attention specificity, ablation Δloss +0.000002, vs the essential L1H3's +8.36); only loss-based intervention decides.
+- **H4 (shortcut-proof circuits form unbidden).** *Supported by a second circuit.* An in-context repeat-copy task — shortcut-proof by construction (random held-out units, prefix longer than any local window) — grows a genuine induction-family circuit with **no** forcing objective: base-rate ceiling 0.2516, copy accuracy 0.9608, and under cue conflict the model follows the distal edited source at 0.9635 vs local continuation 0.0130. This is the positive counterpart to the reading-frame negative: where a shortcut is truly unavailable, the circuit appears without coercion.
+- **H5 (RC-equivariance is blindness).** For a reverse-complement-equivariant architecture (Caduceus), a motif and its RC are identified by construction, so orientation lies outside the hypothesis class — the model is structurally blind to the Tier-4 CTCF-orientation computation. A falsifiable prediction about a published model, one afternoon to test.
 - ~~JSAE composition-sparsity~~ demoted (D16: measures in-degree, not composition). ~~Developmental / phase-change~~ cut (D11).
 
 ## 4. Task breakdown (input / output / status)
@@ -41,9 +44,11 @@ What is unexamined is **when a genomic model builds a relational mechanism at al
 | 1.1 | **Reading-frame worked example.** Pooled ceiling; cue-conflict on real hg38 GFM-nano | hg38 + GENCODE CDS | Ceiling 0.9509 @240 nt; model at 0.7936, no anchored circuit | **Done** |
 | 1.2 | **Forcing task.** Make the frame necessary; trace the resulting circuit | Uniform-codon CDS | Circuit @~3000 steps; L1H3 marker head; inert L1H2 look-alike | **Done** |
 | 1.3 | **The sweep.** Move the ceiling at fixed objective (λ = 0→2, seven arms) | λ-biased CDS | Anchored counter at λ≤0.75, anchor-free at λ≥1; the criterion | **Done** |
-| 2.1 | **Necessity 2×2** (running). Cross shortcut-absent/present × detector-easy/hard | A/B/C/D cells | Causal verdict per cell; registered prediction C,D build the circuit | **Running** |
+| 2.1 | **Necessity 2×2.** Cross shortcut-absent/present × detector-easy/hard | A/B/C/D cells | **Three mechanisms** (bag→relay→counter); ATG load-bearing in all cells; D30 counter-prediction half-falsified (relay, not counter) | **Done** |
+| 2.1b | **Second circuit — in-context repeat copy.** Shortcut-proof Rung 3 | Synthetic repeat corpus | Copy circuit forms unbidden; cue conflict 0.96 distal; distributed L1 copy heads | **Done** |
 | 2.2 | **Move the demand.** μ mixture `(1−μ)·[predict nt] + μ·[predict aa]`, entropy-normalised terms | Real hg38 CDS | **μ\*** with LM-loss price, ≥3 seeds as interval, matched-LM-loss comparison | Next |
-| 2.3 | **Transplantation.** Hand a real-DNA model the circuit; fine-tune | Shared backbone | Survives vs erodes; registered upstream-ATG misfire prediction | Next |
+| 2.3 | **Trace the relay.** How a relay differs mechanistically from bag and counter | 2×2 checkpoints | Local re-sync vs anchor seed; operational definition of "relay" | Next (high value) |
+| 2.4 | **Transplantation.** Hand a real-DNA model the circuit; fine-tune | Shared backbone | Survives vs erodes; registered upstream-ATG misfire prediction | Next |
 | 3.1 | **Confirm on a Tier-3 task.** Exon definition / NMD junction rule under a biology-supplied cue conflict | GENCODE, SpliceBERT | Relational circuit present, sign-correct routing | Future |
 | 3.2 | **The shortcut-proof case.** CTCF convergent orientation; the RC-equivariance blindness test | Loop maps, Caduceus | Orientation circuit; RC-model failure prediction (one afternoon) | Future |
 
@@ -86,6 +91,8 @@ What is unexamined is **when a genomic model builds a relational mechanism at al
 ## 9. Expected contributions
 
 - A **predictive, measurable criterion** for whether a genomic model will build a relational circuit — usable before training, and a mechanistic explanation of the behavioural positional-logic failures the field has only observed black-box.
+- **A three-mechanism spectrum, not a binary.** The novel empirical object is the **relay** — a mechanism that is neither a bag nor a global counter, appearing on real DNA under high demand, where the anchor is causally load-bearing everywhere yet loses to local content under conflict. Bag and counter were both hand-buildable in advance; the relay was not, and how it works in the weights is the highest-value trace left in the program.
+- **Two circuits on opposite sides of the line.** Reading frame (avoidable → relay/bag on real DNA) and in-context repeat copy (shortcut-proof → clean circuit, formed unbidden) together demonstrate the criterion in both directions — a stronger claim than either alone.
 - A **shortcut-availability hierarchy** of genomic computations (shortcut-trivial → shortcut-proof), reclassifying reading frame as the wrong proof-of-method rung and G-quadruplex as a mid-tier task with a pooled proxy.
 - A **validated tracer with a measured error rate** and a cue-conflict causal protocol, plus the reusable "attribution ranks, intervention decides" result on a naturally-occurring inert head.
 - **μ\***, the smallest objective demand that installs a circuit, with its LM-loss price — the actionable number the objective literature never produced.
@@ -110,7 +117,8 @@ What is unexamined is **when a genomic model builds a relational mechanism at al
 
 ## 11. Limitations and open questions
 
-- **The ceiling estimator is a lower bound on the shortcut.** A higher-capacity estimator moves tasks down the hierarchy — this cuts *against* us, making circuits rarer and the finding stronger, but every ceiling must be re-measured with an RF-limited CNN before it is trusted.
+- **The ceiling estimator is a lower bound on the shortcut — now confirmed twice.** Both cells whose ceiling we predicted from were beaten: cell B reached 0.9735 vs a 0.926 detector ceiling, cell C reached 0.9997 vs a 0.9509 pooled ceiling. A higher-capacity estimator moves tasks down the hierarchy — this cuts *against* us, making circuits rarer and the finding stronger — but every ceiling must be re-measured with a model-class-matched (RF-limited CNN) estimator before it is trusted.
+- **The binary verdict is lossy.** The pre-registered "circuit / no circuit" verdict prints NO CIRCUIT for the relay cells (B, C, D); the result is the 2-D signature, which we pre-registered to report regardless. The verdict machinery should be replaced by the (ATG-ablation × anchor-share) plane.
 - **Nothing transfers from the synthetic λ arms to real DNA without re-measurement** (D30). Naive-Bayes independence closes λ = 1's ceiling to 1.0000 while real CDS is 0.9509, because real codons correlate. We made exactly this error, for an hour.
 - **The law is a conjecture on n = 8 arms, one task, one architecture.** The 2×2 tests it on real DNA; it must also be confirmed on a Tier-3 task (where the prediction is a *circuit*) before being stated as a law.
 - **The forcing task is synthetic and a reviewer will say so.** Its job is not realism but to prove the tracer finds a real learned circuit when one exists — so the hg38 negative is a fact about DNA, not about our instruments. The hg38 result is the finding; the synthetic model licenses it; the planted models prove the instruments work.
@@ -121,4 +129,4 @@ What is unexamined is **when a genomic model builds a relational mechanism at al
 
 ---
 
-*Full evidence, decision log, and the reference list with verified identifiers: `REC.md` and `docs/DECISIONS.md` (D1–D30). Reading frame was the wrong rung; the right ones are **exon definition**, the **NMD junction rule**, and **CTCF orientation** — where composition can be held fixed while the label moves, and biology has already run the cue-conflict experiment for us.*
+*Full evidence, decision log, and the reference list with verified identifiers: `RESULTS.md`, `REC.md`, and `docs/DECISIONS.md` (D1–D32). Reading frame was the wrong rung; the right ones are **exon definition**, the **NMD junction rule**, and **CTCF orientation** — where composition can be held fixed while the label moves, and biology has already run the cue-conflict experiment for us.*

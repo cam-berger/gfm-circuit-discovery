@@ -16,7 +16,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
-from gfmcd.data.repeat_copy import ar_inputs_targets, base_rate_ceiling, conflict_batch, make_batch
+from gfmcd.data.repeat_copy import ar_inputs_targets, base_rate_ceiling, conflict_batch, make_batch, single_conflict_batch
 from gfmcd.models.gfm_nano import GFMNano, NanoConfig
 
 COPY_ACC_MIN = 0.75
@@ -39,6 +39,7 @@ def main() -> None:
     ap.add_argument("--window", type=int, default=256)
     ap.add_argument("--batch", type=int, default=64)
     ap.add_argument("--seed", type=int, default=4242)
+    ap.add_argument("--conflict", choices=["single", "all"], default="single")
     args = ap.parse_args()
 
     device = "mps" if torch.backends.mps.is_available() else "cpu"
@@ -54,11 +55,15 @@ def main() -> None:
     copy_acc = float((pred[copy_mask] == targets[copy_mask]).mean())
     loss = float(F.cross_entropy(torch.from_numpy(logits).reshape(-1, logits.shape[-1]), torch.from_numpy(targets).reshape(-1)))
 
-    conflict_tokens, distal, local = conflict_batch(data)
+    if args.conflict == "single":
+        conflict_tokens, distal, local, score_mask = single_conflict_batch(data, seed=args.seed + 1)
+    else:
+        conflict_tokens, distal, local = conflict_batch(data)
+        score_mask = copy_mask
     conflict_logits = logits_for(model, conflict_tokens, args.batch, device)
     conflict_pred = conflict_logits.argmax(axis=-1)
-    distal_share = float((conflict_pred[copy_mask] == distal[copy_mask]).mean())
-    local_share = float((conflict_pred[copy_mask] == local[copy_mask]).mean())
+    distal_share = float((conflict_pred[score_mask] == distal[score_mask]).mean())
+    local_share = float((conflict_pred[score_mask] == local[score_mask]).mean())
     neither_share = 1.0 - distal_share - local_share
 
     print(f"{args.checkpoint.name}   step {blob['step']}   seed {blob.get('seed', '?')}\n")
@@ -66,7 +71,7 @@ def main() -> None:
     print(f"{'AR loss, intact':<42}{loss:>10.4f}")
     print(f"{'copy accuracy, intact':<42}{copy_acc:>10.4f}   threshold > {COPY_ACC_MIN}")
     print()
-    print("cue conflict on copy positions")
+    print(f"cue conflict on copy positions ({args.conflict})")
     print(f"{'  follows DISTAL edited copy':<42}{distal_share:>10.4f}   threshold > {DISTAL_SHARE_MIN}")
     print(f"{'  follows LOCAL/original continuation':<42}{local_share:>10.4f}")
     print(f"{'  neither':<42}{neither_share:>10.4f}")

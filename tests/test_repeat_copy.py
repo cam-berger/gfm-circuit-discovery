@@ -9,6 +9,7 @@ from gfmcd.data.repeat_copy import (
     base_rate_ceiling,
     conflict_batch,
     make_batch,
+    single_conflict_batch,
 )
 
 
@@ -71,6 +72,25 @@ def test_conflict_edits_distal_copy_not_local_copy(batch):
 
     assert (distal[~batch.copy_mask] == IGNORE).all()
     assert (local[~batch.copy_mask] == IGNORE).all()
+
+
+def test_single_conflict_keeps_scored_key_intact(batch):
+    edited, distal, local, score_mask = single_conflict_batch(batch, seed=1)
+    assert score_mask.shape == batch.copy_mask.shape
+    assert score_mask.sum() == len(batch.tokens)
+
+    rows, pred_positions = np.nonzero(score_mask[:200])
+    for r, p in zip(rows, pred_positions):
+        src = int(batch.source_index[r, p])
+        assert distal[r, p] != local[r, p]
+        assert edited[r, src] == distal[r, p]
+        assert edited[r, p + 1] == local[r, p]
+        # The source prefix used as the key is unchanged.
+        start = batch.first_start[r]
+        assert np.array_equal(edited[r, start:src], batch.tokens[r, start:src])
+
+    assert (distal[~score_mask] == IGNORE).all()
+    assert (local[~score_mask] == IGNORE).all()
 
 
 def test_position_index_does_not_identify_copy_target(batch):
