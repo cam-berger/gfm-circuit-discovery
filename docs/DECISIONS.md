@@ -981,3 +981,41 @@ not (0.9509). Real codons are correlated; the shortcut does not close. Any claim
 The mechanism split itself — same behaviour (aa_acc 1.0000 everywhere), opposite mechanism, revealed
 only by causal readouts — stands, and remains the strongest single result in the project. Only its
 *explanation* was wrong.
+
+
+---
+
+## D31 — Cell B's verdict is void: the run was cut off mid-transition
+
+`cellB_s0_step8000` returns **NO CIRCUIT** under the frozen rule (anchor share 0.3569 < 0.50), and the
+verdict is not interpretable, because the model never converged.
+
+```
+cell B trajectory   (guessing ceiling 0.3768; achievable ceiling ~0.926)
+  step 1000   aa 0.3914     plateau
+  step 5000   aa 0.4093
+  step 7000   aa 0.4282
+  step 8000   aa 0.6294     transition begins -- and the budget ends
+```
+
+It sat on the guessing plateau for 7,000 steps and started climbing exactly as the run ended.
+Meanwhile the causal signal is already there:
+
+```
+start codon ablated       ΔaaAcc = +0.2356
+decoy Met ablated (ctl)   ΔaaAcc = +0.0078      -> 30x specificity
+cue conflict              anchor 0.3569 / content 0.3263 / neither 0.317
+```
+
+A 30× specific anchor with a three-way-split cue conflict is what a **half-built** circuit looks like,
+not an absent one.
+
+Our own pre-registration anticipated this: *"a negative is undertraining until amino-acid accuracy is
+checked against the guessing ceiling."* Cell B fails that check — 0.61 against an achievable 0.926.
+
+**Action:** cell B re-run at 24,000 steps (3× budget), seed 1. Cell B is the hardest cell by
+construction (no shortcut *and* a matched-hard detector), so a longer transition is expected, not
+anomalous. The 8k verdict is withdrawn, not reported.
+
+**Note for every other cell:** grokking makes the stopping point a scientific choice. Arms must be
+compared at matched achieved accuracy relative to their own ceilings, never at matched steps.

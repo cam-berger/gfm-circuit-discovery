@@ -53,3 +53,44 @@ cell B   train (100000, 256)   val (6000, 256)   device mps
   step  1250  train 1.1642  val 1.1718  aa_acc 0.3943  5.3 it/s
   step  1500  train 1.0668  val 1.0667  aa_acc 0.3990  5.3 it/s
   step  1750  train 1.0496  val 1.0424  aa_acc 0.4019  5.3 it/s
+  step  2000  train 1.0377  val 1.0395  aa_acc 0.3999  5.3 it/s
+  step  2250  train 1.0274  val 1.0275  aa_acc 0.4004  5.3 it/s
+  step  2500  train 1.0183  val 1.0195  aa_acc 0.4023  5.3 it/s
+  step  2750  train 1.0223  val 1.0144  aa_acc 0.4036  5.3 it/s
+  step  3000  train 1.0123  val 1.0107  aa_acc 0.4023  5.4 it/s
+  step  3250  train 1.0016  val 1.0095  aa_acc 0.4044  5.4 it/s
+  step  3500  train 1.0024  val 1.0055  aa_acc 0.4044  5.4 it/s
+  step  3750  train 1.0003  val 1.0054  aa_acc 0.4050  5.4 it/s
+  step  4000  train 1.0004  val 1.0013  aa_acc 0.4071  5.3 it/s
+  step  4250  train 1.0005  val 0.9997  aa_acc 0.4070  5.3 it/s
+  step  4500  train 0.9987  val 0.9967  aa_acc 0.4068  5.3 it/s
+  step  4750  train 0.9962  val 0.9947  aa_acc 0.4083  5.3 it/s
+  step  5000  train 0.9992  val 0.9922  aa_acc 0.4093  5.3 it/s
+  step  5250  train 0.9931  val 0.9893  aa_acc 0.4111  5.3 it/s
+  step  5500  train 0.9945  val 0.9879  aa_acc 0.4094  5.3 it/s
+  step  5750  train 0.9899  val 0.9866  aa_acc 0.4133  5.3 it/s
+  step  6000  train 0.9812  val 0.9842  aa_acc 0.4135  5.3 it/s
+  step  6250  train 0.9780  val 0.9827  aa_acc 0.4143  5.3 it/s
+  step  6500  train 0.9763  val 0.9799  aa_acc 0.4174  5.3 it/s
+  step  6750  train 0.9756  val 0.9763  aa_acc 0.4202  5.3 it/s
+  step  7000  train 0.9884  val 0.9654  aa_acc 0.4282  5.3 it/s
+  step  7250  train 0.9314  val 0.9337  aa_acc 0.4551  5.3 it/s
+  step  7500  train 0.9013  val 0.9024  aa_acc 0.4867  5.3 it/s
+  step  7750  train 0.7708  val 0.8199  aa_acc 0.5489  5.3 it/s
+  step  8000  train 0.7629  val 0.7150  aa_acc 0.6294  5.3 it/s
+done in 25.1 min
+=============== cell C  11:31:29 ===============
+/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/train_cell.py:123: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:839.)
+  print(f"  step {step:5d}  train {float(loss):.4f}  val {vl:.4f}  aa_acc {va:.4f}  {step/(time.time()-t0):.1f} it/s", flush=True)
+cell C   train (100000, 256)   val (6000, 256)   device mps
+  step     1  train 3.0985  val 3.0830  aa_acc 0.0476  0.8 it/s
+  step   250  train 2.4243  val 2.4024  aa_acc 0.2207  5.0 it/s
+  step   500  train 2.3753  val 2.3583  aa_acc 0.2306  5.1 it/s
+  step   750  train 1.3024  val 1.2795  aa_acc 0.4936  5.1 it/s
+  step  1000  train 0.4957  val 0.4444  aa_acc 0.8422  5.1 it/s
+  step  1250  train 0.2543  val 0.3159  aa_acc 0.8954  5.1 it/s
+  step  1500  train 0.2134  val 0.2481  aa_acc 0.9151  5.1 it/s
+  step  1750  train 0.0944  val 0.1824  aa_acc 0.9352  5.1 it/s
+  step  2000  train 0.1177  val 0.1429  aa_acc 0.9499  5.1 it/s
+  step  2250  train 0.1236  val 0.2259  aa_acc 0.9261  5.1 it/s
