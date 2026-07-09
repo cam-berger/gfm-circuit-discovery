@@ -114,6 +114,55 @@ trained model.
 
 ---
 
+## Phase 3 — Circuit transplantation (proposed; Cam, 2026-07-09)
+
+*Can the learned mechanism be moved onto a real-DNA system, and how does it perform against baseline?*
+
+Transplantation is direct **by construction**: the forcing-task model and the real-DNA arms share one
+backbone (6L × d=256 × 8 heads, 4.80M params). Only the output head differs (21-way amino acid vs
+6-way nucleotide). That was the point of building a single architecture.
+
+**A prediction we can make before running anything.** The synthetic task guarantees the start codon is
+the *first* ATG (`_utr_without_atg`), so the model learned "first ATG = start". On real DNA that rule
+is wrong:
+
+```
+real anchored windows with >=1 ATG upstream of the true start:  35.1%
+mean upstream ATGs per window:                                   0.60
+synthetic task, by construction:                                  0.0%
+```
+
+That is biology, not an artifact — 5' UTRs carry upstream ORFs, and real initiation weighs Kozak
+context rather than taking the first ATG. So the transplanted detector should misfire on ~35% of
+windows, in a diagnosable way.
+
+- [ ] **3a. Zero-shot.** Run the circuit-bearing model on real anchored DNA, no retraining. Prediction:
+      the *counter* transfers (content-independent arithmetic); the *detector* locks onto the upstream
+      decoy. Verify per-window: does L1H3 attend to the true start or to the decoy? Failures should
+      concentrate exactly in the 35.1%.
+- [ ] **3b. Transplant + freeze.** Initialise a real-DNA MLM from the circuit-bearing backbone, swap
+      the head, freeze L0H0 and L1H3, train the rest. Compare loss to random init. **Hard prediction
+      from D24's information calculation: improvement ≤ 0.005 nats (~0.4%).** Control: freeze a matched
+      set of causally irrelevant heads, since freezing anything can hurt for unrelated reasons.
+- [ ] **3c. Transplant + full fine-tune.** Hand the model the circuit for free, then train on real DNA.
+      Does it survive or erode? Track far-field cue-conflict anchor share across steps.
+      Prediction: falls 1.00 -> <0.10 within a few thousand steps.
+
+**Why 3c matters most.** Today we can say *the objective does not build the circuit*. If the circuit
+erodes when handed over for free, we can say **the objective will not even keep it** — a claim about
+the loss landscape rather than about optimisation difficulty. That distinguishes "the bag is the
+default" from "the bag is an attractor."
+
+**Caveat to state explicitly.** All three work because the *whole backbone* is transplanted. A partial
+graft — inserting only L1H3's weights into a separately trained real-DNA model — is meaningless without
+representational alignment: the two residual streams have unrelated bases. That needs a learned
+alignment (Procrustes or an adapter), and any positive result is then confounded by the adapter's
+capacity. This is the version a reviewer will ask about.
+
+Cost: ~1 hour of compute for all three.
+
+---
+
 ## Future work (out of scope — see D19)
 
 - Rung 2, splice sites: GENCODE donor/acceptor/branch-point/polypyrimidine, spacing nulls
