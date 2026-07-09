@@ -29,3 +29,27 @@ train (200000, 256)  val (8000, 256)  device mps
   step  5000  train 0.0003  val 0.0002  aa_acc 1.0000  [FRAME]  5.2 it/s
   step  5250  train 0.0001  val 0.0004  aa_acc 0.9999  [FRAME]  5.2 it/s
   step  5500  train 0.0000  val 0.0001  aa_acc 1.0000  [FRAME]  5.2 it/s
+  step  5750  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.2 it/s
+  step  6000  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.2 it/s
+  step  6250  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.2 it/s
+  step  6500  train 0.0005  val 0.0000  aa_acc 1.0000  [FRAME]  5.2 it/s
+  step  6750  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.2 it/s
+  step  7000  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.2 it/s
+  step  7250  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  7500  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  7750  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  8000  train 0.0000  val 0.0000  aa_acc 1.0000  [FRAME]  5.3 it/s
+done in 25.3 min
+=============== cell B  11:06:16 ===============
+/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/train_cell.py:123: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:839.)
+  print(f"  step {step:5d}  train {float(loss):.4f}  val {vl:.4f}  aa_acc {va:.4f}  {step/(time.time()-t0):.1f} it/s", flush=True)
+cell B   train (100000, 256)   val (6000, 256)   device mps
+  step     1  train 3.0932  val 3.0861  aa_acc 0.0408  0.8 it/s
+  step   250  train 2.5636  val 2.5598  aa_acc 0.1745  5.4 it/s
+  step   500  train 2.5576  val 2.5527  aa_acc 0.1761  5.4 it/s
+  step   750  train 1.7657  val 1.7562  aa_acc 0.3419  5.3 it/s
+  step  1000  train 1.2443  val 1.2403  aa_acc 0.3914  5.3 it/s
+  step  1250  train 1.1642  val 1.1718  aa_acc 0.3943  5.3 it/s
+  step  1500  train 1.0668  val 1.0667  aa_acc 0.3990  5.3 it/s
+  step  1750  train 1.0496  val 1.0424  aa_acc 0.4019  5.3 it/s
