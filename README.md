@@ -10,7 +10,8 @@ by TransformerLens / `circuit-tracer`, which target GPT-style decoder-only model
 
 | | |
 |---|---|
-| `docs/DECISIONS.md` | Why the design is what it is. Read first. |
+| `docs/EXPERIMENTS.md` | **Plain-language account of every experiment and what it showed.** Start here. |
+| `docs/DECISIONS.md` | Why the design is what it is, with the numbers. |
 | `docs/PLAN.md` | Phases and gates. |
 | `docs/PREREGISTRATION.md` | The five confirmatory tests. **Draft — not frozen.** |
 

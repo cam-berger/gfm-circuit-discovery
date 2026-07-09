@@ -167,11 +167,10 @@ def sample_window(
     if len(seq) < window:
         return None
 
-    labels = np.full(window, IGNORE, dtype=np.int64)
-    for i in range(window):
-        g = w0 + i
-        if cds.contains(g):
-            labels[i] = cds.codon_position(g)
+    g = np.arange(w0, w0 + window)
+    inside = (g >= cds.start) & (g <= cds.end)
+    delta = g - cds.first_codon_base if cds.strand == "+" else cds.first_codon_base - g
+    labels = np.where(inside, delta % 3, IGNORE).astype(np.int64)
 
     if cds.strand == "-":
         seq = revcomp(seq)

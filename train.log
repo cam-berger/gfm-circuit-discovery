@@ -1,0 +1,19 @@
+=============== ar  21:45:03 ===============
+/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/train_nano.py:128: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:839.)
+  print(f"  step {step:5d}  train {float(loss):.4f}  val {vl:.4f}  {rate:.1f} it/s", flush=True)
+train (200000, 256)  val (8000, 256)  device mps
+ar: 4.80M params, causal=True
+  step     1  train 1.8468  val 1.8407  0.7 it/s
+  step   250  train 1.3347  val 1.3200  4.6 it/s
+  step   500  train 1.3201  val 1.3033  4.6 it/s
+  step   750  train 1.3106  val 1.2964  4.6 it/s
+  step  1000  train 1.2967  val 1.2906  4.6 it/s
+  step  1250  train 1.3066  val 1.2886  4.6 it/s
+  step  1500  train 1.3036  val 1.2875  4.6 it/s
+  step  1750  train 1.2988  val 1.2858  4.6 it/s
+  step  2000  train 1.3081  val 1.2840  4.6 it/s
+  step  2250  train 1.2959  val 1.2826  4.6 it/s
+  step  2500  train 1.2976  val 1.2810  4.6 it/s
+  step  2750  train 1.2981  val 1.2819  4.6 it/s
+  step  3000  train 1.3012  val 1.2792  4.6 it/s

@@ -49,8 +49,11 @@ interpretable until this passes.
       phase at 1.000, randomised at 0.372 (fixture) / **0.3446 on real hg38** (chance 0.3333)
 - [x] `scripts/validate_genome.py` — biology as external ground truth: **0 in-frame stop codons in
       117,481**, vs 4.19% / 5.54% in the two shifted frames. Phase and strand arithmetic confirmed
-- [ ] `models/gfm_nano.py` — single-nt transformer, ~6L × d=512
-- [ ] Train `gfm-nano-cds` (AR) and `gfm-nano-dna` (both strands)
+- [x] `models/gfm_nano.py` — single-nt transformer, 6L × d=256 × 8 heads, 4.80M params, LayerNorm,
+      absolute pos-emb. `causal=True` is the AR arm, `causal=False` the MLM arm; identical parameter counts
+- [~] Train the AR and MLM arms (`scripts/train_nano.py`, 8000 steps, ~29 min/arm on MPS)
+- [x] `scripts/probe_frame.py` — layer-by-layer phase probe with four controls: untrained model at
+      random init, nucleotide-identity baseline, `index % 3`, label-shuffled floor
 - [ ] Linear probe: is period-3 phase decodable, layer by layer, vs position-shuffled control?
 - [ ] Trace; edge-patch; check sign-correctness under frameshift minimal pairs
 - [ ] Port harness to `splicebert` (official weights `chenkenbio/SpliceBERT`; verify any mirror; 6L, d=512, absolute pos-emb)
