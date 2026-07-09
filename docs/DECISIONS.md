@@ -410,3 +410,32 @@ bag-of-motifs twin, max QK edge                               0.0        falsifi
 
 A head driven purely by positional bias has zero content contribution, so it receives zero QK
 attribution by construction. **Combined OV + QK edge recall against `PLANTED_EDGES` is now 1.0.**
+
+
+---
+
+## D21 — Frame labels validated against biology, not against our own code (Phase 1)
+
+`data/genome.py` computes codon phase from GENCODE's `frame` field and the strand. Both are easy to
+get subtly wrong: on the minus strand the first codon base is `end - phase`, not `start + phase`, and
+codon position advances as the genomic coordinate *decreases*. An off-by-one there would produce
+labels that are internally consistent, pass every unit test, and be wrong.
+
+So the check is external. If the arithmetic is right, in-frame codons in a coding exon must almost
+never be stop codons; the two shifted frames should hit stops at the rate base composition predicts.
+GENCODE excludes the terminal stop codon from CDS features, so the in-frame rate should be *exactly*
+zero. Measured on 2,000 windows across 624,533 train CDS exons:
+
+```
+in-frame (our labels)    0.0000 stop codons    n = 117,481
+shifted +1               0.0419               n = 116,854
+shifted +2               0.0554               n = 116,342
+```
+
+Reproduce with `python scripts/validate_genome.py`.
+
+**And the offset randomisation is mutation-tested**, because the guard matters more than the code it
+guards. Anchoring windows at CDS starts makes `index % 3` predict phase at **1.000**; the randomised
+sampler scores **0.3446** on real hg38 against a chance floor of 0.3333. A model with absolute
+position embeddings would have read phase straight off `pos_embed`, and the loss curve would have
+looked fine.

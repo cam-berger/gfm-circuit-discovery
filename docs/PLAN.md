@@ -44,7 +44,11 @@ interpretable until this passes.
 
 ## Phase 1 — Rung 1: reading frame
 
-- [ ] `data/genome.py` — hg38 + GENCODE CDS, **random-offset windows**, chromosome splits
+- [x] `data/genome.py` — hg38 + GENCODE v50 CDS, **random-offset windows**, chromosome splits,
+      test split locked behind `unlock_test_split()`. Mutation-tested: CDS-anchored windows leak
+      phase at 1.000, randomised at 0.372 (fixture) / **0.3446 on real hg38** (chance 0.3333)
+- [x] `scripts/validate_genome.py` — biology as external ground truth: **0 in-frame stop codons in
+      117,481**, vs 4.19% / 5.54% in the two shifted frames. Phase and strand arithmetic confirmed
 - [ ] `models/gfm_nano.py` — single-nt transformer, ~6L × d=512
 - [ ] Train `gfm-nano-cds` (AR) and `gfm-nano-dna` (both strands)
 - [ ] Linear probe: is period-3 phase decodable, layer by layer, vs position-shuffled control?

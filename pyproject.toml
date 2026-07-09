@@ -11,6 +11,7 @@ dependencies = ["torch>=2.2", "numpy", "scipy"]
 
 [project.optional-dependencies]
 models = ["transformers>=4.40", "datasets"]
+genome = ["pyfaidx>=0.8", "numpy"]
 dev = ["pytest", "pytest-xdist"]
 
 [tool.setuptools.packages.find]
