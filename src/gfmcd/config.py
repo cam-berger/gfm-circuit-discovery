@@ -46,7 +46,7 @@ SUBSTRATES: dict[str, Substrate] = {
     "splicebert": Substrate(
         "splicebert",
         Provenance.PRETRAINED,
-        hf_id="yangheng/SpliceBERT-510nt",
+        hf_id="yangheng/SpliceBERT-510nt",  # community mirror; official weights are chenkenbio/SpliceBERT — verify at load (Phase 1)
         both_strands=False,
         notes="pre-mRNA, sense strand only: cannot carry Rung 3's cross-strand axis",
     ),
