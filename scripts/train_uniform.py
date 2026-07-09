@@ -25,7 +25,13 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
-from gfmcd.data.uniform_cds import N_AA, alignment_free_ceiling, make_batch
+from gfmcd.data.uniform_cds import (
+    N_AA,
+    alignment_free_ceiling,
+    blended_codon_probs,
+    make_batch,
+    nucleotide_phase_information,
+)
 from gfmcd.models.gfm_nano import GFMNano, NanoConfig
 
 CKPT = Path("checkpoints")
@@ -62,16 +68,20 @@ def main() -> None:
     ap.add_argument("--lr", type=float, default=3e-4)
     ap.add_argument("--train-seqs", type=int, default=200_000)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--lam", type=float, default=0.0, help="0 = uniform codons; 1 = real human usage")
     args = ap.parse_args()
 
     device = "mps" if torch.backends.mps.is_available() else "cpu"
     torch.manual_seed(args.seed)
 
+    probs = None if args.lam == 0.0 else blended_codon_probs(args.lam)
     ceiling = alignment_free_ceiling()
-    print(f"alignment-free ceiling {ceiling:.4f}   frame-aware ceiling 1.0000")
+    tok_np, aa_np, ph_np = make_batch(args.train_seqs, args.window, seed=0, codon_probs=probs)
+    vtok_np, vaa_np, _ = make_batch(8_000, args.window, seed=1, codon_probs=probs)
 
-    tok_np, aa_np, _ = make_batch(args.train_seqs, args.window, seed=0)
-    vtok_np, vaa_np, _ = make_batch(8_000, args.window, seed=1)
+    shortcut = nucleotide_phase_information(tok_np[:2000], ph_np[:2000])
+    print(f"lambda {args.lam}   I(nt;phase) {shortcut:.5f} nats  ({shortcut/0.0241:.0%} of real hg38 CDS)")
+    print(f"uniform-codon alignment-free ceiling {ceiling:.4f}")
     train_tok, train_aa = torch.from_numpy(tok_np).long(), torch.from_numpy(aa_np)
     val_tok = torch.from_numpy(vtok_np).long().to(device)
     val_aa = torch.from_numpy(vaa_np).to(device)
@@ -103,15 +113,18 @@ def main() -> None:
 
         if step % 250 == 0 or step == 1:
             vl, va = evaluate(model, val_tok, val_aa, args.batch)
-            verdict = "FRAME" if va > ceiling + 0.05 else "frameless"
+            verdict = "FRAME" if va > 0.60 else "frameless"
             print(f"  step {step:5d}  train {float(loss):.4f}  val {vl:.4f}  aa_acc {va:.4f}  [{verdict}]  {step/(time.time()-t0):.1f} it/s", flush=True)
             history.append({"step": step, "train": float(loss), "val": vl, "aa_acc": va})
 
         if step in save_at:
-            torch.save({"cfg": model.cfg.__dict__, "state": model.state_dict(), "step": step, "pool": "uniform"},
-                       CKPT / f"nano_uniform_step{step}.pt")
+            tag = "uniform" if args.lam == 0.0 else f"lam{args.lam:g}"
+            torch.save({"cfg": model.cfg.__dict__, "state": model.state_dict(), "step": step,
+                        "pool": tag, "lam": args.lam, "shortcut_nats": shortcut},
+                       CKPT / f"nano_{tag}_step{step}.pt")
 
-    (CKPT / "nano_uniform_history.json").write_text(json.dumps(history, indent=2))
+    tag = "uniform" if args.lam == 0.0 else f"lam{args.lam:g}"
+    (CKPT / f"nano_{tag}_history.json").write_text(json.dumps(history, indent=2))
     print(f"done in {(time.time()-t0)/60:.1f} min")
 
 

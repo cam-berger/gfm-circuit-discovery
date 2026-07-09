@@ -72,6 +72,7 @@ def make_batch(
     window: int = 256,
     utr_range: tuple[int, int] = (6, 40),
     seed: int = 0,
+    codon_probs: np.ndarray | None = None,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Returns (tokens [n, w], amino-acid labels [n, w], phase labels [n, w]).
 
@@ -90,7 +91,10 @@ def make_batch(
         tokens[s, :u] = _utr_without_atg(u, rng)
 
         n_cod = (window - u) // 3
-        idx = rng.integers(0, len(CODONS), size=n_cod)
+        if codon_probs is None:
+            idx = rng.integers(0, len(CODONS), size=n_cod)
+        else:
+            idx = rng.choice(len(CODONS), size=n_cod, p=codon_probs)
         idx[0] = atg_codon  # the start codon IS the first codon, not a prefix that gets overwritten
         body = CODONS[idx].reshape(-1)
         end = u + 3 * n_cod
@@ -129,3 +133,91 @@ def alignment_free_ceiling(seed: int = 0, n: int = 40000) -> float:
         aa = CODON_AA[codon_index(stream[:, 3 + shift : 6 + shift])]
         votes[np.arange(n), aa] += 1
     return float((votes.argmax(1) == true_aa).mean())
+
+
+# ---------------------------------------------------------------------------
+# The lambda sweep: a dial on how much the local shortcut helps.
+#
+# D26 showed the circuit appears when the objective makes it necessary and not when it is merely
+# useful. That is a claim about a threshold, so put a continuous knob on it. Interpolate codon usage
+# between uniform (lambda = 0, no local phase cue, circuit mandatory) and real human usage
+# (lambda = 1, phase inferable from a ~30 nt bag, circuit worth 0.4%).
+#
+#     p_lambda = (1 - lambda) * uniform + lambda * p_real
+#
+# The task never changes -- predict the amino acid of the containing codon. Only the strength of the
+# shortcut moves. Then ask, per lambda, whether the anchored counter forms.
+# ---------------------------------------------------------------------------
+
+UNIFORM_CODON_PROBS = np.full(64, 1 / 64)
+
+
+def real_codon_probs(cache: "Path | None" = None) -> np.ndarray:
+    """Human codon usage, counted from in-frame codons of GENCODE CDS exons in hg38."""
+    from pathlib import Path
+
+    import numpy as _np
+
+    cache = Path(cache) if cache else Path("data/cache/codon_usage_hg38.npy")
+    if cache.exists():
+        return _np.load(cache)
+
+    from pyfaidx import Fasta
+
+    from gfmcd.data.genome import SPLIT_CHROMS, Split, parse_gencode_cds, sample_windows
+
+    data = Path.home() / "Research/data/genomes"
+    fasta = Fasta(str(data / "hg38.fa"), as_raw=True, sequence_always_upper=True)
+    cds = parse_gencode_cds(data / "gencode.v50.basic.annotation.gtf.gz", chroms=SPLIT_CHROMS[Split.TRAIN], min_len=150)
+    tokens, labels = sample_windows(cds, fasta, n=20000, window=256, seed=3)
+
+    counts = _np.ones(64)
+    for tok, lab in zip(tokens, labels):
+        starts = _np.where(lab == 0)[0]
+        starts = starts[starts + 2 < len(tok)]
+        tri = _np.stack([tok[starts], tok[starts + 1], tok[starts + 2]], axis=-1).astype(_np.int64)
+        good = (tri < 4).all(-1)
+        _np.add.at(counts, codon_index(tri[good]), 1)
+
+    probs = counts / counts.sum()
+    cache.parent.mkdir(parents=True, exist_ok=True)
+    _np.save(cache, probs)
+    return probs
+
+
+def blended_codon_probs(lam: float) -> np.ndarray:
+    """A dial on the local shortcut.
+
+    lambda = 0    uniform: the sequence is i.i.d., phase is not locally inferable at all
+    lambda = 1    real human codon usage
+    lambda > 1    sharpened (p ∝ p_real^lambda): mixture alone reaches only ~64% of real hg38's
+                  I(nt;phase), because real DNA also carries inter-codon and amino-acid structure
+
+    Only the shortcut moves. The task -- predict the amino acid of the containing codon -- is fixed.
+    """
+    real = real_codon_probs()
+    p = (1 - lam) * UNIFORM_CODON_PROBS + lam * real if lam <= 1 else np.power(real, lam)
+    return p / p.sum()
+
+
+def nucleotide_phase_information(tokens: np.ndarray, phase: np.ndarray, skip_start: bool = True) -> float:
+    """I(nucleotide ; phase) in nats -- the strength of the single-base shortcut."""
+    if skip_start:
+        body = np.zeros_like(phase, dtype=bool)
+        for r, ph in enumerate(phase):
+            body[r, int(np.argmax(ph == 0)) + 3 :] = True
+        m = (phase >= 0) & body
+    else:
+        m = phase >= 0
+
+    def H(counts):
+        p = counts / counts.sum()
+        p = p[p > 0]
+        return float(-(p * np.log(p)).sum())
+
+    h = H(np.bincount(tokens[m].astype(int), minlength=4))
+    h_cond = sum(
+        (m & (phase == k)).sum() / m.sum() * H(np.bincount(tokens[m & (phase == k)].astype(int), minlength=4))
+        for k in range(3)
+    )
+    return h - h_cond

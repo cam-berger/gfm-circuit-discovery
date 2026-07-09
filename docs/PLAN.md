@@ -75,7 +75,34 @@ matches H0; **not significant**. The probe, not the behavioural proxy, is the in
 
 ---
 
-## Phase 2 — H2: the payload
+## Phase 2 — H2: the payload, as a dial rather than four points
+
+**Reframed by D26/D27.** The original H2 asked whether an objective installs a circuit, with four
+discrete arms. What we can now ask is sharper: *how much local shortcut does it take to stop the
+circuit from forming?* The λ dial interpolates codon usage from uniform (no local phase cue; the
+anchored counter is the only solution) through real human usage to beyond it, while the task -- predict
+the amino acid of the containing codon -- never changes.
+
+```
+lambda   I(nt;phase)   % of real hg38 CDS
+  0.00     0.00001            0%
+  0.50     0.00383           16%
+  1.00     0.01516           63%     (mixture alone cannot reach real; real DNA also
+  1.50     0.03110          129%      carries inter-codon and amino-acid structure)
+  2.00     0.05665          235%
+```
+
+The y-axis is the **circuit**, not the accuracy: ATG-ablation loss increase, and far-field
+cue-conflict anchor share. Both were validated on the planted twins before ever being pointed at a
+trained model.
+
+- [~] `scripts/sweep_lambda.sh` — six arms, 8000 steps each
+- [ ] `scripts/eval_lambda.py` — the dose-response curve
+- [ ] Report the threshold, and where real hg38 sits relative to it
+
+---
+
+## Phase 2b — H2 on real objectives (deferred)
 
 - [ ] Four arms at matched architecture/scale: AR · MLM · MLM+phyloP · phyloP-only
 - [ ] Control arm 3′: phyloP scrambled *within codons* (mean preserved, period-3 destroyed)
