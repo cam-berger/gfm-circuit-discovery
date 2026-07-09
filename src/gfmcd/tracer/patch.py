@@ -57,10 +57,11 @@ def _mlp1_state(model: TinyTransformer, tokens: torch.Tensor):
 def edge_patch(
     model: TinyTransformer,
     tokens: torch.Tensor,
+    head: int,
     head_dim: int,
     freeze_gate: bool,
 ) -> torch.Tensor:
-    """Remove the layer-0 head's component `head_dim` from MLP1's input, and nothing else.
+    """Remove one layer-0 head component from MLP1's input, and nothing else.
 
     `freeze_gate=True` is the replacement model: the ReLU mask is held at its clean value,
     so the computation is linear. `freeze_gate=False` is the real model: ReLU recomputes.
@@ -68,7 +69,7 @@ def edge_patch(
     logits, cache, m1, pre1 = _mlp1_state(model, tokens)
 
     z = cache["L0.attn.z"]
-    contribution = z[..., head_dim : head_dim + 1] * model.attn[0].W_O[head_dim, :]
+    contribution = z[..., head, head_dim : head_dim + 1] * model.attn[0].W_O[head, head_dim, :]
     pre_patched = (m1 - contribution) @ model.mlp[1].W_in + model.mlp[1].b_in
 
     if freeze_gate:
@@ -80,12 +81,12 @@ def edge_patch(
 
 
 @torch.no_grad()
-def node_ablate_head_dim(model: TinyTransformer, tokens: torch.Tensor, head_dim: int) -> torch.Tensor:
+def node_ablate_head_dim(model: TinyTransformer, tokens: torch.Tensor, head: int, head_dim: int) -> torch.Tensor:
     """Zero the head component everywhere it is read, not just into MLP1."""
     logits, cache, m1, pre1 = _mlp1_state(model, tokens)
 
     z = cache["L0.attn.z"]
-    contribution = z[..., head_dim : head_dim + 1] * model.attn[0].W_O[head_dim, :]
+    contribution = z[..., head, head_dim : head_dim + 1] * model.attn[0].W_O[head, head_dim, :]
     m1_ablated = m1 - contribution
     acts = torch.relu(m1_ablated @ model.mlp[1].W_in + model.mlp[1].b_in)
 
@@ -93,18 +94,18 @@ def node_ablate_head_dim(model: TinyTransformer, tokens: torch.Tensor, head_dim:
 
 
 @torch.no_grad()
-def faithfulness(model: TinyTransformer, tokens: torch.Tensor, head_dim: int) -> PatchResult:
-    repl = edge_patch(model, tokens, head_dim, freeze_gate=True)
-    real = edge_patch(model, tokens, head_dim, freeze_gate=False)
+def faithfulness(model: TinyTransformer, tokens: torch.Tensor, head: int, head_dim: int) -> PatchResult:
+    repl = edge_patch(model, tokens, head, head_dim, freeze_gate=True)
+    real = edge_patch(model, tokens, head, head_dim, freeze_gate=False)
     return PatchResult(float(repl.abs().mean()), float(real.abs().mean()))
 
 
 @torch.no_grad()
-def routing_share(model: TinyTransformer, tokens: torch.Tensor, head_dim: int) -> float:
+def routing_share(model: TinyTransformer, tokens: torch.Tensor, head: int, head_dim: int) -> float:
     """|eff_real(edge u -> MLP1)| / |eff_real(node u)| in [0, 1].
 
     H4a: much larger for the traced edge than for matched random edges out of u.
     """
-    edge = edge_patch(model, tokens, head_dim, freeze_gate=False).abs().mean()
-    node = node_ablate_head_dim(model, tokens, head_dim).abs().mean()
+    edge = edge_patch(model, tokens, head, head_dim, freeze_gate=False).abs().mean()
+    node = node_ablate_head_dim(model, tokens, head, head_dim).abs().mean()
     return float(edge / node) if node > 0 else 0.0

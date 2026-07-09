@@ -293,3 +293,66 @@ A TopK SAE carries no L1 term, so the renormalisation only fights the optimiser.
 with per-step renorm:     EV 0.939   |cos| min 0.393   MCC 0.890
 without:                  EV 0.966   |cos| min 0.998   MCC 0.945
 ```
+
+---
+
+## D16 — Jacobian sparsity measures in-degree, not composition (Test D)
+
+H3's discriminator was first run against a "heuristic" twin that was a unigram lookup: one neuron
+reading one input. It scored AUC 1.0 with a separation of **0.0070** — because composition has
+in-degree 2 and a lone shortcut has in-degree 1. The test passed and meant nothing.
+
+A bag of motifs must actually be a bag. The heuristic twin is now five local nucleotide detectors
+at offsets -2..+2 casting independent weak votes, no frame variable anywhere. Rebuilt:
+
+```
+model           accuracy   Jacobian in-degree   Hoyer sparsity
+compositional     1.0000          2.00              0.9882
+bag               0.7872         14.91              0.9245
+shortcut          0.5793          3.00              0.9818
+
+AUC(comp > bag)      = 1.0000    separation = +0.0637
+AUC(comp > shortcut) = 1.0000    separation = +0.0063     <- 10x smaller
+```
+
+**H3 survives, in restricted form.** Jacobian sparsity licenses "this model does not use many weak
+features." It does **not** license "this model composes." A model that cheats with a single strong
+shortcut is near-maximally sparse and is indistinguishable from a genuine composition circuit.
+
+**Decision.** The pre-registered C3 must state the alternative it tests against. Rung 3's G-density
+null is a *bag* (many G positions summed) so the discriminator applies. Any single-motif shortcut —
+e.g. "there is a GGGG here" — is invisible to it and needs a separate control.
+
+## D17 — Perfect reconstruction, meaningless features (Test C)
+
+The compositional twin's MLP emits exactly three distinct outputs. A TopK transcoder reconstructs
+them with **EV = 1.0000** and recovers them as concepts not at all:
+
+```
+b_dec[6:9] = [0.999, 0.006, -0.006]     the decoder BIAS is the phase-0 output
+W_dec[7]   = [-0.990, -0.007, 0.999]    a DIFFERENCE feature: "switch phase 0 -> phase 2"
+
+live features           6      (for 3 concepts)
+phase recovered from features   0.6617    (from neurons: 1.0000)
+```
+
+Phase 0 is not a feature. It is what the transcoder emits when nothing fires. Feature 7 is a signed
+difference vector. Reading its top-activating examples would show phase-2 sites and invite the name
+"the phase-2 feature," while phase 0 stayed invisible.
+
+Because Test A showed attribution is exact and Test B showed dictionary recovery works when features
+*are* identifiable, the entire end-to-end shortfall is attributable to the dictionary. The factoring
+did the job it was built for.
+
+**Structure survives what nodes do not.** Abstract edge recall is 1.0; precision is 0.6 — the learned
+encoder reads the token dimensions and the constant, which the planted circuit never touches.
+
+**Consequence.** Report circuit *shape* from transcoder graphs; do not name a feature after its
+top-activating examples without an identifiability check and an inspection of `b_dec`. A concept
+absorbed into the decoder bias is a concept the circuit diagram will silently omit.
+
+## D18 — `explained_variance` was flattering itself
+
+The first implementation used element-wise `.var()`. Against a 36-dimensional target whose dimensions
+are mostly zero, that reads near 1.0 almost regardless of fit. Replaced with `1 - FVU`. On this data
+both give 1.0000, but only by luck; the metric is now correct by construction.

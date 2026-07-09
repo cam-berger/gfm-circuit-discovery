@@ -25,14 +25,19 @@ interpretable until this passes.
 - [x] **Test A** — conservation exact (<1e-21); OV recall = precision = 1.0; QK edge invisible
       (attribution 0.000 on an edge whose ablation costs 0.617 accuracy); faithfulness gap 2x (D12, D13)
 - [x] **Test B** — 64 atoms in 32 dims, k=3: EV 0.966, |cos| min 0.998, **MCC 0.945** (D14, D15)
-- [ ] **Test C** — end-to-end recall/precision vs `PLANTED_EDGES`
-- [ ] **Test D** — JSAE Jacobian sparsity: ROC(compositional vs heuristic), AUC > 0.8
+- [x] **Test C** — EV 1.0000, edge recall 1.0, precision 0.6; phase recoverable from features only
+      0.662 (vs 1.000 from neurons). Bias absorbs a concept; a feature is a difference vector (D17, D18)
+- [x] **Test D** — AUC(comp>bag) 1.0, sep +0.0637; AUC(comp>shortcut) 1.0, sep +0.0063.
+      H3 survives only as "not a bag of weak features", NOT as "composes" (D16)
 
-> **GATE 0.** Tests A–D pass. If C's recall is low, A and B say which half is at fault. If D's
-> AUC is at chance, H3's discriminator does not work and H3 is withdrawn — not reinterpreted.
+> **GATE 0 — PASSED, with two hypotheses narrowed.** Tests A–D all green (53 tests).
+> H3 is restricted (D16): the discriminator tests against bags, not against single shortcuts.
+> Feature-level claims now require an identifiability check (D17). Edge-level structure is sound.
 
 - [ ] Plant a *multiplicative* interaction; measure how far edge recall falls
       → this number is the faithfulness/nonlinearity result, and answers Risk #1
+- [ ] QK attribution instrument — Test A showed frozen attention scores the marker edge at 0.000
+      while its ablation costs 0.617 accuracy. Every real rung has a "where to look" step.
 
 ---
 

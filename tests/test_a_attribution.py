@@ -72,7 +72,7 @@ def test_frozen_attention_is_blind_to_a_causally_necessary_edge(setup):
 def test_head_edge_carries_most_of_the_nodes_influence(setup):
     """H4a in miniature: the traced edge routes nearly all of the node's causal effect."""
     model, tokens, _ = setup
-    shares = [routing_share(model, tokens, c) for c in range(3)]
+    shares = [routing_share(model, tokens, 0, c) for c in range(3)]
     assert min(shares) > 0.9, f"routing shares {shares}"
 
 
@@ -80,15 +80,15 @@ def test_node_ablation_dominates_edge_ablation(setup):
     """The part cannot exceed the whole. H4's original inequality was backwards."""
     model, tokens, _ = setup
     for c in range(3):
-        edge = edge_patch(model, tokens, c, freeze_gate=False).abs().mean()
-        node = node_ablate_head_dim(model, tokens, c).abs().mean()
+        edge = edge_patch(model, tokens, 0, c, freeze_gate=False).abs().mean()
+        node = node_ablate_head_dim(model, tokens, 0, c).abs().mean()
         assert edge <= node + 1e-6, f"edge {edge:.4f} > node {node:.4f} at head dim {c}"
 
 
 def test_faithfulness_gap_is_nonzero_and_gate_flips_explain_it(setup):
     """Freezing the ReLU gate mispredicts the intervention. Quantified, not assumed away."""
     model, tokens, _ = setup
-    gaps = [faithfulness(model, tokens, c) for c in range(3)]
+    gaps = [faithfulness(model, tokens, 0, c) for c in range(3)]
     assert all(g.faithfulness_gap > 1e-3 for g in gaps), [g.faithfulness_gap for g in gaps]
     assert all(g.effect_replacement > g.effect_real for g in gaps), (
         "linear attribution should overstate the effect: ReLU clamps what it predicts"

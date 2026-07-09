@@ -18,22 +18,30 @@ def batch():
     return make_batch(n_seq=64, body_len=90, seed=1)
 
 
+@pytest.fixture(scope="module")
+def target(batch):
+    """Gate calibration target, measured on a separate calibration split."""
+    cal_tokens, cal_labels = make_batch(n_seq=64, body_len=90, seed=1234)
+    return phase_accuracy(build_heuristic(seq_len=cal_tokens.shape[-1]), cal_tokens, cal_labels)
+
+
 def test_compositional_twin_is_exact(batch):
     tokens, labels = batch
     model = build_compositional(match_accuracy=False)
     assert phase_accuracy(model, tokens, labels) > 0.99
 
 
-def test_heuristic_twin_hits_the_local_bayes_ceiling(batch):
+def test_heuristic_twin_beats_the_unigram_ceiling(batch):
+    """The bag pools five offsets, so it must beat any single-nucleotide predictor."""
     tokens, labels = batch
-    acc = phase_accuracy(build_heuristic(), tokens, labels)
-    assert acc == pytest.approx(bayes_unigram_accuracy(), abs=0.03)
+    acc = phase_accuracy(build_heuristic(seq_len=tokens.shape[-1]), tokens, labels)
+    assert acc > bayes_unigram_accuracy() + 0.1
 
 
-def test_twins_are_behaviourally_matched(batch):
+def test_twins_are_behaviourally_matched(batch, target):
     tokens, labels = batch
-    comp = phase_accuracy(build_compositional(match_accuracy=True), tokens, labels)
-    heur = phase_accuracy(build_heuristic(), tokens, labels)
+    comp = phase_accuracy(build_compositional(match_accuracy=True, target_accuracy=target), tokens, labels)
+    heur = phase_accuracy(build_heuristic(seq_len=tokens.shape[-1]), tokens, labels)
     assert abs(comp - heur) < 0.03, f"comp={comp:.4f} heur={heur:.4f}"
 
 
@@ -43,7 +51,7 @@ def test_marker_ablation_separates_the_mechanisms(batch):
     ablated = ablate_marker(tokens, seed=2)
 
     comp = build_compositional(match_accuracy=False)
-    heur = build_heuristic()
+    heur = build_heuristic(seq_len=tokens.shape[-1])
 
     comp_intact = phase_accuracy(comp, tokens, labels)
     comp_ablated = phase_accuracy(comp, ablated, labels)
@@ -63,7 +71,7 @@ def test_compositional_twin_routes_through_the_marker_head(batch):
     pattern = cache["L0.attn.pattern"]
 
     starts = (tokens[:8] == 4).float().argmax(dim=-1)
-    mass = torch.stack([pattern[s, :, starts[s]].mean() for s in range(8)])
+    mass = torch.stack([pattern[s, 0, :, starts[s]].mean() for s in range(8)])
     assert mass.min() > 0.99, f"attention leaked off the marker: {mass.min():.4f}"
 
 

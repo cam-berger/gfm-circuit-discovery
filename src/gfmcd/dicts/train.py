@@ -41,7 +41,33 @@ def train_sae(
     return sae
 
 
-def explained_variance(sae: Transcoder, acts: torch.Tensor) -> float:
+def explained_variance(model: Transcoder, x: torch.Tensor, y: torch.Tensor | None = None) -> float:
+    """1 - FVU. Element-wise variance flatters a target whose dimensions are mostly zero."""
+    y = x if y is None else y
     with torch.no_grad():
-        resid = acts - sae(acts)
-    return float(1.0 - resid.var() / acts.var())
+        sse = (y - model(x)).pow(2).sum()
+        sst = (y - y.mean(dim=0)).pow(2).sum()
+    return float(1.0 - sse / sst)
+
+
+def train_transcoder(
+    x: torch.Tensor,
+    y: torch.Tensor,
+    n_features: int,
+    k: int,
+    steps: int = 4000,
+    lr: float = 1e-3,
+    seed: int = 0,
+) -> Transcoder:
+    """Encode `x` (an MLP's input), decode `y` (that MLP's output). Nodes of the graph."""
+    torch.manual_seed(seed)
+    tc = Transcoder(d_in=x.shape[-1], d_out=y.shape[-1], n_features=n_features, k=k)
+    with torch.no_grad():
+        tc.b_dec.copy_(y.mean(dim=0))
+
+    opt = torch.optim.Adam(tc.parameters(), lr=lr)
+    for _ in range(steps):
+        opt.zero_grad()
+        F.mse_loss(tc(x), y).backward()
+        opt.step()
+    return tc

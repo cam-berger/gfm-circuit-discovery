@@ -1,36 +1,49 @@
 """Two transformers with identical behaviour and different mechanism.
 
-The compositional twin attends to the start marker and computes (i - start - 1) % 3
-exactly. The heuristic twin reads a per-nucleotide lookup table and never represents
-frame at all. Both are hand-weighted, so the ground-truth edge set is known rather
-than inferred, and `PLANTED_EDGES` is what the tracer is scored against.
+The compositional twin attends to the start marker and computes (i - start - 1) % 3 exactly:
+two input features feed one output feature. The heuristic twin is a genuine *bag of motifs* --
+five local nucleotide detectors at offsets -2..+2, each casting an independent weak vote for
+the phase, summed. It never represents frame.
 
-Behaviour is matched by gating the compositional twin's readout on a fixed, position-
-indexed mask: on gated positions it emits a uniform distribution. Solving
-  p * 1 + (1 - p) * (1/3) = bayes_unigram_accuracy()
-for p makes the two twins equally accurate while leaving their computations untouched.
+An earlier heuristic twin was a unigram lookup: one neuron, one input. That is a single
+shortcut rather than a bag, and it defeated the point of Test D, because a single shortcut is
+*maximally* sparse and scored as more compositional than composition itself. A bag of motifs
+must actually be a bag.
 
-Residual layout (d_model = 16):
-    0:3    one-hot(i % 3)                from pos_embed
-    3:6    one-hot(start % 3)            written by the layer-0 attention head
-    6:9    one-hot(phase)                written by the layer-1 MLP
-    9:14   one-hot(token)                from embed
-    14     unused
-    15     constant 1                    query source for the marker-finding head
+Both are hand-weighted, so the ground-truth edge set is known rather than inferred. Behaviour
+is matched by gating the compositional twin's readout on a fixed, position-indexed mask:
+solving p*1 + (1-p)*(1/3) = heuristic accuracy makes the twins equally accurate while leaving
+their computations untouched.
+
+Residual layout (d_model = 36):
+    0:3    one-hot(i % 3)              from pos_embed
+    3:6    one-hot(start % 3)          written by head 0 (compositional only)
+    6:9    phase readout               written by the layer-1 MLP
+    9:14   one-hot(token at i)         from embed
+   14:19   one-hot(token at i-2)       written by head 1 (heuristic only)
+   19:24   one-hot(token at i-1)       written by head 2
+   24:29   one-hot(token at i+1)       written by head 3
+   29:34   one-hot(token at i+2)       written by head 4
+   34      unused
+   35      constant 1                  query source for the marker-finding head
 """
 
 from __future__ import annotations
 
 import torch
 
-from gfmcd.data.synthetic import M, bayes_unigram_accuracy, posterior_phase_given_nt
-from gfmcd.models.tiny import TinyConfig, TinyTransformer
+from gfmcd.data.synthetic import EMIT, M, VOCAB
+from gfmcd.models.tiny import NEG, TinyConfig, TinyTransformer
 
 POS_PHASE = slice(0, 3)
 START_PHASE = slice(3, 6)
 PHASE_FEAT = slice(6, 9)
 TOK = slice(9, 14)
-CONST = 15
+CONST = 35
+
+CONTEXT_OFFSETS = (-2, -1, 1, 2)
+CONTEXT_SLOTS = {-2: 14, -1: 19, 1: 24, 2: 29}
+BAG_OFFSETS = (-2, -1, 0, 1, 2)
 
 MARKER_SCORE = 6.0
 LOGIT_SCALE = 8.0
@@ -47,7 +60,7 @@ PLANTED_EDGES_OV: frozenset[tuple[str, str]] = frozenset(
 
 # The marker-finding edge lives in QK: token M enters through the keys and moves the
 # attention pattern. A tracer that freezes attention has no representation for this edge
-# and will report zero attribution on it -- while ablating it collapses the circuit.
+# and reports zero attribution on it -- while ablating it collapses the circuit.
 PLANTED_EDGES_QK: frozenset[tuple[str, str]] = frozenset({("embed.tok", "L0.attn.pattern")})
 
 PLANTED_EDGES: frozenset[tuple[str, str]] = PLANTED_EDGES_OV | PLANTED_EDGES_QK
@@ -61,22 +74,24 @@ def _base(cfg: TinyConfig) -> TinyTransformer:
         for i in range(cfg.max_len):
             model.pos_embed[i, POS_PHASE.start + (i % 3)] = 1.0
             model.pos_embed[i, CONST] = 1.0
-        for k in range(3):
-            model.W_U[PHASE_FEAT.start + k, k] = LOGIT_SCALE
     return model
 
 
-def build_compositional(cfg: TinyConfig | None = None, match_accuracy: bool = True) -> TinyTransformer:
+def build_compositional(
+    cfg: TinyConfig | None = None,
+    match_accuracy: bool = True,
+    target_accuracy: float | None = None,
+) -> TinyTransformer:
     cfg = cfg or TinyConfig()
     model = _base(cfg)
 
     with torch.no_grad():
         attn = model.attn[0]
-        attn.W_Q[CONST, 0] = MARKER_SCORE
-        attn.W_K[TOK.start + M, 0] = MARKER_SCORE
-        for k in range(3):
-            attn.W_V[POS_PHASE.start + k, k] = 1.0
-            attn.W_O[k, START_PHASE.start + k] = 1.0
+        attn.W_Q[CONST, 0, 0] = MARKER_SCORE
+        attn.W_K[TOK.start + M, 0, 0] = MARKER_SCORE
+        for c in range(3):
+            attn.W_V[POS_PHASE.start + c, 0, c] = 1.0
+            attn.W_O[0, c, START_PHASE.start + c] = 1.0
 
         mlp = model.mlp[1]
         for a in range(3):
@@ -86,16 +101,17 @@ def build_compositional(cfg: TinyConfig | None = None, match_accuracy: bool = Tr
                 mlp.W_in[START_PHASE.start + b, j] = 1.0
                 # Bias -1 would put the one-input-matches case exactly on the ReLU kink,
                 # making frozen-gate and real-ReLU interventions coincide and the
-                # faithfulness gap identically zero. That is a degenerate coincidence, not
-                # a property of transformers. -1.5 places it strictly below the kink.
+                # faithfulness gap identically zero. -1.5 places it strictly below the kink.
                 mlp.b_in[j] = -1.5
                 mlp.W_out[j, PHASE_FEAT.start + (a - b - 1) % 3] = 2.0
 
+        for k in range(3):
+            model.W_U[PHASE_FEAT.start + k, k] = LOGIT_SCALE
+
         if match_accuracy:
-            p = (3.0 * bayes_unigram_accuracy() - 1.0) / 2.0
+            target = heuristic_accuracy_ceiling() if target_accuracy is None else target_accuracy
+            p = (3.0 * target - 1.0) / 2.0
             g = torch.Generator().manual_seed(0xC0FFEE)
-            # Fix the open-gate count exactly; sampling it i.i.d. leaves the realised
-            # fraction off by ~sqrt(p(1-p)/max_len), which is visible at this length.
             gate = torch.zeros(cfg.max_len)
             gate[torch.randperm(cfg.max_len, generator=g)[: round(p * cfg.max_len)]] = 1.0
             model.readout_gate.copy_(gate)
@@ -103,19 +119,55 @@ def build_compositional(cfg: TinyConfig | None = None, match_accuracy: bool = Tr
     return model
 
 
-def build_heuristic(cfg: TinyConfig | None = None) -> TinyTransformer:
+def build_heuristic(cfg: TinyConfig | None = None, seq_len: int = 256) -> TinyTransformer:
+    """Five local motif detectors, one per offset, summing independent votes for the phase."""
     cfg = cfg or TinyConfig()
     model = _base(cfg)
-    posterior = posterior_phase_given_nt()
+    log_emit = EMIT.log()
 
     with torch.no_grad():
+        attn = model.attn[0]
+        for h, off in enumerate(CONTEXT_OFFSETS, start=1):
+            bias = torch.full((cfg.max_len, cfg.max_len), NEG)
+            for i in range(cfg.max_len):
+                bias[i, min(max(i + off, 0), seq_len - 1)] = 0.0
+            attn.attn_bias[h] = bias
+            for t in range(5):
+                attn.W_V[TOK.start + t, h, t] = 1.0
+                attn.W_O[h, t, CONTEXT_SLOTS[off] + t] = 1.0
+
         mlp = model.mlp[1]
-        for t in range(4):
-            mlp.W_in[TOK.start + t, t] = 1.0
-            for ph in range(3):
-                mlp.W_out[t, PHASE_FEAT.start + ph] = float(posterior[t, ph])
+        for oi, off in enumerate(BAG_OFFSETS):
+            src = TOK.start if off == 0 else CONTEXT_SLOTS[off]
+            for t in range(5):
+                j = 5 * oi + t
+                mlp.W_in[src + t, j] = 1.0
+                mlp.b_in[j] = -0.5
+                if VOCAB[t] == "M":
+                    continue
+                for ph in range(3):
+                    mlp.W_out[j, PHASE_FEAT.start + ph] = 2.0 * float(log_emit[(ph + off) % 3, t])
+
+        for k in range(3):
+            model.W_U[PHASE_FEAT.start + k, k] = 1.0
 
     return model
+
+
+def heuristic_accuracy_ceiling() -> float:
+    """Bayes accuracy of the 5-offset bag, computed once from the emission table."""
+    global _CEILING
+    try:
+        return _CEILING
+    except NameError:
+        pass
+
+    from gfmcd.data.synthetic import make_batch
+
+    cfg = TinyConfig()
+    tokens, labels = make_batch(n_seq=64, body_len=90, seed=99)
+    _CEILING = phase_accuracy(build_heuristic(cfg, seq_len=tokens.shape[-1]), tokens, labels)
+    return _CEILING
 
 
 @torch.no_grad()
@@ -124,3 +176,30 @@ def phase_accuracy(model: TinyTransformer, tokens: torch.Tensor, labels: torch.T
     pred = logits.argmax(dim=-1)
     mask = labels >= 0
     return float((pred[mask] == labels[mask]).float().mean())
+
+
+def build_shortcut(cfg: TinyConfig | None = None, seq_len: int = 256) -> TinyTransformer:
+    """A single unigram motif: one neuron, one input feature, no context, no frame.
+
+    Included to show what Jacobian sparsity actually measures. A model that cheats with ONE
+    trick has in-degree 1 and is therefore *maximally* sparse -- so H3's discriminator can
+    separate composition from a bag of motifs, but not from a lone shortcut.
+    """
+    cfg = cfg or TinyConfig()
+    model = _base(cfg)
+    log_emit = EMIT.log()
+
+    with torch.no_grad():
+        mlp = model.mlp[1]
+        for t in range(5):
+            mlp.W_in[TOK.start + t, t] = 1.0
+            mlp.b_in[t] = -0.5
+            if VOCAB[t] == "M":
+                continue
+            for ph in range(3):
+                mlp.W_out[t, PHASE_FEAT.start + ph] = 2.0 * float(log_emit[ph, t])
+
+        for k in range(3):
+            model.W_U[PHASE_FEAT.start + k, k] = 1.0
+
+    return model
