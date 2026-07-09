@@ -7,3 +7,25 @@ uniform-codon alignment-free ceiling 0.3768
 train (200000, 256)  val (8000, 256)  device mps
 4.81M params, bidirectional, 21-way amino-acid head
   step     1  train 3.0790  val 3.0705  aa_acc 0.0455  [frameless]  0.8 it/s
+  step   250  train 2.5145  val 2.5106  aa_acc 0.1777  [frameless]  5.5 it/s
+  step   500  train 2.5095  val 2.5038  aa_acc 0.1818  [frameless]  5.6 it/s
+  step   750  train 1.5418  val 1.5298  aa_acc 0.3872  [frameless]  5.6 it/s
+  step  1000  train 1.1826  val 1.1776  aa_acc 0.4083  [frameless]  5.6 it/s
+  step  1250  train 1.0990  val 1.1056  aa_acc 0.4165  [frameless]  5.5 it/s
+  step  1500  train 1.0147  val 1.0091  aa_acc 0.4243  [frameless]  5.5 it/s
+  step  1750  train 0.9913  val 0.9863  aa_acc 0.4310  [frameless]  5.5 it/s
+  step  2000  train 0.6610  val 0.7064  aa_acc 0.6918  [FRAME]  5.4 it/s
+  step  2250  train 0.1243  val 0.1948  aa_acc 0.9514  [FRAME]  5.4 it/s
+  step  2500  train 0.0059  val 0.0356  aa_acc 0.9949  [FRAME]  5.4 it/s
+  step  2750  train 0.0681  val 0.0423  aa_acc 0.9887  [FRAME]  5.3 it/s
+  step  3000  train 0.0500  val 0.0010  aa_acc 0.9997  [FRAME]  5.3 it/s
+  step  3250  train 0.0004  val 0.0053  aa_acc 0.9990  [FRAME]  5.3 it/s
+  step  3500  train 0.0011  val 0.0078  aa_acc 0.9979  [FRAME]  5.3 it/s
+  step  3750  train 0.0005  val 0.0023  aa_acc 0.9994  [FRAME]  5.3 it/s
+  step  4000  train 0.0146  val 0.0008  aa_acc 0.9997  [FRAME]  5.3 it/s
+  step  4250  train 0.0005  val 0.0002  aa_acc 1.0000  [FRAME]  5.3 it/s
+  step  4500  train 0.0002  val 0.0003  aa_acc 0.9999  [FRAME]  5.3 it/s
+  step  4750  train 0.0009  val 0.0166  aa_acc 0.9980  [FRAME]  5.2 it/s
+  step  5000  train 0.0003  val 0.0002  aa_acc 1.0000  [FRAME]  5.2 it/s
+  step  5250  train 0.0001  val 0.0004  aa_acc 0.9999  [FRAME]  5.2 it/s
+  step  5500  train 0.0000  val 0.0001  aa_acc 1.0000  [FRAME]  5.2 it/s

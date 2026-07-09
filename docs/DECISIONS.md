@@ -906,3 +906,78 @@ real hg38 CDS           ~0               0.02410
 
 **Prediction, registered before the run:** if the mechanism switch is caused by stop depletion, the
 sense-codon model is **anchor-free**. If it is caused by codon bias, it is an **anchored counter**.
+
+
+---
+
+## D30 — RETRACTED (D29's stop-scan story). The criterion is SUFFICIENCY, not stop depletion.
+
+D29 explained the λ mechanism switch as *"at λ ≥ 1 the true frame is the unique stop-free frame, so
+the model scans."* The control it registered falsifies it.
+
+**Uniform over the 61 sense codons: zero codon bias, zero in-frame stops.** Registered prediction: if
+stop depletion causes the switch → anchor-free. Result:
+
+```
+sense-codon control, step 4000
+  aa accuracy            0.9994
+  ATG-ablation ΔAA       0.3370
+  cue conflict: anchor   0.8205    content 0.1486
+  -> ANCHORED COUNTER
+```
+
+Stop depletion alone does **not** cause the switch. The stop-scan route exists in the sense-codon data
+(out-of-frame triplets still hit stops at 3/64) and the model declines it.
+
+### What actually governs the choice
+
+Measure the **anchor-free ceiling**: the best phase accuracy obtainable with no start codon, using
+full codon-level evidence pooled over a context window.
+
+```
+data        I(nt;phase)   ctx=60  ctx=120  ctx=240   mechanism the model chose
+uniform       0.00003     0.000    0.000    0.000    ANCHORED
+sense         0.00162     0.505    0.814    0.965    ANCHORED
+lam0.5        0.00393     0.410    0.508    0.533    ANCHORED
+lam0.75       0.00854     0.575    0.815    0.935    ANCHORED
+lam1          0.01471     0.821    0.976    1.0000   anchor-free
+lam2          0.05778     0.995    1.000    1.0000   anchor-free
+```
+
+**The model builds the circuit if and only if the anchor-free route cannot reach the ceiling.** Not
+"if the shortcut is weak" — *if the shortcut is imperfect*. At λ = 0.75 and in the sense control the
+pooled estimator reaches 0.935 and 0.965 and the counter is built anyway, because the task demands
+1.0 and a 96.5%-accurate frame caps amino-acid accuracy at 96.5%. At λ ≥ 1 the pooled estimator is
+**exactly sufficient**, and the circuit vanishes.
+
+### The criterion, stated generally
+
+> **A mechanism is unavoidable exactly when no statistic pooled over the model's context window is a
+> sufficient statistic for the target.**
+
+This is the question worth asking of genomics, and reading frame in real CDS *fails* the test under
+μ = 0: the frame is nearly a sufficient statistic of local codon composition, and the residual 0.4%
+of loss does not pay for a circuit (D24).
+
+### It also predicts cells C and D, before they run
+
+```
+REAL hg38 CDS, anchor-free ceiling (codon-level naive Bayes, no start codon)
+  ctx  60 nt   0.7542
+  ctx 120 nt   0.9216
+  ctx 240 nt   0.9509      <- IMPERFECT, and adjacent to the sense control's 0.965
+```
+
+**Registered prediction: at μ = 1, cells C and D build an ANCHORED COUNTER.** Real DNA's anchor-free
+route caps at 0.95, so an objective demanding exactness must anchor.
+
+And a caveat this exposes: **synthetic λ = 1 is a bad model of real CDS.** Same codon usage, but the
+naive-Bayes independence assumption makes its anchor-free route *perfect* (1.0000) where real DNA's is
+not (0.9509). Real codons are correlated; the shortcut does not close. Any claim transferred from the
+λ arms to real DNA must be re-measured, not assumed.
+
+### What survives from D29
+
+The mechanism split itself — same behaviour (aa_acc 1.0000 everywhere), opposite mechanism, revealed
+only by causal readouts — stands, and remains the strongest single result in the project. Only its
+*explanation* was wrong.
