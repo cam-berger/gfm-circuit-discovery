@@ -27,6 +27,7 @@ from __future__ import annotations
 import numpy as np
 
 from gfmcd.data.genome import IGNORE
+from gfmcd.paths import project_paths
 
 BASES = "TCAG"
 AA_TABLE = (
@@ -158,7 +159,7 @@ def real_codon_probs(cache: "Path | None" = None) -> np.ndarray:
 
     import numpy as _np
 
-    cache = Path(cache) if cache else Path("data/cache/codon_usage_hg38.npy")
+    cache = Path(cache) if cache else project_paths().cache / "codon_usage_hg38.npy"
     if cache.exists():
         return _np.load(cache)
 
@@ -166,7 +167,7 @@ def real_codon_probs(cache: "Path | None" = None) -> np.ndarray:
 
     from gfmcd.data.genome import SPLIT_CHROMS, Split, parse_gencode_cds, sample_windows
 
-    data = Path.home() / "Research/data/genomes"
+    data = project_paths().references
     fasta = Fasta(str(data / "hg38.fa"), as_raw=True, sequence_always_upper=True)
     cds = parse_gencode_cds(data / "gencode.v50.basic.annotation.gtf.gz", chroms=SPLIT_CHROMS[Split.TRAIN], min_len=150)
     tokens, labels = sample_windows(cds, fasta, n=20000, window=256, seed=3)

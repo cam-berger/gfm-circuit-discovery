@@ -33,8 +33,9 @@ from gfmcd.data.uniform_cds import (
     nucleotide_phase_information,
 )
 from gfmcd.models.gfm_nano import GFMNano, NanoConfig
+from gfmcd.paths import project_paths
 
-CKPT = Path("checkpoints")
+CKPT = project_paths().checkpoints
 IGNORE = -100
 
 

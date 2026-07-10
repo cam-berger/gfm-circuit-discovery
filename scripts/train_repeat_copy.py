@@ -20,8 +20,9 @@ import torch.nn.functional as F
 
 from gfmcd.data.repeat_copy import ar_inputs_targets, base_rate_ceiling, make_batch
 from gfmcd.models.gfm_nano import GFMNano, NanoConfig
+from gfmcd.paths import project_paths
 
-CKPT = Path("checkpoints")
+CKPT = project_paths().checkpoints
 
 
 def lr_at(step: int, steps: int, base: float, warmup: int = 200) -> float:

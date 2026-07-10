@@ -4,9 +4,9 @@ The decisive stop-condition is the local RF-limited CNN: if a model denied acces
 occurrence reaches the trained transformer's copy accuracy, the branch is demoted.
 
 Writes:
-  branches/codex-repeat-induction/fig_data/copy_ceiling.csv
-  branches/codex-repeat-induction/fig_copy_ceiling.png
-  branches/codex-repeat-induction/COPY_CEILING.md
+  results/repeat-copy/fig_data/copy_ceiling.csv
+  results/repeat-copy/fig_copy_ceiling.png
+  results/repeat-copy/COPY_CEILING.md
 """
 
 from __future__ import annotations
@@ -14,6 +14,8 @@ from __future__ import annotations
 import argparse
 import csv
 from pathlib import Path
+
+from gfmcd.paths import project_paths
 
 import numpy as np
 import torch
@@ -218,7 +220,7 @@ def write_outputs(out_dir: Path, rows: list[dict], cnn_hist: list[dict], crop: i
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out-dir", type=Path, default=Path("branches/codex-repeat-induction"))
+    ap.add_argument("--out-dir", type=Path, default=project_paths().results / "repeat-copy")
     ap.add_argument("--train-seqs", type=int, default=20_000)
     ap.add_argument("--val-seqs", type=int, default=6_000)
     ap.add_argument("--window", type=int, default=256)

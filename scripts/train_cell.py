@@ -25,10 +25,11 @@ import torch.nn.functional as F
 from gfmcd.data.genome import SPLIT_CHROMS, IGNORE, Split, parse_gencode_cds, sample_cell_cd, split_by_anchor
 from gfmcd.data.uniform_cds import N_AA, make_batch, make_batch_hard_detector
 from gfmcd.models.gfm_nano import GFMNano, NanoConfig
+from gfmcd.paths import project_paths
 
-DATA = Path.home() / "Research/data/genomes"
-CACHE = Path("data/cache")
-CKPT = Path("checkpoints")
+DATA = project_paths().references
+CACHE = project_paths().cache
+CKPT = project_paths().checkpoints
 
 
 def pool(cell: str, n: int, window: int, split: Split, seed: int):

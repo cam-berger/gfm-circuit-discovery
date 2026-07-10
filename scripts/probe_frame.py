@@ -30,8 +30,9 @@ import torch.nn.functional as F
 
 from gfmcd.data.genome import SPLIT_CHROMS, Split, parse_gencode_cds, sample_windows
 from gfmcd.models.gfm_nano import GFMNano, NanoConfig
+from gfmcd.paths import project_paths
 
-DATA = Path.home() / "Research/data/genomes"
+DATA = project_paths().references
 CHANCE = 1 / 3
 
 

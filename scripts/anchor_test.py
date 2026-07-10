@@ -53,8 +53,9 @@ from gfmcd.data.genome import (
     split_by_anchor,
 )
 from gfmcd.models.gfm_nano import GFMNano, NanoConfig
+from gfmcd.paths import project_paths
 
-DATA = Path.home() / "Research/data/genomes"
+DATA = project_paths().references
 NON_START = [1, 3, 1]  # CTC -- not a start codon
 ATG = (0, 3, 2)
 MIN_DECOY_GAP = 20  # a decoy must sit well clear of the true start codon

@@ -15,6 +15,8 @@ from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 
+from gfmcd.paths import project_paths
+
 import numpy as np
 import torch
 
@@ -204,8 +206,8 @@ def dna(arr: np.ndarray) -> str:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--checkpoint", type=Path, default=Path("checkpoints/repeat_copy_s0_step8000.pt"))
-    ap.add_argument("--fasta", type=Path, default=Path.home() / "Research/data/genomes/hg38.fa")
-    ap.add_argument("--out-dir", type=Path, default=Path("branches/codex-repeat-induction"))
+    ap.add_argument("--fasta", type=Path, default=project_paths().hg38())
+    ap.add_argument("--out-dir", type=Path, default=project_paths().results / "repeat-copy")
     ap.add_argument("--seqs", type=int, default=1000)
     ap.add_argument("--window", type=int, default=256)
     ap.add_argument("--prefix", type=int, default=12)

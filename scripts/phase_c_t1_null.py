@@ -22,10 +22,12 @@ from pathlib import Path
 
 import numpy as np
 
+from gfmcd.paths import project_paths
+
 sys.path.insert(0, "scripts")
 from phase_c_relay import PERIOD_MAX, PERIOD_MIN, bic  # noqa: E402
 
-DATA = Path("results/reading-frame/fig_data")
+DATA = project_paths().results / "reading-frame/fig_data"
 N_SURR = 2000
 
 

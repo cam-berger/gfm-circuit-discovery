@@ -26,8 +26,9 @@ from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
 
 from gfmcd.data.genome import SPLIT_CHROMS, Split, atg_index, parse_gencode_cds, sample_anchored_windows, split_by_anchor
+from gfmcd.paths import project_paths
 
-DATA = Path.home() / "Research/data/genomes"
+DATA = project_paths().references
 A, C, G, T = 0, 1, 2, 3
 STOPS = {(T, A, A), (T, A, G), (T, G, A)}
 CTX = 12          # +-12 nt of one-hot context around each candidate ATG

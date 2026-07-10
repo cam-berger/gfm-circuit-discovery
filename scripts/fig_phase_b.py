@@ -16,9 +16,10 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 
 from gfmcd.figstyle import BAG, COUNTER, INK, INK_2, INK_MUTED, RELAY, apply_figure_style
+from gfmcd.paths import project_paths
 
-DATA = Path("results/reading-frame/fig_data")
-OUT = Path("results/reading-frame/figures")
+DATA = project_paths().results / "reading-frame/fig_data"
+OUT = project_paths().results / "reading-frame/figures"
 MECH = {"counter": COUNTER, "relay": RELAY, "bag": BAG}
 SHORT = {
     "A · uniform, easy detector": "A  uniform, easy",

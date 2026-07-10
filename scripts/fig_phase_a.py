@@ -14,10 +14,11 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 
 from gfmcd.figstyle import ANCHOR_FREE, ANCHORED, INK, INK_2, INK_MUTED, TRUNCATED, apply_figure_style
+from gfmcd.paths import project_paths
 
-CKPT = Path("checkpoints")
-OUT = Path("results/reading-frame/figures")
-DATA = Path("results/reading-frame/fig_data")
+CKPT = project_paths().checkpoints
+OUT = project_paths().results / "reading-frame/figures"
+DATA = project_paths().results / "reading-frame/fig_data"
 GUESS = 0.3768  # alignment-free ceiling on the uniform-codon task
 GROK = 0.60
 

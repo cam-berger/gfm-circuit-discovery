@@ -35,9 +35,10 @@ from phase_c_relay import MODELS, load, per_position  # noqa: E402
 from train_cell import pool  # noqa: E402
 
 from gfmcd.data.genome import IGNORE, Split, amino_acid_labels  # noqa: E402
+from gfmcd.paths import project_paths  # noqa: E402
 from gfmcd.signatures import ATG, NON_START, ablate, start_index  # noqa: E402
 
-OUT = Path("results/reading-frame/fig_data")
+OUT = project_paths().results / "reading-frame/fig_data"
 N = 800
 FAR = 64
 

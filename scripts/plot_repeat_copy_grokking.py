@@ -1,8 +1,8 @@
 """Plot repeat-copy grokking curves from checkpoint histories.
 
 Writes:
-  branches/codex-repeat-induction/fig_data/repeat_grok.csv
-  branches/codex-repeat-induction/fig_repeat_grok.png
+  results/repeat-copy/fig_data/repeat_grok.csv
+  results/repeat-copy/fig_repeat_grok.png
 """
 
 from __future__ import annotations
@@ -11,6 +11,8 @@ import argparse
 import csv
 import json
 from pathlib import Path
+
+from gfmcd.paths import project_paths
 
 
 def apply_style() -> None:
@@ -38,7 +40,7 @@ def load_history(path: Path, seed: str) -> list[dict]:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out-dir", type=Path, default=Path("branches/codex-repeat-induction"))
+    ap.add_argument("--out-dir", type=Path, default=project_paths().results / "repeat-copy")
     ap.add_argument("--base-floor", type=float, default=0.2516)
     ap.add_argument("--histories", nargs="+", default=["s0=checkpoints/repeat_copy_s0_history.json", "s99=checkpoints/repeat_copy_s99_history.json"])
     args = ap.parse_args()

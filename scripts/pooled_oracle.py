@@ -25,8 +25,9 @@ from train_cell import pool  # noqa: E402
 
 from gfmcd.data.genome import SPLIT_CHROMS, Split, parse_gencode_cds, sample_windows  # noqa: E402
 from gfmcd.oracle import oracle_correct  # noqa: E402
+from gfmcd.paths import project_paths  # noqa: E402
 
-DATA = Path.home() / "Research/data/genomes"
+DATA = project_paths().references
 N = 600
 FAR = 64
 

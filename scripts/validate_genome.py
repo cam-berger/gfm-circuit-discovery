@@ -17,8 +17,9 @@ import numpy as np
 from pyfaidx import Fasta
 
 from gfmcd.data.genome import SPLIT_CHROMS, Split, parse_gencode_cds, sample_windows
+from gfmcd.paths import project_paths
 
-DATA = Path.home() / "Research/data/genomes"
+DATA = project_paths().references
 STOPS = {(3, 0, 0), (3, 0, 2), (3, 2, 0)}  # TAA, TAG, TGA under A=0 C=1 G=2 T=3
 WINDOW = 256
 

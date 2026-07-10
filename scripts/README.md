@@ -2,7 +2,9 @@
 
 Flat on purpose. Several scripts do `sys.path.insert(0, "scripts")` and import each other
 (`from train_cell import pool`, `from phase_c_relay import per_position`), so subdirectories would
-break the import graph. **Run everything from the repo root**, with `conda activate gfm-thrust1`.
+break the import graph. **Run everything from the repo root** (file paths are centralized in
+`gfmcd.paths`, but the flat cross-script import graph still assumes a repo-root CWD), in the uv
+environment: `uv run python scripts/<name>.py`.
 
 Two tracks share this directory. They do not share files.
 
@@ -61,8 +63,9 @@ All read `results/reading-frame/fig_data/*.json` and write `results/reading-fram
 `repeat_copy_trace_controls.py`, `repeat_copy_loss_curves.py`, `trace_repeat_copy.py`,
 `verdict_repeat_copy.py`, `plot_repeat_copy_grokking.py`
 
-Owned by the repeat-copy track. Plan: `PLAN_repeat_copy.md`. Findings and figures:
-`branches/codex-repeat-induction/`. These write nothing into `results/`.
+Owned by the repeat-copy track. Plan: `PLAN_repeat_copy.md`. Findings and figures now write to
+`results/repeat-copy/` (the `--out-dir` default, centralized via `gfmcd.paths`). The historical
+branch dump is archived at `.archive/branches-codex-repeat-induction/codex-repeat-induction/`.
 
 ---
 

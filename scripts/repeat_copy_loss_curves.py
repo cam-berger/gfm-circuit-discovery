@@ -13,6 +13,8 @@ import json
 import re
 from pathlib import Path
 
+from gfmcd.paths import project_paths
+
 import numpy as np
 import torch
 import torch.nn.functional as F
@@ -73,8 +75,8 @@ def load_history(seed: int, ckpt_root: Path) -> list[dict]:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--seeds", default="0,99")
-    ap.add_argument("--checkpoint-dir", type=Path, default=Path("checkpoints"))
-    ap.add_argument("--out-dir", type=Path, default=Path("branches/codex-repeat-induction"))
+    ap.add_argument("--checkpoint-dir", type=Path, default=project_paths().checkpoints)
+    ap.add_argument("--out-dir", type=Path, default=project_paths().results / "repeat-copy")
     ap.add_argument("--window", type=int, default=256)
     ap.add_argument("--subset-seqs", type=int, default=6000)
     ap.add_argument("--batch", type=int, default=64)

@@ -31,8 +31,9 @@ from gfmcd.data.uniform_cds import (
     nucleotide_phase_information,
 )
 from gfmcd.models.gfm_nano import GFMNano, NanoConfig
+from gfmcd.paths import project_paths
 
-CKPT = Path("checkpoints")
+CKPT = project_paths().checkpoints
 NON_START = np.array([1, 3, 1], dtype=np.int8)
 REAL_NATS = 0.0241
 
@@ -142,8 +143,8 @@ def main() -> None:
 
     print("\nanchor/content are far-field (>=64 nt) agreement under cue conflict.")
     print("A counter follows the anchor; a bag follows content. Real hg38 GFM-nano: 0.06 / 0.84")
-    Path("results").mkdir(exist_ok=True)
-    Path("results/reading-frame/lambda_sweep.json").write_text(json.dumps(rows, indent=2))
+    project_paths().results.mkdir(exist_ok=True)
+    (project_paths().results / "reading-frame/lambda_sweep.json").write_text(json.dumps(rows, indent=2))
 
 
 if __name__ == "__main__":

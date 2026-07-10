@@ -20,6 +20,7 @@ from train_cell import pool  # noqa: E402
 
 from gfmcd.data.genome import Split  # noqa: E402
 from gfmcd.models.gfm_nano import GFMNano, NanoConfig  # noqa: E402
+from gfmcd.paths import project_paths  # noqa: E402
 from gfmcd.signatures import (  # noqa: E402
     anchor_content_by_distance,
     layer_probe,
@@ -28,7 +29,7 @@ from gfmcd.signatures import (  # noqa: E402
     start_index,
 )
 
-OUT = Path("results/reading-frame/fig_data")
+OUT = project_paths().results / "reading-frame/fig_data"
 N = 600
 
 # (key, checkpoint, eval pool, mechanism from D33)
@@ -42,7 +43,7 @@ MODELS = [
 
 
 def load(name: str, device: str) -> GFMNano:
-    blob = torch.load(Path("checkpoints") / name, map_location=device, weights_only=False)
+    blob = torch.load(project_paths().checkpoints / name, map_location=device, weights_only=False)
     m = GFMNano(NanoConfig(**blob["cfg"])).to(device).eval()
     m.load_state_dict(blob["state"])
     return m

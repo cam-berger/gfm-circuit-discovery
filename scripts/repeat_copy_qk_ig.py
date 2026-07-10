@@ -11,6 +11,8 @@ import argparse
 import csv
 from pathlib import Path
 
+from gfmcd.paths import project_paths
+
 import numpy as np
 import torch
 
@@ -79,7 +81,7 @@ def main() -> None:
     ap.add_argument("--layer", type=int, default=1)
     ap.add_argument("--steps", type=int, default=16)
     ap.add_argument("--seed", type=int, default=7373)
-    ap.add_argument("--out-dir", type=Path, default=Path("branches/codex-repeat-induction"))
+    ap.add_argument("--out-dir", type=Path, default=project_paths().results / "repeat-copy")
     args = ap.parse_args()
 
     device = "mps" if torch.backends.mps.is_available() else "cpu"

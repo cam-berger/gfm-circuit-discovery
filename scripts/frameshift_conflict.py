@@ -46,8 +46,9 @@ from gfmcd.data.genome import (
     split_by_anchor,
 )
 from gfmcd.models.gfm_nano import GFMNano, NanoConfig
+from gfmcd.paths import project_paths
 
-DATA = Path.home() / "Research/data/genomes"
+DATA = project_paths().references
 
 
 def fit_probe(x: torch.Tensor, y: torch.Tensor, steps: int = 400):

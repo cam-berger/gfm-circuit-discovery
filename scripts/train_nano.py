@@ -30,10 +30,11 @@ from gfmcd.data.genome import (
     split_by_anchor,
 )
 from gfmcd.models.gfm_nano import GFMNano, NanoConfig, ar_batch, mlm_batch
+from gfmcd.paths import project_paths
 
-DATA = Path.home() / "Research/data/genomes"
-CACHE = Path("data/cache")
-CKPT = Path("checkpoints")
+DATA = project_paths().references
+CACHE = project_paths().cache
+CKPT = project_paths().checkpoints
 IGNORE = -100
 
 

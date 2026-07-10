@@ -17,9 +17,10 @@ import torch.nn.functional as F
 
 from gfmcd.data.uniform_cds import blended_codon_probs, make_batch
 from gfmcd.models.gfm_nano import GFMNano, NanoConfig
+from gfmcd.paths import project_paths
 
 NON_START = np.array([1, 3, 1], dtype=np.int8)
-CKPT = Path("checkpoints")
+CKPT = project_paths().checkpoints
 
 
 def fit_probe(x, y, steps=300):

@@ -28,9 +28,10 @@ from phase_c_t3 import frame_labels  # noqa: E402
 from train_cell import pool  # noqa: E402
 
 from gfmcd.data.genome import IGNORE, Split  # noqa: E402
+from gfmcd.paths import project_paths  # noqa: E402
 from gfmcd.signatures import all_residuals, fit_probe, frameshift, start_index  # noqa: E402
 
-OUT = Path("results/reading-frame/fig_data")
+OUT = project_paths().results / "reading-frame/fig_data"
 N = 800
 FAR = 64
 
