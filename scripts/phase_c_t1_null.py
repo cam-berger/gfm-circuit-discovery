@@ -25,7 +25,7 @@ import numpy as np
 sys.path.insert(0, "scripts")
 from phase_c_relay import PERIOD_MAX, PERIOD_MIN, bic  # noqa: E402
 
-DATA = Path("results/fig_data")
+DATA = Path("results/reading-frame/fig_data")
 N_SURR = 2000
 
 

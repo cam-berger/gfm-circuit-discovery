@@ -30,7 +30,7 @@ from train_cell import pool  # noqa: E402
 from gfmcd.data.genome import IGNORE, Split  # noqa: E402
 from gfmcd.signatures import all_residuals, fit_probe, frameshift, start_index  # noqa: E402
 
-OUT = Path("results/fig_data")
+OUT = Path("results/reading-frame/fig_data")
 N = 800
 FAR = 64
 

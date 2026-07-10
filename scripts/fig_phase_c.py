@@ -15,8 +15,8 @@ import matplotlib.pyplot as plt
 
 from gfmcd.figstyle import BAG, COUNTER, INK, INK_2, INK_MUTED, RELAY, apply_figure_style
 
-DATA = Path("results/fig_data")
-OUT = Path("results/figures")
+DATA = Path("results/reading-frame/fig_data")
+OUT = Path("results/reading-frame/figures")
 MECH = {"counter": COUNTER, "relay": RELAY, "bag": BAG}
 SHORT = {
     "A · uniform, easy detector": "A  uniform, easy",
@@ -175,4 +175,4 @@ if __name__ == "__main__":
     fig_conflict_depth()
     fig_2x2_corrected()
     fig_decay_output()
-    print("wrote results/figures/fig_conflict_depth, fig_2x2_corrected, fig_decay_output (.png/.svg)")
+    print("wrote results/reading-frame/figures/fig_conflict_depth, fig_2x2_corrected, fig_decay_output (.png/.svg)")

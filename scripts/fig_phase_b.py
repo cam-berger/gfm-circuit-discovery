@@ -17,8 +17,8 @@ import matplotlib.pyplot as plt
 
 from gfmcd.figstyle import BAG, COUNTER, INK, INK_2, INK_MUTED, RELAY, apply_figure_style
 
-DATA = Path("results/fig_data")
-OUT = Path("results/figures")
+DATA = Path("results/reading-frame/fig_data")
+OUT = Path("results/reading-frame/figures")
 MECH = {"counter": COUNTER, "relay": RELAY, "bag": BAG}
 SHORT = {
     "A · uniform, easy detector": "A  uniform, easy",
@@ -78,4 +78,4 @@ def fig_layers():
 if __name__ == "__main__":
     apply_figure_style()
     fig_layers()
-    print("wrote results/figures/fig_layer_probe (.png/.svg)")
+    print("wrote results/reading-frame/figures/fig_layer_probe (.png/.svg)")

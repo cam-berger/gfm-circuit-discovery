@@ -37,7 +37,7 @@ from train_cell import pool  # noqa: E402
 from gfmcd.data.genome import IGNORE, Split, amino_acid_labels  # noqa: E402
 from gfmcd.signatures import ATG, NON_START, ablate, start_index  # noqa: E402
 
-OUT = Path("results/fig_data")
+OUT = Path("results/reading-frame/fig_data")
 N = 800
 FAR = 64
 

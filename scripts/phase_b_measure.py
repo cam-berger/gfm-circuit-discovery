@@ -28,7 +28,7 @@ from gfmcd.signatures import (  # noqa: E402
     start_index,
 )
 
-OUT = Path("results/fig_data")
+OUT = Path("results/reading-frame/fig_data")
 N = 600
 
 # (key, checkpoint, eval pool, mechanism from D33)

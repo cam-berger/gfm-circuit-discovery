@@ -1,0 +1,8 @@
+model                             x = peak anchor dep        at layer  y = anchor share   content
+A · uniform, easy detector                     0.6467              L2            1.0000    0.0000
+B · uniform, hard detector                     0.5767              L4            0.3879    0.2944
+C · real CDS, easy detector                    0.3913              L4            0.0375    0.9151
+D · real CDS, natural                          0.1480              L4            0.1014    0.8096
+μ=0 · real CDS, LM objective                   0.0025     resid.embed            0.0882    0.7903
+
+wrote results/fig_data/signature.json, cue_conflict_decay.json, layer_probe.json

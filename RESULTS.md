@@ -258,34 +258,53 @@ strength calibrated so the Bayes-optimal detector hits real data's 0.9215; short
 (`I(nt;phase) = 0.000087`). It carries no ORF-integrity cue — with uniform codons stops occur at 3/64 in
 *every* frame.
 
-All four cells, same footing (μ = 1, 900 val windows). **SETTLED.**
+All four cells, same footing (μ = 1). **SETTLED**, one seed per cell.
 
-| cell | shortcut | detector | aa acc | ATG-abl effect (vs decoy ctl) | anchor | content | mechanism |
-|---|---|---|---|---|---|---|---|
-| **A** | absent | easy | 1.0000 | **+0.6094** (0.0129) | **1.0000** | 0.0000 | anchored counter |
-| **B** | absent | hard | 0.9605 | **+0.5794** (0.0135) | 0.3891 | 0.2905 | mixed / partial relay |
-| **C** | present | easy | 0.9997 | **+0.3529** (0.0148) | 0.0396 | 0.9131 | relay |
-| **D** | present | hard | 0.9914 | **+0.1493** (0.0218) | 0.1084 | 0.8001 | relay |
+> **Superseded by D35.** The `anchor` / `content` columns below were read from a linear probe at
+> `L2.resid_post` — a layer that on real DNA does not yet carry the anchor. Both the mechanism labels
+> and the cue-conflict numbers were wrong for cells B, C and D. **The table as first published is kept
+> in `docs/DECISIONS.md` D33; the corrected table is below it.** The ATG-ablation column survives (D35,
+> T3's OOD branch did not fire).
 
-**The start codon is causally load-bearing in every cell** (8×–47× specificity over the decoy-Met
-control). What varies is how the frame is *propagated*: counter → mixed → relay.
+| cell | shortcut | detector | aa acc | ATG-abl Δ, far field (ctl) | anchor share, **output** | mechanism |
+|---|---|---|---|---|---|---|
+| **A** | absent | easy | 1.0000 | **+0.5891** (0.0193) | **1.0000** | anchored counter |
+| **B** | absent | hard | 0.9605 | **+0.5553** (0.0219) | **0.8817** | anchored counter |
+| **C** | present | easy | 0.9999 | **+0.3264** (0.0242) | **0.7106** | anchored counter |
+| **D** | present | hard | 0.9892 | **+0.1126** (0.0335) | 0.2314 | **relay** |
+| μ = 0 | present | n/a | — | +0.0025 (probe) | 0.0925 (probe) | bag of motifs |
 
-Three mechanisms, separated by the **assay pair**, not by either assay alone:
+**The start codon is causally load-bearing in every cell** (3.4×–30× specificity over the decoy-Met
+control). What varies is whether the frame is *counted from* it.
 
-| regime | ATG ablation, far field | cue conflict, far field | mechanism |
+Three mechanisms, separated by the **assay pair**, not by either assay alone. Ablation alone cannot
+tell a counter from a relay (both lose the anchor). Cue conflict alone cannot tell a relay from a bag
+(both follow content). **Neither axis is sufficient; the pair is** — that is why the 2×2 needed both.
+
+|            | far-field ablation Δ | anchor share under conflict | reading |
 |---|---|---|---|
-| real DNA, μ = 0 | **decays** to +0.0085 | content 0.84 | bag of motifs |
-| real DNA, μ = 1 (C, D) | **flat** +0.35 / +0.15 | content 0.91 / 0.80 | **relay** |
-| uniform codons, μ = 1 (A) | collapse *below* guessing | **anchor 1.0000** | anchored counter |
+| **counter** | large | > 0.5 | the frame is *counted from* the anchor |
+| **relay**   | large | < 0.5 | the anchor is *used* but not counted from |
+| **bag**     | ~0    | ~0    | the anchor is *unused* |
 
-**Increasing demand moves bag → relay → counter; shortcut availability decides where it stops.**
+### The registered attribution logic resolves: the two factors interact
 
-**D30's prediction (real CDS builds an anchored counter): HALF VINDICATED, HALF FALSIFIED.** The
-anchor *is* used at long range — flat ablation, and the μ = 0 bag is the contrast — but the mechanism
-is a relay, not a counter. Recorded as a failed prediction, not relabelled (D32).
+```
+A -> B  (detector hard)     1.0000 -> 0.8817     an unreliable anchor is still counted from
+A -> C  (shortcut on)       1.0000 -> 0.7106     a pooled route competes, and loses
+A -> D  (both)              1.0000 -> 0.2314     only together do they displace the counter
+```
 
-**The frozen binary verdict cannot express a relay** and prints NO CIRCUIT for B, C and D. We
-pre-registered that continuous values are reported regardless; the 2-D signature is the result.
+**Neither factor alone displaces the circuit. Together they do** — which is, exactly, the condition of
+real genomic self-supervision. Full trace and controls: `RELAY_TRACE.md`.
+
+**D30's prediction (real CDS builds an anchored counter): VINDICATED for cell C, falsified for D.**
+D33 recorded it as failed. The refutation was the artifact, not the prediction (D35).
+
+**The frozen binary verdict** (anchor share > 0.50 **and** ablation > 0.10) now labels A, B and C as
+CIRCUIT FORMED and D as the one cell that stops counting. Read at L2 it had printed NO CIRCUIT for
+three of them. We pre-registered that continuous values are reported regardless of the threshold; that
+clause is what let the error be found rather than buried.
 
 **Cell B (D31, confirmed):** cut off mid-grok at 8k. At 24k it transitions at step 18–20k and reaches
 aa 0.9735. It is the hardest cell by construction and needs ~2.5× cell A's budget.

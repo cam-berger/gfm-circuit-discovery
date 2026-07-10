@@ -1,6 +1,6 @@
 # Recommendation: a critique of Proposal D2, and the program that replaces it
 
-**Cam Berger — 2026-07-09** · v2 (v1 archived at `docs/REC_v1_superseded.md`; §0 says what changed)
+**Cam Berger — 2026-07-09** · v2 (v1 archived at `docs/archive/REC_v1_superseded.md`; §0 says what changed)
 Repo: `~/Research/projects/gfm-circuit-discovery` · 102 tests passing
 Evidence: `docs/DECISIONS.md` (D1–D30) · `docs/EXPERIMENTS.md` (plain-language) · `docs/PREREGISTRATION.md`
 

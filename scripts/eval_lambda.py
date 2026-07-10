@@ -143,7 +143,7 @@ def main() -> None:
     print("\nanchor/content are far-field (>=64 nt) agreement under cue conflict.")
     print("A counter follows the anchor; a bag follows content. Real hg38 GFM-nano: 0.06 / 0.84")
     Path("results").mkdir(exist_ok=True)
-    Path("results/lambda_sweep.json").write_text(json.dumps(rows, indent=2))
+    Path("results/reading-frame/lambda_sweep.json").write_text(json.dumps(rows, indent=2))
 
 
 if __name__ == "__main__":

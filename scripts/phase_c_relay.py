@@ -29,7 +29,7 @@ from gfmcd.models.gfm_nano import GFMNano, NanoConfig  # noqa: E402
 from gfmcd.oracle import oracle_correct  # noqa: E402
 from gfmcd.signatures import ablate, downstream_met, start_index  # noqa: E402
 
-OUT = Path("results/fig_data")
+OUT = Path("results/reading-frame/fig_data")
 IGNORE = -100
 N = 800
 FAR = 64

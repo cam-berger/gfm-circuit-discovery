@@ -1,0 +1,67 @@
+[
+  {
+    "model": "A \u00b7 uniform, easy detector",
+    "mechanism": "counter",
+    "x": 0.6466945111751556,
+    "best_layer": "L2.resid_post",
+    "y": 1.0,
+    "y_is_output": true,
+    "content": 0.05479727615443072,
+    "ctl": 0.0,
+    "far_ablation": 0.5890934064354,
+    "far_ablation_ctl": 0.019333893267864055,
+    "t3_shift1_anchor": 1.0
+  },
+  {
+    "model": "B \u00b7 uniform, hard detector",
+    "mechanism": "counter",
+    "x": 0.576680451631546,
+    "best_layer": "L4.resid_post",
+    "y": 0.8816918709848774,
+    "y_is_output": true,
+    "content": 0.11691372985176209,
+    "ctl": 0.0010349750518798828,
+    "far_ablation": 0.5553177366805725,
+    "far_ablation_ctl": 0.021923745192589217,
+    "t3_shift1_anchor": 0.8306137016317791
+  },
+  {
+    "model": "C \u00b7 real CDS, easy detector",
+    "mechanism": "counter",
+    "x": 0.3912819027900696,
+    "best_layer": "L4.resid_post",
+    "y": 0.7105591397849462,
+    "y_is_output": true,
+    "content": 0.3062688172043011,
+    "ctl": 5.698204040527344e-05,
+    "far_ablation": 0.3264404487838206,
+    "far_ablation_ctl": 0.02420555713968886,
+    "t3_shift1_anchor": 0.6507177033492823
+  },
+  {
+    "model": "D \u00b7 real CDS, natural",
+    "mechanism": "relay",
+    "x": 0.14804667234420776,
+    "best_layer": "L4.resid_post",
+    "y": 0.23138601115674615,
+    "y_is_output": true,
+    "content": 0.7294550358609698,
+    "ctl": 0.003573298454284668,
+    "far_ablation": 0.11261543735694446,
+    "far_ablation_ctl": 0.033531638723634405,
+    "t3_shift1_anchor": 0.35907862407862406
+  },
+  {
+    "model": "\u03bc=0 \u00b7 real CDS, LM objective",
+    "mechanism": "bag",
+    "x": 0.0025204122066497803,
+    "best_layer": "resid.embed",
+    "y": 0.09254193798261964,
+    "y_is_output": false,
+    "content": 0.7834233012998959,
+    "ctl": 0.0025204122066497803,
+    "far_ablation": null,
+    "far_ablation_ctl": null,
+    "t3_shift1_anchor": null
+  }
+]

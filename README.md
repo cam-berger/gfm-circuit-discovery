@@ -10,12 +10,50 @@ by TransformerLens / `circuit-tracer`, which target GPT-style decoder-only model
 
 | | |
 |---|---|
-| **`RESULTS.md`** | **Every measured number, with status: SETTLED / PENDING / WITHDRAWN / RETRACTED.** |
-| **`REC.md`** | The argument: critique of Proposal D2, and the criterion that replaces it. |
 | `docs/EXPERIMENTS.md` | **Plain-language account of every experiment and what it showed.** Start here. |
-| `docs/DECISIONS.md` | Why the design is what it is, with the numbers. |
-| `docs/PLAN.md` | Phases and gates. |
-| `docs/PREREGISTRATION.md` | The five confirmatory tests. **Draft — not frozen.** |
+| **`RESULTS.md`** | **Every measured number, with status: SETTLED / PENDING / WITHDRAWN / RETRACTED.** §10 is the retraction record. |
+| **`REC.md`** | The argument: critique of Proposal D2, and the sufficiency criterion that replaces it. |
+| `Proposal_Sufficiency_Circuit_Discovery.md` | The PI-facing writeup. |
+| `RELAY_TRACE.md` | Phase C: what actually separates a counter from a relay from a bag. |
+| `docs/DECISIONS.md` | Why the design is what it is, with the numbers. D1–D35. |
+| `docs/PREREGISTRATION.md` | Frozen predictions, registered before each measurement. |
+| `scripts/README.md` | Which script produces which number. |
+
+## Repository map
+
+```
+README.md                       you are here
+RESULTS.md   REC.md             the ledger, and the argument
+RELAY_TRACE.md                  Phase C deliverable (reading-frame track)
+Proposal_Sufficiency_*.md       PI-facing writeup
+PLAN_reading_frame.md           active plan, track 1
+PLAN_repeat_copy.md             active plan, track 2
+
+docs/
+  DECISIONS.md                  D1-D35, the reasoning with the numbers
+  PREREGISTRATION.md            frozen before each measurement
+  EXPERIMENTS.md                plain-language account
+  PLAN.md                       phases and gates, across both tracks
+  explainers/                   standalone HTML for non-specialists
+  archive/                      superseded prose, kept not deleted
+
+src/gfmcd/                      the library: models, data, tracer, oracle, signatures
+scripts/                        one script per measurement -- see scripts/README.md
+tests/                          113 tests; Rung 0 is ground truth, not a smoke test
+
+results/reading-frame/
+  fig_data/                     the measured numbers -- TRACKED, so a retraction leaves a diff
+  fig_data/retracted/           dumps whose measurement was withdrawn
+  figures/                      gitignored; regenerate with scripts/fig_phase_*.py
+branches/codex-repeat-induction/  track 2's findings and figures
+
+data/cache/                     window caches, gitignored: the filename is the recipe
+checkpoints/                    gitignored
+logs/archive/                   completed run logs
+```
+
+Two tracks share this repo and share no files: **reading frame** (this document's ladder) and
+**repeat-copy / induction** (`PLAN_repeat_copy.md`).
 
 ## The ladder
 

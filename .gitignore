@@ -1,10 +1,24 @@
 __pycache__/
 *.egg-info/
 .pytest_cache/
+.DS_Store
+
+# Reference genomes and derived tensors. Multi-GB, and hg38 + GENCODE are external inputs.
 data/raw/
 data/processed/
-results/
+
+# Window caches: 154 MB, and every one is regenerable from its seed -- the filename IS the
+# recipe (cell, split, n, window, seed), and `train_cell.pool()` rebuilds it on demand.
+# `codon_usage_hg38.npy` is the exception: 4 KB, and it needs the full GENCODE GTF to make.
+data/cache/*.npz
+data/cache/windows_*.npy
+
+# Model weights.
 checkpoints/
 *.pt
 *.safetensors
-.DS_Store
+
+# Rendered figures are regenerable from the fig_data dumps by scripts/fig_phase_*.py.
+# The dumps themselves ARE tracked: they are the measured numbers, and a retraction like D35
+# should leave a reviewable diff rather than silently overwrite a PNG.
+results/**/figures/
