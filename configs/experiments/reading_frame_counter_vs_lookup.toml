@@ -1,0 +1,30 @@
+# Counter-vs-lookup discrimination (TO_FIX.md §5.4).
+# Preregistration: docs/studies/reading_frame/COUNTER_VS_LOOKUP.md.
+# Generators: src/gfmcd/data/counter_lookup.py (data only; the runs below need the forcing checkpoint
+# nano_uniform and, for tests 3-4, retraining — compute-gated, owner sign-off).
+
+[experiment]
+name = "reading_frame_counter_vs_lookup"
+study = "reading_frame"
+status = "PLANNED"
+model = "nano_uniform"     # the trained anchor-relative modulo-3 model under test
+
+# Which tests a data generator covers vs which need a model intervention / retrain.
+[tests]
+held_out_anchor_positions = { generator = "variable_anchor_batch", needs = "eval on trained model" }
+joint_translation        = { generator = "joint_translation_pair", needs = "eval on trained model" }
+length_extrapolation     = { generator = "variable_anchor_batch", needs = "eval beyond trained range" }
+position_encoding        = { generator = "n/a", needs = "retrain: learned-abs vs relative vs rotary" }
+transition_consistency   = { generator = "n/a", needs = "residual-state intervention (lab)" }
+composition_mod3         = { generator = "n/a", needs = "apply inferred transition x3" }
+patch_forward            = { generator = "graded_indel + activation patch", needs = "lab intervention" }
+
+[graded_indel]
+k = [1, 2, 3, 6, 9]
+readout_distances = [64, 128, 200]
+
+[verdict]
+# From the preregistration:
+sequential_counter = "passes transition, composition, held-out-position, and extrapolation"
+anchor_position_lookup = "solves cue conflict but fails transition or extrapolation"
+unresolved = "anchored but not separable with current evidence (report UNRESOLVED, do not narrate)"
