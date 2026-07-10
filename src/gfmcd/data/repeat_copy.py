@@ -8,8 +8,11 @@ where `u` is a random DNA unit. A bounded local statistic should not know the co
 held-out random unit; the relational route is to find the previous matching prefix and copy the base
 that followed it.
 
-The model is trained with the ordinary causal next-token objective. The copy mask and source indices
-exist only for evaluation, cue conflict, and tracing.
+The model is trained with a **copy-position-weighted** causal next-token objective (default 8x weight
+on copy positions; see `scripts/train_repeat_copy.py` and `gfmcd.objective.weighted_ar_loss`). That
+upweighting is a forcing signal — whether the circuit also forms under an unweighted objective
+(copy weight 1) is untested (TO_FIX.md §4). The copy mask and source indices exist for the weighting,
+evaluation, cue conflict, and tracing.
 """
 
 from __future__ import annotations

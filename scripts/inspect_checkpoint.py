@@ -14,7 +14,8 @@ from pathlib import Path
 
 import torch
 
-WANTED = ["config", "objective", "copy_weight", "data_seed", "model_seed", "seed", "step", "git_sha", "versions"]
+# Each entry is a tuple of accepted aliases; the field is "present" if any alias is a key.
+WANTED = [("config", "cfg"), ("objective",), ("data_seed",), ("model_seed",), ("step",), ("git_sha",), ("versions",)]
 
 
 def main() -> None:
@@ -37,7 +38,7 @@ def main() -> None:
         elif isinstance(v, dict):
             print(f"    {k}: {{{', '.join(str(x) for x in list(v)[:8])}{'…' if len(v) > 8 else ''}}}")
 
-    missing = [w for w in WANTED if w not in blob]
+    missing = [aliases[0] for aliases in WANTED if not any(a in blob for a in aliases)]
     if missing:
         print("  MISSING provenance fields (TO_FIX.md §13.2):", ", ".join(missing))
 

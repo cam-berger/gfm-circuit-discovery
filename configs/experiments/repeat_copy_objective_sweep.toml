@@ -1,0 +1,41 @@
+# Repeat-copy objective sweep (TO_FIX.md §4.6) — the weight-1 control.
+#
+# The headline "the circuit forms unbidden" is unsupported until the copy_weight=1 arm is run.
+# This grid decides whether the circuit is genuinely unforced or driven by the 8x weighting.
+# Do NOT update the headline claim until the weight-1 condition has been run and replicated.
+#
+# Owner sign-off + compute required (>= 4 weights x >= 5 seeds x training). Runner reads this config,
+# writes a run manifest per arm under results/registry/, and records the objective accounting.
+
+[experiment]
+name = "repeat_copy_objective_sweep"
+study = "repeat_copy"
+status = "PLANNED"
+
+[grid]
+copy_weight = [1, 2, 4, 8]
+seed = [0, 1, 2, 3, 4]          # >= 5 model seeds
+# At least two repeat densities / copy-token fractions, matched otherwise:
+repeat_period = [48, 96]        # unit spacing (proxy for copy-token fraction)
+
+[fixed]
+steps = 8000
+batch = 64
+window = 256
+lr = 3e-4
+train_seqs = 120000
+val_seqs = 6000
+
+[report]
+# Primary outputs per arm:
+metrics = [
+  "prob_copy_acc_above_threshold",  # emergence probability
+  "steps_to_transition",            # grokking time
+  "cue_conflict_distal_follow",
+  "cue_conflict_local_follow",
+  "causal_circuit_effect",          # loss-based head ablation
+  "all_token_ce",
+  "copy_token_ce",
+  "effective_copy_loss_share",
+]
+copy_acc_threshold = 0.9

@@ -20,6 +20,8 @@ import torch.nn.functional as F
 
 from gfmcd.data.repeat_copy import ar_inputs_targets, base_rate_ceiling, make_batch
 from gfmcd.models.gfm_nano import GFMNano, NanoConfig
+from gfmcd import provenance
+from gfmcd.objective import effective_copy_loss_share, weighted_ar_loss
 from gfmcd.paths import project_paths
 
 CKPT = project_paths().checkpoints
@@ -32,11 +34,8 @@ def lr_at(step: int, steps: int, base: float, warmup: int = 200) -> float:
     return 0.1 * base + 0.9 * base * 0.5 * (1 + math.cos(math.pi * t))
 
 
-def weighted_ar_loss(logits: torch.Tensor, targets: torch.Tensor, copy_mask: torch.Tensor, copy_weight: float) -> torch.Tensor:
-    loss = F.cross_entropy(logits.reshape(-1, logits.shape[-1]), targets.reshape(-1), reduction="none").view_as(targets)
-    weights = torch.ones_like(loss)
-    weights[copy_mask] = copy_weight
-    return (loss * weights).sum() / weights.sum()
+# weighted_ar_loss moved to gfmcd.objective (shared with the tests so weight=1 is provably
+# ordinary mean cross-entropy).
 
 
 @torch.no_grad()
@@ -86,6 +85,10 @@ def main() -> None:
 
     print(f"repeat-copy train {tuple(train_x.shape)}  val {tuple(val_x.shape)}  device {device}")
     print(f"base-rate copy ceiling {base_rate_ceiling(val):.4f}")
+    copy_frac = float(train_m.float().mean())
+    eff_share = effective_copy_loss_share(train_m, args.copy_weight)
+    print(f"objective: copy-weighted AR  copy_weight={args.copy_weight}  copy_token_frac={copy_frac:.4f}  "
+          f"effective_copy_loss_share={eff_share:.4f}  (weight 1 => unforced; untested — TO_FIX.md §4)")
 
     model = GFMNano(NanoConfig(max_len=args.window - 1, causal=True)).to(device)
     print(f"causal GFM-nano: {model.n_params/1e6:.2f}M params")
@@ -129,8 +132,14 @@ def main() -> None:
                     "state": model.state_dict(),
                     "step": step,
                     "seed": args.seed,
+                    "model_seed": args.seed,
+                    "data_seed": args.seed,
+                    "objective": "copy_weighted_ar",
                     "copy_weight": args.copy_weight,
+                    "copy_token_fraction": copy_frac,
+                    "effective_copy_loss_share": eff_share,
                     "task": "repeat_copy",
+                    "git_sha": provenance.git_sha(),
                 },
                 CKPT / f"repeat_copy_s{args.seed}_step{step}.pt",
             )
