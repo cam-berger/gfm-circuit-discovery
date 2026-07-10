@@ -1,0 +1,110 @@
+{
+  "config": {
+    "seed": 3,
+    "n_seq": 8,
+    "body_len": 60,
+    "alphas": [
+      0.1,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ]
+  },
+  "ln_free": {
+    "conservation_max_err": 0.0,
+    "edges": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "n_found": 4
+    },
+    "gap_curve": [
+      {
+        "alpha": 0.1,
+        "true_effect_norm": 38.665733337402344,
+        "faithfulness_gap": 0.0,
+        "direction_cos": 1.0000011920928955
+      },
+      {
+        "alpha": 0.25,
+        "true_effect_norm": 96.66436767578125,
+        "faithfulness_gap": 0.0,
+        "direction_cos": 1.0
+      },
+      {
+        "alpha": 0.5,
+        "true_effect_norm": 193.3287353515625,
+        "faithfulness_gap": 0.0,
+        "direction_cos": 1.0
+      },
+      {
+        "alpha": 0.75,
+        "true_effect_norm": 193.3287353515625,
+        "faithfulness_gap": 0.0,
+        "direction_cos": 1.0
+      },
+      {
+        "alpha": 1.0,
+        "true_effect_norm": 193.3287353515625,
+        "faithfulness_gap": 0.0,
+        "direction_cos": 1.0
+      }
+    ]
+  },
+  "layernorm": {
+    "conservation_max_err": 2.3164079189300537,
+    "edges": {
+      "recall": 1.0,
+      "precision": 1.0,
+      "n_found": 4
+    },
+    "gap_curve": [
+      {
+        "alpha": 0.1,
+        "true_effect_norm": 74.91206359863281,
+        "faithfulness_gap": 4.130005359649658,
+        "direction_cos": 0.797024130821228
+      },
+      {
+        "alpha": 0.25,
+        "true_effect_norm": 228.81517028808594,
+        "faithfulness_gap": 3.211263656616211,
+        "direction_cos": 0.833069920539856
+      },
+      {
+        "alpha": 0.5,
+        "true_effect_norm": 637.1904907226562,
+        "faithfulness_gap": 2.0178613662719727,
+        "direction_cos": 0.8999582529067993
+      },
+      {
+        "alpha": 0.75,
+        "true_effect_norm": 1199.8392333984375,
+        "faithfulness_gap": 1.1274536848068237,
+        "direction_cos": 0.9583728909492493
+      },
+      {
+        "alpha": 1.0,
+        "true_effect_norm": 1735.8143310546875,
+        "faithfulness_gap": 0.5844847559928894,
+        "direction_cos": 0.9937440156936646
+      }
+    ]
+  },
+  "_provenance": {
+    "status": "SETTLED",
+    "seed": 3,
+    "script": "ln_calibration.py",
+    "checkpoint": null,
+    "command": "scripts/ln_calibration.py",
+    "git_sha": "9f29c1bc2d1d77aaeaf44433b6208d0f1e4970a6",
+    "git_dirty": true,
+    "timestamp": "2026-07-10T23:27:20.893380+00:00",
+    "versions": {
+      "python": "3.13.12",
+      "torch": "2.13.0",
+      "numpy": "2.5.1"
+    },
+    "os": "macOS-26.5.1-arm64-arm-64bit-Mach-O"
+  }
+}

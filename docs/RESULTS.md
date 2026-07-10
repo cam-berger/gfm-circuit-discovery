@@ -50,8 +50,24 @@ All validated against hand-weighted circuits before touching a real model. `docs
 | Faithfulness gap (frozen ReLU gate vs real) | linear attribution **overstates the true causal effect by 2×** | SETTLED (D13) |
 | JSAE Jacobian sparsity | separates composition from a *bag* (+0.0637); fails against a *lone shortcut* (+0.0063) → measures **in-degree** | SETTLED (D16) |
 
-**LayerNorm faithfulness: UNMEASURED.** Every number above came from LN-free planted models. GFM-nano
-has LayerNorm. This is the last hole in Gate 0.
+**LayerNorm faithfulness: MEASURED (D-LN / `scripts/ln_calibration.py`).** The numbers above came from
+LN-free planted models; GFM-nano has LayerNorm, and the replacement model *freezes* it. Calibrated on
+the compositional planted circuit with pre-LN inserted (`results/ln_calibration/ln_faithfulness.json`):
+
+| quantity | LN-free (control) | LayerNorm |
+|---|---|---|
+| direct-path conservation error | **0.000** | **2.316** (the unmodeled LN term the linear tracer omits) |
+| planted OV edge recall / precision | 1.0 / 1.0 | **1.0 / 1.0** (structure survives) |
+| frozen-LN faithfulness gap (‖pred−true‖/‖true‖), α=0.10 → 1.00 | 0.0 throughout | **4.13 → 0.58** |
+| effect-direction cosine, α=0.10 → 1.00 | 1.0 throughout | **0.80 → 0.99** |
+
+**Reading:** with LayerNorm, the frozen-LN replacement still recovers the edge *structure* and roughly
+the effect *direction*, but its causal-*magnitude* estimates are unreliable — worst for small
+interventions (relative error > 1 at α=0.1), the regime edge-patching lives in. Conservation is no
+longer exact. **Caveat:** this uses the planted circuit's wiring with LN inserted (γ=1, β=0), not a
+circuit re-planted to be behaviorally exact under LN; it calibrates the frozen-LN cost on a known-wiring
+LN backbone. A behaviorally-exact LN re-plant would sharpen the magnitude numbers (smaller open item,
+no longer "the last hole").
 
 ---
 
@@ -378,7 +394,7 @@ retractions vanish when the intervention is scored against the model's own predi
 
 | item | why it matters |
 |---|---|
-| **LayerNorm faithfulness gap** | every tracer error rate came from LN-free planted models. Last hole in Gate 0. |
+| **LayerNorm re-plant (refinement)** | §1's calibration uses planted wiring with LN inserted; a behaviorally-exact LN re-plant would sharpen the causal-magnitude numbers. The frozen-LN cost itself is now measured (`scripts/ln_calibration.py`), not assumed. |
 | Pooled ceilings for Tier 1–4 tasks (`REC.md` §4) | ours are codon-level naive Bayes = a *lower bound* on the shortcut. Re-measure with a receptive-field-limited CNN. Cuts against us: makes circuits rarer. |
 | μ\* (objective-mixture threshold) | needs entropy-normalised loss terms (`ln 21 = 3.04` vs `ln 4 = 1.39`), ≥3 seeds, arms compared at **matched LM loss** not matched steps |
 | Transplantation 3a/3b/3c | does the circuit survive contact with real DNA, or erode? bag-as-default vs bag-as-attractor |
