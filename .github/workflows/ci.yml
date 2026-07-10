@@ -1,0 +1,26 @@
+name: ci
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Sync environment (synthetic suite only — no models/genome extras)
+        run: uv sync --extra dev --extra lab
+
+      # Pull-request CI runs the synthetic + lab suite only. Tests that need the reference
+      # genome, external checkpoints, network downloads, or long training loops are excluded
+      # by marker so CI stays green without the large files (TO_FIX.md §15).
+      - name: Run tests
+        run: uv run pytest -q -m "not genome and not checkpoint and not slow and not network and not gpu"

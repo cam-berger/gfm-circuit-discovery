@@ -22,3 +22,10 @@ where = ["src"]
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
+markers = [
+    "genome: requires a downloaded reference genome (data/references/hg38.fa + GENCODE)",
+    "checkpoint: requires external model checkpoints on disk",
+    "slow: long optimization loop",
+    "network: downloads a model or dataset",
+    "gpu: requires CUDA/MPS",
+]
