@@ -24,19 +24,9 @@ from gfmcd.data.repeat_copy import ar_inputs_targets, base_rate_ceiling, make_ba
 
 
 def apply_style() -> None:
-    import matplotlib.pyplot as plt
+    from gfmcd.figstyle import apply_figure_style
 
-    plt.rcParams.update(
-        {
-            "figure.dpi": 140,
-            "savefig.dpi": 300,
-            "axes.spines.top": False,
-            "axes.spines.right": False,
-            "axes.grid": True,
-            "grid.alpha": 0.25,
-            "font.size": 10,
-        }
-    )
+    apply_figure_style()
 
 
 def local_examples(tokens: np.ndarray, targets: np.ndarray, copy_mask: np.ndarray, crop: int) -> tuple[np.ndarray, np.ndarray]:

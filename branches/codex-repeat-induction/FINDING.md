@@ -22,6 +22,21 @@ cue conflict on copy positions (single)
 VERDICT: COPY CIRCUIT FORMED
 ```
 
+Replication: `checkpoints/repeat_copy_s99_step8000.pt` reaches copy accuracy 0.9662 and follows the
+distal edited copy at 0.9640 vs local continuation 0.0140.
+
+Ceiling audit:
+
+```text
+base-rate                         0.2477
+local naive Bayes, 33 nt crop      0.2484
+RF-limited CNN, 33 nt crop         0.2473
+source oracle                      1.0000
+GFMNano copy circuit               0.9608
+```
+
+The registered stop-condition did not fire: the strongest no-source baseline remained at chance.
+
 Training dynamics:
 
 ```text
@@ -33,7 +48,10 @@ step 4000   copy 0.8259
 step 8000   copy 0.9611
 ```
 
-Trace screen:
+Trace screen (initial single-head screen; the controlled ablation run of record is in
+`COPY_TRACE.md`, which uses a fixed eval batch — base loss 0.0930 — and adds the subset-ablation
+and prefix-scramble controls. Both runs agree on the ranking and on all headline claims; cite
+`COPY_TRACE.md` for the exact per-head deltas):
 
 ```text
 base copy loss: 0.1001
@@ -44,6 +62,42 @@ L1H5  attn->source 0.6755   ablation delta +0.7017
 L1H1  attn->source 0.6682   ablation delta +0.3108
 L1H6  attn->source 0.6475   ablation delta +0.4557
 ```
+
+QK-IG edge check, L1:
+
+```text
+head   source-edge share   control-edge share
+L1H5        0.3504              0.0037
+L1H7        0.3465              0.0062
+L1H0        0.3401              0.0034
+L1H1        0.3350              0.0050
+L1H6        0.3264              0.0036
+```
+
+Prefix-scramble control:
+
+```text
+single conflict             distal 0.9648   local 0.0117
+source prefix scrambled     distal 0.2617   local 0.2344
+```
+
+Scrambling the source prefix collapses distal-following, so the source continuation is selected by a
+matched-prefix relation rather than a fixed position or base-rate artifact.
+
+Natural hg38 repeat transfer:
+
+```text
+                    seed 0    seed 99
+intact copy acc      0.8780    0.8700
+distal conflict      0.7820    0.7830
+local conflict       0.1310    0.1330
+prefix-scrambled
+  distal             0.2330    0.2280
+```
+
+The synthetic-trained circuit partially transfers to exact natural repeats in chr17-19: it follows
+the distal edited source far above the local continuation, and source-prefix scrambling collapses the
+effect. This is a bridge-to-biology result, not yet a claim about all repeat classes.
 
 ## Specific Example
 
@@ -104,8 +158,11 @@ The differences that matter:
 3. The copied unit is random per sequence, so success cannot be a memorized motif dictionary.
 4. The causal verdict edits the distal source while preserving the local second-copy context; the
    model follows the distal edit at 0.9635 and the local continuation at 0.0130.
-5. The trace is distributed across several L1 source-copy heads, with loss-based ablation deltas,
-   rather than a single named toy head selected by attention alone.
+5. The trace is distributed across several L1 source-copy heads, with loss-based ablation deltas and
+   QK-IG concentration on source-copy edges, rather than a single named toy head selected by
+   attention alone.
+6. The same trained mechanism partially transfers to exact natural hg38 repeats under the same cue
+   conflict; it is not confined to synthetic random strings.
 
 The honest wording is: **this is an induction-family mechanism, instantiated as a genomic
 prefix-matching copy circuit and validated by cue conflict plus intervention.**

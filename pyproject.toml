@@ -13,6 +13,8 @@ dependencies = ["torch>=2.2", "numpy", "scipy"]
 models = ["transformers>=4.40", "datasets"]
 genome = ["pyfaidx>=0.8", "numpy"]
 dev = ["pytest", "pytest-xdist"]
+# The interactive reverse-engineering layer (gfmcd.lab) and its notebooks.
+lab = ["matplotlib>=3.7", "jupyter", "nbconvert", "nbformat", "ipykernel", "pyfaidx>=0.8"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

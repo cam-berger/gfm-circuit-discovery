@@ -14,19 +14,9 @@ from pathlib import Path
 
 
 def apply_style() -> None:
-    import matplotlib.pyplot as plt
+    from gfmcd.figstyle import apply_figure_style
 
-    plt.rcParams.update(
-        {
-            "figure.dpi": 140,
-            "savefig.dpi": 300,
-            "axes.spines.top": False,
-            "axes.spines.right": False,
-            "axes.grid": True,
-            "grid.alpha": 0.25,
-            "font.size": 10,
-        }
-    )
+    apply_figure_style()
 
 
 def load_history(path: Path, seed: str) -> list[dict]:

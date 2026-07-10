@@ -13,6 +13,25 @@ FINDING.md establishes a **prefix-keyed genomic repeat-copy (induction-family) c
 
 **House rules (non-negotiable, from D24/D27):** attribution ranks, only loss-based intervention decides; every ablation reports Δloss with a control; watch for saturated metrics.
 
+## Execution Status — 2026-07-09
+
+- **Phase A: complete.** Seed 0 and seed 99 both grok the repeat-copy task; outputs:
+  `branches/codex-repeat-induction/fig_repeat_grok.png` and
+  `branches/codex-repeat-induction/fig_data/repeat_grok.csv`.
+- **Phase B: complete.** Ceiling gate did **not** fire. RF-limited CNN denied source access stayed at
+  0.2473 vs GFMNano 0.9608; outputs:
+  `branches/codex-repeat-induction/COPY_CEILING.md`,
+  `fig_copy_ceiling.png`, and raw CSVs in `fig_data/`.
+- **Phase C: partial-to-strong.** QK-IG source-edge check, prefix-scramble control, and
+  ablate-one-vs-subset are complete; outputs:
+  `branches/codex-repeat-induction/COPY_TRACE.md`,
+  `COPY_QK_IG.md`, `fig_copy_heads.png`, and raw CSVs in `fig_data/`.
+- **Phase D: complete for exact natural repeats.** The synthetic-trained circuit partially transfers
+  to exact hg38 repeats on chr17-19. Seed 0/99 distal-following under cue conflict: 0.7820/0.7830;
+  local continuation: 0.1310/0.1330. Source-prefix scrambling collapses distal-following to
+  0.2330/0.2280. Outputs: `branches/codex-repeat-induction/NATURAL_REPEATS.md`,
+  `fig_natural_repeats.png`, and raw CSVs.
+
 ---
 
 ## Phase A — Figure from existing history (no model loading; do first)
