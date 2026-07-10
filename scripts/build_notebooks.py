@@ -8,7 +8,8 @@ here rather than hand-edited. Run this, then execute with nbconvert:
         --output study_reading_frame_counter.ipynb   # (with CHECKPOINT set)
 
 The template walks the five pillars in order and branches on the model family (`m.is_aa_head`) so the
-same notebook studies both the reading-frame counter and the repeat-copy induction circuit.
+same notebook studies both the reading-frame anchor-relative modulo-3 circuit and the repeat-copy
+induction circuit.
 """
 
 from __future__ import annotations
@@ -71,7 +72,7 @@ def build_template() -> nbf.NotebookNode:
         "| **output** | per position, the **amino acid** of the codon that position falls in (21-way: 20 aa + stop) | per position, the **next nucleotide** (6-way LM over `ACGTN?`) |\n"
         "| **the hard part** | to name the amino acid you must know the reading **frame** — which of the 3 offsets from the ATG this position sits in | inside the second copy, the next token is only predictable by **copying** from the matching position in the first occurrence |\n"
         "| **the shortcut** | local codon composition is *almost* a sufficient statistic for frame — so a pooled bag nearly solves it | none: the copied content is arbitrary, so no bounded-window statistic beats the base rate |\n"
-        "| **the circuit of interest** | an **anchored frame counter**: locate the ATG, count offset from it at every distance | a **prefix-keyed copy (induction) circuit**: match the current position back to the earlier occurrence and copy |\n"
+        "| **the circuit of interest** | an **anchor-relative modulo-3 circuit**: locate the ATG, then recover each position's phase relative to it (whether it iterates a count or reads a residue-class lookup is unresolved) | a **prefix-keyed copy (induction) circuit**: match the current position back to the earlier occurrence and copy |\n"
         "\n"
         "The cell below prints the specific statement for whichever checkpoint you loaded."
     ))
@@ -114,7 +115,7 @@ if m.is_aa_head:
     print("  output: per position, the amino acid of its codon (21-way: 20 aa + stop)")
     print("  hard  : the readout requires the reading FRAME (offset mod 3 from the ATG)")
     print("  short : local codon composition is nearly a sufficient statistic for frame")
-    print("  circuit: an anchored frame counter (find ATG -> count offset at every distance)")
+    print("  circuit: an anchor-relative modulo-3 circuit (find ATG -> phase relative to it; counting vs lookup unresolved)")
 else:
     print("TASK: repeat-copy next-nucleotide prediction")
     print("  input : 255-nt window containing a sequence repeated once (unit + copy)")
@@ -177,7 +178,7 @@ except FileNotFoundError as e:
     cells.append(md(
         "## 1 · Discovery — which components look responsible?\n"
         "\n"
-        "Survey attention to the circuit's anchor (the start codon for the frame counter; the copy "
+        "Survey attention to the circuit's anchor (the start codon for the reading-frame circuit; the copy "
         "source for induction). This **ranks** candidate heads and nothing more. On `nano_uniform` the "
         "head that attends the start codon *most* is L5H2 — yet its ablation Δloss (see the pillar-3 "
         "table below) is ~0, while the essential head L1H3 ranks lower in attention here and only "
@@ -211,7 +212,8 @@ plt.show()
         "Before tracing anything, ask whether a **bounded-window pooled statistic** could already "
         "solve the task. If it can reach what the objective demands, there is no reason for the model "
         "to build a circuit and nothing to trace — the shortcut suffices. A circuit is predicted "
-        "only when *demanded accuracy exceeds the pooled ceiling*. This is the project's central law."
+        "only when *demanded accuracy exceeds the pooled ceiling*. This is the project's central working "
+		"hypothesis — the shortcut-gap hypothesis — not a settled law."
     ))
     cells.append(code(
         '''
@@ -298,8 +300,8 @@ else:
 if m.is_aa_head:
     pooled = lab.pooled_ceiling(m, tok, phase)
     print(f"anchor-free pooled oracle (codon naive Bayes, ±120 nt): {pooled:.4f}")
-    print("interpretation: this is the best any start-codon-blind statistic does. The model beats it "
-          "iff it built an anchored circuit.")
+    print("interpretation: this is the best any start-codon-blind statistic does. The model can only "
+          "beat it by building an anchored circuit.")
 else:
     cm = lab.copy_metrics(m, batch)
     print(f"base-rate ceiling (predict most-frequent token): {cm['base_rate_ceiling']:.4f}")
@@ -316,7 +318,9 @@ else:
         "local content in conflict (insert one nt after the ATG; edit a copied token) and measure which "
         "the model follows at range. A **counter** follows the anchor at every distance; a **bag** "
         "crosses to content beyond ~30 nt; a **relay** initialises from the anchor but propagates "
-        "locally. The mechanism verdict is the far-field anchor share, read at the phase probe.\n"
+        "locally. The mechanism verdict is the far-field anchor share, read at the phase probe. The "
+		"**counter** pole means the anchor is followed at every distance — it does not by itself settle "
+		"whether the model iterates a sequential count or reads an anchor-relative modulo-3 lookup.\n"
         "\n"
         "For the reading-frame family we place the verdict in two contexts that the single-model "
         "signature can't show: the **λ sweep** (how the mechanism moves as the shortcut is made "
@@ -349,7 +353,7 @@ else:
         "information between local nucleotide content and the frame. Accuracy stays ~1.0 across the "
         "sweep, so accuracy tells you nothing — only the **mechanism** axis moves. As the shortcut "
         "carries more of the frame, the model slides from an anchored **counter** (anchor share → 1) "
-        "toward a pooled **bag** (anchor share → 0). This is the sufficiency law as a dial."
+        "toward a pooled **bag** (anchor share → 0). This is the shortcut-gap hypothesis as a dial."
     ))
     cells.append(code(
         '''
@@ -372,9 +376,10 @@ else:
         "### 5b · The 2×2 — which conditions actually force the circuit *(reading-frame only)*\n"
         "\n"
         "The necessity design: **shortcut** (absent / present) × **detector difficulty** (easy / hard). "
-        "Each cell gets the frozen verdict — circuit forms iff far-field anchor share > 0.50 **and** the "
+        "Each cell gets the frozen, pre-registered verdict criterion — a cell is scored as a circuit iff "
+		"far-field anchor share > 0.50 **and** the "
         "start-codon ablation beats the decoy-Met control by > 0.10. Cell A (uniform, shortcut absent) "
-        "forces the counter; the interesting cells are where the shortcut is present. Cells B/C/D need "
+        "forces the anchored circuit; the interesting cells are where the shortcut is present. Cells B/C/D need "
         "the cached hg38 windows; any that are missing show as unavailable rather than faked."
     ))
     cells.append(code(
@@ -473,13 +478,13 @@ if m.is_aa_head:
     stages = [
         {"layer": ("L0" if anchor_layer <= 1 else f"L0–L{anchor_layer-1}"), "role": "read local codon composition",
          "heads": " ".join(setup) or "L0 heads", "detail": "high Δloss, do NOT attend the ATG", "kind": "setup"},
-        {"layer": f"L{anchor_layer}", "role": "locate the ATG anchor, set the count",
+        {"layer": f"L{anchor_layer}", "role": "locate the ATG anchor, fix the anchor-relative phase",
          "heads": " ".join(anchor), "detail": "attends the ATG AND high Δloss", "kind": "anchor"},
         {"layer": f"L{formed_layer}–L{m.cfg.n_layers-1}", "role": "propagate the frame to every position",
          "heads": "", "detail": f"phase fully decodable from L{formed_layer}", "kind": "propagate"},
         {"layer": "out", "role": "read out the amino acid", "heads": "", "detail": "21-way per position", "kind": "readout"},
     ]
-    viz.plot_circuit_flow(stages, title=f"{m.name.split('_step')[0]}: reading-frame counter — flow",
+    viz.plot_circuit_flow(stages, title=f"{m.name.split('_step')[0]}: reading-frame anchor-relative circuit — flow",
                           probe_by_layer=decode)
 else:
     tbl = lab.copy_head_ablation(m, batch)
@@ -650,7 +655,7 @@ print("gap between the two baselines:", f"{abs(zero_loss-resample_loss):.4f}")
     cells.append(md(
         "## Recipe 4 — one cue-conflict example, read the probabilities\n"
         "Insert a single nucleotide after the ATG so the anchor and the local content disagree, then read "
-        "the model's amino-acid distribution at a far-downstream position. A counter still reads the frame "
+        "the model's amino-acid distribution at a far-downstream position. An anchor-relative circuit still reads the frame "
         "the anchor implies; a bag has drifted to the content frame. This is the mechanism test on one "
         "sequence, by hand."
     ))
@@ -673,13 +678,13 @@ top_intact  = int(p_intact.argmax());  top_shifted = int(p_shifted.argmax())
 print(f"at position {pos} (distance {pos-start1[row]} from ATG):")
 print(f"  intact:  argmax aa {top_intact}  p={float(p_intact[top_intact]):.3f}")
 print(f"  shifted: argmax aa {top_shifted}  p={float(p_shifted[top_shifted]):.3f}")
-print("  the counter re-reads the frame from the moved anchor; a bag would not.")
+print("  an anchor-relative circuit re-reads the frame from the moved anchor; a bag would not.")
 '''
     ))
 
     cells.append(md(
         "## Recipe 5 — compare two checkpoints (e.g. across grokking)\n"
-        "The uniform counter groks abruptly (~step 3000). Load an early and a late checkpoint of the same "
+        "The uniform anchor-relative frame circuit groks abruptly (~step 3000). Load an early and a late checkpoint of the same "
         "family and watch a circuit metric jump. Pin a step with `step=` (or pass the full filename)."
     ))
     cells.append(code(

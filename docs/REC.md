@@ -1,7 +1,7 @@
 # Recommendation: a critique of Proposal D2, and the program that replaces it
 
 **Cam Berger — 2026-07-09** · v2 (v1 archived at `docs/archive/REC_v1_superseded.md`; §0 says what changed)
-Repo: `~/Research/projects/gfm-circuit-discovery` · 102 tests passing
+Repo: `~/Research/projects/gfm-circuit-discovery` · test suite: `uv run pytest -q`
 Evidence: `docs/DECISIONS.md` (D1–D30) · `docs/EXPERIMENTS.md` (plain-language) · `docs/PREREGISTRATION.md`
 
 ---
@@ -14,13 +14,15 @@ found, and that the job was to build a tracer good enough to see them.
 We built the tracer, validated it against circuits we constructed by hand, pointed it at real DNA
 models — and found no circuit. Then we found the reason, and the reason is not about objectives:
 
-> **A model builds a relational circuit if and only if no statistic pooled over its context window is a
-> *sufficient statistic* for the target. Not "if the shortcut is weak" — if the shortcut is *imperfect*.**
+> **Shortcut-gap hypothesis: the probability that a model builds a relational circuit rises with the
+> objective advantage of that circuit over a *pre-specified* (registered) pooled shortcut class — sharply
+> once the best registered shortcut is *imperfect*, not merely *weak* — while also depending on example
+> frequency, architecture, capacity, regularization, initialization, and training budget.**
 
 Reading frame in real coding sequence fails that test. We measured its anchor-free ceiling directly: a
 codon-level pooled estimator recovers the frame at **0.9509** with no start codon at all. Under a
 language-modelling objective the residual is worth **0.4% of the loss**, and no circuit appears. Under an
-objective that demands exactness, the same architecture builds an ATG-anchored modular counter — abruptly,
+objective that demands exactness, the same architecture builds an ATG-anchored modulo-3 phase circuit — abruptly,
 after 2,750 steps of nothing.
 
 Same weights, same data, same tracer: **the mechanism is selected by the gap between what the objective
@@ -39,7 +41,7 @@ build it."* That is true of the μ = 0 objective, and it is the shallow version.
 two of them my errors:
 
 1. **Scoring a sweep on accuracy hid the result.** Seven λ arms all reached `aa_acc = 1.0000`. Only the
-   causal readouts revealed that four built an anchored counter and three built an anchor-free estimator
+   causal readouts revealed that four built an anchor-relative modulo-3 circuit and three built an anchor-free estimator
    (D29). Reported on accuracy, I would have been wrong about four of seven arms. *These are the planted
    twins from Rung 0 — identical behaviour, opposite mechanism — arising spontaneously.*
 2. **I explained that split with a story, and the control falsified it.** I claimed stop-codon depletion
@@ -77,8 +79,10 @@ not consistently beat simple *ab initio* baselines
 every foundation model most of the time).
 
 D2 reads these as *"benchmarks establish that GLMs fail positional/regulatory logic… they treat the model as
-a black box."* The correct reading: they are converging evidence for a mechanistic claim. **These models are
-pooling, and they are pooling because pooling suffices.**
+a black box."* The correct reading: they are converging evidence for a mechanistic claim, and they **motivate a
+mechanistic audit**: when a foundation model fails to beat a strong local or *ab initio* baseline, is it
+relying on the same shortcut, failing to represent the relevant relation, or representing it without causally
+using it?
 
 ### 1.2 Its ladder is ordered by the wrong axis
 
@@ -96,7 +100,7 @@ target on real DNA. We spent a day discovering that empirically.
 factors; the other is the data's shortcut structure:
 
 ```
-circuit forms   ⟺   accuracy demanded by the objective   >   ceiling of the best pooled statistic
+P(circuit forms)   increases with   [ accuracy demanded by the objective  −  ceiling of the best registered pooled shortcut ]
 ```
 
 Our λ sweep is that equation run seven times. At λ ≥ 1 the pooled ceiling reaches 1.0000 and the circuit
@@ -139,14 +143,17 @@ is what interpretability looks like without ground truth.
 
 ## 2. The criterion, and why it is the right one
 
-> **A mechanism is unavoidable exactly when no statistic pooled over the model's context window is a
-> sufficient statistic for the target.**
+> **Shortcut-gap hypothesis: a relational mechanism becomes progressively harder to avoid as the best
+> statistic in a pre-specified pooled shortcut family falls short of being a sufficient statistic for the
+> target — the larger the gap, the likelier the mechanism (other factors: example frequency, architecture,
+> capacity, regularization, initialization, budget).**
 
 Three legs: two from the literature, one from our data.
 
 **Sufficiency.** If a bounded-window statistic `T(x)` satisfies `P(y | x) = P(y | T(x))` on the training
 distribution, a model computing `T` is *already optimal*. Nothing in the loss rewards the relational circuit.
-The only reward available is the residual `1 − ceiling(T)`.
+The only reward available is the residual `1 − ceiling(T)`. Operationally we score this as
+`shortcut_gap = loss(best registered shortcut) − loss(best relational solution)`.
 
 **Simplicity bias supplies the "only if."** SGD-trained networks latch onto the simplest predictive feature
 and remain invariant to more complex ones — *even when the simple feature is less predictive*
@@ -161,15 +168,15 @@ not merely *weak*:
 ```
 data          I(nt;phase)   anchor-free ceiling            mechanism the
                             ctx=60  ctx=120  ctx=240       model built
-uniform-64      0.00003     0.000    0.000    0.000        ANCHORED COUNTER
-sense-61        0.00162     0.505    0.814    0.965        ANCHORED COUNTER
-λ = 0.50        0.00393     0.410    0.508    0.533        ANCHORED COUNTER
-λ = 0.75        0.00854     0.575    0.815    0.935        ANCHORED COUNTER
+uniform-64      0.00003     0.000    0.000    0.000        ANCHOR-REL MOD-3
+sense-61        0.00162     0.505    0.814    0.965        ANCHOR-REL MOD-3
+λ = 0.50        0.00393     0.410    0.508    0.533        ANCHOR-REL MOD-3
+λ = 0.75        0.00854     0.575    0.815    0.935        ANCHOR-REL MOD-3
 λ = 1.00        0.01471     0.821    0.976    1.0000       anchor-free
 λ = 2.00        0.05778     0.995    1.000    1.0000       anchor-free
 ```
 
-A 96.5%-accurate shortcut does **not** displace a counter when the task demands 100%. Sufficiency is a knife
+A 96.5%-accurate shortcut does **not** displace the relational (anchor-relative modulo-3) circuit when the task demands 100%. Sufficiency is a knife
 edge — which is why the transition is sharp, and why it looks like grokking.
 
 **A constructive test falls out.** A task is shortcut-proof iff there exist sequence pairs with identical
@@ -191,7 +198,9 @@ recovery MCC 0.945 where features are identifiable. Two documented blind spots.
 
 **Real-DNA GFM-nano has no anchored frame circuit**, on either data regime, established by **cue conflict**
 (D24), not ablation — which cannot see it. The model sits at the anchor-free ceiling: 0.7936 achieved against
-a pooled ceiling of 0.82–0.95, stopping exactly where an anchor would be required.
+a pooled ceiling of 0.82–0.95, stopping exactly where an anchor would be required. (GFM-nano is a controlled
+genomic transformer we trained from scratch — not a pretrained genomic foundation model like SpliceBERT; this
+negative result is about that controlled model, not a claim about circuits inside pretrained GFMs.)
 
 **Make the frame necessary and the circuit appears**, abruptly, verifying on every causal assay: phase probe
 1.0000 at L2 (untrained control 0.347, flat); start-codon ablation 1.0000 → 0.3552 (*below* the 0.3768
@@ -199,7 +208,7 @@ guessing ceiling); cue conflict 1.0000 anchor / 0.0000 content at 250 nt.
 
 **We traced it.** L0 heads assemble the local trigram — ablating `L0H0` halves `L1H3`'s attention to the
 marker while every other L0 head leaves it at 83–111% (K-composition). `L1H3` puts 0.80 of its attention on
-the **T** of the start codon, and attends there **230× more** than to a decoy ATG. The MLPs count.
+the **T** of the start codon, and attends there **230× more** than to a decoy ATG. The MLPs maintain the anchor-relative modulo-3 phase — whether by sequential counting or position-residue lookup is unresolved (`docs/studies/reading_frame/COUNTER_VS_LOOKUP.md`).
 
 **And the trace produced the project's most useful methodological result.** The model grew a *second* marker
 head, `L1H2`, attending the true start with **higher** specificity (406× vs 230×) and **causally inert** —
@@ -281,10 +290,10 @@ statistic, and D2 never proposes to measure that null's ceiling before committin
 **CTCF is the sharpest case in genomics.** Occupancy identical, orientation flipped, label changes — a cue
 conflict *built into the biology*, already run at the bench.
 
-And note the twist. For a **reverse-complement-equivariant** architecture (Caduceus), a motif and its reverse
-complement are *identified by construction*, so orientation lies outside the hypothesis class.
-**RC-equivariance, sold as a helpful inductive bias, is a blindness to a Tier-4 computation.** That is a
-testable, falsifiable prediction about a published model, and it costs one afternoon.
+Caduceus is a valuable later architecture comparison because it tests whether an orientation-sensitive
+relational computation is represented in an RC-consistent form. RC equivariance does not imply loss of
+relative orientation (equivariance ≠ invariance). The experiment should test representation and causal use
+of relative orientation, not assume blindness.
 
 ### The one positive result in the literature
 
@@ -315,7 +324,7 @@ CTCF orientation, NMD junction distance, exon spacing.
 **Step 4 — The objective question, correctly posed.** Not *"does objective X install circuit C"* but:
 
 ```
-circuit forms   ⟺   accuracy demanded   >   ceiling(pooled statistic)
+P(circuit forms)   increases with   [ accuracy demanded  −  ceiling(best registered pooled shortcut) ]
 ```
 
 Test it by moving **both** sides. We have moved the ceiling (λ sweep, seven arms). Moving the demand is the μ
@@ -346,7 +355,7 @@ a decoy-Met control. Both causal, both validated on the planted twins, **neither
 which saturates, and has fooled us once.
 
 **Registered prediction (D30):** real CDS has a pooled ceiling of **0.9509** — imperfect, adjacent to the
-sense-codon control's 0.965, which produced a counter. **Cells C and D should build the circuit.** If they do
+sense-codon control's 0.965, which produced an anchor-relative modulo-3 circuit. **Cells C and D should build the circuit.** If they do
 not, the sufficiency criterion is wrong and I will say so.
 
 ---
@@ -388,8 +397,10 @@ then confounds the result.
 
 ## 7. The claim
 
-> **A model builds a relational circuit exactly when no statistic pooled over its context window is
-> sufficient for the target.** Genomic self-supervision on real DNA sits on the wrong side of that line for
+> **Shortcut-gap hypothesis: a model is increasingly likely to build a relational circuit as the best
+> statistic in a pre-specified pooled family falls short of sufficiency for the target — other factors
+> (example frequency, architecture, capacity, regularization, initialization, budget) equal.** Genomic
+> self-supervision on real DNA sits on the wrong side of that line for
 > reading frame: the frame is nearly a sufficient statistic of local codon composition, worth 0.4% of the
 > loss, and the model correctly declines to build machinery for it. The line is measurable *before training*,
 > it ranks genomic computations from shortcut-trivial to shortcut-proof, and crossing it is a design choice

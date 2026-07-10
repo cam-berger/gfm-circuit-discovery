@@ -2,7 +2,7 @@
 
 **For:** the reading-frame agent · **Owner sign-off:** Cam Berger
 **Read first:** `RESULTS.md` (§4, §5, §7, §8, §9 — the completed 2×2), `REC.md`, `docs/DECISIONS.md` (D24–D32), `docs/PREREGISTRATION.md` (the frozen verdict).
-**Environment:** `conda activate gfm-thrust1` then `pip install -e ".[dev]"`. Confirm `pytest -q` → 102 passing before touching a checkpoint.
+**Environment:** `uv sync --extra lab --extra dev`, then run commands via `uv run <cmd>`. Confirm `uv run pytest -q` passes before touching a checkpoint.
 
 ## Objective
 
@@ -37,7 +37,7 @@ All inputs are the `*_history.json` files already in `checkpoints/` (schema: lis
 - **Unowned artifacts:** `repeat_copy_s0` / `repeat_copy_s99` checkpoints and histories exist in
   `checkpoints/` and were not produced by this track. Left untouched, excluded from all figures.
 
-## Phase B — Continuous signatures from the verdict scripts (needs `gfm-thrust1` + checkpoints)
+## Phase B — Continuous signatures from the verdict scripts (needs the `uv` environment + checkpoints)
 
 The per-window arrays behind the RESULTS.md tables live only in script stdout. Modify each script (or add a `--dump <path.npz>` flag) to persist its per-window arrays, then plot. Do **not** re-derive numbers by hand — dump and read.
 
@@ -49,7 +49,7 @@ The per-window arrays behind the RESULTS.md tables live only in script stdout. M
 
 This is the reason the track exists. Target: **`cellC_s0_step8000.pt`** and **`cellD_s0_step8000.pt`** (the two clean relay cells; C is detector-easy, D detector-hard — contrast them).
 
-7. **Localise.** Run `scripts/trace_uniform.py` and `scripts/qk_ig_nano.py` against cellC/D. Which heads carry the anchor→far-field signal? Compare to the forcing-task counter's L1H3 marker head — is the relay using the *same* head differently, or different components?
+7. **Localise.** Run `scripts/trace_uniform.py` and `scripts/qk_ig_nano.py` against cellC/D. Which heads carry the anchor→far-field signal? Compare to the forcing-task anchor-relative modulo-3 circuit's L1H3 marker head (whether that trained mechanism sequentially counts or does anchor/position residue lookup is unresolved — see `docs/studies/reading_frame/COUNTER_VS_LOOKUP.md`) — is the relay using the *same* head differently, or different components?
 8. **Test the relay hypothesis: periodic local re-sync seeded by the anchor.** Concretely — does ablating the anchor cost a **fixed** far-field loss (flat, +0.35/+0.15 as measured) because the frame is re-established at intervals rather than counted continuously? Design an intervention that distinguishes *global count from anchor* vs *local re-sync chain*: e.g. cue-conflict at graded distances and look for a **sawtooth** (re-sync resets) vs a **monotone decay** (single count). Register the prediction in `PREREGISTRATION.md` **before** running.
 9. **Apply the inert-head paranoia (D27).** For every head you nominate, report loss-based Δ with a decoy-Met control; confirm no L1H2-style causally-inert head is being credited by attention or IG.
 10. **Deliverable:** an operational definition of "relay" (what intervention separates it from bag and from counter), the carrying components, and a `RELAY_TRACE.md` written in the same status-tagged style as `FINDING.md`.
@@ -74,6 +74,6 @@ This is the reason the track exists. Target: **`cellC_s0_step8000.pt`** and **`c
 | updated `PREREGISTRATION.md` (relay prediction) | C | before running Phase C step 8 |
 
 ## What I need from the owner
-- Confirm `gfm-thrust1` runs here (or a compute target for the `.pt` loads).
+- Confirm the `uv` environment runs here (or a compute target for the `.pt` loads).
 - Seed budget: 1 seed gets the figures; **3 seeds** gets defensible error bars on the relay scatter for the PI.
 - Priority call: figures for tomorrow's deck (Phase A+B) vs the relay trace (Phase C) — A+B is hours, C is the science.

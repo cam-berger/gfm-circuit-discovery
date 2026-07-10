@@ -1,18 +1,25 @@
 # Circuit Discovery in Genomic Foundation Models
 
-Tracing how a training objective installs — or fails to install — a latent representation of genome
-structure inside a genomic foundation model, and reverse-engineering the circuit that results.
+A calibrated causal instrument for reverse-engineering genome-structure computations, built and
+validated on **controlled genomic transformers trained from scratch** (GFM-nano) and hand-built planted
+models — then carried into **pretrained genomic foundation models** (first target: SpliceBERT). The
+work so far calibrates the method and establishes controlled mechanisms; it does not yet claim to have
+discovered circuits inside a pretrained GFM.
 
-The central claim, tested rather than asserted, is the **sufficiency law**:
+The organizing idea, tested rather than asserted, is the **shortcut-gap hypothesis** (a hypothesis, not
+a settled law):
 
-> A model builds a relational **circuit** if and only if the accuracy demanded by its objective exceeds
-> the ceiling of the best statistic that can be **pooled over its context window**. If a pooled
-> statistic already suffices, the model learns that **shortcut** and never builds the algorithm. The
-> threshold is imperfection, not weakness: a 96.5%-accurate shortcut does not displace a counter when
-> the task demands 100%.
+> The probability that a model learns a relational **circuit** should increase with the objective
+> advantage of that circuit over a **pre-specified shortcut class** that can be pooled over the context
+> window — while also depending on example frequency, architecture, capacity, regularization,
+> initialization, and training budget. When a registered pooled shortcut already suffices, the model
+> tends to learn that shortcut instead. The suggestive threshold is imperfection, not weakness: in the
+> tasks run so far a 96.5%-accurate shortcut did not displace a counter when the task demanded 100%.
 
-Everything in the repo is instrumentation for measuring, honestly, which of the two — circuit or
-shortcut — a trained model actually did.
+This is a direction we can measure per task (`shortcut_gap = loss(best registered shortcut) −
+loss(best relational solution)`), not an if-and-only-if we have proven. Everything in the repo is
+instrumentation for measuring, honestly, which of the two — circuit or shortcut — a trained model
+actually did.
 
 Built from scratch: none of our model families (planted, GFM-nano, SpliceBERT) are supported by
 TransformerLens / `circuit-tracer`, which target GPT-style decoder-only models. See
@@ -25,7 +32,7 @@ TransformerLens / `circuit-tracer`, which target GPT-style decoder-only models. 
 1. **`docs/CIRCUIT_DISCOVERY_HOW_TO.md`** — the step-by-step procedure for discovering and
    reverse-engineering a circuit. The practical entry point.
 2. **`docs/FOUNDATIONS_circuit_discovery.md`** — the math and literature behind the methods (residual
-   stream, QK/OV, patching, integrated gradients, induction heads, grokking, the sufficiency law).
+   stream, QK/OV, patching, integrated gradients, induction heads, grokking, the shortcut-gap hypothesis).
 3. **`docs/BIOLOGY_genomic_computations.md`** — the genomics for an ML audience: what reading frame,
    repeats, splicing, etc. actually are, and what the shortcut vs. the circuit looks like for each.
 4. **`docs/LAB.md`** — the `gfmcd.lab` API reference and the notebook workflow.
@@ -50,7 +57,7 @@ pip install uv                      # or: curl -LsSf https://astral.sh/uv/instal
 uv sync --extra lab --extra dev     # torch, numpy, scipy + matplotlib/jupyter/nbformat + pytest
 
 # 3. run the tests to confirm the install
-uv run pytest -q                    # ~130 tests; Rung 0 is ground truth, not a smoke test
+uv run pytest -q                    # run the suite; Rung 0 is ground truth, not a smoke test
 ```
 
 `uv run <cmd>` runs a command inside the environment; alternatively activate it with
@@ -129,7 +136,7 @@ scripts/
   README.md                     which of the ~30 measurement scripts produces which number
   ... (one script per committed measurement)
 
-tests/                          the test suite (~130 tests); Rung 0 is ground truth, not a smoke test
+tests/                          the test suite (run `uv run pytest`); Rung 0 is ground truth, not a smoke test
   test_lab.py                   smoke tests for the gfmcd.lab API (18 tests)
   ...                           per-module tests for data, models, tracer, oracle, signatures
 
@@ -160,9 +167,11 @@ checkpoints/                    trained model checkpoints, gitignored (families 
 logs/archive/                   completed run logs
 ```
 
-Two tracks share this repo and share no files: **reading frame** (an anchored period-3 counter) and
-**repeat-copy / induction** (a prefix-keyed copy circuit). Each is a worked instance of the same
-five-pillar protocol.
+Two tracks share this repo and share no files: **reading frame** (an anchor-relative modulo-3 circuit —
+whether the model *sequentially counts* or reads an anchor/position residue class is not yet
+distinguished; see `docs/studies/reading_frame/COUNTER_VS_LOOKUP.md`) and **repeat-copy / induction** (a
+prefix-keyed copy circuit, learned under a copy-position-weighted objective). Each is a worked instance
+of the same five-pillar protocol.
 
 ---
 
@@ -226,7 +235,7 @@ Gitignored, but the trained families the notebooks and scripts expect on disk (e
 suffixes; `lab.load_checkpoint` picks the latest step by default):
 
 ```
-nano_uniform          reading-frame counter (amino-acid head)      -- the worked Rung-1 model
+nano_uniform          reading-frame anchor-relative modulo-3 model (aa head)  -- the worked Rung-1 model
 nano_sense, nano_lam0.25/0.5/0.75/1/1.5/2   the λ shortcut-strength sweep
 cellB_s0, cellB_s1, cellC_s0, cellD_s0      the 2x2 necessity cells
 nano_ar_*, nano_mlm_*                       objective-arm comparisons (H2)

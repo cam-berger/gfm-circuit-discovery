@@ -82,7 +82,7 @@
 <div class="wrap">
 
   <h1>The reading-frame circuit</h1>
-  <p class="sub">How we found the machinery, and what it computes — a "find-then-count" mechanism in a 4.8M-parameter genomic transformer.</p>
+  <p class="sub">How we found the machinery, and what it computes — an anchor-relative modulo-3 mechanism (find the anchor, read the phase relative to it) in a 4.8M-parameter genomic transformer.</p>
 
   <!-- ============ WHAT IT DOES ============ -->
   <h2>1 · What it computes</h2>
@@ -91,7 +91,7 @@
 
   <div class="card">
     <p style="margin-top:0"><span class="step">1</span><b>Find the anchor.</b> Locate the <span class="atg">ATG</span> start codon — the one landmark that says where reading begins.</p>
-    <p><span class="step">2</span><b>Count from it.</b> For each position <span class="mono">i</span>, compute <span class="mono">(i − i<sub>ATG</sub>) mod 3</span> → the phase (0, 1, or 2).</p>
+    <p><span class="step">2</span><b>Read the phase relative to it.</b> For each position <span class="mono">i</span>, the phase is <span class="mono">(i − i<sub>ATG</sub>) mod 3</span> → 0, 1, or 2. (Whether the model iterates a step-by-step count or reads this residue class from the anchor and position is not yet resolved.)</p>
 
     <div class="controls" style="margin-top:16px">
       <button id="btnPhase" class="on">Colour by phase</button>
@@ -105,13 +105,13 @@
       <span><i class="sw" style="background:var(--p2)"></i> phase 2</span>
       <span><i class="sw" style="outline:1.5px dashed var(--muted);background:transparent"></i> decoy ATG (ignored)</span>
     </div>
-    <p class="note">The 5′ region before the anchor carries no ATG. Every triplet after it inherits its frame from the anchor by counting — that is the whole job.</p>
+    <p class="note">The 5′ region before the anchor carries no ATG. Every triplet after it inherits its frame from the anchor by its offset from it — that is the whole job.</p>
   </div>
 
   <!-- ============ HOW IT'S BUILT ============ -->
   <h2>2 · Where the work happens</h2>
   <p class="lead">Phase is <b>built up across layers</b>, not read off in one step. A linear probe for phase climbs
-  layer by layer — the signature of a computation, not a lookup table.</p>
+  layer by layer — the signature of a computation constructed across depth.</p>
 
   <div class="card">
     <div class="stack">
@@ -127,16 +127,16 @@
       </div>
       <div class="layer">
         <div class="lname">L1–L2 MLPs</div>
-        <div class="ldesc">Do the counting: <span class="mono">(i − i<sub>ATG</sub>) mod 3</span>. Phase is now exact.</div>
+        <div class="ldesc">Resolve the phase from anchor and position: <span class="mono">(i − i<sub>ATG</sub>) mod 3</span>. Phase is now exact.</div>
         <div class="probe"><i style="width:100%"></i><b>1.00</b></div>
       </div>
     </div>
-    <p class="note">Bars = linear-probe accuracy for phase at each layer's output. An untrained model sits at 0.35 (chance) at every layer.</p>
+    <p class="note">Bars = linear-probe accuracy for phase at each layer's output. An untrained model sits at 0.35 (chance) at every layer. The phase is anchor-relative and built across depth; whether the model iterates a sequential count or reads a residue-class lookup from anchor and position is not yet resolved.</p>
   </div>
 
   <!-- ============ INTERACTIVE FRAMESHIFT ============ -->
-  <h2>3 · The proof it counts (try it)</h2>
-  <p class="lead">If it truly counts from the anchor, inserting one extra letter should shift the entire downstream frame by
+  <h2>3 · The proof it uses the anchor (try it)</h2>
+  <p class="lead">If it truly derives the frame from the anchor, inserting one extra letter should shift the entire downstream frame by
   exactly one — and the model should follow the <b>anchor</b>, not the local letters. It does, even 250 letters away.</p>
 
   <div class="card">
@@ -293,13 +293,13 @@ function renderShift(shifted){
 
   if(!shifted){
     conflictBox.innerHTML = "";
-    shiftNote.textContent = "Anchor-count and local letters agree. Frame reads cleanly from the ATG.";
+    shiftNote.textContent = "Anchor-relative frame and local letters agree. Frame reads cleanly from the ATG.";
   } else {
     conflictBox.innerHTML =
       `<div class="conflict-row"><span class="tag anchor">anchor says</span> phase = (i − i_ATG) mod 3 &nbsp;→&nbsp; the model follows this</div>`+
       `<div class="conflict-row"><span class="tag content">local letters say</span> phase = (i − 1 − i_ATG) mod 3 &nbsp;→&nbsp; off by one</div>`+
       `<div style="margin-top:10px;font-size:14px">At 128–255 nt downstream, the model follows the anchor <b>100%</b> of the time (share 1.00) and the local letters <b>0%</b> — it propagates the shift exactly as biology does.</div>`;
-    shiftNote.textContent = "The inserted letter pushes every downstream triplet one place over. A counter follows the anchor; a lookup table would follow the letters.";
+    shiftNote.textContent = "The inserted letter pushes every downstream triplet one place over. An anchor-relative circuit follows the anchor; a local-letter shortcut would follow the letters.";
   }
 }
 renderShift(false);
@@ -319,7 +319,7 @@ function setAbl(which){
     ablVerdict.innerHTML="<b>L1H2 removed → nothing changes.</b> The head that looked the most convincing is causally inert: its effect on the loss is about four million times smaller than L1H3's. A live detector nothing reads.";
   } else {
     accVal.textContent="0.3875"; accVal.style.color="var(--load)";
-    ablVerdict.innerHTML="<b>L1H3 removed → the model collapses</b> to the guessing floor (0.3875, essentially chance). This is the head that actually finds the anchor and lets the counter run. Attention inspection never picked it.";
+    ablVerdict.innerHTML="<b>L1H3 removed → the model collapses</b> to the guessing floor (0.3875, essentially chance). This is the head that actually finds the anchor and lets the frame computation run. Attention inspection never picked it.";
   }
 }
 document.getElementById("abNone").onclick=()=>setAbl("abNone");

@@ -1,3 +1,7 @@
+> **SUPERSEDED — retained for provenance; do not cite as current project claims.**
+> Superseded by `docs/REC.md` (v2) and the shortcut-gap reframing in `docs/RESULTS.md` §0. Kept
+> unedited as a record of what was believed at the time.
+
 # Recommendation: what this project is now, and what to do next
 
 **Cam Berger — 2026-07-09**

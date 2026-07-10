@@ -30,7 +30,7 @@ interpretable until this passes.
 - [x] **Test D** — AUC(comp>bag) 1.0, sep +0.0637; AUC(comp>shortcut) 1.0, sep +0.0063.
       H3 survives only as "not a bag of weak features", NOT as "composes" (D16)
 
-> **GATE 0 — PASSED, with two hypotheses narrowed.** Tests A–D all green (53 tests).
+> **GATE 0 — PASSED, with two hypotheses narrowed.** Tests A–D all green (53 tests at the time).
 > H3 is restricted (D16): the discriminator tests against bags, not against single shortcuts.
 > Feature-level claims now require an identifiability check (D17). Edge-level structure is sound.
 
@@ -80,7 +80,7 @@ matches H0; **not significant**. The probe, not the behavioural proxy, is the in
 **Reframed by D26/D27.** The original H2 asked whether an objective installs a circuit, with four
 discrete arms. What we can now ask is sharper: *how much local shortcut does it take to stop the
 circuit from forming?* The λ dial interpolates codon usage from uniform (no local phase cue; the
-anchored counter is the only solution) through real human usage to beyond it, while the task -- predict
+anchor-relative modulo-3 circuit is the only solution) through real human usage to beyond it, while the task -- predict
 the amino acid of the containing codon -- never changes.
 
 ```
@@ -137,7 +137,9 @@ context rather than taking the first ATG. So the transplanted detector should mi
 windows, in a diagnosable way.
 
 - [ ] **3a. Zero-shot.** Run the circuit-bearing model on real anchored DNA, no retraining. Prediction:
-      the *counter* transfers (content-independent arithmetic); the *detector* locks onto the upstream
+      the *anchor-relative frame circuit* transfers (content-independent arithmetic; whether this trained
+      model sequentially counts or does anchor/position residue lookup is unresolved — see
+      `docs/studies/reading_frame/COUNTER_VS_LOOKUP.md`); the *detector* locks onto the upstream
       decoy. Verify per-window: does L1H3 attend to the true start or to the decoy? Failures should
       concentrate exactly in the 35.1%.
 - [ ] **3b. Transplant + freeze.** Initialise a real-DNA MLM from the circuit-bearing backbone, swap
@@ -176,9 +178,8 @@ Cost: ~1 hour of compute for all three.
 ## Environment
 
 ```bash
-conda activate gfm-thrust1        # torch 2.12, MPS; transformers 4.44
-pip install -e ".[dev]"
-pytest -q
+uv sync --extra lab --extra dev   # torch 2.12, MPS; transformers 4.44
+uv run pytest -q
 ```
 
 M5 Pro, 20 cores, 68 GB unified memory. Transcoder sizing for SpliceBERT (6L × d=512):

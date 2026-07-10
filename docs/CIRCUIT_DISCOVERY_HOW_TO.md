@@ -15,20 +15,22 @@ document is the *procedure*; those two are the *why*.
 
 ## 0 · The one idea you must hold onto
 
-A model will only build a **circuit** — a reusable, relational algorithm — when it has no cheaper way
-to hit the accuracy the task demands. If some statistic pooled over the context window is a *sufficient
-statistic* for the target, the model computes that statistic (a **shortcut**) and never builds the
-algorithm. This is the **sufficiency law**, and it is the spine of everything below:
+A model is far more likely to build a **circuit** — a reusable, relational algorithm — when it has no
+cheaper way to hit the accuracy the task demands. If some statistic in a pre-specified pooled family is a
+*sufficient statistic* for the target, the model tends to compute that statistic (a **shortcut**) and
+usually does not build the algorithm. This is the **shortcut-gap hypothesis**, and it is the spine of
+everything below:
 
-> A relational circuit forms **iff** the accuracy demanded by the objective exceeds the ceiling of the
-> best statistic that can be pooled over the context window.
+> A relational circuit becomes increasingly likely to form as the accuracy demanded by the objective
+> exceeds the ceiling of the best statistic in a pre-specified pooled family — while also depending on
+> example frequency, architecture, capacity, regularization, initialization, and training budget.
 
 Two consequences drive the whole method:
 
 1. **You must know the shortcut before you look for the circuit.** The measured ceiling of the best
    pooled statistic is your control (Pillar 4). Without it, you cannot tell a circuit from a lookup.
-2. **The threshold is imperfection, not weakness.** A 96.5% shortcut does not displace a counter when
-   the task demands 100%. Do not assume a strong shortcut means "no circuit"; it means "no circuit
+2. **The threshold is imperfection, not weakness.** A 96.5% shortcut does not displace the relational
+   (anchor-relative modulo-3) circuit when the task demands 100%. Do not assume a strong shortcut means "no circuit"; it means "no circuit
    *unless* the last few points of accuracy are demanded."
 
 Everything else is instrumentation for measuring, honestly, which of the two the model actually did.
@@ -60,7 +62,8 @@ You need four things, and you should be able to name each one precisely before w
   window with one ATG, output the amino acid at each position; the hard part is that the amino acid
   depends on the reading frame, which is the offset mod 3 from the ATG."
 - **A model.** A trained checkpoint. In this repo: `lab.list_checkpoints()` shows the families on disk.
-  The two worked examples are `nano_uniform` (reading-frame counter, amino-acid head) and
+  The two worked examples are `nano_uniform` (reading-frame anchor-relative modulo-3 circuit, amino-acid
+  head; a controlled transformer trained from scratch, not a pretrained genomic foundation model) and
   `repeat_copy_s0` (induction/copy circuit, causal LM head).
 - **A dataset.** Sequences with the labels the task needs, plus — critically — the ability to make
   *counterfactual* versions (move the anchor, scramble the source). The repo's loaders
@@ -98,7 +101,7 @@ trans = lab.grok_transition(history, "aa_acc")
 viz.plot_grokking(history, "aa_acc", "val", transition=trans)
 ```
 
-In this repo the reading-frame counter groks abruptly around step 3000–3250; the copy circuit forms
+In this repo the reading-frame anchor-relative modulo-3 circuit groks abruptly around step 3000–3250; the copy circuit forms
 more gradually (accuracy ≥ 0.5 by ~3500, ≥ 0.9 by ~4750). Seeing the transition is your first evidence
 that there is a discrete algorithm to find, not a smooth interpolation.
 
@@ -107,7 +110,7 @@ that there is a discrete algorithm to find, not a smooth interpolation.
 ## 4 · Pillar 1 — Discovery: rank the suspects (do not trust the ranking)
 
 Survey attention from downstream positions to the circuit's **anchor** (the start codon for the frame
-counter; the copy source for induction). This *ranks* candidate heads.
+phase circuit; the copy source for induction). This *ranks* candidate heads.
 
 ```python
 from gfmcd.signatures import start_index
@@ -147,11 +150,11 @@ sees the start codon (`lab.pooled_ceiling`, implemented in `oracle.py`). On real
 phase accuracy. Because the *demanded* accuracy (1.0) exceeds the *ceiling* (< 1.0), a circuit is
 predicted — and only then is the rest of the analysis meaningful.
 
-This is where the sufficiency law becomes an experiment you can run rather than a slogan. If you want
+This is where the shortcut-gap hypothesis becomes an experiment you can run rather than a slogan. If you want
 to *see* the law operate, sweep the shortcut strength (reading-frame family): each λ arm trains on data
 with a different `I(nt; phase)` — the mutual information between local content and the frame. Accuracy
 stays ~1.0 across the sweep, so accuracy tells you nothing; only the *mechanism* moves, sliding from an
-anchored counter to a pooled bag as the shortcut strengthens.
+anchor-relative modulo-3 circuit to a pooled bag as the shortcut strengthens.
 
 ```python
 sweep = lab.lambda_sweep(["nano_sense", "nano_lam0.5", "nano_lam1", "nano_lam2"])
@@ -221,7 +224,7 @@ cm = lab.copy_metrics(m, batch)
 print(cm["conflict_follows_distal"], cm["conflict_follows_local"])
 ```
 
-In this repo the uniform counter shows anchor share ≈ 1.0 (a clean counter); the copy model follows
+In this repo the uniform-codon model shows anchor share ≈ 1.0 (a clean anchor-relative modulo-3 mechanism); the copy model follows
 the distal source ~0.96 of the time versus ~0.00 for the local continuation. For the reading-frame
 family the repo places the single verdict in two richer contexts: the λ sweep (§5) and the **2×2 grid**
 (`lab.verdict_2x2` + `viz.plot_2x2_grid`), which crosses shortcut presence with detector difficulty to
@@ -251,7 +254,7 @@ any circuit:
 
    The layer where the target becomes decodable is where the circuit finished computing it. Below that
    is construction; above it is propagation. On `nano_uniform` the frame goes from ~0.41 decodable at
-   L0 to ~0.91 at L1 to ~1.0 at L2 — so the count is built in layers 0–1 and propagated thereafter.
+   L0 to ~0.91 at L1 to ~1.0 at L2 — so the phase (anchor-relative modulo-3) is built in layers 0–1 and propagated thereafter.
 
 2. **Which heads move it there?** Cross the ablation table (Pillar 3) with the attention survey
    (Pillar 1). An essential head that writes *into* the layer where the answer appears is a
@@ -259,14 +262,14 @@ any circuit:
 
 3. **What is each head's job?** Setup heads have high Δloss but do **not** attend the anchor (they build
    local features — e.g. the L0 bank on `nano_uniform`, or the previous-token heads in the copy
-   circuit). The anchor/induction head attends the anchor *and* has high Δloss (L1H3 for the counter;
+   circuit). The anchor/induction head attends the anchor *and* has high Δloss (L1H3 for the phase circuit;
    the L1 source-following heads for copy). This distinction — "reads composition" vs "locates the
    anchor" — is the heart of the mechanism.
 
 4. **Draw it, then falsify it.** The flow diagram (`viz.plot_circuit_flow`) is a hypothesis, and every
    arrow is an ablation you can run:
 
-   - *Reading frame* — if L1H3 "sets the count", ablating it must collapse decodability at **L2**, not
+   - *Reading frame* — if L1H3 "sets the phase", ablating it must collapse decodability at **L2**, not
      L1. Re-run step 1 inside `with lab.ablate_heads(m.model, (1,3)):` and check.
    - *Repeat copy* — the induction motif is two-hop: L0 previous-token heads → L1 induction heads.
      Ablating an L0 head should blunt the L1 heads' *source-attention* (a two-hop dependency), while

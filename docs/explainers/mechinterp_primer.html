@@ -90,10 +90,10 @@
 
 <section id="big">
 <h2><span class="n">1</span>The one idea, in a sentence</h2>
-<p class="lead">A foundation model builds a genuine <span class="term">relational circuit</span> — a computation that connects two distant positions — <strong>only when no shortcut can do the job</strong>. If a statistic the model can pool over its context window (a bag of local motif counts) is already a <em>sufficient statistic</em> for the target, the model uses that and no circuit is built. The threshold is <strong>imperfection, not weakness</strong>: a shortcut that is 96.5% accurate does <em>not</em> get displaced by a real circuit unless the task actually demands the last few percent.</p>
+<p class="lead">A model <em>tends</em> to build a genuine <span class="term">relational circuit</span> — a computation that connects two distant positions — <strong>only when no shortcut can do the job</strong> — at least in the controlled tasks we have run so far. This is a <strong>hypothesis we test</strong>, the <span class="term">shortcut-gap hypothesis</span>, not a settled law. If a statistic the model can pool over its context window (a bag of local motif counts) is already a <em>sufficient statistic</em> for the target, we expect the model to use that and build no circuit. On this view the threshold is <strong>imperfection, not weakness</strong>: a shortcut that is 96.5% accurate need <em>not</em> be displaced by a real circuit unless the task actually demands the last few percent.</p>
 
 <figure>
-<svg viewBox="0 0 860 300" role="img" aria-label="Sufficiency criterion diagram">
+<svg viewBox="0 0 860 300" role="img" aria-label="Shortcut-gap criterion diagram">
   <!-- axis -->
   <text x="30" y="28" font-size="13" font-weight="700" fill="#1a1a1a">accuracy the task DEMANDS  vs  best SHORTCUT can reach</text>
   <!-- left case: shortcut sufficient -->
@@ -127,10 +127,10 @@
     <!-- gap -->
     <rect x="238" y="70" width="102" height="26" rx="4" fill="#c2453f" opacity="0.18"/>
     <text x="289" y="88" font-size="11" fill="#c2453f" text-anchor="middle">the gap</text>
-    <text x="170" y="150" font-size="12" fill="#9c3733" text-anchor="middle" font-weight="650">demand &gt; shortcut → must build it</text>
+    <text x="170" y="150" font-size="12" fill="#9c3733" text-anchor="middle" font-weight="650">demand &gt; shortcut → circuit can form</text>
   </g>
 </svg>
-<figcaption><b>The sufficiency criterion.</b> The only thing that decides whether a circuit exists is whether the task's demanded accuracy sits <em>above</em> the best pooled shortcut. On the left the shortcut clears the bar, so the model never builds the relational machinery. On the right a demand for the last few percent opens a gap the shortcut cannot fill — and the circuit appears, abruptly, which is why it looks like <em>grokking</em>.<sup><a href="#r-grok">[grok]</a></sup></figcaption>
+<figcaption><b>The shortcut-gap criterion.</b> On the shortcut-gap hypothesis, the main thing that should decide whether a circuit exists is whether the task's demanded accuracy sits <em>above</em> the best pooled shortcut. On the left the shortcut clears the bar, so the model never builds the relational machinery. On the right a demand for the last few percent opens a gap the shortcut cannot fill — and the circuit appears, abruptly, which is why it looks like <em>grokking</em>.<sup><a href="#r-grok">[grok]</a></sup></figcaption>
 </figure>
 
 <div class="callout key">
@@ -181,13 +181,13 @@ Interpretability of genomic models has assumed the circuits are there and treate
   <!-- shift arrow -->
   <g transform="translate(24,150)">
     <text x="0" y="14" font-size="12.5" font-family="-apple-system,sans-serif" fill="#c2453f" font-weight="650">Insert ONE extra letter after the start → every downstream phase shifts by one.</text>
-    <text x="0" y="34" font-size="12.5" font-family="-apple-system,sans-serif" fill="#6b6b6b">That single-base edit is the lever we use to tell a real counter from a local guesser (§4).</text>
+    <text x="0" y="34" font-size="12.5" font-family="-apple-system,sans-serif" fill="#6b6b6b">That single-base edit is the lever we use to tell a genuine anchored circuit from a local guesser (§4).</text>
   </g>
 </svg>
 <figcaption><b>Reading frame is genuinely relational.</b> To colour any nucleotide you must know where the far-away start codon is and count the distance — you cannot decide it from the letters nearby. That makes it a clean minimal circuit to hunt for. Real genomes confirm the arithmetic: in <code>117,481</code> annotated coding windows there were <strong>0</strong> in-frame stop codons, but 4–6% once the frame is shifted.</figcaption>
 </figure>
 
-<p>The catch — and the whole plot twist of the project — is that <strong>a shortcut is hiding in the genetic code itself.</strong> Because coding sequence almost never contains a stop codon <em>in</em> the true frame, a model can often guess the frame just by scanning for the frame that has no stops, without ever counting from the start. That is exactly the kind of pooled shortcut §1 warns about, and it is why real genomic models mostly <em>don't</em> build the counter.</p>
+<p>The catch — and the whole plot twist of the project — is that <strong>a shortcut is hiding in the genetic code itself.</strong> Because coding sequence almost never contains a stop codon <em>in</em> the true frame, a model can often guess the frame just by scanning for the frame that has no stops, without ever counting from the start. That is exactly the kind of pooled shortcut §1 warns about, and it is why real genomic models mostly <em>don't</em> build an anchored frame circuit.</p>
 </section>
 
 <section id="toolbox">
@@ -307,7 +307,7 @@ Interpretability of genomic models has assumed the circuits are there and treate
 <p>We hand-build two tiny models with <em>identical output behaviour</em> (accuracy 0.586 vs 0.583, |Δ| = 0.0034) but opposite internals: one truly computes <code>(position − start) mod 3</code>; the other is a <strong>bag of local motif detectors</strong> with no frame variable at all. A positive control alone can't falsify a method — twins can, because a good tool must tell them apart.</p>
 
 <h3>Step 2 — the forcing task (grokking on demand)</h3>
-<p>On real DNA the frame counter is worth only <strong>~0.005 nats, 0.40%</strong> of the loss, so the model never builds it. We remove the shortcut by training on <em>uniform random codons</em> (no stop-codon signal, no codon bias) with an amino-acid readout that <em>requires</em> the frame. Now the circuit is worth everything — and the model <strong>groks</strong> it: flat on the guessing ceiling for 2,750 steps, then solves it in ~500 more, phase decodability jumping from 0.41 to <strong>1.0000</strong> as it builds across layers.</p>
+<p>On real DNA an anchored frame circuit is worth only <strong>~0.005 nats, 0.40%</strong> of the loss, so the model never builds it. We remove the shortcut by training on <em>uniform random codons</em> (no stop-codon signal, no codon bias) with an amino-acid readout that <em>requires</em> the frame. Now the circuit is worth everything — and the model <strong>groks</strong> it: flat on the guessing ceiling for 2,750 steps, then solves it in ~500 more, phase decodability jumping from 0.41 to <strong>1.0000</strong> as it builds across layers.</p>
 
 <h3>Step 3 — cue conflict (why ablation is not enough)</h3>
 <p>Simply deleting the start codon <em>fails</em> to reveal the circuit: the model just falls back on the pooled route, so ablation reported "no circuit" when one was there. The fix is a <strong>cue conflict</strong> — insert one nucleotide after the ATG so the anchor says "phase X" while local statistics say "phase X+1", and see which the model follows. On the forcing-task model the far-field result is unambiguous: <strong>1.0000 follows the anchor, 0.0000 follows local content</strong>.</p>
@@ -341,12 +341,12 @@ Interpretability of genomic models has assumed the circuits are there and treate
 </tbody>
 </table>
 
-<p>The trained model lands at <strong>0.7936</strong> — right at the anchor-free scan ceiling and no higher. It extracts nearly all the frame signal the code leaves lying around, then <em>stops exactly where an anchor would be required</em>. That is the criterion working: the demand (ordinary language-model loss) never rises above what pooling delivers, so the counter is never built.</p>
+<p>The trained model lands at <strong>0.7936</strong> — right at the anchor-free scan ceiling and no higher. It extracts nearly all the frame signal the code leaves lying around, then <em>stops exactly where an anchor would be required</em>. That is consistent with the shortcut-gap hypothesis: the demand (ordinary language-model loss) never rises above what pooling delivers, so the anchored circuit is never built.</p>
 
 <h3>Is the ceiling statistically significant?</h3>
 <p>Two different senses of "significant", and both matter:</p>
 
-<p><strong>(a) Is the model's shortfall from a real circuit meaningful, or noise?</strong> Yes, and it is enormous, not marginal. The relevant contrast is <em>information</em>, measured in nats. Perfect phase knowledge buys only <strong>0.0241 nats</strong> of the per-token loss on real DNA (<code>H(nt) = 1.3714</code> vs <code>H(nt | phase) = 1.3473</code>), and an anchored counter is worth at most <strong>≤0.005 nats — 0.40% of a 1.27-nat loss</strong>. So the model isn't <em>failing</em> to build the circuit; there is essentially no gradient pulling toward it. The gap is not a rounding error — it is a structural fact about the objective.</p>
+<p><strong>(a) Is the model's shortfall from a real circuit meaningful, or noise?</strong> Yes, and it is enormous, not marginal. The relevant contrast is <em>information</em>, measured in nats. Perfect phase knowledge buys only <strong>0.0241 nats</strong> of the per-token loss on real DNA (<code>H(nt) = 1.3714</code> vs <code>H(nt | phase) = 1.3473</code>), and an anchored frame circuit is worth at most <strong>≤0.005 nats — 0.40% of a 1.27-nat loss</strong>. So the model isn't <em>failing</em> to build the circuit; there is essentially no gradient pulling toward it. The gap is not a rounding error — it is a structural fact about the objective.</p>
 
 <p><strong>(b) Is the ceiling number itself a trustworthy bound?</strong> This is where we are deliberately conservative. Our estimators are <strong>lower bounds on the true shortcut</strong> — a more capable pooled model can only push the ceiling <em>up</em>. That direction cuts <em>against</em> our thesis (a higher ceiling makes circuits rarer), so a lower-bound estimate is the honest, self-penalising choice. Crucially, we have now seen this bite <strong>twice</strong>: two cells whose ceilings we predicted from were <em>beaten</em> —</p>
 <table>
@@ -368,7 +368,7 @@ The ceiling is a <em>measured, conservative lower bound</em> on what a shortcut 
 <h2><span class="n">6</span>What we found — two circuits, opposite sides of the line</h2>
 
 <h3>6.1 &nbsp;Reading frame is a <em>spectrum</em>, not a switch <span class="tag done">settled</span></h3>
-<p>The decisive experiment crosses two knobs: is a shortcut <em>available</em>, and is the start-codon detector <em>easy or hard</em>? It did better than confirm "circuit vs no circuit" — it resolved <strong>three</strong> mechanisms, read off a two-dimensional causal signature (far-field start-codon-ablation cost × the share of frame that follows the anchor under conflict).</p>
+<p>The decisive experiment crosses two knobs: is a shortcut <em>available</em>, and is the start-codon detector <em>easy or hard</em>? It did better than confirm "circuit vs no circuit" — it resolved <strong>three</strong> mechanisms, read off a two-dimensional causal signature (far-field start-codon-ablation cost × the share of frame that follows the anchor under conflict). These are anchor-relative <em>behavioural</em> signatures: the "counter" pole means the anchor is followed at every distance, and does not by itself distinguish sequential counting from an anchor-relative modulo-3 lookup — that question is unresolved.</p>
 
 <figure>
 <svg viewBox="0 0 860 260" role="img" aria-label="Bag relay counter spectrum">
@@ -412,8 +412,8 @@ The ceiling is a <em>measured, conservative lower bound</em> on what a shortcut 
 <figcaption><b>The bag→relay→counter spectrum.</b> The pre-registered <em>binary</em> verdict cannot express a relay and prints "no circuit" for the three real-DNA cells — so the result is the continuous 2-D signature, which was pre-registered to be reported regardless. Our own prior prediction ("real DNA builds a counter") came out <em>half right</em>: the anchor <em>is</em> used at range, but the mechanism is a relay, not a global count. Kept as a failed prediction, not relabelled.</figcaption>
 </figure>
 
-<h3>6.2 &nbsp;A shortcut-proof task grows a circuit unbidden <span class="tag done">settled</span></h3>
-<p>The mirror-image test: an in-context <strong>repeat-copy</strong> task where the model must copy the next base from an earlier occurrence of a random DNA unit, after matching a 14-nt prefix. Because the unit is random and the prefix is longer than any local window, <em>no</em> pooled shortcut exists — and here a genuine induction-family circuit forms with <strong>no forcing objective at all</strong>:</p>
+<h3>6.2 &nbsp;A shortcut-proof task grows a repeat-copy circuit under a copy-weighted objective <span class="tag done">settled</span></h3>
+<p>The mirror-image test: an in-context <strong>repeat-copy</strong> task where the model must copy the next base from an earlier occurrence of a random DNA unit, after matching a 14-nt prefix. Because the unit is random and the prefix is longer than any local window, <em>no</em> pooled shortcut exists — and here a genuine induction-family circuit is <strong>learned under a copy-position-weighted autoregressive objective</strong> (the current default weights copy positions 8× the background per-token weight; unweighted-objective behaviour is untested):</p>
 <table>
 <thead><tr><th>measurement</th><th>value</th></tr></thead>
 <tbody>
@@ -423,7 +423,7 @@ The ceiling is a <em>measured, conservative lower bound</em> on what a shortcut 
 <tr><td>cue conflict — follows local continuation</td><td class="num">0.0130</td></tr>
 </tbody>
 </table>
-<p>This is the positive counterpart to the reading-frame negative: <strong>where a shortcut is truly unavailable, the circuit appears without coercion</strong> — exactly what the criterion predicts. Together the two circuits demonstrate the law in both directions.</p>
+<p>This is the positive counterpart to the reading-frame negative: where a shortcut is truly unavailable, a relational circuit is learned rather than a pooled shortcut — consistent with the shortcut-gap hypothesis. Whether the same circuit emerges under an <em>unweighted</em> causal objective (copy weight 1) remains untested. Together the two circuits illustrate the hypothesis in both directions.</p>
 
 <h3>6.3 &nbsp;What's next <span class="tag next">next</span></h3>
 <p>Three near-term items: <strong>trace the relay</strong> (the novel object — is it a periodic local re-sync seeded by the anchor?); <strong>measure the objective threshold μ\*</strong> with seeds and matched-loss comparison; and close the one remaining Gate-0 hole — the <strong>LayerNorm faithfulness gap</strong> <span class="tag open">open</span>, since every tracer error rate so far came from LayerNorm-free planted models and both circuits live in a model that has it. Then the climb to biological targets where composition can be held fixed while the label moves: exon definition, the NMD junction rule, and CTCF orientation.</p>
@@ -438,7 +438,7 @@ The ceiling is a <em>measured, conservative lower bound</em> on what a shortcut 
   <li id="r-ig"><span class="who">Sundararajan, Taly &amp; Yan (2017)</span>, "Axiomatic Attribution for Deep Networks" (Integrated Gradients). ICML 2017. <span class="id">arXiv:1703.01365</span> — recovers effects a saturated point gradient misses.</li>
   <li id="r-grok"><span class="who">Power et al. (2022)</span>, "Grokking: Generalization Beyond Overfitting on Small Algorithmic Datasets." <span class="id">arXiv:2201.02177</span> — the delayed, abrupt generalization our forcing task shows.</li>
   <li id="r-short"><span class="who">Geirhos et al. (2020)</span>, "Shortcut Learning in Deep Neural Networks." <em>Nature Machine Intelligence</em>. <span class="id">doi:10.1038/s42256-020-00257-z</span> — why shortcut and intended rules are indistinguishable on i.i.d. data.</li>
-  <li id="r-cad"><span class="who">Schiff et al. (2024)</span>, "Caduceus: Bi-Directional Equivariant Long-Range DNA Sequence Modeling." ICML 2024. <span class="id">arXiv:2403.03234</span> — the reverse-complement-equivariant model behind the H5 blindness prediction.</li>
+  <li id="r-cad"><span class="who">Schiff et al. (2024)</span>, "Caduceus: Bi-Directional Equivariant Long-Range DNA Sequence Modeling." ICML 2024. <span class="id">arXiv:2403.03234</span> — the reverse-complement-equivariant model proposed as a later H5 comparison (test whether relative orientation is represented in an RC-consistent form; equivariance ≠ invariance).</li>
   <li id="r-evo"><span class="who">Brixi et al. (2025)</span>, "Genome modeling and design across all domains of life with Evo 2." bioRxiv <span class="id">2025.02.18.638918</span> — the frontier genomic foundation model and its SAE feature catalogue.</li>
 </ol>
 <p style="font-size:12.5px;color:var(--meta)">Identifiers above were checked against literature search this session; the project's authoritative, hand-verified reference list lives in <code>REC.md</code>. Any identifier here that disagrees with <code>REC.md</code> should defer to <code>REC.md</code>.</p>

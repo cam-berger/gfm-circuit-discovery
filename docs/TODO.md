@@ -95,7 +95,7 @@ the next person on a locked-down host does not rediscover it.
 ## 4. Testing & CI
 
 ### 4.1 No continuous integration **[hygiene]**
-The suite is 127 tests (`pytest` green locally, ~60 s) including the new `tests/test_lab.py` (14). None
+The suite (run `uv run pytest`; ~60 s locally) includes `tests/test_lab.py`. None
 of it runs automatically. Add a CI workflow that runs `uv sync` + `pytest` on push. Mark the
 genome-dependent tests with a skip marker keyed on `data/genomes/hg38.fa` so CI stays green without the
 large files (the lab tests already skip when a checkpoint is absent).

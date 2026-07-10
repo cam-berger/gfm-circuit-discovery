@@ -211,37 +211,40 @@ accuracy is flat.
 
 This matters for discovery because the *step at which a circuit appears* is itself evidence that a
 discrete algorithm exists to be found, rather than a smooth interpolation. In this repo the reading-frame
-counter groks abruptly (around training step 3000–3250: accuracy sits near the shortcut floor, then
-jumps), while the copy circuit forms more gradually (accuracy crossing 0.5 near step 3500 and 0.9 near
+anchor-relative modulo-3 circuit (whether it is a sequential counter or an anchor/position-residue lookup is
+unresolved — see `docs/studies/reading_frame/COUNTER_VS_LOOKUP.md`) groks abruptly (around training step
+3000–3250: accuracy sits near the shortcut floor, then jumps), while the copy circuit forms more gradually (accuracy crossing 0.5 near step 3500 and 0.9 near
 step 4750). Watching a mechanism-sensitive metric jump at a training step — while accuracy is
 uninformative — is the temporal signature of a circuit and the reason the study notebooks plot the
 grokking curve before anything else.
 
 ---
 
-## 7 · Shortcut learning and the sufficiency law
+## 7 · Shortcut learning and the shortcut-gap hypothesis
 
 The reason a circuit might *not* form is **shortcut learning** (Geirhos et al. 2020): models prefer the
 cheapest decision rule that fits the training distribution, and that rule is often a spurious statistic
 rather than the intended algorithm. A model that can hit the target accuracy with a pooled statistic has
 no gradient pressure to build the relational circuit.
 
-This repo turns that observation into a sharp, testable criterion — the **sufficiency law**. Let the
-target be $Y$ and let $S(x)$ be the best statistic that can be **pooled over the context window** (a
-bag-of-tokens count, a codon-composition estimate). Write the accuracy ceiling of that pooled statistic
+This repo turns that observation into a sharp, testable criterion — the **shortcut-gap hypothesis**. Let the
+target be $Y$ and let $S(x)$ be the best statistic in a **pre-specified (registered) family pooled over the
+context window** (a bag-of-tokens count, a codon-composition estimate). Write the accuracy ceiling of that pooled statistic
 as $\mathrm{acc}^\star_{\text{pool}} = \max_{g} \Pr[\,g(S(x)) = Y\,]$. Then:
 
 $$
-\textbf{a relational circuit forms} \iff \text{accuracy demanded by the objective} \;>\; \mathrm{acc}^\star_{\text{pool}} .
+\Pr[\textbf{a relational circuit forms}] \ \text{rises as} \ \big(\text{accuracy demanded by the objective} \;-\; \mathrm{acc}^\star_{\text{pool}}\big) \ \text{grows}
 $$
 
-The threshold is **imperfection, not weakness**: a shortcut worth 96.5% does not displace a counter when
+— a hypothesis, not a settled law: circuit formation also depends on example frequency, architecture,
+capacity, regularization, initialization, and training budget. The threshold is **imperfection, not
+weakness**: a shortcut worth 96.5% does not displace the relational (anchor-relative modulo-3) circuit when
 the task demands 100%. Two experimental consequences follow directly. First, the measured pooled ceiling
 $\mathrm{acc}^\star_{\text{pool}}$ is the *control* every circuit claim must beat — not a random baseline,
 not a guess. Second, you can *dial the law*: hold the task fixed and vary how much frame information the
 local content leaks — measured as the mutual information $I(\text{nt};\text{phase})$ between a
-nucleotide and the reading frame — and watch the mechanism slide from an anchored counter (weak
-shortcut) to a pooled bag (strong shortcut), even though accuracy stays near 1.0 across the whole sweep.
+nucleotide and the reading frame — and watch the mechanism slide from an anchor-relative modulo-3 circuit
+(weak shortcut) to a pooled bag (strong shortcut), even though accuracy stays near 1.0 across the whole sweep.
 Accuracy tells you nothing; only the mechanism moves. This is the conceptual spine of the whole program.
 
 ---
@@ -301,8 +304,8 @@ It is the same sequence of moves the repo runs on the genomic copy circuit.
 - **Induction head** — the two-layer previous-token → match-and-copy circuit behind in-context copying.
 - **Grokking** — delayed generalisation; a circuit forming as an abrupt phase transition after training
   accuracy has saturated.
-- **Shortcut / sufficiency law** — a pooled statistic that suffices for the target; a circuit forms iff
-  the demanded accuracy exceeds the pooled statistic's ceiling.
+- **Shortcut / shortcut-gap hypothesis** — a pooled statistic that suffices for the target; a circuit is
+  increasingly likely to form as the demanded accuracy exceeds the best registered pooled shortcut's ceiling.
 
 ---
 

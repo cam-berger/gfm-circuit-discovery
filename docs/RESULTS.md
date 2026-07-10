@@ -1,6 +1,6 @@
 # RESULTS — every measured number, with status
 
-**Updated 2026-07-09 14:05** · 23 commits · 102 tests passing
+**Updated 2026-07-10** · test suite: run `uv run pytest -q` (see `artifacts/audit/baseline.md`)
 Companion docs: `REC.md` (the argument) · `docs/DECISIONS.md` (D1–D31, rationale) · `docs/EXPERIMENTS.md` (plain language) · `docs/PREREGISTRATION.md` (frozen predictions)
 
 This file exists so that nothing gets remembered more favourably than it happened. Every claim carries
@@ -15,11 +15,22 @@ RETRACTED   claimed, then falsified by our own control
 
 ---
 
-## 0. The one-line result
+## 0. Current organizing hypothesis
 
-**SETTLED.** A model builds a relational circuit **iff no statistic pooled over its context window is a
-sufficient statistic for the target** — and the threshold is *imperfection*, not weakness. A 96.5%
-shortcut does not displace a counter when the task demands 100%.
+**HYPOTHESIS, NOT YET A LAW.** Across the controlled tasks completed so far, relational mechanisms
+become more useful as the best **registered** shortcut leaves more objective value unclaimed. We call
+this the **shortcut-gap hypothesis** (`shortcut_gap = loss(best registered shortcut) − loss(best
+relational solution)`). Current experiments support the *direction* of the hypothesis but do **not**
+establish necessity, sufficiency, or an if-and-only-if threshold, and the shortcut class is always the
+specific pooled family we registered — never "all pooled statistics." The suggestive knife-edge
+behaviour (a 96.5% shortcut not displacing a counter when the task demands 100%) is one observation
+consistent with the hypothesis, not a proof of it.
+
+_Terminology note._ Where this document says **"counter"** for a *trained* model (the λ arms, the 2×2
+cells, GFM-nano), read it as **"anchor-relative modulo-3 mechanism"**: the model uses the anchor and
+carries a recoverable relative phase, but whether it *sequentially counts* or reads an anchor/position
+residue class is **not yet distinguished** (`docs/studies/reading_frame/COUNTER_VS_LOOKUP.md`). The
+hand-built planted twin is a counter *by construction* and keeps that name.
 
 ---
 
@@ -153,7 +164,9 @@ step 3750   aa 0.9987
 
 Circuit: **L0 heads assemble the local trigram** (ablating `L0H0` halves `L1H3`'s attention to the marker,
 42.4% retained; every other L0 head leaves it at 83–111% → K-composition) → **`L1H3` attends the T of the
-start codon** (0.80 of its mass; 230× more than to a decoy ATG) → **MLPs count** (phase builds L0 → L2).
+start codon** (0.80 of its mass; 230× more than to a decoy ATG) → **MLPs develop the anchor-relative phase**
+(a linearly recoverable phase representation builds L0 → L2; whether this is iterative counting or an
+anchor/position residue computation is unresolved — see `COUNTER_VS_LOOKUP.md`).
 
 The model grew a *second* marker head that nothing reads:
 
@@ -223,9 +236,10 @@ sense-61        0.00162     0.505    0.814    0.965    ANCHORED COUNTER
 real hg38 CDS   0.02410     0.754    0.922    0.9509   (pending — cells C, D)
 ```
 
-**The circuit forms iff the pooled route cannot reach the ceiling.** 0.965 is not enough to displace a
-counter when the task demands 1.0. Sufficiency is a knife edge — which is why the transition is sharp and
-looks like grokking.
+**In this sweep the circuit formed only where the pooled route could not reach the ceiling** — the
+direction the shortcut-gap hypothesis predicts. 0.965 was not enough to displace the mechanism when the
+task demanded 1.0. The transition is sharp and looks like grokking; whether it is a true threshold (a
+knife edge) or a steep-but-continuous dependence on the shortcut gap is not established by n = 8 arms.
 
 Real hg38 CDS frame accuracy, all measured on the same windows:
 
@@ -241,7 +255,7 @@ frame signal the genetic code leaves behind, and stops exactly where an anchor w
 
 ---
 
-## 9. The necessity 2×2 — IN FLIGHT
+## 9. The necessity 2×2 — PROVISIONAL / REPRODUCTION BLOCKED
 
 μ = 1 throughout. Verdict frozen in `docs/PREREGISTRATION.md` **before any cell ran**: far-field
 cue-conflict anchor share > 0.50 **and** start-codon ablation ΔaaAcc > 0.10 beyond a decoy-Met control.
@@ -258,7 +272,13 @@ strength calibrated so the Bayes-optimal detector hits real data's 0.9215; short
 (`I(nt;phase) = 0.000087`). It carries no ORF-integrity cue — with uniform codons stops occur at 3/64 in
 *every* frame.
 
-All four cells, same footing (μ = 1). **SETTLED**, one seed per cell.
+All four cells, same footing (μ = 1). **PROVISIONAL / REPRODUCTION BLOCKED — one seed per cell.** The
+numbers below are retained as historical measurements, not as a settled result: cells C/D require real
+hg38+GENCODE windows that are not in a clean checkout (`docs/TODO.md` §1.1), each cell has a single
+seed where the pre-registration required three on whichever cell the attribution turns on
+(`PREREGISTRATION.md`), and the mechanism labels must be read at the model output (D35), which the
+`mechanism_signature` code path does not yet do. This is **not** a headline contribution until those
+artifacts are restored. Do not cite "three of four cells contain a counter" as settled.
 
 > **Superseded by D35.** The `anchor` / `content` columns below were read from a linear probe at
 > `L2.resid_post` — a layer that on real DNA does not yet carry the anchor. Both the mechanism labels
@@ -362,7 +382,7 @@ retractions vanish when the intervention is scored against the model's own predi
 | Pooled ceilings for Tier 1–4 tasks (`REC.md` §4) | ours are codon-level naive Bayes = a *lower bound* on the shortcut. Re-measure with a receptive-field-limited CNN. Cuts against us: makes circuits rarer. |
 | μ\* (objective-mixture threshold) | needs entropy-normalised loss terms (`ln 21 = 3.04` vs `ln 4 = 1.39`), ≥3 seeds, arms compared at **matched LM loss** not matched steps |
 | Transplantation 3a/3b/3c | does the circuit survive contact with real DNA, or erode? bag-as-default vs bag-as-attractor |
-| RC-equivariance blindness prediction | Caduceus identifies a motif with its reverse complement, so CTCF orientation is outside its hypothesis class. One afternoon to test. |
+| Caduceus RC-equivariance vs orientation (later study) | Whether an RC-equivariant model represents CTCF orientation in an RC-*consistent* form and causally uses it. **Not** a blindness prediction — RC equivariance ≠ invariance; equivariance preserves orientation in a representation that transforms predictably. Test representation and causal use, do not assume blindness. |
 | Power simulation; pre-registration freeze | `PREREGISTRATION.md` still carries the power TODO. Test chromosomes stay locked until it is frozen. |
 | Multiplicative-interaction plant | quantifies how fast edge recall degrades with nonlinearity — answers D2's Risk #1 |
 
@@ -371,9 +391,9 @@ retractions vanish when the intervention is scored against the model's own predi
 ## 12. Reproduce
 
 ```bash
-conda activate gfm-thrust1
+uv sync --extra lab --extra dev
 pip install -e ".[dev]"
-pytest -q                                     # 102 tests
+uv run pytest -q                              # run the suite (see artifacts/audit/baseline.md)
 
 python scripts/validate_genome.py             # 0 in-frame stops in 117,481
 python scripts/verdict_lambda.py              # §7, the core result

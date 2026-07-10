@@ -153,13 +153,15 @@ find.
 **What we did.** Built an artificial version of the problem where the shortcut is impossible. The DNA
 is completely random, so the local flavour tells you nothing at all about the frame. But we ask the
 model to name the protein letter at every position — which you simply cannot do unless you know where
-the reading groups start. The only way is to find the start marker and count.
+the reading groups start. The only way is to find the start marker and maintain the reading frame
+relative to it. (Whether the trained model does this by sequential counting or by looking up an
+anchor/position residue is unresolved — see `docs/studies/reading_frame/COUNTER_VS_LOOKUP.md`.)
 
 **What it showed.** For 2,750 rounds of training the model was stuck at exactly the score you get by
 guessing (0.377). Then, over about 500 rounds, it jumped to 0.999.
 
-That sudden jump is the model discovering the circuit. There is no halfway: you cannot half-know where
-the reading groups begin.
+That sudden jump is the model discovering the circuit. The transition is sharp in this run, but we
+treat that as an observation, not as proof of a knife-edge law.
 
 **And now every test we ran on real DNA gives the opposite answer.** Delete the start marker and the
 model collapses to guessing. Delete an identical-looking marker elsewhere and nothing happens. Make the
@@ -167,8 +169,9 @@ clues disagree and the model sides with the start marker at *every* distance, ev
 it propagates the shift exactly as real biology does. The frame information also gets *built up* through
 the model's layers rather than appearing instantly, which is what a multi-step computation looks like.
 
-**The point.** A model builds the real machinery exactly when the task makes it necessary — not when it
-is merely useful. Real genomic training sits on the wrong side of that line.
+**The point.** In these experiments the model built the real machinery when the shortcut was
+insufficient, and not when the shortcut was merely good enough — consistent with the shortcut-gap
+hypothesis. Real genomic training, for this task, sat on the shortcut side of that gap.
 
 *Formal record: D25, D26. Code: `src/gfmcd/data/uniform_cds.py`, `scripts/verify_uniform.py`.*
 
