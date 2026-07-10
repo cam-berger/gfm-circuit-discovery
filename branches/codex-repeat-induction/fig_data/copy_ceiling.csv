@@ -1,6 +1,0 @@
-name,accuracy,sees_source,notes
-base-rate,0.247717,no,best constant base on copy positions
-local naive Bayes,0.248383,no,position-specific NB over 33 nt local crop
-RF-limited CNN,0.247333,no,CNN over 33 nt local crop; source denied
-source oracle,1.000000,yes,upper reference given copied source base
-GFMNano copy circuit,0.960800,yes,"trained transformer, seed 0 checkpoint"

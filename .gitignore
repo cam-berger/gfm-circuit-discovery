@@ -22,3 +22,9 @@ checkpoints/
 # The dumps themselves ARE tracked: they are the measured numbers, and a retraction like D35
 # should leave a reviewable diff rather than silently overwrite a PNG.
 results/**/figures/
+
+# Track-2's canonical record is now notebooks/study_repeat_copy.ipynb. The repeat-copy scripts
+# still default their --out-dir here, but the raw dump is no longer tracked; the historical dump
+# lives in .archive/ (local only). Regenerate with the repeat_copy_*.py scripts if needed.
+/branches/
+.archive/

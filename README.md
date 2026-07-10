@@ -154,7 +154,6 @@ results/reading-frame/
   fig_data/                     the measured numbers -- TRACKED, so a retraction leaves a diff
   fig_data/retracted/           dumps whose measurement was withdrawn
   figures/                      gitignored; regenerate with scripts/fig_phase_*.py
-branches/codex-repeat-induction/   track 2's findings and figures
 
 data/cache/                     window caches, gitignored: the filename is the recipe
 checkpoints/                    trained model checkpoints, gitignored (families listed below)
