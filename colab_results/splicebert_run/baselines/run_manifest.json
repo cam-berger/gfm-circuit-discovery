@@ -1,0 +1,146 @@
+{
+  "command": [
+    "scripts/splicebert/evaluate_local_baselines.py",
+    "--config",
+    "configs/splicebert_partner_selection/base.json"
+  ],
+  "config": {
+    "circuit": {
+      "ablation_modes": [
+        "zero",
+        "mean",
+        "resample"
+      ],
+      "default_component_set_size": 5,
+      "discovery_batch_size": 16,
+      "max_candidate_heads_after_screen": 16,
+      "primary_score": "mean_true_pair_margin",
+      "random_control_sets": 1000
+    },
+    "data": {
+      "candidate": {
+        "acceptor_motifs": [
+          "AG"
+        ],
+        "donor_motifs": [
+          "GT",
+          "GC"
+        ],
+        "edge_buffer": 4,
+        "max_exon_length": 500,
+        "max_pairs": 512,
+        "min_exon_length": 20
+      },
+      "canonical_only": true,
+      "exclude_chromosomes": [
+        "chrX",
+        "chrY",
+        "chrM",
+        "MT"
+      ],
+      "fasta": "data/external/gencode/v50/GRCh38.primary_assembly.genome.fa",
+      "gencode_release": 50,
+      "gtf": "data/external/gencode/v50/gencode.v50.basic.annotation.gtf.gz",
+      "left_flank": 200,
+      "max_exon_length": 500,
+      "max_sequence_length": 900,
+      "min_exon_length": 20,
+      "minimum_candidate_pairs": 2,
+      "output_dir": "data/processed/splicebert_partner_selection/v1",
+      "right_flank": 200,
+      "split_method": "chromosome",
+      "test_chromosomes": [
+        "chr19",
+        "chr20",
+        "chr21",
+        "chr22"
+      ],
+      "val_chromosomes": [
+        "chr17",
+        "chr18"
+      ]
+    },
+    "model": {
+      "local_files_only": true,
+      "model_class": "masked_lm",
+      "path": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+      "tokenizer_mode": "spaced",
+      "trust_remote_code": false
+    },
+    "preregistration_defaults": {
+      "behavior_requires_test_ci_above_best_registered_baseline": true,
+      "conflict_positive_margin_rate_min": 0.6,
+      "mediation_recovery_min": 0.3,
+      "necessity_random_set_percentile": 0.95,
+      "replication_seeds_min": 3
+    },
+    "readout": {
+      "interaction_rank": 32,
+      "length_hidden": 16,
+      "representation_layer": -1,
+      "site_hidden": 128
+    },
+    "study_id": "splicebert_partner_selection_v1",
+    "training": {
+      "backbone_learning_rate": 1e-05,
+      "batch_size": 8,
+      "early_stopping_patience": 3,
+      "epochs": 10,
+      "grad_clip": 1.0,
+      "learning_rate": 0.001,
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "weight_decay": 0.0001
+    }
+  },
+  "created_at_utc": "2026-07-11T02:17:02.838600+00:00",
+  "environment": {
+    "hostname": "3195e35eb491",
+    "pid": 10880,
+    "platform": "Linux-6.6.122+-x86_64-with-glibc2.35",
+    "python": "3.12.13"
+  },
+  "experiment_id": "splicebert_partner_selection_v1:local_baseline",
+  "git_commit": null,
+  "git_dirty": null,
+  "inputs": [
+    {
+      "path": "/content/work/gfm_splicebert_implementation/data/processed/splicebert_partner_selection/v1/train.jsonl",
+      "sha256": "04d160d2dac5fda1d78b2486c15fba620319111722f02f9043cd7ec07926d723",
+      "size_bytes": 8628642927
+    },
+    {
+      "path": "/content/work/gfm_splicebert_implementation/data/processed/splicebert_partner_selection/v1/val.jsonl",
+      "sha256": "a10f01488e761d7aa40f23d77ff99b6cd92b108c93dd0600a4b1e90bbb92d071",
+      "size_bytes": 844041632
+    }
+  ],
+  "notes": [
+    "The conflict set contains natural examples where the frozen local baseline selects a decoy.",
+    "Do not alter the baseline after inspecting circuit results."
+  ],
+  "outputs": [
+    {
+      "path": "/content/work/gfm_splicebert_implementation/results/splicebert_partner_selection/baselines/metrics.json",
+      "sha256": "acae3d1b218cdb5f999bf52501b240d5a1161d36ddf058dc0cafe774e2ecd242",
+      "size_bytes": 450
+    },
+    {
+      "path": "/content/work/gfm_splicebert_implementation/results/splicebert_partner_selection/baselines/val_local_conflicts.jsonl",
+      "sha256": "c0e6c5d8c1781cccf9332a99bd9dba5a698c4b108af46b00a6de2c1d2020d621",
+      "size_bytes": 498139364
+    },
+    {
+      "path": "/content/work/gfm_splicebert_implementation/results/splicebert_partner_selection/baselines/local_pair_baseline.pkl",
+      "sha256": "1b8597d72547f9921119430913c79a1437ee0f4c7f19f72cd5615c7dbda98c4e",
+      "size_bytes": 5516
+    }
+  ],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

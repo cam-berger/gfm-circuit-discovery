@@ -73,3 +73,26 @@ Owned by the repeat-copy track. Plan: `PLAN_repeat_copy.md`. Findings and figure
    instances, all in `RESULTS.md` §10.
 2. **A probe at a fixed layer measures whichever variable that layer happens to carry.** It cost us
    both axes of the 2×2 (D34, D35). Where a behavioural readout exists, use it.
+
+---
+
+## SpliceBERT partner-selection pipeline
+
+The first real-GFM implementation lives under `scripts/splicebert/`. Start with
+`SPLICEBERT_CIRCUIT_DISCOVERY_IMPLEMENTATION.md` and
+`studies/splicebert_partner_selection/RUNBOOK.md`.
+
+| Script | Purpose | Claim ceiling |
+|---|---|---|
+| `fetch_resources.sh` | Download official model archive and GENCODE inputs; write checksums | provenance only |
+| `build_dataset.py` | Build transcript-oriented internal-exon candidate sets | data validity |
+| `evaluate_local_baselines.py` | Fit/freeze local PWM+length shortcut and conflict examples | shortcut baseline |
+| `evaluate_native_dependency.py` | Native MLM endpoint-dependency pilot | representation/behavior evidence |
+| `train_pair_readout.py` | Train frozen/random/fine-tuned registered regimes | behavior evidence |
+| `evaluate_behavior.py` | Full/conflict/context-control evaluation | behavioral relation evidence |
+| `pair_swap_factorial.py` | AA/AB/BA/BB non-additivity assay | rejects strict additivity only |
+| `trace_heads.py` | Cross-null head necessity screen and random-set control | component localization |
+| `trace_layers.py` | Residual-stream clean-to-corrupt patch scan | layer-level mediation |
+| `patch_conflicts.py` | Head activation patching on aligned corruptions | causal mediation for that corruption |
+
+No individual script outputs a complete circuit claim. The claim ladder requires the registered sequence of behavior, necessity, mediation, path analysis, replication, and external validation.

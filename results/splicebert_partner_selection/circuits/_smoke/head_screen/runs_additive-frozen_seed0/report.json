@@ -1,0 +1,100 @@
+{
+  "regime": "additive-frozen",
+  "examples": "/Users/cberg/Research/projects/test/GFM_SpliceBERT_Circuit_Discovery_Implementation/gfm_splicebert_implementation/results/splicebert_partner_selection/circuits/discovery/discovery.jsonl",
+  "n_examples": 32,
+  "score": "mean true-pair logit margin; higher is better",
+  "selected_heads": [
+    {
+      "layer": 0,
+      "head": 7,
+      "median_effect": 0.23722922801971436,
+      "min_effect": 0.2196730375289917,
+      "positive_modes": 3,
+      "effects": [
+        0.2196730375289917,
+        0.23722922801971436,
+        0.2579282522201538
+      ]
+    },
+    {
+      "layer": 1,
+      "head": 12,
+      "median_effect": 0.22894048690795898,
+      "min_effect": 0.12520110607147217,
+      "positive_modes": 3,
+      "effects": [
+        0.22894048690795898,
+        0.24621856212615967,
+        0.12520110607147217
+      ]
+    },
+    {
+      "layer": 2,
+      "head": 3,
+      "median_effect": 0.21011722087860107,
+      "min_effect": 0.19877779483795166,
+      "positive_modes": 3,
+      "effects": [
+        0.29094719886779785,
+        0.21011722087860107,
+        0.19877779483795166
+      ]
+    },
+    {
+      "layer": 1,
+      "head": 7,
+      "median_effect": 0.18882346153259277,
+      "min_effect": 0.04568660259246826,
+      "positive_modes": 3,
+      "effects": [
+        0.20167875289916992,
+        0.18882346153259277,
+        0.04568660259246826
+      ]
+    },
+    {
+      "layer": 0,
+      "head": 4,
+      "median_effect": 0.17891061305999756,
+      "min_effect": 0.03581058979034424,
+      "positive_modes": 3,
+      "effects": [
+        0.1837139129638672,
+        0.17891061305999756,
+        0.03581058979034424
+      ]
+    }
+  ],
+  "selected_set_effects": {
+    "zero": {
+      "baseline_score": 1.930677056312561,
+      "intervened_score": 1.5084402561187744,
+      "effect": 0.4222368001937866
+    },
+    "mean": {
+      "baseline_score": 1.930677056312561,
+      "intervened_score": 1.5876920223236084,
+      "effect": 0.34298503398895264
+    },
+    "resample": {
+      "baseline_score": 1.930677056312561,
+      "intervened_score": 1.5213496685028076,
+      "effect": 0.4093273878097534
+    }
+  },
+  "matched_random_null": {
+    "mode": "mean",
+    "observed_effect": 0.34298503398895264,
+    "random_effect_mean": 0.1789603650569916,
+    "random_effect_median": 0.15698158740997314,
+    "p_value_add_one": 0.14285714285714285,
+    "n_random_sets": 20
+  },
+  "status": "COMPONENT_LOCALIZATION_ONLY",
+  "next_required_steps": [
+    "construct clean/corrupt aligned pairs with a non-zero behavioral gap",
+    "activation-patch candidate heads and paths",
+    "test necessity of the grouped circuit against matched random sets",
+    "test sufficiency/mediation and replication across seeds"
+  ]
+}

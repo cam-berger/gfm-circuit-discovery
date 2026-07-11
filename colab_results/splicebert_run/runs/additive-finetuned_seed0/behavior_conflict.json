@@ -1,0 +1,139 @@
+{
+  "split": "val",
+  "subset_source": "/content/work/gfm_splicebert_implementation/results/splicebert_partner_selection/baselines/val_local_conflicts.jsonl",
+  "n": 4000,
+  "checkpoint": "/content/work/gfm_splicebert_implementation/artifacts/splicebert_partner_selection/readouts/additive-finetuned/seed0/checkpoint.pt",
+  "checkpoint_metadata": {
+    "regime": "additive-finetuned",
+    "randomized_backbone": false,
+    "primary_trace_target": false
+  },
+  "conditions": {
+    "clean": {
+      "loss": 0.022328058861433242,
+      "metrics": {
+        "n": 4000,
+        "top1_accuracy": 0.99575,
+        "mean_reciprocal_rank": 0.997758333325386,
+        "mean_nll": 0.022328058861433242,
+        "mean_margin": 39.87980846405029,
+        "positive_margin_rate": 0.99575
+      }
+    },
+    "all_candidate_site_windows_only": {
+      "loss": 0.08597712681787592,
+      "metrics": {
+        "n": 4000,
+        "top1_accuracy": 0.988,
+        "mean_reciprocal_rank": 0.9934483224153519,
+        "mean_nll": 0.08597712681787592,
+        "mean_margin": 37.91067380523682,
+        "positive_margin_rate": 0.988
+      }
+    },
+    "true_pair_endpoints_only": {
+      "loss": 28.569637065887452,
+      "metrics": {
+        "n": 4000,
+        "top1_accuracy": 0.0,
+        "mean_reciprocal_rank": 0.018794661287218333,
+        "mean_nll": 28.569637065887452,
+        "mean_margin": -27.34553017425537,
+        "positive_margin_rate": 0.0
+      }
+    },
+    "true_acceptor_masked": {
+      "loss": 0.03151940959971968,
+      "metrics": {
+        "n": 4000,
+        "top1_accuracy": 0.99375,
+        "mean_reciprocal_rank": 0.996758333325386,
+        "mean_nll": 0.03151940959971968,
+        "mean_margin": 32.14174821853638,
+        "positive_margin_rate": 0.99375
+      }
+    },
+    "true_donor_masked": {
+      "loss": 0.5080641416909328,
+      "metrics": {
+        "n": 4000,
+        "top1_accuracy": 0.91125,
+        "mean_reciprocal_rank": 0.9529833347797394,
+        "mean_nll": 0.5080641416909328,
+        "mean_margin": 10.393289814949036,
+        "positive_margin_rate": 0.91125
+      }
+    }
+  },
+  "comparisons": {
+    "all_candidate_site_windows_only": {
+      "clean_minus_control_margin": {
+        "estimate": 1.9691345348358154,
+        "ci_low": 1.7517294252872468,
+        "ci_high": 2.187446966218948,
+        "confidence": 0.95,
+        "n_boot": 5000
+      },
+      "control_margin_by_gene": {
+        "estimate": 37.910673931598666,
+        "ci_low": 37.41013900512586,
+        "ci_high": 38.44555271973025,
+        "n_groups": 503,
+        "n": 4000
+      }
+    },
+    "true_pair_endpoints_only": {
+      "clean_minus_control_margin": {
+        "estimate": 67.22533868432045,
+        "ci_low": 66.81702253416778,
+        "ci_high": 67.63488067600727,
+        "confidence": 0.95,
+        "n_boot": 5000
+      },
+      "control_margin_by_gene": {
+        "estimate": -27.345530217885972,
+        "ci_low": -27.688064661208195,
+        "ci_high": -26.983153488348496,
+        "n_groups": 503,
+        "n": 4000
+      }
+    },
+    "true_acceptor_masked": {
+      "clean_minus_control_margin": {
+        "estimate": 7.738060198307037,
+        "ci_low": 7.388101284062862,
+        "ci_high": 8.086037278604508,
+        "confidence": 0.95,
+        "n_boot": 5000
+      },
+      "control_margin_by_gene": {
+        "estimate": 32.141748268127444,
+        "ci_low": 31.67432510127918,
+        "ci_high": 32.624056679858214,
+        "n_groups": 503,
+        "n": 4000
+      }
+    },
+    "true_donor_masked": {
+      "clean_minus_control_margin": {
+        "estimate": 29.486518661618234,
+        "ci_low": 29.15074555644989,
+        "ci_high": 29.821632048597934,
+        "confidence": 0.95,
+        "n_boot": 5000
+      },
+      "control_margin_by_gene": {
+        "estimate": 10.393289804816247,
+        "ci_low": 10.065538983983659,
+        "ci_high": 10.712613106718404,
+        "n_groups": 503,
+        "n": 4000
+      }
+    }
+  },
+  "interpretation_guards": [
+    "Clean performance above local baselines is behavioral evidence, not a circuit claim.",
+    "Loss under context removal supports context dependence but does not localize a mechanism.",
+    "A bilinear readout can install an interaction and is not by itself evidence of a pretrained circuit."
+  ]
+}
