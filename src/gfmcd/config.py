@@ -21,6 +21,17 @@ class Provenance(Enum):
 
 
 @dataclass(frozen=True)
+class ModelSource:
+    """Where a pretrained weight set comes from, so a mirror is never silently trusted (§10.2)."""
+
+    source_type: str  # "official_repo" | "zenodo" | "huggingface" | "local"
+    source_uri: str
+    revision: str | None = None
+    sha256: str | None = None
+    is_official: bool = False
+
+
+@dataclass(frozen=True)
 class Substrate:
     name: str
     provenance: Provenance
@@ -28,6 +39,7 @@ class Substrate:
     single_nt: bool = True
     both_strands: bool = False
     notes: str = ""
+    source: ModelSource | None = None
 
     @property
     def holdout_is_meaningful(self) -> bool:
@@ -46,9 +58,18 @@ SUBSTRATES: dict[str, Substrate] = {
     "splicebert": Substrate(
         "splicebert",
         Provenance.PRETRAINED,
-        hf_id="yangheng/SpliceBERT-510nt",  # community mirror; official weights are chenkenbio/SpliceBERT — verify at load (Phase 1)
+        hf_id="yangheng/SpliceBERT-510nt",
         both_strands=False,
         notes="pre-mRNA, sense strand only: cannot carry Rung 3's cross-strand axis",
+        # The OFFICIAL SpliceBERT weights (Chen et al.) ship via the biomed-AI/SpliceBERT GitHub repo /
+        # Zenodo, not an anonymously-accessible HF repo (chenkenbio/SpliceBERT requires auth). The HF id
+        # here is a COMMUNITY MIRROR — is_official=False — and must be checked against the published
+        # architecture (6L, d=512, 16 heads, single-nt, max 1024) at load via scripts/verify_model_source.py.
+        source=ModelSource(
+            source_type="huggingface",
+            source_uri="yangheng/SpliceBERT-510nt",
+            is_official=False,
+        ),
     ),
     "dnabert2": Substrate(
         "dnabert2",
