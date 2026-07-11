@@ -1,0 +1,94 @@
+{
+  "study_id": "splicebert_partner_selection_v1",
+  "model": {
+    "path": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+    "model_class": "masked_lm",
+    "tokenizer_mode": "spaced",
+    "trust_remote_code": false,
+    "local_files_only": true
+  },
+  "data": {
+    "gencode_release": 50,
+    "gtf": "data/external/gencode/v50/gencode.v50.basic.annotation.gtf.gz",
+    "fasta": "data/external/gencode/v50/GRCh38.primary_assembly.genome.fa",
+    "output_dir": "data/processed/splicebert_partner_selection/v1",
+    "left_flank": 200,
+    "right_flank": 200,
+    "max_sequence_length": 900,
+    "min_exon_length": 20,
+    "max_exon_length": 500,
+    "canonical_only": true,
+    "minimum_candidate_pairs": 2,
+    "split_method": "chromosome",
+    "val_chromosomes": [
+      "chr17",
+      "chr18"
+    ],
+    "test_chromosomes": [
+      "chr19",
+      "chr20",
+      "chr21",
+      "chr22"
+    ],
+    "exclude_chromosomes": [
+      "chrX",
+      "chrY",
+      "chrM",
+      "MT"
+    ],
+    "candidate": {
+      "donor_motifs": [
+        "GT",
+        "GC"
+      ],
+      "acceptor_motifs": [
+        "AG"
+      ],
+      "min_exon_length": 20,
+      "max_exon_length": 500,
+      "edge_buffer": 4,
+      "max_pairs": 512
+    }
+  },
+  "readout": {
+    "interaction_rank": 32,
+    "site_hidden": 128,
+    "length_hidden": 16,
+    "representation_layer": -1
+  },
+  "training": {
+    "epochs": 10,
+    "batch_size": 8,
+    "learning_rate": 0.001,
+    "backbone_learning_rate": 1e-05,
+    "weight_decay": 0.0001,
+    "grad_clip": 1.0,
+    "early_stopping_patience": 3,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "circuit": {
+    "discovery_batch_size": 16,
+    "primary_score": "mean_true_pair_margin",
+    "ablation_modes": [
+      "zero",
+      "mean",
+      "resample"
+    ],
+    "max_candidate_heads_after_screen": 16,
+    "random_control_sets": 1000,
+    "default_component_set_size": 5
+  },
+  "preregistration_defaults": {
+    "behavior_requires_test_ci_above_best_registered_baseline": true,
+    "conflict_positive_margin_rate_min": 0.6,
+    "necessity_random_set_percentile": 0.95,
+    "mediation_recovery_min": 0.3,
+    "replication_seeds_min": 3
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "purpose": "pure-noise calibration of the max-null p-value + BH-FDR path",
+  "n_null": 999,
+  "alpha": 0.05,
+  "fdr_q": 0.1,
+  "required_null_draws_for_one_hit": 960,
+  "n_null_sufficient": true,
+  "rows": [
+    {
+      "search_size": 16,
+      "n_searches": 200,
+      "ks_statistic_maxima": 0.06099999999999994,
+      "ks_p_value_maxima": 0.42928795980315015,
+      "fpr_all_scores": 0.0025,
+      "discoveries_at_fdr": 0.0,
+      "uniform_ok": true,
+      "fpr_ok": true
+    },
+    {
+      "search_size": 48,
+      "n_searches": 200,
+      "ks_statistic_maxima": 0.055999999999999994,
+      "ks_p_value_maxima": 0.5385603854758619,
+      "fpr_all_scores": 0.0010416666666666667,
+      "discoveries_at_fdr": 0.0,
+      "uniform_ok": true,
+      "fpr_ok": true
+    },
+    {
+      "search_size": 96,
+      "n_searches": 200,
+      "ks_statistic_maxima": 0.09999999999999998,
+      "ks_p_value_maxima": 0.03411035080315372,
+      "fpr_all_scores": 0.0004166666666666667,
+      "discoveries_at_fdr": 0.0,
+      "uniform_ok": true,
+      "fpr_ok": true
+    }
+  ]
+}
