@@ -1415,3 +1415,20 @@ pooling is the fast route — cheap, learnable early — and the counter is laye
 That is a claim about *training order*, and we have the checkpoints to test it: probe L2 (content) and
 L4 (anchor) across training steps and see which appears first. If the scaffold precedes the counter, the
 λ-sweep's "shortcut scaffolds discovery" reading gets a mechanism.
+
+## D36 — 2026-07-11 (RRR pass): iff claim status downgraded, machinery hardened
+
+Research-rigor audit of this track. The headline "circuit iff no pooled statistic suffices" was graded
+**SETTLED** in `RESULTS.md §0` / `REC.md` while resting on **single-seed** conditions (§7 λ-arms, §9 2×2
+cells are one seed each — F2) and a **lower-bound** anchor-free ceiling (codon naive-Bayes; the stronger
+RF-limited-CNN rival exists only for repeat-copy — F5). Status corrected to **HYPOTHESIS / open (C0)**;
+the underlying instrument measurements stay SETTLED where marked. Nothing was deleted — the evidence and
+the retraction ledger stand; only the claim grade changed. What would advance C0 to settled: ≥3 seeds per
+arm/cell and the RF-limited-CNN pooled ceiling on the reading-frame arms.
+
+Also hardened (additive): `verdict_lambda.py` now persists the §7 core-result numbers to
+`results/reading-frame/fig_data/verdict_lambda.json` (they were printed, never saved — F1);
+`peak_anchor_dependence_pvalue` adds a permutation max-over-depth null so the 7-layer argmax is
+calibrated (F3); `signature()` fits its probe on a held-out split so far-field accuracies are
+out-of-sample (F4). Stale test counts corrected to 133 (F7). See `docs/CLAIMS.md`, `docs/MIGRATION.md`,
+`docs/RRR_REFACTOR.md`. Memorial tests: `tests/test_signatures_rigor.py`.
