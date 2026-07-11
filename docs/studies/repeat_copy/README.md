@@ -6,6 +6,7 @@ Narrative and findings currently live in `docs/PLAN_repeat_copy.md` and the arch
 `.archive/branches-codex-repeat-induction/codex-repeat-induction/` (not yet migrated into this
 per-study layout — see `docs/studies/INDEX.md`).
 
-**Open (TO_FIX.md §4):** the circuit is trained under an 8× copy-position-weighted objective
-(`--copy-weight 8.0`), so "unbidden / no forcing objective" is unsupported until the **weight-1
-control** and the objective sweep are run. See `configs/experiments/repeat_copy_objective_sweep.toml`.
+**Resolved (TO_FIX.md §4):** the weight-1 control + objective sweep are run
+(`scripts/eval_repeat_copy_sweep.py`, `results/repeat-copy/objective_sweep.json`). The circuit is
+**forced, not unbidden**: absent at copy weight 1 (0/3 seeds) and 2, forming only at weight ≥ 4. See
+`RESULTS.md` in this dir and `configs/experiments/repeat_copy_objective_sweep.toml`.

@@ -214,7 +214,7 @@ This table records the correct current status of each headline claim, including 
 | Real-DNA next-token GFM-nano uses an anchored frame circuit | Current evidence says no at long range for the tested condition |
 | Forced amino-acid model learns an anchor-relative modulo-3 circuit | Supported; sequential counting unresolved |
 | Inert marker head demonstrates attention is not causality | Supported for the analyzed checkpoint |
-| Repeat-copy circuit emerges without forcing | False as currently written; objective uses 8× copy weighting |
+| Repeat-copy circuit emerges without forcing | **False — measured.** Circuit absent at copy weight 1 (0/3 seeds) and 2; forms only at weight ≥ 4 (`scripts/eval_repeat_copy_sweep.py`). Forced, not unbidden. |
 | Repeat-copy circuit exists under weighted objective | Supported on the reported checkpoints; artifacts must be restored/pinned |
 | Sufficiency law is an iff law | Unsupported; replace with shortcut-gap hypothesis |
 | Reading-frame 2×2 is settled | Provisional/reproduction blocked |

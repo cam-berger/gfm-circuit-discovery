@@ -10,8 +10,9 @@ that followed it.
 
 The model is trained with a **copy-position-weighted** causal next-token objective (default 8x weight
 on copy positions; see `scripts/train_repeat_copy.py` and `gfmcd.objective.weighted_ar_loss`). That
-upweighting is a forcing signal — whether the circuit also forms under an unweighted objective
-(copy weight 1) is untested (TO_FIX.md §4). The copy mask and source indices exist for the weighting,
+upweighting is a forcing signal, and it is load-bearing: measured, the circuit is ABSENT at copy
+weight 1-2 (0/3 seeds at weight 1) and forms only at weight >= 4 (`scripts/eval_repeat_copy_sweep.py`),
+so it is forced, not unbidden. The copy mask and source indices exist for the weighting,
 evaluation, cue conflict, and tracing.
 """
 

@@ -96,6 +96,8 @@ def main() -> None:
     sampler = torch.Generator().manual_seed(args.seed + 10)
 
     CKPT.mkdir(exist_ok=True)
+    # Weight-tagged stem so sweep arms never collide (legacy repeat_copy_s0/s99 are weight-8, untouched).
+    stem = f"repeat_copy_w{args.copy_weight:g}_s{args.seed}"
     save_at = sorted({int(args.steps * f) for f in (0.1, 0.2, 0.35, 0.5, 0.7, 0.85, 1.0)})
     history = []
     t0 = time.time()
@@ -141,10 +143,10 @@ def main() -> None:
                     "task": "repeat_copy",
                     "git_sha": provenance.git_sha(),
                 },
-                CKPT / f"repeat_copy_s{args.seed}_step{step}.pt",
+                CKPT / f"{stem}_step{step}.pt",
             )
 
-    (CKPT / f"repeat_copy_s{args.seed}_history.json").write_text(json.dumps(history, indent=2))
+    (CKPT / f"{stem}_history.json").write_text(json.dumps(history, indent=2))
     print(f"done in {(time.time()-t0)/60:.1f} min")
 
 

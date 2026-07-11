@@ -1,0 +1,80 @@
+{
+  "arms": [
+    {
+      "stem": "repeat_copy_w1_s0",
+      "copy_weight": 1,
+      "seed": 0,
+      "base_rate": 0.2547,
+      "copy_acc": 0.313,
+      "distal_share": 0.32,
+      "local_share": 0.2265,
+      "circuit_formed": false
+    },
+    {
+      "stem": "repeat_copy_w1_s1",
+      "copy_weight": 1,
+      "seed": 1,
+      "base_rate": 0.2547,
+      "copy_acc": 0.3107,
+      "distal_share": 0.3175,
+      "local_share": 0.2265,
+      "circuit_formed": false
+    },
+    {
+      "stem": "repeat_copy_w1_s2",
+      "copy_weight": 1,
+      "seed": 2,
+      "base_rate": 0.2547,
+      "copy_acc": 0.3152,
+      "distal_share": 0.319,
+      "local_share": 0.2315,
+      "circuit_formed": false
+    },
+    {
+      "stem": "repeat_copy_w2_s0",
+      "copy_weight": 2,
+      "seed": 0,
+      "base_rate": 0.2547,
+      "copy_acc": 0.3453,
+      "distal_share": 0.348,
+      "local_share": 0.218,
+      "circuit_formed": false
+    },
+    {
+      "stem": "repeat_copy_w4_s0",
+      "copy_weight": 4,
+      "seed": 0,
+      "base_rate": 0.2547,
+      "copy_acc": 0.9525,
+      "distal_share": 0.942,
+      "local_share": 0.016,
+      "circuit_formed": true
+    },
+    {
+      "stem": "repeat_copy_s0",
+      "copy_weight": 8,
+      "seed": 0,
+      "base_rate": 0.2547,
+      "copy_acc": 0.9624,
+      "distal_share": 0.9555,
+      "local_share": 0.0135,
+      "circuit_formed": true
+    }
+  ],
+  "_provenance": {
+    "status": "REPLICATED",
+    "seed": 4242,
+    "script": "eval_repeat_copy_sweep.py",
+    "checkpoint": null,
+    "command": "scripts/eval_repeat_copy_sweep.py",
+    "git_sha": "82617b4dcb871460e0721616c64a51aead35e26e",
+    "git_dirty": true,
+    "timestamp": "2026-07-11T03:46:50.183499+00:00",
+    "versions": {
+      "python": "3.13.12",
+      "torch": "2.13.0",
+      "numpy": "2.5.1"
+    },
+    "os": "macOS-26.5.1-arm64-arm-64bit-Mach-O"
+  }
+}

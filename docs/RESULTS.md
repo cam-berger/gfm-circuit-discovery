@@ -390,6 +390,27 @@ retractions vanish when the intervention is scored against the model's own predi
 
 ---
 
+## 10b. Repeat-copy track — the circuit is forced, not unbidden (MEASURED)
+
+The second track (`docs/studies/repeat_copy/`) previously called its induction/copy circuit "unbidden."
+Measured, it is not. `scripts/eval_repeat_copy_sweep.py` (verdict = cue-conflict distal-follow, not
+accuracy; base-rate ceiling ≈ 0.25; `results/repeat-copy/objective_sweep.json`):
+
+```
+copy weight   copy acc    distal-follow   verdict
+1 (s0/s1/s2)  0.31 all    0.32 all        NO CIRCUIT (0/3)
+2             0.345       0.348           NO CIRCUIT
+4             0.953       0.942           FORMED
+8 (legacy)    0.962       0.956           FORMED
+```
+
+**The copy circuit needs the copy-position weighting** — absent at weight 1–2, forming only at weight
+≥ 4. The 8× default is a load-bearing forcing signal; "unbidden" is **withdrawn**. The 2→4 transition
+is itself shortcut-gap-consistent. `REPLICATED` at weight 1 (3 seeds); the exact threshold is
+`PENDING` a finer grid. Full table: `docs/studies/repeat_copy/RESULTS.md`.
+
+---
+
 ## 11. Unmeasured / open
 
 | item | why it matters |
