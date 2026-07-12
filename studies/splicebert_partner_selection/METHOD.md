@@ -1,6 +1,10 @@
 # Method
 
-The full methodology is maintained in the repository root document `SPLICEBERT_CIRCUIT_DISCOVERY_IMPLEMENTATION.md`. This file records the study-specific choices.
+> ⚠️ **This file describes the retracted partner-selection design** (R1/R2/R3 — see `CLAIMS.md`). It is
+> kept as a record. The live methodology is `docs/REAL_GFM_CIRCUIT_DISCOVERY_PROTOCOL.md`; the original
+> root plan is archived at `docs/archive/SPLICEBERT_partner_selection_v1_plan.md`.
+
+This file records the study-specific choices.
 
 ## Population
 

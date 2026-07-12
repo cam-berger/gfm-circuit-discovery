@@ -1,3 +1,21 @@
+> # ⛔ VOID — THE RESULT IN THIS FILE HAS BEEN RETRACTED
+> **Retracted 2026-07-12 (R2, R3).** This document was written before the retraction and presents the
+> partner-selection result (PMR 0.807 vs a 0.056 control, "Recommended call: GO") as established.
+> **It is not.** The task carried a positional leak — the true acceptor sat at a constant index in
+> 100.0% of examples, so a geometry oracle reading *zero nucleotides* scores a perfect 1.000 — and,
+> independently, an oracle site detector also scores 1.000, so the task never required partner
+> information at all. The v2 fix was biologically unfixable.
+>
+> **Do not quote any number in this file.** It is kept because a retraction is only credible if the
+> thing it retracts is still on the shelf.
+>
+> **Current record:** `CLAIMS.md` (claims registry, with permanent retraction rows R1/R2/R3) ·
+> `DECISIONS.md` · `../../docs/STATUS.md` §3.
+> **The replacement study — cross-site coupling — is confirmed on held-out data.** See `CLAIMS.md`
+> rows D1–D5 and `results/splicebert_coupling/confirmation.json`.
+
+---
+
 # Results — behavioral gate (2026-07-11)
 
 ## Run identity

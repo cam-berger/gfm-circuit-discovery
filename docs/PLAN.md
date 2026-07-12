@@ -1,9 +1,38 @@
-# Implementation plan
+# Implementation plan — phases and gates
 
-Every phase has a gate. A phase that fails its gate stops the ladder; it does not get worked
-around. Rationale for each choice is in `DECISIONS.md`.
+> **⚠️ SUPERSEDED 2026-07-12 — sealed test complete; several numbers below are RETRACTED.**
+> Read `studies/splicebert_partner_selection/CLAIMS.md` §Retractions (R7–R12) and
+> `SEALED_TEST_RESULT.md` before quoting anything on this page.
+> In particular: `p = 0.000999` is a function of the `--n-null` flag, not the data (R9; honest
+> value **0.0104**); `MLM health 0.9958 → 0.9953` scored the model copying unmasked input and
+> could not fail (R8; real baseline **0.53**); coupling **1.359** is a *conditional* mean (R10;
+> unconditional **0.973**); the competing-acceptor "binding" result is an algebraic identity
+> (R7, withdrawn); and every pre-fix number is **plus-strand only** (R11).
+
+**[PLAN]** — the phase-and-gate ladder. Every phase has a gate; a phase that fails its gate **stops the
+ladder**, it does not get worked around.
+**Read this if** you want to know what is done, what is open, and what blocks what.
+**Status:** current. For *where the program actually stands*, read `STATUS.md` — this file is the
+ladder, that one is the state.
+**Rationale for every choice:** `DECISIONS.md`. **Executed plans** move to `archive/`.
 
 Legend: `[x]` done · `[ ]` not started · `[~]` partial
+
+---
+
+## The three tracks
+
+The repo runs three tracks. They share the instruments and share no files, which is deliberate — each is
+a worked instance of the same protocol, not a chapter of one narrative.
+
+| Track | Model | Status | Record |
+|---|---|---|---|
+| **1 · Reading frame** | GFM-nano (ours) | SETTLED — the negative, plus the forcing experiment that licenses it | `RESULTS.md` §1–§11, `RELAY_TRACE.md` |
+| **2 · Repeat copy / induction** | GFM-nano (ours) | SETTLED — the shortcut-proof positive; the one track whose ceiling was measured, not argued | `RESULTS.md` §12, `branches/codex-repeat-induction/` |
+| **3 · SpliceBERT** | pretrained, real | v1 partner-selection **RETRACTED IN FULL**; replacement coupling design **confirmed on held-out data** | `studies/splicebert_partner_selection/CLAIMS.md`, `STATUS.md` §3 |
+
+Phases 0–3 below are the GFM-nano ladder (tracks 1 and 2). Phase 4 is the real-GFM ladder (track 3),
+whose gates live in `REAL_GFM_CIRCUIT_DISCOVERY_PROTOCOL.md`.
 
 ---
 
@@ -163,10 +192,40 @@ Cost: ~1 hour of compute for all three.
 
 ---
 
+## Phase 4 — the real GFM (track 3): SpliceBERT
+
+Gates for this phase are **not** the ones above. They live in
+`REAL_GFM_CIRCUIT_DISCOVERY_PROTOCOL.md`, which is the reusable ladder for any pretrained model.
+
+- [x] **Gate 0–2.** Adapter, token-alignment checks, dataset build, frozen local PWM+length baseline.
+- [x] **Gate 3 — behavior (partner selection).** Ran, passed, **and was retracted in full.** The task
+      carried a positional leak (a geometry oracle reading *zero nucleotides* scored 1.000) and,
+      independently, site detection alone sufficed. The v2 fix was biologically unfixable: clean
+      negatives barely exist. → `studies/splicebert_partner_selection/CLAIMS.md`, R1/R2/R3.
+- [x] **Redesign — cross-site coupling.** No task, no label, no decoys: native masked-LM readout, real-base
+      substitutions, every effect against a matched control. Nothing to win, so nothing to leak.
+- [x] **Gates 3–8 (coupling), on held-out chromosomes.** L3H1 ranks 1st of 96; denoise recovery 0.808;
+      matched-random null p = 0.000999 (1000 sets); partner-dependent DiD 1.110 [1.018, 1.205]; a rank-2
+      subspace carries the effect; MLM health preserved. → `results/splicebert_coupling/confirmation.json`
+- [ ] **Promote or correct claims D4/D5** in `CLAIMS.md` — the fresh run they were gated on has landed.
+      D4's "partner-independent role ≈ 0" is **contradicted** by held-out (−0.200, CI excludes zero).
+- [ ] **Write the coupling circuit into `RESULTS.md` and `REC.md`.** It is the program's first real-GFM
+      result and is currently orphaned in `results/`.
+- [ ] **Gate 9 — external biological validation.** Freeze the circuit metric first. Not started.
+- [ ] **Test split (chr8, chr9) remains SEALED.** One unblinding, after the freeze.
+
+> **GATE 4 — the lesson, and it is the one that transfers.** A forced-choice task invites the model to
+> win by any route that exists, and our registered controls did not cover the routes that existed. The
+> degeneracy audit that would have caught it is now §2 of the protocol. **Run it before you build a task.**
+
+---
+
 ## Future work (out of scope — see D19)
 
-- Rung 2, splice sites: GENCODE donor/acceptor/branch-point/polypyrimidine, spacing nulls
-- Rung 3, G-quadruplex: G4-seq maps, G-density-matched decoys, `gfm-nano-dna` + DNABERT-2 anchor
+- G-quadruplex: G4-seq maps, G-density-matched decoys, `gfm-nano-dna` + DNABERT-2 anchor
+- The Tier-3/4 biological circuits named in `REC.md` §4: exon definition, the NMD 50–55 nt rule, CTCF
+  convergent orientation — where biology supplies the cue conflict for free
+- The RC-equivariance blindness prediction (Caduceus cannot represent CTCF orientation). One afternoon
 - H3 / JSAE: demoted to exploratory. D16 stands as a recorded caveat: Jacobian sparsity measures
   in-degree, so it separates composition from a *bag* but not from a lone shortcut
 - SSMs: Caduceus, Evo 2. Causal scrubbing. Enhancer/TF grammar
@@ -175,10 +234,12 @@ Cost: ~1 hour of compute for all three.
 
 ## Environment
 
+The repo is `uv`-managed. The old conda env (`gfm-thrust1`) is **retired and gone** — if you find a
+document telling you to activate it, that document is stale.
+
 ```bash
-conda activate gfm-thrust1        # torch 2.12, MPS; transformers 4.44
-pip install -e ".[dev]"
-pytest -q
+uv sync --extra lab --extra dev
+uv run pytest -q          # 167 collected: 150 pass, 16 skip, 1 FAIL (see TODO.md)
 ```
 
 M5 Pro, 20 cores, 68 GB unified memory. Transcoder sizing for SpliceBERT (6L × d=512):

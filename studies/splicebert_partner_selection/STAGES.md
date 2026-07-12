@@ -1,3 +1,12 @@
+> # ⛔ STALE — NO RETRACTION ROW WAS EVER APPENDED
+> This log stops before the retraction. Every "GO" and every number below Stage 0 relates to the
+> partner-selection design that was **retracted in full on 2026-07-12** (R1/R2/R3, see `CLAIMS.md`).
+> Stage 2 is listed as "not started"; it never will be — the study was abandoned and replaced by the
+> cross-site coupling design. **Do not read the calls in this file as current.**
+> **Current record:** `CLAIMS.md` · `DECISIONS.md` · `../../docs/STATUS.md` §3.
+
+---
+
 # Stages log
 
 One row per executed stage with the call and the load-bearing numbers.

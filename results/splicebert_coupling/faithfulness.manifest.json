@@ -1,0 +1,46 @@
+{
+  "command": [
+    "scripts/splicebert/run_faithfulness.py",
+    "--n",
+    "200",
+    "--n-curve",
+    "100",
+    "--batch",
+    "8"
+  ],
+  "config": {
+    "circuit": [
+      [
+        3,
+        1
+      ],
+      [
+        2,
+        15
+      ]
+    ],
+    "frozen_order_from": "results/splicebert_coupling/ablation_scan.json",
+    "n": 200,
+    "n_curve": 100,
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-12T23:33:41.100662+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 61343,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_coupling:faithfulness",
+  "git_commit": null,
+  "git_dirty": null,
+  "inputs": [],
+  "notes": [
+    "Head order is READ from ablation_scan.json, never recomputed here.",
+    "Unconditional coupling is the behavioural claim; the >=0.3 filter is only for ratio denominators and every conditional number is labelled.",
+    "MLM health accompanies every ablation; a coupling measured in a wrecked model is not evidence."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

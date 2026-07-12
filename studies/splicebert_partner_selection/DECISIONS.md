@@ -171,3 +171,71 @@ Now enforced, not reviewed (`src/gfmcd/circuits/guards.py`, `tests/test_patch_wi
    mean and obvious in a recorded index);
 3. **adjacent-window controls** are generated automatically, and a "control" that overlaps
    the corruption raises too.
+
+## 2026-07-12 — Adversarial pre-flight audit before the seal: four blockers, three of them controls that could not fail
+
+Context: the remaining work was "freeze the protocol and open chr8/chr9 once." Before doing
+that, the whole intervention codebase was put through an adversarial multi-lens audit (36
+agents; lenses: indexing, path-patching semantics, controls-that-cannot-fail, statistics,
+mediation arithmetic, biology). 29 candidate defects; 7 survived adversarial verification.
+**The seal was NOT opened.** Every defect below was free to find and would have been
+unrecoverable after unblinding.
+
+- **The binding result was an algebraic identity (R7).** The competing-acceptor arm SWAPPED
+  L3H1's (key, value) pair between the partner and a decoy. A (k,v) transposition permutes
+  the summation index of `out_i = Σ_j softmax(q_i·k_j)·v_j`, leaving the head's output
+  **exactly** unchanged. It reproduces on a randomly-initialised model. Two tells were present
+  in the published JSON and were rationalised rather than chased: both-swap matched baseline
+  to 8 significant figures, and key-swap matched value-swap to 7. *"They agree to 7 s.f.,
+  therefore the code is consistent"* was the wrong inference; the right one was *"they agree
+  to 7 s.f., therefore they are the same intervention."* This was the result we had told the
+  team to lead with. Replaced by a **one-way copy** of the partner's key/value into a decoy
+  position, which changes the multiset of (k,v) pairs and can therefore fail.
+
+- **The study was plus-strand only and never said so (R11).** `exons` is sorted by genomic
+  start; on the minus strand the transcript-order next exon is `exons[i-1]`, not `exons[i+1]`.
+  Every minus-strand exon was silently dropped. Eligible counts roughly doubled on the fix.
+  **The circuit was re-selected on the corrected data and is unchanged** (L3H1 #1 at 0.830,
+  L2H15 #2 at 0.515), so nothing had to be withdrawn — but half the one-shot split would
+  have been thrown away, and "internal exons" meant "plus-strand internal exons."
+
+- **The MLM-health control could not fail (R8).** It scored the model copying unmasked input.
+  It returns ~0.99 for everything and *rises* with all 96 heads ablated. Fixed by masking the
+  probes; baseline is 0.545, not 0.995. The necessity triad only became real once the control
+  could fail — and it passes: C-ablation costs 87% of the coupling and 2% of MLM competence.
+
+- **The null p-value was a function of the flag (R9).** 1000 draws with replacement from a
+  95-head universe at k=1 are 95 distinct values; the add-one p divided by 1001. p = 0.000999
+  was `1/(n_null+1)`, not a measurement. Honest value: 1/96 = 0.0104. The sampler now
+  de-duplicates and enumerates when the universe is exhaustible.
+
+- **The headline coupling was a conditional mean (R10).** The `≥ 0.3` filter is required for a
+  recovery *denominator* and forbidden for an effect *magnitude*. 1.359 → **0.973** unconditional.
+
+- **The specificity comparator was 389 nt away and the ratio divided by noise (blocker B-4).**
+  Replaced by a distance-matched decoy donor and a paired difference with a gene-clustered CI.
+  It still passes, with a CI: 15.6× [8.4, 39.9].
+
+Standing rule adopted: **a control that cannot fail is not a control.** Before any gate is
+pre-registered, state what result would falsify it and verify that result is reachable. Two
+of the deleted gates were removed rather than re-tuned, because a threshold on a quantity
+that is constant by construction cannot be repaired by moving the threshold.
+
+## 2026-07-12 — What the circuit is, and where we stopped
+
+- **The L2H15 → L3H1 edge is closed (D12).** Restoring L3H1's *whole output* rescues 1.05
+  [0.97, 1.16] of L2H15's effect. The prior "~60% unaccounted" was an artefact of only ever
+  patching a 4-token window. Do not infer an open edge from an incomplete patch.
+- **L3H1 writes where it does not read (D13).** Its causal contribution occupies 11 of 1026
+  tokens — the donor and its ±5 flank. The acceptor it reads contributes 0.002. This also
+  dissolves the donor-query puzzle: killing the donor's query silences one of ~11 redundant
+  query positions, which is why attention collapses 95% and the coupling falls only 29%.
+- **The readout is a chain (D14).** L3H1's direct effect on the logit is 0.022 of 0.823. No
+  single downstream block mediates it; recovery accumulates only as the whole stack is freed.
+  There is no compact readout head that we failed to find — there is no compact readout head.
+- **Completeness is inconclusive, and we say so (D15).** We briefly claimed layers 4–5 were
+  specifically required, on the strength of a 21%-retained ablation. The size-matched null
+  retracted it within the hour (p = 0.42; at matched health the circuit-preserving ablation is
+  *gentler* than random). Large ablations break the LM and the coupling dies whatever is
+  deleted. The test has no power. Recorded as R12 rather than quietly dropped, because the
+  claim was made before the control existed.

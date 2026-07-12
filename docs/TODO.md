@@ -1,11 +1,55 @@
-# TODO — reproducibility and results
+# TODO — reproducibility backlog
 
-Work the repository needs so that a result can be regenerated from a clean checkout by someone who
-did not produce it. Ordered by how much it blocks reproduction, not by effort. Each item says what is
-wrong now, what "done" looks like, and where the relevant code lives.
+> **⚠️ SUPERSEDED 2026-07-12 — sealed test complete; several numbers below are RETRACTED.**
+> Read `studies/splicebert_partner_selection/CLAIMS.md` §Retractions (R7–R12) and
+> `SEALED_TEST_RESULT.md` before quoting anything on this page.
+> In particular: `p = 0.000999` is a function of the `--n-null` flag, not the data (R9; honest
+> value **0.0104**); `MLM health 0.9958 → 0.9953` scored the model copying unmasked input and
+> could not fail (R8; real baseline **0.53**); coupling **1.359** is a *conditional* mean (R10;
+> unconditional **0.973**); the competing-acceptor "binding" result is an algebraic identity
+> (R7, withdrawn); and every pre-fix number is **plus-strand only** (R11).
+
+**[PLAN]** — the work the repository needs so that a result can be regenerated from a clean checkout by
+someone who did not produce it.
+**Read this if** you are about to inherit this repo, or you want to know what you cannot currently
+reproduce.
+**Status:** current, verified 2026-07-12. Ordered by how much it blocks reproduction, not by effort.
+Each item says what is wrong now, what "done" looks like, and where the relevant code lives.
 
 Status legend: **[blocker]** stops a clean-checkout reproduction · **[correctness]** a result could be
 wrong or read at the wrong place · **[hygiene]** does not change a number but makes the repo trustworthy.
+
+---
+
+## 0. The two things to fix first
+
+### 0.1 The test suite is not green **[correctness]**
+`uv run pytest -q` → **167 collected · 150 pass · 16 skip · 1 FAIL**.
+
+```
+FAILED tests/test_partner_data.py::test_fixed_flanks_would_fail_the_memorial_test
+        TypeError: PartnerConfig.__init__() got an unexpected keyword argument 'flanks'
+```
+
+This is a **memorial test** — it exists to make sure the positional leak that retracted the entire
+SpliceBERT partner-selection study (R2) can never come back. It is calling a constructor signature that
+has since changed, so it does not run, so the guard is not guarding anything.
+- **Done when:** the test is updated to the current `PartnerConfig` signature and **fails on the leak
+  and passes otherwise** — verify it actually catches the bug it was written for, by reintroducing the
+  constant flank and watching it go red. A guard that does not run is not a guard. Never delete it.
+
+### 0.2 The first real-GFM result is not in the argument **[correctness]**
+~~`CLAIMS.md` still marks D4/D5 `pending-fresh-run`.~~ **[DONE 2026-07-12]** — D1/D4/D5 promoted to
+`artifact-supported (held-out)` against `confirmation.json`; D4's "dedicated / partner-independent role
+≈ 0" retracted as **R4** (held-out gives −0.200, CI excluding zero); claim label fixed at
+`CIRCUIT_CANDIDATE`.
+
+**Still open:** the cross-site coupling circuit (L3H1, held-out recovery 0.808, null p = 0.000999) is
+the program's first real-GFM result, and `docs/RESULTS.md` and `docs/REC.md` still do not know it
+exists. Anyone reading the outward-facing documents cannot see it.
+- **Done when:** the coupling result has a section in `RESULTS.md` with its status tag and its two
+  limits (it is *intron* coupling, not exon; the test split is sealed), and `REC.md` §4's tier table is
+  updated to reflect that a Tier-3 splice relation has now been traced.
 
 ---
 
@@ -71,12 +115,10 @@ Keep the two adjacent everywhere (the notebook does; check the docs).
 
 ## 3. Environment & tooling
 
-### 3.1 README still references the retired conda env **[blocker]**
-`README.md` says `conda activate gfm-thrust1`; that environment does not exist. The repo is now
-uv-managed (`uv.lock`, `.python-version` = 3.13, `UV_PROJECT_ENVIRONMENT=.venv/uv`, extras
-`lab`/`dev`). Update the README quickstart to the uv flow: `uv sync --extra lab --extra dev`.
-- **Done when:** a new user following the README alone reaches a working `import gfmcd` and a passing
-  `pytest`.
+### 3.1 ~~README still references the retired conda env~~ **[DONE 2026-07-12]**
+`README.md` and every doc under `docs/` now use the uv flow (`uv sync --extra lab --extra dev`). The
+remaining `conda activate gfm-thrust1` strings live only in `docs/archive/`, where they are correct as
+historical record and carry a banner saying so.
 
 ### 3.2 Notebook execution needs a documented path **[hygiene]**
 Standard `jupyter nbconvert --execute` binds a local ZMQ socket, which is blocked in the sandbox used
@@ -95,10 +137,12 @@ the next person on a locked-down host does not rediscover it.
 ## 4. Testing & CI
 
 ### 4.1 No continuous integration **[hygiene]**
-The suite is 127 tests (`pytest` green locally, ~60 s) including the new `tests/test_lab.py` (14). None
-of it runs automatically. Add a CI workflow that runs `uv sync` + `pytest` on push. Mark the
-genome-dependent tests with a skip marker keyed on `data/genomes/hg38.fa` so CI stays green without the
-large files (the lab tests already skip when a checkpoint is absent).
+The suite is **167 tests** (~90 s), and it is **not green** — see §0.1. None of it runs automatically,
+which is why a failing memorial test went unnoticed. Add a CI workflow that runs `uv sync` + `pytest` on
+push. Mark the genome-dependent tests with a skip marker keyed on `data/genomes/hg38.fa` so CI stays
+green without the large files (the lab tests already skip when a checkpoint is absent).
+- **This is now the highest-value hygiene item.** CI is what turns a memorial test from a comment into a
+  guard.
 
 ### 4.2 Lock the headline numbers behind assertions **[correctness]**
 The load-bearing results live in prose in `docs/RESULTS.md`. Promote the ones that gate the story into
@@ -114,10 +158,10 @@ reported number past its last significant digit. Note any metric that is only st
 
 ## 5. Documentation
 
-### 5.1 Two-track structure is not signposted **[hygiene]**
-The repo holds two studies (reading-frame in `docs/`, repeat-copy in `branches/codex-repeat-induction/`)
-that share code but no narrative. A top-level map — which docs belong to which track, and which
-`checkpoints/` families back each — would save a newcomer the archaeology.
+### 5.1 ~~Track structure is not signposted~~ **[DONE 2026-07-12]**
+There are now **three** tracks (reading-frame, repeat-copy, SpliceBERT), and they are mapped in
+`docs/README.md` (the index: every doc has a label, a purpose and a status) and `docs/STATUS.md` (where
+each track actually stands). `docs/PLAN.md` carries the track table and the gate ladder.
 
 ### 5.2 Retraction table needs to stay visible **[correctness]**
 `docs/RESULTS.md §10` records the D24–D35 retractions (the mislabeled relays, the L2-probe error). Any

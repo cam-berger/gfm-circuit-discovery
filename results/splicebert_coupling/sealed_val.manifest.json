@@ -1,0 +1,65 @@
+{
+  "command": [
+    "scripts/splicebert/run_sealed_test.py",
+    "--split",
+    "val",
+    "--n",
+    "400",
+    "--n-mech",
+    "150",
+    "--n-null",
+    "400",
+    "--batch",
+    "8"
+  ],
+  "config": {
+    "circuit": [
+      [
+        3,
+        1
+      ],
+      [
+        2,
+        15
+      ]
+    ],
+    "n": 400,
+    "n_mech": 150,
+    "n_null": 400,
+    "split": "val",
+    "thresholds": {
+      "A1_coupling_ci_excludes_zero": true,
+      "A2_paired_selectivity_ci_excludes_zero": true,
+      "A3_partner_vs_nonpartner_ag_ci_excludes_zero": true,
+      "B1_circuit_ablation_frac_lost_min": 0.6,
+      "B2_null_p_max": 0.05,
+      "B3_mlm_health_retained_min": 0.9,
+      "C1_interaction_I_ci_excludes_zero": true,
+      "C2_kv_recovery_min": 0.5,
+      "D1_relocated_kv_recovery_min": 0.3,
+      "D2_value_alone_max": 0.15,
+      "D3_key_at_nonsite_max": 0.15,
+      "D4_relocation_retains_min": 0.7,
+      "E1_circuit_denoise_recovery_min": 0.5
+    }
+  },
+  "created_at_utc": "2026-07-12T22:51:23.958408+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 59030,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_coupling:sealed_val",
+  "git_commit": null,
+  "git_dirty": null,
+  "inputs": [],
+  "notes": [
+    "FROZEN protocol.  No component is selected in this script.",
+    "Behavioural claim is UNCONDITIONAL; mechanism arms are conditional on a usable ratio denominator and are labelled as such.",
+    "MLM health uses MASKED probes (the earlier unmasked version scored token copying and could not fail)."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

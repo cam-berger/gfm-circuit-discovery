@@ -1,37 +1,19 @@
 #!/usr/bin/env python
-"""D9 -- does L3H1 BIND the donor to a PARTICULAR acceptor via separable ADDRESS and CONTENT?
+"""RETRACTED 2026-07-12 (R7) -- DO NOT RUN, DO NOT CITE.
 
-Everything so far shows L3H1 performs a conjunctive read of *an* acceptor.  That is not yet
-binding.  Binding requires that the head distinguish THE partner from an equally
-acceptor-looking competitor, and that the two channels do different jobs:
+This script SWAPS L3H1's (key, value) pair between the partner acceptor and a decoy.  That is
+an ALGEBRAIC IDENTITY: transposing (k,v) pairs permutes the summation index of
+out_i = sum_j softmax(q_i . k_j) v_j, so the head's output is unchanged EXACTLY, for any
+weights.  Verified on a randomly-initialised model (|both-swap - baseline| = 1.2e-06).
+It measured nothing, and the "address/content double dissociation" it produced is withdrawn.
 
-    KEY   -> WHICH location is selected   (address)
-    VALUE -> WHAT is transmitted from it  (content)
+Superseded by run_sealed_test.py arm D, which uses a ONE-WAY COPY (relocate the partner's
+key/value to a decoy).  That changes the multiset of (k,v) pairs and can fail -- and does:
+the partner's value with no address recovers 0.004.
 
-DESIGN (within-sequence double dissociation; no corruption, the sequence stays clean):
-  In each window we have the true partner acceptor P_true and a DISTANCE-MATCHED decoy AG
-  P_decoy.  We SWAP L3H1's projections between the two AG windows:
-
-    key-swap    put P_decoy's KEY at P_true (and P_true's at P_decoy)
-    value-swap  put P_decoy's VALUE at P_true (and vice versa); keys untouched
-    both-swap   swap both
-
-  and we measure BOTH readouts, which is what makes the claim falsifiable:
-
-    attention(D -> P_true)  and  attention(D -> P_decoy)      [ where does the head LOOK? ]
-    donor logit margin                                        [ what does it CONCLUDE?    ]
-
-PREDICTIONS if address and content are separable:
-    key-swap    -> attention MOVES to P_decoy   AND the margin falls
-    value-swap  -> attention STAYS at P_true    AND the margin falls anyway
-                   (it looks in the right place and reads the wrong thing)
-  That dissociation -- attention follows the KEY, the conclusion follows the VALUE -- is the
-  evidence.  If instead attention follows the value swap, or the margin is insensitive to it,
-  the channels are entangled and "binding" is not established.
-
-Reference points: the clean margin (partner intact) and the corrupt margin (partner AG
-destroyed) bracket the scale.
+Kept only so the retraction is auditable.  See studies/.../CLAIMS.md R7.
 """
+
 from __future__ import annotations
 
 import argparse

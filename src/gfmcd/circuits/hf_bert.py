@@ -312,6 +312,24 @@ def matched_random_head_sets(
     seed: int = 0,
     exclude_selected: bool = False,
 ) -> list[tuple[Head, ...]]:
+    """Distinct matched-random head sets.
+
+    THE SETS ARE DE-DUPLICATED, and when the universe is small enough they are ENUMERATED.
+
+    Mean-ablation is deterministic, so evaluating the same head set twice yields the same
+    number.  Sampling ``n`` sets WITH replacement from a small universe therefore does not
+    buy resolution -- it buys copies.  With ``k=1`` and 95 candidate heads, ``n=1000`` draws
+    produced 95 distinct values duplicated ~10.5x, and the add-one p-value then divided by
+    n+1 = 1001 instead of by the 95 exchangeable units.  The result was p = 1/1001 =
+    0.000999 -- a number determined by the ``--n-null`` flag rather than by the data, and it
+    overstated the evidence by 10.4x.  The honest value for that design is 1/96 = 0.0104.
+
+    Returning distinct sets makes the denominator of the empirical p-value equal to the
+    number of things actually being compared.
+    """
+    from itertools import combinations
+    from math import comb
+
     selected_tuple = tuple(_validate_heads(adapter, selected))
     k = len(selected_tuple)
     if k == 0:
@@ -324,5 +342,13 @@ def matched_random_head_sets(
     ]
     if len(universe) < k:
         raise ValueError("not enough heads for matched random sets")
+
+    total = comb(len(universe), k)
+    if total <= n:
+        # the null is exhaustible -- enumerate it and stop pretending it is a sample
+        return [tuple(sorted(c)) for c in combinations(universe, k)]
     rng = random.Random(seed)
-    return [tuple(sorted(rng.sample(universe, k))) for _ in range(n)]
+    seen: set[tuple[Head, ...]] = set()
+    while len(seen) < n:
+        seen.add(tuple(sorted(rng.sample(universe, k))))
+    return sorted(seen)

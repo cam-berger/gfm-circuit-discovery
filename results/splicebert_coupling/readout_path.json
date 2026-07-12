@@ -1,0 +1,181 @@
+{
+ "split": "val",
+ "n": 150,
+ "paths": {
+  "all-pos, downstream free": {
+   "recovery": 0.8180724196523623,
+   "lo": 0.7706895301328854,
+   "hi": 0.8563037460391385
+  },
+  "all-pos, downstream FROZEN": {
+   "recovery": 0.022644777900172417,
+   "lo": 0.016144470346575634,
+   "hi": 0.029660287838385507
+  },
+  "donor-only, downstream free": {
+   "recovery": 0.3837490630207122,
+   "lo": 0.342288187619787,
+   "hi": 0.4225416636368918
+  },
+  "donor-only, downstream FROZEN": {
+   "recovery": 0.022644777900172417,
+   "lo": 0.016144470346575634,
+   "hi": 0.029660287838385507
+  },
+  "other-pos, downstream free": {
+   "recovery": 0.503373113065552,
+   "lo": 0.4633104594096648,
+   "hi": 0.5409703411548458
+  },
+  "other-pos, downstream FROZEN": {
+   "recovery": 0.0,
+   "lo": 0.0,
+   "hi": 0.0
+  },
+  "all-pos, only MLP3 live": {
+   "recovery": 0.1808903405302571,
+   "lo": 0.1605640902720853,
+   "hi": 0.20171025616500834
+  },
+  "all-pos, only L4-attn live": {
+   "recovery": 0.01854242620100493,
+   "lo": 0.012265948219531218,
+   "hi": 0.025394461521224876
+  },
+  "all-pos, only MLP4 live": {
+   "recovery": 0.032647226513168745,
+   "lo": 0.023885652581163958,
+   "hi": 0.04279167475924489
+  },
+  "all-pos, only L5-attn live": {
+   "recovery": 0.01771445329515998,
+   "lo": 0.01143117573505855,
+   "hi": 0.024429251043092574
+  },
+  "all-pos, only MLP5 live": {
+   "recovery": 0.01994459248981563,
+   "lo": 0.007504274217970356,
+   "hi": 0.03405126089352498
+  },
+  "all-pos, live<= MLP3": {
+   "recovery": 0.1808903405302571,
+   "lo": 0.1605640902720853,
+   "hi": 0.20171025616500834
+  },
+  "all-pos, live<= L4-attn": {
+   "recovery": 0.2575323626606358,
+   "lo": 0.23367117106243762,
+   "hi": 0.2816502993990595
+  },
+  "all-pos, live<= MLP4": {
+   "recovery": 0.44451880070972943,
+   "lo": 0.4091456521764241,
+   "hi": 0.4787243694088116
+  },
+  "all-pos, live<= L5-attn": {
+   "recovery": 0.5057912902265754,
+   "lo": 0.46875119812664545,
+   "hi": 0.5409972690643916
+  }
+ },
+ "direct_fraction": 0.027680651927851636,
+ "mediation_single": {
+  "MLP3": 0.15824556263008469,
+  "L4-attn": -0.004102351699167488,
+  "MLP4": 0.010002448612996328,
+  "L5-attn": -0.004930324605012436,
+  "MLP5": -0.0027001854103567875
+ },
+ "mediation_cumulative": {
+  "direct (all frozen)": 0.022644777900172417,
+  "all-pos, live<= MLP3": 0.1808903405302571,
+  "all-pos, live<= L4-attn": 0.2575323626606358,
+  "all-pos, live<= MLP4": 0.44451880070972943,
+  "all-pos, live<= L5-attn": 0.5057912902265754,
+  "all live": 0.8180724196523623
+ },
+ "donor_query": {
+  "baseline": 1.4615515557924907,
+  "transplant": 0.9659414494037628,
+  "transplant_frac_lost": 0.3390986136783901,
+  "transplant_ci": [
+   0.3017066310288044,
+   0.3757372169055107
+  ],
+  "mean_ablate": 0.9651272282997767,
+  "mean_ablate_frac_lost": 0.3396557073373576,
+  "mean_ablate_ci": [
+   0.3033316242576378,
+   0.37608106522997564
+  ],
+  "attention_intact": 0.6478659816582998,
+  "attention_transplant": 0.03742198197391796,
+  "clean_margin_intact": 5.232862159808477,
+  "clean_margin_transplant": 4.859450928767522
+ },
+ "patch_windows": [
+  {
+   "name": "acceptor",
+   "patch_positions": [
+    433,
+    434,
+    435,
+    436
+   ],
+   "corruption_positions": [
+    434,
+    435
+   ],
+   "overlap": [
+    434,
+    435
+   ],
+   "is_control": false
+  },
+  {
+   "name": "control-pos",
+   "patch_positions": [
+    147,
+    148,
+    149,
+    150
+   ],
+   "corruption_positions": [
+    434,
+    435
+   ],
+   "overlap": [],
+   "is_control": true
+  },
+  {
+   "name": "adjacent-control-8",
+   "patch_positions": [
+    425,
+    426,
+    427,
+    428
+   ],
+   "corruption_positions": [
+    434,
+    435
+   ],
+   "overlap": [],
+   "is_control": true
+  },
+  {
+   "name": "adjacent-control+8",
+   "patch_positions": [
+    441,
+    442,
+    443,
+    444
+   ],
+   "corruption_positions": [
+    434,
+    435
+   ],
+   "overlap": [],
+   "is_control": true
+  }
+ ]
+}

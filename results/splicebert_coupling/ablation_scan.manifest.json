@@ -2,18 +2,22 @@
   "command": [
     "scripts/splicebert/run_ablation_scan.py",
     "--n",
-    "120",
+    "160",
     "--batch",
-    "8"
+    "8",
+    "--split",
+    "val",
+    "--out",
+    "results/splicebert_coupling/ablation_scan_bothstrand.json"
   ],
   "config": {
-    "n": 120,
+    "n": 160,
     "split": "val"
   },
-  "created_at_utc": "2026-07-12T16:25:32.788204+00:00",
+  "created_at_utc": "2026-07-12T21:46:37.555110+00:00",
   "environment": {
     "hostname": "Camerons-MacBook-Pro.local",
-    "pid": 44189,
+    "pid": 57927,
     "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
     "python": "3.13.12"
   },

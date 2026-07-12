@@ -1,3 +1,28 @@
+
+> **⚠️ SUPERSEDED 2026-07-12 — sealed test complete; several numbers below are RETRACTED.**
+> Read `studies/splicebert_partner_selection/CLAIMS.md` §Retractions (R7–R12) and
+> `SEALED_TEST_RESULT.md` before quoting anything on this page.
+> In particular: `p = 0.000999` is a function of the `--n-null` flag, not the data (R9; honest
+> value **0.0104**); `MLM health 0.9958 → 0.9953` scored the model copying unmasked input and
+> could not fail (R8; real baseline **0.53**); coupling **1.359** is a *conditional* mean (R10;
+> unconditional **0.973**); the competing-acceptor "binding" result is an algebraic identity
+> (R7, withdrawn); and every pre-fix number is **plus-strand only** (R11).
+> # ⚠️ SCOPE CHANGED — THE STUDY DESCRIBED BELOW HAS BEEN RETRACTED
+> **The `splicebert_partner_selection_v1` design described in this README is dead** (retractions R1, R2,
+> R3 — see `CLAIMS.md`). Claims C1–C4 are all retracted. The forced-choice partner task is intrinsically
+> degenerate: a geometry oracle reading zero nucleotides wins it, and so does a plain site detector.
+>
+> **This directory is still the right place to look** — but the live record is `CLAIMS.md` and
+> `DECISIONS.md`, and the live science is the **cross-site coupling** study (claims D1–D5), which has
+> produced the program's first held-out-confirmed circuit in a real GFM (head L3H1; denoise recovery
+> 0.808, matched-random null p = 0.000999, partner-dependent DiD 1.110 [1.018, 1.205]).
+>
+> **VOID in this directory — do not quote:** `GATE_REPORT.md`, `RESULTS.md`, `STAGES.md`,
+> `return_to_planner.json`. All four assert the retracted "GO".
+> **Orientation:** `../../docs/STATUS.md` §3.
+
+---
+
 # SpliceBERT Partner-Selection Study
 
 This directory is the scientific record for `splicebert_partner_selection_v1`.

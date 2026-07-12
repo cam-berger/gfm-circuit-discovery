@@ -322,8 +322,20 @@ def build_coupling_dataset(gtf_path, genome, cfg: CouplingConfig, *,
             if seq[a - 2:a] not in ACCEPTOR_MOTIFS or seq[d:d + 2] not in DONOR_MOTIFS:
                 continue
 
-            # downstream intron length (for the intron-definition direction, step 6)
-            nxt = exons[i + 1] if i + 1 < len(exons) else None
+            # The DOWNSTREAM (transcript-order) neighbour, i.e. the exon this donor splices to.
+            #
+            # ``exons`` is sorted by GENOMIC start, so transcript order and list order agree
+            # only on the plus strand.  On the minus strand the next exon in transcription is
+            # the one with the SMALLER coordinate -- exons[i-1].  Taking exons[i+1] there and
+            # then applying the (correct) minus-strand intron formula always yields a NEGATIVE
+            # length, which line 331 nulls; ``next_acc`` is therefore never assigned and
+            # ``eligible()`` silently drops EVERY minus-strand exon (41,153/41,153 on chr8).
+            # The study was, until this fix, plus-strand only -- on half the genome, without
+            # saying so.
+            if exon.strand == "+":
+                nxt = exons[i + 1] if i + 1 < len(exons) else None
+            else:
+                nxt = exons[i - 1] if i - 1 >= 0 else None
             intron = None
             next_acc = None
             if nxt is not None:
@@ -335,8 +347,15 @@ def build_coupling_dataset(gtf_path, genome, cfg: CouplingConfig, *,
                     if 4 <= w < N - 4 and seq[w - 2:w] == "AG" and w > d:
                         next_acc = w
 
+            # The motif-matched null pool must EXCLUDE the partner.  It already excludes the
+            # exon's own acceptor `a` -- which was right when the treatment destroyed `a` --
+            # but the coupling study redefined the partner to the INTRON-MATE `next_acc`, and
+            # the pool was never updated to match.  The partner was a member of this "non-
+            # partner" pool in 400/400 examples, so a control drawn from it sometimes destroys
+            # the partner and reports the full treatment effect as the null.
             other_ag = tuple(p for p in range(4, N - 4)
-                             if seq[p - 2:p] == "AG" and abs(p - a) > 10 and abs(p - d) > 10)
+                             if seq[p - 2:p] == "AG" and abs(p - a) > 10 and abs(p - d) > 10
+                             and (next_acc is None or abs(p - next_acc) > 10))
             other_gt = tuple(p for p in range(4, N - 4)
                              if seq[p:p + 2] == "GT" and abs(p - d) > 10 and abs(p - a) > 10)
             # OTHER REAL annotated sites of this gene that fall inside the window
