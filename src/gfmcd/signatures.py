@@ -165,11 +165,16 @@ def signature(model, tokens, phase, device, name: str) -> tuple[Signature, dict,
     r_ctl = residuals(model, ablate(tokens, np.where(have, met, -1)), device)
     r_sh = residuals(model, frameshift(tokens, start + 3), device)
 
-    probe, mu, sd = fit_probe(r_int[torch.from_numpy(mask)], torch.from_numpy(phase[mask]).long())
+    # RRR F4: fit the probe on a 70% held-out split of masked positions and read the far-field
+    # accuracies on the remaining 30%, so the ABSOLUTE intact/ablated accuracies are out-of-sample --
+    # consistent with layer_probe(). (The interpreted x-axis is the intact-ablated DROP, where
+    # in-sample inflation largely cancels; this makes the absolutes honest too.)
+    train = mask & (np.random.default_rng(0).random(mask.shape) < 0.7)
+    probe, mu, sd = fit_probe(r_int[torch.from_numpy(train)], torch.from_numpy(phase[train]).long())
 
     pos = np.tile(np.arange(tokens.shape[1]), (len(tokens), 1))
     d_atg = pos - start[:, None]
-    far = mask & (d_atg >= FAR)
+    far = mask & ~train & (d_atg >= FAR)  # held-out far positions only
     far_ctl = far & have[:, None]
 
     def acc(r, sel):
@@ -231,9 +236,17 @@ def peak_anchor_dependence(model, tokens, phase, device, steps: int = 200):
     far = mask & ((pos - start[:, None]) >= FAR)
     far_ctl = far & have[:, None]
 
+    per_layer = _layer_effects(R0, R1, R2, mask, far, far_ctl, phase, steps)
+    best = max(per_layer, key=lambda k: per_layer[k]["effect"])
+    return per_layer[best]["effect"], best, per_layer
+
+
+def _layer_effects(R0, R1, R2, mask, far, far_ctl, phase, steps):
+    """Per-layer [far probe drop under ATG ablation] − [decoy-Met control]. Model-free; testable."""
+    y_all = torch.from_numpy(phase[mask]).long()
     per_layer = {}
     for name in R0:
-        probe, mu, sd = fit_probe(R0[name][torch.from_numpy(mask)], torch.from_numpy(phase[mask]).long(), steps=steps)
+        probe, mu, sd = fit_probe(R0[name][torch.from_numpy(mask)], y_all, steps=steps)
 
         def acc(R, sel):
             return probe_accuracy(probe, mu, sd, R[name][torch.from_numpy(sel)], torch.from_numpy(phase[sel]).long())
@@ -241,6 +254,46 @@ def peak_anchor_dependence(model, tokens, phase, device, steps: int = 200):
         drop = acc(R0, far) - acc(R1, far)
         ctl = acc(R0, far_ctl) - acc(R2, far_ctl)
         per_layer[name] = dict(intact=acc(R0, far), ablated=acc(R1, far), drop=drop, control=ctl, effect=drop - ctl)
+    return per_layer
 
+
+def _depth_max_null_p(R0, R1, R2, mask, far, far_ctl, phase, *, n_null=200, steps=200, seed=0):
+    """Calibration for the argmax-over-7-layers in `peak_anchor_dependence` (RRR F3).
+
+    Selecting the best of 7 layers with no null inflates the reported effect. Null: permute the phase
+    LABELS within masked positions (destroying the residual->frame association) while holding the
+    residuals and the far/far_ctl position masks fixed, then recompute the SAME max-over-depth. The
+    add-one p-value of the observed peak against this max null is what licenses the layer selection.
+    """
+    observed = max(v["effect"] for v in _layer_effects(R0, R1, R2, mask, far, far_ctl, phase, steps).values())
+    rng = np.random.default_rng(seed)
+    null_max = np.empty(n_null)
+    for i in range(n_null):
+        ph = phase.copy()
+        vals = ph[mask]
+        ph[mask] = rng.permutation(vals)
+        null_max[i] = max(v["effect"] for v in _layer_effects(R0, R1, R2, mask, far, far_ctl, ph, steps).values())
+    p = float((1 + np.sum(null_max >= observed)) / (n_null + 1))
+    return observed, p, null_max
+
+
+def peak_anchor_dependence_pvalue(model, tokens, phase, device, steps: int = 200, n_null: int = 200, seed: int = 0):
+    """`peak_anchor_dependence` plus its calibrated max-over-depth p-value (F3).
+
+    Returns (peak, best_layer, per_layer, p_value, null_maxima). Existing callers that only need the
+    point estimate keep using `peak_anchor_dependence`; this one adds the selection null.
+    """
+    start = start_index(phase)
+    met = downstream_met(tokens, start)
+    have = met >= 0
+    R0 = all_residuals(model, tokens, device)
+    R1 = all_residuals(model, ablate(tokens, start), device)
+    R2 = all_residuals(model, ablate(tokens, np.where(have, met, -1)), device)
+    mask = phase >= 0
+    pos = np.tile(np.arange(tokens.shape[1]), (len(tokens), 1))
+    far = mask & ((pos - start[:, None]) >= FAR)
+    far_ctl = far & have[:, None]
+    per_layer = _layer_effects(R0, R1, R2, mask, far, far_ctl, phase, steps)
     best = max(per_layer, key=lambda k: per_layer[k]["effect"])
-    return per_layer[best]["effect"], best, per_layer
+    _, p, null_max = _depth_max_null_p(R0, R1, R2, mask, far, far_ctl, phase, n_null=n_null, steps=steps, seed=seed)
+    return per_layer[best]["effect"], best, per_layer, p, null_max

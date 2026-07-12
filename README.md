@@ -10,9 +10,16 @@ The organizing hypothesis, tested rather than asserted, is the **shortcut-gap hy
 > Shortcut insufficiency creates pressure for a relation; it does not guarantee that gradient descent
 > finds one, and shortcut availability does not prove that no relational mechanism exists.
 
-Everything in the repo is instrumentation for measuring, honestly, what a trained model actually did.
-The original stronger “if and only if” sufficiency-law wording is retained only in historical records
-where its status is marked; it is not treated as established.
+**Status — hypothesis, not settled law.** This is the organizing hypothesis, strongly illustrated by
+the λ-sweep and the 2×2 — but not established as a universal law: each condition is a **single seed**,
+and the pooled ceiling is measured by a **lower-bound** estimator (codon naive-Bayes; the stronger
+receptive-field-limited-CNN rival exists only for the repeat-copy track, not reading frame). Advancing
+it to settled needs ≥3-seed replication and the stronger pooled rival on the reading-frame arms. See
+`docs/CLAIMS.md` (C0). The original stronger “if and only if” sufficiency-law wording is retained only
+in historical records where its status is marked; it is not treated as established.
+
+Everything in the repo is instrumentation for measuring, honestly, which of the two — circuit or
+shortcut — a trained model actually did.
 
 Built from scratch: none of our model families (planted, GFM-nano, SpliceBERT) are supported by
 TransformerLens / `circuit-tracer`, which target GPT-style decoder-only models. See
@@ -52,7 +59,7 @@ pip install uv                      # or: curl -LsSf https://astral.sh/uv/instal
 uv sync --extra lab --extra dev     # torch, numpy, scipy + matplotlib/jupyter/nbformat + pytest
 
 # 3. run the tests to confirm the install
-uv run pytest -q                    # ~130 tests; Rung 0 is ground truth, not a smoke test
+uv run pytest -q                    # 133 tests; Rung 0 is ground truth, not a smoke test
 ```
 
 `uv run <cmd>` runs a command inside the environment; alternatively activate it with
@@ -137,7 +144,7 @@ scripts/
   splicebert/                  real-GFM data, behavior, trace, and patch pipeline
   ... (one script per committed measurement)
 
-tests/                          the test suite (~130 tests); Rung 0 is ground truth, not a smoke test
+tests/                          the test suite (133 tests); Rung 0 is ground truth, not a smoke test
   test_lab.py                   smoke tests for the gfmcd.lab API (18 tests)
   ...                           per-module tests for data, models, tracer, oracle, signatures
 

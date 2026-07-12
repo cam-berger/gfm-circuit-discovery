@@ -1,7 +1,7 @@
 # Recommendation: a critique of Proposal D2, and the program that replaces it
 
 **Cam Berger — 2026-07-09** · v2 (v1 archived at `docs/archive/REC_v1_superseded.md`; §0 says what changed)
-Repo: `~/Research/projects/gfm-circuit-discovery` · 102 tests passing
+Repo: `~/Research/projects/gfm-circuit-discovery` · 133 tests passing
 Evidence: `docs/DECISIONS.md` (D1–D30) · `docs/EXPERIMENTS.md` (plain-language) · `docs/PREREGISTRATION.md`
 
 ---
@@ -16,6 +16,10 @@ models — and found no circuit. Then we found the reason, and the reason is not
 
 > **A model builds a relational circuit if and only if no statistic pooled over its context window is a
 > *sufficient statistic* for the target. Not "if the shortcut is weak" — if the shortcut is *imperfect*.**
+
+**Status (2026-07-11, RRR):** this is the organizing *hypothesis*, strongly illustrated but not settled
+as a universal law — the conditions are single-seed and the pooled ceiling is a lower-bound estimator.
+See `docs/CLAIMS.md` (C0) for what would advance it.
 
 Reading frame in real coding sequence fails that test. We measured its anchor-free ceiling directly: a
 codon-level pooled estimator recovers the frame at **0.9509** with no start codon at all. Under a

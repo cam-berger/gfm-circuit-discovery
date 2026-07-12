@@ -8,6 +8,7 @@ anchor. The cue-conflict test separates them -- a scan follows CONTENT, a counte
 
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -55,6 +56,7 @@ def aa_acc(model, tok, aa, device):
 def main() -> None:
     device = "mps" if torch.backends.mps.is_available() else "cpu"
     print(f"{'arm':<10}{'aa acc':>9}{'ATG-abl dAA':>14}{'anchor':>10}{'content':>10}   mechanism")
+    rows = []  # RRR F1: the section-7 "core result" was printed but never saved -> persist it
     for lam in (0.0, 0.25, 0.5, 0.75, 1.0, 1.5, 2.0):
         tag = "uniform" if lam == 0.0 else f"lam{lam:g}"
         cks = sorted(CKPT.glob(f"nano_{tag}_step*.pt"), key=lambda p: int(p.stem.split("step")[1]))
@@ -95,6 +97,18 @@ def main() -> None:
 
         mech = "ANCHORED COUNTER" if anchor > 0.5 else "anchor-free (stop-scan / bag)"
         print(f"{tag:<10}{base:>9.4f}{d_abl:>14.4f}{anchor:>10.4f}{content:>10.4f}   {mech}")
+        rows.append(dict(arm=tag, lam=lam, checkpoint=cks[-1].name, aa_acc=round(base, 4),
+                         atg_ablation_daa=round(d_abl, 4), anchor=round(anchor, 4),
+                         content=round(content, 4), mechanism=mech))
+
+    out = Path("results/reading-frame/fig_data/verdict_lambda.json")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps({
+        "description": "Section-7 lambda-sweep verdict: per-arm ATG-ablation dAA, anchor/content "
+                       "share under cue conflict, and mechanism label. The core-result numbers.",
+        "seed": 4242, "n_examples": 700, "far_nt": 64, "rows": rows,
+    }, indent=2) + "\n")
+    print("wrote", out)
 
 
 if __name__ == "__main__":

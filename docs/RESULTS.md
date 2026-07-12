@@ -1,6 +1,6 @@
 # RESULTS — every measured number, with status
 
-**Updated 2026-07-09 14:05** · 23 commits · 102 tests passing
+**Updated 2026-07-09 14:05** · 23 commits · 133 tests passing
 Companion docs: `REC.md` (the argument) · `docs/DECISIONS.md` (D1–D31, rationale) · `docs/EXPERIMENTS.md` (plain language) · `docs/PREREGISTRATION.md` (frozen predictions)
 
 This file exists so that nothing gets remembered more favourably than it happened. Every claim carries
@@ -17,9 +17,16 @@ RETRACTED   claimed, then falsified by our own control
 
 ## 0. The one-line result
 
-**SETTLED.** A model builds a relational circuit **iff no statistic pooled over its context window is a
-sufficient statistic for the target** — and the threshold is *imperfection*, not weakness. A 96.5%
-shortcut does not displace a counter when the task demands 100%.
+**HYPOTHESIS — strongly illustrated, not settled as a universal law** (status corrected 2026-07-11, RRR
+F8/F2/F5). A model *appears to* build a relational circuit **iff no statistic pooled over its context
+window is a sufficient statistic for the target** — the threshold being *imperfection*, not weakness (a
+96.5% shortcut does not displace a counter when the task demands 100%). The λ-sweep (§7) and 2×2 (§9)
+illustrate it cleanly, but it is **not** established as a law: each condition is a **single seed** (§7,
+§9 are one seed per arm/cell), and the anchor-free ceiling is a **lower-bound** estimator (codon
+naive-Bayes; the stronger receptive-field-limited-CNN rival was built only for repeat-copy, not reading
+frame). To reach SETTLED it needs ≥3-seed replication and the stronger pooled rival on the reading-frame
+arms. Tracked as **C0 (open)** in `docs/CLAIMS.md`; the underlying instrument measurements below remain
+SETTLED where marked.
 
 ---
 
@@ -373,7 +380,7 @@ retractions vanish when the intervention is scored against the model's own predi
 ```bash
 conda activate gfm-thrust1
 pip install -e ".[dev]"
-pytest -q                                     # 102 tests
+pytest -q                                     # 133 tests
 
 python scripts/validate_genome.py             # 0 in-frame stops in 117,481
 python scripts/verdict_lambda.py              # §7, the core result
