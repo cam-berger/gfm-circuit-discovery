@@ -1,0 +1,132 @@
+{
+ "attention": {
+  "partner_intact": 0.6522693853080272,
+  "partner_ablated": 0.5144777751341462,
+  "partner_corrupted": 0.029364201020168065,
+  "control_intact": 0.0007352034230939352,
+  "control_ablated": 0.0008361249047432769
+ },
+ "kv": {
+  "key@acceptor": {
+   "recovery": 0.03475546441193635,
+   "lo": -0.014999941934851968,
+   "hi": 0.08419678490829509,
+   "attention": 0.5250504583120346,
+   "attention_restored": 0.7957651819169932
+  },
+  "value@acceptor": {
+   "recovery": 0.10370897583042668,
+   "lo": 0.07438701912054393,
+   "hi": 0.13831175105831617,
+   "attention": 0.029364201020168065,
+   "attention_restored": 0.0
+  },
+  "key+value@acceptor": {
+   "recovery": 0.7110650677965984,
+   "lo": 0.6685397657084475,
+   "hi": 0.7509661798285238,
+   "attention": 0.5250504583120346,
+   "attention_restored": 0.7957651819169932
+  },
+  "query@donor": {
+   "recovery": 0.003151913210248839,
+   "lo": -0.0030020346809895683,
+   "hi": 0.01061012370124228,
+   "attention": 0.029551330026248858,
+   "attention_restored": 0.00030041330655279397
+  },
+  "key@control-pos": {
+   "recovery": 5.208957915167601e-05,
+   "lo": -1.775821532366548e-05,
+   "hi": 0.00018872688273556583,
+   "attention": 0.029366289128180748,
+   "attention_restored": 3.352208434531107e-06
+  },
+  "value@control-pos": {
+   "recovery": 1.494285059934334e-06,
+   "lo": -2.078593937710404e-05,
+   "hi": 1.8961554166248362e-05,
+   "attention": 0.029364201020168065,
+   "attention_restored": 0.0
+  }
+ },
+ "geometry": {
+  "cos_key": 0.9503200320402782,
+  "cos_value": 0.9293351117769877
+ },
+ "interaction": {
+  "R_K": 0.03475546441193635,
+  "R_V": 0.10370897583042668,
+  "R_KV": 0.7110650677965984,
+  "I": 0.5726006275542354,
+  "ci": [
+   0.5215497083422841,
+   0.6236779372618515
+  ]
+ },
+ "patch_windows": [
+  {
+   "name": "key/value@acceptor",
+   "patch_positions": [
+    390,
+    391,
+    392,
+    393
+   ],
+   "corruption_positions": [
+    391,
+    392
+   ],
+   "overlap": [
+    391,
+    392
+   ],
+   "is_control": false
+  },
+  {
+   "name": "control-pos",
+   "patch_positions": [
+    128,
+    129,
+    130,
+    131
+   ],
+   "corruption_positions": [
+    391,
+    392
+   ],
+   "overlap": [],
+   "is_control": true
+  },
+  {
+   "name": "adjacent-control-8",
+   "patch_positions": [
+    382,
+    383,
+    384,
+    385
+   ],
+   "corruption_positions": [
+    391,
+    392
+   ],
+   "overlap": [],
+   "is_control": true
+  },
+  {
+   "name": "adjacent-control+8",
+   "patch_positions": [
+    398,
+    399,
+    400,
+    401
+   ],
+   "corruption_positions": [
+    391,
+    392
+   ],
+   "overlap": [],
+   "is_control": true
+  }
+ ]
+}

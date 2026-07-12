@@ -1,0 +1,41 @@
+{
+  "command": [
+    "scripts/splicebert/run_path_decomposition.py",
+    "--n",
+    "150",
+    "--batch",
+    "8"
+  ],
+  "config": {
+    "heads": [
+      [
+        2,
+        15
+      ],
+      [
+        3,
+        1
+      ]
+    ],
+    "n": 150,
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-12T16:44:50.234950+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 45277,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_coupling:path_decomposition",
+  "git_commit": null,
+  "git_dirty": null,
+  "inputs": [],
+  "notes": [
+    "Marginal ablation drops are NOT additive shares: 0.944+0.542 > baseline 1.121.",
+    "Path cut = patch clean L2H15 while clamping L3H1 to its corrupt value."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

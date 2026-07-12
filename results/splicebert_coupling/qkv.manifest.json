@@ -1,0 +1,39 @@
+{
+  "command": [
+    "scripts/splicebert/run_qkv.py",
+    "--n",
+    "150",
+    "--batch",
+    "6"
+  ],
+  "config": {
+    "heads": {
+      "feeder": [
+        2,
+        15
+      ],
+      "reader": [
+        3,
+        1
+      ]
+    },
+    "n": 150
+  },
+  "created_at_utc": "2026-07-12T17:48:10.444055+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 47323,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_coupling:qkv",
+  "git_commit": null,
+  "git_dirty": null,
+  "inputs": [],
+  "notes": [
+    "L2H15 has 0 patch-recovery but 45% ablation necessity -> predicted to act on SELECTION (key), not RETRIEVAL (value).  This tests that."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

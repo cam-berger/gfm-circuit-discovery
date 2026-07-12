@@ -1,0 +1,32 @@
+{
+  "command": [
+    "scripts/splicebert/run_ablation_scan.py",
+    "--n",
+    "120",
+    "--batch",
+    "8"
+  ],
+  "config": {
+    "n": 120,
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-12T16:25:32.788204+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 44189,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_coupling:ablation_scan",
+  "git_commit": null,
+  "git_dirty": null,
+  "inputs": [],
+  "notes": [
+    "Exhaustive per-head ABLATION (necessity), IDs retained.",
+    "Replaces the matched-random head null, which was not a null: if other heads belong to the circuit, its tail is mechanism, not noise.",
+    "Specificity null = same ablation scored on a distance-matched NON-site."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

@@ -1,0 +1,13 @@
+{
+  "git_commit": null,
+  "sources": [
+    {
+      "path": "/Users/cberg/Research/projects/test/GFM_SpliceBERT_Circuit_Discovery_Implementation/gfm_splicebert_implementation/figures/splicebert/data/pair_categories.json",
+      "sha256": "da6deacfaa4cdfc8edae3ed167cf6be9add046d8064a75b0322630e478c06287"
+    },
+    {
+      "path": "/Users/cberg/Research/projects/test/GFM_SpliceBERT_Circuit_Discovery_Implementation/gfm_splicebert_implementation/results/splicebert_coupling/confirmation.json",
+      "sha256": "6d2f99830587358f6a655123edaa2fda92b0c255c84b2f6b0d77bb678b9904f5"
+    }
+  ]
+}

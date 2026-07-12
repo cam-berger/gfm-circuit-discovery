@@ -1,0 +1,39 @@
+{
+  "command": [
+    "scripts/splicebert/run_coupling.py",
+    "--n",
+    "250",
+    "--chroms",
+    "chr22",
+    "chr21",
+    "chr20",
+    "--k-null",
+    "5"
+  ],
+  "config": {
+    "k_null": 5,
+    "model": "/Users/cberg/Research/projects/test/GFM_SpliceBERT_Circuit_Discovery_Implementation/gfm_splicebert_implementation/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+    "n": 250,
+    "split": "train"
+  },
+  "created_at_utc": "2026-07-12T13:25:31.027709+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 38042,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_coupling:main",
+  "git_commit": null,
+  "git_dirty": null,
+  "inputs": [],
+  "notes": [
+    "Native MLM readout; perturbations substitute real bases, never [MASK].",
+    "A drop proves NON-LOCAL dependence only; the claim needs partner-selectivity too."
+  ],
+  "outputs": [],
+  "seeds": {
+    "build": 0
+  },
+  "status": "EXPLORATORY"
+}

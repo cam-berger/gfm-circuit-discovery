@@ -1,0 +1,98 @@
+{
+ "n": 150,
+ "baseline_coupling": 1.5043279472986857,
+ "coupling_L2H15_ablated": 0.7795679008960724,
+ "coupling_supplied_by_L2H15": 0.724760046005249,
+ "rescue": {
+  "K only": {
+   "rescue": 0.4233449619567844,
+   "lo": 0.3583789287846115,
+   "hi": 0.5027366515876852
+  },
+  "V only": {
+   "rescue": -0.019492312796348513,
+   "lo": -0.030376704912299612,
+   "hi": -0.01072030106448381
+  },
+  "K+V": {
+   "rescue": 0.4049224116704661,
+   "lo": 0.3412826561969216,
+   "hi": 0.4803397138081098
+  },
+  "MLP2 write": {
+   "rescue": 0.2756822803127458,
+   "lo": 0.22880350080330508,
+   "hi": 0.33048230135919676
+  },
+  "K+V @control-pos": {
+   "rescue": -0.0017507080042709104,
+   "lo": -0.006095581777247893,
+   "hi": 0.0007050884537584419
+  }
+ },
+ "patch_windows": [
+  {
+   "name": "rescue@acceptor",
+   "patch_positions": [
+    251,
+    252,
+    253,
+    254
+   ],
+   "corruption_positions": [
+    252,
+    253
+   ],
+   "overlap": [
+    252,
+    253
+   ],
+   "is_control": false
+  },
+  {
+   "name": "rescue@control",
+   "patch_positions": [
+    63,
+    64,
+    65,
+    66
+   ],
+   "corruption_positions": [
+    252,
+    253
+   ],
+   "overlap": [],
+   "is_control": true
+  },
+  {
+   "name": "adjacent-control-8",
+   "patch_positions": [
+    243,
+    244,
+    245,
+    246
+   ],
+   "corruption_positions": [
+    252,
+    253
+   ],
+   "overlap": [],
+   "is_control": true
+  },
+  {
+   "name": "adjacent-control+8",
+   "patch_positions": [
+    259,
+    260,
+    261,
+    262
+   ],
+   "corruption_positions": [
+    252,
+    253
+   ],
+   "overlap": [],
+   "is_control": true
+  }
+ ]
+}
