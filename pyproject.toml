@@ -7,7 +7,12 @@ name = "gfmcd"
 version = "0.1.0"
 description = "Circuit discovery in genomic foundation models"
 requires-python = ">=3.10"
-dependencies = ["torch>=2.2", "numpy", "scipy"]
+dependencies = [
+    "torch>=2.2",
+    "numpy",
+    "scipy",
+    "matplotlib>=3.10.9",
+]
 
 [project.optional-dependencies]
 models = ["transformers>=4.40", "datasets"]

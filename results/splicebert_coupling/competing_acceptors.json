@@ -1,0 +1,82 @@
+{
+ "n": 150,
+ "clean_margin": 4.655215060313543,
+ "corrupt_margin": 3.7506564062833787,
+ "conditions": {
+  "baseline": {
+   "attn_partner": 0.5048938903528809,
+   "attn_decoy": 0.009256603830165962,
+   "margin": 4.655215060313543,
+   "margin_ci": [
+    4.259808721444234,
+    5.032476878349757
+   ],
+   "frac_partner_effect_lost": 0.0
+  },
+  "key-swap": {
+   "attn_partner": 0.009256604139754926,
+   "attn_decoy": 0.5048938863703127,
+   "margin": 4.19994298140208,
+   "margin_ci": [
+    3.834155118393487,
+    4.558455057346916
+   ],
+   "frac_partner_effect_lost": 0.5033085216564422
+  },
+  "value-swap": {
+   "attn_partner": 0.5048938903528809,
+   "attn_decoy": 0.009256603830165962,
+   "margin": 4.199942835172018,
+   "margin_ci": [
+    3.834154764126087,
+    4.55845486706534
+   ],
+   "frac_partner_effect_lost": 0.5033086833154582
+  },
+  "both-swap": {
+   "attn_partner": 0.009256604139754926,
+   "attn_decoy": 0.5048938863703127,
+   "margin": 4.655215079784393,
+   "margin_ci": [
+    4.259808687642115,
+    5.032477147797394
+   ],
+   "frac_partner_effect_lost": -2.152524949352258e-08
+  }
+ },
+ "patch_windows": [
+  {
+   "name": "swap@partner",
+   "patch_positions": [
+    407,
+    408,
+    409,
+    410
+   ],
+   "corruption_positions": [
+    408,
+    409
+   ],
+   "overlap": [
+    408,
+    409
+   ],
+   "is_control": false
+  },
+  {
+   "name": "swap@decoy",
+   "patch_positions": [
+    378,
+    379,
+    380,
+    381
+   ],
+   "corruption_positions": [
+    408,
+    409
+   ],
+   "overlap": [],
+   "is_control": true
+  }
+ ]
+}

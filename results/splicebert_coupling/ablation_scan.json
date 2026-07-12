@@ -1,0 +1,680 @@
+{
+ "split": "val",
+ "n": 120,
+ "baseline_partner_coupling": 1.121387437688342,
+ "baseline_pseudo_coupling": 0.015798555202006053,
+ "heads": [
+  {
+   "layer": 3,
+   "head": 1,
+   "drop_partner": 0.9437349028186872,
+   "drop_control": -0.007290022044132153,
+   "specificity": 0.9510249248628194
+  },
+  {
+   "layer": 2,
+   "head": 15,
+   "drop_partner": 0.5423359085184832,
+   "drop_control": -0.04862223802289615,
+   "specificity": 0.5909581465413793
+  },
+  {
+   "layer": 1,
+   "head": 12,
+   "drop_partner": 0.1915623044478707,
+   "drop_control": -0.03194155202945694,
+   "specificity": 0.22350385647732765
+  },
+  {
+   "layer": 4,
+   "head": 2,
+   "drop_partner": 0.12412968740876143,
+   "drop_control": -0.0010926003800705076,
+   "specificity": 0.12522228778883193
+  },
+  {
+   "layer": 5,
+   "head": 11,
+   "drop_partner": 0.11433868011226878,
+   "drop_control": -0.012977071071509272,
+   "specificity": 0.12731575118377805
+  },
+  {
+   "layer": 2,
+   "head": 4,
+   "drop_partner": 0.08876395848734925,
+   "drop_control": -0.002499073992172877,
+   "specificity": 0.09126303247952212
+  },
+  {
+   "layer": 1,
+   "head": 13,
+   "drop_partner": 0.08043360601877794,
+   "drop_control": -0.009589007516236354,
+   "specificity": 0.0900226135350143
+  },
+  {
+   "layer": 0,
+   "head": 5,
+   "drop_partner": 0.07869677886095208,
+   "drop_control": -0.022435462469002233,
+   "specificity": 0.10113224132995431
+  },
+  {
+   "layer": 2,
+   "head": 8,
+   "drop_partner": 0.07642207586516937,
+   "drop_control": -0.0013778931344859302,
+   "specificity": 0.0777999689996553
+  },
+  {
+   "layer": 4,
+   "head": 0,
+   "drop_partner": 0.05618444437083478,
+   "drop_control": -0.003116838405063997,
+   "specificity": 0.05930128277589878
+  },
+  {
+   "layer": 2,
+   "head": 2,
+   "drop_partner": 0.05372333520790562,
+   "drop_control": -0.005893796794892599,
+   "specificity": 0.05961713200279822
+  },
+  {
+   "layer": 4,
+   "head": 11,
+   "drop_partner": 0.04144777964878207,
+   "drop_control": -9.07138028802971e-05,
+   "specificity": 0.04153849345166236
+  },
+  {
+   "layer": 2,
+   "head": 0,
+   "drop_partner": 0.04139122162402297,
+   "drop_control": -0.002516796241980046,
+   "specificity": 0.04390801786600302
+  },
+  {
+   "layer": 4,
+   "head": 7,
+   "drop_partner": 0.03850513494495923,
+   "drop_control": 0.0016368652267071107,
+   "specificity": 0.03686826971825212
+  },
+  {
+   "layer": 2,
+   "head": 13,
+   "drop_partner": 0.0328859085100703,
+   "drop_control": -2.549187047407031e-05,
+   "specificity": 0.03291140038054437
+  },
+  {
+   "layer": 1,
+   "head": 11,
+   "drop_partner": 0.03269307062340279,
+   "drop_control": 0.0003897475815999011,
+   "specificity": 0.03230332304180289
+  },
+  {
+   "layer": 1,
+   "head": 10,
+   "drop_partner": 0.032365666939100875,
+   "drop_control": -0.024628644075710325,
+   "specificity": 0.0569943110148112
+  },
+  {
+   "layer": 2,
+   "head": 1,
+   "drop_partner": 0.03145326044759713,
+   "drop_control": -0.005963421492682149,
+   "specificity": 0.03741668194027928
+  },
+  {
+   "layer": 1,
+   "head": 14,
+   "drop_partner": 0.02782246090549355,
+   "drop_control": 0.002827701554633677,
+   "specificity": 0.02499475935085987
+  },
+  {
+   "layer": 0,
+   "head": 2,
+   "drop_partner": 0.02447866079164669,
+   "drop_control": -0.00549626830422009,
+   "specificity": 0.029974929095866777
+  },
+  {
+   "layer": 5,
+   "head": 10,
+   "drop_partner": 0.023712912541426098,
+   "drop_control": -0.002314628466653327,
+   "specificity": 0.026027541008079424
+  },
+  {
+   "layer": 2,
+   "head": 10,
+   "drop_partner": 0.02192870157305151,
+   "drop_control": 0.0022953059640713038,
+   "specificity": 0.019633395608980208
+  },
+  {
+   "layer": 0,
+   "head": 11,
+   "drop_partner": 0.01890143147902563,
+   "drop_control": -0.008726212851858388,
+   "specificity": 0.02762764433088402
+  },
+  {
+   "layer": 4,
+   "head": 9,
+   "drop_partner": 0.01688218290413109,
+   "drop_control": 0.00883161349920556,
+   "specificity": 0.00805056940492553
+  },
+  {
+   "layer": 0,
+   "head": 15,
+   "drop_partner": 0.01520980578303958,
+   "drop_control": 0.00308255988250797,
+   "specificity": 0.01212724590053161
+  },
+  {
+   "layer": 1,
+   "head": 8,
+   "drop_partner": 0.01311437032612351,
+   "drop_control": 0.020727776105438047,
+   "specificity": -0.007613405779314537
+  },
+  {
+   "layer": 4,
+   "head": 10,
+   "drop_partner": 0.012810100292942177,
+   "drop_control": 0.0020326690399087967,
+   "specificity": 0.01077743125303338
+  },
+  {
+   "layer": 1,
+   "head": 3,
+   "drop_partner": 0.011879969438693176,
+   "drop_control": -0.01708040760907655,
+   "specificity": 0.028960377047769725
+  },
+  {
+   "layer": 3,
+   "head": 5,
+   "drop_partner": 0.010352077238106478,
+   "drop_control": 0.004808500156893085,
+   "specificity": 0.005543577081213394
+  },
+  {
+   "layer": 4,
+   "head": 13,
+   "drop_partner": 0.009463232744019478,
+   "drop_control": 0.001134036974205325,
+   "specificity": 0.008329195769814153
+  },
+  {
+   "layer": 5,
+   "head": 12,
+   "drop_partner": 0.009447224302372584,
+   "drop_control": -0.0010076764699382087,
+   "specificity": 0.010454900772310793
+  },
+  {
+   "layer": 5,
+   "head": 0,
+   "drop_partner": 0.006217540965493148,
+   "drop_control": 0.0014575179006593923,
+   "specificity": 0.004760023064833755
+  },
+  {
+   "layer": 1,
+   "head": 6,
+   "drop_partner": 0.005977143863371263,
+   "drop_control": 0.0009687343263067305,
+   "specificity": 0.005008409537064533
+  },
+  {
+   "layer": 4,
+   "head": 4,
+   "drop_partner": 0.005395905099188288,
+   "drop_control": -0.0065420294180512425,
+   "specificity": 0.01193793451723953
+  },
+  {
+   "layer": 3,
+   "head": 10,
+   "drop_partner": 0.0014271867810748517,
+   "drop_control": -0.0065734868442329265,
+   "specificity": 0.008000673625307778
+  },
+  {
+   "layer": 3,
+   "head": 11,
+   "drop_partner": 0.0007365517667494714,
+   "drop_control": 0.003585119789931923,
+   "specificity": -0.0028485680231824517
+  },
+  {
+   "layer": 5,
+   "head": 3,
+   "drop_partner": 0.0002470596266599993,
+   "drop_control": -0.0019475040685695906,
+   "specificity": 0.00219456369522959
+  },
+  {
+   "layer": 0,
+   "head": 0,
+   "drop_partner": -0.0008532822403746347,
+   "drop_control": -0.01742779752627636,
+   "specificity": 0.016574515285901727
+  },
+  {
+   "layer": 0,
+   "head": 4,
+   "drop_partner": -0.001325308814800034,
+   "drop_control": -0.040506006470726184,
+   "specificity": 0.03918069765592615
+  },
+  {
+   "layer": 2,
+   "head": 11,
+   "drop_partner": -0.0013281893295546373,
+   "drop_control": -0.008516887063160538,
+   "specificity": 0.007188697733605901
+  },
+  {
+   "layer": 5,
+   "head": 4,
+   "drop_partner": -0.0014127058753122886,
+   "drop_control": -0.0002739402504327397,
+   "specificity": -0.0011387656248795488
+  },
+  {
+   "layer": 2,
+   "head": 6,
+   "drop_partner": -0.0026944741102245947,
+   "drop_control": 0.005572933653214326,
+   "specificity": -0.00826740776343892
+  },
+  {
+   "layer": 1,
+   "head": 15,
+   "drop_partner": -0.0032399220663743714,
+   "drop_control": 0.0006650927437779804,
+   "specificity": -0.003905014810152352
+  },
+  {
+   "layer": 5,
+   "head": 1,
+   "drop_partner": -0.003589721128810197,
+   "drop_control": 0.004806389019358903,
+   "specificity": -0.0083961101481691
+  },
+  {
+   "layer": 0,
+   "head": 6,
+   "drop_partner": -0.004297136833580832,
+   "drop_control": -0.002622444904409349,
+   "specificity": -0.001674691929171483
+  },
+  {
+   "layer": 2,
+   "head": 7,
+   "drop_partner": -0.004334595306621243,
+   "drop_control": -0.0014963418206510445,
+   "specificity": -0.0028382534859701988
+  },
+  {
+   "layer": 5,
+   "head": 7,
+   "drop_partner": -0.004541938317318758,
+   "drop_control": -0.0008433453311833243,
+   "specificity": -0.0036985929861354334
+  },
+  {
+   "layer": 0,
+   "head": 14,
+   "drop_partner": -0.005129618581850082,
+   "drop_control": -0.018844422655335317,
+   "specificity": 0.013714804073485236
+  },
+  {
+   "layer": 5,
+   "head": 15,
+   "drop_partner": -0.0051671080252466105,
+   "drop_control": 0.0013062220183201133,
+   "specificity": -0.006473330043566724
+  },
+  {
+   "layer": 4,
+   "head": 8,
+   "drop_partner": -0.005501616074858854,
+   "drop_control": 0.00013489303722356757,
+   "specificity": -0.005636509112082422
+  },
+  {
+   "layer": 2,
+   "head": 3,
+   "drop_partner": -0.005513233470264822,
+   "drop_control": -0.0005557492258958519,
+   "specificity": -0.00495748424436897
+  },
+  {
+   "layer": 5,
+   "head": 6,
+   "drop_partner": -0.005997817990525315,
+   "drop_control": 0.00183604999522989,
+   "specificity": -0.007833867985755204
+  },
+  {
+   "layer": 4,
+   "head": 6,
+   "drop_partner": -0.006015527485093723,
+   "drop_control": -0.006528721175466975,
+   "specificity": 0.000513193690373252
+  },
+  {
+   "layer": 2,
+   "head": 14,
+   "drop_partner": -0.006516389381916573,
+   "drop_control": -0.0005933868039088944,
+   "specificity": -0.005923002578007678
+  },
+  {
+   "layer": 1,
+   "head": 9,
+   "drop_partner": -0.0067020120448432864,
+   "drop_control": -0.0009856034419499337,
+   "specificity": -0.0057164086028933525
+  },
+  {
+   "layer": 4,
+   "head": 1,
+   "drop_partner": -0.006766767865822961,
+   "drop_control": -0.007856140103346359,
+   "specificity": 0.0010893722375233976
+  },
+  {
+   "layer": 0,
+   "head": 1,
+   "drop_partner": -0.007916276129738739,
+   "drop_control": 0.013816739420872182,
+   "specificity": -0.02173301555061092
+  },
+  {
+   "layer": 3,
+   "head": 7,
+   "drop_partner": -0.00968510292780896,
+   "drop_control": -0.00015760728468497593,
+   "specificity": -0.009527495643123985
+  },
+  {
+   "layer": 1,
+   "head": 2,
+   "drop_partner": -0.01189131090650335,
+   "drop_control": 0.01086555200163275,
+   "specificity": -0.0227568629081361
+  },
+  {
+   "layer": 0,
+   "head": 3,
+   "drop_partner": -0.01261784501063327,
+   "drop_control": -0.018271714318931723,
+   "specificity": 0.005653869308298453
+  },
+  {
+   "layer": 5,
+   "head": 14,
+   "drop_partner": -0.012818486410348365,
+   "drop_control": -0.007979889186875274,
+   "specificity": -0.004838597223473091
+  },
+  {
+   "layer": 3,
+   "head": 3,
+   "drop_partner": -0.013099699075488995,
+   "drop_control": 0.0002568247068362931,
+   "specificity": -0.013356523782325288
+  },
+  {
+   "layer": 2,
+   "head": 12,
+   "drop_partner": -0.013747971353586763,
+   "drop_control": -0.0075686824003544945,
+   "specificity": -0.006179288953232269
+  },
+  {
+   "layer": 5,
+   "head": 13,
+   "drop_partner": -0.015099825547076761,
+   "drop_control": 0.0034616097264612714,
+   "specificity": -0.018561435273538034
+  },
+  {
+   "layer": 3,
+   "head": 12,
+   "drop_partner": -0.015819854386306058,
+   "drop_control": 0.00016181272997831304,
+   "specificity": -0.015981667116284373
+  },
+  {
+   "layer": 2,
+   "head": 9,
+   "drop_partner": -0.01584127686995392,
+   "drop_control": 0.0037432833303076524,
+   "specificity": -0.019584560200261572
+  },
+  {
+   "layer": 4,
+   "head": 14,
+   "drop_partner": -0.016856392802825818,
+   "drop_control": 0.002651111746672541,
+   "specificity": -0.01950750454949836
+  },
+  {
+   "layer": 5,
+   "head": 9,
+   "drop_partner": -0.01815890264309322,
+   "drop_control": -0.009084644343238324,
+   "specificity": -0.009074258299854894
+  },
+  {
+   "layer": 3,
+   "head": 15,
+   "drop_partner": -0.01839617668107773,
+   "drop_control": 0.003498069239625086,
+   "specificity": -0.021894245920702816
+  },
+  {
+   "layer": 5,
+   "head": 5,
+   "drop_partner": -0.018663375075751294,
+   "drop_control": 0.003861396911088377,
+   "specificity": -0.02252477198683967
+  },
+  {
+   "layer": 5,
+   "head": 2,
+   "drop_partner": -0.02202078150197243,
+   "drop_control": -0.0008627885680956145,
+   "specificity": -0.021157992933876813
+  },
+  {
+   "layer": 4,
+   "head": 5,
+   "drop_partner": -0.024193172308150677,
+   "drop_control": -0.015253238787408918,
+   "specificity": -0.00893993352074176
+  },
+  {
+   "layer": 1,
+   "head": 7,
+   "drop_partner": -0.024732298318607113,
+   "drop_control": -0.012260409723967313,
+   "specificity": -0.0124718885946398
+  },
+  {
+   "layer": 4,
+   "head": 3,
+   "drop_partner": -0.025769873017755646,
+   "drop_control": -0.004651316088469078,
+   "specificity": -0.021118556929286568
+  },
+  {
+   "layer": 3,
+   "head": 8,
+   "drop_partner": -0.026981895100713398,
+   "drop_control": -0.0024152984745645276,
+   "specificity": -0.024566596626148872
+  },
+  {
+   "layer": 3,
+   "head": 4,
+   "drop_partner": -0.027030229300726204,
+   "drop_control": 0.0017067219867991903,
+   "specificity": -0.028736951287525393
+  },
+  {
+   "layer": 3,
+   "head": 14,
+   "drop_partner": -0.027376927761361004,
+   "drop_control": 0.0023231398935119312,
+   "specificity": -0.029700067654872937
+  },
+  {
+   "layer": 0,
+   "head": 10,
+   "drop_partner": -0.027853610273450614,
+   "drop_control": -0.02458505705387021,
+   "specificity": -0.003268553219580403
+  },
+  {
+   "layer": 3,
+   "head": 0,
+   "drop_partner": -0.02866814095371713,
+   "drop_control": -0.005365710701638212,
+   "specificity": -0.02330243025207892
+  },
+  {
+   "layer": 0,
+   "head": 8,
+   "drop_partner": -0.029938436419858286,
+   "drop_control": -0.014553393660268437,
+   "specificity": -0.01538504275958985
+  },
+  {
+   "layer": 3,
+   "head": 13,
+   "drop_partner": -0.032283777145979305,
+   "drop_control": -0.0005070021531234185,
+   "specificity": -0.03177677499285589
+  },
+  {
+   "layer": 3,
+   "head": 6,
+   "drop_partner": -0.03401073371448244,
+   "drop_control": -0.006715725723188371,
+   "specificity": -0.02729500799129407
+  },
+  {
+   "layer": 1,
+   "head": 4,
+   "drop_partner": -0.038671165988004456,
+   "drop_control": -0.018887877250866342,
+   "specificity": -0.019783288737138114
+  },
+  {
+   "layer": 1,
+   "head": 0,
+   "drop_partner": -0.039420710771810266,
+   "drop_control": -0.004303253806817035,
+   "specificity": -0.03511745696499323
+  },
+  {
+   "layer": 5,
+   "head": 8,
+   "drop_partner": -0.041863677262639,
+   "drop_control": -0.0026129035589595637,
+   "specificity": -0.03925077370367944
+  },
+  {
+   "layer": 0,
+   "head": 13,
+   "drop_partner": -0.04358880679743985,
+   "drop_control": -0.017996444778206448,
+   "specificity": -0.025592362019233404
+  },
+  {
+   "layer": 1,
+   "head": 1,
+   "drop_partner": -0.04425589912959064,
+   "drop_control": -0.0022076726231413583,
+   "specificity": -0.04204822650644928
+  },
+  {
+   "layer": 0,
+   "head": 12,
+   "drop_partner": -0.0442614257025222,
+   "drop_control": -0.016573385688631485,
+   "specificity": -0.027688040013890716
+  },
+  {
+   "layer": 0,
+   "head": 9,
+   "drop_partner": -0.04459296374116093,
+   "drop_control": -0.024716209205022703,
+   "specificity": -0.019876754536138228
+  },
+  {
+   "layer": 3,
+   "head": 9,
+   "drop_partner": -0.05223283206578344,
+   "drop_control": -0.0009519597981125117,
+   "specificity": -0.05128087226767093
+  },
+  {
+   "layer": 0,
+   "head": 7,
+   "drop_partner": -0.05811458331299946,
+   "drop_control": -0.045078745503754666,
+   "specificity": -0.01303583780924479
+  },
+  {
+   "layer": 2,
+   "head": 5,
+   "drop_partner": -0.06605252496277293,
+   "drop_control": -0.01593216563342139,
+   "specificity": -0.05012035932935154
+  },
+  {
+   "layer": 4,
+   "head": 15,
+   "drop_partner": -0.06663900710021456,
+   "drop_control": -0.005094428973582883,
+   "specificity": -0.06154457812663167
+  },
+  {
+   "layer": 3,
+   "head": 2,
+   "drop_partner": -0.07586798812650765,
+   "drop_control": -0.001319603369726489,
+   "specificity": -0.07454838475678116
+  },
+  {
+   "layer": 1,
+   "head": 5,
+   "drop_partner": -0.08102021691932654,
+   "drop_control": -0.04600735058775172,
+   "specificity": -0.03501286633157482
+  },
+  {
+   "layer": 4,
+   "head": 12,
+   "drop_partner": -0.08976490147955095,
+   "drop_control": -0.013501546434902896,
+   "specificity": -0.07626335504464805
+  }
+ ]
+}

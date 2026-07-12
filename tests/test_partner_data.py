@@ -70,11 +70,18 @@ def test_acceptor_position_is_not_constant(examples):
     assert share < 0.10, f"POSITION LEAK: {share:.1%} of examples share one acceptor position"
 
 
-def test_fixed_flanks_would_fail_the_memorial_test():
-    """The tripwire must actually discriminate: with flank_min == flank_max we
-    reconstruct the v1 leak, and the config must refuse to build it."""
+def test_fixed_offset_would_fail_the_memorial_test():
+    """The tripwire must actually discriminate: with acc_min == acc_max we reconstruct
+    the v1 leak (a constant acceptor position), and the config must refuse to build it."""
     with pytest.raises(ValueError, match="positional leak"):
-        PartnerConfig(flank_min=200, flank_max=200).validate()
+        PartnerConfig(acc_min=200, acc_max=200).validate()
+
+
+def test_window_length_leak_is_refused():
+    """The second leak: if the acceptor range is not feasible for the LONGEST exon, the
+    sampling range must shrink for long exons -- and then acceptor_pos leaks exon length."""
+    with pytest.raises(ValueError, match="leaks the exon length"):
+        PartnerConfig(window_length=512, acc_max=300, max_exon_length=500).validate()
 
 
 def test_decoys_are_real_annotated_splice_sites(examples, gene_index):
