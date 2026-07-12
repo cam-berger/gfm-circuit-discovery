@@ -87,8 +87,11 @@ class PartnerConfig:
     max_exon_length: int = 500
     distance_match_bp: int = 30
     seed: int = 0
-    val_chromosomes: tuple[str, ...] = ("chr7", "chr13")
-    test_chromosomes: tuple[str, ...] = ("chr8", "chr9")  # SEALED
+    # Sized for POWER on the adversarial stratum (only ~5% of examples land there).
+    # val = chr11/chr16/chr19 gives ~434 adversarial examples: SE ~ 0.023 at chance 0.40,
+    # so a 10-point effect is >4 sigma.  chr1 is deliberately left in train (largest gene set).
+    val_chromosomes: tuple[str, ...] = ("chr11", "chr16", "chr19")
+    test_chromosomes: tuple[str, ...] = ("chr8", "chr9")  # SEALED — never opened
 
     def validate(self) -> None:
         if self.acc_min < 4 or self.acc_max < self.acc_min:
