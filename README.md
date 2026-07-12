@@ -3,20 +3,20 @@
 Tracing how a training objective installs — or fails to install — a latent representation of genome
 structure inside a genomic foundation model, and reverse-engineering the circuit that results.
 
-The central claim, tested rather than asserted, is the **sufficiency law**:
+The organizing hypothesis, tested rather than asserted, is the **shortcut-gap hypothesis**:
 
-> A model builds a relational **circuit** if and only if the accuracy demanded by its objective exceeds
-> the ceiling of the best statistic that can be **pooled over its context window**. If a pooled
-> statistic already suffices, the model learns that **shortcut** and never builds the algorithm. The
-> threshold is imperfection, not weakness: a 96.5%-accurate shortcut does not displace a counter when
-> the task demands 100%.
+> Relational mechanisms become more likely when they provide enough objective improvement over a
+> registered class of local or pooled shortcuts to overcome their optimization and complexity cost.
+> Shortcut insufficiency creates pressure for a relation; it does not guarantee that gradient descent
+> finds one, and shortcut availability does not prove that no relational mechanism exists.
 
 **Status — hypothesis, not settled law.** This is the organizing hypothesis, strongly illustrated by
 the λ-sweep and the 2×2 — but not established as a universal law: each condition is a **single seed**,
 and the pooled ceiling is measured by a **lower-bound** estimator (codon naive-Bayes; the stronger
 receptive-field-limited-CNN rival exists only for the repeat-copy track, not reading frame). Advancing
 it to settled needs ≥3-seed replication and the stronger pooled rival on the reading-frame arms. See
-`docs/CLAIMS.md` (C0).
+`docs/CLAIMS.md` (C0). The original stronger “if and only if” sufficiency-law wording is retained only
+in historical records where its status is marked; it is not treated as established.
 
 Everything in the repo is instrumentation for measuring, honestly, which of the two — circuit or
 shortcut — a trained model actually did.
@@ -29,14 +29,16 @@ TransformerLens / `circuit-tracer`, which target GPT-style decoder-only models. 
 
 ## New here? Read in this order
 
-1. **`docs/CIRCUIT_DISCOVERY_HOW_TO.md`** — the step-by-step procedure for discovering and
-   reverse-engineering a circuit. The practical entry point.
-2. **`docs/FOUNDATIONS_circuit_discovery.md`** — the math and literature behind the methods (residual
+1. **`SPLICEBERT_CIRCUIT_DISCOVERY_IMPLEMENTATION.md`** — the paper-sized real-GFM plan, exact
+   run order, claim ladder, and implemented SpliceBERT scaffold.
+2. **`docs/CIRCUIT_DISCOVERY_HOW_TO.md`** — the step-by-step procedure for discovering and
+   reverse-engineering a circuit. The practical method entry point.
+3. **`docs/FOUNDATIONS_circuit_discovery.md`** — the math and literature behind the methods (residual
    stream, QK/OV, patching, integrated gradients, induction heads, grokking, the sufficiency law).
-3. **`docs/BIOLOGY_genomic_computations.md`** — the genomics for an ML audience: what reading frame,
+4. **`docs/BIOLOGY_genomic_computations.md`** — the genomics for an ML audience: what reading frame,
    repeats, splicing, etc. actually are, and what the shortcut vs. the circuit looks like for each.
-4. **`docs/LAB.md`** — the `gfmcd.lab` API reference and the notebook workflow.
-5. Then open **`notebooks/study_reading_frame_counter.ipynb`** to see the whole protocol run on a real
+5. **`docs/LAB.md`** — the `gfmcd.lab` API reference and the notebook workflow.
+6. Then open **`notebooks/study_reading_frame_counter.ipynb`** to see the whole protocol run on a real
    model.
 
 For the research record rather than the how-to, see `docs/EXPERIMENTS.md` (plain-language account),
@@ -67,7 +69,8 @@ uv run pytest -q                    # 133 tests; Rung 0 is ground truth, not a s
 |-------|----------|-----------|
 | (base) | `torch`, `numpy`, `scipy` | the library and models |
 | `lab` | matplotlib, jupyter, nbformat, ipykernel, pyfaidx | `gfmcd.lab`, the notebooks |
-| `models` | transformers, datasets | SpliceBERT / DNABERT comparisons |
+| `models` | transformers, datasets | general pretrained-model comparisons |
+| `splicebert` | transformers, pyfaidx | the SpliceBERT partner-selection implementation |
 | `genome` | pyfaidx | building windows from real hg38/GENCODE |
 | `dev` | pytest, pytest-xdist | the test suite |
 
@@ -118,6 +121,10 @@ src/gfmcd/                      the library
   nulls/                        surrogate/null-sequence generators
   dicts/                        sparse-dictionary (SAE-style) code
   lab/                          >>> the interactive reverse-engineering layer (see docs/LAB.md) <<<
+  adapters/                     stable adapters for pretrained genomic models
+  circuits/                     BERT head intervention/patching and QK/OV tools
+  splicing/                     schemas, GENCODE builder, controls, readouts, metrics
+  provenance.py                 hashes and run manifests
     load.py                     one-call checkpoint / window / history loading
     intervene.py                self-restoring interventions (ablate / resample / mean)
     assays.py                   the five-pillar measurements + reverse-engineering probes
@@ -134,6 +141,7 @@ scripts/
   build_notebooks.py            regenerates the notebooks from source (nbformat)
   execute_notebook.py           in-process, sandbox-safe notebook executor
   README.md                     which of the ~30 measurement scripts produces which number
+  splicebert/                  real-GFM data, behavior, trace, and patch pipeline
   ... (one script per committed measurement)
 
 tests/                          the test suite (133 tests); Rung 0 is ground truth, not a smoke test
@@ -161,6 +169,7 @@ results/reading-frame/
   fig_data/                     the measured numbers -- TRACKED, so a retraction leaves a diff
   fig_data/retracted/           dumps whose measurement was withdrawn
   figures/                      gitignored; regenerate with scripts/fig_phase_*.py
+branches/codex-repeat-induction/   track 2's findings and figures
 
 data/cache/                     window caches, gitignored: the filename is the recipe
 checkpoints/                    trained model checkpoints, gitignored (families listed below)
@@ -207,7 +216,7 @@ exit, including on exception — you can never leave a head silently zeroed.
 ```
 Rung 0  planted twins    edge set known BY CONSTRUCTION   -> tracer validation   [gate]
 Rung 1  reading frame    period-3, anchored to an ATG     -> proof of method
-Rung 2  splice sites     local composition, GENCODE       -> first real circuit
+Rung 2  splice pairing   GENCODE + pretrained SpliceBERT -> first real-GFM test
 Rung 3  G-quadruplex     cross-strand, loop-window        -> flagship
 H2      objective arms   AR < MLM < MLM+phyloP < phyloP   -> the payload
 ```

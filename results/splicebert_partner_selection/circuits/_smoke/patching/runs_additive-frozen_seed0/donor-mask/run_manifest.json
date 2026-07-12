@@ -1,0 +1,161 @@
+{
+  "command": [
+    "scripts/splicebert/patch_conflicts.py",
+    "--checkpoint",
+    "colab_results/splicebert_run/runs/additive-frozen_seed0/checkpoint.pt",
+    "--examples",
+    "results/splicebert_partner_selection/circuits/discovery/discovery.jsonl",
+    "--corruption",
+    "donor-mask",
+    "--selected-head-report",
+    "results/splicebert_partner_selection/circuits/_smoke/head_screen/runs_additive-frozen_seed0/report.json",
+    "--device",
+    "mps",
+    "--max-examples",
+    "16",
+    "--out-dir",
+    "results/splicebert_partner_selection/circuits/_smoke/patching"
+  ],
+  "config": {
+    "circuit": {
+      "ablation_modes": [
+        "zero",
+        "mean",
+        "resample"
+      ],
+      "default_component_set_size": 5,
+      "discovery_batch_size": 16,
+      "max_candidate_heads_after_screen": 16,
+      "primary_score": "mean_true_pair_margin",
+      "random_control_sets": 1000
+    },
+    "data": {
+      "candidate": {
+        "acceptor_motifs": [
+          "AG"
+        ],
+        "donor_motifs": [
+          "GT",
+          "GC"
+        ],
+        "edge_buffer": 4,
+        "max_exon_length": 500,
+        "max_pairs": 512,
+        "min_exon_length": 20
+      },
+      "canonical_only": true,
+      "exclude_chromosomes": [
+        "chrX",
+        "chrY",
+        "chrM",
+        "MT"
+      ],
+      "fasta": "data/external/gencode/v50/GRCh38.primary_assembly.genome.fa",
+      "gencode_release": 50,
+      "gtf": "data/external/gencode/v50/gencode.v50.basic.annotation.gtf.gz",
+      "left_flank": 200,
+      "max_exon_length": 500,
+      "max_sequence_length": 900,
+      "min_exon_length": 20,
+      "minimum_candidate_pairs": 2,
+      "output_dir": "data/processed/splicebert_partner_selection/v1",
+      "right_flank": 200,
+      "split_method": "chromosome",
+      "test_chromosomes": [
+        "chr19",
+        "chr20",
+        "chr21",
+        "chr22"
+      ],
+      "val_chromosomes": [
+        "chr17",
+        "chr18"
+      ]
+    },
+    "model": {
+      "local_files_only": true,
+      "model_class": "masked_lm",
+      "path": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+      "tokenizer_mode": "spaced",
+      "trust_remote_code": false
+    },
+    "preregistration_defaults": {
+      "behavior_requires_test_ci_above_best_registered_baseline": true,
+      "conflict_positive_margin_rate_min": 0.6,
+      "mediation_recovery_min": 0.3,
+      "necessity_random_set_percentile": 0.95,
+      "replication_seeds_min": 3
+    },
+    "readout": {
+      "interaction_rank": 32,
+      "length_hidden": 16,
+      "representation_layer": -1,
+      "site_hidden": 128
+    },
+    "study_id": "splicebert_partner_selection_v1",
+    "training": {
+      "backbone_learning_rate": 1e-05,
+      "batch_size": 8,
+      "early_stopping_patience": 3,
+      "epochs": 10,
+      "grad_clip": 1.0,
+      "learning_rate": 0.001,
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "weight_decay": 0.0001
+    }
+  },
+  "created_at_utc": "2026-07-11T22:00:01.747819+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 9913,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_partner_selection_v1:patch:runs_additive-frozen_seed0:donor-mask",
+  "git_commit": null,
+  "git_dirty": null,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/test/GFM_SpliceBERT_Circuit_Discovery_Implementation/gfm_splicebert_implementation/results/splicebert_partner_selection/circuits/discovery/discovery.jsonl",
+      "sha256": "0d5ded9d5a05d2ab46483fd040e46fd0d2c2293f9f61c5baa17bea7d37f63586",
+      "size_bytes": 25387246
+    },
+    {
+      "path": "/Users/cberg/Research/projects/test/GFM_SpliceBERT_Circuit_Discovery_Implementation/gfm_splicebert_implementation/colab_results/splicebert_run/runs/additive-frozen_seed0/checkpoint.pt",
+      "sha256": "a016190b9df8ba7b1926f09369004440f4ca5b488b7aaf62ca6df24904cc4442",
+      "size_bytes": 542581
+    },
+    {
+      "path": "/Users/cberg/Research/projects/test/GFM_SpliceBERT_Circuit_Discovery_Implementation/gfm_splicebert_implementation/results/splicebert_partner_selection/circuits/_smoke/head_screen/runs_additive-frozen_seed0/report.json",
+      "sha256": "e756b05f51e253d9f5d1cfac1061cd339501d29dd3611f60fa9f8dd3a6a15ea4",
+      "size_bytes": 2772
+    }
+  ],
+  "notes": [
+    "Clean and corrupt token coordinates are aligned.",
+    "The script refuses to patch when the behavioral gap is below the registered minimum.",
+    "Endpoint/context corruptions are instrumentation, not sufficient partner-specific evidence."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/test/GFM_SpliceBERT_Circuit_Discovery_Implementation/gfm_splicebert_implementation/results/splicebert_partner_selection/circuits/_smoke/patching/runs_additive-frozen_seed0/donor-mask/report.json",
+      "sha256": "2736d2f2947ae74db65e0f58afb4e68d16e95efcd123894da4ae71beedb239eb",
+      "size_bytes": 22281
+    },
+    {
+      "path": "/Users/cberg/Research/projects/test/GFM_SpliceBERT_Circuit_Discovery_Implementation/gfm_splicebert_implementation/results/splicebert_partner_selection/circuits/_smoke/patching/runs_additive-frozen_seed0/donor-mask/corrupt_sequences.jsonl",
+      "sha256": "65bee3b2e323a77c0be34dba9aa168d9088e8cc82e009a3d31a3f1a7232bf845",
+      "size_bytes": 9964
+    }
+  ],
+  "seeds": {
+    "corruption": 0
+  },
+  "status": "EXPLORATORY"
+}

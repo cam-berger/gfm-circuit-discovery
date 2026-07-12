@@ -1,0 +1,806 @@
+{
+  "regime": "additive-frozen",
+  "corruption": "donor-mask",
+  "token_patch": "all",
+  "n_examples": 16,
+  "clean_score": 2.4694600105285645,
+  "corrupt_score": -2.0089430809020996,
+  "clean_corrupt_gap": 4.478403091430664,
+  "single_head_patch_results": [
+    {
+      "layer": 1,
+      "head": 13,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -0.3317022919654846,
+      "recovery_fraction": 0.3745176025235384
+    },
+    {
+      "layer": 4,
+      "head": 0,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -0.752697229385376,
+      "recovery_fraction": 0.28051200972072504
+    },
+    {
+      "layer": 2,
+      "head": 13,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -0.9468320608139038,
+      "recovery_fraction": 0.23716289007582284
+    },
+    {
+      "layer": 1,
+      "head": 1,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -0.9562371969223022,
+      "recovery_fraction": 0.23506278074747877
+    },
+    {
+      "layer": 4,
+      "head": 2,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.1334984302520752,
+      "recovery_fraction": 0.1954814322822281
+    },
+    {
+      "layer": 3,
+      "head": 4,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.209001064300537,
+      "recovery_fraction": 0.17862215621729893
+    },
+    {
+      "layer": 3,
+      "head": 9,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.2096742391586304,
+      "recovery_fraction": 0.17847184039169103
+    },
+    {
+      "layer": 2,
+      "head": 10,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.2670657634735107,
+      "recovery_fraction": 0.16565666428021106
+    },
+    {
+      "layer": 1,
+      "head": 2,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.2758584022521973,
+      "recovery_fraction": 0.16369332185676752
+    },
+    {
+      "layer": 0,
+      "head": 9,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.44472336769104,
+      "recovery_fraction": 0.1259868086217346
+    },
+    {
+      "layer": 4,
+      "head": 4,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.4591906070709229,
+      "recovery_fraction": 0.1227563626157541
+    },
+    {
+      "layer": 2,
+      "head": 4,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.5095762014389038,
+      "recovery_fraction": 0.11150556778123087
+    },
+    {
+      "layer": 1,
+      "head": 14,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.5313512086868286,
+      "recovery_fraction": 0.10664334193791837
+    },
+    {
+      "layer": 2,
+      "head": 9,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.544435739517212,
+      "recovery_fraction": 0.10372164628809616
+    },
+    {
+      "layer": 2,
+      "head": 8,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.5723953247070312,
+      "recovery_fraction": 0.09747844204341362
+    },
+    {
+      "layer": 3,
+      "head": 0,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.577366828918457,
+      "recovery_fraction": 0.09636833558137167
+    },
+    {
+      "layer": 3,
+      "head": 3,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.5917867422103882,
+      "recovery_fraction": 0.09314845720116884
+    },
+    {
+      "layer": 2,
+      "head": 7,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.5923982858657837,
+      "recovery_fraction": 0.09301190324590615
+    },
+    {
+      "layer": 3,
+      "head": 2,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.6083052158355713,
+      "recovery_fraction": 0.08945998314290667
+    },
+    {
+      "layer": 1,
+      "head": 8,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.6128993034362793,
+      "recovery_fraction": 0.08843415150003854
+    },
+    {
+      "layer": 4,
+      "head": 13,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.6352355480194092,
+      "recovery_fraction": 0.08344660479485923
+    },
+    {
+      "layer": 0,
+      "head": 12,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.659001111984253,
+      "recovery_fraction": 0.07813989981997238
+    },
+    {
+      "layer": 0,
+      "head": 3,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.6661701202392578,
+      "recovery_fraction": 0.07653910415494557
+    },
+    {
+      "layer": 4,
+      "head": 9,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.6680885553359985,
+      "recovery_fraction": 0.0761107293397326
+    },
+    {
+      "layer": 3,
+      "head": 13,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.6707100868225098,
+      "recovery_fraction": 0.07552535740402466
+    },
+    {
+      "layer": 5,
+      "head": 2,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.6844360828399658,
+      "recovery_fraction": 0.07246042650405264
+    },
+    {
+      "layer": 4,
+      "head": 1,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.7092900276184082,
+      "recovery_fraction": 0.06691069275498483
+    },
+    {
+      "layer": 3,
+      "head": 5,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.709916353225708,
+      "recovery_fraction": 0.06677083808033568
+    },
+    {
+      "layer": 1,
+      "head": 11,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.742215871810913,
+      "recovery_fraction": 0.05955855327126845
+    },
+    {
+      "layer": 5,
+      "head": 11,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.7426159381866455,
+      "recovery_fraction": 0.05946922089819602
+    },
+    {
+      "layer": 3,
+      "head": 6,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.7464679479599,
+      "recovery_fraction": 0.05860909069226946
+    },
+    {
+      "layer": 4,
+      "head": 10,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.760528564453125,
+      "recovery_fraction": 0.05546944108812154
+    },
+    {
+      "layer": 3,
+      "head": 12,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.7675014734268188,
+      "recovery_fraction": 0.05391243319237487
+    },
+    {
+      "layer": 0,
+      "head": 10,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.7771555185317993,
+      "recovery_fraction": 0.05175674400855546
+    },
+    {
+      "layer": 0,
+      "head": 5,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.8034210205078125,
+      "recovery_fraction": 0.045891818176784824
+    },
+    {
+      "layer": 4,
+      "head": 15,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.8186402320861816,
+      "recovery_fraction": 0.04249346138137023
+    },
+    {
+      "layer": 5,
+      "head": 15,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.8233036994934082,
+      "recovery_fraction": 0.041452137652349494
+    },
+    {
+      "layer": 3,
+      "head": 1,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.8265495300292969,
+      "recovery_fraction": 0.04072736355997279
+    },
+    {
+      "layer": 4,
+      "head": 3,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.832388997077942,
+      "recovery_fraction": 0.039423446308794866
+    },
+    {
+      "layer": 1,
+      "head": 9,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.8485140800476074,
+      "recovery_fraction": 0.03582281397614027
+    },
+    {
+      "layer": 5,
+      "head": 9,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.8493051528930664,
+      "recovery_fraction": 0.03564617225155485
+    },
+    {
+      "layer": 1,
+      "head": 10,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.8505884408950806,
+      "recovery_fraction": 0.035359621895141045
+    },
+    {
+      "layer": 1,
+      "head": 3,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.851046085357666,
+      "recovery_fraction": 0.03525743268768423
+    },
+    {
+      "layer": 1,
+      "head": 0,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.865814447402954,
+      "recovery_fraction": 0.03195974783355686
+    },
+    {
+      "layer": 4,
+      "head": 11,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.8675496578216553,
+      "recovery_fraction": 0.031572285967513256
+    },
+    {
+      "layer": 4,
+      "head": 7,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.8765406608581543,
+      "recovery_fraction": 0.029564650019399712
+    },
+    {
+      "layer": 1,
+      "head": 7,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.8778634071350098,
+      "recovery_fraction": 0.029269288871720416
+    },
+    {
+      "layer": 5,
+      "head": 13,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.8801486492156982,
+      "recovery_fraction": 0.028759008302054582
+    },
+    {
+      "layer": 4,
+      "head": 5,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.8827364444732666,
+      "recovery_fraction": 0.0281811694597851
+    },
+    {
+      "layer": 2,
+      "head": 11,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.9034885168075562,
+      "recovery_fraction": 0.023547358721757023
+    },
+    {
+      "layer": 5,
+      "head": 14,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.9104772806167603,
+      "recovery_fraction": 0.021986810538281318
+    },
+    {
+      "layer": 5,
+      "head": 6,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.9223096370697021,
+      "recovery_fraction": 0.0193447177629385
+    },
+    {
+      "layer": 2,
+      "head": 1,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.9405876398086548,
+      "recovery_fraction": 0.015263351622867896
+    },
+    {
+      "layer": 3,
+      "head": 11,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.9466912746429443,
+      "recovery_fraction": 0.01390044732200924
+    },
+    {
+      "layer": 0,
+      "head": 11,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.947575330734253,
+      "recovery_fraction": 0.013703043007734757
+    },
+    {
+      "layer": 1,
+      "head": 6,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.954016923904419,
+      "recovery_fraction": 0.012264674678967774
+    },
+    {
+      "layer": 1,
+      "head": 12,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.9606080055236816,
+      "recovery_fraction": 0.01079292649446991
+    },
+    {
+      "layer": 4,
+      "head": 12,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.9674711227416992,
+      "recovery_fraction": 0.009260434425779172
+    },
+    {
+      "layer": 1,
+      "head": 5,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.971587896347046,
+      "recovery_fraction": 0.008341184076648241
+    },
+    {
+      "layer": 2,
+      "head": 12,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.9762934446334839,
+      "recovery_fraction": 0.007290463944857969
+    },
+    {
+      "layer": 5,
+      "head": 8,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.9859455823898315,
+      "recovery_fraction": 0.005135200660314237
+    },
+    {
+      "layer": 5,
+      "head": 4,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.9870437383651733,
+      "recovery_fraction": 0.004889989152345449
+    },
+    {
+      "layer": 2,
+      "head": 6,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -1.9977271556854248,
+      "recovery_fraction": 0.0025044474531862163
+    },
+    {
+      "layer": 3,
+      "head": 10,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.0079057216644287,
+      "recovery_fraction": 0.00023163596855670828
+    },
+    {
+      "layer": 2,
+      "head": 14,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.011361598968506,
+      "recovery_fraction": -0.0005400402815534932
+    },
+    {
+      "layer": 0,
+      "head": 15,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.0159223079681396,
+      "recovery_fraction": -0.0015584186870973389
+    },
+    {
+      "layer": 0,
+      "head": 13,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.020595073699951,
+      "recovery_fraction": -0.0026018186750869795
+    },
+    {
+      "layer": 1,
+      "head": 4,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.028231620788574,
+      "recovery_fraction": -0.004307012900063161
+    },
+    {
+      "layer": 5,
+      "head": 1,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.028818130493164,
+      "recovery_fraction": -0.00443797692733264
+    },
+    {
+      "layer": 0,
+      "head": 0,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.033273696899414,
+      "recovery_fraction": -0.005432877635305006
+    },
+    {
+      "layer": 3,
+      "head": 8,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.0350663661956787,
+      "recovery_fraction": -0.005833169717028262
+    },
+    {
+      "layer": 2,
+      "head": 0,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.0375797748565674,
+      "recovery_fraction": -0.006394398487546492
+    },
+    {
+      "layer": 3,
+      "head": 7,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.0400190353393555,
+      "recovery_fraction": -0.00693907042372293
+    },
+    {
+      "layer": 0,
+      "head": 14,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.0487630367279053,
+      "recovery_fraction": -0.008891552415636807
+    },
+    {
+      "layer": 4,
+      "head": 6,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.059565544128418,
+      "recovery_fraction": -0.011303686200820878
+    },
+    {
+      "layer": 0,
+      "head": 4,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.0640220642089844,
+      "recovery_fraction": -0.01229879985843108
+    },
+    {
+      "layer": 3,
+      "head": 15,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.0653152465820312,
+      "recovery_fraction": -0.012587559567337444
+    },
+    {
+      "layer": 3,
+      "head": 14,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.0778605937957764,
+      "recovery_fraction": -0.015388858815667813
+    },
+    {
+      "layer": 5,
+      "head": 7,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.087360382080078,
+      "recovery_fraction": -0.017510103395567155
+    },
+    {
+      "layer": 4,
+      "head": 14,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.0894968509674072,
+      "recovery_fraction": -0.01798716382173049
+    },
+    {
+      "layer": 2,
+      "head": 15,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.0909101963043213,
+      "recovery_fraction": -0.018302755185004255
+    },
+    {
+      "layer": 0,
+      "head": 6,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.0951128005981445,
+      "recovery_fraction": -0.019241171001540477
+    },
+    {
+      "layer": 5,
+      "head": 0,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.1114461421966553,
+      "recovery_fraction": -0.022888306211357626
+    },
+    {
+      "layer": 5,
+      "head": 5,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.1156959533691406,
+      "recovery_fraction": -0.023837263034966756
+    },
+    {
+      "layer": 0,
+      "head": 2,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.1410179138183594,
+      "recovery_fraction": -0.029491501818802855
+    },
+    {
+      "layer": 2,
+      "head": 2,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.1575279235839844,
+      "recovery_fraction": -0.033178085949029226
+    },
+    {
+      "layer": 2,
+      "head": 5,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.1628684997558594,
+      "recovery_fraction": -0.034370603920913914
+    },
+    {
+      "layer": 4,
+      "head": 8,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.200122833251953,
+      "recovery_fraction": -0.04268926857336094
+    },
+    {
+      "layer": 5,
+      "head": 3,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.2311058044433594,
+      "recovery_fraction": -0.049607576407394806
+    },
+    {
+      "layer": 5,
+      "head": 10,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.2352986335754395,
+      "recovery_fraction": -0.0505438094901432
+    },
+    {
+      "layer": 0,
+      "head": 7,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.262190341949463,
+      "recovery_fraction": -0.05654856337785826
+    },
+    {
+      "layer": 0,
+      "head": 8,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.2735586166381836,
+      "recovery_fraction": -0.05908702953568887
+    },
+    {
+      "layer": 5,
+      "head": 12,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.302720308303833,
+      "recovery_fraction": -0.06559865679886438
+    },
+    {
+      "layer": 0,
+      "head": 1,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.4483189582824707,
+      "recovery_fraction": -0.0981099441944179
+    },
+    {
+      "layer": 2,
+      "head": 3,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.4641997814178467,
+      "recovery_fraction": -0.10165603480108161
+    },
+    {
+      "layer": 1,
+      "head": 15,
+      "clean_score": 2.4694600105285645,
+      "corrupt_score": -2.0089430809020996,
+      "patched_score": -2.7215681076049805,
+      "recovery_fraction": -0.15912480680144106
+    }
+  ],
+  "selected_set_patch": {
+    "heads": [
+      [
+        0,
+        7
+      ],
+      [
+        1,
+        12
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        1,
+        7
+      ],
+      [
+        0,
+        4
+      ]
+    ],
+    "patched_score": -2.90256667137146,
+    "recovery_fraction": -0.19954067827866845
+  },
+  "claim_scope": "MEDIATION_OF_REGISTERED_CONTEXT/SITE_CORRUPTION; NOT YET PARTNER-SPECIFIC CIRCUIT PROOF"
+}

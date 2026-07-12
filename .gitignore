@@ -23,8 +23,16 @@ checkpoints/
 # should leave a reviewable diff rather than silently overwrite a PNG.
 results/**/figures/
 
-# Track-2's canonical record is now notebooks/study_repeat_copy.ipynb. The repeat-copy scripts
-# still default their --out-dir here, but the raw dump is no longer tracked; the historical dump
-# lives in .archive/ (local only). Regenerate with the repeat_copy_*.py scripts if needed.
-/branches/
-.archive/
+# External resources and pretrained-model archives for real-GFM studies.
+data/external/
+data/models/
+
+# Run-time model/readout artifacts. Keep manifests and settled metrics under results/.
+artifacts/
+
+# SpliceBERT track: large / regenerable outputs (small metrics + manifests stay tracked)
+colab_results/**/*.pt
+colab_results/**/*.jsonl
+*.pkl
+splicebert_code.zip
+results/splicebert_partner_selection/**/*.jsonl

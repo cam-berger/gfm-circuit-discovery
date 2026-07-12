@@ -1,0 +1,88 @@
+{
+  "statistic": "additive-frozen minus additive-random-frozen on natural conflicts",
+  "registered_gate": "grouped 95% CI of margin difference > 0 (behavioral advantage)",
+  "resampling_unit": "gene_id (grouped bootstrap, n_boot=2000)",
+  "n_examples": 4000,
+  "cap": 4000,
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "per_seed": [
+    {
+      "seed": 0,
+      "frozen_pmr": 0.80375,
+      "random_pmr": 0.0615,
+      "delta_margin": 3.2046265557557345,
+      "margin_ci_low": 3.0163254493497824,
+      "margin_ci_high": 3.399734602615871,
+      "delta_pmr": 0.74225,
+      "pmr_ci_low": 0.7200395502263638,
+      "pmr_ci_high": 0.7629538501980443,
+      "n_groups": 503,
+      "n": 4000
+    },
+    {
+      "seed": 1,
+      "frozen_pmr": 0.81125,
+      "random_pmr": 0.06,
+      "delta_margin": 3.652742047816515,
+      "margin_ci_low": 3.4397362619993475,
+      "margin_ci_high": 3.8676144342588357,
+      "delta_pmr": 0.75125,
+      "pmr_ci_low": 0.7296611039713929,
+      "pmr_ci_high": 0.7711562122170875,
+      "n_groups": 503,
+      "n": 4000
+    },
+    {
+      "seed": 2,
+      "frozen_pmr": 0.812,
+      "random_pmr": 0.05875,
+      "delta_margin": 3.6202104016542433,
+      "margin_ci_low": 3.4043653948719848,
+      "margin_ci_high": 3.8331916202374434,
+      "delta_pmr": 0.75325,
+      "pmr_ci_low": 0.7315972306181049,
+      "pmr_ci_high": 0.7738999022123015,
+      "n_groups": 503,
+      "n": 4000
+    },
+    {
+      "seed": 3,
+      "frozen_pmr": 0.80475,
+      "random_pmr": 0.05175,
+      "delta_margin": 3.3186134975552557,
+      "margin_ci_low": 3.121045389370385,
+      "margin_ci_high": 3.5161933304596737,
+      "delta_pmr": 0.753,
+      "pmr_ci_low": 0.7330117590146243,
+      "pmr_ci_high": 0.7736822860214301,
+      "n_groups": 503,
+      "n": 4000
+    },
+    {
+      "seed": 4,
+      "frozen_pmr": 0.8025,
+      "random_pmr": 0.04725,
+      "delta_margin": 3.0258570213913916,
+      "margin_ci_low": 2.843127597847923,
+      "margin_ci_high": 3.2124224150205976,
+      "delta_pmr": 0.75525,
+      "pmr_ci_low": 0.7334335879443059,
+      "pmr_ci_high": 0.7754368997767931,
+      "n_groups": 503,
+      "n": 4000
+    }
+  ],
+  "delta_margin_mean": 3.364409904834628,
+  "delta_pmr_mean": 0.751,
+  "delta_pmr_min": 0.74225,
+  "min_margin_ci_low_across_seeds": 2.843127597847923,
+  "min_pmr_ci_low_across_seeds": 0.7200395502263638,
+  "all_margin_ci_exclude_zero": true,
+  "all_pmr_ci_exclude_zero": true
+}

@@ -1,0 +1,41 @@
+{
+  "seed": 0,
+  "size": 512,
+  "exon_length_bin_edges": [
+    77,
+    109,
+    145,
+    191
+  ],
+  "source_conflicts": "colab_results/splicebert_run/baselines/val_local_conflicts.jsonl",
+  "source_val": "data/processed/splicebert_partner_selection/v1/val.jsonl",
+  "gene_disjoint_D_Vc": true,
+  "distributions": {
+    "D": {
+      "n": 512,
+      "n_genes": 313,
+      "exon_len_median": 125,
+      "exon_len_mean": 138.6,
+      "cand_count_median": 512
+    },
+    "Vc": {
+      "n": 512,
+      "n_genes": 309,
+      "exon_len_median": 126,
+      "exon_len_mean": 140.3,
+      "cand_count_median": 512
+    },
+    "O": {
+      "n": 512,
+      "n_genes": 261,
+      "exon_len_median": 125,
+      "exon_len_mean": 139.7,
+      "cand_count_median": 512
+    }
+  },
+  "hashes": {
+    "discovery.jsonl": "0d5ded9d5a05d2ab46483fd040e46fd0d2c2293f9f61c5baa17bea7d37f63586",
+    "confirmation.jsonl": "89326ae1dcba7b63b55f03a3ebd9b9bccbcbdbd8daf3c61644be429edeec3136",
+    "ordinary.jsonl": "6c4d8c34c3d79425000bf6db30bf954d6f8db77cd4970cdf1cfcc9c43b3b6f2a"
+  }
+}
