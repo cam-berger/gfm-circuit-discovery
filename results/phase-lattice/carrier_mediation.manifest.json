@@ -1,0 +1,41 @@
+{
+  "command": [
+    "scripts/splicebert/run_carrier_mediation.py",
+    "--n",
+    "160",
+    "--batch",
+    "8",
+    "--nulls",
+    "24"
+  ],
+  "config": {
+    "band": [
+      339,
+      340,
+      341,
+      342,
+      343,
+      344,
+      345
+    ],
+    "n": 160
+  },
+  "created_at_utc": "2026-07-13T03:57:39.603946+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 3766,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "phase_lattice:carrier_mediation",
+  "git_commit": "53aadd60038c88d23009f6e62e3db83769c1f5d9",
+  "git_dirty": true,
+  "inputs": [],
+  "notes": [
+    "Tests whether the period-3 carrier's effect on the donor-acceptor coupling is MEDIATED by L2H15, the ADDRESSER -- which is one of the six comb heads that read the carrier out.",
+    "Every control can fail: a random head, six random heads, a comb that is not the addresser, and all 16 layer-2 heads (the ceiling)."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

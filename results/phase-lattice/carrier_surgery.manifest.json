@@ -1,0 +1,43 @@
+{
+  "command": [
+    "scripts/splicebert/run_carrier_surgery.py",
+    "--n",
+    "384",
+    "--batch",
+    "8",
+    "--controls",
+    "30"
+  ],
+  "config": {
+    "band": [
+      339,
+      340,
+      341,
+      342,
+      343,
+      344,
+      345
+    ],
+    "controls": 21,
+    "n": 384
+  },
+  "created_at_utc": "2026-07-13T03:32:18.754997+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 3198,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "phase_lattice:carrier_surgery",
+  "git_commit": "53aadd60038c88d23009f6e62e3db83769c1f5d9",
+  "git_dirty": true,
+  "inputs": [],
+  "notes": [
+    "The comb heads READ the phase; they do not create it. R(k) computed from the WEIGHTS ALONE is a perfect period-3 comb, and deleting P's period-3 band (7 of 513 bins) collapses every comb to 3.4% of amplitude while an energy-matched band leaves them at 99.8%.",
+    "This intervention has no comb self-overlap artefact, no selection effect, and no perturbation/phase entanglement -- the three things that made the attention-roll design uninterpretable.",
+    "MLM health is gated: an arm that lost the behaviour is not interpreted (R13)."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

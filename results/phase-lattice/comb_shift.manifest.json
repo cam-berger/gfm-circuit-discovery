@@ -1,0 +1,170 @@
+{
+  "command": [
+    "scripts/splicebert/run_comb_shift.py",
+    "--n",
+    "96",
+    "--batch",
+    "8"
+  ],
+  "config": {
+    "comb": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        11
+      ],
+      [
+        1,
+        10
+      ],
+      [
+        1,
+        12
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        15
+      ]
+    ],
+    "copier": [
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        0,
+        5
+      ],
+      [
+        0,
+        10
+      ],
+      [
+        0,
+        12
+      ],
+      [
+        0,
+        14
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        13
+      ],
+      [
+        1,
+        14
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        2,
+        7
+      ],
+      [
+        2,
+        8
+      ],
+      [
+        2,
+        9
+      ],
+      [
+        2,
+        10
+      ],
+      [
+        2,
+        13
+      ],
+      [
+        3,
+        0
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        3,
+        6
+      ],
+      [
+        4,
+        0
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        4,
+        7
+      ],
+      [
+        4,
+        9
+      ],
+      [
+        4,
+        11
+      ]
+    ],
+    "deltas": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "n": 96,
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-13T03:04:10.841552+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 2147,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "phase_lattice:comb_shift",
+  "git_commit": "53aadd60038c88d23009f6e62e3db83769c1f5d9",
+  "git_dirty": true,
+  "inputs": [],
+  "notes": [
+    "Replaces the VOID ablation test (R13) and the retracted 42-head lattice (R14).",
+    "COMBS vs COPIERS are MATCHED on the phase-purity metric (both ~1.0) and OPPOSITE in structure. A copier's perturbation is FLAT in delta (w(d)=0), so it CANNOT produce the comb-overlap sawtooth -- which makes it the control the old design could not have had.",
+    "Only the PERTURBATION-NORMALISED sawtooth is evidence. The raw one is guaranteed.",
+    "Self-attention is restored after the roll: otherwise a tooth slides onto the query's own [MASK] at one phase class, inflating the sawtooth for free.",
+    "Bernoulli masking, not stride-7: a stride-7 mask collides with a comb by CRT."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

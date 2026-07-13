@@ -1,0 +1,40 @@
+{
+  "regime": "additive-finetuned",
+  "seed": 0,
+  "readout_parameters": 133699,
+  "train_backbone": true,
+  "randomized_backbone": false,
+  "val_loss": 1.0281814134214073,
+  "val_metrics": {
+    "n": 16,
+    "top1_accuracy": 0.8125,
+    "mean_reciprocal_rank": 0.876358687877655,
+    "mean_nll": 1.0281814336776733,
+    "mean_margin": 1.966259241104126,
+    "positive_margin_rate": 0.8125
+  },
+  "adapter": {
+    "source": "/Users/cberg/Research/projects/test/GFM_SpliceBERT_Circuit_Discovery_Implementation/gfm_splicebert_implementation/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+    "tokenizer_mode": "spaced",
+    "prefix_tokens": 1,
+    "max_nucleotides": 1024,
+    "hidden_size": 512,
+    "num_layers": 6,
+    "num_heads": 16,
+    "parameter_count": 19710474,
+    "config_sha256": "61cc73a051f848bf0a061527e787607724ed2dbce09215429606316e92138fbc"
+  },
+  "train_config": {
+    "epochs": 10,
+    "batch_size": 8,
+    "learning_rate": 0.001,
+    "backbone_learning_rate": 1e-05,
+    "weight_decay": 0.0001,
+    "grad_clip": 1.0,
+    "representation_layer": -1,
+    "train_backbone": true,
+    "seed": 0,
+    "early_stopping_patience": 3
+  },
+  "interpretation": "CONTROL/SECONDARY: do not use alone to claim a pretrained partner circuit"
+}

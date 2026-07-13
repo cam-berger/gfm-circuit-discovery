@@ -1,0 +1,200 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="590pt" height="410pt" viewBox="0 0 1180 820" version="1.1">
+
+  <title>Donor–acceptor binding in SpliceBERT runs on a learned period-3 positional clock</title>
+  <desc>The position-embedding table stores a rank-2 period-3 clock. Head L2H15 reads it as a stride-3 comb and writes the acceptor's address (K). Head L3H1 uses the donor's query to select that address and transports the acceptor's payload (V) back into the donor's residual stream. Deleting the clock — seven of 513 Fourier bins — collapses L2H15's attention to chance and destroys the coupling; restoring L2H15 alone brings back 36% of it. Supersedes the retracted "content-addressed read" figure (R15).</desc>
+
+  <defs>
+    <style type="text/css"><![CDATA[
+      .sans  { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+      .mono  { font-family: 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace; }
+      .ttl   { font-size: 21px; font-weight: 700; fill: #16232E; }
+      .sub   { font-size: 12.5px; fill: #5A6672; }
+      .stage { font-size: 8.5px; font-weight: 700; fill: #A3B0BA; letter-spacing: 0.9px; }
+      .ntitle{ font-size: 13px;  font-weight: 700; }
+      .ncap  { font-size: 10px;  fill: #5A6672; }
+      .vec   { font-size: 20px;  font-weight: 700; }
+      .edge  { font-size: 10px;  fill: #5A6672; font-style: italic; }
+      .lgd   { font-size: 10px; fill: #46525C; }
+      .note  { font-size: 9.5px; fill: #8794A0; }
+      .kill  { font-size: 10.5px; fill: #46525C; }
+    ]]></style>
+
+    <marker id="ahBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5"
+            orient="auto-start-reverse" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0B6FB8"/></marker>
+    <marker id="ahGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5"
+            orient="auto-start-reverse" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#00845F"/></marker>
+    <marker id="ahOrange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5"
+            orient="auto-start-reverse" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#C25A00"/></marker>
+    <marker id="ahClock" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5"
+            orient="auto-start-reverse" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#B23A6E"/></marker>
+    <marker id="ahWrite" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.6" markerHeight="4.6"
+            orient="auto-start-reverse" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0B6FB8"/></marker>
+
+    <linearGradient id="gWrite" gradientUnits="userSpaceOnUse" x1="540" y1="638" x2="410" y2="678">
+      <stop offset="0" stop-color="#6A4A9C"/><stop offset="1" stop-color="#0B6FB8"/>
+    </linearGradient>
+    <linearGradient id="gWriteLgd" gradientUnits="userSpaceOnUse" x1="900" y1="0" x2="930" y2="0">
+      <stop offset="0" stop-color="#6A4A9C"/><stop offset="1" stop-color="#0B6FB8"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1180" height="820" fill="#FFFFFF"/>
+
+  <!-- ================= TITLE ================= -->
+  <text class="sans ttl" x="590" y="32" text-anchor="middle">Donor–acceptor binding runs on a learned period-3 positional clock</text>
+  <text class="sans sub" x="590" y="54" text-anchor="middle">The acceptor's address is not a position-free content lookup. It is built from a phase code stored in the position-embedding table.</text>
+
+  <!-- ================= STAGE BANDS ================= -->
+  <rect x="300" y="76"  width="856" height="72"  fill="#F7F9FB"/>
+  <rect x="300" y="240" width="856" height="176" fill="#F7F9FB"/>
+  <rect x="300" y="616" width="856" height="86"  fill="#F7F9FB"/>
+  <g class="sans stage">
+    <text transform="translate(286,112) rotate(-90)" text-anchor="middle">1 SEQUENCE</text>
+    <text transform="translate(286,196) rotate(-90)" text-anchor="middle">2 TOKEN STATES</text>
+    <text transform="translate(286,328) rotate(-90)" text-anchor="middle">3 PROJECTIONS</text>
+    <text transform="translate(286,500) rotate(-90)" text-anchor="middle">4 THE READ</text>
+    <text transform="translate(286,659) rotate(-90)" text-anchor="middle">5 WRITE-BACK</text>
+  </g>
+
+  <!-- ================= STAGE 0 : THE CLOCK ================= -->
+  <rect x="40" y="150" width="224" height="266" rx="10" fill="#FBF0F5" stroke="#B23A6E" stroke-width="1.9"/>
+  <text class="sans stage" x="56" y="174" fill="#B23A6E">0 · POSITION CODE</text>
+  <text class="sans ntitle" x="56" y="198" fill="#8E2856">The period-3 clock</text>
+  <text class="sans ncap" x="56" y="216">position table P [1026 × 512]</text>
+
+  <!-- sawtooth glyph: the clock itself -->
+  <rect x="56" y="230" width="192" height="62" rx="5" fill="#FFFFFF" stroke="#EBD3DF" stroke-width="1"/>
+  <path d="M 64 278 L 72 246 L 80 278 L 88 272 L 96 246 L 104 278 L 112 272 L 120 246 L 128 278
+           L 136 272 L 144 246 L 152 278 L 160 272 L 168 246 L 176 278 L 184 272 L 192 246
+           L 200 278 L 208 272 L 216 246 L 224 278 L 232 272 L 240 246"
+        fill="none" stroke="#B23A6E" stroke-width="2" stroke-linejoin="round"/>
+  <text class="sans note" x="152" y="288" text-anchor="middle" fill="#B0849A">one oscillation every 3 nucleotides</text>
+
+  <text class="sans ncap" x="56" y="316">· rank <tspan font-weight="700" fill="#8E2856">2</tspan> — a rotary phase code</text>
+  <text class="sans ncap" x="56" y="334">· Fourier bins 339–345</text>
+  <text class="sans ncap" x="56" y="352">· <tspan font-weight="700" fill="#8E2856">802×</tspan> the median bin</text>
+  <text class="sans ncap" x="56" y="370">· learned in pretraining, and</text>
+  <text class="sans ncap" x="66" y="386">  <tspan font-weight="700" fill="#8E2856">only with multi-species data</tspan></text>
+  <text class="sans ncap" x="56" y="404">  (human-only: 6.3× · random: 1.0×)</text>
+
+  <!-- clock -> token states (position embeddings are added to every token) -->
+  <path d="M 264 262 C 300 262, 320 266, 344 268" fill="none" stroke="#B23A6E" stroke-width="1.8"
+        stroke-dasharray="2 3.5" stroke-linecap="round" marker-end="url(#ahClock)"/>
+  <text class="sans edge" x="270" y="253" fill="#B23A6E">to every token</text>
+
+  <!-- clock -> L2H15 (the comb reads it) -->
+  <path d="M 264 376 C 380 392, 470 376, 560 358" fill="none" stroke="#B23A6E" stroke-width="2.4"
+        marker-end="url(#ahClock)"/>
+  <text class="sans edge" x="322" y="340" fill="#B23A6E" font-style="normal" font-weight="700">L2H15 reads the clock</text>
+  <text class="sans edge" x="322" y="354" fill="#B23A6E">as a stride-3 comb</text>
+
+  <!-- ================= DONOR RESIDUAL SPINE ================= -->
+  <path d="M 400 300 L 400 676" fill="none" stroke="#0B6FB8" stroke-opacity="0.35"
+        stroke-width="2.5" stroke-dasharray="1 7" stroke-linecap="round"/>
+  <text class="sans edge" transform="translate(388,610) rotate(-90)" text-anchor="middle"
+        fill="#0B6FB8" fill-opacity="0.7">donor residual stream</text>
+
+  <!-- ================= STAGE 1 : SEQUENCE ================= -->
+  <text class="sans ncap" x="320" y="86">Illustrative genomic input (5′ → 3′)</text>
+  <rect x="320" y="92" width="812" height="38" rx="6" fill="#F4F7FA" stroke="#9AA7B2" stroke-width="1.1"/>
+  <rect x="500" y="92" width="396" height="38" fill="#ECEFF2"/>
+  <rect x="372" y="92" width="58"  height="38" fill="#D6E7F5" stroke="#0B6FB8" stroke-width="1.5"/>
+  <rect x="896" y="92" width="58"  height="38" fill="#D3EDE2" stroke="#00845F" stroke-width="1.5"/>
+  <text class="mono" x="345" y="117" text-anchor="middle" fill="#16232E" font-size="13">…CAG</text>
+  <text class="mono" x="401" y="117" text-anchor="middle" fill="#084E82" font-size="13" font-weight="700">GT</text>
+  <text class="sans" x="698" y="117" text-anchor="middle" fill="#7A868F" font-size="12" font-style="italic">… intron …</text>
+  <text class="mono" x="925" y="117" text-anchor="middle" fill="#04654A" font-size="13" font-weight="700">AG</text>
+  <text class="mono" x="1050" y="117" text-anchor="middle" fill="#16232E" font-size="13">GTA…</text>
+  <text class="sans" x="406" y="146" text-anchor="start" fill="#084E82" font-size="10.5" font-weight="700">donor site</text>
+  <text class="sans" x="918" y="146" text-anchor="end"   fill="#04654A" font-size="10.5" font-weight="700">acceptor site</text>
+
+  <path d="M 401 132 L 401 236" fill="none" stroke="#0B6FB8" stroke-width="2" marker-end="url(#ahBlue)"/>
+  <path d="M 925 132 C 925 168, 934 200, 940 236" fill="none" stroke="#00845F" stroke-width="2" marker-end="url(#ahGreen)"/>
+
+  <!-- ================= STAGE 2 : TOKEN STATES ================= -->
+  <rect x="344" y="240" width="184" height="52" rx="8" fill="#EAF2FA" stroke="#0B6FB8" stroke-width="1.7"/>
+  <text class="sans ntitle" x="436" y="262" text-anchor="middle" fill="#084E82">Donor state</text>
+  <text class="sans ncap"   x="436" y="280" text-anchor="middle">produces the query</text>
+
+  <rect x="846" y="240" width="200" height="52" rx="8" fill="#E6F4EE" stroke="#00845F" stroke-width="1.7"/>
+  <text class="sans ntitle" x="946" y="262" text-anchor="middle" fill="#04654A">Acceptor state</text>
+  <text class="sans ncap"   x="946" y="280" text-anchor="middle">address + payload</text>
+
+  <path d="M 400 292 L 400 396" fill="none" stroke="#0B6FB8" stroke-width="2" marker-end="url(#ahBlue)"/>
+  <path d="M 900 292 C 860 310, 820 328, 786 340" fill="none" stroke="#00845F" stroke-width="2"
+        stroke-dasharray="7 4" marker-end="url(#ahGreen)"/>
+  <path d="M 1024 292 C 1030 330, 1024 366, 1020 394" fill="none" stroke="#C25A00" stroke-width="2"
+        stroke-dasharray="1.5 4.5" stroke-linecap="round" marker-end="url(#ahOrange)"/>
+
+  <!-- ================= STAGE 3 : L2H15 + Q/K/V ================= -->
+  <rect x="560" y="332" width="228" height="52" rx="26" fill="#E6F4EE" stroke="#00845F" stroke-width="1.9"/>
+  <text class="sans" x="674" y="352" text-anchor="middle" fill="#04654A" font-size="12.5" font-weight="700">L2H15 · the ADDRESSER</text>
+  <text class="sans" x="674" y="370" text-anchor="middle" fill="#5A6672" font-size="9.5">a stride-3 comb — builds K at the acceptor</text>
+  <path d="M 674 384 L 674 396" fill="none" stroke="#00845F" stroke-width="2" stroke-dasharray="7 4" marker-end="url(#ahGreen)"/>
+
+  <circle cx="400" cy="424" r="26" fill="#EAF2FA" stroke="#0B6FB8" stroke-width="1.9"/>
+  <text class="sans vec"  x="400" y="431" text-anchor="middle" fill="#084E82">Q</text>
+  <text class="sans ncap" x="367" y="428" text-anchor="end">donor query</text>
+
+  <circle cx="674" cy="424" r="26" fill="#E6F4EE" stroke="#00845F" stroke-width="1.9"/>
+  <text class="sans vec"  x="674" y="431" text-anchor="middle" fill="#04654A">K</text>
+  <text class="sans ncap" x="708" y="420" text-anchor="start">acceptor address</text>
+  <text class="sans ncap" x="708" y="434" text-anchor="start" fill="#8E2856">— phase-coded</text>
+
+  <circle cx="1020" cy="424" r="26" fill="#FBEEE2" stroke="#C25A00" stroke-width="1.9"/>
+  <text class="sans vec"  x="1020" y="431" text-anchor="middle" fill="#8F4200">V</text>
+  <text class="sans ncap" x="1053" y="428" text-anchor="start">acceptor payload</text>
+
+  <!-- ================= STAGE 4 : L3H1 ================= -->
+  <path d="M 400 450 C 400 486, 418 508, 456 518" fill="none" stroke="#0B6FB8" stroke-width="2" marker-end="url(#ahBlue)"/>
+  <path d="M 674 450 L 674 492" fill="none" stroke="#00845F" stroke-width="2" stroke-dasharray="7 4" marker-end="url(#ahGreen)"/>
+  <path d="M 1020 450 C 1020 486, 986 508, 906 518" fill="none" stroke="#C25A00" stroke-width="2"
+        stroke-dasharray="1.5 4.5" stroke-linecap="round" marker-end="url(#ahOrange)"/>
+
+  <rect x="466" y="496" width="430" height="66" rx="33" fill="#F1ECF8" stroke="#6A4A9C" stroke-width="1.9"/>
+  <text class="sans" x="681" y="523" text-anchor="middle" fill="#4E3576" font-size="13.5" font-weight="700">L3H1 · the read</text>
+  <text class="sans" x="681" y="542" text-anchor="middle" fill="#5A6672" font-size="10.5">Q·K selects the partner  →  attention transports V</text>
+
+  <!-- ================= STAGE 5 : WRITE-BACK ================= -->
+  <path d="M 540 562 C 500 596, 460 620, 424 660" fill="none" stroke="url(#gWrite)" stroke-width="2.8" marker-end="url(#ahWrite)"/>
+  <text class="sans edge" x="552" y="600">acceptor payload enters the donor's stream</text>
+
+  <rect x="330" y="664" width="220" height="52" rx="8" fill="#EAF2FA" stroke="#0B6FB8" stroke-width="1.9"/>
+  <text class="sans ntitle" x="440" y="686" text-anchor="middle" fill="#084E82">Donor update</text>
+  <text class="sans ncap"   x="440" y="704" text-anchor="middle">partner-informed output</text>
+
+  <!-- ================= THE CAUSAL TEST ================= -->
+  <rect x="600" y="620" width="556" height="112" rx="9" fill="#FFFFFF" stroke="#B23A6E" stroke-width="1.6"/>
+  <text class="sans" x="620" y="644" fill="#8E2856" font-size="12" font-weight="700">Delete the clock — 7 of 513 Fourier bins in P — and the circuit dies</text>
+  <text class="sans kill" x="620" y="666">· the six combs' attention collapses to chance:  <tspan font-weight="700" fill="#16232E">0.786 → 0.345</tspan>  (chance 0.333)</text>
+  <text class="sans kill" x="620" y="684">· donor–acceptor coupling:  <tspan font-weight="700" fill="#6A4A9C">0.946 → 0.027</tspan>  (2.8%), monotonically in dose</text>
+  <text class="sans kill" x="620" y="702">· restoring <tspan font-weight="700" fill="#04654A">L2H15 alone</tspan> recovers <tspan font-weight="700" fill="#16232E">36%</tspan> of it  (24 random single heads: 0.7% mean, 4.2% max; p = 0.040)</text>
+  <text class="sans note" x="620" y="722">An energy-matched control band, deleted instead, leaves the coupling at 102.5% and the combs untouched.</text>
+
+  <!-- ================= LEGEND ================= -->
+  <line x1="40" y1="754" x2="1140" y2="754" stroke="#E1E7EC" stroke-width="1"/>
+  <g>
+    <line x1="56" y1="770" x2="86" y2="770" stroke="#B23A6E" stroke-width="2.4"/>
+    <text class="sans lgd" x="93" y="774">period-3 clock (position code)</text>
+
+    <line x1="286" y1="770" x2="316" y2="770" stroke="#0B6FB8" stroke-width="2"/>
+    <text class="sans lgd" x="323" y="774">Q · query (donor)</text>
+
+    <line x1="460" y1="770" x2="490" y2="770" stroke="#00845F" stroke-width="2" stroke-dasharray="7 4"/>
+    <text class="sans lgd" x="497" y="774">K · address (acceptor)</text>
+
+    <line x1="660" y1="770" x2="690" y2="770" stroke="#C25A00" stroke-width="2" stroke-dasharray="1.5 4.5" stroke-linecap="round"/>
+    <text class="sans lgd" x="697" y="774">V · payload (acceptor)</text>
+
+    <line x1="880" y1="770" x2="910" y2="770" stroke="url(#gWriteLgd)" stroke-width="2.8"/>
+    <text class="sans lgd" x="917" y="774">write-back into donor</text>
+  </g>
+  <text class="sans note" x="56" y="794">rounded box = token state · pill = attention head · circle = projected vector.  Supersedes the retracted “content-addressed read” figure (R15): the address is phase-coded, not position-free.</text>
+
+</svg>

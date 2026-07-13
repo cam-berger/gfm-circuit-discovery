@@ -37,6 +37,7 @@ from typing import Callable, Iterable, Iterator, Sequence
 
 import numpy as np
 import torch
+from transformers.modeling_utils import ALL_ATTENTION_FUNCTIONS
 
 from gfmcd.adapters.splicebert import SpliceBertAdapter
 from gfmcd.circuits.guards import (
@@ -334,6 +335,118 @@ def complement(ad: SpliceBertAdapter,
             if (l, h) not in k]
 
 
+# --------------------------------------------------------------------------------------
+# ROLL THE ROUTING, KEEP THE VALUES.  (the codon-phase-lattice intervention)
+# --------------------------------------------------------------------------------------
+# Ablation could not answer whether the lattice is USED: deleting 42 of 96 heads drives
+# SpliceBERT to chance-level nucleotide prediction (log-prob -1.377 vs ln(1/4) = -1.386),
+# so the behaviour is gone along with the mechanism and the metric measures nothing (R13).
+#
+# This intervention leaves the model intact.  For a chosen head it rolls the POST-SOFTMAX
+# attention probabilities along the KEY axis by ``delta`` and lets the head collect the
+# very same value vectors it always collected -- just from ``delta`` nt off target.
+# W_Q, W_K, W_V, W_O, every other head and every MLP are untouched.  The head still emits a
+# convex combination of REAL value vectors with ITS OWN weight profile; it is simply aimed
+# off.  That is the cleanest available dissociation of *where a head looks* (QK) from *what
+# it collects* (OV) -- and the shuffle test only ever constrained the former.
+#
+# READ THIS BEFORE USING IT FOR A CLAIM.  The perturbation SIZE is itself phase-dependent,
+# by construction, and not for any interesting reason:
+#
+#     out_i^d - out_i^0  =  sum_k  a_k ( v_{i+k+d} - v_{i+k} )
+#     E|| . ||^2         =  sum_t  w(t) [ 2C(t) - C(t+d) - C(t-d) ]
+#
+# with C = autocovariance of the value vectors along the sequence and w(t) = sum_k a_k
+# a_{k+t} the autocorrelation of the head's OWN attention profile.  For a phase-pure head w
+# is supported on t = 0 (mod 3) -- exactly the lags at which C is periodic in coding
+# sequence.  So a phase-pure head, rolled off-phase, takes a BIGGER hit than the same head
+# rolled by 3, *whether or not anything downstream uses phase at all*.  The lattice heads
+# were SELECTED for phase purity, so raw damage will sawtooth for them, in exons, and not
+# for random heads or in introns -- reproducing every naive gate with no codon computation
+# anywhere in the model.
+#
+# Therefore: NEVER read raw damage(delta) as evidence of function.  Divide it by the
+# perturbation actually delivered (``capture_head_outputs`` before and after gives
+# ||delta-out||) and ask whether the model is hurt MORE THAN THE SIZE OF THE PERTURBATION
+# EXPLAINS.  ``run_phase_shift.py`` does this and says so in its own docstring.
+
+_ROLL: dict[int, tuple[list[int], int, int, int]] = {}
+
+
+def _rolled_attention_forward(module, query, key, value, attention_mask,
+                              scaling=None, dropout=0.0, **kw):
+    """``eager_attention_forward``, plus a roll of the probabilities for selected heads."""
+    if scaling is None:
+        scaling = query.size(-1) ** -0.5
+    w = torch.matmul(query, key.transpose(2, 3)) * scaling
+    if attention_mask is not None:
+        w = w + attention_mask
+    w = torch.nn.functional.softmax(w, dim=-1)
+    w = torch.nn.functional.dropout(w, p=dropout, training=module.training)
+
+    spec = _ROLL.get(getattr(module, "layer_idx", -1))
+    if spec is not None:
+        heads, delta, lo, hi = spec
+        w = w.clone()
+        orig = w[:, heads, :, lo:hi]                     # nucleotide columns only
+        blk = torch.roll(orig, shifts=delta, dims=-1)
+        if delta > 0:                                    # kill the wrap-around
+            blk[..., :delta] = 0.0
+        elif delta < 0:
+            blk[..., delta:] = 0.0
+
+        # KEEP EACH QUERY'S READ OF ITSELF EXACTLY AS IT WAS.
+        # Without this the roll silently does two things at once.  (1) It slides a comb tooth
+        # onto the query's OWN column -- which, at a masked position, is the [MASK] token.  For
+        # a comb whose teeth are all ≡ r (mod 3) that happens at delta ≡ -r (mod 3), i.e. at ONE
+        # phase class -- a mod-3-correlated information loss that inflates the sawtooth for free
+        # (L1H10's comb {-7,-4,-1,2,5} lands a tooth on 0 at delta = 1, 4, 7).  (2) It rolls the
+        # query's self-attention AWAY, a loss the design wrongly assumed was delta-independent.
+        # Restoring the diagonal removes both.  The intervention is now exactly:
+        #     "the head keeps reading ITSELF as before; only its reads of OTHER positions shift."
+        q = torch.arange(lo, hi, device=w.device)
+        blk[:, :, q, q - lo] = orig[:, :, q, q - lo]
+
+        w[:, heads, :, lo:hi] = blk
+        # CLS/SEP/PAD columns keep their original mass; renormalise the row to a convex
+        # combination again.  At delta = 0 this whole path runs and must be the identity.
+        w = w / w.sum(-1, keepdim=True).clamp_min(1e-12)
+
+    out = torch.matmul(w, value).transpose(1, 2).contiguous()
+    return out, w
+
+
+ALL_ATTENTION_FUNCTIONS.register("gfmcd_roll", _rolled_attention_forward)
+
+
+@contextmanager
+def roll_attention(ad: SpliceBertAdapter, heads: Iterable[tuple[int, int]], delta: int,
+                   *, seq_len: int, off: int = 1) -> Iterator[None]:
+    """Roll ``heads``' attention along the key axis by ``delta``.  Values untouched.
+
+    ``seq_len`` is the number of NUCLEOTIDE columns; ``off`` where they start (1, past CLS).
+    Special-token columns are held in place and the row is renormalised.
+
+    ``delta = 0`` deliberately runs the FULL code path (roll by zero, zero the wrap,
+    renormalise) rather than short-circuiting, so the calibration tests the machinery
+    instead of testing that doing nothing does nothing.  It must reproduce the unhooked
+    model to numerical precision; ``tests/test_roll_identity.py`` asserts it.
+    """
+    by_layer: dict[int, list[int]] = {}
+    for l, h in heads:
+        by_layer.setdefault(l, []).append(h)
+    prev_impl = ad.model.config._attn_implementation
+    _ROLL.clear()
+    for l, hs in by_layer.items():
+        _ROLL[l] = (sorted(hs), int(delta), off, off + seq_len)
+    ad.model.config._attn_implementation = "gfmcd_roll"
+    try:
+        yield
+    finally:
+        _ROLL.clear()
+        ad.model.config._attn_implementation = prev_impl
+
+
 @contextmanager
 def patch_proj(ad: SpliceBertAdapter, layer: int, head: int, which: str,
                source: torch.Tensor, positions: torch.Tensor) -> Iterator[None]:
@@ -561,5 +674,5 @@ __all__ = [
     "capture_proj", "capture_writes", "clamp_write", "complement", "downstream_blocks",
     "eligible", "gboot", "gboot_ratio", "load_adapter", "load_examples",
     "matched_decoy_acceptor", "matched_decoy_donor", "noop", "patch_heads", "patch_proj",
-    "pick_device", "ratio_of_means", "relocate_proj",
+    "pick_device", "ratio_of_means", "relocate_proj", "roll_attention",
 ]

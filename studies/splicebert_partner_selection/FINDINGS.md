@@ -238,21 +238,84 @@ They are not. **Distance is very likely part of the address**, and we have not m
 
 ---
 
-## 5. A separate finding: the learned codon-phase lattice
+## 5. A separate finding: seven codon combs (**not** a 42-head lattice — see R14)
 
 Fell out of probing L1H12. **This is a different study and should be treated as one.**
 
-### Structure — solid
+> ### ⛔ RETRACTED — R14 (2026-07-12). The "42-head codon-phase lattice" does not exist.
+>
+> This section previously claimed: *"**42 of 96 heads** put >60% of their local attention mass on
+> a single phase (mod 3); seven sit at **1.000**. All three phases are covered and near-balanced:
+> **14 / 16 / 12**. **Absent at random initialisation: 0/96** → it was LEARNED."*
+>
+> **The metric was measuring SHARPNESS, not periodicity.**
+>
+> "Phase purity" = fraction of a head's local attention mass on one residue class mod 3, against
+> a chance baseline of ⅓. **That statistic is maximised by a head that attends to exactly ONE
+> position** — one offset has one remainder, so a single-offset head scores **1.000 by
+> arithmetic.**
+>
+> `corr(purity, effective support) = **−0.767**` — purity rises as a head gets *narrower*.
+>
+> | the "purest" heads | purity | effective support | actually attends to |
+> |---|---|---|---|
+> | L0H4 | 1.000 | **1.00** | offset **−1** (−1 ≡ 2 mod 3) |
+> | L0H12 | 1.000 | **1.00** | offset **+1** |
+> | L0H5 | 1.000 | **1.00** | offset **+2** |
+> | L0H14 | 1.000 | **1.00** | offset **−2** |
+>
+> **24 of the 42 have effective support < 2.** The 54 *non*-lattice heads have median effective
+> support **37.4** — they are the *diffuse* ones, which spread over all three residue classes and
+> therefore score at chance. The metric ranked heads by how *narrow* they were and called the
+> narrow ones periodic.
+>
+> Every supporting pillar falls with it:
+> - **"Three phases covered, balanced 14/16/12"** — sharp heads attend to −1, −2, +1, +2, −3, +3…,
+>   and those offsets fall into the three residue classes roughly evenly. **A balanced mod-3
+>   spread is exactly what phase-INDIFFERENT sharp heads produce.** The balance I read as a
+>   three-channel coordinate system is evidence of nothing.
+> - **"Absent at random init (0/96, mean 0.344)"** — random init has *diffuse* attention. What
+>   training produced is **locality**, not phase.
+> - **"Survives sequence shuffling"** — true of any positional copier.
+> - **"Concentrated in L0–L4, gone by L5"** — layer 0 is where the sharp local heads live.
+>
+> Evidence: `results/phase-lattice/comb_check.json`.
 
-- **42 of 96 heads** put >60% of their local attention mass on a single phase (mod 3);
-  seven sit at **1.000** (all local attention on one phase). Chance = 0.333.
-- **All 42 are RELATIVE** — "attend to offsets ≡ r (mod 3) **from me**". **0 are absolute.**
-- **All three phases are covered and near-balanced: 14 / 16 / 12.**
-- By layer: **L0:10 L1:7 L2:9 L3:9 L4:7 L5:0.** Built immediately, gone by the output layer.
-- **Absent at random initialisation: 0/96, mean 0.344 (= chance).**
-  → **It was LEARNED, from masked-nucleotide pretraining alone.** Not architecture, not init.
-- It **survives sequence shuffling** → the attention *pattern* reads no bases. A lattice, not
-  a detector.
+### What actually survives — and it is better
+
+**Seven genuine stride-3 combs.** A comb = attention spread over ≥3 offsets (effective support
+`exp(entropy)` ≥ 3) whose teeth are **all congruent mod 3**:
+
+| head | purity | eff. support | teeth | gaps |
+|---|---|---|---|---|
+| **L1H12** | 0.915 | 21.2 | −23, −20, −17, −14, −11 | **3, 3, 3, 3** |
+| **L1H10** | 0.878 | 16.8 | −7, −4, −1, +2, +5 | **3, 3, 3, 3** |
+| **L2H15** | 0.842 | 27.3 | −16, −13, −10, −7, −4 | **3, 3, 3, 3** |
+| L0H11 | 0.747 | 21.0 | +6, +9, +12, +15, +18 | **3, 3, 3, 3** |
+| L0H0 | 0.676 | 36.8 | −20, −17, −14, −11, −8 | **3, 3, 3, 3** |
+| L2H2 | 0.674 | 35.8 | −12, −9, +6, +9, +12 | 3, (15), 3, 3 |
+| L0H13 | 0.659 | 22.9 | −18, −15, −12, −9, −6 | **3, 3, 3, 3** |
+
+**Layers 0–2 only. None in layers 3, 4 or 5.**
+
+**L2H15 is the ADDRESSER** — the coupling circuit's upstream head (D12/D16), found by an ablation
+scan on a *splicing* task that knew nothing about periodicity. Its appearance as the third-
+strongest comb is an **independent convergence** and is the striking part. **L1H12 is not
+independent evidence**: the entire periodicity thread began by probing it.
+
+**One further structural fact, independent of the head analysis:** SpliceBERT's **position-
+embedding matrix is itself weakly period-3**. Self-similarity between position embeddings at lags
+3/6/9/12 averages **+0.648** against **+0.552** at other lags. The position code has genuine mod-3
+structure.
+
+### Function — still OPEN
+
+The heads are **content-blind in their routing** (the shuffle test), but that constrains only the
+QK circuit. Attention is `out_i = Σ_j a_ij·v_j`; the shuffle test moves the sequence and finds
+`a_ij` unchanged, which says **nothing** about `v_j = W_V·x_j`. **An earlier version of this
+document said the heads "read no bases." That was wrong** — the OV circuit was never tested. A
+comb with a frozen attention pattern can still be a **phase-selective nucleotide aggregator**:
+fixed routing, content-bearing payload.
 
 A relative lattice has no global origin, so it cannot encode an absolute reading frame by
 itself. But with all three phases present, **every nucleotide gets its neighbourhood
@@ -260,7 +323,7 @@ decomposed into three interleaved combs** — its own codon phase (±3, ±6…),
 one after. That is a phase-decomposed view of local triplet structure, built positionally and
 for free in layer 0. Frame would then have to be pinned by *content* downstream.
 
-### Function — NOT established
+### Function — OPEN. (The test that said "no" is **VOID** — see R13.)
 
 The model's predictions **are** codon-periodic, and specifically in coding sequence:
 
@@ -270,13 +333,48 @@ The model's predictions **are** codon-periodic, and specifically in coding seque
 | intron | 1.33× |
 | ratio | **2.50×** |
 
-**But the lattice is not what produces it.** Ablating all 42 lattice heads does **not** reduce
-that periodicity — it **rises** (3.34 → 4.52) and sits inside the random null: **9 of 15
-size-matched random 42-head ablations did as much. Add-one p = 0.625.**
+> ### ⛔ RETRACTED — R13 (2026-07-12)
+>
+> This section previously read: *"**But the lattice is not what produces it.** Ablating all 42
+> lattice heads does not reduce that periodicity — it **rises** (3.34 → 4.52) and sits inside
+> the random null: 9 of 15 size-matched random 42-head ablations did as much. Add-one
+> p = 0.625. So: a striking structure, and a failed link to the obvious function."*
+>
+> **That negative had no power. The metric was read off a model that had lost the behaviour.**
+>
+> | arm | mean log-prob of the true base | probability |
+> |---|---|---|
+> | intact, exon | −1.120 | 0.326 |
+> | **42 lattice heads ablated** | **−1.377** | **0.252** |
+> | the 15 random 42-head nulls | −1.23 … −1.40 | ~0.25–0.29 |
+> | **chance, ln(¼)** | **−1.386** | **0.250** |
+>
+> The intact model's entire headroom over chance is **0.076 nats**. The ablation removes
+> **0.074 of it — 97%.** Every arm, treatment and null alike, was at chance. The period-3
+> statistic was computed on the output of a model that was no longer predicting anything, and
+> the *rise* in P3 is the tell: a wrecked model falls back on its position prior, which is
+> trivially periodic. That is also why 9 of 15 random nulls "did as much" — they were all
+> equally dead.
+>
+> `run_phase_function.py` never checked MLM health. The log-prob was printed in its own output
+> and misread as a sanity number rather than as ln(¼).
+>
+> **Third instance of one failure mode** (R8: probes never masked, so the model was scored
+> copying its own input; R12: an ablation compared against an unmatched-health null; now R13).
+> The rule, now standing beside *"a control that cannot fail is not a control"*:
+>
+> > **An intervention that destroys the behaviour cannot measure the mechanism.**
+> > Every arm must be shown to retain the behaviour *before* its metric is interpreted.
+>
+> **The function of the lattice is OPEN, not closed.** Structure (above) is unaffected.
+> Replacement design: `studies/codon_phase_lattice/PREREGISTRATION_PHASE_SHIFT.md` — a
+> phase-shift intervention that *rolls the routing and keeps the values*, leaving the model
+> intact and the behaviour measurable.
 
-**So: a striking structure, and a failed link to the obvious function.** The codon periodicity
-of the predictions most likely comes from *content* (learned codon-biased base statistics), not
-from the phase-comb attention.
+**Where this leaves the codon periodicity.** It is real (3.34× in exons vs 1.33× in introns).
+Whether the lattice produces it is **unknown**. The competing explanation — that it comes from
+*content* (learned codon-biased base statistics) rather than from the phase-comb attention —
+remains live, but it was never actually tested, only asserted on the strength of a void null.
 
 *(A statistical bug was caught here too: the first version used period-3 power as a **fraction
 of total power**, which is length-confounded — shorter segments have fewer Fourier bins, so
@@ -344,7 +442,7 @@ swap-is-an-identity test needs no genome and no model — it is algebra, and it 
 | | What it buys | Cost | Risk |
 |---|---|---|---|
 | **A. Ship the circuit** | A sealed-replicated causal circuit in a real genomic FM, with an unusually clean retraction trail. Defensible today. | Write-up only. | The "so what" is narrow: short introns, one model. Reviewers will ask about long introns and you have no answer. |
-| **B. Chase the phase lattice** | Potentially the bigger result — a *learned* codon-phase organisation across ~44% of the model, connecting to your GFM-nano frame-counter work. | The function link **already failed once** (§5). Next step is the layer-wise frame probe (needs CDS `frame` from the GTF, currently parsed and discarded). Days, not hours. | It may simply be an inert positional habit. The ablation says it is not doing the obvious job. |
+| **B. Chase the phase lattice** | Potentially the bigger result — a *learned* codon-phase organisation across ~44% of the model, connecting to your GFM-nano frame-counter work. | ⚠️ **Updated 2026-07-12.** The function link has **not** failed — the test that said so is **VOID (R13)**: it read its metric off a model that ablation had driven to chance. The question is **open and untested**. Next step is the **phase-shift intervention** (`studies/codon_phase_lattice/`), which rolls the routing and keeps the values, so the model survives the intervention and the behaviour stays measurable. | It may still be an inert positional habit — but nothing yet run has the power to say so. |
 | **C. Port the assay to a longer-context model** | Attacks the **biggest** limitation head-on (long introns), and tests whether the circuit motif generalises. The leak-proof assay + memorial tests port unchanged. | New model integration. | The circuit may not exist elsewhere — which is itself a result. |
 
 **My read:** the strongest *scientific* asset is not L3H1 — it is the **assay and the
