@@ -149,7 +149,10 @@ hr0 = {k: base[k] - CH for k in ("exon", "intron")}
 R["dose"] = [dict(alpha=r["alpha"], band=r["band"],
                   exon_kept=(r["exon"] - CH) / hr0["exon"],
                   intron_kept=(r["intron"] - CH) / hr0["intron"],
-                  coupling_kept=r["coupling"] / base["coupling"])
+                  coupling_kept=r["coupling"] / base["coupling"],
+                  # carry the RAW values too: figures that quote an absolute number must read it
+                  # from here, never retype it (the hand-authored circuit figure had drifted)
+                  coupling=r["coupling"], exon=r["exon"], intron=r["intron"])
              for r in dose["rows"]]
 R["provenance"] = {k: dict(enrich=v["enrichment"], mod3=v["mod3_sep"])
                    for k, v in prov["provenance"].items()}
@@ -164,9 +167,19 @@ R["mediation"] = dict(
     null6_mean=float(np.mean(_n6)), null6_max=float(np.max(_n6)),
 )
 
+# ---------------------------------------------------------------- G. the WAVE: R(k) = env + A cos
+# A pure function of R["Rk"] above -- no model, no genome.  Identical call to
+# scripts/splicebert/make_fig_wave_fit.py, so the two can never disagree.
+sys.path.insert(0, str(REPO / "scripts/splicebert"))
+from make_fig_wave_fit import build as build_wave  # noqa: E402
+
+R["wave"] = build_wave(R)
+
 OUT.parent.mkdir(parents=True, exist_ok=True)
 OUT.write_text(json.dumps(R, indent=1))
 print(f"saved -> {OUT}")
+print(f"  wave: clock deleted keeps {R['wave']['summary']['kept_clock_deleted']*100:.1f}% of the "
+      f"amplitude, control band keeps {R['wave']['summary']['kept_control_deleted']*100:.1f}%")
 print(f"  spectrum: period-3 band = {R['spectrum']['band_rel']:.0f}x median, "
       f"peak bin = {R['spectrum']['peak_rel']:.0f}x")
 print(f"  svd: top-2 = {100*(R['svd'][0]+R['svd'][1]):.1f}% of carrier energy")
