@@ -1170,6 +1170,8 @@ name = "gfmcd"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "matplotlib", version = "3.10.9", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "matplotlib", version = "3.11.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
     { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.11.*'" },
     { name = "numpy", version = "2.5.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
@@ -1213,6 +1215,7 @@ requires-dist = [
     { name = "datasets", marker = "extra == 'models'" },
     { name = "ipykernel", marker = "extra == 'lab'" },
     { name = "jupyter", marker = "extra == 'lab'" },
+    { name = "matplotlib", specifier = ">=3.10.9" },
     { name = "matplotlib", marker = "extra == 'lab'", specifier = ">=3.7" },
     { name = "nbconvert", marker = "extra == 'lab'" },
     { name = "nbformat", marker = "extra == 'lab'" },
