@@ -74,7 +74,10 @@ attention is untested. This is R14's mistake in a new costume, and the tripwire 
 `test_a_logit_tone_is_NOT_an_attention_tone`.
 
 **⚠️ 10.69 ≈ 10.5, the helical repeat of B-form DNA. That is a coincidence until someone tests
-it.** It is a seductive story — helical phase, nucleosome positioning, DNA bendability — and this
+it.** *(B-DNA is **10.5** in solution; 10.2 is the nucleosomal value. An earlier draft of this
+caption's table quoted 10.2 for B-DNA and thereby made it look excluded on frequency — it is not,
+it is the closest live candidate. Corrected; and `run_carrier_geometry.py` then shows the bins near
+10.5 are the 10.69 carrier's own sideband, so 10.5 is not separately present either.)* It is a seductive story — helical phase, nucleosome positioning, DNA bendability — and this
 repo contains **zero** evidence for it. What we know is only: the carrier exists; 25 heads carry it
 in their logits; it is causally independent of the codon clock; deleting it costs ~0.03 nats
 uniformly and does nothing to splicing. **What it is for is open.** The tripwire is

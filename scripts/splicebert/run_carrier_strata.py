@@ -15,13 +15,20 @@ WHAT THE SPECTRUM ALREADY SAYS (no compute needed)
 --------------------------------------------------
 P has N = 1026 rows, so every candidate period maps to an EXACT Fourier bin and a pure tone
 there would land on it with NO leakage:
-    10.80 (alpha-helix)  -> bin 95   ->    2.5x the median bin   <- DEAD
-    11.00 (A-form RNA)   -> bin 93   ->    1.8x                  <- DEAD
-    10.20 (nucleosomal)  -> bin 101  ->    3.4x                  <- DEAD
-    10.69 (the model)    -> bin 96   ->  546.0x                  <- THE CARRIER
-Power-weighted centroid of the band: period 10.641.  So the carrier is NOT at 10.80, and it is
-not at 11.0.  It sits between B-DNA (10.5) and the alpha-helix (10.8), and the frequency alone
-cannot separate those two.  Function has to.
+    10.80 (alpha-helix)      -> bin  95     ->    2.5x the median bin   <- DEAD
+    11.00 (A-form RNA)       -> bins 93/94  ->    1.8x / 44.3x          <- DEAD
+    10.20 (NUCLEOSOMAL DNA)  -> bins 100/101->   14.6x /  3.4x          <- DEAD
+    10.50 (B-DNA, SOLUTION)  -> bins 97/98  ->  105.0x / 131.3x         <- LIVE
+    10.69 (the model)        -> bin  96     ->  546.0x                  <- THE CARRIER
+
+  (CORRECTED: an earlier version of this note quoted B-DNA at 10.2 -- the NUCLEOSOMAL repeat --
+   and left the canonical solution value, 10.5, out of the table.  10.5 is NOT dead.)
+
+But run_carrier_geometry.py then shows bins 97/98 are the bin-96 carrier's SIDEBAND, not a
+separate 10.5 tone: they occupy the SAME embedding directions (subspace overlap 0.989, against a
+0.990 calibration on the codon clock's known 341/343 sidebands).  So P holds exactly ONE tone
+here, at 10.69 -- neither 10.5 nor 10.8.  Both are ~0.15 nt away.  Frequency cannot adjudicate.
+Function has to.
 
 THE TWO TESTS HERE
 ------------------

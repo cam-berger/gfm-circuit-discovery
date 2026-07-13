@@ -179,3 +179,52 @@ def test_the_helical_repeat_reading_is_a_HYPOTHESIS_not_a_result():
     assert abs(measured - helical_bp) > 0.15, (
         "the measured period is 10.69, not 10.5 -- do not round it into a story"
     )
+
+
+# ------------------------------------------------------------------ 5. THE B-DNA CORRECTION
+GEO = REPO / "results/phase-lattice/carrier_geometry.json"
+
+
+@pytest.fixture(scope="module")
+def G():
+    if not GEO.exists():
+        pytest.skip("run_carrier_geometry.py has not been run")
+    return json.loads(GEO.read_text())
+
+
+def test_B_DNA_is_10_5_not_10_2(D):
+    """*** The user's correction, pinned. ***
+
+    B-DNA's helical repeat is ~10.5 bp in SOLUTION.  10.2 is the NUCLEOSOMAL value -- a different,
+    more specialised quantity.  An earlier summary quoted 10.2 for "B-DNA", put it in the DEAD
+    list, and omitted 10.5 entirely -- which made B-DNA look excluded on frequency when it is the
+    closest LIVE candidate.  Do not repeat that.
+    """
+    sp = {b["k"]: b for b in D["spectrum"]["bins"]}
+    # 10.5 has NO exact bin (1026/10.5 = 97.71); its power would split across 97 and 98 -- and
+    # both are live.  It is NOT dead.
+    assert sp[97]["rel"] > 100 and sp[98]["rel"] > 100
+    # 10.2 (nucleosomal) maps to bins 100/101, which ARE dead -- but that is a different claim.
+    assert sp[100]["rel"] < 50 and sp[101]["rel"] < 50
+
+
+def test_the_satellite_bins_are_SIDEBANDS_not_a_separate_10_5_carrier(G):
+    """So B-DNA's 10.5 is not separately present in P either.
+
+    A rotary carrier whose direction precesses produces sidebands living in the SAME embedding
+    directions as their parent.  The codon clock calibrates it: bins 341/343 vs 342 overlap 0.99.
+    Bins 97/98 vs 96 overlap just as much -- they are the 10.69 carrier's skirt, not a 10.5 tone.
+    """
+    calib = G["calib_p3_carrier_vs_sidebands"]
+    assert calib > 0.95, "the known sideband pair must show near-total subspace overlap"
+    assert G["p10_carrier_vs_97_98"] > 0.9 * calib, (
+        "bins 97/98 share bin 96's embedding directions -- SIDEBAND, not a separate ~10.5 carrier"
+    )
+    # P therefore holds exactly ONE tone in this region, at 10.69: neither 10.5 nor 10.8.
+    assert G["periods"]["96"] == pytest.approx(10.6875, abs=1e-3)
+
+
+def test_the_two_clocks_are_ORTHOGONAL_in_embedding_space(G):
+    """The 'bank of oscillators' picture, measured: the codon clock and the period-10.69 carrier
+    occupy DISJOINT subspaces of R^512.  That is why each deletes without touching the other."""
+    assert G["negctl_p3_vs_p10"] < 0.02, "two distinct carriers, orthogonal directions"
