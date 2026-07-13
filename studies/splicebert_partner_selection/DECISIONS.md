@@ -29,7 +29,7 @@ narrative, logged as it develops.
 
 - **Seed 0 (n=1 of 5, NOT a gate call).** Necessity on the held-out confirmation split V_c:
   convergent head-set ablation effect **0.644** vs matched-random mean **0.068**,
-  `p_add_one = 0.000999` (the floor of a 1000-set null — zero random sets reached it).
+  `p_add_one = 0.000999` (the floor of a 1000-set null — zero random sets reached it). **→ RETRACTED (R9): that p was `1/(n_null+1)`, a function of the flag, not the data. Honest value 0.0104.**
   Activation patching localizes: `site-windows-only` recovery **0.763**. Specificity:
   conflict effect **0.644** < matched-ordinary effect **1.289**, so `conflict_gt_ordinary =
   false`. AtP shortlist clusters in **L2–L4** (top `4-0`, `2-13`, `3-4`).
@@ -101,10 +101,10 @@ scoring it on held-out. Artifact: `results/splicebert_coupling/confirmation.json
 **It replicates, and it is not circular.** L3H1 was selected on train; on data it never
 saw it ranks **1st of 96** heads, recovers **0.808** of the coupling alone (the next head
 manages 0.186), and beats 1000 matched-random single-head sets (observed 1.193 vs null
-mean 0.012, max 0.794 → **p_add_one = 0.000999**, the floor). The partner-dependent
+mean 0.012, max 0.794 → **p_add_one = 0.000999** **→ RETRACTED (R9), honest value 0.0104**, the floor). The partner-dependent
 factorial contrast is **1.110 [1.018, 1.205]**. A rank-2 projection of the head's output
 removes 80% of the coupling where a random rank-2 removes 2%. MLM health barely moves
-under ablation (0.9958 → 0.9953), so the head is not simply breaking the model.
+under ablation (0.9958 → 0.9953) **→ RETRACTED (R8): that control scored the model COPYING UNMASKED INPUT and rose when all 96 heads were ablated; it could not fail. Masked baseline is 0.53.**, so the head is not simply breaking the model.
 
 This is the program's **first held-out-confirmed circuit in a pretrained genomic model**,
 and it comes from the design we adopted *because* the previous one was leaking.

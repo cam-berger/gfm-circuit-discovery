@@ -1,3 +1,27 @@
+> # ⛔ VOID — DO NOT USE. RETRACTED BY R7.
+>
+> **This document is the polished publication narrative of a result that does not exist.**
+>
+> Its entire thesis — that L3H1 is a *"signed partner-consistency signal"* which adds **+0.910**
+> when the partner is intact and subtracts **−0.200** when it is corrupted, established by a
+> *"factorial ablation"* and a competing-acceptor **double dissociation** — rests on the
+> competing-acceptor key/value SWAP.
+>
+> **That swap is an algebraic identity.** Transposing a head's (key, value) *pair* between two
+> positions permutes the summation index of `out_i = Σ_j softmax(q_i·k_j)·v_j`, so the head's
+> output is unchanged **exactly**, for any weights. It reproduces on a **randomly-initialised**
+> model (|Δ| = 1.2e-06). It measured nothing.
+>
+> Every number below is additionally **plus-strand only** (R11) and several are **conditional
+> means reported as behavioural magnitudes** (R10: 1.359 → the unconditional value is 0.973).
+> The `0.808` recovery is a pre-strand-fix figure.
+>
+> This file was found **untracked and unbannered** during the 2026-07-12 cleanup — the single
+> highest-risk document in the repository, because it reads as ready to submit.
+>
+> **The document of record is `studies/splicebert_partner_selection/FINDINGS.md`.**
+> Retractions: `CLAIMS.md` §R7–R12.
+
 The clean publication story is:
 
 **The original SpliceBERT paper showed correlation; your experiment identifies the causal mechanism behind part of that correlation.** Their Figure 3 established that same-intron donor–acceptor pairs receive elevated attention, particularly in layers 3–5. Your result goes one step further: the partner-dependent contribution to the model’s actual donor prediction is highly concentrated in **L3H1**, and that head behaves like a **signed partner-consistency signal**.

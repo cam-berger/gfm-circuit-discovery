@@ -15,7 +15,8 @@
 > **This directory is still the right place to look** — but the live record is `CLAIMS.md` and
 > `DECISIONS.md`, and the live science is the **cross-site coupling** study (claims D1–D5), which has
 > produced the program's first held-out-confirmed circuit in a real GFM (head L3H1; denoise recovery
-> 0.808, matched-random null p = 0.000999, partner-dependent DiD 1.110 [1.018, 1.205]).
+> **SEALED TEST PASSED 13/13 on chr8/chr9**: coupling +0.872 [0.771, 0.969]; ablating C removes 81.6% of it at 99.2% MLM health; matched-random null **p = 0.0025**; K×V interaction **I = +0.531**.
+> ⚠️ The figures this line used to carry — recovery *0.808*, null *p = 0.000999*, DiD *1.110* — are **RETRACTED** (R9/R11). See `FINDINGS.md`.
 >
 > **VOID in this directory — do not quote:** `GATE_REPORT.md`, `RESULTS.md`, `STAGES.md`,
 > `return_to_planner.json`. All four assert the retracted "GO".

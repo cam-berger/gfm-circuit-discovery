@@ -131,11 +131,11 @@ Discovery ran on train chromosomes; the ladder was then **re-run on gene-disjoin
 | Held-out finding | Value | Control |
 |---|---|---|
 | L3H1's rank among all 96 heads | **1st** | next head (L4H2) recovers 0.186 |
-| Denoise recovery, L3H1 alone | **0.808** | — |
-| Matched-random null (1000 single-head sets) | observed **1.193** | null mean 0.012, max 0.794 → **p = 0.000999** (the floor) |
+| Denoise recovery, L3H1 alone | ~~0.808~~ | ⚠️ **plus-strand only (R11)**. Sealed test: patching C restores **79%**; key+value at the acceptor **0.663**. |
+| ~~Matched-random null (1000 single-head sets)~~ | ~~observed 1.193~~ | ~~p = 0.000999~~ ⚠️ **RETRACTED (R9)** — 1000 draws from a 95-head universe are 95 distinct values; p was `1/(n_null+1)`, a function of the flag. Honest value **0.0104**. Sealed test: **p = 0.0025** over 400 distinct 2-head sets. |
 | Partner-dependent effect (2×2 factorial DiD) | **1.110** [1.018, 1.205] | — |
-| Rank-2 subspace of L3H1's output | removes coupling 1.359 → **0.271** | random rank-2 removes ~2% |
-| MLM health under ablation | 0.9958 → 0.9953 | the head is not just breaking the model |
+| Rank-2 subspace of L3H1's output | removes **80% of the effect** | random rank-2 removes ~2%. ⚠️ Absolute values (1.359 → 0.271) were **conditional** (R10) and **plus-strand** (R11) — fractions stand, absolutes do not. |
+| MLM health under ablation | **0.5146 → 0.5107 (99.2% retained)** | ⚠️ The old **0.9958 → 0.9953** is **RETRACTED (R8)**: it scored the model COPYING UNMASKED INPUT and *rose* when all 96 heads were ablated. It could not fail. Masked probes give a baseline of **0.53**, not 0.99. |
 
 Behavioural support (train, n = 250): partner acceptor **+0.380** vs motif-matched non-partner AG
 **−0.000** and distance-matched random position **+0.010**; own donor +0.380 vs other donors +0.003

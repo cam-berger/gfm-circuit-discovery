@@ -44,7 +44,7 @@ has since changed, so it does not run, so the guard is not guarding anything.
 ≈ 0" retracted as **R4** (held-out gives −0.200, CI excluding zero); claim label fixed at
 `CIRCUIT_CANDIDATE`.
 
-**Still open:** the cross-site coupling circuit (L3H1, held-out recovery 0.808, null p = 0.000999) is
+**Still open:** the cross-site coupling circuit (L3H1 — ⚠️ the old *recovery 0.808 / p = 0.000999* are **RETRACTED**, R9/R11; the sealed test gives **p = 0.0025**, patch-C recovery **79%**) is
 the program's first real-GFM result, and `docs/RESULTS.md` and `docs/REC.md` still do not know it
 exists. Anyone reading the outward-facing documents cannot see it.
 - **Done when:** the coupling result has a section in `RESULTS.md` with its status tag and its two

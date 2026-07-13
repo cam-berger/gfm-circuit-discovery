@@ -1,5 +1,11 @@
 # External Biological Validation Plan
 
+> ⛔ **SUPERSEDED / VOID.** This document belongs to the **retracted** v1/v2 partner-selection
+> design (R2/R3) or to the pre-sealed-test protocol. It is kept for provenance only.
+> **The document of record is `studies/splicebert_partner_selection/FINDINGS.md`;**
+> the frozen protocol actually executed is `PREREGISTRATION_SEALED.md`.
+> Retractions: `CLAIMS.md` §R1–R12.
+
 ## Goal
 
 Determine whether a frozen circuit-derived score predicts an independent splicing outcome beyond local motif and distance features.

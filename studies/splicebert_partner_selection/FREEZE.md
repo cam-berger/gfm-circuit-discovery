@@ -1,5 +1,11 @@
 # Freeze record — behavioral gate (GO)
 
+> ⛔ **SUPERSEDED / VOID.** This document belongs to the **retracted** v1/v2 partner-selection
+> design (R2/R3) or to the pre-sealed-test protocol. It is kept for provenance only.
+> **The document of record is `studies/splicebert_partner_selection/FINDINGS.md`;**
+> the frozen protocol actually executed is `PREREGISTRATION_SEALED.md`.
+> Retractions: `CLAIMS.md` §R1–R12.
+
 Frozen 2026-07-11, at the behavioral gate and before any circuit tracing or test
 unblinding. Hashes are sha256. The chromosome-held-out test split was **not**
 opened; only its provenance is noted, not its contents.

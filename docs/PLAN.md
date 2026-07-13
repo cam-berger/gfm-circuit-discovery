@@ -205,7 +205,7 @@ Gates for this phase are **not** the ones above. They live in
 - [x] **Redesign — cross-site coupling.** No task, no label, no decoys: native masked-LM readout, real-base
       substitutions, every effect against a matched control. Nothing to win, so nothing to leak.
 - [x] **Gates 3–8 (coupling), on held-out chromosomes.** L3H1 ranks 1st of 96; denoise recovery 0.808;
-      matched-random null p = 0.000999 (1000 sets); partner-dependent DiD 1.110 [1.018, 1.205]; a rank-2
+      matched-random null ~~p = 0.000999~~ ⚠️**RETRACTED (R9), honest value 0.0104; sealed test p = 0.0025**; ~~DiD 1.110~~ ⚠️**plus-strand (R11)**; a rank-2
       subspace carries the effect; MLM health preserved. → `results/splicebert_coupling/confirmation.json`
 - [ ] **Promote or correct claims D4/D5** in `CLAIMS.md` — the fresh run they were gated on has landed.
       D4's "partner-independent role ≈ 0" is **contradicted** by held-out (−0.200, CI excludes zero).
