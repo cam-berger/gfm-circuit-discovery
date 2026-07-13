@@ -115,3 +115,75 @@ def boxcar_amplitude(k: np.ndarray, y: np.ndarray) -> float:
     X = np.column_stack([np.cos(W * kk), np.sin(W * kk), np.ones_like(kk), kk])
     beta, *_ = np.linalg.lstsq(X, hp, rcond=None)
     return float(np.hypot(beta[0], beta[1]))
+
+
+# ---------------------------------------------------------------------------------------------
+# TWO TONES.  L0H11 reads BOTH carriers -- the codon clock at period 3 AND the second carrier at
+# ~10.67 -- so a single cosine explains only 80.8% of its readout, against >=98.4% for the other
+# five combs.  Its complete wave function is:
+#
+#     R(k) = envelope(k) + A3*cos(2*pi*k/3 + phi3) + A2*cos(2*pi*k/T2 + phi2)
+#
+# and that takes it to 99.9%.  See D22/D23 and tests/test_second_carrier_memorials.py.
+#
+# NOTE ON T2.  The final 1024nt model's carrier sits on bin 96 of its 1026-row table, i.e.
+# 1026/96 = 10.6875.  The STABLE cross-checkpoint object is ~10.6667 (bin 48 of the 512-row
+# stage-1 table; carrier-plane overlap 0.997).  The 0.02 nt difference is the Fourier grid, not
+# the model.  Do not quote either to two decimals as though it were exact.
+PERIOD_2 = 1026 / 96
+
+
+@dataclass(frozen=True)
+class TwoToneFit:
+    """R(k) ~= env(k) + A3*cos(2pi k/3 + phi3) + A2*cos(2pi k/T2 + phi2)."""
+
+    A3: float
+    phi3: float
+    A2: float
+    phi2: float
+    T2: float
+    env_coef: tuple[float, ...]
+    var_explained: float          # of the DE-ENVELOPED variance, by BOTH cosines together
+    var_explained_1tone: float    # ... by the period-3 cosine ALONE (the gap is the second tone)
+    max_resid: float
+
+
+def decompose2(k, y, T2: float = PERIOD_2, envdeg: int = 3) -> TwoToneFit:
+    """Joint OLS of a polynomial envelope and BOTH resolvable tones.
+
+    Fitted jointly, not sequentially: cos(2pi k/3) and cos(2pi k/T2) are not exactly orthogonal
+    over a finite window, so a two-step fit would bias both amplitudes.
+    """
+    k = np.asarray(k, float)
+    y = np.asarray(y, float)
+    w2 = 2 * np.pi / T2
+    cols = ([k ** p for p in range(envdeg + 1)]
+            + [np.cos(W * k), np.sin(W * k), np.cos(w2 * k), np.sin(w2 * k)])
+    X = np.column_stack(cols)
+    b, *_ = np.linalg.lstsq(X, y, rcond=None)
+
+    env = np.polyval(b[: envdeg + 1][::-1], k)
+    resid = y - X @ b
+    deenv = y - env
+    ve = float(1 - resid.var() / deenv.var()) if deenv.var() > 0 else 0.0
+
+    one = decompose(k, y, envdeg=envdeg)     # the same signal with ONE tone, for the contrast
+
+    return TwoToneFit(
+        A3=float(np.hypot(b[envdeg + 1], b[envdeg + 2])),
+        phi3=float(np.arctan2(-b[envdeg + 2], b[envdeg + 1])),
+        A2=float(np.hypot(b[envdeg + 3], b[envdeg + 4])),
+        phi2=float(np.arctan2(-b[envdeg + 4], b[envdeg + 3])),
+        T2=float(T2),
+        env_coef=tuple(float(c) for c in b[: envdeg + 1]),
+        var_explained=ve, var_explained_1tone=one.var_explained,
+        max_resid=float(np.abs(resid).max()),
+    )
+
+
+def curve2(fit: TwoToneFit, k) -> np.ndarray:
+    """The complete wave function, on a CONTINUOUS grid."""
+    k = np.asarray(k, float)
+    return (np.polyval(np.asarray(fit.env_coef)[::-1], k)
+            + fit.A3 * np.cos(W * k + fit.phi3)
+            + fit.A2 * np.cos(2 * np.pi / fit.T2 * k + fit.phi2))

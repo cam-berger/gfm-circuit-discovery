@@ -32,8 +32,22 @@ see `fig_phase_wave.CAPTION.md` for why one cosine is all a period-3 integer sig
 is deleted from `P`, run through the **identical** de-enveloping — a control that can fail, and
 does not (it keeps 1% of `A`; the energy-matched control band keeps 105%).
 
+**L0H11 is drawn differently, and deliberately.** It is a **dual reader** (D22): it reads the
+codon clock *and* a second carrier at ~10.69, so one cosine (the blue dashed line) visibly misses
+its points. Its **complete wave function** — the orange curve — needs both:
+`R(k) = env(k) + A₃·cos(2πk/3 + φ₃) + A₂·cos(2πk/10.69 + φ₂)`, with A₃ = 1.19 and
+A₂ = 0.65. With it, 80.8% → **99.9%** of the ripple. See `fig_two_carriers` and
+`fig_phase_wave` panel C.
+
+**A NOTE ON WHAT "PHASE" MEANS HERE.** Both carriers are near-perfect **circles** (circularity
+0.977 and 0.992) — rank-2 rotary codes — so **neither has a phase of its own**: every phase in
+[0, 2π) is realised in *some* embedding direction. A head does not *read* a phase off the table;
+it **chooses** one by choosing a direction in the carrier's plane. Verified in closed form from
+`W_Q`, `W_K` alone: `phase = atan2(−Qs, Pc)` reproduces every comb head's measured phase to
+**under a degree**, where a whole codon position is 120°.
+
 **C. Delete it: attention falls to chance.** Empirical post-softmax attention, dominant phase mass.
-Intact 0.786 → clock deleted **0.345** (chance = 0.333). The energy-matched control band leaves it
+Intact 0.794 → clock deleted **0.345** (chance = 0.333). The energy-matched control band leaves it
 at 0.801.
 
 **D. Delete it: coding and the circuit die.** Attenuating the clock by α. Coding-exon masked-base

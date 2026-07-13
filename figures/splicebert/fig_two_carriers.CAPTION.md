@@ -48,6 +48,34 @@ coding exons vs **0.042** in introns (DiD +0.117) and destroys the coupling (**2
 Deleting the second carrier costs **0.029 / 0.031** — *equal*, DiD −0.002 — and leaves the coupling
 at **102.5%**. Two carriers, two different jobs.
 
+---
+
+## What the second carrier IS — the evidence hierarchy (D24)
+
+| claim | status |
+|---|---|
+| Transformers learn oscillator banks | **established** — RoBERTa-base, trained on **text**, has one |
+| SpliceBERT selectively amplifies a **sharp** ~10.67 tone | **established** |
+| L0H11 uses that tone | **established** (D23; post-softmax, not just in the logits) |
+| Genomic/chromatin statistics **selected** the tone | **plausible, UNTESTED** |
+| The model uses it to represent chromatin | **unproven** |
+| The 512-grid **quantized** a broad nucleosome-scale band into bin 48 | **new, concrete, testable** |
+
+**The bank is a Transformer artefact; the selected tone is not.** RoBERTa's 9–12 band is
+**broadband** — it peaks at period 11.91, and at 10.67 it is *not even a local maximum*; only 20%
+of its power sits in one bin. SpliceBERT's is a **sharp tone**: **76%** of the band in ONE bin,
+15× over its neighbours. (BERT-base, trained mostly at length 128, has neither.)
+
+**The carrier is ~10.67, and "10.69" is a Fourier grid, not a measurement.** It is learned in
+**stage 1**: bin 48 of the 512-row table (period **10.6667**) at 370.5× the median; human-only:
+**2.4×** (nothing); final 1024nt: bin 96 of 1026 at 545.8×; **carrier-plane overlap stage-1 vs
+final = 0.997** — the same object, carried through the table extension. Do not quote either value
+to two decimals as though it were exact.
+
+⚠️ The selection is **model/data-specific**. It could still be driven by a *non-biological*
+property of training — fixed length, optimisation, corpus size, repeats. **"Biological" is not
+written until the bridge is crossed.**
+
 ## The methodological finding, which matters more than the figure
 
 **The study's "energy-matched control band" IS the second carrier.** It is bins 94–100, and bin 96
@@ -73,15 +101,24 @@ carrier" is a statement about logits and nothing else.** Whether any of them *us
 attention is untested. This is R14's mistake in a new costume, and the tripwire is
 `test_a_logit_tone_is_NOT_an_attention_tone`.
 
-**⚠️ 10.69 ≈ 10.5, the helical repeat of B-form DNA. That is a coincidence until someone tests
-it.** *(B-DNA is **10.5** in solution; 10.2 is the nucleosomal value. An earlier draft of this
-caption's table quoted 10.2 for B-DNA and thereby made it look excluded on frequency — it is not,
-it is the closest live candidate. Corrected; and `run_carrier_geometry.py` then shows the bins near
-10.5 are the 10.69 carrier's own sideband, so 10.5 is not separately present either.)* It is a seductive story — helical phase, nucleosome positioning, DNA bendability — and this
-repo contains **zero** evidence for it. What we know is only: the carrier exists; 25 heads carry it
-in their logits; it is causally independent of the codon clock; deleting it costs ~0.03 nats
-uniformly and does nothing to splicing. **What it is for is open.** The tripwire is
-`test_the_helical_repeat_reading_is_a_HYPOTHESIS_not_a_result`.
+**⚠️ THE CHROMATIN READING IS OPEN, NOT REFUTED (R16).** An earlier version of this caption said
+it was "not supported". **That was retracted.** The WW/SS helical-phasing null came from an
+estimator whose **detection floor is 5–10% modulation**, measured by injecting a known ~10.5-nt
+periodicity into real sequence — against a literature effect of **a few percent**. The instrument
+was validated only *after* it gave the expected answer. It fails. So is Assay 1, the unanchored
+corpus spectrum: it is a **quadratic** detector (SNR ∝ depth²·√N), and at 120 Mb it can exclude
+only large, globally incoherent effects. **Neither null is evidence against chromatin.**
+
+The **α-helix** reading *is* refuted, and that one is powered — its positive control is the codon
+clock through the identical model-side assay (DiD +0.1334 [+0.1118, +0.1561]; the carrier's is
++0.0122 [−0.0017, +0.0262]). And "the two clocks sharpen the address" is ruled out by **algebra**:
+one added cosine of depth `a` can concentrate a comb by at most `1 − exp(−a²/4)` ≈ 8% at the
+measured depth.
+
+**The experiment that CAN see it** is the dyad-anchored assay (D25) — a **linear** detector
+(SNR ∝ depth·√N), built and power-calibrated: 80% power at 2% needs only ~3,000 well-positioned
+dyads. The binding constraint is **dyad precision, not count** (2 bp of jitter costs the same as
+discarding four fifths of them), so it needs a **chemical-cleavage** map, not MNase-seq.
 
 **The head counts are logit-level with a causal filter** (amplitude above the deleted-condition
 floor, free-frequency peak within 0.3 nt of 10.69, *and* collapse below 25% when its band is

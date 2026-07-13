@@ -52,7 +52,8 @@ drift from the result it claims to show**:
 |---|---|---|
 | `fig_phase_circuit` | `make_fig_phase_circuit.py` | the mechanism: clock → L2H15's address → L3H1's read → coupling |
 | `fig_phase_clock` | `make_fig_phase_clock.py` | the evidence: P's spectrum, the wave in six heads, the collapse to chance, the dose-response, provenance |
-| `fig_phase_wave` | `make_fig_phase_wave.py` | the readout itself — the comb **is** a single cosine |
+| `fig_phase_wave` | `make_fig_phase_wave.py` | the readout itself — the comb **is** a cosine, and L0H11 needs **two** |
+| `fig_two_carriers` | `make_fig_two_carriers.py` | P holds **two** clocks; they delete independently |
 
 Each has a `.CAPTION.md` beside it. **The narrative lives there, not in the artwork**: the figures
 are held to a few words per component, sentence case, no sentences inside the panels.
@@ -63,3 +64,7 @@ sinusoid** — its second harmonic sits above Nyquist and aliases back onto the 
 smooth curve through those points is the **exact trigonometric interpolant**, not a smoothing. The
 corners were the straight-line connector. Maths in `src/gfmcd/splicing/wave.py`; tripwires in
 `tests/test_wave_memorials.py`.
+
+
+**Start at `figures/splicebert/README.md`** — it carries the current state of the record,
+the evidence hierarchy, and the two nulls that must never be quoted as evidence (R16, Assay 1).

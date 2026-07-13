@@ -22,7 +22,9 @@ import numpy as np
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO / "src"))
 
-from gfmcd.splicing.wave import boxcar_amplitude, decompose  # noqa: E402
+from gfmcd.splicing.wave import (  # noqa: E402
+    PERIOD_2, boxcar_amplitude, decompose, decompose2,
+)
 
 DATA = REPO / "results/phase-lattice/fig_phase_data.json"
 CONDS = ("intact", "no_carrier", "no_control")
@@ -41,6 +43,13 @@ def build(D: dict) -> dict:
                           peak_offset=f.peak_offset, codon_position=f.codon_position,
                           lock_error=f.lock_error,
                           A_boxcar=boxcar_amplitude(k, y))          # the model-free cross-check
+            # THE COMPLETE WAVE FUNCTION: both carriers, fitted JOINTLY.  L0H11 reads both, so a
+            # single cosine leaves 19% of its ripple on the table.  D22/D23.
+            g = decompose2(k, y)
+            rec[c]["two_tone"] = dict(
+                A3=g.A3, phi3=g.phi3, A2=g.A2, phi2=g.phi2, T2=g.T2,
+                env_coef=list(g.env_coef), var_explained=g.var_explained,
+                var_explained_1tone=g.var_explained_1tone, max_resid=g.max_resid)
         rec["kept_clock_deleted"] = rec["no_carrier"]["A"] / rec["intact"]["A"]
         rec["kept_control_deleted"] = rec["no_control"]["A"] / rec["intact"]["A"]
         out["heads"][hd] = rec
@@ -59,6 +68,11 @@ def build(D: dict) -> dict:
             [out["heads"][h]["intact"]["var_explained"] for h in out["heads"]])),
         # the estimator's hallucination floor, measured on clock-free signals (see the memorial)
         leak_floor=0.08,
+        period_2=PERIOD_2,
+        # which heads NEED the second tone to be described (D22: only L0H11 among the six
+        # combs; L1H10 is a weak second reader, D23)
+        dual_readers=[h for h in out["heads"]
+                      if out["heads"][h]["intact"]["two_tone"]["A2"] > 0.2],
     )
     return out
 

@@ -148,6 +148,8 @@ txt(EX + EW / 2, EY + EH + 27, "Period-3 enrichment", size=10, fill=SEC, anchor=
 # ======================================================================== B. the wave
 BY = 380
 panel_label(78, BY - 14, "B", "Six heads read it as a period-3 wave")
+txt(78 + 18, BY + 2, "L0H11 reads a second carrier too — its complete wave function needs both",
+    size=10, fill=ORANGE)
 
 heads = [f"L{l}H{h}" for l, h in D["combs"]]
 offs = D["Rk_offsets"]
@@ -182,12 +184,28 @@ for i, hd in enumerate(heads):
     # clock deleted, through the identical de-enveloping: a control that can fail, and does not
     path([(X(k), Y(D["Rk"][hd]["no_carrier"][j] - _env(fn["env_coef"], k)))
           for j, k in enumerate(offs)], stroke="#8A97A2", w=1.6, dash="3 3")
-    # the wave: A cos(2*pi*k/3 + phi), on a continuous grid
-    path([(X(-12 + 24 * t / 300), Y(fi["A"] * math.cos(w3 * (-12 + 24 * t / 300) + fi["phi"])))
-          for t in range(301)], stroke=BLUE, w=2.2)
-    # the measured points, envelope removed
+    # THE WAVE.  For a head that reads ONE carrier this is A3·cos(2πk/3 + φ3).  L0H11 reads BOTH,
+    # so its COMPLETE wave function needs the second tone too -- and with it, its points land on
+    # the curve (80.8% -> 99.9% of the ripple).  D22.
+    tt = fi["two_tone"]
+    dual = tt["A2"] > 0.2
+    w2 = 2 * math.pi / tt["T2"]
+
+    def wave(kk):
+        v = tt["A3"] * math.cos(w3 * kk + tt["phi3"])
+        return v + tt["A2"] * math.cos(w2 * kk + tt["phi2"]) if dual else v
+
+    if dual:                       # what ONE cosine alone would have said -- it misses the points
+        path([(X(-12 + 24 * t / 300),
+               Y(fi["A"] * math.cos(w3 * (-12 + 24 * t / 300) + fi["phi"])))
+              for t in range(301)], stroke=BLUE, w=1.4, dash="4 3")
+    path([(X(-12 + 24 * t / 300), Y(wave(-12 + 24 * t / 300))) for t in range(301)],
+         stroke=ORANGE if dual else BLUE, w=2.2)
+    # the measured points, envelope removed (the two-tone envelope where that is the model)
+    ec = tt["env_coef"] if dual else fi["env_coef"]
     for j, k in enumerate(offs):
-        dot(X(k), Y(D["Rk"][hd]["intact"][j] - _env(fi["env_coef"], k)), 2.7, BLUE, rw=1.3)
+        dot(X(k), Y(D["Rk"][hd]["intact"][j] - _env(ec, k)), 2.7,
+            ORANGE if dual else BLUE, rw=1.3)
 
     if i == 0:
         sx = px + 9
@@ -198,8 +216,15 @@ for i, hd in enumerate(heads):
                  f'text-anchor="middle" font-size="8.5" fill="{SEC}">2 logits</text>')
 
     txt(px + 22, by0 + 16, hd, size=10.5, fill=PURPLE if hd == "L2H15" else INK, weight="700")
-    txt(px + pw_ - 10, by0 + 16, f"A = {fi['A']:.2f}", size=9.5, fill=BLUE, weight="700",
-        anchor="end")
+    if dual:
+        txt(px + pw_ - 10, by0 + 16, f"A₃ = {tt['A3']:.2f}", size=9.5, fill=BLUE, weight="700",
+            anchor="end")
+        txt(px + pw_ - 10, by0 + 28, f"A₂ = {tt['A2']:.2f}", size=9.5, fill=ORANGE, weight="700",
+            anchor="end")
+        txt(px + 22, by0 + 28, "Dual reader", size=8.5, fill=ORANGE)
+    else:
+        txt(px + pw_ - 10, by0 + 16, f"A = {fi['A']:.2f}", size=9.5, fill=BLUE, weight="700",
+            anchor="end")
     txt(px + pw_ - 10, by0 + ph - 9, f"Codon position {pk}", size=9, fill=MUT, anchor="end")
     if hd == "L2H15":
         txt(px + 22, by0 + 28, "The addresser", size=8.5, fill=PURPLE)
@@ -213,6 +238,8 @@ line(LX, by0 + ph + 26.5, LX + 22, by0 + ph + 26.5, stroke=BLUE, w=2.2)
 txt(LX + 28, by0 + ph + 30, "Intact", size=10, fill=SEC)
 line(LX + 92, by0 + ph + 26.5, LX + 114, by0 + ph + 26.5, stroke="#8A97A2", w=1.6, dash="3 3")
 txt(LX + 120, by0 + ph + 30, "Clock deleted", size=10, fill=SEC)
+line(LX + 218, by0 + ph + 26.5, LX + 240, by0 + ph + 26.5, stroke=ORANGE, w=2.2)
+txt(LX + 246, by0 + ph + 30, "Complete wave function (both carriers)", size=10, fill=SEC)
 
 # ======================================================================== C. attention -> chance
 CX, CY, CW, CH = 78, 646, 600, 214

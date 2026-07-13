@@ -1,4 +1,4 @@
-# fig_phase_wave — the period-3 comb is a single cosine
+# fig_phase_wave — the comb is a cosine, and L0H11 needs two of them
 
 **Files:** `fig_phase_wave.svg` / `.png`
 **Built by:** `scripts/splicebert/make_fig_phase_wave.py` (renders purely from
@@ -33,7 +33,20 @@ offset grid; the faint columns mark the offsets that head peaks on. The six head
 three groups of two, and the wave slides one nucleotide per group. *(See the caveats — this is
 a description of the six survivors, not a claim about design.)*
 
-**C. Delete the clock and the wave is gone.** The clock amplitude `A` per head, in attention
+**C. L0H11 reads both carriers — its COMPLETE WAVE FUNCTION.** Five of the six combs are
+described by one cosine. L0H11 is not: it reads the codon clock *and* the second carrier at
+~10.69 (D22), so its readout is
+
+> `R(k) = envelope(k) + A₃·cos(2πk/3 + φ₃) + A₂·cos(2πk/10.69 + φ₂)`
+
+with **A₃ = 1.19** and **A₂ = 0.65** attention logits. The panel shows the two
+carriers separately and their **sum** — and the measured points sit on the sum. One cosine alone
+explains **80.8%** of its ripple; both together, **99.9%**
+(max residual 0.81 → 0.08). *That 19-point gap was the "raggedness" — it was never noise.* The
+period-3 ripple is **amplitude-modulated by the slow 10.69 wave**: that modulation is real
+post-softmax too, in the head's actual attention teeth (D23).
+
+**D. Delete the clock and the wave is gone.** The clock amplitude `A` per head, in attention
 logits. Deleting the period-3 band from the position table (7 of 513 Fourier bins) leaves
 **1.1%** of it. Deleting an **energy-matched control band** instead leaves **104.8%**.
 
@@ -68,10 +81,15 @@ what is left (max A = 0.033) falls *back to the floor* — indistinguishable fro
 never had a clock. This is why the grey "clock deleted" trace in `fig_phase_clock` panel B is run
 through the identical de-enveloping: it is a control that **can** fail, and does not.
 
-**L0H11 is the ragged one.** One cosine explains only 80.8% of its ripple, against ≥98.4% for the
-other five. It carries genuine non-clock structure, its points visibly leave the curve, and the
-slow undulation left in its clock-deleted trace is envelope, not period 3 (its period-3 amplitude
-is 2.7% of intact). Shown, not hidden.
+~~**L0H11 is the ragged one.**~~ **RESOLVED (D22).** The raggedness was a **second carrier**, at
+period ~10.69 — P's other Fourier mode. L0H11 reads both. Panel C now shows its complete wave
+function, and with the second cosine it goes from 80.8% to **99.9%**. It is the only one of the
+six combs that does (L1H10 is a weak second reader, D23).
+
+⚠️ **THE "ENERGY-MATCHED CONTROL BAND" IS THAT SECOND CARRIER** (bins 94–100; bin 96 alone is 64%
+of its energy). That does not weaken the period-3 control — it *strengthens* it (deleting a
+comparably strong, genuinely-read carrier still does nothing to splicing) — but the band was
+never *inert*, and no write-up may say it was.
 
 **The integer phase-lock is PARTLY SELECTED FOR — it is not a discovery.** Every head's wave
 peaks within 0.11 nt of an integer offset (five of six within 0.02 nt). That looks striking, and

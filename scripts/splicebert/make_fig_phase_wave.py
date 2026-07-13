@@ -15,8 +15,9 @@ D = json.loads((REPO / "results/phase-lattice/fig_phase_data.json").read_text())
 OUT = REPO / "figures/splicebert/fig_phase_wave.svg"
 
 BLUE, GRAY, GREEN, PURPLE = "#0B6FB8", "#9AA7B2", "#00845F", "#6A4A9C"
+ORANGE = "#C25A00"          # the SECOND carrier (period ~10.69)
 INK, SEC, MUT, RULE, PANEL = "#16232E", "#5A6672", "#8794A0", "#E1E7EC", "#F7F9FB"
-W, H = 1400, 790
+W, H = 1400, 850
 s: list[str] = []
 w3 = 2 * math.pi / 3
 OFFS = D["Rk_offsets"]
@@ -67,8 +68,8 @@ def env(coef, k):
 
 
 s.append(f'<rect x="0" y="0" width="{W}" height="{H}" fill="#FFFFFF"/>')
-txt(W / 2, 36, "The period-3 comb is a single cosine", size=21, fill=INK, anchor="middle",
-    weight="700")
+txt(W / 2, 36, "The comb is a cosine — and L0H11 needs two of them", size=21, fill=INK,
+    anchor="middle", weight="700")
 
 # ============================================================ A. the jaggedness was the connector
 AX, AY, AW, AH = 70, 96, 620, 300
@@ -174,47 +175,93 @@ for k in (-6, -3, 0, 3, 6):
 txt((LEFT + bx_(8)) / 2, ylast + 34, "Attention offset k (nucleotides)", size=10, fill=SEC,
     anchor="middle")
 
-# ============================================================ C. the wave dies with the clock
-CX, CY, CW, CH = 70, 470, 1260, 250
-plabel(CX, CY - 12, "C", "Delete the clock and the wave is gone")
+# ================================================ C. L0H11's COMPLETE WAVE FUNCTION
+CX, CY, CW, CH = 70, 470, 620, 300
+plabel(CX, CY - 12, "C", "L0H11 reads both carriers")
 rect(CX, CY + 10, CW, CH, fill=PANEL)
 
+f11 = WAVE["L0H11"]["intact"]
+tt = f11["two_tone"]
+w2 = 2 * math.pi / tt["T2"]
+y11 = D["Rk"]["L0H11"]["intact"]
+pts = [y11[j] - env(tt["env_coef"], k) for j, k in enumerate(OFFS)]     # de-enveloped
+amp2 = max(abs(v) for v in pts) * 1.20 + 0.10   # headroom: the legend sits above
+
+cx = lambda k: CX + 56 + (k + 12) / 24 * (CW - 84)                       # noqa: E731
+cy = lambda v: CY + 82 + (CH - 120) / 2 - (v / amp2) * ((CH - 120) / 2 - 4)  # noqa: E731
+
+for gv in (-2, -1, 0, 1, 2):
+    line(CX + 52, cy(gv), CX + CW - 20, cy(gv), stroke="#E7EDF2" if gv else "#D5DDE3")
+    txt(CX + 46, cy(gv) + 3.5, f"{gv:+d}" if gv else "0", size=9.5, fill=MUT, anchor="end")
+for gk in (-12, -6, 0, 6, 12):
+    txt(cx(gk), CY + CH - 22, f"{gk:+d}" if gk else "0", size=9.5, fill=MUT, anchor="middle")
+txt(CX + CW / 2 + 20, CY + CH - 4, "Attention offset k (nucleotides)", size=10, fill=SEC,
+    anchor="middle")
+s.append(f'<text class="sans" transform="translate({CX+22},{CY+10+(CH-50)/2}) rotate(-90)" '
+         f'text-anchor="middle" font-size="10" fill="{SEC}">R(k), envelope removed</text>')
+
+fine2 = [-12 + 24 * i / 500 for i in range(501)]
+# the two carriers, each on its own
+path([(cx(k), cy(tt["A3"] * math.cos(w3 * k + tt["phi3"]))) for k in fine2],
+     stroke=BLUE, w=1.5, op=0.75)
+path([(cx(k), cy(tt["A2"] * math.cos(w2 * k + tt["phi2"]))) for k in fine2],
+     stroke=ORANGE, w=1.5, op=0.85)
+# their SUM -- the complete wave function
+path([(cx(k), cy(tt["A3"] * math.cos(w3 * k + tt["phi3"])
+                 + tt["A2"] * math.cos(w2 * k + tt["phi2"]))) for k in fine2],
+     stroke=INK, w=2.4)
+for j, k in enumerate(OFFS):
+    dot(cx(k), cy(pts[j]), 3.0, INK, rw=1.4)
+
+lx = CX + 60
+line(lx, CY + 34, lx + 18, CY + 34, stroke=BLUE, w=1.5)
+txt(lx + 24, CY + 37.5, f"Codon clock, period 3   (A₃ = {tt['A3']:.2f})   —   alone it explains "
+    f"{tt['var_explained_1tone']*100:.1f}% of the ripple", size=9.5, fill=SEC)
+line(lx, CY + 50, lx + 18, CY + 50, stroke=ORANGE, w=1.5)
+txt(lx + 24, CY + 53.5, f"Second carrier, period {tt['T2']:.2f}   (A₂ = {tt['A2']:.2f})",
+    size=9.5, fill=SEC)
+line(lx, CY + 66, lx + 18, CY + 66, stroke=INK, w=2.4)
+txt(lx + 24, CY + 69.5, "Their sum — the complete wave function", size=9.5, fill=INK,
+    weight="700")
+txt(lx + 234, CY + 69.5, f"{tt['var_explained']*100:.1f}%", size=11, fill=INK, weight="700")
+dot(lx + 300, CY + 66, 3.0, INK, rw=1.4)
+txt(lx + 312, CY + 69.5, "Measured", size=9.5, fill=SEC)
+
+# ================================================ D. the wave dies with the clock
+DX, DY, DW, DH = 740, 470, 590, 300
+plabel(DX, DY - 12, "D", "Delete the clock and the wave is gone")
+rect(DX, DY + 10, DW, DH, fill=PANEL)
+
 hi_a = 2.6
-
-
-def cy(v):
-    return CY + 26 + (CH - 62) - v / hi_a * (CH - 62)
-
-
+dy = lambda v: DY + 34 + (DH - 96) - v / hi_a * (DH - 96)                # noqa: E731
 for gv in (0, 0.5, 1.0, 1.5, 2.0, 2.5):
-    line(CX + 60, cy(gv), CX + CW - 20, cy(gv), stroke="#E7EDF2")
-    txt(CX + 54, cy(gv) + 3.5, f"{gv:.1f}", size=9.5, fill=MUT, anchor="end")
-s.append(f'<text class="sans" transform="translate({CX+24},{CY+10+CH/2}) rotate(-90)" '
+    line(DX + 54, dy(gv), DX + DW - 16, dy(gv), stroke="#E7EDF2")
+    txt(DX + 48, dy(gv) + 3.5, f"{gv:.1f}", size=9.5, fill=MUT, anchor="end")
+s.append(f'<text class="sans" transform="translate({DX+22},{DY+10+DH/2}) rotate(-90)" '
          f'text-anchor="middle" font-size="10" fill="{SEC}">Clock amplitude A (logits)</text>')
 
-gw = (CW - 90) / 6
+gw = (DW - 84) / 6
 for i, hd in enumerate(HEADS):
-    x0 = CX + 70 + i * gw
+    x0 = DX + 66 + i * gw
     trio = [(WAVE[hd]["intact"]["A"], BLUE), (WAVE[hd]["no_carrier"]["A"], GRAY),
             (WAVE[hd]["no_control"]["A"], GREEN)]
     for j, (v, col) in enumerate(trio):
-        bx = x0 + gw / 2 - 33 + j * 22
-        bh = max(cy(0) - cy(v), 2.0)            # a floor: a ~0 bar must read as a bar, not a gap
-        rect(bx, cy(0) - bh, 20, bh, fill=col, rx=3)
-    txt(x0 + gw / 2, CY + CH + 4, hd, size=10, fill=PURPLE if hd == "L2H15" else SEC,
+        bx = x0 + gw / 2 - 26 + j * 17
+        bh = max(dy(0) - dy(v), 2.0)
+        rect(bx, dy(0) - bh, 15, bh, fill=col, rx=3)
+    txt(x0 + gw / 2, DY + DH - 20, hd, size=9, fill=PURPLE if hd == "L2H15" else SEC,
         weight="700" if hd == "L2H15" else None, anchor="middle")
 
 sm = D["wave"]["summary"]
-for lx, lab, col in ((CX + 70, "Intact", BLUE),
-                     (CX + 170, f"Clock deleted  ({sm['kept_clock_deleted']*100:.0f}%)", GRAY),
-                     (CX + 380, f"Control band deleted  ({sm['kept_control_deleted']*100:.0f}%)",
-                      GREEN)):
-    rect(lx, CY + CH + 20, 11, 11, fill=col, rx=2)
-    txt(lx + 16, CY + CH + 29.5, lab, size=9.5, fill=SEC)
+for lx2, lab, col in ((DX + 60, "Intact", BLUE),
+                      (DX + 132, f"Clock deleted ({sm['kept_clock_deleted']*100:.0f}%)", GRAY),
+                      (DX + 300, f"Control band ({sm['kept_control_deleted']*100:.0f}%)", GREEN)):
+    rect(lx2, DY + DH - 8, 11, 11, fill=col, rx=2)
+    txt(lx2 + 16, DY + DH + 1.5, lab, size=9.5, fill=SEC)
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" '
        f'viewBox="0 0 {W} {H}" version="1.1">\n'
-       '<title>The period-3 comb is a single cosine</title>\n'
+       '<title>The comb is a cosine, and L0H11 needs two of them</title>\n'
        '<style type="text/css"><![CDATA[ .sans{font-family:"Helvetica Neue",Helvetica,Arial,'
        'sans-serif} text{shape-rendering:geometricPrecision} ]]></style>\n'
        + "\n".join(s) + "\n</svg>\n")
