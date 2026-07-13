@@ -1,4 +1,16 @@
-# Genomic Computations for Circuit Hunters
+# Genomic computations for circuit hunters
+
+**[BACKGROUND]** — the molecular biology behind every computation this program studies, written for an
+ML audience.
+**Read this if** you need to know what reading frame, repeats, splicing, NMD or CTCF orientation
+actually *are*, and what the shortcut vs. the circuit looks like for each.
+**Audience:** ML researchers with no biology background.
+**Status:** current. Contains no results — it is timeless background, and nothing here can be retracted.
+
+Companion docs: `FOUNDATIONS_circuit_discovery.md` (the interpretability side) and
+`CIRCUIT_DISCOVERY_HOW_TO.md` (the procedure).
+
+---
 
 This document is a biology primer for the ML researchers on this project. It exists to answer one
 question for each phenomenon we study: *what is the DNA model actually being asked to compute?*

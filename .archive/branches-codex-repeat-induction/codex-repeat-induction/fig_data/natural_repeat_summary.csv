@@ -1,0 +1,10 @@
+metric,value
+n_windows,1000
+base_rate,0.35
+intact_copy_acc,0.878
+conflict_distal,0.782
+conflict_local,0.131
+conflict_neither,0.08699999999999997
+prefix_scramble_distal,0.233
+prefix_scramble_local,0.335
+prefix_scramble_neither,0.432

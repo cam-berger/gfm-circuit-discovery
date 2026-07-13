@@ -1,8 +1,26 @@
-# Pre-registration (DRAFT — not frozen)
+# Pre-registration
 
-> **Status: DRAFT.** No test chromosome may be touched until this is frozen to a registry and the
-> freeze recorded here with a commit hash and date. `data/genome.py` must enforce this in code, as
-> `Config.assert_test_allowed` did on the previous project.
+**[RECORD]** — what we predicted, *before* we looked. The document that lets a reader tell a prediction
+from a story told afterwards.
+**Read this if** you want to check whether a result was registered in advance — and, in two cases,
+whether the prediction failed.
+**Status: MIXED, and the distinction matters.**
+
+| Part | Status |
+|---|---|
+| §Confirmatory tests (C1–C5), §Gates, §Power | **DRAFT — never frozen.** The power simulation was never run. No test chromosome may be touched until it is. |
+| Addendum (a) — the necessity 2×2 | **FROZEN 2026-07-09**, before any cell ran. The verdict threshold and the attribution logic both held; the logic resolved as registered (`D → the two factors interact`). |
+| Addendum (b) — tracing the relay (Phase C) | **FROZEN 2026-07-09**, before any measurement. Its T1 test was **withdrawn as miscalibrated** — see `RELAY_TRACE.md`. Registering a bad test in advance is still better than inventing a good one afterwards; the failure is recorded, not buried. |
+
+> **The clause that did the work.** We registered that *"continuous values are reported regardless of
+> which side of the threshold they land on; the threshold only labels the cell."* That single sentence is
+> what let us find the L2-probe error (D35) rather than bury it. Keep it in every future registration.
+
+---
+
+> **Original status note (kept):** No test chromosome may be touched until this is frozen to a registry
+> and the freeze recorded here with a commit hash and date. `data/genome.py` must enforce this in code,
+> as `Config.assert_test_allowed` did on the previous project.
 
 ## Confirmatory tests (Holm–Bonferroni, family size 5)
 

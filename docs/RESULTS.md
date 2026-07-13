@@ -1,10 +1,16 @@
 # RESULTS — every measured number, with status
 
-**Updated 2026-07-09 14:05** · 23 commits · 133 tests passing
-Companion docs: `REC.md` (the argument) · `docs/DECISIONS.md` (D1–D31, rationale) · `docs/EXPERIMENTS.md` (plain language) · `docs/PREREGISTRATION.md` (frozen predictions)
+**[RECORD]** — the numbers, each with a status tag. This file exists so that nothing gets remembered
+more favourably than it happened.
+**Read this if** you want to check a claim against its evidence. **Start with §10, the retractions.**
+**Status:** current for the **GFM-nano tracks** (reading frame, §1–§11; repeat copy, §12). The SpliceBERT
+results are **not yet written up here** — see `STATUS.md` §3, and `results/splicebert_coupling/`.
+**Verified:** 2026-07-12 · `uv run pytest -q` → 167 collected, 150 pass, 16 skip, **1 fail**
+(`tests/test_partner_data.py`; see `TODO.md`).
+**Companions:** `REC.md` (the argument) · `DECISIONS.md` (D1–D35, the rationale) · `EXPERIMENTS.md`
+(plain language) · `PREREGISTRATION.md` (predictions frozen before measurement).
 
-This file exists so that nothing gets remembered more favourably than it happened. Every claim carries
-a status. Retracted claims stay in, with what killed them.
+Every claim carries a status. Retracted claims stay in, with what killed them.
 
 ```
 SETTLED     measured, controlled, reproducible
@@ -13,20 +19,25 @@ WITHDRAWN   measured, but the measurement is not interpretable; not reported
 RETRACTED   claimed, then falsified by our own control
 ```
 
+**One seed unless stated.** Almost every 2×2 and Phase-C number below is a single seed. `SETTLED` at
+the *program* level does not mean `SETTLED` at the *cell* level; Phase D (three seeds) is still open.
+
 ---
 
 ## 0. The one-line result
 
-**HYPOTHESIS — strongly illustrated, not settled as a universal law** (status corrected 2026-07-11, RRR
-F8/F2/F5). A model *appears to* build a relational circuit **iff no statistic pooled over its context
-window is a sufficient statistic for the target** — the threshold being *imperfection*, not weakness (a
-96.5% shortcut does not displace a counter when the task demands 100%). The λ-sweep (§7) and 2×2 (§9)
-illustrate it cleanly, but it is **not** established as a law: each condition is a **single seed** (§7,
-§9 are one seed per arm/cell), and the anchor-free ceiling is a **lower-bound** estimator (codon
-naive-Bayes; the stronger receptive-field-limited-CNN rival was built only for repeat-copy, not reading
-frame). To reach SETTLED it needs ≥3-seed replication and the stronger pooled rival on the reading-frame
-arms. Tracked as **C0 (open)** in `docs/CLAIMS.md`; the underlying instrument measurements below remain
-SETTLED where marked.
+**The mechanism a model builds is selected by the gap between what the objective demands and what a
+pooled statistic can deliver** — and the threshold is *imperfection*, not weakness. A 96.5% shortcut
+does not displace a counter when the task demands 100%. Accuracy sees none of this: across seven λ arms
+all reaching `aa_acc = 1.0000`, four built an anchored counter and three did not.
+
+> ⚠️ **Status of the wording.** Earlier versions of this file stated the result as a biconditional —
+> *"a model builds a circuit **iff** no pooled statistic is sufficient"* — and called it **SETTLED**.
+> **That is withdrawn as a statement of a law.** It rests on n = 8 arms, one task, one architecture, and
+> the ceilings it was predicted from were both later beaten by the model. What is settled is the
+> *phenomenon* (the mechanism moves with the shortcut, while accuracy does not) and the *instruments*
+> that measure it. The claim as it should now be stated — the **shortcut-gap hypothesis** — is in
+> `STATUS.md`.
 
 ---
 
@@ -248,9 +259,9 @@ frame signal the genetic code leaves behind, and stops exactly where an anchor w
 
 ---
 
-## 9. The necessity 2×2 — IN FLIGHT
+## 9. The necessity 2×2 — SETTLED (one seed per cell)
 
-μ = 1 throughout. Verdict frozen in `docs/PREREGISTRATION.md` **before any cell ran**: far-field
+μ = 1 throughout. Verdict frozen in `PREREGISTRATION.md` **before any cell ran**: far-field
 cue-conflict anchor share > 0.50 **and** start-codon ablation ΔaaAcc > 0.10 beyond a decoy-Met control.
 Neither criterion is the training accuracy.
 
@@ -375,21 +386,64 @@ retractions vanish when the intervention is scored against the model's own predi
 
 ---
 
-## 12. Reproduce
+## 12. The second circuit — repeat copy (shortcut-proof, forms unbidden)
 
-```bash
-conda activate gfm-thrust1
-pip install -e ".[dev]"
-pytest -q                                     # 133 tests
+**SETTLED**, two seeds. The positive counterpart to the reading-frame negative: where a shortcut is
+*provably* unavailable, the circuit appears with no forcing objective at all. Full record in
+`branches/codex-repeat-induction/` (`FINDING.md`, `COPY_CEILING.md`, `COPY_TRACE.md`,
+`NATURAL_REPEATS.md`).
 
-python scripts/validate_genome.py             # 0 in-frame stops in 117,481
-python scripts/verdict_lambda.py              # §7, the core result
-python scripts/verify_uniform.py --checkpoint checkpoints/nano_uniform_step12000.pt
-python scripts/trace_uniform.py  --checkpoint checkpoints/nano_uniform_step12000.pt
-python scripts/qk_ig_nano.py     --checkpoint checkpoints/nano_uniform_step12000.pt
-python scripts/anchor_ceiling.py              # learned anchor detector: frame 0.9215
-python scripts/verdict_2x2.py    --checkpoint checkpoints/cellB_s0_step8000.pt
+**The ceiling was measured, not argued** — this is the one track where the registered stop-condition was
+actually run. It did not fire.
+
+| estimator | sees the source? | copy accuracy |
+|---|---|---|
+| base rate | no | 0.2477 |
+| local naive Bayes, 33 nt crop | no | 0.2484 |
+| **RF-limited CNN, 33 nt crop** (the decisive one) | no | **0.2473** |
+| source oracle (upper reference) | yes | 1.0000 |
+| **GFM-nano copy circuit** | yes | **0.9608** (seed 99: 0.9662) |
+
+```
+cue conflict on copy positions
+  follows DISTAL edited source        0.9635
+  follows LOCAL continuation          0.0130
+
+head structure — five L1 heads, partially redundant
+  Σ single-head Δloss                 2.9128
+  joint five-head Δloss               1.3226      <- far below the sum: not independent
+
+natural hg38 repeats (chr17-19), synthetic-trained model
+  follows distal edit                 0.7820 / 0.7830   (seeds 0 / 99)
+  prefix-scrambled control            0.2330 / 0.2280   <- collapses, as it must
 ```
 
-Data: `~/Research/data/genomes` (hg38.fa, gencode.v50.basic.annotation.gtf.gz).
-Checkpoints: `nano_{uniform,sense,lam*,ar_*,mlm_*}`, `cell{A,B,C,D}_s*`.
+The prefix-scramble control is what makes this a *rule* and not a lookup: destroy the matching prefix
+and distal following collapses to chance, while L1H7's attention to the source falls 0.5621 → 0.0001.
+
+---
+
+## 13. Reproduce
+
+```bash
+uv sync --extra lab --extra dev
+uv run pytest -q          # 167 collected: 150 pass, 16 skip, 1 FAIL (see TODO.md)
+
+uv run python scripts/validate_genome.py       # 0 in-frame stops in 117,481
+uv run python scripts/verdict_lambda.py        # §7, the core result
+uv run python scripts/verify_uniform.py --checkpoint checkpoints/nano_uniform_step12000.pt
+uv run python scripts/trace_uniform.py  --checkpoint checkpoints/nano_uniform_step12000.pt
+uv run python scripts/qk_ig_nano.py     --checkpoint checkpoints/nano_uniform_step12000.pt
+uv run python scripts/anchor_ceiling.py        # learned anchor detector: frame 0.9215
+uv run python scripts/verdict_2x2.py    --checkpoint checkpoints/cellB_s0_step8000.pt
+uv run python scripts/repeat_copy_ceiling.py   # §12, the ceiling audit
+```
+
+**What you cannot reproduce from a clean checkout, and why.** `hg38.fa` and
+`gencode.v50.basic.annotation.gtf.gz` are **not in the repo and there is no fetcher**, so every real-CDS
+result (cells C and D, the pooled-oracle ceiling) is currently unreproducible by anyone who does not
+already have the data. This is the repo's biggest reproducibility debt — `TODO.md` §1.1. The synthetic
+tracks (uniform / λ / repeat-copy) regenerate on demand and need nothing.
+
+Checkpoints (gitignored): `nano_{uniform,sense,lam*,ar_*,mlm_*}`, `cell{A,B,C,D}_s*`,
+`repeat_copy_s{0,99}`. Which script produces which committed number: `scripts/README.md`.

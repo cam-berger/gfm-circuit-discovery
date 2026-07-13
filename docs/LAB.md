@@ -1,5 +1,12 @@
 # `gfmcd.lab` — the interactive reverse-engineering layer
 
+**[METHOD]** — API reference for the `gfmcd.lab` layer, and the notebook workflow.
+**Read this if** you are writing code against the repo, or opening a notebook.
+**Status:** current.
+**Reproduce:** `uv sync --extra lab --extra dev`, then open `notebooks/study_reading_frame_counter.ipynb`.
+
+---
+
 `gfmcd.lab` is a thin, importable methods layer over the repo's existing tracer / signatures / oracle
 code. It exists so that circuit study is a sequence of one-line calls in a notebook — load a
 checkpoint, run an assay, intervene safely, plot the result — instead of editing and re-running CLI
@@ -31,7 +38,9 @@ notebooks/
   sandbox_reverse_engineering.ipynb  freeform poking surface
 
 docs/
-  CIRCUIT_DISCOVERY_HOW_TO.md        the step-by-step procedure (start here)
+  README.md                          the documentation index (start here)
+  STATUS.md                          where the program stands today, across all tracks
+  CIRCUIT_DISCOVERY_HOW_TO.md        the step-by-step procedure
   FOUNDATIONS_circuit_discovery.md   math + literature background
   BIOLOGY_genomic_computations.md    the genomic computations for an ML audience
   LAB.md                             this file

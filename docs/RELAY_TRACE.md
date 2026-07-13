@@ -1,8 +1,16 @@
 # Tracing the relay
 
-**Phase C deliverable** (`PLAN_reading_frame.md` step 10) · one seed per cell · 2026-07-09
-Pre-registration: `docs/PREREGISTRATION.md`, addendum 2026-07-09 (b), written before any measurement.
-Full reasoning: `docs/DECISIONS.md` D34, D35.
+**[RECORD]** — the Phase-C deliverable: an operational definition of the three mechanisms
+(counter / relay / bag), and the retraction of four of the five "relays" we had claimed.
+**Read this if** you want the deepest single trace in the program, or an object lesson in how a probe
+read at the wrong layer manufactures a mechanism that is not there.
+**Status:** the *retraction* is SETTLED (two independent interventions, a positive control, a null
+control, and an edit control, all agreeing). Every *per-cell number* is one seed and is therefore
+PENDING — nothing here is settled at the cell level until Phase D's three seeds.
+
+**Pre-registration:** `PREREGISTRATION.md`, addendum 2026-07-09 (b), written before any measurement.
+**Full reasoning:** `DECISIONS.md` D34, D35. **Plan (executed, archived):**
+`archive/PLAN_reading_frame_executed.md` step 10.
 
 ---
 

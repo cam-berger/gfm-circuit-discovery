@@ -1,10 +1,14 @@
 # Foundations of circuit discovery
 
-An introduction to the mathematics and literature of mechanistic interpretability, written for a
-first-year CS/ML graduate student who knows linear algebra and basic deep learning but has never
-opened a model to see how it computes. It is the background you need to understand what this repo does
-and why. For the step-by-step procedure, read `CIRCUIT_DISCOVERY_HOW_TO.md`; for the genomics, read
-`BIOLOGY_genomic_computations.md`. Every named method here maps to an entry in `VERIFIED_REFERENCES.md`.
+**[BACKGROUND]** — the mathematics and literature of mechanistic interpretability, from first principles.
+**Read this if** you are new to the field and want to understand *why* the methods in this repo work.
+**Audience:** a first-year CS/ML graduate student who knows linear algebra and basic deep learning but
+has never opened a model to see how it computes.
+**Status:** current. Contains no results — it is timeless background, and nothing here can be retracted.
+
+For the step-by-step procedure, read `CIRCUIT_DISCOVERY_HOW_TO.md`; for the genomics, read
+`BIOLOGY_genomic_computations.md`; for what the program actually found, read `STATUS.md`.
+Full reference identifiers are in the reference list at the end of `REC.md`.
 
 ---
 
@@ -219,30 +223,43 @@ grokking curve before anything else.
 
 ---
 
-## 7 · Shortcut learning and the sufficiency law
+## 7 · Shortcut learning and the shortcut-gap hypothesis
 
 The reason a circuit might *not* form is **shortcut learning** (Geirhos et al. 2020): models prefer the
 cheapest decision rule that fits the training distribution, and that rule is often a spurious statistic
 rather than the intended algorithm. A model that can hit the target accuracy with a pooled statistic has
 no gradient pressure to build the relational circuit.
 
-This repo turns that observation into a sharp, testable criterion — the **sufficiency law**. Let the
-target be $Y$ and let $S(x)$ be the best statistic that can be **pooled over the context window** (a
-bag-of-tokens count, a codon-composition estimate). Write the accuracy ceiling of that pooled statistic
-as $\mathrm{acc}^\star_{\text{pool}} = \max_{g} \Pr[\,g(S(x)) = Y\,]$. Then:
+This repo turns that observation into a testable criterion. Let the target be $Y$ and let $S(x)$ be the
+best statistic that can be **pooled over the context window** (a bag-of-tokens count, a codon-composition
+estimate). Write the accuracy ceiling of that pooled statistic as
+$\mathrm{acc}^\star_{\text{pool}} = \max_{g} \Pr[\,g(S(x)) = Y\,]$, and call the gap between what the
+objective demands and what pooling delivers the **shortcut gap**.
 
-$$
-\textbf{a relational circuit forms} \iff \text{accuracy demanded by the objective} \;>\; \mathrm{acc}^\star_{\text{pool}} .
-$$
+> **The shortcut-gap hypothesis.** A relational mechanism becomes *more likely* as the shortcut gap
+> grows — as the pooled route provides less and less of what the objective demands, relative to the
+> optimisation and complexity cost of building the relation. Shortcut insufficiency creates **pressure**
+> for a relation. It does not guarantee that gradient descent finds one, and shortcut availability does
+> not prove that no relational mechanism exists.
 
-The threshold is **imperfection, not weakness**: a shortcut worth 96.5% does not displace a counter when
-the task demands 100%. Two experimental consequences follow directly. First, the measured pooled ceiling
-$\mathrm{acc}^\star_{\text{pool}}$ is the *control* every circuit claim must beat — not a random baseline,
-not a guess. Second, you can *dial the law*: hold the task fixed and vary how much frame information the
-local content leaks — measured as the mutual information $I(\text{nt};\text{phase})$ between a
-nucleotide and the reading frame — and watch the mechanism slide from an anchored counter (weak
-shortcut) to a pooled bag (strong shortcut), even though accuracy stays near 1.0 across the whole sweep.
-Accuracy tells you nothing; only the mechanism moves. This is the conceptual spine of the whole program.
+**On the stronger "law".** Earlier documents in this repo state a much stronger biconditional —
+*a circuit forms **iff** demanded accuracy exceeds the pooled ceiling* — and call it the sufficiency law.
+**That wording is not established.** It rests on eight arms, one task, one architecture. It is retained
+in the historical record (`REC.md`, `DECISIONS.md` D30) because it is what we believed and acted on at
+the time, and the reasoning is worth following; it should not be repeated as a result. Read `STATUS.md`
+for the current status of the claim.
+
+What *is* solid, and is the spine of the program:
+
+- The threshold is **imperfection, not weakness.** A shortcut worth 96.5% does not displace a counter
+  when the task demands 100%. The transition is sharp, which is why it looks like grokking.
+- The measured pooled ceiling $\mathrm{acc}^\star_{\text{pool}}$ is the **control every circuit claim must
+  beat** — not a random baseline, not a guess. And it is a *lower bound*: both ceilings we have predicted
+  from were later beaten by the model, so it must be estimated with a model-class-matched estimator.
+- You can **dial it.** Hold the task fixed and vary how much frame information the local content leaks —
+  the mutual information $I(\text{nt};\text{phase})$ — and the mechanism slides from an anchored counter
+  (weak shortcut) to a pooled bag (strong shortcut) while accuracy stays near 1.0 across the whole sweep.
+  **Accuracy sees none of it; only the mechanism moves.**
 
 ---
 
@@ -301,14 +318,15 @@ It is the same sequence of moves the repo runs on the genomic copy circuit.
 - **Induction head** — the two-layer previous-token → match-and-copy circuit behind in-context copying.
 - **Grokking** — delayed generalisation; a circuit forming as an abrupt phase transition after training
   accuracy has saturated.
-- **Shortcut / sufficiency law** — a pooled statistic that suffices for the target; a circuit forms iff
-  the demanded accuracy exceeds the pooled statistic's ceiling.
+- **Shortcut gap** — the difference between the accuracy an objective demands and the ceiling of the best
+  pooled statistic. A relational mechanism becomes more likely as the gap grows (§7). The stronger "iff"
+  form (the *sufficiency law*) is **not established**; see `STATUS.md`.
 
 ---
 
 ## References
 
-Full identifiers and verification status are in `VERIFIED_REFERENCES.md`. Titles confirmed by an
+Full identifiers are in the reference list at the end of `REC.md`. Titles confirmed by an
 OpenAlex lookup at build time except the two marked `[not machine-verified]` (Anthropic
 transformer-circuits.pub articles not indexed in OpenAlex — cite by their canonical URLs and confirm
 before formal publication).

@@ -1,5 +1,15 @@
 # Experiment log, in plain language
 
+**[RECORD]** — what we did, what it showed, and why it mattered, written so it can be read without the
+jargon.
+**Read this if** you want the story rather than the numbers — or you need to explain this work to
+someone who is not an interpretability researcher.
+**Status:** current, and covers the **GFM-nano tracks only** (E1–E8: the tracer, the reading frame, the
+trace). It does **not** yet cover the SpliceBERT work — for that, see `STATUS.md` §3.
+**Cross-check:** every entry names its formal record in `DECISIONS.md` and the script that reproduces it.
+
+---
+
 What we did, what it showed, and why it mattered — written so it can be read without knowing the
 jargon. Each entry links to the formal record in `DECISIONS.md` and the code that reproduces it.
 

@@ -61,8 +61,9 @@ All read `results/reading-frame/fig_data/*.json` and write `results/reading-fram
 `repeat_copy_trace_controls.py`, `repeat_copy_loss_curves.py`, `trace_repeat_copy.py`,
 `verdict_repeat_copy.py`, `plot_repeat_copy_grokking.py`
 
-Owned by the repeat-copy track. Plan: `PLAN_repeat_copy.md`. Findings and figures:
-`branches/codex-repeat-induction/`. These write nothing into `results/`.
+Owned by the repeat-copy track. Findings and figures: `branches/codex-repeat-induction/`; summary in
+`docs/RESULTS.md` §12. (The executed plan is archived at `docs/archive/PLAN_repeat_copy_executed.md`.)
+These write nothing into `results/`.
 
 ---
 
@@ -79,8 +80,12 @@ Owned by the repeat-copy track. Plan: `PLAN_repeat_copy.md`. Findings and figure
 ## SpliceBERT partner-selection pipeline
 
 The first real-GFM implementation lives under `scripts/splicebert/`. Start with
-`SPLICEBERT_CIRCUIT_DISCOVERY_IMPLEMENTATION.md` and
-`studies/splicebert_partner_selection/RUNBOOK.md`.
+`docs/REAL_GFM_CIRCUIT_DISCOVERY_PROTOCOL.md` (the gate ladder and the degeneracy audit) and
+`docs/STATUS.md` §3 (what these scripts have actually produced, and what was retracted).
+
+> ⚠️ The partner-selection pipeline (`build_dataset.py` → `trace_heads.py`) produced a result that was
+> **retracted in full** (R2/R3). The live pipeline is `run_coupling.py` → `run_confirm.py`. See
+> `studies/splicebert_partner_selection/CLAIMS.md`.
 
 | Script | Purpose | Claim ceiling |
 |---|---|---|

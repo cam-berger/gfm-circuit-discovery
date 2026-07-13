@@ -1,8 +1,18 @@
 # Recommendation: a critique of Proposal D2, and the program that replaces it
 
-**Cam Berger — 2026-07-09** · v2 (v1 archived at `docs/archive/REC_v1_superseded.md`; §0 says what changed)
-Repo: `~/Research/projects/gfm-circuit-discovery` · 133 tests passing
-Evidence: `docs/DECISIONS.md` (D1–D30) · `docs/EXPERIMENTS.md` (plain-language) · `docs/PREREGISTRATION.md`
+**[ARGUMENT]** — the reasoning: why the original proposal was pointed at the wrong rung, and what
+replaces it.
+**Read this if** you want the case, with the literature. Every claim here should trace to `RESULTS.md`.
+**Status:** current (v2; v1 archived at `archive/REC_v1_superseded.md`, and §0 says what changed).
+**Two caveats before you quote it:**
+1. §2 and §7 state the criterion as an **"if and only if" sufficiency law**. That wording is **not
+   established** — see `STATUS.md`. Read it as the strongest form we tested, not as a result.
+2. This memo **predates the SpliceBERT work entirely**. It does not know that the partner-selection
+   study was retracted, nor that the replacement design produced the program's first held-out-confirmed
+   circuit in a real GFM. `STATUS.md` §3 is the current state.
+
+**Cam Berger — 2026-07-09** · v2
+Evidence: `DECISIONS.md` (D1–D35) · `EXPERIMENTS.md` (plain-language) · `PREREGISTRATION.md` · `RESULTS.md`
 
 ---
 
@@ -16,10 +26,6 @@ models — and found no circuit. Then we found the reason, and the reason is not
 
 > **A model builds a relational circuit if and only if no statistic pooled over its context window is a
 > *sufficient statistic* for the target. Not "if the shortcut is weak" — if the shortcut is *imperfect*.**
-
-**Status (2026-07-11, RRR):** this is the organizing *hypothesis*, strongly illustrated but not settled
-as a universal law — the conditions are single-seed and the pooled ceiling is a lower-bound estimator.
-See `docs/CLAIMS.md` (C0) for what would advance it.
 
 Reading frame in real coding sequence fails that test. We measured its anchor-free ceiling directly: a
 codon-level pooled estimator recovers the frame at **0.9509** with no start codon at all. Under a

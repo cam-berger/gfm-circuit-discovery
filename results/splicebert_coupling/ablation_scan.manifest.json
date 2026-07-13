@@ -1,36 +1,37 @@
 {
-  "command": [
-    "scripts/splicebert/run_ablation_scan.py",
-    "--n",
-    "160",
-    "--batch",
-    "8",
-    "--split",
-    "val",
-    "--out",
-    "results/splicebert_coupling/ablation_scan_bothstrand.json"
-  ],
-  "config": {
-    "n": 160,
-    "split": "val"
-  },
-  "created_at_utc": "2026-07-12T21:46:37.555110+00:00",
-  "environment": {
-    "hostname": "Camerons-MacBook-Pro.local",
-    "pid": 57927,
-    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
-    "python": "3.13.12"
-  },
-  "experiment_id": "splicebert_coupling:ablation_scan",
-  "git_commit": null,
-  "git_dirty": null,
-  "inputs": [],
-  "notes": [
-    "Exhaustive per-head ABLATION (necessity), IDs retained.",
-    "Replaces the matched-random head null, which was not a null: if other heads belong to the circuit, its tail is mechanism, not noise.",
-    "Specificity null = same ablation scored on a distance-matched NON-site."
-  ],
-  "outputs": [],
-  "seeds": {},
-  "status": "EXPLORATORY"
+ "command": [
+  "scripts/splicebert/run_ablation_scan.py",
+  "--n",
+  "160",
+  "--batch",
+  "8",
+  "--split",
+  "val",
+  "--out",
+  "results/splicebert_coupling/ablation_scan.json"
+ ],
+ "config": {
+  "n": 160,
+  "split": "val"
+ },
+ "created_at_utc": "2026-07-12T21:46:37.555110+00:00",
+ "environment": {
+  "hostname": "Camerons-MacBook-Pro.local",
+  "pid": 57927,
+  "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "python": "3.13.12"
+ },
+ "experiment_id": "splicebert_coupling:ablation_scan",
+ "git_commit": null,
+ "git_dirty": null,
+ "inputs": [],
+ "notes": [
+  "Exhaustive per-head ABLATION (necessity), IDs retained.",
+  "Replaces the matched-random head null, which was not a null: if other heads belong to the circuit, its tail is mechanism, not noise.",
+  "Specificity null = same ablation scored on a distance-matched NON-site.",
+  "CANONICAL = both-strand scan (n=160, val): L3H1 0.830 / L2H15 0.515 / L1H12 0.266. It REPLACED the plus-strand scan (n=120: 0.944 / 0.542 / 0.192), which was run before the R11 strand fix and survives at git 09979f7. The duplicate ablation_scan_bothstrand.json was removed; it was byte-identical to this file by construction (a cp), not by coincidence."
+ ],
+ "outputs": [],
+ "seeds": {},
+ "status": "EXPLORATORY"
 }

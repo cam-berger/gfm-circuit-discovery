@@ -1,3 +1,11 @@
+> # ⛔ ARCHIVED — SUPERSEDED
+> **[ARCHIVED]** · This is v1 of the recommendation memo. **Do not cite it.**
+> Its central claim (*"the circuit is worth 0.4% of the loss"*) is the shallow version of the finding,
+> and two of its supporting claims were falsified by our own controls within a day.
+> **Read instead:** `docs/REC.md` (v2) — its §0 lists exactly what changed and why.
+
+---
+
 # Recommendation: what this project is now, and what to do next
 
 **Cam Berger — 2026-07-09**

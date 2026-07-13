@@ -1,5 +1,16 @@
 # How to discover a circuit in a genomic foundation model
 
+**[METHOD]** — the five-pillar procedure, end to end: discovery → testing → ablation → baselines → conflict.
+**Read this if** you are about to trace a circuit and want the recipe.
+**Audience:** a CS student who has never touched interpretability or genomics.
+**Status:** current. The procedure for a model *you* trained. For a **pretrained** GFM, this is not
+enough on its own — read `REAL_GFM_CIRCUIT_DISCOVERY_PROTOCOL.md`, which adds the gate ladder, the claim
+ladder, and the task-degeneracy audit that a real model demands.
+**Reproduce:** every step below maps to a call in `gfmcd.lab` (`LAB.md`) and runs in
+`notebooks/TEMPLATE_study_a_circuit.ipynb`.
+
+---
+
 A step-by-step, implementable guide. Given a **genomic computation** (e.g. reading frame), a **model**
 (a trained GFM checkpoint), a **dataset** (sequences with known labels), and a **task**, this document
 takes you from "I suspect there is a circuit here" to "here is the circuit, wired across depth, and

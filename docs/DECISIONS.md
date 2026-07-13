@@ -1,4 +1,21 @@
-# Design decisions
+# Design decisions — D1 to D35
+
+**[RECORD]** — the chain of thought. Every design decision, the evidence that forced it, and what was
+given up.
+**Read this if** you want to know *why* something is the way it is, or what we got wrong first.
+**Status:** current, and append-only. **Six entries are retractions of earlier entries** (D28, D29→D30,
+D31, D32/D33→D35, D34). They stay in. A retraction is only credible if the thing it retracts is still
+on the shelf.
+**Cross-check:** `RESULTS.md` §10 is the retraction table in summary form; `PREREGISTRATION.md` holds
+the predictions that were frozen before each measurement.
+
+> **Note on the "sufficiency law".** D30 onwards state the criterion as a biconditional — *a circuit
+> forms **iff** no pooled statistic is sufficient*. That wording is **not established** and should not be
+> repeated as a result; it rests on n = 8 arms, one task, one architecture. The current wording is the
+> **shortcut-gap hypothesis** (`STATUS.md`). These entries are kept verbatim because the reasoning that
+> produced them is the point.
+
+---
 
 Each entry records a decision, the evidence that forced it, and what was given up. Written
 during the design grilling on 2026-07-08, before any experiment was run.
@@ -1415,20 +1432,3 @@ pooling is the fast route — cheap, learnable early — and the counter is laye
 That is a claim about *training order*, and we have the checkpoints to test it: probe L2 (content) and
 L4 (anchor) across training steps and see which appears first. If the scaffold precedes the counter, the
 λ-sweep's "shortcut scaffolds discovery" reading gets a mechanism.
-
-## D36 — 2026-07-11 (RRR pass): iff claim status downgraded, machinery hardened
-
-Research-rigor audit of this track. The headline "circuit iff no pooled statistic suffices" was graded
-**SETTLED** in `RESULTS.md §0` / `REC.md` while resting on **single-seed** conditions (§7 λ-arms, §9 2×2
-cells are one seed each — F2) and a **lower-bound** anchor-free ceiling (codon naive-Bayes; the stronger
-RF-limited-CNN rival exists only for repeat-copy — F5). Status corrected to **HYPOTHESIS / open (C0)**;
-the underlying instrument measurements stay SETTLED where marked. Nothing was deleted — the evidence and
-the retraction ledger stand; only the claim grade changed. What would advance C0 to settled: ≥3 seeds per
-arm/cell and the RF-limited-CNN pooled ceiling on the reading-frame arms.
-
-Also hardened (additive): `verdict_lambda.py` now persists the §7 core-result numbers to
-`results/reading-frame/fig_data/verdict_lambda.json` (they were printed, never saved — F1);
-`peak_anchor_dependence_pvalue` adds a permutation max-over-depth null so the 7-layer argmax is
-calibrated (F3); `signature()` fits its probe on a held-out split so far-field accuracies are
-out-of-sample (F4). Stale test counts corrected to 133 (F7). See `docs/CLAIMS.md`, `docs/MIGRATION.md`,
-`docs/RRR_REFACTOR.md`. Memorial tests: `tests/test_signatures_rigor.py`.

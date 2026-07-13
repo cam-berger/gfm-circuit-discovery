@@ -1,8 +1,19 @@
 # Discovering Relational Circuits in Genomic Foundation Models
 
-**A causal program for finding and verifying the mechanisms a GFM uses to read DNA: a tracer validated against hand-built ground truth, two circuits traced end-to-end on real sequence, a biology-guided path to the rest, and a sufficiency criterion that predicts which computations a model mechanizes and which it fakes**
+**[ARGUMENT]** — the PI-facing proposal: novelty, hypotheses, task breakdown, expected contributions.
+**Read this if** you are briefing someone, or writing the paper.
+**Status:** current as the *program*, but **stale in two specific places — check `STATUS.md` before you
+quote it:**
+1. **§3 H1 calls the criterion a "sufficiency law" with an "iff".** That wording is **not established**;
+   the current wording is the shortcut-gap hypothesis.
+2. **§4 rows 3.1/3.2 predate the SpliceBERT results.** The splice work has since been *run*: the
+   registered partner-selection study was **retracted in full**, and a replacement design (cross-site
+   coupling) produced the program's **first held-out-confirmed circuit in a real GFM** (head L3H1).
+   Neither fact is reflected below. The proposal understates what exists and overstates what is settled.
+3. The `{{artifact:...}}` image placeholders below do not render outside the authoring tool. The figures
+   themselves are in `results/reading-frame/` and `branches/codex-repeat-induction/`.
 
-Owner: Cam Berger. Full evidence: `RESULTS.md` (every measured number, with status), `REC.md` (the argument), `docs/DECISIONS.md`. The tracer, the planted-twin ground truth, and the cue-conflict causal harness are shared across all rungs.
+Owner: Cam Berger. Full evidence: `RESULTS.md` (every measured number, with status), `REC.md` (the argument), `DECISIONS.md`. The tracer, the planted-twin ground truth, and the cue-conflict causal harness are shared across all rungs.
 
 > **State at a glance (for the PI briefing).** Using a tracer validated against hand-built ground truth and a cue-conflict protocol that tells a real mechanism apart from a lookup shortcut, **two circuits are traced end-to-end on a genomic model**: a reading-frame counter that finds the start codon and counts position from it, and an in-context repeat-copy (induction) circuit that finds an earlier occurrence and copies it forward. The reading-frame trace surfaced **two mechanisms nobody hand-designed:** a *relay* (the start codon is causally load-bearing at range but not counted from) and an *anchor-free scaffold* (a counter that computes the frame to its 0.945 ceiling by layer 2, then discards it at layer 4). The copy circuit is a distributed, partially-redundant set of five prefix-matching heads that forms with no coercion. Organizing which circuits appear is a **sufficiency criterion:** a model mechanizes a computation only when no bounded-window pooled statistic suffices for it, confirmed by these two on opposite sides of the line and by a necessity 2×2 on real DNA (the counter holds in three of four conditions; only the natural real-DNA cell drops to a relay). What remains is (i) component localisation on the relay/scaffold, (ii) the biological circuits (splice-site pairing, NMD, CTCF orientation), (iii) one Gate-0 hole (LayerNorm), (iv) the objective-threshold number μ\*. See §4 for per-item status; a companion one-page explainer covers the methods for non-specialists.
 
