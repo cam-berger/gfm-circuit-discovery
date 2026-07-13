@@ -98,6 +98,13 @@ The specific traps, all of which have already bitten:
   this was caught (scan-edge peaks, trend leakage, filter shaping, a too-weak shuffle null), so:
   **when a spectral estimate keeps peaking at the edge of your scan, the estimator is talking,
   not the data.**
+- **KNOW WHETHER YOUR DETECTOR IS LINEAR OR QUADRATIC IN THE EFFECT SIZE.** Pooling *power*
+  across unaligned windows gives a statistic that grows as **depth²**; pooling *complex
+  coefficients* across aligned landmarks gives one that grows as **depth**. At a few percent
+  that is the difference between needing 625× more data and needing 25×. Before scaling up a
+  null, ask which detector you built — more data cannot rescue the wrong one. And **pool the
+  sufficient statistics BEFORE normalising**: per-window normalise-then-average (`C += v/v[0]`)
+  manufactures precise-looking noise when no single window carries a usable estimate.
 - **The selection effect.** If you select components by a property and then intervene on that
   property, the result is guaranteed. A stride-3 comb rolled by 3 slides onto itself, so its
   perturbation is small in phase **by set arithmetic** — verified on white noise, with no model
