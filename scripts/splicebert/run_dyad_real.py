@@ -223,6 +223,35 @@ def main() -> None:
         bar = "#" * max(0, int(40 * st / max(stat, 1)))
         print(f"  T = {T:6.4f}  signed = {st:>13,.0f}  {bar}")
 
+    # ------------------------------------------------- THE CONTROL THAT CAN FAIL: anchor offset
+    # Move the anchor off the dyad by d bp.  If this is a genuine 10.67-nt tone PHASE-LOCKED to the
+    # dyad, then two things must BOTH happen, and neither is something an artifact would produce:
+    #   (a) while the window still covers the core (|d| < ~75), |C| stays LARGE; once the window
+    #       leaves the nucleosome (|d| >> 75), |C| COLLAPSES to the random-position null;
+    #   (b) the PHASE rotates LINEARLY with d, at exactly 360/10.6667 = 33.75 deg per bp.
+    # (b) is the strong one.  A composition artefact, a mappability artefact, or a spacing alias
+    # has no reason whatever to rotate at precisely the carrier's own frequency.
+    print("\n" + "=" * 78)
+    print("CONTROL THAT CAN FAIL — move the anchor off the dyad")
+    print("=" * 78)
+    print(f"  predicted phase rotation: {360/T0:.2f} deg per bp;  |C| must die outside the core\n")
+    print(f"  {'offset':>7} {'|C|':>12} {'vs null':>8} {'phase':>9} {'d(phase)/d(bp)':>15}")
+    rec["offset_control"] = {}
+    ref = None
+    null_mag = float(abs(np.concatenate([nulls[c] for c in TEST]).sum()))
+    for d in (-500, -150, -100, -75, -50, -25, -10, 0, 10, 25, 50, 75, 100, 150, 500):
+        Cd = sum(complex(coeffs(seqs[c], dy[c] + d, "WW").sum()) for c in TEST)
+        ph = math.degrees(math.atan2(Cd.imag, Cd.real))
+        if d == 0:
+            ref = ph
+        slope = ""
+        if ref is not None and d != 0:
+            dd = ((ph - ref + 180) % 360 - 180) / d
+            slope = f"{dd:+.2f} deg/bp"
+        rec["offset_control"][str(d)] = dict(absC=abs(Cd), phase_deg=ph)
+        print(f"  {d:>+7} {abs(Cd):>12,.0f} {abs(Cd)/max(null_mag,1):>7.1f}x {ph:>+8.1f} {slope:>15}")
+    print(f"\n  (the random-position null at this N has |C| ~ {null_mag:,.0f})")
+
     OUT.write_text(json.dumps(rec, indent=1))
     print(f"\nsaved -> {OUT}")
     print("\n" + "=" * 78)

@@ -101,6 +101,51 @@ def predicted_bin(centre: float, crop: int) -> int:
     return int(round(crop / centre))
 
 
+# ------------------------------------------------------- the ABSOLUTE-LOCKED corpus (stages P/Q)
+def make_corpus_abs(n: int, centre: float, depth: float, seed: int, crop: int,
+                    band: bool = True, shuffle_mod: bool = False,
+                    gc: float = 0.41) -> np.ndarray:
+    """A tone PHASE-LOCKED TO THE CROP.  Blocks are exactly `crop` long and every block starts the
+    cosine at phase 0, so crop-position k always carries the same p_W.  The position table can
+    therefore encode it DIRECTLY -- no relative ruler, no phase inference, no chicken-and-egg.
+
+    WHY THIS EXISTS.  The phase-reset corpus (stage A) asks TWO questions at once:
+        (1) does the table QUANTIZE a broad band onto its Fourier grid?     [ENCODING]
+        (2) can a model LEARN a relative ruler from phase-reset structure?  [LEARNING]
+    It only answers (1) if (2) succeeds -- and (2) fails (stage A: the table stays at the flat
+    null and the model captures 0.2% of the available headroom).  So (1) was never tested.
+
+    This corpus isolates (1).  It is BOTH:
+      * the READOUT POSITIVE CONTROL -- if P shows no carrier even here, table_spectrum is broken
+        and every stage-A null is an artifact;
+      * the CLEAN QUANTIZATION TEST -- band=True gives a 2.70-bin-wide band the model CAN encode.
+        Faithful  -> P mirrors it, Q_win ~ 0.25.     Quantized -> P collapses it, Q_win >> 0.25.
+
+    band=False gives a single exact tone (the strictest readout check).
+
+    ⚠️ shuffle_mod DESTROYS THE PERIODIC ORDER (same values, same entropy) -- the negative arm.
+    It was MISSING from the first version of this function, so `centre=None` silently fell back to
+    generating the TREATMENT corpus and the stage-P "control" came back BIT-IDENTICAL to the
+    treatment (Q_win 0.966 both times).  That run is VOID and is not a control.  Caught only
+    because the two results agreed to the last decimal.
+    """
+    r = np.random.default_rng(seed)
+    pW0 = 1.0 - gc
+    nb = n // crop
+    kk = np.arange(crop)
+    out = np.empty(nb * crop, dtype=np.int8)
+    for i in range(nb):
+        T = float(r.uniform(centre - 0.30, centre + 0.30)) if band else centre
+        m = depth * np.cos(2 * math.pi * kk / T)          # PHASE 0 AT EVERY BLOCK START
+        if shuffle_mod:
+            m = r.permutation(m)                          # order destroyed, entropy preserved
+        pW = np.clip(pW0 + m / 2, 0.03, 0.97)
+        isW = r.random(crop) < pW
+        out[i * crop:(i + 1) * crop] = np.where(
+            isW, r.choice([0, 3], crop), r.choice([1, 2], crop))
+    return out
+
+
 # ---------------------------------------------------------------- readouts
 def corpus_spectrum(seq: np.ndarray, crop: int) -> dict:
     """The band the SEQUENCE actually contains.  A control that can fail -- run it every time."""
@@ -137,14 +182,19 @@ def table_spectrum(model, crop: int) -> dict:
 
 
 # ---------------------------------------------------------------- one run
-def one_run(centre, depth, crop, seed, dev, corpus_mb, max_rss_gb) -> dict:
+def one_run(centre, depth, crop, seed, dev, corpus_mb, max_rss_gb, mode="reset") -> dict:
     steps = int(round(TOTAL_TOKENS / (32 * crop)))       # IDENTICAL TOKENS across crops
     order_destroyed = centre is None
     gen_centre = 10.6667 if order_destroyed else centre
     pred = None if order_destroyed else predicted_bin(centre, crop)
 
-    seq = make_corpus(int(corpus_mb * 1e6), gen_centre, depth, seed * 100 + 1,
-                      shuffle_mod=order_destroyed)
+    if mode == "reset":                                   # phase reset per 150-300nt block
+        seq = make_corpus(int(corpus_mb * 1e6), gen_centre, depth, seed * 100 + 1,
+                          shuffle_mod=order_destroyed)
+    else:                                                 # abs_band / abs_tone: locked to the crop
+        seq = make_corpus_abs(int(corpus_mb * 1e6), gen_centre, depth, seed * 100 + 1,
+                              crop, band=(mode == "abs_band"),
+                              shuffle_mod=order_destroyed)   # <-- was MISSING; see the docstring
     cspec = corpus_spectrum(seq, crop)
 
     torch.manual_seed(seed)                              # IDENTICAL INIT across corpora
@@ -158,8 +208,12 @@ def one_run(centre, depth, crop, seed, dev, corpus_mb, max_rss_gb) -> dict:
     g = np.random.default_rng(seed + 7)
     model.train()
     t0, losses = time.time(), []
+    nblk = len(seq) // crop
     for s in range(steps):
-        st = g.integers(0, len(seq) - crop, size=32)
+        if mode == "reset":
+            st = g.integers(0, len(seq) - crop, size=32)          # origins RANDOMISED
+        else:
+            st = g.integers(0, nblk, size=32) * crop              # origins ALIGNED to the tone
         ids = torch.tensor(np.stack([seq[o:o + crop] for o in st]).astype(np.int64), device=dev)
         lab = ids.clone()
         m = torch.rand(ids.shape, device=dev) < 0.15
@@ -186,18 +240,33 @@ def one_run(centre, depth, crop, seed, dev, corpus_mb, max_rss_gb) -> dict:
     if "mps" in str(dev):          # pick_device returns a STR, not a torch.device
         torch.mps.empty_cache()
 
+    # THE EXACT FAITHFUL REFERENCE, for a pure tone: what the DFT of cos(2 pi k/T) itself gives.
+    # A non-integer mode is perfectly representable by the table; its DFT simply LEAKS across two
+    # bins.  So Q_win of the ideal signal IS the null for "sharp".  Computed here, not guessed.
+    faith_bin, faith_q = None, None
+    if mode == "abs_tone" and not order_destroyed:
+        g = np.cos(2 * np.pi * np.arange(crop) / centre)
+        F = np.abs(np.fft.rfft(g - g.mean())) ** 2
+        bb = np.array([b for b in BAND if b < len(F)])
+        qq = F[bb] / F[bb].sum()
+        faith_bin, faith_q = int(bb[qq.argmax()]), float(qq.max())
+
     return dict(corpus=("control" if order_destroyed else f"{centre}"), centre=centre,
                 depth=depth, crop=crop, seed=seed, steps=steps, predicted_bin=pred,
+                mode_hz=(None if order_destroyed else crop / centre),
+                faithful_bin=faith_bin, faithful_qwin=faith_q,
                 final_loss=float(np.mean(losses)),
                 corpus_win_bin=cspec["win_bin"], corpus_q_win=cspec["q_win"],
                 corpus_peak_over_median=cspec["peak_over_median"],
-                void=(None if pred is None else cspec["win_bin"] != pred),
+                # the corpus check is a VOID check, not a hit test: allow +-1 bin, because an
+                # off-grid tone's own DFT legitimately splits across two adjacent bins.
+                void=(None if pred is None else abs(cspec["win_bin"] - pred) > 1),
                 wall_s=round(time.time() - t0), peak_rss_gb=round(rss, 2), **tspec)
 
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--stage", default="A", choices=["A", "B", "C"])
+    ap.add_argument("--stage", default="A", choices=["A", "B", "C", "P", "Q"])
     ap.add_argument("--depth", type=float, default=0.76)
     ap.add_argument("--seeds", type=int, default=1)
     ap.add_argument("--mb", type=float, default=4.0)
@@ -205,15 +274,40 @@ def main() -> None:
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
-    if args.stage == "A":        # the quantization test: does the bin track the centre?
+    mode = "reset"
+    if args.stage == "A":        # phase-reset: does the model LEARN a relative ruler?  (it does not)
         cells = [(None, args.depth, 512), (10.45, args.depth, 512),
                  (10.6667, args.depth, 512), (10.85, args.depth, 512)]
     elif args.stage == "B":      # physical vs architectural: hold lambda, move the crop
         cells = [(10.6667, args.depth, 500), (10.6667, args.depth, 521)]
+    elif args.stage == "P":      # READOUT POSITIVE CONTROL: an exact tone the table CAN encode.
+        mode = "abs_tone"        # If P shows no carrier HERE, table_spectrum is broken.
+        cells = [(10.6667, args.depth, 512), (None, args.depth, 512)]
+    elif args.stage == "Q":
+        # ⭐ THE GRID-SNAP TEST.  The decisive form of "can the grid manufacture the sharp carrier?"
+        #
+        # Give the table a PURE tone it CAN represent exactly (P is 512 free vectors, so a
+        # non-integer mode is perfectly representable -- its DFT just LEAKS across two bins).
+        # The faithful DFT is then EXACTLY computable, so "sharp" has an exact null:
+        #
+        #    T = 10.6667  mode 48.000  ON grid       faithful Q_win = 1.000
+        #    T = 10.8936  mode 47.000  ON grid       faithful Q_win = 1.000
+        #    T = 10.7789  mode 47.500  MAX OFF grid  faithful Q_win = 0.425  (bins 47 AND 48)
+        #
+        # FAITHFUL  -> Q_win ~ 0.43, split 47/48.  The grid does NOT manufacture sharpness, so
+        #              SpliceBERT's Q_win = 0.76 means its DATA really is near 10.67.
+        # SNAPPED   -> Q_win ~ 0.9+ in ONE bin.  The grid DOES manufacture sharpness, and
+        #              SpliceBERT's sharp bin 48 is at least partly an ARTEFACT OF THE TABLE.
+        #
+        # (The abs_band variant was dropped: its "faithful" reference is model-dependent -- the
+        #  model can infer T from context instead of holding E_T[cos] -- so it cannot be scored.)
+        mode = "abs_tone"
+        cells = [(10.7789, args.depth, 512),      # mode 47.500 -- THE PROBE
+                 (10.8936, args.depth, 512)]      # mode 47.000 -- on-grid neighbour, a control
     else:                        # the dose ladder, on the winning centre
         cells = [(10.6667, d, 512) for d in (0.50, 0.25, 0.10, 0.05)]
 
-    print(f"stage {args.stage} | {len(cells)} cells x {args.seeds} seed(s) "
+    print(f"stage {args.stage} (mode={mode}) | {len(cells)} cells x {args.seeds} seed(s) "
           f"= {len(cells)*args.seeds} runs | tokens/run = {TOTAL_TOKENS/1e6:.1f}M")
     print(f"FROZEN NULLS:  flat {FLAT_QWIN:.3f}   FAITHFUL {FAITHFUL_QWIN:.2f}   "
           f"SpliceBERT 0.76\n")
@@ -237,12 +331,14 @@ def main() -> None:
     rec.setdefault("runs", {})
     for seed in range(args.seeds):
         for centre, depth, crop in cells:
-            key = f"{'control' if centre is None else centre}|d{depth}|L{crop}|s{seed}"
+            key = (f"{mode}|{'control' if centre is None else centre}"
+                   f"|d{depth}|L{crop}|s{seed}")
             if key in rec["runs"]:
                 print(f"[{key}] already done, skipping")
                 continue
             print(f"[{key}]", flush=True)
-            r = one_run(centre, depth, crop, seed, dev, args.mb, args.max_rss_gb)
+            r = one_run(centre, depth, crop, seed, dev, args.mb, args.max_rss_gb, mode)
+            r["mode"] = mode
             rec["runs"][key] = r
             OUT.write_text(json.dumps(rec, indent=1))     # MERGE by key, never clobber
             flag = ""
