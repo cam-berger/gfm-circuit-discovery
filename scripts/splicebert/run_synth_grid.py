@@ -340,7 +340,18 @@ def main() -> None:
             r = one_run(centre, depth, crop, seed, dev, args.mb, args.max_rss_gb, mode)
             r["mode"] = mode
             rec["runs"][key] = r
-            OUT.write_text(json.dumps(rec, indent=1))     # MERGE by key, never clobber
+            # RE-READ IMMEDIATELY BEFORE WRITING.  Holding `rec` in memory for the whole run and
+            # rewriting the file wholesale CLOBBERS anything another process (or a human) wrote
+            # in the meantime -- which is exactly how the depth-10% pilot was destroyed, and how
+            # a VOID marking applied mid-run was silently erased on 2026-07-13.
+            # Merging by key across invocations is NOT enough; the read must be fresh.
+            disk = json.loads(OUT.read_text()) if OUT.exists() else {}
+            disk.setdefault("faithful_qwin", FAITHFUL_QWIN)
+            disk.setdefault("flat_qwin", FLAT_QWIN)
+            disk.setdefault("runs", {})
+            disk["runs"].update(rec["runs"])              # our new runs win; theirs survive
+            rec = disk
+            OUT.write_text(json.dumps(rec, indent=1))
             flag = ""
             if r["void"] is True:
                 flag = "  <-- VOID: the band is not in the corpus"

@@ -206,7 +206,7 @@
    "corpus_win_bin": 48,
    "corpus_q_win": 0.9165721213711593,
    "corpus_peak_over_median": 110.01766958906254,
-   "void": null,
+   "void": true,
    "wall_s": 265,
    "peak_rss_gb": 0.6,
    "win_bin": 48,
@@ -230,7 +230,8 @@
    "band_power": 7455.1240234375,
    "med_power": 25.664714813232422,
    "band_over_median": 26.407406141750435,
-   "mode": "abs_tone"
+   "mode": "abs_tone",
+   "VOID": "make_corpus_abs had no shuffle_mod, so this 'control' regenerated the TREATMENT corpus. It is a bit-identical DUPLICATE of abs_tone|10.6667, not a control. DO NOT CITE IT. (It does confirm determinism: same seed -> identical result.) The genuine negative arm is control|d0.76|L512|s0 (phase-reset, order destroyed), which gives Q_win 0.101 through the identical readout."
   },
   "abs_tone|10.7789|d0.76|L512|s0": {
    "corpus": "10.7789",
