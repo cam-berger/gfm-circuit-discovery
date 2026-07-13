@@ -239,3 +239,29 @@ that is constant by construction cannot be repaired by moving the threshold.
   *gentler* than random). Large ablations break the LM and the coupling dies whatever is
   deleted. The test has no power. Recorded as R12 rather than quietly dropped, because the
   claim was made before the control existed.
+
+## 2026-07-12 — L1H12 probed and dismissed; a bigger finding fell out of it
+
+L1H12 was the persistent 3rd head (0.266) outside the frozen circuit, so we probed it before
+closing the study. Three stages, each built so that "L1H12 is boring" stayed a reachable answer.
+
+- **It is not a fourth component.** It adds +0.002 [−0.027, +0.031] on top of C. **C stands.**
+- **It is machinery, not a carrier** — L2H15's exact signature: real necessity, zero denoise
+  recovery (0.003). It never looks at the partner and its attention is unmoved by destroying it.
+- **Its whole effect routes through L3H1** (rescue 1.124, CI covering 1.0) — a closed edge —
+  but *diffusely*: it moves L3H1's query and key about equally. The attractive symmetry
+  ("L2H15 = the address, L1H12 = the question") is **not supported**, and we did not write it.
+  The script's own guard printed "do not force the parallel-feeder story", and we didn't.
+- **The period-3 lead was a red herring for L1H12 — and a real finding about the model.** Its
+  attention is a striking period-3 comb (30.5× phase ratio). But it appears from *any* query
+  position, it **survives shuffling the sequence**, and ~a third of all heads have one. So it is
+  positional, not a codon detector, and it does not distinguish L1H12 (rank 30 of 96).
+  What it *is*: a **learned codon-phase lattice** — 30/96 heads put >90% of local attention on a
+  single phase (mod 3), ten at exactly 1.000, against **0/96** at random initialisation.
+  Logged as D19 and handed off as its own study. It is very likely the substrate under the
+  existing reading-frame work.
+
+Method note worth keeping: every stage of this probe was designed with an explicit boring
+answer, and the boring answer won twice (period-3 = positional; routing = diffuse). That is
+the same discipline that caught R7–R12 — and it is cheaper to build the falsifier than to
+retract the story.

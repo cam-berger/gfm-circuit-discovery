@@ -1,0 +1,1737 @@
+{
+ "n_seq": 24,
+ "span": 24,
+ "heads": [
+  {
+   "layer": 0,
+   "head": 0,
+   "strength": 0.6761529199894962,
+   "dominant_rel_phase": [
+    1,
+    1,
+    1
+   ],
+   "implied_abs_phase": [
+    1,
+    2,
+    0
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 0,
+   "head": 1,
+   "strength": 0.49462046087824135,
+   "dominant_rel_phase": [
+    2,
+    2,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    0,
+    1
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 0,
+   "head": 2,
+   "strength": 0.9999294285860069,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 0,
+   "head": 3,
+   "strength": 0.9996779463997574,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 0,
+   "head": 4,
+   "strength": 0.9999776660818066,
+   "dominant_rel_phase": [
+    2,
+    2,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    0,
+    1
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 0,
+   "head": 5,
+   "strength": 0.9998895989609099,
+   "dominant_rel_phase": [
+    2,
+    2,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    0,
+    1
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 0,
+   "head": 6,
+   "strength": 0.334761460990421,
+   "dominant_rel_phase": [
+    0,
+    2,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    0,
+    2
+   ],
+   "absolute": false,
+   "relative": false,
+   "lattice": false
+  },
+  {
+   "layer": 0,
+   "head": 7,
+   "strength": 0.35767840169441373,
+   "dominant_rel_phase": [
+    2,
+    2,
+    1
+   ],
+   "implied_abs_phase": [
+    2,
+    0,
+    0
+   ],
+   "absolute": false,
+   "relative": false,
+   "lattice": false
+  },
+  {
+   "layer": 0,
+   "head": 8,
+   "strength": 0.3494693860831625,
+   "dominant_rel_phase": [
+    2,
+    1,
+    1
+   ],
+   "implied_abs_phase": [
+    2,
+    2,
+    0
+   ],
+   "absolute": false,
+   "relative": false,
+   "lattice": false
+  },
+  {
+   "layer": 0,
+   "head": 9,
+   "strength": 0.44912544681092387,
+   "dominant_rel_phase": [
+    2,
+    2,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    0,
+    1
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 0,
+   "head": 10,
+   "strength": 0.9999644009757275,
+   "dominant_rel_phase": [
+    1,
+    1,
+    1
+   ],
+   "implied_abs_phase": [
+    1,
+    2,
+    0
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 0,
+   "head": 11,
+   "strength": 0.7468397056961109,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 0,
+   "head": 12,
+   "strength": 0.9999748235827695,
+   "dominant_rel_phase": [
+    1,
+    1,
+    1
+   ],
+   "implied_abs_phase": [
+    1,
+    2,
+    0
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 0,
+   "head": 13,
+   "strength": 0.6592778867092814,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 0,
+   "head": 14,
+   "strength": 0.9998831875088325,
+   "dominant_rel_phase": [
+    1,
+    1,
+    1
+   ],
+   "implied_abs_phase": [
+    1,
+    2,
+    0
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 0,
+   "head": 15,
+   "strength": 0.3746991933169619,
+   "dominant_rel_phase": [
+    2,
+    1,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    2,
+    1
+   ],
+   "absolute": false,
+   "relative": false,
+   "lattice": false
+  },
+  {
+   "layer": 1,
+   "head": 0,
+   "strength": 0.33978766647584857,
+   "dominant_rel_phase": [
+    2,
+    1,
+    0
+   ],
+   "implied_abs_phase": [
+    2,
+    2,
+    2
+   ],
+   "absolute": true,
+   "relative": false,
+   "lattice": false
+  },
+  {
+   "layer": 1,
+   "head": 1,
+   "strength": 0.36567606871695824,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 1,
+   "head": 2,
+   "strength": 0.9801172671764734,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 1,
+   "head": 3,
+   "strength": 0.7013995955116376,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 1,
+   "head": 4,
+   "strength": 0.40181458421117283,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 1,
+   "head": 5,
+   "strength": 0.3524654004782231,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 1,
+   "head": 6,
+   "strength": 0.4232537511437904,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 1,
+   "head": 7,
+   "strength": 0.3966618951548104,
+   "dominant_rel_phase": [
+    2,
+    2,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    0,
+    1
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 1,
+   "head": 8,
+   "strength": 0.35184126671665844,
+   "dominant_rel_phase": [
+    1,
+    2,
+    1
+   ],
+   "implied_abs_phase": [
+    1,
+    0,
+    0
+   ],
+   "absolute": false,
+   "relative": false,
+   "lattice": false
+  },
+  {
+   "layer": 1,
+   "head": 9,
+   "strength": 0.7870277657249961,
+   "dominant_rel_phase": [
+    1,
+    1,
+    1
+   ],
+   "implied_abs_phase": [
+    1,
+    2,
+    0
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 1,
+   "head": 10,
+   "strength": 0.8782213528843025,
+   "dominant_rel_phase": [
+    2,
+    2,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    0,
+    1
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 1,
+   "head": 11,
+   "strength": 0.3417749783108621,
+   "dominant_rel_phase": [
+    2,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    2,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": false,
+   "lattice": false
+  },
+  {
+   "layer": 1,
+   "head": 12,
+   "strength": 0.9154935353204591,
+   "dominant_rel_phase": [
+    1,
+    1,
+    1
+   ],
+   "implied_abs_phase": [
+    1,
+    2,
+    0
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 1,
+   "head": 13,
+   "strength": 0.940776314111766,
+   "dominant_rel_phase": [
+    1,
+    1,
+    1
+   ],
+   "implied_abs_phase": [
+    1,
+    2,
+    0
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 1,
+   "head": 14,
+   "strength": 0.9965531450760935,
+   "dominant_rel_phase": [
+    1,
+    1,
+    1
+   ],
+   "implied_abs_phase": [
+    1,
+    2,
+    0
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 1,
+   "head": 15,
+   "strength": 0.3389306773807769,
+   "dominant_rel_phase": [
+    2,
+    2,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    0,
+    1
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 2,
+   "head": 0,
+   "strength": 0.9422143787318693,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 2,
+   "head": 1,
+   "strength": 0.39951551143851805,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 2,
+   "head": 2,
+   "strength": 0.6739546097328079,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 2,
+   "head": 3,
+   "strength": 0.4282276181833226,
+   "dominant_rel_phase": [
+    1,
+    1,
+    1
+   ],
+   "implied_abs_phase": [
+    1,
+    2,
+    0
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 2,
+   "head": 4,
+   "strength": 0.3453106554343148,
+   "dominant_rel_phase": [
+    1,
+    0,
+    2
+   ],
+   "implied_abs_phase": [
+    1,
+    1,
+    1
+   ],
+   "absolute": true,
+   "relative": false,
+   "lattice": false
+  },
+  {
+   "layer": 2,
+   "head": 5,
+   "strength": 0.3439465489732745,
+   "dominant_rel_phase": [
+    0,
+    0,
+    2
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    1
+   ],
+   "absolute": false,
+   "relative": false,
+   "lattice": false
+  },
+  {
+   "layer": 2,
+   "head": 6,
+   "strength": 0.5668181036457621,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 2,
+   "head": 7,
+   "strength": 0.9872144581816288,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 2,
+   "head": 8,
+   "strength": 0.9980865561752356,
+   "dominant_rel_phase": [
+    1,
+    1,
+    1
+   ],
+   "implied_abs_phase": [
+    1,
+    2,
+    0
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 2,
+   "head": 9,
+   "strength": 0.9547984084837197,
+   "dominant_rel_phase": [
+    1,
+    1,
+    1
+   ],
+   "implied_abs_phase": [
+    1,
+    2,
+    0
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 2,
+   "head": 10,
+   "strength": 0.9889059033462416,
+   "dominant_rel_phase": [
+    2,
+    2,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    0,
+    1
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 2,
+   "head": 11,
+   "strength": 0.37665669208303704,
+   "dominant_rel_phase": [
+    2,
+    2,
+    1
+   ],
+   "implied_abs_phase": [
+    2,
+    0,
+    0
+   ],
+   "absolute": false,
+   "relative": false,
+   "lattice": false
+  },
+  {
+   "layer": 2,
+   "head": 12,
+   "strength": 0.4233753101914408,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 2,
+   "head": 13,
+   "strength": 0.9972617559796596,
+   "dominant_rel_phase": [
+    1,
+    1,
+    1
+   ],
+   "implied_abs_phase": [
+    1,
+    2,
+    0
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 2,
+   "head": 14,
+   "strength": 0.7788447116998398,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 2,
+   "head": 15,
+   "strength": 0.8422961790804621,
+   "dominant_rel_phase": [
+    2,
+    2,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    0,
+    1
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 3,
+   "head": 0,
+   "strength": 0.9952475254493013,
+   "dominant_rel_phase": [
+    1,
+    1,
+    1
+   ],
+   "implied_abs_phase": [
+    1,
+    2,
+    0
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 3,
+   "head": 1,
+   "strength": 0.4612974407020832,
+   "dominant_rel_phase": [
+    1,
+    1,
+    1
+   ],
+   "implied_abs_phase": [
+    1,
+    2,
+    0
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 3,
+   "head": 2,
+   "strength": 0.38816073124448547,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 3,
+   "head": 3,
+   "strength": 0.8353682459296232,
+   "dominant_rel_phase": [
+    2,
+    2,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    0,
+    1
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 3,
+   "head": 4,
+   "strength": 0.994211057221786,
+   "dominant_rel_phase": [
+    1,
+    1,
+    1
+   ],
+   "implied_abs_phase": [
+    1,
+    2,
+    0
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 3,
+   "head": 5,
+   "strength": 0.3450904738714722,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 3,
+   "head": 6,
+   "strength": 0.9955963002087437,
+   "dominant_rel_phase": [
+    2,
+    2,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    0,
+    1
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 3,
+   "head": 7,
+   "strength": 0.662225793019865,
+   "dominant_rel_phase": [
+    2,
+    2,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    0,
+    1
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 3,
+   "head": 8,
+   "strength": 0.5170255796935633,
+   "dominant_rel_phase": [
+    1,
+    1,
+    1
+   ],
+   "implied_abs_phase": [
+    1,
+    2,
+    0
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 3,
+   "head": 9,
+   "strength": 0.9061004012659043,
+   "dominant_rel_phase": [
+    2,
+    2,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    0,
+    1
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 3,
+   "head": 10,
+   "strength": 0.8147949589942937,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 3,
+   "head": 11,
+   "strength": 0.4591949655359708,
+   "dominant_rel_phase": [
+    2,
+    2,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    0,
+    1
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 3,
+   "head": 12,
+   "strength": 0.8402506735611451,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 3,
+   "head": 13,
+   "strength": 0.8774526376681054,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 3,
+   "head": 14,
+   "strength": 0.38327320782288893,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 3,
+   "head": 15,
+   "strength": 0.39364801970125934,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 4,
+   "head": 0,
+   "strength": 0.9955287211746686,
+   "dominant_rel_phase": [
+    2,
+    2,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    0,
+    1
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 4,
+   "head": 1,
+   "strength": 0.3463490617673765,
+   "dominant_rel_phase": [
+    2,
+    0,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    1,
+    1
+   ],
+   "absolute": false,
+   "relative": false,
+   "lattice": false
+  },
+  {
+   "layer": 4,
+   "head": 2,
+   "strength": 0.9969901968654677,
+   "dominant_rel_phase": [
+    1,
+    1,
+    1
+   ],
+   "implied_abs_phase": [
+    1,
+    2,
+    0
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 4,
+   "head": 3,
+   "strength": 0.39537215734930076,
+   "dominant_rel_phase": [
+    2,
+    2,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    0,
+    1
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 4,
+   "head": 4,
+   "strength": 0.34740781565398876,
+   "dominant_rel_phase": [
+    2,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    2,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": false,
+   "lattice": false
+  },
+  {
+   "layer": 4,
+   "head": 5,
+   "strength": 0.3908233140397861,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 4,
+   "head": 6,
+   "strength": 0.3739580155121805,
+   "dominant_rel_phase": [
+    2,
+    0,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    1,
+    1
+   ],
+   "absolute": false,
+   "relative": false,
+   "lattice": false
+  },
+  {
+   "layer": 4,
+   "head": 7,
+   "strength": 0.9935635208795851,
+   "dominant_rel_phase": [
+    1,
+    1,
+    1
+   ],
+   "implied_abs_phase": [
+    1,
+    2,
+    0
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 4,
+   "head": 8,
+   "strength": 0.3552790890736894,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 4,
+   "head": 9,
+   "strength": 0.9984900940845659,
+   "dominant_rel_phase": [
+    2,
+    2,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    0,
+    1
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 4,
+   "head": 10,
+   "strength": 0.9151601556723682,
+   "dominant_rel_phase": [
+    1,
+    1,
+    1
+   ],
+   "implied_abs_phase": [
+    1,
+    2,
+    0
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 4,
+   "head": 11,
+   "strength": 0.9983857934379005,
+   "dominant_rel_phase": [
+    2,
+    2,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    0,
+    1
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 4,
+   "head": 12,
+   "strength": 0.3819518373371416,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 4,
+   "head": 13,
+   "strength": 0.7960842208727198,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": true
+  },
+  {
+   "layer": 4,
+   "head": 14,
+   "strength": 0.34345097152475274,
+   "dominant_rel_phase": [
+    2,
+    0,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    1,
+    1
+   ],
+   "absolute": false,
+   "relative": false,
+   "lattice": false
+  },
+  {
+   "layer": 4,
+   "head": 15,
+   "strength": 0.35075286465372657,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 5,
+   "head": 0,
+   "strength": 0.4411705720471597,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 5,
+   "head": 1,
+   "strength": 0.35655987511185666,
+   "dominant_rel_phase": [
+    2,
+    0,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    1,
+    1
+   ],
+   "absolute": false,
+   "relative": false,
+   "lattice": false
+  },
+  {
+   "layer": 5,
+   "head": 2,
+   "strength": 0.34861540817270953,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 5,
+   "head": 3,
+   "strength": 0.3376863564757475,
+   "dominant_rel_phase": [
+    2,
+    1,
+    0
+   ],
+   "implied_abs_phase": [
+    2,
+    2,
+    2
+   ],
+   "absolute": true,
+   "relative": false,
+   "lattice": false
+  },
+  {
+   "layer": 5,
+   "head": 4,
+   "strength": 0.42487567131926757,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 5,
+   "head": 5,
+   "strength": 0.34501810166600905,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 5,
+   "head": 6,
+   "strength": 0.3420982688086651,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 5,
+   "head": 7,
+   "strength": 0.3529922005126774,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 5,
+   "head": 8,
+   "strength": 0.3651041632577449,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 5,
+   "head": 9,
+   "strength": 0.3449041417466172,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 5,
+   "head": 10,
+   "strength": 0.5795978170098279,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 5,
+   "head": 11,
+   "strength": 0.3660046062254351,
+   "dominant_rel_phase": [
+    2,
+    1,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    2,
+    1
+   ],
+   "absolute": false,
+   "relative": false,
+   "lattice": false
+  },
+  {
+   "layer": 5,
+   "head": 12,
+   "strength": 0.3605278830977892,
+   "dominant_rel_phase": [
+    2,
+    1,
+    2
+   ],
+   "implied_abs_phase": [
+    2,
+    2,
+    1
+   ],
+   "absolute": false,
+   "relative": false,
+   "lattice": false
+  },
+  {
+   "layer": 5,
+   "head": 13,
+   "strength": 0.3402916738886466,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  },
+  {
+   "layer": 5,
+   "head": 14,
+   "strength": 0.3418353678971536,
+   "dominant_rel_phase": [
+    0,
+    1,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    2,
+    2
+   ],
+   "absolute": false,
+   "relative": false,
+   "lattice": false
+  },
+  {
+   "layer": 5,
+   "head": 15,
+   "strength": 0.41881411184216794,
+   "dominant_rel_phase": [
+    0,
+    0,
+    0
+   ],
+   "implied_abs_phase": [
+    0,
+    1,
+    2
+   ],
+   "absolute": false,
+   "relative": true,
+   "lattice": false
+  }
+ ],
+ "n_lattice": 42,
+ "n_absolute": 0,
+ "n_relative": 42
+}

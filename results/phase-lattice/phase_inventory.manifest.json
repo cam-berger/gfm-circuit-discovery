@@ -1,0 +1,33 @@
+{
+  "command": [
+    "scripts/splicebert/run_phase_inventory.py",
+    "--n",
+    "24",
+    "--queries",
+    "24",
+    "--batch",
+    "4"
+  ],
+  "config": {
+    "n": 24,
+    "queries": 24,
+    "span": 24
+  },
+  "created_at_utc": "2026-07-13T00:28:44.150375+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 63230,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "phase_lattice:inventory",
+  "git_commit": null,
+  "git_dirty": null,
+  "inputs": [],
+  "notes": [
+    "ABSOLUTE vs RELATIVE is the load-bearing distinction: only an absolute lattice gives the model a shared phase origin, which is what a reading frame requires."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

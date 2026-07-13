@@ -1,0 +1,44 @@
+{
+  "command": [
+    "scripts/splicebert/run_address_transplant.py",
+    "--n",
+    "150",
+    "--batch",
+    "8"
+  ],
+  "config": {
+    "distances": [
+      40,
+      60,
+      80,
+      100,
+      120,
+      150,
+      200,
+      300,
+      450
+    ],
+    "n": 150,
+    "span": 25,
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-13T00:24:52.589765+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 63052,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_coupling:address_transplant",
+  "git_commit": null,
+  "git_dirty": null,
+  "inputs": [],
+  "notes": [
+    "Replaces the retracted D9 (swap = identity) and D16 (copy = architecture).",
+    "This moves the SEQUENCE, not the key, so the transplant carries the position code of where it now is -- which is what makes content/position separable.",
+    "Shuffled-context control at every distance; every cell can be zero."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}
