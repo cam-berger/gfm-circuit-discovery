@@ -89,6 +89,15 @@ The specific traps, all of which have already bitten:
   And the "two clocks sharpen the address" reading died to **algebra** — for teeth
   `p ∝ (1 + a·cos)`, `H ≈ log N − a²/4`, so one added cosine can concentrate a comb by at most
   ~8% at the measured depth. *Before* running the experiment, ask what the effect size **can** be.
+- **R16 — VALIDATE THE INSTRUMENT'S DETECTION FLOOR *BEFORE* TRUSTING ITS NULL.** A tight
+  confidence interval around zero is worthless if the measuring device cannot see the effect
+  size in question. The WW/SS helical-phasing covariate returned a beautiful null
+  (−0.0006 [−0.0085, +0.0072]) — and its estimator turned out to have a **5–10% detection
+  floor** against a literature effect of **a few percent**. Inject a signal of known size and
+  check you can find it. Four estimator versions each produced a *different* artefact before
+  this was caught (scan-edge peaks, trend leakage, filter shaping, a too-weak shuffle null), so:
+  **when a spectral estimate keeps peaking at the edge of your scan, the estimator is talking,
+  not the data.**
 - **The selection effect.** If you select components by a property and then intervene on that
   property, the result is guaranteed. A stride-3 comb rolled by 3 slides onto itself, so its
   perturbation is small in phase **by set arithmetic** — verified on white noise, with no model
