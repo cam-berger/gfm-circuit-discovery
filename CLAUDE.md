@@ -1,0 +1,101 @@
+# gfm-circuit-discovery — the canonical repo
+
+**This repository is the single source of truth.** It is version-controlled, runnable, and
+verified file-by-file (sha256) against the old 18 GB working copy. Everything of record lives
+here.
+
+> ## ⛔ Do not use `~/Research/projects/test/GFM_SpliceBERT_Circuit_Discovery_Implementation/`
+>
+> That tree is a **retired working copy**. It is not a git repo, its docs still assert claims
+> that have since been **retracted**, and anything edited there is invisible to the record.
+> Everything of record from it has been rescued into this repo (commit `70f53e3`); the ~18 GB
+> that remains there is duplicate genome, the retracted v1 dataset, and raw dumps that **no
+> claim cites**.
+
+---
+
+## Running it
+
+```bash
+.venv/bin/python -m pytest -q          # 192 passed, 1 skipped
+.venv/bin/python scripts/splicebert/<script>.py --help
+```
+
+- The venv is at `.venv` (built with `uv sync --extra splicebert --extra dev`). **Use
+  `.venv/bin/python`, not `python`.** `pip` is not installed in it — use `uv pip install
+  --python .venv/bin/python`.
+- Device is **MPS**. It is a *single* GPU. **Never run more than one model process at a time**
+  — parallel agents each loading SpliceBERT will thrash it and nothing finishes.
+- The model ships in-repo: `data/models/splicebert_official_archive/extracted/models/`
+  (`SpliceBERT.1024nt`, `SpliceBERT.510nt`, `SpliceBERT-human.510nt`).
+- The **genome and GTF live outside the repo** at `~/Research/data/genomes/` (with `fetch.sh` +
+  `CHECKSUMS.md5`). This is deliberate — 3 GB of public reference data does not belong in git.
+  `DEFAULT_FASTA` / `DEFAULT_GTF` in `src/gfmcd/splicing/circuit.py` point there.
+
+## Layout
+
+| path | what |
+|---|---|
+| `src/gfmcd/splicing/circuit.py` | **the frozen harness.** Every script imports the circuit, the readout, the corruption, the eligibility filter and the interventions from here, so a sealed-test number cannot differ from a val number for any reason but the data. |
+| `scripts/splicebert/` | the live experiments |
+| `scripts/splicebert/v1_partner_selection/` | the **retracted** v1 pipeline — quarantined, kept because CLAIMS cites its outputs |
+| `studies/splicebert_partner_selection/` | `CLAIMS.md` (**the registry**), `FINDINGS.md`, `DECISIONS.md` (append-only) |
+| `studies/codon_phase_lattice/` | the period-3 clock study + its pre-registration |
+| `tests/test_*_memorials.py` | one tripwire per retraction. **Do not delete these.** |
+| `.archive/` | the adversarial scratch workbench (tarball) and the codex-repeat branch |
+
+## Before you write a number down
+
+This project has retracted **fifteen** claims. Every one died the same way: an experiment that
+**could not have failed**. The two rules that came out of it are load-bearing:
+
+> **A control that cannot fail is not a control.**
+>
+> **An intervention that destroys the behaviour cannot measure the mechanism.**
+
+The specific traps, all of which have already bitten:
+
+- **R7 / R15 — the algebra check.** Swapping a (key, value) *pair* between two positions is an
+  identity: `out_i = Σ_j softmax(q_i·k_j)·v_j` is invariant under permuting `j`. And *copying* a
+  pair to a new slot is barely better — BERT's positions are **absolute**, so `q_i·k_j` has no
+  term in the slot index, and a relocated pair attracts *exactly* the attention it attracted at
+  home (measured 9.9e-07). Both "results" passed their pre-registered gates on **untrained
+  weights**. Before running an intervention, ask whether it is algebraically forced.
+- **R8 / R13 — the health gate.** An "MLM health" check that read the argmax at *unmasked*
+  positions scored the model copying its own input: 0.99 for everything, including a model with
+  94 of 96 heads ablated. And the lattice-ablation "function test" read its metric off a model
+  ablation had driven to **chance** (−1.377 vs ln¼ = −1.386). **Report MLM health next to every
+  number, and gate on a behaviour that is NOT the outcome** — gating on the outcome is how
+  `run_carrier_surgery.py` printed "VOID" on its own true positive.
+- **R12 — the size-matched null.** "Layers 4–5 are specifically required" died to a random
+  ablation of the same size (p = 0.42). **One random draw is an alarm, not a null.** Use a
+  distribution.
+- **R10 — conditioning on the outcome.** `min_effect=0.3` is legitimate for a *ratio* (it needs
+  a denominator) and illegitimate for a *magnitude*. Label every conditional number conditional.
+- **R14 — the metric that measures the wrong thing.** "Phase purity" (fraction of local
+  attention mass on one residue class mod 3) is **maximised by a head attending to exactly one
+  position** — one offset has one remainder. It was ranking heads by *sharpness*:
+  `corr(purity, effective support) = −0.767`. A whole 42-head "lattice" evaporated.
+- **The selection effect.** If you select components by a property and then intervene on that
+  property, the result is guaranteed. A stride-3 comb rolled by 3 slides onto itself, so its
+  perturbation is small in phase **by set arithmetic** — verified on white noise, with no model
+  at all (`tests/test_phase_shift_memorials.py`).
+
+**Statistics:** gene-grouped bootstrap; ratio-of-means, never mean-of-ratios; add-one empirical
+p-values with a distinct denominator. Manifests (`ExperimentManifest`) next to every result.
+
+## Where the science stands
+
+- **The coupling circuit is real and sealed** (13/13 on held-out chr8/9): L3H1 reads the
+  partner acceptor; L2H15 builds its address; the readout is a distributed chain.
+- **The address is built from a learned period-3 positional clock** (D21) — a rank-2 rotary
+  phase code in the position table (Fourier bins 339–345, 802× the median bin). Delete it and
+  the combs' attention collapses to chance, coding prediction loses 0.159 nats (introns: 0.042;
+  energy-matched controls: equal), and the coupling dies 0.946 → 0.027. Restoring **L2H15
+  alone** recovers 36%. It is learned in stage-1 pretraining and **only with multi-species
+  data** (477.7× vs 6.3× human-only).
+- **Open:** whether the multi-species effect is species diversity or just data volume — the two
+  released checkpoints cannot separate them.
+
+**Read `studies/splicebert_partner_selection/CLAIMS.md` before quoting any number.** It carries
+the live claims *and* the retractions, and the retractions are permanent.
