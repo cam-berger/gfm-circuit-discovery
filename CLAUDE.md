@@ -76,6 +76,19 @@ The specific traps, all of which have already bitten:
   attention mass on one residue class mod 3) is **maximised by a head attending to exactly one
   position** — one offset has one remainder. It was ranking heads by *sharpness*:
   `corr(purity, effective support) = −0.767`. A whole 42-head "lattice" evaporated.
+- **A NUMBER THAT LOOKS LIKE BIOLOGY IS A HYPOTHESIS, NOT AN INTERPRETATION.** The position table
+  holds a second carrier at period **10.69** — and 10.5 is B-DNA's helical repeat, 10.8 is an
+  α-helix in codons, 11 is A-form RNA. Every one of those is a story you can tell in a sentence,
+  and none of them was true. The rule that came out of it:
+
+  > **Subspace identity establishes the carrier. Causal function establishes its meaning.**
+
+  Concretely: the α-helix reading died to a *powered* translation test (the codon clock, run
+  through the same assay, shows DiD +0.133 [+0.112, +0.156]; the carrier shows +0.012 [−0.002,
+  +0.026]). The chromatin reading died to a helical-phasing test built from the sequence alone.
+  And the "two clocks sharpen the address" reading died to **algebra** — for teeth
+  `p ∝ (1 + a·cos)`, `H ≈ log N − a²/4`, so one added cosine can concentrate a comb by at most
+  ~8% at the measured depth. *Before* running the experiment, ask what the effect size **can** be.
 - **The selection effect.** If you select components by a property and then intervene on that
   property, the result is guaranteed. A stride-3 comb rolled by 3 slides onto itself, so its
   perturbation is small in phase **by set arithmetic** — verified on white noise, with no model
