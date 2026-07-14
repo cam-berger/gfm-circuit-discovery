@@ -1,5 +1,11 @@
 # Tracing plan — partner-selection circuit in frozen SpliceBERT
 
+> ⛔ **SUPERSEDED / VOID.** This document belongs to the **retracted** v1/v2 partner-selection
+> design (R2/R3) or to the pre-sealed-test protocol. It is kept for provenance only.
+> **The document of record is `studies/splicebert_partner_selection/FINDINGS.md`;**
+> the frozen protocol actually executed is `PREREGISTRATION_SEALED.md`.
+> Retractions: `CLAIMS.md` §R1–R12.
+
 **Status:** FROZEN 2026-07-11 (refined after the local smoke). Hashed in `FREEZE.md`
 together with the discovery subset (D/V\_c/O) and the component-set size (5). Trace
 target: the five **additive-frozen** checkpoints only. Test split (chr19–chr22) stays

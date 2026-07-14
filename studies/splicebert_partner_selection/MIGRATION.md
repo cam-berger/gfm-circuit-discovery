@@ -1,5 +1,11 @@
 # Migration — RRR hardening pass (2026-07-11)
 
+> ⛔ **SUPERSEDED / VOID.** This document belongs to the **retracted** v1/v2 partner-selection
+> design (R2/R3) or to the pre-sealed-test protocol. It is kept for provenance only.
+> **The document of record is `studies/splicebert_partner_selection/FINDINGS.md`;**
+> the frozen protocol actually executed is `PREREGISTRATION_SEALED.md`.
+> Retractions: `CLAIMS.md` §R1–R12.
+
 Light, additive rigor pass. **No modules were moved, renamed, or deleted** — the repo
 already followed the one-module-per-stage layout. Only additions + three in-place
 edits, listed below.

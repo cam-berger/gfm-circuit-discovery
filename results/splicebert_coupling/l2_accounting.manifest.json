@@ -1,0 +1,39 @@
+{
+  "command": [
+    "scripts/splicebert/run_l2_accounting.py",
+    "--n",
+    "150",
+    "--batch",
+    "6"
+  ],
+  "config": {
+    "feeder": [
+      2,
+      15
+    ],
+    "n": 150,
+    "reader": [
+      3,
+      1
+    ],
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-12T23:30:03.474200+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 61290,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_coupling:l2_accounting",
+  "git_commit": null,
+  "git_dirty": null,
+  "inputs": [],
+  "notes": [
+    "Nested rescue: the saturation point localises the route.",
+    "The layer-2-output row is an instrument calibration and must equal 1.000; if it does not, no other row is interpretable."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

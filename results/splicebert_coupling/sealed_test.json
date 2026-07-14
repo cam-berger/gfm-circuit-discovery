@@ -1,0 +1,287 @@
+{
+ "split": "test",
+ "code_sha256": {
+  "src/gfmcd/splicing/circuit.py": "5677cc525c226930",
+  "scripts/splicebert/run_sealed_test.py": "a3f33e59d42a4171"
+ },
+ "thresholds": {
+  "A1_coupling_ci_excludes_zero": true,
+  "A2_paired_selectivity_ci_excludes_zero": true,
+  "A3_partner_vs_nonpartner_ag_ci_excludes_zero": true,
+  "B1_circuit_ablation_frac_lost_min": 0.6,
+  "B2_null_p_max": 0.05,
+  "B3_mlm_health_retained_min": 0.9,
+  "C1_interaction_I_ci_excludes_zero": true,
+  "C2_kv_recovery_min": 0.5,
+  "D1_relocated_kv_recovery_min": 0.3,
+  "D2_value_alone_max": 0.15,
+  "D3_key_at_nonsite_max": 0.15,
+  "D4_relocation_retains_min": 0.7,
+  "E1_circuit_denoise_recovery_min": 0.5
+ },
+ "behaviour": {
+  "n": 400,
+  "coupling": 0.8724943049997091,
+  "ci": [
+   0.7706858987171061,
+   0.9694751036590087
+  ],
+  "median": 0.6381027698516846,
+  "n_paired": 400,
+  "own": 0.8724943049997091,
+  "other_donor": 0.005386206824332476,
+  "paired_diff_vs_other": 0.8671080981753767,
+  "paired_diff_ci": [
+   0.7570114048383993,
+   0.9708159815951062
+  ],
+  "nonpartner_ag": 0.007279233410954476,
+  "paired_diff_vs_motif": 0.8652150715887547,
+  "paired_diff_motif_ci": [
+   0.7574641698876631,
+   0.9700398045630799
+  ],
+  "selectivity_ratio": 19.599644634431733,
+  "selectivity_ci": [
+   11.980714630657301,
+   37.24056338631563
+  ]
+ },
+ "conditional_set": {
+  "n": 150,
+  "mean": 1.1975585770606996
+ },
+ "necessity": {
+  "baseline": 1.1975585770606996,
+  "mlm_health": 0.5145667943358422,
+  "heads": {
+   "L3H1": {
+    "coupling": 0.25471063415209455,
+    "lost": 0.942847942908605,
+    "lost_ci": [
+     0.8068869486035419,
+     1.0753718797528704
+    ],
+    "frac_lost": 0.7873084131072243,
+    "mlm_health": 0.5179018172621727,
+    "health_retained": 1.00648122452331
+   },
+   "L2H15": {
+    "coupling": 0.6268649595975876,
+    "lost": 0.5706936174631119,
+    "lost_ci": [
+     0.45462341367666875,
+     0.678776343362265
+    ],
+    "frac_lost": 0.4765475596724699,
+    "mlm_health": 0.5136639347672463,
+    "health_retained": 0.9982453986954963
+   },
+   "circuit C": {
+    "coupling": 0.2202348013718923,
+    "lost": 0.9773237756888071,
+    "lost_ci": [
+     0.8350682385408174,
+     1.1123897230949762
+    ],
+    "frac_lost": 0.8160968443711212,
+    "mlm_health": 0.5106511133909225,
+    "health_retained": 0.9923903349613267
+   }
+  }
+ },
+ "null": {
+  "observed": 0.8792277264595032,
+  "mean": 1.763274166731693e-05,
+  "max": 0.34598349511623383,
+  "p_add_one": 0.0024937655860349127,
+  "n": 400
+ },
+ "mediation": {
+  "attention_intact": 0.5655329115122246,
+  "attention_corrupted": 0.037482149831848804,
+  "kv": {
+   "key@acceptor": {
+    "recovery": 0.03201179033660999,
+    "lo": -0.008188267847369493,
+    "hi": 0.06916425198469338,
+    "attention": 0.45727877584208426,
+    "attention_restored": 0.7949929371834417
+   },
+   "value@acceptor": {
+    "recovery": 0.10054456443480622,
+    "lo": 0.07021845571893758,
+    "hi": 0.13361586621747004,
+    "attention": 0.037482149831848804,
+    "attention_restored": 0.0
+   },
+   "key+value@acceptor": {
+    "recovery": 0.6632735310104212,
+    "lo": 0.6031930161067475,
+    "hi": 0.7157243578506475,
+    "attention": 0.45727877584208426,
+    "attention_restored": 0.7949929371834417
+   },
+   "query@donor": {
+    "recovery": 0.0006985413921050999,
+    "lo": -0.004957432754633931,
+    "hi": 0.006256250688165745,
+    "attention": 0.03606696607460132,
+    "attention_restored": -0.002680014612125652
+   },
+   "key+value@control-pos": {
+    "recovery": -1.5687573323440983e-05,
+    "lo": -0.00015823139995844597,
+    "hi": 0.00013061046791438172,
+    "attention": 0.03748966970279677,
+    "attention_restored": 1.4240810720609722e-05
+   }
+  },
+  "interaction": {
+   "I": 0.530717176239005,
+   "ci": [
+    0.4773565789141307,
+    0.583312850355285
+   ]
+  }
+ },
+ "patch_windows": [
+  {
+   "name": "acceptor",
+   "patch_positions": [
+    350,
+    351,
+    352,
+    353
+   ],
+   "corruption_positions": [
+    351,
+    352
+   ],
+   "overlap": [
+    351,
+    352
+   ],
+   "is_control": false
+  },
+  {
+   "name": "control-pos",
+   "patch_positions": [
+    212,
+    213,
+    214,
+    215
+   ],
+   "corruption_positions": [
+    351,
+    352
+   ],
+   "overlap": [],
+   "is_control": true
+  },
+  {
+   "name": "adjacent-control-8",
+   "patch_positions": [
+    342,
+    343,
+    344,
+    345
+   ],
+   "corruption_positions": [
+    351,
+    352
+   ],
+   "overlap": [],
+   "is_control": true
+  },
+  {
+   "name": "adjacent-control+8",
+   "patch_positions": [
+    358,
+    359,
+    360,
+    361
+   ],
+   "corruption_positions": [
+    351,
+    352
+   ],
+   "overlap": [],
+   "is_control": true
+  }
+ ],
+ "binding": {
+  "n": 145,
+  "conditions": {
+   "key@decoy": {
+    "recovery": 0.24449006955315697,
+    "lo": 0.19461523232883118,
+    "hi": 0.2929724660113808,
+    "attn_partner": 0.012547564803327109,
+    "attn_decoy": 0.4623764681621808
+   },
+   "key@control-pos (CONTROL)": {
+    "recovery": 0.07301013272807887,
+    "lo": 0.029362002435628042,
+    "hi": 0.1156107940406082,
+    "attn_partner": 0.012216735606464147,
+    "attn_decoy": 0.016011840309132476
+   },
+   "value@decoy": {
+    "recovery": -0.00970821163661478,
+    "lo": -0.0286949421073159,
+    "hi": 0.009716235960872066,
+    "attn_partner": 0.036800567389055405,
+    "attn_decoy": 0.03260989829723885
+   },
+   "key+value@decoy": {
+    "recovery": 0.6553419645334847,
+    "lo": 0.5967204996415457,
+    "hi": 0.7104766915070593,
+    "attn_partner": 0.012547564803327109,
+    "attn_decoy": 0.4623764681621808
+   },
+   "key+value@control-pos": {
+    "recovery": 0.6385362038292043,
+    "lo": 0.5776155901632011,
+    "hi": 0.6884264898534433,
+    "attn_partner": 0.012216735606464147,
+    "attn_decoy": 0.016011840309132476
+   },
+   "key+value@partner (reference)": {
+    "recovery": 0.6583838359826281,
+    "lo": 0.5957897242194841,
+    "hi": 0.7108813776903836,
+    "attn_partner": 0.4539770849522781,
+    "attn_decoy": 0.016196613904646162
+   }
+  },
+  "relocated_interaction": 0.4205601066169425,
+  "relocation_retained": 0.995379790203076
+ },
+ "faithfulness": {
+  "ablation_frac_lost": 0.8160968443711212,
+  "denoise_recovery": 0.789963205195525,
+  "denoise_ci": [
+   0.7360600909634463,
+   0.8330272832798756
+  ]
+ },
+ "checks": {
+  "A1 unconditional coupling CI excludes 0": true,
+  "A2 own vs distance-matched donor: paired CI excludes 0": true,
+  "A3 partner vs non-partner AG: paired CI excludes 0": true,
+  "B1 circuit ablation loses >= 60%": true,
+  "B2 null p <= 0.05": true,
+  "B3 MLM health retained >= 90%": true,
+  "C1 K x V interaction CI excludes 0": true,
+  "C2 key+value recovery >= 0.5": true,
+  "D1 relocated key+value @decoy >= 0.3": true,
+  "D2 value alone <= 0.15 (content needs an address)": true,
+  "D3 CONTROL key@non-site <= 0.15": true,
+  "D4 relocation retains >= 0.7": true,
+  "E1 circuit denoise >= 0.5": true
+ },
+ "n_passed": 13,
+ "n_checks": 13
+}

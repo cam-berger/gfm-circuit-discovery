@@ -1,0 +1,129 @@
+{
+ "split": "val",
+ "n": 150,
+ "head": [
+  1,
+  12
+ ],
+ "baseline_coupling": 1.2944561141729354,
+ "coupling_ablated": 1.023868569135666,
+ "coupling_supplied": 0.2705875450372696,
+ "rescue": {
+  "L3H1 query @donor": {
+   "rescue": 0.284988433174545,
+   "lo": 0.16856539909626522,
+   "hi": 0.44360950579504965
+  },
+  "L3H1 query @all-pos": {
+   "rescue": 0.6764139277642615,
+   "lo": 0.4961196965203316,
+   "hi": 0.926613044211909
+  },
+  "L3H1 key @acceptor": {
+   "rescue": 0.43409304983674685,
+   "lo": 0.2998511659293726,
+   "hi": 0.6714841471919157
+  },
+  "L3H1 key @all-pos": {
+   "rescue": 0.4016961603958075,
+   "lo": 0.26359137920724296,
+   "hi": 0.6123773598753143
+  },
+  "L3H1 value @all-pos": {
+   "rescue": -0.08624824017317886,
+   "lo": -0.17386947834822464,
+   "hi": -0.03468575728557984
+  },
+  "L3H1 key+value @all-pos": {
+   "rescue": 0.3411975634041598,
+   "lo": 0.20093799651834643,
+   "hi": 0.5315835171499433
+  },
+  "L3H1 head output @all-pos": {
+   "rescue": 1.1244923853202475,
+   "lo": 0.9285072008870621,
+   "hi": 1.4346628978403382
+  },
+  "L2H15 head output": {
+   "rescue": 0.5093443227153345,
+   "lo": 0.3541261960321004,
+   "hi": 0.7266223634103756
+  },
+  "MLP1 write @all-pos": {
+   "rescue": -0.32158131231924275,
+   "lo": -0.8014788412345798,
+   "hi": -0.05617044357979059
+  },
+  "layer-1 output (CALIBRATION)": {
+   "rescue": 1.0,
+   "lo": 1.0,
+   "hi": 1.0
+  }
+ },
+ "calibration_ok": true,
+ "patch_windows": [
+  {
+   "name": "acceptor",
+   "patch_positions": [
+    520,
+    521,
+    522,
+    523
+   ],
+   "corruption_positions": [
+    521,
+    522
+   ],
+   "overlap": [
+    521,
+    522
+   ],
+   "is_control": false
+  },
+  {
+   "name": "control-pos",
+   "patch_positions": [
+    242,
+    243,
+    244,
+    245
+   ],
+   "corruption_positions": [
+    521,
+    522
+   ],
+   "overlap": [],
+   "is_control": true
+  },
+  {
+   "name": "adjacent-control-8",
+   "patch_positions": [
+    512,
+    513,
+    514,
+    515
+   ],
+   "corruption_positions": [
+    521,
+    522
+   ],
+   "overlap": [],
+   "is_control": true
+  },
+  {
+   "name": "adjacent-control+8",
+   "patch_positions": [
+    528,
+    529,
+    530,
+    531
+   ],
+   "corruption_positions": [
+    521,
+    522
+   ],
+   "overlap": [],
+   "is_control": true
+  }
+ ]
+}

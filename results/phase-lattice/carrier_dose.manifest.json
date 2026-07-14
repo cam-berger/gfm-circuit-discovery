@@ -1,0 +1,57 @@
+{
+  "command": [
+    "scripts/splicebert/run_carrier_dose.py",
+    "--n",
+    "256",
+    "--batch",
+    "8"
+  ],
+  "config": {
+    "alphas": [
+      1.0,
+      0.9,
+      0.75,
+      0.5,
+      0.25,
+      0.1,
+      0.0
+    ],
+    "band": [
+      339,
+      340,
+      341,
+      342,
+      343,
+      344,
+      345
+    ],
+    "control": [
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100
+    ],
+    "n": 256
+  },
+  "created_at_utc": "2026-07-13T03:44:54.467309+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 3532,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "phase_lattice:carrier_dose",
+  "git_commit": "53aadd60038c88d23009f6e62e3db83769c1f5d9",
+  "git_dirty": true,
+  "inputs": [],
+  "notes": [
+    "The health gate in run_carrier_surgery.py CONDITIONED ON THE OUTCOME (it gated on exon headroom, which is the outcome). Health is checked here on two behaviours the carrier is not claimed to serve: intron MLM, and the donor-acceptor coupling.",
+    "A dose-response curve cannot be produced by a single-point artefact."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "gfmcd"
 version = "0.1.0"
-description = "Circuit discovery in genomic foundation models"
+description = "Mechanistic discovery in genomic foundation models"
 requires-python = ">=3.10"
 dependencies = [
     "torch>=2.2",
@@ -19,8 +19,6 @@ models = ["transformers>=4.40", "datasets"]
 splicebert = ["transformers>=4.40", "pyfaidx>=0.8"]
 genome = ["pyfaidx>=0.8", "numpy"]
 dev = ["pytest", "pytest-xdist"]
-# The interactive reverse-engineering layer (gfmcd.lab) and its notebooks.
-lab = ["matplotlib>=3.7", "jupyter", "nbconvert", "nbformat", "ipykernel", "pyfaidx>=0.8"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

@@ -10,14 +10,18 @@
      restores 0% of attention; only together (0.711) does the head both FIND the partner and
      READ it.  Interaction I = +0.573 [+0.522, +0.624].
 
-  C  Address and content are SEPARABLE -- the binding result.  Swap L3H1's key/value between
-     the true partner and a distance-matched decoy AG.  Key-swap moves attention entirely to
-     the decoy; value-swap leaves attention put but still destroys the margin; BOTH-swap
-     leaves attention on the decoy yet FULLY RESTORES the margin -- the head reads whatever
-     the key routes it to, and the conclusion follows the VALUE.
+  C  The address is not a COORDINATE -- the RELOCATED read.
+     (This panel previously showed a key/value SWAP between the partner and a decoy.  That was
+     an algebraic identity: transposing (k,v) PAIRS relabels the summation index of
+     out_i = sum_j softmax(q_i.k_j) v_j, so the head's output is unchanged EXACTLY -- it
+     reproduced on a randomly-initialised model.  Retracted as R7.)
+     The replacement is a ONE-WAY COPY, which can fail: destroy the partner's AG, then copy
+     its clean key and/or value somewhere else.  Content with no address is worth 0.004.
+     Key+value works at a decoy AG (0.669), at a NON-SITE (0.656), and in place (0.686) --
+     relocation costs 2%.  The head finds its partner by CONTENT, wherever the key is put.
 
-  D  L2H15 is an upstream ADDRESSING head.  Restoring L3H1's key (not its value) to its
-     L2H15-intact value rescues the coupling L2H15 supplies.
+  D  L2H15 is an upstream ADDRESSING head, and its edge into L3H1 is CLOSED: restoring L3H1's
+     whole output rescues 1.05 of what L2H15 supplies -- nothing of it goes anywhere else.
 
 Computes nothing; reads manifest-stamped artifacts and hashes them into provenance.
 """
@@ -39,14 +43,16 @@ from gfmcd.figures import COLORS, panel_label, save_figure, use_style  # noqa: E
 
 HERE = Path(__file__).parent
 RES = REPO / "results" / "splicebert_coupling"
-QKV, COMP, RESC = RES / "qkv.json", RES / "competing_acceptors.json", RES / "l2_rescue.json"
+# competing_acceptors.json is RETRACTED (R7 -- the swap is an identity) and is NOT read here.
+SEAL, ACCT = RES / "sealed_val.json", RES / "l2_accounting.json"
+QKV = RES / "qkv.json"
 
 
 def main() -> None:
-    for p in (QKV, COMP, RESC):
+    for p in (SEAL, ACCT, QKV):
         if not p.exists():
             raise SystemExit(f"missing {p}")
-    qkv, comp, resc = (json.loads(p.read_text()) for p in (QKV, COMP, RESC))
+    seal, acct, qkv = (json.loads(p.read_text()) for p in (SEAL, ACCT, QKV))
 
     use_style()
     fig, ax = plt.subplots(1, 4, figsize=(14.0, 3.4))
@@ -96,61 +102,66 @@ def main() -> None:
     ax[1].set_title("The read is CONJUNCTIVE", pad=8)
     panel_label(ax[1], "B")
 
-    # ---- C: competing acceptors -- address vs content ---------------------------
-    C = comp["conditions"]
-    conds = ["baseline", "key-swap", "value-swap", "both-swap"]
-    short = ["base", "key\nswap", "value\nswap", "both\nswap"]
-    at = [C[c]["attn_partner"] for c in conds]
-    ad_ = [C[c]["attn_decoy"] for c in conds]
-    mg = [C[c]["margin"] for c in conds]
-    x = np.arange(4)
-    ax[2].bar(x - 0.19, at, width=0.36, color=COLORS["signal"], label="attn → partner", zorder=3)
-    ax[2].bar(x + 0.19, ad_, width=0.36, color=COLORS["warn"], label="attn → decoy", zorder=3)
+    # ---- C: the RELOCATED read -- the address is not a coordinate -----------------
+    B = seal["binding"]["conditions"]
+    conds = ["value@decoy", "key@control-pos (CONTROL)", "key@decoy",
+             "key+value@decoy", "key+value@control-pos", "key+value@partner (reference)"]
+    short = ["value\n@decoy", "key\n@non-site\n(CONTROL)", "key\n@decoy",
+             "key+value\n@decoy", "key+value\n@non-site", "key+value\nin place\n(ref)"]
+    v = [B[c]["recovery"] for c in conds]
+    lo = [B[c]["lo"] for c in conds]
+    hi = [B[c]["hi"] for c in conds]
+    cols = [COLORS["muted"], COLORS["muted"], COLORS["warn"],
+            COLORS["signal"], COLORS["signal"], COLORS["accent"]]
+    x = np.arange(len(conds))
+    ax[2].bar(x, v, color=cols, zorder=3, width=0.68)
+    ax[2].errorbar(x, v, yerr=[np.array(v) - lo, np.array(hi) - np.array(v)], fmt="none",
+                   ecolor=COLORS["text"], elinewidth=0.8, capsize=2, zorder=4)
+    ax[2].axhline(0, color=COLORS["text"], lw=0.8)
+    ax[2].axhline(v[-1], color=COLORS["accent"], ls="--", lw=0.9, zorder=2)
     ax[2].set_xticks(x)
-    ax[2].set_xticklabels(short)
-    ax[2].set_ylabel("L3H1 attention")
-    ax[2].set_ylim(0, 0.82)
-    ax[2].legend(loc="upper left", fontsize=6, ncol=2, columnspacing=0.8,
-                 bbox_to_anchor=(-0.02, 1.02))
-    ax2 = ax[2].twinx()
-    ax2.plot(x, mg, "o--", color=COLORS["text"], markersize=5, lw=1.4, zorder=5)
-    ax2.axhline(comp["corrupt_margin"], color=COLORS["muted"], lw=0.8, ls=":")
-    ax2.text(3.42, comp["corrupt_margin"], "partner\ndestroyed", fontsize=5.5,
-             color=COLORS["muted"], va="center")
-    # label the line directly -- a second legend collides with the first
-    ax2.annotate("donor margin", xy=(0, mg[0]), xytext=(0.18, mg[0] + 0.20),
-                 fontsize=6.5, color=COLORS["text"],
-                 arrowprops=dict(arrowstyle="-", color=COLORS["text"], lw=0.7))
-    ax2.text(3.0, mg[3] + 0.10, "fully\nrestored", fontsize=6, ha="center",
-             color=COLORS["accent"], fontweight="bold")
-    ax2.set_ylabel("donor logit margin", color=COLORS["text"])
-    ax2.grid(False)
-    ax2.set_ylim(comp["corrupt_margin"] - 0.12, comp["clean_margin"] + 0.55)
-    ax[2].set_title("ADDRESS vs CONTENT are separable", pad=8)
+    ax[2].set_xticklabels(short, fontsize=5.5)
+    ax[2].set_ylabel("coupling restored\n(partner's AG destroyed)")
+    ax[2].set_ylim(-0.05, 0.85)
+    ax[2].annotate("content with no\naddress: worthless", xy=(0, v[0]), xytext=(0.05, 0.30),
+                   fontsize=6, color=COLORS["muted"],
+                   arrowprops=dict(arrowstyle="->", color=COLORS["muted"], lw=0.8))
+    ax[2].annotate("works ANYWHERE\nyou put it", xy=(4, v[4]), xytext=(2.5, 0.79),
+                   fontsize=6, color=COLORS["signal"], ha="center",
+                   arrowprops=dict(arrowstyle="->", color=COLORS["signal"], lw=0.8))
+    ax[2].set_title("The address is not a COORDINATE", pad=8)
     panel_label(ax[2], "C")
 
-    # ---- D: L2H15 rescue ---------------------------------------------------------
-    r = resc["rescue"]
-    keys = ["K only", "V only", "K+V", "MLP2 write", "K+V @control-pos"]
-    lab = ["key", "value", "key+\nvalue", "MLP2\nwrite", "control\npos"]
+    # ---- D: L2H15 -> L3H1 is a CLOSED edge ---------------------------------------
+    r = acct["rescue"]
+    keys = ["L3H1 key @acceptor", "L3H1 query @donor", "MLP2 write @all-pos",
+            "L3H1 head output @all-pos", "ALL layer-3 heads @all-pos"]
+    lab = ["L3H1 key\n@acceptor", "L3H1 query\n@donor", "MLP2\nwrite",
+           "L3H1 WHOLE\noutput", "all L3\nheads"]
     v = [r[k]["rescue"] for k in keys]
     lo = [r[k]["lo"] for k in keys]
     hi = [r[k]["hi"] for k in keys]
-    cols = [COLORS["signal"], COLORS["muted"], COLORS["signal"], COLORS["accent"],
-            COLORS["muted"]]
+    cols = [COLORS["muted"], COLORS["muted"], COLORS["warn"], COLORS["signal"],
+            COLORS["signal"]]
     x = np.arange(len(keys))
     ax[3].bar(x, v, color=cols, zorder=3, width=0.66)
     ax[3].errorbar(x, v, yerr=[np.array(v) - lo, np.array(hi) - np.array(v)], fmt="none",
                    ecolor=COLORS["text"], elinewidth=0.8, capsize=2, zorder=4)
+    ax[3].axhline(1.0, color=COLORS["text"], ls=":", lw=0.9, zorder=2)
+    ax[3].text(4.45, 1.03, "100%", fontsize=6, ha="right", color=COLORS["text"])
     ax[3].axhline(0, color=COLORS["text"], lw=0.8)
     ax[3].set_xticks(x)
-    ax[3].set_xticklabels(lab)
-    ax[3].set_ylabel("coupling rescued\n(fraction L2H15 supplies)")
-    ax[3].set_title("L2H15 builds the ADDRESS", pad=8)
+    ax[3].set_xticklabels(lab, fontsize=6)
+    ax[3].set_ylabel("fraction of L2H15's effect\nrescued")
+    ax[3].set_ylim(0, 1.35)
+    ax[3].annotate("nothing of L2H15\nbypasses L3H1", xy=(3, v[3]), xytext=(1.3, 1.22),
+                   fontsize=6, color=COLORS["signal"],
+                   arrowprops=dict(arrowstyle="->", color=COLORS["signal"], lw=0.8))
+    ax[3].set_title("L2H15 → L3H1 is a CLOSED edge", pad=8)
     panel_label(ax[3], "D")
 
     fig.tight_layout(w_pad=2.4)
-    out = save_figure(fig, HERE / "fig2_mechanism", sources=[QKV, COMP, RESC])
+    out = save_figure(fig, HERE / "fig2_mechanism", sources=[QKV, SEAL, ACCT])
     print(f"wrote {out}.png / .pdf  (+ provenance)")
 
 

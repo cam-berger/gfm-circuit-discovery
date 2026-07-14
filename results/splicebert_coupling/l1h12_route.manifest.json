@@ -1,0 +1,35 @@
+{
+  "command": [
+    "scripts/splicebert/run_l1h12_route.py",
+    "--n",
+    "150",
+    "--batch",
+    "6"
+  ],
+  "config": {
+    "candidate": [
+      1,
+      12
+    ],
+    "n": 150,
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-13T00:19:38.560983+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 62889,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_coupling:l1h12_route",
+  "git_commit": null,
+  "git_dirty": null,
+  "inputs": [],
+  "notes": [
+    "EXPLORATORY.  The hypothesis (L1H12 builds L3H1's QUERY) is falsifiable: a large key@acceptor rescue with a null query@donor rescue kills it.",
+    "The layer-1-output row is calibration, not a result; it must equal 1.000."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

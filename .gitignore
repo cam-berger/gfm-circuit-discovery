@@ -3,36 +3,27 @@ __pycache__/
 .pytest_cache/
 .DS_Store
 
-# Reference genomes and derived tensors. Multi-GB, and hg38 + GENCODE are external inputs.
+# External genomes, annotations, model archives, and derived data.
 data/raw/
 data/processed/
-
-# Window caches: 154 MB, and every one is regenerable from its seed -- the filename IS the
-# recipe (cell, split, n, window, seed), and `train_cell.pool()` rebuilds it on demand.
-# `codon_usage_hg38.npy` is the exception: 4 KB, and it needs the full GENCODE GTF to make.
-data/cache/*.npz
-data/cache/windows_*.npy
-
-# Model weights.
-checkpoints/
-*.pt
-*.safetensors
-
-# Rendered figures are regenerable from the fig_data dumps by scripts/fig_phase_*.py.
-# The dumps themselves ARE tracked: they are the measured numbers, and a retraction like D35
-# should leave a reviewable diff rather than silently overwrite a PNG.
-results/**/figures/
-
-# External resources and pretrained-model archives for real-GFM studies.
 data/external/
 data/models/
 
-# Run-time model/readout artifacts. Keep manifests and settled metrics under results/.
-artifacts/
+# Regenerable local caches.
+data/cache/
 
-# SpliceBERT track: large / regenerable outputs (small metrics + manifests stay tracked)
+# Model weights and large runtime outputs.
+checkpoints/
+*.pt
+*.safetensors
 colab_results/**/*.pt
 colab_results/**/*.jsonl
 *.pkl
 splicebert_code.zip
+
+# Runtime model/readout artifacts. Settled metrics and manifests belong under results/.
+artifacts/
 results/splicebert_partner_selection/**/*.jsonl
+
+# Ad hoc rendered result figures. Publication figures under figures/ are tracked with provenance.
+results/**/figures/

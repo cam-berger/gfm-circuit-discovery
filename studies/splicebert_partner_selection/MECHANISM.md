@@ -1,180 +1,173 @@
-# Mechanism of same-intron boundary coupling
+# The same-intron boundary-coupling circuit in SpliceBERT
 
-All numbers are **gene-disjoint held-out** (val = chr11/16/19). Test (chr8, chr9) is SEALED.
+**Status: partially resolved causal circuit, validated on held-out data (chr11/16/19).**
+The sealed test (chr8/chr9) is opened once, against `PREREGISTRATION_SEALED.md`.
 
-## The claim
+All numbers below are **val**, on the corrected **both-strand** dataset. Every number
+published before 2026-07-12 was a *plus-strand* number (R11), and several rested on controls
+that could not fail (R7–R10). **Read `CLAIMS.md` §Retractions before quoting anything.**
 
-> **L3H1 implements an acceptor-side, content-addressed read: the acceptor must be both
-> *identifiable* through its key and *informative* through its value. Together those two
-> channels explain 87% of the head's recoverable causal effect.**
+---
 
-This is a mechanistic result, not a localisation result. It is substantially stronger than
-"L3H1 attends to splice sites" — which is roughly what the attention analysis in the
-original SpliceBERT paper already implies.
+## The claim, in one paragraph
+
+SpliceBERT, trained only to fill in masked nucleotides, recognises a 5′ splice site partly by
+**reading the 3′ splice site at the other end of the intron**. Destroying the partner
+acceptor's `AG` costs the donor **0.958** [0.855, 1.059] of logit margin; destroying a
+motif-matched *non-partner* `AG` costs **0.012**, and the same corruption scored at a
+*distance-matched other donor* costs **0.031**. A single head — **L3H1** — carries most of it:
+ablating it loses 82% of the coupling while retaining 99.8% of the model's masked-prediction
+accuracy. The head performs a **conjunctive, content-addressed read**: the acceptor's *key*
+selects it and its *value* supplies the content, and neither alone does anything
+(key 0.031, value 0.117, key+value **0.680**; interaction **I = +0.532** [0.478, 0.583]).
+The address is a point in **representation space, not a coordinate in the sequence** — copy
+the partner's (key, value) pair to any other position and the coupling returns just as well
+(decoy AG 0.669, non-site 0.656, in place 0.686). An upstream head, **L2H15**, builds that
+address, and *everything* it contributes flows through L3H1 (rescue 1.05 [0.97, 1.16]).
 
 ## The circuit
 
-```mermaid
-flowchart LR
-    D["Donor query<br/>stable request:<br/>'where is my acceptor?'"] --> S["L3H1 selection<br/>(attention)"]
-    K["Acceptor KEY<br/>findability"] --> S
-    S --> R["Weighted read"]
-    V["Acceptor VALUE<br/>retrieved content"] --> R
-    R --> O["Partner coupling<br/>(donor logit margin)"]
-    F["L2H15<br/>upstream feeder"] -.refines.-> K
-    F -.refines.-> V
+```
+                the partner acceptor's AG at [a−2, a−1]
+                              │
+                              ▼
+        ┌─────────────────────────────────────────────┐
+        │  L2H15 — builds the ADDRESS                 │   ablation: −52% of coupling
+        │  the key that makes the acceptor findable   │   rescue via L3H1's output: 0.96
+        │  (also via MLP2: 0.69)                      │   → a CLOSED edge (D12)
+        └─────────────────────┬───────────────────────┘
+                              ▼
+        ┌─────────────────────────────────────────────┐
+        │  L3H1 — the CONTENT-ADDRESSED READ          │   ablation: −82%, rank 1 of 96
+        │                                             │   health retained: 99.8%
+        │  reads AT the acceptor:                     │
+        │     key   alone   0.031                     │
+        │     value alone   0.117                     │
+        │     key + value   0.680   I = +0.532        │   the conjunction IS the mechanism
+        │                                             │
+        │  queries from ~11 positions in the 5′ss     │
+        │  neighbourhood, redundantly                 │
+        └─────────────────────┬───────────────────────┘
+                              │  WRITES into those same 11 tokens
+                              │  donor 0.345 · flank ±5 0.495 · acceptor 0.003
+                              ▼
+        ┌─────────────────────────────────────────────┐
+        │  MLP3 → L4 → MLP4 → L5 → MLP5               │   direct effect: 0.023 of 0.818
+        │  a DISTRIBUTED CHAIN                        │   0.023→0.18→0.26→0.46→0.53→0.818
+        │  every link adds; none suffices             │   no compact readout head exists
+        └─────────────────────┬───────────────────────┘
+                              ▼
+                    donor logit margin
 ```
 
-## The evidence
+## What each arrow is made of
 
-### 1. Selection collapses under corruption
+### 1. The behaviour is real, partner-selective, and not a motif artefact
+Native masked-LM readout — no probe, no labels. Perturbation substitutes real bases (`CC`),
+never `[MASK]` (off-manifold). Unconditional, n=400, gene-clustered bootstrap:
 
-L3H1's attention from the donor to the partner acceptor:
-
-| condition | attention |
+| | effect |
 |---|---|
-| intact | **0.652** |
-| **acceptor corrupted** | **0.029** — 95% collapse |
-| L2H15 ablated | 0.515 — 21% collapse |
-| distance-matched control position | 0.0007 |
+| destroy the **partner** AG | **+0.958** [0.855, 1.059] |
+| destroy a **non-partner** AG (partner now excluded from the pool) | +0.012 → paired diff **+0.945** [0.846, 1.045] |
+| same corruption, scored at a **distance-matched other donor** | +0.031 → paired diff **+0.927** [0.817, 1.041] |
 
-### 2. The read is CONJUNCTIVE (K x V), not additive
+Selectivity **15.6×** [8.4, 39.9]. The effect is right-skewed (median **0.714**), so the mean
+is not the typical exon — say so, and never quote the conditional mean (1.285) as the
+behavioural magnitude (R10).
 
-Patch L3H1's key / value at the acceptor's AG window, clean -> corrupt:
+### 2. L3H1 is necessary, and it is not merely breaking the model
+Exhaustive 96-head ablation, both strands: **L3H1 0.830** [0.654, 0.994] is #1; **L2H15
+0.515** [0.396, 0.625] is #2. **L1H12 (0.266) is a persistent third and is NOT in C.**
 
-| patch | coupling recovered |
-|---|---|
-| key only | 0.035 [-0.015, +0.084] |
-| value only | 0.104 [+0.074, +0.138] |
-| **key + value** | **0.711 [+0.669, +0.751]** |
-| query @ donor | 0.003 |
-| key / value @ control position | 0.000 |
-
-**Paired factorial interaction** (the statistic to report -- the 5x *ratio* is descriptive
-but unstable, because the marginals are small and their ratio is noisy):
-
-```
-I = R_KV - R_K - R_V + R_null        (R_null = 0: no patch, no recovery)
-I = 0.711 - 0.035 - 0.104 = +0.573   [+0.522, +0.624]
-                                     gene-grouped bootstrap, per example
-```
-
-Mechanically:
-* **key only** -> the head can now FIND the acceptor, but retrieves the CORRUPT value. It
-  reads the wrong thing.
-* **value only** -> the correct content is present, but attention has collapsed 95%, so the
-  head NEVER LOOKS AT IT.
-* **both** -> it finds the partner *and* reads it -> 0.711, which is **87% of the 0.819**
-  recovered by patching the entire head output.
-
-That K and V multiply is built into the transformer and is not itself surprising. What is
-scientifically load-bearing is that the interaction:
-* is **localised to the actual AG window** (`[a-2, a-1]`),
-* is **absent at matched control positions** (0.000),
-* **mediates nearly all** of L3H1's causal effect (87%),
-* operates on the **donor-acceptor relationship identified by the biological assay**.
-
-### 3. L2H15 is an upstream feeder
-
-| | |
-|---|---|
-| marginal ablation drop | +0.600 |
-| extra drop **given L3H1 already ablated** | **+0.051** [+0.025, +0.082] |
-| => nested inside L3H1 | **92%** |
-| recovery from patching its clean output | **0.001** [-0.007, +0.009] — zero |
-| cos(key at acceptor, with vs without L2H15) | 0.950 |
-| cos(value at acceptor, with vs without L2H15) | 0.929 |
-
-L2H15 is **necessary but carries no separable partner signal** (its clean output patches back
-0.001).
-
-### The rescue (`l2_rescue.json`) -- route measured, not inferred
-
-Ablate L2H15, then restore L3H1's key / value at the acceptor to their **L2H15-intact**
-values, and ask how much of the coupling L2H15 supplies (+0.725) comes back:
-
-| restore | coupling rescued |
-|---|---|
-| **key only** | **0.423** [+0.358, +0.503] |
-| **value only** | **-0.019** [-0.030, -0.011] |
-| key + value | 0.405 [+0.341, +0.480] |
-| MLP2 write @ acceptor | 0.276 [+0.229, +0.330] |
-| key+value @ control position | -0.002 |
-
-**L2H15 acts on the acceptor's KEY, not its VALUE.** Value rescue is zero; K+V adds nothing
-over K alone. So L2H15 is a **findability / addressing** head: it builds the key that lets
-L3H1 *locate* the partner acceptor. It does not shape the content L3H1 retrieves.
-
-> **RETRACTED (this document, earlier revision):** "L2H15 refines both the key and the value."
-> That was inferred from cosine similarity (k 0.950, v 0.929), which pointed at the VALUE as
-> the more perturbed channel -- and was **causally wrong**. Cosines rank perturbation
-> magnitude, not causal relevance. Only the rescue settles it.
-
-**Two honest limits:**
-
-1. The key route accounts for only **~40%** of L2H15's effect. The remaining ~60% is
-   **unidentified** -- it does not enter through L3H1's key or value at the acceptor
-   (control: -0.002). It may act at other positions, on other heads, or downstream of L3.
-   Do not describe the L2H15 -> L3H1 route as complete.
-2. **MLP2 mediates 28%** [23%, 33%] -- modest and real, not a clean null. The signal travels
-   *primarily* through the residual stream, but MLP2 is not irrelevant. **No transcoder** (28%
-   does not justify a research branch), but do not report "MLP2 does not mediate".
-
-## Two precision points that constrain the wording
-
-1. **Do not report the 5x ratio.** Report the interaction `I = +0.573 [+0.522, +0.624]`.
-2. **`query@donor = 0.003` is a null about the CORRUPTION, not about the query.** Acceptor
-   corruption did not perturb the donor's query, so a clean-query patch has nothing to
-   restore. The donor query may well be the stable "where is my acceptor?" request; its
-   **necessity is untested** and requires *corrupting or replacing* it (D8).
-
-### 4. Address and content are SEPARABLE -- this is BINDING (`competing_acceptors.json`)
-
-Within-sequence double dissociation. Swap L3H1's key / value between the true partner
-acceptor and a **distance-matched decoy AG** in the same window. No corruption; the sequence
-stays clean.
-
-| condition | attn -> PARTNER | attn -> DECOY | donor margin | partner effect lost |
-|---|---|---|---|---|
-| baseline | 0.505 | 0.009 | 4.655 | 0% |
-| **key-swap** | **0.009** | **0.505** | 4.200 | **50%** |
-| **value-swap** | **0.505** | 0.009 | 4.200 | **50%** |
-| **both-swap** | 0.009 | **0.505** | **4.655** | **0%** |
-
-* **key-swap** -> attention moves *entirely* to the decoy. **The key is the address.**
-* **value-swap** -> attention stays *exactly* on the partner, and the margin still collapses.
-  It looks in the right place and reads the wrong thing. **The value is the content.**
-* **both-swap** -> attention sits on the **decoy**, yet the margin is **fully restored** --
-  because the true partner's value travelled with the key.
-
-**The head does not care WHERE it reads from. It cares WHAT it reads, and the key is purely
-what routes it there.** Address and content are independently manipulable.
-
-The corroborating patch table (`qkv.json`) shows the same thing from the corruption side:
-
-| patch | attention restored | coupling restored |
+| ablate | coupling lost | MLM health retained (**masked** probes) |
 |---|---|---|
-| none (corrupt) | 0.029 | 0.000 |
-| key only | **0.525 (80%)** | 0.035 |
-| value only | 0.029 (0%) | 0.104 |
-| key + value | **0.525 (80%)** | **0.711** |
-| clean reference | 0.652 | 1.000 |
+| L3H1 | 82.3% | 99.8% |
+| L2H15 | 52.2% | 98.2% |
+| **C = {L3H1, L2H15}** | **86.8%** | **97.8%** |
 
-Key restores **selection** but not the conclusion; value restores **neither** alone.
+Against 400 **distinct** matched-random 2-head sets: circuit drop +1.063 vs random mean
++0.006 (max +0.400), **p = 0.0025**. Patching C back restores **83%** [78%, 87%].
 
-> This licenses the claim **"L3H1 BINDS a donor to a PARTICULAR acceptor through separable
-> address and content representations"** -- not merely "L3H1 reads an acceptor". It is the
-> biological circuit this project set out to find, reached only after two forced-choice
-> designs (v1, v2) were retracted as degenerate.
+The health column only became meaningful once the control could fail: the previous metric
+scored the model *copying unmasked input*, returned ~0.99 for everything, and **rose** with
+all 96 heads ablated (R8). Baseline is 0.53, not 0.99.
 
-## What is still open
+### 3. The read is conjunctive — and the conjunction is the mechanism
+Patch L3H1's key/value at the acceptor `AG` window, clean → corrupt. Acceptor corruption
+collapses the head's attention to its partner by **94%**.
 
-* **~60% of L2H15's effect is unidentified** (D11). The key route accounts for 0.423 of the
-  +0.725 it supplies. Do not describe the L2H15 -> L3H1 route as complete.
-* **The donor query's necessity is untested** (D8). `query@donor = 0.003` is a null about the
-  CORRUPTION, not the query.
-* **Only short introns fit the 1024nt context** -- the intron-coupling result cannot be
-  generalised to typical (long) human introns.
-* What makes the acceptor's key encode "*I am THIS donor's partner*" rather than "*I am an
-  AG*"? The decoy is a distance-matched AG and it is *not* selected, so the key already
-  carries partner-specific address information. Where that comes from is the next question.
+| patch | coupling restored | attention restored |
+|---|---|---|
+| key only | 0.031 | 77% |
+| value only | 0.117 | 0% |
+| **key + value** | **0.680** | 77% |
+| query @ donor | 0.003 | — |
+| key+value @ control position | −0.000 | 0% |
+
+**I = +0.532** [0.478, 0.583]. The key restores *selection* but not the conclusion; the value
+restores neither alone. Only together does the head both **find** the partner and **read** it.
+
+### 4. The address is separable from the content — and it is not a coordinate
+Destroy the partner's AG, then **copy** its clean key and/or value into a *different*
+position. A **swap** is an algebraic identity and measures nothing (R7); a one-way copy
+changes the multiset of (key, value) pairs and can fail.
+
+| copy the partner's… | to | coupling restored |
+|---|---|---|
+| value only | decoy AG | **0.004** — content the head is not looking at is worthless |
+| key only | decoy AG | 0.238 — routes to the decoy, retrieves the decoy's *generic* AG content |
+| **key + value** | **decoy AG** | **0.669** |
+| key + value | a **non-site** position | 0.656 |
+| key + value | back **in place** (reference) | 0.686 |
+
+Relocation costs **2%**. The head finds its partner *wherever its key vector is put*. That is
+what content-addressing means, measured rather than asserted.
+
+### 5. L2H15 → L3H1 is a closed edge
+With L2H15 ablated, restoring **L3H1's whole output** to its L2H15-intact value rescues
+**0.959** [0.875, 1.052] of what L2H15 supplies — a CI that covers 1.0. All 16 layer-3 heads together give the same — no other L3 head is involved. The calibration row (restore the entire layer-2 output) returns
+**1.000** exactly, as it must by construction; had it not, no other row would be interpretable.
+
+The earlier "~60% of L2H15 unaccounted for" was an artefact of only ever patching a 4-token
+window at the acceptor (which gives 0.43). Nothing was missing.
+
+### 6. The readout is a chain, not a head
+Patch L3H1 clean into the corrupt run and clamp every downstream residual write to its
+unpatched-corrupt value. **The direct effect is 0.023** of a 0.818 total — L3H1's write is a
+*signal*, not a logit. Releasing the stack bottom-up: 0.023 → 0.18 (MLP3) → 0.26 (L4-attn) → 0.46 (MLP4)
+→ 0.53 (L5-attn) → 0.818. Every link adds; no single block mediates alone
+(best: MLP3, +0.158). **There is no compact readout head that we failed to find.**
+
+---
+
+## What this does NOT show
+
+- **Completeness is untested, and the obvious test has no power.** Ablating everything outside
+  C destroys the coupling — but so does ablating the same *number* of random heads (p = 0.47
+  for 32 heads; p = 0.97 for 47). Large ablations break the language model and the coupling
+  dies whatever is deleted; at matched health the circuit-preserving ablation is *gentler*
+  than random. We claimed layers 4–5 were specifically required and the null retracted it
+  within the hour (R12). **C is the dominant sub-circuit, not "the circuit."**
+- **Only short introns.** The donor→acceptor gap must fit the 1024 nt context (60–150 nt here).
+  Typical human introns are orders of magnitude longer. Nothing here generalises to them, and
+  this architecture cannot be made to test it.
+- **One model.** No cross-model claim is made or supported.
+- **L1H12 (0.266) is real and unexplained.**
+- **The donor's query is not necessary in isolation.** Transplanting it collapses donor→partner
+  attention by 95% yet costs only 29% of the coupling — because ~11 query positions in the 5′ss
+  neighbourhood read the same partner redundantly. Do not say "the donor asks about its
+  partner": the 5′ss *neighbourhood* does, and no single position is load-bearing.
+
+## How to read the claim ladder
+
+| Rung | Status |
+|---|---|
+| Behaviour is real, matched controls | ✅ |
+| Components are necessary | ✅ (ablation + distinct matched-random null + a health control that can fail) |
+| The proposed path mediates the effect | ✅ (K×V conjunction, relocated read, closed L2H15→L3H1 edge) |
+| Interventions are specific | ✅ (non-partner AG, distance-matched donor, non-site key routing, control windows) |
+| **Causal circuit exists** | ✅ ← **this is the current label** |
+| Replicated on sealed data | ⏳ one shot, pre-registered |
+| Faithfulness / completeness quantified | ❌ **the test has no power** (D15) |
+| Fully characterised circuit | ❌ |

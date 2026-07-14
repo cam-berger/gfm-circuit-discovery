@@ -1,0 +1,45 @@
+{
+  "command": [
+    "scripts/splicebert/run_l1h12_probe.py",
+    "--n",
+    "150",
+    "--batch",
+    "6"
+  ],
+  "config": {
+    "candidate": [
+      1,
+      12
+    ],
+    "circuit": [
+      [
+        3,
+        1
+      ],
+      [
+        2,
+        15
+      ]
+    ],
+    "n": 150,
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-13T00:11:51.252028+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 62640,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_coupling:l1h12_probe",
+  "git_commit": null,
+  "git_dirty": null,
+  "inputs": [],
+  "notes": [
+    "EXPLORATORY, not confirmatory.  No threshold, no gate.",
+    "'L1H12 is boring' is a reachable answer and must stay reachable."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

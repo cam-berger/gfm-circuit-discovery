@@ -1,0 +1,58 @@
+{
+  "command": [
+    "scripts/splicebert/run_readout_path.py",
+    "--n",
+    "150",
+    "--batch",
+    "6"
+  ],
+  "config": {
+    "downstream_blocks": [
+      [
+        3,
+        "mlp"
+      ],
+      [
+        4,
+        "attn"
+      ],
+      [
+        4,
+        "mlp"
+      ],
+      [
+        5,
+        "attn"
+      ],
+      [
+        5,
+        "mlp"
+      ]
+    ],
+    "n": 150,
+    "reader": [
+      3,
+      1
+    ],
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-12T23:28:03.313349+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 61181,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_coupling:readout_path",
+  "git_commit": null,
+  "git_dirty": null,
+  "inputs": [],
+  "notes": [
+    "Clamped blocks are forced to their UNPATCHED-CORRUPT write, so they contribute what they would have with no patch and cannot propagate it.",
+    "Layer-3 ATTENTION is never clamped -- that would overwrite the patch itself.",
+    "D8 is a destructive test: the earlier 0.003 clean-query recovery was a null about the corruption, not about the query."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

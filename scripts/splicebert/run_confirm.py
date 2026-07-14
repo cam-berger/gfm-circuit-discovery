@@ -1,22 +1,21 @@
 #!/usr/bin/env python
-"""SCALED HELD-OUT CONFIRMATION of the L3H1 cross-site coupling circuit.
+"""PUBLISHED-LEGACY 2026-07-12 -- superseded by run_sealed_test.py.  Two numbers are RETRACTED.
 
-Everything so far was DISCOVERED on train chromosomes at n=48-50 with 60 null sets.
-Reporting L3H1's effect on the same data that selected it is circular.  This script
-re-runs the whole ladder on GENE-DISJOINT HELD-OUT chromosomes (val: chr11/16/19).
-The test split (chr8, chr9) stays SEALED and is not opened here.
+Do not re-cite this script's output:
+  * mlm_health (0.9958 -> 0.9953) is VACUOUS (R8).  Its probe positions are never masked, so it
+    scores the model COPYING ITS OWN INPUT.  It returns ~0.99 for everything and RISES to 0.999
+    with all 96 heads ablated.  Use CouplingTask.mlm_health (masked probes): baseline ~0.53.
+  * p_add_one = 0.000999 is a FUNCTION OF --n-null, not of the data (R9).  1000 draws with
+    replacement from a 95-head universe at k=1 are 95 distinct values; the honest p is 1/96 =
+    0.0104.  matched_random_head_sets now de-duplicates.
+  * val_coupling = 1.359 is a CONDITIONAL mean (filtered to coupling >= 0.3), reported as a
+    behavioural magnitude (R10).  The unconditional value is 0.973 [0.919, 1.023].
+  * Everything here ran on PLUS-STRAND DATA ONLY (R11).
 
-  A. coupling effect on val, gene-grouped bootstrap CI
-  B. FULL 96-head denoise scan on val -- is L3H1 still #1, or did we cherry-pick a
-     head that only looked special on the discovery data?
-  C. 2x2 factorial for L3H1 on val, with a gene-grouped bootstrap on BOTH the
-     difference-in-differences (partner-dependent role) and the local role
-  D. matched-random head-set null, 1000 sets (the discovery run's p was pinned at its
-     1/61 floor, which is not a measurement)
-  E. subspace: U is FIT ON TRAIN deltas and SCORED ON VAL -- no reuse of eval data
-  F. MLM health for L3H1 alone (leg (c) of the triad, which was only ever measured for
-     the 5-head set)
+The ratios it reports (recovery 0.808, rank 1/96, subspace fractions) are unaffected in kind,
+but were computed on plus-strand data and must be labelled conditional.
 """
+
 from __future__ import annotations
 
 import argparse
