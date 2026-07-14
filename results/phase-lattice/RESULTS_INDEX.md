@@ -3,6 +3,9 @@
 **Repo:** `~/Research/projects/gfm-circuit-discovery` (branch `splicebert-coupling`)
 **Claims registry:** `studies/splicebert_partner_selection/CLAIMS.md`  ← **read this first**
 **Tripwires:** `tests/test_chromatin_refutation_memorials.py` (13 tests pinning R17)
+**Figures:** `figures/splicebert/` — start at `EVIDENCE.md` (the P → QK → Attention →
+OV → Behaviour ladder), then `fig1`–`fig4`. All four are generated from the single data package
+`fig_report_data.json`, which self-checks against the recorded runs before writing.
 
 ---
 
