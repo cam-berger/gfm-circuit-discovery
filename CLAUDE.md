@@ -14,6 +14,41 @@ here.
 
 ---
 
+## ⛔ THE PREFLIGHT GATE — read `studies/splicebert_partner_selection/METHODS_AUDIT.md`
+
+Three retractions (R16, R18, and the D26 clobber) all have ONE root cause:
+
+> **My error-detection fires on SURPRISE, not on PROCEDURE — so it only fires when I dislike the
+> answer. My nulls are therefore more trustworthy than my positives. That is backwards.**
+
+"Validate the instrument" is written in this file three times already and was ignored three times.
+So it is now a GATE, not advice. **No estimator touches real data until `preflight()` passes:**
+
+1. **POSITIVE CONTROL** — recover a KNOWN answer, to a tolerance declared in advance.
+2. **NEGATIVE CONTROL** — with the signal destroyed, return the null. **Report the FPR.**
+   *(This is the arm I skip every single time. Injecting a signal and recovering it measures
+   SENSITIVITY, never SPECIFICITY.)*
+3. **CONTROL VALIDITY** — anything CALLED a control must be MEASURED to have the property that
+   makes it one. A band asserted inert must report its max reader amplitude and kept-fraction.
+   *(The "energy-matched INERT band" was read at amplitude 2.2 — LARGER than the carrier it
+   controlled for. It out-damaged the carrier, and I explained that away as "the carrier is weak".)*
+4. **BOUNDS & RESOLUTION** — declare every output's physical bounds and the instrument's
+   resolution/power BEFORE measuring. Out-of-bounds = HARD FAILURE, never a surprising result.
+   *(Three post-softmax attempts returned >100% modulation of a PROBABILITY.)*
+
+**RULE 5 — THE ANOMALOUS-CONTROL TRIPWIRE.** If a control behaves strangely, the FIRST hypothesis
+is that the instrument is broken. **You may NOT construct a scientific story to accommodate an
+anomalous control.** Resolve it at the instrument level, or the run is VOID.
+
+**RULE 6 — THE SYMMETRY RULE.** A result that CONFIRMS what you expected gets the SAME scrutiny as
+one that disconfirms it. **For every positive, state what would have made it an artifact — and go
+check that thing.**
+
+Also: **never hard-code a vocab offset** (A=6, not 5), and **never feed bare nucleotides** — the
+model wants `[CLS]` + 510 + `[SEP]` (0.0144 nats, 100x the effects being measured).
+
+---
+
 ## Running it
 
 ```bash
