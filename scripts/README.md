@@ -1,48 +1,39 @@
-# Active experiment scripts
+# Canonical SpliceBERT scripts
 
-All active research scripts are under `scripts/splicebert/`. They support the current
-donor–acceptor circuit, period-3 clock, and ≈10.63 carrier record.
+`scripts/splicebert/` contains only the active discovery, validation, reproduction, and figure paths for the current scientific record. Superseded and VOID runners are available in Git history, not alongside live workflows.
 
-The scripts fall into six broad families:
+## Canonical workflow groups
 
-1. behavioral assays and biological counterfactuals;
-2. representation, position-table, carrier, and subspace analyses;
-3. attention/QK/OV tracing and candidate screens;
-4. ablation, patching, rescue, transplant, and mediation experiments;
-5. preflight, power, calibration, provenance, and audit utilities;
-6. publication-data and figure generation.
+### Donor–acceptor coupling
 
-Use filenames and imports to locate a workflow:
+`run_sealed_test.py`, `run_position_profile.py`, `run_l2_accounting.py`, `run_readout_path.py`, `run_l1h12_probe.py`, `run_l1h12_route.py`, `run_faithfulness.py`, `run_completeness_null.py`
 
-```bash
-rg --files scripts/splicebert
-rg "coupling|carrier|postsoftmax|mediation" scripts/splicebert
-```
+The sealed test is provenance, not a routine smoke test. Read the frozen preregistration before using its unsealing flag.
+
+### Period-3 clock and position structure
+
+`run_phase_inventory.py`, `run_carrier_geometry.py`, `run_carrier_subbin.py`, `run_second_carrier.py`, `run_carrier_provenance.py`, `run_carrier_surgery.py`, `run_carrier_dose.py`, `run_carrier_mediation.py`, `run_comb_shift.py`, `analyse_comb_shift.py`
+
+### Attention-level carrier tests
+
+`run_human_carrier.py`, `run_postsoftmax.py`, `measure_band_mass.py`
+
+### Biological/source assays
+
+`run_dyad_fpr.py`, `run_dyad_real.py`, `run_dyad_wavelength.py`, `run_corpus_spectrum.py`, `run_splice_profile.py`, `run_splice_phasing.py`, `run_splice_long.py`
+
+### Figure and report data
+
+`make_fig1_summary.py`, `make_fig2_oscillators.py`, `make_fig3_clock_circuit.py`, `make_fig4_carrier_circuit.py`, `make_fig_phase_data.py`, `make_fig_report_data.py`, `figstyle.py`
 
 ## Execution contract
 
-- Run from the repository root in the project environment.
-- Read `docs/METHODOLOGY.md`, `docs/EVIDENCE_LADDER.md`, and the relevant preregistration first.
-- Run preflight and controls before the target experiment.
-- Write machine-readable output under the relevant `results/` directory.
-- Record checkpoint, data, parameters, seed, code revision, and command in a manifest or in the
-  result's self-contained provenance block.
-- Never hand-edit a result to match a narrative; supersede it and update the claim ledger.
-- Generate publication figures from recorded artifacts.
+- Run from the repository root.
+- Read `docs/METHODOLOGY.md`, `docs/EVIDENCE_LADDER.md`, and the relevant study record first.
+- Run the preflight before target data and keep frozen thresholds unchanged.
+- Write machine-readable output and a manifest under the relevant `results/` family.
+- Use masked model-health controls, size-matched nulls, and exact add-one p-values.
+- Never overwrite or silently revive a superseded artifact.
+- Generate figures from recorded artifacts.
 
-## Retractions and legacy scripts
-
-The current entrypoints are the scripts referenced by the study guides, result manifests, and
-publication table above. A small number of older executables remain in this directory solely to
-preserve the audit trail:
-
-- `run_confirm.py` — superseded confirmation workflow;
-- `run_phase_function.py` — paired with a VOID result;
-- `run_synth_quantization.py` — superseded synthetic diagnostic.
-
-Do not run or extend those files as current experiments. Their presence is provenance, not an
-endorsement of the design. The retracted competing-acceptor executable was removed; its result and
-failure rationale remain in the retracted result record and claim ledger.
-
-The detailed current record is indexed from `studies/splicebert/README.md`,
-`figures/splicebert/README.md`, and `results/phase-lattice/RESULTS_INDEX.md`.
+The claim-to-script map and reproduction notes are in `studies/splicebert_partner_selection/REPRODUCIBILITY.md`.

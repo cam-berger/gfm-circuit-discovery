@@ -19,7 +19,7 @@ Start with:
 | Component | Position table | QK | Attention | OV / mediation | Behavior | Status |
 |---|:--:|:--:|:--:|:--:|:--:|---|
 | Period-3 clock | ✓ | ✓ | ✓ | ✓ | ✓ | Causal positional support for donor–acceptor routing |
-| Donor–acceptor computation | n/a | ✓ | ✓ | ✓ | ✓ | Directed information-routing circuit |
+| Donor–acceptor computation | n/a | ✓ | ✓ | ✓ | ✓ | Paired-acceptor information causally affects donor prediction |
 | Multi-species ≈10.63 carrier | ✓ | ✓ | ✓ | ? | ? | Real positional attention circuit; purpose unknown |
 | Human-only ≈10.2 candidate | ✓ | provisional | failed | — | null | Proposed chromatin circuit closed at attention |
 
@@ -32,7 +32,7 @@ attention: no downstream write, mediation effect, or behavioral function has bee
 
 | File | Role |
 |---|---|
-| `phase_inventory.json` | Inventory of positional frequencies and candidate carriers |
+| `phase_inventory.json` / `phase_inventory.manifest.json` | Inventory of positional frequencies and candidate carriers |
 | `carrier_geometry.json` | Rank-2 rotary geometry and circularity |
 | `carrier_subbin.json` | Sub-bin wavelength estimate: ≈10.630 |
 | `second_carrier.json` | Separation of period-3 and ≈10.63 components |
@@ -85,10 +85,9 @@ run artifacts before writing.
   interpretation of the carrier.
 - The multi-species ≈10.63 carrier is **not** the ≈10.298 nucleosomal signal.
 - The human-only ≈10.2 chromatin circuit is closed at the attention gate.
-- VOID and superseded experiments are excluded from this current index and from the execution map.
-  A small number of historical scripts, result files, and figure drafts remain in-tree for audit
-  provenance; they are not current evidence or supported entrypoints. Git history preserves their
-  full evolution.
+- VOID and superseded result families and their runners are excluded from the active tree. Git
+  history preserves their full evolution. Older figure snapshots may remain for visual provenance,
+  but they are not machine-readable evidence or supported entrypoints.
 
 ## Open questions
 
@@ -101,3 +100,4 @@ For the ≈10.63 carrier, the next licensed questions are:
 
 Until those bridges are crossed, describe it as a **real positional attention circuit of unknown
 function and origin**.
+
