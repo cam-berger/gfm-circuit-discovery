@@ -6,7 +6,7 @@ SpliceBERT is the first full case study for the repository's mechanistic-discove
 
 ### 1. Donor–acceptor information-routing circuit
 
-SpliceBERT exhibits a donor–acceptor coupling behavior. QK/attention analysis, ablation, rescue, and path decomposition support a directed circuit in which donor information is routed to an acceptor-addressing pathway. This is the main worked example of the complete causal workflow.
+SpliceBERT exhibits a donor–acceptor coupling behavior. QK/attention analysis, ablation, rescue, and path decomposition support a dominant subcircuit that reads paired-acceptor information and writes a causal signal into donor prediction. This is the main worked example of the complete causal workflow.
 
 ### 2. Learned period-3 positional clock
 
@@ -36,12 +36,13 @@ A proposed human-only ≈10.2 chromatin circuit failed at the attention gate. Th
 - [Evidence ladder with exact conventions](../../figures/splicebert/EVIDENCE.md)
 - [Concise findings record](../splicebert_partner_selection/FINDINGS.md)
 - [Detailed claim and retraction ledger](../splicebert_partner_selection/CLAIMS.md)
-- [Methods preflight audit](../splicebert_partner_selection/METHODS_AUDIT.md)
+- [Study-specific methodology](../splicebert_partner_selection/METHODS.md)
+- [Reproduction map](../splicebert_partner_selection/REPRODUCIBILITY.md)
 - [Donor–acceptor results](../../results/splicebert_coupling/)
 - [Position/carrier results index](../../results/phase-lattice/RESULTS_INDEX.md)
 - [Active scripts](../../scripts/splicebert/)
 
-The directory `studies/splicebert_partner_selection/` retains the detailed evolving record for provenance. Some filenames reflect earlier hypotheses; the claim ledger and retractions, not the historical name, determine current status.
+The directory `studies/splicebert_partner_selection/` retains seven authoritative records. Its name reflects the earlier framing; the claim ledger and indexed artifacts determine current status.
 
 ## Transfer lesson
 

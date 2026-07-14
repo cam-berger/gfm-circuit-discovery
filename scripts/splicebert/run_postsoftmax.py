@@ -9,7 +9,7 @@ PROBABILITY) because a polynomial envelope cannot fit a steep attention decay, s
 absorbed the decay instead of a comb.
 
 THE GATE.  main() runs preflight() FIRST.  If any check fails, the program EXITS BEFORE LOADING
-ANY EXPERIMENTAL DATA and writes preflight.json with the failure.  See METHODS_AUDIT.md.
+ANY EXPERIMENTAL DATA and writes preflight.json with the failure.  See studies/splicebert_partner_selection/METHODS.md.
 
 FIVE AMENDMENTS FROM THE REVIEW, AND TWO OF THEM WERE THINGS I HAD WRONG
 -----------------------------------------------------------------------
@@ -347,7 +347,7 @@ def main() -> None:
     R = preflight(dev)
     if not R["PASS"]:
         print("\n⛔ PREFLIGHT FAILED.  No experimental data loaded, no result written.")
-        print("   Per METHODS_AUDIT rule 5: this is an ANALYSIS FREEZE.  Diagnose the instrument")
+        print("   Per METHODS.md: this is an ANALYSIS FREEZE.  Diagnose the instrument")
         print("   AND the control's defining property before any interpretation.")
         sys.exit(1)
     measure(dev, R)
@@ -478,3 +478,4 @@ def measure(dev, PR) -> None:
 
 if __name__ == "__main__":
     main()
+

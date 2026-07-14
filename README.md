@@ -8,7 +8,7 @@ This repository develops a disciplined way to discover **how genomic foundation 
 
 | Finding | Evidence reached | Current interpretation |
 |---|---|---|
-| Donor–acceptor information routing | QK → attention → OV/mediation → behavior | A directed causal circuit: donor information is routed to an acceptor-addressing pathway. |
+| Donor–acceptor information routing | QK → attention → OV/mediation → behavior | A dominant causal subcircuit routes paired-acceptor information into donor prediction. |
 | Learned period-3 positional clock | Position table → QK → attention → OV/mediation → behavior | A causal positional code that supports the donor–acceptor circuit in coding sequence. |
 | Multi-species ≈10.63 carrier | Position table → QK → attention | A real positional attention circuit. Its downstream use and biological origin are unknown. |
 | Human-only ≈10.2 candidate | Position table; proposed QK readers fail at attention | The proposed chromatin circuit is closed at the attention gate. |
