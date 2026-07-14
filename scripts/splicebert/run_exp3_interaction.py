@@ -80,6 +80,22 @@ MODELS = {
                      [46, 47, 48]),
 }
 BANDS = {"del_10.2": [49, 50, 51], "del_10.63": [46, 47, 48]}
+
+# VERIFIED-INERT CONTROL BANDS.  Found by search over all 3-bin windows, then AUDITED: the
+# strongest head amplitude at that band's period, and how much of it survives the band's deletion.
+# An INERT band is one no head reads (low amp) AND whose deletion changes nothing (kept ~100%).
+INERT = {
+    "human_only":   dict(bins=[33, 34, 35], amp=0.34, kept=0.96, note=""),
+    # ⚠️ THE MULTISPECIES MODEL HAS NO ENERGY-MATCHED INERT BAND, BECAUSE NONE EXISTS.  Its
+    # carrier is 401x median and the ONLY band with comparable energy is bins 21-23 (period 23.3),
+    # which heads read with amplitude 3.90 and which collapses to 25% on deletion.  Its table has
+    # only a few high-energy modes and they are ALL READ.  So this control is inert but NOT
+    # energy-matched, and the mismatch is reported rather than hidden.
+    "multispecies": dict(bins=[33, 34, 35], amp=None, kept=None,
+                         note="NOT energy-matched: no inert band of comparable energy EXISTS in "
+                              "this model. Its only energy-matched candidate (bins 21-23) is "
+                              "READ (amp 3.90, collapses to 25%). Interpret accordingly."),
+}
 T_BIO = 10.298                     # the MEASURED biological wavelength (D28), not a bin label
 BIN = 20_000                       # 20 kb -> ~97 dyads -> score reliability 0.823 (D33)
 LEN = 510
@@ -204,15 +220,27 @@ def main() -> None:
         F = np.fft.rfft(P - mu, axis=0)
         pw = (np.abs(F) ** 2).sum(1)
 
-        # ENERGY-MATCHED INERT BAND: same total power as this model's OWN carrier, elsewhere
+        # THE CONTROL BAND MUST BE VERIFIED INERT, NOT ASSERTED.
+        # My first attempt energy-matched a band and CALLED it inert.  It was not: for the
+        # human-only model it picked bins 90-92 (period 5.6), which heads read with amplitude 2.2
+        # -- LARGER than the 10.2 carrier's 1.4 -- and deleting it hurt 3x MORE than deleting the
+        # carrier.  That is why the "inert" control out-damaged the thing it was controlling for.
+        # These bands were found by SEARCH and AUDITED: max reader amplitude, and how much of it
+        # survives the deletion.  See INERT_AUDIT below.
         target = pw[own].sum()
-        best = min((b for b in range(20, 120) if not (44 <= b <= 54)),
-                   key=lambda b: abs(pw[b:b + 3].sum() - target))
-        em = [best, best + 1, best + 2]
+        em = INERT[mname]["bins"]
         conds = dict(BANDS)
-        conds["del_energy_matched"] = em
-        print(f"\n{'='*92}\n{mname}   carrier {own}   energy-matched inert band {em} "
-              f"(power {pw[em].sum()/target:.2f}x the carrier's)\n{'='*92}")
+        conds["del_verified_inert"] = em
+        a = INERT[mname]
+        print(f"\n{'='*92}\n{mname}   carrier {own} ({target/np.median(pw[1:]):.0f}x median)")
+        aud = (f"max reader amp {a['amp']:.2f}, {a['kept']*100:.0f}% kept on deletion"
+               if a["amp"] is not None else "audit: see note")
+        print(f"   VERIFIED-INERT control {em}: period {512/em[1]:.2f}, "
+              f"{pw[em].sum()/np.median(pw[1:]):.1f}x median "
+              f"({pw[em].sum()/target:.2f}x the carrier's energy), {aud}")
+        if a["note"]:
+            print(f"   ⚠️ {a['note']}")
+        print("=" * 92)
 
         def strip(bins):
             G = F.copy()
@@ -226,12 +254,21 @@ def main() -> None:
             emb.weight.data = Pw.clone()
             g = torch.Generator(device="cpu").manual_seed(1234)      # <-- identical masks
             out = []
+            cls_, sep_ = tok.cls_token_id, tok.sep_token_id
             for s in range(0, len(Wn), args.bs):
                 ch = Wn[s:s + args.bs]
-                ids = torch.tensor(np.stack([[B2I[chr(b)] for b in r] for r in ch]),
-                                   device=dev)
+                # [CLS] + 510 nt + [SEP] = 512 -- EXACTLY the format the model was trained on.
+                # Feeding 510 BARE nucleotides costs 0.0144 nats (1.4448 vs 1.4304), which is
+                # 100x the effect being measured.  It cancels in the DiD, but it runs the model
+                # off-distribution and there is no reason to accept that.
+                body = np.stack([[B2I[chr(b)] for b in r] for r in ch])
+                ids = torch.tensor(
+                    np.concatenate([np.full((len(ch), 1), cls_), body,
+                                    np.full((len(ch), 1), sep_)], axis=1), device=dev)
                 lab = ids.clone()
                 msk = (torch.rand(ids.shape, generator=g) < 0.15).to(dev)
+                msk[:, 0] = False                      # never mask [CLS]
+                msk[:, -1] = False                     # never mask [SEP]
                 lab[~msk] = -100
                 with torch.no_grad():
                     lg = m(input_ids=ids.masked_fill(msk, tok.mask_token_id)).logits
