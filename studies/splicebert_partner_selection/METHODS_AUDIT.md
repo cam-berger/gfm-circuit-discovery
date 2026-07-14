@@ -178,3 +178,69 @@ Per the gate, here is the preflight **before** any code:
   content-shuffled sequence.
 
 **None of this gets written until the plan is agreed.**
+
+
+---
+
+# 7. Consolidated status — after the review's five amendments
+
+## The gate now exists and it is holding
+
+`scripts/splicebert/run_postsoftmax.py` runs `preflight()` **before any experimental data is
+loaded**, and exits on failure. Current state:
+
+| check | result | frozen limit |
+|---|---|---|
+| positive control — period-3 intact | **0.8092** | D21: 0.794, band [0.72, 0.86] ✅ |
+| negative control — period-3 deleted | **0.3419** | D21: 0.345 (chance 0.333) ✅ |
+| deletion audit | target retained **0.0**, protected retained 1.0, checkpoint **unmutated** | ✅ |
+| probability invariants | max row-sum error **0.0** | ✅ |
+| window leakage at target | **0.0003** | < 0.02 ✅ |
+| **injection: amplitude bias** | **0.204** | **< 0.20 ❌ FAIL** |
+| injection: phase error | **2.89°** | < 20° ✅ |
+| FPR (per-head permutation) | **0.0521** | ≤ 0.07 ✅ |
+| null location | median **0.059** | < 0.30 ✅ |
+| m_T bounded | max **0.9967** | ≤ 1 ✅ |
+
+**IT FAILS BY 0.004, AND THE TOLERANCE WILL NOT BE MOVED.** Changing `0.20` to `0.25` is one
+character and is trivially rationalisable. It is also precisely the failure this audit exists to
+prevent. The number was frozen *before* the run so that this moment would be impossible to argue
+with. The fix goes in the **instrument** — diagnosis: per-depth bias, almost certainly the
+`a = 0.05` arm, where the baseline is refit on the injected profile and the cubic absorbs a larger
+*fraction* of a small tone.
+
+## What the amendments caught, in order
+
+1. **The boxcar does not notch a non-integer period.** I had asserted it did, generalising from
+   `1 + 2cos(2π/3) = 0` — exact only for **integer** period 3. Measured: M=10 leaks **2.4%** at
+   10.24, M=11 leaks **3.4%** at 10.63. A false statement would have gone into a docstring.
+2. **The content-shuffle criterion was backwards — R15 again.** A positional comb built from
+   `(P, W_Q, W_K)` **must** survive content shuffling. I had listed shuffle-survival as an
+   *artefact* criterion, conflating QK with OV.
+3. **`amplitude / mean` is unbounded** once a fitted baseline is involved — which is how I produced
+   184–207% modulation of a **probability**, three times. `m_T` is bounded in [0,1] by the triangle
+   inequality for **any** r ≥ 0.
+4. **`classify()` had to be IMPORTED, not reimplemented.** Its `SPAN` is 24, not my 60. A
+   reimplementation would have silently used my window, missed 0.794, and tempted me to tune the
+   definition until it matched. **That is the sin itself.**
+5. **A split offset band with one window across the discontinuity** made `m_T` measure the
+   *window's own transform*: the tone-free null saturated at **0.98**. Fixed by windowing each
+   contiguous half.
+6. **The FPR check PASSED on a broken statistic** — it measured the rate at the null's own 95th
+   percentile and never asked **where the null sits**. Specificity-without-calibration. Two new
+   gates: `window_leakage` and `null_location`.
+7. **`m_T` is a COHERENCE, not an amplitude** — it saturates when the residual is spiky. So the
+   null must be **per-head** (permuting that head's own residual), and injection recovery must use
+   the **complex increment** (`c' − c = (a/2)e^{iφ}` exactly, for multiplicative injection).
+
+## Claim-level firewall — the human-only ≈10.2 carrier
+
+| level | status |
+|---|---|
+| **P** — feature exists in the position table | **established** |
+| **QK** — a logit circuit reads it (14 heads) | **established, provisional on the intervention audit** |
+| **A** — survives softmax into attention | **OPEN — instrument not yet passing preflight** |
+| **OV** — head output carries relevant content | **OPEN** |
+| **BEHAVIOUR** — performance causally depends on it | **OPEN** (D34b: 0.00003 nats, underpowered, OOD) |
+
+Evidence never auto-promotes between levels.

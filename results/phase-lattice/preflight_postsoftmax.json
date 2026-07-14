@@ -1,0 +1,200 @@
+{
+ "frozen": {
+  "p3_intact_purity": [
+   0.72,
+   0.86
+  ],
+  "p3_deleted_purity": [
+   0.3,
+   0.4
+  ],
+  "inject_amp_bias_max": 0.2,
+  "inject_phase_err_max": 20.0,
+  "inject_depths": [
+   0.05,
+   0.1,
+   0.2
+  ],
+  "fpr_max": 0.07,
+  "m_T_max": 1.000000001,
+  "attn_row_sum_tol": 0.001,
+  "band_mass_floor": 0.02,
+  "target_retained_max": 0.05,
+  "protected_retained_min": 0.95
+ },
+ "commit": "fa287b631e1130938b7eeb305f11d5b255e145e8",
+ "checks": {
+  "bounds_resolution": {
+   "PASS": true,
+   "resolution_nt": 1.9665454545454548,
+   "n_offsets": 110,
+   "note": "dT ~ 2T^2/N; must be finer than the 10.24-vs-10.63 gap is NOT required here (we test AT declared T, we do not scan)"
+  },
+  "probability_invariants": {
+   "PASS": true,
+   "max_row_sum_err": 5.960464477539062e-07
+  },
+  "positive_control_period3_intact": {
+   "PASS": true,
+   "purity": 0.809188961982727,
+   "expected": "D21: 0.794",
+   "band": [
+    0.72,
+    0.86
+   ]
+  },
+  "negative_control_period3_deleted": {
+   "PASS": true,
+   "purity": 0.34193777044614154,
+   "expected": "D21: 0.345 (chance 0.333)",
+   "band": [
+    0.3,
+    0.4
+   ]
+  },
+  "deletion_audit_period3": {
+   "PASS": true,
+   "target_retained": 2.6732781214236978e-15,
+   "neighbour_retained": 0.9999998807907104,
+   "frobenius_removed": 0.29084262251853943,
+   "energy_removed_frac": 0.09365624189376831,
+   "hash_before": "4c9d955f2024277a",
+   "hash_after": "1729dc99a92ea2e2",
+   "tensors_differ": true
+  },
+  "checkpoint_not_mutated": {
+   "PASS": true,
+   "hash": "4c9d955f2024277a"
+  },
+  "attention_mass_floor": {
+   "PASS": true,
+   "n_heads_with_enough_mass": 96,
+   "floor": 0.02
+  },
+  "window_leakage_at_target": {
+   "PASS": true,
+   "leak": 0.00029129521090275187,
+   "note": "m_T with r=const; must be ~0 or the statistic measures the window's own transform"
+  },
+  "positive_control_target_freq_injection": {
+   "PASS": false,
+   "mean_amp_bias": 0.20395523424487327,
+   "mean_phase_err_deg": 2.891354684790858
+  },
+  "negative_control_target_freq_FPR": {
+   "PASS": true,
+   "fpr": 0.052083333333333336,
+   "n_heads": 96,
+   "note": "per-head permutation; tone-free input must reject at ~5%"
+  },
+  "null_location": {
+   "PASS": true,
+   "null_median": 0.05903738543817644,
+   "null_p95": 0.9740485729218052,
+   "note": "per-head null; spikiness now controlled WITHIN head, not pooled"
+  },
+  "m_T_bounded": {
+   "PASS": true,
+   "max_m_T": 0.9967486924093969
+  }
+ },
+ "real_head_pvalues": [
+  0.11,
+  0.25,
+  0.15,
+  0.34,
+  0.03,
+  0.05,
+  0.025,
+  0.07,
+  0.005,
+  0.075,
+  0.065,
+  0.43,
+  0.42,
+  0.06,
+  0.125,
+  0.255,
+  0.37,
+  0.035,
+  0.025,
+  0.03,
+  0.005,
+  0.005,
+  0.345,
+  0.025,
+  0.01,
+  0.015,
+  0.015,
+  0.02,
+  0.025,
+  0.005,
+  0.025,
+  0.005,
+  0.04,
+  0.035,
+  0.04,
+  0.945,
+  0.04,
+  0.0,
+  0.01,
+  0.02,
+  0.06,
+  0.0,
+  0.055,
+  0.01,
+  0.98,
+  0.0,
+  0.895,
+  0.415,
+  0.95,
+  0.43,
+  0.46,
+  0.575,
+  0.24,
+  0.09,
+  0.0,
+  0.42,
+  0.065,
+  0.085,
+  0.03,
+  0.15,
+  0.51,
+  0.035,
+  0.755,
+  0.29,
+  0.0,
+  0.825,
+  0.225,
+  0.885,
+  0.975,
+  0.2,
+  0.76,
+  0.33,
+  0.23,
+  0.85,
+  0.985,
+  0.005,
+  0.665,
+  0.8,
+  0.815,
+  0.0,
+  0.07,
+  0.41,
+  0.16,
+  0.295,
+  0.19,
+  0.16,
+  0.155,
+  0.965,
+  0.06,
+  0.99,
+  0.81,
+  0.25,
+  0.63,
+  0.98,
+  0.99,
+  0.43
+ ],
+ "PASS": false
+}
