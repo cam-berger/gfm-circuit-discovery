@@ -1,75 +1,15 @@
+# SpliceBERT detailed research record
 
-> **⚠️ SUPERSEDED 2026-07-12 — sealed test complete; several numbers below are RETRACTED.**
-> Read `studies/splicebert_partner_selection/CLAIMS.md` §Retractions (R7–R12) and
-> `SEALED_TEST_RESULT.md` before quoting anything on this page.
-> In particular: `p = 0.000999` is a function of the `--n-null` flag, not the data (R9; honest
-> value **0.0104**); `MLM health 0.9958 → 0.9953` scored the model copying unmasked input and
-> could not fail (R8; real baseline **0.53**); coupling **1.359** is a *conditional* mean (R10;
-> unconditional **0.973**); the competing-acceptor "binding" result is an algebraic identity
-> (R7, withdrawn); and every pre-fix number is **plus-strand only** (R11).
-> # ⚠️ SCOPE CHANGED — THE STUDY DESCRIBED BELOW HAS BEEN RETRACTED
-> **The `splicebert_partner_selection_v1` design described in this README is dead** (retractions R1, R2,
-> R3 — see `CLAIMS.md`). Claims C1–C4 are all retracted. The forced-choice partner task is intrinsically
-> degenerate: a geometry oracle reading zero nucleotides wins it, and so does a plain site detector.
->
-> **This directory is still the right place to look** — but the live record is `CLAIMS.md` and
-> `DECISIONS.md`, and the live science is the **cross-site coupling** study (claims D1–D5), which has
-> produced the program's first held-out-confirmed circuit in a real GFM (head L3H1; denoise recovery
-> **SEALED TEST PASSED 13/13 on chr8/chr9**: coupling +0.872 [0.771, 0.969]; ablating C removes 81.6% of it at 99.2% MLM health; matched-random null **p = 0.0025**; K×V interaction **I = +0.531**.
-> ⚠️ The figures this line used to carry — recovery *0.808*, null *p = 0.000999*, DiD *1.110* — are **RETRACTED** (R9/R11). See `FINDINGS.md`.
->
-> **VOID in this directory — do not quote:** `GATE_REPORT.md`, `RESULTS.md`, `STAGES.md`,
-> `return_to_planner.json`. All four assert the retracted "GO".
-> **Orientation:** `../../docs/STATUS.md` §3.
+This directory is the detailed provenance record behind the concise [`studies/splicebert/`](../splicebert/README.md) worked example. Its name reflects the project's earlier framing; the current live work is donor–acceptor coupling, the period-3 clock that supports it, and the separate ≈10.63 attention carrier.
 
----
+Start with:
 
-# SpliceBERT Partner-Selection Study
+- [`FINDINGS.md`](FINDINGS.md) for the concise scientific state;
+- [`CLAIMS.md`](CLAIMS.md) for the authoritative claim, correction, and retraction ledger;
+- [`METHODS_AUDIT.md`](METHODS_AUDIT.md) for assay-preflight rules;
+- [`../../figures/splicebert/EVIDENCE.md`](../../figures/splicebert/EVIDENCE.md) for the current evidence ladder;
+- [`../../results/splicebert_coupling/`](../../results/splicebert_coupling/) and [`../../results/phase-lattice/`](../../results/phase-lattice/) for live machine-readable results.
 
-This directory is the scientific record for `splicebert_partner_selection_v1`.
+Other documents remain as dated decisions, preregistrations, and audit history. They may contain superseded language. The claim ledger controls current status.
 
-## Question
-
-Does pretrained SpliceBERT contain a causal computation that makes splice-site representations partner-aware when selecting internal-exon acceptor–donor pairs, rather than relying only on independent local site strengths and exon length?
-
-## Primary condition
-
-`additive-frozen`: official pretrained backbone, frozen; constrained additive endpoint readout.
-
-## Primary endpoints
-
-1. True-pair margin on chromosome-held-out examples.
-2. True-pair margin and top-1 accuracy on the frozen local-conflict set.
-3. Clean-minus-context-control margin.
-4. Component-set ablation effect relative to matched random sets.
-5. Activation-patch recovery fraction.
-6. Incremental external biological prediction from the frozen circuit metric.
-
-Note: endpoint 2's "top-1 accuracy" and "true-pair margin > 0 rate" are the **same
-statistic up to rank-1 ties** (the margin is true-vs-best-decoy) — not two independent
-measures. See `CLAIMS.md` / `tests/test_metric_identity.py`.
-
-## Scope — what this study does NOT claim
-
-- **Not** that SpliceBERT *uses* the partner circuit in its native masked-LM objective
-  — the readout is a trained probe; that stronger claim (C5) is out of the registered
-  scope and needs an MLM-native arm.
-- **Not** a validated biological rule — the external-prediction claim (C6) is unstarted;
-  a predictor on genomic data is correlational until independently/experimentally tested.
-- **Not** a localized-circuit result **yet** — C4 is `pending-fresh-run`; the behavioral
-  gate (C1–C3) is what is currently supported.
-- Results hold for one model, one species, canonical internal exons; generalization is
-  future work. The chromosome-held-out test split is sealed until components are frozen.
-
-## Files
-
-- `METHOD.md`: complete design. · `RUNBOOK.md`: execution order. · `PREREGISTRATION.md`: thresholds/unblinding (FROZEN).
-- `TRACING_PLAN.md`: circuit-tracing protocol (FROZEN). · `FREEZE.md`: artifact hashes.
-- `CLAIMS.md`: claims registry (status + evidence). · `EXTERNAL_VALIDATION.md`: biology phase.
-- `DECISIONS.md` / `STAGES.md`: append-only record. · `RESULTS.md` / `GATE_REPORT.md`: behavioral gate.
-- `MIGRATION.md` / `RRR_REFACTOR.md`: the rigor-hardening pass. · `return_to_planner.json`: handoff schema.
-
-Rigor tooling: `src/gfmcd/rigor.py`, `scripts/splicebert/calibration_audit.py`,
-`scripts/splicebert/aggregate_matrix.py`.
-
-No result belongs in this README until it is generated by a manifest-backed run.
+Retracted v1 partner-selection code, readout artifacts, and result snapshots were removed from the active tree during the method-first cleanup. They remain available through Git history; the retractions remain visible here and in memorial tests.
