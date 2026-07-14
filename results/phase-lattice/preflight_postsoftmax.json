@@ -22,7 +22,7 @@
   "target_retained_max": 0.05,
   "protected_retained_min": 0.95
  },
- "commit": "ce09ad53664777de0f6a557e7345f4a19dbf65ca",
+ "commit": "adde2a2824f1cfeb12cc698a0ee22ebc2916d442",
  "checks": {
   "bounds_resolution": {
    "PASS": true,

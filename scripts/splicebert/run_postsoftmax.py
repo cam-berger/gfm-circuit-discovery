@@ -350,8 +350,130 @@ def main() -> None:
         print("   Per METHODS_AUDIT rule 5: this is an ANALYSIS FREEZE.  Diagnose the instrument")
         print("   AND the control's defining property before any interpretation.")
         sys.exit(1)
-    print("\nPreflight passed.  The measurement may now run.")
-    print("(main measurement deliberately NOT implemented yet — the gate ships first.)")
+    measure(dev, R)
+
+
+# ══════════════════════════════════════════════════════════════════════════════════════════
+# LEVEL A.  Criteria FROZEN here, before the measurement runs.
+#   PROMOTE a head to Level A iff ALL of:
+#     (a) m_T beats its OWN per-head permutation null   (BH-FDR 0.05 across all heads)
+#     (b) m_T COLLAPSES to < 50% when the CARRIER band is deleted
+#     (c) m_T SURVIVES (> 70%) deletion of the RECIPROCAL band (the other model's carrier)
+#     (d) m_T SURVIVES (> 70%) deletion of the LOW-LEAK band [33,34,35]
+#   ⚠️ CONTENT SHUFFLE IS **NOT** AN ARTEFACT CRITERION (R15).  A positional comb MUST survive it.
+#      It is reported as a POSITIVITY check: survival CONFIRMS the comb is positional.
+#   PREREGISTERED PRIMARY: L1H3 (human_only).  The 14 QK readers are the preregistered set.
+#   STOPPING RULE: if NO human_only head reaches Level A -> STOP.  Close the human chromatin
+#      claim at QK.  No rescue experiments.
+# ══════════════════════════════════════════════════════════════════════════════════════════
+LEVELA = dict(fdr=0.05, collapse_max=0.50, survive_min=0.70, primary="L1H3",
+              qk_readers=["L1H3","L1H2","L1H8","L1H14","L1H11","L1H7","L1H5","L1H10","L1H9",
+                          "L1H13","L1H15","L2H8","L2H1","L2H11"])
+MODELS_A = {"human_only":   (MHUM, [49,50,51], [46,47,48], 10.24),
+            "multispecies": (MMUL, [46,47,48], [49,50,51], 10.61)}
+LOWLEAK = [33, 34, 35]
+
+
+def measure(dev, PR) -> None:
+    from pyfaidx import Fasta
+    rng = np.random.default_rng(7)
+    fa = Fasta("/Users/cberg/Research/data/genomes/hg38.fa", as_raw=True)   # HUMAN: both models' domain
+    s = np.frombuffer(fa["chr8"][40_000_000:40_200_000].upper().encode(), dtype=np.uint8)
+    ok = np.isin(s, [65,67,71,84])
+    st = [i for i in rng.integers(0, len(s)-520, 600) if ok[i:i+508].all()][:48]
+    B2I = {65:6, 67:7, 71:8, 84:9}
+    rec = {"frozen": LEVELA, "preflight": PR["checks"], "models": {}}
+
+    for name, (path, carrier, recip, T) in MODELS_A.items():
+        ad = load_adapter(str(REPO / path), dev, eager=True); m = ad.model
+        tok = AutoTokenizer.from_pretrained(str(REPO / path))
+        emb = m.bert.embeddings.position_embeddings
+        P0t = emb.weight.data.clone(); P0 = P0t.detach().float().cpu().numpy()
+        h0 = sha(P0t)
+        body = [[B2I[int(b)] for b in s[i:i+508]] for i in st]
+        ids = torch.tensor([[tok.cls_token_id]+b+[tok.sep_token_id] for b in body], device=dev)
+        shuf = torch.tensor([[tok.cls_token_id]+list(rng.permutation(b))+[tok.sep_token_id]
+                             for b in body], device=dev)
+
+        conds = {"carrier": carrier, "reciprocal": recip, "low_leak": LOWLEAK}
+        aud = {}
+        prof = {}
+        prof["intact"], _ = profiles(m, ids)
+        prof["shuffled"], _ = profiles(m, shuf)
+        for cn, bins in conds.items():
+            a, P1 = deletion_audit(P0, bins, {k: v for k, v in conds.items() if k != cn})
+            aud[cn] = a
+            emb.weight.data = torch.tensor(P1, dtype=P0t.dtype, device=P0t.device)
+            prof[cn], _ = profiles(m, ids)
+        emb.weight.data = P0t.clone()
+        assert sha(emb.weight.data) == h0, "CHECKPOINT MUTATED"
+
+        rows = []
+        for h, pr in prof["intact"].items():
+            e = pr[60 + BAND]
+            if e.sum() / max(pr.sum(), 1e-30) < FROZEN["band_mass_floor"]:
+                continue
+            c, r = m_of(e, T); b = e / r
+            nul = np.array([abs(m_of(b*rng.permutation(r), T)[0]) for _ in range(400)])
+            pv = float((nul >= abs(c)).mean())
+            kept = {cn: abs(m_of(prof[cn][h][60+BAND], T)[0]) / max(abs(c), 1e-12)
+                    for cn in list(conds) + ["shuffled"]}
+            rows.append(dict(head=h, m_T=float(abs(c)), phase_deg=float(math.degrees(np.angle(c))),
+                             p=pv, **{f"kept_{k}": float(v) for k, v in kept.items()}))
+        # Benjamini-Hochberg
+        rows.sort(key=lambda x: x["p"])
+        n = len(rows)
+        sig = set()
+        for i, x in enumerate(rows, 1):
+            if x["p"] <= LEVELA["fdr"] * i / n:
+                sig = {y["head"] for y in rows[:i]}
+        for x in rows:
+            x["significant"] = x["head"] in sig
+            x["LEVEL_A"] = bool(x["significant"]
+                                and x["kept_carrier"] < LEVELA["collapse_max"]
+                                and x["kept_reciprocal"] > LEVELA["survive_min"]
+                                and x["kept_low_leak"] > LEVELA["survive_min"])
+        rec["models"][name] = dict(T=T, carrier=carrier, deletion_audit=aud, heads=rows)
+
+        A = [x for x in rows if x["LEVEL_A"]]
+        print("")
+        print("=" * 100)
+        print(f"{name}   carrier {carrier}, T = {T}   ({len(rows)} heads pass the mass floor)")
+        prot = [v for k, v in aud["carrier"].items() if k.startswith("protected_")]
+        print(f"  deletion audit: target_retained={aud['carrier']['target_retained']:.3f}  "
+              f"min_protected_retained={min(prot) if prot else 1.0:.3f}  checkpoint unmutated OK")
+        print("=" * 100)
+        print(f"{'='*100}")
+        print(f"  {'head':7} {'m_T':>6} {'p':>7} {'kept:carrier':>13} {'recip':>7} {'lowleak':>8} "
+              f"{'shuffled':>9}  LEVEL A")
+        for x in sorted(rows, key=lambda y: -y["m_T"])[:12]:
+            star = " ✅" if x["LEVEL_A"] else ("  qk" if x["head"] in LEVELA["qk_readers"] else "")
+            print(f"  {x['head']:7} {x['m_T']:>6.3f} {x['p']:>7.4f} {x['kept_carrier']*100:>12.0f}% "
+                  f"{x['kept_reciprocal']*100:>6.0f}% {x['kept_low_leak']*100:>7.0f}% "
+                  f"{x['kept_shuffled']*100:>8.0f}%{star}")
+        print(f"  -> HEADS AT LEVEL A: {len(A)}   {[x['head'] for x in A] if A else '(none)'}")
+        if name == "human_only":
+            prim = next((x for x in rows if x["head"] == LEVELA["primary"]), None)
+            if prim:
+                print(f"  PREREGISTERED PRIMARY {LEVELA['primary']}: m_T={prim['m_T']:.3f}  "
+                      f"p={prim['p']:.4f}  kept(carrier)={prim['kept_carrier']*100:.0f}%  "
+                      f"LEVEL A = {prim['LEVEL_A']}")
+            qk = [x for x in rows if x["head"] in LEVELA["qk_readers"]]
+            print(f"  of the 14 preregistered QK readers: {sum(x['LEVEL_A'] for x in qk)} reach Level A")
+        del ad
+
+    OUT.write_text(json.dumps(rec, indent=1))
+    hA = [x for x in rec["models"]["human_only"]["heads"] if x["LEVEL_A"]]
+    print(""); print("="*100)
+    if not hA:
+        print("⛔ STOPPING RULE INVOKED: NO human-only head reaches Level A.")
+        print("   The ~10.2 comb does NOT survive the softmax.  CLOSE THE HUMAN CHROMATIN CLAIM AT QK.")
+        print("   No rescue experiments.  Do not run the species-matched causal experiment.")
+    else:
+        print(f"✅ LEVEL A ESTABLISHED for {len(hA)} human-only head(s).")
+        print("   Next and LAST: ONE species-matched causal experiment (human model, human seq, human dyads).")
+    print("="*100)
+    print(f"saved -> {OUT}")
 
 
 if __name__ == "__main__":
