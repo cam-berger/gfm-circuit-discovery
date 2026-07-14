@@ -1,88 +1,101 @@
-# The 10.67 → 10.63 carrier investigation — every result, and what it says
+# SpliceBERT positional circuits — current results index
 
-**Repo:** `~/Research/projects/gfm-circuit-discovery` (branch `splicebert-coupling`)
-**Claims registry:** `studies/splicebert_partner_selection/CLAIMS.md`  ← **read this first**
-**Tripwires:** `tests/test_chromatin_refutation_memorials.py` (13 tests pinning R17)
-**Figures:** `figures/splicebert/` — start at `EVIDENCE.md` (the P → QK → Attention →
-OV → Behaviour ladder), then `fig1`–`fig4`. All four are generated from the single data package
-`fig_report_data.json`, which self-checks against the recorded runs before writing.
+This directory contains the machine-readable record for two distinct positional mechanisms in
+SpliceBERT:
 
----
+1. a **period-3 clock** that causally supports donor–acceptor information routing; and
+2. a separate **≈10.63 positional carrier** that is read through post-softmax attention, but whose
+   downstream use and origin remain unknown.
 
-## The headline
+Start with:
 
-**The chromatin-source hypothesis is REFUTED, with power.** The nucleosomal signal is real and
-enormous (z = +249) — and it is at **10.298 nt**. SpliceBERT's carrier is at **10.630 nt**.
-They are different objects. See **R17**.
+- `figures/splicebert/EVIDENCE.md` for the evidence ladder;
+- `figures/splicebert/README.md` for the publication figures;
+- `studies/splicebert_partner_selection/CLAIMS.md` for the authoritative claim, correction, and
+  retraction ledger.
 
-| | wavelength |
+## Current evidence
+
+| Component | Position table | QK | Attention | OV / mediation | Behavior | Status |
+|---|:--:|:--:|:--:|:--:|:--:|---|
+| Period-3 clock | ✓ | ✓ | ✓ | ✓ | ✓ | Causal positional support for donor–acceptor routing |
+| Donor–acceptor computation | n/a | ✓ | ✓ | ✓ | ✓ | Directed information-routing circuit |
+| Multi-species ≈10.63 carrier | ✓ | ✓ | ✓ | ? | ? | Real positional attention circuit; purpose unknown |
+| Human-only ≈10.2 candidate | ✓ | provisional | failed | — | null | Proposed chromatin circuit closed at attention |
+
+Evidence never promotes itself between columns. In particular, the ≈10.63 result stops at
+attention: no downstream write, mediation effect, or behavioral function has been demonstrated.
+
+## Results by question
+
+### Position-table structure
+
+| File | Role |
 |---|---|
-| nucleosomal WW periodicity (measured, mouse ESC chemical map) | **10.298** |
-| SpliceBERT's carrier (measured sub-bin, two independent grids) | **10.630** |
-| ~~"10.67"~~ | **never a measurement — a bin label, 512/48** |
+| `phase_inventory.json` | Inventory of positional frequencies and candidate carriers |
+| `carrier_geometry.json` | Rank-2 rotary geometry and circularity |
+| `carrier_subbin.json` | Sub-bin wavelength estimate: ≈10.630 |
+| `second_carrier.json` | Separation of period-3 and ≈10.63 components |
+| `carrier_provenance.json` | Checkpoint chronology and cross-checkpoint comparison |
 
----
+### Period-3 clock and donor–acceptor circuit
 
-## Results files
-
-| file | what it holds |
+| File | Role |
 |---|---|
-| `results/phase-lattice/synth_grid.json` | **Exp 1.** The grid does NOT snap (D27); the phase-reset null (D29). One run marked **VOID** — do not cite it. |
-| `results/phase-lattice/dyad_real.json` | **Exp 2.** The biological source: z = +249, depth 4.87%, ρ ≈ 1, offset control, WW/SS counterphase (D28). |
-| `results/phase-lattice/dyad_wavelength.json` | **Exp 2.** The wavelength: fine scan 10.298, phase-rotation 10.252, **genic 10.296** (D28). |
-| `results/phase-lattice/carrier_subbin.json` | **SpliceBERT's own carrier, sub-bin: 10.630.** Plus the human-only checkpoint at bin 50 (~10.2). |
-| `results/phase-lattice/dyad_fpr.json` | **Exp 0.** FPR 4.6% [4.1, 5.2], no jitter dependence. The instrument, frozen. |
-| `results/phase-lattice/fig_phase_data.json` | The period-3 clock + L0H11's two-tone fit (D21–D23). |
-| `results/phase-lattice/synth_quantization.json` | ⚠️ **Superseded and partly clobbered.** Holds a single depth-1.0 control, NOT the pilot D26 describes. |
+| `fig_phase_data.json` | Consolidated period-3 representation and head-readout evidence |
+| `comb_shift.json` / `comb_shift.manifest.json` | Controlled phase-shift assay |
+| `carrier_dose.json` / `carrier_dose.manifest.json` | Dose–response deletion of the clock |
+| `carrier_mediation.json` / `carrier_mediation.manifest.json` | Head restoration and size-matched nulls |
+| `results/splicebert_coupling/` | Coupling, ablation, rescue, path, and sealed-test results |
 
-## Scripts (all in `scripts/splicebert/`)
+### ≈10.63 attention circuit
 
-| script | what it does |
+| File | Role |
 |---|---|
-| `analyze_synth_design.py` | **Zero GPU.** The paper math that re-anchored Exp 1: headroom, the 60-nt coherence length, the faithful Q_win null. Run this before any training. |
-| `run_synth_grid.py` | Exp 1: stages A (phase-reset), P (readout control), Q (grid-snap). |
-| `run_carrier_subbin.py` | Measures SpliceBERT's true carrier wavelength by inverting the sinc² leakage. |
-| `run_dyad_real.py` | Exp 2: the real dyad assay. Imports the FROZEN instrument from `run_dyad_fpr.py`. |
-| `run_dyad_wavelength.py` | Exp 2: fine scan, phase rotation, genic restriction. |
-| `run_dyad_fpr.py` | Exp 0: the frozen instrument + its FPR. |
-| ⛔ `run_synth_quantization.py` | **Do not run.** Superseded by `run_synth_grid.py`. |
+| `postsoftmax.json` | Full post-softmax scan |
+| `preflight_postsoftmax.json` | Positive/negative controls, injection checks, and frozen gates |
+| `band_mass.json` | Eligibility audit and attention mass in the tested band |
+| `carrier_surgery.json` / `carrier_surgery.manifest.json` | Target, reciprocal, low-leak, and content-shuffle controls |
+| `human_carrier.json` | Matched human-only checkpoint analysis |
 
-## Data
+### Biological-source tests and powered refutations
 
-| | |
+| File | Role |
 |---|---|
-| Voong chemical dyad map | `~/Research/data/nucleosome/GSM2183909_unique.map_95pc.txt.gz` (10,668,011 dyads, **mm9**) |
-| mm9 reference | `~/Research/data/genomes/mm9.fa` |
-| mm9 refGene | `~/Research/data/nucleosome/mm9_refGene.txt.gz` |
-| provenance + traps | **`data/NUCLEOSOME_MAP.md`** (mm9 not mm10; chroms 20/21/22 = X/Y/M) |
+| `dyad_fpr.json` | False-positive and jitter calibration for the anchored assay |
+| `dyad_real.json` | Positive detection of the nucleosomal signal |
+| `dyad_wavelength.json` | Nucleosomal wavelength estimate: ≈10.298 |
+| `corpus_spectrum.json` | Underpowered unanchored assay; report its sensitivity limit only |
+| `splice_profile.json`, `splice_phasing.json`, `splice_long.json` | Splice-junction follow-up analyses |
 
-## Docs
+The positive nucleosomal detection is at the wrong wavelength for the model carrier. It therefore
+refutes—rather than supports—the claim that the multi-species ≈10.63 carrier is the nucleosomal
+periodicity.
 
-| | |
-|---|---|
-| `studies/splicebert_partner_selection/CLAIMS.md` | D21–D30, R13–R17. The record. |
-| `studies/splicebert_partner_selection/EXP3_DESIGN.md` | Exp 3's design — now **moot** (R17). |
-| `data/NUCLEOSOME_MAP.md` | The map's provenance and its two silent-corruption traps. |
-| `figures/splicebert/README.md` | The figures and the evidence hierarchy. |
+## Publication data package
 
----
+`fig_report_data.json` is the single input to the four publication figures. It is generated by
+`scripts/splicebert/make_fig_report_data.py` and checks recomputed quantities against recorded
+run artifacts before writing.
 
-## ⛔ THREE nulls that are NEVER evidence
+## Retired interpretations
 
-1. **R16** — the WW helical-phasing null. Detection floor 5–10% vs a few-percent effect.
-2. **Assay 1** — the unanchored corpus spectrum (p ≥ 0.39). Report its sensitivity limit.
-3. **D30** — the unanchored WW power spectrum. Flat because it is **blind**, calibrated by injection.
+- **“10.67”** was a Fourier-bin label, not a wavelength measurement. Use **≈10.63**.
+- **“10.58 ± 0.35”** is not a measured splice-junction constant and is not a leading
+  interpretation of the carrier.
+- The multi-species ≈10.63 carrier is **not** the ≈10.298 nucleosomal signal.
+- The human-only ≈10.2 chromatin circuit is closed at the attention gate.
+- VOID and retracted experiment implementations are preserved in Git history, not in the active
+  script or result directories.
 
-All three are **quadratic** detectors (SNR ∝ depth²·√N) pointed at a few-percent signal.
-The anchored estimator is **linear** (SNR ∝ depth·√N) and finds the same signal at **z = +249**.
+## Open questions
 
-**R17 is NOT one of these.** It rests on a POSITIVE detection at the wrong frequency.
+For the ≈10.63 carrier, the next licensed questions are:
 
-## The open question
+1. What information, if any, do the eight Level-A heads write through OV?
+2. Does that write mediate a model-native behavior?
+3. Which training-data statistic or architectural pressure produces the carrier?
+4. Does an analogous positional circuit appear in another GFM?
 
-**Something in vertebrate pre-mRNA is at 10.63, and it is not chromatin. What?**
-
-Leading candidate: **Kogan & Trifonov's splice-junction RR/YY phasing, 10.58 ± 0.35.** SpliceBERT is
-a splice model, and RR/YY were the STRONGEST channels at dyads (z ≈ +289 vs WW's +249) — but the
-wavelength scan was only ever run on WW, and only ever anchored on dyads.
-**Next: anchor on splice junctions, scan RR/YY.** Same frozen instrument, human genome.
+Until those bridges are crossed, describe it as a **real positional attention circuit of unknown
+function and origin**.

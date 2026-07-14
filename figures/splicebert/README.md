@@ -1,77 +1,59 @@
-# SpliceBERT figures — the state of the record
+# SpliceBERT figures — current record
 
-**Everything here is GENERATED.** The four publication figures read **one file**,
-`results/phase-lattice/fig_report_data.json`, which is itself built by
-`scripts/splicebert/make_fig_report_data.py` and **self-checks every recomputed number against
-the recorded run before it writes anything**. A figure therefore cannot drift from the result it
-claims to show. Each has a `.CAPTION.md`; **the narrative lives there, not in the artwork** — the
-figures are held to a few words per component.
+Start with [`EVIDENCE.md`](EVIDENCE.md), which keeps position-table, QK, attention,
+OV/mediation, and behavioral evidence separate.
 
-## The publication set
+## Publication set
 
-| figure | script | what it shows |
+The four publication figures read one generated data package,
+`results/phase-lattice/fig_report_data.json`. That package is built by
+`scripts/splicebert/make_fig_report_data.py` and checks recomputed quantities against the
+recorded runs before it writes.
+
+| Figure | Script | Main point |
 |---|---|---|
-| `fig1_summary` | `make_fig1_summary.py` | the whole mechanism: two carriers, one with a job, one without |
-| `fig2_oscillators` | `make_fig2_oscillators.py` | the spectrum, the carrier geometry, the orthogonality, and why "10.67" was a grid label |
-| `fig3_clock_circuit` | `make_fig3_clock_circuit.py` | **the causal figure** — deletion, dose-response, and mediation against size-matched nulls |
-| `fig4_carrier_circuit` | `make_fig4_carrier_circuit.py` | the ≈10.63 attention circuit: real, specific, unexplained |
+| `fig1_summary` | `make_fig1_summary.py` | Two positional carriers: one with a causal role, one with an unknown role |
+| `fig2_oscillators` | `make_fig2_oscillators.py` | Carrier geometry, spectrum, orthogonality, and sub-bin wavelength |
+| `fig3_clock_circuit` | `make_fig3_clock_circuit.py` | Period-3 deletion, dose response, and mediation |
+| `fig4_carrier_circuit` | `make_fig4_carrier_circuit.py` | The ≈10.63 post-softmax attention circuit and matched human-only null |
 
-**Start with [`EVIDENCE.md`](EVIDENCE.md)** — the evidence ladder (P → QK → Attention →
-OV/mediation → Behaviour). It exists to stop evidence from silently migrating between levels.
+Each figure has a caption beside it. The narrative and limitations belong in the caption rather
+than being compressed into the artwork.
 
-## The one-paragraph version
-
-SpliceBERT's learned position table `P` is **a small bank of oscillators**. Two are fast: a
-**period-3 codon clock** and a **carrier at ≈10.630**. Both are near-perfect **circles**
-(circularity 0.977 and 0.992) — rank-2 rotary codes — and therefore **have no phase of their
-own**; each head *chooses* a phase by choosing a direction in the carrier's plane. Their planes
-are **orthogonal** (subspace overlap 0.0003). The codon clock **carries the splicing circuit**:
-deleting it collapses donor–acceptor coupling 0.946 → 0.026, and restoring L2H15 alone recovers
-36.3%. The ≈10.63 carrier is **read by eight heads through the softmax**, with every control
-clean — and **what it is for remains unknown.**
-
-## Three claims, and nothing more
+## Three live claims
 
 1. **SpliceBERT contains a donor–acceptor information-routing circuit.**
 2. **A learned period-3 positional clock helps that circuit address coding sequence in codon
-   phase.** (1 and 2 are parts of *one* mechanism.)
-3. **A separate ≈10.63-nt positional carrier forms a genuine attention circuit, but its origin
-   and function remain unknown.**
+   phase.** These are two parts of one mechanism.
+3. **A separate ≈10.63 positional carrier forms a genuine attention circuit, but its downstream
+   use, origin, and biological meaning remain unknown.**
 
-Call 10.63 a **carrier** or a **periodicity** — **never a phase**. The carrier plane contains
-every phase; individual heads select one through their QK projections.
+The period-3 and ≈10.63 carrier planes are orthogonal. The period-3 clock has a demonstrated causal
+role in coupling. The ≈10.63 carrier stops at attention; the figures deliberately draw no arrow
+from it to splicing, chromatin, translation, or another behavior.
 
-## Numbers that are RETIRED and must not be quoted
+## Retired language
 
-- **"10.67"** was never a measurement. It is the bin label 512/48. The sub-bin fit gives
-  **10.630** (10.607 on the 510-row grid, 10.652 on the 1026-row grid). See Figure 2D.
-- **"10.58 ± 0.35"** (Kogan) is not a measured constant. It is the spread of nine noisy
-  periodogram maxima from 42-nt windows, which cannot locate a wavelength better than ±4 nt.
-- **The ≈10.63 carrier is NOT the nucleosomal signal.** The nucleosomal periodicity measured in
-  DNA is **10.298** (z = +249). The two differ by 0.33 nt against a fit uncertainty of ±0.005.
-  This is a *powered refutation* (R17), not an open question.
-- **The human-only ≈10.2 chromatin circuit is CLOSED at QK** (D35). 0 of 14 preregistered
-  readers reach Level A; the preregistered primary L1H3 puts 0.19% of its attention mass in the
-  tested offsets — ten times below the floor needed even to enter the scan.
+- Use **≈10.63 carrier**, not “10.67 phase.” A carrier plane contains every phase; a head selects a
+  direction through QK.
+- “10.67” was the label of a discrete Fourier bin, not a wavelength measurement.
+- “10.58 ± 0.35” is not a measured constant and is not the carrier's explanation.
+- The nucleosomal signal is ≈10.298, not ≈10.63.
+- The proposed human-only ≈10.2 chromatin circuit failed at post-softmax attention.
 
-## Conventions
+Superseded and retracted hand assets and earlier publication drafts are retained in Git history,
+not beside the figures of record.
 
-- **Exact add-one permutation p-values**, floor 1/(400+1) = **0.0025**. `p = 0.0000` is never
-  printed.
-- **BH-FDR q = 0.05** across the whole scanned head family, not a hand-picked subset.
-- **Mediation nulls are size-matched** — a one-head restoration is scored only against random
-  one-head sets. Pooling them would be a category error.
-- **The palette was computed, not chosen.** Every pair of colours co-occurring in a panel was
-  checked for separation under simulated deuteranopia, protanopia and tritanopia (ΔE ≥ 12). The
-  palette used by the earlier figures **failed** this on the pairs these figures actually compare
-  — blue vs grey came out at ΔE = 0.9 under deuteranopia, and those are "intact" vs "deleted".
-  See the docstring of `scripts/splicebert/figstyle.py`.
+## Statistical conventions
 
-## Earlier figures (kept, superseded in part)
+- Exact add-one permutation p-values; with 400 permutations the floor is 1/401 ≈ 0.0025.
+- BH-FDR is applied across the full scanned head family.
+- Mediation nulls are matched to intervention size.
+- Preregistered and exploratory results are labeled separately in the result record.
 
-`fig_phase_circuit`, `fig_phase_clock`, `fig_phase_wave`, `fig_two_carriers` predate the
-publication set. They remain correct on the period-3 mechanism but **quote "10.67"** and predate
-Level A. Prefer the numbered figures above.
+## Detailed provenance
 
-`splicebert_donor_acceptor_binding.svg` — asserts the **retracted** "content-addressed read"
-(R15). Superseded by `fig1_summary.svg`. See `HAND_ASSETS.md`.
+- `studies/splicebert/README.md` — concise worked example
+- `studies/splicebert_partner_selection/CLAIMS.md` — claims, corrections, and retractions
+- `results/splicebert_coupling/` — donor–acceptor circuit results
+- `results/phase-lattice/RESULTS_INDEX.md` — positional clock and carrier results
