@@ -45,9 +45,16 @@ unvalidated instrument (D32's "14 readers") is the claim I was most excited abou
 a coincidence. That is what the bias *does*.
 
 > **I have been running an error-detection process whose sensitivity depends on whether I like the
-> answer. Every null I produced is therefore more trustworthy than every positive.**
+> answer.** That is **result-dependent scrutiny**, and it is worse than any individual bug.
 
-That asymmetry is the finding of this audit, and it is worse than any individual bug.
+⚠️ **CORRECTED (review, 2026-07-13).** My first draft said *"my nulls are more trustworthy than my
+positives."* **That was itself an overreach, and the history refutes it** — R16, Assay 1, D30 and the
+splice scan-edge peaks were all **FALSE NULLS**. The correct rule is symmetric:
+
+> **Neither a positive nor a null is admissible until the instrument has passed sensitivity,
+> specificity, resolution, bounds, and intervention audits.**
+
+The problem was never excessive trust in positives. It was scrutiny that varied with the result.
 
 ---
 
@@ -115,13 +122,18 @@ It has four checks. Each must produce **a number**, not an assertion:
 
 ### The two rules that address the *bias*, not the bugs
 
-**5. THE ANOMALOUS-CONTROL TRIPWIRE.**
-> If a control behaves unexpectedly, **the first hypothesis is that the instrument is broken** —
-> not that the science is surprising. **I may not construct a scientific explanation for an
-> anomalous control.** The anomaly is resolved at the instrument level, or the run is void.
+**5. THE ANOMALOUS-CONTROL TRIPWIRE — an ANALYSIS FREEZE, not a verdict.**
+> An anomalous control **freezes scientific interpretation**. Diagnose the **control** and the
+> **instrument** first. **No biological explanation may be promoted until the anomaly is resolved
+> independently.**
 
-This is the rule that would have caught #8 on the spot. An inert band out-damaging the carrier is
-not a finding about the carrier. It is a broken control.
+⚠️ **CORRECTED.** My first draft said an anomalous control *proves* the instrument is broken. It does
+not — sometimes it reveals genuine biology (the "inert" band really was a functional feature). The
+enforceable rule is the freeze, not the verdict.
+
+**AND NAME CONTROLS BY MEASURED PROPERTY ONLY:** "energy-matched band" (if energy is matched),
+"carrier-deleted model", "low-leak band". **Never "inert" before inertness is demonstrated.**
+*"Energy-matched inert band"* was two claims wearing one name and only one was ever tested.
 
 **6. THE SYMMETRY RULE.**
 > The preflight must be run and recorded **before the real number is seen** — not before it is
@@ -244,3 +256,59 @@ with. The fix goes in the **instrument** — diagnosis: per-depth bias, almost c
 | **BEHAVIOUR** — performance causally depends on it | **OPEN** (D34b: 0.00003 nats, underpowered, OOD) |
 
 Evidence never auto-promotes between levels.
+
+
+---
+
+# 8. ⛔ SUPERSEDED — DO NOT IMPLEMENT
+
+Preserved as history. **Both of these appear in earlier commits and both are WRONG:**
+
+1. ~~"A boxcar of width ≈T annihilates a period-T tone exactly."~~ **FALSE for non-integer T.**
+   `1 + 2cos(2π/3) = 0` is exact **only** for integer period 3. A length-M boxcar has zeros only at
+   `T = M/n`. **Measured: M=10 leaks 2.4% at T=10.24; M=11 leaks 3.4% at T=10.63.**
+2. ~~"A comb appearing on content-shuffled sequence is an artefact."~~ **BACKWARDS — this is R15.**
+   A positional comb built from `(P, W_Q, W_K)` **MUST** survive content shuffling; that is what makes
+   it positional. Correctly: **carrier deletion must kill the attention comb; content shuffling need
+   not; phase-scrambling must kill any OV/behavioural effect.**
+
+---
+
+# 9. THE STOPPING RULE — this is bounded, not an endless sequence
+
+**Two experiments close the human-only claim. No more.**
+
+1. **Pass the post-softmax preflight and measure Level A.** *(Preflight PASSES as of `run_postsoftmax.py`:
+   injection bias 0.0016, phase 0.16°, FPR 5.33%, null median 0.007.)*
+   - **If the ≈10.2 modulation does NOT survive the softmax → STOP.** Close the human chromatin
+     circuit claim at **Level QK**. No rescue experiments.
+   - If it survives **and collapses specifically under carrier deletion** → promote to **Level A**.
+2. **Only after a positive Level A**, run **one** species-matched causal experiment: human-only model,
+   **human** sequence, **human** dyads, with MNase-bias controls.
+   - Positive carrier × dyad-phase interaction → evidence the model uses nucleosomal phasing.
+   - **Powered null → close the hypothesis.** No rescue experiments.
+
+**The unanchored ≈10.630 carrier is a SEPARATE research project.** Interesting, but not required to
+finish this story.
+
+# 10. Claim-level firewall — human-only ≈10.2 carrier
+
+| level | status |
+|---|---|
+| **P** — feature exists in the position table | **established** |
+| **QK** — a logit circuit reads it | **provisional / supportive** |
+| **A** — survives softmax into attention | **unmeasured** |
+| **OV** — head output carries relevant content | **unmeasured** |
+| **BEHAVIOUR** — performance causally depends on it | **unmeasured** |
+
+# 11. D27 — narrowed
+
+D27 shows the 512-row table does **not mechanically quantize** frequencies onto Fourier bins, so the
+sharp carrier is **not a DFT-grid artefact**. It does **NOT** show the sharpness came from biological
+data — training dynamics or optimization could select a sharp mode just as well. The admissible
+statement is:
+
+> **The frequency was SELECTED DURING TRAINING rather than IMPOSED by the position-table grid.
+> What training signal selected it remains OPEN.**
+
+*(My consolidated report said "sharpness in P is evidence about the data." That does not survive.)*

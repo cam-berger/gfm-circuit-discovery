@@ -272,8 +272,16 @@ def preflight(dev) -> dict:
     seqs = ["".join(rng.choice(list("ACGT"), 508)) for _ in range(16)]
     ids = tok([" ".join(s) for s in seqs], return_tensors="pt").to(ad.device)["input_ids"]
     ph, _ = profiles(m, ids)
-    envs = [ph[h][SPAN + BAND] for h in ph
-            if ph[h][SPAN + BAND].sum() / max(ph[h].sum(), 1e-30) >= FROZEN["band_mass_floor"]]
+    # ⚠️ CENTRE INDEX IS 60 (profiles() returns +/-60), NOT `SPAN`.  SPAN is 24 -- the value
+    # imported from run_comb_shift for classify()'s OWN window.  Using it here produced negative
+    # indices that WRAPPED, scrambling every envelope, and that -- not the estimator -- is what
+    # made the injection bias 0.204.  Diagnosed by depth/phase/head: the estimator's GAIN is
+    # 1.000 +/- 0.002 with 0.2 deg phase error at every depth from 0.02 to 0.40, the paired
+    # +a/-a check agrees, and a FROZEN baseline agrees -- the cubic refit absorbs only 0.3%.
+    # THE ESTIMATOR IS UNCHANGED.  The 0.20 gate is untouched.
+    CTR = 60
+    envs = [ph[h][CTR + BAND] for h in ph
+            if ph[h][CTR + BAND].sum() / max(ph[h].sum(), 1e-30) >= FROZEN["band_mass_floor"]]
     del ad
     chk("attention_mass_floor", len(envs) >= 10, n_heads_with_enough_mass=len(envs),
         floor=FROZEN["band_mass_floor"])

@@ -19,7 +19,11 @@ here.
 Three retractions (R16, R18, and the D26 clobber) all have ONE root cause:
 
 > **My error-detection fires on SURPRISE, not on PROCEDURE — so it only fires when I dislike the
-> answer. My nulls are therefore more trustworthy than my positives. That is backwards.**
+> answer. That is RESULT-DEPENDENT SCRUTINY.**
+>
+> **NEITHER A POSITIVE NOR A NULL IS ADMISSIBLE until the instrument has passed sensitivity,
+> specificity, resolution, bounds, and intervention audits.** (R16, Assay 1, D30 and the splice
+> scan-edge peaks were all FALSE NULLS. Nulls are not safer.)
 
 "Validate the instrument" is written in this file three times already and was ignored three times.
 So it is now a GATE, not advice. **No estimator touches real data until `preflight()` passes:**
@@ -36,9 +40,12 @@ So it is now a GATE, not advice. **No estimator touches real data until `preflig
    resolution/power BEFORE measuring. Out-of-bounds = HARD FAILURE, never a surprising result.
    *(Three post-softmax attempts returned >100% modulation of a PROBABILITY.)*
 
-**RULE 5 — THE ANOMALOUS-CONTROL TRIPWIRE.** If a control behaves strangely, the FIRST hypothesis
-is that the instrument is broken. **You may NOT construct a scientific story to accommodate an
-anomalous control.** Resolve it at the instrument level, or the run is VOID.
+**RULE 5 — THE ANOMALOUS-CONTROL TRIPWIRE = AN ANALYSIS FREEZE.** An anomalous control FREEZES
+scientific interpretation. Diagnose the CONTROL and the INSTRUMENT first. **No biological
+explanation may be promoted until the anomaly is resolved independently.** (It does NOT prove the
+instrument is broken -- the "inert" band really was a functional feature.)
+**NAME CONTROLS BY MEASURED PROPERTY ONLY**: "energy-matched band", "carrier-deleted model",
+"low-leak band". **NEVER "inert" before inertness is demonstrated.**
 
 **RULE 6 — THE SYMMETRY RULE.** A result that CONFIRMS what you expected gets the SAME scrutiny as
 one that disconfirms it. **For every positive, state what would have made it an artifact — and go
