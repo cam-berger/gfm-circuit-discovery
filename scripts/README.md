@@ -30,11 +30,19 @@ rg "coupling|carrier|postsoftmax|mediation" scripts/splicebert
 - Never hand-edit a result to match a narrative; supersede it and update the claim ledger.
 - Generate publication figures from recorded artifacts.
 
-## Retractions
+## Retractions and legacy scripts
 
-Do not keep a runnable tombstone for a failed design in the active script directory. Preserve the
-reason for failure in the claim ledger and memorial tests, and use Git history when the old
-implementation is needed for audit.
+The current entrypoints are the scripts referenced by the study guides, result manifests, and
+publication table above. A small number of older executables remain in this directory solely to
+preserve the audit trail:
+
+- `run_confirm.py` — superseded confirmation workflow;
+- `run_phase_function.py` — paired with a VOID result;
+- `run_synth_quantization.py` — superseded synthetic diagnostic.
+
+Do not run or extend those files as current experiments. Their presence is provenance, not an
+endorsement of the design. The retracted competing-acceptor executable was removed; its result and
+failure rationale remain in the retracted result record and claim ledger.
 
 The detailed current record is indexed from `studies/splicebert/README.md`,
 `figures/splicebert/README.md`, and `results/phase-lattice/RESULTS_INDEX.md`.

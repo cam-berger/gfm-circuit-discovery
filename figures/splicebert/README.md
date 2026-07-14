@@ -41,8 +41,10 @@ from it to splicing, chromatin, translation, or another behavior.
 - The nucleosomal signal is ≈10.298, not ≈10.63.
 - The proposed human-only ≈10.2 chromatin circuit failed at post-softmax attention.
 
-Superseded and retracted hand assets and earlier publication drafts are retained in Git history,
-not beside the figures of record.
+Earlier phase figures and hand-drawn assets remain beside the current set as historical provenance.
+They are not figures of record and should not be cited or regenerated as current results. The four
+figures in the publication table above are the complete canonical set; Git history preserves the
+full evolution of the older assets.
 
 ## Statistical conventions
 

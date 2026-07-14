@@ -85,8 +85,10 @@ run artifacts before writing.
   interpretation of the carrier.
 - The multi-species ≈10.63 carrier is **not** the ≈10.298 nucleosomal signal.
 - The human-only ≈10.2 chromatin circuit is closed at the attention gate.
-- VOID and retracted experiment implementations are preserved in Git history, not in the active
-  script or result directories.
+- VOID and superseded experiments are excluded from this current index and from the execution map.
+  A small number of historical scripts, result files, and figure drafts remain in-tree for audit
+  provenance; they are not current evidence or supported entrypoints. Git history preserves their
+  full evolution.
 
 ## Open questions
 
