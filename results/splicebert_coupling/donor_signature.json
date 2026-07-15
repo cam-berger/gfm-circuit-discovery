@@ -1,0 +1,102 @@
+{
+ "split": "val",
+ "n": 250,
+ "device": "mps",
+ "partner_vs_nonpartner": {
+  "partner_mean": 0.9662910461796764,
+  "partner_ci": [
+   0.8274106456531416,
+   1.1065594938986085
+  ],
+  "nonpartner_mean": 0.02624811652537698,
+  "nonpartner_ci": [
+   0.009106846842854456,
+   0.04520392084532382
+  ],
+  "n_with_decoy": 241
+ },
+ "donor_vs_nonsite": {
+  "donor_mean": 0.9635783428549767,
+  "donor_ci": [
+   0.8258044412610153,
+   1.1005279697983614
+  ],
+  "nonsite_mean": 0.012953218340873719,
+  "nonsite_ci": [
+   -0.0061352536611234375,
+   0.03592394228973074
+  ],
+  "n_with_nonsite": 250
+ },
+ "by_strand": {
+  "+": {
+   "mean": 1.0665594628362944,
+   "ci": [
+    0.9014125316952952,
+    1.2360697055969274
+   ],
+   "n": 132
+  },
+  "-": {
+   "mean": 0.8483791238928245,
+   "ci": [
+    0.6374968738468707,
+    1.0725059742761498
+   ],
+   "n": 118
+  }
+ },
+ "by_intron_mod3": {
+  "0": {
+   "mean": 1.0520926920806661,
+   "n": 85,
+   "ci": [
+    0.8043505812129554,
+    1.312148360916369
+   ]
+  },
+  "1": {
+   "mean": 0.8352257299262125,
+   "n": 74,
+   "ci": [
+    0.6062683818610133,
+    1.0633017989429268
+   ]
+  },
+  "2": {
+   "mean": 0.9852747568389871,
+   "n": 91,
+   "ci": [
+    0.7706280440508048,
+    1.2081233672282787
+   ]
+  }
+ },
+ "verdict": {
+  "S_partner": true,
+  "S_donor": true,
+  "S_strand": true,
+  "overall": true
+ },
+ "REFLECTION": {
+  "status": "COMPLETE",
+  "verdict": "PASS (S-Partner + S-Donor + S-Strand)",
+  "signature": "U_info encodes PAIRED-INTRON CONSISTENCY and DONOR-IDENTITY CONFIDENCE. The coupling is partner-specific ~37x (partner +0.966 [0.827,1.107] vs distance-matched non-partner AG +0.026 [0.009,0.045]) and donor-specific ~74x (donor +0.964 vs non-site masked G +0.013 [-0.006,0.036]); it is strand-symmetric (+1.067 vs -0.848, overlapping CIs); and it is FLAT across intron length mod 3 (0/1/2 = 1.052/0.835/0.985, heavily overlapping).",
+  "interpretation": "This matches the prompt's most-defensible MLM reading: a donor-like GT becomes more probable when its SPECIFIC paired acceptor is intact -- the circuit distinguishes a genuine donor boundary from an incidental GT, conditioned on the partner. It is NOT generic splice-site evidence (non-partner ~0), NOT a global G shift (non-site G ~0), and NOT raw cross-site phase alignment (no intron-mod-3 dependence, consistent with SpliceBERT processing unspliced RNA where intron length mod 3 is arbitrary).",
+  "intent_check": {
+   "resolves_identity": true,
+   "summary": "The annotation-free core resolves U_info's identity: partner-specificity + donor-specificity together pin it as paired-intron-consistency / donor-identity, and the deferred conditions are refinements, not load-bearing for this core reading. 1e turns the structural graph (1a-1c) into a mechanistic explanation of what flows.",
+   "deferred": "Coding-vs-noncoding (dataset is protein-coding-only; needs a rebuild including noncoding transcripts) and ANNOTATED splice phase 0/1/2 (needs CDS-frame annotation). Both are built in the period-3 bridge and applied back to complete the signature; the 'phase-sensitive boundary' hypothesis stays OPEN until annotated phase is tested. The intron-mod-3 flatness bears only on RAW cross-site alignment, not biological boundary phase."
+  },
+  "escaped_failure_modes": {
+   "checked": [
+    "S-Partner uses a DISTANCE-MATCHED non-partner AG (matched_decoy_acceptor), so partner-specificity is not confounded with attention distance-decay; it could have matched the partner (generic) and did not (~37x apart).",
+    "S-Donor's non-site G is >=30 nt from both sites; the corruption could have shifted it (global G effect) and did not (~0), so the readout is donor-specific.",
+    "S-Strand: the effect is present and overlapping on both strands, ruling out the kind of strand-handling bug that made the pre-R11 study plus-strand-only.",
+    "Same native readout and unconditional set as C16-C18; partner coupling +0.966 matches the known unconditional val coupling."
+   ],
+   "residual_risk": "The signature is measured on the COUPLING; it inherits (via C16 C-Suff) that the coupling is what U_info carries, rather than re-routing each condition through U_info -- a reasonable economy, but a per-condition U_info-routing check would tighten the 'U_info specifically' claim. Period-3 dependence is cited (C8), not re-measured here."
+  },
+  "next_step": "Period-3 thread, starting with the CDS/splice-phase build (the bridge): it completes 1e's coding and annotated-phase conditions AND is the prerequisite for the period-3 discriminating truth-table (2a: whole-codon vs single-base masking, CDS-specificity, intron-mod-3 vs annotated-phase, router-vs-transporter of the clock)."
+ }
+}
