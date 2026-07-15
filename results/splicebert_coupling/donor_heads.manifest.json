@@ -1,0 +1,180 @@
+{
+  "command": [
+    "scripts/splicebert/run_donor_heads.py",
+    "--device",
+    "mps",
+    "--n",
+    "120",
+    "--batch",
+    "4",
+    "--out",
+    "results/splicebert_coupling/donor_heads.json"
+  ],
+  "config": {
+    "n": 120,
+    "scanned": [
+      [
+        3,
+        1
+      ],
+      [
+        2,
+        15
+      ],
+      [
+        1,
+        12
+      ],
+      [
+        4,
+        0
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        4,
+        7
+      ],
+      [
+        4,
+        8
+      ],
+      [
+        4,
+        9
+      ],
+      [
+        4,
+        10
+      ],
+      [
+        4,
+        11
+      ],
+      [
+        4,
+        12
+      ],
+      [
+        4,
+        13
+      ],
+      [
+        4,
+        14
+      ],
+      [
+        4,
+        15
+      ],
+      [
+        5,
+        0
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        5,
+        3
+      ],
+      [
+        5,
+        4
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        5,
+        7
+      ],
+      [
+        5,
+        8
+      ],
+      [
+        5,
+        9
+      ],
+      [
+        5,
+        10
+      ],
+      [
+        5,
+        11
+      ],
+      [
+        5,
+        12
+      ],
+      [
+        5,
+        13
+      ],
+      [
+        5,
+        14
+      ],
+      [
+        5,
+        15
+      ]
+    ],
+    "seed": 0,
+    "split": "val",
+    "top_k": 3
+  },
+  "created_at_utc": "2026-07-15T04:57:23.805971+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 28247,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_coupling:donor_heads",
+  "git_commit": "d309ef15eda82398f543d75644d489491fb45d83",
+  "git_dirty": true,
+  "inputs": [],
+  "notes": [
+    "1c: resolves L4/L5 attention into heads by NOISING-to-corrupt (not ablation).",
+    "Part 2 splits query+key (routing) vs value (content) on the top heads.",
+    "Health uses mean-ablation as a stricter breakage control than noising."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

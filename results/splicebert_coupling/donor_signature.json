@@ -1,0 +1,142 @@
+{
+ "split": "val",
+ "n": 250,
+ "device": "mps",
+ "partner_vs_nonpartner": {
+  "partner_mean": 0.9662910461796764,
+  "partner_ci": [
+   0.8274106456531416,
+   1.1065594938986085
+  ],
+  "nonpartner_mean": 0.02624811652537698,
+  "nonpartner_ci": [
+   0.009106846842854456,
+   0.04520392084532382
+  ],
+  "n_with_decoy": 241
+ },
+ "donor_vs_nonsite": {
+  "donor_mean": 0.9635783428549767,
+  "donor_ci": [
+   0.8258044412610153,
+   1.1005279697983614
+  ],
+  "nonsite_mean": 0.012953218340873719,
+  "nonsite_ci": [
+   -0.0061352536611234375,
+   0.03592394228973074
+  ],
+  "n_with_nonsite": 250
+ },
+ "by_strand": {
+  "+": {
+   "mean": 1.0665594628362944,
+   "ci": [
+    0.9014125316952952,
+    1.2360697055969274
+   ],
+   "n": 132
+  },
+  "-": {
+   "mean": 0.8483791238928245,
+   "ci": [
+    0.6374968738468707,
+    1.0725059742761498
+   ],
+   "n": 118
+  }
+ },
+ "by_intron_mod3": {
+  "0": {
+   "mean": 1.0520926920806661,
+   "n": 85,
+   "ci": [
+    0.8043505812129554,
+    1.312148360916369
+   ]
+  },
+  "1": {
+   "mean": 0.8352257299262125,
+   "n": 74,
+   "ci": [
+    0.6062683818610133,
+    1.0633017989429268
+   ]
+  },
+  "2": {
+   "mean": 0.9852747568389871,
+   "n": 91,
+   "ci": [
+    0.7706280440508048,
+    1.2081233672282787
+   ]
+  }
+ },
+ "by_coding": {
+  "coding_mean": 1.0087073959781034,
+  "coding_ci": [
+   0.8598749112330408,
+   1.148188631254253
+  ],
+  "n_coding": 221,
+  "noncoding_mean": 0.6196638345718384,
+  "noncoding_ci": [
+   0.3093553886349712,
+   0.9615445710186445
+  ],
+  "n_noncoding": 29
+ },
+ "by_phase": {
+  "0": {
+   "mean": 1.063747074079076,
+   "n": 109,
+   "ci": [
+    0.8573083776357823,
+    1.2910359422873416
+   ]
+  },
+  "1": {
+   "mean": 0.9255281304640155,
+   "n": 62,
+   "ci": [
+    0.6473219507629983,
+    1.1999718531910608
+   ]
+  },
+  "2": {
+   "mean": 0.991863186955452,
+   "n": 50,
+   "ci": [
+    0.7520704194567591,
+    1.2206061589485244
+   ]
+  }
+ },
+ "verdict": {
+  "S_partner": true,
+  "S_donor": true,
+  "S_strand": true,
+  "overall": true
+ },
+ "REFLECTION": {
+  "status": "COMPLETE (all seven signature conditions)",
+  "verdict": "PASS (S-Partner + S-Donor + S-Strand); coding/phase descriptive",
+  "signature": "U_info encodes PAIRED-INTRON CONSISTENCY and DONOR-IDENTITY CONFIDENCE, and it is PHASE-INDEPENDENT. Partner-specific ~37x (partner +0.966 [0.827,1.107] vs non-partner +0.026 [0.009,0.045]); donor-specific ~74x (donor +0.964 vs non-site G +0.013 [-0.006,0.036]); strand-symmetric (+1.07/-0.85, overlapping). FLAT across intron mod 3 (1.05/0.84/0.99) AND across annotated splice phase (1.06/0.93/0.99) -- both overlapping. Modestly coding-enriched (coding +1.009 [0.860,1.148] vs noncoding +0.620 [0.309,0.962], overlapping CIs) but clearly PRESENT on noncoding boundaries too.",
+  "interpretation": "A donor GT is scored more probable when its SPECIFIC paired acceptor is intact -- not any AG (non-partner ~0), not a global G shift (non-site G ~0). The two flat phase probes rule OUT both 'raw cross-site phase alignment' (intron mod 3) and 'biological boundary-phase representation' (annotated phase): U_info carries site CONSISTENCY, not reading frame. The mild coding enrichment with a real noncoding effect means it is a general splice-boundary-consistency signal lightly enhanced by coding context, not a dedicated coding-frame detector.",
+  "intent_check": {
+   "signature_complete": true,
+   "summary": "All seven prompt conditions are now measured (the CDS/phase bridge unlocked the last two). U_info's identity is resolved: paired-intron consistency + donor-identity, phase-independent, mildly coding-enriched. 1e turns the 1a-1c structural graph into a full mechanistic explanation of WHAT flows.",
+   "handoff_to_period3": "Sharp, testable lead: C8 shows period-3 is NECESSARY for the donor coupling, yet 1e shows the coupling is PHASE-INDEPENDENT. So period-3's role in this circuit is most likely POSITIONAL ADDRESSING (locating the partner acceptor at the right codon-phased stride) rather than reading-frame computation -- exactly the discrimination the period-3 truth-table (2a: coding-state detector vs raw alignment vs router) targets."
+  },
+  "escaped_failure_modes": {
+   "checked": [
+    "S-Partner uses a DISTANCE-MATCHED non-partner AG, so partner-specificity is not attention distance-decay; ~37x apart.",
+    "S-Donor's non-site G is >=30 nt from both sites; the corruption did not move it (~0).",
+    "Strand-symmetric on both strands (rules out the pre-R11 plus-strand-only bug).",
+    "Phase annotation validated before use (90% CDS coverage; annotated-phase != intron-mod-3 at 32%, so the two conditions are genuinely distinct)."
+   ],
+   "residual_risk": "Signature measured on the COUPLING (which C16 C-Suff ties to U_info) rather than re-routing each condition through U_info. Noncoding n=29 is small, so the coding-enrichment is suggestive not decisive. Period-3 dependence cited (C8)."
+  },
+  "next_step": "Period-3 truth-table (2a): with phase now built, test whole-codon vs single-base masking, CDS-specificity of the carrier benefit, and intron-mod-3 vs annotated-phase, to decide whether period-3 is a coding-state detector / positional router / phase-conditioned prior -- guided by 1e's finding that the donor coupling itself is phase-independent."
+ }
+}

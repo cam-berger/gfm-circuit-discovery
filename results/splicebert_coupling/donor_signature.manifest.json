@@ -1,0 +1,36 @@
+{
+  "command": [
+    "scripts/splicebert/run_donor_signature.py",
+    "--device",
+    "mps",
+    "--n",
+    "250",
+    "--batch",
+    "8",
+    "--out",
+    "results/splicebert_coupling/donor_signature.json"
+  ],
+  "config": {
+    "n": 250,
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-15T10:22:39.423742+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 33485,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_coupling:donor_signature",
+  "git_commit": "8d02a1f5e50cbe7fb95a71c53f3bd5da9b3fb3bc",
+  "git_dirty": true,
+  "inputs": [],
+  "notes": [
+    "1e core: the causal signature of U_info (the coupling's signature).",
+    "Coding-vs-noncoding and annotated splice phase deferred to the period-3 bridge.",
+    "Period-3 dependence cited from C8, not re-run here."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}
