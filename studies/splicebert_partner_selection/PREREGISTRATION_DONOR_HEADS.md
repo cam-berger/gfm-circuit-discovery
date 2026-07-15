@@ -52,7 +52,18 @@ damage_QK` by ≥0.05; **mixed** otherwise. (Descriptive; not a pass/fail gate.)
 |---|---|---|
 | **Sanity** | `damage(L3H1)` is the largest of all scanned heads, and `damage(L3H1) > damage(L2H15) > 0` | the estimator does not recover the known reader/addresser — the scan is not trustworthy, halt. |
 | **F-Heads** (primary) | at least one layer-4/5 head has `damage` CI-low **> 0.05** | no L4/L5 head individually carries ≥5% of the coupling → the relay is **distributed across heads** (a real finding, reported as C7-style head-level incompleteness, not forced). |
-| **F-Health** | for each reported relay head, masked-MLM health (`CouplingTask.mlm_health`) under its noising stays **> 0.95** | the head's noising damages general prediction, so its coupling "damage" is confounded with model breakage. |
+| **F-Selective** | the noising is head-selective: relay heads (damage CI-low > 0.05) are a **minority** (≤ ⅓) of the 32 L4/L5 heads | most heads' noising destroys the coupling → the metric reflects global breakage, not specific relays. |
+
+**Amendment (2026-07-15, pre-run, before the n≥120 analysis).** The original F-Health gate
+required `mlm_health > 0.95` under mean-ablation of each relay head. That is the wrong control:
+mean-ablation removes a head *entirely*, whereas the damage metric uses gentle acceptor-specific
+**noising** (clean→corrupt value, which differs only near the corruption). A general-purpose head
+that *also* carries the coupling fails full-ablation health while its noising is perfectly
+specific — so full-ablation health conflates "dedicated splice head" with "carries the signal."
+The aligned specificity control is the **scan's selectivity** (a global-breakage artifact would
+damage the coupling under *every* head's noising, not a specific few), promoted to **F-Selective**
+above. Mean-ablation health is still computed and reported **descriptively**, to characterize
+whether the relays are dedicated or general-purpose heads — not as a pass/fail gate.
 
 ## 5. Firewall placement
 
