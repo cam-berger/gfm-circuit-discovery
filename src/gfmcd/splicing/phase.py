@@ -57,3 +57,44 @@ def example_phase(example, cds_lookup: dict[tuple, int]) -> int | None:
     """
     md = example.metadata
     return cds_lookup.get((example.gene_id, md["genomic_exon_start"], md["genomic_exon_end"]))
+
+
+# ---------------------------------------------------------------------------------------------
+# Per-base codon position (for the period-3 whole-codon masking test, thread 2a)
+# ---------------------------------------------------------------------------------------------
+def codon_slot(g: int, cds_start_0: int, cds_end: int, strand: str, frame: int) -> int:
+    """Codon slot (0/1/2) of genomic base ``g`` inside a CDS (translation-relative offset)."""
+    offset = (g - cds_start_0) if strand == "+" else (cds_end - 1 - g)
+    return (offset - frame) % 3
+
+
+def load_cds_intervals(path, *, allowed_chromosomes=None) -> dict[str, list[tuple]]:
+    """Map ``gene_id -> [(start_0, end, strand, frame), ...]`` for every distinct CDS feature."""
+    out: dict[str, list[tuple]] = defaultdict(list)
+    seen: dict[str, set] = defaultdict(set)
+    with _open_text(path) as f:
+        for line in f:
+            if not line or line.startswith("#"):
+                continue
+            cols = line.rstrip("\n").split("\t")
+            if len(cols) != 9 or cols[2] != "CDS" or cols[7] not in ("0", "1", "2"):
+                continue
+            if allowed_chromosomes is not None and cols[0] not in allowed_chromosomes:
+                continue
+            gid = attr_first(parse_attributes(cols[8]), "gene_id")
+            key = (int(cols[3]) - 1, int(cols[4]), cols[6], int(cols[7]))
+            if key not in seen[gid]:
+                seen[gid].add(key)
+                out[gid].append(key)
+    return dict(out)
+
+
+def window_codon_slot(example, seq_pos: int, cds_intervals: dict[str, list[tuple]]) -> int | None:
+    """Codon slot of window position ``seq_pos`` in an example, or None (non-CDS or ambiguous)."""
+    md = example.metadata
+    ws, we = md["genomic_window_start"], md["genomic_window_end"]
+    g = (ws + seq_pos) if example.strand == "+" else (we - 1 - seq_pos)
+    slots = {codon_slot(g, s0, e, strand, frame)
+             for (s0, e, strand, frame) in cds_intervals.get(example.gene_id, ())
+             if strand == example.strand and s0 <= g < e}
+    return slots.pop() if len(slots) == 1 else None
