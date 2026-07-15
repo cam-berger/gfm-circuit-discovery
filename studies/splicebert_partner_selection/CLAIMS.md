@@ -28,6 +28,7 @@ Status vocabulary:
 | C13 | The human-only ≈10.2 feature has no Level-A head after exact add-one permutation correction; the proposed chromatin circuit stops at QK. | established: powered attention null | `postsoftmax.json`, `band_mass.json`, `fig_report_data.json` |
 | C14 | A dyad-anchored nucleosomal sequence signal exists at ≈**10.298**, not ≈10.630, and does not explain the multispecies carrier. | established: biological source distinction | `dyad_real.json`, `dyad_wavelength.json` |
 | C15 | Local splice-junction phasing exists, but the short support cannot resolve 10.298 from 10.630; the long-intron arm is a powered null and the long-exon arm is underpowered. | bounded | `splice_profile.json`, `splice_phasing.json`, `splice_long.json` |
+| C16 | The masked-donor coupling is mediated by a low-rank, specific direction in the **final residual** (the "information object" `U_info`). Patching only the top-8 clean−corrupt directions into the corrupt run recovers **0.92** of the coupling (top-1 **0.74**) through the exact MLM head, versus **≤0.05** for size-matched random rank-k subspaces (add-one **p = 0.005**); necessity mirrors it. Injecting a no-donor-context baseline collapses the **+4.65**-nat donor margin to the base-rate floor (R8 alive-check). Anchors the output end of the L3H1→donor-logit trace. | established: output readout, size-matched null | `donor_anchor.json`, `PREREGISTRATION_DONOR_ANCHOR.md` |
 
 ## Permanent retractions and corrections
 
