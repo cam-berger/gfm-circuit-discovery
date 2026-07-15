@@ -1,0 +1,65 @@
+{
+  "command": [
+    "scripts/splicebert/run_donor_forward.py",
+    "--device",
+    "mps",
+    "--n",
+    "250",
+    "--batch",
+    "4",
+    "--out",
+    "results/splicebert_coupling/donor_forward.json"
+  ],
+  "config": {
+    "K": 8,
+    "downstream_blocks": [
+      [
+        3,
+        "mlp"
+      ],
+      [
+        4,
+        "attn"
+      ],
+      [
+        4,
+        "mlp"
+      ],
+      [
+        5,
+        "attn"
+      ],
+      [
+        5,
+        "mlp"
+      ]
+    ],
+    "n": 250,
+    "n_null": 200,
+    "reader": [
+      3,
+      1
+    ],
+    "seed": 0,
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-15T04:16:46.464081+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 27523,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_coupling:donor_forward",
+  "git_commit": "2c10805b39251c5cdb6c7215a34c02f8f357c4ed",
+  "git_dirty": true,
+  "inputs": [],
+  "notes": [
+    "Forward arm (1b): attributes the anchor's U_info to L3H1's write.",
+    "R_U routes the restored final residual through U_info; null = random rank-8.",
+    "Per-block assembly is an approximate U_info-projection (ignores inter-layer LN)."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

@@ -1,0 +1,99 @@
+{
+ "split": "val",
+ "n": 250,
+ "device": "mps",
+ "K": 8,
+ "margins_fn_max_err": 0.0,
+ "behavior": {
+  "coupling_mean": 0.9050499200820923,
+  "coupling_ci": [
+   0.7805617675185204,
+   1.0384605795145034
+  ],
+  "m_clean": 4.626829147338867,
+  "m_corrupt": 3.7217793464660645,
+  "m_restored": 4.471926212310791
+ },
+ "F_route": {
+  "R_L3": 0.8288456797599792,
+  "R_L3_ci": [
+   0.7826379850506783,
+   0.8679480478167534
+  ],
+  "R_U": 0.7697369456291199,
+  "R_U_ci": [
+   0.725859060883522,
+   0.809086737036705
+  ],
+  "routed_fraction": 0.9286854771952526,
+  "null_max": 0.047156304121017456,
+  "null_mean": 0.01228744688338338,
+  "p_add_one": 0.004975124378109453
+ },
+ "F_local": {
+  "R_U_all": 0.7697369456291199,
+  "R_U_flank": 0.7404506206512451,
+  "R_U_other": 0.046764690428972244,
+  "R_L3_flank": 0.7978761792182922,
+  "flank_fraction": 0.9619528136928148,
+  "other_fraction": 0.060754119565809096
+ },
+ "F_align": {
+  "overlap": 0.9047772935264993,
+  "random": 0.01570423030446406
+ },
+ "assembly_uinfo_write_norm": {
+  "MLP3": {
+   "clean": 3.713139188150426,
+   "corrupt": 2.5945336447475653,
+   "restored": 3.6280644318397406
+  },
+  "L4-attn": {
+   "clean": 1.899141207174937,
+   "corrupt": 1.738224899149185,
+   "restored": 1.8881479982280083
+  },
+  "MLP4": {
+   "clean": 5.0037537231943805,
+   "corrupt": 4.021357788392467,
+   "restored": 4.934425009953717
+  },
+  "L5-attn": {
+   "clean": 1.3306111731778212,
+   "corrupt": 1.1924199091814116,
+   "restored": 1.2790825621238104
+  },
+  "MLP5": {
+   "clean": 5.750943906411412,
+   "corrupt": 5.756097646040276,
+   "restored": 5.6352324647862355
+  }
+ },
+ "verdict": {
+  "precondition_R_L3_ge_0.5": true,
+  "F_route": true,
+  "F_local": true,
+  "overall": true
+ },
+ "REFLECTION": {
+  "status": "COMPLETE",
+  "verdict": "PASS (precondition + F-Route + F-Local; F-Align descriptive)",
+  "intent_check": {
+   "forward_meets_backward": true,
+   "summary": "The forward arm (L3H1) meets the backward arm (U_info). Restoring L3H1's clean output recovers R_L3=0.829 of the coupling (matching readout_path's 0.818), and 93% of that routes through U_info (R_U=0.770) versus <=0.047 for random rank-8 (add-one p=0.005). The restoration direction overlaps U_info at 0.905 (random 0.016). So U_info is the object L3H1 delivers, not an artifact of the output end.",
+   "fulfils_prompt_forward_arm": "Prompt forward arm had three parts. (1) 'which MLP-stage directions are causally changed by restoring L3H1' -- DONE: corruption suppresses the U_info-write of MLP3 (3.71->2.60) and MLP4 (5.00->4.02), and restoring L3H1 recovers them (3.63, 4.93); the U_info directions are the ones L3H1 restores. (3) 'where the signal resides' -- DONE: donor+/-5 restoration recovers 96% of the U_info routing, elsewhere only 6%. (2) 'which L4/L5 heads receive it' -- DEFERRED to 1c (head resolution).",
+   "meet_in_the_middle": "Object-level graph now spans the trace: L3H1 write (donor+/-5) -> MLP3/MLP4 assemble the acceptor-dependent U_info -> U_info at the final residual -> donor-G logit. The endpoints (1a: U_info reads out; 1b: L3H1 delivers U_info) are joined."
+  },
+  "per_block_reading": "The U_info-write panel (descriptive, approximate -- ignores inter-layer LayerNorm, and measures WRITES at the donor, not routing) shows MLP3 and MLP4 are the main acceptor-dependent U_info writers; MLP5 writes U_info acceptor-INDEPENDENTLY (5.75->5.76 under corruption), i.e. a constant contributor; the L4/L5 attention writes little U_info at the donor. This does NOT contradict readout_path (where un-freezing L4/L5-attn adds margin recovery): that curve credits attention for ENABLING downstream propagation, which this write-magnitude panel does not measure. Characterizing the attention stages requires 1c.",
+  "escaped_failure_modes": {
+   "checked": [
+    "Near-tautology (h_re ~ h_cl, whose U_info-component is clean by construction): defused. Restoration is PARTIAL (R_L3=0.829), and F-Route is 93% not 100%, so a real 7% of L3H1's recovered margin flows through directions OUTSIDE the anchor's rank-8 U_info -- a genuine (small) second route, not an identity.",
+    "Specificity: the random rank-8 null tops out at 0.047, ~16x below R_U -- U_info is not just any subspace of the restored residual.",
+    "Localization is non-trivial: the elsewhere control recovers only 6%, so 'donor+/-5 carries it' is a real two-sided claim, not implied by construction.",
+    "R10: unconditional set, ratio-of-means; coupling +0.905 matches the known val range."
+   ],
+   "residual_risk": "F-Align (0.905) is largely EXPECTED given F-Route is high -- h_re-h_co is a coupling-direction and U_info is the top-SVD of the coupling-direction h_cl-h_co, so their overlap is partly by construction. F-Align is corroboration, not independent evidence; the falsifiable weight is on F-Route (routes through U_info AND beats random) and F-Local. Also: the 7% non-U_info route and the attention stages' role are open and belong to 1c/1e."
+  },
+  "next_step": "1c -- resolve the layer-4/5 attention stages into specific heads: which heads GATHER the donor+/-5 U_info signal to the donor (QK routing) vs write U_info content (OV), replacing the whole-block treatment. Then 1e: the causal signature (what information U_info actually encodes -- paired-acceptor vs generic splice evidence, coding context, phase)."
+ }
+}
