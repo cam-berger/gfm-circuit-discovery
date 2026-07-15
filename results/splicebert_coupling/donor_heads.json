@@ -1,0 +1,644 @@
+{
+ "split": "val",
+ "n": 120,
+ "device": "mps",
+ "coupling_mean": 0.8728425140182178,
+ "sanity": {
+  "L3H1_damage": 0.7817559717761421,
+  "L2H15_damage": 0.011460623448113522,
+  "L1H12_damage": -0.00043673344585912547
+ },
+ "scan": {
+  "L3H1": {
+   "layer": 3,
+   "head": 1,
+   "damage": 0.7817559717761421,
+   "ci": [
+    0.7149877080152228,
+    0.8430486016722497
+   ]
+  },
+  "L2H15": {
+   "layer": 2,
+   "head": 15,
+   "damage": 0.011460623448113522,
+   "ci": [
+    -0.05419433352204135,
+    0.06170885924186342
+   ]
+  },
+  "L1H12": {
+   "layer": 1,
+   "head": 12,
+   "damage": -0.00043673344585912547,
+   "ci": [
+    -0.006609015832410816,
+    0.005915238828976311
+   ]
+  },
+  "L4H0": {
+   "layer": 4,
+   "head": 0,
+   "damage": 0.0811666880665046,
+   "ci": [
+    0.06464869430237444,
+    0.09935441316583905
+   ]
+  },
+  "L4H1": {
+   "layer": 4,
+   "head": 1,
+   "damage": 0.028600830900608963,
+   "ci": [
+    0.01686330464766176,
+    0.04099568245806613
+   ]
+  },
+  "L4H2": {
+   "layer": 4,
+   "head": 2,
+   "damage": 0.12215167463329603,
+   "ci": [
+    0.10474120247813104,
+    0.14206375290956103
+   ]
+  },
+  "L4H3": {
+   "layer": 4,
+   "head": 3,
+   "damage": 0.008977836124184105,
+   "ci": [
+    0.0026573327824491047,
+    0.015364355976716986
+   ]
+  },
+  "L4H4": {
+   "layer": 4,
+   "head": 4,
+   "damage": 0.040700787393943935,
+   "ci": [
+    0.023618847511131476,
+    0.05980975114099522
+   ]
+  },
+  "L4H5": {
+   "layer": 4,
+   "head": 5,
+   "damage": -0.016458749833883107,
+   "ci": [
+    -0.035219498243122226,
+    7.798856616235075e-05
+   ]
+  },
+  "L4H6": {
+   "layer": 4,
+   "head": 6,
+   "damage": 0.008055798843625945,
+   "ci": [
+    0.0014863321497603293,
+    0.01558976799281324
+   ]
+  },
+  "L4H7": {
+   "layer": 4,
+   "head": 7,
+   "damage": 0.02567761290622677,
+   "ci": [
+    0.02120099493382936,
+    0.03053348112301333
+   ]
+  },
+  "L4H8": {
+   "layer": 4,
+   "head": 8,
+   "damage": -0.0012708055758496816,
+   "ci": [
+    -0.003763743055566349,
+    0.001385224733749442
+   ]
+  },
+  "L4H9": {
+   "layer": 4,
+   "head": 9,
+   "damage": 0.027186877802505276,
+   "ci": [
+    0.02079620765486852,
+    0.03315916791443948
+   ]
+  },
+  "L4H10": {
+   "layer": 4,
+   "head": 10,
+   "damage": 0.014442083115308098,
+   "ci": [
+    0.009772562577402211,
+    0.01934371106786523
+   ]
+  },
+  "L4H11": {
+   "layer": 4,
+   "head": 11,
+   "damage": 0.04276145091446349,
+   "ci": [
+    0.034680497217183734,
+    0.05116199679878899
+   ]
+  },
+  "L4H12": {
+   "layer": 4,
+   "head": 12,
+   "damage": -0.0030489082657728043,
+   "ci": [
+    -0.01386095042395983,
+    0.008590822910500088
+   ]
+  },
+  "L4H13": {
+   "layer": 4,
+   "head": 13,
+   "damage": 0.043199815304710086,
+   "ci": [
+    0.03378353849523653,
+    0.052655073665837084
+   ]
+  },
+  "L4H14": {
+   "layer": 4,
+   "head": 14,
+   "damage": -0.010432812652137243,
+   "ci": [
+    -0.015406944805020036,
+    -0.006323484738047646
+   ]
+  },
+  "L4H15": {
+   "layer": 4,
+   "head": 15,
+   "damage": -0.0009523713665924363,
+   "ci": [
+    -0.010968413944058222,
+    0.010390488832417683
+   ]
+  },
+  "L5H0": {
+   "layer": 5,
+   "head": 0,
+   "damage": 0.000500304425785491,
+   "ci": [
+    -0.0012590392423591694,
+    0.002153015465697065
+   ]
+  },
+  "L5H1": {
+   "layer": 5,
+   "head": 1,
+   "damage": 0.0029454901163071456,
+   "ci": [
+    -0.0018797867126290708,
+    0.008443917926950938
+   ]
+  },
+  "L5H2": {
+   "layer": 5,
+   "head": 2,
+   "damage": 0.010375358567263545,
+   "ci": [
+    0.004597455734522705,
+    0.01712864579253394
+   ]
+  },
+  "L5H3": {
+   "layer": 5,
+   "head": 3,
+   "damage": -0.0019937504134516578,
+   "ci": [
+    -0.005949261027746248,
+    0.0020663583013725458
+   ]
+  },
+  "L5H4": {
+   "layer": 5,
+   "head": 4,
+   "damage": 0.0003966797052058573,
+   "ci": [
+    -0.0015833906184093143,
+    0.0019505382350548561
+   ]
+  },
+  "L5H5": {
+   "layer": 5,
+   "head": 5,
+   "damage": 0.0045685899230466665,
+   "ci": [
+    -0.007989760943974182,
+    0.01884250048212958
+   ]
+  },
+  "L5H6": {
+   "layer": 5,
+   "head": 6,
+   "damage": -0.0020291975613566386,
+   "ci": [
+    -0.026267909897918044,
+    0.02108959349765928
+   ]
+  },
+  "L5H7": {
+   "layer": 5,
+   "head": 7,
+   "damage": 0.0037880350763692585,
+   "ci": [
+    -0.0008840154449310558,
+    0.008732347716852877
+   ]
+  },
+  "L5H8": {
+   "layer": 5,
+   "head": 8,
+   "damage": -0.0037166684554226594,
+   "ci": [
+    -0.008664958489859178,
+    0.0012779473096371852
+   ]
+  },
+  "L5H9": {
+   "layer": 5,
+   "head": 9,
+   "damage": 0.03657866365990327,
+   "ci": [
+    0.01663501015034108,
+    0.05763916374274041
+   ]
+  },
+  "L5H10": {
+   "layer": 5,
+   "head": 10,
+   "damage": 0.026184537850855196,
+   "ci": [
+    0.0184699851393627,
+    0.03414982374218376
+   ]
+  },
+  "L5H11": {
+   "layer": 5,
+   "head": 11,
+   "damage": 0.12511531113991292,
+   "ci": [
+    0.10444257910895223,
+    0.1433334247955331
+   ]
+  },
+  "L5H12": {
+   "layer": 5,
+   "head": 12,
+   "damage": 0.006157835967884319,
+   "ci": [
+    0.002398022352175495,
+    0.010329061908721288
+   ]
+  },
+  "L5H13": {
+   "layer": 5,
+   "head": 13,
+   "damage": -0.03411722657028272,
+   "ci": [
+    -0.04576094566203776,
+    -0.022631586958854626
+   ]
+  },
+  "L5H14": {
+   "layer": 5,
+   "head": 14,
+   "damage": 0.019474070660843137,
+   "ci": [
+    0.013049554278109764,
+    0.026394491753713462
+   ]
+  },
+  "L5H15": {
+   "layer": 5,
+   "head": 15,
+   "damage": -0.004984827303307884,
+   "ci": [
+    -0.007338350765883441,
+    -0.002469305461541584
+   ]
+  }
+ },
+ "l45_ranked": [
+  {
+   "key": "L5H11",
+   "damage": 0.12511531113991292,
+   "ci": [
+    0.10444257910895223,
+    0.1433334247955331
+   ]
+  },
+  {
+   "key": "L4H2",
+   "damage": 0.12215167463329603,
+   "ci": [
+    0.10474120247813104,
+    0.14206375290956103
+   ]
+  },
+  {
+   "key": "L4H0",
+   "damage": 0.0811666880665046,
+   "ci": [
+    0.06464869430237444,
+    0.09935441316583905
+   ]
+  },
+  {
+   "key": "L4H13",
+   "damage": 0.043199815304710086,
+   "ci": [
+    0.03378353849523653,
+    0.052655073665837084
+   ]
+  },
+  {
+   "key": "L4H11",
+   "damage": 0.04276145091446349,
+   "ci": [
+    0.034680497217183734,
+    0.05116199679878899
+   ]
+  },
+  {
+   "key": "L4H4",
+   "damage": 0.040700787393943935,
+   "ci": [
+    0.023618847511131476,
+    0.05980975114099522
+   ]
+  },
+  {
+   "key": "L5H9",
+   "damage": 0.03657866365990327,
+   "ci": [
+    0.01663501015034108,
+    0.05763916374274041
+   ]
+  },
+  {
+   "key": "L4H1",
+   "damage": 0.028600830900608963,
+   "ci": [
+    0.01686330464766176,
+    0.04099568245806613
+   ]
+  },
+  {
+   "key": "L4H9",
+   "damage": 0.027186877802505276,
+   "ci": [
+    0.02079620765486852,
+    0.03315916791443948
+   ]
+  },
+  {
+   "key": "L5H10",
+   "damage": 0.026184537850855196,
+   "ci": [
+    0.0184699851393627,
+    0.03414982374218376
+   ]
+  },
+  {
+   "key": "L4H7",
+   "damage": 0.02567761290622677,
+   "ci": [
+    0.02120099493382936,
+    0.03053348112301333
+   ]
+  },
+  {
+   "key": "L5H14",
+   "damage": 0.019474070660843137,
+   "ci": [
+    0.013049554278109764,
+    0.026394491753713462
+   ]
+  },
+  {
+   "key": "L4H10",
+   "damage": 0.014442083115308098,
+   "ci": [
+    0.009772562577402211,
+    0.01934371106786523
+   ]
+  },
+  {
+   "key": "L5H2",
+   "damage": 0.010375358567263545,
+   "ci": [
+    0.004597455734522705,
+    0.01712864579253394
+   ]
+  },
+  {
+   "key": "L4H3",
+   "damage": 0.008977836124184105,
+   "ci": [
+    0.0026573327824491047,
+    0.015364355976716986
+   ]
+  },
+  {
+   "key": "L4H6",
+   "damage": 0.008055798843625945,
+   "ci": [
+    0.0014863321497603293,
+    0.01558976799281324
+   ]
+  },
+  {
+   "key": "L5H12",
+   "damage": 0.006157835967884319,
+   "ci": [
+    0.002398022352175495,
+    0.010329061908721288
+   ]
+  },
+  {
+   "key": "L5H5",
+   "damage": 0.0045685899230466665,
+   "ci": [
+    -0.007989760943974182,
+    0.01884250048212958
+   ]
+  },
+  {
+   "key": "L5H7",
+   "damage": 0.0037880350763692585,
+   "ci": [
+    -0.0008840154449310558,
+    0.008732347716852877
+   ]
+  },
+  {
+   "key": "L5H1",
+   "damage": 0.0029454901163071456,
+   "ci": [
+    -0.0018797867126290708,
+    0.008443917926950938
+   ]
+  },
+  {
+   "key": "L5H0",
+   "damage": 0.000500304425785491,
+   "ci": [
+    -0.0012590392423591694,
+    0.002153015465697065
+   ]
+  },
+  {
+   "key": "L5H4",
+   "damage": 0.0003966797052058573,
+   "ci": [
+    -0.0015833906184093143,
+    0.0019505382350548561
+   ]
+  },
+  {
+   "key": "L4H15",
+   "damage": -0.0009523713665924363,
+   "ci": [
+    -0.010968413944058222,
+    0.010390488832417683
+   ]
+  },
+  {
+   "key": "L4H8",
+   "damage": -0.0012708055758496816,
+   "ci": [
+    -0.003763743055566349,
+    0.001385224733749442
+   ]
+  },
+  {
+   "key": "L5H3",
+   "damage": -0.0019937504134516578,
+   "ci": [
+    -0.005949261027746248,
+    0.0020663583013725458
+   ]
+  },
+  {
+   "key": "L5H6",
+   "damage": -0.0020291975613566386,
+   "ci": [
+    -0.026267909897918044,
+    0.02108959349765928
+   ]
+  },
+  {
+   "key": "L4H12",
+   "damage": -0.0030489082657728043,
+   "ci": [
+    -0.01386095042395983,
+    0.008590822910500088
+   ]
+  },
+  {
+   "key": "L5H8",
+   "damage": -0.0037166684554226594,
+   "ci": [
+    -0.008664958489859178,
+    0.0012779473096371852
+   ]
+  },
+  {
+   "key": "L5H15",
+   "damage": -0.004984827303307884,
+   "ci": [
+    -0.007338350765883441,
+    -0.002469305461541584
+   ]
+  },
+  {
+   "key": "L4H14",
+   "damage": -0.010432812652137243,
+   "ci": [
+    -0.015406944805020036,
+    -0.006323484738047646
+   ]
+  },
+  {
+   "key": "L4H5",
+   "damage": -0.016458749833883107,
+   "ci": [
+    -0.035219498243122226,
+    7.798856616235075e-05
+   ]
+  },
+  {
+   "key": "L5H13",
+   "damage": -0.03411722657028272,
+   "ci": [
+    -0.04576094566203776,
+    -0.022631586958854626
+   ]
+  }
+ ],
+ "relays": [
+  "L5H11",
+  "L4H2",
+  "L4H0"
+ ],
+ "n_relays": 3,
+ "n_l45_scanned": 32,
+ "router_transporter": {
+  "L5H11": {
+   "damage_QK": -0.001112239198683402,
+   "damage_V": 0.14199400411464733,
+   "class": "transporter"
+  },
+  "L4H2": {
+   "damage_QK": -0.0020500714870638564,
+   "damage_V": 0.12343626015274049,
+   "class": "transporter"
+  },
+  "L4H0": {
+   "damage_QK": -0.001542405048877551,
+   "damage_V": 0.08182912179437261,
+   "class": "transporter"
+  }
+ },
+ "health_mean_ablation_descriptive": {
+  "L5H11": 0.5178618520498276,
+  "L4H2": 0.5089178554713726,
+  "L4H0": 0.5126990593969822
+ },
+ "verdict": {
+  "sanity": true,
+  "F_heads": true,
+  "F_selective": true,
+  "overall": true
+ },
+ "REFLECTION": {
+  "status": "COMPLETE",
+  "verdict": "PASS (sanity + F-Heads + F-Selective)",
+  "findings": {
+   "sanity": "The noising estimator recovers the known reader: L3H1 carries 0.782 of the coupling, the max of all scanned heads. L2H15 (the addresser) noises to only 0.011 on its own -- its effect is mediated through L3H1, not carried directly -- and L1H12 to ~0. Estimator trustworthy.",
+   "relays": "Three layer-4/5 relay heads clear CI-low > 0.05: L5H11 (0.125), L4H2 (0.122), L4H0 (0.081). A distributed TAIL of smaller contributors (L4H13/L4H11/L4H4/L5H9, ~0.03-0.04, CI-low > 0 but < 0.05) sits below the relay threshold: the L4/L5 relay is a head-sparse CORE plus a distributed tail, not exactly three heads.",
+   "router_vs_transporter": "All three relays are TRANSPORTERS. Noising the VALUE destroys the coupling (0.142, 0.123, 0.082); noising QUERY+KEY destroys ~0 (-0.001, -0.002, -0.002). So the heads carry the acceptor-dependent U_info CONTENT through OV/value, while their attention routing is acceptor-INDEPENDENT (fixed/positional). Clean, unambiguous split.",
+   "general_purpose": "Descriptive (mean-ablation health): all three relays drop general masked-MLM to ~0.51, i.e. they are GENERAL-PURPOSE heads that also carry the coupling, not dedicated splice heads. SpliceBERT reuses shared positional-mixing machinery."
+  },
+  "intent_check": {
+   "closes_forward_arm_part2": true,
+   "summary": "Prompt forward-arm part 2 ('which L4/L5 heads receive those directions through Q/K/V/OV') is answered: L5H11, L4H2, L4H0 receive U_info through the VALUE/OV path (transporters), not QK. The meet-in-the-middle is now closed at the head level: L3H1 write (donor+/-5) -> MLP3/MLP4 assemble U_info -> {L4H0, L4H2, L5H11} transport the U_info content via OV to the donor -> U_info reads out -> donor-G logit."
+  },
+  "escaped_failure_modes": {
+   "checked": [
+    "Mean-ablation-not-noising trap (R12/R13): avoided by NOISING-to-corrupt, which changes only the acceptor-dependent part of a head's output. Confirmed selective: only 3 of 32 L4/L5 heads clear the relay bar; a global-breakage artifact would flag ~all of them.",
+    "The QK/OV split is not near-tautological: damage_QK is ~0 (not just < damage_V), so the attention pattern genuinely carries none of the acceptor dependence.",
+    "Sanity anchors the estimator (L3H1 tops at 0.782), so the L4/L5 numbers are read on a scale where the known reader behaves as expected."
+   ],
+   "residual_risk": "(1) The QK/OV noising was applied at ALL positions (coarse). 'These are positional gatherers attending donor->flank' is a plausible reading of QK-independence but the attention-pattern geometry (does the head actually attend the donor to the donor+/-5 flank where MLP3/MLP4 assembled U_info) was NOT measured -- a descriptive follow-up. (2) The head-sparse core has a distributed tail, so 'three heads' is the core, not the whole L4/L5 contribution. (3) The relays being general-purpose means the circuit is not a set of dedicated units; completeness at the head level is bounded, like C7."
+  },
+  "next_step": "1e -- the causal signature of U_info: what information does it actually encode (paired -acceptor vs generic splice-site evidence, coding vs noncoding context, splice phase), now that the object and its full L3H1->MLP->transporter->readout path are mapped. Optional descriptive add: the donor->flank attention geometry of the three transporters."
+ }
+}
