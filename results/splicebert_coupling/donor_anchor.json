@@ -1,0 +1,150 @@
+{
+ "split": "val",
+ "n": 250,
+ "n_floor": 250,
+ "device": "mps",
+ "G0_max_abs": 0.0,
+ "margins_fn_max_err": 0.0,
+ "behavior": {
+  "m_clean_mean": 4.649297714233398,
+  "m_corrupt_mean": 3.659358024597168,
+  "coupling_mean": 0.9899402856826782,
+  "coupling_ci": [
+   0.8564745008945465,
+   1.126133370399475
+  ],
+  "floor": 0.24693816900253296,
+  "clean_minus_floor": 4.402359485626221
+ },
+ "D1_rank_spectrum": {
+  "delta_dims_80": 12,
+  "delta_dims_90": 32,
+  "delta_top1_energy": 0.5372131707883141,
+  "delta_top8_energy": 0.7639034262898802,
+  "grad_dims_80": 3,
+  "grad_dims_90": 9
+ },
+ "D2_alignment": {
+  "k1": {
+   "overlap": 0.15151060460370624,
+   "random": 0.002018713323855696
+  },
+  "k2": {
+   "overlap": 0.11336350461106472,
+   "random": 0.004626262312341351
+  },
+  "k4": {
+   "overlap": 0.13329865431554222,
+   "random": 0.007575899818811639
+  },
+  "k8": {
+   "overlap": 0.17267083352759954,
+   "random": 0.01583061730128976
+  }
+ },
+ "D3_linearity": {
+  "corr": 0.8959730705908067,
+  "frac_explained": 0.8213897347450256
+ },
+ "gates": {
+  "info": {
+   "k1": {
+    "suff": 0.7402788400650024,
+    "suff_ci": [
+     0.692164097726345,
+     0.786637844145298
+    ],
+    "nec": 0.8248724341392517,
+    "nec_ci": [
+     0.7761500835418701,
+     0.876095700263977
+    ],
+    "null_max": 0.015451169572770596,
+    "null_mean": 0.0021493926830635245,
+    "p_add_one": 0.004975124378109453
+   },
+   "k8": {
+    "suff": 0.9178889989852905,
+    "suff_ci": [
+     0.8998503148555755,
+     0.9356639251112938
+    ],
+    "nec": 0.9415507912635803,
+    "nec_ci": [
+     0.924578495323658,
+     0.9570868641138076
+    ],
+    "null_max": 0.053027089685201645,
+    "null_mean": 0.015485677529431996,
+    "p_add_one": 0.004975124378109453
+   }
+  },
+  "read": {
+   "k1": {
+    "suff": 0.6205213069915771,
+    "suff_ci": [
+     0.5766141921281814,
+     0.6649581253528595
+    ],
+    "nec": 0.7817390561103821,
+    "nec_ci": [
+     0.7398870870471,
+     0.8260775193572044
+    ],
+    "null_max": 0.015451169572770596,
+    "null_mean": 0.0021493926830635245,
+    "p_add_one": 0.004975124378109453
+   },
+   "k8": {
+    "suff": 0.8479613661766052,
+    "suff_ci": [
+     0.8307073801755905,
+     0.8642795413732528
+    ],
+    "nec": 0.915546178817749,
+    "nec_ci": [
+     0.9007015794515609,
+     0.9302738770842552
+    ],
+    "null_max": 0.053027089685201645,
+    "null_mean": 0.015485677529431996,
+    "p_add_one": 0.004975124378109453
+   }
+  }
+ },
+ "C_alive": {
+  "alive_margin": 0.3340625464916229,
+  "floor": 0.24693816900253296,
+  "threshold": 0.34693816900253294,
+  "pass": true
+ },
+ "verdict": {
+  "G0": true,
+  "C_suff": true,
+  "C_nec": true,
+  "C_null": true,
+  "C_alive": true,
+  "overall": true
+ },
+ "REFLECTION": {
+  "status": "COMPLETE",
+  "verdict": "PASS (5/5 frozen gates)",
+  "intent_check": {
+   "anchors_donor_logit_end": true,
+   "summary": "G0 is bit-exact (cls(final residual) == native logits, 0.0), so the backward arm has a validated logit-lens. The donor margin +4.65 sits +4.40 nats above the base-rate floor +0.25, so there is a large donor-specific readout to explain, and the coupling +0.99 is carried by a low-rank, causally-read, specific final-residual direction (U_info). The output end of the L3H1->donor-logit graph is anchored.",
+   "fulfils_prompt_method": "The prompt asked to isolate a low-rank clean-corrupt subspace and check that patching only it preserves most recovery -- 'the actual information object you follow through the network.' Done at the final residual: C-Suff patches ONLY U_info and recovers 0.74 (rank-1) / 0.92 (rank-8) of the coupling through the real nonlinear unembed. U_info is that information object, established at the output end.",
+   "backward_arm_target": "U_info = top-SVD of the clean-corrupt final residual. Track ~8 dims (0.76 energy, 0.92 coupling recovery), NOT 1 (0.54 energy, 0.74 recovery): the object is only moderately low-rank (12 dims to 80% energy, 32 to 90%).",
+   "read_info_alignment": "Per-example alignment is STRONG and directly causal: D3 shows the local-linear read g.dh explains 82% of the coupling (corr 0.90), and C-Suff proves U_info is read by the unembed (0.74/0.92 recovery vs random <=0.053, add-one p=0.005 -- ~50x random). The subspace overlap D2 is significant but WEAK (0.15-0.17 vs random 0.002-0.016, ~10-90x): the top-VARIANCE directions of the per-example gradients differ from the top info directions -- an expected nonlinear-head (example-varying LN/GELU Jacobian) effect, NOT the info object going unread. It is far from the random floor, so this is NOT the near-orthogonal case: the program does NOT reframe. The operationally meaningful question -- is the corruption's residual move read by the unembed -- is answered YES by D3 and C-Suff."
+  },
+  "escaped_failure_modes": {
+   "checked": [
+    "SVD-cannot-fail: licensed by controls that can -- C-Null (random rank-k recovers <=0.053, ~50x below observed) and C-Alive (the +4.65 margin collapses to +0.33).",
+    "R8 copying/position artifact: guarded -- injecting the no-donor-context baseline collapses the margin to floor (93% of the way), and clean-floor=+4.40 confirms a real donor-specific readout above base-rate rather than a constant G-bias.",
+    "R10 conditional inflation: avoided -- unconditional set (min_effect=None) + ratio-of-means; the measured coupling +0.990 matches the known unconditional val coupling (~0.973), confirming no outcome-conditioning crept in.",
+    "too-clean tell (R7): none -- no two conditions agree to many significant figures; observed recovery and its null are ~50x apart, not an algebraic identity."
+   ],
+   "residual_risk": "C-Alive passes with a thin point-estimate margin (alive +0.334 vs threshold +0.347). The +0.087 excess over the floor is head nonlinearity: margin(mean residual) != mean(margin) (Jensen gap). The substantive collapse (+4.65 -> +0.33, 93% toward floor) is unambiguous, but the single-baseline point estimate sits near the tolerance edge; a per-example baseline would remove the gap at the cost of equalling the floor by construction."
+  },
+  "next_step": "1b -- forward arm: does L3H1's write map into U_info, and which MLP3 directions carry it; then resolve L4/L5 attention into the heads that read U_info via Q/K/V vs OV, and meet the backward decomposition of U_info in the middle."
+ }
+}

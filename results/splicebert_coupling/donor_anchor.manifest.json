@@ -1,0 +1,43 @@
+{
+  "command": [
+    "scripts/splicebert/run_donor_anchor.py",
+    "--device",
+    "mps",
+    "--n",
+    "250",
+    "--out",
+    "results/splicebert_coupling/donor_anchor.json"
+  ],
+  "config": {
+    "n": 250,
+    "n_null": 200,
+    "ranks": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "seed": 0,
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-15T02:26:41.733134+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 25641,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_coupling:donor_anchor",
+  "git_commit": "b973a580b462855777978e5952f4b09176e2e9c3",
+  "git_dirty": true,
+  "inputs": [],
+  "notes": [
+    "Anchor (donor-graph 1a): backward foundation of the L3H1->donor-logit trace.",
+    "All causal tests run on cached final residuals via cls() -- no re-forward.",
+    "C-Nec is the dual of C-Suff (prereg amendment 2026-07-14).",
+    "The SVD cannot fail; C-Null and C-Alive carry the falsifiable weight."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}
