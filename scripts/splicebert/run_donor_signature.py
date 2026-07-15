@@ -40,6 +40,7 @@ from gfmcd.splicing.circuit import (  # noqa: E402
     load_adapter, load_examples, matched_decoy_acceptor, pick_device,
 )
 from gfmcd.splicing.coupling import substitute  # noqa: E402
+from gfmcd.splicing.phase import example_phase, load_cds_frames  # noqa: E402
 
 
 def pick_nonsite_g(x, min_gap: int = 30) -> int | None:
@@ -78,6 +79,13 @@ def main() -> None:
                          tag=f"signature-{args.split}", min_effect=None)
     genes = np.array([x.gene_id for x in X])
     print(f"{len(X)} unconditional {args.split} exons   device={dev}")
+
+    # splice-phase / coding annotation (the CDS bridge)
+    val_chroms = {c if c.startswith("chr") else f"chr{c}" for c in {x.chrom for x in X}}
+    cds = load_cds_frames(args.gtf, allowed_chromosomes=val_chroms)
+    ph = [example_phase(x, cds) for x in X]
+    coding = np.array([p is not None for p in ph])
+    phase = np.array([p if p is not None else -1 for p in ph])
 
     def margins_at(seqs, positions):
         """Masked-G margin at `positions` for each sequence (mask -> logit(G)-max(A,C,T))."""
@@ -130,6 +138,13 @@ def main() -> None:
                             "ci": list(gboot(coup[mod3 == k], genes[mod3 == k]))}
                    for k in (0, 1, 2) if (mod3 == k).any()}
 
+    # coding-vs-noncoding (exon is / is not a clean CDS) and annotated splice phase 0/1/2
+    coding_ci = gboot(coup[coding], genes[coding])
+    noncoding_ci = gboot(coup[~coding], genes[~coding]) if (~coding).any() else None
+    phase_groups = {int(k): {"mean": float(coup[phase == k].mean()), "n": int((phase == k).sum()),
+                             "ci": list(gboot(coup[phase == k], genes[phase == k]))}
+                    for k in (0, 1, 2) if (phase == k).any()}
+
     s_partner = partner_ci[0] > nonpartner_ci[1]
     s_donor = donor_ci[0] > nonsite_ci[1]
     s_strand = (len(strand_groups) < 2) or (
@@ -151,6 +166,12 @@ def main() -> None:
         "by_strand": {s: {"mean": strand_means[s], "ci": list(strand_groups[s]),
                           "n": int((strand == s).sum())} for s in strand_groups},
         "by_intron_mod3": mod3_groups,
+        "by_coding": {"coding_mean": float(coup[coding].mean()), "coding_ci": list(coding_ci),
+                      "n_coding": int(coding.sum()),
+                      "noncoding_mean": float(coup[~coding].mean()) if (~coding).any() else None,
+                      "noncoding_ci": list(noncoding_ci) if noncoding_ci else None,
+                      "n_noncoding": int((~coding).sum())},
+        "by_phase": phase_groups,
         "verdict": {k: bool(v) for k, v in verdict.items()},
         "REFLECTION": {"status": "PENDING -- fill after inspection (prereg section 5)"},
     }
@@ -177,6 +198,11 @@ def main() -> None:
         for s in strand_groups))
     print("by intron mod 3:  " + "   ".join(
         f"{k}: {v['mean']:+.3f} {ci_str(v['ci'])} (n={v['n']})" for k, v in mod3_groups.items()))
+    print(f"by coding:  coding {coup[coding].mean():+.3f} {ci_str(coding_ci)} (n={int(coding.sum())})"
+          + (f"   noncoding {coup[~coding].mean():+.3f} {ci_str(noncoding_ci)} (n={int((~coding).sum())})"
+             if noncoding_ci else "   (no noncoding exons)"))
+    print("by phase:  " + "   ".join(
+        f"{k}: {v['mean']:+.3f} {ci_str(v['ci'])} (n={v['n']})" for k, v in phase_groups.items()))
     print("\nVERDICT:")
     for k, v in verdict.items():
         print(f"  {k:10s} {'PASS' if v else 'FAIL'}")

@@ -14,15 +14,15 @@
     "n": 250,
     "split": "val"
   },
-  "created_at_utc": "2026-07-15T10:11:18.189300+00:00",
+  "created_at_utc": "2026-07-15T10:22:39.423742+00:00",
   "environment": {
     "hostname": "Camerons-MacBook-Pro.local",
-    "pid": 33257,
+    "pid": 33485,
     "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
     "python": "3.13.12"
   },
   "experiment_id": "splicebert_coupling:donor_signature",
-  "git_commit": "a730010bac4e2565b0766281032d1c112f36f3e6",
+  "git_commit": "8d02a1f5e50cbe7fb95a71c53f3bd5da9b3fb3bc",
   "git_dirty": true,
   "inputs": [],
   "notes": [

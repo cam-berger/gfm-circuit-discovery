@@ -17,6 +17,14 @@ strand. **Cited, established:** period-3 dependence (C8: deleting the clock driv
 then applied back):** coding-vs-noncoding (the dataset is protein-coding-only, so coding context
 is currently a constant) and **annotated splice phase 0/1/2**.
 
+**Amendment (2026-07-15).** The CDS/splice-phase bridge (`gfmcd.splicing.phase`, validated:
+90% of val internal exons are clean CDS, phases 0/1/2 well-distributed, annotated-phase ≠
+intron-mod-3 at 32% agreement) was built ahead of the period-3 thread, so the two deferred
+conditions are now computed here after all: **coding vs noncoding** (exon is / is not a clean
+CDS — 90%/10% in val) and **annotated splice phase 0/1/2**. Both are reported **descriptively**
+(coupling stratified by each, with CIs); they add no pass/fail gate. This completes the
+seven-condition signature the prompt specified.
+
 ## 1. Target — imported unchanged
 
 Readout / corruption / coupling / eligibility as C16 (val, both strands, gap [60,150],
