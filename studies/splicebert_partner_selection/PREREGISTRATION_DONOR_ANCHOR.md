@@ -100,9 +100,17 @@ identically and reported alongside.
 | Test | Intervention | PASS threshold | What FALSIFIES it |
 |---|---|---|---|
 | **C-Suff** (sufficiency / low-rank) | Corrupt→clean patch of only the rank-k component: `h' = h_co − P_k h_co + P_k h_cl`; recovery = ratio-of-means of `m' − m_co` over `m_cl − m_co`. | rank-1 ≥ **0.50** and rank-8 ≥ **0.80** | rank-8 recovery < 0.50 → the readout is **not** low-rank at the final residual. |
-| **C-Nec** (necessity) | Clean, project the rank-k component out: `h' = h_cl − P_k h_cl`; necessity = ratio-of-means of `m_cl − m'` over `m_cl − m_co`. | rank-8 ≥ **0.80** | removing rank-8 barely moves the margin → the direction is not necessary. |
+| **C-Nec** (necessity) | Clean, **replace** the rank-k component with the corrupt run's: `h' = h_cl − P_k h_cl + P_k h_co`; necessity = ratio-of-means of `m_cl − m'` over `m_cl − m_co`. | rank-8 ≥ **0.80** | replacing rank-k barely moves the margin → the direction does not carry the coupling. |
 | **C-Null** (specificity, size-matched) | N = **200** random rank-k subspaces, patched exactly as C-Suff. | observed recovery > **max** of the 200 randoms, add-one `p = (1+#{rand≥obs})/201` ≤ **0.05**, at k = 1 and k = 8 | a random rank-k subspace matches → the direction is not special (any subspace works). |
 | **C-Alive** (destructive alive-check, R8) | Replace the **whole** masked-donor final residual with the no-info baseline residual (§4.1). | resulting margin ≤ **floor + 0.10 nats** | margin stays high after total destruction → the score reflects copying/position, not donor evidence, and the whole metric is suspect. |
+
+**Amendment (2026-07-14, pre-run, no data seen).** C-Nec was originally "project the
+rank-k component out of the clean residual." That measures the drop in the *absolute* clean
+margin, which is not the coupling and can exceed it, so its fraction is unbounded and the
+0.80 threshold is ill-posed. Replaced by the **dual of C-Suff** — substitute the corrupt
+run's rank-k component into the clean residual — which isolates the coupling-carrying content
+and is bounded in [0, 1]. Same intent (does removing the read subspace's clean content
+destroy the coupling), correct operationalization. No outcome was observed before this edit.
 
 ### 4.1 The no-info floor and baseline residual
 Define a **masked non-site G** set: for each eligible window, a G ≥ 30 nt from any annotated
