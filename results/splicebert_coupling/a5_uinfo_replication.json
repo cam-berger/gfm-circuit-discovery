@@ -1,0 +1,97 @@
+{
+ "n": 400,
+ "n_genes": 320,
+ "strands": [
+  "+",
+  "-"
+ ],
+ "coupling": 0.9561907476559282,
+ "nA": 199,
+ "nB": 201,
+ "ranks": [
+  1,
+  2,
+  4,
+  8,
+  16,
+  32
+ ],
+ "rank_curve": {
+  "1": {
+   "overlap": 0.9702764927582642,
+   "overlap_null": 0.0020063703262331242,
+   "R_suff_heldout": 0.7314212099047981,
+   "R_suff_insample": 0.7428091692480255,
+   "R_suff_random": 0.001848244085438343,
+   "N_necessity_heldout": 0.8492468913370254
+  },
+  "2": {
+   "overlap": 0.8718244894784679,
+   "overlap_null": 0.004401733484610988,
+   "R_suff_heldout": 0.7772863892445389,
+   "R_suff_insample": 0.8008578335651905,
+   "R_suff_random": 0.0032985901166915368,
+   "N_necessity_heldout": 0.8414405332782304
+  },
+  "4": {
+   "overlap": 0.7150698095864887,
+   "overlap_null": 0.006999057316632513,
+   "R_suff_heldout": 0.8149121708495158,
+   "R_suff_insample": 0.8441292076731673,
+   "R_suff_random": 0.008295241565202753,
+   "N_necessity_heldout": 0.8635512744679866
+  },
+  "8": {
+   "overlap": 0.630461328681986,
+   "overlap_null": 0.01607086211216491,
+   "R_suff_heldout": 0.8747329468045257,
+   "R_suff_insample": 0.9111757326972921,
+   "R_suff_random": 0.013930010938014261,
+   "N_necessity_heldout": 0.9157056050192827,
+   "R_suff_heldout_AB_ci": [
+    0.8531373934554213,
+    0.9006664816426536
+   ]
+  },
+  "16": {
+   "overlap": 0.5382739734502433,
+   "overlap_null": 0.03158690137890832,
+   "R_suff_heldout": 0.911762581811096,
+   "R_suff_insample": 0.9487023904954177,
+   "R_suff_random": 0.027261127494464982,
+   "N_necessity_heldout": 0.9416477083196912
+  },
+  "32": {
+   "overlap": 0.46632991422416514,
+   "overlap_null": 0.06233098864402566,
+   "R_suff_heldout": 0.9368447163233804,
+   "R_suff_insample": 0.9777930604212006,
+   "R_suff_random": 0.06166434183232722,
+   "N_necessity_heldout": 0.9587644406409638
+  }
+ },
+ "headline_rank8": {
+  "overlap": 0.630461328681986,
+  "overlap_null": 0.01607086211216491,
+  "R_suff_heldout": 0.8747329468045257,
+  "R_suff_insample": 0.9111757326972921,
+  "R_suff_random": 0.013930010938014261,
+  "N_necessity_heldout": 0.9157056050192827,
+  "R_suff_heldout_AB_ci": [
+   0.8531373934554213,
+   0.9006664816426536
+  ]
+ },
+ "preflight_PASS": true,
+ "meets_power_target": true,
+ "confirmatory": true,
+ "REFLECTION": {
+  "status": "COMPLETE",
+  "1_passfail_and_decision": "CONFIRMATORY: preflight passes (margins_fn_reproduces_cached=0.0 EXACT -- the MLM head on the captured final residual IS the true readout; coupling 0.956; disjoint 199/201 gene split). n=400, 320 genes. DECISION: STABLE REPRESENTATION. overlap(U_A,U_B) at rank 8 = 0.630 vs random null 0.016 (top-1 0.970 vs 0.002); held-out sufficiency 0.875 [0.853,0.901] ~= in-sample 0.911 >> random 0.014; held-out necessity 0.916. U_info is a real, generalizing subspace, NOT a sample-specific readout.",
+  "2_reproduces_C16": "In-sample rank-8 sufficiency 0.911 reproduces C16's 0.92; rank-1 in-sample 0.743 reproduces C16's top-1 0.74. The pipeline matches the donor_anchor, so the held-out numbers are comparable to C16-C18 -- which are STRENGTHENED, not merely restated.",
+  "3_rank_curve": "Rank 8 is TESTED, not assumed. Recovery is dominated by the top-1-2 directions (held-out 0.731 at K=1, 0.777 at K=2) and rises smoothly to 0.937 at K=32 -- no sharp saturation at 8; rank 8 (0.875 held-out) is a reasonable, not magic, choice. Subspace overlap is HIGHEST at low rank (top-1 0.970, near-identical across splits) and decreases with rank (0.63 at K=8, 0.47 at K=32): the DOMINANT structure is rock-solid, the rank-8 tail more sample-dependent -- expected SVD behaviour, and even 0.63 is ~40x the null.",
+  "4_no_redefinition": "U_info is NOT redefined: this uses the EXACT C16 definition (top-k SVD of clean-corrupt final donor residual) and validates its stability/generalization on held-out genes. Its definition, and C16-C18's claims, are unchanged. A2b/C24 (U_info not privileged at the acceptor SOURCE) and A5 (U_info stable at the donor delivery) are consistent: U_info is a real, stable DONOR-SIDE delivered representation.",
+  "5_escaped_failure_modes": "(a) margins_fn exact (0.0). (b) gene split disjoint by construction (320 genes -> 199/201). (c) the random-subspace null is a fair baseline: it recovers ~0.014 at K=8 (rising to 0.062 at K=32 as more of the 512-d space is spanned), a proper low floor, and overlap null ~0.016. (d) the overlap decreasing with rank is expected (SVD tail less stable), not a failure -- the top directions carry the recovery and are near-identical across splits.",
+  "overall": "The donor-side U_info is a STABLE, GENERALIZING model representation: an independently-derived version aligns (top-1 overlap 0.97), recovers on held-out genes ~as well as in-sample (0.875 vs 0.911, >> random 0.014), necessity generalizes (0.916), and it reproduces C16-C18 (in-sample 0.91~=0.92, top-1 0.74). Dominated by its top-1-2 directions; rank 8 captures 0.91. C16-C18 STRENGTHENED; U_info unchanged. With A5 (task 3) done, the queued work is the redesigned address-geometry test (consistent global position_ids shift on short windows)."
+ }
+}

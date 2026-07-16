@@ -290,3 +290,43 @@ partner-specific donor prediction (C19)
 2. **Independent replication of donor-side `U_info`** (rank curve, held-out gene split) WITHOUT
    redefining it (per the methodology note).
 3. Only then, if L3H1's compression matters, derive a separately-named `U_source` at the acceptor.
+
+## A4 address-geometry — INCONCLUSIVE (confounded), 2026-07-16
+
+Frozen protocol `PREREGISTRATION_A4_ADDRESS_GEOMETRY.md`; result `a4_address_geometry.json`
+(REFLECTION = INCONCLUSIVE). Readout: L2H15's contribution G15 = S_A^intact − S_A^ablated, S_A =
+L3H1 QK preference (a+ vs decoy). Two pre-run redrafts, then a confound found post-run:
+
+- **R-A4-1 (pre-run, smoke):** the raw single-site logit ℓ(d→a) carried a weak, sign-ambiguous
+  L2H15 signal (G15(0) −0.18, CI incl 0). Switched S_A to the **preference** ℓ(d→a+)−ℓ(d→a−) where
+  L2H15's contribution robustly lives (C20); G15(0) then −0.47, CI excludes 0.
+- **CONFOUND (post-run, diagnostic):** G15 = −0.47 at Δ=0 but ~0 at every Δ≠0, common ≈ differential.
+  The disambiguating diagnostic (intact S_A under common shift) is decisive: **the intact preference
+  itself collapses** (+3.48 at Δ=0 → ~0 at any Δ≠0). Clamping ONLY the donor/a+/a− tokens' position
+  embeddings (neighbours native) makes an **inconsistent position field** that destroys the QK — not
+  a clean absolute-vs-relative signal. **No claim recorded.**
+- **Redesign (next):** a CONSISTENT global `position_ids += Δ` shift on a **shorter window** (~512nt,
+  leaving PE-table headroom), so the whole region translates consistently. Still position-embedding
+  only (no sequence padding). **Memorial to add:** intact-`S_A`-survival under the shift — every
+  future PE-geometry test must include it.
+- **Lesson:** PE interventions on isolated tokens confound any QK readout via the inconsistent field.
+
+A4 is **not committed** as a result (inconclusive). The U_info independent replication (rank curve,
+held-out split, no redefinition) remains the other queued task.
+
+## A5 U_info replication (task 3) — CONFIRMATORY, VALIDATED, 2026-07-16
+
+Frozen protocol `PREREGISTRATION_A5_UINFO_REPLICATION.md`; result `a5_uinfo_replication.json`
+(REFLECTION filled); claim **C26**. n=400, 320 genes, disjoint 199/201 gene split; `margins_fn`
+memorial EXACT=0.0. Reuses `subspace` + `task.pair` + `margin_hard` — no new kernel; **U_info NOT
+redefined** (exact C16 definition).
+
+**Finding: U_info is a STABLE, generalizing representation.** Subspace overlap(U_A,U_B) ≫ random at
+every rank (top-1 0.970 vs 0.002; rank-8 0.630 vs 0.016); held-out sufficiency 0.875 [0.853,0.901] ≈
+in-sample 0.911 ≫ random 0.014; held-out necessity 0.916. Reproduces C16 (in-sample 0.911≈0.92,
+top-1 0.743≈0.74). Rank curve: dominated by the top-1–2 directions, rises smoothly to 0.94 at K=32
+(rank 8 reasonable, not magic). C16–C18 strengthened; consistent with C24 (U_info = stable donor-side
+DELIVERED representation, not acceptor source).
+
+**Remaining queued work:** the redesigned address-geometry test (consistent global position_ids
+shift on short windows, with the intact-S_A-survival memorial) — A4 was inconclusive/confounded.

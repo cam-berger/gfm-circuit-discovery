@@ -1,0 +1,42 @@
+{
+ "commit": "37bbeb66681dd2acf1d4929831d98f7bcce27265",
+ "n": 400,
+ "ranks": [
+  1,
+  2,
+  4,
+  8,
+  16,
+  32
+ ],
+ "checks": {
+  "margins_fn_reproduces_cached": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "positive_control_partner_coupling": {
+   "PASS": true,
+   "coupling": 0.9561907476559282
+  },
+  "both_genes_split": {
+   "PASS": true,
+   "nA": 199,
+   "nB": 201,
+   "genes_A": 160,
+   "genes_B": 160,
+   "disjoint": true
+  },
+  "both_strands_present": {
+   "PASS": true,
+   "strands": [
+    "+",
+    "-"
+   ]
+  },
+  "checkpoint_recorded": {
+   "PASS": true,
+   "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d"
+  }
+ },
+ "PASS": true
+}
