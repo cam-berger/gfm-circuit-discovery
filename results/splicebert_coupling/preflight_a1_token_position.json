@@ -1,0 +1,65 @@
+{
+ "frozen": {
+  "qk_recon_tol": 0.001,
+  "attn_row_sum_tol": 0.001,
+  "neutralise_tol": 0.0001,
+  "min_real": 30
+ },
+ "commit": "6b4775c4ac9629017373e267cff29e2f04a514a1",
+ "n_pairs": 260,
+ "n_real": 120,
+ "checks": {
+  "probability_invariants": {
+   "PASS": true,
+   "max_row_sum_err": 3.5762786865234375e-07
+  },
+  "qk_reconstruction": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "shared_ref_neutralises": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "full_matches_A0": {
+   "PASS": true,
+   "S_A_full_subset": 3.525937795639038,
+   "A0_S_J_full_secondary": 3.543552694727595,
+   "note": "reported; subset vs full-n A0, expect same sign/scale"
+  },
+  "resolution_pair_match": {
+   "PASS": true,
+   "motif_gap_sd": 1.4883907892368637,
+   "dist_bias_nt": 3.8192307692307566,
+   "dist_spread_nt": 24.911538461538463,
+   "phase_mismatch_rate": 0,
+   "coding_frac": 0.9153846153846154,
+   "noncoding_frac": 0.08461538461538465,
+   "real_acceptor_distance": {
+    "n": 18,
+    "signed_gap_mean": 0.5,
+    "signed_gap_median": -18.0,
+    "abs_gap_mean": 27.833333333333332,
+    "gap_min": -36.0,
+    "gap_max": 51.0
+   }
+  },
+  "real_acceptor_arm_available": {
+   "PASS": true,
+   "n_real": 120,
+   "min_real": 30
+  },
+  "both_strands_present": {
+   "PASS": true,
+   "strands": [
+    "+",
+    "-"
+   ]
+  },
+  "checkpoint_recorded": {
+   "PASS": true,
+   "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d"
+  }
+ },
+ "PASS": true
+}

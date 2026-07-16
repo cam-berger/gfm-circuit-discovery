@@ -1,0 +1,61 @@
+{
+ "n": 300,
+ "n_genes": 261,
+ "strands": [
+  "+",
+  "-"
+ ],
+ "coupling": 0.9613751227657,
+ "recoveries": {
+  "baseline": {
+   "recovery": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "address_only": {
+   "recovery": 0.010385570982181258,
+   "ci": [
+    -0.01919608237427007,
+    0.03685776529260137
+   ]
+  },
+  "payload_only": {
+   "recovery": 0.05136422232266475,
+   "ci": [
+    0.03238310479196148,
+    0.06990276257034343
+   ]
+  },
+  "joint": {
+   "recovery": 0.3645268424537727,
+   "ci": [
+    0.3283245260844089,
+    0.3989798562393499
+   ]
+  },
+  "payload_random": {
+   "recovery": 0.17855142551411748,
+   "ci": [
+    0.1483455500603596,
+    0.20670131383910947
+   ]
+  }
+ },
+ "same_row_value_effect_cleanA": 0.35414127147159147,
+ "same_row_value_effect_corruptA": 0.05136422232266475,
+ "interaction_AxV": 0.3027770491489267,
+ "preflight_PASS": true,
+ "meets_power_target": true,
+ "confirmatory": true,
+ "REFLECTION": {
+  "status": "COMPLETE",
+  "1_passfail_and_grid": "CONFIRMATORY: preflight 7/7 (reconstruction_matches=0.0 and inject_identity=0.0 EXACT -- the reconstruct-inject is faithful; probability_invariants, coupling 0.96, joint_recovers, both strands). n=300, 261 genes. Interpretation grid -> the BINDING outcome: address_only +0.01 [-0.02,+0.04] and payload_only +0.05 [+0.03,+0.07] each recover ~nothing; only JOINT +0.37 [+0.33,+0.40] recovers (~= L3H1's C17 restore 0.83 x the L3H1-only channel). Neither positional routing nor partner value ALONE suffices.",
+  "2_same_row_and_interaction": "The effect is almost pure interaction: I_AxV = +0.30 (joint - address - payload + baseline). Decisive same-row subtest: with the attention row FIXED CLEAN, swapping corrupt->clean values recovers +0.354; with the row FIXED CORRUPT, only +0.051. So the VALUES carry the discriminating payload, but they deliver it ONLY under the correct positional address. L3H1 BINDS a positional address (where to read) to a partner-specific value payload (what is there).",
+  "3_payload_distributed": "payload_random (clean address, a SINGLE random rank-8 projection of the value difference) recovers +0.18 -- about half of joint (+0.37). This sets a HIGH GENERIC BASELINE, so 'the payload is distributed' is PROVISIONAL: establishing distribution vs a privileged subspace requires a random-subspace DISTRIBUTION (A2b), not one draw. Whether the structured C16/C17 U_info subspace beats an energy-matched random distribution is the A2b question.",
+  "4_reconciliation_and_firewall": "This RECONCILES A1a/R20 with C19. A1a: L3H1's attention TARGETING is position-embedding geometry, not identity (R20). C19: the circuit couples partner-specifically. A2: attention routes positionally (address), the value at that location carries the partner content (payload), and behaviour needs BOTH -- so the complete head is partner-specific without attention encoding identity. Behaviour level (native margin); this is the address-payload split of L3H1's COUPLING contribution, NOT attention identity -- R20 stands.",
+  "5_escaped_failure_modes": "(a) memorials exact: reconstruction_matches=0.0 (A@V == model head output), inject_identity=0.0, baseline recovery +0.000 exactly (the donor-only head patch is a faithful no-op). (b) address_only COULD have recovered (positional routing alone) -- it did not (+0.01), a control that can fail. (c) payload_random is a control that partially recovered (+0.18), not a null -- it bounds payload specificity, not sufficiency. (d) joint +0.37 matches the independent L3H1-restore scale, cross-validating the channel.",
+  "overall": "L3H1 implements ADDRESS-PAYLOAD BINDING: a positional attention address (A1a: position-embedding geometry, non-identity) and a partner-specific value payload are JOINTLY necessary and individually near-useless (interaction +0.30; same-row clean-address value effect +0.35 vs corrupt-address +0.05). SCOPE: joint +0.37 is a substantial PARTIAL mechanism (L3H1's own channel is a partial mediator, C17) -- not the complete source of partner-specific behaviour, and not yet the payload's MEANING. This resolves the A0/A1a/C19 arc at the mechanism level -- position determines where L3H1 reads; the value there determines what it retrieves; partner-specific behaviour is their binding. Next: A2b -- localise the payload to U_info vs an energy-matched random-subspace distribution, then MLP2 construction. Model checkpoint sha256 2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d."
+ }
+}
