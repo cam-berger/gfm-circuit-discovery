@@ -1,0 +1,62 @@
+{
+  "command": [
+    "scripts/splicebert/run_a2b_payload_localization.py",
+    "--n",
+    "300",
+    "--n-rand",
+    "40",
+    "--out",
+    "results/splicebert_coupling/a2b_payload_localization.json"
+  ],
+  "config": {
+    "K_uinfo": 8,
+    "meets_power_target": true,
+    "n": 300,
+    "n_genes": 256,
+    "n_rand": 40,
+    "preflight_PASS": true,
+    "reader": [
+      3,
+      1
+    ],
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-16T16:10:05.469327+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 28015,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "splicebert_coupling:a2b_payload_localization",
+  "git_commit": "3a7d3a76427f5659b3cd1af8e08b44f8532890f9",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    }
+  ],
+  "notes": [
+    "Localizes L3H1's value payload to U_info vs an energy-matched random rank-8 distribution (post-LN value linearity -> analytic reconstruction; clean attention fixed). Behaviour-level; does not revisit R20.",
+    "status=CONFIRMATORY (preflight_PASS=True, power=True)."
+  ],
+  "outputs": [],
+  "seeds": {
+    "bootstrap": 0,
+    "random_subspaces": 0,
+    "uinfo_svd": 0
+  },
+  "status": "CONFIRMATORY"
+}

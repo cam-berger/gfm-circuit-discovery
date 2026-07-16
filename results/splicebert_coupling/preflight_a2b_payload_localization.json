@@ -1,0 +1,56 @@
+{
+ "frozen": {
+  "lin_tol": 0.0001,
+  "proj_tol": 1e-05
+ },
+ "commit": "3a7d3a76427f5659b3cd1af8e08b44f8532890f9",
+ "n": 300,
+ "K_uinfo": 8,
+ "n_rand": 40,
+ "checks": {
+  "value_linearity": {
+   "PASS": true,
+   "max_abs_err": 1.9073486328125e-06
+  },
+  "inject_identity": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "attention_row_fixed": {
+   "PASS": true,
+   "note": "all payloads reconstruct from A+ (clean row); no patched forward is ever re-run, so the attention row is identical"
+  },
+  "projector_idempotent": {
+   "PASS": true,
+   "max_abs_err": 5.960464477539063e-08
+  },
+  "projector_orthogonal": {
+   "PASS": true,
+   "max_abs_err": 5.273769332347911e-08
+  },
+  "decomposition": {
+   "PASS": true,
+   "max_abs_err": 2.7418136596679688e-06
+  },
+  "probability_invariants": {
+   "PASS": true,
+   "max_row_sum_err": 1.7881393432617188e-07
+  },
+  "positive_control_partner_coupling": {
+   "PASS": true,
+   "coupling": 0.9292435232301554
+  },
+  "both_strands_present": {
+   "PASS": true,
+   "strands": [
+    "+",
+    "-"
+   ]
+  },
+  "checkpoint_recorded": {
+   "PASS": true,
+   "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d"
+  }
+ },
+ "PASS": true
+}

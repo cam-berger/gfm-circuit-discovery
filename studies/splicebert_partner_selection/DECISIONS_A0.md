@@ -221,3 +221,35 @@ via binding).
   `2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d` (in every result manifest).
 - A2b (residual-patching payload localisation) begins from this clean checkpoint as a separate
   changeset, so its new machinery does not blur the A0–A2 provenance.
+
+## A2b-(1) payload localization outcome (2026-07-16) — CONFIRMATORY, preflight exact
+
+Frozen protocol `PREREGISTRATION_A2b_PAYLOAD_LOCALIZATION.md`; result `a2b_payload_localization.json`
+(REFLECTION filled); claim **C24**. n=300, 256 genes; `value_linearity` memorial 1.9e-6 (post-LN
+`V=W_V·r` — the analytic reconstruction is exact). New module `payload.py`, runner, tests — a
+**separate changeset** from A0–A2 (commits `6a5e80e`/`3a7d3a7`), per the provenance discipline.
+
+**Finding (decision-rule "NEITHER" branch + one positive).**
+- POSITIVE: the payload is **localized to the 4-token acceptor window** — restoring its clean values
+  alone recovers +0.38 ≈ A2 joint (+0.37).
+- NEGATIVE: within the window the payload is **not concentrated in the preregistered rank-8
+  `U_info`**. `U_info` recovers +0.06, **not** above an energy-matched random rank-8 distribution
+  (p=0.22, percentile 0.80); complement carries ~all (perp +0.37), N_U +0.011. *(Fractions are
+  non-additive: raw R_U/R_full ≈ 16%, N_U/R_full ≈ 2.9%, floor-subtracted ≈ 4.5% — denominator-free
+  facts carry it.)*
+- **Scoped (narrowed):** the payload is distributed **relative to `U_info`**, not distributed in
+  general — its **intrinsic dimensionality is unmeasured** (a privileged low-rank subspace could
+  still live in the 504-d complement; needs a rank sweep / independent `U_source`).
+- **`U_info` is NOT redefined**: it remains the valid DELIVERED donor-side format (C16/C17); A2b
+  shows the same basis is not privileged at the acceptor SOURCE. L3H1 does **selection + representation
+  conversion** (broad acceptor value → compact donor-side `U_info`, via W_V/W_O).
+
+**Redirect for A2b-(2) (MLP2 construction).** The user's rule gated the MLP2-construction mediation
+on "a specific payload whose construction MLP2 can be tested against." A2b-(1) found **no** specific
+low-rank payload (it is distributed), so "does MLP2 construct `U_info`" is moot. The sharp question
+becomes: what shapes the **distributed acceptor-window value** L3H1's OV reads? Candidates: (a) it is
+largely the acceptor's own **local sequence representation** (input-driven, not MLP2-constructed) —
+testable by whether L2H15/MLP2 ablation changes the acceptor-window value vs the donor query; (b)
+reconcile with `l2_accounting` (L2H15 = 0.66 of coupling) — is L2H15's contribution the **address**
+(positional query/key, per A1a) rather than the acceptor payload? That address-vs-payload attribution
+of L2H15 is the natural next experiment, replacing the (now moot) `U_info`-construction test.
