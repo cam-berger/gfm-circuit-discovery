@@ -1,0 +1,38 @@
+{
+ "commit": "067da839c8b58ba3acd999d32314c27dffc25f4e",
+ "n": 300,
+ "checks": {
+  "reconstruction_matches": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "baseline_reproduces_ablated": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "probability_invariants": {
+   "PASS": true,
+   "max_row_sum_err": 2.384185791015625e-07
+  },
+  "positive_control_L2H15_contributes": {
+   "PASS": true,
+   "Y_intact_minus_ablated": 0.42890287895997364
+  },
+  "joint_rescues": {
+   "PASS": true,
+   "R_joint": 0.47863652462703393
+  },
+  "both_strands_present": {
+   "PASS": true,
+   "strands": [
+    "+",
+    "-"
+   ]
+  },
+  "checkpoint_recorded": {
+   "PASS": true,
+   "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d"
+  }
+ },
+ "PASS": true
+}

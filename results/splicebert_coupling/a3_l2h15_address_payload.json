@@ -1,0 +1,52 @@
+{
+ "n": 300,
+ "n_genes": 246,
+ "strands": [
+  "+",
+  "-"
+ ],
+ "Y_intact_minus_ablated": 0.42890287895997364,
+ "rescues": {
+  "baseline": {
+   "rescue": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "address": {
+   "rescue": 0.45363112058065025,
+   "ci": [
+    0.3884108630807408,
+    0.5295717986647414
+   ]
+  },
+  "payload": {
+   "rescue": 0.019433127496194396,
+   "ci": [
+    0.011966570653171502,
+    0.02759984601566383
+   ]
+  },
+  "joint": {
+   "rescue": 0.47863652462703393,
+   "ci": [
+    0.4126122789180253,
+    0.5572642579528428
+   ]
+  }
+ },
+ "interaction_AxV": 0.00557227655018931,
+ "preflight_PASS": true,
+ "meets_power_target": true,
+ "confirmatory": true,
+ "REFLECTION": {
+  "status": "COMPLETE",
+  "1_passfail_and_decision": "CONFIRMATORY: preflight 7/7 (reconstruction_matches=0.0 and baseline_reproduces_ablated=0.0 EXACT -- the reconstruct-inject is faithful UNDER the L2H15 ablation; positive_control L2H15 lift +0.429; joint_rescues; both strands). n=300, 246 genes. DECISION: the ADDRESS-BUILDER outcome. Restoring L3H1's intact ATTENTION rescues +0.454 [0.388,0.530]; restoring its intact VALUES rescues only +0.019 [0.012,0.028]; joint +0.479, interaction +0.006. address/joint = 0.95 -- ~95% of L2H15's donor-channel contribution flows through the ADDRESS, ~4% through the payload, no binding.",
+  "2_effects": "L2H15 lift Y_intact-Y_ablated = +0.429 (L2H15 supplies this much coupling; ~l2_accounting 0.66 at the coupling level). rescues: baseline +0.000 (memorial no-op), address +0.454, payload +0.019, joint +0.479. The near-equality address ~= joint and payload ~= 0 with interaction ~0 is the clean 'L2H15 builds the address' signature from the prereg prediction.",
+  "3_donor_channel_scope": "Joint (donor-only injection) rescues +0.479 vs l2_accounting head-output@ALL-pos 0.959: L3H1's DONOR-position output carries ~half of L2H15's contribution; the rest flows through L3H1's output in the donor +-5 delivery neighbourhood (C17). The address-vs-payload SPLIT is clean regardless -- it is a property of L3H1's donor channel, and 95% of that channel's rescue is the address.",
+  "4_coherence_and_firewall": "This ASSIGNS L2H15's role and coheres with the whole arc: L2H15 shapes L3H1's positional attention ADDRESS (A1a/R20: that attention is position-embedding geometry), and does NOT supply the acceptor PAYLOAD (A2b/C24: the payload is the acceptor's own local, distributed representation, not a constructed low-rank object). Behaviour-level; does not revisit R20 (attention positional) or C24 (payload distributed) -- it attributes L2H15's coupling contribution within L3H1's address/payload split.",
+  "5_escaped_failure_modes": "(a) memorials exact: reconstruction_matches=0.0 (A-.V- == model's ABLATED head output), baseline_reproduces_ablated=0.0 (injecting it reproduces the ablated coupling). (b) payload COULD have rescued (restoring L3H1's intact values) -- it did not (+0.019), a control that can fail. (c) The injection runs INSIDE the L2H15 ablation, so 'address' isolates L3H1's attention (query/key geometry) from its values cleanly. (d) donor-only scope stated (joint 0.48 vs all-position 0.959); the split is not an artifact of it.",
+  "overall": "L2H15 BUILDS L3H1's positional ADDRESS, not its payload: restoring L3H1's attention rescues ~all of L2H15's donor-channel contribution (+0.454 of +0.479 joint), restoring its values rescues ~0 (+0.019), interaction ~0. This assigns L2H15's ~0.66-of-coupling role (l2_accounting) to shaping the positional address (A1a), NOT to the acceptor payload (A2b). The circuit crystallizes: L2H15 makes the positional address -> L3H1 attends there (position-embedding geometry) -> reads the acceptor's own local value payload -> converts it to donor-side U_info -> partner-specific donor prediction. Next: the absolute-vs-relative geometry test of the address (what positional signal L2H15 shapes), and the independent U_info replication -- both gated cleanly by this result."
+ }
+}

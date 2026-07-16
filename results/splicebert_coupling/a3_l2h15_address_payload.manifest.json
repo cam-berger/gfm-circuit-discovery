@@ -1,0 +1,60 @@
+{
+  "command": [
+    "scripts/splicebert/run_a3_l2h15_address_payload.py",
+    "--n",
+    "300",
+    "--out",
+    "results/splicebert_coupling/a3_l2h15_address_payload.json"
+  ],
+  "config": {
+    "addresser": [
+      2,
+      15
+    ],
+    "meets_power_target": true,
+    "n": 300,
+    "n_genes": 246,
+    "preflight_PASS": true,
+    "reader": [
+      3,
+      1
+    ],
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-16T19:37:45.052096+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 31959,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "splicebert_coupling:a3_l2h15_address_payload",
+  "git_commit": "067da839c8b58ba3acd999d32314c27dffc25f4e",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    }
+  ],
+  "notes": [
+    "L2H15 address-vs-payload attribution: reconstruct-inject L3H1's donor output with A/V from L2H15-intact vs -ablated, read coupling rescue. Behaviour-level.",
+    "status=CONFIRMATORY (preflight_PASS=True, power=True)."
+  ],
+  "outputs": [],
+  "seeds": {
+    "bootstrap": 0
+  },
+  "status": "CONFIRMATORY"
+}

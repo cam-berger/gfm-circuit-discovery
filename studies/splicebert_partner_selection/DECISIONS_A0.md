@@ -253,3 +253,40 @@ testable by whether L2H15/MLP2 ablation changes the acceptor-window value vs the
 reconcile with `l2_accounting` (L2H15 = 0.66 of coupling) — is L2H15's contribution the **address**
 (positional query/key, per A1a) rather than the acceptor payload? That address-vs-payload attribution
 of L2H15 is the natural next experiment, replacing the (now moot) `U_info`-construction test.
+
+## A3 L2H15 address-vs-payload outcome (2026-07-16) — CONFIRMATORY, memorials exact
+
+Frozen protocol `PREREGISTRATION_A3_L2H15_ADDRESS_PAYLOAD.md`; result
+`a3_l2h15_address_payload.json` (REFLECTION filled); claim **C25**. n=300, 246 genes;
+reconstruction_matches & baseline_reproduces_ablated EXACT=0.0 (faithful reconstruct-inject under
+the L2H15 ablation). Reused `payload.inject_margin_donor` + `circuit.ablate` — no new kernel.
+
+**Finding: L2H15 = the ADDRESS builder.** Restoring L3H1's intact attention rescues +0.454
+[0.39,0.53]; restoring its intact values rescues +0.019 [0.01,0.03]; joint +0.479, interaction
++0.006. address/joint = 0.95. So L2H15's ~0.66-of-coupling role is to shape L3H1's **positional
+attention address** (A1a/R20), NOT to supply the acceptor payload (A2b/C24). Donor-only: joint 0.48
+vs l2_accounting all-position 0.959 (rest via donor±5 delivery, C17).
+
+## The crystallized circuit (A0–A3)
+
+```
+L2H15 builds the positional ADDRESS (C25; 0.66 of coupling)
+        ↓
+L3H1 attends there — position-embedding geometry, not identity (A1a/R20)
+        ↓
+L3H1 reads the ACCEPTOR's own local value payload (acceptor-local, distributed, NOT L2H15-built;
+   NOT the U_info subspace) (A2/A2b, C23/C24)
+        ↓
+L3H1 CONVERTS it (W_V/W_O) to the compact donor-side U_info (C24; U_info = delivery format)
+        ↓
+U_info transported to the donor ±5 neighbourhood (C16–C18)
+        ↓
+partner-specific donor prediction (C19)
+```
+
+**Next (cleanly gated):**
+1. **Absolute-vs-relative geometry of the address** — joint donor+acceptor translation test
+   (`S_A(d+Δ,a+Δ) ?= S_A(d,a)`), now sharply motivated (L2H15 builds this address).
+2. **Independent replication of donor-side `U_info`** (rank curve, held-out gene split) WITHOUT
+   redefining it (per the methodology note).
+3. Only then, if L3H1's compression matters, derive a separately-named `U_source` at the acceptor.
