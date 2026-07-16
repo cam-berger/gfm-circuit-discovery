@@ -73,3 +73,23 @@ NOT fixed (out of scope / frozen, pre-existing, not introduced here): the shared
 R15 inference as a conclusion; `run_sealed_test.py` arm D still prints R15-retracted "content-
 addressed" prose. These live in signed/hash-frozen code and belong to the sealed-test thread; they
 should be addressed there (superseding note), not by editing frozen modules from this experiment.
+
+## 2026-07-16 — confirmatory run (val, n=260, 215 genes, both strands) — PASS
+
+Frozen protocol executed on val after the setup was committed (git 7aa47a0). Preflight 13/13 PASS
+(injection 0.62, value_only 0.04, swap 3.3e-6, qk_recon 4.8e-7, dist_bias<=8, phase 0). All §4
+gates PASS; `overall=True`; status CONFIRMATORY.
+
+* **Preference:** S_QK +3.60 [3.37,3.80], S_A +0.55 [0.51,0.59], S_Y +0.87 [0.75,0.98].
+* **Identity (real-acceptor arm, salience-controlled):** S_A +0.62 [0.46,0.74] (n=30). Distance
+  confound adjudicated (prereg §7.2): real decoys median +19.5nt farther, but OLS intercept at
+  matched distance +0.61 +-0.08, slope +0.001/nt, corr +0.08 — the identity effect is NOT
+  distance-decay. This is the novel R15-safe result over the restore-at-position C9.
+* **Address<->content:** C-Redirect (no-reloc DiD) +0.40 [0.37,0.44]; C-Dissociate key 0.16
+  [lo 0.12] > value 0.03. C-R15: kv 0.62/0.62/0.65 (spread 0.024) — position-forced, reported.
+* **C-Address (reported):** L2H15 retains 0.89 of S_A ablated (removes 11%), p=0.021 vs 47 upstream
+  heads — a real but minor builder; the matched-decoy preference is built diffusely.
+
+Registered as CLAIMS.md C20. Reflection filled in acceptor_address.json (prereg §7). Determinism
+confirmed: an independent recomputation of the real-acc arm reproduced S_A +0.616 exactly.
+Not run: the sealed test (chr8/9) remains available as an out-of-sample replication if desired.

@@ -1,0 +1,139 @@
+{
+ "n_pairs": 260,
+ "strands": [
+  "+",
+  "-"
+ ],
+ "match_audit": {
+  "PASS": true,
+  "motif_gap_sd": 1.503600668054023,
+  "dist_bias_nt": 7.592307692307685,
+  "dist_spread_nt": 24.784615384615385,
+  "phase_mismatch_rate": 0,
+  "coding_frac": 0.8884615384615384,
+  "noncoding_frac": 0.11153846153846159,
+  "real_acceptor_distance": {
+   "n": 30,
+   "signed_gap_mean": 9.5,
+   "signed_gap_median": 19.5,
+   "abs_gap_mean": 29.5,
+   "gap_min": -42.0,
+   "gap_max": 54.0
+  }
+ },
+ "preference": {
+  "S_QK": {
+   "mean": 3.5976842930683723,
+   "ci": [
+    3.372072750372537,
+    3.798034320519808
+   ]
+  },
+  "S_A": {
+   "mean": 0.5485775386242984,
+   "ci": [
+    0.5089455820964081,
+    0.5857359829520091
+   ]
+  },
+  "S_Y": {
+   "mean": 0.8680454559051074,
+   "ci": [
+    0.7528783003475825,
+    0.9790278036916865
+   ]
+  },
+  "S_A_vs_real_acceptor": {
+   "mean": 0.6158224689463775,
+   "ci": [
+    0.46023202899458077,
+    0.7401340777086475
+   ],
+   "n": 30,
+   "n_real_decoys": 30,
+   "distance_confound": {
+    "n": 30,
+    "signed_gap_mean": 9.5,
+    "signed_gap_median": 19.5,
+    "abs_gap_mean": 29.5,
+    "gap_min": -42.0,
+    "gap_max": 54.0
+   }
+  }
+ },
+ "C_Redirect": {
+  "S_A_prime": 0.4036172638867216,
+  "ci": [
+   0.3672926169583581,
+   0.43762389672575813
+  ],
+  "note": "relocation-induced RISE in a- attention (difference-in-differences on the corrupt run: A(d,a-)[+key] - A(d,a-)[no reloc])"
+ },
+ "C_Dissociate": {
+  "kv@decoy": {
+   "recovery": 0.6217410735353578,
+   "lo": 0.578432441354563,
+   "hi": 0.665317824234059
+  },
+  "k@decoy": {
+   "recovery": 0.1555623536998875,
+   "lo": 0.11999965754910963,
+   "hi": 0.18871982133298
+  },
+  "v@decoy": {
+   "recovery": 0.026148551357379948,
+   "lo": 0.018198447734075304,
+   "hi": 0.034783373787380494
+  },
+  "kv_gt_k_R15_expected": true,
+  "note": "GATED on the falsifiable legs (k lo>0, k>v, v<=0.15); kv>k is R15-expected content delivery (kv is position-forced, see C_R15) and is reported not gated"
+ },
+ "C_R15_position_insensitivity": {
+  "kv_recovery_decoy_nonsite_ainjection": [
+   0.6217410735353578,
+   0.6228125182541521,
+   0.6455002283871252
+  ],
+  "spread": 0.023759154851767383,
+  "interpretation": "key+value recovers ~equally regardless of position: R15-forced, NOT content-addressing; no pointer claim licensed."
+ },
+ "C_Address": {
+  "S_A_intact": 0.5485775386242984,
+  "S_A_L2H15_ablated": 0.48771196345492523,
+  "drop_L2H15": 0.06086557516937313,
+  "retained_fraction_L2H15": 0.889048364389819,
+  "drop_MLP2": 0.03660133613462113,
+  "null_head_drops_mean": -0.00016327333972720068,
+  "null_head_drops_max": 0.056207151395098576,
+  "n_null_heads": 47,
+  "add_one_p": 0.020833333333333332,
+  "note": "does L2H15 dominate the matched-decoy preference (distinct from its role vs the corrupt partner in l2_accounting)? reported, not gated."
+ },
+ "preflight_PASS": true,
+ "n_genes": 215,
+ "meets_power_target": true,
+ "confirmatory": true,
+ "tolerances": {
+  "generic": 40,
+  "real": 60
+ },
+ "verdict": {
+  "G_Preference": true,
+  "C_Redirect": true,
+  "C_Dissociate": true,
+  "overall": true,
+  "G_Match_reported": true,
+  "C_Address_reported": {
+   "retained_L2H15": 0.889048364389819,
+   "p": 0.020833333333333332
+  }
+ },
+ "REFLECTION": {
+  "status": "COMPLETE (val, n=260, 215 genes; confirmatory)",
+  "1_pass_fail": "All \u00a74 gates PASS. G_Preference: S_QK +3.60 [3.37,3.80], S_A +0.55 [0.51,0.59], S_Y +0.87 [0.75,0.98]. C_Redirect (no-reloc DiD rise at a-): +0.40 [0.37,0.44]. C_Dissociate: k +0.16 [lo 0.12] > v +0.03 (<=0.15). overall=True. Preflight: 13/13 PASS (injection 0.62, value_only 0.04, swap 3.3e-6, qk_recon 4.8e-7, dist_bias<=8, phase 0).",
+  "2_intent_check_identity_vs_salience_and_distance": "The generic-AG preference (S_A +0.55) is real but SALIENCE-confounded (motif_gap 1.4 s.d.; the generic decoy is a weaker 3'SS) -- it is 'partner vs generic site', not identity. The salience-controlled REAL-acceptor arm is +0.616 [0.46,0.74] (n=30). Its distance confound (real decoys median +19.5nt farther) was ADJUDICATED: OLS S_A_real~signed_gap gives intercept(gap=0) +0.606 +-0.077, slope +0.00105/nt, corr +0.08 -- distance explains ~0.02 of the +0.62. The identity signal SURVIVES distance control: L3H1 prefers its intron-mate PARTNER over a non-partner real acceptor as a partner-IDENTITY effect, not distance-decay. The |gap|<=20 stratum (n=5) is +0.40 [0.07,0.75], consistent but underpowered. This is the novel, R15-safe result over the prior restore-at-position C9.",
+  "3_r15_self_audit": "C-R15: key+value recovers 0.622/0.623/0.646 at decoy/non-site/a+ (spread 0.024) -- position-insensitive and R15-FORCED; reported as a guard, NOT gated. No 'position-independent' or 'content-addressed pointer' language is used. Licensed levels: QK/attention (preference, redirect) + OV/mediation (key/value dissociation) + Behaviour (S_Y). No biological claim.",
+  "4_c_address_read": "L2H15 retains 89% of S_A when mean-ablated (removes only 11%), yet p=0.021 vs the 47-head layer-0-2 null -- a statistically real but MINOR contributor to the matched-decoy preference. The preference is built largely elsewhere/diffusely, distinct from L2H15's larger role vs the CORRUPT partner in l2_accounting (C9). Not claimed as 'L2H15 builds the address'; reported.",
+  "5_escaped_failure_modes": "The real-acceptor distance confound (the chief risk) was measured and adjudicated, not assumed. C-Redirect uses a no-relocation DiD baseline so its positivity is not a corruption artifact (the earlier W--W+ metric would have been). The R15-forced kv transplant is demoted to a reported guard so a 'super-additive recovery' cannot be mis-sold as content-addressing. The n=30 real-acc subset is modest power (reported). No number agrees to suspicious precision."
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "frozen": {
+  "attn_row_sum_tol": 0.001,
+  "qk_recon_tol": 0.001,
+  "injection_recovery_min": 0.3,
+  "value_only_recovery_max": 0.15,
+  "positive_partner_coupling_min": 0.2,
+  "l3h1_ablation_kills_frac_min": 0.5,
+  "health_floor": 0.5
+ },
+ "commit": "7aa47a04c9e2dee832d35f64d20fe8ee097d0531",
+ "n_pairs": 260,
+ "checks": {
+  "probability_invariants": {
+   "PASS": true,
+   "max_row_sum_err": 3.5762786865234375e-07,
+   "attn_max": 0.9968023300170898
+  },
+  "qk_reconstruction": {
+   "PASS": true,
+   "max_abs_err": 4.76837158203125e-07
+  },
+  "positive_control_partner_coupling": {
+   "PASS": true,
+   "coupling": 0.8345389366149902
+  },
+  "positive_control_L3H1_ablation": {
+   "PASS": true,
+   "coupling_L3H1_ablated": 0.23480267822742462,
+   "killed_fraction": 0.7186438308321264
+  },
+  "sensitivity_injection": {
+   "PASS": true,
+   "recovery": 0.6181224584579468
+  },
+  "negative_control_value_only": {
+   "PASS": true,
+   "recovery": 0.03914714977145195
+  },
+  "diagnostic_kv_nonsite_recovery": {
+   "PASS": true,
+   "recovery": 0.5937089323997498
+  },
+  "swap_is_identity": {
+   "PASS": true,
+   "max_abs_diff": 3.337860107421875e-06
+  },
+  "health_under_L3H1_ablation": {
+   "PASS": true,
+   "health": 0.5298710693605244
+  },
+  "health_under_L2H15_ablation": {
+   "PASS": true,
+   "health": 0.5265826061367989
+  },
+  "resolution_pair_match": {
+   "PASS": true,
+   "motif_gap_sd": 1.503600668054023,
+   "dist_bias_nt": 7.592307692307685,
+   "dist_spread_nt": 24.784615384615385,
+   "phase_mismatch_rate": 0,
+   "coding_frac": 0.8884615384615384,
+   "noncoding_frac": 0.11153846153846159,
+   "real_acceptor_distance": {
+    "n": 30,
+    "signed_gap_mean": 9.5,
+    "signed_gap_median": 19.5,
+    "abs_gap_mean": 29.5,
+    "gap_min": -42.0,
+    "gap_max": 54.0
+   }
+  },
+  "both_strands_present": {
+   "PASS": true,
+   "strands": [
+    "+",
+    "-"
+   ]
+  },
+  "checkpoint_recorded": {
+   "PASS": true,
+   "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d"
+  }
+ },
+ "PASS": true
+}
