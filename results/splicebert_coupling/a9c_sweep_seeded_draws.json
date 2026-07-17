@@ -1,0 +1,161 @@
+{
+ "experiment": "A9b Path-A cross-sample sweep (R22 evidence)",
+ "design": "A9's competitor-matched V2b design (V2a,V3 held within 0.15sd; |dV2b|>1sd) reproduced across independently-seeded example draws; the seed comes from load_examples' tag-shuffle. NOTE: draws share the finite val set under different shuffles -> independently SEEDED, NOT demonstrably disjoint replications.",
+ "statistic": "r_raw_a9 = corr(dV2b, signed transfer S) on con pairs; beta_net_Z = linear-DML slope net of bulk composition Z with two-way gene-dyadic bootstrap CI; r_comp_matched = r within ||dZ||-bottom-tercile (composition-matched) subset.",
+ "n": 240,
+ "n_genes": 216,
+ "Kz": 8,
+ "value_linearity_err": 2.86e-06,
+ "draws": {
+  "a9-val": {
+   "note": "A9's ORIGINAL sample -- reproduces A9 exactly (validates Path-A logic)",
+   "H": {
+    "n": 53,
+    "r_raw_a9": -0.512,
+    "beta_net_Z": -0.12,
+    "ci_net_Z": [
+     -0.23,
+     0.111
+    ],
+    "netZ_excl0": false,
+    "r_comp_matched": -0.318,
+    "n_zm": 18
+   },
+   "D": {
+    "n": 102,
+    "r_raw_a9": -0.323,
+    "beta_net_Z": -0.12,
+    "ci_net_Z": [
+     -0.363,
+     0.077
+    ],
+    "netZ_excl0": false,
+    "r_comp_matched": -0.536,
+    "n_zm": 34
+   }
+  },
+  "repA": {
+   "H": {
+    "n": 71,
+    "r_raw_a9": -0.337,
+    "beta_net_Z": -0.029,
+    "ci_net_Z": [
+     -0.207,
+     0.135
+    ],
+    "netZ_excl0": false,
+    "r_comp_matched": -0.489,
+    "n_zm": 24
+   },
+   "D": {
+    "n": 86,
+    "r_raw_a9": 0.004,
+    "beta_net_Z": -0.047,
+    "ci_net_Z": [
+     -0.176,
+     0.134
+    ],
+    "netZ_excl0": false,
+    "r_comp_matched": -0.094,
+    "n_zm": 29
+   }
+  },
+  "repB": {
+   "H": {
+    "n": 51,
+    "r_raw_a9": -0.094,
+    "beta_net_Z": 0.006,
+    "ci_net_Z": [
+     -0.124,
+     0.151
+    ],
+    "netZ_excl0": false,
+    "r_comp_matched": -0.175,
+    "n_zm": 17
+   },
+   "D": {
+    "n": 80,
+    "r_raw_a9": -0.092,
+    "beta_net_Z": -0.022,
+    "ci_net_Z": [
+     -0.17,
+     0.114
+    ],
+    "netZ_excl0": false,
+    "r_comp_matched": -0.399,
+    "n_zm": 27
+   }
+  },
+  "repC": {
+   "H": {
+    "n": 70,
+    "r_raw_a9": -0.165,
+    "beta_net_Z": -0.075,
+    "ci_net_Z": [
+     -0.229,
+     0.111
+    ],
+    "netZ_excl0": false,
+    "r_comp_matched": -0.175,
+    "n_zm": 25
+   },
+   "D": {
+    "n": 81,
+    "r_raw_a9": 0.087,
+    "beta_net_Z": -0.01,
+    "ci_net_Z": [
+     -0.155,
+     0.116
+    ],
+    "netZ_excl0": false,
+    "r_comp_matched": 0.728,
+    "n_zm": 27
+   }
+  },
+  "a9b-val": {
+   "note": "A9b's default draw (broad-mode confirmatory used this sample)",
+   "H": {
+    "n": 33,
+    "r_raw_a9": 0.017,
+    "beta_net_Z": 0.083,
+    "netZ_excl0": false,
+    "r_comp_matched": null
+   },
+   "D": {
+    "n": 25,
+    "r_raw_a9": 0.298,
+    "beta_net_Z": 0.145,
+    "netZ_excl0": false,
+    "r_comp_matched": null
+   }
+  }
+ },
+ "summary": {
+  "H_r_raw_a9": {
+   "values": [
+    -0.512,
+    -0.337,
+    -0.094,
+    -0.165,
+    0.017
+   ],
+   "mean": -0.218,
+   "n_negative": 4,
+   "of": 5
+  },
+  "D_r_raw_a9": {
+   "values": [
+    -0.323,
+    0.004,
+    -0.092,
+    0.087,
+    0.298
+   ],
+   "mean": -0.005
+  },
+  "beta_net_Z_all_include_zero": true,
+  "H_comp_matched_all_negative": "4/4 available draws negative"
+ },
+ "verdict": "A9's r=-0.51 is exactly reproducible on a9-val but SAMPLE-UNSTABLE across seeded draws and NON-SIGNIFICANT under two-way gene-dyadic inference (every beta_net_Z CI includes 0, incl a9-val). Composition is refuted (A9b broad). => R22: C30 bounded, splice-strength naming withdrawn, semantic identity unresolved; weak negative directional tendency only.",
+ "provenance": "checkpoint sha256 2ad91428..0149d; maxentpy 0.0.4 tables 8b6d7b46..b7c00; run_a9b_payload_semantics_composition.py --mode a9matched --tag <draw>; seed 0."
+}

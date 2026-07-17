@@ -590,3 +590,52 @@ Answering the 2026-07-16 methodological review ("validated paths ≠ complete/fa
 **Open / next:** A9 composition confound (V4 non-identifiable, re-run with looser calipers); the A9
 adversarial verification (tabled by Cam); L1/L2 individual-head resolution; the PE-edge caveat at A11's
 |Δ|=192; true lazy-greedy A12 refinement.
+
+---
+
+## A9b — payload semantics *net of bulk composition*, and R22 (2026-07-17)
+
+Ran through the `formalize-audit-verify` cycle. Prereg frozen post-estimand-red-team (re-scoped to
+**bulk/frequency** composition; core-motif entanglement declared intrinsic). Estimator: cross-fitted DML
+(Robinson partialling), gene-clustered folds, two-way gene-dyadic Poisson-multiplier bootstrap, two
+planted-CONFOUND gates (composition-only→β_str null; collinear-strength→β_str recovered), CI-excludes-0.
+
+**Cycle caught three things before/at the claim:**
+1. **SMOKE (dim):** `Kz=17` (di+tri needed 17 PCs for 90% var) → dim(Z)=20 broke the confound gates
+   (nuisance overfit). Fixed with a hard `--kz-max 8` (dim≤11, n≥10·dim), per the prereg's low-dim rule.
+2. **Offline estimator dev (cached arrays):** GBR-DML **overfits** the low-dim Z (out-of-sample
+   R²=−0.11 vs ridge +0.36) and manufactured a *phantom nonlinear confound* in the gates. Switched to
+   **linear (ridge) DML**; rebuilt the confound plant **fold-free** (full-fit, not OOF) to remove
+   fold-coupling. Confirmatory gates then PASS: A β=−0.02 covers 0, B β=0.98 covers 1, planted β=0.77
+   detected, permuted FPR=0.05.
+3. **Result (broad, a9b-val, n=240):** bulk composition does NOT predict the transfer
+   (`CV-R²(S~Z)=−0.07 H / +0.006 D`); collinearity low; support 53–69>40 → **identifiable, composition
+   REFUTED**. But V2b β=+0.042 [−0.02,+0.12] H (incl 0), +0.009 D — the external-strength effect **does
+   not survive** in this design; only V3 (circular) is marginal (H only).
+
+**Path A (reconciliation, per Cam):** A9's own competitor-matched design + composition control, swept
+across independently-seeded draws (`a9c_sweep_seeded_draws.json`):
+- `tag="a9-val"` **reproduces A9 exactly** (r=−0.512 H / −0.323 D) → Path-A logic faithful; the whole
+  A9↔A9b gap is the tag-seeded example draw (`load_examples` shuffles by tag).
+- Across 5 seeded draws: **H r_raw ranged −0.512→+0.017** (mean −0.22; 4/5 negative), **D averaged ≈0**;
+  **every composition-adjusted dyadic CI included 0, including a9-val's**. Composition-matched subsets
+  were 4/4 negative (a weak directional tendency).
+
+**R22 (material correction).** A9's held-out r=−0.51 is *reproducible on a9-val* (not an implementation
+error) but **unstable across independently seeded draws** and **non-significant under two-way gene-dyadic
+inference**. C30 **bounded**: payload is acceptor-local + NOT bulk composition (survives); **semantic
+identity UNRESOLVED** — the "splice-strength" naming is withdrawn; only a weak negative directional
+tendency remains. V3 does not rescue (circular + split-inconsistent). The frozen mechanism claim drops
+"splice-strength payload" → "an acceptor-local payload".
+
+**Two methodology lessons (fold into the skill):** (1) a within-sample gene held-out (D/H) tests
+generalization *conditional on that sample* but is **not** a test of sampling stability — the whole draw
+is one tag-seeded sample; effect-existence needs **multiple independently-seeded (ideally disjoint)
+draws**. (2) interchange pairs reuse **sender/receiver genes** → need **two-way (dyadic) inference**, not
+permutation-on-correlation.
+
+**Next (per Cam):** absolute MaxEnt strength is probably NOT the semantic target → test **conditional
+splice competitiveness** (donor context, competing acceptors, intronic context — the IC1–IC5 program),
+not further rescues of the absolute-strength claim. Weak-tendency quantification, if wanted, = a NEW
+preregistered **pooled disjoint-gene, two-way-dyadic** meta-analysis (not repartitioning one finite
+sample).

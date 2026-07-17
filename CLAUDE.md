@@ -27,7 +27,8 @@ The **donor-graph arc A0→A12** dissected this end-to-end. The mechanism, as cu
 ADDRESS   position-embedding geometry (PREDOMINANTLY RELATIVE offset + modest absolute; A11/C32)
           → L2H15 / MLP2 route it → L3H1 attention selects the acceptor (not identity; A1a/R20/C22)
 PAYLOAD   acceptor-local state → L0H7/H12/H10 → MLP0(mediates) → MLP1 → MLP2   (A8,A10 / C29,C31)
-          ⇒ computes LOCAL ACCEPTOR-CONSENSUS "SPLICE STRENGTH"   (A9/C30; being hardened in A9b)
+          ⇒ builds an ACCEPTOR-LOCAL payload that is NOT bulk composition (A9b) but whose SEMANTIC
+            IDENTITY IS UNRESOLVED — "splice-strength" naming WITHDRAWN (R22); weak neg. tendency only
 BIND/DELIVER  address × payload at L3H1 → donor-side low-rank U_info → transporter heads → donor readout
 FAITHFULNESS  the whole computation is IRREDUCIBLY DISTRIBUTED (A12/C33): 90% needs ~72/103 nodes, NO
               knee — a rediscovered STRUCTURED CORE (the circuit above) embedded in a distributed remainder.
@@ -41,32 +42,43 @@ rationale in `DECISIONS_A0.md`):
 - **C27 (A6)** circuit necessary but **NON-FAITHFUL** (F=0.005); delivery sparse, generation distributed.
 - **C28 (A7)** generation **acceptor-local + serial**.  **C29 (A8)** serial **L0→L1→MLP2 MLP-backbone**
   generator (held-out; MLP2 dual address+payload; L2H15 address-only).
-- **C30 (A9)** payload = **local splice-site strength** (matched interchange, calibrated, held-out;
-  composition confound OPEN → A9b).
+- **C30 (A9/A9b — R22-BOUNDED)** payload is **acceptor-local + NOT bulk composition** (A9b, identifiable);
+  **semantic identity UNRESOLVED** — the splice-strength naming is **withdrawn (R22)**: A9's `r=−0.51`
+  reproduces on `a9-val` but is unstable across seeded draws and non-significant under dyadic inference;
+  only a weak negative directional tendency survives.
 - **C31 (A10)** wiring **L0H7/H12/H10 → MLP0(mediating) → MLP1 → MLP2**.
 - **C32 (A11)** address **predominantly relative + modest absolute** (A4 redesign; survival-gated).
 - **C33 (A12)** **irreducibly distributed** faithfulness; the identified circuit is the top-ranked core.
-- **R1–R21** retractions/corrections. **R21 is load-bearing for current work:** the
-  `empty→corrupt`/`full→clean` "exact memorials" are **embed-clamp-dominated** — they validate embed
-  plumbing, NOT node-cover completeness; `N(C)=1.0` is a forced identity. The genuine on-path memorial
-  is `value_linearity` (A8/A10). Do not over-claim the scrub-cover memorials.
+- **R1–R22** retractions/corrections. **R21** (load-bearing): the `empty→corrupt`/`full→clean` "exact
+  memorials" are **embed-clamp-dominated** — they validate embed plumbing, NOT node-cover completeness;
+  `N(C)=1.0` is a forced identity; the genuine on-path memorial is `value_linearity` (A8/A10). **R22**
+  (2026-07-17): C30's "payload = splice strength" is **withdrawn** — reproducible on `a9-val` but unstable
+  across independently seeded draws and non-significant under two-way gene-dyadic inference; composition-
+  exclusion (A9b) survives, semantic identity does not. **Lesson:** within-sample held-out ≠ sampling
+  stability; interchange pairs need sender/receiver dyadic inference.
 
 ## Current direction (in progress)
 
-- **A9b — payload semantics *net of composition*** (the remaining vulnerability: the bridge from causal
-  circuit to interpretable computation). An estimand red-team established the honest framing: splice
-  strength is **separable from BULK/frequency composition** (GC, PPT-fraction, k-mer frequency) but
-  **definitionally inseparable from the CORE MOTIF it is computed from** (V2b is a function of the 4 core
-  nt). Being rebuilt as a **cross-fitted double-ML** estimator with a low-dim frequency adjustment set,
-  **two planted-CONFOUND stop-gates** (composition-only → β_str null; collinear-strength → β_str
-  recovered), dyadic bootstrap, CI-excludes-zero decision. Prereg:
-  `PREREGISTRATION_A9b_PAYLOAD_SEMANTICS_COMPOSITION.md`. **Then** an adversarial verification of the
-  final A9b spec (the A9 verification was tabled pending A9b).
-- **Frozen mechanism claim (target):** *"A structured, top-ranked causal core binds a predominantly
-  relative positional address to an acceptor-local splice-strength payload, then delivers the resulting
-  information to the donor readout within an irreducibly distributed computation."*
-- **Open:** A9b composition confound (in progress); L1/L2 individual-head resolution; A11 PE-edge caveat
-  at |Δ|=192; A12 static-rank is an upper bound (true lazy-greedy would refine).
+- **A9b — payload semantics *net of bulk composition* (DONE, 2026-07-17).** Cross-fitted DML (linear
+  nuisance — GBR overfit the low-dim Z), two planted-CONFOUND gates + dyadic bootstrap, all calibration
+  PASS. **Result:** bulk composition does NOT explain the payload transfer (`CV-R²(S~Z)<0`; identifiable,
+  support 53–69>40) → the reviewer's composition confound is **REFUTED**. **But** a cross-sample sweep
+  found A9's "payload = splice strength" (`r=−0.51`) exactly reproducible on `a9-val` yet **unstable across
+  independently seeded draws** (held-out r −0.512→+0.017; discovery ≈0) and **non-significant under two-way
+  gene-dyadic inference** (every composition-adjusted CI incl 0). ⇒ **R22** (C30 bounded; splice-strength
+  naming withdrawn; semantic identity UNRESOLVED — only a weak negative tendency survives; V3 is circular).
+  Files: `a9b_payload_semantics_composition.json`, `a9c_matched_composition_reconcile.json`.
+- **Frozen mechanism claim:** *"A structured, top-ranked causal core binds a predominantly relative
+  positional address to an acceptor-local payload, then delivers the resulting information to the donor
+  readout within an irreducibly distributed computation."* (No "splice-strength" — semantic identity is
+  unresolved per R22; the weak strength tendency belongs in discussion, not the established mechanism.)
+- **NEXT (per Cam):** absolute MaxEnt strength is probably NOT the semantic target → test **conditional
+  splice competitiveness** (payload dependence on donor context, competing acceptors, intronic context) —
+  the **intron-coupling IC1–IC5** program, not further rescues of the absolute-strength claim. If the weak
+  tendency needs quantifying: a NEW preregistered **pooled disjoint-gene, two-way-dyadic** meta-analysis
+  (pool all eligible non-overlapping genes; do not repeatedly repartition the same finite sample).
+- **Open:** payload semantic identity (unresolved → IC program); L1/L2 individual-head resolution; A11
+  PE-edge caveat at |Δ|=192; A12 static-rank is an upper bound (true lazy-greedy would refine).
 
 ## How work is done here (conventions — follow these)
 

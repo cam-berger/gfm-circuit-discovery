@@ -1,0 +1,58 @@
+{
+ "mode": "a9matched",
+ "n": 240,
+ "n_genes": 216,
+ "Kz": 8,
+ "value_linearity_err": 2.86102294921875e-06,
+ "reconcile": {
+  "H": {
+   "n": 33,
+   "r_raw_a9": 0.017459785557708045,
+   "beta_raw": 0.0030548900857576213,
+   "ci_raw": [
+    -0.14281808665103177,
+    0.1589114494949897
+   ],
+   "raw_excl0": false,
+   "beta_net_Z": 0.08328315057015914,
+   "ci_net_Z": [
+    -0.11783916555961023,
+    0.2364777041637094
+   ],
+   "netZ_excl0": false,
+   "beta_net_Z_competitors": 0.10302882576672101,
+   "ci_net_Zc": [
+    -0.08814277329140881,
+    0.2679162701254441
+   ],
+   "netZc_excl0": false,
+   "r_composition_matched": null,
+   "n_zmatched": 11
+  },
+  "D": {
+   "n": 25,
+   "r_raw_a9": 0.29817738043324554,
+   "beta_raw": 0.10517989728293488,
+   "ci_raw": [
+    -0.2678402309635256,
+    0.4079555098034562
+   ],
+   "raw_excl0": false,
+   "beta_net_Z": 0.14544315907800767,
+   "ci_net_Z": [
+    -0.18687836533551427,
+    0.3078816501049534
+   ],
+   "netZ_excl0": false,
+   "beta_net_Z_competitors": 0.1490318669634934,
+   "ci_net_Zc": [
+    -0.17515778315344846,
+    0.3027656381741392
+   ],
+   "netZc_excl0": false,
+   "r_composition_matched": null,
+   "n_zmatched": 9
+  }
+ },
+ "note": "Path A: A9 competitor-matched design (V2a,V3 held; |dV2b|>1sd) reproduced on A9b data, then composition-controlled. r_raw_a9 ~ reproduces A9's -0.51; beta_net_Z tests survival net of bulk composition; beta_net_Z_competitors adds V2a,V3 as linear controls."
+}

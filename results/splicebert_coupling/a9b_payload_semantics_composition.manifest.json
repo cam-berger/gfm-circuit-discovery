@@ -1,0 +1,53 @@
+{
+  "command": [
+    "scripts/splicebert/run_a9b_payload_semantics_composition.py",
+    "--n",
+    "240",
+    "--max-pairs",
+    "600",
+    "--n-boot",
+    "1000",
+    "--n-perm",
+    "120"
+  ],
+  "config": {
+    "Kz": 8,
+    "folds": 5,
+    "max_pairs": 600,
+    "min_support": 40,
+    "n": 240,
+    "n_boot": 1000,
+    "n_genes": 216,
+    "n_perm": 120,
+    "preflight_PASS": true,
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-17T18:39:48.768041+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 82150,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "splicebert_coupling:a9b_payload_semantics_composition",
+  "git_commit": "222523c802be32c973e3c7ad547bbe66609d1148",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    }
+  ],
+  "notes": [
+    "A9b: strength net of BULK composition via cross-fitted DML (Robinson partialling); two confound gates; dyadic bootstrap; held-out + matched. Reuses A9 interchange.",
+    "status=CONFIRMATORY."
+  ],
+  "outputs": [],
+  "seeds": {
+    "boot": 0,
+    "gene_split": 0,
+    "perm": 0
+  },
+  "status": "CONFIRMATORY"
+}
