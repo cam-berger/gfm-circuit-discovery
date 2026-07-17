@@ -459,6 +459,9 @@ acceptor-local state
     → L0 attention                         (A8/C29: origin, N=0.90, 40% alone; top feeder L0H7)
     → MLP0 → MLP1 → MLP2                    (A8: MLP backbone, indiv N 0.32/0.39/0.89; MLP2 dual-role)
     → L3H1 value pathway                    (A2/A2b/C23/C24: acceptor-local, distributed-rel-to-U_info)
+    ⇒ ENCODES LOCAL SPLICE-SITE STRENGTH    (A9/C30: V2b local-MaxEnt r=-0.51 + V3 model-logit r=+0.62
+                                             name it, held-out/calibrated; V2a full-23nt null → local;
+                                             not identity; composition confound open)
 
 BINDING AND DELIVERY
 address × payload at L3H1                   (C23: near-pure interaction, neither alone)
@@ -467,5 +470,32 @@ address × payload at L3H1                   (C23: near-pure interaction, neithe
     → partner-specific donor prediction     (C19)
 ```
 
-Open: the **semantic variable** the payload encodes (A9, next) and the **address geometry**
-(absolute/relative, A4-redux). MLP2 sits on **both** the address and payload paths (dual-role).
+Payload variable **NAMED** (A9/C30: local acceptor-window splice-site strength). Open: head-level
+**edges** (A10, next), **address geometry** absolute/relative (A11 = A4-redux), faithfulness–size
+**curve** (A12). MLP2 sits on **both** the address and payload paths (dual-role).
+
+### A9 payload semantics — CONFIRMATORY (held-out, calibrated), 2026-07-16
+
+Frozen `PREREGISTRATION_A9_PAYLOAD_SEMANTICS.md` (audited pre-run + your conditional-go red-lines);
+result `a9_payload_semantics.json` (REFLECTION filled); claim **C30**. n=240, 207 genes. MaxEntScan
+pinned (`maxentpy 0.0.4`, tables sha256 `8b6d7b46…`). **No new kernel** (A8 reconstruct-inject
+cross-example + frozen `U_info` projected-onto). Matched **interchange** (deliver j's clean payload
+through i's held-clean address); `value_linearity`=2.7e-6 exact.
+
+**The calibration gate you insisted on caught THREE decision-layer bugs across 4 runs before any
+verdict was allowed out:** (1) categorical "mismatch-drops" test wrongly applied to ordinal variables
+(planted failed → fixed with sign-correct monotonic ordinal correlation); (2) ad-hoc bootstrap-CI
+significance too loose, FPR=0.18 → fixed with a permutation-calibrated threshold (out-of-sample
+calibrate/test split); (3) planted direction too weak (equivalence NaN) → fixed with a recovering
+Vplant-scaled direction. Run 4: **planted r=0.9998** (sensitivity), **permuted FPR=0.047** (specificity).
+
+**Finding: the payload encodes LOCAL acceptor-window SPLICE-SITE STRENGTH.** Held-out: **V2b**
+(local-4-tok frozen MaxEnt, model-independent) names it (r=−0.51, monotonic, eq 0.986); **V3** (model
+acceptor logit) names it (r=+0.62); **V2a** (full 23nt incl. flank/PPT) does NOT (r=−0.04) →
+**cross-validates C28's ΔPPT≈0** (local window, not the whole site). NOT identity (V1). **Composition
+(V4) NON-IDENTIFIABLE** (0 matched pairs) → confound OPEN. **Verdict corrected** from the script's v1
+coarse label (which only checked V2a) to `externally_grounded_local_splice_strength`.
+
+**Completes the arc:** A6 not-a-sparse-circuit → A7 acceptor-local serial → A8 L0→L1→MLP2 MLP-backbone
+generator → **A9 that generator computes local splice-site strength**. **Next: A10** head-level edges
+(interaction-aware, reusing the A8 value-path metric), then A11 geometry, A12 size-curve.

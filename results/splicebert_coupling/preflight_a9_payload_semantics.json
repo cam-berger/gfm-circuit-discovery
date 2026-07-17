@@ -1,0 +1,58 @@
+{
+ "commit": "beb2cbc6f96eabb9e879daa456702b67a0b1fd02",
+ "n": 240,
+ "checks": {
+  "value_linearity": {
+   "PASS": true,
+   "max_abs_err": 2.6226043701171875e-06
+  },
+  "usable_value_path": {
+   "PASS": true,
+   "frac_good_denom": 0.7041666666666667,
+   "n_good": 169,
+   "note": "T(i<-i)=1 by construction; gate = enough examples with denom>0.05"
+  },
+  "positive_control": {
+   "PASS": true,
+   "self_minus_empty_median": 0.24129784107208252
+  },
+  "planted_positive_sensitivity": {
+   "PASS": true,
+   "planted": {
+    "n_eq": 60,
+    "n_eq_finite": 60,
+    "n_con": 60,
+    "T_eq_median": 1.0002347481376574,
+    "T_con_median": 0.4781851248144201,
+    "equivalence_ok": true,
+    "corr_r": 0.99983511092442,
+    "r_thresh": 0.3019643719523874,
+    "monotonic": true,
+    "contrastive_ok": true,
+    "identifiable": true,
+    "names_payload": true
+   }
+  },
+  "permuted_label_fpr": {
+   "PASS": true,
+   "fpr": 0.04666666666666667
+  },
+  "maxent_pinned": {
+   "PASS": true,
+   "sha256": "8b6d7b46f81788fb0710314867e3233e7f9b7f061b809bbdb11bb120422b7c00",
+   "score3_test": 2.887
+  },
+  "both_strands_present": {
+   "PASS": true,
+   "strands": [
+    "+",
+    "-"
+   ]
+  },
+  "checkpoint_recorded": {
+   "PASS": true,
+   "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d"
+  }
+ },
+ "PASS": true
+}
