@@ -1,0 +1,41 @@
+{
+  "command": [
+    "scripts/splicebert/run_ic1_pilot3.py",
+    "--n-pilot",
+    "80",
+    "--n-seed",
+    "16",
+    "--batch",
+    "16"
+  ],
+  "config": {
+    "acc_up": 70,
+    "n_seed": 16,
+    "strong_thr": 6.0
+  },
+  "created_at_utc": "2026-07-17T22:32:29.400592+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 90121,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "splicebert_coupling:ic1_pilot3",
+  "git_commit": "4365294e284a91464775e62b3f301f798fd2ac9c",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    }
+  ],
+  "notes": [
+    "IC1 pilot v3: conservative-scramble arm + deterministic damage-matched sham."
+  ],
+  "outputs": [],
+  "seeds": {
+    "base": 0
+  },
+  "status": "PILOT"
+}
