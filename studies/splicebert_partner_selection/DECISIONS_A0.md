@@ -456,8 +456,9 @@ position-embedding geometry
 
 PAYLOAD
 acceptor-local state
-    → L0 attention                         (A8/C29: origin, N=0.90, 40% alone; top feeder L0H7)
-    → MLP0 → MLP1 → MLP2                    (A8: MLP backbone, indiv N 0.32/0.39/0.89; MLP2 dual-role)
+    → L0 attn: L0H7 + redundant H12/H10    (A8/C29 origin; A10/C31: L0H7 dom 0.35, H12/H10 redundant I=-0.13)
+    → MLP0 (MEDIATES) → MLP1 → MLP2        (A10/C31: strict serial chain, each necessary held-out, none alone;
+                                            L0 heads reach payload THROUGH MLP0, mediated)
     → L3H1 value pathway                    (A2/A2b/C23/C24: acceptor-local, distributed-rel-to-U_info)
     ⇒ ENCODES LOCAL SPLICE-SITE STRENGTH    (A9/C30: V2b local-MaxEnt r=-0.51 + V3 model-logit r=+0.62
                                              name it, held-out/calibrated; V2a full-23nt null → local;
@@ -520,3 +521,18 @@ genuine) but caught **rigor-framing overstatements** — now corrected in the le
   0.94/1.02/1.01) — cross-experiment F/ceiling are consistent-but-not-exact replications.
 - Confidence: **C29 high** (most rigorous), **C27/C28 medium** (post-correction). The A9-verification is
   **tabled** (Cam) for after; A10 reuses the corrected framing.
+
+### A10 generator edges — CONFIRMATORY (held-out), 2026-07-16
+
+Frozen `PREREGISTRATION_A10_GENERATOR_EDGES.md`; result `a10_generator_edges.json` (REFLECTION filled);
+claim **C31**. n=220, 196 genes, D/H 110/110. **No new kernel** (A8 value-path reconstruct-inject; real
+memorial `value_linearity`=2.9e-6; scrub-cover R21-vestigial).
+
+**Finding: the head-level wiring is `{L0H7 + redundant L0H12/L0H10} → MLP0 (mediating) → MLP1 → MLP2`,
+a strict serial chain (held-out).** L0* = {H7,H8,H10,H11,H12,H13}; L0H7 dominant (N_h=+0.348 [0.30,0.40],
+replicates D 0.374), H12 +0.160, H10 +0.116; **H12×H10 interaction −0.126 (partially redundant)**, H7
+independent. **Head→MLP mediation TRUE** (L0-heads-only 0.136 → +MLP0 0.356): L0 attention reaches the
+payload THROUGH MLP0. **Strict serial MLP chain**: N_MLP0=0.354, N_MLP1=0.434, N_MLP2=0.88 (all held-out
+CI-low>0), none sufficient alone (X_only≈0.01). Refines C29 to head→MLP wiring; conditional effects NOT
+additive. Scope: value-path (address clean → L2H15 address role removed by construction); L1/L2 head
+resolution deferred. **Next: A11** address geometry (absolute/relative), **A12** faithfulness-size curve.

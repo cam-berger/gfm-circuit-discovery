@@ -1,0 +1,43 @@
+{
+  "command": [
+    "scripts/splicebert/run_a10_generator_edges.py",
+    "--n",
+    "220",
+    "--batch",
+    "8"
+  ],
+  "config": {
+    "meets_power_target": true,
+    "n": 220,
+    "n_genes": 196,
+    "preflight_PASS": true,
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-17T03:15:29.691036+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 48645,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "splicebert_coupling:a10_generator_edges",
+  "git_commit": "392ff91ba5307a6fcba4ad7dcfd3a95dd6898bd1",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    }
+  ],
+  "notes": [
+    "Head-level edges of the acceptor generator (A8 value-path metric). Held-out L0-head resolution + interactions; head->MLP0 mediation; MLP serial chain. No new kernel.",
+    "status=CONFIRMATORY."
+  ],
+  "outputs": [],
+  "seeds": {
+    "gene_bootstrap": 0,
+    "gene_split": 0
+  },
+  "status": "CONFIRMATORY"
+}
