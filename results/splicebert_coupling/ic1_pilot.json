@@ -1,0 +1,100 @@
+{
+ "unit_tests": {
+  "PASS": true,
+  "failures": [],
+  "anchored_space_60nt_of_200": 200
+ },
+ "n_seed": 8,
+ "min_distal": 30,
+ "zcrit_a05_pw80": 2.8015852,
+ "per_acc_up": {
+  "45": {
+   "n_eligible_genes": 4430,
+   "n_pilot": 80,
+   "sd_between_dCbar": 0.16345342715218028,
+   "mde_census": 0.006880119829404794,
+   "mde_pilot": 0.051197985370602335,
+   "meets_mde_0.05": true,
+   "meets_n80": true,
+   "dCbar_mean": 0.033160840801429003,
+   "dCbar_absmean": 0.10012792440829799,
+   "dispersion_mean": 0.1263195530373303,
+   "dose": {
+    "distinct_med": 8.0,
+    "norm_hamming_med": 0.2987408932530884,
+    "altered_med": 17.0,
+    "frac_ge8_altered_and_h0.25": 0.6375
+   },
+   "seed_stability": {
+    "disp_sd_at8_vs16_corr": 0.9832951158697482,
+    "disp_mean8": 0.11337206644013766,
+    "disp_mean16": 0.12411541525395191
+   },
+   "ood": {
+    "natural_nll_med": 1.3377077334264875,
+    "band_hi_p95": 1.4218294947942096,
+    "shuffled_nll_med": 1.3394755978470863,
+    "frac_shuffled_in_band": 0.9333333333333333
+   }
+  },
+  "70": {
+   "n_eligible_genes": 2205,
+   "n_pilot": 80,
+   "sd_between_dCbar": 0.2252318228500996,
+   "mde_census": 0.013437834538452511,
+   "mde_pilot": 0.07054863132687568,
+   "meets_mde_0.05": true,
+   "meets_n80": true,
+   "dCbar_mean": 0.04239493872737512,
+   "dCbar_absmean": 0.10173483955441043,
+   "dispersion_mean": 0.09298120812366295,
+   "dose": {
+    "distinct_med": 8.0,
+    "norm_hamming_med": 0.29523809523809524,
+    "altered_med": 12.5,
+    "frac_ge8_altered_and_h0.25": 0.6125
+   },
+   "seed_stability": {
+    "disp_sd_at8_vs16_corr": 0.9000288824841429,
+    "disp_mean8": 0.07338309526938794,
+    "disp_mean16": 0.08173524057828961
+   },
+   "ood": {
+    "natural_nll_med": 1.3413966498478795,
+    "band_hi_p95": 1.4122218056158586,
+    "shuffled_nll_med": 1.3407110888510942,
+    "frac_shuffled_in_band": 0.9533333333333334
+   }
+  },
+  "100": {
+   "n_eligible_genes": 560,
+   "n_pilot": 80,
+   "sd_between_dCbar": 0.13361811924388514,
+   "mde_census": 0.015818859745387603,
+   "mde_pilot": 0.04185276891090613,
+   "meets_mde_0.05": true,
+   "meets_n80": true,
+   "dCbar_mean": -0.018774761725217103,
+   "dCbar_absmean": 0.06840714961290359,
+   "dispersion_mean": 0.0766637937421552,
+   "dose": {
+    "distinct_med": 8.0,
+    "norm_hamming_med": 0.24695121951219512,
+    "altered_med": 9.5,
+    "frac_ge8_altered_and_h0.25": 0.5
+   },
+   "seed_stability": {
+    "disp_sd_at8_vs16_corr": 0.9869486353686616,
+    "disp_mean8": 0.1063056975714675,
+    "disp_mean16": 0.1057580257587176
+   },
+   "ood": {
+    "natural_nll_med": 1.3263198027485297,
+    "band_hi_p95": 1.3926193153485655,
+    "shuffled_nll_med": 1.3279131148990833,
+    "frac_shuffled_in_band": 0.9366666666666666
+   }
+  }
+ },
+ "note": "Disjoint TRAIN-split pilot to seal IC1 thresholds. MDE_census uses eligible-gene N; SD_between from the pilot subsample. Linear f = G - mean(A,C,T)."
+}

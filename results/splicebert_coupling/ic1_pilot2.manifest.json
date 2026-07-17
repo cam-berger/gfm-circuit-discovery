@@ -1,0 +1,39 @@
+{
+  "command": [
+    "scripts/splicebert/run_ic1_pilot2.py",
+    "--n-pilot",
+    "80",
+    "--batch",
+    "16"
+  ],
+  "config": {
+    "acc_up": 70,
+    "n_pilot": 80,
+    "n_seed": 16
+  },
+  "created_at_utc": "2026-07-17T20:37:55.417058+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 88210,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "splicebert_coupling:ic1_pilot2",
+  "git_commit": "6edef18451aff49c748270f7cd001e68597ddb96",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    }
+  ],
+  "notes": [
+    "IC1 pilot v2: sham, dispersion-MDE, on-path positive control, created-motif band, homology."
+  ],
+  "outputs": [],
+  "seeds": {
+    "base": 0
+  },
+  "status": "PILOT"
+}
