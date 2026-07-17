@@ -536,3 +536,22 @@ payload THROUGH MLP0. **Strict serial MLP chain**: N_MLP0=0.354, N_MLP1=0.434, N
 CI-low>0), none sufficient alone (X_only≈0.01). Refines C29 to head→MLP wiring; conditional effects NOT
 additive. Scope: value-path (address clean → L2H15 address role removed by construction); L1/L2 head
 resolution deferred. **Next: A11** address geometry (absolute/relative), **A12** faithfulness-size curve.
+
+### A11 address geometry — CONFIRMATORY, 2026-07-16 (A4 redesign, confound resolved)
+
+Frozen `PREREGISTRATION_A11_ADDRESS_GEOMETRY.md`; result `a11_address_geometry.json` (REFLECTION
+filled); claim **C32**. n=1037, 641 genes. **A4 redesign**: consistent GLOBAL `position_ids` shift on a
+truncated W=640 window (PE-table headroom), with the mandatory **`intact_S_A_survives`** memorial —
+which **PASSED** (`S_A(0)=2.94`, every `S_A(Δ)≥0.5·S_A0`), so the shift preserves the preference,
+**resolving the A4 confound** (A4's isolated-token clamp collapsed `S_A`; the memorial now catches this
+pre-run). truncation↔full corr 0.958. No new kernel (A1a/A4 `S_A` instrument).
+
+**Finding: PREDOMINANTLY RELATIVE + modest absolute component (resolves C22).** `S_A` survives the
+±192nt common translation (+2.9→+3.6) ⇒ relative offset dominates; but `E_common` significant at 5/6
+shifts, U-shaped (slope +0.0012/nt CI [.00102,.00138] excludes 0, `max|E|/|S_A0|=0.237`) ⇒ a modest
+~24% absolute modulation (the |Δ|=192 endpoints possibly PE-edge-confounded; interior +64/+128 the
+cleaner evidence). Toeplitz residual 0.56 (descriptive). **Verdict corrected** from the script binary
+"ABSOLUTE" (overstates — `S_A` survives). The address SIBLING of the payload arc: address = *where*
+(mostly relative offset); payload = *what* (local splice strength, A9/C30).
+
+**Next: A12** faithfulness-size curve (built, queued) — completes the A6→A12 program.

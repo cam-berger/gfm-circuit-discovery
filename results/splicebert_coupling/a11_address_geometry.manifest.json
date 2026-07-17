@@ -1,0 +1,54 @@
+{
+  "command": [
+    "scripts/splicebert/run_a11_address_geometry.py",
+    "--n",
+    "1500",
+    "--min-n",
+    "150",
+    "--batch",
+    "8"
+  ],
+  "config": {
+    "BASE": 192,
+    "W": 640,
+    "grid": [
+      -192,
+      -128,
+      -64,
+      0,
+      64,
+      128,
+      192
+    ],
+    "n": 1037,
+    "n_genes": 641,
+    "preflight_PASS": true,
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-17T03:34:02.479110+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 49798,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "splicebert_coupling:a11_address_geometry",
+  "git_commit": "1d4902d8a23794a8b548038580e10055500ffed2",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    }
+  ],
+  "notes": [
+    "A11 (A4 redesign): absolute-vs-relative address via a consistent GLOBAL position_ids shift on a truncated window; intact-S_A-survival memorial. No new kernel.",
+    "status=CONFIRMATORY, verdict=ABSOLUTE."
+  ],
+  "outputs": [],
+  "seeds": {
+    "gene_bootstrap": 0
+  },
+  "status": "CONFIRMATORY"
+}

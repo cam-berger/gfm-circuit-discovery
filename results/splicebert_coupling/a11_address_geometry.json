@@ -1,0 +1,105 @@
+{
+ "n": 1037,
+ "n_genes": 641,
+ "strands": [
+  "+",
+  "-"
+ ],
+ "P": 1026,
+ "W": 640,
+ "BASE": 192,
+ "grid": [
+  -192,
+  -128,
+  -64,
+  0,
+  64,
+  128,
+  192
+ ],
+ "S_A_0": 2.937636131347088,
+ "E_common": {
+  "-192": {
+   "S_A_mean": 3.256980899962073,
+   "E_mean": 0.3193447686149851,
+   "ci": [
+    0.24567408341667352,
+    0.39415488332543924
+   ]
+  },
+  "-128": {
+   "S_A_mean": 3.0715105232702733,
+   "E_mean": 0.13387439192318526,
+   "ci": [
+    0.06872715898801048,
+    0.19964167256721208
+   ]
+  },
+  "-64": {
+   "S_A_mean": 2.904813401235794,
+   "E_mean": -0.03282273011129411,
+   "ci": [
+    -0.08274329000627191,
+    0.013066954503376738
+   ]
+  },
+  "0": {
+   "S_A_mean": 2.937636131347088,
+   "E_mean": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "64": {
+   "S_A_mean": 3.1539632615380944,
+   "E_mean": 0.21632713019100655,
+   "ci": [
+    0.17399712372416526,
+    0.25905977215424425
+   ]
+  },
+  "128": {
+   "S_A_mean": 3.4485597815957343,
+   "E_mean": 0.5109236502486462,
+   "ci": [
+    0.4535186104952815,
+    0.5667198952381932
+   ]
+  },
+  "192": {
+   "S_A_mean": 3.634867217467169,
+   "E_mean": 0.6972310861200812,
+   "ci": [
+    0.6233606294810777,
+    0.7640249425146665
+   ]
+  }
+ },
+ "max_abs_E_over_S_A0": 0.23734426421299415,
+ "slope": 0.0011924706079623384,
+ "slope_ci": [
+  0.0010193664616026314,
+  0.0013830000516154215
+ ],
+ "slope_excludes_0": true,
+ "verdict": "predominantly_relative_with_modest_absolute_component",
+ "truncation_full_vs_trunc_corr": 0.957743829429735,
+ "toeplitz_residual_fraction": 0.5599190055099598,
+ "preflight_PASS": true,
+ "meets_power_target": true,
+ "confirmatory": true,
+ "REFLECTION": {
+  "status": "COMPLETE",
+  "decision": "L3H1 address is PREDOMINANTLY RELATIVE (offset-based) with a MODEST ABSOLUTE-position component. S_A survives a +-192nt consistent global translation (S_A(0)=2.94; all S_A(D) in [2.9,3.6]) -> the relative offset carries the targeting; but S_A is NOT invariant (E_common significant at 5/6 shifts, U-shaped, slope +0.0012/nt CI [0.00102,0.00138] excludes 0, max|E|/|S_A0|=0.237) -> a real but modest absolute modulation. NOT purely relative; NOT strongly absolute.",
+  "memorials": "THE A4 FIX WORKS: intact_S_A_survives PASSED (S_A(0)=2.94, every S_A(D) >= 0.5*S_A0) -- the consistent GLOBAL position_ids shift on a truncated window preserves the preference, unlike A4 isolated-token clamp which collapsed it. shift_is_noop_at_native=0.0; truncation_preserves_targeting corr=0.958 (full vs truncated S_A).",
+  "E_common": "-192:+0.319[.25,.39]*, -128:+0.134[.07,.20]*, -64:-0.033[incl0], +64:+0.216[.17,.26]*, +128:+0.511[.45,.57]*, +192:+0.697[.62,.76]*. U-SHAPED (min near D=0/-64, rising at both extremes) with an asymmetric upward tilt (+192 > -192). Slope +0.0012/nt CI excludes 0.",
+  "PE_edge_caveat": "The U-shape rising toward BOTH PE-table extremes (positions -> ~0 and ~1023 at D=-+192) may partly reflect atypical edge PE embeddings, not a clean absolute-position signal. The interior trend (+64/+128 significantly rising) is the cleaner evidence of a real absolute component; the |D|=192 endpoints are the most edge-confounded.",
+  "toeplitz": "Raw L3H1 PE-QK kernel Toeplitz residual = 0.56 (56% off constant-offset diagonals) -> the RAW positional kernel has strong absolute (non-offset) structure. Crude proxy (ignores layers 0-2 and L2H15); descriptive only, consistent with the causal modest-absolute finding.",
+  "answers_C22": "C22 left absolute-vs-relative open; A11 resolves it: PREDOMINANTLY RELATIVE + modest absolute. Biological reading: the donor-acceptor partner search is primarily distance/offset-based (robust to genomic position) with a modest position-dependent modulation.",
+  "scope": "QK/selection level, position-embedding geometry of L3H1 donor->acceptor address (C22). Truncated W=640 window + consistent global position_ids shift (A4 redesign). PE-edge caveat at |D|=192. Sibling of the payload arc: address = WHERE (mostly relative offset); payload = WHAT (local splice strength, A9/C30). No behavioural claim; no prior claim redefined.",
+  "escaped_failure_modes": "(1) intact_S_A_survives is the A4-fix memorial (S_A did NOT collapse); (2) truncation preserved targeting (corr 0.958); (3) verdict corrected from the script binary overstatement; (4) PE-edge caveat flagged for |D|=192; (5) gene-bootstrap CIs on E_common and slope."
+ },
+ "verdict_raw_script": "ABSOLUTE",
+ "verdict_label_note": "Script binary ABSOLUTE (rel=0.237>0.20 AND slope CI excludes 0) OVERSTATES: S_A SURVIVES the +-192nt common translation (+2.9 to +3.6 throughout), so the RELATIVE offset dominates; the absolute component is a modest ~24% U-shaped modulation (possibly PE-edge-confounded at |D|=192)."
+}

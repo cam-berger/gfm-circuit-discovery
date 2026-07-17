@@ -1,0 +1,53 @@
+{
+ "commit": "1d4902d8a23794a8b548038580e10055500ffed2",
+ "n": 1037,
+ "grid": [
+  -192,
+  -128,
+  -64,
+  0,
+  64,
+  128,
+  192
+ ],
+ "checks": {
+  "shift_is_noop_at_native": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "intact_S_A_survives": {
+   "PASS": true,
+   "S_A_0": 2.937636131347088,
+   "S_A_by_delta": {
+    "-192": 3.256980899962073,
+    "-128": 3.0715105232702733,
+    "-64": 2.904813401235794,
+    "0": 2.937636131347088,
+    "64": 3.1539632615380944,
+    "128": 3.4485597815957343,
+    "192": 3.634867217467169
+   }
+  },
+  "truncation_preserves_targeting": {
+   "PASS": true,
+   "S_A_trunc_mean": 3.256980899962073,
+   "full_vs_trunc_corr": 0.957743829429735
+  },
+  "grid_fits": {
+   "PASS": true,
+   "n_kept": 1037
+  },
+  "both_strands_present": {
+   "PASS": true,
+   "strands": [
+    "+",
+    "-"
+   ]
+  },
+  "checkpoint_recorded": {
+   "PASS": true,
+   "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d"
+  }
+ },
+ "PASS": true
+}
