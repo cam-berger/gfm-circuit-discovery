@@ -1,0 +1,228 @@
+{
+ "n": 200,
+ "n_genes": 179,
+ "strands": [
+  "+",
+  "-"
+ ],
+ "coupling": 1.0200620491802692,
+ "F_C": 0.007205743195453212,
+ "state_clamp_ACC": 0.37238885965079904,
+ "ceiling": 0.36518311645534585,
+ "grid": {
+  "ACC|L0-2": {
+   "F": 0.3441933066509144,
+   "dR": 0.3369875634554612,
+   "dR_ci": [
+    0.3001428766504718,
+    0.38068337465796775
+   ],
+   "frac_of_ceiling": 0.9227906446673518,
+   "real": true
+  },
+  "DON|L0-2": {
+   "F": 0.006918017376721818,
+   "dR": -0.00028772581873139427,
+   "dR_ci": [
+    -0.0005664658183810687,
+    -1.6621377588729593e-05
+   ],
+   "frac_of_ceiling": -0.000787894636324396,
+   "real": false
+  },
+  "PPT|L0-2": {
+   "F": 0.006655595623497927,
+   "dR": -0.0005501475719552852,
+   "dR_ci": [
+    -0.0019922817313497766,
+    0.0010045868854906223
+   ],
+   "frac_of_ceiling": -0.0015064978285285995,
+   "real": false
+  },
+  "REM|L0-2": {
+   "F": 0.031980007794098306,
+   "dR": 0.024774264598645093,
+   "dR_ci": [
+    0.011615781543009653,
+    0.03736972335959928
+   ],
+   "frac_of_ceiling": 0.06784066262185606,
+   "real": true
+  },
+  "ACC|L0": {
+   "F": 0.053859407947524154,
+   "dR": 0.046653664752070945,
+   "dR_ci": [
+    0.036639015673746105,
+    0.05871903963839636
+   ],
+   "frac_of_ceiling": 0.12775416674493412,
+   "real": true
+  },
+  "DON|L0": {
+   "F": 0.0072386688143179076,
+   "dR": 3.292561886469522e-05,
+   "dR_ci": [
+    -4.145840124806058e-05,
+    0.00010696512273999252
+   ],
+   "frac_of_ceiling": 9.016194172471094e-05,
+   "real": false
+  },
+  "PPT|L0": {
+   "F": 0.007027908654729617,
+   "dR": -0.00017783454072359522,
+   "dR_ci": [
+    -0.0005227432284365554,
+    0.00022957512678315752
+   ],
+   "frac_of_ceiling": -0.00048697361052654417,
+   "real": false
+  },
+  "REM|L0": {
+   "F": 0.011735839022426024,
+   "dR": 0.004530095826972812,
+   "dR_ci": [
+    0.001925314339483357,
+    0.007491064356978348
+   ],
+   "frac_of_ceiling": 0.012404997993730486,
+   "real": true
+  },
+  "ACC|L1": {
+   "F": 0.0165722441344111,
+   "dR": 0.009366500938957887,
+   "dR_ci": [
+    0.006133509676503102,
+    0.013175241135522455
+   ],
+   "frac_of_ceiling": 0.025648778700050365,
+   "real": true
+  },
+  "DON|L1": {
+   "F": 0.007273916900834749,
+   "dR": 6.817370538153653e-05,
+   "dR_ci": [
+    -4.683839449588004e-06,
+    0.000143147130048506
+   ],
+   "frac_of_ceiling": 0.00018668361791548689,
+   "real": false
+  },
+  "PPT|L1": {
+   "F": 0.007289064178459604,
+   "dR": 8.3320983006392e-05,
+   "dR_ci": [
+    -0.00013782429865730195,
+    0.00031981259665234195
+   ],
+   "frac_of_ceiling": 0.0002281621993238573,
+   "real": false
+  },
+  "REM|L1": {
+   "F": 0.007105212418183247,
+   "dR": -0.00010053077726996512,
+   "dR_ci": [
+    -0.0009778984817994294,
+    0.0008892765170894453
+   ],
+   "frac_of_ceiling": -0.0002752886777619083,
+   "real": false
+  },
+  "ACC|L2": {
+   "F": 0.008175452214365594,
+   "dR": 0.0009697090189123821,
+   "dR_ci": [
+    0.0002560393931355154,
+    0.0018033783313379423
+   ],
+   "frac_of_ceiling": 0.0026554048509275945,
+   "real": true
+  },
+  "DON|L2": {
+   "F": 0.0067708473412010145,
+   "dR": -0.00043489585425219787,
+   "dR_ci": [
+    -0.0007098922397944229,
+    -0.00017892668700584283
+   ],
+   "frac_of_ceiling": -0.0011908980307565134,
+   "real": false
+  },
+  "PPT|L2": {
+   "F": 0.0071951898708883764,
+   "dR": -1.0553324564835896e-05,
+   "dR_ci": [
+    -0.00013892323600929275,
+    0.00011447987334773061
+   ],
+   "frac_of_ceiling": -2.8898719818352676e-05,
+   "real": false
+  },
+  "REM|L2": {
+   "F": 0.010124092852531073,
+   "dR": 0.0029183496570778606,
+   "dR_ci": [
+    0.0018175660165525678,
+    0.004176732997433941
+   ],
+   "frac_of_ceiling": 0.00799146928095925,
+   "real": true
+  }
+ },
+ "interactions": {
+  "ACCxPPT": {
+   "F_joint": 0.3520760573840207,
+   "I": 0.008432898305061578,
+   "dR1": 0.3369875634554612,
+   "dR2": -0.0005501475719552852
+  },
+  "ACCxDON": {
+   "F_joint": 0.37057197210513426,
+   "I": 0.026666391272951246,
+   "dR1": 0.3369875634554612,
+   "dR2": -0.00028772581873139427
+  },
+  "ACCxREM": {
+   "F_joint": 0.4209116383640829,
+   "I": 0.0519440671145234,
+   "dR1": 0.3369875634554612,
+   "dR2": 0.024774264598645093
+  },
+  "PPTxDON": {
+   "F_joint": 0.0063671751169079435,
+   "I": -6.946878585894004e-07,
+   "dR1": -0.0005501475719552852,
+   "dR2": -0.00028772581873139427
+  }
+ },
+ "verdict": "local_convergence_at_acceptor",
+ "best_region_L0-2": {
+  "region": "ACC",
+  "F": 0.3441933066509144,
+  "dR": 0.3369875634554612,
+  "dR_ci": [
+   0.3001428766504718,
+   0.38068337465796775
+  ],
+  "frac_of_ceiling": 0.9227906446673518,
+  "real": true
+ },
+ "preflight_PASS": true,
+ "meets_power_target": true,
+ "confirmatory": true,
+ "REFLECTION": {
+  "status": "COMPLETE",
+  "decision": "local_convergence_at_acceptor: the generation is POSITIONALLY LOCALIZED at the acceptor 4-token window and built by a SERIALLY INTERDEPENDENT L0->L1->L2 module -- a structured jointly-necessary pipeline, not broad diffuseness, not imported from PPT/branch-point or donor (this channel/stage).",
+  "memorials": "empty->corrupt, full->clean, maskFalse->clean, state_clamp_identity ALL EXACT=0.0 (base scrub + node cover + token-mask + layer-input pre-hook plumbing all correct).",
+  "localization": "ceiling (state-clamp ACC)=0.372 ~ C23/C24 L3H1-channel cap. dR(ACC|L0-2)=+0.337 [0.30,0.38]=92% of ceiling; dR(DON)~0, dR(PPT)~0 (both CI incl/at 0), dR(REM)=+0.025 [0.012,0.037]=7%. -> payload constructed LOCALLY at the acceptor, not imported.",
+  "cross_layer_synergy": "SERIAL INTERDEPENDENCE (not generic super-additivity): single-layer dR(ACC) L0 +0.047, L1 +0.009, L2 +0.001 sum 0.057 << joint 0.337. A later layer cannot function on a corrupted upstream state, so single-layer near-silence is the signature of an L0->L1->L2 PIPELINE, not three independent nonlinear factors. L0 is the largest single contributor.",
+  "interactions": "ACCxREM I=+0.052, ACCxDON I=+0.027, ACCxPPT I=+0.008, PPTxDON I=0.000 -> the acceptor carries it; only a modest ACCxREM synergy; PPT/branch-point neither contributes nor interacts.",
+  "no_import_from_branchpoint": "dR(PPT)~0 and all PPT interactions ~0 -> the payload does not need the branch-point/polypyrimidine region FOR THIS PARTNER-COUPLING CHANNEL AT THIS pre-L3H1 STAGE (coheres with C22 and C19). Scoped negative -- NOT a biological claim that SpliceBERT ignores the branch-point/PPT in splicing generally.",
+  "refines_C27": "C27 distributed-or-interaction-dependent is resolved: POSITIONALLY LOCALIZED (acceptor window) + CROSS-LAYER SYNERGISTIC (L0-2), NOT broadly diffuse. Structured jointly-necessary module confirmed (the reviews alternative to irreducibility).",
+  "next": "decision-table row state-high + dACC-high -> edge scan into the ACCEPTOR-WINDOW residual across L0-2 (block-level, synergistic-group aware, per the decided order).",
+  "escaped_failure_modes": "(1) four exact plumbing memorials; (2) ceiling 0.372 is a fair upper bound (matches C23/C24); (3) regions disjoint and non-empty; (4) non-additivity respected -- dR are marginal, cross-layer terms reported as super-additive not summed; (5) REM small-but-real rules out a large missed off-region source.",
+  "scope": "Bounds the GENERATION feeding L3H1 channel (the 0.37 ceiling); the delivery-side distribution (why the full circuit F~0) is separate. Behaviour-level; regions are coordinate windows, not semantic variables (semantics = later). No prior claim redefined."
+ }
+}

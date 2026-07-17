@@ -277,8 +277,8 @@ L3H1 attends there — position-embedding geometry, not identity (A1a/R20)
         ↓
 L3H1 reads the ACCEPTOR's own local value payload (acceptor-local, distributed, NOT L2H15-built;
    NOT the U_info subspace) (A2/A2b, C23/C24)
-   ⇒ this distributed/interaction-dependent source is why the sparse circuit is NON-FAITHFUL
-   (A6/C27: F(C)=0.005 vs D=0.986)
+   ⇒ this ACCEPTOR-LOCAL, serially-interdependent (L0→L1→L2) source is why the sparse circuit is
+   NON-FAITHFUL (A6/C27: F=0.005 vs D=0.986; A7/C28: ΔACC=+0.337=92% of ceiling; single layers near-silent → pipeline)
         ↓
 L3H1 CONVERTS it (W_V/W_O) to the compact donor-side U_info (C24; U_info = delivery format)
         ↓
@@ -389,4 +389,29 @@ distributed payload, C24) is distributed. **Quantifies C7.** Minimality uninterp
 
 C27 wording scoped to "distributed **or interaction-dependent** at node resolution" per Cam (A6 rules
 out the sparse generator + single-node omissions, NOT a structured jointly-necessary module). **Commit
-`c98055a` held LOCAL (not pushed).**
+`c98055a`→`4907a19` (amended with the scoping fix) held LOCAL (not pushed).**
+
+### A7 source localization — CONFIRMATORY, 2026-07-16
+
+Frozen `PREREGISTRATION_A7_SOURCE_LOCALIZATION.md`; result `a7_source_localization.json` (REFLECTION
+filled); claim **C28**. n=200, 179 genes. Built to the review's redesign — **no claim redefined**.
+Reuses A6's scrub + token masks; adds `clamp_write_mask` (bool-mask MLP write) + `clamp_layer_input`
+(residual pre-hook). Four exact plumbing memorials `=0.0` (base scrub, node cover, token-mask,
+layer-input pre-hook).
+
+**Finding: local_convergence_at_acceptor.** State-clamp ceiling (clean pre-L3H1 residual at the
+acceptor window + clean spine) `F_state=0.372` (ceiling 0.365 ≈ C23/C24 cap). **Writers-open ΔR (L0–2):
+ACC +0.337 [0.30,0.38] = 92% of ceiling; DON ≈0; PPT ≈0; REM +0.025 (7%).** Single-layer ΔACC (L0
++0.047, L1 +0.009, L2 +0.001) sum 0.057 ≪ 0.337 joint ⇒ **serial interdependence (L0→L1→L2** — later
+layers can't run on a corrupted upstream state; a pipeline, not 3 independent factors); interactions
+modest (ACC×REM I=+0.052, ACC×DON +0.027, PPT×* ≈0). So the payload generation is **positionally
+LOCALIZED at the acceptor window** and built by a **serially-interdependent L0→L1→L2 module** — NOT
+broadly diffuse, NOT imported from the branch-point/PPT **for this channel/stage** (ΔPPT≈0; a scoped
+negative, not a biological claim about splicing; coheres with C22/C19).
+**Resolves the A6/C27 open question** (structured jointly-necessary module, the review's alternative to
+irreducibility). Scope: bounds the *generation* feeding L3H1's channel (0.37 ceiling); delivery-side
+distribution is separate.
+
+**Decision-table row fired:** `state-high + ΔACC-high` → **next = edge scan into the acceptor-window
+residual across L0–L2** (block-level / synergistic-group aware, per the decided order: A7 done → edge
+discovery → backward-pruned size curve → semantics). **A7 committed LOCAL (not pushed), per the hold.**
