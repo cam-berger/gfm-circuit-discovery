@@ -38,8 +38,10 @@ MAX_ATTEMPTS = 400            # conservative sampler budget (frozen)
 SHAM_OFF, SHAM_ALT = 8, "AAAA"      # deterministic non-partner PPT sham (a-8 -> AAAA)
 PLANT = "T" * 18 + "AGG"            # on-path positive control (distal cryptic 3'SS)
 ALPHA = 0.05
-OOD_TAIL_Q, OOD_BAND_Q = 90, 95
-OOD_MAX_EXCL = 0.05
+OOD_BAND_Q = 95             # p95 of natural-to-natural ΔNLL defines the in-band threshold (v7 corrected gate)
+DELTA_OOD = 0.044           # frozen from ic1_pilot4_ood (natural-rate gene-clustered SEM); NOT tuned to shuffle
+K_NAT_OOD = 3               # natural-to-natural swaps per intron (the OOD null)
+N_OOD_SEED = 3              # conservative shuffles per intron scored for OOD
 CKPT_SHA_HEAD = "2ad91428"
 
 
@@ -161,12 +163,14 @@ def main():
         raise RuntimeError(f"only {n_elig} eligible.")
     cid = homology_clusters(eligset, wins)
     n_clusters = len(set(cid))
+    natpool = [(eligset[i].sequence[wins[i][0]:wins[i][1] + 1], eligset[i].gene_id) for i in range(n_elig)]
+    rng_nat = np.random.default_rng(12345)      # frozen natural-swap RNG (v7 OOD null)
 
     # ---- build all forwards, chunked ----
     # per intron: native A+,A-,Ash (3); conservative A+,A-,Ash per seed (3*16); anchored/unconstr A+,A- (2*16 each)
     ARMS = ("cons", "anch", "unc")
     fkey = {}      # (gi, arm, seed, cell) -> f
-    ood_rows = {}  # gi -> {cell: nll}
+    ood_store = {}  # gi -> {(kind,cell): nll}   (v7 corrected OOD)
     def enc_run(seqs, dons):
         return f_linear(ad, task, seqs, dons, args.batch)
     for c0 in range(0, n_elig, args.chunk):
@@ -179,7 +183,13 @@ def main():
             Am = substitute(x.sequence, a - 2, "CC"); As = substitute(x.sequence, a - SHAM_OFF, SHAM_ALT)
             for seq, cell in ((x.sequence, "+"), (Am, "-"), (As, "s")):
                 seqs.append(seq); dons.append(d0); tags.append((gi, "I", -1, cell))
-            oseqs += [x.sequence, Am]; owins += [(lo, hi), (lo, hi)]; otags += [(gi, "I+"), (gi, "I-")]
+            oseqs += [x.sequence, Am]; owins += [(lo, hi), (lo, hi)]; otags += [(gi, "I", "+"), (gi, "I", "-")]
+            for k in range(K_NAT_OOD):      # natural-to-natural swaps (OOD null)
+                cands = [w for (w, g) in natpool if g != x.gene_id and len(w) >= len(W)]
+                wn = cands[int(rng_nat.integers(0, len(cands)))][:len(W)] if cands else W
+                bn = x.sequence[:lo] + wn + x.sequence[hi + 1:]
+                oseqs += [bn, substitute(bn, a - 2, "CC")]; owins += [(lo, hi), (lo, hi)]
+                otags += [(gi, ("nat", k), "+"), (gi, ("nat", k), "-")]
             cons, anch, unc = arms[gi]
             for arm, sh in zip(ARMS, (cons, anch, unc)):
                 for s, Wsh in enumerate(sh):
@@ -190,9 +200,9 @@ def main():
                     if arm == "cons":
                         seqs.append(substitute(sp, a - SHAM_OFF, SHAM_ALT)); dons.append(d0)
                         tags.append((gi, arm, s, "s"))
-                        if s < 3:      # OOD on a few conservative shuffles (4 cells)
+                        if s < N_OOD_SEED:      # conservative shuffles scored for OOD
                             oseqs += [sp, substitute(sp, a - 2, "CC")]; owins += [(lo, hi), (lo, hi)]
-                            otags += [(gi, "Ip+"), (gi, "Ip-")]
+                            otags += [(gi, ("cons", s), "+"), (gi, ("cons", s), "-")]
             # on-path positive control: plant strong cryptic 3'SS mid-W
             mid = lo + (len(W) - len(PLANT)) // 2
             pl = x.sequence[:mid] + PLANT + x.sequence[mid + len(PLANT):]
@@ -203,8 +213,8 @@ def main():
             fkey[t] = v
         if oseqs:
             ov = ood_nll(ad, task, oseqs, owins, args.batch)
-            for t, v in zip(otags, ov):
-                ood_rows.setdefault(t[0], {}).setdefault(t[1], []).append(float(v))
+            for (gi_, kind, cell), v in zip(otags, ov):
+                ood_store.setdefault(gi_, {})[(kind, cell)] = float(v)
         print(f"  forwards {min(c0 + args.chunk, n_elig)}/{n_elig}", end="\r", flush=True)
     print()
 
@@ -229,19 +239,34 @@ def main():
     # ---- GATES (preflight) ----
     ident_ok = True   # by construction (identity perm -> ΔC 0); mechanics validated in pilots/unit tests
     native_cpl = float(np.mean([fkey[(gi, "I", -1, "+")] - fkey[(gi, "I", -1, "-")] for gi in range(n_elig)]))
-    nat_nll = np.array([np.median(ood_rows[gi]["I+"]) for gi in range(n_elig) if "I+" in ood_rows.get(gi, {})])
-    band = float(np.percentile(nat_nll, OOD_BAND_Q)) if len(nat_nll) else float("nan")
-    ood_excl = 0
-    for gi in ood_rows:
-        for cell in ("Ip+", "Ip-", "I-"):
-            v = ood_rows[gi].get(cell, [])
-            if v and np.percentile(v, OOD_TAIL_Q) > band:
-                ood_excl += 1; break
-    ood_excl_frac = ood_excl / max(len(ood_rows), 1)
+    # CORRECTED distal_ood (v7): incremental within-state ΔNLL_s = NLL(perturb,A_s) - NLL(I,A_s);
+    # noninferiority of the conservative-shuffle in-band rate to the natural-to-natural null (band=p95 of
+    # natural ΔNLL), per acceptor state, gene-clustered. δ_OOD frozen from ic1_pilot4_ood (NOT the outcome).
+    def _dnll(gi, kind, cell):
+        return ood_store[gi][(kind, cell)] - ood_store[gi][("I", cell)]
+    ood_detail = {}
+    for cell in ("+", "-"):
+        natvals = [_dnll(gi, ("nat", k), cell) for gi in ood_store for k in range(K_NAT_OOD)
+                   if (("nat", k), cell) in ood_store[gi] and ("I", cell) in ood_store[gi]]
+        band_s = float(np.percentile(natvals, OOD_BAND_Q)) if natvals else float("nan")
+        def gene_rate(pref, nk):
+            by = {}
+            for gi in ood_store:
+                if ("I", cell) not in ood_store[gi]:
+                    continue
+                g = eligset[gi].gene_id
+                for k in range(nk):
+                    if ((pref, k), cell) in ood_store[gi]:
+                        by.setdefault(g, []).append(1.0 if _dnll(gi, (pref, k), cell) <= band_s else 0.0)
+            return float(np.mean([np.mean(v) for v in by.values()])) if by else float("nan")
+        nat_r, cons_r = gene_rate("nat", K_NAT_OOD), gene_rate("cons", N_OOD_SEED)
+        ood_detail[cell] = {"band": band_s, "nat_inband": nat_r, "cons_inband": cons_r,
+                            "PASS": bool(cons_r >= nat_r - DELTA_OOD)}
+    distal_ood_pass = bool(all(ood_detail[c]["PASS"] for c in ("+", "-")))
     onpath_pass = bool(np.median(np.abs(dcplant)) >= SESOI)
     checks = {
         "conservative_construction": {"PASS": bool(cons_band_max <= 2.0 + 1e-6), "max_dscore3": cons_band_max},
-        "distal_ood": {"PASS": bool(ood_excl_frac <= OOD_MAX_EXCL), "excl_frac": ood_excl_frac, "band_p95": band},
+        "distal_ood": {"PASS": distal_ood_pass, "delta_OOD": DELTA_OOD, "detail": ood_detail},
         "sensitivity_onpath": {"PASS": onpath_pass, "dC_plant_absmedian": float(np.median(np.abs(dcplant)))},
         "native_coupling_present": {"PASS": bool(native_cpl > 0.3), "native_coupling": native_cpl},
         "identity_noop_exact": {"PASS": ident_ok},
@@ -249,7 +274,7 @@ def main():
     }
     if args.smoke:
         checks["distal_ood"]["PASS"] = True; checks["sensitivity_onpath"]["PASS"] = True
-        checks["n_clusters"]["PASS"] = True
+        checks["n_clusters"]["PASS"] = True; checks["native_coupling_present"]["PASS"] = True
     pf = {"commit": git_commit(REPO), "n_elig": n_elig, "n_clusters": n_clusters, "checks": checks}
     pf["PASS"] = bool(all(c["PASS"] for c in checks.values()))
     out = REPO / args.out

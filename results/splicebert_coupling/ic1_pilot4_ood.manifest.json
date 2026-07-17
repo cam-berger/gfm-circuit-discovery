@@ -1,0 +1,39 @@
+{
+  "command": [
+    "scripts/splicebert/run_ic1_pilot4_ood.py",
+    "--n-pilot",
+    "60",
+    "--batch",
+    "16"
+  ],
+  "config": {
+    "acc_up": 70,
+    "k_nat": 3,
+    "n_seed": 16
+  },
+  "created_at_utc": "2026-07-17T23:44:49.184456+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 92200,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "splicebert_coupling:ic1_pilot4_ood",
+  "git_commit": "b72a0f848ca035def941442d4a3ed79248bfa24d",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    }
+  ],
+  "notes": [
+    "IC1 corrected-OOD-gate calibration + demonstration (outcome-blind)."
+  ],
+  "outputs": [],
+  "seeds": {
+    "base": 0
+  },
+  "status": "PILOT"
+}

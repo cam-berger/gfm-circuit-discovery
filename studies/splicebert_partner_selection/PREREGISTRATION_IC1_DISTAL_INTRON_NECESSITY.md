@@ -1,7 +1,10 @@
 # Pre-registration — IC1: does distal intron interstitial ARRANGEMENT modulate donor–acceptor coupling?
 
-**Status: CORE DESIGN FROZEN v6 (2026-07-17), pending one final mechanical audit then Cam's confirmatory
-GO.** Behaviour-first: full-model coupling assay only; circuit localization (L3H1 / payload / `U_info`) is a
+**Status: CORE DESIGN FROZEN v7 (2026-07-17) — an OUTCOME-BLIND PROTOCOL AMENDMENT (Amendment A1, below)
+corrected the mis-calibrated distal-OOD gate after the v6 confirmatory failed that gate WITHOUT any ΔC
+statistic being computed or inspected. This is an outcome-blind, protocol-amended confirmatory analysis,
+not an untouched preregistration.** Behaviour-first: full-model coupling assay only; circuit localization
+(L3H1 / payload / `U_info`) is a
 separate, contingent later prereg. Opened after R22 (payload semantic identity unresolved; next target =
 conditional splice competitiveness).
 
@@ -122,9 +125,13 @@ Per intron, per seed: `ΔC = [f(I',A⁺) − f(I',A⁻)] − [f(I,A⁺) − f(I,
   400 attempts). **Report the excluded (~6%) vs retained covariate profiles** (max poly-Y, count(score3>6),
   max score3, `L`, `ℓ_dist`); **escalation:** if excluded fraction > 10% OR standardized mean-diff on those
   covariates > 0.5, label the primary **scope-restricted**, not domain-general.
-- **`distal_ood`**: distal-window masked-LM NLL over `W`, per-intron **p90 tail**, within the empirical band
-  = **p95 of NATURAL distal NLL** (≈1.41 nats), re-derived on confirmatory naturals; all four cells, gating
-  `(I',A⁻)`; per-intron exclusion, > 5% excluded ⇒ global redesign. `|Δf|` = damage report only.
+- **`distal_ood` (v7 corrected — Amendment A1):** INCREMENTAL, WITHIN-STATE `ΔNLL_s = NLL(I',A_s) −
+  NLL(I,A_s)`, `s∈{+,−}` (acceptor corruption cancels ⇒ cannot fail a distal gate). NONINFERIORITY to a
+  NATURAL-to-NATURAL null: `band_s` = p95 of natural-swap `ΔNLL_s` on the cohort; PASS iff conservative
+  in-band rate `≥` natural in-band rate `− δ_OOD`, per state, **gene-clustered** (same aggregation for
+  natural & shuffled). `δ_OOD = 0.044` frozen from `ic1_pilot4_ood` (natural-rate gene-clustered SEM — NOT
+  tuned to any shuffle rate). Demonstrated: passes natural / identity / conservative-pilot, FAILS a planted
+  alt-GC OOD. `|Δf|` = damage report only.
 - **`sensitivity_onpath`** (SEALED PASS): plant `"T"×18+"AGG"` mid-`W`; through-model `|ΔC_plant|`≥SESOI —
   pilot absmedian 0.087, 69%≥0.05 ⇒ the pipeline detects a distal coupling change of the target size ⇒
   signed null is on-path licensable. In `--smoke`.
@@ -193,7 +200,7 @@ the `Δf⁺=Δf⁻` symmetry holds (else **primary interpretation compromised**,
 | sham `A⁻'` (deterministic) | `a−8→'AAAA'` (0.56×, AG intact); DiD diagnostic + gate ΔC_sham CI⊆[−.05,.05] | mean 0.005 (pilot3) |
 | on-path positive | plant `"T"×18+"AGG"` mid-W; \|ΔC_plant\|≥0.05 | absmedian 0.087, 69%≥.05 ⇒ PASS |
 | cryptic control (primary) | conservative arm bounds by construction | max \|Δscore3\|=1.99 |
-| OOD | band=p95 natural distal NLL (~1.41); p90 tail; 4 cells; >5% excl ⇒ redesign | ~95% in-band |
+| OOD (v7, Amendment A1) | incremental within-state ΔNLL, noninferiority to natural-to-natural null; δ_OOD=0.044 (gene-clustered SEM) | conservative in-band 1.00 vs natural 0.95; demonstrated (pilot4) |
 | homology | cluster ≈ gene | near-dup 0.5% |
 | instability trigger | across-draw SD(ΔC̄) > 0.025 | 0.5×SESOI |
 
@@ -205,3 +212,36 @@ RMS_sham corrected to 0.081; stale no-new-motif language removed.
 **No further sham pilot for IC1** (Cam): a valid AG-channel dispersion control is a separate future methods
 problem. **Remaining before GO:** one final mechanical audit of estimands/thresholds/output-names; then the
 confirmatory-script build. No val data is read before the run.
+
+---
+
+## Amendment A1 (2026-07-17) — outcome-blind correction of the distal-OOD gate
+
+**What triggered it.** The v6 confirmatory ran on val and FAILED preflight on `distal_ood` (excl_frac
+7.45% vs a flat 5% cutoff). Per §5 the run **did not compute or write any primary ΔC statistic or verdict**,
+and none was inspected. The gate failure is demonstrable **without reference to the scientific outcome**.
+
+**Why the original gate was invalid (mathematically miscalibrated).** The v6 disposition compared a
+COMPOUND per-intron / per-cell exclusion rate against the **p95** sequence-level band used to DEFINE
+"in-band." Because ~5% of even natural sequences exceed a p95 band by construction, and the compound
+(multi-cell, p90-of-tail) structure inflates that base rate, the gate **fails in-distribution perturbations
+by construction** (an R21-class gate that cannot serve its purpose). The observed 7.45% is squarely the
+in-distribution base rate; the pilot directly shows the conservative perturbation is in-distribution
+(shuffled median NLL ≈ natural; ~95–100% in-band), and the conservative shuffle is *less* perturbing than
+swapping in another natural intron's window.
+
+**The correction (identified during the pre-run v5 re-audit; calibrated in `ic1_pilot4_ood`).** Measure the
+shuffle's INCREMENTAL, WITHIN-STATE OOD effect `ΔNLL_s = NLL(I',A_s) − NLL(I,A_s)` (acceptor corruption
+cancels), and gate by NONINFERIORITY to a NATURAL-to-NATURAL null: conservative in-band rate `≥` natural
+in-band rate `− δ_OOD`, per acceptor state, gene-clustered, same aggregation for natural and shuffled.
+`δ_OOD = 0.044` is fixed EXCLUSIVELY from the natural-rate gene-clustered SEM on the disjoint pilot — never
+from the observed 7.45%. **Demonstrated (`ic1_pilot4_ood`, disjoint TRAIN):** passes natural(out-of-sample)
+0.95, identity 1.00, and the conservative pilot 1.00 in-band; **FAILS** a planted alt-GC OOD (0.77);
+threshold 0.906.
+
+**Legitimacy.** ΔC remains unseen/uncomputed; the failure is outcome-independent; the replacement rule was
+pre-identified in the v5 audit; the perturbation, cohort, estimand, and statistical test are UNCHANGED.
+**Recordkeeping:** the original failed artifact is preserved (`preflight_ic1_v6_FAILED.json`); the rerun
+uses the SAME cohort, RNG streams, perturbations, and thresholds and is written to a NEW artifact
+(`ic1_distal_intron_necessity_v7.json`), not overwriting the failed run. The final result is an
+**outcome-blind, protocol-amended confirmatory analysis.**

@@ -1,0 +1,38 @@
+{
+ "bands": {
+  "+": 0.43305391349594935,
+  "-": 0.4244159161473434
+ },
+ "n_pilot": 60,
+ "+": {
+  "natural_inband_mean": 0.95,
+  "natural_inband_sd": 0.1702394827338285,
+  "conservative_inband_mean": 1.0,
+  "conservative_inband_sd": 0.0,
+  "identity_inband_mean": 1.0,
+  "planted_ood_gc_inband_mean": 0.7666666666666667,
+  "planted_ood_rev_inband_mean": 1.0
+ },
+ "-": {
+  "natural_inband_mean": 0.95,
+  "natural_inband_sd": 0.1702394827338285,
+  "conservative_inband_mean": 1.0,
+  "conservative_inband_sd": 0.0,
+  "identity_inband_mean": 1.0,
+  "planted_ood_gc_inband_mean": 0.7666666666666667,
+  "planted_ood_rev_inband_mean": 1.0
+ },
+ "delta_OOD": 0.044,
+ "thresholds": {
+  "+": 0.9059999999999999,
+  "-": 0.9059999999999999
+ },
+ "demonstration": {
+  "conservative_passes": true,
+  "natural_passes": true,
+  "identity_passes": true,
+  "planted_ood_gc_FAILS": true,
+  "planted_ood_rev_FAILS": false,
+  "ALL_DEMONSTRATIONS_PASS": true
+ }
+}
