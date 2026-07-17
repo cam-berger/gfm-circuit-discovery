@@ -270,12 +270,15 @@ vs l2_accounting all-position 0.959 (rest via donor±5 delivery, C17).
 ## The crystallized circuit (A0–A3)
 
 ```
-L2H15 builds the positional ADDRESS (C25; 0.66 of coupling)
+L2H15 AMPLIFIES/ROUTES the positional ADDRESS into L3H1 (C25; 0.66 of coupling) — the discriminative
+   geometry is PRE-RESIDENT in the embeddings (C21); L2H15 does NOT originate it (C25↔C21 reconciled)
         ↓
 L3H1 attends there — position-embedding geometry, not identity (A1a/R20)
         ↓
 L3H1 reads the ACCEPTOR's own local value payload (acceptor-local, distributed, NOT L2H15-built;
    NOT the U_info subspace) (A2/A2b, C23/C24)
+   ⇒ this distributed/interaction-dependent source is why the sparse circuit is NON-FAITHFUL
+   (A6/C27: F(C)=0.005 vs D=0.986)
         ↓
 L3H1 CONVERTS it (W_V/W_O) to the compact donor-side U_info (C24; U_info = delivery format)
         ↓
@@ -330,3 +333,60 @@ DELIVERED representation, not acceptor source).
 
 **Remaining queued work:** the redesigned address-geometry test (consistent global position_ids
 shift on short windows, with the intact-S_A-survival memorial) — A4 was inconclusive/confounded.
+
+## Methodology review → T0 reconciliation + T1 (A6), 2026-07-16
+
+A methodological review (IOI/Wang, path-patching/Goldowsky-Dill, ACDC/Conmy, AtP*/Kramár, EAP-IG/Hanna,
+Hydra/McGrath, causal-scrubbing/Chan, circuit-tracing/Anthropic) landed the central charge: **A0–A5
+validated *paths*, never tested the whole graph for faithfulness / completeness / minimality.** Verdict:
+substantially correct (R20 is the very "named a variable before identifying it" failure mode it warns of).
+
+- **T0 — C25↔C21 reconciliation (applied):** the review's "L2H15 builds the address is too strong" is
+  right, and it reconciles with our own **C21** (discriminative geometry pre-resident in embeddings;
+  L2H15 supplies class-level *gain*). C25 headline "builds" → "acts through / amplifies the address
+  channel"; the 95%/4% causal split is UNCHANGED (no R-number — interpretive verb only). Crystallized
+  diagram updated.
+- **Refinements I pushed back with:** faithfulness-of-current-circuit *before* the exhaustive scan (it
+  sizes the residual cheaply); causal-scrubbing is the most *lenient* tool (pair with interchange +
+  held-out); "the only route" collides with Hydra (target = minimal-sufficient + redundancy quantified).
+
+### A6 circuit faithfulness/necessity/minimality — CONFIRMATORY, 2026-07-16
+
+Frozen `PREREGISTRATION_A6_CIRCUIT_FAITHFULNESS.md`; result `a6_circuit_faithfulness.json` +
+`a6_reconcile.json` (REFLECTION filled); claim **C27**. n=200, 179 genes, coupling 0.94. **No new
+kernel** (reuses `patch_heads` + `clamp_write` + `clamp_embed`). Node-level activation patching,
+scrub-**to-corrupt**; two arithmetic memorials `empty→corrupt`/`full→clean` **EXACT=0.0** (node cover
+complete; damage confound excluded; the healthy extremes are the health guard).
+
+**Finding: necessary DELIVERY SPINE, non-faithful sparse generator — generation is DISTRIBUTED or
+INTERACTION-DEPENDENT (node resolution).** `N(C)=1.00`, `N(C\embed)=0.989` (necessity real, not a trivial embed-corruption artifact), but
+`F(C)=0.005 [0.003,0.008]` under complement-noising (residual **99.5%**); no single omitted node
+recovers it (max add-one gain 0.005 / 93 nodes) and random same-size circuits are equally non-faithful
+⇒ **no sparse node set of this size is faithful**. **Reconciles with C16/C17** via the post-hoc
+diagnostic: injecting the circuit's **clean OUTPUTS** recovers `D(C\embed)=0.986 [0.982,0.991]` —
+sufficient-when-injected, but the circuit cannot *reconstruct* those outputs from a scrubbed network.
+So delivery/readout is sparse (`U_info`); the coupling *generation* (building the acceptor-local,
+distributed payload, C24) is distributed. **Quantifies C7.** Minimality uninterpretable at F≈0.
+
+**Next (Cam's decided order, 2026-07-16):**
+1. **A7 — position×layer source localization (redesigned).** Separate the *state clamp* (inject the
+   clean **pre-L3H1** acceptor-window residual = upper-bound control, ≈ C24, should recover) from
+   *writers-open* (let native **non-circuit** L0–L2 components write clean ONLY within a region,
+   scrubbed elsewhere — can the network **locally construct** the payload?). Disjoint regions
+   {acceptor 4-tok, donor±5, PPT/branch-point, remainder, combos} × layer-blocks. Report
+   `ΔR = F(C∪R) − F(C)` and pairwise interaction `I(R₁,R₂) = F(C∪R₁∪R₂) − F(C∪R₁) − F(C∪R₂) + F(C)`
+   to split **localization** from **interaction**. Decision table: state-high+acceptor-writers-high →
+   local convergence; state-high+writers-low → local-when-finished but imports info; several-weak-
+   jointly-strong → structured distributed; none → broad / wrong partition (→ hierarchical group tests).
+2. **Scoped upstream edge discovery** — EAP-IG/AtP* rank → exact **group AND edge** patching.
+   **Block-level, not singleton-only** (A6 found negligible singleton recovery ⇒ synergistic generators
+   need group tests).
+3. **Backward-pruned faithfulness–size curve** (DEFERRED, redesigned — forward greedy is ill-identified
+   at F≈0: it selects noise/order-dependent). Prune from the **full model**, recompute conditional
+   effects each removal, test groups + nodes, select on one gene split / measure the curve on another,
+   report node counts for 50/80/90/95% faithfulness.
+4. **Semantic tests** on the resulting source representation.
+
+C27 wording scoped to "distributed **or interaction-dependent** at node resolution" per Cam (A6 rules
+out the sparse generator + single-node omissions, NOT a structured jointly-necessary module). **Commit
+`c98055a` held LOCAL (not pushed).**
