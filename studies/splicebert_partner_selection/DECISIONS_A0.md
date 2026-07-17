@@ -499,3 +499,24 @@ coarse label (which only checked V2a) to `externally_grounded_local_splice_stren
 **Completes the arc:** A6 not-a-sparse-circuit → A7 acceptor-local serial → A8 L0→L1→MLP2 MLP-backbone
 generator → **A9 that generator computes local splice-site strength**. **Next: A10** head-level edges
 (interaction-aware, reusing the A8 value-path metric), then A11 geometry, A12 size-curve.
+
+### Verification correction pass — A6–A8, 2026-07-16 (adversarial verify-workflow, 16 agents)
+
+An adversarial verification (3 verify + 12 refute + synthesis) confirmed the **empirical findings are
+sound and robust** (F≈0 conservative; gene-grouped bootstraps; honest de-duplicated nulls; A8 held-out
+genuine) but caught **rigor-framing overstatements** — now corrected in the ledger (→ **R21**):
+
+- **Embed-clamp-dominated memorials (C27/C28/C29):** `clamp_embed` overwrites the embedding at all
+  positions, so `empty→corrupt`/`full→clean` are bit-identical to the source run regardless of the
+  head/MLP patches — they validate embed-plumbing, NOT node-cover completeness. Completeness rests on
+  architecture ({embed, all heads, all MLPs}=all writers) + the genuine `value_linearity` memorial
+  (A8/A10, on-path). C27/C28 corrected; C29's `value_linearity` is the real, on-path memorial.
+- **N(C)=1.00 (C27)** is a forced identity (embed∈C), not a measured necessity → demoted; `N(C\embed)=
+  0.989` (post-hoc reconcile) is the real figure. Same forced-identity pattern as A8's `R_full=1.0`
+  normalization anchor (harmless). Both are new instances of **R7**.
+- **"damage confound excluded" (C27)** softened to "avoided by scrub-to-corrupt; partial-scrub health
+  noted-not-gated."
+- **Cross-draw caveat:** A6/A7/A8 run on different example draws (tags a6/a7/a8-val, coupling
+  0.94/1.02/1.01) — cross-experiment F/ceiling are consistent-but-not-exact replications.
+- Confidence: **C29 high** (most rigorous), **C27/C28 medium** (post-correction). The A9-verification is
+  **tabled** (Cam) for after; A10 reuses the corrected framing.
