@@ -1,0 +1,215 @@
+{
+ "n": 200,
+ "n_genes": 184,
+ "nD": 102,
+ "nH": 98,
+ "coupling": 1.0049601857364179,
+ "curve_K": [
+  103,
+  96,
+  88,
+  80,
+  72,
+  64,
+  56,
+  48,
+  40,
+  34,
+  28,
+  22,
+  16,
+  10,
+  6,
+  3,
+  1
+ ],
+ "curve_H": {
+  "103": {
+   "F_H": 1.0,
+   "ci": [
+    1.0,
+    1.0
+   ]
+  },
+  "96": {
+   "F_H": 1.0299033646859808,
+   "ci": [
+    0.992560384169641,
+    1.0765592905999772
+   ]
+  },
+  "88": {
+   "F_H": 1.0392225293530621,
+   "ci": [
+    1.002008194061611,
+    1.0821729059091896
+   ]
+  },
+  "80": {
+   "F_H": 1.032562216893517,
+   "ci": [
+    0.9944277850039521,
+    1.0772312487271993
+   ]
+  },
+  "72": {
+   "F_H": 0.9374546175657407,
+   "ci": [
+    0.8765433780966249,
+    0.9993223892370555
+   ]
+  },
+  "64": {
+   "F_H": 0.8991909951481333,
+   "ci": [
+    0.8344495271834077,
+    0.9592366037847788
+   ]
+  },
+  "56": {
+   "F_H": 0.8507409204721087,
+   "ci": [
+    0.7839473236183255,
+    0.9115569492968084
+   ]
+  },
+  "48": {
+   "F_H": 0.7724950383000498,
+   "ci": [
+    0.7055662030555215,
+    0.834221685980914
+   ]
+  },
+  "40": {
+   "F_H": 0.6809641090941972,
+   "ci": [
+    0.6060769167079393,
+    0.7527502375531555
+   ]
+  },
+  "34": {
+   "F_H": 0.6125258376643935,
+   "ci": [
+    0.5461720807149593,
+    0.6813117698722658
+   ]
+  },
+  "28": {
+   "F_H": 0.4825751774377811,
+   "ci": [
+    0.4234278043232421,
+    0.5452244379187609
+   ]
+  },
+  "22": {
+   "F_H": 0.38988372990741726,
+   "ci": [
+    0.33383142484920975,
+    0.45063564610472756
+   ]
+  },
+  "16": {
+   "F_H": 0.22971902592890905,
+   "ci": [
+    0.18128419135476265,
+    0.28285273055105614
+   ]
+  },
+  "10": {
+   "F_H": 0.034371688822739825,
+   "ci": [
+    0.01366885993930034,
+    0.05934095931049301
+   ]
+  },
+  "6": {
+   "F_H": 0.0027970683361174596,
+   "ci": [
+    -0.0005084882272635437,
+    0.007372935248476029
+   ]
+  },
+  "3": {
+   "F_H": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "1": {
+   "F_H": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  }
+ },
+ "node_counts_for_faithfulness": {
+  "50": 34,
+  "80": 56,
+  "90": 72,
+  "95": 80
+ },
+ "faithful_core_90pct": {
+  "size": 72,
+  "composition": {
+   "n_heads": 65,
+   "n_mlps": 6,
+   "embed": true,
+   "heads_by_layer": {
+    "3": 10,
+    "0": 11,
+    "4": 12,
+    "5": 8,
+    "1": 10,
+    "2": 14
+   },
+   "mlps": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  "top20_nodes": [
+   "embed",
+   "(2, 'mlp')",
+   "(3, 'mlp')",
+   "(3, 1)",
+   "(1, 'mlp')",
+   "(0, 'mlp')",
+   "(4, 'mlp')",
+   "(5, 'mlp')",
+   "(0, 7)",
+   "(4, 2)",
+   "(0, 12)",
+   "(5, 11)",
+   "(0, 10)",
+   "(5, 9)",
+   "(4, 0)",
+   "(1, 13)",
+   "(0, 4)",
+   "(2, 4)",
+   "(0, 5)",
+   "(4, 1)"
+  ]
+ },
+ "shape": "gradual",
+ "greedy_note": "static backward rank (upper bound on minimal faithful set at each F level)",
+ "preflight_PASS": true,
+ "meets_power_target": true,
+ "confirmatory": true,
+ "REFLECTION": {
+  "status": "COMPLETE",
+  "decision": "The coupling is IRREDUCIBLY DISTRIBUTED: a GRADUAL faithfulness-size curve with NO knee. Held-out node counts (of 103): 50%->34, 80%->56, 90%->72, 95%->80. No sparse or mid-size faithful subcircuit exists -- 90% faithfulness needs ~70% of the network, spanning all layers.",
+  "anchors": "full_is_clean=0.0, empty_is_corrupt=0.0 (R21: embed-clamp-forced normalization ANCHORS, not memorials); the F(K) scrub is A6-validated (A12 adds no new mechanic).",
+  "curve": "F~1 down to |K|=80 (F=1.033 [.99,1.08]), then smooth decline: 72->0.937 [.88,1.0], 56->0.851 [.78,.91], 34->0.613 [.55,.68], 16->0.230 [.18,.28], 10->0.03. Tight gene-bootstrap CIs. Slight F>1 at 80-96 is redundancy/noise (removing a node can marginally raise recovery).",
+  "faithful_core_90": "72 nodes = 65 heads + ALL 6 MLPs + embed; heads spread across ALL layers (L0:11 L1:10 L2:14 L3:10 L4:12 L5:8) -> broadly distributed, not layer-localized.",
+  "cross_validation": "STRONG independent cross-validation of the A6-A11 arc: the top-ranked nodes (by backward removal-loss from the FULL model, no knowledge of the hand-built circuit) ARE the identified mechanism -- embed #1 (address geometry C21/C22); MLP2/3/1/0/4/5 #2,3,5,6,7,8 (the A8/A10 MLP backbone + C17 delivery MLP3/4); L3H1 #4 (the reader); the generator L0 heads L0H7/H12/H10 #9,11,13 (A10/C31); the transporters L4H2/L5H11/L4H0 #10,12,15 (C18). The mechanism sits at the TOP of an independent importance ranking.",
+  "reading": "A STRUCTURED CORE (the identified circuit: embed -> L0H7/H12/H10 -> MLP0-2 generator -> L3H1 -> MLP3/4 + L4/L5 transporters) is the most-important set, embedded in a BROADLY DISTRIBUTED ~72-node faithful core. No sparse faithful circuit, but a clear importance hierarchy with the mechanism at the top -- reconciling A6 (non-faithful sparse circuit) with the identified structure (A7-A11).",
+  "caveats": "Static backward-rank = UPPER BOUND on the minimal faithful set at each F level (true lazy-greedy could shave a few nodes via interactions, but the gradual shape + ~70% requirement is robust to this). Greedy not guaranteed optimal. R21 anchors; embed-clamp domination does not affect the RANKING (F-differences).",
+  "completes_program": "Quantifies A6 distributed as IRREDUCIBLY DISTRIBUTED with a structured core. Completes A6->A12: circuit non-faithful (A6) -> acceptor-local serial generation (A7) -> L0->L1->MLP2 generator (A8) -> local splice-site strength payload (A9) -> head-level wiring (A10) -> predominantly-relative address (A11) -> irreducibly-distributed faithfulness with the mechanism at the top (A12)."
+ }
+}

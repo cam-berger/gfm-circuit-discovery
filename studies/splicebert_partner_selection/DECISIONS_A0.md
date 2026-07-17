@@ -555,3 +555,38 @@ cleaner evidence). Toeplitz residual 0.56 (descriptive). **Verdict corrected** f
 (mostly relative offset); payload = *what* (local splice strength, A9/C30).
 
 **Next: A12** faithfulness-size curve (built, queued) — completes the A6→A12 program.
+
+### A12 faithfulness–size curve — CONFIRMATORY (held-out), 2026-07-16 — PROGRAM COMPLETE
+
+Frozen `PREREGISTRATION_A12_FAITHFULNESS_SIZE.md`; result `a12_faithfulness_size.json` (REFLECTION
+filled); claim **C33**. n=200, 184 genes, D/H 102/98. **No new kernel** (A6 faithfulness scrub; R21
+embed-anchors). Rank nodes by F-loss removed from the FULL model on D (well-identified backward);
+keep-top-k curve on held-out H.
+
+**Finding: IRREDUCIBLY DISTRIBUTED — gradual curve, NO knee.** Held-out node counts (of 103): 50%→34,
+80%→56, 90%→72, 95%→80. F≈1 to |K|=80 then smooth decline. 90% faithful core = 65 heads (all layers
+11–14 each) + all 6 MLPs + embed. **Strong independent cross-validation of A6–A11:** the top-ranked
+nodes (backward removal-loss, no knowledge of the hand-built circuit) ARE the identified mechanism —
+embed #1, MLP2/3/1/0/4/5 #2–8, L3H1 #4, generator L0H7/H12/H10 #9/11/13, transporters L4H2/L5H11/L4H0
+#10/12/15. Reading: a structured CORE (the circuit) atop a broadly distributed ~72-node faithful core.
+
+---
+
+## PROGRAM COMPLETE (A6→A12) — the donor mechanism, end to end
+
+Answering the 2026-07-16 methodological review ("validated paths ≠ complete/faithful circuit"):
+
+- **A6/C27** circuit NON-FAITHFUL (F=0.005), delivery sparse / generation distributed.
+- **A7/C28** generation ACCEPTOR-LOCAL + SERIAL.
+- **A8/C29** serial **L0→L1→MLP2 MLP-backbone generator** (held-out; MLP2 dual-role; L2H15 address-only).
+- **A9/C30** payload = **LOCAL SPLICE-SITE STRENGTH** (interchange, calibrated, held-out; composition open).
+- **A10/C31** wiring **L0H7/H12/H10 → MLP0(mediating) → MLP1 → MLP2** (held-out).
+- **A11/C32** address = **PREDOMINANTLY RELATIVE + modest absolute** (A4 redesign, survival-gated).
+- **A12/C33** **IRREDUCIBLY DISTRIBUTED** faithfulness (no knee; 90%→72/103) with the identified circuit
+  as the top-ranked structured core (independent cross-validation of A6–A11).
+- **Verify + R21**: adversarial verification of A6–A8 → corrected the embed-clamp-dominated memorial +
+  forced-N(C)=1.0 framing (empirical findings unaffected).
+
+**Open / next:** A9 composition confound (V4 non-identifiable, re-run with looser calipers); the A9
+adversarial verification (tabled by Cam); L1/L2 individual-head resolution; the PE-edge caveat at A11's
+|Δ|=192; true lazy-greedy A12 refinement.

@@ -1,0 +1,61 @@
+{
+  "command": [
+    "scripts/splicebert/run_a12_faithfulness_size.py",
+    "--n",
+    "200",
+    "--batch",
+    "8"
+  ],
+  "config": {
+    "curve_K": [
+      103,
+      96,
+      88,
+      80,
+      72,
+      64,
+      56,
+      48,
+      40,
+      34,
+      28,
+      22,
+      16,
+      10,
+      6,
+      3,
+      1
+    ],
+    "n": 200,
+    "n_genes": 184,
+    "preflight_PASS": true,
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-17T03:50:36.192307+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 50338,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "splicebert_coupling:a12_faithfulness_size",
+  "git_commit": "d1925e38581e7e54e66a948449f969f38281d07a",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    }
+  ],
+  "notes": [
+    "Backward faithfulness-size curve: rank by F-loss from full (D), keep-top-k curve (H). Reuses A6 scrub. Static-rank upper bound. R21 anchors.",
+    "status=CONFIRMATORY."
+  ],
+  "outputs": [],
+  "seeds": {
+    "gene_bootstrap": 0,
+    "gene_split": 0
+  },
+  "status": "CONFIRMATORY"
+}

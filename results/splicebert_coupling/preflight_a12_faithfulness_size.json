@@ -1,0 +1,35 @@
+{
+ "commit": "d1925e38581e7e54e66a948449f969f38281d07a",
+ "n": 200,
+ "checks": {
+  "full_is_clean": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "empty_is_corrupt": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "positive_control_partner_coupling": {
+   "PASS": true,
+   "coupling": 1.0049601857364179
+  },
+  "both_genes_split": {
+   "PASS": true,
+   "nD": 102,
+   "nH": 98
+  },
+  "both_strands_present": {
+   "PASS": true,
+   "strands": [
+    "+",
+    "-"
+   ]
+  },
+  "checkpoint_recorded": {
+   "PASS": true,
+   "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d"
+  }
+ },
+ "PASS": true
+}
