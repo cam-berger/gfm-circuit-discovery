@@ -279,6 +279,8 @@ L3H1 reads the ACCEPTOR's own local value payload (acceptor-local, distributed, 
    NOT the U_info subspace) (A2/A2b, C23/C24)
    ⇒ this ACCEPTOR-LOCAL, serially-interdependent (L0→L1→L2) source is why the sparse circuit is
    NON-FAITHFUL (A6/C27: F=0.005 vs D=0.986; A7/C28: ΔACC=+0.337=92% of ceiling; single layers near-silent → pipeline)
+   ⇒ A8/C29: that generator is a serial L0→L1→MLP2 MLP-BACKBONE pipeline (L0 attn→MLP0→MLP1→MLP2;
+      MLP2 dual address+payload; L2 attention NOT involved; L2H15 address-only) — held-out confirmed
         ↓
 L3H1 CONVERTS it (W_V/W_O) to the compact donor-side U_info (C24; U_info = delivery format)
         ↓
@@ -414,4 +416,56 @@ distribution is separate.
 
 **Decision-table row fired:** `state-high + ΔACC-high` → **next = edge scan into the acceptor-window
 residual across L0–L2** (block-level / synergistic-group aware, per the decided order: A7 done → edge
-discovery → backward-pruned size curve → semantics). **A7 committed LOCAL (not pushed), per the hold.**
+discovery → backward-pruned size curve → semantics). A6/A7 pushed to origin (`b3d3f16`) with the
+serial-interdependence / scoped-PPT wording corrections.
+
+### A8 generator path — CONFIRMATORY (held-out), 2026-07-16
+
+Frozen `PREREGISTRATION_A8_GENERATOR_PATH.md` (audited pre-run: 5 fixes — `M'(∅)`≠corrupt, `N_h` from
+full A, value/address split, exact C24 anchor, MLP2 circuit-value check); result `a8_generator_path.json`
+(REFLECTION filled); claim **C29**. n=220, 205 genes, D/H 112/108. **No new kernel** (A6/A7 scrub +
+A2b/A3 reconstruct-inject). Value-path metric (L3H1 **address held clean**, only the value varies):
+`value_linearity=2.7e-6` exact, `full_clean`=+0.354 reproduces C24, `generator_ceiling`=0.289.
+
+**Finding: the generator is a serial L0→L1→MLP2 MLP-BACKBONE pipeline (held-out confirmed).**
+Leave-block-out necessity (replicating on H): **L0** N=+0.895 [H .87,.92], 40% sufficient alone
+(R=0.403) = origin; **L1** N=+0.528 [H .43,.57], near-silent alone (0.057), weak with only L2 downstream
+(P=0.095) = refiner requiring L0 upstream; **L2 attention N=−0.031 (not required for payload generation
+under the block intervention; L2H15 stays essential on the separate ADDRESS path, C25).** *(All N/P/R
+are conditional causal effects, NOT additive fractions of the payload — they do not sum.)* Backbone =
+the MLPs (indiv N: **MLP2 +0.893, MLP1 +0.393, MLP0 +0.324**; top attn feeder **L0H7 +0.352**). **MLP2
+dual-role** (C21 address assembler + dominant payload relay); **L2H15 address-only** (payload N=+0.001) —
+address/payload separable within L2. **Block-vs-singleton vindicated:** 4 L2 heads flag load-bearing
+though the block is unnecessary (within-block interaction artifact) → group tests trustworthy, as the
+review insisted. Held-out `R_H(L0+L1+MLP2)`≈1.0 ≥ 0.80.
+
+**Completes the review's program:** non-faithful sparse circuit (A6) → acceptor-local serial generation
+(A7) → specific generalizing serial MLP-backbone generator (A8). **A8 committed LOCAL (not pushed).**
+**Next (remaining decided order):** (a) exact **head-level** minimal graph + head→MLP **edges**
+(interaction-aware, since L2 singletons mislead); (b) the **semantic identity** of the payload the
+pipeline builds (matched-resampling / interchange — the address geometry A4-redux is the sibling
+address-side question); (c) the deferred backward-pruned faithfulness–size curve.
+
+### Consolidated mechanism (post-A8, 2026-07-16; Cam's form)
+
+```text
+ADDRESS
+position-embedding geometry
+    → L2H15 and MLP2                       (C21/C22/C25; MLP2 = query/address assembler)
+    → L3H1 attention selects the acceptor  (A1a/R20: position geometry, not identity)
+
+PAYLOAD
+acceptor-local state
+    → L0 attention                         (A8/C29: origin, N=0.90, 40% alone; top feeder L0H7)
+    → MLP0 → MLP1 → MLP2                    (A8: MLP backbone, indiv N 0.32/0.39/0.89; MLP2 dual-role)
+    → L3H1 value pathway                    (A2/A2b/C23/C24: acceptor-local, distributed-rel-to-U_info)
+
+BINDING AND DELIVERY
+address × payload at L3H1                   (C23: near-pure interaction, neither alone)
+    → compact donor-side U_info             (C24/C26: L3H1 converts to the stable delivered format)
+    → sparse delivery spine                 (C16–C18: MLP3/4 + L4/L5 transporters; A6: necessary, sparse)
+    → partner-specific donor prediction     (C19)
+```
+
+Open: the **semantic variable** the payload encodes (A9, next) and the **address geometry**
+(absolute/relative, A4-redux). MLP2 sits on **both** the address and payload paths (dual-role).
