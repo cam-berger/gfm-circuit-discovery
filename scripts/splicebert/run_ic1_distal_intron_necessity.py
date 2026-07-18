@@ -314,6 +314,10 @@ def main():
         d = np.array(dcbar[a]) - np.array(dcbar[b]); l, h = bca_ci(cluster_reduce(d.tolist(), cid), ALPHA, args.n_boot, 3)
         return {"mean": float(np.mean(d)), "ci": [l, h], "excl0": bool(l > 0 or h < 0)}
     mde = 2.8016 * float(np.std(cl_cons, ddof=1)) / np.sqrt(len(cl_cons))
+    # PARTNER-SPECIFICITY contrast (Cam): ΔC_specific = ΔC_partner - ΔC_sham (paired per intron); cluster BCa.
+    # This paired contrast -- NOT "sham≈mean" -- is the rigorous support for the nonspecificity statement.
+    spec_cl = cluster_reduce((np.array(dcbar["cons"]) - np.array(dcsham)).tolist(), cid)
+    spec_mean = float(np.mean(spec_cl)); sp_lo, sp_hi = bca_ci(spec_cl, ALPHA, args.n_boot, seed=4)
 
     result = {"split": args.split, "acc_up": acc_up, "n_elig": n_elig, "n_clusters": n_clusters,
               "n_excluded_nonconstructible": len(excl_profile), "native_coupling": native_cpl,
@@ -327,6 +331,10 @@ def main():
                                           "sham does not reproduce the AG channel exactly)"},
               "symmetry_diagnostic": {"mean_abs_perintron_dC": sym_diff,
                                       "note": "reported diagnostic (tautological with ΔC dispersion), NOT a gate"},
+              "partner_specific_contrast": {"dc_specific_mean": spec_mean, "ci95_bca": [sp_lo, sp_hi],
+                                            "excludes_0": bool(sp_lo > 0 or sp_hi < 0),
+                                            "note": "ΔC_specific = ΔC_partner - ΔC_sham (paired); rigorous "
+                                                    "partner-specificity test. CI-includes-0 => nonspecific."},
               "dispersion_secondary": {"excess_mean": float(np.mean(excess)), "ci": [ex_lo, ex_hi],
                                        "caveat": "PPT sham cannot exclude AG-channel state-dependent damage"},
               "arm_contrasts_secondary": {"anch_minus_cons": paired("anch", "cons"),
@@ -358,6 +366,8 @@ def main():
           f"|point|≥SESOI={abs(point)>=SESOI}  achieved_MDE={mde:.4f}")
     print(f"  DIAGNOSTICS: sham_ΔC̄={sham_mean:+.4f} ci[{sham_lo:+.4f},{sham_hi:+.4f}]  sym|ΔC|={sym_diff:.4f}  "
           f"dispersion_excess={np.mean(excess):+.4f} CI[{ex_lo:+.4f},{ex_hi:+.4f}] (SECONDARY)")
+    print(f"  PARTNER-SPECIFIC ΔC_specific={spec_mean:+.4f}  CI95(BCa)=[{sp_lo:+.4f},{sp_hi:+.4f}]  "
+          f"excl0={bool(sp_lo>0 or sp_hi<0)}")
     print(f"  VERDICT: {verdict}   (n_clusters={n_clusters}, excluded_nonconstructible={len(excl_profile)})")
     print(f"saved -> {out}")
 

@@ -31,6 +31,15 @@
   "mean_abs_perintron_dC": 0.10402358654332725,
   "note": "reported diagnostic (tautological with \u0394C dispersion), NOT a gate"
  },
+ "partner_specific_contrast": {
+  "dc_specific_mean": 0.006537776305776788,
+  "ci95_bca": [
+   -0.011079703084008838,
+   0.024118087900592274
+  ],
+  "excludes_0": false,
+  "note": "\u0394C_specific = \u0394C_partner - \u0394C_sham (paired); rigorous partner-specificity test. CI-includes-0 => nonspecific."
+ },
  "dispersion_secondary": {
   "excess_mean": 0.025239857839308297,
   "ci": [
@@ -106,15 +115,14 @@
  "gates_pass": true,
  "REFLECTION": {
   "status": "COMPLETE (outcome-aware deterministic VERIFICATION; NOT confirmatory)",
-  "verdict": "small_but_detectable_sub_SESOI_effect, NONSPECIFIC",
-  "primary": "signed \u0394C\u0304=+0.032 nats, CI95(BCa)[+0.012,+0.053] excludes 0 but < SESOI 0.05; achieved MDE 0.029 (well-powered). Classification: small-but-detectable sub-SESOI (NOT material; NOT a clean bounded-null, CI upper 0.053>0.05).",
-  "nonspecific": "non-partner sham DiD=+0.026 (CI[+0.009,+0.049]) \u2248 \u0394C\u0304 +0.032 -> the small effect is a NONSPECIFIC perturbation response, not partner-specific coupling modulation. CONVERGENT diagnostic only (PPT sham does not reproduce the AG channel exactly; not conclusive).",
-  "gates": "all pass: corrected distal_ood (cons in-band 0.994 >= nat 0.950 - \u03b40.044, both states); conservative_construction; sensitivity_onpath; native_coupling 0.614; n_clusters 256.",
-  "cryptic_competition": "arm-contrasts null (anch-cons -0.003, unc-anch -0.005; CIs include 0) -> no detectable cryptic-site-competition difference.",
-  "dispersion_secondary": "excess-over-sham +0.025 (CI[+0.015,+0.037]); reported only; cannot exclude AG-channel damage.",
-  "reproducibility": "deterministic cohort (259 introns, 256 clusters) under sorted-set shuffler + pinned PYTHONHASHSEED; determinism test PASSES across HASHSEED {0,1,2,17}. v8 reproduces v7 (+0.032 vs +0.033).",
-  "status_note": "\u0394C seen on v7 before the v8 fixes -> v8 is a deterministic VERIFICATION, not a preregistered confirmatory null. Publication-grade confirmatory null requires a genuinely untouched disjoint cohort.",
-  "conclusion": "Distal interstitial ARRANGEMENT contributes little meaningful PARTNER-SPECIFIC donor-acceptor coupling in the conservative-constructible L>=107 subdomain (small +0.032, sub-SESOI, sham-reproduced/nonspecific). Coheres with the local-signal picture (C28/C30).",
-  "next": "IC2 (branchpoint/PPT + acceptor-proximal context) then IC5 (competing acceptors); return to distal only if a material partner-specific effect emerges."
+  "verdict": "small_but_detectable_sub_SESOI_effect; NO evidence for a meaningful PARTNER-SPECIFIC effect",
+  "conclusion": "IC1 found a small average effect of conservative distal rearrangement, +0.032 nats [+0.012,+0.053], BELOW the preregistered material-effect threshold (0.05) and closely reproduced by the non-partner sham. It therefore provides NO evidence for a meaningful partner-specific effect in the tested (conservative-constructible, L>=107) subdomain.",
+  "partner_specific_contrast": "\u0394C_specific = \u0394C_partner - \u0394C_sham = +0.006, CI95(BCa)[-0.011,+0.024] INCLUDES 0 -> the partner-specific component is indistinguishable from zero. This paired contrast (not 'sham\u2248mean') is the rigorous support for nonspecificity.",
+  "primary": "signed \u0394C\u0304=+0.032, CI[+0.012,+0.053], excludes 0 but < SESOI 0.05; achieved MDE 0.029 (well-powered). Classification: small-but-detectable sub-SESOI.",
+  "gates": "all pass: corrected distal_ood noninferiority (cons in-band 0.994 >= nat 0.950 - \u03b40.044); conservative_construction; sensitivity_onpath; native_coupling 0.614; n_clusters 256.",
+  "secondary": "dispersion excess-over-sham +0.025 (CI[+0.015,+0.037], reported only, cannot exclude AG-channel damage); cryptic-competition arm-contrasts null.",
+  "reproducibility": "deterministic cohort (259 introns/256 clusters) under sorted-set shuffler + pinned PYTHONHASHSEED; determinism test PASSES across HASHSEED {0,1,2,17}. v8 reproduces v7 exactly (+0.032).",
+  "status_note": "\u0394C seen on v7 before the v8 fixes -> VERIFICATION not confirmatory; a publication-grade null needs a genuinely untouched disjoint cohort.",
+  "next": "Acceptor-competition study (PREREGISTRATION_IC2_ACCEPTOR_COMPETITION.md); then transfer to a 2nd GFM. IC2a proximal-decomposition drafted but NOT PURSUED."
  }
 }

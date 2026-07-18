@@ -76,16 +76,21 @@ rationale in `DECISIONS_A0.md`):
   post-R22 target), not absolute MaxEnt strength.
   - **IC1 DONE (DIAGNOSTIC / outcome-aware verification, NOT confirmatory):** distal intron interstitial
     ARRANGEMENT is **NOT a meaningful partner-specific coupling driver** — `ΔC̄=+0.032 nats` CI [+0.012,+0.053],
-    statistically detectable but **SUB-SESOI (<0.05)** and **nonspecific** (a non-partner sham reproduces it,
-    +0.026≈+0.032). Well-powered (MDE 0.029), deterministic reproducible cohort. Heavily hardened
+    statistically detectable but **SUB-SESOI (<0.05)**; the paired **`ΔC_specific=ΔC_partner−ΔC_sham=+0.006`,
+    CI [−0.011,+0.024] INCLUDES 0** ⇒ no meaningful partner-specific effect. Well-powered (MDE 0.029),
+    deterministic reproducible cohort. Heavily hardened
     (5-lens red-team → 4 pilots → freeze-audit → re-audit → mechanical audit → 2 amendments: A1 outcome-blind
     OOD-gate fix, A2 reproducibility + verdict fixes). ΔC was seen before A2 ⇒ verification, not confirmatory;
     a publication-grade null needs an untouched disjoint cohort. Coheres with the **local-window** picture
     (C28/C30). Prereg + amendments: `PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md`.
-  - **NEXT (per Cam): IC2** = branchpoint/PPT + acceptor-proximal context (the likely locus of the
-    acceptor-local computation), then **IC5** = competing acceptors (conditional competitiveness). Return to
-    distal arrangement only if a material partner-specific effect emerges. Design each via the
-    formalize-audit-verify cycle; **PIN PYTHONHASHSEED + use `sorted(set())` in any shuffler** (IC1 A2 bug).
+  - **NEXT (per Cam, redirected 2026-07-17): the compact ACCEPTOR-COMPETITION study**
+    (`PREREGISTRATION_IC2_ACCEPTOR_COMPETITION.md`, DRAFT) — does the model rank two competing candidate
+    acceptors by positional address vs acceptor-local payload (reciprocal near/far × strong/weak swaps,
+    all intact/corrupt combos; partner-specificity built in via direct candidate corruption)? Full-model
+    ranking primary; trace L3H1/payload only if a ranking is established. **This is the intended LAST
+    SpliceBERT experiment — then prioritize TRANSFER to a second GFM over further subdivision.** The IC2a
+    proximal-decomposition prereg is drafted but **NOT PURSUED** (preserved as future work).
+    Design via formalize-audit-verify; **PIN PYTHONHASHSEED + `sorted(set())` in any shuffler** (IC1 A2).
 - **Open:** payload semantic identity (unresolved → IC program); L1/L2 individual-head resolution; A11
   PE-edge caveat at |Δ|=192; A12 static-rank is an upper bound (true lazy-greedy would refine).
 
