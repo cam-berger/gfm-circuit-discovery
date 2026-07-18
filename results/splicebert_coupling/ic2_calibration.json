@@ -1,0 +1,48 @@
+{
+ "part1_Dm_feasibility": {
+  "yield_frac": 1.0,
+  "n_scaffold": 400,
+  "match_residual_median": 0.0014879542092480769,
+  "match_residual_p90": 0.008992446400225153,
+  "n_independent_decoy_sources": 306,
+  "max_reuse": 3,
+  "dref_range": [
+   -0.055743525425593056,
+   2.400499957303206
+  ],
+  "dref_sd": 0.4196718568203598
+ },
+ "part2_cross_fitted_discriminability": {
+  "train_a_divergence_thresh_66pct": 0.5418415792757181,
+  "n_train_b_divergent_pairs": 38,
+  "beta_transport_mean": 0.12253078709871165,
+  "beta_transport_absmean": 0.5935384592862407,
+  "beta_transport_sd": 0.9085074589395504,
+  "frac_abs_ge_0.05": 0.8421052631578947,
+  "DISCRIMINABILITY_CONFIRMED": true
+ },
+ "part3_ICC_design_effect": {
+  "n_pairs": 120,
+  "n_decoy_source_clusters": 116,
+  "tauD_mean": 0.5282986027731871,
+  "beta_transport_matched_mean": 0.037397183997867005,
+  "beta_transport_matched_sd": 0.7737580213484253,
+  "tauD_ICC_decoy_source": 0.0,
+  "design_effect": 1.0,
+  "n_clusters": 116,
+  "avg_cluster_size": 1.0344827586206897
+ },
+ "config": {
+  "n_pool": 400,
+  "n_scaffold": 120,
+  "panel": 3,
+  "match_tol": 0.05,
+  "reuse_cap": 4,
+  "batch": 16,
+  "device": null,
+  "gtf": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+  "fasta": "/Users/cberg/Research/data/genomes/hg38.fa",
+  "model": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+  "out": "results/splicebert_coupling/ic2_calibration.json"
+ }
+}
