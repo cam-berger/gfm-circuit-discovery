@@ -1,6 +1,11 @@
 # Pre-registration DRAFT — Caduceus-PS T1: does the partner-specific donor↔acceptor coupling behaviour transfer?
 
-**Status: DRAFT for red-team → integrate → FREEZE. DO NOT RUN until frozen.** The first transfer
+**Status: SUPERSEDED (2026-07-18) by `PREREGISTRATION_CADUCEUS_T1_BEHAVIORAL_TRANSFER.md` v2 — the 5-lens
+red-team is integrated there. This DRAFT is the pre-red-team record; do not run it.**
+
+---
+
+**(original DRAFT status:) DRAFT for red-team → integrate → FREEZE. DO NOT RUN until frozen.** The first transfer
 experiment (TRANSFER_GUIDE Phase 0 + Phase 1 "behavioral qualification", plus the minimal Phase 2 adapter
 needed to run it) to a **second, architecturally-contrasting GFM**. Ports the sealed SpliceBERT coupling
 assay verbatim; only the model adapter changes. **Behaviour-first**: this gate is the FIRST milestone of
