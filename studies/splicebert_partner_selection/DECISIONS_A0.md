@@ -639,3 +639,64 @@ splice competitiveness** (donor context, competing acceptors, intronic context �
 not further rescues of the absolute-strength claim. Weak-tendency quantification, if wanted, = a NEW
 preregistered **pooled disjoint-gene, two-way-dyadic** meta-analysis (not repartitioning one finite
 sample).
+
+---
+
+## P3 — the period-3 carrier's causal ROLE (recognition / routing / binding) & LOCUS (2026-07-17)
+
+Per Cam's memo (one bounded P3 carrier program): formalize **P3.1 (recognition-vs-routing chain) + P3.2
+(where must the carrier be) + P3.3 (L3H1 attention×value factorial)** as one prereg; **P3.4 (carrier
+origin) separately gated** so a coding-origin result cannot redefine the causal splice result. Name
+defended: *a learned period-3 positional carrier — a rank-2 cyclic coordinate read as relative-offset
+classes* (not "carrier wave", not codon-frame).
+
+**Formalize → 4-lens design red-team (identifiability / statistical / estimand↔intent / calibration-
+plumbing) BEFORE any run.** All four `fixable`; **two estimand-level FATALs retired the flagship
+endpoint (→ R23):**
+1. **`Δ_bind` (the "decisive" binding test) is architecture-forced** — L3H1's output is bilinear `O=A·V`,
+   so the 2×2 DiD equals the identity `(A_I−A_D)(V_I−V_D)`, non-zero for ANY perturbation moving both A and
+   V, with no carrier-specificity. The same positive `Δ_bind` arises from a junk band or random PE.
+2. **`payload_source` is non-identifiable** — no delivery-independent, carrier-uncontaminated observable
+   (carrier feeds the generator; MLP2 dual-role, C29). ⇒ "independently-constructed payload" not licensable.
+Plus majors: value-main-effect = R15 position-in-V (A/V axis ≠ address/payload); `S_A` restoration under
+`A_I` is forced (`S_A=f(A)`); `U_info(D)` degenerate (SVD of ~0); E must be **importance-matched** not
+spectral-power-matched; P3.2 irrelevant window must be **mod-3-phase-matched**; R_Y unstable unless the
+denominator is robust (⇒ **R_C only**); FWER family under-counted (two families: max-T positive + TOST
+equivalence); `Δ_bind` must be **per-example paired**; SESOI per-Y; D_rec recognition needs a **pseudo-site
+decoy** (decoy-sparse: `real_acceptor_decoy` avail 1/16) ⇒ **DEFERRED**. Synthesis:
+`REDTEAM_SYNTHESIS_P3_4lens.md`. Prereg **v2** (reframed, binding retired) frozen.
+
+**What survived → confirmatory, identifiable, run on MPS:**
+
+**P3.2 — carrier LOCUS (Cam's "where must it be?"). RESULT: SPATIALLY DISTRIBUTED, not site-local (→ C34).**
+Position-selective restoration (batch-aware `position_embeddings` hook adding the carrier delta at
+per-example windows; plumbing smoked EXACT — construction 1.5e-8, none==deleted 0.0, all→R_C 1.00 forced,
+monotone dose). Discovery/confirm gene split (n=160, 144 genes, 77/83), health-gated, gene-clustered ratio
+CIs. Deletion collapses coupling 96.7%/94.5%. **Local windows recover ~2–4%** (donor ±6 R_C +0.016/+0.019,
+acceptor +0.016/+0.007, both +0.035/+0.041 — all ≪ SESOI 0.2); **specificity nulls ≈0** (phase-matched
+irrelevant +0.002/+0.003, decoy-acceptor +0.002/−0.002 ⇒ site-specific, not a hybrid-P artifact); **broad-
+span restoration required** (both-window dose → R_C ≈0.41/0.50 only at ±32 nt). ⇒ distributed positional
+coordinate across the span; **Endpoint-B locus, well-powered positive** (not underpowered null). Coheres
+with C32 (relative offset) + C33 (irreducibly distributed). Honest note: M1(≤5%) pass disc(3.3%)/marginal
+conf(5.5%); denominator robust. `results/p3_carrier_locus.json`, `run_p3_carrier_locus.py`.
+
+**P3.3 — A-vs-V routing decomposition at L3H1 (reframed, NOT binding). RESULT (confirmatory n=120, disc/
+confirm 62/58): routing main ≫ value main.** Plumbing anchors EXACT 0.0 (M4 diagonal, off-diagonal native
+value-overwrite, head-identity — pins head-1=L3H1). Cells (A,V): DD +0.03/+0.03, ID +0.30/+0.31, DI
++0.03/+0.02, II +0.42/+0.46 ⇒ **routing main (restore L3H1's intact-carrier attention) = +0.257
+[0.172,0.351] / +0.284 [0.192,0.386]; value main (restore its values) = −0.011/−0.005 ≈ 0** (a genuine
+non-forced null — the carrier does NOT build the payload). `Δ_bind` = +0.136/+0.157 **CI-positive but
+ARCHITECTURE-FORCED (R23) — reported, NOT interpreted** (the pre-run red-team's foresight, confirmed: the
+original design would have mis-read this as binding). The carrier's coupling contribution routes through L3H1's
+**attention pattern (where it looks / the address), not its values (what it collects / the payload)** —
+the routing-carrier picture, causally. Main effects are identifiable (only the interaction `Δ_bind`=+0.08
+is forced, R23 — reported not interpreted). Coheres with C22/C25/C32 (attention = positional address) and
+C24/C28/C30 (payload acceptor-local, not carrier-built). `run_p3_av_decomposition.py`.
+
+**Net mechanism update:** the period-3 carrier is a **distributed relative-positional ROUTING coordinate**
+that shapes **L3H1's attention address** (P3.3: routing main ≫ value) and must be present **across the
+donor–acceptor span**, not at the sites (P3.2). It does **not** carry the payload (value channel ≈0) and
+its "binding" role is **not identifiable** by carrier-deletion+patching (R23; C23's separate reconstruct-
+inject binding stands). **Recognition (D_rec) deferred** (needs a pseudo-site-decoy study); **P3.4 origin**
+separate. This closes the SpliceBERT carrier account at the causal-locus + A-vs-V level; **next: transfer**
+(deferred Caduceus package), per the depth-first spine.
