@@ -116,6 +116,22 @@ positional geometry). The main effects are identifiable; only the interaction is
   equivalence) inference and per-Y SESOI; the runs report gene-clustered CIs against the SESOI thresholds,
   but a full FWER-corrected family pass is specified for a publication-grade rerun.
 
+## Independent verification (passed)
+
+An independent adversarial verifier re-derived every number (routing/value/`Δ_bind` to 1e-12; all `R_C`
+from arm means), confirmed BAND 339–345 is period-3 (bin 342 = 3.0000), and hard-tested both attack
+surfaces: **verdict `minor_issues`, high confidence, no conclusion-flipping bug, numbers reproduce.** It
+confirmed the P3.2 hook indexes windows *per-example* (no shared-position broadcast bug — donor+acceptor
+additivity + monotone dose confirm placement), and that the P3.3 factorial builds `A_x@V_y` correctly
+(`cell_II≠cell_ID` proves the value path is live, so value≈0 is a real dissociation, not a dead patch);
+`min_effect` conditioning is *conservative* (biases against "distributed"). Three minor items (none flip a
+conclusion): (1) M1 confirm-miss 5.5% — disclosed; (2) **value-main is best stated as sub-SESOI
+equivalence** (|−0.011|≪0.05, wrong-signed; discovery marginally excludes 0, confirm includes 0) — a
+practical zero, not a positive value effect; (3) E-band specificity is P3.1-scope (period-3 specificity
+here rests on `delta` = the period-3 component *by construction* + the phase/decoy nulls + C8's established
+energy-matched inertness). Nuance: "distributed" here means *spatially extended across the span* (dose
+reaches ~50% at ±32 nt; full recovery only at all-positions), not literally uniform delocalization.
+
 ## Files (committed this session)
 
 - `PREREGISTRATION_P3_CARRIER_CAUSAL_ROLE.md` (v2, reframed) · `REDTEAM_SYNTHESIS_P3_4lens.md`
