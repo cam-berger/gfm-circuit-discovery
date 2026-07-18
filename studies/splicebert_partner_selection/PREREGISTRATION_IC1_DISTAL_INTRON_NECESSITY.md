@@ -1,9 +1,11 @@
 # Pre-registration — IC1: does distal intron interstitial ARRANGEMENT modulate donor–acceptor coupling?
 
-**Status: CORE DESIGN FROZEN v7 (2026-07-17) — an OUTCOME-BLIND PROTOCOL AMENDMENT (Amendment A1, below)
-corrected the mis-calibrated distal-OOD gate after the v6 confirmatory failed that gate WITHOUT any ΔC
-statistic being computed or inspected. This is an outcome-blind, protocol-amended confirmatory analysis,
-not an untouched preregistration.** Behaviour-first: full-model coupling assay only; circuit localization
+**Status: v8 (2026-07-17). Amendment A1 (outcome-blind) corrected the mis-calibrated distal-OOD gate.
+Amendment A2 then fixes a shuffler REPRODUCIBILITY bug + removes a tautological verdict-precondition — but
+these were made AFTER ΔC=+0.033 was seen on the v7 run, so v8 is an OUTCOME-AWARE DETERMINISTIC
+VERIFICATION, NOT a confirmatory analysis (seeing ΔC forecloses confirmatory status regardless of
+transparency). A publication-grade confirmatory null would require a genuinely untouched, disjoint gene
+cohort/dataset (future).** Behaviour-first: full-model coupling assay only; circuit localization
 (L3H1 / payload / `U_info`) is a
 separate, contingent later prereg. Opened after R22 (payload semantic identity unresolved; next target =
 conditional splice competitiveness).
@@ -245,3 +247,49 @@ pre-identified in the v5 audit; the perturbation, cohort, estimand, and statisti
 uses the SAME cohort, RNG streams, perturbations, and thresholds and is written to a NEW artifact
 (`ic1_distal_intron_necessity_v7.json`), not overwriting the failed run. The final result is an
 **outcome-blind, protocol-amended confirmatory analysis.**
+
+---
+
+## Amendment A2 (2026-07-17) — reproducibility + verdict-precondition fixes; OUTCOME-AWARE (ΔC seen)
+
+**Trigger.** After the v7 run, reconciling a cohort-size discrepancy (v6=255, v7=261; a diagnostic pass
+gave 259) revealed a REPRODUCIBILITY bug, and inspecting the v7 verdict revealed a mis-specified precondition.
+**Both were found AFTER `ΔC̄ = +0.033` (CI [+0.011, +0.055]) had been computed and inspected on v7.** Seeing
+ΔC forecloses outcome-blind confirmatory status, so v8 is labelled an **outcome-aware deterministic
+verification**, NOT a confirmatory analysis.
+
+**Bug 1 — non-reproducible cohort.** `dinuc_shuffle` iterated `set(seq)` (a set of characters), whose
+iteration order is `PYTHONHASHSEED`-dependent, so the Eulerian vertex order — and hence every shuffle
+realization — varied across processes. This flipped the ~20 introns on the conservative-constructibility
+boundary, giving a non-reproducible cohort (255–261). **Confirmed:** with a pinned seed the cohort is
+deterministic (`PYTHONHASHSEED=0`→260 twice, `=7`→260); only unpinned runs vary. **Fix:** `sorted(set(seq))`
+(hashseed-independent) + pin `PYTHONHASHSEED=0` at launch (defense in depth) + a determinism test
+(`test_ic1_determinism.py`) asserting identical shuffles, cohort membership, and counts across
+`PYTHONHASHSEED ∈ {0,1,2,17}`. NOTE (Cam): the sort changes Eulerian traversal broadly, so the v8 cohort is a
+NEW deterministic cohort, not v7's 261; the SEALED population thresholds (pilots) are robust to shuffle
+realization and are reused unchanged.
+
+**Bug 2 — tautological verdict-precondition.** §6 (v6/v7) required the "Δf⁺=Δf⁻ symmetry" as a hard
+precondition. But `ΔC ≡ Δf⁺−Δf⁻` by construction, so population symmetry `|E[Δf⁺]−E[Δf⁻]| = |ΔC̄|` is the
+primary test itself, and the per-intron `mean|Δf⁺−Δf⁻|` is a dispersion measure — neither is a valid
+independent gate. **Fix:** DELETE the symmetry (and sham) verdict-precondition; keep Δf⁺, Δf⁻, the sham
+DiD, and the symmetry measure as **reported diagnostics only**. The verdict is classified purely by the
+signed-mean CI:
+- **material:** CI excludes 0 AND `|ΔĈ| ≥ 0.05`.
+- **small-but-detectable:** CI excludes 0 AND `|ΔĈ| < 0.05`.
+- **bounded null:** CI includes 0 AND entirely within `[−0.05,+0.05]`.
+- **inconclusive:** CI includes 0 AND extends outside `[−0.05,+0.05]`.
+
+**Interpretive note (Cam).** The v7 sham DiD ≈ ΔC̄ is CONVERGENT diagnostic evidence of a *nonspecific*
+perturbation response, but does NOT prove non-partner-specificity (the PPT sham does not reproduce the AG
+channel exactly). Report it as such, not as proof.
+
+**Recordkeeping.** v6 (`preflight_ic1_v6_FAILED.json`) and v7 (`ic1_distal_intron_necessity_v7.json`,
+`preflight_ic1.json`) artifacts are PRESERVED; v8 is written separately
+(`ic1_distal_intron_necessity_v8.json`, `preflight_ic1_distal_intron_necessity_v8.json`). v8 reuses the
+frozen cohort RULES and RNG streams under the fixed deterministic shuffler.
+
+**v8 label:** *Outcome-aware deterministic verification of IC1 following gate and reproducibility
+corrections.* If v8 lands near +0.03 with an equivalence-compatible CI and a sham-sized response, record the
+bounded/small-detectable diagnostic conclusion and proceed to IC2 (branchpoint/PPT + acceptor-proximal) then
+IC5 (competing acceptors); return to distal arrangement only if v8 shows a material, partner-specific effect.

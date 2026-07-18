@@ -278,7 +278,7 @@ def main():
     pf = {"commit": git_commit(REPO), "n_elig": n_elig, "n_clusters": n_clusters, "checks": checks}
     pf["PASS"] = bool(all(c["PASS"] for c in checks.values()))
     out = REPO / args.out
-    (out.parent / "preflight_ic1.json").write_text(json.dumps(pf, indent=1, default=float))
+    (out.parent / f"preflight_{out.stem}.json").write_text(json.dumps(pf, indent=1, default=float))
     print(f"preflight PASS={pf['PASS']}")
     for k, c in checks.items():
         print(f"    {'ok ' if c['PASS'] else 'XX '}{k}")
@@ -292,32 +292,41 @@ def main():
     lo95, hi95 = bca_ci(cl_cons, ALPHA, args.n_boot, seed=0)
     point = float(np.mean(cl_cons))
     excl0 = bool(lo95 > 0 or hi95 < 0)
+    # v8: classify by the signed-mean CI (Cam's 4 categories). NO symmetry/sham verdict-precondition.
     material = bool(excl0 and abs(point) >= SESOI)
-    bounded_null = bool(lo95 >= -SESOI and hi95 <= SESOI)
-    # sham validity gate + symmetry
-    sham_lo, sham_hi = bca_ci(cluster_reduce(dcsham, cid), ALPHA, args.n_boot, seed=1)
-    sham_ok = bool(sham_lo >= -SESOI and sham_hi <= SESOI)
-    sym_diff = float(np.mean(np.abs(np.array(dfp) - np.array(dfm))))
-    # secondary dispersion excess-over-sham (reported, NOT licensing)
+    small_detectable = bool(excl0 and abs(point) < SESOI)
+    bounded_null = bool((not excl0) and lo95 >= -SESOI and hi95 <= SESOI)
+    if material:
+        verdict = "material_effect"
+    elif small_detectable:
+        verdict = "small_but_detectable_sub_SESOI_effect"
+    elif bounded_null:
+        verdict = "bounded_null"
+    else:
+        verdict = "inconclusive"
+    # REPORTED DIAGNOSTICS (NOT verdict gates): sham DiD, Δf+/Δf- symmetry, dispersion, arm-contrasts.
+    sham_dc = cluster_reduce(dcsham, cid); sham_lo, sham_hi = bca_ci(sham_dc, ALPHA, args.n_boot, seed=1)
+    sham_mean = float(np.mean(sham_dc))
+    sym_diff = float(np.mean(np.abs(np.array(dfp) - np.array(dfm))))   # mean|per-intron ΔC|; NOT a gate
     excess = np.array(disp["cons"]) - np.array(dispsham)
     ex_lo, ex_hi = bca_ci(cluster_reduce(excess.tolist(), cid), ALPHA, args.n_boot, seed=2)
-    # secondary paired arm-contrasts
     def paired(a, b):
         d = np.array(dcbar[a]) - np.array(dcbar[b]); l, h = bca_ci(cluster_reduce(d.tolist(), cid), ALPHA, args.n_boot, 3)
         return {"mean": float(np.mean(d)), "ci": [l, h], "excl0": bool(l > 0 or h < 0)}
-
-    verdict = ("material_arrangement_changes_avg_coupling" if material
-               else "bounded_null_no_avg_directional_effect" if bounded_null else "inconclusive")
-    if not sham_ok or sym_diff > 0.05:
-        verdict = "primary_interpretation_compromised(sham/symmetry)"
     mde = 2.8016 * float(np.std(cl_cons, ddof=1)) / np.sqrt(len(cl_cons))
 
     result = {"split": args.split, "acc_up": acc_up, "n_elig": n_elig, "n_clusters": n_clusters,
               "n_excluded_nonconstructible": len(excl_profile), "native_coupling": native_cpl,
               "PRIMARY_signed_mean": {"point": point, "ci95_bca": [lo95, hi95], "excludes_0": excl0,
                                       "abs_ge_sesoi": bool(abs(point) >= SESOI), "achieved_mde": float(mde)},
-              "material": material, "bounded_null": bounded_null, "verdict": verdict,
-              "sham_gate": {"ci": [sham_lo, sham_hi], "PASS": sham_ok}, "symmetry_absdiff": sym_diff,
+              "material": material, "small_but_detectable": small_detectable, "bounded_null": bounded_null,
+              "verdict": verdict,
+              "sham_diagnostic": {"dc_mean": sham_mean, "ci": [sham_lo, sham_hi],
+                                  "note": "sham≈mean -> nonspecific perturbation response (CONVERGENT "
+                                          "diagnostic only; does NOT prove non-partner-specificity — the PPT "
+                                          "sham does not reproduce the AG channel exactly)"},
+              "symmetry_diagnostic": {"mean_abs_perintron_dC": sym_diff,
+                                      "note": "reported diagnostic (tautological with ΔC dispersion), NOT a gate"},
               "dispersion_secondary": {"excess_mean": float(np.mean(excess)), "ci": [ex_lo, ex_hi],
                                        "caveat": "PPT sham cannot exclude AG-channel state-dependent damage"},
               "arm_contrasts_secondary": {"anch_minus_cons": paired("anch", "cons"),
@@ -326,7 +335,9 @@ def main():
                   "n": len(excl_profile),
                   "max_polyY_med": float(np.median([e["max_polyY"] for e in excl_profile])) if excl_profile else None,
                   "max_score3_med": float(np.median([e["max_score3"] for e in excl_profile])) if excl_profile else None},
-              "checks": checks, "confirmatory": bool(pf["PASS"] and n_clusters >= 80),
+              "checks": checks, "confirmatory": False,
+              "run_type": "outcome_aware_deterministic_verification (ΔC seen on v7 pre-v8; NOT confirmatory)",
+              "gates_pass": bool(pf["PASS"] and n_clusters >= 80),
               "REFLECTION": {"status": "PENDING -- fill after inspection (prereg §6/§7); scope to "
                              "conservative-constructible L>=107 subdomain; equivalence != 'arrangement "
                              "doesn't matter'."}}
@@ -337,13 +348,15 @@ def main():
         config={"split": args.split, "acc_up": acc_up, "n_clusters": n_clusters, "n_seed": N_SEED,
                 "sesoi": SESOI, "n_boot": args.n_boot},
         seeds={"sampler": "sha256(gene)", "boot": 0},
-        notes=["IC1 confirmatory: conservative-scramble primary, signed cluster-mean BCa, dispersion "
-               "secondary. Frozen prereg v6."])
-    man.add_input(str(ckpt / "pytorch_model.bin")); man.write(out.parent / "ic1_distal_intron_necessity.manifest.json")
+        notes=["IC1 v8 OUTCOME-AWARE DETERMINISTIC VERIFICATION (ΔC=+0.033 seen on v7 before this run): "
+               "conservative-scramble primary, signed cluster-mean BCa classified by CI, sham/symmetry "
+               "reported as diagnostics. Determinism-fixed shuffler (sorted set) + pinned PYTHONHASHSEED. "
+               "NOT confirmatory (outcome already seen); prereg v8 / Amendment A2."])
+    man.add_input(str(ckpt / "pytorch_model.bin")); man.write(out.parent / f"{out.stem}.manifest.json")
     print("=" * 80)
     print(f"  PRIMARY signed ΔC̄ = {point:+.4f}  CI95(BCa)=[{lo95:+.4f},{hi95:+.4f}]  excl0={excl0}  "
           f"|point|≥SESOI={abs(point)>=SESOI}  achieved_MDE={mde:.4f}")
-    print(f"  sham_gate PASS={sham_ok}  symmetry_absdiff={sym_diff:.4f}  "
+    print(f"  DIAGNOSTICS: sham_ΔC̄={sham_mean:+.4f} ci[{sham_lo:+.4f},{sham_hi:+.4f}]  sym|ΔC|={sym_diff:.4f}  "
           f"dispersion_excess={np.mean(excess):+.4f} CI[{ex_lo:+.4f},{ex_hi:+.4f}] (SECONDARY)")
     print(f"  VERDICT: {verdict}   (n_clusters={n_clusters}, excluded_nonconstructible={len(excl_profile)})")
     print(f"saved -> {out}")

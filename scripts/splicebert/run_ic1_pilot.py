@@ -44,7 +44,9 @@ def dinuc_shuffle(seq, rng):
     edges = defaultdict(list)
     for i in range(n - 1):
         edges[seq[i]].append(seq[i + 1])
-    verts = set(seq)
+    verts = sorted(set(seq))    # DETERMINISM FIX (v8): set-of-chars iteration is PYTHONHASHSEED-dependent
+                                # -> would vary the Eulerian vertex order across processes -> non-reproducible
+                                # shuffles/cohort (255-261). sorted() makes it hashseed-independent.
     last_edge = None
     for _ in range(60):
         cand, ok = {}, True

@@ -1,0 +1,103 @@
+{
+ "split": "val",
+ "acc_up": 70,
+ "n_elig": 261,
+ "n_clusters": 258,
+ "n_excluded_nonconstructible": 25,
+ "native_coupling": 0.6112363813766117,
+ "PRIMARY_signed_mean": {
+  "point": 0.03291502843120012,
+  "ci95_bca": [
+   0.011116195475030876,
+   0.05511808334235504
+  ],
+  "excludes_0": true,
+  "abs_ge_sesoi": false,
+  "achieved_mde": 0.03028883289684028
+ },
+ "material": false,
+ "bounded_null": false,
+ "verdict": "primary_interpretation_compromised(sham/symmetry)",
+ "sham_gate": {
+  "ci": [
+   0.010757706269235662,
+   0.049080357107769645
+  ],
+  "PASS": true
+ },
+ "symmetry_absdiff": 0.10426521549443804,
+ "dispersion_secondary": {
+  "excess_mean": 0.021043729178489682,
+  "ci": [
+   0.00956296233934658,
+   0.030930212279633044
+  ],
+  "caveat": "PPT sham cannot exclude AG-channel state-dependent damage"
+ },
+ "arm_contrasts_secondary": {
+  "anch_minus_cons": {
+   "mean": 0.003556114616108009,
+   "ci": [
+    -0.005321055664175393,
+    0.011396266318827931
+   ],
+   "excl0": false
+  },
+  "unc_minus_anch": {
+   "mean": -0.007504547150427354,
+   "ci": [
+    -0.051050143421539115,
+    0.02818366792411094
+   ],
+   "excl0": false
+  }
+ },
+ "excluded_nonconstructible_profile": {
+  "n": 25,
+  "max_polyY_med": 4.0,
+  "max_score3_med": -2.6029829007963334
+ },
+ "checks": {
+  "conservative_construction": {
+   "PASS": true,
+   "max_dscore3": 1.9999549610402612
+  },
+  "distal_ood": {
+   "PASS": true,
+   "delta_OOD": 0.044,
+   "detail": {
+    "+": {
+     "band": 0.38249996580183493,
+     "nat_inband": 0.9489144316730523,
+     "cons_inband": 0.9923371647509579,
+     "PASS": true
+    },
+    "-": {
+     "band": 0.37615021046105923,
+     "nat_inband": 0.9489144316730523,
+     "cons_inband": 0.9923371647509579,
+     "PASS": true
+    }
+   }
+  },
+  "sensitivity_onpath": {
+   "PASS": true,
+   "dC_plant_absmedian": 0.11365866661071777
+  },
+  "native_coupling_present": {
+   "PASS": true,
+   "native_coupling": 0.6112363813766117
+  },
+  "identity_noop_exact": {
+   "PASS": true
+  },
+  "n_clusters": {
+   "PASS": true,
+   "n": 258
+  }
+ },
+ "confirmatory": true,
+ "REFLECTION": {
+  "status": "PENDING -- fill after inspection (prereg \u00a76/\u00a77); scope to conservative-constructible L>=107 subdomain; equivalence != 'arrangement doesn't matter'."
+ }
+}
