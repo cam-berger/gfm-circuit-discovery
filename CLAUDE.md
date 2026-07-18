@@ -72,11 +72,20 @@ rationale in `DECISIONS_A0.md`):
   positional address to an acceptor-local payload, then delivers the resulting information to the donor
   readout within an irreducibly distributed computation."* (No "splice-strength" — semantic identity is
   unresolved per R22; the weak strength tendency belongs in discussion, not the established mechanism.)
-- **NEXT (per Cam):** absolute MaxEnt strength is probably NOT the semantic target → test **conditional
-  splice competitiveness** (payload dependence on donor context, competing acceptors, intronic context) —
-  the **intron-coupling IC1–IC5** program, not further rescues of the absolute-strength claim. If the weak
-  tendency needs quantifying: a NEW preregistered **pooled disjoint-gene, two-way-dyadic** meta-analysis
-  (pool all eligible non-overlapping genes; do not repeatedly repartition the same finite sample).
+- **Intron-coupling arc (IC1–IC5) — opened after R22.** Tests conditional splice competitiveness (the
+  post-R22 target), not absolute MaxEnt strength.
+  - **IC1 DONE (DIAGNOSTIC / outcome-aware verification, NOT confirmatory):** distal intron interstitial
+    ARRANGEMENT is **NOT a meaningful partner-specific coupling driver** — `ΔC̄=+0.032 nats` CI [+0.012,+0.053],
+    statistically detectable but **SUB-SESOI (<0.05)** and **nonspecific** (a non-partner sham reproduces it,
+    +0.026≈+0.032). Well-powered (MDE 0.029), deterministic reproducible cohort. Heavily hardened
+    (5-lens red-team → 4 pilots → freeze-audit → re-audit → mechanical audit → 2 amendments: A1 outcome-blind
+    OOD-gate fix, A2 reproducibility + verdict fixes). ΔC was seen before A2 ⇒ verification, not confirmatory;
+    a publication-grade null needs an untouched disjoint cohort. Coheres with the **local-window** picture
+    (C28/C30). Prereg + amendments: `PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md`.
+  - **NEXT (per Cam): IC2** = branchpoint/PPT + acceptor-proximal context (the likely locus of the
+    acceptor-local computation), then **IC5** = competing acceptors (conditional competitiveness). Return to
+    distal arrangement only if a material partner-specific effect emerges. Design each via the
+    formalize-audit-verify cycle; **PIN PYTHONHASHSEED + use `sorted(set())` in any shuffler** (IC1 A2 bug).
 - **Open:** payload semantic identity (unresolved → IC program); L1/L2 individual-head resolution; A11
   PE-edge caveat at |Δ|=192; A12 static-rank is an upper bound (true lazy-greedy would refine).
 
