@@ -736,3 +736,47 @@ unchanged):
 
 Logged **R24** in `CLAIMS.md`. **Next per Cam's sequence:** P3.4 (carrier origin) → recognition feasibility
 gate → freeze the bounded SpliceBERT account → Caduceus transfer.
+
+### P3.4 (carrier origin) — design red-teamed → NOT FROZEN → DEFERRED (2026-07-18)
+
+Formalized the modernized carrier-origin prereg (`PREREGISTRATION_P3_4_CARRIER_ORIGIN.md` v1): every test
+reframed from the old `PREREGISTRATION_PERIOD3_COMPUTATION.md`'s raw ΔL to a **carrier-deletion × context
+INTERACTION** (E1 completion w/ mask-burden control; E2 coding-scaffold difficulty/composition-matched; E3
+segmentation; E4a reading-frame-vs-absolute-phase 3×3; E4b translation leakage). Ran a **4-lens design
+red-team BEFORE any compute** (`REDTEAM_SYNTHESIS_P3_4.md`).
+
+**Outcome: NOT freezable as written — 3 convergent FATALs (verified against code/data), an R23-class pre-run
+catch:**
+1. **Origin vs usage** (estimand + identifiability lenses). Frozen-checkpoint ΔL = the carrier's *current
+   marginal MLM contribution* = **usage**, not the training **origin** the intent claims (a feature induced by
+   pressure X can be load-bearing for Y at convergence; deletion reveals Y). §9 promoted a P→behaviour(MLM)
+   characterization into an origin claim — a ladder jump. Relabel fixes the language, not the ambition.
+2. **E4a = codon composition, not reading-frame** (identifiability + statistics; **CODE-VERIFIED**).
+   `codon_slot = (g − cds_start_0 − frame) % 3` (phase.py L68), `g = window_start + seq_pos`; abs-phase
+   `φ = (seq_pos+1) % 3` ⇒ **`s − φ` cancels `seq_pos` → per-example constant**. Slot cannot vary at fixed φ
+   within an example; the 3×3 is between-example only, and at fixed φ the deleted carrier is ~constant ⇒ any
+   slot effect is slot-correlated **content** (codon/wobble composition), not the carrier encoding frame.
+   `M-balance` (position counts) gates the wrong unit (real n = genes-per-frame-class ~13–27).
+3. **Power wall** (statistics; **VERIFIED vs C8**). `carrier_surgery.json` coding-ΔL gene-clustered CI
+   half-width **0.0198 nats at n=384** — the SESOI(0.02) scale for a *raw mean*. Every P3.4 estimand is a
+   higher-variance contrast at the ≤140-unit MPS budget (projected exons for CI-HW<0.02: E2/E3 ~540–1200;
+   E1/E4b ~850–2350; E4a ~2000+). The **equivalence-gated** readings are the maintained-hypothesis rows
+   (positional-coordinate / general-substrate), which are unreachable ⇒ the modal outcome of a correct run is
+   "inconclusive."
+
+Plus (majors): E1 doesn't separate within-codon completion from **positional routing-to-same-frame-neighbours**
+(the maintained hypothesis itself), and its planted-positive is dead on a frozen model (never learned a
+synthetic completion rule); E2 can't separate a coding-state computation from "a positional coordinate merely
+more useful where coding has more mod-3 structure"; E2/E3 match on `L_I` (a component of ΔL = L_D − L_I) →
+**collider** (circuit.py docstring L17–21 warns of exactly this pattern). **Data IS buildable** (feasibility
+lens verified `codon_slot` on real frame-2 sequence, 609/609; GTF has CDS+frame+UTR+start/stop) — the blocker
+is **scientific, not engineering**.
+
+**Cam's decision (AskUserQuestion, 2026-07-18): DEFER origin → transfer.** The carrier's *origin* is a
+training-dynamics question a frozen-checkpoint MLM ablation cannot identify; it needs training-time evidence
+(checkpoint sweep: does the carrier appear before/after coding-MLM competence; carrier-penalized retrain;
+cross-model) — a separate, larger study, out of scope on MPS. **The SpliceBERT carrier account is CLOSED** at
+the causal-locus + A-vs-V level (C8/C19/C32/C34/C35). **Methodological lesson (reusable):** a frozen-model
+ablation identifies *current function*, never *training origin*; "why was it learned" needs training-time
+interventions. **Next: Caduceus-PS behavioural transfer** (`studies/caduceus_partner_transfer/`; 5-lens
+red-team done, 20-fix MASTER list; blockers = Colab-CUDA compute [no CPU/MPS fallback] + 4 forks for Cam).

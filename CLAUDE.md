@@ -124,19 +124,35 @@ rationale in `DECISIONS_A0.md`):
     interpreted** (pre-run red-team foresight confirmed). `results/p3_av_decomposition.json`.
   - **Deferred:** D_rec **recognition** (needs a strong-motif pseudo-site decoy study; decoys sparse);
     **construction-vs-binding** (non-identifiable, R23); **P3.4 origin** (separate, whole-codon/CDS/slots).
-- **NEXT (Cam's sequence, 2026-07-18):** *close C34/C35 (DONE, R24) → **P3.4 carrier origin** → recognition
-  feasibility gate → freeze the bounded SpliceBERT account → **Caduceus transfer***. Cam redirected: **do NOT
-  transfer yet.** **P3.4** (why did SpliceBERT learn the carrier?) is the next experiment — one focused
-  factorial `ΔL = L(carrier-deleted) − L(intact)` across CDS vs matched UTR/intron/noncoding, single-base vs
-  whole-codon masking, codon slots 0/1/2, coding boundaries vs interiors; estimand = the **carrier-deletion ×
-  context interaction** (NOT raw ΔL), with absolute-PE-phase balancing + GC/k-mer/position/difficulty matching
-  + whole-sequence +1/+2/+3 translation leakage controls. **Separately gated** so a coding-origin result cannot
-  redefine the causal splice result. Formalize → red-team → smoke → freeze before any confirmatory run.
-  **Recognition** stays a **feasibility gate only** (blinded census/MDE; no synthetic pseudo-sites; if too few
-  real matched decoys, record UNRESOLVED and stop). Transfer package (hardened **Caduceus-PS**) waits in
-  `studies/caduceus_partner_transfer/` (needs a Colab-CUDA decision).
+- **P3.4 (carrier origin) — DESIGN RED-TEAMED → NOT FROZEN → DEFERRED (2026-07-18).** Modernized the old
+  period-3 prereg (all tests as carrier-deletion × context INTERACTIONs, not raw ΔL) and ran a **4-lens design
+  red-team BEFORE any compute** → **not identifiable as an origin study on a frozen checkpoint** (3 convergent
+  FATALs, verified vs code/data): (1) **origin vs usage** — frozen-model ΔL measures what the carrier is *used
+  for now*, not the training *origin* the intent claims; (2) **E4a = codon COMPOSITION, not reading-frame**
+  (code-verified: `codon_slot − abs-phase` is a per-example constant, and the carrier is ~constant at fixed φ);
+  (3) **power wall** — the 0.02-nat equivalence bar (the maintained-hypothesis readings) is **unreachable at
+  MPS budget** (C8 raw-mean gene-clustered CI half-width 0.0198 at n=384; every estimand is a higher-variance
+  contrast at ≤140 units). Data IS buildable (`codon_slot` verified on real frame-2 sequence) — the blocker is
+  **scientific, not engineering**. **Cam's decision: DEFER origin → transfer.** Origin needs *training-time*
+  evidence (checkpoint sweep / carrier-penalized retrain / cross-model), out of scope for a frozen-checkpoint
+  MLM study on MPS. `PREREGISTRATION_P3_4_CARRIER_ORIGIN.md` (design of record, NOT frozen),
+  `REDTEAM_SYNTHESIS_P3_4.md`.
+- **SpliceBERT carrier account CLOSED** at the causal-locus + A-vs-V level: C8 dependence, C19
+  phase-independence, C32 relative address, C34 distributed locus (R24: confirm gate-qualified), C35 attention
+  routing (R24: value-null within-intervention). Origin deferred (training-time); D_rec recognition deferred;
+  construction-vs-binding non-identifiable (R23).
+- **NEXT: Caduceus-PS behavioural TRANSFER** (the depth-first spine's endpoint; the project's actual mission —
+  method portability). Package `studies/caduceus_partner_transfer/` = DRAFT prereg + **5-lens design red-team
+  DONE** (fixable ×5, fatal ×0; a **MASTER 20-fix list** ready to integrate; Caduceus facts verified vs repo
+  code). **Blockers before a run:** (a) **Colab-CUDA compute** — Caduceus has **NO CPU/MPS fallback**
+  (mamba-ssm/Triton kernels are CUDA-only) ⇒ it **cannot run on this machine**; (b) integrate the 20 fixes →
+  **v2** (design-time, MPS-doable); (c) **4 forks for Cam** — τ = permuted-null floor [rec]; acceptor-strength =
+  distance-matched primary + MaxEnt-`score3` caliper secondary [rec]; Caduceus-PH companion = drop [rec];
+  confirm Colab. **Recognition** stays an optional cheap feasibility gate (blinded census/MDE; no synthetic
+  pseudo-sites; if too few real matched decoys → record UNRESOLVED and stop).
 - **Open:** payload semantic identity (unresolved → IC program); L1/L2 individual-head resolution; A11
-  PE-edge caveat at |Δ|=192; A12 static-rank is an upper bound (true lazy-greedy would refine).
+  PE-edge caveat at |Δ|=192; A12 static-rank is an upper bound (true lazy-greedy would refine); **carrier
+  ORIGIN (training-time question, deferred).**
 
 ## How work is done here (conventions — follow these)
 
