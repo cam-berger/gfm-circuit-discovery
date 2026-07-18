@@ -1,6 +1,16 @@
 # Pre-registration — IC2 v5.3: does donor support depend on candidate SLOT, and is matched reliance transportable? (behaviour-level)
 
-**Status: DRAFT v5.3 (CALIBRATION-COMPLETE, N frozen) for final freeze-audit → freeze → confirmatory. DO NOT RUN confirmatory until frozen.**
+**Status: v5.3 — PARKED (design-complete, calibration-done, CONFIRMATORY NOT RUN) pending the P3 SpliceBERT account (Cam, 2026-07-18).**
+The spine is P3.4 carrier-origin → recognition gate → freeze SpliceBERT → Caduceus, not IC2. This prereg is a
+revivable asset (SLOT arm robust; transport arm honestly precision-limited). **Revival TODO (from the final
+freeze-audit, all fixable):** (1) rewrite §7 verdict rules mutually-exclusive/exhaustive with precedence
+(equivalent = CI⊆±SESOI checked first; material = CI-excludes-0 AND nearer-CI-edge≥SESOI; detectable-but-
+immaterial; inconclusive); (2) add the missing **both-τ-material × transport-inconclusive** cell (the
+sup-t-expected outcome — under c(m=3)≈2.4, β_transport≈0.037 is INCONCLUSIVE, not detectable-but-immaterial);
+(3) demote the argmax≥90% hard-STOP to a reported diagnostic (§1 says switching doesn't impeach the readout);
+(4) rescope the claim to "transportable to a displaced slot (p_nat−60)" (only one p_dis frozen); (5) write the
+frozen constants into the doc (exact slot-viable N, Δf_ref length-quantile panel size 3, match-tol 0.05,
+reuse-cap 4, β_transport SESOI, exact sup-t c); fix the dangling §8.4 ref.
 **Calibration DONE** (`ic2_calibration.json`): Part 1 `D_m` feasibility PASS (100% yield, residual 0.0015,
 306 independent decoy sources); Part 2 cross-fitted discriminability PASS (frozen TRAIN-A rule → TRAIN-B
 `β_transport` mean 0.123, 84% ≥0.05, CONFIRMED); Part 3 SLOT arm robust (`τ_D`≈0.53, decoy-source ICC≈0 →

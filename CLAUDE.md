@@ -91,9 +91,16 @@ rationale in `DECISIONS_A0.md`):
     OOD-gate fix, A2 reproducibility + verdict fixes). ΔC was seen before A2 ⇒ verification, not confirmatory;
     a publication-grade null needs an untouched disjoint cohort. Coheres with the **local-window** picture
     (C28/C30). Prereg + amendments: `PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md`.
-  - **IC2 (acceptor-competition) — SUPERSEDED / NOT PURSUED.** After IC1, Cam redirected the spine to
-    **depth-first: fully characterize the period-3 carrier's causal role, then transfer.** IC2/IC2a preregs
-    preserved as future work; not run.
+  - **IC2 (acceptor-competition) — DESIGN-COMPLETE, PARKED (not run) pending the P3 SpliceBERT account
+    (2026-07-18).** A parallel-thread exploration hardened to **v5.3** (feasibility pilot + calibration DONE,
+    survived a 4-lens red-team → 2-lens re-audit → final freeze-audit): the synthetic reciprocal-swap assay is
+    viable; **SLOT arm robust** — a foreign window's native-vs-displaced slot reliance `τ_D`≈0.53 (~10× SESOI):
+    donor support depends on *which scaffold slot holds a competent acceptor*, not on which reliance-matched
+    window occupies it. The honest **transport DiD** `β_transport=τ_D−τ_P` is intrinsically noisy (SD 0.774),
+    so its ±0.05 equivalence is unreachable at the ~1,985-gene cap (would report at achieved precision).
+    **Confirmatory NOT run** — Cam's spine is P3.4, not IC2. Freeze-audit flagged fixable §7-classifier blockers
+    for any revival. Prereg `PREREGISTRATION_IC2_ACCEPTOR_COMPETITION.md` v5.3; pilots `run_ic2_feasibility.py`,
+    `run_ic2_calibration.py`; results `ic2_feasibility.json`, `ic2_calibration.json`.
 - **P3 — the period-3 carrier's causal ROLE & LOCUS (DONE, 2026-07-17; depth-first spine).** Formalized
   P3.1–P3.3 as one prereg (`PREREGISTRATION_P3_CARRIER_CAUSAL_ROLE.md` v2); P3.4 origin separately gated.
   **4-lens design red-team BEFORE running retired the flagship "binding" endpoint (→ R23):** the L3H1
