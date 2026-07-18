@@ -1,6 +1,12 @@
-# Pre-registration — IC2 v5.2: does donor support depend on candidate SLOT, and is matched reliance transportable? (behaviour-level)
+# Pre-registration — IC2 v5.3: does donor support depend on candidate SLOT, and is matched reliance transportable? (behaviour-level)
 
-**Status: DRAFT v5.2 (calibration-ready) for freeze-audit → freeze → confirmatory. DO NOT RUN confirmatory until frozen.**
+**Status: DRAFT v5.3 (CALIBRATION-COMPLETE, N frozen) for final freeze-audit → freeze → confirmatory. DO NOT RUN confirmatory until frozen.**
+**Calibration DONE** (`ic2_calibration.json`): Part 1 `D_m` feasibility PASS (100% yield, residual 0.0015,
+306 independent decoy sources); Part 2 cross-fitted discriminability PASS (frozen TRAIN-A rule → TRAIN-B
+`β_transport` mean 0.123, 84% ≥0.05, CONFIRMED); Part 3 SLOT arm robust (`τ_D`≈0.53, decoy-source ICC≈0 →
+design effect 1.0) **but the transport DiD SD=0.774 / mean=0.037 makes ±0.05 equivalence structurally
+unreachable at the ~1,985-gene cap → transport is REPORTED AT ACHIEVED PRECISION (Cam-frozen, §5), NOT
+goalpost-moved.**
 Compact two-candidate assay; **final pre-specified behavioural SpliceBERT experiment** — after v5.2, **transfer
 to a second GFM regardless of outcome** (a material result additionally licenses a SEPARATE tracing prereg;
 branches non-exclusive). Behaviour-level; address/payload naming deferred to that mediation study.
@@ -38,6 +44,11 @@ clause replaces the retired "windows are interchangeable" framing — see §4.)
 **Explicit, frozen limitation (reported with the claim):** *"The experiment does NOT distinguish a general
 donor–acceptor spacing rule from native-boundary privilege, local slot context, or the penalty incurred by
 displacing an acceptor from its natural position."*
+
+**Calibration note (`ic2_calibration.json`):** the SLOT clause is robust (`τ_D`≈0.53, ~10× SESOI). The
+transport clause is calibration-anticipated to resolve to a **small (~0.037 nat, sub-SESOI) detectable
+residual non-transport, OR inconclusive** at the achievable precision (±0.05 equivalence is structurally
+unreachable at the ~1,985-gene cap; §5/§7) — NOT a clean "transportable". Reported at achieved precision.
 
 **NOT claimed:** "positional address dominates payload"; a spacing rule; biological acceptor selection;
 splice-strength payload semantics (R22). **The model emits a donor SCORE `f`, not a splice-choice
@@ -134,12 +145,15 @@ exploratory sweep curve; the descriptive natural-loci context.
 - **SUP-t over m = 3:** studentize each of `{τ_P, τ_D, β_transport}` by its two-way wild-cluster bootstrap SE
   (resample WHOLE scaffold clusters); `c` s.t. `P(max_{j≤3}|t_j*| ≤ c)=0.95`. No omnibus-then-unadjusted.
   `β_transport`'s equivalence uses the same studentized band (CI ⊆ ±0.05, a two-sided-CI-subset TOST).
-- **Power / N — 80% SIMULTANEOUS power on the actual TWO-WAY-CLUSTERED simultaneous-band SE (NOT the IID MDE
-  table).** The **binding component is the `β_transport` equivalence** (`τ_P,τ_D` ≈ +0.35 have ~7× margin).
-  N (and the decoy-source cluster floor) are pinned from the clustered SE using a **decoy-source ICC estimated
-  on TRAIN** (§8.2), bound to the **upper CI of the design effect**. **State a max feasible N/cluster count and
-  a CONTINGENCY:** if 80% simultaneous equivalence power is unreachable, `β_transport` is reported as
-  **"bounded-null at the achieved precision," NOT "transportable"** (the transport claim is withheld, not faked).
+- **Power / N (CALIBRATION-FROZEN, `ic2_calibration.json`).** SLOT arm (`τ_P`,`τ_D` ≈ +0.5, ~10× SESOI) is
+  robustly material at any feasible N. Decoy-source **ICC ≈ 0 → design effect ≈ 1.0** (Part 3), so effective N
+  ≈ scaffold-gene count. **N is FROZEN at the FULL slot-viable census (≈1,985 genes; exact count from §8.4);
+  cluster floor = the realized decoy-source count (≥306 at n=400, reuse cap 4).** The **`β_transport`
+  equivalence is the binding component and is STRUCTURALLY UNREACHABLE at ±0.05:** SD 0.774 / mean 0.037 → at
+  N≈1,985, SE ≈ 0.017, CI half-width ≈ 0.034 (CI ⊄ ±0.05). **Per the Cam-frozen contingency, `β_transport` is
+  REPORTED AT ACHIEVED PRECISION and classified by the total table (§7) — calibration-expected outcome:
+  "detectable-but-immaterial residual non-transport (~0.037 nat)" or "inconclusive," NOT "transportable".**
+  The ±0.05 bound is NOT moved (no goalpost-shift); the SLOT arm is the robust primary deliverable.
 - **Per-order SESOIs (pinned, substantive-anchored, NOT pilot-SE-derived):** first-order (SLOT, WINDOW, `τ_P`,
   `τ_D`) = **0.05 nats** (12.5% of native reliance 0.402); second-order (interaction) pinned separately as a
   stated fraction of native reliance and **verified achievable at N** (else interaction is reported-only).
@@ -209,20 +223,17 @@ mechanistic only. **Transfer to the second GFM proceeds regardless of outcome** 
 
 ## 8. Pre-freeze pilots (disjoint TRAIN; no val read; RESOURCE-CONSIDERATE — shared laptop) `⟐`
 
-Feasibility pilot **DONE** (`run_ic2_feasibility.py`). Remaining (Cam-directed order):
-1. **`D_m` feasibility** — for each scaffold `P`, find a reliance-matched decoy on a **FROZEN INDEPENDENT
-   single-candidate reference**; report match residual, yield, and the realized independent decoy-source pool.
-2. **Cross-fitted discriminability calibration** — TRAIN-A: freeze a motif-divergent reliance-matched selection
-   rule; disjoint TRAIN-B: test `|β_transport| ≥ 0.05` for it (the `transport_discriminability` WORDING gate).
-   No search-until-fires.
-3. **ICC / design-effect pilot** — dedicated TRAIN clustering census large enough to estimate the decoy-source
-   (and scaffold) ICC with a usable CI → design effect → **decoy-source cluster floor + reuse cap + N** pinned
-   to the upper CI; clustered-SE TOST N for 80% `β_transport` equivalence power + **max feasible N + contingency**.
-4. **Displaced-slot geometry + per-distance OOD** — `p_dis = p_nat−60` (phase-preserving, zone-clear);
-   retained-pool census; incremental `ΔNLL` per distance (native/identity pass, planted-OOD fails); `δ_OOD`
-   point+CI; `p_dis` noninferior to `p_nat`.
-5. **Sensitivity on-path** (C1 ~37×); **sup-t `c` + `m=3` + SESOIs**; **determinism test** across hash seeds.
-**If 1–3 pass → one final freeze-audit → request GO.**
+Feasibility pilot + calibration (Parts 1–3) **DONE** (`run_ic2_feasibility.py`, `run_ic2_calibration.py`):
+`D_m` feasibility PASS (100% yield, residual 0.0015, 306 independent sources, reuse ≤3); cross-fitted
+discriminability PASS (frozen TRAIN-A rule → TRAIN-B `β_transport` mean 0.123, 84% ≥0.05, CONFIRMED);
+decoy-source ICC ≈ 0 → design effect ≈ 1.0; N frozen ≈ 1,985 (§5). **Remaining pre-freeze — fold into the
+confirmatory PREFLIGHT/smoke (HARD gates; STOP on failure):**
+4. **Displaced-slot geometry + per-distance OOD** — `p_dis = p_nat−60` (phase-preserving, zone-clear;
+   validated in feasibility); exact slot-viable census → frozen N; incremental `ΔNLL` per distance
+   (native/identity pass, planted-OOD fails); `δ_OOD` point+CI; `p_dis` noninferior to `p_nat`.
+5. **Determinism test** across `PYTHONHASHSEED∈{0,1,2,17}`; **sensitivity on-path** (C1 ~37×); **sup-t `c` +
+   `m=3` + frozen SESOIs**; freeze manifest.
+**Calibration passed → final freeze-audit → request GO.**
 - **Resource note:** shared laptop — modest batches, NO parallel heavy MPS jobs, check load before launch.
 
 **Provenance:** checkpoint sha256 `2ad91428…0149d`; MaxEnt pinned (operational STRATIFIER only, R22);
