@@ -1,0 +1,38 @@
+{
+ "commit": "4907a1927c629e44a866eec2005b3b7a177e705c",
+ "n": 200,
+ "checks": {
+  "empty_circuit_is_corrupt": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "full_circuit_is_clean": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "maskFalse_is_clean": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "state_clamp_identity": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "positive_control_partner_coupling": {
+   "PASS": true,
+   "coupling": 1.0200620491802692
+  },
+  "both_strands_present": {
+   "PASS": true,
+   "strands": [
+    "+",
+    "-"
+   ]
+  },
+  "checkpoint_recorded": {
+   "PASS": true,
+   "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d"
+  }
+ },
+ "PASS": true
+}

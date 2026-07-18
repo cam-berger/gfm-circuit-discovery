@@ -1,0 +1,280 @@
+{
+ "n": 220,
+ "n_genes": 196,
+ "nD": 110,
+ "nH": 110,
+ "coupling": 0.9898472455414858,
+ "M_empty_rec": 0.04765304692766881,
+ "M_full_rec": 0.3300653212449767,
+ "ceiling": 0.28241227431730787,
+ "R_full_H": 1.0,
+ "l0_heads": {
+  "L0H0": {
+   "N_h_D": 0.0005309712380261334,
+   "ci_D": [
+    -0.00028018701734257827,
+    0.0013965997552041528
+   ],
+   "N_h_H": 0.00031612919830096745,
+   "ci_H": [
+    -0.0005112297312743192,
+    0.0011193966972852952
+   ],
+   "load_bearing_H": false
+  },
+  "L0H1": {
+   "N_h_D": -0.0009540808748008326,
+   "ci_D": [
+    -0.0018952002346593467,
+    -0.00011160410365537191
+   ],
+   "N_h_H": 0.00023299379100489613,
+   "ci_H": [
+    -0.00043977908388759593,
+    0.000948282681258641
+   ],
+   "load_bearing_H": false
+  },
+  "L0H2": {
+   "N_h_D": -3.3311060966346215e-07,
+   "ci_D": [
+    -3.19721189661076e-06,
+    2.341303639478686e-06
+   ],
+   "N_h_H": -7.863891376392766e-07,
+   "ci_H": [
+    -3.108819034905964e-06,
+    1.5948050170040842e-06
+   ],
+   "load_bearing_H": false
+  },
+  "L0H3": {
+   "N_h_D": 1.7485091653956632e-06,
+   "ci_D": [
+    -3.0721859023966925e-06,
+    6.27742377233791e-06
+   ],
+   "N_h_H": 2.563414397110132e-06,
+   "ci_H": [
+    -2.0026806003618625e-06,
+    6.742530128239903e-06
+   ],
+   "load_bearing_H": false
+  },
+  "L0H4": {
+   "N_h_D": -0.0002542643572692007,
+   "ci_D": [
+    -0.012699378564308368,
+    0.011085337203663446
+   ],
+   "N_h_H": 8.454677690593946e-05,
+   "ci_H": [
+    -0.009789673902989817,
+    0.009529605168147198
+   ],
+   "load_bearing_H": false
+  },
+  "L0H5": {
+   "N_h_D": -0.028176876012974576,
+   "ci_D": [
+    -0.05480383599912878,
+    -0.01126139057273387
+   ],
+   "N_h_H": -0.010504144712908007,
+   "ci_H": [
+    -0.0164322353760132,
+    -0.006083071987249239
+   ],
+   "load_bearing_H": false
+  },
+  "L0H6": {
+   "N_h_D": -0.00027573134254291827,
+   "ci_D": [
+    -0.0006851510956903668,
+    0.00015702665277985962
+   ],
+   "N_h_H": 2.6247649893656476e-05,
+   "ci_H": [
+    -0.0002842168492519456,
+    0.00037492947529173964
+   ],
+   "load_bearing_H": false
+  },
+  "L0H7": {
+   "N_h_D": 0.3736754165280657,
+   "ci_D": [
+    0.31357467883360174,
+    0.445094417665077
+   ],
+   "N_h_H": 0.34813826089418,
+   "ci_H": [
+    0.2997604239142332,
+    0.39888628019971084
+   ],
+   "load_bearing_H": true
+  },
+  "L0H8": {
+   "N_h_D": 0.01454346002551015,
+   "ci_D": [
+    0.009045146425964797,
+    0.019919946372893602
+   ],
+   "N_h_H": 0.016133631454985354,
+   "ci_H": [
+    0.011798578714051404,
+    0.020200301716490645
+   ],
+   "load_bearing_H": true
+  },
+  "L0H9": {
+   "N_h_D": -0.0004640410852401035,
+   "ci_D": [
+    -0.0010632313820391627,
+    7.507762444208148e-05
+   ],
+   "N_h_H": -0.0009225407892778478,
+   "ci_H": [
+    -0.0013153354405573666,
+    -0.0005770430160160416
+   ],
+   "load_bearing_H": false
+  },
+  "L0H10": {
+   "N_h_D": 0.10427383600233643,
+   "ci_D": [
+    0.07154896969944262,
+    0.13389209612891878
+   ],
+   "N_h_H": 0.11574003650087912,
+   "ci_H": [
+    0.09012216665826397,
+    0.14205860958229086
+   ],
+   "load_bearing_H": true
+  },
+  "L0H11": {
+   "N_h_D": 0.0011188252926116907,
+   "ci_D": [
+    0.000702542580574691,
+    0.0015773743201449955
+   ],
+   "N_h_H": 0.0009568259787329596,
+   "ci_H": [
+    0.0005097030449668676,
+    0.0014392976182706378
+   ],
+   "load_bearing_H": true
+  },
+  "L0H12": {
+   "N_h_D": 0.15067925831973586,
+   "ci_D": [
+    0.11378919236481548,
+    0.18753871210883358
+   ],
+   "N_h_H": 0.1597238343327039,
+   "ci_H": [
+    0.12945553164697052,
+    0.19161835712259254
+   ],
+   "load_bearing_H": true
+  },
+  "L0H13": {
+   "N_h_D": 8.999902711123717e-05,
+   "ci_D": [
+    -0.0006773850588853214,
+    0.00086287161606549
+   ],
+   "N_h_H": 0.0010785633010713977,
+   "ci_H": [
+    0.0006149068305355614,
+    0.001617744136130737
+   ],
+   "load_bearing_H": true
+  },
+  "L0H14": {
+   "N_h_D": -0.006323317162883922,
+   "ci_D": [
+    -0.011499625334966724,
+    -0.002011425064504093
+   ],
+   "N_h_H": -0.003869163837111565,
+   "ci_H": [
+    -0.00688237196643573,
+    -0.001034588756391793
+   ],
+   "load_bearing_H": false
+  },
+  "L0H15": {
+   "N_h_D": -0.00038261676250966284,
+   "ci_D": [
+    -0.0007103166699652664,
+    -7.288504441185416e-05
+   ],
+   "N_h_H": -0.00017467783465309169,
+   "ci_H": [
+    -0.00047847704398086235,
+    0.0001247698502465154
+   ],
+   "load_bearing_H": false
+  }
+ },
+ "L0_star_heldout": [
+  "L0H7",
+  "L0H8",
+  "L0H10",
+  "L0H11",
+  "L0H12",
+  "L0H13"
+ ],
+ "top_head_interactions_D": {
+  "L0H7xL0H12": 0.001377573781698005,
+  "L0H7xL0H10": 0.022149265253939787,
+  "L0H12xL0H10": -0.12614813645397915
+ },
+ "mediation": {
+  "R_L0heads_only_H": 0.1358545809023081,
+  "R_L0heads_MLP0_H": 0.3555235686929011,
+  "mediated_by_MLP0": true
+ },
+ "mlp_chain": {
+  "R_MLP0_only_H": 0.014749057978485572,
+  "R_MLP1_only_H": 0.010242992377003553,
+  "R_MLP0_MLP1_H": 0.005287304196256862,
+  "N_MLP0_H": [
+   0.35419551349330397,
+   [
+    0.29218747488722907,
+    0.4168352537692497
+   ]
+  ],
+  "N_MLP1_H": [
+   0.4340498528670514,
+   [
+    0.36474131168011426,
+    0.5072463744602517
+   ]
+  ],
+  "N_MLP2_H": [
+   0.880416519482618,
+   [
+    0.8088020857656872,
+    0.9532527871296756
+   ]
+  ]
+ },
+ "serial_chain_confirmed": true,
+ "preflight_PASS": true,
+ "meets_power_target": true,
+ "confirmatory": true,
+ "REFLECTION": {
+  "status": "COMPLETE",
+  "decision": "The generator wiring (held-out, value-path): {L0H7 dominant + partially-redundant L0H12/L0H10 + minor H8/H11/H13} -> MLP0 (which MEDIATES the L0-head contribution) -> MLP1 -> MLP2, a STRICT SERIAL chain (each MLP necessary on held-out, none sufficient alone).",
+  "memorials": "value_linearity=2.86e-6 = the REAL on-path memorial (validates the reconstruct-inject); empty->corrupt/full->clean=0.0 are R21-vestigial (embed-clamp-dominated, embed-plumbing only); generator_ceiling=0.282. R_full_H=1.0 is a normalization anchor (R21-harmless).",
+  "L0_heads": "Held-out load-bearing L0* = {H7,H8,H10,H11,H12,H13}. L0H7 dominant N_h=+0.348 [0.30,0.40] (replicates D 0.374); L0H12 +0.160 [0.129,0.192]; L0H10 +0.116 [0.09,0.142]; H8/H11/H13 marginal (~0.001-0.016, CI-low>0). Interaction: L0H12xL0H10 = -0.126 (PARTIALLY REDUNDANT/substitutable); L0H7 independent (I~0 with H12, +0.022 with H10).",
+  "head_to_MLP_mediation": "MEDIATED by MLP0: L0-heads-only recovers +0.136 but +MLP0 jumps to +0.356 (0.136 < 0.5x0.356). The L0 attention feeds the payload THROUGH MLP0, not via a direct head->L3H1-value path.",
+  "MLP_serial_chain": "STRICT SERIAL L0->MLP0->MLP1->MLP2: each MLP necessary on held-out (N_MLP0=0.354 [0.29,0.42], N_MLP1=0.434 [0.37,0.51], N_MLP2=0.88 [0.81,0.95]), NONE sufficient alone (MLP0_only 0.015, MLP1_only 0.010, MLP0+1 0.005). N are conditional causal effects, NOT additive fractions (they do not sum; serial chain).",
+  "refines_C29": "A8/C29 block-level L0->L1->MLP2 is now resolved to head->MLP wiring: L0H7/H12/H10 (H12/H10 redundant) -> MLP0 -> MLP1 -> MLP2.",
+  "scope_limits": "Value-path (address held clean; L2H15/address role removed by construction, per the verification note on A8). Resolved the L0-head + MLP-chain wiring + mediation; L1/L2 individual head resolution deferred (A8: L2 attention not required for payload; L1 heads not individually scanned here). Held-out; conditional effects not additive.",
+  "escaped_failure_modes": "(1) value_linearity on-path (the real memorial, not the R21-vestigial scrub-cover); (2) held-out replication (L0H7 D 0.374 ~ H 0.348); (3) the L0H12/H10 REDUNDANCY caught via the interaction term (group test, not a misleading singleton); (4) mediation quantified, not assumed."
+ }
+}

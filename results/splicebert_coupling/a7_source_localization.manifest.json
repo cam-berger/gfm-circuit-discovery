@@ -1,0 +1,64 @@
+{
+  "command": [
+    "scripts/splicebert/run_a7_source_localization.py",
+    "--n",
+    "200",
+    "--batch",
+    "8"
+  ],
+  "config": {
+    "blocks": [
+      "L0-2",
+      "L0",
+      "L1",
+      "L2"
+    ],
+    "meets_power_target": true,
+    "n": 200,
+    "n_genes": 179,
+    "preflight_PASS": true,
+    "regions": [
+      "ACC",
+      "DON",
+      "PPT",
+      "REM"
+    ],
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-17T00:32:16.052001+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 40090,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "splicebert_coupling:a7_source_localization",
+  "git_commit": "4907a1927c629e44a866eec2005b3b7a177e705c",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    }
+  ],
+  "notes": [
+    "Position x layer localization of the distributed generation (A6/C27). State-clamp (upper bound) vs writers-open (local construction), regions x layer-blocks, dR + interactions. Reuses A6 scrub + token masks; no claim redefined.",
+    "status=CONFIRMATORY (preflight_PASS=True, power=True)."
+  ],
+  "outputs": [],
+  "seeds": {
+    "gene_bootstrap": 0
+  },
+  "status": "CONFIRMATORY"
+}

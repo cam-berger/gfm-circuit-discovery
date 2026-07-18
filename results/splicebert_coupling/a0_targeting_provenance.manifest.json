@@ -1,0 +1,68 @@
+{
+  "command": [
+    "scripts/splicebert/run_a0_targeting_provenance.py",
+    "--pool",
+    "3000",
+    "--n",
+    "260",
+    "--real-cap",
+    "120",
+    "--out",
+    "results/splicebert_coupling/a0_targeting_provenance.json"
+  ],
+  "config": {
+    "addresser": [
+      2,
+      15
+    ],
+    "meets_power_target": true,
+    "min_denom": 0.15,
+    "n_genes": 230,
+    "n_pairs": 260,
+    "n_real": 120,
+    "preflight_PASS": true,
+    "reader": [
+      3,
+      1
+    ],
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-16T14:10:31.517938+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 25401,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "splicebert_coupling:a0_targeting_provenance",
+  "git_commit": "6b4775c4ac9629017373e267cff29e2f04a514a1",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    }
+  ],
+  "notes": [
+    "Stage-wise SUFFICIENCY of L3H1's donor-query acceptor targeting (S_K/S_Q/S_J) via mean-resample reconstruction; reciprocal leave-one-stage-out for necessity.",
+    "S_A is a mechanistic intermediate: NO behavioural partner-selection claim.",
+    "Real-acceptor contrast is primary (strength-controlled, not identity-clean); generic-AG secondary.",
+    "status=CONFIRMATORY (preflight_PASS=True, power=True)."
+  ],
+  "outputs": [],
+  "seeds": {
+    "bootstrap": 0
+  },
+  "status": "CONFIRMATORY"
+}

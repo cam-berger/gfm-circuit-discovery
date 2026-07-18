@@ -1,0 +1,49 @@
+{
+  "command": [
+    "scripts/splicebert/run_ic1_distal_intron_necessity.py",
+    "--split",
+    "val",
+    "--n-boot",
+    "4000",
+    "--batch",
+    "16",
+    "--chunk",
+    "16",
+    "--out",
+    "results/splicebert_coupling/ic1_distal_intron_necessity_v8.json"
+  ],
+  "config": {
+    "acc_up": 70,
+    "n_boot": 4000,
+    "n_clusters": 256,
+    "n_seed": 16,
+    "sesoi": 0.05,
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-18T01:42:22.622406+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 95514,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "splicebert_coupling:ic1_distal_intron_necessity",
+  "git_commit": "8ed5e05bd377d520b1394780384a7ecb5228fd6a",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    }
+  ],
+  "notes": [
+    "IC1 v8 OUTCOME-AWARE DETERMINISTIC VERIFICATION (\u0394C=+0.033 seen on v7 before this run): conservative-scramble primary, signed cluster-mean BCa classified by CI, sham/symmetry reported as diagnostics. Determinism-fixed shuffler (sorted set) + pinned PYTHONHASHSEED. NOT confirmatory (outcome already seen); prereg v8 / Amendment A2."
+  ],
+  "outputs": [],
+  "seeds": {
+    "boot": 0,
+    "sampler": "sha256(gene)"
+  },
+  "status": "DIAGNOSTIC"
+}

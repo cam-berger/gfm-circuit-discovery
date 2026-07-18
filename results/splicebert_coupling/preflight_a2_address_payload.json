@@ -1,0 +1,45 @@
+{
+ "frozen": {
+  "recon_tol": 0.0001,
+  "inject_tol": 0.001,
+  "coupling_min": 0.2,
+  "joint_recovers_min": 0.3
+ },
+ "commit": "6b4775c4ac9629017373e267cff29e2f04a514a1",
+ "n": 300,
+ "checks": {
+  "reconstruction_matches": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "inject_identity": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "probability_invariants": {
+   "PASS": true,
+   "max_row_sum_err": 1.1920928955078125e-07,
+   "attn_max": 0.9074055552482605
+  },
+  "positive_control_partner_coupling": {
+   "PASS": true,
+   "coupling": 0.9613751227657
+  },
+  "joint_recovers": {
+   "PASS": true,
+   "recovery": 0.3645268424537727
+  },
+  "both_strands_present": {
+   "PASS": true,
+   "strands": [
+    "+",
+    "-"
+   ]
+  },
+  "checkpoint_recorded": {
+   "PASS": true,
+   "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d"
+  }
+ },
+ "PASS": true
+}

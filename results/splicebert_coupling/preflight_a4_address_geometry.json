@@ -1,0 +1,55 @@
+{
+ "commit": "37bbeb66681dd2acf1d4929831d98f7bcce27265",
+ "n": 1037,
+ "grid": [
+  -96,
+  -48,
+  -24,
+  0,
+  24,
+  48,
+  96
+ ],
+ "checks": {
+  "shift0_is_native": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "l2h15_contributes": {
+   "PASS": true,
+   "G15_0_mean": -0.47144106955859333,
+   "ci": [
+    -0.5147345455501259,
+    -0.43172323039384564
+   ]
+  },
+  "qk_reconstruction": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "probability_invariants": {
+   "PASS": true,
+   "max_row_sum_err": 2.980232238769531e-07
+  },
+  "grid_fits": {
+   "PASS": true,
+   "n_kept": 1037
+  },
+  "pe_table_size": {
+   "PASS": true,
+   "P": 1026
+  },
+  "both_strands_present": {
+   "PASS": true,
+   "strands": [
+    "+",
+    "-"
+   ]
+  },
+  "checkpoint_recorded": {
+   "PASS": true,
+   "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d"
+  }
+ },
+ "PASS": true
+}

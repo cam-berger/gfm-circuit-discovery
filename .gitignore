@@ -27,3 +27,5 @@ results/splicebert_partner_selection/**/*.jsonl
 
 # Ad hoc rendered result figures. Publication figures under figures/ are tracked with provenance.
 results/**/figures/
+results/splicebert_coupling/ic2_feasibility_smoke.json
+results/splicebert_coupling/ic2_calibration_smoke.json

@@ -1,0 +1,91 @@
+{
+ "n": 300,
+ "n_genes": 256,
+ "strands": [
+  "+",
+  "-"
+ ],
+ "coupling": 0.9292435232301554,
+ "K_uinfo": 8,
+ "n_rand": 40,
+ "recoveries": {
+  "address_floor": {
+   "recovery": 0.04500072393528738,
+   "ci": [
+    0.017013622425215532,
+    0.07125112866020782
+   ]
+  },
+  "full": {
+   "recovery": 0.3819829930853554,
+   "ci": [
+    0.3490383914543115,
+    0.4152977297158258
+   ]
+  },
+  "U": {
+   "recovery": 0.06039804110506997,
+   "ci": [
+    0.03330624858249506,
+    0.08596063273486598
+   ]
+  },
+  "perp": {
+   "recovery": 0.37134446470638344,
+   "ci": [
+    0.33810786117473796,
+    0.40445719043067974
+   ]
+  },
+  "nonsite": {
+   "recovery": 0.04500046372774265,
+   "ci": [
+    0.017013309093969198,
+    0.07125105100486304
+   ]
+  },
+  "crossgene": {
+   "recovery": 0.059515305717993704,
+   "ci": [
+    0.032092236301572194,
+    0.0857233304430514
+   ]
+  }
+ },
+ "note_full_scope": "full restores CLEAN values at the ACCEPTOR WINDOW only (corrupt elsewhere); it is the acceptor-window payload ceiling and is NOT A2's joint (+0.37), which restored all positions. address_floor (base A+.V-) cross-checks A2's address_only (~+0.01).",
+ "sufficiency_U": {
+  "R_U": 0.06039804110506997,
+  "E_random": 0.05106378467239361,
+  "random_min": 0.027512017114979994,
+  "random_max": 0.0698752120577034,
+  "specificity_U": 0.009334256432676366,
+  "U_percentile": 0.8,
+  "add_one_p": 0.21951219512195122
+ },
+ "necessity": {
+  "N_U_denoise": 0.010638528378971945,
+  "ci": [
+   0.009369399485440456,
+   0.012037423565727646
+  ],
+  "R_perp": 0.37134446470638344,
+  "N_U_noise_loss": 0.009027273390653756,
+  "noise_full_keeps_clean": 0.00033384205713246775
+ },
+ "controls": {
+  "nonsite": 0.04500046372774265,
+  "crossgene": 0.059515305717993704
+ },
+ "preflight_PASS": true,
+ "meets_power_target": true,
+ "confirmatory": true,
+ "REFLECTION": {
+  "status": "COMPLETE",
+  "1_passfail_and_decision": "CONFIRMATORY: preflight all pass (value_linearity=1.9e-6 EXACT -- the post-LN value linearity licenses the analytic reconstruction; inject_identity=0.0; projector idempotent/orthogonal/decomposition exact). n=300, 256 genes. DECISION RULE outcome = the 'NEITHER' branch: U_info is neither sufficient-above-random NOR necessary, and its complement explains the payload -- so C17's U_info is the DELIVERED donor-side subspace, NOT the acceptor-side SOURCE representation. A strong POSITIVE alongside: the payload is LOCALIZED to the 4-token acceptor window (full +0.382 [0.349,0.415] ~= A2 joint +0.37 -- restoring just the window recovers ~all of L3H1's channel).",
+  "2_sufficiency_not_privileged": "R_U +0.060 [0.033,0.086] is NOT above the energy-matched random rank-8 distribution: E[rand]=+0.051, random range [0.028,0.070] BRACKETS R_U, percentile 0.80, add-one p=0.220. U_info is within the random distribution -- not a privileged subspace. (Descriptive fractions are non-additive/denominator-dependent: raw sufficiency R_U/R_full = 0.060/0.382 ~= 16%, raw necessity N_U/R_full = 0.011/0.382 ~= 2.9%, floor-subtracted marginal (R_U-floor)/(R_full-floor) = 0.015/0.337 ~= 4.5%. The denominator-free facts -- not-above-random and negligible N_U -- carry the claim, not any single fraction.)",
+  "3_necessity_complement": "The complement carries the payload: perp (I-P_U) recovers +0.371 [0.338,0.404] ~= full (+0.382). Necessity N_U = R(full)-R(perp) = +0.011 [0.009,0.012] -- CI excludes 0 only because of tiny bootstrap variance, but the magnitude is 3% of the payload. Noising agrees: removing U_info from the clean value loses only +0.009 (full-into-clean is a 0.000 no-op memorial). So U_info is neither sufficient nor materially necessary.",
+  "4_specificity_controls": "Acceptor-specific: nonsite (U_info payload delivered at a distance-matched non-site window) recovers +0.045 = the base floor -- delivering U_info away from the acceptor does nothing. crossgene (mismatched-example U_info payload) recovers +0.060 = R_U, because U_info's own contribution is so small that mismatch cannot lower it. Both confirm the acceptor-window is where the (distributed) payload lives.",
+  "5_escaped_failure_modes": "(a) value_linearity=1.9e-6 (float32 roundoff) validates the analytic V=W_V r reconstruction exactly. (b) full-into-clean = 0.000 no-op validates the injection. (c) The 'full' payload is correctly the acceptor-window CEILING (restores clean values at the window only), NOT A2's all-position joint -- the mis-stated draft memorial was caught in smoke and corrected pre-run. (d) The energy match is fair: the random distribution brackets R_U, so U_info's non-privilege is not an artifact of an easy/hard random baseline.",
+  "overall": "L3H1's partner PAYLOAD is LOCALIZED to the 4-token acceptor window (full +0.382 ~= A2 joint), and -- RELATIVE TO the preregistered rank-8 U_info -- is NOT concentrated in that subspace: U_info recovers +0.06, not above an energy-matched random rank-8 (p=0.22); the complement carries ~all (perp +0.37), N_U +0.011. SCOPED CONCLUSION (narrowed): the payload is distributed *relative to U_info*, not distributed in general -- its intrinsic dimensionality is UNMEASURED (a privileged low-rank subspace could still exist in the 504-d complement; would need a rank sweep or an independently-derived acceptor-side U_source). U_info is NOT redefined: it remains the valid DELIVERED donor-side format (C16/C17); A2b shows the same basis is not privileged at the acceptor SOURCE. Reading: L3H1 performs SELECTION (positional address, A1a) AND REPRESENTATION CONVERSION -- reading a broad acceptor-local value through W_V/W_O and delivering a compact donor-side U_info (courier: address = attention, package = 4-token acceptor rep, U_info = delivery format at the donor, not the source format). Next: (1) the L2H15 address-vs-payload factorial (is L2H15's 0.66-of-coupling the address or the payload?); (2) independently replicate donor-side U_info (rank curve, held-out split) WITHOUT redefining it; (3) only then, if needed, derive a separately named U_source. The MLP2->U_info construction test is moot (no specific low-rank acceptor payload). R20 stands; behaviour-level throughout."
+ }
+}

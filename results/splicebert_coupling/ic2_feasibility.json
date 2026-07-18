@@ -1,0 +1,48 @@
+{
+ "natural_yield": {
+  "donors_with_2_acceptors": 142,
+  "n_ge80nt_spacing": 0,
+  "verdict": "INADEQUATE -> synthetic-only, constructed-setting scope"
+ },
+ "Q1_readout_stability": {
+  "argmax_switch_rate": 0.1,
+  "fixed_class_agreement_rate": 0.84,
+  "PASS_90pct_stable_or_concordant": true
+ },
+ "Q2_viability": {
+  "both_measurably_move_frac": 0.52,
+  "relyA_native_mean_Pslot": 0.4020746416924521,
+  "relyB_native_mean_Dslot": 0.05310295671224594,
+  "native_anchor_mean": 0.5210402548313141,
+  "ood_delta_median": 0.04653285555541514,
+  "n": 50
+ },
+ "Q3_SLOT_vs_WINDOW_vs_AG": {
+  "SLOT_adv_mean": 0.34912683223607016,
+  "SLOT_adv_sd": 0.5080117531693455,
+  "SLOT_adv_generic_AG_mean": 0.03373286364600062,
+  "SLOT_excess_over_AG_mean": 0.3153939685900696,
+  "SLOT_excess_sd": 0.6823306638246794,
+  "WINDOW_adv_mean": -0.00015514725586399436,
+  "WINDOW_adv_sd": 0.3288008857660342,
+  "criterion3_note": "PASS if SLOT_excess_over_AG or |WINDOW_adv| clears SESOI=0.05 (acceptor-SPECIFIC ranking, not generic-AG position)"
+ },
+ "MDE": {
+  "expected_census_mde_at_N": {
+   "SLOT_excess": {
+    "300": 0.1103672928887338,
+    "800": 0.06758588796742507,
+    "1500": 0.049357753878367584
+   },
+   "WINDOW_adv": {
+    "300": 0.05318369169869111,
+    "800": 0.03256822682482169,
+    "1500": 0.02378446998653292
+   }
+  }
+ },
+ "score3_check": {
+  "D_median": 9.220697814029851,
+  "sham_median": 1.1652031396715277
+ }
+}

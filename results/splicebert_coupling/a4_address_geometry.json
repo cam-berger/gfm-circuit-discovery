@@ -1,0 +1,190 @@
+{
+ "n": 1037,
+ "n_genes": 652,
+ "strands": [
+  "+",
+  "-"
+ ],
+ "P": 1026,
+ "grid": [
+  -96,
+  -48,
+  -24,
+  0,
+  24,
+  48,
+  96
+ ],
+ "G15_0": {
+  "mean": -0.47144106955859333,
+  "ci": [
+   -0.5147345455501259,
+   -0.43172323039384564
+  ]
+ },
+ "E_common": {
+  "-96": {
+   "G15_mean": 0.025353226950796268,
+   "E_mean": 0.4967942965093896,
+   "ci": [
+    0.44889117107074067,
+    0.5481691852518189
+   ]
+  },
+  "-48": {
+   "G15_mean": 0.04406111268730782,
+   "E_mean": 0.5155021822459012,
+   "ci": [
+    0.47108753022237077,
+    0.563574529841697
+   ]
+  },
+  "-24": {
+   "G15_mean": 0.06180913980579652,
+   "E_mean": 0.5332502093643898,
+   "ci": [
+    0.4858037148128724,
+    0.5838354257364538
+   ]
+  },
+  "0": {
+   "G15_mean": -0.47144106955859333,
+   "E_mean": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "24": {
+   "G15_mean": -0.012357322867374182,
+   "E_mean": 0.45908374669121915,
+   "ci": [
+    0.41383550790134643,
+    0.5055296539263273
+   ]
+  },
+  "48": {
+   "G15_mean": -0.010273223241706708,
+   "E_mean": 0.4611678463168866,
+   "ci": [
+    0.4179384698132974,
+    0.5074640096054486
+   ]
+  },
+  "96": {
+   "G15_mean": 0.029469631245878876,
+   "E_mean": 0.5009107008044722,
+   "ci": [
+    0.45376147996844785,
+    0.5519660996063748
+   ]
+  }
+ },
+ "E_diff": {
+  "-96": {
+   "G15_mean": 0.08402095000792148,
+   "E_mean": 0.5554620195665148,
+   "ci": [
+    0.5064044414368586,
+    0.6087601874754193
+   ]
+  },
+  "-48": {
+   "G15_mean": 0.037787015191499386,
+   "E_mean": 0.5092280847500927,
+   "ci": [
+    0.46491081591471106,
+    0.5571171662204703
+   ]
+  },
+  "-24": {
+   "G15_mean": -0.002126644193953695,
+   "E_mean": 0.46931442536463963,
+   "ci": [
+    0.4276487080787309,
+    0.5134169585924201
+   ]
+  },
+  "0": {
+   "G15_mean": -0.47144106955859333,
+   "E_mean": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  },
+  "24": {
+   "G15_mean": -0.019332067299142063,
+   "E_mean": 0.4521090022594513,
+   "ci": [
+    0.41186568460261386,
+    0.4960938095768465
+   ]
+  },
+  "48": {
+   "G15_mean": 0.02947592172006517,
+   "E_mean": 0.5009169912786585,
+   "ci": [
+    0.45626911600057735,
+    0.5499579267189835
+   ]
+  },
+  "96": {
+   "G15_mean": 0.01740245338576049,
+   "E_mean": 0.4888435229443538,
+   "ci": [
+    0.4417625209549843,
+    0.5405419827779799
+   ]
+  }
+ },
+ "common_max_absE": 0.5332502093643898,
+ "common_max_ratio": 1.1311068207605839,
+ "common_slope_per_nt": -0.00016504912435602085,
+ "diff_max_absE": 0.5554620195665148,
+ "diff_slope_per_nt": -0.0002979182505324405,
+ "raw_pe_kernel_toeplitz_residual_fraction": 0.6338465492496488,
+ "preflight_PASS": true,
+ "meets_power_target": true,
+ "confirmatory": false,
+ "REFLECTION": {
+  "status": "COMPLETE -- INCONCLUSIVE (confounded)",
+  "1_verdict": "The A4 design is CONFOUNDED and does NOT answer absolute-vs-relative. Preflight passed (shift0_is_native=0.0, l2h15_contributes G15(0)=-0.47 CI excludes 0), n=1037. But the disambiguating diagnostic (intact S_A under common shift, n=288) is decisive: the INTACT preference S_A collapses from +3.48 at Delta=0 to ~0 (or negative) at EVERY nonzero Delta (-96:+0.47, -48:-0.62, -24:-0.91, +24:+0.27, +48:+0.08, +96:+0.21). The whole QK preference is destroyed by the clamp, not just L2H15's contribution.",
+  "2_why_confounded": "The intervention clamps ONLY the donor/a+/a- tokens' position embeddings to PE[pos+Delta] while their sequence NEIGHBOURS keep native position embeddings -> an INCONSISTENT position field. L3H1's donor query and acceptor keys are computed from residuals that mixed (layers 0-2) with native-position neighbours, so labelling the 9 tokens at shifted coordinates is internally contradictory and breaks the QK. G15 -> 0 for any Delta simply because BOTH intact and ablated S_A collapse (e.g. Delta=-96: intact +0.47 ~= ablated +0.47 -> G15 +0.007). The step at Delta=0 (the no-op) and common==differential (both ~+0.5) are the artifact signatures.",
+  "3_what_would_be_clean": "A CONSISTENT global shift (all tokens' position_ids += Delta) avoids the inconsistent field, but overflows the P=1026 embedding table for ~1024-token sequences. The clean redesign: extract a shorter window (e.g. 512nt) around the donor-acceptor pair, leaving PE-table headroom to shift the ENTIRE window's position_ids by +-Delta consistently; then G15(d+Delta,a+Delta) vs G15(d,a) is a true common translation. (Sequence padding/moving content is still rejected -- the shift stays on position_ids, per the user's constraint.)",
+  "4_scope": "No claim is recorded. R20/C24/C25 unaffected. The negative G15(0)=-0.47 on the QK preference (vs C20's positive ATTENTION-preference contribution) is noted but not interpreted -- it too is measured under the (Delta=0 native) readout and is a separate QK-vs-attention nuance.",
+  "5_lesson": "Position-embedding interventions on ISOLATED tokens create an inconsistent position field that confounds any QK readout; a valid PE-geometry test needs a consistent shift of a contiguous region (shorter sequences) or a relative-position model. Caught by the intact-S_A-survival diagnostic -- which every future PE-shift experiment should include as a memorial.",
+  "overall": "A4 INCONCLUSIVE: the isolated-token PE clamp confounds the geometry test (intact S_A collapses under any shift). Redesign with a consistent global position_ids shift on shorter windows before concluding absolute vs relative. No claim recorded."
+ },
+ "status_note": "INCONCLUSIVE -- CONFOUNDED (see REFLECTION); the manifest CONFIRMATORY reflects run scale/preflight, not scientific validity.",
+ "diagnostic_SA_under_common": {
+  "-96": {
+   "S_A_intact": 0.47228168023543227,
+   "S_A_ablated": 0.4655595904526611
+  },
+  "-48": {
+   "S_A_intact": -0.6159535814594064,
+   "S_A_ablated": -0.6448260039711992
+  },
+  "-24": {
+   "S_A_intact": -0.9068764536124136,
+   "S_A_ablated": -0.9748206035647955
+  },
+  "0": {
+   "S_A_intact": 3.483342466255029,
+   "S_A_ablated": 3.9393075671460895
+  },
+  "24": {
+   "S_A_intact": 0.26471155178215766,
+   "S_A_ablated": 0.256535182810492
+  },
+  "48": {
+   "S_A_intact": 0.08077801970971955,
+   "S_A_ablated": 0.0918929162952635
+  },
+  "96": {
+   "S_A_intact": 0.20612815586436126,
+   "S_A_ablated": 0.1793579144610299
+  }
+ }
+}

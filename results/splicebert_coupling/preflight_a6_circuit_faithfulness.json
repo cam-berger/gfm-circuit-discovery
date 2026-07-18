@@ -1,0 +1,34 @@
+{
+ "commit": "6015ad1bcbc85af3209629f5d876bbc44ebc4116",
+ "n": 200,
+ "checks": {
+  "empty_circuit_is_corrupt": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "full_circuit_is_clean": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "positive_control_partner_coupling": {
+   "PASS": true,
+   "coupling": 0.9419076950103045
+  },
+  "both_strands_present": {
+   "PASS": true,
+   "strands": [
+    "+",
+    "-"
+   ]
+  },
+  "health_baseline": {
+   "PASS": true,
+   "clean_mlm_top1": 0.5292447605729103
+  },
+  "checkpoint_recorded": {
+   "PASS": true,
+   "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d"
+  }
+ },
+ "PASS": true
+}

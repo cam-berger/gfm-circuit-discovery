@@ -1,0 +1,57 @@
+{
+  "command": [
+    "scripts/splicebert/run_a6_circuit_faithfulness.py",
+    "--n",
+    "200",
+    "--n-null",
+    "100",
+    "--batch",
+    "8"
+  ],
+  "config": {
+    "comp_scan": 93,
+    "meets_power_target": true,
+    "n": 200,
+    "n_genes": 179,
+    "n_null": 100,
+    "preflight_PASS": true,
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-17T00:02:11.697482+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 37158,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "splicebert_coupling:a6_circuit_faithfulness",
+  "git_commit": "6015ad1bcbc85af3209629f5d876bbc44ebc4116",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    }
+  ],
+  "notes": [
+    "Node-level circuit faithfulness/necessity/minimality/completeness of the donor circuit C (C6/C9/C16-C25). Scrub-to-corrupt; two exact arithmetic memorials. NODE-level (edge scan is T2). U_info/claims NOT redefined.",
+    "status=CONFIRMATORY (preflight_PASS=True, power=True)."
+  ],
+  "outputs": [],
+  "seeds": {
+    "gene_bootstrap": 0,
+    "null_sets": 0
+  },
+  "status": "CONFIRMATORY"
+}

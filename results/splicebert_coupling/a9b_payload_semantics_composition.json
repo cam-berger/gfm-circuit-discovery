@@ -1,0 +1,181 @@
+{
+ "n": 240,
+ "n_genes": 216,
+ "strands": [
+  "+",
+  "-"
+ ],
+ "Kz": 8,
+ "adjustment_set": [
+  "GC",
+  "PY",
+  "POS",
+  "8xPCA(di+tri)"
+ ],
+ "vars": {
+  "V2b": {
+   "D": {
+    "n_pairs": 600,
+    "collinearity_cv_r2": 0.14888389077183106,
+    "composition_predicts_transfer_cv_r2": 0.006040702195677428,
+    "common_support": 69,
+    "identifiable": true,
+    "dml": {
+     "beta": 0.008849410406242795,
+     "ci": [
+      -0.05887466693154656,
+      0.08445660330482695
+     ],
+     "excludes_0": false,
+     "sign": 1,
+     "a9_sign": -1.0,
+     "sign_matches_a9": false
+    },
+    "gbr_beta": 0.00909220875279629,
+    "matched": {
+     "beta": -0.00280745353695923,
+     "ci": [
+      -0.11237609507744468,
+      0.103165916262401
+     ],
+     "n": 200,
+     "excludes_0": false
+    }
+   },
+   "H": {
+    "n_pairs": 600,
+    "collinearity_cv_r2": -0.005408744404947097,
+    "composition_predicts_transfer_cv_r2": -0.07064046176753669,
+    "common_support": 53,
+    "identifiable": true,
+    "dml": {
+     "beta": 0.041523975907488485,
+     "ci": [
+      -0.01980270490953203,
+      0.11635828113617021
+     ],
+     "excludes_0": false,
+     "sign": 1,
+     "a9_sign": -1.0,
+     "sign_matches_a9": false
+    },
+    "gbr_beta": 0.045172094316181924,
+    "matched": {
+     "beta": 0.1091319602195951,
+     "ci": [
+      -0.0008826242917021854,
+      0.28828202925433616
+     ],
+     "n": 200,
+     "excludes_0": false
+    }
+   }
+  },
+  "V3": {
+   "D": {
+    "n_pairs": 600,
+    "collinearity_cv_r2": 0.1805905189454322,
+    "composition_predicts_transfer_cv_r2": 0.006040702195677428,
+    "common_support": 57,
+    "identifiable": true,
+    "dml": {
+     "beta": 0.01575771537297801,
+     "ci": [
+      -0.04924413610528373,
+      0.07883484331204205
+     ],
+     "excludes_0": false,
+     "sign": 1,
+     "a9_sign": 1.0,
+     "sign_matches_a9": true
+    },
+    "gbr_beta": 0.023879983903934757,
+    "matched": {
+     "beta": 0.026981116766016753,
+     "ci": [
+      -0.07255884998523349,
+      0.13208708013619785
+     ],
+     "n": 200,
+     "excludes_0": false
+    }
+   },
+   "H": {
+    "n_pairs": 600,
+    "collinearity_cv_r2": 0.07098367506958136,
+    "composition_predicts_transfer_cv_r2": -0.07064046176753669,
+    "common_support": 66,
+    "identifiable": true,
+    "dml": {
+     "beta": 0.042351782205903014,
+     "ci": [
+      0.0008333195623300419,
+      0.09219097176648512
+     ],
+     "excludes_0": true,
+     "sign": 1,
+     "a9_sign": 1.0,
+     "sign_matches_a9": true
+    },
+    "gbr_beta": 0.037890404431136525,
+    "matched": {
+     "beta": 0.03805689791893644,
+     "ci": [
+      0.001455045466282598,
+      0.07945442447218355
+     ],
+     "n": 200,
+     "excludes_0": true
+    }
+   }
+  }
+ },
+ "calibration": {
+  "planted_positive": {
+   "n": 258,
+   "beta": 0.773937779048509,
+   "ci": [
+    0.7125867231922454,
+    0.8384833962932396
+   ],
+   "detected": true
+  },
+  "permuted_fpr": 0.05,
+  "confound_gates": {
+   "n": 1200,
+   "gateA_composition_only": {
+    "beta": -0.02124763159967038,
+    "ci": [
+     -0.09239189358933943,
+     0.02233453721997314
+    ],
+    "covers_0": true
+   },
+   "gateB_collinear_strength": {
+    "beta": 0.9803947421898456,
+    "beta0": 1.0,
+    "ci": [
+     0.9245684113479299,
+     1.0290213645969406
+    ],
+    "covers_beta0": true
+   }
+  }
+ },
+ "verdict": "strength_effect_weak_or_unresolved",
+ "preflight_PASS": true,
+ "confirmatory": true,
+ "REFLECTION": {
+  "status": "COMPLETE -> R22 (C30 bounded)",
+  "intent_reanchor": "Q0: does splice STRENGTH (not bulk composition) name the payload, net of composition? ANSWER: bulk composition is REFUTED as the payload's identity, but strength is NOT robustly established either -> semantic identity UNRESOLVED.",
+  "composition_refuted": "CV-R2(S~Z)=-0.07(H)/+0.006(D): bulk composition has no out-of-sample power to predict the payload transfer. Collinearity(dV2b~Z) low (-0.005 H); common support 53-69>40; confound gate A beta=-0.02 covers 0; gate B beta=0.98 covers 1; planted-positive detected (beta=0.77); permuted FPR=0.05. => composition separable and EXCLUDED (identifiable).",
+  "estimator_correction": "GBR-DML OVERFIT the low-dim Z (negative OOF R2) and manufactured a phantom nonlinear confound; LINEAR (ridge) DML is the calibrated estimator. Confound plant rebuilt FOLD-FREE (full-fit) to remove OOF fold-coupling.",
+  "strength_weak_unstable": "Broad DML (a9b-val): V2b beta=+0.042 [-0.02,+0.12] H (incl0), +0.009 D; V3 +0.042 [+0.001,+0.09] H only (circular). Path-A reproduces A9 EXACTLY on a9-val (r=-0.512 H / -0.323 D) but across 5 independently-seeded draws H r ranged -0.512..+0.017 (mean -0.22), D ~0; every composition-adjusted dyadic CI includes 0 (see a9c_sweep_seeded_draws).",
+  "R22": "C30 downgraded: A9's -0.51 reproducible on a9-val (not an implementation error) but sample-unstable + non-significant under two-way gene-dyadic inference. Payload = acceptor-local + NOT bulk composition; semantic identity UNRESOLVED; weak negative directional tendency only (H 4/5 draws neg, 4/4 comp-matched neg). V3 no rescue (circular + split-inconsistent).",
+  "methodology_lessons": [
+   "Within-sample gene held-out (D/H) does NOT test sampling stability -- the whole draw is one tag-seeded sample; require multiple independently-seeded (ideally disjoint) draws.",
+   "Interchange pairs reuse sender/receiver genes -> two-way (dyadic) inference, not permutation-on-correlation."
+  ],
+  "next": "Absolute MaxEnt strength probably NOT the semantic target -> test conditional splice competitiveness (donor context, competing acceptors, intronic context; IC1-IC5). Weak-tendency quantification -> new preregistered pooled disjoint-gene two-way-dyadic meta-analysis."
+ }
+}

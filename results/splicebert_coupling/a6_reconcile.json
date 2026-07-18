@@ -1,0 +1,18 @@
+{
+ "n": 200,
+ "n_genes": 179,
+ "coupling": 0.9419076938182116,
+ "F_C": 0.005393906556085318,
+ "N_C": 1.0,
+ "N_noembed": 0.9887888233445871,
+ "D_noembed": 0.986427203808793,
+ "D_noembed_ci": [
+  0.9815463453339371,
+  0.9905961709511689
+ ],
+ "F_C_ci": [
+  0.0031503885437824688,
+  0.007793794401068556
+ ],
+ "note": "DIAGNOSTIC reconciliation (post-hoc). F = complement-noising (circuit RECOMPUTES on a scrubbed residual). D = denoising injection of the circuit's CLEAN OUTPUTS with the corruption kept at the embedding (C\\embed). F<<D => delivery-sparse / source-distributed asymmetry (reconciles A6 with C16/C17). Not part of the frozen A6 protocol."
+}

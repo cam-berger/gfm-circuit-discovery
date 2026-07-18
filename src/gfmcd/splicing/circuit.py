@@ -37,7 +37,13 @@ from typing import Callable, Iterable, Iterator, Sequence
 
 import numpy as np
 import torch
-from transformers.modeling_utils import ALL_ATTENTION_FUNCTIONS
+try:
+    # transformers >= 4.48 exposes the custom-attention registry used by ``roll_attention``
+    # (the period-3 clock study).  The project pins ``transformers>=4.40``, so guard it: the
+    # registry is unrelated to every other assay and its absence must not brick module import.
+    from transformers.modeling_utils import ALL_ATTENTION_FUNCTIONS
+except ImportError:                                     # pragma: no cover - version-dependent
+    ALL_ATTENTION_FUNCTIONS = None
 
 from gfmcd.adapters.splicebert import SpliceBertAdapter
 from gfmcd.circuits.guards import (
@@ -416,7 +422,8 @@ def _rolled_attention_forward(module, query, key, value, attention_mask,
     return out, w
 
 
-ALL_ATTENTION_FUNCTIONS.register("gfmcd_roll", _rolled_attention_forward)
+if ALL_ATTENTION_FUNCTIONS is not None:
+    ALL_ATTENTION_FUNCTIONS.register("gfmcd_roll", _rolled_attention_forward)
 
 
 @contextmanager
@@ -432,6 +439,11 @@ def roll_attention(ad: SpliceBertAdapter, heads: Iterable[tuple[int, int]], delt
     instead of testing that doing nothing does nothing.  It must reproduce the unhooked
     model to numerical precision; ``tests/test_roll_identity.py`` asserts it.
     """
+    if ALL_ATTENTION_FUNCTIONS is None:
+        raise RuntimeError(
+            "roll_attention needs the custom-attention registry (transformers>=4.48); "
+            f"installed transformers lacks ALL_ATTENTION_FUNCTIONS. Upgrade to run the period-3 "
+            "clock study; every other assay works on the pinned transformers>=4.40.")
     by_layer: dict[int, list[int]] = {}
     for l, h in heads:
         by_layer.setdefault(l, []).append(h)

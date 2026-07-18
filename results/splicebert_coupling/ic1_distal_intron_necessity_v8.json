@@ -1,0 +1,128 @@
+{
+ "split": "val",
+ "acc_up": 70,
+ "n_elig": 259,
+ "n_clusters": 256,
+ "n_excluded_nonconstructible": 22,
+ "native_coupling": 0.6135185494673758,
+ "PRIMARY_signed_mean": {
+  "point": 0.03227371694993053,
+  "ci95_bca": [
+   0.012238530786683584,
+   0.05264718600585158
+  ],
+  "excludes_0": true,
+  "abs_ge_sesoi": false,
+  "achieved_mde": 0.029334075776742557
+ },
+ "material": false,
+ "small_but_detectable": true,
+ "bounded_null": false,
+ "verdict": "small_but_detectable_sub_SESOI_effect",
+ "sham_diagnostic": {
+  "dc_mean": 0.025735940644153743,
+  "ci": [
+   0.009010141082861124,
+   0.04902227624167381
+  ],
+  "note": "sham\u2248mean -> nonspecific perturbation response (CONVERGENT diagnostic only; does NOT prove non-partner-specificity \u2014 the PPT sham does not reproduce the AG channel exactly)"
+ },
+ "symmetry_diagnostic": {
+  "mean_abs_perintron_dC": 0.10402358654332725,
+  "note": "reported diagnostic (tautological with \u0394C dispersion), NOT a gate"
+ },
+ "partner_specific_contrast": {
+  "dc_specific_mean": 0.006537776305776788,
+  "ci95_bca": [
+   -0.011079703084008838,
+   0.024118087900592274
+  ],
+  "excludes_0": false,
+  "note": "\u0394C_specific = \u0394C_partner - \u0394C_sham (paired); rigorous partner-specificity test. CI-includes-0 => nonspecific."
+ },
+ "dispersion_secondary": {
+  "excess_mean": 0.025239857839308297,
+  "ci": [
+   0.015327998304746945,
+   0.036602882749709555
+  ],
+  "caveat": "PPT sham cannot exclude AG-channel state-dependent damage"
+ },
+ "arm_contrasts_secondary": {
+  "anch_minus_cons": {
+   "mean": -0.002664899289910052,
+   "ci": [
+    -0.010739189957570632,
+    0.006114040092813055
+   ],
+   "excl0": false
+  },
+  "unc_minus_anch": {
+   "mean": -0.005218380159594148,
+   "ci": [
+    -0.051968485808400224,
+    0.026980206057575448
+   ],
+   "excl0": false
+  }
+ },
+ "excluded_nonconstructible_profile": {
+  "n": 22,
+  "max_polyY_med": 5.0,
+  "max_score3_med": -1.0550420452796692
+ },
+ "checks": {
+  "conservative_construction": {
+   "PASS": true,
+   "max_dscore3": 1.9988306476190276
+  },
+  "distal_ood": {
+   "PASS": true,
+   "delta_OOD": 0.044,
+   "detail": {
+    "+": {
+     "band": 0.387861459997911,
+     "nat_inband": 0.9498069498069497,
+     "cons_inband": 0.9935649935649937,
+     "PASS": true
+    },
+    "-": {
+     "band": 0.3918714424388274,
+     "nat_inband": 0.9498069498069497,
+     "cons_inband": 0.9935649935649937,
+     "PASS": true
+    }
+   }
+  },
+  "sensitivity_onpath": {
+   "PASS": true,
+   "dC_plant_absmedian": 0.11751461029052734
+  },
+  "native_coupling_present": {
+   "PASS": true,
+   "native_coupling": 0.6135185494673758
+  },
+  "identity_noop_exact": {
+   "PASS": true
+  },
+  "n_clusters": {
+   "PASS": true,
+   "n": 256
+  }
+ },
+ "confirmatory": false,
+ "run_type": "outcome_aware_deterministic_verification (\u0394C seen on v7 pre-v8; NOT confirmatory)",
+ "gates_pass": true,
+ "REFLECTION": {
+  "status": "COMPLETE (outcome-aware deterministic VERIFICATION; NOT confirmatory)",
+  "verdict": "small_but_detectable_sub_SESOI_effect; NO evidence for a meaningful PARTNER-SPECIFIC effect",
+  "conclusion": "IC1 found a small average effect of conservative distal rearrangement, +0.032 nats [+0.012,+0.053], BELOW the preregistered material-effect threshold (0.05) and closely reproduced by the non-partner sham. It therefore provides NO evidence for a meaningful partner-specific effect in the tested (conservative-constructible, L>=107) subdomain.",
+  "partner_specific_contrast": "\u0394C_specific = \u0394C_partner - \u0394C_sham = +0.006, CI95(BCa)[-0.011,+0.024] INCLUDES 0 -> the partner-specific component is indistinguishable from zero. This paired contrast (not 'sham\u2248mean') is the rigorous support for nonspecificity.",
+  "primary": "signed \u0394C\u0304=+0.032, CI[+0.012,+0.053], excludes 0 but < SESOI 0.05; achieved MDE 0.029 (well-powered). Classification: small-but-detectable sub-SESOI.",
+  "gates": "all pass: corrected distal_ood noninferiority (cons in-band 0.994 >= nat 0.950 - \u03b40.044); conservative_construction; sensitivity_onpath; native_coupling 0.614; n_clusters 256.",
+  "secondary": "dispersion excess-over-sham +0.025 (CI[+0.015,+0.037], reported only, cannot exclude AG-channel damage); cryptic-competition arm-contrasts null.",
+  "reproducibility": "deterministic cohort (259 introns/256 clusters) under sorted-set shuffler + pinned PYTHONHASHSEED; determinism test PASSES across HASHSEED {0,1,2,17}. v8 reproduces v7 exactly (+0.032).",
+  "status_note": "\u0394C seen on v7 before the v8 fixes -> VERIFICATION not confirmatory; a publication-grade null needs a genuinely untouched disjoint cohort.",
+  "next": "Acceptor-competition study (PREREGISTRATION_IC2_ACCEPTOR_COMPETITION.md); then transfer to a 2nd GFM. IC2a proximal-decomposition drafted but NOT PURSUED."
+ }
+}

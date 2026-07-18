@@ -1,0 +1,195 @@
+{
+ "n": 240,
+ "n_genes": 207,
+ "strands": [
+  "+",
+  "-"
+ ],
+ "frozen_uinfo_rank": 8,
+ "vars": {
+  "V2a": {
+   "D": {
+    "n_eq": 288,
+    "n_eq_finite": 288,
+    "n_con": 124,
+    "T_eq_median": 1.0652156646404822,
+    "T_con_median": 1.0795944804499928,
+    "equivalence_ok": true,
+    "corr_r": -0.09131146461418095,
+    "r_thresh": 0.3019643719523874,
+    "monotonic": false,
+    "contrastive_ok": false,
+    "identifiable": true,
+    "names_payload": false
+   },
+   "H": {
+    "n_eq": 112,
+    "n_eq_finite": 112,
+    "n_con": 204,
+    "T_eq_median": 0.9118657923834566,
+    "T_con_median": 1.007602526732588,
+    "equivalence_ok": true,
+    "corr_r": -0.03527017177831466,
+    "r_thresh": 0.3019643719523874,
+    "monotonic": false,
+    "contrastive_ok": false,
+    "identifiable": true,
+    "names_payload": false
+   }
+  },
+  "V2b": {
+   "D": {
+    "n_eq": 257,
+    "n_eq_finite": 257,
+    "n_con": 91,
+    "T_eq_median": 1.1599447368791391,
+    "T_con_median": 1.0290573492410127,
+    "equivalence_ok": true,
+    "corr_r": -0.3314894413264016,
+    "r_thresh": 0.3019643719523874,
+    "monotonic": true,
+    "contrastive_ok": true,
+    "identifiable": true,
+    "names_payload": true
+   },
+   "H": {
+    "n_eq": 143,
+    "n_eq_finite": 143,
+    "n_con": 53,
+    "T_eq_median": 0.9861155728919916,
+    "T_con_median": 0.8598996007255486,
+    "equivalence_ok": true,
+    "corr_r": -0.5116081901756848,
+    "r_thresh": 0.3019643719523874,
+    "monotonic": true,
+    "contrastive_ok": true,
+    "identifiable": true,
+    "names_payload": true
+   }
+  },
+  "V3": {
+   "D": {
+    "n_eq": 257,
+    "n_eq_finite": 257,
+    "n_con": 65,
+    "T_eq_median": 1.0658807345487007,
+    "T_con_median": 0.9876993770250481,
+    "equivalence_ok": true,
+    "corr_r": 0.5003823746530892,
+    "r_thresh": 0.3019643719523874,
+    "monotonic": true,
+    "contrastive_ok": true,
+    "identifiable": true,
+    "names_payload": true
+   },
+   "H": {
+    "n_eq": 143,
+    "n_eq_finite": 143,
+    "n_con": 36,
+    "T_eq_median": 0.9786285713399516,
+    "T_con_median": 0.756750420025859,
+    "equivalence_ok": true,
+    "corr_r": 0.620005521645673,
+    "r_thresh": 0.3019643719523874,
+    "monotonic": true,
+    "contrastive_ok": true,
+    "identifiable": true,
+    "names_payload": true
+   }
+  },
+  "V1": {
+   "D": {
+    "n_eq": 217,
+    "n_eq_finite": 217,
+    "n_con": 315,
+    "T_eq_median": 1.129276546513493,
+    "T_con_median": 1.124798246747836,
+    "equivalence_ok": true,
+    "strat_contrast": 0.02083817035447244,
+    "contrastive_ok": false,
+    "identifiable": true,
+    "names_payload": false
+   },
+   "H": {
+    "n_eq": 183,
+    "n_eq_finite": 183,
+    "n_con": 85,
+    "T_eq_median": 0.9008867613224029,
+    "T_con_median": 0.8884882969417214,
+    "equivalence_ok": true,
+    "strat_contrast": -0.04876087937929533,
+    "contrastive_ok": false,
+    "identifiable": true,
+    "names_payload": false
+   }
+  },
+  "V4": {
+   "D": {
+    "n_eq": 0,
+    "n_eq_finite": 0,
+    "n_con": 0,
+    "T_eq_median": null,
+    "T_con_median": null,
+    "equivalence_ok": false,
+    "strat_contrast": null,
+    "contrastive_ok": false,
+    "identifiable": false,
+    "names_payload": false
+   },
+   "H": {
+    "n_eq": 0,
+    "n_eq_finite": 0,
+    "n_con": 0,
+    "T_eq_median": null,
+    "T_con_median": null,
+    "equivalence_ok": false,
+    "strat_contrast": null,
+    "contrastive_ok": false,
+    "identifiable": false,
+    "names_payload": false
+   }
+  }
+ },
+ "calibration": {
+  "planted_positive": {
+   "n_eq": 60,
+   "n_eq_finite": 60,
+   "n_con": 60,
+   "T_eq_median": 1.0002347481376574,
+   "T_con_median": 0.4781851248144201,
+   "equivalence_ok": true,
+   "corr_r": 0.99983511092442,
+   "r_thresh": 0.3019643719523874,
+   "monotonic": true,
+   "contrastive_ok": true,
+   "identifiable": true,
+   "names_payload": true
+  },
+  "permuted_fpr": 0.04666666666666667
+ },
+ "verdict": "externally_grounded_local_splice_strength",
+ "named_on_heldout": [
+  "V2b",
+  "V3"
+ ],
+ "composition_names": false,
+ "preflight_PASS": true,
+ "meets_power_target": true,
+ "confirmatory": true,
+ "REFLECTION": {
+  "status": "COMPLETE",
+  "decision": "The acceptor payload encodes LOCAL (4-token acceptor-window) SPLICE-SITE STRENGTH (held-out, calibrated). The frozen model-INDEPENDENT local-MaxEnt contribution (V2b) and the model own acceptor confidence (V3) each name it; the full-23nt MaxEnt (V2a) does NOT -> the payload is the local window, not the whole site (cross-validates A7 PPT-null). Not exact identity (V1). Composition (V4) NON-IDENTIFIABLE -> a composition confound is not fully excluded.",
+  "calibration": "BOTH controls pass after 4 iterations (the gate caught 3 decision-layer bugs: categorical-test-for-ordinal, loose bootstrap-CI significance FPR=0.18, weak planted direction NaN-equivalence). planted-positive corr_r=0.9998 monotonic (sensitivity); permuted-label FPR=0.047<=0.05 out-of-sample (specificity); value_linearity=exact; self/empty positive control OK.",
+  "V2b_local_maxent": "NAMES it: held-out r=-0.512, monotonic, |r|>r_thresh=0.302, equivalence eq=0.986 in [0.80,1.20]. Model-INDEPENDENT, frozen MaxEnt (maxentpy 0.0.4). The sign is set by the V2b definition (local-window contribution over a CAGG reference); what matters is significant+monotonic transfer.",
+  "V3_model_logit": "NAMES it: held-out r=+0.62, monotonic. The model own acceptor confidence tracks the coupling. Circular (model-internal) -> supports, cannot alone establish biological meaning; V2b (external) carries that.",
+  "V2a_full_window_null": "Full 23nt MaxEnt does NOT name it (r=-0.035, non-monotonic). The full window includes the 20nt intronic flank / PPT-adjacent positions, which the payload IGNORES -> CROSS-VALIDATES A7 (dPPT~0): the payload is the LOCAL acceptor window, not the whole 3-prime splice site.",
+  "V1_V4": "V1 (exact identity) does not name it (energy-stratified drop strat=-0.049) -> not sequence memorization. V4 (composition) NON-IDENTIFIABLE (0 matched pairs; L1-distance calipers formed none) -> composition confound OPEN (follow-up: re-run V4 with looser calipers).",
+  "dissociation": "V2b and V3 each name it with the OTHER competitor-matched in their contrastive pairs -> separately identified, not merely a composite; but they are biologically correlated (local splice strength ~ model acceptor confidence).",
+  "scope": "Value-path (L3H1 address held clean), held-out genes, permutation-calibrated. Names the WHAT of the payload the L0->L1->MLP2 generator (A8) builds = LOCAL acceptor-window splice-site strength. Composition confound not excluded. U_info projected-onto, not refit.",
+  "completes_arc": "A6 (not a sparse circuit) -> A7 (acceptor-local serial generation) -> A8 (serial L0->L1->MLP2 MLP-backbone generator) -> A9 (that generator computes LOCAL splice-site strength). The mechanism now-named end to end."
+ },
+ "localization": "local_window",
+ "composition_identifiable": false,
+ "composition_excluded": false,
+ "verdict_label_note": "Corrected from the script v1 coarse logic (which only checked V2a): the LOCAL 4-tok MaxEnt (V2b) is the payload-extent-matched external scorer and it names the payload; V2a (full 23nt) does not -> local-window localization."
+}

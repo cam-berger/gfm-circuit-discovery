@@ -1,0 +1,69 @@
+{
+ "frozen": {
+  "attn_row_sum_tol": 0.001,
+  "qk_recon_tol": 0.001,
+  "positionwise_tol": 0.0001,
+  "stage7_tol": 1e-05,
+  "min_real": 30
+ },
+ "commit": "6b4775c4ac9629017373e267cff29e2f04a514a1",
+ "n_pairs": 260,
+ "n_real": 120,
+ "checks": {
+  "probability_invariants": {
+   "PASS": true,
+   "max_row_sum_err": 3.5762786865234375e-07
+  },
+  "qk_reconstruction": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "stage7_equals_clean": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "positionwise_reconstruction": {
+   "PASS": true,
+   "max_abs_err": 0.0
+  },
+  "reference_is_clean_sequence": {
+   "PASS": true,
+   "frac_partner_AG_intact": 1.0,
+   "note": "a+ AG intact in the reference set (would be CC under the rejected corrupt reference)"
+  },
+  "resolution_pair_match": {
+   "PASS": true,
+   "motif_gap_sd": 1.4483350500453285,
+   "dist_bias_nt": 5.3884615384615415,
+   "dist_spread_nt": 25.696153846153845,
+   "phase_mismatch_rate": 0,
+   "coding_frac": 0.9153846153846154,
+   "noncoding_frac": 0.08461538461538465,
+   "real_acceptor_distance": {
+    "n": 18,
+    "signed_gap_mean": 12.666666666666666,
+    "signed_gap_median": 21.0,
+    "abs_gap_mean": 33.666666666666664,
+    "gap_min": -39.0,
+    "gap_max": 51.0
+   }
+  },
+  "real_acceptor_arm_available": {
+   "PASS": true,
+   "n_real": 120,
+   "min_real": 30
+  },
+  "both_strands_present": {
+   "PASS": true,
+   "strands": [
+    "+",
+    "-"
+   ]
+  },
+  "checkpoint_recorded": {
+   "PASS": true,
+   "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d"
+  }
+ },
+ "PASS": true
+}

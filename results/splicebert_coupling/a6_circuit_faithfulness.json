@@ -1,0 +1,206 @@
+{
+ "n": 200,
+ "n_genes": 179,
+ "strands": [
+  "+",
+  "-"
+ ],
+ "coupling": 0.9419076950103045,
+ "circuit": {
+  "heads": [
+   [
+    1,
+    12
+   ],
+   [
+    2,
+    15
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    4,
+    0
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    5,
+    11
+   ]
+  ],
+  "mlps": [
+   2,
+   3,
+   4
+  ],
+  "embed": true
+ },
+ "F_C": 0.005393906549258707,
+ "F_C_ci": [
+  0.003150388539399384,
+  0.007793794394422126
+ ],
+ "N_C": 1.0,
+ "N_C_ci": [
+  1.0,
+  1.0
+ ],
+ "null_F_mean": -9.50779719793287e-05,
+ "null_F_p95": 0.00011183252260975003,
+ "p_faithful": 0.009900990099009901,
+ "residual_1_minus_F": 0.9946060934507412,
+ "minimality": {
+  "(1, 12)": {
+   "F_drop": -4.185413897848066e-05,
+   "dF_ci": [
+    -0.000233330991660869,
+    8.816611414889808e-05
+   ],
+   "load_bearing": false
+  },
+  "(2, 'mlp')": {
+   "F_drop": 0.005228487292666884,
+   "dF_ci": [
+    0.003205955558824749,
+    0.007508324856752754
+   ],
+   "load_bearing": true
+  },
+  "(2, 15)": {
+   "F_drop": -7.776170484260873e-05,
+   "dF_ci": [
+    -0.0004110927695058804,
+    0.00020240011701387492
+   ],
+   "load_bearing": false
+  },
+  "(3, 'mlp')": {
+   "F_drop": 0.005183638628522595,
+   "dF_ci": [
+    0.003061741450598313,
+    0.007510448808623211
+   ],
+   "load_bearing": true
+  },
+  "(3, 1)": {
+   "F_drop": 0.005484140893986799,
+   "dF_ci": [
+    0.0032363550870291463,
+    0.007909832677994753
+   ],
+   "load_bearing": true
+  },
+  "(4, 'mlp')": {
+   "F_drop": 0.002922076277163118,
+   "dF_ci": [
+    0.001631352402155352,
+    0.004444403297052343
+   ],
+   "load_bearing": true
+  },
+  "(4, 0)": {
+   "F_drop": -5.988757658053918e-05,
+   "dF_ci": [
+    -0.00019094335202930962,
+    5.302913919830819e-05
+   ],
+   "load_bearing": false
+  },
+  "(4, 2)": {
+   "F_drop": 0.0020678082596204,
+   "dF_ci": [
+    0.0009344035737438971,
+    0.003350806549374389
+   ],
+   "load_bearing": true
+  },
+  "(5, 11)": {
+   "F_drop": 0.0006376108747018997,
+   "dF_ci": [
+    0.00027622930858346186,
+    0.0010146265994647667
+   ],
+   "load_bearing": true
+  },
+  "embed": {
+   "F_drop": 0.005393906549258707,
+   "dF_ci": [
+    0.003150388539399384,
+    0.007793794394422126
+   ],
+   "load_bearing": true
+  }
+ },
+ "completeness_top_omitted": {
+  "(1, 'mlp')": {
+   "F_gain": 0.004956514134315679
+  },
+  "(5, 'mlp')": {
+   "F_gain": 0.003675726129228842
+  },
+  "(0, 7)": {
+   "F_gain": 0.00310176321179949
+  },
+  "(2, 8)": {
+   "F_gain": 0.002614499221545708
+  },
+  "(0, 8)": {
+   "F_gain": 0.0022984632671201165
+  },
+  "(0, 'mlp')": {
+   "F_gain": 0.0021383709066965344
+  },
+  "(0, 14)": {
+   "F_gain": 0.0017361069131296087
+  },
+  "(0, 12)": {
+   "F_gain": 0.0014656413400370126
+  }
+ },
+ "completeness_incomplete_nodes": [],
+ "addition_null_p95": 0.0022024078508659658,
+ "verdict": {
+  "faithful": false,
+  "necessary": true,
+  "minimal": false,
+  "complete": true
+ },
+ "clean_mlm_top1": 0.5292447605729103,
+ "preflight_PASS": true,
+ "meets_power_target": true,
+ "confirmatory": true,
+ "REFLECTION": {
+  "status": "COMPLETE",
+  "decision": "NECESSARY but NOT FAITHFUL. The 10-node donor circuit is a fully-necessary DELIVERY SPINE, not a faithful sparse generator.",
+  "memorials": "empty_circuit_is_corrupt=0.0 EXACT, full_circuit_is_clean=0.0 EXACT -> node cover {embed,all heads,all MLPs} complete and scrub plumbing correct; the exact healthy extremes ARE the health guard (clean mlm_top1 baseline 0.529).",
+  "faithfulness": "F(C)=0.005 [0.003,0.008] under complement-noising (residual 99.5%); > size-matched random null (p95 0.0001, add-one p=0.010) but trivially small. NO sparse node set of this size is faithful (random circuits ~0 too).",
+  "necessity": "N(C)=1.000; N(C\\embed)=0.989 -> the compute spine is genuinely necessary, NOT a trivial consequence of the embedding carrying the corruption.",
+  "reconciliation": "D(C\\embed)=0.986 [0.982,0.991]: injecting the circuit CLEAN OUTPUTS (corruption kept at embed) recovers ~all coupling. F(0.005)<<D(0.986) => delivery-sparse / source-distributed asymmetry. Reconciles A6 with C16/C17 (sufficient-when-injected holds); overturns nothing.",
+  "minimality": "UNINTERPRETABLE at F~0 (cannot rank load-bearing nodes when the whole is non-functional). Nominal per-node F-contributions are all at the ~0.005 scale; reported, not claimed.",
+  "completeness": "Residual 1-F=0.995 is NOT localized to any single omitted node (max add-one gain 0.005 over 93 non-circuit nodes; top: L1-MLP 0.005, L5-MLP 0.004, L0H7 0.003) -> distributed, a diffuse T2 shortlist, not one missing component.",
+  "resolves_C7": "Completeness, flagged unquantified in C7, is now quantified (F(C)=0.005) with the general-damage confound EXCLUDED (scrub-to-corrupt, not mean-ablation; exact healthy memorials).",
+  "escaped_failure_modes": "(1) exact memorials guard plumbing+cover+health; (2) trivial-N killed by N(C\\embed)=0.989; (3) broken-test killed by D(C\\embed)=0.986; (4) non-additivity respected (F and 1-N never summed); (5) null fairly size-matched on heads AND mlps.",
+  "scope": "NODE-level, complement-noising, this circuit size. The minimal FAITHFUL set size is UNMEASURED (size/edge sweep = T2). No prior claim redefined; U_info untouched.",
+  "scope_correction": "Per review (2026-07-16): call this DISTRIBUTED or INTERACTION-DEPENDENT at current node resolution. A6 rules out the proposed sparse generator AND single-node omissions, but NOT a structured jointly-necessary multi-node module; irreducible diffuseness is NOT established. Next: A7 position x layer localization (state-clamp vs writers-open, regions x layer-blocks, dR + interaction terms) -> scoped edge discovery -> backward-pruned size curve."
+ },
+ "reconcile": {
+  "F_C": 0.005393906556085318,
+  "F_C_ci": [
+   0.0031503885437824688,
+   0.007793794401068556
+  ],
+  "N_C": 1.0,
+  "N_noembed": 0.9887888233445871,
+  "D_noembed": 0.986427203808793,
+  "D_noembed_ci": [
+   0.9815463453339371,
+   0.9905961709511689
+  ],
+  "note": "DIAGNOSTIC reconciliation (post-hoc). F = complement-noising (circuit RECOMPUTES on a scrubbed residual). D = denoising injection of the circuit's CLEAN OUTPUTS with the corruption kept at the embedding (C\\embed). F<<D => delivery-sparse / source-distributed asymmetry (reconciles A6 with C16/C17). Not part of the frozen A6 protocol."
+ }
+}

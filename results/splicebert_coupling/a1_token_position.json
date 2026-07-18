@@ -1,0 +1,158 @@
+{
+ "n_pairs": 260,
+ "n_real": 120,
+ "strands": [
+  "+",
+  "-"
+ ],
+ "match_audit": {
+  "PASS": true,
+  "motif_gap_sd": 1.4883907892368637,
+  "dist_bias_nt": 3.8192307692307566,
+  "dist_spread_nt": 24.911538461538463,
+  "phase_mismatch_rate": 0,
+  "coding_frac": 0.9153846153846154,
+  "noncoding_frac": 0.08461538461538465,
+  "real_acceptor_distance": {
+   "n": 18,
+   "signed_gap_mean": 0.5,
+   "signed_gap_median": -18.0,
+   "abs_gap_mean": 27.833333333333332,
+   "gap_min": -36.0,
+   "gap_max": 51.0
+  }
+ },
+ "preflight_PASS": true,
+ "primary_real_acceptor_contrast": {
+  "n": 120,
+  "n_genes": 103,
+  "cells": {
+   "full": {
+    "mean": 2.700804858406385,
+    "ci": [
+     2.227007336919902,
+     3.140455594819358
+    ]
+   },
+   "word_neutral": {
+    "mean": 2.3035260796546937,
+    "ci": [
+     1.8941235764648605,
+     2.6978329319043044
+    ]
+   },
+   "pos_neutral": {
+    "mean": -0.016826061780254045,
+    "ci": [
+     -0.05792441765151298,
+     0.02786927468257756
+    ]
+   },
+   "both_neutral": {
+    "mean": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ]
+   }
+  },
+  "position_effect": {
+   "mean": 2.7176309201866387,
+   "ci": [
+    2.222909959210083,
+    3.1535307174253613
+   ]
+  },
+  "content_effect": {
+   "mean": 0.3972787787516912,
+   "ci": [
+    0.18078341849633603,
+    0.6197518974718593
+   ]
+  },
+  "interaction": {
+   "mean": 0.41410484053194524,
+   "ci": [
+    0.1966521517233027,
+    0.6416376181098262
+   ]
+  },
+  "floor_over_full": 0.0,
+  "real_distance_confound": {
+   "n": 120,
+   "signed_gap_mean": 6.925,
+   "signed_gap_median": 18.0,
+   "abs_gap_mean": 28.825,
+   "gap_min": -57.0,
+   "gap_max": 60.0
+  }
+ },
+ "secondary_generic_contrast": {
+  "n": 260,
+  "n_genes": 225,
+  "cells": {
+   "full": {
+    "mean": 3.56639236670274,
+    "ci": [
+     3.3525085881793513,
+     3.7773087542236974
+    ]
+   },
+   "word_neutral": {
+    "mean": 2.8906940180521743,
+    "ci": [
+     2.673072183794883,
+     3.105190618543559
+    ]
+   },
+   "pos_neutral": {
+    "mean": -0.021813556924462317,
+    "ci": [
+     -0.050935933014648105,
+     0.007178633368191446
+    ]
+   },
+   "both_neutral": {
+    "mean": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ]
+   }
+  },
+  "position_effect": {
+   "mean": 3.588205923627202,
+   "ci": [
+    3.3705034273105348,
+    3.805044228342134
+   ]
+  },
+  "content_effect": {
+   "mean": 0.6756983486505656,
+   "ci": [
+    0.566419793114615,
+    0.79241976495463
+   ]
+  },
+  "interaction": {
+   "mean": 0.6975119055750278,
+   "ci": [
+    0.5834906882179661,
+    0.8155316357741894
+   ]
+  },
+  "floor_over_full": 0.0
+ },
+ "n_genes": 225,
+ "meets_power_target": true,
+ "confirmatory": true,
+ "REFLECTION": {
+  "status": "COMPLETE",
+  "1_passfail_and_decision": "CONFIRMATORY: preflight 8/8 PASS (qk_reconstruction=0.0, shared_ref_neutralises=0.0 EXACT -- the shared reference truly makes a+/decoy embeddings identical). n=260 generic / n_real=120, 225 genes. DECISION (decision table): position_effect >> content_effect, CI-separated, in BOTH arms -> the embedding-resident targeting DIFFERENCE is POSITIONAL GEOMETRY. primary position +2.72[2.22,3.15] vs content +0.40[0.18,0.62]; secondary position +3.59[3.37,3.81] vs content +0.68[0.57,0.79]. Next = distance/geometry intervention (not local-content edits).",
+  "2_position_necessary_and_sufficient": "The sharpest fact: pos_neutral ~= 0 in BOTH arms (-0.017 / -0.022, CI incl 0) -- equalizing the a+/decoy POSITION embeddings collapses the entire preference, even with local content clean. word_neutral stays large (+2.30 / +2.89). So position is necessary AND nearly sufficient; local within-window content alone carries ~nothing. The interaction (+0.41/+0.70 ~= content_effect) says content registers ONLY when position is clean -- content is a minor, position-synergistic term.",
+  "3_floor_and_scope": "floor = both_neutral = 0.000 EXACTLY, floor/full = 0.00 in both arms: the a+/decoy discrimination is ENTIRELY within the 4-token key window (position + local content) and NOTHING reaches it from surrounding context via attention -- a tight cross-validation of A0's embedding-residence. Consequence for the PPT/branch-point hypothesis: the polypyrimidine tract (~10-40nt upstream, OUTSIDE the window) contributes 0 to this S_A readout. L3H1's acceptor 'read' as measured by S_A does not use the PPT.",
+  "4_S_A_intermediate_and_C20_tension": "S_A is a mechanistic intermediate; primary distance confound (median +18nt) and secondary site-strength are reported. IMPORTANT tension with C20: C20 read the S_QK/S_A attention preference as partner-IDENTITY-specific (real-acceptor arm surviving a distance-OLS, intercept +0.61). A1a shows that same S_A difference is ~ENTIRELY POSITIONAL (pos-neutralization -> ~0), including in the DISTANCE-MATCHED secondary arm -- so the attention/QK preference is absolute-position geometry, NOT a content/identity read. This UNDERCUTS C20's identity interpretation of the QK/attention level. It does NOT touch the behaviour-level partner-specificity (C19, ~37x), which rests on separate evidence; the reconciliation (positional targeting + U_info downstream yielding partner-specific COUPLING) is the open synthesis question. C20 flagged with an A1a caveat; no unilateral retraction -- surfaced for the ledger.",
+  "5_escaped_failure_modes": "(a) shared_ref_neutralises=0.0 and both_neutral=0.0 exactly -- the 2x2 is balanced (content still registers +0.40/+0.68 when position is clean), so position dominance is NOT an artifact of position-neutralization being merely more destructive. (b) The neutralization is an off-distribution counterfactual (shared mean position); the balanced content signal and the CI-separated effects guard against reading destruction as mechanism. (c) The window is 4 tokens so 'content' = local only; the floor=0 makes this scope explicit and testable, not hidden. (d) primary-arm distance confound present and reported; the distance-matched secondary arm shows the SAME position dominance, so it is not merely distance-decay.",
+  "overall": "L3H1's donor-query acceptor-targeting DIFFERENCE (S_A) is dominated by POSITIONAL GEOMETRY (absolute position embeddings), not local sequence content, and lives entirely within the 4-token key window (floor=0). Combined with A0 (difference embedding-resident, not layer-constructed; query pathway adds class-level gain), the mechanism of L3H1's attention targeting is positional -- consistent with C8 and the R15 position-is-in-the-vector lesson, and it materially weakens C20's content/identity reading of the QK/attention preference. The behaviour-level partner-specificity (C19) is untouched and now poses the key synthesis question: how positional targeting + the U_info readout produce partner-SPECIFIC coupling. Next: a distance/geometry intervention, and a C19<->A1a reconciliation."
+ }
+}

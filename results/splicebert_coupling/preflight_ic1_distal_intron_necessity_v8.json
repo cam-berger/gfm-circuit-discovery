@@ -1,0 +1,45 @@
+{
+ "commit": "8ed5e05bd377d520b1394780384a7ecb5228fd6a",
+ "n_elig": 259,
+ "n_clusters": 256,
+ "checks": {
+  "conservative_construction": {
+   "PASS": true,
+   "max_dscore3": 1.9988306476190276
+  },
+  "distal_ood": {
+   "PASS": true,
+   "delta_OOD": 0.044,
+   "detail": {
+    "+": {
+     "band": 0.387861459997911,
+     "nat_inband": 0.9498069498069497,
+     "cons_inband": 0.9935649935649937,
+     "PASS": true
+    },
+    "-": {
+     "band": 0.3918714424388274,
+     "nat_inband": 0.9498069498069497,
+     "cons_inband": 0.9935649935649937,
+     "PASS": true
+    }
+   }
+  },
+  "sensitivity_onpath": {
+   "PASS": true,
+   "dC_plant_absmedian": 0.11751461029052734
+  },
+  "native_coupling_present": {
+   "PASS": true,
+   "native_coupling": 0.6135185494673758
+  },
+  "identity_noop_exact": {
+   "PASS": true
+  },
+  "n_clusters": {
+   "PASS": true,
+   "n": 256
+  }
+ },
+ "PASS": true
+}

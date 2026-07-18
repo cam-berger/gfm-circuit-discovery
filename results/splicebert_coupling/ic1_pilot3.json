@@ -1,0 +1,65 @@
+{
+ "acc_up": 70,
+ "n_seed": 16,
+ "strong_thr": 6.0,
+ "bands": [
+  2.0,
+  2.0,
+  2
+ ],
+ "conservative": {
+  "yield": 0.9383333333333334,
+  "n_eligible_est": 2069,
+  "n_pilot": 80,
+  "dose_norm_hamming_med": 0.3584905660377358,
+  "dose_altered_med": 19.0,
+  "max_score3_change_observed": 1.9942482929750693,
+  "constraint_ok": true,
+  "dCbar_absmean": 0.08851264344993978,
+  "sd_between": 0.1622500630931591,
+  "signed_mde_census": 0.009993342168626188,
+  "disp_shuffle_mean": 0.11166586891498757,
+  "disp_sham_mean": 0.0809880142152293,
+  "excess_mean": 0.030677854699758266,
+  "excess_sd_between": 0.058453954637817586,
+  "disp_mde_census": 0.003600309045609821
+ },
+ "sham_sweep": {
+  "k2_-10": {
+   "fshift_ratio_med": 0.5385687909143451,
+   "fshift_ratio_iqr": [
+    0.13236024556685297,
+    1.125968315498604
+   ]
+  },
+  "k3_-11": {
+   "fshift_ratio_med": 0.3728686108072271,
+   "fshift_ratio_iqr": [
+    0.15647555236885607,
+    1.0161704459434813
+   ]
+  },
+  "k4_-12": {
+   "fshift_ratio_med": 0.5105722870016438,
+   "fshift_ratio_iqr": [
+    0.1935636714003029,
+    1.0881642585075886
+   ]
+  },
+  "k4_-8": {
+   "fshift_ratio_med": 0.5582762818665377,
+   "fshift_ratio_iqr": [
+    0.24099964727586942,
+    0.9765759378709518
+   ]
+  }
+ },
+ "sham_pick": {
+  "rule": "k4_-8",
+  "offset": 8,
+  "alt": "AAAA",
+  "fshift_ratio_med": 0.5582762818665377,
+  "dC_sham_mean": 0.005319044424686581,
+  "dC_sham_p95abs": 0.22784071948844925
+ }
+}
