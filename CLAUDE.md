@@ -72,11 +72,14 @@ rationale in `DECISIONS_A0.md`):
   positional address to an acceptor-local payload, then delivers the resulting information to the donor
   readout within an irreducibly distributed computation."* (No "splice-strength" — semantic identity is
   unresolved per R22; the weak strength tendency belongs in discussion, not the established mechanism.)
-  **P3 refinement (2026-07-17):** the positional address is supplied by the period-3 carrier acting as a
-  **distributed relative-positional routing coordinate** — read **across the donor–acceptor span** (C34,
-  not at the two sites) and routing through **L3H1's attention pattern, not its values** (P3.3). The
-  carrier does *not* carry the payload; its "binding" role is not identifiable by carrier-deletion+patching
-  (R23 — C23's separate reconstruct-inject binding stands).
+  **P3 refinement (2026-07-17; C34/C35 adjudicated 2026-07-18 → R24):** the positional address is supplied by
+  the period-3 carrier acting as a **distributed relative-positional routing coordinate** — read **across the
+  donor–acceptor span** (C34, not at the two sites) and routing through **L3H1's attention pattern, not
+  carrier-dependent changes in its values** (P3.3). Within that intervention L3H1's values are not
+  carrier-dependent (**R24**: the categorical "does not carry the payload" is withdrawn — it does *not* exclude
+  upstream carrier effects on payload construction); its "binding" role is not identifiable by
+  carrier-deletion+patching (R23 — architecture-forced `Δ_bind`; C23's separate reconstruct-inject binding
+  stands). C34's confirm split is gate-qualified (preregistered M1 gate failed 5.5%>5% → verification-level).
 - **Intron-coupling arc (IC1–IC5) — opened after R22.** Tests conditional splice competitiveness (the
   post-R22 target), not absolute MaxEnt strength.
   - **IC1 DONE (DIAGNOSTIC / outcome-aware verification, NOT confirmatory):** distal intron interstitial
@@ -102,19 +105,29 @@ rationale in `DECISIONS_A0.md`):
     phase-matched-irrelevant & decoy-acceptor nulls ≈0, broad-span restoration needed (dose → R_C≈0.5 only
     at ±32 nt). The carrier is a distributed positional coordinate across the span (Endpoint-B locus,
     well-powered). Coheres with C32 (relative offset) + C33 (irreducibly distributed).
-    `results/p3_carrier_locus.json`.
+    **Caveat (R24): confirm split gate-qualified — preregistered M1 gate failed (5.5%>5%) → verification-level,
+    not a clean confirmation.** `results/p3_carrier_locus.json`.
   - **P3.3 A-vs-V decomposition (NOT binding) → routing main ≫ value main** (confirmatory n=120, disc/conf).
     On the deleted base, restoring L3H1's intact-carrier **attention pattern** recovers **+0.257/+0.284**
-    coupling; restoring its **values** recovers **≈0** (−0.011/−0.005, a genuine non-forced null ⇒ carrier
-    does NOT build the payload). The carrier's coupling contribution routes through L3H1's **attention
-    address (where it looks), not its values (payload)** — the routing-carrier picture, causally. Plumbing
-    anchors EXACT 0.0. `Δ_bind`=+0.14/+0.16 CI-positive but **architecture-forced (R23) — reported, not
+    coupling; restoring its **values** recovers **≈0** (−0.011/−0.005, a genuine non-forced sub-SESOI null ⇒
+    within this intervention L3H1's values are not carrier-dependent — **R24**: NOT a global "carrier does not
+    build the payload" claim). The carrier's coupling contribution routes through L3H1's **attention address
+    (where it looks), not carrier-dependent changes in its values** — the routing-carrier picture, causally.
+    Plumbing anchors EXACT 0.0. `Δ_bind`=+0.14/+0.16 CI-positive but **architecture-forced (R23) — reported, not
     interpreted** (pre-run red-team foresight confirmed). `results/p3_av_decomposition.json`.
   - **Deferred:** D_rec **recognition** (needs a strong-motif pseudo-site decoy study; decoys sparse);
     **construction-vs-binding** (non-identifiable, R23); **P3.4 origin** (separate, whole-codon/CDS/slots).
-- **NEXT: TRANSFER to a second GFM** (the deferred, hardened **Caduceus-PS** package in
-  `studies/caduceus_partner_transfer/`) — SpliceBERT's carrier account is now bounded at the
-  causal-locus + A-vs-V level. Per the depth-first spine, treat cross-model transfer as the next study.
+- **NEXT (Cam's sequence, 2026-07-18):** *close C34/C35 (DONE, R24) → **P3.4 carrier origin** → recognition
+  feasibility gate → freeze the bounded SpliceBERT account → **Caduceus transfer***. Cam redirected: **do NOT
+  transfer yet.** **P3.4** (why did SpliceBERT learn the carrier?) is the next experiment — one focused
+  factorial `ΔL = L(carrier-deleted) − L(intact)` across CDS vs matched UTR/intron/noncoding, single-base vs
+  whole-codon masking, codon slots 0/1/2, coding boundaries vs interiors; estimand = the **carrier-deletion ×
+  context interaction** (NOT raw ΔL), with absolute-PE-phase balancing + GC/k-mer/position/difficulty matching
+  + whole-sequence +1/+2/+3 translation leakage controls. **Separately gated** so a coding-origin result cannot
+  redefine the causal splice result. Formalize → red-team → smoke → freeze before any confirmatory run.
+  **Recognition** stays a **feasibility gate only** (blinded census/MDE; no synthetic pseudo-sites; if too few
+  real matched decoys, record UNRESOLVED and stop). Transfer package (hardened **Caduceus-PS**) waits in
+  `studies/caduceus_partner_transfer/` (needs a Colab-CUDA decision).
 - **Open:** payload semantic identity (unresolved → IC program); L1/L2 individual-head resolution; A11
   PE-edge caveat at |Δ|=192; A12 static-rank is an upper bound (true lazy-greedy would refine).
 
