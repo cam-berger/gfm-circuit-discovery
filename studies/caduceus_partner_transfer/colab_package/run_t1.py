@@ -31,19 +31,25 @@ def all_margins(scorer, rows):
     return by
 
 
-def tau_permuted_null(by, rows, seed=0):
-    """tau = upper 95% CI of rho_partner under the PERMUTED-partner null on DISCOVERY (swap partner<->nonpartner).
-    Non-circular, within-model (fork a default)."""
-    idx = [i for i, r in enumerate(rows) if r["split"] == "discovery"]
+def tau_permuted_null(by, rows, seeds=(0, 1, 2, 17)):
+    """tau = GENUINE permuted-partner-null floor on DISCOVERY: relabel one non-partner AG as the nominal
+    'partner' and a SECOND non-partner as its reference, so the contrast contains NO real partner identity
+    (null_ps = C_nonpartner1 - C_nonpartner2). tau = upper 95% CI of |null rho_partner|, taken as the MAX over
+    independently-seeded bootstraps (R22 sampling-stability guard). Non-circular; independent of the alternative."""
+    idx = [i for i, r in enumerate(rows) if r["split"] == "discovery" and "nonpartner2_cc" in by[i]]
+    if not idx:
+        raise RuntimeError("no discovery examples carry a 2nd non-partner (nonpartner2_cc) -> cannot seal a genuine tau")
     genes = [rows[i]["gene"] for i in idx]
-    perm_ps, A = [], []
+    null_ps, A = [], []
     for i in idx:
         b = by[i]; clean = b["clean"]
-        C = clean - b["partner_cc"]; C_np = clean - b["nonpartner_cc"]
-        perm_ps.append(C_np - C)                     # swapped labels => null partner-specificity
+        null_ps.append((clean - b["nonpartner_cc"]) - (clean - b["nonpartner2_cc"]))  # both non-partners => null
         A.append(clean - b["donor_dead"])
-    r = H.paired_gene_bootstrap_ratio(perm_ps, A, genes, seed=seed)
-    return max(0.0, r["ci"][1])                      # upper CI of the null ratio
+    ups = []
+    for s in seeds:
+        r = H.paired_gene_bootstrap_ratio(null_ps, A, genes, seed=s)
+        ups.append(max(0.0, r["ci"][1]))
+    return float(max(ups)), {"n_discovery_null": len(idx), "tau_across_seeds": [float(u) for u in ups]}
 
 
 def lr_curve(by, rows, seed=0):
@@ -86,11 +92,30 @@ def main():
     from caduceus_scorer import CaduceusScorer
     sc = CaduceusScorer(model, tok, device=dev, batch_size=args.batch)
 
-    # --- preflight (memorials on the real model; scorer.__init__ already asserted tokenization/coords) ---
-    mlm = sc.mlm_health([r["constructs"]["clean"][0] for r in rows[:20]])
-    by = all_margins(sc, rows)
+    # --- HARD PREFLIGHT memorials (STOP before the full pass; §3 on-path, can fail) ---
+    sub = rows[:64]
+    seq0, d0 = sub[0]["constructs"]["clean"]
+    m_d = float(sc.donor_margin([seq0], [d0])[0])
+    m_p1 = float(sc.donor_margin([seq0], [d0 + 1])[0]); m_m1 = float(sc.donor_margin([seq0], [d0 - 1])[0])
+    mlm = sc.mlm_health([r["constructs"]["clean"][0] for r in sub[:20]])
+    cl = sc.donor_margin([r["constructs"]["clean"][0] for r in sub], [r["constructs"]["clean"][1] for r in sub])
+    dd = sc.donor_margin([r["constructs"]["donor_dead"][0] for r in sub], [r["constructs"]["donor_dead"][1] for r in sub])
+    A_sub = float(np.mean(cl - dd))
+    minus_share = np.mean([r.get("strand") == "-" for r in rows])
+    preflight = {"margin_donor_clean": m_d, "coord_sensitive_dp1": m_d > m_p1, "coord_sensitive_dm1": m_d > m_m1,
+                 "mlm_health": float(mlm), "A_donor_sub": A_sub, "minus_strand_share": float(minus_share)}
+    fails = []
+    if not args.mock:
+        if not (m_d > 0): fails.append("donor not recognised")
+        if not (m_d > m_p1 and m_d > m_m1): fails.append("coordinate off-by-one (readout not at donor, both ±1)")
+        if not (mlm > 0): fails.append("mlm_health<=0")
+        if not (A_sub > 0): fails.append("A_donor<=0")
+        if not (0.3 <= minus_share <= 0.7): fails.append(f"both_strands_present out of [0.3,0.7]: {minus_share:.3f}")
+        if fails:
+            raise RuntimeError("PREFLIGHT MEMORIAL FAILURE (no GPU wasted on the full pass): " + "; ".join(fails))
 
-    tau = tau_permuted_null(by, rows)
+    by = all_margins(sc, rows)
+    tau, tau_meta = tau_permuted_null(by, rows)
     curve = lr_curve(by, rows)
 
     genes = [r["gene"] for r in rows]; splits = [r["split"] for r in rows]
@@ -98,8 +123,10 @@ def main():
     for i, r in enumerate(rows):
         for tag in ("clean", "partner_cc", "donor_dead", "nonpartner_cc", "clean_other", "partner_cc_other"):
             ex_vals[tag].append(by[i][tag])
-    res = H.decide(dict(ex_vals), genes, splits, tau=tau, lr_curve=curve, mlm_health=mlm)
-    res["tau_source"] = "permuted-partner-null upper CI (discovery)"
+    res = H.decide(dict(ex_vals), genes, splits, tau=tau, lr_curve=curve, mlm_health=mlm,
+                   both_strands_ok=bool(0.3 <= minus_share <= 0.7))
+    res["preflight"] = preflight; res["tau_meta"] = tau_meta
+    res["tau_source"] = "GENUINE permuted-partner null (2 non-partners), max over seeds {0,1,2,17} (discovery)"
     res["long_range_curve"] = {str(k): v for k, v in curve.items()}
     res["n_examples"] = len(rows); res["mock"] = args.mock
     json.dump(res, open(args.out, "w"), indent=1, default=float)

@@ -50,10 +50,12 @@ def build(args):
             continue
         d_part = a - d                                        # signed downstream distance to partner
         # --- distance-matched SAME-SIDE non-partner AG (exclude partner; caliper) ---
-        cand = [p for p in x.other_ag if p != a and p > d and abs((p - d) - d_part) <= args.caliper]
+        cand = sorted([p for p in x.other_ag if p != a and p > d and abs((p - d) - d_part) <= args.caliper],
+                      key=lambda p: abs((p - d) - d_part))
         if not cand:
             dropped += 1; continue                            # common-support fail (report retention)
-        npg = min(cand, key=lambda p: abs((p - d) - d_part))
+        npg = cand[0]
+        npg2 = cand[1] if len(cand) > 1 else None             # 2nd non-partner => GENUINE permuted-partner null (both non-partners)
         # --- distance-matched other real donor GT ---
         gts = [p for p in x.other_gt if p != d]
         if not gts:
@@ -61,8 +63,9 @@ def build(args):
         d2 = min(gts, key=lambda p: abs(abs(p - d) - d_part))
         kept += 1
         partner_cc = substitute(seq, a - 2, "CC")             # partner AG -> CC
-        rec = {"ex_id": x.example_id, "gene": x.gene_id, "chrom": chrom, "split": split,
-               "d": d, "a": a, "npg": npg, "d2": d2, "d_part": int(d_part),
+        strand = getattr(x, "strand", "+")
+        rec = {"ex_id": x.example_id, "gene": x.gene_id, "chrom": chrom, "split": split, "strand": strand,
+               "d": d, "a": a, "npg": npg, "npg2": npg2, "d2": d2, "d_part": int(d_part),
                "constructs": {
                    "clean": [seq, d],
                    "partner_cc": [partner_cc, d],
@@ -71,6 +74,8 @@ def build(args):
                    "clean_other": [seq, d2],
                    "partner_cc_other": [partner_cc, d2],
                }}
+        if npg2 is not None:
+            rec["constructs"]["nonpartner2_cc"] = [substitute(seq, npg2 - 2, "CC"), d]
         for off in LR_OFFSETS:
             s = d + off
             if 0 <= s and s + 15 < len(seq):
@@ -79,8 +84,13 @@ def build(args):
         if args.limit and kept >= args.limit:
             break
     retention = kept / (kept + dropped) if (kept + dropped) else 0.0
+    minus = sum(r.get("strand") == "-" for r in out)
+    minus_share = minus / len(out) if out else 0.0
     meta = {"n_examples": len(out), "kept": kept, "dropped_no_control": dropped,
             "retention_fraction": round(retention, 3), "caliper": args.caliper,
+            "minus_strand_share": round(minus_share, 3),
+            "both_strands_ok": bool(0.3 <= minus_share <= 0.7),
+            "n_with_permuted_null_npg2": sum("nonpartner2_cc" in r["constructs"] for r in out),
             "discovery_chroms": sorted(DISCOVERY), "confirm_chroms": sorted(CONFIRM),
             "lr_offsets": list(LR_OFFSETS), "window": args.window,
             "n_discovery": sum(r["split"] == "discovery" for r in out),

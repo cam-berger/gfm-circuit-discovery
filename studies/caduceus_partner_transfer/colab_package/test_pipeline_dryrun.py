@@ -18,26 +18,26 @@ def sub(s, p, alt): return s[:p] + alt + s[p + len(alt):]
 
 
 def build_example(gene_seed):
-    """One synthetic locus: true donor + partner AG + a distance-matched non-partner AG + a 2nd real donor."""
+    """One synthetic locus: true donor + partner AG + TWO distance-matched non-partner AGs + a 2nd real donor."""
     r = np.random.default_rng(gene_seed)
     s = list("".join(r.choice(list("ACGT"), size=W)))
     d = 300 + int(r.integers(0, 40))                  # true donor
-    a = d + 80 + int(r.integers(0, 60))               # partner acceptor AG (gap 80-140)
-    npg = d + 80 + int(r.integers(0, 60))             # distance-matched non-partner AG (same side/distance band)
-    while abs(npg - a) < 6: npg = d + 80 + int(r.integers(0, 60))
+    a = d + 80 + int(r.integers(0, 40))               # partner acceptor AG
+    npg = a + 20 + int(r.integers(0, 20)); npg2 = npg + 20 + int(r.integers(0, 20))  # two non-partner AGs
     d2 = d + 300 + int(r.integers(0, 60))             # a SECOND real donor GT (other_gt), far
     for pos in (d, d2): s[pos], s[pos + 1], s[pos + 2] = "G", "T", "A"
-    for pos in (a, npg): s[pos], s[pos + 1] = "A", "G"
+    for pos in (a, npg, npg2): s[pos], s[pos + 1] = "A", "G"
     s[a - 4:a] = list("TGCA")          # PARTNER TAG on the annotated partner only (=> partner-specific)
-    if npg - 4 >= 0: s[npg - 4:npg] = list("GGGG")   # non-partner AG: no tag (recognised, not coupling)
+    for pos in (npg, npg2):
+        if pos - 4 >= 0: s[pos - 4:pos] = list("GGGG")   # non-partner AGs: no tag (recognised, not coupling)
     seq = "".join(s)
-    return dict(seq=seq, d=d, a=a, npg=npg, d2=d2)
+    return dict(seq=seq, d=d, a=a, npg=npg, npg2=npg2, d2=d2)
 
 
 def constructs_for(ex, permute_partner=False):
     """Build the tagged construct set for one example. permute_partner => corrupt the NON-partner as 'partner'
     (the FPR negative control: partner-specific structure should vanish)."""
-    seq, d, a, npg, d2 = ex["seq"], ex["d"], ex["a"], ex["npg"], ex["d2"]
+    seq, d, a, npg, npg2, d2 = ex["seq"], ex["d"], ex["a"], ex["npg"], ex["npg2"], ex["d2"]
     part = npg if permute_partner else a              # which AG is treated as 'the partner'
     other = a if permute_partner else npg
     partner_cc = sub(seq, part, "CC")
@@ -45,14 +45,14 @@ def constructs_for(ex, permute_partner=False):
         "clean": (seq, d), "partner_cc": (partner_cc, d),
         "donor_dead": (sub(seq, d, "AA"), d),
         "nonpartner_cc": (sub(seq, other, "CC"), d),
+        "nonpartner2_cc": (sub(seq, npg2, "CC"), d),  # 2nd non-partner => genuine permuted-null tau
         "clean_other": (seq, d2), "partner_cc_other": (partner_cc, d2),
     }
 
 
-def run(scorer, permute_partner=False, n_genes=24, per_gene=3):
-    tags = ["clean", "partner_cc", "donor_dead", "nonpartner_cc", "clean_other", "partner_cc_other"]
+def run(scorer, permute_partner=False, n_genes=30, per_gene=3):
+    tags = ["clean", "partner_cc", "donor_dead", "nonpartner_cc", "nonpartner2_cc", "clean_other", "partner_cc_other"]
     ex_vals = {t: [] for t in tags}; genes = []; splits = []
-    gi = 0
     for gene in range(n_genes):
         split = "discovery" if gene % 2 == 0 else "confirm"
         for k in range(per_gene):
@@ -63,7 +63,14 @@ def run(scorer, permute_partner=False, n_genes=24, per_gene=3):
             for t, v in zip(tags, m):
                 ex_vals[t].append(float(v))
             genes.append(f"g{gene}"); splits.append(split)
-    return H.decide(ex_vals, genes, splits, tau=0.05, seed=0)
+    # GENUINE permuted-null tau on discovery (two non-partners, no real partner identity)
+    disc = [i for i, s in enumerate(splits) if s == "discovery"]
+    clean = np.array(ex_vals["clean"]); np1 = np.array(ex_vals["nonpartner_cc"])
+    np2 = np.array(ex_vals["nonpartner2_cc"]); dd = np.array(ex_vals["donor_dead"])
+    null_ps = ((clean - np1) - (clean - np2))[disc]; A = (clean - dd)[disc]; gd = [genes[i] for i in disc]
+    tau = max(0.0, H.paired_gene_bootstrap_ratio(null_ps.tolist(), A.tolist(), gd, seed=0)["ci"][1])
+    lr = {10: (0.5, 0.7), 30: (0.4, 0.6), 60: (0.15, 0.25), 100: (0.1, 0.2), 150: (0.08, 0.15)}  # certified curve
+    return H.decide(ex_vals, genes, splits, tau=tau, lr_curve=lr, mlm_health=1.0, both_strands_ok=True, seed=0), tau
 
 
 def main():
@@ -72,12 +79,13 @@ def main():
     sc = CaduceusScorer(MockCaduceus(base_ids=bid), tok, device="cpu", batch_size=16, window_length=W)
 
     print("== PLANTED-POSITIVE (real partner) — must QUALIFY ==")
-    pos = run(sc, permute_partner=False)
-    for k in ("C_mean", "partner_spec_mean", "donor_spec_mean", "rho_partner", "gates", "VERDICT"):
+    pos, tau_pos = run(sc, permute_partner=False)
+    print(f"  tau(genuine permuted-null): {tau_pos:.4f}")
+    for k in ("C_mean", "partner_spec_mean", "donor_spec_mean", "rho_partner", "joint_power", "long_range_certified", "gates", "VERDICT"):
         print(f"  {k}: {pos[k]}")
 
     print("\n== PERMUTED-PARTNER negative control — must NOT qualify on partner-specificity ==")
-    neg = run(sc, permute_partner=True)
+    neg, _ = run(sc, permute_partner=True)
     for k in ("partner_spec_mean", "partner_spec_ci", "VERDICT"):
         print(f"  {k}: {neg[k]}")
 

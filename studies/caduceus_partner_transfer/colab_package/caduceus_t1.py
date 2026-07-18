@@ -77,25 +77,25 @@ def paired_gene_bootstrap_ratio(num_per_ex, den_per_ex, genes, B=4000, alpha=0.0
             "den_clear_of_zero": bool(den_lo > 0)}
 
 
-def joint_power(anticipated, ses, n_boot=2000, seed=0):
-    """Joint power of the IUT conjunction: P(all specificity contrasts CI-exclude-0 at anticipated effects).
-    anticipated/ses: dict arm->(effect, se). Gaussian gene-bootstrap sim."""
+def joint_power(anticipated, n_boot=4000, seed=0):
+    """Joint power of the IUT conjunction: P(ALL arms CI-exclude-0 | a PRE-REGISTERED anticipated meaningful
+    effect and each arm's SE). anticipated: dict arm->(effect, se). Effects are the anticipated MEANINGFUL
+    magnitudes (NOT the observed confirm estimates), so a true null is not self-certified as under-powered."""
     rng = np.random.default_rng(seed); arms = list(anticipated)
     hits = 0
     for _ in range(n_boot):
         ok = True
         for a in arms:
             eff, se = anticipated[a]
-            est = rng.normal(eff, se)
-            if not (est - Z * se > 0):
+            if se <= 0 or not (rng.normal(eff, se) - Z * se > 0):
                 ok = False; break
         hits += ok
     return hits / n_boot
 
 
 # ---------- the frozen decision ----------
-def decide(ex_vals, genes, splits, tau, *, sesoi_ratio=None, lr_curve=None,
-           mlm_health=None, min_joint_power=0.8, seed=0):
+def decide(ex_vals, genes, splits, tau, *, lr_curve=None, mlm_health=None, both_strands_ok=None,
+           rho_anticipated=0.15, lr_frac=0.1, min_joint_power=0.8, seed=0):
     """ex_vals: dict tag -> per-example donor margin array (aligned to `genes`,`splits`).
     Runs on the CONFIRMATORY split. Returns the full decision record."""
     conf = np.array([s == "confirm" for s in splits])
@@ -130,19 +130,25 @@ def decide(ex_vals, genes, splits, tau, *, sesoi_ratio=None, lr_curve=None,
     gate_floor = rho_p["point"] >= tau                 # meaningfulness on ρ_partner (C1)
     anchor_ok = bca_ci(gm_A, seed=seed + 4)[0] > 0
 
-    # long-range certification (E1): transmission alive at biological range 60-150
+    # long-range certification (E1/§4): VISIBILITY (near block large, CI-excludes-0) AND mid-range 60-150
+    # CI-excludes-0 AND non-negligible vs near (>= lr_frac * near) — else instrument-range-limit.
     lr_ok = None
     if lr_curve is not None:
-        near = lr_curve.get(10, lr_curve.get(30))
-        mid = [lr_curve[d] for d in (60, 100, 150) if d in lr_curve]
-        lr_ok = bool(mid and all(v[0] > 0 for v in mid) and near is not None)  # v=(lo,hi) CI-excludes-0
+        pt = {d: (v[0] + v[1]) / 2 for d, v in lr_curve.items()}
+        near_d = 10 if 10 in lr_curve else (30 if 30 in lr_curve else None)
+        mids = [d for d in (60, 100, 150) if d in lr_curve]
+        if near_d is not None and mids:
+            lr_ok = bool(lr_curve[near_d][0] > 0 and pt[near_d] > 0
+                         and all(lr_curve[d][0] > 0 for d in mids)
+                         and all(pt[d] >= lr_frac * pt[near_d] for d in mids))
 
-    # joint power certification (B1)
-    ses = {"partner": (ci_ps[1] - ci_ps[0]) / (2 * Z), "donor": (ci_ds[1] - ci_ds[0]) / (2 * Z)}
-    effs = {"partner": np.mean(gm_ps), "donor": np.mean(gm_ds)}
-    jp = joint_power({k: (effs[k], ses[k]) for k in effs}, ses, seed=seed + 5)
+    # joint power (B1): at a PRE-REGISTERED anticipated MEANINGFUL effect (rho_anticipated * A_donor) on the
+    # realized gene-n SEs — NOT the observed confirm effect (so a true null is not auto-labelled under-powered).
+    se_C = (ci_C[1] - ci_C[0]) / (2 * Z); se_p = (ci_ps[1] - ci_ps[0]) / (2 * Z); se_d = (ci_ds[1] - ci_ds[0]) / (2 * Z)
+    anticipated = rho_anticipated * float(np.mean(gm_A))
+    jp = joint_power({"exist": (anticipated, se_C), "partner": (anticipated, se_p), "donor": (anticipated, se_d)}, seed=seed + 5)
 
-    memorials_ok = anchor_ok and (mlm_health is None or mlm_health > 0)
+    memorials_ok = anchor_ok and (mlm_health is None or mlm_health > 0) and (both_strands_ok is not False)
     verdict = _verdict(gate_exist, gate_partner, gate_donor, gate_floor, memorials_ok, lr_ok, jp, min_joint_power)
     return {
         "n_genes_confirm": n_genes,
@@ -160,13 +166,14 @@ def decide(ex_vals, genes, splits, tau, *, sesoi_ratio=None, lr_curve=None,
 
 def _verdict(exist, partner, donor, floor, memorials_ok, lr_ok, jp, min_jp):
     if not memorials_ok:
-        return "INSTRUMENT-LIMIT (memorial/anchor failed) — no biological conclusion"
-    qualifies = exist and partner and donor and floor
-    if qualifies:
+        return "INSTRUMENT-LIMIT (memorial/anchor/strand failed) — no biological conclusion"
+    gates_pass = exist and partner and donor and floor
+    if gates_pass and lr_ok is True:                                   # §6(f): long-range certification required
         return "QUALIFIES-FOR-PHASE-3 (behaviour-only; mechanism unproven)"
-    # a coupling-null: distinguish instrument-range-limit vs honest architecture null vs under-power
     if lr_ok is False:
-        return "INSTRUMENT-RANGE-LIMIT (downstream->donor channel dead @60-150nt) — no biological null"
+        return "INSTRUMENT-RANGE-LIMIT (downstream->donor channel dead/negligible @60-150nt) — no biological claim"
+    if gates_pass and lr_ok is None:
+        return "INDETERMINATE — gates pass but long-range channel uncertified (missing transmission constructs)"
     if jp < min_jp:
-        return f"UNDER-POWERED (joint power {jp:.2f} < {min_jp}) — inconclusive, widen cohort"
+        return f"UNDER-POWERED (joint power {jp:.2f} < {min_jp} at anticipated effect) — inconclusive, widen cohort"
     return "DOES-NOT-QUALIFY — honest architecture/objective null (controls pass, channel certified, powered)"

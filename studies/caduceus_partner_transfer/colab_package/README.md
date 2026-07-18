@@ -45,6 +45,22 @@ clean, smoke-gated pass:
 | `test_local_dryrun.py` / `test_pipeline_dryrun.py` | local validation | no |
 | `caduceus_t1_colab.ipynb` | the GPU notebook | yes |
 
+## Post-verification corrections (2-lens adversarial pass, both fixed + re-validated)
+The verification caught **two verdict-flipping blockers before any GPU spend** — now fixed:
+- **τ was toothless** (it negated the observed effect ⇒ collapsed to 0 exactly when partner-specificity was
+  significant ⇒ false QUALIFIES). Now a **genuine permuted-partner null**: two non-partner AGs per example
+  (`nonpartner2_cc`), `null = C_nonpartner1 − C_nonpartner2` (no real partner identity), τ = its upper CI,
+  **max over seeds {0,1,2,17}** (R22 sampling-stability). `build_cohort` emits the 2nd non-partner (2,795 loci).
+- **Joint power was post-hoc** (at the observed confirm effect ⇒ a true null always read UNDER-POWERED ⇒ the
+  honest architecture-null was unreachable). Now computed at a **pre-registered anticipated effect**
+  `ρ_anticipated·A_donor` (default 0.15) on the realized gene-n SEs, over all conjunction arms.
+- Majors: `both_strands_present ∈ [0.3,0.7]` memorial added (cohort share 0.503); long-range certification now
+  requires **visibility** (near block large) AND **non-negligible** mid-range (≥10% of near) AND CI-excludes-0;
+  QUALIFIES now requires long-range certification (§6f); the coordinate/`mlm`/`A_donor`/strand preflight is a
+  **hard STOP inside `run_t1.main()`** (not just the notebook), so a standalone run also refuses to waste GPU.
+Both local dry-runs pass on the corrected code (`test_local_dryrun`: coordinate + behaviour; `test_pipeline_dryrun`:
+planted-positive → QUALIFIES with joint_power 1.0 + long-range certified, permuted-partner → not qualified).
+
 ## Not yet done (held per Cam)
 - The actual GPU run is **not deployed** — this package is for review first.
 - Open forks in the prereg header (τ philosophy, strength-confound arm, PH drop) use the red-team's recommended

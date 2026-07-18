@@ -4,6 +4,9 @@
  "dropped_no_control": 3551,
  "retention_fraction": 0.662,
  "caliper": 20,
+ "minus_strand_share": 0.503,
+ "both_strands_ok": true,
+ "n_with_permuted_null_npg2": 2795,
  "discovery_chroms": [
   "chr2",
   "chr3",

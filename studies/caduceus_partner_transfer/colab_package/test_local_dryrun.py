@@ -21,6 +21,7 @@ def make_seq(donor=400, partner_ag=500):
     s = list("".join(rng.choice(list("ACGT"), size=W)))
     s[donor], s[donor + 1], s[donor + 2] = "G", "T", "A"  # donor GT; d+2=A (no spurious donor at d+1)
     s[partner_ag], s[partner_ag + 1] = "A", "G"           # partner acceptor AG
+    if partner_ag - 4 >= 0: s[partner_ag - 4:partner_ag] = list("TGCA")  # partner tag (mock couples to tagged AG)
     return "".join(s)
 
 
