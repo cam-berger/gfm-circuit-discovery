@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Donor-graph experiment 6 -- A2b-(1): localize L3H1's value payload to U_info.
 
-Frozen protocol: studies/splicebert_partner_selection/PREREGISTRATION_A2b_PAYLOAD_LOCALIZATION.md.
+Frozen protocol: studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A2b_PAYLOAD_LOCALIZATION.md.
 
 With the clean attention row A+ held fixed (post-LN linearity: V = W_V r), reconstruct L3H1's donor
 head output analytically for each residual-window payload and inject it (donor only), reading the

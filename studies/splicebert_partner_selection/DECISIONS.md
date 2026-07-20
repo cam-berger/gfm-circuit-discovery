@@ -42,7 +42,7 @@ Decision: report completeness as inconclusive. Large complement ablations damage
 
 Four preflight blockers were fixed before unblinding: strand eligibility, algebraically invariant binding intervention, partner leakage into a non-partner pool, and an unmatched/distance-confounded specificity comparator. The circuit was reselected on corrected data and did not change.
 
-Decision: freeze code hashes, circuit, controls, and 13 pass/fail gates in [`PREREGISTRATION_SEALED.md`](PREREGISTRATION_SEALED.md), then open chr8/chr9 once. All 13 gates passed.
+Decision: freeze code hashes, circuit, controls, and 13 pass/fail gates in [`preregistrations/PREREGISTRATION_SEALED.md`](preregistrations/PREREGISTRATION_SEALED.md), then open chr8/chr9 once. All 13 gates passed.
 
 Decision: preserve the preregistration unchanged. Post-unblinding corrections belong in this record and [`CLAIMS.md`](CLAIMS.md).
 

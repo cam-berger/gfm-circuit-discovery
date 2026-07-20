@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Donor-graph experiment 12 -- A8: backward-pruned exact path search through the acceptor generator.
 
-Frozen protocol: studies/splicebert_partner_selection/PREREGISTRATION_A8_GENERATOR_PATH.md.
+Frozen protocol: studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A8_GENERATOR_PATH.md.
 
 A7/C28: the payload is built by a serially-interdependent L0->L1->L2 module at the acceptor window.
 A8 finds the minimal exact subgraph, scored through L3H1's VALUE path with the ADDRESS held CLEAN:

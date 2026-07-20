@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Donor-graph experiment 4 -- A0: stage-wise provenance of L3H1's acceptor targeting.
 
-Frozen protocol: studies/splicebert_partner_selection/PREREGISTRATION_A0_TARGETING_PROVENANCE.md.
+Frozen protocol: studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A0_TARGETING_PROVENANCE.md.
 
 At what depth in the residual supplied to L3H1 does the donor-query preference for the intron-mate
 acceptor (over a phase/distance-matched real-acceptor decoy, primary; a generic AG decoy,

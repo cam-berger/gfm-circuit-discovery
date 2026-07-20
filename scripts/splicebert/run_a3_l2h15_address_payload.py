@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Donor-graph experiment 7 -- A3: does L2H15 build L3H1's address or its payload?
 
-Frozen protocol: studies/splicebert_partner_selection/PREREGISTRATION_A3_L2H15_ADDRESS_PAYLOAD.md.
+Frozen protocol: studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A3_L2H15_ADDRESS_PAYLOAD.md.
 
 L2H15 supplies ~0.66 of the donor coupling, ~all through L3H1 (l2_accounting).  Does that flow
 through L3H1's ADDRESS (attention row A) or its PAYLOAD (values V)?  Reconstruct L3H1's donor output

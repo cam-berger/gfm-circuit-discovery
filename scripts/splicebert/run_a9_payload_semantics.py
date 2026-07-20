@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Donor-graph experiment 13 -- A9: semantic identity of the acceptor payload (interchange).
 
-Frozen protocol: studies/splicebert_partner_selection/PREREGISTRATION_A9_PAYLOAD_SEMANTICS.md.
+Frozen protocol: studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A9_PAYLOAD_SEMANTICS.md.
 
 Matched interchange (causal-abstraction test, Geiger 2021): deliver example j's clean acceptor payload
 through example i's CLEAN address (A8 reconstruct-inject, cross-example), and ask whether a frozen

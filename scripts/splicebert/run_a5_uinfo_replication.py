@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Donor-graph experiment 9 -- A5: independent replication of donor-side U_info.
 
-Frozen protocol: studies/splicebert_partner_selection/PREREGISTRATION_A5_UINFO_REPLICATION.md.
+Frozen protocol: studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A5_UINFO_REPLICATION.md.
 
 Validate the C16 U_info (top-k SVD of the clean-corrupt final donor residual) WITHOUT redefining it:
 derive it on an independent gene split, compare subspaces (principal angles), test held-out

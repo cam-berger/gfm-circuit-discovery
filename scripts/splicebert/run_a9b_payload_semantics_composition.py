@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Donor-graph experiment 13b -- A9b: is the payload SPLICE STRENGTH *net of bulk composition*?
 
-Frozen protocol: studies/splicebert_partner_selection/PREREGISTRATION_A9b_PAYLOAD_SEMANTICS_COMPOSITION.md
+Frozen protocol: studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A9b_PAYLOAD_SEMANTICS_COMPOSITION.md
 
 A9 named the payload local splice strength (V2b held-out r=-0.51) but the composition control (V4) was
 NON-IDENTIFIABLE, leaving a confound OPEN.  A9b predefines a BULK-composition adjustment set Z (GC, PY,

@@ -70,9 +70,12 @@ The visualizer independently validates graph acyclicity, segment bounds, coordin
 
 ```bash
 PYTHONHASHSEED=0 TOKENIZERS_PARALLELISM=false \
-conda run -n gfm-thrust1 python \
+uv run python \
   scripts/splicebert/export_segment_attribution_bundle.py \
   --output results/splicebert_visualizer/segment_attribution_bundle_v2.json
 ```
+
+Install the canonical environment first with `uv sync --extra splicebert --extra dev`; see
+[`../../REPRODUCE.md`](../../REPRODUCE.md).
 
 Load the resulting JSON through the visualizer's bundle control. Do not commit a new result as a claim artifact unless its manifest and status remain attached.

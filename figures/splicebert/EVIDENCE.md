@@ -8,7 +8,7 @@ signal in attention without its **OV output mediating** anything; and none of th
 
 | Component | P | QK | Attention | OV / mediation | Behaviour | Interpretation |
 |---|:--:|:--:|:--:|:--:|:--:|---|
-| **Period 3** | ✓ | ✓ | ✓ | ✓ | ✓ | Coding-phase clock supporting donor–acceptor routing |
+| **Period 3** | ✓ | ✓ | ✓ | ✓ | ✓ | Distributed relative-positional routing coordinate supporting donor–acceptor coupling |
 | **Donor–acceptor circuit** | — | ✓ | ✓ | ✓ | ✓ | Mechanistic information-routing circuit |
 | **Multi-species ≈10.63** | ✓ | ✓ | ✓ | **?** | **?** | Real positional attention circuit; **function unknown** |
 | **Human-only ≈10.2** | ✓ | provisional | **failed** | — | null | Does not form the proposed chromatin attention circuit |
@@ -21,6 +21,11 @@ survives the softmax (comb phase mass 0.68–0.92, falling to chance 1/3 when th
 restoring **L2H15** alone recovers 36.3% of the lost coupling against a best-of-24 random
 single-head null of 4.2%; and deleting it collapses donor–acceptor coupling 0.946 → 0.026 while
 damaging exons (0.159 nats) far more than introns (0.042).
+
+Post-figure refinements C34/C35 localize this use: site-only restoration recovers only ~2–4%, broad-span
+restoration is required, and coupling recovery runs mainly through L3H1's attention pattern rather than
+carrier-dependent changes in its values. C34's confirm split is gate-qualified by R24; these results do
+not identify the carrier's training origin or exclude upstream effects on payload construction.
 
 **The donor–acceptor circuit** has no entry under P because it is *not* a positional component —
 it is the computation the clock serves. The donor arrives at L3H1 as content; the acceptor is

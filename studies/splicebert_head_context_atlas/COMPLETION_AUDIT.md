@@ -1,5 +1,8 @@
 # Head–Context Atlas completion audit
 
+> Environment note (2026-07-20): commands below preserve the original `gfm-thrust1` execution record.
+> New reproduction uses the canonical `uv` environment in [`../../REPRODUCE.md`](../../REPRODUCE.md).
+
 This checklist maps the program objective to authoritative evidence. A row is complete only when the
 named artifact exists, its independent audit is current and passing, and the claim ledger uses no
 stronger language than that evidence permits. `PENDING` is not a failure; it prevents partial execution

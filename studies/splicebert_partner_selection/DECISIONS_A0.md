@@ -1,6 +1,6 @@
 # A0 decisions & running log — stage-wise provenance of L3H1's acceptor targeting
 
-Frozen protocol: `PREREGISTRATION_A0_TARGETING_PROVENANCE.md`. This file is the post-unblinding
+Frozen protocol: `preregistrations/PREREGISTRATION_A0_TARGETING_PROVENANCE.md`. This file is the post-unblinding
 log and the setup-time reasoning; the prereg is frozen and only takes **pre-run** amendments.
 
 ---
@@ -155,7 +155,7 @@ unchanged, and now gated behind the token-vs-position result.
 
 ## A1a token-vs-position outcome (2026-07-16) — CONFIRMATORY, preflight 8/8
 
-Frozen protocol `PREREGISTRATION_A1_TOKEN_VS_POSITION.md`; result `a1_token_position.json`
+Frozen protocol `preregistrations/PREREGISTRATION_A1_TOKEN_VS_POSITION.md`; result `a1_token_position.json`
 (REFLECTION filled); claim **C22**. n=260 generic / n_real=120, 225 genes; `shared_ref_neutralises`
 =0.0 EXACT.
 
@@ -183,14 +183,14 @@ positional. Do not silently rewrite C20: its result is preserved, interpretation
    payload: corrupt / U_info-projected / full-clean / energy-matched-random}, patch actual
    activations, run downstream, read the **C19 behavioural statistic**. Decisive subtest: force the
    **same attention row** on clean vs corrupt and vary only the values. Then localise whether MLP2
-   constructs the payload. Prereg `PREREGISTRATION_A2_ADDRESS_PAYLOAD.md`.
+   constructs the payload. Prereg `preregistrations/PREREGISTRATION_A2_ADDRESS_PAYLOAD.md`.
 2. **Absolute-vs-relative geometry** (deferred): joint donor+acceptor translation test —
    `S_A(d+Δ, a+Δ) ≈ S_A(d,a)` ⇒ relative; changes ⇒ absolute. AFTER A2.
 3. Q×K×V joint accounting and B′ remain, gated behind A2.
 
 ## A2 address–payload outcome (2026-07-16) — CONFIRMATORY, preflight 7/7
 
-Frozen protocol `PREREGISTRATION_A2_ADDRESS_PAYLOAD.md`; result `a2_address_payload.json`
+Frozen protocol `preregistrations/PREREGISTRATION_A2_ADDRESS_PAYLOAD.md`; result `a2_address_payload.json`
 (REFLECTION filled); claim **C23**. n=300, 261 genes, coupling 0.96; reconstruction & inject-identity
 memorials EXACT=0.0.
 
@@ -224,7 +224,7 @@ via binding).
 
 ## A2b-(1) payload localization outcome (2026-07-16) — CONFIRMATORY, preflight exact
 
-Frozen protocol `PREREGISTRATION_A2b_PAYLOAD_LOCALIZATION.md`; result `a2b_payload_localization.json`
+Frozen protocol `preregistrations/PREREGISTRATION_A2b_PAYLOAD_LOCALIZATION.md`; result `a2b_payload_localization.json`
 (REFLECTION filled); claim **C24**. n=300, 256 genes; `value_linearity` memorial 1.9e-6 (post-LN
 `V=W_V·r` — the analytic reconstruction is exact). New module `payload.py`, runner, tests — a
 **separate changeset** from A0–A2 (commits `6a5e80e`/`3a7d3a7`), per the provenance discipline.
@@ -256,7 +256,7 @@ of L2H15 is the natural next experiment, replacing the (now moot) `U_info`-const
 
 ## A3 L2H15 address-vs-payload outcome (2026-07-16) — CONFIRMATORY, memorials exact
 
-Frozen protocol `PREREGISTRATION_A3_L2H15_ADDRESS_PAYLOAD.md`; result
+Frozen protocol `preregistrations/PREREGISTRATION_A3_L2H15_ADDRESS_PAYLOAD.md`; result
 `a3_l2h15_address_payload.json` (REFLECTION filled); claim **C25**. n=300, 246 genes;
 reconstruction_matches & baseline_reproduces_ablated EXACT=0.0 (faithful reconstruct-inject under
 the L2H15 ablation). Reused `payload.inject_margin_donor` + `circuit.ablate` — no new kernel.
@@ -298,7 +298,7 @@ partner-specific donor prediction (C19)
 
 ## A4 address-geometry — INCONCLUSIVE (confounded), 2026-07-16
 
-Frozen protocol `PREREGISTRATION_A4_ADDRESS_GEOMETRY.md`; result `a4_address_geometry.json`
+Frozen protocol `preregistrations/PREREGISTRATION_A4_ADDRESS_GEOMETRY.md`; result `a4_address_geometry.json`
 (REFLECTION = INCONCLUSIVE). Readout: L2H15's contribution G15 = S_A^intact − S_A^ablated, S_A =
 L3H1 QK preference (a+ vs decoy). Two pre-run redrafts, then a confound found post-run:
 
@@ -321,7 +321,7 @@ held-out split, no redefinition) remains the other queued task.
 
 ## A5 U_info replication (task 3) — CONFIRMATORY, VALIDATED, 2026-07-16
 
-Frozen protocol `PREREGISTRATION_A5_UINFO_REPLICATION.md`; result `a5_uinfo_replication.json`
+Frozen protocol `preregistrations/PREREGISTRATION_A5_UINFO_REPLICATION.md`; result `a5_uinfo_replication.json`
 (REFLECTION filled); claim **C26**. n=400, 320 genes, disjoint 199/201 gene split; `margins_fn`
 memorial EXACT=0.0. Reuses `subspace` + `task.pair` + `margin_hard` — no new kernel; **U_info NOT
 redefined** (exact C16 definition).
@@ -354,7 +354,7 @@ substantially correct (R20 is the very "named a variable before identifying it" 
 
 ### A6 circuit faithfulness/necessity/minimality — CONFIRMATORY, 2026-07-16
 
-Frozen `PREREGISTRATION_A6_CIRCUIT_FAITHFULNESS.md`; result `a6_circuit_faithfulness.json` +
+Frozen `preregistrations/PREREGISTRATION_A6_CIRCUIT_FAITHFULNESS.md`; result `a6_circuit_faithfulness.json` +
 `a6_reconcile.json` (REFLECTION filled); claim **C27**. n=200, 179 genes, coupling 0.94. **No new
 kernel** (reuses `patch_heads` + `clamp_write` + `clamp_embed`). Node-level activation patching,
 scrub-**to-corrupt**; two arithmetic memorials `empty→corrupt`/`full→clean` **EXACT=0.0** (node cover
@@ -395,7 +395,7 @@ out the sparse generator + single-node omissions, NOT a structured jointly-neces
 
 ### A7 source localization — CONFIRMATORY, 2026-07-16
 
-Frozen `PREREGISTRATION_A7_SOURCE_LOCALIZATION.md`; result `a7_source_localization.json` (REFLECTION
+Frozen `preregistrations/PREREGISTRATION_A7_SOURCE_LOCALIZATION.md`; result `a7_source_localization.json` (REFLECTION
 filled); claim **C28**. n=200, 179 genes. Built to the review's redesign — **no claim redefined**.
 Reuses A6's scrub + token masks; adds `clamp_write_mask` (bool-mask MLP write) + `clamp_layer_input`
 (residual pre-hook). Four exact plumbing memorials `=0.0` (base scrub, node cover, token-mask,
@@ -421,7 +421,7 @@ serial-interdependence / scoped-PPT wording corrections.
 
 ### A8 generator path — CONFIRMATORY (held-out), 2026-07-16
 
-Frozen `PREREGISTRATION_A8_GENERATOR_PATH.md` (audited pre-run: 5 fixes — `M'(∅)`≠corrupt, `N_h` from
+Frozen `preregistrations/PREREGISTRATION_A8_GENERATOR_PATH.md` (audited pre-run: 5 fixes — `M'(∅)`≠corrupt, `N_h` from
 full A, value/address split, exact C24 anchor, MLP2 circuit-value check); result `a8_generator_path.json`
 (REFLECTION filled); claim **C29**. n=220, 205 genes, D/H 112/108. **No new kernel** (A6/A7 scrub +
 A2b/A3 reconstruct-inject). Value-path metric (L3H1 **address held clean**, only the value varies):
@@ -477,7 +477,7 @@ Payload variable **NAMED** (A9/C30: local acceptor-window splice-site strength).
 
 ### A9 payload semantics — CONFIRMATORY (held-out, calibrated), 2026-07-16
 
-Frozen `PREREGISTRATION_A9_PAYLOAD_SEMANTICS.md` (audited pre-run + your conditional-go red-lines);
+Frozen `preregistrations/PREREGISTRATION_A9_PAYLOAD_SEMANTICS.md` (audited pre-run + your conditional-go red-lines);
 result `a9_payload_semantics.json` (REFLECTION filled); claim **C30**. n=240, 207 genes. MaxEntScan
 pinned (`maxentpy 0.0.4`, tables sha256 `8b6d7b46…`). **No new kernel** (A8 reconstruct-inject
 cross-example + frozen `U_info` projected-onto). Matched **interchange** (deliver j's clean payload
@@ -524,7 +524,7 @@ genuine) but caught **rigor-framing overstatements** — now corrected in the le
 
 ### A10 generator edges — CONFIRMATORY (held-out), 2026-07-16
 
-Frozen `PREREGISTRATION_A10_GENERATOR_EDGES.md`; result `a10_generator_edges.json` (REFLECTION filled);
+Frozen `preregistrations/PREREGISTRATION_A10_GENERATOR_EDGES.md`; result `a10_generator_edges.json` (REFLECTION filled);
 claim **C31**. n=220, 196 genes, D/H 110/110. **No new kernel** (A8 value-path reconstruct-inject; real
 memorial `value_linearity`=2.9e-6; scrub-cover R21-vestigial).
 
@@ -539,7 +539,7 @@ resolution deferred. **Next: A11** address geometry (absolute/relative), **A12**
 
 ### A11 address geometry — CONFIRMATORY, 2026-07-16 (A4 redesign, confound resolved)
 
-Frozen `PREREGISTRATION_A11_ADDRESS_GEOMETRY.md`; result `a11_address_geometry.json` (REFLECTION
+Frozen `preregistrations/PREREGISTRATION_A11_ADDRESS_GEOMETRY.md`; result `a11_address_geometry.json` (REFLECTION
 filled); claim **C32**. n=1037, 641 genes. **A4 redesign**: consistent GLOBAL `position_ids` shift on a
 truncated W=640 window (PE-table headroom), with the mandatory **`intact_S_A_survives`** memorial —
 which **PASSED** (`S_A(0)=2.94`, every `S_A(Δ)≥0.5·S_A0`), so the shift preserves the preference,
@@ -558,7 +558,7 @@ cleaner evidence). Toeplitz residual 0.56 (descriptive). **Verdict corrected** f
 
 ### A12 faithfulness–size curve — CONFIRMATORY (held-out), 2026-07-16 — PROGRAM COMPLETE
 
-Frozen `PREREGISTRATION_A12_FAITHFULNESS_SIZE.md`; result `a12_faithfulness_size.json` (REFLECTION
+Frozen `preregistrations/PREREGISTRATION_A12_FAITHFULNESS_SIZE.md`; result `a12_faithfulness_size.json` (REFLECTION
 filled); claim **C33**. n=200, 184 genes, D/H 102/98. **No new kernel** (A6 faithfulness scrub; R21
 embed-anchors). Rank nodes by F-loss removed from the FULL model on D (well-identified backward);
 keep-top-k curve on held-out H.
@@ -664,7 +664,7 @@ spectral-power-matched; P3.2 irrelevant window must be **mod-3-phase-matched**; 
 denominator is robust (⇒ **R_C only**); FWER family under-counted (two families: max-T positive + TOST
 equivalence); `Δ_bind` must be **per-example paired**; SESOI per-Y; D_rec recognition needs a **pseudo-site
 decoy** (decoy-sparse: `real_acceptor_decoy` avail 1/16) ⇒ **DEFERRED**. Synthesis:
-`REDTEAM_SYNTHESIS_P3_4lens.md`. Prereg **v2** (reframed, binding retired) frozen.
+`redteam/REDTEAM_SYNTHESIS_P3_4lens.md`. Prereg **v2** (reframed, binding retired) frozen.
 
 **What survived → confirmatory, identifiable, run on MPS:**
 
@@ -739,11 +739,11 @@ gate → freeze the bounded SpliceBERT account → Caduceus transfer.
 
 ### P3.4 (carrier origin) — design red-teamed → NOT FROZEN → DEFERRED (2026-07-18)
 
-Formalized the modernized carrier-origin prereg (`PREREGISTRATION_P3_4_CARRIER_ORIGIN.md` v1): every test
-reframed from the old `PREREGISTRATION_PERIOD3_COMPUTATION.md`'s raw ΔL to a **carrier-deletion × context
+Formalized the modernized carrier-origin prereg (`preregistrations/PREREGISTRATION_P3_4_CARRIER_ORIGIN.md` v1): every test
+reframed from the old `preregistrations/PREREGISTRATION_PERIOD3_COMPUTATION.md`'s raw ΔL to a **carrier-deletion × context
 INTERACTION** (E1 completion w/ mask-burden control; E2 coding-scaffold difficulty/composition-matched; E3
 segmentation; E4a reading-frame-vs-absolute-phase 3×3; E4b translation leakage). Ran a **4-lens design
-red-team BEFORE any compute** (`REDTEAM_SYNTHESIS_P3_4.md`).
+red-team BEFORE any compute** (`redteam/REDTEAM_SYNTHESIS_P3_4.md`).
 
 **Outcome: NOT freezable as written — 3 convergent FATALs (verified against code/data), an R23-class pre-run
 catch:**

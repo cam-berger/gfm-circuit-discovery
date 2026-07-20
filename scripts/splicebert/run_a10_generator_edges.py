@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Donor-graph experiment 14 -- A10: head-level EDGES of the acceptor generator.
 
-Frozen protocol: studies/splicebert_partner_selection/PREREGISTRATION_A10_GENERATOR_EDGES.md.
+Frozen protocol: studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A10_GENERATOR_EDGES.md.
 
 Reuses the A8 value-path metric (address held clean; reconstruct-inject) EXACTLY, with edge-resolving
 conditions: held-out L0-head resolution + top-head interactions; head->MLP0 mediation; MLP serial chain.

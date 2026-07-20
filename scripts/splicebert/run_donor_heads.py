@@ -14,7 +14,7 @@ NOT mean-ablation, so a head that is merely present on the path (constant relay)
 Part 2 (how) -- for the top heads, noise QUERY+KEY (routing) vs VALUE (content): a router's
 attention pattern carries it (QK), a transporter carries content (OV/value).
 
-Prereg (FROZEN): studies/splicebert_partner_selection/PREREGISTRATION_DONOR_HEADS.md
+Prereg (FROZEN): studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_DONOR_HEADS.md
 """
 from __future__ import annotations
 

@@ -1,45 +1,45 @@
-# Caduceus-PS partner-coupling TRANSFER — DEFERRED (future study)
+# Caduceus-PS partner-coupling transfer
 
-**Status: DESIGN HARDENED, NOT FROZEN, NOT RUN. Deferred future work.** Per the 2026-07-17 spine
-decision (**depth-first**): finish the SpliceBERT donor–acceptor mechanism (P3B) and *then* treat
-cross-model transfer as a **separate follow-on study/paper**, not unfinished work inside the SpliceBERT
-account. Resume this package once SpliceBERT is closed after P3B.
+**Status: DESIGN HARDENED, COLAB PACKAGE LOCALLY VALIDATED, NOT FROZEN, NOT RUN. Deferred while the
+SpliceBERT context/transduction program is prioritized.**
 
-## What this is
+This is the prepared second-model study: test whether SpliceBERT's partner-specific donor↔acceptor
+coupling **behavior** appears in Caduceus-PS
+(`kuleshov-group/caduceus-ps_seqlen-131k_d_model-256_n_layer-16`), a single-nucleotide,
+RC-equivariant, bidirectional Mamba MLM. Behavioral transfer is only the first milestone; a positive
+result would not establish mechanism transfer.
 
-The first transfer experiment: does the sealed partner-specific donor↔acceptor coupling **behaviour**
-replicate in **Caduceus-PS** (`kuleshov-group/caduceus-ps_seqlen-131k_d_model-256_n_layer-16`) — a
-single-nucleotide, RC-equivariant, **bidirectional Mamba (state-space) MLM**, maximally unlike SpliceBERT's
-post-LN attention BERT? TRANSFER_GUIDE Phase 0/1 (behavioral qualification) + the minimal Phase-2 adapter.
-Behaviour is only the FIRST milestone — method portability needs Phases 3–4 (SSM-appropriate localization +
-intervention), which for a BiMamba must be redesigned (no L3H1/attention/period-3 analog).
+## Current package
 
-## Contents
+- [`PREREGISTRATION_CADUCEUS_T1_BEHAVIORAL_TRANSFER.md`](PREREGISTRATION_CADUCEUS_T1_BEHAVIORAL_TRANSFER.md)
+  — v2 frozen-candidate with the five-lens red-team fixes integrated.
+- [`REDTEAM_SYNTHESIS_5lens.md`](REDTEAM_SYNTHESIS_5lens.md) — identifiability, statistics, calibration,
+  estimand, and state-space instrument review (fixable ×5, fatal ×0).
+- [`colab_package/`](colab_package/README.md) — CUDA runner, deterministic cohort, coordinate-correct
+  scorer, mock planted-positive tests, and end-to-end decision pipeline.
+- `PREREGISTRATION_CADUCEUS_T1_BEHAVIORAL_TRANSFER.DRAFT.md` — superseded pre-red-team draft, retained
+  only for provenance.
 
-- `PREREGISTRATION_CADUCEUS_T1_BEHAVIORAL_TRANSFER.DRAFT.md` — the formalized draft (INTENT, scale-free
-  estimand ρ=C̄/A_donor, memorials, decision rule, held-out).
-- `REDTEAM_SYNTHESIS_5lens.md` — the 5-lens adversarial design red-team (identifiability, statistics,
-  estimand↔intent, calibration, instrument/SSM). **Verdict: fixable ×5, fatal ×0.** Contains the MASTER
-  20-fix list that must be integrated before this is frozen.
+## Resolved design hazards
 
-## Why the hardening matters (headline red-team results — verified against Caduceus repo code)
+1. A distance-resolved long-range transmission control distinguishes a true behavioral null from a dead
+   reverse-SSM information channel.
+2. Coordinate handling is model-native: no prefix token, trailing `[SEP]`, fixed-length/no-padding model
+   inputs, and dynamically resolved nucleotide IDs.
+3. The meaningfulness floor is applied to partner-specific effect size and is derived from a genuine
+   distance-matched permuted-partner null across multiple seeded draws.
+4. Joint power is evaluated at a preregistered anticipated effect, not the observed confirmatory effect.
+5. The inherited partner-strength confound is explicit: distance-matched primary, MaxEnt-score-caliper
+   secondary with a predeclared non-identifiable branch.
 
-1. **Long-range control is mandatory** (4-lens unanimous). Downstream→upstream flow rides ONLY the reverse
-   Mamba pass; the local `A_donor` plant passes even if that channel is dead ⇒ an "architecture null" is
-   unidentified against an "instrument-range limit." **Fix:** a distance-resolved transmission-curve control,
-   wired to a new INSTRUMENT-LIMIT decision branch.
-2. **Three silent-killer plumbing bugs:** Caduceus has NO prefix token (trailing `[SEP]`, `prefix_tokens=0`,
-   not SpliceBERT's `p+1`); `padding_side='left'` (corrupts positions in mixed-length batches);
-   A/C/G/T ids after 7 reserved specials (resolve dynamically). Each = silent wrong readout.
-3. **No CPU/MPS fallback** — `mamba-ssm`/Triton kernels are CUDA-only; **Colab CUDA is primary compute**,
-   gated by a feasibility preflight. (My "7.7M params → CPU trivial" was wrong.)
-4. **RC-equivariance demotion CONFIRMED** (3 lenses): forward↔RC coupling is architecture-forced for PS
-   (exact param-tying in `RCPSLMHead`) ⇒ a PLUMBING memorial, not strand-specificity. An independent
-   strand control would need Caduceus-PH.
+## Remaining gates before GPU deployment
 
-## Open forks when resumed (from the synthesis, "Genuine forks for Cam")
+1. Confirm or override the documented defaults: permuted-null floor, distance-matched primary plus
+   score-caliper secondary, Colab CUDA, and no Caduceus-PH companion.
+2. Pin a compatible Colab CUDA/Torch/`mamba-ssm`/`causal-conv1d` environment.
+3. Freeze the v2 protocol and package hashes before any real-model output is read.
+4. Run smoke gates first; stop on coordinate, MLM-health, local-anchor, strand-balance, or long-range
+   transmission failure.
 
-τ/meaningfulness floor (within-model permuted-null vs fraction-of-ρ_SpliceBERT); acceptor-strength confound
-(distance-matched primary + score3-caliper secondary); confirm Colab compute; PH companion (lean drop).
-
-Provenance: 5-lens red-team 2026-07-17; checkpoint facts verified via HF + arXiv:2403.03234 + repo code.
+No CPU/MPS fallback exists for the checkpoint's hard-imported Mamba/Triton kernels. The actual model run
+has not occurred, and no transfer result may be inferred from the locally passing mock pipeline.

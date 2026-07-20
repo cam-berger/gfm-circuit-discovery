@@ -31,6 +31,14 @@ results/splicebert_head_context_atlas/atlas_context_packets_enriched_v1.jsonl
 results/splicebert_head_context_atlas/atlas_context_sequences_v1.jsonl
 results/splicebert_head_context_atlas/atlas_context_matched_v*.discovery.*.jsonl
 results/splicebert_head_context_atlas/atlas_context_matched_v*.validation.*.jsonl
+# Frozen Stage 2 runtime inputs: the overlay builder and its clean-checkout tests
+# require this exact audited cohort. Earlier/superseded cohorts remain ignored.
+!results/splicebert_head_context_atlas/atlas_context_matched_v7.validation.pairs.jsonl
+!results/splicebert_head_context_atlas/atlas_context_matched_v7.validation.packets.jsonl
+!results/splicebert_head_context_atlas/atlas_context_matched_v7.validation.sequences.jsonl
+# The frozen Stage 2 overlay also carries its 256 outcome-blind health shards.
+!results/splicebert_head_context_atlas/atlas_stage2_mechanism_v1/health_shards/
+!results/splicebert_head_context_atlas/atlas_stage2_mechanism_v1/health_shards/packet_*.json
 results/splicebert_head_context_atlas/atlas_discovery_v1.*_matrix.jsonl.gz
 results/splicebert_head_context_atlas/atlas_discovery_v1.pairs.jsonl.gz
 

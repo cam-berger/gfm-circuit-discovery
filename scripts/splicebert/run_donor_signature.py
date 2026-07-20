@@ -14,7 +14,7 @@ Core conditions (annotation-free):
 Cited: period-3 dependence (C8).  Deferred to the period-3 bridge: coding-vs-noncoding and
 annotated splice phase (need CDS annotation).
 
-Prereg (FROZEN): studies/splicebert_partner_selection/PREREGISTRATION_DONOR_SIGNATURE.md
+Prereg (FROZEN): studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_DONOR_SIGNATURE.md
 """
 from __future__ import annotations
 

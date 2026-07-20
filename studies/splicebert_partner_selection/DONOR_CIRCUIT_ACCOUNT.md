@@ -1,4 +1,8 @@
-# The SpliceBERT donor circuit — how a masked donor is scored from its paired acceptor
+# The SpliceBERT donor circuit — original C16–C19 synthesis
+
+> **Historical scope notice (2026-07-20):** this document predates the A0→A12 generator/address work and
+> corrections R22–R24. It is retained for provenance, not as the current one-file mechanism account.
+> Read [`../../MECHANISM.md`](../../MECHANISM.md) and [`CLAIMS.md`](CLAIMS.md) for current wording.
 
 *A consolidated, start-to-finish account of the reasoning and evidence. Branch
 `splicebert-donor-graph`. Every number below is reproducible from a frozen pre-registration and
@@ -96,7 +100,7 @@ numbers trustworthy.
   Biology and never auto-promoted. This account operates at the OV/Behaviour levels; it makes no
   biological claim.
 - **Pre-registration with controls that can fail.** Every experiment's design, interventions, and
-  pass/fail thresholds are frozen in a `PREREGISTRATION_DONOR_*.md` *before* the run. The standing
+  pass/fail thresholds are frozen in a `preregistrations/PREREGISTRATION_DONOR_*.md` *before* the run. The standing
   rule "a control that cannot fail is not a control" is enforced: descriptive decompositions (an
   SVD, a head scan) are licensed only by controls that are reachable-falsifiable — a size-matched
   random null and a destructive alive-check.
@@ -297,7 +301,7 @@ boundaries. This is site-relational evidence, not a frame computation.
   economy that a per-condition routing check would tighten.
 - **Open next steps.** (a) Period-3's *computation* — the discriminating truth-table (whole-codon
   vs single-base masking, CDS-specificity, codon phase) is pre-registered
-  (`PREREGISTRATION_PERIOD3_COMPUTATION.md`) with its infrastructure built and validated, not yet
+  (`preregistrations/PREREGISTRATION_PERIOD3_COMPUTATION.md`) with its infrastructure built and validated, not yet
   run. (b) The attention *geometry* of the three transporters. (c) The 7% off-`U_info` route.
   (d) Whether an analogous object appears in another genomic foundation model.
 
@@ -307,7 +311,7 @@ boundaries. This is site-relational evidence, not a frame computation.
 
 - **Branch** `splicebert-donor-graph` (not merged, not pushed). Environment: `uv sync --extra
   splicebert --extra dev`; MPS; `SpliceBERT.1024nt`.
-- **Artifacts per experiment:** frozen `PREREGISTRATION_DONOR_{ANCHOR,FORWARD,HEADS,SIGNATURE}.md`
+- **Artifacts per experiment:** frozen `preregistrations/PREREGISTRATION_DONOR_{ANCHOR,FORWARD,HEADS,SIGNATURE}.md`
   → runner `scripts/splicebert/run_donor_{anchor,forward,heads,signature}.py` → result
   `results/splicebert_coupling/donor_{anchor,forward,heads,signature}.json` (each with a
   `REFLECTION` block of self-critique and an `ExperimentManifest`).

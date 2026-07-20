@@ -2,7 +2,7 @@
 """Donor-graph experiment 4b -- A1a: token-vs-position decomposition of the embedding-resident
 targeting difference.
 
-Frozen protocol: studies/splicebert_partner_selection/PREREGISTRATION_A1_TOKEN_VS_POSITION.md.
+Frozen protocol: studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A1_TOKEN_VS_POSITION.md.
 
 A0 (C21) localized L3H1's donor-query targeting DIFFERENCE S_A to the token+positional embeddings.
 Is that difference carried by positional GEOMETRY or local sequence CONTENT?  A 2x2 clamps the

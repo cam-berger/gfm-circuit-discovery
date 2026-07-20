@@ -16,7 +16,7 @@ the backward arm.  The near-tautology (h_re ~ h_cl, whose U_info-component is cl
 construction) is defused by (a) partial restoration (~0.82) and (b) a size-matched random
 rank-8 null -- the control that can fail.
 
-Prereg (FROZEN): studies/splicebert_partner_selection/PREREGISTRATION_DONOR_FORWARD.md
+Prereg (FROZEN): studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_DONOR_FORWARD.md
 """
 from __future__ import annotations
 

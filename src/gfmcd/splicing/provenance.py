@@ -1,6 +1,6 @@
 """A0 -- stage-wise provenance of L3H1's acceptor targeting (donor-graph experiment 4).
 
-Reusable kernel for ``PREREGISTRATION_A0_TARGETING_PROVENANCE.md``.  It answers *where in the
+Reusable kernel for ``preregistrations/PREREGISTRATION_A0_TARGETING_PROVENANCE.md``.  It answers *where in the
 residual supplied to L3H1 the donor-query preference for the intron-mate acceptor becomes
 sufficient*, and whether that sufficiency rides the key side, the query side, or a Q x K
 interaction -- by reconstructing L3's query/key at a set of tracked positions from a hybrid
