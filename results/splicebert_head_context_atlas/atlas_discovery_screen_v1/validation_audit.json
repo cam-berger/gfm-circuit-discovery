@@ -1,0 +1,12 @@
+{
+  "claim_boundary": "mechanical shard audit only; no component ranking or context claim",
+  "failures": [],
+  "manifest_mode": "separate",
+  "n_failures": 0,
+  "n_health_component_rows": 52224,
+  "n_health_packets": 512,
+  "n_target_component_rows": 1204314,
+  "n_target_packets": 11807,
+  "schema": "head_context_atlas.discovery_screen_audit/1",
+  "status": "PASS"
+}

@@ -1,0 +1,67 @@
+{
+  "candidate_status_counts": {
+    "VALIDATED_WHOLE_EFFECT": 4
+  },
+  "claim_boundary": "whole component relations only; no QK/V/path/function claim",
+  "n_candidates": 4,
+  "n_validated_candidates": 4,
+  "next_stage_rule": "build and audit candidate-specific QK/V/MLP/path package only for validated_candidate_ids; do not export discovery-only relations",
+  "positive_control": {
+    "candidate_id": null,
+    "ci95_marginal": [
+      0.30767723846133355,
+      0.38276240391744465
+    ],
+    "claim_boundary": "cannot validate or rescue a candidate whole effect",
+    "component_ids": [
+      "L3H1"
+    ],
+    "contrast": null,
+    "endpoint_id": "positive_control|B|L3H1",
+    "endpoint_role": "positive_control",
+    "estimand": "B",
+    "group_id": null,
+    "inference": "one_way_gene_clustered",
+    "intervention": "joint_partner_destroyed_source_patch",
+    "masked_health": {
+      "broad_MLM_flag": false,
+      "ci95_health_margin_damage": [
+        -0.0010227440130764532,
+        0.001806583712655856
+      ],
+      "mean_health_margin_damage": 0.0003919198497897014,
+      "n_health_genes": 124,
+      "n_health_packets": 128,
+      "target_role": "donor"
+    },
+    "mde80_marginal": 0.0536626249085223,
+    "mean": 0.3452198211893891,
+    "mean_abs_effect": 0.37624743490508106,
+    "multiplicity_status": "prespecified diagnostic; reserve for later within-endpoint max-|t| family",
+    "n_genes": 1112,
+    "n_packets": 2013,
+    "p_marginal_two_sided": 1.2852364012703926e-72,
+    "pass_rule": "one-way gene-clustered marginal 95% CI lower bound > 0",
+    "passed": true,
+    "scope_kind": "target_role",
+    "scope_value": "donor",
+    "se": 0.01915437894288549,
+    "target_role": "donor"
+  },
+  "schema": "head_context_atlas.mechanism_validation_analysis/1",
+  "smoke": false,
+  "status": "VALIDATION_CLASSIFIED",
+  "tau_nats": 0.05,
+  "validated_candidate_ids": [
+    "general|A|L2H15",
+    "general|A|L3H1",
+    "general|A|L1H12",
+    "general|B|L2MLP"
+  ],
+  "validation_loaded": true,
+  "whole_family": {
+    "detection": "two-sided Holm-FWER alpha=0.05",
+    "n_endpoints": 8,
+    "simultaneous_intervals": "Bonferroni FWER alpha=0.05 over same endpoints"
+  }
+}

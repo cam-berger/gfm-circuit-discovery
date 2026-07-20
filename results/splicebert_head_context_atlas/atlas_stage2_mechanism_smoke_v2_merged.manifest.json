@@ -1,0 +1,99 @@
+{
+  "command": [
+    "python",
+    "scripts/splicebert_head_context_atlas/merge_atlas_stage2_mechanisms.py",
+    "--run-dir",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2",
+    "--package",
+    "results/splicebert_head_context_atlas/atlas_stage2_package_smoke_v2.json",
+    "--prefix",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged"
+  ],
+  "config": {
+    "smoke": true,
+    "stage2_outcomes_loaded": true,
+    "whole_validation_loaded": false
+  },
+  "created_at_utc": "2026-07-19T17:17:40.090441+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 76070,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "head_context_atlas_stage2_mechanism_merge_v1",
+  "git_commit": "5971f720587eba7c1339bc7395c9ce6cb7cf029f",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2/validation_audit.json",
+      "sha256": "90e4e2a5b4908f48fba8f40564d755f5a01ef71ae55603fcdf5d403cfd10d169",
+      "size_bytes": 967
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_stage2_package_smoke_v2.json",
+      "sha256": "c78a3c8fd26a91e6e6952e3c649d76cf77dd1184df4b1f2fc2a11cbc800ab125",
+      "size_bytes": 3255
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2/run_manifest.health.json",
+      "sha256": "2b092514832a3b8a2cab2a88060bdd791bfae51eebe6e456f8a80374d1704d60",
+      "size_bytes": 7077
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v2_merged.health_rows.jsonl.gz",
+      "sha256": "00880897ac3beffc2a78ffea9ac18286fe241f93bfa3924a159f9d22a4ab90e8",
+      "size_bytes": 4463
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2/run_manifest.target.json",
+      "sha256": "8bec4aa9a64f5c9039ae86d561ca38c139cda51cbaa747ad8d824e16f585a16b",
+      "size_bytes": 7060
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v2_merged.target_rows.jsonl.gz",
+      "sha256": "626bbf1075f5abc34d21ea5bc402ad83126bc2d6710a34cf78f024d2f8e29886",
+      "size_bytes": 4326
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v2_merged.pairs.jsonl.gz",
+      "sha256": "304a91ec9ab8620506824bef70434f0c487391b6b15a8b90edbd9fd3bc15dff4",
+      "size_bytes": 428246
+    }
+  ],
+  "notes": [],
+  "outputs": [
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.health_rows.jsonl.gz",
+      "sha256": "088433d1b0e37a3ef9e5a242ece0838c8919fcb8cd415983e6aaef21ac3d32ea",
+      "size_bytes": 8485
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.target_rows.jsonl.gz",
+      "sha256": "6ec01b6d653ff05591eefc50d1c00d4060fa92569009252690f5d0b9f7dd8206",
+      "size_bytes": 5333
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.whole_group_health_rows.jsonl.gz",
+      "sha256": "22bd82a21cef9fde70552eb0bcadd84ff46b1ba8244b8eae3faa6d20fda20bca",
+      "size_bytes": 1797
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.whole_group_target_rows.jsonl.gz",
+      "sha256": "538d361761aa68b5144d3397a4fc08ea6d8c50fc5c6a6a6d68f1b2aed571c122",
+      "size_bytes": 1720
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.pairs.jsonl.gz",
+      "sha256": "dafe024ae445df1a47b0d38e51db0ed317438b586b450c92e9ee974f1fdf1b79",
+      "size_bytes": 428242
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.summary.json",
+      "sha256": "50174245755a3a330437860b6a990309b49fe184a2f7d5de4c276812235c5a71",
+      "size_bytes": 787
+    }
+  ],
+  "seeds": {},
+  "status": "SMOKE"
+}

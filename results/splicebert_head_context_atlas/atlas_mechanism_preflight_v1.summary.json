@@ -1,0 +1,103 @@
+{
+  "claim_boundary": "QK/V/QKV/whole-head plumbing on discovery smoke; no mechanism claim",
+  "failures": [],
+  "gates": [
+    {
+      "gate": "L0H0_native_qkv_target_identity",
+      "passed": true,
+      "threshold": 0.0001,
+      "value": 0.0
+    },
+    {
+      "gate": "L0H0_native_qkv_health_identity",
+      "passed": true,
+      "threshold": 0.0001,
+      "value": 0.0
+    },
+    {
+      "gate": "L0H0_qkv_to_whole_target",
+      "passed": true,
+      "threshold": 0.0001,
+      "value": 0.0
+    },
+    {
+      "gate": "L0H0_qkv_to_whole_health",
+      "passed": true,
+      "threshold": 0.0001,
+      "value": 0.0
+    },
+    {
+      "gate": "L3H1_native_qkv_target_identity",
+      "passed": true,
+      "threshold": 0.0001,
+      "value": 0.0
+    },
+    {
+      "gate": "L3H1_native_qkv_health_identity",
+      "passed": true,
+      "threshold": 0.0001,
+      "value": 0.0
+    },
+    {
+      "gate": "L3H1_qkv_to_whole_target",
+      "passed": true,
+      "threshold": 0.0001,
+      "value": 0.0
+    },
+    {
+      "gate": "L3H1_qkv_to_whole_health",
+      "passed": true,
+      "threshold": 0.0001,
+      "value": 0.0
+    },
+    {
+      "gate": "L5H15_native_qkv_target_identity",
+      "passed": true,
+      "threshold": 0.0001,
+      "value": 0.0
+    },
+    {
+      "gate": "L5H15_native_qkv_health_identity",
+      "passed": true,
+      "threshold": 0.0001,
+      "value": 0.0
+    },
+    {
+      "gate": "L5H15_qkv_to_whole_target",
+      "passed": true,
+      "threshold": 0.0001,
+      "value": 0.0
+    },
+    {
+      "gate": "L5H15_qkv_to_whole_health",
+      "passed": true,
+      "threshold": 0.0001,
+      "value": 0.0
+    },
+    {
+      "gate": "whole_head_matches_independent_preflight",
+      "passed": true,
+      "threshold": 1e-06,
+      "value": 0.0
+    },
+    {
+      "gate": "finite_mechanism_rows",
+      "passed": true,
+      "threshold": 1,
+      "value": 1
+    }
+  ],
+  "heads": [
+    "L0H0",
+    "L3H1",
+    "L5H15"
+  ],
+  "n_failures": 0,
+  "n_gates": 14,
+  "n_heads": 3,
+  "n_packets": 4,
+  "n_rows": 48,
+  "schema": "head_context_atlas.mechanism_preflight/1",
+  "status": "PREFLIGHT_PASS",
+  "validation_loaded": false
+}

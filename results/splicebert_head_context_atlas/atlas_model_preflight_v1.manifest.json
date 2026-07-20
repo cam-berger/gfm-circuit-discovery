@@ -1,0 +1,73 @@
+{
+  "command": [
+    "python",
+    "scripts/splicebert_head_context_atlas/run_atlas_model_preflight.py"
+  ],
+  "config": {},
+  "created_at_utc": "2026-07-19T15:20:44.425589+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 32154,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "head_context_atlas_model_preflight_v1",
+  "git_commit": "5971f720587eba7c1339bc7395c9ce6cb7cf029f",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_context_matched_v7.discovery.pairs.jsonl",
+      "sha256": "46c3e76f5bda200ee783056bf057457d1dac11f947a068a9522bd4c371d4a956",
+      "size_bytes": 3458247
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_context_matched_v7.discovery.packets.jsonl",
+      "sha256": "9beaa22693693ad51c4616d549cc2cb2bde8dcaa6ef194f0537f5f4bd1ce45ed",
+      "size_bytes": 20307236
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_context_matched_v7.discovery.sequences.jsonl",
+      "sha256": "a4dda3be2b1da04fb95fe86979507f8351352593f7be87e73bd9ac9bacb04352",
+      "size_bytes": 15173369
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/config.json",
+      "sha256": "51ea51e42951f18cc1d3455d7111fe0a41cebad476ba8314afc161a0e956303e",
+      "size_bytes": 685
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/tokenizer.json",
+      "sha256": "b380c8c93ba20313c0c0239b8c70f0c67253028ca76cfda4f55b46049abe4fa3",
+      "size_bytes": 2792
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/vocab.txt",
+      "sha256": "ba67bacb61d3de7d57e11e04ba59020a2cc67dbedbd9ae65715117b9fd4f30bc",
+      "size_bytes": 41
+    }
+  ],
+  "notes": [],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_model_preflight_v1.rows.jsonl",
+      "sha256": "013f4fdddd3d3482dcefd49dbbedadf461f6be4d2181b850aa4dd562c667f907",
+      "size_bytes": 1355498
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_model_preflight_v1.summary.json",
+      "sha256": "0beb42b7a9ca9c777bbf7a739f5f98ad9a1793340ffc47dc013cdc7cf20e0fc3",
+      "size_bytes": 9379
+    }
+  ],
+  "seeds": {
+    "numpy": 0,
+    "pythonhashseed": 0,
+    "torch": 0
+  },
+  "status": "PREFLIGHT_PASS"
+}

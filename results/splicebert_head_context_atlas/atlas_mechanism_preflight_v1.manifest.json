@@ -1,0 +1,65 @@
+{
+  "command": [
+    "python",
+    "scripts/splicebert_head_context_atlas/run_atlas_mechanism_preflight.py",
+    "--device",
+    "mps"
+  ],
+  "config": {
+    "bridge_atol": 0.0001,
+    "heads": [
+      "L0H0",
+      "L3H1",
+      "L5H15"
+    ],
+    "identity_atol": 0.0001,
+    "validation_loaded": false
+  },
+  "created_at_utc": "2026-07-19T16:13:56.644640+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 50703,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "head_context_atlas_mechanism_preflight_v1",
+  "git_commit": "5971f720587eba7c1339bc7395c9ce6cb7cf029f",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_context_matched_v7.discovery.pairs.jsonl",
+      "sha256": "46c3e76f5bda200ee783056bf057457d1dac11f947a068a9522bd4c371d4a956",
+      "size_bytes": 3458247
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_context_matched_v7.discovery.packets.jsonl",
+      "sha256": "9beaa22693693ad51c4616d549cc2cb2bde8dcaa6ef194f0537f5f4bd1ce45ed",
+      "size_bytes": 20307236
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_context_matched_v7.discovery.sequences.jsonl",
+      "sha256": "a4dda3be2b1da04fb95fe86979507f8351352593f7be87e73bd9ac9bacb04352",
+      "size_bytes": 15173369
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_model_preflight_v1.rows.jsonl",
+      "sha256": "013f4fdddd3d3482dcefd49dbbedadf461f6be4d2181b850aa4dd562c667f907",
+      "size_bytes": 1355498
+    }
+  ],
+  "notes": [],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_mechanism_preflight_v1.rows.jsonl",
+      "sha256": "2ba0343243bdac6c35119c7598721070856f5c4eec4ff4691b0c95e1b78bd067",
+      "size_bytes": 58898
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_mechanism_preflight_v1.summary.json",
+      "sha256": "c3faf99f9b1bc05a2defda055e8137dcdae90e4a4d9c1fb47752a0aeeaa115ee",
+      "size_bytes": 2158
+    }
+  ],
+  "seeds": {},
+  "status": "PREFLIGHT_PASS"
+}

@@ -1,0 +1,1474 @@
+{
+  "balance_failures": {
+    "atlas_discovery": [
+      "single_pair|donor",
+      "single_pair|acceptor",
+      "donor_cluster|donor",
+      "donor_cluster|acceptor",
+      "acceptor_cluster|donor",
+      "acceptor_cluster|acceptor",
+      "multiple_independent_pairs|donor",
+      "multiple_independent_pairs|acceptor",
+      "cassette_exon|donor"
+    ],
+    "atlas_internal_validation": [
+      "single_pair|donor",
+      "single_pair|acceptor",
+      "donor_cluster|donor",
+      "donor_cluster|acceptor",
+      "acceptor_cluster|donor",
+      "acceptor_cluster|acceptor",
+      "multiple_independent_pairs|donor",
+      "multiple_independent_pairs|acceptor",
+      "cassette_exon|donor",
+      "cassette_exon|acceptor",
+      "complex_event|donor",
+      "complex_event|acceptor"
+    ]
+  },
+  "categories": [
+    "single_pair",
+    "donor_cluster",
+    "acceptor_cluster",
+    "multiple_independent_pairs",
+    "cassette_exon",
+    "complex_event"
+  ],
+  "claim_boundary": "matching and cohort feasibility only; no model outcome or head function read",
+  "global_balance_gate": false,
+  "matching": {
+    "balance_gate": "max |numeric SMD| <=0.10 and max |other-tag SMD| <=0.15",
+    "continuous": [
+      "log_target_partner_distance",
+      "target_strength",
+      "partner_strength",
+      "gc_window",
+      "gc_target_local50",
+      "gc_partner_local50",
+      "pyrimidine_target_local50",
+      "pyrimidine_partner_local50",
+      "log_target_site_support",
+      "log_junction_support",
+      "target_position_fraction",
+      "log_donor_motif_count",
+      "log_acceptor_motif_count",
+      "max_homopolymer",
+      "distance_phase10_63_sin",
+      "distance_phase10_63_cos"
+    ],
+    "control_reuse_within_contrast": "capped at 2; repeated controls require analysis weights",
+    "different_gene": true,
+    "exact": [
+      "analysis_split",
+      "target_role",
+      "strand",
+      "target_boundary_region",
+      "distance_mod3",
+      "50-nt target-partner distance band",
+      "target-site transcript-support band",
+      "junction transcript-support band",
+      "all non-focal core context tags"
+    ],
+    "excluded_as_context_defining": [
+      "visible_pair_count",
+      "donor_degree",
+      "acceptor_degree",
+      "local_edge_count"
+    ],
+    "k_neighbors": 128,
+    "other_context_tags": "all non-focal core tags matched exactly",
+    "propensity": "balanced logistic regression over all continuous confounds",
+    "propensity_caliper_sd": 0.2
+  },
+  "schema": "head_context_atlas.matched_cohorts/1",
+  "selected": {
+    "atlas_discovery": {
+      "n_genes": 5363,
+      "n_pairs": 8275,
+      "n_unique_packets": 14610,
+      "n_unique_sequences": 13056
+    },
+    "atlas_internal_validation": {
+      "n_genes": 1584,
+      "n_pairs": 2938,
+      "n_unique_packets": 5055,
+      "n_unique_sequences": 4234
+    }
+  },
+  "split_guard": "discovery and internal validation are gene-hash-disjoint and physically separate; chr11/16/19 and chr8/9 are absent",
+  "status": "OUTCOME_INDEPENDENT_MATCHED_CANDIDATE",
+  "summaries": {
+    "atlas_discovery": {
+      "acceptor_cluster|acceptor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.05787562834233549,
+            "0.9": 0.15385686525680384,
+            "0.99": 0.194133841417442
+          },
+          "max_abs_numeric_smd": 0.20525865605198065,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": 0.03319227365113243,
+            "distance_phase10_63_sin": -0.002257320749307278,
+            "gc_partner_local50": -0.057240881493464055,
+            "gc_target_local50": -0.1929916945825628,
+            "gc_window": -0.20525865605198065,
+            "log_acceptor_motif_count": -0.16696464166822653,
+            "log_donor_motif_count": -0.13217068336052465,
+            "log_junction_support": 0.0007312747034040985,
+            "log_target_partner_distance": 0.008363344614987642,
+            "log_target_site_support": 0.001955753156688753,
+            "max_homopolymer": 0.05326287614693851,
+            "partner_strength": 0.13989073129903443,
+            "pyrimidine_partner_local50": 0.02753608806656814,
+            "pyrimidine_target_local50": -0.03430555274770131,
+            "target_position_fraction": 0.027668986864938808,
+            "target_strength": 0.008763661638976525
+          },
+          "other_context_tag_smd": {
+            "cassette_exon": 0.0,
+            "complex_event": 0.0,
+            "donor_cluster": 0.0,
+            "multiple_independent_pairs": 0.0,
+            "single_pair": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "acceptor_cluster",
+        "failures": {
+          "caliper_or_reuse": 118
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 6418,
+        "n_case_genes_in_exact_other-tag_support": 1982,
+        "n_case_packets_available": 27678,
+        "n_case_packets_in_exact_other-tag_support": 3015,
+        "n_cases_sampled": 800,
+        "n_controls_available": 38284,
+        "n_matched": 682,
+        "n_requested": 800,
+        "n_unique_controls": 643,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 1.1440793302839836,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "acceptor"
+      },
+      "acceptor_cluster|donor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.08350804087432082,
+            "0.9": 0.15905248383025442,
+            "0.99": 0.19493181824642533
+          },
+          "max_abs_numeric_smd": 0.42871702907594367,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": -0.012124416248557734,
+            "distance_phase10_63_sin": 0.016109419263584838,
+            "gc_partner_local50": -0.36812829576083744,
+            "gc_target_local50": -0.3173570680518762,
+            "gc_window": -0.42871702907594367,
+            "log_acceptor_motif_count": -0.08417211055669714,
+            "log_donor_motif_count": -0.36165894592800163,
+            "log_junction_support": -0.22385343272700745,
+            "log_target_partner_distance": -0.0017987894143704191,
+            "log_target_site_support": -0.09856928030835731,
+            "max_homopolymer": 0.04059902529426893,
+            "partner_strength": 0.12817086046120751,
+            "pyrimidine_partner_local50": 0.08039927690073397,
+            "pyrimidine_target_local50": 0.04098945764729517,
+            "target_position_fraction": -0.012687447871738772,
+            "target_strength": -0.059328912209521294
+          },
+          "other_context_tag_smd": {
+            "cassette_exon": 0.0,
+            "complex_event": 0.0,
+            "donor_cluster": 0.0,
+            "multiple_independent_pairs": 0.0,
+            "single_pair": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "acceptor_cluster",
+        "failures": {
+          "caliper_or_reuse": 8
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 6418,
+        "n_case_genes_in_exact_other-tag_support": 1437,
+        "n_case_packets_available": 27678,
+        "n_case_packets_in_exact_other-tag_support": 2243,
+        "n_cases_sampled": 800,
+        "n_controls_available": 38284,
+        "n_matched": 792,
+        "n_requested": 800,
+        "n_unique_controls": 640,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 27.541939921382554,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "donor"
+      },
+      "cassette_exon|acceptor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.06176876456237163,
+            "0.9": 0.16730810818829667,
+            "0.99": 0.195660224007105
+          },
+          "max_abs_numeric_smd": 0.07506923079961066,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": -0.007270128392405745,
+            "distance_phase10_63_sin": 0.03568618923594879,
+            "gc_partner_local50": -0.025155169568705456,
+            "gc_target_local50": -0.041392542450023766,
+            "gc_window": -0.07506923079961066,
+            "log_acceptor_motif_count": -0.058065751708355796,
+            "log_donor_motif_count": -0.04606001868198229,
+            "log_junction_support": -0.003160580122806741,
+            "log_target_partner_distance": 0.005299381599728392,
+            "log_target_site_support": -0.0016533834923898683,
+            "max_homopolymer": 0.0041089626965793566,
+            "partner_strength": 0.02225529821024359,
+            "pyrimidine_partner_local50": 0.050015129439920036,
+            "pyrimidine_target_local50": -0.03356210772345284,
+            "target_position_fraction": -0.004151959917946513,
+            "target_strength": 0.0371604018053306
+          },
+          "other_context_tag_smd": {
+            "acceptor_cluster": 0.0,
+            "complex_event": 0.0,
+            "donor_cluster": 0.0,
+            "multiple_independent_pairs": 0.0,
+            "single_pair": 0.0
+          }
+        },
+        "balance_gate": true,
+        "category": "cassette_exon",
+        "failures": {
+          "caliper_or_reuse": 89
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 5870,
+        "n_case_genes_in_exact_other-tag_support": 2766,
+        "n_case_packets_available": 21054,
+        "n_case_packets_in_exact_other-tag_support": 5414,
+        "n_cases_sampled": 800,
+        "n_controls_available": 44908,
+        "n_matched": 711,
+        "n_requested": 800,
+        "n_unique_controls": 677,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 0.5994311824354028,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "acceptor"
+      },
+      "cassette_exon|donor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.06953934601253459,
+            "0.9": 0.1654675677964901,
+            "0.99": 0.19522996685189486
+          },
+          "max_abs_numeric_smd": 0.2184682031327163,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": 0.06558936045103486,
+            "distance_phase10_63_sin": 0.050504841855515376,
+            "gc_partner_local50": -0.13777220889624545,
+            "gc_target_local50": -0.17967121387622845,
+            "gc_window": -0.18889683764766163,
+            "log_acceptor_motif_count": -0.15555677252591055,
+            "log_donor_motif_count": -0.2184682031327163,
+            "log_junction_support": -0.0010204389155924157,
+            "log_target_partner_distance": -0.0008710382027295306,
+            "log_target_site_support": 0.004272017950215577,
+            "max_homopolymer": 0.13223203920883736,
+            "partner_strength": 0.05605812438073428,
+            "pyrimidine_partner_local50": 0.03864071336411671,
+            "pyrimidine_target_local50": 0.12257187730654051,
+            "target_position_fraction": -0.030428439080264116,
+            "target_strength": 0.13308168185100064
+          },
+          "other_context_tag_smd": {
+            "acceptor_cluster": 0.0,
+            "complex_event": 0.0,
+            "donor_cluster": 0.0,
+            "multiple_independent_pairs": 0.0,
+            "single_pair": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "cassette_exon",
+        "failures": {
+          "caliper_or_reuse": 98
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 5870,
+        "n_case_genes_in_exact_other-tag_support": 2672,
+        "n_case_packets_available": 21054,
+        "n_case_packets_in_exact_other-tag_support": 5103,
+        "n_cases_sampled": 800,
+        "n_controls_available": 44908,
+        "n_matched": 702,
+        "n_requested": 800,
+        "n_unique_controls": 665,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 0.6344889267918814,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "donor"
+      },
+      "complex_event|acceptor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.03755802850775266,
+            "0.9": 0.1510235572031154,
+            "0.99": 0.19279942701275204
+          },
+          "max_abs_numeric_smd": 0.09933309584345175,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": -0.041503702150581204,
+            "distance_phase10_63_sin": 0.016965772178146356,
+            "gc_partner_local50": 0.08358938395645148,
+            "gc_target_local50": 0.05239114292691577,
+            "gc_window": 0.03807752990054851,
+            "log_acceptor_motif_count": 0.09933309584345175,
+            "log_donor_motif_count": 0.07964677682928681,
+            "log_junction_support": -0.010105396375542457,
+            "log_target_partner_distance": -0.004108143087332171,
+            "log_target_site_support": -0.006223371266580724,
+            "max_homopolymer": 0.024662949434832247,
+            "partner_strength": -0.0022854651495783983,
+            "pyrimidine_partner_local50": 0.0008673691146277735,
+            "pyrimidine_target_local50": -0.07676656064048956,
+            "target_position_fraction": 0.024118939169901363,
+            "target_strength": 0.016387070596419317
+          },
+          "other_context_tag_smd": {
+            "acceptor_cluster": 0.0,
+            "cassette_exon": 0.0,
+            "donor_cluster": 0.0,
+            "multiple_independent_pairs": 0.0,
+            "single_pair": 0.0
+          }
+        },
+        "balance_gate": true,
+        "category": "complex_event",
+        "failures": {
+          "caliper_or_reuse": 75
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 7316,
+        "n_case_genes_in_exact_other-tag_support": 3172,
+        "n_case_packets_available": 40463,
+        "n_case_packets_in_exact_other-tag_support": 6024,
+        "n_cases_sampled": 800,
+        "n_controls_available": 25499,
+        "n_matched": 725,
+        "n_requested": 800,
+        "n_unique_controls": 666,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 1.9201676142613335,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "acceptor"
+      },
+      "complex_event|donor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.047243638953539946,
+            "0.9": 0.15551567324167687,
+            "0.99": 0.19350146765318324
+          },
+          "max_abs_numeric_smd": 0.0942681569613208,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": -0.0942681569613208,
+            "distance_phase10_63_sin": -0.003342018734172043,
+            "gc_partner_local50": 0.029032373869210877,
+            "gc_target_local50": 0.02350829475387863,
+            "gc_window": -0.012914459270395846,
+            "log_acceptor_motif_count": 0.06911296258354321,
+            "log_donor_motif_count": -0.010579893406850682,
+            "log_junction_support": 0.0035620523958893925,
+            "log_target_partner_distance": -0.00551671820270388,
+            "log_target_site_support": 0.006403438471663427,
+            "max_homopolymer": -0.032471308729814,
+            "partner_strength": 0.03871517460540791,
+            "pyrimidine_partner_local50": 0.014539892860031387,
+            "pyrimidine_target_local50": -0.07845324318707841,
+            "target_position_fraction": -0.04885160391297284,
+            "target_strength": -0.018312891607501908
+          },
+          "other_context_tag_smd": {
+            "acceptor_cluster": 0.0,
+            "cassette_exon": 0.0,
+            "donor_cluster": 0.0,
+            "multiple_independent_pairs": 0.0,
+            "single_pair": 0.0
+          }
+        },
+        "balance_gate": true,
+        "category": "complex_event",
+        "failures": {
+          "caliper_or_reuse": 45
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 7316,
+        "n_case_genes_in_exact_other-tag_support": 3168,
+        "n_case_packets_available": 40463,
+        "n_case_packets_in_exact_other-tag_support": 5386,
+        "n_cases_sampled": 800,
+        "n_controls_available": 25499,
+        "n_matched": 755,
+        "n_requested": 800,
+        "n_unique_controls": 698,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 1.6303459027143408,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "donor"
+      },
+      "donor_cluster|acceptor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.08862462876053914,
+            "0.9": 0.16857471495833737,
+            "0.99": 0.19652081626367665
+          },
+          "max_abs_numeric_smd": 0.30987680716339194,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": 0.02247444887821314,
+            "distance_phase10_63_sin": -0.06264391840321754,
+            "gc_partner_local50": -0.30987680716339194,
+            "gc_target_local50": -0.19941290238943862,
+            "gc_window": -0.30832699620735066,
+            "log_acceptor_motif_count": 0.0031969306494091954,
+            "log_donor_motif_count": -0.25561720290686807,
+            "log_junction_support": -0.19203212272622175,
+            "log_target_partner_distance": -0.008831124995538602,
+            "log_target_site_support": -0.07011334902987056,
+            "max_homopolymer": 0.004734536321737331,
+            "partner_strength": 0.24747107840563473,
+            "pyrimidine_partner_local50": 0.022702834903059303,
+            "pyrimidine_target_local50": -0.09012097732366714,
+            "target_position_fraction": 0.0034165190788991197,
+            "target_strength": -0.16749622881580273
+          },
+          "other_context_tag_smd": {
+            "acceptor_cluster": 0.0,
+            "cassette_exon": 0.0,
+            "complex_event": 0.0,
+            "multiple_independent_pairs": 0.0,
+            "single_pair": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "donor_cluster",
+        "failures": {
+          "caliper_or_reuse": 4
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 6061,
+        "n_case_genes_in_exact_other-tag_support": 1363,
+        "n_case_packets_available": 22614,
+        "n_case_packets_in_exact_other-tag_support": 2058,
+        "n_cases_sampled": 800,
+        "n_controls_available": 43348,
+        "n_matched": 796,
+        "n_requested": 800,
+        "n_unique_controls": 666,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 23.724103159897467,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "acceptor"
+      },
+      "donor_cluster|donor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.06874488554321921,
+            "0.9": 0.17091527365431902,
+            "0.99": 0.1963492898209512
+          },
+          "max_abs_numeric_smd": 0.14291238514038715,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": -0.008682133069878544,
+            "distance_phase10_63_sin": -0.03755632488245409,
+            "gc_partner_local50": -0.12656874394713524,
+            "gc_target_local50": -0.13703046298897945,
+            "gc_window": -0.14291238514038715,
+            "log_acceptor_motif_count": -0.011304721947350636,
+            "log_donor_motif_count": -0.08437857973666575,
+            "log_junction_support": 0.00011043164526481225,
+            "log_target_partner_distance": 0.002214044071840937,
+            "log_target_site_support": -0.0076732444083937755,
+            "max_homopolymer": -0.056717554954737334,
+            "partner_strength": 0.10550457090970321,
+            "pyrimidine_partner_local50": 0.06044155710402498,
+            "pyrimidine_target_local50": -0.02596409866393397,
+            "target_position_fraction": -0.013200986384770538,
+            "target_strength": 0.04463893679700796
+          },
+          "other_context_tag_smd": {
+            "acceptor_cluster": 0.0,
+            "cassette_exon": 0.0,
+            "complex_event": 0.0,
+            "multiple_independent_pairs": 0.0,
+            "single_pair": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "donor_cluster",
+        "failures": {
+          "caliper_or_reuse": 135
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 6061,
+        "n_case_genes_in_exact_other-tag_support": 1780,
+        "n_case_packets_available": 22614,
+        "n_case_packets_in_exact_other-tag_support": 2681,
+        "n_cases_sampled": 800,
+        "n_controls_available": 43348,
+        "n_matched": 665,
+        "n_requested": 800,
+        "n_unique_controls": 642,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 0.9834305421079254,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "donor"
+      },
+      "multiple_independent_pairs|acceptor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.06447924132121585,
+            "0.9": 0.16797228008408382,
+            "0.99": 0.19653778302801786
+          },
+          "max_abs_numeric_smd": 0.11750693434870563,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": 0.09083785209724768,
+            "distance_phase10_63_sin": -0.03735623189482189,
+            "gc_partner_local50": -0.015852712243227082,
+            "gc_target_local50": 0.04525959370889477,
+            "gc_window": 0.056613529604644934,
+            "log_acceptor_motif_count": -0.019431142223562844,
+            "log_donor_motif_count": 0.02035065336463564,
+            "log_junction_support": -0.0028793955084289295,
+            "log_target_partner_distance": -0.0007112253274555702,
+            "log_target_site_support": 0.0015586038687312273,
+            "max_homopolymer": -0.06596766736385429,
+            "partner_strength": -0.11750693434870563,
+            "pyrimidine_partner_local50": -0.028139312459319315,
+            "pyrimidine_target_local50": 0.00922582646027167,
+            "target_position_fraction": -0.011874757473971834,
+            "target_strength": 0.09292451078617354
+          },
+          "other_context_tag_smd": {
+            "acceptor_cluster": 0.0,
+            "cassette_exon": 0.0,
+            "complex_event": 0.0,
+            "donor_cluster": 0.0,
+            "single_pair": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "multiple_independent_pairs",
+        "failures": {
+          "caliper_or_reuse": 156
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 4065,
+        "n_case_genes_in_exact_other-tag_support": 2044,
+        "n_case_packets_available": 26372,
+        "n_case_packets_in_exact_other-tag_support": 5244,
+        "n_cases_sampled": 800,
+        "n_controls_available": 39590,
+        "n_matched": 644,
+        "n_requested": 800,
+        "n_unique_controls": 590,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 1.0962642054317604,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "acceptor"
+      },
+      "multiple_independent_pairs|donor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.08395737730278947,
+            "0.9": 0.17113169465445144,
+            "0.99": 0.19571451264100614
+          },
+          "max_abs_numeric_smd": 0.1386670497580003,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": -0.1386670497580003,
+            "distance_phase10_63_sin": -0.024062505593252462,
+            "gc_partner_local50": 0.028701130165617806,
+            "gc_target_local50": -0.015505506623029857,
+            "gc_window": -0.002037419099648442,
+            "log_acceptor_motif_count": -0.0014877654190385988,
+            "log_donor_motif_count": -0.019584493658360885,
+            "log_junction_support": -0.0017388186133631637,
+            "log_target_partner_distance": 0.014090895624267186,
+            "log_target_site_support": -0.0017914606705022732,
+            "max_homopolymer": -0.0010457501017639408,
+            "partner_strength": -0.09712229666711625,
+            "pyrimidine_partner_local50": -0.12945067862357224,
+            "pyrimidine_target_local50": -0.01693535357397668,
+            "target_position_fraction": -0.019348031077773796,
+            "target_strength": -0.010619628134224929
+          },
+          "other_context_tag_smd": {
+            "acceptor_cluster": 0.0,
+            "cassette_exon": 0.0,
+            "complex_event": 0.0,
+            "donor_cluster": 0.0,
+            "single_pair": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "multiple_independent_pairs",
+        "failures": {
+          "caliper_or_reuse": 199
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 4065,
+        "n_case_genes_in_exact_other-tag_support": 1892,
+        "n_case_packets_available": 26372,
+        "n_case_packets_in_exact_other-tag_support": 4518,
+        "n_cases_sampled": 800,
+        "n_controls_available": 39590,
+        "n_matched": 601,
+        "n_requested": 800,
+        "n_unique_controls": 553,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 1.0578241858170248,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "donor"
+      },
+      "single_pair|acceptor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.07815522295768454,
+            "0.9": 0.1729997597792599,
+            "0.99": 0.19689887040987733
+          },
+          "max_abs_numeric_smd": 0.1156741213732008,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": 0.03224887105948833,
+            "distance_phase10_63_sin": 0.018334587037009575,
+            "gc_partner_local50": 0.08966730384254018,
+            "gc_target_local50": 0.015012254771327095,
+            "gc_window": 0.0801379421135957,
+            "log_acceptor_motif_count": -0.0232925531531756,
+            "log_donor_motif_count": 0.07064786121624134,
+            "log_junction_support": -0.0030562100462437547,
+            "log_target_partner_distance": -0.0021379917778104043,
+            "log_target_site_support": -0.007007378616034334,
+            "max_homopolymer": -0.1156741213732008,
+            "partner_strength": 0.09206795724306353,
+            "pyrimidine_partner_local50": -0.03179644605005694,
+            "pyrimidine_target_local50": 0.10794576415625834,
+            "target_position_fraction": 0.014042448111564684,
+            "target_strength": 0.11066955124233774
+          },
+          "other_context_tag_smd": {
+            "acceptor_cluster": 0.0,
+            "cassette_exon": 0.0,
+            "complex_event": 0.0,
+            "donor_cluster": 0.0,
+            "multiple_independent_pairs": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "single_pair",
+        "failures": {
+          "caliper_or_reuse": 215
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 8598,
+        "n_case_genes_in_exact_other-tag_support": 2053,
+        "n_case_packets_available": 27386,
+        "n_case_packets_in_exact_other-tag_support": 2424,
+        "n_cases_sampled": 800,
+        "n_controls_available": 38576,
+        "n_matched": 585,
+        "n_requested": 800,
+        "n_unique_controls": 541,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 1.2246737809255566,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "acceptor"
+      },
+      "single_pair|donor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.09039125994129775,
+            "0.9": 0.18222624562503317,
+            "0.99": 0.19724611575779888
+          },
+          "max_abs_numeric_smd": 0.1928782868194142,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": 0.12124472480717209,
+            "distance_phase10_63_sin": 0.04185888224146054,
+            "gc_partner_local50": 0.08826049684020756,
+            "gc_target_local50": 0.013819646336098891,
+            "gc_window": 0.08320448704219596,
+            "log_acceptor_motif_count": -0.05992917659385961,
+            "log_donor_motif_count": 0.057392256657063614,
+            "log_junction_support": -0.004597732136990906,
+            "log_target_partner_distance": -0.0026017090103167308,
+            "log_target_site_support": -0.001210731771134716,
+            "max_homopolymer": -0.1928782868194142,
+            "partner_strength": 0.18526697243996787,
+            "pyrimidine_partner_local50": 0.06862734097176684,
+            "pyrimidine_target_local50": 0.005842958872156431,
+            "target_position_fraction": -0.12814167645969715,
+            "target_strength": 0.07218328690543684
+          },
+          "other_context_tag_smd": {
+            "acceptor_cluster": 0.0,
+            "cassette_exon": 0.0,
+            "complex_event": 0.0,
+            "donor_cluster": 0.0,
+            "multiple_independent_pairs": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "single_pair",
+        "failures": {
+          "caliper_or_reuse": 183
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 8598,
+        "n_case_genes_in_exact_other-tag_support": 1751,
+        "n_case_packets_available": 27386,
+        "n_case_packets_in_exact_other-tag_support": 2019,
+        "n_cases_sampled": 800,
+        "n_controls_available": 38576,
+        "n_matched": 617,
+        "n_requested": 800,
+        "n_unique_controls": 561,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 1.249494688072419,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "donor"
+      }
+    },
+    "atlas_internal_validation": {
+      "acceptor_cluster|acceptor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.06972978501358922,
+            "0.9": 0.17167028277580065,
+            "0.99": 0.1971915539268036
+          },
+          "max_abs_numeric_smd": 0.36503632510426687,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": -0.006186419278091651,
+            "distance_phase10_63_sin": 0.17163035331998314,
+            "gc_partner_local50": -0.3042618399353611,
+            "gc_target_local50": -0.2629211904004822,
+            "gc_window": -0.21312776943711412,
+            "log_acceptor_motif_count": -0.36240591445273507,
+            "log_donor_motif_count": -0.2548491049836149,
+            "log_junction_support": 0.00044673087455532833,
+            "log_target_partner_distance": 0.013591189942546766,
+            "log_target_site_support": 0.0034285871928049047,
+            "max_homopolymer": -0.06889328969084606,
+            "partner_strength": 0.36503632510426687,
+            "pyrimidine_partner_local50": -0.08836451161312465,
+            "pyrimidine_target_local50": 0.031749815974780514,
+            "target_position_fraction": 0.05130833921092436,
+            "target_strength": 0.10199000363868944
+          },
+          "other_context_tag_smd": {
+            "cassette_exon": 0.0,
+            "complex_event": 0.0,
+            "donor_cluster": 0.0,
+            "multiple_independent_pairs": 0.0,
+            "single_pair": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "acceptor_cluster",
+        "failures": {
+          "caliper_or_reuse": 59
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 1611,
+        "n_case_genes_in_exact_other-tag_support": 277,
+        "n_case_packets_available": 6956,
+        "n_case_packets_in_exact_other-tag_support": 341,
+        "n_cases_sampled": 277,
+        "n_controls_available": 8852,
+        "n_matched": 218,
+        "n_requested": 400,
+        "n_unique_controls": 202,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 1.0790391412426321,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "acceptor"
+      },
+      "acceptor_cluster|donor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.09020939315868379,
+            "0.9": 0.1557451989310066,
+            "0.99": 0.1905689531756395
+          },
+          "max_abs_numeric_smd": 0.31222296131812943,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": 0.04069916521952781,
+            "distance_phase10_63_sin": 0.03490454600939568,
+            "gc_partner_local50": -0.25903195898337894,
+            "gc_target_local50": -0.2734787589173426,
+            "gc_window": -0.31222296131812943,
+            "log_acceptor_motif_count": 0.07040977247456252,
+            "log_donor_motif_count": -0.28175964101362233,
+            "log_junction_support": -0.14413216410607377,
+            "log_target_partner_distance": 0.001428821191954634,
+            "log_target_site_support": 0.003646725941859261,
+            "max_homopolymer": -0.004611219615981201,
+            "partner_strength": 0.10312184430318723,
+            "pyrimidine_partner_local50": 0.0074596616910458016,
+            "pyrimidine_target_local50": 0.0027452408749005027,
+            "target_position_fraction": 0.15718777100651113,
+            "target_strength": 0.010906274934789309
+          },
+          "other_context_tag_smd": {
+            "cassette_exon": 0.0,
+            "complex_event": 0.0,
+            "donor_cluster": 0.0,
+            "multiple_independent_pairs": 0.0,
+            "single_pair": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "acceptor_cluster",
+        "failures": {
+          "caliper_or_reuse": 1
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 1611,
+        "n_case_genes_in_exact_other-tag_support": 244,
+        "n_case_packets_available": 6956,
+        "n_case_packets_in_exact_other-tag_support": 331,
+        "n_cases_sampled": 244,
+        "n_controls_available": 8852,
+        "n_matched": 243,
+        "n_requested": 400,
+        "n_unique_controls": 218,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 14.980764144733314,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "donor"
+      },
+      "cassette_exon|acceptor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.09279325848131097,
+            "0.9": 0.17184726039011813,
+            "0.99": 0.19613941266171714
+          },
+          "max_abs_numeric_smd": 0.23828077393595626,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": 0.057407106700032864,
+            "distance_phase10_63_sin": -0.06814134440160349,
+            "gc_partner_local50": -0.06453985316071667,
+            "gc_target_local50": -0.23828077393595626,
+            "gc_window": -0.11281192429841466,
+            "log_acceptor_motif_count": -0.0733911729800719,
+            "log_donor_motif_count": -0.07287782714358729,
+            "log_junction_support": -0.006409389926692283,
+            "log_target_partner_distance": -0.01567836240853494,
+            "log_target_site_support": -0.006175784581486522,
+            "max_homopolymer": -0.011922144603332619,
+            "partner_strength": 0.08701726771462742,
+            "pyrimidine_partner_local50": 0.11940399896242415,
+            "pyrimidine_target_local50": 0.08149067191627396,
+            "target_position_fraction": -0.010820114217407077,
+            "target_strength": 0.05686312411521149
+          },
+          "other_context_tag_smd": {
+            "acceptor_cluster": 0.0,
+            "complex_event": 0.0,
+            "donor_cluster": 0.0,
+            "multiple_independent_pairs": 0.0,
+            "single_pair": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "cassette_exon",
+        "failures": {
+          "caliper_or_reuse": 55
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 1462,
+        "n_case_genes_in_exact_other-tag_support": 410,
+        "n_case_packets_available": 5216,
+        "n_case_packets_in_exact_other-tag_support": 632,
+        "n_cases_sampled": 400,
+        "n_controls_available": 10592,
+        "n_matched": 345,
+        "n_requested": 400,
+        "n_unique_controls": 311,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 0.534154970595666,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "acceptor"
+      },
+      "cassette_exon|donor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.08308234835448587,
+            "0.9": 0.17040595484753537,
+            "0.99": 0.19393149973241794
+          },
+          "max_abs_numeric_smd": 0.26876971420255563,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": 0.008871823109292465,
+            "distance_phase10_63_sin": 0.040736124787742405,
+            "gc_partner_local50": -0.20313596582451773,
+            "gc_target_local50": -0.1890285859793107,
+            "gc_window": -0.20562761919432115,
+            "log_acceptor_motif_count": 0.011720725735070632,
+            "log_donor_motif_count": -0.26876971420255563,
+            "log_junction_support": -0.010276487141031064,
+            "log_target_partner_distance": -0.010297595040218417,
+            "log_target_site_support": -0.0012839269742367053,
+            "max_homopolymer": 0.052275906370888484,
+            "partner_strength": 0.03524371457480166,
+            "pyrimidine_partner_local50": 0.15786360198914887,
+            "pyrimidine_target_local50": 0.09855100683320712,
+            "target_position_fraction": -0.009070349886336279,
+            "target_strength": 0.0547465000638242
+          },
+          "other_context_tag_smd": {
+            "acceptor_cluster": 0.0,
+            "complex_event": 0.0,
+            "donor_cluster": 0.0,
+            "multiple_independent_pairs": 0.0,
+            "single_pair": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "cassette_exon",
+        "failures": {
+          "caliper_or_reuse": 44
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 1462,
+        "n_case_genes_in_exact_other-tag_support": 314,
+        "n_case_packets_available": 5216,
+        "n_case_packets_in_exact_other-tag_support": 446,
+        "n_cases_sampled": 314,
+        "n_controls_available": 10592,
+        "n_matched": 270,
+        "n_requested": 400,
+        "n_unique_controls": 255,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 0.5932925421113594,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "donor"
+      },
+      "complex_event|acceptor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.06922468421283332,
+            "0.9": 0.16358886363505729,
+            "0.99": 0.19570274861274958
+          },
+          "max_abs_numeric_smd": 0.1915017631273577,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": -0.03710595262812843,
+            "distance_phase10_63_sin": -0.06832824501582369,
+            "gc_partner_local50": 0.1486834272361335,
+            "gc_target_local50": 0.15995665458567565,
+            "gc_window": 0.1899546068640635,
+            "log_acceptor_motif_count": 0.054806712239951996,
+            "log_donor_motif_count": 0.1915017631273577,
+            "log_junction_support": 0.005928609236627065,
+            "log_target_partner_distance": -0.0017724407772572964,
+            "log_target_site_support": 0.005704630557472675,
+            "max_homopolymer": -0.021388784540566627,
+            "partner_strength": 0.021160407565621275,
+            "pyrimidine_partner_local50": -0.027024801132818393,
+            "pyrimidine_target_local50": -0.02104681065813973,
+            "target_position_fraction": 0.03640312830683623,
+            "target_strength": 0.05765387173450108
+          },
+          "other_context_tag_smd": {
+            "acceptor_cluster": 0.0,
+            "cassette_exon": 0.0,
+            "donor_cluster": 0.0,
+            "multiple_independent_pairs": 0.0,
+            "single_pair": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "complex_event",
+        "failures": {
+          "caliper_or_reuse": 40
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 1833,
+        "n_case_genes_in_exact_other-tag_support": 515,
+        "n_case_packets_available": 10164,
+        "n_case_packets_in_exact_other-tag_support": 775,
+        "n_cases_sampled": 400,
+        "n_controls_available": 5644,
+        "n_matched": 360,
+        "n_requested": 400,
+        "n_unique_controls": 332,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 1.6275195144094745,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "acceptor"
+      },
+      "complex_event|donor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.060036936673094364,
+            "0.9": 0.16599548254513374,
+            "0.99": 0.19444990921363853
+          },
+          "max_abs_numeric_smd": 0.12176526562443542,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": -0.012322303075068467,
+            "distance_phase10_63_sin": -0.045286194527713604,
+            "gc_partner_local50": 0.12176526562443542,
+            "gc_target_local50": 0.018951506219976863,
+            "gc_window": 0.05393347096849175,
+            "log_acceptor_motif_count": 0.09188006879380438,
+            "log_donor_motif_count": 0.03987579656483114,
+            "log_junction_support": 0.005307963040824452,
+            "log_target_partner_distance": -0.008535504615736088,
+            "log_target_site_support": 0.0072124471951648395,
+            "max_homopolymer": 0.05644238761575279,
+            "partner_strength": 0.01581808203079234,
+            "pyrimidine_partner_local50": -0.03349063115693738,
+            "pyrimidine_target_local50": -0.11622077641029854,
+            "target_position_fraction": -0.06836970859250283,
+            "target_strength": 0.03509213956845085
+          },
+          "other_context_tag_smd": {
+            "acceptor_cluster": 0.0,
+            "cassette_exon": 0.0,
+            "donor_cluster": 0.0,
+            "multiple_independent_pairs": 0.0,
+            "single_pair": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "complex_event",
+        "failures": {
+          "caliper_or_reuse": 15
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 1833,
+        "n_case_genes_in_exact_other-tag_support": 483,
+        "n_case_packets_available": 10164,
+        "n_case_packets_in_exact_other-tag_support": 699,
+        "n_cases_sampled": 400,
+        "n_controls_available": 5644,
+        "n_matched": 385,
+        "n_requested": 400,
+        "n_unique_controls": 355,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 1.4483739796214208,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "donor"
+      },
+      "donor_cluster|acceptor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.09575754732224148,
+            "0.9": 0.1669818136467833,
+            "0.99": 0.1963061064460806
+          },
+          "max_abs_numeric_smd": 0.21565811287362271,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": -0.060874747795746115,
+            "distance_phase10_63_sin": 0.1145550016572692,
+            "gc_partner_local50": -0.19738234110781366,
+            "gc_target_local50": -0.19955560370355863,
+            "gc_window": -0.1998541536503263,
+            "log_acceptor_motif_count": -0.07467980011044686,
+            "log_donor_motif_count": -0.20899604103052627,
+            "log_junction_support": -0.16088146713737564,
+            "log_target_partner_distance": 0.011158982251916694,
+            "log_target_site_support": -0.01395094811557571,
+            "max_homopolymer": -0.01898232698153833,
+            "partner_strength": -0.21565811287362271,
+            "pyrimidine_partner_local50": -0.039958032908639,
+            "pyrimidine_target_local50": -0.016803171459211196,
+            "target_position_fraction": 0.006820391737214722,
+            "target_strength": -0.04790881353432763
+          },
+          "other_context_tag_smd": {
+            "acceptor_cluster": 0.0,
+            "cassette_exon": 0.0,
+            "complex_event": 0.0,
+            "multiple_independent_pairs": 0.0,
+            "single_pair": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "donor_cluster",
+        "failures": {
+          "caliper_or_reuse": 1
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 1529,
+        "n_case_genes_in_exact_other-tag_support": 251,
+        "n_case_packets_available": 5628,
+        "n_case_packets_in_exact_other-tag_support": 338,
+        "n_cases_sampled": 251,
+        "n_controls_available": 10180,
+        "n_matched": 250,
+        "n_requested": 400,
+        "n_unique_controls": 222,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 12.81668580144355,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "acceptor"
+      },
+      "donor_cluster|donor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.09021910551794246,
+            "0.9": 0.18594968305617032,
+            "0.99": 0.19872756916446493
+          },
+          "max_abs_numeric_smd": 0.11889169303325466,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": -0.09859268397831045,
+            "distance_phase10_63_sin": 0.07068794069829056,
+            "gc_partner_local50": -0.0650905876720376,
+            "gc_target_local50": 0.0629416980427758,
+            "gc_window": 0.017293032754895507,
+            "log_acceptor_motif_count": 0.11889169303325466,
+            "log_donor_motif_count": 0.03331199594608034,
+            "log_junction_support": -0.0064983692843022045,
+            "log_target_partner_distance": -0.005434530617275057,
+            "log_target_site_support": 0.0083191230228464,
+            "max_homopolymer": 0.09919868607003914,
+            "partner_strength": 0.005232653566319871,
+            "pyrimidine_partner_local50": -0.054695754411402855,
+            "pyrimidine_target_local50": 0.019971568510673818,
+            "target_position_fraction": -0.0005524558867199908,
+            "target_strength": 0.05996097532389572
+          },
+          "other_context_tag_smd": {
+            "acceptor_cluster": 0.0,
+            "cassette_exon": 0.0,
+            "complex_event": 0.0,
+            "multiple_independent_pairs": 0.0,
+            "single_pair": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "donor_cluster",
+        "failures": {
+          "caliper_or_reuse": 46
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 1529,
+        "n_case_genes_in_exact_other-tag_support": 228,
+        "n_case_packets_available": 5628,
+        "n_case_packets_in_exact_other-tag_support": 278,
+        "n_cases_sampled": 228,
+        "n_controls_available": 10180,
+        "n_matched": 182,
+        "n_requested": 400,
+        "n_unique_controls": 175,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 1.070385767538969,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "donor"
+      },
+      "multiple_independent_pairs|acceptor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.08385572008421735,
+            "0.9": 0.1722759654648719,
+            "0.99": 0.1955233092305861
+          },
+          "max_abs_numeric_smd": 0.17785991925006622,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": -0.03850771328668576,
+            "distance_phase10_63_sin": -0.17785991925006622,
+            "gc_partner_local50": 0.014520022123792909,
+            "gc_target_local50": 0.07858392893198882,
+            "gc_window": 0.13727148363726996,
+            "log_acceptor_motif_count": 0.007432458049709746,
+            "log_donor_motif_count": 0.0525795377156626,
+            "log_junction_support": -0.001739748922065124,
+            "log_target_partner_distance": 0.0030173135344056645,
+            "log_target_site_support": -0.007334587619235434,
+            "max_homopolymer": 0.005443432887494394,
+            "partner_strength": -0.018555741609230434,
+            "pyrimidine_partner_local50": -0.13393939146155434,
+            "pyrimidine_target_local50": -0.0286726922265647,
+            "target_position_fraction": 0.028160967206150786,
+            "target_strength": 0.16395724724725
+          },
+          "other_context_tag_smd": {
+            "acceptor_cluster": 0.0,
+            "cassette_exon": 0.0,
+            "complex_event": 0.0,
+            "donor_cluster": 0.0,
+            "single_pair": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "multiple_independent_pairs",
+        "failures": {
+          "caliper_or_reuse": 84
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 1026,
+        "n_case_genes_in_exact_other-tag_support": 308,
+        "n_case_packets_available": 5953,
+        "n_case_packets_in_exact_other-tag_support": 543,
+        "n_cases_sampled": 308,
+        "n_controls_available": 9855,
+        "n_matched": 224,
+        "n_requested": 400,
+        "n_unique_controls": 195,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 1.0168597136863158,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "acceptor"
+      },
+      "multiple_independent_pairs|donor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.0928925176290547,
+            "0.9": 0.17531724464475257,
+            "0.99": 0.194702388003919
+          },
+          "max_abs_numeric_smd": 0.13766054843137868,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": 0.13766054843137868,
+            "distance_phase10_63_sin": -0.09698872420985591,
+            "gc_partner_local50": -0.09864063088235846,
+            "gc_target_local50": -0.03350467107439517,
+            "gc_window": 0.04061573549198817,
+            "log_acceptor_motif_count": -0.016813155201718177,
+            "log_donor_motif_count": -0.03764066684651863,
+            "log_junction_support": -0.009014056340978651,
+            "log_target_partner_distance": -0.0004953173340695686,
+            "log_target_site_support": -0.023088087648380082,
+            "max_homopolymer": 0.07452673220934578,
+            "partner_strength": 0.09696678473038305,
+            "pyrimidine_partner_local50": 0.04304538142985538,
+            "pyrimidine_target_local50": -0.057368750950696774,
+            "target_position_fraction": -0.05571861918371619,
+            "target_strength": 0.046944933877093885
+          },
+          "other_context_tag_smd": {
+            "acceptor_cluster": 0.0,
+            "cassette_exon": 0.0,
+            "complex_event": 0.0,
+            "donor_cluster": 0.0,
+            "single_pair": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "multiple_independent_pairs",
+        "failures": {
+          "caliper_or_reuse": 65
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 1026,
+        "n_case_genes_in_exact_other-tag_support": 243,
+        "n_case_packets_available": 5953,
+        "n_case_packets_in_exact_other-tag_support": 355,
+        "n_cases_sampled": 243,
+        "n_controls_available": 9855,
+        "n_matched": 178,
+        "n_requested": 400,
+        "n_unique_controls": 160,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 1.0064902423333015,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "donor"
+      },
+      "single_pair|acceptor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.08644891648353108,
+            "0.9": 0.18087785030116565,
+            "0.99": 0.1987398748844633
+          },
+          "max_abs_numeric_smd": 0.26358184450659766,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": -0.2023331629182584,
+            "distance_phase10_63_sin": -0.10079022891826046,
+            "gc_partner_local50": 0.18099840438650705,
+            "gc_target_local50": -0.0530479621962709,
+            "gc_window": 0.26358184450659766,
+            "log_acceptor_motif_count": -0.05492551608191774,
+            "log_donor_motif_count": 0.1533906328423205,
+            "log_junction_support": 0.0026264198213106294,
+            "log_target_partner_distance": -0.002327567587920348,
+            "log_target_site_support": 0.0026296952138140403,
+            "max_homopolymer": 0.15861920101625973,
+            "partner_strength": 0.02497346345156405,
+            "pyrimidine_partner_local50": -0.16630466106460032,
+            "pyrimidine_target_local50": 0.09291212017167798,
+            "target_position_fraction": -0.009571719416905829,
+            "target_strength": 0.20651574796088967
+          },
+          "other_context_tag_smd": {
+            "acceptor_cluster": 0.0,
+            "cassette_exon": 0.0,
+            "complex_event": 0.0,
+            "donor_cluster": 0.0,
+            "multiple_independent_pairs": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "single_pair",
+        "failures": {
+          "caliper_or_reuse": 65
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 2172,
+        "n_case_genes_in_exact_other-tag_support": 213,
+        "n_case_packets_available": 6614,
+        "n_case_packets_in_exact_other-tag_support": 228,
+        "n_cases_sampled": 213,
+        "n_controls_available": 9194,
+        "n_matched": 148,
+        "n_requested": 400,
+        "n_unique_controls": 138,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 1.1817048618241397,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "acceptor"
+      },
+      "single_pair|donor": {
+        "balance": {
+          "match_distance_q": {
+            "0.5": 0.09161861842758738,
+            "0.9": 0.17492574494089091,
+            "0.99": 0.1967701016589035
+          },
+          "max_abs_numeric_smd": 0.13527895454849675,
+          "max_abs_other_tag_smd": 0.0,
+          "numeric_smd": {
+            "distance_phase10_63_cos": -0.0836155395802399,
+            "distance_phase10_63_sin": 0.0953116156801625,
+            "gc_partner_local50": 0.07928117463520809,
+            "gc_target_local50": 0.044560876054512456,
+            "gc_window": 0.054661223030261975,
+            "log_acceptor_motif_count": -0.0289946854629228,
+            "log_donor_motif_count": 0.07224166334834319,
+            "log_junction_support": 0.0026926595675103695,
+            "log_target_partner_distance": -0.005644517026047467,
+            "log_target_site_support": -0.009066371685531139,
+            "max_homopolymer": 0.06228598086907753,
+            "partner_strength": 0.023055577565493438,
+            "pyrimidine_partner_local50": -0.09765066194364809,
+            "pyrimidine_target_local50": -0.13527895454849675,
+            "target_position_fraction": 0.00636039677185761,
+            "target_strength": 0.01727269848544168
+          },
+          "other_context_tag_smd": {
+            "acceptor_cluster": 0.0,
+            "cassette_exon": 0.0,
+            "complex_event": 0.0,
+            "donor_cluster": 0.0,
+            "multiple_independent_pairs": 0.0
+          }
+        },
+        "balance_gate": false,
+        "category": "single_pair",
+        "failures": {
+          "caliper_or_reuse": 33
+        },
+        "max_control_reuse": 2,
+        "n_case_genes_available": 2172,
+        "n_case_genes_in_exact_other-tag_support": 168,
+        "n_case_packets_available": 6614,
+        "n_case_packets_in_exact_other-tag_support": 179,
+        "n_cases_sampled": 168,
+        "n_controls_available": 9194,
+        "n_matched": 135,
+        "n_requested": 400,
+        "n_unique_controls": 130,
+        "propensity": {
+          "caliper_sd": 0.2,
+          "logit_sd": 1.2370020632531915,
+          "model": "balanced logistic regression on standardized numeric confounds"
+        },
+        "target_role": "donor"
+      }
+    }
+  }
+}

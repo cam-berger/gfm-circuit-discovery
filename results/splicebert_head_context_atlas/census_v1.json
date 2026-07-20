@@ -1,0 +1,483 @@
+{
+  "census": {
+    "BOTH|test": {
+      "cluster_size_q": {
+        "0.5": 3,
+        "0.9": 7,
+        "0.99": 18
+      },
+      "n_genes": 1207,
+      "n_genes_usable": 444,
+      "n_in_window": 4204,
+      "n_tandem": 5261,
+      "n_targets": 29030,
+      "n_usable": 3014,
+      "nearest_competitor_dist_q": {
+        "0.5": 936,
+        "0.9": 15523,
+        "0.99": 81843
+      },
+      "span_q": {
+        "0.5": 5455,
+        "0.9": 37433,
+        "0.99": 139611
+      },
+      "target_partner_dist_q": {
+        "0.5": 3757,
+        "0.9": 31950,
+        "0.99": 126537
+      },
+      "usable_target_competitor_dist_q": {
+        "0.5": 126,
+        "0.9": 412,
+        "0.99": 655
+      },
+      "usable_target_partner_dist_q": {
+        "0.5": 337,
+        "0.9": 696,
+        "0.99": 808
+      }
+    },
+    "BOTH|train": {
+      "cluster_size_q": {
+        "0.5": 3,
+        "0.9": 6,
+        "0.99": 16
+      },
+      "n_genes": 12437,
+      "n_genes_usable": 4864,
+      "n_in_window": 44724,
+      "n_tandem": 53771,
+      "n_targets": 294478,
+      "n_usable": 32054,
+      "nearest_competitor_dist_q": {
+        "0.5": 869,
+        "0.9": 13338,
+        "0.99": 71654
+      },
+      "span_q": {
+        "0.5": 4682,
+        "0.9": 34325,
+        "0.99": 129162
+      },
+      "target_partner_dist_q": {
+        "0.5": 3319,
+        "0.9": 28164,
+        "0.99": 113942
+      },
+      "usable_target_competitor_dist_q": {
+        "0.5": 133,
+        "0.9": 432,
+        "0.99": 656
+      },
+      "usable_target_partner_dist_q": {
+        "0.5": 366,
+        "0.9": 710,
+        "0.99": 812
+      }
+    },
+    "BOTH|val": {
+      "cluster_size_q": {
+        "0.5": 3,
+        "0.9": 6,
+        "0.99": 15
+      },
+      "n_genes": 2994,
+      "n_genes_usable": 1567,
+      "n_in_window": 15384,
+      "n_tandem": 14028,
+      "n_targets": 65478,
+      "n_usable": 11275,
+      "nearest_competitor_dist_q": {
+        "0.5": 423,
+        "0.9": 7287,
+        "0.99": 43657
+      },
+      "span_q": {
+        "0.5": 2913,
+        "0.9": 19019,
+        "0.99": 88234
+      },
+      "target_partner_dist_q": {
+        "0.5": 2087,
+        "0.9": 16021,
+        "0.99": 76831
+      },
+      "usable_target_competitor_dist_q": {
+        "0.5": 124,
+        "0.9": 426,
+        "0.99": 650
+      },
+      "usable_target_partner_dist_q": {
+        "0.5": 338,
+        "0.9": 697,
+        "0.99": 808
+      }
+    },
+    "alt3ss_acceptor|ALL": {
+      "cluster_size_q": {
+        "0.5": 3,
+        "0.9": 6,
+        "0.99": 11
+      },
+      "n_genes": 15882,
+      "n_genes_usable": 5126,
+      "n_in_window": 36678,
+      "n_tandem": 49368,
+      "n_targets": 201705,
+      "n_usable": 23964,
+      "nearest_competitor_dist_q": {
+        "0.5": 704,
+        "0.9": 11626,
+        "0.99": 65267
+      },
+      "span_q": {
+        "0.5": 3994,
+        "0.9": 29623,
+        "0.99": 119016
+      },
+      "target_partner_dist_q": {
+        "0.5": 2855,
+        "0.9": 24358,
+        "0.99": 104067
+      },
+      "usable_target_competitor_dist_q": {
+        "0.5": 102,
+        "0.9": 415,
+        "0.99": 651
+      },
+      "usable_target_partner_dist_q": {
+        "0.5": 344,
+        "0.9": 701,
+        "0.99": 811
+      }
+    },
+    "alt3ss_acceptor|test": {
+      "cluster_size_q": {
+        "0.5": 3,
+        "0.9": 6,
+        "0.99": 12
+      },
+      "n_genes": 1145,
+      "n_genes_usable": 325,
+      "n_in_window": 2481,
+      "n_tandem": 3636,
+      "n_targets": 15077,
+      "n_usable": 1631,
+      "nearest_competitor_dist_q": {
+        "0.5": 898,
+        "0.9": 14063,
+        "0.99": 76018
+      },
+      "span_q": {
+        "0.5": 4720,
+        "0.9": 35358,
+        "0.99": 130823
+      },
+      "target_partner_dist_q": {
+        "0.5": 3427,
+        "0.9": 29493,
+        "0.99": 116557
+      },
+      "usable_target_competitor_dist_q": {
+        "0.5": 90,
+        "0.9": 385,
+        "0.99": 669
+      },
+      "usable_target_partner_dist_q": {
+        "0.5": 312,
+        "0.9": 685,
+        "0.99": 808
+      }
+    },
+    "alt3ss_acceptor|train": {
+      "cluster_size_q": {
+        "0.5": 3,
+        "0.9": 6,
+        "0.99": 11
+      },
+      "n_genes": 11899,
+      "n_genes_usable": 3565,
+      "n_in_window": 25376,
+      "n_tandem": 36432,
+      "n_targets": 152546,
+      "n_usable": 16325,
+      "nearest_competitor_dist_q": {
+        "0.5": 824,
+        "0.9": 12507,
+        "0.99": 68859
+      },
+      "span_q": {
+        "0.5": 4310,
+        "0.9": 31779,
+        "0.99": 122991
+      },
+      "target_partner_dist_q": {
+        "0.5": 3057,
+        "0.9": 25956,
+        "0.99": 107821
+      },
+      "usable_target_competitor_dist_q": {
+        "0.5": 106,
+        "0.9": 420,
+        "0.99": 652
+      },
+      "usable_target_partner_dist_q": {
+        "0.5": 355,
+        "0.9": 707,
+        "0.99": 812
+      }
+    },
+    "alt3ss_acceptor|val": {
+      "cluster_size_q": {
+        "0.5": 3,
+        "0.9": 6,
+        "0.99": 11
+      },
+      "n_genes": 2838,
+      "n_genes_usable": 1236,
+      "n_in_window": 8821,
+      "n_tandem": 9300,
+      "n_targets": 34082,
+      "n_usable": 6008,
+      "nearest_competitor_dist_q": {
+        "0.5": 317,
+        "0.9": 6832,
+        "0.99": 39676
+      },
+      "span_q": {
+        "0.5": 2636,
+        "0.9": 17685,
+        "0.99": 83203
+      },
+      "target_partner_dist_q": {
+        "0.5": 1910,
+        "0.9": 14846,
+        "0.99": 73898
+      },
+      "usable_target_competitor_dist_q": {
+        "0.5": 93,
+        "0.9": 408,
+        "0.99": 634
+      },
+      "usable_target_partner_dist_q": {
+        "0.5": 326,
+        "0.9": 692,
+        "0.99": 807
+      }
+    },
+    "alt5ss_donor|ALL": {
+      "cluster_size_q": {
+        "0.5": 3,
+        "0.9": 8,
+        "0.99": 19
+      },
+      "n_genes": 15918,
+      "n_genes_usable": 5196,
+      "n_in_window": 27634,
+      "n_tandem": 23692,
+      "n_targets": 187281,
+      "n_usable": 22379,
+      "nearest_competitor_dist_q": {
+        "0.5": 835,
+        "0.9": 13319,
+        "0.99": 71951
+      },
+      "span_q": {
+        "0.5": 4790,
+        "0.9": 34763,
+        "0.99": 130956
+      },
+      "target_partner_dist_q": {
+        "0.5": 3370,
+        "0.9": 28652,
+        "0.99": 116405
+      },
+      "usable_target_competitor_dist_q": {
+        "0.5": 159,
+        "0.9": 440,
+        "0.99": 656
+      },
+      "usable_target_partner_dist_q": {
+        "0.5": 372,
+        "0.9": 710,
+        "0.99": 811
+      }
+    },
+    "alt5ss_donor|test": {
+      "cluster_size_q": {
+        "0.5": 3,
+        "0.9": 8,
+        "0.99": 20
+      },
+      "n_genes": 1172,
+      "n_genes_usable": 338,
+      "n_in_window": 1723,
+      "n_tandem": 1625,
+      "n_targets": 13953,
+      "n_usable": 1383,
+      "nearest_competitor_dist_q": {
+        "0.5": 985,
+        "0.9": 16868,
+        "0.99": 89935
+      },
+      "span_q": {
+        "0.5": 6043,
+        "0.9": 40812,
+        "0.99": 151420
+      },
+      "target_partner_dist_q": {
+        "0.5": 4159,
+        "0.9": 34851,
+        "0.99": 130989
+      },
+      "usable_target_competitor_dist_q": {
+        "0.5": 170,
+        "0.9": 425,
+        "0.99": 621
+      },
+      "usable_target_partner_dist_q": {
+        "0.5": 369,
+        "0.9": 704,
+        "0.99": 806
+      }
+    },
+    "alt5ss_donor|train": {
+      "cluster_size_q": {
+        "0.5": 3,
+        "0.9": 8,
+        "0.99": 19
+      },
+      "n_genes": 11887,
+      "n_genes_usable": 3649,
+      "n_in_window": 19348,
+      "n_tandem": 17339,
+      "n_targets": 141932,
+      "n_usable": 15729,
+      "nearest_competitor_dist_q": {
+        "0.5": 914,
+        "0.9": 14325,
+        "0.99": 74455
+      },
+      "span_q": {
+        "0.5": 5138,
+        "0.9": 37035,
+        "0.99": 136899
+      },
+      "target_partner_dist_q": {
+        "0.5": 3610,
+        "0.9": 30605,
+        "0.99": 119996
+      },
+      "usable_target_competitor_dist_q": {
+        "0.5": 157,
+        "0.9": 441,
+        "0.99": 657
+      },
+      "usable_target_partner_dist_q": {
+        "0.5": 378,
+        "0.9": 713,
+        "0.99": 813
+      }
+    },
+    "alt5ss_donor|val": {
+      "cluster_size_q": {
+        "0.5": 3,
+        "0.9": 7,
+        "0.99": 18
+      },
+      "n_genes": 2859,
+      "n_genes_usable": 1209,
+      "n_in_window": 6563,
+      "n_tandem": 4728,
+      "n_targets": 31396,
+      "n_usable": 5267,
+      "nearest_competitor_dist_q": {
+        "0.5": 525,
+        "0.9": 7896,
+        "0.99": 50120
+      },
+      "span_q": {
+        "0.5": 3228,
+        "0.9": 20495,
+        "0.99": 92434
+      },
+      "target_partner_dist_q": {
+        "0.5": 2288,
+        "0.9": 17219,
+        "0.99": 80467
+      },
+      "usable_target_competitor_dist_q": {
+        "0.5": 161,
+        "0.9": 443,
+        "0.99": 656
+      },
+      "usable_target_partner_dist_q": {
+        "0.5": 354,
+        "0.9": 702,
+        "0.99": 809
+      }
+    }
+  },
+  "config": {
+    "acc_max": 300,
+    "acc_min": 100,
+    "max_span": 824,
+    "min_context": 100,
+    "min_separation": 30,
+    "window_length": 1024
+  },
+  "estimand": "C \u2014 intron-mate splice competition (alt-5'SS donor + alt-3'SS acceptor)",
+  "mde_assumptions": {
+    "IC1_SD_cluster": 0.162,
+    "IC2_SD_DiD": 0.774,
+    "alpha": 0.05,
+    "n_heads_multiplicity": 96,
+    "note": "Bonferroni upper bound on max-T MDE; E_ih is a further difference so real SD >= these anchors",
+    "power": 0.8
+  },
+  "n_examples": 388986,
+  "n_transcripts": 278442,
+  "power_gate": {
+    "BOTH": {
+      "MDE_per_head_IC1sd_genes": 0.03314703184966365,
+      "MDE_per_head_IC2sd_examples": 0.06078416467591823,
+      "licensable_IC1": true,
+      "licensable_IC2": false,
+      "sealed_usable_examples": 3014,
+      "sealed_usable_genes": 444,
+      "sesoi_c_candidate": 0.05
+    },
+    "alt3ss_acceptor": {
+      "MDE_per_head_IC1sd_genes": 0.038743107372161516,
+      "MDE_per_head_IC2sd_examples": 0.0826294945711604,
+      "licensable_IC1": true,
+      "licensable_IC2": false,
+      "sealed_usable_examples": 1631,
+      "sealed_usable_genes": 325,
+      "sesoi_c_candidate": 0.05
+    },
+    "alt5ss_donor": {
+      "MDE_per_head_IC1sd_genes": 0.03799074240536001,
+      "MDE_per_head_IC2sd_examples": 0.08973275188999556,
+      "licensable_IC1": true,
+      "licensable_IC2": false,
+      "sealed_usable_examples": 1383,
+      "sealed_usable_genes": 338,
+      "sesoi_c_candidate": 0.05
+    }
+  },
+  "schema": "head_context_atlas.census/1",
+  "splits": {
+    "discovery": "autosomes/other \u2209 {chr8,9,11,16,19}",
+    "sealed_test": [
+      "chr8",
+      "chr9"
+    ],
+    "val": [
+      "chr11",
+      "chr16",
+      "chr19"
+    ]
+  }
+}

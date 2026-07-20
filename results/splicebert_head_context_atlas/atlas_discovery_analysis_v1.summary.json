@@ -1,0 +1,47 @@
+{
+  "analysis_amendment_sha256": "00008afa6747b67a263385f81e2778e5ab235c732460161145dd0e0000e5768b",
+  "analysis_plan_sha256": "21e696e360c259c9a1f7ecd6b09c5447fc5f63b3f1d5251497744f7ce69de5ef",
+  "claim_boundary": "discovery classification and mechanism shortlist; not validated function",
+  "context_classifications": {
+    "bounded_small": 1762,
+    "detected_subfloor": 20,
+    "inconclusive": 238,
+    "material_support": 3,
+    "material_suppress": 17
+  },
+  "contrasts": [
+    "acceptor_cluster|acceptor",
+    "cassette_exon|acceptor",
+    "cassette_exon|donor",
+    "complex_event|acceptor",
+    "complex_event|donor",
+    "donor_cluster|donor",
+    "multiple_independent_pairs|acceptor",
+    "multiple_independent_pairs|donor",
+    "single_pair|acceptor",
+    "single_pair|donor"
+  ],
+  "general_classifications": {
+    "bounded_small": 28,
+    "detected_subfloor": 288,
+    "material_support": 88,
+    "material_suppress": 4
+  },
+  "n_context_rows": 2040,
+  "n_context_shortlist": 0,
+  "n_general_rows": 408,
+  "n_general_shortlist": 4,
+  "n_health_packets": 512,
+  "n_packets": 11807,
+  "n_pairs": 6487,
+  "n_profiles": 204,
+  "profile_classifications": {
+    "cross_role_general_support": 30,
+    "role_associated": 30,
+    "role_opposed": 1,
+    "unresolved": 143
+  },
+  "schema": "head_context_atlas.discovery_analysis/1",
+  "status": "DISCOVERY_COMPLETE",
+  "tau": 0.05
+}

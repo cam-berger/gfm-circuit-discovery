@@ -1,0 +1,27 @@
+{
+  "candidate_ids": [
+    "smoke_stage2|general|B|L3H1",
+    "smoke_stage2|general|A|L0H0",
+    "smoke_stage2|general|B|L3MLP"
+  ],
+  "claim_boundary": "audited conditional rows and frozen exact-group rows; inference pending",
+  "exact_group_ids": [
+    "smoke|A|mixed",
+    "smoke|B|mixed"
+  ],
+  "execution_audit_sha256": "3b4a1ea911aa3293d2c93c2d9bb3e885dee35f12ac50fdd66e9f7f86af446832",
+  "n_candidates": 3,
+  "n_endpoints": 6,
+  "n_health_packets": 4,
+  "n_health_rows": 336,
+  "n_pairs": 6487,
+  "n_target_packets": 4,
+  "n_target_rows": 168,
+  "n_whole_group_health_rows": 8,
+  "n_whole_group_target_rows": 8,
+  "schema": "head_context_atlas.stage2_mechanism_merge/1",
+  "smoke": true,
+  "stage2_outcomes_loaded": true,
+  "status": "SMOKE",
+  "whole_validation_loaded": false
+}

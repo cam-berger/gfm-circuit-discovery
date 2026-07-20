@@ -1,0 +1,20 @@
+{
+  "device": "mps",
+  "export_eligible": false,
+  "inputs": {
+    "analysis_audit_sha256": "deb5bd17570667bd52205f4f7411d9ed43700377d2adb9cfffb0d68d4ecfe236",
+    "analysis_summary_sha256": "8bfb3a897082dd624bd9999b1d906acb19d79352356bf926ff2d6dae6463f135",
+    "cohort_audit_sha256": "0db571b254df02a6bf672c34dfecad2fc67338919031077bd8f6d842e3c8ba2c",
+    "exporter_sha256": "d04d5a0d077dc37c8bb908af001621c9908a430f1b71fa7d27f7b1146495a542",
+    "package_audit_sha256": "713459b6c88d54eba18be2320a8d0da43816cde6ad9ba6ccd1eb9df398e7225c",
+    "package_sha256": "c78a3c8fd26a91e6e6952e3c649d76cf77dd1184df4b1f2fc2a11cbc800ab125",
+    "packet_sha256": "9beaa22693693ad51c4616d549cc2cb2bde8dcaa6ef194f0537f5f4bd1ce45ed",
+    "pairs_sha256": "46c3e76f5bda200ee783056bf057457d1dac11f947a068a9522bd4c371d4a956",
+    "screening_exporter_sha256": "13ff73a666f962fd5273499f03dc76fc6279053f6fc0811a5c24d4ea0b17be3e",
+    "sequence_sha256": "a4dda3be2b1da04fb95fe86979507f8351352593f7be87e73bd9ac9bacb04352"
+  },
+  "output": "results/splicebert_head_context_atlas/atlas_representative_dag_smoke_v4.json",
+  "output_sha256": "ae7ebd87bff7ca7fbfeddf98c9c71dace7967d1f86f8cc506577cd748b02c10a",
+  "schema": "head_context_atlas.representative_dag_manifest/1",
+  "status": "SMOKE_NOT_EXPORTABLE"
+}

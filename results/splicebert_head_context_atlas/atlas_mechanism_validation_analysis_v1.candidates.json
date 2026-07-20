@@ -1,0 +1,62 @@
+{
+  "relations": [
+    {
+      "advance_to_qk_v_path": true,
+      "candidate_id": "general|A|L2H15",
+      "claim_boundary": "whole causal relation only; mechanism unresolved",
+      "component_id": "L2H15",
+      "contrast": null,
+      "endpoint_classifications": {
+        "acceptor": "material_support",
+        "donor": "material_support"
+      },
+      "estimand": "A",
+      "kind": "general",
+      "validation_status": "VALIDATED_WHOLE_EFFECT"
+    },
+    {
+      "advance_to_qk_v_path": true,
+      "candidate_id": "general|A|L3H1",
+      "claim_boundary": "whole causal relation only; mechanism unresolved",
+      "component_id": "L3H1",
+      "contrast": null,
+      "endpoint_classifications": {
+        "acceptor": "material_support",
+        "donor": "material_support"
+      },
+      "estimand": "A",
+      "kind": "general",
+      "validation_status": "VALIDATED_WHOLE_EFFECT"
+    },
+    {
+      "advance_to_qk_v_path": true,
+      "candidate_id": "general|A|L1H12",
+      "claim_boundary": "whole causal relation only; mechanism unresolved",
+      "component_id": "L1H12",
+      "contrast": null,
+      "endpoint_classifications": {
+        "acceptor": "material_support",
+        "donor": "material_support"
+      },
+      "estimand": "A",
+      "kind": "general",
+      "validation_status": "VALIDATED_WHOLE_EFFECT"
+    },
+    {
+      "advance_to_qk_v_path": true,
+      "candidate_id": "general|B|L2MLP",
+      "claim_boundary": "whole causal relation only; mechanism unresolved",
+      "component_id": "L2MLP",
+      "contrast": null,
+      "endpoint_classifications": {
+        "acceptor": "material_support",
+        "donor": "material_support"
+      },
+      "estimand": "B",
+      "kind": "general",
+      "validation_status": "VALIDATED_WHOLE_EFFECT"
+    }
+  ],
+  "schema": "head_context_atlas.mechanism_validation_candidates/1",
+  "status": "VALIDATION_CLASSIFIED"
+}

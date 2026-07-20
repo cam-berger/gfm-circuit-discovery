@@ -1,0 +1,12 @@
+{
+  "claim_boundary": "package sealing audit; no validation outcome or mechanism claim",
+  "failures": [],
+  "n_candidates": 0,
+  "n_failures": 0,
+  "n_groups": 0,
+  "package_sha256": "9497c539fed83b540b3634ee187c6fdfcb0f21da4948c0ee51b84affd7640b04",
+  "schema": "head_context_atlas.mechanism_package_audit/1",
+  "source_analysis_status": "SMOKE",
+  "status": "PASS",
+  "validation_loaded": false
+}

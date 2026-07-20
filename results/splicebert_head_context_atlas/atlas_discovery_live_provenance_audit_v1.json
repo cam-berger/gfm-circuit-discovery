@@ -1,0 +1,95 @@
+{
+  "schema": "head_context_atlas.live_provenance_audit/1",
+  "status": "PROVENANCE_PASS_TARGET_IN_PROGRESS",
+  "audited_at": "2026-07-19T14:00:00-04:00",
+  "scope": "Outcome-blind health-phase provenance check only. This is not the frozen full-run validation audit and does not license discovery analysis or any component claim.",
+  "drive": {
+    "result_folder_id": "13sZv58no5qAu9G6Jz7CemkXLkc7cwNca",
+    "health_manifest_file_id": "1FVCjhv2LF0wFt6udbg3xU9mwCtmmxr8d",
+    "health_manifest_size_bytes": 102825,
+    "target_shards_folder_id": "11uya1XLDWtXPDqgY7zqCh299JO82DY1O",
+    "target_shards_visible_lower_bound": 1000,
+    "target_shards_expected": 11807,
+    "latest_visible_target_shard_modified_time": "2026-07-19T17:59:56.333Z",
+    "completion_artifacts_present": false
+  },
+  "health_manifest": {
+    "status": "COMPLETE",
+    "phase": "health",
+    "n_failures": 0,
+    "gate_count": 209,
+    "failed_gate_count": 0,
+    "n_health_packets": 512,
+    "n_target_packets_declared": 11807,
+    "target_roles": {
+      "acceptor": 5960,
+      "donor": 5847
+    },
+    "validation_loaded": false,
+    "excluded_chromosomes": [
+      "chr11",
+      "chr16",
+      "chr19",
+      "chr8",
+      "chr9"
+    ],
+    "model": {
+      "device": "cuda",
+      "layers": 6,
+      "heads_per_layer": 16,
+      "precision": "float32; TF32/AMP off"
+    },
+    "seeds": {
+      "PYTHONHASHSEED": 0,
+      "numpy": 0,
+      "torch": 0
+    },
+    "health": {
+      "gate": true,
+      "mean_baseline_accuracy": 0.486328125,
+      "accuracy_floor": 0.3,
+      "mean_baseline_logprob": -1.1363080349821075,
+      "logprob_floor": -1.3862943611198906
+    }
+  },
+  "local_identity_checks": [
+    {
+      "artifact": "results/splicebert_head_context_atlas/atlas_context_matched_v7.discovery.pairs.jsonl",
+      "size_bytes": 3458247,
+      "sha256": "46c3e76f5bda200ee783056bf057457d1dac11f947a068a9522bd4c371d4a956",
+      "matches_health_manifest": true
+    },
+    {
+      "artifact": "results/splicebert_head_context_atlas/atlas_context_matched_v7.discovery.packets.jsonl",
+      "size_bytes": 20307236,
+      "sha256": "9beaa22693693ad51c4616d549cc2cb2bde8dcaa6ef194f0537f5f4bd1ce45ed",
+      "matches_health_manifest": true
+    },
+    {
+      "artifact": "results/splicebert_head_context_atlas/atlas_context_matched_v7.discovery.sequences.jsonl",
+      "size_bytes": 15173369,
+      "sha256": "a4dda3be2b1da04fb95fe86979507f8351352593f7be87e73bd9ac9bacb04352",
+      "matches_health_manifest": true
+    },
+    {
+      "artifact": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "size_bytes": 78883755,
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "matches_health_manifest": true
+    }
+  ],
+  "outcome_access": {
+    "target_effects_read": false,
+    "target_shards_downloaded": false,
+    "discovery_analysis_started": false
+  },
+  "required_before_intake": [
+    "run_manifest.target.json",
+    "validation_audit.json",
+    "atlas_discovery_v1.target_matrix.jsonl.gz",
+    "atlas_discovery_v1.health_matrix.jsonl.gz",
+    "atlas_discovery_v1.pairs.jsonl.gz",
+    "atlas_discovery_v1.summary.json",
+    "atlas_discovery_v1.manifest.json"
+  ]
+}

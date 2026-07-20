@@ -1,0 +1,73 @@
+{
+  "command": [
+    "python",
+    "scripts/splicebert_head_context_atlas/merge_atlas_mechanism_validation.py",
+    "--run-dir",
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1",
+    "--audit",
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1/validation_audit_v2.json",
+    "--prefix",
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1_merged"
+  ],
+  "config": {
+    "smoke": true,
+    "validation_loaded": false
+  },
+  "created_at_utc": "2026-07-19T16:42:38.966156+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 59957,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "head_context_atlas_mechanism_validation_merge_v1",
+  "git_commit": "5971f720587eba7c1339bc7395c9ce6cb7cf029f",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1/validation_audit_v2.json",
+      "sha256": "ea46cbe2b34e92d70e41d09b8d9ab807620aaae06ad839875631b9330d23a918",
+      "size_bytes": 841
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1/run_manifest.health.json",
+      "sha256": "f798b59436cfc124787acee98c82400af23eadbe3be91ba4aca1f3eae41e7b7c",
+      "size_bytes": 8092
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1/run_manifest.target.json",
+      "sha256": "e802323c16722c9cd30d21aab62b82dbfb4546afc35ef6494640b0a53cfe7f6a",
+      "size_bytes": 7894
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_context_matched_v7.discovery.pairs.jsonl",
+      "sha256": "46c3e76f5bda200ee783056bf057457d1dac11f947a068a9522bd4c371d4a956",
+      "size_bytes": 3458247
+    }
+  ],
+  "notes": [],
+  "outputs": [
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1_merged.health_rows.jsonl.gz",
+      "sha256": "92a409acdfe85ed8caaa4ed2b9159f0dc3ca84d9022827a73661ebe9b0b1c919",
+      "size_bytes": 4463
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1_merged.target_rows.jsonl.gz",
+      "sha256": "548b94187caf63205f7aef032877c396a9ea00e7383126f0f1aeef9c51b114de",
+      "size_bytes": 4326
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1_merged.pairs.jsonl.gz",
+      "sha256": "309c4491238a25c21b20a1787fbd2a9736c12d3f5d96b0a3c83521c4b23cbb5d",
+      "size_bytes": 428246
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1_merged.summary.json",
+      "sha256": "e82bae7c0ecea72c1ef1a90bd5c08c32c9408d3dfa2a485ffca6696bba4fe1c9",
+      "size_bytes": 797
+    }
+  ],
+  "seeds": {},
+  "status": "SMOKE"
+}

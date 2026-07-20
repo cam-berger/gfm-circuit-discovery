@@ -1,0 +1,61 @@
+{
+  "command": [
+    "python",
+    "scripts/splicebert_head_context_atlas/run_group_mlp_closure.py",
+    "--config",
+    "studies/splicebert_head_context_atlas/colab_package/config.discovery.json",
+    "--ranking",
+    "results/splicebert_head_context_atlas/head_effect_donor_valid_reanalysis_v1.json",
+    "--out",
+    "results/splicebert_head_context_atlas/group_head_rerank_valid_donor_v2.json",
+    "--n",
+    "400",
+    "--per-gene-cap",
+    "1",
+    "--batch",
+    "8",
+    "--group-sizes",
+    "1,3,5,10,20,40,64,96",
+    "--random-sizes",
+    "",
+    "--n-random",
+    "0",
+    "--conditions",
+    "C,D",
+    "--skip-mlp",
+    "--self-test"
+  ],
+  "config": {},
+  "created_at_utc": "2026-07-19T14:27:43.727276+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 19305,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "head_context_atlas_group_mlp_closure_v1",
+  "git_commit": "5971f720587eba7c1339bc7395c9ce6cb7cf029f",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "studies/splicebert_head_context_atlas/colab_package/config.discovery.json",
+      "sha256": "6169aeebc047cf8cf17e109181cccae279d7e6def2eaf627b6a418ba90f24f8f",
+      "size_bytes": 990
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/head_effect_donor_valid_reanalysis_v1.json",
+      "sha256": "446ddb55aa9e068ce7a6cad8a42051bd51f0c68a51e01132a8ae57f9cc36181b",
+      "size_bytes": 128974
+    }
+  ],
+  "notes": [],
+  "outputs": [
+    {
+      "path": "results/splicebert_head_context_atlas/group_head_rerank_valid_donor_v2.json",
+      "sha256": "a9eda1606444cca6320ec15a33245dcbf24325e0c17789d13675aefa4c5310b1",
+      "size_bytes": 4761412
+    }
+  ],
+  "seeds": {},
+  "status": "EXPLORATORY_OUTCOME_AWARE_DIAGNOSTIC"
+}

@@ -1,0 +1,37 @@
+{
+  "analysis_plan_sha256": "21e696e360c259c9a1f7ecd6b09c5447fc5f63b3f1d5251497744f7ce69de5ef",
+  "claim_boundary": "discovery classification and mechanism shortlist; not validated function",
+  "context_classifications": {
+    "detected_subfloor": 190,
+    "material_support": 81,
+    "material_suppress": 137
+  },
+  "contrasts": [
+    "acceptor_cluster|acceptor",
+    "cassette_exon|donor"
+  ],
+  "general_classifications": {
+    "bounded_small": 117,
+    "detected_subfloor": 47,
+    "inconclusive": 214,
+    "material_support": 19,
+    "material_suppress": 11
+  },
+  "n_context_rows": 408,
+  "n_context_shortlist": 0,
+  "n_general_rows": 408,
+  "n_general_shortlist": 0,
+  "n_health_packets": 4,
+  "n_packets": 4,
+  "n_pairs": 2,
+  "n_profiles": 204,
+  "profile_classifications": {
+    "cross_role_general_support": 3,
+    "cross_role_general_suppress": 1,
+    "role_associated": 22,
+    "unresolved": 178
+  },
+  "schema": "head_context_atlas.discovery_analysis/1",
+  "status": "SMOKE",
+  "tau": 0.05
+}

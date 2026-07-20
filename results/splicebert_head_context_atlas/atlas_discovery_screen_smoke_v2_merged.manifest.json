@@ -1,0 +1,63 @@
+{
+  "command": [
+    "python",
+    "scripts/splicebert_head_context_atlas/merge_atlas_discovery_screen.py",
+    "--screen",
+    "results/splicebert_head_context_atlas/atlas_discovery_screen_smoke_v1",
+    "--prefix",
+    "results/splicebert_head_context_atlas/atlas_discovery_screen_smoke_v2_merged"
+  ],
+  "config": {},
+  "created_at_utc": "2026-07-19T15:31:15.441327+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 33751,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "head_context_atlas_discovery_screen_merge_v1",
+  "git_commit": "5971f720587eba7c1339bc7395c9ce6cb7cf029f",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_discovery_screen_smoke_v1/validation_audit.json",
+      "sha256": "0a4d9976af3e885dc7b86145715b55e34af090eb4ad908219a5256f62b96b345",
+      "size_bytes": 354
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_context_matched_v7.discovery.pairs.jsonl",
+      "sha256": "46c3e76f5bda200ee783056bf057457d1dac11f947a068a9522bd4c371d4a956",
+      "size_bytes": 3458247
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_discovery_screen_smoke_v1/run_manifest.both.json",
+      "sha256": "e74cf3d9611a390e1267da0be27b4e5ac829b265ce8a6c05258a7e6d636538c4",
+      "size_bytes": 4277
+    }
+  ],
+  "notes": [],
+  "outputs": [
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_discovery_screen_smoke_v2_merged.target_matrix.jsonl.gz",
+      "sha256": "05eda43cc6909e5b3d4368049395dcdd440e6dc23fb483ae71456b601a7b820d",
+      "size_bytes": 26418
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_discovery_screen_smoke_v2_merged.health_matrix.jsonl.gz",
+      "sha256": "789707378fd0c70476474baa57150202d9ae8eaa307d63f49f97d4b17005b086",
+      "size_bytes": 26925
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_discovery_screen_smoke_v2_merged.pairs.jsonl.gz",
+      "sha256": "96daaa98c22d168e386f5f6a0bd3a78d40860e3c4c5e20bac530af133c65c554",
+      "size_bytes": 476
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_discovery_screen_smoke_v2_merged.summary.json",
+      "sha256": "13c095ec393b9a333b218da3f820abe9b776836f7b6291a401f72c1107dc9987",
+      "size_bytes": 1926
+    }
+  ],
+  "seeds": {},
+  "status": "COMPLETE"
+}

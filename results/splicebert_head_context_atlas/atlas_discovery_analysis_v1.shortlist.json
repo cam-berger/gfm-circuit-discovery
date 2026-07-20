@@ -1,0 +1,2121 @@
+{
+  "analysis_amendment": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_head_context_atlas/ANALYSIS_AMENDMENT_A1.md",
+  "analysis_amendment_sha256": "00008afa6747b67a263385f81e2778e5ab235c732460161145dd0e0000e5768b",
+  "analysis_plan": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_head_context_atlas/ANALYSIS_PLAN_V1.md",
+  "analysis_plan_sha256": "21e696e360c259c9a1f7ecd6b09c5447fc5f63b3f1d5251497744f7ce69de5ef",
+  "claim_boundary": "discovery shortlist for exact mechanism tests; not a validated head-function atlas",
+  "context": {
+    "eligible": [],
+    "max_per_component": 3,
+    "max_per_contrast": 2,
+    "maximum": 8,
+    "minimum_effective_pairs": 80.0,
+    "n_eligible": 0,
+    "selected": []
+  },
+  "general": {
+    "eligible": [
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.4714344354257889,
+            0.5148666647282621
+          ],
+          "classification": "material_support",
+          "component_id": "L2H15",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            0.0031003295907384336,
+            0.018149834384571555
+          ],
+          "health_ci95_margin_damage": [
+            0.00444703372537519,
+            0.029619465863868714
+          ],
+          "health_mean_logprob_damage": 0.010625081987654994,
+          "health_mean_margin_damage": 0.017033249794621952,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.03104058459273012,
+          "mean": 0.4931505500770255,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 0.0,
+          "q_bh_within_estimand": 0.0,
+          "se_gene_cluster": 0.011079650332263593,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L2H15",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.7934885273914666,
+            0.8567549307027543
+          ],
+          "classification": "material_support",
+          "component_id": "L2H15",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            0.004294697477570618,
+            0.019094257933039305
+          ],
+          "health_ci95_margin_damage": [
+            0.003939978314624962,
+            0.029477951376870412
+          ],
+          "health_mean_logprob_damage": 0.011694477705304962,
+          "health_mean_margin_damage": 0.016708964845747687,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.045215872530631945,
+          "mean": 0.8251217290471105,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 0.0,
+          "q_bh_within_estimand": 0.0,
+          "se_gene_cluster": 0.016139388599818314,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "A",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.4214344354257889
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.2897265973159784,
+            0.32579710804799533
+          ],
+          "classification": "material_support",
+          "component_id": "L3H1",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.0029472504011376862,
+            0.004172042343287436
+          ],
+          "health_ci95_margin_damage": [
+            -0.005606721891464437,
+            0.00782073981224257
+          ],
+          "health_mean_logprob_damage": 0.000612395971074875,
+          "health_mean_margin_damage": 0.0011070089603890665,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.025779237162398976,
+          "mean": 0.30776185268198686,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 2.9095208060961022e-245,
+          "q_bh_within_estimand": 1.1638083224384409e-244,
+          "se_gene_cluster": 0.009201660901024743,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L3H1",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.3773775204637694,
+            0.41394037360477287
+          ],
+          "classification": "material_support",
+          "component_id": "L3H1",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.0020831335117097154,
+            0.0057590791455683615
+          ],
+          "health_ci95_margin_damage": [
+            -0.00397635724450621,
+            0.011797563102414563
+          ],
+          "health_mean_logprob_damage": 0.001837972816929323,
+          "health_mean_margin_damage": 0.003910602928954177,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.026131109411191518,
+          "mean": 0.3956589470342711,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 0.0,
+          "q_bh_within_estimand": 0.0,
+          "se_gene_cluster": 0.00932725845433763,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "A",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.2397265973159784
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.2777228776250351,
+            0.3106922445746435
+          ],
+          "classification": "material_support",
+          "component_id": "L1H12",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            0.0016678909258361126,
+            0.013279756124739939
+          ],
+          "health_ci95_margin_damage": [
+            0.0032712504462978145,
+            0.023067021961585964
+          ],
+          "health_mean_logprob_damage": 0.007473823525288026,
+          "health_mean_margin_damage": 0.013169136203941889,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.023562880381776806,
+          "mean": 0.2942075610998393,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 4.4126701235609774e-268,
+          "q_bh_within_estimand": 2.0004104560143097e-267,
+          "se_gene_cluster": 0.008410552793267443,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L1H12",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.5471300110447065,
+            0.6015159589629845
+          ],
+          "classification": "material_support",
+          "component_id": "L1H12",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            0.0012441356165534155,
+            0.011946843220875285
+          ],
+          "health_ci95_margin_damage": [
+            0.0011671321862825185,
+            0.01820885798772974
+          ],
+          "health_mean_logprob_damage": 0.006595489418714351,
+          "health_mean_margin_damage": 0.00968799508700613,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.038869098918599354,
+          "mean": 0.5743229850038455,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 0.0,
+          "q_bh_within_estimand": 0.0,
+          "se_gene_cluster": 0.013873966305683168,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "A",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.22772287762503512
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.27150165715745234,
+            0.3073777875612086
+          ],
+          "classification": "material_support",
+          "component_id": "L2MLP",
+          "component_type": "mlp_write",
+          "estimand": "B",
+          "health_ci95_logprob_damage": [
+            -0.0016112631577672345,
+            0.00346105713140073
+          ],
+          "health_ci95_margin_damage": [
+            -0.004461904837833429,
+            0.004724291119808043
+          ],
+          "health_mean_logprob_damage": 0.0009248969868167478,
+          "health_mean_margin_damage": 0.00013119314098730683,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.02564031546486143,
+          "mean": 0.28943972235933046,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 1.642925696710833e-219,
+          "q_bh_within_estimand": 3.3515684212900993e-217,
+          "se_gene_cluster": 0.009152074082590885,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L2MLP",
+        "component_type": "mlp_write",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.2565977912583054,
+            0.29211478720445794
+          ],
+          "classification": "material_support",
+          "component_id": "L2MLP",
+          "component_type": "mlp_write",
+          "estimand": "B",
+          "health_ci95_logprob_damage": [
+            -0.0008477168893284198,
+            0.00266189660704067
+          ],
+          "health_ci95_margin_damage": [
+            -0.0030364455083947313,
+            0.0030316702683087123
+          ],
+          "health_mean_logprob_damage": 0.0009070898588561249,
+          "health_mean_margin_damage": -2.3876200430095196e-06,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.025383645621050804,
+          "mean": 0.27435628923138167,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 2.0631757092898107e-201,
+          "q_bh_within_estimand": 2.104439223475607e-199,
+          "se_gene_cluster": 0.009060458149528708,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "B",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.2065977912583054
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.2715369505710012,
+            0.30953102715465824
+          ],
+          "classification": "material_support",
+          "component_id": "L3H1",
+          "component_type": "attention_head",
+          "estimand": "B",
+          "health_ci95_logprob_damage": [
+            -0.0003410876848216983,
+            0.0007718553466044366
+          ],
+          "health_ci95_margin_damage": [
+            -0.0009794023911505786,
+            0.0012266496172211913
+          ],
+          "health_mean_logprob_damage": 0.00021538383089136914,
+          "health_mean_margin_damage": 0.00012362361303530633,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.027153990646077972,
+          "mean": 0.2905339888628297,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 2.044728237930416e-197,
+          "q_bh_within_estimand": 1.0428114013445123e-195,
+          "se_gene_cluster": 0.009692366475422716,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L3H1",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.2544151357074651,
+            0.2918961749275484
+          ],
+          "classification": "material_support",
+          "component_id": "L3H1",
+          "component_type": "attention_head",
+          "estimand": "B",
+          "health_ci95_logprob_damage": [
+            -0.0008476888894065109,
+            1.1171703262318638e-05
+          ],
+          "health_ci95_margin_damage": [
+            -0.0016194030185307815,
+            -0.00018873467258331638
+          ],
+          "health_mean_logprob_damage": -0.0004182585930720961,
+          "health_mean_margin_damage": -0.0009040688455570489,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.026787327917984095,
+          "mean": 0.27315565531750674,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 1.6637659829016703e-179,
+          "q_bh_within_estimand": 3.7712028945771193e-178,
+          "se_gene_cluster": 0.009561489596960012,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "B",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.2044151357074651
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.21560835544447676,
+            0.24663488205194567
+          ],
+          "classification": "material_support",
+          "component_id": "L3MLP",
+          "component_type": "mlp_write",
+          "estimand": "B",
+          "health_ci95_logprob_damage": [
+            -0.001858479929453584,
+            0.005249333988488193
+          ],
+          "health_ci95_margin_damage": [
+            -0.005838875197715189,
+            0.007580177833934378
+          ],
+          "health_mean_logprob_damage": 0.0016954270295173046,
+          "health_mean_margin_damage": 0.0008706513181095943,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.022174351610426937,
+          "mean": 0.23112161874821122,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 1.8991278534478751e-187,
+          "q_bh_within_estimand": 5.534601172905236e-186,
+          "se_gene_cluster": 0.007914930257007374,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L3MLP",
+        "component_type": "mlp_write",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.25228570002251227,
+            0.28733678289588815
+          ],
+          "classification": "material_support",
+          "component_id": "L3MLP",
+          "component_type": "mlp_write",
+          "estimand": "B",
+          "health_ci95_logprob_damage": [
+            -0.000478879752235966,
+            0.0039032391345153288
+          ],
+          "health_ci95_margin_damage": [
+            -0.002332107642376442,
+            0.004554639233918507
+          ],
+          "health_mean_logprob_damage": 0.0017121796911396814,
+          "health_mean_margin_damage": 0.0011112657957710326,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.0250506621573731,
+          "mean": 0.2698112414592002,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 5.069723276653126e-200,
+          "q_bh_within_estimand": 3.447411828124125e-198,
+          "se_gene_cluster": 0.008941602773820383,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "B",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.16560835544447677
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.2132362662079755,
+            0.2510959935759333
+          ],
+          "classification": "material_support",
+          "component_id": "L0H6",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.009476298241606602,
+            0.00473400466937139
+          ],
+          "health_ci95_margin_damage": [
+            -0.01402209049886351,
+            0.00938897573835475
+          ],
+          "health_mean_logprob_damage": -0.002371146786117606,
+          "health_mean_margin_damage": -0.0023165573802543804,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.02705797259078001,
+          "mean": 0.23216612989195443,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 1.1010723379054353e-127,
+          "q_bh_within_estimand": 3.0769692730508055e-127,
+          "se_gene_cluster": 0.009658093716315772,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L0H6",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.28224832799213084,
+            0.32931425464577935
+          ],
+          "classification": "material_support",
+          "component_id": "L0H6",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.0024274520605017348,
+            0.010759377910190295
+          ],
+          "health_ci95_margin_damage": [
+            -0.005043070821227678,
+            0.015996851375928323
+          ],
+          "health_mean_logprob_damage": 0.00416596292484428,
+          "health_mean_margin_damage": 0.005476890277350321,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.03363755214021705,
+          "mean": 0.3057812913189551,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 4.491127080629421e-143,
+          "q_bh_within_estimand": 1.3278114847078288e-142,
+          "se_gene_cluster": 0.012006613942257273,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "A",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.1632362662079755
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.1822403290127161,
+            0.20909717665028518
+          ],
+          "classification": "material_support",
+          "component_id": "L0MLP",
+          "component_type": "mlp_write",
+          "estimand": "B",
+          "health_ci95_logprob_damage": [
+            -0.00199490579101523,
+            0.0029382942271139875
+          ],
+          "health_ci95_margin_damage": [
+            -0.005631443891549201,
+            0.002933187635723219
+          ],
+          "health_mean_logprob_damage": 0.00047169421804937883,
+          "health_mean_margin_damage": -0.0013491281279129907,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.019194323302685137,
+          "mean": 0.19566875283150065,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 2.1331913638979307e-179,
+          "q_bh_within_estimand": 4.3517103823517785e-178,
+          "se_gene_cluster": 0.00685123664223701,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L0MLP",
+        "component_type": "mlp_write",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.1575284063021758,
+            0.18209590599715003
+          ],
+          "classification": "material_support",
+          "component_id": "L0MLP",
+          "component_type": "mlp_write",
+          "estimand": "B",
+          "health_ci95_logprob_damage": [
+            -0.001010170963960716,
+            0.0022578458878492694
+          ],
+          "health_ci95_margin_damage": [
+            -0.002769961215189133,
+            0.0028524239501975814
+          ],
+          "health_mean_logprob_damage": 0.0006238374619442766,
+          "health_mean_margin_damage": 4.123136750422418e-05,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.017558148977406828,
+          "mean": 0.1698121561496629,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 1.1187197429005932e-161,
+          "q_bh_within_estimand": 1.6301344825122928e-160,
+          "se_gene_cluster": 0.006267219309942415,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "B",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.10752840630217579
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.14968711480812663,
+            0.17212165724346778
+          ],
+          "classification": "material_support",
+          "component_id": "L1MLP",
+          "component_type": "mlp_write",
+          "estimand": "B",
+          "health_ci95_logprob_damage": [
+            -0.0017261869340696116,
+            0.0021699685500830507
+          ],
+          "health_ci95_margin_damage": [
+            -0.0050244973381535964,
+            0.002291639858439739
+          ],
+          "health_mean_logprob_damage": 0.00022189080800671945,
+          "health_mean_margin_damage": -0.0013664287398569286,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.016033745526015268,
+          "mean": 0.1609043860257972,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 6.438570589225243e-174,
+          "q_bh_within_estimand": 1.0945570001682914e-172,
+          "se_gene_cluster": 0.0057230975600360045,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L1MLP",
+        "component_type": "mlp_write",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.17955822765659837,
+            0.20620447955789004
+          ],
+          "classification": "material_support",
+          "component_id": "L1MLP",
+          "component_type": "mlp_write",
+          "estimand": "B",
+          "health_ci95_logprob_damage": [
+            -0.001442231931940744,
+            0.0018532491059147038
+          ],
+          "health_ci95_margin_damage": [
+            -0.0030301455262508555,
+            0.0024599112802809416
+          ],
+          "health_mean_logprob_damage": 0.00020550858698697994,
+          "health_mean_margin_damage": -0.00028511712298495695,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.01904381261346257,
+          "mean": 0.1928813536072442,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 4.082483188685032e-177,
+          "q_bh_within_estimand": 7.571150640834061e-176,
+          "se_gene_cluster": 0.006797513240125422,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "B",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.09968711480812663
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.17877059392730676,
+            0.20528821521807822
+          ],
+          "classification": "material_support",
+          "component_id": "L2H4",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.0038399959838099134,
+            0.0009180876721185454
+          ],
+          "health_ci95_margin_damage": [
+            -0.006332899428713846,
+            0.0030050910567359654
+          ],
+          "health_mean_logprob_damage": -0.001460954155845684,
+          "health_mean_margin_damage": -0.0016639041859889403,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.01895188158870996,
+          "mean": 0.1920294045726925,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 2.9276472718928317e-177,
+          "q_bh_within_estimand": 1.0122712601120979e-176,
+          "se_gene_cluster": 0.006764699308870269,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L2H4",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.11769228188075861,
+            0.13397881590070912
+          ],
+          "classification": "material_support",
+          "component_id": "L2H4",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.003133612440531501,
+            0.0023964158111156528
+          ],
+          "health_ci95_margin_damage": [
+            -0.0061681651480507745,
+            0.004160281436565582
+          ],
+          "health_mean_logprob_damage": -0.00036859831470792415,
+          "health_mean_margin_damage": -0.001003941855742596,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.011639824735864113,
+          "mean": 0.12583554889073387,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 1.6842753315153445e-201,
+          "q_bh_within_estimand": 6.362817919057968e-201,
+          "se_gene_cluster": 0.004154728066313905,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "A",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.06769228188075861
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.11701118717045315,
+            0.13527053782616164
+          ],
+          "classification": "material_support",
+          "component_id": "L2H11",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            0.0014717462649240188,
+            0.008920170495530459
+          ],
+          "health_ci95_margin_damage": [
+            0.001555378188149264,
+            0.01533736794639546
+          ],
+          "health_mean_logprob_damage": 0.005195958380227239,
+          "health_mean_margin_damage": 0.008446373067272361,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.013049777267697496,
+          "mean": 0.1261408624983074,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 1.6715307314867379e-161,
+          "q_bh_within_estimand": 5.4125757019570565e-161,
+          "se_gene_cluster": 0.004657997616252161,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L2H11",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.15096043895438113,
+            0.17364282670256184
+          ],
+          "classification": "material_support",
+          "component_id": "L2H11",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.002746056711150538,
+            0.005580679101460498
+          ],
+          "health_ci95_margin_damage": [
+            -0.0033249316360826125,
+            0.010826860674054035
+          ],
+          "health_mean_logprob_damage": 0.00141731119515498,
+          "health_mean_margin_damage": 0.003750964518985711,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.01621087811908414,
+          "mean": 0.1623016328284715,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 4.087462533029651e-173,
+          "q_bh_within_estimand": 1.3897372612300814e-172,
+          "se_gene_cluster": 0.0057863234051481445,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "A",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.06701118717045315
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.11504679316271824,
+            0.1352664521873642
+          ],
+          "classification": "material_support",
+          "component_id": "L5MLP",
+          "component_type": "mlp_write",
+          "estimand": "B",
+          "health_ci95_logprob_damage": [
+            -0.0019943072369202424,
+            0.004399895523739936
+          ],
+          "health_ci95_margin_damage": [
+            -0.005640767584636739,
+            0.006391848623834482
+          ],
+          "health_mean_logprob_damage": 0.0012027941434098466,
+          "health_mean_margin_damage": 0.00037554051959887147,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.014450790264982792,
+          "mean": 0.1251566226750412,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 4.682086586819194e-130,
+          "q_bh_within_estimand": 3.9797735987963145e-129,
+          "se_gene_cluster": 0.005158076281797434,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L5MLP",
+        "component_type": "mlp_write",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.10468528872464361,
+            0.12473353616904212
+          ],
+          "classification": "material_support",
+          "component_id": "L5MLP",
+          "component_type": "mlp_write",
+          "estimand": "B",
+          "health_ci95_logprob_damage": [
+            -0.0007988593652277862,
+            0.0037686000200898937
+          ],
+          "health_ci95_margin_damage": [
+            -0.0023893166762776158,
+            0.004423277361644381
+          ],
+          "health_mean_logprob_damage": 0.0014848703274310537,
+          "health_mean_margin_damage": 0.0010169803426833823,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.014328284104412755,
+          "mean": 0.11470941244684286,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 2.054836763330314e-111,
+          "q_bh_within_estimand": 1.3972889990646135e-110,
+          "se_gene_cluster": 0.005114348837856766,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "B",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.05468528872464361
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.10464010677705383,
+            0.12583495048194818
+          ],
+          "classification": "material_support",
+          "component_id": "L0H4",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.00241829648601547,
+            0.004789475129458742
+          ],
+          "health_ci95_margin_damage": [
+            -0.005310697772567057,
+            0.009294334974166834
+          ],
+          "health_mean_logprob_damage": 0.0011855893217216362,
+          "health_mean_margin_damage": 0.0019918186007998884,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.015147745108124147,
+          "mean": 0.115237528629501,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 8.553678312857545e-101,
+          "q_bh_within_estimand": 2.0773218759796893e-100,
+          "se_gene_cluster": 0.005406847883901615,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L0H4",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.15816930845427016,
+            0.186459043744205
+          ],
+          "classification": "material_support",
+          "component_id": "L0H4",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            0.0004618095463637924,
+            0.009119547216373623
+          ],
+          "health_ci95_margin_damage": [
+            -0.0003626021586849888,
+            0.015527897319526186
+          ],
+          "health_mean_logprob_damage": 0.004790678381368707,
+          "health_mean_margin_damage": 0.007582647580420598,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.020218393931788307,
+          "mean": 0.17231417609923758,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 5.32155801825049e-126,
+          "q_bh_within_estimand": 1.4474637809641334e-125,
+          "se_gene_cluster": 0.007216769206616024,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "A",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.05464010677705383
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.08036759947728528,
+            0.08996058568250276
+          ],
+          "classification": "material_support",
+          "component_id": "L4H12",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.004334468473254663,
+            0.0012572426581500514
+          ],
+          "health_ci95_margin_damage": [
+            -0.00763618957927699,
+            0.003032772803923737
+          ],
+          "health_mean_logprob_damage": -0.0015386129075523058,
+          "health_mean_margin_damage": -0.0023017083876766264,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.006856012334208895,
+          "mean": 0.08516409257989402,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 2.3684352227442564e-265,
+          "q_bh_within_estimand": 1.0503495335648442e-264,
+          "se_gene_cluster": 0.002447190358473843,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L4H12",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.2682127217332257,
+            0.2894557649395864
+          ],
+          "classification": "material_support",
+          "component_id": "L4H12",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.00022338442718639702,
+            0.006210939590487692
+          ],
+          "health_ci95_margin_damage": [
+            -0.0038774105699235237,
+            0.007853317241181212
+          ],
+          "health_mean_logprob_damage": 0.0029937775816506473,
+          "health_mean_margin_damage": 0.001987953335628845,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.01518219281496821,
+          "mean": 0.27883424333640605,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 0.0,
+          "q_bh_within_estimand": 0.0,
+          "se_gene_cluster": 0.005419143675092027,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "A",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.030367599477285276
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.11897811763418711,
+            0.128827334730116
+          ],
+          "classification": "material_support",
+          "component_id": "L4H11",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.001965318525298657,
+            0.0033564326311984172
+          ],
+          "health_ci95_margin_damage": [
+            -0.0002467877739855051,
+            0.009578228487125688
+          ],
+          "health_mean_logprob_damage": 0.00069555705294988,
+          "health_mean_margin_damage": 0.004665720356570091,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.007039138016821413,
+          "mean": 0.12390272618215156,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 0.0,
+          "q_bh_within_estimand": 0.0,
+          "se_gene_cluster": 0.002512555381614515,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L4H11",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.07650420436690189,
+            0.08346768234782578
+          ],
+          "classification": "material_support",
+          "component_id": "L4H11",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.004334269127127897,
+            0.0009708029535319442
+          ],
+          "health_ci95_margin_damage": [
+            -0.003295479411921421,
+            0.007617107269201385
+          ],
+          "health_mean_logprob_damage": -0.0016817330867979763,
+          "health_mean_margin_damage": 0.002160813928639982,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.004976728820921305,
+          "mean": 0.07998594335736384,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 0.0,
+          "q_bh_within_estimand": 0.0,
+          "se_gene_cluster": 0.0017763974441132378,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "A",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.026504204366901887
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.07581107400555741,
+            0.09364004009974082
+          ],
+          "classification": "material_support",
+          "component_id": "L0H0",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.002684133884275946,
+            0.003785648648107747
+          ],
+          "health_ci95_margin_damage": [
+            -0.005888975905835293,
+            0.0059083163324963675
+          ],
+          "health_mean_logprob_damage": 0.0005507573819159006,
+          "health_mean_margin_damage": 9.67021333053708e-06,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.01274218567951571,
+          "mean": 0.08472555705264911,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 1.89277072353718e-77,
+          "q_bh_within_estimand": 3.900254824258432e-77,
+          "se_gene_cluster": 0.004548205636271282,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L0H0",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.14594064588185884,
+            0.17430841480084763
+          ],
+          "classification": "material_support",
+          "component_id": "L0H0",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.0012205260177453109,
+            0.005243895771867852
+          ],
+          "health_ci95_margin_damage": [
+            -0.003193000795813857,
+            0.009336286106641053
+          ],
+          "health_mean_logprob_damage": 0.0020116848770612705,
+          "health_mean_margin_damage": 0.003071642655413598,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.020274163794460072,
+          "mean": 0.16012453034135324,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 1.7450339532220415e-108,
+          "q_bh_within_estimand": 4.288999113943331e-108,
+          "se_gene_cluster": 0.007236675744639996,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "A",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.025811074005557405
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.07283066854277254,
+            0.08066078073580052
+          ],
+          "classification": "material_support",
+          "component_id": "L5H2",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            0.00082020746840928,
+            0.00830355968473239
+          ],
+          "health_ci95_margin_damage": [
+            0.001504260182082941,
+            0.015011784320994924
+          ],
+          "health_mean_logprob_damage": 0.004561883576570835,
+          "health_mean_margin_damage": 0.008258022251538932,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.0055961037184064505,
+          "mean": 0.07674572463928653,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 0.0,
+          "q_bh_within_estimand": 0.0,
+          "se_gene_cluster": 0.001997477600262238,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L5H2",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.12976470801813328,
+            0.13845278977270714
+          ],
+          "classification": "material_support",
+          "component_id": "L5H2",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.00180067883050564,
+            0.00662494549263196
+          ],
+          "health_ci95_margin_damage": [
+            -0.0031019652113371283,
+            0.015781509023165025
+          ],
+          "health_mean_logprob_damage": 0.00241213333106316,
+          "health_mean_margin_damage": 0.006339771905913949,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.00620928607585998,
+          "mean": 0.1341087488954202,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 0.0,
+          "q_bh_within_estimand": 0.0,
+          "se_gene_cluster": 0.002216347386370884,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "A",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.022830668542772534
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.1347213117706466,
+            0.15027232705514998
+          ],
+          "classification": "material_support",
+          "component_id": "L4H5",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.0001332826350649123,
+            0.004849546140607796
+          ],
+          "health_ci95_margin_damage": [
+            0.0005332953654295291,
+            0.012096717597770458
+          ],
+          "health_mean_logprob_damage": 0.002358131752771442,
+          "health_mean_margin_damage": 0.006315006481599994,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.011114156772375887,
+          "mean": 0.1424968194128983,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 1.5058375219634685e-282,
+          "q_bh_within_estimand": 7.143973360012733e-282,
+          "se_gene_cluster": 0.003967095735842696,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L4H5",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.06651464956065496,
+            0.08095907477179533
+          ],
+          "classification": "material_support",
+          "component_id": "L4H5",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.002259088662094584,
+            0.003678794743018372
+          ],
+          "health_ci95_margin_damage": [
+            -0.0032665330511882484,
+            0.00903024664175618
+          ],
+          "health_mean_logprob_damage": 0.0007098530404618941,
+          "health_mean_margin_damage": 0.0028818567952839658,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.010323287794813552,
+          "mean": 0.07373686216622514,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 4.4102012026727436e-89,
+          "q_bh_within_estimand": 9.996456059391552e-89,
+          "se_gene_cluster": 0.003684802349780704,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "A",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.01651464956065496
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.06649788741424059,
+            0.07911540694058061
+          ],
+          "classification": "material_support",
+          "component_id": "L2H5",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.003714976970018497,
+            0.004726572117265632
+          ],
+          "health_ci95_margin_damage": [
+            -0.004394809675392901,
+            0.009496828326479738
+          ],
+          "health_mean_logprob_damage": 0.0005057975736235676,
+          "health_mean_margin_damage": 0.0025510093255434185,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.009017616376083148,
+          "mean": 0.0728066471774106,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 2.7858239878350737e-113,
+          "q_bh_within_estimand": 7.19377333567538e-113,
+          "se_gene_cluster": 0.003218754981209189,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L2H5",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.34806168630389633,
+            0.3791560130670799
+          ],
+          "classification": "material_support",
+          "component_id": "L2H5",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.0019690653411391303,
+            0.004974570376301189
+          ],
+          "health_ci95_margin_damage": [
+            -0.0037820200359066306,
+            0.00878466613172454
+          ],
+          "health_mean_logprob_damage": 0.0015027525175810297,
+          "health_mean_margin_damage": 0.0025013230479089543,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.02222280771094632,
+          "mean": 0.3636088496854881,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 0.0,
+          "q_bh_within_estimand": 0.0,
+          "se_gene_cluster": 0.007932226215097852,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "A",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.01649788741424059
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.06346611263694261,
+            0.07724016328409732
+          ],
+          "classification": "material_support",
+          "component_id": "L4MLP",
+          "component_type": "mlp_write",
+          "estimand": "B",
+          "health_ci95_logprob_damage": [
+            -0.0014997855709090353,
+            0.0038646964925511847
+          ],
+          "health_ci95_margin_damage": [
+            -0.0050621231401257755,
+            0.005585125085237676
+          ],
+          "health_mean_logprob_damage": 0.0011824554608210747,
+          "health_mean_margin_damage": 0.0002615009725559503,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.0098441777261755,
+          "mean": 0.07035313796051997,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 3.540797780987577e-89,
+          "q_bh_within_estimand": 1.7617627983450384e-88,
+          "se_gene_cluster": 0.0035137884303966063,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L4MLP",
+        "component_type": "mlp_write",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.12371641768374986,
+            0.1437729075019587
+          ],
+          "classification": "material_support",
+          "component_id": "L4MLP",
+          "component_type": "mlp_write",
+          "estimand": "B",
+          "health_ci95_logprob_damage": [
+            -0.0005969733361306418,
+            0.0034127111885462647
+          ],
+          "health_ci95_margin_damage": [
+            -0.002115469934191639,
+            0.004061436934402297
+          ],
+          "health_mean_logprob_damage": 0.0014078689262078115,
+          "health_mean_margin_damage": 0.0009729835001053289,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.014334174847430386,
+          "mean": 0.13374466259285428,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 1.2764355093369866e-150,
+          "q_bh_within_estimand": 1.446626910581918e-149,
+          "se_gene_cluster": 0.005116451484236947,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "B",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.013466112636942612
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.06859719355904761,
+            0.08173189965850208
+          ],
+          "classification": "material_support",
+          "component_id": "L1H3",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.004162098334360314,
+            0.0012278375457538343
+          ],
+          "health_ci95_margin_damage": [
+            -0.008720252052975093,
+            -0.0002794849702844205
+          ],
+          "health_mean_logprob_damage": -0.0014671303943032399,
+          "health_mean_margin_damage": -0.0044998685116297565,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.0093872445031862,
+          "mean": 0.07516454660877485,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 1.894379956642335e-111,
+          "q_bh_within_estimand": 4.771031001914029e-111,
+          "se_gene_cluster": 0.0033506903314934893,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L1H3",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.06016759824858423,
+            0.07476815397137955
+          ],
+          "classification": "material_support",
+          "component_id": "L1H3",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.0006009464741022806,
+            0.004221167248439493
+          ],
+          "health_ci95_margin_damage": [
+            -0.0005403007453290724,
+            0.007734577440701609
+          ],
+          "health_mean_logprob_damage": 0.0018101103871686064,
+          "health_mean_margin_damage": 0.0035971383476862684,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.010434872726841347,
+          "mean": 0.0674678761099819,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 2.4724271482301158e-73,
+          "q_bh_within_estimand": 5.043751382389436e-73,
+          "se_gene_cluster": 0.0037246315619375824,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "A",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.01016759824858423
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.05997218010255942,
+            0.07301278188928273
+          ],
+          "classification": "material_support",
+          "component_id": "L1H10",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.000733047062447408,
+            0.0044797732924671116
+          ],
+          "health_ci95_margin_damage": [
+            -0.0028601425732008154,
+            0.0075967678424890125
+          ],
+          "health_mean_logprob_damage": 0.0018733631150098518,
+          "health_mean_margin_damage": 0.0023683126346440986,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.00931998908188306,
+          "mean": 0.06649248099592107,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 7.059035485766078e-89,
+          "q_bh_within_estimand": 1.5652643903220435e-88,
+          "se_gene_cluster": 0.003326684129266151,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L1H10",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.13616570505597547,
+            0.15558319636379297
+          ],
+          "classification": "material_support",
+          "component_id": "L1H10",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            0.0008227822599855641,
+            0.007639710529490964
+          ],
+          "health_ci95_margin_damage": [
+            0.001170561612210073,
+            0.01490986627354396
+          ],
+          "health_mean_logprob_damage": 0.004231246394738264,
+          "health_mean_margin_damage": 0.008040213942877017,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.013877488933882267,
+          "mean": 0.14587445070988422,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 1.292410129642431e-190,
+          "q_bh_within_estimand": 4.625467832404489e-190,
+          "se_gene_cluster": 0.004953441660157519,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "A",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.009972180102559416
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.09858879183542248,
+            0.10803743963044123
+          ],
+          "classification": "material_support",
+          "component_id": "L4H6",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.001004168083129641,
+            0.004446050051813088
+          ],
+          "health_ci95_margin_damage": [
+            -0.003432908613695565,
+            0.006432125601214159
+          ],
+          "health_mean_logprob_damage": 0.0017209409843417234,
+          "health_mean_margin_damage": 0.0014996084937592968,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.006752855100428624,
+          "mean": 0.10331311573293185,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 0.0,
+          "q_bh_within_estimand": 0.0,
+          "se_gene_cluster": 0.0024103693354639655,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L4H6",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.05875311003194114,
+            0.06833981427795299
+          ],
+          "classification": "material_support",
+          "component_id": "L4H6",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.0022755014092599953,
+            0.004181432815132247
+          ],
+          "health_ci95_margin_damage": [
+            -0.005908466910084391,
+            0.01126359773294782
+          ],
+          "health_mean_logprob_damage": 0.000952965702936126,
+          "health_mean_margin_damage": 0.002677565411431715,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.006851522680114197,
+          "mean": 0.06354646215494707,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 7.485908838627388e-149,
+          "q_bh_within_estimand": 2.3138263683030108e-148,
+          "se_gene_cluster": 0.002445587817860168,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "A",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.008753110031941139
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.05395089738204771,
+            0.05946695798561681
+          ],
+          "classification": "material_support",
+          "component_id": "L4H2",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.0008128398216433407,
+            0.0031103456316634247
+          ],
+          "health_ci95_margin_damage": [
+            -0.0012785014360053573,
+            0.006529750705354858
+          ],
+          "health_mean_logprob_damage": 0.001148752905010042,
+          "health_mean_margin_damage": 0.0026256246346747503,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.0039422739411159435,
+          "mean": 0.05670892768383226,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 0.0,
+          "q_bh_within_estimand": 0.0,
+          "se_gene_cluster": 0.001407158317237016,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L4H2",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.15352456768937475,
+            0.16407542783334292
+          ],
+          "classification": "material_support",
+          "component_id": "L4H2",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.0014205271779261868,
+            0.002612284529460948
+          ],
+          "health_ci95_margin_damage": [
+            0.0007396205209526142,
+            0.009861196024822546
+          ],
+          "health_mean_logprob_damage": 0.0005958786757673806,
+          "health_mean_margin_damage": 0.00530040827288758,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.007540595361662885,
+          "mean": 0.15879999776135884,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 0.0,
+          "q_bh_within_estimand": 0.0,
+          "se_gene_cluster": 0.002691545955093923,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "A",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.003950897382047708
+      }
+    ],
+    "maximum": 4,
+    "n_eligible": 24,
+    "selected": [
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.4714344354257889,
+            0.5148666647282621
+          ],
+          "classification": "material_support",
+          "component_id": "L2H15",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            0.0031003295907384336,
+            0.018149834384571555
+          ],
+          "health_ci95_margin_damage": [
+            0.00444703372537519,
+            0.029619465863868714
+          ],
+          "health_mean_logprob_damage": 0.010625081987654994,
+          "health_mean_margin_damage": 0.017033249794621952,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.03104058459273012,
+          "mean": 0.4931505500770255,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 0.0,
+          "q_bh_within_estimand": 0.0,
+          "se_gene_cluster": 0.011079650332263593,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L2H15",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.7934885273914666,
+            0.8567549307027543
+          ],
+          "classification": "material_support",
+          "component_id": "L2H15",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            0.004294697477570618,
+            0.019094257933039305
+          ],
+          "health_ci95_margin_damage": [
+            0.003939978314624962,
+            0.029477951376870412
+          ],
+          "health_mean_logprob_damage": 0.011694477705304962,
+          "health_mean_margin_damage": 0.016708964845747687,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.045215872530631945,
+          "mean": 0.8251217290471105,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 0.0,
+          "q_bh_within_estimand": 0.0,
+          "se_gene_cluster": 0.016139388599818314,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "A",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.4214344354257889
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.2897265973159784,
+            0.32579710804799533
+          ],
+          "classification": "material_support",
+          "component_id": "L3H1",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.0029472504011376862,
+            0.004172042343287436
+          ],
+          "health_ci95_margin_damage": [
+            -0.005606721891464437,
+            0.00782073981224257
+          ],
+          "health_mean_logprob_damage": 0.000612395971074875,
+          "health_mean_margin_damage": 0.0011070089603890665,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.025779237162398976,
+          "mean": 0.30776185268198686,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 2.9095208060961022e-245,
+          "q_bh_within_estimand": 1.1638083224384409e-244,
+          "se_gene_cluster": 0.009201660901024743,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L3H1",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.3773775204637694,
+            0.41394037360477287
+          ],
+          "classification": "material_support",
+          "component_id": "L3H1",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            -0.0020831335117097154,
+            0.0057590791455683615
+          ],
+          "health_ci95_margin_damage": [
+            -0.00397635724450621,
+            0.011797563102414563
+          ],
+          "health_mean_logprob_damage": 0.001837972816929323,
+          "health_mean_margin_damage": 0.003910602928954177,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.026131109411191518,
+          "mean": 0.3956589470342711,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 0.0,
+          "q_bh_within_estimand": 0.0,
+          "se_gene_cluster": 0.00932725845433763,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "A",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.2397265973159784
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.2777228776250351,
+            0.3106922445746435
+          ],
+          "classification": "material_support",
+          "component_id": "L1H12",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            0.0016678909258361126,
+            0.013279756124739939
+          ],
+          "health_ci95_margin_damage": [
+            0.0032712504462978145,
+            0.023067021961585964
+          ],
+          "health_mean_logprob_damage": 0.007473823525288026,
+          "health_mean_margin_damage": 0.013169136203941889,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.023562880381776806,
+          "mean": 0.2942075610998393,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 4.4126701235609774e-268,
+          "q_bh_within_estimand": 2.0004104560143097e-267,
+          "se_gene_cluster": 0.008410552793267443,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L1H12",
+        "component_type": "attention_head",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.5471300110447065,
+            0.6015159589629845
+          ],
+          "classification": "material_support",
+          "component_id": "L1H12",
+          "component_type": "attention_head",
+          "estimand": "A",
+          "health_ci95_logprob_damage": [
+            0.0012441356165534155,
+            0.011946843220875285
+          ],
+          "health_ci95_margin_damage": [
+            0.0011671321862825185,
+            0.01820885798772974
+          ],
+          "health_mean_logprob_damage": 0.006595489418714351,
+          "health_mean_margin_damage": 0.00968799508700613,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.038869098918599354,
+          "mean": 0.5743229850038455,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 0.0,
+          "q_bh_within_estimand": 0.0,
+          "se_gene_cluster": 0.013873966305683168,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "A",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.22772287762503512
+      },
+      {
+        "acceptor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.27150165715745234,
+            0.3073777875612086
+          ],
+          "classification": "material_support",
+          "component_id": "L2MLP",
+          "component_type": "mlp_write",
+          "estimand": "B",
+          "health_ci95_logprob_damage": [
+            -0.0016112631577672345,
+            0.00346105713140073
+          ],
+          "health_ci95_margin_damage": [
+            -0.004461904837833429,
+            0.004724291119808043
+          ],
+          "health_mean_logprob_damage": 0.0009248969868167478,
+          "health_mean_margin_damage": 0.00013119314098730683,
+          "health_n": 256,
+          "health_n_genes": 250,
+          "mde80": 0.02564031546486143,
+          "mean": 0.28943972235933046,
+          "n_genes": 3660,
+          "n_packets": 5960,
+          "p": 1.642925696710833e-219,
+          "q_bh_within_estimand": 3.3515684212900993e-217,
+          "se_gene_cluster": 0.009152074082590885,
+          "target_role": "acceptor",
+          "tau": 0.05
+        },
+        "component_id": "L2MLP",
+        "component_type": "mlp_write",
+        "donor": {
+          "broad_MLM_flag": false,
+          "ci95": [
+            0.2565977912583054,
+            0.29211478720445794
+          ],
+          "classification": "material_support",
+          "component_id": "L2MLP",
+          "component_type": "mlp_write",
+          "estimand": "B",
+          "health_ci95_logprob_damage": [
+            -0.0008477168893284198,
+            0.00266189660704067
+          ],
+          "health_ci95_margin_damage": [
+            -0.0030364455083947313,
+            0.0030316702683087123
+          ],
+          "health_mean_logprob_damage": 0.0009070898588561249,
+          "health_mean_margin_damage": -2.3876200430095196e-06,
+          "health_n": 256,
+          "health_n_genes": 251,
+          "mde80": 0.025383645621050804,
+          "mean": 0.27435628923138167,
+          "n_genes": 3555,
+          "n_packets": 5847,
+          "p": 2.0631757092898107e-201,
+          "q_bh_within_estimand": 2.104439223475607e-199,
+          "se_gene_cluster": 0.009060458149528708,
+          "target_role": "donor",
+          "tau": 0.05
+        },
+        "estimand": "B",
+        "general_shortlist_eligible": true,
+        "profile": "cross_role_general_support",
+        "score_bound_excess": 0.2065977912583054
+      }
+    ]
+  },
+  "input_hashes": {
+    "health": "de8524a6df2ce31f0cd2e0d90bb8114e1cad5db21f0eb87c01ab258523bcb7c0",
+    "pairs": "4e23df3e20bf7003bfd8fb9e712819bf28e6c85e79c670b6bcb51547c273b78d",
+    "summary": "99af71dcba488e964bee68471a1181c6c00fa8cfcfdcf24747c388edba39630c",
+    "target": "fdba5e21fab1338a5050ba3f31b66183aa2db2522757161b0bb739ee0202a39b"
+  },
+  "positive_control_L3H1_B": {
+    "acceptor": {
+      "broad_MLM_flag": false,
+      "ci95": [
+        0.2715369505710012,
+        0.30953102715465824
+      ],
+      "classification": "material_support",
+      "component_id": "L3H1",
+      "component_type": "attention_head",
+      "estimand": "B",
+      "health_ci95_logprob_damage": [
+        -0.0003410876848216983,
+        0.0007718553466044366
+      ],
+      "health_ci95_margin_damage": [
+        -0.0009794023911505786,
+        0.0012266496172211913
+      ],
+      "health_mean_logprob_damage": 0.00021538383089136914,
+      "health_mean_margin_damage": 0.00012362361303530633,
+      "health_n": 256,
+      "health_n_genes": 250,
+      "mde80": 0.027153990646077972,
+      "mean": 0.2905339888628297,
+      "n_genes": 3660,
+      "n_packets": 5960,
+      "p": 2.044728237930416e-197,
+      "q_bh_within_estimand": 1.0428114013445123e-195,
+      "se_gene_cluster": 0.009692366475422716,
+      "target_role": "acceptor",
+      "tau": 0.05
+    },
+    "component_id": "L3H1",
+    "component_type": "attention_head",
+    "donor": {
+      "broad_MLM_flag": false,
+      "ci95": [
+        0.2544151357074651,
+        0.2918961749275484
+      ],
+      "classification": "material_support",
+      "component_id": "L3H1",
+      "component_type": "attention_head",
+      "estimand": "B",
+      "health_ci95_logprob_damage": [
+        -0.0008476888894065109,
+        1.1171703262318638e-05
+      ],
+      "health_ci95_margin_damage": [
+        -0.0016194030185307815,
+        -0.00018873467258331638
+      ],
+      "health_mean_logprob_damage": -0.0004182585930720961,
+      "health_mean_margin_damage": -0.0009040688455570489,
+      "health_n": 256,
+      "health_n_genes": 251,
+      "mde80": 0.026787327917984095,
+      "mean": 0.27315565531750674,
+      "n_genes": 3555,
+      "n_packets": 5847,
+      "p": 1.6637659829016703e-179,
+      "q_bh_within_estimand": 3.7712028945771193e-178,
+      "se_gene_cluster": 0.009561489596960012,
+      "target_role": "donor",
+      "tau": 0.05
+    },
+    "estimand": "B",
+    "general_shortlist_eligible": true,
+    "profile": "cross_role_general_support",
+    "score_bound_excess": 0.2044151357074651
+  },
+  "schema": "head_context_atlas.discovery_shortlist/1",
+  "status": "DISCOVERY_FROZEN_CANDIDATES",
+  "tau": 0.05
+}

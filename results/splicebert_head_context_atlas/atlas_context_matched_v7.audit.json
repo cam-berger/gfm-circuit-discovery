@@ -1,0 +1,304 @@
+{
+  "claim_boundary": "mechanical cohort audit only; no model output or mechanism read",
+  "cross_split": {
+    "gene_disjoint": true,
+    "sequence_disjoint": true
+  },
+  "failures": [],
+  "gate": true,
+  "manifest_checks": [
+    {
+      "exists": true,
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_context_packets_enriched_v1.jsonl",
+      "sha256_ok": true,
+      "size_ok": true
+    },
+    {
+      "exists": true,
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_context_sequences_v1.jsonl",
+      "sha256_ok": true,
+      "size_ok": true
+    },
+    {
+      "exists": true,
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_context_matched_v7.discovery.pairs.jsonl",
+      "sha256_ok": true,
+      "size_ok": true
+    },
+    {
+      "exists": true,
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_context_matched_v7.discovery.packets.jsonl",
+      "sha256_ok": true,
+      "size_ok": true
+    },
+    {
+      "exists": true,
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_context_matched_v7.discovery.sequences.jsonl",
+      "sha256_ok": true,
+      "size_ok": true
+    },
+    {
+      "exists": true,
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_context_matched_v7.validation.pairs.jsonl",
+      "sha256_ok": true,
+      "size_ok": true
+    },
+    {
+      "exists": true,
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_context_matched_v7.validation.packets.jsonl",
+      "sha256_ok": true,
+      "size_ok": true
+    },
+    {
+      "exists": true,
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_context_matched_v7.validation.sequences.jsonl",
+      "sha256_ok": true,
+      "size_ok": true
+    },
+    {
+      "exists": true,
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas/atlas_context_matched_v7.summary.json",
+      "sha256_ok": true,
+      "size_ok": true
+    }
+  ],
+  "n_failures": 0,
+  "schema": "head_context_atlas.matched_cohort_audit/1",
+  "source_prefix": "results/splicebert_head_context_atlas/atlas_context_matched_v7",
+  "split_reports": {
+    "discovery": {
+      "blocks": {
+        "acceptor_cluster|acceptor": {
+          "max_abs_numeric_smd": 0.0989138362627754,
+          "max_abs_other_tag_smd": 0.0,
+          "max_control_reuse": 2,
+          "n_pairs": 640,
+          "n_unique_case_genes": 640,
+          "n_unique_controls": 602
+        },
+        "cassette_exon|acceptor": {
+          "max_abs_numeric_smd": 0.07506923079961066,
+          "max_abs_other_tag_smd": 0.0,
+          "max_control_reuse": 2,
+          "n_pairs": 711,
+          "n_unique_case_genes": 711,
+          "n_unique_controls": 677
+        },
+        "cassette_exon|donor": {
+          "max_abs_numeric_smd": 0.08772713780807781,
+          "max_abs_other_tag_smd": 0.0,
+          "max_control_reuse": 2,
+          "n_pairs": 641,
+          "n_unique_case_genes": 641,
+          "n_unique_controls": 610
+        },
+        "complex_event|acceptor": {
+          "max_abs_numeric_smd": 0.09933309584345175,
+          "max_abs_other_tag_smd": 0.0,
+          "max_control_reuse": 2,
+          "n_pairs": 725,
+          "n_unique_case_genes": 725,
+          "n_unique_controls": 666
+        },
+        "complex_event|donor": {
+          "max_abs_numeric_smd": 0.0942681569613208,
+          "max_abs_other_tag_smd": 0.0,
+          "max_control_reuse": 2,
+          "n_pairs": 755,
+          "n_unique_case_genes": 755,
+          "n_unique_controls": 698
+        },
+        "donor_cluster|donor": {
+          "max_abs_numeric_smd": 0.09275422391836789,
+          "max_abs_other_tag_smd": 0.0,
+          "max_control_reuse": 2,
+          "n_pairs": 653,
+          "n_unique_case_genes": 653,
+          "n_unique_controls": 631
+        },
+        "multiple_independent_pairs|acceptor": {
+          "max_abs_numeric_smd": 0.09424824840617378,
+          "max_abs_other_tag_smd": 0.0,
+          "max_control_reuse": 2,
+          "n_pairs": 638,
+          "n_unique_case_genes": 638,
+          "n_unique_controls": 584
+        },
+        "multiple_independent_pairs|donor": {
+          "max_abs_numeric_smd": 0.08870035956793021,
+          "max_abs_other_tag_smd": 0.0,
+          "max_control_reuse": 2,
+          "n_pairs": 575,
+          "n_unique_case_genes": 575,
+          "n_unique_controls": 533
+        },
+        "single_pair|acceptor": {
+          "max_abs_numeric_smd": 0.09695381093096059,
+          "max_abs_other_tag_smd": 0.0,
+          "max_control_reuse": 2,
+          "n_pairs": 575,
+          "n_unique_case_genes": 575,
+          "n_unique_controls": 532
+        },
+        "single_pair|donor": {
+          "max_abs_numeric_smd": 0.09117703764075467,
+          "max_abs_other_tag_smd": 0.0,
+          "max_control_reuse": 2,
+          "n_pairs": 574,
+          "n_unique_case_genes": 574,
+          "n_unique_controls": 520
+        }
+      },
+      "chromosomes": [
+        "chr1",
+        "chr10",
+        "chr12",
+        "chr13",
+        "chr14",
+        "chr15",
+        "chr17",
+        "chr18",
+        "chr2",
+        "chr20",
+        "chr21",
+        "chr22",
+        "chr3",
+        "chr4",
+        "chr5",
+        "chr6",
+        "chr7",
+        "chrX",
+        "chrY"
+      ],
+      "gate": true,
+      "n_genes": 5089,
+      "n_packets": 11807,
+      "n_pairs": 6487,
+      "n_sequences": 10900
+    },
+    "validation": {
+      "blocks": {
+        "acceptor_cluster|acceptor": {
+          "max_abs_numeric_smd": 0.09672249221431174,
+          "max_abs_other_tag_smd": 0.0,
+          "max_control_reuse": 2,
+          "n_pairs": 158,
+          "n_unique_case_genes": 158,
+          "n_unique_controls": 148
+        },
+        "cassette_exon|acceptor": {
+          "max_abs_numeric_smd": 0.08920273929659708,
+          "max_abs_other_tag_smd": 0.0,
+          "max_control_reuse": 2,
+          "n_pairs": 321,
+          "n_unique_case_genes": 321,
+          "n_unique_controls": 291
+        },
+        "cassette_exon|donor": {
+          "max_abs_numeric_smd": 0.09798820784372787,
+          "max_abs_other_tag_smd": 0.0,
+          "max_control_reuse": 2,
+          "n_pairs": 248,
+          "n_unique_case_genes": 248,
+          "n_unique_controls": 235
+        },
+        "complex_event|acceptor": {
+          "max_abs_numeric_smd": 0.09668631451608395,
+          "max_abs_other_tag_smd": 0.0,
+          "max_control_reuse": 2,
+          "n_pairs": 345,
+          "n_unique_case_genes": 345,
+          "n_unique_controls": 318
+        },
+        "complex_event|donor": {
+          "max_abs_numeric_smd": 0.0925836812443624,
+          "max_abs_other_tag_smd": 0.0,
+          "max_control_reuse": 2,
+          "n_pairs": 379,
+          "n_unique_case_genes": 379,
+          "n_unique_controls": 350
+        },
+        "donor_cluster|donor": {
+          "max_abs_numeric_smd": 0.09423394756459604,
+          "max_abs_other_tag_smd": 0.0,
+          "max_control_reuse": 2,
+          "n_pairs": 179,
+          "n_unique_case_genes": 179,
+          "n_unique_controls": 172
+        },
+        "multiple_independent_pairs|acceptor": {
+          "max_abs_numeric_smd": 0.09841732430617602,
+          "max_abs_other_tag_smd": 0.0,
+          "max_control_reuse": 2,
+          "n_pairs": 208,
+          "n_unique_case_genes": 208,
+          "n_unique_controls": 185
+        },
+        "multiple_independent_pairs|donor": {
+          "max_abs_numeric_smd": 0.09729837561571782,
+          "max_abs_other_tag_smd": 0.0,
+          "max_control_reuse": 2,
+          "n_pairs": 172,
+          "n_unique_case_genes": 172,
+          "n_unique_controls": 154
+        },
+        "single_pair|acceptor": {
+          "max_abs_numeric_smd": 0.09430984614090114,
+          "max_abs_other_tag_smd": 0.0,
+          "max_control_reuse": 2,
+          "n_pairs": 107,
+          "n_unique_case_genes": 107,
+          "n_unique_controls": 101
+        },
+        "single_pair|donor": {
+          "max_abs_numeric_smd": 0.08602621469068687,
+          "max_abs_other_tag_smd": 0.0,
+          "max_control_reuse": 2,
+          "n_pairs": 130,
+          "n_unique_case_genes": 130,
+          "n_unique_controls": 125
+        }
+      },
+      "chromosomes": [
+        "chr1",
+        "chr10",
+        "chr12",
+        "chr13",
+        "chr14",
+        "chr15",
+        "chr17",
+        "chr18",
+        "chr2",
+        "chr20",
+        "chr21",
+        "chr22",
+        "chr3",
+        "chr4",
+        "chr5",
+        "chr6",
+        "chr7",
+        "chrX",
+        "chrY"
+      ],
+      "gate": true,
+      "n_genes": 1486,
+      "n_packets": 4019,
+      "n_pairs": 2247,
+      "n_sequences": 3512
+    }
+  },
+  "status": "PREFLIGHT_PASS",
+  "taxonomy_policy": {
+    "core_labels_are_overlapping": true,
+    "role_specific": {
+      "acceptor_cluster": [
+        "acceptor"
+      ],
+      "donor_cluster": [
+        "donor"
+      ]
+    },
+    "single_pair_is_packet_scoped": true,
+    "validation_minimum_is_precision_not_equivalence": "balanced arms below the discovery minimum remain internal-validation/exploratory until an outcome-specific MDE is computed"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "claim_boundary": "audited whole-component/group rows; inference not yet applied",
+  "endpoint_ids": [
+    "positive_control|B|L3H1",
+    "smoke|candidate|A|L0H0",
+    "smoke|candidate|A|L5MLP",
+    "smoke|candidate|B|L3H1",
+    "smoke|candidate|B|L3MLP",
+    "smoke|control|A|L0H1",
+    "smoke|control|A|L4MLP",
+    "smoke|control|B|L2MLP",
+    "smoke|control|B|L3H2",
+    "smoke|group|A|mixed",
+    "smoke|group|B|mixed"
+  ],
+  "n_endpoints": 11,
+  "n_health_packets": 4,
+  "n_health_rows": 44,
+  "n_pairs": 6487,
+  "n_target_packets": 4,
+  "n_target_rows": 42,
+  "schema": "head_context_atlas.mechanism_validation_merge/1",
+  "smoke": true,
+  "status": "SMOKE",
+  "validation_audit_sha256": "ea46cbe2b34e92d70e41d09b8d9ab807620aaae06ad839875631b9330d23a918",
+  "validation_loaded": false
+}

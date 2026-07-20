@@ -33,6 +33,7 @@ Attribution is a ranking tool; intervention decides. See [the methodology](docs/
 - `docs/` — the transferable research method, evidence rules, transfer guide, and roadmap.
 - `studies/splicebert/` — concise entry point to the SpliceBERT worked example.
 - `studies/splicebert_partner_selection/` — detailed claim, decision, preregistration, and retraction record retained for provenance.
+- `studies/splicebert_segment_attribution/` — exploratory joint-mask attribution-graph instrument and interpretation boundaries.
 - `scripts/splicebert/` — active experiment, audit, and figure scripts.
 - `src/gfmcd/adapters/` — model access and hook interfaces.
 - `src/gfmcd/circuits/` — reusable circuit-analysis primitives.

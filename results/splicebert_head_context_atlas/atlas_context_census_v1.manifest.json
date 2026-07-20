@@ -1,0 +1,52 @@
+{
+  "command": [
+    "python",
+    "scripts/splicebert_head_context_atlas/build_atlas_context_census.py",
+    "--out",
+    "results/splicebert_head_context_atlas/atlas_context_census_v1.json",
+    "--packets",
+    "results/splicebert_head_context_atlas/atlas_context_packets_v1.jsonl"
+  ],
+  "config": {
+    "max_offset": 300,
+    "max_span": 824,
+    "min_context": 100,
+    "min_offset": 100,
+    "transcript_types": [
+      "protein_coding"
+    ],
+    "window_length": 1024
+  },
+  "created_at_utc": "2026-07-19T14:45:17.866221+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 23886,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "head_context_atlas_context_census_v1",
+  "git_commit": "5971f720587eba7c1339bc7395c9ce6cb7cf029f",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+      "sha256": "83fba3e9b03f0b8c958f3595c6c350adc55f468abf8b0e47b6d5284cfe13a453",
+      "size_bytes": 124527720
+    }
+  ],
+  "notes": [],
+  "outputs": [
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_context_packets_v1.jsonl",
+      "sha256": "31d8f118a46dccbc72258f94a8865e05d1654ae75d68273f6083ce0aa1a1993d",
+      "size_bytes": 209745238
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_context_census_v1.json",
+      "sha256": "5048ecd13957b4d2c479071fccdd0befa1a7b93c1cef055945e34107e83a8dab",
+      "size_bytes": 53914
+    }
+  ],
+  "seeds": {},
+  "status": "ANNOTATION_ONLY_NO_MODEL_NO_SEQUENCE"
+}

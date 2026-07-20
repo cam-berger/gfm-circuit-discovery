@@ -1,0 +1,430 @@
+{
+  "candidates": [
+    {
+      "candidate_id": "general|A|L2H15",
+      "component_id": "L2H15",
+      "component_type": "attention_head",
+      "discovery": {
+        "acceptor_mean": 0.4931505500770255,
+        "donor_mean": 0.8251217290471105,
+        "score_bound_excess": 0.4214344354257889
+      },
+      "estimand": "A",
+      "importance_control": {
+        "absolute_match_gap": 0.4409283911306186,
+        "candidate_abs_importance": 0.659136139562068,
+        "component_id": "L2H5",
+        "component_type": "attention_head",
+        "control_abs_importance": 0.21820774843144936,
+        "same_layer": true,
+        "tie_break": "sha256(importance-control|candidate|control)"
+      },
+      "interventions": {
+        "all_component_source_bridge_tolerance": 0.001,
+        "downstream": "prespecified downstream MLP write recovery plus importance-matched write control",
+        "exact_group": "zero_component_output",
+        "qk_v": {
+          "conditions": [
+            "QK",
+            "V",
+            "QKV"
+          ],
+          "interpretation": "matched_control_state_interchange; not a decomposition of zero-output A",
+          "source": "matched_control_packet"
+        },
+        "source_identity_tolerance": 0.0001,
+        "tau_nats": 0.05,
+        "whole_component": "zero_component_output"
+      },
+      "kind": "general",
+      "profile": "cross_role_general_support",
+      "representative": {
+        "acceptor": {
+          "chrom": "chr20",
+          "distance_to_target_mean": 2.511138683997105e-05,
+          "effect": 0.49312543869018555,
+          "gene_id": "ENSG00000101017.17",
+          "matched_negative_context_packet_id": "chr21:+:d43800614:a43800868:ENSG00000160214.15:target_acceptor",
+          "matched_pair_id": "multiple_independent_pairs:acceptor:00554",
+          "packet_id": "chr20:+:d46122358:a46122615:ENSG00000101017.17:target_acceptor",
+          "selection": "case packet closest to role mean; lowest match-distance edge; stable hash ties",
+          "sequence_id": "chr20:+:d46122358:a46122615:ENSG00000101017.17",
+          "tags": [
+            "acceptor_cluster",
+            "alternative_acceptor",
+            "annotated_junction",
+            "annotated_site",
+            "complex_event",
+            "multi_site",
+            "multiple_independent_pairs",
+            "mutually_exclusive_exon",
+            "target_acceptor"
+          ],
+          "target_mean": 0.4931505500770255,
+          "target_role": "acceptor"
+        },
+        "donor": {
+          "chrom": "chr6",
+          "distance_to_target_mean": 0.0007659510066004849,
+          "effect": 0.8258876800537109,
+          "gene_id": "ENSG00000112514.20",
+          "matched_negative_context_packet_id": "chrX:-:d153869801:a153869662:ENSG00000198910.16:target_donor",
+          "matched_pair_id": "donor_cluster:donor:00539",
+          "packet_id": "chr6:-:d33417095:a33416968:ENSG00000112514.20:target_donor",
+          "selection": "case packet closest to role mean; lowest match-distance edge; stable hash ties",
+          "sequence_id": "chr6:-:d33417095:a33416968:ENSG00000112514.20",
+          "tags": [
+            "acceptor_cluster",
+            "alternative_acceptor",
+            "alternative_donor",
+            "annotated_junction",
+            "annotated_site",
+            "cassette_exon",
+            "complex_event",
+            "donor_cluster",
+            "multi_site",
+            "multiple_independent_pairs",
+            "mutually_exclusive_exon",
+            "target_donor"
+          ],
+          "target_mean": 0.8251217290471105,
+          "target_role": "donor"
+        }
+      }
+    },
+    {
+      "candidate_id": "general|A|L3H1",
+      "component_id": "L3H1",
+      "component_type": "attention_head",
+      "discovery": {
+        "acceptor_mean": 0.30776185268198686,
+        "donor_mean": 0.3956589470342711,
+        "score_bound_excess": 0.2397265973159784
+      },
+      "estimand": "A",
+      "importance_control": {
+        "absolute_match_gap": 0.2661375247792117,
+        "candidate_abs_importance": 0.351710399858129,
+        "component_id": "L3H2",
+        "component_type": "attention_head",
+        "control_abs_importance": 0.08557287507891728,
+        "same_layer": true,
+        "tie_break": "sha256(importance-control|candidate|control)"
+      },
+      "interventions": {
+        "all_component_source_bridge_tolerance": 0.001,
+        "downstream": "prespecified downstream MLP write recovery plus importance-matched write control",
+        "exact_group": "zero_component_output",
+        "qk_v": {
+          "conditions": [
+            "QK",
+            "V",
+            "QKV"
+          ],
+          "interpretation": "matched_control_state_interchange; not a decomposition of zero-output A",
+          "source": "matched_control_packet"
+        },
+        "source_identity_tolerance": 0.0001,
+        "tau_nats": 0.05,
+        "whole_component": "zero_component_output"
+      },
+      "kind": "general",
+      "profile": "cross_role_general_support",
+      "representative": {
+        "acceptor": {
+          "chrom": "chr3",
+          "distance_to_target_mean": 0.0005868030186967355,
+          "effect": 0.3083486557006836,
+          "gene_id": "ENSG00000114790.15",
+          "matched_negative_context_packet_id": "chr3:+:d51645763:a51646284:ENSG00000164080.16:target_acceptor",
+          "matched_pair_id": "complex_event:acceptor:00016",
+          "packet_id": "chr3:+:d154254824:a154255330:ENSG00000114790.15:target_acceptor",
+          "selection": "case packet closest to role mean; lowest match-distance edge; stable hash ties",
+          "sequence_id": "chr3:+:d154254824:a154255330:ENSG00000114790.15",
+          "tags": [
+            "annotated_junction",
+            "annotated_site",
+            "complex_event",
+            "junction_one_to_one",
+            "mutually_exclusive_exon",
+            "single_pair",
+            "target_acceptor"
+          ],
+          "target_mean": 0.30776185268198686,
+          "target_role": "acceptor"
+        },
+        "donor": {
+          "chrom": "chr17",
+          "distance_to_target_mean": 0.00037720103701793795,
+          "effect": 0.39603614807128906,
+          "gene_id": "ENSG00000167434.12",
+          "matched_negative_context_packet_id": "chr17:+:d28858207:a28858397:ENSG00000132591.14:target_donor",
+          "matched_pair_id": "cassette_exon:donor:00535",
+          "packet_id": "chr17:+:d60156715:a60156905:ENSG00000167434.12:target_donor",
+          "selection": "case packet closest to role mean; lowest match-distance edge; stable hash ties",
+          "sequence_id": "chr17:+:d60156715:a60156905:ENSG00000167434.12",
+          "tags": [
+            "acceptor_cluster",
+            "alternative_acceptor",
+            "annotated_junction",
+            "annotated_site",
+            "cassette_exon",
+            "complex_event",
+            "multi_site",
+            "multiple_independent_pairs",
+            "target_donor"
+          ],
+          "target_mean": 0.3956589470342711,
+          "target_role": "donor"
+        }
+      }
+    },
+    {
+      "candidate_id": "general|A|L1H12",
+      "component_id": "L1H12",
+      "component_type": "attention_head",
+      "discovery": {
+        "acceptor_mean": 0.2942075610998393,
+        "donor_mean": 0.5743229850038455,
+        "score_bound_excess": 0.22772287762503512
+      },
+      "estimand": "A",
+      "importance_control": {
+        "absolute_match_gap": 0.32808180719893976,
+        "candidate_abs_importance": 0.43426527305184237,
+        "component_id": "L1H10",
+        "component_type": "attention_head",
+        "control_abs_importance": 0.10618346585290264,
+        "same_layer": true,
+        "tie_break": "sha256(importance-control|candidate|control)"
+      },
+      "interventions": {
+        "all_component_source_bridge_tolerance": 0.001,
+        "downstream": "prespecified downstream MLP write recovery plus importance-matched write control",
+        "exact_group": "zero_component_output",
+        "qk_v": {
+          "conditions": [
+            "QK",
+            "V",
+            "QKV"
+          ],
+          "interpretation": "matched_control_state_interchange; not a decomposition of zero-output A",
+          "source": "matched_control_packet"
+        },
+        "source_identity_tolerance": 0.0001,
+        "tau_nats": 0.05,
+        "whole_component": "zero_component_output"
+      },
+      "kind": "general",
+      "profile": "cross_role_general_support",
+      "representative": {
+        "acceptor": {
+          "chrom": "chr17",
+          "distance_to_target_mean": 0.00011898270814408862,
+          "effect": 0.2943265438079834,
+          "gene_id": "ENSG00000141504.14",
+          "matched_negative_context_packet_id": "chr14:-:d24441678:a24440925:ENSG00000100445.20:target_acceptor",
+          "matched_pair_id": "acceptor_cluster:acceptor:00517",
+          "packet_id": "chr17:-:d7627551:a7626792:ENSG00000141504.14:target_acceptor",
+          "selection": "case packet closest to role mean; lowest match-distance edge; stable hash ties",
+          "sequence_id": "chr17:-:d7627551:a7626792:ENSG00000141504.14",
+          "tags": [
+            "acceptor_cluster",
+            "alternative_acceptor",
+            "alternative_donor",
+            "annotated_junction",
+            "annotated_site",
+            "cassette_exon",
+            "complex_event",
+            "donor_cluster",
+            "multi_site",
+            "multiple_independent_pairs",
+            "target_acceptor"
+          ],
+          "target_mean": 0.2942075610998393,
+          "target_role": "acceptor"
+        },
+        "donor": {
+          "chrom": "chr17",
+          "distance_to_target_mean": 1.2113262756074938e-05,
+          "effect": 0.5743350982666016,
+          "gene_id": "ENSG00000013306.18",
+          "matched_negative_context_packet_id": "chr17:-:d82444445:a82443773:ENSG00000178927.21:target_donor",
+          "matched_pair_id": "multiple_independent_pairs:donor:00414",
+          "packet_id": "chr17:-:d44322417:a44321751:ENSG00000013306.18:target_donor",
+          "selection": "case packet closest to role mean; lowest match-distance edge; stable hash ties",
+          "sequence_id": "chr17:-:d44322417:a44321751:ENSG00000013306.18",
+          "tags": [
+            "acceptor_cluster",
+            "alternative_acceptor",
+            "annotated_junction",
+            "annotated_site",
+            "complex_event",
+            "multi_site",
+            "multiple_independent_pairs",
+            "mutually_exclusive_exon",
+            "target_donor"
+          ],
+          "target_mean": 0.5743229850038455,
+          "target_role": "donor"
+        }
+      }
+    },
+    {
+      "candidate_id": "general|B|L2MLP",
+      "component_id": "L2MLP",
+      "component_type": "mlp_write",
+      "discovery": {
+        "acceptor_mean": 0.28943972235933046,
+        "donor_mean": 0.27435628923138167,
+        "score_bound_excess": 0.2065977912583054
+      },
+      "estimand": "B",
+      "importance_control": {
+        "absolute_match_gap": 0.03143157569165034,
+        "candidate_abs_importance": 0.28189800579535607,
+        "component_id": "L3MLP",
+        "component_type": "mlp_write",
+        "control_abs_importance": 0.25046643010370573,
+        "same_layer": false,
+        "tie_break": "sha256(importance-control|candidate|control)"
+      },
+      "interventions": {
+        "all_component_source_bridge_tolerance": 0.001,
+        "exact_group": "partner_destroyed_same_packet",
+        "mlp_path": {
+          "control": "importance-matched MLP/head group",
+          "downstream": "write-level clamps only",
+          "upstream": "frozen shortlisted attention group"
+        },
+        "source_identity_tolerance": 0.0001,
+        "tau_nats": 0.05,
+        "whole_component": "partner_destroyed_same_packet"
+      },
+      "kind": "general",
+      "profile": "cross_role_general_support",
+      "representative": {
+        "acceptor": {
+          "chrom": "chr12",
+          "distance_to_target_mean": 0.0002626931069781291,
+          "effect": 0.2897024154663086,
+          "gene_id": "ENSG00000168778.15",
+          "matched_negative_context_packet_id": "chr1:+:d155175647:a155175887:ENSG00000163462.20:target_acceptor",
+          "matched_pair_id": "acceptor_cluster:acceptor:00025",
+          "packet_id": "chr12:+:d123694976:a123695219:ENSG00000168778.15:target_acceptor",
+          "selection": "case packet closest to role mean; lowest match-distance edge; stable hash ties",
+          "sequence_id": "chr12:+:d123694976:a123695219:ENSG00000168778.15",
+          "tags": [
+            "acceptor_cluster",
+            "alternative_acceptor",
+            "alternative_donor",
+            "annotated_junction",
+            "annotated_site",
+            "cassette_exon",
+            "complex_event",
+            "donor_cluster",
+            "single_pair",
+            "target_acceptor"
+          ],
+          "target_mean": 0.28943972235933046,
+          "target_role": "acceptor"
+        },
+        "donor": {
+          "chrom": "chrX",
+          "distance_to_target_mean": 0.0011953547831394795,
+          "effect": 0.2731609344482422,
+          "gene_id": "ENSG00000094631.24",
+          "matched_negative_context_packet_id": "chr1:+:d1629311:a1629384:ENSG00000197530.15:target_donor",
+          "matched_pair_id": "donor_cluster:donor:00146",
+          "packet_id": "chrX:+:d48802785:a48802870:ENSG00000094631.24:target_donor",
+          "selection": "case packet closest to role mean; lowest match-distance edge; stable hash ties",
+          "sequence_id": "chrX:+:d48802785:a48802870:ENSG00000094631.24",
+          "tags": [
+            "acceptor_cluster",
+            "alternative_acceptor",
+            "alternative_donor",
+            "annotated_junction",
+            "annotated_site",
+            "cassette_exon",
+            "complex_event",
+            "donor_cluster",
+            "multi_site",
+            "multiple_independent_pairs",
+            "mutually_exclusive_exon",
+            "target_donor"
+          ],
+          "target_mean": 0.27435628923138167,
+          "target_role": "donor"
+        }
+      }
+    }
+  ],
+  "claim_boundary": "candidate-specific intervention package; no validation outcome or mechanism claim",
+  "documents": {
+    "analysis_amendment": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_head_context_atlas/ANALYSIS_AMENDMENT_A1.md",
+      "sha256": "00008afa6747b67a263385f81e2778e5ab235c732460161145dd0e0000e5768b"
+    },
+    "analysis_plan": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_head_context_atlas/ANALYSIS_PLAN_V1.md",
+      "sha256": "21e696e360c259c9a1f7ecd6b09c5447fc5f63b3f1d5251497744f7ce69de5ef"
+    },
+    "mechanism_amendment": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_head_context_atlas/MECHANISM_VALIDATION_AMENDMENT_A1.md",
+      "sha256": "9c60a92c49d479830e2fecc95798dad397fd9d388f8fac364790fd2cf380967c"
+    },
+    "mechanism_amendment_a2": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_head_context_atlas/MECHANISM_VALIDATION_AMENDMENT_A2.md",
+      "sha256": "cf118b6169a36681fcfff8ffcfdc36c0291b5dc50f935bd244023ef1ed29ddfa"
+    },
+    "mechanism_plan": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_head_context_atlas/MECHANISM_VALIDATION_PLAN_V1.md",
+      "sha256": "02f3770d65d4f5a76737c1f83916a2be42d453f53b8055d9a984e1426c56c04a"
+    }
+  },
+  "exact_groups": {
+    "general|A": [
+      "L2H15",
+      "L3H1",
+      "L1H12"
+    ],
+    "general|B": [
+      "L2MLP"
+    ]
+  },
+  "input_hashes": {
+    "analysis_amendment": "00008afa6747b67a263385f81e2778e5ab235c732460161145dd0e0000e5768b",
+    "analysis_audit": "c12a9f33960f9b2270176c2c32f8495ec5c6856ef358b23c6ab757da5a17ed2e",
+    "analysis_plan": "21e696e360c259c9a1f7ecd6b09c5447fc5f63b3f1d5251497744f7ce69de5ef",
+    "analysis_summary": "01e6cee03e886f9e6ea840c3e0dee91b8856305f25811afe0d24a312214c1b76",
+    "context": "5ab7a2e659ae689780c5ddd1ef13c0e121b82d1c87322a920bb58d6aba8ca983",
+    "mechanism_amendment": "9c60a92c49d479830e2fecc95798dad397fd9d388f8fac364790fd2cf380967c",
+    "mechanism_amendment_a2": "cf118b6169a36681fcfff8ffcfdc36c0291b5dc50f935bd244023ef1ed29ddfa",
+    "mechanism_plan": "02f3770d65d4f5a76737c1f83916a2be42d453f53b8055d9a984e1426c56c04a",
+    "pairs": "4e23df3e20bf7003bfd8fb9e712819bf28e6c85e79c670b6bcb51547c273b78d",
+    "profiles": "dbca610473947913aebb7fe42f12cc94c33d2e8d2f89549bf8579d42063da58f",
+    "shortlist": "39d17a10ccde77af7b34ae854f0b107fb40acb4c6a5be10087af6363f7907b2a",
+    "target": "fdba5e21fab1338a5050ba3f31b66183aa2db2522757161b0bb739ee0202a39b"
+  },
+  "n_candidates": 4,
+  "positive_control": {
+    "component_id": "L3H1",
+    "estimand": "B",
+    "scope": "donor partner-coupling; independent of shortlist and does not consume a slot"
+  },
+  "schema": "head_context_atlas.mechanism_package/1",
+  "sealed_validation_references_not_opened": {
+    "packets": "results/splicebert_head_context_atlas/atlas_context_matched_v7.validation.packets.jsonl",
+    "pairs": "results/splicebert_head_context_atlas/atlas_context_matched_v7.validation.pairs.jsonl",
+    "sequences": "results/splicebert_head_context_atlas/atlas_context_matched_v7.validation.sequences.jsonl"
+  },
+  "status": "FROZEN_BEFORE_VALIDATION_ACCESS",
+  "validation_inference": {
+    "context_se": "inverse-reuse weighted unique-dyad two-endpoint gene sandwich",
+    "general_se": "one-way gene-clustered sandwich; roles separate",
+    "mechanism_family": "max-|t| simultaneous family within each validated endpoint",
+    "tau_nats": 0.05,
+    "whole_component_family": "Holm-FWER alpha=0.05 across every frozen atlas endpoint"
+  },
+  "validation_loaded": false
+}
