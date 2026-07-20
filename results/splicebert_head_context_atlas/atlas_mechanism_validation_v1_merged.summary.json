@@ -1,0 +1,27 @@
+{
+  "claim_boundary": "audited whole-component/group rows; inference not yet applied",
+  "endpoint_ids": [
+    "candidate|general|A|L1H12",
+    "candidate|general|A|L2H15",
+    "candidate|general|A|L3H1",
+    "candidate|general|B|L2MLP",
+    "exact_group|general|A",
+    "exact_group|general|B",
+    "importance_control|general|A|L1H12",
+    "importance_control|general|A|L2H15",
+    "importance_control|general|A|L3H1",
+    "importance_control|general|B|L2MLP",
+    "positive_control|B|L3H1"
+  ],
+  "n_endpoints": 11,
+  "n_health_packets": 256,
+  "n_health_rows": 2816,
+  "n_pairs": 2247,
+  "n_target_packets": 4019,
+  "n_target_rows": 42203,
+  "schema": "head_context_atlas.mechanism_validation_merge/1",
+  "smoke": false,
+  "status": "VALIDATION_MERGED",
+  "validation_audit_sha256": "f6a9b5f01abf340eaec68b3aa0f2c1434c7d783890e179e5f588ecc17e222bad",
+  "validation_loaded": true
+}

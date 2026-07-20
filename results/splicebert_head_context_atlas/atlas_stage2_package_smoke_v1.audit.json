@@ -1,0 +1,11 @@
+{
+  "claim_boundary": "conditional mechanism package audit; no stage-two outcome or label",
+  "failures": [],
+  "n_candidates": 0,
+  "n_failures": 0,
+  "package_sha256": "18c80ad729bd0dc2780a9bba15eb7163ef2caa6d1d1682a9ca21d96f45c0efc1",
+  "schema": "head_context_atlas.stage2_mechanism_package_audit/1",
+  "stage2_outcomes_loaded": false,
+  "status": "PASS",
+  "whole_validation_loaded": false
+}

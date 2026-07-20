@@ -1,0 +1,62 @@
+{
+  "relations": [
+    {
+      "advance_to_qk_v_path": false,
+      "candidate_id": "smoke|A|L0H0",
+      "claim_boundary": "whole causal relation only; mechanism unresolved",
+      "component_id": "L0H0",
+      "contrast": null,
+      "endpoint_classifications": {
+        "acceptor": "inconclusive",
+        "donor": "inconclusive"
+      },
+      "estimand": "A",
+      "kind": "general",
+      "validation_status": "NOT_VALIDATED_INCONCLUSIVE"
+    },
+    {
+      "advance_to_qk_v_path": false,
+      "candidate_id": "smoke|A|L5MLP",
+      "claim_boundary": "whole causal relation only; mechanism unresolved",
+      "component_id": "L5MLP",
+      "contrast": null,
+      "endpoint_classifications": {
+        "acceptor": "inconclusive",
+        "donor": "material_support"
+      },
+      "estimand": "A",
+      "kind": "general",
+      "validation_status": "NOT_VALIDATED_INCONCLUSIVE"
+    },
+    {
+      "advance_to_qk_v_path": false,
+      "candidate_id": "smoke|B|L3H1",
+      "claim_boundary": "whole causal relation only; mechanism unresolved",
+      "component_id": "L3H1",
+      "contrast": null,
+      "endpoint_classifications": {
+        "acceptor": "inconclusive",
+        "donor": "material_support"
+      },
+      "estimand": "B",
+      "kind": "general",
+      "validation_status": "NOT_VALIDATED_INCONCLUSIVE"
+    },
+    {
+      "advance_to_qk_v_path": false,
+      "candidate_id": "smoke|B|L3MLP",
+      "claim_boundary": "whole causal relation only; mechanism unresolved",
+      "component_id": "L3MLP",
+      "contrast": null,
+      "endpoint_classifications": {
+        "acceptor": "inconclusive",
+        "donor": "material_support"
+      },
+      "estimand": "B",
+      "kind": "general",
+      "validation_status": "NOT_VALIDATED_INCONCLUSIVE"
+    }
+  ],
+  "schema": "head_context_atlas.mechanism_validation_candidates/1",
+  "status": "SMOKE"
+}

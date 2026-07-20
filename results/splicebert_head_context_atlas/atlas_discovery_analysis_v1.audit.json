@@ -1,0 +1,18 @@
+{
+  "analysis_amendment_sha256": "00008afa6747b67a263385f81e2778e5ab235c732460161145dd0e0000e5768b",
+  "analysis_manifest_sha256": "e0636825c569c078f04b46b942837c6564c254b0bce1773a25a69913535efae9",
+  "analysis_plan_sha256": "21e696e360c259c9a1f7ecd6b09c5447fc5f63b3f1d5251497744f7ce69de5ef",
+  "analysis_status": "DISCOVERY_COMPLETE",
+  "claim_boundary": "independent analysis mechanics audit; not biological validation",
+  "failures": [],
+  "n_components": 102,
+  "n_context_rows": 2040,
+  "n_contrasts": 10,
+  "n_failures": 0,
+  "n_general_rows": 408,
+  "n_health_packets": 512,
+  "n_packets": 11807,
+  "n_pairs": 6487,
+  "schema": "head_context_atlas.discovery_analysis_audit/1",
+  "status": "PASS"
+}

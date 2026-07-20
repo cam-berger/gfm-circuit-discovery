@@ -1,0 +1,37 @@
+{
+  "experiment_id": "head_context_atlas_valid_donor_reanalysis_v1",
+  "status": "EXPLORATORY_DERIVED_COORDINATE_VALID_SUBSET",
+  "command": [
+    "PYTHONHASHSEED=0",
+    "python",
+    "scripts/splicebert_head_context_atlas/reanalyze_valid_donor_rows.py",
+    "--matrix",
+    "/Users/cberg/Downloads/head_effect_matrix.jsonl",
+    "--out",
+    "results/splicebert_head_context_atlas/head_effect_donor_valid_reanalysis_v1.json"
+  ],
+  "inputs": [
+    {
+      "path": "/Users/cberg/Downloads/head_effect_matrix.jsonl",
+      "sha256": "bd9cf584f4fa623f9306cd409e9f01a2d2e65fbd8bbfbd2bc7e0da371c11725b",
+      "size_bytes": 1541433172
+    },
+    {
+      "path": "scripts/splicebert_head_context_atlas/reanalyze_valid_donor_rows.py",
+      "sha256": "1991aabb7fc9a781f6bee59cebd780df8e2b2c276477c6bc10d6108f1e53d4be",
+      "size_bytes": 6998
+    }
+  ],
+  "outputs": [
+    {
+      "path": "results/splicebert_head_context_atlas/head_effect_donor_valid_reanalysis_v1.json",
+      "sha256": "446ddb55aa9e068ce7a6cad8a42051bd51f0c68a51e01132a8ae57f9cc36181b",
+      "size_bytes": 128974
+    }
+  ],
+  "notes": [
+    "Source head screen excluded chr8/9; this derived analysis additionally excludes chr11/16/19.",
+    "Only alt5ss_donor rows are coordinate-valid in the historical screen.",
+    "No model forward pass and no sealed-data read occurred."
+  ]
+}

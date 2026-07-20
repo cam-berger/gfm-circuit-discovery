@@ -1,0 +1,30 @@
+{
+  "claim_boundary": "independent structural/numerical audit; no mechanism claim",
+  "failures": [],
+  "n_failures": 0,
+  "package_sha256": "91567495e0c852ff0357d86b7d05bc98d773e76fb89ce5e233db2fc75462e0da",
+  "phase_reports": {
+    "health": {
+      "max_alias_abs_error": 0.0,
+      "max_reference_abs_error": 0.0,
+      "n_endpoint_rows": 44,
+      "n_endpoints": 11,
+      "n_packets": 4,
+      "n_unique_computations": 10,
+      "status": "HEALTH_PASS"
+    },
+    "target": {
+      "max_alias_abs_error": 0.0,
+      "max_reference_abs_error": 0.0,
+      "n_endpoint_rows": 42,
+      "n_endpoints": 11,
+      "n_packets": 4,
+      "n_unique_computations": 10,
+      "status": "TARGET_COMPLETE"
+    }
+  },
+  "schema": "head_context_atlas.mechanism_validation_audit/1",
+  "smoke": true,
+  "status": "PASS",
+  "validation_loaded": false
+}

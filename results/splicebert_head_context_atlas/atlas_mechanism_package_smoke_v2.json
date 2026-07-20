@@ -1,0 +1,52 @@
+{
+  "candidates": [],
+  "claim_boundary": "candidate-specific intervention package; no validation outcome or mechanism claim",
+  "documents": {
+    "analysis_amendment": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_head_context_atlas/ANALYSIS_AMENDMENT_A1.md",
+      "sha256": "00008afa6747b67a263385f81e2778e5ab235c732460161145dd0e0000e5768b"
+    },
+    "analysis_plan": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_head_context_atlas/ANALYSIS_PLAN_V1.md",
+      "sha256": "21e696e360c259c9a1f7ecd6b09c5447fc5f63b3f1d5251497744f7ce69de5ef"
+    },
+    "mechanism_plan": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_head_context_atlas/MECHANISM_VALIDATION_PLAN_V1.md",
+      "sha256": "240f251d0c6883034da344bc927fabbfa7adb746203a673c51f456465d3f9cce"
+    }
+  },
+  "exact_groups": {},
+  "input_hashes": {
+    "analysis_amendment": "00008afa6747b67a263385f81e2778e5ab235c732460161145dd0e0000e5768b",
+    "analysis_audit": "e33bca7b47e34347fdb39e0f41b3c309886802dc56704ce238c9722a26f88b0b",
+    "analysis_plan": "21e696e360c259c9a1f7ecd6b09c5447fc5f63b3f1d5251497744f7ce69de5ef",
+    "analysis_summary": "5643ce83087f253d4f1aaa4fc542bb41861e4a0c1420a99c8e23ef95dbf96247",
+    "context": "9e80bcfc220ed8f327ee054631ecba43d38cd2c0630357d86a4f65bf3b9cbcca",
+    "mechanism_plan": "240f251d0c6883034da344bc927fabbfa7adb746203a673c51f456465d3f9cce",
+    "pairs": "96daaa98c22d168e386f5f6a0bd3a78d40860e3c4c5e20bac530af133c65c554",
+    "profiles": "4899b745a53566dacbff771256447932f03f45bd551f8303e797d08e978f3d29",
+    "shortlist": "73a1e6c27de78cab702557c52f216e3c6d4963382fd745cc88cc614c978766ba",
+    "target": "05eda43cc6909e5b3d4368049395dcdd440e6dc23fb483ae71456b601a7b820d"
+  },
+  "n_candidates": 0,
+  "positive_control": {
+    "component_id": "L3H1",
+    "estimand": "B",
+    "scope": "donor partner-coupling; independent of shortlist and does not consume a slot"
+  },
+  "schema": "head_context_atlas.mechanism_package/1",
+  "sealed_validation_references_not_opened": {
+    "packets": "results/splicebert_head_context_atlas/atlas_context_matched_v7.validation.packets.jsonl",
+    "pairs": "results/splicebert_head_context_atlas/atlas_context_matched_v7.validation.pairs.jsonl",
+    "sequences": "results/splicebert_head_context_atlas/atlas_context_matched_v7.validation.sequences.jsonl"
+  },
+  "status": "SMOKE_NO_CANDIDATES",
+  "validation_inference": {
+    "context_se": "inverse-reuse weighted unique-dyad two-endpoint gene sandwich",
+    "general_se": "one-way gene-clustered sandwich; roles separate",
+    "mechanism_family": "max-|t| simultaneous family within each validated endpoint",
+    "tau_nats": 0.05,
+    "whole_component_family": "Holm-FWER alpha=0.05 across every frozen atlas endpoint"
+  },
+  "validation_loaded": false
+}

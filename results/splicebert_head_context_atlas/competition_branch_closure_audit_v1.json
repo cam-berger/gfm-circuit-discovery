@@ -1,0 +1,135 @@
+{
+  "schema": "head_context_atlas.competition_branch_closure_audit/1",
+  "status": "PASS",
+  "audited_at": "2026-07-19",
+  "scope": "Historical alternative-site/competition branch only. This audit closes its exploratory record and does not license a competition-specific mechanism, sealed confirmation, or Atlas candidate.",
+  "requirements": {
+    "raw_provenance_and_split": {
+      "status": "PASS",
+      "source_matrix": "/Users/cberg/Downloads/head_effect_matrix.jsonl",
+      "source_matrix_size_bytes": 1541433172,
+      "source_matrix_sha256": "bd9cf584f4fa623f9306cd409e9f01a2d2e65fbd8bbfbd2bc7e0da371c11725b",
+      "screen_examples": 10598,
+      "screen_rows": 4069632,
+      "observed_split": "train plus chr11/chr16/chr19 validation chromosomes",
+      "validation_rows": 1067904,
+      "validation_row_fraction": 0.26,
+      "untouched_confirmation_chromosomes": [
+        "chr8",
+        "chr9"
+      ],
+      "evidence": [
+        "studies/splicebert_head_context_atlas/AMENDMENT_HEAD_SCREEN.md",
+        "studies/splicebert_head_context_atlas/RESULTS.md",
+        "results/splicebert_head_context_atlas/head_effect_donor_valid_reanalysis_v1.manifest.json"
+      ]
+    },
+    "coordinate_defect_disposition": {
+      "status": "PASS",
+      "valid_scope": "alt5ss_donor only",
+      "withdrawn_scope": [
+        "all historical acceptor-side head effects",
+        "all donor-versus-acceptor head comparisons",
+        "all pooled donor-plus-acceptor head profiles",
+        "the reciprocal acceptor-side null"
+      ],
+      "future_coordinate_contract": "target_base_position(w) with direct donor/acceptor regression coverage",
+      "evidence": [
+        "studies/splicebert_head_context_atlas/AMENDMENT_HEAD_SCREEN.md#6-acceptor-target-coordinate-defect-second-audit-2026-07-19",
+        "studies/splicebert_head_context_atlas/CLAIMS.md",
+        "tests/test_head_context_screen.py"
+      ]
+    },
+    "corrected_signed_and_magnitude_reanalysis": {
+      "status": "PASS",
+      "artifact": "results/splicebert_head_context_atlas/head_effect_donor_valid_reanalysis_v1.json",
+      "artifact_sha256": "446ddb55aa9e068ce7a6cad8a42051bd51f0c68a51e01132a8ae57f9cc36181b",
+      "independent_rerun_byte_identical": true,
+      "n_examples": 3549,
+      "n_genes": 2244,
+      "n_rows_BCD": 1022112,
+      "estimands": {
+        "B": "gene-clustered signed mean",
+        "C_and_D": "gene-clustered magnitude mean E[abs(effect)]",
+        "C_minus_D": "paired gene-clustered E[abs(C_h)-abs(D_h)]"
+      },
+      "key_results": {
+        "L3H1_B_signed_mean": 0.11387793194896592,
+        "L3H1_B_ci95": [
+          0.09787095156368301,
+          0.12988491233424881
+        ],
+        "corr_C_D_signed": 0.8038384465829489,
+        "corr_C_D_magnitude": 0.9417760031265994,
+        "corr_B_C_signed": 0.023138422975891845
+      },
+      "evidence": [
+        "scripts/splicebert_head_context_atlas/reanalyze_valid_donor_rows.py",
+        "results/splicebert_head_context_atlas/head_effect_donor_valid_reanalysis_v1.manifest.json"
+      ]
+    },
+    "exact_joint_head_closure": {
+      "status": "PASS",
+      "artifact": "results/splicebert_head_context_atlas/group_head_rerank_valid_donor_v2.json",
+      "artifact_sha256": "a9eda1606444cca6320ec15a33245dcbf24325e0c17789d13675aefa4c5310b1",
+      "n_examples": 400,
+      "n_genes": 400,
+      "source_to_source_all_heads_max_abs_error": 0.0,
+      "posthoc_top_three": [
+        "L4H12",
+        "L3H1",
+        "L0H4"
+      ],
+      "top_three_C_minus_D_magnitude": {
+        "mean": 0.017605016529560088,
+        "ci95": [
+          0.0016293249214068056,
+          0.03740309175476432
+        ]
+      },
+      "all_96_C_minus_D_magnitude": {
+        "mean": 0.01907394327223301,
+        "ci95": [
+          -0.024403997963294385,
+          0.06686752532981337
+        ]
+      },
+      "bounded_interpretation": "The top-three result is outcome-aware and hypothesis-generating; every k >= 5 interval includes zero, so no competition-specific head module is licensed."
+    },
+    "exact_MLP_closure": {
+      "status": "PASS",
+      "artifact": "results/splicebert_head_context_atlas/group_mlp_closure_v1.json",
+      "artifact_sha256": "400ac0750bbe7a8a39ab49cabc0785c623defbe55f3ebf17059e8c385e1b4a16",
+      "source_to_source_all_MLPs_max_abs_error": 0.0,
+      "individual_MLP_C_minus_D_intervals_excluding_zero": 0,
+      "all_six_MLP_C_minus_D": {
+        "mean": 0.019332871921360493,
+        "ci95": [
+          -0.022532414259389042,
+          0.06331758750695736
+        ]
+      },
+      "bounded_interpretation": "No individual or all-six MLP competition-specific contrast is established; attention and MLP interventions are overlapping causal cuts and are never added."
+    },
+    "bounded_claims_and_program_alignment": {
+      "status": "PASS",
+      "terminal_claim": "Nearby same-type-site destruction produces a material magnitude response, but a matched non-competitor produces an equal-or-larger response; the branch is instrument-limited for competition-specific attribution.",
+      "competition_role": "one secondary Head-Context Atlas contrast, never the organizing objective",
+      "sealed_confirmation_run": false,
+      "visualizer_export_licensed": false,
+      "evidence": [
+        "studies/splicebert_head_context_atlas/CLAIMS.md#HCA7",
+        "studies/splicebert_head_context_atlas/CLAIMS.md#HCA10",
+        "studies/splicebert_head_context_atlas/RESULTS.md#corrected-interpretation-of-the-96-head-branch",
+        "studies/splicebert_head_context_atlas/return_to_planner.json"
+      ]
+    }
+  },
+  "regression_tests": {
+    "command": "PYTHONHASHSEED=0 pytest -q tests/test_competition.py tests/test_head_context_screen.py",
+    "passed": 17,
+    "failed": 0,
+    "warnings": 2
+  },
+  "final_disposition": "HISTORICAL_BRANCH_CLOSED; MULTI_CONTEXT_ATLAS_CONTINUES"
+}

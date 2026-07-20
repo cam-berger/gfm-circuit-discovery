@@ -1,0 +1,103 @@
+{
+  "analysis_amendment": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_head_context_atlas/ANALYSIS_AMENDMENT_A1.md",
+  "analysis_amendment_sha256": "00008afa6747b67a263385f81e2778e5ab235c732460161145dd0e0000e5768b",
+  "analysis_plan": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_head_context_atlas/ANALYSIS_PLAN_V1.md",
+  "analysis_plan_sha256": "21e696e360c259c9a1f7ecd6b09c5447fc5f63b3f1d5251497744f7ce69de5ef",
+  "claim_boundary": "discovery shortlist for exact mechanism tests; not a validated head-function atlas",
+  "context": {
+    "eligible": [],
+    "max_per_component": 3,
+    "max_per_contrast": 2,
+    "maximum": 8,
+    "minimum_effective_pairs": 80.0,
+    "n_eligible": 0,
+    "selected": []
+  },
+  "general": {
+    "eligible": [],
+    "maximum": 4,
+    "n_eligible": 0,
+    "selected": []
+  },
+  "input_hashes": {
+    "health": "789707378fd0c70476474baa57150202d9ae8eaa307d63f49f97d4b17005b086",
+    "pairs": "96daaa98c22d168e386f5f6a0bd3a78d40860e3c4c5e20bac530af133c65c554",
+    "summary": "13c095ec393b9a333b218da3f820abe9b776836f7b6291a401f72c1107dc9987",
+    "target": "05eda43cc6909e5b3d4368049395dcdd440e6dc23fb483ae71456b601a7b820d"
+  },
+  "positive_control_L3H1_B": {
+    "acceptor": {
+      "broad_MLM_flag": false,
+      "ci95": [
+        -0.07385912299156189,
+        0.2289678430557251
+      ],
+      "classification": "inconclusive",
+      "component_id": "L3H1",
+      "component_type": "attention_head",
+      "estimand": "B",
+      "health_ci95_logprob_damage": [
+        -0.003461078703403473,
+        0.0035271653532981872
+      ],
+      "health_ci95_margin_damage": [
+        -0.005082607269287109,
+        0.0057353973388671875
+      ],
+      "health_mean_logprob_damage": 3.304332494735718e-05,
+      "health_mean_margin_damage": 0.00032639503479003906,
+      "health_n": 2,
+      "health_n_genes": 2,
+      "mde80": 0.21642743666430536,
+      "mean": 0.0775543600320816,
+      "n_genes": 2,
+      "n_packets": 2,
+      "p": 0.3154186980513374,
+      "q_bh_within_estimand": 0.5674292733212152,
+      "se_gene_cluster": 0.07725177705287933,
+      "target_role": "acceptor",
+      "tau": 0.05
+    },
+    "component_id": "L3H1",
+    "component_type": "attention_head",
+    "donor": {
+      "broad_MLM_flag": false,
+      "ci95": [
+        0.2027727508544922,
+        0.6015332794189453
+      ],
+      "classification": "material_support",
+      "component_id": "L3H1",
+      "component_type": "attention_head",
+      "estimand": "B",
+      "health_ci95_logprob_damage": [
+        -0.0007716389000415802,
+        0.006618967242538929
+      ],
+      "health_ci95_margin_damage": [
+        -0.005468453764915466,
+        0.015307474434375763
+      ],
+      "health_mean_logprob_damage": 0.0029236641712486744,
+      "health_mean_margin_damage": 0.004919510334730148,
+      "health_n": 2,
+      "health_n_genes": 2,
+      "mde80": 0.2849902046921138,
+      "mean": 0.40215301513671875,
+      "n_genes": 2,
+      "n_packets": 2,
+      "p": 7.706467638729769e-05,
+      "q_bh_within_estimand": 0.0005614712136788831,
+      "se_gene_cluster": 0.10172462463378906,
+      "target_role": "donor",
+      "tau": 0.05
+    },
+    "estimand": "B",
+    "general_shortlist_eligible": false,
+    "profile": "role_associated",
+    "score_bound_excess": 0.35215301513671876
+  },
+  "schema": "head_context_atlas.discovery_shortlist/1",
+  "status": "SMOKE_NOT_FOR_SELECTION",
+  "tau": 0.05
+}

@@ -1,0 +1,116 @@
+{
+  "gate": "specificity material(+) => competition-specific; else INSTRUMENT-LIMITED (generic perturbation)",
+  "n_genes": 632,
+  "n_lacked_decoy": 425,
+  "n_windows": 300,
+  "report": {
+    "BOTH": {
+      "abs_M_comp": {
+        "ci": [
+          0.0611105588668039,
+          0.12209903348036419
+        ],
+        "class": "material",
+        "mean": 0.08769828692934568,
+        "n": 300,
+        "n_genes": 274,
+        "sd_example": 0.2481490246778199
+      },
+      "abs_M_decoy": {
+        "ci": [
+          0.07247526842547813,
+          0.2119381447774254
+        ],
+        "class": "material",
+        "mean": 0.13499441153463035,
+        "n": 300,
+        "n_genes": 274,
+        "sd_example": 0.5793217049751891
+      },
+      "specificity_absMcomp_minus_absMdecoy": {
+        "ci": [
+          -0.11814541199129294,
+          0.01137229385298482
+        ],
+        "class": "inconclusive",
+        "mean": -0.047296124605284644,
+        "n": 300,
+        "n_genes": 274,
+        "sd_example": 0.5423223321022895
+      }
+    },
+    "alt3ss_acceptor": {
+      "abs_M_comp": {
+        "ci": [
+          0.052260030321007026,
+          0.13795446298219408
+        ],
+        "class": "material",
+        "mean": 0.08715045335740151,
+        "n": 165,
+        "n_genes": 155,
+        "sd_example": 0.2709385988465983
+      },
+      "abs_M_decoy": {
+        "ci": [
+          0.06389567941446947,
+          0.28924071838585436
+        ],
+        "class": "material",
+        "mean": 0.16079325236627953,
+        "n": 165,
+        "n_genes": 155,
+        "sd_example": 0.7070183846387382
+      },
+      "specificity_absMcomp_minus_absMdecoy": {
+        "ci": [
+          -0.19457990721443616,
+          0.013363054074326367
+        ],
+        "class": "inconclusive",
+        "mean": -0.073642799008878,
+        "n": 165,
+        "n_genes": 155,
+        "sd_example": 0.6634701795734784
+      }
+    },
+    "alt5ss_donor": {
+      "abs_M_comp": {
+        "ci": [
+          0.05593052284265753,
+          0.12941293239281143
+        ],
+        "class": "material",
+        "mean": 0.08830837233886052,
+        "n": 135,
+        "n_genes": 131,
+        "sd_example": 0.2180715092455144
+      },
+      "abs_M_decoy": {
+        "ci": [
+          0.054344280929639464,
+          0.17892999822238972
+        ],
+        "class": "material",
+        "mean": 0.10311563950825575,
+        "n": 135,
+        "n_genes": 131,
+        "sd_example": 0.3680137680186099
+      },
+      "specificity_absMcomp_minus_absMdecoy": {
+        "ci": [
+          -0.0834828699942452,
+          0.0377054930501862
+        ],
+        "class": "inconclusive",
+        "mean": -0.014807267169395235,
+        "n": 135,
+        "n_genes": 131,
+        "sd_example": 0.340161390083647
+      }
+    }
+  },
+  "schema": "head_context_atlas.specificity_pilot/1",
+  "sesoi_c": 0.05,
+  "split": "discovery"
+}

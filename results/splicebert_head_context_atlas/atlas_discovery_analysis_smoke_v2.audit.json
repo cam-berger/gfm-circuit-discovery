@@ -1,0 +1,18 @@
+{
+  "analysis_amendment_sha256": "00008afa6747b67a263385f81e2778e5ab235c732460161145dd0e0000e5768b",
+  "analysis_manifest_sha256": "552b9917d0ba0f29f71762dc1dcbc177a93230ec962f8ab616601bcb118c9f96",
+  "analysis_plan_sha256": "21e696e360c259c9a1f7ecd6b09c5447fc5f63b3f1d5251497744f7ce69de5ef",
+  "analysis_status": "SMOKE",
+  "claim_boundary": "independent analysis mechanics audit; not biological validation",
+  "failures": [],
+  "n_components": 102,
+  "n_context_rows": 408,
+  "n_contrasts": 2,
+  "n_failures": 0,
+  "n_general_rows": 408,
+  "n_health_packets": 4,
+  "n_packets": 4,
+  "n_pairs": 2,
+  "schema": "head_context_atlas.discovery_analysis_audit/1",
+  "status": "PASS"
+}

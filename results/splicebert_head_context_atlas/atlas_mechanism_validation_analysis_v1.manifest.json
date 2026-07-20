@@ -1,0 +1,105 @@
+{
+  "command": [
+    "python",
+    "scripts/splicebert_head_context_atlas/analyze_atlas_mechanism_validation.py",
+    "--merged-prefix",
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_v1_merged",
+    "--package",
+    "results/splicebert_head_context_atlas/atlas_mechanism_package_v1.json",
+    "--package-audit",
+    "results/splicebert_head_context_atlas/atlas_mechanism_package_v1.audit.json",
+    "--validation-audit",
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_v1/validation_audit.json",
+    "--prefix",
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_v1"
+  ],
+  "config": {
+    "alpha": 0.05,
+    "mechanism_amendment_sha256": "9c60a92c49d479830e2fecc95798dad397fd9d388f8fac364790fd2cf380967c",
+    "smoke": false,
+    "tau_nats": 0.05,
+    "validation_loaded": true
+  },
+  "created_at_utc": "2026-07-19T23:46:43.811694+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 56917,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "head_context_atlas_mechanism_validation_analysis_v1",
+  "git_commit": "5971f720587eba7c1339bc7395c9ce6cb7cf029f",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_validation_v1_merged.target_rows.jsonl.gz",
+      "sha256": "19e8b563bdef3682c3f27d3966eb94e51915a438a4435351f22896ed2157eb52",
+      "size_bytes": 3295664
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_validation_v1_merged.health_rows.jsonl.gz",
+      "sha256": "ca2679b2d059458027c78ae1248d03de1f6890775ef1b4c1a88544dc50605875",
+      "size_bytes": 219791
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_validation_v1_merged.pairs.jsonl.gz",
+      "sha256": "5270d44f2573a0886f816fb4f4c82efeb77c27d37f8e88181738e8b25b218e2c",
+      "size_bytes": 146884
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_validation_v1_merged.summary.json",
+      "sha256": "6c0cd63b54e0516197bc15557b0809c2d0915e624e0727955a9a4dc80ddaaf85",
+      "size_bytes": 885
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_validation_v1_merged.manifest.json",
+      "sha256": "9ae5b9766ee9a36ded4808f4286263b63360a09beadfae854a9fea34e0811ac8",
+      "size_bytes": 2759
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_package_v1.json",
+      "sha256": "48ac6b1791f2ddcd8f9ce54918afbd0f6067d87b1fa1d88ab535105fc28144cf",
+      "size_bytes": 17873
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_package_v1.audit.json",
+      "sha256": "75ad6022d39d119376d36233a95e00a0094168dd9e97ea0d3b500773128d8210",
+      "size_bytes": 413
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_validation_v1/validation_audit.json",
+      "sha256": "f6a9b5f01abf340eaec68b3aa0f2c1434c7d783890e179e5f588ecc17e222bad",
+      "size_bytes": 853
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_head_context_atlas/MECHANISM_VALIDATION_AMENDMENT_A1.md",
+      "sha256": "9c60a92c49d479830e2fecc95798dad397fd9d388f8fac364790fd2cf380967c",
+      "size_bytes": 5367
+    }
+  ],
+  "notes": [],
+  "outputs": [
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_v1.candidate_endpoints.jsonl",
+      "sha256": "7ad28b895e403c779a9abf55cc69682e03f4383a43acc51def174880aac27673",
+      "size_bytes": 9443
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_v1.candidates.json",
+      "sha256": "b9ea3632aeeff934c5be65129e17776d54bd63fc45d8fc7a7d49bfdc2575830b",
+      "size_bytes": 1895
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_v1.diagnostics.jsonl",
+      "sha256": "a388b5e53eb5ed1bde1bfd99d1a40380d11e611998fe1572de129f782649b27d",
+      "size_bytes": 13758
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_v1.summary.json",
+      "sha256": "d8a460bff0881fb6a2ddf28b80cf0eb7765662628fe2bdc22e9c2a98fa45a35d",
+      "size_bytes": 2192
+    }
+  ],
+  "seeds": {},
+  "status": "VALIDATION_CLASSIFIED"
+}

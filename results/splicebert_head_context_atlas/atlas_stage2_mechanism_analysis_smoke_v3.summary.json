@@ -1,0 +1,27 @@
+{
+  "claim_boundary": "conditional mechanisms only; no binding or biological function claim",
+  "classification_counts": {
+    "bounded_small": 4,
+    "detected_subfloor": 4,
+    "inconclusive": 20,
+    "material_support": 6
+  },
+  "inference": {
+    "alpha": 0.05,
+    "covariance": "joint gene-clustered or inverse-reuse unique-dyad two-endpoint",
+    "draws": 200000,
+    "method": "Gaussian max-|t|",
+    "seed": 0,
+    "tau_nats": 0.05
+  },
+  "n_candidates": 3,
+  "n_diagnostics": 56,
+  "n_endpoint_families": 6,
+  "n_family_members": 34,
+  "next_stage_rule": "independent reconstruction audit before representative A interchange, evidence-graded DAG generation, or visualizer export",
+  "schema": "head_context_atlas.stage2_mechanism_analysis/1",
+  "smoke": true,
+  "stage2_outcomes_loaded": true,
+  "status": "SMOKE",
+  "whole_validation_loaded": false
+}

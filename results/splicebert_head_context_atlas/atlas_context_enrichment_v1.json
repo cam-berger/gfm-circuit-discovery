@@ -1,0 +1,58 @@
+{
+  "analysis_split_packet_counts": {
+    "atlas_discovery": 131924,
+    "atlas_internal_validation": 31616
+  },
+  "category_packet_counts": {
+    "acceptor_cluster": 69268,
+    "alternative_acceptor": 69268,
+    "alternative_donor": 56484,
+    "annotated_junction": 163540,
+    "annotated_site": 163540,
+    "cassette_exon": 52540,
+    "complex_event": 101254,
+    "donor_cluster": 56484,
+    "isolated_pair_control_candidate": 53336,
+    "junction_one_to_one": 59682,
+    "multi_site": 95540,
+    "multiple_independent_pairs": 64650,
+    "mutually_exclusive_exon": 65282,
+    "single_pair": 68000,
+    "target_acceptor": 81770,
+    "target_donor": 81770
+  },
+  "chromosome_train_packet_rows": 163820,
+  "covariates": [
+    "target/partner MaxEnt (stratifiers only)",
+    "window/local GC",
+    "local pyrimidine",
+    "motif burden",
+    "homopolymer",
+    "boundary coding region",
+    "P3/10.63 distance phase",
+    "packet position",
+    "transcript support and graph/packet geometry from annotation"
+  ],
+  "deferred_gate": "proper masked-MLM health is required in the model preflight",
+  "dropped_unique_sequences_by_gate": {
+    "acceptor_motif": 44,
+    "donor_motif": 95,
+    "non_acgt": 1
+  },
+  "input_packet_rows_seen": 227440,
+  "schema": "head_context_atlas.sequence_enrichment/1",
+  "sealed_guard": {
+    "excluded": [
+      "chr8",
+      "chr9",
+      "chr11",
+      "chr16",
+      "chr19"
+    ],
+    "included_chromosome_split": "train only",
+    "model_or_margin_read": false
+  },
+  "status": "SEQUENCE_ONLY_NO_MODEL_OUTCOMES",
+  "valid_enriched_packets": 163540,
+  "valid_unique_sequences": 81770
+}

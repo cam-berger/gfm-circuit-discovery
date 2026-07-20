@@ -16,7 +16,7 @@ dependencies = [
 
 [project.optional-dependencies]
 models = ["transformers>=4.40", "datasets"]
-splicebert = ["transformers>=4.40", "pyfaidx>=0.8"]
+splicebert = ["transformers>=4.40", "pyfaidx>=0.8", "scikit-learn>=1.4"]
 genome = ["pyfaidx>=0.8", "numpy"]
 dev = ["pytest", "pytest-xdist"]
 

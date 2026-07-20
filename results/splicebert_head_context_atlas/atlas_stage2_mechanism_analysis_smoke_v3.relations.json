@@ -1,0 +1,102 @@
+{
+  "relations": [
+    {
+      "candidate_id": "smoke_stage2|general|B|L3H1",
+      "claim_boundary": "validated whole relation plus conditional paths; biological function unresolved",
+      "component_id": "L3H1",
+      "component_type": "attention_head",
+      "conditional_labels_by_endpoint": {
+        "acceptor": {
+          "path_labels": [],
+          "route_value_label": "SMOKE_NO_LABEL",
+          "validated_whole_direction": null
+        },
+        "donor": {
+          "path_labels": [],
+          "route_value_label": "SMOKE_NO_LABEL",
+          "validated_whole_direction": null
+        }
+      },
+      "contrast": null,
+      "estimand": "B",
+      "function_label": null,
+      "kind": "general",
+      "material_members_by_endpoint": {
+        "acceptor": [],
+        "donor": [
+          "exact_group_effect",
+          "MLP_recovery_difference_L3",
+          "candidate_QK"
+        ]
+      },
+      "n_material_non_group_members": 2,
+      "stage2_status": "STAGE2_CONDITIONAL_INFERENCE_COMPLETE",
+      "target_role": null
+    },
+    {
+      "candidate_id": "smoke_stage2|general|A|L0H0",
+      "claim_boundary": "validated whole relation plus conditional paths; biological function unresolved",
+      "component_id": "L0H0",
+      "component_type": "attention_head",
+      "conditional_labels_by_endpoint": {
+        "acceptor": {
+          "path_labels": [],
+          "route_value_label": "SMOKE_NO_LABEL",
+          "validated_whole_direction": null
+        },
+        "donor": {
+          "path_labels": [],
+          "route_value_label": "SMOKE_NO_LABEL",
+          "validated_whole_direction": null
+        }
+      },
+      "contrast": null,
+      "estimand": "A",
+      "function_label": null,
+      "kind": "general",
+      "material_members_by_endpoint": {
+        "acceptor": [],
+        "donor": [
+          "exact_group_effect"
+        ]
+      },
+      "n_material_non_group_members": 0,
+      "stage2_status": "STAGE2_CONDITIONAL_INFERENCE_COMPLETE",
+      "target_role": null
+    },
+    {
+      "candidate_id": "smoke_stage2|general|B|L3MLP",
+      "claim_boundary": "validated whole relation plus conditional paths; biological function unresolved",
+      "component_id": "L3MLP",
+      "component_type": "mlp_write",
+      "conditional_labels_by_endpoint": {
+        "acceptor": {
+          "path_labels": [],
+          "route_value_label": "SMOKE_NO_LABEL",
+          "validated_whole_direction": null
+        },
+        "donor": {
+          "path_labels": [],
+          "route_value_label": "SMOKE_NO_LABEL",
+          "validated_whole_direction": null
+        }
+      },
+      "contrast": null,
+      "estimand": "B",
+      "function_label": null,
+      "kind": "general",
+      "material_members_by_endpoint": {
+        "acceptor": [],
+        "donor": [
+          "exact_group_effect",
+          "upstream_attention_to_candidate_vs_control_mlp_recovery"
+        ]
+      },
+      "n_material_non_group_members": 1,
+      "stage2_status": "STAGE2_CONDITIONAL_INFERENCE_COMPLETE",
+      "target_role": null
+    }
+  ],
+  "schema": "head_context_atlas.stage2_mechanism_relations/1",
+  "status": "SMOKE"
+}

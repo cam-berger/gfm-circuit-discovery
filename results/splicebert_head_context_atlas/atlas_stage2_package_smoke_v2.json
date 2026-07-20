@@ -1,0 +1,69 @@
+{
+  "candidates": [],
+  "claim_boundary": "conditional mechanism instructions; no QK/OV/path outcome or label",
+  "dag_export": {
+    "evidence_labels": [
+      "screening",
+      "exact_component",
+      "QK",
+      "V_OV",
+      "MLP_path",
+      "negative_control",
+      "remainder"
+    ],
+    "representatives": "stage-one discovery-frozen representatives only",
+    "visualizer_boundary": "validated and independently audited relations only"
+  },
+  "documents": {
+    "amendment_a2": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_head_context_atlas/MECHANISM_VALIDATION_AMENDMENT_A2.md",
+      "sha256": "cf118b6169a36681fcfff8ffcfdc36c0291b5dc50f935bd244023ef1ed29ddfa"
+    }
+  },
+  "inference": {
+    "alpha": 0.05,
+    "covariance": "same gene-clustered or unique-dyad two-endpoint estimator as whole endpoint",
+    "critical_value": "Gaussian max-|t|, 200000 draws, seed=0",
+    "family": "within each validated whole endpoint",
+    "negative_eigenvalue_policy": "clip numerical negatives to zero and report",
+    "tau_nats": 0.05
+  },
+  "input_hashes": {
+    "amendment_a2": "cf118b6169a36681fcfff8ffcfdc36c0291b5dc50f935bd244023ef1ed29ddfa",
+    "stage1_package": "43920117e5b8c55405074d83c029c9394eb231bb3fdc691483dc56e52e3cda35",
+    "stage1_package_audit": "425d7fcbb01125bd0e35617d7031f1f64d3c964059ddbdc11bb8d95dde7b931e",
+    "whole_analysis_audit": "8d14c276700bf2a42f7d82117837fccb7d69bc572c5ec2281d748d44feb4e92f",
+    "whole_analysis_manifest": "8031182160e74c8a652300ee0ee1570cb2a72708a86b6ffc417f3489810f5e92",
+    "whole_endpoints": "1b372c1358bea8f93c3aeb785615b4d122f5654c71b2b86b054eab745c96f8a0",
+    "whole_relations": "a593c2eeae503ddebd33d3e0a169bbdbd6195ff6284230f396ec9b7eeb5a0d75",
+    "whole_summary": "c47bfbed36d404d539446a93a35bb50349d5485b15e58324e1dcbd99d6ae0e70"
+  },
+  "n_candidates": 0,
+  "schema": "head_context_atlas.stage2_mechanism_package/1",
+  "stage2_outcomes_loaded": false,
+  "status": "SMOKE_NO_STAGE2_CANDIDATES",
+  "validated_candidate_ids": [],
+  "validation_references_already_opened_for_whole_stage": {
+    "packets": "results/splicebert_head_context_atlas/atlas_context_matched_v7.validation.packets.jsonl",
+    "pairs": "results/splicebert_head_context_atlas/atlas_context_matched_v7.validation.pairs.jsonl",
+    "sequences": "results/splicebert_head_context_atlas/atlas_context_matched_v7.validation.sequences.jsonl"
+  },
+  "whole_validation_loaded": false,
+  "whole_validation_row_references": {
+    "health": {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v2_merged.health_rows.jsonl.gz",
+      "sha256": "00880897ac3beffc2a78ffea9ac18286fe241f93bfa3924a159f9d22a4ab90e8",
+      "size_bytes": 4463
+    },
+    "pairs": {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v2_merged.pairs.jsonl.gz",
+      "sha256": "304a91ec9ab8620506824bef70434f0c487391b6b15a8b90edbd9fd3bc15dff4",
+      "size_bytes": 428246
+    },
+    "target": {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v2_merged.target_rows.jsonl.gz",
+      "sha256": "626bbf1075f5abc34d21ea5bc402ad83126bc2d6710a34cf78f024d2f8e29886",
+      "size_bytes": 4326
+    }
+  }
+}

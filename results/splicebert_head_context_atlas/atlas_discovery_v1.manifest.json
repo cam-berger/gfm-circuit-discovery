@@ -1,0 +1,68 @@
+{
+  "command": [
+    "python",
+    "scripts/splicebert_head_context_atlas/merge_atlas_discovery_screen.py",
+    "--screen",
+    "/content/drive/MyDrive/gfm_atlas_screen_v1_results",
+    "--prefix",
+    "/content/drive/MyDrive/gfm_atlas_screen_v1_results/atlas_discovery_v1"
+  ],
+  "config": {},
+  "created_at_utc": "2026-07-19T23:02:06.076637+00:00",
+  "environment": {
+    "hostname": "8de5d942da67",
+    "pid": 110863,
+    "platform": "Linux-6.6.122+-x86_64-with-glibc2.35",
+    "python": "3.12.13"
+  },
+  "experiment_id": "head_context_atlas_discovery_screen_merge_v1",
+  "git_commit": null,
+  "git_dirty": null,
+  "inputs": [
+    {
+      "path": "/content/drive/MyDrive/gfm_atlas_screen_v1_results/validation_audit.json",
+      "sha256": "72ef248fa0703c64d6d91f8ec203e4b72422802df3fb3a1391c73d4e9d9bb4e8",
+      "size_bytes": 370
+    },
+    {
+      "path": "/content/gfm_atlas_screen/repo/results/splicebert_head_context_atlas/atlas_context_matched_v7.discovery.pairs.jsonl",
+      "sha256": "46c3e76f5bda200ee783056bf057457d1dac11f947a068a9522bd4c371d4a956",
+      "size_bytes": 3458247
+    },
+    {
+      "path": "/content/drive/MyDrive/gfm_atlas_screen_v1_results/run_manifest.health.json",
+      "sha256": "7eeaf7aaf4835b3df11fd53ee6365e0c7bcc5bc5e74d9c47123ac254d57729d0",
+      "size_bytes": 102825
+    },
+    {
+      "path": "/content/drive/MyDrive/gfm_atlas_screen_v1_results/run_manifest.target.json",
+      "sha256": "8dacbb0bfa637f10d6455d19329954311e8d36b3c625b49d8fe788c65b679539",
+      "size_bytes": 3323839
+    }
+  ],
+  "notes": [],
+  "outputs": [
+    {
+      "path": "/content/drive/MyDrive/gfm_atlas_screen_v1_results/atlas_discovery_v1.target_matrix.jsonl.gz",
+      "sha256": "fdba5e21fab1338a5050ba3f31b66183aa2db2522757161b0bb739ee0202a39b",
+      "size_bytes": 76069330
+    },
+    {
+      "path": "/content/drive/MyDrive/gfm_atlas_screen_v1_results/atlas_discovery_v1.health_matrix.jsonl.gz",
+      "sha256": "de8524a6df2ce31f0cd2e0d90bb8114e1cad5db21f0eb87c01ab258523bcb7c0",
+      "size_bytes": 3354418
+    },
+    {
+      "path": "/content/drive/MyDrive/gfm_atlas_screen_v1_results/atlas_discovery_v1.pairs.jsonl.gz",
+      "sha256": "4e23df3e20bf7003bfd8fb9e712819bf28e6c85e79c670b6bcb51547c273b78d",
+      "size_bytes": 428222
+    },
+    {
+      "path": "/content/drive/MyDrive/gfm_atlas_screen_v1_results/atlas_discovery_v1.summary.json",
+      "sha256": "99af71dcba488e964bee68471a1181c6c00fa8cfcfdcf24747c388edba39630c",
+      "size_bytes": 1935
+    }
+  ],
+  "seeds": {},
+  "status": "COMPLETE"
+}

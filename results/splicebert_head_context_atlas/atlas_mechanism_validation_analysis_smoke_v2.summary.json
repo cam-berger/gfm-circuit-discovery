@@ -1,0 +1,62 @@
+{
+  "candidate_status_counts": {
+    "NOT_VALIDATED_INCONCLUSIVE": 4
+  },
+  "claim_boundary": "whole component relations only; no QK/V/path/function claim",
+  "n_candidates": 4,
+  "n_validated_candidates": 0,
+  "next_stage_rule": "build and audit candidate-specific QK/V/MLP/path package only for validated_candidate_ids; do not export discovery-only relations",
+  "positive_control": {
+    "candidate_id": null,
+    "ci95_marginal": [
+      0.2027727508544922,
+      0.6015332794189453
+    ],
+    "claim_boundary": "cannot validate or rescue a candidate whole effect",
+    "component_ids": [
+      "L3H1"
+    ],
+    "contrast": null,
+    "endpoint_id": "positive_control|B|L3H1",
+    "endpoint_role": "positive_control",
+    "estimand": "B",
+    "group_id": null,
+    "inference": "one_way_gene_clustered",
+    "intervention": "joint_partner_destroyed_source_patch",
+    "masked_health": {
+      "broad_MLM_flag": false,
+      "ci95_health_margin_damage": [
+        -0.005468453764915466,
+        0.015307474434375763
+      ],
+      "mean_health_margin_damage": 0.004919510334730148,
+      "n_health_genes": 2,
+      "n_health_packets": 2,
+      "target_role": "donor"
+    },
+    "mde80_marginal": 0.2849902046921138,
+    "mean": 0.40215301513671875,
+    "mean_abs_effect": 0.40215301513671875,
+    "multiplicity_status": "prespecified diagnostic; reserve for later within-endpoint max-|t| family",
+    "n_genes": 2,
+    "n_packets": 2,
+    "p_marginal_two_sided": 7.706467638729769e-05,
+    "pass_rule": "one-way gene-clustered marginal 95% CI lower bound > 0",
+    "passed": true,
+    "scope_kind": "target_role",
+    "scope_value": "donor",
+    "se": 0.10172462463378906,
+    "target_role": "donor"
+  },
+  "schema": "head_context_atlas.mechanism_validation_analysis/1",
+  "smoke": true,
+  "status": "SMOKE",
+  "tau_nats": 0.05,
+  "validated_candidate_ids": [],
+  "validation_loaded": false,
+  "whole_family": {
+    "detection": "two-sided Holm-FWER alpha=0.05",
+    "n_endpoints": 8,
+    "simultaneous_intervals": "Bonferroni FWER alpha=0.05 over same endpoints"
+  }
+}

@@ -42,6 +42,14 @@ from gfmcd.splicing.coupling import stable_rng
 BASES = "ACGT"
 
 
+def split_projection(tensor: torch.Tensor, num_heads: int) -> torch.Tensor:
+    """Version-stable replacement for removed BertSelfAttention.transpose_for_scores."""
+    batch, sequence, width = tensor.shape
+    if width % num_heads:
+        raise ValueError(f"projection width {width} is not divisible by {num_heads} heads")
+    return tensor.view(batch, sequence, num_heads, width // num_heads).permute(0, 2, 1, 3)
+
+
 class ForwardCapture(AbstractContextManager):
     """Capture differentiable component activations from one eager-attention pass."""
 
@@ -627,8 +635,8 @@ def attention_traces(adapter, sequence, segment_id, start, end, focus, capture):
     for layer in range(adapter.num_layers):
         module = adapter.attention_self_modules[layer]
         hidden = capture.attention_inputs[layer]
-        query = module.transpose_for_scores(module.query(hidden))
-        key = module.transpose_for_scores(module.key(hidden))
+        query = split_projection(module.query(hidden), adapter.num_heads)
+        key = split_projection(module.key(hidden), adapter.num_heads)
         scores = torch.matmul(query, key.transpose(-1, -2)) / math.sqrt(adapter.head_dim)
         q = adapter.nucleotide_to_token(focus)
         for head in range(adapter.num_heads):
@@ -655,7 +663,7 @@ def correctness_gates(adapter, raw, capture):
     context_errors = []
     for layer in range(adapter.num_layers):
         module = adapter.attention_self_modules[layer]
-        values = module.transpose_for_scores(module.value(capture.attention_inputs[layer]))
+        values = split_projection(module.value(capture.attention_inputs[layer]), adapter.num_heads)
         reconstructed = torch.matmul(capture.attentions[layer], values)
         observed = _split_context(capture.contexts[layer], adapter.num_heads)
         context_errors.append(float((reconstructed - observed).abs().max().detach()))
@@ -677,7 +685,7 @@ def correctness_gates(adapter, raw, capture):
 
 def route_vector(adapter, capture, layer, head, query_position, key_position):
     module = adapter.attention_self_modules[layer]
-    values = module.transpose_for_scores(module.value(capture.attention_inputs[layer]))
+    values = split_projection(module.value(capture.attention_inputs[layer]), adapter.num_heads)
     q = adapter.nucleotide_to_token(query_position)
     k = adapter.nucleotide_to_token(key_position)
     return capture.attentions[layer][0, head, q, k] * values[0, head, k]

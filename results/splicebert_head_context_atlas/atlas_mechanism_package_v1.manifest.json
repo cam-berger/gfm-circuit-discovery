@@ -1,0 +1,101 @@
+{
+  "command": [
+    "python",
+    "scripts/splicebert_head_context_atlas/build_atlas_mechanism_package.py",
+    "--analysis-prefix",
+    "results/splicebert_head_context_atlas/atlas_discovery_analysis_v1",
+    "--merged-prefix",
+    "results/splicebert_head_context_atlas/atlas_discovery_v1",
+    "--cohort-prefix",
+    "results/splicebert_head_context_atlas/atlas_context_matched_v7",
+    "--out",
+    "results/splicebert_head_context_atlas/atlas_mechanism_package_v1.json"
+  ],
+  "config": {
+    "allow_smoke_empty": false,
+    "n_candidates": 4,
+    "validation_loaded": false
+  },
+  "created_at_utc": "2026-07-19T23:17:15.009855+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 98192,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "head_context_atlas_mechanism_package_v1",
+  "git_commit": "5971f720587eba7c1339bc7395c9ce6cb7cf029f",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_discovery_analysis_v1.shortlist.json",
+      "sha256": "39d17a10ccde77af7b34ae854f0b107fb40acb4c6a5be10087af6363f7907b2a",
+      "size_bytes": 71198
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_discovery_analysis_v1.summary.json",
+      "sha256": "01e6cee03e886f9e6ea840c3e0dee91b8856305f25811afe0d24a312214c1b76",
+      "size_bytes": 1387
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_discovery_analysis_v1.audit.json",
+      "sha256": "c12a9f33960f9b2270176c2c32f8495ec5c6856ef358b23c6ab757da5a17ed2e",
+      "size_bytes": 705
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_discovery_analysis_v1.profiles.jsonl",
+      "sha256": "dbca610473947913aebb7fe42f12cc94c33d2e8d2f89549bf8579d42063da58f",
+      "size_bytes": 345280
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_discovery_analysis_v1.context.jsonl",
+      "sha256": "5ab7a2e659ae689780c5ddd1ef13c0e121b82d1c87322a920bb58d6aba8ca983",
+      "size_bytes": 1765068
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_discovery_v1.target_matrix.jsonl.gz",
+      "sha256": "fdba5e21fab1338a5050ba3f31b66183aa2db2522757161b0bb739ee0202a39b",
+      "size_bytes": 76069330
+    },
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_discovery_v1.pairs.jsonl.gz",
+      "sha256": "4e23df3e20bf7003bfd8fb9e712819bf28e6c85e79c670b6bcb51547c273b78d",
+      "size_bytes": 428222
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_head_context_atlas/ANALYSIS_PLAN_V1.md",
+      "sha256": "21e696e360c259c9a1f7ecd6b09c5447fc5f63b3f1d5251497744f7ce69de5ef",
+      "size_bytes": 7856
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_head_context_atlas/ANALYSIS_AMENDMENT_A1.md",
+      "sha256": "00008afa6747b67a263385f81e2778e5ab235c732460161145dd0e0000e5768b",
+      "size_bytes": 2255
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_head_context_atlas/MECHANISM_VALIDATION_PLAN_V1.md",
+      "sha256": "02f3770d65d4f5a76737c1f83916a2be42d453f53b8055d9a984e1426c56c04a",
+      "size_bytes": 8598
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_head_context_atlas/MECHANISM_VALIDATION_AMENDMENT_A1.md",
+      "sha256": "9c60a92c49d479830e2fecc95798dad397fd9d388f8fac364790fd2cf380967c",
+      "size_bytes": 5367
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_head_context_atlas/MECHANISM_VALIDATION_AMENDMENT_A2.md",
+      "sha256": "cf118b6169a36681fcfff8ffcfdc36c0291b5dc50f935bd244023ef1ed29ddfa",
+      "size_bytes": 7132
+    }
+  ],
+  "notes": [],
+  "outputs": [
+    {
+      "path": "results/splicebert_head_context_atlas/atlas_mechanism_package_v1.json",
+      "sha256": "48ac6b1791f2ddcd8f9ce54918afbd0f6067d87b1fa1d88ab535105fc28144cf",
+      "size_bytes": 17873
+    }
+  ],
+  "seeds": {},
+  "status": "FROZEN_BEFORE_VALIDATION_ACCESS"
+}

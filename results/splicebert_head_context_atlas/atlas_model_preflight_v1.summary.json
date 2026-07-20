@@ -1,0 +1,353 @@
+{
+  "baseline_packets": [
+    {
+      "behavioral_partner_effect": 0.025185346603393555,
+      "health": {
+        "accuracy": 0.5,
+        "mean_logprob": -1.405654413625598,
+        "mean_margin": -0.16568904370069504,
+        "n_probes": 4
+      },
+      "health_probes": [
+        62,
+        366,
+        626,
+        655
+      ],
+      "packet_id": "chr12:+:d50473536:a50473998:ENSG00000161813.25:target_acceptor",
+      "partner_destroyed_target": {
+        "entropy": 1.3516545295715332,
+        "logprob": -1.0998542308807373,
+        "margin": 0.1428341269493103
+      },
+      "tags": [
+        "alternative_donor",
+        "annotated_junction",
+        "annotated_site",
+        "cassette_exon",
+        "complex_event",
+        "donor_cluster",
+        "mutually_exclusive_exon",
+        "single_pair",
+        "target_acceptor"
+      ],
+      "target": {
+        "entropy": 1.3481671810150146,
+        "logprob": -1.0796570777893066,
+        "margin": 0.16801947355270386
+      },
+      "target_role": "acceptor"
+    },
+    {
+      "behavioral_partner_effect": 0.1885967254638672,
+      "health": {
+        "accuracy": 0.5,
+        "mean_logprob": -0.9758897498250008,
+        "mean_margin": 0.1451084017753601,
+        "n_probes": 4
+      },
+      "health_probes": [
+        183,
+        469,
+        846,
+        960
+      ],
+      "packet_id": "chr10:+:d84150243:a84150708:ENSG00000165678.24:target_acceptor",
+      "partner_destroyed_target": {
+        "entropy": 0.2927882969379425,
+        "logprob": -0.0693056583404541,
+        "margin": 2.934164524078369
+      },
+      "tags": [
+        "acceptor_cluster",
+        "alternative_acceptor",
+        "alternative_donor",
+        "annotated_junction",
+        "annotated_site",
+        "cassette_exon",
+        "complex_event",
+        "donor_cluster",
+        "mutually_exclusive_exon",
+        "single_pair",
+        "target_acceptor"
+      ],
+      "target": {
+        "entropy": 0.2552846074104309,
+        "logprob": -0.05757416412234306,
+        "margin": 3.1227612495422363
+      },
+      "target_role": "acceptor"
+    },
+    {
+      "behavioral_partner_effect": 0.4909381866455078,
+      "health": {
+        "accuracy": 1.0,
+        "mean_logprob": -0.70736875385046,
+        "mean_margin": 0.6550001204013824,
+        "n_probes": 4
+      },
+      "health_probes": [
+        581,
+        641,
+        789,
+        886
+      ],
+      "packet_id": "chr6:-:d30740677:a30740590:ENSG00000137312.17:target_donor",
+      "partner_destroyed_target": {
+        "entropy": 0.06383789330720901,
+        "logprob": -0.009523200802505016,
+        "margin": 5.537227630615234
+      },
+      "tags": [
+        "acceptor_cluster",
+        "alternative_acceptor",
+        "alternative_donor",
+        "annotated_junction",
+        "annotated_site",
+        "cassette_exon",
+        "complex_event",
+        "donor_cluster",
+        "multi_site",
+        "multiple_independent_pairs",
+        "mutually_exclusive_exon",
+        "target_donor"
+      ],
+      "target": {
+        "entropy": 0.03628500923514366,
+        "logprob": -0.004945071414113045,
+        "margin": 6.028165817260742
+      },
+      "target_role": "donor"
+    },
+    {
+      "behavioral_partner_effect": 0.6153882741928101,
+      "health": {
+        "accuracy": 0.75,
+        "mean_logprob": -0.6592278126627207,
+        "mean_margin": 1.0530124083161354,
+        "n_probes": 4
+      },
+      "health_probes": [
+        65,
+        88,
+        282,
+        859
+      ],
+      "packet_id": "chr3:-:d49024493:a49024403:ENSG00000178035.15:target_donor",
+      "partner_destroyed_target": {
+        "entropy": 0.7910982370376587,
+        "logprob": -0.27023816108703613,
+        "margin": 1.8428360223770142
+      },
+      "tags": [
+        "acceptor_cluster",
+        "alternative_acceptor",
+        "alternative_donor",
+        "annotated_junction",
+        "annotated_site",
+        "complex_event",
+        "donor_cluster",
+        "multi_site",
+        "multiple_independent_pairs",
+        "mutually_exclusive_exon",
+        "target_donor"
+      ],
+      "target": {
+        "entropy": 0.5768778324127197,
+        "logprob": -0.161420077085495,
+        "margin": 2.458224296569824
+      },
+      "target_role": "donor"
+    }
+  ],
+  "claim_boundary": "mechanical discovery-only preflight; component effects are plumbing diagnostics, not head rankings or biological claims",
+  "expected_rows": 816,
+  "failures": [],
+  "gates": [
+    {
+      "detail": "n=4",
+      "gate": "four_unique_packets",
+      "passed": true
+    },
+    {
+      "detail": "['acceptor', 'donor']",
+      "gate": "both_target_roles",
+      "passed": true
+    },
+    {
+      "detail": "['acceptor_cluster', 'cassette_exon', 'complex_event', 'donor_cluster', 'multiple_independent_pairs', 'single_pair']",
+      "gate": "six_core_tags_covered",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "gate": "discovery_only",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "gate": "excluded_chromosomes_absent",
+      "passed": true
+    },
+    {
+      "detail": "donor=donor_win; acceptor=acceptor_win-1; native=G",
+      "gate": "coordinate_contract",
+      "passed": true
+    },
+    {
+      "detail": "4 per packet",
+      "gate": "health_probes_masked_non_site",
+      "passed": true
+    },
+    {
+      "detail": "layers=6, heads=16",
+      "gate": "architecture",
+      "passed": true
+    },
+    {
+      "detail": "prefix_tokens=1",
+      "gate": "single_nt_tokenization",
+      "passed": true
+    },
+    {
+      "detail": "max_abs=0.000e+00",
+      "gate": "deterministic_repeat",
+      "passed": true
+    },
+    {
+      "detail": "mean=0.688, floor=0.30",
+      "gate": "masked_health_accuracy",
+      "passed": true
+    },
+    {
+      "detail": "mean=-0.937, floor=-1.386",
+      "gate": "masked_health_logprob",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "gate": "finite_baselines",
+      "passed": true
+    },
+    {
+      "detail": "max_abs=0.000e+00",
+      "gate": "all_head_source_identity",
+      "passed": true
+    },
+    {
+      "detail": "max_abs=0.000e+00",
+      "gate": "all_mlp_source_identity",
+      "passed": true
+    },
+    {
+      "detail": "rows=816, expected=816",
+      "gate": "complete_component_grid",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "gate": "finite_component_grid",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "gate": "all_102_components_per_packet_estimand",
+      "passed": true
+    }
+  ],
+  "masked_health": {
+    "accuracy_floor": 0.3,
+    "logprob_floor": -1.3862943611198906,
+    "mean_baseline_accuracy": 0.6875,
+    "mean_baseline_logprob": -0.9370351824909449,
+    "n_probes_per_packet": 4
+  },
+  "model": {
+    "device": "mps",
+    "heads_per_layer": 16,
+    "layers": 6,
+    "mlps": 6,
+    "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+    "precision": "float32; TF32/AMP off"
+  },
+  "n_failures": 0,
+  "n_rows": 816,
+  "schema": "head_context_atlas.model_preflight/1",
+  "seconds": 48.767669916152954,
+  "selection": {
+    "covered_core_tags": [
+      "acceptor_cluster",
+      "cassette_exon",
+      "complex_event",
+      "donor_cluster",
+      "multiple_independent_pairs",
+      "single_pair"
+    ],
+    "method": "one donor and one acceptor matched pair maximizing coverage of all six core tags",
+    "packet_ids": [
+      "chr12:+:d50473536:a50473998:ENSG00000161813.25:target_acceptor",
+      "chr10:+:d84150243:a84150708:ENSG00000165678.24:target_acceptor",
+      "chr6:-:d30740677:a30740590:ENSG00000137312.17:target_donor",
+      "chr3:-:d49024493:a49024403:ENSG00000178035.15:target_donor"
+    ],
+    "pairs": [
+      {
+        "analysis_split": "atlas_discovery",
+        "case_gene_id": "ENSG00000137312.17",
+        "case_packet_id": "chr6:-:d30740677:a30740590:ENSG00000137312.17:target_donor",
+        "category": "cassette_exon",
+        "control_gene_id": "ENSG00000178035.15",
+        "control_packet_id": "chr3:-:d49024493:a49024403:ENSG00000178035.15:target_donor",
+        "control_use_ordinal": 1,
+        "exact_stratum": [
+          "donor",
+          "-",
+          "CDS",
+          0,
+          "050",
+          "21_40",
+          "21_40",
+          [
+            0,
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "match_distance": 0.13505295572465387,
+        "pair_id": "cassette_exon:donor:00653",
+        "target_role": "donor"
+      },
+      {
+        "analysis_split": "atlas_discovery",
+        "case_gene_id": "ENSG00000165678.24",
+        "case_packet_id": "chr10:+:d84150243:a84150708:ENSG00000165678.24:target_acceptor",
+        "category": "acceptor_cluster",
+        "control_gene_id": "ENSG00000161813.25",
+        "control_packet_id": "chr12:+:d50473536:a50473998:ENSG00000161813.25:target_acceptor",
+        "control_use_ordinal": 1,
+        "exact_stratum": [
+          "acceptor",
+          "+",
+          "CDS",
+          0,
+          "450",
+          "21_40",
+          "21_40",
+          [
+            1,
+            1,
+            0,
+            1,
+            1
+          ]
+        ],
+        "match_distance": 0.15721992757678951,
+        "pair_id": "acceptor_cluster:acceptor:00390",
+        "target_role": "acceptor"
+      }
+    ]
+  },
+  "status": "PREFLIGHT_PASS"
+}

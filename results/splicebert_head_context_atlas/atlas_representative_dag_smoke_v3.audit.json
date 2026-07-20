@@ -1,0 +1,12 @@
+{
+  "auditor_sha256": "43d4c1096174a4f1f18b295f6668f77bc28e6ca731ab29a09303fa229c060678",
+  "bundle_sha256": "ae7ebd87bff7ca7fbfeddf98c9c71dace7967d1f86f8cc506577cd748b02c10a",
+  "claim_boundary": "representative DAG structural/evidence audit; no new mechanism claim",
+  "export_eligible": false,
+  "failures": [],
+  "n_failures": 0,
+  "n_representatives": 2,
+  "schema": "head_context_atlas.representative_dag_audit/1",
+  "smoke": true,
+  "status": "PASS"
+}

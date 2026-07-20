@@ -1,0 +1,15 @@
+{
+  "analysis_summary_sha256": "8bfb3a897082dd624bd9999b1d906acb19d79352356bf926ff2d6dae6463f135",
+  "claim_boundary": "independent joint-inference reconstruction; no function claim",
+  "failures": [],
+  "n_candidates": 3,
+  "n_diagnostics": 56,
+  "n_endpoint_families": 6,
+  "n_failures": 0,
+  "n_family_members": 34,
+  "schema": "head_context_atlas.stage2_mechanism_analysis_audit/1",
+  "smoke": true,
+  "stage2_outcomes_loaded": true,
+  "status": "PASS",
+  "whole_validation_loaded": false
+}

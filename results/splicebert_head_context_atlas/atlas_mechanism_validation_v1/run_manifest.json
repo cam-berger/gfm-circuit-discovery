@@ -1,0 +1,1 @@
+{"phase": "target", "reports": {"target": {"n_endpoint_rows": 42203, "n_failures": 0, "n_packets": 4019, "status": "TARGET_COMPLETE"}}, "schema": "head_context_atlas.mechanism_validation_run/1", "smoke": false, "status": "PASS", "validation_loaded": true}

@@ -1,0 +1,12 @@
+{
+  "claim_boundary": "package sealing audit; no validation outcome or mechanism claim",
+  "failures": [],
+  "n_candidates": 4,
+  "n_failures": 0,
+  "n_groups": 2,
+  "package_sha256": "48ac6b1791f2ddcd8f9ce54918afbd0f6067d87b1fa1d88ab535105fc28144cf",
+  "schema": "head_context_atlas.mechanism_package_audit/1",
+  "source_analysis_status": "DISCOVERY_COMPLETE",
+  "status": "PASS",
+  "validation_loaded": false
+}

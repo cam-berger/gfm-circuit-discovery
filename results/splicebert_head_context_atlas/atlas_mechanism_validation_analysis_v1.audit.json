@@ -1,0 +1,13 @@
+{
+  "analysis_summary_sha256": "d8a460bff0881fb6a2ddf28b80cf0eb7765662628fe2bdc22e9c2a98fa45a35d",
+  "claim_boundary": "independent inference reconstruction; no mechanism claim",
+  "failures": [],
+  "n_candidate_endpoints": 8,
+  "n_candidates": 4,
+  "n_diagnostics": 13,
+  "n_failures": 0,
+  "schema": "head_context_atlas.mechanism_validation_analysis_audit/1",
+  "smoke": false,
+  "status": "PASS",
+  "validation_loaded": true
+}

@@ -1,0 +1,1 @@
+{"phase": "health", "reports": {"health": {"n_failures": 0, "n_packets": 256, "status": "PASS"}}, "schema": "head_context_atlas.stage2_mechanism_run/1", "smoke": false, "status": "PASS"}

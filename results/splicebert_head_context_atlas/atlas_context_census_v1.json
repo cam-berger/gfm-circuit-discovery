@@ -1,0 +1,2374 @@
+{
+  "categories": [
+    "single_pair",
+    "donor_cluster",
+    "acceptor_cluster",
+    "multiple_independent_pairs",
+    "cassette_exon",
+    "complex_event"
+  ],
+  "category_overlap_matrix": {
+    "acceptor_cluster": {
+      "acceptor_cluster": {
+        "n_genes": 10901,
+        "n_packets": 97684
+      },
+      "cassette_exon": {
+        "n_genes": 8243,
+        "n_packets": 51354
+      },
+      "complex_event": {
+        "n_genes": 10178,
+        "n_packets": 90634
+      },
+      "donor_cluster": {
+        "n_genes": 5456,
+        "n_packets": 30926
+      },
+      "multiple_independent_pairs": {
+        "n_genes": 4830,
+        "n_packets": 49372
+      },
+      "single_pair": {
+        "n_genes": 6821,
+        "n_packets": 19232
+      }
+    },
+    "cassette_exon": {
+      "acceptor_cluster": {
+        "n_genes": 8243,
+        "n_packets": 51354
+      },
+      "cassette_exon": {
+        "n_genes": 9904,
+        "n_packets": 72570
+      },
+      "complex_event": {
+        "n_genes": 9904,
+        "n_packets": 72570
+      },
+      "donor_cluster": {
+        "n_genes": 7954,
+        "n_packets": 45258
+      },
+      "multiple_independent_pairs": {
+        "n_genes": 4080,
+        "n_packets": 33932
+      },
+      "single_pair": {
+        "n_genes": 7632,
+        "n_packets": 24876
+      }
+    },
+    "complex_event": {
+      "acceptor_cluster": {
+        "n_genes": 10178,
+        "n_packets": 90634
+      },
+      "cassette_exon": {
+        "n_genes": 9904,
+        "n_packets": 72570
+      },
+      "complex_event": {
+        "n_genes": 12385,
+        "n_packets": 142874
+      },
+      "donor_cluster": {
+        "n_genes": 9713,
+        "n_packets": 74102
+      },
+      "multiple_independent_pairs": {
+        "n_genes": 5601,
+        "n_packets": 68078
+      },
+      "single_pair": {
+        "n_genes": 9692,
+        "n_packets": 35740
+      }
+    },
+    "donor_cluster": {
+      "acceptor_cluster": {
+        "n_genes": 5456,
+        "n_packets": 30926
+      },
+      "cassette_exon": {
+        "n_genes": 7954,
+        "n_packets": 45258
+      },
+      "complex_event": {
+        "n_genes": 9713,
+        "n_packets": 74102
+      },
+      "donor_cluster": {
+        "n_genes": 10375,
+        "n_packets": 79350
+      },
+      "multiple_independent_pairs": {
+        "n_genes": 4962,
+        "n_packets": 40820
+      },
+      "single_pair": {
+        "n_genes": 6758,
+        "n_packets": 18820
+      }
+    },
+    "multiple_independent_pairs": {
+      "acceptor_cluster": {
+        "n_genes": 4830,
+        "n_packets": 49372
+      },
+      "cassette_exon": {
+        "n_genes": 4080,
+        "n_packets": 33932
+      },
+      "complex_event": {
+        "n_genes": 5601,
+        "n_packets": 68078
+      },
+      "donor_cluster": {
+        "n_genes": 4962,
+        "n_packets": 40820
+      },
+      "multiple_independent_pairs": {
+        "n_genes": 7216,
+        "n_packets": 94944
+      },
+      "single_pair": {
+        "n_genes": 0,
+        "n_packets": 0
+      }
+    },
+    "single_pair": {
+      "acceptor_cluster": {
+        "n_genes": 6821,
+        "n_packets": 19232
+      },
+      "cassette_exon": {
+        "n_genes": 7632,
+        "n_packets": 24876
+      },
+      "complex_event": {
+        "n_genes": 9692,
+        "n_packets": 35740
+      },
+      "donor_cluster": {
+        "n_genes": 6758,
+        "n_packets": 18820
+      },
+      "multiple_independent_pairs": {
+        "n_genes": 0,
+        "n_packets": 0
+      },
+      "single_pair": {
+        "n_genes": 14374,
+        "n_packets": 89580
+      }
+    }
+  },
+  "claim_boundary": "category prevalence and annotation-only common support only; no head function, expression, competition specificity, or biological mechanism inferred",
+  "config": {
+    "max_offset": 300,
+    "max_span": 824,
+    "min_context": 100,
+    "min_offset": 100,
+    "transcript_types": [
+      "protein_coding"
+    ],
+    "window_length": 1024
+  },
+  "control_candidate_tag": "isolated_pair_control_candidate",
+  "counts": {
+    "ALL|BOTH": {
+      "acceptor_cluster": {
+        "n_genes": 10901,
+        "n_junctions": 48842,
+        "n_packets": 97684,
+        "target_partner_distance_q": {
+          "0.5": 348,
+          "0.9": 713,
+          "0.99": 813
+        },
+        "target_site_support_q": {
+          "0.5": 10,
+          "0.9": 33,
+          "0.99": 86
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 16
+        }
+      },
+      "cassette_exon": {
+        "n_genes": 9904,
+        "n_junctions": 36285,
+        "n_packets": 72570,
+        "target_partner_distance_q": {
+          "0.5": 369,
+          "0.9": 718,
+          "0.99": 813
+        },
+        "target_site_support_q": {
+          "0.5": 11,
+          "0.9": 35,
+          "0.99": 92
+        },
+        "visible_pair_count_q": {
+          "0.5": 2,
+          "0.9": 7,
+          "0.99": 15
+        }
+      },
+      "complex_event": {
+        "n_genes": 12385,
+        "n_junctions": 71437,
+        "n_packets": 142874,
+        "target_partner_distance_q": {
+          "0.5": 340,
+          "0.9": 709,
+          "0.99": 812
+        },
+        "target_site_support_q": {
+          "0.5": 10,
+          "0.9": 33,
+          "0.99": 86
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 7,
+          "0.99": 15
+        }
+      },
+      "donor_cluster": {
+        "n_genes": 10375,
+        "n_junctions": 39675,
+        "n_packets": 79350,
+        "target_partner_distance_q": {
+          "0.5": 373,
+          "0.9": 720,
+          "0.99": 814
+        },
+        "target_site_support_q": {
+          "0.5": 10,
+          "0.9": 33,
+          "0.99": 87
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 17
+        }
+      },
+      "isolated_pair_control_candidate": {
+        "n_genes": 10105,
+        "n_junctions": 36134,
+        "n_packets": 72268,
+        "target_partner_distance_q": {
+          "0.5": 300,
+          "0.9": 704,
+          "0.99": 812
+        },
+        "target_site_support_q": {
+          "0.5": 6,
+          "0.9": 19,
+          "0.99": 50
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 3,
+          "0.99": 5
+        }
+      },
+      "multiple_independent_pairs": {
+        "n_genes": 7216,
+        "n_junctions": 47472,
+        "n_packets": 94944,
+        "target_partner_distance_q": {
+          "0.5": 238,
+          "0.9": 616,
+          "0.99": 799
+        },
+        "target_site_support_q": {
+          "0.5": 10,
+          "0.9": 32,
+          "0.99": 81
+        },
+        "visible_pair_count_q": {
+          "0.5": 4,
+          "0.9": 8,
+          "0.99": 17
+        }
+      },
+      "n_genes": 15963,
+      "n_junctions": 113720,
+      "n_packets": 227440,
+      "single_pair": {
+        "n_genes": 14374,
+        "n_junctions": 44790,
+        "n_packets": 89580,
+        "target_partner_distance_q": {
+          "0.5": 410,
+          "0.9": 737,
+          "0.99": 816
+        },
+        "target_site_support_q": {
+          "0.5": 6,
+          "0.9": 24,
+          "0.99": 68
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 1,
+          "0.99": 1
+        }
+      },
+      "target_partner_distance_q": {
+        "0.5": 329,
+        "0.9": 708,
+        "0.99": 812
+      },
+      "target_site_support_q": {
+        "0.5": 8,
+        "0.9": 29,
+        "0.99": 76
+      },
+      "visible_pair_count_q": {
+        "0.5": 2,
+        "0.9": 6,
+        "0.99": 14
+      }
+    },
+    "ALL|acceptor": {
+      "acceptor_cluster": {
+        "n_genes": 10901,
+        "n_junctions": 48842,
+        "n_packets": 48842,
+        "target_partner_distance_q": {
+          "0.5": 348,
+          "0.9": 713,
+          "0.99": 813
+        },
+        "target_site_support_q": {
+          "0.5": 4,
+          "0.9": 26,
+          "0.99": 73
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 16
+        }
+      },
+      "cassette_exon": {
+        "n_genes": 9904,
+        "n_junctions": 36285,
+        "n_packets": 36285,
+        "target_partner_distance_q": {
+          "0.5": 369,
+          "0.9": 718,
+          "0.99": 813
+        },
+        "target_site_support_q": {
+          "0.5": 10,
+          "0.9": 34,
+          "0.99": 90
+        },
+        "visible_pair_count_q": {
+          "0.5": 2,
+          "0.9": 7,
+          "0.99": 15
+        }
+      },
+      "complex_event": {
+        "n_genes": 12385,
+        "n_junctions": 71437,
+        "n_packets": 71437,
+        "target_partner_distance_q": {
+          "0.5": 340,
+          "0.9": 709,
+          "0.99": 812
+        },
+        "target_site_support_q": {
+          "0.5": 9,
+          "0.9": 32,
+          "0.99": 83
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 7,
+          "0.99": 15
+        }
+      },
+      "donor_cluster": {
+        "n_genes": 10375,
+        "n_junctions": 39675,
+        "n_packets": 39675,
+        "target_partner_distance_q": {
+          "0.5": 373,
+          "0.9": 720,
+          "0.99": 814
+        },
+        "target_site_support_q": {
+          "0.5": 14,
+          "0.9": 38,
+          "0.99": 93
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 17
+        }
+      },
+      "isolated_pair_control_candidate": {
+        "n_genes": 10105,
+        "n_junctions": 36134,
+        "n_packets": 36134,
+        "target_partner_distance_q": {
+          "0.5": 300,
+          "0.9": 704,
+          "0.99": 812
+        },
+        "target_site_support_q": {
+          "0.5": 6,
+          "0.9": 19,
+          "0.99": 50
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 3,
+          "0.99": 5
+        }
+      },
+      "multiple_independent_pairs": {
+        "n_genes": 7216,
+        "n_junctions": 47472,
+        "n_packets": 47472,
+        "target_partner_distance_q": {
+          "0.5": 238,
+          "0.9": 616,
+          "0.99": 799
+        },
+        "target_site_support_q": {
+          "0.5": 9,
+          "0.9": 31,
+          "0.99": 79
+        },
+        "visible_pair_count_q": {
+          "0.5": 4,
+          "0.9": 8,
+          "0.99": 17
+        }
+      },
+      "n_genes": 15963,
+      "n_junctions": 113720,
+      "n_packets": 113720,
+      "single_pair": {
+        "n_genes": 14374,
+        "n_junctions": 44790,
+        "n_packets": 44790,
+        "target_partner_distance_q": {
+          "0.5": 410,
+          "0.9": 737,
+          "0.99": 816
+        },
+        "target_site_support_q": {
+          "0.5": 6,
+          "0.9": 24,
+          "0.99": 68
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 1,
+          "0.99": 1
+        }
+      },
+      "target_partner_distance_q": {
+        "0.5": 329,
+        "0.9": 708,
+        "0.99": 812
+      },
+      "target_site_support_q": {
+        "0.5": 7,
+        "0.9": 28,
+        "0.99": 74
+      },
+      "visible_pair_count_q": {
+        "0.5": 2,
+        "0.9": 6,
+        "0.99": 14
+      }
+    },
+    "ALL|donor": {
+      "acceptor_cluster": {
+        "n_genes": 10901,
+        "n_junctions": 48842,
+        "n_packets": 48842,
+        "target_partner_distance_q": {
+          "0.5": 348,
+          "0.9": 713,
+          "0.99": 813
+        },
+        "target_site_support_q": {
+          "0.5": 14,
+          "0.9": 38,
+          "0.99": 95
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 16
+        }
+      },
+      "cassette_exon": {
+        "n_genes": 9904,
+        "n_junctions": 36285,
+        "n_packets": 36285,
+        "target_partner_distance_q": {
+          "0.5": 369,
+          "0.9": 718,
+          "0.99": 813
+        },
+        "target_site_support_q": {
+          "0.5": 12,
+          "0.9": 36,
+          "0.99": 94
+        },
+        "visible_pair_count_q": {
+          "0.5": 2,
+          "0.9": 7,
+          "0.99": 15
+        }
+      },
+      "complex_event": {
+        "n_genes": 12385,
+        "n_junctions": 71437,
+        "n_packets": 71437,
+        "target_partner_distance_q": {
+          "0.5": 340,
+          "0.9": 709,
+          "0.99": 812
+        },
+        "target_site_support_q": {
+          "0.5": 11,
+          "0.9": 34,
+          "0.99": 89
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 7,
+          "0.99": 15
+        }
+      },
+      "donor_cluster": {
+        "n_genes": 10375,
+        "n_junctions": 39675,
+        "n_packets": 39675,
+        "target_partner_distance_q": {
+          "0.5": 373,
+          "0.9": 720,
+          "0.99": 814
+        },
+        "target_site_support_q": {
+          "0.5": 4,
+          "0.9": 27,
+          "0.99": 76
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 17
+        }
+      },
+      "isolated_pair_control_candidate": {
+        "n_genes": 10105,
+        "n_junctions": 36134,
+        "n_packets": 36134,
+        "target_partner_distance_q": {
+          "0.5": 300,
+          "0.9": 704,
+          "0.99": 812
+        },
+        "target_site_support_q": {
+          "0.5": 6,
+          "0.9": 19,
+          "0.99": 50
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 3,
+          "0.99": 5
+        }
+      },
+      "multiple_independent_pairs": {
+        "n_genes": 7216,
+        "n_junctions": 47472,
+        "n_packets": 47472,
+        "target_partner_distance_q": {
+          "0.5": 238,
+          "0.9": 616,
+          "0.99": 799
+        },
+        "target_site_support_q": {
+          "0.5": 10,
+          "0.9": 33,
+          "0.99": 84
+        },
+        "visible_pair_count_q": {
+          "0.5": 4,
+          "0.9": 8,
+          "0.99": 17
+        }
+      },
+      "n_genes": 15963,
+      "n_junctions": 113720,
+      "n_packets": 113720,
+      "single_pair": {
+        "n_genes": 14374,
+        "n_junctions": 44790,
+        "n_packets": 44790,
+        "target_partner_distance_q": {
+          "0.5": 410,
+          "0.9": 737,
+          "0.99": 816
+        },
+        "target_site_support_q": {
+          "0.5": 7,
+          "0.9": 24,
+          "0.99": 68
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 1,
+          "0.99": 1
+        }
+      },
+      "target_partner_distance_q": {
+        "0.5": 329,
+        "0.9": 708,
+        "0.99": 812
+      },
+      "target_site_support_q": {
+        "0.5": 9,
+        "0.9": 29,
+        "0.99": 78
+      },
+      "visible_pair_count_q": {
+        "0.5": 2,
+        "0.9": 6,
+        "0.99": 14
+      }
+    },
+    "test|BOTH": {
+      "acceptor_cluster": {
+        "n_genes": 739,
+        "n_junctions": 3268,
+        "n_packets": 6536,
+        "target_partner_distance_q": {
+          "0.5": 333,
+          "0.9": 721,
+          "0.99": 813
+        },
+        "target_site_support_q": {
+          "0.5": 10,
+          "0.9": 33,
+          "0.99": 101
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 14
+        }
+      },
+      "cassette_exon": {
+        "n_genes": 669,
+        "n_junctions": 2319,
+        "n_packets": 4638,
+        "target_partner_distance_q": {
+          "0.5": 353,
+          "0.9": 723,
+          "0.99": 812
+        },
+        "target_site_support_q": {
+          "0.5": 11,
+          "0.9": 36,
+          "0.99": 107
+        },
+        "visible_pair_count_q": {
+          "0.5": 2,
+          "0.9": 7,
+          "0.99": 14
+        }
+      },
+      "complex_event": {
+        "n_genes": 860,
+        "n_junctions": 4741,
+        "n_packets": 9482,
+        "target_partner_distance_q": {
+          "0.5": 332,
+          "0.9": 719,
+          "0.99": 813
+        },
+        "target_site_support_q": {
+          "0.5": 10,
+          "0.9": 33,
+          "0.99": 101
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 14
+        }
+      },
+      "donor_cluster": {
+        "n_genes": 722,
+        "n_junctions": 2533,
+        "n_packets": 5066,
+        "target_partner_distance_q": {
+          "0.5": 370,
+          "0.9": 730,
+          "0.99": 815
+        },
+        "target_site_support_q": {
+          "0.5": 9,
+          "0.9": 33,
+          "0.99": 101
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 15
+        }
+      },
+      "isolated_pair_control_candidate": {
+        "n_genes": 722,
+        "n_junctions": 2462,
+        "n_packets": 4924,
+        "target_partner_distance_q": {
+          "0.5": 343,
+          "0.9": 724,
+          "0.99": 816
+        },
+        "target_site_support_q": {
+          "0.5": 6,
+          "0.9": 20,
+          "0.99": 42
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 3,
+          "0.99": 6
+        }
+      },
+      "multiple_independent_pairs": {
+        "n_genes": 459,
+        "n_junctions": 3067,
+        "n_packets": 6134,
+        "target_partner_distance_q": {
+          "0.5": 225,
+          "0.9": 594,
+          "0.99": 798
+        },
+        "target_site_support_q": {
+          "0.5": 9,
+          "0.9": 32,
+          "0.99": 88
+        },
+        "visible_pair_count_q": {
+          "0.5": 4,
+          "0.9": 9,
+          "0.99": 15
+        }
+      },
+      "n_genes": 1142,
+      "n_junctions": 7592,
+      "n_packets": 15184,
+      "single_pair": {
+        "n_genes": 1019,
+        "n_junctions": 3153,
+        "n_packets": 6306,
+        "target_partner_distance_q": {
+          "0.5": 440,
+          "0.9": 748,
+          "0.99": 819
+        },
+        "target_site_support_q": {
+          "0.5": 7,
+          "0.9": 25,
+          "0.99": 62
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 1,
+          "0.99": 1
+        }
+      },
+      "target_partner_distance_q": {
+        "0.5": 335,
+        "0.9": 721,
+        "0.99": 815
+      },
+      "target_site_support_q": {
+        "0.5": 8,
+        "0.9": 29,
+        "0.99": 76
+      },
+      "visible_pair_count_q": {
+        "0.5": 2,
+        "0.9": 6,
+        "0.99": 13
+      }
+    },
+    "test|acceptor": {
+      "acceptor_cluster": {
+        "n_genes": 739,
+        "n_junctions": 3268,
+        "n_packets": 3268,
+        "target_partner_distance_q": {
+          "0.5": 333,
+          "0.9": 721,
+          "0.99": 812
+        },
+        "target_site_support_q": {
+          "0.5": 3,
+          "0.9": 27,
+          "0.99": 61
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 14
+        }
+      },
+      "cassette_exon": {
+        "n_genes": 669,
+        "n_junctions": 2319,
+        "n_packets": 2319,
+        "target_partner_distance_q": {
+          "0.5": 353,
+          "0.9": 723,
+          "0.99": 812
+        },
+        "target_site_support_q": {
+          "0.5": 10,
+          "0.9": 35,
+          "0.99": 105
+        },
+        "visible_pair_count_q": {
+          "0.5": 2,
+          "0.9": 7,
+          "0.99": 14
+        }
+      },
+      "complex_event": {
+        "n_genes": 860,
+        "n_junctions": 4741,
+        "n_packets": 4741,
+        "target_partner_distance_q": {
+          "0.5": 332,
+          "0.9": 719,
+          "0.99": 813
+        },
+        "target_site_support_q": {
+          "0.5": 9,
+          "0.9": 32,
+          "0.99": 96
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 14
+        }
+      },
+      "donor_cluster": {
+        "n_genes": 722,
+        "n_junctions": 2533,
+        "n_packets": 2533,
+        "target_partner_distance_q": {
+          "0.5": 370,
+          "0.9": 730,
+          "0.99": 815
+        },
+        "target_site_support_q": {
+          "0.5": 14,
+          "0.9": 37,
+          "0.99": 139
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 15
+        }
+      },
+      "isolated_pair_control_candidate": {
+        "n_genes": 722,
+        "n_junctions": 2462,
+        "n_packets": 2462,
+        "target_partner_distance_q": {
+          "0.5": 342,
+          "0.9": 724,
+          "0.99": 816
+        },
+        "target_site_support_q": {
+          "0.5": 6,
+          "0.9": 20,
+          "0.99": 42
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 3,
+          "0.99": 6
+        }
+      },
+      "multiple_independent_pairs": {
+        "n_genes": 459,
+        "n_junctions": 3067,
+        "n_packets": 3067,
+        "target_partner_distance_q": {
+          "0.5": 225,
+          "0.9": 593,
+          "0.99": 798
+        },
+        "target_site_support_q": {
+          "0.5": 8,
+          "0.9": 30,
+          "0.99": 70
+        },
+        "visible_pair_count_q": {
+          "0.5": 4,
+          "0.9": 9,
+          "0.99": 15
+        }
+      },
+      "n_genes": 1142,
+      "n_junctions": 7592,
+      "n_packets": 7592,
+      "single_pair": {
+        "n_genes": 1019,
+        "n_junctions": 3153,
+        "n_packets": 3153,
+        "target_partner_distance_q": {
+          "0.5": 440,
+          "0.9": 748,
+          "0.99": 819
+        },
+        "target_site_support_q": {
+          "0.5": 7,
+          "0.9": 25,
+          "0.99": 62
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 1,
+          "0.99": 1
+        }
+      },
+      "target_partner_distance_q": {
+        "0.5": 335,
+        "0.9": 721,
+        "0.99": 815
+      },
+      "target_site_support_q": {
+        "0.5": 7,
+        "0.9": 28,
+        "0.99": 70
+      },
+      "visible_pair_count_q": {
+        "0.5": 2,
+        "0.9": 6,
+        "0.99": 13
+      }
+    },
+    "test|donor": {
+      "acceptor_cluster": {
+        "n_genes": 739,
+        "n_junctions": 3268,
+        "n_packets": 3268,
+        "target_partner_distance_q": {
+          "0.5": 333,
+          "0.9": 721,
+          "0.99": 812
+        },
+        "target_site_support_q": {
+          "0.5": 15,
+          "0.9": 38,
+          "0.99": 110
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 14
+        }
+      },
+      "cassette_exon": {
+        "n_genes": 669,
+        "n_junctions": 2319,
+        "n_packets": 2319,
+        "target_partner_distance_q": {
+          "0.5": 353,
+          "0.9": 723,
+          "0.99": 812
+        },
+        "target_site_support_q": {
+          "0.5": 12,
+          "0.9": 37,
+          "0.99": 109
+        },
+        "visible_pair_count_q": {
+          "0.5": 2,
+          "0.9": 7,
+          "0.99": 14
+        }
+      },
+      "complex_event": {
+        "n_genes": 860,
+        "n_junctions": 4741,
+        "n_packets": 4741,
+        "target_partner_distance_q": {
+          "0.5": 332,
+          "0.9": 719,
+          "0.99": 813
+        },
+        "target_site_support_q": {
+          "0.5": 11,
+          "0.9": 35,
+          "0.99": 102
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 14
+        }
+      },
+      "donor_cluster": {
+        "n_genes": 722,
+        "n_junctions": 2533,
+        "n_packets": 2533,
+        "target_partner_distance_q": {
+          "0.5": 370,
+          "0.9": 730,
+          "0.99": 815
+        },
+        "target_site_support_q": {
+          "0.5": 4,
+          "0.9": 27,
+          "0.99": 65
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 15
+        }
+      },
+      "isolated_pair_control_candidate": {
+        "n_genes": 722,
+        "n_junctions": 2462,
+        "n_packets": 2462,
+        "target_partner_distance_q": {
+          "0.5": 342,
+          "0.9": 724,
+          "0.99": 816
+        },
+        "target_site_support_q": {
+          "0.5": 6,
+          "0.9": 20,
+          "0.99": 42
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 3,
+          "0.99": 6
+        }
+      },
+      "multiple_independent_pairs": {
+        "n_genes": 459,
+        "n_junctions": 3067,
+        "n_packets": 3067,
+        "target_partner_distance_q": {
+          "0.5": 225,
+          "0.9": 593,
+          "0.99": 798
+        },
+        "target_site_support_q": {
+          "0.5": 11,
+          "0.9": 32,
+          "0.99": 88
+        },
+        "visible_pair_count_q": {
+          "0.5": 4,
+          "0.9": 9,
+          "0.99": 15
+        }
+      },
+      "n_genes": 1142,
+      "n_junctions": 7592,
+      "n_packets": 7592,
+      "single_pair": {
+        "n_genes": 1019,
+        "n_junctions": 3153,
+        "n_packets": 3153,
+        "target_partner_distance_q": {
+          "0.5": 440,
+          "0.9": 748,
+          "0.99": 819
+        },
+        "target_site_support_q": {
+          "0.5": 7,
+          "0.9": 24,
+          "0.99": 62
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 1,
+          "0.99": 1
+        }
+      },
+      "target_partner_distance_q": {
+        "0.5": 335,
+        "0.9": 721,
+        "0.99": 815
+      },
+      "target_site_support_q": {
+        "0.5": 9,
+        "0.9": 30,
+        "0.99": 88
+      },
+      "visible_pair_count_q": {
+        "0.5": 2,
+        "0.9": 6,
+        "0.99": 13
+      }
+    },
+    "train|BOTH": {
+      "acceptor_cluster": {
+        "n_genes": 8032,
+        "n_junctions": 34671,
+        "n_packets": 69342,
+        "target_partner_distance_q": {
+          "0.5": 360,
+          "0.9": 718,
+          "0.99": 814
+        },
+        "target_site_support_q": {
+          "0.5": 10,
+          "0.9": 34,
+          "0.99": 89
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 7,
+          "0.99": 16
+        }
+      },
+      "cassette_exon": {
+        "n_genes": 7336,
+        "n_junctions": 26284,
+        "n_packets": 52568,
+        "target_partner_distance_q": {
+          "0.5": 379,
+          "0.9": 719,
+          "0.99": 813
+        },
+        "target_site_support_q": {
+          "0.5": 11,
+          "0.9": 36,
+          "0.99": 94
+        },
+        "visible_pair_count_q": {
+          "0.5": 2,
+          "0.9": 7,
+          "0.99": 16
+        }
+      },
+      "complex_event": {
+        "n_genes": 9152,
+        "n_junctions": 50675,
+        "n_packets": 101350,
+        "target_partner_distance_q": {
+          "0.5": 352,
+          "0.9": 712,
+          "0.99": 812
+        },
+        "target_site_support_q": {
+          "0.5": 10,
+          "0.9": 34,
+          "0.99": 89
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 7,
+          "0.99": 16
+        }
+      },
+      "donor_cluster": {
+        "n_genes": 7592,
+        "n_junctions": 28257,
+        "n_packets": 56514,
+        "target_partner_distance_q": {
+          "0.5": 382,
+          "0.9": 721,
+          "0.99": 814
+        },
+        "target_site_support_q": {
+          "0.5": 10,
+          "0.9": 34,
+          "0.99": 90
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 17
+        }
+      },
+      "isolated_pair_control_candidate": {
+        "n_genes": 7484,
+        "n_junctions": 26750,
+        "n_packets": 53500,
+        "target_partner_distance_q": {
+          "0.5": 315,
+          "0.9": 709,
+          "0.99": 812
+        },
+        "target_site_support_q": {
+          "0.5": 6,
+          "0.9": 20,
+          "0.99": 51
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 3,
+          "0.99": 5
+        }
+      },
+      "multiple_independent_pairs": {
+        "n_genes": 5092,
+        "n_junctions": 32367,
+        "n_packets": 64734,
+        "target_partner_distance_q": {
+          "0.5": 245,
+          "0.9": 622,
+          "0.99": 801
+        },
+        "target_site_support_q": {
+          "0.5": 10,
+          "0.9": 33,
+          "0.99": 86
+        },
+        "visible_pair_count_q": {
+          "0.5": 4,
+          "0.9": 8,
+          "0.99": 18
+        }
+      },
+      "n_genes": 11876,
+      "n_junctions": 81910,
+      "n_packets": 163820,
+      "single_pair": {
+        "n_genes": 10781,
+        "n_junctions": 34074,
+        "n_packets": 68148,
+        "target_partner_distance_q": {
+          "0.5": 419,
+          "0.9": 737,
+          "0.99": 816
+        },
+        "target_site_support_q": {
+          "0.5": 6,
+          "0.9": 24,
+          "0.99": 69
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 1,
+          "0.99": 1
+        }
+      },
+      "target_partner_distance_q": {
+        "0.5": 341,
+        "0.9": 711,
+        "0.99": 812
+      },
+      "target_site_support_q": {
+        "0.5": 8,
+        "0.9": 29,
+        "0.99": 79
+      },
+      "visible_pair_count_q": {
+        "0.5": 2,
+        "0.9": 6,
+        "0.99": 14
+      }
+    },
+    "train|acceptor": {
+      "acceptor_cluster": {
+        "n_genes": 8032,
+        "n_junctions": 34671,
+        "n_packets": 34671,
+        "target_partner_distance_q": {
+          "0.5": 360,
+          "0.9": 718,
+          "0.99": 814
+        },
+        "target_site_support_q": {
+          "0.5": 4,
+          "0.9": 27,
+          "0.99": 75
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 7,
+          "0.99": 16
+        }
+      },
+      "cassette_exon": {
+        "n_genes": 7336,
+        "n_junctions": 26284,
+        "n_packets": 26284,
+        "target_partner_distance_q": {
+          "0.5": 379,
+          "0.9": 719,
+          "0.99": 813
+        },
+        "target_site_support_q": {
+          "0.5": 10,
+          "0.9": 35,
+          "0.99": 92
+        },
+        "visible_pair_count_q": {
+          "0.5": 2,
+          "0.9": 7,
+          "0.99": 16
+        }
+      },
+      "complex_event": {
+        "n_genes": 9152,
+        "n_junctions": 50675,
+        "n_packets": 50675,
+        "target_partner_distance_q": {
+          "0.5": 352,
+          "0.9": 712,
+          "0.99": 812
+        },
+        "target_site_support_q": {
+          "0.5": 9,
+          "0.9": 33,
+          "0.99": 86
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 7,
+          "0.99": 16
+        }
+      },
+      "donor_cluster": {
+        "n_genes": 7592,
+        "n_junctions": 28257,
+        "n_packets": 28257,
+        "target_partner_distance_q": {
+          "0.5": 382,
+          "0.9": 721,
+          "0.99": 814
+        },
+        "target_site_support_q": {
+          "0.5": 14,
+          "0.9": 39,
+          "0.99": 96
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 17
+        }
+      },
+      "isolated_pair_control_candidate": {
+        "n_genes": 7484,
+        "n_junctions": 26750,
+        "n_packets": 26750,
+        "target_partner_distance_q": {
+          "0.5": 315,
+          "0.9": 709,
+          "0.99": 812
+        },
+        "target_site_support_q": {
+          "0.5": 6,
+          "0.9": 20,
+          "0.99": 51
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 3,
+          "0.99": 5
+        }
+      },
+      "multiple_independent_pairs": {
+        "n_genes": 5092,
+        "n_junctions": 32367,
+        "n_packets": 32367,
+        "target_partner_distance_q": {
+          "0.5": 245,
+          "0.9": 622,
+          "0.99": 801
+        },
+        "target_site_support_q": {
+          "0.5": 9,
+          "0.9": 32,
+          "0.99": 82
+        },
+        "visible_pair_count_q": {
+          "0.5": 4,
+          "0.9": 8,
+          "0.99": 18
+        }
+      },
+      "n_genes": 11876,
+      "n_junctions": 81910,
+      "n_packets": 81910,
+      "single_pair": {
+        "n_genes": 10781,
+        "n_junctions": 34074,
+        "n_packets": 34074,
+        "target_partner_distance_q": {
+          "0.5": 419,
+          "0.9": 737,
+          "0.99": 816
+        },
+        "target_site_support_q": {
+          "0.5": 6,
+          "0.9": 24,
+          "0.99": 69
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 1,
+          "0.99": 1
+        }
+      },
+      "target_partner_distance_q": {
+        "0.5": 341,
+        "0.9": 711,
+        "0.99": 812
+      },
+      "target_site_support_q": {
+        "0.5": 7,
+        "0.9": 28,
+        "0.99": 77
+      },
+      "visible_pair_count_q": {
+        "0.5": 2,
+        "0.9": 6,
+        "0.99": 14
+      }
+    },
+    "train|donor": {
+      "acceptor_cluster": {
+        "n_genes": 8032,
+        "n_junctions": 34671,
+        "n_packets": 34671,
+        "target_partner_distance_q": {
+          "0.5": 360,
+          "0.9": 718,
+          "0.99": 814
+        },
+        "target_site_support_q": {
+          "0.5": 14,
+          "0.9": 40,
+          "0.99": 98
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 7,
+          "0.99": 16
+        }
+      },
+      "cassette_exon": {
+        "n_genes": 7336,
+        "n_junctions": 26284,
+        "n_packets": 26284,
+        "target_partner_distance_q": {
+          "0.5": 379,
+          "0.9": 719,
+          "0.99": 813
+        },
+        "target_site_support_q": {
+          "0.5": 12,
+          "0.9": 37,
+          "0.99": 97
+        },
+        "visible_pair_count_q": {
+          "0.5": 2,
+          "0.9": 7,
+          "0.99": 16
+        }
+      },
+      "complex_event": {
+        "n_genes": 9152,
+        "n_junctions": 50675,
+        "n_packets": 50675,
+        "target_partner_distance_q": {
+          "0.5": 352,
+          "0.9": 712,
+          "0.99": 812
+        },
+        "target_site_support_q": {
+          "0.5": 11,
+          "0.9": 35,
+          "0.99": 91
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 7,
+          "0.99": 16
+        }
+      },
+      "donor_cluster": {
+        "n_genes": 7592,
+        "n_junctions": 28257,
+        "n_packets": 28257,
+        "target_partner_distance_q": {
+          "0.5": 382,
+          "0.9": 721,
+          "0.99": 814
+        },
+        "target_site_support_q": {
+          "0.5": 5,
+          "0.9": 28,
+          "0.99": 81
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 17
+        }
+      },
+      "isolated_pair_control_candidate": {
+        "n_genes": 7484,
+        "n_junctions": 26750,
+        "n_packets": 26750,
+        "target_partner_distance_q": {
+          "0.5": 315,
+          "0.9": 709,
+          "0.99": 812
+        },
+        "target_site_support_q": {
+          "0.5": 6,
+          "0.9": 20,
+          "0.99": 51
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 3,
+          "0.99": 5
+        }
+      },
+      "multiple_independent_pairs": {
+        "n_genes": 5092,
+        "n_junctions": 32367,
+        "n_packets": 32367,
+        "target_partner_distance_q": {
+          "0.5": 245,
+          "0.9": 622,
+          "0.99": 801
+        },
+        "target_site_support_q": {
+          "0.5": 10,
+          "0.9": 34,
+          "0.99": 89
+        },
+        "visible_pair_count_q": {
+          "0.5": 4,
+          "0.9": 8,
+          "0.99": 18
+        }
+      },
+      "n_genes": 11876,
+      "n_junctions": 81910,
+      "n_packets": 81910,
+      "single_pair": {
+        "n_genes": 10781,
+        "n_junctions": 34074,
+        "n_packets": 34074,
+        "target_partner_distance_q": {
+          "0.5": 419,
+          "0.9": 737,
+          "0.99": 816
+        },
+        "target_site_support_q": {
+          "0.5": 7,
+          "0.9": 24,
+          "0.99": 69
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 1,
+          "0.99": 1
+        }
+      },
+      "target_partner_distance_q": {
+        "0.5": 341,
+        "0.9": 711,
+        "0.99": 812
+      },
+      "target_site_support_q": {
+        "0.5": 8,
+        "0.9": 30,
+        "0.99": 81
+      },
+      "visible_pair_count_q": {
+        "0.5": 2,
+        "0.9": 6,
+        "0.99": 14
+      }
+    },
+    "val|BOTH": {
+      "acceptor_cluster": {
+        "n_genes": 2130,
+        "n_junctions": 10903,
+        "n_packets": 21806,
+        "target_partner_distance_q": {
+          "0.5": 317,
+          "0.9": 695,
+          "0.99": 810
+        },
+        "target_site_support_q": {
+          "0.5": 10,
+          "0.9": 30,
+          "0.99": 64
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 16
+        }
+      },
+      "cassette_exon": {
+        "n_genes": 1899,
+        "n_junctions": 7682,
+        "n_packets": 15364,
+        "target_partner_distance_q": {
+          "0.5": 336,
+          "0.9": 709,
+          "0.99": 810
+        },
+        "target_site_support_q": {
+          "0.5": 11,
+          "0.9": 32,
+          "0.99": 71
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 15
+        }
+      },
+      "complex_event": {
+        "n_genes": 2373,
+        "n_junctions": 16021,
+        "n_packets": 32042,
+        "target_partner_distance_q": {
+          "0.5": 308,
+          "0.9": 692,
+          "0.99": 809
+        },
+        "target_site_support_q": {
+          "0.5": 10,
+          "0.9": 30,
+          "0.99": 66
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 15
+        }
+      },
+      "donor_cluster": {
+        "n_genes": 2061,
+        "n_junctions": 8885,
+        "n_packets": 17770,
+        "target_partner_distance_q": {
+          "0.5": 343,
+          "0.9": 710,
+          "0.99": 813
+        },
+        "target_site_support_q": {
+          "0.5": 10,
+          "0.9": 30,
+          "0.99": 66
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 16
+        }
+      },
+      "isolated_pair_control_candidate": {
+        "n_genes": 1899,
+        "n_junctions": 6922,
+        "n_packets": 13844,
+        "target_partner_distance_q": {
+          "0.5": 237,
+          "0.9": 667,
+          "0.99": 806
+        },
+        "target_site_support_q": {
+          "0.5": 5,
+          "0.9": 19,
+          "0.99": 47
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 3,
+          "0.99": 6
+        }
+      },
+      "multiple_independent_pairs": {
+        "n_genes": 1665,
+        "n_junctions": 12038,
+        "n_packets": 24076,
+        "target_partner_distance_q": {
+          "0.5": 222,
+          "0.9": 599,
+          "0.99": 794
+        },
+        "target_site_support_q": {
+          "0.5": 9,
+          "0.9": 29,
+          "0.99": 62
+        },
+        "visible_pair_count_q": {
+          "0.5": 4,
+          "0.9": 9,
+          "0.99": 16
+        }
+      },
+      "n_genes": 2945,
+      "n_junctions": 24218,
+      "n_packets": 48436,
+      "single_pair": {
+        "n_genes": 2574,
+        "n_junctions": 7563,
+        "n_packets": 15126,
+        "target_partner_distance_q": {
+          "0.5": 357,
+          "0.9": 730,
+          "0.99": 816
+        },
+        "target_site_support_q": {
+          "0.5": 6,
+          "0.9": 23,
+          "0.99": 63
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 1,
+          "0.99": 1
+        }
+      },
+      "target_partner_distance_q": {
+        "0.5": 286,
+        "0.9": 687,
+        "0.99": 810
+      },
+      "target_site_support_q": {
+        "0.5": 8,
+        "0.9": 27,
+        "0.99": 63
+      },
+      "visible_pair_count_q": {
+        "0.5": 2,
+        "0.9": 6,
+        "0.99": 14
+      }
+    },
+    "val|acceptor": {
+      "acceptor_cluster": {
+        "n_genes": 2130,
+        "n_junctions": 10903,
+        "n_packets": 10903,
+        "target_partner_distance_q": {
+          "0.5": 317,
+          "0.9": 695,
+          "0.99": 810
+        },
+        "target_site_support_q": {
+          "0.5": 4,
+          "0.9": 24,
+          "0.99": 57
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 16
+        }
+      },
+      "cassette_exon": {
+        "n_genes": 1899,
+        "n_junctions": 7682,
+        "n_packets": 7682,
+        "target_partner_distance_q": {
+          "0.5": 336,
+          "0.9": 709,
+          "0.99": 810
+        },
+        "target_site_support_q": {
+          "0.5": 10,
+          "0.9": 31,
+          "0.99": 69
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 15
+        }
+      },
+      "complex_event": {
+        "n_genes": 2373,
+        "n_junctions": 16021,
+        "n_packets": 16021,
+        "target_partner_distance_q": {
+          "0.5": 308,
+          "0.9": 692,
+          "0.99": 809
+        },
+        "target_site_support_q": {
+          "0.5": 9,
+          "0.9": 29,
+          "0.99": 65
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 15
+        }
+      },
+      "donor_cluster": {
+        "n_genes": 2061,
+        "n_junctions": 8885,
+        "n_packets": 8885,
+        "target_partner_distance_q": {
+          "0.5": 343,
+          "0.9": 710,
+          "0.99": 813
+        },
+        "target_site_support_q": {
+          "0.5": 13,
+          "0.9": 33,
+          "0.99": 73
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 16
+        }
+      },
+      "isolated_pair_control_candidate": {
+        "n_genes": 1899,
+        "n_junctions": 6922,
+        "n_packets": 6922,
+        "target_partner_distance_q": {
+          "0.5": 237,
+          "0.9": 667,
+          "0.99": 806
+        },
+        "target_site_support_q": {
+          "0.5": 5,
+          "0.9": 19,
+          "0.99": 47
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 3,
+          "0.99": 6
+        }
+      },
+      "multiple_independent_pairs": {
+        "n_genes": 1665,
+        "n_junctions": 12038,
+        "n_packets": 12038,
+        "target_partner_distance_q": {
+          "0.5": 222,
+          "0.9": 598,
+          "0.99": 794
+        },
+        "target_site_support_q": {
+          "0.5": 9,
+          "0.9": 28,
+          "0.99": 59
+        },
+        "visible_pair_count_q": {
+          "0.5": 4,
+          "0.9": 9,
+          "0.99": 16
+        }
+      },
+      "n_genes": 2945,
+      "n_junctions": 24218,
+      "n_packets": 24218,
+      "single_pair": {
+        "n_genes": 2574,
+        "n_junctions": 7563,
+        "n_packets": 7563,
+        "target_partner_distance_q": {
+          "0.5": 357,
+          "0.9": 730,
+          "0.99": 815
+        },
+        "target_site_support_q": {
+          "0.5": 6,
+          "0.9": 23,
+          "0.99": 63
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 1,
+          "0.99": 1
+        }
+      },
+      "target_partner_distance_q": {
+        "0.5": 286,
+        "0.9": 687,
+        "0.99": 810
+      },
+      "target_site_support_q": {
+        "0.5": 7,
+        "0.9": 26,
+        "0.99": 62
+      },
+      "visible_pair_count_q": {
+        "0.5": 2,
+        "0.9": 6,
+        "0.99": 14
+      }
+    },
+    "val|donor": {
+      "acceptor_cluster": {
+        "n_genes": 2130,
+        "n_junctions": 10903,
+        "n_packets": 10903,
+        "target_partner_distance_q": {
+          "0.5": 317,
+          "0.9": 695,
+          "0.99": 810
+        },
+        "target_site_support_q": {
+          "0.5": 14,
+          "0.9": 34,
+          "0.99": 74
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 16
+        }
+      },
+      "cassette_exon": {
+        "n_genes": 1899,
+        "n_junctions": 7682,
+        "n_packets": 7682,
+        "target_partner_distance_q": {
+          "0.5": 336,
+          "0.9": 709,
+          "0.99": 810
+        },
+        "target_site_support_q": {
+          "0.5": 12,
+          "0.9": 33,
+          "0.99": 75
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 15
+        }
+      },
+      "complex_event": {
+        "n_genes": 2373,
+        "n_junctions": 16021,
+        "n_packets": 16021,
+        "target_partner_distance_q": {
+          "0.5": 308,
+          "0.9": 692,
+          "0.99": 809
+        },
+        "target_site_support_q": {
+          "0.5": 11,
+          "0.9": 31,
+          "0.99": 66
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 15
+        }
+      },
+      "donor_cluster": {
+        "n_genes": 2061,
+        "n_junctions": 8885,
+        "n_packets": 8885,
+        "target_partner_distance_q": {
+          "0.5": 343,
+          "0.9": 710,
+          "0.99": 813
+        },
+        "target_site_support_q": {
+          "0.5": 5,
+          "0.9": 25,
+          "0.99": 59
+        },
+        "visible_pair_count_q": {
+          "0.5": 3,
+          "0.9": 8,
+          "0.99": 16
+        }
+      },
+      "isolated_pair_control_candidate": {
+        "n_genes": 1899,
+        "n_junctions": 6922,
+        "n_packets": 6922,
+        "target_partner_distance_q": {
+          "0.5": 237,
+          "0.9": 667,
+          "0.99": 806
+        },
+        "target_site_support_q": {
+          "0.5": 5,
+          "0.9": 19,
+          "0.99": 47
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 3,
+          "0.99": 6
+        }
+      },
+      "multiple_independent_pairs": {
+        "n_genes": 1665,
+        "n_junctions": 12038,
+        "n_packets": 12038,
+        "target_partner_distance_q": {
+          "0.5": 222,
+          "0.9": 598,
+          "0.99": 794
+        },
+        "target_site_support_q": {
+          "0.5": 10,
+          "0.9": 29,
+          "0.99": 63
+        },
+        "visible_pair_count_q": {
+          "0.5": 4,
+          "0.9": 9,
+          "0.99": 16
+        }
+      },
+      "n_genes": 2945,
+      "n_junctions": 24218,
+      "n_packets": 24218,
+      "single_pair": {
+        "n_genes": 2574,
+        "n_junctions": 7563,
+        "n_packets": 7563,
+        "target_partner_distance_q": {
+          "0.5": 357,
+          "0.9": 730,
+          "0.99": 815
+        },
+        "target_site_support_q": {
+          "0.5": 6,
+          "0.9": 23,
+          "0.99": 63
+        },
+        "visible_pair_count_q": {
+          "0.5": 1,
+          "0.9": 1,
+          "0.99": 1
+        }
+      },
+      "target_partner_distance_q": {
+        "0.5": 286,
+        "0.9": 687,
+        "0.99": 810
+      },
+      "target_site_support_q": {
+        "0.5": 9,
+        "0.9": 28,
+        "0.99": 63
+      },
+      "visible_pair_count_q": {
+        "0.5": 2,
+        "0.9": 6,
+        "0.99": 14
+      }
+    }
+  },
+  "deferred_before_matching": [
+    "genome-sequence construction and canonical motif validation",
+    "MaxEnt strength and within-gene strength gap",
+    "GC/PPT/k-mer/low-complexity covariates",
+    "proper masked-MLM health probes",
+    "final without-replacement matched-set selection"
+  ],
+  "definitions_source": "src/gfmcd/splicing/atlas_context.py",
+  "gene_disjoint_split_gate": {
+    "overlaps": {
+      "train_test": 0,
+      "train_val": 0,
+      "val_test": 0
+    },
+    "pass": true
+  },
+  "junction_window_fit_fraction": 0.29303387463345,
+  "n_constructible_junctions": 113720,
+  "n_constructible_packets": 227440,
+  "n_transcripts": 278442,
+  "n_unique_junctions": 388078,
+  "objective": "multi-label substrate for general-versus-context-associated component use across all 96 heads and 6 MLPs",
+  "schema": "head_context_atlas.context_census/1",
+  "status": "ANNOTATION_ONLY_NO_MODEL_NO_SEQUENCE",
+  "top_category_combinations": [
+    {
+      "categories": [
+        "single_pair"
+      ],
+      "n_packets": 48794
+    },
+    {
+      "categories": [
+        "multiple_independent_pairs"
+      ],
+      "n_packets": 23474
+    },
+    {
+      "categories": [
+        "acceptor_cluster",
+        "cassette_exon",
+        "complex_event",
+        "donor_cluster",
+        "multiple_independent_pairs"
+      ],
+      "n_packets": 16600
+    },
+    {
+      "categories": [
+        "acceptor_cluster",
+        "complex_event",
+        "multiple_independent_pairs"
+      ],
+      "n_packets": 14898
+    },
+    {
+      "categories": [
+        "acceptor_cluster",
+        "complex_event"
+      ],
+      "n_packets": 14798
+    },
+    {
+      "categories": [
+        "cassette_exon",
+        "complex_event",
+        "donor_cluster",
+        "single_pair"
+      ],
+      "n_packets": 11206
+    },
+    {
+      "categories": [
+        "acceptor_cluster",
+        "cassette_exon",
+        "complex_event",
+        "single_pair"
+      ],
+      "n_packets": 11184
+    },
+    {
+      "categories": [
+        "acceptor_cluster",
+        "cassette_exon",
+        "complex_event",
+        "multiple_independent_pairs"
+      ],
+      "n_packets": 10306
+    },
+    {
+      "categories": [
+        "complex_event",
+        "donor_cluster",
+        "multiple_independent_pairs"
+      ],
+      "n_packets": 9634
+    },
+    {
+      "categories": [
+        "complex_event",
+        "donor_cluster"
+      ],
+      "n_packets": 9578
+    },
+    {
+      "categories": [
+        "cassette_exon",
+        "complex_event",
+        "donor_cluster",
+        "multiple_independent_pairs"
+      ],
+      "n_packets": 7026
+    },
+    {
+      "categories": [
+        "acceptor_cluster",
+        "complex_event",
+        "donor_cluster",
+        "multiple_independent_pairs"
+      ],
+      "n_packets": 5868
+    },
+    {
+      "categories": [
+        "acceptor_cluster",
+        "cassette_exon",
+        "complex_event"
+      ],
+      "n_packets": 5822
+    },
+    {
+      "categories": [
+        "complex_event",
+        "single_pair"
+      ],
+      "n_packets": 5318
+    },
+    {
+      "categories": [
+        "acceptor_cluster",
+        "cassette_exon",
+        "complex_event",
+        "donor_cluster"
+      ],
+      "n_packets": 4956
+    },
+    {
+      "categories": [
+        "complex_event",
+        "multiple_independent_pairs"
+      ],
+      "n_packets": 3746
+    },
+    {
+      "categories": [
+        "cassette_exon",
+        "complex_event",
+        "donor_cluster"
+      ],
+      "n_packets": 2984
+    },
+    {
+      "categories": [
+        "acceptor_cluster",
+        "single_pair"
+      ],
+      "n_packets": 2764
+    },
+    {
+      "categories": [
+        "complex_event",
+        "donor_cluster",
+        "single_pair"
+      ],
+      "n_packets": 2748
+    },
+    {
+      "categories": [
+        "acceptor_cluster",
+        "complex_event",
+        "single_pair"
+      ],
+      "n_packets": 2700
+    },
+    {
+      "categories": [
+        "acceptor_cluster"
+      ],
+      "n_packets": 2586
+    },
+    {
+      "categories": [
+        "acceptor_cluster",
+        "cassette_exon",
+        "complex_event",
+        "donor_cluster",
+        "single_pair"
+      ],
+      "n_packets": 2486
+    },
+    {
+      "categories": [
+        "donor_cluster",
+        "single_pair"
+      ],
+      "n_packets": 2282
+    },
+    {
+      "categories": [
+        "acceptor_cluster",
+        "multiple_independent_pairs"
+      ],
+      "n_packets": 1700
+    },
+    {
+      "categories": [
+        "donor_cluster",
+        "multiple_independent_pairs"
+      ],
+      "n_packets": 1692
+    }
+  ],
+  "train_common_support_vs_isolated_pair_controls": {
+    "acceptor_cluster": {
+      "fraction_with_common_support": 0.9883043465720631,
+      "n_focal": 69342,
+      "n_focal_genes": 8032,
+      "n_genes_with_different_gene_control": 8032,
+      "n_with_different_gene_control": 68531,
+      "note": "coarse annotation-only support on split, target role, distance, transcript support, visible-pair count, and target-position bin; sequence strength/composition/health still required"
+    },
+    "cassette_exon": {
+      "fraction_with_common_support": 0.9868741439659108,
+      "n_focal": 52568,
+      "n_focal_genes": 7336,
+      "n_genes_with_different_gene_control": 7336,
+      "n_with_different_gene_control": 51878,
+      "note": "coarse annotation-only support on split, target role, distance, transcript support, visible-pair count, and target-position bin; sequence strength/composition/health still required"
+    },
+    "complex_event": {
+      "fraction_with_common_support": 0.9887913172175629,
+      "n_focal": 101350,
+      "n_focal_genes": 9152,
+      "n_genes_with_different_gene_control": 9152,
+      "n_with_different_gene_control": 100214,
+      "note": "coarse annotation-only support on split, target role, distance, transcript support, visible-pair count, and target-position bin; sequence strength/composition/health still required"
+    },
+    "donor_cluster": {
+      "fraction_with_common_support": 0.9815443960788477,
+      "n_focal": 56514,
+      "n_focal_genes": 7592,
+      "n_genes_with_different_gene_control": 7592,
+      "n_with_different_gene_control": 55471,
+      "note": "coarse annotation-only support on split, target role, distance, transcript support, visible-pair count, and target-position bin; sequence strength/composition/health still required"
+    },
+    "multiple_independent_pairs": {
+      "fraction_with_common_support": 0.9864368029165508,
+      "n_focal": 64734,
+      "n_focal_genes": 5092,
+      "n_genes_with_different_gene_control": 5092,
+      "n_with_different_gene_control": 63856,
+      "note": "coarse annotation-only support on split, target role, distance, transcript support, visible-pair count, and target-position bin; sequence strength/composition/health still required"
+    },
+    "single_pair": {
+      "fraction_with_common_support": 0.9999266302752832,
+      "n_focal": 68148,
+      "n_focal_genes": 10781,
+      "n_genes_with_different_gene_control": 10781,
+      "n_with_different_gene_control": 68143,
+      "note": "coarse annotation-only support on split, target role, distance, transcript support, visible-pair count, and target-position bin; sequence strength/composition/health still required"
+    }
+  }
+}

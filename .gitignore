@@ -20,6 +20,19 @@ colab_results/**/*.pt
 colab_results/**/*.jsonl
 *.pkl
 splicebert_code.zip
+studies/**/colab_atlas_package/dist/
+
+# Head–Context Atlas bulk intermediates are reproducible locally or preserved in
+# the audited external run bundles. Keep compact results, manifests, and audits.
+results/splicebert_head_context_atlas/**/target_shards/
+results/splicebert_head_context_atlas/**/health_shards/
+results/splicebert_head_context_atlas/atlas_context_packets_v1.jsonl
+results/splicebert_head_context_atlas/atlas_context_packets_enriched_v1.jsonl
+results/splicebert_head_context_atlas/atlas_context_sequences_v1.jsonl
+results/splicebert_head_context_atlas/atlas_context_matched_v*.discovery.*.jsonl
+results/splicebert_head_context_atlas/atlas_context_matched_v*.validation.*.jsonl
+results/splicebert_head_context_atlas/atlas_discovery_v1.*_matrix.jsonl.gz
+results/splicebert_head_context_atlas/atlas_discovery_v1.pairs.jsonl.gz
 
 # Runtime model/readout artifacts. Settled metrics and manifests belong under results/.
 artifacts/
