@@ -7,6 +7,8 @@ graphs and not "head *h* is an acceptor-cluster neuron." The alternative-site co
 bounded atlas cell, not the organizing objective. See **`RESEARCH_SPINE.md`**.
 
 ## Study identity
+- **Version control:** study code, tests, notebooks, compact results, manifests, and audits are tracked;
+  reproducible bulk shards/intermediates and Colab distribution archives are intentionally ignored.
 - **Model/checkpoint:** `SpliceBERT.1024nt` (post-LN BERT-MLM, 6L×16H, d=512, P=1026 absolute), sha256 `2ad91428…0149d`.
 - **Tokenizer / position:** single-nucleotide; absolute learned positions.
 - **Objective / corpus:** masked-LM on pre-mRNA.
@@ -66,17 +68,25 @@ replace the atlas objective.
 
 ## Reproduce
 ```bash
-PYTHONHASHSEED=0 conda run -n gfm-thrust1 python scripts/splicebert_head_context_atlas/build_census.py
-PYTHONHASHSEED=0 TOKENIZERS_PARALLELISM=false conda run -n gfm-thrust1 \
-  python scripts/splicebert_head_context_atlas/behavioral_pilot.py --n 400
-PYTHONHASHSEED=0 conda run -n gfm-thrust1 \
-  python scripts/splicebert_head_context_atlas/analyze_atlas_discovery.py --help
-PYTHONHASHSEED=0 conda run -n gfm-thrust1 \
-  python scripts/splicebert_head_context_atlas/validate_atlas_discovery_analysis.py --help
+uv sync --extra splicebert --extra dev
+PYTHONHASHSEED=0 uv run python scripts/splicebert_head_context_atlas/build_census.py
+PYTHONHASHSEED=0 TOKENIZERS_PARALLELISM=false uv run python \
+  scripts/splicebert_head_context_atlas/behavioral_pilot.py --n 400
+PYTHONHASHSEED=0 uv run python scripts/splicebert_head_context_atlas/analyze_atlas_discovery.py --help
+PYTHONHASHSEED=0 uv run python \
+  scripts/splicebert_head_context_atlas/validate_atlas_discovery_analysis.py --help
 ```
+
+See [`../../REPRODUCE.md`](../../REPRODUCE.md) for the repository-wide environment and artifact rules.
 
 The zero-failure bundle is now exposed through `gfm-visualizer` without changing its evidence vocabulary
 or claim boundary. Next, return to the atlas objective with a fresh, better-powered context study around
 the preserved cluster/cassette hypotheses; do not relax the frozen precision rule. The site-choice
 steering census may proceed in parallel without model outcomes. chr8/9 remains sealed and is not the
 internal-validation split.
+
+The Atlas does **not** by itself close the donor mechanism's cross-context generalization gap. Its matched
+cohorts and validated components are the substrate for a separate causal transduction test: derive a
+state/direction on discovery genes, inject it into gene-disjoint targets across context classes, and
+require a dose-ordered native-margin change above matched-random and within-example controls. See
+[`../../MECHANISM.md`](../../MECHANISM.md) and [`../../docs/ROADMAP.md`](../../docs/ROADMAP.md).

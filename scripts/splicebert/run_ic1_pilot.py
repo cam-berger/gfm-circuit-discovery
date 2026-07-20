@@ -2,7 +2,7 @@
 """IC1 pre-freeze pilot: anchored-shuffler unit tests + disjoint (train-split) census/MDE/dose/OOD
 calibration across ACC_UP in {45,70,100}. Freezes IC1's numeric thresholds. NOT the confirmatory run.
 
-Protocol: studies/splicebert_partner_selection/PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md
+Protocol: studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md
 - Linear observable f = logit(G) - mean(logit A,C,T) at the masked donor (NOT the max-margin task metric).
 - Distal window W = [d0+7 .. a-ACC_UP-1]; d0=donor_pos (GT at d0), a=next_acceptor_pos (AG at [a-2,a-1]).
 - PRIMARY perturbation = anchored dinucleotide shuffle (whole-window dinuc preserved; internal GT/AG

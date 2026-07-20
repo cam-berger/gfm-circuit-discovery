@@ -4,7 +4,7 @@
 the donor margin reads off any final-layer residual with no re-forward. This is the
 backward-arm primitive of the L3H1 -> masked-donor-logit trace.
 
-Prereg: ``studies/splicebert_partner_selection/PREREGISTRATION_DONOR_ANCHOR.md``.
+Prereg: ``studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_DONOR_ANCHOR.md``.
 """
 from __future__ import annotations
 

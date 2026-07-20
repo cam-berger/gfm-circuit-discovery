@@ -1,6 +1,6 @@
 """A2b -- localize L3H1's value payload to U_info (donor-graph experiment 6).
 
-Kernel for ``PREREGISTRATION_A2b_PAYLOAD_LOCALIZATION.md``.  SpliceBERT is post-LayerNorm, so the
+Kernel for ``preregistrations/PREREGISTRATION_A2b_PAYLOAD_LOCALIZATION.md``.  SpliceBERT is post-LayerNorm, so the
 layer-3 value projection is LINEAR in the L3-input residual ``r = hidden_states[3]``:
 ``V = W_V r + b_V`` (no LayerNorm between the layer input and QKV).  So a residual edit ``δr`` at
 the acceptor window gives an exact value edit ``δV = W_V δr``, and -- with the clean attention row

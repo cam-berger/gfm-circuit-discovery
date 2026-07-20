@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Donor-graph experiment 15 -- A11: is L3H1's address ABSOLUTE or RELATIVE? (A4 redesign).
 
-Frozen protocol: studies/splicebert_partner_selection/PREREGISTRATION_A11_ADDRESS_GEOMETRY.md.
+Frozen protocol: studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A11_ADDRESS_GEOMETRY.md.
 
 A4 clamped ISOLATED-token position embeddings -> inconsistent field -> S_A collapsed (confound).  A11
 uses a CONSISTENT GLOBAL position_ids shift on a TRUNCATED window (W=640, PE-table headroom), with a

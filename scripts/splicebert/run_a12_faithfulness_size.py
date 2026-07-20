@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Donor-graph experiment 16 -- A12: backward faithfulness-size curve.
 
-Frozen protocol: studies/splicebert_partner_selection/PREREGISTRATION_A12_FAITHFULNESS_SIZE.md.
+Frozen protocol: studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A12_FAITHFULNESS_SIZE.md.
 
 F(K) = A6 behaviour-level faithfulness (keep K clean, scrub complement to CORRUPT).  Rank nodes by
 F-loss when removed FROM THE FULL MODEL (well-identified backward, unlike forward at F~0; serial-chain

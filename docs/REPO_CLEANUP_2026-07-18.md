@@ -1,10 +1,11 @@
 # Repo cleanup & consolidation plan — 2026-07-18
 
-**Status: APPROVED (Cam, 2026-07-18) — Phases 1–3 executing.** Cam concurred with the plan, directed
-`colab_results/` removal, and released the push-go. Executed this pass: Phase 1 (local branch prune),
-Phase 2 (Track-2 archive-tag + delete), `colab_results/` removal, and Phase 3 (remote branch prune +
-archive-tag push + origin sync). **Phase 4** (doc condensation) remains gated on the transfer thread
-parking; **Phase 5** (land `donor-graph → master`) remains a separate, deliberate call — NOT done.
+**Status: Phases 1–4 complete; Phase 5 pending merge (updated 2026-07-20).** Phases 1–3 pruned and
+archived old branches and removed `colab_results/`. Phase 4 is complete: preregistrations and red-team
+records are indexed in subdirectories; the live claim ledger is compact; the full historical ledger is
+preserved as `CORRECTIONS.md`; and repository-level `MECHANISM.md`/`REPRODUCE.md` provide the front door.
+**Phase 5** remains user-owned: `donor-graph-address-payload` is pushed and 43 commits ahead of `master`;
+an MR is pending.
 
 ## The one-sentence diagnosis
 
@@ -86,7 +87,7 @@ git fetch --prune                                 # clean up local tracking refs
 
 **Result:** remote branch list drops to `master` + `donor-graph-address-payload` (+ the archive tag).
 
-## Phase 4 — Doc / file condensation  (DEFERRED — until the transfer thread parks)
+## Phase 4 — Doc / file condensation  (**COMPLETE 2026-07-20**)
 
 High collision risk with the live session, so this runs *only* once the transfer thread parks and you approve.
 The big target is `studies/splicebert_partner_selection/` (**41 markdown files**).
@@ -108,9 +109,9 @@ studies/splicebert_partner_selection/
 | `CLAIMS.md`, `DECISIONS_A0.md`, `DONOR_CIRCUIT_ACCOUNT.md`, `FINDINGS.md`, `METHODS.md`, `README.md`, `RUNBOOK.md`, `REPRODUCIBILITY.md` | **keep top-level** | canonical narrative + ledgers |
 | ~30 `PREREGISTRATION_*.md` (A0–A12, donor/acceptor families, PERIOD3, SEALED, IC2A, IC1, IC2, P3, P3_4) | → `preregistrations/` | add `preregistrations/README.md` index with per-prereg status (complete / parked / deferred) |
 | `REDTEAM_SYNTHESIS_P3_4.md`, `REDTEAM_SYNTHESIS_P3_4lens.md`, `P3_NIGHT_RUN_SUMMARY.md` | → `redteam/` | distinct records, both keepers |
-| `DECISIONS.md`, `DECISIONS_ACCEPTOR_ADDRESS.md` | **verify** → likely `archive/` | confirm superseded by `DECISIONS_A0.md` before moving |
+| `DECISIONS.md`, `DECISIONS_ACCEPTOR_ADDRESS.md` | **adjudicated** | concise `DECISIONS.md` remains active; detailed acceptor-address log moved to `archive/`. |
 | `RESULTS_TEMPLATE.md` | → `studies/TEMPLATE_REAL_GFM_STUDY/` | it's a template, wrong home |
-| `return_to_planner.json` | **verify** → remove | stale Track-2 "behavioral-gate" planner state; superseded |
+| `return_to_planner.json` | **removed** | stale Track-2 behavioral-gate planner state; superseded by the donor graph and current ledgers. |
 
 **Elsewhere at root:**
 
@@ -138,8 +139,8 @@ deliberate call** once the parallel thread parks and you're ready to push. Optio
 1. **Phase 1** (local branch prune) — ready on your "go".
 2. **Phase 2** (tag + delete orphan) — ready on your "go"; + decide the archive-tag push (recommend allow).
 3. **Phase 3** (remote prune) — held for push-go.
-4. **Phase 4** (doc condensation) — held until transfer parks **and** your approval of the structure above.
-5. **Phase 5** (land on master) — separate, deliberate decision.
+4. **Phase 4** (doc condensation) — complete.
+5. **Phase 5** (land on master) — branch pushed; user will create and merge the MR.
 
 **What stays untouched throughout:** `colab_package/` (live WIP), the caduceus dir, shared ledgers while the
 parallel session is active, and anything I didn't author without verifying it first.

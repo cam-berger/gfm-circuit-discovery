@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Donor-graph experiment 10 -- A6: circuit faithfulness / necessity / minimality.
 
-Frozen protocol: studies/splicebert_partner_selection/PREREGISTRATION_A6_CIRCUIT_FAITHFULNESS.md.
+Frozen protocol: studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A6_CIRCUIT_FAITHFULNESS.md.
 
 Node-level activation patching (post-LN => patch module OUTPUTS, downstream recomputes).  Every
 residual writer is patchable: embedding output (clamp_embed), every attention head (patch_heads),

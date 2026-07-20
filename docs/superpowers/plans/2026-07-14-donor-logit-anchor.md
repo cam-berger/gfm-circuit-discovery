@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build and causally validate the residual→donor-logit readout (the backward-arm foundation of the L3H1→masked-donor-logit meet-in-the-middle trace), per `studies/splicebert_partner_selection/PREREGISTRATION_DONOR_ANCHOR.md`.
+**Goal:** Build and causally validate the residual→donor-logit readout (the backward-arm foundation of the L3H1→masked-donor-logit meet-in-the-middle trace), per `studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_DONOR_ANCHOR.md`.
 
 **Architecture:** Two small reusable, unit-tested modules — `unembed.py` (logit-lens: apply the MLM head to any residual) and `subspace.py` (SVD subspace + project/patch/overlap primitives, numpy) — plus one runner `run_donor_anchor.py` that caches clean/corrupt/no-site final residuals once and runs every frozen gate as cheap `cls()` re-applications (no re-forward). A synthetic-oracle test proves each gate can output both PASS and FAIL.
 
@@ -75,7 +75,7 @@ Expected: FAIL, `ModuleNotFoundError: gfmcd.splicing.unembed`.
 
 `logits = cls(hidden_states[-1])` exactly, so the donor margin reads off any final-layer
 residual with no re-forward. Backward-arm primitive of the L3H1->donor-logit trace
-(prereg: studies/splicebert_partner_selection/PREREGISTRATION_DONOR_ANCHOR.md).
+(prereg: studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_DONOR_ANCHOR.md).
 """
 from __future__ import annotations
 import torch
@@ -394,7 +394,7 @@ git commit -m "feat(anchor): runner caches residuals + runs G0/D1-3/C-* gates"
 
 ```bash
 cd /Users/cberg/Research/projects/gfm-circuit-discovery
-git add results/splicebert_coupling/donor_anchor.json results/splicebert_coupling/donor_anchor.manifest.json studies/splicebert_partner_selection/PREREGISTRATION_DONOR_ANCHOR.md
+git add results/splicebert_coupling/donor_anchor.json results/splicebert_coupling/donor_anchor.manifest.json studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_DONOR_ANCHOR.md
 git commit -m "results(anchor): donor-logit readout is/ isn't low-rank, read-aligned, specific"
 ```
 

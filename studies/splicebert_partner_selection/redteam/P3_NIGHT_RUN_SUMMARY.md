@@ -2,7 +2,7 @@
 
 **For the morning read.** You gave 2 hours of autonomy to run the P3 carrier program from your memo. Here
 is what happened, honestly scoped. Full detail: `DECISIONS_A0.md` (P3 section), `CLAIMS.md` (C34, R23),
-`PREREGISTRATION_P3_CARRIER_CAUSAL_ROLE.md` (v2), `REDTEAM_SYNTHESIS_P3_4lens.md`.
+`../preregistrations/PREREGISTRATION_P3_CARRIER_CAUSAL_ROLE.md` (v2), `REDTEAM_SYNTHESIS_P3_4lens.md`.
 
 > **Adjudication (2026-07-18, per Cam) — R24.** After Cam reviewed these results, two framings were tightened
 > (empirical findings unchanged): **(a)** C35's "carrier does not build the payload" is **withdrawn as
@@ -150,7 +150,7 @@ reaches ~50% at ±32 nt; full recovery only at all-positions), not literally uni
 
 ## Files (committed this session)
 
-- `PREREGISTRATION_P3_CARRIER_CAUSAL_ROLE.md` (v2, reframed) · `REDTEAM_SYNTHESIS_P3_4lens.md`
+- `../preregistrations/PREREGISTRATION_P3_CARRIER_CAUSAL_ROLE.md` (v2, reframed) · `REDTEAM_SYNTHESIS_P3_4lens.md`
 - `scripts/splicebert/run_p3_carrier_locus.py` → `results/p3_carrier_locus.json`
 - `scripts/splicebert/run_p3_av_decomposition.py` → `results/p3_av_decomposition.json`
 - `CLAIMS.md` (C34 + R23) · `DECISIONS_A0.md` (P3 section) · `CLAUDE.md` (Current direction + mechanism)

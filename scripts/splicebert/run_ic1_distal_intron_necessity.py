@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """IC1 CONFIRMATORY — does distal intron interstitial ARRANGEMENT modulate donor-acceptor coupling?
 
-Frozen protocol: studies/splicebert_partner_selection/PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md (v6).
+Frozen protocol: studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md (v6).
 PRIMARY = conservative-scramble arm (cryptic bounded by construction); confirmatory test = signed
 cluster-mean ΔC̄, two-sided α=0.05, cluster BCa bootstrap; N = conservative-constructible census.
 Dispersion is SECONDARY/reported (PPT sham cannot exclude AG-channel damage). Anchored + unconstrained

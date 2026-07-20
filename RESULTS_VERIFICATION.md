@@ -1,5 +1,11 @@
 # SpliceBERT Circuit Discovery — Results Verification and Formalization
 
+> **Historical verification scope:** this audit froze the C1–C26 record on 2026-07-16. The study later
+> added C27–C35 and corrections R21–R24. Use
+> [`studies/splicebert_partner_selection/CLAIMS.md`](studies/splicebert_partner_selection/CLAIMS.md) for
+> current wording and `CORRECTIONS.md` for the full history; the 52/52 statement below remains valid for
+> the quantities it audited.
+
 **Repository:** `gfm-circuit-discovery`  ·  **Study:** `studies/splicebert_partner_selection`
 **Verification date:** 2026-07-16
 **Model checkpoint:** SpliceBERT, sha256 `2ad91428…0149d`

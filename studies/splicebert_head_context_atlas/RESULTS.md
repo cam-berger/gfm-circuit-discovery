@@ -68,7 +68,8 @@ The branch is closed without touching chr8/9. The next program step is the wider
 
 ## Reproduce
 ```bash
-PYTHONHASHSEED=0 conda run -n gfm-thrust1 python scripts/splicebert_head_context_atlas/build_census.py
-PYTHONHASHSEED=0 TOKENIZERS_PARALLELISM=false conda run -n gfm-thrust1 python scripts/splicebert_head_context_atlas/behavioral_pilot.py --n 400
-PYTHONHASHSEED=0 TOKENIZERS_PARALLELISM=false conda run -n gfm-thrust1 python scripts/splicebert_head_context_atlas/specificity_pilot.py --n 300
+uv sync --extra splicebert --extra dev
+PYTHONHASHSEED=0 uv run python scripts/splicebert_head_context_atlas/build_census.py
+PYTHONHASHSEED=0 TOKENIZERS_PARALLELISM=false uv run python scripts/splicebert_head_context_atlas/behavioral_pilot.py --n 400
+PYTHONHASHSEED=0 TOKENIZERS_PARALLELISM=false uv run python scripts/splicebert_head_context_atlas/specificity_pilot.py --n 300
 ```

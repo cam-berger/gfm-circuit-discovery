@@ -4,6 +4,11 @@
 
 The unit of discovery is not a neuron, head, motif, or attention map. It is a **model computation**: a reproducible behavior, the internal information and components that produce it, and a causal account of how that information moves through the model.
 
+In this repository, a **circuit** is a collection of components shown to be responsible for a scoped
+behavior under declared interventions. The default claim is sufficiency/necessity at the tested
+granularity—not that the collection is the unique or smallest possible circuit. Minimality requires its
+own identifiable size/faithfulness experiment.
+
 The methodology adapts the discipline of LLM mechanistic interpretability to genomic models while respecting biological structure: strand, coordinate system, sequence context, species, genomic region, and the difference between a model mechanism and a biological mechanism.
 
 ## The seven-stage workflow
@@ -73,7 +78,14 @@ A strong circuit claim combines necessity, mediation, a directed path, and infor
 
 ### 7. Replicate, delimit, and interpret
 
-Replicate the relevant step across held-out examples and, where appropriate, seeds, checkpoints, strands, species, genomic contexts, or models. Use sealed tests for claims that were developed exploratorily.
+Replicate the relevant step across held-out examples and, where appropriate, independently seeded draws,
+checkpoints, strands, species, genomic contexts, or models. A within-sample held-out split tests
+generalization conditional on that sample; it is not a substitute for sampling-stability analysis.
+
+When the interpretation claims a transferable information-bearing state, add **cross-example or
+cross-context transduction**: derive the state/direction on a source example or context and inject it into
+a gene-disjoint target under matched controls. Intra-example clean/corrupt patching establishes mediation
+on that prompt; it does not by itself establish interventional generality.
 
 Then state the strongest licensed interpretation and the first missing bridge. Model use, training-data origin, and biological function are separate questions. A real model circuit may have an unknown biological meaning.
 

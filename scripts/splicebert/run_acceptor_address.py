@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Donor-graph experiment 3 -- causal acceptor-address transplantation into L3H1.
 
-Frozen protocol: studies/splicebert_partner_selection/PREREGISTRATION_ACCEPTOR_ADDRESS.md.
+Frozen protocol: studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_ACCEPTOR_ADDRESS.md.
 
 Is L3H1's read at the intron-mate acceptor specific to the model's OWN partner over a
 nucleotide-, distance-, and reading-phase-matched decoy (differing only in partner identity);

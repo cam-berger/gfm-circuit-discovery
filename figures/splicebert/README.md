@@ -23,8 +23,9 @@ than being compressed into the artwork.
 ## Three live claims
 
 1. **SpliceBERT contains a donor–acceptor information-routing circuit.**
-2. **A learned period-3 positional clock helps that circuit address coding sequence in codon
-   phase.** These are two parts of one mechanism.
+2. **A learned period-3 positional carrier acts as a distributed relative-positional routing coordinate
+   supporting that circuit.** C34/C35 refine the earlier clock figures; its present-day use is supported,
+   while training origin remains open.
 3. **A separate ≈10.63 positional carrier forms a genuine attention circuit, but its downstream
    use, origin, and biological meaning remain unknown.**
 
@@ -57,5 +58,7 @@ full evolution of the older assets.
 
 - `studies/splicebert/README.md` — concise worked example
 - `studies/splicebert_partner_selection/CLAIMS.md` — claims, corrections, and retractions
+- `studies/splicebert_partner_selection/CORRECTIONS.md` — full correction and supersession history
+- `../../MECHANISM.md` — current mechanism including post-figure C34/C35 refinements
 - `results/splicebert_coupling/` — donor–acceptor circuit results
 - `results/phase-lattice/RESULTS_INDEX.md` — positional clock and carrier results

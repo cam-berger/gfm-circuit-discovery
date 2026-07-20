@@ -1,7 +1,7 @@
 """Subspace primitives for the donor-anchor causal tests (numpy, model-free).
 
 ``U``/``V`` are orthonormal ``[k, D]`` (rows are basis vectors); ``rows``/``h`` are ``[N, D]``.
-Prereg: ``studies/splicebert_partner_selection/PREREGISTRATION_DONOR_ANCHOR.md``.
+Prereg: ``studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_DONOR_ANCHOR.md``.
 """
 from __future__ import annotations
 

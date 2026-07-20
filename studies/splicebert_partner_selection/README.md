@@ -1,35 +1,57 @@
-# SpliceBERT study record
+# SpliceBERT donor circuit and positional carriers
 
-This directory is the authoritative record for the SpliceBERT worked example. Its historical name is retained because result manifests and frozen protocols refer to it; the live study is broader than partner selection.
+This directory is the detailed provenance record for the repository's first worked example: how
+SpliceBERT's masked-donor prediction depends on its paired acceptor, how the information is generated and
+routed, and where the evidence stops.
 
-The current research question is: **how does SpliceBERT implement genomic computations, and which parts of that discovery process transfer to another genomic foundation model?** SpliceBERT supplies three cases:
+For the shortest reviewer path, read the repository-level [`../../MECHANISM.md`](../../MECHANISM.md),
+then the compact [`CLAIMS.md`](CLAIMS.md).
 
-1. a donor–acceptor coupling mechanism that reaches causal behavior;
-2. a learned period-3 positional clock that supports that mechanism;
-3. a separate multispecies ≈10.63 positional carrier established at post-softmax attention, with downstream use and origin still open.
+## Current result
 
-The proposed human-only ≈10.2 chromatin circuit is closed at the attention gate. That negative result is part of the method, not a side experiment.
+> A structured, top-ranked causal core binds a predominantly relative positional address to an
+> acceptor-local payload, then delivers the resulting information to the donor readout within an
+> irreducibly distributed computation.
+
+The named core is causally necessary and its clean outputs are sufficient when injected, but it is not a
+minimal or self-contained generator. The held-out faithfulness curve has no sparse knee. The primary
+semantic limitation is that the payload remains unnamed: it is acceptor-local and not bulk composition,
+but “splice-site strength” was withdrawn by R22.
 
 ## Authoritative records
 
 | Record | Purpose |
 |---|---|
-| [`FINDINGS.md`](FINDINGS.md) | Current scientific narrative and limits |
-| [`CLAIMS.md`](CLAIMS.md) | Compact status ledger and permanent retractions |
-| [`METHODS.md`](METHODS.md) | Study-specific discovery, preflight, intervention, and stopping rules |
-| [`DECISIONS.md`](DECISIONS.md) | Chronology of pivots and why interpretations changed |
-| [`REPRODUCIBILITY.md`](REPRODUCIBILITY.md) | Canonical commands, artifacts, manifests, and reproduction paths |
-| [`PREREGISTRATION_SEALED.md`](PREREGISTRATION_SEALED.md) | Frozen pre-unblinding protocol; retained unchanged |
+| [`CLAIMS.md`](CLAIMS.md) | Compact live claims, evidence level, controlling artifact, and scope. |
+| [`CORRECTIONS.md`](CORRECTIONS.md) | Full historical ledger and permanent R1–R24 correction record. |
+| [`FINDINGS.md`](FINDINGS.md) | Concise scientific narrative and limitations. |
+| [`DECISIONS_A0.md`](DECISIONS_A0.md) | Detailed A0→A12 rationale, amendments, and post-outcome adjudication. |
+| [`DECISIONS.md`](DECISIONS.md) | Earlier high-level chronology of methodological pivots. |
+| [`METHODS.md`](METHODS.md) | Study-specific discovery, preflight, intervention, and stopping rules. |
+| [`REPRODUCIBILITY.md`](REPRODUCIBILITY.md) | Detailed script/result map; repository setup is in [`../../REPRODUCE.md`](../../REPRODUCE.md). |
+| [`preregistrations/`](preregistrations/README.md) | Indexed frozen, completed, parked, superseded, and deferred protocols. |
+| [`redteam/`](redteam/README.md) | P3 adversarial design reviews and execution synthesis. |
+| [`archive/`](archive/README.md) | Historical records preserved but not current entry points. |
 
-These seven files replace the previous collection of overlapping reports, plans, gate notes, migrations, and post-hoc mechanism narratives. Removed documents and retracted artifacts remain available in Git history; they are not active alternatives to this record.
+`DONOR_CIRCUIT_ACCOUNT.md` is retained as the original C16–C19 synthesis; it predates A0→A12 and
+R22–R24, so the repository-level `MECHANISM.md` controls current framing.
 
-## Where to go next
+## Evidence boundaries
 
-- For the transferable method, start at [`../../docs/METHODOLOGY.md`](../../docs/METHODOLOGY.md) and [`../../docs/EVIDENCE_LADDER.md`](../../docs/EVIDENCE_LADDER.md).
-- For a concise walk-through, read [`../splicebert/README.md`](../splicebert/README.md).
-- For machine-readable evidence, use [`../../results/splicebert_coupling/`](../../results/splicebert_coupling/) and the [`../../results/phase-lattice/RESULTS_INDEX.md`](../../results/phase-lattice/RESULTS_INDEX.md).
-- For executable workflows, use [`../../scripts/README.md`](../../scripts/README.md).
+- Donor coupling, the structured core, `U_info`, address/payload mediation, and period-3 carrier use
+  reach behavior-level causal evidence within their stated interventions.
+- C34's confirm split is gate-qualified, not a clean confirmation (R24).
+- IC1 is outcome-aware deterministic verification, not confirmation.
+- The distinct multispecies ≈10.63 carrier stops at post-softmax attention.
+- Cross-example/context transduction and payload semantic identity are open.
+- No result here is a direct claim about spliceosome biochemistry or transcript abundance.
 
-## Reading rule
+## Data and artifacts
 
-The strongest supported evidence level controls the wording. A position-table feature is not automatically an attention mechanism; an attention mechanism is not automatically an OV or behavioral mechanism; a model mechanism is not automatically a biological mechanism. When prose conflicts with an indexed artifact or the claim ledger, the artifact and ledger control.
+- Donor graph: [`../../results/splicebert_coupling/`](../../results/splicebert_coupling/)
+- Position/carrier index: [`../../results/phase-lattice/RESULTS_INDEX.md`](../../results/phase-lattice/RESULTS_INDEX.md)
+- Active runners: [`../../scripts/splicebert/`](../../scripts/splicebert/)
+- Current figures: [`../../figures/splicebert/`](../../figures/splicebert/README.md)
+
+The reading rule is simple: artifacts and corrections bound the prose. Attribution, probes, attention,
+and spectra can generate a candidate; only a qualified intervention can promote it.

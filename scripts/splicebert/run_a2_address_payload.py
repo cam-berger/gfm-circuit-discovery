@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Donor-graph experiment 5 -- A2: address-payload factorization of L3H1.
 
-Frozen protocol: studies/splicebert_partner_selection/PREREGISTRATION_A2_ADDRESS_PAYLOAD.md.
+Frozen protocol: studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A2_ADDRESS_PAYLOAD.md.
 
 A1a/R20: L3H1's attention TARGETING is position-embedding geometry, not identity -- yet the
 circuit couples partner-specifically (C19).  Reconciliation: QK attention is a positional ADDRESS

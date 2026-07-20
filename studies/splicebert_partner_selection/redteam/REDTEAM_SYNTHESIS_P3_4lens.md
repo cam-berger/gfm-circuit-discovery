@@ -1,6 +1,6 @@
 # P3 (carrier causal role) — 4-lens design red-team synthesis
 
-Adversarial DESIGN red-team of `PREREGISTRATION_P3_CARRIER_CAUSAL_ROLE.md` (v1), 2026-07-17, four
+Adversarial DESIGN red-team of `../preregistrations/PREREGISTRATION_P3_CARRIER_CAUSAL_ROLE.md` (v1), 2026-07-17, four
 independent lenses (identifiability, statistical, estimand↔intent, calibration/plumbing). **All four
 verdicts: `fixable`. Zero global fatals — but TWO estimand-level FATALs that retire the flagship
 endpoint.** This file records the load-bearing findings and how prereg **v2** resolves each. Full lens

@@ -138,7 +138,7 @@ Discovery, validation, and sealed test chromosomes are separate. Before unblindi
 - run the complete protocol on validation data;
 - open the sealed split once with an explicit command.
 
-The frozen [`PREREGISTRATION_SEALED.md`](PREREGISTRATION_SEALED.md) is not revised after unblinding. Corrections live in the claim and decision ledgers.
+The frozen [`preregistrations/PREREGISTRATION_SEALED.md`](preregistrations/PREREGISTRATION_SEALED.md) is not revised after unblinding. Corrections live in the claim and decision ledgers.
 
 Every result-producing script writes immutable machine-readable output and a manifest containing checkpoint, data, parameters, seed, command, and code revision. A superseded artifact is removed from the active index, not silently rewritten.
 

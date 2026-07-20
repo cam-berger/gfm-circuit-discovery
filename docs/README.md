@@ -6,5 +6,7 @@ These documents define the research program independently of any one model.
 - [EVIDENCE_LADDER.md](EVIDENCE_LADDER.md) — what each experiment licenses, and where claims must stop.
 - [TRANSFER_GUIDE.md](TRANSFER_GUIDE.md) — how to port the approach to another GFM.
 - [ROADMAP.md](ROADMAP.md) — the next milestones for turning the SpliceBERT case into a cross-model program.
+- [../MECHANISM.md](../MECHANISM.md) — one-file current SpliceBERT mechanism, scope, and open bridges.
+- [../REPRODUCE.md](../REPRODUCE.md) — canonical environment and claim-to-artifact reproduction map.
 
 The detailed SpliceBERT record lives under [`studies/splicebert/`](../studies/splicebert/README.md); generated evidence summaries live under [`figures/splicebert/`](../figures/splicebert/README.md).

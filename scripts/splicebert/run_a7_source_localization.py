@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Donor-graph experiment 11 -- A7: position x layer localization of the distributed generation.
 
-Frozen protocol: studies/splicebert_partner_selection/PREREGISTRATION_A7_SOURCE_LOCALIZATION.md.
+Frozen protocol: studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A7_SOURCE_LOCALIZATION.md.
 
 A6/C27: the 10-node circuit C is necessary but non-faithful (F(C)=0.005); generation is distributed OR
 interaction-dependent.  A7 localizes it.  From the A6 complement-noising baseline (scrub every

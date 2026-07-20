@@ -1,6 +1,6 @@
 # P3.4 CARRIER ORIGIN — 4-lens design red-team synthesis (2026-07-18)
 
-**Reviews:** `PREREGISTRATION_P3_4_CARRIER_ORIGIN.md` v1 (frozen-candidate). Four independent adversarial
+**Reviews:** `../preregistrations/PREREGISTRATION_P3_4_CARRIER_ORIGIN.md` v1 (frozen-candidate). Four independent adversarial
 lenses, run BEFORE any confirmatory compute (per Cam: "modernize and red-team the old preregistration; do not
 run it verbatim"). **Outcome: the design is NOT freezable as written.** Three lenses returned `fatal`; the
 core issues are identifiability + intent-drift + a power wall, all fixable only by **re-scope/redesign, not

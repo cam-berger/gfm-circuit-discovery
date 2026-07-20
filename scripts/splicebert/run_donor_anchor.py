@@ -13,7 +13,7 @@ random-subspace null (C-Null) and a destructive alive-check (C-Alive, the R8 les
 
 Every causal test runs on cached final residuals via `cls()` -- no re-forward.
 
-Prereg (FROZEN): studies/splicebert_partner_selection/PREREGISTRATION_DONOR_ANCHOR.md
+Prereg (FROZEN): studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_DONOR_ANCHOR.md
 """
 from __future__ import annotations
 

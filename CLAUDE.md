@@ -90,7 +90,8 @@ rationale in `DECISIONS_A0.md`):
     (5-lens red-team → 4 pilots → freeze-audit → re-audit → mechanical audit → 2 amendments: A1 outcome-blind
     OOD-gate fix, A2 reproducibility + verdict fixes). ΔC was seen before A2 ⇒ verification, not confirmatory;
     a publication-grade null needs an untouched disjoint cohort. Coheres with the **local-window** picture
-    (C28/C30). Prereg + amendments: `PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md`.
+    (C28/C30). Prereg + amendments:
+    `studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md`.
   - **IC2 (acceptor-competition) — DESIGN-COMPLETE, PARKED (not run) pending the P3 SpliceBERT account
     (2026-07-18).** A parallel-thread exploration hardened to **v5.3** (feasibility pilot + calibration DONE,
     survived a 4-lens red-team → 2-lens re-audit → final freeze-audit): the synthetic reciprocal-swap assay is
@@ -99,14 +100,18 @@ rationale in `DECISIONS_A0.md`):
     window occupies it. The honest **transport DiD** `β_transport=τ_D−τ_P` is intrinsically noisy (SD 0.774),
     so its ±0.05 equivalence is unreachable at the ~1,985-gene cap (would report at achieved precision).
     **Confirmatory NOT run** — Cam's spine is P3.4, not IC2. Freeze-audit flagged fixable §7-classifier blockers
-    for any revival. Prereg `PREREGISTRATION_IC2_ACCEPTOR_COMPETITION.md` v5.3; pilots `run_ic2_feasibility.py`,
+    for any revival. Prereg
+    `studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_IC2_ACCEPTOR_COMPETITION.md`
+    v5.3; pilots `run_ic2_feasibility.py`,
     `run_ic2_calibration.py`; results `ic2_feasibility.json`, `ic2_calibration.json`.
 - **P3 — the period-3 carrier's causal ROLE & LOCUS (DONE, 2026-07-17; depth-first spine).** Formalized
-  P3.1–P3.3 as one prereg (`PREREGISTRATION_P3_CARRIER_CAUSAL_ROLE.md` v2); P3.4 origin separately gated.
+  P3.1–P3.3 as one prereg
+  (`studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_P3_CARRIER_CAUSAL_ROLE.md` v2);
+  P3.4 origin separately gated.
   **4-lens design red-team BEFORE running retired the flagship "binding" endpoint (→ R23):** the L3H1
   attention×value interaction `Δ_bind` is **architecture-forced** (`O=A·V` ⇒ the 2×2 DiD is the identity
   `(A_I−A_D)(V_I−V_D)`, no carrier-specificity) and `payload_source` is **non-identifiable**. Reframed to
-  the identifiable core (`REDTEAM_SYNTHESIS_P3_4lens.md`):
+  the identifiable core (`studies/splicebert_partner_selection/redteam/REDTEAM_SYNTHESIS_P3_4lens.md`):
   - **P3.2 carrier LOCUS → C34: SPATIALLY DISTRIBUTED, not site-local.** Position-selective restoration
     (disc/confirm split n=160): local donor/acceptor windows recover only ~2–4% of coupling (≪ SESOI 0.2),
     phase-matched-irrelevant & decoy-acceptor nulls ≈0, broad-span restoration needed (dose → R_C≈0.5 only
@@ -135,37 +140,39 @@ rationale in `DECISIONS_A0.md`):
   contrast at ≤140 units). Data IS buildable (`codon_slot` verified on real frame-2 sequence) — the blocker is
   **scientific, not engineering**. **Cam's decision: DEFER origin → transfer.** Origin needs *training-time*
   evidence (checkpoint sweep / carrier-penalized retrain / cross-model), out of scope for a frozen-checkpoint
-  MLM study on MPS. `PREREGISTRATION_P3_4_CARRIER_ORIGIN.md` (design of record, NOT frozen),
-  `REDTEAM_SYNTHESIS_P3_4.md`.
+  MLM study on MPS.
+  `studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_P3_4_CARRIER_ORIGIN.md`
+  (design of record, NOT frozen),
+  `studies/splicebert_partner_selection/redteam/REDTEAM_SYNTHESIS_P3_4.md`.
 - **SpliceBERT carrier account CLOSED** at the causal-locus + A-vs-V level: C8 dependence, C19
   phase-independence, C32 relative address, C34 distributed locus (R24: confirm gate-qualified), C35 attention
   routing (R24: value-null within-intervention). Origin deferred (training-time); D_rec recognition deferred;
   construction-vs-binding non-identifiable (R23).
-- **NEXT: Caduceus-PS behavioural TRANSFER** (the depth-first spine's endpoint; the project's actual mission —
-  method portability). Package `studies/caduceus_partner_transfer/` = DRAFT prereg + **5-lens design red-team
-  DONE** (fixable ×5, fatal ×0; a **MASTER 20-fix list** ready to integrate; Caduceus facts verified vs repo
-  code). **Blockers before a run:** (a) **Colab-CUDA compute** — Caduceus has **NO CPU/MPS fallback**
-  (mamba-ssm/Triton kernels are CUDA-only) ⇒ it **cannot run on this machine**; (b) integrate the 20 fixes →
-  **v2** (design-time, MPS-doable); (c) **4 forks for Cam** — τ = permuted-null floor [rec]; acceptor-strength =
-  distance-matched primary + MaxEnt-`score3` caliper secondary [rec]; Caduceus-PH companion = drop [rec];
-  confirm Colab. **Recognition** stays an optional cheap feasibility gate (blinded census/MDE; no synthetic
-  pseudo-sites; if too few real matched decoys → record UNRESOLVED and stop).
+- **CURRENT: SpliceBERT cross-context transduction + site-choice steering.** The audited Head–Context Atlas
+  is committed and supplies matched multi-context cohorts and candidate components. The next causal bridge
+  is gene-disjoint cross-example/context transduction, not another attribution screen; payload semantics and
+  steering must retain R22 multi-draw + dyadic inference.
+- **DEFERRED: Caduceus-PS behavioural TRANSFER.** Package `studies/caduceus_partner_transfer/` has a v2
+  five-lens-hardened prereg and locally validated Colab pipeline, but is not frozen or run. CUDA is required;
+  remaining pre-deploy calls are documented in its README. This remains the method-portability milestone
+  after the current SpliceBERT context work.
 - **Open:** payload semantic identity (unresolved → IC program); L1/L2 individual-head resolution; A11
   PE-edge caveat at |Δ|=192; A12 static-rank is an upper bound (true lazy-greedy would refine); **carrier
   ORIGIN (training-time question, deferred).**
 
 ## How work is done here (conventions — follow these)
 
-1. **Prereg → smoke → confirmatory → REFLECTION → claim.** Every experiment gets a frozen
-   `PREREGISTRATION_*.md` with falsifiable memorials, a `--smoke` (memorials/arithmetic only, val
+1. **Prereg → smoke → confirmatory → REFLECTION → claim.** Every experiment gets a frozen study-local
+   preregistration with falsifiable memorials, a `--smoke` (memorials/arithmetic only, val
    sealed), then a confirmatory run. Draw no conclusions before the memorials pass.
 2. **Memorials must be able to fail, and must be on the measurement path** (R7/R21). Prefer exact
    arithmetic anchors (e.g. `value_linearity`); flag forced-by-architecture "memorials" as such.
 3. **Calibration for identification claims:** planted-positive (sensitivity) + permuted-label FPR
    (specificity) gate the run — they caught 3 decision-layer bugs in A9 before any verdict.
 4. **Held-out** (discovery/held-out gene split) wherever a selection or ranking is involved.
-5. **Claim ledger discipline:** append to `CLAIMS.md`; correct/retract with an R-number rather than
-   editing history silently. Report conditional causal effects as such, **never additive fractions**.
+5. **Claim ledger discipline:** keep `CLAIMS.md` compact; preserve correction/retraction detail with an
+   R-number in `CORRECTIONS.md` and the decision log rather than editing history silently. Report
+   conditional causal effects as such, **never additive fractions**.
 6. **Adversarial verification** (Workflow-orchestrated) of finished claims — it caught real overstatements
    (R21) and the A9b estimand flaw. Correct honestly; the empirical findings usually survive.
 7. **Results write a manifest** beside their output; never silently overwrite the scientific record.
@@ -184,10 +191,11 @@ rationale in `DECISIONS_A0.md`):
 
 ## Key files
 
-- `studies/splicebert_partner_selection/CLAIMS.md` — the claim/retraction ledger (source of truth for claims).
+- `studies/splicebert_partner_selection/CLAIMS.md` — compact live claims (source of truth for wording).
+- `studies/splicebert_partner_selection/CORRECTIONS.md` — full historical ledger and R1–R24 corrections.
 - `studies/splicebert_partner_selection/DECISIONS_A0.md` — the donor-graph running log (A0→A12, rationale,
   the consolidated mechanism diagram, the verification-correction pass).
-- `studies/splicebert_partner_selection/PREREGISTRATION_A*.md` — frozen protocols per experiment.
+- `studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A*.md` — frozen protocols per experiment.
 - `scripts/splicebert/run_a*_*.py` — the experiment scripts (reconstruct-inject, scrub, interchange).
 - `src/gfmcd/splicing/`, `src/gfmcd/circuits/` — assays and reusable primitives.
 - Active branch: `donor-graph-address-payload`.

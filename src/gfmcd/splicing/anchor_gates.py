@@ -4,7 +4,7 @@
 Sufficiency and necessity are exact duals (one-way span substitutions, never swaps);
 ``null_recoveries`` is the size-matched specificity null; ``alive_margin`` is the R8 check.
 
-Prereg: ``studies/splicebert_partner_selection/PREREGISTRATION_DONOR_ANCHOR.md``.
+Prereg: ``studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_DONOR_ANCHOR.md``.
 """
 from __future__ import annotations
 

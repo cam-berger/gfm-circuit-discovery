@@ -2,6 +2,9 @@
 
 This is the shortest path from a claim to its script and machine-readable artifact. It indexes active workflows only. Historical and VOID experiments remain in Git history.
 
+Repository-wide environment, checkpoint, and data requirements are defined in
+[`../../REPRODUCE.md`](../../REPRODUCE.md); this file provides the study-level command map.
+
 ## Environment
 
 From the repository root:
@@ -45,7 +48,9 @@ Do not overwrite a scientific result with a new run. Write a new artifact or int
 | Circuit faithfulness | `run_faithfulness.py` | `faithfulness.json` |
 | Completeness null | `run_completeness_null.py` | `completeness_null.json` |
 
-The sealed test requires the explicit unsealing flag recorded in [`PREREGISTRATION_SEALED.md`](PREREGISTRATION_SEALED.md). Do not rerun it merely as a smoke test.
+The sealed test requires the explicit unsealing flag recorded in
+[`preregistrations/PREREGISTRATION_SEALED.md`](preregistrations/PREREGISTRATION_SEALED.md). Do not rerun
+it merely as a smoke test.
 
 ## Period-3 clock and position structure
 

@@ -1,7 +1,7 @@
 """Acceptor-address transplantation: phase-matched decoy pairs, preference readouts.
 
 This module is the reusable kernel for donor-graph experiment 3
-(``PREREGISTRATION_ACCEPTOR_ADDRESS.md``).  It builds a partner-identity-controlled
+(``preregistrations/PREREGISTRATION_ACCEPTOR_ADDRESS.md``).  It builds a partner-identity-controlled
 candidate pair for each eligible example -- the model's real intron-mate acceptor ``a+``
 versus a decoy AG ``a-`` matched on the AG motif, the donor->candidate distance, AND the
 distance-mod-3 reading phase -- and provides pure tensor helpers to read L3H1's donor-query
