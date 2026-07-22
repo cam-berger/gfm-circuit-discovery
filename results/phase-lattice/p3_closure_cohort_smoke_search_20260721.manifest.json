@@ -1,0 +1,128 @@
+{
+  "command": [
+    "scripts/splicebert/build_p3_closure_cohort.py",
+    "--include-roles",
+    "development",
+    "--max-genes",
+    "4",
+    "--max-examples-per-gene",
+    "1",
+    "--out",
+    "results/phase-lattice/p3_closure_cohort_smoke_search_20260721.json"
+  ],
+  "config": {
+    "included_roles": [
+      "development"
+    ],
+    "namespace": "p3-closure-v1",
+    "p3_cohort": {
+      "acceptor_clearance": 18,
+      "block_size": 60,
+      "directions": [
+        "left",
+        "right"
+      ],
+      "donor_clearance": 24,
+      "max_abs_delta_score3": 2.0,
+      "max_abs_delta_score5": 2.0,
+      "max_block_candidates_per_context": 48,
+      "max_hamming_arm_imbalance": 0.1,
+      "max_trimer_arm_imbalance": 0.1,
+      "n_blocks": 2,
+      "rotation_amounts": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "site_radius": 8,
+      "splice_clearance": 8,
+      "strong_score_threshold": 6.0
+    },
+    "role_weights": [
+      [
+        "development",
+        2
+      ],
+      [
+        "confirmation",
+        2
+      ],
+      [
+        "reserve",
+        1
+      ]
+    ]
+  },
+  "created_at_utc": "2026-07-21T23:10:33.669984+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 26717,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "p3-closure-cohort-v1",
+  "git_commit": "e3ef4dcb1aba877df1587492edd916671fbd5895",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+      "sha256": "83fba3e9b03f0b8c958f3595c6c350adc55f468abf8b0e47b6d5284cfe13a453",
+      "size_bytes": 124527720
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/p3_closure.py",
+      "sha256": "bb7f2efb5421463f3fc44d3774780cd81f9aafc6e4b13545ae4c7a3f4d940586",
+      "size_bytes": 22738
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/p3_cohort.py",
+      "sha256": "d3dd3600d002c1254581282cb0921eb458f160bef2db3ffc02af39dafd597ffd",
+      "size_bytes": 16302
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/p3_annotation.py",
+      "sha256": "8e183437a1a4c326b3c67b54e702c8c73f652763ad2a9555ccecdebf696be990",
+      "size_bytes": 9414
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/splice_landscape.py",
+      "sha256": "28ef86c780c7f741045217127bfc343af796418d0e0c6a3fc699d1785abd7e79",
+      "size_bytes": 5546
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_P3_CLOSURE.md",
+      "sha256": "b0a34c7f3831b7b8aa70e64eb797c517fe608bb9c59bc63b7846c726f60b4a69",
+      "size_bytes": 16574
+    }
+  ],
+  "notes": [
+    "No model was loaded and no model outcome was read.",
+    "Limited --max-genes mode is development-only.",
+    "Confirmation-role construction is annotation/sequence only and is not an exposure."
+  ],
+  "outputs": [
+    {
+      "path": "results/phase-lattice/p3_closure_cohort_smoke_search_20260721.json",
+      "sha256": "45ff5a1f28ce53d2f51bf0db92f389a448c6ebd8a384de78b71b927571ed8b96",
+      "size_bytes": 3586
+    }
+  ],
+  "seeds": {},
+  "status": "OUTCOME_BLIND_COHORT"
+}

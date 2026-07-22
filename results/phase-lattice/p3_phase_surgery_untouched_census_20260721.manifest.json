@@ -1,0 +1,65 @@
+{
+  "command": [
+    "scripts/splicebert/build_p3_phase_surgery_cohort.py",
+    "--include-roles",
+    "confirmation,reserve",
+    "--out",
+    "results/phase-lattice/p3_phase_surgery_untouched_census_20260721.json"
+  ],
+  "config": {
+    "block_size": 36,
+    "maximum_shift": 10,
+    "n_blocks": 2,
+    "position_table_length": 1026,
+    "prefix_tokens": 1
+  },
+  "created_at_utc": "2026-07-22T00:42:44.258400+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 96898,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "p3-phase-surgery-cohort-v1",
+  "git_commit": "e3ef4dcb1aba877df1587492edd916671fbd5895",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+      "sha256": "83fba3e9b03f0b8c958f3595c6c350adc55f468abf8b0e47b6d5284cfe13a453",
+      "size_bytes": 124527720
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/p3_phase_surgery.py",
+      "sha256": "094e48b303a81ee1992c42be625477f54c13f288c2998c8a921671deacde2fad",
+      "size_bytes": 7306
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert/build_p3_phase_surgery_cohort.py",
+      "sha256": "536845cdba6d9f3610a15883357fe271beaeb4bafc9dc3e1535f0a3a18925d3b",
+      "size_bytes": 9351
+    }
+  ],
+  "notes": [
+    "No model loaded; every nucleotide is unchanged by the planned intervention."
+  ],
+  "outputs": [
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_untouched_census_20260721.json",
+      "sha256": "888fc6a60fd57f7e94476d79672846a9cd6f270d15affc658995067cff93530e",
+      "size_bytes": 1384629
+    }
+  ],
+  "seeds": {},
+  "status": "OUTCOME_BLIND_COHORT"
+}

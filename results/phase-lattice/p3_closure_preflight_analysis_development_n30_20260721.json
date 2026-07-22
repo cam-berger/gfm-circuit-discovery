@@ -1,0 +1,830 @@
+{
+  "by_chromosome": {
+    "chr1": {
+      "mean_psi_coupling": 0.01015174885590871,
+      "mean_psi_phasor_signed": -0.04695520099540459,
+      "n_genes": 4
+    },
+    "chr10": {
+      "mean_psi_coupling": 0.018137079974015553,
+      "mean_psi_phasor_signed": 0.0035194080398197602,
+      "n_genes": 1
+    },
+    "chr12": {
+      "mean_psi_coupling": 0.3492468520998955,
+      "mean_psi_phasor_signed": 0.24961542991445107,
+      "n_genes": 2
+    },
+    "chr14": {
+      "mean_psi_coupling": -0.034580071767171226,
+      "mean_psi_phasor_signed": 0.09120531191735,
+      "n_genes": 2
+    },
+    "chr15": {
+      "mean_psi_coupling": 0.33405861258506775,
+      "mean_psi_phasor_signed": 0.2747248650359671,
+      "n_genes": 1
+    },
+    "chr17": {
+      "mean_psi_coupling": -0.019630668684840202,
+      "mean_psi_phasor_signed": 0.015565019653695458,
+      "n_genes": 6
+    },
+    "chr2": {
+      "mean_psi_coupling": -0.3917913999822405,
+      "mean_psi_phasor_signed": 0.0025069972505522378,
+      "n_genes": 3
+    },
+    "chr22": {
+      "mean_psi_coupling": 0.09544527530670166,
+      "mean_psi_phasor_signed": 0.03255956919853423,
+      "n_genes": 1
+    },
+    "chr3": {
+      "mean_psi_coupling": 0.30665722323788536,
+      "mean_psi_phasor_signed": 0.05081369630056334,
+      "n_genes": 3
+    },
+    "chr5": {
+      "mean_psi_coupling": -0.004581143458684285,
+      "mean_psi_phasor_signed": 0.03009461348617191,
+      "n_genes": 2
+    },
+    "chr6": {
+      "mean_psi_coupling": -0.013704240322113037,
+      "mean_psi_phasor_signed": -0.02075509502238173,
+      "n_genes": 2
+    },
+    "chr7": {
+      "mean_psi_coupling": 0.23974222110377416,
+      "mean_psi_phasor_signed": 0.07891192386420397,
+      "n_genes": 3
+    }
+  },
+  "dominant_mod3_tracking": {
+    "cds": {
+      "left": {
+        "10": {
+          "content_following_expected_fraction": 0.05,
+          "dominant_class_counts": [
+            7,
+            37,
+            16
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 0.95
+        },
+        "2": {
+          "content_following_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        },
+        "3": {
+          "content_following_expected_fraction": 0.9833333333333333,
+          "dominant_class_counts": [
+            6,
+            37,
+            17
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 0.9833333333333333
+        },
+        "4": {
+          "content_following_expected_fraction": 0.05,
+          "dominant_class_counts": [
+            8,
+            35,
+            17
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 0.95
+        },
+        "5": {
+          "content_following_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        },
+        "6": {
+          "content_following_expected_fraction": 0.9833333333333333,
+          "dominant_class_counts": [
+            6,
+            37,
+            17
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 0.9833333333333333
+        },
+        "7": {
+          "content_following_expected_fraction": 0.03333333333333333,
+          "dominant_class_counts": [
+            7,
+            34,
+            19
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 0.9333333333333333
+        },
+        "8": {
+          "content_following_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            8,
+            34,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 0.9666666666666667
+        },
+        "9": {
+          "content_following_expected_fraction": 0.9833333333333333,
+          "dominant_class_counts": [
+            6,
+            35,
+            19
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 0.9833333333333333
+        }
+      },
+      "right": {
+        "10": {
+          "content_following_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            7,
+            35,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 0.9833333333333333
+        },
+        "2": {
+          "content_following_expected_fraction": 0.03333333333333333,
+          "dominant_class_counts": [
+            7,
+            35,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 0.95
+        },
+        "3": {
+          "content_following_expected_fraction": 0.9833333333333333,
+          "dominant_class_counts": [
+            6,
+            37,
+            17
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 0.9833333333333333
+        },
+        "4": {
+          "content_following_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        },
+        "5": {
+          "content_following_expected_fraction": 0.03333333333333333,
+          "dominant_class_counts": [
+            7,
+            36,
+            17
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 0.9666666666666667
+        },
+        "6": {
+          "content_following_expected_fraction": 0.9833333333333333,
+          "dominant_class_counts": [
+            6,
+            37,
+            17
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 0.9833333333333333
+        },
+        "7": {
+          "content_following_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        },
+        "8": {
+          "content_following_expected_fraction": 0.03333333333333333,
+          "dominant_class_counts": [
+            7,
+            36,
+            17
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 0.9666666666666667
+        },
+        "9": {
+          "content_following_expected_fraction": 0.9833333333333333,
+          "dominant_class_counts": [
+            6,
+            37,
+            17
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 0.9833333333333333
+        }
+      }
+    },
+    "upstream_intron": {
+      "left": {
+        "10": {
+          "content_following_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            6,
+            35,
+            19
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 0.9833333333333333
+        },
+        "2": {
+          "content_following_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        },
+        "3": {
+          "content_following_expected_fraction": 1.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        },
+        "4": {
+          "content_following_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        },
+        "5": {
+          "content_following_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        },
+        "6": {
+          "content_following_expected_fraction": 1.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        },
+        "7": {
+          "content_following_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        },
+        "8": {
+          "content_following_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        },
+        "9": {
+          "content_following_expected_fraction": 1.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        }
+      },
+      "right": {
+        "10": {
+          "content_following_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        },
+        "2": {
+          "content_following_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        },
+        "3": {
+          "content_following_expected_fraction": 1.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        },
+        "4": {
+          "content_following_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        },
+        "5": {
+          "content_following_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        },
+        "6": {
+          "content_following_expected_fraction": 1.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        },
+        "7": {
+          "content_following_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        },
+        "8": {
+          "content_following_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        },
+        "9": {
+          "content_following_expected_fraction": 1.0,
+          "dominant_class_counts": [
+            6,
+            36,
+            18
+          ],
+          "n": 60,
+          "note": "descriptive; downstream phasor need not obey a hard rotation law",
+          "same_as_native_fraction": 1.0
+        }
+      }
+    }
+  },
+  "endpoints": {
+    "coupling": {
+      "adjusted_p": 0.5798840231953609,
+      "classification_development_only": "inconclusive",
+      "gene_sd": 0.29238688279027614,
+      "mde80": 0.18274441898494745,
+      "mean": 0.04756836257874964,
+      "se": 0.05338229707428443,
+      "sesoi": 0.05,
+      "sign_fraction_positive": 0.4666666666666667,
+      "simultaneous_ci": [
+        -0.09024838169158281,
+        0.18538510684908208
+      ]
+    },
+    "phasor_signed": {
+      "adjusted_p": 0.14377124575084982,
+      "classification_development_only": "inconclusive",
+      "gene_sd": 0.12555315769744746,
+      "mde80": 0.07847184742416416,
+      "mean": 0.04377971763506724,
+      "se": 0.022922765545631784,
+      "sesoi": 0.1,
+      "sign_fraction_positive": 0.6333333333333333,
+      "simultaneous_ci": [
+        -0.015399843573679607,
+        0.10295927884381409
+      ]
+    }
+  },
+  "family": {
+    "critical_value": 2.5816937790922108,
+    "endpoints": [
+      "coupling",
+      "phasor_signed"
+    ],
+    "n_bootstrap": 5000,
+    "shared_gene_resampling": true
+  },
+  "input_sha256": "2d1162c2c740577beec6ef65d766ba2d9d088ddc40fa58ecbe794e103cd0fba6",
+  "instrument": {
+    "attention_live_and_normalized": true,
+    "determinism_max_abs": 0.0,
+    "health_ratio": 1.0,
+    "native_mlm_health": 0.34375,
+    "offregister_cds_mlm_health": 0.34375
+  },
+  "n_genes": 30,
+  "per_gene": [
+    {
+      "chrom": "chr3",
+      "gene_id": "ENSG00000047849.24",
+      "psi_coupling": -0.0009265740712483723,
+      "psi_phasor_signed": 0.03705933633316645,
+      "s_coupling_cds": -0.0021440982818603516,
+      "s_coupling_upstream_intron": -0.0012175242106119792,
+      "s_phasor_signed_cds": 0.03582363947960631,
+      "s_phasor_signed_upstream_intron": -0.0012356968535601383
+    },
+    {
+      "chrom": "chr3",
+      "gene_id": "ENSG00000076201.18",
+      "psi_coupling": 0.8090292910734812,
+      "psi_phasor_signed": 0.18564544443746528,
+      "s_coupling_cds": 0.8449218074480692,
+      "s_coupling_upstream_intron": 0.03589251637458801,
+      "s_phasor_signed_cds": 0.18700817574657183,
+      "s_phasor_signed_upstream_intron": 0.0013627313091065425
+    },
+    {
+      "chrom": "chr22",
+      "gene_id": "ENSG00000100346.18",
+      "psi_coupling": 0.09544527530670166,
+      "psi_phasor_signed": 0.03255956919853423,
+      "s_coupling_cds": 0.08973489205042522,
+      "s_coupling_upstream_intron": -0.005710383256276448,
+      "s_phasor_signed_cds": 0.035480719798498095,
+      "s_phasor_signed_upstream_intron": 0.0029211505999638676
+    },
+    {
+      "chrom": "chr17",
+      "gene_id": "ENSG00000108312.18",
+      "psi_coupling": -0.06159797807534535,
+      "psi_phasor_signed": 0.1870615733764442,
+      "s_coupling_cds": -0.061418707172075905,
+      "s_coupling_upstream_intron": 0.00017927090326944986,
+      "s_phasor_signed_cds": 0.19281756484666293,
+      "s_phasor_signed_upstream_intron": 0.005755991470218731
+    },
+    {
+      "chrom": "chr17",
+      "gene_id": "ENSG00000108821.16",
+      "psi_coupling": -0.06420499955614407,
+      "psi_phasor_signed": -0.10180129465820881,
+      "s_coupling_cds": -0.06694000959396362,
+      "s_coupling_upstream_intron": -0.0027350100378195443,
+      "s_phasor_signed_cds": -0.09640445462871604,
+      "s_phasor_signed_upstream_intron": 0.005396840029492769
+    },
+    {
+      "chrom": "chr6",
+      "gene_id": "ENSG00000112655.18",
+      "psi_coupling": -0.02357107400894165,
+      "psi_phasor_signed": -0.039057996737470985,
+      "s_coupling_cds": -0.015365799268086752,
+      "s_coupling_upstream_intron": 0.008205274740854899,
+      "s_phasor_signed_cds": -0.031829291282663714,
+      "s_phasor_signed_upstream_intron": 0.007228705454807268
+    },
+    {
+      "chrom": "chr2",
+      "gene_id": "ENSG00000115085.18",
+      "psi_coupling": -0.42933804790178937,
+      "psi_phasor_signed": -0.06567980615606953,
+      "s_coupling_cds": -0.4378281931082408,
+      "s_coupling_upstream_intron": -0.008490145206451416,
+      "s_phasor_signed_cds": -0.06599471228069777,
+      "s_phasor_signed_upstream_intron": -0.00031490612462823736
+    },
+    {
+      "chrom": "chr6",
+      "gene_id": "ENSG00000124664.13",
+      "psi_coupling": -0.0038374066352844243,
+      "psi_phasor_signed": -0.0024521933072924745,
+      "s_coupling_cds": -0.006669203440348308,
+      "s_coupling_upstream_intron": -0.0028317968050638833,
+      "s_phasor_signed_cds": -0.007090777241188127,
+      "s_phasor_signed_upstream_intron": -0.004638583933895653
+    },
+    {
+      "chrom": "chr12",
+      "gene_id": "ENSG00000126838.12",
+      "psi_coupling": -0.0541234016418457,
+      "psi_phasor_signed": 0.012319111487106479,
+      "s_coupling_cds": -0.023060351610183716,
+      "s_coupling_upstream_intron": 0.031063050031661987,
+      "s_phasor_signed_cds": 0.0012110432165876224,
+      "s_phasor_signed_upstream_intron": -0.011108068270518856
+    },
+    {
+      "chrom": "chr2",
+      "gene_id": "ENSG00000127831.13",
+      "psi_coupling": -0.6268734633922577,
+      "psi_phasor_signed": 0.14977864749005168,
+      "s_coupling_cds": -0.5131858289241791,
+      "s_coupling_upstream_intron": 0.11368763446807861,
+      "s_phasor_signed_cds": 0.16005225122694544,
+      "s_phasor_signed_upstream_intron": 0.01027360373689377
+    },
+    {
+      "chrom": "chr14",
+      "gene_id": "ENSG00000129493.17",
+      "psi_coupling": -0.10706175367037456,
+      "psi_phasor_signed": 0.04478935319626032,
+      "s_coupling_cds": -0.10606476664543152,
+      "s_coupling_upstream_intron": 0.000996987024943034,
+      "s_phasor_signed_cds": 0.03840165288031252,
+      "s_phasor_signed_upstream_intron": -0.006387700315947801
+    },
+    {
+      "chrom": "chr5",
+      "gene_id": "ENSG00000132356.12",
+      "psi_coupling": 0.0016842881838480632,
+      "psi_phasor_signed": 9.454843926753886e-06,
+      "s_coupling_cds": 0.0005068778991699219,
+      "s_coupling_upstream_intron": -0.0011774102846781413,
+      "s_phasor_signed_cds": 0.0001675903354572683,
+      "s_phasor_signed_upstream_intron": 0.00015813549153051443
+    },
+    {
+      "chrom": "chr1",
+      "gene_id": "ENSG00000135870.15",
+      "psi_coupling": 0.2958439191182454,
+      "psi_phasor_signed": -0.10852609229706801,
+      "s_coupling_cds": 0.31584322452545166,
+      "s_coupling_upstream_intron": 0.01999930540720622,
+      "s_phasor_signed_cds": -0.10674475607567757,
+      "s_phasor_signed_upstream_intron": 0.0017813362213904467
+    },
+    {
+      "chrom": "chr5",
+      "gene_id": "ENSG00000152670.20",
+      "psi_coupling": -0.010846575101216633,
+      "psi_phasor_signed": 0.06017977212841707,
+      "s_coupling_cds": -0.012098590532938639,
+      "s_coupling_upstream_intron": -0.0012520154317220051,
+      "s_phasor_signed_cds": 0.06033803107832727,
+      "s_phasor_signed_upstream_intron": 0.0001582589499102005
+    },
+    {
+      "chrom": "chr2",
+      "gene_id": "ENSG00000158417.14",
+      "psi_coupling": -0.11916268865267436,
+      "psi_phasor_signed": -0.07657784958232544,
+      "s_coupling_cds": -0.12369206547737122,
+      "s_coupling_upstream_intron": -0.0045293768246968584,
+      "s_phasor_signed_cds": -0.07017715394473571,
+      "s_phasor_signed_upstream_intron": 0.006400695637589733
+    },
+    {
+      "chrom": "chr7",
+      "gene_id": "ENSG00000159840.18",
+      "psi_coupling": -0.007651925086975098,
+      "psi_phasor_signed": 0.02846127377919146,
+      "s_coupling_cds": -0.018181562423706055,
+      "s_coupling_upstream_intron": -0.010529637336730957,
+      "s_phasor_signed_cds": 0.03210467147622997,
+      "s_phasor_signed_upstream_intron": 0.003643397697038512
+    },
+    {
+      "chrom": "chr7",
+      "gene_id": "ENSG00000160999.13",
+      "psi_coupling": 0.16042903065681458,
+      "psi_phasor_signed": 0.1875586477068336,
+      "s_coupling_cds": 0.1591471532980601,
+      "s_coupling_upstream_intron": -0.0012818773587544758,
+      "s_phasor_signed_cds": 0.18498012400814975,
+      "s_phasor_signed_upstream_intron": -0.0025785236986838322
+    },
+    {
+      "chrom": "chr17",
+      "gene_id": "ENSG00000161653.13",
+      "psi_coupling": 0.019545783599217735,
+      "psi_phasor_signed": 0.003268436529673226,
+      "s_coupling_cds": 0.01127767562866211,
+      "s_coupling_upstream_intron": -0.008268107970555624,
+      "s_phasor_signed_cds": 0.0059900484255815305,
+      "s_phasor_signed_upstream_intron": 0.0027216118959083047
+    },
+    {
+      "chrom": "chr1",
+      "gene_id": "ENSG00000162613.20",
+      "psi_coupling": 0.011508415142695108,
+      "psi_phasor_signed": -0.015929266423098914,
+      "s_coupling_cds": 0.008543560902277628,
+      "s_coupling_upstream_intron": -0.0029648542404174805,
+      "s_phasor_signed_cds": -0.018709618084262303,
+      "s_phasor_signed_upstream_intron": -0.0027803516611633883
+    },
+    {
+      "chrom": "chr12",
+      "gene_id": "ENSG00000166986.17",
+      "psi_coupling": 0.7526171058416367,
+      "psi_phasor_signed": 0.4869117483417957,
+      "s_coupling_cds": 0.7395655264457067,
+      "s_coupling_upstream_intron": -0.013051579395929972,
+      "s_phasor_signed_cds": 0.49150625473994386,
+      "s_phasor_signed_upstream_intron": 0.004594506398148179
+    },
+    {
+      "chrom": "chr15",
+      "gene_id": "ENSG00000167195.8",
+      "psi_coupling": 0.33405861258506775,
+      "psi_phasor_signed": 0.2747248650359671,
+      "s_coupling_cds": 0.31966887911160785,
+      "s_coupling_upstream_intron": -0.014389733473459879,
+      "s_phasor_signed_cds": 0.26945707902605515,
+      "s_phasor_signed_upstream_intron": -0.005267786009911957
+    },
+    {
+      "chrom": "chr17",
+      "gene_id": "ENSG00000169683.10",
+      "psi_coupling": -0.19826783736546832,
+      "psi_phasor_signed": -0.007345826867269293,
+      "s_coupling_cds": -0.21511499087015787,
+      "s_coupling_upstream_intron": -0.016847153504689533,
+      "s_phasor_signed_cds": 0.003110605508554317,
+      "s_phasor_signed_upstream_intron": 0.01045643237582361
+    },
+    {
+      "chrom": "chr17",
+      "gene_id": "ENSG00000169750.11",
+      "psi_coupling": 0.25055434803167975,
+      "psi_phasor_signed": -0.023659846244318793,
+      "s_coupling_cds": 0.27163690825303394,
+      "s_coupling_upstream_intron": 0.021082560221354168,
+      "s_phasor_signed_cds": -0.013241075569942473,
+      "s_phasor_signed_upstream_intron": 0.010418770674376318
+    },
+    {
+      "chrom": "chr3",
+      "gene_id": "ENSG00000172046.22",
+      "psi_coupling": 0.11186895271142323,
+      "psi_phasor_signed": -0.07026369186894173,
+      "s_coupling_cds": 0.10534175237019856,
+      "s_coupling_upstream_intron": -0.00652720034122467,
+      "s_phasor_signed_cds": -0.06898304240314779,
+      "s_phasor_signed_upstream_intron": 0.0012806494657939445
+    },
+    {
+      "chrom": "chr17",
+      "gene_id": "ENSG00000173805.18",
+      "psi_coupling": -0.06381332874298096,
+      "psi_phasor_signed": 0.03586707578585224,
+      "s_coupling_cds": -0.05998218059539795,
+      "s_coupling_upstream_intron": 0.003831148147583008,
+      "s_phasor_signed_cds": 0.038285237765570614,
+      "s_phasor_signed_upstream_intron": 0.002418161979718373
+    },
+    {
+      "chrom": "chr10",
+      "gene_id": "ENSG00000187164.22",
+      "psi_coupling": 0.018137079974015553,
+      "psi_phasor_signed": 0.0035194080398197602,
+      "s_coupling_cds": 0.018129469205935795,
+      "s_coupling_upstream_intron": -7.6107680797576904e-06,
+      "s_phasor_signed_cds": 0.005040700581663522,
+      "s_phasor_signed_upstream_intron": 0.0015212925418437624
+    },
+    {
+      "chrom": "chr1",
+      "gene_id": "ENSG00000187583.13",
+      "psi_coupling": -0.14367948969205221,
+      "psi_phasor_signed": -0.07443141747764993,
+      "s_coupling_cds": -0.1446635127067566,
+      "s_coupling_upstream_intron": -0.0009840230147043865,
+      "s_phasor_signed_cds": -0.0761767943686205,
+      "s_phasor_signed_upstream_intron": -0.001745376890970568
+    },
+    {
+      "chrom": "chr14",
+      "gene_id": "ENSG00000197102.16",
+      "psi_coupling": 0.037901610136032104,
+      "psi_phasor_signed": 0.13762127063843968,
+      "s_coupling_cds": 0.03791456421216329,
+      "s_coupling_upstream_intron": 1.2954076131184896e-05,
+      "s_phasor_signed_cds": 0.12495573788656017,
+      "s_phasor_signed_upstream_intron": -0.012665532751879502
+    },
+    {
+      "chrom": "chr1",
+      "gene_id": "ENSG00000214193.13",
+      "psi_coupling": -0.1230658491452535,
+      "psi_phasor_signed": 0.01106597221619851,
+      "s_coupling_cds": -0.11499166488647461,
+      "s_coupling_upstream_intron": 0.00807418425877889,
+      "s_phasor_signed_cds": 0.014656508498919057,
+      "s_phasor_signed_upstream_intron": 0.0035905362827205467
+    },
+    {
+      "chrom": "chr7",
+      "gene_id": "ENSG00000221838.14",
+      "psi_coupling": 0.566449557741483,
+      "psi_phasor_signed": 0.02071585010658684,
+      "s_coupling_cds": 0.550007606546084,
+      "s_coupling_upstream_intron": -0.016441951195398968,
+      "s_phasor_signed_cds": 0.019830560316320675,
+      "s_phasor_signed_upstream_intron": -0.0008852897902661671
+    }
+  ],
+  "power_gate_candidate": {
+    "coupling": false,
+    "phasor_signed": true
+  },
+  "schema": "gfmcd.p3_closure.preflight_analysis.v1",
+  "status": "DEVELOPMENT_CALIBRATION_NOT_CONFIRMATORY"
+}

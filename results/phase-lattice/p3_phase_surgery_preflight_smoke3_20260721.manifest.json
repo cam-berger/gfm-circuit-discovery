@@ -1,0 +1,115 @@
+{
+  "command": [
+    "scripts/splicebert/run_p3_phase_surgery_preflight.py",
+    "--cohort",
+    "results/phase-lattice/p3_phase_surgery_development_cohort_n120_20260721.json",
+    "--limit-genes",
+    "3",
+    "--batch",
+    "3",
+    "--health-genes",
+    "3",
+    "--health-probes",
+    "2",
+    "--device",
+    "mps",
+    "--out",
+    "results/phase-lattice/p3_phase_surgery_preflight_smoke3_20260721.json"
+  ],
+  "config": {
+    "band": [
+      339,
+      340,
+      341,
+      342,
+      343,
+      344,
+      345
+    ],
+    "batch": 3,
+    "limit_genes": 3,
+    "seed": 20260721
+  },
+  "created_at_utc": "2026-07-22T00:00:06.636890+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 67353,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "p3-phase-surgery-preflight-v1",
+  "git_commit": "e3ef4dcb1aba877df1587492edd916671fbd5895",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_development_cohort_n120_20260721.json",
+      "sha256": "90dce4a161cd1b82b68d8ff1024e9a56cd668d1ddbfea8e7288cc237bb2fa581",
+      "size_bytes": 61832
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/p3_phase_surgery.py",
+      "sha256": "fad552d0c36df2f38bf53d67727b076dcb0dcf0562631ef6b60d3c7f673ea345",
+      "size_bytes": 5969
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert/run_p3_phase_surgery_preflight.py",
+      "sha256": "b803acd6c04cdbdf9c1d8bad2a7ae3843f5c91c0d130f30214d484452a546ce9",
+      "size_bytes": 14300
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/config.json",
+      "sha256": "51ea51e42951f18cc1d3455d7111fe0a41cebad476ba8314afc161a0e956303e",
+      "size_bytes": 685
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/special_tokens_map.json",
+      "sha256": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+      "size_bytes": 125
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/tokenizer.json",
+      "sha256": "b380c8c93ba20313c0c0239b8c70f0c67253028ca76cfda4f55b46049abe4fa3",
+      "size_bytes": 2792
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/tokenizer_config.json",
+      "sha256": "a8f9a3828553689c1cb215689fc82af7551c1bb6ba642606612e834fda0c607c",
+      "size_bytes": 457
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/vocab.txt",
+      "sha256": "ba67bacb61d3de7d57e11e04ba59020a2cc67dbedbd9ae65715117b9fd4f30bc",
+      "size_bytes": 41
+    }
+  ],
+  "notes": [
+    "Every nucleotide and token ID is unchanged; development roles only."
+  ],
+  "outputs": [
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_preflight_smoke3_20260721.json",
+      "sha256": "ce140f6bf041c28e97e648a41aa38d9836d9b28ca1f0b3c7b8fae02d1b7db30a",
+      "size_bytes": 199786
+    }
+  ],
+  "seeds": {
+    "analysis": 20260721,
+    "python_hash": 0
+  },
+  "status": "DEVELOPMENT_OUTCOME_AWARE"
+}

@@ -33,6 +33,7 @@ correction, and decision ledgers.
 | [`PREREGISTRATION_IC2_ACCEPTOR_COMPETITION.md`](PREREGISTRATION_IC2_ACCEPTOR_COMPETITION.md) | **parked** | v5.3 design/calibration complete; confirmatory run not opened. |
 | [`PREREGISTRATION_PERIOD3_COMPUTATION.md`](PREREGISTRATION_PERIOD3_COMPUTATION.md) | **completed historical protocol** | C8–C10; later causal-locus questions moved to P3. |
 | [`PREREGISTRATION_P3_CARRIER_CAUSAL_ROLE.md`](PREREGISTRATION_P3_CARRIER_CAUSAL_ROLE.md) | **complete with qualification** | C34/C35; C34 confirmation is gate-qualified by R24. |
+| [`PREREGISTRATION_P3_CLOSURE.md`](PREREGISTRATION_P3_CLOSURE.md) | **pre-freeze; untouched outcomes unread** | Nucleotide-invariant local P3 surgery; one coupling endpoint, learned-direction controls, and a matched non-CDS-exon boundary. |
 | [`PREREGISTRATION_P3_4_CARRIER_ORIGIN.md`](PREREGISTRATION_P3_4_CARRIER_ORIGIN.md) | **deferred / not frozen** | Frozen-checkpoint design cannot identify training origin; requires training-time evidence. |
 
 Current wording is controlled by [`../CLAIMS.md`](../CLAIMS.md); full corrections are in

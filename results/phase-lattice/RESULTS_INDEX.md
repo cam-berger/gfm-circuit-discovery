@@ -68,6 +68,21 @@ attention: no downstream write, mediation effect, or behavioral function has bee
 | `corpus_spectrum.json` | Underpowered unanchored assay; report its sensitivity limit only |
 | `splice_profile.json`, `splice_phasing.json`, `splice_long.json` | Splice-junction follow-up analyses |
 
+### Exploratory current-use diagnostics
+
+| File | Role |
+|---|---|
+| `p3_shift_diagnostic_v2.json` | Outcome-aware diagnostic of 0/+1/+2/+3 natural, intronic, exonic, and sham shifts; not an origin claim |
+| `p3_shift_diagnostic_v2.mod3.json` | Derived L3H1 attention mass and peak counts under the exact absolute convention `x%3={0,1,2}` |
+| `p3_phase_surgery_preflight_analysis_development_n61_20260721.json` | Development-only coupling calibration for nucleotide-invariant local P3 surgery |
+| `p3_phase_surgery_controls_analysis_development_n30_v2_20260721.json` | Development-only learned-direction result against 19 same-geometry hidden-axis controls |
+| `p3_phase_surgery_context_difference_development_n33_20260721.json` | Development-only matched CDS-minus-non-CDS-exon boundary calibration |
+
+The shift diagnostic generated the coding-register hypothesis but does not promote C8/C34/C35 to a
+biological reading-frame interpretation. Sequence edits were retired as confounded. The active closure
+uses nucleotide-invariant local surgery on the learned P3 position component; its development artifacts
+are calibration only, and the frozen untouched result remains required.
+
 The positive nucleosomal detection is at the wrong wavelength for the model carrier. It therefore
 refutes—rather than supports—the claim that the multi-species ≈10.63 carrier is the nucleosomal
 periodicity.
@@ -100,4 +115,3 @@ For the ≈10.63 carrier, the next licensed questions are:
 
 Until those bridges are crossed, describe it as a **real positional attention circuit of unknown
 function and origin**.
-

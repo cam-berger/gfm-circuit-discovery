@@ -1,0 +1,58 @@
+{
+  "command": [
+    "scripts/splicebert/analyze_p3_phase_surgery_controls.py",
+    "--input",
+    "results/phase-lattice/p3_phase_surgery_controls_development_n30_20260721.json",
+    "--bootstrap",
+    "5000",
+    "--out",
+    "results/phase-lattice/p3_phase_surgery_controls_analysis_development_n30_v2_20260721.json"
+  ],
+  "config": {
+    "bootstrap": 5000,
+    "seed": 20260721,
+    "sesoi": {
+      "coupling": 0.05,
+      "phasor_signed": 0.1
+    }
+  },
+  "created_at_utc": "2026-07-22T00:40:25.689953+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 95315,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "p3-phase-surgery-controls-analysis-v1",
+  "git_commit": "e3ef4dcb1aba877df1587492edd916671fbd5895",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_controls_development_n30_20260721.json",
+      "sha256": "c157879e0b8b3834e0e2c737b9820d576fe76123710be18fe322cbe8e7103757",
+      "size_bytes": 14158190
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/p3_stats.py",
+      "sha256": "8db42340249f66e51a30f054d3e87843a91636cfb644281af58e5a4d4f418080",
+      "size_bytes": 6039
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert/analyze_p3_phase_surgery_controls.py",
+      "sha256": "6e306e9912cfb2ddfa0784ff000388c77641fb44b9849485775e6bfa3c155c62",
+      "size_bytes": 7501
+    }
+  ],
+  "notes": [],
+  "outputs": [
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_controls_analysis_development_n30_v2_20260721.json",
+      "sha256": "8496fe48d934fca0ee77a7203d7b442b8a720552e5447a51066d98a257e8683c",
+      "size_bytes": 8947
+    }
+  ],
+  "seeds": {
+    "bootstrap": 20260721
+  },
+  "status": "DEVELOPMENT_CALIBRATION_NOT_CONFIRMATORY"
+}

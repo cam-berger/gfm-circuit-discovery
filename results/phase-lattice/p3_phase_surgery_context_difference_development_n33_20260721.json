@@ -1,0 +1,384 @@
+{
+  "cds_analysis_sha256": "9a1daefcea5592908c643463dc0b85066f65a7324688510a28106a0685154fd8",
+  "endpoints": {
+    "coupling": {
+      "adjusted_p": 0.02519496100779844,
+      "cds_minus_non_cds_mean": 0.2300044850756725,
+      "classification_development_only": "detectable_sub_sesoi_or_materiality_unresolved",
+      "mde80": 0.2641791262710067,
+      "pair_sd": 0.4610843496372392,
+      "sesoi": 0.05,
+      "sign_fraction_positive": 0.6060606060606061,
+      "simultaneous_ci": [
+        0.03337765181634039,
+        0.4266313183350046
+      ]
+    },
+    "phasor_signed": {
+      "adjusted_p": 0.2453509298140372,
+      "cds_minus_non_cds_mean": 0.043166161717810465,
+      "classification_development_only": "inconclusive",
+      "mde80": 0.09028907030630379,
+      "pair_sd": 0.15758579358320018,
+      "sesoi": 0.1,
+      "sign_fraction_positive": 0.5757575757575758,
+      "simultaneous_ci": [
+        -0.024035415571250683,
+        0.1103677390068716
+      ]
+    }
+  },
+  "family": {
+    "critical_value": 2.449736501655909,
+    "endpoints": [
+      "coupling",
+      "phasor_signed"
+    ],
+    "n_bootstrap": 5000
+  },
+  "match_balance": {
+    "distance_quantiles": {
+      "max": 5.1033883803233895,
+      "median": 1.57143543779712,
+      "min": 0.6531902851417503,
+      "p25": 1.1496324748050384,
+      "p75": 2.0556468640252645,
+      "p95": 2.518737863434793
+    },
+    "max_abs_post_match_smd": 0.2424098879565356,
+    "post_assignment_pre_pruning_smd": {
+      "acceptor_position": -0.1793803395478078,
+      "donor_partner_distance": -0.5148738848133093,
+      "donor_position": -0.3923185975466931,
+      "far_block_end_to_donor": -0.4093071412654827,
+      "intron_block_gc": 0.16506266992578034,
+      "log_exon_length": -0.28304281566057315,
+      "near_block_end_to_donor": -0.32190195232858704,
+      "target_block_gc": 0.2435297199446253
+    },
+    "post_match_smd": {
+      "acceptor_position": -0.04363725274215181,
+      "donor_partner_distance": -0.2424098879565356,
+      "donor_position": -0.2421383601044321,
+      "far_block_end_to_donor": -0.24086552336190567,
+      "intron_block_gc": 0.07463018368572184,
+      "log_exon_length": -0.2111175364047922,
+      "near_block_end_to_donor": -0.19596750326376094,
+      "target_block_gc": 0.16219616676443277
+    },
+    "pre_match_smd": {
+      "acceptor_position": -0.34577682557064393,
+      "donor_partner_distance": -0.6823700198498305,
+      "donor_position": -0.6559663673684952,
+      "far_block_end_to_donor": -0.5889019500582455,
+      "intron_block_gc": -0.032168519698511,
+      "log_exon_length": -0.45959104995123445,
+      "near_block_end_to_donor": -0.42395695043835957,
+      "target_block_gc": 0.045978697106092245
+    }
+  },
+  "match_sha256": "0bbde7c1f3d54d767f44dc8c0d3552d310d7eea7e7f411baec67a642755a6317",
+  "n_pairs": 33,
+  "non_cds_analysis_sha256": "bce64e9c83bae8b283328d291658acd494d9cafb69fed0e8106952925bac265e",
+  "pairs": [
+    {
+      "cds_gene_id": "ENSG00000004700.18",
+      "delta_coupling": 0.048907266929745674,
+      "delta_phasor_signed": 0.2840291683397249,
+      "match_distance": 1.3321871473699483,
+      "non_cds_gene_id": "ENSG00000036549.15",
+      "pair_id": "pair-0000",
+      "strand": "-"
+    },
+    {
+      "cds_gene_id": "ENSG00000004846.17",
+      "delta_coupling": 0.12446159745256104,
+      "delta_phasor_signed": -0.0679666338271244,
+      "match_distance": 1.475088154379633,
+      "non_cds_gene_id": "ENSG00000118246.16",
+      "pair_id": "pair-0001",
+      "strand": "+"
+    },
+    {
+      "cds_gene_id": "ENSG00000006059.5",
+      "delta_coupling": 0.042618210737903915,
+      "delta_phasor_signed": 0.06623656707747619,
+      "match_distance": 1.9379874536151986,
+      "non_cds_gene_id": "ENSG00000219481.11",
+      "pair_id": "pair-0002",
+      "strand": "-"
+    },
+    {
+      "cds_gene_id": "ENSG00000037280.18",
+      "delta_coupling": -0.6028958708047868,
+      "delta_phasor_signed": 0.030477277414495536,
+      "match_distance": 1.5810496227905864,
+      "non_cds_gene_id": "ENSG00000100271.19",
+      "pair_id": "pair-0003",
+      "strand": "-"
+    },
+    {
+      "cds_gene_id": "ENSG00000047315.18",
+      "delta_coupling": 1.5926434459785621,
+      "delta_phasor_signed": -0.15025096364413326,
+      "match_distance": 0.8356792693214738,
+      "non_cds_gene_id": "ENSG00000196227.13",
+      "pair_id": "pair-0004",
+      "strand": "+"
+    },
+    {
+      "cds_gene_id": "ENSG00000071462.15",
+      "delta_coupling": 0.29082755496104556,
+      "delta_phasor_signed": 0.039577690633171445,
+      "match_distance": 1.6549506647372454,
+      "non_cds_gene_id": "ENSG00000134769.25",
+      "pair_id": "pair-0005",
+      "strand": "+"
+    },
+    {
+      "cds_gene_id": "ENSG00000081248.14",
+      "delta_coupling": -0.025220677256584167,
+      "delta_phasor_signed": 0.0422604819702525,
+      "match_distance": 0.7584371908638515,
+      "non_cds_gene_id": "ENSG00000157017.18",
+      "pair_id": "pair-0006",
+      "strand": "-"
+    },
+    {
+      "cds_gene_id": "ENSG00000095464.11",
+      "delta_coupling": 0.09583376285930474,
+      "delta_phasor_signed": -0.02808647630623621,
+      "match_distance": 1.1304448561294484,
+      "non_cds_gene_id": "ENSG00000268043.11",
+      "pair_id": "pair-0007",
+      "strand": "+"
+    },
+    {
+      "cds_gene_id": "ENSG00000101191.19",
+      "delta_coupling": 0.24870536600550017,
+      "delta_phasor_signed": -0.20452468879216051,
+      "match_distance": 1.57143543779712,
+      "non_cds_gene_id": "ENSG00000102547.21",
+      "pair_id": "pair-0008",
+      "strand": "-"
+    },
+    {
+      "cds_gene_id": "ENSG00000103591.15",
+      "delta_coupling": -0.13631580273310345,
+      "delta_phasor_signed": -0.09090397501790207,
+      "match_distance": 1.6788414622341525,
+      "non_cds_gene_id": "ENSG00000198133.11",
+      "pair_id": "pair-0009",
+      "strand": "-"
+    },
+    {
+      "cds_gene_id": "ENSG00000108187.18",
+      "delta_coupling": 0.5112219837804635,
+      "delta_phasor_signed": 0.06046650932347103,
+      "match_distance": 1.7991821490418214,
+      "non_cds_gene_id": "ENSG00000120725.15",
+      "pair_id": "pair-0010",
+      "strand": "-"
+    },
+    {
+      "cds_gene_id": "ENSG00000111325.18",
+      "delta_coupling": -0.2435415325065454,
+      "delta_phasor_signed": 0.07165841014397037,
+      "match_distance": 2.0556468640252645,
+      "non_cds_gene_id": "ENSG00000146955.13",
+      "pair_id": "pair-0011",
+      "strand": "+"
+    },
+    {
+      "cds_gene_id": "ENSG00000112297.19",
+      "delta_coupling": -0.190504789352417,
+      "delta_phasor_signed": 0.36128885619977047,
+      "match_distance": 1.4879685337293576,
+      "non_cds_gene_id": "ENSG00000083097.16",
+      "pair_id": "pair-0012",
+      "strand": "+"
+    },
+    {
+      "cds_gene_id": "ENSG00000125844.19",
+      "delta_coupling": 0.5094503983855246,
+      "delta_phasor_signed": -0.056214807251784765,
+      "match_distance": 1.2048127333673122,
+      "non_cds_gene_id": "ENSG00000112541.19",
+      "pair_id": "pair-0013",
+      "strand": "-"
+    },
+    {
+      "cds_gene_id": "ENSG00000128512.25",
+      "delta_coupling": -0.046175784741838775,
+      "delta_phasor_signed": 0.20137965227851845,
+      "match_distance": 1.2375791959383833,
+      "non_cds_gene_id": "ENSG00000106355.12",
+      "pair_id": "pair-0014",
+      "strand": "-"
+    },
+    {
+      "cds_gene_id": "ENSG00000135473.18",
+      "delta_coupling": 0.039701888958613075,
+      "delta_phasor_signed": 0.025737390345967396,
+      "match_distance": 0.6531902851417503,
+      "non_cds_gene_id": "ENSG00000140254.15",
+      "pair_id": "pair-0015",
+      "strand": "-"
+    },
+    {
+      "cds_gene_id": "ENSG00000135902.12",
+      "delta_coupling": 0.6211878557999929,
+      "delta_phasor_signed": 0.1841502266186106,
+      "match_distance": 0.6591585252952629,
+      "non_cds_gene_id": "ENSG00000122515.18",
+      "pair_id": "pair-0016",
+      "strand": "+"
+    },
+    {
+      "cds_gene_id": "ENSG00000157388.21",
+      "delta_coupling": 0.4372926404078802,
+      "delta_phasor_signed": 0.011301897385330613,
+      "match_distance": 1.332412758681442,
+      "non_cds_gene_id": "ENSG00000169402.18",
+      "pair_id": "pair-0017",
+      "strand": "+"
+    },
+    {
+      "cds_gene_id": "ENSG00000161653.13",
+      "delta_coupling": -0.12979786098003387,
+      "delta_phasor_signed": -0.021076825235970775,
+      "match_distance": 5.1033883803233895,
+      "non_cds_gene_id": "ENSG00000030582.21",
+      "pair_id": "pair-0018",
+      "strand": "+"
+    },
+    {
+      "cds_gene_id": "ENSG00000163354.15",
+      "delta_coupling": -0.18657974898815155,
+      "delta_phasor_signed": 0.12769843745064066,
+      "match_distance": 2.211268584288737,
+      "non_cds_gene_id": "ENSG00000138629.18",
+      "pair_id": "pair-0019",
+      "strand": "-"
+    },
+    {
+      "cds_gene_id": "ENSG00000163875.18",
+      "delta_coupling": 0.46596564352512365,
+      "delta_phasor_signed": -0.06533714257724164,
+      "match_distance": 1.0580934258655172,
+      "non_cds_gene_id": "ENSG00000156869.16",
+      "pair_id": "pair-0020",
+      "strand": "-"
+    },
+    {
+      "cds_gene_id": "ENSG00000166948.10",
+      "delta_coupling": 1.3471857731540997,
+      "delta_phasor_signed": -0.3106168822553161,
+      "match_distance": 0.8324071525736925,
+      "non_cds_gene_id": "ENSG00000120727.15",
+      "pair_id": "pair-0021",
+      "strand": "+"
+    },
+    {
+      "cds_gene_id": "ENSG00000167139.9",
+      "delta_coupling": 0.9475980997085571,
+      "delta_phasor_signed": 0.3876599375429607,
+      "match_distance": 1.1496324748050384,
+      "non_cds_gene_id": "ENSG00000152292.19",
+      "pair_id": "pair-0022",
+      "strand": "+"
+    },
+    {
+      "cds_gene_id": "ENSG00000169992.11",
+      "delta_coupling": -0.03699363768100739,
+      "delta_phasor_signed": -0.07090445417036553,
+      "match_distance": 2.3674019991414386,
+      "non_cds_gene_id": "ENSG00000125089.20",
+      "pair_id": "pair-0023",
+      "strand": "+"
+    },
+    {
+      "cds_gene_id": "ENSG00000178104.23",
+      "delta_coupling": 0.3196654301136732,
+      "delta_phasor_signed": -0.1577970783967549,
+      "match_distance": 2.2071991873748393,
+      "non_cds_gene_id": "ENSG00000135549.18",
+      "pair_id": "pair-0024",
+      "strand": "+"
+    },
+    {
+      "cds_gene_id": "ENSG00000179520.13",
+      "delta_coupling": -0.03994002193212509,
+      "delta_phasor_signed": -0.018586002817256725,
+      "match_distance": 1.8426488192308486,
+      "non_cds_gene_id": "ENSG00000140526.20",
+      "pair_id": "pair-0025",
+      "strand": "+"
+    },
+    {
+      "cds_gene_id": "ENSG00000183569.20",
+      "delta_coupling": 0.48688075567285216,
+      "delta_phasor_signed": 0.2024957219909166,
+      "match_distance": 2.2540723087492114,
+      "non_cds_gene_id": "ENSG00000172073.5",
+      "pair_id": "pair-0026",
+      "strand": "+"
+    },
+    {
+      "cds_gene_id": "ENSG00000186185.16",
+      "delta_coupling": 0.12567802766958872,
+      "delta_phasor_signed": 0.12761458813716114,
+      "match_distance": 2.745741659874825,
+      "non_cds_gene_id": "ENSG00000198832.12",
+      "pair_id": "pair-0027",
+      "strand": "-"
+    },
+    {
+      "cds_gene_id": "ENSG00000186393.6",
+      "delta_coupling": 0.859305794040362,
+      "delta_phasor_signed": 0.15366904079016802,
+      "match_distance": 2.1496322461414987,
+      "non_cds_gene_id": "ENSG00000135077.12",
+      "pair_id": "pair-0028",
+      "strand": "-"
+    },
+    {
+      "cds_gene_id": "ENSG00000196862.10",
+      "delta_coupling": -0.210991270840168,
+      "delta_phasor_signed": 0.1185040895584448,
+      "match_distance": 1.4191270060322543,
+      "non_cds_gene_id": "ENSG00000010244.21",
+      "pair_id": "pair-0029",
+      "strand": "+"
+    },
+    {
+      "cds_gene_id": "ENSG00000197860.12",
+      "delta_coupling": -0.02947152902682622,
+      "delta_phasor_signed": 0.26684344518691366,
+      "match_distance": 2.093829605418554,
+      "non_cds_gene_id": "ENSG00000176142.15",
+      "pair_id": "pair-0030",
+      "strand": "-"
+    },
+    {
+      "cds_gene_id": "ENSG00000204592.11",
+      "delta_coupling": 0.36541498824954033,
+      "delta_phasor_signed": -0.080969333469188,
+      "match_distance": 1.9896199782149186,
+      "non_cds_gene_id": "ENSG00000013588.12",
+      "pair_id": "pair-0031",
+      "strand": "+"
+    },
+    {
+      "cds_gene_id": "ENSG00000214944.12",
+      "delta_coupling": -0.011969950050115585,
+      "delta_phasor_signed": -0.015330787938784642,
+      "match_distance": 1.0406300541089903,
+      "non_cds_gene_id": "ENSG00000106305.12",
+      "pair_id": "pair-0032",
+      "strand": "+"
+    }
+  ],
+  "schema": "gfmcd.p3_phase_surgery.context_difference.v1",
+  "status": "DEVELOPMENT_CALIBRATION_NOT_CONFIRMATORY"
+}

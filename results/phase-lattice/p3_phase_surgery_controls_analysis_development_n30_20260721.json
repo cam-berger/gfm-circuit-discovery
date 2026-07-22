@@ -1,0 +1,300 @@
+{
+  "by_component": {
+    "p3": {
+      "coupling": 0.28578783879056574,
+      "phasor_signed": -0.0028873912327132935
+    },
+    "signed_permutation_00": {
+      "coupling": 0.0023975587139527005,
+      "phasor_signed": 0.0009516263687140601
+    },
+    "signed_permutation_01": {
+      "coupling": 0.0008350967119137447,
+      "phasor_signed": 0.0008875306627406152
+    },
+    "signed_permutation_02": {
+      "coupling": 0.000995794745783011,
+      "phasor_signed": 0.00026965649203612767
+    },
+    "signed_permutation_03": {
+      "coupling": -0.0036820370703935625,
+      "phasor_signed": -0.00043544750693978555
+    },
+    "signed_permutation_04": {
+      "coupling": 0.0009857910374800364,
+      "phasor_signed": 0.00022234176122109018
+    },
+    "signed_permutation_05": {
+      "coupling": 0.007456290783981482,
+      "phasor_signed": -0.00025106510351798723
+    },
+    "signed_permutation_06": {
+      "coupling": 0.000591376485923926,
+      "phasor_signed": 0.0010878711748720038
+    },
+    "signed_permutation_07": {
+      "coupling": 0.004671983731289704,
+      "phasor_signed": 0.0006272326828741015
+    },
+    "signed_permutation_08": {
+      "coupling": 0.0020427584648132326,
+      "phasor_signed": 0.0018291990786721535
+    },
+    "signed_permutation_09": {
+      "coupling": 0.0029407737776637076,
+      "phasor_signed": 0.0005661278773534824
+    },
+    "signed_permutation_10": {
+      "coupling": 3.4489855170249936e-05,
+      "phasor_signed": 0.0016359146646182327
+    },
+    "signed_permutation_11": {
+      "coupling": 0.00033773922671874365,
+      "phasor_signed": 0.0001725711049585447
+    },
+    "signed_permutation_12": {
+      "coupling": -0.0048742463191350305,
+      "phasor_signed": 0.0009942591717971344
+    },
+    "signed_permutation_13": {
+      "coupling": -0.0004760268454750379,
+      "phasor_signed": 0.001831743589688561
+    },
+    "signed_permutation_14": {
+      "coupling": -1.4817652602990469e-05,
+      "phasor_signed": -0.0002766399652315206
+    },
+    "signed_permutation_15": {
+      "coupling": -0.003672626428306103,
+      "phasor_signed": 0.0025000508357873948
+    },
+    "signed_permutation_16": {
+      "coupling": 0.0034063059215744336,
+      "phasor_signed": 0.0002064866214958247
+    },
+    "signed_permutation_17": {
+      "coupling": 0.0003255304569999377,
+      "phasor_signed": 0.0010925825747825492
+    },
+    "signed_permutation_18": {
+      "coupling": 0.0050510155037045475,
+      "phasor_signed": 0.0008996763620262777
+    }
+  },
+  "candidate_gates": {
+    "component_l2_exact": false,
+    "control_geometry_exact": true,
+    "coupling_p3_exceeds_all_controls": true,
+    "coupling_paired_ci_excludes_zero": true,
+    "deterministic": true,
+    "global_p3_deletion_positive": true
+  },
+  "endpoints": {
+    "coupling": {
+      "adjusted_p": 0.03959208158368326,
+      "classification_development_only": "detectable_sub_sesoi_or_materiality_unresolved",
+      "control_mean_psi": 0.0010185658474240386,
+      "control_range_psi": [
+        -0.0048742463191350305,
+        0.007456290783981482
+      ],
+      "gene_sd": 0.5907790002562314,
+      "mde80": 0.3638782267001229,
+      "p3_add_one_rank_p_one_sided": 0.05,
+      "p3_exceeds_every_control": true,
+      "p3_mean_psi": 0.28578783879056574,
+      "p3_minus_mean_control": 0.28476927294314164,
+      "sesoi": 0.05,
+      "simultaneous_ci": [
+        0.011669149892681363,
+        0.5578693959936019
+      ]
+    },
+    "phasor_signed": {
+      "adjusted_p": 0.9852029594081184,
+      "classification_development_only": "bounded_null",
+      "control_mean_psi": 0.0007795641288394137,
+      "control_range_psi": [
+        -0.00043544750693978555,
+        0.0025000508357873948
+      ],
+      "gene_sd": 0.13949029416264838,
+      "mde80": 0.08591619008083999,
+      "p3_add_one_rank_p_one_sided": 1.0,
+      "p3_exceeds_every_control": false,
+      "p3_mean_psi": -0.0028873912327132935,
+      "p3_minus_mean_control": -0.003666955361552704,
+      "sesoi": 0.1,
+      "simultaneous_ci": [
+        -0.06814930237057261,
+        0.0608153916474672
+      ]
+    }
+  },
+  "family": {
+    "critical_value": 2.5319636917916313,
+    "endpoints": [
+      "coupling",
+      "phasor_signed"
+    ],
+    "n_bootstrap": 5000,
+    "shared_gene_resampling": true
+  },
+  "input_sha256": "c157879e0b8b3834e0e2c737b9820d576fe76123710be18fe322cbe8e7103757",
+  "n_controls": 19,
+  "n_genes": 30,
+  "per_gene_target_minus_mean_control": [
+    {
+      "delta_coupling": 0.015387311185661116,
+      "delta_phasor_signed": 0.1029529607817626,
+      "gene_id": "ENSG00000006059.5"
+    },
+    {
+      "delta_coupling": 0.04371774353479084,
+      "delta_phasor_signed": 0.00823020704581903,
+      "gene_id": "ENSG00000006283.18"
+    },
+    {
+      "delta_coupling": -0.06489197870618418,
+      "delta_phasor_signed": 0.05421380348169907,
+      "gene_id": "ENSG00000081248.14"
+    },
+    {
+      "delta_coupling": -0.003873092024342009,
+      "delta_phasor_signed": 0.038903437625523354,
+      "gene_id": "ENSG00000091138.15"
+    },
+    {
+      "delta_coupling": 0.25976752372164474,
+      "delta_phasor_signed": -0.15839505434137002,
+      "gene_id": "ENSG00000101191.19"
+    },
+    {
+      "delta_coupling": 0.5314171241694375,
+      "delta_phasor_signed": 0.05358134876573452,
+      "gene_id": "ENSG00000108187.18"
+    },
+    {
+      "delta_coupling": 0.5678548295246927,
+      "delta_phasor_signed": -0.03069066838603541,
+      "gene_id": "ENSG00000110799.16"
+    },
+    {
+      "delta_coupling": -0.17123487278034813,
+      "delta_phasor_signed": 0.290993825755757,
+      "gene_id": "ENSG00000112297.19"
+    },
+    {
+      "delta_coupling": -0.24825117933122734,
+      "delta_phasor_signed": -0.14296299658956038,
+      "gene_id": "ENSG00000117569.22"
+    },
+    {
+      "delta_coupling": 0.5082768374367764,
+      "delta_phasor_signed": -0.08459998462385616,
+      "gene_id": "ENSG00000125844.19"
+    },
+    {
+      "delta_coupling": 0.8787000814550802,
+      "delta_phasor_signed": -0.06873097457908052,
+      "gene_id": "ENSG00000133020.4"
+    },
+    {
+      "delta_coupling": 0.04231040179729462,
+      "delta_phasor_signed": 0.024737544534953294,
+      "gene_id": "ENSG00000135473.18"
+    },
+    {
+      "delta_coupling": -0.1948736968793367,
+      "delta_phasor_signed": -0.13783693206263012,
+      "gene_id": "ENSG00000136040.10"
+    },
+    {
+      "delta_coupling": -0.7011988970794176,
+      "delta_phasor_signed": 0.24619432348598458,
+      "gene_id": "ENSG00000140575.15"
+    },
+    {
+      "delta_coupling": 0.4433390090340062,
+      "delta_phasor_signed": 0.009731478277324816,
+      "gene_id": "ENSG00000157388.21"
+    },
+    {
+      "delta_coupling": -0.0052244835778286584,
+      "delta_phasor_signed": 0.0052273566590851,
+      "gene_id": "ENSG00000160789.27"
+    },
+    {
+      "delta_coupling": -0.2720223069190979,
+      "delta_phasor_signed": -0.08193756530942696,
+      "gene_id": "ENSG00000161940.13"
+    },
+    {
+      "delta_coupling": 0.5961530294857527,
+      "delta_phasor_signed": -0.046868782272031784,
+      "gene_id": "ENSG00000162641.20"
+    },
+    {
+      "delta_coupling": -0.1860009898480616,
+      "delta_phasor_signed": 0.12567438941579534,
+      "gene_id": "ENSG00000163354.15"
+    },
+    {
+      "delta_coupling": 0.4384323829098752,
+      "delta_phasor_signed": -0.004597867446410756,
+      "gene_id": "ENSG00000163875.18"
+    },
+    {
+      "delta_coupling": 1.3192142369715791,
+      "delta_phasor_signed": -0.2980851873602471,
+      "gene_id": "ENSG00000166948.10"
+    },
+    {
+      "delta_coupling": 0.9087703227996826,
+      "delta_phasor_signed": 0.36218235752530464,
+      "gene_id": "ENSG00000167139.9"
+    },
+    {
+      "delta_coupling": -0.04164710836975198,
+      "delta_phasor_signed": -0.015032588880261403,
+      "gene_id": "ENSG00000179520.13"
+    },
+    {
+      "delta_coupling": 0.27585145438972275,
+      "delta_phasor_signed": -0.026552949955707558,
+      "gene_id": "ENSG00000182223.7"
+    },
+    {
+      "delta_coupling": 0.784617777423639,
+      "delta_phasor_signed": 0.15440270827013539,
+      "gene_id": "ENSG00000186393.6"
+    },
+    {
+      "delta_coupling": -0.02496744731539174,
+      "delta_phasor_signed": -0.049298217790426174,
+      "gene_id": "ENSG00000187688.16"
+    },
+    {
+      "delta_coupling": -0.03591081382412659,
+      "delta_phasor_signed": -0.10585919346591764,
+      "gene_id": "ENSG00000198001.18"
+    },
+    {
+      "delta_coupling": 0.3762012120140226,
+      "delta_phasor_signed": -0.08145353447199928,
+      "gene_id": "ENSG00000204592.11"
+    },
+    {
+      "delta_coupling": 0.061199382731789036,
+      "delta_phasor_signed": -0.10238162746016796,
+      "gene_id": "ENSG00000214595.14"
+    },
+    {
+      "delta_coupling": 2.441964394363918,
+      "delta_phasor_signed": -0.1517502774763306,
+      "gene_id": "ENSG00000215009.6"
+    }
+  ],
+  "schema": "gfmcd.p3_phase_surgery.controls_analysis.v1",
+  "status": "DEVELOPMENT_CALIBRATION_NOT_CONFIRMATORY"
+}

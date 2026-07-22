@@ -1,0 +1,2273 @@
+{
+  "config": {
+    "block_size": 36,
+    "maximum_shift": 10,
+    "n_blocks": 2,
+    "position_table_length": 1026,
+    "prefix_tokens": 1,
+    "target_context": "non_cds_exon"
+  },
+  "counts": {
+    "eligible_examples_by_role": {
+      "development": 49
+    },
+    "eligible_unique_genes": 49,
+    "exclusions": {
+      "no_annotation_safe_two_block_non_cds_example": 315
+    },
+    "genes_considered": 364,
+    "source_train_non_cds_examples": 1360
+  },
+  "excluded_chromosomes": [
+    "chr11",
+    "chr16",
+    "chr19",
+    "chr8",
+    "chr9"
+  ],
+  "included_roles": [
+    "development"
+  ],
+  "inputs": {
+    "basic_gtf": {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    "comprehensive_gtf": {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+      "sha256": "83fba3e9b03f0b8c958f3595c6c350adc55f468abf8b0e47b6d5284cfe13a453",
+      "size_bytes": 124527720
+    },
+    "fasta": {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    }
+  },
+  "model_outcomes_read": false,
+  "namespace": "p3-closure-v1",
+  "records": [
+    {
+      "acceptor_pos": 206,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 79,
+        "n_intron_candidates": 153,
+        "n_non_cds_exon_annotation_safe": 35,
+        "n_non_cds_exon_candidates": 298
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            215,
+            251
+          ],
+          [
+            249,
+            285
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            78,
+            114
+          ]
+        ]
+      },
+      "chrom": "chr17",
+      "donor_partner_distance": 111,
+      "donor_phase": null,
+      "donor_pos": 571,
+      "eligible": true,
+      "example_id": "chr17:44188934-44189299:+:ENSG00000168591.18",
+      "exon_length": 365,
+      "gene_id": "ENSG00000168591.18",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "d149798e7e874ac0ead86342ea12c8d07101a0fa1b80e3be1a3fe42809ce30fa",
+      "next_acceptor_pos": 682,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 134,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 81,
+        "n_intron_candidates": 81,
+        "n_non_cds_exon_annotation_safe": 37,
+        "n_non_cds_exon_candidates": 38
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            143,
+            179
+          ],
+          [
+            179,
+            215
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            80,
+            116
+          ]
+        ]
+      },
+      "chrom": "chr1",
+      "donor_partner_distance": 128,
+      "donor_phase": null,
+      "donor_pos": 239,
+      "eligible": true,
+      "example_id": "chr1:99748896-99749001:-:ENSG00000156869.16",
+      "exon_length": 105,
+      "gene_id": "ENSG00000156869.16",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "55decabba1c9fbb30dfd200dc8fe73d2b67388284827a8ee53083041df18aa44",
+      "next_acceptor_pos": 367,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 279,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 57,
+        "n_intron_candidates": 226,
+        "n_non_cds_exon_annotation_safe": 29,
+        "n_non_cds_exon_candidates": 145
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            288,
+            324
+          ],
+          [
+            316,
+            352
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            216,
+            252
+          ]
+        ]
+      },
+      "chrom": "chr3",
+      "donor_partner_distance": 114,
+      "donor_phase": null,
+      "donor_pos": 491,
+      "eligible": true,
+      "example_id": "chr3:42407112-42407324:-:ENSG00000157093.9",
+      "exon_length": 212,
+      "gene_id": "ENSG00000157093.9",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "826d9cc0826c911d30e2bc892cb78c93e9bd51d7e7d29ff3a220f11db232929a",
+      "next_acceptor_pos": 605,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 161,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 108,
+        "n_intron_candidates": 108,
+        "n_non_cds_exon_annotation_safe": 203,
+        "n_non_cds_exon_candidates": 204
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            170,
+            206
+          ],
+          [
+            372,
+            408
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            107,
+            143
+          ]
+        ]
+      },
+      "chrom": "chr4",
+      "donor_partner_distance": 113,
+      "donor_phase": null,
+      "donor_pos": 432,
+      "eligible": true,
+      "example_id": "chr4:8204782-8205053:+:ENSG00000125089.20",
+      "exon_length": 271,
+      "gene_id": "ENSG00000125089.20",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "976ef80fe422c28cb1dc00d08f8fbdd5791829f26d4a6be5c969995d986a2144",
+      "next_acceptor_pos": 545,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 243,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 190,
+        "n_intron_candidates": 190,
+        "n_non_cds_exon_annotation_safe": 165,
+        "n_non_cds_exon_candidates": 166
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            252,
+            288
+          ],
+          [
+            416,
+            452
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            189,
+            225
+          ]
+        ]
+      },
+      "chrom": "chr15",
+      "donor_partner_distance": 115,
+      "donor_phase": null,
+      "donor_pos": 476,
+      "eligible": true,
+      "example_id": "chr15:45123158-45123391:-:ENSG00000140254.15",
+      "exon_length": 233,
+      "gene_id": "ENSG00000140254.15",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "175789a7d34527c1573616dad25dc9a021a9dfc25d2ff4f509bbd00f1ad87bd9",
+      "next_acceptor_pos": 591,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 111,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 58,
+        "n_intron_candidates": 58,
+        "n_non_cds_exon_annotation_safe": 61,
+        "n_non_cds_exon_candidates": 83
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            120,
+            156
+          ],
+          [
+            180,
+            216
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            57,
+            93
+          ]
+        ]
+      },
+      "chrom": "chr3",
+      "donor_partner_distance": 137,
+      "donor_phase": null,
+      "donor_pos": 261,
+      "eligible": true,
+      "example_id": "chr3:10291588-10291738:-:ENSG00000157017.18",
+      "exon_length": 150,
+      "gene_id": "ENSG00000157017.18",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "66d9a3f7b4e93e614b8cfbcfb745ea2828d45a8473032af297e021d328d58118",
+      "next_acceptor_pos": 398,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 137,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 84,
+        "n_intron_candidates": 84,
+        "n_non_cds_exon_annotation_safe": 13,
+        "n_non_cds_exon_candidates": 390
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            192,
+            228
+          ],
+          [
+            204,
+            240
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            83,
+            119
+          ]
+        ]
+      },
+      "chrom": "chr15",
+      "donor_partner_distance": 136,
+      "donor_phase": null,
+      "donor_pos": 594,
+      "eligible": true,
+      "example_id": "chr15:100580488-100580945:-:ENSG00000140471.19",
+      "exon_length": 457,
+      "gene_id": "ENSG00000140471.19",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "3d2bb3eeaa8fe87c3ad7f5e3e1cff18bfd07f2e2e91089f400e0f0d4ee27a23f",
+      "next_acceptor_pos": 730,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 213,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 160,
+        "n_intron_candidates": 160,
+        "n_non_cds_exon_annotation_safe": 153,
+        "n_non_cds_exon_candidates": 206
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            222,
+            258
+          ],
+          [
+            426,
+            462
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            159,
+            195
+          ]
+        ]
+      },
+      "chrom": "chr6",
+      "donor_partner_distance": 140,
+      "donor_phase": null,
+      "donor_pos": 486,
+      "eligible": true,
+      "example_id": "chr6:13583662-13583935:+:ENSG00000124523.19",
+      "exon_length": 273,
+      "gene_id": "ENSG00000124523.19",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "c58c21cbfc907591b5724bcaf65d7b6820011d47cabb34bf7b0a738d634fc73f",
+      "next_acceptor_pos": 626,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 213,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 160,
+        "n_intron_candidates": 160,
+        "n_non_cds_exon_annotation_safe": 84,
+        "n_non_cds_exon_candidates": 402
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            349,
+            385
+          ],
+          [
+            432,
+            468
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            159,
+            195
+          ]
+        ]
+      },
+      "chrom": "chr1",
+      "donor_partner_distance": 120,
+      "donor_phase": null,
+      "donor_pos": 682,
+      "eligible": true,
+      "example_id": "chr1:156245781-156246250:-:ENSG00000160781.19",
+      "exon_length": 469,
+      "gene_id": "ENSG00000160781.19",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "8a9ad5dcef6876e9cebe619def4425aa85a750a145a230e3266f2aa0d55246d5",
+      "next_acceptor_pos": 802,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 292,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 239,
+        "n_intron_candidates": 239,
+        "n_non_cds_exon_annotation_safe": 21,
+        "n_non_cds_exon_candidates": 22
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            301,
+            337
+          ],
+          [
+            321,
+            357
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            238,
+            274
+          ]
+        ]
+      },
+      "chrom": "chr17",
+      "donor_partner_distance": 98,
+      "donor_phase": null,
+      "donor_pos": 381,
+      "eligible": true,
+      "example_id": "chr17:17973664-17973753:+:ENSG00000171962.21",
+      "exon_length": 89,
+      "gene_id": "ENSG00000171962.21",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "9737fb4a4e47e0f78d38e77a19ad49126b690f95864434d28586fd8ddd0575d0",
+      "next_acceptor_pos": 479,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 133,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 80,
+        "n_intron_candidates": 80,
+        "n_non_cds_exon_annotation_safe": 57,
+        "n_non_cds_exon_candidates": 58
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            142,
+            178
+          ],
+          [
+            198,
+            234
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            79,
+            115
+          ]
+        ]
+      },
+      "chrom": "chr1",
+      "donor_partner_distance": 124,
+      "donor_phase": null,
+      "donor_pos": 258,
+      "eligible": true,
+      "example_id": "chr1:26303042-26303167:-:ENSG00000158062.23",
+      "exon_length": 125,
+      "gene_id": "ENSG00000158062.23",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "1bff09bdc939127c9f339ee8b5aa992f6a842085b89a8a125028f8a7364c7778",
+      "next_acceptor_pos": 382,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 186,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 133,
+        "n_intron_candidates": 133,
+        "n_non_cds_exon_annotation_safe": 87,
+        "n_non_cds_exon_candidates": 88
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            195,
+            231
+          ],
+          [
+            281,
+            317
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            132,
+            168
+          ]
+        ]
+      },
+      "chrom": "chr1",
+      "donor_partner_distance": 102,
+      "donor_phase": null,
+      "donor_pos": 341,
+      "eligible": true,
+      "example_id": "chr1:16592158-16592313:-:ENSG00000219481.11",
+      "exon_length": 155,
+      "gene_id": "ENSG00000219481.11",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "ffef8a077bfff091823ba25dd3bb11e6d604e6267576315fb13ade3076a770d6",
+      "next_acceptor_pos": 443,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 230,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 177,
+        "n_intron_candidates": 177,
+        "n_non_cds_exon_annotation_safe": 63,
+        "n_non_cds_exon_candidates": 150
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            325,
+            361
+          ],
+          [
+            387,
+            423
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            176,
+            212
+          ]
+        ]
+      },
+      "chrom": "chr12",
+      "donor_partner_distance": 146,
+      "donor_phase": null,
+      "donor_pos": 447,
+      "eligible": true,
+      "example_id": "chr12:12912083-12912300:+:ENSG00000013588.12",
+      "exon_length": 217,
+      "gene_id": "ENSG00000013588.12",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "03eb4d5e50deb9136b561cab15b5d266eff4549456d2842cd19f55912b8140cd",
+      "next_acceptor_pos": 593,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 107,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 54,
+        "n_intron_candidates": 54,
+        "n_non_cds_exon_annotation_safe": 52,
+        "n_non_cds_exon_candidates": 53
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            116,
+            152
+          ],
+          [
+            167,
+            203
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            53,
+            89
+          ]
+        ]
+      },
+      "chrom": "chr22",
+      "donor_partner_distance": 130,
+      "donor_phase": null,
+      "donor_pos": 227,
+      "eligible": true,
+      "example_id": "chr22:50556535-50556655:-:ENSG00000217442.5",
+      "exon_length": 120,
+      "gene_id": "ENSG00000217442.5",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "884a89d47eb347fcab19feeef5cddbcf750c6196d7177a0a0db7655f4e5942a5",
+      "next_acceptor_pos": 357,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 257,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 204,
+        "n_intron_candidates": 204,
+        "n_non_cds_exon_annotation_safe": 47,
+        "n_non_cds_exon_candidates": 84
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            302,
+            338
+          ],
+          [
+            348,
+            384
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            203,
+            239
+          ]
+        ]
+      },
+      "chrom": "chr7",
+      "donor_partner_distance": 93,
+      "donor_phase": null,
+      "donor_pos": 408,
+      "eligible": true,
+      "example_id": "chr7:6014901-6015052:+:ENSG00000106305.12",
+      "exon_length": 151,
+      "gene_id": "ENSG00000106305.12",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "775beb8c0a255619fe4a3258d0eb7a93698af99799945bee2a6d9fe45a5fc12a",
+      "next_acceptor_pos": 501,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 172,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 119,
+        "n_intron_candidates": 119,
+        "n_non_cds_exon_annotation_safe": 142,
+        "n_non_cds_exon_candidates": 293
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            181,
+            217
+          ],
+          [
+            322,
+            358
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            118,
+            154
+          ]
+        ]
+      },
+      "chrom": "chr17",
+      "donor_partner_distance": 123,
+      "donor_phase": null,
+      "donor_pos": 532,
+      "eligible": true,
+      "example_id": "chr17:44348942-44349302:+:ENSG00000030582.21",
+      "exon_length": 360,
+      "gene_id": "ENSG00000030582.21",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "ce2d3a2b5c56b9ab3dff35244154a171bca6f8afe77e9554bbe9ad0b84482e96",
+      "next_acceptor_pos": 655,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 256,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 161,
+        "n_intron_candidates": 203,
+        "n_non_cds_exon_annotation_safe": 369,
+        "n_non_cds_exon_candidates": 370
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            265,
+            301
+          ],
+          [
+            633,
+            669
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            160,
+            196
+          ]
+        ]
+      },
+      "chrom": "chr5",
+      "donor_partner_distance": 116,
+      "donor_phase": null,
+      "donor_pos": 693,
+      "eligible": true,
+      "example_id": "chr5:175443698-175444135:-:ENSG00000184845.6",
+      "exon_length": 437,
+      "gene_id": "ENSG00000184845.6",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "f2fab52283680fcdebe6aa91c7b366c0c444a046cdc01a0afcd6abc3491ea501",
+      "next_acceptor_pos": 809,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 255,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 202,
+        "n_intron_candidates": 202,
+        "n_non_cds_exon_annotation_safe": 53,
+        "n_non_cds_exon_candidates": 54
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            264,
+            300
+          ],
+          [
+            316,
+            352
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            201,
+            237
+          ]
+        ]
+      },
+      "chrom": "chr2",
+      "donor_partner_distance": 142,
+      "donor_phase": null,
+      "donor_pos": 376,
+      "eligible": true,
+      "example_id": "chr2:206766380-206766501:+:ENSG00000118246.16",
+      "exon_length": 121,
+      "gene_id": "ENSG00000118246.16",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "c0873527752750a2da034d219c8be8dd0d16ee9125072615d6afe1b7fbcfcfa8",
+      "next_acceptor_pos": 518,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 149,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 96,
+        "n_intron_candidates": 96,
+        "n_non_cds_exon_annotation_safe": 50,
+        "n_non_cds_exon_candidates": 51
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            158,
+            194
+          ],
+          [
+            207,
+            243
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            95,
+            131
+          ]
+        ]
+      },
+      "chrom": "chr7",
+      "donor_partner_distance": 116,
+      "donor_phase": null,
+      "donor_pos": 267,
+      "eligible": true,
+      "example_id": "chr7:6757358-6757476:+:ENSG00000169402.18",
+      "exon_length": 118,
+      "gene_id": "ENSG00000169402.18",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "8aff33f1118529eddf08cc4c11e6b0c5678a60808b96101e38a86fd881625667",
+      "next_acceptor_pos": 383,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 173,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 120,
+        "n_intron_candidates": 120,
+        "n_non_cds_exon_annotation_safe": 74,
+        "n_non_cds_exon_candidates": 75
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            182,
+            218
+          ],
+          [
+            255,
+            291
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            119,
+            155
+          ]
+        ]
+      },
+      "chrom": "chr15",
+      "donor_partner_distance": 137,
+      "donor_phase": null,
+      "donor_pos": 315,
+      "eligible": true,
+      "example_id": "chr15:89103902-89104044:+:ENSG00000140526.20",
+      "exon_length": 142,
+      "gene_id": "ENSG00000140526.20",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "4dae6c3f2e30c16db8aaf03c1ce39a9782cd9f5941123d3246de15afb7e28859",
+      "next_acceptor_pos": 452,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 244,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 191,
+        "n_intron_candidates": 191,
+        "n_non_cds_exon_annotation_safe": 124,
+        "n_non_cds_exon_candidates": 125
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            253,
+            289
+          ],
+          [
+            376,
+            412
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            190,
+            226
+          ]
+        ]
+      },
+      "chrom": "chr22",
+      "donor_partner_distance": 116,
+      "donor_phase": null,
+      "donor_pos": 436,
+      "eligible": true,
+      "example_id": "chr22:40395862-40396054:+:ENSG00000100359.23",
+      "exon_length": 192,
+      "gene_id": "ENSG00000100359.23",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "32b3412990b99a38898fa4fda48d3f3b5b32f446308833190f5a2972a3d42fdf",
+      "next_acceptor_pos": 552,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 243,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 190,
+        "n_intron_candidates": 190,
+        "n_non_cds_exon_annotation_safe": 239,
+        "n_non_cds_exon_candidates": 396
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            252,
+            288
+          ],
+          [
+            646,
+            682
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            189,
+            225
+          ]
+        ]
+      },
+      "chrom": "chr20",
+      "donor_partner_distance": 119,
+      "donor_phase": null,
+      "donor_pos": 706,
+      "eligible": true,
+      "example_id": "chr20:56388321-56388784:-:ENSG00000087586.20",
+      "exon_length": 463,
+      "gene_id": "ENSG00000087586.20",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "06dc05fee01ec055572c5f03ad5c5a2fe2cfd2fe1f22c0f1f4b70d03bcc9a6a3",
+      "next_acceptor_pos": 825,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 264,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 211,
+        "n_intron_candidates": 211,
+        "n_non_cds_exon_annotation_safe": 62,
+        "n_non_cds_exon_candidates": 63
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            273,
+            309
+          ],
+          [
+            334,
+            370
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            210,
+            246
+          ]
+        ]
+      },
+      "chrom": "chr1",
+      "donor_partner_distance": 100,
+      "donor_phase": null,
+      "donor_pos": 394,
+      "eligible": true,
+      "example_id": "chr1:31757381-31757511:-:ENSG00000121753.13",
+      "exon_length": 130,
+      "gene_id": "ENSG00000121753.13",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "aaa639b192a11465f690c51426c3e990bc9cb0d6a62d560a59fda6de9584959b",
+      "next_acceptor_pos": 494,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 158,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 105,
+        "n_intron_candidates": 105,
+        "n_non_cds_exon_annotation_safe": 20,
+        "n_non_cds_exon_candidates": 30
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            167,
+            203
+          ],
+          [
+            186,
+            222
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            104,
+            140
+          ]
+        ]
+      },
+      "chrom": "chr2",
+      "donor_partner_distance": 118,
+      "donor_phase": null,
+      "donor_pos": 255,
+      "eligible": true,
+      "example_id": "chr2:85429371-85429468:+:ENSG00000152292.19",
+      "exon_length": 97,
+      "gene_id": "ENSG00000152292.19",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "8fc4f00c42855e3c810541a96cc59fc2af56437646a4ef0f8394b08c9df28ebc",
+      "next_acceptor_pos": 373,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 203,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 150,
+        "n_intron_candidates": 150,
+        "n_non_cds_exon_annotation_safe": 55,
+        "n_non_cds_exon_candidates": 56
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            212,
+            248
+          ],
+          [
+            266,
+            302
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            149,
+            185
+          ]
+        ]
+      },
+      "chrom": "chr2",
+      "donor_partner_distance": 150,
+      "donor_phase": null,
+      "donor_pos": 326,
+      "eligible": true,
+      "example_id": "chr2:97091862-97091985:-:ENSG00000144199.15",
+      "exon_length": 123,
+      "gene_id": "ENSG00000144199.15",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "09b8f0d60af618b01eeb8b2ea2f84e326f711a0c418f2cf21039c86e5d5e14f5",
+      "next_acceptor_pos": 476,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 176,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 73,
+        "n_intron_candidates": 123,
+        "n_non_cds_exon_annotation_safe": 176,
+        "n_non_cds_exon_candidates": 177
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            185,
+            221
+          ],
+          [
+            360,
+            396
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            72,
+            108
+          ]
+        ]
+      },
+      "chrom": "chr5",
+      "donor_partner_distance": 83,
+      "donor_phase": null,
+      "donor_pos": 420,
+      "eligible": true,
+      "example_id": "chr5:157107045-157107289:-:ENSG00000135077.12",
+      "exon_length": 244,
+      "gene_id": "ENSG00000135077.12",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "8f5ff713812d45cfdff433729c45438fdb682112795e55dbf3b4f8bfe9009caa",
+      "next_acceptor_pos": 503,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 209,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 156,
+        "n_intron_candidates": 156,
+        "n_non_cds_exon_annotation_safe": 25,
+        "n_non_cds_exon_candidates": 26
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            218,
+            254
+          ],
+          [
+            242,
+            278
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            155,
+            191
+          ]
+        ]
+      },
+      "chrom": "chr6",
+      "donor_partner_distance": 101,
+      "donor_phase": null,
+      "donor_pos": 302,
+      "eligible": true,
+      "example_id": "chr6:83096730-83096823:+:ENSG00000083097.16",
+      "exon_length": 93,
+      "gene_id": "ENSG00000083097.16",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "1779b38d470ca85d0fb4397e3b64d3286c6503330e6d464bce670602e7092aae",
+      "next_acceptor_pos": 403,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 297,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 244,
+        "n_intron_candidates": 244,
+        "n_non_cds_exon_annotation_safe": 22,
+        "n_non_cds_exon_candidates": 23
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            306,
+            342
+          ],
+          [
+            327,
+            363
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            243,
+            279
+          ]
+        ]
+      },
+      "chrom": "chr2",
+      "donor_partner_distance": 135,
+      "donor_phase": null,
+      "donor_pos": 387,
+      "eligible": true,
+      "example_id": "chr2:88525409-88525499:+:ENSG00000172073.5",
+      "exon_length": 90,
+      "gene_id": "ENSG00000172073.5",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "8cc7d47737dd66b5d728c01b3f475d906bbc0c241a32135cb8180779b6f2e0f9",
+      "next_acceptor_pos": 522,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 260,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 138,
+        "n_intron_candidates": 207,
+        "n_non_cds_exon_annotation_safe": 88,
+        "n_non_cds_exon_candidates": 89
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            269,
+            305
+          ],
+          [
+            356,
+            392
+          ]
+        ],
+        "upstream_intron": [
+          [
+            46,
+            82
+          ],
+          [
+            183,
+            219
+          ]
+        ]
+      },
+      "chrom": "chr10",
+      "donor_partner_distance": 118,
+      "donor_phase": null,
+      "donor_pos": 416,
+      "eligible": true,
+      "example_id": "chr10:93602155-93602311:-:ENSG00000138207.17",
+      "exon_length": 156,
+      "gene_id": "ENSG00000138207.17",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "9e30bb3bb6a647c6b9ef80f1f8742e0382e446972e445023d33872d695f898d9",
+      "next_acceptor_pos": 534,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 297,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 244,
+        "n_intron_candidates": 244,
+        "n_non_cds_exon_annotation_safe": 66,
+        "n_non_cds_exon_candidates": 67
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            306,
+            342
+          ],
+          [
+            371,
+            407
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            243,
+            279
+          ]
+        ]
+      },
+      "chrom": "chr1",
+      "donor_partner_distance": 75,
+      "donor_phase": null,
+      "donor_pos": 431,
+      "eligible": true,
+      "example_id": "chr1:77641521-77641655:-:ENSG00000036549.15",
+      "exon_length": 134,
+      "gene_id": "ENSG00000036549.15",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "cf5c18a62ba468c2ebb7739c7d1b441b82d40c607520ce6ece20d7b30bee2e58",
+      "next_acceptor_pos": 506,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 253,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 200,
+        "n_intron_candidates": 200,
+        "n_non_cds_exon_annotation_safe": 135,
+        "n_non_cds_exon_candidates": 136
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            262,
+            298
+          ],
+          [
+            396,
+            432
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            199,
+            235
+          ]
+        ]
+      },
+      "chrom": "chr22",
+      "donor_partner_distance": 150,
+      "donor_phase": null,
+      "donor_pos": 456,
+      "eligible": true,
+      "example_id": "chr22:31107683-31107886:-:ENSG00000198832.12",
+      "exon_length": 203,
+      "gene_id": "ENSG00000198832.12",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "53f0761ae01a71f8d179ab1457602bf1843a3602030ea844882bfacf2d170254",
+      "next_acceptor_pos": 606,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 297,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 244,
+        "n_intron_candidates": 244,
+        "n_non_cds_exon_annotation_safe": 255,
+        "n_non_cds_exon_candidates": 256
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            306,
+            342
+          ],
+          [
+            560,
+            596
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            243,
+            279
+          ]
+        ]
+      },
+      "chrom": "chr7",
+      "donor_partner_distance": 74,
+      "donor_phase": null,
+      "donor_pos": 620,
+      "eligible": true,
+      "example_id": "chr7:140407226-140407549:+:ENSG00000146955.13",
+      "exon_length": 323,
+      "gene_id": "ENSG00000146955.13",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "2d0ebb8a98a0425c766928c7ad97e557857d7ba1245210bfc36a12198955e7c8",
+      "next_acceptor_pos": 694,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 212,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 59,
+        "n_intron_candidates": 159,
+        "n_non_cds_exon_annotation_safe": 44,
+        "n_non_cds_exon_candidates": 45
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            221,
+            257
+          ],
+          [
+            264,
+            300
+          ]
+        ],
+        "upstream_intron": [
+          [
+            36,
+            72
+          ],
+          [
+            94,
+            130
+          ]
+        ]
+      },
+      "chrom": "chr20",
+      "donor_partner_distance": 117,
+      "donor_phase": null,
+      "donor_pos": 324,
+      "eligible": true,
+      "example_id": "chr20:59942197-59942309:+:ENSG00000196227.13",
+      "exon_length": 112,
+      "gene_id": "ENSG00000196227.13",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "a11faad27c377e81a933aeb725d1a5056c460ad8eac7c42037e553aaee5c3512",
+      "next_acceptor_pos": 441,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 283,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 230,
+        "n_intron_candidates": 230,
+        "n_non_cds_exon_annotation_safe": 40,
+        "n_non_cds_exon_candidates": 41
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            292,
+            328
+          ],
+          [
+            331,
+            367
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            229,
+            265
+          ]
+        ]
+      },
+      "chrom": "chr6",
+      "donor_partner_distance": 134,
+      "donor_phase": null,
+      "donor_pos": 391,
+      "eligible": true,
+      "example_id": "chr6:165792227-165792335:-:ENSG00000112541.19",
+      "exon_length": 108,
+      "gene_id": "ENSG00000112541.19",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "9774fb5b22aab0def3b98749e22832abed876324896dcd24d4892dd75d454900",
+      "next_acceptor_pos": 525,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 272,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 219,
+        "n_intron_candidates": 219,
+        "n_non_cds_exon_annotation_safe": 16,
+        "n_non_cds_exon_candidates": 17
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            281,
+            317
+          ],
+          [
+            296,
+            332
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            218,
+            254
+          ]
+        ]
+      },
+      "chrom": "chr18",
+      "donor_partner_distance": 95,
+      "donor_phase": null,
+      "donor_pos": 356,
+      "eligible": true,
+      "example_id": "chr18:34765781-34765865:+:ENSG00000134769.25",
+      "exon_length": 84,
+      "gene_id": "ENSG00000134769.25",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "c61207c00bf9918064fe19158a8404cba012511b7174a6a0025275567dfea43d",
+      "next_acceptor_pos": 451,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 203,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 150,
+        "n_intron_candidates": 150,
+        "n_non_cds_exon_annotation_safe": 80,
+        "n_non_cds_exon_candidates": 81
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            212,
+            248
+          ],
+          [
+            291,
+            327
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            149,
+            185
+          ]
+        ]
+      },
+      "chrom": "chr1",
+      "donor_partner_distance": 102,
+      "donor_phase": null,
+      "donor_pos": 351,
+      "eligible": true,
+      "example_id": "chr1:146959858-146960006:+:ENSG00000268043.11",
+      "exon_length": 148,
+      "gene_id": "ENSG00000268043.11",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "73c1846919d25869a99ba29dc420d9e38bd8b189eb3af6ccf74cef0e940d5db3",
+      "next_acceptor_pos": 453,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 123,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 70,
+        "n_intron_candidates": 70,
+        "n_non_cds_exon_annotation_safe": 23,
+        "n_non_cds_exon_candidates": 24
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            132,
+            168
+          ],
+          [
+            154,
+            190
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            69,
+            105
+          ]
+        ]
+      },
+      "chrom": "chr5",
+      "donor_partner_distance": 94,
+      "donor_phase": null,
+      "donor_pos": 214,
+      "eligible": true,
+      "example_id": "chr5:139345225-139345316:+:ENSG00000120727.15",
+      "exon_length": 91,
+      "gene_id": "ENSG00000120727.15",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "7e500410d718e9f51bce0086a0424a9f3e7c126e7d8f00aaddfe788b04a03689",
+      "next_acceptor_pos": 308,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 165,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 110,
+        "n_intron_candidates": 112,
+        "n_non_cds_exon_annotation_safe": 18,
+        "n_non_cds_exon_candidates": 45
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            174,
+            210
+          ],
+          [
+            191,
+            227
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            111,
+            147
+          ]
+        ]
+      },
+      "chrom": "chr7",
+      "donor_partner_distance": 125,
+      "donor_phase": null,
+      "donor_pos": 277,
+      "eligible": true,
+      "example_id": "chr7:44756187-44756299:+:ENSG00000122515.18",
+      "exon_length": 112,
+      "gene_id": "ENSG00000122515.18",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "7ab916fe41e60d68399273a23043e7a7b091301e0df96da0bfa0e6c263808cf7",
+      "next_acceptor_pos": 402,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 249,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 196,
+        "n_intron_candidates": 196,
+        "n_non_cds_exon_annotation_safe": 97,
+        "n_non_cds_exon_candidates": 98
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            258,
+            294
+          ],
+          [
+            354,
+            390
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            195,
+            231
+          ]
+        ]
+      },
+      "chrom": "chr17",
+      "donor_partner_distance": 113,
+      "donor_phase": null,
+      "donor_pos": 414,
+      "eligible": true,
+      "example_id": "chr17:32351464-32351629:+:ENSG00000010244.21",
+      "exon_length": 165,
+      "gene_id": "ENSG00000010244.21",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "751d406fe3d4bec8cc318445bc9967eea282834441ac415d794a80aa1fb039c4",
+      "next_acceptor_pos": 527,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 297,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 244,
+        "n_intron_candidates": 244,
+        "n_non_cds_exon_annotation_safe": 20,
+        "n_non_cds_exon_candidates": 21
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            306,
+            342
+          ],
+          [
+            325,
+            361
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            243,
+            279
+          ]
+        ]
+      },
+      "chrom": "chr6",
+      "donor_partner_distance": 110,
+      "donor_phase": null,
+      "donor_pos": 385,
+      "eligible": true,
+      "example_id": "chr6:122673294-122673382:+:ENSG00000135549.18",
+      "exon_length": 88,
+      "gene_id": "ENSG00000135549.18",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "6598e299ff5b72d1623020a0fb4d70ff2a5c9cca27971b20b553cc5c242109d5",
+      "next_acceptor_pos": 495,
+      "role": "development",
+      "strand": "+",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 106,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 53,
+        "n_intron_candidates": 53,
+        "n_non_cds_exon_annotation_safe": 122,
+        "n_non_cds_exon_candidates": 175
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            115,
+            151
+          ],
+          [
+            288,
+            324
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            52,
+            88
+          ]
+        ]
+      },
+      "chrom": "chr14",
+      "donor_partner_distance": 140,
+      "donor_phase": null,
+      "donor_pos": 348,
+      "eligible": true,
+      "example_id": "chr14:67487312-67487554:-:ENSG00000198133.11",
+      "exon_length": 242,
+      "gene_id": "ENSG00000198133.11",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "484787ef39ec4ed99e5a410202cb99375ef1fba4bee76f45280078515501676c",
+      "next_acceptor_pos": 488,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 231,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 159,
+        "n_intron_candidates": 178,
+        "n_non_cds_exon_annotation_safe": 17,
+        "n_non_cds_exon_candidates": 18
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            240,
+            276
+          ],
+          [
+            256,
+            292
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            158,
+            194
+          ]
+        ]
+      },
+      "chrom": "chr15",
+      "donor_partner_distance": 122,
+      "donor_phase": null,
+      "donor_pos": 316,
+      "eligible": true,
+      "example_id": "chr15:74459018-74459103:-:ENSG00000138629.18",
+      "exon_length": 85,
+      "gene_id": "ENSG00000138629.18",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "f9a78f1e9e38608cf4ec81acfc609b34de44fbd944bbd0d8945a9927c86f91fa",
+      "next_acceptor_pos": 438,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 254,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 127,
+        "n_intron_candidates": 201,
+        "n_non_cds_exon_annotation_safe": 105,
+        "n_non_cds_exon_candidates": 106
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            263,
+            299
+          ],
+          [
+            367,
+            403
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            126,
+            162
+          ]
+        ]
+      },
+      "chrom": "chr10",
+      "donor_partner_distance": 127,
+      "donor_phase": null,
+      "donor_pos": 427,
+      "eligible": true,
+      "example_id": "chr10:101030511-101030684:-:ENSG00000186862.22",
+      "exon_length": 173,
+      "gene_id": "ENSG00000186862.22",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "391ebfcdb222c5c3075cbf5c0c57c04604da43638dec94e687d3a4b450c25034",
+      "next_acceptor_pos": 554,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 244,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 191,
+        "n_intron_candidates": 191,
+        "n_non_cds_exon_annotation_safe": 41,
+        "n_non_cds_exon_candidates": 42
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            253,
+            289
+          ],
+          [
+            293,
+            329
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            190,
+            226
+          ]
+        ]
+      },
+      "chrom": "chr5",
+      "donor_partner_distance": 90,
+      "donor_phase": null,
+      "donor_pos": 353,
+      "eligible": true,
+      "example_id": "chr5:139127943-139128052:-:ENSG00000120725.15",
+      "exon_length": 109,
+      "gene_id": "ENSG00000120725.15",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "f3f21cf281164d740d68bead4aa43a728b6a6ae1604927c89ecd676cafd960ce",
+      "next_acceptor_pos": 443,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 192,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 139,
+        "n_intron_candidates": 139,
+        "n_non_cds_exon_annotation_safe": 69,
+        "n_non_cds_exon_candidates": 70
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            201,
+            237
+          ],
+          [
+            269,
+            305
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            138,
+            174
+          ]
+        ]
+      },
+      "chrom": "chr7",
+      "donor_partner_distance": 119,
+      "donor_phase": null,
+      "donor_pos": 329,
+      "eligible": true,
+      "example_id": "chr7:32489463-32489600:-:ENSG00000106355.12",
+      "exon_length": 137,
+      "gene_id": "ENSG00000106355.12",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "74bbefdd471934cc073a8f24ee049cad481fc2d391b44be597b5334f6a562674",
+      "next_acceptor_pos": 448,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 268,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 215,
+        "n_intron_candidates": 215,
+        "n_non_cds_exon_annotation_safe": 52,
+        "n_non_cds_exon_candidates": 53
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            277,
+            313
+          ],
+          [
+            328,
+            364
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            214,
+            250
+          ]
+        ]
+      },
+      "chrom": "chr7",
+      "donor_partner_distance": 116,
+      "donor_phase": null,
+      "donor_pos": 388,
+      "eligible": true,
+      "example_id": "chr7:5967317-5967437:-:ENSG00000155026.19",
+      "exon_length": 120,
+      "gene_id": "ENSG00000155026.19",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "5b5b9d7cca3788a329ac8f1e3052a12eb360f10795a9842a4194b12074ab2484",
+      "next_acceptor_pos": 504,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 111,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 58,
+        "n_intron_candidates": 58,
+        "n_non_cds_exon_annotation_safe": 52,
+        "n_non_cds_exon_candidates": 53
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            120,
+            156
+          ],
+          [
+            171,
+            207
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            57,
+            93
+          ]
+        ]
+      },
+      "chrom": "chr3",
+      "donor_partner_distance": 134,
+      "donor_phase": null,
+      "donor_pos": 231,
+      "eligible": true,
+      "example_id": "chr3:119462282-119462402:-:ENSG00000176142.15",
+      "exon_length": 120,
+      "gene_id": "ENSG00000176142.15",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "561c90805564415a7f55e01418e0025e1045abd93e90e859db13d2c636315e7e",
+      "next_acceptor_pos": 365,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 138,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 85,
+        "n_intron_candidates": 85,
+        "n_non_cds_exon_annotation_safe": 143,
+        "n_non_cds_exon_candidates": 144
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            147,
+            183
+          ],
+          [
+            289,
+            325
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            84,
+            120
+          ]
+        ]
+      },
+      "chrom": "chr22",
+      "donor_partner_distance": 104,
+      "donor_phase": null,
+      "donor_pos": 349,
+      "eligible": true,
+      "example_id": "chr22:43075694-43075905:-:ENSG00000100271.19",
+      "exon_length": 211,
+      "gene_id": "ENSG00000100271.19",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "3d9577cce2cb8ca0b4357919366dc74eb3fd0909189e0115f6b34ad1747f15f8",
+      "next_acceptor_pos": 453,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    },
+    {
+      "acceptor_pos": 290,
+      "annotation_counts": {
+        "n_intron_annotation_safe": 235,
+        "n_intron_candidates": 237,
+        "n_non_cds_exon_annotation_safe": 34,
+        "n_non_cds_exon_candidates": 126
+      },
+      "blocks": {
+        "non_cds_exon": [
+          [
+            390,
+            426
+          ],
+          [
+            423,
+            459
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            234,
+            270
+          ]
+        ]
+      },
+      "chrom": "chr13",
+      "donor_partner_distance": 124,
+      "donor_phase": null,
+      "donor_pos": 483,
+      "eligible": true,
+      "example_id": "chr13:49401394-49401587:-:ENSG00000102547.21",
+      "exon_length": 193,
+      "gene_id": "ENSG00000102547.21",
+      "gene_type": "protein_coding",
+      "native_sequence_sha256": "81ae543a9bc236aca5863078ba98ce5f08b428e76fa363614304744625dae367",
+      "next_acceptor_pos": 607,
+      "role": "development",
+      "strand": "-",
+      "target_context": "non_cds_exon"
+    }
+  ],
+  "role_weights": [
+    [
+      "development",
+      2
+    ],
+    [
+      "confirmation",
+      2
+    ],
+    [
+      "reserve",
+      1
+    ]
+  ],
+  "schema": "gfmcd.p3_phase_surgery.cohort.v1",
+  "status": "OUTCOME_BLIND_ANNOTATION_COHORT"
+}
