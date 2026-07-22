@@ -1,0 +1,10 @@
+{
+  "status": "PROVENANCE_LABEL_CORRECTION",
+  "original_manifest": "results/phase-lattice/p3_shift_diagnostic_v2.manifest.json",
+  "original_manifest_sha256": "e9ee963e69938dd830eae50b173b57772d86591efe0db52290deb3090eb5672a",
+  "field": "experiment_id",
+  "recorded_value": "splicebert:p3_shift_diagnostic_v1",
+  "corrected_value": "splicebert:p3_shift_diagnostic_v2",
+  "scope": "Label only. The command, configuration, inputs, output hash, result artifact, and all numerical values are unchanged.",
+  "reason": "The exploratory runner originally hard-coded the v1 experiment label while writing the v2 output after Amendment A2. The original manifest is preserved rather than silently rewritten."
+}

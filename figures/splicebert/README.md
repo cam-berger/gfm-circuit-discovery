@@ -5,7 +5,7 @@ OV/mediation, and behavioral evidence separate.
 
 ## Publication set
 
-The four publication figures read one generated data package,
+The original four publication figures read one generated data package,
 `results/phase-lattice/fig_report_data.json`. That package is built by
 `scripts/splicebert/make_fig_report_data.py` and checks recomputed quantities against the
 recorded runs before it writes.
@@ -16,6 +16,7 @@ recorded runs before it writes.
 | `fig2_oscillators` | `make_fig2_oscillators.py` | Carrier geometry, spectrum, orthogonality, and sub-bin wavelength |
 | `fig3_clock_circuit` | `make_fig3_clock_circuit.py` | Period-3 deletion, dose response, and mediation |
 | `fig4_carrier_circuit` | `make_fig4_carrier_circuit.py` | The ≈10.63 post-softmax attention circuit and matched human-only null |
+| `fig5_p3_phase_surgery_confirmation` | `make_fig5_p3_phase_surgery_confirmation.py` | Clean phase-aligned P3-use confirmation, learned-direction controls, and inconclusive coding boundary |
 
 Each figure has a caption beside it. The narrative and limitations belong in the caption rather
 than being compressed into the artwork.
@@ -43,8 +44,8 @@ from it to splicing, chromatin, translation, or another behavior.
 - The proposed human-only ≈10.2 chromatin circuit failed at post-softmax attention.
 
 Earlier phase figures and hand-drawn assets remain beside the current set as historical provenance.
-They are not figures of record and should not be cited or regenerated as current results. The four
-figures in the publication table above are the complete canonical set; Git history preserves the
+They are not figures of record and should not be cited or regenerated as current results. The figures
+in the publication table above are the complete canonical set; Git history preserves the
 full evolution of the older assets.
 
 ## Statistical conventions

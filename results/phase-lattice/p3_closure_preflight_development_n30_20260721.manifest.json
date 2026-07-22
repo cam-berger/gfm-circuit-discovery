@@ -1,0 +1,81 @@
+{
+  "command": [
+    "scripts/splicebert/run_p3_closure_preflight.py",
+    "--cohort",
+    "results/phase-lattice/p3_closure_development_cohort_b36_n120_20260721.json",
+    "--batch",
+    "4",
+    "--health-genes",
+    "8",
+    "--health-probes",
+    "4",
+    "--device",
+    "mps",
+    "--out",
+    "results/phase-lattice/p3_closure_preflight_development_n30_20260721.json"
+  ],
+  "config": {
+    "batch": 4,
+    "device": "mps",
+    "health_genes": 8,
+    "health_probes": 4,
+    "limit_genes": null,
+    "seed": 20260721
+  },
+  "created_at_utc": "2026-07-21T23:41:34.066780+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 52906,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "p3-closure-preflight-v1",
+  "git_commit": "e3ef4dcb1aba877df1587492edd916671fbd5895",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "results/phase-lattice/p3_closure_development_cohort_b36_n120_20260721.json",
+      "sha256": "b4306fad1a840f8b91c5361d18889f78518462d544cbffefcbd78bc311dd991c",
+      "size_bytes": 8774206
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    },
+    {
+      "missing": true,
+      "path": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt"
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/p3_closure.py",
+      "sha256": "bb7f2efb5421463f3fc44d3774780cd81f9aafc6e4b13545ae4c7a3f4d940586",
+      "size_bytes": 22738
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert/run_p3_closure_preflight.py",
+      "sha256": "3d7fb2d1207dfcb2977438b43e265248cb2e2fdb2ea05c56360902f2954de91b",
+      "size_bytes": 12618
+    }
+  ],
+  "notes": [
+    "Development roles only; runner hard-refuses confirmation records."
+  ],
+  "outputs": [
+    {
+      "path": "results/phase-lattice/p3_closure_preflight_development_n30_20260721.json",
+      "sha256": "2d1162c2c740577beec6ef65d766ba2d9d088ddc40fa58ecbe794e103cd0fba6",
+      "size_bytes": 2308995
+    }
+  ],
+  "seeds": {
+    "analysis": 20260721,
+    "python_hash": 0
+  },
+  "status": "DEVELOPMENT_OUTCOME_AWARE"
+}

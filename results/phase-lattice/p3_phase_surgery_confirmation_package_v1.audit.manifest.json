@@ -1,0 +1,49 @@
+{
+  "command": [
+    "scripts/splicebert/audit_p3_phase_surgery_confirmation_package.py",
+    "--package",
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json",
+    "--out",
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.audit.json"
+  ],
+  "config": {},
+  "created_at_utc": "2026-07-22T01:39:32.173509+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 82849,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "p3-phase-surgery-confirmation-package-audit-v1",
+  "git_commit": "411585fcc4b4014e53d1c95cfe50791c3762c7f3",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json",
+      "sha256": "e8217e1ed923be4853009b103de35bc34b23c300cc045820f2531dd24f8e97a5",
+      "size_bytes": 1241893
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    }
+  ],
+  "notes": [
+    "Independent structural audit; no model loaded and no model outcome read."
+  ],
+  "outputs": [
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.audit.json",
+      "sha256": "05193e85ddbe99e63c59adb7ff687e5aec8ed487c3ad660740a29eb80e8f1700",
+      "size_bytes": 1380
+    }
+  ],
+  "seeds": {},
+  "status": "PASS"
+}

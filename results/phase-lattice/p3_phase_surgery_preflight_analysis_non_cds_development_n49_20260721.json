@@ -1,0 +1,1137 @@
+{
+  "by_chromosome": {
+    "chr1": {
+      "mean_psi_coupling": -0.010036616364405268,
+      "mean_psi_phasor_signed": 0.012881414558748399,
+      "n_genes": 7
+    },
+    "chr10": {
+      "mean_psi_coupling": 0.0017874085654815026,
+      "mean_psi_phasor_signed": 0.011557698032012748,
+      "n_genes": 2
+    },
+    "chr12": {
+      "mean_psi_coupling": 0.001368713875611623,
+      "mean_psi_phasor_signed": 0.0017150261713831199,
+      "n_genes": 1
+    },
+    "chr13": {
+      "mean_psi_coupling": -0.004963220407565435,
+      "mean_psi_phasor_signed": 0.030906338725904363,
+      "n_genes": 1
+    },
+    "chr14": {
+      "mean_psi_coupling": 0.00038775801658630366,
+      "mean_psi_phasor_signed": 0.012452901627783222,
+      "n_genes": 1
+    },
+    "chr15": {
+      "mean_psi_coupling": 0.00034360727295279503,
+      "mean_psi_phasor_signed": 0.0014885566270105143,
+      "n_genes": 4
+    },
+    "chr17": {
+      "mean_psi_coupling": -0.0005094148218631744,
+      "mean_psi_phasor_signed": -0.0015435510256018685,
+      "n_genes": 4
+    },
+    "chr18": {
+      "mean_psi_coupling": -0.01898775001366933,
+      "mean_psi_phasor_signed": 0.014788388726278658,
+      "n_genes": 1
+    },
+    "chr2": {
+      "mean_psi_coupling": -0.04981611343100666,
+      "mean_psi_phasor_signed": -0.00913519047297485,
+      "n_genes": 4
+    },
+    "chr20": {
+      "mean_psi_coupling": -0.522230285530289,
+      "mean_psi_phasor_signed": 0.09306136389189787,
+      "n_genes": 2
+    },
+    "chr22": {
+      "mean_psi_coupling": 0.000843099628885587,
+      "mean_psi_phasor_signed": -0.008795089326973796,
+      "n_genes": 4
+    },
+    "chr3": {
+      "mean_psi_coupling": 0.001016222768359714,
+      "mean_psi_phasor_signed": 0.010561810253802038,
+      "n_genes": 3
+    },
+    "chr4": {
+      "mean_psi_coupling": -0.0008659238616625468,
+      "mean_psi_phasor_signed": 0.023788471621137654,
+      "n_genes": 1
+    },
+    "chr5": {
+      "mean_psi_coupling": -0.0026764565457900367,
+      "mean_psi_phasor_signed": -0.0005647407626599812,
+      "n_genes": 4
+    },
+    "chr6": {
+      "mean_psi_coupling": 0.001618485276897748,
+      "mean_psi_phasor_signed": -0.018488871777866678,
+      "n_genes": 4
+    },
+    "chr7": {
+      "mean_psi_coupling": -0.06560941868358187,
+      "mean_psi_phasor_signed": -0.010964405758668765,
+      "n_genes": 6
+    }
+  },
+  "carrier_mod3_tracking": {
+    "non_cds_exon": {
+      "left": {
+        "10": {
+          "carrier_shift_expected_fraction": 0.030612244897959183,
+          "dominant_class_counts": [
+            23,
+            39,
+            36
+          ],
+          "expected_modulo_class_delta": 1,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 0.9489795918367347
+        },
+        "2": {
+          "carrier_shift_expected_fraction": 0.02040816326530612,
+          "dominant_class_counts": [
+            26,
+            38,
+            34
+          ],
+          "expected_modulo_class_delta": 2,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 0.9387755102040817
+        },
+        "3": {
+          "carrier_shift_expected_fraction": 1.0,
+          "dominant_class_counts": [
+            24,
+            38,
+            36
+          ],
+          "expected_modulo_class_delta": 0,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 1.0
+        },
+        "4": {
+          "carrier_shift_expected_fraction": 0.030612244897959183,
+          "dominant_class_counts": [
+            23,
+            39,
+            36
+          ],
+          "expected_modulo_class_delta": 1,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 0.9489795918367347
+        },
+        "5": {
+          "carrier_shift_expected_fraction": 0.02040816326530612,
+          "dominant_class_counts": [
+            26,
+            38,
+            34
+          ],
+          "expected_modulo_class_delta": 2,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 0.9387755102040817
+        },
+        "6": {
+          "carrier_shift_expected_fraction": 1.0,
+          "dominant_class_counts": [
+            24,
+            38,
+            36
+          ],
+          "expected_modulo_class_delta": 0,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 1.0
+        },
+        "7": {
+          "carrier_shift_expected_fraction": 0.030612244897959183,
+          "dominant_class_counts": [
+            23,
+            39,
+            36
+          ],
+          "expected_modulo_class_delta": 1,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 0.9489795918367347
+        },
+        "8": {
+          "carrier_shift_expected_fraction": 0.02040816326530612,
+          "dominant_class_counts": [
+            26,
+            38,
+            34
+          ],
+          "expected_modulo_class_delta": 2,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 0.9387755102040817
+        },
+        "9": {
+          "carrier_shift_expected_fraction": 1.0,
+          "dominant_class_counts": [
+            24,
+            38,
+            36
+          ],
+          "expected_modulo_class_delta": 0,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 1.0
+        }
+      },
+      "right": {
+        "10": {
+          "carrier_shift_expected_fraction": 0.02040816326530612,
+          "dominant_class_counts": [
+            26,
+            38,
+            34
+          ],
+          "expected_modulo_class_delta": 2,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 0.9387755102040817
+        },
+        "2": {
+          "carrier_shift_expected_fraction": 0.030612244897959183,
+          "dominant_class_counts": [
+            23,
+            39,
+            36
+          ],
+          "expected_modulo_class_delta": 1,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 0.9489795918367347
+        },
+        "3": {
+          "carrier_shift_expected_fraction": 1.0,
+          "dominant_class_counts": [
+            24,
+            38,
+            36
+          ],
+          "expected_modulo_class_delta": 0,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 1.0
+        },
+        "4": {
+          "carrier_shift_expected_fraction": 0.02040816326530612,
+          "dominant_class_counts": [
+            26,
+            38,
+            34
+          ],
+          "expected_modulo_class_delta": 2,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 0.9387755102040817
+        },
+        "5": {
+          "carrier_shift_expected_fraction": 0.030612244897959183,
+          "dominant_class_counts": [
+            23,
+            39,
+            36
+          ],
+          "expected_modulo_class_delta": 1,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 0.9489795918367347
+        },
+        "6": {
+          "carrier_shift_expected_fraction": 1.0,
+          "dominant_class_counts": [
+            24,
+            38,
+            36
+          ],
+          "expected_modulo_class_delta": 0,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 1.0
+        },
+        "7": {
+          "carrier_shift_expected_fraction": 0.02040816326530612,
+          "dominant_class_counts": [
+            26,
+            38,
+            34
+          ],
+          "expected_modulo_class_delta": 2,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 0.9387755102040817
+        },
+        "8": {
+          "carrier_shift_expected_fraction": 0.030612244897959183,
+          "dominant_class_counts": [
+            23,
+            39,
+            36
+          ],
+          "expected_modulo_class_delta": 1,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 0.9489795918367347
+        },
+        "9": {
+          "carrier_shift_expected_fraction": 1.0,
+          "dominant_class_counts": [
+            24,
+            38,
+            36
+          ],
+          "expected_modulo_class_delta": 0,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 1.0
+        }
+      }
+    },
+    "upstream_intron": {
+      "left": {
+        "10": {
+          "carrier_shift_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            24,
+            39,
+            35
+          ],
+          "expected_modulo_class_delta": 1,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 0.9897959183673469
+        },
+        "2": {
+          "carrier_shift_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            24,
+            38,
+            36
+          ],
+          "expected_modulo_class_delta": 2,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 1.0
+        },
+        "3": {
+          "carrier_shift_expected_fraction": 1.0,
+          "dominant_class_counts": [
+            24,
+            38,
+            36
+          ],
+          "expected_modulo_class_delta": 0,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 1.0
+        },
+        "4": {
+          "carrier_shift_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            24,
+            39,
+            35
+          ],
+          "expected_modulo_class_delta": 1,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 0.9897959183673469
+        },
+        "5": {
+          "carrier_shift_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            24,
+            38,
+            36
+          ],
+          "expected_modulo_class_delta": 2,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 1.0
+        },
+        "6": {
+          "carrier_shift_expected_fraction": 1.0,
+          "dominant_class_counts": [
+            24,
+            38,
+            36
+          ],
+          "expected_modulo_class_delta": 0,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 1.0
+        },
+        "7": {
+          "carrier_shift_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            24,
+            39,
+            35
+          ],
+          "expected_modulo_class_delta": 1,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 0.9897959183673469
+        },
+        "8": {
+          "carrier_shift_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            24,
+            38,
+            36
+          ],
+          "expected_modulo_class_delta": 2,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 1.0
+        },
+        "9": {
+          "carrier_shift_expected_fraction": 1.0,
+          "dominant_class_counts": [
+            24,
+            38,
+            36
+          ],
+          "expected_modulo_class_delta": 0,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 1.0
+        }
+      },
+      "right": {
+        "10": {
+          "carrier_shift_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            24,
+            38,
+            36
+          ],
+          "expected_modulo_class_delta": 2,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 1.0
+        },
+        "2": {
+          "carrier_shift_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            24,
+            39,
+            35
+          ],
+          "expected_modulo_class_delta": 1,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 0.9897959183673469
+        },
+        "3": {
+          "carrier_shift_expected_fraction": 1.0,
+          "dominant_class_counts": [
+            24,
+            38,
+            36
+          ],
+          "expected_modulo_class_delta": 0,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 1.0
+        },
+        "4": {
+          "carrier_shift_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            24,
+            38,
+            36
+          ],
+          "expected_modulo_class_delta": 2,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 1.0
+        },
+        "5": {
+          "carrier_shift_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            24,
+            39,
+            35
+          ],
+          "expected_modulo_class_delta": 1,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 0.9897959183673469
+        },
+        "6": {
+          "carrier_shift_expected_fraction": 1.0,
+          "dominant_class_counts": [
+            24,
+            38,
+            36
+          ],
+          "expected_modulo_class_delta": 0,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 1.0
+        },
+        "7": {
+          "carrier_shift_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            24,
+            38,
+            36
+          ],
+          "expected_modulo_class_delta": 2,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 1.0
+        },
+        "8": {
+          "carrier_shift_expected_fraction": 0.0,
+          "dominant_class_counts": [
+            24,
+            39,
+            35
+          ],
+          "expected_modulo_class_delta": 1,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 0.9897959183673469
+        },
+        "9": {
+          "carrier_shift_expected_fraction": 1.0,
+          "dominant_class_counts": [
+            24,
+            38,
+            36
+          ],
+          "expected_modulo_class_delta": 0,
+          "n": 98,
+          "note": "descriptive only; not part of the confirmatory family",
+          "same_as_native_fraction": 1.0
+        }
+      }
+    }
+  },
+  "donor_phase_strata": {
+    "0": {
+      "mean_psi_coupling": null,
+      "mean_psi_phasor_signed": null,
+      "n_genes": 0,
+      "status": "exploratory_development_only"
+    },
+    "1": {
+      "mean_psi_coupling": null,
+      "mean_psi_phasor_signed": null,
+      "n_genes": 0,
+      "status": "exploratory_development_only"
+    },
+    "2": {
+      "mean_psi_coupling": null,
+      "mean_psi_phasor_signed": null,
+      "n_genes": 0,
+      "status": "exploratory_development_only"
+    }
+  },
+  "endpoints": {
+    "coupling": {
+      "adjusted_p": 0.3695260947810438,
+      "classification_development_only": "inconclusive",
+      "gene_sd": 0.15920424255320656,
+      "mde80": 0.18929496999956322,
+      "mean": -0.03521627561525017,
+      "se": 0.02274346322188665,
+      "sesoi": 0.05,
+      "sign_fraction_positive": 0.3673469387755102,
+      "simultaneous_ci": [
+        -0.20536986404228894,
+        0.13493731281178858
+      ]
+    },
+    "phasor_signed": {
+      "adjusted_p": 0.5790841831633673,
+      "classification_development_only": "bounded_null",
+      "gene_sd": 0.032022059623164054,
+      "mde80": 0.038074455293898676,
+      "mean": 0.004098012283360693,
+      "se": 0.004574579946166293,
+      "sesoi": 0.1,
+      "sign_fraction_positive": 0.6122448979591837,
+      "simultaneous_ci": [
+        -0.03012637939316759,
+        0.03832240395988898
+      ]
+    }
+  },
+  "family": {
+    "critical_value": 7.481428257737607,
+    "endpoints": [
+      "coupling",
+      "phasor_signed"
+    ],
+    "n_bootstrap": 5000,
+    "shared_gene_resampling": true
+  },
+  "input_sha256": "cccee96c306adeac32654077a569524a452bd3f9e38a5266b99c9963f5e03dd2",
+  "instrument": {
+    "attention_live_and_normalized": true,
+    "carrier_reconstruction_error": 2.9802322387695312e-08,
+    "determinism_max_abs": 0.0,
+    "health_ratio": 0.7962962985038757,
+    "mechanical_modulo_profile": {
+      "left": {
+        "mean_rms_by_amount": {
+          "10": 0.04453835908171474,
+          "2": 0.04476974889331935,
+          "3": 0.00048813965051002536,
+          "4": 0.04459218709368487,
+          "5": 0.04496032351209801,
+          "6": 0.0009728714772345669,
+          "7": 0.04456243789469709,
+          "8": 0.045145035398249725,
+          "9": 0.0014538294870325612
+        },
+        "off_minus_inregister_rms": 0.04378973510736825
+      },
+      "right": {
+        "mean_rms_by_amount": {
+          "10": 0.04395732654220596,
+          "2": 0.04466947928375127,
+          "3": 0.000491175330668683,
+          "4": 0.04437269044241735,
+          "5": 0.04471731011052521,
+          "6": 0.000985008951755269,
+          "7": 0.04416707350055174,
+          "8": 0.04477137515359387,
+          "9": 0.0014811193790852226
+        },
+        "off_minus_inregister_rms": 0.043456774618337836
+      }
+    },
+    "native_mlm_health": 0.5625,
+    "offregister_surgery_mlm_health": 0.4479166679084301,
+    "zero_shift_noop_max_abs": 0.0
+  },
+  "instrument_candidate_gates": {
+    "attention_live_and_normalized": true,
+    "carrier_reconstruction": true,
+    "deterministic": true,
+    "mechanical_modulo_recovery": true,
+    "mlm_health_ratio_at_least_0_8": false,
+    "zero_shift_exact_noop": true
+  },
+  "n_genes": 49,
+  "per_gene": [
+    {
+      "chrom": "chr17",
+      "gene_id": "ENSG00000010244.21",
+      "psi_coupling": -8.363525072733562e-05,
+      "psi_phasor_signed": 0.0069621385217637,
+      "s_coupling_non_cds_exon": -7.91698694229126e-05,
+      "s_coupling_upstream_intron": 4.465381304423015e-06,
+      "s_phasor_signed_non_cds_exon": 0.007720249740175804,
+      "s_phasor_signed_upstream_intron": 0.0007581112184121044
+    },
+    {
+      "chrom": "chr12",
+      "gene_id": "ENSG00000013588.12",
+      "psi_coupling": 0.001368713875611623,
+      "psi_phasor_signed": 0.0017150261713831199,
+      "s_coupling_non_cds_exon": 0.0013060693939526875,
+      "s_coupling_upstream_intron": -6.264448165893555e-05,
+      "s_phasor_signed_non_cds_exon": -0.00046783656382367217,
+      "s_phasor_signed_upstream_intron": -0.002182862735206792
+    },
+    {
+      "chrom": "chr17",
+      "gene_id": "ENSG00000030582.21",
+      "psi_coupling": -0.0022078504165013633,
+      "psi_phasor_signed": 0.002312427453278837,
+      "s_coupling_non_cds_exon": -0.00466593603293101,
+      "s_coupling_upstream_intron": -0.002458085616429647,
+      "s_phasor_signed_non_cds_exon": 0.0012985598914920793,
+      "s_phasor_signed_upstream_intron": -0.0010138675617867576
+    },
+    {
+      "chrom": "chr1",
+      "gene_id": "ENSG00000036549.15",
+      "psi_coupling": 0.01869276724755764,
+      "psi_phasor_signed": 0.0003155023649043659,
+      "s_coupling_non_cds_exon": 0.014715305219093958,
+      "s_coupling_upstream_intron": -0.003977462028463681,
+      "s_phasor_signed_non_cds_exon": 0.0007553808208927704,
+      "s_phasor_signed_upstream_intron": 0.00043987845598840447
+    },
+    {
+      "chrom": "chr6",
+      "gene_id": "ENSG00000083097.16",
+      "psi_coupling": 0.005105247100194295,
+      "psi_phasor_signed": -0.06342855722169186,
+      "s_coupling_non_cds_exon": 0.0033117073277632394,
+      "s_coupling_upstream_intron": -0.0017935397724310558,
+      "s_phasor_signed_non_cds_exon": -0.06910366127329043,
+      "s_phasor_signed_upstream_intron": -0.005675104051598577
+    },
+    {
+      "chrom": "chr20",
+      "gene_id": "ENSG00000087586.20",
+      "psi_coupling": 0.0018148049712181091,
+      "psi_phasor_signed": 0.006387764517918884,
+      "s_coupling_non_cds_exon": 0.0015294899543126423,
+      "s_coupling_upstream_intron": -0.00028531501690546673,
+      "s_phasor_signed_non_cds_exon": 0.005852144568392263,
+      "s_phasor_signed_upstream_intron": -0.0005356199495266204
+    },
+    {
+      "chrom": "chr22",
+      "gene_id": "ENSG00000100271.19",
+      "psi_coupling": -2.8337041536966923e-05,
+      "psi_phasor_signed": -0.02717016902507874,
+      "s_coupling_non_cds_exon": 0.0006749406456947327,
+      "s_coupling_upstream_intron": 0.0007032776872316996,
+      "s_phasor_signed_non_cds_exon": -0.02722047503326121,
+      "s_phasor_signed_upstream_intron": -5.030600818247318e-05
+    },
+    {
+      "chrom": "chr22",
+      "gene_id": "ENSG00000100359.23",
+      "psi_coupling": 0.0017026613156000774,
+      "psi_phasor_signed": -0.0007324452009718577,
+      "s_coupling_non_cds_exon": 0.0017329851786295574,
+      "s_coupling_upstream_intron": 3.032386302947998e-05,
+      "s_phasor_signed_non_cds_exon": -0.0004222074178997411,
+      "s_phasor_signed_upstream_intron": 0.00031023778307211664
+    },
+    {
+      "chrom": "chr13",
+      "gene_id": "ENSG00000102547.21",
+      "psi_coupling": -0.004963220407565435,
+      "psi_phasor_signed": 0.030906338725904363,
+      "s_coupling_non_cds_exon": -0.004410168776909511,
+      "s_coupling_upstream_intron": 0.0005530516306559244,
+      "s_phasor_signed_non_cds_exon": 0.03037916552300891,
+      "s_phasor_signed_upstream_intron": -0.0005271732028954516
+    },
+    {
+      "chrom": "chr7",
+      "gene_id": "ENSG00000106305.12",
+      "psi_coupling": -9.425605336825055e-05,
+      "psi_phasor_signed": 0.0019032485615385804,
+      "s_coupling_non_cds_exon": 0.0003797275324662526,
+      "s_coupling_upstream_intron": 0.0004739835858345032,
+      "s_phasor_signed_non_cds_exon": 0.0032667073831523508,
+      "s_phasor_signed_upstream_intron": 0.0013634588216137704
+    },
+    {
+      "chrom": "chr7",
+      "gene_id": "ENSG00000106355.12",
+      "psi_coupling": -0.002517702678839366,
+      "psi_phasor_signed": -0.017853432853175186,
+      "s_coupling_non_cds_exon": -0.0019232953588167827,
+      "s_coupling_upstream_intron": 0.000594407320022583,
+      "s_phasor_signed_non_cds_exon": -0.015069222016634007,
+      "s_phasor_signed_upstream_intron": 0.002784210836541179
+    },
+    {
+      "chrom": "chr6",
+      "gene_id": "ENSG00000112541.19",
+      "psi_coupling": 0.00528424729903539,
+      "psi_phasor_signed": -0.026343020062342754,
+      "s_coupling_non_cds_exon": 0.0041100382804870605,
+      "s_coupling_upstream_intron": -0.0011742090185483296,
+      "s_phasor_signed_non_cds_exon": 0.0007777242770561354,
+      "s_phasor_signed_upstream_intron": 0.02712074433939889
+    },
+    {
+      "chrom": "chr2",
+      "gene_id": "ENSG00000118246.16",
+      "psi_coupling": -0.19413305943210918,
+      "psi_phasor_signed": -0.001536812325194837,
+      "s_coupling_non_cds_exon": -0.19552708293000856,
+      "s_coupling_upstream_intron": -0.0013940234978993733,
+      "s_phasor_signed_non_cds_exon": -0.003353992868438733,
+      "s_phasor_signed_upstream_intron": -0.0018171805432438959
+    },
+    {
+      "chrom": "chr5",
+      "gene_id": "ENSG00000120725.15",
+      "psi_coupling": -0.00802212084333102,
+      "psi_phasor_signed": -0.010607201022603319,
+      "s_coupling_non_cds_exon": -0.008990963300069174,
+      "s_coupling_upstream_intron": -0.0009688424567381541,
+      "s_phasor_signed_non_cds_exon": -0.007677856037369425,
+      "s_phasor_signed_upstream_intron": 0.002929344985233895
+    },
+    {
+      "chrom": "chr5",
+      "gene_id": "ENSG00000120727.15",
+      "psi_coupling": -0.0005133052666982015,
+      "psi_phasor_signed": -0.0005333037601319424,
+      "s_coupling_non_cds_exon": -0.0006363093852996826,
+      "s_coupling_upstream_intron": -0.0001230041186014811,
+      "s_phasor_signed_non_cds_exon": 0.0033307871694873057,
+      "s_phasor_signed_upstream_intron": 0.003864090929619248
+    },
+    {
+      "chrom": "chr1",
+      "gene_id": "ENSG00000121753.13",
+      "psi_coupling": 0.0005080252885818481,
+      "psi_phasor_signed": -0.010869645083693749,
+      "s_coupling_non_cds_exon": 0.0009271899859110514,
+      "s_coupling_upstream_intron": 0.0004191646973292033,
+      "s_phasor_signed_non_cds_exon": -0.011347372100706762,
+      "s_phasor_signed_upstream_intron": -0.00047772701701301323
+    },
+    {
+      "chrom": "chr7",
+      "gene_id": "ENSG00000122515.18",
+      "psi_coupling": -0.37155693769454956,
+      "psi_phasor_signed": -0.05951391383090881,
+      "s_coupling_non_cds_exon": -0.4402798016866048,
+      "s_coupling_upstream_intron": -0.06872286399205525,
+      "s_phasor_signed_non_cds_exon": -0.06841815267841295,
+      "s_phasor_signed_upstream_intron": -0.00890423884750414
+    },
+    {
+      "chrom": "chr6",
+      "gene_id": "ENSG00000124523.19",
+      "psi_coupling": -0.00045313437779744464,
+      "psi_phasor_signed": 0.0013047357661237352,
+      "s_coupling_non_cds_exon": -0.0003573000431060791,
+      "s_coupling_upstream_intron": 9.583433469136556e-05,
+      "s_phasor_signed_non_cds_exon": 0.00030164644252023604,
+      "s_phasor_signed_upstream_intron": -0.0010030893236034992
+    },
+    {
+      "chrom": "chr4",
+      "gene_id": "ENSG00000125089.20",
+      "psi_coupling": -0.0008659238616625468,
+      "psi_phasor_signed": 0.023788471621137654,
+      "s_coupling_non_cds_exon": -0.001002793510754903,
+      "s_coupling_upstream_intron": -0.00013686964909235635,
+      "s_phasor_signed_non_cds_exon": 0.02114288481278744,
+      "s_phasor_signed_upstream_intron": -0.0026455868083502163
+    },
+    {
+      "chrom": "chr18",
+      "gene_id": "ENSG00000134769.25",
+      "psi_coupling": -0.01898775001366933,
+      "psi_phasor_signed": 0.014788388726278658,
+      "s_coupling_non_cds_exon": -0.017583207537730534,
+      "s_coupling_upstream_intron": 0.001404542475938797,
+      "s_phasor_signed_non_cds_exon": 0.001742897207733259,
+      "s_phasor_signed_upstream_intron": -0.013045491518545399
+    },
+    {
+      "chrom": "chr5",
+      "gene_id": "ENSG00000135077.12",
+      "psi_coupling": 7.56134589513143e-05,
+      "psi_phasor_signed": 0.0033192006109605877,
+      "s_coupling_non_cds_exon": 0.00021408994992574057,
+      "s_coupling_upstream_intron": 0.00013847649097442627,
+      "s_phasor_signed_non_cds_exon": 0.004226046852161436,
+      "s_phasor_signed_upstream_intron": 0.000906846241200848
+    },
+    {
+      "chrom": "chr6",
+      "gene_id": "ENSG00000135549.18",
+      "psi_coupling": -0.0034624189138412476,
+      "psi_phasor_signed": 0.01451135440644416,
+      "s_coupling_non_cds_exon": -0.00335648904244105,
+      "s_coupling_upstream_intron": 0.00010592987140019734,
+      "s_phasor_signed_non_cds_exon": 0.013554555375110647,
+      "s_phasor_signed_upstream_intron": -0.0009567990313335134
+    },
+    {
+      "chrom": "chr10",
+      "gene_id": "ENSG00000138207.17",
+      "psi_coupling": 0.012215857704480488,
+      "psi_phasor_signed": 0.010886097002893946,
+      "s_coupling_non_cds_exon": 0.011126692096392313,
+      "s_coupling_upstream_intron": -0.0010891656080881755,
+      "s_phasor_signed_non_cds_exon": 0.010433092171507887,
+      "s_phasor_signed_upstream_intron": -0.00045300483138605946
+    },
+    {
+      "chrom": "chr15",
+      "gene_id": "ENSG00000138629.18",
+      "psi_coupling": 0.0010168254375457764,
+      "psi_phasor_signed": 0.001050054065169488,
+      "s_coupling_non_cds_exon": 0.0006315012772878011,
+      "s_coupling_upstream_intron": -0.0003853241602579753,
+      "s_phasor_signed_non_cds_exon": 0.0017389907855294353,
+      "s_phasor_signed_upstream_intron": 0.0006889367203599473
+    },
+    {
+      "chrom": "chr15",
+      "gene_id": "ENSG00000140254.15",
+      "psi_coupling": -0.0004331717888514201,
+      "psi_phasor_signed": -0.00048287643262843555,
+      "s_coupling_non_cds_exon": -0.0004908492167790731,
+      "s_coupling_upstream_intron": -5.767742792765299e-05,
+      "s_phasor_signed_non_cds_exon": -0.00010955369958269105,
+      "s_phasor_signed_upstream_intron": 0.0003733227330457445
+    },
+    {
+      "chrom": "chr15",
+      "gene_id": "ENSG00000140471.19",
+      "psi_coupling": 0.0017313330123821895,
+      "psi_phasor_signed": 0.0033961175999176287,
+      "s_coupling_non_cds_exon": 0.0016723591834306717,
+      "s_coupling_upstream_intron": -5.897382895151774e-05,
+      "s_phasor_signed_non_cds_exon": 0.000970848845930831,
+      "s_phasor_signed_upstream_intron": -0.002425268753986798
+    },
+    {
+      "chrom": "chr15",
+      "gene_id": "ENSG00000140526.20",
+      "psi_coupling": -0.0009405575692653656,
+      "psi_phasor_signed": 0.001990931275583376,
+      "s_coupling_non_cds_exon": -0.0007887290169795355,
+      "s_coupling_upstream_intron": 0.00015182855228583017,
+      "s_phasor_signed_non_cds_exon": 0.004095527708330999,
+      "s_phasor_signed_upstream_intron": 0.0021045964327476227
+    },
+    {
+      "chrom": "chr2",
+      "gene_id": "ENSG00000144199.15",
+      "psi_coupling": 0.035241383438309036,
+      "psi_phasor_signed": -0.009270839532741805,
+      "s_coupling_non_cds_exon": 0.04443488270044327,
+      "s_coupling_upstream_intron": 0.009193499262134234,
+      "s_phasor_signed_non_cds_exon": -0.011021484392144195,
+      "s_phasor_signed_upstream_intron": -0.0017506448594023897
+    },
+    {
+      "chrom": "chr7",
+      "gene_id": "ENSG00000146955.13",
+      "psi_coupling": -0.018195034315188725,
+      "psi_phasor_signed": 0.01274156464177037,
+      "s_coupling_non_cds_exon": -0.01704297959804535,
+      "s_coupling_upstream_intron": 0.0011520547171433766,
+      "s_phasor_signed_non_cds_exon": 0.014980601124164147,
+      "s_phasor_signed_upstream_intron": 0.0022390364823937775
+    },
+    {
+      "chrom": "chr2",
+      "gene_id": "ENSG00000152292.19",
+      "psi_coupling": -0.03946535289287567,
+      "psi_phasor_signed": -0.02196867334843592,
+      "s_coupling_non_cds_exon": -0.036409025390942894,
+      "s_coupling_upstream_intron": 0.00305632750193278,
+      "s_phasor_signed_non_cds_exon": -0.021891820822794412,
+      "s_phasor_signed_upstream_intron": 7.685252564150942e-05
+    },
+    {
+      "chrom": "chr7",
+      "gene_id": "ENSG00000155026.19",
+      "psi_coupling": -0.003661895791689555,
+      "psi_phasor_signed": -0.006057305884324264,
+      "s_coupling_non_cds_exon": -0.0024707441528638205,
+      "s_coupling_upstream_intron": 0.0011911516388257344,
+      "s_phasor_signed_non_cds_exon": -0.005026631032390222,
+      "s_phasor_signed_upstream_intron": 0.0010306748519340418
+    },
+    {
+      "chrom": "chr1",
+      "gene_id": "ENSG00000156869.16",
+      "psi_coupling": -0.003865415851275126,
+      "psi_phasor_signed": 0.05100686293620148,
+      "s_coupling_non_cds_exon": -0.0030516311526298523,
+      "s_coupling_upstream_intron": 0.0008137846986452738,
+      "s_phasor_signed_non_cds_exon": 0.039365506575669194,
+      "s_phasor_signed_upstream_intron": -0.011641356360532281
+    },
+    {
+      "chrom": "chr3",
+      "gene_id": "ENSG00000157017.18",
+      "psi_coupling": 0.0010954737663269043,
+      "psi_phasor_signed": 0.015696046631323582,
+      "s_coupling_non_cds_exon": 0.0007356107234954834,
+      "s_coupling_upstream_intron": -0.0003598630428314209,
+      "s_phasor_signed_non_cds_exon": 0.012117229762448917,
+      "s_phasor_signed_upstream_intron": -0.003578816868874664
+    },
+    {
+      "chrom": "chr3",
+      "gene_id": "ENSG00000157093.9",
+      "psi_coupling": -6.442268689473485e-05,
+      "psi_phasor_signed": 0.006909284095198791,
+      "s_coupling_non_cds_exon": 0.003768692413965861,
+      "s_coupling_upstream_intron": 0.0038331151008605957,
+      "s_phasor_signed_non_cds_exon": 0.0030800233956886545,
+      "s_phasor_signed_upstream_intron": -0.003829260699510136
+    },
+    {
+      "chrom": "chr1",
+      "gene_id": "ENSG00000158062.23",
+      "psi_coupling": -0.0454667384425799,
+      "psi_phasor_signed": 0.008608851506793424,
+      "s_coupling_non_cds_exon": -0.03950580582022667,
+      "s_coupling_upstream_intron": 0.005960932622353236,
+      "s_phasor_signed_non_cds_exon": 0.010298204926479192,
+      "s_phasor_signed_upstream_intron": 0.0016893534196857675
+    },
+    {
+      "chrom": "chr1",
+      "gene_id": "ENSG00000160781.19",
+      "psi_coupling": -0.009787182013193766,
+      "psi_phasor_signed": -0.0019237443838717727,
+      "s_coupling_non_cds_exon": -0.0119706392288208,
+      "s_coupling_upstream_intron": -0.0021834572156270346,
+      "s_phasor_signed_non_cds_exon": -0.000779367885781331,
+      "s_phasor_signed_upstream_intron": 0.0011443764980904418
+    },
+    {
+      "chrom": "chr17",
+      "gene_id": "ENSG00000168591.18",
+      "psi_coupling": 0.0008129378159840901,
+      "psi_phasor_signed": -0.0026157655327326466,
+      "s_coupling_non_cds_exon": 0.0007374982039133707,
+      "s_coupling_upstream_intron": -7.54396120707194e-05,
+      "s_phasor_signed_non_cds_exon": -0.0009674716440230732,
+      "s_phasor_signed_upstream_intron": 0.0016482938887095733
+    },
+    {
+      "chrom": "chr7",
+      "gene_id": "ENSG00000169402.18",
+      "psi_coupling": 0.002369314432144165,
+      "psi_phasor_signed": 0.002993404813086709,
+      "s_coupling_non_cds_exon": 0.001110810786485672,
+      "s_coupling_upstream_intron": -0.001258503645658493,
+      "s_phasor_signed_non_cds_exon": 0.0030648114264332227,
+      "s_phasor_signed_upstream_intron": 7.140661334651376e-05
+    },
+    {
+      "chrom": "chr17",
+      "gene_id": "ENSG00000171962.21",
+      "psi_coupling": -0.0005591114362080892,
+      "psi_phasor_signed": -0.012833004544717364,
+      "s_coupling_non_cds_exon": -0.000596200426419576,
+      "s_coupling_upstream_intron": -3.7088990211486816e-05,
+      "s_phasor_signed_non_cds_exon": -0.011722524970576667,
+      "s_phasor_signed_upstream_intron": 0.0011104795741406954
+    },
+    {
+      "chrom": "chr2",
+      "gene_id": "ENSG00000172073.5",
+      "psi_coupling": -0.0009074248373508453,
+      "psi_phasor_signed": -0.003764436685526838,
+      "s_coupling_non_cds_exon": -0.00116375337044398,
+      "s_coupling_upstream_intron": -0.0002563285330931346,
+      "s_phasor_signed_non_cds_exon": -0.00316584805458543,
+      "s_phasor_signed_upstream_intron": 0.0005985886309414079
+    },
+    {
+      "chrom": "chr3",
+      "gene_id": "ENSG00000176142.15",
+      "psi_coupling": 0.0020176172256469727,
+      "psi_phasor_signed": 0.00908010003488374,
+      "s_coupling_non_cds_exon": 0.002404292424519857,
+      "s_coupling_upstream_intron": 0.0003866751988728841,
+      "s_phasor_signed_non_cds_exon": 0.008842375318160988,
+      "s_phasor_signed_upstream_intron": -0.00023772471672275225
+    },
+    {
+      "chrom": "chr5",
+      "gene_id": "ENSG00000184845.6",
+      "psi_coupling": -0.0022460135320822396,
+      "psi_phasor_signed": 0.005562341121134749,
+      "s_coupling_non_cds_exon": -0.004599042236804962,
+      "s_coupling_upstream_intron": -0.0023530287047227225,
+      "s_phasor_signed_non_cds_exon": 0.002227757845376229,
+      "s_phasor_signed_upstream_intron": -0.00333458327575852
+    },
+    {
+      "chrom": "chr10",
+      "gene_id": "ENSG00000186862.22",
+      "psi_coupling": -0.008641040573517483,
+      "psi_phasor_signed": 0.012229299061131552,
+      "s_coupling_non_cds_exon": -0.008072604735692343,
+      "s_coupling_upstream_intron": 0.0005684358378251394,
+      "s_phasor_signed_non_cds_exon": 0.008748731425537837,
+      "s_phasor_signed_upstream_intron": -0.0034805676355937156
+    },
+    {
+      "chrom": "chr20",
+      "gene_id": "ENSG00000196227.13",
+      "psi_coupling": -1.0462753760317962,
+      "psi_phasor_signed": 0.17973496326587685,
+      "s_coupling_non_cds_exon": -1.0451166816055775,
+      "s_coupling_upstream_intron": 0.0011586944262186687,
+      "s_phasor_signed_non_cds_exon": 0.18206632161876377,
+      "s_phasor_signed_upstream_intron": 0.0023313583528869106
+    },
+    {
+      "chrom": "chr14",
+      "gene_id": "ENSG00000198133.11",
+      "psi_coupling": 0.00038775801658630366,
+      "psi_phasor_signed": 0.012452901627783222,
+      "s_coupling_non_cds_exon": 0.0007299284140268961,
+      "s_coupling_upstream_intron": 0.00034217039744059247,
+      "s_phasor_signed_non_cds_exon": 0.010788902677094222,
+      "s_phasor_signed_upstream_intron": -0.0016639989506889996
+    },
+    {
+      "chrom": "chr22",
+      "gene_id": "ENSG00000198832.12",
+      "psi_coupling": -0.00034263233343760174,
+      "psi_phasor_signed": -0.010118435112194922,
+      "s_coupling_non_cds_exon": -0.0002567569414774577,
+      "s_coupling_upstream_intron": 8.587539196014404e-05,
+      "s_phasor_signed_non_cds_exon": -0.008922840993658967,
+      "s_phasor_signed_upstream_intron": 0.0011955941185359542
+    },
+    {
+      "chrom": "chr22",
+      "gene_id": "ENSG00000217442.5",
+      "psi_coupling": 0.0020407065749168396,
+      "psi_phasor_signed": 0.0028406920303503296,
+      "s_coupling_non_cds_exon": 0.0019644051790237427,
+      "s_coupling_upstream_intron": -7.630139589309692e-05,
+      "s_phasor_signed_non_cds_exon": 0.0023878678120482313,
+      "s_phasor_signed_upstream_intron": -0.00045282421830209846
+    },
+    {
+      "chrom": "chr1",
+      "gene_id": "ENSG00000219481.11",
+      "psi_coupling": -0.01858746074140072,
+      "psi_phasor_signed": 0.038810888956612076,
+      "s_coupling_non_cds_exon": -0.00454961322247982,
+      "s_coupling_upstream_intron": 0.014037847518920898,
+      "s_phasor_signed_non_cds_exon": 0.05084189522623095,
+      "s_phasor_signed_upstream_intron": 0.012031006269618874
+    },
+    {
+      "chrom": "chr1",
+      "gene_id": "ENSG00000268043.11",
+      "psi_coupling": -0.011750310038526854,
+      "psi_phasor_signed": 0.004221185614292985,
+      "s_coupling_non_cds_exon": -0.01271849994858106,
+      "s_coupling_upstream_intron": -0.0009681899100542068,
+      "s_phasor_signed_non_cds_exon": 0.0023762195847811993,
+      "s_phasor_signed_upstream_intron": -0.0018449660295117853
+    }
+  ],
+  "power_gate_candidate": {
+    "coupling": false,
+    "phasor_signed": true
+  },
+  "schema": "gfmcd.p3_phase_surgery.preflight_analysis.v1",
+  "status": "DEVELOPMENT_CALIBRATION_NOT_CONFIRMATORY",
+  "target_context": "non_cds_exon"
+}

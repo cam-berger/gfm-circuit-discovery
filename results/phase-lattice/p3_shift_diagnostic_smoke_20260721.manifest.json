@@ -1,0 +1,95 @@
+{
+  "command": [
+    "scripts/splicebert/run_p3_shift_diagnostic.py",
+    "--smoke",
+    "--n",
+    "6",
+    "--batch",
+    "2",
+    "--health-n",
+    "4",
+    "--health-probes",
+    "8",
+    "--out",
+    "results/phase-lattice/p3_shift_diagnostic_smoke_20260721.json"
+  ],
+  "config": {
+    "band": [
+      339,
+      340,
+      341,
+      342,
+      343,
+      344,
+      345
+    ],
+    "batch": 2,
+    "device": "mps",
+    "health_n": 4,
+    "health_probes": 8,
+    "kinds": [
+      "window_translation",
+      "intron_insert",
+      "exon_insert",
+      "post_acceptor_sham"
+    ],
+    "n": 6,
+    "n_genes": 6,
+    "reader": [
+      3,
+      1
+    ],
+    "seed": 20260721,
+    "shifts": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "smoke": true,
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-21T19:48:49.742202+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 68107,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert:p3_shift_diagnostic_v1",
+  "git_commit": "e3ef4dcb1aba877df1587492edd916671fbd5895",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/external/splicebert_resources_v50.sha256",
+      "sha256": "a4cef8a10879605f50106315a9af1a775768643d5a3aab05b15d89d22a054b96",
+      "size_bytes": 959
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/config.json",
+      "sha256": "51ea51e42951f18cc1d3455d7111fe0a41cebad476ba8314afc161a0e956303e",
+      "size_bytes": 685
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_partner_selection/preregistrations/EXPLORATORY_P3_SHIFT_DIAGNOSTIC_V1.md",
+      "sha256": "8c2260be8a9e1a4c180ba4a7aae737728f6dc6e0e850647a854120c9c2758ef4",
+      "size_bytes": 4820
+    }
+  ],
+  "notes": [
+    "Frozen-checkpoint shifts test present-day positional/frame sensitivity; they do not identify why training formed the carrier.",
+    "GTF/FASTA/checkpoint hashes are anchored by data/external/splicebert_resources_v50.sha256.",
+    "model_weight_sha256=2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d"
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/phase-lattice/p3_shift_diagnostic_smoke_20260721.json",
+      "sha256": "2d5e3e29ccff7f022c2f888c0945e289c5fcf02a176de6629673d25a598b88a2",
+      "size_bytes": 203813
+    }
+  ],
+  "seeds": {
+    "cohort_and_health": 20260721
+  },
+  "status": "EXPLORATORY"
+}

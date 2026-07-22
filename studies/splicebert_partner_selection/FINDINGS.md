@@ -11,7 +11,7 @@ one-file reviewer account.
 |---|---|---|
 | Donor–acceptor coupling | sealed behavior + specificity | A masked donor score depends on its own paired acceptor in the canonical short-intron domain. |
 | Structured donor core | QK → attention → OV/mediation → behavior | Address/payload binding and low-rank delivery form a causal core, not a minimal or sparse-faithful whole circuit. |
-| Period-3 carrier | position → routing → mediation → behavior | A distributed relative-positional routing coordinate supports L3H1 attention across the donor–acceptor span. |
+| Period-3 carrier | position → routing → mediation → clean confirmatory behavior | A distributed relative-positional routing coordinate is causally used in a phase-aligned manner; coding enrichment remains unresolved. |
 | Multispecies ≈10.63 carrier | position → QK → post-softmax attention | A distinct positional attention circuit; OV, behavior, and origin remain open. |
 | Human-only ≈10.2 proposal | position/QK; fails attention | The proposed chromatin-reader circuit is closed at the attention gate. |
 | Nucleosomal ≈10.298 signal | sequence-side biological assay | A strong biological signal exists but is distinct from the ≈10.63 carrier. |
@@ -88,6 +88,19 @@ The licensed interpretation is a distributed relative-positional routing coordin
 through L3H1 attention within this intervention. C34's confirm split is gate-qualified because M1 missed
 its frozen threshold (5.5%>5%); C35 does not exclude upstream carrier effects on payload construction.
 Training origin is not identifiable from the frozen checkpoint.
+
+C36 supplies the clean, nucleotide-invariant confirmation that C34 lacked. Moving only the learned P3
+position component inside annotation-safe blocks—without changing any nucleotide, codon, motif, MaxEnt
+score, coordinate, or sequence length—produces a material modulo-3 recovery contrast in CDS blocks:
+**Ψ_C=+0.141 [0.110,0.172] nats** across 943 untouched genes. In-register shifts `{3,6,9}` preserve
+coupling at about **0.757**, whereas adjacent off-register shifts reduce it to about **0.614**; the
+identical upstream-intron surgery changes coupling by only about **0.002**. The learned P3 direction
+exceeds all 19 signed-permutation controls that preserve its spatial waveform, Gram matrix, norms,
+Fourier support, and intervention dose (paired excess **+0.136 [0.051,0.222]**; exact rank p=0.05).
+
+The matched coding boundary did **not** resolve: CDS-minus-non-CDS-exon **+0.006
+[−0.080,+0.093]**, n=52 pairs. Therefore C36 establishes phase-aligned use of the learned P3 direction
+in CDS blocks, not coding specificity, reading-frame sensing, or training origin.
 
 ## 6. Other positional/biological results
 

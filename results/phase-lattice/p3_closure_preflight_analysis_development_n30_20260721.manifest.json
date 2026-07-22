@@ -1,0 +1,58 @@
+{
+  "command": [
+    "scripts/splicebert/analyze_p3_closure_preflight.py",
+    "--input",
+    "results/phase-lattice/p3_closure_preflight_development_n30_20260721.json",
+    "--bootstrap",
+    "5000",
+    "--out",
+    "results/phase-lattice/p3_closure_preflight_analysis_development_n30_20260721.json"
+  ],
+  "config": {
+    "bootstrap": 5000,
+    "seed": 20260721,
+    "sesoi": {
+      "coupling": 0.05,
+      "phasor_signed": 0.1
+    }
+  },
+  "created_at_utc": "2026-07-21T23:42:00.180326+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 55732,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "p3-closure-preflight-analysis-v1",
+  "git_commit": "e3ef4dcb1aba877df1587492edd916671fbd5895",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "results/phase-lattice/p3_closure_preflight_development_n30_20260721.json",
+      "sha256": "2d1162c2c740577beec6ef65d766ba2d9d088ddc40fa58ecbe794e103cd0fba6",
+      "size_bytes": 2308995
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/p3_stats.py",
+      "sha256": "c67fcf17c670cf1b9e54dfcf75085813470aa2c25d69fb8ae6a2eefd9cd0b0eb",
+      "size_bytes": 5784
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert/analyze_p3_closure_preflight.py",
+      "sha256": "9eb2acbbb0a9e996c5bf3579d9cb464208c2342048a6aab8aaafb28a0260a295",
+      "size_bytes": 6547
+    }
+  ],
+  "notes": [],
+  "outputs": [
+    {
+      "path": "results/phase-lattice/p3_closure_preflight_analysis_development_n30_20260721.json",
+      "sha256": "52ded87b5905813300b1fc1e8d0d8a1834d914b3ebd38429138f1e97f507e364",
+      "size_bytes": 27023
+    }
+  ],
+  "seeds": {
+    "bootstrap": 20260721
+  },
+  "status": "DEVELOPMENT_CALIBRATION_NOT_CONFIRMATORY"
+}

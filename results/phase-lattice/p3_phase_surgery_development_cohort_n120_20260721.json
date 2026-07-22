@@ -1,0 +1,2690 @@
+{
+  "config": {
+    "block_size": 36,
+    "maximum_shift": 10,
+    "n_blocks": 2,
+    "position_table_length": 1026,
+    "prefix_tokens": 1
+  },
+  "counts": {
+    "eligible_examples_by_role": {
+      "development": 61
+    },
+    "eligible_unique_genes": 61,
+    "exclusions": {
+      "no_annotation_safe_two-block_example": 59
+    },
+    "genes_considered": 120,
+    "source_train_eligible_examples": 14331
+  },
+  "excluded_chromosomes": [
+    "chr11",
+    "chr16",
+    "chr19",
+    "chr8",
+    "chr9"
+  ],
+  "included_roles": [
+    "development"
+  ],
+  "inputs": {
+    "basic_gtf": {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    "comprehensive_gtf": {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+      "sha256": "83fba3e9b03f0b8c958f3595c6c350adc55f468abf8b0e47b6d5284cfe13a453",
+      "size_bytes": 124527720
+    },
+    "fasta": {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    }
+  },
+  "model_outcomes_read": false,
+  "namespace": "p3-closure-v1",
+  "records": [
+    {
+      "acceptor_pos": 210,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 6,
+        "n_cds_candidates": 9,
+        "n_intron_annotation_safe": 38,
+        "n_intron_candidates": 157
+      },
+      "blocks": {
+        "cds": [
+          [
+            221,
+            257
+          ],
+          [
+            236,
+            272
+          ]
+        ],
+        "upstream_intron": [
+          [
+            123,
+            159
+          ],
+          [
+            156,
+            192
+          ]
+        ]
+      },
+      "chrom": "chr1",
+      "donor_partner_distance": 106,
+      "donor_phase": 2,
+      "donor_pos": 304,
+      "eligible": true,
+      "example_id": "chr1:155023363-155023457:-:ENSG00000163354.15",
+      "exon_length": 94,
+      "gene_id": "ENSG00000163354.15",
+      "native_sequence_sha256": "27e0368924c91251519a6e88f59aced35bdf746f76a6ef5793dae3dc79f88a86",
+      "next_acceptor_pos": 410,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 123,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 32,
+        "n_cds_candidates": 32,
+        "n_intron_annotation_safe": 70,
+        "n_intron_candidates": 70
+      },
+      "blocks": {
+        "cds": [
+          [
+            132,
+            168
+          ],
+          [
+            225,
+            261
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            69,
+            105
+          ]
+        ]
+      },
+      "chrom": "chr17",
+      "donor_partner_distance": 91,
+      "donor_phase": 0,
+      "donor_pos": 285,
+      "eligible": true,
+      "example_id": "chr17:41347060-41347222:-:ENSG00000006059.5",
+      "exon_length": 162,
+      "gene_id": "ENSG00000006059.5",
+      "native_sequence_sha256": "6e52bee38cab04f309f7df9f1c29f83d48c74e77c38310e44bfb7c908c227dac",
+      "next_acceptor_pos": 376,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 131,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 16,
+        "n_cds_candidates": 17,
+        "n_intron_annotation_safe": 78,
+        "n_intron_candidates": 78
+      },
+      "blocks": {
+        "cds": [
+          [
+            142,
+            178
+          ],
+          [
+            187,
+            223
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            77,
+            113
+          ]
+        ]
+      },
+      "chrom": "chr12",
+      "donor_partner_distance": 97,
+      "donor_phase": 1,
+      "donor_pos": 248,
+      "eligible": true,
+      "example_id": "chr12:6016753-6016870:-:ENSG00000110799.16",
+      "exon_length": 117,
+      "gene_id": "ENSG00000110799.16",
+      "native_sequence_sha256": "6bb59bc5f54535b91220d3649c84ff635b9d3febd6728bfcfe8cde893713e5d8",
+      "next_acceptor_pos": 345,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 152,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 25,
+        "n_cds_candidates": 25,
+        "n_intron_annotation_safe": 99,
+        "n_intron_candidates": 99
+      },
+      "blocks": {
+        "cds": [
+          [
+            161,
+            197
+          ],
+          [
+            233,
+            269
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            98,
+            134
+          ]
+        ]
+      },
+      "chrom": "chr12",
+      "donor_partner_distance": 80,
+      "donor_phase": 0,
+      "donor_pos": 293,
+      "eligible": true,
+      "example_id": "chr12:94303755-94303896:+:ENSG00000136040.10",
+      "exon_length": 141,
+      "gene_id": "ENSG00000136040.10",
+      "native_sequence_sha256": "af049ee21f09abf3bf00ae67c39807586132bce522254cedb1f17798844bcae4",
+      "next_acceptor_pos": 373,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 122,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 26,
+        "n_cds_candidates": 26,
+        "n_intron_annotation_safe": 69,
+        "n_intron_candidates": 69
+      },
+      "blocks": {
+        "cds": [
+          [
+            131,
+            167
+          ],
+          [
+            206,
+            242
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            68,
+            104
+          ]
+        ]
+      },
+      "chrom": "chr1",
+      "donor_partner_distance": 148,
+      "donor_phase": 0,
+      "donor_pos": 266,
+      "eligible": true,
+      "example_id": "chr1:201040230-201040374:-:ENSG00000081248.14",
+      "exon_length": 144,
+      "gene_id": "ENSG00000081248.14",
+      "native_sequence_sha256": "fea4133165edd7a352925a5a1a2e57456a71e81b674c3239c2162507c73d8157",
+      "next_acceptor_pos": 414,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 111,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 15,
+        "n_cds_candidates": 16,
+        "n_intron_annotation_safe": 58,
+        "n_intron_candidates": 58
+      },
+      "blocks": {
+        "cds": [
+          [
+            122,
+            158
+          ],
+          [
+            164,
+            200
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            57,
+            93
+          ]
+        ]
+      },
+      "chrom": "chr17",
+      "donor_partner_distance": 85,
+      "donor_phase": 2,
+      "donor_pos": 226,
+      "eligible": true,
+      "example_id": "chr17:16423353-16423468:+:ENSG00000187688.16",
+      "exon_length": 115,
+      "gene_id": "ENSG00000187688.16",
+      "native_sequence_sha256": "da31c4f780fc10afd31c17bf84d67cc1e3c29e642cbb9ed4bfc49a0a29f66d11",
+      "next_acceptor_pos": 311,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 118,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 20,
+        "n_cds_candidates": 20,
+        "n_intron_annotation_safe": 65,
+        "n_intron_candidates": 65
+      },
+      "blocks": {
+        "cds": [
+          [
+            127,
+            163
+          ],
+          [
+            184,
+            220
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            64,
+            100
+          ]
+        ]
+      },
+      "chrom": "chr12",
+      "donor_partner_distance": 98,
+      "donor_phase": 2,
+      "donor_pos": 246,
+      "eligible": true,
+      "example_id": "chr12:7324272-7324400:+:ENSG00000215009.6",
+      "exon_length": 128,
+      "gene_id": "ENSG00000215009.6",
+      "native_sequence_sha256": "11bb648871ceee10cd015891d5821585db4d044f5c09a5fbb01683d57aaa33de",
+      "next_acceptor_pos": 344,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 161,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 14,
+        "n_cds_candidates": 15,
+        "n_intron_annotation_safe": 108,
+        "n_intron_candidates": 108
+      },
+      "blocks": {
+        "cds": [
+          [
+            172,
+            208
+          ],
+          [
+            211,
+            247
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            107,
+            143
+          ]
+        ]
+      },
+      "chrom": "chr15",
+      "donor_partner_distance": 111,
+      "donor_phase": 1,
+      "donor_pos": 272,
+      "eligible": true,
+      "example_id": "chr15:73884780-73884891:+:ENSG00000167139.9",
+      "exon_length": 111,
+      "gene_id": "ENSG00000167139.9",
+      "native_sequence_sha256": "67f495cde8c18d58aebb000063e7ae3cea62a7b2fbb0a52dc2f09f42b2d6f957",
+      "next_acceptor_pos": 383,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 123,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 32,
+        "n_cds_candidates": 32,
+        "n_intron_annotation_safe": 69,
+        "n_intron_candidates": 70
+      },
+      "blocks": {
+        "cds": [
+          [
+            132,
+            168
+          ],
+          [
+            225,
+            261
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            69,
+            105
+          ]
+        ]
+      },
+      "chrom": "chr17",
+      "donor_partner_distance": 81,
+      "donor_phase": 0,
+      "donor_pos": 285,
+      "eligible": true,
+      "example_id": "chr17:40769960-40770122:-:ENSG00000186393.6",
+      "exon_length": 162,
+      "gene_id": "ENSG00000186393.6",
+      "native_sequence_sha256": "93003751bca13c179ca68066a840645ab56316294459d58533378ba99afb3ecb",
+      "next_acceptor_pos": 366,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 212,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 24,
+        "n_cds_candidates": 25,
+        "n_intron_annotation_safe": 159,
+        "n_intron_candidates": 159
+      },
+      "blocks": {
+        "cds": [
+          [
+            223,
+            259
+          ],
+          [
+            292,
+            328
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            158,
+            194
+          ]
+        ]
+      },
+      "chrom": "chr12",
+      "donor_partner_distance": 116,
+      "donor_phase": 0,
+      "donor_pos": 352,
+      "eligible": true,
+      "example_id": "chr12:100402339-100402479:+:ENSG00000179520.13",
+      "exon_length": 140,
+      "gene_id": "ENSG00000179520.13",
+      "native_sequence_sha256": "3173ab9390761b46871dd6c6e00e20ac6ee6a2325442347139688068940c7fa8",
+      "next_acceptor_pos": 468,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 107,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 10,
+        "n_cds_candidates": 31,
+        "n_intron_annotation_safe": 54,
+        "n_intron_candidates": 54
+      },
+      "blocks": {
+        "cds": [
+          [
+            173,
+            209
+          ],
+          [
+            200,
+            236
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            53,
+            89
+          ]
+        ]
+      },
+      "chrom": "chr12",
+      "donor_partner_distance": 122,
+      "donor_phase": 0,
+      "donor_pos": 266,
+      "eligible": true,
+      "example_id": "chr12:43786398-43786557:+:ENSG00000198001.18",
+      "exon_length": 159,
+      "gene_id": "ENSG00000198001.18",
+      "native_sequence_sha256": "fb8f9224e7e780006c7e950854923ab95394db54f5b78f4f135df781079697a0",
+      "next_acceptor_pos": 388,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 151,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 26,
+        "n_cds_candidates": 30,
+        "n_intron_annotation_safe": 98,
+        "n_intron_candidates": 98
+      },
+      "blocks": {
+        "cds": [
+          [
+            160,
+            196
+          ],
+          [
+            235,
+            271
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            97,
+            133
+          ]
+        ]
+      },
+      "chrom": "chr1",
+      "donor_partner_distance": 86,
+      "donor_phase": 0,
+      "donor_pos": 307,
+      "eligible": true,
+      "example_id": "chr1:96777593-96777749:+:ENSG00000117569.22",
+      "exon_length": 156,
+      "gene_id": "ENSG00000117569.22",
+      "native_sequence_sha256": "422302a1ced30326c2ac33755f21cffded637a62469341e225426037654f0290",
+      "next_acceptor_pos": 393,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 219,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 6,
+        "n_cds_candidates": 6,
+        "n_intron_annotation_safe": 166,
+        "n_intron_candidates": 166
+      },
+      "blocks": {
+        "cds": [
+          [
+            228,
+            264
+          ],
+          [
+            243,
+            279
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            165,
+            201
+          ]
+        ]
+      },
+      "chrom": "chr17",
+      "donor_partner_distance": 83,
+      "donor_phase": 1,
+      "donor_pos": 304,
+      "eligible": true,
+      "example_id": "chr17:50596561-50596646:+:ENSG00000006283.18",
+      "exon_length": 85,
+      "gene_id": "ENSG00000006283.18",
+      "native_sequence_sha256": "87109261ace88842982b7ed8354650e380747578343c9be56e1cb89d28753924",
+      "next_acceptor_pos": 387,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 226,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 16,
+        "n_cds_candidates": 20,
+        "n_intron_annotation_safe": 173,
+        "n_intron_candidates": 173
+      },
+      "blocks": {
+        "cds": [
+          [
+            248,
+            284
+          ],
+          [
+            293,
+            329
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            172,
+            208
+          ]
+        ]
+      },
+      "chrom": "chr6",
+      "donor_partner_distance": 90,
+      "donor_phase": 0,
+      "donor_pos": 353,
+      "eligible": true,
+      "example_id": "chr6:106544570-106544697:+:ENSG00000112297.19",
+      "exon_length": 127,
+      "gene_id": "ENSG00000112297.19",
+      "native_sequence_sha256": "4d52da47cda40168c027277b44b11ed13a593f3f5ede2d63909dd88eca2e7b95",
+      "next_acceptor_pos": 443,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 134,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 18,
+        "n_cds_candidates": 33,
+        "n_intron_annotation_safe": 81,
+        "n_intron_candidates": 81
+      },
+      "blocks": {
+        "cds": [
+          [
+            187,
+            223
+          ],
+          [
+            238,
+            274
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            80,
+            116
+          ]
+        ]
+      },
+      "chrom": "chr17",
+      "donor_partner_distance": 83,
+      "donor_phase": 1,
+      "donor_pos": 299,
+      "eligible": true,
+      "example_id": "chr17:7026456-7026621:+:ENSG00000161940.13",
+      "exon_length": 165,
+      "gene_id": "ENSG00000161940.13",
+      "native_sequence_sha256": "efd833e6be10efd329ec6000c0681c610141b08b2c8b05c06e5d763bd3a0d0f6",
+      "next_acceptor_pos": 382,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 107,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 7,
+        "n_cds_candidates": 7,
+        "n_intron_annotation_safe": 54,
+        "n_intron_candidates": 54
+      },
+      "blocks": {
+        "cds": [
+          [
+            117,
+            153
+          ],
+          [
+            135,
+            171
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            53,
+            89
+          ]
+        ]
+      },
+      "chrom": "chr1",
+      "donor_partner_distance": 131,
+      "donor_phase": 0,
+      "donor_pos": 195,
+      "eligible": true,
+      "example_id": "chr1:37509454-37509542:-:ENSG00000163875.18",
+      "exon_length": 88,
+      "gene_id": "ENSG00000163875.18",
+      "native_sequence_sha256": "83d779d4b9a7d105e2f179b3c9cda06b6ebd54534a627fbb34c19757ecc0e1ce",
+      "next_acceptor_pos": 326,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 286,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 17,
+        "n_cds_candidates": 17,
+        "n_intron_annotation_safe": 233,
+        "n_intron_candidates": 233
+      },
+      "blocks": {
+        "cds": [
+          [
+            295,
+            331
+          ],
+          [
+            343,
+            379
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            232,
+            268
+          ]
+        ]
+      },
+      "chrom": "chr20",
+      "donor_partner_distance": 134,
+      "donor_phase": 0,
+      "donor_pos": 403,
+      "eligible": true,
+      "example_id": "chr20:62895048-62895165:-:ENSG00000101191.19",
+      "exon_length": 117,
+      "gene_id": "ENSG00000101191.19",
+      "native_sequence_sha256": "324c90320fd1ab66ae5c1299e4afb39b431c549b9d37830dc7957fcd7eb1e57a",
+      "next_acceptor_pos": 537,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 234,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 37,
+        "n_cds_candidates": 51,
+        "n_intron_annotation_safe": 23,
+        "n_intron_candidates": 181
+      },
+      "blocks": {
+        "cds": [
+          [
+            285,
+            321
+          ],
+          [
+            393,
+            429
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            22,
+            58
+          ]
+        ]
+      },
+      "chrom": "chr1",
+      "donor_partner_distance": 92,
+      "donor_phase": 2,
+      "donor_pos": 455,
+      "eligible": true,
+      "example_id": "chr1:156135900-156136121:+:ENSG00000160789.27",
+      "exon_length": 221,
+      "gene_id": "ENSG00000160789.27",
+      "native_sequence_sha256": "559c329d6edcb9e4173c6b6759fda38fe5bef1a454e10998f7c060179015e73f",
+      "next_acceptor_pos": 547,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 239,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 6,
+        "n_cds_candidates": 6,
+        "n_intron_annotation_safe": 42,
+        "n_intron_candidates": 186
+      },
+      "blocks": {
+        "cds": [
+          [
+            248,
+            284
+          ],
+          [
+            263,
+            299
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            185,
+            221
+          ]
+        ]
+      },
+      "chrom": "chr20",
+      "donor_partner_distance": 142,
+      "donor_phase": 0,
+      "donor_pos": 323,
+      "eligible": true,
+      "example_id": "chr20:17621689-17621773:-:ENSG00000125844.19",
+      "exon_length": 84,
+      "gene_id": "ENSG00000125844.19",
+      "native_sequence_sha256": "92db761c346ef041f3d46bbf0b2dcb1aef6967ede2aa9579b09ed1f6617f29bf",
+      "next_acceptor_pos": 465,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 249,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 27,
+        "n_cds_candidates": 28,
+        "n_intron_annotation_safe": 196,
+        "n_intron_candidates": 196
+      },
+      "blocks": {
+        "cds": [
+          [
+            260,
+            296
+          ],
+          [
+            338,
+            374
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            195,
+            231
+          ]
+        ]
+      },
+      "chrom": "chr1",
+      "donor_partner_distance": 97,
+      "donor_phase": 0,
+      "donor_pos": 398,
+      "eligible": true,
+      "example_id": "chr1:108848911-108849060:-:ENSG00000162641.20",
+      "exon_length": 149,
+      "gene_id": "ENSG00000162641.20",
+      "native_sequence_sha256": "4fd36eabea3b8e54ab1e945028c38ae895d0622363a649b00f4012804265930f",
+      "next_acceptor_pos": 495,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 298,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 14,
+        "n_cds_candidates": 15,
+        "n_intron_annotation_safe": 245,
+        "n_intron_candidates": 245
+      },
+      "blocks": {
+        "cds": [
+          [
+            309,
+            345
+          ],
+          [
+            348,
+            384
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            244,
+            280
+          ]
+        ]
+      },
+      "chrom": "chr10",
+      "donor_partner_distance": 89,
+      "donor_phase": 0,
+      "donor_pos": 408,
+      "eligible": true,
+      "example_id": "chr10:68292128-68292238:-:ENSG00000108187.18",
+      "exon_length": 110,
+      "gene_id": "ENSG00000108187.18",
+      "native_sequence_sha256": "b70287bdb86582ff907fed257f9bdbf38b4993cf15c540fa03c95e55db469432",
+      "next_acceptor_pos": 497,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 249,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 19,
+        "n_cds_candidates": 44,
+        "n_intron_annotation_safe": 26,
+        "n_intron_candidates": 196
+      },
+      "blocks": {
+        "cds": [
+          [
+            258,
+            294
+          ],
+          [
+            387,
+            423
+          ]
+        ],
+        "upstream_intron": [
+          [
+            170,
+            206
+          ],
+          [
+            195,
+            231
+          ]
+        ]
+      },
+      "chrom": "chr12",
+      "donor_partner_distance": 111,
+      "donor_phase": 2,
+      "donor_pos": 449,
+      "eligible": true,
+      "example_id": "chr12:56324293-56324493:-:ENSG00000135473.18",
+      "exon_length": 200,
+      "gene_id": "ENSG00000135473.18",
+      "native_sequence_sha256": "f5d5836c50428e7b6063696477457faace1cfa54681063b406bea68c26b0f8be",
+      "next_acceptor_pos": 560,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 249,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 24,
+        "n_cds_candidates": 24,
+        "n_intron_annotation_safe": 196,
+        "n_intron_candidates": 196
+      },
+      "blocks": {
+        "cds": [
+          [
+            259,
+            295
+          ],
+          [
+            328,
+            364
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            195,
+            231
+          ]
+        ]
+      },
+      "chrom": "chr15",
+      "donor_partner_distance": 96,
+      "donor_phase": 2,
+      "donor_pos": 390,
+      "eligible": true,
+      "example_id": "chr15:90481959-90482100:+:ENSG00000140575.15",
+      "exon_length": 141,
+      "gene_id": "ENSG00000140575.15",
+      "native_sequence_sha256": "505d7a9e1445a3a5f780a15c8dec8047c5ec6fe15807031d2cf814b9a8ddadea",
+      "next_acceptor_pos": 486,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 111,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 12,
+        "n_cds_candidates": 12,
+        "n_intron_annotation_safe": 58,
+        "n_intron_candidates": 58
+      },
+      "blocks": {
+        "cds": [
+          [
+            121,
+            157
+          ],
+          [
+            154,
+            190
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            57,
+            93
+          ]
+        ]
+      },
+      "chrom": "chr20",
+      "donor_partner_distance": 80,
+      "donor_phase": 1,
+      "donor_pos": 215,
+      "eligible": true,
+      "example_id": "chr20:2403396-2403500:+:ENSG00000166948.10",
+      "exon_length": 104,
+      "gene_id": "ENSG00000166948.10",
+      "native_sequence_sha256": "197231ac2ff1e676e0774a77053b4857b8f6dbe265b63bfc42fb31f547cbae37",
+      "next_acceptor_pos": 295,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 102,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 15,
+        "n_cds_candidates": 16,
+        "n_intron_annotation_safe": 49,
+        "n_intron_candidates": 49
+      },
+      "blocks": {
+        "cds": [
+          [
+            114,
+            150
+          ],
+          [
+            156,
+            192
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            48,
+            84
+          ]
+        ]
+      },
+      "chrom": "chr7",
+      "donor_partner_distance": 105,
+      "donor_phase": 0,
+      "donor_pos": 216,
+      "eligible": true,
+      "example_id": "chr7:107782979-107783093:-:ENSG00000091138.15",
+      "exon_length": 114,
+      "gene_id": "ENSG00000091138.15",
+      "native_sequence_sha256": "4f5708c24adb000b89562b387ebd9894011f2feeb159cae2cce1ed8e16c516cc",
+      "next_acceptor_pos": 321,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 198,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 59,
+        "n_cds_candidates": 59,
+        "n_intron_annotation_safe": 145,
+        "n_intron_candidates": 145
+      },
+      "blocks": {
+        "cds": [
+          [
+            207,
+            243
+          ],
+          [
+            381,
+            417
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            144,
+            180
+          ]
+        ]
+      },
+      "chrom": "chr17",
+      "donor_partner_distance": 91,
+      "donor_phase": 0,
+      "donor_pos": 441,
+      "eligible": true,
+      "example_id": "chr17:10401542-10401785:-:ENSG00000133020.4",
+      "exon_length": 243,
+      "gene_id": "ENSG00000133020.4",
+      "native_sequence_sha256": "c4789d6ed61877f53e5af55cd0fa9cb5451c53bc9ca54e27bdac53c1ab198cc4",
+      "next_acceptor_pos": 532,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 166,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 14,
+        "n_cds_candidates": 14,
+        "n_intron_annotation_safe": 113,
+        "n_intron_candidates": 113
+      },
+      "blocks": {
+        "cds": [
+          [
+            175,
+            211
+          ],
+          [
+            214,
+            250
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            112,
+            148
+          ]
+        ]
+      },
+      "chrom": "chr3",
+      "donor_partner_distance": 91,
+      "donor_phase": 0,
+      "donor_pos": 274,
+      "eligible": true,
+      "example_id": "chr3:53745623-53745731:+:ENSG00000157388.21",
+      "exon_length": 108,
+      "gene_id": "ENSG00000157388.21",
+      "native_sequence_sha256": "f1d3e91f702ef25561bdf2813763cf95008f6cda058dbbd2d29fd37c1674ff6b",
+      "next_acceptor_pos": 365,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 201,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 45,
+        "n_cds_candidates": 45,
+        "n_intron_annotation_safe": 148,
+        "n_intron_candidates": 148
+      },
+      "blocks": {
+        "cds": [
+          [
+            210,
+            246
+          ],
+          [
+            342,
+            378
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            147,
+            183
+          ]
+        ]
+      },
+      "chrom": "chr2",
+      "donor_partner_distance": 110,
+      "donor_phase": 1,
+      "donor_pos": 403,
+      "eligible": true,
+      "example_id": "chr2:54928312-54928514:+:ENSG00000214595.14",
+      "exon_length": 202,
+      "gene_id": "ENSG00000214595.14",
+      "native_sequence_sha256": "c064bfd77723780287bb40d58054703252c4f63b06ab985fb48bbce31ad1893f",
+      "next_acceptor_pos": 513,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 281,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 21,
+        "n_cds_candidates": 30,
+        "n_intron_annotation_safe": 119,
+        "n_intron_candidates": 228
+      },
+      "blocks": {
+        "cds": [
+          [
+            317,
+            353
+          ],
+          [
+            377,
+            413
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            118,
+            154
+          ]
+        ]
+      },
+      "chrom": "chr6",
+      "donor_partner_distance": 124,
+      "donor_phase": 1,
+      "donor_pos": 438,
+      "eligible": true,
+      "example_id": "chr6:30491255-30491412:+:ENSG00000204592.11",
+      "exon_length": 157,
+      "gene_id": "ENSG00000204592.11",
+      "native_sequence_sha256": "ce09fee9581c81e4c9e67549a268ba67eaf523a4eab71ecfa202a1992610999a",
+      "next_acceptor_pos": 562,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 255,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 9,
+        "n_cds_candidates": 9,
+        "n_intron_annotation_safe": 202,
+        "n_intron_candidates": 202
+      },
+      "blocks": {
+        "cds": [
+          [
+            264,
+            300
+          ],
+          [
+            288,
+            324
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            201,
+            237
+          ]
+        ]
+      },
+      "chrom": "chr4",
+      "donor_partner_distance": 79,
+      "donor_phase": 0,
+      "donor_pos": 348,
+      "eligible": true,
+      "example_id": "chr4:48492765-48492858:+:ENSG00000182223.7",
+      "exon_length": 93,
+      "gene_id": "ENSG00000182223.7",
+      "native_sequence_sha256": "3f648d3221837252ec3b0db30f147183dc4e10c4c35f7bb2293f3948f6d07e25",
+      "next_acceptor_pos": 427,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 155,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 44,
+        "n_cds_candidates": 44,
+        "n_intron_annotation_safe": 15,
+        "n_intron_candidates": 102
+      },
+      "blocks": {
+        "cds": [
+          [
+            164,
+            200
+          ],
+          [
+            293,
+            329
+          ]
+        ],
+        "upstream_intron": [
+          [
+            87,
+            123
+          ],
+          [
+            101,
+            137
+          ]
+        ]
+      },
+      "chrom": "chr17",
+      "donor_partner_distance": 133,
+      "donor_phase": 0,
+      "donor_pos": 353,
+      "eligible": true,
+      "example_id": "chr17:44934232-44934430:-:ENSG00000186185.16",
+      "exon_length": 198,
+      "gene_id": "ENSG00000186185.16",
+      "native_sequence_sha256": "25e4dce06cd9ce21dbc5ed9cce4ce1a5904020984f7f6dbf9d1c1feff36427df",
+      "next_acceptor_pos": 486,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 155,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 16,
+        "n_cds_candidates": 16,
+        "n_intron_annotation_safe": 102,
+        "n_intron_candidates": 102
+      },
+      "blocks": {
+        "cds": [
+          [
+            164,
+            200
+          ],
+          [
+            209,
+            245
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            101,
+            137
+          ]
+        ]
+      },
+      "chrom": "chr13",
+      "donor_partner_distance": 93,
+      "donor_phase": 0,
+      "donor_pos": 269,
+      "eligible": true,
+      "example_id": "chr13:48464997-48465111:+:ENSG00000139687.19",
+      "exon_length": 114,
+      "gene_id": "ENSG00000139687.19",
+      "native_sequence_sha256": "2415f580097cb247a6e86895d7e44ca8c9db92ed238fa48644652da1a44d6b50",
+      "next_acceptor_pos": 362,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 258,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 10,
+        "n_cds_candidates": 10,
+        "n_intron_annotation_safe": 109,
+        "n_intron_candidates": 205
+      },
+      "blocks": {
+        "cds": [
+          [
+            267,
+            303
+          ],
+          [
+            294,
+            330
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            204,
+            240
+          ]
+        ]
+      },
+      "chrom": "chr17",
+      "donor_partner_distance": 92,
+      "donor_phase": 0,
+      "donor_pos": 354,
+      "eligible": true,
+      "example_id": "chr17:7343860-7343956:+:ENSG00000072818.14",
+      "exon_length": 96,
+      "gene_id": "ENSG00000072818.14",
+      "native_sequence_sha256": "724d31da163129b3348d0a318710f8d5b5bfd31e13501c0352619ab7be44c0f1",
+      "next_acceptor_pos": 446,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 242,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 38,
+        "n_cds_candidates": 38,
+        "n_intron_annotation_safe": 189,
+        "n_intron_candidates": 189
+      },
+      "blocks": {
+        "cds": [
+          [
+            251,
+            287
+          ],
+          [
+            362,
+            398
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            188,
+            224
+          ]
+        ]
+      },
+      "chrom": "chr2",
+      "donor_partner_distance": 87,
+      "donor_phase": 0,
+      "donor_pos": 422,
+      "eligible": true,
+      "example_id": "chr2:107862681-107862861:+:ENSG00000196862.10",
+      "exon_length": 180,
+      "gene_id": "ENSG00000196862.10",
+      "native_sequence_sha256": "9a304563772a56aaeaa423659b9d4f48acc817f0d82579a4ccabd928d84278c6",
+      "next_acceptor_pos": 509,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 249,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 27,
+        "n_cds_candidates": 28,
+        "n_intron_annotation_safe": 196,
+        "n_intron_candidates": 196
+      },
+      "blocks": {
+        "cds": [
+          [
+            260,
+            296
+          ],
+          [
+            338,
+            374
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            195,
+            231
+          ]
+        ]
+      },
+      "chrom": "chr12",
+      "donor_partner_distance": 90,
+      "donor_phase": 0,
+      "donor_pos": 398,
+      "eligible": true,
+      "example_id": "chr12:21475675-21475824:-:ENSG00000004700.18",
+      "exon_length": 149,
+      "gene_id": "ENSG00000004700.18",
+      "native_sequence_sha256": "9b8938c9853b3396a33342e09318f78e8508e23c3e59ddb220ada30c0034da30",
+      "next_acceptor_pos": 488,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 193,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 29,
+        "n_cds_candidates": 29,
+        "n_intron_annotation_safe": 140,
+        "n_intron_candidates": 140
+      },
+      "blocks": {
+        "cds": [
+          [
+            202,
+            238
+          ],
+          [
+            286,
+            322
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            139,
+            175
+          ]
+        ]
+      },
+      "chrom": "chr10",
+      "donor_partner_distance": 106,
+      "donor_phase": 0,
+      "donor_pos": 346,
+      "eligible": true,
+      "example_id": "chr10:93620631-93620784:+:ENSG00000095464.11",
+      "exon_length": 153,
+      "gene_id": "ENSG00000095464.11",
+      "native_sequence_sha256": "593c93258207202733752e552088f93cfd8629b4c7903e166d66997ab8b9e767",
+      "next_acceptor_pos": 452,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 282,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 13,
+        "n_cds_candidates": 13,
+        "n_intron_annotation_safe": 229,
+        "n_intron_candidates": 229
+      },
+      "blocks": {
+        "cds": [
+          [
+            291,
+            327
+          ],
+          [
+            327,
+            363
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            228,
+            264
+          ]
+        ]
+      },
+      "chrom": "chr7",
+      "donor_partner_distance": 128,
+      "donor_phase": 0,
+      "donor_pos": 387,
+      "eligible": true,
+      "example_id": "chr7:20699824-20699929:+:ENSG00000004846.17",
+      "exon_length": 105,
+      "gene_id": "ENSG00000004846.17",
+      "native_sequence_sha256": "1e9864b48f94657c3b6a9f60f5add87a23a2e5496dc78dc29d731897bdab132a",
+      "next_acceptor_pos": 515,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 105,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 22,
+        "n_cds_candidates": 23,
+        "n_intron_annotation_safe": 52,
+        "n_intron_candidates": 52
+      },
+      "blocks": {
+        "cds": [
+          [
+            116,
+            152
+          ],
+          [
+            179,
+            215
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            51,
+            87
+          ]
+        ]
+      },
+      "chrom": "chr12",
+      "donor_partner_distance": 98,
+      "donor_phase": 0,
+      "donor_pos": 239,
+      "eligible": true,
+      "example_id": "chr12:72575254-72575388:+:ENSG00000072657.11",
+      "exon_length": 134,
+      "gene_id": "ENSG00000072657.11",
+      "native_sequence_sha256": "19ec383b948392bc1ea5d14c8cd94e0173494a445bfd31530202aed769d6dba7",
+      "next_acceptor_pos": 337,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 106,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 32,
+        "n_cds_candidates": 32,
+        "n_intron_annotation_safe": 53,
+        "n_intron_candidates": 53
+      },
+      "blocks": {
+        "cds": [
+          [
+            115,
+            151
+          ],
+          [
+            208,
+            244
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            52,
+            88
+          ]
+        ]
+      },
+      "chrom": "chr5",
+      "donor_partner_distance": 107,
+      "donor_phase": 1,
+      "donor_pos": 269,
+      "eligible": true,
+      "example_id": "chr5:180629942-180630105:-:ENSG00000037280.18",
+      "exon_length": 163,
+      "gene_id": "ENSG00000037280.18",
+      "native_sequence_sha256": "d4a527fa2567b57b673d0cf63f7b9dd38722217d8e6f043120b825fb3e2c5650",
+      "next_acceptor_pos": 376,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 279,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 21,
+        "n_cds_candidates": 26,
+        "n_intron_annotation_safe": 226,
+        "n_intron_candidates": 226
+      },
+      "blocks": {
+        "cds": [
+          [
+            290,
+            326
+          ],
+          [
+            350,
+            386
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            225,
+            261
+          ]
+        ]
+      },
+      "chrom": "chr5",
+      "donor_partner_distance": 79,
+      "donor_phase": 2,
+      "donor_pos": 424,
+      "eligible": true,
+      "example_id": "chr5:73867875-73868020:+:ENSG00000214944.12",
+      "exon_length": 145,
+      "gene_id": "ENSG00000214944.12",
+      "native_sequence_sha256": "749fe19b9335b5980e395ecad4df08155dd7f9fc62170f6f483e6c4b782bd7b8",
+      "next_acceptor_pos": 503,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 118,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 31,
+        "n_cds_candidates": 31,
+        "n_intron_annotation_safe": 65,
+        "n_intron_candidates": 65
+      },
+      "blocks": {
+        "cds": [
+          [
+            127,
+            163
+          ],
+          [
+            217,
+            253
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            64,
+            100
+          ]
+        ]
+      },
+      "chrom": "chr5",
+      "donor_partner_distance": 80,
+      "donor_phase": 0,
+      "donor_pos": 277,
+      "eligible": true,
+      "example_id": "chr5:72893376-72893535:+:ENSG00000083312.21",
+      "exon_length": 159,
+      "gene_id": "ENSG00000083312.21",
+      "native_sequence_sha256": "aaa59339101c5e12e399f077804ebe0a077f7fc2b37ec52c6700c71434f304fe",
+      "next_acceptor_pos": 357,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 293,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 19,
+        "n_cds_candidates": 19,
+        "n_intron_annotation_safe": 146,
+        "n_intron_candidates": 240
+      },
+      "blocks": {
+        "cds": [
+          [
+            302,
+            338
+          ],
+          [
+            356,
+            392
+          ]
+        ],
+        "upstream_intron": [
+          [
+            94,
+            130
+          ],
+          [
+            239,
+            275
+          ]
+        ]
+      },
+      "chrom": "chr20",
+      "donor_partner_distance": 106,
+      "donor_phase": 0,
+      "donor_pos": 416,
+      "eligible": true,
+      "example_id": "chr20:32316526-32316649:+:ENSG00000101350.10",
+      "exon_length": 123,
+      "gene_id": "ENSG00000101350.10",
+      "native_sequence_sha256": "04647c1e47eeff38b9dfa81f68218c16f77398435fab108dbc18edbbc79dfc27",
+      "next_acceptor_pos": 522,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 115,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 13,
+        "n_cds_candidates": 13,
+        "n_intron_annotation_safe": 62,
+        "n_intron_candidates": 62
+      },
+      "blocks": {
+        "cds": [
+          [
+            124,
+            160
+          ],
+          [
+            160,
+            196
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            61,
+            97
+          ]
+        ]
+      },
+      "chrom": "chr17",
+      "donor_partner_distance": 148,
+      "donor_phase": 0,
+      "donor_pos": 220,
+      "eligible": true,
+      "example_id": "chr17:7284834-7284939:+:ENSG00000181856.17",
+      "exon_length": 105,
+      "gene_id": "ENSG00000181856.17",
+      "native_sequence_sha256": "be2df1a3f835455b86a6c7fc68241f82226e3cc89c61fac235b0d0836bcb4d48",
+      "next_acceptor_pos": 368,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 150,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 5,
+        "n_cds_candidates": 20,
+        "n_intron_annotation_safe": 97,
+        "n_intron_candidates": 97
+      },
+      "blocks": {
+        "cds": [
+          [
+            203,
+            239
+          ],
+          [
+            215,
+            251
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            96,
+            132
+          ]
+        ]
+      },
+      "chrom": "chr1",
+      "donor_partner_distance": 112,
+      "donor_phase": 1,
+      "donor_pos": 276,
+      "eligible": true,
+      "example_id": "chr1:16133480-16133606:-:ENSG00000142627.15",
+      "exon_length": 126,
+      "gene_id": "ENSG00000142627.15",
+      "native_sequence_sha256": "6c96fea00a13a121e28ffd8798f4ff1693caa0ab1436becdcfe67be4d62f7660",
+      "next_acceptor_pos": 388,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 214,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 23,
+        "n_cds_candidates": 28,
+        "n_intron_annotation_safe": 142,
+        "n_intron_candidates": 161
+      },
+      "blocks": {
+        "cds": [
+          [
+            237,
+            273
+          ],
+          [
+            303,
+            339
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            141,
+            177
+          ]
+        ]
+      },
+      "chrom": "chr22",
+      "donor_partner_distance": 144,
+      "donor_phase": 1,
+      "donor_pos": 364,
+      "eligible": true,
+      "example_id": "chr22:42554937-42555087:+:ENSG00000183569.20",
+      "exon_length": 150,
+      "gene_id": "ENSG00000183569.20",
+      "native_sequence_sha256": "0846427c7d7c5f53ec86c1537cd7fc3beb7449980075e45d37fd8c69e8405db3",
+      "next_acceptor_pos": 508,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 113,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 6,
+        "n_cds_candidates": 28,
+        "n_intron_annotation_safe": 60,
+        "n_intron_candidates": 60
+      },
+      "blocks": {
+        "cds": [
+          [
+            189,
+            225
+          ],
+          [
+            204,
+            240
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            59,
+            95
+          ]
+        ]
+      },
+      "chrom": "chr1",
+      "donor_partner_distance": 122,
+      "donor_phase": 1,
+      "donor_pos": 265,
+      "eligible": true,
+      "example_id": "chr1:149910825-149910977:-:ENSG00000159164.12",
+      "exon_length": 152,
+      "gene_id": "ENSG00000159164.12",
+      "native_sequence_sha256": "9ddeb1fade07b0b240c4291a288355e50ee60ebcd937578cbf1f1bdef7ec9527",
+      "next_acceptor_pos": 387,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 200,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 18,
+        "n_cds_candidates": 20,
+        "n_intron_annotation_safe": 147,
+        "n_intron_candidates": 147
+      },
+      "blocks": {
+        "cds": [
+          [
+            210,
+            246
+          ],
+          [
+            261,
+            297
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            146,
+            182
+          ]
+        ]
+      },
+      "chrom": "chr5",
+      "donor_partner_distance": 111,
+      "donor_phase": 0,
+      "donor_pos": 327,
+      "eligible": true,
+      "example_id": "chr5:65680667-65680794:-:ENSG00000197860.12",
+      "exon_length": 127,
+      "gene_id": "ENSG00000197860.12",
+      "native_sequence_sha256": "7bc08d0c5d2a154e1c65d7fde63e142acacd8114ba1c894c7daa68eea17ce617",
+      "next_acceptor_pos": 438,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 241,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 39,
+        "n_cds_candidates": 40,
+        "n_intron_annotation_safe": 108,
+        "n_intron_candidates": 188
+      },
+      "blocks": {
+        "cds": [
+          [
+            252,
+            288
+          ],
+          [
+            366,
+            402
+          ]
+        ],
+        "upstream_intron": [
+          [
+            80,
+            116
+          ],
+          [
+            187,
+            223
+          ]
+        ]
+      },
+      "chrom": "chr17",
+      "donor_partner_distance": 107,
+      "donor_phase": 1,
+      "donor_pos": 427,
+      "eligible": true,
+      "example_id": "chr17:7414662-7414848:+:ENSG00000169992.11",
+      "exon_length": 186,
+      "gene_id": "ENSG00000169992.11",
+      "native_sequence_sha256": "4a0dfb93866e4dfa588afd7c8907e1f9d00f895df287a371c17f3dfa1234458d",
+      "next_acceptor_pos": 534,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 218,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 10,
+        "n_cds_candidates": 10,
+        "n_intron_annotation_safe": 165,
+        "n_intron_candidates": 165
+      },
+      "blocks": {
+        "cds": [
+          [
+            228,
+            264
+          ],
+          [
+            255,
+            291
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            164,
+            200
+          ]
+        ]
+      },
+      "chrom": "chr10",
+      "donor_partner_distance": 104,
+      "donor_phase": 1,
+      "donor_pos": 316,
+      "eligible": true,
+      "example_id": "chr10:97466058-97466156:-:ENSG00000155229.23",
+      "exon_length": 98,
+      "gene_id": "ENSG00000155229.23",
+      "native_sequence_sha256": "d555bc7cf7fb1bf6decfd3c8fa787c956379c5a4de89bfff4fdd3b4bd80bbbd5",
+      "next_acceptor_pos": 420,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 120,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 15,
+        "n_cds_candidates": 33,
+        "n_intron_annotation_safe": 67,
+        "n_intron_candidates": 67
+      },
+      "blocks": {
+        "cds": [
+          [
+            130,
+            166
+          ],
+          [
+            226,
+            262
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            66,
+            102
+          ]
+        ]
+      },
+      "chrom": "chr3",
+      "donor_partner_distance": 99,
+      "donor_phase": 1,
+      "donor_pos": 287,
+      "eligible": true,
+      "example_id": "chr3:132456234-132456401:+:ENSG00000138246.18",
+      "exon_length": 167,
+      "gene_id": "ENSG00000138246.18",
+      "native_sequence_sha256": "5b591fb234daceb34c609aaabfdc20fe313fa0bc8800091c0ecdcc8fb03ab2ba",
+      "next_acceptor_pos": 386,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 260,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 7,
+        "n_cds_candidates": 39,
+        "n_intron_annotation_safe": 35,
+        "n_intron_candidates": 207
+      },
+      "blocks": {
+        "cds": [
+          [
+            313,
+            349
+          ],
+          [
+            382,
+            418
+          ]
+        ],
+        "upstream_intron": [
+          [
+            172,
+            208
+          ],
+          [
+            206,
+            242
+          ]
+        ]
+      },
+      "chrom": "chr20",
+      "donor_partner_distance": 82,
+      "donor_phase": 0,
+      "donor_pos": 442,
+      "eligible": true,
+      "example_id": "chr20:63977224-63977406:-:ENSG00000130590.15",
+      "exon_length": 182,
+      "gene_id": "ENSG00000130590.15",
+      "native_sequence_sha256": "a8f2d94dec1e240b44db6fb3ce12eceadd3f9e0cfb0eed901ba1546060cc3f24",
+      "next_acceptor_pos": 524,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 140,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 18,
+        "n_cds_candidates": 42,
+        "n_intron_annotation_safe": 87,
+        "n_intron_candidates": 87
+      },
+      "blocks": {
+        "cds": [
+          [
+            166,
+            202
+          ],
+          [
+            271,
+            307
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            86,
+            122
+          ]
+        ]
+      },
+      "chrom": "chr15",
+      "donor_partner_distance": 125,
+      "donor_phase": 0,
+      "donor_pos": 331,
+      "eligible": true,
+      "example_id": "chr15:67236629-67236820:-:ENSG00000103591.15",
+      "exon_length": 191,
+      "gene_id": "ENSG00000103591.15",
+      "native_sequence_sha256": "9f648509ba2b0772884786ee1f0ff8626bcfab36ffdda5235c619f4ea213ea67",
+      "next_acceptor_pos": 456,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 235,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 9,
+        "n_cds_candidates": 9,
+        "n_intron_annotation_safe": 178,
+        "n_intron_candidates": 182
+      },
+      "blocks": {
+        "cds": [
+          [
+            244,
+            280
+          ],
+          [
+            268,
+            304
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            181,
+            217
+          ]
+        ]
+      },
+      "chrom": "chr1",
+      "donor_partner_distance": 139,
+      "donor_phase": 0,
+      "donor_pos": 328,
+      "eligible": true,
+      "example_id": "chr1:148962195-148962288:+:ENSG00000178104.23",
+      "exon_length": 93,
+      "gene_id": "ENSG00000178104.23",
+      "native_sequence_sha256": "3ad38e35f52444f8678910f7ef4fc85af3658f2b553c44dbb31fa6a7febb294c",
+      "next_acceptor_pos": 467,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 251,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 46,
+        "n_cds_candidates": 46,
+        "n_intron_annotation_safe": 124,
+        "n_intron_candidates": 198
+      },
+      "blocks": {
+        "cds": [
+          [
+            260,
+            296
+          ],
+          [
+            395,
+            431
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            123,
+            159
+          ]
+        ]
+      },
+      "chrom": "chr17",
+      "donor_partner_distance": 112,
+      "donor_phase": 2,
+      "donor_pos": 457,
+      "eligible": true,
+      "example_id": "chr17:44005705-44005911:+:ENSG00000161653.13",
+      "exon_length": 206,
+      "gene_id": "ENSG00000161653.13",
+      "native_sequence_sha256": "1aace9a3443ed25426770a12e093840c38f25d7da5cf958166091a85bdd09fa6",
+      "next_acceptor_pos": 569,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 276,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 9,
+        "n_cds_candidates": 9,
+        "n_intron_annotation_safe": 223,
+        "n_intron_candidates": 223
+      },
+      "blocks": {
+        "cds": [
+          [
+            286,
+            322
+          ],
+          [
+            310,
+            346
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            222,
+            258
+          ]
+        ]
+      },
+      "chrom": "chr7",
+      "donor_partner_distance": 86,
+      "donor_phase": 2,
+      "donor_pos": 372,
+      "eligible": true,
+      "example_id": "chr7:73686635-73686731:+:ENSG00000071462.15",
+      "exon_length": 96,
+      "gene_id": "ENSG00000071462.15",
+      "native_sequence_sha256": "067e603b310c0b1d375ec9b3fb0eb7ff5110825fd6fa34ae862b7c39557c3aa9",
+      "next_acceptor_pos": 458,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 157,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 9,
+        "n_cds_candidates": 14,
+        "n_intron_annotation_safe": 104,
+        "n_intron_candidates": 104
+      },
+      "blocks": {
+        "cds": [
+          [
+            166,
+            202
+          ],
+          [
+            190,
+            226
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            103,
+            139
+          ]
+        ]
+      },
+      "chrom": "chr2",
+      "donor_partner_distance": 129,
+      "donor_phase": 2,
+      "donor_pos": 267,
+      "eligible": true,
+      "example_id": "chr2:232528261-232528371:+:ENSG00000135902.12",
+      "exon_length": 110,
+      "gene_id": "ENSG00000135902.12",
+      "native_sequence_sha256": "e195f49f241f24f990c912daa8d1a330f60e0bd5263eacf807596b0e41c9cd6e",
+      "next_acceptor_pos": 396,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 174,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 10,
+        "n_cds_candidates": 11,
+        "n_intron_annotation_safe": 121,
+        "n_intron_candidates": 121
+      },
+      "blocks": {
+        "cds": [
+          [
+            185,
+            221
+          ],
+          [
+            212,
+            248
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            120,
+            156
+          ]
+        ]
+      },
+      "chrom": "chr7",
+      "donor_partner_distance": 114,
+      "donor_phase": 0,
+      "donor_pos": 272,
+      "eligible": true,
+      "example_id": "chr7:111872466-111872564:-:ENSG00000128512.25",
+      "exon_length": 98,
+      "gene_id": "ENSG00000128512.25",
+      "native_sequence_sha256": "351d5d7906385697d1dd9028460bf29137d242c1093052a972ad496fc7f9162a",
+      "next_acceptor_pos": 386,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 204,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 12,
+        "n_cds_candidates": 21,
+        "n_intron_annotation_safe": 35,
+        "n_intron_candidates": 151
+      },
+      "blocks": {
+        "cds": [
+          [
+            241,
+            277
+          ],
+          [
+            274,
+            310
+          ]
+        ],
+        "upstream_intron": [
+          [
+            116,
+            152
+          ],
+          [
+            150,
+            186
+          ]
+        ]
+      },
+      "chrom": "chr17",
+      "donor_partner_distance": 82,
+      "donor_phase": 0,
+      "donor_pos": 334,
+      "eligible": true,
+      "example_id": "chr17:58279296-58279426:-:ENSG00000005381.9",
+      "exon_length": 130,
+      "gene_id": "ENSG00000005381.9",
+      "native_sequence_sha256": "b486afd9c9fdb094f7fd19b449f8e63a91e2d7c4d8fe1eb7a5ae1e8b8df5cee2",
+      "next_acceptor_pos": 416,
+      "role": "development",
+      "strand": "-"
+    },
+    {
+      "acceptor_pos": 191,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 12,
+        "n_cds_candidates": 15,
+        "n_intron_annotation_safe": 138,
+        "n_intron_candidates": 138
+      },
+      "blocks": {
+        "cds": [
+          [
+            200,
+            236
+          ],
+          [
+            233,
+            269
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            137,
+            173
+          ]
+        ]
+      },
+      "chrom": "chr4",
+      "donor_partner_distance": 130,
+      "donor_phase": 2,
+      "donor_pos": 304,
+      "eligible": true,
+      "example_id": "chr4:56994403-56994516:+:ENSG00000047315.18",
+      "exon_length": 113,
+      "gene_id": "ENSG00000047315.18",
+      "native_sequence_sha256": "f50da7b2188f5e64913be00cfa5c57d0f091c0b564e3016d1495a2a118719d4b",
+      "next_acceptor_pos": 434,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 287,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 19,
+        "n_cds_candidates": 64,
+        "n_intron_annotation_safe": 122,
+        "n_intron_candidates": 234
+      },
+      "blocks": {
+        "cds": [
+          [
+            296,
+            332
+          ],
+          [
+            470,
+            506
+          ]
+        ],
+        "upstream_intron": [
+          [
+            112,
+            148
+          ],
+          [
+            233,
+            269
+          ]
+        ]
+      },
+      "chrom": "chr12",
+      "donor_partner_distance": 72,
+      "donor_phase": 0,
+      "donor_pos": 545,
+      "eligible": true,
+      "example_id": "chr12:122978752-122979010:+:ENSG00000111325.18",
+      "exon_length": 258,
+      "gene_id": "ENSG00000111325.18",
+      "native_sequence_sha256": "020cef3603403b0eca27e3c9a41b4a8c92d5c347c3e8f7d8aeaa8f87c02f4c84",
+      "next_acceptor_pos": 617,
+      "role": "development",
+      "strand": "+"
+    },
+    {
+      "acceptor_pos": 220,
+      "annotation_counts": {
+        "n_cds_annotation_safe": 18,
+        "n_cds_candidates": 29,
+        "n_intron_annotation_safe": 167,
+        "n_intron_candidates": 167
+      },
+      "blocks": {
+        "cds": [
+          [
+            262,
+            298
+          ],
+          [
+            313,
+            349
+          ]
+        ],
+        "upstream_intron": [
+          [
+            9,
+            45
+          ],
+          [
+            166,
+            202
+          ]
+        ]
+      },
+      "chrom": "chr12",
+      "donor_partner_distance": 85,
+      "donor_phase": 0,
+      "donor_pos": 373,
+      "eligible": true,
+      "example_id": "chr12:48920929-48921082:+:ENSG00000139537.13",
+      "exon_length": 153,
+      "gene_id": "ENSG00000139537.13",
+      "native_sequence_sha256": "e176d35663747c16d6030afac4b0274bded88315241302b0f852c55312ffd55f",
+      "next_acceptor_pos": 458,
+      "role": "development",
+      "strand": "+"
+    }
+  ],
+  "role_weights": [
+    [
+      "development",
+      2
+    ],
+    [
+      "confirmation",
+      2
+    ],
+    [
+      "reserve",
+      1
+    ]
+  ],
+  "schema": "gfmcd.p3_phase_surgery.cohort.v1",
+  "status": "OUTCOME_BLIND_ANNOTATION_COHORT"
+}

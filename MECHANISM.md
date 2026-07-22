@@ -63,7 +63,9 @@ smallest faithful set, so **minimality remains unclaimed**.
 - **Binding/delivery:** a non-forced reconstruct–inject factorial requires attention address and value
   payload jointly; L3H1 writes a stable low-rank donor-side object that downstream heads transport.
 - **Carrier role:** the learned period-3 code acts as a distributed relative-positional routing
-  coordinate supporting L3H1 attention and donor coupling.
+  coordinate supporting L3H1 attention and donor coupling. Nucleotide-invariant local surgery cleanly
+  confirms phase-aligned use in CDS blocks (`Ψ_C=+0.141 [0.110,0.172]`), above same-geometry hidden-axis
+  controls; matched coding-context enrichment remains unresolved.
 
 ## Key limitations and open questions
 
@@ -92,9 +94,10 @@ promoting attention or attribution to causality.
 
 ### 3. Carrier origin
 
-The period-3 carrier's present-day causal use is supported, but a frozen checkpoint cannot identify why
-training created it. Origin requires training-time evidence: checkpoint trajectories, controlled
-retraining, objective/corpus ablations, or a cross-model comparison.
+The period-3 carrier's present-day causal use is now cleanly confirmed, but a frozen checkpoint cannot
+identify why training created it. The matched CDS-minus-non-CDS-exon contrast was inconclusive, so even
+coding enrichment is not licensed by C36. Origin requires training-time evidence: checkpoint
+trajectories, controlled retraining, objective/corpus ablations, or a cross-model comparison.
 
 ### 4. Separate ≈10.63 carrier
 

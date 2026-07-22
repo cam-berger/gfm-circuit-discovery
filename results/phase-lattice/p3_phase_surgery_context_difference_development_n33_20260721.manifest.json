@@ -1,0 +1,72 @@
+{
+  "command": [
+    "scripts/splicebert/analyze_p3_phase_surgery_context_difference.py",
+    "--cds-analysis",
+    "results/phase-lattice/p3_phase_surgery_preflight_analysis_development_n61_20260721.json",
+    "--non-cds-analysis",
+    "results/phase-lattice/p3_phase_surgery_preflight_analysis_non_cds_development_n49_20260721.json",
+    "--match",
+    "results/phase-lattice/p3_phase_surgery_context_match_development_v2_20260721.json",
+    "--bootstrap",
+    "5000",
+    "--out",
+    "results/phase-lattice/p3_phase_surgery_context_difference_development_n33_20260721.json"
+  ],
+  "config": {
+    "bootstrap": 5000,
+    "seed": 20260721,
+    "sesoi": {
+      "coupling": 0.05,
+      "phasor_signed": 0.1
+    }
+  },
+  "created_at_utc": "2026-07-22T01:10:00.838923+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 40428,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "p3-phase-surgery-context-difference-v1",
+  "git_commit": "e3ef4dcb1aba877df1587492edd916671fbd5895",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_preflight_analysis_development_n61_20260721.json",
+      "sha256": "9a1daefcea5592908c643463dc0b85066f65a7324688510a28106a0685154fd8",
+      "size_bytes": 42341
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_preflight_analysis_non_cds_development_n49_20260721.json",
+      "sha256": "bce64e9c83bae8b283328d291658acd494d9cafb69fed0e8106952925bac265e",
+      "size_bytes": 39173
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_context_match_development_v2_20260721.json",
+      "sha256": "0bbde7c1f3d54d767f44dc8c0d3552d310d7eea7e7f411baec67a642755a6317",
+      "size_bytes": 26115
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/p3_stats.py",
+      "sha256": "8db42340249f66e51a30f054d3e87843a91636cfb644281af58e5a4d4f418080",
+      "size_bytes": 6039
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert/analyze_p3_phase_surgery_context_difference.py",
+      "sha256": "486344fa8eeb10b215f1c91ae8296f279a5cef79245b3a134f18cbb8d60af019",
+      "size_bytes": 5456
+    }
+  ],
+  "notes": [],
+  "outputs": [
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_context_difference_development_n33_20260721.json",
+      "sha256": "72b9ae5324a6262673b3182cb5465e0605358d2edcd38e07f6778777ba17fe2e",
+      "size_bytes": 12697
+    }
+  ],
+  "seeds": {
+    "bootstrap": 20260721
+  },
+  "status": "DEVELOPMENT_CALIBRATION_NOT_CONFIRMATORY"
+}

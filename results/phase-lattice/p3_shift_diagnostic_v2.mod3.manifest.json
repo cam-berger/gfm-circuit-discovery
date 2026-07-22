@@ -1,0 +1,43 @@
+{
+  "command": [
+    "scripts/splicebert/analyze_p3_shift_mod3.py",
+    "--input",
+    "results/phase-lattice/p3_shift_diagnostic_v2.json",
+    "--out",
+    "results/phase-lattice/p3_shift_diagnostic_v2.mod3.json"
+  ],
+  "config": {
+    "n": 24,
+    "source": "results/phase-lattice/p3_shift_diagnostic_v2.json"
+  },
+  "created_at_utc": "2026-07-21T20:03:00.135387+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 72319,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert:p3_shift_diagnostic_v2_mod3",
+  "git_commit": "e3ef4dcb1aba877df1587492edd916671fbd5895",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/phase-lattice/p3_shift_diagnostic_v2.json",
+      "sha256": "52234d4b52442821ca9ba71dd250af58d9fc8855d1152ae59a5a3b5badb2f22c",
+      "size_bytes": 720339
+    }
+  ],
+  "notes": [
+    "absolute period-3 class is exactly x%3: 0,1,2,0,1,2,...",
+    "No model forward pass; derived from recorded attention masses."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/phase-lattice/p3_shift_diagnostic_v2.mod3.json",
+      "sha256": "ed82eac8964243a4795db241650566648176df0bf80ac8071b065a7fd2362894",
+      "size_bytes": 17579
+    }
+  ],
+  "seeds": {},
+  "status": "EXPLORATORY_DERIVED"
+}

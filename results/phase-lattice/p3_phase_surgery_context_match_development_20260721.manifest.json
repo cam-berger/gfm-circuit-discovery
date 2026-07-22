@@ -1,0 +1,75 @@
+{
+  "command": [
+    "scripts/splicebert/match_p3_phase_surgery_contexts.py",
+    "--cds-cohort",
+    "results/phase-lattice/p3_phase_surgery_development_cohort_n120_20260721.json",
+    "--non-cds-cohort",
+    "results/phase-lattice/p3_phase_surgery_non_cds_development_cohort_20260721.json",
+    "--out",
+    "results/phase-lattice/p3_phase_surgery_context_match_development_20260721.json"
+  ],
+  "config": {
+    "covariates": [
+      "log_exon_length",
+      "donor_partner_distance",
+      "donor_position",
+      "acceptor_position",
+      "far_block_end_to_donor",
+      "near_block_end_to_donor",
+      "target_block_gc",
+      "intron_block_gc"
+    ],
+    "exact": [
+      "strand"
+    ]
+  },
+  "created_at_utc": "2026-07-22T01:06:44.598896+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 30219,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "p3-phase-surgery-context-match-v1",
+  "git_commit": "e3ef4dcb1aba877df1587492edd916671fbd5895",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_development_cohort_n120_20260721.json",
+      "sha256": "90dce4a161cd1b82b68d8ff1024e9a56cd668d1ddbfea8e7288cc237bb2fa581",
+      "size_bytes": 61832
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_non_cds_development_cohort_20260721.json",
+      "sha256": "0df96757711c8da218f3671c5d0643ef06fa81b93e814f78751814da533ab09e",
+      "size_bytes": 55326
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert/match_p3_phase_surgery_contexts.py",
+      "sha256": "655ca1ca1e818486f930af35b68739d8022f3a8438d397aad57e4fea447913d9",
+      "size_bytes": 8844
+    }
+  ],
+  "notes": [
+    "No model was loaded for selection; model outcomes were not read."
+  ],
+  "outputs": [
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_context_match_development_20260721.json",
+      "sha256": "a4dc8716787d7bc26e1c1b77578b746f05c2ea3007531adf8af4775b700b34a9",
+      "size_bytes": 34795
+    }
+  ],
+  "seeds": {},
+  "status": "OUTCOME_BLIND_STRUCTURAL_MATCH"
+}

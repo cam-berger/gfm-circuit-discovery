@@ -1,0 +1,764 @@
+{
+  "status": "DERIVED_FROM_EXPLORATORY_V2",
+  "source": "results/phase-lattice/p3_shift_diagnostic_v2.json",
+  "convention": "absolute period-3 class is exactly x%3: 0,1,2,0,1,2,...",
+  "n": 24,
+  "summary": {
+    "intact": {
+      "window_translation": {
+        "0": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.3927254797252016,
+            0.2590942478406471,
+            0.34818027243415123
+          ],
+          "dominant_x_mod3_counts": [
+            10,
+            6,
+            8
+          ],
+          "peak_x_mod3_counts": [
+            9,
+            7,
+            8
+          ],
+          "peak_class_change_from_d0_counts": [
+            24,
+            0,
+            0
+          ]
+        },
+        "1": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.33360457068793553,
+            0.3947218585392586,
+            0.2716735707728059
+          ],
+          "dominant_x_mod3_counts": [
+            8,
+            10,
+            6
+          ],
+          "peak_x_mod3_counts": [
+            8,
+            9,
+            7
+          ],
+          "peak_class_change_from_d0_counts": [
+            0,
+            24,
+            0
+          ]
+        },
+        "2": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.2563427472561663,
+            0.3383528251393187,
+            0.40530442760451485
+          ],
+          "dominant_x_mod3_counts": [
+            6,
+            8,
+            10
+          ],
+          "peak_x_mod3_counts": [
+            7,
+            8,
+            9
+          ],
+          "peak_class_change_from_d0_counts": [
+            0,
+            0,
+            24
+          ]
+        },
+        "3": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.3961300723798802,
+            0.25830174955881086,
+            0.34556817806130896
+          ],
+          "dominant_x_mod3_counts": [
+            10,
+            6,
+            8
+          ],
+          "peak_x_mod3_counts": [
+            9,
+            7,
+            8
+          ],
+          "peak_class_change_from_d0_counts": [
+            24,
+            0,
+            0
+          ]
+        }
+      },
+      "intron_insert": {
+        "0": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.3927254797252016,
+            0.2590942478406471,
+            0.34818027243415123
+          ],
+          "dominant_x_mod3_counts": [
+            10,
+            6,
+            8
+          ],
+          "peak_x_mod3_counts": [
+            9,
+            7,
+            8
+          ],
+          "peak_class_change_from_d0_counts": [
+            24,
+            0,
+            0
+          ]
+        },
+        "1": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.36116367727866844,
+            0.3891766884451378,
+            0.24965963427619386
+          ],
+          "dominant_x_mod3_counts": [
+            9,
+            9,
+            6
+          ],
+          "peak_x_mod3_counts": [
+            9,
+            9,
+            6
+          ],
+          "peak_class_change_from_d0_counts": [
+            2,
+            22,
+            0
+          ]
+        },
+        "2": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.24730912830181498,
+            0.38171699687526656,
+            0.3709738748229184
+          ],
+          "dominant_x_mod3_counts": [
+            7,
+            9,
+            8
+          ],
+          "peak_x_mod3_counts": [
+            7,
+            9,
+            8
+          ],
+          "peak_class_change_from_d0_counts": [
+            2,
+            0,
+            22
+          ]
+        },
+        "3": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.38936281770549835,
+            0.2611937426782848,
+            0.3494434396162169
+          ],
+          "dominant_x_mod3_counts": [
+            10,
+            6,
+            8
+          ],
+          "peak_x_mod3_counts": [
+            9,
+            7,
+            8
+          ],
+          "peak_class_change_from_d0_counts": [
+            24,
+            0,
+            0
+          ]
+        }
+      },
+      "exon_insert": {
+        "0": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.3927254797252016,
+            0.2590942478406471,
+            0.34818027243415123
+          ],
+          "dominant_x_mod3_counts": [
+            10,
+            6,
+            8
+          ],
+          "peak_x_mod3_counts": [
+            9,
+            7,
+            8
+          ],
+          "peak_class_change_from_d0_counts": [
+            24,
+            0,
+            0
+          ]
+        },
+        "1": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.2450747378242766,
+            0.48990746843548033,
+            0.26501779374024304
+          ],
+          "dominant_x_mod3_counts": [
+            6,
+            11,
+            7
+          ],
+          "peak_x_mod3_counts": [
+            6,
+            12,
+            6
+          ],
+          "peak_class_change_from_d0_counts": [
+            0,
+            14,
+            10
+          ]
+        },
+        "2": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.330815432735221,
+            0.33906769762573097,
+            0.330116869639048
+          ],
+          "dominant_x_mod3_counts": [
+            9,
+            8,
+            7
+          ],
+          "peak_x_mod3_counts": [
+            9,
+            9,
+            6
+          ],
+          "peak_class_change_from_d0_counts": [
+            0,
+            8,
+            16
+          ]
+        },
+        "3": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.4000013178670862,
+            0.25188467041747487,
+            0.3481140117154389
+          ],
+          "dominant_x_mod3_counts": [
+            10,
+            6,
+            8
+          ],
+          "peak_x_mod3_counts": [
+            9,
+            7,
+            8
+          ],
+          "peak_class_change_from_d0_counts": [
+            24,
+            0,
+            0
+          ]
+        }
+      },
+      "upstream_intron_sham": {
+        "0": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.3927254797252016,
+            0.2590942478406471,
+            0.34818027243415123
+          ],
+          "dominant_x_mod3_counts": [
+            10,
+            6,
+            8
+          ],
+          "peak_x_mod3_counts": [
+            9,
+            7,
+            8
+          ],
+          "peak_class_change_from_d0_counts": [
+            24,
+            0,
+            0
+          ]
+        },
+        "1": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.33016855647974946,
+            0.39281047327911317,
+            0.2770209702411374
+          ],
+          "dominant_x_mod3_counts": [
+            8,
+            10,
+            6
+          ],
+          "peak_x_mod3_counts": [
+            8,
+            9,
+            7
+          ],
+          "peak_class_change_from_d0_counts": [
+            0,
+            24,
+            0
+          ]
+        },
+        "2": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.2572692011110447,
+            0.3388304042699575,
+            0.4039003946189979
+          ],
+          "dominant_x_mod3_counts": [
+            6,
+            8,
+            10
+          ],
+          "peak_x_mod3_counts": [
+            7,
+            8,
+            9
+          ],
+          "peak_class_change_from_d0_counts": [
+            0,
+            0,
+            24
+          ]
+        },
+        "3": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.39411566278104687,
+            0.26154839236555044,
+            0.3443359448534027
+          ],
+          "dominant_x_mod3_counts": [
+            10,
+            6,
+            8
+          ],
+          "peak_x_mod3_counts": [
+            9,
+            7,
+            8
+          ],
+          "peak_class_change_from_d0_counts": [
+            24,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "deleted": {
+      "window_translation": {
+        "0": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.3476980981358095,
+            0.33668707065480225,
+            0.31561483120938827
+          ],
+          "dominant_x_mod3_counts": [
+            8,
+            9,
+            7
+          ],
+          "peak_x_mod3_counts": [
+            8,
+            8,
+            8
+          ],
+          "peak_class_change_from_d0_counts": [
+            24,
+            0,
+            0
+          ]
+        },
+        "1": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.3081458237751286,
+            0.3460604009288417,
+            0.3457937752960298
+          ],
+          "dominant_x_mod3_counts": [
+            5,
+            9,
+            10
+          ],
+          "peak_x_mod3_counts": [
+            7,
+            9,
+            8
+          ],
+          "peak_class_change_from_d0_counts": [
+            2,
+            16,
+            6
+          ]
+        },
+        "2": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.3398538567820131,
+            0.3046883176834199,
+            0.3554578255345669
+          ],
+          "dominant_x_mod3_counts": [
+            10,
+            5,
+            9
+          ],
+          "peak_x_mod3_counts": [
+            9,
+            6,
+            9
+          ],
+          "peak_class_change_from_d0_counts": [
+            5,
+            2,
+            17
+          ]
+        },
+        "3": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.35490107428944967,
+            0.34657639873231094,
+            0.2985225269782393
+          ],
+          "dominant_x_mod3_counts": [
+            11,
+            8,
+            5
+          ],
+          "peak_x_mod3_counts": [
+            10,
+            9,
+            5
+          ],
+          "peak_class_change_from_d0_counts": [
+            18,
+            5,
+            1
+          ]
+        }
+      },
+      "intron_insert": {
+        "0": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.3476980981358095,
+            0.33668707065480225,
+            0.31561483120938827
+          ],
+          "dominant_x_mod3_counts": [
+            8,
+            9,
+            7
+          ],
+          "peak_x_mod3_counts": [
+            8,
+            8,
+            8
+          ],
+          "peak_class_change_from_d0_counts": [
+            24,
+            0,
+            0
+          ]
+        },
+        "1": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.30605015734497537,
+            0.3365206023404618,
+            0.35742924031456275
+          ],
+          "dominant_x_mod3_counts": [
+            5,
+            7,
+            12
+          ],
+          "peak_x_mod3_counts": [
+            7,
+            9,
+            8
+          ],
+          "peak_class_change_from_d0_counts": [
+            3,
+            17,
+            4
+          ]
+        },
+        "2": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.34290912642464316,
+            0.3129091201256024,
+            0.3441817534497544
+          ],
+          "dominant_x_mod3_counts": [
+            9,
+            6,
+            9
+          ],
+          "peak_x_mod3_counts": [
+            9,
+            7,
+            8
+          ],
+          "peak_class_change_from_d0_counts": [
+            6,
+            1,
+            17
+          ]
+        },
+        "3": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.34536418534401786,
+            0.35258336125340656,
+            0.30205245340257564
+          ],
+          "dominant_x_mod3_counts": [
+            8,
+            11,
+            5
+          ],
+          "peak_x_mod3_counts": [
+            11,
+            6,
+            7
+          ],
+          "peak_class_change_from_d0_counts": [
+            18,
+            4,
+            2
+          ]
+        }
+      },
+      "exon_insert": {
+        "0": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.3476980981358095,
+            0.33668707065480225,
+            0.31561483120938827
+          ],
+          "dominant_x_mod3_counts": [
+            8,
+            9,
+            7
+          ],
+          "peak_x_mod3_counts": [
+            8,
+            8,
+            8
+          ],
+          "peak_class_change_from_d0_counts": [
+            24,
+            0,
+            0
+          ]
+        },
+        "1": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.3056256502724951,
+            0.3422827694369379,
+            0.3520915802905669
+          ],
+          "dominant_x_mod3_counts": [
+            5,
+            8,
+            11
+          ],
+          "peak_x_mod3_counts": [
+            6,
+            10,
+            8
+          ],
+          "peak_class_change_from_d0_counts": [
+            2,
+            15,
+            7
+          ]
+        },
+        "2": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.34240142774759147,
+            0.3116405631544332,
+            0.3459580090979753
+          ],
+          "dominant_x_mod3_counts": [
+            10,
+            6,
+            8
+          ],
+          "peak_x_mod3_counts": [
+            8,
+            8,
+            8
+          ],
+          "peak_class_change_from_d0_counts": [
+            4,
+            1,
+            19
+          ]
+        },
+        "3": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.34937279277994654,
+            0.3488082968666253,
+            0.3018189103534282
+          ],
+          "dominant_x_mod3_counts": [
+            10,
+            7,
+            7
+          ],
+          "peak_x_mod3_counts": [
+            10,
+            8,
+            6
+          ],
+          "peak_class_change_from_d0_counts": [
+            18,
+            4,
+            2
+          ]
+        }
+      },
+      "upstream_intron_sham": {
+        "0": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.3476980981358095,
+            0.33668707065480225,
+            0.31561483120938827
+          ],
+          "dominant_x_mod3_counts": [
+            8,
+            9,
+            7
+          ],
+          "peak_x_mod3_counts": [
+            8,
+            8,
+            8
+          ],
+          "peak_class_change_from_d0_counts": [
+            24,
+            0,
+            0
+          ]
+        },
+        "1": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.30768344379423324,
+            0.3470552706171697,
+            0.3452612855885972
+          ],
+          "dominant_x_mod3_counts": [
+            5,
+            9,
+            10
+          ],
+          "peak_x_mod3_counts": [
+            6,
+            11,
+            7
+          ],
+          "peak_class_change_from_d0_counts": [
+            2,
+            16,
+            6
+          ]
+        },
+        "2": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.3398067079996711,
+            0.30555647948676234,
+            0.35463681251356644
+          ],
+          "dominant_x_mod3_counts": [
+            10,
+            5,
+            9
+          ],
+          "peak_x_mod3_counts": [
+            9,
+            6,
+            9
+          ],
+          "peak_class_change_from_d0_counts": [
+            5,
+            2,
+            17
+          ]
+        },
+        "3": {
+          "definition": "class = nucleotide_index x modulo 3",
+          "mean_attention_mass_x_mod3": [
+            0.35469353341373483,
+            0.3469038886196441,
+            0.29840257796662095
+          ],
+          "dominant_x_mod3_counts": [
+            11,
+            8,
+            5
+          ],
+          "peak_x_mod3_counts": [
+            10,
+            9,
+            5
+          ],
+          "peak_class_change_from_d0_counts": [
+            18,
+            5,
+            1
+          ]
+        }
+      }
+    }
+  }
+}

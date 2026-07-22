@@ -1,0 +1,88 @@
+{
+  "command": [
+    "scripts/splicebert/analyze_p3_phase_surgery_confirmation.py",
+    "--package",
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json",
+    "--package-audit",
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.audit.json",
+    "--run-dir",
+    "results/phase-lattice/p3_phase_surgery_confirmation_v1",
+    "--bootstrap",
+    "20000",
+    "--seed",
+    "20260721",
+    "--out",
+    "results/phase-lattice/p3_phase_surgery_confirmation_v1/confirmation_analysis.json"
+  ],
+  "config": {
+    "bootstrap": 20000,
+    "seed": 20260721,
+    "sesoi": 0.05
+  },
+  "created_at_utc": "2026-07-22T16:14:17.814296+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 64521,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "p3-phase-surgery-confirmation-analysis-v1",
+  "git_commit": "69dd5db679d24fa656c8d707f1aff47799a4f1bf",
+  "git_dirty": false,
+  "inputs": [
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json",
+      "sha256": "e8217e1ed923be4853009b103de35bc34b23c300cc045820f2531dd24f8e97a5",
+      "size_bytes": 1241893
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.audit.json",
+      "sha256": "05193e85ddbe99e63c59adb7ff687e5aec8ed487c3ad660740a29eb80e8f1700",
+      "size_bytes": 1380
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/run_complete.json",
+      "sha256": "abf739ba06b84ebd8a8a122889bcaf455faf404ac3a2e45bd7429161a5730cce",
+      "size_bytes": 322
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/primary_manifest.json",
+      "sha256": "fa065192df58d795a366724ad5f56c9f7e7ddaed021a32411a4364520470bf17",
+      "size_bytes": 250141
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_manifest.json",
+      "sha256": "7f4ee9e9c680565b35ed9cb473e69a2fae45d79390b2ac73d5a9682b7ea9a2ef",
+      "size_bytes": 41656
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/matched_context_manifest.json",
+      "sha256": "f150f895b9bf9f26caf602c176686d74186c78d5c91eb1c7b1b3e8df146cb0aa",
+      "size_bytes": 14501
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/p3_stats.py",
+      "sha256": "8db42340249f66e51a30f054d3e87843a91636cfb644281af58e5a4d4f418080",
+      "size_bytes": 6039
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert/analyze_p3_phase_surgery_confirmation.py",
+      "sha256": "88c655e08f24b1e9a46df3f1369904c78b89a923c7277cfd473b911f90bd44b5",
+      "size_bytes": 18438
+    }
+  ],
+  "notes": [],
+  "outputs": [
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/confirmation_analysis.json",
+      "sha256": "77959c53c9dd33d4ae3a591b19ba7e8c581a5f327080a1a53218056be82746e9",
+      "size_bytes": 256838
+    }
+  ],
+  "seeds": {
+    "context": 20260723,
+    "direction": 20260722,
+    "primary": 20260721
+  },
+  "status": "CONFIRMATORY_ADJUDICATED"
+}

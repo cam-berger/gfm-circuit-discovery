@@ -1,0 +1,463 @@
+{
+  "allowed_chromosomes": [
+    "chr1",
+    "chr10",
+    "chr12",
+    "chr13",
+    "chr14",
+    "chr15",
+    "chr17",
+    "chr18",
+    "chr2",
+    "chr20",
+    "chr21",
+    "chr22",
+    "chr3",
+    "chr4",
+    "chr5",
+    "chr6",
+    "chr7"
+  ],
+  "config": {
+    "acceptor_clearance": 18,
+    "block_size": 36,
+    "directions": [
+      "left",
+      "right"
+    ],
+    "donor_clearance": 24,
+    "max_abs_delta_score3": 2.0,
+    "max_abs_delta_score5": 2.0,
+    "max_block_candidates_per_context": 48,
+    "max_hamming_arm_imbalance": 0.1,
+    "max_trimer_arm_imbalance": 0.1,
+    "n_blocks": 2,
+    "rotation_amounts": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "site_radius": 8,
+    "splice_clearance": 8,
+    "strong_score_threshold": 6.0
+  },
+  "counts": {
+    "eligible_examples_by_role": {},
+    "eligible_genes_by_role": {
+      "development": 0
+    },
+    "exclusions": {
+      "cds_too_short_for_two_cassettes": 1,
+      "construction_error:ValueError": 24,
+      "insufficient_annotation_safe_blocks": 11,
+      "not_wholly_unambiguous_basic_cds": 3
+    },
+    "genes_considered": 20,
+    "selected_candidates_by_role": {
+      "development": 35
+    },
+    "source_train_eligible_examples": 14331
+  },
+  "excluded_chromosomes": [
+    "chr11",
+    "chr16",
+    "chr19",
+    "chr8",
+    "chr9"
+  ],
+  "included_roles": [
+    "development"
+  ],
+  "inputs": {
+    "basic_gtf": {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    "comprehensive_gtf": {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+      "sha256": "83fba3e9b03f0b8c958f3595c6c350adc55f468abf8b0e47b6d5284cfe13a453",
+      "size_bytes": 124527720
+    },
+    "fasta": {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    }
+  },
+  "max_examples_per_gene": 1,
+  "max_genes_development_only": 20,
+  "model_outcomes_read": false,
+  "namespace": "p3-closure-v1",
+  "records": [
+    {
+      "chrom": "chr7",
+      "eligible": false,
+      "example_id": "chr7:44140960-44141082:-:ENSG00000106631.10",
+      "exclusion_reason": "not_wholly_unambiguous_basic_cds",
+      "gene_id": "ENSG00000106631.10",
+      "role": "development"
+    },
+    {
+      "chrom": "chr13",
+      "eligible": false,
+      "example_id": "chr13:77263928-77264002:-:ENSG00000005810.22",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 2 searched; failures={'edited_cds_stop_free': 12, 'no_new_competitive_score5': 1, 'score3_delta_bounded': 22, 'score5_delta_bounded': 23, 'strong_score5_count_preserved': 1}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000005810.22",
+      "role": "development"
+    },
+    {
+      "chrom": "chr13",
+      "eligible": false,
+      "example_id": "chr13:77205472-77205598:-:ENSG00000005810.22",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 7 searched; failures={'canonical_motif_counts_nonincreasing': 15, 'edited_cds_stop_free': 42, 'no_new_competitive_score3': 15, 'no_new_competitive_score5': 1, 'score3_delta_bounded': 27, 'score5_delta_bounded': 37, 'strong_score3_count_preserved': 15, 'strong_score5_count_preserved': 1}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000005810.22",
+      "role": "development"
+    },
+    {
+      "chrom": "chr1",
+      "eligible": false,
+      "example_id": "chr1:157575698-157575730:-:ENSG00000163518.11",
+      "exclusion_reason": "cds_too_short_for_two_cassettes",
+      "gene_id": "ENSG00000163518.11",
+      "role": "development"
+    },
+    {
+      "chrom": "chr1",
+      "eligible": false,
+      "example_id": "chr1:110018372-110018467:+:ENSG00000168710.20",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 2 searched; failures={'canonical_motif_counts_nonincreasing': 5, 'edited_cds_stop_free': 12, 'no_new_competitive_score5': 3, 'score3_delta_bounded': 22, 'score5_delta_bounded': 32, 'strong_score5_count_preserved': 3}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000168710.20",
+      "role": "development"
+    },
+    {
+      "chrom": "chr6",
+      "eligible": false,
+      "example_id": "chr6:43141667-43141817:+:ENSG00000112655.18",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 27 searched; failures={'canonical_motif_counts_nonincreasing': 114, 'edited_cds_stop_free': 180, 'no_new_competitive_score3': 17, 'no_new_competitive_score5': 8, 'score3_delta_bounded': 193, 'score5_delta_bounded': 95, 'strong_score3_count_preserved': 17, 'strong_score5_count_preserved': 8}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000112655.18",
+      "role": "development"
+    },
+    {
+      "chrom": "chr6",
+      "eligible": false,
+      "example_id": "chr6:43141930-43142081:+:ENSG00000112655.18",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 14 searched; failures={'canonical_motif_counts_nonincreasing': 66, 'edited_cds_stop_free': 12, 'no_new_competitive_score5': 5, 'score3_delta_bounded': 94, 'score5_delta_bounded': 74, 'strong_score5_count_preserved': 5}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000112655.18",
+      "role": "development"
+    },
+    {
+      "chrom": "chr6",
+      "eligible": false,
+      "example_id": "chr6:43139135-43139271:+:ENSG00000112655.18",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 14 searched; failures={'canonical_motif_counts_nonincreasing': 53, 'edited_cds_stop_free': 102, 'no_new_competitive_score3': 3, 'no_new_competitive_score5': 11, 'score3_delta_bounded': 49, 'score5_delta_bounded': 53, 'strong_score3_count_preserved': 3, 'strong_score5_count_preserved': 11}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000112655.18",
+      "role": "development"
+    },
+    {
+      "chrom": "chr6",
+      "eligible": false,
+      "example_id": "chr6:43130229-43130420:+:ENSG00000112655.18",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 30 searched; failures={'canonical_motif_counts_nonincreasing': 126, 'edited_cds_stop_free': 210, 'no_new_competitive_score3': 38, 'no_new_competitive_score5': 22, 'score3_delta_bounded': 143, 'score5_delta_bounded': 164, 'strong_score3_count_preserved': 33, 'strong_score5_count_preserved': 22}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000112655.18",
+      "role": "development"
+    },
+    {
+      "chrom": "chr17",
+      "eligible": false,
+      "example_id": "chr17:44211038-44211152:-:ENSG00000108312.18",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 15 searched; failures={'canonical_motif_counts_nonincreasing': 76, 'edited_cds_stop_free': 66, 'no_new_competitive_score5': 3, 'score3_delta_bounded': 100, 'score5_delta_bounded': 69, 'strong_score5_count_preserved': 3}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000108312.18",
+      "role": "development"
+    },
+    {
+      "chrom": "chr17",
+      "eligible": false,
+      "example_id": "chr17:44211872-44212006:-:ENSG00000108312.18",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 22 searched; failures={'canonical_motif_counts_nonincreasing': 102, 'edited_cds_stop_free': 132, 'no_new_competitive_score5': 32, 'score3_delta_bounded': 112, 'score5_delta_bounded': 117, 'strong_score5_count_preserved': 32}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000108312.18",
+      "role": "development"
+    },
+    {
+      "chrom": "chr17",
+      "eligible": false,
+      "example_id": "chr17:44207453-44207594:-:ENSG00000108312.18",
+      "exception": "need at least 2 block candidates, found 0",
+      "exclusion_reason": "insufficient_annotation_safe_blocks",
+      "gene_id": "ENSG00000108312.18",
+      "role": "development"
+    },
+    {
+      "chrom": "chr17",
+      "eligible": false,
+      "example_id": "chr17:44215905-44215989:-:ENSG00000108312.18",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 6 searched; failures={'canonical_motif_counts_nonincreasing': 28, 'edited_cds_stop_free': 48, 'no_new_competitive_score5': 1, 'score3_delta_bounded': 11, 'score5_delta_bounded': 61, 'strong_score5_count_preserved': 1}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000108312.18",
+      "role": "development"
+    },
+    {
+      "chrom": "chr17",
+      "eligible": false,
+      "example_id": "chr17:44210317-44210473:-:ENSG00000108312.18",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 30 searched; failures={'canonical_motif_counts_nonincreasing': 106, 'edited_cds_stop_free': 66, 'no_new_competitive_score5': 3, 'score3_delta_bounded': 202, 'score5_delta_bounded': 151, 'strong_score5_count_preserved': 3}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000108312.18",
+      "role": "development"
+    },
+    {
+      "chrom": "chr17",
+      "eligible": false,
+      "example_id": "chr17:44209644-44209733:-:ENSG00000108312.18",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 6 searched; failures={'canonical_motif_counts_nonincreasing': 34, 'edited_cds_stop_free': 12, 'no_new_competitive_score3': 3, 'no_new_competitive_score5': 4, 'score3_delta_bounded': 20, 'score5_delta_bounded': 40, 'strong_score3_count_preserved': 3, 'strong_score5_count_preserved': 4}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000108312.18",
+      "role": "development"
+    },
+    {
+      "chrom": "chr17",
+      "eligible": false,
+      "example_id": "chr17:44207702-44207770:-:ENSG00000108312.18",
+      "exception": "need at least 2 block candidates, found 0",
+      "exclusion_reason": "insufficient_annotation_safe_blocks",
+      "gene_id": "ENSG00000108312.18",
+      "role": "development"
+    },
+    {
+      "chrom": "chr17",
+      "eligible": false,
+      "example_id": "chr17:44207698-44207770:-:ENSG00000108312.18",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 2 searched; failures={'canonical_motif_counts_nonincreasing': 10, 'edited_cds_stop_free': 12, 'no_new_competitive_score5': 2, 'score5_delta_bounded': 3}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000108312.18",
+      "role": "development"
+    },
+    {
+      "chrom": "chr3",
+      "eligible": false,
+      "example_id": "chr3:72379250-72379427:-:ENSG00000163602.12",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 36 searched; failures={'canonical_motif_counts_nonincreasing': 182, 'edited_cds_stop_free': 162, 'no_new_competitive_score3': 6, 'no_new_competitive_score5': 7, 'score3_delta_bounded': 248, 'score5_delta_bounded': 250, 'strong_score3_count_preserved': 6, 'strong_score5_count_preserved': 7}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000163602.12",
+      "role": "development"
+    },
+    {
+      "chrom": "chr17",
+      "eligible": false,
+      "example_id": "chr17:63698798-63698938:-:ENSG00000136490.11",
+      "exception": "need at least 2 block candidates, found 0",
+      "exclusion_reason": "insufficient_annotation_safe_blocks",
+      "gene_id": "ENSG00000136490.11",
+      "role": "development"
+    },
+    {
+      "chrom": "chr17",
+      "eligible": false,
+      "example_id": "chr17:63698798-63698930:-:ENSG00000136490.11",
+      "exception": "need at least 2 block candidates, found 0",
+      "exclusion_reason": "insufficient_annotation_safe_blocks",
+      "gene_id": "ENSG00000136490.11",
+      "role": "development"
+    },
+    {
+      "chrom": "chr15",
+      "eligible": false,
+      "example_id": "chr15:48149162-48149371:-:ENSG00000104177.21",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 21 searched; failures={'canonical_motif_counts_nonincreasing': 166, 'edited_cds_stop_free': 84, 'no_new_competitive_score5': 23, 'score3_delta_bounded': 157, 'score5_delta_bounded': 133, 'strong_score5_count_preserved': 54}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000104177.21",
+      "role": "development"
+    },
+    {
+      "chrom": "chr2",
+      "eligible": false,
+      "example_id": "chr2:162267478-162267569:-:ENSG00000115267.11",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 8 searched; failures={'canonical_motif_counts_nonincreasing': 34, 'edited_cds_stop_free': 36, 'no_new_competitive_score5': 2, 'score3_delta_bounded': 86, 'score5_delta_bounded': 33, 'strong_score5_count_preserved': 2}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000115267.11",
+      "role": "development"
+    },
+    {
+      "chrom": "chr1",
+      "eligible": false,
+      "example_id": "chr1:155137978-155138098:+:ENSG00000169241.21",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 4 searched; failures={'canonical_motif_counts_nonincreasing': 12, 'edited_cds_stop_free': 12, 'no_new_competitive_score3': 1, 'score3_delta_bounded': 11, 'score5_delta_bounded': 5, 'strong_score3_count_preserved': 1}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000169241.21",
+      "role": "development"
+    },
+    {
+      "chrom": "chr2",
+      "eligible": false,
+      "example_id": "chr2:63885588-63885677:+:ENSG00000169764.18",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 7 searched; failures={'canonical_motif_counts_nonincreasing': 31, 'edited_cds_stop_free': 60, 'no_new_competitive_score3': 25, 'no_new_competitive_score5': 3, 'score3_delta_bounded': 27, 'score5_delta_bounded': 30, 'strong_score3_count_preserved': 25, 'strong_score5_count_preserved': 3}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000169764.18",
+      "role": "development"
+    },
+    {
+      "chrom": "chr1",
+      "eligible": false,
+      "example_id": "chr1:27553073-27553185:-:ENSG00000126705.17",
+      "exclusion_reason": "not_wholly_unambiguous_basic_cds",
+      "gene_id": "ENSG00000126705.17",
+      "role": "development"
+    },
+    {
+      "chrom": "chr2",
+      "eligible": false,
+      "example_id": "chr2:190518951-190519183:-:ENSG00000189362.14",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 15 searched; failures={'canonical_motif_counts_nonincreasing': 59, 'edited_cds_stop_free': 168, 'no_new_competitive_score3': 21, 'no_new_competitive_score5': 1, 'score3_delta_bounded': 66, 'score5_delta_bounded': 62, 'strong_score3_count_preserved': 21, 'strong_score5_count_preserved': 1}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000189362.14",
+      "role": "development"
+    },
+    {
+      "chrom": "chr22",
+      "eligible": false,
+      "example_id": "chr22:23766127-23766275:-:ENSG00000250479.11",
+      "exception": "need at least 2 block candidates, found 0",
+      "exclusion_reason": "insufficient_annotation_safe_blocks",
+      "gene_id": "ENSG00000250479.11",
+      "role": "development"
+    },
+    {
+      "chrom": "chr22",
+      "eligible": false,
+      "example_id": "chr22:23766127-23766251:-:ENSG00000250479.11",
+      "exception": "need at least 2 block candidates, found 0",
+      "exclusion_reason": "insufficient_annotation_safe_blocks",
+      "gene_id": "ENSG00000250479.11",
+      "role": "development"
+    },
+    {
+      "chrom": "chr22",
+      "eligible": false,
+      "example_id": "chr22:23766127-23766212:-:ENSG00000250479.11",
+      "exception": "need at least 2 block candidates, found 0",
+      "exclusion_reason": "insufficient_annotation_safe_blocks",
+      "gene_id": "ENSG00000250479.11",
+      "role": "development"
+    },
+    {
+      "chrom": "chr22",
+      "eligible": false,
+      "example_id": "chr22:23766127-23766296:-:ENSG00000250479.11",
+      "exception": "need at least 2 block candidates, found 0",
+      "exclusion_reason": "insufficient_annotation_safe_blocks",
+      "gene_id": "ENSG00000250479.11",
+      "role": "development"
+    },
+    {
+      "chrom": "chr22",
+      "eligible": false,
+      "example_id": "chr22:23766127-23766242:-:ENSG00000250479.11",
+      "exception": "need at least 2 block candidates, found 0",
+      "exclusion_reason": "insufficient_annotation_safe_blocks",
+      "gene_id": "ENSG00000250479.11",
+      "role": "development"
+    },
+    {
+      "chrom": "chr17",
+      "eligible": false,
+      "example_id": "chr17:7241600-7241679:-:ENSG00000170296.12",
+      "exception": "need at least 2 block candidates, found 0",
+      "exclusion_reason": "insufficient_annotation_safe_blocks",
+      "gene_id": "ENSG00000170296.12",
+      "role": "development"
+    },
+    {
+      "chrom": "chr17",
+      "eligible": false,
+      "example_id": "chr17:44188934-44189299:+:ENSG00000168591.18",
+      "exclusion_reason": "not_wholly_unambiguous_basic_cds",
+      "gene_id": "ENSG00000168591.18",
+      "role": "development"
+    },
+    {
+      "chrom": "chr2",
+      "eligible": false,
+      "example_id": "chr2:99360235-99360361:+:ENSG00000158417.14",
+      "exception": "need at least 2 block candidates, found 0",
+      "exclusion_reason": "insufficient_annotation_safe_blocks",
+      "gene_id": "ENSG00000158417.14",
+      "role": "development"
+    },
+    {
+      "chrom": "chr2",
+      "eligible": false,
+      "example_id": "chr2:99394508-99394585:+:ENSG00000158417.14",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 3 searched; failures={'canonical_motif_counts_nonincreasing': 13, 'edited_cds_stop_free': 36, 'no_new_competitive_score5': 2, 'score3_delta_bounded': 11, 'score5_delta_bounded': 8, 'strong_score5_count_preserved': 2}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000158417.14",
+      "role": "development"
+    },
+    {
+      "chrom": "chr2",
+      "eligible": false,
+      "example_id": "chr2:99394266-99394398:+:ENSG00000158417.14",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 22 searched; failures={'canonical_motif_counts_nonincreasing': 113, 'edited_cds_stop_free': 114, 'no_new_competitive_score3': 3, 'no_new_competitive_score5': 3, 'score3_delta_bounded': 102, 'score5_delta_bounded': 150, 'strong_score3_count_preserved': 3, 'strong_score5_count_preserved': 3}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000158417.14",
+      "role": "development"
+    },
+    {
+      "chrom": "chr2",
+      "eligible": false,
+      "example_id": "chr2:99390218-99390401:+:ENSG00000158417.14",
+      "exception": "need at least 2 all-rotation-safe upstream_intron blocks, found 1 of 48 searched; failures={'canonical_motif_counts_nonincreasing': 163, 'no_new_competitive_score3': 187, 'no_new_competitive_score5': 8, 'score3_delta_bounded': 201, 'score5_delta_bounded': 295, 'strong_score3_count_preserved': 272, 'strong_score5_count_preserved': 8}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000158417.14",
+      "role": "development"
+    },
+    {
+      "chrom": "chr6",
+      "eligible": false,
+      "example_id": "chr6:52056889-52056979:-:ENSG00000170927.16",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 8 searched; failures={'canonical_motif_counts_nonincreasing': 20, 'edited_cds_stop_free': 30, 'no_new_competitive_score3': 6, 'no_new_competitive_score5': 2, 'score3_delta_bounded': 33, 'score5_delta_bounded': 49, 'strong_score3_count_preserved': 6, 'strong_score5_count_preserved': 2}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000170927.16",
+      "role": "development"
+    },
+    {
+      "chrom": "chr10",
+      "eligible": false,
+      "example_id": "chr10:116901775-116901957:-:ENSG00000187164.22",
+      "exception": "need at least 2 all-rotation-safe cds blocks, found 0 of 38 searched; failures={'canonical_motif_counts_nonincreasing': 190, 'edited_cds_stop_free': 168, 'no_new_competitive_score3': 42, 'no_new_competitive_score5': 27, 'score3_delta_bounded': 279, 'score5_delta_bounded': 189, 'strong_score3_count_preserved': 245, 'strong_score5_count_preserved': 83}",
+      "exclusion_reason": "construction_error:ValueError",
+      "gene_id": "ENSG00000187164.22",
+      "role": "development"
+    }
+  ],
+  "role_weights": [
+    [
+      "development",
+      2
+    ],
+    [
+      "confirmation",
+      2
+    ],
+    [
+      "reserve",
+      1
+    ]
+  ],
+  "schema": "gfmcd.p3_closure.cohort.v1",
+  "status": "OUTCOME_BLIND_CONSTRUCTION_CENSUS"
+}
