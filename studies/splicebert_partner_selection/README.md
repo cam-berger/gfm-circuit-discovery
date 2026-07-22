@@ -25,6 +25,7 @@ but “splice-site strength” was withdrawn by R22.
 | [`CLAIMS.md`](CLAIMS.md) | Compact live claims, evidence level, controlling artifact, and scope. |
 | [`CORRECTIONS.md`](CORRECTIONS.md) | Full historical ledger and permanent R1–R24 correction record. |
 | [`FINDINGS.md`](FINDINGS.md) | Concise scientific narrative and limitations. |
+| [`P3_CLOSURE_CONFIRMATORY_REPORT.md`](P3_CLOSURE_CONFIRMATORY_REPORT.md) | Clean C36 design, result, provenance, and licensed claim. |
 | [`DECISIONS_A0.md`](DECISIONS_A0.md) | Detailed A0→A12 rationale, amendments, and post-outcome adjudication. |
 | [`DECISIONS.md`](DECISIONS.md) | Earlier high-level chronology of methodological pivots. |
 | [`METHODS.md`](METHODS.md) | Study-specific discovery, preflight, intervention, and stopping rules. |
@@ -40,7 +41,8 @@ R22–R24, so the repository-level `MECHANISM.md` controls current framing.
 
 - Donor coupling, the structured core, `U_info`, address/payload mediation, and period-3 carrier use
   reach behavior-level causal evidence within their stated interventions.
-- C34's confirm split is gate-qualified, not a clean confirmation (R24).
+- C34's confirm split is gate-qualified (R24), but C36 now provides a clean nucleotide-invariant
+  confirmation of phase-aligned P3 use in CDS blocks; coding enrichment remains unresolved.
 - IC1 is outcome-aware deterministic verification, not confirmation.
 - The distinct multispecies ≈10.63 carrier stops at post-softmax attention.
 - Cross-example/context transduction and payload semantic identity are open.

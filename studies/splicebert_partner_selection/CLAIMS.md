@@ -24,7 +24,7 @@ Status vocabulary:
 | C5 | L3H1 reads at the acceptor, writes into the donor ±5 neighborhood, and feeds a distributed downstream readout. | established: localization/path | `position_profile.json`; `readout_path.json` | Component-level path, not feature-level completeness. |
 | C6 | L2H15 and L1H12 contribute upstream through L3H1, but neither supports a simple exclusive-role story. | established with negative interpretation | `l2_accounting.json`; `l1h12_route.json` | Marginal effects are not additive shares. |
 | C7 | The early broad-ablation completeness assay was uninformative; completeness is instead bounded by C27/C33. | superseded/bounded | `completeness_null.json`; `a6_circuit_faithfulness.json`; `a12_faithfulness_size.json` | Do not cite the damaged-model null as evidence of completeness. |
-| C8 | A rank-2 learned period-3 position code causally supports coding prediction and donor–acceptor coupling; deletion changes coupling **0.946 → 0.027**. | established: position through behavior | `carrier_surgery.json`; `carrier_dose.json` | Model mechanism; no biological-origin claim. |
+| C8 | A rank-2 learned period-3 position code causally supports coding prediction and donor–acceptor coupling; deletion changes coupling **0.946 → 0.027**. | established: position through behavior | `carrier_surgery.json`; `carrier_dose.json` | Model mechanism; no biological-origin claim; C36 supplies the clean phase-aligned-use confirmation. |
 | C9 | Restoring L2H15 or L3H1 after period-3 deletion recovers **0.363/0.348**, above the matched one-head null maximum **0.042**. | established: size-matched mediation | `carrier_mediation.json` | Single-head mediation under the carrier-deletion intervention. |
 | C10 | Six- and sixteen-head restorations do not independently strengthen C9 because their matched-null support is inadequate. | bounded | `carrier_mediation.json` | No larger-set superiority claim. |
 | C11 | The distinct multispecies **≈10.63** carrier reaches controlled post-softmax attention in eight heads. | established: routing/attention | `postsoftmax.json`; `preflight_postsoftmax.json`; `band_mass.json`; `fig_report_data.json` | Separate from the period-3 carrier; stops at attention. |
@@ -53,6 +53,7 @@ Status vocabulary:
 | IC1 | Distal intron arrangement has a small sub-SESOI average effect and no detected partner-specific component (`+0.006 [−0.011,+0.024]`). | outcome-aware deterministic verification | `ic1_distal_intron_necessity_v8.json` | Not confirmatory because the outcome was seen before final deterministic/verdict fixes. |
 | C34 | The period-3 carrier's coupling contribution is distributed across the donor–acceptor span; site-local restoration recovers only about 2–4%. | established on discovery; gate-qualified verification on confirm | `p3_carrier_locus.json` | Confirm M1 missed its frozen threshold (5.5% > 5%); not a clean confirmatory replication. |
 | C35 | Within carrier patching, coupling recovery is mediated mainly by L3H1's attention pattern (**+0.284** confirm) rather than carrier-dependent changes in its values (**−0.005** confirm). | established: A-vs-V conditional mediation | `p3_av_decomposition.json` | Does not exclude upstream carrier effects on payload construction; `Δ_bind` is architecture-forced (R23/R24). |
+| C36 | Nucleotide-invariant local surgery confirms that SpliceBERT causally uses its learned P3 hidden direction in a phase-aligned manner for coupling in CDS blocks: **Ψ_C=+0.141 [0.110,0.172] nats**, n=943; the learned direction exceeds all 19 same-geometry controls, with paired excess **+0.136 [0.051,0.222]**. | established: clean confirmatory behavior + direction specificity | `p3_phase_surgery_confirmation_v1/confirmation_analysis.json`; frozen package/audit | Present-day checkpoint use only. The matched CDS-minus-non-CDS-exon contrast is **+0.006 [−0.080,+0.093]**, inconclusive; coding enrichment and training/biological origin are not established. |
 
 ## Interpretation guardrails
 
@@ -62,6 +63,8 @@ Status vocabulary:
   circuit is a structured causal core embedded in a broadly distributed computation.
 - The key scientific limitation is C30: the payload is acceptor-local and not bulk composition, but what
   biological/model variable it represents remains open.
+- C36 closes the clean period-3 **current-use** question, not its origin: the model uses its learned P3
+  direction in CDS blocks, but the matched non-CDS-exon boundary does not establish coding enrichment.
 - Historical tripwires remain active: **D30 is a SENSITIVITY LIMIT, not a null**, and the small-model D29
   result does not generalize—**Do NOT write 'transformers cannot learn relative rulers.'**
 - For the exact correction history and superseded wording, consult [`CORRECTIONS.md`](CORRECTIONS.md)

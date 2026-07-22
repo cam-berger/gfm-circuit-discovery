@@ -27,6 +27,12 @@ restoration is required, and coupling recovery runs mainly through L3H1's attent
 carrier-dependent changes in its values. C34's confirm split is gate-qualified by R24; these results do
 not identify the carrier's training origin or exclude upstream effects on payload construction.
 
+C36 closes the clean current-use gap with a nucleotide-invariant intervention on 943 untouched genes:
+the learned P3 direction shows a material phase-aligned coupling contrast of **+0.141
+[0.110,0.172] nats** and exceeds all 19 same-geometry hidden-axis controls. The matched
+CDS-minus-non-CDS-exon contrast is inconclusive, so the evidence reaches model behavior but not coding
+specificity or biological/training origin.
+
 **The donor–acceptor circuit** has no entry under P because it is *not* a positional component —
 it is the computation the clock serves. The donor arrives at L3H1 as content; the acceptor is
 found by address.

@@ -77,11 +77,15 @@ attention: no downstream write, mediation effect, or behavioral function has bee
 | `p3_phase_surgery_preflight_analysis_development_n61_20260721.json` | Development-only coupling calibration for nucleotide-invariant local P3 surgery |
 | `p3_phase_surgery_controls_analysis_development_n30_v2_20260721.json` | Development-only learned-direction result against 19 same-geometry hidden-axis controls |
 | `p3_phase_surgery_context_difference_development_n33_20260721.json` | Development-only matched CDS-minus-non-CDS-exon boundary calibration |
+| `p3_phase_surgery_confirmation_package_v1.json` + `.audit.json` | Frozen untouched IDs, controls, thresholds, hashes, and independently reconstructed audit |
+| `p3_phase_surgery_confirmation_v1/confirmation_analysis.json` | C36 clean confirmation: material phase-aligned coupling use and learned-direction specificity; coding enrichment inconclusive |
+| `p3_phase_surgery_confirmation_v1/confirmation_shards.tar.gz` + `.archive.json` | Lossless archive of all 1,145 immutable target shards, with archive and per-shard manifest hashes |
 
 The shift diagnostic generated the coding-register hypothesis but does not promote C8/C34/C35 to a
 biological reading-frame interpretation. Sequence edits were retired as confounded. The active closure
 uses nucleotide-invariant local surgery on the learned P3 position component; its development artifacts
-are calibration only, and the frozen untouched result remains required.
+are calibration only. The frozen untouched C36 result now confirms phase-aligned use of the learned P3
+direction in CDS blocks; its matched non-CDS-exon contrast does not establish coding enrichment.
 
 The positive nucleosomal detection is at the wrong wavelength for the model carrier. It therefore
 refutes—rather than supports—the claim that the multi-species ≈10.63 carrier is the nucleosomal

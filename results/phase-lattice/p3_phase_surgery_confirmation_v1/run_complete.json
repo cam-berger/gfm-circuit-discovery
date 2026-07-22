@@ -1,0 +1,11 @@
+{
+  "counts": {
+    "direction_control": 150,
+    "matched_context": 52,
+    "primary": 943
+  },
+  "outcome_summary_written": false,
+  "package_sha256": "e8217e1ed923be4853009b103de35bc34b23c300cc045820f2531dd24f8e97a5",
+  "schema": "gfmcd.p3_phase_surgery.confirmation_run.v1",
+  "status": "TARGET_COMPLETE_UNANALYZED"
+}

@@ -780,3 +780,33 @@ the causal-locus + A-vs-V level (C8/C19/C32/C34/C35). **Methodological lesson (r
 ablation identifies *current function*, never *training origin*; "why was it learned" needs training-time
 interventions. **Next: Caduceus-PS behavioural transfer** (`studies/caduceus_partner_transfer/`; 5-lens
 red-team done, 20-fix MASTER list; blockers = Colab-CUDA compute [no CPU/MPS fallback] + 4 forks for Cam).
+
+### P3 closure — nucleotide-invariant phase surgery → C36 (2026-07-22)
+
+Cam reopened the period-3 current-use question after the exploratory ±1/±2/±3 sequence-shift pattern.
+The insertion route was retained as outcome-aware candidate generation only. A fixed-length sequence
+rotation redesign also failed: strict construction had zero yield, and relaxed rotations altered local
+MaxEnt splice-site landscapes, so sequence composition/site creation remained confounded.
+
+The final intervention changes no nucleotide. Inside frozen annotation-safe blocks it replaces only the
+learned P3 position component `C3[x]` with `C3[x±r]`. The primary compares modulo-preserving shifts
+`{3,6,9}` with adjacent off-register shifts and subtracts identical surgery in an upstream-intron block.
+A 5-lens red-team retained one coupling endpoint, demoted the unstable L3H1 phasor to descriptive, added
+19 same-geometry signed-hidden-axis controls, and added a matched non-CDS-exon boundary.
+
+Freeze: 943 primary genes, 150 direction-control genes, 52 matched context pairs, 457 reserve genes made
+non-runnable; package/audit and 21-gate sealed development smoke passed before target compute. The target
+run was interrupted after primary 943/943 and controls 109/150; immutable resume verified and skipped all
+finished shards, then completed controls 150/150 and context 52/52. Aggregate outcomes remained unread
+until all manifests were complete.
+
+**C36 result:** all 11 instrument gates pass. Primary `Ψ_C=+0.141 [0.110,0.172]` nats (n=943), above the
+0.05 SESOI; in-register CDS coupling ≈0.757 versus adjacent off-register ≈0.614, while intronic surgery
+is nearly flat. Learned direction +0.135 exceeds 19 same-geometry controls (−0.0054..+0.0012); paired
+excess +0.136 [0.051,0.222], exact rank p=0.05. Matched CDS-minus-non-CDS-exon +0.006
+[−0.080,+0.093] is inconclusive.
+
+**Licensed:** present-day, phase-aligned causal use of the learned P3 hidden direction for coupling in
+CDS blocks. **Not licensed:** coding enrichment, annotated reading-frame representation, spliceosomal
+frame sensing, biological mutation effects, or training origin. The failed context boundary is retained;
+no reserve extension is opened.

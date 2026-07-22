@@ -1,0 +1,759 @@
+{
+  "arm": "direction_control",
+  "expected_shards": 150,
+  "package_sha256": "e8217e1ed923be4853009b103de35bc34b23c300cc045820f2531dd24f8e97a5",
+  "schema": "gfmcd.p3_phase_surgery.confirmation_arm_manifest.v1",
+  "shards": {
+    "0020d218201409077b8e.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/0020d218201409077b8e.json",
+      "sha256": "169ef0951dd1d991312de135a17efaf4c4679559de222e308a0177c12a14e383",
+      "size_bytes": 488604
+    },
+    "02d96269473e51e0abb6.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/02d96269473e51e0abb6.json",
+      "sha256": "4601ce587cd7901ff6b545701caa6ec2fa00349de03b1412d7ed691e910d429e",
+      "size_bytes": 488224
+    },
+    "055abd068baf2faab5ee.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/055abd068baf2faab5ee.json",
+      "sha256": "4519def0a831ae54098d3060443b20ef01a239d67422524c333ef04a76e037ac",
+      "size_bytes": 487262
+    },
+    "05664c7856077f125db9.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/05664c7856077f125db9.json",
+      "sha256": "51845a86e87ec8fe6b85affd7c9bb260dedf0c0ecc5fc979fe1535ea3a9d7a3a",
+      "size_bytes": 491638
+    },
+    "056f77590dc2213be503.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/056f77590dc2213be503.json",
+      "sha256": "59be2e32025d1b305f366b1fa67df54ae2eabfa99929d39c98fb4a04aa8f754c",
+      "size_bytes": 490386
+    },
+    "062e1fadee171ffe3b30.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/062e1fadee171ffe3b30.json",
+      "sha256": "3ecd2c5573350db666bfbd8296fe14fa7870ca470c0a462d304833b654c4045e",
+      "size_bytes": 489091
+    },
+    "06e7829e8da5671e6530.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/06e7829e8da5671e6530.json",
+      "sha256": "62674b71584a6afdc414a4778c72b744be1e28909acd16d73aea3307543d4217",
+      "size_bytes": 490426
+    },
+    "07b103160df6ec900092.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/07b103160df6ec900092.json",
+      "sha256": "2e0fa0a293f0e682d14b7c965f79725ccc55ed9756588e5f92dbbae98fe48652",
+      "size_bytes": 488186
+    },
+    "0b407502e1f12ffd5475.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/0b407502e1f12ffd5475.json",
+      "sha256": "375cccc19d41ecb538453d66589802b5dd0034fdf3e199639313bc7aa8a776ee",
+      "size_bytes": 491060
+    },
+    "0b6987c0ca96da527f2d.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/0b6987c0ca96da527f2d.json",
+      "sha256": "cb579f50789fa0ddb00482cf8996f7266b8aab692afb3347eb92d04cb4c5760b",
+      "size_bytes": 491163
+    },
+    "0c8e275a0f31cf1826f7.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/0c8e275a0f31cf1826f7.json",
+      "sha256": "865d5ee094c64709fa3bab5b22b9b7cf1722e04d1477d59a5877c395000f4028",
+      "size_bytes": 487348
+    },
+    "101d0dc6e46072a54afa.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/101d0dc6e46072a54afa.json",
+      "sha256": "d6427cf9330e8278d89177eb7f786b997ccb4622e6b82bf065042d1f5a39f4d5",
+      "size_bytes": 490949
+    },
+    "1080973843630faa3700.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/1080973843630faa3700.json",
+      "sha256": "9697d78990969a460657f04f462554ddc864c9d0c3139db9c80eb295bd74d17d",
+      "size_bytes": 489658
+    },
+    "12fd6980014ca8333f18.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/12fd6980014ca8333f18.json",
+      "sha256": "6aa8709bb9f2f67885b7549fec0da4e54761f7437c967b50cb7be6d5a9e972c1",
+      "size_bytes": 488851
+    },
+    "14a14b50604ec61861c9.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/14a14b50604ec61861c9.json",
+      "sha256": "ee00767972f98322cb53452abeb3101b335a29ae74795a652c6e3623ec611800",
+      "size_bytes": 488829
+    },
+    "171b1105a9eca95771f4.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/171b1105a9eca95771f4.json",
+      "sha256": "dfd5b3590ea6abb3e532604d1469b0208d00e386bc39fb5fd79ed25c8cf3bf18",
+      "size_bytes": 488969
+    },
+    "17d2e1c8d2f01b287a07.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/17d2e1c8d2f01b287a07.json",
+      "sha256": "774c2a3923b5d8f3f9a4c13ce6e2bcfec2996a1648b812b03aa65baea0a8a3e7",
+      "size_bytes": 488143
+    },
+    "197a1f9ffccaee35a796.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/197a1f9ffccaee35a796.json",
+      "sha256": "c8eefc6d272918de3cb31733b4d44410d27e7cf8b13a028e8a0af6aaca06dc94",
+      "size_bytes": 489455
+    },
+    "1ce6aac31f7176a2fb70.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/1ce6aac31f7176a2fb70.json",
+      "sha256": "756fa8eb6c09353768d287c6ed7686a6c48e580adeb26eebb69fa57cd989252e",
+      "size_bytes": 486861
+    },
+    "1d4f04490d1249ab9545.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/1d4f04490d1249ab9545.json",
+      "sha256": "afc8623a28b903d4f4c91d3b80fd8474b37df647f1bc72574240acc7ba88d80d",
+      "size_bytes": 491480
+    },
+    "217d06d7cacdfe1f5579.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/217d06d7cacdfe1f5579.json",
+      "sha256": "34aff41a074237fa2dad206b50000349d8916419d0cd61eafe47741a9ef2f390",
+      "size_bytes": 488835
+    },
+    "21c82d7d90f24f3f377d.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/21c82d7d90f24f3f377d.json",
+      "sha256": "0367defbbbcd721eca090e406c15057a3b0b8d8e28024a58eabd824c353201a3",
+      "size_bytes": 490704
+    },
+    "23676f99c3444766bc4b.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/23676f99c3444766bc4b.json",
+      "sha256": "7b8e662ee061ae4b51f8c95f8d7d7adbbd96ac7c14fc1097fe51fe06e2f05c0b",
+      "size_bytes": 491901
+    },
+    "24b24c699787c0a93c60.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/24b24c699787c0a93c60.json",
+      "sha256": "b1991bbc613e4cdea97c4ce0f1a4c7c437062ba741a6c3538efa65886f45b0a0",
+      "size_bytes": 488112
+    },
+    "2835ba12357418c66f51.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/2835ba12357418c66f51.json",
+      "sha256": "bb3f0af4037f08c6c6e92f97283a3ab0bad960972ac70526faaca191f420b869",
+      "size_bytes": 488198
+    },
+    "2bfbb3f5c60128dd5278.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/2bfbb3f5c60128dd5278.json",
+      "sha256": "c8296109344ceca58081020e3a01d7fd4dfa0b8b9895d57b8eeb682c460d7992",
+      "size_bytes": 491508
+    },
+    "2c22c0d667bfdaeca202.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/2c22c0d667bfdaeca202.json",
+      "sha256": "de5f2897a2df7038c8747109a60559b9658b4b19d86203149b6a70113b375097",
+      "size_bytes": 489487
+    },
+    "300219bfceb2f1dbd7c6.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/300219bfceb2f1dbd7c6.json",
+      "sha256": "559e61be2ca9ec94374fc18836644a11e019687acad772ae4648170e4f235df1",
+      "size_bytes": 489574
+    },
+    "300e0952f14a5f6c5c45.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/300e0952f14a5f6c5c45.json",
+      "sha256": "a436a68f762eab3f1ac6350fa69ea3d1bda2f6ef39c5bf41eb34e21073f5f0b5",
+      "size_bytes": 489946
+    },
+    "30a6ff5d3dd333c9a308.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/30a6ff5d3dd333c9a308.json",
+      "sha256": "5c1a314f318bc88ca26609a94c442432bf7736ac8e6a412b86b9f1bfacb81155",
+      "size_bytes": 489289
+    },
+    "30c97ea6af2169ac35a1.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/30c97ea6af2169ac35a1.json",
+      "sha256": "e7367fdaac55cac85fd3741e6a5d0bd291ce39d244e226d0a1ebe90eed611035",
+      "size_bytes": 488679
+    },
+    "33d0b11b2877d5c3ee29.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/33d0b11b2877d5c3ee29.json",
+      "sha256": "14d8c9cff45cda4f86c86a67cd406f45f9fc41be23bc26e3709ba0690e7c4116",
+      "size_bytes": 488850
+    },
+    "35bd0472d54f1402ac73.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/35bd0472d54f1402ac73.json",
+      "sha256": "92e215124a9b50956a77c39ab1945eded6b723b9f7fdd52a98f8b3c39756406d",
+      "size_bytes": 488361
+    },
+    "37b8c5677103f4533f64.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/37b8c5677103f4533f64.json",
+      "sha256": "7d2feb055b15337af8605c3f2c44c9007412dcdce15028a630d582c4deb04280",
+      "size_bytes": 489521
+    },
+    "37e1cc9675ea687ec71e.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/37e1cc9675ea687ec71e.json",
+      "sha256": "27ead4468fdad80d5490390522de8cb1106797e29fb2f4403f7f23f297212018",
+      "size_bytes": 493570
+    },
+    "3ac61cfc5652b63eb9b1.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/3ac61cfc5652b63eb9b1.json",
+      "sha256": "b1f7a923d440ab8af359bff143233337c3d78484da73b45af859fd03e90835e8",
+      "size_bytes": 487401
+    },
+    "3e0638033d9ebda8ce79.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/3e0638033d9ebda8ce79.json",
+      "sha256": "cccf69dc2b89ce1a539e3ab4fe2949cfcdcf397f7447f1d0553f4da723493c78",
+      "size_bytes": 491501
+    },
+    "3ee200cfbc959d8a034b.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/3ee200cfbc959d8a034b.json",
+      "sha256": "c7fa2330a0f7ab7fc8182d913ea75edccc7b3a6d1c773fb88723188045322401",
+      "size_bytes": 489761
+    },
+    "3f9617aa39637267c9da.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/3f9617aa39637267c9da.json",
+      "sha256": "51d91a8a79a467f31cb42c649aabfabb6d5bed137f7bbe2c00c384e1dc792158",
+      "size_bytes": 487717
+    },
+    "3fb2a037329e2dcd6edf.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/3fb2a037329e2dcd6edf.json",
+      "sha256": "92150bedd6ef2dd439e656d8759075642725ed1f209db60ebee85a229444a8e1",
+      "size_bytes": 491330
+    },
+    "4057ebf2d33ed46ae06f.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/4057ebf2d33ed46ae06f.json",
+      "sha256": "1aa6732ef5623ff93a6da0bdd8966b83023bb9a6876e491d970418a769595e6c",
+      "size_bytes": 490594
+    },
+    "405d58153a668949ee1f.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/405d58153a668949ee1f.json",
+      "sha256": "514f99818c5341b1e4f2bba5508a1704486a52c72d7d0b3e50d4eba4baa5e7e7",
+      "size_bytes": 489539
+    },
+    "41d22898537b63ce3741.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/41d22898537b63ce3741.json",
+      "sha256": "c4523f004b84b076dfd32443a43b5d2ba8712faa7b15aa8f02134280a554c5b1",
+      "size_bytes": 490735
+    },
+    "420cc324335c8ca5afc3.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/420cc324335c8ca5afc3.json",
+      "sha256": "9c604e6bf5efa4db818a76921250f5983b1755e32c6c0413c0b7eea21f06dd91",
+      "size_bytes": 489927
+    },
+    "440076a61a4e5b766e2c.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/440076a61a4e5b766e2c.json",
+      "sha256": "63155b0678003c2c2cf8bd30af0baef9f0e77fb98abe339e3a45e7638274dc79",
+      "size_bytes": 486969
+    },
+    "46f0f502fb567c1574ae.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/46f0f502fb567c1574ae.json",
+      "sha256": "f962176fd283039610548359be99b88119b389fb82dc988ef8aca7a39ee666d2",
+      "size_bytes": 491348
+    },
+    "470fe9c82c1def98f0e9.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/470fe9c82c1def98f0e9.json",
+      "sha256": "984dd54f22698c06053810df0e14178342b761c0fb7649e7b9b2bbacadbb4f5f",
+      "size_bytes": 494050
+    },
+    "47163dbcfa090f3d76cf.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/47163dbcfa090f3d76cf.json",
+      "sha256": "37add0595674dbd1eaf00d1a8b7addf380bd1f86a64b52c1505a0a57a29ab868",
+      "size_bytes": 490635
+    },
+    "485dae0aee712dc5b4a2.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/485dae0aee712dc5b4a2.json",
+      "sha256": "7fed527b92c0b72c4259dc073cc84df0e57d3172f624740d5d9afb24e1a2ae38",
+      "size_bytes": 487318
+    },
+    "48d0c4aaa08c46217cfd.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/48d0c4aaa08c46217cfd.json",
+      "sha256": "9c75330461824666f231770c4297a03b4a2d2cedda617066862bbfb9aa6d7fbb",
+      "size_bytes": 487665
+    },
+    "49d352b993647498164a.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/49d352b993647498164a.json",
+      "sha256": "eaf994a63777d3ff1565edb4fa902fa775fb8edf7cb96f85f07486a90d80562b",
+      "size_bytes": 486402
+    },
+    "4e541b550d92adb0a26c.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/4e541b550d92adb0a26c.json",
+      "sha256": "d08c22afb202e5e51100b4ea374bd061126e991cd94c928b019353e747a0af9d",
+      "size_bytes": 490676
+    },
+    "50dfa2c0f84dee461bb7.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/50dfa2c0f84dee461bb7.json",
+      "sha256": "9f7f6e12d1ee7f84d0560edb2556c1f324d2967f656f785c84e92fddb57e7671",
+      "size_bytes": 486414
+    },
+    "534b90347424ff050a9c.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/534b90347424ff050a9c.json",
+      "sha256": "fd63fdbda365b41f3b667a361f91ff6eb7b6d4f628d79862a279ec95ed427ca9",
+      "size_bytes": 488881
+    },
+    "54b552f803a35e7d62c6.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/54b552f803a35e7d62c6.json",
+      "sha256": "cbf9be63720f6a8fb8769674e4c3a11cd8d5cf6dfad9dee77215e598b5c6050a",
+      "size_bytes": 490029
+    },
+    "55857e4bfb4e47f8886e.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/55857e4bfb4e47f8886e.json",
+      "sha256": "7c791b2ff758c72b6424c8239645a61e368fb459c1471e70c335874c652007bb",
+      "size_bytes": 494792
+    },
+    "55a399ce9479d23f2421.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/55a399ce9479d23f2421.json",
+      "sha256": "b5b3b43c64a51065ae986045baf324fc4895ddb05711e1f6dfdbac50d9dbadee",
+      "size_bytes": 490076
+    },
+    "585d2568842ab10e8c79.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/585d2568842ab10e8c79.json",
+      "sha256": "0f45515e3065df8b6e9d8e23a72a494ba9c748ae092291fc8b67d11d1b4b655f",
+      "size_bytes": 494096
+    },
+    "58eacd0e62bb4b4e41cb.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/58eacd0e62bb4b4e41cb.json",
+      "sha256": "0c0693eb1f0fa9a5e5be18f654ff583d7c33ba86cfe4e3d1226fa23a5e52ce34",
+      "size_bytes": 487958
+    },
+    "5a1ef9cdd1f39a58c706.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/5a1ef9cdd1f39a58c706.json",
+      "sha256": "9def1e888cb73d1c48397d03785fede0df811c434ec7261ae3ca69800c896e34",
+      "size_bytes": 488976
+    },
+    "5a46c568f9d7a5eb1d74.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/5a46c568f9d7a5eb1d74.json",
+      "sha256": "983ae2ce9e17fcc0a0581ff7969b7b05fba0b409c70b3fa3c52eb2c892495b92",
+      "size_bytes": 490035
+    },
+    "5e04dc644f801e1a6189.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/5e04dc644f801e1a6189.json",
+      "sha256": "a9daaae4494f35f4a568f5f7218b554d61d6c2b909e1494ce26872a2f53949b2",
+      "size_bytes": 489858
+    },
+    "60f291c76e462e7ced75.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/60f291c76e462e7ced75.json",
+      "sha256": "46c07cece0f19ab5f8c12ff779ccf1d2e8b10cd566e90ee6124f501f9959b2fc",
+      "size_bytes": 490349
+    },
+    "625f4ee3eb5b0bc43e79.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/625f4ee3eb5b0bc43e79.json",
+      "sha256": "496bdef6ce85b84a17047b5c5f9609c82761dcf252f168ac3260fabdabee311f",
+      "size_bytes": 489213
+    },
+    "635ab45b4696021c1813.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/635ab45b4696021c1813.json",
+      "sha256": "0507ab70583e6e577031e386ea0460172474e1fb568a2c0317fa03674c25a9af",
+      "size_bytes": 489512
+    },
+    "6518f076cbef02e0f5c9.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/6518f076cbef02e0f5c9.json",
+      "sha256": "0e62638ad98ca707f1c716f959831006f785136ee71ac146b9d1f341b92850a8",
+      "size_bytes": 487509
+    },
+    "6876662fcf7475e81407.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/6876662fcf7475e81407.json",
+      "sha256": "58fbab801d775febe4fd34e7a4a259f48eaf3c1766f1925b40678ac0c21c4cd5",
+      "size_bytes": 490064
+    },
+    "68dfb613b9bb8c45dd96.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/68dfb613b9bb8c45dd96.json",
+      "sha256": "d55f6db969de72590297adf94feb7a8d5bc10df5edd7892c84d66f19ecfe88e2",
+      "size_bytes": 487120
+    },
+    "6976b161afff94a6c919.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/6976b161afff94a6c919.json",
+      "sha256": "c8549de679eacef196c20b42aff0e854f94c393e67a8fa3c2de2739a195a3371",
+      "size_bytes": 489089
+    },
+    "6c61de59a87ab445e217.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/6c61de59a87ab445e217.json",
+      "sha256": "5335ad5570e6c9a5d3e17cd89fd0002055b8605159d6d099484d97bfcad867f2",
+      "size_bytes": 489853
+    },
+    "6cc2467827544b07abe2.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/6cc2467827544b07abe2.json",
+      "sha256": "6cfd16ef49d7301c3819078c202863d33fdd18081a27161a1439a98180d33bc7",
+      "size_bytes": 490989
+    },
+    "6d1cd4d2e2584379de7d.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/6d1cd4d2e2584379de7d.json",
+      "sha256": "2b3b2a9d49289ab4b45b3aa92f071ec61ac9c6f26575c0cc3d46a7f35696c53e",
+      "size_bytes": 487948
+    },
+    "6e204177bff21a9b47a8.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/6e204177bff21a9b47a8.json",
+      "sha256": "7b8364499cee8ecdf7b2d9220d07e246b67fd50be11cda1ecd73edeabf2a56ed",
+      "size_bytes": 487237
+    },
+    "6f591e8c8c955221305a.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/6f591e8c8c955221305a.json",
+      "sha256": "8be71df6cfb5ca6a21b9c9b1842bfd96bbe2650f43570f606389d0ed53ae3a34",
+      "size_bytes": 491044
+    },
+    "6f721cf5c24c109c6b17.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/6f721cf5c24c109c6b17.json",
+      "sha256": "4f5944b0ee47351c7aba2bc894588c212833d52e524e0922183ce4562dffd161",
+      "size_bytes": 489351
+    },
+    "72a88f66cf782d34488a.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/72a88f66cf782d34488a.json",
+      "sha256": "5830bcb5d1718099b1acd1f907a1e9bc82517f947e1f8abcd867ecf79e209883",
+      "size_bytes": 490127
+    },
+    "79566a847e8bed027dbe.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/79566a847e8bed027dbe.json",
+      "sha256": "c8215ed1319ec55e9b571c23792dace66a7ea0926f4e4b6ad05dac9b009532e3",
+      "size_bytes": 488103
+    },
+    "79eb041a29ba868ad781.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/79eb041a29ba868ad781.json",
+      "sha256": "6890c85c38ac0e4791ee5378b663ccf006fa657436e4e154c21315cd9a84ffe1",
+      "size_bytes": 489145
+    },
+    "7a47ec8b879d63c913ce.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/7a47ec8b879d63c913ce.json",
+      "sha256": "653fc27f195580425bbb01c275aad3227127cd7ceb1b34e18f072ee8d8f73c93",
+      "size_bytes": 489019
+    },
+    "7bcc209c55c24e85cca3.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/7bcc209c55c24e85cca3.json",
+      "sha256": "1f841423bca27e56f07b5458638969d9c166d766b106fd3a278954106dc042fb",
+      "size_bytes": 490513
+    },
+    "7e5422a7f64232bf26a1.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/7e5422a7f64232bf26a1.json",
+      "sha256": "e3996dd7fc694959fc606893c4cfe5f14ae6146de0abf1dc3ec7c065dead5a3b",
+      "size_bytes": 489137
+    },
+    "7eab3d8856adc79aa3c8.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/7eab3d8856adc79aa3c8.json",
+      "sha256": "78842efeafbbcb52ddcbce40082cfc78aca7894f7682d1bb9126653c84a9a49a",
+      "size_bytes": 491110
+    },
+    "85e1af445dd73fed64a3.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/85e1af445dd73fed64a3.json",
+      "sha256": "30a3fc64bce784dafd7ff658cdfa12ee31ed3a26431e0ba6158663fd70e48ff7",
+      "size_bytes": 488586
+    },
+    "867545beb132210d87ed.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/867545beb132210d87ed.json",
+      "sha256": "e603f784abe765404e16c9b0664f2405ad8059842a15169f9efdd63b24acd7f6",
+      "size_bytes": 488518
+    },
+    "87f1c0b3bf20487bcf29.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/87f1c0b3bf20487bcf29.json",
+      "sha256": "4adf81f9540e69cb74a6fd9229fe2a823f374aade6a3c53c7dfbd82b25c2610e",
+      "size_bytes": 487436
+    },
+    "880059ca3074f813decb.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/880059ca3074f813decb.json",
+      "sha256": "1572aef6eb0141a8bfe34f9c40396aacdd24850811cc547256eccf87c760f240",
+      "size_bytes": 488376
+    },
+    "8c3cc44532484e0b94a6.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/8c3cc44532484e0b94a6.json",
+      "sha256": "76fad9f96f6da2d04fb42bed38f3911dc2eb692c7087f037c960a33946573fc4",
+      "size_bytes": 486419
+    },
+    "8d1ecdebb234ab2bb3ae.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/8d1ecdebb234ab2bb3ae.json",
+      "sha256": "15ae29fb0eb47e53f5b7a40da58f3839dd167252d2be7354ba082948bbfa5fea",
+      "size_bytes": 489912
+    },
+    "90811a9b47cf9e7ad12b.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/90811a9b47cf9e7ad12b.json",
+      "sha256": "a02accaeeb701c2daf6638cc3885933ad2521cbb3bf591cce3095cd887dd8fcb",
+      "size_bytes": 490898
+    },
+    "92685cdfed00e49c03c2.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/92685cdfed00e49c03c2.json",
+      "sha256": "d85ad3a67736efdd2b6b06da233571ccd868a4d1655705dec1678566c3ac4f3a",
+      "size_bytes": 488234
+    },
+    "9273ada7e307a083af56.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/9273ada7e307a083af56.json",
+      "sha256": "5f6b4bc54ce29a49f0598045e0aa1682e3a5e23da0b7c6d8166e8038f6fb7e2c",
+      "size_bytes": 487109
+    },
+    "92a3faed1a8075a8a6c5.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/92a3faed1a8075a8a6c5.json",
+      "sha256": "ac4a4cdd12f872d69e99e04efda0d5e1a0b2d6767ae357c5b3defaf87ce25624",
+      "size_bytes": 487436
+    },
+    "959d549725310987999a.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/959d549725310987999a.json",
+      "sha256": "821c0771d1d54201aaac3c6f0bfbe0a4336a3512243ad9802bdc84cb073801c8",
+      "size_bytes": 490314
+    },
+    "98381b479cb94419c04f.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/98381b479cb94419c04f.json",
+      "sha256": "d33b1268386ea66a9e275cdbb66a8aa4afa6e858407bad1da1af2543a262f7b5",
+      "size_bytes": 488922
+    },
+    "99aa462633d1ebc0be49.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/99aa462633d1ebc0be49.json",
+      "sha256": "0ff4cda038546eec6d7a47ebca7934122e1f79b2b26a813cbc1fc5e6b4f00fac",
+      "size_bytes": 487919
+    },
+    "99f1b37f7b9524f25fa7.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/99f1b37f7b9524f25fa7.json",
+      "sha256": "01d979988b13c7f103dd8c6cd337ab207d0ec38105d5a61c1f37cda150dbb81b",
+      "size_bytes": 487764
+    },
+    "9b5d75a99941decaf656.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/9b5d75a99941decaf656.json",
+      "sha256": "98641684b2a17a263bbeec2ec41d4304b7e612b3b34bb1e437e25c8202dbb4c3",
+      "size_bytes": 491422
+    },
+    "9b7ac364ca56b298cbec.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/9b7ac364ca56b298cbec.json",
+      "sha256": "41bb1e7c465d5187ed158e7c973102a3f391099cd7ea8b35b7dcc6d4ac0dc338",
+      "size_bytes": 489850
+    },
+    "9cefcb9c653bd93d5d05.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/9cefcb9c653bd93d5d05.json",
+      "sha256": "8285f167841943611a9091dc382606c750673cc0dc65b7cf8acc0e9930431516",
+      "size_bytes": 492065
+    },
+    "9ddac417d236b9c21f4a.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/9ddac417d236b9c21f4a.json",
+      "sha256": "34edf10cc768fb2ea4885239ee6a9619fca1a814e19409d218a6653e680fc13d",
+      "size_bytes": 491971
+    },
+    "9e7827ca506b776fc853.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/9e7827ca506b776fc853.json",
+      "sha256": "8f11b4cdf9068d2984d12c643b5658dab455974767d54c560d17edd78afb7c75",
+      "size_bytes": 488486
+    },
+    "a023c44722878b9f59aa.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/a023c44722878b9f59aa.json",
+      "sha256": "7d7893a52de136ea5b7947e55f24f78a8835288ccaeca35dc5683c022f9f5c7a",
+      "size_bytes": 491217
+    },
+    "a322d20ed58c26361bc3.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/a322d20ed58c26361bc3.json",
+      "sha256": "81cf3c85568e0b2aaf3f9684815907eef3d64fd665af508b69cea6c607d76505",
+      "size_bytes": 488607
+    },
+    "a3abe58f0a79ad203601.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/a3abe58f0a79ad203601.json",
+      "sha256": "add3facabcb8d651e73f3cd509cbb182380ddad79b47609a643948cdc1e4cd1c",
+      "size_bytes": 491193
+    },
+    "a5dda4dcabf064b26dfa.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/a5dda4dcabf064b26dfa.json",
+      "sha256": "cde1a64f36d14fc4b654e56ba3b0764713c9a07db19bd2b49949e4d7ee6494fa",
+      "size_bytes": 486253
+    },
+    "a61530aa7118bc8a98ab.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/a61530aa7118bc8a98ab.json",
+      "sha256": "632244ac52565d3493cbaba226d6136857c82aef98916dfbe830006457d0bb3f",
+      "size_bytes": 489725
+    },
+    "afbf4c4ea4678272b828.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/afbf4c4ea4678272b828.json",
+      "sha256": "0c9d79b24fb290089ed65c294f3b62cbff29ee682bdde0c0f5261c91b3ba43d7",
+      "size_bytes": 487382
+    },
+    "b1270dbef1184af6023b.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/b1270dbef1184af6023b.json",
+      "sha256": "3b44f3751f80c2300b3149d7cc1f8922c0d7dd10fe4b9e62f905dea501162ffd",
+      "size_bytes": 490032
+    },
+    "b161d8edbd7c63022418.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/b161d8edbd7c63022418.json",
+      "sha256": "9928481a75e467d13b5974861fabefd1c44b02a74b2acc28ca8c0fdae813d39a",
+      "size_bytes": 490770
+    },
+    "b1aa3827a31f60e8364c.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/b1aa3827a31f60e8364c.json",
+      "sha256": "787402ddb538d29ac6838e0be4a597b772ee22fa36c6279ba4868e2f247fa536",
+      "size_bytes": 487890
+    },
+    "b322243d5727961e8f05.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/b322243d5727961e8f05.json",
+      "sha256": "5696c3d99e05093b87c3fbf580b99fe4e0862dd26fc8d4b38ed731394657daae",
+      "size_bytes": 490841
+    },
+    "b3e51f9c23661f38143e.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/b3e51f9c23661f38143e.json",
+      "sha256": "8eefb268e164b7c7c32e69b6f9c51bab9063647127d5d884589d817812193f26",
+      "size_bytes": 489373
+    },
+    "b49cfbfa0a4f0bb3b70b.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/b49cfbfa0a4f0bb3b70b.json",
+      "sha256": "e8ec3af968c5988f072325561bc29d1eccff4b36c3542257b91b5454b8c5a131",
+      "size_bytes": 491764
+    },
+    "b5a5e77f40a38e5f471c.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/b5a5e77f40a38e5f471c.json",
+      "sha256": "7bd2315ae466018b2a1efe6b62b051fa29f8656a3881eceb55781151b859d48d",
+      "size_bytes": 492132
+    },
+    "b5b0cc21083d11cc7aeb.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/b5b0cc21083d11cc7aeb.json",
+      "sha256": "a123daafc09675e47df1db99518c67b7e987d18058c3e58b4660d4d7dc297834",
+      "size_bytes": 486654
+    },
+    "b66a1165d0d850166b0d.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/b66a1165d0d850166b0d.json",
+      "sha256": "25823494bbd911d978863d801ff29810250a69f3d9535332ea3432ca358976d3",
+      "size_bytes": 487666
+    },
+    "b780701a3600600a84d7.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/b780701a3600600a84d7.json",
+      "sha256": "e3f9b41e7a1fa5ab9086e350d114f4cbb4c1f3da4d78aa0460d88c8c2ca179df",
+      "size_bytes": 491295
+    },
+    "b82620c03e8d13c66529.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/b82620c03e8d13c66529.json",
+      "sha256": "8231cb7f796faf30b3a90c69e73f644fdceca9601f9fc63009c19e29b1bad1f9",
+      "size_bytes": 486761
+    },
+    "bec5d797d59fca4bd397.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/bec5d797d59fca4bd397.json",
+      "sha256": "e04bfd4277ddd1681473b08955ca813da8310179fd01ef26063f82476c003c46",
+      "size_bytes": 490314
+    },
+    "c8963d0a4561cfcc23ea.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/c8963d0a4561cfcc23ea.json",
+      "sha256": "36c0b38831829e600f6bbdedd39ae8898ba6d2eb7d831f43442ce1a0b1517e40",
+      "size_bytes": 488127
+    },
+    "c92bf4c08d6d8fbd6c6d.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/c92bf4c08d6d8fbd6c6d.json",
+      "sha256": "894c322e57e494d0717bca6dffcac5502732da5d5c867039f664a577efb647e7",
+      "size_bytes": 488195
+    },
+    "c9d1c7004bd6b1bf2362.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/c9d1c7004bd6b1bf2362.json",
+      "sha256": "7136a0b02ce1744bf61507c293dd455ff2ace7063e4224379beb8895b7d31bb2",
+      "size_bytes": 488489
+    },
+    "cd78636dece237687355.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/cd78636dece237687355.json",
+      "sha256": "602f2dafe256541bb6b238b616b067266b6aa9256ba0f92fdeab2d924afa9096",
+      "size_bytes": 489081
+    },
+    "cef4c88fd4ccb8e0a245.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/cef4c88fd4ccb8e0a245.json",
+      "sha256": "5f96d850b68ef0197bffa20cce5e412ebc2fd3ef598b59d1451ba2d064650c87",
+      "size_bytes": 487692
+    },
+    "d000937eb51a9ea14fb7.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/d000937eb51a9ea14fb7.json",
+      "sha256": "a165329b51c3ec1a2ad88deb2586609f91194250ae89d2370f726846a3b0b574",
+      "size_bytes": 486648
+    },
+    "d2bb91e8ccd1813412a5.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/d2bb91e8ccd1813412a5.json",
+      "sha256": "baffa4b6a382575eec53d909ebd4f5b91ba6afb8eb2ddddd15c2aef8c82de3f0",
+      "size_bytes": 487994
+    },
+    "d546b1218ca0b931b401.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/d546b1218ca0b931b401.json",
+      "sha256": "0bbb75352a2b2e4556704681c402a17249f1505a7cbecf4f0f64ea2d3547d6b1",
+      "size_bytes": 489673
+    },
+    "d69006d1403996b39c94.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/d69006d1403996b39c94.json",
+      "sha256": "cef17c783f4f9807fa0dd40399c0c4f071e25d1201a0d1d3bacb65eea2afe287",
+      "size_bytes": 491161
+    },
+    "d80cf5fee66edad22e03.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/d80cf5fee66edad22e03.json",
+      "sha256": "5c92927f23784396d7f9c4e91370bceb20fa4458a89b7070c710b30e6475b335",
+      "size_bytes": 489083
+    },
+    "daaca1428ea7a07b25ab.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/daaca1428ea7a07b25ab.json",
+      "sha256": "365eda382895b5bf045f3e2f02b7a9a715a1d016b8a1341df60ef7104c0eee75",
+      "size_bytes": 487992
+    },
+    "dc46dd57ce8f69d8fd09.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/dc46dd57ce8f69d8fd09.json",
+      "sha256": "536ab756422b6632dc166b962315dd84a42830fb6aeb8ec5b0d7fb4d6bc3790a",
+      "size_bytes": 489639
+    },
+    "de1fc9d41a4c133b8663.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/de1fc9d41a4c133b8663.json",
+      "sha256": "eef9744eaea1e76a9ea83f346692b3660331b2330ae0eebc8bd6cc8c846fd22f",
+      "size_bytes": 489377
+    },
+    "def1f3e78fd7009a0eb3.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/def1f3e78fd7009a0eb3.json",
+      "sha256": "c7753b78fbcbc30a3c868fd77034fe6ad9e643a9adae1f8b06628d4c661dc72b",
+      "size_bytes": 491412
+    },
+    "e4034534890780649b10.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/e4034534890780649b10.json",
+      "sha256": "eb68fc262bf94c086b48116a0b12c4ac4d618968b6c8e924c7afbc4d1cc98c2d",
+      "size_bytes": 489836
+    },
+    "e5abf262c1b252d67ca1.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/e5abf262c1b252d67ca1.json",
+      "sha256": "f51db9311e4608225e26cf1f5e35464da6b965b42afd2f23aa395ef47a09ea3c",
+      "size_bytes": 490955
+    },
+    "e5ed9aa4ce6a1e0ba0c6.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/e5ed9aa4ce6a1e0ba0c6.json",
+      "sha256": "6b6e6b86a60b75e0888c0155243375a7b9037a74058e2493a65569f9893c34ec",
+      "size_bytes": 489246
+    },
+    "e634023760dbbb2954c0.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/e634023760dbbb2954c0.json",
+      "sha256": "e13779820a99586c26427fb17ec9bb427afe7fef1a921cf37f1806372a3c3130",
+      "size_bytes": 489595
+    },
+    "e7ed6bae3f8530e34913.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/e7ed6bae3f8530e34913.json",
+      "sha256": "72fde6aca09c29f481c1ae4853db1161457924427ead534929f5f4c612794ac0",
+      "size_bytes": 487890
+    },
+    "e891d8181aa2a5f92c2d.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/e891d8181aa2a5f92c2d.json",
+      "sha256": "3025f156ecd4dd5ad3f5fb0e83eab43cd4a65ea3925c2c9b68a390d28cd88f8e",
+      "size_bytes": 487436
+    },
+    "ea2b8c0146f52d3caed9.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/ea2b8c0146f52d3caed9.json",
+      "sha256": "e833162273ae5907a67dcd4c72fa41b2be0af17b251f20c9b974fe7462d50525",
+      "size_bytes": 489124
+    },
+    "eb7f33062a6a7051abba.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/eb7f33062a6a7051abba.json",
+      "sha256": "538bd68dd8c003f6c3ab4e8133d8b7c48941f7cecf4dd7051f27216d66d41644",
+      "size_bytes": 491829
+    },
+    "f123b470923da8667bc9.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/f123b470923da8667bc9.json",
+      "sha256": "a1b9a5aae1b01f230c1e48defbfaca74a968c8c7050dffd3cc7efb99caa6760e",
+      "size_bytes": 489652
+    },
+    "f16a69f28e72aae28181.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/f16a69f28e72aae28181.json",
+      "sha256": "1542fe763a9cad920ecd9475ac212c71d8e74905feb9cab9bd0455353dfa5e14",
+      "size_bytes": 487859
+    },
+    "f25a7e9f7ad74c1bbd42.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/f25a7e9f7ad74c1bbd42.json",
+      "sha256": "815698a1ce99209582be75eed293ca9b04ad28583c67acd58d68c80e5e71c765",
+      "size_bytes": 490393
+    },
+    "f27c0c78be031d413acf.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/f27c0c78be031d413acf.json",
+      "sha256": "5ee21901bcdc0a9a9ba8a5729ae6e533f8cc27175dc0a4ee36f8243b0a33da32",
+      "size_bytes": 488485
+    },
+    "f623412fe2303556678f.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/f623412fe2303556678f.json",
+      "sha256": "83e21835f258243cb40de05ad5c655d40a2bce446eb5e34a0b8cf2c8243bd0a8",
+      "size_bytes": 491804
+    },
+    "f9fed558dc6542f8cb3d.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/f9fed558dc6542f8cb3d.json",
+      "sha256": "60c498836953a76efc343b80fc6970b6af99e0c4e5b72b05a384698f29ba8d9c",
+      "size_bytes": 489970
+    },
+    "fa205ee1a8f578cd889e.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/fa205ee1a8f578cd889e.json",
+      "sha256": "58895aff02fcfb4208a0d94a91eae25748a473af47cf0a12f019f67e85c85546",
+      "size_bytes": 488514
+    },
+    "fbed490d234805bc8b95.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/fbed490d234805bc8b95.json",
+      "sha256": "3be3e11656e7dcbba5b18f77fa4f337a96aec7d844e6cb36b111ecfe612d17bf",
+      "size_bytes": 489731
+    },
+    "ffafcefe549462cdb770.json": {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_shards/ffafcefe549462cdb770.json",
+      "sha256": "e332915010a1a10024715f74e12375204784ba368679a7a673c3084bb9c9031b",
+      "size_bytes": 487149
+    }
+  },
+  "status": "COMPLETE"
+}

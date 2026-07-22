@@ -1,0 +1,21 @@
+{
+  "archive": {
+    "format": "tar+gzip",
+    "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/confirmation_shards.tar.gz",
+    "sha256": "97b5c2efe58b7b89c454115ff10dc15f4b63dc53a8ab1ba0007af1040a9b821e"
+  },
+  "contents": {
+    "direction_control_shards": 150,
+    "matched_context_shards": 52,
+    "primary_shards": 943,
+    "total_shards": 1145
+  },
+  "extraction": "tar -xzf confirmation_shards.tar.gz",
+  "frozen_package_sha256": "e8217e1ed923be4853009b103de35bc34b23c300cc045820f2531dd24f8e97a5",
+  "shard_manifests": {
+    "direction_control_manifest.json": "7f4ee9e9c680565b35ed9cb473e69a2fae45d79390b2ac73d5a9682b7ea9a2ef",
+    "matched_context_manifest.json": "f150f895b9bf9f26caf602c176686d74186c78d5c91eb1c7b1b3e8df146cb0aa",
+    "primary_manifest.json": "fa065192df58d795a366724ad5f56c9f7e7ddaed021a32411a4364520470bf17"
+  },
+  "schema": "gfmcd.p3_phase_surgery.confirmation_shard_archive.v1"
+}
