@@ -1,0 +1,53 @@
+{
+  "command": [
+    "scripts/splicebert/audit_p3_phase_surgery_confirmation_smoke.py",
+    "--package",
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json",
+    "--package-audit",
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.audit.json",
+    "--smoke",
+    "results/phase-lattice/p3_phase_surgery_confirmation_smoke_v1/development_smoke.json",
+    "--out",
+    "results/phase-lattice/p3_phase_surgery_confirmation_smoke_v1/development_smoke.audit.json"
+  ],
+  "config": {},
+  "created_at_utc": "2026-07-22T01:43:31.979309+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 84779,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "p3-phase-surgery-confirmation-smoke-audit-v1",
+  "git_commit": "8de284eddd838267550547652e2eead78eb95e6b",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json",
+      "sha256": "e8217e1ed923be4853009b103de35bc34b23c300cc045820f2531dd24f8e97a5",
+      "size_bytes": 1241893
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.audit.json",
+      "sha256": "05193e85ddbe99e63c59adb7ff687e5aec8ed487c3ad660740a29eb80e8f1700",
+      "size_bytes": 1380
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_smoke_v1/development_smoke.json",
+      "sha256": "4b8cff3df42d322078204ca344bc6162db7248321e2a32271e0bf8d74ddd0911",
+      "size_bytes": 747451
+    }
+  ],
+  "notes": [
+    "Development roles only; no untouched outcome was read."
+  ],
+  "outputs": [
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_smoke_v1/development_smoke.audit.json",
+      "sha256": "cdb789d540795f4184f42e08486e35595b26410d3260e6b140cdb6485116d506",
+      "size_bytes": 1129
+    }
+  ],
+  "seeds": {},
+  "status": "PASS"
+}

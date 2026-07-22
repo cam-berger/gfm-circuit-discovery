@@ -1,0 +1,30 @@
+{
+  "failures": [],
+  "gates": {
+    "attention_normalized": true,
+    "component_family": true,
+    "control_grid": true,
+    "development_only": true,
+    "finite": true,
+    "frozen_instrument:attention_normalized": true,
+    "frozen_instrument:carrier_reconstruction": true,
+    "frozen_instrument:context_match": true,
+    "frozen_instrument:continuous_health_cds": true,
+    "frozen_instrument:continuous_health_non_cds": true,
+    "frozen_instrument:control_l2_matched": true,
+    "frozen_instrument:control_rms_matched": true,
+    "frozen_instrument:determinism": true,
+    "frozen_instrument:global_deletion_positive": true,
+    "frozen_instrument:mechanical_modulo_recovery": true,
+    "frozen_instrument:zero_shift_noop": true,
+    "non_cds_contrast_reconstructs": true,
+    "non_cds_grid": true,
+    "p3_path_reproduces_primary": true,
+    "primary_contrast_reconstructs": true,
+    "primary_grid": true
+  },
+  "package_sha256": "e8217e1ed923be4853009b103de35bc34b23c300cc045820f2531dd24f8e97a5",
+  "schema": "gfmcd.p3_phase_surgery.confirmation_smoke_audit.v1",
+  "status": "PASS",
+  "target_outcomes_read": false
+}
