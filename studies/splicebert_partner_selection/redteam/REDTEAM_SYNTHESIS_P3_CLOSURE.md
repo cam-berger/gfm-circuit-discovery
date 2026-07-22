@@ -2,7 +2,7 @@
 
 **Date:** 2026-07-21
 
-**Reviewed:** `PREREGISTRATION_P3_CLOSURE.md`, DRAFT v2
+**Reviewed:** `PREREGISTRATION_P3_CLOSURE.md`, frozen candidate v1
 **Outcome:** **freeze-after-engineering**; the estimand and controls are adequate, but no untouched
 forward pass is licensed until the package, independent audit, sealed runner, and analysis in §9 of the
 preregistration exist and pass on development data.

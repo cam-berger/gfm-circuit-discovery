@@ -1,0 +1,324 @@
+{
+  "command": [
+    "scripts/splicebert/freeze_p3_phase_surgery_confirmation.py",
+    "--out",
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json"
+  ],
+  "config": {
+    "blocks_per_context": 2,
+    "bootstrap_draws": 20000,
+    "bootstrap_seed": 20260721,
+    "contexts": [
+      "target",
+      "upstream_intron"
+    ],
+    "control_amounts": [
+      2,
+      3,
+      4
+    ],
+    "control_seeds": [
+      20260721,
+      20260722,
+      20260723,
+      20260724,
+      20260725,
+      20260726,
+      20260727,
+      20260728,
+      20260729,
+      20260730,
+      20260731,
+      20260732,
+      20260733,
+      20260734,
+      20260735,
+      20260736,
+      20260737,
+      20260738,
+      20260739
+    ],
+    "directions": [
+      "left",
+      "right"
+    ],
+    "p3_band_1026": [
+      339,
+      340,
+      341,
+      342,
+      343,
+      344,
+      345
+    ],
+    "prefix_tokens": 1,
+    "primary_amounts": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "sesoi_coupling_nats": 0.05,
+    "thresholds": {
+      "attention_row_abs_error": 0.0001,
+      "context_max_abs_smd": 0.25,
+      "context_min_pairs": 30,
+      "continuous_health_delta_logprob_lower": -0.05,
+      "control_l2_ratio_error_max": 5e-06,
+      "control_rms_mismatch_max": 1e-07,
+      "determinism_max_abs": 1e-08,
+      "global_deletion_native_min": 0.05,
+      "global_deletion_ratio_max": 0.1,
+      "mechanical_modulo_recovery_min_rms": 0.04,
+      "reconstruction_max_abs": 1e-06,
+      "zero_shift_noop_max_abs": 1e-08
+    }
+  },
+  "created_at_utc": "2026-07-22T01:38:07.637279+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 82522,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "p3-phase-surgery-confirmation-freeze-v1",
+  "git_commit": "411585fcc4b4014e53d1c95cfe50791c3762c7f3",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_untouched_census_20260721.json",
+      "sha256": "888fc6a60fd57f7e94476d79672846a9cd6f270d15affc658995067cff93530e",
+      "size_bytes": 1384629
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_non_cds_untouched_census_20260721.json",
+      "sha256": "3a2c493934d14422a7e71780d2d805e13015d9295f00b77849e83b80e6022262",
+      "size_bytes": 58624
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_context_match_untouched_20260721.json",
+      "sha256": "3d2ab459a05652649e3464276bc08be1a34da827df8f1b8a709eea73ab154380",
+      "size_bytes": 41291
+    },
+    {
+      "path": "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_P3_CLOSURE.md",
+      "sha256": "81186a642a9f583ff6f4fae6bb3e334bf42401d25b2e3c098ba0c6160d560879",
+      "size_bytes": 11327
+    },
+    {
+      "path": "studies/splicebert_partner_selection/redteam/REDTEAM_SYNTHESIS_P3_CLOSURE.md",
+      "sha256": "17c0afeb8a30bb4a40548f1994d7c43ae67ef1d03db78958155a7c1de7dd022f",
+      "size_bytes": 8169
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_development_cohort_n120_20260721.json",
+      "sha256": "90dce4a161cd1b82b68d8ff1024e9a56cd668d1ddbfea8e7288cc237bb2fa581",
+      "size_bytes": 61832
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_non_cds_development_cohort_20260721.json",
+      "sha256": "0df96757711c8da218f3671c5d0643ef06fa81b93e814f78751814da533ab09e",
+      "size_bytes": 55326
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_context_match_development_v2_20260721.json",
+      "sha256": "0bbde7c1f3d54d767f44dc8c0d3552d310d7eea7e7f411baec67a642755a6317",
+      "size_bytes": 26115
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_preflight_development_n61_20260721.json",
+      "sha256": "f1e0dafef59548ce37a461addc127c345786a5213eb2806b2074fae16da6f570",
+      "size_bytes": 4036244
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_preflight_analysis_development_n61_20260721.json",
+      "sha256": "9a1daefcea5592908c643463dc0b85066f65a7324688510a28106a0685154fd8",
+      "size_bytes": 42341
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_controls_development_n30_20260721.json",
+      "sha256": "c157879e0b8b3834e0e2c737b9820d576fe76123710be18fe322cbe8e7103757",
+      "size_bytes": 14158190
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_controls_analysis_development_n30_v2_20260721.json",
+      "sha256": "8496fe48d934fca0ee77a7203d7b442b8a720552e5447a51066d98a257e8683c",
+      "size_bytes": 8947
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_health_cds_development_n61_20260721.json",
+      "sha256": "380dff5388de4e9b2ae926c37bfd34446f0d84d15495cfc62692d42e5d4f0f35",
+      "size_bytes": 40714
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_health_non_cds_development_n49_20260721.json",
+      "sha256": "321947209efb0288e694e455cb7d7c79117fc5eab89004ba6a3989b34ebc09fd",
+      "size_bytes": 33341
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_context_difference_development_n33_20260721.json",
+      "sha256": "72b9ae5324a6262673b3182cb5465e0605358d2edcd38e07f6778777ba17fe2e",
+      "size_bytes": 12697
+    },
+    {
+      "path": "src/gfmcd/provenance.py",
+      "sha256": "05d3cd48d49a6357f29b72ac1636b23586a11bfb0b059ce97e36f8a9f87ac632",
+      "size_bytes": 3990
+    },
+    {
+      "path": "src/gfmcd/adapters/splicebert.py",
+      "sha256": "1c7959fdbfa621c6ad42599c3c579f10ab02acd9d608fb31d4eae2338f640b6d",
+      "size_bytes": 12546
+    },
+    {
+      "path": "src/gfmcd/splicing/circuit.py",
+      "sha256": "a24ef2e8aaf5acdaf009e85d63b2ca231627e767c053ec4f719f341dd0faa242",
+      "size_bytes": 31844
+    },
+    {
+      "path": "src/gfmcd/splicing/p3_annotation.py",
+      "sha256": "225ad3e9243550c633e99d83ef8d2976379b5228fa51f9e3e5ae5d89f9ea2c94",
+      "size_bytes": 10757
+    },
+    {
+      "path": "src/gfmcd/splicing/p3_closure.py",
+      "sha256": "bb7f2efb5421463f3fc44d3774780cd81f9aafc6e4b13545ae4c7a3f4d940586",
+      "size_bytes": 22738
+    },
+    {
+      "path": "src/gfmcd/splicing/p3_cohort.py",
+      "sha256": "756adec8809529fa63fd511307a6df2f65b946de028d3f1cc8706855f848c5d0",
+      "size_bytes": 25126
+    },
+    {
+      "path": "src/gfmcd/splicing/p3_phase_surgery.py",
+      "sha256": "094e48b303a81ee1992c42be625477f54c13f288c2998c8a921671deacde2fad",
+      "size_bytes": 7306
+    },
+    {
+      "path": "src/gfmcd/splicing/p3_stats.py",
+      "sha256": "8db42340249f66e51a30f054d3e87843a91636cfb644281af58e5a4d4f418080",
+      "size_bytes": 6039
+    },
+    {
+      "path": "scripts/splicebert/freeze_p3_phase_surgery_confirmation.py",
+      "sha256": "763a04d142e4d2e21eed2901f49cd500bfa39e7b196e7efe47b7bc14b0162b47",
+      "size_bytes": 14150
+    },
+    {
+      "path": "scripts/splicebert/audit_p3_phase_surgery_confirmation_package.py",
+      "sha256": "104c4d5ed22f7a5c5dbcd5fd1b6a892efec59953b43fb110e18c0a2870c8aaff",
+      "size_bytes": 7758
+    },
+    {
+      "path": "scripts/splicebert/run_p3_phase_surgery_preflight.py",
+      "sha256": "772d9b99a43b491e5456e12310f98966e5093b5ce52505de9817dd5b6bb00bb6",
+      "size_bytes": 14709
+    },
+    {
+      "path": "scripts/splicebert/run_p3_phase_surgery_confirmation.py",
+      "sha256": "687241c2d93090b8d8429d24f3aef0a67fe411bbc56378e4dfc763c3c038b5dd",
+      "size_bytes": 16646
+    },
+    {
+      "path": "scripts/splicebert/analyze_p3_phase_surgery_confirmation.py",
+      "sha256": "88c655e08f24b1e9a46df3f1369904c78b89a923c7277cfd473b911f90bd44b5",
+      "size_bytes": 18438
+    },
+    {
+      "path": "tests/test_p3_phase_surgery.py",
+      "sha256": "5409c9aad0057a45d36a1ae6f790dc1c8838f77eeb65b559a7e89e775a051c6d",
+      "size_bytes": 3330
+    },
+    {
+      "path": "tests/test_p3_stats.py",
+      "sha256": "c7dcb30d1c056060de7944d8514862453db2a2d6c6bd81a43f8ba02483b4b6df",
+      "size_bytes": 2285
+    },
+    {
+      "path": "tests/test_freeze_p3_phase_surgery_confirmation.py",
+      "sha256": "4bac6549e96c5104cab7c505f7c5fac94ab7eba476d6cacf488d8585263f38a5",
+      "size_bytes": 3237
+    },
+    {
+      "path": "tests/test_audit_p3_phase_surgery_confirmation_package.py",
+      "sha256": "c605dc26925b71f8314f7002e33efa7d7a5fcaa29dcb562ec8a9a31157b48894",
+      "size_bytes": 756
+    },
+    {
+      "path": "tests/test_run_p3_phase_surgery_confirmation.py",
+      "sha256": "b577c389558bdabf0e5ebc2cc79e7183a71841732ad479a0211fa9904d616069",
+      "size_bytes": 1452
+    },
+    {
+      "path": "tests/test_analyze_p3_phase_surgery_confirmation.py",
+      "sha256": "0e56229ddb142c1bddf8e1e2e1e1e98ead4c88b2f5aff5b98c8b4a3d15eead14",
+      "size_bytes": 1206
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+      "sha256": "83fba3e9b03f0b8c958f3595c6c350adc55f468abf8b0e47b6d5284cfe13a453",
+      "size_bytes": 124527720
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    },
+    {
+      "path": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/config.json",
+      "sha256": "51ea51e42951f18cc1d3455d7111fe0a41cebad476ba8314afc161a0e956303e",
+      "size_bytes": 685
+    },
+    {
+      "path": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    },
+    {
+      "path": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/special_tokens_map.json",
+      "sha256": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+      "size_bytes": 125
+    },
+    {
+      "path": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/tokenizer.json",
+      "sha256": "b380c8c93ba20313c0c0239b8c70f0c67253028ca76cfda4f55b46049abe4fa3",
+      "size_bytes": 2792
+    },
+    {
+      "path": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/tokenizer_config.json",
+      "sha256": "a8f9a3828553689c1cb215689fc82af7551c1bb6ba642606612e834fda0c607c",
+      "size_bytes": 457
+    },
+    {
+      "path": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/vocab.txt",
+      "sha256": "ba67bacb61d3de7d57e11e04ba59020a2cc67dbedbd9ae65715117b9fd4f30bc",
+      "size_bytes": 41
+    }
+  ],
+  "notes": [
+    "No model was loaded and no untouched model outcome was read."
+  ],
+  "outputs": [
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json",
+      "sha256": "e8217e1ed923be4853009b103de35bc34b23c300cc045820f2531dd24f8e97a5",
+      "size_bytes": 1241893
+    }
+  ],
+  "seeds": {
+    "bootstrap": 20260721,
+    "first_control": 20260721
+  },
+  "status": "FROZEN_OUTCOME_BLIND_CONFIRMATION_PACKAGE"
+}

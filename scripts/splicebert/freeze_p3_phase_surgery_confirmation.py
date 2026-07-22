@@ -77,9 +77,17 @@ CODE_FILES = (
     "src/gfmcd/splicing/p3_cohort.py",
     "src/gfmcd/splicing/p3_phase_surgery.py",
     "src/gfmcd/splicing/p3_stats.py",
+    "scripts/splicebert/freeze_p3_phase_surgery_confirmation.py",
+    "scripts/splicebert/audit_p3_phase_surgery_confirmation_package.py",
     "scripts/splicebert/run_p3_phase_surgery_preflight.py",
     "scripts/splicebert/run_p3_phase_surgery_confirmation.py",
     "scripts/splicebert/analyze_p3_phase_surgery_confirmation.py",
+    "tests/test_p3_phase_surgery.py",
+    "tests/test_p3_stats.py",
+    "tests/test_freeze_p3_phase_surgery_confirmation.py",
+    "tests/test_audit_p3_phase_surgery_confirmation_package.py",
+    "tests/test_run_p3_phase_surgery_confirmation.py",
+    "tests/test_analyze_p3_phase_surgery_confirmation.py",
 )
 
 

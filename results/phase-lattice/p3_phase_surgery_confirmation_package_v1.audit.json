@@ -1,0 +1,52 @@
+{
+  "counts_rederived": {
+    "chromosomes": {
+      "chr1": 127,
+      "chr10": 54,
+      "chr12": 82,
+      "chr13": 16,
+      "chr14": 42,
+      "chr15": 50,
+      "chr17": 111,
+      "chr18": 13,
+      "chr2": 78,
+      "chr20": 33,
+      "chr21": 7,
+      "chr22": 28,
+      "chr3": 79,
+      "chr4": 36,
+      "chr5": 49,
+      "chr6": 66,
+      "chr7": 72
+    },
+    "context_pairs": 52,
+    "direction_control_genes": 150,
+    "primary_genes": 943,
+    "same_gene_context_pairs": 15
+  },
+  "failures": [],
+  "gates": {
+    "all_bound_files_match": true,
+    "context_balance_frozen": true,
+    "context_count": true,
+    "context_labels": true,
+    "context_pair_membership": true,
+    "context_pairs_one_to_one": true,
+    "control_seed_family": true,
+    "control_subset_exact": true,
+    "excluded_chromosomes_absent": true,
+    "primary_count": true,
+    "primary_one_record_per_gene": true,
+    "primary_roles_reconstructed": true,
+    "primary_selection_exact_from_source": true,
+    "reserve_count_and_disjoint": true,
+    "single_primary_endpoint": true,
+    "source_sequences_reconstructed": true
+  },
+  "model_loaded": false,
+  "model_outcomes_read": false,
+  "package_sha256": "e8217e1ed923be4853009b103de35bc34b23c300cc045820f2531dd24f8e97a5",
+  "schema": "gfmcd.p3_phase_surgery.confirmation_package_audit.v1",
+  "sequence_failures": [],
+  "status": "PASS"
+}
