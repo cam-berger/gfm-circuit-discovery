@@ -1,5 +1,7 @@
 # SpliceBERT positional circuits — current results index
 
+> **Tier: T1 — canonical.** Current, authoritative. Read this.
+
 This directory contains the machine-readable record for two distinct positional mechanisms in
 SpliceBERT:
 
@@ -9,6 +11,14 @@ SpliceBERT:
 
 Start with:
 
+- [`../MANIFEST.csv`](../MANIFEST.csv) / [`../MANIFEST.json`](../MANIFEST.json) for the
+  **machine-readable index** — one row per tracked file under `results/`, giving its `claim_id`,
+  `status`, `evidence_level`, controlling `script`, sibling `manifest`, and consuming `figure`.
+  Filter the `artifact` column on `results/phase-lattice/` for this directory. Column semantics and
+  the four `status` values are defined in [`../RESULTS_INDEX.md`](../RESULTS_INDEX.md);
+  `scripts/verify_manifest.py` (run by `tests/test_manifest.py`) keeps it in step with the tree.
+  The tables below are the human-readable view of the same tree and do not list every file;
+  the manifest does.
 - `figures/splicebert/EVIDENCE.md` for the evidence ladder;
 - `figures/splicebert/README.md` for the publication figures;
 - `studies/splicebert_partner_selection/CLAIMS.md` for the authoritative claim, correction, and

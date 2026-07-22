@@ -1,5 +1,7 @@
 # Current SpliceBERT mechanism and its limits
 
+> **Tier: T1 — canonical.** Current, authoritative. Read this.
+
 This is the one-file reviewer narrative. Exact claims are controlled by
 [`studies/splicebert_partner_selection/CLAIMS.md`](studies/splicebert_partner_selection/CLAIMS.md), and
 correction history by
@@ -10,6 +12,16 @@ correction history by
 > A structured, top-ranked causal core binds a predominantly relative positional address to an
 > acceptor-local payload, then delivers the resulting information to the donor readout within an
 > irreducibly distributed computation.
+
+## Checkpoints
+
+Two checkpoints appear in this document and must not be conflated. The donor mechanism and the period-3
+carrier described below are measured on `SpliceBERT.1024nt` (final, multi-species). The separate ≈10.63
+carrier in *Key limitations* §4 is measured on `SpliceBERT.510nt` (stage-1, multi-species), because
+establishing it required a matched contrast against its human-only twin `SpliceBERT-human.510nt`, which
+differs only in training data. These are two checkpoints of one training lineage; a result from one is
+not a result about the other. Term-by-term conventions are in
+[`docs/NOMENCLATURE.md`](docs/NOMENCLATURE.md).
 
 ## Computation
 
@@ -45,7 +57,8 @@ carrier-dependent changes in its own values.
 ## What “circuit” does and does not mean
 
 The named components are causally implicated in this behavior through necessity, mediation, and path
-tests. They form a **structured causal core**. They are not claimed to be the smallest sufficient set.
+tests. They form a **structured causal core within an irreducibly distributed computation**. They are not
+claimed to be the smallest sufficient set.
 
 That distinction is empirical, not rhetorical. The small hand-built circuit is necessary but has
 faithfulness `F≈0.005` when the complement is scrubbed; the clean circuit outputs are sufficient when
@@ -101,8 +114,12 @@ trajectories, controlled retraining, objective/corpus ablations, or a cross-mode
 
 ### 4. Separate ≈10.63 carrier
 
-The multispecies ≈10.63 feature is distinct from period 3 and currently stops at post-softmax attention.
-Its OV content, behavioral function, and biological origin remain open.
+Measured on `SpliceBERT.510nt`, not on the checkpoint carrying the donor mechanism above. The
+multispecies ≈10.63 feature is distinct from period 3 and currently stops at post-softmax attention.
+Its OV content, behavioral function, and biological origin remain open. "Origin open" does not reopen the
+nucleosomal reading: the ≈10.298-nt nucleosomal signal sits 0.33 nt from the ≈10.630 carrier, which is
+fitted to ±0.005, so the record holds that as a powered refutation of the nucleosome bridge rather than
+support for it (C14, R17; [`docs/NOMENCLATURE.md`](docs/NOMENCLATURE.md)).
 
 ## Scope
 

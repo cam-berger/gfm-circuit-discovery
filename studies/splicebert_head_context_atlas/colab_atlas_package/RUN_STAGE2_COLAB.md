@@ -1,5 +1,7 @@
 # Run the audited stage-two target on Colab
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 Use `run_atlas_stage2_colab_v3.ipynb` only to reproduce the original target execution. For the completed
 run's numerical recovery, use `run_atlas_stage2_recovery_a3.ipynb` with the v6 overlay. The manual cells
 below preserve the original pre-A3 contract and are not instructions to overwrite the completed run.

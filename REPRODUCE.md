@@ -1,5 +1,7 @@
 # Reproducing the current scientific record
 
+> **Tier: T1 — canonical.** Current, authoritative. Read this.
+
 This is the canonical repository-level entry point. Study-specific commands and historical environment
 snapshots remain in their manifests and reproduction maps, but new development should use the `uv`
 environment below.

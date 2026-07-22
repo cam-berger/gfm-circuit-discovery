@@ -1,5 +1,7 @@
 # Pre-registration — Caduceus-PS T1: does the partner-specific donor↔acceptor coupling behaviour transfer? (v2)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: FROZEN-CANDIDATE v2 (5-lens red-team integrated). Awaiting Cam fork decisions + compute env → then FREEZE. DO NOT RUN until frozen.**
 Supersedes `…DRAFT.md` (pre-red-team). The first transfer experiment (TRANSFER_GUIDE Phase 0 + Phase 1
 behavioural qualification + the minimal Phase-2 adapter) to a **second, architecturally-contrasting GFM** —

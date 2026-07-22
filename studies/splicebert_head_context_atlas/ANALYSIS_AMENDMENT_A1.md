@@ -1,5 +1,7 @@
 # Head–Context Atlas analysis amendment A1
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 Status: **FROZEN BEFORE THE FULL DISCOVERY MATRIX WAS READ** (2026-07-19).
 
 This amendment supplements `ANALYSIS_PLAN_V1.md` (SHA-256

@@ -1,5 +1,7 @@
 # Publication-Readiness Remediation Plan
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 > **For agentic workers:** this plan is executed by a `Workflow` fleet. Steps use checkbox (`- [ ]`) syntax.
 > Spec of record: [`docs/REVIEW_2026-07-22.md`](../../REVIEW_2026-07-22.md).
 

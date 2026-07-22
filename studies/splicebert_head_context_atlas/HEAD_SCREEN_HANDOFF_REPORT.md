@@ -1,5 +1,7 @@
 # Head-screen handoff report (one page)
 
+> **Tier: T3 — historical.** Superseded or point-in-time; retained for the record. Not current guidance.
+
 **Bottom line:** the all-96-head A/B/C/D exact-effect screen is **built, locally tested, and smoke-verified**;
 the full run is **not** launched (reserved for your GO after the Colab benchmark). No sealed run, no credit
 spend, no visualizer. C is labeled **competitor-site perturbation response** (the specificity pilot was null).

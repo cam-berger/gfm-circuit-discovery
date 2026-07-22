@@ -1,5 +1,7 @@
 # PRE-REGISTRATION — the phase-shift intervention
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **v3, 2026-07-12.** v1 and v2 were both **killed before they were run** — v1 by an adversarial
 design review, v2 by a memorial test that failed and by a check on the head set itself. The
 amendment log (§9) records every change and why. Nothing in this document has been fitted to an

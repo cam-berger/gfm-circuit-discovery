@@ -1,5 +1,7 @@
 # Caduceus-PS partner-coupling transfer
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: DESIGN HARDENED, COLAB PACKAGE LOCALLY VALIDATED, NOT FROZEN, NOT RUN. Deferred while the
 SpliceBERT context/transduction program is prioritized.**
 

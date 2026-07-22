@@ -1,5 +1,7 @@
 # Runbook
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 Run from repository root. Commands are also summarized in the root implementation document.
 
 ## 0. Tests
