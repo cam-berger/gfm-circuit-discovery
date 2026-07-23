@@ -464,3 +464,22 @@ globally break the model — reported as weak evidence, never a strong "injectio
 certification. The confound health guarded against (a globally-broken forward pass yielding an artifactual
 margin) does not arise for a local injection, so the downgrade does not weaken the POSITIVE family. This
 supersedes A2.1's "below-floor arm blocks POSITIVE" and A4's hard R-h2 gate.
+
+### A7. MF2 power extension (owner 2026-07-23, pre-run, verification-level): n 260 → 512
+
+The n=260 confirmatory returned the MF2 paired band `Δ_MF2 = +0.028`, CI [−0.215, 0.187], **hw 0.2008 —
+0.0008 OVER `SESOI_R=0.20`**, so the powered-equivalence Endpoint-C branch did not fire (verdict
+`INCONCLUSIVE_underpowered`). Cam authorized a **POWER EXTENSION** — explicitly **not** a post-hoc SESOI or
+estimator tweak: re-run the confirmatory at a **larger pre-committed n** with the **identical** estimand
+(`Δ_MF2`), `SESOI_R`, three-way dyadic estimator, and fixed `[q40,q80]` band. **Pre-committed `n = 512`**
+(the naive `N_req` for a target hw≈0.16 is ~410; 512 buffers dyadic-clustering variance inflation, which
+scales worse than 1/√n). This resolves an **underpowered equivalence** — the estimand, control, and bar are
+unchanged, only n grows — so it is a legitimate power extension, and it **narrowly supersedes A5's
+"one re-run" clause** *for this owner-authorized power extension only* (A5's intent — no *control* tweaking
+after seeing the result — is preserved: nothing about the control changes).
+
+Evidential status: **still VERIFICATION-level** (val was already inspected at n=260; the `Δ≈0` direction is
+known, so this is outcome-aware). The n=260 result stays **immutable**; the n=512 result supersedes it for
+the MF2 verdict only. **Stopping rule (binding, anti-chasing):** if n=512 still shows `hw ≥ SESOI_R`, the
+honest outcome is "reported at achieved precision" — **NOT** a further power-up. The sealed chr8/9 cohort
+remains the only path to a clean *confirmatory* (non-verification) call, and is not opened.
