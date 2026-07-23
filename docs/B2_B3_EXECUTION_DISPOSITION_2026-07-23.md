@@ -39,7 +39,10 @@ hazard reserved for a pre-committed redesign.
 
 ## The six control defects
 
-**Correctness bugs (outcome-independent) — ADOPTED (decision 1), applied to B3, unapplied for B2 (retired):**
+The six are: two B3 smoke-blocking correctness bugs (fixed), three B3 confirm-blocking control defects
+(scramble / health / MF2), and one B2 substantive premise failure. All are B3 except #6.
+
+**B3 smoke-blocking correctness bugs (outcome-independent) — ADOPTED (decision 1), applied to B3:**
 1. **B3 empty-injection memorial** asserted `inject(A⁺·V⁻) == m_co`, impossible under MF1: delivery uses
    the CLEAN address A⁺, but the natural corrupt margin is produced by the CORRUPT address A⁻
    (|A⁺−A⁻| ≈ 0.945; corruption reallocates L3H1 attention, per C35). Replaced by a reconstruction-fidelity
@@ -47,22 +50,32 @@ hazard reserved for a pre-committed redesign.
 2. **B3 "permuted" FPR** used a second matched cohort (54 % identical sources), which preserves the
    clean−corrupt contrast and can never null a difference estimand. Replaced by a Rademacher sign-flip
    null of the per-pair contrast. *(R-b3fix2, applied)*
-3. **B2 M-label** was computed but never gated; **B2 M-health/OOD** gate was absent. *(R-b2fix1/2 — NOT
-   applied: B2 is retired.)*
 
-**Scramble redesign — PRE-COMMITTED (decision 2), applied to B3:**
-4. The shipped scramble permuted the 4 **window positions** (adjacent acceptor tokens ≈ identical, so the
-   payload was barely perturbed) **and never fired** (its `scramble_rng` argument was never passed). The
-   corrected control permutes the source payload's **hidden-feature coordinates** with a fixed per-source
-   permutation applied identically to all four window rows. Verified: per-row norm and per-position energy
-   are preserved exactly (injection geometry matched), content is destroyed, permutation is deterministic
-   per source gene. A content-specific transfer must collapse under it; a "needs *some* acceptor-like state
-   here" effect survives — the same NULL alternative MF2 probes, so the two controls agree by construction.
+**B3 confirm-blocking control defects (the three gates that block a POSITIVE):**
+3. **B3 scramble** permuted the 4 **window positions** (adjacent acceptor tokens ≈ identical, so the
+   payload was barely perturbed) **and never fired** (its `scramble_rng` argument was never passed) →
+   R_scr 0.978, no collapse. **REDESIGNED now (decision 2)** to a hidden-feature-coordinate permutation
+   with a fixed per-source permutation applied identically to all four window rows. Verified: per-row norm
+   and per-position energy are preserved exactly (injection geometry matched), content is destroyed,
+   permutation is deterministic per source gene. A content-specific transfer must collapse under it; a
+   "needs *some* acceptor-like state here" effect survives — the same NULL alternative MF2 probes, so the
+   two controls agree by construction.
+4. **B3 health** (`task.mlm_health`) measures *baseline* non-site masked accuracy with no injection; the
+   model baseline ≈ 0.56 sits below the 0.8 threshold, so the gate can never pass and never measures
+   injection damage. **STILL OPEN** — redesign to measure under max-dose injection and threshold relative
+   to baseline (see below).
+5. **B3 MF2 margin-mismatched stratum**: point estimate 1.094 (> matched 0.912), CI [−0.164, 1.510] —
+   underpowered *and* unfavorable, so `matched_exceeds_mismatched` cannot hold. **STILL OPEN** — power +
+   one-sided-interpretation redesign (see below).
 
-**Substantive premise failure (not a bug) — B2 RETIRED (decision 3):**
-5/6. The naive `(r_pref − r_less)` steering direction lowers B_less (−0.538) and model-native preference
+**B2 substantive premise failure (not a control bug) — B2 RETIRED (decision 3):**
+6. The naive `(r_pref − r_less)` steering direction lowers B_less (−0.538) and model-native preference
    labels do not generalize (held-out 0.182). This is the prereg's **own pre-declared FATAL-1** (position/
    distance geometry, R20). Steering on a frozen checkpoint is withdrawn as a route to C30. C30 remains OPEN.
+
+**Separately (not part of the six):** the executor's `proposed_control_fixes.patch` also carried
+**R-b2fix1** (B2 M-label was computed but never gated) and **R-b2fix2** (B2 had no under-injection
+health/OOD gate). These are B2 gate-wiring gaps, made moot by the retirement, and were **NOT applied**.
 
 ## Decisions taken
 
@@ -72,8 +85,8 @@ hazard reserved for a pre-committed redesign.
    only one of B3's three blocking controls changed at this stage; health and MF2 are left for the
    pre-committed confirmatory redesign so the eventual re-run is confirmatory, not exploratory.
 3. **Retire the B2 steering approach.** Script banner added; kept unrun as design-of-record. C30 stays OPEN.
-4. **New branch** — the owner will create a new branch for the B3 confirmatory-redesign work; these edits
-   are staged on `p3-closure-confirmatory` pending that move.
+4. **New branch** — this work lives on `b3-confirmatory-redesign` (cut from `p3-closure-confirmatory` at
+   `6ebc0af`; the closure branch is unchanged). Future B3 confirmatory-redesign work lands here.
 
 ## Still open for the B3 confirmatory redesign (pre-commit BEFORE re-running)
 
