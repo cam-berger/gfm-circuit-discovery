@@ -93,3 +93,15 @@ Decision: make the active tree an executable record of the current claims:
 - rely on Git history for obsolete experiment implementations.
 
 This is a scope correction, not deletion of scientific provenance. The authoritative record keeps the conclusions, limitations, failures, and reasons for each pivot while removing competing entry points.
+
+## 2026-07-22 — reviewer roadmap B1–B5 formalized and closed (design red-team)
+
+The reviewer/ROADMAP branches B1–B5 were each written up as a full preregistration and put through a pre-compute adversarial design red-team (five independent lenses per branch) BEFORE any compute was spent. The point was to catch identifiability and power failures at the design stage, where they are cheap, rather than after an expensive MPS run.
+
+Decision: record B1, B2, and B3 as **fixable-then-runnable, but not this-session survivors.** B1's behavioural coupling arm (ΔC under deletion re-pointed to the ≈10.63 plane) is clean and identifiable, but its OV-write arm is non-identifiable as written — the `dO_h` contrast conflates the carrier's already-established QK/routing role with the OV column (an R23-class ladder column-jump); it needs the P3.3 A-vs-V value isolation plus a coupling-equivalence sizing pilot. B2's semantics arm — the only arm that would close C30 — is non-identifiable on a frozen checkpoint at MPS budget (it re-runs the R22 multi-draw/dyadic wall), so C30 is scoped out and only a geometry-controlled existence + partner-specificity positive search remains runnable. B3 carries two convergent, fixable fatals (an object/space contradiction in the injected object and a U_info backdoor); it becomes identifiable and MPS-feasible after a bounded v2 redesign and a discovery pilot.
+
+Decision: **defer B4.** The L3H1/carrier→L2MLP bridge is non-identifiable as a direct edge on a frozen post-LN checkpoint (verified across three convergent lenses): the only implementable carrier deletion is global at the position-embedding source, and post-LN renormalization leaves no additive carrier component to subtract at a mid-layer edge, so the intended "edge distinct from global C8" does not exist. This is an identifiability blocker, not a power or cohort-location one; a real cross-estimand bridge would need a training-time / subspace-freeze design.
+
+Decision: **B5 (context-signal power) is the one runnable survivor** and is being executed separately in the Head–Context-Atlas study, not here. B4 and B5 are Atlas-study preregs and are tracked in `../splicebert_head_context_atlas/`.
+
+Operational note: the SpliceBERT.1024nt weights and the coupling/atlas data are absent from this worktree, so any future B1/B2/B3 execution must be launched from the main checkout. The B1–B4 drafts are retained as designs-of-record; the per-branch dispositions and verbatim must-fixes live in each prereg's closure section and in the matching `redteam/REDTEAM_SYNTHESIS_B*.md`.

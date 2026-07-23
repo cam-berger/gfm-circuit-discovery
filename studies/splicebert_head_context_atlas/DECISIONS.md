@@ -437,3 +437,40 @@ Design decisions and post-diagnostic pivots. Preregistered confirmatory choices 
   target log-probability and entropy only; synthetic `U_info`/`U_read` lenses are not retrofitted. Case
   population interventions remain visually separate from representative screening and matched-negative
   graphs.
+
+## 2026-07-22 — reviewer roadmap B4 deferred and B5 closes the HCA18 shortlist (design red-team + power calc)
+
+Two Atlas-study branches from the reviewer roadmap B1–B5 were formalized into preregistrations and put
+through a five-lens **pre-compute** design red-team before any compute (the same formalize→audit→verify
+discipline as P3.4). The companion partner-selection branches (B1/B2/B3) are logged in that study's
+`DECISIONS.md`.
+
+- **B4 — L3H1/carrier → L2MLP bridge (HCA20 residual): DEFERRED.** Three convergent lenses found the direct
+  carrier→L2MLP edge **non-identifiable on a frozen post-LN checkpoint** (verified against code+data). The only
+  carrier-deletion primitive (`run_carrier_surgery.py::make`) edits the whole position-embedding matrix
+  globally at the source; post-LN renormalization leaves no additive carrier component to subtract at a
+  mid-layer edge; the only implementable deletion injects a globally-carrier-deleted layer-2 residual into
+  L2MLP's input, bundling the direct removal with comb-collapse content routing through **L2H15** (the
+  layer-2 period-3 comb head feeding L2MLP in the same block). So `ΔΔ_bridge = direct + through-comb`, and the
+  "edge distinct from global C8" does not exist. The blocker is identifiability, **not** power or the
+  Drive-only stage-2 cohort (the paired second-difference off the HCA20 base already clears SESOI; in-repo
+  `atlas_context_matched_v7.validation.packets.jsonl` supplies 1,486 gene-labeled packets). The only
+  locally-runnable identifiable variant is a coarse **total** upstream carrier-dependence of L2MLP's partner
+  write — a localized-C8 read, not a bridge — which belongs with the donor-circuit carrier/address thread
+  beside C34/C35. A genuine cross-estimand bridge needs a training-time / subspace-freeze design if the Atlas
+  becomes a headline. Design of record: `PREREGISTRATION_B4_L3H1_CARRIER_TO_L2MLP.md`; red-team:
+  `REDTEAM_SYNTHESIS_B4.md`.
+
+- **B5 — the 20 HCA18 context signals: CLOSED as under-powered leads (HCA23).** The one runnable survivor of
+  B1–B5. A deterministic, **model-free** power calc (`analyze_b5_context_signal_power.py`, prereg v2 FROZEN
+  after the red-team removed a definitionally ill-posed pooled-taxonomy escape hatch, fixed the census
+  provenance, added ceiling-channel planted-positives, and unit-matched demand/supply to effective pairs)
+  shows every one of the 20 signals requires more effective matched pairs to reach `MDE80≤0.05` than exist
+  even at the **hard one-case-per-gene** exact-other-tag support cap (acceptor 1.05×, donor 3.88×, cassette
+  1.88× over; 20/20). Because the observed `se` is a selected single-draw lower bound, the arithmetic can only
+  license CLOSE (never a reachable/redesign disposition), so the honest terminal disposition of HCA18 is
+  **CLOSE-AS-UNDERPOWERED** — exactly HCA18's own boundary ("do not erase, do not validate; a fresh,
+  better-powered design is required"). All memorials + calibration pass and the verdict was independently
+  re-derived. A future WH4/WH5 validation must increase supply or accept a coarser pooled estimand with a
+  freshly measured pooled `se`. Artifacts: `results/…/b5_context_signal_power_v1.json` (+manifest);
+  `PREREGISTRATION_B5_CONTEXT_SIGNAL_POWER.md`; `REDTEAM_SYNTHESIS_B5.md`.
