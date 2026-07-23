@@ -54,6 +54,13 @@ against content-specificity."
 
 ## 2. Health gate redesign (under-injection, baseline-relative)
 
+> **UPDATE (2026-07-23, prereg A6): health DOWNGRADED to a reported diagnostic.** The R-h2 smoke
+> positive-control did not fire — a 50×-destructive single-token L3H1 clamp leaves distant non-site
+> health unchanged (0.540 vs 0.538), a verified architectural property (local injection does not
+> propagate to distant probes). Health is therefore **measured + reported** (no-global-breakage
+> diagnostic, weak evidence per R-h3) but is **not** a POSITIVE gate and R-h2 is **not** a SMOKE_PASS
+> gate. The design below stands as the measurement; only its gating role is removed.
+
 **Defect.** `result["mlm_health"] = task.mlm_health(X[:40])` (driver:434) measures **baseline** masked
 accuracy with **no injection**, gated `> 0.8` (driver:439) against a model baseline of ~0.56 — so the gate can
 never pass and never measures injection damage. Doubly wrong (disposition §"Still open").

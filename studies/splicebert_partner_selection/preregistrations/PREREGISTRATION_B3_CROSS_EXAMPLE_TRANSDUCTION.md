@@ -443,3 +443,24 @@ Add to the §8 `--smoke` gate set (makes the health gate demonstrably failable, 
 Freeze scramble+health+MF2 as a SET; ONE re-run; no per-control iteration after any part of the re-run is
 seen (next step on failure is the sealed cohort, never another val tweak). Results immutable; corrections
 appended. `v1` retained intact as design-of-record; this amendment appended at the foot per repo convention.
+
+### A6. Health gate DOWNGRADED to a reported diagnostic (owner 2026-07-23, pre-run, smoke-surfaced)
+
+The A4/R-h2 positive control (a planted-destructive injection must FIRE the health gate) was run at
+`--smoke` and did **not** fire: a 50×-norm off-manifold clamp at the single donor-token L3H1 output left
+distant non-site masked accuracy unchanged (`acc_destructive 0.540` vs `acc_base 0.538`, floor 0.394).
+This is a **verified architectural property** — a local single-token injection does not propagate to
+distant probes through layers 4–5 — not a code fault (memorials `value_linearity` 2.6e-6, `recon` 0.0;
+calibration passes). The distant-probe health gate is therefore **structurally unfireable by a local
+injection**, so making it a hard POSITIVE-blocker would be an unfireable pass (the R7/R21 pathology it
+exists to avoid).
+
+**Owner decision (2026-07-23, pre-run — `--smoke` reads only memorials/plumbing, no confirmatory estimand):
+DOWNGRADE health to a REPORTED DIAGNOSTIC.** It is still measured under injection per arm and reported
+(`acc_base`, `floor`, per-arm `acc`/`ok`), but is **removed from the POSITIVE conjunction** and R-h2 is
+**not** a `SMOKE_PASS` gate. Interpretation (R-h3): distant-probe health ≈ baseline under the payload
+injection confirms **no GLOBAL forward-pass breakage** — appropriate, since a local injection cannot
+globally break the model — reported as weak evidence, never a strong "injection did not break the model"
+certification. The confound health guarded against (a globally-broken forward pass yielding an artifactual
+margin) does not arise for a local injection, so the downgrade does not weaken the POSITIVE family. This
+supersedes A2.1's "below-floor arm blocks POSITIVE" and A4's hard R-h2 gate.
