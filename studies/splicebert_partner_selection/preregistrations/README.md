@@ -35,7 +35,8 @@ correction, and decision ledgers.
 | [`PREREGISTRATION_P3_CARRIER_CAUSAL_ROLE.md`](PREREGISTRATION_P3_CARRIER_CAUSAL_ROLE.md) | **complete with qualification** | C34/C35; C34 confirmation is gate-qualified by R24. |
 | [`PREREGISTRATION_P3_CLOSURE.md`](PREREGISTRATION_P3_CLOSURE.md) | **complete; clean confirmation** | C36: material phase-aligned P3 use and learned-direction specificity pass; matched coding enrichment is inconclusive. |
 | [`PREREGISTRATION_P3_4_CARRIER_ORIGIN.md`](PREREGISTRATION_P3_4_CARRIER_ORIGIN.md) | **deferred / not frozen** | Frozen-checkpoint design cannot identify training origin; requires training-time evidence. |
-| [`PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR.md`](PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR.md) | **fixable-then-runnable (design red-team 2026-07-22); NOT this-session survivor** | B1; OV arm non-identifiable as written—needs A-vs-V value isolation. |
+| [`PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR.md`](PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR.md) | **superseded by v2 (design-of-record)** | B1 v1; OV arm non-identifiable as written—needs A-vs-V value isolation. |
+| [`PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR_V2.md`](PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR_V2.md) | **split-freeze (focused re-audit 2026-07-22)** | B1 v2; behavioural arm (coupling→null) FROZEN_RUNNABLE; OV arm (C35 value-main → donor readout, simple `DI−DD`, covariance-matched nulls) design-frozen pending its `--smoke` gate on the main checkout. |
 | [`PREREGISTRATION_B2_PAYLOAD_STEERING.md`](PREREGISTRATION_B2_PAYLOAD_STEERING.md) | **fixable-then-runnable (design red-team 2026-07-22); NOT this-session survivor** | B2; semantics arm non-identifiable at MPS budget—scope C30 out. |
 | [`PREREGISTRATION_B3_CROSS_EXAMPLE_TRANSDUCTION.md`](PREREGISTRATION_B3_CROSS_EXAMPLE_TRANSDUCTION.md) | **fixable-then-runnable (design red-team 2026-07-22); NOT this-session survivor** | B3; object/space + backdoor fatals, fixable v2. |
 
