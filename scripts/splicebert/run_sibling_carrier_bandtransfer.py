@@ -248,7 +248,7 @@ def main() -> None:
                "169-173 (5 bins). Energy-matched control bands are the null.",
                "Human-only sibling not tested: its period-3 carrier is already absent in P.",
                "MLM health gated: an arm below 50% headroom over chance is not interpreted (R13)."],
-    ).write(out.parent / "sibling_carrier_bandtransfer.manifest.json")
+    ).write(out.with_suffix("").with_suffix(".manifest.json"))
     print(f"saved -> {out}")
 
 
