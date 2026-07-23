@@ -30,11 +30,15 @@ Start with:
 |---|:--:|:--:|:--:|:--:|:--:|---|
 | Period-3 clock | ✓ | ✓ | ✓ | ✓ | ✓ | Causal positional support for donor–acceptor routing |
 | Donor–acceptor computation | n/a | ✓ | ✓ | ✓ | ✓ | Paired-acceptor information causally affects donor prediction |
-| Multi-species ≈10.63 carrier | ✓ | ✓ | ✓ | ? | ? | Real positional attention circuit; purpose unknown |
+| Multi-species ≈10.63 carrier | ✓ | ✓ | ✓ | null (donor) | small suppr. | Reaches attention; OV write onto the donor readout is NULL and deletion has a small *suppressive* coupling effect — **not part of the donor circuit** (C37, donor-scoped); general OV (MLM) + origin open |
 | Human-only ≈10.2 candidate | ✓ | provisional | failed | — | null | Proposed chromatin circuit closed at attention |
 
-Evidence never promotes itself between columns. In particular, the ≈10.63 result stops at
-attention: no downstream write, mediation effect, or behavioral function has been demonstrated.
+Evidence never promotes itself between columns. The ≈10.63 result formerly stopped at attention;
+**B1 (2026-07-22, C37) now measures the OV and behavioural columns for the donor circuit** and finds it is
+**not part of that circuit**: its post-softmax readers (9, replicating C11 on 1024nt) write **nothing
+carrier-specific** onto the donor readout (OV value-main A-null), and deleting it has only a **small,
+significant, *suppressive*** coupling effect (dC=−0.033; it slightly interferes with, rather than supports,
+coupling). Its general OV content (MLM output) and biological origin remain untested.
 
 ## Results by question
 
@@ -67,6 +71,9 @@ attention: no downstream write, mediation effect, or behavioral function has bee
 | `band_mass.json` | Eligibility audit and attention mass in the tested band |
 | `carrier_surgery.json` / `carrier_surgery.manifest.json` | Target, reciprocal, low-leak, and content-shuffle controls |
 | `human_carrier.json` | Matched human-only checkpoint analysis |
+| `carrier_preflight_r.json` / `.manifest.json` | **B1** Preflight R: 1024nt post-softmax Level-A reader scan → `R_1024` = 9 heads (`OV_ARM_LIVE`) |
+| `carrier_ov_av.json` / `.manifest.json` | **B1 OV arm** (C37): value-main (simple `DI−DD`) over `R_1024`; **A-null** (no carrier-specific write onto the donor readout); router-negative + `M-simplemain` |
+| `carrier_p10_behaviour_confirm.json` (+ `_n1200.json`) / `.manifest.json` | **B1 behaviour** (C37): coupling under ≈10.63 deletion; dC=−0.033 [−0.061,−0.005] small suppressive (deletion raises coupling); §5 risk-2 control-band qualification |
 
 ### Biological-source tests and powered refutations
 
@@ -120,12 +127,18 @@ run artifacts before writing.
 
 ## Open questions
 
-For the ≈10.63 carrier, the next licensed questions are:
+For the ≈10.63 carrier, the status of the licensed questions after B1 (C37):
 
-1. What information, if any, do the eight Level-A heads write through OV?
-2. Does that write mediate a model-native behavior?
-3. Which training-data statistic or architectural pressure produces the carrier?
-4. Does an analogous positional circuit appear in another GFM?
+1. ~~What do the Level-A heads write through OV?~~ **Answered for the donor circuit (B1): nothing
+   carrier-specific** — the value-main onto the donor readout is a null across all 9 readers. *General OV
+   content (onto the MLM output) remains untested.*
+2. ~~Does that write mediate a model-native behavior?~~ **Answered for coupling (B1): a small *suppressive*
+   effect** — deletion raises coupling by 0.033 (sub-SESOI, CI-excludes-0); the carrier is not used to *support*
+   the donor computation.
+3. **Open:** which training-data statistic or architectural pressure produces the carrier? (training-time, out
+   of scope for a frozen checkpoint.)
+4. **Open:** does an analogous positional circuit appear in another GFM?
 
-Until those bridges are crossed, describe it as a **real positional attention circuit of unknown
-function and origin**.
+After B1, describe it as a **real positional attention circuit that is not part of the donor circuit
+(donor-scoped OV null + small suppressive coupling effect), with general OV content and origin still
+unknown**.
