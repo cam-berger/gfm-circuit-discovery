@@ -1,5 +1,7 @@
 # DESIGN DRAFT — SpliceBERT Head–Context Atlas (estimand C primary)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 > Status: **DRAFT for pre-compute adversarial red-team** (formalize-audit-verify step 1–2).
 > Nothing here is frozen until the red-team must-fixes are applied. No model outcome has been read.
 > This document is the input the red-team lenses attack. Attack it, do not defend it.

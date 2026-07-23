@@ -1,5 +1,7 @@
 # Codon phase-lattice protocol — historical exploratory record
 
+> **Tier: T3 — historical.** Superseded or point-in-time; retained for the record. Not current guidance.
+
 **Status: superseded as an active study; retained for provenance.**
 
 This directory contains the v3 phase-shift preregistration created after the original “42-head codon

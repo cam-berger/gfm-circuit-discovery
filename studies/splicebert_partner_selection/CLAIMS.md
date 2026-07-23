@@ -11,7 +11,9 @@ Status vocabulary:
 - **established** — supported at the stated evidence level by indexed artifacts and qualified controls;
 - **bounded** — supported only within an explicit power, intervention, or scope boundary;
 - **open** — the necessary evidence level has not been reached;
-- **retracted** — historical wording that must not be presented as live.
+- **retracted** — historical wording that must not be presented as live;
+- **closed** — a terminal row: no further evidence will be sought (a permanent power/sensitivity bound, or a
+  forward-pointing stub superseded by a stronger row); retained for provenance, not a live loose end.
 
 ## Live claims
 
@@ -23,15 +25,15 @@ Status vocabulary:
 | C4 | L3H1's acceptor read is conjunctive: key-only and value-only effects are small, while key+value gives **+0.663** with interaction **+0.531 [0.477, 0.583]**. | established: mediation | `sealed_test.json` | Conditional on the sealed patching intervention. |
 | C5 | L3H1 reads at the acceptor, writes into the donor ±5 neighborhood, and feeds a distributed downstream readout. | established: localization/path | `position_profile.json`; `readout_path.json` | Component-level path, not feature-level completeness. |
 | C6 | L2H15 and L1H12 contribute upstream through L3H1, but neither supports a simple exclusive-role story. | established with negative interpretation | `l2_accounting.json`; `l1h12_route.json` | Marginal effects are not additive shares. |
-| C7 | The early broad-ablation completeness assay was uninformative; completeness is instead bounded by C27/C33. | superseded/bounded | `completeness_null.json`; `a6_circuit_faithfulness.json`; `a12_faithfulness_size.json` | Do not cite the damaged-model null as evidence of completeness. |
+| C7 | The early broad-ablation completeness assay was uninformative; completeness is instead bounded by C27/C33. | closed: superseded by C27/C33 | `completeness_null.json`; `a6_circuit_faithfulness.json`; `a12_faithfulness_size.json` | Do not cite the damaged-model null as evidence of completeness. |
 | C8 | A rank-2 learned period-3 position code causally supports coding prediction and donor–acceptor coupling; deletion changes coupling **0.946 → 0.027**. | established: position through behavior | `carrier_surgery.json`; `carrier_dose.json` | Model mechanism; no biological-origin claim; C36 supplies the clean phase-aligned-use confirmation. |
 | C9 | Restoring L2H15 or L3H1 after period-3 deletion recovers **0.363/0.348**, above the matched one-head null maximum **0.042**. | established: size-matched mediation | `carrier_mediation.json` | Single-head mediation under the carrier-deletion intervention. |
-| C10 | Six- and sixteen-head restorations do not independently strengthen C9 because their matched-null support is inadequate. | bounded | `carrier_mediation.json` | No larger-set superiority claim. |
+| C10 | Six- and sixteen-head restorations do not independently strengthen C9 because their matched-null support is inadequate. | closed: bounded (permanent matched-null power limit) | `carrier_mediation.json` | No larger-set superiority claim. |
 | C11 | The distinct multispecies **≈10.63** carrier reaches controlled post-softmax attention in eight heads. | established: routing/attention | `postsoftmax.json`; `preflight_postsoftmax.json`; `band_mass.json`; `fig_report_data.json` | Separate from the period-3 carrier; stops at attention. |
 | C12 | The ≈10.63 carrier's OV write and behavioral function are now MEASURED **for the donor circuit** (→ **C37**: OV value-write null + a small suppressive coupling effect); its **general OV content (MLM output) and biological origin remain open**. | bounded (donor-scoped) by C37; general OV + origin open | `results/phase-lattice/carrier_ov_av.json`; `carrier_p10_behaviour_confirm.json`; `carrier_preflight_r.json` | Do not infer general OV use or biology from the donor-scoped result. |
 | C13 | The proposed human-only ≈10.2 chromatin circuit has zero corrected Level-A heads and is closed at the attention gate. | established: powered attention null | `postsoftmax.json`; `band_mass.json`; `fig_report_data.json` | Refutes the proposed reader set, not every possible chromatin representation. |
 | C14 | A real nucleosomal signal occurs near **10.298 nt**, distinguishable from the model's ≈10.63 carrier. | established: biological-source distinction | `dyad_real.json`; `dyad_wavelength.json` | Supports distinctness, not the origin of either carrier. |
-| C15 | Unanchored and splice-window assays set sensitivity limits but do not establish absence of weak biological periodicity. | bounded | `splice_profile.json`; `splice_phasing.json`; `splice_long.json` | Nulls are limited by calibrated resolution and power. |
+| C15 | Unanchored and splice-window assays set sensitivity limits but do not establish absence of weak biological periodicity. | closed: bounded (permanent sensitivity limit) | `splice_profile.json`; `splice_phasing.json`; `splice_long.json` | Nulls are limited by calibrated resolution and power. |
 | C16 | A stable low-rank final-residual direction, `U_info`, mediates donor coupling; rank-8 patching recovers about **0.92** versus matched random subspaces ≤**0.05**. | established: output/readout | `donor_anchor.json` | Donor-side delivered representation, not semantic identity. |
 | C17 | Restoring L3H1 recovers **0.83** of coupling; **0.93** of that effect routes through `U_info`, predominantly at donor ±5. | established: mediation/path | `donor_forward.json` | Conditional mediation; fractions are not additive across serial components. |
 | C18 | L5H11, L4H2, and L4H0 are selective downstream transporters of the donor-side information. | established: head-level mediation | `donor_heads.json` | Transporter set is scoped to the tested checkpoint and behavior. |
@@ -66,6 +68,17 @@ Status vocabulary:
   biological/model variable it represents remains open.
 - C36 closes the clean period-3 **current-use** question, not its origin: the model uses its learned P3
   direction in CDS blocks, but the matched non-CDS-exon boundary does not establish coding enrichment.
+- **Period-3 present-day-use family (C34/C35/C36) — DONE (2026-07-22).** C36's clean nucleotide-invariant
+  confirmation (`Ψ_C=+0.141 [0.110,0.172]`, learned direction above all 19 same-geometry controls) supplies
+  the clean phase-aligned-use evidence that C34's gate-qualified confirm (R24) lacked; C35 fixes the routing
+  locus (L3H1 attention, not carrier-dependent values). Present-day causal **use** is established; only the
+  training/biological **origin** remains, and it is deferred (P3.4 needs training-time evidence — see
+  `CLAUDE.md`). No further present-day-use experiment is licensed on this family.
+- **Cross-study positive control (donor circuit):** the Head–Context Atlas competition branch (now closed)
+  independently rediscovered **L3H1** as the donor-reconstruction mediator on a disjoint donor-target cohort
+  (HCA9: donor B +0.114 [0.098,0.130]; exact 400-gene L3H1 patch +0.0857 [0.0492,0.1280] vs behavioral +0.1015),
+  corroborating C3/C4/C5/C17. See `../splicebert_head_context_atlas/CLAIMS.md` (HCA9, closed) and its
+  `DECISIONS.md` 2026-07-22.
 - Historical tripwires remain active: **D30 is a SENSITIVITY LIMIT, not a null**, and the small-model D29
   result does not generalize—**Do NOT write 'transformers cannot learn relative rulers.'**
 - For the exact correction history and superseded wording, consult [`CORRECTIONS.md`](CORRECTIONS.md)

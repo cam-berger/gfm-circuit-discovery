@@ -1,5 +1,7 @@
 # Method documentation
 
+> **Tier: T1 — canonical.** Current, authoritative. Read this.
+
 These documents define the research program independently of any one model.
 
 - [METHODOLOGY.md](METHODOLOGY.md) — the end-to-end discovery workflow and tool families.

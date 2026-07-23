@@ -1,5 +1,7 @@
 # Research spine — SpliceBERT Head–Context Atlas
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 ## The original question
 
 Across biologically distinct, overlapping sequence contexts, **which SpliceBERT components are reused

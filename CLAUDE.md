@@ -92,8 +92,12 @@ rationale in `DECISIONS_A0.md`):
     a publication-grade null needs an untouched disjoint cohort. Coheres with the **local-window** picture
     (C28/C30). Prereg + amendments:
     `studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md`.
-  - **IC2 (acceptor-competition) — DESIGN-COMPLETE, PARKED (not run) pending the P3 SpliceBERT account
-    (2026-07-18).** A parallel-thread exploration hardened to **v5.3** (feasibility pilot + calibration DONE,
+  - **IC2 (acceptor-competition) — RETIRED (2026-07-22; formerly parked pending the P3 SpliceBERT account,
+    2026-07-18).** The Head–Context Atlas **refuted** the competition-specific premise this run would confirm
+    (HCA4 `|M_comp|=0.088 < |M_decoy|=0.135`; no competition-specific head/MLP module, HCA10) ⇒ confirmatory
+    **not licensed**; running it would only confirm a behavior already shown not to be competition-specific.
+    Its sibling draft **IC2a** is retired with it. Revivable design asset only. Prior parked-state detail
+    (retained for the record): A parallel-thread exploration hardened to **v5.3** (feasibility pilot + calibration DONE,
     survived a 4-lens red-team → 2-lens re-audit → final freeze-audit): the synthetic reciprocal-swap assay is
     viable; **SLOT arm robust** — a foreign window's native-vs-displaced slot reliance `τ_D`≈0.53 (~10× SESOI):
     donor support depends on *which scaffold slot holds a competent acceptor*, not on which reliance-matched
@@ -144,10 +148,12 @@ rationale in `DECISIONS_A0.md`):
   `studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_P3_4_CARRIER_ORIGIN.md`
   (design of record, NOT frozen),
   `studies/splicebert_partner_selection/redteam/REDTEAM_SYNTHESIS_P3_4.md`.
-- **SpliceBERT carrier account CLOSED** at the causal-locus + A-vs-V level: C8 dependence, C19
-  phase-independence, C32 relative address, C34 distributed locus (R24: confirm gate-qualified), C35 attention
-  routing (R24: value-null within-intervention). Origin deferred (training-time); D_rec recognition deferred;
-  construction-vs-binding non-identifiable (R23).
+- **SpliceBERT carrier account CLOSED** at the causal-locus + A-vs-V level, and the **period-3
+  present-day-use family (C34/C35/C36) is DONE (2026-07-22)**: C8 dependence, C19 phase-independence, C32
+  relative address, C34 distributed locus (R24: confirm gate-qualified), C35 attention routing (R24:
+  value-null within-intervention), **C36 clean nucleotide-invariant confirmation (`Ψ_C=+0.141 [0.110,0.172]`)
+  — the clean phase-aligned-use evidence C34's gate-qualified confirm lacked**. Only **origin** remains
+  (training-time, deferred); D_rec recognition deferred; construction-vs-binding non-identifiable (R23).
 - **CURRENT: SpliceBERT cross-context transduction + site-choice steering.** The audited Head–Context Atlas
   is committed and supplies matched multi-context cohorts and candidate components. The next causal bridge
   is gene-disjoint cross-example/context transduction, not another attribution screen; payload semantics and

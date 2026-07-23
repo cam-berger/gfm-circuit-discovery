@@ -1,5 +1,7 @@
 # The SpliceBERT donor circuit — original C16–C19 synthesis
 
+> **Tier: T3 — historical.** Superseded or point-in-time; retained for the record. Not current guidance.
+
 > **Historical scope notice (2026-07-20):** this document predates the A0→A12 generator/address work and
 > corrections R22–R24. It is retained for provenance, not as the current one-file mechanism account.
 > Read [`../../MECHANISM.md`](../../MECHANISM.md) and [`CLAIMS.md`](CLAIMS.md) for current wording.

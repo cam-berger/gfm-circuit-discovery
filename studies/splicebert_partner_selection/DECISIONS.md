@@ -1,5 +1,7 @@
 # SpliceBERT decision record
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 This is a consolidated chronology of scientific pivots. It records why the active tree changed; it is not a second claim ledger.
 
 ## 2026-07-10 to 2026-07-11 — initial partner-selection framing
@@ -128,3 +130,33 @@ Both B1 v2 arms were run on the SpliceBERT.1024nt checkpoint (drivers `run_carri
 **Two design projections the run corrected (recorded for honesty, no R-number — these were design *projections*, not claims):** (1) T1 was too pessimistic on OV identifiability; (2) the behavioural power was mis-projected by *both* red-teams — v1 said ρ≥0.98, the re-audit "corrected" to ρ>0.42 but borrowed C8's MLM per-example SD (~0.02) instead of the coupling-margin SD (~0.87, which the v1 red-team's must-fix #5 had flagged). The two-sided ±0.05 equivalence is therefore expensive and unreached; reported one-sided at achieved precision. The behavioural pilot did its job — the empirical sizing corrected both projections.
 
 **Provenance/hygiene note:** run in this worktree with `data/models` **symlinked** from the main checkout (gitignored; removed at cleanup). The n=256 pilot JSON was overwritten by n=1200 in the first chain (its numbers are preserved in this entry and the run logs); n=1200 (`_n1200.json`) and n=2500 (`_confirm.json`) are retained as immutable artifacts. C37 bounds C12 (donor-scoped); general OV (MLM) and origin remain open.
+## 2026-07-22 — Bookkeeping close-out (no new experiments)
+
+A pure bookkeeping pass to close administrative loose ends; nothing was run. Four actions:
+
+- **HCA9 L3H1 positive control folded in.** The Head–Context Atlas competition branch closed at behavioral
+  specificity (`../splicebert_head_context_atlas/`: `CLAIMS.md` consolidation banner, `DECISIONS.md`
+  2026-07-22 — the perturbation is **not** competition-specific, HCA4/HCA10). Its one salvageable result —
+  the branch independently **rediscovered donor-circuit L3H1** as the donor-reconstruction mediator on a
+  disjoint donor-target cohort (donor B +0.114 [0.098,0.130]; exact 400-gene L3H1 patch +0.0857 [0.0492,0.1280]
+  vs behavioral B +0.1015) — is recorded here as a **cross-study positive control** corroborating C3/C4/C5/C17,
+  with a pointer added to the `CLAIMS.md` interpretation guardrails.
+
+- **Three terminal C-rows closed** (`CLAIMS.md` status vocabulary gains `closed`): **C7** (the early
+  broad-ablation completeness assay — a forward-pointing stub superseded by C27/C33), and **C10** and **C15**
+  (permanent matched-null power and calibrated-sensitivity bounds). Nothing runs to close these further; they
+  are marked terminal so they are not read as open loose ends. Claim text and artifacts are unchanged.
+
+- **Period-3 present-day-use family (C34/C35/C36) stamped DONE.** C36's clean nucleotide-invariant
+  confirmation supplies the clean phase-aligned-use evidence that C34's gate-qualified confirm (R24) lacked;
+  C35 fixes the routing locus. Present-day causal **use** is established; only **origin** remains, deferred
+  (P3.4, training-time evidence). Recorded as a guardrail stamp in `CLAIMS.md` and reflected in `CLAUDE.md`.
+
+- **IC2 and IC2a retired.** IC2 is the confirmatory acceptor-competition run for exactly the competition-
+  specific premise the Atlas refuted (HCA4/HCA10); running it would confirm a behavior already shown not to be
+  competition-specific, so it moves from **parked → retired** (revivable design asset only). IC2a (the deferred
+  proximal-module decomposition that fed the same arc) moves from **not-pursued → retired**. Both preregs keep
+  their frozen bodies; only their status banners and the `preregistrations/README.md` dispositions change. No
+  outcome may be claimed from either.
+
+These are lifecycle closures, not retractions — no new R-number is warranted; the empirical record is unchanged.

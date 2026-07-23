@@ -1,5 +1,7 @@
 # Pre-compute design red-team — estimand C (6 lenses) — 2026-07-18
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 Adversarial design red-team run **before any compute**, per the house pattern (IC1 5-lens, P3 4-lens,
 Caduceus 5-lens). Input: `DESIGN_DRAFT.md` (the formalized estimand-C design). Six independent lenses
 (identifiability, statistical, confound, calibration, architecture-forced, cohort/precedent) + a

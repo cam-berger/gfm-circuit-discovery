@@ -1,5 +1,7 @@
 # Head–Context Atlas analysis plan v1
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 Status: **FROZEN BEFORE THE FULL DISCOVERY MATRIX WAS READ** (2026-07-19).
 
 This plan turns the 102-component discovery matrix into two bounded products:

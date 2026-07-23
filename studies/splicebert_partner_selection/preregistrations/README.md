@@ -29,8 +29,8 @@ correction, and decision ledgers.
 | [`PREREGISTRATION_A11_ADDRESS_GEOMETRY.md`](PREREGISTRATION_A11_ADDRESS_GEOMETRY.md) | **complete** | C32; predominantly relative address. |
 | [`PREREGISTRATION_A12_FAITHFULNESS_SIZE.md`](PREREGISTRATION_A12_FAITHFULNESS_SIZE.md) | **complete** | C33; gradual faithfulness curve, no sparse knee. |
 | [`PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md`](PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md) | **complete diagnostic** | IC1; outcome-aware deterministic verification, not confirmation. |
-| [`PREREGISTRATION_IC2A_ACCEPTOR_MODULE_DECOMPOSITION.md`](PREREGISTRATION_IC2A_ACCEPTOR_MODULE_DECOMPOSITION.md) | **deferred / not pursued** | Draft only; no outcome may be claimed. |
-| [`PREREGISTRATION_IC2_ACCEPTOR_COMPETITION.md`](PREREGISTRATION_IC2_ACCEPTOR_COMPETITION.md) | **parked** | v5.3 design/calibration complete; confirmatory run not opened. |
+| [`PREREGISTRATION_IC2A_ACCEPTOR_MODULE_DECOMPOSITION.md`](PREREGISTRATION_IC2A_ACCEPTOR_MODULE_DECOMPOSITION.md) | **retired (2026-07-22)** | Draft only; acceptor-competition arc closed (premise refuted by Atlas HCA4/HCA10; IC2 retired). Provenance only — no outcome may be claimed. |
+| [`PREREGISTRATION_IC2_ACCEPTOR_COMPETITION.md`](PREREGISTRATION_IC2_ACCEPTOR_COMPETITION.md) | **retired (2026-07-22)** | v5.3 design/calibration complete, but its competition-specific premise was refuted by Atlas HCA4/HCA10; confirmatory not licensed. Revivable design asset only. |
 | [`PREREGISTRATION_PERIOD3_COMPUTATION.md`](PREREGISTRATION_PERIOD3_COMPUTATION.md) | **completed historical protocol** | C8–C10; later causal-locus questions moved to P3. |
 | [`PREREGISTRATION_P3_CARRIER_CAUSAL_ROLE.md`](PREREGISTRATION_P3_CARRIER_CAUSAL_ROLE.md) | **complete with qualification** | C34/C35; C34 confirmation is gate-qualified by R24. |
 | [`PREREGISTRATION_P3_CLOSURE.md`](PREREGISTRATION_P3_CLOSURE.md) | **complete; clean confirmation** | C36: material phase-aligned P3 use and learned-direction specificity pass; matched coding enrichment is inconclusive. |

@@ -1,5 +1,7 @@
 # P3 shift diagnostic v2 — exploratory report
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status:** outcome-aware deterministic verification of an exploratory diagnostic. This is not a new
 confirmed claim and does not establish the carrier's training origin or biological semantics.
 

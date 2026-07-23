@@ -1,5 +1,7 @@
 # ONTOLOGY — SpliceBERT Head–Context Atlas (v1, FROZEN)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 > Frozen 2026-07-18 after the 6-lens design red-team (`REDTEAM_SYNTHESIS_C_6lens.md`). Annotation-only
 > for v1. Model-derived quantities live in a SEPARATE namespace (§H) and MUST NOT define a biological
 > class (R22). Amendments allowed only pre-run, logged inline as `Amendment (date, pre-run, no data seen)`.

@@ -1,0 +1,38 @@
+digraph a10_generator {
+  // GENERATED FROM results/splicebert_coupling/a10_generator_edges.json -- do not hand-edit
+  rankdir=LR;
+  bgcolor="white";
+  node [fontname="Helvetica", fontsize=11, shape=box, style=rounded, color="#6A4A9C", fontcolor="#16232E"];
+  edge [fontname="Helvetica", fontsize=9, color="#5A6672", fontcolor="#5A6672", arrowsize=0.8];
+  graph [fontname="Helvetica", fontsize=10, labelloc=b, labeljust=l, nodesep=0.28, ranksep=0.85];
+  "acceptor-local state" [shape=box, style="rounded,dashed", color="#8794A0", fontcolor="#8794A0", fontsize=10];
+  "acceptor-local payload" [shape=box, style="rounded,dashed", color="#8794A0", fontcolor="#8794A0", fontsize=10];
+  subgraph cluster_l0 {
+    label=<<b>layer-0 attention</b>  held-out load-bearing heads>;
+    labeljust=l; style=filled; color="#E1E7EC"; fillcolor="#E3E9EE";
+    "L0H7" [label=<<b>L0H7</b><br/><font point-size="9">N = +0.348  [0.300, 0.399]</font>>, penwidth=4.00];
+    "L0H12" [label=<<b>L0H12</b><br/><font point-size="9">N = +0.160  [0.129, 0.192]</font>>, penwidth=2.38];
+    "L0H10" [label=<<b>L0H10</b><br/><font point-size="9">N = +0.116  [0.090, 0.142]</font>>, penwidth=2.00];
+    "L0H8" [label=<<b>L0H8</b><br/><font point-size="9">N = +0.016  [0.012, 0.020]</font>>, penwidth=1.14];
+    "L0H13" [label=<<b>L0H13</b><br/><font point-size="9">N = +0.001  [0.001, 0.002]</font>>, penwidth=1.01];
+    "L0H11" [label=<<b>L0H11</b><br/><font point-size="9">N = +0.001  [0.001, 0.001]</font>>, penwidth=1.01];
+  }
+  "MLP0" [label=<<b>MLP0</b><br/><font point-size="9">N = +0.354  [0.292, 0.417]</font>>, shape=box, style="rounded,filled", fillcolor="#F7F9FB", penwidth=2.0];
+  "MLP1" [label=<<b>MLP1</b><br/><font point-size="9">N = +0.434  [0.365, 0.507]</font>>, shape=box, style="rounded,filled", fillcolor="#F7F9FB", penwidth=2.0];
+  "MLP2" [label=<<b>MLP2</b><br/><font point-size="9">N = +0.880  [0.809, 0.953]</font>>, shape=box, style="rounded,filled", fillcolor="#F7F9FB", penwidth=2.0];
+  "acceptor-local state" -> "L0H7" [style=dashed, color="#8794A0"];
+  "L0H7" -> "MLP0" [penwidth=4.00];
+  "L0H12" -> "MLP0" [penwidth=2.16];
+  "L0H10" -> "MLP0" [penwidth=1.73];
+  "L0H8" -> "MLP0" [penwidth=0.76];
+  "L0H13" -> "MLP0" [penwidth=0.61];
+  "L0H11" -> "MLP0" [penwidth=0.61];
+  "MLP0" -> "MLP1" [penwidth=2.2];
+  "MLP1" -> "MLP2" [penwidth=2.2];
+  "MLP2" -> "acceptor-local payload" [style=dashed, color="#8794A0"];
+  "L0H12" -> "L0H10" [dir=none, style=dashed, constraint=false, color="#8794A0", fontcolor="#8794A0", label="interaction -0.126 (D split)\npartially redundant"];
+  "mediation" [shape=note, color="#E1E7EC", fontcolor="#5A6672", fontsize=9, style=filled, fillcolor="#F7F9FB", label="MLP0 MEDIATES the layer-0 contribution\nL0 heads alone R = 0.136   L0 heads + MLP0 R = 0.356"];
+  { rank=same; "MLP0"; "mediation"; }
+  "MLP0" -> "mediation" [style=invis];
+  label="A10 / C31 payload generator, held-out (n = 220 pairs, 196 genes).  N = conditional causal necessity with a gene-bootstrap 95% CI.\lSTRICT SERIAL chain: each MLP is necessary on held-out, none is sufficient alone (MLP0 only 0.015, MLP1 only 0.010, MLP0+MLP1 0.005).\lThe N values are CONDITIONAL effects. They do not sum and are not additive fractions.\lGenerator ceiling 0.282.  Value path only: the address is held clean, so this graph shows how the payload is BUILT, not how it is addressed or delivered.\lDashed grey boxes are scope context, not measured nodes.\l";
+}

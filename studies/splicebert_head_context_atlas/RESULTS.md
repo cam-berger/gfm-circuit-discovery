@@ -1,5 +1,7 @@
 # Results index — Head–Context Atlas
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 Indexes immutable machine-readable artifacts. Not a substitute for `CLAIMS.md`.
 
 | Run | Question | Status | Artifact | Manifest | Claims | Notes |
