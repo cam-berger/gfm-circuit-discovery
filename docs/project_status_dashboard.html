@@ -307,13 +307,14 @@
   <div class="wrap hero">
     <div class="kicker">
       <span class="dot"></span>
-      <span class="k-txt">Status snapshot · 2026-07-22 · branch claude/carrier-ov-circuit-analysis-8acefd</span>
+      <span class="k-txt">Status snapshot · 2026-07-23 · branch b3-confirmatory-redesign</span>
     </div>
     <h1 class="title">GFM Circuit Discovery<br><span class="thin">how SpliceBERT scores a splice donor from its intron partner</span></h1>
     <p class="lede">A mechanistic-interpretability program that moves a genomic foundation model from a
       <b>behaviour</b> to a causally supported <b>mechanism</b>, under an evidence ladder where nothing
-      promotes across levels without the experiment that licenses it. Two results are publishable now; one
-      generalization experiment stands between the current record and the paper.</p>
+      promotes across levels without the experiment that licenses it. Two results are publishable now; the
+      cross-example generalization experiment (G1/B3) is now executed — the circuit is interventionally
+      general and position-specific, with content-specificity below val resolution (C38).</p>
 
     <div class="kpis">
       <div class="kpi"><span class="stripe s-accent"></span>
@@ -323,8 +324,8 @@
       </div>
       <div class="kpi"><span class="stripe s-est"></span>
         <div class="cap">Live claims</div>
-        <div class="val">38 <small>C1–C37 · IC1</small></div>
-        <div class="foot">30 established · 5 bounded · 2 negative · 0 open · 1 verification</div>
+        <div class="val">39 <small>C1–C38 · IC1</small></div>
+        <div class="foot">30 established · 5 bounded · 2 negative · 0 open · 2 verification</div>
       </div>
       <div class="kpi"><span class="stripe s-neg"></span>
         <div class="cap">Powered negative results</div>
@@ -527,19 +528,19 @@
   <!-- CLAIM LEDGER -->
   <section id="ledger">
     <p class="eyebrow">05 · Live claim ledger</p>
-    <h2 class="sec-h">C1–C37 and IC1, at their exact evidence level</h2>
+    <h2 class="sec-h">C1–C38 and IC1, at their exact evidence level</h2>
     <p class="sec-sub">The point-of-contact record for the strongest wording the evidence currently
       licenses — one claim, one level, one boundary per row. Filter by status or search the text.</p>
     <div class="filters" id="filters">
       <span class="flabel">Status</span>
-      <button class="fbtn active" data-f="all">All <span class="cnt">38</span></button>
+      <button class="fbtn active" data-f="all">All <span class="cnt">39</span></button>
       <button class="fbtn" data-f="est">Established <span class="cnt">30</span></button>
       <button class="fbtn" data-f="bounded">Bounded <span class="cnt">5</span></button>
       <button class="fbtn" data-f="neg">Negative result <span class="cnt">2</span></button>
       <button class="fbtn" data-f="open">Open <span class="cnt">0</span></button>
-      <button class="fbtn" data-f="verify">Verification <span class="cnt">1</span></button>
+      <button class="fbtn" data-f="verify">Verification <span class="cnt">2</span></button>
       <input id="ledgerSearch" class="lsearch" type="search" placeholder="search claims, e.g. L3H1 or payload…" aria-label="Search claim text">
-      <span class="fcount" id="fcount" aria-live="polite">showing 38 of 38</span>
+      <span class="fcount" id="fcount" aria-live="polite">showing 39 of 39</span>
     </div>
     <div class="ledger-scroll">
       <table class="ledger">
@@ -580,7 +581,7 @@
 <tr data-cat="verify"><td class="cid">IC1</td><td class="claim">Distal intron arrangement has a small sub-SESOI effect and no detected partner-specific component (<b>+0.006 [−0.011,+0.024]</b>).<span class="art">ic1_distal_intron_necessity_v8.json</span></td><td class="lvl">outcome-aware verification</td><td><div class="stat-cell"><span class="chip c-verify">verification</span><span class="chip note">not confirmatory</span></div></td></tr>
 <tr data-cat="est"><td class="cid">C34</td><td class="claim">The period-3 carrier's coupling contribution is distributed across the donor–acceptor span; site-local restoration recovers only ≈2–4%.<span class="art">p3_carrier_locus.json</span></td><td class="lvl">distributed locus</td><td><div class="stat-cell"><span class="chip c-est">established</span><span class="chip note">gate-qualified confirm</span></div></td></tr>
 <tr data-cat="est"><td class="cid">C35</td><td class="claim">Within carrier patching, recovery is mediated mainly by L3H1's attention pattern (<b>+0.284</b>) not carrier-dependent values (<b>−0.005</b>).<span class="art">p3_av_decomposition.json</span></td><td class="lvl">A-vs-V conditional mediation</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
-<tr data-cat="est"><td class="cid">C36</td><td class="claim">Nucleotide-invariant surgery confirms phase-aligned use of the learned P3 direction in CDS blocks: <b>Ψ_C=+0.141 [0.110,0.172] nats</b>, n=943; beats all 19 controls.<span class="art">p3_phase_surgery_confirmation_v1/</span></td><td class="lvl">clean confirmatory behaviour</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr><tr data-cat="est"><td class="cid">C37</td><td class="claim">The ≈10.63 carrier reaches post-softmax attention but is <b>not part of the donor circuit</b>: nine readers on 1024nt (C11 + L2H6); OV value-write is <b>null</b> (all |Mv|&lt;0.02, router-negative confirms) and deleting it <b>raises</b> coupling by <b>−0.033 [−0.061,−0.005]</b> — small suppressive, not used to support it. Donor-scoped; general OV + origin open.<span class="art">carrier_ov_av · carrier_p10_behaviour_confirm · carrier_preflight_r</span></td><td class="lvl">OV null + behaviour · donor-scoped</td><td><div class="stat-cell"><span class="chip c-est">established</span><span class="chip note">bounds C12</span></div></td></tr></tbody>
+<tr data-cat="est"><td class="cid">C36</td><td class="claim">Nucleotide-invariant surgery confirms phase-aligned use of the learned P3 direction in CDS blocks: <b>Ψ_C=+0.141 [0.110,0.172] nats</b>, n=943; beats all 19 controls.<span class="art">p3_phase_surgery_confirmation_v1/</span></td><td class="lvl">clean confirmatory behaviour</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr><tr data-cat="est"><td class="cid">C37</td><td class="claim">The ≈10.63 carrier reaches post-softmax attention but is <b>not part of the donor circuit</b>: nine readers on 1024nt (C11 + L2H6); OV value-write is <b>null</b> (all |Mv|&lt;0.02, router-negative confirms) and deleting it <b>raises</b> coupling by <b>−0.033 [−0.061,−0.005]</b> — small suppressive, not used to support it. Donor-scoped; general OV + origin open.<span class="art">carrier_ov_av · carrier_p10_behaviour_confirm · carrier_preflight_r</span></td><td class="lvl">OV null + behaviour · donor-scoped</td><td><div class="stat-cell"><span class="chip c-est">established</span><span class="chip note">bounds C12</span></div></td></tr><tr data-cat="verify"><td class="cid">C38</td><td class="claim">Cross-example payload transfer is <b>interventionally general</b> and <b>position-specific</b> (R≈0.93, dose-monotone β=0.28; decoy collapses <b>−0.049</b>), but <b>content-specificity is unresolvable on val</b>: a norm/energy-matched scramble still recovers ~⅓ (<b>0.339</b>) and the paired margin contrast <b>Δ_MF2=+0.158 [−0.110,0.331]</b> straddles 0; powering n 260→512 did <b>not</b> shrink the dyadic HW (0.201→0.221; gene-heterogeneity-dominated). A geometry floor + an unresolved content component, not separable — a clean call needs the sealed chr8/9 cohort.<span class="art">b3_cross_example_transduction_n512.json · prereg §A0–A7</span></td><td class="lvl">verification · bounded (achieved precision)</td><td><div class="stat-cell"><span class="chip c-bounded">bounded</span><span class="chip note">verification</span></div></td></tr></tbody>
       </table>
     </div>
   </section>
@@ -615,7 +616,7 @@
         <p class="sub">Verified this session, not assumed.</p>
         <div class="rrow"><span class="rk">Test suite</span><span class="rv ok">294 ✓ · 0 ✗ · 46 skip</span></div>
         <div class="rrow"><span class="rk">Manifest verifier</span><span class="rv ok">green · 742 rows</span></div>
-        <div class="rrow"><span class="rk">Scientific record</span><span class="rv ok">+C37 · +HCA23</span></div>
+        <div class="rrow"><span class="rk">Scientific record</span><span class="rv ok">+C38 (B3/G1)</span></div>
         <div class="rrow"><span class="rk">Figures of record</span><span class="rv ok">byte-identical</span></div>
         <div class="rrow"><span class="rk">Checkpoints</span><span class="rv">1024nt + 510nt</span></div>
         <div class="rrow"><span class="rk">CI enforces guard</span><span class="rv ok">enforced ✓</span></div>
@@ -626,18 +627,22 @@
   <!-- NEXT -->
   <section id="next">
     <p class="eyebrow">07 · What's next</p>
-    <h2 class="sec-h">One experiment gates the paper</h2>
+    <h2 class="sec-h">The generalization gate — executed</h2>
     <div class="next-grid">
       <div class="gate card">
-        <span class="g-eyebrow">Next scientific gate · prereg drafted, not frozen, not run</span>
-        <h3>G1 — cross-example transduction</h3>
-        <p>Almost all donor-graph evidence is intra-example patching on short introns, so it speaks only to
-          that prompt distribution. A reviewer will ask whether the circuit generalizes. G1 answers it.</p>
+        <span class="g-eyebrow">Executed 2026-07-23 · prereg §A0–A7 · verification tier · C38</span>
+        <h3>G1 / B3 — cross-example transduction <span class="chip c-bounded">done</span></h3>
+        <p>The generalization question, answered on val. Injecting a matched cross-gene payload into
+          gene-disjoint targets recovers the donor margin <b>large, dose-monotone, and position-specifically</b>
+          (R≈0.93; decoy collapses −0.049) — the circuit <b>is interventionally general</b>. But whether it
+          carries <b>partner-specific content</b> is <b>unresolvable on val</b>: a norm-matched scramble still
+          recovers ~⅓ and the paired margin contrast straddles 0, and powering n 260→512 did not shrink the
+          gene-heterogeneity-dominated dyadic CI. A clean content-specificity call needs the sealed chr8/9 cohort.</p>
         <ul class="g-steps">
-          <li>Derive <span class="mono">U_info</span> on discovery genes only</li>
-          <li>Inject into gene-disjoint matched targets</li>
-          <li>Require dose-ordered margin movement above matched-random &amp; within-example controls</li>
-          <li>Multi-draw stability + dyadic inference (R22 discipline)</li>
+          <li>Interventionally general ✓ · position-specific ✓ (decoy collapses)</li>
+          <li>Content-specific: <b>unresolved</b> — a geometry floor + a weak content component, not separable</li>
+          <li>Verification tier (val already seen); the sealed cohort is the only clean-confirmatory path</li>
+          <li>Paired MF2 (§6) · fixed-band (A2.2) · health→diagnostic (A6) · power-up (A7)</li>
         </ul>
       </div>
       <div class="tracks">

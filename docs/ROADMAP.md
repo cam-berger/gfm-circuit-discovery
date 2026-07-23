@@ -59,9 +59,15 @@ without generic MLM damage, with its semantic label no stronger than the externa
    sufficient without being a self-contained generator; adaptive minimality remains open.
 3. **Context generality:** Atlas components validate across matched cohorts, but cross-context state
    transduction remains untested.
-4. **Period-3 origin:** present-day use is causal; training origin requires checkpoints, controlled
-   retraining, corpus/objective ablations, or cross-model evidence.
-5. **≈10.63 function:** its downstream write, behavior, and biological origin remain open.
+4. **Period-3 origin:** present-day use is causal, and origin is now **corpus-attributed** (C39/C40,
+   2026-07-23): period-3 is strong in the 72-species stage-1 sibling and absent (powered null) in the
+   human-only sibling, and absent from single-nt transformer MLMs trained on ORF-free ncRNA — a
+   multi-species, codon-linked origin. Only training *dynamics* (the trajectory) still need checkpoint
+   series or controlled retraining. See [`CARRIER_ORIGIN_SYNTHESIS_2026-07-23.md`](CARRIER_ORIGIN_SYNTHESIS_2026-07-23.md).
+5. **≈10.63 carrier:** its general downstream write and behavioral function remain open (C12/C37), but its
+   **origin is now corpus-attributed** (C39): strong in 72-species, absent in human-only, and absent from
+   the human genome's own dinucleotide spectrum (≈10.63 is not a human-sequence statistic; the genome's
+   real short-range period is nucleosomal ≈10.298 nt). Multi-species training built it.
 
 ## Transfer milestone — second real GFM
 

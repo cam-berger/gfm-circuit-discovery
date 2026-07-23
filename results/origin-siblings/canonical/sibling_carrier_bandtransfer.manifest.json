@@ -1,0 +1,41 @@
+{
+  "command": [
+    "scripts/splicebert/run_sibling_carrier_bandtransfer.py",
+    "--n",
+    "384",
+    "--controls",
+    "30"
+  ],
+  "config": {
+    "band": [
+      169,
+      170,
+      171,
+      172,
+      173
+    ],
+    "controls": 12,
+    "model": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.510nt",
+    "n": 384
+  },
+  "created_at_utc": "2026-07-23T18:43:54.589567+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 77130,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "origin_siblings:carrier_bandtransfer",
+  "git_commit": "74f2bfafb8842b25c0b2c2e5389a5284a0b1ff66",
+  "git_dirty": true,
+  "inputs": [],
+  "notes": [
+    "Band-deletion transfer on the stage-1 72-species sibling (SpliceBERT.510nt), the checkpoint where the P-spectrum inventory found period-3 present (250.7x, bin 171).",
+    "N=512 is not divisible by 3, so period-3 smears across bins 170-172; the band is 169-173 (5 bins). Energy-matched control bands are the null.",
+    "Human-only sibling not tested: its period-3 carrier is already absent in P.",
+    "MLM health gated: an arm below 50% headroom over chance is not interpreted (R13)."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

@@ -55,11 +55,11 @@ at **102.5%**. Two carriers, two different jobs.
 | claim | status |
 |---|---|
 | Transformers learn oscillator banks | **established** — RoBERTa-base, trained on **text**, has one |
-| SpliceBERT selectively amplifies a **sharp** ~10.67 tone | **established** |
+| SpliceBERT selectively amplifies a **sharp** ≈10.63 tone | **established** |
 | L0H11 uses that tone | **established** (D23; post-softmax, not just in the logits) |
-| Genomic/chromatin statistics **selected** the tone | **plausible, UNTESTED** |
-| The model uses it to represent chromatin | **unproven** |
-| The 512-grid **quantized** a broad nucleosome-scale band into bin 48 | **new, concrete, testable** |
+| Genomic statistics **selected** the tone | **UPDATED (C39, 2026-07-23): corpus-attributed** — the ≈10.63 carrier is built by multi-species pretraining (strong in the 72-species sibling, absent in the human-only sibling). Not "chromatin": the tone is absent from the human genome's own dinucleotide spectrum. |
+| The model uses it to represent chromatin | **refuted as chromatin** — the genome's real short-range period is nucleosomal ≈10.298 nt, resolvably distinct from the ≈10.63 carrier (C14, R17). The carrier is a multi-species-training feature, not a nucleosomal read-back. |
+| The 512-grid **quantized** a broad nucleosome-scale band into bin 48 | superseded — see C39/C40 corpus attribution; the ≈10.63 carrier is not a nucleosome-scale band. |
 
 **The bank is a Transformer artefact; the selected tone is not.** RoBERTa's 9–12 band is
 **broadband** — it peaks at period 11.91, and at 10.67 it is *not even a local maximum*; only 20%

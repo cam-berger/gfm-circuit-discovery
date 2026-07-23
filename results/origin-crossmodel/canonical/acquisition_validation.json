@@ -1,0 +1,70 @@
+{
+ "assay": "crossmodel_acquisition_validation",
+ "description": "RNA-FM and RNA-BERT acquired from HuggingFace, validated single-nt + absolute learned P through the existing SpliceBertAdapter.",
+ "models": {
+  "rnafm": {
+   "hf_id": "multimolecule/rnafm",
+   "position_embedding_type": "absolute",
+   "P_module_path": "model.embeddings.position_embeddings",
+   "P_shape": [
+    1026,
+    640
+   ],
+   "P_weight_sha256": "2702e198af0f15cf6f84194a7b3c7ad9493bb6f78cebaa664a8288c3bd37ef52",
+   "max_position_embeddings": 1026,
+   "vocab_size": 28,
+   "hidden_size": 640,
+   "num_layers": 12,
+   "num_heads": 20,
+   "head_dim": 32,
+   "tokenizer_class": "RnaTokenizer",
+   "tokenizer_mode": "raw",
+   "prefix_tokens": 1,
+   "config_sha256": "fa3fcfed918282a78301d677dffc2ad6bc746ece2ff72134cf7bf1df49905024",
+   "full_state_dict_sha256": "cb14806f2c2858e44661c1f92441c9758b012fffdf6b1671a5724bbbb38a469a",
+   "parameter_count": 99523228,
+   "n_encoder_layers_resolved": 12,
+   "n_attention_modules_resolved": 12,
+   "domain": "ncRNA (largely ORF-free)"
+  },
+  "rnabert": {
+   "hf_id": "multimolecule/rnabert",
+   "position_embedding_type": "absolute",
+   "P_module_path": "model.embeddings.position_embeddings",
+   "P_shape": [
+    440,
+    120
+   ],
+   "P_weight_sha256": "9d92452fcd8f62fd95b07ac8778ca2b5715a28e1fc3038f488eeee23feb2eb9d",
+   "max_position_embeddings": 440,
+   "vocab_size": 28,
+   "hidden_size": 120,
+   "num_layers": 6,
+   "num_heads": 12,
+   "head_dim": 10,
+   "tokenizer_class": "RnaTokenizer",
+   "tokenizer_mode": "raw",
+   "prefix_tokens": 1,
+   "config_sha256": "9a038fad9fc184acbd5a9133ddd7163684ff13668f3dfa86535a78864d82ca31",
+   "full_state_dict_sha256": "7ae30bcab158e26f48020feb82d3f26504e8171cab5792157b635fe521a6052a",
+   "parameter_count": 484736,
+   "n_encoder_layers_resolved": 6,
+   "n_attention_modules_resolved": 6,
+   "domain": "ncRNA (largely ORF-free)"
+  }
+ },
+ "carrier_bin_geometry": {
+  "rnafm": {
+   "period3_exact_bin": 342.0,
+   "period3_is_exact": true,
+   "period_10p63_bin_float": 96.51928504233301,
+   "note": "1026 rows: period-3 exact at bin 342; 10.63 near bin 96.5 (bin96=10.6875)"
+  },
+  "rnabert": {
+   "period3_bin_float": 146.66666666666666,
+   "period3_is_exact": false,
+   "period_10p63_bin_float": 41.39228598306679,
+   "note": "440 rows: NEITHER period-3 nor 10.63 is an exact bin -> leakage-aware estimator"
+  }
+ }
+}
