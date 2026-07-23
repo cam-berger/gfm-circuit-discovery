@@ -1,0 +1,44 @@
+{
+ "carrier_bins": [
+  94,
+  95,
+  96,
+  97,
+  98,
+  99,
+  100
+ ],
+ "T": 10.6875,
+ "SESOI_C": 0.05,
+ "n": 2500,
+ "n_genes": 1085,
+ "coupling_intact_mean": 0.9554201257437468,
+ "coupling_deleted_mean": 0.9887245482444763,
+ "dC_point": -0.03330442250072956,
+ "dC_ci": [
+  -0.06059186694472346,
+  -0.005278005731273173
+ ],
+ "dC_half_width": 0.027656930606725146,
+ "rho_paired": 0.7882101583754455,
+ "equivalence": false,
+ "verdict": "INCONCLUSIVE_underpowered",
+ "sizing_gate": {
+  "needs": "HW < SESOI_C - |point|",
+  "HW": 0.027656930606725146,
+  "threshold": 0.01669557749927044,
+  "pass": false
+ },
+ "memorials": {
+  "M-del_reconstruct_anchor": 8.940696716308594e-08,
+  "M-ctrl_control_bands_off_band": true,
+  "M-det": true,
+  "M-p3contrast_coupling_collapse_ratio": 0.03657928189093016,
+  "M-couphealth": true
+ },
+ "health": {
+  "intact": 0.5334347587721512,
+  "deleted": 0.5184573070131266
+ },
+ "note": "Behavioural (coupling) arm only.  MLM secondary is descriptive/one-sided and not run here by default (MPS wall).  A coupling POSITIVE re-flags band 94-100 as the surgery/dose inert control (prereg \u00a75 risk-2)."
+}

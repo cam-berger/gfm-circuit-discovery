@@ -1,6 +1,14 @@
 # PREREGISTRATION — B1: ≈10.63 carrier past attention (closes/bounds C12) — v2 (SPLIT-FREEZE)
 
-**Status: SPLIT-FREEZE (2026-07-22), after the focused OV-estimand re-audit
+**Status: EXECUTED 2026-07-22** — both arms run on the SpliceBERT.1024nt checkpoint; full results in the
+**"## Execution results"** section at the foot of this file, in [`../DECISIONS.md`](../DECISIONS.md), and in
+CLAIMS **C37** (which bounds C12, donor-scoped). Headline: the OV arm is a clean **A-null** (the carrier's 9
+post-softmax readers write nothing carrier-specific onto the donor readout) and the behavioural arm finds a
+**small, significant, SUPPRESSIVE** coupling effect (deletion *raises* coupling by 0.033, sub-SESOI) — the
+carrier is not used to *support* the donor computation. Two design projections were corrected by the run
+(below). Prior design status:
+
+**SPLIT-FREEZE (2026-07-22), after the focused OV-estimand re-audit
 ([`../redteam/REDTEAM_SYNTHESIS_B1_V2.md`](../redteam/REDTEAM_SYNTHESIS_B1_V2.md), 3 independent lenses vs
 code+data).**
 - **BEHAVIOURAL arm (ΔC coupling under `BAND_P10` deletion): FROZEN_RUNNABLE.** Clean paired within-example
@@ -311,3 +319,57 @@ The `f_v` diagnostic and the MLM secondary never drive an endpoint.
   a manifest beside output.
 - **Amendments:** pre-run only, logged `Amendment (date, pre-run, no data seen)`; once the primary is inspected
   a fix is *outcome-aware verification*, not confirmatory (IC1 A2).
+
+---
+
+## Execution results (2026-07-22, SpliceBERT.1024nt, MPS)
+
+Drivers: `scripts/splicebert/run_carrier_preflight_r.py`, `run_carrier_ov_av.py`, `run_carrier_p10_behaviour.py`.
+Artifacts: `results/phase-lattice/carrier_preflight_r.json`, `carrier_ov_av.json`,
+`carrier_p10_behaviour_confirm.json` (+ `_n1200.json`) (+ manifests). All memorials/calibration passed.
+
+**Preflight R (n=48) → `OV_ARM_LIVE`.** `R_1024` = **9** post-softmax Level-A ≈10.63 readers:
+`L2H6, L2H12, L3H3, L3H5, L3H8, L3H9, L3H11, L3H13, L4H13` — C11's eight 510nt readers **replicated on the
+1024nt checkpoint** plus L2H6. Memorials exact (`target_retained=1.2e-15`, checkpoint unmutated). **This
+revises T1's pessimism:** the *post-softmax* readers are not disjoint from C11 (that was the *QK* readers,
+`second_carrier.json`); the OV arm is identifiable.
+
+**OV arm (n=120, all 9 heads) → A-null (the headline).** Every reader's simple value-main `Mv_h = DI−DD` lies
+**within ±SESOI_v = 0.02** (range −0.009→+0.013; largest L2H6 +0.013 [+0.006,+0.020], CI-low ≪ SESOI_v; none
+fires). The **router-negative** (period-3 L3H1 through the same pipeline) returns value-main **−0.0099
+[−0.019,−0.002]** (nulls a known router) with **`M-simplemain_gap = 0.0` exact** — the M-1a fix held: the code
+uses the simple `DI−DD`, `Δ_bind` (+0.20) is quarantined, not interpreted (R23). **⇒ the ≈10.63 carrier writes
+nothing carrier-specific onto the donor coupling readout.** (No covariance-null / PP-ovplant follow-up needed —
+that calibrates a *positive*, and none fired.) Scope (R24): value-main at these deep (L2–L4) readers is a
+within-intervention conditional mediation, donor-scoped.
+
+**Behavioural arm → small, significant, SUPPRESSIVE (not a clean equivalence).** dC(D10) = C(intact) − C(deleted),
+gene-clustered, stabilised across n: −0.015 (219 g) → −0.034 (738 g) → **−0.0333 [−0.0606, −0.0053]** (n=2500,
+1085 genes, ρ=0.79). **The CI excludes 0**: deleting the carrier **raises** coupling by 0.033 (C 0.955→0.989) —
+a **small (|0.033| < SESOI_C=0.05), significant, suppressive** effect (`small-but-detectable` per the verdict
+taxonomy), replicating the seen dose arm (+0.024). M-p3contrast 0.037 (the re-pointed instrument still collapses
+coupling on period-3), M-couphealth OK. **The carrier is not used to *support* coupling** (the "used" direction
+would *reduce* it); its small effect is anti-coupling and — given the OV null — **not mediated by the readers'
+values** (routing/distributed).
+
+**§5 risk-2 reconciliation (obligation discharged):** band 94–100 is **not strictly inert for coupling** — its
+deletion significantly raises coupling by 0.033 (CI-excludes-0). Its use as `carrier_surgery`/`carrier_dose`'s
+*energy-matched inert control* is valid **for MLM** (where it was established) but **not for coupling**; this
+qualifies that control (it does not touch C8: period-3's coupling effect is ~30× larger and in the opposite,
+supportive direction).
+
+**Two design projections the run corrected (honest record):**
+1. **T1 (checkpoint mismatch) was too pessimistic on identifiability** — the post-softmax readers *do* appear on
+   1024nt (9 heads), so the OV arm was live, not Endpoint B.
+2. **The behavioural power was mis-projected by BOTH red-teams.** v1 said ρ≥0.98; the re-audit "corrected" it to
+   ρ>0.42 — but that borrowed C8's *MLM* per-example SD (~0.02), whereas the **coupling** margin SD is ~0.87
+   (the v1 red-team's must-fix #5 had flagged this). Empirically HW≈0.87·√(2(1−ρ))/√(n_genes); a two-sided ±0.05
+   equivalence needs the CI inside ±0.05, unreachable while the true effect is ~−0.033 (a real fraction of
+   SESOI). Reported one-sided / at achieved precision, not as a powered equivalence.
+
+**Endpoint (donor-scoped), bounding C12 → CLAIMS C37:** the ≈10.63 carrier reaches post-softmax attention
+(C11, replicated on 1024nt) but is **not part of the donor circuit** — it writes nothing carrier-specific onto
+the donor readout (OV A-null) and is not used to support donor coupling (small suppressive behavioural effect,
+sub-SESOI). A positional feature routed but not used for the donor computation — the contrast to the period-3
+clock (C8/C36) which *is* used. **General OV content (MLM output) and biological origin remain open** (the
+pre-committed scope boundary).
