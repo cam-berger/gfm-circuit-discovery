@@ -28,9 +28,12 @@ WHAT THIS MEASURES (v2, must-fixes folded in)
     for the ratio-of-means (each gene is reused as source-for-many and target-for-many). One-way
     gboot_ratio is reported alongside but is NOT the inferential gate.
 
-CONTROLS (specificity; a POSITIVE call requires ALL pass)
-  - matched cohort: source!=target GENE (gene-disjoint), matched on native donor margin (caliper),
-    strand, coding status, and target-partner distance; plus a margin-MISMATCHED stratum (MF2).
+CONTROLS (a POSITIVE call requires ALL of these, each enforced in the verdict formula)
+  - matched cohort: source!=target GENE (gene-disjoint), matched on strand, coding status, and
+    target-partner distance (|Δpdist|<=200), source chosen nearest in native donor margin (caliper).
+  - margin-MISMATCHED stratum (MF2 confound gate): a source matched on strand/coding/pdist but FAR in
+    native margin; the matched primary transfer CI-low must EXCEED the mismatched stratum CI-high, so
+    the effect is not a margin-gap artifact.
   - scrambled-source: shuffle the source payload across positions -> transfer must collapse.
   - non-target-position: deliver at a decoy donor -> must collapse.
   - permuted-pairing dyadic FPR: randomize source<->target assignment -> R_xfer CI must include 0.
@@ -156,15 +159,22 @@ def capture_examples(ad, task, X, dev, off, Wv):
 # --------------------------------------------------------------------------------------
 # Cross-example matching: source != target gene, native-margin caliper, strand+coding exact.
 # --------------------------------------------------------------------------------------
-def match_pairs(E, rng, margin_caliper=0.75, mismatch=False, scramble=False, decoy=False):
-    """Return a list of (target_idx, source_idx, alpha_key) matched controls, gene-disjoint."""
+def match_pairs(E, rng, margin_caliper=0.75, pdist_caliper=200, mismatch=False,
+                scramble=False, decoy=False):
+    """Return a list of matched cross-example controls, gene-disjoint.
+
+    Candidates are constrained on strand, coding status, and target-partner distance
+    (|Δpdist| ≤ pdist_caliper); the source is then chosen by native donor margin: nearest
+    within the margin caliper for the primary/scramble/decoy cohorts, or the MAXIMALLY
+    mismatched candidate for the MF2 margin-mismatched stratum (mismatch=True)."""
     order = list(range(len(E)))
     pairs = []
     for i in order:
         cands = [j for j in order
                  if E[j]["gene"] != E[i]["gene"]
                  and E[j]["strand"] == E[i]["strand"]
-                 and E[j]["coding"] == E[i]["coding"]]
+                 and E[j]["coding"] == E[i]["coding"]
+                 and abs(E[j]["pdist"] - E[i]["pdist"]) <= pdist_caliper]
         if not cands:
             continue
         dm = np.array([abs(E[j]["m_cl"] - E[i]["m_cl"]) for j in cands])
@@ -350,7 +360,7 @@ def main() -> None:
         print(json.dumps(result["pilot"], indent=2))
         return
 
-    # ---- specificity controls (all must collapse for a POSITIVE) ----
+    # ---- specificity controls (scramble/decoy must COLLAPSE for a POSITIVE) ----
     sp = {}
     for name, kw in (("scramble", {"scramble": True}), ("decoy", {"decoy": True})):
         cp = match_pairs(E, np.random.default_rng(SEED + 3), **kw)
@@ -360,12 +370,26 @@ def main() -> None:
         sp[name] = {"R_xfer": est, "dyadic_ci": [clo, chi], "collapses": bool(clo <= SESOI_R)}
     result["specificity"] = sp
 
+    # ---- MF2 margin-mismatched stratum (confound gate): a source matched on strand/coding/pdist
+    # but FAR in native margin. If the "transfer" were a margin-gap artifact rather than
+    # partner-specific payload, this stratum would reproduce (or exceed) the matched transfer.
+    # POSITIVE requires the matched primary to NOT be dominated by the mismatched stratum.
+    mm = match_pairs(E, np.random.default_rng(SEED + 5), mismatch=True)
+    mmc, mgt, mgs = inject_margins(ad, task, E, mm, dev, off, Wv, _payload_edit, 1.0)
+    mmk, _, _ = inject_margins(ad, task, E, mm, dev, off, Wv, _corrupt_source_edit, 1.0)
+    mm_est, mm_lo, mm_hi = dyadic_ratio_ci(mmc - mmk, self_num[:len(mmc)], mgt, mgs, B=args.n_boot)
+    prim = dose["alpha_1.0"]
+    mm_ok = bool(prim["dyadic_ci"][0] > mm_hi)     # matched primary CI-low exceeds mismatched CI-high
+    result["margin_mismatched_stratum"] = {"R_xfer": mm_est, "dyadic_ci": [mm_lo, mm_hi],
+                                            "matched_exceeds_mismatched": mm_ok,
+                                            "note": "MF2 confound gate: transfer must not be a margin-gap artifact."}
+
     # ---- health gate ----
     result["mlm_health"] = float(task.mlm_health(X[:min(40, len(X))]))
 
-    prim = dose["alpha_1.0"]
     positive = (prim["dyadic_ci"][0] > SESOI_R and beta > 0 and monotone
                 and all(sp[c]["collapses"] for c in sp)
+                and mm_ok
                 and calib["permuted_includes_0"] and result["mlm_health"] > 0.8)
     result["verdict"] = ("POSITIVE_transfer" if positive
                          else ("NULL_no_transfer" if prim["dyadic_ci"][1] < SESOI_R
