@@ -248,8 +248,9 @@ def main() -> None:
         m_inj0 = sc.margin(ad.model(**sc._encode([w0["w"].seq], [w0["core_less"]])).logits.float(),
                            [w0["core_less"]])[0]
     alpha0_gap = float(abs(m_base - m_inj0))
-    # M-dose on a PLANTED direction: inject the exact (r_pref - r_less) full-state -> B_less must rise
-    planted = []
+    # M-dose on a PLANTED direction: inject the exact (r_pref - r_less) full-state; B_less must rise
+    # MONOTONICALLY across the dose grid (per-step non-decreasing), not merely end-to-end.
+    planted, mono_frac = [], []
     for r in R[:min(8, len(R))]:
         d = (r["r_pref"] - r["r_less"]).to(dev)
         tok = torch.tensor([r["core_less"] + off], device=dev)
@@ -260,19 +261,31 @@ def main() -> None:
                     ad.model(**sc._encode([r["w"].seq], [r["core_less"]])).logits.float(),
                     [r["core_less"]])[0]))
         planted.append(vals[-1] - vals[0])
+        steps = np.diff(vals)                                     # per-dose-step change
+        mono_frac.append(float(np.mean(steps >= -1e-4)))          # fraction of non-decreasing steps
     ckpt1 = float(next(ad.model.parameters()).abs().sum())
     m_dose_gain = float(np.mean(planted))
+    m_dose_monotone = float(np.mean(mono_frac))                   # mean fraction of monotone steps
     memorials = {"alpha0_gap": alpha0_gap, "m_dose_planted_gain": m_dose_gain,
+                 "m_dose_monotone_frac": m_dose_monotone,
                  "checkpoint_unmutated": abs(ckpt1 - ckpt0),
                  "n_sets": len(R), "n_genes": len(genes), "state_gap_norm": gap}
-    mem_ok = (alpha0_gap < 1e-4) and (m_dose_gain > SESOI_B) and (abs(ckpt1 - ckpt0) < 1e-6)
+    mem_ok = (alpha0_gap < 1e-4) and (m_dose_gain > SESOI_B) and (m_dose_monotone > 0.75) \
+        and (abs(ckpt1 - ckpt0) < 1e-6)
 
-    # M-label: discovery B-ordering predicts confirm-split ordering (labels are model-native, not MaxEnt)
+    # M-label: the model-native preference (higher native margin = preferred site) must be a STABLE,
+    # decisive population property on the HELD-OUT confirm fold, not a fold-specific artifact -- this
+    # is what guards the R20 trap (labels are model-native, never MaxEnt). Fold 0 = discovery,
+    # fold 1 = confirm (gene-disjoint by construction). We report the decisive-preference fraction
+    # (|mt-mc| > SESOI_B) on each fold and require the confirm fold to (a) clear chance and (b) be
+    # comparable to discovery (the label structure generalizes across the gene split).
     d_rows = [r for r in R if fold[r["gene"]] == 0]; c_rows = [r for r in R if fold[r["gene"]] == 1]
     label_ok = None
-    if d_rows and c_rows:
-        sign_agree = np.mean([(r["mt"] >= r["mc"]) for r in c_rows])   # confirm split consistency proxy
-        label_ok = float(sign_agree)
+    if len(d_rows) >= 3 and len(c_rows) >= 3:
+        disc_dec = float(np.mean([abs(r["mt"] - r["mc"]) > SESOI_B for r in d_rows]))
+        conf_dec = float(np.mean([abs(r["mt"] - r["mc"]) > SESOI_B for r in c_rows]))
+        label_ok = {"discovery_decisive_frac": disc_dec, "confirm_decisive_frac": conf_dec,
+                    "generalizes": bool(conf_dec > 0.5 and abs(conf_dec - disc_dec) < 0.25)}
 
     result = {"mode": "smoke" if args.smoke else ("pilot" if args.pilot else "confirm"),
               "split": split, "layer": L_INJECT, "dose_grid": list(DOSE_GRID), "sesoi_B": SESOI_B,
