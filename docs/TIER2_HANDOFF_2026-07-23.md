@@ -34,6 +34,87 @@ Two mathematical-fundamentals threads run through the whole task and must be hon
 If a proposed change would alter scientific meaning, it does **not** get applied — it is appended to
 `docs/REVIEW_OPEN_QUESTIONS.md` for the owner (Global Constraint 7).
 
+## 0.5 Methods spine for transfer — the atlas-first descent (READ THIS FIRST)
+
+> **Why this section exists.** A new model inheriting this project must understand the *shape* of the
+> method before the remediation tasks make sense. The organizing principle is **top-down: start at the
+> whole-component atlas, descend into intervention only where the atlas licenses it.** This is not a new
+> workflow — it is the spine that the existing `docs/METHODOLOGY.md` seven stages, formal grounding, and
+> eight core principles already instantiate. State it explicitly; do not invent a parallel structure.
+
+**The descent has five levels. Each is a different epistemic commitment, and evidence never auto-promotes
+between them (core principle 6).**
+
+1. **Level 0 — Atlas (wide, shallow, observational).** Census the full component space — all 102
+   heads+MLPs × the six sequence-architecture contexts (single-pair / donor-cluster / acceptor-cluster /
+   multi-pair / cassette / complex) × both target roles (donor, acceptor). Observational tools only
+   (attention patterns, residual/QK decomposition, position-table Fourier, attribution rankings). **No
+   causal claim is made here.** Output: the component×context map, partitioned into *general-use
+   candidates* (role holds across contexts — L2H15, L3H1, L1H12, L2MLP) vs *context-associated signals*
+   (fire in one architecture). This is `METHODOLOGY.md` stage 4, and it is the ENTRY POINT, not a
+   mid-pipeline step. (Atlas study: HCA11–HCA18.)
+
+2. **Level 1 — Shortlist (frozen, precision-gated).** From the atlas, freeze a candidate shortlist that
+   clears a precision gate on a discovery split, and seal a validation cohort. Signals that cannot reach
+   the gate are **closed as under-powered leads — a first-class outcome, not a failure** (HCA23 closed all
+   20 context-associated signals this way). The freeze is what converts "hunting until something confirms"
+   into "a pre-committed list tested once." This is the structural answer to the reviewer's sharpest
+   objection ("you found the circuit you went looking for"): the map is committed **before** intervention.
+   Core principle 3 — *attribution ranks; intervention decides* — the atlas is the ranking; the descent is
+   the deciding.
+
+3. **Level 2 — Causal validation (interchange interventions, per shortlisted component).** Only now
+   descend into the per-circuit seven-stage workflow: necessity → specificity → mediation → direction,
+   each an **interchange-intervention accuracy at increasing granularity** (the causal-abstraction reading,
+   Geiger et al. JMLR 26, 2025). Necessity, mediation, direction, and specificity are **different claims**
+   (core principle 4); each is written at the level it was measured, the same column-by-column discipline
+   the CLAIMS ledger enforces. Faithfulness is graded and size-swept, not a single threshold (MIB curve;
+   the "no sparse knee" result → *structured causal core within an irreducibly distributed computation*).
+   (Atlas study: HCA19–HCA20 validate the four general-use candidates as material causal relations.)
+
+4. **Level 3 — Carrier/representation layer (the GFM-specific descent).** Where a validated component
+   *reads* a representational structure rather than computing it, descend further into that structure. The
+   two positional carriers (period-3, ≈10.63) live in the position-embedding matrix **P**, and reader
+   heads read them out — so the atlas has **two object classes, not one**: `component` entries
+   (heads/MLPs) and `carrier` entries (structures in P), with a *reads* relation between them.
+   Characterize the carrier (Fourier of P), test the reader relation (post-softmax attention), and prove
+   use by band-deletion/transfer (never "surgery" in new prose). This layer is what makes a *genomic*-FM
+   atlas structurally richer than a text-LM head atlas.
+
+5. **Level 4 — Biological bridge (stop at the correct level; core principle 8).** Each validated
+   component/carrier carries a bridge status, at its honest evidence level: **(a) clear bridge** (L3H1 →
+   splice-site pairing / intron definition), **(b) candidate origin** (period-3 → codon 3-periodicity;
+   corpus-attributed C39, dynamics unproven), **(c) refuted obvious bridge, unknown true correlate**
+   (≈10.63 ≠ nucleosomal — a *powered refutation*, not a null). Presenting all three at their correct,
+   distinct level is the discipline that separates this from the attention-visualization literature. **Do
+   not force a biological story onto every component** (review §7).
+
+**The GFM-specific axes (what makes this an atlas *for GFMs*, not a generic head taxonomy).** Two axes
+fall out of this project's own results and should be named explicitly wherever the method is written up:
+- **Tokenizer-class gates what a component can read.** C40 established this as a mathematical constraint,
+  not an empirical accident: a codon-scale periodic code is representable under single-nucleotide
+  tokenization and **Nyquist-forbidden** under BPE (3 nt → 0.64 token-steps < the 2-step period). So every
+  atlas entry is conditional on tokenizer class; a null in a k-mer/BPE model is a tokenizer artifact, not
+  evidence about the model. No text-LM head atlas has this axis.
+- **Role vocabulary is molecular, not syntactic.** Entries are *splice-site reader*, *positional-carrier
+  reader*, *codon-phase reader*, *boundary detector* — not induction/previous-token/name-mover. This is a
+  controlled vocabulary (like `NOMENCLATURE.md`) for component function.
+
+**Scope boundary the transfer must preserve (do not overclaim).** The atlas is validated on **n=1 model**
+(SpliceBERT). The tokenizer-class axis is populated by a cross-model *refutation* (carriers ABSENT in
+RNA-FM/RNA-BERT, C40), not by validated cross-model role *correspondence*. So the licensed framing is: **"a
+GFM head-atlas formalism, worked example on SpliceBERT, with the tokenization-representability axis
+demonstrated by cross-model absence."** A claim of a *general* GFM atlas needs ≥2 models with validated,
+corresponding roles — that is a future experiment, not a documentation task, and must not be asserted in
+the methods write-up.
+
+**What the new model should do with this spine.** When formalizing the methods (the B2 fidelity pass,
+§5.B), present `METHODOLOGY.md` in this top-down order — atlas → shortlist → intervention → carrier →
+bridge — with the seven stages as the Level-2 detail and the eight core principles as the invariants that
+hold at every level. The review already asked for the seven-stage workflow + tool-to-question map to be
+**the paper's methods hero figure** (review §6.6): render it as the descent, with each result family's
+cells filled/open per evidence level. That figure *is* the methodological contribution.
+
 ## 1. Hard constraints for every task (from the plan's Global Constraints — non-negotiable)
 
 1. **Immutable record.** Never change a numeric value, claim text, evidence level, C/R-number, statistical
@@ -69,7 +150,7 @@ The execution plan lists Phases A–F as open checkboxes. **That is stale.** Mea
 | **B5** G1 prereg | `[ ]` | **DONE** — `PREREGISTRATION_G1_*.md` drafted (392 ln, NOT FROZEN) | none (Tier-1 handoff owns G1) |
 | **C1** reorg (git mv) | `[ ]` | **NOT DONE** — **229 files** classified development/superseded are still at top level in `phase-lattice/` and `splicebert_coupling/` | **the single biggest remaining task** (§5.A) |
 | **D1** figures | `[ ]` | **partial** — `figstyle.py`, `fig_evidence_ladder`, `fig_carrier_heatmap` exist | graphviz-from-edge-JSON schematic; confirm ladder-hero + 2D heatmap complete (§5.E) |
-| **E1** tiering | `[ ]` | **near-done** — 89/159 stamped; **11 live docs unstamped** (incl. this session's `CARRIER_ORIGIN_SYNTHESIS`, `TIER1_HANDOFF`) | stamp the remaining 11 (§5.F) |
+| **E1** tiering | `[ ]` | **partial** — ~90/160 stamped; **70 docs unstamped repo-wide** (48 under `studies/`, 10 `figures/`, 7 `docs/`, 3 top-level, 1 `data/`, 1 `results/`) | stamp all 70, not just the top-level ones (§5.F) |
 | **F1–F4** adversarial verify | `[ ]` | **NOT DONE** — the final integrity gates | run after C1/D1/E1 (§5.G) |
 
 **Net:** Phases A and B are effectively complete. The real remaining work is **C1 (reorg, high blast
@@ -185,15 +266,26 @@ onto every feature is the failure mode to avoid:
 - Use `figstyle.py` as the shared module; all existing recompute-checks must still pass. For any new
   deliverable figure, load the `figure-style` skill and `apply_figure_style()` first.
 
-### 5.F — E1 tiering (near-done; 11 stamps left)
+### 5.F — E1 tiering (partial; **70 docs unstamped repo-wide**)
 
-Stamp the 11 unstamped live docs with **T1 canonical / T2 provenance / T3 historical**. Header-line edits
-only. The remaining set (audited): `AGENTS.md`, `CLAUDE.md`, `RESULTS_VERIFICATION.md`,
-`docs/B2_B3_EXECUTION_DISPOSITION_2026-07-23.md`, `docs/B3_CONFIRMATORY_CONTROL_REDESIGN_2026-07-23.md`,
-`docs/CARRIER_ORIGIN_SYNTHESIS_2026-07-23.md` (T1), `docs/CLAIM_TRIAGE_2026-07-22.md` (T2),
-`docs/HANDOFF_B2_B3_EXECUTION.md` (T2), `docs/OPEN_TRACKS_EXPANDED_2026-07-22.md` (T2),
-`docs/REVIEW_2026-07-22.md` (T2). (`.pytest_cache/README.md` is generated — ignore.) Suggested tiers in
-parens; the two 2026-07-23 execution docs are T2 provenance.
+Stamp every unstamped live doc with **T1 canonical / T2 provenance / T3 historical**. Header-line edits
+only. **Scope is repo-wide, NOT top-level** — an earlier draft of this handoff under-counted by scanning
+only `maxdepth 2`; the audited full count (excluding `.venv/.git/.claude` and the generated
+`.pytest_cache/README.md`) is **70 unstamped**, distributed:
+
+| Directory | Unstamped | Typical tier |
+|---|---:|---|
+| `studies/**` | 48 | mostly T2 (prereg/decision/study READMEs) / T3 (superseded) — judge per doc |
+| `figures/**` | 10 | T2 (CAPTION/provenance docs) |
+| `docs/**` | 7 | T1 for live methods/synthesis (e.g. `CARRIER_ORIGIN_SYNTHESIS_2026-07-23.md`), T2 for dated execution/handoff docs (`CLAIM_TRIAGE_2026-07-22`, `HANDOFF_B2_B3_EXECUTION`, `OPEN_TRACKS_EXPANDED_2026-07-22`, `REVIEW_2026-07-22`, both `*_2026-07-23` execution docs) |
+| top-level | 3 | `AGENTS.md`, `CLAUDE.md`, `RESULTS_VERIFICATION.md` — judge (RESULTS_VERIFICATION is T2 provenance) |
+| `data/**` | 1 | T2 |
+| `results/**` | 1 | T2/infrastructure |
+
+Regenerate the list at execution time — this session added docs — with a recursive scan
+(`find . -name '*.md'` excluding `.venv/.git/.claude`, skip `.pytest_cache/README.md`) checking the first
+~6 header lines for a `Tier:` stamp. **E1 is complete only when that repo-wide scan returns zero
+unstamped**, not when the top-level docs are done.
 
 ### 5.G — F1–F4 adversarial verification (run last)
 
