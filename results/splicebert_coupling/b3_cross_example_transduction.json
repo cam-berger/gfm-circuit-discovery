@@ -1,0 +1,145 @@
+{
+  "beta_dose": 0.2711125215085653,
+  "calibration": {
+    "permuted_fpr_ci": [
+      -0.13783156255177742,
+      0.372666276427273
+    ],
+    "permuted_includes_0": true,
+    "planted_positive_self_gain": 0.34653998556045384
+  },
+  "calibration_pass": true,
+  "dose": {
+    "alpha_0.0": {
+      "M_xfer_mean": 0.0,
+      "R_xfer": 0.0,
+      "dyadic_ci": [
+        0.0,
+        0.0
+      ],
+      "one_way_gboot": [
+        0.0,
+        0.0
+      ]
+    },
+    "alpha_0.5": {
+      "M_xfer_mean": 0.1849100534732525,
+      "R_xfer": 0.5335893725920265,
+      "dyadic_ci": [
+        0.4441278224153922,
+        0.6440225938218582
+      ],
+      "one_way_gboot": [
+        0.4848793334617627,
+        0.592123597677248
+      ]
+    },
+    "alpha_1.0": {
+      "M_xfer_mean": 0.31604049578309057,
+      "R_xfer": 0.9119885408662527,
+      "dyadic_ci": [
+        0.7570875035124148,
+        1.1122185426646005
+      ],
+      "one_way_gboot": [
+        0.8274022332421217,
+        1.012292233858992
+      ]
+    },
+    "alpha_1.5": {
+      "M_xfer_mean": 0.4081440550776628,
+      "R_xfer": 1.177769008149457,
+      "dyadic_ci": [
+        0.9581510838515377,
+        1.445248777233844
+      ],
+      "one_way_gboot": [
+        1.0644187717844762,
+        1.3163331614575207
+      ]
+    }
+  },
+  "dose_grid": [
+    0.0,
+    0.5,
+    1.0,
+    1.5
+  ],
+  "evidential_tier": "verification",
+  "health": {
+    "acc_base": 0.5290544263445414,
+    "arms": {
+      "decoy@1.0": {
+        "acc": 0.5290493654517027,
+        "ok": true
+      },
+      "mismatched@1.0": {
+        "acc": 0.5285561391940483,
+        "ok": true
+      },
+      "primary@1.5": {
+        "acc": 0.5289481509190339,
+        "ok": true
+      },
+      "scramble@1.0": {
+        "acc": 0.5289507461281923,
+        "ok": true
+      }
+    },
+    "chance": 0.25,
+    "floor": 0.3895272131722707,
+    "note": "DIAGNOSTIC (prereg A6): distant-probe health under a LOCAL single-token injection is unfireable, so health confirms no-global-breakage but is NOT a POSITIVE gate."
+  },
+  "health_ok": true,
+  "margin_mismatched_stratum": {
+    "R_mm_diff": 0.02763333734498613,
+    "dyadic_ci": [
+      -0.21470412267562866,
+      0.18693599218870152
+    ],
+    "hw": 0.20082005743216508,
+    "mf2_confirmed": false,
+    "mf2_refuted": false,
+    "mismatched_R_xfer": 0.8843552035212666,
+    "mismatched_ci": [
+      0.7412294638459707,
+      1.1922084052798128
+    ],
+    "n_pairs": 260,
+    "note": "paired within-target (matched-minus-mismatched)/self, 3-way dyadic; CI-low>0=content-specific.",
+    "selection": "band"
+  },
+  "memorials": {
+    "checkpoint_unmutated": 0.0,
+    "n_examples": 260,
+    "n_pairs": 260,
+    "recon_fidelity_gap": 0.0,
+    "value_linearity": 2.7418136596679688e-06
+  },
+  "memorials_pass": true,
+  "mlm_health": 0.5290544263445414,
+  "mode": "confirm",
+  "monotone": true,
+  "sesoi_M": 0.02,
+  "sesoi_R": 0.2,
+  "specificity": {
+    "decoy": {
+      "R_xfer": -0.06474549201990444,
+      "collapses": true,
+      "dyadic_ci": [
+        -0.17212952143327817,
+        -0.005729882235694336
+      ]
+    },
+    "scramble": {
+      "R_xfer": 0.33873025003282053,
+      "collapses": true,
+      "dyadic_ci": [
+        0.17136744312089075,
+        0.5172048245438701
+      ]
+    }
+  },
+  "split": "val",
+  "verdict": "INCONCLUSIVE_underpowered"
+}
