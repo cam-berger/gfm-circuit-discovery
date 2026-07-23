@@ -1,5 +1,7 @@
 # Readiness checklist — all-head screen
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 ## Local (must be GREEN before Colab)
 - [x] `pytest tests/test_competition.py tests/test_head_context_screen.py` — 9 passed (incl. cross-hashseed determinism + vectorized/scalar agreement)
 - [x] Stage -1 pre-flight: adapter loads 96 heads; source-to-source patch is a no-op (|diff|=0)

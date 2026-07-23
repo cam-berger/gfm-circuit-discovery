@@ -1,5 +1,7 @@
 # Head–Context Atlas completion audit
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 > Environment note (2026-07-20): commands below preserve the original `gfm-thrust1` execution record.
 > New reproduction uses the canonical `uv` environment in [`../../REPRODUCE.md`](../../REPRODUCE.md).
 

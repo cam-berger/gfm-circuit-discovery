@@ -1,5 +1,7 @@
 # Head–Context Atlas mechanism-validation amendment A2 — conditional mechanism stage
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 Status: **FROZEN BEFORE THE FULL DISCOVERY MATRIX, WHOLE-VALIDATION OUTCOMES, OR ANY STAGE-TWO
 MECHANISM OUTCOME WAS READ** (2026-07-19).
 

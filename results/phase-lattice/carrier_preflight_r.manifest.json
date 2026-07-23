@@ -1,0 +1,48 @@
+{
+  "command": [
+    "scripts/splicebert/run_carrier_preflight_r.py",
+    "--n",
+    "48"
+  ],
+  "config": {
+    "T": 10.6875,
+    "carrier_bins": [
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100
+    ],
+    "reciprocal": [
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24
+    ]
+  },
+  "created_at_utc": "2026-07-23T02:25:47.801665+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 7823,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "b1:carrier_preflight_r",
+  "git_commit": "43a258df136815eca11656b427480c3c5afe0ff1",
+  "git_dirty": true,
+  "inputs": [],
+  "notes": [
+    "Re-points run_postsoftmax.py's validated Level-A instrument to SpliceBERT.1024nt / \u224810.63. Empty R_1024 => B1 OV arm Endpoint B (behavioural null alone) \u2014 a pre-committed close."
+  ],
+  "outputs": [],
+  "seeds": {
+    "PYTHONHASHSEED": 0,
+    "profile_seed": 7
+  },
+  "status": "OV_ARM_LIVE"
+}

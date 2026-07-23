@@ -1,5 +1,7 @@
 # SpliceBERT joint-segment attribution graphs
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 ## Status
 
 Exploratory instrument development. The exported graphs are measured candidate generators, not confirmatory evidence and not causal circuit claims.

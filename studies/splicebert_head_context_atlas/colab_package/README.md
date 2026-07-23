@@ -1,5 +1,7 @@
 # Colab package — all-96-head A/B/C/D exact-effect screen
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 Screens **every one of the 96 SpliceBERT heads** for its exact scrub-to-corrupt effect on splice-site
 reconstruction under four lenses (A general reconstruction, B partner coupling, C **competitor-site
 perturbation response**, D matched-decoy contrast), across the tagged intron-mate **discovery** cohort.

@@ -1,0 +1,794 @@
+<title>GFM Circuit Discovery — Project Status</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  /* ---------- Tokens: light is default, both themes explicit ---------- */
+  :root{
+    --bg:#F4F6FA; --surface:#FFFFFF; --surface-2:#EDF1F7; --surface-3:#E3E9F2;
+    --border:#D6DEEA; --border-strong:#BFCADB;
+    --ink:#18202E; --ink-soft:#47566C; --ink-faint:#7C8AA0;
+    --accent:#1E6FB8;         /* period-3 blue */
+    --accent-soft:#1E6FB81A;
+    --carrier:#DB7526;        /* ≈10.63 orange */
+    --carrier-soft:#DB752618;
+    --est:#1B9469; --est-soft:#1B94691F;
+    --bounded:#B67F14; --bounded-soft:#B67F1420;
+    --open:#67748A; --open-soft:#67748A20;
+    --neg:#7150E6; --neg-soft:#7150E61C;   /* powered null / refutation */
+    --retract:#AE4747; --retract-soft:#AE474720;
+    --shadow:0 1px 2px rgba(20,30,50,.06), 0 6px 20px rgba(20,30,50,.05);
+    --shadow-lift:0 2px 6px rgba(20,30,50,.10), 0 18px 44px rgba(20,30,50,.12);
+    --radius:14px; --radius-sm:9px;
+    --font-sans:ui-sans-serif,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --font-mono:ui-monospace,"SF Mono","JetBrains Mono","Cascadia Code",Menlo,Consolas,monospace;
+    --maxw:1180px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0D1117; --surface:#161C25; --surface-2:#1C2531; --surface-3:#232E3C;
+      --border:#2A3542; --border-strong:#3A4757;
+      --ink:#E7ECF3; --ink-soft:#A7B3C4; --ink-faint:#6C7A8E;
+      --accent:#57A0E4; --accent-soft:#57A0E422;
+      --carrier:#EE9450; --carrier-soft:#EE945420;
+      --est:#39C48D; --est-soft:#39C48D22;
+      --bounded:#DFAA3E; --bounded-soft:#DFAA3E22;
+      --open:#8695AB; --open-soft:#8695AB24;
+      --neg:#9E86F7; --neg-soft:#9E86F724;
+      --retract:#D5726F; --retract-soft:#D5726F22;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 26px rgba(0,0,0,.36);
+      --shadow-lift:0 2px 8px rgba(0,0,0,.5), 0 22px 50px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#F4F6FA; --surface:#FFFFFF; --surface-2:#EDF1F7; --surface-3:#E3E9F2;
+    --border:#D6DEEA; --border-strong:#BFCADB;
+    --ink:#18202E; --ink-soft:#47566C; --ink-faint:#7C8AA0;
+    --accent:#1E6FB8; --accent-soft:#1E6FB81A; --carrier:#DB7526; --carrier-soft:#DB752618;
+    --est:#1B9469; --est-soft:#1B94691F; --bounded:#B67F14; --bounded-soft:#B67F1420;
+    --open:#67748A; --open-soft:#67748A20; --neg:#7150E6; --neg-soft:#7150E61C;
+    --retract:#AE4747; --retract-soft:#AE474720;
+    --shadow:0 1px 2px rgba(20,30,50,.06), 0 6px 20px rgba(20,30,50,.05);
+    --shadow-lift:0 2px 6px rgba(20,30,50,.10), 0 18px 44px rgba(20,30,50,.12);
+  }
+  :root[data-theme="dark"]{
+    --bg:#0D1117; --surface:#161C25; --surface-2:#1C2531; --surface-3:#232E3C;
+    --border:#2A3542; --border-strong:#3A4757;
+    --ink:#E7ECF3; --ink-soft:#A7B3C4; --ink-faint:#6C7A8E;
+    --accent:#57A0E4; --accent-soft:#57A0E422; --carrier:#EE9450; --carrier-soft:#EE945420;
+    --est:#39C48D; --est-soft:#39C48D22; --bounded:#DFAA3E; --bounded-soft:#DFAA3E22;
+    --open:#8695AB; --open-soft:#8695AB24; --neg:#9E86F7; --neg-soft:#9E86F724;
+    --retract:#D5726F; --retract-soft:#D5726F22;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 26px rgba(0,0,0,.36);
+    --shadow-lift:0 2px 8px rgba(0,0,0,.5), 0 22px 50px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);
+    line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  h1,h2,h3{text-wrap:balance;margin:0}
+  section{margin:clamp(38px,6vw,64px) 0;scroll-margin-top:20px}
+  .mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+  .num{font-variant-numeric:tabular-nums}
+
+  /* eyebrow */
+  .eyebrow{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--ink-faint);margin:0 0 10px}
+  .sec-h{font-size:clamp(20px,2.6vw,27px);font-weight:680;letter-spacing:-.01em;margin-bottom:6px}
+  .sec-sub{color:var(--ink-soft);max-width:62ch;font-size:15px;margin-bottom:22px}
+
+  /* ---------- Header ---------- */
+  header{position:relative;overflow:hidden;border-bottom:1px solid var(--border);
+    background:linear-gradient(180deg,var(--surface),var(--bg))}
+  #spectra{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:.5}
+  .hero{position:relative;padding:clamp(34px,6vw,60px) 0 clamp(26px,4vw,38px)}
+  .kicker{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--est);
+    box-shadow:0 0 0 4px var(--est-soft)}
+  .kicker .k-txt{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-soft)}
+  h1.title{font-size:clamp(30px,5.2vw,50px);font-weight:720;letter-spacing:-.022em;line-height:1.04}
+  h1.title .thin{color:var(--ink-soft);font-weight:420}
+  .lede{margin-top:16px;max-width:66ch;font-size:clamp(15px,1.6vw,17px);color:var(--ink-soft)}
+  .lede b{color:var(--ink);font-weight:600}
+
+  .theme-btn{position:absolute;top:18px;right:clamp(16px,4vw,40px);z-index:5;
+    border:1px solid var(--border-strong);background:var(--surface);color:var(--ink-soft);
+    font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+    padding:7px 11px;border-radius:100px;cursor:pointer}
+  .theme-btn:hover{color:var(--ink);border-color:var(--accent)}
+
+  /* ---------- KPI tiles ---------- */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;
+    margin-top:clamp(24px,3vw,34px)}
+  .kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:16px 16px 15px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .kpi .cap{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--ink-faint);display:flex;align-items:center;gap:6px}
+  .kpi .val{font-size:29px;font-weight:700;letter-spacing:-.02em;margin-top:8px;
+    font-variant-numeric:tabular-nums;line-height:1}
+  .kpi .val small{font-size:14px;font-weight:600;color:var(--ink-soft)}
+  .kpi .foot{font-size:12px;color:var(--ink-soft);margin-top:6px}
+  .kpi .stripe{position:absolute;left:0;top:0;bottom:0;width:3px}
+  .s-accent{background:var(--accent)} .s-est{background:var(--est)}
+  .s-bounded{background:var(--bounded)} .s-neg{background:var(--neg)} .s-carrier{background:var(--carrier)}
+
+  /* ---------- generic card ---------- */
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    box-shadow:var(--shadow)}
+  .grid{display:grid;gap:16px}
+
+  /* ---------- chips ---------- */
+  .chip{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-mono);
+    font-size:11px;font-weight:600;letter-spacing:.02em;padding:2.5px 8px;border-radius:100px;
+    border:1px solid transparent;white-space:nowrap}
+  .chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+  .c-est{color:var(--est);background:var(--est-soft);border-color:var(--est-soft)}
+  .c-bounded{color:var(--bounded);background:var(--bounded-soft)}
+  .c-open{color:var(--open);background:var(--open-soft)}
+  .c-neg{color:var(--neg);background:var(--neg-soft)}
+  .c-verify{color:var(--carrier);background:var(--carrier-soft)}
+  .c-retract{color:var(--retract);background:var(--retract-soft)}
+  .chip.note{font-weight:500;color:var(--ink-faint);background:var(--surface-2);border-color:var(--border)}
+  .chip.note::before{display:none}
+
+  /* ---------- Mechanism pipeline ---------- */
+  .frozen{border-left:3px solid var(--accent);background:var(--surface-2);border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+    padding:16px 20px;font-size:16px;line-height:1.5;margin-bottom:22px}
+  .frozen .q{color:var(--ink);font-weight:520}
+  .pipe{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+  .stage{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:15px 16px;box-shadow:var(--shadow);position:relative}
+  .stage .lab{font-family:var(--font-mono);font-size:11px;letter-spacing:.11em;text-transform:uppercase;
+    color:var(--accent);font-weight:600;display:flex;align-items:center;justify-content:space-between}
+  .stage.pay .lab{color:var(--carrier)}
+  .stage.faith .lab{color:var(--neg)}
+  .stage h4{font-size:14.5px;font-weight:640;margin:9px 0 6px}
+  .stage p{font-size:13px;color:var(--ink-soft);margin:0}
+  .stage .comp{font-family:var(--font-mono);font-size:12px;color:var(--ink);margin-top:9px;
+    padding-top:9px;border-top:1px dashed var(--border);word-spacing:-1px}
+  .stage .cref{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-faint);margin-top:7px}
+
+  /* ---------- Evidence ladder matrix ---------- */
+  .ladder-scroll{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+  table.ladder{border-collapse:collapse;width:100%;min-width:640px;background:var(--surface)}
+  table.ladder th,table.ladder td{padding:13px 14px;text-align:left;border-bottom:1px solid var(--border)}
+  table.ladder thead th{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--ink-faint);font-weight:600;background:var(--surface-2);position:sticky;top:0}
+  table.ladder tbody tr:last-child td{border-bottom:none}
+  table.ladder .comp-name{font-weight:600;font-size:14px}
+  table.ladder .comp-name span{display:block;font-weight:400;font-size:12px;color:var(--ink-soft);font-family:var(--font-mono)}
+  .cell{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;
+    font-family:var(--font-mono);font-size:13px;font-weight:700}
+  .cell.yes{background:var(--est-soft);color:var(--est)}
+  .cell.no{background:var(--surface-3);color:var(--ink-faint)}
+  .cell.q{background:var(--bounded-soft);color:var(--bounded)}
+  .cell.na{color:var(--ink-faint);font-size:11px}
+  .cell.fail{background:var(--retract-soft);color:var(--retract)}
+
+  /* ---------- Publishable units ---------- */
+  .units{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+  .unit{padding:18px 18px 16px}
+  .unit .u-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+  .unit .u-id{font-family:var(--font-mono);font-size:12px;color:var(--ink-faint);letter-spacing:.04em}
+  .unit h4{font-size:16px;font-weight:660;margin:0 0 8px;letter-spacing:-.01em}
+  .unit p{font-size:13.5px;color:var(--ink-soft);margin:0}
+  .unit .u-metric{font-family:var(--font-mono);font-size:12px;color:var(--ink);margin-top:11px;
+    padding-top:10px;border-top:1px solid var(--border)}
+
+  /* ---------- Figures ---------- */
+  .figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:18px}
+  figure.fg{margin:0;padding:0;overflow:hidden;cursor:zoom-in;display:flex;flex-direction:column}
+  figure.fg .viz{background:var(--surface-2);border-bottom:1px solid var(--border);padding:16px 16px 6px}
+  figure.fg .viz svg{width:100%;height:auto;display:block;overflow:visible}
+  figure.fg:hover .viz{background:var(--surface-3)}
+  figure.fg figcaption{padding:14px 16px 15px}
+  /* shared figure chart tokens */
+  .vx-axis{stroke:var(--border-strong);stroke-width:1}
+  .vx-grid{stroke:var(--border);stroke-width:1;stroke-dasharray:2 4}
+  .vx-tick{fill:var(--ink-faint);font-family:var(--font-mono);font-size:8.5px}
+  .vx-lab{fill:var(--ink-soft);font-family:var(--font-mono);font-size:9px}
+  .vx-val{fill:var(--ink);font-family:var(--font-mono);font-size:10px;font-weight:700;font-variant-numeric:tabular-nums}
+  .vx-name{fill:var(--ink);font-family:var(--font-sans);font-size:10.5px;font-weight:600}
+  .vx-muted{fill:var(--ink-faint);font-family:var(--font-mono);font-size:8.5px}
+  .vx-ghost{fill:none;stroke:var(--ink-faint);stroke-width:1.4;stroke-dasharray:3 3}
+  figure.fg .fc-top{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  figure.fg .fc-id{font-family:var(--font-mono);font-size:11px;color:var(--accent);font-weight:600}
+  figure.fg h4{font-size:14.5px;font-weight:620;margin:0}
+  figure.fg p{font-size:12.5px;color:var(--ink-soft);margin:6px 0 0}
+  .zoom-hint{font-family:var(--font-mono);font-size:10px;color:var(--ink-faint);margin-left:auto}
+
+  /* lightbox */
+  .lb{position:fixed;inset:0;background:rgba(8,12,18,.86);backdrop-filter:blur(3px);
+    display:none;align-items:center;justify-content:center;z-index:50;padding:24px;cursor:zoom-out}
+  .lb.on{display:flex}
+  .lb #lbBox{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:26px 26px 20px;box-shadow:var(--shadow-lift);max-width:min(880px,94vw);width:100%;cursor:default}
+  .lb #lbBox svg{width:100%;height:auto;display:block;overflow:visible}
+  .lb .cap{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#cdd6e4;
+    font-family:var(--font-mono);font-size:12px}
+
+  /* ---------- Ledger table ---------- */
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;align-items:center}
+  .filters .flabel{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--ink-faint);margin-right:2px}
+  .fbtn{font-family:var(--font-mono);font-size:12px;padding:5px 11px;border-radius:100px;cursor:pointer;
+    border:1px solid var(--border-strong);background:var(--surface);color:var(--ink-soft);transition:all .15s}
+  .fbtn:hover{color:var(--ink)}
+  .fbtn.active{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+  .fbtn .cnt{opacity:.6;margin-left:5px}
+  .lsearch{font-family:var(--font-mono);font-size:12px;padding:6px 12px;border-radius:100px;
+    border:1px solid var(--border-strong);background:var(--surface);color:var(--ink);min-width:210px;
+    flex:1 1 180px;max-width:280px}
+  .lsearch::placeholder{color:var(--ink-faint)}
+  .lsearch:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .fcount{font-family:var(--font-mono);font-size:11px;color:var(--ink-faint);
+    font-variant-numeric:tabular-nums;white-space:nowrap;margin-left:auto}
+  .ledger-scroll{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+  table.ledger{border-collapse:collapse;width:100%;min-width:720px;background:var(--surface);font-size:13.5px}
+  table.ledger thead th{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--ink-faint);font-weight:600;background:var(--surface-2);padding:11px 14px;text-align:left;position:sticky;top:0}
+  table.ledger td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+  table.ledger tbody tr:hover{background:var(--surface-2)}
+  table.ledger .cid{font-family:var(--font-mono);font-weight:700;color:var(--ink);white-space:nowrap}
+  table.ledger .claim{max-width:52ch;color:var(--ink)}
+  table.ledger .claim .art{font-family:var(--font-mono);font-size:11px;color:var(--ink-faint);display:block;margin-top:3px}
+  table.ledger .lvl{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-soft);white-space:nowrap}
+  .stat-cell{display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+
+  /* ---------- Health / polarity ---------- */
+  .two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+  @media(max-width:760px){.two-col{grid-template-columns:1fr}.pipe .arrowless{display:none}}
+  .polar{padding:20px}
+  .polar h4,.repo h4{font-size:15px;font-weight:640;margin:0 0 4px}
+  .polar .sub,.repo .sub{font-size:12.5px;color:var(--ink-soft);margin:0 0 16px}
+  .bar{display:flex;height:34px;border-radius:8px;overflow:hidden;border:1px solid var(--border)}
+  .bar > span{display:block}
+  .legend{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px;margin-top:16px}
+  .lg{display:flex;align-items:center;gap:8px;font-size:12.5px}
+  .lg .sw{width:11px;height:11px;border-radius:3px;flex:none}
+  .lg .lv{margin-left:auto;font-family:var(--font-mono);font-weight:600;font-variant-numeric:tabular-nums}
+  .lg .desc{color:var(--ink-soft)}
+  .repo{padding:20px}
+  .repo .rrow{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:11px 0;border-bottom:1px solid var(--border);font-size:13.5px}
+  .repo .rrow:last-child{border-bottom:none}
+  .repo .rrow .rk{color:var(--ink-soft)}
+  .repo .rrow .rv{font-family:var(--font-mono);font-weight:600;font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:8px}
+  .ok{color:var(--est)} .warn{color:var(--bounded)}
+
+  /* ---------- Next / decisions ---------- */
+  .next-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}
+  @media(max-width:820px){.next-grid{grid-template-columns:1fr}}
+  .gate{padding:22px;border:1px solid var(--accent);position:relative;overflow:hidden}
+  .gate::after{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;
+    background:var(--accent-soft)}
+  .gate .g-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  .gate h3{font-size:20px;font-weight:700;margin:8px 0 8px;letter-spacing:-.01em}
+  .gate p{font-size:14px;color:var(--ink-soft);margin:0 0 14px;max-width:52ch;position:relative;z-index:1}
+  .gate .g-steps{list-style:none;padding:0;margin:0;position:relative;z-index:1}
+  .gate .g-steps li{font-size:13px;padding:7px 0 7px 24px;position:relative;color:var(--ink)}
+  .gate .g-steps li::before{content:"→";position:absolute;left:0;color:var(--accent);font-family:var(--font-mono)}
+  .tracks{display:flex;flex-direction:column;gap:12px}
+  .tk{padding:15px 16px}
+  .tk .tk-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:5px}
+  .tk h4{font-size:14px;font-weight:640;margin:0}
+  .tk p{font-size:12.5px;color:var(--ink-soft);margin:0}
+  .decisions{margin-top:16px}
+  .decisions ol{margin:0;padding-left:0;list-style:none;counter-reset:d}
+  .decisions li{counter-increment:d;position:relative;padding:12px 14px 12px 44px;border:1px solid var(--border);
+    border-radius:var(--radius-sm);background:var(--surface);margin-bottom:9px;font-size:13.5px;box-shadow:var(--shadow)}
+  .decisions li::before{content:counter(d);position:absolute;left:12px;top:12px;width:22px;height:22px;
+    border-radius:6px;background:var(--surface-3);color:var(--ink-soft);font-family:var(--font-mono);font-size:12px;
+    font-weight:700;display:flex;align-items:center;justify-content:center}
+  .decisions li b{color:var(--ink)}
+  .decisions li .rec{font-family:var(--font-mono);font-size:11px;color:var(--est);margin-left:6px}
+  .decisions ol.resolved li::before{content:"✓";background:var(--est-soft);color:var(--est)}
+  .decisions ol.resolved li{border-color:var(--est-soft)}
+  .decisions ol.resolved li .done{font-family:var(--font-mono);font-size:11px;color:var(--est);margin-left:6px}
+
+  footer{border-top:1px solid var(--border);margin-top:40px;padding:26px 0 44px;color:var(--ink-faint);font-size:12.5px}
+  footer .fmono{font-family:var(--font-mono)}
+  .disc{background:var(--bounded-soft);border:1px solid var(--bounded);color:var(--ink);
+    border-radius:var(--radius-sm);padding:12px 15px;font-size:13px;margin-top:14px}
+  .disc b{color:var(--bounded)}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    figure.fg:hover img{transform:none}
+  }
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+</style>
+
+<header>
+  <canvas id="spectra" aria-hidden="true"></canvas>
+  <button class="theme-btn" id="themeToggle" type="button" aria-label="Toggle colour theme">◐ Theme</button>
+  <div class="wrap hero">
+    <div class="kicker">
+      <span class="dot"></span>
+      <span class="k-txt">Status snapshot · 2026-07-22 · branch claude/carrier-ov-circuit-analysis-8acefd</span>
+    </div>
+    <h1 class="title">GFM Circuit Discovery<br><span class="thin">how SpliceBERT scores a splice donor from its intron partner</span></h1>
+    <p class="lede">A mechanistic-interpretability program that moves a genomic foundation model from a
+      <b>behaviour</b> to a causally supported <b>mechanism</b>, under an evidence ladder where nothing
+      promotes across levels without the experiment that licenses it. Two results are publishable now; one
+      generalization experiment stands between the current record and the paper.</p>
+
+    <div class="kpis">
+      <div class="kpi"><span class="stripe s-accent"></span>
+        <div class="cap">Highest evidence reached</div>
+        <div class="val">Behaviour</div>
+        <div class="foot">causal circuit for the donor computation · biology bridge is the open frontier</div>
+      </div>
+      <div class="kpi"><span class="stripe s-est"></span>
+        <div class="cap">Live claims</div>
+        <div class="val">38 <small>C1–C37 · IC1</small></div>
+        <div class="foot">30 established · 5 bounded · 2 negative · 0 open · 1 verification</div>
+      </div>
+      <div class="kpi"><span class="stripe s-neg"></span>
+        <div class="cap">Powered negative results</div>
+        <div class="val">2</div>
+        <div class="foot">C13 attention null · C14 nucleosome refutation</div>
+      </div>
+      <div class="kpi"><span class="stripe s-est"></span>
+        <div class="cap">Test suite</div>
+        <div class="val">294<small> / 0</small></div>
+        <div class="foot">passed / failed · 46 skipped · manifest guard green</div>
+      </div>
+      <div class="kpi"><span class="stripe s-accent"></span>
+        <div class="cap">Result artifacts</div>
+        <div class="val">742</div>
+        <div class="foot">every file resolves to a claim + polarity</div>
+      </div>
+      <div class="kpi"><span class="stripe s-bounded"></span>
+        <div class="cap">Corrections ledger</div>
+        <div class="val">R1–R24</div>
+        <div class="foot">retractions kept as part of the method</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- MECHANISM -->
+  <section id="mechanism">
+    <p class="eyebrow">01 · The mechanism, as currently supported</p>
+    <h2 class="sec-h">A structured causal core inside a distributed computation</h2>
+    <p class="sec-sub">The donor-graph arc A0→A12 dissected the coupling end to end. The named circuit is
+      necessary and sufficient-when-injected, but it is <em>not</em> a sparse generator — which is itself
+      the headline finding.</p>
+
+    <div class="frozen mono">
+      <span class="q">“A structured, top-ranked causal core binds a predominantly relative positional
+      address to an acceptor-local payload, then delivers the resulting information to the donor readout
+      within an irreducibly distributed computation.”</span>
+    </div>
+
+    <div class="pipe">
+      <div class="stage addr">
+        <div class="lab">Address</div>
+        <h4>Where to look</h4>
+        <p>Position-embedding geometry — predominantly relative offset, modest absolute — routed through L2H15 / MLP2; L3H1's attention selects the acceptor.</p>
+        <div class="comp">posn geometry → L2H15 → L3H1 attn</div>
+        <div class="cref">C20 · C22 · C25 · C32</div>
+      </div>
+      <div class="stage pay">
+        <div class="lab">Payload</div>
+        <h4>What is carried</h4>
+        <p>An acceptor-local state built by a serial MLP backbone. Not bulk composition — but its semantic identity is <b>unresolved</b> (“splice-strength” withdrawn, R22).</p>
+        <div class="comp">L0H7/H12/H10 → MLP0 → MLP1 → MLP2</div>
+        <div class="cref">C28 · C29 · C30 · C31</div>
+      </div>
+      <div class="stage bind">
+        <div class="lab">Bind</div>
+        <h4>Address × payload</h4>
+        <p>At L3H1 the positional address and the acceptor value payload are required <em>jointly</em> — a bind-and-convert, not a lookup — into a low-rank donor-side direction <span class="mono">U_info</span>.</p>
+        <div class="comp">L3H1 : addr × payload → U_info</div>
+        <div class="cref">C16 · C17 · C23 · C24</div>
+      </div>
+      <div class="stage deliver">
+        <div class="lab">Deliver</div>
+        <h4>To the donor readout</h4>
+        <p>Selective transporter heads carry the donor-side information to the masked-donor readout; <span class="mono">U_info</span> replicates across disjoint genes.</p>
+        <div class="comp">L5H11 · L4H2 · L4H0 → donor ±5</div>
+        <div class="cref">C18 · C26</div>
+      </div>
+      <div class="stage faith">
+        <div class="lab">Faithfulness</div>
+        <h4>No sparse knee</h4>
+        <p>90% of the effect needs <b>~72 of 103</b> nodes; scrubbed faithfulness <span class="mono">F=0.005</span>. The core is real and top-ranked, embedded in a distributed remainder.</p>
+        <div class="comp">structured core ⊂ distributed compute</div>
+        <div class="cref">C27 · C33</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVIDENCE LADDER -->
+  <section id="ladder">
+    <p class="eyebrow">02 · Evidence ladder — the honesty spine</p>
+    <h2 class="sec-h">What each component has earned, column by column</h2>
+    <p class="sec-sub">Attribution ranks; intervention decides. A filled cell means the promotion to that
+      level has been made under a qualified intervention. Open cells are open on purpose.</p>
+    <div class="ladder-scroll">
+      <table class="ladder">
+        <thead><tr>
+          <th>Component</th><th>P</th><th>QK</th><th>Attention</th><th>OV / mediation</th><th>Behaviour</th><th>Licensed status</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td class="comp-name">Period-3 clock<span>rank-2 positional code</span></td>
+            <td><span class="cell yes">✓</span></td><td><span class="cell yes">✓</span></td>
+            <td><span class="cell yes">✓</span></td><td><span class="cell yes">✓</span></td><td><span class="cell yes">✓</span></td>
+            <td>Causal positional support for donor–acceptor routing <span class="chip c-est">established</span></td>
+          </tr>
+          <tr>
+            <td class="comp-name">Donor–acceptor computation<span>L3H1 · L2H15 core</span></td>
+            <td><span class="cell na">n/a</span></td><td><span class="cell yes">✓</span></td>
+            <td><span class="cell yes">✓</span></td><td><span class="cell yes">✓</span></td><td><span class="cell yes">✓</span></td>
+            <td>Directed information-routing circuit <span class="chip c-est">established</span></td>
+          </tr>
+          <tr>
+            <td class="comp-name">Multi-species ≈10.63 carrier<span>nine readers on 1024nt (C11+L2H6)</span></td>
+            <td><span class="cell yes">✓</span></td><td><span class="cell yes">✓</span></td>
+            <td><span class="cell yes">✓</span></td><td><span class="cell fail">null</span></td><td><span class="cell fail">−.03</span></td>
+            <td>Not part of the donor circuit — OV write null + small suppressive coupling <span class="chip c-bounded">bounded · C37</span></td>
+          </tr>
+          <tr>
+            <td class="comp-name">Human-only ≈10.2 candidate<span>proposed chromatin reader</span></td>
+            <td><span class="cell yes">✓</span></td><td><span class="cell q">prov</span></td>
+            <td><span class="cell fail">✗</span></td><td><span class="cell na">—</span></td><td><span class="cell fail">null</span></td>
+            <td>Closed at the attention gate <span class="chip c-neg">powered null</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- PUBLISHABLE UNITS -->
+  <section id="units">
+    <p class="eyebrow">03 · Publishable units</p>
+    <h2 class="sec-h">What is ready, and what still needs work</h2>
+    <div class="units">
+      <div class="unit card"><span class="stripe"></span>
+        <div class="u-top"><span class="u-id">R1</span><span class="chip c-est">publishable now</span></div>
+        <h4>The causal donor–acceptor circuit</h4>
+        <p>Elevates a prior correlational SpliceBERT observation to behaviour-level causal evidence: necessity, mediation, a directed path, information specificity, and held-out replication. A full causal circuit trace in a GFM appears to be new.</p>
+        <div class="u-metric">52 / 52 headline quantities independently verified</div>
+      </div>
+      <div class="unit card">
+        <div class="u-top"><span class="u-id">R2</span><span class="chip c-est">publishable now</span></div>
+        <h4>Two positional carriers</h4>
+        <p>One causal clock, one carrier now bounded above attention (not in the donor circuit, C37), and one refuted biological hypothesis — presented on a single ladder. The honesty structure is the contribution.</p>
+        <div class="u-metric">period-3 (causal) · ≈10.63 (not in donor circuit · C37) · nucleosome bridge refuted</div>
+      </div>
+      <div class="unit card">
+        <div class="u-top"><span class="u-id">R3</span><span class="chip c-bounded">formalization underway</span></div>
+        <h4>The evidence ladder as method</h4>
+        <p>The longest-lived contribution. Now grounded in causal-abstraction and faithfulness-curve vocabulary with verified citations; the hero methods figure remains to be built.</p>
+        <div class="u-metric">7 citations verified · 0 fabricated</div>
+      </div>
+      <div class="unit card">
+        <div class="u-top"><span class="u-id">Atlas</span><span class="chip c-open">supporting</span></div>
+        <h4>Head–Context Atlas</h4>
+        <p>Audited multi-context cohorts. Best framed as infrastructure and the substrate for the G1 generalization test — not a standalone headline.</p>
+        <div class="u-metric">matched cohorts from GENCODE v50</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FIGURES -->
+  <section id="figures">
+    <p class="eyebrow">04 · The results, drawn from the record</p>
+    <h2 class="sec-h">Five findings, one visual each</h2>
+    <p class="sec-sub">Each panel is redrawn from the recorded artifact values behind the five publication
+      figures — the finding carried by shape and position, the words left to the caption. Colour thread:
+      period-3 blue, ≈10.63 orange; violet marks a powered negative result. Hover a mark for its value;
+      click a panel to enlarge.</p>
+    <div class="figs" id="figs"><figure class="fg" data-cap="Fig 1 — Causal coupling and its specificity (C1–C2)">
+  <div class="viz"><svg viewBox="0 0 440 195" role="img" aria-label="Causal coupling: partner corruption 0.872 vs controls near zero"><line class="vx-grid" x1="152.0" y1="34" x2="152.0" y2="166"/><text class="vx-tick" x="152.0" y="180" text-anchor="middle">0.0</text><line class="vx-grid" x1="280.0" y1="34" x2="280.0" y2="166"/><text class="vx-tick" x="280.0" y="180" text-anchor="middle">0.5</text><line class="vx-grid" x1="408.0" y1="34" x2="408.0" y2="166"/><text class="vx-tick" x="408.0" y="180" text-anchor="middle">1.0</text><line class="vx-axis" x1="152" y1="166" x2="408" y2="166"/><text class="vx-name" x="142" y="61" text-anchor="end">paired acceptor</text><rect x="152" y="52" width="223.4" height="26" rx="3" fill="var(--accent)"><title>paired acceptor: Δ margin = 0.873 nats</title></rect><line x1="349.4" y1="45" x2="400.1" y2="45" stroke="var(--ink-soft)" stroke-width="1.4"><title>95% CI [0.771, 0.969]</title></line><line x1="349.4" y1="41.5" x2="349.4" y2="48.5" stroke="var(--ink-soft)" stroke-width="1.4"/><line x1="400.1" y1="41.5" x2="400.1" y2="48.5" stroke="var(--ink-soft)" stroke-width="1.4"/><text class="vx-muted" x="349.4" y="40.0" text-anchor="start">95% CI</text><text class="vx-val" x="367.4" y="69" text-anchor="end" fill="#fff">0.872</text><text class="vx-name" x="142" y="109" text-anchor="end">non-partner AG</text><rect x="152" y="100" width="2.0" height="26" rx="3" fill="var(--open)"><title>non-partner AG: Δ margin = 0.007 nats</title></rect><text class="vx-val" x="161.9" y="117" text-anchor="start" fill="var(--ink)">0.007</text><text class="vx-name" x="142" y="157" text-anchor="end">other donor</text><rect x="152" y="148" width="2.0" height="26" rx="3" fill="var(--open)"><title>other donor: Δ margin = 0.005 nats</title></rect><text class="vx-val" x="161.4" y="165" text-anchor="start" fill="var(--ink)">0.005</text><text class="vx-lab" x="408" y="192" text-anchor="end">Δ native donor margin (nats) →</text></svg></div>
+  <figcaption>
+    <div class="fc-top"><span class="fc-id">FIG 1</span><span class="chip c-est">behaviour</span><span class="zoom-hint">hover · click ⤢</span></div>
+    <h4>The donor knows its intron mate</h4>
+    <p>Corrupting the paired acceptor moves the native masked-donor margin by <span class='mono'>+0.872</span>; matched non-partner and other-donor corruptions barely move it (<span class='mono'>+0.007 / +0.005</span>). Whisker = 95% CI (C1–C2).</p>
+  </figcaption>
+</figure><figure class="fg" data-cap="Fig 2 — Address × payload interaction (C23)">
+  <div class="viz"><svg viewBox="0 0 440 250" role="img" aria-label="Interaction: address 0.010, payload 0.051, additive 0.062, joint 0.365"><line class="vx-grid" x1="52" y1="196.0" x2="410" y2="196.0"/><text class="vx-tick" x="46" y="199.0" text-anchor="end">0.0</text><line class="vx-grid" x1="52" y1="115.0" x2="410" y2="115.0"/><text class="vx-tick" x="46" y="118.0" text-anchor="end">0.2</text><line class="vx-grid" x1="52" y1="34.0" x2="410" y2="34.0"/><text class="vx-tick" x="46" y="37.0" text-anchor="end">0.4</text><line class="vx-axis" x1="52" y1="196" x2="410" y2="196"/><rect x="62" y="191.8" width="48" height="4.2" rx="3" fill="var(--open)"><title>address only = 0.010</title></rect><text class="vx-val" x="86" y="185.8" text-anchor="middle">0.010</text><text class="vx-muted" x="86" y="210" text-anchor="middle">address</text><text class="vx-muted" x="86" y="221" text-anchor="middle">only</text><rect x="132" y="175.2" width="48" height="20.8" rx="3" fill="var(--open)"><title>payload only = 0.051</title></rect><text class="vx-val" x="156" y="169.2" text-anchor="middle">0.051</text><text class="vx-muted" x="156" y="210" text-anchor="middle">payload</text><text class="vx-muted" x="156" y="221" text-anchor="middle">only</text><rect class="vx-ghost" x="246" y="171.0" width="48" height="25.0" rx="3"><title>additive expectation = 0.062</title></rect><text class="vx-val" x="270" y="165.0" text-anchor="middle">0.062</text><text class="vx-muted" x="270" y="210" text-anchor="middle">additive</text><text class="vx-muted" x="270" y="221" text-anchor="middle">expectation</text><rect x="320" y="48.4" width="48" height="147.6" rx="3" fill="var(--accent)"><title>both measured = 0.364</title></rect><text class="vx-val" x="344" y="42.4" text-anchor="middle">0.365</text><text class="vx-muted" x="344" y="210" text-anchor="middle">both</text><text class="vx-muted" x="344" y="221" text-anchor="middle">measured</text><line x1="246" y1="171.0" x2="388" y2="171.0" stroke="var(--neg)" stroke-width="1.2" stroke-dasharray="4 3"/><line x1="378" y1="171.0" x2="378" y2="48.4" stroke="var(--neg)" stroke-width="1.6"/><path d="M374,54.4 L378,48.4 L382,54.4" fill="none" stroke="var(--neg)" stroke-width="1.6"/><path d="M374,165.0 L378,171.0 L382,165.0" fill="none" stroke="var(--neg)" stroke-width="1.6"/><text x="384" y="108.7" fill="var(--neg)" font-family="var(--font-mono)" font-size="10" font-weight="700">+0.30</text><text x="384" y="119.7" fill="var(--neg)" font-family="var(--font-mono)" font-size="7.5">interaction</text><text class="vx-lab" x="52" y="18">coupling recovered ↑</text></svg></div>
+  <figcaption>
+    <div class="fc-top"><span class="fc-id">FIG 2</span><span class="chip c-est">mediation</span><span class="zoom-hint">hover · click ⤢</span></div>
+    <h4>Bind-and-convert, not lookup</h4>
+    <p>Restoring L3H1's positional address alone or the acceptor payload alone recovers almost nothing; supplying both jointly recovers <span class='mono'>0.365</span> — six times the additive expectation. The effect lives in the interaction (C23).</p>
+  </figcaption>
+</figure><figure class="fg" data-cap="Fig 3 — Faithfulness has no sparse knee (C27, C33)">
+  <div class="viz"><svg viewBox="0 0 440 250" role="img" aria-label="Faithfulness vs circuit size: measured curve has no knee; 72 of 103 nodes reach 90 percent"><line class="vx-grid" x1="54" y1="200.0" x2="416" y2="200.0"/><text class="vx-tick" x="48" y="203.0" text-anchor="end">0</text><line class="vx-grid" x1="54" y1="119.0" x2="416" y2="119.0"/><text class="vx-tick" x="48" y="122.0" text-anchor="end">50%</text><line class="vx-grid" x1="54" y1="54.3" x2="416" y2="54.3" stroke-dasharray="4 3"/><text class="vx-tick" x="48" y="57.3" text-anchor="end">90%</text><line class="vx-grid" x1="54" y1="38.1" x2="416" y2="38.1"/><text class="vx-tick" x="48" y="41.1" text-anchor="end">100%</text><text class="vx-tick" x="54.0" y="214" text-anchor="middle">0</text><text class="vx-tick" x="141.9" y="214" text-anchor="middle">25</text><text class="vx-tick" x="229.7" y="214" text-anchor="middle">50</text><text class="vx-tick" x="317.6" y="214" text-anchor="middle">75</text><text class="vx-tick" x="405.5" y="214" text-anchor="middle">100</text><line class="vx-axis" x1="54" y1="200" x2="416" y2="200"/><polyline points="54.0,200.0 64.5,135.2 75.1,89.9 89.1,62.4 106.7,51.0 141.9,44.6 212.2,39.7 416.0,38.1" fill="none" stroke="var(--ink-faint)" stroke-width="1.6" stroke-dasharray="4 4"/><polyline points="57.5,200.0 64.5,200.0 75.1,199.5 89.1,194.4 110.2,162.8 131.3,136.9 152.4,121.9 173.5,100.8 194.6,89.7 222.7,74.9 250.8,62.3 278.9,54.4 307.0,48.2 335.2,32.8 363.3,31.7 391.4,33.3 416.0,38.1" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linejoin="round"/><circle cx="57.5" cy="200.0" r="2.4" fill="var(--accent)"><title>1 nodes → F=0.00</title></circle><circle cx="64.5" cy="200.0" r="2.4" fill="var(--accent)"><title>3 nodes → F=0.00</title></circle><circle cx="75.1" cy="199.5" r="2.4" fill="var(--accent)"><title>6 nodes → F=0.00</title></circle><circle cx="89.1" cy="194.4" r="2.4" fill="var(--accent)"><title>10 nodes → F=0.03</title></circle><circle cx="110.2" cy="162.8" r="2.4" fill="var(--accent)"><title>16 nodes → F=0.23</title></circle><circle cx="131.3" cy="136.9" r="2.4" fill="var(--accent)"><title>22 nodes → F=0.39</title></circle><circle cx="152.4" cy="121.9" r="2.4" fill="var(--accent)"><title>28 nodes → F=0.48</title></circle><circle cx="173.5" cy="100.8" r="2.4" fill="var(--accent)"><title>34 nodes → F=0.61</title></circle><circle cx="194.6" cy="89.7" r="2.4" fill="var(--accent)"><title>40 nodes → F=0.68</title></circle><circle cx="222.7" cy="74.9" r="2.4" fill="var(--accent)"><title>48 nodes → F=0.77</title></circle><circle cx="250.8" cy="62.3" r="2.4" fill="var(--accent)"><title>56 nodes → F=0.85</title></circle><circle cx="278.9" cy="54.4" r="2.4" fill="var(--accent)"><title>64 nodes → F=0.90</title></circle><circle cx="307.0" cy="48.2" r="2.4" fill="var(--accent)"><title>72 nodes → F=0.94</title></circle><circle cx="335.2" cy="32.8" r="2.4" fill="var(--accent)"><title>80 nodes → F=1.03</title></circle><circle cx="363.3" cy="31.7" r="2.4" fill="var(--accent)"><title>88 nodes → F=1.04</title></circle><circle cx="391.4" cy="33.3" r="2.4" fill="var(--accent)"><title>96 nodes → F=1.03</title></circle><circle cx="416.0" cy="38.1" r="2.4" fill="var(--accent)"><title>103 nodes → F=1.00</title></circle><line x1="307.0" y1="54.3" x2="307.0" y2="200" stroke="var(--neg)" stroke-width="1.2" stroke-dasharray="3 3"/><circle cx="307.0" cy="54.3" r="4.5" fill="var(--neg)" stroke="var(--surface-2)" stroke-width="1.5"><title>72 of 103 nodes for 90% faithfulness</title></circle><text x="315.0" y="58.3" fill="var(--neg)" font-family="var(--font-mono)" font-size="9.5" font-weight="700">72/103 → 90%</text><line x1="150" y1="150" x2="172" y2="150" stroke="var(--accent)" stroke-width="2.4"/><text x="178" y="153.5" fill="var(--ink)" font-family="var(--font-sans)" font-size="9.5" font-weight="600">measured</text><line x1="150" y1="167" x2="172" y2="167" stroke="var(--ink-faint)" stroke-width="1.6" stroke-dasharray="4 4"/><text x="178" y="170.5" fill="var(--ink-soft)" font-family="var(--font-sans)" font-size="9.5" font-weight="600">if the circuit were sparse</text><text class="vx-lab" x="235" y="227" text-anchor="middle">circuit size — nodes retained</text></svg></div>
+  <figcaption>
+    <div class="fc-top"><span class="fc-id">FIG 3</span><span class="chip c-est">faithfulness</span><span class="zoom-hint">hover · click ⤢</span></div>
+    <h4>A core with no sparse knee</h4>
+    <p>Held-out faithfulness against circuit size. A sparse circuit would plateau after a handful of nodes (grey dashed); the measured curve does not — <span class='mono'>72 of 103</span> nodes are needed for 90%. The named core is top-ranked, inside a distributed remainder (C27, C33).</p>
+  </figcaption>
+</figure><figure class="fg" data-cap="Fig 4 — Two carriers, one refutation (C11, C14)">
+  <div class="viz"><svg viewBox="0 0 440 210" role="img" aria-label="Wavelength spectrum: model carrier 10.63 nt sits 0.33 nt from the 10.30 nt nucleosomal signal"><line class="vx-grid" x1="46.0" y1="34" x2="46.0" y2="168"/><text class="vx-tick" x="46.0" y="181" text-anchor="middle">10.0</text><line class="vx-grid" x1="138.0" y1="34" x2="138.0" y2="168"/><text class="vx-tick" x="138.0" y="181" text-anchor="middle">10.2</text><line class="vx-grid" x1="230.0" y1="34" x2="230.0" y2="168"/><text class="vx-tick" x="230.0" y="181" text-anchor="middle">10.4</text><line class="vx-grid" x1="322.0" y1="34" x2="322.0" y2="168"/><text class="vx-tick" x="322.0" y="181" text-anchor="middle">10.6</text><line class="vx-grid" x1="414.0" y1="34" x2="414.0" y2="168"/><text class="vx-tick" x="414.0" y="181" text-anchor="middle">10.8</text><line class="vx-axis" x1="46" y1="168" x2="414" y2="168"/><path d="M101.9,168.0 C112.9,168.0 110.9,128.0 121.9,128.0 C132.9,128.0 130.9,168.0 141.9,168.0 Z" fill="var(--open)" fill-opacity="0.85"><title>human-only: 10.165 nt</title></path><line x1="121.9" y1="168" x2="121.9" y2="128.0" stroke="var(--open)" stroke-width="1"/><text class="vx-val" x="121.9" y="122.0" text-anchor="middle" fill="var(--open)">10.16</text><text class="vx-name" x="121.9" y="110.0" text-anchor="middle">human-only</text><path d="M163.1,168.0 C174.1,168.0 172.1,88.0 183.1,88.0 C194.1,88.0 192.1,168.0 203.1,168.0 Z" fill="var(--est)" fill-opacity="0.85"><title>nucleosome: 10.298 nt</title></path><line x1="183.1" y1="168" x2="183.1" y2="88.0" stroke="var(--est)" stroke-width="1"/><text class="vx-val" x="183.1" y="82.0" text-anchor="middle" fill="var(--est)">10.30</text><text class="vx-name" x="183.1" y="70.0" text-anchor="middle">nucleosome</text><path d="M315.8,168.0 C326.8,168.0 324.8,52.0 335.8,52.0 C346.8,52.0 344.8,168.0 355.8,168.0 Z" fill="var(--carrier)" fill-opacity="0.85"><title>model carrier: 10.630 nt</title></path><line x1="335.8" y1="168" x2="335.8" y2="52.0" stroke="var(--carrier)" stroke-width="1"/><text class="vx-val" x="335.8" y="46.0" text-anchor="middle" fill="var(--carrier)">10.63</text><text class="vx-name" x="335.8" y="34.0" text-anchor="middle">model carrier</text><line x1="183.1" y1="24" x2="335.8" y2="24" stroke="var(--neg)" stroke-width="1.4"/><line x1="183.1" y1="24" x2="183.1" y2="29" stroke="var(--neg)" stroke-width="1.4"/><line x1="335.8" y1="24" x2="335.8" y2="29" stroke="var(--neg)" stroke-width="1.4"/><rect x="207.4" y="13" width="104" height="15" rx="7" fill="var(--neg-soft)"/><text x="259.4" y="23.5" text-anchor="middle" fill="var(--neg)" font-family="var(--font-mono)" font-size="9" font-weight="700">0.33 nt · refuted</text><text class="vx-lab" x="414" y="205" text-anchor="end">positional wavelength (nt) →</text></svg></div>
+  <figcaption>
+    <div class="fc-top"><span class="fc-id">FIG 4</span><span class="chip c-neg">refutation</span><span class="zoom-hint">hover · click ⤢</span></div>
+    <h4>Distinct from nucleosome positioning</h4>
+    <p>On the positional-wavelength axis, the model's ≈<span class='mono'>10.63 nt</span> carrier sits <span class='mono'>0.33 nt</span> from the real ≈<span class='mono'>10.30 nt</span> nucleosomal signal — a powered refutation of the obvious bridge, not support for it (C11, C14).</p>
+  </figcaption>
+</figure><figure class="fg" data-cap="Fig 5 — Specific to the learned P3 direction (C36)">
+  <div class="viz"><svg viewBox="0 0 440 200" role="img" aria-label="Direction specificity: 19 controls cluster at zero, learned P3 direction at 0.141"><line class="vx-grid" x1="88.0" y1="28" x2="88.0" y2="158"/><text class="vx-tick" x="88.0" y="172" text-anchor="middle">0.00</text><line class="vx-grid" x1="168.0" y1="28" x2="168.0" y2="158"/><text class="vx-tick" x="168.0" y="172" text-anchor="middle">0.05</text><line class="vx-grid" x1="248.0" y1="28" x2="248.0" y2="158"/><text class="vx-tick" x="248.0" y="172" text-anchor="middle">0.10</text><line class="vx-grid" x1="328.0" y1="28" x2="328.0" y2="158"/><text class="vx-tick" x="328.0" y="172" text-anchor="middle">0.15</text><line class="vx-grid" x1="408.0" y1="28" x2="408.0" y2="158"/><text class="vx-tick" x="408.0" y="172" text-anchor="middle">0.20</text><line x1="88.0" y1="28" x2="88.0" y2="158" stroke="var(--border-strong)" stroke-width="1.2"/><line class="vx-axis" x1="56" y1="158" x2="408" y2="158"/><circle cx="84.0" cy="54.1" r="3.4" fill="var(--open)" fill-opacity="0.75" stroke="var(--surface-2)" stroke-width="1"><title>control mean = -0.0025</title></circle><circle cx="87.8" cy="66.3" r="3.4" fill="var(--open)" fill-opacity="0.75" stroke="var(--surface-2)" stroke-width="1"><title>control mean = -0.0001</title></circle><circle cx="79.4" cy="61.7" r="3.4" fill="var(--open)" fill-opacity="0.75" stroke="var(--surface-2)" stroke-width="1"><title>control mean = -0.0054</title></circle><circle cx="80.2" cy="57.1" r="3.4" fill="var(--open)" fill-opacity="0.75" stroke="var(--surface-2)" stroke-width="1"><title>control mean = -0.0049</title></circle><circle cx="88.0" cy="69.2" r="3.4" fill="var(--open)" fill-opacity="0.75" stroke="var(--surface-2)" stroke-width="1"><title>control mean = +0.0000</title></circle><circle cx="87.7" cy="64.6" r="3.4" fill="var(--open)" fill-opacity="0.75" stroke="var(--surface-2)" stroke-width="1"><title>control mean = -0.0002</title></circle><circle cx="89.9" cy="60.0" r="3.4" fill="var(--open)" fill-opacity="0.75" stroke="var(--surface-2)" stroke-width="1"><title>control mean = +0.0012</title></circle><circle cx="85.1" cy="55.4" r="3.4" fill="var(--open)" fill-opacity="0.75" stroke="var(--surface-2)" stroke-width="1"><title>control mean = -0.0018</title></circle><circle cx="85.6" cy="67.6" r="3.4" fill="var(--open)" fill-opacity="0.75" stroke="var(--surface-2)" stroke-width="1"><title>control mean = -0.0015</title></circle><circle cx="84.6" cy="62.9" r="3.4" fill="var(--open)" fill-opacity="0.75" stroke="var(--surface-2)" stroke-width="1"><title>control mean = -0.0021</title></circle><circle cx="87.0" cy="58.3" r="3.4" fill="var(--open)" fill-opacity="0.75" stroke="var(--surface-2)" stroke-width="1"><title>control mean = -0.0006</title></circle><circle cx="86.1" cy="70.5" r="3.4" fill="var(--open)" fill-opacity="0.75" stroke="var(--surface-2)" stroke-width="1"><title>control mean = -0.0012</title></circle><circle cx="88.6" cy="65.9" r="3.4" fill="var(--open)" fill-opacity="0.75" stroke="var(--surface-2)" stroke-width="1"><title>control mean = +0.0004</title></circle><circle cx="86.6" cy="61.3" r="3.4" fill="var(--open)" fill-opacity="0.75" stroke="var(--surface-2)" stroke-width="1"><title>control mean = -0.0009</title></circle><circle cx="84.0" cy="56.6" r="3.4" fill="var(--open)" fill-opacity="0.75" stroke="var(--surface-2)" stroke-width="1"><title>control mean = -0.0025</title></circle><circle cx="86.9" cy="68.8" r="3.4" fill="var(--open)" fill-opacity="0.75" stroke="var(--surface-2)" stroke-width="1"><title>control mean = -0.0007</title></circle><circle cx="82.9" cy="64.2" r="3.4" fill="var(--open)" fill-opacity="0.75" stroke="var(--surface-2)" stroke-width="1"><title>control mean = -0.0032</title></circle><circle cx="85.3" cy="59.6" r="3.4" fill="var(--open)" fill-opacity="0.75" stroke="var(--surface-2)" stroke-width="1"><title>control mean = -0.0017</title></circle><circle cx="84.0" cy="55.0" r="3.4" fill="var(--open)" fill-opacity="0.75" stroke="var(--surface-2)" stroke-width="1"><title>control mean = -0.0025</title></circle><text class="vx-name" x="96.0" y="34" text-anchor="start">19 geometry-matched controls</text><line x1="264.0" y1="124" x2="363.2" y2="124" stroke="var(--carrier)" stroke-width="1.8"/><line x1="264.0" y1="119" x2="264.0" y2="129" stroke="var(--carrier)" stroke-width="1.8"/><line x1="363.2" y1="119" x2="363.2" y2="129" stroke="var(--carrier)" stroke-width="1.8"/><circle cx="313.6" cy="124" r="7" fill="var(--carrier)" stroke="var(--surface-2)" stroke-width="1.5"><title>learned P3 direction: Ψ_C = +0.141 [0.110, 0.172]</title></circle><text class="vx-name" x="313.6" y="146" text-anchor="middle" fill="var(--carrier)">learned P3 direction</text><text class="vx-val" x="313.6" y="111" text-anchor="middle" fill="var(--carrier)">Ψ_C = +0.141</text><text class="vx-lab" x="232" y="190" text-anchor="middle">Ψ_C — modulo-recovery of coupling (nats)</text></svg></div>
+  <figcaption>
+    <div class="fc-top"><span class="fc-id">FIG 5</span><span class="chip c-est">confirmatory</span><span class="zoom-hint">hover · click ⤢</span></div>
+    <h4>Phase-aligned use of the learned direction</h4>
+    <p>Nucleotide-invariant surgery on the learned period-3 direction recovers <span class='mono'>Ψ_C = +0.141 [0.110, 0.172]</span> nats; all 19 geometry-matched control directions cluster at zero. Present-day use, not origin (C36).</p>
+  </figcaption>
+</figure></div>
+  </section>
+
+  <!-- CLAIM LEDGER -->
+  <section id="ledger">
+    <p class="eyebrow">05 · Live claim ledger</p>
+    <h2 class="sec-h">C1–C37 and IC1, at their exact evidence level</h2>
+    <p class="sec-sub">The point-of-contact record for the strongest wording the evidence currently
+      licenses — one claim, one level, one boundary per row. Filter by status or search the text.</p>
+    <div class="filters" id="filters">
+      <span class="flabel">Status</span>
+      <button class="fbtn active" data-f="all">All <span class="cnt">38</span></button>
+      <button class="fbtn" data-f="est">Established <span class="cnt">30</span></button>
+      <button class="fbtn" data-f="bounded">Bounded <span class="cnt">5</span></button>
+      <button class="fbtn" data-f="neg">Negative result <span class="cnt">2</span></button>
+      <button class="fbtn" data-f="open">Open <span class="cnt">0</span></button>
+      <button class="fbtn" data-f="verify">Verification <span class="cnt">1</span></button>
+      <input id="ledgerSearch" class="lsearch" type="search" placeholder="search claims, e.g. L3H1 or payload…" aria-label="Search claim text">
+      <span class="fcount" id="fcount" aria-live="polite">showing 38 of 38</span>
+    </div>
+    <div class="ledger-scroll">
+      <table class="ledger">
+        <thead><tr><th>ID</th><th>Currently licensed claim</th><th>Evidence level</th><th>Status</th></tr></thead>
+        <tbody id="ledgerBody"><tr data-cat="est"><td class="cid">C1</td><td class="claim">Corrupting a donor's paired acceptor changes the native masked-donor margin by <b>+0.872 [0.771, 0.969]</b>.<span class="art">sealed_test.json</span></td><td class="lvl">behavior</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C2</td><td class="claim">Coupling is partner- and donor-specific: matched non-partner AG and other-donor controls change the margin by only <b>+0.007/+0.005</b>.<span class="art">sealed_test.json</span></td><td class="lvl">specificity</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C3</td><td class="claim"><b>{L3H1, L2H15}</b> is a dominant necessary subcircuit: ablation removes <b>81.6%</b> of coupling while retaining <b>99.2%</b> MLM health.<span class="art">sealed_test.json</span></td><td class="lvl">necessity</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C4</td><td class="claim">L3H1's acceptor read is conjunctive: key+value gives <b>+0.663</b> with interaction <b>+0.531 [0.477, 0.583]</b>.<span class="art">sealed_test.json</span></td><td class="lvl">mediation</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C5</td><td class="claim">L3H1 reads at the acceptor, writes into the donor ±5 neighborhood, and feeds a distributed downstream readout.<span class="art">position_profile.json · readout_path.json</span></td><td class="lvl">localization / path</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C6</td><td class="claim">L2H15 and L1H12 contribute upstream through L3H1, but neither supports a simple exclusive-role story.<span class="art">l2_accounting.json · l1h12_route.json</span></td><td class="lvl">attribution</td><td><div class="stat-cell"><span class="chip c-est">established</span><span class="chip note">neg. interpretation</span></div></td></tr>
+<tr data-cat="bounded"><td class="cid">C7</td><td class="claim">The early broad-ablation completeness assay was uninformative; completeness is instead bounded by C27/C33.<span class="art">completeness_null.json · a6/a12</span></td><td class="lvl">completeness</td><td><div class="stat-cell"><span class="chip c-bounded">bounded</span><span class="chip note">superseded</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C8</td><td class="claim">A rank-2 learned period-3 position code causally supports coding prediction and coupling; deletion changes coupling <b>0.946 → 0.027</b>.<span class="art">carrier_surgery.json · carrier_dose.json</span></td><td class="lvl">position → behaviour</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C9</td><td class="claim">Restoring L2H15 or L3H1 after period-3 deletion recovers <b>0.363/0.348</b>, above the matched one-head null max <b>0.042</b>.<span class="art">carrier_mediation.json</span></td><td class="lvl">size-matched mediation</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="bounded"><td class="cid">C10</td><td class="claim">Six- and sixteen-head restorations do not independently strengthen C9 — their matched-null support is inadequate.<span class="art">carrier_mediation.json</span></td><td class="lvl">mediation</td><td><div class="stat-cell"><span class="chip c-bounded">bounded</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C11</td><td class="claim">The distinct multispecies <b>≈10.63</b> carrier reaches controlled post-softmax attention in eight heads.<span class="art">postsoftmax.json · band_mass.json</span></td><td class="lvl">routing / attention</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="bounded"><td class="cid">C12</td><td class="claim">The ≈10.63 carrier's OV write and behavioural function are now measured <b>for the donor circuit</b> (→ C37); general OV content (MLM) and biological origin remain open.<span class="art">carrier_ov_av · carrier_p10_behaviour_confirm</span></td><td class="lvl">bounded (donor-scoped)</td><td><div class="stat-cell"><span class="chip c-bounded">bounded</span></div></td></tr>
+<tr data-cat="neg"><td class="cid">C13</td><td class="claim">The proposed human-only ≈10.2 chromatin circuit has zero corrected Level-A heads and is closed at the attention gate.<span class="art">postsoftmax.json · band_mass.json</span></td><td class="lvl">powered attention null</td><td><div class="stat-cell"><span class="chip c-neg">powered null</span></div></td></tr>
+<tr data-cat="neg"><td class="cid">C14</td><td class="claim">A real nucleosomal signal occurs near <b>10.298 nt</b>, distinguishable from the model's ≈10.63 carrier.<span class="art">dyad_real.json · dyad_wavelength.json</span></td><td class="lvl">biological-source distinction</td><td><div class="stat-cell"><span class="chip c-neg">refutation</span></div></td></tr>
+<tr data-cat="bounded"><td class="cid">C15</td><td class="claim">Unanchored and splice-window assays set sensitivity limits but do not establish absence of weak biological periodicity.<span class="art">splice_profile/phasing/long.json</span></td><td class="lvl">sensitivity bound</td><td><div class="stat-cell"><span class="chip c-bounded">bounded</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C16</td><td class="claim">A stable low-rank final-residual direction <span class='mono'>U_info</span> mediates coupling; rank-8 patching recovers ≈<b>0.92</b> vs matched random ≤<b>0.05</b>.<span class="art">donor_anchor.json</span></td><td class="lvl">output / readout</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C17</td><td class="claim">Restoring L3H1 recovers <b>0.83</b> of coupling; <b>0.93</b> of that routes through <span class='mono'>U_info</span>, predominantly at donor ±5.<span class="art">donor_forward.json</span></td><td class="lvl">mediation / path</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C18</td><td class="claim">L5H11, L4H2, and L4H0 are selective downstream transporters of the donor-side information.<span class="art">donor_heads.json</span></td><td class="lvl">head-level mediation</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C19</td><td class="claim">The delivered signal is partner/donor-specific, strand-symmetric, and insensitive to intron-length mod 3 or annotated splice phase.<span class="art">donor_signature.json</span></td><td class="lvl">behavioral signature</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C20</td><td class="claim">L3H1 prefers the paired acceptor in QK/attention, but the preference is mostly positional geometry — not partner identity.<span class="art">acceptor_address.json · a1_token_position.json</span></td><td class="lvl">QK / attention</td><td><div class="stat-cell"><span class="chip c-est">established</span><span class="chip note">identity retracted · R20</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C21</td><td class="claim">L3H1's acceptor-targeting difference is already present in embeddings; layers 0–2 mainly add class-level attraction gain.<span class="art">a0_targeting_provenance.json</span></td><td class="lvl">QK provenance</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C22</td><td class="claim">L3H1 targeting is dominated by position-embedding geometry within the four-token key window, with a smaller content contribution.<span class="art">a1_token_position.json</span></td><td class="lvl">QK / selection</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C23</td><td class="claim">In a non-forced reconstruct–inject factorial, L3H1's contribution requires the positional address and acceptor payload <b>jointly</b>.<span class="art">a2_address_payload.json</span></td><td class="lvl">behaviour-level mediation</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C24</td><td class="claim">The payload is localized to the four-token acceptor window and is not in the donor-derived rank-8 <span class='mono'>U_info</span>; L3H1 converts representations.<span class="art">a2b_payload_localization.json</span></td><td class="lvl">payload localization</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C25</td><td class="claim">L2H15 acts through L3H1's address channel, amplifying positional acceptor attraction — not supplying payload or geometry.<span class="art">a3_l2h15_address_payload.json</span></td><td class="lvl">behaviour-level attribution</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C26</td><td class="claim">Independently derived <span class='mono'>U_info</span> directions generalize across disjoint genes (rank-1 overlap <b>0.970</b>; held-out rank-8 sufficiency <b>+0.875</b>).<span class="art">a5_uinfo_replication.json</span></td><td class="lvl">replication</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C27</td><td class="claim">The delivery spine is necessary (<span class='mono'>N=0.989</span>) and sufficient when injected (<span class='mono'>D=0.986</span>) but not a faithful sparse generator (<span class='mono'>F=0.005</span>).<span class="art">a6_circuit_faithfulness.json</span></td><td class="lvl">necessity + sufficiency</td><td><div class="stat-cell"><span class="chip c-est">established</span><span class="chip note">correction R21</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C28</td><td class="claim">Payload generation converges locally at the acceptor and depends on a serially interdependent L0→L1→L2 module.<span class="art">a7_source_localization.json</span></td><td class="lvl">source localization</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C29</td><td class="claim">The generator uses a held-out-generalizing L0→L1→MLP2 MLP backbone; MLP2 has dual address/payload roles, L2H15 is payload-null.<span class="art">a8_generator_path.json</span></td><td class="lvl">generator path</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="bounded"><td class="cid">C30</td><td class="claim">The payload is acceptor-local and not explained by bulk composition, but its semantic identity is unresolved; “splice-site strength” is withdrawn.<span class="art">a9b · a9c reconcile.json</span></td><td class="lvl">payload semantics</td><td><div class="stat-cell"><span class="chip c-bounded">bounded</span><span class="chip note">R22</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C31</td><td class="claim">The resolved value-path wiring is <span class='mono'>{L0H7,L0H12,L0H10} → MLP0 → MLP1 → MLP2</span>, with partial H12/H10 redundancy.<span class="art">a10_generator_edges.json</span></td><td class="lvl">generator wiring</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C32</td><td class="claim">L3H1's donor→acceptor address is predominantly relative-offset based, with modest absolute-position modulation.<span class="art">a11_address_geometry.json</span></td><td class="lvl">QK / selection geometry</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C33</td><td class="claim">Faithfulness has no sparse knee: about <b>72/103</b> nodes are needed for 90%; the mechanism forms the top-ranked structured core.<span class="art">a12_faithfulness_size.json</span></td><td class="lvl">held-out faithfulness curve</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="verify"><td class="cid">IC1</td><td class="claim">Distal intron arrangement has a small sub-SESOI effect and no detected partner-specific component (<b>+0.006 [−0.011,+0.024]</b>).<span class="art">ic1_distal_intron_necessity_v8.json</span></td><td class="lvl">outcome-aware verification</td><td><div class="stat-cell"><span class="chip c-verify">verification</span><span class="chip note">not confirmatory</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C34</td><td class="claim">The period-3 carrier's coupling contribution is distributed across the donor–acceptor span; site-local restoration recovers only ≈2–4%.<span class="art">p3_carrier_locus.json</span></td><td class="lvl">distributed locus</td><td><div class="stat-cell"><span class="chip c-est">established</span><span class="chip note">gate-qualified confirm</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C35</td><td class="claim">Within carrier patching, recovery is mediated mainly by L3H1's attention pattern (<b>+0.284</b>) not carrier-dependent values (<b>−0.005</b>).<span class="art">p3_av_decomposition.json</span></td><td class="lvl">A-vs-V conditional mediation</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr>
+<tr data-cat="est"><td class="cid">C36</td><td class="claim">Nucleotide-invariant surgery confirms phase-aligned use of the learned P3 direction in CDS blocks: <b>Ψ_C=+0.141 [0.110,0.172] nats</b>, n=943; beats all 19 controls.<span class="art">p3_phase_surgery_confirmation_v1/</span></td><td class="lvl">clean confirmatory behaviour</td><td><div class="stat-cell"><span class="chip c-est">established</span></div></td></tr><tr data-cat="est"><td class="cid">C37</td><td class="claim">The ≈10.63 carrier reaches post-softmax attention but is <b>not part of the donor circuit</b>: nine readers on 1024nt (C11 + L2H6); OV value-write is <b>null</b> (all |Mv|&lt;0.02, router-negative confirms) and deleting it <b>raises</b> coupling by <b>−0.033 [−0.061,−0.005]</b> — small suppressive, not used to support it. Donor-scoped; general OV + origin open.<span class="art">carrier_ov_av · carrier_p10_behaviour_confirm · carrier_preflight_r</span></td><td class="lvl">OV null + behaviour · donor-scoped</td><td><div class="stat-cell"><span class="chip c-est">established</span><span class="chip note">bounds C12</span></div></td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- HEALTH -->
+  <section id="health">
+    <p class="eyebrow">06 · Results tree &amp; repository health</p>
+    <h2 class="sec-h">Every artifact carries its evidence polarity</h2>
+    <p class="sec-sub">The manifest classifies all 742 tracked result files. Powered nulls and refutations
+      are recorded as first-class outcomes — never flattened into positive evidence.</p>
+    <div class="two-col">
+      <div class="polar card">
+        <h4>Artifact polarity — 742 files</h4>
+        <p class="sub">The distinction this project refuses to lose.</p>
+        <div class="bar" role="img" aria-label="Polarity distribution: 466 positive, 238 not applicable, 25 bounded, 9 null, 4 refutation">
+          <span style="flex:466;background:var(--est)"></span>
+          <span style="flex:238;background:var(--open)"></span>
+          <span style="flex:25;background:var(--bounded)"></span>
+          <span style="flex:9;background:var(--neg)"></span>
+          <span style="flex:4;background:var(--carrier)"></span>
+        </div>
+        <div class="legend">
+          <div class="lg"><span class="sw" style="background:var(--est)"></span><span class="desc">positive</span><span class="lv">466</span></div>
+          <div class="lg"><span class="sw" style="background:var(--open)"></span><span class="desc">n/a · infra</span><span class="lv">238</span></div>
+          <div class="lg"><span class="sw" style="background:var(--bounded)"></span><span class="desc">bounded</span><span class="lv">25</span></div>
+          <div class="lg"><span class="sw" style="background:var(--neg)"></span><span class="desc">powered null</span><span class="lv">9</span></div>
+          <div class="lg"><span class="sw" style="background:var(--carrier)"></span><span class="desc">refutation</span><span class="lv">4</span></div>
+        </div>
+      </div>
+      <div class="repo card">
+        <h4>Repository state</h4>
+        <p class="sub">Verified this session, not assumed.</p>
+        <div class="rrow"><span class="rk">Test suite</span><span class="rv ok">294 ✓ · 0 ✗ · 46 skip</span></div>
+        <div class="rrow"><span class="rk">Manifest verifier</span><span class="rv ok">green · 742 rows</span></div>
+        <div class="rrow"><span class="rk">Scientific record</span><span class="rv ok">+C37 · +HCA23</span></div>
+        <div class="rrow"><span class="rk">Figures of record</span><span class="rv ok">byte-identical</span></div>
+        <div class="rrow"><span class="rk">Checkpoints</span><span class="rv">1024nt + 510nt</span></div>
+        <div class="rrow"><span class="rk">CI enforces guard</span><span class="rv ok">enforced ✓</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEXT -->
+  <section id="next">
+    <p class="eyebrow">07 · What's next</p>
+    <h2 class="sec-h">One experiment gates the paper</h2>
+    <div class="next-grid">
+      <div class="gate card">
+        <span class="g-eyebrow">Next scientific gate · prereg drafted, not frozen, not run</span>
+        <h3>G1 — cross-example transduction</h3>
+        <p>Almost all donor-graph evidence is intra-example patching on short introns, so it speaks only to
+          that prompt distribution. A reviewer will ask whether the circuit generalizes. G1 answers it.</p>
+        <ul class="g-steps">
+          <li>Derive <span class="mono">U_info</span> on discovery genes only</li>
+          <li>Inject into gene-disjoint matched targets</li>
+          <li>Require dose-ordered margin movement above matched-random &amp; within-example controls</li>
+          <li>Multi-draw stability + dyadic inference (R22 discipline)</li>
+        </ul>
+      </div>
+      <div class="tracks">
+        <div class="tk card">
+          <div class="tk-top"><h4>Track 2 — payload semantics &amp; steering</h4><span class="chip c-open">open</span></div>
+          <p>What acceptor-local latent is carried, and can it steer which site a donor favours? Semantic identity is the key open problem (C30 / R22).</p>
+        </div>
+        <div class="tk card">
+          <div class="tk-top"><h4>Transfer — Caduceus-PS</h4><span class="chip c-bounded">designed</span></div>
+          <p>The method-portability milestone. Five-lens-hardened prereg, dry-run-validated CUDA pipeline — not yet frozen or run.</p>
+        </div>
+        <div class="tk card">
+          <div class="tk-top"><h4>Period-3 origin</h4><span class="chip c-open">deferred</span></div>
+          <p>Present-day use is causal (C36); training origin needs checkpoint sweeps or cross-model evidence — out of scope on a frozen checkpoint.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="decisions">
+      <p class="eyebrow" style="margin-top:24px">Owner decisions — resolved this session</p>
+      <ol class="resolved">
+        <li><b>CI enforcement — fixed.</b> The <span class="mono">Run full test suite</span> step now runs <span class="mono">uv run --extra splicebert --extra dev pytest</span>, so CI installs the extras and the manifest guard is actually enforced. <span class="done">294 passed · guard 33/33</span></li>
+        <li><b>Physical reorg (F1) — dropped.</b> Not pursued: the manifest (F2) delivers F1's navigational benefit without moving any artifact away from the path its frozen preregistration names. <span class="done">closed, not deferred</span></li>
+      </ol>
+      <p class="eyebrow" style="margin-top:20px">Still pending</p>
+      <ol>
+        <li><b>8 polarity adjudications.</b> Genuinely dual-polarity claims (C6, C30, HCA4) where one manifest row can hold only one value.</li>
+        <li><b>Figure restyle.</b> Applying the shared style module to the four figures of record regenerates committed files and rewrites provenance — an owner call, not automated.</li>
+        <li><b>Branch drift (F4).</b> <span class="mono">README</span> points reviewers at <span class="mono">donor-graph-address-payload</span>; a GitHub visitor lands on stale <span class="mono">master</span>.</li>
+      </ol>
+    </div>
+
+    <div class="disc">
+      <b>Reading guide.</b> This dashboard is a navigational snapshot. Where it disagrees with the record,
+      the ledgers decide: <span class="mono">CLAIMS.md</span> for live wording,
+      <span class="mono">CORRECTIONS.md</span> (R1–R24) for why anything changed. Nothing here is a new claim.
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="fmono">gfm-circuit-discovery · SpliceBERT partner-selection study · snapshot 2026-07-22</div>
+    <div style="margin-top:6px">Model: SpliceBERT.1024nt (post-LN BERT-MLM, 6L×16H, hidden 512, learned absolute PEs) + SpliceBERT.510nt for the ≈10.63 carrier. Sources of truth: <span class="fmono">studies/splicebert_partner_selection/CLAIMS.md</span>, <span class="fmono">results/MANIFEST.csv</span>, <span class="fmono">figures/splicebert/</span>.</div>
+  </div>
+</footer>
+
+<div class="lb" id="lightbox" aria-hidden="true"><div id="lbBox"></div><div class="cap mono" id="lbCap"></div></div>
+
+<script>
+(function(){
+  "use strict";
+  var root=document.documentElement;
+  function ready(fn){ if(document.readyState!=="loading"){fn();} else {document.addEventListener("DOMContentLoaded",fn);} }
+  function safe(fn){ try{ fn(); }catch(e){ if(window.console&&console.warn){console.warn("[dashboard]",e);} } }
+
+  // ---- ledger: status filter + text search + live count (each guarded; runs even if others fail) ----
+  function setupLedger(){
+    var filters=document.getElementById("filters"); if(!filters){return;}
+    var body=document.getElementById("ledgerBody"); if(!body){return;}
+    var search=document.getElementById("ledgerSearch");
+    var count=document.getElementById("fcount");
+    var rows=Array.prototype.slice.call(body.querySelectorAll("tr"));
+    var curCat="all";
+    function apply(){
+      var q=((search&&search.value)||"").trim().toLowerCase();
+      var shown=0;
+      for(var i=0;i<rows.length;i++){
+        var tr=rows[i];
+        var okCat=(curCat==="all"||tr.getAttribute("data-cat")===curCat);
+        var okQ=(!q||((tr.textContent||"").toLowerCase().indexOf(q)>-1));
+        var vis=okCat&&okQ;
+        tr.style.display=vis?"":"none";
+        if(vis){shown++;}
+      }
+      if(count){count.textContent="showing "+shown+" of "+rows.length;}
+    }
+    filters.addEventListener("click",function(e){
+      var t=e.target, b=(t&&t.closest)?t.closest(".fbtn"):null; if(!b){return;}
+      var btns=filters.querySelectorAll(".fbtn");
+      for(var i=0;i<btns.length;i++){btns[i].classList.remove("active");}
+      b.classList.add("active");
+      curCat=b.getAttribute("data-f")||"all";
+      apply();
+    });
+    if(search){ search.addEventListener("input",apply); search.addEventListener("search",apply); }
+    apply();
+  }
+
+  // ---- theme toggle (honours the viewer toggle too) ----
+  function setupTheme(){
+    var tb=document.getElementById("themeToggle"); if(!tb){return;}
+    tb.addEventListener("click",function(){
+      var cur=root.getAttribute("data-theme");
+      if(!cur){cur=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}
+      root.setAttribute("data-theme",cur==="dark"?"light":"dark");
+      if(window.__redrawSpectra){window.__redrawSpectra();}
+    });
+  }
+
+  // ---- lightbox (enlarges the panel's SVG) ----
+  function setupLightbox(){
+    var lb=document.getElementById("lightbox"); if(!lb){return;}
+    var lbBox=document.getElementById("lbBox"), lbCap=document.getElementById("lbCap"); if(!lbBox){return;}
+    function closeLb(){lb.classList.remove("on");lb.setAttribute("aria-hidden","true");lbBox.textContent="";}
+    var figs=document.querySelectorAll("figure.fg[data-cap]");
+    for(var i=0;i<figs.length;i++){
+      (function(fig){
+        fig.addEventListener("click",function(){
+          var svg=fig.querySelector(".viz svg"); if(!svg){return;}
+          lbBox.innerHTML=svg.outerHTML; if(lbCap){lbCap.textContent=fig.getAttribute("data-cap");}
+          lb.classList.add("on"); lb.setAttribute("aria-hidden","false");
+        });
+      })(figs[i]);
+    }
+    lb.addEventListener("click",closeLb);
+    document.addEventListener("keydown",function(e){if(e.key==="Escape"&&lb.classList.contains("on")){closeLb();}});
+  }
+
+  // ---- header spectra: two superimposed carriers (period-3 blue, ~10.63 orange) ----
+  function setupSpectra(){
+    var cv=document.getElementById("spectra"); var ctx=(cv&&cv.getContext)?cv.getContext("2d"):null; if(!ctx){return;}
+    var t0=null;
+    var reduce=(window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches);
+    function css(v){ try{ return getComputedStyle(root).getPropertyValue(v).trim()||"#888"; }catch(e){ return "#888"; } }
+    function draw(ts){
+      var w=cv.clientWidth,h=cv.clientHeight; if(!w||!h){return;}
+      var dpr=Math.min(window.devicePixelRatio||1,2);
+      if(cv.width!==w*dpr||cv.height!==h*dpr){cv.width=w*dpr;cv.height=h*dpr;}
+      ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,w,h);
+      if(t0===null){t0=ts||0;} var el=reduce?0:((ts||0)-t0)/1000;
+      var blue=css("--accent"), orange=css("--carrier");
+      function wave(color,wl,amp,yb,ph,lw,al){
+        ctx.beginPath();
+        for(var x=0;x<=w;x+=3){ var y=yb+Math.sin((x/wl)+ph+el*0.35)*amp; x===0?ctx.moveTo(x,y):ctx.lineTo(x,y); }
+        ctx.globalAlpha=al; ctx.strokeStyle=color; ctx.lineWidth=lw; ctx.stroke(); ctx.globalAlpha=1;
+      }
+      wave(blue, 26, h*0.16, h*0.52, 0, 1.6, 0.22);
+      wave(orange, 92, h*0.20, h*0.50, 1.4, 1.6, 0.18);
+      if(!reduce){requestAnimationFrame(draw);}
+    }
+    window.__redrawSpectra=function(){ t0=null; draw(); };
+    draw();
+    window.addEventListener("resize",function(){ t0=null; draw(); });
+  }
+
+  ready(function(){
+    safe(setupLedger);      // most important — initialise first so nothing can preempt it
+    safe(setupTheme);
+    safe(setupLightbox);
+    safe(setupSpectra);
+  });
+})();
+</script>

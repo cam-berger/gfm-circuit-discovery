@@ -1,5 +1,7 @@
 # Results index
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 This file indexes immutable machine-readable artifacts. It is not a substitute for the claim ledger.
 
 | Run / result | Question | Status | Artifact | Manifest | Claim IDs | Notes |

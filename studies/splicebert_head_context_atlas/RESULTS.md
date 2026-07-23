@@ -1,5 +1,7 @@
 # Results index — Head–Context Atlas
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 Indexes immutable machine-readable artifacts. Not a substitute for `CLAIMS.md`.
 
 | Run | Question | Status | Artifact | Manifest | Claims | Notes |
@@ -37,6 +39,7 @@ Indexes immutable machine-readable artifacts. Not a substitute for `CLAIMS.md`.
 | atlas_visualizer_evidence_v1 | Can the exact HCA21 payload cross into the interactive repository without stale provenance, label promotion, interval drift, or hidden remainder loss? | audited evidence transport / production instrument | `gfm-visualizer/public/data/splicebert-head-context-atlas-v1.json` | sibling `.manifest.json` + independent `.audit.json` | HCA22 | PASS, zero failures; evidence SHA-256 `9223cb62…9c1e`, source SHA-256 `fa9d974e…d241`; 8 relations / 16 measured graphs / 2,458 screening / 992 remainder / 37 separate population relations. Production build and real-artifact mutation tests fail closed. |
 | example_covariates | Per-example covariate join (strength/composition/coding/geometry), no model, memorial-verified | exploratory | `example_covariates.jsonl` (10,598 rows) | `build_example_covariates.py` (cohort regenerated, PYTHONHASHSEED=0, example_id match 10,598/10,598) | — | joinable to matrix by example_id. Exploratory (CONFOUNDED): L3H1 donor coupling ∝ MaxEnt strength (+0.05→+0.14 lo→hi tercile) AND concentrated in CDS (+0.197 CDS vs +0.024 UTR-exon); CDS↔strength correlated — disentangle in the group study |
 | example_behavioral | Per-example baseline/counterfactual/behavioral B,C,D (recovered from shards) | exploratory | `example_behavioral.jsonl` (pending Colab re-merge) | `merge_head_screen.py` (updated to emit it; shards hold it) | — | no re-run needed — re-run the merge cell on Colab (reads shards) to produce it |
+| b5_context_signal_power_v1 | Can any of the 20 HCA18 context signals reach `MDE80≤0.05` at achievable matched-pair supply? (reviewer roadmap B5) | closed disposition (deterministic, model-free power calc) | `results/…/b5_context_signal_power_v1.json` | `.manifest.json` | HCA23 | **20/20 under-powered** vs the hard one-per-gene cap (acceptor 1.05×, donor 3.88×, cassette 1.88× over); all M1–M9 memorials + PP1–PP4/N1–N3 calibration PASS; independently re-derived. Prereg v2 FROZEN after a 5-lens design red-team; zero forward passes. |
 
 ## Corrected interpretation of the 96-head branch
 

@@ -1,5 +1,7 @@
 # SpliceBERT figures — current record
 
+> **Tier: T1 — canonical.** Current, authoritative. Read this.
+
 Start with [`EVIDENCE.md`](EVIDENCE.md), which keeps position-table, QK, attention,
 OV/mediation, and behavioral evidence separate.
 
@@ -20,6 +22,57 @@ recorded runs before it writes.
 
 Each figure has a caption beside it. The narrative and limitations belong in the caption rather
 than being compressed into the artwork.
+
+## Supporting figures
+
+These are additions to the set above; they change nothing in it. Each reads a manifest-stamped
+artifact (or, for the methods figure, the two method documents) and writes a provenance sidecar.
+
+| Figure | Script | Main point |
+|---|---|---|
+| `fig_evidence_ladder` | `make_fig_evidence_ladder.py` | The methods figure: seven-stage workflow, evidence ladder, tool-to-question map, rendered from `docs/METHODOLOGY.md` and `docs/EVIDENCE_LADDER.md` |
+| `fig_generator_graph` | `make_fig_generator_graph.py` | The A10/C31 payload generator as a directed graph, laid out by Graphviz from `a10_generator_edges.json` |
+| `fig_carrier_heatmap` | `make_fig_carrier_heatmap.py` | 2D companion to the 3D carrier surface: same function, same constants, quantitatively readable |
+
+### Donor-circuit figures generated in this folder
+
+`make_fig1_coupling.py`, `make_fig2_mechanism.py` and `make_fig3_circuit.py` read
+`results/splicebert_coupling/*.json` and write `fig1_coupling`, `fig2_mechanism` and `fig3_circuit`
+as PDF+PNG with provenance. They compute nothing; every number is in an artifact. The canonical
+phase-lattice set listed above is unaffected by them.
+
+## Style
+
+`figstyle.py` is the one style module: fonts, the validated palette as named tokens, DPI, and the
+helper that writes PDF **and** PNG beside a provenance sidecar. Every `make_fig*.py` in this study
+imports it, including the ones under `scripts/splicebert/`.
+
+The palette was **computed, not chosen** — every pair of colours that appears together in a panel
+was checked for separation under simulated deuteranopia, protanopia and tritanopia. `figstyle.py`
+therefore *re-exports* that one definition from `scripts/splicebert/figstyle.py` rather than copying
+the values into a second file. The colour thread it enforces: **period-3 = blue, ≈10.63 = orange**,
+donor–acceptor coupling = purple, nucleosomal ≈10.298 = red, deleted/failed = slate. Methods figures
+use none of those hues, so the thread stays reserved for results.
+
+Three matplotlib blues are still in use across the set (the validated palette, the Okabe-Ito tokens
+in `src/gfmcd/figures/style.py`, and the confirmation figure's own five colours). All three are now
+named in one place; unifying them would restyle published panels, so it is left to the owner and
+recorded in `docs/REVIEW_OPEN_QUESTIONS.md`.
+
+## External dependency: Graphviz
+
+`make_fig_generator_graph.py` writes `fig_generator_graph.gv` with no dependencies — the DOT source
+is the data-derived, reproducible artifact. Rendering it to PDF/PNG needs Graphviz's `dot` on
+`PATH`:
+
+```
+brew install graphviz        # macOS
+apt-get install graphviz     # Debian/Ubuntu
+```
+
+**`dot` is not currently installed in this environment**, so only the `.gv` source and its
+provenance sidecar are committed. The script reports this and stops; it does not fall back to a
+hand-placed drawing.
 
 ## Three live claims
 

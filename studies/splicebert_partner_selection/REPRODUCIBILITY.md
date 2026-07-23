@@ -1,5 +1,7 @@
 # SpliceBERT reproducibility map
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 This is the shortest path from a claim to its script and machine-readable artifact. It indexes active workflows only. Historical and VOID experiments remain in Git history.
 
 Repository-wide environment, checkpoint, and data requirements are defined in

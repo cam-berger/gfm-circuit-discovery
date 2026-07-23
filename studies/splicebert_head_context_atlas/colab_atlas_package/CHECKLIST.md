@@ -1,5 +1,7 @@
 # Readiness checklist — wider atlas screen
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 ## Already green locally
 
 - [x] Annotation census and corrected donor/acceptor sequence enrichment

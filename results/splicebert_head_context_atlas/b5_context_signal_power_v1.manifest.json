@@ -1,0 +1,57 @@
+{
+  "command": [
+    "python",
+    "scripts/splicebert_head_context_atlas/analyze_b5_context_signal_power.py"
+  ],
+  "config": {
+    "Z_POWER_80": 2.8015852181129683,
+    "cells": [
+      "acceptor_cluster|acceptor",
+      "donor_cluster|donor",
+      "cassette_exon|donor"
+    ],
+    "marginal_band": 1.5,
+    "tau": 0.05
+  },
+  "created_at_utc": "2026-07-23T01:07:25.063347+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 1639,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "b5_context_signal_power_v1",
+  "git_commit": "923e41bd5cae78ef2801f3ab022c6672412de458",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/carrier-ov-circuit-analysis-8acefd/results/splicebert_head_context_atlas/atlas_discovery_analysis_v1.context.jsonl",
+      "sha256": "5ab7a2e659ae689780c5ddd1ef13c0e121b82d1c87322a920bb58d6aba8ca983",
+      "size_bytes": 1765068
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/carrier-ov-circuit-analysis-8acefd/results/splicebert_head_context_atlas/atlas_context_matched_v7.summary.json",
+      "sha256": "2ec37c235cb5273ff5b7c41708cf141cdc963892fd093315579ad06cd65e5d05",
+      "size_bytes": 49905
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/carrier-ov-circuit-analysis-8acefd/results/splicebert_head_context_atlas/atlas_context_census_v1.json",
+      "sha256": "5048ecd13957b4d2c479071fccdd0befa1a7b93c1cef055945e34107e83a8dab",
+      "size_bytes": 53914
+    }
+  ],
+  "notes": [
+    "B5 HCA18 context-signal power adjudication; deterministic, model-free (prereg v2 FROZEN)."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/carrier-ov-circuit-analysis-8acefd/results/splicebert_head_context_atlas/b5_context_signal_power_v1.json",
+      "sha256": "cc59a97ee82c7e4706fa8c1c9bfc68ad4ebcc9eea49f6506ba47d468718add27",
+      "size_bytes": 19637
+    }
+  ],
+  "seeds": {
+    "PYTHONHASHSEED": 0
+  },
+  "status": "CLOSE_AS_UNDERPOWERED"
+}

@@ -1,5 +1,7 @@
 # Mechanistic Discovery in Genomic Foundation Models
 
+> **Tier: T1 — canonical.** Current, authoritative. Read this.
+
 This repository develops a disciplined way to discover **how genomic foundation models (GFMs)
 implement biological computations**. The objective is not to catalogue salient activations; it is to
 move from a model-native behavior to a causally supported, explicitly bounded mechanism.
@@ -17,10 +19,13 @@ second real GFM; Caduceus is the prepared but deferred candidate study.
 > acceptor-local payload, then delivers the resulting information to the donor readout within an
 > irreducibly distributed computation.
 
-Here, **circuit** means a causally supported collection of components responsible for a scoped behavior.
+Here, **circuit** means a causally supported collection of components responsible for a scoped behavior —
+throughout this repository, a **structured causal core within an irreducibly distributed computation**.
 It does not imply that the collection is the smallest possible circuit. In fact, SpliceBERT's 90%
 faithfulness requires about 72 of 103 measured nodes; the named circuit is the structured core of that
-distributed computation, not a minimal graph.
+distributed computation, not a minimal graph. The controlled vocabulary for this and the other
+load-bearing terms — including which retired numbers must not reappear in live prose — is
+[`docs/NOMENCLATURE.md`](docs/NOMENCLATURE.md).
 
 The key limitation is equally important: the payload is acceptor-local and is not explained by the
 preregistered bulk-composition variables, but its **semantic identity remains unresolved**. The earlier
@@ -41,6 +46,12 @@ gene-dyadic inference (R22).
 Evidence levels are not interchangeable. A feature in a position table is not automatically used by
 attention; attention is not automatically causal; a causal model mechanism is not automatically a
 biological mechanism.
+
+**Two checkpoints appear in this table.** The coupling behavior, the donor graph, the period-3 carrier,
+and the Atlas are measured on `SpliceBERT.1024nt` (final, multi-species). The ≈10.63 and human-only ≈10.2
+rows come from the stage-1 pair `SpliceBERT.510nt` and `SpliceBERT-human.510nt`, which differ only in
+training data — establishing the ≈10.63 attention circuit required that matched contrast. A result from
+one checkpoint is not a result about the other; see [`MECHANISM.md`](MECHANISM.md).
 
 ## Method
 
@@ -89,6 +100,32 @@ results, manifests, audits, code, tests, and Colab notebooks are version-control
 
 Historical GFM-nano, reading-frame, repeat-copy, and retracted v1 partner-selection implementations are
 preserved in Git history rather than restored to the active tree.
+
+## Document tiers
+
+Roughly 130 markdown documents accumulated across the study's history, and several of them cover
+overlapping ground. Nothing is deleted or merged: the superseded narratives are part of the record. Instead
+every document carries a tier banner immediately under its title, so a reader can tell at a glance whether
+it is current guidance or a retained record.
+
+| Tier | Meaning | Where it is used |
+|---|---|---|
+| **T1 — canonical** | Current, authoritative. Read this. | This file, `MECHANISM.md`, `REPRODUCE.md`, the `docs/` method set, each study's `CLAIMS.md`, each `results/**/RESULTS_INDEX.md`, and the figure READMEs. |
+| **T2 — provenance** | Supporting record: preregistrations, decision logs, correction ledgers, audits. | `CORRECTIONS.md`, `DECISIONS*.md`, `preregistrations/`, `redteam/`, `RESULTS_VERIFICATION.md`, review and audit documents, study-level narratives and run reports. |
+| **T3 — historical** | Superseded or point-in-time; retained for the record. Not current guidance. | Documents whose own text marks them superseded or archived, dated one-off plans and handoffs, and captions for figures that are no longer figures of record. |
+
+The tier is navigational only. It records where a document sits relative to the current record; it never
+adjusts what that document says. Where a T2 or T3 document disagrees with a T1 one, the claim and
+correction ledgers decide — `studies/splicebert_partner_selection/CLAIMS.md` for live wording,
+[`CORRECTIONS.md`](studies/splicebert_partner_selection/CORRECTIONS.md) for why it changed.
+
+The canonical set is small on purpose:
+[`MECHANISM.md`](MECHANISM.md) · [`REPRODUCE.md`](REPRODUCE.md) ·
+[`docs/METHODOLOGY.md`](docs/METHODOLOGY.md) · [`docs/EVIDENCE_LADDER.md`](docs/EVIDENCE_LADDER.md) ·
+[`docs/NOMENCLATURE.md`](docs/NOMENCLATURE.md) · [`docs/BIOLOGICAL_BRIDGES.md`](docs/BIOLOGICAL_BRIDGES.md) ·
+[`docs/REFERENCES.md`](docs/REFERENCES.md) · [`docs/TRANSFER_GUIDE.md`](docs/TRANSFER_GUIDE.md) ·
+[`docs/ROADMAP.md`](docs/ROADMAP.md) · [`results/RESULTS_INDEX.md`](results/RESULTS_INDEX.md) ·
+the per-study `CLAIMS.md` files.
 
 ## Start here
 
