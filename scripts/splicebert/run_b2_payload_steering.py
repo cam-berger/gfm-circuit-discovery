@@ -1,6 +1,18 @@
 #!/usr/bin/env python
 """B2 -- payload semantics via site-choice steering (the C30 headline limitation).
 
+*** RETIRED 2026-07-23 -- DO NOT RUN. ***
+The steering approach is withdrawn. On first contact with the model (smoke), the naive full-state
+(r_pref - r_less) choice direction moved the readout the WRONG way (planted M-dose gain -0.538) and the
+model-native preference labels did NOT generalize across the gene split (held-out accuracy 0.182). This
+is not a control bug: it is the prereg's own pre-declared FATAL-1 (a diff-in-means choice direction
+between two different-position acceptors is dominated by learned position/distance geometry -- R20
+re-entry at the steering layer). The R20 firewall correctly halted. C30 (payload semantics) therefore
+remains OPEN and is NOT pursued via activation steering on a frozen checkpoint. See
+docs/B2_B3_EXECUTION_DISPOSITION_2026-07-23.md and the B2 prereg's closure disposition. The script is
+kept, unrun, as the design-of-record of a retired approach; a future attempt would need a
+position-orthogonalized direction (per the prereg's FATAL-1 remedy) or a different paradigm entirely.
+
 Frozen design of record:
   studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_B2_PAYLOAD_STEERING.md
   redteam synthesis: studies/splicebert_partner_selection/redteam/REDTEAM_SYNTHESIS_B2.md

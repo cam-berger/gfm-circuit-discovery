@@ -34,7 +34,9 @@ CONTROLS (a POSITIVE call requires ALL of these, each enforced in the verdict fo
   - margin-MISMATCHED stratum (MF2 confound gate): a source matched on strand/coding/pdist but FAR in
     native margin; the matched primary transfer CI-low must EXCEED the mismatched stratum CI-high, so
     the effect is not a margin-gap artifact.
-  - scrambled-source: shuffle the source payload across positions -> transfer must collapse.
+  - scrambled-source: permute the source payload's HIDDEN-FEATURE COORDINATES (norm/per-position
+    energy preserved, content destroyed) -> a content-specific transfer must collapse (2026-07-23
+    redesign; the shipped position-permutation was too weak and never fired).
   - non-target-position: deliver at a decoy donor -> must collapse.
   - permuted-pairing dyadic FPR: randomize source<->target assignment -> R_xfer CI must include 0.
   - health gate: masked-MLM health retained under injection (no generic damage).
@@ -54,6 +56,7 @@ from __future__ import annotations
 
 import argparse
 from contextlib import contextmanager
+import hashlib
 import json
 from pathlib import Path
 import sys
@@ -129,8 +132,9 @@ def capture_examples(ad, task, X, dev, off, Wv):
         accwin = torch.tensor([[x.next_acceptor_pos + off + k for k in ACC_OFF] for x in ch], device=dev)
         bidx = torch.arange(B, device=dev)[:, None].expand(B, 4)
         oc, r3_cl, V_cl, Ap = caprun(ad, cl, dtok, True)
-        oo, r3_co, V_co, _ = caprun(ad, co, dtok, False)
-        base = torch.einsum("bs,bsd->bd", Ap, V_co)          # L3H1 donor output on the corrupt run
+        oo, r3_co, V_co, Ap_co = caprun(ad, co, dtok, True)  # corrupt attn A- captured for recon memorial
+        base = torch.einsum("bs,bsd->bd", Ap, V_co)          # CLEAN address A+ . corrupt values V- (MF1 object)
+        base_corr = torch.einsum("bs,bsd->bd", Ap_co, V_co)  # NATURAL corrupt donor output A- . V- (== m_co)
         # value-linearity memorial: delivered value edit must equal W_V (residual edit)
         dVt = (V_cl - V_co)[bidx, accwin]
         dVl = deliver(Wv, (r3_cl - r3_co)[bidx, accwin])
@@ -142,7 +146,7 @@ def capture_examples(ad, task, X, dev, off, Wv):
                 "r3cl": r3_cl[bj, accwin[bj]].cpu(),        # [4,H] source clean payload donor
                 "r3co": r3_co[bj, accwin[bj]].cpu(),        # [4,H] its own corrupt (partner destroyed)
                 "Ap": Ap[bj, accwin[bj]].cpu(),             # [4] address weights at the acceptor window
-                "base": base[bj].cpu(), "dtok": int(dtok[bj]),
+                "base": base[bj].cpu(), "base_corr": base_corr[bj].cpu(), "dtok": int(dtok[bj]),
                 "co_ids": co["input_ids"][bj].cpu(),
                 "attn_mask": cl["attention_mask"][bj].cpu() if "attention_mask" in cl else None,
                 "m_cl": float(m_cl[bj]), "m_co": float(m_co[bj]),
@@ -188,12 +192,31 @@ def match_pairs(E, rng, margin_caliper=0.75, pdist_caliper=200, mismatch=False,
     return pairs
 
 
-def _payload_edit(E, p, dev, alpha, scramble_rng=None):
-    """dr [4,H] = alpha * (source_clean_payload - target_corrupt_payload); at target's window."""
-    src = E[p["s"]]["r3cl"].clone()
-    if p.get("scramble") and scramble_rng is not None:
-        perm = torch.tensor(scramble_rng.permutation(src.shape[0]))
-        src = src[perm]                                # shuffle payload across the 4 positions
+def _stable_seed(key: str) -> int:
+    """Deterministic 32-bit seed from a string (feature-permutation reproducibility)."""
+    return int.from_bytes(hashlib.sha256(key.encode()).digest()[:4], "big")
+
+
+def _payload_edit(E, p, dev, alpha):
+    """dr [4,H] = alpha * (source_clean_payload - target_corrupt_payload) at target's window.
+
+    Scramble control (pre-committed redesign, 2026-07-23): the prereg N-scr asks whether transfer is
+    specific to the payload's *content* vs any equal-norm state of matched geometry. The shipped
+    version permuted the 4 WINDOW POSITIONS -- 4 adjacent acceptor tokens barely differ, so it left the
+    payload essentially intact (empirically R_scr~=0.978, no collapse) AND never actually fired (its
+    scramble_rng argument was never passed). The corrected control permutes the HIDDEN-FEATURE
+    COORDINATES of the source payload with a fixed per-source permutation, applied IDENTICALLY to all
+    four window rows. This preserves the payload's norm and per-position energy exactly (so the
+    delivered ||dV|| and the injection geometry are matched) while destroying the coordinate structure
+    that carries partner-specific content. A content-specific transfer must COLLAPSE under it; a
+    generic "needs some acceptor-like state here" effect will survive -- which is the alternative
+    hypothesis MF2 also probes, so the two controls agree by construction on a NULL. Deterministic per
+    source gene (no run-to-run drift); the same permutation is reused across the dose grid."""
+    src = E[p["s"]]["r3cl"].clone()                    # [4, H]
+    if p.get("scramble"):
+        g = np.random.default_rng(_stable_seed(E[p["s"]]["gene"]))
+        perm = torch.as_tensor(g.permutation(src.shape[1]), dtype=torch.long)  # feature-dim perm
+        src = src[:, perm]                             # SAME coordinate perm on every window row
     dr = (src - E[p["t"]]["r3co"]) * alpha
     return dr.to(dev)
 
@@ -290,29 +313,52 @@ def main() -> None:
     # ---- mechanics memorials (must pass at smoke) ----
     ckpt0 = float(next(ad.model.parameters()).abs().sum())
     pairs = match_pairs(E, rng)
-    # empty-injection (alpha=0) must reproduce the target's own corrupt margin (no free offset)
-    m_empty, gt, gs = inject_margins(ad, task, E, pairs, dev, off, Wv, _payload_edit, 0.0)
     m_co_t = np.array([E[p["t"]]["m_co"] for p in pairs])
-    empty_gap = float(np.abs(m_empty - m_co_t).max())
+    # recon-fidelity memorial (R-b3fix1): the OLD "empty->corrupt" memorial injected the CLEAN-address
+    # object A+ . V- (base) and required it to equal the natural corrupt margin m_co. That identity is
+    # INCOMPATIBLE with MF1: the estimand deliberately delivers through the target's CLEAN address A+,
+    # but the natural corrupt margin is produced by the CORRUPT address A- (corruption reallocates
+    # L3H1's attention row, |A+ - A-| ~ 0.95, per C35). So A+ . V- != m_co by design. The genuine
+    # plumbing identity is A- . V- == m_co (exact); we verify that here. value_linearity remains the
+    # on-path memorial for the delivered edit.
+    recon_err = 0.0
+    for s0 in range(0, len(E), task.batch):
+        chunk = E[s0:s0 + task.batch]
+        corr = {"input_ids": torch.stack([e["co_ids"] for e in chunk]).to(dev)}
+        if chunk[0]["attn_mask"] is not None:
+            corr["attention_mask"] = torch.stack([e["attn_mask"] for e in chunk]).to(dev)
+        dtok = torch.tensor([e["dtok"] for e in chunk], device=dev)
+        od = torch.stack([e["base_corr"] for e in chunk]).to(dev)
+        with inject_capture(ad, corr, dtok, od) as o_inj:
+            m = task.margin(o_inj.logits.float(), [e["dtok"] - off for e in chunk]).cpu().numpy()
+        recon_err = max(recon_err, float(np.abs(m - np.array([e["m_co"] for e in chunk])).max()))
     ckpt1 = float(next(ad.model.parameters()).abs().sum())
     memorials = {
         "value_linearity": lin_err,                         # deliver(W_V, dr) == true value edit
-        "empty_injection_gap": empty_gap,                   # alpha=0 -> target corrupt margin
+        "recon_fidelity_gap": recon_err,                    # inject(A- . V-) == m_co (natural donor output)
         "checkpoint_unmutated": abs(ckpt1 - ckpt0),
         "n_examples": len(E), "n_pairs": len(pairs),
     }
-    mem_ok = (lin_err < 1e-3) and (empty_gap < 1e-2) and (abs(ckpt1 - ckpt0) < 1e-6)
+    mem_ok = (lin_err < 1e-3) and (recon_err < 1e-2) and (abs(ckpt1 - ckpt0) < 1e-6)
 
-    # ---- calibration: planted-positive (self-transfer must recover) + permuted FPR ----
+    # ---- calibration: planted-positive (self-transfer recovers) + sign-permutation FPR ----
+    # (R-b3fix2) The OLD FPR null used match_pairs(SEED+7) -- a second *matched* cohort (verified: ~54%
+    # identical sources, all gene-disjoint AND margin-matched). Re-matching preserves the per-source
+    # clean-vs-corrupt contrast, so it can NEVER null a clean-source - corrupt-source difference
+    # estimand -> permuted_includes_0 was structurally False. A valid dyadic FPR null instead removes
+    # the SIGNED structure of the per-pair contrast (Rademacher sign flip on xfer); the ratio-of-means
+    # dyadic CI must then cover 0. Specificity (that the effect needs the real payload/position) is
+    # still enforced downstream by scramble + decoy + the MF2 margin-mismatched stratum.
     m_self, _, _ = inject_margins(ad, task, E, [{"t": i, "s": i} for i in range(len(E))],
                                   dev, off, Wv, _payload_edit, 1.0)
     self_gain = float(np.mean(m_self - np.array([E[i]["m_co"] for i in range(len(E))])))
-    perm = match_pairs(E, np.random.default_rng(SEED + 7))   # random gene-disjoint assignment
-    m_perm_cl, gpt, gps = inject_margins(ad, task, E, perm, dev, off, Wv, _payload_edit, 1.0)
-    m_perm_co, _, _ = inject_margins(ad, task, E, perm, dev, off, Wv, _corrupt_source_edit, 1.0)
-    _, plo, phi = dyadic_ratio_ci(m_perm_cl - m_perm_co,
-                                  np.maximum(m_self - m_co_t[:len(m_self)], 1e-6)[:len(perm)],
-                                  gpt, gps, B=min(args.n_boot, 500))
+    m_pair_cl, gpt, gps = inject_margins(ad, task, E, pairs, dev, off, Wv, _payload_edit, 1.0)
+    m_pair_co, _, _ = inject_margins(ad, task, E, pairs, dev, off, Wv, _corrupt_source_edit, 1.0)
+    xfer_real = m_pair_cl - m_pair_co
+    denom_c = np.maximum(m_self - m_co_t[:len(m_self)], 1e-6)[:len(xfer_real)]
+    signs = np.random.default_rng(SEED + 7).choice([-1.0, 1.0], size=len(xfer_real))
+    _, plo, phi = dyadic_ratio_ci(signs * xfer_real, denom_c, gpt[:len(xfer_real)], gps[:len(xfer_real)],
+                                  B=min(args.n_boot, 500))
     calib = {"planted_positive_self_gain": self_gain,
              "permuted_fpr_ci": [plo, phi], "permuted_includes_0": bool(plo <= 0 <= phi)}
     calib_ok = (self_gain > SESOI_M) and calib["permuted_includes_0"]
