@@ -1,5 +1,7 @@
 # The evidence ladder
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 The point of this table is to stop evidence from silently migrating between levels. A component
 can be **present in the position table (P)** without any head reading it; a head can **read it in
 the QK logits** without that read surviving the **softmax (Attention)**; a head can carry the

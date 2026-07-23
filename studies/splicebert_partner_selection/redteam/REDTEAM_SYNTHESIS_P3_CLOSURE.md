@@ -1,5 +1,7 @@
 # P3 closure — final pre-freeze red-team synthesis
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Date:** 2026-07-21
 
 **Reviewed:** `PREREGISTRATION_P3_CLOSURE.md`, frozen candidate v1

@@ -1,5 +1,7 @@
 # Pre-registration DRAFT — Caduceus-PS T1: does the partner-specific donor↔acceptor coupling behaviour transfer?
 
+> **Tier: T3 — historical.** Superseded or point-in-time; retained for the record. Not current guidance.
+
 **Status: SUPERSEDED (2026-07-18) by `PREREGISTRATION_CADUCEUS_T1_BEHAVIORAL_TRANSFER.md` v2 — the 5-lens
 red-team is integrated there. This DRAFT is the pre-red-team record; do not run it.**
 

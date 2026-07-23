@@ -1,5 +1,7 @@
 # Amendment & provenance closure — head_screen_v1 (2026-07-19)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 Post-hoc audit of the completed all-96-head A/B/C/D screen (`head_effect_matrix.jsonl`,
 `head_effect_summary.json`), triggered by Cam's integrity review. Nothing here required re-running the
 screen; all fixes are analysis-side or documentation.

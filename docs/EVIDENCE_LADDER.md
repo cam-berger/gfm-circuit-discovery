@@ -1,5 +1,7 @@
 # Evidence ladder
 
+> **Tier: T1 — canonical.** Current, authoritative. Read this.
+
 The ladder prevents a familiar failure mode: a striking observation gradually acquires causal or biological language without the experiment needed for that promotion.
 
 ## General ladder
@@ -35,6 +37,44 @@ For positional mechanisms, the project records five compact columns:
 | Human-only ≈10.2 candidate | ✓ | provisional | failed | — | null | Proposed chromatin circuit closed at attention |
 
 The authoritative values and statistical conventions remain in [`figures/splicebert/EVIDENCE.md`](../figures/splicebert/EVIDENCE.md).
+
+## The five columns in causal-abstraction terms
+
+This mapping is additive: it names the five columns in the vocabulary of causal abstraction
+(Geiger et al., 2025; see [`docs/REFERENCES.md`](REFERENCES.md) and the formal-grounding section of
+[`docs/METHODOLOGY.md`](METHODOLOGY.md)). It restates what each column already reports and changes no entry,
+status, or value in the tables above.
+
+Causal abstraction treats a mechanistic hypothesis as a proposed alignment between variables of a high-level
+causal model and variables of the network, tested by intervening on the network and checking the result
+against the corresponding high-level intervention. Read that way:
+
+| Column | Causal-abstraction reading | Intervened on | Outcome measured on |
+|---|---|---|---|
+| **P** | A candidate low-level variable exists and carries the feature. No alignment is asserted and nothing is intervened on. | — | — |
+| **QK** | A candidate alignment: a component's pre-softmax score is a function of the feature. Still a decomposition of the mechanism, not an intervention. | — | — |
+| **Attention** | First interventional level, but internal: the network is intervened on and the result is read out on an internal variable (the routing pattern), not on the high-level behavior variable. | low-level | low-level |
+| **OV / mediation** | Interchange / injection intervention: aligned variables are set to source or counterfactual values and the result is read out on the behavior variable. This is the level at which a graded faithfulness number can be computed at all. | low-level | high-level |
+| **Behavior** | The high-level variable the abstraction is required to reproduce, measured on native model output. | high-level counterfactual | high-level |
+
+The marker semantics, unchanged: a **✓** records that the intervention defining that level was run and the
+component survived it; a **?** records that the defining intervention has **not** been run, so there is no
+evidence in either direction; a **—** records that the level is not applicable or was not entered; **failed**
+or **null** records that the intervention *was* run and the hypothesis was rejected at that level. The
+distinction between **?** and a rejection is load-bearing: the multi-species ≈10.63 carrier stands as a real
+positional attention circuit whose **purpose is unknown**, whereas the human-only ≈10.2 candidate is a
+proposed chromatin circuit **closed at attention**. These are different epistemic states and the table must
+never be read as collapsing them.
+
+**Relation to graded faithfulness.** The columns are an ordered record of *which* interventions have been run
+and survived. They are not a faithfulness measurement, and a row of ✓ across all five columns does **not**
+assert that the abstraction is faithful. Faithfulness in the causal-abstraction sense is graded — the degree
+to which the high-level model's predictions match the network's across an intervention distribution — and it
+is reported separately, as a number with a stated node granularity and intervention set, in the claim ledger
+rather than in this table. For the donor–acceptor computation the ladder is complete across all five columns
+*and* the recorded faithfulness is low for the sparse circuit (C27) with no sparse knee on the
+faithfulness–size curve (C33). Both statements are true simultaneously, and treating a full row of ✓ as
+implying a sparse faithful circuit is precisely the inference the ladder exists to block.
 
 ## Promotion requirements
 

@@ -1,5 +1,7 @@
 # Repo cleanup & consolidation plan — 2026-07-18
 
+> **Tier: T3 — historical.** Superseded or point-in-time; retained for the record. Not current guidance.
+
 **Status: Phases 1–4 complete; Phase 5 pending merge (updated 2026-07-20).** Phases 1–3 pruned and
 archived old branches and removed `colab_results/`. Phase 4 is complete: preregistrations and red-team
 records are indexed in subdirectories; the live claim ledger is compact; the full historical ledger is

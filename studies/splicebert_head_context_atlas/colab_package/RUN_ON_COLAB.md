@@ -1,5 +1,7 @@
 # Run the all-head screen on Colab — 5 steps
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 This zip is self-contained except the two large public data files (GTF + hg38), which a script fetches.
 
 ## What's inside

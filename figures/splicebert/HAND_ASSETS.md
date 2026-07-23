@@ -1,5 +1,7 @@
 # Hand-authored and retired SpliceBERT assets
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 The four figures of record and their generating scripts are listed in [`README.md`](README.md). This file exists to prevent older hand-authored or superseded assets from being mistaken for current evidence.
 
 ## Original hand assets

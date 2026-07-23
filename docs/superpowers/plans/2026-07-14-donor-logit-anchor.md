@@ -1,5 +1,7 @@
 # Donor-Logit Anchor Implementation Plan
 
+> **Tier: T3 — historical.** Superseded or point-in-time; retained for the record. Not current guidance.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Build and causally validate the residual→donor-logit readout (the backward-arm foundation of the L3H1→masked-donor-logit meet-in-the-middle trace), per `studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_DONOR_ANCHOR.md`.

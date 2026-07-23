@@ -1,5 +1,7 @@
 # Study template: mechanistic discovery in a real GFM
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 Copy this directory to `studies/<model>-<computation>/` before broad internal screening.
 
 ## Study identity
