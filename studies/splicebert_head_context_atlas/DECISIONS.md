@@ -437,3 +437,22 @@ Design decisions and post-diagnostic pivots. Preregistered confirmatory choices 
   target log-probability and entropy only; synthetic `U_info`/`U_read` lenses are not retrofitted. Case
   population interventions remain visually separate from representative screening and matched-negative
   graphs.
+
+## 2026-07-22 — Competition branch retired to one closed-line entry (bookkeeping)
+
+- **Trigger:** the intron-mate splice-competition branch was a resolved null still administratively open —
+  a cluster of exploratory `CLAIMS.md` rows (HCA2–HCA10) and two partner-side protocols (IC2, IC2a) still
+  hung off a premise HCA4 already refuted. This is bookkeeping, not new science: no experiment was run.
+- **Decision:** collapse HCA2–HCA10 into a single closed-line consolidation banner in `CLAIMS.md` and stamp
+  each row with a terminal `closed (competition branch; …)` status. Nothing is deleted — closed rows stay
+  as exploratory provenance per the never-delete rule. The one-line disposition: **the perturbation is not
+  competition-specific** (HCA4 `|M_comp|=0.088 < |M_decoy|=0.135`; no competition-specific head/MLP module,
+  HCA10); no sealed chr8/9 confirmation and no further Colab credits are licensed.
+- **Salvage:** the single useful nugget — **HCA9's rediscovery of donor-circuit L3H1** as the
+  donor-reconstruction mediator (donor B +0.114 [0.098,0.130]; exact 400-gene L3H1 patch +0.0857 [0.0492,0.1280]
+  vs behavioral B +0.1015) — is folded into the donor-circuit record as a cross-study positive control
+  (`../splicebert_partner_selection/CLAIMS.md` interpretation guardrails and `../splicebert_partner_selection/DECISIONS.md`
+  2026-07-22). It corroborates the donor-circuit reader (C3/C4/C5/C17) on a disjoint donor-target cohort.
+- **Scope:** the wider Head–Context Atlas (HCA11–HCA22) is a separate, active program and is untouched by this
+  closure. The prior closure prose in `RESEARCH_SPINE.md` §"Closed competition branch" and `COMPLETION_AUDIT.md`
+  is unchanged; this entry only makes the `CLAIMS.md` ledger reflect the closure with terminal statuses.
