@@ -1,0 +1,402 @@
+{
+ "assay": "crossmodel_reader_freqcontrol",
+ "produced_utc": "2026-07-23T18:09:15Z",
+ "note": "Frequency control for the reader scan: the apparent =10.63 readers in RNA-FM are an envelope/permutation-null artifact unless the sig-head count at 10.6875 exceeds the control-period grid. Plus a continuous logit-shift surgery channel (top-1 accuracy is degenerate on random OOD sequence for these ncRNA models).",
+ "period3": 3.0,
+ "carrier_10p63_period": 10.6875,
+ "seed": 0,
+ "nseq": 12,
+ "seqlen": 200,
+ "span": 60,
+ "nperm": 200,
+ "results": {
+  "rnafm": {
+   "model": {
+    "hf_id": "multimolecule/rnafm",
+    "P_shape": [
+     1026,
+     640
+    ],
+    "P_weight_sha256": "f135d23c7b6aa62b7230280c1c4a054db4e52134c3960d60e8bb70c7761bf458",
+    "num_heads_total": 240
+   },
+   "frequency_sweep": [
+    {
+     "period": 3.0,
+     "n_sig_fdr05": 0,
+     "median_p": 0.865,
+     "max_m_T": 0.7687699309247797
+    },
+    {
+     "period": 5.0,
+     "n_sig_fdr05": 0,
+     "median_p": 0.8,
+     "max_m_T": 0.6046984633774307
+    },
+    {
+     "period": 6.0,
+     "n_sig_fdr05": 0,
+     "median_p": 0.7975000000000001,
+     "max_m_T": 0.8256277649272871
+    },
+    {
+     "period": 7.0,
+     "n_sig_fdr05": 0,
+     "median_p": 0.82,
+     "max_m_T": 0.7246721857677585
+    },
+    {
+     "period": 8.0,
+     "n_sig_fdr05": 1,
+     "median_p": 0.7124999999999999,
+     "max_m_T": 0.8452417556349646
+    },
+    {
+     "period": 9.0,
+     "n_sig_fdr05": 1,
+     "median_p": 0.71,
+     "max_m_T": 0.6766411302437304
+    },
+    {
+     "period": 10.0,
+     "n_sig_fdr05": 16,
+     "median_p": 0.5375000000000001,
+     "max_m_T": 0.8490545401649054
+    },
+    {
+     "period": 10.6875,
+     "n_sig_fdr05": 14,
+     "median_p": 0.4825,
+     "max_m_T": 0.8757885635648669
+    },
+    {
+     "period": 11.0,
+     "n_sig_fdr05": 9,
+     "median_p": 0.4225,
+     "max_m_T": 0.7766050915872318
+    },
+    {
+     "period": 12.0,
+     "n_sig_fdr05": 24,
+     "median_p": 0.4275,
+     "max_m_T": 0.933845638668481
+    },
+    {
+     "period": 13.0,
+     "n_sig_fdr05": 9,
+     "median_p": 0.4525,
+     "max_m_T": 0.7275368322207059
+    },
+    {
+     "period": 14.0,
+     "n_sig_fdr05": 14,
+     "median_p": 0.325,
+     "max_m_T": 0.6123847321197787
+    },
+    {
+     "period": 15.0,
+     "n_sig_fdr05": 10,
+     "median_p": 0.4575,
+     "max_m_T": 0.7818193124930858
+    },
+    {
+     "period": 16.0,
+     "n_sig_fdr05": 5,
+     "median_p": 0.45,
+     "max_m_T": 0.8331117239311016
+    },
+    {
+     "period": 17.0,
+     "n_sig_fdr05": 24,
+     "median_p": 0.3425,
+     "max_m_T": 0.7572080123782434
+    },
+    {
+     "period": 18.0,
+     "n_sig_fdr05": 28,
+     "median_p": 0.255,
+     "max_m_T": 0.6687289081987987
+    },
+    {
+     "period": 19.0,
+     "n_sig_fdr05": 13,
+     "median_p": 0.35,
+     "max_m_T": 0.6455559932395352
+    },
+    {
+     "period": 20.0,
+     "n_sig_fdr05": 5,
+     "median_p": 0.5425,
+     "max_m_T": 0.6834891853075041
+    },
+    {
+     "period": 21.0,
+     "n_sig_fdr05": 4,
+     "median_p": 0.61,
+     "max_m_T": 0.7393421042751745
+    },
+    {
+     "period": 22.0,
+     "n_sig_fdr05": 5,
+     "median_p": 0.58,
+     "max_m_T": 0.7834182072741512
+    },
+    {
+     "period": 23.0,
+     "n_sig_fdr05": 9,
+     "median_p": 0.47,
+     "max_m_T": 0.8052932001476127
+    },
+    {
+     "period": 24.0,
+     "n_sig_fdr05": 26,
+     "median_p": 0.3025,
+     "max_m_T": 0.8049296719616043
+    }
+   ],
+   "period3_verdict": {
+    "period": 3.0,
+    "n_sig_here": 0,
+    "control_grid_mean": 9.88888888888889,
+    "control_grid_max": 28,
+    "is_peak_above_controls": false
+   },
+   "carrier_10p63_verdict": {
+    "period": 10.6875,
+    "n_sig_here": 14,
+    "control_grid_mean": 9.88888888888889,
+    "control_grid_max": 28,
+    "is_peak_above_controls": false
+   },
+   "surgery_logit_shift": {
+    "bands": {
+     "period3_wouldbe": {
+      "bins": [
+       339,
+       340,
+       341,
+       342,
+       343,
+       344,
+       345
+      ],
+      "logit_l2_shift": 0.1246509775519371,
+      "z_vs_control_bands": -1.2810087333919775
+     },
+     "carrier_10p63_wouldbe": {
+      "bins": [
+       93,
+       94,
+       95,
+       96,
+       97,
+       98,
+       99
+      ],
+      "logit_l2_shift": 0.1907443106174469,
+      "z_vs_control_bands": 2.4809323818582625
+     }
+    },
+    "control_bands": {
+     "n": 15,
+     "mean": 0.1471569483478864,
+     "std": 0.017568944073530882
+    }
+   }
+  },
+  "rnabert": {
+   "model": {
+    "hf_id": "multimolecule/rnabert",
+    "P_shape": [
+     440,
+     120
+    ],
+    "P_weight_sha256": "36cbc24c2350ed0bba546c6d85ccede510b8da67fd4d3bf074d1471525ed1e75",
+    "num_heads_total": 72
+   },
+   "frequency_sweep": [
+    {
+     "period": 3.0,
+     "n_sig_fdr05": 0,
+     "median_p": 0.8725,
+     "max_m_T": 0.0743155352959678
+    },
+    {
+     "period": 5.0,
+     "n_sig_fdr05": 0,
+     "median_p": 0.845,
+     "max_m_T": 0.11823168813299852
+    },
+    {
+     "period": 6.0,
+     "n_sig_fdr05": 0,
+     "median_p": 0.8425,
+     "max_m_T": 0.13532923066094152
+    },
+    {
+     "period": 7.0,
+     "n_sig_fdr05": 0,
+     "median_p": 0.7224999999999999,
+     "max_m_T": 0.1514586713089652
+    },
+    {
+     "period": 8.0,
+     "n_sig_fdr05": 0,
+     "median_p": 0.765,
+     "max_m_T": 0.1765764550002394
+    },
+    {
+     "period": 9.0,
+     "n_sig_fdr05": 0,
+     "median_p": 0.725,
+     "max_m_T": 0.19010595136945047
+    },
+    {
+     "period": 10.0,
+     "n_sig_fdr05": 0,
+     "median_p": 0.5549999999999999,
+     "max_m_T": 0.1985966500590766
+    },
+    {
+     "period": 10.6875,
+     "n_sig_fdr05": 3,
+     "median_p": 0.4,
+     "max_m_T": 0.21998908845141335
+    },
+    {
+     "period": 11.0,
+     "n_sig_fdr05": 0,
+     "median_p": 0.5175000000000001,
+     "max_m_T": 0.2360249160308836
+    },
+    {
+     "period": 12.0,
+     "n_sig_fdr05": 3,
+     "median_p": 0.46,
+     "max_m_T": 0.24022117127925652
+    },
+    {
+     "period": 13.0,
+     "n_sig_fdr05": 0,
+     "median_p": 0.66,
+     "max_m_T": 0.26678999914436763
+    },
+    {
+     "period": 14.0,
+     "n_sig_fdr05": 3,
+     "median_p": 0.1875,
+     "max_m_T": 0.30623171447275677
+    },
+    {
+     "period": 15.0,
+     "n_sig_fdr05": 3,
+     "median_p": 0.32,
+     "max_m_T": 0.3003528276086321
+    },
+    {
+     "period": 16.0,
+     "n_sig_fdr05": 2,
+     "median_p": 0.315,
+     "max_m_T": 0.2941165715609299
+    },
+    {
+     "period": 17.0,
+     "n_sig_fdr05": 2,
+     "median_p": 0.245,
+     "max_m_T": 0.33189903599471016
+    },
+    {
+     "period": 18.0,
+     "n_sig_fdr05": 25,
+     "median_p": 0.155,
+     "max_m_T": 0.37747882012560247
+    },
+    {
+     "period": 19.0,
+     "n_sig_fdr05": 19,
+     "median_p": 0.195,
+     "max_m_T": 0.3962738651935778
+    },
+    {
+     "period": 20.0,
+     "n_sig_fdr05": 10,
+     "median_p": 0.4875,
+     "max_m_T": 0.39376227195969904
+    },
+    {
+     "period": 21.0,
+     "n_sig_fdr05": 10,
+     "median_p": 0.4975,
+     "max_m_T": 0.3927233541941531
+    },
+    {
+     "period": 22.0,
+     "n_sig_fdr05": 12,
+     "median_p": 0.45,
+     "max_m_T": 0.40733982102699917
+    },
+    {
+     "period": 23.0,
+     "n_sig_fdr05": 15,
+     "median_p": 0.325,
+     "max_m_T": 0.4345464065215455
+    },
+    {
+     "period": 24.0,
+     "n_sig_fdr05": 19,
+     "median_p": 0.10500000000000001,
+     "max_m_T": 0.4644239441598918
+    }
+   ],
+   "period3_verdict": {
+    "period": 3.0,
+    "n_sig_here": 0,
+    "control_grid_mean": 6.833333333333333,
+    "control_grid_max": 25,
+    "is_peak_above_controls": false
+   },
+   "carrier_10p63_verdict": {
+    "period": 10.6875,
+    "n_sig_here": 3,
+    "control_grid_mean": 6.833333333333333,
+    "control_grid_max": 25,
+    "is_peak_above_controls": false
+   },
+   "surgery_logit_shift": {
+    "bands": {
+     "period3_wouldbe": {
+      "bins": [
+       144,
+       145,
+       146,
+       147,
+       148,
+       149,
+       150
+      ],
+      "logit_l2_shift": 0.001198429730720818,
+      "z_vs_control_bands": 0.7259408484477843
+     },
+     "carrier_10p63_wouldbe": {
+      "bins": [
+       38,
+       39,
+       40,
+       41,
+       42,
+       43,
+       44
+      ],
+      "logit_l2_shift": 0.0010953828459605575,
+      "z_vs_control_bands": 0.3332047150692215
+     }
+    },
+    "control_bands": {
+     "n": 15,
+     "mean": 0.0010079559326792757,
+     "std": 0.00026238198018870956
+    }
+   }
+  }
+ }
+}

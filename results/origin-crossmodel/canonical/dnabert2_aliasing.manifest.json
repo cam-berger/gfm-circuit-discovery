@@ -1,0 +1,17 @@
+{
+ "artifact": "dnabert2_aliasing.json",
+ "assay": "dnabert2_tokenizer_aliasing",
+ "produced_utc": "2026-07-23T18:11:29Z",
+ "git_rev": "74f2bfafb8842b25c0b2c2e5389a5284a0b1ff66",
+ "environment": "gfmcd-mm (conda): python3.11 torch transformers einops",
+ "model": {
+  "hf_id": "zhihan1996/DNABERT-2-117M",
+  "weights_sha256": "7ff39ec77a484dd01070a41bfd6e95cdd7247bec80fe357ab43a4be33687aeba"
+ },
+ "params": {
+  "nseq": 200,
+  "seqlen": 300
+ },
+ "seed": 0,
+ "command": "python scripts/crossmodel/run_dnabert2_aliasing.py"
+}

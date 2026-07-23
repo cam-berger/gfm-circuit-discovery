@@ -1,0 +1,44 @@
+{
+ "artifact": "carrier_pspectrum.json",
+ "assay": "crossmodel_carrier_pspectrum",
+ "produced_utc": "2026-07-23T18:01:58Z",
+ "git_rev": "74f2bfafb8842b25c0b2c2e5389a5284a0b1ff66",
+ "environment": "gfmcd-mm (conda): python3.11 torch transformers multimolecule0.2.0",
+ "models": {
+  "rnafm": {
+   "hf_id": "multimolecule/rnafm",
+   "config_sha256": "fa3fcfed918282a78301d677dffc2ad6bc746ece2ff72134cf7bf1df49905024",
+   "P_weight_sha256": "f135d23c7b6aa62b7230280c1c4a054db4e52134c3960d60e8bb70c7761bf458",
+   "P_shape": [
+    1026,
+    640
+   ]
+  },
+  "rnabert": {
+   "hf_id": "multimolecule/rnabert",
+   "config_sha256": "9a038fad9fc184acbd5a9133ddd7163684ff13668f3dfa86535a78864d82ca31",
+   "P_weight_sha256": "36cbc24c2350ed0bba546c6d85ccede510b8da67fd4d3bf074d1471525ed1e75",
+   "P_shape": [
+    440,
+    120
+   ]
+  }
+ },
+ "params": {
+  "envdeg": 6,
+  "n_scramble": 200,
+  "inject_depths": [
+   0.0,
+   0.01,
+   0.02,
+   0.05,
+   0.1,
+   0.2
+  ],
+  "period3": 3.0,
+  "carrier_10p63_period": 10.6875
+ },
+ "seed": 0,
+ "command": "python scripts/crossmodel/run_carrier_pspectrum.py",
+ "estimator": "leakage-aware joint LSQ (envdeg=6) + exact-bin FFT where integer; null = phase-scramble + control-period rank test"
+}

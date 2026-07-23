@@ -107,19 +107,45 @@ promoting attention or attribution to causality.
 
 ### 3. Carrier origin
 
-The period-3 carrier's present-day causal use is now cleanly confirmed, but a frozen checkpoint cannot
-identify why training created it. The matched CDS-minus-non-CDS-exon contrast was inconclusive, so even
-coding enrichment is not licensed by C36. Origin requires training-time evidence: checkpoint
-trajectories, controlled retraining, objective/corpus ablations, or a cross-model comparison.
+The period-3 carrier's present-day causal use is cleanly confirmed (C36). A single frozen checkpoint
+cannot say why training built it, but two published-checkpoint natural experiments now give
+*comparative* origin evidence without retraining (C39, C40):
+
+- **Corpus, not human sequence.** In the sibling stage-1 checkpoints — same architecture, stage, and
+  510-nt length, differing only in corpus — the period-3 carrier is strong in the 72-species model
+  (band power 435× median) and undetected in the human-only model (6.2×, below a powered noise floor).
+  The human-only absence is the surprising part: codon structure exists in human coding sequence, yet
+  training on human alone did not build the period-3 code. It is a product of *multi-species* pre-training.
+  In the sibling where it exists, band-deletion confirms it is used coding-specifically (exon vs intron
+  masked-base damage +0.170 vs +0.032 nats, DiD +0.138 against an energy-matched-control DiD max +0.005;
+  intron-channel health 87.6%), reproducing C8 on a second checkpoint.
+- **Codon-linked, not universal.** In two single-nucleotide transformer MLMs trained on ORF-free ncRNA
+  (RNA-FM, RNA-BERT), the period-3 carrier is absent from the position-embedding matrix under a powered
+  null (band power ≈1× median control; a ≥5% carrier would have been detected). A codon-scale positional
+  code does not form when the training corpus lacks reading frames — consistent with a codon origin.
+
+Origin *dynamics* (the trajectory over training) still require checkpoint series or controlled retraining
+that public artifacts do not provide; the licensed claim is comparative attribution, not a training-time
+mechanism.
 
 ### 4. Separate ≈10.63 carrier
 
-Measured on `SpliceBERT.510nt`, not on the checkpoint carrying the donor mechanism above. The
-multispecies ≈10.63 feature is distinct from period 3 and currently stops at post-softmax attention.
-Its OV content, behavioral function, and biological origin remain open. "Origin open" does not reopen the
-nucleosomal reading: the ≈10.298-nt nucleosomal signal sits 0.33 nt from the ≈10.630 carrier, which is
-fitted to ±0.005, so the record holds that as a powered refutation of the nucleosome bridge rather than
-support for it (C14, R17; [`docs/NOMENCLATURE.md`](docs/NOMENCLATURE.md)).
+The ≈10.63 carrier is distinct from period 3 and, within the donor circuit, stops at post-softmax
+attention (its general OV content and behavioral function remain open, C12/C37). Its **origin is now
+corpus-attributed** by the same sibling contrast (C39): the ≈10.63 band is strong in the 72-species
+stage-1 checkpoint (369× median) and undetected in the human-only stage-1 checkpoint (2.4×, powered
+null) — so the "multispecies" label is now measured, not asserted. This is corroborated on the input
+side: the model-free corpus spectrum finds no detectable ≈10.63 periodicity in 60 Mb of human genome at
+the preregistered period (all dinucleotide channels Z≈0.93–1.00, n.s., with a ≥5% detection floor,
+`corpus_spectrum.json`), and the carrier is likewise absent from the RNA-FM/RNA-BERT position
+embeddings (C40). The carrier is therefore a feature multi-species training manufactured, not a
+reflection of a human-sequence statistic.
+
+"Corpus-attributed origin" does not reopen the nucleosomal reading: the ≈10.298-nt nucleosomal signal
+sits 0.33 nt from the ≈10.630 carrier, which is fitted to ±0.005, so the record holds that as a powered
+refutation of the nucleosome bridge rather than support for it (C14, R17;
+[`docs/NOMENCLATURE.md`](docs/NOMENCLATURE.md)). The carrier's OV/behavioral function inside the model
+stays open; only its *corpus* origin is now licensed.
 
 ## Scope
 

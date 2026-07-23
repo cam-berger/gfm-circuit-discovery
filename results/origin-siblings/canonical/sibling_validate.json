@@ -1,0 +1,120 @@
+{
+  "architecture_parity_all_three": {
+    "hidden_size": true,
+    "num_attention_heads": true,
+    "num_hidden_layers": true,
+    "position_embedding_type": true,
+    "vocab_size": true
+  },
+  "architecture_parity_holds": true,
+  "checkpoints": {
+    "final_1024": {
+      "P_shape": [
+        1026,
+        512
+      ],
+      "adapter_hidden_size": 512,
+      "adapter_num_heads": 16,
+      "adapter_num_layers": 6,
+      "architectures": [
+        "BertForMaskedLM"
+      ],
+      "config_sha256": "51ea51e42951f18cc1d3455d7111fe0a41cebad476ba8314afc161a0e956303e",
+      "hidden_size": 512,
+      "max_position_embeddings": 1026,
+      "max_position_expected": 1026,
+      "num_attention_heads": 16,
+      "num_hidden_layers": 6,
+      "path": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+      "position_embedding_type": "absolute",
+      "prefix_tokens": 1,
+      "probe_core_tokens": 10,
+      "probe_len_nt": 10,
+      "role": "FINAL 72-species stage-2",
+      "single_nt": true,
+      "tokenizer_mode": "spaced",
+      "vocab_size": 10,
+      "weight_sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "wtsha": "2ad91428c318e6c4",
+      "wtsha_expected": "2ad91428c318e6c4",
+      "wtsha_match": true
+    },
+    "human_510": {
+      "P_shape": [
+        512,
+        512
+      ],
+      "adapter_hidden_size": 512,
+      "adapter_num_heads": 16,
+      "adapter_num_layers": 6,
+      "architectures": [
+        "BertForMaskedLM"
+      ],
+      "config_sha256": "9f3fb3b5f5a500b0aa600b063ecb78f1aefbe05a8bd9fab1843cb5894e70f048",
+      "hidden_size": 512,
+      "max_position_embeddings": 512,
+      "max_position_expected": 512,
+      "num_attention_heads": 16,
+      "num_hidden_layers": 6,
+      "path": "data/models/splicebert_official_archive/extracted/models/SpliceBERT-human.510nt",
+      "position_embedding_type": "absolute",
+      "prefix_tokens": 1,
+      "probe_core_tokens": 10,
+      "probe_len_nt": 10,
+      "role": "stage-1 HUMAN-ONLY",
+      "single_nt": true,
+      "tokenizer_mode": "spaced",
+      "vocab_size": 10,
+      "weight_sha256": "7d9e7b6d53f2e42efbd19de2ad01c195244c138bff1e4468334294e3a62cae90",
+      "wtsha": "7d9e7b6d53f2e42e",
+      "wtsha_expected": "7d9e7b6d53f2e42e",
+      "wtsha_match": true
+    },
+    "stage1_510": {
+      "P_shape": [
+        512,
+        512
+      ],
+      "adapter_hidden_size": 512,
+      "adapter_num_heads": 16,
+      "adapter_num_layers": 6,
+      "architectures": [
+        "BertForMaskedLM"
+      ],
+      "config_sha256": "0e0daa1f987decd945cd76bc43a3ee4686e3715c470cb08fd2bf2f5c5296b4d8",
+      "hidden_size": 512,
+      "max_position_embeddings": 512,
+      "max_position_expected": 512,
+      "num_attention_heads": 16,
+      "num_hidden_layers": 6,
+      "path": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.510nt",
+      "position_embedding_type": "absolute",
+      "prefix_tokens": 1,
+      "probe_core_tokens": 10,
+      "probe_len_nt": 10,
+      "role": "stage-1 72-species",
+      "single_nt": true,
+      "tokenizer_mode": "spaced",
+      "vocab_size": 10,
+      "weight_sha256": "b3a48c768a029dc6291cde8085c0bc02d40a6d03007b0535e6788573e2ea7808",
+      "wtsha": "b3a48c768a029dc6",
+      "wtsha_expected": "b3a48c768a029dc6",
+      "wtsha_match": true
+    }
+  },
+  "corpus_by_checkpoint": {
+    "final_1024": "72-species",
+    "human_510": "human-only",
+    "stage1_510": "72-species"
+  },
+  "experiment": "origin-siblings-validate-v1",
+  "intended_differences": {
+    "corpus": "stage1_510(72sp) vs human_510(human-only) \u2014 CORPUS contrast",
+    "maxpos_and_stage": "stage1_510(512,stage1) vs final_1024(1026,stage2) \u2014 STAGE contrast (length+stage confounded)"
+  },
+  "maxpos_by_checkpoint": {
+    "final_1024": 1026,
+    "human_510": 512,
+    "stage1_510": 512
+  }
+}

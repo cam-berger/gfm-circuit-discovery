@@ -1,0 +1,10 @@
+{
+ "figure": "crossmodel_carrier_summary",
+ "produced_by": "python (gfmcd-mm env), figure-style",
+ "data_sources": [
+   "results/origin-crossmodel/canonical/carrier_pspectrum.json",
+   "SpliceBERT.1024nt P (data/models/...) measured with the same leakage-aware estimator"
+ ],
+ "estimator": "gfmcd.crossmodel.carrier_spectrum (leakage-aware LSQ + exact-bin FFT)",
+ "seed": 0
+}

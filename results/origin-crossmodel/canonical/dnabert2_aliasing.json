@@ -1,0 +1,52 @@
+{
+ "assay": "dnabert2_tokenizer_aliasing",
+ "produced_utc": "2026-07-23T18:11:29Z",
+ "note": "Methodological contrast: why single-nt tokenization is required to express a codon-scale positional code. A null here is a tokenizer artifact.",
+ "model": {
+  "hf_id": "zhihan1996/DNABERT-2-117M",
+  "config_position_embedding_type": "absolute",
+  "config_alibi_starting_size": 512,
+  "state_dict_n_keys": 142,
+  "position_embeddings_keys": [],
+  "has_learned_position_table": false,
+  "embedding_keys_present": [
+   "bert.embeddings.LayerNorm.weight",
+   "bert.embeddings.token_type_embeddings.weight",
+   "bert.embeddings.word_embeddings.weight"
+  ],
+  "verdict": "NO learned position table (ALiBi backbone) -- the carrier's first defining object does not exist here"
+ },
+ "tokenizer": {
+  "class": "TokenizersBackend",
+  "vocab_size": 4096,
+  "type": "BPE (~4k), multi-nt tokens",
+  "nt_per_token_mean": 4.656577415599535,
+  "nt_per_token_median": 5.0,
+  "nt_per_token_std": 1.3565505303551735,
+  "nt_per_token_min": 1,
+  "nt_per_token_max": 10,
+  "nt_per_token_distribution": {
+   "1": 0.010322079937912301,
+   "2": 0.03950329840900272,
+   "3": 0.13822273961971285,
+   "4": 0.2816453240201785,
+   "5": 0.25867287543655415,
+   "6": 0.17974388824214202,
+   "7": 0.0813348855258052,
+   "8": 0.010244470314318976,
+   "9": 0.00023282887077997672,
+   "10": 7.760962359332557e-05
+  },
+  "n_tokens_sampled": 12885
+ },
+ "aliasing": {
+  "codon_period_nt": 3.0,
+  "codon_period_in_token_index": 0.64425,
+  "token_index_nyquist_period": 2.0,
+  "codon_representable_in_token_index": false,
+  "carrier_10p63_period_nt": 10.6875,
+  "carrier_10p63_period_in_token_index": 2.2951406249999997,
+  "carrier_10p63_representable": true,
+  "explanation": "A period-T(nt) carrier needs period T/(nt-per-token) in TOKEN index. Codon (3nt) -> 0.64 token-steps, below the Nyquist period of 2 token-steps: NOT representable. Non-uniform, content-dependent token boundaries further smear any fixed token-period across nt periods."
+ }
+}

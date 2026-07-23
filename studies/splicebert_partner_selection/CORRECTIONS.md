@@ -97,3 +97,38 @@ For every candidate, record the highest level reached and do not auto-promote:
 | Biology | an independently measured biological source or function matches with adequate power and specificity |
 
 The multispecies ≈10.63 carrier stops at A. The human-only ≈10.2 proposal stops before A. The donor–acceptor/period-3 result reaches behavior. None of these automatically establishes a biological mechanism.
+
+## R25 — carrier origin moved from "deferred (needs a new model)" to corpus-attributed (2026-07-23)
+
+**What changed.** MECHANISM items 3–4 previously held that carrier origin was unanswerable on frozen
+checkpoints and required training-time evidence (checkpoint trajectories, controlled retraining) or a
+new model — i.e. a "reason to move on," deferred to a future project. Two published-checkpoint natural
+experiments now license a *comparative* origin attribution without any retraining, so the origin question
+is partly closed rather than wholly deferred. New live rows: **C39** (sibling corpus contrast + sibling
+band-deletion) and **C40** (cross-model absence + tokenizer-aliasing contrast). C12 amended: the ≈10.63
+carrier's corpus origin is now licensed; its general OV/MLM-output function stays open.
+
+**Why the prior wording was too conservative, and its exact remaining limit.** The claim "a frozen
+checkpoint cannot identify why training created it" is true for training *dynamics* but too strong for
+*attribution*: the SpliceBERT authors published two stage-1 siblings differing only in corpus
+(`SpliceBERT.510nt` 72-species vs `SpliceBERT-human.510nt` human-only), which is a controlled natural
+experiment already on disk. The remaining limit is honest and stated in C39: this is comparative
+attribution (feature tracks corpus), not a trajectory or a controlled-retraining causal proof.
+
+**The load-bearing, non-obvious result.** period-3 is **absent in the human-only sibling** (6.2× vs 435×
+median, undetected under a powered floor). Codon structure is present in human coding sequence, so the
+naive prior was that period-3 would survive human-only training. It does not: the period-3 clock is a
+product of multi-species pre-training, not a generic codon read-out. Corroborated by C40 — period-3 is
+absent from single-nt transformer MLMs trained on ORF-free ncRNA (RNA-FM, RNA-BERT) under a powered null.
+
+**A false positive that was caught and must not re-enter.** The cross-model reader scan initially flagged
+16 RNA-FM heads "reading" ≈10.63. A frequency control showed this is an envelope/permutation artifact
+(n_sig 14 < control-grid max 28; period-3 n_sig = 0). Do not cite RNA-FM as carrying a ≈10.63 reader.
+
+**Terminology note (execution).** The sibling behavioral step is recorded as a Fourier
+**band-deletion / carrier-transfer** intervention (identical mechanics to `run_carrier_surgery.py`);
+the word "surgery" is avoided in the cross-corpus/cross-model code and prose for these origin results.
+
+**Evidence-ladder placement.** C39/C40 sit at a new column not in the P→Biology ladder above: *corpus
+attribution* (which training corpus builds the feature), below Biology (an independently measured
+biological source/function). Corpus origin is licensed; a biological function for either carrier is not.

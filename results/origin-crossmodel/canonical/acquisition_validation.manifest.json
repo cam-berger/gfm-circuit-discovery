@@ -1,0 +1,37 @@
+{
+ "artifact": "acquisition_validation.json",
+ "assay": "crossmodel_acquisition_validation",
+ "produced_utc": "2026-07-23T17:36:12Z",
+ "git_rev": "74f2bfafb8842b25c0b2c2e5389a5284a0b1ff66",
+ "environment": "gfmcd-mm (conda): python 3.11, torch, transformers, multimolecule 0.2.0",
+ "models": {
+  "rnafm": {
+   "hf_id": "multimolecule/rnafm",
+   "config_sha256": "fa3fcfed918282a78301d677dffc2ad6bc746ece2ff72134cf7bf1df49905024",
+   "full_state_dict_sha256": "cb14806f2c2858e44661c1f92441c9758b012fffdf6b1671a5724bbbb38a469a",
+   "P_weight_sha256": "2702e198af0f15cf6f84194a7b3c7ad9493bb6f78cebaa664a8288c3bd37ef52",
+   "P_shape": [
+    1026,
+    640
+   ]
+  },
+  "rnabert": {
+   "hf_id": "multimolecule/rnabert",
+   "config_sha256": "9a038fad9fc184acbd5a9133ddd7163684ff13668f3dfa86535a78864d82ca31",
+   "full_state_dict_sha256": "7ae30bcab158e26f48020feb82d3f26504e8171cab5792157b635fe521a6052a",
+   "P_weight_sha256": "9d92452fcd8f62fd95b07ac8778ca2b5715a28e1fc3038f488eeee23feb2eb9d",
+   "P_shape": [
+    440,
+    120
+   ]
+  }
+ },
+ "tokenizer": "multimolecule RnaTokenizer, vocab 28, single-nt, raw mode, prefix_tokens=1",
+ "params": {
+  "tokenizer_mode": "raw",
+  "device": "cpu"
+ },
+ "seed": null,
+ "command": "SpliceBertAdapter.from_pretrained(hf_id, tokenizer_mode='raw', device='cpu', model_class='masked_lm')",
+ "notes": "HF Xet CAS disabled (hf_xet removed); weights pulled via LFS from us.aws.cdn.hf.co (network grant)."
+}

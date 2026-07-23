@@ -1,0 +1,25 @@
+{
+ "artifact": "reader_freqcontrol.json",
+ "assay": "crossmodel_reader_freqcontrol",
+ "produced_utc": "2026-07-23T18:09:15Z",
+ "git_rev": "74f2bfafb8842b25c0b2c2e5389a5284a0b1ff66",
+ "environment": "gfmcd-mm (conda): python3.11 torch transformers multimolecule0.2.0",
+ "models": {
+  "rnafm": {
+   "hf_id": "multimolecule/rnafm",
+   "P_weight_sha256": "f135d23c7b6aa62b7230280c1c4a054db4e52134c3960d60e8bb70c7761bf458"
+  },
+  "rnabert": {
+   "hf_id": "multimolecule/rnabert",
+   "P_weight_sha256": "36cbc24c2350ed0bba546c6d85ccede510b8da67fd4d3bf074d1471525ed1e75"
+  }
+ },
+ "params": {
+  "nseq": 12,
+  "seqlen": 200,
+  "span": 60,
+  "nperm": 200
+ },
+ "seed": 0,
+ "command": "python scripts/crossmodel/run_reader_freqcontrol.py"
+}
