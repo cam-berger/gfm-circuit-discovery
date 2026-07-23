@@ -37,16 +37,25 @@ protocol does not name; and **185 dangling `results/` path strings** were left a
 All 197 moves are undone, the 13 runners restored, and the `development/` directories removed.
 **Review fix F1 is therefore NOT implemented, deliberately.** Its navigational benefit is delivered
 instead by `results/MANIFEST.csv` (fix F2), which classifies every artifact **without moving anything**.
-**Decision required:** whether to pursue F1 at all. The recommendation from this program is **no** — the
-manifest already resolves the opacity F1 was meant to fix, at none of the cost.
+~~**Decision required:** whether to pursue F1 at all. The recommendation from this program is **no** — the
+manifest already resolves the opacity F1 was meant to fix, at none of the cost.~~
+
+> **RESOLVED (2026-07-22) — owner decision: F1 is DROPPED.** The physical `canonical/`+`development/`
+> reorganization will not be pursued. The `results/MANIFEST.csv` classification (fix F2) delivers the
+> navigational benefit F1 targeted without moving any artifact away from the path its frozen
+> preregistration names. No further action; F1 is closed, not deferred.
 
 **MAJOR — CI does not actually enforce the new manifest guard (pre-existing defect, not a regression).**
 `.github/workflows/tests.yml` installs with `uv sync --locked --extra splicebert --extra dev`, then runs
 `uv run pytest` — which re-syncs to the **default** dependency set first, uninstalling the extras.
-Verified unchanged by this program (`git diff` on `.github/` is empty). **Decision required:** change the
-final step to `uv run --extra splicebert --extra dev pytest`. Until then the F2 guard is not CI-enforced.
-Note this also means the documented-green baseline (`261 passed, 46 skipped`) is only reproducible with
-the extras flags.
+~~**Decision required:** change the final step to `uv run --extra splicebert --extra dev pytest`. Until
+then the F2 guard is not CI-enforced.~~ Note this also means the documented-green baseline
+(`261 passed, 46 skipped`) is only reproducible with the extras flags.
+
+> **RESOLVED (2026-07-22) — FIXED.** The `Run full test suite` step in `.github/workflows/tests.yml` now
+> runs `uv run --extra splicebert --extra dev pytest`, so CI installs the extras when it runs and the
+> manifest guard (`tests/test_manifest.py`) plus the data-gated suite are actually enforced. Verified
+> locally: `294 passed, 46 skipped`, manifest guard 33/33.
 
 ---
 
