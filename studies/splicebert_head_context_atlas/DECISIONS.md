@@ -1,5 +1,7 @@
 # Decision log — Head–Context Atlas
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 Design decisions and post-diagnostic pivots. Preregistered confirmatory choices live in
 `PREREGISTRATION_C_COMPETITION.md`; this log records rationale and the red-team pivot.
 
@@ -437,3 +439,58 @@ Design decisions and post-diagnostic pivots. Preregistered confirmatory choices 
   target log-probability and entropy only; synthetic `U_info`/`U_read` lenses are not retrofitted. Case
   population interventions remain visually separate from representative screening and matched-negative
   graphs.
+
+## 2026-07-22 — reviewer roadmap B4 deferred and B5 closes the HCA18 shortlist (design red-team + power calc)
+
+Two Atlas-study branches from the reviewer roadmap B1–B5 were formalized into preregistrations and put
+through a five-lens **pre-compute** design red-team before any compute (the same formalize→audit→verify
+discipline as P3.4). The companion partner-selection branches (B1/B2/B3) are logged in that study's
+`DECISIONS.md`.
+
+- **B4 — L3H1/carrier → L2MLP bridge (HCA20 residual): DEFERRED.** Three convergent lenses found the direct
+  carrier→L2MLP edge **non-identifiable on a frozen post-LN checkpoint** (verified against code+data). The only
+  carrier-deletion primitive (`run_carrier_surgery.py::make`) edits the whole position-embedding matrix
+  globally at the source; post-LN renormalization leaves no additive carrier component to subtract at a
+  mid-layer edge; the only implementable deletion injects a globally-carrier-deleted layer-2 residual into
+  L2MLP's input, bundling the direct removal with comb-collapse content routing through **L2H15** (the
+  layer-2 period-3 comb head feeding L2MLP in the same block). So `ΔΔ_bridge = direct + through-comb`, and the
+  "edge distinct from global C8" does not exist. The blocker is identifiability, **not** power or the
+  Drive-only stage-2 cohort (the paired second-difference off the HCA20 base already clears SESOI; in-repo
+  `atlas_context_matched_v7.validation.packets.jsonl` supplies 1,486 gene-labeled packets). The only
+  locally-runnable identifiable variant is a coarse **total** upstream carrier-dependence of L2MLP's partner
+  write — a localized-C8 read, not a bridge — which belongs with the donor-circuit carrier/address thread
+  beside C34/C35. A genuine cross-estimand bridge needs a training-time / subspace-freeze design if the Atlas
+  becomes a headline. Design of record: `PREREGISTRATION_B4_L3H1_CARRIER_TO_L2MLP.md`; red-team:
+  `REDTEAM_SYNTHESIS_B4.md`.
+
+- **B5 — the 20 HCA18 context signals: CLOSED as under-powered leads (HCA23).** The one runnable survivor of
+  B1–B5. A deterministic, **model-free** power calc (`analyze_b5_context_signal_power.py`, prereg v2 FROZEN
+  after the red-team removed a definitionally ill-posed pooled-taxonomy escape hatch, fixed the census
+  provenance, added ceiling-channel planted-positives, and unit-matched demand/supply to effective pairs)
+  shows every one of the 20 signals requires more effective matched pairs to reach `MDE80≤0.05` than exist
+  even at the **hard one-case-per-gene** exact-other-tag support cap (acceptor 1.05×, donor 3.88×, cassette
+  1.88× over; 20/20). Because the observed `se` is a selected single-draw lower bound, the arithmetic can only
+  license CLOSE (never a reachable/redesign disposition), so the honest terminal disposition of HCA18 is
+  **CLOSE-AS-UNDERPOWERED** — exactly HCA18's own boundary ("do not erase, do not validate; a fresh,
+  better-powered design is required"). All memorials + calibration pass and the verdict was independently
+  re-derived. A future WH4/WH5 validation must increase supply or accept a coarser pooled estimand with a
+  freshly measured pooled `se`. Artifacts: `results/…/b5_context_signal_power_v1.json` (+manifest);
+  `PREREGISTRATION_B5_CONTEXT_SIGNAL_POWER.md`; `REDTEAM_SYNTHESIS_B5.md`.
+## 2026-07-22 — Competition branch retired to one closed-line entry (bookkeeping)
+
+- **Trigger:** the intron-mate splice-competition branch was a resolved null still administratively open —
+  a cluster of exploratory `CLAIMS.md` rows (HCA2–HCA10) and two partner-side protocols (IC2, IC2a) still
+  hung off a premise HCA4 already refuted. This is bookkeeping, not new science: no experiment was run.
+- **Decision:** collapse HCA2–HCA10 into a single closed-line consolidation banner in `CLAIMS.md` and stamp
+  each row with a terminal `closed (competition branch; …)` status. Nothing is deleted — closed rows stay
+  as exploratory provenance per the never-delete rule. The one-line disposition: **the perturbation is not
+  competition-specific** (HCA4 `|M_comp|=0.088 < |M_decoy|=0.135`; no competition-specific head/MLP module,
+  HCA10); no sealed chr8/9 confirmation and no further Colab credits are licensed.
+- **Salvage:** the single useful nugget — **HCA9's rediscovery of donor-circuit L3H1** as the
+  donor-reconstruction mediator (donor B +0.114 [0.098,0.130]; exact 400-gene L3H1 patch +0.0857 [0.0492,0.1280]
+  vs behavioral B +0.1015) — is folded into the donor-circuit record as a cross-study positive control
+  (`../splicebert_partner_selection/CLAIMS.md` interpretation guardrails and `../splicebert_partner_selection/DECISIONS.md`
+  2026-07-22). It corroborates the donor-circuit reader (C3/C4/C5/C17) on a disjoint donor-target cohort.
+- **Scope:** the wider Head–Context Atlas (HCA11–HCA22) is a separate, active program and is untouched by this
+  closure. The prior closure prose in `RESEARCH_SPINE.md` §"Closed competition branch" and `COMPLETION_AUDIT.md`
+  is unchanged; this entry only makes the `CLAIMS.md` ledger reflect the closure with terminal statuses.

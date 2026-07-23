@@ -1,5 +1,7 @@
 # Red-team synthesis — Caduceus T1 behavioral-transfer prereg DRAFT
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 Adjudication of the 5-lens design red-team. Status: 1/5 returned. My call per issue: ACCEPT / MODIFY / REJECT + the resulting design change. This becomes the changelog presented to Cam.
 
 ## Lens C — estimand↔intent & SESOI (agentId ac6e4bf6113056c98) — verdict: FIXABLE

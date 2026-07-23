@@ -1,0 +1,39 @@
+{
+  "command": [
+    "scripts/splicebert/run_carrier_p10_behaviour.py",
+    "--n",
+    "1200"
+  ],
+  "config": {
+    "SESOI_C": 0.05,
+    "carrier_bins": [
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100
+    ],
+    "n": 1200
+  },
+  "created_at_utc": "2026-07-23T02:51:02.335158+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 8904,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "b1:carrier_p10_behaviour",
+  "git_commit": "3bce303c106d77890e45e828f554763d75643784",
+  "git_dirty": true,
+  "inputs": [],
+  "notes": [
+    "B1 behavioural arm: coupling equivalence under \u224810.63 deletion (frozen prediction: NULL). Sizing-pilot-gated; M-p3contrast checks the re-pointed instrument still collapses on period-3."
+  ],
+  "outputs": [],
+  "seeds": {
+    "PYTHONHASHSEED": 0
+  },
+  "status": "INCONCLUSIVE_underpowered"
+}

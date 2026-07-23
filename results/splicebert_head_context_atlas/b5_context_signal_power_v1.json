@@ -1,0 +1,624 @@
+{
+  "atlas_junction_window_fit_fraction": 0.29303387463345,
+  "calibration": [
+    {
+      "detail": {
+        "already_powered": true,
+        "ceil_hard_eff": 1925.0769939965694,
+        "mde80": 0.04,
+        "n_req": 397.83629502572893,
+        "reachable": true,
+        "via_ceiling_channel": false
+      },
+      "name": "PP1_already_powered",
+      "pass": true
+    },
+    {
+      "detail": {
+        "already_powered": true,
+        "ceil_hard_eff": 1925.0769939965694,
+        "mde80": 0.05,
+        "n_req": 621.6192109777015,
+        "reachable": true,
+        "via_ceiling_channel": false
+      },
+      "name": "PP2_boundary",
+      "pass": true
+    },
+    {
+      "detail": {
+        "already_powered": false,
+        "ceil_hard_eff": 1925.0769939965694,
+        "mde80": 0.06947017829344347,
+        "n_req": 1199.9999999999998,
+        "reachable": true,
+        "via_ceiling_channel": true
+      },
+      "name": "PP3_ceiling_channel_reachable",
+      "pass": true
+    },
+    {
+      "detail": {
+        "already_powered": false,
+        "ceil_hard_eff": 1925.0769939965694,
+        "mde80": 0.08968561452952219,
+        "n_req": 2000.0,
+        "reachable": false,
+        "via_ceiling_channel": false
+      },
+      "name": "PP4_ceiling_channel_not_reachable",
+      "pass": true
+    },
+    {
+      "detail": {
+        "n": 18
+      },
+      "name": "N1_effect_permutation_no_flip",
+      "pass": true
+    },
+    {
+      "detail": {
+        "all_closed_correct": true,
+        "max_ceil": 2609.0730290271326,
+        "n_flip_under_max_ceiling": 1,
+        "note": "ceiling is load-bearing: a wrong (too-generous) ceiling WOULD open >=1 signal",
+        "provenance_ok": true
+      },
+      "name": "N2_ceiling_provenance_load_bearing",
+      "pass": true
+    },
+    {
+      "detail": {
+        "note": "aborts on any tau != 0.05"
+      },
+      "name": "N3_gate_relaxation_tripwire",
+      "pass": true
+    }
+  ],
+  "cell_supply": {
+    "acceptor_cluster|acceptor": {
+      "ceil_hard_eff": 1925.0769939965694,
+      "ceil_real_eff": 1540.0615951972557,
+      "design_effect": 0.9712800171526587,
+      "genes": 1982,
+      "n_eff": 621.6192109777015,
+      "n_endpoint_genes": 1081,
+      "n_pairs": 640,
+      "yield": 0.8
+    },
+    "cassette_exon|donor": {
+      "ceil_hard_eff": 2609.0730290271326,
+      "ceil_real_eff": 2090.51976450799,
+      "design_effect": 0.976449486911352,
+      "genes": 2672,
+      "n_eff": 625.9041211101767,
+      "n_endpoint_genes": 1098,
+      "n_pairs": 641,
+      "yield": 0.80125
+    },
+    "donor_cluster|donor": {
+      "ceil_hard_eff": 1750.5473003013387,
+      "ceil_real_eff": 1428.8842338709678,
+      "design_effect": 0.9834535394951341,
+      "genes": 1780,
+      "n_eff": 642.1951612903226,
+      "n_endpoint_genes": 1117,
+      "n_pairs": 653,
+      "yield": 0.81625
+    }
+  },
+  "experiment_id": "b5_context_signal_power_v1",
+  "gate": {
+    "Z_POWER_80": 2.8015852181129683,
+    "tau": 0.05
+  },
+  "global_pass": true,
+  "memorials": [
+    {
+      "detail": {
+        "category": {
+          "acceptor_cluster": 11,
+          "cassette_exon": 3,
+          "donor_cluster": 6
+        },
+        "class": {
+          "material_support": 3,
+          "material_suppress": 17
+        },
+        "component_type": {
+          "attention_head": 4,
+          "mlp_write": 16
+        },
+        "n": 20
+      },
+      "forced": false,
+      "name": "M1_signal_counts",
+      "pass": true
+    },
+    {
+      "detail": {
+        "tau_values": [
+          0.05
+        ]
+      },
+      "forced": false,
+      "name": "M2_gate_frozen",
+      "pass": true
+    },
+    {
+      "detail": {
+        "Z_POWER_80": 2.8015852181129683,
+        "n_fail_ge_1e-9": 0,
+        "worst_abs_err": 0.0
+      },
+      "forced": false,
+      "name": "M3_precision_identity_roundtrip",
+      "pass": true
+    },
+    {
+      "detail": {
+        "n_fail": 0,
+        "note": "FORCED algebraic identity of N_req def (R7/R21) \u2014 reported, not leaned on"
+      },
+      "forced": true,
+      "name": "M4_required_N_backout_consistency",
+      "pass": true
+    },
+    {
+      "detail": {
+        "genes": {
+          "acceptor_cluster|acceptor": 1982,
+          "cassette_exon|donor": 2672,
+          "donor_cluster|donor": 1780
+        },
+        "n_cases_sampled": {
+          "acceptor_cluster|acceptor": 800,
+          "cassette_exon|donor": 800,
+          "donor_cluster|donor": 800
+        },
+        "n_matched": {
+          "acceptor_cluster|acceptor": 640,
+          "cassette_exon|donor": 641,
+          "donor_cluster|donor": 653
+        }
+      },
+      "forced": false,
+      "name": "M5_supply_counts_real",
+      "pass": true
+    },
+    {
+      "detail": {
+        "acceptor_cluster|acceptor": {
+          "genes": 1982,
+          "hard": 1925.0769939965694,
+          "real": 1540.0615951972557
+        },
+        "cassette_exon|donor": {
+          "genes": 2672,
+          "hard": 2609.0730290271326,
+          "real": 2090.51976450799
+        },
+        "donor_cluster|donor": {
+          "genes": 1780,
+          "hard": 1750.5473003013387,
+          "real": 1428.8842338709678
+        }
+      },
+      "forced": false,
+      "name": "M6_ceiling_monotone_bounded",
+      "pass": true
+    },
+    {
+      "detail": {
+        "note": "near-FORCED (R7): demand depends only on (se, tau); reported, not leaned on"
+      },
+      "forced": true,
+      "name": "M7_effect_size_excluded",
+      "pass": true
+    },
+    {
+      "detail": {
+        "note": "PYTHONHASHSEED pinned by caller; recompute identical"
+      },
+      "forced": false,
+      "name": "M8_determinism",
+      "pass": true
+    },
+    {
+      "detail": {
+        "acceptor_cluster|acceptor": {
+          "design_effect": 0.9712800171526587,
+          "n_endpoint_genes": 1081
+        },
+        "cassette_exon|donor": {
+          "design_effect": 0.976449486911352,
+          "n_endpoint_genes": 1098
+        },
+        "donor_cluster|donor": {
+          "design_effect": 0.9834535394951341,
+          "n_endpoint_genes": 1117
+        }
+      },
+      "forced": false,
+      "name": "M9_design_effect_visible",
+      "pass": true
+    }
+  ],
+  "notes": [
+    "Model-free deterministic power arithmetic; zero forward passes.",
+    "N_req is a SELECTED single-draw LOWER BOUND (R22) -> reachability is one-sided-falsifiable; the arithmetic can only license CLOSE, never a reachable/redesign disposition (see prereg \u00a75/\u00a76).",
+    "Pooled-taxonomy reachability is NON-IDENTIFIABLE-AT-DESIGN (removed): a fine signal's se cannot be applied to the sign-heterogeneous, cross-role, gene-double-counting pooled cohort (R22).",
+    "Supply wall = exact-other-tag support GENE pool (one-case-per-gene sampler), downstream of the ~29% atlas junction-window-fit; demand and supply unit-matched to effective pairs via DE.",
+    "HCA18 boundary honored: the 20 signals are retained as under-powered leads, NOT erased and NOT validated."
+  ],
+  "preregistration": "studies/splicebert_head_context_atlas/PREREGISTRATION_B5_CONTEXT_SIGNAL_POWER.md",
+  "redteam_synthesis": "studies/splicebert_head_context_atlas/REDTEAM_SYNTHESIS_B5.md",
+  "signals": [
+    {
+      "category": "acceptor_cluster",
+      "ceil_hard_eff": 1925.0769939965694,
+      "ceil_real_eff": 1540.0615951972557,
+      "classification": "material_suppress",
+      "closed": true,
+      "component_id": "L2H4",
+      "component_type": "attention_head",
+      "contrast": "acceptor_cluster|acceptor",
+      "margin_over_hard_cap": 1.0487656904363787,
+      "mde80": 0.0901096033668188,
+      "multiplier": 3.2478962475701603,
+      "n_effective_pairs": 621.6192109777015,
+      "n_pairs": 640,
+      "n_req_effective": 2018.9547027520005,
+      "reachable_diag": false
+    },
+    {
+      "category": "acceptor_cluster",
+      "ceil_hard_eff": 1925.0769939965694,
+      "ceil_real_eff": 1540.0615951972557,
+      "classification": "material_suppress",
+      "closed": true,
+      "component_id": "L2H15",
+      "component_type": "attention_head",
+      "contrast": "acceptor_cluster|acceptor",
+      "margin_over_hard_cap": 2.3952727612577234,
+      "mde80": 0.13617874588679407,
+      "multiplier": 7.4178603325200125,
+      "n_effective_pairs": 621.6192109777015,
+      "n_pairs": 640,
+      "n_req_effective": 4611.0844870438805,
+      "reachable_diag": false
+    },
+    {
+      "category": "acceptor_cluster",
+      "ceil_hard_eff": 1925.0769939965694,
+      "ceil_real_eff": 1540.0615951972557,
+      "classification": "material_suppress",
+      "closed": true,
+      "component_id": "L3H1",
+      "component_type": "attention_head",
+      "contrast": "acceptor_cluster|acceptor",
+      "margin_over_hard_cap": 1.6569541412843758,
+      "mde80": 0.11326274604089877,
+      "multiplier": 5.131379856290051,
+      "n_effective_pairs": 621.6192109777015,
+      "n_pairs": 640,
+      "n_req_effective": 3189.764297493893,
+      "reachable_diag": false
+    },
+    {
+      "category": "acceptor_cluster",
+      "ceil_hard_eff": 1925.0769939965694,
+      "ceil_real_eff": 1540.0615951972557,
+      "classification": "material_suppress",
+      "closed": true,
+      "component_id": "L0MLP",
+      "component_type": "mlp_write",
+      "contrast": "acceptor_cluster|acceptor",
+      "margin_over_hard_cap": 8.910526342479967,
+      "mde80": 0.2626536991309453,
+      "multiplier": 27.594786266867644,
+      "n_effective_pairs": 621.6192109777015,
+      "n_pairs": 640,
+      "n_req_effective": 17153.44926630858,
+      "reachable_diag": false
+    },
+    {
+      "category": "acceptor_cluster",
+      "ceil_hard_eff": 1925.0769939965694,
+      "ceil_real_eff": 1540.0615951972557,
+      "classification": "material_suppress",
+      "closed": true,
+      "component_id": "L1MLP",
+      "component_type": "mlp_write",
+      "contrast": "acceptor_cluster|acceptor",
+      "margin_over_hard_cap": 6.889237758030896,
+      "mde80": 0.2309497141257266,
+      "multiplier": 21.335108181901933,
+      "n_effective_pairs": 621.6192109777015,
+      "n_pairs": 640,
+      "n_req_effective": 13262.313114157783,
+      "reachable_diag": false
+    },
+    {
+      "category": "acceptor_cluster",
+      "ceil_hard_eff": 1925.0769939965694,
+      "ceil_real_eff": 1540.0615951972557,
+      "classification": "material_suppress",
+      "closed": true,
+      "component_id": "L2MLP",
+      "component_type": "mlp_write",
+      "contrast": "acceptor_cluster|acceptor",
+      "margin_over_hard_cap": 5.514906131075402,
+      "mde80": 0.20663358224568762,
+      "multiplier": 17.078974924674135,
+      "n_effective_pairs": 621.6192109777015,
+      "n_pairs": 640,
+      "n_req_effective": 10616.618916983885,
+      "reachable_diag": false
+    },
+    {
+      "category": "acceptor_cluster",
+      "ceil_hard_eff": 1925.0769939965694,
+      "ceil_real_eff": 1540.0615951972557,
+      "classification": "material_suppress",
+      "closed": true,
+      "component_id": "L3MLP",
+      "component_type": "mlp_write",
+      "contrast": "acceptor_cluster|acceptor",
+      "margin_over_hard_cap": 4.318903242197266,
+      "mde80": 0.18285994284000295,
+      "multiplier": 13.375103478179659,
+      "n_effective_pairs": 621.6192109777015,
+      "n_pairs": 640,
+      "n_req_effective": 8314.22127085115,
+      "reachable_diag": false
+    },
+    {
+      "category": "acceptor_cluster",
+      "ceil_hard_eff": 1925.0769939965694,
+      "ceil_real_eff": 1540.0615951972557,
+      "classification": "material_suppress",
+      "closed": true,
+      "component_id": "L4MLP",
+      "component_type": "mlp_write",
+      "contrast": "acceptor_cluster|acceptor",
+      "margin_over_hard_cap": 2.8955825874590526,
+      "mde80": 0.14972689575972362,
+      "multiplier": 8.967257325537254,
+      "n_effective_pairs": 621.6192109777015,
+      "n_pairs": 640,
+      "n_req_effective": 5574.219423334482,
+      "reachable_diag": false
+    },
+    {
+      "category": "acceptor_cluster",
+      "ceil_hard_eff": 1925.0769939965694,
+      "ceil_real_eff": 1540.0615951972557,
+      "classification": "material_suppress",
+      "closed": true,
+      "component_id": "L5MLP",
+      "component_type": "mlp_write",
+      "contrast": "acceptor_cluster|acceptor",
+      "margin_over_hard_cap": 4.763265585178791,
+      "mde80": 0.19203670293137046,
+      "multiplier": 14.75123810910057,
+      "n_effective_pairs": 621.6192109777015,
+      "n_pairs": 640,
+      "n_req_effective": 9169.652994323298,
+      "reachable_diag": false
+    },
+    {
+      "category": "acceptor_cluster",
+      "ceil_hard_eff": 1925.0769939965694,
+      "ceil_real_eff": 1540.0615951972557,
+      "classification": "material_suppress",
+      "closed": true,
+      "component_id": "L3H1",
+      "component_type": "attention_head",
+      "contrast": "acceptor_cluster|acceptor",
+      "margin_over_hard_cap": 2.1239714554741895,
+      "mde80": 0.12823488313609943,
+      "multiplier": 6.577674101171631,
+      "n_effective_pairs": 621.6192109777015,
+      "n_pairs": 640,
+      "n_req_effective": 4088.8085848387714,
+      "reachable_diag": false
+    },
+    {
+      "category": "acceptor_cluster",
+      "ceil_hard_eff": 1925.0769939965694,
+      "ceil_real_eff": 1540.0615951972557,
+      "classification": "material_suppress",
+      "closed": true,
+      "component_id": "L2MLP",
+      "component_type": "mlp_write",
+      "contrast": "acceptor_cluster|acceptor",
+      "margin_over_hard_cap": 1.8733446862524201,
+      "mde80": 0.12043166449524358,
+      "multiplier": 5.801514325237964,
+      "n_effective_pairs": 621.6192109777015,
+      "n_pairs": 640,
+      "n_req_effective": 3606.3327573302554,
+      "reachable_diag": false
+    },
+    {
+      "category": "cassette_exon",
+      "ceil_hard_eff": 2609.0730290271326,
+      "ceil_real_eff": 2090.51976450799,
+      "classification": "material_support",
+      "closed": true,
+      "component_id": "L0MLP",
+      "component_type": "mlp_write",
+      "contrast": "cassette_exon|donor",
+      "margin_over_hard_cap": 6.380425131673784,
+      "mde80": 0.2578600276970076,
+      "multiplier": 26.59671755356061,
+      "n_effective_pairs": 625.9041211101767,
+      "n_pairs": 641,
+      "n_req_effective": 16646.99512477696,
+      "reachable_diag": false
+    },
+    {
+      "category": "cassette_exon",
+      "ceil_hard_eff": 2609.0730290271326,
+      "ceil_real_eff": 2090.51976450799,
+      "classification": "material_support",
+      "closed": true,
+      "component_id": "L2MLP",
+      "component_type": "mlp_write",
+      "contrast": "cassette_exon|donor",
+      "margin_over_hard_cap": 3.375477560865571,
+      "mde80": 0.18755421517420803,
+      "multiplier": 14.07063345184525,
+      "n_effective_pairs": 625.9041211101767,
+      "n_pairs": 641,
+      "n_req_effective": 8806.867464140652,
+      "reachable_diag": false
+    },
+    {
+      "category": "cassette_exon",
+      "ceil_hard_eff": 2609.0730290271326,
+      "ceil_real_eff": 2090.51976450799,
+      "classification": "material_support",
+      "closed": true,
+      "component_id": "L4MLP",
+      "component_type": "mlp_write",
+      "contrast": "cassette_exon|donor",
+      "margin_over_hard_cap": 1.8768969727857328,
+      "mde80": 0.13985546237462376,
+      "multiplier": 7.8238201424079215,
+      "n_effective_pairs": 625.9041211101767,
+      "n_pairs": 641,
+      "n_req_effective": 4896.9612699579275,
+      "reachable_diag": false
+    },
+    {
+      "category": "donor_cluster",
+      "ceil_hard_eff": 1750.5473003013387,
+      "ceil_real_eff": 1428.8842338709678,
+      "classification": "material_suppress",
+      "closed": true,
+      "component_id": "L0MLP",
+      "component_type": "mlp_write",
+      "contrast": "donor_cluster|donor",
+      "margin_over_hard_cap": 13.136221530416888,
+      "mde80": 0.29919797286810723,
+      "multiplier": 35.807770787353846,
+      "n_effective_pairs": 642.1951612903226,
+      "n_pairs": 653,
+      "n_req_effective": 22995.577136231605,
+      "reachable_diag": false
+    },
+    {
+      "category": "donor_cluster",
+      "ceil_hard_eff": 1750.5473003013387,
+      "ceil_real_eff": 1428.8842338709678,
+      "classification": "material_suppress",
+      "closed": true,
+      "component_id": "L1MLP",
+      "component_type": "mlp_write",
+      "contrast": "donor_cluster|donor",
+      "margin_over_hard_cap": 8.268967774296353,
+      "mde80": 0.23738269963971054,
+      "multiplier": 22.540218435294804,
+      "n_effective_pairs": 642.1951612903226,
+      "n_pairs": 653,
+      "n_req_effective": 14475.219213573251,
+      "reachable_diag": false
+    },
+    {
+      "category": "donor_cluster",
+      "ceil_hard_eff": 1750.5473003013387,
+      "ceil_real_eff": 1428.8842338709678,
+      "classification": "material_suppress",
+      "closed": true,
+      "component_id": "L2MLP",
+      "component_type": "mlp_write",
+      "contrast": "donor_cluster|donor",
+      "margin_over_hard_cap": 7.670394205192529,
+      "mde80": 0.22862949495172016,
+      "multiplier": 20.908578384751454,
+      "n_effective_pairs": 642.1951612903226,
+      "n_pairs": 653,
+      "n_req_effective": 13427.387868146814,
+      "reachable_diag": false
+    },
+    {
+      "category": "donor_cluster",
+      "ceil_hard_eff": 1750.5473003013387,
+      "ceil_real_eff": 1428.8842338709678,
+      "classification": "material_suppress",
+      "closed": true,
+      "component_id": "L3MLP",
+      "component_type": "mlp_write",
+      "contrast": "donor_cluster|donor",
+      "margin_over_hard_cap": 6.116024445070179,
+      "mde80": 0.20415406000189223,
+      "multiplier": 16.67155208610248,
+      "n_effective_pairs": 642.1951612903226,
+      "n_pairs": 653,
+      "n_req_effective": 10706.390080894596,
+      "reachable_diag": false
+    },
+    {
+      "category": "donor_cluster",
+      "ceil_hard_eff": 1750.5473003013387,
+      "ceil_real_eff": 1428.8842338709678,
+      "classification": "material_suppress",
+      "closed": true,
+      "component_id": "L4MLP",
+      "component_type": "mlp_write",
+      "contrast": "donor_cluster|donor",
+      "margin_over_hard_cap": 3.878970508623167,
+      "mde80": 0.1625854411419477,
+      "multiplier": 10.573610268528693,
+      "n_effective_pairs": 642.1951612903226,
+      "n_pairs": 653,
+      "n_req_effective": 6790.321351818796,
+      "reachable_diag": false
+    },
+    {
+      "category": "donor_cluster",
+      "ceil_hard_eff": 1750.5473003013387,
+      "ceil_real_eff": 1428.8842338709678,
+      "classification": "material_suppress",
+      "closed": true,
+      "component_id": "L5MLP",
+      "component_type": "mlp_write",
+      "contrast": "donor_cluster|donor",
+      "margin_over_hard_cap": 4.469203081787118,
+      "mde80": 0.17451728969117256,
+      "multiplier": 12.182513760461056,
+      "n_effective_pairs": 642.1951612903226,
+      "n_pairs": 653,
+      "n_req_effective": 7823.551389320863,
+      "reachable_diag": false
+    }
+  ],
+  "verdict": {
+    "all_closed": true,
+    "n_closed": 20,
+    "n_signals": 20,
+    "per_cell_min": {
+      "acceptor_cluster|acceptor": {
+        "ceil_hard_eff": 1925.0769939965694,
+        "margin_over_hard_cap": 1.0487656904363787,
+        "min_component": "L2H4",
+        "min_n_req_effective": 2018.9547027520005
+      },
+      "cassette_exon|donor": {
+        "ceil_hard_eff": 2609.0730290271326,
+        "margin_over_hard_cap": 1.8768969727857328,
+        "min_component": "L4MLP",
+        "min_n_req_effective": 4896.9612699579275
+      },
+      "donor_cluster|donor": {
+        "ceil_hard_eff": 1750.5473003013387,
+        "margin_over_hard_cap": 3.878970508623167,
+        "min_component": "L4MLP",
+        "min_n_req_effective": 6790.321351818796
+      }
+    },
+    "verdict": "CLOSE_AS_UNDERPOWERED"
+  }
+}

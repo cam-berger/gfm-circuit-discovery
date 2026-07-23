@@ -1,5 +1,7 @@
 # Results Template
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 ## Run identity
 
 - commit:

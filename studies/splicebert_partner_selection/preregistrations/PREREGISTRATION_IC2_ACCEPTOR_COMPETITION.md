@@ -1,6 +1,6 @@
 # Pre-registration — IC2 v5.3: does donor support depend on candidate SLOT, and is matched reliance transportable? (behaviour-level)
 
-**Status: v5.3 — PARKED (design-complete, calibration-done, CONFIRMATORY NOT RUN) pending the P3 SpliceBERT account (Cam, 2026-07-18).**
+**Status: v5.3 — RETIRED (2026-07-22; formerly PARKED pending the P3 SpliceBERT account). Design-complete, calibration-done, CONFIRMATORY NOT RUN — and now NOT LICENSED:** this is the confirmatory acceptor-competition run for the very premise the Head–Context Atlas **refuted** (donor support is **not** competition-specific — HCA4 `|M_comp|=0.088 < |M_decoy|=0.135`; no competition-specific head/MLP module, HCA10), so running it would only confirm a behavior already shown not to be competition-specific. Retained below as a **revivable design asset** should a *different*, non-competition estimand ever motivate it. See `../DECISIONS.md` and `../CLAIMS.md` (2026-07-22).
 The spine is P3.4 carrier-origin → recognition gate → freeze SpliceBERT → Caduceus, not IC2. This prereg is a
 revivable asset (SLOT arm robust; transport arm honestly precision-limited). **Revival TODO (from the final
 freeze-audit, all fixable):** (1) rewrite §7 verdict rules mutually-exclusive/exhaustive with precedence

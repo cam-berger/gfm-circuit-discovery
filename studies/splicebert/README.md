@@ -1,5 +1,7 @@
 # SpliceBERT: worked example
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 SpliceBERT is the first full case study for the repository's mechanistic-discovery methodology. It shows
 how to move from a native behavior through candidate localization, causal intervention, mediation,
 faithfulness testing, correction, and scoped interpretation.

@@ -1,5 +1,7 @@
 # Research roadmap
 
+> **Tier: T1 — canonical.** Current, authoritative. Read this.
+
 ## North star
 
 Build a transferable, evidence-gated practice for causal mechanistic discovery in genomic foundation

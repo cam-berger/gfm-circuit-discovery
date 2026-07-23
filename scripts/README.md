@@ -1,5 +1,7 @@
 # Canonical SpliceBERT scripts
 
+> **Tier: T1 — canonical.** Current, authoritative. Read this.
+
 `scripts/splicebert/` contains only the active discovery, validation, reproduction, and figure paths for the current scientific record. Superseded and VOID runners are available in Git history, not alongside live workflows.
 
 ## Canonical workflow groups

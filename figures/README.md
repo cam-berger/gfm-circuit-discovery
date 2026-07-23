@@ -1,5 +1,7 @@
 # Figures
 
+> **Tier: T1 — canonical.** Current, authoritative. Read this.
+
 One folder per study: `figures/<study>/`.
 
 ## Rules
@@ -15,6 +17,12 @@ One folder per study: `figures/<study>/`.
    *shape of argument*: `grouped_bars_ci` (effect present, collapses under intervention),
    `ranked_dots` (one component dominates a scan), `interaction_plot` (a 2x2 factorial —
    non-parallel lines are the finding).
+4. **A study's style lives in one module inside its folder**, e.g.
+   `splicebert/figstyle.py`: fonts, palette tokens, DPI, and the PDF+PNG save helper. Every
+   `make_fig*.py` of that study imports it and defines no style of its own, so a colour cannot
+   mean one thing in one panel and something else in the next. The module composes the
+   primitives above rather than duplicating them, and re-exports validated colour values from
+   wherever they were validated rather than copying them.
 
 ## Studies
 

@@ -1,5 +1,7 @@
 # Caduceus-PS T1 — behavioural-transfer Colab package
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 Runs the **frozen prereg v2** (`../PREREGISTRATION_CADUCEUS_T1_BEHAVIORAL_TRANSFER.md`): does SpliceBERT's
 partner-specific donor↔acceptor coupling **behaviour** transfer to **Caduceus-PS**, a BiMamba state-space MLM
 (maximally unlike SpliceBERT)?  **Phase-1 behavioural qualification only** — a positive result licenses

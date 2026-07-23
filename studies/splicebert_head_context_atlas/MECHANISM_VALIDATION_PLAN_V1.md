@@ -1,5 +1,7 @@
 # Head–Context Atlas mechanism-validation plan v1
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 Status: **GENERIC RULES FROZEN BEFORE THE FULL DISCOVERY MATRIX WAS READ** (2026-07-19).
 Candidate identities, matched controls, and representative discovery packets will be instantiated by a
 deterministic package builder only after the independently audited discovery shortlist exists. That

@@ -1,5 +1,7 @@
 # Transfer guide: applying the method to another GFM
 
+> **Tier: T1 — canonical.** Current, authoritative. Read this.
+
 SpliceBERT supplies a worked example and reusable tools. The next model must re-earn every scientific claim; architecture similarity is not evidence transfer.
 
 ## What transfers

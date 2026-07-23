@@ -1,5 +1,7 @@
 # Post-Colab Head–Context Atlas handoff
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 Status: operational runbook. The scientific rules are frozen in `ANALYSIS_PLAN_V1.md`,
 `ANALYSIS_AMENDMENT_A1.md`, `MECHANISM_VALIDATION_PLAN_V1.md`, and
 `MECHANISM_VALIDATION_AMENDMENT_A1.md` + `MECHANISM_VALIDATION_AMENDMENT_A2.md`.
