@@ -348,3 +348,138 @@ model run must be launched from the main checkout.
 7. Renorm N-scr to ||Π_U[r_src]|| before injection; add on-path memorial ||inj_scr||==||Π_U[r_src]||<1e-6; norm-match the N-pos delivered edit.
 8. Add absolute donor position (+PE band/phase) to match/bracket (R15/R20 relocation confound); add a position-mismatched-but-content-matched control.
 9. Re-size cohort on POST-short-intron-gate counts (620 eligible / single_pair 153, not pre-gate 237); make --smoke cohort gate quantitative+blocking; pre-declare donor_cluster/cassette_exon promotion if single_pair short.
+
+---
+
+## Amendment (2026-07-23, PRE-RUN) — confirmatory control redesign of the as-implemented v2 driver
+
+**Scope & status.** This amendment attaches to the design-of-record above (v1, NOT FROZEN; the runnable
+driver `scripts/splicebert/run_b3_cross_example_transduction.py` is the v2 that applied the must-fixes:
+transplanted acceptor payload, dropped Π_U, `M_xfer = clean-source − corrupt-source` [must-fix #2],
+margin-mismatched stratum, two-way gene-dyadic bootstrap [#5]). The **first model execution** of that v2
+driver (val n=260, deterministic `SEED=0`) returned **INCONCLUSIVE**: strong primary
+(`R_xfer(α=1)=0.912`, dyadic CI [0.757,1.112], dose-monotone 0.534→0.912→1.178 β=0.271, decoy collapses
+R≈−0.06) but three confirm-blocking controls were mis-specified. This amendment freezes their redesign
+**before the re-run**. Full executor spec: `docs/B3_CONFIRMATORY_CONTROL_REDESIGN_2026-07-23.md`.
+Adversarially reviewed (design → skeptic pass per control; all repairs folded in).
+
+### A0. Mandatory disclosure (honesty; concealing this would itself be the forking-paths violation)
+
+The mis-specified-control confirmatory numbers **were seen** before this redesign was written:
+**scramble 0.978** (no collapse), **MF2 margin-mismatched 1.094 ≥ matched 0.912** (CI [−0.164,1.510]),
+**health 0.560** vs an absolute 0.8 floor. Consequently, per the **IC1-A2 / R22** discipline, the eventual
+val re-run is **VERIFICATION-LEVEL, not fresh confirmation** — a control fix applied after the primary was
+inspected is outcome-aware verification. `result["evidential_tier"]` is hard-set to `"verification"`. A
+clean *confirmatory* C-claim of any polarity requires running the frozen redesign untouched on the **sealed
+chr8/9 cohort (NOT opened here)**. On this deterministic val cohort the paired-MF2 point estimate is fixed
+at `Δ_MF2 ≈ 0.912 − 1.094 = −0.182 < 0`, so **POSITIVE is unreachable**; the expected verdict is
+**Endpoint C** (transfer position- but not content-specific) or INCONCLUSIVE.
+
+### A1. COMPLIANCE RESTORATION (no new choice — code was brought back to the frozen design intent)
+
+Three redesign items restore clauses the design-of-record already mandated; the shipped v2 driver deviated:
+
+| Redesign item | Design-of-record clause it restores | Shipped-driver deviation |
+|---|---|---|
+| MF2 = **paired within-target difference** `Δ_MF2` | §6 Family control: *"Every arm-vs-arm test is the paired within-target difference CI, **not non-overlap of two arm CIs**"* | `mm_ok = prim_CI_low > mm_CI_high` was exactly the forbidden two-arm-CI non-overlap test |
+| MF2 unfavorable-at-power → **Endpoint C** verdict | §6 Endpoint C: *"R_xfer ≈ R_rand → content not separable from a norm/margin push → not identifiable"* | driver folded refutation into a plain gate-fail → INCONCLUSIVE, discarding the §4/§5 against-content signal |
+| Scramble control **norm-matched** | must-fix #7 (norm-match the scramble control) | done: the feature-coordinate permutation preserves per-row norm & per-position energy exactly (the v2 analogue of #7, since #1 dropped Π_U) |
+| Health probes **MASKED, per interpreted arm** | M8: *"each interpreted arm keeps ≥0.5 headroom over chance (R13, mlm_health, MASKED probes); below-floor arm dropped"* | driver measured **baseline** (no injection); redesign measures under the injection the arm is interpreted through |
+
+These are code-to-design fixes and need no new sign-off.
+
+### A2. GENUINE PRE-RUN AMENDMENTS (owner-signed 2026-07-23)
+
+**A2.1 — M8 numeric floor (clarifies an ambiguous clause; pins the exact formula).** M8's *"≥0.5 headroom
+over chance"* read as an absolute floor (0.75) is unsatisfiable at the model's empirical ~0.56 masked
+baseline (the shipped `>0.8` matched neither reading — it was simply wrong). Frozen reading: **retain ≥50%
+of the model's baseline headroom over chance**, measured **under max-dose (α=1.5) injection** on the target
+`co_ids` substrate:
+> `chance = 0.25`; `acc_base` = uninjected top-1 masked non-site accuracy measured **in-run** (not hardcoded);
+> `floor = 0.25 + 0.5·(acc_base − 0.25)` (≈0.405 at acc_base=0.56); an interpreted arm **passes** iff
+> `acc_inj ≥ floor`, else it is **dropped** (a dropped primary/control blocks POSITIVE).
+Disclosure: the ~0.56 baseline was seen. This pins a formula for an ambiguous memorial; it is neither
+"compliance" nor "loosening" (floor 0.405 tolerates ~a 27% relative-accuracy loss — a lenient, disclosed bar).
+
+**A2.2 — MF2 mismatched-stratum power fallback (D-4, new pre-committed rule).** The shipped mismatched
+stratum picks the **maximally** margin-mismatched source (`argmax|Δm_cl|`; extreme, high-variance), which can
+leave the paired `Δ_MF2` half-width ≥ SESOI_R so the against-content-specificity branch never fires. Frozen
+rule:
+> **Default:** paired `Δ_MF2` on the argmax mismatched stratum. **Trigger (measured at the discovery/train
+> `--pilot`):** if the argmax-paired `hw(Δ_MF2) ≥ SESOI_R = 0.20`, the confirmatory switches the mismatched
+> selection to a **fixed margin-gap band** — per target, among strand/coding/|Δpdist|≤200 candidates with gap
+> `d_j = |m_cl(j) − m_cl(i)|`, take the candidate nearest the **median of the [q40, q80] band** of that
+> target's candidate-gap distribution (a clearly-mismatched middle band that excludes both the near-matched
+> tail <q40 and the variance-inflating extreme >q80). The switch is triggered **solely** by the argmax-paired
+> `hw` exceeding SESOI_R — not by which selection yields a preferred sign (anti-forking). The band's own `hw`
+> is reported for audit. Consistent in spirit with must-fix #8 (a content-matched but clearly-mismatched
+> control); the specific band/trigger is new.
+
+### A3. Frozen decision rule (replaces the shipped verdict formula 436–442)
+
+```
+mf2_confirmed = Δ_MF2 dyadic CI-low > 0                       # §6 confound-DIRECTION test (size bar R_xfer>SESOI_R enforced separately)
+mf2_refuted   = (Δ_MF2 CI-high < 0)  OR  (CI straddles 0 AND hw < SESOI_R)   # decisive, or powered-equivalence-at-0
+health_ok     = primary-arm@α=1.5 healthy AND every interpreted control arm healthy   # A2.1
+POSITIVE_transfer  ⟺ R_xfer CI-low>SESOI_R ∧ β>0 ∧ monotone ∧ scramble&decoy collapse ∧ mf2_confirmed ∧ perm-FPR∋0 ∧ health_ok
+ENDPOINT_C_not_content_specific  ⟺ mf2_refuted        # higher precedence than NULL/INCONCLUSIVE
+NULL_no_transfer   ⟺ R_xfer CI-high < SESOI_R
+else INCONCLUSIVE_underpowered
+```
+Dyadic clustering for `Δ_MF2` is the **conservative three-way** (both matched and mismatched source genes,
+`w[ti]·w[si]·w[si2]`) — it only widens the CI, guarding against over-claiming Endpoint C (anti-forking).
+
+### A4. §8 GATES addendum — health positive-control (R-h2), new `--smoke` gate
+
+Add to the §8 `--smoke` gate set (makes the health gate demonstrably failable, per R7/R21):
+> **N-health-sens (planted-destructive):** inject a known-destructive head output `od` (large-norm random
+> vector at the donor) and assert `acc_inj < floor` (the health gate FIRES). Without it, a single-token L3H1
+> clamp barely perturbs distant probes and the gate risks being an unfireable pass — the exact pathology it
+> exists to fix. A health PASS is reported as "no *detectable* damage at distant probes," not a strong
+> "injection did not break the model" certification (disclosed low failure-power under a localized edit).
+
+### A5. Guardrails (binding)
+
+Freeze scramble+health+MF2 as a SET; ONE re-run; no per-control iteration after any part of the re-run is
+seen (next step on failure is the sealed cohort, never another val tweak). Results immutable; corrections
+appended. `v1` retained intact as design-of-record; this amendment appended at the foot per repo convention.
+
+### A6. Health gate DOWNGRADED to a reported diagnostic (owner 2026-07-23, pre-run, smoke-surfaced)
+
+The A4/R-h2 positive control (a planted-destructive injection must FIRE the health gate) was run at
+`--smoke` and did **not** fire: a 50×-norm off-manifold clamp at the single donor-token L3H1 output left
+distant non-site masked accuracy unchanged (`acc_destructive 0.540` vs `acc_base 0.538`, floor 0.394).
+This is a **verified architectural property** — a local single-token injection does not propagate to
+distant probes through layers 4–5 — not a code fault (memorials `value_linearity` 2.6e-6, `recon` 0.0;
+calibration passes). The distant-probe health gate is therefore **structurally unfireable by a local
+injection**, so making it a hard POSITIVE-blocker would be an unfireable pass (the R7/R21 pathology it
+exists to avoid).
+
+**Owner decision (2026-07-23, pre-run — `--smoke` reads only memorials/plumbing, no confirmatory estimand):
+DOWNGRADE health to a REPORTED DIAGNOSTIC.** It is still measured under injection per arm and reported
+(`acc_base`, `floor`, per-arm `acc`/`ok`), but is **removed from the POSITIVE conjunction** and R-h2 is
+**not** a `SMOKE_PASS` gate. Interpretation (R-h3): distant-probe health ≈ baseline under the payload
+injection confirms **no GLOBAL forward-pass breakage** — appropriate, since a local injection cannot
+globally break the model — reported as weak evidence, never a strong "injection did not break the model"
+certification. The confound health guarded against (a globally-broken forward pass yielding an artifactual
+margin) does not arise for a local injection, so the downgrade does not weaken the POSITIVE family. This
+supersedes A2.1's "below-floor arm blocks POSITIVE" and A4's hard R-h2 gate.
+
+### A7. MF2 power extension (owner 2026-07-23, pre-run, verification-level): n 260 → 512
+
+The n=260 confirmatory returned the MF2 paired band `Δ_MF2 = +0.028`, CI [−0.215, 0.187], **hw 0.2008 —
+0.0008 OVER `SESOI_R=0.20`**, so the powered-equivalence Endpoint-C branch did not fire (verdict
+`INCONCLUSIVE_underpowered`). Cam authorized a **POWER EXTENSION** — explicitly **not** a post-hoc SESOI or
+estimator tweak: re-run the confirmatory at a **larger pre-committed n** with the **identical** estimand
+(`Δ_MF2`), `SESOI_R`, three-way dyadic estimator, and fixed `[q40,q80]` band. **Pre-committed `n = 512`**
+(the naive `N_req` for a target hw≈0.16 is ~410; 512 buffers dyadic-clustering variance inflation, which
+scales worse than 1/√n). This resolves an **underpowered equivalence** — the estimand, control, and bar are
+unchanged, only n grows — so it is a legitimate power extension, and it **narrowly supersedes A5's
+"one re-run" clause** *for this owner-authorized power extension only* (A5's intent — no *control* tweaking
+after seeing the result — is preserved: nothing about the control changes).
+
+Evidential status: **still VERIFICATION-level** (val was already inspected at n=260; the `Δ≈0` direction is
+known, so this is outcome-aware). The n=260 result stays **immutable**; the n=512 result supersedes it for
+the MF2 verdict only. **Stopping rule (binding, anti-chasing):** if n=512 still shows `hw ≥ SESOI_R`, the
+honest outcome is "reported at achieved precision" — **NOT** a further power-up. The sealed chr8/9 cohort
+remains the only path to a clean *confirmatory* (non-verification) call, and is not opened.

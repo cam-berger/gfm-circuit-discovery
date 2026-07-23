@@ -810,3 +810,63 @@ excess +0.136 [0.051,0.222], exact rank p=0.05. Matched CDS-minus-non-CDS-exon +
 CDS blocks. **Not licensed:** coding enrichment, annotated reading-frame representation, spliceosomal
 frame sensing, biological mutation effects, or training origin. The failed context boundary is retained;
 no reserve extension is opened.
+
+## B3 — cross-example transduction (the generalization gap) (2026-07-23) → C38, INCONCLUSIVE (verification)
+
+Cam authorized the confirmatory control redesign + one verification-level re-run (D-4(ii) fixed-band
+fallback, D-1 M8-floor amendment, D-7(i) run). The frozen B3 prereg was reconciled onto
+`b3-confirmatory-redesign` with a pre-run amendment (§A0–A6): A1 compliance restoration (paired MF2 per §6,
+Endpoint C, norm-matched scramble, MASKED health), A2.1 the M8 floor, A2.2 the fixed margin-gap band,
+A6 the health downgrade. Ladder (SpliceBERT.1024nt, MPS, `PYTHONHASHSEED=0`):
+
+**Smoke (val n=24):** memorials pass (`value_linearity` 2.6e-6, `recon` 0.0); calibration passes (planted
+self-gain 0.382, permuted-FPR includes 0). The R-h2 health positive-control did NOT fire — a 50×
+single-token L3H1 clamp leaves distant non-site accuracy at 0.540 vs base 0.538 → distant-probe health is
+structurally unfireable by a *local* injection → **health DOWNGRADED to a reported diagnostic (A6)**, not a
+POSITIVE gate (owner call; the confound it guarded — a globally-broken forward pass — cannot arise for a
+local injection).
+
+**Pilot (train/discovery n=260):** primary `R_xfer` 0.892, dyadic HW 0.172 (< SESOI), `N_req` 194 (< 260 →
+powered). Argmax-paired `Δ_MF2` hw 0.321 ≥ SESOI → the A2.2 trigger fires → confirmatory uses the fixed band.
+
+**Confirmatory (val n=260, `--mf2-band`), verification tier:**
+- Primary transfer LARGE + dose-monotone: `R_xfer` 0→0.534→0.912→1.178, β=0.271, dyadic CI [0.757, 1.112].
+- POSITION-specific: decoy collapses `R=−0.065` CI [−0.172, −0.006].
+- **NOT content-specific (a whisker short of powered):** paired band `Δ_MF2 = +0.028` CI [−0.215, 0.187],
+  hw **0.2008 ≥ SESOI_R 0.20 by 0.0008** → INCONCLUSIVE, not the powered-equivalence Endpoint C. The
+  margin-mismatched non-partner source transfers ~as well (0.884 vs 0.912); a coordinate-scrambled payload
+  still partially transfers (`R` 0.339, CI-low 0.171). Both corroborate the not-content-specific direction.
+- Health diagnostic: all arms ≈0.529 (no global forward-pass breakage).
+
+**Verdict: `INCONCLUSIVE_underpowered` (verification tier).** Not the decisive Endpoint C the redesign
+targeted — the MF2 powered-equivalence missed by 0.0008; the pre-committed SESOI/n were NOT tweaked
+post-hoc. **Licensed (C38, verification):** cross-example payload transfer generalizes across gene-disjoint
+matched targets in a large, dose-monotone, position-specific way. **Not licensed:** content-specificity
+(unresolved; leans Endpoint C — recovery not separable from a generic acceptor-state push); any
+confirmatory C-claim (verification tier, val seen; a clean call needs the sealed chr8/9 cohort — NOT
+opened). B2 remains retired (FATAL-1/R20); C30 stays open.
+
+**Open for Cam:** (a) the MF2 equivalence is 0.0008 short — whether to power it up (a NEW pre-committed n,
+not a post-hoc tweak) for a decisive Endpoint C, or accept the verification-tier INCONCLUSIVE-leaning-C;
+(b) CLAIMS.md on this branch is behind master (C37 present there) — reconcile before/at merge (C38 is
+provisional). Files: `b3_cross_example_transduction{,_pilot,_smoke}.json`; prereg §A0–A6;
+`docs/B3_CONFIRMATORY_CONTROL_REDESIGN_2026-07-23.md`.
+
+### B3 MF2 power extension (2026-07-23, A7) — the equivalence is not powerable on val
+
+Cam chose (a): power up MF2 for a decisive call. Per A7 (pre-run, verification-level) the confirmatory was
+re-run at a **pre-committed n=512** (from 260) with the **identical** estimand / `SESOI_R` / three-way
+dyadic estimator / fixed band — a power extension, not a control tweak. **Result: still
+`INCONCLUSIVE_underpowered`, and the dyadic half-width did NOT shrink** (hw 0.2008 @260 → **0.2205** @512).
+The MF2 paired `Δ_MF2` moved 0.028 → **+0.158** [−0.110, 0.331] (now leaning matched > mismatched), and
+with more data the **scramble control clarified to NON-collapse** (R 0.339 [0.241, 0.452], CI-low 0.241 >
+SESOI). Primary stayed robust (R 0.931 [0.828, 1.05], β 0.281, decoy collapses −0.049 [−0.105, −0.015]).
+
+**Reading:** the transfer is a **large content-independent geometry floor** (a norm/energy-matched scramble
+recovers ~⅓) **plus an unresolved content component** (scramble kills the majority; `Δ_MF2` leans
+content-specific but straddles 0). The two probes are not jointly decisive, and — the methodologically
+important point — **the dyadic CI is gene-heterogeneity-dominated, so more val examples cannot power the
+equivalence.** Per the A7 stopping rule (binding, anti-chasing) the run **STOPS** at achieved precision; no
+further power-up. **A clean content-specificity call requires the sealed chr8/9 cohort (NOT opened).** C38
+updated to the powered (n=512) characterization; the n=260 result stays immutable. Files:
+`b3_cross_example_transduction_n512.json`; prereg §A7.

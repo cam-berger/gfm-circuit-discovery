@@ -1,0 +1,97 @@
+{
+  "beta_dose": 0.23615733093940297,
+  "calibration": {
+    "permuted_fpr_ci": [
+      -0.2988614716674085,
+      0.30459581277054254
+    ],
+    "permuted_includes_0": true,
+    "planted_positive_self_gain": 0.3039381348169767
+  },
+  "calibration_pass": true,
+  "dose": {
+    "alpha_0.0": {
+      "M_xfer_mean": 0.0,
+      "R_xfer": 0.0,
+      "dyadic_ci": [
+        0.0,
+        0.0
+      ],
+      "one_way_gboot": [
+        0.0,
+        0.0
+      ]
+    },
+    "alpha_0.5": {
+      "M_xfer_mean": 0.15440010371116492,
+      "R_xfer": 0.5079984576602751,
+      "dyadic_ci": [
+        0.42138333108225334,
+        0.6138806029864449
+      ],
+      "one_way_gboot": [
+        0.45684798871118937,
+        0.5664439203795869
+      ]
+    },
+    "alpha_1.0": {
+      "M_xfer_mean": 0.2709716941874761,
+      "R_xfer": 0.8915356881776217,
+      "dyadic_ci": [
+        0.7374157293570961,
+        1.0822862088939926
+      ],
+      "one_way_gboot": [
+        0.800253178142671,
+        0.9986337824352611
+      ]
+    },
+    "alpha_1.5": {
+      "M_xfer_mean": 0.3547383547402345,
+      "R_xfer": 1.16714000023014,
+      "dyadic_ci": [
+        0.9528074862794293,
+        1.429005526839575
+      ],
+      "one_way_gboot": [
+        1.0437263797812741,
+        1.3152015157690446
+      ]
+    }
+  },
+  "dose_grid": [
+    0.0,
+    0.5,
+    1.0,
+    1.5
+  ],
+  "memorials": {
+    "checkpoint_unmutated": 0.0,
+    "n_examples": 260,
+    "n_pairs": 260,
+    "recon_fidelity_gap": 0.0,
+    "value_linearity": 3.337860107421875e-06
+  },
+  "memorials_pass": true,
+  "mode": "pilot",
+  "monotone": true,
+  "pilot": {
+    "A2.2_directive": "confirm WITH --mf2-band",
+    "M_xfer_at_1": 0.2709716941874761,
+    "N_req_for_SESOI": 194,
+    "R_xfer_at_1": 0.8915356881776217,
+    "dyadic_half_width": 0.17243523976844827,
+    "mf2_argmax_R_mm_diff": 0.17491175272591303,
+    "mf2_argmax_dyadic_ci": [
+      -0.16012156892325102,
+      0.48231515410439385
+    ],
+    "mf2_argmax_hw": 0.32121836151382244,
+    "mf2_band_needed": true,
+    "n_pairs_used": 260
+  },
+  "sesoi_M": 0.02,
+  "sesoi_R": 0.2,
+  "split": "train",
+  "verdict": "PILOT_COMPLETE_no_freeze"
+}

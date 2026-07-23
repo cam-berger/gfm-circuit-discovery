@@ -1,6 +1,18 @@
 #!/usr/bin/env python
 """B2 -- payload semantics via site-choice steering (the C30 headline limitation).
 
+*** RETIRED 2026-07-23 -- DO NOT RUN. ***
+The steering approach is withdrawn. On first contact with the model (smoke), the naive full-state
+(r_pref - r_less) choice direction moved the readout the WRONG way (planted M-dose gain -0.538) and the
+model-native preference labels did NOT generalize across the gene split (held-out accuracy 0.182). This
+is not a control bug: it is the prereg's own pre-declared FATAL-1 (a diff-in-means choice direction
+between two different-position acceptors is dominated by learned position/distance geometry -- R20
+re-entry at the steering layer). The R20 firewall correctly halted. C30 (payload semantics) therefore
+remains OPEN and is NOT pursued via activation steering on a frozen checkpoint. See
+docs/B2_B3_EXECUTION_DISPOSITION_2026-07-23.md and the B2 prereg's closure disposition. The script is
+kept, unrun, as the design-of-record of a retired approach; a future attempt would need a
+position-orthogonalized direction (per the prereg's FATAL-1 remedy) or a different paradigm entirely.
+
 Frozen design of record:
   studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_B2_PAYLOAD_STEERING.md
   redteam synthesis: studies/splicebert_partner_selection/redteam/REDTEAM_SYNTHESIS_B2.md
@@ -273,19 +285,29 @@ def main() -> None:
     mem_ok = (alpha0_gap < 1e-4) and (m_dose_gain > SESOI_B) and (m_dose_monotone > 0.75) \
         and (abs(ckpt1 - ckpt0) < 1e-6)
 
-    # M-label: the model-native preference (higher native margin = preferred site) must be a STABLE,
-    # decisive population property on the HELD-OUT confirm fold, not a fold-specific artifact -- this
-    # is what guards the R20 trap (labels are model-native, never MaxEnt). Fold 0 = discovery,
-    # fold 1 = confirm (gene-disjoint by construction). We report the decisive-preference fraction
-    # (|mt-mc| > SESOI_B) on each fold and require the confirm fold to (a) clear chance and (b) be
-    # comparable to discovery (the label structure generalizes across the gene split).
+    # M-label: a DISCOVERY-derived preference rule must PREDICT the held-out CONFIRM-split ordering
+    # (labels are model-native, never MaxEnt) -- the R20 firewall. Fold 0 = discovery, fold 1 =
+    # confirm (gene-disjoint). The gene-disjoint split shares no choice sets, so this is a two-sample
+    # predictive test, not a paired one: on discovery we fix the model-native rule (is the annotated
+    # target or its competitor the preferred = higher-native-margin site, as a majority direction),
+    # then APPLY that fixed rule to every confirm-split set and measure held-out sign agreement.
+    # A systematic model-native preference generalizes across the gene split (accuracy CI-low > 0.5);
+    # a fold-specific artifact does not. CI via a gene-clustered bootstrap on the confirm fold.
     d_rows = [r for r in R if fold[r["gene"]] == 0]; c_rows = [r for r in R if fold[r["gene"]] == 1]
     label_ok = None
     if len(d_rows) >= 3 and len(c_rows) >= 3:
-        disc_dec = float(np.mean([abs(r["mt"] - r["mc"]) > SESOI_B for r in d_rows]))
-        conf_dec = float(np.mean([abs(r["mt"] - r["mc"]) > SESOI_B for r in c_rows]))
-        label_ok = {"discovery_decisive_frac": disc_dec, "confirm_decisive_frac": conf_dec,
-                    "generalizes": bool(conf_dec > 0.5 and abs(conf_dec - disc_dec) < 0.25)}
+        rule_target_pref = bool(np.mean([r["pref_is_target"] for r in d_rows]) >= 0.5)   # discovery rule
+        hits = np.array([float(r["pref_is_target"] == rule_target_pref) for r in c_rows])  # held-out
+        by = defaultdict(list)
+        for h, r in zip(hits, c_rows):
+            by[r["gene"]].append(h)
+        cg = sorted(by); gm = np.array([np.mean(by[g]) for g in cg])
+        brng = np.random.default_rng(SEED)
+        boot = np.array([np.mean(gm[brng.integers(0, len(cg), len(cg))]) for _ in range(2000)])
+        acc, acc_lo = float(np.mean(hits)), float(np.percentile(boot, 2.5))
+        label_ok = {"discovery_rule_target_preferred": rule_target_pref,
+                    "confirm_heldout_accuracy": acc, "accuracy_ci_low": acc_lo,
+                    "generalizes": bool(acc_lo > 0.5)}   # sign agreement > chance, CI excludes 0.5
 
     result = {"mode": "smoke" if args.smoke else ("pilot" if args.pilot else "confirm"),
               "split": split, "layer": L_INJECT, "dose_grid": list(DOSE_GRID), "sesoi_B": SESOI_B,

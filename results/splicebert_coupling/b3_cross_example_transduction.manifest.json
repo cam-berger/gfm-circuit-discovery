@@ -1,0 +1,44 @@
+{
+  "command": [
+    "scripts/splicebert/run_b3_cross_example_transduction.py",
+    "--split",
+    "val",
+    "--mf2-band",
+    "--force",
+    "--out",
+    "results/splicebert_coupling/b3_cross_example_transduction.json"
+  ],
+  "config": {},
+  "created_at_utc": "2026-07-23T15:49:04.914788+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 48058,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "b3_cross_example_transduction",
+  "git_commit": "a564f3a4878b3ea9b0c390f7b7b42d053f7d9c17",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    }
+  ],
+  "notes": "B3 cross-example transduction (red-team v2).",
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_coupling/b3_cross_example_transduction.json",
+      "sha256": "70f7bf4aeb4a5e1bdf3ef12302f77a1d41dc576610c015746e4068410eb13823",
+      "size_bytes": 3319
+    }
+  ],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

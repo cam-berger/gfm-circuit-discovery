@@ -1,0 +1,37 @@
+{
+  "calibration": {
+    "permuted_fpr_ci": [
+      -1.0820118984690308,
+      1.0053267114382778
+    ],
+    "permuted_includes_0": true,
+    "planted_positive_self_gain": 0.3821807373315096
+  },
+  "calibration_pass": true,
+  "dose_grid": [
+    0.0,
+    0.5,
+    1.0,
+    1.5
+  ],
+  "health_positive_control": {
+    "acc_base": 0.5378416056434313,
+    "acc_destructive": 0.5399797645707926,
+    "fires": false,
+    "floor": 0.39392080282171565,
+    "note": "diagnostic only: local single-token injection does not perturb distant probes; health is a no-global-breakage diagnostic, not a SMOKE_PASS gate (prereg A6)."
+  },
+  "memorials": {
+    "checkpoint_unmutated": 0.0,
+    "n_examples": 24,
+    "n_pairs": 24,
+    "recon_fidelity_gap": 0.0,
+    "value_linearity": 2.6226043701171875e-06
+  },
+  "memorials_pass": true,
+  "mode": "smoke",
+  "sesoi_M": 0.02,
+  "sesoi_R": 0.2,
+  "split": "val",
+  "verdict": "SMOKE_PASS"
+}
