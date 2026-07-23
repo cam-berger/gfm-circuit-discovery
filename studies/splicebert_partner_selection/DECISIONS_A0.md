@@ -851,3 +851,22 @@ not a post-hoc tweak) for a decisive Endpoint C, or accept the verification-tier
 (b) CLAIMS.md on this branch is behind master (C37 present there) — reconcile before/at merge (C38 is
 provisional). Files: `b3_cross_example_transduction{,_pilot,_smoke}.json`; prereg §A0–A6;
 `docs/B3_CONFIRMATORY_CONTROL_REDESIGN_2026-07-23.md`.
+
+### B3 MF2 power extension (2026-07-23, A7) — the equivalence is not powerable on val
+
+Cam chose (a): power up MF2 for a decisive call. Per A7 (pre-run, verification-level) the confirmatory was
+re-run at a **pre-committed n=512** (from 260) with the **identical** estimand / `SESOI_R` / three-way
+dyadic estimator / fixed band — a power extension, not a control tweak. **Result: still
+`INCONCLUSIVE_underpowered`, and the dyadic half-width did NOT shrink** (hw 0.2008 @260 → **0.2205** @512).
+The MF2 paired `Δ_MF2` moved 0.028 → **+0.158** [−0.110, 0.331] (now leaning matched > mismatched), and
+with more data the **scramble control clarified to NON-collapse** (R 0.339 [0.241, 0.452], CI-low 0.241 >
+SESOI). Primary stayed robust (R 0.931 [0.828, 1.05], β 0.281, decoy collapses −0.049 [−0.105, −0.015]).
+
+**Reading:** the transfer is a **large content-independent geometry floor** (a norm/energy-matched scramble
+recovers ~⅓) **plus an unresolved content component** (scramble kills the majority; `Δ_MF2` leans
+content-specific but straddles 0). The two probes are not jointly decisive, and — the methodologically
+important point — **the dyadic CI is gene-heterogeneity-dominated, so more val examples cannot power the
+equivalence.** Per the A7 stopping rule (binding, anti-chasing) the run **STOPS** at achieved precision; no
+further power-up. **A clean content-specificity call requires the sealed chr8/9 cohort (NOT opened).** C38
+updated to the powered (n=512) characterization; the n=260 result stays immutable. Files:
+`b3_cross_example_transduction_n512.json`; prereg §A7.
