@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Attention-Flow Sankey — masked-donor splice circuit</title>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+<style>
+  :root{
+    --blue:#0B6FB8; --orange:#C25A00; --purple:#6A4A9C; --slate:#55606B;
+    --mist:#E3E9EE; --ink:#16232E;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#F6F8FA;color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;}
+  .wrap{max-width:1500px;margin:0 auto;padding:26px 30px 60px;}
+  h1{font-size:23px;font-weight:650;margin:0 0 3px;letter-spacing:-0.01em;}
+  .sub{font-size:14px;color:var(--slate);margin:0 0 16px;line-height:1.5;}
+  .banner{background:#FFF7ED;border:1px solid #F0D3AE;border-left:5px solid var(--orange);
+    border-radius:8px;padding:11px 16px;margin:0 0 8px;font-size:13px;line-height:1.55;color:#5a3410;}
+  .banner b{color:var(--orange);}
+  .caveat{background:#EEF3F7;border:1px solid #D3DDE5;border-left:5px solid var(--slate);
+    border-radius:8px;padding:10px 16px;margin:0 0 18px;font-size:12.5px;line-height:1.5;color:#3a464f;}
+  .legend{display:flex;flex-wrap:wrap;gap:20px;align-items:center;margin:6px 2px 4px;font-size:13px;}
+  .legend .item{display:flex;align-items:center;gap:7px;}
+  .sw{width:26px;height:11px;border-radius:3px;display:inline-block;}
+  #chart{background:#fff;border:1px solid #E1E7EC;border-radius:12px;padding:8px 6px 2px;
+    box-shadow:0 1px 3px rgba(22,35,46,.06);}
+  .foot{margin-top:16px;font-size:11.5px;color:var(--slate);line-height:1.6;}
+  .foot code{background:var(--mist);padding:1px 6px;border-radius:4px;font-size:11px;color:var(--ink);}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 2px;}
+  .chip{background:#fff;border:1px solid #E1E7EC;border-radius:20px;padding:4px 12px;font-size:11.5px;color:#3a464f;}
+  .chip b{color:var(--ink);}
+  a{color:var(--blue);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Attention-flow map of the masked-donor splice circuit</h1>
+  <p class="sub">Sequence regions &rarr; layer-0 payload heads &rarr; MLP0/1/2 &rarr; L3H1 (address&nbsp;&times;&nbsp;payload) &rarr; low-rank <i>U_info</i> object &rarr; readout cascade &rarr; masked-donor output. Two branches converge at&nbsp;L3H1: the <span style="color:var(--blue);font-weight:600">address</span> (where to write) and the <span style="color:var(--purple);font-weight:600">payload</span> (what to write).</p>
+
+  <div class="banner">
+    <b>Widths are conditional necessities, not additive flow.</b> Each link width encodes a <i>conditional causal necessity</i> measured on held-out splits (an N value, a region-resolved recovery, a route recovery, or a cumulative-mediation recovery — the exact metric is in every hover). These quantities are <b>non-additive</b>: they do <i>not</i> sum, and node in/out widths are <b>not</b> balanced as if a conservation law held. Do not read this as flow volume. Near-zero widths are floored to a hairline for visibility; hover shows the true value and CI.
+  </div>
+  <div class="caveat">
+    This depicts a <b>structured, top-ranked core</b> extracted from an <b>irreducibly distributed</b> computation — it is <b>not</b> a minimal or complete circuit. The readout cascade shows recovery accumulating across many components (direct all-frozen &asymp; 0.023 &rarr; all-live 0.818), which is precisely why no single path carries the behavior.
+  </div>
+
+  <div class="legend">
+    <div class="item"><span class="sw" style="background:var(--blue)"></span>Address branch (period-3 &rarr; L2H15 &rarr; L3H1)</div>
+    <div class="item"><span class="sw" style="background:var(--purple)"></span>Payload branch (L0 heads &rarr; MLP cascade)</div>
+    <div class="item"><span class="sw" style="background:var(--orange)"></span>Delivery / readout (L3H1 &rarr; U_info &rarr; output)</div>
+    <div class="item"><span class="sw" style="background:var(--slate)"></span>Direct bypass (all-frozen)</div>
+  </div>
+
+  <div id="chart"></div>
+
+  <div class="chips">
+    <span class="chip"><b>C1</b> behavior +0.872 [0.771, 0.969]</span>
+    <span class="chip"><b>C3</b> ablate 81.6% vs health 99.2%</span>
+    <span class="chip"><b>C8</b> period-3 band-deletion 0.946&rarr;0.027</span>
+    <span class="chip"><b>C16</b> U_info rank-8 &asymp;0.92 vs &le;0.05</span>
+    <span class="chip"><b>C17</b> L3H1 restore 0.83 · route 0.93</span>
+    <span class="chip">H12&times;H10 interaction D = &minus;0.126 (partially redundant)</span>
+    <span class="chip">address geometry slope 0.00119 · predominantly relative</span>
+    <span class="chip">n = 220 pairs · 196 genes</span>
+  </div>
+
+  <div class="foot">
+    Widths use per-link metrics floored at a hairline for legibility; hovers report the exact value, 95% CI where measured, the metric name, and the controlling claim (<code>C#</code>). All numbers licensed verbatim from <code>circuit_data.json</code> (frozen scientific record). Palette: period-3/address <span style="color:var(--blue)">#0B6FB8</span>, coupling/circuit <span style="color:var(--purple)">#6A4A9C</span>, carrier <span style="color:var(--orange)">#C25A00</span>, slate <span style="color:var(--slate)">#55606B</span>.
+  </div>
+</div>
+
+<script>
+const D = {"nodes": [{"label": "Donor", "color": "#0B6FB8", "x": 0.02, "y": 0.06}, {"label": "Donor flank", "color": "#0B6FB8", "x": 0.02, "y": 0.16}, {"label": "Acceptor", "color": "#0B6FB8", "x": 0.02, "y": 0.26}, {"label": "Intron body", "color": "#0B6FB8", "x": 0.02, "y": 0.34}, {"label": "Upstream exon", "color": "#0B6FB8", "x": 0.02, "y": 0.41}, {"label": "Downstream", "color": "#0B6FB8", "x": 0.02, "y": 0.47}, {"label": "Period-3 coordinate", "color": "#0B6FB8", "x": 0.02, "y": 0.58}, {"label": "L0H7", "color": "#6A4A9C", "x": 0.02, "y": 0.7}, {"label": "L0H12", "color": "#6A4A9C", "x": 0.02, "y": 0.8}, {"label": "L0H10", "color": "#6A4A9C", "x": 0.02, "y": 0.87}, {"label": "L0H8", "color": "#6A4A9C", "x": 0.02, "y": 0.92}, {"label": "L0H13", "color": "#6A4A9C", "x": 0.02, "y": 0.955}, {"label": "L0H11", "color": "#6A4A9C", "x": 0.02, "y": 0.98}, {"label": "L2H15 \u00b7 address write", "color": "#0B6FB8", "x": 0.19, "y": 0.3}, {"label": "MLP0", "color": "#6A4A9C", "x": 0.19, "y": 0.8}, {"label": "MLP1", "color": "#6A4A9C", "x": 0.31, "y": 0.8}, {"label": "MLP2", "color": "#6A4A9C", "x": 0.43, "y": 0.72}, {"label": "L3H1 \u00b7 address \u00d7 payload", "color": "#16232E", "x": 0.55, "y": 0.52}, {"label": "U_info \u00b7 low-rank object", "color": "#C25A00", "x": 0.65, "y": 0.52}, {"label": "MLP3", "color": "#55606B", "x": 0.735, "y": 0.4}, {"label": "L4-attn", "color": "#55606B", "x": 0.795, "y": 0.44}, {"label": "MLP4", "color": "#55606B", "x": 0.855, "y": 0.5}, {"label": "L5-attn", "color": "#55606B", "x": 0.905, "y": 0.55}, {"label": "MLP5", "color": "#55606B", "x": 0.945, "y": 0.6}, {"label": "Masked-donor output", "color": "#16232E", "x": 0.99, "y": 0.52}], "links": [{"source": 0, "target": 13, "wtrue": 0.34502894664795675, "metric": "region-resolved L3H1-write recovery", "val": "0.345  CI [0.308, 0.383]   \u00b7  1 tok", "cnum": "C17", "branch": "address", "color": "rgba(11,111,184,0.42)"}, {"source": 1, "target": 13, "wtrue": 0.4951942678933455, "metric": "region-resolved L3H1-write recovery", "val": "0.495  CI [0.457, 0.534]   \u00b7  10 tok", "cnum": "C17", "branch": "address", "color": "rgba(11,111,184,0.42)"}, {"source": 2, "target": 13, "wtrue": 0.0029613051366405552, "metric": "region-resolved L3H1-write recovery", "val": "0.003  CI [-0.000, 0.006]   \u00b7  11 tok", "cnum": "C17", "branch": "address", "color": "rgba(11,111,184,0.42)"}, {"source": 3, "target": 13, "wtrue": 0.03397298434872627, "metric": "region-resolved L3H1-write recovery", "val": "0.034  CI [0.008, 0.062]   \u00b7  88 tok", "cnum": "C17", "branch": "address", "color": "rgba(11,111,184,0.42)"}, {"source": 4, "target": 13, "wtrue": 0.006947374986391934, "metric": "region-resolved L3H1-write recovery", "val": "0.007  CI [-0.027, 0.034]   \u00b7  319 tok", "cnum": "C17", "branch": "address", "color": "rgba(11,111,184,0.42)"}, {"source": 5, "target": 13, "wtrue": -0.0014331183674978689, "metric": "region-resolved L3H1-write recovery", "val": "-0.001  CI [-0.004, 0.000]   \u00b7  597 tok", "cnum": "C17", "branch": "address", "color": "rgba(11,111,184,0.42)"}, {"source": 6, "target": 13, "wtrue": 0.946, "metric": "period-3 delete \u2192 recovery drop", "val": "0.946 \u2192 0.027 (p3 band-deletion)", "cnum": "C8", "branch": "address", "color": "rgba(11,111,184,0.42)"}, {"source": 13, "target": 17, "wtrue": 0.811547915736869, "metric": "L3H1 write \u00b7 all positions (route)", "val": "0.812  CI [0.769, 0.851]   route 0.93", "cnum": "C17", "branch": "address", "color": "rgba(11,111,184,0.42)"}, {"source": 7, "target": 14, "wtrue": 0.34813826089418, "metric": "conditional necessity N", "val": "0.348  CI [0.300, 0.399]", "cnum": "C3", "branch": "payload", "color": "rgba(106,74,156,0.42)"}, {"source": 8, "target": 14, "wtrue": 0.1597238343327039, "metric": "conditional necessity N", "val": "0.160  CI [0.129, 0.192]", "cnum": "C3", "branch": "payload", "color": "rgba(106,74,156,0.42)"}, {"source": 9, "target": 14, "wtrue": 0.11574003650087912, "metric": "conditional necessity N", "val": "0.116  CI [0.090, 0.142]", "cnum": "C3", "branch": "payload", "color": "rgba(106,74,156,0.42)"}, {"source": 10, "target": 14, "wtrue": 0.016133631454985354, "metric": "conditional necessity N", "val": "0.016  CI [0.012, 0.020]", "cnum": "C3", "branch": "payload", "color": "rgba(106,74,156,0.42)"}, {"source": 11, "target": 14, "wtrue": 0.0010785633010713977, "metric": "conditional necessity N", "val": "0.001  CI [0.001, 0.002]", "cnum": "C3", "branch": "payload", "color": "rgba(106,74,156,0.42)"}, {"source": 12, "target": 14, "wtrue": 0.0009568259787329596, "metric": "conditional necessity N", "val": "0.001  CI [0.001, 0.001]", "cnum": "C3", "branch": "payload", "color": "rgba(106,74,156,0.42)"}, {"source": 14, "target": 15, "wtrue": 0.4340498528670514, "metric": "conditional necessity N", "val": "0.434  CI [0.365, 0.507]", "cnum": "C3", "branch": "payload", "color": "rgba(106,74,156,0.42)"}, {"source": 15, "target": 16, "wtrue": 0.880416519482618, "metric": "conditional necessity N", "val": "0.880  CI [0.809, 0.953]", "cnum": "C3", "branch": "payload", "color": "rgba(106,74,156,0.42)"}, {"source": 16, "target": 17, "wtrue": 0.880416519482618, "metric": "MLP2 conditional necessity N", "val": "0.880  CI [0.809, 0.953]", "cnum": "C3", "branch": "payload", "color": "rgba(106,74,156,0.42)"}, {"source": 17, "target": 18, "wtrue": 0.8288456797599792, "metric": "L3H1 route recovery R_L3", "val": "0.829  CI [0.783, 0.868]   routed frac 0.929", "cnum": "C17/C16", "branch": "delivery", "color": "rgba(194,90,0,0.45)"}, {"source": 18, "target": 19, "wtrue": 0.1808903405302571, "metric": "cumulative mediation recovery", "val": "0.181   (single MLP3 +0.158)", "cnum": "C1", "branch": "delivery", "color": "rgba(194,90,0,0.45)"}, {"source": 19, "target": 20, "wtrue": 0.2575323626606358, "metric": "cumulative mediation recovery", "val": "0.258   (single -0.004)", "cnum": "C1", "branch": "delivery", "color": "rgba(194,90,0,0.45)"}, {"source": 20, "target": 21, "wtrue": 0.44451880070972943, "metric": "cumulative mediation recovery", "val": "0.445   (single +0.010)", "cnum": "C1", "branch": "delivery", "color": "rgba(194,90,0,0.45)"}, {"source": 21, "target": 22, "wtrue": 0.5057912902265754, "metric": "cumulative mediation recovery", "val": "0.506   (single -0.005)", "cnum": "C1", "branch": "delivery", "color": "rgba(194,90,0,0.45)"}, {"source": 22, "target": 23, "wtrue": 0.8180724196523623, "metric": "cumulative mediation recovery", "val": "0.818  (all-live)", "cnum": "C1", "branch": "delivery", "color": "rgba(194,90,0,0.45)"}, {"source": 23, "target": 24, "wtrue": 0.8180724196523623, "metric": "all-live mediation \u2192 behavior", "val": "0.818   behavior C1 +0.872 [0.771, 0.969]", "cnum": "C1", "branch": "delivery", "color": "rgba(194,90,0,0.45)"}, {"source": 18, "target": 24, "wtrue": 0.022644777900172417, "metric": "direct (all frozen)", "val": "0.023   direct fraction 0.028", "cnum": "C1", "branch": "direct", "color": "rgba(85,96,107,0.40)"}], "palette": {"period3_blue": "#0B6FB8", "carrier_orange": "#C25A00", "coupling_purple": "#6A4A9C", "intron_green": "#00845F", "nucleosomal_red": "#9E2A2B", "slate": "#55606B", "mist": "#E3E9EE", "ink": "#16232E", "sec": "#5A6672", "mut": "#8794A0", "gold": "#B08800"}, "anchors": {"C1_behavior": "+0.872 [0.771, 0.969]", "C3_ablate": "81.6%", "C3_health": "99.2%", "C8_p3_delete": "0.946 -> 0.027", "C16_uinfo": "~0.92 vs <=0.05", "C17_l3h1": "0.83", "C17_route": "0.93", "n_pairs": 220, "n_genes": 196, "ceiling": 0.28241227431730787}, "interaction_D": -0.12614813645397915, "slope": 0.0011924706079623384, "geom": {"grid": [-192, -128, -64, 0, 64, 128, 192], "E_common": {"-192": {"S_A_mean": 3.256980899962073, "E_mean": 0.3193447686149851, "ci": [0.24567408341667352, 0.39415488332543924]}, "-128": {"S_A_mean": 3.0715105232702733, "E_mean": 0.13387439192318526, "ci": [0.06872715898801048, 0.19964167256721208]}, "-64": {"S_A_mean": 2.904813401235794, "E_mean": -0.03282273011129411, "ci": [-0.08274329000627191, 0.013066954503376738]}, "0": {"S_A_mean": 2.937636131347088, "E_mean": 0.0, "ci": [0.0, 0.0]}, "64": {"S_A_mean": 3.1539632615380944, "E_mean": 0.21632713019100655, "ci": [0.17399712372416526, 0.25905977215424425]}, "128": {"S_A_mean": 3.4485597815957343, "E_mean": 0.5109236502486462, "ci": [0.4535186104952815, 0.5667198952381932]}, "192": {"S_A_mean": 3.634867217467169, "E_mean": 0.6972310861200812, "ci": [0.6233606294810777, 0.7640249425146665]}}, "slope": 0.0011924706079623384, "slope_ci": [0.0010193664616026314, 0.0013830000516154215], "verdict": "predominantly_relative_with_modest_absolute_component"}};
+const nodes = D.nodes, links = D.links;
+
+// floor widths for visibility; keep true value in customdata
+const FLOOR = 0.014;
+const value = links.map(l => Math.max(Math.abs(l.wtrue), FLOOR));
+
+const branchName = {address:"Address", payload:"Payload", delivery:"Delivery / readout", direct:"Direct bypass"};
+
+const linkCustom = links.map(l => [
+   nodes[l.source].label, nodes[l.target].label,
+   l.metric, l.val, l.cnum, branchName[l.branch]
+]);
+
+const nodeCustom = nodes.map(n => [n.label]);
+
+const trace = {
+  type:"sankey",
+  arrangement:"fixed",
+  valueformat:".3f",
+  node:{
+    pad:14, thickness:17,
+    line:{color:"#ffffff", width:1.2},
+    label: nodes.map(n=>n.label),
+    color: nodes.map(n=>n.color),
+    x: nodes.map(n=>n.x),
+    y: nodes.map(n=>n.y),
+    customdata: nodeCustom,
+    hovertemplate:"<b>%{customdata[0]}</b><extra></extra>",
+    hoverlabel:{bgcolor:"#16232E", bordercolor:"#16232E",
+      font:{color:"#fff",size:12.5,family:"-apple-system,Segoe UI,Helvetica,Arial"}}
+  },
+  link:{
+    source: links.map(l=>l.source),
+    target: links.map(l=>l.target),
+    value: value,
+    color: links.map(l=>l.color),
+    customdata: linkCustom,
+    hovertemplate:
+       "<b>%{customdata[0]} &#8594; %{customdata[1]}</b><br>"+
+       "<span style='color:#B8C4CE'>%{customdata[5]} branch</span><br>"+
+       "%{customdata[2]}<br>"+
+       "<b>%{customdata[3]}</b><br>"+
+       "<span style='color:#B8C4CE'>controlling claim %{customdata[4]}</span>"+
+       "<extra></extra>",
+    hoverlabel:{bgcolor:"#16232E", bordercolor:"#16232E",
+      font:{color:"#fff",size:12.5,family:"-apple-system,Segoe UI,Helvetica,Arial"}}
+  }
+};
+
+// column header annotations
+const cols = [
+  [0.02,"sequence &<br>payload sources"],
+  [0.19,"L2H15 · MLP0"],
+  [0.37,"MLP cascade"],
+  [0.55,"L3H1<br>convergence"],
+  [0.65,"U_info"],
+  [0.84,"readout cascade"],
+  [0.99,"output"]
+];
+const anns = cols.map(c=>({
+  x:c[0], y:1.045, xref:"paper", yref:"paper", xanchor:"center",
+  text:"<b>"+c[1]+"</b>", showarrow:false,
+  font:{size:11, color:"#55606B", family:"-apple-system,Segoe UI,Helvetica,Arial"}
+}));
+
+const layout = {
+  height:640,
+  margin:{l:8,r:8,t:44,b:8},
+  paper_bgcolor:"#ffffff",
+  plot_bgcolor:"#ffffff",
+  font:{family:"-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial", size:12.5, color:"#16232E"},
+  annotations:anns
+};
+
+Plotly.newPlot("chart",[trace],layout,{responsive:true, displaylogo:false,
+  modeBarButtonsToRemove:["lasso2d","select2d"],
+  toImageButtonOptions:{format:"png",filename:"attention_flow_sankey",scale:2}});
+</script>
+</body>
+</html>

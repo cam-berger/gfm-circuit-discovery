@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>L3H1 Position-Geometry Manifold</title>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+<style>
+  :root{
+    --p3:#0B6FB8; --carrier:#C25A00; --coupling:#6A4A9C;
+    --slate:#55606B; --mist:#E3E9EE; --ink:#16232E;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#0c1620;color:var(--mist);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  #wrap{max-width:1400px;margin:0 auto;padding:26px 30px 40px;}
+  header{border-bottom:1px solid #24333f;padding-bottom:16px;margin-bottom:6px;}
+  h1{font-size:23px;font-weight:650;margin:0 0 4px;color:#fff;letter-spacing:.2px;}
+  h1 .accent{color:var(--p3);}
+  .sub{font-size:13.5px;color:#9fb0bd;line-height:1.5;max-width:1080px;}
+  .sub b{color:var(--mist);font-weight:600;}
+  .grid{display:grid;grid-template-columns:1fr 340px;gap:22px;margin-top:18px;}
+  @media(max-width:1080px){.grid{grid-template-columns:1fr;}}
+  #scene{width:100%;height:640px;background:#0f1c27;border:1px solid #24333f;border-radius:10px;}
+  .side{display:flex;flex-direction:column;gap:16px;}
+  .card{background:#101f2b;border:1px solid #24333f;border-radius:10px;padding:14px 16px;}
+  .card h3{margin:0 0 9px;font-size:12px;letter-spacing:1.1px;text-transform:uppercase;
+    color:#8fa3b1;font-weight:650;}
+  #inset{width:100%;height:236px;}
+  .kv{font-size:12.5px;line-height:1.7;color:#b9c7d1;}
+  .kv .num{color:#fff;font-weight:600;font-variant-numeric:tabular-nums;}
+  .chip{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:7px;
+    vertical-align:-1px;}
+  .legend{font-size:12px;line-height:1.85;color:#b9c7d1;}
+  .caveat{margin-top:14px;font-size:11.5px;line-height:1.65;color:#8395a2;
+    border-top:1px solid #24333f;padding-top:12px;}
+  .caveat b{color:#aebcc7;}
+  .verdict{font-size:12.5px;color:#cdd8e0;line-height:1.55;}
+  .verdict .v{color:var(--p3);font-weight:650;}
+  code{background:#182a37;color:#cfe6f6;padding:1px 5px;border-radius:4px;font-size:11.5px;}
+  .foot{margin-top:18px;font-size:11px;color:#5f7180;text-align:center;line-height:1.6;}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <header>
+    <h1>The <span class="accent">position-geometry manifold</span> that L3H1 reads</h1>
+    <div class="sub">
+      Head <b>L3H1</b> sets its attention <b>address</b> from a period-3 positional coordinate.
+      The surface below is the measured address strength <b>E</b> as a function of the
+      <b>relative displacement</b> between the donor (query) and acceptor (key) tokens —
+      rendered over the full (donor&nbsp;position&nbsp;&times;&nbsp;acceptor&nbsp;position) plane so the
+      <b>relative encoding</b> shows as anti-diagonal invariance. Height is exactly the frozen
+      <code>E_common</code> profile; the ridge marks the seven measured offsets.
+    </div>
+  </header>
+
+  <div class="grid">
+    <div>
+      <div id="scene"></div>
+    </div>
+    <div class="side">
+      <div class="card">
+        <h3>Region-resolved L3H1 write</h3>
+        <div id="inset"></div>
+        <div class="kv" style="margin-top:8px;color:#8395a2;font-size:11.5px;line-height:1.6;">
+          The head <i>reads</i> across the manifold but <i>writes</i> donor-side —
+          recovery concentrates at the <b style="color:#cdd8e0">donor flank</b> and
+          <b style="color:#cdd8e0">donor</b>, and is ~0 at the acceptor.
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Geometry verdict</h3>
+        <div class="verdict">
+          <span class="v" id="verdictTxt"></span><br/>
+          Absolute-position slope <span class="num" id="slopeTxt" style="color:#fff;font-weight:600;"></span>
+          per token <span id="slopeCiTxt" style="color:#8395a2;"></span> — small next to the
+          relative excursion (E spans <span class="num" id="espan" style="color:#fff;"></span>),
+          so the surface is <b style="color:#cdd8e0">predominantly diagonal-invariant</b>.
+        </div>
+        <div class="legend" style="margin-top:12px;">
+          <span class="chip" style="background:#0B6FB8;"></span>address strength E (period-3 blue)<br/>
+          <span class="chip" style="background:#C25A00;"></span>donor anchor (query, rel&nbsp;=&nbsp;0)<br/>
+          <span class="chip" style="background:#6A4A9C;"></span>acceptor side (downstream, +rel)<br/>
+          <span class="chip" style="background:#E3E9EE;"></span>measured offsets &mdash; grid &minus;192&hellip;+192
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caveat">
+    <b>How to read the widths / heights.</b> The N values elsewhere in this circuit are
+    <b>conditional causal necessities</b> measured on held-out splits &mdash; they do <b>not</b> sum and
+    are <b>not</b> additive fractions or flow. Height here is address strength E (a measured geometry),
+    not a necessity budget.
+    &nbsp;&bull;&nbsp; This is a <b>structured, top-ranked core</b> inside an irreducibly distributed
+    computation &mdash; <b>not</b> a minimal or complete circuit. Interventions are band-deletion /
+    carrier-transfer tests, not claims of sufficiency.
+    &nbsp;&bull;&nbsp; The manifold surface is linearly interpolated <i>between</i> the seven measured
+    relative offsets; every displayed E value at a grid point is the frozen measurement.
+  </div>
+  <div class="foot" id="foot"></div>
+</div>
+
+<script>
+const D = {"pal": {"period3_blue": "#0B6FB8", "carrier_orange": "#C25A00", "coupling_purple": "#6A4A9C", "intron_green": "#00845F", "nucleosomal_red": "#9E2A2B", "slate": "#55606B", "mist": "#E3E9EE", "ink": "#16232E", "sec": "#5A6672", "mut": "#8794A0", "gold": "#B08800"}, "grid": [-192, -128, -64, 0, 64, 128, 192], "prof": [{"rel": -192, "E": 0.3193447686149851, "SA": 3.256980899962073, "ci": [0.24567408341667352, 0.39415488332543924]}, {"rel": -128, "E": 0.13387439192318526, "SA": 3.0715105232702733, "ci": [0.06872715898801048, 0.19964167256721208]}, {"rel": -64, "E": -0.03282273011129411, "SA": 2.904813401235794, "ci": [-0.08274329000627191, 0.013066954503376738]}, {"rel": 0, "E": 0.0, "SA": 2.937636131347088, "ci": [0.0, 0.0]}, {"rel": 64, "E": 0.21632713019100655, "SA": 3.1539632615380944, "ci": [0.17399712372416526, 0.25905977215424425]}, {"rel": 128, "E": 0.5109236502486462, "SA": 3.4485597815957343, "ci": [0.4535186104952815, 0.5667198952381932]}, {"rel": 192, "E": 0.6972310861200812, "SA": 3.634867217467169, "ci": [0.6233606294810777, 0.7640249425146665]}], "slope": 0.0011924706079623384, "slope_ci": [0.0010193664616026314, 0.0013830000516154215], "verdict": "predominantly_relative_with_modest_absolute_component", "reg": [{"name": "donor flank", "rec": 0.4951942678933455, "lo": 0.4574280433188316, "hi": 0.533973778065014, "tok": 10.0}, {"name": "donor", "rec": 0.34502894664795675, "lo": 0.30771242207292904, "hi": 0.3829519336788445, "tok": 1.0}, {"name": "intron body", "rec": 0.03397298434872627, "lo": 0.0077038519138958265, "hi": 0.061884851017549466, "tok": 87.61333333333333}, {"name": "upstream exon", "rec": 0.006947374986391934, "lo": -0.02732436024195089, "hi": 0.03401499833105749, "tok": 318.67333333333335}, {"name": "acceptor", "rec": 0.0029613051366405552, "lo": -0.0003642253123471276, "hi": 0.0062919219126325475, "tok": 11.0}, {"name": "downstream", "rec": -0.0014331183674978689, "lo": -0.003545638653570124, "hi": 0.0003644878098927436, "tok": 596.7133333333334}, {"name": "ALL positions", "rec": 0.811547915736869, "lo": 0.7685162594405871, "hi": 0.8506110084082451, "tok": 1026.0}], "anchors": {"C1_behavior": "+0.872 [0.771, 0.969]", "C3_ablate": "81.6%", "C3_health": "99.2%", "C8_p3_delete": "0.946 -> 0.027", "C16_uinfo": "~0.92 vs <=0.05", "C17_l3h1": "0.83", "C17_route": "0.93", "n_pairs": 220, "n_genes": 196, "ceiling": 0.28241227431730787}};
+const P = D.pal;
+
+/* ---------- helpers ---------- */
+const relGrid = D.prof.map(p=>p.rel);
+const relE    = D.prof.map(p=>p.E);
+function Einterp(rel){
+  // clamp to measured domain, linear interp between the 7 frozen offsets
+  if(rel<=relGrid[0]) return relE[0];
+  if(rel>=relGrid[relGrid.length-1]) return relE[relE.length-1];
+  for(let i=0;i<relGrid.length-1;i++){
+    if(rel>=relGrid[i] && rel<=relGrid[i+1]){
+      const t=(rel-relGrid[i])/(relGrid[i+1]-relGrid[i]);
+      return relE[i]+t*(relE[i+1]-relE[i]);
+    }
+  }
+  return 0;
+}
+
+/* ---------- build surface over (donor d, acceptor a) plane ---------- */
+const AX = [];
+for(let v=-192; v<=192; v+=6) AX.push(v);   // 65 samples/axis
+const donor = AX, acc = AX;
+const Z=[], surfC=[];
+for(let j=0;j<acc.length;j++){
+  const rowZ=[], rowC=[];
+  for(let i=0;i<donor.length;i++){
+    const rel = acc[j]-donor[i];
+    const e = Einterp(rel);
+    rowZ.push(e);
+    rowC.push(e);
+  }
+  Z.push(rowZ); surfC.push(rowC);
+}
+
+const eMin = Math.min(...relE), eMax = Math.max(...relE);
+
+/* period-3 blue anchored colorscale (mist -> period3_blue -> deep blue) */
+const colorscale=[
+  [0.0,'#E9EFF4'],[0.22,'#AFD0E6'],[0.45,'#4E9BCB'],
+  [0.68,'#0B6FB8'],[0.86,'#0A5289'],[1.0,'#083A63']
+];
+
+const surface={
+  type:'surface', x:donor, y:acc, z:Z, surfacecolor:surfC,
+  colorscale:colorscale, cmin:eMin, cmax:eMax,
+  colorbar:{title:{text:'address E',font:{color:'#b9c7d1',size:12}},
+    tickfont:{color:'#8fa3b1',size:10}, len:0.55, thickness:13, x:1.0, outlinewidth:0},
+  opacity:0.985,
+  contours:{
+    z:{show:true,usecolormap:true,project:{z:false},width:1.4,
+       start:eMin,end:eMax,size:(eMax-eMin)/9},
+    x:{show:true,color:'rgba(11,111,184,0.16)',width:1,start:-192,end:192,size:24},
+    y:{show:true,color:'rgba(11,111,184,0.16)',width:1,start:-192,end:192,size:24}
+  },
+  lighting:{ambient:0.72,diffuse:0.66,specular:0.12,roughness:0.9,fresnel:0.15},
+  lightposition:{x:120,y:180,z:220},
+  hovertemplate:'donor pos %{x}<br>acceptor pos %{y}<br>rel = %{y}\u2212%{x}'+
+                '<br>address E = %{z:.3f}<extra></extra>',
+  showscale:true
+};
+
+/* ---------- measured reading trace: donor fixed at 0, acceptor = rel ---------- */
+const trX = D.prof.map(_=>0);
+const trY = D.prof.map(p=>p.rel);
+const trZ = D.prof.map(p=>p.E);
+const trText = D.prof.map(p=>
+  'rel = '+(p.rel>0?'+':'')+p.rel+'<br>E = '+p.E.toFixed(3)+
+  '<br>95% CI ['+p.ci[0].toFixed(3)+', '+p.ci[1].toFixed(3)+']'+
+  '<br>S_A = '+p.SA.toFixed(3));
+
+const traceLine={
+  type:'scatter3d',mode:'lines',x:trX,y:trY,z:trZ,
+  line:{color:'#0B6FB8',width:7},
+  hoverinfo:'skip',showlegend:false
+};
+/* CI whiskers on the reading trace */
+const ciTraces = D.prof.map(p=>({
+  type:'scatter3d',mode:'lines',x:[0,0],y:[p.rel,p.rel],z:[p.ci[0],p.ci[1]],
+  line:{color:'rgba(227,233,238,0.55)',width:3},hoverinfo:'skip',showlegend:false
+}));
+const traceMk={
+  type:'scatter3d',mode:'markers',x:trX,y:trY,z:trZ,text:trText,
+  marker:{size:6.5,color:'#E3E9EE',line:{color:'#0B6FB8',width:2},symbol:'circle'},
+  hovertemplate:'%{text}<extra>measured offset</extra>',showlegend:false
+};
+
+/* ---------- donor anchor (rel=0) & acceptor-side marker (rel=+192 measured peak) ---------- */
+const pk = D.prof[D.prof.length-1]; // rel=+192
+const donorMk={
+  type:'scatter3d',mode:'markers+text',x:[0],y:[0],z:[0],
+  marker:{size:9,color:'#C25A00',line:{color:'#fff',width:1.5},symbol:'diamond'},
+  text:['  donor (query, rel 0)'],textposition:'top right',
+  textfont:{color:'#E9A66A',size:12},
+  hovertemplate:'donor anchor<br>rel = 0, E = 0.000<extra></extra>',showlegend:false
+};
+const accMk={
+  type:'scatter3d',mode:'markers+text',x:[0],y:[pk.rel],z:[pk.E],
+  marker:{size:9,color:'#6A4A9C',line:{color:'#fff',width:1.5},symbol:'diamond'},
+  text:['  acceptor side (+192): E='+pk.E.toFixed(3)],textposition:'top center',
+  textfont:{color:'#A992D0',size:12},
+  hovertemplate:'acceptor side (downstream)<br>rel = +192<br>E = '+pk.E.toFixed(3)+
+    '<br>offset illustrative \u2014 intron length varies<extra></extra>',showlegend:false
+};
+
+/* ---------- period-3 comb: schematic front-end coordinate at the base ---------- */
+const zFloor = eMin - 0.12;
+const combX=[], combY=[], combZ=[];
+for(let a=-192;a<=192;a+=3){ combX.push(-192); combY.push(a); combZ.push(zFloor); combX.push(null);combY.push(null);combZ.push(null);}
+const p3comb={
+  type:'scatter3d',mode:'lines',x:combX,y:combY,z:combZ,
+  line:{color:'rgba(11,111,184,0.5)',width:2},
+  hovertemplate:'period-3 positional coordinate<br>(schematic front-end)<extra></extra>',
+  showlegend:false
+};
+
+const layout={
+  paper_bgcolor:'#0f1c27',
+  margin:{l:0,r:0,t:6,b:0},
+  scene:{
+    xaxis:{title:{text:'donor position',font:{color:'#9fb0bd',size:12}},
+      backgroundcolor:'#0f1c27',gridcolor:'#22323e',zerolinecolor:'#37505f',
+      color:'#7f93a1',tickfont:{size:10},showspikes:false},
+    yaxis:{title:{text:'acceptor position',font:{color:'#9fb0bd',size:12}},
+      backgroundcolor:'#0f1c27',gridcolor:'#22323e',zerolinecolor:'#37505f',
+      color:'#7f93a1',tickfont:{size:10},showspikes:false},
+    zaxis:{title:{text:'address strength  E',font:{color:'#9fb0bd',size:12}},
+      backgroundcolor:'#0f1c27',gridcolor:'#22323e',zerolinecolor:'#37505f',
+      color:'#7f93a1',tickfont:{size:10}},
+    camera:{eye:{x:1.55,y:-1.55,z:0.95},center:{z:-0.08}},
+    aspectratio:{x:1,y:1,z:0.62}
+  }
+};
+
+Plotly.newPlot('scene',
+  [surface,p3comb,traceLine,...ciTraces,traceMk,donorMk,accMk],
+  layout,{responsive:true,displayModeBar:true,
+    modeBarButtonsToRemove:['toImage'],displaylogo:false});
+
+/* ---------- inset: region-resolved write ---------- */
+const rg = D.reg.filter(r=>r.name!=='ALL positions');
+const names = rg.map(r=>r.name);
+const recs  = rg.map(r=>r.rec);
+const errLo = rg.map(r=>r.rec-r.lo);
+const errHi = rg.map(r=>r.hi-r.rec);
+const barColors = rg.map(r=>{
+  if(r.name==='donor'||r.name==='donor flank') return '#0B6FB8';
+  if(r.name==='acceptor') return '#6A4A9C';
+  return '#55606B';
+});
+const insetTrace={
+  type:'bar',orientation:'h',x:recs,y:names,marker:{color:barColors},
+  error_x:{type:'data',symmetric:false,array:errHi,arrayminus:errLo,
+    color:'rgba(227,233,238,0.5)',thickness:1.3,width:3},
+  hovertemplate:'%{y}<br>recovery %{x:.3f}<br>~%{customdata} tok<extra></extra>',
+  customdata:rg.map(r=>Math.round(r.tok))
+};
+Plotly.newPlot('inset',[insetTrace],{
+  paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',
+  margin:{l:82,r:14,t:6,b:26},
+  xaxis:{title:{text:'donor-forward recovery',font:{color:'#8fa3b1',size:10.5}},
+    color:'#7f93a1',tickfont:{size:9.5},gridcolor:'#22323e',zeroline:true,
+    zerolinecolor:'#37505f',range:[Math.min(0,...recs)-0.03,0.6]},
+  yaxis:{color:'#b9c7d1',tickfont:{size:10.5},automargin:true}
+},{responsive:true,displayModeBar:false});
+
+/* ---------- side text ---------- */
+document.getElementById('verdictTxt').textContent =
+  D.verdict.replace(/_/g,' ');
+document.getElementById('slopeTxt').textContent = D.slope.toFixed(5);
+document.getElementById('slopeCiTxt').textContent =
+  '[' + D.slope_ci[0].toFixed(5) + ', ' + D.slope_ci[1].toFixed(5) + ']';
+document.getElementById('espan').textContent =
+  eMin.toFixed(3) + ' \u2192 ' + eMax.toFixed(3);
+document.getElementById('foot').innerHTML =
+  'Frozen scientific record &mdash; address geometry (a11) &middot; '+
+  D.anchors.n_genes + ' genes, ' + D.anchors.n_pairs +
+  ' donor/acceptor pairs &middot; all values from circuit_data.json. '+
+  'Address branch identity: period-3 blue #0B6FB8.';
+</script>
+</body>
+</html>
