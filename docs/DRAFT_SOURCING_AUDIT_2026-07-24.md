@@ -100,10 +100,31 @@ Two consequences worth stating plainly:
   value. (`p3_carrier_locus.json` *does* carry a memorial,
   `construction_P_hybrid_max_abs_err = 1.49e-08`.) The anchor may well have been checked at runtime;
   it is not in the record.
-- **C41 `τ_PAR ≈ 0.18`.** This value appears in `CLAIMS.md` but nowhere in
-  `g1_cross_example_transduction_decomp.json`, which records `τ_PAR` matched
-  `0.912 [0.790, 1.062]` and natural `0.714 [0.623, 0.827]`. **Unresolved — needs an owner check.**
-  The qualitative claim (the generic-aligned component carries the transfer) is supported either way.
+
+### 5.1 RETRACTED from this audit: the C41 `τ_PAR` item
+
+**An earlier revision of this document listed C41's `τ_PAR ≈ 0.18` as unsupported by any artifact and
+flagged it for an owner check. That was an error in the audit, not in the ledger.** It is withdrawn.
+
+`τ_PAR ≈ 0.18` is `tau_PAR_NAT_lin`, the natural-norm parallel component in the linear regime at
+`alpha = 0.25`. It is recorded in **every one of the 8 confirmatory draws** in
+`results/splicebert_coupling/g1_cross_example_transduction.json`:
+
+```
+0.1937  0.1804  0.1683  0.1937  0.1936  0.1783  0.1643  0.1742
+mean 0.1808   median 0.1793   range [0.1643, 0.1937]
+```
+
+`CLAIMS.md` is correct, and the estimand pairing is the right one: `tau_PAR_NAT_lin ≈ 0.18` against
+`PERP_MATCHED_lin ≈ 0.00`, both linear-regime, which is exactly the comparison the generic-axis
+verdict rests on.
+
+The audit error was searching `g1_cross_example_transduction_decomp.json` for the wrong estimand:
+that file's `tau_PAR_matched` (`0.912`) and `tau_PAR_natural` (`0.714`) are full-dose quantities, not
+the linear-regime α = 0.25 one, and its only ≈0.18 value is `tau_PERP_matched = −0.178` — same
+magnitude, opposite sign, different quantity. Concluding "absent" from one file when the confirmatory
+artifact carries it eight times is precisely the failure mode this audit exists to catch, and it is
+recorded here rather than silently deleted.
 
 ## 6. Aggregation and interval-notation mismatches
 
@@ -122,13 +143,18 @@ Recomputed across-draw means from the confirmatory artifact, for reference:
 | `τ_REAL` | ≈0.65 | 0.659 | [0.591, 0.719] |
 | `Δ_spec` | −0.33 | −0.320 (median −0.330) | [−0.345, −0.276], SD 0.023 |
 | `τ_PERP` (linear) | 0.00 | −0.0001 | [−0.015, +0.010] |
+| `τ_PAR` (linear, α=0.25) | ≈0.18 | 0.181 — **ledger correct**, see §5.1 | [0.164, 0.194] |
 | `β` dose | 0.27 | **0.243** | [0.215, 0.266] |
-| REAL − RANDOM | +0.62 | **0.600** | [0.508, 0.680] |
+| REAL − RANDOM | +0.62 | 0.600 (median 0.595) | [0.508, 0.680] |
 | REAL − SCRAMBLE | +0.68 | 0.689 | [0.490, 0.900] |
 | SELF sufficiency | 0.86 | 0.863 | [0.856, 0.875] |
 
-The two bolded rows are **draw-0 / pilot values quoted as confirmatory summaries**. `β = 0.27`
-matches the `H_dev` pilot; the confirmatory `H_conf` mean is 0.243.
+One row is a **pilot value quoted as a confirmatory summary**: `β = 0.27` matches the `H_dev` pilot
+(`0.2737`), while the confirmatory `H_conf` across-draw mean is `0.243`.
+
+The `REAL − RANDOM` row is a smaller mismatch of unclear provenance rather than a pilot value: the
+confirmatory per-draw mean is `0.600` and the median `0.595`, and `+0.62` is not draw 0 (`0.680`) nor
+any single draw. There is no across-draw block for this quantity in the artifact. Low priority.
 
 ## 7. Rounding differences (immaterial, listed for completeness)
 
@@ -137,6 +163,23 @@ matches the `H_dev` pilot; the confirmatory `H_conf` mean is 0.243.
 | C8 deletion endpoint | `0.946 → 0.027` (CLAIMS); `→ 0.026` (EVIDENCE.md) | `0.94604 → 0.02646` (`carrier_dose.json`) |
 | C16 random-subspace bound | `≤0.05` | `null_max = 0.053` (`donor_anchor.json`) |
 | A9b composition R² | `CV-R²(S~Z) < 0` (CLAUDE.md) | `−0.071` held-out, `+0.006` discovery |
+
+## 7.1 IC1 ran at one fifth of its sealed N
+
+`PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md` seals the confirmatory N as a census, explicitly to
+remove run-time discretion: *"Confirmatory N = the conservative-constructible census ≈ 1264 clusters
+(dose ∧ construction; frozen, no run-time N choice)"* (§5, and again in the freeze table at §192–194:
+`dose 0.61 × yield 0.94 × 2205`). Sealed power is `MDE_census ≈ 0.013` at `sd_between = 0.162`.
+
+`ic1_distal_intron_necessity_v8.json` records **`n_clusters = 256`** (259 eligible, 22 excluded
+non-constructible), with achieved `MDE = 0.0293`.
+
+That is roughly a fivefold shortfall against a frozen N, and it is not reconciled in any live
+document. It matters for how the result reads: at the sealed N the design would have resolved
+effects down to `0.013`, comfortably inside the `0.05` SESOI; at the executed N the floor is `0.029`,
+which is close enough to the SESOI that the sub-threshold reading rests on a narrower margin than the
+protocol intended. The recorded status (`confirmatory: false`, outcome-aware verification) already
+prevents over-reading, and this compounds it rather than contradicting it.
 
 ## 8. Sealed-split reach, restated
 
@@ -154,12 +197,16 @@ annotation-derived labels.
 
 | # | Action | Owner call needed? |
 |---|---|---|
-| 1 | Correct the `m_T = 0.001` claim in `figures/splicebert/EVIDENCE.md` (§1 above) | No — clear error |
-| 2 | Resolve C41's `τ_PAR ≈ 0.18` against the decomp artifact (§5) | **Yes** |
-| 3 | Re-render C41's two range-notation quantities so they are not read as CIs (§6) | Yes |
-| 4 | Reconcile `CLAIMS.md` C41's `β` and REAL−RANDOM with the confirmatory means (§6) | Yes |
+| 1 | Correct the `m_T = 0.001` claim in `figures/splicebert/EVIDENCE.md` (§1) | No — clear error |
+| 2 | **Reconcile IC1's executed `n_clusters = 256` against its sealed census N ≈ 1264 (§7.1)** | **Yes — largest open item** |
+| 3 | Re-render C41's `Δ_spec` and `τ_PERP` range-notation so they are not read as CIs (§6) | Yes |
+| 4 | Reconcile `CLAIMS.md` C41's `β = 0.27` with the confirmatory mean `0.243` (§6) | Yes |
 | 5 | Note the executed-vs-preregistered deviations against their claims (§4) | Yes |
 | 6 | Record the §2/§4 conflict inside `PREREGISTRATION_SEALED.md`'s ledger entry, not the frozen file (§2) | Yes |
+| 7 | Trace the provenance of C41's `REAL − RANDOM = +0.62` (§6) | Low priority |
+
+**Withdrawn from this list:** an earlier revision asked for an owner check on C41's `τ_PAR ≈ 0.18`.
+That was an audit error; the ledger is correct. See §5.1.
 
 Nothing here was applied. This document is additive and touches no frozen record, ledger, figure of
 record, or result artifact.
