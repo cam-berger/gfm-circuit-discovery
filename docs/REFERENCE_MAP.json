@@ -1,0 +1,1626 @@
+{
+ "_meta": {
+  "purpose": "A4 path-reference index for C1 reorg; maps each moving artifact old path -> new path and every in-prose reference (file:line).",
+  "generated_by": "frame 0a2ba5cc (Tier-2)",
+  "moving_artifacts": 229,
+  "scanned_files": 8594,
+  "note": "full_path_refs = lines containing the exact old path string. basename_only_refs (separate block) = lines mentioning the basename without the full path; C1 must resolve these carefully (ambiguous).",
+  "c1_rewrite_policy": {
+   "editable_navigational_refs": 27,
+   "editable_files": "scripts/splicebert/*.py (--out/--scan/freeze input defaults) + docs/REVIEW_OPEN_QUESTIONS.md",
+   "frozen_exempt_refs": 272,
+   "frozen_exempt_classes": [
+    "*.manifest.json command/config arrays (251) \u2014 GC3 immutable provenance; move intact, do not edit internals",
+    "result *.json/.jsonl internal out/input path fields (15) \u2014 frozen data-artifact provenance; move intact",
+    "read-only preregistrations/*.md planned-output mentions (6) \u2014 GC2 read-only; historical, not rewritten"
+   ],
+   "canonical_guard": "exact-basename-token scan of CLAIMS/CORRECTIONS controlling-artifact cols + 14 fig scripts + 9 memorial tests => 0 true conflicts (a9_payload_semantics.json is manifest-superseded, cited only as 'orig ... (R22)')",
+   "note": "F2 verifies editable navigational links resolve post-move; frozen-provenance internal path strings are expected-stale-by-design (historical records of what was run) and are NOT F2 failures."
+  }
+ },
+ "moves": {
+  "results/phase-lattice/carrier_p10_behaviour_n1200.json": {
+   "new_path": "results/phase-lattice/development/carrier_p10_behaviour_n1200.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/carrier_p10_behaviour_n1200.manifest.json": {
+   "new_path": "results/phase-lattice/development/carrier_p10_behaviour_n1200.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_closure_cohort_smoke20_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_closure_cohort_smoke20_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_closure_cohort_smoke20_20260721.manifest.json:11",
+    "results/phase-lattice/p3_closure_cohort_smoke20_20260721.manifest.json:120"
+   ]
+  },
+  "results/phase-lattice/p3_closure_cohort_smoke20_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_closure_cohort_smoke20_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_closure_cohort_smoke20_b36_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_closure_cohort_smoke20_b36_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_closure_cohort_smoke20_b36_20260721.manifest.json:123",
+    "results/phase-lattice/p3_closure_cohort_smoke20_b36_20260721.manifest.json:13"
+   ]
+  },
+  "results/phase-lattice/p3_closure_cohort_smoke20_b36_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_closure_cohort_smoke20_b36_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_closure_cohort_smoke20_search_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_closure_cohort_smoke20_search_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_closure_cohort_smoke20_search_20260721.manifest.json:11",
+    "results/phase-lattice/p3_closure_cohort_smoke20_search_20260721.manifest.json:121"
+   ]
+  },
+  "results/phase-lattice/p3_closure_cohort_smoke20_search_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_closure_cohort_smoke20_search_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_closure_cohort_smoke_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_closure_cohort_smoke_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_closure_cohort_smoke_20260721.manifest.json:11",
+    "results/phase-lattice/p3_closure_cohort_smoke_20260721.manifest.json:120"
+   ]
+  },
+  "results/phase-lattice/p3_closure_cohort_smoke_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_closure_cohort_smoke_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_closure_cohort_smoke_search_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_closure_cohort_smoke_search_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_closure_cohort_smoke_search_20260721.manifest.json:11",
+    "results/phase-lattice/p3_closure_cohort_smoke_search_20260721.manifest.json:121"
+   ]
+  },
+  "results/phase-lattice/p3_closure_cohort_smoke_search_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_closure_cohort_smoke_search_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_closure_construction_calibration_b36_n30_20260721.json": {
+   "new_path": "results/phase-lattice/superseded/p3_closure_construction_calibration_b36_n30_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_closure_construction_calibration_b36_n30_20260721.manifest.json:128",
+    "results/phase-lattice/p3_closure_construction_calibration_b36_n30_20260721.manifest.json:14"
+   ]
+  },
+  "results/phase-lattice/p3_closure_construction_calibration_b36_n30_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/superseded/p3_closure_construction_calibration_b36_n30_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_closure_construction_calibration_b36_n30_v2_20260721.json": {
+   "new_path": "results/phase-lattice/superseded/p3_closure_construction_calibration_b36_n30_v2_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_closure_construction_calibration_b36_n30_v2_20260721.manifest.json:133",
+    "results/phase-lattice/p3_closure_construction_calibration_b36_n30_v2_20260721.manifest.json:14"
+   ]
+  },
+  "results/phase-lattice/p3_closure_construction_calibration_b36_n30_v2_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/superseded/p3_closure_construction_calibration_b36_n30_v2_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_closure_construction_calibration_b36_n30_v3_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_closure_construction_calibration_b36_n30_v3_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_closure_construction_calibration_b36_n30_v3_20260721.manifest.json:133",
+    "results/phase-lattice/p3_closure_construction_calibration_b36_n30_v3_20260721.manifest.json:14"
+   ]
+  },
+  "results/phase-lattice/p3_closure_construction_calibration_b36_n30_v3_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_closure_construction_calibration_b36_n30_v3_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_closure_development_cohort_b36_n120_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_closure_development_cohort_b36_n120_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_closure_development_cohort_b36_n120_20260721.manifest.json:133",
+    "results/phase-lattice/p3_closure_development_cohort_b36_n120_20260721.manifest.json:14",
+    "results/phase-lattice/p3_closure_preflight_development_n30_20260721.manifest.json:37",
+    "results/phase-lattice/p3_closure_preflight_development_n30_20260721.manifest.json:5",
+    "results/phase-lattice/p3_closure_preflight_smoke3_20260721.manifest.json:39",
+    "results/phase-lattice/p3_closure_preflight_smoke3_20260721.manifest.json:5"
+   ]
+  },
+  "results/phase-lattice/p3_closure_development_cohort_b36_n120_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_closure_development_cohort_b36_n120_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_closure_preflight_analysis_development_n30_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_closure_preflight_analysis_development_n30_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_closure_preflight_analysis_development_n30_20260721.manifest.json:49",
+    "results/phase-lattice/p3_closure_preflight_analysis_development_n30_20260721.manifest.json:9"
+   ]
+  },
+  "results/phase-lattice/p3_closure_preflight_analysis_development_n30_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_closure_preflight_analysis_development_n30_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_closure_preflight_development_n30_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_closure_preflight_development_n30_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_closure_preflight_analysis_development_n30_20260721.manifest.json:31",
+    "results/phase-lattice/p3_closure_preflight_analysis_development_n30_20260721.manifest.json:5",
+    "results/phase-lattice/p3_closure_preflight_development_n30_20260721.manifest.json:15",
+    "results/phase-lattice/p3_closure_preflight_development_n30_20260721.manifest.json:71"
+   ]
+  },
+  "results/phase-lattice/p3_closure_preflight_development_n30_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_closure_preflight_development_n30_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_closure_preflight_smoke3_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_closure_preflight_smoke3_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_closure_preflight_smoke3_20260721.manifest.json:17",
+    "results/phase-lattice/p3_closure_preflight_smoke3_20260721.manifest.json:73"
+   ]
+  },
+  "results/phase-lattice/p3_closure_preflight_smoke3_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_closure_preflight_smoke3_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_phase_surgery_confirmation_smoke_v1/development_smoke.audit.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_confirmation_smoke_v1/development_smoke.audit.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_phase_surgery_confirmation_smoke_v1/development_smoke.audit.manifest.json:11",
+    "results/phase-lattice/p3_phase_surgery_confirmation_smoke_v1/development_smoke.audit.manifest.json:46"
+   ]
+  },
+  "results/phase-lattice/p3_phase_surgery_confirmation_smoke_v1/development_smoke.audit.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_confirmation_smoke_v1/development_smoke.audit.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_phase_surgery_confirmation_smoke_v1/development_smoke.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_confirmation_smoke_v1/development_smoke.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_phase_surgery_confirmation_smoke_v1/development_smoke.audit.manifest.json:36",
+    "results/phase-lattice/p3_phase_surgery_confirmation_smoke_v1/development_smoke.audit.manifest.json:9"
+   ]
+  },
+  "results/phase-lattice/p3_phase_surgery_context_difference_development_n33_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_context_difference_development_n33_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json:48616",
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.manifest.json:164",
+    "results/phase-lattice/p3_phase_surgery_context_difference_development_n33_20260721.manifest.json:13",
+    "results/phase-lattice/p3_phase_surgery_context_difference_development_n33_20260721.manifest.json:63",
+    "scripts/splicebert/freeze_p3_phase_surgery_confirmation.py:67"
+   ]
+  },
+  "results/phase-lattice/p3_phase_surgery_context_difference_development_n33_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_context_difference_development_n33_20260721.manifest.json",
+   "full_path_refs": [
+    "docs/REVIEW_OPEN_QUESTIONS.md:121"
+   ]
+  },
+  "results/phase-lattice/p3_phase_surgery_context_match_development_20260721.json": {
+   "new_path": "results/phase-lattice/superseded/p3_phase_surgery_context_match_development_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_phase_surgery_context_match_development_20260721.manifest.json:68",
+    "results/phase-lattice/p3_phase_surgery_context_match_development_20260721.manifest.json:9"
+   ]
+  },
+  "results/phase-lattice/p3_phase_surgery_context_match_development_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/superseded/p3_phase_surgery_context_match_development_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_phase_surgery_context_match_development_v2_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_context_match_development_v2_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json:48621",
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.manifest.json:129",
+    "results/phase-lattice/p3_phase_surgery_context_difference_development_n33_20260721.manifest.json:45",
+    "results/phase-lattice/p3_phase_surgery_context_difference_development_n33_20260721.manifest.json:9",
+    "results/phase-lattice/p3_phase_surgery_context_match_development_v2_20260721.manifest.json:13",
+    "results/phase-lattice/p3_phase_surgery_context_match_development_v2_20260721.manifest.json:74",
+    "scripts/splicebert/freeze_p3_phase_surgery_confirmation.py:46"
+   ]
+  },
+  "results/phase-lattice/p3_phase_surgery_context_match_development_v2_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_context_match_development_v2_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_phase_surgery_controls_analysis_development_n30_20260721.json": {
+   "new_path": "results/phase-lattice/superseded/p3_phase_surgery_controls_analysis_development_n30_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_phase_surgery_controls_analysis_development_n30_20260721.manifest.json:49",
+    "results/phase-lattice/p3_phase_surgery_controls_analysis_development_n30_20260721.manifest.json:9"
+   ]
+  },
+  "results/phase-lattice/p3_phase_surgery_controls_analysis_development_n30_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/superseded/p3_phase_surgery_controls_analysis_development_n30_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_phase_surgery_controls_analysis_development_n30_v2_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_controls_analysis_development_n30_v2_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json:48631",
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.manifest.json:149",
+    "results/phase-lattice/p3_phase_surgery_controls_analysis_development_n30_v2_20260721.manifest.json:49",
+    "results/phase-lattice/p3_phase_surgery_controls_analysis_development_n30_v2_20260721.manifest.json:9",
+    "scripts/splicebert/freeze_p3_phase_surgery_confirmation.py:58"
+   ]
+  },
+  "results/phase-lattice/p3_phase_surgery_controls_analysis_development_n30_v2_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_controls_analysis_development_n30_v2_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_phase_surgery_controls_development_n30_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_controls_development_n30_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json:48626",
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.manifest.json:144",
+    "results/phase-lattice/p3_phase_surgery_controls_analysis_development_n30_20260721.manifest.json:31",
+    "results/phase-lattice/p3_phase_surgery_controls_analysis_development_n30_20260721.manifest.json:5",
+    "results/phase-lattice/p3_phase_surgery_controls_analysis_development_n30_v2_20260721.manifest.json:31",
+    "results/phase-lattice/p3_phase_surgery_controls_analysis_development_n30_v2_20260721.manifest.json:5",
+    "results/phase-lattice/p3_phase_surgery_controls_development_n30_20260721.manifest.json:108",
+    "results/phase-lattice/p3_phase_surgery_controls_development_n30_20260721.manifest.json:17",
+    "scripts/splicebert/freeze_p3_phase_surgery_confirmation.py:55"
+   ]
+  },
+  "results/phase-lattice/p3_phase_surgery_controls_development_n30_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_controls_development_n30_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_phase_surgery_controls_smoke3_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_controls_smoke3_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_phase_surgery_controls_smoke3_20260721.manifest.json:108",
+    "results/phase-lattice/p3_phase_surgery_controls_smoke3_20260721.manifest.json:17"
+   ]
+  },
+  "results/phase-lattice/p3_phase_surgery_controls_smoke3_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_controls_smoke3_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_phase_surgery_development_cohort_n120_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_development_cohort_n120_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json:48611",
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.manifest.json:119",
+    "results/phase-lattice/p3_phase_surgery_context_match_development_20260721.manifest.json:38",
+    "results/phase-lattice/p3_phase_surgery_context_match_development_20260721.manifest.json:5",
+    "results/phase-lattice/p3_phase_surgery_context_match_development_v2_20260721.manifest.json:44",
+    "results/phase-lattice/p3_phase_surgery_context_match_development_v2_20260721.manifest.json:5",
+    "results/phase-lattice/p3_phase_surgery_controls_development_n30_20260721.manifest.json:42",
+    "results/phase-lattice/p3_phase_surgery_controls_development_n30_20260721.manifest.json:5",
+    "results/phase-lattice/p3_phase_surgery_controls_smoke3_20260721.manifest.json:42",
+    "results/phase-lattice/p3_phase_surgery_controls_smoke3_20260721.manifest.json:5",
+    "results/phase-lattice/p3_phase_surgery_development_cohort_n120_20260721.manifest.json:11",
+    "results/phase-lattice/p3_phase_surgery_development_cohort_n120_20260721.manifest.json:62",
+    "results/phase-lattice/p3_phase_surgery_health_cds_development_n61_20260721.manifest.json:34",
+    "results/phase-lattice/p3_phase_surgery_health_cds_development_n61_20260721.manifest.json:5",
+    "results/phase-lattice/p3_phase_surgery_preflight_development_n61_20260721.manifest.json:43",
+    "results/phase-lattice/p3_phase_surgery_preflight_development_n61_20260721.manifest.json:5",
+    "results/phase-lattice/p3_phase_surgery_preflight_smoke3_20260721.manifest.json:45",
+    "results/phase-lattice/p3_phase_surgery_preflight_smoke3_20260721.manifest.json:5",
+    "scripts/splicebert/freeze_p3_phase_surgery_confirmation.py:40"
+   ]
+  },
+  "results/phase-lattice/p3_phase_surgery_development_cohort_n120_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_development_cohort_n120_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_phase_surgery_health_cds_development_n61_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_health_cds_development_n61_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json:48636",
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.manifest.json:154",
+    "results/phase-lattice/p3_phase_surgery_health_cds_development_n61_20260721.manifest.json:13",
+    "results/phase-lattice/p3_phase_surgery_health_cds_development_n61_20260721.manifest.json:94",
+    "scripts/splicebert/freeze_p3_phase_surgery_confirmation.py:61"
+   ]
+  },
+  "results/phase-lattice/p3_phase_surgery_health_cds_development_n61_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_health_cds_development_n61_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_phase_surgery_health_non_cds_development_n49_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_health_non_cds_development_n49_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json:48641",
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.manifest.json:159",
+    "results/phase-lattice/p3_phase_surgery_health_non_cds_development_n49_20260721.manifest.json:13",
+    "results/phase-lattice/p3_phase_surgery_health_non_cds_development_n49_20260721.manifest.json:94",
+    "scripts/splicebert/freeze_p3_phase_surgery_confirmation.py:64"
+   ]
+  },
+  "results/phase-lattice/p3_phase_surgery_health_non_cds_development_n49_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_health_non_cds_development_n49_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_phase_surgery_non_cds_development_cohort_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_non_cds_development_cohort_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json:48646",
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.manifest.json:124",
+    "results/phase-lattice/p3_phase_surgery_context_match_development_20260721.manifest.json:43",
+    "results/phase-lattice/p3_phase_surgery_context_match_development_20260721.manifest.json:7",
+    "results/phase-lattice/p3_phase_surgery_context_match_development_v2_20260721.manifest.json:49",
+    "results/phase-lattice/p3_phase_surgery_context_match_development_v2_20260721.manifest.json:7",
+    "results/phase-lattice/p3_phase_surgery_health_non_cds_development_n49_20260721.manifest.json:34",
+    "results/phase-lattice/p3_phase_surgery_health_non_cds_development_n49_20260721.manifest.json:5",
+    "results/phase-lattice/p3_phase_surgery_non_cds_development_cohort_20260721.manifest.json:65",
+    "results/phase-lattice/p3_phase_surgery_non_cds_development_cohort_20260721.manifest.json:7",
+    "results/phase-lattice/p3_phase_surgery_preflight_non_cds_development_n49_20260721.manifest.json:43",
+    "results/phase-lattice/p3_phase_surgery_preflight_non_cds_development_n49_20260721.manifest.json:5",
+    "scripts/splicebert/freeze_p3_phase_surgery_confirmation.py:43"
+   ]
+  },
+  "results/phase-lattice/p3_phase_surgery_non_cds_development_cohort_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_non_cds_development_cohort_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_phase_surgery_preflight_analysis_development_n61_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_preflight_analysis_development_n61_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json:48656",
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.manifest.json:139",
+    "results/phase-lattice/p3_phase_surgery_context_difference_development_n33_20260721.manifest.json:35",
+    "results/phase-lattice/p3_phase_surgery_context_difference_development_n33_20260721.manifest.json:5",
+    "results/phase-lattice/p3_phase_surgery_preflight_analysis_development_n61_20260721.manifest.json:49",
+    "results/phase-lattice/p3_phase_surgery_preflight_analysis_development_n61_20260721.manifest.json:9",
+    "scripts/splicebert/freeze_p3_phase_surgery_confirmation.py:52"
+   ]
+  },
+  "results/phase-lattice/p3_phase_surgery_preflight_analysis_development_n61_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_preflight_analysis_development_n61_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_phase_surgery_preflight_analysis_non_cds_development_n49_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_preflight_analysis_non_cds_development_n49_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_phase_surgery_context_difference_development_n33_20260721.manifest.json:40",
+    "results/phase-lattice/p3_phase_surgery_context_difference_development_n33_20260721.manifest.json:7",
+    "results/phase-lattice/p3_phase_surgery_preflight_analysis_non_cds_development_n49_20260721.manifest.json:49",
+    "results/phase-lattice/p3_phase_surgery_preflight_analysis_non_cds_development_n49_20260721.manifest.json:9"
+   ]
+  },
+  "results/phase-lattice/p3_phase_surgery_preflight_analysis_non_cds_development_n49_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_preflight_analysis_non_cds_development_n49_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_phase_surgery_preflight_development_n61_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_preflight_development_n61_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json:48651",
+    "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.manifest.json:134",
+    "results/phase-lattice/p3_phase_surgery_controls_development_n30_20260721.manifest.json:47",
+    "results/phase-lattice/p3_phase_surgery_controls_development_n30_20260721.manifest.json:7",
+    "results/phase-lattice/p3_phase_surgery_controls_smoke3_20260721.manifest.json:47",
+    "results/phase-lattice/p3_phase_surgery_controls_smoke3_20260721.manifest.json:7",
+    "results/phase-lattice/p3_phase_surgery_preflight_analysis_development_n61_20260721.manifest.json:31",
+    "results/phase-lattice/p3_phase_surgery_preflight_analysis_development_n61_20260721.manifest.json:5",
+    "results/phase-lattice/p3_phase_surgery_preflight_development_n61_20260721.manifest.json:103",
+    "results/phase-lattice/p3_phase_surgery_preflight_development_n61_20260721.manifest.json:15",
+    "scripts/splicebert/freeze_p3_phase_surgery_confirmation.py:49"
+   ]
+  },
+  "results/phase-lattice/p3_phase_surgery_preflight_development_n61_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_preflight_development_n61_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_phase_surgery_preflight_non_cds_development_n49_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_preflight_non_cds_development_n49_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_phase_surgery_preflight_analysis_non_cds_development_n49_20260721.manifest.json:31",
+    "results/phase-lattice/p3_phase_surgery_preflight_analysis_non_cds_development_n49_20260721.manifest.json:5",
+    "results/phase-lattice/p3_phase_surgery_preflight_non_cds_development_n49_20260721.manifest.json:103",
+    "results/phase-lattice/p3_phase_surgery_preflight_non_cds_development_n49_20260721.manifest.json:15"
+   ]
+  },
+  "results/phase-lattice/p3_phase_surgery_preflight_non_cds_development_n49_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_preflight_non_cds_development_n49_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_phase_surgery_preflight_smoke3_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_preflight_smoke3_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_phase_surgery_preflight_smoke3_20260721.manifest.json:105",
+    "results/phase-lattice/p3_phase_surgery_preflight_smoke3_20260721.manifest.json:17"
+   ]
+  },
+  "results/phase-lattice/p3_phase_surgery_preflight_smoke3_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_preflight_smoke3_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_shift_diagnostic_smoke_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_shift_diagnostic_smoke_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_shift_diagnostic_smoke_20260721.manifest.json:14",
+    "results/phase-lattice/p3_shift_diagnostic_smoke_20260721.manifest.json:86"
+   ]
+  },
+  "results/phase-lattice/p3_shift_diagnostic_smoke_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_shift_diagnostic_smoke_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_shift_diagnostic_smoke_a1_20260721.json": {
+   "new_path": "results/phase-lattice/development/p3_shift_diagnostic_smoke_a1_20260721.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_shift_diagnostic_smoke_a1_20260721.manifest.json:14",
+    "results/phase-lattice/p3_shift_diagnostic_smoke_a1_20260721.manifest.json:86"
+   ]
+  },
+  "results/phase-lattice/p3_shift_diagnostic_smoke_a1_20260721.manifest.json": {
+   "new_path": "results/phase-lattice/development/p3_shift_diagnostic_smoke_a1_20260721.manifest.json",
+   "full_path_refs": []
+  },
+  "results/phase-lattice/p3_shift_diagnostic_v1.json": {
+   "new_path": "results/phase-lattice/superseded/p3_shift_diagnostic_v1.json",
+   "full_path_refs": [
+    "results/phase-lattice/p3_shift_diagnostic_v1.manifest.json:13",
+    "results/phase-lattice/p3_shift_diagnostic_v1.manifest.json:85",
+    "scripts/splicebert/run_p3_shift_diagnostic.py:342"
+   ]
+  },
+  "results/phase-lattice/p3_shift_diagnostic_v1.manifest.json": {
+   "new_path": "results/phase-lattice/superseded/p3_shift_diagnostic_v1.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/a4_address_geometry.json": {
+   "new_path": "results/splicebert_coupling/superseded/a4_address_geometry.json",
+   "full_path_refs": [
+    "results/splicebert_coupling/a4_address_geometry.manifest.json:9",
+    "scripts/splicebert/run_a4_address_geometry.py:98"
+   ]
+  },
+  "results/splicebert_coupling/a4_address_geometry.manifest.json": {
+   "new_path": "results/splicebert_coupling/superseded/a4_address_geometry.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/a9_payload_semantics.json": {
+   "new_path": "results/splicebert_coupling/superseded/a9_payload_semantics.json",
+   "full_path_refs": [
+    "scripts/splicebert/run_a9_payload_semantics.py:126"
+   ]
+  },
+  "results/splicebert_coupling/a9_payload_semantics.manifest.json": {
+   "new_path": "results/splicebert_coupling/superseded/a9_payload_semantics.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/ablation_scan.json": {
+   "new_path": "results/splicebert_coupling/development/ablation_scan.json",
+   "full_path_refs": [
+    "results/splicebert_coupling/ablation_scan.manifest.json:11",
+    "results/splicebert_coupling/faithfulness.manifest.json:22",
+    "scripts/splicebert/run_ablation_scan.py:80",
+    "scripts/splicebert/run_faithfulness.py:87"
+   ]
+  },
+  "results/splicebert_coupling/ablation_scan.manifest.json": {
+   "new_path": "results/splicebert_coupling/development/ablation_scan.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/ablation_scan_bothstrand.json": {
+   "new_path": "results/splicebert_coupling/development/ablation_scan_bothstrand.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/b3_cross_example_transduction_pilot.json": {
+   "new_path": "results/splicebert_coupling/development/b3_cross_example_transduction_pilot.json",
+   "full_path_refs": [
+    "results/splicebert_coupling/b3_cross_example_transduction_pilot.manifest.json:34",
+    "results/splicebert_coupling/b3_cross_example_transduction_pilot.manifest.json:6"
+   ]
+  },
+  "results/splicebert_coupling/b3_cross_example_transduction_pilot.manifest.json": {
+   "new_path": "results/splicebert_coupling/development/b3_cross_example_transduction_pilot.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/b3_cross_example_transduction_smoke.json": {
+   "new_path": "results/splicebert_coupling/development/b3_cross_example_transduction_smoke.json",
+   "full_path_refs": [
+    "results/splicebert_coupling/b3_cross_example_transduction_smoke.manifest.json:34"
+   ]
+  },
+  "results/splicebert_coupling/b3_cross_example_transduction_smoke.manifest.json": {
+   "new_path": "results/splicebert_coupling/development/b3_cross_example_transduction_smoke.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/exon_vs_intron.json": {
+   "new_path": "results/splicebert_coupling/development/exon_vs_intron.json",
+   "full_path_refs": [
+    "scripts/splicebert/run_exon_vs_intron.py:72"
+   ]
+  },
+  "results/splicebert_coupling/ic1_distal_intron_necessity.manifest.json": {
+   "new_path": "results/splicebert_coupling/superseded/ic1_distal_intron_necessity.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/ic1_distal_intron_necessity_v7.json": {
+   "new_path": "results/splicebert_coupling/superseded/ic1_distal_intron_necessity_v7.json",
+   "full_path_refs": [
+    "results/splicebert_coupling/ic1_distal_intron_necessity.manifest.json:13"
+   ]
+  },
+  "results/splicebert_coupling/ic1_pilot.json": {
+   "new_path": "results/splicebert_coupling/development/ic1_pilot.json",
+   "full_path_refs": [
+    "scripts/splicebert/run_ic1_pilot.py:215"
+   ]
+  },
+  "results/splicebert_coupling/ic1_pilot.manifest.json": {
+   "new_path": "results/splicebert_coupling/development/ic1_pilot.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/ic1_pilot2.json": {
+   "new_path": "results/splicebert_coupling/development/ic1_pilot2.json",
+   "full_path_refs": [
+    "scripts/splicebert/run_ic1_pilot2.py:74"
+   ]
+  },
+  "results/splicebert_coupling/ic1_pilot2.manifest.json": {
+   "new_path": "results/splicebert_coupling/development/ic1_pilot2.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/ic1_pilot3.json": {
+   "new_path": "results/splicebert_coupling/development/ic1_pilot3.json",
+   "full_path_refs": [
+    "scripts/splicebert/run_ic1_pilot3.py:75"
+   ]
+  },
+  "results/splicebert_coupling/ic1_pilot3.manifest.json": {
+   "new_path": "results/splicebert_coupling/development/ic1_pilot3.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/ic1_pilot4_ood.json": {
+   "new_path": "results/splicebert_coupling/development/ic1_pilot4_ood.json",
+   "full_path_refs": [
+    "scripts/splicebert/run_ic1_pilot4_ood.py:45"
+   ]
+  },
+  "results/splicebert_coupling/ic1_pilot4_ood.manifest.json": {
+   "new_path": "results/splicebert_coupling/development/ic1_pilot4_ood.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/ic2_calibration.json": {
+   "new_path": "results/splicebert_coupling/development/ic2_calibration.json",
+   "full_path_refs": [
+    "results/splicebert_coupling/ic2_calibration.json:46",
+    "scripts/splicebert/run_ic2_calibration.py:54",
+    "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_B2_PAYLOAD_STEERING.md:134"
+   ]
+  },
+  "results/splicebert_coupling/ic2_feasibility.json": {
+   "new_path": "results/splicebert_coupling/development/ic2_feasibility.json",
+   "full_path_refs": [
+    "scripts/splicebert/run_ic2_feasibility.py:59",
+    "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_IC2_ACCEPTOR_COMPETITION.md:252"
+   ]
+  },
+  "results/splicebert_coupling/l2_rescue.json": {
+   "new_path": "results/splicebert_coupling/development/l2_rescue.json",
+   "full_path_refs": [
+    "scripts/splicebert/run_l2_rescue.py:127"
+   ]
+  },
+  "results/splicebert_coupling/l2_rescue.manifest.json": {
+   "new_path": "results/splicebert_coupling/development/l2_rescue.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/localization.json": {
+   "new_path": "results/splicebert_coupling/development/localization.json",
+   "full_path_refs": [
+    "scripts/splicebert/run_localization.py:119"
+   ]
+  },
+  "results/splicebert_coupling/path_decomposition.json": {
+   "new_path": "results/splicebert_coupling/development/path_decomposition.json",
+   "full_path_refs": [
+    "scripts/splicebert/run_path_decomposition.py:87"
+   ]
+  },
+  "results/splicebert_coupling/path_decomposition.manifest.json": {
+   "new_path": "results/splicebert_coupling/development/path_decomposition.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/per_example.json": {
+   "new_path": "results/splicebert_coupling/development/per_example.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/preflight_a0.json": {
+   "new_path": "results/splicebert_coupling/development/preflight_a0.json",
+   "full_path_refs": [
+    "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A0_TARGETING_PROVENANCE.md:211",
+    "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A0_TARGETING_PROVENANCE.md:295"
+   ]
+  },
+  "results/splicebert_coupling/preflight_a10_generator_edges.json": {
+   "new_path": "results/splicebert_coupling/development/preflight_a10_generator_edges.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/preflight_a11_address_geometry.json": {
+   "new_path": "results/splicebert_coupling/development/preflight_a11_address_geometry.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/preflight_a12_faithfulness_size.json": {
+   "new_path": "results/splicebert_coupling/development/preflight_a12_faithfulness_size.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/preflight_a1_token_position.json": {
+   "new_path": "results/splicebert_coupling/development/preflight_a1_token_position.json",
+   "full_path_refs": [
+    "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A1_TOKEN_VS_POSITION.md:79"
+   ]
+  },
+  "results/splicebert_coupling/preflight_a2_address_payload.json": {
+   "new_path": "results/splicebert_coupling/development/preflight_a2_address_payload.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/preflight_a2b_payload_localization.json": {
+   "new_path": "results/splicebert_coupling/development/preflight_a2b_payload_localization.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/preflight_a3_l2h15_address_payload.json": {
+   "new_path": "results/splicebert_coupling/development/preflight_a3_l2h15_address_payload.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/preflight_a4_address_geometry.json": {
+   "new_path": "results/splicebert_coupling/superseded/preflight_a4_address_geometry.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/preflight_a5_uinfo_replication.json": {
+   "new_path": "results/splicebert_coupling/development/preflight_a5_uinfo_replication.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/preflight_a6_circuit_faithfulness.json": {
+   "new_path": "results/splicebert_coupling/development/preflight_a6_circuit_faithfulness.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/preflight_a7_source_localization.json": {
+   "new_path": "results/splicebert_coupling/development/preflight_a7_source_localization.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/preflight_a8_generator_path.json": {
+   "new_path": "results/splicebert_coupling/development/preflight_a8_generator_path.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/preflight_a9_payload_semantics.json": {
+   "new_path": "results/splicebert_coupling/superseded/preflight_a9_payload_semantics.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/preflight_a9b_payload_semantics_composition.json": {
+   "new_path": "results/splicebert_coupling/development/preflight_a9b_payload_semantics_composition.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/preflight_acceptor_address.json": {
+   "new_path": "results/splicebert_coupling/development/preflight_acceptor_address.json",
+   "full_path_refs": [
+    "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_ACCEPTOR_ADDRESS.md:249"
+   ]
+  },
+  "results/splicebert_coupling/preflight_ic1.json": {
+   "new_path": "results/splicebert_coupling/superseded/preflight_ic1.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/preflight_ic1_distal_intron_necessity_v8.json": {
+   "new_path": "results/splicebert_coupling/development/preflight_ic1_distal_intron_necessity_v8.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/preflight_ic1_v6_FAILED.json": {
+   "new_path": "results/splicebert_coupling/superseded/preflight_ic1_v6_FAILED.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_coupling/subspace.json": {
+   "new_path": "results/splicebert_coupling/development/subspace.json",
+   "full_path_refs": [
+    "scripts/splicebert/run_subspace.py:129"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_context_matched_v1.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_context_matched_v1.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_context_matched_v1.summary.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_context_matched_v1.summary.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_context_matched_v1.manifest.json:72"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_context_matched_v2.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_context_matched_v2.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_context_matched_v2.summary.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_context_matched_v2.summary.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_context_matched_v2.manifest.json:72"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_context_matched_v3.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_context_matched_v3.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_context_matched_v3.summary.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_context_matched_v3.summary.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_context_matched_v3.manifest.json:74"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_context_matched_v4.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_context_matched_v4.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_context_matched_v4.summary.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_context_matched_v4.summary.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_context_matched_v4.manifest.json:74"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_context_matched_v5.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_context_matched_v5.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_context_matched_v5.summary.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_context_matched_v5.summary.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_context_matched_v5.manifest.json:74"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_context_matched_v6.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_context_matched_v6.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_context_matched_v6.summary.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_context_matched_v6.summary.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_context_matched_v6.manifest.json:80"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_discovery_analysis_smoke_v1.audit.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_discovery_analysis_smoke_v1.audit.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_discovery_analysis_smoke_v1.audit_v2.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_discovery_analysis_smoke_v1.audit_v2.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_discovery_analysis_smoke_v1.context.jsonl": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_discovery_analysis_smoke_v1.context.jsonl",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_discovery_analysis_smoke_v1.manifest.json:67"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_discovery_analysis_smoke_v1.general.jsonl": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_discovery_analysis_smoke_v1.general.jsonl",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_discovery_analysis_smoke_v1.manifest.json:57"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_discovery_analysis_smoke_v1.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_discovery_analysis_smoke_v1.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_discovery_analysis_smoke_v1.profiles.jsonl": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_discovery_analysis_smoke_v1.profiles.jsonl",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_discovery_analysis_smoke_v1.manifest.json:62"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_discovery_analysis_smoke_v1.shortlist.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_discovery_analysis_smoke_v1.shortlist.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_discovery_analysis_smoke_v1.manifest.json:72"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_discovery_analysis_smoke_v1.summary.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_discovery_analysis_smoke_v1.summary.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_discovery_analysis_smoke_v1.manifest.json:77"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_discovery_screen_smoke_v1_merged.health_matrix.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_discovery_screen_smoke_v1_merged.health_matrix.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_discovery_screen_smoke_v1_merged.manifest.json:46"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_discovery_screen_smoke_v1_merged.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_discovery_screen_smoke_v1_merged.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_discovery_screen_smoke_v1_merged.pairs.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_discovery_screen_smoke_v1_merged.pairs.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_discovery_screen_smoke_v1_merged.manifest.json:51"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_discovery_screen_smoke_v1_merged.summary.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_discovery_screen_smoke_v1_merged.summary.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_discovery_screen_smoke_v1_merged.manifest.json:56"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_discovery_screen_smoke_v1_merged.target_matrix.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_discovery_screen_smoke_v1_merged.target_matrix.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_discovery_screen_smoke_v1_merged.manifest.json:41"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_mechanism_package_smoke_v2.audit.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_mechanism_package_smoke_v2.audit.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.manifest.json:10",
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.manifest.json:66",
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1/run_manifest.health.json:1",
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1/run_manifest.target.json:1"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_mechanism_package_smoke_v2.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_mechanism_package_smoke_v2.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_mechanism_package_smoke_v2.manifest.json:12",
+    "results/splicebert_head_context_atlas/atlas_mechanism_package_smoke_v2.manifest.json:85",
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.manifest.json:61",
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.manifest.json:8",
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1/run_manifest.health.json:1",
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1/run_manifest.target.json:1"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_mechanism_package_smoke_v2.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_mechanism_package_smoke_v2.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.audit.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_mechanism_validation_analysis_smoke_v1.audit.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.candidate_endpoints.jsonl": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_mechanism_validation_analysis_smoke_v1.candidate_endpoints.jsonl",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.manifest.json:84"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.candidates.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_mechanism_validation_analysis_smoke_v1.candidates.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.manifest.json:89"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.diagnostics.jsonl": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_mechanism_validation_analysis_smoke_v1.diagnostics.jsonl",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.manifest.json:94"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_mechanism_validation_analysis_smoke_v1.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.summary.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_mechanism_validation_analysis_smoke_v1.summary.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.manifest.json:99"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1/run_manifest.health.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_mechanism_validation_smoke_v1/run_manifest.health.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1_merged.manifest.json:33"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1/run_manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_mechanism_validation_smoke_v1/run_manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1/run_manifest.target.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_mechanism_validation_smoke_v1/run_manifest.target.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1_merged.manifest.json:38"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1/validation_audit.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_mechanism_validation_smoke_v1/validation_audit.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1/validation_audit_v2.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_mechanism_validation_smoke_v1/validation_audit_v2.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.manifest.json:12",
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.manifest.json:71",
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1_merged.manifest.json:28",
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1_merged.manifest.json:8"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1_merged.health_rows.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_mechanism_validation_smoke_v1_merged.health_rows.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.manifest.json:41",
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1_merged.manifest.json:51"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1_merged.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_mechanism_validation_smoke_v1_merged.manifest.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.manifest.json:56"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1_merged.pairs.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_mechanism_validation_smoke_v1_merged.pairs.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.manifest.json:46",
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1_merged.manifest.json:61"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1_merged.summary.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_mechanism_validation_smoke_v1_merged.summary.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.manifest.json:51",
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1_merged.manifest.json:66"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1_merged.target_rows.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_mechanism_validation_smoke_v1_merged.target_rows.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v1.manifest.json:36",
+    "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v1_merged.manifest.json:56"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_representative_dag_smoke_v1.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_representative_dag_smoke_v1.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_representative_dag_smoke_v1.manifest.json:15"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_representative_dag_smoke_v1.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_representative_dag_smoke_v1.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_representative_dag_smoke_v2.audit.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_representative_dag_smoke_v2.audit.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_representative_dag_smoke_v2.audit_v2.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_representative_dag_smoke_v2.audit_v2.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_representative_dag_smoke_v2.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_representative_dag_smoke_v2.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_representative_dag_smoke_v2.manifest.json:16"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_representative_dag_smoke_v2.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_representative_dag_smoke_v2.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_representative_dag_smoke_v3.audit.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_representative_dag_smoke_v3.audit.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_representative_dag_smoke_v3.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_representative_dag_smoke_v3.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_representative_dag_smoke_v3.manifest.json:16"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_representative_dag_smoke_v3.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_representative_dag_smoke_v3.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v1.audit.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v1.audit.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v1.diagnostics.jsonl": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v1.diagnostics.jsonl",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v1.manifest.json:114"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v1.families.jsonl": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v1.families.jsonl",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v1.manifest.json:104"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v1.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v1.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v1.relations.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v1.relations.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v1.manifest.json:109"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v1.summary.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v1.summary.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v1.manifest.json:119"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v2.audit.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v2.audit.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v2.diagnostics.jsonl": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v2.diagnostics.jsonl",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v2.manifest.json:114"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v2.families.jsonl": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v2.families.jsonl",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v2.manifest.json:104"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v2.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v2.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v2.relations.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v2.relations.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v2.manifest.json:109"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v2.summary.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v2.summary.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v2.manifest.json:119"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v3.audit.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v3.audit.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v3.diagnostics.jsonl": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v3.diagnostics.jsonl",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v3.manifest.json:114"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v3.families.jsonl": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v3.families.jsonl",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v3.manifest.json:104"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v3.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v3.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v3.relations.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v3.relations.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v3.manifest.json:109"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v3.summary.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v3.summary.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v3.manifest.json:119"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v4.audit.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v4.audit.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v4.diagnostics.jsonl": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v4.diagnostics.jsonl",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v4.manifest.json:114"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v4.families.jsonl": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v4.families.jsonl",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v4.manifest.json:104"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v4.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v4.manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v4.relations.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v4.relations.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v4.manifest.json:109"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v4.summary.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_analysis_smoke_v4.summary.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v4.manifest.json:119"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v1/run_manifest.health.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v1/run_manifest.health.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v1/run_manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v1/run_manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v1/run_manifest.target.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v1/run_manifest.target.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2/run_manifest.health.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v2/run_manifest.health.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.manifest.json:39"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2/run_manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v2/run_manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2/run_manifest.target.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v2/run_manifest.target.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v1.manifest.json:96",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.manifest.json:49"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2/validation_audit.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v2/validation_audit.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v1.manifest.json:12",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v1.manifest.json:86",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.manifest.json:29"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.health_rows.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v2_merged.health_rows.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v1.manifest.json:46",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.manifest.json:67"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v2_merged.manifest.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v1.manifest.json:71"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.pairs.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v2_merged.pairs.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v1.manifest.json:61",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.manifest.json:87"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.summary.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v2_merged.summary.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v1.manifest.json:66",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.manifest.json:92"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.target_rows.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v2_merged.target_rows.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v1.manifest.json:41",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.manifest.json:72"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.whole_group_health_rows.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v2_merged.whole_group_health_rows.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v1.manifest.json:56",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.manifest.json:77"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.whole_group_target_rows.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v2_merged.whole_group_target_rows.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v1.manifest.json:51",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v2_merged.manifest.json:82"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v3/run_manifest.health.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v3/run_manifest.health.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v3_merged.manifest.json:39"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v3/run_manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v3/run_manifest.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v3/run_manifest.target.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v3/run_manifest.target.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v2.manifest.json:96",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v3.manifest.json:96",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v3_merged.manifest.json:49"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v3/validation_audit.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v3/validation_audit.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v2.manifest.json:12",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v2.manifest.json:86",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v3.manifest.json:12",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v3.manifest.json:86",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v3_merged.manifest.json:29"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v3_merged.health_rows.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v3_merged.health_rows.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v2.manifest.json:46",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v3.manifest.json:46",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v3_merged.manifest.json:67"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v3_merged.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v3_merged.manifest.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v2.manifest.json:71",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v3.manifest.json:71"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v3_merged.pairs.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v3_merged.pairs.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v2.manifest.json:61",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v3.manifest.json:61",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v3_merged.manifest.json:87"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v3_merged.summary.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v3_merged.summary.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v2.manifest.json:66",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v3.manifest.json:66",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v3_merged.manifest.json:92"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v3_merged.target_rows.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v3_merged.target_rows.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v2.manifest.json:41",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v3.manifest.json:41",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v3_merged.manifest.json:72"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v3_merged.whole_group_health_rows.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v3_merged.whole_group_health_rows.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v2.manifest.json:56",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v3.manifest.json:56",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v3_merged.manifest.json:77"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v3_merged.whole_group_target_rows.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v3_merged.whole_group_target_rows.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v2.manifest.json:51",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v3.manifest.json:51",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v3_merged.manifest.json:82"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v4_merged.health_rows.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v4_merged.health_rows.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v4.manifest.json:46",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v4_merged.manifest.json:67"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v4_merged.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v4_merged.manifest.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v4.manifest.json:71"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v4_merged.pairs.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v4_merged.pairs.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v4.manifest.json:61",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v4_merged.manifest.json:87"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v4_merged.summary.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v4_merged.summary.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v4.manifest.json:66",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v4_merged.manifest.json:92"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v4_merged.target_rows.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v4_merged.target_rows.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v4.manifest.json:41",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v4_merged.manifest.json:72"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v4_merged.whole_group_health_rows.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v4_merged.whole_group_health_rows.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v4.manifest.json:56",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v4_merged.manifest.json:77"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v4_merged.whole_group_target_rows.jsonl.gz": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_mechanism_smoke_v4_merged.whole_group_target_rows.jsonl.gz",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v4.manifest.json:51",
+    "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v4_merged.manifest.json:82"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_package_smoke_v1.audit.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_package_smoke_v1.audit.json",
+   "full_path_refs": []
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_package_smoke_v1.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_package_smoke_v1.json",
+   "full_path_refs": [
+    "results/splicebert_head_context_atlas/atlas_stage2_package_smoke_v1.manifest.json:12",
+    "results/splicebert_head_context_atlas/atlas_stage2_package_smoke_v1.manifest.json:70"
+   ]
+  },
+  "results/splicebert_head_context_atlas/atlas_stage2_package_smoke_v1.manifest.json": {
+   "new_path": "results/splicebert_head_context_atlas/superseded/atlas_stage2_package_smoke_v1.manifest.json",
+   "full_path_refs": []
+  }
+ },
+ "basename_only_refs": {
+  "a4_address_geometry.json": [
+   "docs/REVIEW_OPEN_QUESTIONS.md:130",
+   "scripts/splicebert/run_a4_address_geometry.py:102",
+   "studies/splicebert_partner_selection/DECISIONS_A0.md:301",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A4_ADDRESS_GEOMETRY.md:102",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A4_ADDRESS_GEOMETRY.md:75"
+  ],
+  "a9_payload_semantics.json": [
+   "scripts/splicebert/run_a9_payload_semantics.py:131",
+   "studies/splicebert_partner_selection/CORRECTIONS.md:51",
+   "studies/splicebert_partner_selection/DECISIONS_A0.md:481"
+  ],
+  "ablation_scan.json": [
+   "results/splicebert_coupling/faithfulness.manifest.json:39",
+   "scripts/splicebert/run_faithfulness.py:101",
+   "scripts/splicebert/run_faithfulness.py:230",
+   "scripts/splicebert/run_faithfulness.py:25"
+  ],
+  "ablation_scan.manifest.json": [
+   "scripts/splicebert/run_ablation_scan.py:199"
+  ],
+  "ablation_scan_bothstrand.json": [
+   "results/splicebert_coupling/ablation_scan.manifest.json:32"
+  ],
+  "development_smoke.json": [
+   "scripts/splicebert/run_p3_phase_surgery_confirmation.py:372"
+  ],
+  "ic1_distal_intron_necessity_v7.json": [
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md:248",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md:287"
+  ],
+  "ic1_pilot.json": [
+   "docs/REVIEW_OPEN_QUESTIONS.md:130",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md:13"
+  ],
+  "ic1_pilot.manifest.json": [
+   "scripts/splicebert/run_ic1_pilot.py:365"
+  ],
+  "ic1_pilot2.json": [
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md:14"
+  ],
+  "ic1_pilot2.manifest.json": [
+   "scripts/splicebert/run_ic1_pilot2.py:192"
+  ],
+  "ic1_pilot3.json": [
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md:65"
+  ],
+  "ic1_pilot3.manifest.json": [
+   "scripts/splicebert/run_ic1_pilot3.py:188"
+  ],
+  "ic1_pilot4_ood.manifest.json": [
+   "scripts/splicebert/run_ic1_pilot4_ood.py:154"
+  ],
+  "ic2_calibration.json": [
+   "CLAUDE.md:110",
+   "docs/REVIEW_OPEN_QUESTIONS.md:131",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_B2_PAYLOAD_STEERING.md:280",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_IC2_ACCEPTOR_COMPETITION.md:14",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_IC2_ACCEPTOR_COMPETITION.md:158",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_IC2_ACCEPTOR_COMPETITION.md:58",
+   "studies/splicebert_partner_selection/redteam/REDTEAM_SYNTHESIS_B2.md:163",
+   "studies/splicebert_partner_selection/redteam/REDTEAM_SYNTHESIS_B2.md:86"
+  ],
+  "ic2_feasibility.json": [
+   "CLAUDE.md:110",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_IC2_ACCEPTOR_COMPETITION.md:34"
+  ],
+  "l2_rescue.manifest.json": [
+   "scripts/splicebert/run_l2_rescue.py:315"
+  ],
+  "localization.json": [
+   "RESULTS_VERIFICATION.md:83",
+   "RESULTS_VERIFICATION.md:84",
+   "RESULTS_VERIFICATION.md:85",
+   "docs/REVIEW_OPEN_QUESTIONS.md:130",
+   "docs/project_status_dashboard.html:571",
+   "docs/project_status_dashboard.html:575",
+   "handoff/verification_state.json:360",
+   "handoff/verification_state.json:368",
+   "handoff/verification_state.json:376",
+   "results/splicebert_coupling/a2b_payload_localization.manifest.json:9",
+   "scripts/splicebert/run_a2b_payload_localization.py:77",
+   "scripts/splicebert/run_a2b_payload_localization.py:81",
+   "scripts/splicebert/run_a7_source_localization.py:147",
+   "scripts/splicebert/run_a7_source_localization.py:152",
+   "studies/splicebert_partner_selection/CLAIMS.md:45",
+   "studies/splicebert_partner_selection/CLAIMS.md:49",
+   "studies/splicebert_partner_selection/CORRECTIONS.md:45",
+   "studies/splicebert_partner_selection/CORRECTIONS.md:49",
+   "studies/splicebert_partner_selection/DECISIONS_A0.md:227",
+   "studies/splicebert_partner_selection/DECISIONS_A0.md:398",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A2b_PAYLOAD_LOCALIZATION.md:132",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A7_SOURCE_LOCALIZATION.md:111",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A7_SOURCE_LOCALIZATION.md:72"
+  ],
+  "p3_phase_surgery_context_difference_development_n33_20260721.json": [
+   "results/phase-lattice/RESULTS_INDEX.md:96"
+  ],
+  "p3_phase_surgery_controls_analysis_development_n30_v2_20260721.json": [
+   "results/phase-lattice/RESULTS_INDEX.md:95"
+  ],
+  "p3_phase_surgery_preflight_analysis_development_n61_20260721.json": [
+   "results/phase-lattice/RESULTS_INDEX.md:94"
+  ],
+  "path_decomposition.manifest.json": [
+   "scripts/splicebert/run_path_decomposition.py:281"
+  ],
+  "per_example.json": [
+   "docs/REVIEW_OPEN_QUESTIONS.md:139",
+   "scripts/splicebert/run_coupling.py:165"
+  ],
+  "preflight_a0.json": [
+   "scripts/splicebert/run_a0_targeting_provenance.py:261"
+  ],
+  "preflight_a10_generator_edges.json": [
+   "scripts/splicebert/run_a10_generator_edges.py:55",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A10_GENERATOR_EDGES.md:56"
+  ],
+  "preflight_a11_address_geometry.json": [
+   "scripts/splicebert/run_a11_address_geometry.py:77",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A11_ADDRESS_GEOMETRY.md:40"
+  ],
+  "preflight_a12_faithfulness_size.json": [
+   "scripts/splicebert/run_a12_faithfulness_size.py:76",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A12_FAITHFULNESS_SIZE.md:40"
+  ],
+  "preflight_a1_token_position.json": [
+   "scripts/splicebert/run_a1_token_position.py:217"
+  ],
+  "preflight_a2_address_payload.json": [
+   "scripts/splicebert/run_a2_address_payload.py:98",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A2_ADDRESS_PAYLOAD.md:116",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A2_ADDRESS_PAYLOAD.md:77"
+  ],
+  "preflight_a2b_payload_localization.json": [
+   "scripts/splicebert/run_a2b_payload_localization.py:81"
+  ],
+  "preflight_a3_l2h15_address_payload.json": [
+   "scripts/splicebert/run_a3_l2h15_address_payload.py:68",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A3_L2H15_ADDRESS_PAYLOAD.md:64"
+  ],
+  "preflight_a4_address_geometry.json": [
+   "docs/REVIEW_OPEN_QUESTIONS.md:130",
+   "scripts/splicebert/run_a4_address_geometry.py:102",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A4_ADDRESS_GEOMETRY.md:75"
+  ],
+  "preflight_a5_uinfo_replication.json": [
+   "scripts/splicebert/run_a5_uinfo_replication.py:58",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A5_UINFO_REPLICATION.md:60"
+  ],
+  "preflight_a6_circuit_faithfulness.json": [
+   "scripts/splicebert/run_a6_circuit_faithfulness.py:167",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A6_CIRCUIT_FAITHFULNESS.md:88"
+  ],
+  "preflight_a7_source_localization.json": [
+   "scripts/splicebert/run_a7_source_localization.py:152",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A7_SOURCE_LOCALIZATION.md:72"
+  ],
+  "preflight_a8_generator_path.json": [
+   "scripts/splicebert/run_a8_generator_path.py:66",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A8_GENERATOR_PATH.md:76"
+  ],
+  "preflight_a9_payload_semantics.json": [
+   "scripts/splicebert/run_a9_payload_semantics.py:131"
+  ],
+  "preflight_a9b_payload_semantics_composition.json": [
+   "scripts/splicebert/run_a9b_payload_semantics_composition.py:175"
+  ],
+  "preflight_ic1.json": [
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md:288"
+  ],
+  "preflight_ic1_distal_intron_necessity_v8.json": [
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md:289"
+  ],
+  "preflight_ic1_v6_FAILED.json": [
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md:246",
+   "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_IC1_DISTAL_INTRON_NECESSITY.md:287"
+  ],
+  "run_manifest.health.json": [
+   "results/splicebert_head_context_atlas/atlas_discovery_v1.manifest.json:33",
+   "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v2_merged.manifest.json:31",
+   "results/splicebert_head_context_atlas/atlas_mechanism_validation_v1_merged.manifest.json:31",
+   "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v4_merged.manifest.json:39",
+   "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v5_merged.manifest.json:41",
+   "scripts/splicebert_head_context_atlas/run_atlas_mechanism_validation.py:895",
+   "scripts/splicebert_head_context_atlas/run_atlas_stage2_mechanisms.py:845",
+   "studies/splicebert_head_context_atlas/POST_COLAB_DISCOVERY_HANDOFF.md:15",
+   "studies/splicebert_head_context_atlas/colab_atlas_package/RUN_STAGE2_COLAB.md:53",
+   "studies/splicebert_head_context_atlas/colab_atlas_package/build_stage2_overlay.py:109"
+  ],
+  "run_manifest.json": [
+   "scripts/splicebert_head_context_atlas/run_all_head_screen.py:364",
+   "scripts/splicebert_head_context_atlas/run_atlas_discovery_screen.py:583",
+   "scripts/splicebert_head_context_atlas/run_atlas_mechanism_validation.py:950",
+   "scripts/splicebert_head_context_atlas/run_atlas_stage2_mechanisms.py:900",
+   "scripts/splicebert_head_context_atlas/validate_head_screen.py:13",
+   "studies/splicebert_head_context_atlas/AMENDMENT_HEAD_SCREEN.md:23",
+   "studies/splicebert_head_context_atlas/RESULTS.md:12"
+  ],
+  "run_manifest.target.json": [
+   "results/splicebert_head_context_atlas/atlas_discovery_live_provenance_audit_v1.json:87",
+   "results/splicebert_head_context_atlas/atlas_discovery_v1.manifest.json:38",
+   "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v2_merged.manifest.json:36",
+   "results/splicebert_head_context_atlas/atlas_mechanism_validation_v1_merged.manifest.json:36",
+   "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v4.manifest.json:96",
+   "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v5.manifest.json:96",
+   "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v4_merged.manifest.json:49",
+   "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v5_merged.manifest.json:51",
+   "scripts/splicebert_head_context_atlas/analyze_atlas_stage2_mechanisms.py:363",
+   "scripts/splicebert_head_context_atlas/build_atlas_representative_dags.py:263",
+   "scripts/splicebert_head_context_atlas/merge_atlas_mechanism_validation.py:84",
+   "scripts/splicebert_head_context_atlas/merge_atlas_stage2_mechanisms.py:65",
+   "scripts/splicebert_head_context_atlas/validate_atlas_mechanism_validation.py:246",
+   "scripts/splicebert_head_context_atlas/validate_atlas_stage2_analysis.py:305",
+   "scripts/splicebert_head_context_atlas/validate_atlas_stage2_mechanisms.py:422",
+   "studies/splicebert_head_context_atlas/POST_COLAB_DISCOVERY_HANDOFF.md:15",
+   "tests/test_stage2_colab_overlay.py:54"
+  ],
+  "validation_audit.json": [
+   "results/splicebert_head_context_atlas/atlas_discovery_live_provenance_audit_v1.json:88",
+   "results/splicebert_head_context_atlas/atlas_discovery_screen_smoke_v1_merged.manifest.json:23",
+   "results/splicebert_head_context_atlas/atlas_discovery_screen_smoke_v2_merged.manifest.json:23",
+   "results/splicebert_head_context_atlas/atlas_discovery_v1.manifest.json:23",
+   "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v2.manifest.json:12",
+   "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_smoke_v2.manifest.json:71",
+   "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_v1.manifest.json:12",
+   "results/splicebert_head_context_atlas/atlas_mechanism_validation_analysis_v1.manifest.json:70",
+   "results/splicebert_head_context_atlas/atlas_mechanism_validation_smoke_v2_merged.manifest.json:26",
+   "results/splicebert_head_context_atlas/atlas_mechanism_validation_v1_merged.manifest.json:26",
+   "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v4.manifest.json:12",
+   "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v4.manifest.json:86",
+   "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v4_merged.manifest.json:29",
+   "scripts/splicebert_head_context_atlas/merge_atlas_discovery_screen.py:30",
+   "scripts/splicebert_head_context_atlas/merge_atlas_mechanism_validation.py:41",
+   "scripts/splicebert_head_context_atlas/merge_atlas_stage2_mechanisms.py:42",
+   "scripts/splicebert_head_context_atlas/validate_atlas_discovery_screen.py:178",
+   "scripts/splicebert_head_context_atlas/validate_atlas_mechanism_validation.py:218",
+   "scripts/splicebert_head_context_atlas/validate_atlas_stage2_mechanisms.py:397",
+   "studies/splicebert_head_context_atlas/CLAIMS.md:28",
+   "studies/splicebert_head_context_atlas/COMPLETION_AUDIT.md:38",
+   "studies/splicebert_head_context_atlas/POST_COLAB_DISCOVERY_HANDOFF.md:101",
+   "studies/splicebert_head_context_atlas/POST_COLAB_DISCOVERY_HANDOFF.md:14",
+   "studies/splicebert_head_context_atlas/POST_COLAB_DISCOVERY_HANDOFF.md:162",
+   "studies/splicebert_head_context_atlas/RESULTS.md:27",
+   "studies/splicebert_head_context_atlas/colab_atlas_package/RUN_STAGE2_COLAB.md:97",
+   "studies/splicebert_head_context_atlas/return_to_planner.json:149"
+  ],
+  "validation_audit_v2.json": [
+   "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v5.manifest.json:12",
+   "results/splicebert_head_context_atlas/atlas_stage2_mechanism_analysis_smoke_v5.manifest.json:86",
+   "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v5_merged.manifest.json:31",
+   "results/splicebert_head_context_atlas/atlas_stage2_mechanism_smoke_v5_merged.manifest.json:8",
+   "studies/splicebert_head_context_atlas/CLAIMS.md:32",
+   "studies/splicebert_head_context_atlas/RESULTS.md:31",
+   "studies/splicebert_head_context_atlas/return_to_planner.json:155"
+  ]
+ }
+}

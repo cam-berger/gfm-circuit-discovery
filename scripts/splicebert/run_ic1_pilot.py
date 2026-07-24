@@ -212,7 +212,7 @@ def main():
     ap.add_argument("--device", default=None)
     ap.add_argument("--gtf", default=DEFAULT_GTF); ap.add_argument("--fasta", default=DEFAULT_FASTA)
     ap.add_argument("--model", default=DEFAULT_MODEL)
-    ap.add_argument("--out", default="results/splicebert_coupling/ic1_pilot.json")
+    ap.add_argument("--out", default="results/splicebert_coupling/development/ic1_pilot.json")
     args = ap.parse_args()
     torch.set_grad_enabled(False)
 

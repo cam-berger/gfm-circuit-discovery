@@ -1,12 +1,12 @@
 {
-  "git_commit": "d31df879a98d72527e84c5ced5528fde85f9a1bd",
+  "git_commit": "0bdaa1c6834e8a6259b2e1e47bcd0c33e9791e3c",
   "sources": [
     {
-      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/repo-structure-review-938072/figures/splicebert/phase_graphs_3D/generate_carrier_paper_figure.py",
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/figures/splicebert/phase_graphs_3D/generate_carrier_paper_figure.py",
       "sha256": "d7df2657f9f284585cfb2caf24ba42ebd020ea47da8644b02008aa5f5bc4c86a"
     },
     {
-      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/repo-structure-review-938072/results/phase-lattice/fig_report_data.json",
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/phase-lattice/fig_report_data.json",
       "sha256": "3bca5b20be7c51a158aa3214a288bf49f1bdd76636f412f6728e9ea9bd835057"
     }
   ]

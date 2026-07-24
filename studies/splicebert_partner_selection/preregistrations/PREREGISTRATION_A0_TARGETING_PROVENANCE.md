@@ -1,5 +1,7 @@
 # Pre-registration — A0: stage-wise provenance of L3H1's acceptor targeting (donor-graph experiment 4)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: FROZEN.** Written before `run_a0_targeting_provenance.py` is executed. Every stage
 definition, readout, reference construction, statistic, and pass/fail threshold below is fixed
 here and imported from `gfmcd.splicing.circuit` / `gfmcd.splicing.address`, not redefined in the

@@ -1,5 +1,7 @@
 # Pre-registration — A2b-(1): localize L3H1's value payload to U_info (donor-graph experiment 6)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: FROZEN.** Written before `run_a2b_payload_localization.py` runs, from the clean
 `donor-graph-address-payload` checkpoint (A0–A2 committed: `fix` 6a5e80e, `study` 3a7d3a7). Every
 payload, control, statistic, and threshold is fixed here and imported from

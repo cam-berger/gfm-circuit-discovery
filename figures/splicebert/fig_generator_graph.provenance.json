@@ -1,8 +1,8 @@
 {
-  "git_commit": "d31df879a98d72527e84c5ced5528fde85f9a1bd",
+  "git_commit": "0bdaa1c6834e8a6259b2e1e47bcd0c33e9791e3c",
   "sources": [
     {
-      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/repo-structure-review-938072/results/splicebert_coupling/a10_generator_edges.json",
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_coupling/a10_generator_edges.json",
       "sha256": "bf20d274d30a3c1b63ff84ad9e1a4b5b403ed1f477ff7f4f673b5cc11ec5df3f"
     }
   ]

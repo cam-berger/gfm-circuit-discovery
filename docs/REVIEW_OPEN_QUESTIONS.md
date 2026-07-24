@@ -118,7 +118,7 @@ into `results/<subdir>/development/`. The following were deliberately **not** ap
 2. **Provenance paths recorded *inside* moved result artifacts were not rewritten.** 182 path strings
    inside `results/**` JSON record where a run read and wrote its files; 180 of them are a moved
    `.manifest.json` naming its own moved artifact, and 2 are in
-   `results/phase-lattice/p3_phase_surgery_context_difference_development_n33_20260721.manifest.json`
+   `results/phase-lattice/development/p3_phase_surgery_context_difference_development_n33_20260721.manifest.json`
    naming moved inputs. These are run-time records, not live references. Editing them would overwrite a
    `.manifest.json` (forbidden) and would falsify the recorded statement of where the run actually wrote.
    **Consequence:** a moved artifact's manifest now records its pre-move path. **Decision required:**

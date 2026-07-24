@@ -1,5 +1,7 @@
 # Pre-registration — the donor-logit anchor (donor-graph experiment 1a)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: FROZEN.** Written before `run_donor_anchor.py` is executed. Every subspace
 definition, intervention, control, and pass/fail threshold below is fixed here and imported
 from `gfmcd.splicing.circuit` / `gfmcd.splicing.unembed`, not redefined in the runner. No

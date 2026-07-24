@@ -1,5 +1,7 @@
 # fig_phase_clock — a learned period-3 clock in SpliceBERT's position table
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Files:** `fig_phase_clock.svg` / `.png`
 **Built by:** `scripts/splicebert/make_fig_phase_clock.py` (renders purely from
 `results/phase-lattice/fig_phase_data.json`, so the artwork cannot drift from the result)

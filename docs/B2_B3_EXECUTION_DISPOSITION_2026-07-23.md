@@ -1,5 +1,7 @@
 # B2/B3 execution disposition (2026-07-23)
 
+> **Tier: T2 — provenance/handoff.** Dated execution/handoff record; not current canonical guidance.
+
 **Tier:** T2 (decision / provenance). Records the first model execution of the B2/B3 drivers, the
 control-layer defects it surfaced, and the four owner decisions taken in response. Companion to the
 execution handback (`return_to_planner.json`, `B2_B3_execution_report.md`, `proposed_control_fixes.patch`,

@@ -1,5 +1,7 @@
 # Pre-registration — causal acceptor-address transplantation into L3H1 (donor-graph experiment 3)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: FROZEN.** Written before `run_acceptor_address.py` is executed. Every candidate
 definition, readout, intervention, control, and pass/fail threshold below is fixed here and
 imported from `gfmcd.splicing.circuit` / `gfmcd.splicing.address`, not redefined in the

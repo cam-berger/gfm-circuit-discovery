@@ -56,7 +56,7 @@ def main():
     ap.add_argument("--device", default=None)
     ap.add_argument("--gtf", default=DEFAULT_GTF); ap.add_argument("--fasta", default=DEFAULT_FASTA)
     ap.add_argument("--model", default=DEFAULT_MODEL)
-    ap.add_argument("--out", default="results/splicebert_coupling/ic2_feasibility.json")
+    ap.add_argument("--out", default="results/splicebert_coupling/development/ic2_feasibility.json")
     args = ap.parse_args()
     torch.set_grad_enabled(False)
     dev = pick_device(args.device); ad = load_adapter(args.model, dev); task = CouplingTask(ad, batch=args.batch)

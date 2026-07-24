@@ -1,5 +1,7 @@
 # Repository instructions for research agents
 
+> **Tier: T1 — canonical.** Current, authoritative. Read this.
+
 This is a method-first mechanistic-interpretability repository. SpliceBERT is the current worked example; new work should strengthen the transferable methodology or apply it to a real GFM.
 
 ## Read before acting

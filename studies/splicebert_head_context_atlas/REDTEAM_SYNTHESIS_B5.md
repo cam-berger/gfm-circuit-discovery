@@ -1,5 +1,7 @@
 # B5 — The 20 context signals (HCA18): power, not method — 5-lens design red-team synthesis (2026-07-22)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Reviews:** `PREREGISTRATION_B5_CONTEXT_SIGNAL_POWER.md` v1 (DRAFT for pre-compute red-team). Five independent
 adversarial lenses, run BEFORE any compute (the branch schedules **zero model forward passes** — pure
 arithmetic over committed JSON). **Outcome: the design is NOT freezable as written, but it is cheaply

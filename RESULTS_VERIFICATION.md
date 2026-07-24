@@ -1,5 +1,7 @@
 # SpliceBERT Circuit Discovery — Results Verification and Formalization
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 > **Historical verification scope:** this audit froze the C1–C26 record on 2026-07-16. The study later
 > added C27–C35 and corrections R21–R24. Use
 > [`studies/splicebert_partner_selection/CLAIMS.md`](studies/splicebert_partner_selection/CLAIMS.md) for

@@ -1,5 +1,7 @@
 # Pre-registration — period-3's computation (thread 2a)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: FROZEN.** Written before `run_period3_computation.py`. The prompt insists we determine
 period-3's computation *before* tracing it. Builds on **C8** (deleting the period-3 clock drives
 donor–acceptor coupling 0.946→0.027 and costs coding-exon MLM 0.159 nats vs 0.042 in introns)

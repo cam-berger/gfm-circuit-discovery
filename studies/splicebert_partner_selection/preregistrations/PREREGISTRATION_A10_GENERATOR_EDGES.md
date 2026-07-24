@@ -1,5 +1,7 @@
 # Pre-registration — A10: head-level edges of the acceptor generator (donor-graph experiment 14)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: FROZEN.** Written before `run_a10_generator_edges.py` runs. Reuses the A8 value-path metric
 (address held clean, reconstruct-inject) + A6/A7 scrub. No new kernel. Pre-run corrections logged
 inline as `**Amendment (YYYY-MM-DD, pre-run, no data seen).**`.

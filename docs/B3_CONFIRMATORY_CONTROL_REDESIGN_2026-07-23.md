@@ -1,5 +1,7 @@
 # B3 confirmatory control redesign — health + MF2 (SIGNED OFF, pre-committed)
 
+> **Tier: T2 — provenance/handoff.** Dated execution/handoff record; not current canonical guidance.
+
 **Status: OWNER-SIGNED-OFF 2026-07-23 (pre-run).** The owner approved the reserved decisions —
 **D-4(ii)** fixed margin-gap-band fallback, **D-1** M8-floor amendment + mandatory R-h2 positive-control,
 **D-7(i)** authorize one verification-level re-run. The frozen B3 prereg is reconciled onto this branch and

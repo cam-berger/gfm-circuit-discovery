@@ -1,5 +1,7 @@
 # Pre-registration — A4: is L2H15's address contribution absolute or relative position? (donor-graph experiment 8)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: FROZEN.** Written before `run_a4_address_geometry.py` runs. Imported from
 `gfmcd.splicing.provenance` (position-embedding clamp) / `address` / `circuit`. Pre-run corrections
 logged inline as `**Amendment (YYYY-MM-DD, pre-run, no data seen).**`.

@@ -1,5 +1,7 @@
 # Pre-registration — A12: backward-pruned faithfulness–size curve (donor-graph experiment 16)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: FROZEN.** Written before `run_a12_faithfulness_size.py` runs. Cam's redesign (deferred from
 the A6 discussion — forward greedy is ill-identified at F≈0; **prune from the full model** instead).
 Reuses A6's behaviour-level faithfulness scrub (`patch_heads`/`clamp_write`/`clamp_embed`). No new

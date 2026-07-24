@@ -1,5 +1,7 @@
 # PREREGISTRATION — B1: ≈10.63 carrier past attention (closes/bounds C12) — v2 (SPLIT-FREEZE)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: EXECUTED 2026-07-22** — both arms run on the SpliceBERT.1024nt checkpoint; full results in the
 **"## Execution results"** section at the foot of this file, in [`../DECISIONS.md`](../DECISIONS.md), and in
 CLAIMS **C37** (which bounds C12, donor-scoped). Headline: the OV arm is a clean **A-null** (the carrier's 9

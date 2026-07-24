@@ -1,5 +1,7 @@
 # Open tracks, expanded — mechanistic-interpretability method + biological grounding
 
+> **Tier: T2 — provenance/handoff.** Dated execution/handoff record; not current canonical guidance.
+
 **Tier:** T2 (decision aid / provenance). Date 2026-07-22. Companion to `CLAIM_TRIAGE_2026-07-22.md`.
 This expands the five open tracks (B1–B5) with (a) the exact mech-interp intervention each needs and how it
 extends the instrument you already have, and (b) the biological phenomenon each connects to. External

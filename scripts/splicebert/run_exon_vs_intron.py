@@ -69,7 +69,7 @@ def main() -> None:
     ap.add_argument("--gtf", default="/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz")
     ap.add_argument("--fasta", default="/Users/cberg/Research/data/genomes/hg38.fa")
     ap.add_argument("--model", default="data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt")
-    ap.add_argument("--out", default="results/splicebert_coupling/exon_vs_intron.json")
+    ap.add_argument("--out", default="results/splicebert_coupling/development/exon_vs_intron.json")
     args = ap.parse_args()
 
     import torch

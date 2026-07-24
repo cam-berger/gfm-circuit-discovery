@@ -1,5 +1,7 @@
 # Claim ledger — Head–Context Atlas
 
+> **Tier: T1 — canonical.** Current, authoritative. Read this.
+
 One row per claim or retraction. Do not delete superseded rows. Every status change cites an immutable
 artifact or a dated `DECISIONS.md` entry. IDs are `HCA*` to stay disjoint from the donor-circuit `C*`.
 

@@ -1,5 +1,7 @@
 # Open / bounded claim triage — what to close, what to explore
 
+> **Tier: T2 — provenance/handoff.** Dated execution/handoff record; not current canonical guidance.
+
 **Tier:** T2 (provenance / decision aid). Date 2026-07-22. Inputs: `studies/splicebert_partner_selection/CLAIMS.md`
 (C1–C36, IC1), `studies/splicebert_head_context_atlas/CLAIMS.md` (HCA1–HCA22), and the preregistration
 disposition index. This is a decision aid; wording changes are applied in the controlling ledgers, not here.

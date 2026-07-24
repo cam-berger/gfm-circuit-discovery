@@ -1,5 +1,7 @@
 # Figure 5 — Nucleotide-invariant surgery confirms phase-aligned P3 use
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **A.** Mean donor–acceptor coupling under local shifts of the learned period-3 position component.
 Shifts `{3,6,9}` preserve modulo-3 register; adjacent offsets move it off register. Off-register surgery
 reduces coupling only when applied inside CDS blocks, not under the identical upstream-intron control.

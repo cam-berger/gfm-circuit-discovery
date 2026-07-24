@@ -1,5 +1,7 @@
 # PREREGISTRATION — B2: Payload semantics (closes headline limitation C30) (v1)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: NOT FROZEN — the 5-lens design red-team (2026-07-22) adjudicated this draft FIXABLE_THEN_RUNNABLE (survivor=NO).**
 See [`../redteam/REDTEAM_SYNTHESIS_B2.md`](../redteam/REDTEAM_SYNTHESIS_B2.md). The SEMANTICS arm that would actually
 close C30 is NON-IDENTIFIABLE on a frozen checkpoint at MPS budget — a one-sided positive search re-running the exact

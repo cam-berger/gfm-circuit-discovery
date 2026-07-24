@@ -95,7 +95,7 @@ def main() -> None:
     ap.add_argument("--model", default=DEFAULT_MODEL)
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--force", action="store_true")
-    ap.add_argument("--out", default="results/splicebert_coupling/a4_address_geometry.json")
+    ap.add_argument("--out", default="results/splicebert_coupling/superseded/a4_address_geometry.json")
     args = ap.parse_args()
 
     out = REPO / args.out

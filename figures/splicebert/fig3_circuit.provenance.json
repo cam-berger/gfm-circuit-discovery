@@ -1,20 +1,20 @@
 {
-  "git_commit": null,
+  "git_commit": "0bdaa1c6834e8a6259b2e1e47bcd0c33e9791e3c",
   "sources": [
     {
-      "path": "/Users/cberg/Research/projects/test/GFM_SpliceBERT_Circuit_Discovery_Implementation/gfm_splicebert_implementation/results/splicebert_coupling/position_profile.json",
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_coupling/position_profile.json",
       "sha256": "c27b21ee109dd17cb28b67487fb4d2e3057fc6a818b83805bc0738dab55a4de0"
     },
     {
-      "path": "/Users/cberg/Research/projects/test/GFM_SpliceBERT_Circuit_Discovery_Implementation/gfm_splicebert_implementation/results/splicebert_coupling/readout_path.json",
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_coupling/readout_path.json",
       "sha256": "37cb3860f70b190dcc740e097fb840953079d0693277767776332f0b2ed30aae"
     },
     {
-      "path": "/Users/cberg/Research/projects/test/GFM_SpliceBERT_Circuit_Discovery_Implementation/gfm_splicebert_implementation/results/splicebert_coupling/l2_accounting.json",
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_coupling/l2_accounting.json",
       "sha256": "3902b1bc9a7ca6ae5d852db63c3a80789f6c24d062a2163b0103e34a2f2c6f35"
     },
     {
-      "path": "/Users/cberg/Research/projects/test/GFM_SpliceBERT_Circuit_Discovery_Implementation/gfm_splicebert_implementation/results/splicebert_coupling/completeness_null.json",
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_coupling/completeness_null.json",
       "sha256": "7d23d0eb500af98aa942087214da3f6dc8ed7988dbb4b997e46dd5075af935f7"
     }
   ]

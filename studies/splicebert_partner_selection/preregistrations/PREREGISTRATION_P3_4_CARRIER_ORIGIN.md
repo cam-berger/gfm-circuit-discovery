@@ -1,5 +1,7 @@
 # PREREGISTRATION — P3.4: what general computation created the period-3 carrier? (v1)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: NOT FROZEN — the 4-lens design red-team (2026-07-18) found this design NOT freezable as written.**
 See `REDTEAM_SYNTHESIS_P3_4.md`. Three lenses returned `fatal`: **(1)** origin↔usage intent drift — a
 frozen-checkpoint ΔL measures what the carrier is *used for*, not the training *origin* the intent claims;

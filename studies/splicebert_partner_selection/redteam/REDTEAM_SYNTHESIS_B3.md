@@ -1,5 +1,7 @@
 # B3 CROSS-EXAMPLE TRANSDUCTION — 5-lens design red-team synthesis (2026-07-22)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Reviews:** `../preregistrations/PREREGISTRATION_B3_CROSS_EXAMPLE_TRANSDUCTION.md` v1 (DRAFT, not
 frozen). Five independent adversarial lenses, run BEFORE any confirmatory compute (formalize-audit-verify
 step 2). **Outcome: the design is NOT freezable as written — but the scientific target IS identifiable and

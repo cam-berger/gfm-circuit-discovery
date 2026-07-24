@@ -1,5 +1,7 @@
 # CLAUDE.md — agent entry point & project core
 
+> **Tier: T1 — canonical.** Current, authoritative. Read this.
+
 Concise orientation for an agent session. Canonical detail lives elsewhere (linked below); this file
 aggregates **what the project is, where it stands, and where it's going** so you don't have to
 reconstruct it each session.

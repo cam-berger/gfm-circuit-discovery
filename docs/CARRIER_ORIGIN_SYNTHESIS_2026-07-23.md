@@ -1,5 +1,7 @@
 # Carrier origin — convergence vs idiosyncrasy synthesis
 
+> **Tier: T1 — canonical.** Current, authoritative. Read this.
+
 **Tier:** T1 (canonical & live). Date 2026-07-23. Controlling claims: C39, C40 (with C8, C12, C36, C37)
 in [`studies/splicebert_partner_selection/CLAIMS.md`](../studies/splicebert_partner_selection/CLAIMS.md);
 correction history R25 in

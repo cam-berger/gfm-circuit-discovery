@@ -1,5 +1,7 @@
 # SpliceBERT corrections and full historical claim record
 
+> **Tier: T1 — canonical.** Current, authoritative. Read this.
+
 This file preserves the complete pre-condensation claim ledger verbatim, including superseded narratives,
 R-number corrections, calibration detail, and the permanent retraction table. It is the provenance record
 for how interpretations changed; it is intentionally dense.

@@ -1,5 +1,7 @@
 # fig_phase_wave — the comb is a cosine, and L0H11 needs two of them
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Files:** `fig_phase_wave.svg` / `.png`
 **Built by:** `scripts/splicebert/make_fig_phase_wave.py` (renders purely from
 `results/phase-lattice/fig_phase_data.json`, so the artwork cannot drift from the result)

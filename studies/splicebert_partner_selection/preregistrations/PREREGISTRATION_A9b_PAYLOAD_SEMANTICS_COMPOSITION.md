@@ -1,5 +1,7 @@
 # Pre-registration — A9b: is the payload LOCAL SPLICE-SITE STRENGTH *net of bulk composition*? (donor-graph 13b)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: FROZEN (2026-07-17), post-estimand-red-team.** Supersedes A9's composition handling (V4 was
 NON-IDENTIFIABLE — 0 matched pairs — so the confound was OPEN). A **5-lens estimand red-team** (before
 any build) established the honest framing and forced this spec. Reuses the A9 interchange + value-path

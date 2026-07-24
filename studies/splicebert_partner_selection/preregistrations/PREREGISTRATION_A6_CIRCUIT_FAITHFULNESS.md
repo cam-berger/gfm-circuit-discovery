@@ -1,5 +1,7 @@
 # Pre-registration — A6: circuit faithfulness, necessity, minimality (donor-graph experiment 10)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: FROZEN.** Written before `run_a6_circuit_faithfulness.py` runs. Imported from
 `gfmcd.circuits.hf_bert` (`patch_heads`, `matched_random_head_sets`) / `gfmcd.splicing.circuit`
 (`clamp_write`, `capture_writes`, `mlm_health`, `ratio_of_means`, `gboot_ratio`) /

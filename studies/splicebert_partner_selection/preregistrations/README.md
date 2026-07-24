@@ -1,5 +1,7 @@
 # Preregistration index
 
+> **Tier: T2 — provenance.** Index/infrastructure record.
+
 These files preserve the protocols as they existed before their target outcomes were interpreted. Their
 internal `FROZEN` labels describe the protocol state at execution time; this index records the study's
 current disposition. Do not edit a frozen protocol to make it agree with a later result—use the claim,

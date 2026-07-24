@@ -1,5 +1,7 @@
 # PREREGISTRATION — B3: Cross-example transduction (the generalization gap) (v1)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: NOT FROZEN — the 5-lens design red-team (2026-07-22) adjudicated this draft FIXABLE_THEN_RUNNABLE (survivor=NO).**
 See [`../redteam/REDTEAM_SYNTHESIS_B3.md`](../redteam/REDTEAM_SYNTHESIS_B3.md). Two convergent fatals, both fixable
 (this is NOT a P3.4-style in-principle dead end — the cross-input interchange IS identifiable and MPS-feasible after a

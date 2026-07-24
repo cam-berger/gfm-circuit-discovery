@@ -339,7 +339,7 @@ def main() -> None:
     ap.add_argument("--gtf", default=DEFAULT_GTF)
     ap.add_argument("--fasta", default=DEFAULT_FASTA)
     ap.add_argument("--model", default=DEFAULT_MODEL)
-    ap.add_argument("--out", default="results/phase-lattice/p3_shift_diagnostic_v1.json")
+    ap.add_argument("--out", default="results/phase-lattice/superseded/p3_shift_diagnostic_v1.json")
     ap.add_argument("--smoke", action="store_true")
     args = ap.parse_args()
     torch.set_grad_enabled(False)

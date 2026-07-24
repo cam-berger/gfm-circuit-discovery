@@ -1,5 +1,7 @@
 # Pre-registration — IC2a: which 3′ acceptor-recognition module changes PARTNER-SPECIFIC donor coupling?
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: DRAFT — RETIRED (2026-07-22; formerly NOT PURSUED). DO NOT red-team, pilot, or freeze.** The acceptor-competition arc this draft fed into is closed: the compact IC2 study it deferred to is itself retired (2026-07-22), and the partner-specific **competition** premise was refuted by the Head–Context Atlas (HCA4/HCA10). The spine is period-3 present-day-use (done) → transfer to a second GFM, not further proximal-module subdivision. Preserved for provenance only; no outcome may be claimed. See `../DECISIONS.md` 2026-07-22.
 Cam redirected the arc away from further proximal-region subdivision toward the compact **acceptor-
 competition** study (`PREREGISTRATION_IC2_ACCEPTOR_COMPETITION.md`), and then to transfer to a second GFM

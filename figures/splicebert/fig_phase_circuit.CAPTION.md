@@ -1,5 +1,7 @@
 # fig_phase_circuit — the donor–acceptor circuit, and the clock that addresses it
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Files:** `fig_phase_circuit.svg` / `.png`
 **Built by:** `scripts/splicebert/make_fig_phase_circuit.py` (renders purely from
 `results/phase-lattice/fig_phase_data.json`)

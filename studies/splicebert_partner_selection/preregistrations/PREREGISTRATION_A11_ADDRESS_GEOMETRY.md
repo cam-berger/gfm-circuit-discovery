@@ -1,5 +1,7 @@
 # Pre-registration — A11: is the address absolute or relative? (donor-graph experiment 15; A4 redesign)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: FROZEN.** Written before `run_a11_address_geometry.py` runs. Redesign of the confounded A4
 (`DECISIONS_A0.md`: A4 clamped ISOLATED-token position embeddings → inconsistent position field →
 `S_A` collapsed). A11 uses a **consistent GLOBAL `position_ids` shift** with a **mandatory

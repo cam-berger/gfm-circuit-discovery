@@ -37,34 +37,34 @@ DEFAULT_REDTEAM = (
 
 DEVELOPMENT_ARTIFACTS = {
     "development_cds_cohort": (
-        "results/phase-lattice/p3_phase_surgery_development_cohort_n120_20260721.json"
+        "results/phase-lattice/development/p3_phase_surgery_development_cohort_n120_20260721.json"
     ),
     "development_non_cds_cohort": (
-        "results/phase-lattice/p3_phase_surgery_non_cds_development_cohort_20260721.json"
+        "results/phase-lattice/development/p3_phase_surgery_non_cds_development_cohort_20260721.json"
     ),
     "development_context_match": (
-        "results/phase-lattice/p3_phase_surgery_context_match_development_v2_20260721.json"
+        "results/phase-lattice/development/p3_phase_surgery_context_match_development_v2_20260721.json"
     ),
     "development_preflight": (
-        "results/phase-lattice/p3_phase_surgery_preflight_development_n61_20260721.json"
+        "results/phase-lattice/development/p3_phase_surgery_preflight_development_n61_20260721.json"
     ),
     "development_preflight_analysis": (
-        "results/phase-lattice/p3_phase_surgery_preflight_analysis_development_n61_20260721.json"
+        "results/phase-lattice/development/p3_phase_surgery_preflight_analysis_development_n61_20260721.json"
     ),
     "development_controls": (
-        "results/phase-lattice/p3_phase_surgery_controls_development_n30_20260721.json"
+        "results/phase-lattice/development/p3_phase_surgery_controls_development_n30_20260721.json"
     ),
     "development_controls_analysis": (
-        "results/phase-lattice/p3_phase_surgery_controls_analysis_development_n30_v2_20260721.json"
+        "results/phase-lattice/development/p3_phase_surgery_controls_analysis_development_n30_v2_20260721.json"
     ),
     "development_health_cds": (
-        "results/phase-lattice/p3_phase_surgery_health_cds_development_n61_20260721.json"
+        "results/phase-lattice/development/p3_phase_surgery_health_cds_development_n61_20260721.json"
     ),
     "development_health_non_cds": (
-        "results/phase-lattice/p3_phase_surgery_health_non_cds_development_n49_20260721.json"
+        "results/phase-lattice/development/p3_phase_surgery_health_non_cds_development_n49_20260721.json"
     ),
     "development_context_analysis": (
-        "results/phase-lattice/p3_phase_surgery_context_difference_development_n33_20260721.json"
+        "results/phase-lattice/development/p3_phase_surgery_context_difference_development_n33_20260721.json"
     ),
 }
 

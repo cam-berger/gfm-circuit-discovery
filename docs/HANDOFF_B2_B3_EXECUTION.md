@@ -1,5 +1,7 @@
 # Handoff — execute B2/B3 (payload steering + cross-example transduction)
 
+> **Tier: T2 — provenance/handoff.** Dated execution/handoff record; not current canonical guidance.
+
 **Tier:** T2 (execution handoff / provenance). Date 2026-07-23. Branch: `p3-closure-confirmatory`.
 Companion to `CLAIM_TRIAGE_2026-07-22.md`, `OPEN_TRACKS_EXPANDED_2026-07-22.md`, and the B2/B3
 preregistrations under `studies/splicebert_partner_selection/preregistrations/`.

@@ -1,5 +1,7 @@
 # B1 execution & integration handoff (2026-07-22)
 
+> **Tier: T2 — provenance/handoff.** Dated execution/handoff record; not current canonical guidance.
+
 Tier: **T2 provenance / handoff**. Not a claim ledger. For whoever runs B1 from the main checkout and
 consolidates the carrier branch. Design of record: `preregistrations/PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR_V2.md`
 (SPLIT-FREEZE); re-audit: `redteam/REDTEAM_SYNTHESIS_B1_V2.md`.

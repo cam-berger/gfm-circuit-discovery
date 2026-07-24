@@ -1,5 +1,7 @@
 # Pre-registration — A1a: token-vs-position decomposition of the embedding-resident targeting difference
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: FROZEN.** Written before `run_a1_token_position.py` is executed. Every cell, readout,
 reference, and threshold is fixed here and imported from `gfmcd.splicing.provenance` /
 `address.py`. Pre-run corrections are logged inline as

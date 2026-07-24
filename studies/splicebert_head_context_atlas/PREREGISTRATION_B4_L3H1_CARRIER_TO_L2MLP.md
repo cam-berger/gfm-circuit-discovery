@@ -1,5 +1,7 @@
 # PREREGISTRATION — B4: L3H1/carrier -> L2MLP bridge (HCA20 residual) (v1)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: NOT FROZEN — the 5-lens design red-team (2026-07-22) adjudicated this draft DEFER (survivor=NO).**
 See [`REDTEAM_SYNTHESIS_B4.md`](REDTEAM_SYNTHESIS_B4.md) (same directory). NON-IDENTIFIABLE on a frozen post-LN
 checkpoint (verified across three convergent lenses), like P3.4. The only carrier-deletion primitive edits the whole

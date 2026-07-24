@@ -123,7 +123,7 @@ def main() -> None:
     ap.add_argument("--gtf", default=DEFAULT_GTF); ap.add_argument("--fasta", default=DEFAULT_FASTA)
     ap.add_argument("--model", default=DEFAULT_MODEL)
     ap.add_argument("--smoke", action="store_true"); ap.add_argument("--force", action="store_true")
-    ap.add_argument("--out", default="results/splicebert_coupling/a9_payload_semantics.json")
+    ap.add_argument("--out", default="results/splicebert_coupling/superseded/a9_payload_semantics.json")
     args = ap.parse_args()
     torch.set_grad_enabled(False)
 

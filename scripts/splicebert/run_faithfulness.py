@@ -84,7 +84,7 @@ def main() -> None:
     ap.add_argument("--gtf", default=DEFAULT_GTF)
     ap.add_argument("--fasta", default=DEFAULT_FASTA)
     ap.add_argument("--model", default=DEFAULT_MODEL)
-    ap.add_argument("--scan", default="results/splicebert_coupling/ablation_scan.json")
+    ap.add_argument("--scan", default="results/splicebert_coupling/development/ablation_scan.json")
     ap.add_argument("--out", default="results/splicebert_coupling/faithfulness.json")
     args = ap.parse_args()
 

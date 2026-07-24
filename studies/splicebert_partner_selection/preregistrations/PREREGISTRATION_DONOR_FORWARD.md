@@ -1,5 +1,7 @@
 # Pre-registration — the forward arm: does L3H1 deliver U_info? (donor-graph 1b)
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Status: FROZEN.** Written before `run_donor_forward.py` is executed. Definitions import from
 `gfmcd.splicing.circuit` and reuse the anchor's `U_info`; no threshold below is revisable by the
 run. Builds on **C16** (`PREREGISTRATION_DONOR_ANCHOR.md`): the coupling is carried by a low-rank

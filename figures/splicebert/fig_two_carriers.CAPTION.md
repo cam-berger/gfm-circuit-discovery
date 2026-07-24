@@ -1,5 +1,7 @@
 # fig_two_carriers — SpliceBERT's position table carries two clocks
 
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
 **Files:** `fig_two_carriers.svg` / `.png`
 **Built by:** `scripts/splicebert/make_fig_two_carriers.py`
 **Data:** `results/phase-lattice/second_carrier.json` (from `run_second_carrier.py`) +
