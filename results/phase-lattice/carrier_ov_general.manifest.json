@@ -1,0 +1,49 @@
+{
+  "command": [
+    "scripts/splicebert/run_carrier_ov_general.py",
+    "--n",
+    "120"
+  ],
+  "config": {
+    "SESOI_G": 0.01,
+    "carrier_bins": [
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100
+    ],
+    "heads": [
+      "L2H6",
+      "L3H13",
+      "L3H3",
+      "L3H8",
+      "L3H9",
+      "L3H5",
+      "L4H13",
+      "L2H12"
+    ],
+    "n": 120
+  },
+  "created_at_utc": "2026-07-24T00:15:58.692613+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 17724,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "c12:carrier_ov_general",
+  "git_commit": "71158454492440a01d0cc264b7c35939410d269f",
+  "git_dirty": true,
+  "inputs": [],
+  "notes": [
+    "C12 general-OV bounded read: value main (simple DI-DD) on the GENERAL MLM output at the \u224810.63 readers vs the period-3 router-null scale. Owner: run cheap then close C12. Diagnostic; no general-NLL (MPS-wall); within-intervention (R24)."
+  ],
+  "outputs": [],
+  "seeds": {
+    "PYTHONHASHSEED": 0
+  },
+  "status": "A_null_carrier_readers_route_not_write_general_output"
+}
