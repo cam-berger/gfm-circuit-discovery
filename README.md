@@ -90,6 +90,7 @@ The reusable study template is under
 - `scripts/splicebert_head_context_atlas/` — Atlas census, screening, mechanism, merge, and audit workflows.
 - `src/gfmcd/adapters/` — model access and hook interfaces.
 - `src/gfmcd/circuits/` — reusable circuit-analysis primitives.
+- `src/gfmcd/crossmodel/` — cross-model carrier-origin assays (RNA-FM / RNA-BERT / DNABERT-2; C39/C40).
 - `src/gfmcd/splicing/` — SpliceBERT-specific assays, competition logic, and cohort utilities.
 - `results/splicebert_coupling/`, `results/phase-lattice/`, and
   `results/splicebert_head_context_atlas/` — immutable results, compact matrices, manifests, and audits.
@@ -103,14 +104,14 @@ preserved in Git history rather than restored to the active tree.
 
 ## Document tiers
 
-Roughly 130 markdown documents accumulated across the study's history, and several of them cover
+Over 160 markdown documents accumulated across the study's history, and several of them cover
 overlapping ground. Nothing is deleted or merged: the superseded narratives are part of the record. Instead
 every document carries a tier banner immediately under its title, so a reader can tell at a glance whether
 it is current guidance or a retained record.
 
 | Tier | Meaning | Where it is used |
 |---|---|---|
-| **T1 — canonical** | Current, authoritative. Read this. | This file, `MECHANISM.md`, `REPRODUCE.md`, the `docs/` method set, each study's `CLAIMS.md`, each `results/**/RESULTS_INDEX.md`, and the figure READMEs. |
+| **T1 — canonical** | Current, authoritative. Read this. | This file, `CLAUDE.md`, `AGENTS.md`, `MECHANISM.md`, `REPRODUCE.md`, the `docs/` method set, each study's `CLAIMS.md`, each `results/**/RESULTS_INDEX.md`, and the figure READMEs. |
 | **T2 — provenance** | Supporting record: preregistrations, decision logs, correction ledgers, audits. | `CORRECTIONS.md`, `DECISIONS*.md`, `preregistrations/`, `redteam/`, `RESULTS_VERIFICATION.md`, review and audit documents, study-level narratives and run reports. |
 | **T3 — historical** | Superseded or point-in-time; retained for the record. Not current guidance. | Documents whose own text marks them superseded or archived, dated one-off plans and handoffs, and captions for figures that are no longer figures of record. |
 

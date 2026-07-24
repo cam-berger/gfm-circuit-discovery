@@ -189,7 +189,8 @@ rationale in `DECISIONS_A0.md`):
 
 ## Environment & running
 
-- Conda env **`gfm-thrust1`**: `conda run -n gfm-thrust1 python scripts/splicebert/run_<exp>.py ...`
+- Environment (**uv is canonical**; see `REPRODUCE.md`): `uv run python scripts/splicebert/run_<exp>.py ...`.
+  Historical runs used the conda env `gfm-thrust1`, retained as execution provenance only.
   (DNABERT-2/SpliceBERT load + unpadding gotchas are handled in `src/gfmcd/`). `maxentpy 0.0.4` (from
   github kepbod/maxentpy) is installed for A9/A9b's MaxEntScan (tables sha256 `8b6d7b46…b7c00`).
 - Model: SpliceBERT.1024nt, post-LayerNorm BERT-MLM (6L×16H, hidden 512), **absolute learned position

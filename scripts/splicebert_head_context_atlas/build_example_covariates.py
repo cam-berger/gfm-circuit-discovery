@@ -7,8 +7,8 @@ context (CDS/exon membership from the GTF), and packet geometry (within-window p
 period-3 phase). Distance/topology/cluster_size are already in the matrix.
 
 Determinism: the cohort is regenerated with the SAME loader/config as the run, then intersected with the
-matrix's example_ids (the memorial: every matrix example must be reproducible). Run under gfm-thrust1 with
-PYTHONHASHSEED=0.
+matrix's example_ids (the memorial: every matrix example must be reproducible). Run with `uv run python`
+and PYTHONHASHSEED=0 (historical runs used the conda env gfm-thrust1).
 
 Out: example_covariates.jsonl (one row per example_id), joinable to the matrix by example_id.
 """
