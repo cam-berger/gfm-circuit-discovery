@@ -160,3 +160,45 @@ A pure bookkeeping pass to close administrative loose ends; nothing was run. Fou
   outcome may be claimed from either.
 
 These are lifecycle closures, not retractions — no new R-number is warranted; the empirical record is unchanged.
+
+## 2026-07-23 — Tier-1 closure: G1 EXECUTED (C41), C12 terminal, C30 closed-bounded
+
+The last substantive SpliceBERT loop was executed off the `tier1-handoff` brief
+(`docs/TIER1_HANDOFF_2026-07-23.md`), owner-authorized at the freeze checkpoint.
+
+- **G1 — cross-example transduction of the donor-side delivered state → C41: GENERIC READOUT AXIS
+  (confirmatory).** The G1 prereg's real estimand is the **A5/C26 final-residual U_info patch** (not a
+  B3-style L3H1 value-path fork), injected cross-example on the audited **Head–Context Atlas donor cohorts**
+  (`run_g1_cross_example_transduction.py`; a new Atlas→CouplingExample adapter; MPS-trivial because the arm×dose
+  grid is head-only on the bit-exact `cls` readout). Pipeline: pre-flight GO → smoke PASS → H_dev pilot →
+  PAR/PERP decomposition → **4-lens design red-team** (`redteam/REDTEAM_SYNTHESIS_G1.json`:
+  FIXABLE_THEN_RUNNABLE, survivor=YES, 0 FATAL) → **all 9 must-fixes folded in + re-validated** → FROZEN prereg
+  (FREEZE ADDENDUM) → confirmatory on the sealed `H_conf` (8 resampled-source draws) → adversarial re-derivation
+  (**RESULT_STANDS_WITH_CAVEATS**). **Result:** transfer is real, dose-monotone (β=0.27), content-dependent
+  (REAL≫RANDOM +0.62, ≫SCRAMBLE +0.68) but the example-specific part does **not** beat a gene-generic axis
+  (Δ_spec=−0.33, point-stable across draws SD 0.023), and — the load-bearing red-team fix — the example-specific
+  off-axis component is **causally inert for the donor margin** in the linear regime (τ_PERP=0.00 [−0.015,+0.010],
+  ~78% of the state by norm), while the generic-aligned component carries the whole transfer. Modal 6/8 GENERIC
+  (5/8 under the prereg-literal M6; the RANDOM floor is noisy, τ→0.14 in 2/8 — disclosed), 0/8 TRANSDUCING. SELF
+  reproduces C26 (0.86). **Scope (F4/R24):** bounds ONLY the C16/C26 final-residual state via additive injection
+  through the short-source rank-8 U_D; does NOT bound C17/C18/C23 addressing/routing. A material scope correction
+  + a positive mechanistic statement, coherent with C26's 0.970 overlap. The design red-team's most important fix
+  was the **R22 draws**: the first cut used `n_src==|src_all|` so every "seeded draw" reused the same sources
+  (identical U_D) — the exact A9/C30 blind spot; the fix resamples sources with replacement so each draw derives
+  an independent U_D/s̄, and the stability certification then genuinely passes.
+- **C12 → terminal.** Owner chose "run the cheap general-OV read, then close." `run_carrier_ov_general.py`
+  (`carrier_ov_general.json`): the ≈10.63 readers' value-main-write onto the **general MLM output** is a bounded
+  null (relative logit change ≈0.002–0.003, below the period-3 router-null 0.0043; no head fires) — the carrier
+  routes but does not write, at the donor readout (C37) or generally. With origin corpus-attributed (C39/C40),
+  C12 is closed-bounded/terminal on the frozen checkpoint. DIAGNOSTIC (not a preregistered equivalence); the
+  powered general-NLL branch stays MPS-wall-deferred.
+- **C30 → closed-bounded.** Owner chose to close rather than run B2. The B2 close-attempt was 5-lens red-teamed
+  **survivor=NO** — the semantics arm is non-identifiable on a frozen checkpoint at MPS budget (re-runs the R22
+  failure; its direction is an R20-re-entry position/distance axis). Permanent: payload acceptor-local +
+  preregistered bulk composition excluded (A9b); semantic identity needs training-time/external-assay evidence.
+  Retired-term guard: "splice-site strength" stays withdrawn.
+
+These are executions + lifecycle closures with one new confirmatory row (C41); no retraction. **Provenance/hygiene:**
+run in this worktree with `data/models` symlinked from the main checkout (gitignored). Executor return record:
+`return_to_planner_tier1.json`; one-page report: `G1_REPORT.md`. Commits held on the branch pending a GitHub
+credential (push blocked per the handoff).

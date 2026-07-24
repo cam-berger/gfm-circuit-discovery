@@ -2,13 +2,63 @@
 
 > **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
 
-**STATUS: DRAFT — NOT FROZEN, NOT RUN. Requires owner review and freeze before any compute.**
+**STATUS: FROZEN 2026-07-23 (owner-authorized) — confirmatory pending on the sealed H_conf split.**
+Design red-team (4-lens) DONE and its 9 must-fixes folded into the runner; discovery/H_dev MDE gate DONE;
+tunables sealed from the H_dev pilot. See the FREEZE ADDENDUM immediately below. The original draft text
+that follows is preserved as the design of record; where the addendum resolves a *(to be sealed)* /
+*(owner)* item, the addendum governs.
 
-Nothing in this document has been executed. No cohort has been built, no residual captured, no threshold
-sealed from a pilot. Every number below marked *(to be sealed)* is a placeholder that a discovery pilot
-must fix before freeze. Numbers taken from existing artifacts are cited to their claim/artifact and are
-inputs, not results of this study. A design red-team (house 4-lens) and a discovery-split MDE gate are
-preconditions for freeze, not optional.
+---
+
+## FREEZE ADDENDUM (2026-07-23) — resolutions, red-team fixes, sealed values
+
+**Red-team of record:** `redteam/REDTEAM_BRIEF_G1.md` + `redteam/REDTEAM_SYNTHESIS_G1.json` — house 4-lens
+adversarial design red-team on the concrete design + H_dev pilot. Disposition **FIXABLE_THEN_RUNNABLE,
+survivor=YES, 0 FATAL, 9 must-fix**. All 9 folded into `scripts/splicebert/run_g1_cross_example_transduction.py`
+(its `RED-TEAM FIXES` docstring block, F1–F9) and re-validated (smoke PASS; H_dev pilot re-run clean).
+
+**The load-bearing identification fix (F1, the crux).** The pilot Δ_spec = τ(REAL) − τ(MEAN) < 0 is
+substantially a *norm-wastage denoising* signature (a single high-variance source vs its low-variance
+population mean), NOT by itself proof the example-specific content is uninformative. The **parallel/perp
+decomposition** is added as the adjudicator and **gates the GENERIC verdict**: decompose s_j into s_∥ (along
+the generic axis ŝ̄) + s_⊥ (orthogonal, example-specific); inject s_⊥ **alone at low α = 0.25** (linear
+regime — `margin_hard` saturates at α=1, P3.3) vs a norm-matched random-perp control, with its own M8 OOD
+gate. **s_⊥ sub-SESOI ⇒ off-axis example content is causally inert for the donor margin ⇒ GENERIC;
+s_⊥ restoring ⇒ example-specific transduction survives.** H_dev result: `PERP_MATCHED = −0.013
+[−0.042,+0.017]` ⊂ ±SESOI (inert), `PAR_NAT = +0.187` (carries the transfer).
+
+**Scope of any null (F4 / R24).** A GENERIC / NO-TRANSDUCTION verdict bounds ONLY the **C16/C26 delivered
+FINAL-RESIDUAL state**, via **additive** injection through the **short-source rank-8 U_D**. It does NOT bound
+C17 (routing), C18 (transporters), or C23 (address+payload joint) — the estimand intervenes on none of them —
+nor earlier-layer or non-additive example-specificity. Verdict labels carry the `_C16C26_finalresidual`
+suffix to enforce this. This does not contradict C26; it is C26's interventional corollary.
+
+**§11 owner-decision resolutions.** (1) **Δ_spec is primary**, understood post-red-team as denoising-confounded
+and adjudicated by the PERP arm (the ROADMAP-literal "above matched-random" reads positive but is the
+C16/C26-anticipated result). (2) **Additive** injection (algebra+empirics: additive ≡ component-replacement
+at α=1 SELF to 3.7e-9). (3) **`SESOI_spec = 0.05` normalized SEALED**; scale relation to the 0.05-nat
+absolute floor documented in the runner (with pooled E[coup]≈0.41, 0.05 normalized ≈ 0.02 nat — stricter, so
+the dual `|Δm|≥0.05 nat AND |τ|>0.05` threshold holds); H_dev Δ_spec −0.32 is ≈6× SESOI. (4) **Atlas
+internal-validation targets ONLY**; partner-selection val NOT reused; **sealed chr8/9 NOT opened** (verified
+absent from both Atlas splits). (5) Contexts (G1-E) **DEFERRED ENTIRELY** — the 6-context max-T secondary
+family is not reported until per-context SELF/U_D-fit gating is implemented (red-team Lens3-F2); pooled
+primary unaffected. (6) **Single-pair short-intron sources** (dist∈[60,150]). (7) **No A9 acceptor-side
+re-run**. (8) Red-team **DONE** (this). (9) Tolerances SEALED: **M3 |SELF−0.875|<0.10**, **M8 band
+‖H_inj‖/‖H_cl‖∈[0.5,2.0]**, `--max-src 8`, dose grid endpoints as drawn, low-α = 0.25. (10) CLAIMS wording:
+the C16/C26-scoped GENERIC statement above.
+
+**Confirmatory protocol (frozen).** H_conf (untouched validation half, ~551 genes/1012 packets); **≥8 seeded
+source draws that resample sources WITH REPLACEMENT** (F3 — the old n_src==|src_all| made draws identical, the
+A9/C30 R22 blind spot) with `n_src=200 < |src_all|`; across-draw SD(Δ_spec) reported (instability trigger
+SD > 0.5·SESOI_spec). Global PASS = M1,M2,M3(sealed tol),M4(computed gene-disjoint),M5,M6,M7(per-cohort),
+M8(OOD band),M9(cohort hash) + planted-positive + cross-gene permuted-label FPR. POS_SHAM=0 labeled FORCED
+(F2), excluded from the AND. SRC_SHAM role narrowed to the sham-frac ratio-exclusion (its absolute-τ
+equivalence bar is unreachable at this precision, F8); no-decoy fallback pairs EXCLUDED (not zero-filled).
+
+**Pilot (H_dev) provisional verdict: `GENERIC_READOUT_AXIS_C16C26_finalresidual`** (all gates pass;
+`results/splicebert_coupling/g1_cross_example_transduction_pilot.json`). H_conf confirms or refutes.
+
+---
 
 Motivation of record: `docs/REVIEW_2026-07-22.md` §5; requirement of record: `docs/METHODOLOGY.md:85-88`;
 design of record: `MECHANISM.md` §2 ("Cross-context transduction") and `docs/ROADMAP.md` Track 1.

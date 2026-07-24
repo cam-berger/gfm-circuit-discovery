@@ -1,0 +1,28 @@
+{
+  "command": [
+    "scripts/splicebert/run_g1_cross_example_transduction.py",
+    "--pilot"
+  ],
+  "config": {},
+  "created_at_utc": "2026-07-23T23:52:35.182922+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 9277,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "splicebert_coupling:g1_cross_example_transduction_pilot",
+  "git_commit": "71158454492440a01d0cc264b7c35939410d269f",
+  "git_dirty": true,
+  "inputs": [],
+  "notes": "G1 cross-example transduction of the donor-side delivered state.",
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/tier1-handoff-agent-brief-ff45d6/results/splicebert_coupling/g1_cross_example_transduction_pilot.json",
+      "sha256": "079c293f99238283995e743f4e3245cf454ff7c68b264d4d42c9e4de5979194c",
+      "size_bytes": 13596
+    }
+  ],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

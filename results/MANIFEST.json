@@ -1,16 +1,16 @@
 {
  "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py.",
- "row_count": 770,
+ "row_count": 780,
  "status_counts": {
-  "canonical": 527,
-  "development": 99,
+  "canonical": 531,
+  "development": 105,
   "infrastructure": 12,
   "superseded": 132
  },
  "polarity_counts": {
-  "bounded": 29,
-  "na": 252,
-  "null": 15,
+  "bounded": 30,
+  "na": 260,
+  "null": 16,
   "positive": 470,
   "refutation": 4
  },
@@ -7722,6 +7722,106 @@
    "polarity": "na",
    "artifact": "results/splicebert_coupling/development/b3_cross_example_transduction_smoke.manifest.json",
    "script": "scripts/splicebert/run_b3_cross_example_transduction.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "C41",
+   "status": "canonical",
+   "evidence_level": "OV/mediation",
+   "polarity": "bounded",
+   "artifact": "results/splicebert_coupling/g1_cross_example_transduction.json",
+   "script": "scripts/splicebert/run_g1_cross_example_transduction.py",
+   "manifest": "results/splicebert_coupling/g1_cross_example_transduction.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "C41",
+   "status": "canonical",
+   "evidence_level": "OV/mediation",
+   "polarity": "na",
+   "artifact": "results/splicebert_coupling/g1_cross_example_transduction.manifest.json",
+   "script": "scripts/splicebert/run_g1_cross_example_transduction.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "C41",
+   "status": "development",
+   "evidence_level": "OV/mediation",
+   "polarity": "na",
+   "artifact": "results/splicebert_coupling/g1_cross_example_transduction_pilot.json",
+   "script": "scripts/splicebert/run_g1_cross_example_transduction.py",
+   "manifest": "results/splicebert_coupling/g1_cross_example_transduction_pilot.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "C41",
+   "status": "development",
+   "evidence_level": "OV/mediation",
+   "polarity": "na",
+   "artifact": "results/splicebert_coupling/g1_cross_example_transduction_pilot.manifest.json",
+   "script": "scripts/splicebert/run_g1_cross_example_transduction.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "C41",
+   "status": "development",
+   "evidence_level": "OV/mediation",
+   "polarity": "na",
+   "artifact": "results/splicebert_coupling/g1_cross_example_transduction_decomp.json",
+   "script": "scripts/splicebert/run_g1_cross_example_transduction.py",
+   "manifest": "results/splicebert_coupling/g1_cross_example_transduction_decomp.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "C41",
+   "status": "development",
+   "evidence_level": "OV/mediation",
+   "polarity": "na",
+   "artifact": "results/splicebert_coupling/g1_cross_example_transduction_decomp.manifest.json",
+   "script": "scripts/splicebert/run_g1_cross_example_transduction.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "C41",
+   "status": "development",
+   "evidence_level": "OV/mediation",
+   "polarity": "na",
+   "artifact": "results/splicebert_coupling/g1_cross_example_transduction_smoke.json",
+   "script": "scripts/splicebert/run_g1_cross_example_transduction.py",
+   "manifest": "results/splicebert_coupling/g1_cross_example_transduction_smoke.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "C41",
+   "status": "development",
+   "evidence_level": "OV/mediation",
+   "polarity": "na",
+   "artifact": "results/splicebert_coupling/g1_cross_example_transduction_smoke.manifest.json",
+   "script": "scripts/splicebert/run_g1_cross_example_transduction.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "C12",
+   "status": "canonical",
+   "evidence_level": "OV",
+   "polarity": "null",
+   "artifact": "results/phase-lattice/carrier_ov_general.json",
+   "script": "scripts/splicebert/run_carrier_ov_general.py",
+   "manifest": "results/phase-lattice/carrier_ov_general.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "C12",
+   "status": "canonical",
+   "evidence_level": "OV",
+   "polarity": "na",
+   "artifact": "results/phase-lattice/carrier_ov_general.manifest.json",
+   "script": "scripts/splicebert/run_carrier_ov_general.py",
    "manifest": "",
    "figure": ""
   }
