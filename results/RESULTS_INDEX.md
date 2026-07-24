@@ -59,6 +59,15 @@ same change; the verifier fails otherwise.
 | `splicebert_coupling/` | [`RESULTS_INDEX.md`](splicebert_coupling/RESULTS_INDEX.md) | `studies/splicebert_partner_selection/CLAIMS.md` |
 | `splicebert_head_context_atlas/` | [`RESULTS_INDEX.md`](splicebert_head_context_atlas/RESULTS_INDEX.md) | `studies/splicebert_head_context_atlas/CLAIMS.md` |
 | `splicebert_visualizer/` | [`RESULTS_INDEX.md`](splicebert_visualizer/RESULTS_INDEX.md) | none — export bundle, not a claim artifact |
+| `origin-siblings/` | [`RESULTS_INDEX.md`](origin-siblings/RESULTS_INDEX.md) | `studies/splicebert_partner_selection/CLAIMS.md` (C39) |
+| `origin-crossmodel/` | [`README.md`](origin-crossmodel/README.md) | `studies/splicebert_partner_selection/CLAIMS.md` (C40) |
+
+**Layout convention.** Most trees keep their **canonical artifacts at the directory root**, with
+`development/` and `superseded/` subtrees beside them — the `canonical/`-subdirectory half of the 2026-07-22
+reorg was deliberately not applied, because frozen preregistrations and read-only ledgers name canonical
+artifacts by their current root path (see [`docs/REVIEW_OPEN_QUESTIONS.md`](../docs/REVIEW_OPEN_QUESTIONS.md) §C1).
+The two newest origin trees (`origin-siblings/`, `origin-crossmodel/`) are the exception: they additionally
+use a `canonical/` subdirectory. `results/MANIFEST.csv` classifies every artifact regardless of layout.
 
 `p3_carrier_locus.json` and `p3_av_decomposition.json` sit at the root of this tree and carry C34 and
 C35 respectively; both paths are quoted verbatim in `CLAIMS.md`, `CORRECTIONS.md` and `REPRODUCE.md`.
