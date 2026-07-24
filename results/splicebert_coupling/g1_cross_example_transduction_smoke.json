@@ -1,0 +1,70 @@
+{
+  "calibration": {
+    "permuted_label_fpr_crossgene": 0.0,
+    "permuted_ok": true,
+    "planted_ok": true,
+    "planted_recovery": [
+      0.2254362392951487,
+      0.44320094583420633,
+      0.8188225040340578
+    ],
+    "planted_slope": 0.7854761763301392
+  },
+  "memorials": {
+    "M1_head_readout": 0.0,
+    "M2_zero_dose": 0.0,
+    "M3_reproduction_note": "tight |SELF-0.875|<M3_TOL is gated on the real-cohort pilot/confirmatory verdict; the tiny smoke half is too small for it",
+    "M3_self_suff": 0.7205320873794744,
+    "M3_smoke_ok": true,
+    "M4_gene_disjoint": true,
+    "M5_norm_match": 3.552713678800501e-15,
+    "M9_cohort_hash": "74a631e7f9915356",
+    "checkpoint_unmutated": 0.0,
+    "frac_sham_ok": 1.0
+  },
+  "mode": "smoke",
+  "provenance": {
+    "M4_gene_disjoint": true,
+    "M4_overlap_genes": [],
+    "alpha_linear": 0.25,
+    "arms": [
+      "REAL",
+      "MEAN",
+      "SELF",
+      "RANDOM",
+      "SCRAMBLE",
+      "SRC_SHAM",
+      "POS_SHAM"
+    ],
+    "checkpoint_sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+    "commit": "71158454492440a01d0cc264b7c35939410d269f",
+    "dose_grid": [
+      -1.0,
+      -0.5,
+      -0.25,
+      0.0,
+      0.25,
+      0.5,
+      1.0,
+      1.5
+    ],
+    "draws": 8,
+    "genes_Hconf": 551,
+    "genes_Hdev": 561,
+    "genes_src": 297,
+    "genes_tgt": 1112,
+    "hash_src_genes": "12522557421d2e79",
+    "hash_tgt_genes": "bd8e4f2cc3c71386",
+    "m3_tol": 0.1,
+    "n_Hconf": 1012,
+    "n_Hdev": 1001,
+    "n_src_all": 300,
+    "n_src_per_draw": 200,
+    "n_tgt_all": 2013,
+    "rank_k": 8,
+    "sesoi_abs": 0.05,
+    "sesoi_spec": 0.05,
+    "sesoi_tau": 0.1
+  },
+  "verdict": "SMOKE_PASS"
+}

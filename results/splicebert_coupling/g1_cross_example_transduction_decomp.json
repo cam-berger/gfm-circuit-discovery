@@ -1,0 +1,86 @@
+{
+  "decomp": {
+    "norm_ratios": {
+      "par/sj": 0.5151493691848702,
+      "perp/sj": 0.7811715482735134
+    },
+    "note": "GENERIC AXIS predicts tau_PERP_matched ~ RANDOM floor (example-specific direction non-restoring even at full norm); tau_PAR carries the transfer.",
+    "tau_PAR_matched": {
+      "abs_nat": 0.3727540969848633,
+      "ci": [
+        0.7903736666614278,
+        1.0622415910882872
+      ],
+      "est": 0.9116694644116532
+    },
+    "tau_PAR_natural": {
+      "abs_nat": 0.2918381690979004,
+      "ci": [
+        0.6227801668495986,
+        0.8266903676580167
+      ],
+      "est": 0.7137680497308218
+    },
+    "tau_PERP_matched": {
+      "abs_nat": -0.07277417182922363,
+      "ci": [
+        -0.3249794276119047,
+        -0.04084554727904882
+      ],
+      "est": -0.1779886299079378
+    },
+    "tau_PERP_natural": {
+      "abs_nat": -0.023322639986872673,
+      "ci": [
+        -0.1494125923583475,
+        0.029932041263974456
+      ],
+      "est": -0.05704173216720948
+    },
+    "tau_REAL": {
+      "abs_nat": 0.263109028339386,
+      "ci": [
+        0.5505752138650162,
+        0.750207677473499
+      ],
+      "est": 0.643503211069065
+    }
+  },
+  "mode": "confirm",
+  "provenance": {
+    "arms": [
+      "REAL",
+      "MEAN",
+      "SELF",
+      "RANDOM",
+      "SCRAMBLE",
+      "SRC_SHAM",
+      "POS_SHAM"
+    ],
+    "checkpoint_sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+    "commit": "71158454492440a01d0cc264b7c35939410d269f",
+    "dose_grid": [
+      -1.0,
+      -0.5,
+      -0.25,
+      0.0,
+      0.25,
+      0.5,
+      1.0,
+      1.5
+    ],
+    "genes_Hconf": 551,
+    "genes_Hdev": 561,
+    "genes_src": 297,
+    "genes_tgt": 1112,
+    "n_Hconf": 1012,
+    "n_Hdev": 1001,
+    "n_src_all": 300,
+    "n_tgt_all": 2013,
+    "rank_k": 8,
+    "sesoi_abs": 0.05,
+    "sesoi_spec": 0.05,
+    "sesoi_tau": 0.1
+  },
+  "verdict": "DECOMP_DIAGNOSTIC_no_freeze"
+}

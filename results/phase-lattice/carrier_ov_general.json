@@ -1,0 +1,106 @@
+{
+ "carrier_bins": [
+  94,
+  95,
+  96,
+  97,
+  98,
+  99,
+  100
+ ],
+ "SESOI_G": 0.01,
+ "R_1024_used": [
+  "L2H6",
+  "L3H13",
+  "L3H3",
+  "L3H8",
+  "L3H9",
+  "L3H5",
+  "L4H13",
+  "L2H12"
+ ],
+ "R_1024_dropped_for_budget": [
+  "L3H11"
+ ],
+ "n": 120,
+ "smoke": false,
+ "checkpoint": "SpliceBERT.1024nt sha 2ad91428..0149d",
+ "commit": "7115845",
+ "readout": "relative general-output logit change ||dlogits||/||logits|| at NON-SITE positions",
+ "scope_note": "DIAGNOSTIC bounded read (origin settled C39/C40); general-output complement to the donor-scoped C37 null; within-intervention (R24); NOT a head-local write claim.",
+ "heads": {
+  "L2H6": {
+   "G_mean": 0.0020585505641065537,
+   "ci": [
+    0.001997315797181526,
+    0.002114405686880355
+   ],
+   "writes_general": false
+  },
+  "L3H13": {
+   "G_mean": 0.0023033345147268846,
+   "ci": [
+    0.0022408805005017136,
+    0.0023665224975386923
+   ],
+   "writes_general": false
+  },
+  "L3H3": {
+   "G_mean": 0.002028919498358543,
+   "ci": [
+    0.0019704937090649034,
+    0.0020830701382889426
+   ],
+   "writes_general": false
+  },
+  "L3H8": {
+   "G_mean": 0.0030599475003934154,
+   "ci": [
+    0.0029790830436716045,
+    0.0031358376838315667
+   ],
+   "writes_general": false
+  },
+  "L3H9": {
+   "G_mean": 0.0020675766718341038,
+   "ci": [
+    0.002011123974008908,
+    0.002127347796808142
+   ],
+   "writes_general": false
+  },
+  "L3H5": {
+   "G_mean": 0.0027567578382634867,
+   "ci": [
+    0.0026878957304726394,
+    0.0028246951102985493
+   ],
+   "writes_general": false
+  },
+  "L4H13": {
+   "G_mean": 0.0029723405023105443,
+   "ci": [
+    0.002887688630991697,
+    0.0030567087262816308
+   ],
+   "writes_general": false
+  },
+  "L2H12": {
+   "G_mean": 0.0031558504852000624,
+   "ci": [
+    0.003045918448405944,
+    0.0032511652975453797
+   ],
+   "writes_general": false
+  }
+ },
+ "router_negative_L3H1_period3": {
+  "G_mean": 0.004344903945457191,
+  "ci": [
+   0.004157560658348124,
+   0.004535891092301618
+  ]
+ },
+ "endpoint": "A_null_carrier_readers_route_not_write_general_output",
+ "fired_heads": []
+}
