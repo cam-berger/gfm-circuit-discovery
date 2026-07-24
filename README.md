@@ -6,9 +6,11 @@ This repository develops a disciplined way to discover **how genomic foundation 
 implement biological computations**. The objective is not to catalogue salient activations; it is to
 move from a model-native behavior to a causally supported, explicitly bounded mechanism.
 
-> **Repository state (2026-07-20):** the current scientific record is on
-> `donor-graph-address-payload`, which is **substantially ahead of `master`** and has been pushed for review.
-> Until that branch is merged, the default GitHub view is not the current project.
+> **Repository state (2026-07-24):** the current scientific record is consolidated on `master` — the
+> donor circuit (A0–A12), the period-3 and ≈10.63 carriers, the Head–Context Atlas, cross-example
+> transduction (C38/C41), and cross-model carrier origin (C39/C40). Earlier development branches
+> (`donor-graph-address-payload`, `p3-closure-confirmatory`, `b3-confirmatory-redesign`) are superseded
+> ancestors kept for history.
 
 **SpliceBERT is the first worked example, not the boundary of the project.** The transfer target is a
 second real GFM; Caduceus is the prepared but deferred candidate study.

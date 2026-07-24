@@ -87,7 +87,7 @@ honest architecture null if both local and long-range instruments are certified.
 
 ## Repository milestones
 
-- Merge `donor-graph-address-payload` so the default branch exposes the current record.
+- **Done (2026-07-24):** the current record is consolidated on `master`; keep `master` as the default branch so the repository link exposes the current project.
 - Keep `CLAIMS.md` compact and `CORRECTIONS.md` complete.
 - Use [`../REPRODUCE.md`](../REPRODUCE.md) as the single environment/reproduction entry point.
 - Preserve immutable artifacts and manifests; keep large reproducible shards outside Git.

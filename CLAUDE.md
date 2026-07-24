@@ -207,4 +207,4 @@ rationale in `DECISIONS_A0.md`):
 - `studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A*.md` — frozen protocols per experiment.
 - `scripts/splicebert/run_a*_*.py` — the experiment scripts (reconstruct-inject, scrub, interchange).
 - `src/gfmcd/splicing/`, `src/gfmcd/circuits/` — assays and reusable primitives.
-- Active branch: `donor-graph-address-payload`.
+- Current record branch: `master` (record consolidated 2026-07-24; reconciliation staged on `ultrareview-cleanup-2026-07-24`).
