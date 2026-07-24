@@ -334,7 +334,9 @@ def test_repository_polarity_matches_the_claim_ledger_on_the_non_positive_rows()
 
     C13 is 'established: powered attention null', C14 is the powered refutation of the
     nucleosome bridge, C15 is 'bounded ... do not establish absence', C7/C10/C30/R22/HCA10 are
-    ledger-'bounded', and IC1/HCA4 are nulls. If any of them is ever relabelled as supporting
+    ledger-'bounded', IC1/HCA4 are nulls, C37 is a donor-scoped OV value-write null plus a small
+    suppressive-behaviour bound, C38 is the INCONCLUSIVE cross-example transduction, and C40 is the
+    powered cross-model ABSENCE of both carriers. If any of them is ever relabelled as supporting
     evidence at its rung, this fails.
     """
     expected = {
@@ -358,6 +360,15 @@ def test_repository_polarity_matches_the_claim_ledger_on_the_non_positive_rows()
         "results/splicebert_coupling/ic1_distal_intron_necessity_v8.json": "null",  # IC1
         "results/splicebert_head_context_atlas/specificity_pilot_v1.json": "null",  # HCA4
         "results/splicebert_head_context_atlas/group_head_rerank_valid_donor_v2.json": "bounded",
+        # C37 — the ≈10.63 carrier is donor-scoped: OV value-write null + a small suppressive behaviour
+        "results/phase-lattice/carrier_ov_av.json": "null",  # C37 (OV value-write A-null)
+        "results/phase-lattice/carrier_p10_behaviour_confirm.json": "bounded",  # C37 (small suppressive)
+        # C38 — cross-example transduction content-specificity is INCONCLUSIVE at achieved precision
+        "results/splicebert_coupling/b3_cross_example_transduction_n512.json": "bounded",  # C38
+        # C40 — powered cross-model ABSENCE of both carriers; must never read as positive evidence
+        "results/origin-crossmodel/canonical/carrier_pspectrum.json": "null",  # C40
+        "results/origin-crossmodel/canonical/reader_and_surgery.json": "null",  # C40
+        "results/origin-crossmodel/canonical/reader_freqcontrol.json": "null",  # C40
         "results/splicebert_coupling/sealed_test.json": "positive",  # C1–C4, the contrast
     }
     by_artifact = {r["artifact"]: r["polarity"] for r in vm.read_csv_rows(REPO / "results/MANIFEST.csv")}
@@ -372,7 +383,7 @@ def test_repository_polarity_matches_the_claim_ledger_on_the_non_positive_rows()
 def test_repository_no_null_or_refutation_row_is_recorded_as_positive():
     """The audit finding itself: no artifact whose only ledger claim is a null/refutation/bound
     may sit in the index labelled `positive`."""
-    non_positive_claims = {"C7", "C10", "C13", "C14", "C15", "C30", "R22", "IC1", "HCA4", "HCA10"}
+    non_positive_claims = {"C7", "C10", "C13", "C14", "C15", "C30", "R22", "IC1", "HCA4", "HCA10", "C38", "C40"}
     offenders = []
     for row in vm.read_csv_rows(REPO / "results/MANIFEST.csv"):
         if row["status"] != "canonical":
