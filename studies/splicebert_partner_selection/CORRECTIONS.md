@@ -134,3 +134,39 @@ the word "surgery" is avoided in the cross-corpus/cross-model code and prose for
 **Evidence-ladder placement.** C39/C40 sit at a new column not in the P→Biology ladder above: *corpus
 attribution* (which training corpus builds the feature), below Biology (an independently measured
 biological source/function). Corpus origin is licensed; a biological function for either carrier is not.
+
+## R26 — SEALED §2's illustrative val figures superseded by the frozen gate + artifact (2026-07-24)
+
+**What changed.** `preregistrations/PREREGISTRATION_SEALED.md` §2 (The behaviour) states the val population
+gives **0.973 [0.919, 1.023]** unconditional and **1.386** conditional (a 1.44× inflation). The **frozen §4
+Gate A1** and the controlling artifact `results/splicebert_coupling/sealed_val.json` record **0.958
+[0.855, 1.059]** unconditional and **1.285** conditional (1.34×). The §2 pair matches neither and does not
+reproduce from any artifact; it reads as a pre-freeze / illustrative computation left in the motivation
+section before the sealed cohort was frozen (§2 itself already reconciles an even earlier conditional 1.359,
+R10). **Rule:** cite the artifact values (0.958 unconditional / 1.285 conditional); §2's 0.973/1.386 are
+superseded and must not be quoted as the result. The frozen prereg is retained byte-identical (immutability).
+
+## R27 — A9b primary DML nuisance switched from the preregistered GBR to linear Ridge (2026-07-24)
+
+**What changed.** `PREREGISTRATION_A9b_PAYLOAD_SEMANTICS_COMPOSITION.md` froze the **primary** DML nuisance
+as a shallow **gradient-boosted regressor** ("DML nuisance = sklearn GBR (frozen)"), with linear-Ridge named
+only as the **secondary/robustness** learner. The shipped `run_a9b_payload_semantics_composition.py` makes
+**Ridge the primary** learner (`cv_r2(..., learner="ridge")`; cross-fit residualization uses `"ridge"`)
+because GBR produced **negative out-of-fold R²** on the low-dimensional composition Z (overfit). The choice
+is sound — Ridge is the honest nuisance and was the prereg's named fallback — but it was **data-driven (made
+after inspecting OOF R²) and was not filed as a prereg amendment**. **Rule:** the reported A9b result uses
+Ridge; this switch is disclosed here as a post-hoc deviation, with the GBR arm remaining the robustness
+check the prereg specified. The A9b empirical conclusion — the payload is acceptor-local and NOT explained
+by bulk composition — is unaffected.
+
+## R28 — G1 (C41) planted-positive gate applied as a point check; planted-confound arm not run (2026-07-24)
+
+**What changed.** `PREREGISTRATION_G1_CROSS_EXAMPLE_TRANSDUCTION.md` specified the planted-positive
+sensitivity gate as **PASS iff τ is monotone in β AND the fitted slope CI covers 1**, and required a
+**planted-confound** arm inside the frozen **Global PASS = AND(...)**. The shipped
+`run_g1_cross_example_transduction.py:463` implements planted-positive as **`monotone AND slope > 0`** — a
+**point check**, not the interval **slope-CI-covers-1** — and the runner contains **no planted-confound
+computation** (only planted-positive). **Rule:** the C41 conclusion (no example-specific transduction of the
+C16/C26 final-residual state; a generic readout axis) is reported at **verification tier** with both gate
+deviations disclosed; a confirmatory G1 requires the interval-form planted-positive gate and the
+planted-confound arm. The frozen prereg and the G1 artifacts are unchanged.
