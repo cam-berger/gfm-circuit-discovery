@@ -110,8 +110,8 @@ it, together with cross-example transduction to show the state is transferable a
 
 ## Bridge 2 — the period-3 carrier and codon 3-periodicity
 
-**Evidence level reached: behaviour, for the carrier's present-day *role*. Origin: candidate only,
-unproven.**
+**Evidence level reached: behaviour, for the carrier's present-day *role*. Origin: corpus-attributed
+(C39/C40, R25) — multi-species and codon-linked; training *dynamics* still deferred.**
 
 Use this three-part formulation exactly, in this order:
 
@@ -175,9 +175,10 @@ this circuit is positional addressing, not reading-frame encoding.
   [`PREREGISTRATION_P3_4_CARRIER_ORIGIN.md`](../studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_P3_4_CARRIER_ORIGIN.md),
   explicitly **not frozen**).
 
-**First missing bridge:** training-time evidence — checkpoint trajectories, controlled retraining or a
-carrier-penalized objective, corpus/objective ablations, or cross-model comparison. No frozen-checkpoint
-experiment can settle origin.
+**First missing bridge:** training *dynamics* — checkpoint trajectories, controlled retraining, or a
+carrier-penalized objective. The *corpus* origin is already attributed by the frozen-checkpoint sibling and
+cross-model natural experiments (C39/C40, R25); what a single frozen checkpoint cannot give is the training
+*trajectory*.
 
 ---
 
@@ -239,5 +240,5 @@ substitute for it.
 | Bridge | Evidence level reached | Licensed statement | First missing bridge |
 |---|---|---|---|
 | **1. L3H1 / donor–acceptor ↔ splice-site pairing, intron definition** | Behaviour + directed causal core (C1–C5, C16–C18, C23, C26; bounded by C27/C33) | A masked donor's score depends causally on its *specific* paired acceptor across a 60–150 nt intron, implemented by an identified structured causal core within an irreducibly distributed computation. This is cross-intron communication of the kind intron definition describes; it is a model computation, not a spliceosome claim. | A matched intron-length series and a determinant analysis (5′/3′SS complementarity, motif strength) under R22-grade multi-draw + dyadic inference; plus cross-example transduction. |
-| **2. Period-3 carrier ↔ codon 3-periodicity** | Role: behaviour (C8, C32, C34, C35, C36). Origin: candidate only, unproven. | Candidate origin = codon-composition periodicity in the coding corpus; proven role = relative-positional routing; origin unproven pending training-time evidence. Phase-independence of the delivered signal (C19) already excludes a reading-frame interpretation. No coding enrichment is claimed — C36's matched contrast was **+0.006 [−0.080, +0.093]**, inconclusive. | Training-time evidence: checkpoint trajectories, controlled retraining or carrier-penalized objective, corpus/objective ablations, or cross-model comparison. Not identifiable on a frozen checkpoint (P3.4 deferred). |
-| **3. ≈10.63 carrier ↔ nucleosome / helical periodicity** | Carrier: routing/attention (C11). Bridge: powered refutation (C14); the human-only ≈10.2 variant closed at attention (C13). Function/origin: open (C12). | The obvious bridge is excluded — the real nucleosomal signal at 10.298 and the model carrier at 10.630 are 0.33 nt apart under a powered assay. The true correlate is unknown. No biological claim is made. | OV content and a qualified behavioural test for the carrier; only then origin. Splice-window phasing cannot arbitrate (resolution, not power — C15). |
+| **2. Period-3 carrier ↔ codon 3-periodicity** | Role: behaviour (C8, C32, C34, C35, C36). Origin: corpus-attributed (C39/C40, R25). | Corpus origin attributed = codon-linked, multi-species (absent in the human-only sibling and in ORF-free ncRNA models, C39/C40); proven role = relative-positional routing. Phase-independence of the delivered signal (C19) already excludes a reading-frame interpretation. No coding enrichment is claimed — C36's matched contrast was **+0.006 [−0.080, +0.093]**, inconclusive. | Training *dynamics* only: checkpoint trajectories, controlled retraining, or a carrier-penalized objective. The single-frozen-checkpoint P3.4 ΔL approach is not identifiable (deferred); the *corpus* origin is settled by the sibling/cross-model natural experiments (C39/C40). |
+| **3. ≈10.63 carrier ↔ nucleosome / helical periodicity** | Carrier: routing/attention (C11). Bridge: powered refutation (C14); the human-only ≈10.2 variant closed at attention (C13). Function: open (C12; C37 donor-scoped OV null). Corpus origin: attributed (C39/C40, R25). | The obvious bridge is excluded — the real nucleosomal signal at 10.298 and the model carrier at 10.630 are 0.33 nt apart under a powered assay. The true biological correlate is unknown. No biological claim is made. | General OV content and a qualified behavioural test for the carrier remain open; the *corpus* origin is already attributed (C39/C40), a biological correlate is not. Splice-window phasing cannot arbitrate (resolution, not power — C15). |
