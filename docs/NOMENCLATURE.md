@@ -47,6 +47,17 @@ Two phrases carry a caveat that a skimming reader would otherwise miss. Use them
    must be in the **same sentence**. A reader must never be able to skim the two numbers and conclude
    that the model found nucleosome positioning.
 
+## Units convention
+
+The donor–acceptor **coupling** and the patching/restoration effects on it (`C`, `ΔC`, `Ψ_C`, the +0.87
+sealed effect, the `R_xfer`/`R_C` recoveries) are **raw MLM logit-differences** — the native masked-donor
+margin `logit(G) − max(A,C,T)` — i.e. **logit units**, not nats. The label **"nats"** is correct only for
+(a) **masked-base cross-entropy damage** (e.g. exon-vs-intron masked-base damage +0.170 vs +0.032 nats), a
+genuine per-base NLL, and (b) verbatim quotation of a **frozen preregistered threshold**. Where a ledger row
+or frozen record labels a coupling/margin quantity "nats", read it as the logit-difference it measures; those
+records are not rewritten (immutability), but **live prose should say "logit units" for coupling and reserve
+"nats" for cross-entropy damage**.
+
 ## Retirement records are not to be scrubbed
 
 Retired and withdrawn terms **must remain** where they are recorded as retired: in

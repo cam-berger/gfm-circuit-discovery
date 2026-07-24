@@ -64,7 +64,7 @@ circuit sizes `k ∈ {.001, .002, .005, .01, .02, .05, .1, .2, .5, 1}` (Mueller 
 
 **This project's A12 result already is that object, and should be reported as such.**
 `results/splicebert_coupling/a12_faithfulness_size.json` records held-out faithfulness with gene-bootstrap
-CIs at 17 circuit sizes over a 103-node graph: 90% of the effect requires about **72 of 103** nodes (50% → 34,
+CIs at 17 circuit sizes over a 103-node graph: 90% of the effect requires about **72 of 103** nodes (grid-resolution — the sampled sizes bracket the 90% crossing to (64, 72]; 50% → 34,
 80% → 56, 95% → 80), and the curve is gradual, with **no knee** (C33).
 
 The no-knee shape is the headline, not a caveat. It is a positive empirical statement about the model, not a
@@ -81,8 +81,9 @@ Two reporting rules follow.
    CPR/CMD sense together with the size grid and the node granularity, since both change the number. This
    project's grid is node counts on a 103-node graph, not MIB's fractional-of-model grid, so values are not
    directly comparable to MIB leaderboard numbers without recomputation on their grid.
-2. **Name the ranking procedure.** A12's ordering is a static backward removal rank, which is an upper bound
-   on the minimal faithful set at each faithfulness level; a true lazy-greedy re-ranking could shave nodes.
+2. **Name the ranking procedure.** A12's shipped runner computes a static backward-removal rank, whereas the
+   preregistration specified an iterative greedy search; the static rank is an upper bound on the minimal
+   faithful set at each faithfulness level, and a true lazy-greedy re-ranking could shave nodes.
    That caveat is recorded with the claim and must travel with any area summary derived from the curve.
 
 ### Relation to causal scrubbing

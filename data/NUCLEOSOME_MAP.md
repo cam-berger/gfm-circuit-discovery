@@ -35,7 +35,7 @@ sits at **197,195,276**, against **mm9 chr1 = 197,195,432** (mm10 chr1 = 195,471
 
 Using an mm10 FASTA would shift every dyad by a build-dependent, position-dependent offset —
 a *silent* corruption that would look exactly like positional jitter, and would attenuate the
-10.67-nt signal by `exp[−½(2πσ/T)²]` without ever raising an error. **The reference is
+≈10.298-nt nucleosomal signal by `exp[−½(2πσ/T)²]` without ever raising an error. **The reference is
 `/Users/cberg/Research/data/genomes/mm9.fa`.**
 
 ## ⚠️ TRAP 2 — the chromosomes are RENUMBERED, and 20/21/22 are not autosomes

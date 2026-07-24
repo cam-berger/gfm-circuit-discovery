@@ -18,10 +18,11 @@ Two framing tools recur, so state them once:
   rungs; "OV/mediation" = the OV rung. This is why "stops at attention" (C11/C12) is a precise, principled
   boundary, not a vague one — you have characterized the carrier's QK behavior and have simply not yet
   measured its OV.
-- **Necessity vs. sufficiency are not symmetric** (Heimersheim & Nanda, "How to use and interpret activation
-  patching", arXiv:2404.15255, 2024; Zhang & Nanda, ICLR 2024). Noising a component (corrupt→clean removed)
+- **Necessity vs. sufficiency are not symmetric.** Noising a component (corrupt→clean removed)
   tests necessity; denoising (clean→corrupt restored) tests sufficiency. They can disagree, and the metric +
-  corruption choice changes the answer. You already respect this (your reconstruct–inject factorial, your
+  corruption choice changes the answer (Zhang & Nanda, ICLR 2024). *(Per `docs/REFERENCES.md`, an explicit
+  necessity-vs-sufficiency framing was **not** verified in Heimersheim & Nanda 2024, so it is not attached to
+  that reference here.)* You already respect this (your reconstruct–inject factorial, your
   size-matched nulls); the tracks below should keep both arms.
 
 ---

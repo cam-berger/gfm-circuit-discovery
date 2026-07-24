@@ -1,6 +1,8 @@
 # fig_two_carriers — SpliceBERT's position table carries two clocks
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+> **Tier: T3 — historical.** Superseded caption: uses the retired `D22–D25` numbering and pre-consolidation
+> `10.67`/`10.69` labels for what is now the **≈10.63 carrier**. Retained for the record; not current guidance.
+> Live wording is governed by [`docs/NOMENCLATURE.md`](../../docs/NOMENCLATURE.md) and `figures/splicebert/README.md`.
 
 **Files:** `fig_two_carriers.svg` / `.png`
 **Built by:** `scripts/splicebert/make_fig_two_carriers.py`

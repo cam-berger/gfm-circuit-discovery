@@ -63,7 +63,8 @@ claimed to be the smallest sufficient set.
 That distinction is empirical, not rhetorical. The small hand-built circuit is necessary but has
 faithfulness `F≈0.005` when the complement is scrubbed; the clean circuit outputs are sufficient when
 injected, but the sparse circuit cannot regenerate those outputs alone. A held-out size curve reaches
-90% faithfulness only near 72/103 nodes and has no knee. Static ranking gives an upper bound on the
+90% faithfulness only near 72/103 nodes (grid-resolution; the sampled sizes bracket the 90% crossing to
+(64, 72]) and has no knee. Static ranking gives an upper bound on the
 smallest faithful set, so **minimality remains unclaimed**.
 
 ## Strongest supported interpretation
@@ -153,3 +154,10 @@ The core behavior is established for one SpliceBERT checkpoint, canonical intern
 strands, and the recorded gene splits. It is a model mechanism, not a direct claim about spliceosome
 biochemistry or transcript abundance. Generalization requires the transduction and cross-model tests
 above.
+
+**Units.** Coupling and its patching/restoration effects are raw MLM logit-differences (logit units); "nats"
+denotes masked-base cross-entropy damage only. See [`docs/NOMENCLATURE.md`](docs/NOMENCLATURE.md).
+
+**Two scope facts.** The acceptor-payload arc (A9/A9b, C30) ran entirely on the **validation** split and never
+opened the sealed chr8/9 test. **No external biological assay** enters the study at any point — no RNA-seq, no
+measured junction usage, no PSI; every result is model-internal.

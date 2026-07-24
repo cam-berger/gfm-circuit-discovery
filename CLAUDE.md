@@ -131,7 +131,7 @@ rationale in `DECISIONS_A0.md`):
     within this intervention L3H1's values are not carrier-dependent — **R24**: NOT a global "carrier does not
     build the payload" claim). The carrier's coupling contribution routes through L3H1's **attention address
     (where it looks), not carrier-dependent changes in its values** — the routing-carrier picture, causally.
-    Plumbing anchors EXACT 0.0. `Δ_bind`=+0.14/+0.16 CI-positive but **architecture-forced (R23) — reported, not
+    `Δ_bind`=+0.14/+0.16 CI-positive but **architecture-forced (R23) — reported, not
     interpreted** (pre-run red-team foresight confirmed). `results/p3_av_decomposition.json`.
   - **Deferred:** D_rec **recognition** (needs a strong-motif pseudo-site decoy study; decoys sparse);
     **construction-vs-binding** (non-identifiable, R23); **P3.4 origin** (separate, whole-codon/CDS/slots).

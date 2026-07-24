@@ -63,7 +63,7 @@ Four things live near 10 nt, and conflating them has been the central risk of th
 |---|---|---|
 | **Nucleosomal signal** | **10.298** | z = +249, depth 4.9%. Measured **in DNA**, not in the model. |
 | **Multi-species carrier** | **10.630** | 8 post-softmax readers. **Level A.** |
-| **Human-only component** | ≈10.17 | 0 of 14 preregistered readers. **Does not reach Level A.** |
+| **Human-only component** | ≈10.2 (sub-bin ≈10.17) | 0 of 14 preregistered readers. **Does not reach Level A.** |
 | **Kogan splice phasing** | *unresolvable* | Real phenomenon; a 51-nt window has ΔT ≈ 4 nt at T = 10. |
 
 The carrier and the nucleosomal signal differ by **0.33 nt**, and the carrier is fitted to
