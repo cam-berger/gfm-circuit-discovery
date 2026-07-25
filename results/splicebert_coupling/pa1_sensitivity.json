@@ -1,0 +1,150 @@
+{
+  "status": "EXPLORATORY sensitivity ladder L0+L1 -- discovery only, NO verdict",
+  "protocol": "DRAFT_PA1_DONOR_POSITION_SCAN.md SS12B/SS12C (NOT FROZEN)",
+  "config": {
+    "split": "val",
+    "n": 24,
+    "mask_half": 7,
+    "ks": [
+      -6,
+      -5,
+      -4,
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "reader": [
+      3,
+      1
+    ],
+    "acc_offsets": [
+      -3,
+      -2,
+      -1,
+      0
+    ],
+    "device": "mps"
+  },
+  "LEVEL0_query_field": {
+    "native_mean_field": [
+      0.3916,
+      0.48,
+      0.4582,
+      0.3985,
+      0.457,
+      0.4528,
+      0.3753,
+      0.4301,
+      0.4748,
+      0.3783,
+      0.4477,
+      0.4511,
+      0.3155
+    ],
+    "native_argmax_k": -5,
+    "delta_1": {
+      "n": 24,
+      "edited_mean_field": [
+        0.3936,
+        0.4778,
+        0.4439,
+        0.4062,
+        0.4514,
+        0.4358,
+        0.3822,
+        0.4287,
+        0.4516,
+        0.3887,
+        0.4432,
+        0.4262,
+        0.3286
+      ],
+      "edited_argmax_k": -5,
+      "field_dhat_mean": -0.17411063425263337,
+      "field_drho_mean": -2.333776225941241,
+      "total_acc_mass_native": 5.511095533540356,
+      "total_acc_mass_edited": 5.457914210766224
+    },
+    "delta_3": {
+      "n": 24,
+      "edited_mean_field": [
+        0.3817,
+        0.4855,
+        0.4661,
+        0.4009,
+        0.4575,
+        0.4522,
+        0.3652,
+        0.4216,
+        0.4678,
+        0.3697,
+        0.4457,
+        0.448,
+        0.3013
+      ],
+      "edited_argmax_k": -5,
+      "field_dhat_mean": -0.003037199981996516,
+      "field_drho_mean": -1.909101080426127,
+      "total_acc_mass_native": 5.511095533540356,
+      "total_acc_mass_edited": 5.463192323741775
+    },
+    "delta_6": {
+      "n": 24,
+      "edited_mean_field": [
+        0.3605,
+        0.4636,
+        0.4516,
+        0.3784,
+        0.4421,
+        0.4391,
+        0.3495,
+        0.4105,
+        0.4524,
+        0.3582,
+        0.4343,
+        0.4393,
+        0.2951
+      ],
+      "edited_argmax_k": -5,
+      "field_dhat_mean": -0.24846231004094999,
+      "field_drho_mean": -1.4499893806286093,
+      "total_acc_mass_native": 5.511095533540356,
+      "total_acc_mass_edited": 5.274600723889914
+    }
+  },
+  "LEVEL0_note": "A head writes at its QUERY position. If the query field stays pinned at the donor while acceptor attention mass is retained, the fixed write location is ARCHITECTURE-EXPECTED, not an independent discovery -- and the L3H1 transplant (Level 2) measures CAPACITY, not the endogenous algorithm's choice.",
+  "LEVEL1_final_residual_plant": {
+    "0": {
+      "mean_dhat": 4.91088833875787e-09,
+      "frac_within_0p5": 1.0,
+      "mean_drho": 0.0,
+      "PASS": true
+    },
+    "1": {
+      "mean_dhat": 1.1420359772274764,
+      "frac_within_0p5": 0.5416666666666666,
+      "mean_drho": 0.8787564869742418,
+      "PASS": false
+    },
+    "2": {
+      "mean_dhat": 1.1349603282608538,
+      "frac_within_0p5": 0.5416666666666666,
+      "mean_drho": 0.7468826547656798,
+      "PASS": false
+    },
+    "3": {
+      "mean_dhat": 2.249397775683453,
+      "frac_within_0p5": 0.5833333333333334,
+      "mean_drho": 0.31852761567521326,
+      "PASS": false
+    }
+  },
+  "LEVEL1_note": "NEAR-ARCHITECTURE-FORCED: the MLM head is position-shared, so a translated residual delta yields a translated logit delta close to by construction. Validates the scoring + displacement IMPLEMENTATION only. Failure => instrument broken. Success is NOT evidence."
+}

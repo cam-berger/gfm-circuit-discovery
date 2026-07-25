@@ -1,0 +1,230 @@
+{
+  "status": "EXPLORATORY -- fresh gene-disjoint discovery cohort; sealed split NOT opened",
+  "protocol": "DRAFT_PA1_DONOR_POSITION_SCAN.md SS12D (NOT FROZEN)",
+  "config": {
+    "n": 96,
+    "n_genes": 93,
+    "mask": [
+      7,
+      10
+    ],
+    "ks": [
+      -6,
+      -5,
+      -4,
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "deltas": [
+      1,
+      2,
+      3
+    ],
+    "acc_protect": 40,
+    "min_gap": 86,
+    "device": "mps",
+    "gene_disjoint_from": "pa1_pilot (48 genes)"
+  },
+  "primary_statistic": "drho (dhat RETIRED per SS12C)",
+  "native_profile": {
+    "P_at_0": 0.17955499608069658,
+    "peakedness": [
+      0.16496077588655883,
+      0.11641209516478213,
+      0.21691301544973002
+    ]
+  },
+  "arms": {
+    "T1_acceptor_moves_mid": {
+      "prediction": "drho < 0 under donor-query",
+      "by_delta": {
+        "1": {
+          "n": 96,
+          "n_genes": 93,
+          "drho_mean": -2.3496818410635147,
+          "drho_ci95": [
+            -2.5640607499201766,
+            -2.1280089464073697
+          ],
+          "excludes_0": true,
+          "sign": "negative",
+          "median_abs_dP": 0.07811331748962402,
+          "dP_over_peakedness": 0.47352661303764376
+        },
+        "2": {
+          "n": 96,
+          "n_genes": 93,
+          "drho_mean": -2.3322236969608903,
+          "drho_ci95": [
+            -2.5460190195574737,
+            -2.11846163036961
+          ],
+          "excludes_0": true,
+          "sign": "negative",
+          "median_abs_dP": 0.12236329913139343,
+          "dP_over_peakedness": 0.7417720877812852
+        },
+        "3": {
+          "n": 96,
+          "n_genes": 93,
+          "drho_mean": -1.8412171741749148,
+          "drho_ci95": [
+            -1.969849926563658,
+            -1.7019287824164044
+          ],
+          "excludes_0": true,
+          "sign": "negative",
+          "median_abs_dP": 0.07022744417190552,
+          "dP_over_peakedness": 0.4257220772300436
+        }
+      }
+    },
+    "T2_acceptor_moves_third": {
+      "prediction": "drho < 0 under donor-query",
+      "by_delta": {
+        "1": {
+          "n": 96,
+          "n_genes": 93,
+          "drho_mean": -2.044923241794637,
+          "drho_ci95": [
+            -2.2837720056114206,
+            -1.8014499028258641
+          ],
+          "excludes_0": true,
+          "sign": "negative",
+          "median_abs_dP": 0.10500580072402954,
+          "dP_over_peakedness": 0.6365501141692043
+        },
+        "2": {
+          "n": 96,
+          "n_genes": 93,
+          "drho_mean": -2.1282261698583187,
+          "drho_ci95": [
+            -2.371624027492565,
+            -1.8777508661494524
+          ],
+          "excludes_0": true,
+          "sign": "negative",
+          "median_abs_dP": 0.11115747690200806,
+          "dP_over_peakedness": 0.6738418651622339
+        },
+        "3": {
+          "n": 96,
+          "n_genes": 93,
+          "drho_mean": -1.6218819659909212,
+          "drho_ci95": [
+            -1.757881827394815,
+            -1.4874723848802862
+          ],
+          "excludes_0": true,
+          "sign": "negative",
+          "median_abs_dP": 0.07703953981399536,
+          "dP_over_peakedness": 0.46701732214798963
+        }
+      }
+    },
+    "RECIP_donor_moves": {
+      "prediction": "drho > 0 -- POSITIVE CONTROL; if this fails the assay is insensitive",
+      "by_delta": {
+        "1": {
+          "n": 96,
+          "n_genes": 93,
+          "drho_mean": -0.4252219838236299,
+          "drho_ci95": [
+            -0.596842580181991,
+            -0.2351186149815201
+          ],
+          "excludes_0": true,
+          "sign": "negative",
+          "median_abs_dP": 0.41257479786872864,
+          "dP_over_peakedness": 2.5010478742683073
+        },
+        "2": {
+          "n": 96,
+          "n_genes": 93,
+          "drho_mean": -0.5939363368387094,
+          "drho_ci95": [
+            -0.7885866759866833,
+            -0.4011412042030602
+          ],
+          "excludes_0": true,
+          "sign": "negative",
+          "median_abs_dP": 0.4264931082725525,
+          "dP_over_peakedness": 2.5854213280728366
+        },
+        "3": {
+          "n": 96,
+          "n_genes": 93,
+          "drho_mean": 0.08505517262718944,
+          "drho_ci95": [
+            -0.01263124108693662,
+            0.17751053035311995
+          ],
+          "excludes_0": false,
+          "sign": "positive",
+          "median_abs_dP": 0.35320407152175903,
+          "dP_over_peakedness": 2.141139732300074
+        }
+      }
+    },
+    "S2_sham_downstream": {
+      "prediction": "drho <= 0 (nothing moved)",
+      "by_delta": {
+        "1": {
+          "n": 96,
+          "n_genes": 93,
+          "drho_mean": -0.9973921393580184,
+          "drho_ci95": [
+            -1.2337382962535517,
+            -0.7566980347788477
+          ],
+          "excludes_0": true,
+          "sign": "negative",
+          "median_abs_dP": 0.2620581388473511,
+          "dP_over_peakedness": 1.588608791629137
+        },
+        "2": {
+          "n": 96,
+          "n_genes": 93,
+          "drho_mean": -1.0499866208052813,
+          "drho_ci95": [
+            -1.294966839886862,
+            -0.7957346493487932
+          ],
+          "excludes_0": true,
+          "sign": "negative",
+          "median_abs_dP": 0.28484776616096497,
+          "dP_over_peakedness": 1.7267605867521545
+        },
+        "3": {
+          "n": 96,
+          "n_genes": 93,
+          "drho_mean": -2.1723059527318624,
+          "drho_ci95": [
+            -2.362889481482157,
+            -1.9791846165505782
+          ],
+          "excludes_0": true,
+          "sign": "negative",
+          "median_abs_dP": 0.045873939990997314,
+          "dP_over_peakedness": 0.27808998681325414
+        }
+      }
+    }
+  },
+  "verdict": {
+    "statement": "INSENSITIVE -- the reciprocal positive control did not move the profile. T1/T2 are UNINTERPRETABLE; no conclusion about either algorithm.",
+    "recip_positive_control_pass": false,
+    "T1_all_negative_excl0": true,
+    "T2_all_negative_excl0": true,
+    "tier": "EXPLORATORY (discovery split; outcome-aware arc; NOT confirmatory)"
+  }
+}
