@@ -31,9 +31,16 @@ analysis, causal scrubbing, causal tracing, circuit analysis, and steering — a
 question.
 
 Of that family, this repository performs activation and path patching, causal mediation analysis, and
-circuit analysis. It does **not** perform steering, and it does not perform causal scrubbing proper — see
-"Relation to causal scrubbing" below for what the A6/C27 scrub-to-corrupt test does and does not share
-with it. The framework is cited here for the vocabulary it supplies, not as a description of methods run.
+circuit analysis. It does **not** perform *behaviour-directed* steering — no claim in this record rests on
+driving a model behaviour toward a chosen target. The one preregistered site-choice steering study (B2) was
+design-red-teamed, halted at its own smoke gate on first contact with the model, and retired before any
+confirmatory run (`docs/B2_B3_EXECUTION_DISPOSITION_2026-07-23.md`). G1 *does* additively inject a derived
+direction into the final donor residual across a dose grid, but as a sufficiency/specificity test whose
+verdict is **negative** for example-specificity (C41, reported at verification tier — R28/R32), not to
+steer a behaviour. The repository
+also does not perform causal scrubbing proper — see "Relation to causal scrubbing" below for what the A6/C27
+scrub-to-corrupt test does and does not share with it. The framework is cited here for the vocabulary it
+supplies, not as a description of methods run.
 
 The repository's definition of "circuit" (above) restates in that language as:
 
@@ -125,12 +132,23 @@ metric and the corruption method — change which components a study localizes, 
 choices deliberately; Heimersheim & Nanda (2024) give practitioner guidance on what a given patching setup
 licenses as circuit evidence. Both axes are fixed in advance in this project's preregistrations:
 
-- **Corruption is in-distribution and minimal.** The counterfactual is a length-preserving one-base edit to
-  the canonical splice dinucleotide of a real genomic sequence (`src/gfmcd/splicing/perturb.py`). Clean and
-  corrupt inputs are matched real sequence differing at a single base, so patching is defined symmetrically
-  in both directions rather than against a zero, mean, or out-of-distribution baseline.
-- **The metric is continuous.** Effects are measured as the native masked-LM true-pair margin, with NLL
-  alongside (`src/gfmcd/splicing/metrics.py`), not as thresholded accuracy.
+- **Corruption is in-distribution and minimal.** The counterfactual is a length-preserving **dinucleotide
+  substitution**: the partner acceptor's canonical `AG` at `[a−2, a)` (canonicity enforced at cohort build,
+  `src/gfmcd/splicing/coupling.py:347`) is replaced with the real bases `CC` (`CORRUPT_ALT`,
+  `src/gfmcd/splicing/circuit.py:66`, applied by `CouplingTask.pair`; the full alternative sets and the
+  `destroy_acceptor` / `destroy_donor` helpers are at `src/gfmcd/splicing/coupling.py:55-56,119-126`). Every
+  alternative is chosen so that it destroys the canonical motif and cannot create one, and `[MASK]` is never
+  used, because the mask token is off-manifold. Clean and corrupt inputs are otherwise identical real
+  sequence, differing only at that two-base motif, so patching is defined symmetrically in both directions
+  rather than against a zero, mean, or out-of-distribution baseline.
+- **The metric is continuous.** Effects are measured as the native masked-donor margin
+  `logit(G) − max(logit A, C, T)` at the masked donor `G`, in raw MLM logit units — not nats
+  (`CouplingTask.margin`, `src/gfmcd/splicing/circuit.py:131-136`; the frozen equivalent `margin_hard`,
+  `src/gfmcd/splicing/unembed.py:19-22`) — not as thresholded accuracy. There is no trained readout head and
+  no label set, so there is no task to win and nothing to leak. Thresholded accuracy enters only as the
+  non-site masked-prediction health control (`CouplingTask.mlm_health`), and masked-base cross-entropy only
+  as a separate OOD/health diagnostic — or, in the sibling band-deletion natural experiment, as that
+  experiment's own damage metric in nats (C39) — never as the patching effect metric.
 - **Necessity and sufficiency are separate tests.** Ablation-direction and injection-direction results are
   preregistered and reported separately, never combined into a single importance score and never expressed as
   additive fractions (core principles 4 and 6).

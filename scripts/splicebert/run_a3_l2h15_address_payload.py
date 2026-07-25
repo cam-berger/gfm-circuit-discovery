@@ -3,7 +3,8 @@
 
 Frozen protocol: studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A3_L2H15_ADDRESS_PAYLOAD.md.
 
-L2H15 supplies ~0.66 of the donor coupling, ~all through L3H1 (l2_accounting).  Does that flow
+L2H15 supplies +0.661 nats of donor coupling (~48% of the min_effect>=0.3 conditional baseline; R29),
+~all through L3H1 (l2_accounting).  Does that flow
 through L3H1's ADDRESS (attention row A) or its PAYLOAD (values V)?  Reconstruct L3H1's donor output
 A.V with A/V drawn from L2H15-intact vs -ablated runs, inject it (donor only) into the L2H15-ablated
 forward, and read the native coupling rescue.

@@ -38,12 +38,17 @@ correction, and decision ledgers.
 | [`PREREGISTRATION_P3_CLOSURE.md`](PREREGISTRATION_P3_CLOSURE.md) | **complete; clean confirmation** | C36: material phase-aligned P3 use and learned-direction specificity pass; matched coding enrichment is inconclusive. |
 | [`PREREGISTRATION_P3_4_CARRIER_ORIGIN.md`](PREREGISTRATION_P3_4_CARRIER_ORIGIN.md) | **deferred / not frozen** | Frozen-checkpoint design cannot identify training origin; requires training-time evidence. |
 | [`PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR.md`](PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR.md) | **superseded by v2 (design-of-record)** | B1 v1; OV arm non-identifiable as written—needs A-vs-V value isolation. |
-| [`PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR_V2.md`](PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR_V2.md) | **split-freeze (focused re-audit 2026-07-22)** | B1 v2; behavioural arm (coupling→null) FROZEN_RUNNABLE; OV arm (C35 value-main → donor readout, simple `DI−DD`, covariance-matched nulls) design-frozen pending its `--smoke` gate on the main checkout. |
+| [`PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR_V2.md`](PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR_V2.md) | **complete; executed** | B1 v2; both arms ran. Artifacts `../../../results/phase-lattice/{carrier_ov_av,carrier_p10_behaviour_confirm,carrier_preflight_r}.json` (8 `C37` rows in `results/MANIFEST.csv`). C37 is folded into C12 and carries no standalone `CLAIMS.md` row. *Pre-run status, retained: split-freeze after the focused re-audit 2026-07-22 — behavioural arm FROZEN_RUNNABLE, OV arm design-frozen pending its `--smoke` gate.* |
 | [`PREREGISTRATION_B2_PAYLOAD_STEERING.md`](PREREGISTRATION_B2_PAYLOAD_STEERING.md) | **fixable-then-runnable (design red-team 2026-07-22); NOT this-session survivor** | B2; semantics arm non-identifiable at MPS budget—scope C30 out. |
-| [`PREREGISTRATION_B3_CROSS_EXAMPLE_TRANSDUCTION.md`](PREREGISTRATION_B3_CROSS_EXAMPLE_TRANSDUCTION.md) | **fixable-then-runnable (design red-team 2026-07-22); NOT this-session survivor** | B3; object/space + backdoor fatals, fixable v2. |
+| [`PREREGISTRATION_B3_CROSS_EXAMPLE_TRANSDUCTION.md`](PREREGISTRATION_B3_CROSS_EXAMPLE_TRANSDUCTION.md) | **complete; INCONCLUSIVE at achieved precision** | B3 → C38. Artifact `../../../results/splicebert_coupling/b3_cross_example_transduction_n512.json` (8 `C38` rows in `results/MANIFEST.csv`). *Pre-run status, retained: fixable-then-runnable after the design red-team 2026-07-22 — object/space + backdoor fatals, fixed in the v2 design.* |
+| [`PREREGISTRATION_G1_CROSS_EXAMPLE_TRANSDUCTION.md`](PREREGISTRATION_G1_CROSS_EXAMPLE_TRANSDUCTION.md) | **complete; verification tier (FROZEN 2026-07-23, owner-authorized) — NOT confirmatory (R28/R32)** | G1 → C41; generic readout axis on the sealed Atlas `H_conf` split (551 gene-disjoint genes). 8 `C41` rows in `results/MANIFEST.csv`. **Read `../CORRECTIONS.md` R28 with this row:** the planted-positive gate was applied as a point check and the planted-confound arm was not run. |
+| [`EXPLORATORY_P3_SHIFT_DIAGNOSTIC_V1.md`](EXPLORATORY_P3_SHIFT_DIAGNOSTIC_V1.md) | **exploratory; superseded** | Not a confirmatory protocol. Superseded by `PREREGISTRATION_P3_CLOSURE.md` (C36); retained for provenance. |
 
 B4 and B5 are Head–Context-Atlas-study preregs and are tracked there (`../../splicebert_head_context_atlas/`),
 not in this index.
+
+Protocol-vs-code conformance for every family is recorded in
+[`../../../docs/PREREG_CONFORMANCE.md`](../../../docs/PREREG_CONFORMANCE.md).
 
 Current wording is controlled by [`../CLAIMS.md`](../CLAIMS.md); full corrections are in
 [`../CORRECTIONS.md`](../CORRECTIONS.md).

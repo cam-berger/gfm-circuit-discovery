@@ -34,7 +34,20 @@ med, dose = D["mediation"], D["dose"]
 d1 = next(r for r in dose if r["band"] == "period-3" and r["alpha"] == 1.0)
 d0 = next(r for r in dose if r["band"] == "period-3" and r["alpha"] == 0.0)
 exon_dmg, intron_dmg = d1["exon"] - d0["exon"], d1["intron"] - d0["intron"]
-nA = sum(1 for r in D["levelA"]["multispecies"] if r["LEVEL_A"])
+_LEVEL_A = [r for r in D["levelA"]["multispecies"] if r["LEVEL_A"]]
+nA = len(_LEVEL_A)
+
+
+def kept_range(key: str) -> str:
+    """Retention range across the Level-A heads, derived from the artifact.
+
+    These four numbers used to be typed as literals, and one of them drifted: the
+    carrier-deleted row read "40-44%" while the artifact says 27-44% (six of the eight
+    heads are below 40%), contradicting fig4_carrier_circuit and EVIDENCE.md. Deriving
+    them here means the card cannot disagree with its own data package again.
+    """
+    v = [r[key] for r in _LEVEL_A]
+    return f"{min(v) * 100:.0f}-{max(v) * 100:.0f}%"
 ov = D["overlaps"]["p3_vs_carrier"]
 
 c.txt(W / 2, 40, "One position table, two carriers, two very different stories", size=22,
@@ -156,9 +169,9 @@ c.txt(RX - CW / 2, CY - 12, "The carrier is read, and that is all we know", size
       fill=ORANGE, weight="700")
 card(RX - CW / 2, CY, CW, [
     ("Post-softmax readers", f"{nA}"),
-    ("Kept after carrier deleted", "40-44%"),
-    ("Kept after reciprocal band", "89-97%"),
-    ("Kept after content shuffle", "93-107%"),
+    ("Kept after carrier deleted", kept_range("kept_carrier")),
+    ("Kept after reciprocal band", kept_range("kept_reciprocal")),
+    ("Kept after content shuffle", kept_range("kept_shuffled")),
     ("Downstream function", "unknown"),
 ], ORANGE)
 

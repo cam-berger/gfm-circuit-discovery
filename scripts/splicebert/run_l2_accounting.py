@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 """D11 -- WHERE DOES THE REST OF L2H15's EFFECT GO?
 
-L2H15 supplies ~0.72 of coupling.  Restoring L3H1's KEY at the acceptor rescues 0.42 of
+L2H15 supplies +0.661 nats of coupling (baseline 1.384 -> 0.723 ablated, ~48%; R29 -- 0.72 is the
+coupling RETAINED after ablation, not the amount supplied).  Restoring L3H1's KEY at the acceptor rescues 0.42 of
 that, and MLP2's write at the acceptor rescues 0.28.  Roughly 60% is unaccounted for, and
 an unaccounted 60% is not a footnote -- it is the difference between "we have mapped this
 edge" and "we have found one of its strands".

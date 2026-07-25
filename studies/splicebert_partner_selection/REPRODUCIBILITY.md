@@ -4,7 +4,7 @@
 
 The shortest path from a claim to its script and machine-readable artifact for the SpliceBERT donor-circuit
 study (C1–C41 + IC1), covering the full current arc. The authoritative claim ledger is
-[`CLAIMS.md`](CLAIMS.md); correction/retraction history (R1–R28) is in [`CORRECTIONS.md`](CORRECTIONS.md);
+[`CLAIMS.md`](CLAIMS.md); correction/retraction history (R1–R35) is in [`CORRECTIONS.md`](CORRECTIONS.md);
 the machine-checkable claim→file index is [`../../results/MANIFEST.csv`](../../results/MANIFEST.csv)
 (780 rows, all paths resolve; `scripts/verify_manifest.py` passes). Repository-wide environment,
 checkpoint, and data requirements are defined in [`../../REPRODUCE.md`](../../REPRODUCE.md); this file is
@@ -151,7 +151,7 @@ The unanchored spectrum is a calibrated sensitivity limit, not evidence of no bi
 | Claim | Canonical script | Indexed output |
 |---|---|---|
 | C38 acceptor-side payload transfer (bounded / INCONCLUSIVE at val precision) | `run_b3_cross_example_transduction.py` | `SBC/b3_cross_example_transduction_n512.json` (+ base/`_pilot`/`_smoke`) |
-| C41 donor `U_info` state transfer — GENERIC READOUT AXIS (confirmatory on Atlas `H_conf`) | `run_g1_cross_example_transduction.py` | `SBC/g1_cross_example_transduction.json` (+ `_pilot`/`_decomp`/`_smoke`) |
+| C41 donor `U_info` state transfer — GENERIC READOUT AXIS (verification tier on Atlas `H_conf`; not confirmatory — R28/R32) | `run_g1_cross_example_transduction.py` | `SBC/g1_cross_example_transduction.json` (+ `_pilot`/`_decomp`/`_smoke`) |
 
 C41 bounds only the C16/C26 final-residual delivered state via additive rank-8 `U_D` injection; it does
 not bound C17/C18/C23 addressing/routing. See `preregistrations/` §G1 + `redteam/REDTEAM_SYNTHESIS_G1.json`
@@ -161,7 +161,7 @@ and `G1_REPORT.md`.
 
 | Claim | Canonical script | Indexed output |
 |---|---|---|
-| C39 72-species vs human-only sibling P-spectrum + band-deletion coding-specific use | `run_sibling_pspectrum.py`, `run_sibling_carrier_bandtransfer.py`, `run_sibling_validate.py` | `results/origin-siblings/canonical/sibling_pspectrum.json`, `sibling_carrier_bandtransfer.json`, `sibling_validate.json` |
+| C39 72-species vs human-only sibling P-spectrum (established) + band-deletion exon-selective damage pattern (verification level, R33) | `run_sibling_pspectrum.py`, `run_sibling_carrier_bandtransfer.py`, `run_sibling_validate.py` | `results/origin-siblings/canonical/sibling_pspectrum.json`, `sibling_carrier_bandtransfer.json`, `sibling_validate.json` |
 | C40 cross-model powered null (RNA-FM/RNA-BERT) + DNABERT-2 tokenizer aliasing | `scripts/crossmodel/run_carrier_pspectrum.py`, `run_reader_and_surgery.py`, `run_reader_freqcontrol.py`, `run_dnabert2_aliasing.py` | `results/origin-crossmodel/canonical/carrier_pspectrum.json`, `reader_and_surgery.json`, `reader_freqcontrol.json`, `dnabert2_aliasing.json` |
 
 C39/C40 are comparative corpus attribution (a frozen-checkpoint natural experiment), not training

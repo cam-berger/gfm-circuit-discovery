@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 """FAITHFULNESS + COMPLETENESS of the C = {L3H1, L2H15} circuit.
 
+SCOPE — this runner is CURRENT and controls C7. It is not the A6/A12 faithfulness work.
+    C7 (this file) is the early two-node {L3H1, L2H15} faithfulness/completeness measurement.
+    The later, load-bearing faithfulness claims are C27 (`run_a6_circuit_faithfulness.py`, F=0.005,
+    circuit necessary but NON-FAITHFUL) and C33 (`run_a12_faithfulness_size.py`, irreducibly
+    distributed: ~72/103 nodes for 90%, no knee). Cite C27/C33 — not C7 — for "how faithful is the
+    circuit"; note also R21, which retracted the node-cover reading of the A6/A7/A8/A10 memorials.
+
 So far we have shown that the circuit's components are NECESSARY (ablation) and that the
 proposed path MEDIATES the effect (K/V patching, competing-acceptor swaps).  Neither shows
 that the circuit EXPLAINS the behaviour.  "These components matter" and "these components

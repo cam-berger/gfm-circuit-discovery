@@ -65,9 +65,11 @@ without generic MLM damage, with its semantic label no stronger than the externa
    multi-species, codon-linked origin. Only training *dynamics* (the trajectory) still need checkpoint
    series or controlled retraining. See [`CARRIER_ORIGIN_SYNTHESIS_2026-07-23.md`](CARRIER_ORIGIN_SYNTHESIS_2026-07-23.md).
 5. **≈10.63 carrier:** its general downstream write and behavioral function remain open (C12/C37), but its
-   **origin is now corpus-attributed** (C39): strong in 72-species, absent in human-only, and absent from
-   the human genome's own dinucleotide spectrum (≈10.63 is not a human-sequence statistic; the genome's
-   real short-range period is nucleosomal ≈10.298 nt). Multi-species training built it.
+   **origin is now corpus-attributed** (C39): strong in 72-species, absent in human-only, and **not
+   detectable** in the human genome's own dinucleotide spectrum above that unanchored assay's 5–10%
+   modulation floor (a sensitivity limit, not an established absence — R16/C15). The nucleosomal
+   comparator, ≈10.298 nt, is measured in **mouse** ES-cell chromatin (Voong 2016, mm9), not in human;
+   it sits 0.33 nt from the carrier, a powered refutation (R30). Multi-species training built it.
 
 ## Transfer milestone — second real GFM
 

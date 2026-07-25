@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 """Donor-graph experiment 8 -- A4: is L2H15's address contribution absolute or relative position?
 
+SUPERSEDED — retained for provenance, not for reuse.
+    A4's design was redesigned as A11 (`run_a11_address_geometry.py`, survival-gated), and the live
+    address-geometry claim is C32 from A11, not from this runner. `results/MANIFEST.csv` marks this
+    runner's artifact `superseded`. Do not run this to reproduce a live claim; see
+    `preregistrations/PREREGISTRATION_A11_ADDRESS_GEOMETRY.md`.
+
 Frozen protocol: studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_A4_ADDRESS_GEOMETRY.md.
 
 L2H15's contribution to targeting G15 = S_A^intact - S_A^{L2H15-ablated}, where S_A = L3H1's

@@ -46,7 +46,11 @@ SUBSTRATES: dict[str, Substrate] = {
     "splicebert": Substrate(
         "splicebert",
         Provenance.PRETRAINED,
-        hf_id="yangheng/SpliceBERT-510nt",  # community mirror; official weights are chenkenbio/SpliceBERT — verify at load (Phase 1)
+        # Reference id only — NOT the checkpoint this repository measures. Every SpliceBERT result in
+        # this repo is produced from the locally extracted official archive `SpliceBERT.1024nt`
+        # (sha256 2ad91428…0149d), named in configs/splicebert_partner_selection/base.json and loaded
+        # by src/gfmcd/adapters/splicebert.py. `hf_id` is read by nothing on the measurement path.
+        hf_id="chenkenbio/SpliceBERT",  # official weights; the earlier value here was a community mirror of the DIFFERENT 510nt checkpoint
         both_strands=False,
         notes="pre-mRNA, sense strand only: cannot carry Rung 3's cross-strand axis",
     ),

@@ -12,7 +12,7 @@ signal in attention without its **OV output mediating** anything; and none of th
 |---|:--:|:--:|:--:|:--:|:--:|---|
 | **Period 3** | ✓ | ✓ | ✓ | ✓ | ✓ | Distributed relative-positional routing coordinate supporting donor–acceptor coupling |
 | **Donor–acceptor circuit** | — | ✓ | ✓ | ✓ | ✓ | Mechanistic information-routing circuit |
-| **Multi-species ≈10.63** | ✓ | ✓ | ✓ | **?** | **?** | Real positional attention circuit; **function unknown** |
+| **Multi-species ≈10.63** | ✓ | ✓ | ✓ | **null** (donor) | **bounded** (−0.033) | Real positional attention circuit; **not part of the donor circuit**; general function unresolved |
 | **Human-only ≈10.2** | ✓ | provisional | **failed** | — | null | Does not form the proposed chromatin attention circuit |
 
 ## Reading the four rows
@@ -39,11 +39,17 @@ specificity or biological/training origin.
 it is the computation the clock serves. The donor arrives at L3H1 as content; the acceptor is
 found by address.
 
-**Multi-species ≈10.63** stops at Attention, and the two question marks are the honest state of
-the work. Eight heads read it through the softmax with every control clean (carrier deletion →
+**Multi-species ≈10.63** reaches Attention cleanly, and its OV and Behaviour columns are **measured, not
+blank**. Eight heads read it through the softmax with every control clean (carrier deletion →
 27–44% retained; reciprocal band → 89–97%; low-leak → ~100%; **content shuffle → 93–107%**, the
-positivity check a positional comb must pass). No OV-mediation experiment has been run, and no
-behavioural effect has been demonstrated. **Do not read the three ✓ as four.**
+positivity check a positional comb must pass). Both downstream interventions ran on 2026-07-23 (B1 → C37,
+folded into C12): restoring the readers' carrier-intact values moves the donor coupling margin **below the
+pre-declared `SESOI_v` = 0.02 nats** (`Mv = DI−DD`, −0.009 → +0.013 across nine readers), and deleting the
+carrier moves coupling by only **−0.033 [−0.061, −0.005]** nats — small, *suppressive*, sub-SESOI.
+**Do not read the three ✓ as five**: these are a non-detection and a bound, not positives. Equally, do not
+read them as "no experiment" — and note the scope, because it is narrower than it looks: the preregistered
+`U_info`-projected write test (`S_ov`, `Ω`) and its planted-positive calibration were **never computed**, so
+whether this carrier writes onto the donor readout is **OPEN** (**R31**).
 
 **Human-only ≈10.2** is the row that used to say something else. The carrier is genuinely in the
 table (12.7× median), and 14 QK readers were preregistered on the strength of that — hence

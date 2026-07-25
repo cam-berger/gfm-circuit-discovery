@@ -3,7 +3,7 @@
 > **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
 
 This is the concise scientific narrative for the donor-circuit study. Exact live wording is controlled by
-[`CLAIMS.md`](CLAIMS.md); full superseded narratives and R1–R24 are preserved in
+[`CLAIMS.md`](CLAIMS.md); full superseded narratives and R1–R35 are preserved in
 [`CORRECTIONS.md`](CORRECTIONS.md). The repository-level [`../../MECHANISM.md`](../../MECHANISM.md) is the
 one-file reviewer account.
 
@@ -106,8 +106,11 @@ in CDS blocks, not coding specificity, reading-frame sensing, or training origin
 
 ## 6. Other positional/biological results
 
-The separate multispecies **≈10.63** carrier reaches controlled post-softmax attention in eight heads;
-its OV content, behavior, and biological origin remain unknown. The human-only ≈10.2 proposal yields zero
+The separate multispecies **≈10.63** carrier reaches controlled post-softmax attention in eight heads. Its
+donor-side OV and behavioural arms ran (C37→C12) and returned a sub-SESOI non-detection and a small
+suppressive bound (−0.033 nats), not positives; its **general** OV content and behavioural function remain
+unresolved, its biological origin is corpus-attributed (C39/C40), and the `U_info` write test was never
+computed (R31). The human-only ≈10.2 proposal yields zero
 corrected Level-A heads and stops at attention. A dyad-anchored biological assay finds a real nucleosomal
 signal near **10.298 nt**, sufficiently resolved to distinguish it from ≈10.63.
 

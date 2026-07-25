@@ -33,7 +33,7 @@ For positional mechanisms, the project records five compact columns:
 |---|:--:|:--:|:--:|:--:|:--:|---|
 | Period-3 clock | ✓ | ✓ | ✓ | ✓ | ✓ | Causal support for donor–acceptor routing |
 | Donor–acceptor computation | n/a | ✓ | ✓ | ✓ | ✓ | Directed information-routing circuit |
-| Multi-species ≈10.63 carrier | ✓ | ✓ | ✓ | ? | ? | Real positional attention circuit; purpose unknown |
+| Multi-species ≈10.63 carrier | ✓ | ✓ | ✓ | null (donor coupling) | bounded (−0.033) | Real positional attention circuit, **not** part of the donor circuit. Both interventions ran (C37→C12). General function, general OV content, and biological meaning remain open; the `U_info` write test was never computed (R31). |
 | Human-only ≈10.2 candidate | ✓ | provisional | failed | — | null | Proposed chromatin circuit closed at attention |
 
 The authoritative values and statistical conventions remain in [`figures/splicebert/EVIDENCE.md`](../figures/splicebert/EVIDENCE.md).
@@ -60,11 +60,19 @@ against the corresponding high-level intervention. Read that way:
 The marker semantics, unchanged: a **✓** records that the intervention defining that level was run and the
 component survived it; a **?** records that the defining intervention has **not** been run, so there is no
 evidence in either direction; a **—** records that the level is not applicable or was not entered; **failed**
-or **null** records that the intervention *was* run and the hypothesis was rejected at that level. The
-distinction between **?** and a rejection is load-bearing: the multi-species ≈10.63 carrier stands as a real
-positional attention circuit whose **purpose is unknown**, whereas the human-only ≈10.2 candidate is a
-proposed chromatin circuit **closed at attention**. These are different epistemic states and the table must
-never be read as collapsing them.
+or **null** records that the intervention *was* run and the hypothesis was rejected at that level; a
+**bounded** records that the intervention *was* run and returned a measured **boundary** rather than a
+verdict — a sub-SESOI point estimate, or an equivalence test whose half-width exceeds its margin. A null or
+a bound is a **result, not an absence**; neither is a ✓.
+
+The distinction between **?**, a bound, and a rejection is load-bearing. The human-only ≈10.2 candidate is a
+proposed chromatin circuit **closed at attention** — its defining intervention ran and rejected it. The
+multi-species ≈10.63 carrier no longer illustrates **?**: both its OV and Behaviour interventions ran on
+2026-07-23 (C37, folded into C12), returning a donor-scoped value-write **non-detection** and a small
+*suppressive* sub-SESOI coupling effect. What remains unknown about that carrier is its *general* function
+and biological meaning — and, specifically, whether it writes onto the donor readout `U_info`, which was
+never computed (**R31**) — not whether the experiments exist. These are three different epistemic states and
+the table must never be read as collapsing them.
 
 **Relation to graded faithfulness.** The columns are an ordered record of *which* interventions have been run
 and survived. They are not a faithfulness measurement, and a row of ✓ across all five columns does **not**
