@@ -1,5 +1,10 @@
 """Rival models = the pre-registered shortcut table, made runnable.
 
+RETRACTED v1/v2 SCAFFOLDING — no importers; retained deliberately as negative-result evidence.
+    This module belongs to the retracted v1/v2 partner-selection line, not to the donor-circuit
+    record (A0-A12) or any live claim. It is kept because the shortcut table is the evidence that
+    v1 was unidentified, which is itself a finding. Nothing here should be imported by new work.
+
 v1 died because no such table existed.  Each rival here is an ADVERSARY that tries to
 solve the partner task WITHOUT partner information.  Every one of them must sit at (or
 below) chance on the ``adversarial`` stratum, or the experiment is not identified and

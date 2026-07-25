@@ -12,7 +12,7 @@ stage, and 510-nt length — corpus is the only intended difference). Synthesis:
 | Artifact | What it establishes |
 |---|---|
 | `sibling_pspectrum.json` (+manifest) | Leakage-free P-spectrum of both carriers in all three checkpoints. Corpus contrast: period-3 72-sp 435× vs human-only 6.2× (undetected); ≈10.63 369× vs 2.4× (undetected). Validation gate on the final 1024-nt checkpoint reproduces the known 289×/bin-96 results. Both carriers already present at end of stage-1. |
-| `sibling_carrier_bandtransfer.json` (+manifest) | Band-deletion (carrier-transfer) in the 72-species sibling: period-3 used coding-specifically (exon vs intron damage +0.170 vs +0.032, DiD +0.138; intron health 87.6%), reproducing C8. `verdict_mechanical` = VOID_unhealthy is the R13 gate artifact (exon headroom is the outcome); corrected `verdict` = USED_coding_specific via the intron non-outcome channel. |
+| `sibling_carrier_bandtransfer.json` (+manifest) | Band-deletion (carrier-transfer) in the 72-species sibling: reproduces C8's exon-selective damage pattern (exon vs intron damage +0.170 vs +0.032, DiD +0.138; intron health 87.6%) at **verification level** — add-one p floored at 0.077, `verdict` is a hand-written adjudication over the runner's `VOID_unhealthy` (R33), reproducing C8. `verdict_mechanical` = VOID_unhealthy is the R13 gate artifact (exon headroom is the outcome); corrected `verdict` = USED_coding_specific via the intron non-outcome channel. |
 
 ## development/
 

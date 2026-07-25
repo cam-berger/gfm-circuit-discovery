@@ -80,12 +80,14 @@ hand-placed drawing.
 2. **A learned period-3 positional carrier acts as a distributed relative-positional routing coordinate
    supporting that circuit.** C34/C35 refine the earlier clock figures; its present-day use is supported,
    while training origin remains open.
-3. **A separate ≈10.63 positional carrier forms a genuine attention circuit, but its downstream
-   use, origin, and biological meaning remain unknown.**
+3. **A separate ≈10.63 positional carrier forms a genuine attention circuit. Its donor-side arms were
+   measured and returned boundaries, not positives; its general downstream use and biological meaning
+   remain unresolved, and its origin is corpus-attributed (C39/C40).**
 
 The period-3 and ≈10.63 carrier planes are orthogonal. The period-3 clock has a demonstrated causal
-role in coupling. The ≈10.63 carrier stops at attention; the figures deliberately draw no arrow
-from it to splicing, chromatin, translation, or another behavior.
+role in coupling. The ≈10.63 carrier reaches attention and goes no further on the evidence: its donor-side
+OV and behavioural arms returned a sub-SESOI non-detection and a small suppressive bound (C37→C12, R31), so
+the figures deliberately draw no arrow from it to splicing, chromatin, translation, or another behavior.
 
 ## Retired language
 

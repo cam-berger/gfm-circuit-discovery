@@ -117,7 +117,7 @@ cannot say why training built it, but two published-checkpoint natural experimen
   (band power 435× median) and undetected in the human-only model (6.2×, below a powered noise floor).
   The human-only absence is the surprising part: codon structure exists in human coding sequence, yet
   training on human alone did not build the period-3 code. It is a product of *multi-species* pre-training.
-  In the sibling where it exists, band-deletion confirms it is used coding-specifically (exon vs intron
+  In the sibling where it exists, band-deletion reproduces C8's exon-selective damage pattern (exon vs intron
   masked-base damage +0.170 vs +0.032 nats, DiD +0.138 against an energy-matched-control DiD max +0.005;
   intron-channel health 87.6%), reproducing C8 on a second checkpoint.
 - **Codon-linked, not universal.** In two single-nucleotide transformer MLMs trained on ORF-free ncRNA

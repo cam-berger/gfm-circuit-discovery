@@ -21,9 +21,19 @@ best-of-24 random single head of 4.2%.
 ## The ≈10.63 branch (orange) — a circuit whose purpose is unknown
 
 The ≈10.63 carrier is read through the softmax by **eight heads** that pass every control: the
-pattern collapses when the carrier is deleted (40–44% retained), survives deletion of a
+pattern collapses when the carrier is deleted (27–44% retained), survives deletion of a
 reciprocal band (89–97%) and of a low-leak band (~100%), and survives **content shuffling**
 (93–107%) — which is what a *positional* comb must do, and what a content artefact cannot.
+
+> **Correction (2026-07-24).** This caption and the figure generator both read **40–44%** for the
+> carrier-deleted row. The controlling artifact `results/phase-lattice/fig_report_data.json` gives
+> **27–44%** over the eight Level-A heads (six of the eight are below 40%), which is what
+> `fig4_carrier_circuit.CAPTION.md` and `EVIDENCE.md` have always said. The caption is corrected
+> above and `make_fig1_summary.py` now derives all three retention ranges from the artifact instead
+> of hard-coding them (`tests/test_fig1_summary_ranges.py` pins this).
+> **The committed `fig1_summary.svg`/`.png` still render 40–44% and require regeneration** — they are
+> figures of record cited by `results/MANIFEST.csv`, so that regeneration is a separate, owner-approved
+> step, not part of this correction.
 
 **The branch stops there.** No downstream effect has been demonstrated. There is no arrow from
 it to splicing, to chromatin, or to translation, and the figure must not be read as implying

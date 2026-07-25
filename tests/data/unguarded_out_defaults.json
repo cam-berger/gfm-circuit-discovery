@@ -1,0 +1,286 @@
+{
+ "_README": "Runners whose --out default resolves to a path listed as an artifact in results/MANIFEST.csv. Re-running any of these with defaults would write over the record. The library guard (gfmcd.provenance.guard_output_path) protects ExperimentManifest.write; these runners write their RESULT json by other means and are pinned by manifests, so they are inventoried rather than edited (CORRECTIONS.md R35). tests/test_overwrite_guard.py asserts this inventory does not grow.",
+ "count": 56,
+ "entries": [
+  {
+   "script": "scripts/splicebert/analyze_p3_shift_mod3.py",
+   "out_default": "results/phase-lattice/p3_shift_diagnostic_v2.mod3.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/freeze_p3_phase_surgery_confirmation.py",
+   "out_default": "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_a0_targeting_provenance.py",
+   "out_default": "results/splicebert_coupling/a0_targeting_provenance.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_a10_generator_edges.py",
+   "out_default": "results/splicebert_coupling/a10_generator_edges.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_a11_address_geometry.py",
+   "out_default": "results/splicebert_coupling/a11_address_geometry.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_a12_faithfulness_size.py",
+   "out_default": "results/splicebert_coupling/a12_faithfulness_size.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_a1_token_position.py",
+   "out_default": "results/splicebert_coupling/a1_token_position.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_a2_address_payload.py",
+   "out_default": "results/splicebert_coupling/a2_address_payload.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_a2b_payload_localization.py",
+   "out_default": "results/splicebert_coupling/a2b_payload_localization.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_a3_l2h15_address_payload.py",
+   "out_default": "results/splicebert_coupling/a3_l2h15_address_payload.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_a4_address_geometry.py",
+   "out_default": "results/splicebert_coupling/superseded/a4_address_geometry.json",
+   "manifest_status": "superseded"
+  },
+  {
+   "script": "scripts/splicebert/run_a5_uinfo_replication.py",
+   "out_default": "results/splicebert_coupling/a5_uinfo_replication.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_a6_circuit_faithfulness.py",
+   "out_default": "results/splicebert_coupling/a6_circuit_faithfulness.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_a7_source_localization.py",
+   "out_default": "results/splicebert_coupling/a7_source_localization.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_a8_generator_path.py",
+   "out_default": "results/splicebert_coupling/a8_generator_path.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_a9_payload_semantics.py",
+   "out_default": "results/splicebert_coupling/superseded/a9_payload_semantics.json",
+   "manifest_status": "superseded"
+  },
+  {
+   "script": "scripts/splicebert/run_a9b_payload_semantics_composition.py",
+   "out_default": "results/splicebert_coupling/a9b_payload_semantics_composition.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_ablation_scan.py",
+   "out_default": "results/splicebert_coupling/development/ablation_scan.json",
+   "manifest_status": "development"
+  },
+  {
+   "script": "scripts/splicebert/run_acceptor_address.py",
+   "out_default": "results/splicebert_coupling/acceptor_address.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_b3_cross_example_transduction.py",
+   "out_default": "results/splicebert_coupling/b3_cross_example_transduction.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_carrier_dose.py",
+   "out_default": "results/phase-lattice/carrier_dose.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_carrier_mediation.py",
+   "out_default": "results/phase-lattice/carrier_mediation.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_carrier_ov_av.py",
+   "out_default": "results/phase-lattice/carrier_ov_av.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_carrier_ov_general.py",
+   "out_default": "results/phase-lattice/carrier_ov_general.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_carrier_provenance.py",
+   "out_default": "results/phase-lattice/carrier_provenance.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_carrier_surgery.py",
+   "out_default": "results/phase-lattice/carrier_surgery.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_comb_shift.py",
+   "out_default": "results/phase-lattice/comb_shift.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_completeness_null.py",
+   "out_default": "results/splicebert_coupling/completeness_null.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_donor_anchor.py",
+   "out_default": "results/splicebert_coupling/donor_anchor.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_donor_forward.py",
+   "out_default": "results/splicebert_coupling/donor_forward.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_donor_heads.py",
+   "out_default": "results/splicebert_coupling/donor_heads.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_donor_signature.py",
+   "out_default": "results/splicebert_coupling/donor_signature.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_exon_vs_intron.py",
+   "out_default": "results/splicebert_coupling/development/exon_vs_intron.json",
+   "manifest_status": "development"
+  },
+  {
+   "script": "scripts/splicebert/run_faithfulness.py",
+   "out_default": "results/splicebert_coupling/faithfulness.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_g1_cross_example_transduction.py",
+   "out_default": "results/splicebert_coupling/g1_cross_example_transduction.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_ic1_pilot.py",
+   "out_default": "results/splicebert_coupling/development/ic1_pilot.json",
+   "manifest_status": "development"
+  },
+  {
+   "script": "scripts/splicebert/run_ic1_pilot2.py",
+   "out_default": "results/splicebert_coupling/development/ic1_pilot2.json",
+   "manifest_status": "development"
+  },
+  {
+   "script": "scripts/splicebert/run_ic1_pilot3.py",
+   "out_default": "results/splicebert_coupling/development/ic1_pilot3.json",
+   "manifest_status": "development"
+  },
+  {
+   "script": "scripts/splicebert/run_ic1_pilot4_ood.py",
+   "out_default": "results/splicebert_coupling/development/ic1_pilot4_ood.json",
+   "manifest_status": "development"
+  },
+  {
+   "script": "scripts/splicebert/run_ic2_calibration.py",
+   "out_default": "results/splicebert_coupling/development/ic2_calibration.json",
+   "manifest_status": "development"
+  },
+  {
+   "script": "scripts/splicebert/run_ic2_feasibility.py",
+   "out_default": "results/splicebert_coupling/development/ic2_feasibility.json",
+   "manifest_status": "development"
+  },
+  {
+   "script": "scripts/splicebert/run_l1h12_probe.py",
+   "out_default": "results/splicebert_coupling/l1h12_probe.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_l1h12_route.py",
+   "out_default": "results/splicebert_coupling/l1h12_route.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_l2_accounting.py",
+   "out_default": "results/splicebert_coupling/l2_accounting.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_l2_rescue.py",
+   "out_default": "results/splicebert_coupling/development/l2_rescue.json",
+   "manifest_status": "development"
+  },
+  {
+   "script": "scripts/splicebert/run_localization.py",
+   "out_default": "results/splicebert_coupling/development/localization.json",
+   "manifest_status": "development"
+  },
+  {
+   "script": "scripts/splicebert/run_p3_av_decomposition.py",
+   "out_default": "results/p3_av_decomposition.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_p3_carrier_locus.py",
+   "out_default": "results/p3_carrier_locus.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_p3_shift_diagnostic.py",
+   "out_default": "results/phase-lattice/superseded/p3_shift_diagnostic_v1.json",
+   "manifest_status": "superseded"
+  },
+  {
+   "script": "scripts/splicebert/run_path_decomposition.py",
+   "out_default": "results/splicebert_coupling/development/path_decomposition.json",
+   "manifest_status": "development"
+  },
+  {
+   "script": "scripts/splicebert/run_phase_inventory.py",
+   "out_default": "results/phase-lattice/phase_inventory.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_position_profile.py",
+   "out_default": "results/splicebert_coupling/position_profile.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_qkv.py",
+   "out_default": "results/splicebert_coupling/qkv.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_readout_path.py",
+   "out_default": "results/splicebert_coupling/readout_path.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_sibling_carrier_bandtransfer.py",
+   "out_default": "results/origin-siblings/canonical/sibling_carrier_bandtransfer.json",
+   "manifest_status": "canonical"
+  },
+  {
+   "script": "scripts/splicebert/run_subspace.py",
+   "out_default": "results/splicebert_coupling/development/subspace.json",
+   "manifest_status": "development"
+  }
+ ]
+}

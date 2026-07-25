@@ -19,6 +19,9 @@ models = ["transformers>=4.40", "datasets"]
 splicebert = ["transformers>=4.40", "pyfaidx>=0.8", "scikit-learn>=1.4"]
 genome = ["pyfaidx>=0.8", "numpy"]
 dev = ["pytest", "pytest-xdist"]
+# MaxEntScan scoring (C30/A9, IC1/IC2 pilots, atlas covariates). Not on PyPI; pinned to the exact
+# commit the recorded runs used. See REPRODUCE.md 1.1.
+maxent = ["maxentpy @ git+https://github.com/kepbod/maxentpy.git@b5e69aadd745fcd9ee65c9dd0ff21b902a63a825"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

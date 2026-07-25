@@ -1,0 +1,141 @@
+{
+ "_README": "Known-broken hash pins for the C36 frozen confirmation package, recorded as a LOGGED AMENDMENT (CORRECTIONS.md R34). tests/test_hash_pin_ledger.py asserts the broken set is EXACTLY this list - new drift fails, and silently widening this file is a visible diff.",
+ "package": "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json",
+ "broke_in_commit": "c38e1ba",
+ "amendment": "R34",
+ "entries": [
+  {
+   "path": "studies/splicebert_head_context_atlas/ANALYSIS_AMENDMENT_A1.md",
+   "kind": "atlas-protocol-pin",
+   "pin_field": "analysis_amendment_sha256",
+   "occurrences": 8,
+   "recorded_sha256": "00008afa6747b67a263385f81e2778e5ab235c732460161145dd0e0000e5768b",
+   "current_sha256": "dd10e50c8df3067b61c14d52cdf4ba7e9a4e4af2a1793eef714f09b068863b34",
+   "reason": "additive tier banner inserted at line 3 by commit c38e1ba; protocol content unchanged"
+  },
+  {
+   "path": "studies/splicebert_head_context_atlas/ANALYSIS_PLAN_V1.md",
+   "kind": "atlas-protocol-pin",
+   "pin_field": "analysis_plan_sha256",
+   "occurrences": 13,
+   "recorded_sha256": "21e696e360c259c9a1f7ecd6b09c5447fc5f63b3f1d5251497744f7ce69de5ef",
+   "current_sha256": "1687ef1788aac341d47a83ef17fadf74da61fec9bfdab4f1f2f02e2f47cf83b7",
+   "reason": "additive tier banner inserted at line 3 by commit c38e1ba; protocol content unchanged"
+  },
+  {
+   "path": "studies/splicebert_head_context_atlas/MECHANISM_VALIDATION_AMENDMENT_A1.md",
+   "kind": "atlas-protocol-pin",
+   "pin_field": "mechanism_amendment_sha256",
+   "occurrences": 3,
+   "recorded_sha256": "9c60a92c49d479830e2fecc95798dad397fd9d388f8fac364790fd2cf380967c",
+   "current_sha256": "a0e4e868ad6ac0a62aa13cc7c7defd079378859346fb00805cb6e4f34d92a29c",
+   "reason": "additive tier banner inserted at line 3 by commit c38e1ba; protocol content unchanged"
+  },
+  {
+   "path": "studies/splicebert_head_context_atlas/MECHANISM_VALIDATION_AMENDMENT_A2.md",
+   "kind": "atlas-protocol-pin",
+   "pin_field": "amendment_a2_sha256",
+   "occurrences": 5,
+   "recorded_sha256": "cf118b6169a36681fcfff8ffcfdc36c0291b5dc50f935bd244023ef1ed29ddfa",
+   "current_sha256": "968e3b42ec555cd26dcd21f2832cf7b48ce7b9c06be0f4a466b88405d7166260",
+   "reason": "additive tier banner inserted at line 3 by commit c38e1ba; protocol content unchanged"
+  },
+  {
+   "path": "scripts/splicebert/freeze_p3_phase_surgery_confirmation.py",
+   "kind": "content-drift",
+   "recorded_sha256": "763a04d142e4d2e21eed2901f49cd500bfa39e7b196e7efe47b7bc14b0162b47",
+   "current_sha256": "efdd624740ff2a1cde93d1064a01da26a39f2dc8a0bd31d578bc81c318fd3c0d",
+   "reason": "additive tier banner inserted by commit c38e1ba; content otherwise unchanged"
+  },
+  {
+   "path": "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_P3_CLOSURE.md",
+   "kind": "content-drift",
+   "recorded_sha256": "81186a642a9f583ff6f4fae6bb3e334bf42401d25b2e3c098ba0c6160d560879",
+   "current_sha256": "098ba7254847d17a671fd6c49d655b1edb4d9a3c1e6c55443985a7e3e2af64ce",
+   "reason": "additive tier banner inserted by commit c38e1ba; content otherwise unchanged"
+  },
+  {
+   "path": "studies/splicebert_partner_selection/redteam/REDTEAM_SYNTHESIS_P3_CLOSURE.md",
+   "kind": "content-drift",
+   "recorded_sha256": "17c0afeb8a30bb4a40548f1994d7c43ae67ef1d03db78958155a7c1de7dd022f",
+   "current_sha256": "5afdd871369864affdb8587cd20e88238ea4c1a00161d21ad0018b557ec85948",
+   "reason": "additive tier banner inserted by commit c38e1ba; content otherwise unchanged"
+  },
+  {
+   "path": "results/phase-lattice/p3_phase_surgery_context_difference_development_n33_20260721.json",
+   "kind": "relocated",
+   "recorded_sha256": "72b9ae5324a6262673b3182cb5465e0605358d2edcd38e07f6778777ba17fe2e",
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_context_difference_development_n33_20260721.json",
+   "reason": "git mv into results/phase-lattice/development/ by commit c38e1ba; bytes identical at the new path"
+  },
+  {
+   "path": "results/phase-lattice/p3_phase_surgery_context_match_development_v2_20260721.json",
+   "kind": "relocated",
+   "recorded_sha256": "0bbde7c1f3d54d767f44dc8c0d3552d310d7eea7e7f411baec67a642755a6317",
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_context_match_development_v2_20260721.json",
+   "reason": "git mv into results/phase-lattice/development/ by commit c38e1ba; bytes identical at the new path"
+  },
+  {
+   "path": "results/phase-lattice/p3_phase_surgery_controls_analysis_development_n30_v2_20260721.json",
+   "kind": "relocated",
+   "recorded_sha256": "8496fe48d934fca0ee77a7203d7b442b8a720552e5447a51066d98a257e8683c",
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_controls_analysis_development_n30_v2_20260721.json",
+   "reason": "git mv into results/phase-lattice/development/ by commit c38e1ba; bytes identical at the new path"
+  },
+  {
+   "path": "results/phase-lattice/p3_phase_surgery_controls_development_n30_20260721.json",
+   "kind": "relocated",
+   "recorded_sha256": "c157879e0b8b3834e0e2c737b9820d576fe76123710be18fe322cbe8e7103757",
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_controls_development_n30_20260721.json",
+   "reason": "git mv into results/phase-lattice/development/ by commit c38e1ba; bytes identical at the new path"
+  },
+  {
+   "path": "results/phase-lattice/p3_phase_surgery_development_cohort_n120_20260721.json",
+   "kind": "relocated",
+   "recorded_sha256": "90dce4a161cd1b82b68d8ff1024e9a56cd668d1ddbfea8e7288cc237bb2fa581",
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_development_cohort_n120_20260721.json",
+   "reason": "git mv into results/phase-lattice/development/ by commit c38e1ba; bytes identical at the new path"
+  },
+  {
+   "path": "results/phase-lattice/p3_phase_surgery_health_cds_development_n61_20260721.json",
+   "kind": "relocated",
+   "recorded_sha256": "380dff5388de4e9b2ae926c37bfd34446f0d84d15495cfc62692d42e5d4f0f35",
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_health_cds_development_n61_20260721.json",
+   "reason": "git mv into results/phase-lattice/development/ by commit c38e1ba; bytes identical at the new path"
+  },
+  {
+   "path": "results/phase-lattice/p3_phase_surgery_health_non_cds_development_n49_20260721.json",
+   "kind": "relocated",
+   "recorded_sha256": "321947209efb0288e694e455cb7d7c79117fc5eab89004ba6a3989b34ebc09fd",
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_health_non_cds_development_n49_20260721.json",
+   "reason": "git mv into results/phase-lattice/development/ by commit c38e1ba; bytes identical at the new path"
+  },
+  {
+   "path": "results/phase-lattice/p3_phase_surgery_non_cds_development_cohort_20260721.json",
+   "kind": "relocated",
+   "recorded_sha256": "0df96757711c8da218f3671c5d0643ef06fa81b93e814f78751814da533ab09e",
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_non_cds_development_cohort_20260721.json",
+   "reason": "git mv into results/phase-lattice/development/ by commit c38e1ba; bytes identical at the new path"
+  },
+  {
+   "path": "results/phase-lattice/p3_phase_surgery_preflight_analysis_development_n61_20260721.json",
+   "kind": "relocated",
+   "recorded_sha256": "9a1daefcea5592908c643463dc0b85066f65a7324688510a28106a0685154fd8",
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_preflight_analysis_development_n61_20260721.json",
+   "reason": "git mv into results/phase-lattice/development/ by commit c38e1ba; bytes identical at the new path"
+  },
+  {
+   "path": "results/phase-lattice/p3_phase_surgery_preflight_development_n61_20260721.json",
+   "kind": "relocated",
+   "recorded_sha256": "f1e0dafef59548ce37a461addc127c345786a5213eb2806b2074fae16da6f570",
+   "new_path": "results/phase-lattice/development/p3_phase_surgery_preflight_development_n61_20260721.json",
+   "reason": "git mv into results/phase-lattice/development/ by commit c38e1ba; bytes identical at the new path"
+  }
+ ],
+ "atlas_pin_fields": {
+  "analysis_amendment_sha256": 8,
+  "analysis_plan_sha256": 13,
+  "mechanism_amendment_sha256": 3,
+  "amendment_a2_sha256": 5
+ }
+}

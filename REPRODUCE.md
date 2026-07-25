@@ -12,8 +12,15 @@ From the repository root:
 
 ```bash
 uv sync --extra splicebert --extra dev
-uv run pytest
+uv run --extra splicebert --extra dev pytest
 ```
+
+**Pass the extras on the `uv run` too.** A bare `uv run pytest` re-syncs to the default dependency set
+first, uninstalling `pytest` and `pyfaidx`, and silently reports a smaller suite. The extras form is what
+`.github/workflows/tests.yml` executes and is the only command that reproduces the documented baseline:
+**294 passed, 46 skipped** at `a8aa70d`. All skips are data-gated or optional-dependency; none is a
+failure. (`docs/ULTRAREVIEW_2026-07-24.md` records a different baseline, 305/35, measured on a branch
+with a different working tree; the two have not been reconciled.)
 
 Use `PYTHONHASHSEED=0` for cohort construction and any shuffle or selection path whose manifest declares
 determinism. Use `TOKENIZERS_PARALLELISM=false` for model runs when deterministic, quiet tokenization is
@@ -22,6 +29,16 @@ required.
 Some historical records name the original conda environment `gfm-thrust1`. Those strings are retained
 as execution provenance, not as a second recommended setup. The canonical dependency specification is
 now `pyproject.toml` plus `uv.lock`.
+
+### 1.1 Two dependencies the default environment does not install
+
+| Package | Needed by | How to get it |
+|---|---|---|
+| `maxentpy` 0.0.4 | MaxEntScan scoring: `run_a9_payload_semantics.py` (C30), `run_ic1_pilot2/3.py`, `run_ic2_feasibility.py`, `run_b2_payload_steering.py`, the atlas covariate builders, and `src/gfmcd/splicing/{specificity,splice_landscape}.py` | Not on PyPI. `uv pip install "maxentpy @ git+https://github.com/kepbod/maxentpy.git@b5e69aadd745fcd9ee65c9dd0ff21b902a63a825"` (the commit the recorded runs used). MaxEnt tables sha256 `8b6d7b46…b7c00`. |
+| `multimolecule` 0.2.0 | the three cross-model carrier runners under `scripts/crossmodel/` (C39/C40) | A **separate** environment by design — the runners record `"environment": "gfmcd-mm (conda): python3.11 torch transformers multimolecule0.2.0"` in their manifests. Do not add it to the main env; build the side environment and run those scripts there. |
+
+The library modules import `maxentpy` lazily, so `import gfmcd` works without it; the four runners above
+import it at module level and will fail immediately if it is absent.
 
 ## 2. Model and external data
 
@@ -34,6 +51,46 @@ now `pyproject.toml` plus `uv.lock`.
 Models, FASTA/GTF inputs, and large Atlas runtime shards are not committed. A rerun is comparable only
 when its manifest matches the checkpoint, tokenizer, data hashes, split, parameters, seed, and code
 revision of the controlling artifact.
+
+### 2.1 What you must supply, and where it goes
+
+`data/` is documentation-only in Git (`NUCLEOSOME_MAP.md`). Everything below is yours to provide. The
+repo-relative layout is the one declared in `configs/splicebert_partner_selection/base.json`:
+
+```
+data/
+  models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/   # checkpoint sha256 2ad91428…0149d
+  external/gencode/v50/GRCh38.primary_assembly.genome.fa                   # GENCODE v50 primary assembly
+  external/gencode/v50/gencode.v50.basic.annotation.gtf.gz                 # GENCODE v50 basic
+  processed/splicebert_partner_selection/v1/                               # written by the cohort builders
+```
+
+**Two specs disagree and this is unresolved.** The config above is repo-relative and names
+`GRCh38.primary_assembly.genome.fa`; 62 canonical manifests instead record the absolute
+`/Users/cberg/Research/data/genomes/hg38.fa` plus `gencode.v50.basic.annotation.gtf.gz`, and 33 more
+record a third file, `gencode.v50.annotation.gtf.gz` (comprehensive, not basic). The sequence content of
+hg38 and the GENCODE primary assembly is equivalent for these purposes, but **the basic-vs-comprehensive
+annotation split is not** — check which one a given manifest names before comparing to its artifact.
+
+### 2.2 Two limits on exact reproduction — read before comparing numbers
+
+1. **Code revision is not recoverable for almost every claim.** Of the 93 manifests referenced by
+   canonical `results/MANIFEST.csv` rows, exactly **one** records a revision with a clean working tree
+   (`results/phase-lattice/p3_phase_surgery_confirmation_v1/confirmation_analysis.manifest.json`, C36).
+   66 record a commit with `git_dirty: true`, 21 record no revision at all, and 5 record a revision with
+   no dirty flag. The comparability standard stated above is therefore **not attainable** for those 92;
+   compare against the recorded numbers and manifests, not against a rebuilt binary-identical run.
+2. **The `--out` defaults point at the record.** 56 runners default `--out` to a path that
+   `results/MANIFEST.csv` lists as an artifact, and no runner checks whether the target already exists.
+   Re-running any of them with defaults **overwrites the controlling artifact** — the opposite of the
+   immutability rule stated in §4 and in `README.md`. `gfmcd.artifact_guard.guard_output_path` now exists
+   for new runners to call, and `tests/test_overwrite_guard.py` keeps the inventory of the 56 from growing,
+   but the existing runners are pinned by their manifests and were deliberately not edited (R35) — so
+   **always pass an explicit `--out` to a new path when reproducing.**
+
+Where a runner departed from its frozen protocol, the deviation is recorded in
+[`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) — read it before treating any preregistered
+gate as having been enforced.
 
 ## 3. Claim → script → artifact
 

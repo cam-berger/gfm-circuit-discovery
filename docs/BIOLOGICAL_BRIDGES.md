@@ -210,8 +210,11 @@ what was tested, and it failed.
 ### What the carrier is, and is not
 
 The ≈10.63 carrier is real and it is read: eight heads route it through the softmax under full controls
-(C11). But it stops there. Its OV content, its behavioural function, and its biological origin are all
-**unknown** and are not claimed (C12). Local splice-junction phasing cannot arbitrate the question: a
+(C11). Its downstream arms have now been *measured*, and both returned boundaries rather than positives:
+its readers are sub-SESOI on the donor coupling margin, and deleting it moves coupling only −0.033
+[−0.061, −0.005] nats (C37→C12). Its **general** OV content and its behavioural function remain
+**unresolved** and are not claimed; its biological origin is corpus-attributed (C39/C40, R25). Whether it
+writes onto the donor readout `U_info` was never computed and is **open** (**R31**). Local splice-junction phasing cannot arbitrate the question: a
 ~51-nt junction window cannot resolve 10.298 from 10.630, because the two filters are nearly collinear
 over that support — a **resolution** limit, not a sample-size limit, so more data would not help
 (C15;

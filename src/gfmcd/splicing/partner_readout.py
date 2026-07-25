@@ -1,5 +1,10 @@
 """v2 readouts.
 
+RETRACTED v1/v2 SCAFFOLDING — no importers; retained deliberately as negative-result evidence.
+    This module belongs to the retracted v1/v2 partner-selection line. The live donor-side readout
+    is the low-rank `U_info` axis (C16-C18, replicated C26, bounded by C41), implemented in
+    `readout.py` / `subspace.py`. Nothing here should be imported by new work.
+
 v1's readout could not express partner binding at all:
 
     score(a,d) = f(h_a) + g(h_d) + L(len)     # no joint term

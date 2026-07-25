@@ -41,11 +41,11 @@ Status vocabulary:
 | C18 | The layer-4/5 attention that carries `U_info` to the donor resolves into a small set of **transporter** heads. Noising each head to its corrupt value: **L5H11 (0.125), L4H2 (0.122), L4H0 (0.081)** destroy the coupling (gene-bootstrap CI-low > 0.05); noising their **query+key** destroys **≈0** — they carry the `U_info` *content* through **OV/value**, not routing. The relays are **general-purpose** heads (mean-ablation → ~0.51 masked-MLM), with a distributed tail of smaller L4/L5 contributors below threshold. Sanity: L3H1 tops the scan at **0.782**; the scan is selective (3/32). Resolves the `readout_path` L4/L5 blocks into heads and closes the head-level meet-in-the-middle. Attention-pattern geometry of the transporters not yet measured. | established: head-level mediation, selective/size-matched | `donor_heads.json`, `preregistrations/PREREGISTRATION_DONOR_HEADS.md` |
 | C19 | **The causal signature of `U_info`: paired-intron consistency + donor-identity confidence, and PHASE-INDEPENDENT.** Partner-specific (~37×: **+0.97 [0.83,1.11]** vs distance-matched non-partner AG **+0.03 [0.01,0.05]**), donor-specific (~74×: **+0.96** vs non-site masked G **+0.01 [−0.01,0.04]**), strand-symmetric. **Flat across *both* intron length mod 3 (1.05/0.84/0.99) and annotated splice phase (1.06/0.93/0.99)**, ruling out raw cross-site alignment *and* biological boundary-phase representation. Modestly coding-enriched (coding **+1.01** vs noncoding **+0.62**, overlapping CIs) but present on noncoding boundaries. Reading: a donor GT is scored more probable when its *specific* paired acceptor is intact — site **consistency**, not reading frame. All seven prompt conditions measured (CDS/phase bridge, `gfmcd.splicing.phase`). | established: behavioral signature | `donor_signature.json`, `preregistrations/PREREGISTRATION_DONOR_SIGNATURE.md` |
 | C20 | **L3H1's acceptor read is partner-IDENTITY-specific, and its address (key) and content (value) are separable.** L3H1's masked-donor query prefers the intron-mate partner over a distance/phase-matched generic AG at QK (**S_QK +3.60 [3.37,3.80]**), attention (**S_A +0.55 [0.51,0.59]**) and behaviour (**S_Y +0.87 [0.75,0.98]**); the salience-controlled comparison against a non-partner **real** acceptor is **+0.62 [0.46,0.74]** (n=30) and survives its distance confound (real decoys median +19.5nt farther; OLS intercept at matched distance **+0.61 ± 0.08**, slope +0.001/nt, corr +0.08 — identity, not distance-decay). Relocating the partner **key** into the decoy raises L3H1's donor attention to it (no-reloc difference-in-differences **+0.40 [0.37,0.44]**); coupling recovery dissociates address from content (**key-only 0.16 [lo 0.12] > value-only 0.03**). The key+**value** transplant recovers ~equally at decoy/non-site/a⁺ (**0.62/0.62/0.65**, spread 0.024) — architecturally **R15-forced**; **no** content-addressed / position-independent pointer is claimed. L2H15 is a statistically-real but **minor** builder of this preference (mean-ablation removes 11%; retained **0.89**, add-one **p=0.021** vs the 47 upstream heads), i.e. it is built diffusely, distinct from L2H15's larger role vs the *corrupt* partner (C9). **[Interpretation superseded → R20/C22 (2026-07-16).** The empirical `S_QK`/`S_A` preference **survives** (as does its ~15–19% content component); its **partner-identity interpretation is retracted** (R20). A1a shows the preference is dominated by learned **position-embedding geometry** — neutralising the a⁺/decoy position embeddings collapses it to ≈0, incl. the distance-matched arm; the distance-OLS intercept (+0.61) is a sub-component of that geometry. **Behavioural C19 is unaffected** (separate evidence).**]** | empirical preference established at QK/attention (survives); **identity interpretation retracted → R20**; key/value mediation R15-forced; real-acceptor arm modest power (n=30) | `acceptor_address.json`, `preregistrations/PREREGISTRATION_ACCEPTOR_ADDRESS.md`, `archive/DECISIONS_ACCEPTOR_ADDRESS.md` |
-| C21 | **L3H1's acceptor-targeting DIFFERENCE is pre-resident in the embeddings, not constructed by layers 0–2; the upstream query pathway instead supplies class-level acceptor attraction *gain* — resolving C20's coupling-vs-preference gap and retiring the diffuse-builder hypothesis.** Stage-wise reconstruction of L3H1's donor-query pre-softmax targeting `S_A` from a mean-resample hybrid residual (post-LN ⇒ intervention, not linear attribution; n=260 generic / n_real=120 real-acceptor, 230 genes; preflight 9/9, three arithmetic memorials EXACT=0.0): the difference is **~fully present at the all-ref floor** (S_J primary **+3.14 vs full +3.04**; secondary **+3.49 vs +3.54**), the prefix-denoising curve is flat with a mid-hump, and reciprocal **leave-one-stage-out isolates the embeddings** as necessary (embed drop **+3.19 / +3.08**; every layer-0/1/2 stage \|drop\|<0.9, several negative). Key provenance rises monotonically (S_K **+2.52→+3.04**); query provenance is high at the generic floor and **falls at layer 2** — because reconstructing the donor query (peak at **mlp2**) raises absolute attraction to **both** a⁺ **and** the decoy vs background (primary a⁺ **+5.59→+7.42**, decoy **+1.41→+2.63**; secondary similar): a **class-level gain** invisible to a⁺−decoy. This resolves C20 (L2H15 ≈66% of coupling, 11% of preference): layer-2/L2H15 supplies acceptor-attraction **gain**, not identity discrimination. `S_A` is a mechanistic intermediate; the primary arm's distance confound (median **+19.5nt**) and the secondary arm's site-strength conflation mean A0 does **not** adjudicate identity-vs-geometry — that is the token-vs-position next step. | established: QK/attention provenance (sufficiency prefix + reciprocal necessity), confirmatory; **does not establish identity**; ckpt `2ad91428` | `a0_targeting_provenance.json`, `preregistrations/PREREGISTRATION_A0_TARGETING_PROVENANCE.md`, `DECISIONS_A0.md` |
+| C21 | **L3H1's acceptor-targeting DIFFERENCE is pre-resident in the embeddings, not constructed by layers 0–2; the upstream query pathway instead supplies class-level acceptor attraction *gain* — resolving C20's coupling-vs-preference gap and retiring the diffuse-builder hypothesis.** Stage-wise reconstruction of L3H1's donor-query pre-softmax targeting `S_A` from a mean-resample hybrid residual (post-LN ⇒ intervention, not linear attribution; n=260 generic / n_real=120 real-acceptor, 230 genes; preflight 9/9, three arithmetic memorials EXACT=0.0): the difference is **~fully present at the all-ref floor** (S_J primary **+3.14 vs full +3.04**; secondary **+3.49 vs +3.54**), the prefix-denoising curve is flat with a mid-hump, and reciprocal **leave-one-stage-out isolates the embeddings** as necessary (embed drop **+3.19 / +3.08**; every layer-0/1/2 stage \|drop\|<0.9, several negative). Key provenance rises monotonically (S_K **+2.52→+3.04**); query provenance is high at the generic floor and **falls at layer 2** — because reconstructing the donor query (peak at **mlp2**) raises absolute attraction to **both** a⁺ **and** the decoy vs background (primary a⁺ **+5.59→+7.42**, decoy **+1.41→+2.63**; secondary similar): a **class-level gain** invisible to a⁺−decoy. This resolves C20 (L2H15 supplies **+0.661 nats**, ≈**48%** of the `min_effect ≥ 0.3` conditional coupling baseline, vs only 11% of the a⁺−decoy attention preference — different denominators, different rungs) **[R29: the previously printed "≈66% of coupling" was a unit error — 0.661 is an absolute nats difference, not a fraction]**: layer-2/L2H15 supplies acceptor-attraction **gain**, not identity discrimination. `S_A` is a mechanistic intermediate; the primary arm's distance confound (median **+19.5nt**) and the secondary arm's site-strength conflation mean A0 does **not** adjudicate identity-vs-geometry — that is the token-vs-position next step. | established: QK/attention provenance (sufficiency prefix + reciprocal necessity), confirmatory; **does not establish identity**; ckpt `2ad91428` | `a0_targeting_provenance.json`, `preregistrations/PREREGISTRATION_A0_TARGETING_PROVENANCE.md`, `DECISIONS_A0.md` |
 | C22 | **L3H1's acceptor-targeting difference is POSITIONAL GEOMETRY, not local content — and lives entirely within the 4-token key window.** A shared-reference token-vs-position 2×2 on the embedding (neutralising word vs position at the a⁺/decoy key windows so they become identical on the ablated dimension; confirmatory n=260 generic / n_real=120, 225 genes; preflight 8/8, `shared_ref_neutralises`=0.0 EXACT): **position_effect ≫ content_effect**, CI-separated, in **both** arms — primary **+2.72 [2.22,3.15]** vs **+0.40 [0.18,0.62]**; secondary **+3.59 [3.37,3.81]** vs **+0.68 [0.57,0.79]**. Equalising the a⁺/decoy positions collapses the preference to **≈0** (pos_neutral −0.02, CI incl 0) even with content clean → position is necessary **and nearly sufficient**; local within-window content is a **modest but reproducible** contribution (~15–19% of full, +0.40/+0.68), position-synergistic (interaction ≈ content_effect). The **floor is 0.000 exactly** (both-neutral): **no directly recoverable contribution to this L3H1 targeting score lies outside the 4-token key window at this stage** — this does *not* prove PPT/branch-point info never reaches the mechanism (earlier heads could compress nonlocal context into these local residual vectors before L3H1 reads them). Holds in the **distance-matched** secondary arm ⇒ **position-embedding geometry** (distance-decay ruled out; **absolute vs relative vs mod-3 not yet distinguished** — needs a joint donor+acceptor translation test, deferred). **Undercuts C20's content/identity reading** (→ R20); does **not** touch behaviour-level partner-specificity (C19). `S_A` is a mechanistic intermediate; no identity claim. | established: QK/selection provenance (2×2, confirmatory); **position-embedding geometry, non-identity**; ckpt `2ad91428` | `a1_token_position.json`, `preregistrations/PREREGISTRATION_A1_TOKEN_VS_POSITION.md`, `DECISIONS_A0.md` |
 | C23 | **L3H1 binds a positional ADDRESS to a partner-specific value PAYLOAD — neither alone recovers the coupling, only jointly.** Reconstruct-inject factorial on L3H1's donor output Σⱼ A_dj V_j (address A = clean/corrupt attention row × payload V = clean/corrupt values), injected donor-only and read as the native margin recovery (confirmatory n=300, 261 genes, coupling 0.96; preflight 7/7, reconstruction & inject-identity memorials **EXACT=0.0**): **address_only +0.01 [−0.02,+0.04]** and **payload_only +0.05 [+0.03,+0.07]** each recover ~nothing, but **joint +0.37 [+0.33,+0.40]** (≈ L3H1's C17 restore for its own channel) — a near-pure **interaction I_{A×V} = +0.30**. Decisive same-row subtest: attention FIXED clean, corrupt→clean values recovers **+0.35**; attention fixed corrupt, **+0.05** — the values carry the discriminating payload but deliver **only** under the correct positional address. A **single** random rank-8 value subspace recovers **+0.18** (~half) — a high generic baseline, so "the payload is distributed" is **provisional** pending a random-subspace *distribution* (A2b), not one draw. **Scope:** joint +0.37 is a substantial **partial** mechanism (L3H1's own channel is a partial mediator, C17) — **not** the complete source of partner-specific behaviour, and **not yet** the payload's *meaning* (A2b localises it to `U_info` vs random). **Reconciles A1a/R20 with C19**: position-embedding geometry routes L3H1 (*where* it reads), the value there carries the partner content (*what* it retrieves), and partner-specific behaviour needs both. Behaviour-level; the address–payload split of L3H1's **coupling** contribution, **not** attention identity (R20 stands). Model checkpoint sha256 `2ad91428…0149d`. | established: behaviour-level factorial (reconstruct-inject, confirmatory); **address–payload binding (partial mechanism)** | `a2_address_payload.json`, `preregistrations/PREREGISTRATION_A2_ADDRESS_PAYLOAD.md` |
 | C24 | **L3H1's partner payload is LOCALIZED to the 4-token acceptor window, and — relative to the preregistered rank-8 `U_info` — is NOT concentrated in that subspace; L3H1 performs a representation *conversion* (broad acceptor-local value → compact donor-side `U_info`).** Residual-patch payload localization (post-LN value linearity `V=W_V·r` ⇒ exact analytic reconstruction with the clean attention row fixed; confirmatory n=300, 256 genes; preflight memorials exact, `value_linearity` 1.9e-6): restoring the clean values at the **acceptor window alone** recovers **+0.38 [0.35,0.42]** (≈ A2 joint +0.37 — the payload is acceptor-local). The `U_info` component recovers **+0.06 [0.03,0.09]**, which is **not** above an **energy-matched random rank-8 distribution** (E[rand] +0.05, range [0.03,0.07] brackets R_U, percentile 0.80, add-one **p=0.22**); the complement `(I−P_U)` recovers ~all of it (**perp +0.37**) and necessity is negligible (**N_U +0.011**, noising loss +0.009). Acceptor-specific (nonsite = floor). *(Descriptive fractions are non-additive and denominator-dependent — raw sufficiency `R_U/R_full ≈ 16%`, raw necessity `N_U/R_full ≈ 2.9%`, floor-subtracted marginal `(R_U−floor)/(R_full−floor) ≈ 4.5%`; the denominator-free facts above carry the claim.)* **Scoped conclusion:** the acceptor-side payload is **distributed *relative to* `U_info`** and is not concentrated in that rank-8 subspace; its **intrinsic dimensionality is unmeasured** (a privileged low-rank subspace could still exist in the 504-d complement — needs a rank sweep / independently-derived `U_source`). **`U_info` is NOT redefined:** it remains the valid DELIVERED donor-side format (C16/C17); A2b shows the same basis is not privileged at the *acceptor source*, revealing a representation change across the head. Behaviour-level; R20 stands. Model checkpoint sha256 `2ad91428…0149d`. | established: behaviour-level payload localization (confirmatory); **`U_info` not privileged at the acceptor; payload acceptor-local + distributed-relative-to-`U_info`; L3H1 converts representation** | `a2b_payload_localization.json`, `preregistrations/PREREGISTRATION_A2b_PAYLOAD_LOCALIZATION.md` |
-| C25 | **L2H15's coupling contribution acts THROUGH L3H1's ADDRESS channel (attention), not its payload — it amplifies/routes acceptor-attraction *gain* but does NOT originate the discriminative positional geometry (that is pre-resident in the embeddings, C21).** Reconstruct-inject L3H1's donor output `A·V` with the address `A` (attention row) and payload `V` (values) drawn from **L2H15-intact vs mean-ablated** runs, injected into the L2H15-ablated forward, reading native **coupling rescue** (confirmatory n=300, 246 genes; reconstruction & baseline memorials **EXACT=0.0**; L2H15 lift `Y_intact−Y_ablated` +0.43): restoring L3H1's intact **attention** rescues **+0.454 [0.39,0.53]** while restoring its intact **values** rescues only **+0.019 [0.01,0.03]**; joint **+0.479**, interaction **+0.006** (no binding) → **~95% of L2H15's donor-channel contribution is the ADDRESS, ~4% the payload.** This **assigns L2H15's ~0.66-of-coupling role** (l2_accounting/C9): L2H15 shapes L3H1's **positional attention address** (coheres with A1a/R20 — that attention is position-embedding geometry) and does **not** supply the acceptor payload (which is the acceptor's own local, distributed representation, A2b/C24). Donor-only injection (joint +0.48 vs l2_accounting all-position 0.959 ⇒ L3H1's donor output carries ~half of L2H15's contribution; rest via the donor±5 delivery, C17); the address/payload split is a clean property of that channel. **[Wording tightened → C21 reconciliation (2026-07-16): the causal split (~95% address / ~4% payload) STANDS; the original headline "L2H15 builds the address" is corrected to "acts through / amplifies the address channel." C21 shows the discriminative a⁺−decoy geometry is pre-resident in the embeddings, and L2H15 supplies class-level attraction *gain* (11% of the a⁺−decoy preference, ~66% of coupling) — it routes/amplifies the address, it does not originate the geometry. No R-number: the empirical attribution is unchanged, only the interpretive verb.]** Behaviour-level; R20/C24 stand. Model checkpoint sha256 `2ad91428…0149d`. | established: behaviour-level attribution (confirmatory); **L2H15 = address-channel gain/router (not the origin of the geometry — C21)** | `a3_l2h15_address_payload.json`, `preregistrations/PREREGISTRATION_A3_L2H15_ADDRESS_PAYLOAD.md` |
+| C25 | **L2H15's coupling contribution acts THROUGH L3H1's ADDRESS channel (attention), not its payload — it amplifies/routes acceptor-attraction *gain* but does NOT originate the discriminative positional geometry (that is pre-resident in the embeddings, C21).** Reconstruct-inject L3H1's donor output `A·V` with the address `A` (attention row) and payload `V` (values) drawn from **L2H15-intact vs mean-ablated** runs, injected into the L2H15-ablated forward, reading native **coupling rescue** (confirmatory n=300, 246 genes; reconstruction & baseline memorials **EXACT=0.0**; L2H15 lift `Y_intact−Y_ablated` +0.43): restoring L3H1's intact **attention** rescues **+0.454 [0.39,0.53]** while restoring its intact **values** rescues only **+0.019 [0.01,0.03]**; joint **+0.479**, interaction **+0.006** (no binding) → **~95% of L2H15's donor-channel contribution is the ADDRESS, ~4% the payload.** This **assigns L2H15's +0.661-nat (≈48% of the `min_effect ≥ 0.3` conditional baseline) coupling role [R29]** (l2_accounting/C9): L2H15 shapes L3H1's **positional attention address** (coheres with A1a/R20 — that attention is position-embedding geometry) and does **not** supply the acceptor payload (which is the acceptor's own local, distributed representation, A2b/C24). Donor-only injection (joint +0.48 vs l2_accounting all-position 0.959 ⇒ L3H1's donor output carries ~half of L2H15's contribution; rest via the donor±5 delivery, C17); the address/payload split is a clean property of that channel. **[Wording tightened → C21 reconciliation (2026-07-16): the causal split (~95% address / ~4% payload) STANDS; the original headline "L2H15 builds the address" is corrected to "acts through / amplifies the address channel." C21 shows the discriminative a⁺−decoy geometry is pre-resident in the embeddings, and L2H15 supplies class-level attraction *gain* (11% of the a⁺−decoy preference; **+0.661 nats ≈ 48% of the conditional coupling baseline — R29**) — it routes/amplifies the address, it does not originate the geometry. No R-number: the empirical attribution is unchanged, only the interpretive verb.]** Behaviour-level; R20/C24 stand. Model checkpoint sha256 `2ad91428…0149d`. | established: behaviour-level attribution (confirmatory); **L2H15 = address-channel gain/router (not the origin of the geometry — C21)** | `a3_l2h15_address_payload.json`, `preregistrations/PREREGISTRATION_A3_L2H15_ADDRESS_PAYLOAD.md` |
 | C26 | **The donor-side `U_info` is a STABLE, generalizing model representation — validated, not redefined.** Independent 50/50 **disjoint gene-split** derivation of the C16 object (top-k SVD of the clean−corrupt final donor residual; confirmatory n=400, 320 genes, 199/201 split; `margins_fn` memorial EXACT=0.0): **subspace overlap** `subspace_overlap(U_A,U_B)` ≫ random at every rank (top-1 **0.970** vs 0.002 null; rank-8 **0.630** vs 0.016); **held-out sufficiency** (derive on A, patch on held-out B) **+0.875 [0.853,0.901]** ≈ in-sample +0.911 ≫ random +0.014; **held-out necessity +0.916**. **Reproduces C16** (in-sample rank-8 +0.911 ≈ 0.92, top-1 +0.743 ≈ 0.74). Rank curve: recovery is dominated by the **top-1–2 directions** (+0.73/+0.78) and rises smoothly to +0.94 at rank 32 (no sharp saturation — rank 8 is a reasonable, not magic, choice at +0.91); overlap is highest at low rank (dominant structure rock-solid, rank-8 tail more sample-dependent — expected SVD behaviour, still ~40× the null). **Strengthens C16–C18** (and consistent with C24: `U_info` is the stable *donor-side delivered* representation, not the acceptor source). `U_info`'s definition is unchanged. Behaviour-level. Model checkpoint sha256 `2ad91428…0149d`. | established: donor-side `U_info` stability/generalization (confirmatory); **validation, no redefinition** | `a5_uinfo_replication.json`, `preregistrations/PREREGISTRATION_A5_UINFO_REPLICATION.md` |
 | C27 | **The donor circuit is a fully-necessary DELIVERY SPINE, not a faithful sparse generator — complement-noising faithfulness is ≈0 while its clean outputs are sufficient, so the coupling COMPUTATION is DISTRIBUTED or INTERACTION-DEPENDENT at current node resolution.** Node-level activation patching, scrub-**to-corrupt** (post-LN ⇒ patch OUTPUTS, downstream recomputes; two arithmetic memorials `empty→corrupt` / `full→clean` **EXACT=0.0** **[correction 2026-07-16, verify-workflow: these two are EMBED-CLAMP-DOMINATED — `clamp_embed` overwrites the embedding at all positions (corruption is a same-length AG→CC substitution, identical mask), so patching all→source makes the forward bit-identical to the source run regardless of the head/MLP patches. They validate the embed-clamp + correct clean/corrupt caches, NOT head/MLP node-cover completeness. Completeness rests on the ARCHITECTURAL fact that {embed, all heads, all MLPs} = all residual writers, plus the indirect head/MLP-patch validation in the reconcile run; a cover miss would leave a node CLEAN → INFLATE F, so F(C)=0.005 is conservative. cf. R7 (reject architecture-forced answers)]**; confirmatory n=200, 179 genes, coupling 0.94): the 10-node circuit `C` (embeddings + L1H12/L2H15/MLP2 + L3H1 + MLP3/4 + transporters L4H0/L4H2/L5H11) is **NECESSARY** — but `N(C)=1.00` (CI [1.0,1.0]) is a **FORCED IDENTITY** (embed∈C ⇒ clamping embed to corrupt makes the forward == corrupt; not a measured necessity, cf. R7), so the meaningful figure is **`N(C\embed)=0.989`** (corrupting the compute spine alone, corruption **not** applied at the embedding, still destroys 98.9% — a genuine head/MLP-patch result, but **POST-HOC** from the `--reconcile` diagnostic outside the frozen protocol) — but **NON-FAITHFUL** under complement-noising: keeping `C` clean while scrubbing everything else to corrupt recovers only `F(C)=0.005 [0.003,0.008]` (**residual 99.5%**), above the size-matched random-circuit null (p95 0.0001, add-one **p=0.010**) but trivially small; **no** single omitted node recovers it (completeness scan max add-one gain **0.005** over 93 non-circuit nodes) and random same-size circuits are equally non-faithful ⇒ **no sparse node set of this size is faithful**. **Not a contradiction with C16/C17:** injecting the circuit's **clean OUTPUTS** (corruption kept at the embedding) recovers **`D(C\embed)=0.986 [0.982,0.991]`** — the delivered representation is **sufficient-when-injected**, but the circuit cannot **reconstruct** it from a scrubbed network. **Reading:** delivery/readout is **sparse & sufficient-when-injected** (`U_info`, C16–C18); the coupling **generation** (principally building the acceptor-local, *distributed* payload L3H1 reads, C24) is **DISTRIBUTED or INTERACTION-DEPENDENT at this node resolution** — A6 rules out the proposed sparse generator **and** single-node omissions, but **not** a structured jointly-necessary multi-node module; **irreducible diffuseness is NOT established** (→ **A7/C28: RESOLVED — acceptor-local + cross-layer L0–L2 synergistic, a structured jointly-necessary module, NOT broadly diffuse**). **Quantifies the completeness C7 flagged as unmeasured** (general-damage confound **AVOIDED** by scrub-**to-corrupt** — not mean-ablation, sidestepping R12/R13 — though the partial-scrub state's health is **noted-not-gated**, `mlm_health` recorded only at the clean baseline; `D(C\embed)=0.986` is post-hoc and largely expected from C17/C18). Minimality is **uninterpretable at F≈0** (reported, not claimed). Scope: NODE-level, complement-noising, this circuit size; the minimal *faithful* set size — and whether the missing generation is localized-but-multi-node vs broadly diffuse — is unmeasured (A7 localization → scoped edge scan → backward-pruned size curve). Behaviour-level; no prior claim redefined, `U_info` untouched. Model checkpoint sha256 `2ad91428…0149d`. | established: behaviour-level circuit faithfulness/necessity (confirmatory); **necessary delivery spine, non-faithful sparse generator; generation distributed-or-interaction-dependent (node resolution)** | `a6_circuit_faithfulness.json`, `a6_reconcile.json`, `preregistrations/PREREGISTRATION_A6_CIRCUIT_FAITHFULNESS.md` |
 | C28 | **The distributed generation CONVERGES LOCALLY at the acceptor window and is built by a SERIALLY INTERDEPENDENT L0→L1→L2 module — not broadly diffuse, and (for this channel/stage) not imported from the branch-point/PPT or donor regions.** Position×layer localization from the A6 complement-noising baseline (scrub-**to-corrupt**; four plumbing memorials `empty→corrupt`/`full→clean`/`maskFalse→clean`/`state_clamp_identity` =0.0 **[R21: `empty→corrupt`/`full→clean` are embed-clamp-dominated (embed-plumbing only, NOT cover-completeness); `maskFalse→clean`/`state_clamp_identity` ARE valid (mask machinery + layer-input pre-hook); the writers-open head/MLP region patching is validated INDIRECTLY via region-specificity, not an exact memorial]**; confirmatory n=200, 179 genes): the **state-clamp ceiling** (clean pre-L3H1 residual at the acceptor window + clean spine) recovers `F_state=0.372` (ceiling 0.365; ≈ the C23/C24 L3H1-channel cap — internal check). Opening the **non-circuit L0–L2 writers at the acceptor 4-token window alone** recovers **`ΔACC=+0.337 [0.30,0.38]` = 92% of ceiling**; donor±5 (`ΔDON≈0`), branch-point/PPT (`ΔPPT≈0`, CI incl 0) and remainder (`ΔREM=+0.025 [0.012,0.037]`=7%) contribute ~nothing ⇒ the payload L3H1 reads is **constructed LOCALLY at the acceptor**, not imported from the branch-point/polypyrimidine region (coheres with C22 "nothing recoverable outside the 4-token key window" and C19 phase-independence). **This PPT/branch-point null is scoped to THIS partner-coupling channel at THIS (pre-L3H1) stage — it is NOT a biological claim that SpliceBERT ignores the branch-point/polypyrimidine tract in splicing generally.** It is built by L0–L2 as a **serially interdependent pipeline**: single-layer `ΔACC` (L0 **+0.047**, L1 +0.009, L2 +0.001) **sum to 0.057 ≪ 0.337 joint** — but this is **serial interdependence (L0→L1→L2)**, *not* three independent nonlinear factors: a later layer cannot function normally on a **corrupted upstream state**, so the near-silence of single layers is the signature of a **pipeline** ⇒ a **structured, jointly-necessary module** (the review's alternative to irreducible diffuseness, confirmed). **Refines C27**: the generation is "distributed or interaction-dependent" in the specific sense of **positionally localized (acceptor window) + serially interdependent (L0→L1→L2)**. Scope: bounds the **generation** feeding L3H1's channel (the 0.37 ceiling); delivery-side distribution (why the full circuit `F≈0`) is separate. **Next:** decision-table row `state-high + ΔACC-high` → edge scan into the acceptor-window residual across L0–L2. Behaviour-level; no prior claim redefined. Model checkpoint sha256 `2ad91428…0149d`. | established: behaviour-level source localization (confirmatory); **acceptor-local, serially-interdependent (L0→L1→L2) generation** | `a7_source_localization.json`, `preregistrations/PREREGISTRATION_A7_SOURCE_LOCALIZATION.md` |
@@ -170,3 +170,232 @@ computation** (only planted-positive). **Rule:** the C41 conclusion (no example-
 C16/C26 final-residual state; a generic readout axis) is reported at **verification tier** with both gate
 deviations disclosed; a confirmatory G1 requires the interval-form planted-positive gate and the
 planted-confound arm. The frozen prereg and the G1 artifacts are unchanged.
+
+## R29 — "L2H15 ≈66% of coupling" is a UNIT ERROR; the value is +0.661 nats ≈ 48% of the conditional baseline (2026-07-25)
+
+**What changed.** C21 (`:44`) stated "L2H15 ≈66% of coupling, 11% of preference"; C25 (`:48`) stated
+"L2H15's ~0.66-of-coupling role" and "(11% of the a⁺−decoy preference, ~66% of coupling)". Two live script
+docstrings carried the same reading (`run_a3_l2h15_address_payload.py:6`, "~0.66 of the donor coupling") and
+a separate variant (`run_l2_accounting.py:4`, "~0.72 of coupling" — 0.72 is the coupling **retained** after
+ablation, not the amount supplied). **The figure is not a fraction.**
+`results/splicebert_coupling/l2_accounting.json` (val, n=150) stores
+`coupling_supplied_by_L2H15 = 0.6611018248399099`, an **absolute donor-margin difference in nats**:
+`run_l2_accounting.py:125` computes `dnm += (cbase − cabl)`, and 1.3840273753801982 − 0.7229255515336991 =
+0.6611018238464991. "0.661" was transcribed as "0.66" and then read as "66%". The **fraction** is
+0.6611018248399099 / 1.3840273753801982 = **0.4777 → ≈47.8%** (52.2% retained). Two same-construction routes
+corroborate: `sealed_test.json` `necessity.heads.L2H15.frac_lost = 0.4765` (test, conditional n=150) and
+`faithfulness.json` `necessity.L2H15.frac_lost = 0.5061` (val, conditional n=200). The rescue rows in the same
+JSON *are* fractions (denominator `dnm`), which is why "L3H1 head output @all-pos = 0.959" is legitimately 96%
+of L2H15's *supplied* coupling — the adjacent 0.6611 is not on that scale.
+**Rule:** state it as **+0.661 nats ≈ 48% of the `min_effect ≥ 0.3` CONDITIONAL baseline** — never as a bare
+"66% of coupling", and never as a share of the unconditional behavioural coupling (R10). The qualitative
+finding is unchanged: L2H15 supplies acceptor-attraction **gain** through L3H1's address channel, not identity
+discrimination (C21/C25). **`CLAIMS.md` needs no change** — the compact C21/C25 rows never carried the number.
+**Deliberately left carrying the old reading, as historical record:** the frozen A3 preregistration, every
+result JSON and manifest, and the running decision log `DECISIONS_A0.md` (`:17`, `:143`, `:255`, `:268`,
+`:275`). Those are immutable provenance of what was believed at the time and are to be read through this
+entry; do not rewrite them.
+
+## R30 — the ≈10.298 nucleosomal comparator is measured in MOUSE, and the human-spectrum null was over-stated as "absent" (2026-07-25)
+
+**What changed.** Two defects in the same T1 sentence, at `README.md:44` and `docs/ROADMAP.md:69-70`.
+**(a) Species.** The ≈10.298-nt dyad-anchored periodicity — the comparator that carries the project's
+powered refutation of the chromatin reading of the ≈10.63 carrier — is measured in **mouse ES-cell
+chromatin**: Voong et al. 2016 chemical-cleavage dyad map, build **mm9**
+(`data/NUCLEOSOME_MAP.md:12,30`; `run_dyad_real.py:2`; `dyad_real.json` `"build":"mm9"`, splits
+`chr1,chr2`/`chr3,chr4`, n=10,668,011 dyads). Both documents attributed it to **the human genome**.
+`git grep -lIiE 'mouse|mm9|mESC|Voong' -- '*.md'` returned **exactly one file**, `data/NUCLEOSOME_MAP.md`
+— the organism appeared in no live prose document, no ledger, and neither prior review.
+**(b) Over-claimed null.** Both documents said ≈10.63 is **absent** from the human genome's spectrum.
+`corpus_spectrum.json` is an **unanchored, underpowered** assay: `results/phase-lattice/RESULTS_INDEX.md:85`
+already says "report its sensitivity limit only", and its own calibration puts the detection floor at
+**5–10% modulation** (injected depth 0.05 → Z=1.03, n.s.; 0.10 → Z=1.20, p=0.016). C40's ledger wording is
+correct — "no **detectable** ≈10.63 periodicity" — but the two narrative sites hardened it to "absent",
+re-committing the error R16 exists to prevent.
+**Rule:** always name the organism when quoting ≈10.298, and say **"not detectable above the 5–10%
+modulation floor"**, never "absent". **The refutation stands and is unweakened**: the arithmetic reproduces
+(10.62993875787851 − 10.297612131759664 = 0.3323), and it does *not* depend on the mouse point estimate
+transferring to human at better than 0.33 nt, because 10.630 lies outside the 10.2–10.5 bp DNA-helical range
+recorded from the literature. Do **not** write that the refutation is "conserved" across species or
+"transfers" — no artifact in this record supports a cross-species conservation claim at the Biology rung.
+**No human dyad-anchored measurement exists in this record.** `docs/NOMENCLATURE.md`'s 10.298 row now carries
+the organism and is the live anchor for it.
+**Sites corrected:** `README.md:44`, `docs/ROADMAP.md:69-70`, `docs/NOMENCLATURE.md:27`, and
+`docs/CARRIER_ORIGIN_SYNTHESIS_2026-07-23.md:55-58` — the last found only by the post-edit propagation grep,
+not by the review sweep, which is the failure mode this repo has to design against.
+**Deliberately left unchanged:** `figures/splicebert/fig_two_carriers.CAPTION.md:64-65` (stamped **T3 —
+historical, superseded**; it is a record of what was written then) and `data/NUCLEOSOME_MAP.md`, which was
+always correct and is the primary provenance document for the Voong map.
+
+## R31 — the ≈10.63 carrier's OV/Behaviour evidence was mis-stated in two opposite directions (2026-07-25)
+
+**What changed.** Two errors about the same evidence, pointing opposite ways.
+
+**(a) "Not run" — false.** `docs/EVIDENCE_LADDER.md:36` marked the carrier's OV/mediation and Behaviour
+cells **`?`**, and that document's own legend (`:61`) defines `?` as *"the defining intervention has **not**
+been run, so there is no evidence in either direction."* `figures/splicebert/EVIDENCE.md:45` stated it in
+prose: *"No OV-mediation experiment has been run, and no behavioural effect has been demonstrated."* **Both
+interventions ran on 2026-07-23** under B1 (C37, folded into C12), producing
+`results/phase-lattice/{carrier_ov_av,carrier_p10_behaviour_confirm,carrier_preflight_r}.json` with 8 rows in
+`results/MANIFEST.csv`. A measured null or bound is a **result**, not an absence — the project's own rule —
+and the table had no marker for it.
+
+**(b) "Does not write" — over-claimed.** `CLAIMS.md:35` (C12) said the carrier *"routes but does not write,
+at the donor readout or generally."* The **donor-readout write test was never computed.** B1 v2 §1
+preregistered the OV endpoint as `S_ov` — the `U_info`-projected `suff_recovery` — plus the `Ω` subspace
+overlap, each against a covariance-matched null, with a `PP-ovplant` planted-positive sensitivity gate.
+`run_carrier_ov_av.py` contains **zero** hits for `U_info`, `S_ov`, or `suff_recovery`. What it measured
+instead is a simple **coupling-margin value main** `Mv = DI − DD` over the nine readers: range −0.009 →
++0.013 nats, no head's CI-low exceeding the pre-declared `SESOI_v` = 0.02 (though L2H6's CI upper, 0.0202,
+does, and 3 of 9 CIs exclude 0). That is a **sub-SESOI non-detection on the coupling readout at deep
+(L2–L4) readers**, with its sensitivity calibration deferred — not a powered equivalence, and not a test of
+whether the carrier writes onto `U_info`.
+
+**Rule:** state the two arms separately and at their achieved strength. **OV:** the carrier's readers are
+**sub-SESOI on the donor coupling margin**; whether it writes onto the donor readout `U_info` is **OPEN**,
+and the B1 prereg's **A-mixed branch — a carrier-specific component written onto `U_info` that is
+behaviourally redundant for coupling — remains UNEXCLUDED**. **Behaviour:** deleting the carrier moves
+coupling by **−0.033 nats [−0.061, −0.005]** — small, *suppressive*, sub-SESOI, equivalence underpowered.
+The general-MLM conjunct of C12 (readers' value-main below the period-3 router-null scale, G ≈ 0.002–0.003
+vs router 0.0043) is separately supported and is **not** withdrawn. C12 remains closed-bounded and terminal
+on the frozen checkpoint; what changes is the **scope** of "does not write", which was never established at
+the donor readout. The evidence ladder gains a **`bounded`** marker so a measured boundary is no longer
+recorded as an absence.
+**Sites corrected:** `CLAIMS.md:35` (C12), `docs/EVIDENCE_LADDER.md:36` and the marker legend at `:61-67`,
+`figures/splicebert/EVIDENCE.md:15,42-46`, `docs/BIOLOGICAL_BRIDGES.md:212-214`, `FINDINGS.md:109-110`,
+`figures/splicebert/README.md:83-84,86-87`.
+**Deliberately left carrying the superseded reading, as dated record:** `DECISIONS.md:126,192` (a T2
+chronology of pivots, explicitly "not a second claim ledger") and `DECISIONS_A0.md`. Read them through this
+entry.
+
+## R32 — C41 was labelled "confirmatory" in the ledger while R28 records it at verification tier (2026-07-25)
+
+**What changed.** `CLAIMS.md:64`'s evidence cell read *"…**GENERIC READOUT AXIS**, confirmatory"*, and
+`G1_REPORT.md:24`, `REPRODUCIBILITY.md:154` and the preregistration index agreed. **R28 — filed the previous
+day — already records that G1's frozen §9 `Global PASS = AND(...)` was never completed**, so the ledger and
+its own correction record contradicted each other. Re-verified in code and artifact: the **planted-confound
+arm was not run at all** (`match_pairs(..., extreme=True)` is unreachable in
+`run_g1_cross_example_transduction.py`), and **planted-positive was applied as a point check**
+(`monotone ∧ slope > 0`, slope **0.785**) rather than the preregistered **slope-CI-covers-1** interval form.
+**Rule:** C41 is reported at **verification tier, not confirmatory**. The *finding* is unchanged and is not
+weakened — the C16/C26 final-residual delivered state transfers as a **generic readout axis**, not
+example-specific information; the adversarial verification stands at `RESULT_STANDS_WITH_CAVEATS`. What
+changes is the tier word only. "established" is retained, matching the house precedent at C34 ("established
+on discovery; gate-qualified verification on confirm"). A confirmatory G1 requires the interval-form
+planted-positive gate and the planted-confound arm.
+**Sites corrected:** `CLAIMS.md:64`, `G1_REPORT.md:24`, `REPRODUCIBILITY.md:154`,
+`preregistrations/README.md:44`, `docs/METHODOLOGY.md:39`. **Deliberately not scoped past R28:** the
+`--smoke`/`D_src` cohort assignment for planted-positive is prereg-licensed (§4, §9) and is *not* a
+deviation; calling it one would create a second false statement.
+**Left as dated record:** `DECISIONS.md:201`, `docs/DRAFT_SOURCING_AUDIT_2026-07-24.md:203`.
+
+## R33 — C39's sibling band-deletion is verification-level, and its artifact `verdict` is a hand-written adjudication (2026-07-25)
+
+**What changed.** C39's claim cell said band-deletion *"confirms period-3 is **used coding-specifically**"*.
+Two problems.
+
+**(a) The decision rule was not met.** Only **12** energy-matched control bands qualified against a
+requested **30**, so the add-one permutation p is floored at 1/13 = **0.077** — above the runner's own 0.05
+threshold. `p_did = p_exon = 0.0769`. The arm cannot reject at its stated rule, so it is **verification
+level, not a passed confirmation**. Clearing the rule would need ≥20 qualifying control bands (1/21 = 0.048).
+
+**(b) The shipped `verdict` is not a machine output.**
+`results/origin-siblings/canonical/sibling_carrier_bandtransfer.json` carries
+`verdict: "USED_coding_specific"`, but `run_sibling_carrier_bandtransfer.py:222` can emit only
+`VOID_unhealthy` (which it would, since `period3.healthy = false`) or, with the health channel corrected,
+`NOT_USED` (since p = 0.077 > 0.05). **The value that shipped is not in the runner's range.** The machine
+value is preserved beside it as `verdict_mechanical: "VOID_unhealthy"`, with a `verdict_note` giving the
+reasoning. **State this fairly: the adjudication is transparent, reasoned, and preserved — it is not
+concealed, and its scientific argument is defensible.** The note correctly identifies that the mechanical
+gate used `min(exon, intron)` headroom when *exon headroom is the outcome* (the R13 error), and that the
+corrected non-outcome health channel — intron prediction — retains 87.6%.
+**What is nevertheless wrong is the governance:** the adjudication was written **into an immutable artifact**,
+overwriting the machine field, so a re-run now disagrees with the committed file; it carried **no
+correction number** until this entry; and **three surfaces disagreed on status** — the sibling manifest says
+`"status": "EXPLORATORY"`, `results/MANIFEST.csv:756` says `canonical / Behaviour / positive`, and
+`CLAIMS.md:62` said *established*.
+
+**Rule:** report the band-deletion as **reproducing C8's exon-selective damage pattern at verification
+level**, never as a confirmation. **The corpus-attribution conclusion of C39 is unchanged and remains
+established** — it rests on the sibling P-spectrum contrast (72-sp 435× vs human-only 6.2×), not on this
+arm. Going forward, runners emit `verdict_machine` and any human adjudication goes in a sibling
+`*.adjudication.json`, **never** into the result. **Do not edit the three affected artifacts** —
+`sibling_carrier_bandtransfer.json`, `a11_address_geometry.json` (machine `ABSOLUTE` preserved as
+`verdict_raw_script`), and `superseded/a9_payload_semantics.json` all show this pattern and are immutable;
+this entry is their disclosure. **Do not re-run the band transfer with more control bands to push p under
+0.05** — the outcome has been seen, so that would be outcome-aware verification presented as confirmation.
+**Sites corrected:** `CLAIMS.md:62`, `MECHANISM.md:120`,
+`docs/CARRIER_ORIGIN_SYNTHESIS_2026-07-23.md:43`, `results/origin-siblings/RESULTS_INDEX.md:15`,
+`REPRODUCIBILITY.md:164`.
+
+## R34 — LOGGED AMENDMENT: commit c38e1ba's "additive" tier banners broke 17 content-addressed pins (2026-07-25)
+
+**What changed.** Commit `c38e1ba` ("Tier-2 formalization: results reorg, repo-wide tier stamps…") inserted a
+one-line tier banner into documents whose SHA-256 is **pinned by other artifacts**, and `git mv`-ed 229
+development artifacts into `development/` subtrees. Its own message asserts *"Scientific record unchanged:
+read-only ledgers/preregs touched only by additive tier stamps."* **An additive edit to a hash-sealed
+document is a breaking edit.** Measured at HEAD, 17 pins are broken:
+
+- **C36's frozen confirmation package** (`p3_phase_surgery_confirmation_package_v1.json`, 43 bound records):
+  24 verify, 6 are gitignored model weights, and **13 fail** — 10 *relocated* (byte-identical at
+  `results/phase-lattice/development/`, so moved but not modified) and **3 content-drift**:
+  `PREREGISTRATION_P3_CLOSURE.md`, `REDTEAM_SYNTHESIS_P3_CLOSURE.md`, and
+  `freeze_p3_phase_surgery_confirmation.py`. Its committed audit still records `"status": "PASS"`.
+- **All four Head–Context-Atlas protocol pins** (`ANALYSIS_PLAN_V1.md`, `ANALYSIS_AMENDMENT_A1.md`,
+  `MECHANISM_VALIDATION_AMENDMENT_A1.md`, `MECHANISM_VALIDATION_AMENDMENT_A2.md`), across **29 stored
+  occurrences**. `build_atlas_mechanism_package.py:295` raises `RuntimeError("analysis-plan hash drift")` on
+  these, so **the atlas mechanism package cannot currently be rebuilt**.
+
+No test exercised either gate, so the suite stayed green throughout.
+
+**Owner decision (2026-07-25): log the amendment; do NOT revert the banners.** The alternative — reverting
+the two-line stamp on the seven affected files to restore byte-exact verification — was considered and
+rejected in favour of tier-stamp uniformity.
+**Rule:** the pre-stamp and post-stamp digest of every affected file is recorded in
+`tests/data/hash_pin_ledger.json`, and `tests/test_hash_pin_ledger.py` asserts the broken set is **exactly**
+that ledger — so new drift fails, a repaired pin fails (forcing the ledger to be pruned), and widening the
+allowlist is a visible diff to a checked-in file. **No scientific content changed:** `git show c38e1ba`
+shows the prereg diff is a single added banner line, and the ten relocated artifacts are byte-identical at
+their new paths (asserted every run). The frozen package, its 2026-07-21 PASS audit, and every result
+artifact are **unchanged and must stay unchanged** — this entry, not an edit, is their disclosure.
+**Standing rule going forward:** before editing any file, grep the result trees for its basename near
+`sha256`. "Additive" is not a safe category in this repository.
+
+## R35 — the immutability rule was documentation only; a guard now enforces it, and the residual hazard is inventoried (2026-07-25)
+
+**What changed.** `README.md:152` states *"no new run may silently overwrite the scientific record"* and
+`REPRODUCE.md` §4 states *"Write a new immutable artifact; do not overwrite the controlling result."*
+**Nothing enforced either.** Measured: **56 runners** default `--out` to a path listed as an artifact in
+`results/MANIFEST.csv` — **41 of them `canonical`** — and `grep -rc "out).exists()" scripts/` returned
+**zero** files. `ExperimentManifest.write` had no existence check. Reproducing any claim by its documented
+command overwrote the artifact it was meant to be compared against.
+
+**Rule.** A new module `src/gfmcd/artifact_guard.py` provides `ArtifactExistsError` and
+`guard_output_path(path, *, overwrite=False)`. The parameter is **keyword-only** and defaults to refusing,
+with no environment escape hatch. It **refuses rather than auto-suffixing**: an auto-suffixed sibling looks
+like a successful rerun while quietly not being the artifact anyone cites. New runners call it before
+writing anything.
+
+**Why a new module, and what that costs.** The guard was first added directly to
+`src/gfmcd/provenance.py`, so that `ExperimentManifest.write` would inherit it. That edit **broke a hash
+seal**: `provenance.py` is one of the 19 code files bound by C36's frozen confirmation package, and
+`tests/test_hash_pin_ledger.py` — written hours earlier in this same session — failed on the next run and
+named the file. The guard caught its own author. Rather than widen the known-broken ledger to accommodate a
+**new and entirely avoidable** drift (the c38e1ba entries above are unintended historical drift; this would
+have been deliberate), the change was reverted, `provenance.py` restored byte-identical to its pinned
+digest `05d3cd48…`, and the guard moved to an unpinned module.
+**The cost, stated plainly:** `ExperimentManifest.write` is therefore **not** guarded. That is a smaller
+loss than it sounds — `write` persists *manifests*, whereas the hazard is the *result* JSONs, which the 56
+runners write by their own means and which never passed through it. The real protection is the inventory
+assertion below. Guarding `write` remains available whenever someone is willing to spend the C36 code pin
+on it; that is an owner decision, not a mechanical one.
+
+**Why the 56 runners were NOT edited.** They write their *result* JSON by their own means, and their
+producing commits are **pinned by the manifests beside those results** — editing them to insert a guard
+call would desynchronise a pinned provenance chain in order to fix a documentation defect, which is the
+larger harm. They are therefore **inventoried, not edited**:
+`tests/data/unguarded_out_defaults.json` records all 56 with their `--out` default and manifest status, and
+`tests/test_overwrite_guard.py` recomputes the set by AST on every run and asserts it **has not grown** —
+so a new runner that defaults `--out` at the record fails CI the day it lands, while the existing 56 stay
+byte-stable. Fix forward in successor runners. Until then, **always pass an explicit `--out` to a new path
+when reproducing a claim** (documented at `REPRODUCE.md` §2.2).

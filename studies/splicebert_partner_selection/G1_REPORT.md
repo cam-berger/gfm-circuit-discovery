@@ -21,7 +21,9 @@ This **bounds the interventional reach of the C16/C26 delivered state to a share
 answers the `docs/METHODOLOGY.md` cross-context-transduction requirement *negatively for example-specificity*
 — coherent with C26's 0.970 cross-gene rank-1 overlap. It is a **positive mechanistic finding + a material
 scope correction**, and the prereg's designated "GENERIC READOUT AXIS" outcome (a legitimate, reportable
-result), reached at **confirmatory tier**.
+result), reached at **verification tier — not confirmatory** (R28/R32: the frozen §9 `Global PASS = AND(...)`
+was never completed — the planted-confound arm was not run, and planted-positive was applied as a point check
+rather than the preregistered slope-CI-covers-1).
 
 ## Result (H_conf; mean over the 6 clean draws of 8, ranges in brackets)
 

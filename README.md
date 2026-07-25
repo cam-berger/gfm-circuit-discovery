@@ -41,7 +41,7 @@ gene-dyadic inference (R22).
 | Native donor–acceptor coupling | Behavior + specificity | A masked donor score depends on its own paired acceptor under canonical short-intron controls. | Wider biological and sequence-context transduction. |
 | Donor graph A0→A12 | QK → attention → OV/mediation → behavior | An acceptor-local generator feeds L3H1, which binds payload to a mostly relative address and delivers a low-rank donor-side signal through a structured core. | Payload semantics; cross-context causal transfer. |
 | Period-3 carrier C8/C34/C35/C39 | Position → routing → mediation → behavior; origin corpus-attributed | A distributed relative-positional routing coordinate shapes L3H1's attention across the donor–acceptor span. Origin: built by multi-species pretraining, codon-linked (absent in human-only sibling and in ncRNA models, C39/C40). | Training *dynamics* (trajectory); upstream effects on payload construction. |
-| Multispecies ≈10.63 carrier C12/C37/C39 | Position → QK → attention; origin corpus-attributed | Eight heads read a distinct positional carrier after softmax. Origin: multi-species pretraining (strong in 72-species, absent in human-only and in the human genome's ≈10.63 spectrum; genome's real period is nucleosomal ≈10.298 nt). | General OV/behavioral function still open. |
+| Multispecies ≈10.63 carrier C12/C37/C39 | Position → QK → attention; origin corpus-attributed | Eight heads read a distinct positional carrier after softmax. Origin: multi-species pretraining — strong in the 72-species stage-1 sibling, absent in the human-only sibling, and **not detectable** at ≈10.63 in 60 Mb of human genome above that unanchored assay's 5–10% modulation floor (a sensitivity limit, not an absence). The nucleosomal comparator that excludes the chromatin reading, ≈10.298 nt, is measured in **mouse** ES-cell chromatin (Voong 2016, mm9) — 0.33 nt from the carrier, which is fitted to ±0.005, so this remains a powered refutation (R30). | General OV/behavioral function still open. |
 | Human-only ≈10.2 proposal | Position/QK; fails at attention | The proposed chromatin-reader circuit is closed at the attention gate. | No higher claim is licensed. |
 | Head–Context Atlas | Matched discovery → group validation → conditional mechanism tests | Four general-use component candidates validate; context-specific signals remain exploratory because they missed the frozen precision gate. | Better-powered context cohorts and cross-example transduction. |
 
@@ -90,13 +90,25 @@ The reusable study template is under
 - `docs/` — transferable method, evidence rules, transfer guide, roadmap, and cleanup record.
 - `scripts/splicebert/` — active SpliceBERT experiment, audit, and figure scripts.
 - `scripts/splicebert_head_context_atlas/` — Atlas census, screening, mechanism, merge, and audit workflows.
+- `scripts/crossmodel/` — cross-model carrier runners (C39/C40). These require a separate environment;
+  see [`REPRODUCE.md`](REPRODUCE.md).
 - `src/gfmcd/adapters/` — model access and hook interfaces.
 - `src/gfmcd/circuits/` — reusable circuit-analysis primitives.
 - `src/gfmcd/crossmodel/` — cross-model carrier-origin assays (RNA-FM / RNA-BERT / DNABERT-2; C39/C40).
 - `src/gfmcd/splicing/` — SpliceBERT-specific assays, competition logic, and cohort utilities.
 - `results/splicebert_coupling/`, `results/phase-lattice/`, and
   `results/splicebert_head_context_atlas/` — immutable results, compact matrices, manifests, and audits.
+- `results/origin-crossmodel/` and `results/origin-siblings/` — the carrier-origin natural experiments
+  (C39/C40). These two use a `canonical/` subdirectory; the other result trees keep canonical artifacts
+  at the subtree root. See [`results/RESULTS_INDEX.md`](results/RESULTS_INDEX.md).
 - `figures/splicebert/` — generated figures and declared provenance.
+- `tests/` — the memorial and analysis-logic suite. Many memorials are data-gated and skip without a
+  local genome; see [`REPRODUCE.md`](REPRODUCE.md).
+- `configs/` — run configuration for the partner-selection study (input paths and cohort parameters).
+- `data/` — documentation only (`NUCLEOSOME_MAP.md`). The model, FASTA, and GTF are **not committed**
+  and must be supplied; see [`REPRODUCE.md`](REPRODUCE.md).
+- `handoff/` and `logs/` — machine-readable session state and retained run logs. Working records, not
+  evidence; nothing here is a controlling artifact.
 
 Large Atlas shards and reproducible runtime intermediates are intentionally excluded from Git; compact
 results, manifests, audits, code, tests, and Colab notebooks are version-controlled.
@@ -126,6 +138,7 @@ The canonical set is small on purpose:
 [`MECHANISM.md`](MECHANISM.md) · [`REPRODUCE.md`](REPRODUCE.md) ·
 [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md) · [`docs/EVIDENCE_LADDER.md`](docs/EVIDENCE_LADDER.md) ·
 [`docs/NOMENCLATURE.md`](docs/NOMENCLATURE.md) · [`docs/BIOLOGICAL_BRIDGES.md`](docs/BIOLOGICAL_BRIDGES.md) ·
+[`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) ·
 [`docs/REFERENCES.md`](docs/REFERENCES.md) · [`docs/TRANSFER_GUIDE.md`](docs/TRANSFER_GUIDE.md) ·
 [`docs/ROADMAP.md`](docs/ROADMAP.md) · [`results/RESULTS_INDEX.md`](results/RESULTS_INDEX.md) ·
 the per-study `CLAIMS.md` files.

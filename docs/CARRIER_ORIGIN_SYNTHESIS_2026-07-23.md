@@ -40,7 +40,7 @@ Neither is a universal genomic-LM feature.**
 |---|---|---|
 | 72-species stage-1 (P-spectrum) | **435× median** (present) | **369×** (present) |
 | human-only stage-1 (P-spectrum) | **6.2×**, undetected (powered) | **2.4×**, undetected (powered) |
-| used coding-specifically? (72-sp band-deletion) | **yes** — DiD +0.138, intron health 87.6% | not tested (donor-scoped, C37) |
+| used coding-specifically? (72-sp band-deletion) | **pattern reproduced, verification level** — DiD +0.138, intron health 87.6%; add-one p floored at 0.077 (12 of 30 control bands), so not a passed confirmation (R33) | not tested (donor-scoped, C37) |
 | RNA-FM / RNA-BERT (ncRNA, P-spectrum) | **absent** (≈1× median, powered null) | **absent** (≈1× median, powered null) |
 | human genome (model-free, 60 Mb) | n/a (codon signal is coding-only) | **no ≈10.63 periodicity** (Z≈1, n.s.) |
 | DNABERT-2 (BPE, no learned P) | **not representable** (codon = 0.64 token-steps < Nyquist) | — |
@@ -53,9 +53,12 @@ Three convergent reads:
   is absent from ORF-free ncRNA models — the parsimonious account is that period-3 encodes reading-frame
   structure that becomes learnable/useful under cross-species coding-sequence pressure.
 - **≈10.63 is a multi-species artifact, not a human-sequence statistic.** Present in 72-species, absent
-  in human-only, absent from the human genome's dinucleotide spectrum, and absent from the ncRNA models.
-  This makes MECHANISM item 4's "multispecies" label a measured attribution rather than an assertion. It
-  does **not** reopen the nucleosomal reading (the ≈10.298-nt signal remains a powered refutation, C14).
+  in human-only, **not detectable** in the human genome's dinucleotide spectrum above that unanchored
+  assay's 5–10% modulation floor (a sensitivity limit, not an established absence — R16/C15/**R30**), and
+  absent from the ncRNA models. This makes MECHANISM item 4's "multispecies" label a measured attribution
+  rather than an assertion. It does **not** reopen the nucleosomal reading: the ≈10.298-nt signal —
+  measured in **mouse** ES-cell chromatin (Voong 2016, mm9), not in human — remains a powered refutation
+  (C14, R30).
 - **Single-nucleotide tokenization is necessary to see these codes at all.** DNABERT-2 has no learned
   position table (ALiBi) and a BPE tokenizer averaging 4.66 nt/token, so a 3-nt period maps to 0.64
   token-steps — below the 2-step Nyquist period, i.e. mathematically unrepresentable. A null in a BPE
