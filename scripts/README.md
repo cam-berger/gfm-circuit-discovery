@@ -8,7 +8,7 @@ claim→evidence record is [`results/MANIFEST.csv`](../results/MANIFEST.csv) (78
 [`studies/splicebert_partner_selection/CLAIMS.md`](../studies/splicebert_partner_selection/CLAIMS.md)
 (donor circuit, C1–C41 + IC1), [`studies/splicebert_head_context_atlas/CLAIMS.md`](../studies/splicebert_head_context_atlas/CLAIMS.md)
 (Atlas, HCA1–HCA23), and [`CORRECTIONS.md`](../studies/splicebert_partner_selection/CORRECTIONS.md)
-(R1–R35). The per-claim command map with reproduction rules is
+(R1–R36). The per-claim command map with reproduction rules is
 [`studies/splicebert_partner_selection/REPRODUCIBILITY.md`](../studies/splicebert_partner_selection/REPRODUCIBILITY.md);
 the repo-level entry point is [`REPRODUCE.md`](../REPRODUCE.md).
 

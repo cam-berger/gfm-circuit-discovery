@@ -64,15 +64,19 @@ without generic MLM damage, with its semantic label no stronger than the externa
    human-only sibling, and absent from single-nt transformer MLMs trained on ORF-free ncRNA — a
    multi-species, codon-linked origin. Only training *dynamics* (the trajectory) still need checkpoint
    series or controlled retraining. See [`CARRIER_ORIGIN_SYNTHESIS_2026-07-23.md`](CARRIER_ORIGIN_SYNTHESIS_2026-07-23.md).
-5. **≈10.63 carrier — the donor-readout write is OPEN and runnable now (R31).** B1 v2 preregistered the OV
-   endpoint as `S_ov` (the `U_info`-projected `suff_recovery`) plus the `Ω` subspace overlap, each against a
-   covariance-matched null, with a `PP-ovplant` sensitivity gate. **None of it was computed** — the shipped
-   arm measured a coupling-margin value main instead. The prereg's **A-mixed branch — "the carrier writes a
-   carrier-specific component onto the donor readout subspace that is behaviourally redundant for coupling"
-   — is therefore unexcluded.** This needs no retraining and no new data: it is frozen-checkpoint patching
-   on the existing cohort. It is the cheapest open question in the record and should be run before any
-   further ≈10.63 interpretation. Its general downstream write and behavioral function also remain open
-   (C12/C37). Separately, its
+5. **≈10.63 carrier — the donor-readout write is OPEN and NOT EVALUABLE as preregistered (R36).** B1 v2
+   preregistered the OV endpoint as `S_ov` (the `U_info`-projected `suff_recovery`) plus the `Ω` subspace
+   overlap, each against a covariance-matched null with a `PP-ovplant` gate. **None of it was computed**, and
+   it cannot be computed within the protocol's scope: every per-head OV branch requires an **L0** reader —
+   the red-team's must-fix #7, because deeper readers' value-restore absorbs upstream global-P propagation —
+   and Preflight R found **no L0 head reaching Level A** (9 scanned, 0 passed; `R_1024` is L2/L3/L4 only).
+   The **A-mixed branch** ("the carrier writes a carrier-specific component onto the donor readout subspace
+   that is behaviourally redundant for coupling") is therefore **unexcluded and not excludable here** —
+   protocol **Endpoint B**. Closing it needs either an owner-authorized amendment extending per-head OV
+   claims to deep readers (which re-admits the confound must-fix #7 removed, weakening any positive) or a
+   reader set with a qualifying L0 head. **Do not simply run `S_ov` on `R_1024`** — that computes the
+   confounded quantity the design excluded on purpose. Its general downstream write and behavioral function
+   also remain open (C12/C37). Separately, its
    **origin is now corpus-attributed** (C39): strong in 72-species, absent in human-only, and **not
    detectable** in the human genome's own dinucleotide spectrum above that unanchored assay's 5–10%
    modulation floor (a sensitivity limit, not an established absence — R16/C15). The nucleosomal
