@@ -1,0 +1,86 @@
+{
+  "status": "PILOT -- feasibility gates only; NO addressing verdict",
+  "protocol": "DRAFT_PA1_DONOR_POSITION_SCAN.md v2 (NOT FROZEN)",
+  "config": {
+    "split": "val",
+    "n": 6,
+    "n_genes": 6,
+    "mask_half": 7,
+    "ks": [
+      -6,
+      -5,
+      -4,
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "device": "mps",
+    "smoke": true,
+    "model": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt"
+  },
+  "gates": {
+    "M1_single_mask_reproduces_C1": {
+      "max_abs_diff": 0.0,
+      "coupling_mean": 1.080114205678304,
+      "PASS": true,
+      "note": "exact arithmetic anchor; the window-mask P(0) is a DIFFERENT quantity"
+    },
+    "M2_native_profile_localizes_donor": {
+      "frac_argmax_within1_of_0": 0.0,
+      "frac_argmax_exact_0": 0.0,
+      "peak_k_hist": {
+        "-6": 3,
+        "3": 3
+      },
+      "mean_D_at_0": -0.18390227357546488,
+      "PASS": false,
+      "note": "GO/NO-GO: if the window-masked model cannot find its own donor, the assay is dead"
+    },
+    "M3_profile_magnitude": {
+      "median_span": 1.29745414853096,
+      "median_noise_floor": 0.0,
+      "frac_span_gt_noise": 1.0,
+      "P_at_0_mean": 0.44196035464604694,
+      "PASS": true
+    },
+    "M7_zero_identity": {
+      "max_abs_drho": 0.0,
+      "max_abs_dhat": 9.733344827836207e-18,
+      "PASS": true
+    },
+    "M10_estimator_resolution_FORCED": {
+      "by_tau": {
+        "-3": {
+          "n": 0,
+          "mean_dhat": null,
+          "max_err": null
+        },
+        "-1": {
+          "n": 0,
+          "mean_dhat": null,
+          "max_err": null
+        },
+        "1": {
+          "n": 0,
+          "mean_dhat": null,
+          "max_err": null
+        },
+        "3": {
+          "n": 0,
+          "mean_dhat": null,
+          "max_err": null
+        }
+      },
+      "note": "FORCED by re-indexing -- validates the ESTIMATOR only, not the intervention",
+      "PASS": false
+    },
+    "all_pass": false
+  }
+}

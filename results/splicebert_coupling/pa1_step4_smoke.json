@@ -1,0 +1,122 @@
+{
+  "status": "EXPLORATORY -- fresh gene-disjoint discovery cohort; sealed split NOT opened",
+  "protocol": "DRAFT_PA1_DONOR_POSITION_SCAN.md SS12D (NOT FROZEN)",
+  "config": {
+    "n": 8,
+    "n_genes": 8,
+    "mask": [
+      7,
+      10
+    ],
+    "ks": [
+      -6,
+      -5,
+      -4,
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "deltas": [
+      1,
+      2,
+      3
+    ],
+    "acc_protect": 40,
+    "min_gap": 86,
+    "device": "mps",
+    "gene_disjoint_from": "pa1_pilot (48 genes)"
+  },
+  "primary_statistic": "drho (dhat RETIRED per SS12C)",
+  "native_profile": {
+    "P_at_0": 0.1757645085453987,
+    "peakedness": [
+      0.16435114853084085,
+      0.006335687870159747,
+      0.32433869764208767
+    ]
+  },
+  "arms": {
+    "T1_acceptor_moves_mid": {
+      "prediction": "drho < 0 under donor-query",
+      "by_delta": {
+        "1": {
+          "n": 8,
+          "note": "insufficient"
+        },
+        "2": {
+          "n": 8,
+          "note": "insufficient"
+        },
+        "3": {
+          "n": 8,
+          "note": "insufficient"
+        }
+      }
+    },
+    "T2_acceptor_moves_third": {
+      "prediction": "drho < 0 under donor-query",
+      "by_delta": {
+        "1": {
+          "n": 8,
+          "note": "insufficient"
+        },
+        "2": {
+          "n": 8,
+          "note": "insufficient"
+        },
+        "3": {
+          "n": 8,
+          "note": "insufficient"
+        }
+      }
+    },
+    "RECIP_donor_moves": {
+      "prediction": "drho > 0 -- POSITIVE CONTROL; if this fails the assay is insensitive",
+      "by_delta": {
+        "1": {
+          "n": 8,
+          "note": "insufficient"
+        },
+        "2": {
+          "n": 8,
+          "note": "insufficient"
+        },
+        "3": {
+          "n": 8,
+          "note": "insufficient"
+        }
+      }
+    },
+    "S2_sham_downstream": {
+      "prediction": "drho <= 0 (nothing moved)",
+      "by_delta": {
+        "1": {
+          "n": 8,
+          "note": "insufficient"
+        },
+        "2": {
+          "n": 8,
+          "note": "insufficient"
+        },
+        "3": {
+          "n": 8,
+          "note": "insufficient"
+        }
+      }
+    }
+  },
+  "verdict": {
+    "statement": "INSENSITIVE -- the reciprocal positive control did not move the profile. T1/T2 are UNINTERPRETABLE; no conclusion about either algorithm.",
+    "recip_positive_control_pass": false,
+    "T1_all_negative_excl0": false,
+    "T2_all_negative_excl0": false,
+    "tier": "EXPLORATORY (discovery split; outcome-aware arc; NOT confirmatory)"
+  }
+}
