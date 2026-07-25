@@ -75,7 +75,8 @@ without generic MLM damage, with its semantic label no stronger than the externa
    protocol **Endpoint B**. Closing it needs either an owner-authorized amendment extending per-head OV
    claims to deep readers (which re-admits the confound must-fix #7 removed, weakening any positive) or a
    reader set with a qualifying L0 head. **Do not simply run `S_ov` on `R_1024`** — that computes the
-   confounded quantity the design excluded on purpose. Its general downstream write and behavioral function
+   confounded quantity the design excluded on purpose. **Disposition (2026-07-25): NOT PURSUED this
+   cycle** — recorded as a bounded limitation at Endpoint B, not an active track. Its general downstream write and behavioral function
    also remain open (C12/C37). Separately, its
    **origin is now corpus-attributed** (C39): strong in 72-species, absent in human-only, and **not
    detectable** in the human genome's own dinucleotide spectrum above that unanchored assay's 5–10%
@@ -90,6 +91,10 @@ without generic MLM damage, with its semantic label no stronger than the externa
    line of attack on the project's flagship biological claim. Closing it needs an external human
    dyad-anchored map (e.g. a chemical-cleavage or MNase dyad call set on hg38), not new model compute.
    Until then, always name the organism (see `docs/NOMENCLATURE.md`, standing phrase SP2).
+   **Disposition (2026-07-25): NOT PURSUED — accepted as a disclosed limitation.** A human MNase dyad set
+   is obtainable now but MNase's AT-cleavage bias directly confounds a WW-periodicity readout, so it would
+   need its own bias control before any number is reportable; no mature human *chemical-cleavage* dyad map
+   with comparable provenance was located. The refutation does not depend on closing this.
 
 ## Transfer milestone — second real GFM
 
