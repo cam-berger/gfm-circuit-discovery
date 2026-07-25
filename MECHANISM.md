@@ -132,7 +132,10 @@ mechanism.
 ### 4. Separate ≈10.63 carrier
 
 The ≈10.63 carrier is distinct from period 3 and, within the donor circuit, stops at post-softmax
-attention (its general OV content and behavioral function remain open, C12/C37). Its **origin is now
+attention (its general OV content and behavioral function remain open, C12/C37). **One donor-side arm is
+also open and is runnable on this frozen checkpoint:** B1's preregistered `U_info`-projected write test
+(`S_ov`, `Ω`) was never computed, so whether the carrier writes a carrier-specific component onto the donor
+readout — behaviourally redundant for coupling or not — is untested (R31). Its **origin is now
 corpus-attributed** by the same sibling contrast (C39): the ≈10.63 band is strong in the 72-species
 stage-1 checkpoint (369× median) and undetected in the human-only stage-1 checkpoint (2.4×, powered
 null) — so the "multispecies" label is now measured, not asserted. This is corroborated on the input
