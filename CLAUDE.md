@@ -51,7 +51,7 @@ rationale in `DECISIONS_A0.md`):
 - **C31 (A10)** wiring **L0H7/H12/H10 → MLP0(mediating) → MLP1 → MLP2**.
 - **C32 (A11)** address **predominantly relative + modest absolute** (A4 redesign; survival-gated).
 - **C33 (A12)** **irreducibly distributed** faithfulness; the identified circuit is the top-ranked core.
-- **R1–R35** retractions/corrections. **R25–R28** are the newest and the least cross-referenced — read
+- **R1–R36** retractions/corrections. **R25–R28** are the newest and the least cross-referenced — read
   them before quoting C30, C41, or the carrier-origin status: **R25** carrier origin deferred →
   corpus-attributed; **R26** SEALED §2's illustrative val figures superseded; **R27** A9b's primary DML
   nuisance switched from the preregistered GBR to linear Ridge; **R28** C41's planted-positive gate
@@ -208,7 +208,7 @@ rationale in `DECISIONS_A0.md`):
 - `studies/splicebert_partner_selection/CLAIMS.md` — compact live claims (source of truth for wording).
 - `docs/PREREG_CONFORMANCE.md` — where each runner departed from its frozen protocol (188 deviations,
   25 families). Read before citing any preregistered gate as enforced.
-- `studies/splicebert_partner_selection/CORRECTIONS.md` — full historical ledger and R1–R35 corrections.
+- `studies/splicebert_partner_selection/CORRECTIONS.md` — full historical ledger and R1–R36 corrections.
   (R1–R34 are table rows; R25–R28 are `##` sections later in the same file — check both when scanning.)
 - `studies/splicebert_partner_selection/DECISIONS_A0.md` — the donor-graph running log (A0→A12, rationale,
   the consolidated mechanism diagram, the verification-correction pass).

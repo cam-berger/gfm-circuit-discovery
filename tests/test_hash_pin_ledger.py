@@ -43,8 +43,21 @@ LEDGER_PATH = Path(__file__).resolve().parent / "data" / "hash_pin_ledger.json"
 PACKAGE = REPO / "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json"
 AUDIT_SCRIPT = REPO / "scripts/splicebert/audit_p3_phase_surgery_confirmation_package.py"
 
-# Model weights are gitignored and legitimately absent in a worktree; they are not drift.
+# Uncommitted external inputs: model weights (gitignored) and the genome/annotation files, which the
+# package binds by ABSOLUTE path. Neither is in a fresh checkout, so their ABSENCE is environment, not
+# drift -- CI caught this the hard way. If such a file IS present it is still hash-verified below, so
+# the guard is not weakened where it can actually check.
 MODEL_PATH_MARKERS = ("data/models", "/models/")
+
+# A fresh checkout must still be able to verify this many records (21 committed in-repo matches +
+# the 13 ledger entries). Pinned so the env-dependent escape can never quietly erode the guard to
+# nothing on a machine that happens to be missing everything.
+MIN_VERIFIABLE_RECORDS = 34
+
+
+def _is_uncommitted_external(path: str) -> bool:
+    """True for inputs that are legitimately absent from a clean checkout."""
+    return Path(path).is_absolute() or any(m in path for m in MODEL_PATH_MARKERS)
 
 
 def _sha256(path: Path) -> str:
@@ -74,22 +87,35 @@ def _flatten_records() -> list[dict]:
     return module.flatten_file_records(json.loads(PACKAGE.read_text()))
 
 
-def _observed_broken_package_paths() -> set[str]:
-    broken = set()
+def _classify_package_records() -> tuple[set[str], int, int]:
+    """Return (broken paths, verified count, env-dependent-absent count)."""
+    broken: set[str] = set()
+    verified = 0
+    env_absent = 0
     for rec in _flatten_records():
         path, recorded = rec.get("path"), rec.get("sha256")
         if not path or not recorded:
             continue
-        if any(m in path for m in MODEL_PATH_MARKERS):
-            continue  # gitignored weights
         resolved = Path(path)
         if not resolved.is_absolute():
             resolved = REPO / path
         if not resolved.exists():
+            # Absent AND uncommitted-external -> environment. Absent but expected in-repo -> drift.
+            if _is_uncommitted_external(path):
+                env_absent += 1
+            else:
+                broken.add(path)
+            continue
+        # Present: verify it, whatever kind of input it is.
+        if _sha256(resolved) == recorded:
+            verified += 1
+        else:
             broken.add(path)
-        elif _sha256(resolved) != recorded:
-            broken.add(path)
-    return broken
+    return broken, verified, env_absent
+
+
+def _observed_broken_package_paths() -> set[str]:
+    return _classify_package_records()[0]
 
 
 def test_ledger_is_well_formed() -> None:
@@ -114,6 +140,36 @@ def test_c36_package_broken_set_is_exactly_the_ledger() -> None:
     assert not repaired, (
         "These paths verify again; remove them from tests/data/hash_pin_ledger.json:\n  "
         + "\n  ".join(sorted(repaired))
+    )
+
+
+@pytest.mark.skipif(not PACKAGE.exists(), reason="C36 confirmation package not present")
+def test_guard_still_verifies_enough_records_to_be_meaningful() -> None:
+    """The env-dependent escape must never erode this guard to a vacuous pass.
+
+    Absent uncommitted external inputs (model weights, the absolutely-pathed genome/annotation
+    files) are skipped as environment. That escape is necessary for CI, and it is exactly the
+    kind of concession that turns a guard into decoration. So: pin how much must still be
+    checkable anywhere -- the 21 committed in-repo matches plus the 13 ledgered entries.
+    """
+    broken, verified, env_absent = _classify_package_records()
+    checkable = verified + len(broken)
+    assert checkable >= MIN_VERIFIABLE_RECORDS, (
+        f"only {checkable} of the package's bound records were checkable "
+        f"({verified} verified, {len(broken)} broken, {env_absent} skipped as environment). "
+        f"Expected at least {MIN_VERIFIABLE_RECORDS}; the guard has eroded."
+    )
+
+
+def test_env_dependent_classification_is_correct() -> None:
+    """Absent-external is environment; absent-in-repo is drift. No repo state needed."""
+    assert _is_uncommitted_external("/Users/anyone/data/genomes/hg38.fa")
+    assert _is_uncommitted_external("data/models/splicebert/pytorch_model.bin")
+    # A committed, repo-relative artifact must NEVER be excusable as environment.
+    assert not _is_uncommitted_external("results/phase-lattice/p3_phase_surgery_controls_n30.json")
+    assert not _is_uncommitted_external("scripts/splicebert/freeze_p3_phase_surgery_confirmation.py")
+    assert not _is_uncommitted_external(
+        "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_P3_CLOSURE.md"
     )
 
 

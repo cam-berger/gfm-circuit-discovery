@@ -44,8 +44,11 @@ Two phrases carry a caveat that a skimming reader would otherwise miss. Use them
 1. **At first use of "circuit" in any top-level document:** *structured causal core within an
    irreducibly distributed computation*. The named circuit is not sparse and minimality is unclaimed.
 2. **Whenever ≈10.63 and ≈10.298 appear together:** the "0.33 nt apart / powered refutation" qualifier
-   must be in the **same sentence**. A reader must never be able to skim the two numbers and conclude
-   that the model found nucleosome positioning.
+   must be in the **same sentence**, and **≈10.298 must be named as the mouse ES-cell measurement it is**
+   (Voong 2016, mm9). A reader must never be able to skim the two numbers and conclude that the model
+   found nucleosome positioning, and must never infer that a human dyad map exists in this record — none
+   does (R30). The refutation does not rest on cross-species transfer at 0.33 nt precision: 10.630 lies
+   outside the 10.2–10.5 bp DNA-helical range recorded from the literature in the entry below.
 
 ## Units convention
 

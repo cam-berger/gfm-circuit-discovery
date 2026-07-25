@@ -25,7 +25,7 @@ but “splice-site strength” was withdrawn by R22.
 | Record | Purpose |
 |---|---|
 | [`CLAIMS.md`](CLAIMS.md) | Compact live claims, evidence level, controlling artifact, and scope. |
-| [`CORRECTIONS.md`](CORRECTIONS.md) | Full historical ledger and permanent R1–R35 correction record. R1–R24 are table rows; R25–R34 are `##` sections. |
+| [`CORRECTIONS.md`](CORRECTIONS.md) | Full historical ledger and permanent R1–R36 correction record. R1–R24 are table rows; R25–R36 are `##` sections. |
 | [`FINDINGS.md`](FINDINGS.md) | Concise scientific narrative and limitations. |
 | [`P3_CLOSURE_CONFIRMATORY_REPORT.md`](P3_CLOSURE_CONFIRMATORY_REPORT.md) | Clean C36 design, result, provenance, and licensed claim. |
 | [`DECISIONS_A0.md`](DECISIONS_A0.md) | Detailed A0→A12 rationale, amendments, and post-outcome adjudication. |
