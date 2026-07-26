@@ -41,6 +41,7 @@ from gfmcd.splicing.circuit import (  # noqa: E402
     load_adapter, load_examples, pick_device, substitute,
 )
 from gfmcd.splicing.dataset import PyfaidxGenome  # noqa: E402
+from gfmcd.artifact_guard import guard_output_path  # noqa: E402
 
 sys.path.insert(0, str(REPO / "scripts" / "splicebert"))
 from run_p3_shift_diagnostic import translation_variant  # noqa: E402
@@ -183,7 +184,11 @@ def main() -> None:
     ap.add_argument("--fasta", default=DEFAULT_FASTA)
     ap.add_argument("--batch", type=int, default=8)
     ap.add_argument("--device", default=None)
-    ap.add_argument("--out", default="results/splicebert_coupling/pa1_pilot.json")
+    ap.add_argument("--out", default=None)  # computed below; a literal record
+                    # path here would default a re-run onto the artifact of record
+    ap.add_argument("--overwrite-record", action="store_true",
+                    help="replace an existing artifact of record "
+                         "(results are immutable by default)")
     ap.add_argument("--smoke", action="store_true")
     a = ap.parse_args()
 
@@ -366,7 +371,8 @@ def main() -> None:
                 "than the primary (drho)."),
         }
 
-    out = REPO / a.out
+    out = guard_output_path(REPO / (a.out or "results/splicebert_coupling/pa1_pilot.json"),
+                            overwrite=a.overwrite_record)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(res, indent=2))
     manifest = ExperimentManifest.create(

@@ -1,0 +1,35 @@
+{
+  "command": [
+    "scripts/splicebert/run_ed1_sensitivity_bound.py",
+    "--overwrite-record"
+  ],
+  "config": {
+    "alpha": 0.05,
+    "n_boot": 4000,
+    "scores": "results/splicebert_coupling/development/ed1_scores_val.json",
+    "sesoi": 0.106
+  },
+  "created_at_utc": "2026-07-26T02:17:09.608731+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 50537,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_coupling:ed1_sensitivity_bound",
+  "git_commit": "6280b82b4300cd491b37ee7bd50b45b8d1cb398e",
+  "git_dirty": true,
+  "inputs": [],
+  "notes": [
+    "POST-RUN robustness interpretation, NOT a preregistered outcome. The frozen verdict remains NOT LICENSED AS A SWITCH (prereg S6 row 2) and the confirmatory artifact records GATES_FAILED.",
+    "Uses ONLY preregistered quantities: beta = 3*SESOI/raw_gap exactly as planted_confound_null froze it. No post-outcome empirical slope is used.",
+    "Bounds ACTIVE cross-exon strengthening; does NOT exclude exon-like relative dominance from a constant cross-exon channel plus cross-intron decay."
+  ],
+  "outputs": [],
+  "seeds": {
+    "bias_draws": 3,
+    "bootstrap": 0,
+    "signflip_calibration": 7
+  },
+  "status": "DIAGNOSTIC"
+}

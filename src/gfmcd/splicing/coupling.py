@@ -75,6 +75,15 @@ class CouplingExample:
     n_isoforms_donor: int          # transcript support -> constitutive vs alternative
     n_isoforms_acceptor: int
     gene_type: str
+    intron_length_up: int | None = None
+    """Length of the intron UPSTREAM of this exon (between the previous exon's donor and
+    this exon's acceptor), in transcript order.
+
+    Unlike ``intron_length_down`` this is never a separation for either measured coupling
+    (the cross-exon separation is ``exon_length``; the cross-intron one is
+    ``intron_length_down``), so it is the one flanking-architecture axis that is not
+    definitionally entangled with a distance.  Not window-constrained -- the upstream
+    intron is never perturbed, so it may run off the window."""
     other_ag: tuple[int, ...] = ()   # non-partner AG positions (motif-matched null)
     other_gt: tuple[int, ...] = ()   # non-partner GT positions (specificity test)
     real_acc: tuple[int, ...] = ()   # OTHER real annotated acceptors in-window (control)
@@ -162,10 +171,21 @@ class CouplingScorer:
             p.requires_grad_(False)
         self.m.eval()
 
-    def _margin(self, seqs: Sequence[str], positions: Sequence[int], base: str) -> np.ndarray:
+    def _margin(self, seqs: Sequence[str], positions: Sequence[int], base: str,
+                reduce: str = "max") -> np.ndarray:
+        """``reduce='max'`` = the task metric ``logit(base) - max(other logits)``.
+
+        ``reduce='mean'`` = the LINEAR functional ``logit(base) - mean(other logits)``.
+        Difference-in-differences estimands must use the linear form: under ``max`` the
+        arg-max base can switch between the states being differenced, so a DiD picks up
+        arg-max switching rather than the intervention (the same reason IC1 froze the
+        linear observable).
+        """
         torch = self.torch
         out: list[float] = []
         others = [b for b in "ACGT" if b != base]
+        if reduce not in ("max", "mean"):
+            raise ValueError(f"reduce must be 'max' or 'mean', got {reduce!r}")
         with torch.no_grad():
             for i in range(0, len(seqs), self.bs):
                 S, P = seqs[i:i + self.bs], positions[i:i + self.bs]
@@ -177,9 +197,38 @@ class CouplingScorer:
                 for j, p in enumerate(P):
                     v = logits[j, p + 1]
                     hit = v[self.base_id[base]].item()
-                    alt = max(v[self.base_id[b]].item() for b in others)
+                    vals = [v[self.base_id[b]].item() for b in others]
+                    alt = max(vals) if reduce == "max" else sum(vals) / len(vals)
                     out.append(hit - alt)
         return np.asarray(out)
+
+    def margins_both(self, seqs: Sequence[str], positions: Sequence[int],
+                     base: str) -> tuple[np.ndarray, np.ndarray]:
+        """``(linear, max)`` margins from a SINGLE forward pass.
+
+        Calling ``_margin`` twice runs the model twice for reductions that are two
+        different summaries of the same logits -- a pure factor-2 waste on any run that
+        reports both the DiD observable and the task metric.
+        """
+        torch = self.torch
+        lin: list[float] = []
+        mx: list[float] = []
+        others = [b for b in "ACGT" if b != base]
+        with torch.no_grad():
+            for i in range(0, len(seqs), self.bs):
+                S, P = seqs[i:i + self.bs], positions[i:i + self.bs]
+                enc = self.tok([" ".join(s) for s in S], return_tensors="pt",
+                               padding=True).to(self.dev)
+                for j, p in enumerate(P):
+                    enc["input_ids"][j, p + 1] = self.mask_id
+                logits = self.m(**enc).logits.float()
+                for j, p in enumerate(P):
+                    v = logits[j, p + 1]
+                    hit = v[self.base_id[base]].item()
+                    vals = [v[self.base_id[b]].item() for b in others]
+                    lin.append(hit - sum(vals) / len(vals))
+                    mx.append(hit - max(vals))
+        return np.asarray(lin), np.asarray(mx)
 
     def donor_margin(self, seqs: Sequence[str], donor_pos: Sequence[int]) -> np.ndarray:
         """Mask the G of the donor GT."""
@@ -334,8 +383,17 @@ def build_coupling_dataset(gtf_path, genome, cfg: CouplingConfig, *,
             # saying so.
             if exon.strand == "+":
                 nxt = exons[i + 1] if i + 1 < len(exons) else None
+                prv = exons[i - 1] if i - 1 >= 0 else None
             else:
                 nxt = exons[i - 1] if i - 1 >= 0 else None
+                prv = exons[i + 1] if i + 1 < len(exons) else None
+            # UPSTREAM intron: previous exon's donor -> this exon's acceptor, transcript order.
+            # Never perturbed, so it is NOT window-constrained (may run off the window).
+            intron_up = None
+            if prv is not None:
+                iu = (exon.start - prv.end) if exon.strand == "+" else (prv.start - exon.end)
+                if iu >= 0:
+                    intron_up = iu
             intron = None
             next_acc = None
             if nxt is not None:
@@ -379,7 +437,7 @@ def build_coupling_dataset(gtf_path, genome, cfg: CouplingConfig, *,
                 exon_length=length, intron_length_down=intron,
                 n_isoforms_donor=don_n[(exon.gene_id, _donor_anchor(exon))],
                 n_isoforms_acceptor=acc_n[(exon.gene_id, _acceptor_anchor(exon))],
-                gene_type=exon.gene_type,
+                gene_type=exon.gene_type, intron_length_up=intron_up,
                 other_ag=other_ag, other_gt=other_gt, real_acc=real_acc, real_don=real_don,
                 next_acceptor_pos=next_acc,
                 metadata={"genomic_window_start": ws, "genomic_window_end": we,

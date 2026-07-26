@@ -1,0 +1,54 @@
+{
+  "command": [
+    "scripts/splicebert/audit_ed1_provenance.py",
+    "--overwrite-record"
+  ],
+  "config": {
+    "n_inputs": 5,
+    "n_outputs": 6,
+    "n_sources": 10
+  },
+  "created_at_utc": "2026-07-26T02:18:25.087211+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 50661,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_coupling:ed1_provenance_audit",
+  "git_commit": "b1a3f005b712a0c83bcc667e1a1bfc558c58a356",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa.fai",
+      "sha256": "3b425de206296a5c8053023fa5ca61da43cfe78c1737c12e58c83367c7e83c21",
+      "size_bytes": 19381
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/colab_results/splicebert_run/baselines/local_pair_baseline.pkl",
+      "sha256": "1b8597d72547f9921119430913c79a1437ee0f4c7f19f72cd5615c7dbda98c4e",
+      "size_bytes": 5516
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    }
+  ],
+  "notes": [
+    "Fix-forward provenance for ED1. Supersedes, but does not edit, the manifest beside the confirmatory artifact, which recorded git_commit=8490d05 (dirty) -- a revision that does not contain the ED1 runner."
+  ],
+  "outputs": [],
+  "seeds": {},
+  "status": "INFRASTRUCTURE"
+}

@@ -46,6 +46,7 @@ REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO / "src"))
 sys.path.insert(0, str(REPO / "scripts" / "splicebert"))
 
+from gfmcd.artifact_guard import guard_output_path  # noqa: E402
 from gfmcd.provenance import ExperimentManifest  # noqa: E402
 from gfmcd.splicing.circuit import (  # noqa: E402
     CORRUPT_ALT, DEFAULT_FASTA, DEFAULT_GTF, DEFAULT_MODEL, CouplingTask, gboot,
@@ -170,7 +171,11 @@ def main() -> None:
     ap.add_argument("--gtf", default=DEFAULT_GTF)
     ap.add_argument("--fasta", default=DEFAULT_FASTA)
     ap.add_argument("--device", default=None)
-    ap.add_argument("--out", default="results/splicebert_coupling/pa1_step4.json")
+    ap.add_argument("--out", default=None)  # computed below; a literal record
+                    # path here would default a re-run onto the artifact of record
+    ap.add_argument("--overwrite-record", action="store_true",
+                    help="replace an existing artifact of record "
+                         "(results are immutable by default)")
     ap.add_argument("--smoke", action="store_true")
     a = ap.parse_args()
 
@@ -279,7 +284,8 @@ def main() -> None:
                       "T1_all_negative_excl0": bool(t_neg), "T2_all_negative_excl0": bool(t2_neg),
                       "tier": "EXPLORATORY (discovery split; outcome-aware arc; NOT confirmatory)"}
 
-    out = REPO / a.out
+    out = guard_output_path(REPO / (a.out or "results/splicebert_coupling/pa1_step4.json"),
+                            overwrite=a.overwrite_record)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(res, indent=2))
     m = ExperimentManifest.create(f"splicebert:{out.stem}", sys.argv, repo=REPO,

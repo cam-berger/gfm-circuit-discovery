@@ -1,0 +1,130 @@
+{
+ "note": "Fix-forward provenance audit for ED1. The manifest written beside the confirmatory artifact recorded git_commit=8490d05 (dirty), a revision that does NOT contain the ED1 runner; it is preserved unedited and superseded by this file for provenance purposes.",
+ "ed1_commit": "b1a3f005b712a0c83bcc667e1a1bfc558c58a356",
+ "ed1_commit_subject": "ED1: does donor\u2013acceptor coupling switch to the cross-exon partner? \u2014 no detectable strengthening",
+ "worktree_branch": "claude/exon-intron-definition-65aca0",
+ "tree_clean_for_ed1_sources": true,
+ "sources": {
+  "src/gfmcd/splicing/exon_intron.py": {
+   "git_blob": "993f9c6aa8ad325680f0116819e62324fb80b359",
+   "disk_sha256": "b8b22c6a9111e019b76421287cdea85ebdd87326dc7a80a891ff7b00c542679d",
+   "tracked_clean": true
+  },
+  "src/gfmcd/splicing/coupling.py": {
+   "git_blob": "1ffb330c6ae1e3e55476c8d628eb8385ececf729",
+   "disk_sha256": "f1c062a793f177d2d57544e94494e31751a49948a241620f922508f820a72f47",
+   "tracked_clean": true
+  },
+  "scripts/splicebert/run_ed1_architecture_boundary_pairing.py": {
+   "git_blob": "d8c8f12d22a07ab57fbd4fd58dd95b678d984667",
+   "disk_sha256": "749aa31eab47e1dffafeaaefaf7652c4fe3b08257be4fdd136aa76238c8feb5d",
+   "tracked_clean": true
+  },
+  "scripts/splicebert/run_ed1_cohort_pilot.py": {
+   "git_blob": "ea9dcd3b6bb3d11d808e017d35838d7a3ee6fc69",
+   "disk_sha256": "b1231ada1a5ad43ba5c42858fc20db01eea2a0a8feb3baba4c0d8196e50c09e9",
+   "tracked_clean": true
+  },
+  "scripts/splicebert/run_ed1_matching_pilot.py": {
+   "git_blob": "a529d1a584c2f36a6ef37f2dc2fcc851fcda8606",
+   "disk_sha256": "7de7d196fb7aee6061a6549085aeb5754dd15141f3f926fdc3cdc821106a7b0b",
+   "tracked_clean": true
+  },
+  "scripts/splicebert/run_ed1_sensitivity_bound.py": {
+   "git_blob": "a15875278a2e589ba2f5cbe90e4ca8f46b5df1cf",
+   "disk_sha256": "f3a0764fcb53d187b09e44d7b9a8d04e2687f21fc6943a3b923f1fc6d4351630",
+   "tracked_clean": true
+  },
+  "scripts/splicebert/verify_ed1.py": {
+   "git_blob": "b06c58478ab41268c4b84fe1e081abd6040711af",
+   "disk_sha256": "c4ca255a666d256b706b250b7fc2d316b39542f21d0dc9bc29787c5501a0668b",
+   "tracked_clean": true
+  },
+  "scripts/splicebert/seal_ed1_constants.py": {
+   "git_blob": "eccb6ab30b91fcb641eab5044ab75f1faeac1ae6",
+   "disk_sha256": "ed510bf6d9247c64954a5570645fe219907c186dc9f3696a280749e77aa378ea",
+   "tracked_clean": true
+  },
+  "tests/test_ed1_determinism.py": {
+   "git_blob": "9e0bfa4761043963bd374141d6a97188aa1a12de",
+   "disk_sha256": "898caddf661f79c5eb0a633e491b8bb56ad53afdc3774e285f30c30624ce39ed",
+   "tracked_clean": true
+  },
+  "tests/test_ed1_inference_calibration.py": {
+   "git_blob": "151806fa5c6a62a1e5e69c23b4def31034431f40",
+   "disk_sha256": "e95c418fe19f6115eee9d74ab03523b03b3b8d502cc906b8c0306d7d91376d80",
+   "tracked_clean": true
+  }
+ },
+ "outputs": {
+  "results/splicebert_coupling/ed1_architecture_boundary_pairing.json": {
+   "sha256": "1da53506248289cc9c59965c4ba9d8b4415727ecaeb90cffb8d2c8095f428fdc",
+   "bytes": 10086
+  },
+  "results/splicebert_coupling/ed1_sensitivity_bound.json": {
+   "sha256": "02fbea9330dc12c5037b4910ea2c9abca9ea303b5419d25e44542d2fae4fde8d",
+   "bytes": 907
+  },
+  "results/splicebert_coupling/development/ed1_scores_val.json": {
+   "sha256": "195a3b0b93c3f4b750fb5e1cd8e1f54b3937002265f147ad2c15e6e2ba7ae14a",
+   "bytes": 17007077
+  },
+  "results/splicebert_coupling/development/ed1_scores_trainpilot.json": {
+   "sha256": "c975b1197573b4a659f0d6468c27423af6e466ee018e24870fbbfd8c1d27863b",
+   "bytes": 4285405
+  },
+  "results/splicebert_coupling/development/ed1_val_secondary_complete.json": {
+   "sha256": "d5c5a3a7820a20824f39d5c6c34fddfdef171740ed546d0c19789005ebeb5774",
+   "bytes": 12911
+  },
+  "results/splicebert_coupling/development/ed1_trainpilot_sealed.json": {
+   "sha256": "a25d8ff3d0ab1fe8373d610a44cb2975d2a3782e4623fb1f8149727da3bf0952",
+   "bytes": 10057
+  }
+ },
+ "biological_inputs": {
+  "gencode.v50.basic.annotation.gtf.gz": {
+   "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+   "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+   "bytes": 79970394
+  },
+  "hg38.fa": {
+   "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+   "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+   "bytes": 3273481150
+  },
+  "hg38.fa.fai": {
+   "path": "/Users/cberg/Research/data/genomes/hg38.fa.fai",
+   "sha256": "3b425de206296a5c8053023fa5ca61da43cfe78c1737c12e58c83367c7e83c21",
+   "bytes": 19381
+  },
+  "local_pair_baseline.pkl": {
+   "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/colab_results/splicebert_run/baselines/local_pair_baseline.pkl",
+   "sha256": "1b8597d72547f9921119430913c79a1437ee0f4c7f19f72cd5615c7dbda98c4e",
+   "bytes": 5516
+  },
+  "pytorch_model.bin": {
+   "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+   "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+   "bytes": 78883755
+  }
+ },
+ "environment": {
+  "python": "3.13.12",
+  "numpy": "2.5.1",
+  "torch": "2.13.0",
+  "transformers": "5.13.0",
+  "pythonhashseed": "0 (pinned at launch)"
+ },
+ "sealed_constants": {
+  "SESOI": 0.106,
+  "native_coupling_floor": 0.265,
+  "balance_max_smd": 0.1,
+  "n_boot": 2000,
+  "alpha": 0.05,
+  "arch_short_max": 200,
+  "arch_long_min": 300,
+  "sham": "ShamPolicy(min_sep=25, max_log2_ratio=1.0, k=1)"
+ },
+ "frozen_verdict": "NOT LICENSED AS A SWITCH (prereg S6 row 2); artifact records GATES_FAILED because planted_confound_null failed. The sensitivity bound is a POST-RUN robustness interpretation, not an outcome."
+}

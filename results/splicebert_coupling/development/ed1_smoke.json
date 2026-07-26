@@ -1,0 +1,384 @@
+{
+ "observable": "linear",
+ "sesoi": 0.1,
+ "verdict": "GATES_FAILED -- no interpretation",
+ "gates_pass": false,
+ "primary": {
+  "dd": {
+   "mean": 0.5946492509314949,
+   "lo": 0.3233450371402567,
+   "hi": 0.8545440797866243,
+   "n_pairs": 20,
+   "signflip_p": 0.0045
+  },
+  "E_switch": {
+   "mean": -0.10941557244126063,
+   "lo": -0.3232897639972384,
+   "hi": 0.1199259406782676,
+   "n_pairs": 20,
+   "signflip_p": 0.519
+  },
+  "I_switch": {
+   "mean": -0.7040648233727553,
+   "lo": -0.943191773077474,
+   "hi": -0.4676490336383489,
+   "n_pairs": 20,
+   "signflip_p": 0.0
+  },
+  "IUT": "licensed only if BOTH dd and E_switch reject with the predicted sign"
+ },
+ "memorials": {
+  "variant_construction_exact": {
+   "n_fail": 0,
+   "examples": [],
+   "PASS": true,
+   "forced": false
+  },
+  "readout_anchor": {
+   "n_fail": 0,
+   "PASS": true,
+   "forced": false
+  },
+  "batch_invariance": {
+   "max_abs": 0.0,
+   "PASS": true,
+   "forced": false
+  },
+  "native_coupling_present": {
+   "C_intron_down_short": 0.7352631797654215,
+   "floor": 0.3,
+   "PASS": true,
+   "forced": false
+  },
+  "balance_achieved": {
+   "worst_smd": 0.9550604628470334,
+   "table": {
+    "L_exon": -0.010544607161925618,
+    "gc_exon": 0.0778642576553254,
+    "gc_intron": 0.01835572205531933,
+    "s_acc": -0.1669199493618814,
+    "s_next": 0.3219640374852741,
+    "s_don": 0.19803486912029097,
+    "log_iso_don": 0.9550604628470334,
+    "log_iso_acc": 0.543932915415832,
+    "donor_pos": -0.32033888134963623,
+    "acc_pos": -0.3774299091192871,
+    "log_L_up": 0.024699984665451303,
+    "_density_n_real_don": 0.7284588606020339,
+    "_density_n_real_acc": 0.8612123704336531
+   },
+   "PASS": false,
+   "forced": false
+  },
+  "identity_noop_exact": {
+   "n_fail": 0,
+   "PASS": true,
+   "forced": true,
+   "note": "FORCED by construction: determinism/plumbing only (R21)"
+  },
+  "did_regrouping_identity": {
+   "max_resid": 2.7755575615628914e-16,
+   "PASS": true,
+   "forced": true,
+   "note": "FORCED by linear-f algebra; validates nothing on its own"
+  }
+ },
+ "calibration": {
+  "sensitivity_decision": {
+   "power": 0.0,
+   "target": 0.8,
+   "PASS": false,
+   "planted": 0.1
+  },
+  "permuted_label_fpr": {
+   "fpr": 0.0,
+   "target": 0.05,
+   "PASS": true
+  },
+  "planted_confound_null": {
+   "rate": 0.3,
+   "target": 0.1,
+   "PASS": false,
+   "beta": 7.320281525691231,
+   "unmatched_effect": -0.29819742730416277,
+   "gc_gap": 0.04098203039693504
+  }
+ },
+ "secondary": {
+  "switch_S_exon": {
+   "mean": -0.12102045320789312,
+   "lo": -0.3391644298305745,
+   "hi": 0.10715507585922403,
+   "n_pairs": 20
+  },
+  "switch_S_intron": {
+   "mean": -0.7362531016910607,
+   "lo": -1.0003483207548867,
+   "hi": -0.48609703273319727,
+   "n_pairs": 20
+  },
+  "switch_G_partner": {
+   "mean": 0.029182862680560813,
+   "lo": -0.012500246798182178,
+   "hi": 0.08732777357225997,
+   "n_pairs": 20
+  },
+  "switch_G_sham": {
+   "mean": 0.0017249361999956553,
+   "lo": -0.008365234930468826,
+   "hi": 0.013505281494518614,
+   "n_pairs": 20
+  },
+  "switch_G_specific": {
+   "mean": 0.027457926480565154,
+   "lo": -0.014108530629926296,
+   "hi": 0.0881769786170771,
+   "n_pairs": 20
+  },
+  "dd_sham": {
+   "mean": -0.02058339755167285,
+   "lo": -0.08369681143189825,
+   "hi": 0.038458054716663886
+  },
+  "cells": {
+   "SS": {
+    "C_exon": {
+     "mean": 0.2468748913549158,
+     "lo": 0.12578047444828153,
+     "hi": 0.41617477885591114,
+     "n": 48
+    },
+    "C_intron": {
+     "mean": 0.9057478408580613,
+     "lo": 0.6512994827748778,
+     "hi": 1.1833820906918089,
+     "n": 48
+    },
+    "S_exon": {
+     "mean": 0.25348434630723204,
+     "lo": 0.11333335683155564,
+     "hi": 0.4309006865010896,
+     "n": 44
+    },
+    "S_intron": {
+     "mean": 0.8950431142733984,
+     "lo": 0.6446970972841558,
+     "hi": 1.1723412001517186,
+     "n": 48
+    },
+    "G_partner": {
+     "mean": 0.0021758267915478005,
+     "lo": -0.05824917589000523,
+     "hi": 0.05275767360161997,
+     "n": 48
+    },
+    "G_specific": {
+     "mean": 0.0021734510845624697,
+     "lo": -0.06715544329471812,
+     "hi": 0.054120846652989475,
+     "n": 44
+    }
+   },
+   "SL": {
+    "C_exon": {
+     "mean": 0.2654368834269733,
+     "lo": 0.11537169487260908,
+     "hi": 0.4210817381072584,
+     "n": 23
+    },
+    "C_intron": {
+     "mean": 0.12516909083216524,
+     "lo": 0.05429166277084505,
+     "hi": 0.2171969342997189,
+     "n": 23
+    },
+    "S_exon": {
+     "mean": 0.2367762481162297,
+     "lo": 0.07073366856664046,
+     "hi": 0.45638060876975606,
+     "n": 22
+    },
+    "S_intron": {
+     "mean": 0.11370559649514993,
+     "lo": 0.045962453049159586,
+     "hi": 0.20134940659008774,
+     "n": 23
+    },
+    "G_partner": {
+     "mean": 0.0075029378901976754,
+     "lo": -0.013658697758034286,
+     "hi": 0.03250872562005451,
+     "n": 23
+    },
+    "G_specific": {
+     "mean": -0.009765510163340681,
+     "lo": -0.05361050374671804,
+     "hi": 0.015769056626101577,
+     "n": 22
+    }
+   },
+   "LS": {
+    "C_exon": {
+     "mean": 0.3164831187711411,
+     "lo": 0.17731028979991847,
+     "hi": 0.5149817081201967,
+     "n": 84
+    },
+    "C_intron": {
+     "mean": 0.6378433734267702,
+     "lo": 0.5134474761232845,
+     "hi": 0.7947726483369125,
+     "n": 84
+    },
+    "S_exon": {
+     "mean": 0.3164251944969685,
+     "lo": 0.1783653519670725,
+     "hi": 0.5166197479111001,
+     "n": 82
+    },
+    "S_intron": {
+     "mean": 0.6126323480864466,
+     "lo": 0.484673750912738,
+     "hi": 0.7743889101848286,
+     "n": 84
+    },
+    "G_partner": {
+     "mean": -0.002524468698076829,
+     "lo": -0.02892155664694991,
+     "hi": 0.01824126302226651,
+     "n": 84
+    },
+    "G_specific": {
+     "mean": -0.012651931681638078,
+     "lo": -0.04093361110957564,
+     "hi": 0.011976203201256756,
+     "n": 82
+    }
+   },
+   "LL": {
+    "C_exon": {
+     "mean": 0.35698076046182536,
+     "lo": 0.24743387821662013,
+     "hi": 0.4758231334250071,
+     "n": 153
+    },
+    "C_intron": {
+     "mean": 0.10130744195918089,
+     "lo": 0.07117637860471594,
+     "hi": 0.13770704655751823,
+     "n": 153
+    },
+    "S_exon": {
+     "mean": 0.3496761640203012,
+     "lo": 0.24486169357576457,
+     "hi": 0.4728233712475159,
+     "n": 143
+    },
+    "S_intron": {
+     "mean": 0.09411676072027055,
+     "lo": 0.061690183635129285,
+     "hi": 0.13213767763981646,
+     "n": 153
+    },
+    "G_partner": {
+     "mean": 0.007686474622269852,
+     "lo": 0.0007351303817644031,
+     "hi": 0.015491672574547272,
+     "n": 153
+    },
+    "G_specific": {
+     "mean": 0.0077376362422886,
+     "lo": 0.0024361760775574114,
+     "hi": 0.014414871316436182,
+     "n": 143
+    }
+   }
+  },
+  "primary_by_upstream_band": {
+   "L": {
+    "n": 14,
+    "E_switch": -0.20625433696910656,
+    "dd": 0.4356378926756971
+   },
+   "S": {
+    "n": 6,
+    "E_switch": 0.11654154479038,
+    "dd": 0.9656757535283559
+   }
+  },
+  "density_matched_direct_effect": {
+   "n_pairs": 1,
+   "worst_smd": 0.0,
+   "balanced": true,
+   "n_genes": 2,
+   "E_switch": {
+    "mean": -0.032547896107038454,
+    "lo": -0.032547896107038454,
+    "hi": -0.032547896107038454,
+    "signflip_p": 1.0
+   },
+   "dd": {
+    "mean": 0.12942091127236655,
+    "lo": 0.12942091127236655,
+    "hi": 0.12942091127236655
+   },
+   "note": "controlled direct effect (site density held fixed); density descends from the exposure, so this is NOT the total effect"
+  },
+  "upstream_axis": {
+   "n_pairs": 23,
+   "worst_smd": 0.37953726021603446,
+   "C_exon": {
+    "mean": 0.023521127727597995,
+    "lo": -0.234163527089065,
+    "hi": 0.3230273212319312,
+    "n_pairs": 23,
+    "signflip_p": 0.919
+   }
+  },
+  "stability_blocks": {},
+  "stability_sd_dd": NaN,
+  "stability_trigger": false,
+  "tail_share_top_decile": -0.3464862307985197,
+  "E_switch_winsorized": -0.17436255516183635,
+  "dd_winsorized": 0.5904111947291921,
+  "within_gene_pairs": 0,
+  "n_genes_matched": 40,
+  "achieved_mde": 0.4599733745988504,
+  "sd_between_C_exon": 0.6864219316801752,
+  "max_margin_readout": null
+ },
+ "cohort": {
+  "n_units": 400,
+  "n_in_2x2": 308,
+  "n_pairs": 20,
+  "cells": {
+   "LS": 84,
+   "null": 92,
+   "LL": 153,
+   "SS": 48,
+   "SL": 23
+  }
+ },
+ "provenance": {
+  "split": "train",
+  "smoke": true,
+  "limit": 400,
+  "pythonhashseed": "0",
+  "model": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+  "gtf": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+  "sham": {
+   "min_sep": 25,
+   "max_log2_ratio": 1.0,
+   "k": 1
+  },
+  "arch_bands": {
+   "short_max": 200,
+   "long_min": 300
+  },
+  "sesoi": 0.1,
+  "native_coupling_floor": 0.3,
+  "n_boot": 2000,
+  "alpha": 0.05,
+  "prereg": "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_ED1_ARCHITECTURE_BOUNDARY_PAIRING.md"
+ }
+}
