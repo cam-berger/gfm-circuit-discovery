@@ -1,0 +1,29 @@
+{
+ "status": "POST-RUN ROBUSTNESS INTERPRETATION -- not a preregistered outcome; the frozen verdict remains NOT LICENSED AS A SWITCH / GATES_FAILED",
+ "n_pairs": 3472,
+ "sesoi": 0.106,
+ "alpha": 0.05,
+ "E_switch_point": 0.013625614319753137,
+ "preregistered_plant": {
+  "beta": 4.0919153642523955,
+  "raw_gc_gap": 0.07771421735114492,
+  "residual_gc_gap": -0.00480902893960088,
+  "bias_point": 0.019678139405087246,
+  "bias_ucb95": 0.02164980233833066,
+  "note": "beta from the FROZEN rule 3*SESOI/raw_gap; no post-outcome slope is used"
+ },
+ "bootstrap": {
+  "ucb95_E_switch": 0.03606489708152051,
+  "ucb95_E_switch_plus_bias": 0.05566829320437306
+ },
+ "signflip_calibrated": {
+  "critical_value": 0.022423221787632702,
+  "ucb95_E_switch": 0.03604883610738584,
+  "ucb95_E_switch_plus_bias": 0.0576986384457165
+ },
+ "verdict_bound": {
+  "bound": 0.0576986384457165,
+  "sesoi": 0.106,
+  "excluded": true
+ }
+}

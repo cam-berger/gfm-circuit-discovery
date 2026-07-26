@@ -1,0 +1,431 @@
+{
+ "observable": "linear",
+ "sesoi": 0.106,
+ "verdict": "GATES_FAILED -- no interpretation",
+ "gates_pass": false,
+ "primary": {
+  "dd": {
+   "mean": 0.6728606531104967,
+   "lo": 0.6293406366741302,
+   "hi": 0.7140173175071063,
+   "n_pairs": 3472,
+   "signflip_p": 0.0,
+   "boot_p": 0.0,
+   "calibrated_p_star": 0.03
+  },
+  "E_switch": {
+   "mean": 0.013625614319753137,
+   "lo": -0.012863289223969966,
+   "hi": 0.04019598801685784,
+   "n_pairs": 3472,
+   "signflip_p": 0.3085
+  },
+  "I_switch": {
+   "mean": -0.6592350387907436,
+   "lo": -0.6927707073387412,
+   "hi": -0.625089597587073,
+   "n_pairs": 3472,
+   "signflip_p": 0.0
+  },
+  "IUT": "licensed only if BOTH dd and E_switch reject with the predicted sign"
+ },
+ "memorials": {
+  "variant_construction_exact": {
+   "n_fail": 0,
+   "examples": [],
+   "PASS": true,
+   "forced": false
+  },
+  "readout_anchor": {
+   "n_fail": 0,
+   "PASS": true,
+   "forced": false
+  },
+  "batch_invariance": {
+   "max_abs": 0.0,
+   "PASS": true,
+   "forced": false
+  },
+  "native_coupling_present": {
+   "C_intron_down_short": 0.8360099864908827,
+   "floor": 0.265,
+   "PASS": true,
+   "forced": false
+  },
+  "balance_achieved": {
+   "worst_smd": 0.0922240941004887,
+   "table": {
+    "L_exon": 0.0006765588686027327,
+    "gc_exon": -0.024291398583501638,
+    "gc_intron": 0.05326102782498828,
+    "s_acc": 0.015954606461766278,
+    "s_next": 0.0922240941004887,
+    "s_don": 0.07902844392537743,
+    "log_iso_don": 0.04252427419887229,
+    "log_iso_acc": -0.001793038813988873,
+    "donor_pos": 0.06152856523137935,
+    "acc_pos": 0.08144544279179046,
+    "log_L_up": -0.00988645993683663,
+    "_density_n_real_don": 0.4938828817526383,
+    "_density_n_real_acc": 0.31449844439072155
+   },
+   "PASS": true,
+   "forced": false
+  },
+  "identity_noop_exact": {
+   "n_fail": 0,
+   "PASS": true,
+   "forced": true,
+   "note": "FORCED by construction: determinism/plumbing only (R21)"
+  },
+  "did_regrouping_identity": {
+   "max_resid": 7.771561172376096e-16,
+   "PASS": true,
+   "forced": true,
+   "note": "FORCED by linear-f algebra; validates nothing on its own"
+  }
+ },
+ "calibration": {
+  "sensitivity_decision": {
+   "power": 1.0,
+   "target": 0.8,
+   "PASS": true,
+   "planted": 0.106
+  },
+  "permuted_label_fpr": {
+   "fpr": 0.06,
+   "target": 0.05,
+   "method": "dyadic_multiplier_bootstrap",
+   "PASS": true,
+   "clean": false,
+   "calibrated_p_star": 0.03,
+   "note": "positive verdicts must additionally clear p <= p_star when fpr > 0.05"
+  },
+  "permuted_label_fpr_wild": {
+   "fpr": 0.065,
+   "target": 0.05,
+   "PASS": false,
+   "method": "twoway_wild_signflip",
+   "note": "frozen fallback (prereg 5); reported, gates only if the bootstrap fails"
+  },
+  "planted_confound_null": {
+   "rate": 0.285,
+   "target": 0.1,
+   "PASS": false,
+   "beta": 4.0919153642523955,
+   "unmatched_effect": -0.3224327909301081,
+   "gc_gap": 0.07771421735114492
+  }
+ },
+ "secondary": {
+  "switch_S_exon": {
+   "mean": 0.013559370246980987,
+   "lo": -0.012790466638591734,
+   "hi": 0.04174778865341025,
+   "n_pairs": 3472
+  },
+  "switch_S_intron": {
+   "mean": -0.6396605102314669,
+   "lo": -0.673025031527511,
+   "hi": -0.6059602866742443,
+   "n_pairs": 3472
+  },
+  "switch_G_partner": {
+   "mean": -0.005786303653402524,
+   "lo": -0.012685030813469233,
+   "hi": 0.000976054062640703,
+   "n_pairs": 3472
+  },
+  "switch_G_sham": {
+   "mean": -0.0004624994231230645,
+   "lo": -0.002179461446480589,
+   "hi": 0.0013634002687999745,
+   "n_pairs": 3472
+  },
+  "switch_G_specific": {
+   "mean": -0.008214209503620586,
+   "lo": -0.015125237025601767,
+   "hi": -0.0018495359680093925,
+   "n_pairs": 3472
+  },
+  "dd_sham": {
+   "mean": 0.021284669694158403,
+   "lo": 0.012021574255496556,
+   "hi": 0.030559038699319203
+  },
+  "cells": {
+   "SS": {
+    "C_exon": {
+     "mean": 0.20286279700921941,
+     "lo": 0.1803139329464895,
+     "hi": 0.2258580522637537,
+     "n": 2416
+    },
+    "C_intron": {
+     "mean": 0.9037511957665962,
+     "lo": 0.8602749377483652,
+     "hi": 0.9496881149592993,
+     "n": 2416
+    },
+    "S_exon": {
+     "mean": 0.17911875285649273,
+     "lo": 0.1593007557289283,
+     "hi": 0.20111633213852304,
+     "n": 2332
+    },
+    "S_intron": {
+     "mean": 0.8867479282971837,
+     "lo": 0.843044248263073,
+     "hi": 0.9340680249412058,
+     "n": 2408
+    },
+    "G_partner": {
+     "mean": 0.020942058111931273,
+     "lo": 0.013355767041133521,
+     "hi": 0.028306339586335893,
+     "n": 2416
+    },
+    "G_specific": {
+     "mean": 0.021471665115851687,
+     "lo": 0.013868060006553402,
+     "hi": 0.029533685663096117,
+     "n": 2332
+    }
+   },
+   "SL": {
+    "C_exon": {
+     "mean": 0.2566914201849132,
+     "lo": 0.224594891506762,
+     "hi": 0.29319954008866494,
+     "n": 1311
+    },
+    "C_intron": {
+     "mean": 0.1366821759214761,
+     "lo": 0.11719872086960825,
+     "hi": 0.1549436599974186,
+     "n": 1311
+    },
+    "S_exon": {
+     "mean": 0.2227882517173434,
+     "lo": 0.19062517247563793,
+     "hi": 0.25665565055618716,
+     "n": 1264
+    },
+    "S_intron": {
+     "mean": 0.13389383284294562,
+     "lo": 0.11481177447337745,
+     "hi": 0.15264413494074755,
+     "n": 1311
+    },
+    "G_partner": {
+     "mean": 0.011576078039219959,
+     "lo": 0.0063403714131618225,
+     "hi": 0.01730703560451652,
+     "n": 1311
+    },
+    "G_specific": {
+     "mean": 0.010219566880919122,
+     "lo": 0.005487465136393606,
+     "hi": 0.014923866820978897,
+     "n": 1264
+    }
+   },
+   "LS": {
+    "C_exon": {
+     "mean": 0.21961775971888353,
+     "lo": 0.2014847316208427,
+     "hi": 0.23912764989815674,
+     "n": 4429
+    },
+    "C_intron": {
+     "mean": 0.7990574550819587,
+     "lo": 0.7658340866197438,
+     "hi": 0.8306862663306608,
+     "n": 4429
+    },
+    "S_exon": {
+     "mean": 0.1952767590963484,
+     "lo": 0.17728232190530124,
+     "hi": 0.21244708325954026,
+     "n": 4257
+    },
+    "S_intron": {
+     "mean": 0.7786505272090694,
+     "lo": 0.745965692758862,
+     "hi": 0.8104862966752393,
+     "n": 4427
+    },
+    "G_partner": {
+     "mean": 0.014974622268895708,
+     "lo": 0.009287223878315636,
+     "hi": 0.021179165399641202,
+     "n": 4429
+    },
+    "G_specific": {
+     "mean": 0.016378501804242107,
+     "lo": 0.010491016083262989,
+     "hi": 0.022050740879859015,
+     "n": 4257
+    }
+   },
+   "LL": {
+    "C_exon": {
+     "mean": 0.26828051344046966,
+     "lo": 0.2477274970666658,
+     "hi": 0.29139177439343433,
+     "n": 3937
+    },
+    "C_intron": {
+     "mean": 0.11040209939581086,
+     "lo": 0.10080029543428977,
+     "hi": 0.11920011847931955,
+     "n": 3937
+    },
+    "S_exon": {
+     "mean": 0.24548892848481899,
+     "lo": 0.22381970698261958,
+     "hi": 0.2684873920554807,
+     "n": 3754
+    },
+    "S_intron": {
+     "mean": 0.1068337609049392,
+     "lo": 0.09755226336033988,
+     "hi": 0.1159698657676143,
+     "n": 3936
+    },
+    "G_partner": {
+     "mean": 0.004824643654087301,
+     "lo": 0.003292688644508982,
+     "hi": 0.006476501912442837,
+     "n": 3937
+    },
+    "G_specific": {
+     "mean": 0.0049573980140810445,
+     "lo": 0.003150084247997442,
+     "hi": 0.006645588270864309,
+     "n": 3754
+    }
+   }
+  },
+  "primary_by_upstream_band": {
+   "L": {
+    "n": 2404,
+    "E_switch": 0.012679119274051243,
+    "dd": 0.6422094424818932
+   },
+   "S": {
+    "n": 1068,
+    "E_switch": 0.015756114403898593,
+    "dd": 0.7418545766602747
+   }
+  },
+  "density_matched_direct_effect": {
+   "n_pairs": 1245,
+   "worst_smd": 0.09586836012143811,
+   "balanced": true,
+   "n_genes": 1241,
+   "E_switch": {
+    "mean": 0.023876946374672362,
+    "lo": -0.018868008500562698,
+    "hi": 0.06776312594486014,
+    "signflip_p": 0.2805
+   },
+   "dd": {
+    "mean": 0.7322512648497251,
+    "lo": 0.6669191526912495,
+    "hi": 0.7990739986162648
+   },
+   "note": "controlled direct effect (site density held fixed); density descends from the exposure, so this is NOT the total effect"
+  },
+  "upstream_axis": {
+   "n_pairs": 3599,
+   "worst_smd": 0.056181850938571164,
+   "C_exon": {
+    "mean": 0.012627284738584273,
+    "lo": -0.012469625671864337,
+    "hi": 0.03673135755625094,
+    "n_pairs": 3599,
+    "signflip_p": 0.291
+   }
+  },
+  "stability_blocks": {
+   "0": {
+    "n": 1198,
+    "E_switch": 0.04690071176382535,
+    "dd": 0.7256425928458271
+   },
+   "1": {
+    "n": 1179,
+    "E_switch": -0.03281993431997006,
+    "dd": 0.6361147463678304
+   },
+   "2": {
+    "n": 1095,
+    "E_switch": 0.027229025377502127,
+    "dd": 0.6546786076736727
+   }
+  },
+  "stability_sd_dd": 0.047250642734753795,
+  "stability_sd_E_switch": 0.04152957624402208,
+  "stability_trigger": false,
+  "tail_share_top_decile": 0.3731555968887788,
+  "E_switch_winsorized": 0.022362010609156324,
+  "dd_winsorized": 0.6705850793631365,
+  "within_gene_pairs": 17,
+  "n_genes_matched": 1933,
+  "achieved_mde": 0.03858721541844505,
+  "sd_between_C_exon": 0.42927058417370495,
+  "max_margin_readout": {
+   "dd": {
+    "mean": 0.7066527571399256,
+    "lo": 0.6601375795300646,
+    "hi": 0.7511962214085293,
+    "n_pairs": 3472,
+    "signflip_p": 0.0,
+    "boot_p": 0.0,
+    "calibrated_p_star": null
+   },
+   "E_switch": {
+    "mean": 0.016256413604155633,
+    "lo": -0.011723270597338367,
+    "hi": 0.04410897496152794,
+    "n_pairs": 3472,
+    "signflip_p": 0.2415
+   }
+  }
+ },
+ "cohort": {
+  "n_units": 15885,
+  "n_in_2x2": 12093,
+  "n_pairs": 3472,
+  "cells": {
+   "LL": 3937,
+   "LS": 4429,
+   "null": 3792,
+   "SS": 2416,
+   "SL": 1311
+  }
+ },
+ "provenance": {
+  "split": "val",
+  "smoke": false,
+  "limit": null,
+  "pythonhashseed": "0",
+  "model": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+  "gtf": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+  "sham": {
+   "min_sep": 25,
+   "max_log2_ratio": 1.0,
+   "k": 1
+  },
+  "arch_bands": {
+   "short_max": 200,
+   "long_min": 300
+  },
+  "sesoi": 0.106,
+  "native_coupling_floor": 0.265,
+  "n_boot": 2000,
+  "alpha": 0.05,
+  "prereg": "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_ED1_ARCHITECTURE_BOUNDARY_PAIRING.md"
+ }
+}

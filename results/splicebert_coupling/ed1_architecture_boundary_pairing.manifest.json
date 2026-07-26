@@ -1,0 +1,63 @@
+{
+  "command": [
+    "scripts/splicebert/run_ed1_architecture_boundary_pairing.py",
+    "--split",
+    "val",
+    "--sesoi",
+    "0.106",
+    "--floor",
+    "0.265",
+    "--nsim",
+    "200"
+  ],
+  "config": {
+    "alpha": 0.05,
+    "arch_bands": {
+      "long_min": 300,
+      "short_max": 200
+    },
+    "gtf": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+    "limit": null,
+    "model": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+    "n_boot": 2000,
+    "native_coupling_floor": 0.265,
+    "prereg": "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_ED1_ARCHITECTURE_BOUNDARY_PAIRING.md",
+    "pythonhashseed": "0",
+    "sesoi": 0.106,
+    "sham": {
+      "k": 1,
+      "max_log2_ratio": 1.0,
+      "min_sep": 25
+    },
+    "smoke": false,
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-26T01:23:44.935588+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 46213,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_coupling:ed1_architecture_boundary_pairing",
+  "git_commit": "8490d054e63fffb2add7888320680eab655946c9",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    }
+  ],
+  "notes": [
+    "ED1: architecture x partner-direction interaction (exon vs intron definition). PRIMARY = intersection-union on {dd, E_switch}; dd alone cannot separate a switch from cross-intron distance decay because L_down IS the cross-intron separation.",
+    "Inference: two-way dyadic multiplier bootstrap with ADDITIVE mean-zero gene multipliers (the Exp(1) weighted-mean variant over-rejects at FPR~0.19; see redteam B4). Site density is a descendant of the exposure and is NOT adjusted in the primary (redteam M4'); the D1 secondary holds it fixed.",
+    "verdict=GATES_FAILED -- no interpretation"
+  ],
+  "outputs": [],
+  "seeds": {
+    "boot": 0,
+    "matching": "deterministic (no RNG)"
+  },
+  "status": "CONFIRMATORY"
+}
