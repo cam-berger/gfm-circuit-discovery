@@ -1,9 +1,9 @@
 {
  "note": "Fix-forward provenance audit for ED1. The manifest written beside the confirmatory artifact recorded git_commit=8490d05 (dirty), a revision that does NOT contain the ED1 runner; it is preserved unedited and superseded by this file for provenance purposes.",
- "ed1_commit": "6280b82b4300cd491b37ee7bd50b45b8d1cb398e",
- "ed1_commit_subject": "ED1: provenance audit, footprint trim, and the four review adjustments",
+ "ed1_commit": "b1a3f005b712a0c83bcc667e1a1bfc558c58a356",
+ "ed1_commit_subject": "ED1: does donor\u2013acceptor coupling switch to the cross-exon partner? \u2014 no detectable strengthening",
  "worktree_branch": "claude/exon-intron-definition-65aca0",
- "tree_clean_for_ed1_sources": false,
+ "tree_clean_for_ed1_sources": true,
  "sources": {
   "src/gfmcd/splicing/exon_intron.py": {
    "git_blob": "993f9c6aa8ad325680f0116819e62324fb80b359",
@@ -31,9 +31,9 @@
    "tracked_clean": true
   },
   "scripts/splicebert/run_ed1_sensitivity_bound.py": {
-   "git_blob": "bfeb28876571e1af1b58f32dc9dddc0306477aed",
+   "git_blob": "a15875278a2e589ba2f5cbe90e4ca8f46b5df1cf",
    "disk_sha256": "f3a0764fcb53d187b09e44d7b9a8d04e2687f21fc6943a3b923f1fc6d4351630",
-   "tracked_clean": false
+   "tracked_clean": true
   },
   "scripts/splicebert/verify_ed1.py": {
    "git_blob": "b06c58478ab41268c4b84fe1e081abd6040711af",

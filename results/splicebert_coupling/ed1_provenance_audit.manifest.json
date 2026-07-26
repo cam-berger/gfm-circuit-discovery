@@ -8,15 +8,15 @@
     "n_outputs": 6,
     "n_sources": 10
   },
-  "created_at_utc": "2026-07-26T02:17:12.001612+00:00",
+  "created_at_utc": "2026-07-26T02:18:25.087211+00:00",
   "environment": {
     "hostname": "Camerons-MacBook-Pro.local",
-    "pid": 50545,
+    "pid": 50661,
     "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
     "python": "3.13.12"
   },
   "experiment_id": "splicebert_coupling:ed1_provenance_audit",
-  "git_commit": "6280b82b4300cd491b37ee7bd50b45b8d1cb398e",
+  "git_commit": "b1a3f005b712a0c83bcc667e1a1bfc558c58a356",
   "git_dirty": true,
   "inputs": [
     {
