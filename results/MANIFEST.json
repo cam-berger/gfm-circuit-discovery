@@ -1,15 +1,15 @@
 {
  "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc).",
- "row_count": 798,
+ "row_count": 808,
  "status_counts": {
   "canonical": 533,
-  "development": 118,
+  "development": 128,
   "infrastructure": 13,
   "superseded": 134
  },
  "polarity_counts": {
   "bounded": 30,
-  "na": 275,
+  "na": 285,
   "null": 19,
   "positive": 470,
   "refutation": 4
@@ -8002,6 +8002,106 @@
    "polarity": "na",
    "artifact": "results/splicebert_coupling/ed1_provenance_audit.manifest.json",
    "script": "scripts/splicebert/audit_ed1_provenance.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "",
+   "status": "development",
+   "evidence_level": "",
+   "polarity": "na",
+   "artifact": "results/splicebert_coupling/pa1_pilot.json",
+   "script": "scripts/splicebert/run_pa1_pilot.py",
+   "manifest": "results/splicebert_coupling/pa1_pilot.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "",
+   "status": "development",
+   "evidence_level": "",
+   "polarity": "na",
+   "artifact": "results/splicebert_coupling/pa1_pilot.manifest.json",
+   "script": "scripts/splicebert/run_pa1_pilot.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "",
+   "status": "development",
+   "evidence_level": "",
+   "polarity": "na",
+   "artifact": "results/splicebert_coupling/pa1_pilot_smoke.json",
+   "script": "scripts/splicebert/run_pa1_pilot.py",
+   "manifest": "results/splicebert_coupling/pa1_pilot_smoke.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "",
+   "status": "development",
+   "evidence_level": "",
+   "polarity": "na",
+   "artifact": "results/splicebert_coupling/pa1_pilot_smoke.manifest.json",
+   "script": "scripts/splicebert/run_pa1_pilot.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "",
+   "status": "development",
+   "evidence_level": "",
+   "polarity": "na",
+   "artifact": "results/splicebert_coupling/pa1_sensitivity.json",
+   "script": "scripts/splicebert/run_pa1_sensitivity.py",
+   "manifest": "results/splicebert_coupling/pa1_sensitivity.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "",
+   "status": "development",
+   "evidence_level": "",
+   "polarity": "na",
+   "artifact": "results/splicebert_coupling/pa1_sensitivity.manifest.json",
+   "script": "scripts/splicebert/run_pa1_sensitivity.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "",
+   "status": "development",
+   "evidence_level": "",
+   "polarity": "na",
+   "artifact": "results/splicebert_coupling/pa1_step4.json",
+   "script": "scripts/splicebert/run_pa1_step4.py",
+   "manifest": "results/splicebert_coupling/pa1_step4.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "",
+   "status": "development",
+   "evidence_level": "",
+   "polarity": "na",
+   "artifact": "results/splicebert_coupling/pa1_step4.manifest.json",
+   "script": "scripts/splicebert/run_pa1_step4.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "",
+   "status": "development",
+   "evidence_level": "",
+   "polarity": "na",
+   "artifact": "results/splicebert_coupling/pa1_step4_smoke.json",
+   "script": "scripts/splicebert/run_pa1_step4.py",
+   "manifest": "results/splicebert_coupling/pa1_step4_smoke.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "",
+   "status": "development",
+   "evidence_level": "",
+   "polarity": "na",
+   "artifact": "results/splicebert_coupling/pa1_step4_smoke.manifest.json",
+   "script": "scripts/splicebert/run_pa1_step4.py",
    "manifest": "",
    "figure": ""
   }

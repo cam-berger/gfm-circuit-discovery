@@ -38,6 +38,7 @@ from gfmcd.splicing.circuit import (  # noqa: E402
     load_adapter, load_examples, pick_device, substitute,
 )
 from gfmcd.splicing.unembed import donor_logits  # noqa: E402
+from gfmcd.artifact_guard import guard_output_path  # noqa: E402
 from run_p3_shift_diagnostic import insertion_variant  # noqa: E402
 from run_pa1_pilot import KS, MASK_HALF, ProfileScorer, anchor_delta_rho, displacement, gt_margin  # noqa: E402
 
@@ -116,7 +117,11 @@ def main() -> None:
     ap.add_argument("--gtf", default=DEFAULT_GTF)
     ap.add_argument("--fasta", default=DEFAULT_FASTA)
     ap.add_argument("--device", default=None)
-    ap.add_argument("--out", default="results/splicebert_coupling/pa1_sensitivity.json")
+    ap.add_argument("--out", default=None)  # computed below; a literal record
+                    # path here would default a re-run onto the artifact of record
+    ap.add_argument("--overwrite-record", action="store_true",
+                    help="replace an existing artifact of record "
+                         "(results are immutable by default)")
     a = ap.parse_args()
 
     dev = pick_device(a.device)
@@ -192,7 +197,8 @@ def main() -> None:
         "yields a translated logit delta close to by construction. Validates the scoring + "
         "displacement IMPLEMENTATION only. Failure => instrument broken. Success is NOT evidence.")
 
-    out = REPO / a.out
+    out = guard_output_path(REPO / (a.out or "results/splicebert_coupling/pa1_sensitivity.json"),
+                            overwrite=a.overwrite_record)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(res, indent=2))
     m = ExperimentManifest.create(f"splicebert:{out.stem}", sys.argv, repo=REPO,
