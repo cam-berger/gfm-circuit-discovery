@@ -1,0 +1,65 @@
+{
+  "command": [
+    "scripts/splicebert/run_pa1_sensitivity.py",
+    "--n",
+    "24",
+    "--model",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt"
+  ],
+  "config": {
+    "acc_offsets": [
+      -3,
+      -2,
+      -1,
+      0
+    ],
+    "device": "mps",
+    "ks": [
+      -6,
+      -5,
+      -4,
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "mask_half": 7,
+    "n": 24,
+    "reader": [
+      3,
+      1
+    ],
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-25T21:53:32.762050+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 40235,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert:pa1_sensitivity",
+  "git_commit": "8490d054e63fffb2add7888320680eab655946c9",
+  "git_dirty": true,
+  "inputs": [],
+  "notes": [
+    "EXPLORATORY sensitivity ladder L0+L1 -- discovery only, NO verdict",
+    "A head writes at its QUERY position. If the query field stays pinned at the donor while acceptor attention mass is retained, the fixed write location is ARCHITECTURE-EXPECTED, not an independent discovery -- and the L3H1 transplant (Level 2) measures CAPACITY, not the endogenous algorithm's choice.",
+    "NEAR-ARCHITECTURE-FORCED: the MLM head is position-shared, so a translated residual delta yields a translated logit delta close to by construction. Validates the scoring + displacement IMPLEMENTATION only. Failure => instrument broken. Success is NOT evidence."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/project-knowledge-quiz-decf18/results/splicebert_coupling/pa1_sensitivity.json",
+      "sha256": "20d471f4638c7e307b4bd80f49ecb869b4a32ecdb83af368851ea872c43843f8",
+      "size_bytes": 3535
+    }
+  ],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

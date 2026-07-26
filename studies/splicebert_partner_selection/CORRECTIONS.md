@@ -227,6 +227,17 @@ not by the review sweep, which is the failure mode this repo has to design again
 historical, superseded**; it is a record of what was written then) and `data/NUCLEOSOME_MAP.md`, which was
 always correct and is the primary provenance document for the Voong map.
 
+**Addendum (2026-07-25) — the residual gap is now registered, not just disclosed.** Two follow-ups the
+first pass left open are closed as far as they can be without new data:
+(a) **Standing phrase SP2** (`docs/NOMENCLATURE.md`) now requires the **organism** in the same sentence as
+the 0.33-nt qualifier, so the species travels with the number by rule rather than by memory.
+(b) **`docs/ROADMAP.md` open problem 6** records the actual scientific gap: *no human dyad-anchored
+nucleosome measurement exists in this record*, every dyad script is mm9, and closing it needs an external
+human dyad call set on hg38 — not new model compute. The refutation itself is unaffected and is **not**
+contingent on cross-species transfer at 0.33 nt, because 10.630 falls outside the 10.2–10.5 bp helical
+range recorded from the literature; but the cross-species step is an assumption rather than a measurement,
+and it is the most likely line of attack on the project's flagship biological claim.
+
 ## R31 — the ≈10.63 carrier's OV/Behaviour evidence was mis-stated in two opposite directions (2026-07-25)
 
 **What changed.** Two errors about the same evidence, pointing opposite ways.
@@ -267,6 +278,56 @@ recorded as an absence.
 **Deliberately left carrying the superseded reading, as dated record:** `DECISIONS.md:126,192` (a T2
 chronology of pivots, explicitly "not a second claim ledger") and `DECISIONS_A0.md`. Read them through this
 entry.
+
+**Addendum (2026-07-25) — C12's terminality was itself wrong, and is corrected here.** The first pass at
+this entry scoped C12's "does not write" clause but left the row's closing sentence, *"C12 is terminal on
+the frozen checkpoint,"* untouched. That is inconsistent with `CLAIMS.md`'s own status vocabulary, which
+defines a terminal row as one where *"no further evidence will be sought … not a live loose end."* The
+`U_info` write test is a **live loose end and is runnable on this very checkpoint**: `S_ov` is
+`anchor_gates.suff_recovery` projected on C16's `U_info` against a covariance-matched null, with the
+`PP-ovplant` sensitivity gate — frozen-checkpoint patching on the existing cohort, needing no retraining
+and no new data. C12's status is therefore **bounded with one arm open**, not closed, and the B1 A-mixed
+branch — *"the carrier writes a carrier-specific component onto the donor readout subspace that is
+behaviourally redundant/masked for coupling"* — stands as an explicit open question.
+**Registered as open in:** `CLAIMS.md:35` (status and closing sentence), `docs/ROADMAP.md` open problem 5,
+`MECHANISM.md`, and the `preregistrations/README.md` B1 v2 row.
+**Superseded in one respect by R36:** this addendum called the test "the cheapest unanswered question in the
+record" and said it "should be run". **Both halves are wrong** — see R36. It is not runnable as scoped.
+
+## R36 — B1's per-head OV endpoint is NON-IDENTIFIABLE on this checkpoint, not merely uncomputed (2026-07-25)
+
+**What changed.** R31 recorded that B1's preregistered OV endpoint (`S_ov`, `Ω`) was never computed and
+called the A-mixed branch "unexcluded". That is correct. Its addendum then went further and called the test
+**runnable now on the frozen checkpoint** — and that is **wrong**. Preparing to run it produced three facts
+that together make the per-head OV branch **unevaluable as preregistered**:
+
+1. **The protocol scopes every per-head OV claim to L0 readers, for a stated methodological reason.**
+   Family control: *"per-head OV claims restricted to **L0 readers** (L1/L2 readers' value-restore absorbs
+   upstream global-P propagation, must-fix #7)"*. Every outcome branch inherits it — A-OV requires "≥1 **L0**
+   head", A-null(donor) requires "no **L0** head's `S_ov^h`", A-mixed requires "an **L0** `S_ov^h` beats the
+   null". The restriction is the red-team's fix for the confound the protocol itself names: `V = W_V·r`
+   depends on the position-carrying residual, so `Mv_h` is generically nonzero via propagation even for a
+   functionally routing-only head.
+2. **No L0 reader exists.** Preflight R scanned **76 heads including 9 at L0; not one reached Level A** at
+   `BAND_P10` (best L0 `m_T` = 0.591, `significant: false`). `R_1024` = {L2×2, L3×6, L4×1} — **zero L0
+   heads** (`results/phase-lattice/carrier_preflight_r.json`).
+3. **The deferral gate cannot fire in the branch it exists to exclude.** `run_carrier_ov_av.py:24-26` defers
+   the covariance-matched null and `PP-ovplant` to a follow-up *"**ONLY** for heads whose core value main
+   fires (CI-low > SESOI_v)"*. A-mixed is *by definition* coupling-null with a positive `S_ov`. A
+   coupling-null head never fires that trigger, so `S_ov` is never computed in exactly the case A-mixed
+   describes. The promised `--null` follow-up mode was **never implemented** — no such flag exists.
+
+**Rule.** Running `S_ov` on `R_1024` as it stands would compute the confounded deep-reader quantity that
+must-fix #7 removed **on purpose**; it would not close A-mixed, and reporting it would manufacture a new
+over-claim of exactly the kind this ledger exists to prevent. The correct disposition is the protocol's own
+**Endpoint B — unresolved: "C12(donor-OV) unreached on this evidence."** The A-mixed branch is **not
+excluded and not excludable on this checkpoint as scoped**. Closing it requires either (a) an
+owner-authorized, logged amendment extending per-head OV claims to deep readers — which re-admits the
+global-P propagation confound and therefore weakens what any positive could mean — or (b) a checkpoint or
+reader set in which an L0 head reaches Level A at `BAND_P10`. Neither is a re-run of the existing design.
+**No compute was spent:** this was settled by reading the frozen protocol against `carrier_preflight_r.json`.
+**Sites corrected:** `CLAIMS.md:35`, `docs/ROADMAP.md` open problem 5, `MECHANISM.md`,
+`preregistrations/README.md` B1 v2 row, and R31's addendum above.
 
 ## R32 — C41 was labelled "confirmatory" in the ledger while R28 records it at verification tier (2026-07-25)
 
