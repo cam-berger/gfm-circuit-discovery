@@ -20,6 +20,7 @@ reconstruction.
 | IF4 | Context exchanges are ineligible if they change target nucleotides, length, target token indices, offsets, or cover. | `test_atlas_context.py` | Does not establish any informative region. |
 | IF5 | Causal specs reject null sets whose component count differs from the candidate intervention. | `test_atlas_mechanism.py` | Does not establish necessity or mediation. |
 | IF6 | The bounded GENCODE v50 collection has zero target/baseline cluster overlap and exact declared matching balance; splice donor, splice acceptor, start codon, and stop codon meet outcome-blind control supply, while Kozak does not. | `results/dnabert2_reconstruction_atlas/collection_qualification_v1.json` | Supply qualification is not a reconstruction outcome; Kozak is untested, not null. |
+| IF7 | Preflight calibration v1 passed geometry, split, balance, finiteness, deterministic replay, and batch-invariance checks, but its randomly located ≥32-nt-buffer copy plant failed class-wide positive-control monotonicity and sensitivity. | `results/dnabert2_reconstruction_atlas/preflight_calibration_v1.json` | `INSTRUMENT_UNRESOLVED`; no target outcome or biological null is licensed. |
 
 ## Open hypotheses
 

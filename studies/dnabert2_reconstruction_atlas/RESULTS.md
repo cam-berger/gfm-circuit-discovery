@@ -28,6 +28,19 @@ three-control supply audit is preserved as a bound comparison in the same artifa
 
 This is a collection/instrument result only. It licenses IF6 and no biological behavior claim.
 
+### Preflight calibration v1 — instrument unresolved
+
+`results/dnabert2_reconstruction_atlas/preflight_calibration_v1.json` used 64 development
+clusters per supply-qualified class and no empirical target-control contrast. Geometry, matching
+balance, split invariants, finite scores, deterministic replay, and batch invariance passed.
+
+The positive control did not qualify. Four-copy effects were +0.0051 acceptor, −0.0043 donor,
++0.0089 start codon, and +0.0088 stop codon nats per covered nucleotide; only stop codon was
+strictly dose-monotone. The v1 plant was randomly located anywhere downstream after a ≥32-nt
+buffer, so it mixed sensitivity with arbitrary-distance context use. Status is
+`INSTRUMENT_UNRESOLVED`; interpretation is frozen while placement is diagnosed. This licenses
+IF7 and no behavior claim.
+
 Bulk runtime collections and per-site shards will remain ignored. Every settled compact result must
 be immutable, indexed here, and accompanied by a manifest containing checkpoint, data inputs,
 parameters, seeds, code revision, and command.

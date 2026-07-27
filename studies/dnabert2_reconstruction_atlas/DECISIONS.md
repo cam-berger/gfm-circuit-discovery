@@ -85,3 +85,18 @@
   calibration. The rejected three-control audit remains immutable runtime evidence.
 - Effect: four GENCODE classes enter preflight calibration. Kozak and all non-GENCODE catalog
   classes remain untested, not negative.
+
+## 2026-07-27 — Freeze after calibration-v1 positive-control anomaly
+
+- Trigger: calibration v1 passed every mechanical/invariant check but the random downstream
+  copy plant was not reliably positive across classes. Donor's four-copy mean was −0.0043;
+  acceptor/start saturated or reversed from dose 2 to dose 4; only stop codon was strictly
+  monotone.
+- Decision: record `INSTRUMENT_UNRESOLVED`, keep the lock draft, and compute no empirical
+  target-control outcomes.
+- Diagnosis: v1 chose a random eligible region anywhere downstream after a ≥32-nt buffer. That
+  design conflates whether the score can detect supplied target information with whether
+  arbitrary distal context is used. The positive control should exercise the nearest eligible
+  non-overlapping context while retaining the same target and geometry invariants.
+- Effect: v1 remains immutable. Any placement amendment must be committed before a second
+  calibration and cannot change after target outcomes.
