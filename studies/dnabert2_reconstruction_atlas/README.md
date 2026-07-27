@@ -23,15 +23,17 @@ ablation, patching, rescue, mediation, and path interventions decide causal supp
 | Stage | State | What is licensed |
 |---|---|---|
 | P0 study architecture | implemented | The data, mask, score, control, context, gate, intervention, and artifact contracts can be tested. |
-| P1 collection assembly | GENCODE adapter implemented; other source adapters pending | No biological census claim. |
+| P1 collection assembly | bounded GENCODE v50 slice qualified for four classes; Kozak supply quarantined; other sources pending | Collection/supply facts only; no biological census claim. |
 | P2 assay preflight | protocol/config drafted; not frozen or run | No behavioral claim. |
 | P3 excess-reconstruction census | blocked on qualified preflight | No atlas ranking. |
 | P4 context-source census | blocked on P3 | No informative-region claim. |
 | P5 internal candidate atlas | blocked on P4 | No component claim. |
 | P6 causal tests | blocked on frozen candidates | No causal claim. |
 
-The correct current atlas table is therefore empty. This is not a negative result: the target
-experiment has not run.
+The correct current biological atlas table is therefore empty. This is not a negative result:
+the target experiment has not run. The Phase-A supply record admits splice donor, splice
+acceptor, start codon, and stop codon to calibration; its Kozak quarantine is an instrument
+boundary, not a DNABERT-2 reconstruction result.
 
 ## Primary estimand
 

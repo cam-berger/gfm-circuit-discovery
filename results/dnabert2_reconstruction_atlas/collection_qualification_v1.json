@@ -1,0 +1,89 @@
+{
+  "baseline_clusters": 687,
+  "baseline_examples": 2560,
+  "claim_boundary": "Collection and control supply are instrument facts. They do not show that DNABERT-2 reconstructs any biological element.",
+  "comparison_supply": {
+    "confirmation|splice.acceptor": 460,
+    "confirmation|splice.donor": 342,
+    "confirmation|translation.start_codon": 101,
+    "confirmation|translation.stop_codon": 208,
+    "development|splice.acceptor": 460,
+    "development|splice.donor": 332,
+    "development|translation.start_codon": 127,
+    "development|translation.stop_codon": 229
+  },
+  "controls_per_family": 1,
+  "matching_balance": {
+    "composition_token_matched": {
+      "covered_nucleotides": 0.0,
+      "cpg_fraction": 0.0,
+      "gc_fraction": 0.0,
+      "token_count": 0.0
+    },
+    "same_motif_unannotated": {
+      "covered_nucleotides": 0.0,
+      "cpg_fraction": 0.0,
+      "gc_fraction": 0.0,
+      "token_count": 0.0
+    },
+    "same_sequence_non_site": {
+      "covered_nucleotides": 0.0,
+      "cpg_fraction": 0.0,
+      "gc_fraction": 0.0,
+      "token_count": 0.0
+    }
+  },
+  "phase": "A_COLLECTION_QUALIFICATION",
+  "preflight_eligible_site_classes": [
+    "splice.acceptor",
+    "splice.donor",
+    "translation.start_codon",
+    "translation.stop_codon"
+  ],
+  "quarantined_site_classes": [
+    "translation.kozak"
+  ],
+  "schema_version": 1,
+  "site_class_decisions": {
+    "splice.acceptor": {
+      "confirmation_matched_clusters": 503,
+      "development_matched_clusters": 501,
+      "preflight_minimum_clusters": 32,
+      "reason": "all empirical control families supplied on both target splits",
+      "status": "PREFLIGHT_ELIGIBLE"
+    },
+    "splice.donor": {
+      "confirmation_matched_clusters": 445,
+      "development_matched_clusters": 451,
+      "preflight_minimum_clusters": 32,
+      "reason": "all empirical control families supplied on both target splits",
+      "status": "PREFLIGHT_ELIGIBLE"
+    },
+    "translation.kozak": {
+      "confirmation_matched_clusters": 6,
+      "development_matched_clusters": 5,
+      "preflight_minimum_clusters": 32,
+      "reason": "insufficient outcome-blind empirical-control supply",
+      "status": "QUARANTINED"
+    },
+    "translation.start_codon": {
+      "confirmation_matched_clusters": 350,
+      "development_matched_clusters": 354,
+      "preflight_minimum_clusters": 32,
+      "reason": "all empirical control families supplied on both target splits",
+      "status": "PREFLIGHT_ELIGIBLE"
+    },
+    "translation.stop_codon": {
+      "confirmation_matched_clusters": 393,
+      "development_matched_clusters": 419,
+      "preflight_minimum_clusters": 32,
+      "reason": "all empirical control families supplied on both target splits",
+      "status": "PREFLIGHT_ELIGIBLE"
+    }
+  },
+  "study": "dnabert2_biological_reconstruction_atlas",
+  "target_baseline_cluster_overlap": 0,
+  "target_clusters": 1395,
+  "target_examples": 5120,
+  "target_outcomes_computed": false
+}

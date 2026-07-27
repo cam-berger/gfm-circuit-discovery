@@ -808,3 +808,5 @@ ED1,canonical,Behaviour,null,results/splicebert_coupling/ed1_architecture_bounda
 ,development,,na,results/splicebert_coupling/pa1_step4.manifest.json,scripts/splicebert/run_pa1_step4.py,,
 ,development,,na,results/splicebert_coupling/pa1_step4_smoke.json,scripts/splicebert/run_pa1_step4.py,results/splicebert_coupling/pa1_step4_smoke.manifest.json,
 ,development,,na,results/splicebert_coupling/pa1_step4_smoke.manifest.json,scripts/splicebert/run_pa1_step4.py,,
+IF6,infrastructure,,na,results/dnabert2_reconstruction_atlas/collection_qualification_v1.json,scripts/dnabert2_atlas/analyze_collection_qualification.py,results/dnabert2_reconstruction_atlas/collection_qualification_v1.manifest.json,
+IF6,infrastructure,,na,results/dnabert2_reconstruction_atlas/collection_qualification_v1.manifest.json,scripts/dnabert2_atlas/analyze_collection_qualification.py,,
