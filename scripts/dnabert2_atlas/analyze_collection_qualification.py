@@ -34,6 +34,7 @@ def main() -> None:
     )
     config = json.loads(Path(args.preflight_config).read_text())
     minimum = int(config["behavior"]["preflight_minimum_clusters_per_site_class"])
+    behavior_minimum = int(config["behavior"]["site_class_minimum_clusters"])
     matched_counts = {
         tuple(key.split("|", 1)): int(value)
         for key, value in audit["supply"]["matched_counts"].items()
@@ -50,7 +51,11 @@ def main() -> None:
             "development_matched_clusters": development,
             "confirmation_matched_clusters": confirmation,
             "preflight_minimum_clusters": minimum,
+            "behavior_minimum_clusters": behavior_minimum,
             "status": "PREFLIGHT_ELIGIBLE" if eligible else "QUARANTINED",
+            "behavior_census_eligible": (
+                min(development, confirmation) >= behavior_minimum
+            ),
             "reason": (
                 "all empirical control families supplied on both target splits"
                 if eligible
@@ -80,6 +85,16 @@ def main() -> None:
             site_class
             for site_class, value in decisions.items()
             if value["status"] == "QUARANTINED"
+        ),
+        "behavior_census_eligible_site_classes": sorted(
+            site_class
+            for site_class, value in decisions.items()
+            if value["behavior_census_eligible"]
+        ),
+        "behavior_census_underpowered_site_classes": sorted(
+            site_class
+            for site_class, value in decisions.items()
+            if not value["behavior_census_eligible"]
         ),
         "comparison_supply": (
             comparison["supply"]["matched_counts"] if comparison is not None else None

@@ -200,3 +200,19 @@
   quotas, preflight thresholds, SESOI, permutations, and multiple-testing rule.
 - Effect: rebuild and re-audit as v3 before any model score. V2 remains a supply failure, not a
   target result.
+
+## 2026-07-27 — Expand local candidate search to the frozen behavior floor
+
+- Trigger: v3 makes all 13 classes preflight-eligible, but known complete-control supply remains
+  below the frozen 250-locus behavior minimum for enhancer (210/216), poly(A) signal (198/195),
+  promoter (222/234), PPT (87/98), CEBPB (196/215), CTCF (134/135), REST (146/159), and start
+  codon (244/263). No model score had been computed.
+- Diagnosis: after five-nt exact-word supply largely resolves, almost every remaining failure is
+  the within-window family. The 128 composition-prioritized positions are a search bound, not a
+  biological exclusion.
+- V4 amendment: increase the same frozen candidate ordering from 128 to 512 positions per window.
+  Preserve all target intervals, annotations, source filters, empirical families, exact token
+  geometry, calipers, split, final quotas, and statistical thresholds.
+- Stop rule: if a class still supplies fewer than 250 complete sets on either target split, score
+  it only as explicitly underpowered or quarantine it; do not lower the behavior minimum from
+  source-supply evidence.

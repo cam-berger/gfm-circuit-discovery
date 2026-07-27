@@ -1,7 +1,7 @@
 # Atlas preregistration
 
-> **Tier: T2 — provenance. V1 DEVELOPMENT COMPLETE; MULTISOURCE V3 FROZEN BEFORE
-> V3 MODEL OUTCOMES.**
+> **Tier: T2 — provenance. V1 DEVELOPMENT COMPLETE; MULTISOURCE V4 FROZEN BEFORE
+> MULTISOURCE MODEL OUTCOMES.**
 
 The historical machine-readable lock candidate is
 [`../../configs/dnabert2_atlas/preflight_v1.draft.json`](../../configs/dnabert2_atlas/preflight_v1.draft.json).
@@ -16,12 +16,16 @@ with the corresponding
 [`site_classes.v2.json`](../../configs/dnabert2_atlas/site_classes.v2.json) and
 failed outcome-blind supply record
 [`../../results/dnabert2_reconstruction_atlas/collection_qualification_v2.json`](../../results/dnabert2_reconstruction_atlas/collection_qualification_v2.json).
-The controlling multisource lock is
+The five-nucleotide 128-candidate supply lock is
 [`../../configs/dnabert2_atlas/preflight_v3.frozen.json`](../../configs/dnabert2_atlas/preflight_v3.frozen.json)
 with [`site_classes.v3.json`](../../configs/dnabert2_atlas/site_classes.v3.json) and
 [`SOURCE_MANIFEST_V2.json`](SOURCE_MANIFEST_V2.json). It inherits the already qualified
-instrument thresholds unchanged and requires a new v3 qualified preflight bound to the exact
-v3 inputs.
+instrument thresholds unchanged. Its supply audit is
+[`../../results/dnabert2_reconstruction_atlas/collection_qualification_v3.json`](../../results/dnabert2_reconstruction_atlas/collection_qualification_v3.json).
+The controlling multisource lock is
+[`../../configs/dnabert2_atlas/preflight_v4.frozen.json`](../../configs/dnabert2_atlas/preflight_v4.frozen.json).
+It changes only the local candidate bound to 512 and requires a new v4 qualified preflight bound
+to the exact v4 inputs.
 
 ## Question
 
@@ -64,7 +68,7 @@ regions.
 - Estimation: cluster-first effects and cluster bootstrap intervals.
 
 The frozen primary SESOI is 0.02 nats per covered nucleotide. V1 requires 350 gene clusters per
-target split; multisource v3 requires 250 locus blocks per target split from a maximum of 384.
+target split; multisource v4 requires 250 locus blocks per target split from a maximum of 384.
 Calibration-v3 thresholds are 0.05 for the four-copy positive
 effect, 0.02 for irrelevant-exchange equivalence, 0.015 for the null-noise MDE, and 0.01
 for the null-noise CI half-width.
@@ -76,7 +80,7 @@ contiguous Kozak span, and stop codon supply. A class lacking all three empirica
 families is quarantined before model scoring. Promoter, branch-point/tract, poly(A), TF-binding,
 and assay-supported sources remain deferred rather than being silently represented by motif calls.
 
-Multisource v3 admits 13 classes: the four v1 classes plus EPDnew TSS-centered promoter cores,
+Multisource v4 admits 13 classes: the four v1 classes plus EPDnew TSS-centered promoter cores,
 PolyASite signal hexamers and representative cleavage nucleotides, CTCF/REST/CEBPB ENCODE ChIP
 five-nucleotide peak cores, Mercer experimentally mapped branch nucleotides, GENCODE-derived contiguous
 polypyrimidine tracts, and ENCODE Registry v4 distal enhancer-like cCRE cores. PolyASite entries
@@ -85,8 +89,8 @@ protocols, and carry a declared canonical signal 5–60 nt upstream. TF clusters
 and at least two contributing experiments. Mercer hg19 calls require unique hg38 liftover, exact
 reverse round trip, and source-base agreement.
 
-All v3 classes are split together by locus, sampled at 384 blocks per class per split, and searched
-at 128 outcome-blind candidate positions per window prioritized by target-word nucleotide
+All v4 classes are split together by locus, sampled at 384 blocks per class per split, and searched
+at 512 outcome-blind candidate positions per window prioritized by target-word nucleotide
 composition, plus exhaustive target-word occurrences.
 Confirmation remains sealed for every class that does not qualify in development.
 
