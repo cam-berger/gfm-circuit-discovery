@@ -35,6 +35,7 @@ reconstruction.
 | IF12 | V2 outcome-blind control supply is insufficient for seven-nt promoter, enhancer, and TF peak-core anchors; those classes are supply-quarantined, not biologically negative. | `results/dnabert2_reconstruction_atlas/collection_qualification_v2.json` | No model score was computed. V3 changes only target width for broad interval anchors and outcome-blind local candidate prioritization. |
 | IF13 | V3 five-nt anchors make all 13 classes preflight-eligible, but eight classes remain below the frozen 250-locus behavior floor under 128 local candidates. | `results/dnabert2_reconstruction_atlas/collection_qualification_v3.json` | Outcome-blind supply fact only; V4 expands candidate search without relaxing controls or the behavior minimum. |
 | IF14 | V4’s 512-position search retains the same 6,448 complete matched targets as v3. All 13 classes meet the preflight floor; five meet the frozen behavior floor and eight are known underpowered before model scoring. | `results/dnabert2_reconstruction_atlas/collection_qualification_v4.json` | Final outcome-blind supply boundary; underpowered does not mean biological null. |
+| IF15 | Frozen multisource-v4 preflight is `QUALIFIED` for all 13 classes against the exact bound data, controls, config, checkpoint, and model-health checks. | `results/dnabert2_reconstruction_atlas/preflight_qualified_multisource_v4.json` | Authorizes development scoring only; not a biological reconstruction result. |
 
 ## Open hypotheses
 

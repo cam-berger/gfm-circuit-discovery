@@ -229,3 +229,15 @@
 - Interpretation rule: development estimates may be recorded for every preflight-qualified class,
   but an underpowered class cannot behavior-qualify regardless of effect size or p-value. It is
   labeled underpowered, not null. Confirmation opens only development-qualified classes.
+
+## 2026-07-27 — Authorize the 13-class multisource development census
+
+- Evidence: `preflight_qualified_multisource_v4.json` is `QUALIFIED` against the exact v4
+  collection, matches, audit, baseline corpus, config, and pinned checkpoint. Every class has 64
+  geometry-eligible preflight examples. All graded-copy means are +0.082 to +0.226
+  nats/covered-nt and monotone; all irrelevant-exchange, sensitivity, resolution, balance,
+  invariant, geometry, replay, batch, and finiteness gates pass.
+- Decision: authorize development target-control scoring for all 13 classes. Preserve the
+  pre-scoring power labels from IF14. The confirmation split remains sealed.
+- Boundary: this authorizes an assay; it is not evidence that any biological class has excess
+  reconstruction.

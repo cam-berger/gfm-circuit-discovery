@@ -24,7 +24,7 @@ ablation, patching, rescue, mediation, and path interventions decide causal supp
 |---|---|---|
 | P0 study architecture | implemented | The data, mask, score, control, context, gate, intervention, and artifact contracts can be tested. |
 | P1 collection assembly | v4 complete: all 13 classes preflight-eligible; five behavior-powered and eight explicitly underpowered | Collection/supply facts only; no biological census claim. |
-| P2 assay preflight | v1 `QUALIFIED`; multisource v4 preflight not yet run | The v1 authorization does not authorize v4 target outcomes. |
+| P2 assay preflight | multisource v4 `QUALIFIED` across all 13 classes | Instrument authorization only; no behavioral claim. |
 | P3 excess-reconstruction census | narrow v1 development complete; multisource v4 not yet scored | The v1 nonqualification does not generalize to the new classes. |
 | P4 context-source census | blocked on P3 | No informative-region claim. |
 | P5 internal candidate atlas | blocked on P4 | No component claim. |
