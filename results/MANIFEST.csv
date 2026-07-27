@@ -814,3 +814,5 @@ IF7,development,,bounded,results/dnabert2_reconstruction_atlas/preflight_calibra
 IF7,development,,bounded,results/dnabert2_reconstruction_atlas/preflight_calibration_v1.manifest.json,scripts/dnabert2_atlas/run_preflight.py,,
 IF8,development,,bounded,results/dnabert2_reconstruction_atlas/preflight_calibration_v2.json,scripts/dnabert2_atlas/run_preflight.py,results/dnabert2_reconstruction_atlas/preflight_calibration_v2.manifest.json,
 IF8,development,,bounded,results/dnabert2_reconstruction_atlas/preflight_calibration_v2.manifest.json,scripts/dnabert2_atlas/run_preflight.py,,
+IF9,development,,positive,results/dnabert2_reconstruction_atlas/preflight_calibration_v3.json,scripts/dnabert2_atlas/run_preflight.py,results/dnabert2_reconstruction_atlas/preflight_calibration_v3.manifest.json,
+IF9,development,,positive,results/dnabert2_reconstruction_atlas/preflight_calibration_v3.manifest.json,scripts/dnabert2_atlas/run_preflight.py,,

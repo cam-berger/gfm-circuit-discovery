@@ -1,11 +1,13 @@
 # Atlas preregistration
 
-> **Tier: T2 — provenance. DRAFT, NOT FROZEN, NOT RUN.**
+> **Tier: T2 — provenance. V1 FROZEN AFTER DEVELOPMENT-ONLY CALIBRATION; TARGET NOT RUN.**
 
-The machine-readable lock candidate is
+The historical machine-readable lock candidate is
 [`../../configs/dnabert2_atlas/preflight_v1.draft.json`](../../configs/dnabert2_atlas/preflight_v1.draft.json).
-Its hash must be frozen by the study owner before a preflight report can set `frozen=true`.
-No threshold below is confirmatory until that occurs.
+The controlling lock is
+[`../../configs/dnabert2_atlas/preflight_v1.frozen.json`](../../configs/dnabert2_atlas/preflight_v1.frozen.json),
+frozen from calibration v3 before any empirical target-control outcome. A preflight report may
+set `frozen=true` only for that exact hash.
 
 ## Question
 
@@ -45,9 +47,11 @@ regions.
 - P-values: add-one permutation values; Holm correction across the complete family.
 - Estimation: cluster-first effects and cluster bootstrap intervals.
 
-Site-class-specific SESOIs and minimum cluster counts remain deliberately unset in the draft config.
-They require a development-only variance and positive-control calibration. The owner must either
-freeze them before target effects or stop the class as underpowered.
+The frozen primary SESOI is 0.02 nats per covered nucleotide and the minimum is 350 gene
+clusters per target split. Calibration-v3 thresholds are 0.05 for the four-copy positive
+effect, 0.02 for irrelevant-exchange equivalence, 0.015 for the null-noise MDE, and 0.01
+for the null-noise CI half-width. The admitted classes are splice acceptor, splice donor,
+start codon, and stop codon.
 
 The first bounded census slice is frozen before outcomes to GENCODE v50 basic protein-coding
 genes on the primary chromosomes. It samples at most 512 gene clusters per site class per split,

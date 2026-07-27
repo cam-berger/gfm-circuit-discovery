@@ -125,3 +125,16 @@
   plant remains the sensitivity injection and must exceed its threshold.
 - Effect: both changes are frozen before v3 and before any empirical target-control outcome.
   V1 and v2 artifacts remain unchanged.
+
+## 2026-07-27 — Freeze preflight v1 from corrected calibration v3
+
+- Evidence: all four supply-qualified classes have ordered copy doses and four-copy means
+  +0.090 to +0.206 nats/covered-nt. Irrelevant-exchange MDEs are 0.0077–0.0139 and CI
+  half-widths are 0.0051–0.0096. All geometry, balance, split, replay, batch, and finite-score
+  invariants pass.
+- Frozen gates: positive effect ≥0.05 with dose ordering; irrelevant-exchange 95% interval
+  inside ±0.02; null-noise MDE ≤0.015; CI half-width ≤0.01.
+- Behavior thresholds: SESOI 0.02 nats/covered-nt, at least 350 gene clusters on each split,
+  add-one permutation values, and Holm correction over all admitted class × contrast tests.
+- Effect: splice acceptor, splice donor, start codon, and stop codon may enter the qualified
+  preflight. No target outcome may run until that report passes unchanged.
