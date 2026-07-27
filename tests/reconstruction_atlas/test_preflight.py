@@ -27,6 +27,7 @@ def test_copy_plant_is_graded_and_preserves_target_geometry() -> None:
         for value in variants.sequences().values()
     )
     assert variants.copy_dose_4.count("GT") > variants.copy_dose_1.count("GT")
+    assert variants.copy_region.start == 54
 
 
 def test_preflight_summary_is_cluster_first_and_reports_mde() -> None:

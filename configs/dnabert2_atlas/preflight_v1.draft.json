@@ -32,7 +32,9 @@
     "positive_control": {
       "design": "graded target-copy plant in a non-overlapping context region",
       "threshold": null,
-      "requires_monotonicity": true
+      "requires_monotonicity": true,
+      "region_selection": "nearest eligible downstream region after scored BPE cover",
+      "minimum_target_buffer_nt": 4
     },
     "negative_control": {
       "design": "sham and matched irrelevant-region exchanges",

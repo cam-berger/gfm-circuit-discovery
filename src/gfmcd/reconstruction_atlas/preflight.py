@@ -43,7 +43,7 @@ def build_preflight_variants(
     *,
     encoder: Any,
     seed: int,
-    minimum_target_buffer_nt: int = 32,
+    minimum_target_buffer_nt: int = 4,
     maximum_region_nt: int = 64,
 ) -> PreflightVariants | None:
     """Plant 1/2/4 exact scored-cover copies downstream of an unchanged target."""
@@ -53,17 +53,11 @@ def build_preflight_variants(
     width = min(maximum_region_nt, 4 * len(copied_word))
     if width < 4 * len(copied_word):
         return None
-    earliest = target.end + minimum_target_buffer_nt
+    earliest = reference_plan.covered.end + minimum_target_buffer_nt
     latest = len(sequence) - width
     if earliest > latest:
         return None
-    starts = sorted(
-        range(earliest, latest + 1),
-        key=lambda start: hashlib.sha256(
-            f"{seed}|copy-region|{sequence}|{target.start}|{start}".encode()
-        ).hexdigest(),
-    )
-    for start in starts:
+    for start in range(earliest, latest + 1):
         copy_region = Interval(start, start + width)
         variants = {
             dose: _plant_copies(sequence, copy_region, copied_word, dose)

@@ -100,3 +100,15 @@
   non-overlapping context while retaining the same target and geometry invariants.
 - Effect: v1 remains immutable. Any placement amendment must be committed before a second
   calibration and cannot change after target outcomes.
+
+## 2026-07-27 — Amend copy-plant placement before calibration v2
+
+- Trigger: the calibration-v1 diagnosis above; still no empirical target-control outcome.
+- Frozen amendment: choose the nearest BPE-geometry-eligible downstream region after the complete
+  scored cover, with a four-nucleotide buffer. Keep the same 1/2/4 copy doses, exact target-cover
+  word, class sample, negative exchange, score, normalization, and monotonicity requirement.
+- Rationale: the positive control asks whether supplied sequence information can affect the masked
+  target at all. Arbitrary distal placement tests a different biological-context question and
+  belongs after behavior qualification.
+- Stop rule: if the amended control still fails for a class, that class is
+  `INSTRUMENT_UNRESOLVED` and cannot enter target execution.

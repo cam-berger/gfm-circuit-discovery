@@ -31,7 +31,9 @@ the target runner rejects any byte-different input.
 
 The positive control is a graded, target-copy plant into a non-overlapping context region. This
 tests whether the masked target score can detect context-provided sequence information; it is not a
-biological model claim. Negative controls include sham exchanges and equal-length irrelevant
+biological model claim. After calibration v1 exposed arbitrary-distance placement as a confound,
+the plant region is the nearest downstream BPE-geometry-eligible region after a four-nucleotide
+buffer from the scored cover. Negative controls include sham exchanges and equal-length irrelevant
 regions.
 
 ## Primary behavior

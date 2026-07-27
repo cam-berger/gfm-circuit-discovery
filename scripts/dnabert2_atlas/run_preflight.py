@@ -112,6 +112,9 @@ def main() -> None:
         maximum_per_class=int(
             config["behavior"]["preflight_maximum_clusters_per_site_class"]
         ),
+        minimum_target_buffer_nt=int(
+            config["mandatory_gates"]["positive_control"]["minimum_target_buffer_nt"]
+        ),
         seed=args.seed,
     )
     scores = {
@@ -204,6 +207,7 @@ def _build_requests(
     adapter: Dnabert2Adapter,
     *,
     maximum_per_class: int,
+    minimum_target_buffer_nt: int,
     seed: int,
 ) -> tuple[list[ScoringRequest], dict[str, dict[str, str]], dict[str, Any]]:
     requests: list[ScoringRequest] = []
@@ -225,6 +229,7 @@ def _build_requests(
                 matched.target.interval,
                 encoder=adapter.encode,
                 seed=seed,
+                minimum_target_buffer_nt=minimum_target_buffer_nt,
             )
             if variants is None:
                 ineligible_counts[site_class] += 1
