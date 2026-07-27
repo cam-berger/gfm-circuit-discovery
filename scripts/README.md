@@ -45,6 +45,7 @@ row in the scientific result manifest.
 | `build_gencode_collection.py` | Derive splice donors/acceptors, start/stop codons, and contiguous Kozak spans from a pinned GENCODE GTF; assemble transcription-oriented windows. | Explicit new JSONL path plus immutable manifest |
 | `build_candidate_sites.py` | Stream GENCODE exclusions and create outcome-blind within-window empirical-control candidates. | Explicit new JSONL path plus immutable manifest |
 | `build_control_matches.py` | Apply exact site-class/token-cover constraints and composition calipers to an outcome-blind candidate-site pool, keeping all empirical families separate. | Explicit new JSONL path plus immutable manifest |
+| `analyze_collection_qualification.py` | Compact the source, split, balance, supply, and quarantine facts without reading model outcomes. | Explicit new compact JSON plus manifest |
 | `run_preflight.py` | Calibrate, then execute, copy-plant, negative, sensitivity, geometry, balance, invariant, and model-health gates. | Explicit new compact JSON plus manifest |
 | `run_behavioral_screen.py` | Score minimal BPE covers, compute separate empirical/baseline advantages, and run cluster-first add-one inference. | Refuses without a matching frozen `QUALIFIED` preflight; explicit new JSON plus manifest |
 | `analyze_behavioral_replication.py` | Combine frozen development and sealed confirmation screens under the unchanged behavior lock. | Explicit new compact JSON plus manifest |

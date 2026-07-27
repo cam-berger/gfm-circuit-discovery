@@ -24,7 +24,7 @@
     "sampled_genes_per_split": 768,
     "maximum_clusters_per_site_class_per_split": 512,
     "candidate_positions_per_example": 256,
-    "controls_per_family": 3,
+    "controls_per_family": 1,
     "window_upstream_nt": 512,
     "window_downstream_nt": 512
   },

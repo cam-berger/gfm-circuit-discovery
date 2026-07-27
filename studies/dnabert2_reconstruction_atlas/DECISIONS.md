@@ -53,7 +53,7 @@
 - Split: 30% development, 20% baseline training, and 50% sealed confirmation by one deterministic
   cluster hash. This replaces the internally inconsistent draft wording that allocated 40% + 60%
   while also requiring a third disjoint corpus.
-- Controls: three per empirical family, drawn from 256 outcome-blind positions per admitted window
+- Controls: one per empirical family, drawn from 256 outcome-blind positions per admitted window
   plus exhaustive exact-motif occurrences. GENCODE exon boundaries and start/stop annotations are
   streamed across all transcripts overlapping the sampled windows so they cannot masquerade as
   “unannotated” controls.
@@ -71,3 +71,17 @@
 - Effect: no annotated-target versus empirical-control contrast may be computed until the frozen
   qualified report exists and binds the exact collection, matches, matching audit, and baseline
   corpus by SHA-256.
+
+## 2026-07-27 — Resolve empirical-control count from outcome-blind supply
+
+- Trigger: the initial three-controls-per-family supply audit retained 460/460 acceptors,
+  332/342 donors, 127/101 start codons, and 229/208 stop codons on development/confirmation.
+  Kozak retained none. No MLM score or target contrast had been computed.
+- Decision: use the foundation's original one-control-per-family default. On the identical
+  candidate pool it retains 501/503 acceptors, 451/445 donors, 354/350 start codons, and
+  419/393 stop codons. Kozak retains only 5/6 and is quarantined at Phase A.
+- Rationale: every family remains separate and exactly geometry/composition matched, while the
+  one-control design preserves enough independent gene clusters for the frozen precision
+  calibration. The rejected three-control audit remains immutable runtime evidence.
+- Effect: four GENCODE classes enter preflight calibration. Kozak and all non-GENCODE catalog
+  classes remain untested, not negative.
