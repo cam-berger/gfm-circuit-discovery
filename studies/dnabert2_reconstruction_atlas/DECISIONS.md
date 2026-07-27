@@ -216,3 +216,16 @@
 - Stop rule: if a class still supplies fewer than 250 complete sets on either target split, score
   it only as explicitly underpowered or quarantine it; do not lower the behavior minimum from
   source-supply evidence.
+
+## 2026-07-27 — Close supply amendments and preserve underpowered classes
+
+- Evidence: v4 evaluates 512 rather than 128 composition-ranked local positions but retains exactly
+  the same 6,448 complete matched targets as v3. Candidate depth therefore does not explain the
+  remaining attrition; exact within-window BPE geometry and composition constraints do.
+- Decision: make no further source, width, candidate, control, or threshold amendment. All 13
+  classes meet the 32-locus preflight floor and enter instrument preflight. Only cleavage region,
+  splice acceptor, branch point, splice donor, and stop codon meet the frozen 250-locus behavior
+  floor on both target splits.
+- Interpretation rule: development estimates may be recorded for every preflight-qualified class,
+  but an underpowered class cannot behavior-qualify regardless of effect size or p-value. It is
+  labeled underpowered, not null. Confirmation opens only development-qualified classes.
