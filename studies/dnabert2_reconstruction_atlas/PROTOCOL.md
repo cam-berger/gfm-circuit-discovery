@@ -32,9 +32,9 @@ For every source and site class:
 
 Counts are instrument facts, not model behavior.
 
-The qualified preflight report binds the exact collection, matched-control file, and
-baseline-training corpus by SHA-256. A target runner refuses a byte-different replacement even when
-the release label is unchanged.
+The qualified preflight report binds the exact collection, matched-control file, matching audit,
+and baseline-training corpus by SHA-256. A target runner refuses a byte-different replacement even
+when the release label is unchanged.
 
 ## Phase B — mask and native score
 

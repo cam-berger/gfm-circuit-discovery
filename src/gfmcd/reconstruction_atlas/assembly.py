@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import gzip
 import hashlib
+import heapq
 import re
+from bisect import bisect_left, bisect_right
+from collections import defaultdict
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, field
 from itertools import pairwise
@@ -55,11 +58,13 @@ def assemble_annotated_windows(
     features: Iterable[GenomicFeature],
     fasta: Any,
     *,
+    annotation_features: Iterable[GenomicFeature] | None = None,
     assembly: str,
     upstream_nt: int,
     downstream_nt: int,
     split_seed: int,
     development_percent: int = 40,
+    baseline_training_percent: int = 0,
     immediate_flank_nt: int = 25,
 ) -> list[AnnotatedSequence]:
     """Create one target-centred, transcription-oriented example per feature."""
@@ -72,10 +77,17 @@ def assemble_annotated_windows(
         raise ValueError("no genomic features supplied")
     if min(upstream_nt, downstream_nt, immediate_flank_nt) < 0:
         raise ValueError("window sizes cannot be negative")
-    if not 0 < development_percent < 100:
-        raise ValueError("development_percent must be between 0 and 100")
+    _validate_split_percentages(development_percent, baseline_training_percent)
+    annotation_list = (
+        feature_list
+        if annotation_features is None
+        else sorted(
+            annotation_features,
+            key=lambda item: (item.chrom, item.start, item.end, item.feature_id),
+        )
+    )
     grouped: dict[tuple[str, str], list[GenomicFeature]] = {}
-    for feature in feature_list:
+    for feature in annotation_list:
         grouped.setdefault((feature.chrom, feature.strand), []).append(feature)
     output: list[AnnotatedSequence] = []
     for target in feature_list:
@@ -122,6 +134,7 @@ def assemble_annotated_windows(
             target.homology_cluster,
             seed=split_seed,
             development_percent=development_percent,
+            baseline_training_percent=baseline_training_percent,
         )
         example_id = _example_id(target, window_start, window_end)
         output.append(
@@ -209,6 +222,7 @@ def gencode_features_from_gtf(
     path: str | Path,
     *,
     source_version: str,
+    include_gene_ids: frozenset[str] | set[str] | None = None,
 ) -> list[GenomicFeature]:
     """Derive splice dinucleotides, start/stop codons, and contiguous Kozak spans."""
 
@@ -229,6 +243,8 @@ def gencode_features_from_gtf(
             transcript_id = parsed.get("transcript_id")
             gene_id = parsed.get("gene_id")
             if transcript_id is None or gene_id is None:
+                continue
+            if include_gene_ids is not None and gene_id not in include_gene_ids:
                 continue
             record = transcripts.setdefault(
                 transcript_id,
@@ -340,6 +356,199 @@ def gencode_features_from_gtf(
     return features
 
 
+def select_gencode_gene_ids(
+    path: str | Path,
+    *,
+    seed: int,
+    maximum_per_split: int,
+    development_percent: int,
+    baseline_training_percent: int,
+    gene_types: frozenset[str] | set[str] = frozenset({"protein_coding"}),
+    chromosomes: frozenset[str] | set[str] | None = None,
+) -> dict[str, tuple[str, ...]]:
+    """Outcome-blind, bounded min-hash sampling from GENCODE ``gene`` rows.
+
+    GENCODE v50 basic contains millions of transcript feature rows. Sampling gene
+    clusters before transcript expansion keeps atlas construction bounded while
+    preserving cluster-first assignment and a sealed confirmation split.
+    """
+
+    if maximum_per_split < 1:
+        raise ValueError("maximum_per_split must be positive")
+    _validate_split_percentages(development_percent, baseline_training_percent)
+    allowed_types = frozenset(gene_types)
+    if not allowed_types:
+        raise ValueError("gene_types cannot be empty")
+    allowed_chromosomes = None if chromosomes is None else frozenset(chromosomes)
+    heaps: dict[str, list[tuple[int, str]]] = {
+        "development": [],
+        "baseline_training": [],
+        "confirmation": [],
+    }
+    seen: set[str] = set()
+    with _open_text(path) as handle:
+        for line in handle:
+            if not line.strip() or line.startswith("#"):
+                continue
+            fields = line.rstrip("\n").split("\t")
+            if len(fields) != 9 or fields[2] != "gene":
+                continue
+            chrom = fields[0]
+            if allowed_chromosomes is not None and chrom not in allowed_chromosomes:
+                continue
+            parsed = _parse_gtf_attributes(fields[8])
+            gene_id = parsed.get("gene_id")
+            gene_type = parsed.get("gene_type")
+            if gene_id is None or gene_id in seen or gene_type not in allowed_types:
+                continue
+            seen.add(gene_id)
+            split = _split_for_cluster(
+                gene_id,
+                seed=seed,
+                development_percent=development_percent,
+                baseline_training_percent=baseline_training_percent,
+            )
+            priority = int(
+                hashlib.sha256(f"{seed}|sample|{gene_id}".encode()).hexdigest(),
+                16,
+            )
+            heap = heaps[split]
+            item = (-priority, gene_id)
+            if len(heap) < maximum_per_split:
+                heapq.heappush(heap, item)
+            elif item > heap[0]:
+                heapq.heapreplace(heap, item)
+    return {
+        split: tuple(
+            gene_id
+            for _negative_priority, gene_id in sorted(
+                heap,
+                key=lambda item: (-item[0], item[1]),
+            )
+        )
+        for split, heap in heaps.items()
+    }
+
+
+def sample_gencode_features(
+    features: Iterable[GenomicFeature],
+    *,
+    seed: int,
+    maximum_clusters_per_site_class: int,
+    development_percent: int,
+    baseline_training_percent: int,
+) -> list[GenomicFeature]:
+    """Select at most one target per gene × site class, then bound each split."""
+
+    if maximum_clusters_per_site_class < 1:
+        raise ValueError("maximum_clusters_per_site_class must be positive")
+    _validate_split_percentages(development_percent, baseline_training_percent)
+    per_cluster: dict[tuple[str, str, str], GenomicFeature] = {}
+    for feature in features:
+        split = _split_for_cluster(
+            feature.homology_cluster,
+            seed=seed,
+            development_percent=development_percent,
+            baseline_training_percent=baseline_training_percent,
+        )
+        key = (split, feature.site_class, feature.homology_cluster)
+        previous = per_cluster.get(key)
+        if previous is None or _feature_priority(feature, seed) < _feature_priority(
+            previous, seed
+        ):
+            per_cluster[key] = feature
+    grouped: dict[tuple[str, str], list[GenomicFeature]] = {}
+    for (split, site_class, _cluster), feature in per_cluster.items():
+        grouped.setdefault((split, site_class), []).append(feature)
+    selected = [
+        feature
+        for key in sorted(grouped)
+        for feature in sorted(
+            grouped[key],
+            key=lambda item: (_feature_priority(item, seed), item.feature_id),
+        )[:maximum_clusters_per_site_class]
+    ]
+    return sorted(
+        selected,
+        key=lambda item: (item.chrom, item.start, item.end, item.feature_id),
+    )
+
+
+def gencode_annotation_intervals_for_windows(
+    path: str | Path,
+    records: Iterable[AnnotatedSequence],
+) -> dict[str, tuple[Interval, ...]]:
+    """Map conservative GENCODE element intervals into sampled sequence windows.
+
+    Every exon boundary is treated as potentially splice-annotated; transcript-terminal
+    boundaries therefore create conservative false exclusions rather than false
+    ``unannotated`` controls. Start/stop codons and Kozak spans are mapped directly.
+    """
+
+    by_key: dict[tuple[str, str], tuple[list[int], list[AnnotatedSequence], int]] = {}
+    grouped: dict[tuple[str, str], list[AnnotatedSequence]] = {}
+    for record in records:
+        grouped.setdefault((record.chrom, record.strand), []).append(record)
+    for key, values in grouped.items():
+        ordered = sorted(values, key=lambda item: (item.genomic_start, item.example_id))
+        by_key[key] = (
+            [item.genomic_start for item in ordered],
+            ordered,
+            max(len(item.sequence) for item in ordered),
+        )
+    intervals: dict[str, set[Interval]] = defaultdict(set)
+    with _open_text(path) as handle:
+        for line in handle:
+            if not line.strip() or line.startswith("#"):
+                continue
+            fields = line.rstrip("\n").split("\t")
+            if len(fields) != 9 or fields[2] not in {
+                "exon",
+                "start_codon",
+                "stop_codon",
+            }:
+                continue
+            chrom, feature_type, strand = fields[0], fields[2], fields[6]
+            if (chrom, strand) not in by_key:
+                continue
+            start, end = int(fields[3]) - 1, int(fields[4])
+            genomic_intervals: list[tuple[int, int]]
+            if feature_type == "exon":
+                genomic_intervals = [(start - 2, start), (end, end + 2)]
+            elif feature_type == "start_codon":
+                genomic_intervals = [(start, end)]
+                kozak = (start - 6, start + 4) if strand == "+" else (end - 4, end + 6)
+                genomic_intervals.append(kozak)
+            else:
+                genomic_intervals = [(start, end)]
+            for genomic_start, genomic_end in genomic_intervals:
+                if genomic_start < 0 or genomic_end <= genomic_start:
+                    continue
+                starts, windows, maximum_length = by_key[(chrom, strand)]
+                left = bisect_left(starts, genomic_start - maximum_length)
+                right = bisect_right(starts, genomic_start)
+                for record in windows[left:right]:
+                    if not (
+                        record.genomic_start <= genomic_start
+                        and genomic_end <= record.genomic_end
+                    ):
+                        continue
+                    if strand == "+":
+                        local = Interval(
+                            genomic_start - record.genomic_start,
+                            genomic_end - record.genomic_start,
+                        )
+                    else:
+                        local = Interval(
+                            record.genomic_end - genomic_end,
+                            record.genomic_end - genomic_start,
+                        )
+                    intervals[record.example_id].add(local)
+    return {
+        example_id: tuple(sorted(values)) for example_id, values in intervals.items()
+    }
+
+
 def _local_element(
     feature: GenomicFeature,
     sequence: str,
@@ -423,13 +632,58 @@ def _default_context_regions(
     return tuple(regions)
 
 
-def _split_for_cluster(cluster: str, *, seed: int, development_percent: int) -> str:
+def split_for_cluster(
+    cluster: str,
+    *,
+    seed: int,
+    development_percent: int,
+    baseline_training_percent: int = 0,
+) -> str:
+    """Assign a cluster once across development, baseline, and confirmation."""
+
+    _validate_split_percentages(development_percent, baseline_training_percent)
     digest = hashlib.sha256(f"{seed}|{cluster}".encode()).hexdigest()
-    return (
-        "development"
-        if int(digest[:8], 16) % 100 < development_percent
-        else "confirmation"
+    bucket = int(digest[:8], 16) % 100
+    if bucket < development_percent:
+        return "development"
+    if bucket < development_percent + baseline_training_percent:
+        return "baseline_training"
+    return "confirmation"
+
+
+def _split_for_cluster(
+    cluster: str,
+    *,
+    seed: int,
+    development_percent: int,
+    baseline_training_percent: int = 0,
+) -> str:
+    return split_for_cluster(
+        cluster,
+        seed=seed,
+        development_percent=development_percent,
+        baseline_training_percent=baseline_training_percent,
     )
+
+
+def _validate_split_percentages(
+    development_percent: int, baseline_training_percent: int
+) -> None:
+    if not 0 < development_percent < 100:
+        raise ValueError("development_percent must be between 0 and 100")
+    if baseline_training_percent < 0:
+        raise ValueError("baseline_training_percent cannot be negative")
+    if development_percent + baseline_training_percent >= 100:
+        raise ValueError(
+            "development plus baseline-training percentages must be below 100"
+        )
+
+
+def _feature_priority(feature: GenomicFeature, seed: int) -> str:
+    return hashlib.sha256(
+        f"{seed}|feature|{feature.feature_id}|{feature.chrom}|"
+        f"{feature.start}|{feature.end}".encode()
+    ).hexdigest()
 
 
 def _example_id(target: GenomicFeature, start: int, end: int) -> str:

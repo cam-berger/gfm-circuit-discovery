@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import math
+from collections import Counter, defaultdict
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass, field
 from typing import Any
@@ -78,7 +79,9 @@ def compute_site_features(
     cpg = sum(
         word[index : index + 2] == "CG" for index in range(max(0, len(word) - 1))
     ) / max(1, len(word) - 1)
-    overlaps = any(interval.overlaps(other) for other in annotated_intervals)
+    overlaps = bool(site.attributes.get("source_annotation_overlap")) or any(
+        interval.overlaps(other) for other in annotated_intervals
+    )
     return SiteFeatures(
         site=site,
         sequence=word,
@@ -113,21 +116,64 @@ def build_matched_sets(
     missing_pools = [family.value for family in empirical if family not in candidates]
     if missing_pools:
         raise ValueError(f"missing candidate control pools: {missing_pools}")
+    output, failures = build_matchable_sets(targets, candidates, spec)
+    if failures:
+        failure = failures[0]
+        raise ValueError(
+            f"{failure['example_id']}:{failure['interval']} has "
+            f"{failure['eligible']} eligible {failure['family']} controls; "
+            f"requires {spec.controls_per_family}"
+        )
+    return output
+
+
+def build_matchable_sets(
+    targets: Sequence[SiteFeatures],
+    candidates: Mapping[ControlFamily, Sequence[SiteFeatures]],
+    spec: MatchingSpec,
+) -> tuple[list[MatchedSet], list[dict[str, Any]]]:
+    """Return complete matched sets plus outcome-blind supply failures.
+
+    A site with inadequate controls is excluded before any model outcome exists.
+    The caller must report the exclusions and may only admit site classes whose
+    frozen cluster-supply gate still passes.
+    """
+
+    empirical = (
+        ControlFamily.SAME_MOTIF_UNANNOTATED,
+        ControlFamily.COMPOSITION_TOKEN_MATCHED,
+        ControlFamily.SAME_SEQUENCE_NON_SITE,
+    )
+    missing_pools = [family.value for family in empirical if family not in candidates]
+    if missing_pools:
+        raise ValueError(f"missing candidate control pools: {missing_pools}")
+    indexes = {
+        family: _CandidateIndex(tuple(candidates[family]), spec) for family in empirical
+    }
     output: list[MatchedSet] = []
+    failures: list[dict[str, Any]] = []
     for target in targets:
         controls: list[MatchedControl] = []
         for family in empirical:
             eligible = [
                 candidate
-                for candidate in candidates[family]
+                for candidate in indexes[family].candidates_for(target, family)
                 if _eligible(target, candidate, family, spec)
             ]
             if len(eligible) < spec.controls_per_family:
-                raise ValueError(
-                    f"{target.site.example_id}:{target.site.interval} has "
-                    f"{len(eligible)} eligible {family.value} controls; "
-                    f"requires {spec.controls_per_family}"
+                failures.append(
+                    {
+                        "example_id": target.site.example_id,
+                        "interval": (
+                            target.site.interval.start,
+                            target.site.interval.end,
+                        ),
+                        "site_class": target.site.site_class,
+                        "family": family.value,
+                        "eligible": len(eligible),
+                    }
                 )
+                break
             ranked = sorted(
                 eligible,
                 key=lambda candidate: (
@@ -157,8 +203,74 @@ def build_matched_sets(
                         },
                     )
                 )
-        output.append(MatchedSet(target=target.site, controls=tuple(controls)))
-    return output
+        else:
+            output.append(MatchedSet(target=target.site, controls=tuple(controls)))
+    return output, failures
+
+
+def generate_candidate_sites(
+    records: Sequence[Any],
+    *,
+    positions_per_example: int,
+    seed: int,
+    annotation_intervals_by_example: Mapping[str, Sequence[Interval]] | None = None,
+) -> list[SiteReference]:
+    """Build an outcome-blind candidate pool from the admitted sequence windows."""
+
+    if positions_per_example < 1:
+        raise ValueError("positions_per_example must be positive")
+    source_annotations = annotation_intervals_by_example or {}
+    targets = []
+    motifs_by_class: dict[str, set[str]] = defaultdict(set)
+    for record in records:
+        target_id = record.metadata.get("target_element_id")
+        if target_id is None:
+            raise ValueError(f"{record.example_id} has no target_element_id")
+        target = record.element(str(target_id))
+        targets.append((record, target))
+        motifs_by_class[target.site_class].add(
+            record.sequence[target.interval.start : target.interval.end]
+        )
+    output: dict[tuple[str, int, int, str], SiteReference] = {}
+    for record, target in targets:
+        length = target.interval.length
+        maximum_start = len(record.sequence) - length
+        ranked = sorted(
+            range(maximum_start + 1),
+            key=lambda start: hashlib.sha256(
+                f"{seed}|candidate|{record.example_id}|"
+                f"{target.site_class}|{length}|{start}".encode()
+            ).hexdigest(),
+        )
+        starts = set(ranked[:positions_per_example])
+        for motif in motifs_by_class[target.site_class]:
+            start = record.sequence.find(motif)
+            while start >= 0:
+                starts.add(start)
+                start = record.sequence.find(motif, start + 1)
+        for start in starts:
+            if start == target.interval.start and start + length == target.interval.end:
+                continue
+            site = SiteReference(
+                example_id=record.example_id,
+                interval=Interval(start, start + length),
+                site_class=target.site_class,
+                attributes={
+                    "source_annotation_overlap": any(
+                        Interval(start, start + length).overlaps(interval)
+                        for interval in source_annotations.get(record.example_id, ())
+                    )
+                },
+            )
+            output[
+                (
+                    site.example_id,
+                    site.interval.start,
+                    site.interval.end,
+                    site.site_class,
+                )
+            ] = site
+    return [output[key] for key in sorted(output)]
 
 
 def matching_balance(
@@ -208,6 +320,14 @@ def _eligible(
     if candidate.site == target.site:
         return False
     if candidate.site.site_class != target.site.site_class:
+        return False
+    target_split = target.attributes.get("split")
+    candidate_split = candidate.attributes.get("split")
+    if (
+        target_split is not None
+        and candidate_split is not None
+        and target_split != candidate_split
+    ):
         return False
     if candidate.site.interval.length != target.site.interval.length:
         return False
@@ -303,3 +423,91 @@ def _standardized_mean_difference(
 
 def _key(site: SiteReference) -> tuple[str, int, int]:
     return (site.example_id, site.interval.start, site.interval.end)
+
+
+class _CandidateIndex:
+    def __init__(self, candidates: Sequence[SiteFeatures], spec: MatchingSpec) -> None:
+        self.spec = spec
+        self.by_base: dict[
+            tuple[Any, ...], dict[tuple[float, float], list[SiteFeatures]]
+        ] = defaultdict(lambda: defaultdict(list))
+        self.by_motif: dict[tuple[Any, ...], list[SiteFeatures]] = defaultdict(list)
+        self.by_example: dict[tuple[Any, ...], list[SiteFeatures]] = defaultdict(list)
+        for candidate in candidates:
+            base = _base_key(candidate, spec)
+            self.by_base[base][(candidate.gc_fraction, candidate.cpg_fraction)].append(
+                candidate
+            )
+            self.by_motif[(*base, candidate.sequence)].append(candidate)
+            self.by_example[(*base, candidate.site.example_id)].append(candidate)
+
+    def candidates_for(
+        self, target: SiteFeatures, family: ControlFamily
+    ) -> Sequence[SiteFeatures]:
+        base = _base_key(target, self.spec)
+        if family is ControlFamily.SAME_MOTIF_UNANNOTATED:
+            return self.by_motif.get((*base, target.sequence), ())
+        if family is ControlFamily.SAME_SEQUENCE_NON_SITE:
+            return self.by_example.get((*base, target.site.example_id), ())
+        cells = self.by_base.get(base, {})
+        return [
+            candidate
+            for (gc, cpg), cell in cells.items()
+            if abs(gc - target.gc_fraction) <= self.spec.gc_caliper
+            and abs(cpg - target.cpg_fraction) <= self.spec.cpg_caliper
+            for candidate in cell
+        ]
+
+
+def _base_key(feature: SiteFeatures, spec: MatchingSpec) -> tuple[Any, ...]:
+    return (
+        feature.site.site_class,
+        feature.site.interval.length,
+        feature.token_count if spec.require_exact_token_count else None,
+        (
+            feature.covered_nucleotides
+            if spec.require_exact_covered_nucleotides
+            else None
+        ),
+        feature.attributes.get("split"),
+    )
+
+
+def matching_supply_summary(
+    targets: Sequence[SiteFeatures],
+    matched_sets: Sequence[MatchedSet],
+    failures: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    target_counts = Counter(
+        (x.attributes.get("split"), x.site.site_class) for x in targets
+    )
+    matched_by_key = {
+        (item.target.example_id, item.target.interval.start, item.target.interval.end)
+        for item in matched_sets
+    }
+    matched_counts = Counter(
+        (x.attributes.get("split"), x.site.site_class)
+        for x in targets
+        if _key(x.site) in matched_by_key
+    )
+    failure_counts = Counter(
+        (
+            str(item.get("site_class")),
+            str(item.get("family")),
+        )
+        for item in failures
+    )
+    return {
+        "target_counts": {
+            f"{split}|{site_class}": count
+            for (split, site_class), count in sorted(target_counts.items())
+        },
+        "matched_counts": {
+            f"{split}|{site_class}": count
+            for (split, site_class), count in sorted(matched_counts.items())
+        },
+        "failure_counts": {
+            f"{site_class}|{family}": count
+            for (site_class, family), count in sorted(failure_counts.items())
+        },
+    }

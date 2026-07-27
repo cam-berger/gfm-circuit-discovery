@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -19,7 +20,10 @@ from gfmcd.reconstruction_atlas.analysis import (
     compute_excess_reconstruction,
     summarize_by_site_class,
 )
-from gfmcd.reconstruction_atlas.artifacts import write_result_bundle
+from gfmcd.reconstruction_atlas.artifacts import (
+    write_jsonl_bundle,
+    write_result_bundle,
+)
 from gfmcd.reconstruction_atlas.baselines import NucleotideNGramBaseline
 from gfmcd.reconstruction_atlas.gates import (
     frozen_config_sha256,
@@ -33,6 +37,7 @@ from gfmcd.reconstruction_atlas.schema import (
 from gfmcd.reconstruction_atlas.scoring import ReconstructionScorer, ScoringRequest
 from gfmcd.reconstruction_atlas.statistics import (
     add_one_permutation_pvalue,
+    cluster_bootstrap_interval,
     holm_adjust,
     paired_cluster_sign_permutation,
 )
@@ -45,12 +50,18 @@ def main() -> None:
     parser.add_argument("--baseline-training", required=True)
     parser.add_argument("--preflight-config", required=True)
     parser.add_argument("--preflight-report", required=True)
-    parser.add_argument("--split", choices=("development",), default="development")
+    parser.add_argument("--matching-audit", required=True)
+    parser.add_argument(
+        "--split",
+        choices=("development", "confirmation"),
+        default="development",
+    )
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--batch-size", type=int, default=16)
     parser.add_argument("--permutations", type=int, default=9999)
     parser.add_argument("--seed", type=int, default=20260727)
     parser.add_argument("--out", required=True)
+    parser.add_argument("--raw-out", required=True)
     args = parser.parse_args()
 
     preflight = load_preflight_report(args.preflight_report)
@@ -60,8 +71,13 @@ def main() -> None:
         expected_input_sha256={
             "collection": sha256_file(args.collection),
             "matches": sha256_file(args.matches),
+            "matching_audit": sha256_file(args.matching_audit),
             "baseline_training": sha256_file(args.baseline_training),
         },
+    )
+    config = json.loads(Path(args.preflight_config).read_text())
+    admitted_classes = frozenset(
+        str(item) for item in config["behavior"]["admitted_site_classes"]
     )
     collection = load_collection(args.collection)
     background = load_collection(args.baseline_training)
@@ -78,6 +94,7 @@ def main() -> None:
         matched
         for matched in load_matched_sets(args.matches)
         if matched.target.example_id in selected
+        and matched.target.site_class in admitted_classes
     ]
     if not matches:
         raise SystemExit("no matched sets remain on the requested split")
@@ -155,6 +172,30 @@ def main() -> None:
         permutations=args.permutations,
         seed=args.seed,
     )
+    decisions = _behavior_decisions(excess, inference, config)
+    raw_result, raw_manifest = write_jsonl_bundle(
+        args.raw_out,
+        raw_rows,
+        experiment_id=f"dnabert2_atlas_behavioral_raw_{args.split}",
+        status="DEVELOPMENT" if args.split == "development" else "SEALED",
+        model_identity=adapter.identity(),
+        input_paths=(
+            args.collection,
+            args.matches,
+            args.matching_audit,
+            args.baseline_training,
+            args.preflight_config,
+            args.preflight_report,
+        ),
+        parameters={
+            "split": args.split,
+            "batch_size": args.batch_size,
+            "n_scored_sites": len(raw_rows),
+        },
+        seeds={"inference": args.seed},
+        command=sys.argv,
+        repo=Path(__file__).resolve().parents[2],
+    )
     payload = {
         "schema_version": 1,
         "study": "dnabert2_biological_reconstruction_atlas",
@@ -162,24 +203,32 @@ def main() -> None:
         "preflight_report_id": preflight.report_id,
         "preflight_decision": preflight.decision,
         "n_matched_targets": len(matches),
-        "raw_scores": raw_rows,
         "excess_reconstruction": [row.to_dict() for row in excess],
         "site_class_summary": summarize_by_site_class(excess),
         "inference": inference,
+        "behavior_decisions": decisions,
         "baseline_models": [model.identity() for model in baselines],
+        "raw_scores": {
+            "path": str(raw_result),
+            "manifest": str(raw_manifest),
+            "n_rows": len(raw_rows),
+        },
     }
     write_result_bundle(
         args.out,
         payload,
         experiment_id="dnabert2_atlas_behavioral_screen",
-        status="DEVELOPMENT",
+        status="DEVELOPMENT" if args.split == "development" else "SEALED",
         model_identity=adapter.identity(),
         input_paths=(
             args.collection,
             args.matches,
+            args.matching_audit,
             args.baseline_training,
             args.preflight_config,
             args.preflight_report,
+            raw_result,
+            raw_manifest,
         ),
         parameters={
             "split": args.split,
@@ -188,6 +237,7 @@ def main() -> None:
             "normalization": "sum_true_token_log_probability / BPE_covered_nucleotides",
             "masking": "simultaneous_minimal_BPE_cover",
             "multiplicity": "Holm across complete site-class x contrast family",
+            "admitted_site_classes": sorted(admitted_classes),
         },
         seeds={"inference": args.seed},
         command=sys.argv,
@@ -247,6 +297,14 @@ def _inference(rows: list, *, permutations: int, seed: int) -> dict:
                 "observed_cluster_mean": observed,
                 "permutations": len(null),
                 "p_add_one": pvalue,
+                "cluster_bootstrap_ci": list(
+                    cluster_bootstrap_interval(
+                        values,
+                        clusters,
+                        draws=5000,
+                        seed=seed,
+                    )
+                ),
             }
             raw_pvalues[test_id] = pvalue
     adjusted = holm_adjust(raw_pvalues)
@@ -256,6 +314,43 @@ def _inference(rows: list, *, permutations: int, seed: int) -> dict:
         "family_size": len(tests),
         "tests": tests,
     }
+
+
+def _behavior_decisions(rows: list, inference: dict, config: dict) -> dict:
+    grouped = defaultdict(list)
+    for row in rows:
+        grouped[row.target.site_class].append(row)
+    alpha = float(config["behavior"]["familywise_alpha"])
+    sesoi = float(config["behavior"]["primary_sesoi_nats_per_covered_nt"])
+    minimum_clusters = int(config["behavior"]["site_class_minimum_clusters"])
+    output = {}
+    for site_class, class_rows in sorted(grouped.items()):
+        cluster_count = len({row.homology_cluster for row in class_rows})
+        tests = {
+            test["contrast"]: test
+            for test in inference["tests"].values()
+            if test["site_class"] == site_class
+        }
+        contrast_pass = {
+            contrast: (
+                test["observed_cluster_mean"] >= sesoi
+                and test["p_holm_full_family"] <= alpha
+            )
+            for contrast, test in tests.items()
+        }
+        output[site_class] = {
+            "qualified_on_split": (
+                cluster_count >= minimum_clusters
+                and bool(contrast_pass)
+                and all(contrast_pass.values())
+            ),
+            "n_homology_clusters": cluster_count,
+            "minimum_clusters": minimum_clusters,
+            "sesoi_nats_per_covered_nt": sesoi,
+            "familywise_alpha": alpha,
+            "contrast_pass": contrast_pass,
+        }
+    return output
 
 
 def _request_id(site: SiteReference) -> str:

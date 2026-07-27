@@ -3,10 +3,16 @@ from __future__ import annotations
 from gfmcd.reconstruction_atlas.controls import (
     MatchingSpec,
     SiteFeatures,
+    build_matchable_sets,
     build_matched_sets,
+    generate_candidate_sites,
 )
 from gfmcd.reconstruction_atlas.schema import (
+    AnnotatedSequence,
+    BiologicalElement,
     ControlFamily,
+    Evidence,
+    EvidenceType,
     Interval,
     SiteReference,
 )
@@ -84,3 +90,52 @@ def test_same_motif_control_cannot_overlap_an_annotation() -> None:
         assert "same_motif_unannotated" in str(exc)
     else:
         raise AssertionError("annotated same-motif control was accepted")
+
+
+def test_matchable_builder_records_supply_failure_without_partial_family() -> None:
+    target = features("target", 10, "TATA", annotated=True)
+    matched, failures = build_matchable_sets(
+        [target],
+        {
+            ControlFamily.SAME_MOTIF_UNANNOTATED: [],
+            ControlFamily.COMPOSITION_TOKEN_MATCHED: [],
+            ControlFamily.SAME_SEQUENCE_NON_SITE: [],
+        },
+        MatchingSpec(gc_caliper=1, cpg_caliper=1, dinucleotide_l1_caliper=2),
+    )
+    assert matched == []
+    assert failures[0]["family"] == "same_motif_unannotated"
+
+
+def test_candidate_generation_is_outcome_blind_and_contains_exact_motifs() -> None:
+    evidence = Evidence("test", "v1", EvidenceType.CURATED, "site")
+    element = BiologicalElement(
+        "target",
+        "splice.donor",
+        Interval(2, 4),
+        evidence,
+        sequence="GT",
+    )
+    record = AnnotatedSequence(
+        example_id="example",
+        sequence="AAGTCCGTTT",
+        assembly="test",
+        chrom="chr1",
+        genomic_start=0,
+        genomic_end=10,
+        strand="+",
+        sequence_orientation="transcription_5_to_3",
+        split="development",
+        homology_cluster="gene",
+        elements=(element,),
+        metadata={"target_element_id": "target"},
+    )
+    candidates = generate_candidate_sites(
+        [record],
+        positions_per_example=1,
+        seed=7,
+        annotation_intervals_by_example={"example": (Interval(6, 8),)},
+    )
+    exact = next(site for site in candidates if site.interval == Interval(6, 8))
+    assert exact.site_class == "splice.donor"
+    assert exact.attributes["source_annotation_overlap"]

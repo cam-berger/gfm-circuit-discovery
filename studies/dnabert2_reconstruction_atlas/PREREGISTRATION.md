@@ -16,9 +16,9 @@ components causally support it?
 ## Units and splits
 
 - Unit of assignment and inference: gene/homology cluster.
-- Development: 40% deterministic cluster hash.
-- Confirmation: 60%, sealed until behavior and instrument gates pass.
-- Local-frequency baseline training: a third cluster-disjoint corpus, never the target examples.
+- Development: 30% deterministic cluster hash.
+- Local-frequency baseline training: 20%, cluster-disjoint and never used as target examples.
+- Confirmation: 50%, sealed until behavior and instrument gates pass.
 - Strand, site class, source release, and token geometry are mandatory strata/diagnostics.
 
 ## Preflight
@@ -46,6 +46,13 @@ regions.
 Site-class-specific SESOIs and minimum cluster counts remain deliberately unset in the draft config.
 They require a development-only variance and positive-control calibration. The owner must either
 freeze them before target effects or stop the class as underpowered.
+
+The first bounded census slice is frozen before outcomes to GENCODE v50 basic protein-coding
+genes on the primary chromosomes. It samples at most 512 gene clusters per site class per split,
+with one target per gene × class, and evaluates splice donor, splice acceptor, start codon,
+contiguous Kozak span, and stop codon supply. A class lacking all three empirical control
+families is quarantined before model scoring. Promoter, branch-point/tract, poly(A), TF-binding,
+and assay-supported sources remain deferred rather than being silently represented by motif calls.
 
 ## Context-source gate
 

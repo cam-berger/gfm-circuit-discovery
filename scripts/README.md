@@ -43,8 +43,11 @@ row in the scientific result manifest.
 | `validate_collection.py` | Validate nucleotide coordinates, evidence labels, pair links, and split fields; print a census. | Read-only |
 | `build_bed_collection.py` | Assemble any evidence-labeled promoter, branch-point/PPT, poly(A), TFBS, or other source normalized to the atlas BED contract. | Explicit new JSONL path plus immutable manifest |
 | `build_gencode_collection.py` | Derive splice donors/acceptors, start/stop codons, and contiguous Kozak spans from a pinned GENCODE GTF; assemble transcription-oriented windows. | Explicit new JSONL path plus immutable manifest |
+| `build_candidate_sites.py` | Stream GENCODE exclusions and create outcome-blind within-window empirical-control candidates. | Explicit new JSONL path plus immutable manifest |
 | `build_control_matches.py` | Apply exact site-class/token-cover constraints and composition calipers to an outcome-blind candidate-site pool, keeping all empirical families separate. | Explicit new JSONL path plus immutable manifest |
+| `run_preflight.py` | Calibrate, then execute, copy-plant, negative, sensitivity, geometry, balance, invariant, and model-health gates. | Explicit new compact JSON plus manifest |
 | `run_behavioral_screen.py` | Score minimal BPE covers, compute separate empirical/baseline advantages, and run cluster-first add-one inference. | Refuses without a matching frozen `QUALIFIED` preflight; explicit new JSON plus manifest |
+| `analyze_behavioral_replication.py` | Combine frozen development and sealed confirmation screens under the unchanged behavior lock. | Explicit new compact JSON plus manifest |
 
 The active protocol and current no-claim state are in
 [`studies/dnabert2_reconstruction_atlas/`](../studies/dnabert2_reconstruction_atlas/README.md).

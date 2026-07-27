@@ -9,11 +9,16 @@ import sys
 from pathlib import Path
 
 from gfmcd.adapters.dnabert2 import load_dnabert2_tokenizer
-from gfmcd.reconstruction_atlas.artifacts import write_jsonl_bundle
+from gfmcd.reconstruction_atlas.artifacts import (
+    write_jsonl_bundle,
+    write_result_bundle,
+)
 from gfmcd.reconstruction_atlas.controls import (
     MatchingSpec,
-    build_matched_sets,
+    build_matchable_sets,
     compute_site_features,
+    matching_balance,
+    matching_supply_summary,
 )
 from gfmcd.reconstruction_atlas.schema import (
     ControlFamily,
@@ -31,19 +36,24 @@ def main() -> None:
         required=True,
         help="JSONL SiteReference pool produced without model outcomes",
     )
-    parser.add_argument("--split", choices=("development",), default="development")
+    parser.add_argument(
+        "--split",
+        choices=("development", "confirmation", "all"),
+        default="all",
+    )
     parser.add_argument("--controls-per-family", type=int, default=1)
     parser.add_argument("--gc-caliper", type=float, default=0.05)
     parser.add_argument("--cpg-caliper", type=float, default=0.05)
     parser.add_argument("--dinucleotide-l1-caliper", type=float, default=0.5)
     parser.add_argument("--seed", type=int, default=20260727)
     parser.add_argument("--out", required=True)
+    parser.add_argument("--audit-out", required=True)
     args = parser.parse_args()
 
     records = {
         record.example_id: record
         for record in load_collection(args.collection)
-        if record.split == args.split
+        if args.split == "all" or record.split == args.split
     }
     if not records:
         raise SystemExit(f"collection contains no {args.split} records")
@@ -101,6 +111,7 @@ def main() -> None:
             record.sequence,
             plan,
             annotated_intervals=(element.interval for element in record.elements),
+            attributes={"split": record.split},
         )
 
     target_features = [features(site) for site in target_sites]
@@ -120,8 +131,8 @@ def main() -> None:
         dinucleotide_l1_caliper=args.dinucleotide_l1_caliper,
         seed=args.seed,
     )
-    matched = build_matched_sets(target_features, candidate_pools, spec)
-    write_jsonl_bundle(
+    matched, failures = build_matchable_sets(target_features, candidate_pools, spec)
+    match_result, match_manifest = write_jsonl_bundle(
         args.out,
         [item.to_dict() for item in matched],
         experiment_id=f"dnabert2_atlas_control_matches_{args.split}",
@@ -136,6 +147,43 @@ def main() -> None:
             "dinucleotide_l1_caliper": args.dinucleotide_l1_caliper,
             "n_targets": len(target_features),
             "n_candidates": len(candidate_features),
+            "n_matched_targets": len(matched),
+            "n_supply_failures": len(failures),
+        },
+        seeds={"matching": args.seed},
+        command=sys.argv,
+        repo=Path(__file__).resolve().parents[2],
+    )
+    target_by_key = {_key(feature.site): feature for feature in target_features}
+    control_by_key = {_key(feature.site): feature for feature in candidate_features}
+    audit = {
+        "schema_version": 1,
+        "split": args.split,
+        "supply": matching_supply_summary(target_features, matched, failures),
+        "balance": matching_balance(target_by_key, control_by_key, matched),
+        "n_targets": len(target_features),
+        "n_matched_targets": len(matched),
+        "n_supply_failures": len(failures),
+        "failures": failures,
+    }
+    write_result_bundle(
+        args.audit_out,
+        audit,
+        experiment_id=f"dnabert2_atlas_control_match_audit_{args.split}",
+        status="DEVELOPMENT",
+        model_identity=tokenizer_bundle.identity(),
+        input_paths=(
+            args.collection,
+            args.candidate_sites,
+            match_result,
+            match_manifest,
+        ),
+        parameters={
+            "split": args.split,
+            "controls_per_family": args.controls_per_family,
+            "gc_caliper": args.gc_caliper,
+            "cpg_caliper": args.cpg_caliper,
+            "dinucleotide_l1_caliper": args.dinucleotide_l1_caliper,
         },
         seeds={"matching": args.seed},
         command=sys.argv,
@@ -156,6 +204,10 @@ def _load_candidate_sites(path: str | Path) -> list[SiteReference]:
     if not sites:
         raise ValueError("candidate-site pool is empty")
     return sites
+
+
+def _key(site: SiteReference) -> tuple[str, int, int]:
+    return (site.example_id, site.interval.start, site.interval.end)
 
 
 if __name__ == "__main__":

@@ -294,6 +294,10 @@ class SiteReference:
     interval: Interval
     site_class: str
     element_id: str | None = None
+    attributes: Mapping[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "attributes", dict(self.attributes))
 
     @classmethod
     def from_dict(cls, value: Mapping[str, Any]) -> SiteReference:
@@ -304,6 +308,7 @@ class SiteReference:
             element_id=str(value["element_id"])
             if value.get("element_id") is not None
             else None,
+            attributes=dict(value.get("attributes", {})),
         )
 
     def to_dict(self) -> dict[str, Any]:
@@ -313,6 +318,7 @@ class SiteReference:
             "end": self.interval.end,
             "site_class": self.site_class,
             "element_id": self.element_id,
+            "attributes": dict(self.attributes),
         }
 
 

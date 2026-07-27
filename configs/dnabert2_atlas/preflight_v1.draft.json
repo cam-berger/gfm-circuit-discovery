@@ -6,6 +6,28 @@
     "revision": "7bce263b15377fc15361f52cfab88f8b586abda0"
   },
   "seed": 20260727,
+  "collection": {
+    "source": "GENCODE v50 basic annotation",
+    "assembly": "GRCh38",
+    "gene_types": ["protein_coding"],
+    "chromosomes": [
+      "chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8",
+      "chr9", "chr10", "chr11", "chr12", "chr13", "chr14", "chr15",
+      "chr16", "chr17", "chr18", "chr19", "chr20", "chr21", "chr22",
+      "chrX", "chrY"
+    ],
+    "split_percentages": {
+      "development": 30,
+      "baseline_training": 20,
+      "confirmation": 50
+    },
+    "sampled_genes_per_split": 768,
+    "maximum_clusters_per_site_class_per_split": 512,
+    "candidate_positions_per_example": 256,
+    "controls_per_family": 3,
+    "window_upstream_nt": 512,
+    "window_downstream_nt": 512
+  },
   "mandatory_gates": {
     "positive_control": {
       "design": "graded target-copy plant in a non-overlapping context region",
@@ -44,8 +66,12 @@
     }
   },
   "behavior": {
+    "admitted_site_classes": null,
+    "preflight_minimum_clusters_per_site_class": 32,
+    "preflight_maximum_clusters_per_site_class": 64,
     "site_class_minimum_clusters": null,
     "primary_sesoi_nats_per_covered_nt": null,
+    "familywise_alpha": 0.05,
     "permutation_pvalue": "add_one",
     "multiple_testing": "holm_over_full_site_class_by_contrast_family"
   },
