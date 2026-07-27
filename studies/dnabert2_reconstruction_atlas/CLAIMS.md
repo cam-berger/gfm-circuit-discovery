@@ -4,8 +4,15 @@
 
 ## Live scientific claims
 
-**None.** No atlas preflight, behavioral census, context experiment, or causal intervention has
-been run on this branch.
+**D1 — development behavior boundary.** In the frozen bounded GENCODE v50 protein-coding
+development cohort, none of splice acceptor, splice donor, start codon, or stop codon meets the
+predeclared excess-reconstruction gate over every empirical control. All four beat n-gram
+baselines, but empirical advantages range from −0.130 to +0.023 nats per covered nucleotide;
+the only positive value (donor versus composition/token matched, +0.023) is not
+Holm-significant and fails the other empirical families.
+
+This licenses no `NULL` verdict and no claim about the sealed confirmation split. It stops
+context and internal localization for these classes under census v1.
 
 ## Established infrastructure facts
 
@@ -29,7 +36,7 @@ reconstruction.
 
 | ID | Hypothesis | Current status | First required bridge |
 |---|---|---|---|
-| H1 | At least one annotated site class has positive excess reconstruction over every required control. | proposed | Frozen, qualified preflight followed by development and sealed behavior runs. |
+| H1 | At least one annotated site class has positive excess reconstruction over every required control. | not supported in bounded GENCODE development; confirmation remains sealed | A newly preregistered source/class census, not post-hoc reopening of v1. |
 | H2 | For at least one H1-qualified class, a biologically related context region outperforms matched irrelevant-region exchanges. | proposed | H1 plus token-geometry-invariant context interventions. |
 | H3 | A bounded set of heads, MLPs, positions, or residual directions causally supports an H2-qualified behavior. | proposed | Frozen candidate screen, matched-size necessity, mediation, and path tests. |
 

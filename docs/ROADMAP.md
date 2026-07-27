@@ -100,14 +100,15 @@ without generic MLM damage, with its semantic label no stronger than the externa
 
 The active milestone is the DNABERT-2 Biological Reconstruction Atlas. It asks which annotated
 elements show reconstruction advantage beyond matched motif/token/composition controls, then qualifies
-source regions before internal screening. Its infrastructure is implemented, but the preflight is not
-frozen or run and no biological claim is licensed. Before target deployment:
+source regions before internal screening. Its frozen preflight is qualified. The bounded GENCODE
+development census has run, but no admitted class beat every empirical control, so confirmation
+remains sealed and context/internal screening is stopped. The completed deployment steps were:
 
 1. pin every admitted annotation release and pass coordinate/evidence/split audits;
 2. freeze calibrated, site-class-specific behavior and precision thresholds;
 3. pass positive, negative, sensitivity, resolution, token-geometry, balance, invariant, and health gates;
 4. run the development census and seal candidate/threshold rules before confirmation;
-5. localize and intervene internally only for behavior- and context-qualified site classes.
+5. stop before localization because no site class behavior-qualified.
 
 **Exit condition:** DNABERT-2 reaches a justified point on the same evidence ladder for one or more
 site classes, including an honest qualified null or instrument limit.

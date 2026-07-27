@@ -1,6 +1,7 @@
 # Atlas preregistration
 
-> **Tier: T2 — provenance. V1 FROZEN AFTER DEVELOPMENT-ONLY CALIBRATION; TARGET NOT RUN.**
+> **Tier: T2 — provenance. V1 FROZEN BEFORE TARGET OUTCOMES; DEVELOPMENT RUN COMPLETE;
+> CONFIRMATION SEALED.**
 
 The historical machine-readable lock candidate is
 [`../../configs/dnabert2_atlas/preflight_v1.draft.json`](../../configs/dnabert2_atlas/preflight_v1.draft.json).

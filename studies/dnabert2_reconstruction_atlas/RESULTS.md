@@ -4,11 +4,26 @@
 
 ## Scientific results
 
-**None.** The target atlas has not run.
-
 | Run | Question | Status | Artifact | Manifest | Claim IDs |
 |---|---|---|---|---|---|
-| — | — | not run | — | — | — |
+| GENCODE behavior development v1 | Does any admitted class exceed all empirical and low-order controls? | development gate failed for every class; confirmation sealed | `../../results/dnabert2_reconstruction_atlas/behavior_development_v1.json` | `../../results/dnabert2_reconstruction_atlas/behavior_development_v1.manifest.json` | D1 |
+
+### Development behavior census v1
+
+The frozen, qualified development screen scored 1,725 matched targets across 24
+class × contrast tests with add-one permutation values and full-family Holm correction.
+
+| Site class | Clusters | Same motif | Composition/token | Same sequence | N-gram range | Development verdict |
+|---|---:|---:|---:|---:|---:|---|
+| splice acceptor | 501 | −0.110 | −0.106 | −0.099 | +0.089 to +0.156 | not qualified |
+| splice donor | 451 | −0.032 | +0.023 | −0.023 | +0.186 to +0.225 | not qualified |
+| start codon | 354 | −0.068 | −0.080 | −0.042 | +0.106 to +0.126 | not qualified |
+| stop codon | 419 | −0.130 | −0.117 | −0.123 | +0.079 to +0.110 | not qualified |
+
+Effects are nats per complete BPE-covered nucleotide. Every n-gram contrast passes the
+0.02 SESOI and full-family correction; no class passes its empirical families. D1 is therefore
+a bounded development result. Confirmation remains sealed, no `NULL` verdict is issued, and
+P4–P6 are stopped.
 
 ## Infrastructure verification
 

@@ -148,3 +148,17 @@
   split remains sealed until the development artifact is immutable and its thresholds remain
   unchanged.
 - Boundary: this is an instrument decision only; it creates no atlas row and no behavior claim.
+
+## 2026-07-27 — Stop census v1 at the development behavior gate
+
+- Evidence: all four admitted classes beat order-0/1/2 baselines, but none exceeds all three
+  empirical controls. Acceptor, start, and stop are negative against every empirical family.
+  Donor is +0.023 against composition/token matching (`p_add_one=0.1324`,
+  `p_Holm=1.0`) and negative against same-motif and same-sequence controls.
+- Decision: record D1, keep the confirmation split sealed, and do not enter context-source,
+  candidate, or causal stages.
+- Interpretation: DNABERT-2 reconstructs these short words better than low-order nucleotide
+  models, but census v1 provides no evidence of annotation-specific excess recoverability.
+- Boundary: this is not a confirmatory `NULL`, because the sealed split was not opened after
+  the development gate failed. A future census must preregister a genuinely new source/class
+  scope rather than retune v1.

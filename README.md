@@ -80,7 +80,7 @@ Attribution ranks; intervention decides. See the [methodology](docs/METHODOLOGY.
 | [`studies/splicebert_partner_selection/`](studies/splicebert_partner_selection/README.md) | completed core record; open limitations | Donor graph, period-3 carrier, compact claims, corrections, preregistrations, and reproduction map. |
 | [`studies/splicebert_head_context_atlas/`](studies/splicebert_head_context_atlas/README.md) | discovery and internal validation complete | Multi-context head/MLP reuse atlas; context-specific follow-ups remain exploratory. |
 | [`studies/splicebert_segment_attribution/`](studies/splicebert_segment_attribution/README.md) | exploratory instrument | Joint-mask attribution DAGs used as candidate generators, not causal claims. |
-| [`studies/dnabert2_reconstruction_atlas/`](studies/dnabert2_reconstruction_atlas/README.md) | infrastructure implemented; target experiments not run | Systematic DNABERT-2 census of excess biological reconstruction, informative context, and qualified causal mechanisms. |
+| [`studies/dnabert2_reconstruction_atlas/`](studies/dnabert2_reconstruction_atlas/README.md) | frozen preflight qualified; bounded GENCODE development census complete; no class behavior-qualified | Systematic DNABERT-2 census of excess biological reconstruction, informative context, and qualified causal mechanisms. |
 | [`studies/caduceus_partner_transfer/`](studies/caduceus_partner_transfer/README.md) | design hardened; deferred, not run | Planned cross-architecture behavioral transfer to an RC-equivariant bidirectional Mamba MLM. |
 | [`studies/codon_phase_lattice/`](studies/codon_phase_lattice/README.md) | historical exploratory protocol | Superseded phase-shift framing retained for provenance; not an active result family. |
 

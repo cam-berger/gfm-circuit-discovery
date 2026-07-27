@@ -8,12 +8,12 @@ coordinate convention, evidence semantics, and cluster/split audit are recorded 
 | Element family | Site classes | Preferred evidence | Adapter state | Target-run state |
 |---|---|---|---|---|
 | Core promoter | `promoter.tata`, `promoter.inr`, `promoter.bre`, `promoter.dpe` | Curated promoter/TSS records plus direct CAGE or promoter assay support; motif calls labeled derived/computational | Normalized BED ingestion available; source-specific adapter pending | blocked |
-| Splicing | `splice.donor`, `splice.acceptor` | Curated transcript annotation | GENCODE GTF derivation implemented | blocked |
+| Splicing | `splice.donor`, `splice.acceptor` | Curated transcript annotation | GENCODE GTF derivation implemented | development screened; not behavior-qualified; confirmation sealed |
 | Intron regulation | `splice.branchpoint`, `splice.polypyrimidine_tract` | Experimentally supported branch-point/tract resources preferred | source-specific adapter pending | blocked |
 | 3′ end processing | `polya.signal`, `polya.cleavage_region` | Curated poly(A) sites with cleavage evidence | source-specific adapter pending | blocked |
 | TF binding | `tfbs.<factor>` | ChIP/exo/footprinting-supported sites; motif-only calls remain computational | normalized BED ingestion available | blocked |
-| Translation initiation | `translation.start_codon`, `translation.kozak` | Curated coding transcript annotation; ribosome evidence as an optional higher tier | GENCODE GTF derivation implemented | blocked |
-| Translation termination | `translation.stop_codon` | Curated coding transcript annotation | GENCODE GTF derivation implemented | blocked |
+| Translation initiation | `translation.start_codon`, `translation.kozak` | Curated coding transcript annotation; ribosome evidence as an optional higher tier | GENCODE GTF derivation implemented | start development screened/not qualified; Kozak supply-quarantined |
+| Translation termination | `translation.stop_codon` | Curated coding transcript annotation | GENCODE GTF derivation implemented | development screened; not behavior-qualified; confirmation sealed |
 
 ## Locally available development assets
 

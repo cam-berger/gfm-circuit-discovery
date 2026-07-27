@@ -4,6 +4,7 @@ Architecture-specific access only. Biological assay logic belongs in the reconst
 package and study record, per `docs/TRANSFER_GUIDE.md`.
 """
 
+from .adapter import Dnabert2Adapter, Dnabert2HookPoint
 from .loader import (
     DNABERT2_HF_ID,
     DNABERT2_REVISION,
@@ -14,7 +15,6 @@ from .loader import (
     load_dnabert2_tokenizer,
     require_pinned_env,
 )
-from .adapter import Dnabert2Adapter, Dnabert2HookPoint
 
 __all__ = [
     "DNABERT2_HF_ID",
