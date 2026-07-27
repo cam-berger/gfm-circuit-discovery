@@ -1,8 +1,8 @@
 {
  "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc); DNABERT-2 Reconstruction Atlas infrastructure index appended 2026-07-27.",
- "row_count": 817,
+ "row_count": 819,
  "status_counts": {
-  "canonical": 533,
+  "canonical": 535,
   "development": 134,
   "infrastructure": 16,
   "superseded": 134
@@ -11,7 +11,7 @@
   "bounded": 34,
   "na": 288,
   "null": 19,
-  "positive": 472,
+  "positive": 474,
   "refutation": 4
  },
  "columns": [
@@ -8191,6 +8191,26 @@
    "evidence_level": "",
    "polarity": "positive",
    "artifact": "results/dnabert2_reconstruction_atlas/preflight_calibration_v3.manifest.json",
+   "script": "scripts/dnabert2_atlas/run_preflight.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "IF10",
+   "status": "canonical",
+   "evidence_level": "",
+   "polarity": "positive",
+   "artifact": "results/dnabert2_reconstruction_atlas/preflight_qualified_v1.json",
+   "script": "scripts/dnabert2_atlas/run_preflight.py",
+   "manifest": "results/dnabert2_reconstruction_atlas/preflight_qualified_v1.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "IF10",
+   "status": "canonical",
+   "evidence_level": "",
+   "polarity": "positive",
+   "artifact": "results/dnabert2_reconstruction_atlas/preflight_qualified_v1.manifest.json",
    "script": "scripts/dnabert2_atlas/run_preflight.py",
    "manifest": "",
    "figure": ""

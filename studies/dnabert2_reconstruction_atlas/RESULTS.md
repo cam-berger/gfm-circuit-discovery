@@ -66,6 +66,15 @@ These controls freeze `preflight_v1.frozen.json`: positive floor 0.05, negative 
 per split. This licenses IF9. It still does not authorize target execution until the same
 instrument reruns against the frozen config and emits `QUALIFIED`.
 
+### Frozen preflight v1 — qualified
+
+`results/dnabert2_reconstruction_atlas/preflight_qualified_v1.json` reruns calibration v3
+against the frozen config hash and exact collection, match, matching-audit, and baseline hashes.
+All eight mandatory gate families pass and the report decision is `QUALIFIED`.
+
+This licenses IF10 and authorizes the development behavior screen. It is still an instrument
+result, not evidence for H1.
+
 Bulk runtime collections and per-site shards will remain ignored. Every settled compact result must
 be immutable, indexed here, and accompanied by a manifest containing checkpoint, data inputs,
 parameters, seeds, code revision, and command.

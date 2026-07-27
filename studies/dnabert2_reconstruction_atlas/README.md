@@ -24,8 +24,8 @@ ablation, patching, rescue, mediation, and path interventions decide causal supp
 |---|---|---|
 | P0 study architecture | implemented | The data, mask, score, control, context, gate, intervention, and artifact contracts can be tested. |
 | P1 collection assembly | bounded GENCODE v50 slice qualified for four classes; Kozak supply quarantined; other sources pending | Collection/supply facts only; no biological census claim. |
-| P2 assay preflight | calibrations v1–v3 complete; v1/v2 defects preserved; v1 lock frozen from v3; qualified run pending | No behavioral claim. |
-| P3 excess-reconstruction census | blocked on qualified preflight | No atlas ranking. |
+| P2 assay preflight | `QUALIFIED` under frozen v1; v1/v2 failed calibrations preserved | Instrument authorization only; no behavioral claim. |
+| P3 excess-reconstruction census | development run authorized, not yet run | No atlas ranking. |
 | P4 context-source census | blocked on P3 | No informative-region claim. |
 | P5 internal candidate atlas | blocked on P4 | No component claim. |
 | P6 causal tests | blocked on frozen candidates | No causal claim. |

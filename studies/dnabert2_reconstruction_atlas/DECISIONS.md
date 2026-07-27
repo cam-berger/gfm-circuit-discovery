@@ -138,3 +138,13 @@
   add-one permutation values, and Holm correction over all admitted class × contrast tests.
 - Effect: splice acceptor, splice donor, start codon, and stop codon may enter the qualified
   preflight. No target outcome may run until that report passes unchanged.
+
+## 2026-07-27 — Authorize development behavior screen
+
+- Evidence: `preflight_qualified_v1.json` matches frozen config hash
+  `e7efe5a2a2e1c7c571047466f442de6ae67cdc02f3a8e93ad3ae0471bca9e16c`,
+  binds all four runtime inputs, and returns `PASS` for every mandatory gate.
+- Decision: authorize the development split for the four admitted classes. The confirmation
+  split remains sealed until the development artifact is immutable and its thresholds remain
+  unchanged.
+- Boundary: this is an instrument decision only; it creates no atlas row and no behavior claim.
