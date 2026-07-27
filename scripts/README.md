@@ -1,10 +1,10 @@
-# Scripts index — SpliceBERT circuit discovery
+# Scripts index — mechanistic discovery workflows
 
 > **Tier: T1 — canonical.** Current, authoritative. Read this.
 
 This is an **index of the runnable scripts**, not the scientific ledger. It maps each active script to
 the claim(s) and controlling artifact it serves, grouped by result family. The authoritative
-claim→evidence record is [`results/MANIFEST.csv`](../results/MANIFEST.csv) (780 rows) plus
+claim→evidence record is [`results/MANIFEST.csv`](../results/MANIFEST.csv) (809 rows) plus
 [`studies/splicebert_partner_selection/CLAIMS.md`](../studies/splicebert_partner_selection/CLAIMS.md)
 (donor circuit, C1–C41 + IC1), [`studies/splicebert_head_context_atlas/CLAIMS.md`](../studies/splicebert_head_context_atlas/CLAIMS.md)
 (Atlas, HCA1–HCA23), and [`CORRECTIONS.md`](../studies/splicebert_partner_selection/CORRECTIONS.md)
@@ -12,10 +12,11 @@ claim→evidence record is [`results/MANIFEST.csv`](../results/MANIFEST.csv) (78
 [`studies/splicebert_partner_selection/REPRODUCIBILITY.md`](../studies/splicebert_partner_selection/REPRODUCIBILITY.md);
 the repo-level entry point is [`REPRODUCE.md`](../REPRODUCE.md).
 
-`scripts/` has three trees: `splicebert/` (donor circuit + carriers + origin siblings),
-`splicebert_head_context_atlas/` (the Atlas sibling study), and `crossmodel/` (cross-model origin).
-Superseded and VOID runners live in Git history, not alongside live workflows. Every artifact named
-below exists on disk; every MANIFEST row's script/artifact/manifest/figure path resolves
+`scripts/` has four active trees: `splicebert/` (donor circuit + carriers + origin siblings),
+`splicebert_head_context_atlas/` (the SpliceBERT Atlas sibling study), `crossmodel/` (cross-model
+origin), and `dnabert2_atlas/` (the new biological reconstruction census). Superseded and VOID
+runners live in Git history, not alongside live workflows. Every artifact named below exists on
+disk; every MANIFEST row's script/artifact/manifest/figure path resolves
 (`scripts/verify_manifest.py` passes).
 
 ## Execution contract
@@ -29,6 +30,24 @@ below exists on disk; every MANIFEST row's script/artifact/manifest/figure path 
 - The sealed chr8/9 test (`run_sealed_test.py`) is provenance, not a routine smoke test — it requires the
   unsealing flag in `preregistrations/PREREGISTRATION_SEALED.md`.
 - Generate figures only from recorded artifacts.
+
+---
+
+# `scripts/dnabert2_atlas/` — Biological Reconstruction Atlas
+
+These runners are infrastructure only until the study preflight is frozen and passes. They carry no
+row in the scientific result manifest.
+
+| Script | Purpose | Output contract |
+|---|---|---|
+| `validate_collection.py` | Validate nucleotide coordinates, evidence labels, pair links, and split fields; print a census. | Read-only |
+| `build_bed_collection.py` | Assemble any evidence-labeled promoter, branch-point/PPT, poly(A), TFBS, or other source normalized to the atlas BED contract. | Explicit new JSONL path plus immutable manifest |
+| `build_gencode_collection.py` | Derive splice donors/acceptors, start/stop codons, and contiguous Kozak spans from a pinned GENCODE GTF; assemble transcription-oriented windows. | Explicit new JSONL path plus immutable manifest |
+| `build_control_matches.py` | Apply exact site-class/token-cover constraints and composition calipers to an outcome-blind candidate-site pool, keeping all empirical families separate. | Explicit new JSONL path plus immutable manifest |
+| `run_behavioral_screen.py` | Score minimal BPE covers, compute separate empirical/baseline advantages, and run cluster-first add-one inference. | Refuses without a matching frozen `QUALIFIED` preflight; explicit new JSON plus manifest |
+
+The active protocol and current no-claim state are in
+[`studies/dnabert2_reconstruction_atlas/`](../studies/dnabert2_reconstruction_atlas/README.md).
 
 ---
 

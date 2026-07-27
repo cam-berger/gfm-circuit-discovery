@@ -2,6 +2,7 @@ claim_id,status,evidence_level,polarity,artifact,script,manifest,figure
 ,infrastructure,,na,results/MANIFEST.csv,,,
 ,infrastructure,,na,results/MANIFEST.json,,,
 ,infrastructure,,na,results/RESULTS_INDEX.md,,,
+,infrastructure,,na,results/dnabert2_reconstruction_atlas/README.md,,,
 C35,canonical,Behaviour,positive,results/p3_av_decomposition.json,scripts/splicebert/run_p3_av_decomposition.py,,
 C34,canonical,Behaviour,positive,results/p3_carrier_locus.json,scripts/splicebert/run_p3_carrier_locus.py,,
 ,infrastructure,,na,results/phase-lattice/RESULTS_INDEX.md,,,

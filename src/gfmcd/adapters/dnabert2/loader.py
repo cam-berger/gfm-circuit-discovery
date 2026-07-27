@@ -34,7 +34,7 @@ DNABERT2_HF_ID = "zhihan1996/DNABERT-2-117M"
 DNABERT2_REVISION = "7bce263b15377fc15361f52cfab88f8b586abda0"
 
 #: Library versions this study is pinned to. See
-#: `studies/dnabert2_core_promoter/requirements-dnabert2.txt` for why.
+#: `studies/dnabert2_reconstruction_atlas/requirements-dnabert2.txt` for why.
 PINNED_TRANSFORMERS = "4.44.2"
 
 _VENDOR_DIR = Path(__file__).resolve().parent / "vendor"
@@ -65,7 +65,7 @@ def require_pinned_env() -> dict[str, str]:
             f"transformers=={transformers.__version__} but this study is pinned to "
             f"{PINNED_TRANSFORMERS}. Run via:\n"
             "  uv run --isolated --no-project --python 3.11 \\\n"
-            "    --with-requirements studies/dnabert2_core_promoter/requirements-dnabert2.txt \\\n"
+            "    --with-requirements studies/dnabert2_reconstruction_atlas/requirements-dnabert2.txt \\\n"
             "    --with-editable . python <runner>"
         )
     return {
@@ -90,9 +90,13 @@ def _verify_vendor() -> dict[str, str]:
         digest, name = line.split()
         expected[name.strip()] = digest
     observed = {name: sha256_file(_VENDOR_DIR / name) for name in expected}
-    drifted = {n: (expected[n], observed[n]) for n in expected if expected[n] != observed[n]}
+    drifted = {
+        n: (expected[n], observed[n]) for n in expected if expected[n] != observed[n]
+    }
     if drifted:
-        raise PinnedEnvironmentError(f"vendored DNABERT-2 code has drifted from its pin: {drifted}")
+        raise PinnedEnvironmentError(
+            f"vendored DNABERT-2 code has drifted from its pin: {drifted}"
+        )
     return observed
 
 
@@ -124,6 +128,62 @@ class Dnabert2Bundle:
         return dict(self.provenance)
 
 
+@dataclass
+class Dnabert2TokenizerBundle:
+    """Verified tokenizer-only access for collection and control construction."""
+
+    tokenizer: Any
+    snapshot: Path
+    provenance: dict[str, Any] = field(default_factory=dict)
+
+    def identity(self) -> dict[str, Any]:
+        return dict(self.provenance)
+
+
+def load_dnabert2_tokenizer(
+    revision: str = DNABERT2_REVISION,
+    verify_upstream_hashes: bool = True,
+) -> Dnabert2TokenizerBundle:
+    """Load the pinned fast tokenizer without allocating the 117M-parameter model."""
+
+    from transformers import AutoTokenizer
+
+    env = require_pinned_env()
+    snap = resolve_snapshot(revision)
+    upstream_hashes: dict[str, str] = {}
+    for name, expected in UPSTREAM_SHA256.items():
+        path = snap / name
+        if not path.exists():
+            raise FileNotFoundError(f"missing pinned upstream artifact: {path}")
+        if verify_upstream_hashes:
+            got = sha256_file(path)
+            if got != expected:
+                raise PinnedEnvironmentError(
+                    f"{name}: sha256 {got} != pinned {expected}"
+                )
+            upstream_hashes[name] = got
+        else:
+            upstream_hashes[name] = "<unverified>"
+    tokenizer = AutoTokenizer.from_pretrained(
+        str(snap), clean_up_tokenization_spaces=False
+    )
+    if not getattr(tokenizer, "is_fast", False):
+        raise PinnedEnvironmentError(
+            "pinned tokenizer is not fast; offset mapping is unavailable"
+        )
+    return Dnabert2TokenizerBundle(
+        tokenizer=tokenizer,
+        snapshot=snap,
+        provenance={
+            "hf_id": DNABERT2_HF_ID,
+            "revision": revision,
+            "env": env,
+            "upstream_sha256": upstream_hashes,
+            "tokenizer_only": True,
+        },
+    )
+
+
 def load_dnabert2_mlm(
     revision: str = DNABERT2_REVISION,
     device: str = "cpu",
@@ -149,7 +209,9 @@ def load_dnabert2_mlm(
         if verify_upstream_hashes:
             got = sha256_file(path)
             if got != expected:
-                raise PinnedEnvironmentError(f"{name}: sha256 {got} != pinned {expected}")
+                raise PinnedEnvironmentError(
+                    f"{name}: sha256 {got} != pinned {expected}"
+                )
             upstream_hashes[name] = got
         else:
             upstream_hashes[name] = "<unverified>"
@@ -161,20 +223,26 @@ def load_dnabert2_mlm(
 
     config = BertConfig.from_pretrained(str(snap))
     model = BertForMaskedLM(config)
-    state = torch.load(snap / "pytorch_model.bin", map_location="cpu", weights_only=True)
+    state = torch.load(
+        snap / "pytorch_model.bin", map_location="cpu", weights_only=True
+    )
     missing, unexpected = model.load_state_dict(state, strict=False)
     if missing or unexpected:
         raise PinnedEnvironmentError(
             f"checkpoint/architecture mismatch: missing={list(missing)} unexpected={list(unexpected)}"
         )
     if not any(k.startswith("cls.predictions.decoder") for k in state):
-        raise PinnedEnvironmentError("checkpoint has no MLM head; the native-MLM assay is impossible")
+        raise PinnedEnvironmentError(
+            "checkpoint has no MLM head; the native-MLM assay is impossible"
+        )
 
     model.eval().to(device)
     for p in model.parameters():
         p.requires_grad_(False)
 
-    tokenizer = AutoTokenizer.from_pretrained(str(snap))
+    tokenizer = AutoTokenizer.from_pretrained(
+        str(snap), clean_up_tokenization_spaces=False
+    )
 
     provenance = {
         "hf_id": DNABERT2_HF_ID,
@@ -195,7 +263,11 @@ def load_dnabert2_mlm(
         "state_dict_keys": len(state),
     }
     return Dnabert2Bundle(
-        model=model, tokenizer=tokenizer, config=config, snapshot=snap, provenance=provenance
+        model=model,
+        tokenizer=tokenizer,
+        config=config,
+        snapshot=snap,
+        provenance=provenance,
     )
 
 

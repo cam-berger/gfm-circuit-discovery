@@ -12,8 +12,9 @@ move from a model-native behavior to a causally supported, explicitly bounded me
 > (`donor-graph-address-payload`, `p3-closure-confirmatory`, `b3-confirmatory-redesign`) are superseded
 > ancestors kept for history.
 
-**SpliceBERT is the first worked example, not the boundary of the project.** The transfer target is a
-second real GFM; Caduceus is the prepared but deferred candidate study.
+**SpliceBERT is the first worked example, not the boundary of the project.** The active transfer
+program is the DNABERT-2 Biological Reconstruction Atlas: a behavior-first census across annotated
+sequence elements. Caduceus remains a prepared, deferred architecture-contrast design.
 
 ## Current mechanism, in one sentence
 
@@ -79,6 +80,7 @@ Attribution ranks; intervention decides. See the [methodology](docs/METHODOLOGY.
 | [`studies/splicebert_partner_selection/`](studies/splicebert_partner_selection/README.md) | completed core record; open limitations | Donor graph, period-3 carrier, compact claims, corrections, preregistrations, and reproduction map. |
 | [`studies/splicebert_head_context_atlas/`](studies/splicebert_head_context_atlas/README.md) | discovery and internal validation complete | Multi-context head/MLP reuse atlas; context-specific follow-ups remain exploratory. |
 | [`studies/splicebert_segment_attribution/`](studies/splicebert_segment_attribution/README.md) | exploratory instrument | Joint-mask attribution DAGs used as candidate generators, not causal claims. |
+| [`studies/dnabert2_reconstruction_atlas/`](studies/dnabert2_reconstruction_atlas/README.md) | infrastructure implemented; target experiments not run | Systematic DNABERT-2 census of excess biological reconstruction, informative context, and qualified causal mechanisms. |
 | [`studies/caduceus_partner_transfer/`](studies/caduceus_partner_transfer/README.md) | design hardened; deferred, not run | Planned cross-architecture behavioral transfer to an RC-equivariant bidirectional Mamba MLM. |
 | [`studies/codon_phase_lattice/`](studies/codon_phase_lattice/README.md) | historical exploratory protocol | Superseded phase-shift framing retained for provenance; not an active result family. |
 
@@ -92,7 +94,10 @@ The reusable study template is under
 - `scripts/splicebert_head_context_atlas/` — Atlas census, screening, mechanism, merge, and audit workflows.
 - `scripts/crossmodel/` — cross-model carrier runners (C39/C40). These require a separate environment;
   see [`REPRODUCE.md`](REPRODUCE.md).
+- `scripts/dnabert2_atlas/` — annotated-collection assembly, validation, and phase-gated atlas runs.
 - `src/gfmcd/adapters/` — model access and hook interfaces.
+- `src/gfmcd/reconstruction_atlas/` — BPE-aware masking, controls, source-region interventions,
+  statistics, gates, and immutable atlas artifact contracts.
 - `src/gfmcd/circuits/` — reusable circuit-analysis primitives.
 - `src/gfmcd/crossmodel/` — cross-model carrier-origin assays (RNA-FM / RNA-BERT / DNABERT-2; C39/C40).
 - `src/gfmcd/splicing/` — SpliceBERT-specific assays, competition logic, and cohort utilities.
@@ -104,11 +109,12 @@ The reusable study template is under
 - `figures/splicebert/` — generated figures and declared provenance.
 - `tests/` — the memorial and analysis-logic suite. Many memorials are data-gated and skip without a
   local genome; see [`REPRODUCE.md`](REPRODUCE.md).
-- `configs/` — run configuration for the partner-selection study (input paths and cohort parameters).
+- `configs/` — versioned study configurations, including the DNABERT-2 site registry and draft
+  preflight lock.
 - `data/` — documentation only (`NUCLEOSOME_MAP.md`). The model, FASTA, and GTF are **not committed**
   and must be supplied; see [`REPRODUCE.md`](REPRODUCE.md).
-- `handoff/` and `logs/` — machine-readable session state and retained run logs. Working records, not
-  evidence; nothing here is a controlling artifact.
+- Runtime handoffs, logs, and scratch files are ignored. Historical DNABERT-2 programs are referenced
+  by commit from the atlas archive index rather than copied into the active tree.
 
 Large Atlas shards and reproducible runtime intermediates are intentionally excluded from Git; compact
 results, manifests, audits, code, tests, and Colab notebooks are version-controlled.
@@ -151,8 +157,8 @@ the per-study `CLAIMS.md` files.
    [corrections](studies/splicebert_partner_selection/CORRECTIONS.md) before quoting a result.
 4. Review the [Head–Context Atlas](studies/splicebert_head_context_atlas/README.md) for the current
    cross-context branch.
-5. Read the [transfer guide](docs/TRANSFER_GUIDE.md) and
-   [Caduceus package](studies/caduceus_partner_transfer/README.md) for the stated mission endpoint.
+5. Read the [transfer guide](docs/TRANSFER_GUIDE.md) and the
+   [DNABERT-2 Atlas](studies/dnabert2_reconstruction_atlas/README.md) for the active second-GFM program.
 6. Follow [`REPRODUCE.md`](REPRODUCE.md) for the canonical environment and claim→script→artifact map.
 
 For development:

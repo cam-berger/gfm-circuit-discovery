@@ -1,15 +1,15 @@
 {
- "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc).",
- "row_count": 808,
+ "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc); DNABERT-2 Reconstruction Atlas infrastructure index appended 2026-07-27.",
+ "row_count": 809,
  "status_counts": {
   "canonical": 533,
   "development": 128,
-  "infrastructure": 13,
+  "infrastructure": 14,
   "superseded": 134
  },
  "polarity_counts": {
   "bounded": 30,
-  "na": 285,
+  "na": 286,
   "null": 19,
   "positive": 470,
   "refutation": 4
@@ -51,6 +51,16 @@
    "evidence_level": "",
    "polarity": "na",
    "artifact": "results/RESULTS_INDEX.md",
+   "script": "",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "",
+   "status": "infrastructure",
+   "evidence_level": "",
+   "polarity": "na",
+   "artifact": "results/dnabert2_reconstruction_atlas/README.md",
    "script": "",
    "manifest": "",
    "figure": ""
