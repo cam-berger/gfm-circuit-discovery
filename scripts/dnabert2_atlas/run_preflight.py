@@ -151,10 +151,17 @@ def main() -> None:
         "baseline_training": sha256_file(args.baseline_training),
     }
     report = PreflightReport(
-        report_id=f"dnabert2-atlas-preflight-v1-{args.mode}",
+        report_id=(
+            f"dnabert2-atlas-preflight-schema{config['schema_version']}-{args.mode}"
+        ),
         config_sha256=config_digest,
         checkpoint_revision=DNABERT2_REVISION,
-        dataset_release="GENCODE-v50-basic-GRCh38",
+        dataset_release=str(
+            config["collection"].get(
+                "source_catalog_release",
+                config["collection"].get("source", "unspecified"),
+            )
+        ),
         input_sha256=input_sha256,
         split="development",
         outcomes=outcomes,
@@ -277,9 +284,9 @@ def _effect_rows(
     identities: dict[str, dict[str, str]] = {}
     for request_id, score in scores.items():
         info = metadata[request_id]
-        grouped[info["example_id"]][info["variant"]] = (
-            score.true_token_log_probability_per_covered_nt
-        )
+        grouped[info["example_id"]][
+            info["variant"]
+        ] = score.true_token_log_probability_per_covered_nt
         identities[info["example_id"]] = info
     return [
         {

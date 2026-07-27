@@ -102,7 +102,19 @@ def assemble_annotated_windows(
         raw = str(fasta[target.chrom][window_start:window_end]).upper()
         if len(raw) != window_end - window_start or set(raw) - set("ACGTN"):
             continue
-        sequence = raw if target.strand == "+" else reverse_complement(raw)
+        sequence_orientation = str(
+            target.attributes.get("sequence_orientation", "transcription_5_to_3")
+        )
+        if sequence_orientation not in {"genomic_forward", "transcription_5_to_3"}:
+            raise ValueError(
+                f"{target.feature_id} declares unsupported sequence orientation "
+                f"{sequence_orientation!r}"
+            )
+        sequence = (
+            raw
+            if sequence_orientation == "genomic_forward" or target.strand == "+"
+            else reverse_complement(raw)
+        )
         overlapping = [
             feature
             for feature in grouped[(target.chrom, target.strand)]
@@ -146,7 +158,7 @@ def assemble_annotated_windows(
                 genomic_start=window_start,
                 genomic_end=window_end,
                 strand=target.strand,
-                sequence_orientation="transcription_5_to_3",
+                sequence_orientation=sequence_orientation,
                 split=split,
                 homology_cluster=target.homology_cluster,
                 elements=elements,

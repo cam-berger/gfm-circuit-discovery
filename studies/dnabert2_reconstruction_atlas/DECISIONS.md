@@ -162,3 +162,23 @@
 - Boundary: this is not a confirmatory `NULL`, because the sealed split was not opened after
   the development gate failed. A future census must preregister a genuinely new source/class
   scope rather than retune v1.
+
+## 2026-07-27 — Replace the four-class pilot with a multisource atlas amendment
+
+- Trigger: the requested atlas spans promoters, poly(A) elements, TF-binding sites, branch points,
+  polypyrimidine tracts, and enhancers; census v1 covered none of those classes.
+- Sources: EPDnew human v006, PolyASite 2.0 GRCh38.96, UCSC’s multi-experiment ENCODE TF ChIP
+  clusters, Mercer et al. high-confidence lariat-seq branch points, ENCODE Registry v4 GRCh38
+  cCREs, and GENCODE v50/GRCh38 for original classes and tract derivation.
+- Coordinate decisions: EPDnew contributes seven-nt TSS-centered cores; PolyASite contributes its
+  declared signal hexamer and representative cleavage nucleotide; broad TF peaks and dELS cCREs
+  contribute deterministic seven-nt centers explicitly labeled as derived assay anchors; Mercer
+  calls require unique forward liftover, exact reverse round trip, and source-base agreement.
+- Split decision: replace source-local gene clusters with shared 1-Mb locus blocks across every
+  feature class. Exclude any complete assay window crossing a block boundary. This prevents
+  overlapping loci from entering different splits through different databases.
+- Supply amendment: a model-free build showed that 1,536 provisional GENCODE genes per provisional
+  split left four baseline classes 3–17 loci below the frozen 384 quota. Increase only that
+  upstream source pool to 2,048; keep the final quota and every model/statistical threshold fixed.
+- Effect: 13 v2 classes are preregistered. V1 remains a preserved narrow development result and
+  cannot authorize or answer v2. No v2 model outcome existed when this amendment was frozen.

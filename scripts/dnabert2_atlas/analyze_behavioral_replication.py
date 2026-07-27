@@ -39,6 +39,16 @@ def main() -> None:
     frozen_config_sha256(args.preflight_config)
     config = json.loads(Path(args.preflight_config).read_text())
     admitted = [str(item) for item in config["behavior"]["admitted_site_classes"]]
+    development_qualified = sorted(
+        site_class
+        for site_class, decision in development["behavior_decisions"].items()
+        if decision["qualified_on_split"]
+    )
+    confirmation_screened = sorted(confirmation.get("screened_site_classes", ()))
+    if confirmation_screened != development_qualified:
+        raise SystemExit(
+            "confirmation did not screen exactly the development-qualified classes"
+        )
     verdicts = {}
     for site_class in admitted:
         development_decision = development["behavior_decisions"].get(site_class)
@@ -72,6 +82,8 @@ def main() -> None:
         "evidence_level": "BEHAVIOR",
         "preflight_report_id": report.report_id,
         "admitted_site_classes": admitted,
+        "development_qualified_site_classes": development_qualified,
+        "confirmation_screened_site_classes": confirmation_screened,
         "supported_site_classes": supported,
         "verdicts": verdicts,
         "hypothesis_h1": ("SUPPORTED: BEHAVIOR" if supported else "NOT SUPPORTED"),

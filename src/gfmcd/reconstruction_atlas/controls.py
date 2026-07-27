@@ -243,11 +243,12 @@ def generate_candidate_sites(
             ).hexdigest(),
         )
         starts = set(ranked[:positions_per_example])
-        for motif in motifs_by_class[target.site_class]:
-            start = record.sequence.find(motif)
-            while start >= 0:
-                starts.add(start)
-                start = record.sequence.find(motif, start + 1)
+        motifs = motifs_by_class[target.site_class]
+        starts.update(
+            start
+            for start in range(maximum_start + 1)
+            if record.sequence[start : start + length] in motifs
+        )
         for start in starts:
             if start == target.interval.start and start + length == target.interval.end:
                 continue

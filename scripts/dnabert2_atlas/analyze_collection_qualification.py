@@ -38,7 +38,9 @@ def main() -> None:
         tuple(key.split("|", 1)): int(value)
         for key, value in audit["supply"]["matched_counts"].items()
     }
-    site_classes = sorted({site_class for _split, site_class in matched_counts})
+    site_classes = sorted(
+        str(item) for item in config["behavior"]["admitted_site_classes"]
+    )
     decisions = {}
     for site_class in site_classes:
         development = matched_counts.get(("development", site_class), 0)
@@ -100,7 +102,9 @@ def main() -> None:
     write_result_bundle(
         args.out,
         payload,
-        experiment_id="dnabert2_atlas_collection_qualification_v1",
+        experiment_id=(
+            f"dnabert2_atlas_collection_qualification_v{config['schema_version']}"
+        ),
         status="PREFLIGHT",
         model_identity={
             "hf_id": DNABERT2_HF_ID,

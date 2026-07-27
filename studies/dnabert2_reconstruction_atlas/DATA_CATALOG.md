@@ -7,19 +7,21 @@ coordinate convention, evidence semantics, and cluster/split audit are recorded 
 
 | Element family | Site classes | Preferred evidence | Adapter state | Target-run state |
 |---|---|---|---|---|
-| Core promoter | `promoter.tata`, `promoter.inr`, `promoter.bre`, `promoter.dpe` | Curated promoter/TSS records plus direct CAGE or promoter assay support; motif calls labeled derived/computational | Normalized BED ingestion available; source-specific adapter pending | blocked |
-| Splicing | `splice.donor`, `splice.acceptor` | Curated transcript annotation | GENCODE GTF derivation implemented | development screened; not behavior-qualified; confirmation sealed |
-| Intron regulation | `splice.branchpoint`, `splice.polypyrimidine_tract` | Experimentally supported branch-point/tract resources preferred | source-specific adapter pending | blocked |
-| 3′ end processing | `polya.signal`, `polya.cleavage_region` | Curated poly(A) sites with cleavage evidence | source-specific adapter pending | blocked |
-| TF binding | `tfbs.<factor>` | ChIP/exo/footprinting-supported sites; motif-only calls remain computational | normalized BED ingestion available | blocked |
+| Core promoter | `promoter.epd_tss_core` | EPDnew CAGE-supported TSS records | EPDnew v006 adapter implemented; seven-nt TSS core | v2 preflight pending |
+| Splicing | `splice.donor`, `splice.acceptor` | Curated transcript annotation | GENCODE GTF derivation implemented | v1 not qualified; v2 preflight pending |
+| Intron regulation | `splice.branchpoint`, `splice.polypyrimidine_tract` | Experimental lariat-seq for branch points; curated derivation for tracts | Mercer exact round-trip liftover and GENCODE tract adapters implemented | v2 preflight pending |
+| 3′ end processing | `polya.signal`, `polya.cleavage_region` | Multi-protocol 3′-end sequencing atlas | PolyASite 2.0 adapter implemented | v2 preflight pending |
+| TF binding | `tfbs.ctcf_peak_core`, `tfbs.rest_peak_core`, `tfbs.cebpb_peak_core` | Multi-experiment ENCODE ChIP clusters | UCSC/ENCODE cluster adapter implemented; derived seven-nt peak center | v2 preflight pending |
+| Enhancer | `enhancer.encode_dels_core` | ENCODE Registry dELS biochemical annotation | ENCODE v4 cCRE adapter implemented; derived seven-nt cCRE center | v2 preflight pending |
 | Translation initiation | `translation.start_codon`, `translation.kozak` | Curated coding transcript annotation; ribosome evidence as an optional higher tier | GENCODE GTF derivation implemented | start development screened/not qualified; Kozak supply-quarantined |
 | Translation termination | `translation.stop_codon` | Curated coding transcript annotation | GENCODE GTF derivation implemented | development screened; not behavior-qualified; confirmation sealed |
 
 ## Locally available development assets
 
 - GRCh38/hg38 sequence and GENCODE v50 GTF are present outside the repository and remain external.
-- EPDnew human release 006 and FANTOM5 files exist in a legacy worktree. They are not silently
-  inherited; a new source manifest and coordinate audit are required before atlas admission.
+- EPDnew human release 006, PolyASite 2.0, UCSC ENCODE TF clusters, ENCODE Registry v4 cCREs,
+  Mercer high-confidence branch points, and both UCSC liftover chains are pinned in
+  `SOURCE_MANIFEST_V2.json`. Raw files remain ignored.
 
 Large genomes, raw annotations, processed collections, candidate pools, and score shards remain
 ignored. Only compact summaries, manifests, audits, schemas, code, and claim-controlling artifacts
@@ -30,7 +32,8 @@ belong in Git.
 Source-specific adapters emit tab-separated rows with:
 
 `chrom`, `start`, `end`, `feature_id`, `score`, `strand`, `site_class`,
-`homology_cluster`, followed by optional `key=value` fields.
+`homology_cluster`, followed by optional `key=value` fields. Multisource v2 replaces source-local
+clusters with a shared locus-block identity after normalization.
 
 Coordinates are zero-based half-open on the named assembly. `feature_id` is globally stable within
 the pinned release. `homology_cluster` is the gene/sequence-family unit used before split assignment.

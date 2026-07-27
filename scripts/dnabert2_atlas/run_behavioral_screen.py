@@ -52,6 +52,10 @@ def main() -> None:
     parser.add_argument("--preflight-report", required=True)
     parser.add_argument("--matching-audit", required=True)
     parser.add_argument(
+        "--development-report",
+        help="required for confirmation; opens only development-qualified classes",
+    )
+    parser.add_argument(
         "--split",
         choices=("development", "confirmation"),
         default="development",
@@ -76,9 +80,36 @@ def main() -> None:
         },
     )
     config = json.loads(Path(args.preflight_config).read_text())
-    admitted_classes = frozenset(
+    preregistered_classes = frozenset(
         str(item) for item in config["behavior"]["admitted_site_classes"]
     )
+    screened_classes = preregistered_classes
+    development_report = None
+    if args.split == "confirmation":
+        if not args.development_report:
+            raise SystemExit(
+                "--development-report is required before opening confirmation"
+            )
+        development_report = json.loads(Path(args.development_report).read_text())
+        if development_report.get("split") != "development":
+            raise SystemExit(
+                "--development-report does not carry the development split"
+            )
+        if development_report.get("preflight_report_id") != preflight.report_id:
+            raise SystemExit("development report and confirmation preflight disagree")
+        screened_classes = frozenset(
+            site_class
+            for site_class, decision in development_report["behavior_decisions"].items()
+            if decision["qualified_on_split"]
+        )
+        if not screened_classes <= preregistered_classes:
+            raise SystemExit(
+                "development report qualifies a class outside the frozen config"
+            )
+        if not screened_classes:
+            raise SystemExit(
+                "no development-qualified classes; confirmation remains sealed"
+            )
     collection = load_collection(args.collection)
     background = load_collection(args.baseline_training)
     selected = {
@@ -94,7 +125,7 @@ def main() -> None:
         matched
         for matched in load_matched_sets(args.matches)
         if matched.target.example_id in selected
-        and matched.target.site_class in admitted_classes
+        and matched.target.site_class in screened_classes
     ]
     if not matches:
         raise SystemExit("no matched sets remain on the requested split")
@@ -179,13 +210,18 @@ def main() -> None:
         experiment_id=f"dnabert2_atlas_behavioral_raw_{args.split}",
         status="DEVELOPMENT" if args.split == "development" else "SEALED",
         model_identity=adapter.identity(),
-        input_paths=(
-            args.collection,
-            args.matches,
-            args.matching_audit,
-            args.baseline_training,
-            args.preflight_config,
-            args.preflight_report,
+        input_paths=tuple(
+            path
+            for path in (
+                args.collection,
+                args.matches,
+                args.matching_audit,
+                args.baseline_training,
+                args.preflight_config,
+                args.preflight_report,
+                args.development_report,
+            )
+            if path is not None
         ),
         parameters={
             "split": args.split,
@@ -202,6 +238,13 @@ def main() -> None:
         "split": args.split,
         "preflight_report_id": preflight.report_id,
         "preflight_decision": preflight.decision,
+        "preregistered_site_classes": sorted(preregistered_classes),
+        "screened_site_classes": sorted(screened_classes),
+        "confirmation_selection": (
+            "development-qualified classes only"
+            if args.split == "confirmation"
+            else "all preregistered classes"
+        ),
         "n_matched_targets": len(matches),
         "excess_reconstruction": [row.to_dict() for row in excess],
         "site_class_summary": summarize_by_site_class(excess),
@@ -220,15 +263,20 @@ def main() -> None:
         experiment_id="dnabert2_atlas_behavioral_screen",
         status="DEVELOPMENT" if args.split == "development" else "SEALED",
         model_identity=adapter.identity(),
-        input_paths=(
-            args.collection,
-            args.matches,
-            args.matching_audit,
-            args.baseline_training,
-            args.preflight_config,
-            args.preflight_report,
-            raw_result,
-            raw_manifest,
+        input_paths=tuple(
+            path
+            for path in (
+                args.collection,
+                args.matches,
+                args.matching_audit,
+                args.baseline_training,
+                args.preflight_config,
+                args.preflight_report,
+                args.development_report,
+                raw_result,
+                raw_manifest,
+            )
+            if path is not None
         ),
         parameters={
             "split": args.split,
@@ -237,7 +285,8 @@ def main() -> None:
             "normalization": "sum_true_token_log_probability / BPE_covered_nucleotides",
             "masking": "simultaneous_minimal_BPE_cover",
             "multiplicity": "Holm across complete site-class x contrast family",
-            "admitted_site_classes": sorted(admitted_classes),
+            "preregistered_site_classes": sorted(preregistered_classes),
+            "screened_site_classes": sorted(screened_classes),
         },
         seeds={"inference": args.seed},
         command=sys.argv,

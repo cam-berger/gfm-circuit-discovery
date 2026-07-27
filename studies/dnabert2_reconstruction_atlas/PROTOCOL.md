@@ -9,13 +9,21 @@
 - Stored sequence coordinates are zero-based, half-open nucleotide intervals.
 - Directional examples are stored transcription 5′→3′; genomic coordinates and strand remain
   explicit.
-- Split assignment occurs on a gene/homology cluster before any outcome is computed.
+- Unstranded regulatory intervals are stored in genomic-forward orientation and retain
+  `source_strand=.`.
+- Multisource-v2 split assignment occurs on shared 1-Mb genomic blocks before any outcome is
+  computed. A target is excluded if its complete 512-nt-flanked window crosses a block boundary.
+  This makes blocks disjoint across every source and feature class rather than only within one
+  annotation database.
 - Development, baseline-training, and confirmation clusters must be disjoint.
 - Every element carries source, release, evidence type, and source-record identity.
 
 Computational motif calls are never silently described as experimentally supported. Derived splice
-dinucleotides and codons retain `derived_from_curated_annotation`; direct assay records retain
-`experimentally_supported`.
+dinucleotides, codons, and polypyrimidine tracts retain
+`derived_from_curated_annotation`; direct assay records retain `experimentally_supported`.
+The seven-nucleotide centers of broad ENCODE TF peaks and dELS cCREs are deterministic assay
+anchors, not claims that the complete functional element is seven nucleotides or that its causal
+base is known.
 
 ## Phase A — collection qualification
 

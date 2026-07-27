@@ -23,18 +23,19 @@ ablation, patching, rescue, mediation, and path interventions decide causal supp
 | Stage | State | What is licensed |
 |---|---|---|
 | P0 study architecture | implemented | The data, mask, score, control, context, gate, intervention, and artifact contracts can be tested. |
-| P1 collection assembly | bounded GENCODE v50 slice qualified for four classes; Kozak supply quarantined; other sources pending | Collection/supply facts only; no biological census claim. |
-| P2 assay preflight | `QUALIFIED` under frozen v1; v1/v2 failed calibrations preserved | Instrument authorization only; no behavioral claim. |
-| P3 excess-reconstruction census | development complete; no class qualified; confirmation sealed | Scoped development nonqualification, not a confirmatory null. |
+| P1 collection assembly | multisource v2 definitions and adapters frozen for 13 classes; full outcome-blind build rehearsal fills all split quotas | Collection/supply facts only; no biological census claim. |
+| P2 assay preflight | v1 `QUALIFIED`; multisource v2 preflight not yet run | The v1 authorization does not authorize v2 target outcomes. |
+| P3 excess-reconstruction census | narrow v1 development complete; multisource v2 not yet scored | The v1 nonqualification does not generalize to the new classes. |
 | P4 context-source census | blocked on P3 | No informative-region claim. |
 | P5 internal candidate atlas | blocked on P4 | No component claim. |
 | P6 causal tests | blocked on frozen candidates | No causal claim. |
 
-The correct behavior-qualified atlas table is empty. The development target experiment ran:
-all four classes beat held-out n-gram baselines, but none beat all three empirical control
-families. The development gate therefore stops the study before confirmation, context-source
-tests, or internals. This is a scoped development nonqualification, not a confirmatory null.
-The Phase-A Kozak quarantine remains an instrument boundary, not a reconstruction result.
+The existing behavior-qualified atlas table is empty because census v1 was a narrow four-class
+GENCODE pilot. It does not answer the requested atlas question. Multisource v2 adds EPDnew
+promoters, PolyASite poly(A) elements, ENCODE TF-binding and distal enhancer annotations, Mercer
+lariat-seq branch points, and GENCODE-derived polypyrimidine tracts while retaining the original
+splice and translation classes. Its definitions, source filters, shared locus split, and thresholds
+are frozen before v2 model outcomes.
 
 ## Primary estimand
 
@@ -68,7 +69,7 @@ Control families are not pooled.
 | `src/gfmcd/adapters/dnabert2/` | Pinned checkpoint loader, token/output access, MosaicBERT unpadding map, named hook points |
 | `src/gfmcd/reconstruction_atlas/` | Validated schemas, BPE masking, scoring, controls, baselines, context exchanges, gates, statistics, causal records, immutable artifacts |
 | `scripts/dnabert2_atlas/` | Collection validation/build and phase-gated behavioral runner |
-| `configs/dnabert2_atlas/` | Versioned site catalog and preflight lock candidate |
+| `configs/dnabert2_atlas/` | Versioned site catalogs and frozen preflight locks |
 | `studies/dnabert2_reconstruction_atlas/` | Protocol, claims, decisions, results, source catalog, and archive index |
 | `results/dnabert2_reconstruction_atlas/` | Settled compact artifacts and manifests only; bulk shards remain ignored |
 
@@ -86,6 +87,10 @@ uv run --isolated --no-project --python 3.11 \
 Every producing command requires an explicit new `--out`; no runner defaults to a scientific
 record. `run_behavioral_screen.py` refuses to run unless a frozen preflight report has all mandatory
 gates at `PASS` and matches the exact config and checkpoint hashes.
+
+For multisource v2, `build_multisource_collection.py` also emits the conservative annotation BED
+used to prevent source-overlapping sites from serving as “unannotated” controls. Confirmation can
+open only the classes that qualified in the immutable development report.
 
 ## Read next
 

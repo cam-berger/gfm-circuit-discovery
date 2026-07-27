@@ -1,7 +1,7 @@
 # Atlas preregistration
 
-> **Tier: T2 — provenance. V1 FROZEN BEFORE TARGET OUTCOMES; DEVELOPMENT RUN COMPLETE;
-> CONFIRMATION SEALED.**
+> **Tier: T2 — provenance. V1 DEVELOPMENT COMPLETE; MULTISOURCE V2 FROZEN BEFORE
+> V2 MODEL OUTCOMES.**
 
 The historical machine-readable lock candidate is
 [`../../configs/dnabert2_atlas/preflight_v1.draft.json`](../../configs/dnabert2_atlas/preflight_v1.draft.json).
@@ -9,6 +9,14 @@ The controlling lock is
 [`../../configs/dnabert2_atlas/preflight_v1.frozen.json`](../../configs/dnabert2_atlas/preflight_v1.frozen.json),
 frozen from calibration v3 before any empirical target-control outcome. A preflight report may
 set `frozen=true` only for that exact hash.
+
+The multisource amendment is
+[`../../configs/dnabert2_atlas/preflight_v2.frozen.json`](../../configs/dnabert2_atlas/preflight_v2.frozen.json)
+with the corresponding
+[`site_classes.v2.json`](../../configs/dnabert2_atlas/site_classes.v2.json) and
+[`SOURCE_MANIFEST_V2.json`](SOURCE_MANIFEST_V2.json). It inherits the already qualified
+instrument thresholds unchanged, freezes the new target definitions and source filters before
+any v2 model outcome, and requires a new v2 qualified preflight bound to the exact v2 inputs.
 
 ## Question
 
@@ -18,7 +26,9 @@ components causally support it?
 
 ## Units and splits
 
-- Unit of assignment and inference: gene/homology cluster.
+- V1 unit of assignment and inference: gene/homology cluster.
+- V2 unit of assignment and inference: shared 1-Mb genomic locus block across all source classes;
+  complete target windows crossing block boundaries are excluded.
 - Development: 30% deterministic cluster hash.
 - Local-frequency baseline training: 20%, cluster-disjoint and never used as target examples.
 - Confirmation: 50%, sealed until behavior and instrument gates pass.
@@ -48,11 +58,11 @@ regions.
 - P-values: add-one permutation values; Holm correction across the complete family.
 - Estimation: cluster-first effects and cluster bootstrap intervals.
 
-The frozen primary SESOI is 0.02 nats per covered nucleotide and the minimum is 350 gene
-clusters per target split. Calibration-v3 thresholds are 0.05 for the four-copy positive
+The frozen primary SESOI is 0.02 nats per covered nucleotide. V1 requires 350 gene clusters per
+target split; multisource v2 requires 250 locus blocks per target split from a maximum of 384.
+Calibration-v3 thresholds are 0.05 for the four-copy positive
 effect, 0.02 for irrelevant-exchange equivalence, 0.015 for the null-noise MDE, and 0.01
-for the null-noise CI half-width. The admitted classes are splice acceptor, splice donor,
-start codon, and stop codon.
+for the null-noise CI half-width.
 
 The first bounded census slice is frozen before outcomes to GENCODE v50 basic protein-coding
 genes on the primary chromosomes. It samples at most 512 gene clusters per site class per split,
@@ -60,6 +70,19 @@ with one target per gene × class, and evaluates splice donor, splice acceptor, 
 contiguous Kozak span, and stop codon supply. A class lacking all three empirical control
 families is quarantined before model scoring. Promoter, branch-point/tract, poly(A), TF-binding,
 and assay-supported sources remain deferred rather than being silently represented by motif calls.
+
+Multisource v2 admits 13 classes: the four v1 classes plus EPDnew TSS-centered promoter cores,
+PolyASite signal hexamers and representative cleavage nucleotides, CTCF/REST/CEBPB ENCODE ChIP
+peak cores, Mercer experimentally mapped branch nucleotides, GENCODE-derived contiguous
+polypyrimidine tracts, and ENCODE Registry v4 distal enhancer-like cCRE cores. PolyASite entries
+must be terminal-exon annotated, observed in at least 10% of samples, supported by at least two
+protocols, and carry a declared canonical signal 5–60 nt upstream. TF clusters require score ≥500
+and at least two contributing experiments. Mercer hg19 calls require unique hg38 liftover, exact
+reverse round trip, and source-base agreement.
+
+All v2 classes are split together by locus, sampled at 384 blocks per class per split, and searched
+at 128 outcome-blind candidate positions per window plus exhaustive target-word occurrences.
+Confirmation remains sealed for every class that does not qualify in development.
 
 ## Context-source gate
 
