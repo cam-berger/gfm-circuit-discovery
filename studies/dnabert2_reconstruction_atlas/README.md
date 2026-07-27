@@ -23,19 +23,20 @@ ablation, patching, rescue, mediation, and path interventions decide causal supp
 | Stage | State | What is licensed |
 |---|---|---|
 | P0 study architecture | implemented | The data, mask, score, control, context, gate, intervention, and artifact contracts can be tested. |
-| P1 collection assembly | multisource v2 definitions and adapters frozen for 13 classes; full outcome-blind build rehearsal fills all split quotas | Collection/supply facts only; no biological census claim. |
-| P2 assay preflight | v1 `QUALIFIED`; multisource v2 preflight not yet run | The v1 authorization does not authorize v2 target outcomes. |
-| P3 excess-reconstruction census | narrow v1 development complete; multisource v2 not yet scored | The v1 nonqualification does not generalize to the new classes. |
+| P1 collection assembly | multisource v2 seven-nt interval cores supply-quarantined; v3 five-nt amendment frozen for 13 classes | Collection/supply facts only; no biological census claim. |
+| P2 assay preflight | v1 `QUALIFIED`; multisource v3 preflight not yet run | The v1 authorization does not authorize v3 target outcomes. |
+| P3 excess-reconstruction census | narrow v1 development complete; multisource v3 not yet scored | The v1 nonqualification does not generalize to the new classes. |
 | P4 context-source census | blocked on P3 | No informative-region claim. |
 | P5 internal candidate atlas | blocked on P4 | No component claim. |
 | P6 causal tests | blocked on frozen candidates | No causal claim. |
 
 The existing behavior-qualified atlas table is empty because census v1 was a narrow four-class
-GENCODE pilot. It does not answer the requested atlas question. Multisource v2 adds EPDnew
+GENCODE pilot. It does not answer the requested atlas question. Multisource v3 adds EPDnew
 promoters, PolyASite poly(A) elements, ENCODE TF-binding and distal enhancer annotations, Mercer
 lariat-seq branch points, and GENCODE-derived polypyrimidine tracts while retaining the original
 splice and translation classes. Its definitions, source filters, shared locus split, and thresholds
-are frozen before v2 model outcomes.
+are frozen before v3 model outcomes. Its superseded seven-nt v2 design and failed outcome-blind
+control-supply audit remain preserved.
 
 ## Primary estimand
 
@@ -88,7 +89,7 @@ Every producing command requires an explicit new `--out`; no runner defaults to 
 record. `run_behavioral_screen.py` refuses to run unless a frozen preflight report has all mandatory
 gates at `PASS` and matches the exact config and checkpoint hashes.
 
-For multisource v2, `build_multisource_collection.py` also emits the conservative annotation BED
+For multisource v3, `build_multisource_collection.py` also emits the conservative annotation BED
 used to prevent source-overlapping sites from serving as “unannotated” controls. Confirmation can
 open only the classes that qualified in the immutable development report.
 

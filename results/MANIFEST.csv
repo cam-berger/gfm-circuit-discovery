@@ -820,3 +820,5 @@ IF10,canonical,,positive,results/dnabert2_reconstruction_atlas/preflight_qualifi
 IF10,canonical,,positive,results/dnabert2_reconstruction_atlas/preflight_qualified_v1.manifest.json,scripts/dnabert2_atlas/run_preflight.py,,
 D1,development,Behaviour,bounded,results/dnabert2_reconstruction_atlas/behavior_development_v1.json,scripts/dnabert2_atlas/run_behavioral_screen.py,results/dnabert2_reconstruction_atlas/behavior_development_v1.manifest.json,
 D1,development,Behaviour,bounded,results/dnabert2_reconstruction_atlas/behavior_development_v1.manifest.json,scripts/dnabert2_atlas/run_behavioral_screen.py,,
+IF12,development,,bounded,results/dnabert2_reconstruction_atlas/collection_qualification_v2.json,scripts/dnabert2_atlas/analyze_collection_qualification.py,results/dnabert2_reconstruction_atlas/collection_qualification_v2.manifest.json,
+IF12,development,,bounded,results/dnabert2_reconstruction_atlas/collection_qualification_v2.manifest.json,scripts/dnabert2_atlas/analyze_collection_qualification.py,,

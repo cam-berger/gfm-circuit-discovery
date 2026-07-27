@@ -182,3 +182,21 @@
   upstream source pool to 2,048; keep the final quota and every model/statistical threshold fixed.
 - Effect: 13 v2 classes are preregistered. V1 remains a preserved narrow development result and
   cannot authorize or answer v2. No v2 model outcome existed when this amendment was frozen.
+
+## 2026-07-27 — Amend multisource interval anchors from outcome-blind control supply
+
+- Trigger: the immutable v2 supply audit retained fewer than 32 complete control sets per split for
+  seven-nt EPDnew promoter, ENCODE TF, and ENCODE dELS anchors. The first failure was usually an
+  absent unannotated exact word; among survivors, random local candidates often lacked exact BPE
+  geometry. No DNABERT-2 score or target outcome had been computed.
+- Preserved result: `collection_qualification_v2.json` quarantines promoter, enhancer, and all
+  three TF classes. It is not rewritten or described as a biological negative.
+- V3 amendment: use symmetric five-nucleotide centers for those broad interval sources. Preserve
+  PolyASite hexamers, exact cleavage/branch nucleotides, seven-nucleotide PPTs, and GENCODE
+  splice/codon targets unchanged. Select the 128 local candidate positions by minimum nucleotide
+  composition distance followed by the existing seeded hash; exhaustive exact-word occurrences
+  remain included.
+- Unchanged: all three empirical families, exact token/cover geometry, match calipers, split,
+  quotas, preflight thresholds, SESOI, permutations, and multiple-testing rule.
+- Effect: rebuild and re-audit as v3 before any model score. V2 remains a supply failure, not a
+  target result.

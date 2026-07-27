@@ -1,0 +1,75 @@
+{
+  "checkpoint": {
+    "hf_id": "zhihan1996/DNABERT-2-117M",
+    "revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+    "used_for_collection_qualification": false
+  },
+  "code": {
+    "git_commit": "112143722d8b2fc7b6bc4481c8544ce52d9b7eda",
+    "git_dirty": false
+  },
+  "command": [
+    "scripts/dnabert2_atlas/analyze_collection_qualification.py",
+    "--collection",
+    "data/processed/dnabert2_atlas/multisource_v2/target_collection.jsonl",
+    "--baseline-training",
+    "data/processed/dnabert2_atlas/multisource_v2/baseline_training.jsonl",
+    "--matches",
+    "data/processed/dnabert2_atlas/multisource_v2/matches.jsonl",
+    "--matching-audit",
+    "data/processed/dnabert2_atlas/multisource_v2/matching_audit.json",
+    "--preflight-config",
+    "configs/dnabert2_atlas/preflight_v2.frozen.json",
+    "--out",
+    "results/dnabert2_reconstruction_atlas/collection_qualification_v2.json"
+  ],
+  "created_at_utc": "2026-07-27T20:26:19.451862+00:00",
+  "data": [
+    {
+      "path": "data/processed/dnabert2_atlas/multisource_v2/target_collection.jsonl",
+      "sha256": "91b0bf5b5250348f145dd5cf6c24dd5333d470c34556d9784e6ff29cd3942548",
+      "size_bytes": 29829064
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/multisource_v2/baseline_training.jsonl",
+      "sha256": "6e750e47993c69375df85cd811447e529b40847bf47de9cd6777566fca501bc2",
+      "size_bytes": 15104812
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/multisource_v2/matches.jsonl",
+      "sha256": "3c6f5ea8dc70126ff2bedfb08897802970f2df452a1717b112f400d5a194956b",
+      "size_bytes": 7839362
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/multisource_v2/matching_audit.json",
+      "sha256": "c3bb4412c25ff3ed684aa2e59db8d16e671c5bdc9171662480998223e052f5de",
+      "size_bytes": 1206131
+    },
+    {
+      "path": "configs/dnabert2_atlas/preflight_v2.frozen.json",
+      "sha256": "43bec260fd4609ebbf831c7772414b47ead59149e61a5e6c2474e94a0ba9e9e9",
+      "size_bytes": 5251
+    }
+  ],
+  "environment": {
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "dnabert2_atlas_collection_qualification_v2",
+  "outputs": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/collection_qualification_v2.json",
+      "sha256": "5861746c0749dd07ae907320464f06d94f093d69fb62007e4d6a3eda64605abd",
+      "size_bytes": 5025
+    }
+  ],
+  "parameters": {
+    "control_families_evaluated_separately": true,
+    "outcome_blind": true
+  },
+  "schema_version": 1,
+  "seeds": {
+    "collection": 20260727
+  },
+  "status": "PREFLIGHT"
+}

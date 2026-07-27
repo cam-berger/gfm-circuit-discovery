@@ -32,12 +32,13 @@ reconstruction.
 | IF9 | Corrected calibration v3 shows all four admitted classes exceed the positive-control floor with ordered doses; null-noise MDEs are ≤0.0139 and CI half-widths ≤0.0096, supporting the frozen v1 thresholds. | `results/dnabert2_reconstruction_atlas/preflight_calibration_v3.json` and `configs/dnabert2_atlas/preflight_v1.frozen.json` | Calibrates the instrument; target execution still requires a separate frozen `QUALIFIED` report. |
 | IF10 | Frozen preflight v1 is `QUALIFIED`: every mandatory positive, negative, sensitivity, resolution, invariant, balance, geometry, and model-health gate passes against the exact bound input hashes. | `results/dnabert2_reconstruction_atlas/preflight_qualified_v1.json` | Authorizes development behavior scoring only; it is not evidence that any biological class reconstructs excessively. |
 | IF11 | Multisource-v2 adapters and frozen definitions cover 13 classes from GENCODE, EPDnew, PolyASite, ENCODE TF clusters, Mercer lariat-seq, and ENCODE cCREs. A model-free full build rehearsal fills 384 locus blocks per class in each split after strict coordinate/source attrition. | `SOURCE_MANIFEST_V2.json`, `preflight_v2.frozen.json`, adapter tests | Outcome-blind source and collection fact only; v2 target scoring still requires a new qualified preflight. |
+| IF12 | V2 outcome-blind control supply is insufficient for seven-nt promoter, enhancer, and TF peak-core anchors; those classes are supply-quarantined, not biologically negative. | `results/dnabert2_reconstruction_atlas/collection_qualification_v2.json` | No model score was computed. V3 changes only target width for broad interval anchors and outcome-blind local candidate prioritization. |
 
 ## Open hypotheses
 
 | ID | Hypothesis | Current status | First required bridge |
 |---|---|---|---|
-| H1 | At least one annotated site class has positive excess reconstruction over every required control. | not supported in bounded GENCODE v1 development; multisource v2 preregistered and unscored | Qualified v2 preflight followed by the frozen development census. |
+| H1 | At least one annotated site class has positive excess reconstruction over every required control. | not supported in bounded GENCODE v1 development; multisource v3 preregistered and unscored | Qualified v3 preflight followed by the frozen development census. |
 | H2 | For at least one H1-qualified class, a biologically related context region outperforms matched irrelevant-region exchanges. | proposed | H1 plus token-geometry-invariant context interventions. |
 | H3 | A bounded set of heads, MLPs, positions, or residual directions causally supports an H2-qualified behavior. | proposed | Frozen candidate screen, matched-size necessity, mediation, and path tests. |
 

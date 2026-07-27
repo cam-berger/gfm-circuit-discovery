@@ -235,12 +235,19 @@ def generate_candidate_sites(
     for record, target in targets:
         length = target.interval.length
         maximum_start = len(record.sequence) - length
+        target_word = record.sequence[target.interval.start : target.interval.end]
         ranked = sorted(
             range(maximum_start + 1),
             key=lambda start: hashlib.sha256(
-                f"{seed}|candidate|{record.example_id}|"
+                f"{seed}|candidate-tie|{record.example_id}|"
                 f"{target.site_class}|{length}|{start}".encode()
             ).hexdigest(),
+        )
+        ranked.sort(
+            key=lambda start: _word_composition_distance(
+                target_word,
+                record.sequence[start : start + length],
+            )
         )
         starts = set(ranked[:positions_per_example])
         motifs = motifs_by_class[target.site_class]
@@ -272,6 +279,25 @@ def generate_candidate_sites(
                 )
             ] = site
     return [output[key] for key in sorted(output)]
+
+
+def _word_composition_distance(left: str, right: str) -> int:
+    """Outcome-blind integer distance for local candidate prioritization."""
+
+    left_dinucleotides = Counter(
+        left[index : index + 2] for index in range(max(0, len(left) - 1))
+    )
+    right_dinucleotides = Counter(
+        right[index : index + 2] for index in range(max(0, len(right) - 1))
+    )
+    words = set(left_dinucleotides) | set(right_dinucleotides)
+    return (
+        abs(sum(base in "GC" for base in left) - sum(base in "GC" for base in right))
+        + abs(left.count("CG") - right.count("CG"))
+        + sum(
+            abs(left_dinucleotides[word] - right_dinucleotides[word]) for word in words
+        )
+    )
 
 
 def matching_balance(

@@ -11,7 +11,7 @@
   explicit.
 - Unstranded regulatory intervals are stored in genomic-forward orientation and retain
   `source_strand=.`.
-- Multisource-v2 split assignment occurs on shared 1-Mb genomic blocks before any outcome is
+- Multisource split assignment occurs on shared 1-Mb genomic blocks before any outcome is
   computed. A target is excluded if its complete 512-nt-flanked window crosses a block boundary.
   This makes blocks disjoint across every source and feature class rather than only within one
   annotation database.
@@ -21,8 +21,8 @@
 Computational motif calls are never silently described as experimentally supported. Derived splice
 dinucleotides, codons, and polypyrimidine tracts retain
 `derived_from_curated_annotation`; direct assay records retain `experimentally_supported`.
-The seven-nucleotide centers of broad ENCODE TF peaks and dELS cCREs are deterministic assay
-anchors, not claims that the complete functional element is seven nucleotides or that its causal
+The five-nucleotide centers of broad ENCODE TF peaks and dELS cCREs are deterministic assay
+anchors, not claims that the complete functional element is five nucleotides or that its causal
 base is known.
 
 ## Phase A — collection qualification

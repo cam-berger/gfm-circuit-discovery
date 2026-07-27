@@ -80,7 +80,7 @@ def iter_epdnew_tss_cores(
                     "source_interval_start": start,
                     "source_interval_end": end,
                     "coordinate_derivation": "EPDnew_-49_to_+10_window_centered_on_TSS",
-                    "target_precision": "seven_nt_TSS_centered_core",
+                    "target_precision": f"{core_width}_nt_TSS_centered_core",
                 },
             )
 
@@ -240,7 +240,7 @@ def iter_encode_tf_peak_cores(
                     "source_experiment_count": source_count,
                     "source_strand": ".",
                     "sequence_orientation": "genomic_forward",
-                    "target_precision": "seven_nt_derived_peak_center",
+                    "target_precision": f"{core_width}_nt_derived_peak_center",
                 },
             )
 
@@ -284,7 +284,7 @@ def iter_encode_dels_cores(
                     "ccre_class": ccre_class,
                     "source_strand": ".",
                     "sequence_orientation": "genomic_forward",
-                    "target_precision": "seven_nt_derived_cCRE_center",
+                    "target_precision": f"{core_width}_nt_derived_cCRE_center",
                 },
             )
 

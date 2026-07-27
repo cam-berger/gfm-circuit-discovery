@@ -7,12 +7,12 @@ coordinate convention, evidence semantics, and cluster/split audit are recorded 
 
 | Element family | Site classes | Preferred evidence | Adapter state | Target-run state |
 |---|---|---|---|---|
-| Core promoter | `promoter.epd_tss_core` | EPDnew CAGE-supported TSS records | EPDnew v006 adapter implemented; seven-nt TSS core | v2 preflight pending |
-| Splicing | `splice.donor`, `splice.acceptor` | Curated transcript annotation | GENCODE GTF derivation implemented | v1 not qualified; v2 preflight pending |
-| Intron regulation | `splice.branchpoint`, `splice.polypyrimidine_tract` | Experimental lariat-seq for branch points; curated derivation for tracts | Mercer exact round-trip liftover and GENCODE tract adapters implemented | v2 preflight pending |
-| 3′ end processing | `polya.signal`, `polya.cleavage_region` | Multi-protocol 3′-end sequencing atlas | PolyASite 2.0 adapter implemented | v2 preflight pending |
-| TF binding | `tfbs.ctcf_peak_core`, `tfbs.rest_peak_core`, `tfbs.cebpb_peak_core` | Multi-experiment ENCODE ChIP clusters | UCSC/ENCODE cluster adapter implemented; derived seven-nt peak center | v2 preflight pending |
-| Enhancer | `enhancer.encode_dels_core` | ENCODE Registry dELS biochemical annotation | ENCODE v4 cCRE adapter implemented; derived seven-nt cCRE center | v2 preflight pending |
+| Core promoter | `promoter.epd_tss_core` | EPDnew CAGE-supported TSS records | EPDnew v006 adapter implemented; five-nt TSS core | v3 preflight pending |
+| Splicing | `splice.donor`, `splice.acceptor` | Curated transcript annotation | GENCODE GTF derivation implemented | v1 not qualified; v3 preflight pending |
+| Intron regulation | `splice.branchpoint`, `splice.polypyrimidine_tract` | Experimental lariat-seq for branch points; curated derivation for tracts | Mercer exact round-trip liftover and GENCODE tract adapters implemented | v3 preflight pending |
+| 3′ end processing | `polya.signal`, `polya.cleavage_region` | Multi-protocol 3′-end sequencing atlas | PolyASite 2.0 adapter implemented | v3 preflight pending |
+| TF binding | `tfbs.ctcf_peak_core`, `tfbs.rest_peak_core`, `tfbs.cebpb_peak_core` | Multi-experiment ENCODE ChIP clusters | UCSC/ENCODE cluster adapter implemented; derived five-nt peak center | v3 preflight pending |
+| Enhancer | `enhancer.encode_dels_core` | ENCODE Registry dELS biochemical annotation | ENCODE v4 cCRE adapter implemented; derived five-nt cCRE center | v3 preflight pending |
 | Translation initiation | `translation.start_codon`, `translation.kozak` | Curated coding transcript annotation; ribosome evidence as an optional higher tier | GENCODE GTF derivation implemented | start development screened/not qualified; Kozak supply-quarantined |
 | Translation termination | `translation.stop_codon` | Curated coding transcript annotation | GENCODE GTF derivation implemented | development screened; not behavior-qualified; confirmation sealed |
 

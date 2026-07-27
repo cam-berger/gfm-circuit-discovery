@@ -1,14 +1,14 @@
 {
  "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc); DNABERT-2 Reconstruction Atlas infrastructure and bounded development behavior rows appended 2026-07-27.",
- "row_count": 821,
+  "row_count": 823,
  "status_counts": {
   "canonical": 535,
-  "development": 136,
+    "development": 138,
   "infrastructure": 16,
   "superseded": 134
  },
  "polarity_counts": {
-  "bounded": 36,
+    "bounded": 38,
   "na": 288,
   "null": 19,
   "positive": 474,
@@ -8225,15 +8225,35 @@
    "manifest": "results/dnabert2_reconstruction_atlas/behavior_development_v1.manifest.json",
    "figure": ""
   },
-  {
-   "claim_id": "D1",
-   "status": "development",
-   "evidence_level": "Behaviour",
-   "polarity": "bounded",
-   "artifact": "results/dnabert2_reconstruction_atlas/behavior_development_v1.manifest.json",
-   "script": "scripts/dnabert2_atlas/run_behavioral_screen.py",
-   "manifest": "",
-   "figure": ""
-  }
- ]
+    {
+      "claim_id": "D1",
+      "status": "development",
+      "evidence_level": "Behaviour",
+      "polarity": "bounded",
+      "artifact": "results/dnabert2_reconstruction_atlas/behavior_development_v1.manifest.json",
+      "script": "scripts/dnabert2_atlas/run_behavioral_screen.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "IF12",
+      "status": "development",
+      "evidence_level": "",
+      "polarity": "bounded",
+      "artifact": "results/dnabert2_reconstruction_atlas/collection_qualification_v2.json",
+      "script": "scripts/dnabert2_atlas/analyze_collection_qualification.py",
+      "manifest": "results/dnabert2_reconstruction_atlas/collection_qualification_v2.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "IF12",
+      "status": "development",
+      "evidence_level": "",
+      "polarity": "bounded",
+      "artifact": "results/dnabert2_reconstruction_atlas/collection_qualification_v2.manifest.json",
+      "script": "scripts/dnabert2_atlas/analyze_collection_qualification.py",
+      "manifest": "",
+      "figure": ""
+    }
+  ]
 }

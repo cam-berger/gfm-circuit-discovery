@@ -139,3 +139,37 @@ def test_candidate_generation_is_outcome_blind_and_contains_exact_motifs() -> No
     exact = next(site for site in candidates if site.interval == Interval(6, 8))
     assert exact.site_class == "splice.donor"
     assert exact.attributes["source_annotation_overlap"]
+
+
+def test_candidate_sampling_prioritizes_local_composition_before_hash_tie() -> None:
+    evidence = Evidence("test", "v1", EvidenceType.CURATED, "site")
+    element = BiologicalElement(
+        "target",
+        "promoter.epd_tss_core",
+        Interval(0, 5),
+        evidence,
+        sequence="AACGT",
+    )
+    record = AnnotatedSequence(
+        example_id="example",
+        sequence="AACGTTTTTTAACGA",
+        assembly="test",
+        chrom="chr1",
+        genomic_start=0,
+        genomic_end=15,
+        strand="+",
+        sequence_orientation="transcription_5_to_3",
+        split="development",
+        homology_cluster="locus",
+        elements=(element,),
+        metadata={"target_element_id": "target"},
+    )
+    candidates = generate_candidate_sites(
+        [record],
+        positions_per_example=1,
+        seed=7,
+    )
+    selected_words = {
+        record.sequence[site.interval.start : site.interval.end] for site in candidates
+    }
+    assert selected_words <= {"ACGTT", "TAACG", "AACGA"}
