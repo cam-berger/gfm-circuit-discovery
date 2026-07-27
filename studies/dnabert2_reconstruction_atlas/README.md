@@ -25,18 +25,21 @@ ablation, patching, rescue, mediation, and path interventions decide causal supp
 | P0 study architecture | implemented | The data, mask, score, control, context, gate, intervention, and artifact contracts can be tested. |
 | P1 collection assembly | v4 complete: all 13 classes preflight-eligible; five behavior-powered and eight explicitly underpowered | Collection/supply facts only; no biological census claim. |
 | P2 assay preflight | multisource v4 `QUALIFIED` across all 13 classes | Instrument authorization only; no behavioral claim. |
-| P3 excess-reconstruction census | narrow v1 development complete; multisource v4 not yet scored | The v1 nonqualification does not generalize to the new classes. |
-| P4 context-source census | blocked on P3 | No informative-region claim. |
-| P5 internal candidate atlas | blocked on P4 | No component claim. |
-| P6 causal tests | blocked on frozen candidates | No causal claim. |
+| P3 excess-reconstruction census | multisource v4 development complete; no class qualified | Five classes were adequately powered and eight remain explicitly underpowered; confirmation is sealed. |
+| P4 context-source census | stopped at the P3 gate | No informative-region claim. |
+| P5 internal candidate atlas | stopped at the P3 gate | No component claim. |
+| P6 causal tests | stopped at the P3 gate | No causal claim. |
 
-The existing behavior-qualified atlas table is empty because census v1 was a narrow four-class
-GENCODE pilot. It does not answer the requested atlas question. Multisource v4 adds EPDnew
-promoters, PolyASite poly(A) elements, ENCODE TF-binding and distal enhancer annotations, Mercer
-lariat-seq branch points, and GENCODE-derived polypyrimidine tracts while retaining the original
-splice and translation classes. Its definitions, source filters, shared locus split, and thresholds
-are frozen before multisource model outcomes. Its superseded v2/v3 outcome-blind supply audits
-remain preserved.
+The behavior-qualified atlas table remains empty after the requested multisource census.
+Multisource v4 tested EPDnew promoters, PolyASite poly(A) elements, ENCODE TF-binding and distal
+enhancer annotations, Mercer lariat-seq branch points, GENCODE-derived polypyrimidine tracts, and
+the original splice and translation classes. All 13 classes beat order-0/1/2 sequence baselines,
+but none beat all three empirical controls at the frozen effect and familywise-error gates. The
+five adequately powered classes were poly(A) cleavage regions, splice acceptors, branch points,
+splice donors, and stop codons. Estimates for the other eight classes are retained but
+underpowered. Confirmation, context localization, and component work therefore remain sealed.
+The definitions, source filters, shared locus split, and thresholds were frozen before model
+outcomes; superseded outcome-blind supply audits remain preserved.
 
 ## Primary estimand
 

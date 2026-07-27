@@ -7,6 +7,7 @@
 | Run | Question | Status | Artifact | Manifest | Claim IDs |
 |---|---|---|---|---|---|
 | GENCODE behavior development v1 | Does any admitted class exceed all empirical and low-order controls? | development gate failed for every class; confirmation sealed | `../../results/dnabert2_reconstruction_atlas/behavior_development_v1.json` | `../../results/dnabert2_reconstruction_atlas/behavior_development_v1.manifest.json` | D1 |
+| Multisource behavior development v4 | Do promoter, poly(A), TFBS, branch-point, PPT, enhancer, splice, or translation classes exceed every control? | development gate failed for every class; five powered, eight underpowered; confirmation sealed | `../../results/dnabert2_reconstruction_atlas/behavior_development_multisource_v4.json` | `../../results/dnabert2_reconstruction_atlas/behavior_development_multisource_v4.manifest.json` | D2 |
 
 ### Development behavior census v1
 
@@ -24,6 +25,34 @@ Effects are nats per complete BPE-covered nucleotide. Every n-gram contrast pass
 0.02 SESOI and full-family correction; no class passes its empirical families. D1 is therefore
 a bounded development result. Confirmation remains sealed, no `NULL` verdict is issued, and
 P4–P6 are stopped.
+
+### Multisource development behavior census v4
+
+The frozen, qualified development screen scored 3,189 complete matched targets across 78
+class × contrast tests with 9,999 add-one permutations and Holm correction across the full
+family.
+
+| Site class | Clusters | Power | Same motif | Composition/token | Same sequence | N-gram range | Verdict |
+|---|---:|---|---:|---:|---:|---:|---|
+| distal enhancer core | 210 | underpowered | −0.012 | −0.070 | −0.020 | +0.191 to +0.241 | not qualified |
+| poly(A) cleavage region | 383 | powered | −0.068 | −0.080 | −0.069 | +0.144 to +0.174 | not qualified |
+| poly(A) signal | 198 | underpowered | −0.044 | −0.037 | −0.015 | +0.138 to +0.197 | not qualified |
+| EPD promoter TSS core | 222 | underpowered | −0.021 | −0.023 | −0.043 | +0.133 to +0.170 | not qualified |
+| splice acceptor | 373 | powered | −0.048 | −0.078 | −0.066 | +0.118 to +0.177 | not qualified |
+| branch point | 384 | powered | −0.092 | −0.123 | −0.103 | +0.131 to +0.156 | not qualified |
+| splice donor | 316 | powered | −0.073 | −0.080 | −0.057 | +0.156 to +0.176 | not qualified |
+| polypyrimidine tract | 87 | underpowered | −0.004 | +0.004 | +0.020 | +0.124 to +0.246 | not qualified |
+| CEBPB peak core | 196 | underpowered | −0.012 | −0.087 | −0.087 | +0.231 to +0.251 | not qualified |
+| CTCF peak core | 134 | underpowered | +0.001 | −0.066 | −0.037 | +0.178 to +0.212 | not qualified |
+| REST peak core | 146 | underpowered | −0.082 | −0.014 | −0.066 | +0.175 to +0.223 | not qualified |
+| start codon | 244 | underpowered | −0.099 | −0.087 | −0.098 | +0.060 to +0.089 | not qualified |
+| stop codon | 296 | powered | −0.150 | −0.127 | −0.117 | +0.077 to +0.100 | not qualified |
+
+Effects are nats per complete BPE-covered nucleotide. Every n-gram contrast passes the +0.02
+SESOI and full-family correction. No empirical contrast passes both gates. The largest positive
+empirical estimate, PPT versus same-sequence non-site (+0.020), has add-one `p=0.2445` and
+Holm `p=1.0`. D2 is therefore a bounded development result, not a confirmatory null. The
+confirmation runner refuses to open because no class development-qualified; P4–P6 are stopped.
 
 ## Infrastructure verification
 
@@ -89,6 +118,33 @@ All eight mandatory gate families pass and the report decision is `QUALIFIED`.
 
 This licenses IF10 and authorizes the development behavior screen. It is still an instrument
 result, not evidence for H1.
+
+### Multisource collection qualification v2–v4
+
+V2 adds 13 frozen classes from GENCODE v50, EPDnew human v006, PolyASite 2.0 GRCh38.96,
+UCSC’s multi-experiment ENCODE TF ChIP clusters, Mercer high-confidence lariat-seq branch points,
+and ENCODE Registry v4 GRCh38 cCREs. Its seven-nucleotide promoter, enhancer, and TF centers fail
+outcome-blind exact-control supply and remain preserved in
+`collection_qualification_v2.json`.
+
+V3 changes only those broad-interval assay anchors to symmetric five-nucleotide centers and
+prioritizes local control candidates by composition, making all 13 classes preflight-eligible.
+V4 expands that same candidate search from 128 to 512 positions without changing targets,
+controls, calipers, or statistical gates. It retains the same 6,448 complete matched targets,
+showing that exact BPE geometry—not candidate depth—limits the remaining supply. Five classes meet
+the 250-locus behavior floor on both splits; eight are frozen as underpowered. These are
+collection facts (IF12–IF14), not biological outcomes.
+
+### Frozen multisource preflight v4 — qualified
+
+`preflight_qualified_multisource_v4.json` binds the exact v4 collection, matches, matching audit,
+baseline corpus, frozen config, and pinned checkpoint. Every class has 64 preflight-eligible
+examples. All graded-copy curves are monotone and their four-copy means range from +0.082 to
++0.226 nats per covered nucleotide. All negative-equivalence, sensitivity, resolution, balance,
+split, coordinate, geometry, replay, batch, finiteness, and model-health gates pass.
+
+This licenses IF15 and authorized the multisource development screen. It is not biological
+evidence by itself.
 
 Bulk runtime collections and per-site shards will remain ignored. Every settled compact result must
 be immutable, indexed here, and accompanied by a manifest containing checkpoint, data inputs,

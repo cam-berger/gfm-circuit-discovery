@@ -14,6 +14,20 @@ Holm-significant and fails the other empirical families.
 This licenses no `NULL` verdict and no claim about the sealed confirmation split. It stops
 context and internal localization for these classes under census v1.
 
+**D2 — multisource development behavior boundary.** In the frozen multisource-v4 development
+cohort, none of the 13 tested classes meets the predeclared excess-reconstruction gate over every
+empirical control. All classes beat order-0/1/2 nucleotide baselines, with advantages from +0.060
+to +0.251 nats per covered nucleotide. Empirical advantages instead range from −0.150 to +0.020;
+the largest, PPT versus a same-sequence non-site (+0.020), has add-one
+`p=0.2445` and full-family Holm `p=1.0`.
+
+Poly(A) cleavage regions, splice acceptors, branch points, splice donors, and stop codons meet the
+frozen 250-cluster behavior floor and still do not qualify. Promoters, poly(A) signals, CTCF/REST/
+CEBPB peak cores, distal enhancers, polypyrimidine tracts, and start codons are development
+estimates only because control-complete supply is below that floor. This licenses no `NULL` verdict
+for any class and no claim about the sealed confirmation split. It stops context and internal
+localization under multisource v4.
+
 ## Established infrastructure facts
 
 These are implementation properties and prior instrument constraints, not claims about biological
@@ -41,8 +55,8 @@ reconstruction.
 
 | ID | Hypothesis | Current status | First required bridge |
 |---|---|---|---|
-| H1 | At least one annotated site class has positive excess reconstruction over every required control. | not supported in bounded GENCODE v1 development; multisource v4 supply amendment pending and unscored | Qualified v4 preflight followed by the frozen development census. |
-| H2 | For at least one H1-qualified class, a biologically related context region outperforms matched irrelevant-region exchanges. | proposed | H1 plus token-geometry-invariant context interventions. |
-| H3 | A bounded set of heads, MLPs, positions, or residual directions causally supports an H2-qualified behavior. | proposed | Frozen candidate screen, matched-size necessity, mediation, and path tests. |
+| H1 | At least one annotated site class has positive excess reconstruction over every required control. | not supported in multisource-v4 development; five adequately powered classes fail and eight classes remain underpowered | A newly preregistered behavior design or expanded control-complete supply; v4 confirmation stays sealed. |
+| H2 | For at least one H1-qualified class, a biologically related context region outperforms matched irrelevant-region exchanges. | blocked by the v4 H1 gate | H1 plus token-geometry-invariant context interventions. |
+| H3 | A bounded set of heads, MLPs, positions, or residual directions causally supports an H2-qualified behavior. | blocked by the v4 H1 gate | Frozen candidate screen, matched-size necessity, mediation, and path tests. |
 
 Negative, retracted, and superseded rows will remain here permanently once evidence exists.

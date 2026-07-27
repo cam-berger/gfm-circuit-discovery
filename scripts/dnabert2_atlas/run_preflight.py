@@ -284,9 +284,9 @@ def _effect_rows(
     identities: dict[str, dict[str, str]] = {}
     for request_id, score in scores.items():
         info = metadata[request_id]
-        grouped[info["example_id"]][
-            info["variant"]
-        ] = score.true_token_log_probability_per_covered_nt
+        grouped[info["example_id"]][info["variant"]] = (
+            score.true_token_log_probability_per_covered_nt
+        )
         identities[info["example_id"]] = info
     return [
         {

@@ -173,14 +173,13 @@ def main() -> None:
         raise FileExistsError(
             f"refusing to overwrite immutable annotation file: {annotation_path}"
         )
-    temporary = tempfile.NamedTemporaryFile(
+    with tempfile.NamedTemporaryFile(
         prefix=f".{annotation_path.name}.",
         suffix=".tmp",
         dir=annotation_path.parent,
         delete=False,
-    )
-    temporary_path = Path(temporary.name)
-    temporary.close()
+    ) as temporary:
+        temporary_path = Path(temporary.name)
     try:
         with gzip.open(temporary_path, "wt", encoding="utf-8") as annotations:
             selected, sampling_audit = sample_locus_blocked_features(

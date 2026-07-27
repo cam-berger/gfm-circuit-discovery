@@ -241,3 +241,22 @@
   pre-scoring power labels from IF14. The confirmation split remains sealed.
 - Boundary: this authorizes an assay; it is not evidence that any biological class has excess
   reconstruction.
+
+## 2026-07-27 — Stop multisource v4 at the development behavior gate
+
+- Evidence: the qualified screen scored 3,189 complete matched targets across 78
+  class × contrast tests using 9,999 add-one permutations and Holm correction over the full
+  family. Every class exceeds all order-0/1/2 baselines, but no class passes any of the three
+  empirical-control contrasts at both the +0.02 SESOI and corrected-alpha gates.
+- Powered boundary: poly(A) cleavage regions, splice acceptors, branch points, splice donors, and
+  stop codons have 296–384 independent locus blocks and therefore meet the frozen 250-cluster
+  floor. All five fail empirical specificity.
+- Underpowered boundary: enhancer, poly(A) signal, promoter, PPT, CEBPB, CTCF, REST, and start
+  codon have 87–244 complete development clusters. Their estimates are retained, but none can
+  qualify and none is a biological null.
+- Decision: record D2; keep confirmation sealed; stop context-source, internal-candidate, and
+  causal stages. A direct confirmation invocation was checked and refused before model loading
+  with `no development-qualified classes; confirmation remains sealed`.
+- Interpretation: across this multisource development cohort, DNABERT-2 reconstructs the assayed
+  words better than low-order sequence models, but the effect is not specific to biological
+  annotation under the preregistered empirical comparisons.

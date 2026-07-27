@@ -19,7 +19,7 @@ from gfmcd.reconstruction_atlas.sources import (
 def test_epdnew_adapter_centers_both_strands_on_reported_tss(tmp_path) -> None:
     bed = tmp_path / "epd.bed"
     bed.write_text(
-        "chr1 100 160 GENE1_1 900 + 149 160\n" "chr1 300 360 GENE2_1 900 - 300 311\n"
+        "chr1 100 160 GENE1_1 900 + 149 160\nchr1 300 360 GENE2_1 900 - 300 311\n"
     )
     features = list(iter_epdnew_tss_cores(bed))
     assert [(item.start, item.end, item.strand) for item in features] == [

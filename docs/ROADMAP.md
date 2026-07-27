@@ -100,9 +100,11 @@ without generic MLM damage, with its semantic label no stronger than the externa
 
 The active milestone is the DNABERT-2 Biological Reconstruction Atlas. It asks which annotated
 elements show reconstruction advantage beyond matched motif/token/composition controls, then qualifies
-source regions before internal screening. Its frozen preflight is qualified. The bounded GENCODE
-development census has run, but no admitted class beat every empirical control, so confirmation
-remains sealed and context/internal screening is stopped. The completed deployment steps were:
+source regions before internal screening. Its frozen multisource preflight is qualified. The
+13-class development census spans GENCODE, EPDnew, PolyASite, ENCODE/UCSC, and Mercer annotations,
+but no admitted class beat every empirical control, so confirmation remains sealed and
+context/internal screening is stopped. Five classes were adequately powered for the development
+gate; eight retain explicitly underpowered estimates. The completed deployment steps were:
 
 1. pin every admitted annotation release and pass coordinate/evidence/split audits;
 2. freeze calibrated, site-class-specific behavior and precision thresholds;
