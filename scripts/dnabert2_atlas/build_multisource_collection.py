@@ -365,6 +365,8 @@ def _tee_features(
             annotation_end = int(
                 feature.attributes.get("source_interval_end", feature.end)
             )
+            if annotation_end <= annotation_start:
+                annotation_start, annotation_end = feature.start, feature.end
             annotations.write(
                 "\t".join(
                     (

@@ -492,6 +492,8 @@ def annotation_intervals_from_bed_for_windows(
             if chrom not in indexed:
                 continue
             start, end = int(start_text), int(end_text)
+            if end <= start:
+                continue
             starts, windows, maximum_length = indexed[chrom]
             left = bisect_left(starts, start - maximum_length)
             right = bisect_right(starts, start)
