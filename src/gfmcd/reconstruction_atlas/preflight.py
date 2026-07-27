@@ -145,6 +145,10 @@ def summarize_preflight_effects(
         )
         paired_sd = stdev(effects[4]) if len(effects[4]) > 1 else math.inf
         mde = (z_alpha + z_power) * paired_sd / math.sqrt(len(effects[4]))
+        irrelevant_sd = stdev(irrelevant) if len(irrelevant) > 1 else math.inf
+        irrelevant_mde = (
+            (z_alpha + z_power) * irrelevant_sd / math.sqrt(len(irrelevant))
+        )
         output[site_class] = {
             "n_examples": len(class_rows),
             "n_clusters": len(set(clusters)),
@@ -155,10 +159,18 @@ def summarize_preflight_effects(
             "copy_dose_4_paired_sd": paired_sd,
             "minimum_detectable_effect_nats_per_covered_nt": mde,
             "copy_means_monotonic": (
-                0 < dose_means["1"] < dose_means["2"] < dose_means["4"]
+                dose_means["1"] < dose_means["2"] < dose_means["4"]
             ),
             "irrelevant_effect_mean": mean(irrelevant),
             "irrelevant_effect_ci": list(negative_interval),
+            "irrelevant_effect_ci_half_width": (
+                negative_interval[1] - negative_interval[0]
+            )
+            / 2,
+            "irrelevant_effect_paired_sd": irrelevant_sd,
+            "irrelevant_minimum_detectable_effect_nats_per_covered_nt": (
+                irrelevant_mde
+            ),
             "irrelevant_equivalence_half_width": max(
                 abs(negative_interval[0]), abs(negative_interval[1])
             ),

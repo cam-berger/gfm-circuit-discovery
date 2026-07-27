@@ -21,6 +21,7 @@ reconstruction.
 | IF5 | Causal specs reject null sets whose component count differs from the candidate intervention. | `test_atlas_mechanism.py` | Does not establish necessity or mediation. |
 | IF6 | The bounded GENCODE v50 collection has zero target/baseline cluster overlap and exact declared matching balance; splice donor, splice acceptor, start codon, and stop codon meet outcome-blind control supply, while Kozak does not. | `results/dnabert2_reconstruction_atlas/collection_qualification_v1.json` | Supply qualification is not a reconstruction outcome; Kozak is untested, not null. |
 | IF7 | Preflight calibration v1 passed geometry, split, balance, finiteness, deterministic replay, and batch-invariance checks, but its randomly located ≥32-nt-buffer copy plant failed class-wide positive-control monotonicity and sensitivity. | `results/dnabert2_reconstruction_atlas/preflight_calibration_v1.json` | `INSTRUMENT_UNRESOLVED`; no target outcome or biological null is licensed. |
+| IF8 | Calibration v2 validates the nearest eligible copy-plant placement with four-copy means of +0.09 to +0.21 nats per covered nucleotide, while exposing an over-strict monotonicity implementation and a positive-effect rather than null-noise resolution statistic. | `results/dnabert2_reconstruction_atlas/preflight_calibration_v2.json` | Development-only instrument diagnosis; the lock remains draft and no target outcome is licensed. |
 
 ## Open hypotheses
 

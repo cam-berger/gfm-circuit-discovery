@@ -52,3 +52,4 @@ def test_preflight_summary_is_cluster_first_and_reports_mde() -> None:
     assert summary["n_clusters"] == 20
     assert summary["copy_means_monotonic"]
     assert summary["minimum_detectable_effect_nats_per_covered_nt"] > 0
+    assert summary["irrelevant_minimum_detectable_effect_nats_per_covered_nt"] == 0

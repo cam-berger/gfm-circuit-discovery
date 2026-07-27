@@ -41,6 +41,19 @@ buffer, so it mixed sensitivity with arbitrary-distance context use. Status is
 `INSTRUMENT_UNRESOLVED`; interpretation is frozen while placement is diagnosed. This licenses
 IF7 and no behavior claim.
 
+### Preflight calibration v2 — placement validated, gate implementation amended
+
+`results/dnabert2_reconstruction_atlas/preflight_calibration_v2.json` used the preregistered
+nearest eligible placement. Four-copy effects were +0.090 acceptor, +0.161 donor, +0.113 start
+codon, and +0.206 stop codon nats per covered nucleotide. Every dose curve increased from one
+to two to four copies; donor was labeled non-monotone only because the implementation also
+required the one-copy mean to be positive, a requirement not present in the draft.
+
+The same review found that sensitivity/resolution were computed from heterogeneous positive-effect
+variance. Before freezing, calibration v3 uses the irrelevant-exchange null-noise MDE and CI
+half-width for those gates, while retaining the positive effect and dose ordering for the
+sensitivity positive control. V2 remains development-only diagnosis and licenses IF8, not behavior.
+
 Bulk runtime collections and per-site shards will remain ignored. Every settled compact result must
 be immutable, indexed here, and accompanied by a manifest containing checkpoint, data inputs,
 parameters, seeds, code revision, and command.

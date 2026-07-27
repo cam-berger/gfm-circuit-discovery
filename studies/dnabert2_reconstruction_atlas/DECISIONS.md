@@ -112,3 +112,16 @@
   belongs after behavior qualification.
 - Stop rule: if the amended control still fails for a class, that class is
   `INSTRUMENT_UNRESOLVED` and cannot enter target execution.
+
+## 2026-07-27 — Correct monotonicity and resolution definitions before calibration v3
+
+- Trigger: v2 produced strongly ordered copy effects for all four classes, but donor's one-copy
+  effect was negative. The implementation required `0 < dose1 < dose2 < dose4`; the draft only
+  required monotonicity across the graded doses.
+- Correction: evaluate `dose1 < dose2 < dose4`; the separately frozen positive-effect threshold
+  determines whether the control is actually positive.
+- Resolution correction: estimate the detection floor and CI half-width from the matched
+  irrelevant-exchange null noise, not heterogeneous positive-copy response variance. The positive
+  plant remains the sensitivity injection and must exceed its threshold.
+- Effect: both changes are frozen before v3 and before any empirical target-control outcome.
+  V1 and v2 artifacts remain unchanged.

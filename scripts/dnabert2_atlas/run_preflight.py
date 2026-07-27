@@ -366,12 +366,12 @@ def _observed_gates(
         },
         "sensitivity": {
             site_class: class_metrics[site_class][
-                "minimum_detectable_effect_nats_per_covered_nt"
+                "irrelevant_minimum_detectable_effect_nats_per_covered_nt"
             ]
             for site_class in classes
         },
         "resolution": {
-            site_class: class_metrics[site_class]["copy_dose_4_ci_half_width"]
+            site_class: class_metrics[site_class]["irrelevant_effect_ci_half_width"]
             for site_class in classes
         },
         "invariants": {
