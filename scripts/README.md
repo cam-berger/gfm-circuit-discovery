@@ -4,7 +4,7 @@
 
 This is an **index of the runnable scripts**, not the scientific ledger. It maps each active script to
 the claim(s) and controlling artifact it serves, grouped by result family. The authoritative
-claim→evidence record is [`results/MANIFEST.csv`](../results/MANIFEST.csv) (875 rows) plus
+claim→evidence record is [`results/MANIFEST.csv`](../results/MANIFEST.csv) (897 rows) plus
 [`studies/splicebert_partner_selection/CLAIMS.md`](../studies/splicebert_partner_selection/CLAIMS.md)
 (donor circuit, C1–C41 + IC1), [`studies/splicebert_head_context_atlas/CLAIMS.md`](../studies/splicebert_head_context_atlas/CLAIMS.md)
 (Atlas, HCA1–HCA23), and [`CORRECTIONS.md`](../studies/splicebert_partner_selection/CORRECTIONS.md)
@@ -54,6 +54,11 @@ has a row in the scientific result manifest.
 | `run_promoter_classifier_preflight.py` | Test native performance, positive/negative/sensitivity controls, numerical invariants, and prospective power. | Refuses to authorize the atlas unless every frozen gate passes; explicit new compact JSON plus manifest |
 | `run_promoter_classifier_atlas.py` | Score clean promoter margin and the target-preserving context difference on development or sealed confirmation loci. | Refuses without the qualified v2 preflight and matching hashes; explicit new JSON plus manifest |
 | `summarize_promoter_classifier_atlas.py` | Apply the unchanged replication lock and record the strongest licensed promoter claim. | Explicit new compact JSON plus manifest |
+| `audit_promoter_decomposition_supply.py` | Bind fresh promoter example IDs/locus blocks and validate the fixed K/V token-surgery dose without reading target outcomes. | Explicit compact audit plus manifest |
+| `calibrate_promoter_address_payload.py` | Calibrate identity, K, V, joint K/V, and residual-write instrumentation on a reserved GUE slice. | Explicit raw and compact calibration artifacts plus manifests |
+| `run_promoter_address_payload_preflight.py` | Qualify K/V sensitivity, resolution, matched-null supply, batch invariance, residual finiteness, and model/token health. | Refuses to authorize development unless every frozen gate passes; explicit raw and compact artifacts plus manifests |
+| `run_promoter_address_payload.py` | Test the fixed L11H2/L11H5 pair and all 45 equal-size layer-11 null pairs under K/V surgeries on development or sealed confirmation loci. | Refuses without bound fresh IDs and a matching qualified preflight; explicit raw and compact artifacts plus manifests |
+| `summarize_promoter_address_payload.py` | Apply the unchanged replication lock and record the licensed payload role and failed address role. | Explicit compact replication result plus manifest |
 
 The active protocol and bounded behavioral claims are in
 [`studies/dnabert2_reconstruction_atlas/`](../studies/dnabert2_reconstruction_atlas/README.md).

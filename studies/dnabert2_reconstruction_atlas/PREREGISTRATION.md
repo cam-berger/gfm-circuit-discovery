@@ -200,6 +200,29 @@ unless the directed path qualifies.
 All thresholds, exact null families, cohort exclusions, and mechanistic boundaries are frozen in
 `configs/dnabert2_atlas/promoter_circuit_v1.frozen.json`.
 
+### Promoter address/payload decomposition v1 — frozen amendment
+
+D6 supports L11H2/L11H5 as a late head-output core but does not identify what the pair addresses
+or carries. This amendment uses 192 newly constructed, exact-GUE-excluded GENCODE locus blocks
+per split; every example ID and 1-Mb block from the original 768-locus promoter cohort is
+excluded. The outcome-blind tokenizer audit fixes a dose of 40 genomic tokens per sequence.
+
+For the candidate pair and every one of the 45 candidate-excluding two-head pairs in layer 11,
+the assay recomputes the exact `[CLS]` head context after one of three shape-preserving surgeries.
+K permutation moves key vectors across the selected positions while Q and V remain native.
+V permutation moves value vectors while Q, K, and the native attention probabilities remain
+native. Joint K/V permutation moves each key/value pair together and is a secondary diagnostic
+for ALiBi-relative positional organization. Target-specific loss is the target margin loss minus
+the paired pseudo-TSS loss. K and V are the two primary hypotheses; each must exceed an absolute
++0.05-logit SESOI, have a locus-bootstrap interval excluding zero, beat all 45 same-operation
+null pairs by exact add-one inference, and pass two-endpoint Holm correction.
+
+The pair's residual payload is recorded as the sum of its two head-specific contributions through
+their columns of the shared output projection. A development mean direction is frozen and its
+confirmation projection/coherence is descriptive in v1. No source band, motif, or semantic label
+can be claimed from this phase. The complete lock is
+`configs/dnabert2_atlas/promoter_address_payload_v1.frozen.json`.
+
 ## Possible outcomes
 
 - `SUPPORTED: BEHAVIOR` — excess reconstruction passes and replicates; internal mechanism unknown.

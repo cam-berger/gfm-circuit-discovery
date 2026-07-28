@@ -12,6 +12,35 @@
 | Fine-tuned promoter classifier v2 | Does a promoter-trained DNABERT-2 margin distinguish exact-GUE-excluded GENCODE TSSs, and is its local context effect target-specific? | clean promoter margin replicated; context difference did not replicate; context-mechanism search stopped | `../../results/dnabert2_reconstruction_atlas/promoter_classifier_replication_v2.json` | `../../results/dnabert2_reconstruction_atlas/promoter_classifier_replication_v2.manifest.json` | D4 |
 | Promoter clean-behavior head atlas v1 | Does a bounded set of CLS head outputs causally support the replicated clean promoter margin? | eight-head candidate set replicated in both patch directions against exact layer-profile nulls | `../../results/dnabert2_reconstruction_atlas/promoter_head_atlas_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_head_atlas_replication_v1.manifest.json` | D5 |
 | Promoter circuit reverse engineering v1 | Is the candidate set faithful, pair-specific, query-gated, or arranged as an early-to-late path? | L11H2/L11H5 pair specificity replicated; about 61% faithfulness requires C8 plus all MLP writes; query and early-to-late models failed | `../../results/dnabert2_reconstruction_atlas/promoter_circuit_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_circuit_replication_v1.manifest.json` | D6 |
+| Promoter address/payload decomposition v1 | Does the late pair depend on content-key addressing or correct value-payload association? | V-payload alignment dependence replicated against all 45 pair nulls; K-address effect stayed below the practical threshold | `../../results/dnabert2_reconstruction_atlas/promoter_address_payload_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_address_payload_replication_v1.manifest.json` | D7 |
+
+### Promoter address/payload decomposition v1
+
+The frozen assay uses a newly constructed set of 192 development and 192 confirmation locus
+blocks, excluding every example and 1-Mb block in the original promoter cohort. For L11H2/L11H5
+and all 45 candidate-excluding layer-11 pairs, it deterministically permutes K or V across the
+same 40 genomic token positions. The score is target margin loss minus paired pseudo-TSS margin
+loss.
+
+| Primary operation | Development target-specific loss (95% CI) | Dev null max | Confirmation target-specific loss (95% CI) | Conf null max | Holm p, each split | Verdict |
+|---|---:|---:|---:|---:|---:|---|
+| K permutation | +0.0073 (+0.0003, +0.0144) | 0.0122 | +0.0084 (+0.0028, +0.0140) | 0.0098 | 0.1957 / 0.1087 | below 0.05 SESOI |
+| V permutation | +0.1026 (+0.0517, +0.1552) | 0.0401 | +0.0615 (+0.0030, +0.1210) | 0.0301 | 0.04348 | replicated |
+
+V permutation leaves Q, K, the QK logits, and post-softmax attention probabilities unchanged.
+The replicated loss therefore establishes that the attention weights must remain associated with
+the correct source value vectors for the promoter margin. It is a causal payload-association
+result, not a claim that the values encode a known promoter motif.
+
+The target-minus-control residual-write mean direction is highly stable across splits
+(cosine 0.9908); confirmation projections average +3.111 (95% CI +2.287 to +3.904), with
+75.0% positive loci. This direction is descriptive only. Joint K/V permutation is a secondary
+ALiBi-relative positional diagnostic and does not replicate a separate effect: confirmation is
++0.0481 with a confidence interval crossing zero.
+
+D7 narrows the late pair to a value/source-state payload-routing role. It does not identify the
+causal source positions, represented sequence feature, residual semantics, a complete circuit,
+or cellular promoter biology. Those questions require a new frozen source-localization phase.
 
 ### Promoter circuit reverse engineering v1
 

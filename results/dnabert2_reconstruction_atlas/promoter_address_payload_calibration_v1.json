@@ -1,0 +1,109 @@
+{
+  "GUE_pair_offset": 64,
+  "assay": "promoter_address_payload_GUE_calibration_v1",
+  "boundary": "Reserved GUE calibration sets numerical and sensitivity thresholds only; it is not evidence about fresh GENCODE loci.",
+  "n_pairs": 16,
+  "raw": {
+    "manifest": "data/processed/dnabert2_atlas/promoter_address_payload_v1/calibration.raw.manifest.json",
+    "n_rows": 128,
+    "path": "data/processed/dnabert2_atlas/promoter_address_payload_v1/calibration.raw.jsonl"
+  },
+  "schema_version": 1,
+  "source_token_dose": 40,
+  "status": "CALIBRATION",
+  "study": "dnabert2_biological_reconstruction_atlas",
+  "summaries": {
+    "all_layer11_heads": {
+      "identity": {
+        "control_loss_maximum_absolute": 1.9073486328125e-06,
+        "control_loss_mean": 7.450580596923828e-08,
+        "control_loss_mean_absolute": 6.407499313354492e-07,
+        "target_loss_maximum_absolute": 9.5367431640625e-07,
+        "target_loss_mean": 0.0,
+        "target_loss_mean_absolute": 3.5762786865234375e-07,
+        "target_specific_loss_maximum_absolute": 2.6226043701171875e-06,
+        "target_specific_loss_mean": -7.450580596923828e-08,
+        "target_specific_loss_mean_absolute": 7.301568984985352e-07
+      },
+      "key_permute": {
+        "control_loss_maximum_absolute": 0.07927703857421875,
+        "control_loss_mean": 0.003450170159339905,
+        "control_loss_mean_absolute": 0.020824149250984192,
+        "target_loss_maximum_absolute": 0.39623522758483887,
+        "target_loss_mean": -0.050829172134399414,
+        "target_loss_mean_absolute": 0.05192795395851135,
+        "target_specific_loss_maximum_absolute": 0.3923046588897705,
+        "target_specific_loss_mean": -0.05427934229373932,
+        "target_specific_loss_mean_absolute": 0.05858020484447479
+      },
+      "key_value_joint_permute": {
+        "control_loss_maximum_absolute": 0.5462284088134766,
+        "control_loss_mean": 0.09673093259334564,
+        "control_loss_mean_absolute": 0.10935746133327484,
+        "target_loss_maximum_absolute": 1.2218761444091797,
+        "target_loss_mean": 0.27875909209251404,
+        "target_loss_mean_absolute": 0.3124207854270935,
+        "target_specific_loss_maximum_absolute": 1.1905913352966309,
+        "target_specific_loss_mean": 0.1820281594991684,
+        "target_specific_loss_mean_absolute": 0.30254440009593964
+      },
+      "value_permute": {
+        "control_loss_maximum_absolute": 0.4977407455444336,
+        "control_loss_mean": 0.0830330103635788,
+        "control_loss_mean_absolute": 0.10020487010478973,
+        "target_loss_maximum_absolute": 1.1554080247879028,
+        "target_loss_mean": 0.2108500823378563,
+        "target_loss_mean_absolute": 0.26486533135175705,
+        "target_specific_loss_maximum_absolute": 1.1383858919143677,
+        "target_specific_loss_mean": 0.1278170719742775,
+        "target_specific_loss_mean_absolute": 0.2752952352166176
+      }
+    },
+    "candidate_L11_pair": {
+      "identity": {
+        "control_loss_maximum_absolute": 1.430511474609375e-06,
+        "control_loss_mean": 2.2351741790771484e-07,
+        "control_loss_mean_absolute": 4.917383193969727e-07,
+        "target_loss_maximum_absolute": 1.9073486328125e-06,
+        "target_loss_mean": -5.21540641784668e-08,
+        "target_loss_mean_absolute": 4.6938657760620117e-07,
+        "target_specific_loss_maximum_absolute": 1.9073486328125e-06,
+        "target_specific_loss_mean": -2.7567148208618164e-07,
+        "target_specific_loss_mean_absolute": 8.419156074523926e-07
+      },
+      "key_permute": {
+        "control_loss_maximum_absolute": 0.0254058837890625,
+        "control_loss_mean": -0.0034231990575790405,
+        "control_loss_mean_absolute": 0.004688248038291931,
+        "target_loss_maximum_absolute": 0.3189280033111572,
+        "target_loss_mean": -0.015602722764015198,
+        "target_loss_mean_absolute": 0.02790026366710663,
+        "target_specific_loss_maximum_absolute": 0.32054734230041504,
+        "target_specific_loss_mean": -0.012179523706436157,
+        "target_specific_loss_mean_absolute": 0.03159937262535095
+      },
+      "key_value_joint_permute": {
+        "control_loss_maximum_absolute": 0.282351016998291,
+        "control_loss_mean": 0.047056645154953,
+        "control_loss_mean_absolute": 0.05419078469276428,
+        "target_loss_maximum_absolute": 0.7073482871055603,
+        "target_loss_mean": 0.1591464765369892,
+        "target_loss_mean_absolute": 0.17398040369153023,
+        "target_specific_loss_maximum_absolute": 0.6918501257896423,
+        "target_specific_loss_mean": 0.11208983138203621,
+        "target_specific_loss_mean_absolute": 0.18401267006993294
+      },
+      "value_permute": {
+        "control_loss_maximum_absolute": 0.26254749298095703,
+        "control_loss_mean": 0.046431735157966614,
+        "control_loss_mean_absolute": 0.05184157192707062,
+        "target_loss_maximum_absolute": 0.6197407245635986,
+        "target_loss_mean": 0.14741814881563187,
+        "target_loss_mean_absolute": 0.16466639190912247,
+        "target_specific_loss_maximum_absolute": 0.6133801937103271,
+        "target_specific_loss_mean": 0.10098641365766525,
+        "target_specific_loss_mean_absolute": 0.16475146263837814
+      }
+    }
+  }
+}

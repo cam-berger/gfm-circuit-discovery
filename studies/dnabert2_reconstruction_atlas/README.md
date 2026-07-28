@@ -32,6 +32,7 @@ ablation, patching, rescue, mediation, and path interventions decide causal supp
 | Promoter classifier amendment | sealed confirmation complete | Fine-tuned promoter margin replicated on exact-GUE-excluded GENCODE MANE TSSs; the target-preserving context difference did not replicate. |
 | Promoter clean-behavior head atlas | sealed confirmation complete | A development-frozen eight-head set at `[CLS]` replicated bidirectional causal patch effects against exact layer-profile-matched null sets. |
 | Promoter circuit reverse engineering | sealed confirmation complete | L11H2/L11H5 is a replicated late output-carrier core; strict faithfulness requires a distributed MLP scaffold, while query-gating and early-to-late path models failed. |
+| Promoter address/payload decomposition | sealed confirmation complete | L11H2/L11H5 has replicated value-payload alignment dependence; target-specific content-key addressing stayed below the frozen practical threshold. |
 
 Multisource v4 found no annotation-specific excess reconstruction over all empirical controls.
 The later context-margin-v1 amendment asks a different, model-native question: whether a
@@ -72,6 +73,14 @@ this to about 61% in both splits. Query-only transfer is effectively zero, and c
 earlier candidate heads is below the frozen effect threshold. D6 therefore supports a late
 output-carrier core on an MLP-maintained representation, not a target-specific query gate or a
 demonstrated early-to-late chain.
+
+A fresh-cohort address/payload assay then separates the late pair's K and V roles at fixed
+40-token dose. Permuting V while leaving Q, K, QK logits, and native attention probabilities
+unchanged causes a target-specific margin loss of +0.1026 in development and +0.0615 in
+confirmation; both beat all 45 equal-size layer-11 null pairs. K permutation is only
++0.0073/+0.0084, below the 0.05-logit practical threshold. D7 therefore supports value/source-state
+payload routing, while the stable residual direction remains unlabeled and causal source bands
+or motifs remain untested.
 
 ## Historical reconstruction estimand
 

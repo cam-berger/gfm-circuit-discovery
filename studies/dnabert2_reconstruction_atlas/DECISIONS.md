@@ -434,3 +434,39 @@
 - Decision: record a replicated late output-carrier core operating on a distributed
   MLP-maintained representation. Do not describe C8 as a self-contained sparse circuit, do not
   claim target-dependent Q gating, and do not open source-band or motif surgery under v1.
+
+## 2026-07-28 — Freeze address/payload decomposition on an independent promoter cohort
+
+- Fresh supply: construct 768 exact-GUE-excluded MANE TSS/pseudo-TSS pairs per split using the
+  original outcome-blind cohort rules, then bind 192 per split after excluding every example ID
+  and 1-Mb locus block in the original 768-locus promoter cohort.
+- Token surgery: use 40 SHA-ranked genomic tokens per sequence and a deterministic nonzero cyclic
+  derangement shared by the candidate and every null pair. The minimum audited genomic token
+  count is 44.
+- Primary roles: K permutation tests content-key addressing; V permutation leaves native Q, K,
+  QK logits, and attention probabilities intact while breaking address-to-value association.
+  Joint K/V permutation is secondary and ALiBi-relative.
+- Inference: target loss minus paired-control loss, absolute 0.05-logit SESOI, interval excluding
+  zero, every one of 45 candidate-excluding layer-11 pairs as equal-size nulls, exact add-one
+  ranks, and Holm across K and V. Confirmation requires the development sign.
+- Boundary: the residual-write direction is descriptive. No source band, motif, promoter grammar,
+  or semantic direction label can be claimed under v1.
+
+## 2026-07-28 — Record D7 as replicated value-payload alignment dependence
+
+- Preflight: 32 new reserved-GUE pairs pass the identity, K/V sensitivity, resolution, null-count,
+  batch-invariance, residual-finiteness, model, and token-geometry gates. Identity error is
+  \(2.38\times10^{-6}\); projected 192-pair MDE is 0.0032 logits for K and 0.0262 for V.
+- Development: V permutation gives +0.1026 target-specific margin loss (95% CI +0.0517 to
+  +0.1552), exceeds all 45 pair nulls, and passes Holm at 0.04348. K permutation is +0.0073,
+  below the 0.05 SESOI. Confirmation opens for V only.
+- Confirmation: V replicates at +0.0615 (+0.0030 to +0.1210), again above every null with
+  Holm `p=0.04348`. K remains sub-SESOI at +0.0084. Joint K/V is secondary and has a
+  confirmation interval crossing zero.
+- Residual geometry: the paired target-minus-control mean write directions have cosine 0.9908
+  across splits; 75.0% of confirmation loci project positively onto the development direction.
+  This remains descriptive because no semantic or direction-only causal gate was run.
+- Decision: L11H2/L11H5 causally depends on the native association between attention weights and
+  source value vectors. Together with the D6 query null, this narrows the pair away from
+  target-specific Q/K addressing. Freeze a separate equal-dose source-localization assay before
+  selecting TSS-relative bands or motifs.

@@ -1,0 +1,64 @@
+{
+  "GUE_exclusion_membership": {
+    "dev|label0": 1,
+    "dev|label1": 871,
+    "test|label0": 2,
+    "test|label1": 831,
+    "train_reverse|label1": 10,
+    "train|label0": 10,
+    "train|label1": 6885
+  },
+  "cohort": {
+    "manifest": "data/processed/dnabert2_atlas/promoter_decomposition_cohort_v1/cohort.manifest.json",
+    "path": "data/processed/dnabert2_atlas/promoter_decomposition_cohort_v1/cohort.jsonl",
+    "sha256": "cbd266b39e870c179c33ddfc315bc402afd41630eaa49e9b36e4deb62b189708"
+  },
+  "intervention_changed_nucleotides": {
+    "max": 56,
+    "mean": 50.47265625,
+    "median": 51.0,
+    "min": 32
+  },
+  "invariant_violations": {
+    "GUE_exact_overlaps": 0,
+    "anchor_changes": 0,
+    "context_composition_changes": 0,
+    "split_leakage_clusters": 0,
+    "target_control_dose_mismatches": 0
+  },
+  "matching_balance": {
+    "absolute_CpG_fraction_difference": {
+      "max": 0.026755852842809374,
+      "mean": 0.008901198439241918,
+      "median": 0.006688963210702341,
+      "min": 0.0
+    },
+    "absolute_GC_fraction_difference": {
+      "max": 0.07999999999999996,
+      "mean": 0.024266493055555553,
+      "median": 0.01666666666666672,
+      "min": 0.0
+    }
+  },
+  "model_outcomes_computed": false,
+  "phase": "PROMOTER_CLASSIFIER_OUTCOME_BLIND_COHORT",
+  "schema_version": 1,
+  "selected": {
+    "by_split": {
+      "confirmation": 768,
+      "development": 768
+    },
+    "n": 1536,
+    "unique_locus_blocks": 1536
+  },
+  "source_counts": {
+    "all_GENCODE_transcript_TSSs_for_control_exclusion": 173326,
+    "dose_matched_shuffle_ineligible": 3,
+    "mane_offered": 19229,
+    "matching_balance_ineligible": 5453,
+    "target_GUE_exact_overlap": 8520,
+    "target_sequence_ineligible": 1
+  },
+  "status": "PREFLIGHT",
+  "study": "dnabert2_biological_reconstruction_atlas"
+}

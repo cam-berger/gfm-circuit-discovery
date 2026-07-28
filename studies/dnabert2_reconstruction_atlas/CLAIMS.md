@@ -121,6 +121,34 @@ a late output-carrier pair operating on an MLP-maintained representation. It is 
 target-dependent query gate, a demonstrated early-to-late chain, a complete sparse circuit, a
 resolved K/V source or motif, or a claim about transcription in cells.
 
+**D7 — The late L11H2/L11H5 core has replicated value-payload alignment dependence, not
+detectable target-specific key-address dependence.** This separately frozen assay uses a newly
+constructed cohort of 192 development and 192 confirmation locus blocks after excluding every
+example and 1-Mb block in the original 768-locus promoter cohort. At a fixed dose of 40 genomic
+tokens per sequence, deterministic V permutation leaves Q, K, QK logits, and post-softmax
+attention probabilities native while reassigning which source value vector each probability
+weights.
+
+V permutation of L11H2/L11H5 causes a target-specific promoter-margin loss of +0.1026 logits in
+development (95% CI +0.0517 to +0.1552) and +0.0615 in confirmation (+0.0030 to +0.1210). In
+each split it exceeds every one of the 45 candidate-excluding two-head pairs in layer 11 and
+passes the two-endpoint Holm gate (`p=0.04348`). By contrast, K permutation is only
++0.0073/+0.0084 logits, below the frozen absolute 0.05-logit SESOI in both splits. It therefore
+does not support a target-specific content-key address role under this intervention.
+
+The paired target-minus-control residual-write direction is stable between splits
+(mean-direction cosine 0.9908), with a positive confirmation projection of +3.111
+(95% CI +2.287 to +3.904) and 75.0% positive loci. These direction measurements are descriptive:
+they received no semantic or direction-only causal test. Joint K/V permutation is also secondary;
+its confirmation estimate is +0.0481 and its interval crosses zero.
+
+D7 licenses a **causal value/source-state payload-routing dependence** for the replicated late
+pair: the model's native attention probabilities must remain associated with the correct value
+vectors for the promoter margin. Together with D6's null query-transfer result, it narrows the
+pair away from target-specific Q or K addressing. It does not identify a source band, nucleotide
+motif, promoter grammar, semantic residual direction, complete circuit, or transcriptional
+function in cells.
+
 ## Established infrastructure facts
 
 These are implementation properties and prior instrument constraints, not claims about biological
@@ -153,6 +181,8 @@ reconstruction.
 | IF23 | Reserved-GUE calibration validates the promoter head instrument: exact no-op patching is zero, batch drift is \(4.77\times10^{-7}\), all-head CLS transfer recovers the class contrast, attribution tracks exact patches, and the calibrated group exceeds exact layer-profile nulls. | `promoter_head_atlas_calibration_v1.json` and `promoter_head_group_calibration_v1.json` | Calibration only; its GUE-ranked heads are not target candidates and create no GENCODE internal claim. |
 | IF24 | Frozen promoter-head preflight v1 is `QUALIFIED` on 32 GUE pairs disjoint from calibration: GUE MCC/AUROC, attribution agreement, full/no-op/same-class patches, projected sensitivity, null-set resolution, token geometry, head capture, and model health all pass. | `promoter_head_atlas_preflight_v1.json` | Authorizes the development head atlas; it is not a GENCODE component outcome. |
 | IF25 | Frozen promoter-circuit preflight v1 is `QUALIFIED` on 16 new GUE pairs: all 156 declared CLS write nodes are covered, full scrub reproduces paired-control margins exactly, empty complement and self/query/restore no-ops are exactly zero, batch drift is \(4.77\times10^{-7}\), and full-scrub sensitivity is 8.14 logits. | `promoter_circuit_preflight_v1.json` | Authorizes D6 development only; GUE controls are not evidence about unused GENCODE loci. |
+| IF26 | The expanded promoter-decomposition cohort supplies 768 exact-GUE-excluded MANE TSS/pseudo-TSS pairs per split. Outcome-blind selection binds 192 fresh example IDs and unique 1-Mb blocks per split after excluding the complete original promoter cohort; every sequence has at least 44 genomic tokens, supporting a fixed surgery dose of 40. Reserved-GUE calibration gives projected 192-pair MDEs of 0.0170 logits for K and 0.0456 for V at that dose. | `promoter_decomposition_cohort_audit_v1.json`, `promoter_decomposition_supply_audit_v1.json`, and `promoter_address_payload_calibration_v1.json` | Cohort, token-geometry, and calibration facts only; no fresh GENCODE model outcome was read before the lock. |
+| IF27 | Frozen promoter address/payload preflight v1 is `QUALIFIED` on 32 reserved GUE pairs: identity error is \(2.38\times10^{-6}\), all-layer-11 K/V target-specific sensitivity is 0.0372/0.2049 mean absolute logits, projected MDE is 0.0032/0.0262, batch drift is zero, all 45 matched null pairs are present, and residual writes are finite. | `promoter_address_payload_preflight_v1.json` | Authorizes D7 development only; reserved-GUE controls are not evidence about fresh GENCODE loci. |
 
 ## Open hypotheses
 
@@ -164,6 +194,7 @@ reconstruction.
 | H4 | A geometry-qualified DNABERT-2 alternative margin has a replicated, class-specific target-preserving proximal-context effect. | supported for the nine D3 classes; promoter did not replicate, stop failed development, acceptor/donor are instrument-unresolved | A distance-matched or orthogonal context null would narrow the proximal-context interpretation further. |
 | H5 | A bounded internal DNABERT-2 component set causally mediates a D3 context-margin effect. | open but untested for the nine D3 classes | Freeze candidates and matched-size necessity/mediation tests before inspecting internal effects. |
 | H6 | A promoter-fine-tuned DNABERT-2 has a replicated target-specific local-context effect at training-corpus-excluded human TSSs. | not supported: clean promoter margin replicated, but the context difference failed confirmation | A new independently justified context intervention/null and a fresh sealed cohort; D4 does not authorize internal localization. |
-| H7 | A bounded set of head outputs at `[CLS]` mediates the replicated clean promoter-classifier contrast. | refined by D6: L11H2/L11H5 is a replicated late output-carrier core, but C8 is not self-contained and needs a distributed MLP scaffold; target-query and early-six-to-late models fail | A new frozen direct K/V and source-state assay for the late pair that does not assume the rejected early-to-late path. |
+| H7 | A bounded set of head outputs at `[CLS]` mediates the replicated clean promoter-classifier contrast. | refined by D7: L11H2/L11H5 is a replicated late output-carrier core with value-payload alignment dependence and a distributed MLP scaffold; target-query, content-key-address, and early-six-to-late models fail their gates | Freeze an equal-dose source-localization phase for the replicated V estimand; do not infer bands or motifs from the stable residual direction alone. |
+| H8 | A bounded TSS-relative source band or sequence feature supplies the late pair's replicated value payload. | open; D7 establishes value association but deliberately does not localize or label it | A separately frozen band-wise V intervention with matched equal-dose source nulls, followed by independent semantic tests only if localization qualifies. |
 
 Negative, retracted, and superseded rows will remain here permanently once evidence exists.

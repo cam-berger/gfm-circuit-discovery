@@ -1,0 +1,156 @@
+{
+  "checkpoint": {
+    "base_hf_id": "zhihan1996/DNABERT-2-117M",
+    "base_tokenizer_revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+    "candidate": "prom_300_all",
+    "classification_head_complete": true,
+    "device": "cpu",
+    "dtype": "torch.float32",
+    "env": {
+      "python": "3.11.15",
+      "torch": "2.13.0",
+      "transformers": "4.44.2"
+    },
+    "hf_id": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
+    "hidden_size": 768,
+    "label_semantics": {
+      "0": "non_promoter",
+      "1": "promoter"
+    },
+    "n_heads": 12,
+    "n_layers": 12,
+    "num_labels": 2,
+    "revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+    "state_dict_keys": 140,
+    "task_geometry": {
+      "input_length_nt": 300,
+      "tss_downstream_nt": 50,
+      "tss_upstream_nt": 249
+    },
+    "tokenizer_equivalence": {
+      "comparisons": {
+        "added_tokens": true,
+        "merge_order": true,
+        "model_type": true,
+        "post_processor": true,
+        "pre_tokenizer": true,
+        "vocabulary": true
+      },
+      "equivalent": true,
+      "merge_count": 4087,
+      "runtime_tokenizer_revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+      "vocab_size": 4096
+    },
+    "upstream_sha256": {
+      "config.json": "9f5c0949193cf3ff81691369610c8fcca8c082fce66aa1ff13dd4b06fb955637",
+      "model.safetensors": "ce09ef08160640ac62b68b2995b8ea86c0118d920ee74ba449a56df37a3b4e82",
+      "special_tokens_map.json": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a",
+      "tokenizer.json": "1b805880bea234d909b35050a412f5f2db91e700f5cfcd16a4b573bfcbc22466",
+      "tokenizer_config.json": "ce3e974680079d483cb4dcd66a2000dc331414c21b7b24b0b6b4a690e192a3db",
+      "trainer_state.json": "6ec01510af14b779950af3be4f9582652a18b9c3002d328a22f1c1753bac3e86",
+      "training_args.bin": "f77ae2e3c1ef76aa2812d2e52a52ee2a88cc8e89d81280216628021c62b28960"
+    },
+    "vendor_sha256": {
+      "bert_layers.py": "317ad7e9667980ac724c07f0174ba265c8446ca5230f6b473068ff1b911edcf9",
+      "bert_padding.py": "44d1c68afb1f585fdc66c150d4c60f1ed44a89c006abc57d50531d71940d7421",
+      "configuration_bert.py": "95fc868641b87bbcd7a32d2cd7b9f4769c27592e129daf167d14b5b8c74ec4c5"
+    },
+    "vocab_size": 4096
+  },
+  "code": {
+    "git_commit": "6c69f5b2515712ae44a535115e726c629060e630",
+    "git_dirty": true
+  },
+  "command": [
+    "scripts/dnabert2_atlas/run_promoter_address_payload_preflight.py",
+    "--gue-test",
+    "/Users/cberg/.cache/huggingface/hub/datasets--leannmlindsey--GUE/snapshots/240df51a2cd2c0fb1d88efffaf86e8d1e477f932/GUE/prom_300_all/test.csv",
+    "--config",
+    "configs/dnabert2_atlas/promoter_address_payload_v1.frozen.json",
+    "--supply-audit",
+    "results/dnabert2_reconstruction_atlas/promoter_decomposition_supply_audit_v1.json",
+    "--calibration",
+    "results/dnabert2_reconstruction_atlas/promoter_address_payload_calibration_v1.json",
+    "--checkpoint-audit",
+    "results/dnabert2_reconstruction_atlas/promoter_classifier_checkpoint_audit_v2.json",
+    "--raw-out",
+    "data/processed/dnabert2_atlas/promoter_address_payload_v1/preflight.raw.jsonl",
+    "--out",
+    "results/dnabert2_reconstruction_atlas/promoter_address_payload_preflight_v1.json",
+    "--device",
+    "cpu"
+  ],
+  "created_at_utc": "2026-07-28T13:24:12.838537+00:00",
+  "data": [
+    {
+      "path": "/Users/cberg/.cache/huggingface/hub/datasets--leannmlindsey--GUE/snapshots/240df51a2cd2c0fb1d88efffaf86e8d1e477f932/GUE/prom_300_all/test.csv",
+      "sha256": "c77b312eb3f2c149ee5e54f0c781b585c4e65b742f0e7d9324818f2b56e71e67",
+      "size_bytes": 1799696
+    },
+    {
+      "path": "configs/dnabert2_atlas/promoter_address_payload_v1.frozen.json",
+      "sha256": "626b3eacc340d787fc9e5ef442130ac73276d710d44111d06bef2dfa95c8b47d",
+      "size_bytes": 8345
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_decomposition_supply_audit_v1.json",
+      "sha256": "3339c4b28a1e67529468bf1d5438ec6daa716d21e8641c684264dc4ba8671df8",
+      "size_bytes": 19876
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_address_payload_calibration_v1.json",
+      "sha256": "2e272752fe707dcfa1290e300a9b1c9a777dbcd0323cc0daed4a72202d2ba0a5",
+      "size_bytes": 5243
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_classifier_checkpoint_audit_v2.json",
+      "sha256": "96f73e55234fa53d667128e4ada41e7fed03d756dd239cfd2866d9f58f868f81",
+      "size_bytes": 11320
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/promoter_address_payload_v1/preflight.raw.jsonl",
+      "sha256": "ca4206d3fdd891698f17bfdc47705fd6cb95d1fb457ab3273146a1f2b45306ae",
+      "size_bytes": 167996
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/promoter_address_payload_v1/preflight.raw.manifest.json",
+      "sha256": "060d66b625cda14bf70f020aab38204e6e4e183af3c2ce28b66072566973a60c",
+      "size_bytes": 5809
+    }
+  ],
+  "environment": {
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "dnabert2_promoter_address_payload_preflight_v1",
+  "outputs": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_address_payload_preflight_v1.json",
+      "sha256": "0af6864fd08fbf83dca85a157ab969b61f37b120bc40acf035c135bdc6a10da9",
+      "size_bytes": 2692
+    }
+  ],
+  "parameters": {
+    "config_sha256": "f973645fdb1aa2dd27c012cc02355a4d4d01f052e92287ac39f610e1e38ec4ed",
+    "preflight": {
+      "calibration_GUE_pair_offset": 64,
+      "calibration_GUE_pairs": 16,
+      "maximum_batch_invariance_absolute_margin_difference": 1e-05,
+      "maximum_identity_absolute_margin_difference": 5e-06,
+      "maximum_projected_192_pair_MDE_each_primary": 0.05,
+      "maximum_two_endpoint_Holm_floor": 0.05,
+      "minimum_all_layer11_key_mean_absolute_target_specific_effect": 0.03,
+      "minimum_all_layer11_value_mean_absolute_target_specific_effect": 0.1,
+      "preflight_GUE_pair_offset": 80,
+      "preflight_GUE_pairs": 32,
+      "required_null_pairs": 45,
+      "requires_disjointness_from_all_prior_GUE_offsets_0_through_79": true
+    },
+    "source_token_dose": 40
+  },
+  "schema_version": 1,
+  "seeds": {
+    "selection_and_surgery": 20260728
+  },
+  "status": "PREFLIGHT"
+}

@@ -1,0 +1,73 @@
+{
+  "checkpoint": {
+    "attention": "softmax(QK^T/sqrt(64)+ALiBi)V",
+    "candidate": "prom_300_all",
+    "head_size": 64,
+    "head_write": "head context multiplied by the corresponding 64 columns of the shared 768x768 attention output projection",
+    "heads_per_layer": 12,
+    "hf_id": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
+    "layers": 12,
+    "revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12"
+  },
+  "code": {
+    "git_commit": "6c69f5b2515712ae44a535115e726c629060e630",
+    "git_dirty": true
+  },
+  "command": [
+    "scripts/dnabert2_atlas/summarize_promoter_address_payload.py",
+    "--development",
+    "results/dnabert2_reconstruction_atlas/promoter_address_payload_development_v1.json",
+    "--confirmation",
+    "results/dnabert2_reconstruction_atlas/promoter_address_payload_confirmation_v1.json",
+    "--config",
+    "configs/dnabert2_atlas/promoter_address_payload_v1.frozen.json",
+    "--preflight-report",
+    "results/dnabert2_reconstruction_atlas/promoter_address_payload_preflight_v1.json",
+    "--out",
+    "results/dnabert2_reconstruction_atlas/promoter_address_payload_replication_v1.json"
+  ],
+  "created_at_utc": "2026-07-28T13:52:00.493756+00:00",
+  "data": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_address_payload_development_v1.json",
+      "sha256": "89dc08e515280aef2908c9f47492a8cb0917676e26d41628e242e848ca9f4d6a",
+      "size_bytes": 28918
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_address_payload_confirmation_v1.json",
+      "sha256": "c3483fb2f74a06502d188ccf905043c936b707bd41a94fe23707508a169e708a",
+      "size_bytes": 28912
+    },
+    {
+      "path": "configs/dnabert2_atlas/promoter_address_payload_v1.frozen.json",
+      "sha256": "626b3eacc340d787fc9e5ef442130ac73276d710d44111d06bef2dfa95c8b47d",
+      "size_bytes": 8345
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_address_payload_preflight_v1.json",
+      "sha256": "0af6864fd08fbf83dca85a157ab969b61f37b120bc40acf035c135bdc6a10da9",
+      "size_bytes": 2692
+    }
+  ],
+  "environment": {
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "dnabert2_promoter_address_payload_replication_v1",
+  "outputs": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_address_payload_replication_v1.json",
+      "sha256": "e5f3c7c2cc5f04b9e139b936db6e4d0846685177f7090a90c822b9b0edae0da2",
+      "size_bytes": 10067
+    }
+  ],
+  "parameters": {
+    "combination": "frozen_development_then_untouched_confirmation",
+    "no_new_model_scores": true
+  },
+  "schema_version": 1,
+  "seeds": {
+    "none": 0
+  },
+  "status": "SEALED"
+}

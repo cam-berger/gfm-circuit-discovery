@@ -2,8 +2,14 @@ from __future__ import annotations
 
 import torch
 
+from gfmcd.adapters.dnabert2.promoter_address_payload import (
+    counterfactual_cls_head,
+    head_residual_write_tensor,
+    paired_source_permutations,
+)
 from gfmcd.adapters.dnabert2.promoter_head_atlas import (
     PROMOTER_SOURCE_BANDS,
+    PairedPromoterBatch,
     _token_band_allocations,
     paired_cls_patch_tensor,
     paired_cls_query_patch_tensor,
@@ -107,6 +113,93 @@ def test_native_cache_restores_only_requested_target_heads() -> None:
     assert torch.equal(restored[0, 1], expected[0, 1])
     assert torch.equal(restored[0, 0], torch.zeros(4))
     assert torch.equal(restored[4], torch.zeros((2, 4)))
+
+
+def test_joint_key_value_permutation_is_invariant_without_position_bias() -> None:
+    query = torch.tensor([1.0, 0.5])
+    keys = torch.tensor([[0.0, 0.0], [1.0, 0.0], [0.0, 2.0], [2.0, 1.0]])
+    values = torch.tensor([[1.0, 2.0], [5.0, 7.0], [11.0, 13.0], [17.0, 19.0]])
+    source = torch.tensor([0, 1, 2, 3])
+    permuted = torch.tensor([1, 2, 3, 0])
+    native = counterfactual_cls_head(
+        query,
+        keys,
+        values,
+        bias=torch.zeros(4),
+        source_indices=source,
+        permuted_indices=permuted,
+        operation="identity",
+    )
+    joint = counterfactual_cls_head(
+        query,
+        keys,
+        values,
+        bias=torch.zeros(4),
+        source_indices=source,
+        permuted_indices=permuted,
+        operation="key_value_joint_permute",
+    )
+    key_only = counterfactual_cls_head(
+        query,
+        keys,
+        values,
+        bias=torch.zeros(4),
+        source_indices=source,
+        permuted_indices=permuted,
+        operation="key_permute",
+    )
+    value_only = counterfactual_cls_head(
+        query,
+        keys,
+        values,
+        bias=torch.zeros(4),
+        source_indices=source,
+        permuted_indices=permuted,
+        operation="value_permute",
+    )
+    assert torch.allclose(joint, native)
+    assert not torch.allclose(key_only, native)
+    assert not torch.allclose(value_only, native)
+
+
+def test_source_permutations_have_fixed_dose_and_no_fixed_points() -> None:
+    offsets = torch.tensor(
+        [
+            [[0, 0], *[[index, index + 1] for index in range(8)], [0, 0]],
+            [[0, 0], *[[index, index + 1] for index in range(8)], [0, 0]],
+        ]
+    )
+    batch = PairedPromoterBatch(
+        pair_ids=("pair-1",),
+        encoded={},
+        offset_mapping=offsets,
+        token_counts=(10, 10),
+        cls_rows=torch.tensor([0, 10]),
+    )
+    first = paired_source_permutations(batch, source_token_count=6, seed=7)
+    second = paired_source_permutations(batch, source_token_count=6, seed=7)
+    assert len(first) == 2
+    for (source, permuted), repeated in zip(first, second):
+        assert source.numel() == permuted.numel() == 6
+        assert set(source.tolist()) == set(permuted.tolist())
+        assert all(left != right for left, right in zip(source, permuted))
+        assert torch.equal(source, repeated[0])
+        assert torch.equal(permuted, repeated[1])
+
+
+def test_head_residual_writes_sum_to_shared_dense_without_bias() -> None:
+    context = torch.randn(5, 8)
+    weight = torch.randn(8, 8)
+    writes = [
+        head_residual_write_tensor(
+            context,
+            weight,
+            head=head,
+            num_heads=2,
+        )
+        for head in range(2)
+    ]
+    assert torch.allclose(sum(writes), torch.nn.functional.linear(context, weight))
 
 
 def test_attention_tokens_are_fractionally_allocated_across_tss_bands() -> None:
