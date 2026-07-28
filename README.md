@@ -6,11 +6,9 @@ This repository develops a disciplined way to discover **how genomic foundation 
 implement biological computations**. The objective is not to catalogue salient activations; it is to
 move from a model-native behavior to a causally supported, explicitly bounded mechanism.
 
-> **Repository state (2026-07-24):** the current scientific record is consolidated on `master` — the
-> donor circuit (A0–A12), the period-3 and ≈10.63 carriers, the Head–Context Atlas, cross-example
-> transduction (C38/C41), and cross-model carrier origin (C39/C40). Earlier development branches
-> (`donor-graph-address-payload`, `p3-closure-confirmatory`, `b3-confirmatory-redesign`) are superseded
-> ancestors kept for history.
+> **Repository state (2026-07-28):** the scientific record includes the SpliceBERT donor circuit
+> (A0–A12), positional carriers, Head–Context Atlas, cross-example transduction, and cross-model
+> carrier origin. The active transfer study is the DNABERT-2 Biological Reconstruction Atlas.
 
 **SpliceBERT is the first worked example, not the boundary of the project.** The active transfer
 program is the DNABERT-2 Biological Reconstruction Atlas: a behavior-first census across annotated
@@ -80,7 +78,7 @@ Attribution ranks; intervention decides. See the [methodology](docs/METHODOLOGY.
 | [`studies/splicebert_partner_selection/`](studies/splicebert_partner_selection/README.md) | completed core record; open limitations | Donor graph, period-3 carrier, compact claims, corrections, preregistrations, and reproduction map. |
 | [`studies/splicebert_head_context_atlas/`](studies/splicebert_head_context_atlas/README.md) | discovery and internal validation complete | Multi-context head/MLP reuse atlas; context-specific follow-ups remain exploratory. |
 | [`studies/splicebert_segment_attribution/`](studies/splicebert_segment_attribution/README.md) | exploratory instrument | Joint-mask attribution DAGs used as candidate generators, not causal claims. |
-| [`studies/dnabert2_reconstruction_atlas/`](studies/dnabert2_reconstruction_atlas/README.md) | context-margin confirmation complete; promoter-classifier amendment bounded | Systematic DNABERT-2 census of reconstruction behavior, target-preserving context dependence, and gated causal follow-up. |
+| [`studies/dnabert2_reconstruction_atlas/`](studies/dnabert2_reconstruction_atlas/README.md) | baseline census bounded; promoter circuit analysis complete through all-node atlas | Systematic DNABERT-2 behavior census and causal reverse engineering of a promoter-fine-tuned model. |
 | [`studies/caduceus_partner_transfer/`](studies/caduceus_partner_transfer/README.md) | design hardened; deferred, not run | Planned cross-architecture behavioral transfer to an RC-equivariant bidirectional Mamba MLM. |
 | [`studies/codon_phase_lattice/`](studies/codon_phase_lattice/README.md) | historical exploratory protocol | Superseded phase-shift framing retained for provenance; not an active result family. |
 
@@ -109,8 +107,8 @@ The reusable study template is under
 - `figures/splicebert/` — generated figures and declared provenance.
 - `tests/` — the memorial and analysis-logic suite. Many memorials are data-gated and skip without a
   local genome; see [`REPRODUCE.md`](REPRODUCE.md).
-- `configs/` — versioned study configurations, including the DNABERT-2 site registry and draft
-  preflight lock.
+- `configs/` — versioned study configurations, including DNABERT-2 site registries and frozen
+  phase configs.
 - `data/` — documentation only (`NUCLEOSOME_MAP.md`). The model, FASTA, and GTF are **not committed**
   and must be supplied; see [`REPRODUCE.md`](REPRODUCE.md).
 - Runtime handoffs, logs, and scratch files are ignored. Historical DNABERT-2 programs are referenced
