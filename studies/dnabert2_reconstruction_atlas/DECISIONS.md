@@ -527,3 +527,33 @@
 - Decision: record a post-hoc ranking degradation and seven target promoter→non-promoter flips,
   not a net accuracy loss. The cohort is the fresh balanced GENCODE/pseudo-TSS challenge, not
   the original GUE held-out task.
+
+## 2026-07-28 — Qualify D8 with native bases before tracing residual sources
+
+- Intervention: edit only +11:+21. Exact dinucleotide reordering preserves mono- and linear
+  dinucleotide counts; the separate three-transition edit removes three G/C bases. Target and
+  pseudo-TSS edits require equal Hamming dose and matched local BPE retokenization geometry.
+- Supply history: the first exact-full-geometry design retained only 13 development loci; the
+  local-retokenization amendment retained 70/47. A three-edit ensemble retained only 39/20 and
+  increased GC-depletion calibration variance, so the single-edit design was retained.
+- Frozen v7 preflight: dinucleotide reordering passed, but GC depletion exceeded the 0.300
+  projected-MDE ceiling (0.403). No target outcome was read.
+- Frozen v8 preflight: on a second disjoint GUE slice, the 40-locus dinucleotide design also
+  exceeded the same ceiling (0.364). No threshold was relaxed.
+- Redesign: outcome-blind dinucleotide-only supply supports 87 development and 61 confirmation
+  loci; freeze 60 per split and retain the +0.300 precision ceiling.
+- Frozen v10 preflight: a third disjoint slice passes all eight checks, projected MDE 0.156, zero
+  replay drift, and zero batch drift. Open development only.
+
+## 2026-07-28 — Stop the +11:+21 native-source path at development
+
+- Clean behavior: target-minus-pseudo-TSS promoter margin is +2.321 logits (95% CI +1.392 to
+  +3.266; add-one `p=0.0001`), so the cohort retains the classified behavior.
+- Native effect: exact-composition reordering gives −0.0162 target-specific margin loss
+  (−0.1762 to +0.1383; `p=0.5834`). It fails the +0.10 SESOI, positive interval, and sign gates.
+- Performance: accuracy stays 0.650, AUROC changes descriptively by +0.0058, and one target flips
+  promoter→non-promoter. CAGE-, PLS-, and CpG-overlap subgroup means are nonpositive.
+- Decision: confirmation remains sealed. Do not run residual-layer localization, L11H2/L11H5
+  rescue, path blocking, or faithfulness for this source hypothesis.
+- Interpretation: D8 remains a post-tokenization mask sensitivity, not native sequence-order
+  necessity. GC-content necessity is instrument-unresolved, not negative.

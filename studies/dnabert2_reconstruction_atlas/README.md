@@ -35,6 +35,7 @@ ablation, patching, rescue, mediation, and path interventions decide causal supp
 | Promoter address/payload decomposition | sealed confirmation complete | L11H2/L11H5 has replicated value-payload alignment dependence; target-specific content-key addressing stayed below the frozen practical threshold. |
 | Promoter source localization | sealed confirmation complete | Equal-dose masking localizes a replicated classifier-relevant source region to nominal +11 to +21 nt; no regional late-pair V effect or independent biological annotation replicated. |
 | Promoter source performance follow-up | post-hoc descriptive complete | Masking +11 to +21 lowers AUROC in both splits and flips 7/231 real promoters to non-promoter, but balanced accuracy is unchanged because pseudo-TSS corrections offset target errors. |
+| Promoter native-source qualification | development gate failed; confirmation and tracing sealed | Exact mono/linear-dinucleotide-preserving reordering of +11:+21 is not supported as necessary at 60 fresh loci (−0.016 logits, 95% CI −0.176 to +0.138). |
 
 Multisource v4 found no annotation-specific excess reconstruction over all empirical controls.
 The later context-margin-v1 amendment asks a different, model-native question: whether a
@@ -107,6 +108,15 @@ promoters cross from promoter to non-promoter. Balanced accuracy changes by −0
 percentage points, respectively, with both intervals spanning zero; six pseudo-TSS false
 positives also become correct negatives, offsetting the target errors. This is performance on the
 fresh GENCODE/pseudo-TSS challenge, not the original GUE held-out test set.
+
+Native-base qualification then replaced `[MASK]` with a nonidentity reorder of +11:+21 that
+preserves exact mononucleotide and linear-dinucleotide counts. Target and pseudo-TSS edits have
+matched Hamming dose and locally matched BPE retokenization geometry. After two preserved
+precision failures, an outcome-blind 60-locus design passed a third disjoint GUE preflight.
+Development failed the positive gate: target-specific margin loss was −0.016 logits (95% CI −0.176 to +0.138,
+add-one `p=0.5834`), accuracy was unchanged, and one target flipped promoter→non-promoter.
+Confirmation, residual tracing, and head mediation therefore remain sealed. GC-content necessity
+is separately instrument-unresolved because its preflight variance exceeded the frozen limit.
 
 ## Historical reconstruction estimand
 
@@ -210,6 +220,22 @@ Biological qualification is separate. FANTOM5 dominant CTSSs, ENCODE PLS cCREs, 
 and EPD motif instances are never pooled. Motif interventions must remove the published EPD call,
 preserve each branch's local mononucleotide composition, match target/control Hamming dose, retain
 the complete BPE offset map, and leave every token outside the affected cover unchanged.
+
+## Promoter native-source estimand
+
+For the nominated +11:+21 interval, construct a nonidentity nucleotide reorder with exact
+mononucleotide and linear-dinucleotide counts. Apply an equal Hamming dose to the paired target and
+pseudo-TSS, and admit only pairs whose changed BPE segment is local and matched in token-count
+delta, affected-token count, and affected-cover length. The primary endpoint is
+
+\[
+\Delta_{\mathrm{native}}
+= [L(t)-L(t_{\mathrm{edit}})]-[L(u)-L(u_{\mathrm{edit}})].
+\]
+
+Development requires mean \(\Delta_{\mathrm{native}}\ge0.10\) logits, a positive 95% locus-block
+bootstrap lower bound, and one-sided add-one cluster-sign `p≤0.05`. Confirmation opens only for
+an unchanged qualified operation. Failure seals residual-source tracing and mediation.
 
 ## Repository map
 

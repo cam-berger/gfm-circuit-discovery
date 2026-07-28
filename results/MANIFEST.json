@@ -1,17 +1,17 @@
 {
  "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc); DNABERT-2 Reconstruction Atlas infrastructure, narrow v1 behavior, multisource-v4 bounded development, context-margin-v1 replication, and promoter-classifier-v2 bounded replication rows appended 2026-07-27; promoter clean-behavior head-atlas, promoter-circuit, promoter address/payload, promoter source-localization, and post-hoc source-performance rows appended 2026-07-28.",
-  "row_count": 911,
+  "row_count": 933,
  "status_counts": {
-    "canonical": 579,
-    "development": 168,
-  "infrastructure": 22,
+    "canonical": 581,
+    "development": 178,
+    "infrastructure": 32,
   "superseded": 142
  },
  "polarity_counts": {
-    "bounded": 58,
-  "na": 296,
-  "null": 19,
-    "positive": 534,
+    "bounded": 68,
+    "na": 306,
+    "null": 19,
+    "positive": 536,
   "refutation": 4
  },
  "columns": [
@@ -9134,6 +9134,105 @@
       "script": "scripts/dnabert2_atlas/evaluate_promoter_source_classification.py",
       "manifest": "",
       "figure": ""
+    },
+    {
+      "claim_id": "IF30", "status": "infrastructure", "evidence_level": "", "polarity": "na",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_cohort_audit_v2.json", "script": "scripts/dnabert2_atlas/audit_promoter_native_source_supply.py",
+      "manifest": "results/dnabert2_reconstruction_atlas/promoter_native_source_cohort_audit_v2.manifest.json", "figure": ""
+    },
+    {
+      "claim_id": "IF30", "status": "infrastructure", "evidence_level": "", "polarity": "na",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_cohort_audit_v2.manifest.json", "script": "scripts/dnabert2_atlas/audit_promoter_native_source_supply.py", "manifest": "", "figure": ""
+    },
+    {
+      "claim_id": "IF30", "status": "development", "evidence_level": "", "polarity": "bounded",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_calibration_v1.json", "script": "scripts/dnabert2_atlas/calibrate_promoter_native_source.py",
+      "manifest": "results/dnabert2_reconstruction_atlas/promoter_native_source_calibration_v1.manifest.json", "figure": ""
+    },
+    {
+      "claim_id": "IF30", "status": "development", "evidence_level": "", "polarity": "bounded",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_calibration_v1.manifest.json", "script": "scripts/dnabert2_atlas/calibrate_promoter_native_source.py", "manifest": "", "figure": ""
+    },
+    {
+      "claim_id": "IF30", "status": "development", "evidence_level": "", "polarity": "bounded",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_calibration_v6.json", "script": "scripts/dnabert2_atlas/calibrate_promoter_native_source.py",
+      "manifest": "results/dnabert2_reconstruction_atlas/promoter_native_source_calibration_v6.manifest.json", "figure": ""
+    },
+    {
+      "claim_id": "IF30", "status": "development", "evidence_level": "", "polarity": "bounded",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_calibration_v6.manifest.json", "script": "scripts/dnabert2_atlas/calibrate_promoter_native_source.py", "manifest": "", "figure": ""
+    },
+    {
+      "claim_id": "IF30", "status": "infrastructure", "evidence_level": "", "polarity": "na",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_supply_audit_v3.json", "script": "scripts/dnabert2_atlas/audit_promoter_native_source_supply.py",
+      "manifest": "results/dnabert2_reconstruction_atlas/promoter_native_source_supply_audit_v3.manifest.json", "figure": ""
+    },
+    {
+      "claim_id": "IF30", "status": "infrastructure", "evidence_level": "", "polarity": "na",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_supply_audit_v3.manifest.json", "script": "scripts/dnabert2_atlas/audit_promoter_native_source_supply.py", "manifest": "", "figure": ""
+    },
+    {
+      "claim_id": "IF30", "status": "infrastructure", "evidence_level": "", "polarity": "na",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_supply_audit_v4.json", "script": "scripts/dnabert2_atlas/audit_promoter_native_source_supply.py",
+      "manifest": "results/dnabert2_reconstruction_atlas/promoter_native_source_supply_audit_v4.manifest.json", "figure": ""
+    },
+    {
+      "claim_id": "IF30", "status": "infrastructure", "evidence_level": "", "polarity": "na",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_supply_audit_v4.manifest.json", "script": "scripts/dnabert2_atlas/audit_promoter_native_source_supply.py", "manifest": "", "figure": ""
+    },
+    {
+      "claim_id": "IF30", "status": "infrastructure", "evidence_level": "", "polarity": "na",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_supply_audit_v6.json", "script": "scripts/dnabert2_atlas/audit_promoter_native_source_supply.py",
+      "manifest": "results/dnabert2_reconstruction_atlas/promoter_native_source_supply_audit_v6.manifest.json", "figure": ""
+    },
+    {
+      "claim_id": "IF30", "status": "infrastructure", "evidence_level": "", "polarity": "na",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_supply_audit_v6.manifest.json", "script": "scripts/dnabert2_atlas/audit_promoter_native_source_supply.py", "manifest": "", "figure": ""
+    },
+    {
+      "claim_id": "IF30", "status": "development", "evidence_level": "", "polarity": "bounded",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_preflight_v7.json", "script": "scripts/dnabert2_atlas/run_promoter_native_source_preflight.py",
+      "manifest": "results/dnabert2_reconstruction_atlas/promoter_native_source_preflight_v7.manifest.json", "figure": ""
+    },
+    {
+      "claim_id": "IF30", "status": "development", "evidence_level": "", "polarity": "bounded",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_preflight_v7.manifest.json", "script": "scripts/dnabert2_atlas/run_promoter_native_source_preflight.py", "manifest": "", "figure": ""
+    },
+    {
+      "claim_id": "IF30", "status": "development", "evidence_level": "", "polarity": "bounded",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_preflight_v8.json", "script": "scripts/dnabert2_atlas/run_promoter_native_source_preflight.py",
+      "manifest": "results/dnabert2_reconstruction_atlas/promoter_native_source_preflight_v8.manifest.json", "figure": ""
+    },
+    {
+      "claim_id": "IF30", "status": "development", "evidence_level": "", "polarity": "bounded",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_preflight_v8.manifest.json", "script": "scripts/dnabert2_atlas/run_promoter_native_source_preflight.py", "manifest": "", "figure": ""
+    },
+    {
+      "claim_id": "IF31", "status": "infrastructure", "evidence_level": "", "polarity": "na",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_supply_audit_v9.json", "script": "scripts/dnabert2_atlas/audit_promoter_native_source_supply.py",
+      "manifest": "results/dnabert2_reconstruction_atlas/promoter_native_source_supply_audit_v9.manifest.json", "figure": ""
+    },
+    {
+      "claim_id": "IF31", "status": "infrastructure", "evidence_level": "", "polarity": "na",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_supply_audit_v9.manifest.json", "script": "scripts/dnabert2_atlas/audit_promoter_native_source_supply.py", "manifest": "", "figure": ""
+    },
+    {
+      "claim_id": "IF31", "status": "canonical", "evidence_level": "", "polarity": "positive",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_preflight_v10.json", "script": "scripts/dnabert2_atlas/run_promoter_native_source_preflight.py",
+      "manifest": "results/dnabert2_reconstruction_atlas/promoter_native_source_preflight_v10.manifest.json", "figure": ""
+    },
+    {
+      "claim_id": "IF31", "status": "canonical", "evidence_level": "", "polarity": "positive",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_preflight_v10.manifest.json", "script": "scripts/dnabert2_atlas/run_promoter_native_source_preflight.py", "manifest": "", "figure": ""
+    },
+    {
+      "claim_id": "D9", "status": "development", "evidence_level": "Behaviour", "polarity": "bounded",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_development_v10.json", "script": "scripts/dnabert2_atlas/run_promoter_native_source.py",
+      "manifest": "results/dnabert2_reconstruction_atlas/promoter_native_source_development_v10.manifest.json", "figure": ""
+    },
+    {
+      "claim_id": "D9", "status": "development", "evidence_level": "Behaviour", "polarity": "bounded",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_native_source_development_v10.manifest.json", "script": "scripts/dnabert2_atlas/run_promoter_native_source.py", "manifest": "", "figure": ""
     }
   ]
 }

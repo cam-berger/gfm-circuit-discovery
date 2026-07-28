@@ -184,6 +184,26 @@ This supports a bounded hard-label and ranking consequence on the fresh GENCODE/
 challenge. It does not show an accuracy loss on the original GUE task, independently validate
 the selected region, or identify its biological content.
 
+**D9 — the +11:+21 `[MASK]` nomination does not survive native sequence-order
+qualification.** A fresh, outcome-blind cohort admits 60 unique locus blocks per split under an
+exact mononucleotide- and linear-dinucleotide-preserving nonidentity reorder. Target and
+pseudo-TSS edits have equal Hamming dose and matched local BPE retokenization geometry. The final
+disjoint GUE preflight passes sensitivity, precision, identity, batch, geometry, and finiteness
+checks.
+
+Development target-specific promoter-margin loss is −0.0162 logits (95% CI −0.1762 to +0.1383;
+add-one cluster-sign and Holm `p=0.5834`), failing the frozen +0.10 SESOI, positive interval, and
+sign gates. Clean target-minus-control behavior remains strong at +2.321 (+1.392 to +3.266;
+`p=0.0001`). Accuracy is unchanged at 0.650, AUROC changes descriptively from 0.7075 to 0.7133,
+and one of 60 targets flips promoter→non-promoter.
+
+D9 licenses a **failed development positive gate for exact-composition sequence-order
+necessity under this intervention**. The interval still includes the +0.10 SESOI, so this is not
+an equivalence null. D8 remains a post-tokenization mask-sensitive candidate, not established
+native-sequence evidence. D9 does not show that +11:+21 is biologically inert, exclude every
+native substitution, or resolve GC content: the GC-depletion instrument failed its frozen
+precision gate. Confirmation, residual-source tracing, and head mediation remain sealed.
+
 ## Established infrastructure facts
 
 These are implementation properties and prior instrument constraints, not claims about biological
@@ -220,6 +240,8 @@ reconstruction.
 | IF27 | Frozen promoter address/payload preflight v1 is `QUALIFIED` on 32 reserved GUE pairs: identity error is \(2.38\times10^{-6}\), all-layer-11 K/V target-specific sensitivity is 0.0372/0.2049 mean absolute logits, projected MDE is 0.0032/0.0262, batch drift is zero, all 45 matched null pairs are present, and residual writes are finite. | `promoter_address_payload_preflight_v1.json` | Authorizes D7 development only; reserved-GUE controls are not evidence about fresh GENCODE loci. |
 | IF28 | The source-localization supply binds 192 final unused locus blocks per split, 107–140/111–133 eligible pairs per tile, 105 CAGE-supported TSSs per split, 138/142 PLS TSSs, 70/73 CpG-island TSSs, and geometry-qualified motif disruptions without reading a target outcome. Reserved-GUE calibration gives identity error \(9.54\times10^{-7}\), mask sensitivity 0.463 mean absolute logits, and candidate regional-V projected MDE 0.00297. | `promoter_source_localization_supply_audit_v1.json` and `promoter_source_localization_calibration_v1.json` | Outcome-blind supply and calibration only. |
 | IF29 | Frozen promoter source-localization preflight v1 is `QUALIFIED` on 32 new reserved-GUE pairs: all identity, mask/V sensitivity, precision, tile-resolution, batch, finiteness, and 45-null-family checks pass. | `promoter_source_localization_preflight_v1.json` | Authorizes D8 development only; not evidence about fresh GENCODE loci. |
+| IF30 | Native-source preflights v7 and v8 are `INSTRUMENT_UNRESOLVED`: three-base GC depletion has projected MDE 0.403 at 40 loci, and a disjoint dinucleotide-only slice has projected MDE 0.364. No target outcome was read in either run. | `promoter_native_source_preflight_v7.json` and `promoter_native_source_preflight_v8.json` | Preserved instrument failures; neither is a biological null. |
+| IF31 | Dinucleotide-only supply v9 binds 60 fresh unique locus blocks per split; frozen preflight v10 passes all eight checks on a third disjoint GUE slice with projected 60-locus MDE 0.156 and zero replay/batch drift. | `promoter_native_source_supply_audit_v9.json` and `promoter_native_source_preflight_v10.json` | Authorizes D9 development only. |
 
 ## Open hypotheses
 
@@ -232,6 +254,6 @@ reconstruction.
 | H5 | A bounded internal DNABERT-2 component set causally mediates a D3 context-margin effect. | open but untested for the nine D3 classes | Freeze candidates and matched-size necessity/mediation tests before inspecting internal effects. |
 | H6 | A promoter-fine-tuned DNABERT-2 has a replicated target-specific local-context effect at training-corpus-excluded human TSSs. | not supported: clean promoter margin replicated, but the context difference failed confirmation | A new independently justified context intervention/null and a fresh sealed cohort; D4 does not authorize internal localization. |
 | H7 | A bounded set of head outputs at `[CLS]` mediates the replicated clean promoter-classifier contrast. | refined by D7: L11H2/L11H5 is a replicated late output-carrier core with value-payload alignment dependence and a distributed MLP scaffold; target-query, content-key-address, and early-six-to-late models fail their gates | Freeze an equal-dose source-localization phase for the replicated V estimand; do not infer bands or motifs from the stable residual direction alone. |
-| H8 | A bounded TSS-relative source band or sequence feature supplies the late pair's replicated value payload. | partly resolved/refuted at the tested scale: a +11 to +21 behavioral mask region replicates, but no two-token regional V effect or independent biological label replicates | Freeze a native-nucleotide perturbation of +11 to +21 and a mask-by-payload interaction/rescue; use wider or multiregion V tests only under a new lock. |
+| H8 | A bounded TSS-relative source band or sequence feature supplies the late pair's replicated value payload. | not supported at +11:+21: regional V was null and exact-composition native reordering failed development; the `[MASK]` effect remains classifier-level only | A new independently justified native intervention/source band and fresh cohort; D8/D9 do not authorize mask-by-payload tracing. |
 
 Negative, retracted, and superseded rows will remain here permanently once evidence exists.

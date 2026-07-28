@@ -1,0 +1,244 @@
+{
+  "biological_annotations": {
+    "confirmation": {
+      "CAGE_supported_TSS": 24,
+      "CpG_island_at_source_region": 18,
+      "DCE_II_CTGT_within_plus16_plus21": 0,
+      "PLS_cCRE_at_source_region": 33,
+      "human_DPR_overlap": 40
+    },
+    "development": {
+      "CAGE_supported_TSS": 26,
+      "CpG_island_at_source_region": 18,
+      "DCE_II_CTGT_within_plus16_plus21": 1,
+      "PLS_cCRE_at_source_region": 31,
+      "human_DPR_overlap": 40
+    }
+  },
+  "boundary": "This outcome-blind artifact uses the pinned tokenizer only. It binds fresh loci, native edits, matched local BPE-retokenization geometry, dose, and independent promoter annotations without reading a classifier margin.",
+  "checks": {
+    "both_native_operations": true,
+    "exact_edit_replicates": true,
+    "exact_pairs_per_split": true,
+    "fresh_from_D7_D8_blocks": true,
+    "fresh_from_D7_D8_ids": true,
+    "fresh_from_original_blocks": true,
+    "fresh_from_original_ids": true,
+    "native_edit_and_BPE_invariants": true,
+    "split_disjoint": true,
+    "unique_locus_blocks": true
+  },
+  "cohort": {
+    "manifest": "data/processed/dnabert2_atlas/promoter_native_source_rescue_v4/cohort.manifest.json",
+    "path": "data/processed/dnabert2_atlas/promoter_native_source_rescue_v4/cohort.jsonl",
+    "rows": 80
+  },
+  "model_outcomes_computed": false,
+  "native_edit_geometry": {
+    "dinucleotide_reorder": {
+      "GC_count_change": {
+        "0": 160
+      },
+      "affected_cover_length": {
+        "10": 19,
+        "11": 12,
+        "12": 14,
+        "13": 14,
+        "14": 24,
+        "15": 14,
+        "16": 16,
+        "17": 9,
+        "18": 9,
+        "19": 4,
+        "20": 2,
+        "22": 1,
+        "4": 1,
+        "5": 1,
+        "6": 2,
+        "7": 3,
+        "8": 5,
+        "9": 10
+      },
+      "changed_token_count": {
+        "1": 5,
+        "2": 49,
+        "3": 72,
+        "4": 31,
+        "5": 3
+      },
+      "edits_per_locus": 1,
+      "hamming_dose": {
+        "2": 12,
+        "3": 4,
+        "4": 40,
+        "5": 28,
+        "6": 40,
+        "7": 28,
+        "8": 8
+      },
+      "records": 160,
+      "token_count_delta": {
+        "-1": 4,
+        "0": 124,
+        "1": 32
+      }
+    },
+    "gc_depletion": {
+      "GC_count_change": {
+        "-3": 160
+      },
+      "affected_cover_length": {
+        "10": 12,
+        "11": 21,
+        "12": 16,
+        "13": 9,
+        "14": 20,
+        "15": 18,
+        "16": 14,
+        "17": 8,
+        "18": 9,
+        "19": 10,
+        "20": 4,
+        "22": 2,
+        "23": 3,
+        "5": 1,
+        "7": 3,
+        "8": 3,
+        "9": 7
+      },
+      "changed_token_count": {
+        "1": 3,
+        "2": 55,
+        "3": 73,
+        "4": 25,
+        "5": 4
+      },
+      "edits_per_locus": 1,
+      "hamming_dose": {
+        "3": 160
+      },
+      "records": 160,
+      "token_count_delta": {
+        "-1": 16,
+        "0": 132,
+        "1": 12
+      }
+    }
+  },
+  "phase": "PROMOTER_NATIVE_SOURCE_OUTCOME_BLIND_SUPPLY",
+  "schema_version": 1,
+  "selection": {
+    "attrition": {
+      "confirmation": {
+        "missing_dinucleotide_reorder": 18,
+        "missing_gc_depletion": 20
+      },
+      "development": {
+        "missing_dinucleotide_reorder": 54,
+        "missing_gc_depletion": 36
+      }
+    },
+    "fresh_offered": {
+      "confirmation": 79,
+      "development": 141
+    },
+    "geometry_qualified": {
+      "confirmation": 47,
+      "development": 70
+    },
+    "pairs_per_split": 40,
+    "selected_example_ids": {
+      "confirmation": [
+        "promoter-classifier:ab1847e339bb6c32",
+        "promoter-classifier:de698dba895ddac5",
+        "promoter-classifier:6ab190e40fa394eb",
+        "promoter-classifier:7e73e9044b66f639",
+        "promoter-classifier:c5b89085b4136472",
+        "promoter-classifier:22898e5847cc1b11",
+        "promoter-classifier:f99eced6a5ca7217",
+        "promoter-classifier:d19b4a5c22d89217",
+        "promoter-classifier:6dea57df2743bf7a",
+        "promoter-classifier:6a2097239536d67d",
+        "promoter-classifier:16192455f7fe864a",
+        "promoter-classifier:849a42fc6137acc1",
+        "promoter-classifier:026ba5337963f468",
+        "promoter-classifier:f28a822cfbf5a714",
+        "promoter-classifier:9f15c57961236722",
+        "promoter-classifier:16be4d267331f62b",
+        "promoter-classifier:3195ece1ed008eb6",
+        "promoter-classifier:7d75c536a64bd3be",
+        "promoter-classifier:a796b7015205cd77",
+        "promoter-classifier:8f51e36705092008",
+        "promoter-classifier:533c5d246324f95b",
+        "promoter-classifier:a4a1da00c4dc1236",
+        "promoter-classifier:a7ac280e3d7991eb",
+        "promoter-classifier:bc7d75b2d872064c",
+        "promoter-classifier:6e6c5d918af5597a",
+        "promoter-classifier:2f813577bddbe57c",
+        "promoter-classifier:02d1bd08c7031820",
+        "promoter-classifier:d8314d464bcdf55f",
+        "promoter-classifier:db17dbc23d1def92",
+        "promoter-classifier:95adea0d377a4ed9",
+        "promoter-classifier:f334826dc3209829",
+        "promoter-classifier:a036cbb56941d0e5",
+        "promoter-classifier:2e892e785eda879d",
+        "promoter-classifier:154dc655504519ed",
+        "promoter-classifier:243f77822a0874df",
+        "promoter-classifier:7ff19fb91dccc7f1",
+        "promoter-classifier:1d90d6ce03e2ac55",
+        "promoter-classifier:5b04a2414bd3b8e0",
+        "promoter-classifier:bdf15f85b6d9a53d",
+        "promoter-classifier:c84f7ae92a93b785"
+      ],
+      "development": [
+        "promoter-classifier:35d38a565b41cfdf",
+        "promoter-classifier:2779bf2edadc986c",
+        "promoter-classifier:3e67e5f80283410d",
+        "promoter-classifier:a770739266194606",
+        "promoter-classifier:48010c0477e78498",
+        "promoter-classifier:d0c264826abc33b9",
+        "promoter-classifier:b43e15537e83662e",
+        "promoter-classifier:7d0187ef716aba16",
+        "promoter-classifier:cc739ea8ec4290bd",
+        "promoter-classifier:fde9370f9e10652f",
+        "promoter-classifier:26e9ac1df1529be2",
+        "promoter-classifier:94dc35cff42a38b4",
+        "promoter-classifier:e6ed83fa78ce1c05",
+        "promoter-classifier:52d323d1c18e6d09",
+        "promoter-classifier:2a9c18bac49b4c4d",
+        "promoter-classifier:1ce0554efd296e1a",
+        "promoter-classifier:9ee8edea56baa32b",
+        "promoter-classifier:0ab2af6ba9ba128c",
+        "promoter-classifier:4b47992fa36968d1",
+        "promoter-classifier:e014ce2b1dd849e9",
+        "promoter-classifier:e005a7bbfcb85a96",
+        "promoter-classifier:d578f1b91fb7f664",
+        "promoter-classifier:c4c8676491210466",
+        "promoter-classifier:6794c68ea6fff8e5",
+        "promoter-classifier:286c4c82f3f16c97",
+        "promoter-classifier:b36a434c662dd42f",
+        "promoter-classifier:e61f1673bac7e3cf",
+        "promoter-classifier:59c5c937fe7531fe",
+        "promoter-classifier:4d062178996f8add",
+        "promoter-classifier:2b7bab45739efab5",
+        "promoter-classifier:8f62c34b9fdd620a",
+        "promoter-classifier:91963f413642d9ec",
+        "promoter-classifier:dc2f3007b1c1ac74",
+        "promoter-classifier:5b560d678da32dd9",
+        "promoter-classifier:f27766f98676c676",
+        "promoter-classifier:3e44dea762f12439",
+        "promoter-classifier:f1314eda23f7174f",
+        "promoter-classifier:a230631c359f3bbf",
+        "promoter-classifier:9ad6b1cefadcfd27",
+        "promoter-classifier:308d8a8835c16cca"
+      ]
+    },
+    "selected_id_sha256": {
+      "confirmation": "b3d1b4eb01c27f01827631d44093302a067e3d17e5fabb6e9c8c4beb85906581",
+      "development": "8484c6ffb42d10097175100ac441f7780c27435c950cdae5b10d483788123a92"
+    },
+    "tag": "promoter-native-source-rescue-v3"
+  },
+  "status": "QUALIFIED",
+  "study": "dnabert2_biological_reconstruction_atlas"
+}

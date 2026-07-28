@@ -1,0 +1,120 @@
+{
+  "schema_version": 4,
+  "status": "DRAFT",
+  "drafted_on": "2026-07-28",
+  "supersedes_for_execution": "promoter_native_source_rescue_v3.draft.json",
+  "amendment_reason": "V4 reserves disjoint 64-pair and 128-pair GUE candidate pools because local BPE qualification can attrit pairs before selecting the frozen 16-pair calibration and 32-pair preflight sets. Native edits, target cohort, measurements, and scientific gates are unchanged.",
+  "scope": {
+    "behavior": "target-specific supervised promoter-margin loss caused by native nucleotide edits in the D8-nominated +11:+21 interval",
+    "qualification_gate": "replicated native-sequence necessity before any residual-source or mediator outcome is opened",
+    "candidate_source_region_relative_TSS": [
+      11,
+      21
+    ],
+    "candidate_source_region_sequence_indices": [
+      260,
+      270
+    ],
+    "licensed_if_native_gate_passes": "the nucleotide sequence or GC content of the geometry-qualified +11:+21 interval contributes to the classifier's promoter margin on the declared cohort",
+    "explicitly_excluded": [
+      "endogenous promoter function in cells",
+      "a universal downstream promoter motif",
+      "DCE-II, MTE, DPE, or DPR identity without an independently qualified feature test",
+      "mediation by L11H2/L11H5 unless clean-state rescue beats the matched layer-11 pair family",
+      "a complete or minimal circuit"
+    ]
+  },
+  "checkpoint": {
+    "candidate": "prom_300_all",
+    "hf_id": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
+    "revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+    "device": "mps",
+    "layers": 12,
+    "heads_per_layer": 12,
+    "late_pair": [
+      "L11H2",
+      "L11H5"
+    ]
+  },
+  "cohort": {
+    "expanded_source": "data/processed/dnabert2_atlas/promoter_native_source_cohort_v2/cohort.jsonl",
+    "qualified_source": "data/processed/dnabert2_atlas/promoter_native_source_rescue_v3/cohort.jsonl",
+    "supply_audit": "results/dnabert2_reconstruction_atlas/promoter_native_source_supply_audit_v3.json",
+    "pairs_per_split": 40,
+    "selection_tag": "promoter-native-source-rescue-v3",
+    "requires_fresh_example_ids_and_1Mb_blocks_from_all_D4_D7_D8_runs": true
+  },
+  "native_interventions": {
+    "dinucleotide_reorder": "length-preserving nonidentity reorder of +11:+21 with exact mononucleotide and linear-dinucleotide counts",
+    "gc_depletion": "three G/C bases changed by G-to-A or C-to-T transitions, preserving purine/pyrimidine class",
+    "gc_depletion_dose": 3,
+    "target_control_equal_hamming_dose": true,
+    "retokenization_policy": "strictly local and target-control geometry matched",
+    "maximum_affected_cover_nt": 24,
+    "maximum_region_overhang_each_side_nt": 8,
+    "target_control_token_count_delta_must_match": true,
+    "maximum_target_control_affected_token_count_difference": 1,
+    "maximum_target_control_affected_cover_difference_nt": 2,
+    "unchanged_prefix_and_suffix_token_ID_offset_entries": true,
+    "selection_uses_no_classifier_outcome": true
+  },
+  "measurement": {
+    "margin": "promoter logit minus non-promoter logit",
+    "target_loss": "clean target margin minus native-edited target margin",
+    "control_loss": "clean pseudo-TSS margin minus native-edited pseudo-TSS margin",
+    "target_specific_loss": "target loss minus control loss",
+    "primary_operations": [
+      "dinucleotide_reorder",
+      "gc_depletion"
+    ],
+    "AUROC_accuracy_and_label_flips": "secondary descriptive endpoints only"
+  },
+  "native_primary_gates": {
+    "SESOI_logit_margin": "TO_FREEZE_AFTER_GUE_CALIBRATION",
+    "requires_95pct_locus_bootstrap_lower_bound_above_zero": true,
+    "one_sided_cluster_sign_permutation_draws": 9999,
+    "Holm_family": "two native intervention families",
+    "familywise_alpha": 0.05,
+    "confirmation_requires_development_sign_threshold_and_unchanged_operation": true,
+    "tracing_opens_if": "at least one native operation passes in development and unchanged confirmation"
+  },
+  "calibration_and_preflight": {
+    "calibration_GUE_candidate_offset": 160,
+    "calibration_GUE_candidate_pairs": 64,
+    "calibration_GUE_qualified_pairs": 16,
+    "preflight_GUE_candidate_offset": 224,
+    "preflight_GUE_candidate_pairs": 128,
+    "preflight_GUE_qualified_pairs": 32,
+    "requires_disjointness_from_all_prior_GUE_offsets_0_through_159": true,
+    "maximum_identity_absolute_margin_difference": 5e-06,
+    "minimum_native_mean_absolute_target_specific_effect": "TO_FREEZE_AFTER_GUE_CALIBRATION",
+    "maximum_projected_native_MDE": "TO_FREEZE_AFTER_GUE_CALIBRATION",
+    "maximum_batch_invariance_absolute_margin_difference": 1e-05,
+    "minimum_geometry_qualified_pairs": 16,
+    "requires_finite_outputs": true
+  },
+  "source_tracing": {
+    "sealed_until_replicated_native_gate": true,
+    "candidate_generation": "patch clean post-layer residual states into native-edited runs across layer by TSS-relative position",
+    "position_family": "all 30 nonoverlapping 10-nt nominal tiles",
+    "layer_family": "embedding output and all 12 post-layer residual states",
+    "primary_endpoint": "target-specific promoter-margin recovery",
+    "matched_nulls": "same-layer equal-token-dose patches at the other 29 tiles",
+    "multiplicity": "maximum sign-flip correction across the complete layer-by-tile family",
+    "SESOI_logit_margin": "TO_FREEZE_AFTER_RESIDUAL_PATCH_CALIBRATION"
+  },
+  "mediation": {
+    "sealed_until_source_node_qualifies": true,
+    "direct_rescue": "restore clean L11H2/L11H5 CLS head contexts into native-edited runs",
+    "path_block": "after clean source-residual rescue, clamp the tested layer-11 CLS head pair back to its native-edited context",
+    "candidate_pair_nulls": "all 45 candidate-excluding two-head pairs in layer 11",
+    "MLP_alternative": "if the late-pair path is null, test separately frozen equal-node CLS MLP-write rescue rather than relabeling the null"
+  },
+  "inference": {
+    "bootstrap_draws": 5000,
+    "sign_flip_draws": 9999,
+    "seed": 20260728,
+    "unit": "unique 1Mb locus block",
+    "add_one_pvalues": true
+  }
+}

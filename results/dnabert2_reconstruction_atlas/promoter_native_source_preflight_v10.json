@@ -1,0 +1,87 @@
+{
+  "GUE_candidate_offset": 800,
+  "GUE_candidate_pairs": 128,
+  "assay": "promoter_native_source_preflight_v10",
+  "boundary": "This fresh GUE preflight qualifies edit sensitivity, projected precision, numerical invariance, and geometry only. It reads no GENCODE target or sealed confirmation outcome.",
+  "checkpoint_revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+  "checks": {
+    "batch_invariance": true,
+    "exact_geometry_qualified_pairs": true,
+    "finite_outputs": true,
+    "fresh_disjoint_GUE_slice": true,
+    "identity_replay": true,
+    "native_precision": true,
+    "native_sensitivity": true,
+    "single_edit_design": true
+  },
+  "config_sha256": "e4abd3b9c7471589592f927d3832e5c702f141154f81cb0a2063ed0d84314535",
+  "input_sha256": {
+    "calibration": "4d17084b55a9d95a6959b57d646483556df6fc19e9e9f640f8c84fbf79949150",
+    "checkpoint_audit": "96f73e55234fa53d667128e4ada41e7fed03d756dd239cfd2866d9f58f868f81",
+    "config": "1c24bd8956373536be440e2d6694f4b774fc97ed3cc575780e6617e7d872eec7",
+    "gue_test": "c77b312eb3f2c149ee5e54f0c781b585c4e65b742f0e7d9324818f2b56e71e67",
+    "negative_calibration": "a66f9a72a6f2cdd992679951152e491d31cd6a1d775837d10ae74547ca5d06e6",
+    "supply_audit": "1356454e082be7659d69fa2176b921e162e0c7009a8289795d0e83b53d78fe26"
+  },
+  "measurements": {
+    "batch_invariance_max_absolute_margin_difference": 0.0,
+    "identity_replay_max_absolute_margin_difference": 0.0,
+    "operations": {
+      "dinucleotide_reorder": {
+        "edit_replicates_per_locus": 1,
+        "maximum": 1.7793097496032715,
+        "mean": 0.07410576194524765,
+        "mean_absolute": 0.26537443697452545,
+        "minimum": -0.8949966430664062,
+        "n": 32,
+        "projected_80pct_MDE_at_target_n": 0.15639545858216916,
+        "stdev": 0.4326550046508664
+      }
+    }
+  },
+  "n_geometry_qualified_pairs": 32,
+  "pair_ids": [
+    "GUE-head-pair-0800",
+    "GUE-head-pair-0801",
+    "GUE-head-pair-0802",
+    "GUE-head-pair-0803",
+    "GUE-head-pair-0804",
+    "GUE-head-pair-0805",
+    "GUE-head-pair-0807",
+    "GUE-head-pair-0808",
+    "GUE-head-pair-0809",
+    "GUE-head-pair-0810",
+    "GUE-head-pair-0813",
+    "GUE-head-pair-0816",
+    "GUE-head-pair-0817",
+    "GUE-head-pair-0819",
+    "GUE-head-pair-0820",
+    "GUE-head-pair-0821",
+    "GUE-head-pair-0822",
+    "GUE-head-pair-0823",
+    "GUE-head-pair-0825",
+    "GUE-head-pair-0826",
+    "GUE-head-pair-0827",
+    "GUE-head-pair-0829",
+    "GUE-head-pair-0832",
+    "GUE-head-pair-0833",
+    "GUE-head-pair-0834",
+    "GUE-head-pair-0835",
+    "GUE-head-pair-0836",
+    "GUE-head-pair-0837",
+    "GUE-head-pair-0838",
+    "GUE-head-pair-0839",
+    "GUE-head-pair-0841",
+    "GUE-head-pair-0842"
+  ],
+  "qualified": true,
+  "raw": {
+    "manifest": "data/processed/dnabert2_atlas/promoter_native_source_rescue_v10/preflight.raw.manifest.json",
+    "path": "data/processed/dnabert2_atlas/promoter_native_source_rescue_v10/preflight.raw.jsonl",
+    "rows": 32
+  },
+  "schema_version": 1,
+  "status": "QUALIFIED",
+  "study": "dnabert2_biological_reconstruction_atlas",
+  "target_cohort_outcomes_computed": false
+}

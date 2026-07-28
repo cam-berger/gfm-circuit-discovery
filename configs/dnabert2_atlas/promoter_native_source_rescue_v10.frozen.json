@@ -1,0 +1,113 @@
+{
+  "schema_version": 10,
+  "status": "FROZEN",
+  "frozen_on": "2026-07-28",
+  "freeze_rationale": "Outcome-blind supply supports 60 exact-dinucleotide-reorder loci per split. V10 retains the original 0.300-logit projected-MDE ceiling and requires a third disjoint GUE preflight. V7 and V8 failures remain immutable; no target margin informed this design.",
+  "scope": {
+    "behavior": "target-specific supervised promoter-margin loss caused by exact-composition native nucleotide reordering in the D8-nominated +11:+21 interval",
+    "candidate_source_region_relative_TSS": [
+      11,
+      21
+    ],
+    "candidate_source_region_sequence_indices": [
+      260,
+      270
+    ],
+    "licensed_if_native_gate_passes": "nucleotide order within the geometry-qualified +11:+21 interval contributes to this classifier's promoter margin on the declared cohort",
+    "explicitly_excluded": [
+      "GC-content necessity, whose V7 instrument failed precision",
+      "endogenous promoter function in cells",
+      "a named downstream promoter motif",
+      "mediation by L11H2/L11H5 before a separate rescue assay qualifies"
+    ]
+  },
+  "checkpoint": {
+    "candidate": "prom_300_all",
+    "hf_id": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
+    "revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+    "device": "mps",
+    "layers": 12,
+    "heads_per_layer": 12,
+    "late_pair": [
+      "L11H2",
+      "L11H5"
+    ]
+  },
+  "cohort": {
+    "qualified_source": "data/processed/dnabert2_atlas/promoter_native_source_rescue_v9/cohort.jsonl",
+    "supply_audit": "results/dnabert2_reconstruction_atlas/promoter_native_source_supply_audit_v9.json",
+    "pairs_per_split": 60,
+    "selected_id_sha256": {
+      "development": "e744621d46a324f3d609d35dd93f6c4882017f198e1bcf0d7cccc06cae797187",
+      "confirmation": "228fd7df6c8c33502f713e07d6b06875a3f412d8171e15b0dbd30766a22efba7"
+    },
+    "requires_fresh_example_ids_and_1Mb_blocks_from_all_D4_D7_D8_runs": true
+  },
+  "native_interventions": {
+    "dinucleotide_reorder": "length-preserving nonidentity reorder of +11:+21 with exact mononucleotide and linear-dinucleotide counts",
+    "gc_depletion": "excluded after the V7 preflight precision failure",
+    "gc_depletion_dose": 3,
+    "edit_replicates_per_locus_and_family": 1,
+    "target_control_equal_hamming_dose": true,
+    "retokenization_policy": "strictly local and target-control geometry matched",
+    "maximum_affected_cover_nt": 24,
+    "maximum_region_overhang_each_side_nt": 8,
+    "target_control_token_count_delta_must_match": true,
+    "maximum_target_control_affected_token_count_difference": 1,
+    "maximum_target_control_affected_cover_difference_nt": 2,
+    "unchanged_prefix_and_suffix_token_ID_offset_entries": true,
+    "selection_uses_no_classifier_outcome": true
+  },
+  "measurement": {
+    "margin": "promoter logit minus non-promoter logit",
+    "target_loss": "clean target margin minus native-edited target margin",
+    "control_loss": "clean pseudo-TSS margin minus native-edited pseudo-TSS margin",
+    "target_specific_loss": "target loss minus control loss",
+    "primary_operations": [
+      "dinucleotide_reorder"
+    ],
+    "AUROC_accuracy_and_label_flips": "secondary descriptive endpoints only"
+  },
+  "native_primary_gates": {
+    "SESOI_logit_margin": 0.1,
+    "requires_95pct_locus_bootstrap_lower_bound_above_zero": true,
+    "one_sided_cluster_sign_permutation_draws": 9999,
+    "Holm_family": "the one preflight-qualified native intervention family",
+    "familywise_alpha": 0.05,
+    "clean_target_control_margin_SESOI": 0.5,
+    "confirmation_requires_development_qualification_and_unchanged_operation": true,
+    "tracing_opens_if": "dinucleotide reordering passes in development and unchanged confirmation"
+  },
+  "calibration_and_preflight": {
+    "calibration_source": "results/dnabert2_reconstruction_atlas/promoter_native_source_calibration_v1.json",
+    "failed_two_operation_preflight": "results/dnabert2_reconstruction_atlas/promoter_native_source_preflight_v7.json",
+    "failed_40_locus_preflight": "results/dnabert2_reconstruction_atlas/promoter_native_source_preflight_v8.json",
+    "preflight_GUE_candidate_offset": 800,
+    "preflight_GUE_candidate_pairs": 128,
+    "preflight_GUE_qualified_pairs": 32,
+    "requires_disjointness_from_all_prior_GUE_offsets_0_through_799": true,
+    "maximum_identity_absolute_margin_difference": 0.000005,
+    "minimum_native_mean_absolute_target_specific_effect": 0.15,
+    "maximum_projected_native_MDE_at_target_n": 0.3,
+    "maximum_batch_invariance_absolute_margin_difference": 0.00001,
+    "requires_finite_outputs": true
+  },
+  "source_tracing": {
+    "sealed_until_replicated_native_gate": true,
+    "candidate_generation": "patch clean post-layer residual states into native-edited runs across layer by TSS-relative position",
+    "matched_nulls": "same-layer equal-token-dose patches at the other 29 tiles",
+    "multiplicity": "maximum sign-flip correction across the complete layer-by-tile family",
+    "SESOI_logit_margin": "TO_FREEZE_AFTER_REPLICATED_NATIVE_GATE_AND_PATCH_CALIBRATION"
+  },
+  "mediation": {
+    "sealed_until_source_node_qualifies": true,
+    "candidate_pair_nulls": "all 45 candidate-excluding two-head pairs in layer 11"
+  },
+  "inference": {
+    "bootstrap_draws": 5000,
+    "sign_flip_draws": 9999,
+    "seed": 20260728,
+    "unit": "unique 1Mb locus block",
+    "add_one_pvalues": true
+  }
+}

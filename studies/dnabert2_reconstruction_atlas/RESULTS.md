@@ -15,6 +15,7 @@
 | Promoter address/payload decomposition v1 | Does the late pair depend on content-key addressing or correct value-payload association? | V-payload alignment dependence replicated against all 45 pair nulls; K-address effect stayed below the practical threshold | `../../results/dnabert2_reconstruction_atlas/promoter_address_payload_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_address_payload_replication_v1.manifest.json` | D7 |
 | Promoter source localization v1 | Where is classifier-relevant promoter information, and does the replicated late-pair V payload localize to the same region? | nominal +11 to +21 mask effect replicated; regional V, independent biological annotations, and predefined motifs did not replicate/qualify | `../../results/dnabert2_reconstruction_atlas/promoter_source_localization_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_source_localization_replication_v1.manifest.json` | D8 |
 | Promoter source classification performance v1 | Does the nominated mask alter hard-label performance and ranking? | post-hoc AUROC loss repeats in both splits; 7/231 target promoter→non-promoter flips; balanced accuracy unchanged by offsetting control corrections | `../../results/dnabert2_reconstruction_atlas/promoter_source_classification_performance_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_source_classification_performance_v1.manifest.json` | D8 |
+| Promoter native-source development v10 | Is the +11:+21 mask nomination reproduced by a native exact-composition sequence reorder? | development positive gate failed; confirmation, residual tracing, and mediation sealed | `../../results/dnabert2_reconstruction_atlas/promoter_native_source_development_v10.json` | `../../results/dnabert2_reconstruction_atlas/promoter_native_source_development_v10.manifest.json` | D9 |
 
 ### Promoter source localization v1
 
@@ -64,6 +65,34 @@ control-side corrections and three reverse target flips/two reverse control flip
 falls by 0.026 (bootstrap 95% CI −0.043 to −0.011). Thus the mask reliably weakens ranking and
 changes a small subset of hard labels, but it does not reduce net balanced accuracy on this
 challenge cohort. These values do not estimate performance on GUE.
+
+### Promoter native-source qualification v10
+
+The native intervention reorders +11:+21 while preserving exact mononucleotide and linear
+dinucleotide counts. It changes no nucleotide outside that interval and uses equal target/control
+Hamming dose with locally matched BPE retokenization geometry. The final outcome-blind supply
+contains 60 fresh unique 1-Mb locus blocks per split, with 37/36 CAGE-supported TSSs, 46/47
+promoter-like cCREs, and 27/25 CpG-island overlaps in development/confirmation.
+
+The two-operation v7 preflight rejected GC depletion for excess variance. A fresh 40-locus
+dinucleotide-only v8 preflight also missed the unchanged precision ceiling. After increasing the
+outcome-blind cohort to 60 loci, the third disjoint preflight passed all checks with projected MDE
+0.156 logits and zero identity/batch drift.
+
+| Development endpoint | Estimate | Frozen verdict |
+|---|---:|---|
+| Native-reorder target-specific margin loss | −0.016 (95% CI −0.176 to +0.138; `p=0.5834`) | fails +0.10 SESOI, interval, and sign gate |
+| Clean target−control promoter margin | +2.321 (+1.392 to +3.266; `p=0.0001`) | classifier behavior healthy |
+| Accuracy, clean → edited | 0.650 → 0.650 | unchanged |
+| AUROC, clean → edited | 0.7075 → 0.7133 | descriptive change +0.0058 |
+| Real promoter→non-promoter flips | 1/60 | descriptive |
+
+CAGE-, PLS-, and CpG-overlap subgroup means are all nonpositive and descriptive; the one
+DCE-II-like instance lies outside development. D9 does not support native sequence-order
+necessity for this edit and cohort. Because the interval includes the +0.10 SESOI, it is not an
+equivalence null. It does not test every possible substitution or establish that the region is
+biologically inert, or qualify GC-content necessity. Confirmation and all internal tracing remain
+sealed.
 
 ### Promoter address/payload decomposition v1
 

@@ -165,6 +165,21 @@ It does not automatically license any individual head, source motif, QK/OV inter
 directed path, sparse circuit, or biological mechanism. Individual head estimates remain
 candidate-level until they receive their own matched-null and path evidence.
 
+### Promoter native-source amendment
+
+The D8 mask tile is a candidate generator, not native-sequence evidence. Qualification edits only
++11:+21 and preserves exact mononucleotide and linear-dinucleotide counts. Each target and
+pseudo-TSS receives equal Hamming dose. Retokenization may change only a bounded local segment;
+token-count delta, affected-token count, and affected-cover length must satisfy the frozen paired
+calipers.
+
+The primary endpoint is target clean-minus-edited margin loss minus the paired pseudo-TSS loss.
+Development requires mean effect at least +0.10 logits, a positive 95% locus-block-bootstrap lower
+bound, and one-sided add-one cluster-sign inference at familywise `p≤0.05`. Accuracy, AUROC, label
+flips, and CAGE/PLS/CpG/DCE-II strata are secondary. Confirmation opens only for an unchanged
+development-qualified operation. Residual tracing and mediation remain sealed until native
+necessity replicates.
+
 ## Phase D — informative source regions
 
 For behavior-qualified targets, exchange or perturb:
@@ -223,5 +238,7 @@ never populate the “Causal support” column.
 - Context specificity without controlled causal intervention: report candidate components only.
 - A clean-promoter head-atlas result cannot be used as evidence for the failed promoter
   target-preserving context endpoint.
+- A post-tokenization mask effect cannot authorize residual tracing when geometry-qualified
+  native-base qualification fails.
 - An anomalous control at any stage: freeze interpretation and diagnose the instrument.
 - A failed hypothesis remains in `CLAIMS.md` and `DECISIONS.md`; its artifact is never rewritten.
