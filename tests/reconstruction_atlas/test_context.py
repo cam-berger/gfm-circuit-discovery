@@ -2,7 +2,9 @@ from __future__ import annotations
 
 from gfmcd.reconstruction_atlas.context import (
     ContextIntervention,
+    ContextWindowSpec,
     apply_context_exchange,
+    build_target_preserving_context_variants,
 )
 from gfmcd.reconstruction_atlas.schema import Interval
 
@@ -59,3 +61,39 @@ def test_context_exchange_cannot_overlap_target() -> None:
         assert "cannot alter" in str(exc)
     else:
         raise AssertionError("target-overlapping context exchange was accepted")
+
+
+def test_context_shuffle_preserves_cover_composition_geometry_and_dose() -> None:
+    sequence = "ACGT" * 80
+    target = Interval(156, 164)
+    variants = build_target_preserving_context_variants(
+        sequence,
+        target,
+        ContextWindowSpec(upstream_nt=20, downstream_nt=12, irrelevant_gap_nt=32),
+        encoder=fixed_encoder,
+        seed=7,
+        candidate_shuffles=128,
+    )
+    assert variants is not None
+    assert variants.reference == sequence
+    assert (
+        variants.reference[
+            variants.mask_plan.covered.start : variants.mask_plan.covered.end
+        ]
+        == variants.structured_shuffle[
+            variants.mask_plan.covered.start : variants.mask_plan.covered.end
+        ]
+    )
+    assert variants.structured_changed_nucleotides == (
+        variants.irrelevant_changed_nucleotides
+    )
+    assert variants.structured_changed_nucleotides > 0
+    assert sorted(
+        "".join(sequence[span.start : span.end] for span in variants.structured_spans)
+    ) == sorted(
+        "".join(
+            variants.structured_shuffle[span.start : span.end]
+            for span in variants.structured_spans
+        )
+    )
+    assert variants.alternatives

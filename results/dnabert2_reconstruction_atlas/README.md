@@ -2,9 +2,9 @@
 
 > **Tier: T1 — canonical.**
 
-The bounded GENCODE-v1 and multisource-v4 development results and their qualified preflights are
-indexed in `studies/dnabert2_reconstruction_atlas/RESULTS.md`. Multisource v4 covers 13 classes
-from GENCODE, EPDnew, PolyASite, ENCODE/UCSC, and Mercer lariat-seq annotations. No class
-behavior-qualified, so no sealed confirmation, context, or causal result exists. Bulk collections,
-candidate pools, per-site score shards, and hook activations are reproducible runtime data and
-remain ignored.
+The bounded GENCODE-v1, multisource-v4, and context-margin-v1 results and their preflights are
+indexed in `studies/dnabert2_reconstruction_atlas/RESULTS.md`. Context-margin v1 confirms
+target-preserving proximal-context effects for nine classes under a strict DNABERT-2
+geometry-qualified alternative margin. These are model-behavior context results, not cellular
+function or internal causal mechanisms. Bulk collections, variants, per-site scores, candidate
+pools, and hook activations are reproducible runtime data and remain ignored.

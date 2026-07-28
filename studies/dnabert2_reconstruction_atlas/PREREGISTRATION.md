@@ -27,6 +27,13 @@ The controlling multisource lock is
 It changes only the local candidate bound to 512 and requires a new v4 qualified preflight bound
 to the exact v4 inputs.
 
+The later context-margin amendment is controlled by
+[`../../configs/dnabert2_atlas/context_margin_v1.frozen.json`](../../configs/dnabert2_atlas/context_margin_v1.frozen.json),
+frozen from control-only calibration before any structured-versus-irrelevant target effect.
+Its qualified preflight is
+[`../../results/dnabert2_reconstruction_atlas/context_margin_v1_preflight_qualified_rerun.json`](../../results/dnabert2_reconstruction_atlas/context_margin_v1_preflight_qualified_rerun.json).
+Splice acceptor and donor were frozen as instrument-unresolved before target scoring.
+
 ## Question
 
 Which declared biological site classes have positive reconstruction advantage over all required
@@ -100,6 +107,15 @@ Candidate region exchange must preserve target sequence, complete sequence lengt
 indices, target offset map, and token cover. Each biological region is tested against separately
 matched irrelevant regions of equal nucleotide length. The full scanned region × site-class family
 is corrected together.
+
+Context-margin v1 instantiates this with a fixed per-class proximal span and a distal span on the
+same side or sides. Both are mononucleotide-composition preserving and exactly matched for changed
+base count. The metric is the true score minus log-sum-exp over the common fair Hamming-one
+alternative family, divided by covered nucleotides. The primary contrast is distal-corruption
+margin minus proximal-corruption margin. The frozen SESOI is +0.01; each split also requires a
+positive cluster-bootstrap lower bound and Holm-adjusted add-one `p≤0.05`. Because the distal null
+is not distance-matched, the licensed claim is proximal-context dependence, not a resolved
+biological motif or cellular mechanism.
 
 ## Internal and causal stages
 

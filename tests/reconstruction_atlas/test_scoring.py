@@ -41,6 +41,44 @@ def test_true_token_score_is_normalized_by_complete_bpe_cover() -> None:
         expected_margin,
         abs_tol=1e-7,
     )
+    assert score.eligible_alternative_count == 1
+    assert math.isclose(
+        score.alternative_logsumexp_margin_per_covered_nt,
+        expected_margin,
+        abs_tol=1e-7,
+    )
+
+
+def test_logsumexp_margin_aggregates_the_fixed_alternative_family() -> None:
+    plan = MaskPlan(
+        site=Interval(0, 2),
+        token_indices=(1,),
+        true_token_ids=(3,),
+        token_offsets=((0, 2),),
+        covered=Interval(0, 2),
+        sequence_length=4,
+    )
+    logits = torch.zeros((3, 7))
+    logits[1, 3] = 3.0
+    logits[1, 1] = 1.0
+    logits[1, 2] = 2.0
+    score = score_from_logits(
+        "x",
+        plan,
+        logits,
+        alternative_token_ids={"a": (1,), "b": (2,)},
+    )
+    selected = torch.log_softmax(logits[1], dim=-1)
+    expected = float(
+        (selected[3] - torch.logsumexp(torch.stack((selected[1], selected[2])), dim=0))
+        / 2
+    )
+    assert score.eligible_alternative_count == 2
+    assert math.isclose(
+        score.alternative_logsumexp_margin_per_covered_nt,
+        expected,
+        abs_tol=1e-7,
+    )
 
 
 def test_score_rejects_wrong_alternative_token_count() -> None:

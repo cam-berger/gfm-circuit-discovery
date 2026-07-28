@@ -77,6 +77,35 @@ A site class is behavior-qualified only if:
 Failure of a positive, sensitivity, geometry, or negative-control gate produces
 `INSTRUMENT_UNRESOLVED`, not a null.
 
+### Context-margin-v1 amendment
+
+The multisource-v4 annotation-excess result remains valid for its question, but it is not the
+entry gate for context-margin v1. The amended model-native behavior is the true target score minus
+the log-sum-exp of all fair Hamming-one alternative scores, normalized by the complete BPE cover.
+An alternative is fair only when the full tokenizer offset map and every unmasked input token are
+identical. Reference and both intervention variants must share the same nonempty alternative
+intersection.
+
+Each site class has one frozen proximal context shape. A seeded joint mononucleotide shuffle
+corrupts that context without touching the target or any nucleotide in its scored cover. The null
+shuffles equal-width spans 128 nt farther from the cover on the same side or sides. The pair must
+preserve composition and change exactly the same number of nucleotide positions. The primary
+effect is
+
+\[
+C_M=M(\text{distal equal-dose corruption})-
+M(\text{class-specific proximal corruption}).
+\]
+
+The secondary true-score contrast is diagnostic only. Development and confirmation each require
+at least 64 locus blocks, mean \(C_M\ge0.01\) nats/covered-nt, a positive 95% cluster-bootstrap
+lower bound, and a Holm-adjusted one-sided add-one cluster sign-permutation value ≤0.05.
+
+The distal null does not match distance to the target. Therefore a qualified result licenses
+proximal-context dependence under the frozen class shape; it does not isolate a particular motif,
+prove cellular function, or separate biological context from generic distance-sensitive model
+encoding. Broad TF/cCRE anchors retain their explicit precision boundary.
+
 ## Phase D — informative source regions
 
 For behavior-qualified targets, exchange or perturb:
@@ -128,9 +157,10 @@ never populate the “Causal support” column.
 ## Stopping rules
 
 - No preflight pass: stop before target outcomes.
-- Raw reconstruction without excess over same-motif controls: do not localize internals.
-- Excess reconstruction without token-invariant context specificity: do not name a biological
-  source region.
+- Raw reconstruction without either the historical empirical-excess gate or a separately frozen,
+  replicated model-native behavior gate: do not localize internals.
+- A context-margin result against a distal null may name proximal-context dependence but not a
+  resolved biological source element.
 - Context specificity without controlled causal intervention: report candidate components only.
 - An anomalous control at any stage: freeze interpretation and diagnose the instrument.
 - A failed hypothesis remains in `CLAIMS.md` and `DECISIONS.md`; its artifact is never rewritten.

@@ -30,18 +30,20 @@ ablation, patching, rescue, mediation, and path interventions decide causal supp
 | P5 internal candidate atlas | stopped at the P3 gate | No component claim. |
 | P6 causal tests | stopped at the P3 gate | No causal claim. |
 
-The behavior-qualified atlas table remains empty after the requested multisource census.
-Multisource v4 tested EPDnew promoters, PolyASite poly(A) elements, ENCODE TF-binding and distal
-enhancer annotations, Mercer lariat-seq branch points, GENCODE-derived polypyrimidine tracts, and
-the original splice and translation classes. All 13 classes beat order-0/1/2 sequence baselines,
-but none beat all three empirical controls at the frozen effect and familywise-error gates. The
-five adequately powered classes were poly(A) cleavage regions, splice acceptors, branch points,
-splice donors, and stop codons. Estimates for the other eight classes are retained but
-underpowered. Confirmation, context localization, and component work therefore remain sealed.
-The definitions, source filters, shared locus split, and thresholds were frozen before model
-outcomes; superseded outcome-blind supply audits remain preserved.
+Multisource v4 found no annotation-specific excess reconstruction over all empirical controls.
+The later context-margin-v1 amendment asks a different, model-native question: whether a
+preregistered proximal context supports the true target over fair Hamming-one alternatives more
+than an equal-width, equal-composition, equal-change-count distal corruption. Nine classes
+replicate on untouched confirmation blocks: start codon, enhancer anchor, poly(A) cleavage and
+signal, branch point, polypyrimidine tract, and CEBPB/CTCF/REST peak anchors. Promoter does not
+replicate, stop codon fails development, and splice acceptor/donor are preflight-unresolved.
 
-## Primary estimand
+These are DNABERT-2 context-behavior rows. They do not establish biological function in cells,
+resolved motifs for the broad regulatory anchors, or internal causal mechanisms. The distal null
+does not match target distance, so proximity-sensitive encoding remains inside the licensed
+effect. All prior negative and failed artifacts remain preserved.
+
+## Historical reconstruction estimand
 
 For annotated interval \(S=[a,b)\), tokenize the complete sequence once and select the minimal
 consecutive non-special BPE tokens whose nucleotide offsets overlap \(S\). Replace those token IDs
@@ -65,6 +67,23 @@ control family separately:
 - held-out order-0/1/2 nucleotide baselines.
 
 Control families are not pooled.
+
+## Context-margin-v1 estimand
+
+For each target, retain every Hamming-one nucleotide alternative whose edited sequence has the
+identical full BPE offset map and identical unmasked token IDs. The raw alternative margin is
+
+\[
+M(S)=\frac{s_\mathrm{true}-\operatorname{logsumexp}_{a\in A(S)}s_a}
+{|\mathrm{nt\_cover}(S)|}.
+\]
+
+The same nonempty alternative intersection scores reference, proximal-context-shuffled, and
+distal-context-shuffled variants. Both shuffles leave the target and full scored cover unchanged,
+preserve mononucleotide composition, and change exactly the same number of positions. The primary
+effect is \(M_\mathrm{distal}-M_\mathrm{proximal}\). A class must exceed +0.01, have a positive
+95% cluster-bootstrap lower bound, and pass add-one cluster sign inference with Holm correction
+in development and confirmation.
 
 ## Repository map
 

@@ -28,6 +28,27 @@ estimates only because control-complete supply is below that floor. This license
 for any class and no claim about the sealed confirmation split. It stops context and internal
 localization under multisource v4.
 
+**D3 — replicated DNABERT-2 context-margin behavior.** Under the frozen context-margin-v1
+amendment, nine classes replicate a positive target-preserving proximal-context effect on the
+geometry-qualified alternative margin: start codon, distal-enhancer anchor, poly(A) cleavage
+region, branch point, REST/CEBPB/CTCF peak anchors, poly(A) signal, and polypyrimidine tract.
+Development/confirmation effects are respectively +0.0468/+0.0479, +0.0395/+0.0384,
++0.0298/+0.0348, +0.0412/+0.0304, +0.0136/+0.0213, +0.0215/+0.0183,
++0.0141/+0.0159, +0.0127/+0.0127, and +0.0109/+0.0125 nats per covered nucleotide.
+Every confirmation result exceeds the frozen +0.01 SESOI, has a positive cluster-bootstrap lower
+bound, and passes Holm correction over the opened family.
+
+This licenses a replicated **model-behavior context effect**: the preregistered proximal context
+supports the true target over its fixed eligible Hamming-one alternatives more than an
+equal-width, equal-composition, equal-change-count distal corruption. It does not establish
+biological function, a resolved motif, mediation, or a causal model component. The null is distal,
+so proximity-sensitive encoding remains part of the licensed effect.
+
+Promoter qualified in development (+0.0247) but did not replicate (+0.00066, 95% CI
+−0.0117 to +0.0126, Holm `p=0.4548`). Stop codon failed development (+0.00330).
+Splice acceptor and donor were quarantined before target scoring because the margin positive
+control was unresolved; none of these four outcomes is silently pooled with the replicated set.
+
 ## Established infrastructure facts
 
 These are implementation properties and prior instrument constraints, not claims about biological
@@ -50,6 +71,8 @@ reconstruction.
 | IF13 | V3 five-nt anchors make all 13 classes preflight-eligible, but eight classes remain below the frozen 250-locus behavior floor under 128 local candidates. | `results/dnabert2_reconstruction_atlas/collection_qualification_v3.json` | Outcome-blind supply fact only; V4 expands candidate search without relaxing controls or the behavior minimum. |
 | IF14 | V4’s 512-position search retains the same 6,448 complete matched targets as v3. All 13 classes meet the preflight floor; five meet the frozen behavior floor and eight are known underpowered before model scoring. | `results/dnabert2_reconstruction_atlas/collection_qualification_v4.json` | Final outcome-blind supply boundary; underpowered does not mean biological null. |
 | IF15 | Frozen multisource-v4 preflight is `QUALIFIED` for all 13 classes against the exact bound data, controls, config, checkpoint, and model-health checks. | `results/dnabert2_reconstruction_atlas/preflight_qualified_multisource_v4.json` | Authorizes development scoring only; not a biological reconstruction result. |
+| IF16 | Context-margin supply retains 4,799 target-preserving structured/irrelevant variant pairs across all 13 classes with zero target-cover, geometry, dose, or split violations; every class supplies at least 82 loci on each target split. | `results/dnabert2_reconstruction_atlas/context_margin_v1_supply_audit.json` | Outcome-blind supply only; attrition is substantial and retained rather than repaired. |
+| IF17 | The corrected frozen context-margin preflight is `QUALIFIED` for 11 admitted classes. Copy-margin positive controls, irrelevant-control equivalence, ≤0.006 MDE, ≤0.004 CI half-width, exact geometry/dose, and model health pass. Acceptor and donor remain preflight-quarantined. | `results/dnabert2_reconstruction_atlas/context_margin_v1_preflight_qualified_rerun.json` | Authorizes the context-margin development run; does not itself establish D3. The prior failed qualified artifact is preserved as a gate-membership implementation failure. |
 
 ## Open hypotheses
 
@@ -58,5 +81,7 @@ reconstruction.
 | H1 | At least one annotated site class has positive excess reconstruction over every required control. | not supported in multisource-v4 development; five adequately powered classes fail and eight classes remain underpowered | A newly preregistered behavior design or expanded control-complete supply; v4 confirmation stays sealed. |
 | H2 | For at least one H1-qualified class, a biologically related context region outperforms matched irrelevant-region exchanges. | blocked by the v4 H1 gate | H1 plus token-geometry-invariant context interventions. |
 | H3 | A bounded set of heads, MLPs, positions, or residual directions causally supports an H2-qualified behavior. | blocked by the v4 H1 gate | Frozen candidate screen, matched-size necessity, mediation, and path tests. |
+| H4 | A geometry-qualified DNABERT-2 alternative margin has a replicated, class-specific target-preserving proximal-context effect. | supported for the nine D3 classes; promoter did not replicate, stop failed development, acceptor/donor are instrument-unresolved | A distance-matched or orthogonal context null would narrow the proximal-context interpretation further. |
+| H5 | A bounded internal DNABERT-2 component set causally mediates a D3 context-margin effect. | open but untested for the nine D3 classes | Freeze candidates and matched-size necessity/mediation tests before inspecting internal effects. |
 
 Negative, retracted, and superseded rows will remain here permanently once evidence exists.

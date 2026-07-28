@@ -8,6 +8,35 @@
 |---|---|---|---|---|---|
 | GENCODE behavior development v1 | Does any admitted class exceed all empirical and low-order controls? | development gate failed for every class; confirmation sealed | `../../results/dnabert2_reconstruction_atlas/behavior_development_v1.json` | `../../results/dnabert2_reconstruction_atlas/behavior_development_v1.manifest.json` | D1 |
 | Multisource behavior development v4 | Do promoter, poly(A), TFBS, branch-point, PPT, enhancer, splice, or translation classes exceed every control? | development gate failed for every class; five powered, eight underpowered; confirmation sealed | `../../results/dnabert2_reconstruction_atlas/behavior_development_multisource_v4.json` | `../../results/dnabert2_reconstruction_atlas/behavior_development_multisource_v4.manifest.json` | D2 |
+| Context-margin atlas v1 | Does a class-specific, target-preserving proximal-context corruption reduce DNABERT-2's geometry-qualified alternative margin more than an equal-dose distal corruption? | nine classes replicated; promoter did not replicate; stop failed development; acceptor/donor preflight-unresolved | `../../results/dnabert2_reconstruction_atlas/context_margin_v1_replication.json` | `../../results/dnabert2_reconstruction_atlas/context_margin_v1_replication.manifest.json` | D3 |
+
+### Replicated context-margin atlas v1
+
+The frozen assay scored 2,059 development targets across 11 preflight-admitted classes, then
+opened only ten development-qualified classes on 1,781 untouched confirmation targets.
+
+| Site class | Dev n | Dev effect | Confirmation n | Confirmation effect (95% CI) | Holm p | Verdict |
+|---|---:|---:|---:|---:|---:|---|
+| start codon | 219 | +0.0468 | 222 | +0.0479 (+0.0306, +0.0673) | 0.0010 | replicated |
+| distal enhancer anchor | 85 | +0.0395 | 98 | +0.0384 (+0.0101, +0.0730) | 0.0144 | replicated |
+| poly(A) cleavage | 112 | +0.0298 | 108 | +0.0348 (+0.0125, +0.0601) | 0.0068 | replicated |
+| branch point | 145 | +0.0412 | 138 | +0.0304 (+0.00443, +0.0585) | 0.0270 | replicated |
+| REST peak anchor | 208 | +0.0136 | 230 | +0.0213 (+0.0126, +0.0302) | 0.0010 | replicated |
+| CEBPB peak anchor | 216 | +0.0215 | 213 | +0.0183 (+0.00795, +0.0295) | 0.0035 | replicated |
+| CTCF peak anchor | 217 | +0.0141 | 198 | +0.0159 (+0.00643, +0.0255) | 0.0036 | replicated |
+| poly(A) signal | 241 | +0.0127 | 245 | +0.0127 (+0.00555, +0.0208) | 0.0036 | replicated |
+| polypyrimidine tract | 250 | +0.0109 | 228 | +0.0125 (+0.00830, +0.0172) | 0.0010 | replicated |
+| promoter TSS anchor | 85 | +0.0247 | 101 | +0.00066 (−0.0117, +0.0126) | 0.4548 | not replicated |
+| stop codon | 281 | +0.00330 | — | — | — | development failed |
+
+Effects are nats per complete BPE-covered nucleotide:
+`margin(distal equal-dose corruption) − margin(class-specific proximal corruption)`.
+Splice acceptor and donor were not target-scored because their margin positive controls failed
+before outcomes. The nine replicated rows license a DNABERT-2 proximal-context behavior, not a
+cellular functional claim or an internal mechanism. For TF/enhancer rows the five-nucleotide
+target remains a derived peak/cCRE anchor, not a resolved motif. The distal control is exactly
+matched for width, composition, and changed-base count but not target distance; this bounds the
+claim to proximal-context dependence.
 
 ### Development behavior census v1
 

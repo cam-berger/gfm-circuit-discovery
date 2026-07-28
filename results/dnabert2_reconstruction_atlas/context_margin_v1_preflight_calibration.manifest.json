@@ -1,0 +1,117 @@
+{
+  "checkpoint": {
+    "attention_impl": "pytorch_reference (triton absent; flash_attn_triton.py not vendored)",
+    "device": "mps",
+    "dtype": "torch.float32",
+    "env": {
+      "python": "3.11.15",
+      "torch": "2.13.0",
+      "transformers": "4.44.2"
+    },
+    "has_learned_position_table": false,
+    "hf_id": "zhihan1996/DNABERT-2-117M",
+    "hidden_size": 768,
+    "mlm_head_complete": true,
+    "n_heads": 12,
+    "n_layers": 12,
+    "revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+    "snapshot": "/Users/cberg/.cache/huggingface/hub/models--zhihan1996--DNABERT-2-117M/snapshots/7bce263b15377fc15361f52cfab88f8b586abda0",
+    "state_dict_keys": 142,
+    "upstream_sha256": {
+      "config.json": "ba9bdafaff0cc3e30556927474d4a179519a9864012bed2628e9f1bc23c84bfd",
+      "pytorch_model.bin": "7ff39ec77a484dd01070a41bfd6e95cdd7247bec80fe357ab43a4be33687aeba",
+      "tokenizer.json": "5d178e8ce2ba55df97fff197f4b30f40133b95d7096be398c2df6b526c5d8cd3",
+      "tokenizer_config.json": "f9d18c81f4dd9dd7db02e9f27cc1203228147d890bfce9167c3af6465ff5b769"
+    },
+    "vendor_sha256": {
+      "bert_layers.py": "317ad7e9667980ac724c07f0174ba265c8446ca5230f6b473068ff1b911edcf9",
+      "bert_padding.py": "44d1c68afb1f585fdc66c150d4c60f1ed44a89c006abc57d50531d71940d7421",
+      "configuration_bert.py": "95fc868641b87bbcd7a32d2cd7b9f4769c27592e129daf167d14b5b8c74ec4c5"
+    },
+    "vocab_size": 4096
+  },
+  "code": {
+    "git_commit": "663048fc8ed5694b521ad68ae572cb1e6dff38bf",
+    "git_dirty": true
+  },
+  "command": [
+    "scripts/dnabert2_atlas/run_context_margin_preflight.py",
+    "--mode",
+    "calibration",
+    "--collection",
+    "data/processed/dnabert2_atlas/multisource_v4/target_collection.jsonl",
+    "--variants",
+    "data/processed/dnabert2_atlas/multisource_v4/context_margin_v1.variants.jsonl",
+    "--supply-audit",
+    "results/dnabert2_reconstruction_atlas/context_margin_v1_supply_audit.json",
+    "--config",
+    "configs/dnabert2_atlas/context_margin_v1.draft.json",
+    "--device",
+    "mps",
+    "--batch-size",
+    "8",
+    "--bootstrap-draws",
+    "5000",
+    "--raw-out",
+    "data/processed/dnabert2_atlas/multisource_v4/context_margin_v1.preflight_calibration.raw.jsonl",
+    "--out",
+    "results/dnabert2_reconstruction_atlas/context_margin_v1_preflight_calibration.json"
+  ],
+  "created_at_utc": "2026-07-28T00:12:00.310124+00:00",
+  "data": [
+    {
+      "path": "data/processed/dnabert2_atlas/multisource_v4/target_collection.jsonl",
+      "sha256": "ee15c9809db2748aa82b3e6f87115f9df3bd22be4dc6e777332b4722b7c86ffa",
+      "size_bytes": 29787692
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/multisource_v4/context_margin_v1.variants.jsonl",
+      "sha256": "2093a3d2c52725e9274747be8b0b890f66cc6f61de6acaab8cc958f3e919b6da",
+      "size_bytes": 15676439
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/context_margin_v1_supply_audit.json",
+      "sha256": "88567a9e5d7ca56a28d7d7a10dd7dfbbe6f820f3e6c9c388b5395b33fb0ea220",
+      "size_bytes": 14734
+    },
+    {
+      "path": "configs/dnabert2_atlas/context_margin_v1.draft.json",
+      "sha256": "9c2002667eea5b84ff2699b135875e2223c91409cb29cb9c6049e3e5be49e647",
+      "size_bytes": 8284
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/multisource_v4/context_margin_v1.preflight_calibration.raw.jsonl",
+      "sha256": "55682d6b677b06e53828eb02a4a9e273c88ff8c7ef91e546a0f200943b4591ae",
+      "size_bytes": 4871645
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/multisource_v4/context_margin_v1.preflight_calibration.raw.manifest.json",
+      "sha256": "0622895854453a4c9b4746b4512f75085966ce53e72fd6da146ab94981a7588f",
+      "size_bytes": 3934
+    }
+  ],
+  "environment": {
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "dnabert2_context_margin_preflight_calibration",
+  "outputs": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/context_margin_v1_preflight_calibration.json",
+      "sha256": "b3dc1d04d66eed100838603398c04c8ca7b65dc38b6538a13a92e453fffcff33",
+      "size_bytes": 21672
+    }
+  ],
+  "parameters": {
+    "batch_size": 8,
+    "bootstrap_draws": 5000,
+    "measurement": "geometry_qualified_logsumexp_alternative_margin",
+    "mode": "calibration",
+    "target_outcomes_computed": false
+  },
+  "schema_version": 1,
+  "seeds": {
+    "preflight": 20260727
+  },
+  "status": "PREFLIGHT"
+}

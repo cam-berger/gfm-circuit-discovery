@@ -35,6 +35,9 @@ class ReconstructionScore:
     exact_token_reconstruction: bool
     mask_plan: MaskPlan
     alternative_margins_per_covered_nt: Mapping[str, float]
+    eligible_alternative_count: int
+    alternative_logsumexp_margin_per_covered_nt: float | None
+    alternative_logmeanexp_margin_per_covered_nt: float | None
     ineligible_alternatives: tuple[str, ...]
 
     def to_dict(self) -> dict[str, Any]:
@@ -50,6 +53,13 @@ class ReconstructionScore:
             "mask_plan": self.mask_plan.to_dict(),
             "alternative_margins_per_covered_nt": dict(
                 self.alternative_margins_per_covered_nt
+            ),
+            "eligible_alternative_count": self.eligible_alternative_count,
+            "alternative_logsumexp_margin_per_covered_nt": (
+                self.alternative_logsumexp_margin_per_covered_nt
+            ),
+            "alternative_logmeanexp_margin_per_covered_nt": (
+                self.alternative_logmeanexp_margin_per_covered_nt
             ),
             "ineligible_alternatives": list(self.ineligible_alternatives),
         }
@@ -86,6 +96,7 @@ def score_from_logits(
     predictions = selected.argmax(dim=-1)
     accuracy = float((predictions == true_ids).float().mean().item())
     margins: dict[str, float] = {}
+    alternative_totals: list[float] = []
     for name, token_ids in (alternative_token_ids or {}).items():
         alt = torch.tensor(tuple(token_ids), dtype=torch.long, device=logits.device)
         if alt.shape != true_ids.shape:
@@ -93,7 +104,20 @@ def score_from_logits(
         if int(alt.max()) >= selected.shape[-1]:
             raise ValueError(f"alternative {name!r} token ID exceeds logits vocabulary")
         alternative_total = float(selected.gather(1, alt[:, None]).sum().item())
+        alternative_totals.append(alternative_total)
         margins[name] = (total - alternative_total) / plan.covered_nucleotides
+    if alternative_totals:
+        maximum = max(alternative_totals)
+        alternative_logsumexp = maximum + math.log(
+            sum(math.exp(value - maximum) for value in alternative_totals)
+        )
+        logsumexp_margin = (total - alternative_logsumexp) / plan.covered_nucleotides
+        logmeanexp_margin = (
+            total - (alternative_logsumexp - math.log(len(alternative_totals)))
+        ) / plan.covered_nucleotides
+    else:
+        logsumexp_margin = None
+        logmeanexp_margin = None
     return ReconstructionScore(
         request_id=request_id,
         true_token_log_probability=total,
@@ -103,6 +127,9 @@ def score_from_logits(
         exact_token_reconstruction=bool(torch.equal(predictions, true_ids)),
         mask_plan=plan,
         alternative_margins_per_covered_nt=margins,
+        eligible_alternative_count=len(alternative_totals),
+        alternative_logsumexp_margin_per_covered_nt=logsumexp_margin,
+        alternative_logmeanexp_margin_per_covered_nt=logmeanexp_margin,
         ineligible_alternatives=tuple(sorted(ineligible_alternatives)),
     )
 

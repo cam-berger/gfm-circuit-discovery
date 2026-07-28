@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
 from itertools import pairwise
 
@@ -210,3 +210,67 @@ def fair_alternative_token_ids(
     ):
         return None
     return tuple(int(alt_ids[index]) for index in plan.token_indices)
+
+
+def geometry_qualified_hamming_one_alternatives(
+    sequence: str,
+    plan: MaskPlan,
+    encoder: Encoder,
+) -> Mapping[str, str]:
+    """Enumerate every one-base target substitution with fair BPE labels.
+
+    DNABERT-2 BPE segmentation is sequence dependent, so a nominal nucleotide
+    alternative is retained only when :func:`fair_alternative_token_ids` proves that
+    it uses the identical masked input and token geometry.
+    """
+
+    normalized = normalize_dna(sequence)
+    target = normalized[plan.site.start : plan.site.end]
+    alternatives: dict[str, str] = {}
+    for position, observed in enumerate(target):
+        if observed not in "ACGT":
+            continue
+        for replacement in "ACGT":
+            if replacement == observed:
+                continue
+            candidate = target[:position] + replacement + target[position + 1 :]
+            if (
+                fair_alternative_token_ids(
+                    normalized,
+                    plan,
+                    candidate,
+                    encoder,
+                )
+                is not None
+            ):
+                alternatives[f"substitution:{position}:{replacement}"] = candidate
+    return alternatives
+
+
+def common_geometry_qualified_alternatives(
+    sequences: Sequence[str],
+    site: Interval,
+    candidates: Mapping[str, str],
+    encoder: Encoder,
+) -> Mapping[str, str]:
+    """Return candidate target strings that are BPE-fair in every sequence."""
+
+    if not sequences:
+        raise ValueError("at least one sequence is required")
+    common = set(candidates)
+    for sequence in sequences:
+        _, plan = encode_mask_plan(sequence, site, encoder)
+        common = {
+            name
+            for name in common
+            if fair_alternative_token_ids(
+                sequence,
+                plan,
+                candidates[name],
+                encoder,
+            )
+            is not None
+        }
+        if not common:
+            break
+    return {name: candidates[name] for name in sorted(common)}

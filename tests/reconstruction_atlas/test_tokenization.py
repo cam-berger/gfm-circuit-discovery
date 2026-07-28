@@ -3,7 +3,9 @@ from __future__ import annotations
 from gfmcd.reconstruction_atlas.schema import Interval
 from gfmcd.reconstruction_atlas.tokenization import (
     build_mask_plan,
+    common_geometry_qualified_alternatives,
     fair_alternative_token_ids,
+    geometry_qualified_hamming_one_alternatives,
 )
 
 
@@ -67,3 +69,55 @@ def test_alternative_is_eligible_only_with_identical_unmasked_geometry() -> None
         )
         is None
     )
+
+
+def test_hamming_one_alternatives_are_named_and_geometry_qualified() -> None:
+    sequence = "AACCGGTT"
+    ids, offsets = fixed_encoder(sequence)
+    plan = build_mask_plan(
+        sequence,
+        Interval(2, 4),
+        input_ids=ids,
+        offsets=offsets,
+    )
+    alternatives = geometry_qualified_hamming_one_alternatives(
+        sequence,
+        plan,
+        fixed_encoder,
+    )
+    assert set(alternatives) == {
+        "substitution:0:A",
+        "substitution:0:G",
+        "substitution:0:T",
+        "substitution:1:A",
+        "substitution:1:G",
+        "substitution:1:T",
+    }
+    assert alternatives["substitution:0:A"] == "AC"
+    assert alternatives["substitution:1:T"] == "CT"
+
+
+def test_common_alternative_family_is_intersection_across_variants() -> None:
+    candidates = {
+        "a": "AC",
+        "b": "TT",
+    }
+
+    def variant_encoder(text: str):
+        if text.endswith("GG") and text[2:4] == "TT":
+            return [101, 1, 2, 3, 102], [
+                (0, 0),
+                (0, 2),
+                (2, 3),
+                (3, 8),
+                (0, 0),
+            ]
+        return fixed_encoder(text)
+
+    common = common_geometry_qualified_alternatives(
+        ["AACCGGTT", "AACCGGGG"],
+        Interval(2, 4),
+        candidates,
+        variant_encoder,
+    )
+    assert common == {"a": "AC"}

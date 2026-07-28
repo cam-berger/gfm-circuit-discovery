@@ -260,3 +260,52 @@
 - Interpretation: across this multisource development cohort, DNABERT-2 reconstructs the assayed
   words better than low-order sequence models, but the effect is not specific to biological
   annotation under the preregistered empirical comparisons.
+
+## 2026-07-27 — Replace annotation-excess entry with a geometry-qualified context margin
+
+- Trigger: annotation-specific excess reconstruction was a poor mechanistic entry gate, and
+  SpliceBERT-style alternative margins needed a DNABERT-2 BPE fairness audit.
+- Measurement: score the true simultaneously masked target against the log-sum-exp of every
+  Hamming-one target alternative that preserves the complete BPE offset map and masked input;
+  divide by covered nucleotides. Use the identical alternative intersection in reference,
+  structured-context, and irrelevant-context variants.
+- Primary effect: `margin(irrelevant distal shuffle) − margin(class-specific proximal shuffle)`.
+  Both shuffles preserve the target and complete scored cover, sequence length, mononucleotide
+  composition, and exactly the same number of changed positions.
+- Frozen target gate: +0.01 nats/covered-nt, positive 95% cluster-bootstrap lower bound, add-one
+  cluster sign permutation, and Holm correction across the full preregistered class family.
+- Boundary: the distal null controls composition and intervention dose, not distance. A positive
+  result is a proximal-context model behavior and cannot by itself be called cellular biology or
+  an internal mechanism.
+
+## 2026-07-27 — Quarantine acceptor and donor from the margin instrument
+
+- Outcome-blind supply retained at least 82 targets per class and split with zero invariant
+  violations. Control-only calibration used 64 development blocks per class and no
+  structured-versus-irrelevant target contrast.
+- Eleven classes passed the graded copy-margin control. Splice acceptor's four-copy 95% lower
+  bound was negative; donor's lower bound was negative and its dose means were non-monotonic.
+- Decision: freeze acceptor and donor as `INSTRUMENT_UNRESOLVED`. Freeze the remaining preflight
+  ceilings at 0.007 irrelevant equivalence, 0.006 MDE, and 0.004 CI half-width.
+- A first qualified artifact incorrectly required the quarantined classes to meet the admitted
+  class count gate. Preserve it, correct only that membership check, and rerun under the unchanged
+  config. The corrected report is `QUALIFIED` for all 11 admitted classes.
+
+## 2026-07-27 — Open confirmation for ten development-qualified context effects
+
+- Development scored 2,059 targets across 11 classes. Ten met all gates: enhancer, poly(A)
+  cleavage and signal, promoter, branch point, PPT, CEBPB/CTCF/REST peak anchors, and start codon.
+- Stop codon did not qualify (+0.00330; interval crossed zero; Holm `p=0.2401`) and remained sealed.
+- Decision: open only the ten qualifying classes on untouched confirmation locus blocks, preserving
+  the exact score, contexts, alternatives, SESOI, and inferential family.
+
+## 2026-07-27 — Record nine replicated context-margin classes
+
+- Confirmation replicated nine of ten opened effects. Start codon was strongest (+0.0479), followed
+  by enhancer anchor (+0.0384), poly(A) cleavage (+0.0348), and branch point (+0.0304).
+  Poly(A) signal, PPT, and all three TF peak-anchor classes also passed.
+- Promoter did not replicate (+0.00066; CI crossed zero; Holm `p=0.4548`) and is recorded as a
+  development-only failure.
+- Decision: record D3 and allow a future, separately frozen internal candidate stage for only the
+  nine replicated classes. No attention, attribution, head, MLP, mediation, or causal claim is
+  made by this census.
