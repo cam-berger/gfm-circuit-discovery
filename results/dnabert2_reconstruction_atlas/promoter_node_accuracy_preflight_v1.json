@@ -1,0 +1,110 @@
+{
+  "GUE_pair_ids": [
+    "GUE-head-pair-0928",
+    "GUE-head-pair-0929",
+    "GUE-head-pair-0930",
+    "GUE-head-pair-0931",
+    "GUE-head-pair-0932",
+    "GUE-head-pair-0933",
+    "GUE-head-pair-0934",
+    "GUE-head-pair-0935",
+    "GUE-head-pair-0936",
+    "GUE-head-pair-0937",
+    "GUE-head-pair-0938",
+    "GUE-head-pair-0939",
+    "GUE-head-pair-0940",
+    "GUE-head-pair-0941",
+    "GUE-head-pair-0942",
+    "GUE-head-pair-0943",
+    "GUE-head-pair-0944",
+    "GUE-head-pair-0945",
+    "GUE-head-pair-0946",
+    "GUE-head-pair-0947",
+    "GUE-head-pair-0948",
+    "GUE-head-pair-0949",
+    "GUE-head-pair-0950",
+    "GUE-head-pair-0951",
+    "GUE-head-pair-0952",
+    "GUE-head-pair-0953",
+    "GUE-head-pair-0954",
+    "GUE-head-pair-0955",
+    "GUE-head-pair-0956",
+    "GUE-head-pair-0957",
+    "GUE-head-pair-0958",
+    "GUE-head-pair-0959"
+  ],
+  "assay": "promoter_node_accuracy_preflight_v1",
+  "boundary": "Fresh GUE preflight qualifies correctness, sensitivity, numerical invariance, and the 156-node hook family only. It reads no target cohort outcome.",
+  "checkpoint_revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+  "checks": {
+    "batch_invariance": true,
+    "clean_AUROC": true,
+    "clean_accuracy": true,
+    "complete_node_family": true,
+    "finite_outputs": true,
+    "fresh_disjoint_GUE_slice": true,
+    "full_node_swap_accuracy_sensitivity": false,
+    "full_node_swap_margin_sensitivity": true,
+    "individual_MLP_sensitivity": true,
+    "individual_head_sensitivity": true,
+    "self_patch_noop": true
+  },
+  "config_sha256": "59b61e6c2899889ea55e125445812bd7de949eb17e79e6e7693ace470ef6286b",
+  "input_sha256": {
+    "checkpoint_audit": "96f73e55234fa53d667128e4ada41e7fed03d756dd239cfd2866d9f58f868f81",
+    "config": "0d957fdd7999c9c00b6cbacefdf7c096c8933b26903ab1f5843be70e368765e7",
+    "gue_test": "c77b312eb3f2c149ee5e54f0c781b585c4e65b742f0e7d9324818f2b56e71e67",
+    "supply_audit": "8c9062e2710c97253173928b6d94b9732ba9410f217a754e1318a57cae7b574c"
+  },
+  "measurements": {
+    "batch_invariance_max_absolute_margin_difference": 0.0,
+    "clean": {
+      "accuracy": 0.890625,
+      "auroc": 0.9765625,
+      "confusion": {
+        "fn": 5,
+        "fp": 2,
+        "tn": 30,
+        "tp": 27
+      },
+      "mcc": 0.7847060257179306,
+      "mean_margin_negative": -5.361265353858471,
+      "mean_margin_positive": 3.286383698345162,
+      "n": 64
+    },
+    "full_node_swap": {
+      "accuracy_loss": 0.015625,
+      "class_margin_loss": 1.6439329201239161,
+      "metrics": {
+        "accuracy": 0.875,
+        "auroc": 0.923828125,
+        "confusion": {
+          "fn": 6,
+          "fp": 2,
+          "tn": 30,
+          "tp": 26
+        },
+        "mcc": 0.7559289460184544,
+        "mean_margin_negative": -4.691200457513332,
+        "mean_margin_positive": 0.6685827544424683,
+        "n": 64
+      }
+    },
+    "maximum_individual_mean_absolute_class_margin_loss": {
+      "head": 3.649484341556672,
+      "mlp": 7.268267834500875
+    },
+    "nodes_scored": 156,
+    "self_patch_max_absolute_margin_difference": 0.0
+  },
+  "qualified": false,
+  "raw": {
+    "manifest": "data/processed/dnabert2_atlas/promoter_node_accuracy_v1/preflight.raw.manifest.json",
+    "path": "data/processed/dnabert2_atlas/promoter_node_accuracy_v1/preflight.raw.jsonl",
+    "rows": 5056
+  },
+  "schema_version": 1,
+  "status": "INSTRUMENT_UNRESOLVED",
+  "study": "dnabert2_biological_reconstruction_atlas",
+  "target_cohort_outcomes_computed": false
+}

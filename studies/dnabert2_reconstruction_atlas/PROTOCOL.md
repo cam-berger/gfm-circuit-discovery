@@ -180,6 +180,27 @@ flips, and CAGE/PLS/CpG/DCE-II strata are secondary. Confirmation opens only for
 development-qualified operation. Residual tracing and mediation remain sealed until native
 necessity replicates.
 
+### Promoter all-node accuracy amendment
+
+To determine whether the existing head work missed accuracy-critical components, scan every
+individual CLS attention context (12 layers × 12 heads) and every individual CLS MLP write
+(12 layers). Exchange one node reciprocally between each real TSS and its paired pseudo-TSS.
+The primary per-pair score is the mean loss of target and control correctness; AUROC loss,
+class-margin loss, and directional flips are secondary.
+
+Development and confirmation each contain 50 outcome-unseen unique 1-Mb blocks, excluding all
+D4 and D7–D9 examples and blocks. Every split scores the complete 156-node family. Development
+freezes the top eight heads and four MLPs for reporting, but confirmation does not narrow the
+scan. A node requires accuracy loss at least 0.02, a strictly positive 95% pair-bootstrap lower
+bound, and one-sided add-one maximum-sign `p≤0.05` across all 156 nodes in both splits.
+
+The positive control exchanges the final padded CLS residual immediately before pooling; this
+must exchange the classifier-input representation. Simultaneously exchanging every layerwise
+head/MLP write is retained only as a failed v1 control because post-LN residual paths and
+repeated exchanges prevent it from being an exact terminal swap. A passing atlas ranks causal
+CLS-write candidates under paired exchange; it does not establish zero-ablation necessity,
+sufficiency, source positions, or a complete circuit.
+
 ## Phase D — informative source regions
 
 For behavior-qualified targets, exchange or perturb:

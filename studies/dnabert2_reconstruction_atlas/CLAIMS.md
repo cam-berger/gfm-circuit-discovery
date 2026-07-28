@@ -204,6 +204,26 @@ native-sequence evidence. D9 does not show that +11:+21 is biologically inert, e
 native substitution, or resolve GC content: the GC-depletion instrument failed its frozen
 precision gate. Confirmation, residual-source tracing, and head mediation remain sealed.
 
+**D10 — L11MLP is the strongest accuracy-relevant CLS-write candidate, while no individual
+head or MLP passes the complete replicated accuracy gate.** An outcome-blind supply exhausts
+the final 100 unique 1-Mb blocks unused by D4 and D7–D9, split 50/50 before model outcomes. The
+assay exchanges each of all 144 attention-head contexts and 12 MLP writes individually between
+the real TSS and its paired pseudo-TSS at `[CLS]`.
+
+L11MLP ranks first in both splits. Its exchange reduces balanced accuracy by 0.130 in development
+(95% CI 0.030 to 0.230; full-family maximum-sign `p=0.0100`) and 0.120 in confirmation
+(0.000 to 0.240; `p=0.0401`); AUROC falls by 0.2136 and 0.2832. It passes the frozen SESOI,
+positive interval, and familywise gate in development, but the confirmation bootstrap lower
+bound is exactly zero. It is therefore a strong replicated **candidate**, not a fully qualified
+standalone correctness node.
+
+L11H2 is the top head in both splits, with 0.040 accuracy loss in each; L11H5 ranks third/fourth
+with 0.030/0.020 loss. Neither head has a positive bootstrap lower bound or survives the
+156-node maximum-sign family in either split. D10 licenses an accuracy-first priority ordering
+under reciprocal paired activation exchange. It does not license zero-ablation necessity,
+individual-node sufficiency, a complete circuit, a nucleotide source, or biological promoter
+function.
+
 ## Established infrastructure facts
 
 These are implementation properties and prior instrument constraints, not claims about biological
@@ -242,6 +262,8 @@ reconstruction.
 | IF29 | Frozen promoter source-localization preflight v1 is `QUALIFIED` on 32 new reserved-GUE pairs: all identity, mask/V sensitivity, precision, tile-resolution, batch, finiteness, and 45-null-family checks pass. | `promoter_source_localization_preflight_v1.json` | Authorizes D8 development only; not evidence about fresh GENCODE loci. |
 | IF30 | Native-source preflights v7 and v8 are `INSTRUMENT_UNRESOLVED`: three-base GC depletion has projected MDE 0.403 at 40 loci, and a disjoint dinucleotide-only slice has projected MDE 0.364. No target outcome was read in either run. | `promoter_native_source_preflight_v7.json` and `promoter_native_source_preflight_v8.json` | Preserved instrument failures; neither is a biological null. |
 | IF31 | Dinucleotide-only supply v9 binds 60 fresh unique locus blocks per split; frozen preflight v10 passes all eight checks on a third disjoint GUE slice with projected 60-locus MDE 0.156 and zero replay/batch drift. | `promoter_native_source_supply_audit_v9.json` and `promoter_native_source_preflight_v10.json` | Authorizes D9 development only. |
+| IF32 | The all-node accuracy supply contains exactly the final 100 outcome-unseen unique 1-Mb blocks after excluding every D4/D7/D8/D9 example and block, with 50 pairs frozen per split. | `promoter_node_accuracy_supply_v1.json` | Outcome-blind supply fact only; it does not identify an important component. |
+| IF33 | All-node preflight v1 is preserved as `INSTRUMENT_UNRESOLVED` because simultaneous layerwise exchange is not a terminal classifier-input swap. V2 changes only the positive control: exact terminal CLS residual exchange takes held-out GUE accuracy from 0.891 to 0.109 and AUROC from 0.977 to 0.023; all 156 hooks are finite and self/batch drift is zero. | `promoter_node_accuracy_preflight_v1.json` and `promoter_node_accuracy_preflight_v2.json` | V2 authorizes D10; neither preflight is a target-cohort component result. |
 
 ## Open hypotheses
 
@@ -255,5 +277,6 @@ reconstruction.
 | H6 | A promoter-fine-tuned DNABERT-2 has a replicated target-specific local-context effect at training-corpus-excluded human TSSs. | not supported: clean promoter margin replicated, but the context difference failed confirmation | A new independently justified context intervention/null and a fresh sealed cohort; D4 does not authorize internal localization. |
 | H7 | A bounded set of head outputs at `[CLS]` mediates the replicated clean promoter-classifier contrast. | refined by D7: L11H2/L11H5 is a replicated late output-carrier core with value-payload alignment dependence and a distributed MLP scaffold; target-query, content-key-address, and early-six-to-late models fail their gates | Freeze an equal-dose source-localization phase for the replicated V estimand; do not infer bands or motifs from the stable residual direction alone. |
 | H8 | A bounded TSS-relative source band or sequence feature supplies the late pair's replicated value payload. | not supported at +11:+21: regional V was null and exact-composition native reordering failed development; the `[MASK]` effect remains classifier-level only | A new independently justified native intervention/source band and fresh cohort; D8/D9 do not authorize mask-by-payload tracing. |
+| H9 | One individual CLS head context or MLP write is independently necessary for correct promoter classification. | not qualified; L11MLP is rank 1 in both splits but its confirmation accuracy-loss CI touches zero, and no head passes the full-family gate | A preregistered targeted L11MLP intervention on new data, preferably including zero ablation and matched MLP nulls; D10 remains an atlas-level candidate result. |
 
 Negative, retracted, and superseded rows will remain here permanently once evidence exists.

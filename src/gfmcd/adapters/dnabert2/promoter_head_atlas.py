@@ -213,7 +213,7 @@ def paired_cls_write_patch_tensor(
     writes: Any,
     *,
     cls_rows: Any,
-    direction: QueryPatchDirection,
+    direction: PatchDirection,
 ) -> Any:
     """Patch paired ``[CLS]`` residual writes such as the MLP output."""
 
@@ -230,12 +230,51 @@ def paired_cls_write_patch_tensor(
     patched = writes.clone()
     if direction == "target_from_control":
         patched[target_rows] = writes[control_rows]
+    elif direction == "control_from_target":
+        patched[control_rows] = writes[target_rows]
     elif direction == "target_from_self":
         patched[target_rows] = writes[target_rows]
+    elif direction == "bidirectional_swap":
+        patched[target_rows] = writes[control_rows]
+        patched[control_rows] = writes[target_rows]
     else:  # pragma: no cover - guarded by the Literal at typed call sites
         raise ValueError(f"unknown write-patch direction: {direction}")
     if not torch.isfinite(patched).all():
         raise RuntimeError("residual-write patch created a non-finite activation")
+    return patched
+
+
+def paired_padded_cls_patch_tensor(
+    hidden_states: Any,
+    *,
+    direction: PatchDirection,
+) -> Any:
+    """Patch paired final ``[CLS]`` residuals in a padded encoder tensor."""
+
+    import torch
+
+    if hidden_states.ndim != 3 or hidden_states.shape[0] % 2:
+        raise ValueError(
+            "final encoder states must be interleaved [2 * pairs, tokens, hidden]"
+        )
+    target_rows = torch.arange(
+        0, hidden_states.shape[0], 2, device=hidden_states.device
+    )
+    control_rows = target_rows + 1
+    patched = hidden_states.clone()
+    if direction == "target_from_control":
+        patched[target_rows, 0] = hidden_states[control_rows, 0]
+    elif direction == "control_from_target":
+        patched[control_rows, 0] = hidden_states[target_rows, 0]
+    elif direction == "target_from_self":
+        patched[target_rows, 0] = hidden_states[target_rows, 0]
+    elif direction == "bidirectional_swap":
+        patched[target_rows, 0] = hidden_states[control_rows, 0]
+        patched[control_rows, 0] = hidden_states[target_rows, 0]
+    else:  # pragma: no cover - guarded by the Literal at typed call sites
+        raise ValueError(f"unknown final-residual patch direction: {direction}")
+    if not torch.isfinite(patched).all():
+        raise RuntimeError("final-residual patch created a non-finite activation")
     return patched
 
 
@@ -352,7 +391,7 @@ def patch_paired_cls_mlp_writes(
     batch: PairedPromoterBatch,
     layers: Iterable[int],
     *,
-    direction: QueryPatchDirection,
+    direction: PatchDirection,
 ):
     """Patch target ``[CLS]`` MLP writes from its paired control."""
 
@@ -376,6 +415,29 @@ def patch_paired_cls_mlp_writes(
     finally:
         for handle in handles:
             handle.remove()
+
+
+@contextmanager
+def patch_paired_final_cls_residual(
+    bundle: Dnabert2PromoterBundle,
+    *,
+    direction: PatchDirection,
+):
+    """Patch the final padded ``[CLS]`` residual immediately before pooling."""
+
+    def hook(_module: Any, inputs: Any) -> Any:
+        if not inputs or not hasattr(inputs[0], "shape"):
+            raise TypeError("MosaicBERT pooler did not receive encoder states")
+        return (
+            paired_padded_cls_patch_tensor(inputs[0], direction=direction),
+            *inputs[1:],
+        )
+
+    handle = bundle.model.bert.pooler.register_forward_pre_hook(hook)
+    try:
+        yield
+    finally:
+        handle.remove()
 
 
 @contextmanager

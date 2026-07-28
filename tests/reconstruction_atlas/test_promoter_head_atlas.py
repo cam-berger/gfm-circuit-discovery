@@ -16,6 +16,7 @@ from gfmcd.adapters.dnabert2.promoter_head_atlas import (
     paired_cls_patch_tensor,
     paired_cls_query_patch_tensor,
     paired_cls_write_patch_tensor,
+    paired_padded_cls_patch_tensor,
     restore_cls_heads_from_reference,
 )
 from gfmcd.reconstruction_atlas.promoter_circuit import layer_pair_nulls
@@ -83,6 +84,30 @@ def test_paired_cls_write_patch_changes_only_target_rows() -> None:
     assert torch.equal(patched[6], writes[9])
     assert torch.equal(patched[3], writes[3])
     assert torch.equal(patched[9], writes[9])
+
+
+def test_paired_cls_write_patch_can_swap_both_classes() -> None:
+    writes = torch.arange(8 * 4, dtype=torch.float32).view(8, 4)
+    patched = paired_cls_write_patch_tensor(
+        writes,
+        cls_rows=torch.tensor([0, 4]),
+        direction="bidirectional_swap",
+    )
+    assert torch.equal(patched[0], writes[4])
+    assert torch.equal(patched[4], writes[0])
+
+
+def test_paired_padded_cls_patch_swaps_only_terminal_cls_rows() -> None:
+    states = torch.arange(4 * 3 * 2, dtype=torch.float32).view(4, 3, 2)
+    patched = paired_padded_cls_patch_tensor(
+        states,
+        direction="bidirectional_swap",
+    )
+    assert torch.equal(patched[0, 0], states[1, 0])
+    assert torch.equal(patched[1, 0], states[0, 0])
+    assert torch.equal(patched[2, 0], states[3, 0])
+    assert torch.equal(patched[3, 0], states[2, 0])
+    assert torch.equal(patched[:, 1:], states[:, 1:])
 
 
 def test_query_patch_changes_q_but_not_kv() -> None:

@@ -65,6 +65,10 @@ has a row in the scientific result manifest.
 | `run_promoter_source_localization.py` | Run the unbiased tile atlas, matched regional-V nulls, independent annotation strata, and eligible motif disruptions on development or sealed confirmation. | Refuses without matching supply/config/preflight hashes; explicit raw and compact artifacts plus manifests |
 | `summarize_promoter_source_localization.py` | Apply the replication lock and record the behavioral region, failed payload localization, and biological-qualification boundary. | Explicit compact replication result plus manifest |
 | `evaluate_promoter_source_classification.py` | Re-run the nominated tile mask while retaining clean/masked margins; report accuracy, AUROC, MCC, and hard-label transitions. | Post-hoc descriptive raw and compact artifacts plus manifests; does not estimate original-GUE performance |
+| `build_promoter_node_accuracy_cohort.py` | Exhaust the remaining outcome-unseen promoter locus blocks and freeze 50 development/50 confirmation pairs without model outcomes. | Explicit cohort, supply audit, and manifests |
+| `run_promoter_node_accuracy_preflight.py` | Qualify all 156 head/MLP hooks, terminal-CLS positive control, self-patch, clean GUE behavior, and numerical invariants. | Preserves failed v1 control; v2 refuses authorization unless every corrected gate passes |
+| `run_promoter_node_accuracy_atlas.py` | Exchange each of all 144 CLS head contexts and 12 CLS MLP writes and rank their effects on correct target/control labels. | Complete-family development and confirmation raw/compact artifacts plus manifests |
+| `summarize_promoter_node_accuracy.py` | Combine unchanged full-family splits and record replicated gates and the accuracy-first joint ranking. | Explicit compact replication result plus manifest |
 
 The active protocol and bounded behavioral claims are in
 [`studies/dnabert2_reconstruction_atlas/`](../studies/dnabert2_reconstruction_atlas/README.md).

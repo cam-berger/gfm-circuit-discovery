@@ -557,3 +557,25 @@
   rescue, path blocking, or faithfulness for this source hypothesis.
 - Interpretation: D8 remains a post-tokenization mask sensitivity, not native sequence-order
   necessity. GC-content necessity is instrument-unresolved, not negative.
+
+## 2026-07-28 — Run an accuracy-first atlas over every CLS head and MLP write
+
+- Supply: outcome-blind exclusion leaves exactly 100 fresh unique 1-Mb blocks after D4 and
+  D7–D9. Freeze 50 development and 50 confirmation pairs by stable hash.
+- Universe: scan all 144 attention contexts and all 12 MLP writes individually at `[CLS]`.
+  Reciprocally exchange real-TSS and pseudo-TSS activations so both class branches contribute to
+  balanced accuracy loss.
+- Inference: require at least 0.02 accuracy loss, a strictly positive 95% pair-bootstrap lower
+  bound, and one-sided add-one maximum-sign `p≤0.05` across the complete 156-node family.
+- Preflight diagnosis: v1's simultaneous all-write exchange moved class margin but not hard
+  accuracy enough because residual paths remain and repeated swaps can cancel. Preserve it as
+  `INSTRUMENT_UNRESOLVED`; no target outcome had been read.
+- Corrected control: before opening development, freeze v2 with an exact terminal CLS residual
+  exchange. It takes held-out GUE accuracy from 0.891 to 0.109 and AUROC from 0.977 to 0.023;
+  self-patch and batch drift are zero.
+- Outcome: L11MLP ranks first in both splits, costing 0.130/0.120 accuracy and 0.214/0.283
+  AUROC. It passes the SESOI and familywise test twice, but the confirmation bootstrap lower
+  bound is zero. L11H2 is the top head in both splits; L11H5 remains near the top. No individual
+  node passes the complete replicated gate.
+- Decision: prioritize L11MLP for a new targeted MLP causal phase, retain L11H2/L11H5 as the
+  leading heads, and do not claim a standalone necessary node from this atlas.

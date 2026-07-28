@@ -16,6 +16,7 @@
 | Promoter source localization v1 | Where is classifier-relevant promoter information, and does the replicated late-pair V payload localize to the same region? | nominal +11 to +21 mask effect replicated; regional V, independent biological annotations, and predefined motifs did not replicate/qualify | `../../results/dnabert2_reconstruction_atlas/promoter_source_localization_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_source_localization_replication_v1.manifest.json` | D8 |
 | Promoter source classification performance v1 | Does the nominated mask alter hard-label performance and ranking? | post-hoc AUROC loss repeats in both splits; 7/231 target promoter→non-promoter flips; balanced accuracy unchanged by offsetting control corrections | `../../results/dnabert2_reconstruction_atlas/promoter_source_classification_performance_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_source_classification_performance_v1.manifest.json` | D8 |
 | Promoter native-source development v10 | Is the +11:+21 mask nomination reproduced by a native exact-composition sequence reorder? | development positive gate failed; confirmation, residual tracing, and mediation sealed | `../../results/dnabert2_reconstruction_atlas/promoter_native_source_development_v10.json` | `../../results/dnabert2_reconstruction_atlas/promoter_native_source_development_v10.manifest.json` | D9 |
+| Promoter all-node accuracy atlas v1 | Which of all 144 CLS head contexts and 12 CLS MLP writes matter most for correct labels? | L11MLP ranks first with 13/12-point accuracy loss and 0.214/0.283 AUROC loss; confirmation CI touches zero, so no node passes the complete replicated gate | `../../results/dnabert2_reconstruction_atlas/promoter_node_accuracy_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_node_accuracy_replication_v1.manifest.json` | D10 |
 
 ### Promoter source localization v1
 
@@ -93,6 +94,38 @@ necessity for this edit and cohort. Because the interval includes the +0.10 SESO
 equivalence null. It does not test every possible substitution or establish that the region is
 biologically inert, or qualify GC-content necessity. Confirmation and all internal tracing remain
 sealed.
+
+### Promoter all-node accuracy atlas v1
+
+The accuracy-first atlas uses the last 100 outcome-unseen, unique 1-Mb locus blocks after
+excluding all examples and blocks used by D4 and the D7–D9 phases. Fifty pairs are assigned to
+development and fifty to confirmation by a stable outcome-blind hash. Every one of the 144
+attention-head contexts and 12 MLP writes is exchanged individually between the real TSS and its
+paired pseudo-TSS at `[CLS]`. The primary endpoint is the loss in balanced paired accuracy;
+AUROC, class-margin loss, and directional label flips are secondary.
+
+| Node | Dev rank; accuracy loss (95% CI) | Dev AUROC loss; maxT p | Confirmation rank; accuracy loss (95% CI) | Confirmation AUROC loss; maxT p | Verdict |
+|---|---:|---:|---:|---:|---|
+| L11MLP | 1; +0.130 (+0.030, +0.230) | +0.2136; 0.0100 | 1; +0.120 (+0.000, +0.240) | +0.2832; 0.0401 | strongest replicated candidate; confirmation CI gate fails |
+| L11H2 | 2; +0.040 (−0.020, +0.090) | +0.0416; 0.2758 | 2; +0.040 (−0.010, +0.100) | +0.0832; 0.3819 | top head; family gate fails |
+| L11H5 | 3; +0.030 (−0.020, +0.080) | +0.0600; 0.2758 | 4; +0.020 (−0.030, +0.070) | +0.0488; 0.3819 | stable late-head candidate; family gate fails |
+
+Clean balanced accuracy is 0.600 in each split; clean AUROC is 0.6612/0.7104. L11MLP exchange
+causes 6/5 target promoter→non-promoter flips and 10/13 control non-promoter→promoter flips in
+development/confirmation, partly offset by reverse transitions. It alone clears the 0.02
+accuracy SESOI and full-family maximum-sign test in both splits, but its confirmation bootstrap
+lower bound is exactly zero. No individual component therefore passes all three frozen gates on
+both splits.
+
+The first preflight is preserved as `INSTRUMENT_UNRESOLVED`: simultaneous exchange of all
+layerwise writes was not an accuracy positive control because residual paths remain and repeated
+exchanges can cancel. Before target outcomes, v2 replaced only that control with an exact
+terminal `[CLS]` residual exchange. It reduced GUE accuracy from 0.891 to 0.109 and AUROC from
+0.977 to 0.023; self-patch and batch drift were zero.
+
+D10 identifies L11MLP as the highest-priority missing component and independently returns
+L11H2/L11H5 as the leading heads. These are reciprocal paired-exchange results, not zero
+ablations, source localization, a complete circuit, or biological promoter mechanisms.
 
 ### Promoter address/payload decomposition v1
 

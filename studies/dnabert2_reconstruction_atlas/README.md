@@ -36,6 +36,7 @@ ablation, patching, rescue, mediation, and path interventions decide causal supp
 | Promoter source localization | sealed confirmation complete | Equal-dose masking localizes a replicated classifier-relevant source region to nominal +11 to +21 nt; no regional late-pair V effect or independent biological annotation replicated. |
 | Promoter source performance follow-up | post-hoc descriptive complete | Masking +11 to +21 lowers AUROC in both splits and flips 7/231 real promoters to non-promoter, but balanced accuracy is unchanged because pseudo-TSS corrections offset target errors. |
 | Promoter native-source qualification | development gate failed; confirmation and tracing sealed | Exact mono/linear-dinucleotide-preserving reordering of +11:+21 is not supported as necessary at 60 fresh loci (−0.016 logits, 95% CI −0.176 to +0.138). |
+| Promoter all-node accuracy atlas | sealed confirmation complete; no node fully qualified | L11MLP ranks first in both splits (13/12-point accuracy loss; 0.214/0.283 AUROC loss), but its confirmation CI touches zero. L11H2/L11H5 remain the leading heads. |
 
 Multisource v4 found no annotation-specific excess reconstruction over all empirical controls.
 The later context-margin-v1 amendment asks a different, model-native question: whether a
@@ -76,6 +77,14 @@ this to about 61% in both splits. Query-only transfer is effectively zero, and c
 earlier candidate heads is below the frozen effect threshold. D6 therefore supports a late
 output-carrier core on an MLP-maintained representation, not a target-specific query gate or a
 demonstrated early-to-late chain.
+
+An accuracy-first follow-up scans all 144 head contexts and all 12 MLP writes on the final 100
+unused locus blocks. Reciprocal exchange of L11MLP is the largest effect in both 50-pair splits:
+balanced accuracy falls by 0.130/0.120 and AUROC by 0.214/0.283. L11H2 is the top head in both
+splits, followed closely by L11H5/L11H6. L11MLP clears the SESOI and full-family maximum-sign
+test twice, but its confirmation bootstrap interval begins at zero; no node passes the complete
+replicated gate. This prioritizes the last-layer MLP for targeted reverse engineering without
+promoting it to a standalone necessary circuit element.
 
 A fresh-cohort address/payload assay then separates the late pair's K and V roles at fixed
 40-token dose. Permuting V while leaving Q, K, QK logits, and native attention probabilities
