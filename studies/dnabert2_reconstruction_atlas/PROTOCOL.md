@@ -106,6 +106,38 @@ proximal-context dependence under the frozen class shape; it does not isolate a 
 prove cellular function, or separate biological context from generic distance-sensitive model
 encoding. Broad TF/cCRE anchors retain their explicit precision boundary.
 
+### Promoter-classifier-v2 amendment
+
+The promoter-specific assay uses
+`magicslabnu/DNABERT-2-finetuned-prom_300_all` at revision
+`7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12`. The loader verifies every checkpoint file, the
+vendored MosaicBERT implementation, the complete two-class head, and semantic equivalence between
+the checkpoint's newer tokenizer serialization and the original pinned DNABERT-2 BPE. Remote code
+is never executed.
+
+The existing EPDnew target cohort is prohibited: all selected 300-nt windows occur verbatim in
+GUE. The replacement cohort uses GENCODE v50 protein-coding MANE Select transcript TSSs, one per
+shared 1-Mb locus block, after excluding exact forward or reverse-complement membership in every
+GUE split. A same-locus pseudo-TSS has no annotated transcript TSS within 300 nt and must meet the
+frozen GC/CpG calipers.
+
+For an input \(x\), the supervised measurement is
+\(L(x)=z_1(x)-z_0(x)\), with label 1 fixed to promoter. The clean effect is
+\(L(\mathrm{TSS})-L(\mathrm{pseudoTSS})\). The local-context effect is
+
+\[
+[L(T)-L(T_{\mathrm{shuffle}})]-
+[L(C)-L(C_{\mathrm{shuffle}})].
+\]
+
+The same relative 50-nt upstream and 10-nt downstream spans are shuffled around a preserved
+five-nucleotide TSS or pseudo-TSS anchor. Target/control shuffles preserve length and local
+mononucleotide composition and are selected to have identical Hamming dose. Clean and context
+effects use SESOIs +0.50 and +0.25 logit-margin units. Each must clear its SESOI, positive 95%
+locus-block bootstrap lower bound, and Holm-adjusted one-sided add-one sign-permutation gate in
+development and confirmation. Failure of the context endpoint stops internal localization even
+when the clean classifier behavior replicates.
+
 ## Phase D — informative source regions
 
 For behavior-qualified targets, exchange or perturb:

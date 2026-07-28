@@ -29,6 +29,7 @@ ablation, patching, rescue, mediation, and path interventions decide causal supp
 | P4 context-source census | stopped at the P3 gate | No informative-region claim. |
 | P5 internal candidate atlas | stopped at the P3 gate | No component claim. |
 | P6 causal tests | stopped at the P3 gate | No causal claim. |
+| Promoter classifier amendment | sealed confirmation complete | Fine-tuned promoter margin replicated on exact-GUE-excluded GENCODE MANE TSSs; the target-preserving context difference did not replicate. |
 
 Multisource v4 found no annotation-specific excess reconstruction over all empirical controls.
 The later context-margin-v1 amendment asks a different, model-native question: whether a
@@ -42,6 +43,15 @@ These are DNABERT-2 context-behavior rows. They do not establish biological func
 resolved motifs for the broad regulatory anchors, or internal causal mechanisms. The distal null
 does not match target distance, so proximity-sensitive encoding remains inside the licensed
 effect. All prior negative and failed artifacts remain preserved.
+
+The promoter-specific amendment replaces the MLM readout with the supervised class margin from
+`magicslabnu/DNABERT-2-finetuned-prom_300_all`. The obvious EPDnew rerun was rejected: all 768
+300-nt EPDnew atlas windows occur verbatim in GUE, the fine-tuning source. On a replacement cohort
+of 384 development and 384 confirmation GENCODE v50 MANE TSS locus blocks with exact
+forward/reverse GUE exclusion, the clean promoter margin replicates against composition-matched
+same-locus pseudo-TSSs. The stricter target-preserving context difference qualifies in development
+but not confirmation. D4 therefore licenses promoter classification behavior, not a
+context-specific mechanism or internal circuit search.
 
 ## Historical reconstruction estimand
 
@@ -85,6 +95,22 @@ effect is \(M_\mathrm{distal}-M_\mathrm{proximal}\). A class must exceed +0.01, 
 95% cluster-bootstrap lower bound, and pass add-one cluster sign inference with Holm correction
 in development and confirmation.
 
+## Promoter-classifier-v2 estimand
+
+For a 300-nt window from −249 through +50 around a TSS, the model-native supervised margin is
+
+\[
+L(x)=z_\mathrm{promoter}(x)-z_\mathrm{nonpromoter}(x).
+\]
+
+This margin is BPE-valid because both logits come from one classification head on the same
+tokenized input. The clean effect is \(L(\mathrm{TSS})-L(\mathrm{pseudoTSS})\). The context
+effect is a difference-in-differences: clean-minus-shuffled margin loss at the true TSS minus the
+same loss at its same-locus pseudo-TSS. Both shuffles preserve a five-nucleotide anchor,
+mononucleotide composition, sequence length, and exact target/control Hamming dose. Each split
+requires the frozen SESOI, a positive 95% locus-block bootstrap lower bound, and Holm-adjusted
+add-one sign inference for both endpoints. Exact GUE membership is excluded before scoring.
+
 ## Repository map
 
 | Path | Purpose |
@@ -122,4 +148,5 @@ open only the classes that qualified in the immutable development report.
 3. [`PREREGISTRATION.md`](PREREGISTRATION.md)
 4. [`CLAIMS.md`](CLAIMS.md)
 5. [`RESULTS.md`](RESULTS.md)
-6. [`archive/LEGACY_DNABERT2_STUDIES.md`](archive/LEGACY_DNABERT2_STUDIES.md)
+6. [`PROMOTER_CLASSIFIER_SOURCE_MANIFEST.json`](PROMOTER_CLASSIFIER_SOURCE_MANIFEST.json)
+7. [`archive/LEGACY_DNABERT2_STUDIES.md`](archive/LEGACY_DNABERT2_STUDIES.md)

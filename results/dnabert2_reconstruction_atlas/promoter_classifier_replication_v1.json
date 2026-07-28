@@ -1,0 +1,85 @@
+{
+  "EPDnew_cohort_status": "excluded: all 768 selected 300-nt EPDnew windows occur verbatim in GUE",
+  "assay": "fine_tuned_promoter_margin_target_preserving_context_v1",
+  "boundary": [
+    "This is classifier behavior on annotated human sequence, not transcriptional function in cells.",
+    "Exact GUE membership is excluded, but undocumented near-duplicate or homologous GUE training sequences cannot be ruled out.",
+    "The intervention preserves the five-nucleotide anchor, length, local mononucleotide composition, and target/control Hamming dose; it does not preserve dinucleotide order.",
+    "No attention head, MLP, residual direction, necessity, or mediation path was tested."
+  ],
+  "checkpoint": {
+    "base_hf_id": "zhihan1996/DNABERT-2-117M",
+    "base_tokenizer_revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+    "candidate": "prom_300_all",
+    "hf_id": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
+    "revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12"
+  },
+  "config_sha256": "e4b0fdd0a0ecd33a7a69f0f88e7f80fe13a41271d55b9b449f433acb95398719",
+  "confirmation": {
+    "mean_control_clean_margin": 2.0151869153996813,
+    "mean_target_clean_margin": 3.9044165267514472,
+    "n_clusters": 384,
+    "n_examples": 384,
+    "qualified": false,
+    "tests": {
+      "clean_enrichment": {
+        "CI": [
+          1.6117668968460446,
+          2.186716609763001
+        ],
+        "mean": 1.889229611351766,
+        "p_holm": 0.0002,
+        "qualified": true
+      },
+      "context_difference": {
+        "CI": [
+          -0.06842501162373082,
+          0.6150520811494667
+        ],
+        "mean": 0.27497125647369103,
+        "p_holm": 0.0569,
+        "qualified": false
+      }
+    }
+  },
+  "development": {
+    "mean_control_clean_margin": 1.7698597938093978,
+    "mean_target_clean_margin": 3.8654888719756855,
+    "n_clusters": 384,
+    "n_examples": 384,
+    "qualified": true,
+    "tests": {
+      "clean_enrichment": {
+        "CI": [
+          1.7813103444689962,
+          2.4080358477173527
+        ],
+        "mean": 2.095629078166288,
+        "p_holm": 0.0002,
+        "qualified": true
+      },
+      "context_difference": {
+        "CI": [
+          0.32503951640016265,
+          1.0080399665578927
+        ],
+        "mean": 0.6655290590175961,
+        "p_holm": 0.0002,
+        "qualified": true
+      }
+    }
+  },
+  "licensed_claim": "The preregistered promoter classifier behavior did not replicate.",
+  "next_gate": "none",
+  "preflight_report_id": "dnabert2-promoter-classifier-v1-qualified",
+  "replacement_cohort": {
+    "confirmation_n": 384,
+    "development_n": 384,
+    "source": "GENCODE v50 basic protein-coding MANE Select TSSs",
+    "training_corpus_filter": "no exact forward or reverse-complement membership in any GUE split"
+  },
+  "replicated": false,
+  "schema_version": 1,
+  "status": "SEALED",
+  "study": "dnabert2_biological_reconstruction_atlas"
+}

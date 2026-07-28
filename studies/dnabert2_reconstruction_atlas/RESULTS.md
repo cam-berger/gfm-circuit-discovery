@@ -9,6 +9,33 @@
 | GENCODE behavior development v1 | Does any admitted class exceed all empirical and low-order controls? | development gate failed for every class; confirmation sealed | `../../results/dnabert2_reconstruction_atlas/behavior_development_v1.json` | `../../results/dnabert2_reconstruction_atlas/behavior_development_v1.manifest.json` | D1 |
 | Multisource behavior development v4 | Do promoter, poly(A), TFBS, branch-point, PPT, enhancer, splice, or translation classes exceed every control? | development gate failed for every class; five powered, eight underpowered; confirmation sealed | `../../results/dnabert2_reconstruction_atlas/behavior_development_multisource_v4.json` | `../../results/dnabert2_reconstruction_atlas/behavior_development_multisource_v4.manifest.json` | D2 |
 | Context-margin atlas v1 | Does a class-specific, target-preserving proximal-context corruption reduce DNABERT-2's geometry-qualified alternative margin more than an equal-dose distal corruption? | nine classes replicated; promoter did not replicate; stop failed development; acceptor/donor preflight-unresolved | `../../results/dnabert2_reconstruction_atlas/context_margin_v1_replication.json` | `../../results/dnabert2_reconstruction_atlas/context_margin_v1_replication.manifest.json` | D3 |
+| Fine-tuned promoter classifier v2 | Does a promoter-trained DNABERT-2 margin distinguish exact-GUE-excluded GENCODE TSSs, and is its local context effect target-specific? | clean promoter margin replicated; context difference did not replicate; internal search stopped | `../../results/dnabert2_reconstruction_atlas/promoter_classifier_replication_v2.json` | `../../results/dnabert2_reconstruction_atlas/promoter_classifier_replication_v2.manifest.json` | D4 |
+
+### Fine-tuned promoter classifier v2
+
+Checkpoint selection was independent of atlas outcomes. On the native GUE test split, the
+MagicsLab 300-nt all-promoter head reached MCC 0.8705 and AUROC 0.9848, versus MCC 0.6804 and
+AUROC 0.9179 for its 70-nt core-promoter sibling. Both original EPDnew cohorts were ineligible:
+the best-aligned 70-nt and 300-nt windows each had 768/768 exact GUE memberships. The target run
+therefore used GENCODE v50 protein-coding MANE Select TSSs after excluding any target or control
+with exact forward or reverse-complement membership in any GUE split.
+
+| Endpoint | Development, n=384 | Confirmation, n=384 | Confirmation Holm p | Verdict |
+|---|---:|---:|---:|---|
+| Clean promoter margin enrichment | +2.0956 (1.7813, 2.4080) | +1.8892 (1.6118, 2.1867) | 0.0002 | replicated |
+| Target-specific context difference | +0.6655 (0.3250, 1.0080) | +0.2750 (−0.0684, 0.6151) | 0.0569 | not replicated |
+
+Effects are promoter-minus-nonpromoter classifier logit margins. The first row compares true TSS
+windows with composition-matched, TSS-excluded pseudo-TSS windows from the same locus. The second
+is the true-TSS clean-minus-shuffle loss minus the identical, equal-dose pseudo-TSS loss. Its
+confirmation mean clears the +0.25 SESOI, but its interval crosses zero and its corrected p-value
+misses the gate. The licensed result is promoter classification behavior only; no local-context
+mechanism or internal component search is authorized.
+
+The first frozen preflight remains preserved as `INSTRUMENT_UNRESOLVED`: a single random-label
+null was too volatile and a \(3.10\times10^{-6}\) CPU batch-shape difference exceeded a
+\(10^{-6}\) tolerance. V2 changed no biological threshold or target outcome. It uses the mean of
+256 label permutations and a \(10^{-5}\) numerical tolerance; all eight gates pass.
 
 ### Replicated context-margin atlas v1
 

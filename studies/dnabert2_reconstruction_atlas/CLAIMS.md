@@ -49,6 +49,21 @@ Promoter qualified in development (+0.0247) but did not replicate (+0.00066, 95%
 Splice acceptor and donor were quarantined before target scoring because the margin positive
 control was unresolved; none of these four outcomes is silently pooled with the replicated set.
 
+**D4 — fine-tuned promoter behavior replicates; context mechanism does not.** The selected
+`prom_300_all` DNABERT-2 classifier replicates a positive clean promoter margin on
+exact-GUE-excluded GENCODE v50 protein-coding MANE Select TSS windows relative to
+composition-matched, TSS-excluded same-locus pseudo-TSS windows. Development and confirmation
+effects are +2.0956
+(95% CI +1.7813 to +2.4080) and +1.8892 (+1.6118 to +2.1867) classifier-logit-margin units;
+both Holm-adjusted add-one values are 0.0002.
+
+The target-preserving local-context difference-in-differences does **not** replicate. It is
++0.6655 (+0.3250 to +1.0080, Holm `p=0.0002`) in development and +0.2750
+(−0.0684 to +0.6151, Holm `p=0.0569`) in confirmation. The confirmation point estimate exceeds
+the +0.25 SESOI, but its interval and corrected p-value fail. D4 licenses supervised promoter
+classification behavior on the declared external cohort. It licenses no context-specific
+mechanism, internal component, necessity, or mediation claim.
+
 ## Established infrastructure facts
 
 These are implementation properties and prior instrument constraints, not claims about biological
@@ -73,6 +88,11 @@ reconstruction.
 | IF15 | Frozen multisource-v4 preflight is `QUALIFIED` for all 13 classes against the exact bound data, controls, config, checkpoint, and model-health checks. | `results/dnabert2_reconstruction_atlas/preflight_qualified_multisource_v4.json` | Authorizes development scoring only; not a biological reconstruction result. |
 | IF16 | Context-margin supply retains 4,799 target-preserving structured/irrelevant variant pairs across all 13 classes with zero target-cover, geometry, dose, or split violations; every class supplies at least 82 loci on each target split. | `results/dnabert2_reconstruction_atlas/context_margin_v1_supply_audit.json` | Outcome-blind supply only; attrition is substantial and retained rather than repaired. |
 | IF17 | The corrected frozen context-margin preflight is `QUALIFIED` for 11 admitted classes. Copy-margin positive controls, irrelevant-control equivalence, ≤0.006 MDE, ≤0.004 CI half-width, exact geometry/dose, and model health pass. Acceptor and donor remain preflight-quarantined. | `results/dnabert2_reconstruction_atlas/context_margin_v1_preflight_qualified_rerun.json` | Authorizes the context-margin development run; does not itself establish D3. The prior failed qualified artifact is preserved as a gate-membership implementation failure. |
+| IF18 | Among compatible human all-promoter DNABERT-2 heads, `prom_300_all` has the stronger native GUE test result (MCC 0.8705, AUROC 0.9848) and a complete pinned two-class head. | `results/dnabert2_reconstruction_atlas/promoter_classifier_checkpoint_audit_v2.json` | Checkpoint selection only; it does not establish promoter behavior on an external cohort. |
+| IF19 | Every selected 300-nt EPDnew atlas window occurs verbatim in GUE; the 70-nt core task also has 768/768 exact membership at its best one-base alignment. | `results/dnabert2_reconstruction_atlas/promoter_classifier_checkpoint_audit_v2.json` | EPDnew is excluded from the fine-tuned target run; scoring it would be training-source contaminated. |
+| IF20 | The replacement GENCODE cohort contains 384 development and 384 confirmation MANE TSS locus blocks, zero exact forward/reverse GUE memberships, zero split leakage, exact anchor/composition/dose invariants, and bounded GC/CpG imbalance. | `results/dnabert2_reconstruction_atlas/promoter_classifier_cohort_audit_v1.json` | Outcome-blind cohort fact only. Exact exclusion does not rule out undocumented near-duplicates. |
+| IF21 | Promoter preflight v1 is `INSTRUMENT_UNRESOLVED` because a one-draw permuted-label MCC and an over-tight CPU batch tolerance fail; no GENCODE target outcome was opened. | `results/dnabert2_reconstruction_atlas/promoter_classifier_preflight_v1.json` | Preserved instrument failure, not a promoter null. |
+| IF22 | Promoter preflight v2 is `QUALIFIED` after replacing the volatile one-draw null with a 256-permutation center and rounding the numerical tolerance to \(10^{-5}\), while retaining all scientific SESOIs. | `results/dnabert2_reconstruction_atlas/promoter_classifier_preflight_v2.json` | Authorizes the D4 target run; preflight itself is not external-cohort behavior evidence. |
 
 ## Open hypotheses
 
@@ -83,5 +103,6 @@ reconstruction.
 | H3 | A bounded set of heads, MLPs, positions, or residual directions causally supports an H2-qualified behavior. | blocked by the v4 H1 gate | Frozen candidate screen, matched-size necessity, mediation, and path tests. |
 | H4 | A geometry-qualified DNABERT-2 alternative margin has a replicated, class-specific target-preserving proximal-context effect. | supported for the nine D3 classes; promoter did not replicate, stop failed development, acceptor/donor are instrument-unresolved | A distance-matched or orthogonal context null would narrow the proximal-context interpretation further. |
 | H5 | A bounded internal DNABERT-2 component set causally mediates a D3 context-margin effect. | open but untested for the nine D3 classes | Freeze candidates and matched-size necessity/mediation tests before inspecting internal effects. |
+| H6 | A promoter-fine-tuned DNABERT-2 has a replicated target-specific local-context effect at training-corpus-excluded human TSSs. | not supported: clean promoter margin replicated, but the context difference failed confirmation | A new independently justified context intervention/null and a fresh sealed cohort; D4 does not authorize internal localization. |
 
 Negative, retracted, and superseded rows will remain here permanently once evidence exists.

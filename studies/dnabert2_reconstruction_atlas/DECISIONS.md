@@ -309,3 +309,51 @@
 - Decision: record D3 and allow a future, separately frozen internal candidate stage for only the
   nine replicated classes. No attention, attribution, head, MLP, mediation, or causal claim is
   made by this census.
+
+## 2026-07-27 — Select a promoter-trained DNABERT-2 head and reject the circular EPD rerun
+
+- Candidates: the compatible MagicsLab human GUE all-promoter checkpoints reproduce native held-
+  out performance at MCC 0.6804/AUROC 0.9179 for 70-nt core promoters and MCC 0.8705/AUROC
+  0.9848 for 300-nt promoters. The plant checkpoint changes species and tokenizer; the other Hub
+  results are DNABERT-1 or undocumented DNABERT-AG variants.
+- Decision: pin `magicslabnu/DNABERT-2-finetuned-prom_300_all` at revision
+  `7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12`. Use the supervised promoter-minus-nonpromoter
+  logit margin, which compares two labels on one tokenized input and therefore avoids the
+  alternative-sequence BPE fairness problem.
+- Contamination finding: all 768 selected EPDnew 300-nt windows occur verbatim in GUE. The
+  best-aligned 70-nt cores also have 768/768 exact membership. EPDnew target scoring is prohibited
+  for this fine-tuned head.
+- Replacement: use GENCODE v50 protein-coding MANE Select TSSs, excluding exact forward/reverse
+  membership in every GUE split before outcomes. Pair each target with a GC/CpG-matched,
+  TSS-excluded same-locus pseudo-TSS and split by shared 1-Mb locus block.
+
+## 2026-07-27 — Preserve failed promoter preflight v1 and qualify the corrected instrument
+
+- Outcome-blind cohort: 384 development and 384 confirmation blocks pass with zero exact GUE
+  overlap, split leakage, anchor changes, composition changes, or target/control Hamming-dose
+  mismatch.
+- V1 anomaly: all positive, sensitivity, resolution, invariant, balance, and token gates pass, but
+  a single seeded label permutation yields MCC −0.0742 and CPU batch reshaping changes a margin
+  by \(3.10\times10^{-6}\), above the frozen \(10^{-6}\) tolerance. Target outcomes remain sealed.
+- Diagnosis: a one-draw random-label MCC is a high-variance null statistic; the observed
+  permutation distribution has standard deviation 0.0437. The CPU discrepancy is bounded
+  floating-point reduction noise, not stochastic model behavior; exact replay differs by zero.
+- V2 amendment, frozen before target outcomes: replace the one-draw null with the mean MCC across
+  256 seeded label permutations and require absolute mean ≤0.01. Round the batch-invariance
+  tolerance outward to \(10^{-5}\). Keep the checkpoint, cohort, intervention, +0.50/+0.25 target
+  SESOIs, intervals, inference, and all other gates unchanged.
+- Result: all eight V2 preflight families pass. The permutation mean is +0.00183, held-out GUE
+  context difference is +1.085 (95% CI +0.759 to +1.410), MDE is 0.464, and CI half-width is
+  0.325. Development is authorized.
+
+## 2026-07-27 — Seal D4 as promoter behavior without a replicated context mechanism
+
+- Development: on 384 locus blocks, clean TSS-versus-pseudo-TSS margin enrichment is +2.0956
+  (95% CI +1.7813 to +2.4080) and context difference-in-differences is +0.6655 (+0.3250 to
+  +1.0080); both Holm `p=0.0002`. Both endpoints qualify and confirmation opens.
+- Confirmation: clean enrichment replicates at +1.8892 (+1.6118 to +2.1867; Holm `p=0.0002`).
+  The context endpoint is +0.2750, above its +0.25 SESOI, but its interval crosses zero
+  (−0.0684 to +0.6151) and Holm `p=0.0569`.
+- Decision: D4 supports fine-tuned promoter classification behavior on the exact-GUE-excluded
+  GENCODE cohort. The target-specific local-context mechanism does not replicate. Stop before
+  attention, attribution, internal candidates, ablation, necessity, or mediation.

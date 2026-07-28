@@ -4,7 +4,7 @@
 
 This is an **index of the runnable scripts**, not the scientific ledger. It maps each active script to
 the claim(s) and controlling artifact it serves, grouped by result family. The authoritative
-claim→evidence record is [`results/MANIFEST.csv`](../results/MANIFEST.csv) (831 rows) plus
+claim→evidence record is [`results/MANIFEST.csv`](../results/MANIFEST.csv) (863 rows) plus
 [`studies/splicebert_partner_selection/CLAIMS.md`](../studies/splicebert_partner_selection/CLAIMS.md)
 (donor circuit, C1–C41 + IC1), [`studies/splicebert_head_context_atlas/CLAIMS.md`](../studies/splicebert_head_context_atlas/CLAIMS.md)
 (Atlas, HCA1–HCA23), and [`CORRECTIONS.md`](../studies/splicebert_partner_selection/CORRECTIONS.md)
@@ -35,8 +35,8 @@ disk; every MANIFEST row's script/artifact/manifest/figure path resolves
 
 # `scripts/dnabert2_atlas/` — Biological Reconstruction Atlas
 
-These runners are infrastructure only until the study preflight is frozen and passes. They carry no
-row in the scientific result manifest.
+The frozen preflights determine which runners may produce behavioral evidence. Every settled output
+has a row in the scientific result manifest.
 
 | Script | Purpose | Output contract |
 |---|---|---|
@@ -49,8 +49,13 @@ row in the scientific result manifest.
 | `run_preflight.py` | Calibrate, then execute, copy-plant, negative, sensitivity, geometry, balance, invariant, and model-health gates. | Explicit new compact JSON plus manifest |
 | `run_behavioral_screen.py` | Score minimal BPE covers, compute separate empirical/baseline advantages, and run cluster-first add-one inference. | Refuses without a matching frozen `QUALIFIED` preflight; explicit new JSON plus manifest |
 | `analyze_behavioral_replication.py` | Combine frozen development and sealed confirmation screens under the unchanged behavior lock. | Explicit new compact JSON plus manifest |
+| `audit_promoter_checkpoints.py` | Compare compatible GUE promoter heads, verify pinned upstream files, and audit overlap with the existing EPD cohort. | Explicit new compact JSON plus manifest |
+| `build_promoter_classifier_cohort.py` | Build exact-GUE-excluded GENCODE MANE TSS/pseudo-TSS pairs and freeze composition, split, and shuffle invariants. | Explicit new cohort files, compact audit, and manifest |
+| `run_promoter_classifier_preflight.py` | Test native performance, positive/negative/sensitivity controls, numerical invariants, and prospective power. | Refuses to authorize the atlas unless every frozen gate passes; explicit new compact JSON plus manifest |
+| `run_promoter_classifier_atlas.py` | Score clean promoter margin and the target-preserving context difference on development or sealed confirmation loci. | Refuses without the qualified v2 preflight and matching hashes; explicit new JSON plus manifest |
+| `summarize_promoter_classifier_atlas.py` | Apply the unchanged replication lock and record the strongest licensed promoter claim. | Explicit new compact JSON plus manifest |
 
-The active protocol and current no-claim state are in
+The active protocol and bounded behavioral claims are in
 [`studies/dnabert2_reconstruction_atlas/`](../studies/dnabert2_reconstruction_atlas/README.md).
 
 ---
@@ -229,5 +234,5 @@ The competition branch (HCA2–HCA10) is CLOSED; its `competition_branch_closure
 # `scripts/verify_manifest.py`
 
 Validates that every `results/MANIFEST.csv` row's `script`, `artifact`, `manifest`, and `figure` path
-exists. Run it before merging any change to an active workflow. It currently passes (780 rows, 0
+exists. Run it before merging any change to an active workflow. It currently passes (863 rows, 0
 unresolved paths).

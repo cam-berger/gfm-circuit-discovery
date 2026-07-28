@@ -1,0 +1,153 @@
+{
+  "schema_version": 2,
+  "status": "FROZEN",
+  "frozen_basis": {
+    "checkpoint_audit": "results/dnabert2_reconstruction_atlas/promoter_classifier_checkpoint_audit_v2.json",
+    "superseded_instrument": "results/dnabert2_reconstruction_atlas/promoter_classifier_preflight_v1.json",
+    "selection_rule": "Among compatible human all-promoter DNABERT-2 heads, use the native 300-nt task when held-out GUE MCC is at least 0.80, AUROC is at least 0.95, scores are deterministic and finite, and no input exceeds 256 BPE tokens.",
+    "contamination_rule": "Exclude any forward or reverse-complement target or control sequence occurring in any GUE train, development, or test split.",
+    "threshold_basis": "Target SESOIs and scientific gates are unchanged from v1. Before any GENCODE classifier outcome, the v1 instrument showed a 3.10e-6 CPU padding/batch numerical difference and a volatile one-draw permuted-label MCC. V2 rounds the numerical tolerance outward to 1e-5 and replaces the single random null draw with the center of 256 label permutations, requiring its absolute mean MCC to be at most 0.01."
+  },
+  "checkpoint": {
+    "candidate": "prom_300_all",
+    "hf_id": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
+    "revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+    "base_hf_id": "zhihan1996/DNABERT-2-117M",
+    "base_tokenizer_revision": "7bce263b15377fc15361f52cfab88f8b586abda0"
+  },
+  "seed": 20260727,
+  "source": {
+    "gencode_gtf": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+    "gencode_release": "v50-basic",
+    "genome_fasta": "/Users/cberg/Research/data/genomes/hg38.fa",
+    "assembly": "GRCh38",
+    "target_definition": "protein_coding_MANE_Select_transcript_TSS",
+    "gue_dataset": {
+      "hf_id": "leannmlindsey/GUE",
+      "revision": "240df51a2cd2c0fb1d88efffaf86e8d1e477f932",
+      "task": "prom_300_all"
+    }
+  },
+  "collection": {
+    "release": "DNABERT2-promoter-classifier-GENCODE-v50-v1",
+    "window_upstream_nt": 249,
+    "window_downstream_nt": 50,
+    "input_length_nt": 300,
+    "split_unit": "shared_1Mb_genomic_locus_block",
+    "development_percent": 50,
+    "maximum_clusters_per_split": 384,
+    "minimum_clusters_per_split": 128,
+    "control_family": "same_locus_pseudo_TSS",
+    "control_offsets_transcription_nt": [
+      -2500,
+      -2000,
+      -1500,
+      -1000,
+      -750,
+      750,
+      1000,
+      1500,
+      2000,
+      2500
+    ],
+    "control_TSS_exclusion_radius_nt": 300,
+    "maximum_absolute_GC_fraction_difference": 0.08,
+    "maximum_absolute_CpG_fraction_difference": 0.03,
+    "training_corpus_exclusion": "exact_forward_or_reverse_complement_across_all_GUE_prom_300_all_splits"
+  },
+  "measurement": {
+    "name": "supervised_promoter_logit_margin",
+    "definition": "classifier_logit(label_1_promoter)-classifier_logit(label_0_non_promoter)",
+    "clean_enrichment": "margin(true_TSS_window)-margin(matched_pseudo_TSS_window)",
+    "target_preserving_context_loss": "margin(clean)-margin(context_shuffle)",
+    "primary_context_effect": "target_context_loss-control_context_loss",
+    "why_BPE_is_valid": "Both class logits are read from one supervised head on the same tokenized input; unlike MLM alternative-word margins, no candidate sequence is compared under a different BPE segmentation."
+  },
+  "context_intervention": {
+    "operation": "deterministic_seeded_joint_mononucleotide_shuffle",
+    "target_anchor_width_nt": 5,
+    "upstream_context_nt": 50,
+    "downstream_context_nt": 10,
+    "preserves": [
+      "five_nt_TSS_or_pseudo_TSS_anchor",
+      "input_length",
+      "intervened_span_mononucleotide_composition"
+    ],
+    "target_control_dose_match": "exact_Hamming_changed_nucleotide_count",
+    "candidate_shuffles": 512
+  },
+  "preflight": {
+    "gue_test_pairs": 256,
+    "bootstrap_draws": 5000,
+    "permutation_draws": 9999,
+    "negative_control_permutations": 256,
+    "positive_control": "native_GUE_test_classification_and_promoter_vs_nonpromoter_clean_margin",
+    "negative_control": "mean_MCC_across_seeded_GUE_label_permutations",
+    "sensitivity": "normal_approximation_80pct_power_for_paired_context_difference",
+    "resolution": "95pct_pair_bootstrap_interval"
+  },
+  "mandatory_gates": {
+    "positive_control": {
+      "minimum_GUE_test_MCC": 0.8,
+      "minimum_GUE_test_AUROC": 0.95,
+      "minimum_clean_margin_separation": 0.5,
+      "requires_positive_lower_95pct_bootstrap_bound": true,
+      "minimum_context_difference": 0.25,
+      "requires_positive_context_difference_lower_95pct_bootstrap_bound": true
+    },
+    "negative_control": {
+      "maximum_absolute_mean_permuted_label_MCC": 0.01
+    },
+    "sensitivity": {
+      "maximum_detectable_context_effect_logit_margin": 0.5,
+      "power": 0.8
+    },
+    "resolution": {
+      "maximum_context_effect_CI_half_width": 0.5
+    },
+    "invariants": {
+      "maximum_GUE_exact_overlaps": 0,
+      "maximum_split_leakage_clusters": 0,
+      "maximum_anchor_changes": 0,
+      "maximum_context_composition_changes": 0,
+      "maximum_target_control_dose_mismatches": 0
+    },
+    "matching_balance": {
+      "maximum_absolute_GC_fraction_difference": 0.08,
+      "maximum_absolute_CpG_fraction_difference": 0.03
+    },
+    "token_geometry": {
+      "maximum_tokens": 256,
+      "maximum_truncated_inputs": 0
+    },
+    "model_health": {
+      "determinism_absolute_tolerance": 1e-06,
+      "batch_invariance_absolute_tolerance": 1e-05,
+      "requires_finite_scores": true,
+      "requires_complete_two_class_head": true
+    }
+  },
+  "behavior": {
+    "minimum_clusters_per_split": 128,
+    "clean_enrichment_SESOI_logit_margin": 0.5,
+    "context_difference_SESOI_logit_margin": 0.25,
+    "familywise_alpha": 0.05,
+    "permutation_draws": 9999,
+    "multiple_testing": "Holm_across_clean_enrichment_and_context_difference",
+    "development_qualification": "both effects meet their SESOI, have positive lower 95pct cluster-bootstrap bounds, and have Holm-adjusted add-one sign-permutation p values at most alpha",
+    "confirmation_selection": "open only when both development effects qualify",
+    "confirmation_replication": "both effects independently satisfy the same direction, SESOI, interval, and multiplicity rules"
+  },
+  "mechanistic_boundary": {
+    "qualified_claim": "promoter_classifier_margin_and_target_preserving_local_context_effect_at_GUE_excluded_GENCODE_TSSs",
+    "does_not_establish": [
+      "transcriptional_function_in_cells",
+      "independence_from_unobserved_near_duplicate_GUE_training_sequences",
+      "causal_model_component",
+      "mediation",
+      "basewise_promoter_grammar"
+    ],
+    "next_gate": "internal candidate generation requires development and confirmation replication of the context difference-in-differences"
+  },
+  "stop_rule": "any failed or anomalous mandatory preflight gate blocks GENCODE development outcomes"
+}

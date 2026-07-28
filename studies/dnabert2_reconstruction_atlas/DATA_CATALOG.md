@@ -7,7 +7,8 @@ coordinate convention, evidence semantics, and cluster/split audit are recorded 
 
 | Element family | Site classes | Preferred evidence | Adapter state | Target-run state |
 |---|---|---|---|---|
-| Core promoter | `promoter.epd_tss_core` | EPDnew CAGE-supported TSS records | EPDnew v006 adapter implemented; five-nt TSS core | context-margin development-qualified but not confirmation-replicated |
+| Core promoter | `promoter.epd_tss_core` | EPDnew CAGE-supported TSS records | EPDnew v006 adapter implemented; five-nt TSS core | MLM context-margin did not replicate; ineligible for GUE-fine-tuned evaluation because all 768 selected 300-nt windows occur in GUE |
+| External promoter classifier cohort | GENCODE MANE Select TSS | GENCODE v50 basic protein-coding annotation | 300-nt −249/+50 windows; exact forward/reverse GUE exclusion; same-locus pseudo-TSS controls | clean classifier margin confirmation-replicated; context difference did not replicate |
 | Splicing | `splice.donor`, `splice.acceptor` | Curated transcript annotation | GENCODE GTF derivation implemented | context-margin positive-control unresolved; not target-scored |
 | Intron regulation | `splice.branchpoint`, `splice.polypyrimidine_tract` | Experimental lariat-seq for branch points; curated derivation for tracts | Mercer exact round-trip liftover and GENCODE tract adapters implemented | both context-margin effects confirmation-replicated |
 | 3′ end processing | `polya.signal`, `polya.cleavage_region` | Multi-protocol 3′-end sequencing atlas | PolyASite 2.0 adapter implemented | both context-margin effects confirmation-replicated |
@@ -22,6 +23,9 @@ coordinate convention, evidence semantics, and cluster/split audit are recorded 
 - EPDnew human release 006, PolyASite 2.0, UCSC ENCODE TF clusters, ENCODE Registry v4 cCREs,
   Mercer high-confidence branch points, and both UCSC liftover chains are pinned in
   `SOURCE_MANIFEST_V2.json`. Raw files remain ignored.
+- The GUE promoter splits, both compatible MagicsLab DNABERT-2 heads, their exact revisions and
+  hashes, and the GENCODE replacement-cohort boundary are pinned in
+  `PROMOTER_CLASSIFIER_SOURCE_MANIFEST.json`.
 
 Large genomes, raw annotations, processed collections, candidate pools, and score shards remain
 ignored. Only compact summaries, manifests, audits, schemas, code, and claim-controlling artifacts

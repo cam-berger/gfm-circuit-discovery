@@ -34,6 +34,14 @@ Its qualified preflight is
 [`../../results/dnabert2_reconstruction_atlas/context_margin_v1_preflight_qualified_rerun.json`](../../results/dnabert2_reconstruction_atlas/context_margin_v1_preflight_qualified_rerun.json).
 Splice acceptor and donor were frozen as instrument-unresolved before target scoring.
 
+The promoter-specific classifier amendment is controlled by
+[`../../configs/dnabert2_atlas/promoter_classifier_v2.frozen.json`](../../configs/dnabert2_atlas/promoter_classifier_v2.frozen.json).
+It preserves the failed v1 preflight, keeps all biological SESOIs unchanged, and freezes the
+replacement null/model-health instrument before any GENCODE target outcome. Its qualified report
+is
+[`../../results/dnabert2_reconstruction_atlas/promoter_classifier_preflight_v2.json`](../../results/dnabert2_reconstruction_atlas/promoter_classifier_preflight_v2.json).
+The EPDnew cohort is excluded because its 300-nt windows are members of GUE.
+
 ## Question
 
 Which declared biological site classes have positive reconstruction advantage over all required
@@ -116,6 +124,22 @@ margin minus proximal-corruption margin. The frozen SESOI is +0.01; each split a
 positive cluster-bootstrap lower bound and Holm-adjusted add-one `p≤0.05`. Because the distal null
 is not distance-matched, the licensed claim is proximal-context dependence, not a resolved
 biological motif or cellular mechanism.
+
+### Promoter-classifier amendment
+
+The selected checkpoint is the human GUE `prom_300_all` two-class head. Its model-native
+measurement is promoter logit minus nonpromoter logit on the same 300-nt input, so alternative
+BPE segmentation is not a fairness problem. Targets are GENCODE v50 protein-coding MANE Select
+TSSs with exact forward/reverse membership in every GUE split excluded. Controls are nearby
+pseudo-TSS windows with no GENCODE transcript TSS within 300 nt, chosen before outcomes by
+GC/CpG balance. Shared 1-Mb locus blocks define 384 development and 384 confirmation examples.
+
+The clean endpoint is true-TSS margin minus pseudo-TSS margin, with SESOI +0.50. The context
+endpoint is the true-TSS clean-minus-shuffle loss minus the pseudo-TSS clean-minus-shuffle loss,
+with SESOI +0.25. Shuffles preserve the five-nucleotide anchor, input length, intervened-span
+mononucleotide composition, and exact target/control Hamming dose. Both endpoints must have
+positive 95% block-bootstrap lower bounds and pass Holm-adjusted add-one sign inference in each
+split. Confirmation opens only if both development endpoints qualify.
 
 ## Internal and causal stages
 

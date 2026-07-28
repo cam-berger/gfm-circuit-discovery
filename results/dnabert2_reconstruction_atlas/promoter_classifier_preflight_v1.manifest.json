@@ -1,0 +1,191 @@
+{
+  "checkpoint": {
+    "base_hf_id": "zhihan1996/DNABERT-2-117M",
+    "base_tokenizer_revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+    "candidate": "prom_300_all",
+    "classification_head_complete": true,
+    "device": "cpu",
+    "dtype": "torch.float32",
+    "env": {
+      "python": "3.11.15",
+      "torch": "2.13.0",
+      "transformers": "4.44.2"
+    },
+    "hf_id": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
+    "hidden_size": 768,
+    "label_semantics": {
+      "0": "non_promoter",
+      "1": "promoter"
+    },
+    "n_heads": 12,
+    "n_layers": 12,
+    "num_labels": 2,
+    "revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+    "state_dict_keys": 140,
+    "task_geometry": {
+      "input_length_nt": 300,
+      "tss_downstream_nt": 50,
+      "tss_upstream_nt": 249
+    },
+    "tokenizer_equivalence": {
+      "comparisons": {
+        "added_tokens": true,
+        "merge_order": true,
+        "model_type": true,
+        "post_processor": true,
+        "pre_tokenizer": true,
+        "vocabulary": true
+      },
+      "equivalent": true,
+      "merge_count": 4087,
+      "runtime_tokenizer_revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+      "vocab_size": 4096
+    },
+    "upstream_sha256": {
+      "config.json": "9f5c0949193cf3ff81691369610c8fcca8c082fce66aa1ff13dd4b06fb955637",
+      "model.safetensors": "ce09ef08160640ac62b68b2995b8ea86c0118d920ee74ba449a56df37a3b4e82",
+      "special_tokens_map.json": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a",
+      "tokenizer.json": "1b805880bea234d909b35050a412f5f2db91e700f5cfcd16a4b573bfcbc22466",
+      "tokenizer_config.json": "ce3e974680079d483cb4dcd66a2000dc331414c21b7b24b0b6b4a690e192a3db",
+      "trainer_state.json": "6ec01510af14b779950af3be4f9582652a18b9c3002d328a22f1c1753bac3e86",
+      "training_args.bin": "f77ae2e3c1ef76aa2812d2e52a52ee2a88cc8e89d81280216628021c62b28960"
+    },
+    "vendor_sha256": {
+      "bert_layers.py": "317ad7e9667980ac724c07f0174ba265c8446ca5230f6b473068ff1b911edcf9",
+      "bert_padding.py": "44d1c68afb1f585fdc66c150d4c60f1ed44a89c006abc57d50531d71940d7421",
+      "configuration_bert.py": "95fc868641b87bbcd7a32d2cd7b9f4769c27592e129daf167d14b5b8c74ec4c5"
+    },
+    "vocab_size": 4096
+  },
+  "code": {
+    "git_commit": "c7a6d105b0bcdfab184b2d3390242c5c5da20e35",
+    "git_dirty": true
+  },
+  "command": [
+    "scripts/dnabert2_atlas/run_promoter_classifier_preflight.py",
+    "--gue-test",
+    "/Users/cberg/.cache/huggingface/hub/datasets--leannmlindsey--GUE/snapshots/240df51a2cd2c0fb1d88efffaf86e8d1e477f932/GUE/prom_300_all/test.csv",
+    "--cohort",
+    "data/processed/dnabert2_atlas/promoter_classifier_v1/cohort.jsonl",
+    "--cohort-audit",
+    "results/dnabert2_reconstruction_atlas/promoter_classifier_cohort_audit_v1.json",
+    "--checkpoint-audit",
+    "results/dnabert2_reconstruction_atlas/promoter_classifier_checkpoint_audit_v1.json",
+    "--config",
+    "configs/dnabert2_atlas/promoter_classifier_v1.frozen.json",
+    "--raw-out",
+    "data/processed/dnabert2_atlas/promoter_classifier_v1/preflight.raw.jsonl",
+    "--out",
+    "results/dnabert2_reconstruction_atlas/promoter_classifier_preflight_v1.json",
+    "--batch-size",
+    "64"
+  ],
+  "created_at_utc": "2026-07-28T01:14:52.849159+00:00",
+  "data": [
+    {
+      "path": "/Users/cberg/.cache/huggingface/hub/datasets--leannmlindsey--GUE/snapshots/240df51a2cd2c0fb1d88efffaf86e8d1e477f932/GUE/prom_300_all/test.csv",
+      "sha256": "c77b312eb3f2c149ee5e54f0c781b585c4e65b742f0e7d9324818f2b56e71e67",
+      "size_bytes": 1799696
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/promoter_classifier_v1/cohort.jsonl",
+      "sha256": "e2a84b662807c56bdd201548f660175f8c4aaba28f1cf8f3309e1351e8111e06",
+      "size_bytes": 2235918
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_classifier_cohort_audit_v1.json",
+      "sha256": "48997c7b7426526ed8f4a89f692594d2a30225514c5d0771411ad106de4ba749",
+      "size_bytes": 1780
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_classifier_checkpoint_audit_v1.json",
+      "sha256": "7d020851c7cbca373f5be66649970a599833d53444630b9fdefb40de7c5ff30e",
+      "size_bytes": 11320
+    },
+    {
+      "path": "configs/dnabert2_atlas/promoter_classifier_v1.frozen.json",
+      "sha256": "e7314d9a955bcea3cdd340414a211285e5d618388168bb32abff367f407617c6",
+      "size_bytes": 6587
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/promoter_classifier_v1/preflight.raw.jsonl",
+      "sha256": "9524f9883cb80ad34c2b89d93da82ed15e3ae6bf6480c9314894a59abcceecfd",
+      "size_bytes": 290386
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/promoter_classifier_v1/preflight.raw.manifest.json",
+      "sha256": "240b310c15a20e19551788974a8f103e144cbfb0f4116c2c607ce16212092205",
+      "size_bytes": 6102
+    }
+  ],
+  "environment": {
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "dnabert2_promoter_classifier_preflight_v1",
+  "outputs": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_classifier_preflight_v1.json",
+      "sha256": "e96efb63bc33e0d75d376b69f269fbed39aaee8274a4eff83bf46117ae93c010",
+      "size_bytes": 7237
+    }
+  ],
+  "parameters": {
+    "bootstrap_draws": 5000,
+    "mandatory_gates": {
+      "invariants": {
+        "maximum_GUE_exact_overlaps": 0,
+        "maximum_anchor_changes": 0,
+        "maximum_context_composition_changes": 0,
+        "maximum_split_leakage_clusters": 0,
+        "maximum_target_control_dose_mismatches": 0
+      },
+      "matching_balance": {
+        "maximum_absolute_CpG_fraction_difference": 0.03,
+        "maximum_absolute_GC_fraction_difference": 0.08
+      },
+      "model_health": {
+        "batch_invariance_absolute_tolerance": 1e-06,
+        "determinism_absolute_tolerance": 1e-06,
+        "requires_complete_two_class_head": true,
+        "requires_finite_scores": true
+      },
+      "negative_control": {
+        "maximum_absolute_permuted_label_MCC": 0.03
+      },
+      "positive_control": {
+        "minimum_GUE_test_AUROC": 0.95,
+        "minimum_GUE_test_MCC": 0.8,
+        "minimum_clean_margin_separation": 0.5,
+        "minimum_context_difference": 0.25,
+        "requires_positive_context_difference_lower_95pct_bootstrap_bound": true,
+        "requires_positive_lower_95pct_bootstrap_bound": true
+      },
+      "resolution": {
+        "maximum_context_effect_CI_half_width": 0.5
+      },
+      "sensitivity": {
+        "maximum_detectable_context_effect_logit_margin": 0.5,
+        "power": 0.8
+      },
+      "token_geometry": {
+        "maximum_tokens": 256,
+        "maximum_truncated_inputs": 0
+      }
+    },
+    "measurement": {
+      "clean_enrichment": "margin(true_TSS_window)-margin(matched_pseudo_TSS_window)",
+      "definition": "classifier_logit(label_1_promoter)-classifier_logit(label_0_non_promoter)",
+      "name": "supervised_promoter_logit_margin",
+      "primary_context_effect": "target_context_loss-control_context_loss",
+      "target_preserving_context_loss": "margin(clean)-margin(context_shuffle)",
+      "why_BPE_is_valid": "Both class logits are read from one supervised head on the same tokenized input; unlike MLM alternative-word margins, no candidate sequence is compared under a different BPE segmentation."
+    },
+    "target_outcomes_computed": false
+  },
+  "schema_version": 1,
+  "seeds": {
+    "preflight": 20260727
+  },
+  "status": "PREFLIGHT"
+}
