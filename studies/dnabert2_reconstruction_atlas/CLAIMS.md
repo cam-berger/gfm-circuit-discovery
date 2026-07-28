@@ -91,6 +91,36 @@ individual-head specificity, distinguish QK selection from OV content, identify 
 source position, resolve a downstream path, prove a sparse circuit, or establish transcriptional
 function in cells.
 
+**D6 — L11H2/L11H5 is a replicated late output-carrier core with a distributed MLP
+scaffold.** The frozen circuit assay uses the 192 unique 1-Mb locus blocks per split that were
+not used in D5. In development, exact joint L11H2/L11H5 patches have +0.6467 necessity
+(95% CI +0.4278 to +0.8772) and +1.0680 sufficiency (+0.8251 to +1.3089). Confirmation
+replicates +0.7004 necessity (+0.4833 to +0.9261) and +1.0932 sufficiency
+(+0.8310 to +1.3631). In every split and direction, the pair exceeds all 45
+candidate-excluding two-head pairs in layer 11; two-endpoint Holm-adjusted exact add-one
+`p=0.04348`.
+
+Strict complement scrub over all 144 `[CLS]` head contexts and 12 `[CLS]` MLP writes shows that
+the eight D5 heads retain only 15.30% (95% CI 13.57% to 17.25%) in development and 13.73%
+(12.07% to 15.56%) in confirmation. L11H2/L11H5 alone retains nearly the same
+15.18%/13.62%. Retaining all MLP writes with the eight heads raises faithfulness to 61.04%
+(57.30% to 65.51%) and 61.27% (57.30% to 65.61%). All MLP writes without native head writes
+retain exactly zero, while all native head writes without MLP writes retain 34.36%/31.30%.
+Empty and all-node anchors are exactly zero and one.
+
+Two proposed mechanisms fail their frozen gates. Paired-control transfer of only the
+L11H2/L11H5 target queries is effectively zero (−0.00004 development, −0.00034 confirmation)
+and is not specific against the 45-pair family. Corrupting the six earlier D5 heads costs only
++0.0585/+0.0563 logits, below the +0.25 SESOI; therefore the small late-pair rescue cannot
+license an early-six-to-late directed path even though its descriptive rescue fraction is
+30.2%/31.6%.
+
+D6 licenses a replicated **layer-specific two-head causal core at the late `[CLS]` head-output
+node** and a continuously measured dependence on distributed MLP writes. The supported model is
+a late output-carrier pair operating on an MLP-maintained representation. It is not a
+target-dependent query gate, a demonstrated early-to-late chain, a complete sparse circuit, a
+resolved K/V source or motif, or a claim about transcription in cells.
+
 ## Established infrastructure facts
 
 These are implementation properties and prior instrument constraints, not claims about biological
@@ -122,6 +152,7 @@ reconstruction.
 | IF22 | Promoter preflight v2 is `QUALIFIED` after replacing the volatile one-draw null with a 256-permutation center and rounding the numerical tolerance to \(10^{-5}\), while retaining all scientific SESOIs. | `results/dnabert2_reconstruction_atlas/promoter_classifier_preflight_v2.json` | Authorizes the D4 target run; preflight itself is not external-cohort behavior evidence. |
 | IF23 | Reserved-GUE calibration validates the promoter head instrument: exact no-op patching is zero, batch drift is \(4.77\times10^{-7}\), all-head CLS transfer recovers the class contrast, attribution tracks exact patches, and the calibrated group exceeds exact layer-profile nulls. | `promoter_head_atlas_calibration_v1.json` and `promoter_head_group_calibration_v1.json` | Calibration only; its GUE-ranked heads are not target candidates and create no GENCODE internal claim. |
 | IF24 | Frozen promoter-head preflight v1 is `QUALIFIED` on 32 GUE pairs disjoint from calibration: GUE MCC/AUROC, attribution agreement, full/no-op/same-class patches, projected sensitivity, null-set resolution, token geometry, head capture, and model health all pass. | `promoter_head_atlas_preflight_v1.json` | Authorizes the development head atlas; it is not a GENCODE component outcome. |
+| IF25 | Frozen promoter-circuit preflight v1 is `QUALIFIED` on 16 new GUE pairs: all 156 declared CLS write nodes are covered, full scrub reproduces paired-control margins exactly, empty complement and self/query/restore no-ops are exactly zero, batch drift is \(4.77\times10^{-7}\), and full-scrub sensitivity is 8.14 logits. | `promoter_circuit_preflight_v1.json` | Authorizes D6 development only; GUE controls are not evidence about unused GENCODE loci. |
 
 ## Open hypotheses
 
@@ -133,6 +164,6 @@ reconstruction.
 | H4 | A geometry-qualified DNABERT-2 alternative margin has a replicated, class-specific target-preserving proximal-context effect. | supported for the nine D3 classes; promoter did not replicate, stop failed development, acceptor/donor are instrument-unresolved | A distance-matched or orthogonal context null would narrow the proximal-context interpretation further. |
 | H5 | A bounded internal DNABERT-2 component set causally mediates a D3 context-margin effect. | open but untested for the nine D3 classes | Freeze candidates and matched-size necessity/mediation tests before inspecting internal effects. |
 | H6 | A promoter-fine-tuned DNABERT-2 has a replicated target-specific local-context effect at training-corpus-excluded human TSSs. | not supported: clean promoter margin replicated, but the context difference failed confirmation | A new independently justified context intervention/null and a fresh sealed cohort; D4 does not authorize internal localization. |
-| H7 | A bounded set of head outputs at `[CLS]` mediates the replicated clean promoter-classifier contrast. | supported at the eight-head candidate-set level by D5; individual-head and path specificity remain unresolved | Preregister and test the L11H2/L11H5 pair against exact layer-matched pairs, then separate QK source selection, OV content, and downstream path mediation. |
+| H7 | A bounded set of head outputs at `[CLS]` mediates the replicated clean promoter-classifier contrast. | refined by D6: L11H2/L11H5 is a replicated late output-carrier core, but C8 is not self-contained and needs a distributed MLP scaffold; target-query and early-six-to-late models fail | A new frozen direct K/V and source-state assay for the late pair that does not assume the rejected early-to-late path. |
 
 Negative, retracted, and superseded rows will remain here permanently once evidence exists.

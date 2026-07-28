@@ -1,0 +1,200 @@
+{
+  "anchors_pass": true,
+  "assay": "promoter_CLS_circuit_reverse_engineering_v1",
+  "candidate_heads": [
+    "L2H2",
+    "L4H6",
+    "L4H7",
+    "L9H7",
+    "L10H1",
+    "L10H5",
+    "L11H2",
+    "L11H5"
+  ],
+  "causal_test_qualification": {
+    "pair_specificity": true,
+    "path_rescue": false,
+    "query_dependence": false
+  },
+  "clean_behavior": {
+    "ci95": [
+      1.394033536290711,
+      2.2439153456313456
+    ],
+    "mean": 1.8110195715125883,
+    "qualified": true
+  },
+  "config_sha256": "5739e438ddff6438755720f3916dadfa85e641079c886a455f98c94c5c7705f5",
+  "confirmation_gate": "confirmation_may_open",
+  "excluded_head_atlas_example_count": 384,
+  "faithfulness": {
+    "anchors": {
+      "all_nodes_max_abs_error": 0.0,
+      "empty_max_abs_error": 0.0
+    },
+    "conditions": {
+      "L11_pair": {
+        "faithfulness": 0.15180884207095288,
+        "faithfulness_ci95": [
+          0.1348106013457135,
+          0.1706094992509528
+        ],
+        "native_enrichment_mean": 1.8110195715125883,
+        "retained_enrichment_mean": 0.2749287841191593
+      },
+      "all_MLPs_only": {
+        "faithfulness": 0.0,
+        "faithfulness_ci95": [
+          0.0,
+          0.0
+        ],
+        "native_enrichment_mean": 1.8110195715125883,
+        "retained_enrichment_mean": 0.0
+      },
+      "all_heads_only": {
+        "faithfulness": 0.3435976315500868,
+        "faithfulness_ci95": [
+          0.30978956331513663,
+          0.3795956586535259
+        ],
+        "native_enrichment_mean": 1.8110195715125883,
+        "retained_enrichment_mean": 0.6222620354625784
+      },
+      "all_nodes": {
+        "faithfulness": 1.0,
+        "faithfulness_ci95": [
+          1.0,
+          1.0
+        ],
+        "native_enrichment_mean": 1.8110195715125883,
+        "retained_enrichment_mean": 1.8110195715125883
+      },
+      "candidate_C8": {
+        "faithfulness": 0.1529780029228749,
+        "faithfulness_ci95": [
+          0.13569657027812185,
+          0.17252218105552924
+        ],
+        "native_enrichment_mean": 1.8110195715125883,
+        "retained_enrichment_mean": 0.2770461573042364
+      },
+      "candidate_C8_plus_all_MLPs": {
+        "faithfulness": 0.6103810152656091,
+        "faithfulness_ci95": [
+          0.5730396922166896,
+          0.6551153894914298
+        ],
+        "native_enrichment_mean": 1.8110195715125883,
+        "retained_enrichment_mean": 1.1054119647257419
+      },
+      "empty": {
+        "faithfulness": 0.0,
+        "faithfulness_ci95": [
+          0.0,
+          0.0
+        ],
+        "native_enrichment_mean": 1.8110195715125883,
+        "retained_enrichment_mean": 0.0
+      },
+      "stable_C4": {
+        "faithfulness": 0.15283891132238292,
+        "faithfulness_ci95": [
+          0.13584178839004016,
+          0.17148980284298806
+        ],
+        "native_enrichment_mean": 1.8110195715125883,
+        "retained_enrichment_mean": 0.2767942596935124
+      }
+    },
+    "definition": "mean(retained target-control enrichment) / mean(native target-control enrichment)"
+  },
+  "mechanistic_boundary": [
+    "Strict complement scrub tests whether retained CLS writes are self-contained relative to the declared 156-node universe; it does not include token-position writes outside CLS.",
+    "Pair specificity compares equal-size interventions within layer 11 and does not establish a directed path.",
+    "Query transfer can implicate target-dependent Q gating but does not separate QK addressing from downstream V content.",
+    "Rescue is directed mediation evidence only if the upstream corruption has a qualified effect and the frozen mediator pair rescues more than every equal-size layer-11 null pair.",
+    "Source-band and motif surgery remain sealed until a directed path is supported."
+  ],
+  "n_pairs": 192,
+  "n_unique_locus_blocks": 192,
+  "pair_specificity": {
+    "candidate_pair": [
+      "L11H2",
+      "L11H5"
+    ],
+    "qualified": true,
+    "tests": {
+      "necessity": {
+        "ci95": [
+          0.4278230872005224,
+          0.8772378667878608
+        ],
+        "holm_adjusted_p": 0.043478260869565216,
+        "mean": 0.6466593554553887,
+        "null_count": 45,
+        "null_max": 0.32884775071094435,
+        "qualified": true,
+        "raw_add_one_p": 0.021739130434782608
+      },
+      "sufficiency": {
+        "ci95": [
+          0.8250906284277638,
+          1.3088676580227911
+        ],
+        "holm_adjusted_p": 0.043478260869565216,
+        "mean": 1.0679519407761593,
+        "null_count": 45,
+        "null_max": 0.6075568499412233,
+        "qualified": true,
+        "raw_add_one_p": 0.021739130434782608
+      }
+    }
+  },
+  "path_rescue": {
+    "add_one_p": 0.021739130434782608,
+    "null_count": 45,
+    "null_max": 0.011909674853086472,
+    "qualified": false,
+    "rescue_ci95": [
+      0.007498823494339983,
+      0.028520158724859357
+    ],
+    "rescue_fraction": 0.30219177634069133,
+    "rescue_fraction_ci95": [
+      0.1979906842072262,
+      0.3674790654017906
+    ],
+    "rescue_mean": 0.0176883014695098,
+    "source_loss_ci95": [
+      0.035378595969329275,
+      0.08294000119591753
+    ],
+    "source_loss_mean": 0.058533364751686655
+  },
+  "preflight_report": "results/dnabert2_reconstruction_atlas/promoter_circuit_preflight_v1.json",
+  "preflight_report_sha256": "d12e461df654faea00fe8990bf62ef3c73cf84334acdfb7801c09ecbd5ea7b3e",
+  "qualified_for_confirmation": true,
+  "query_dependence": {
+    "SESOI": 0.1,
+    "add_one_p": 0.6521739130434783,
+    "ci95": [
+      -0.0008303369395434856,
+      0.0007073365850374103
+    ],
+    "endpoint": "query_necessity",
+    "mean": -4.0581527476509414e-05,
+    "null_count": 45,
+    "null_max": 0.00038483844643148285,
+    "qualified": false
+  },
+  "raw": {
+    "manifest": "data/processed/dnabert2_atlas/promoter_circuit_v1/development.raw.manifest.json",
+    "n_rows": 28032,
+    "path": "data/processed/dnabert2_atlas/promoter_circuit_v1/development.raw.jsonl"
+  },
+  "replicated_causal_signal": false,
+  "schema_version": 1,
+  "split": "development",
+  "status": "DEVELOPMENT",
+  "study": "dnabert2_biological_reconstruction_atlas"
+}

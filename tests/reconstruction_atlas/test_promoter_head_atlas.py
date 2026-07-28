@@ -6,7 +6,11 @@ from gfmcd.adapters.dnabert2.promoter_head_atlas import (
     PROMOTER_SOURCE_BANDS,
     _token_band_allocations,
     paired_cls_patch_tensor,
+    paired_cls_query_patch_tensor,
+    paired_cls_write_patch_tensor,
+    restore_cls_heads_from_reference,
 )
+from gfmcd.reconstruction_atlas.promoter_circuit import layer_pair_nulls
 from gfmcd.reconstruction_atlas.promoter_head_analysis import (
     layer_matched_random_head_sets,
     parse_head_label,
@@ -57,6 +61,52 @@ def test_bidirectional_patch_uses_native_sources_in_both_directions() -> None:
     )
     assert torch.equal(patched[0], context[4])
     assert torch.equal(patched[4], context[0])
+
+
+def test_paired_cls_write_patch_changes_only_target_rows() -> None:
+    writes = torch.arange(12 * 4, dtype=torch.float32).view(12, 4)
+    rows = torch.tensor([0, 3, 6, 9])
+    patched = paired_cls_write_patch_tensor(
+        writes,
+        cls_rows=rows,
+        direction="target_from_control",
+    )
+    assert torch.equal(patched[0], writes[3])
+    assert torch.equal(patched[6], writes[9])
+    assert torch.equal(patched[3], writes[3])
+    assert torch.equal(patched[9], writes[9])
+
+
+def test_query_patch_changes_q_but_not_kv() -> None:
+    qkv = torch.arange(8 * 24, dtype=torch.float32).view(8, 24)
+    patched = paired_cls_query_patch_tensor(
+        qkv,
+        cls_rows=torch.tensor([0, 4]),
+        heads=[1],
+        num_heads=2,
+        direction="target_from_control",
+    ).view(8, 3, 2, 4)
+    original = qkv.view(8, 3, 2, 4)
+    assert torch.equal(patched[0, 0, 1], original[4, 0, 1])
+    assert torch.equal(patched[0, 0, 0], original[0, 0, 0])
+    assert torch.equal(patched[0, 1:], original[0, 1:])
+    assert torch.equal(patched[4], original[4])
+
+
+def test_native_cache_restores_only_requested_target_heads() -> None:
+    context = torch.zeros((8, 8))
+    reference = torch.arange(8 * 8, dtype=torch.float32).view(8, 8)
+    restored = restore_cls_heads_from_reference(
+        context,
+        reference=reference,
+        cls_rows=torch.tensor([0, 4]),
+        heads=[1],
+        num_heads=2,
+    ).view(8, 2, 4)
+    expected = reference.view(8, 2, 4)
+    assert torch.equal(restored[0, 1], expected[0, 1])
+    assert torch.equal(restored[0, 0], torch.zeros(4))
+    assert torch.equal(restored[4], torch.zeros((2, 4)))
 
 
 def test_attention_tokens_are_fractionally_allocated_across_tss_bands() -> None:
@@ -140,3 +190,10 @@ def test_layer_matched_nulls_are_distinct_and_exclude_candidates() -> None:
 def test_spearman_and_head_parser() -> None:
     assert spearman_correlation([1, 2, 3, 4], [10, 20, 30, 40]) == 1
     assert parse_head_label("L11H7") == (11, 7)
+
+
+def test_layer_pair_nulls_are_exact_and_candidate_excluding() -> None:
+    nulls = layer_pair_nulls([(11, 2), (11, 5)], num_heads=12)
+    assert len(nulls) == 45
+    assert len(set(nulls)) == 45
+    assert all({(11, 2), (11, 5)}.isdisjoint(pair) for pair in nulls)

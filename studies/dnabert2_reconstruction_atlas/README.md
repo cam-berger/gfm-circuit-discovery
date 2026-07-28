@@ -31,6 +31,7 @@ ablation, patching, rescue, mediation, and path interventions decide causal supp
 | P6 causal tests | stopped at the P3 gate | No causal claim. |
 | Promoter classifier amendment | sealed confirmation complete | Fine-tuned promoter margin replicated on exact-GUE-excluded GENCODE MANE TSSs; the target-preserving context difference did not replicate. |
 | Promoter clean-behavior head atlas | sealed confirmation complete | A development-frozen eight-head set at `[CLS]` replicated bidirectional causal patch effects against exact layer-profile-matched null sets. |
+| Promoter circuit reverse engineering | sealed confirmation complete | L11H2/L11H5 is a replicated late output-carrier core; strict faithfulness requires a distributed MLP scaffold, while query-gating and early-to-late path models failed. |
 
 Multisource v4 found no annotation-specific excess reconstruction over all empirical controls.
 The later context-margin-v1 amendment asks a different, model-native question: whether a
@@ -62,6 +63,15 @@ set L2H2/L4H6/L4H7/L9H7/L10H1/L10H5/L11H2/L11H5 passes both necessity and suffic
 192 development and 192 untouched confirmation locus blocks. D5 supports candidate-set CLS
 head-output mediation. It does not establish individual-head specificity, causal source
 positions, QK/OV roles, a directed circuit, or the failed context hypothesis.
+
+The next frozen circuit battery uses the 192 head-atlas-unused loci per split. Against every
+candidate-excluding pair in layer 11, L11H2/L11H5 replicates exact necessity and sufficiency.
+Strict complement scrub shows that the pair and the full eight-head set retain only about
+14–15% of the clean contrast on their own; retaining all MLP writes with the eight heads raises
+this to about 61% in both splits. Query-only transfer is effectively zero, and corrupting the six
+earlier candidate heads is below the frozen effect threshold. D6 therefore supports a late
+output-carrier core on an MLP-maintained representation, not a target-specific query gate or a
+demonstrated early-to-late chain.
 
 ## Historical reconstruction estimand
 

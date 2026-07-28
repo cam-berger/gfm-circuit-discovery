@@ -398,3 +398,39 @@
 - Boundary: the validated node is the candidate set's CLS context slices before the shared
   output projection. QK, OV, source positions, downstream paths, sparsity, the failed
   target-preserving context endpoint, and cellular transcription remain unresolved.
+
+## 2026-07-28 — Freeze the promoter circuit battery before unused-locus outcomes
+
+- Node universe: all 144 pre-output-projection head contexts plus all 12 MLP output writes at
+  the unpadded `[CLS]` row. Pooler/classifier weights are a fixed readout; non-CLS writes are
+  outside this first strict-faithfulness boundary.
+- Cohort: the 192 unique 1-Mb locus blocks per split not used by D5. Bind the exclusion to both
+  immutable head-atlas raw artifacts.
+- Primary measurement: complement-scrub ratio of mean retained enrichment to mean native
+  target-control enrichment, with exact empty/all-node anchors and locus-block bootstrap.
+- Causal family: L11H2/L11H5 versus all 45 candidate-excluding two-head pairs in layer 11,
+  query-only target-from-control transfer, and early-six corruption followed by cached-native
+  layer-11 pair rescue.
+- Gates: +0.25 logit SESOI for pair necessity/sufficiency and upstream source loss, +0.10 for
+  query necessity, positive bootstrap lower bounds, exact add-one ranks, and endpoint-family
+  Holm correction. Confirmation requires clean behavior, valid anchors, and at least one
+  qualifying causal test.
+- Boundary: source-band and motif surgery stays sealed unless the directed path qualifies.
+
+## 2026-07-28 — Record D6 and reject the proposed early-to-late chain
+
+- Preflight: 16 new GUE pairs pass every hook invariant. Full scrub reproduces the paired control
+  exactly, all-node retention reproduces native output exactly, self/query/restore no-ops are
+  zero, batch drift is \(4.77\times10^{-7}\), and full-scrub sensitivity is 8.14 logits.
+- Pair specificity: L11H2/L11H5 beats all 45 equal-size layer-11 alternatives in both directions
+  and both splits. Development necessity/sufficiency is +0.647/+1.068; confirmation is
+  +0.700/+1.093. Each endpoint has a positive interval and Holm `p=0.04348`.
+- Faithfulness: C8 alone retains 15.30%/13.73%; L11H2/L11H5 alone retains nearly the same
+  15.18%/13.62%. C8 plus all MLP writes retains 61.04%/61.27%. MLP writes alone retain zero and
+  all heads without MLP writes retain 34.36%/31.30%.
+- Falsification: target-query transfer is effectively zero. Early-six corruption costs only
+  +0.0585/+0.0563 logits, below the +0.25 SESOI, so its statistically ordered but tiny rescue
+  through the late pair does not establish a directed path.
+- Decision: record a replicated late output-carrier core operating on a distributed
+  MLP-maintained representation. Do not describe C8 as a self-contained sparse circuit, do not
+  claim target-dependent Q gating, and do not open source-band or motif surgery under v1.

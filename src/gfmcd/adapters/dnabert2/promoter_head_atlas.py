@@ -17,7 +17,7 @@ from __future__ import annotations
 
 import math
 from collections.abc import Iterable, Mapping, Sequence
-from contextlib import contextmanager
+from contextlib import ExitStack, contextmanager
 from dataclasses import dataclass
 from typing import Any, Literal
 
@@ -30,6 +30,7 @@ PatchDirection = Literal[
     "target_from_self",
     "bidirectional_swap",
 ]
+QueryPatchDirection = Literal["target_from_control", "target_from_self"]
 
 PROMOTER_SOURCE_BANDS: Mapping[str, tuple[int, int]] = {
     "far_upstream": (-249, -50),
@@ -146,6 +147,18 @@ def validate_promoter_heads(
     return selected
 
 
+def validate_promoter_layers(
+    bundle: Dnabert2PromoterBundle,
+    layers: Iterable[int],
+) -> tuple[int, ...]:
+    selected = tuple(sorted({int(layer) for layer in layers}))
+    n_layers = int(bundle.config.num_hidden_layers)
+    for layer in selected:
+        if not 0 <= layer < n_layers:
+            raise ValueError(f"invalid promoter layer: {layer}")
+    return selected
+
+
 def paired_cls_patch_tensor(
     context: Any,
     *,
@@ -196,6 +209,102 @@ def paired_cls_patch_tensor(
     return patched
 
 
+def paired_cls_write_patch_tensor(
+    writes: Any,
+    *,
+    cls_rows: Any,
+    direction: QueryPatchDirection,
+) -> Any:
+    """Patch paired ``[CLS]`` residual writes such as the MLP output."""
+
+    import torch
+
+    if writes.ndim != 2:
+        raise ValueError("MosaicBERT residual write must be [valid_tokens, hidden]")
+    rows = cls_rows.to(writes.device)
+    if rows.ndim != 1 or rows.numel() % 2:
+        raise ValueError("CLS rows must contain interleaved target/control pairs")
+    if int(rows.max()) >= writes.shape[0]:
+        raise ValueError("CLS row falls outside the unpadded residual write")
+    target_rows, control_rows = rows[0::2], rows[1::2]
+    patched = writes.clone()
+    if direction == "target_from_control":
+        patched[target_rows] = writes[control_rows]
+    elif direction == "target_from_self":
+        patched[target_rows] = writes[target_rows]
+    else:  # pragma: no cover - guarded by the Literal at typed call sites
+        raise ValueError(f"unknown write-patch direction: {direction}")
+    if not torch.isfinite(patched).all():
+        raise RuntimeError("residual-write patch created a non-finite activation")
+    return patched
+
+
+def paired_cls_query_patch_tensor(
+    qkv: Any,
+    *,
+    cls_rows: Any,
+    heads: Sequence[int],
+    num_heads: int,
+    direction: QueryPatchDirection,
+) -> Any:
+    """Patch only paired ``[CLS]`` query slices, leaving keys and values native."""
+
+    import torch
+
+    if qkv.ndim != 2 or qkv.shape[1] % (3 * num_heads):
+        raise ValueError("MosaicBERT QKV must be [valid_tokens, 3 * hidden]")
+    rows = cls_rows.to(qkv.device)
+    if rows.ndim != 1 or rows.numel() % 2:
+        raise ValueError("CLS rows must contain interleaved target/control pairs")
+    if int(rows.max()) >= qkv.shape[0]:
+        raise ValueError("CLS row falls outside the unpadded QKV tensor")
+    split = qkv.view(qkv.shape[0], 3, num_heads, -1).clone()
+    original = split.clone()
+    target_rows, control_rows = rows[0::2], rows[1::2]
+    if direction == "target_from_control":
+        source_rows = control_rows
+    elif direction == "target_from_self":
+        source_rows = target_rows
+    else:  # pragma: no cover - guarded by the Literal at typed call sites
+        raise ValueError(f"unknown query-patch direction: {direction}")
+    for head in heads:
+        if not 0 <= int(head) < num_heads:
+            raise ValueError(f"head index outside layer: {head}")
+        split[target_rows, 0, int(head)] = original[source_rows, 0, int(head)]
+    patched = split.reshape_as(qkv)
+    if not torch.isfinite(patched).all():
+        raise RuntimeError("query patch created a non-finite activation")
+    return patched
+
+
+def restore_cls_heads_from_reference(
+    context: Any,
+    *,
+    reference: Any,
+    cls_rows: Any,
+    heads: Sequence[int],
+    num_heads: int,
+) -> Any:
+    """Restore selected target ``[CLS]`` head contexts from a native cache."""
+
+    import torch
+
+    if context.shape != reference.shape or context.ndim != 2:
+        raise ValueError("native reference must match the attention context tensor")
+    rows = cls_rows.to(context.device)
+    target_rows = rows[0::2]
+    split = context.view(context.shape[0], num_heads, -1).clone()
+    source = reference.to(context.device).view(context.shape[0], num_heads, -1)
+    for head in heads:
+        if not 0 <= int(head) < num_heads:
+            raise ValueError(f"head index outside layer: {head}")
+        split[target_rows, int(head)] = source[target_rows, int(head)]
+    patched = split.reshape_as(context)
+    if not torch.isfinite(patched).all():
+        raise RuntimeError("cached-head restoration created a non-finite activation")
+    return patched
+
+
 @contextmanager
 def patch_paired_cls_heads(
     bundle: Dnabert2PromoterBundle,
@@ -232,6 +341,199 @@ def patch_paired_cls_heads(
             module = bundle.model.bert.encoder.layer[layer].attention.self
             handles.append(module.register_forward_hook(make_hook(layer_heads)))
         yield
+    finally:
+        for handle in handles:
+            handle.remove()
+
+
+@contextmanager
+def patch_paired_cls_mlp_writes(
+    bundle: Dnabert2PromoterBundle,
+    batch: PairedPromoterBatch,
+    layers: Iterable[int],
+    *,
+    direction: QueryPatchDirection,
+):
+    """Patch target ``[CLS]`` MLP writes from its paired control."""
+
+    selected = validate_promoter_layers(bundle, layers)
+    handles = []
+
+    def hook(_module: Any, _inputs: Any, output: Any) -> Any:
+        if not hasattr(output, "shape"):
+            raise TypeError("MosaicBERT MLP output projection did not return a tensor")
+        return paired_cls_write_patch_tensor(
+            output,
+            cls_rows=batch.cls_rows,
+            direction=direction,
+        )
+
+    try:
+        for layer in selected:
+            module = bundle.model.bert.encoder.layer[layer].mlp.wo
+            handles.append(module.register_forward_hook(hook))
+        yield
+    finally:
+        for handle in handles:
+            handle.remove()
+
+
+@contextmanager
+def patch_paired_cls_queries(
+    bundle: Dnabert2PromoterBundle,
+    batch: PairedPromoterBatch,
+    heads: Iterable[Head],
+    *,
+    direction: QueryPatchDirection,
+):
+    """Patch only the target ``[CLS]`` query projection for selected heads."""
+
+    selected = validate_promoter_heads(bundle, heads)
+    by_layer: dict[int, list[int]] = {}
+    for layer, head in selected:
+        by_layer.setdefault(layer, []).append(head)
+    handles = []
+    num_heads = int(bundle.config.num_attention_heads)
+
+    def make_hook(layer_heads: list[int]):
+        def hook(_module: Any, _inputs: Any, output: Any) -> Any:
+            if not hasattr(output, "shape"):
+                raise TypeError("MosaicBERT QKV projection did not return a tensor")
+            return paired_cls_query_patch_tensor(
+                output,
+                cls_rows=batch.cls_rows,
+                heads=layer_heads,
+                num_heads=num_heads,
+                direction=direction,
+            )
+
+        return hook
+
+    try:
+        for layer, layer_heads in by_layer.items():
+            module = bundle.model.bert.encoder.layer[layer].attention.self.Wqkv
+            handles.append(module.register_forward_hook(make_hook(layer_heads)))
+        yield
+    finally:
+        for handle in handles:
+            handle.remove()
+
+
+@contextmanager
+def scrub_paired_cls_complement(
+    bundle: Dnabert2PromoterBundle,
+    batch: PairedPromoterBatch,
+    *,
+    retained_heads: Iterable[Head],
+    retained_mlp_layers: Iterable[int],
+):
+    """Scrub every target CLS write except the explicitly retained node set."""
+
+    all_heads = set(all_promoter_heads(bundle))
+    retained_head_set = set(validate_promoter_heads(bundle, retained_heads))
+    all_layers = set(range(int(bundle.config.num_hidden_layers)))
+    retained_layer_set = set(validate_promoter_layers(bundle, retained_mlp_layers))
+    with ExitStack() as stack:
+        stack.enter_context(
+            patch_paired_cls_heads(
+                bundle,
+                batch,
+                sorted(all_heads - retained_head_set),
+                direction="target_from_control",
+            )
+        )
+        stack.enter_context(
+            patch_paired_cls_mlp_writes(
+                bundle,
+                batch,
+                sorted(all_layers - retained_layer_set),
+                direction="target_from_control",
+            )
+        )
+        yield
+
+
+def capture_native_attention_contexts(
+    bundle: Dnabert2PromoterBundle,
+    batch: PairedPromoterBatch,
+) -> tuple[Any, dict[int, Any]]:
+    """Run natively and cache every pre-output-projection attention context."""
+
+    import torch
+
+    captured: dict[int, Any] = {}
+    handles = []
+
+    def make_hook(layer: int):
+        def hook(_module: Any, _inputs: Any, output: Any) -> Any:
+            captured[layer] = output.detach().clone()
+            return output
+
+        return hook
+
+    try:
+        for layer, block in enumerate(bundle.model.bert.encoder.layer):
+            handles.append(block.attention.self.register_forward_hook(make_hook(layer)))
+        with torch.no_grad():
+            margins = promoter_margin_tensor(bundle, batch).detach()
+    finally:
+        for handle in handles:
+            handle.remove()
+    expected = set(range(int(bundle.config.num_hidden_layers)))
+    if set(captured) != expected:
+        raise RuntimeError("failed to cache every native attention context")
+    return margins, captured
+
+
+@contextmanager
+def corrupt_and_restore_paired_cls_heads(
+    bundle: Dnabert2PromoterBundle,
+    batch: PairedPromoterBatch,
+    *,
+    corrupt_heads: Iterable[Head],
+    restore_heads: Iterable[Head],
+    native_contexts: Mapping[int, Any],
+):
+    """Corrupt upstream heads and restore downstream heads from a native run."""
+
+    corrupted = validate_promoter_heads(bundle, corrupt_heads)
+    restored = validate_promoter_heads(bundle, restore_heads)
+    if set(corrupted) & set(restored):
+        raise ValueError("corrupt and restore head sets must be disjoint")
+    missing = sorted({layer for layer, _ in restored} - set(native_contexts))
+    if missing:
+        raise ValueError(f"native context cache is missing layers: {missing}")
+    by_layer: dict[int, list[int]] = {}
+    for layer, head in restored:
+        by_layer.setdefault(layer, []).append(head)
+    handles = []
+    num_heads = int(bundle.config.num_attention_heads)
+
+    def make_restore_hook(layer: int, layer_heads: list[int]):
+        def hook(_module: Any, _inputs: Any, output: Any) -> Any:
+            return restore_cls_heads_from_reference(
+                output,
+                reference=native_contexts[layer],
+                cls_rows=batch.cls_rows,
+                heads=layer_heads,
+                num_heads=num_heads,
+            )
+
+        return hook
+
+    try:
+        with patch_paired_cls_heads(
+            bundle,
+            batch,
+            corrupted,
+            direction="target_from_control",
+        ):
+            for layer, layer_heads in by_layer.items():
+                module = bundle.model.bert.encoder.layer[layer].attention.self
+                handles.append(
+                    module.register_forward_hook(make_restore_hook(layer, layer_heads))
+                )
+            yield
     finally:
         for handle in handles:
             handle.remove()

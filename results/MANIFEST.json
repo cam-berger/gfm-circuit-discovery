@@ -1,9 +1,9 @@
 {
- "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc); DNABERT-2 Reconstruction Atlas infrastructure, narrow v1 behavior, multisource-v4 bounded development, context-margin-v1 replication, and promoter-classifier-v2 bounded replication rows appended 2026-07-27; promoter clean-behavior head-atlas rows appended 2026-07-28.",
-  "row_count": 875,
+ "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc); DNABERT-2 Reconstruction Atlas infrastructure, narrow v1 behavior, multisource-v4 bounded development, context-margin-v1 replication, and promoter-classifier-v2 bounded replication rows appended 2026-07-27; promoter clean-behavior head-atlas and promoter-circuit rows appended 2026-07-28.",
+  "row_count": 883,
  "status_counts": {
-    "canonical": 559,
-    "development": 156,
+    "canonical": 565,
+    "development": 158,
   "infrastructure": 18,
   "superseded": 142
  },
@@ -11,7 +11,7 @@
     "bounded": 56,
   "na": 292,
   "null": 19,
-    "positive": 504,
+    "positive": 512,
   "refutation": 4
  },
  "columns": [
@@ -8772,6 +8772,86 @@
       "polarity": "positive",
       "artifact": "results/dnabert2_reconstruction_atlas/promoter_head_atlas_replication_v1.manifest.json",
       "script": "scripts/dnabert2_atlas/summarize_promoter_head_atlas.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "IF25",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "positive",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_circuit_preflight_v1.json",
+      "script": "scripts/dnabert2_atlas/run_promoter_circuit_preflight.py",
+      "manifest": "results/dnabert2_reconstruction_atlas/promoter_circuit_preflight_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "IF25",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "positive",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_circuit_preflight_v1.manifest.json",
+      "script": "scripts/dnabert2_atlas/run_promoter_circuit_preflight.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "D6",
+      "status": "development",
+      "evidence_level": "OV/mediation",
+      "polarity": "positive",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_circuit_development_v1.json",
+      "script": "scripts/dnabert2_atlas/run_promoter_circuit.py",
+      "manifest": "results/dnabert2_reconstruction_atlas/promoter_circuit_development_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "D6",
+      "status": "development",
+      "evidence_level": "OV/mediation",
+      "polarity": "positive",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_circuit_development_v1.manifest.json",
+      "script": "scripts/dnabert2_atlas/run_promoter_circuit.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "D6",
+      "status": "canonical",
+      "evidence_level": "OV/mediation",
+      "polarity": "positive",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_circuit_confirmation_v1.json",
+      "script": "scripts/dnabert2_atlas/run_promoter_circuit.py",
+      "manifest": "results/dnabert2_reconstruction_atlas/promoter_circuit_confirmation_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "D6",
+      "status": "canonical",
+      "evidence_level": "OV/mediation",
+      "polarity": "positive",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_circuit_confirmation_v1.manifest.json",
+      "script": "scripts/dnabert2_atlas/run_promoter_circuit.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "D6",
+      "status": "canonical",
+      "evidence_level": "OV/mediation",
+      "polarity": "positive",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_circuit_replication_v1.json",
+      "script": "scripts/dnabert2_atlas/summarize_promoter_circuit.py",
+      "manifest": "results/dnabert2_reconstruction_atlas/promoter_circuit_replication_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "D6",
+      "status": "canonical",
+      "evidence_level": "OV/mediation",
+      "polarity": "positive",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_circuit_replication_v1.manifest.json",
+      "script": "scripts/dnabert2_atlas/summarize_promoter_circuit.py",
       "manifest": "",
       "figure": ""
     }

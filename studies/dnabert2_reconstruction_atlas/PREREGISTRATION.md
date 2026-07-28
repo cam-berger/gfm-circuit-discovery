@@ -176,6 +176,30 @@ The calibration and preflight GUE slices are disjoint. Their role is instrument 
 not evidence about the GENCODE target cohort. The complete machine-readable lock is
 `configs/dnabert2_atlas/promoter_head_atlas_v1.frozen.json`.
 
+### Promoter circuit reverse engineering v1 — frozen amendment
+
+The replicated eight-head set now enters a stricter circuit battery on the 192 unused unique
+1-Mb locus blocks in each split. The declared write-node universe is all 144 attention-head
+contexts plus all 12 MLP output writes at the unpadded `[CLS]` row. Pooler/classifier weights
+remain a fixed readout; non-CLS token writes are outside this first circuit boundary.
+
+The primary faithfulness measurement is complement scrub: patch every unretained write from the
+paired pseudo-TSS into the target and divide the resulting mean target-control enrichment by the
+native mean enrichment. This ratio-of-means is bootstrapped by locus block and reported
+continuously, with empty-set zero and all-node one as mandatory instrument anchors.
+
+Three orthogonal causal tests use the fixed late pair L11H2/L11H5. Exact bidirectional patches
+compare it with every one of the 45 candidate-excluding two-head pairs in layer 11. A query-only
+transfer replaces target `[CLS]` Q with paired-control Q while leaving K/V native. A directed
+rescue corrupts the six earlier candidate heads and restores one layer-11 pair from a cached native
+target run; the proposed late pair must beat all equal-size layer-11 alternatives. Confirmation
+opens only after qualified GUE hook preflight, valid faithfulness anchors, replicated clean
+behavior, and at least one qualifying causal test. Source-band or motif surgery stays sealed
+unless the directed path qualifies.
+
+All thresholds, exact null families, cohort exclusions, and mechanistic boundaries are frozen in
+`configs/dnabert2_atlas/promoter_circuit_v1.frozen.json`.
+
 ## Possible outcomes
 
 - `SUPPORTED: BEHAVIOR` — excess reconstruction passes and replicates; internal mechanism unknown.

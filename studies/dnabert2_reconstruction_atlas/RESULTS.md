@@ -11,6 +11,42 @@
 | Context-margin atlas v1 | Does a class-specific, target-preserving proximal-context corruption reduce DNABERT-2's geometry-qualified alternative margin more than an equal-dose distal corruption? | nine classes replicated; promoter did not replicate; stop failed development; acceptor/donor preflight-unresolved | `../../results/dnabert2_reconstruction_atlas/context_margin_v1_replication.json` | `../../results/dnabert2_reconstruction_atlas/context_margin_v1_replication.manifest.json` | D3 |
 | Fine-tuned promoter classifier v2 | Does a promoter-trained DNABERT-2 margin distinguish exact-GUE-excluded GENCODE TSSs, and is its local context effect target-specific? | clean promoter margin replicated; context difference did not replicate; context-mechanism search stopped | `../../results/dnabert2_reconstruction_atlas/promoter_classifier_replication_v2.json` | `../../results/dnabert2_reconstruction_atlas/promoter_classifier_replication_v2.manifest.json` | D4 |
 | Promoter clean-behavior head atlas v1 | Does a bounded set of CLS head outputs causally support the replicated clean promoter margin? | eight-head candidate set replicated in both patch directions against exact layer-profile nulls | `../../results/dnabert2_reconstruction_atlas/promoter_head_atlas_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_head_atlas_replication_v1.manifest.json` | D5 |
+| Promoter circuit reverse engineering v1 | Is the candidate set faithful, pair-specific, query-gated, or arranged as an early-to-late path? | L11H2/L11H5 pair specificity replicated; about 61% faithfulness requires C8 plus all MLP writes; query and early-to-late models failed | `../../results/dnabert2_reconstruction_atlas/promoter_circuit_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_circuit_replication_v1.manifest.json` | D6 |
+
+### Promoter circuit reverse engineering v1
+
+The frozen assay uses the 192 atlas-unused unique locus blocks in each split. Its strict
+faithfulness universe contains all 144 attention-head context slices and all 12 MLP writes at
+`[CLS]`. Every unretained node is patched from the paired pseudo-TSS; the score is the ratio of
+mean retained target-control enrichment to mean native enrichment.
+
+| Retained nodes | Development faithfulness (95% CI) | Confirmation faithfulness (95% CI) |
+|---|---:|---:|
+| L11H2/L11H5 | 15.18% (13.48%, 17.06%) | 13.62% (11.98%, 15.39%) |
+| eight D5 heads | 15.30% (13.57%, 17.25%) | 13.73% (12.07%, 15.56%) |
+| all heads, no MLP writes | 34.36% (30.98%, 37.96%) | 31.30% (28.05%, 35.00%) |
+| all MLP writes, no head contexts | 0.00% | 0.00% |
+| eight D5 heads plus all MLP writes | 61.04% (57.30%, 65.51%) | 61.27% (57.30%, 65.61%) |
+| all 156 nodes | 100.00% | 100.00% |
+
+The exact empty/all-node anchors are 0/1 on every example. The pair-specific test is stronger
+than the original candidate-set localization:
+
+| L11H2/L11H5 endpoint | Development effect (95% CI) | Null max | Confirmation effect (95% CI) | Null max | Holm p, each split |
+|---|---:|---:|---:|---:|---:|
+| necessity | +0.647 (+0.428, +0.877) | +0.329 | +0.700 (+0.483, +0.926) | +0.318 | 0.04348 |
+| sufficiency | +1.068 (+0.825, +1.309) | +0.608 | +1.093 (+0.831, +1.363) | +0.640 | 0.04348 |
+
+Both endpoints beat every one of the 45 candidate-excluding two-head pairs in layer 11. In
+contrast, transferring only the late pair's target queries has essentially zero effect in both
+splits. The proposed early-six corruption also has only +0.0585/+0.0563 logits of effect, below
+the frozen +0.25 SESOI, so its small 30.2%/31.6% rescue fraction through the late pair is not a
+qualified directed path.
+
+D6 supports a late L11H2/L11H5 output-carrier core that depends on an MLP-maintained
+representation. It rejects a target-dependent late-query gate and does not support the proposed
+early-six-to-late chain. The eight heads are not a self-contained sparse circuit. K/V content,
+source states, non-CLS computation, motifs, completeness, and cellular biology remain unresolved.
 
 ### Promoter clean-behavior head atlas v1
 
