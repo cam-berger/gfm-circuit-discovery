@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN",
+  "frozen_on": "2026-07-28",
+  "scope": {
+    "behavior": "supervised promoter-logit margin on fresh exact-GUE-excluded GENCODE MANE TSS versus same-locus pseudo-TSS pairs",
+    "mechanistic_candidate": "replicated D7 L11H2/L11H5 value-payload alignment dependence",
+    "strategy_1": "unbiased equal-dose 10-nt nominal tile atlas using two BPE tokens per target and control sequence",
+    "strategy_2": "independent biological qualification with FANTOM5 CAGE, ENCODE PLS cCREs, UCSC CpG islands, and predefined EPD promoter motifs",
+    "licensed_if_qualified": "a classifier-relevant TSS-relative source region and/or a source region for the replicated late-pair V payload, with separately stated overlap or motif-disruption evidence",
+    "explicitly_excluded": [
+      "a complete promoter circuit",
+      "mediation between a nucleotide motif and L11H2/L11H5",
+      "a claim that attention identifies a biological feature",
+      "endogenous transcriptional function in cells",
+      "exact 10-nt resolution when the selected BPE cover extends beyond the nominal tile"
+    ]
+  },
+  "frozen_basis": {
+    "D7_result": "results/dnabert2_reconstruction_atlas/promoter_address_payload_replication_v1.json",
+    "outcome_blind_supply": "results/dnabert2_reconstruction_atlas/promoter_source_localization_supply_audit_v1.json",
+    "source_manifest": "studies/dnabert2_reconstruction_atlas/SOURCE_MANIFEST_PROMOTER_LOCALIZATION_V1.json",
+    "GUE_calibration": "results/dnabert2_reconstruction_atlas/promoter_source_localization_calibration_v1.json",
+    "threshold_basis": "A disjoint 16-pair reserved-GUE slice gave 9.54e-7 maximum identity error, 0.463-logit mean absolute equal-dose mask effect, 0.00553 all-layer-11 regional-V mean absolute effect, and a projected 0.00297-logit 80% MDE for the candidate regional-V endpoint at the minimum target tile supply. The mask endpoint is heterogeneous (worst projected MDE 0.507), so a positive confidence bound is mandatory and small mask effects are not interpreted."
+  },
+  "checkpoint": {
+    "candidate": "prom_300_all",
+    "hf_id": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
+    "revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+    "device": "mps",
+    "layers": 12,
+    "heads_per_layer": 12,
+    "candidate_pair": [
+      "L11H2",
+      "L11H5"
+    ]
+  },
+  "cohort": {
+    "annotated_source": "data/processed/dnabert2_atlas/promoter_source_localization_v1/cohort.jsonl",
+    "pairs_per_split": 192,
+    "selection_tag": "promoter-source-localization-v1",
+    "requires_fresh_example_ids_and_1Mb_blocks_from_original_and_D7": true,
+    "selected_id_sha256": {
+      "development": "a661595afb066eb3e8adcb9d271d6f43a2e0bd22c0563587b8297c7a75e890f9",
+      "confirmation": "f7df7c032d3105c843e831a43b0a981443e7e1573d0ced4824e0af7b139f6d7f"
+    }
+  },
+  "tile_geometry": {
+    "input_length_nt": 300,
+    "TSS_index": 249,
+    "nominal_tile_width_nt": 10,
+    "tile_count": 30,
+    "fixed_BPE_token_dose_per_sequence": 2,
+    "token_choice": "adjacent genomic BPE-token pair maximizing nucleotide overlap with the nominal tile, then minimizing center distance, cover length, and start coordinate",
+    "maximum_actual_cover_nt": 18,
+    "maximum_target_control_cover_length_difference_nt": 2,
+    "minimum_eligible_pairs_per_target_tile": 96,
+    "observed_outcome_blind_minimum": {
+      "development": 107,
+      "confirmation": 111
+    },
+    "precision_boundary": "Every result reports the nominal tile and actual target/control BPE covers. A qualified tile is not an exact 10-nt motif call."
+  },
+  "interventions": {
+    "mask": "replace the two selected post-tokenization genomic token IDs by the tokenizer's [MASK] ID; no retokenization",
+    "candidate_value_swap": "swap the two selected V vectors separately within each sequence for L11H2/L11H5 while leaving Q, K, QK logits, ALiBi, and native attention probabilities unchanged",
+    "regional_head_nulls": "all 45 candidate-excluding two-head pairs in layer 11 with the identical token region and V swap",
+    "motif_disruption": "target and pseudo-TSS local shuffles preserve each branch's mononucleotide composition and use the same Hamming dose; the target EPD call must fall below cutoff, the control must remain call-negative, full BPE offsets must be unchanged, and token IDs outside the affected cover must be unchanged"
+  },
+  "measurement": {
+    "margin": "promoter logit minus non-promoter logit",
+    "target_loss": "native target margin minus intervened target margin",
+    "control_loss": "native pseudo-TSS margin minus intervened pseudo-TSS margin",
+    "target_specific_loss": "target_loss minus control_loss",
+    "localization_contrast": "each locus/tile target-specific loss minus that locus's mean target-specific loss across its other eligible equal-dose tiles",
+    "alternative": "one-sided positive: the intervention must reduce the real-TSS promoter margin more than the matched pseudo-TSS margin",
+    "mask_role": "classifier-relevant source-region candidate generator",
+    "value_role": "source-region test for the replicated D7 value-payload association",
+    "concordance_role": "mask and value qualification at the same tile is convergent localization, not mediation"
+  },
+  "primary_gates": {
+    "mask_absolute_SESOI_logit_margin": 0.1,
+    "mask_localization_contrast_SESOI_logit_margin": 0.05,
+    "candidate_value_absolute_SESOI_logit_margin": 0.005,
+    "candidate_value_localization_contrast_SESOI_logit_margin": 0.002,
+    "requires_95pct_locus_bootstrap_lower_bound_above_zero": true,
+    "familywise_inference": "9999 deterministic locus-level sign flips; maximum positive localization contrast across all 30 tiles and both primary operations",
+    "familywise_alpha": 0.05,
+    "value_pair_specificity": "candidate absolute raw mean must exceed all 45 same-tile candidate-excluding layer-11 pair means",
+    "value_pair_add_one_p": true,
+    "maximum_value_tiles_for_Holm_pair_specificity": 2,
+    "bootstrap_draws": 5000,
+    "confirmation_requires_development_sign_and_unchanged_tile": true
+  },
+  "biological_qualification": {
+    "evidence_types_kept_separate": [
+      "FANTOM5 dominant-CTSS CAGE overlap",
+      "ENCODE promoter-like cCRE overlap",
+      "UCSC CpG-island overlap",
+      "EPD motif disruption"
+    ],
+    "regional_annotation_rule": "For a development-nominated tile, estimate the frozen target-specific endpoint within tile-locus observations directly overlapping each independent annotation. Preserve the unannotated estimate as a heterogeneity diagnostic; overlap is not feature specificity.",
+    "minimum_annotated_and_unannotated_pairs_per_split": 24,
+    "regional_annotation_gate": "annotated-subset mean meets the operation SESOI and its 95% locus-bootstrap lower bound exceeds zero",
+    "regional_multiple_testing": "maximum sign-flip correction across all powered nominated-tile by annotation combinations",
+    "motifs": {
+      "primary_core_promoter": [
+        "TATA",
+        "Inr"
+      ],
+      "secondary_promoter_associated": [
+        "CCAAT",
+        "GC_box"
+      ],
+      "minimum_geometry_qualified_pairs_per_split": 24,
+      "target_specific_SESOI_logit_margin": 0.1,
+      "requires_95pct_locus_bootstrap_lower_bound_above_zero": true,
+      "multiple_testing": "Holm across powered motifs overlapping development-nominated tiles",
+      "low_supply_policy": "run and report continuously, but do not qualify or open confirmation"
+    }
+  },
+  "calibration_and_preflight": {
+    "calibration_GUE_pair_offset": 112,
+    "calibration_GUE_pairs": 16,
+    "preflight_GUE_pair_offset": 128,
+    "preflight_GUE_pairs": 32,
+    "requires_disjointness_from_all_prior_GUE_offsets_0_through_127": true,
+    "maximum_identity_absolute_margin_difference": 5e-06,
+    "minimum_mask_mean_absolute_target_specific_effect": 0.2,
+    "minimum_all_layer11_value_mean_absolute_target_specific_effect": 0.0025,
+    "maximum_candidate_value_projected_MDE": 0.005,
+    "maximum_mask_projected_MDE": 0.55,
+    "minimum_eligible_GUE_pairs_per_tile": 12,
+    "maximum_batch_invariance_absolute_margin_difference": 1e-05,
+    "required_regional_null_pairs": 45
+  },
+  "split_gate": {
+    "development_requires": [
+      "matching qualified supply",
+      "matching frozen config and qualified reserved-GUE preflight",
+      "identity, sensitivity, geometry, batch, and null-resolution checks",
+      "clean promoter target-minus-control margin at least 0.50 logits with positive 95% lower bound"
+    ],
+    "confirmation_opens_if": "at least one mask or candidate-value tile qualifies in development",
+    "confirmation_uses": "only unchanged development-nominated tiles, operations, thresholds, annotations, motifs, and null families"
+  },
+  "inference": {
+    "bootstrap_draws": 5000,
+    "sign_flip_draws": 9999,
+    "seed": 20260728,
+    "unit": "unique 1-Mb locus block",
+    "add_one_pvalues": true
+  },
+  "mechanistic_boundary": [
+    "[MASK] is a synthetic model intervention and is used only for unbiased localization.",
+    "A regional V swap leaves attention probabilities native but changes which source-state value is associated with each of two addressed positions.",
+    "Annotation overlap shows biological concordance, not that the model encodes the annotation.",
+    "A motif shuffle is sequence-specific necessity evidence for the classifier margin, not evidence that L11H2/L11H5 mediates that motif.",
+    "Mediation requires a later frozen mask-or-motif by payload interaction or rescue experiment."
+  ]
+}

@@ -149,6 +149,29 @@ pair away from target-specific Q or K addressing. It does not identify a source 
 motif, promoter grammar, semantic residual direction, complete circuit, or transcriptional
 function in cells.
 
+**D8 — Equal-dose masking localizes a replicated classifier-relevant source region over the
+nominal +11 to +21 nt interval, but the late-pair V payload and independent biological labels do
+not localize there.** The outcome-blind assay uses the final 192 unused exact-GUE-excluded locus
+blocks per split. All thirty 10-nt nominal tiles receive exactly two adjacent genomic BPE tokens per target
+and pseudo-TSS sequence. Candidate generation is independent of CAGE, cCRE, CpG, and motif labels.
+
+Tile 26 (+11 to +21 relative to the TSS) is the sole development-qualified region. Its
+target-specific mask loss is +0.2452 logits (95% CI +0.0755 to +0.4285), its equal-dose
+localization contrast is +0.2656 (+0.0953 to +0.4442), and its joint 60-test maximum sign-flip
+`p=0.0260`. The unchanged confirmation test replicates at +0.2056 (+0.0447 to +0.3916;
+`p=0.0082`). Actual BPE covers have median length 10 nt and range 6–15 across the experiment, so
+this is not exact ten-nucleotide resolution.
+
+The regional L11H2/L11H5 V swap does not qualify at any tile: the largest raw and localization
+effects are +0.00124 and +0.00119, below the frozen +0.005/+0.002 SESOIs. ENCODE PLS overlap
+qualifies in development but not confirmation. CAGE is underpowered at tile 26, CpG does not
+qualify, and no geometry-qualified EPD TATA, Inr, CCAAT, or GC-box instance intersects the
+nominated interval.
+
+D8 licenses a replicated **classifier-level behavioral source region**. It does not license a
+canonical promoter motif, a replicated biological annotation, a regional source for D7, a
+mask-to-payload mediation claim, or transcriptional function in cells.
+
 ## Established infrastructure facts
 
 These are implementation properties and prior instrument constraints, not claims about biological
@@ -183,6 +206,8 @@ reconstruction.
 | IF25 | Frozen promoter-circuit preflight v1 is `QUALIFIED` on 16 new GUE pairs: all 156 declared CLS write nodes are covered, full scrub reproduces paired-control margins exactly, empty complement and self/query/restore no-ops are exactly zero, batch drift is \(4.77\times10^{-7}\), and full-scrub sensitivity is 8.14 logits. | `promoter_circuit_preflight_v1.json` | Authorizes D6 development only; GUE controls are not evidence about unused GENCODE loci. |
 | IF26 | The expanded promoter-decomposition cohort supplies 768 exact-GUE-excluded MANE TSS/pseudo-TSS pairs per split. Outcome-blind selection binds 192 fresh example IDs and unique 1-Mb blocks per split after excluding the complete original promoter cohort; every sequence has at least 44 genomic tokens, supporting a fixed surgery dose of 40. Reserved-GUE calibration gives projected 192-pair MDEs of 0.0170 logits for K and 0.0456 for V at that dose. | `promoter_decomposition_cohort_audit_v1.json`, `promoter_decomposition_supply_audit_v1.json`, and `promoter_address_payload_calibration_v1.json` | Cohort, token-geometry, and calibration facts only; no fresh GENCODE model outcome was read before the lock. |
 | IF27 | Frozen promoter address/payload preflight v1 is `QUALIFIED` on 32 reserved GUE pairs: identity error is \(2.38\times10^{-6}\), all-layer-11 K/V target-specific sensitivity is 0.0372/0.2049 mean absolute logits, projected MDE is 0.0032/0.0262, batch drift is zero, all 45 matched null pairs are present, and residual writes are finite. | `promoter_address_payload_preflight_v1.json` | Authorizes D7 development only; reserved-GUE controls are not evidence about fresh GENCODE loci. |
+| IF28 | The source-localization supply binds 192 final unused locus blocks per split, 107–140/111–133 eligible pairs per tile, 105 CAGE-supported TSSs per split, 138/142 PLS TSSs, 70/73 CpG-island TSSs, and geometry-qualified motif disruptions without reading a target outcome. Reserved-GUE calibration gives identity error \(9.54\times10^{-7}\), mask sensitivity 0.463 mean absolute logits, and candidate regional-V projected MDE 0.00297. | `promoter_source_localization_supply_audit_v1.json` and `promoter_source_localization_calibration_v1.json` | Outcome-blind supply and calibration only. |
+| IF29 | Frozen promoter source-localization preflight v1 is `QUALIFIED` on 32 new reserved-GUE pairs: all identity, mask/V sensitivity, precision, tile-resolution, batch, finiteness, and 45-null-family checks pass. | `promoter_source_localization_preflight_v1.json` | Authorizes D8 development only; not evidence about fresh GENCODE loci. |
 
 ## Open hypotheses
 
@@ -195,6 +220,6 @@ reconstruction.
 | H5 | A bounded internal DNABERT-2 component set causally mediates a D3 context-margin effect. | open but untested for the nine D3 classes | Freeze candidates and matched-size necessity/mediation tests before inspecting internal effects. |
 | H6 | A promoter-fine-tuned DNABERT-2 has a replicated target-specific local-context effect at training-corpus-excluded human TSSs. | not supported: clean promoter margin replicated, but the context difference failed confirmation | A new independently justified context intervention/null and a fresh sealed cohort; D4 does not authorize internal localization. |
 | H7 | A bounded set of head outputs at `[CLS]` mediates the replicated clean promoter-classifier contrast. | refined by D7: L11H2/L11H5 is a replicated late output-carrier core with value-payload alignment dependence and a distributed MLP scaffold; target-query, content-key-address, and early-six-to-late models fail their gates | Freeze an equal-dose source-localization phase for the replicated V estimand; do not infer bands or motifs from the stable residual direction alone. |
-| H8 | A bounded TSS-relative source band or sequence feature supplies the late pair's replicated value payload. | open; D7 establishes value association but deliberately does not localize or label it | A separately frozen band-wise V intervention with matched equal-dose source nulls, followed by independent semantic tests only if localization qualifies. |
+| H8 | A bounded TSS-relative source band or sequence feature supplies the late pair's replicated value payload. | partly resolved/refuted at the tested scale: a +11 to +21 behavioral mask region replicates, but no two-token regional V effect or independent biological label replicates | Freeze a native-nucleotide perturbation of +11 to +21 and a mask-by-payload interaction/rescue; use wider or multiregion V tests only under a new lock. |
 
 Negative, retracted, and superseded rows will remain here permanently once evidence exists.

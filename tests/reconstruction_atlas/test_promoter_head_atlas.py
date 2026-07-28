@@ -4,7 +4,9 @@ import torch
 
 from gfmcd.adapters.dnabert2.promoter_address_payload import (
     counterfactual_cls_head,
+    explicit_source_permutations,
     head_residual_write_tensor,
+    paired_cls_qkv_explicit_counterfactual_tensor,
     paired_source_permutations,
 )
 from gfmcd.adapters.dnabert2.promoter_head_atlas import (
@@ -185,6 +187,64 @@ def test_source_permutations_have_fixed_dose_and_no_fixed_points() -> None:
         assert all(left != right for left, right in zip(source, permuted))
         assert torch.equal(source, repeated[0])
         assert torch.equal(permuted, repeated[1])
+
+
+def test_explicit_source_permutations_preserve_requested_region() -> None:
+    offsets = torch.tensor(
+        [
+            [[0, 0], *[[index, index + 1] for index in range(8)], [0, 0]],
+            [[0, 0], *[[index, index + 1] for index in range(8)], [0, 0]],
+        ]
+    )
+    batch = PairedPromoterBatch(
+        pair_ids=("pair-1",),
+        encoded={},
+        offset_mapping=offsets,
+        token_counts=(10, 10),
+        cls_rows=torch.tensor([0, 10]),
+    )
+    permutations = explicit_source_permutations(
+        batch, token_indices_by_sequence=((3, 4), (6, 7))
+    )
+    assert permutations[0][0].tolist() == [3, 4]
+    assert permutations[0][1].tolist() == [4, 3]
+    assert permutations[1][0].tolist() == [6, 7]
+    assert permutations[1][1].tolist() == [7, 6]
+
+
+def test_explicit_qkv_counterfactual_changes_only_selected_cls_head() -> None:
+    batch = PairedPromoterBatch(
+        pair_ids=("pair-1",),
+        encoded={},
+        offset_mapping=torch.tensor(
+            [
+                [[0, 0], [0, 1], [1, 2]],
+                [[0, 0], [0, 1], [1, 2]],
+            ]
+        ),
+        token_counts=(3, 3),
+        cls_rows=torch.tensor([0, 3]),
+    )
+    qkv = torch.randn(6, 3 * 4)
+    context = torch.randn(6, 4)
+    permutations = explicit_source_permutations(
+        batch, token_indices_by_sequence=((1, 2), (1, 2))
+    )
+    patched = paired_cls_qkv_explicit_counterfactual_tensor(
+        context,
+        qkv,
+        batch=batch,
+        heads=(1,),
+        num_heads=2,
+        alibi=torch.zeros((1, 2, 1, 3)),
+        operation="value_permute",
+        permutations=permutations,
+    ).view(6, 2, 2)
+    original = context.view(6, 2, 2)
+    assert torch.equal(patched[:, 0], original[:, 0])
+    assert not torch.equal(patched[0, 1], original[0, 1])
+    assert not torch.equal(patched[3, 1], original[3, 1])
+    assert torch.equal(patched[1:, 1][0:2], original[1:, 1][0:2])
 
 
 def test_head_residual_writes_sum_to_shared_dense_without_bias() -> None:

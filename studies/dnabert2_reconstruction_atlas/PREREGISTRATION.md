@@ -223,6 +223,39 @@ confirmation projection/coherence is descriptive in v1. No source band, motif, o
 can be claimed from this phase. The complete lock is
 `configs/dnabert2_atlas/promoter_address_payload_v1.frozen.json`.
 
+### Promoter source localization v1 — frozen amendment
+
+D7 establishes whole-sequence value-payload alignment dependence but supplies no position or
+sequence label. This amendment uses the final 192 unused exact-GUE-excluded locus blocks per split.
+Development scans all thirty nonoverlapping 10-nt nominal tiles; confirmation can open only
+unchanged development-qualified operation/tile pairs.
+
+Each target and pseudo-TSS sequence receives exactly two adjacent genomic BPE tokens chosen by
+maximum overlap with the nominal tile. Actual cover must be at most 18 nt, and target/control cover
+lengths may differ by at most two nt. `[MASK]` is applied after tokenization. The regional
+L11H2/L11H5 operation swaps only the two selected V vectors, preserving Q, K, QK logits, ALiBi, and
+native attention probabilities.
+
+The primary measurement is target margin loss minus pseudo-TSS margin loss. Localization also
+requires each locus/tile effect to exceed that locus's mean over its other eligible equal-dose
+tiles. Development uses one joint 9,999-draw maximum sign-flip family over 30 tiles and two
+operations. Mask raw/localization SESOIs are +0.10/+0.05 logits; regional-V SESOIs are
+respectively +0.005/+0.002. A regional V candidate must additionally beat all 45 candidate-excluding
+two-head layer-11 nulls.
+
+Biological labels are applied only after nomination and never pooled. FANTOM5 dominant CTSS,
+ENCODE PLS cCRE, and UCSC CpG-island subsets require at least 24 annotated and 24 unannotated
+eligible pairs in each split. Predefined EPD TATA/Inr/CCAAT/GC-box calls use the published matrix,
+preferred window, and cutoff. A motif disruption must remove the target call, keep the control
+call-negative, preserve local mononucleotide composition in each branch, match target/control
+Hamming dose, retain the complete BPE offset map, and leave token IDs outside the affected cover
+unchanged.
+
+The complete lock is
+`configs/dnabert2_atlas/promoter_source_localization_v1.frozen.json`; independent sources are
+pinned in `SOURCE_MANIFEST_PROMOTER_LOCALIZATION_V1.json`. Mask localization, annotation overlap,
+motif necessity, regional V routing, and mediation remain distinct evidence levels.
+
 ## Possible outcomes
 
 - `SUPPORTED: BEHAVIOR` — excess reconstruction passes and replicates; internal mechanism unknown.

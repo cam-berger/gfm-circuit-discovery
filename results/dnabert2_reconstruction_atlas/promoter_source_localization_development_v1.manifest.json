@@ -1,0 +1,168 @@
+{
+  "checkpoint": {
+    "base_hf_id": "zhihan1996/DNABERT-2-117M",
+    "base_tokenizer_revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+    "candidate": "prom_300_all",
+    "classification_head_complete": true,
+    "device": "mps",
+    "dtype": "torch.float32",
+    "env": {
+      "python": "3.11.15",
+      "torch": "2.13.0",
+      "transformers": "4.44.2"
+    },
+    "hf_id": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
+    "hidden_size": 768,
+    "label_semantics": {
+      "0": "non_promoter",
+      "1": "promoter"
+    },
+    "n_heads": 12,
+    "n_layers": 12,
+    "num_labels": 2,
+    "revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+    "state_dict_keys": 140,
+    "task_geometry": {
+      "input_length_nt": 300,
+      "tss_downstream_nt": 50,
+      "tss_upstream_nt": 249
+    },
+    "tokenizer_equivalence": {
+      "comparisons": {
+        "added_tokens": true,
+        "merge_order": true,
+        "model_type": true,
+        "post_processor": true,
+        "pre_tokenizer": true,
+        "vocabulary": true
+      },
+      "equivalent": true,
+      "merge_count": 4087,
+      "runtime_tokenizer_revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+      "vocab_size": 4096
+    },
+    "upstream_sha256": {
+      "config.json": "9f5c0949193cf3ff81691369610c8fcca8c082fce66aa1ff13dd4b06fb955637",
+      "model.safetensors": "ce09ef08160640ac62b68b2995b8ea86c0118d920ee74ba449a56df37a3b4e82",
+      "special_tokens_map.json": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a",
+      "tokenizer.json": "1b805880bea234d909b35050a412f5f2db91e700f5cfcd16a4b573bfcbc22466",
+      "tokenizer_config.json": "ce3e974680079d483cb4dcd66a2000dc331414c21b7b24b0b6b4a690e192a3db",
+      "trainer_state.json": "6ec01510af14b779950af3be4f9582652a18b9c3002d328a22f1c1753bac3e86",
+      "training_args.bin": "f77ae2e3c1ef76aa2812d2e52a52ee2a88cc8e89d81280216628021c62b28960"
+    },
+    "vendor_sha256": {
+      "bert_layers.py": "317ad7e9667980ac724c07f0174ba265c8446ca5230f6b473068ff1b911edcf9",
+      "bert_padding.py": "44d1c68afb1f585fdc66c150d4c60f1ed44a89c006abc57d50531d71940d7421",
+      "configuration_bert.py": "95fc868641b87bbcd7a32d2cd7b9f4769c27592e129daf167d14b5b8c74ec4c5"
+    },
+    "vocab_size": 4096
+  },
+  "code": {
+    "git_commit": "fb5c1f675c1d9a99d8def6033973a9d7f2e72beb",
+    "git_dirty": true
+  },
+  "command": [
+    "scripts/dnabert2_atlas/run_promoter_source_localization.py",
+    "--split",
+    "development",
+    "--annotated-cohort",
+    "data/processed/dnabert2_atlas/promoter_source_localization_v1/cohort.jsonl",
+    "--cohort-manifest",
+    "data/processed/dnabert2_atlas/promoter_source_localization_v1/cohort.manifest.json",
+    "--supply-audit",
+    "results/dnabert2_reconstruction_atlas/promoter_source_localization_supply_audit_v1.json",
+    "--calibration",
+    "results/dnabert2_reconstruction_atlas/promoter_source_localization_calibration_v1.json",
+    "--config",
+    "configs/dnabert2_atlas/promoter_source_localization_v1.frozen.json",
+    "--preflight-report",
+    "results/dnabert2_reconstruction_atlas/promoter_source_localization_preflight_v1.json",
+    "--checkpoint-audit",
+    "results/dnabert2_reconstruction_atlas/promoter_classifier_checkpoint_audit_v2.json",
+    "--source-manifest",
+    "studies/dnabert2_reconstruction_atlas/SOURCE_MANIFEST_PROMOTER_LOCALIZATION_V1.json",
+    "--raw-out",
+    "data/processed/dnabert2_atlas/promoter_source_localization_v1/development.raw.jsonl",
+    "--out",
+    "results/dnabert2_reconstruction_atlas/promoter_source_localization_development_v1.json",
+    "--device",
+    "mps",
+    "--batch-pairs",
+    "32"
+  ],
+  "created_at_utc": "2026-07-28T15:32:24.366864+00:00",
+  "data": [
+    {
+      "path": "data/processed/dnabert2_atlas/promoter_source_localization_v1/cohort.jsonl",
+      "sha256": "a42cf94247219d38b70bcb4fae7a51c1cb76c05b2b8a09c43319a4bde70d0786",
+      "size_bytes": 7347939
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/promoter_source_localization_v1/cohort.manifest.json",
+      "sha256": "931d6582cc8d964b00b4e112d1871cb7811872c03037a3bd2e662ac5da71e84c",
+      "size_bytes": 6785
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_source_localization_supply_audit_v1.json",
+      "sha256": "1f0a7514565080970ba23f22e4d29b24c38c972000b23b0f2200c8d388eaeb43",
+      "size_bytes": 48306
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_source_localization_calibration_v1.json",
+      "sha256": "fd7e8b009bc55392c5c29862fe86e16e968675a6379c6cd9e6e28a944335868c",
+      "size_bytes": 1901
+    },
+    {
+      "path": "configs/dnabert2_atlas/promoter_source_localization_v1.frozen.json",
+      "sha256": "4a6b07e5e4513f7430278a040b1f1e8fe24c05abcb7af2afad5f1a06d009b609",
+      "size_bytes": 9572
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_source_localization_preflight_v1.json",
+      "sha256": "910e4c1f9e1a7abc7523071feb8e597033a2d29a647118749548a1766874595c",
+      "size_bytes": 3615
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_classifier_checkpoint_audit_v2.json",
+      "sha256": "96f73e55234fa53d667128e4ada41e7fed03d756dd239cfd2866d9f58f868f81",
+      "size_bytes": 11320
+    },
+    {
+      "path": "studies/dnabert2_reconstruction_atlas/SOURCE_MANIFEST_PROMOTER_LOCALIZATION_V1.json",
+      "sha256": "9320a230ae677999022920fcddc619f8c0796d676a6a241672b59705a7f3d6c3",
+      "size_bytes": 3289
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/promoter_source_localization_v1/development.raw.jsonl",
+      "sha256": "df90e77ecb94b49a165f45f3b48583c095e680ea80c115af36869f97ebd03a2f",
+      "size_bytes": 5601579
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/promoter_source_localization_v1/development.raw.manifest.json",
+      "sha256": "e590fa7253eb22dea2bf89a0bed660f619dceb5f6a76ffcf3c2eb325709a7ca6",
+      "size_bytes": 6161
+    }
+  ],
+  "environment": {
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "dnabert2_promoter_source_localization_development_v1",
+  "outputs": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_source_localization_development_v1.json",
+      "sha256": "3eb4cc5db460539993edf71f844e898ad09df6671e33f79e22510d5144aabd6d",
+      "size_bytes": 68815
+    }
+  ],
+  "parameters": {
+    "batch_pairs": 32,
+    "config_sha256": "894fe9c6a2f3152e1be7c2cccdcd988a91b585628ad1e207fdea356670fce512",
+    "split": "development"
+  },
+  "schema_version": 1,
+  "seeds": {
+    "inference": 20260728
+  },
+  "status": "DEVELOPMENT"
+}

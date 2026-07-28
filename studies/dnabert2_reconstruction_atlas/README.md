@@ -33,6 +33,7 @@ ablation, patching, rescue, mediation, and path interventions decide causal supp
 | Promoter clean-behavior head atlas | sealed confirmation complete | A development-frozen eight-head set at `[CLS]` replicated bidirectional causal patch effects against exact layer-profile-matched null sets. |
 | Promoter circuit reverse engineering | sealed confirmation complete | L11H2/L11H5 is a replicated late output-carrier core; strict faithfulness requires a distributed MLP scaffold, while query-gating and early-to-late path models failed. |
 | Promoter address/payload decomposition | sealed confirmation complete | L11H2/L11H5 has replicated value-payload alignment dependence; target-specific content-key addressing stayed below the frozen practical threshold. |
+| Promoter source localization | sealed confirmation complete | Equal-dose masking localizes a replicated classifier-relevant source region to nominal +11 to +21 nt; no regional late-pair V effect or independent biological annotation replicated. |
 
 Multisource v4 found no annotation-specific excess reconstruction over all empirical controls.
 The later context-margin-v1 amendment asks a different, model-native question: whether a
@@ -81,6 +82,21 @@ confirmation; both beat all 45 equal-size layer-11 null pairs. K permutation is 
 +0.0073/+0.0084, below the 0.05-logit practical threshold. D7 therefore supports value/source-state
 payload routing, while the stable residual direction remains unlabeled and causal source bands
 or motifs remain untested.
+
+The next frozen phase scans thirty nonoverlapping 10-nt nominal tiles without biological labels.
+Each intervention uses exactly two adjacent genomic BPE tokens on both the real-TSS and pseudo-TSS
+branches; actual covers are retained because BPE boundaries can overhang the nominal tile. One
+behavioral region replicates: nominal +11 to +21 relative to the TSS. Its target-specific mask loss
+is +0.245 in development (95% CI +0.076 to +0.428; familywise `p=0.026`) and +0.206 in confirmation
+(+0.045 to +0.392; `p=0.0082`). The actual cover length has median 10 nt and ranges from 6 to
+15 nt across the two splits.
+
+This D8 region is not yet biologically labeled. A PLS-overlapping subset qualifies only in
+development and misses confirmation; CAGE is underpowered at this downstream tile, CpG does not
+qualify, and no predefined EPD TATA/Inr/CCAAT/GC-box instance intersects it. The regional
+L11H2/L11H5 V-swap scan also stays below both frozen effect thresholds at every tile. D8 therefore
+supports a replicated **classifier-relevant source region**, not a canonical motif, a source for
+the D7 payload, mediation, or endogenous promoter function.
 
 ## Historical reconstruction estimand
 
@@ -163,6 +179,28 @@ heads unchanged. The joint set must exceed +0.60 logits in both directions, have
 the exact same layer profile under two-endpoint Holm correction. Attention source bands are
 reported descriptively and cannot establish source-position causality.
 
+## Promoter source-localization estimand
+
+For each nominal 10-nt tile \(R\), choose two adjacent genomic BPE tokens per sequence by maximum
+nucleotide overlap, subject to an 18-nt cover ceiling and at most two-nucleotide target/control
+cover-length imbalance. The behavioral measurement is
+
+\[
+\Delta_{\mathrm{mask}}(R)
+=\bigl[L(t)-L(t_{\mathrm{mask}(R)})\bigr]
+-\bigl[L(u)-L(u_{\mathrm{mask}(R)})\bigr].
+\]
+
+Localization additionally requires the per-locus effect to exceed that locus's mean effect over
+its other eligible equal-dose tiles. A joint maximum sign-flip null corrects over all 30 tiles and
+both mask and regional-V operations. The V operation swaps only the two selected value vectors for
+L11H2/L11H5, leaving Q, K, QK logits, ALiBi, and native attention probabilities unchanged.
+
+Biological qualification is separate. FANTOM5 dominant CTSSs, ENCODE PLS cCREs, UCSC CpG islands,
+and EPD motif instances are never pooled. Motif interventions must remove the published EPD call,
+preserve each branch's local mononucleotide composition, match target/control Hamming dose, retain
+the complete BPE offset map, and leave every token outside the affected cover unchanged.
+
 ## Repository map
 
 | Path | Purpose |
@@ -201,4 +239,5 @@ open only the classes that qualified in the immutable development report.
 4. [`CLAIMS.md`](CLAIMS.md)
 5. [`RESULTS.md`](RESULTS.md)
 6. [`PROMOTER_CLASSIFIER_SOURCE_MANIFEST.json`](PROMOTER_CLASSIFIER_SOURCE_MANIFEST.json)
-7. [`archive/LEGACY_DNABERT2_STUDIES.md`](archive/LEGACY_DNABERT2_STUDIES.md)
+7. [`SOURCE_MANIFEST_PROMOTER_LOCALIZATION_V1.json`](SOURCE_MANIFEST_PROMOTER_LOCALIZATION_V1.json)
+8. [`archive/LEGACY_DNABERT2_STUDIES.md`](archive/LEGACY_DNABERT2_STUDIES.md)

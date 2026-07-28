@@ -470,3 +470,42 @@
   source value vectors. Together with the D6 query null, this narrows the pair away from
   target-specific Q/K addressing. Freeze a separate equal-dose source-localization assay before
   selecting TSS-relative bands or motifs.
+
+## 2026-07-28 — Freeze source localization and biological qualification before target outcomes
+
+- Cohort: bind the final 192 unused exact-GUE-excluded locus blocks per split after excluding all
+  original-promoter and D7 example IDs and 1-Mb blocks.
+- Unbiased atlas: scan thirty nonoverlapping 10-nt nominal tiles. Choose exactly two adjacent
+  genomic BPE tokens per sequence by maximum overlap; require cover ≤18 nt and target/control
+  cover-length imbalance ≤2 nt.
+- Measurements: target loss minus paired pseudo-TSS loss for post-tokenization `[MASK]` and for a
+  two-token L11H2/L11H5 V swap. Require a raw practical effect, a positive interval, an equal-dose
+  within-locus localization contrast, and a maximum sign-flip correction over all 60 tests.
+- Biological qualification: keep FANTOM5 dominant CTSS, ENCODE PLS, UCSC CpG island, and EPD motif
+  evidence separate. Motif disruptions must cross below the predefined EPD cutoff while preserving
+  branch-specific mononucleotide composition, equal target/control Hamming dose, and complete BPE
+  geometry.
+- Calibration/preflight: use GUE pair offsets 112–127 and 128–159, disjoint from all earlier GUE
+  slices. Freeze +0.10/+0.05 mask raw/localization SESOIs and +0.005/+0.002 regional-V SESOIs.
+- Boundary: mask is a candidate generator; annotation overlap is not specificity; motif disruption
+  is not head mediation. Confirmation opens only unchanged development-qualified tests.
+
+## 2026-07-28 — Record D8 as replicated behavioral source localization without a biological label
+
+- Preflight: all frozen identity, sensitivity, precision, resolution, batch, finiteness, and
+  45-null-family checks pass on 32 reserved GUE pairs. Maximum identity error is
+  \(1.91\times10^{-6}\), batch drift is zero, and every tile has at least 17 GUE pairs.
+- Development: tile 26, nominal +11 to +21 relative to the TSS, is the sole qualifying test.
+  Target-specific mask loss is +0.2452 (95% CI +0.0755 to +0.4285), localization contrast is
+  +0.2656 (+0.0953 to +0.4442), and joint-family `p=0.0260`.
+- Confirmation: the unchanged tile-26 mask test replicates at +0.2056 (+0.0447 to +0.3916;
+  `p=0.0082`). Actual two-token covers have median length 10 nt and range 6–15, so the nominal
+  interval is not exact nucleotide resolution.
+- Biological qualification: the PLS-overlap subset qualifies in development but not confirmation
+  (`p=0.0589`, interval crossing zero). CAGE is underpowered at tile 26, CpG fails development,
+  and no predefined EPD motif instance intersects the nominated interval.
+- D7 link: no regional L11H2/L11H5 V tile reaches the frozen raw or localization SESOI. Do not
+  infer that tile 26 supplies the replicated whole-sequence D7 payload.
+- Decision: record a replicated classifier-relevant behavioral source region only. A
+  native-nucleotide tile-26 intervention and mask-by-payload interaction/rescue must be frozen
+  before sequence-specific or mediation claims.

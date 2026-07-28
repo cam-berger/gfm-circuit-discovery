@@ -298,6 +298,258 @@ def qkv_operation_effects_for_batch(
     }
 
 
+def explicit_token_mask_effects_for_batch(
+    bundle: Dnabert2PromoterBundle,
+    batch: PairedPromoterBatch,
+    token_indices_by_sequence: Sequence[Sequence[int]],
+    *,
+    native_margins: Any | None = None,
+) -> dict[str, list[float]]:
+    """Mask an explicit equal-dose BPE region without retokenizing the sequence."""
+
+    import torch
+
+    if len(token_indices_by_sequence) != 2 * batch.n_pairs:
+        raise ValueError("one explicit token-index set is required per sequence")
+    mask_id = bundle.tokenizer.mask_token_id
+    if mask_id is None:
+        raise ValueError("promoter tokenizer does not expose a mask token")
+    encoded = {name: tensor.clone() for name, tensor in batch.encoded.items()}
+    input_ids = encoded["input_ids"]
+    doses = {len(tuple(indices)) for indices in token_indices_by_sequence}
+    if len(doses) != 1 or next(iter(doses), 0) < 1:
+        raise ValueError("explicit mask requires one nonzero equal token dose")
+    for sequence_index, raw_indices in enumerate(token_indices_by_sequence):
+        indices = tuple(int(value) for value in raw_indices)
+        if len(set(indices)) != len(indices):
+            raise ValueError("explicit mask token indices must be unique")
+        count = batch.token_counts[sequence_index]
+        offsets = batch.offset_mapping[sequence_index, :count].tolist()
+        for token_index in indices:
+            if not 0 <= token_index < count or int(offsets[token_index][1]) <= int(
+                offsets[token_index][0]
+            ):
+                raise ValueError("explicit mask index is not a genomic token")
+            input_ids[sequence_index, token_index] = int(mask_id)
+    masked_batch = PairedPromoterBatch(
+        pair_ids=batch.pair_ids,
+        encoded=encoded,
+        offset_mapping=batch.offset_mapping,
+        token_counts=batch.token_counts,
+        cls_rows=batch.cls_rows,
+    )
+    with torch.no_grad():
+        native = (
+            promoter_margin_tensor(bundle, batch)
+            if native_margins is None
+            else native_margins.to(bundle.device)
+        )
+        masked = promoter_margin_tensor(bundle, masked_batch)
+    return _paired_margin_losses(native, masked)
+
+
+def explicit_qkv_operation_effects_for_batch(
+    bundle: Dnabert2PromoterBundle,
+    batch: PairedPromoterBatch,
+    heads: Iterable[Head],
+    token_indices_by_sequence: Sequence[Sequence[int]],
+    *,
+    operation: QkvOperation,
+    native_margins: Any | None = None,
+) -> dict[str, list[float]]:
+    """Run a Q/K/V surgery on one explicit equal-dose region per sequence."""
+
+    import torch
+
+    with torch.no_grad():
+        native = (
+            promoter_margin_tensor(bundle, batch)
+            if native_margins is None
+            else native_margins.to(bundle.device)
+        )
+        with patch_paired_cls_qkv_explicit(
+            bundle,
+            batch,
+            heads,
+            token_indices_by_sequence=token_indices_by_sequence,
+            operation=operation,
+        ):
+            patched = promoter_margin_tensor(bundle, batch)
+    return _paired_margin_losses(native, patched)
+
+
+@contextmanager
+def patch_paired_cls_qkv_explicit(
+    bundle: Dnabert2PromoterBundle,
+    batch: PairedPromoterBatch,
+    heads: Iterable[Head],
+    *,
+    token_indices_by_sequence: Sequence[Sequence[int]],
+    operation: QkvOperation,
+):
+    """Install explicit-region CLS Q/K/V counterfactual hooks."""
+
+    selected = validate_promoter_heads(bundle, heads)
+    by_layer: dict[int, list[int]] = {}
+    for layer, head in selected:
+        by_layer.setdefault(layer, []).append(head)
+    permutations = explicit_source_permutations(
+        batch, token_indices_by_sequence=token_indices_by_sequence
+    )
+    qkv_by_layer: dict[int, Any] = {}
+    handles = []
+    num_heads = int(bundle.config.num_attention_heads)
+    alibi = bundle.model.bert.encoder.alibi
+
+    def make_capture_hook(layer: int):
+        def hook(_module: Any, _inputs: Any, output: Any) -> Any:
+            qkv_by_layer[layer] = output
+            return output
+
+        return hook
+
+    def make_context_hook(layer: int, layer_heads: list[int]):
+        def hook(_module: Any, _inputs: Any, output: Any) -> Any:
+            if layer not in qkv_by_layer:
+                raise RuntimeError(f"QKV capture did not precede layer {layer} context")
+            return paired_cls_qkv_explicit_counterfactual_tensor(
+                output,
+                qkv_by_layer[layer],
+                batch=batch,
+                heads=layer_heads,
+                num_heads=num_heads,
+                alibi=alibi,
+                operation=operation,
+                permutations=permutations,
+            )
+
+        return hook
+
+    try:
+        for layer, layer_heads in by_layer.items():
+            block = bundle.model.bert.encoder.layer[layer].attention.self
+            handles.append(block.Wqkv.register_forward_hook(make_capture_hook(layer)))
+            handles.append(
+                block.register_forward_hook(make_context_hook(layer, layer_heads))
+            )
+        yield
+    finally:
+        for handle in handles:
+            handle.remove()
+
+
+def explicit_source_permutations(
+    batch: PairedPromoterBatch,
+    *,
+    token_indices_by_sequence: Sequence[Sequence[int]],
+) -> tuple[tuple[Any, Any], ...]:
+    """Validate explicit genomic-token sets and return deterministic derangements."""
+
+    import torch
+
+    if len(token_indices_by_sequence) != len(batch.token_counts):
+        raise ValueError("one explicit token-index set is required per sequence")
+    doses = {len(tuple(indices)) for indices in token_indices_by_sequence}
+    if len(doses) != 1 or next(iter(doses), 0) < 2:
+        raise ValueError("explicit QKV surgery requires an equal dose of at least two")
+    output = []
+    for sequence_index, (count, raw_indices) in enumerate(
+        zip(batch.token_counts, token_indices_by_sequence)
+    ):
+        source = tuple(int(value) for value in raw_indices)
+        if len(set(source)) != len(source):
+            raise ValueError("explicit QKV source indices must be unique")
+        offsets = batch.offset_mapping[sequence_index, :count].tolist()
+        if any(
+            not 0 <= index < count or int(offsets[index][1]) <= int(offsets[index][0])
+            for index in source
+        ):
+            raise ValueError("explicit QKV source index is not a genomic token")
+        permuted = source[1:] + source[:1]
+        if any(left == right for left, right in zip(source, permuted)):
+            raise RuntimeError("explicit cyclic permutation has a fixed point")
+        output.append(
+            (
+                torch.tensor(source, dtype=torch.long),
+                torch.tensor(permuted, dtype=torch.long),
+            )
+        )
+    return tuple(output)
+
+
+def paired_cls_qkv_explicit_counterfactual_tensor(
+    context: Any,
+    qkv: Any,
+    *,
+    batch: PairedPromoterBatch,
+    heads: Sequence[int],
+    num_heads: int,
+    alibi: Any,
+    operation: QkvOperation,
+    permutations: Sequence[tuple[Any, Any]],
+) -> Any:
+    """Replace selected CLS head contexts using explicit regional source tokens."""
+
+    import torch
+
+    if (
+        context.ndim != 2
+        or context.shape[1] % num_heads
+        or qkv.ndim != 2
+        or qkv.shape[0] != context.shape[0]
+        or qkv.shape[1] != 3 * context.shape[1]
+        or len(permutations) != len(batch.token_counts)
+    ):
+        raise ValueError("explicit attention context/QKV geometry is incompatible")
+    head_size = context.shape[1] // num_heads
+    split_context = context.view(context.shape[0], num_heads, head_size).clone()
+    split_qkv = qkv.view(qkv.shape[0], 3, num_heads, head_size)
+    cursor = 0
+    for sequence_index, count in enumerate(batch.token_counts):
+        start, end = cursor, cursor + count
+        source, permuted = permutations[sequence_index]
+        for raw_head in heads:
+            head = int(raw_head)
+            if not 0 <= head < num_heads:
+                raise ValueError(f"head index outside layer: {head}")
+            sequence_qkv = split_qkv[start:end, :, head]
+            bias = alibi[0, head, 0, :count].to(
+                device=qkv.device,
+                dtype=qkv.dtype,
+            )
+            split_context[start, head] = counterfactual_cls_head(
+                sequence_qkv[0, 0],
+                sequence_qkv[:, 1],
+                sequence_qkv[:, 2],
+                bias=bias,
+                source_indices=source,
+                permuted_indices=permuted,
+                operation=operation,
+            )
+        cursor = end
+    if cursor != context.shape[0] or not torch.isfinite(split_context).all():
+        raise RuntimeError("explicit QKV counterfactual failed the unpadded map")
+    return split_context.reshape_as(context)
+
+
+def _paired_margin_losses(native: Any, perturbed: Any) -> dict[str, list[float]]:
+    import torch
+
+    target_loss = native[0::2] - perturbed[0::2]
+    control_loss = native[1::2] - perturbed[1::2]
+    difference = target_loss - control_loss
+    if not all(
+        torch.isfinite(values).all()
+        for values in (target_loss, control_loss, difference)
+    ):
+        raise RuntimeError("non-finite paired margin effect")
+    return {
+        "target_loss": [float(value) for value in target_loss.cpu()],
+        "control_loss": [float(value) for value in control_loss.cpu()],
+        "target_specific_loss": [float(value) for value in difference.cpu()],
+    }
+
+
 def head_residual_write_tensor(
     context: Any,
     output_weight: Any,

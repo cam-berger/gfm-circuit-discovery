@@ -13,6 +13,36 @@
 | Promoter clean-behavior head atlas v1 | Does a bounded set of CLS head outputs causally support the replicated clean promoter margin? | eight-head candidate set replicated in both patch directions against exact layer-profile nulls | `../../results/dnabert2_reconstruction_atlas/promoter_head_atlas_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_head_atlas_replication_v1.manifest.json` | D5 |
 | Promoter circuit reverse engineering v1 | Is the candidate set faithful, pair-specific, query-gated, or arranged as an early-to-late path? | L11H2/L11H5 pair specificity replicated; about 61% faithfulness requires C8 plus all MLP writes; query and early-to-late models failed | `../../results/dnabert2_reconstruction_atlas/promoter_circuit_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_circuit_replication_v1.manifest.json` | D6 |
 | Promoter address/payload decomposition v1 | Does the late pair depend on content-key addressing or correct value-payload association? | V-payload alignment dependence replicated against all 45 pair nulls; K-address effect stayed below the practical threshold | `../../results/dnabert2_reconstruction_atlas/promoter_address_payload_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_address_payload_replication_v1.manifest.json` | D7 |
+| Promoter source localization v1 | Where is classifier-relevant promoter information, and does the replicated late-pair V payload localize to the same region? | nominal +11 to +21 mask effect replicated; regional V, independent biological annotations, and predefined motifs did not replicate/qualify | `../../results/dnabert2_reconstruction_atlas/promoter_source_localization_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_source_localization_replication_v1.manifest.json` | D8 |
+
+### Promoter source localization v1
+
+The outcome-blind supply binds the 192 remaining unused locus blocks per split after excluding
+both the original promoter cohort and D7. Thirty 10-nt nominal tiles receive the same two-token
+dose on each target and pseudo-TSS branch. Development scans all tiles; confirmation opens only
+the development-qualified operation/tile.
+
+| Endpoint | Development | Confirmation | Verdict |
+|---|---:|---:|---|
+| Tile 26 mask target-specific loss | +0.245 (+0.076, +0.428), n=107 | +0.206 (+0.045, +0.392), n=124 | replicated |
+| Tile 26 localization contrast | +0.266 (+0.095, +0.444), max-family p=0.026 | frozen from development; raw-effect p=0.0082 | qualified |
+| Best regional L11H2/L11H5 V raw effect | +0.00124 | not opened | below +0.005 SESOI |
+| Best regional L11H2/L11H5 V localization contrast | +0.00119 | not opened | below +0.002 SESOI |
+
+Tile 26 is nominally +11 to +21 nt relative to the TSS. The selected BPE covers have median length
+10 nt, range 7–14 in development and 6–15 in confirmation. The result therefore does not license
+single-base or exact ten-nucleotide resolution.
+
+Independent qualification does not replicate. The ENCODE PLS-overlapping subset is positive in
+development (+0.261, 95% CI +0.063 to +0.484; corrected `p=0.0412`) but misses confirmation
+(+0.170, −0.025 to +0.383; `p=0.0589`). CAGE overlap is below the frozen sample floor at tile 26,
+and the CpG subset does not qualify. No geometry-qualified predefined TATA, Inr, CCAAT, or GC-box
+instance intersects the nominated tile, so no motif was relabeled or disrupted after seeing the
+outcome.
+
+D8 licenses a replicated **behavioral source-region candidate** for this fine-tuned classifier.
+It does not identify a biological promoter element, localize D7's V payload, or establish
+mask/motif-to-head mediation.
 
 ### Promoter address/payload decomposition v1
 
