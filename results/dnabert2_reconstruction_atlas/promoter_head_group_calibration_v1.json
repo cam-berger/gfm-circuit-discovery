@@ -1,0 +1,78 @@
+{
+  "boundary": "Candidates here are selected and evaluated only on the reserved GUE calibration slice. They set instrument thresholds, not GENCODE head claims.",
+  "calibration": "results/dnabert2_reconstruction_atlas/promoter_head_atlas_calibration_v1.json",
+  "calibration_candidates": [
+    "L11H5",
+    "L11H2",
+    "L4H4",
+    "L4H5",
+    "L9H7",
+    "L2H4",
+    "L10H7",
+    "L0H2"
+  ],
+  "candidate_rule": {
+    "candidate_count": 8,
+    "four_way_positive_sign_required": true,
+    "maximum_per_layer": 2,
+    "rank_aggregation": "mean fractional rank over exact necessity, exact sufficiency, necessity attribution, and sufficiency attribution"
+  },
+  "endpoints": {
+    "necessity": {
+      "candidate": {
+        "max": 8.12301254272461,
+        "mean": 4.8656226098537445,
+        "median": 5.116293430328369,
+        "min": 0.7704916000366211,
+        "n": 16
+      },
+      "null_set_mean": {
+        "max": 1.0416720360517502,
+        "mean": 0.4404156533047909,
+        "median": 0.4495052397251129,
+        "min": 0.00859774649143219,
+        "n": 127
+      },
+      "p_add_one_vs_layer_matched_sets": 0.0078125,
+      "prospective_MDE_at_target_n": 0.6171223680796258
+    },
+    "sufficiency": {
+      "candidate": {
+        "max": 8.09760570526123,
+        "mean": 5.276145584881306,
+        "median": 6.440064430236816,
+        "min": 0.5292558670043945,
+        "n": 16
+      },
+      "null_set_mean": {
+        "max": 1.626192764379084,
+        "mean": 0.6524908338255417,
+        "median": 0.7377221854403615,
+        "min": 0.1485479953698814,
+        "n": 127
+      },
+      "p_add_one_vs_layer_matched_sets": 0.0078125,
+      "prospective_MDE_at_target_n": 0.6886996812993965
+    }
+  },
+  "layer_profile": {
+    "0": 1,
+    "10": 1,
+    "11": 2,
+    "2": 1,
+    "4": 2,
+    "9": 1
+  },
+  "matched_null": {
+    "candidate_excluded": true,
+    "distinct_evaluated": 127,
+    "requested": 127,
+    "same_layer_profile": true
+  },
+  "phase": "PROMOTER_HEAD_ATLAS_GROUP_CALIBRATION",
+  "schema_version": 1,
+  "status": "PREFLIGHT",
+  "study": "dnabert2_biological_reconstruction_atlas",
+  "target_GENCODE_outcomes_computed": false,
+  "target_pairs_for_power_projection": 128
+}

@@ -30,6 +30,7 @@ ablation, patching, rescue, mediation, and path interventions decide causal supp
 | P5 internal candidate atlas | stopped at the P3 gate | No component claim. |
 | P6 causal tests | stopped at the P3 gate | No causal claim. |
 | Promoter classifier amendment | sealed confirmation complete | Fine-tuned promoter margin replicated on exact-GUE-excluded GENCODE MANE TSSs; the target-preserving context difference did not replicate. |
+| Promoter clean-behavior head atlas | sealed confirmation complete | A development-frozen eight-head set at `[CLS]` replicated bidirectional causal patch effects against exact layer-profile-matched null sets. |
 
 Multisource v4 found no annotation-specific excess reconstruction over all empirical controls.
 The later context-margin-v1 amendment asks a different, model-native question: whether a
@@ -51,7 +52,16 @@ of 384 development and 384 confirmation GENCODE v50 MANE TSS locus blocks with e
 forward/reverse GUE exclusion, the clean promoter margin replicates against composition-matched
 same-locus pseudo-TSSs. The stricter target-preserving context difference qualifies in development
 but not confirmation. D4 therefore licenses promoter classification behavior, not a
-context-specific mechanism or internal circuit search.
+context-specific mechanism.
+
+A separately frozen head atlas localizes only D4's replicated clean contrast. It scans all
+144 attention heads at the unpadded `[CLS]` destination, ranks development candidates using
+gradient agreement with exact paired head-output patches, and tests the eight-head group against
+63 candidate-excluding random sets with identical per-layer head counts. The development-frozen
+set L2H2/L4H6/L4H7/L9H7/L10H1/L10H5/L11H2/L11H5 passes both necessity and sufficiency gates on
+192 development and 192 untouched confirmation locus blocks. D5 supports candidate-set CLS
+head-output mediation. It does not establish individual-head specificity, causal source
+positions, QK/OV roles, a directed circuit, or the failed context hypothesis.
 
 ## Historical reconstruction estimand
 
@@ -110,6 +120,29 @@ same loss at its same-locus pseudo-TSS. Both shuffles preserve a five-nucleotide
 mononucleotide composition, sequence length, and exact target/control Hamming dose. Each split
 requires the frozen SESOI, a positive 95% locus-block bootstrap lower bound, and Holm-adjusted
 add-one sign inference for both endpoints. Exact GUE membership is excluded before scoring.
+
+## Promoter clean-behavior head-atlas estimand
+
+For one head \(h\), let \(c_h(x)\) be its attention context slice at the unpadded `[CLS]` row
+immediately before the shared attention output projection. For paired target \(t\) and pseudo-TSS
+control \(u\), exact necessity is
+
+\[
+N_h=L(t)-L\!\left(t;c_h(t)\leftarrow c_h(u)\right),
+\]
+
+and exact sufficiency is
+
+\[
+S_h=L\!\left(u;c_h(u)\leftarrow c_h(t)\right)-L(u).
+\]
+
+Attribution nominates heads with the corresponding first-order
+gradient–activation-difference dot product. Confirmation freezes the eight development-selected
+heads unchanged. The joint set must exceed +0.60 logits in both directions, have positive
+95% locus-block-bootstrap lower bounds, and beat 63 distinct candidate-excluding null sets with
+the exact same layer profile under two-endpoint Holm correction. Attention source bands are
+reported descriptively and cannot establish source-position causality.
 
 ## Repository map
 

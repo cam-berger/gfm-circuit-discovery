@@ -138,6 +138,33 @@ locus-block bootstrap lower bound, and Holm-adjusted one-sided add-one sign-perm
 development and confirmation. Failure of the context endpoint stops internal localization even
 when the clean classifier behavior replicates.
 
+### Promoter clean-behavior head-atlas amendment
+
+The failed promoter context endpoint continues to prohibit a **local-context circuit** claim. A
+separate internal question is nevertheless identifiable from D4's replicated clean classifier
+behavior: which head outputs at the classifier's pooled `[CLS]` destination distinguish a true TSS
+from its matched pseudo-TSS? This amendment was frozen after D4 and the GUE-only instrument
+calibration, but before any GENCODE internal outcome was read. It does not revise D4 or reopen H6.
+
+The atlas scans all 144 heads. For each head it records first-order target↔control attribution,
+exact target-from-control and control-from-target activation patches at the unpadded `[CLS]` row,
+and native `[CLS]` attention mass over frozen TSS-relative nucleotide bands. Head context is
+intervened on before the shared output projection. Attribution and attention generate candidates;
+exact activation patches are the intervention.
+
+Development selects exactly eight four-way sign-consistent heads by mean fractional rank across
+attribution and exact-patch necessity/sufficiency, with at most two heads from any layer. The
+joint candidate patch is compared with 63 distinct, candidate-excluding random head sets that
+match its exact per-layer profile. Necessity and sufficiency are separate endpoints; each requires
+mean effect at least +0.60 logit-margin units, a positive 95% locus-block bootstrap lower bound,
+and Holm-adjusted one-sided add-one rank `p≤0.05`. Confirmation uses the unchanged development
+candidate set on an internal-outcome-unseen locus split.
+
+A passing joint patch licenses candidate-set mediation at the declared `[CLS]` head-output nodes.
+It does not automatically license any individual head, source motif, QK/OV interpretation,
+directed path, sparse circuit, or biological mechanism. Individual head estimates remain
+candidate-level until they receive their own matched-null and path evidence.
+
 ## Phase D — informative source regions
 
 For behavior-qualified targets, exchange or perturb:
@@ -194,5 +221,7 @@ never populate the “Causal support” column.
 - A context-margin result against a distal null may name proximal-context dependence but not a
   resolved biological source element.
 - Context specificity without controlled causal intervention: report candidate components only.
+- A clean-promoter head-atlas result cannot be used as evidence for the failed promoter
+  target-preserving context endpoint.
 - An anomalous control at any stage: freeze interpretation and diagnose the instrument.
 - A failed hypothesis remains in `CLAIMS.md` and `DECISIONS.md`; its artifact is never rewritten.

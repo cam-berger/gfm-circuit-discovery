@@ -9,7 +9,49 @@
 | GENCODE behavior development v1 | Does any admitted class exceed all empirical and low-order controls? | development gate failed for every class; confirmation sealed | `../../results/dnabert2_reconstruction_atlas/behavior_development_v1.json` | `../../results/dnabert2_reconstruction_atlas/behavior_development_v1.manifest.json` | D1 |
 | Multisource behavior development v4 | Do promoter, poly(A), TFBS, branch-point, PPT, enhancer, splice, or translation classes exceed every control? | development gate failed for every class; five powered, eight underpowered; confirmation sealed | `../../results/dnabert2_reconstruction_atlas/behavior_development_multisource_v4.json` | `../../results/dnabert2_reconstruction_atlas/behavior_development_multisource_v4.manifest.json` | D2 |
 | Context-margin atlas v1 | Does a class-specific, target-preserving proximal-context corruption reduce DNABERT-2's geometry-qualified alternative margin more than an equal-dose distal corruption? | nine classes replicated; promoter did not replicate; stop failed development; acceptor/donor preflight-unresolved | `../../results/dnabert2_reconstruction_atlas/context_margin_v1_replication.json` | `../../results/dnabert2_reconstruction_atlas/context_margin_v1_replication.manifest.json` | D3 |
-| Fine-tuned promoter classifier v2 | Does a promoter-trained DNABERT-2 margin distinguish exact-GUE-excluded GENCODE TSSs, and is its local context effect target-specific? | clean promoter margin replicated; context difference did not replicate; internal search stopped | `../../results/dnabert2_reconstruction_atlas/promoter_classifier_replication_v2.json` | `../../results/dnabert2_reconstruction_atlas/promoter_classifier_replication_v2.manifest.json` | D4 |
+| Fine-tuned promoter classifier v2 | Does a promoter-trained DNABERT-2 margin distinguish exact-GUE-excluded GENCODE TSSs, and is its local context effect target-specific? | clean promoter margin replicated; context difference did not replicate; context-mechanism search stopped | `../../results/dnabert2_reconstruction_atlas/promoter_classifier_replication_v2.json` | `../../results/dnabert2_reconstruction_atlas/promoter_classifier_replication_v2.manifest.json` | D4 |
+| Promoter clean-behavior head atlas v1 | Does a bounded set of CLS head outputs causally support the replicated clean promoter margin? | eight-head candidate set replicated in both patch directions against exact layer-profile nulls | `../../results/dnabert2_reconstruction_atlas/promoter_head_atlas_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_head_atlas_replication_v1.manifest.json` | D5 |
+
+### Promoter clean-behavior head atlas v1
+
+The frozen assay uses 192 unique 1-Mb locus blocks per split from D4's exact-GUE-excluded
+GENCODE cohort. It scans all 144 heads by swapping one attention-context slice at the unpadded
+`[CLS]` destination before the shared output projection. Development attribution plus exact
+patching froze eight candidates: L2H2, L4H6, L4H7, L9H7, L10H1, L10H5, L11H2, and L11H5.
+Confirmation reused that set unchanged.
+
+| Joint endpoint | Development effect (95% CI) | Development null max | Confirmation effect (95% CI) | Confirmation null max | Holm p, each split | Verdict |
+|---|---:|---:|---:|---:|---:|---|
+| Necessity: target gets paired pseudo-TSS head contexts | +1.061 (+0.818, +1.315) | +0.410 | +0.732 (+0.544, +0.929) | +0.331 | 0.03125 | replicated |
+| Sufficiency: pseudo-TSS gets paired target head contexts | +1.417 (+1.149, +1.686) | +0.754 | +1.138 (+0.904, +1.375) | +0.600 | 0.03125 | replicated |
+
+Effects are promoter-minus-nonpromoter logit-margin units. Each endpoint exceeds the frozen
++0.60 SESOI, has a positive locus-block-bootstrap lower bound, and beats all 63 distinct
+candidate-excluding random head sets with the exact same per-layer counts. Attribution/exact
+patch rankings remain associated in development (Spearman 0.747/0.876) and confirmation
+(0.602/0.799).
+
+| Candidate | Dev necessity / sufficiency | Confirmation necessity / sufficiency | Corrected positive signs in both directions and splits? |
+|---|---:|---:|---|
+| L11H2 | +0.506 / +0.765 | +0.315 / +0.627 | yes |
+| L11H5 | +0.305 / +0.729 | +0.208 / +0.660 | yes |
+| L9H7 | +0.0186 / +0.0545 | +0.0169 / +0.0538 | yes |
+| L10H5 | +0.0101 / +0.0140 | +0.0080 / +0.0126 | yes |
+| L4H6 | +0.0261 / +0.0088 | +0.0294 / +0.0148 | no |
+| L10H1 | +0.00027 / +0.00221 | +0.00017 / +0.00197 | no |
+| L2H2 | +0.00349 / +0.00038 | +0.00117 / −0.00116 | no |
+| L4H7 | +0.00030 / +0.00167 | +0.00072 / +0.00057 | no |
+
+The individual exact patches are priorities, not individual-specific claims: only the eight-head
+group was compared with a matched head family. L11H2 and L11H5 are the leading decomposition
+targets. L9H7 is the strongest source-localization lead because its confirmation target attention
+is concentrated proximal-upstream (0.548) and shifts +0.0458 into that band and +0.0108 into the
+TSS anchor relative to controls. Those attention values nominate a hypothesis only; they do not
+show causal source positions or a motif.
+
+D5 licenses candidate-set `[CLS]` head-output mediation of the clean supervised contrast. QK
+selection, OV content, downstream paths, sparsity, individual-head specificity, the failed
+target-preserving context endpoint, and cellular transcription remain unresolved.
 
 ### Fine-tuned promoter classifier v2
 

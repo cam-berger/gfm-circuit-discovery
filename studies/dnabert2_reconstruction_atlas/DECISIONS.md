@@ -357,3 +357,44 @@
 - Decision: D4 supports fine-tuned promoter classification behavior on the exact-GUE-excluded
   GENCODE cohort. The target-specific local-context mechanism does not replicate. Stop before
   attention, attribution, internal candidates, ablation, necessity, or mediation.
+
+## 2026-07-28 — Freeze a separate clean-promoter head atlas before internal outcomes
+
+- New question: localize D4's replicated clean TSS-versus-pseudo-TSS classifier behavior, not the
+  failed target-preserving context endpoint.
+- GUE-only calibration: first-order attribution tracks exact single-head CLS patching
+  (Spearman 0.839 necessity, 0.787 sufficiency); all-head CLS transfer recovers the full class
+  margin; exact self-patching is zero; batch drift is \(4.77\times10^{-7}\).
+- Candidate-set calibration: the eight-head rank rule yields +4.87/+5.28 logit
+  necessity/sufficiency on the reserved GUE slice and exceeds all 127 exact layer-profile null
+  sets. Observed variance projects 80% MDEs 0.504/0.562 at 192 loci.
+- Frozen choice: 192 loci per target split, eight heads with at most two per layer, 63 distinct
+  layer-matched null sets, separate +0.60 necessity/sufficiency SESOIs, positive bootstrap lower
+  bounds, and two-endpoint Holm add-one inference.
+- Boundary: even a pass supports joint `[CLS]` head-output mediation only. It does not revive H6,
+  establish individual-head specificity, identify a motif, or supply a directed circuit.
+
+## 2026-07-28 — Record replicated candidate-set CLS head-output mediation
+
+- Preflight: all eight frozen gate families pass on 32 reserved GUE pairs disjoint from
+  calibration. The assay captures all 144 heads, exact no-op effects are zero, the cross-class
+  patch is 4.73 times the same-class absolute control, attribution/exact-patch Spearman is
+  0.754/0.691, projected 192-pair MDE is 0.483/0.311, and model/token invariants pass.
+- Development: the frozen rank rule selects L2H2, L4H6, L4H7, L9H7, L10H1, L10H5, L11H2,
+  and L11H5. Their joint necessity/sufficiency effects are +1.061/+1.417 logits. Both exceed
+  all 63 distinct candidate-excluding layer-profile null sets and pass the two-endpoint Holm
+  gate at 0.03125, so confirmation opens without changing the candidates.
+- Confirmation: on 192 untouched 1-Mb locus blocks, the same set replicates at
+  +0.732 necessity (95% CI +0.544 to +0.929) and +1.138 sufficiency
+  (+0.904 to +1.375). Both exceed the +0.60 SESOI and every newly seeded exact-layer-profile
+  null set; Holm `p=0.03125`.
+- Decision: record D5 and prioritize L11H2/L11H5 for an independently frozen pair-level
+  decomposition. L9H7 and L10H5 also retain positive corrected individual signs in both
+  directions and splits. Individual rows remain candidates because they did not receive
+  matched single-head null inference.
+- Source clue: confirmation L9H7 target attention concentrates in the proximal-upstream band
+  and shifts toward that band and the TSS anchor. Treat this only as a source-localization
+  hypothesis; do not infer motif or positional causality from attention.
+- Boundary: the validated node is the candidate set's CLS context slices before the shared
+  output projection. QK, OV, source positions, downstream paths, sparsity, the failed
+  target-preserving context endpoint, and cellular transcription remain unresolved.

@@ -148,6 +148,34 @@ thresholds, mediation SESOI, and faithfulness grid will be frozen in an amendmen
 and context qualification but before internal confirmation. Reusing discovery outcomes to set those
 thresholds without an amendment is prohibited.
 
+### Promoter clean-behavior head atlas v1 — frozen amendment
+
+This amendment localizes only D4's replicated clean supervised promoter contrast. H6's failed
+target-preserving context effect stays failed and is not an entry gate or an outcome here.
+
+- Cohort: 192 outcome-blind SHA-256-ranked, unique 1-Mb locus blocks per split from the existing
+  exact-GUE-excluded GENCODE MANE TSS/pseudo-TSS cohort.
+- Node: one head's context vector before the shared attention output projection, at the unpadded
+  `[CLS]` row that feeds the classifier pooler.
+- Candidate measurements: target-from-control patch loss, control-from-target patch gain, their
+  corresponding first-order attributions, and native `[CLS]` attention mass over five frozen
+  TSS-relative nucleotide bands.
+- Selection: require positive development means in all four attribution/exact directions; select
+  the eight best mean-fractional-rank heads, capped at two per layer.
+- Exact validation: patch the eight heads jointly in each direction and compare against 63
+  distinct candidate-excluding random sets with the identical layer profile.
+- Primary gates: necessity and sufficiency each must be at least +0.60 logits, have a positive
+  95% locus-block bootstrap lower bound, and pass Holm-adjusted add-one random-set inference at
+  familywise `α=0.05`.
+- Confirmation: opens only after a qualified GUE-only head preflight and a development pass. It
+  reuses the exact eight development heads and unchanged thresholds.
+- Individual heads: confirmation estimates and sign tests are descriptive candidate evidence;
+  the group matched-null result does not silently promote each member.
+
+The calibration and preflight GUE slices are disjoint. Their role is instrument qualification,
+not evidence about the GENCODE target cohort. The complete machine-readable lock is
+`configs/dnabert2_atlas/promoter_head_atlas_v1.frozen.json`.
+
 ## Possible outcomes
 
 - `SUPPORTED: BEHAVIOR` — excess reconstruction passes and replicates; internal mechanism unknown.

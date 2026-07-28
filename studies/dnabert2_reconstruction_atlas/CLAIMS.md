@@ -64,6 +64,33 @@ the +0.25 SESOI, but its interval and corrected p-value fail. D4 licenses superv
 classification behavior on the declared external cohort. It licenses no context-specific
 mechanism, internal component, necessity, or mediation claim.
 
+**D5 — a development-frozen eight-head set causally supports the clean promoter contrast.**
+The frozen promoter head atlas scanned all 144 attention heads at the unpadded `[CLS]`
+destination on 192 unique GENCODE locus blocks per split. Development selected
+L2H2, L4H6, L4H7, L9H7, L10H1, L10H5, L11H2, and L11H5 without inspecting confirmation.
+Jointly replacing those target head-context slices with their paired pseudo-TSS values reduced
+the target promoter margin by +1.0614 logits in development (95% CI +0.8179 to +1.3146) and
++0.7322 in confirmation (+0.5443 to +0.9289). The reciprocal target-to-pseudo-TSS transfer
+raised the pseudo-TSS margin by +1.4166 (+1.1490 to +1.6863) and +1.1384
+(+0.9041 to +1.3746). All four estimates exceed the frozen +0.60 SESOI. In each split and
+direction, the candidate set exceeds all 63 distinct candidate-excluding random sets with the
+exact same per-layer head counts; two-endpoint Holm-adjusted add-one `p=0.03125`.
+
+Attribution/exact-patch head rankings remain positively associated in development
+(Spearman 0.747/0.876 for necessity/sufficiency) and confirmation (0.602/0.799).
+L11H2 and L11H5 have the largest individual exact-patch effects; L9H7 and L10H5 also have
+positive corrected signs in both directions on both splits. Those individual rows remain
+candidate priorities because only the eight-head group received a matched-head null test.
+L9H7's target `[CLS]` attention is concentrated proximal-upstream (0.548 mass) and shifts
++0.0458 relative to controls, with a +0.0108 TSS-anchor shift; this is an attention clue, not
+causal source localization.
+
+D5 licenses replicated **candidate-set `[CLS]` head-output mediation** of D4's clean supervised
+TSS-versus-pseudo-TSS contrast. It does not revive D4's failed local-context endpoint, establish
+individual-head specificity, distinguish QK selection from OV content, identify a motif or
+source position, resolve a downstream path, prove a sparse circuit, or establish transcriptional
+function in cells.
+
 ## Established infrastructure facts
 
 These are implementation properties and prior instrument constraints, not claims about biological
@@ -93,6 +120,8 @@ reconstruction.
 | IF20 | The replacement GENCODE cohort contains 384 development and 384 confirmation MANE TSS locus blocks, zero exact forward/reverse GUE memberships, zero split leakage, exact anchor/composition/dose invariants, and bounded GC/CpG imbalance. | `results/dnabert2_reconstruction_atlas/promoter_classifier_cohort_audit_v1.json` | Outcome-blind cohort fact only. Exact exclusion does not rule out undocumented near-duplicates. |
 | IF21 | Promoter preflight v1 is `INSTRUMENT_UNRESOLVED` because a one-draw permuted-label MCC and an over-tight CPU batch tolerance fail; no GENCODE target outcome was opened. | `results/dnabert2_reconstruction_atlas/promoter_classifier_preflight_v1.json` | Preserved instrument failure, not a promoter null. |
 | IF22 | Promoter preflight v2 is `QUALIFIED` after replacing the volatile one-draw null with a 256-permutation center and rounding the numerical tolerance to \(10^{-5}\), while retaining all scientific SESOIs. | `results/dnabert2_reconstruction_atlas/promoter_classifier_preflight_v2.json` | Authorizes the D4 target run; preflight itself is not external-cohort behavior evidence. |
+| IF23 | Reserved-GUE calibration validates the promoter head instrument: exact no-op patching is zero, batch drift is \(4.77\times10^{-7}\), all-head CLS transfer recovers the class contrast, attribution tracks exact patches, and the calibrated group exceeds exact layer-profile nulls. | `promoter_head_atlas_calibration_v1.json` and `promoter_head_group_calibration_v1.json` | Calibration only; its GUE-ranked heads are not target candidates and create no GENCODE internal claim. |
+| IF24 | Frozen promoter-head preflight v1 is `QUALIFIED` on 32 GUE pairs disjoint from calibration: GUE MCC/AUROC, attribution agreement, full/no-op/same-class patches, projected sensitivity, null-set resolution, token geometry, head capture, and model health all pass. | `promoter_head_atlas_preflight_v1.json` | Authorizes the development head atlas; it is not a GENCODE component outcome. |
 
 ## Open hypotheses
 
@@ -104,5 +133,6 @@ reconstruction.
 | H4 | A geometry-qualified DNABERT-2 alternative margin has a replicated, class-specific target-preserving proximal-context effect. | supported for the nine D3 classes; promoter did not replicate, stop failed development, acceptor/donor are instrument-unresolved | A distance-matched or orthogonal context null would narrow the proximal-context interpretation further. |
 | H5 | A bounded internal DNABERT-2 component set causally mediates a D3 context-margin effect. | open but untested for the nine D3 classes | Freeze candidates and matched-size necessity/mediation tests before inspecting internal effects. |
 | H6 | A promoter-fine-tuned DNABERT-2 has a replicated target-specific local-context effect at training-corpus-excluded human TSSs. | not supported: clean promoter margin replicated, but the context difference failed confirmation | A new independently justified context intervention/null and a fresh sealed cohort; D4 does not authorize internal localization. |
+| H7 | A bounded set of head outputs at `[CLS]` mediates the replicated clean promoter-classifier contrast. | supported at the eight-head candidate-set level by D5; individual-head and path specificity remain unresolved | Preregister and test the L11H2/L11H5 pair against exact layer-matched pairs, then separate QK source selection, OV content, and downstream path mediation. |
 
 Negative, retracted, and superseded rows will remain here permanently once evidence exists.
