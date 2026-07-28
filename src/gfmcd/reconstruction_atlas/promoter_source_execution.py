@@ -200,6 +200,129 @@ def scan_equal_dose_tiles(
     return output
 
 
+def score_equal_dose_masked_tile(
+    bundle: Dnabert2PromoterBundle,
+    pairs: Sequence[Pair],
+    *,
+    tile_index: int,
+    tile_width_nt: int,
+    token_dose: int,
+    maximum_cover_nt: int,
+    maximum_cover_difference_nt: int,
+    batch_pairs: int,
+    progress: Callable[[str], None] | None = None,
+) -> list[dict[str, Any]]:
+    """Record clean and masked margins for one previously nominated tile."""
+
+    import torch
+
+    if (
+        not pairs
+        or batch_pairs < 1
+        or tile_width_nt < 1
+        or 300 % tile_width_nt
+        or not 0 <= tile_index < 300 // tile_width_nt
+    ):
+        raise ValueError("invalid masked-tile performance request")
+    nominal_start = tile_index * tile_width_nt
+    nominal_end = nominal_start + tile_width_nt
+    initial = tokenize_promoter_pairs(bundle, pairs)
+    eligible_indices = []
+    for pair_index in range(initial.n_pairs):
+        geometry = paired_fixed_dose_tile(
+            initial.offset_mapping[
+                2 * pair_index, : initial.token_counts[2 * pair_index]
+            ].tolist(),
+            initial.offset_mapping[
+                2 * pair_index + 1, : initial.token_counts[2 * pair_index + 1]
+            ].tolist(),
+            nominal_start=nominal_start,
+            nominal_end=nominal_end,
+            token_dose=token_dose,
+            maximum_cover_nt=maximum_cover_nt,
+            maximum_cover_length_difference_nt=maximum_cover_difference_nt,
+        )
+        if geometry is not None:
+            eligible_indices.append(pair_index)
+    output = []
+    for chunk_start in range(0, len(eligible_indices), batch_pairs):
+        chunk_indices = eligible_indices[chunk_start : chunk_start + batch_pairs]
+        batch = tokenize_promoter_pairs(
+            bundle, [pairs[index] for index in chunk_indices]
+        )
+        token_indices = []
+        geometries = []
+        for pair_index in range(batch.n_pairs):
+            geometry = paired_fixed_dose_tile(
+                batch.offset_mapping[
+                    2 * pair_index, : batch.token_counts[2 * pair_index]
+                ].tolist(),
+                batch.offset_mapping[
+                    2 * pair_index + 1, : batch.token_counts[2 * pair_index + 1]
+                ].tolist(),
+                nominal_start=nominal_start,
+                nominal_end=nominal_end,
+                token_dose=token_dose,
+                maximum_cover_nt=maximum_cover_nt,
+                maximum_cover_length_difference_nt=maximum_cover_difference_nt,
+            )
+            if geometry is None:
+                raise RuntimeError(
+                    "masked-tile geometry changed after eligible subsetting"
+                )
+            target_geometry, control_geometry = geometry
+            token_indices.extend(
+                (target_geometry.token_indices, control_geometry.token_indices)
+            )
+            geometries.append(geometry)
+        with torch.no_grad():
+            native = promoter_margin_tensor(bundle, batch).detach()
+        effects = explicit_token_mask_effects_for_batch(
+            bundle,
+            batch,
+            token_indices,
+            native_margins=native,
+        )
+        for pair_index, pair_id in enumerate(batch.pair_ids):
+            target_geometry, control_geometry = geometries[pair_index]
+            target_clean = float(native[2 * pair_index].cpu())
+            control_clean = float(native[2 * pair_index + 1].cpu())
+            target_masked = target_clean - float(effects["target_loss"][pair_index])
+            control_masked = control_clean - float(effects["control_loss"][pair_index])
+            output.append(
+                {
+                    "pair_id": pair_id,
+                    "tile_index": tile_index,
+                    "nominal_start": nominal_start,
+                    "nominal_end": nominal_end,
+                    "relative_start": nominal_start - 249,
+                    "relative_end": nominal_end - 249,
+                    "target_token_indices": list(target_geometry.token_indices),
+                    "control_token_indices": list(control_geometry.token_indices),
+                    "target_cover_start": target_geometry.cover_start,
+                    "target_cover_end": target_geometry.cover_end,
+                    "control_cover_start": control_geometry.cover_start,
+                    "control_cover_end": control_geometry.cover_end,
+                    "target_clean_margin": target_clean,
+                    "target_masked_margin": target_masked,
+                    "control_clean_margin": control_clean,
+                    "control_masked_margin": control_masked,
+                    "target_loss": float(effects["target_loss"][pair_index]),
+                    "control_loss": float(effects["control_loss"][pair_index]),
+                    "target_specific_loss": float(
+                        effects["target_specific_loss"][pair_index]
+                    ),
+                }
+            )
+        if progress is not None:
+            progress(
+                f"masked tile {tile_index}: "
+                f"{min(chunk_start + batch_pairs, len(eligible_indices))}/"
+                f"{len(eligible_indices)} eligible pairs"
+            )
+    return output
+
+
 def scan_head_pair_regional_values(
     bundle: Dnabert2PromoterBundle,
     pairs: Sequence[Pair],

@@ -14,6 +14,7 @@
 | Promoter circuit reverse engineering v1 | Is the candidate set faithful, pair-specific, query-gated, or arranged as an early-to-late path? | L11H2/L11H5 pair specificity replicated; about 61% faithfulness requires C8 plus all MLP writes; query and early-to-late models failed | `../../results/dnabert2_reconstruction_atlas/promoter_circuit_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_circuit_replication_v1.manifest.json` | D6 |
 | Promoter address/payload decomposition v1 | Does the late pair depend on content-key addressing or correct value-payload association? | V-payload alignment dependence replicated against all 45 pair nulls; K-address effect stayed below the practical threshold | `../../results/dnabert2_reconstruction_atlas/promoter_address_payload_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_address_payload_replication_v1.manifest.json` | D7 |
 | Promoter source localization v1 | Where is classifier-relevant promoter information, and does the replicated late-pair V payload localize to the same region? | nominal +11 to +21 mask effect replicated; regional V, independent biological annotations, and predefined motifs did not replicate/qualify | `../../results/dnabert2_reconstruction_atlas/promoter_source_localization_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_source_localization_replication_v1.manifest.json` | D8 |
+| Promoter source classification performance v1 | Does the nominated mask alter hard-label performance and ranking? | post-hoc AUROC loss repeats in both splits; 7/231 target promoter→non-promoter flips; balanced accuracy unchanged by offsetting control corrections | `../../results/dnabert2_reconstruction_atlas/promoter_source_classification_performance_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_source_classification_performance_v1.manifest.json` | D8 |
 
 ### Promoter source localization v1
 
@@ -43,6 +44,26 @@ outcome.
 D8 licenses a replicated **behavioral source-region candidate** for this fine-tuned classifier.
 It does not identify a biological promoter element, localize D7's V payload, or establish
 mask/motif-to-head mediation.
+
+### Promoter source classification performance v1
+
+This user-requested secondary analysis was specified after D8 and is therefore explicitly
+post-hoc. It reruns the unchanged two-token tile-26 mask and retains clean/masked margins for the
+same eligible examples.
+
+| Endpoint | Development (107 pairs) | Confirmation (124 pairs) |
+|---|---:|---:|
+| Accuracy, clean → masked | 0.589 → 0.579 (Δ −0.009; 95% CI −0.033 to +0.014) | 0.581 → 0.589 (Δ +0.008; −0.020 to +0.036) |
+| AUROC, clean → masked | 0.678 → 0.644 (Δ −0.033; −0.060 to −0.007) | 0.679 → 0.658 (Δ −0.021; −0.043 to −0.002) |
+| Real promoter→non-promoter flips | 3/107 | 4/124 |
+| Reverse target flips | 1/107 | 2/124 |
+| Pseudo-TSS false-positive→correct-negative flips | 1/107 | 5/124 |
+
+Pooled accuracy is exactly unchanged at 0.584 because the seven target errors are balanced by
+control-side corrections and three reverse target flips/two reverse control flips. Pooled AUROC
+falls by 0.026 (bootstrap 95% CI −0.043 to −0.011). Thus the mask reliably weakens ranking and
+changes a small subset of hard labels, but it does not reduce net balanced accuracy on this
+challenge cohort. These values do not estimate performance on GUE.
 
 ### Promoter address/payload decomposition v1
 

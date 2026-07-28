@@ -172,6 +172,18 @@ D8 licenses a replicated **classifier-level behavioral source region**. It does 
 canonical promoter motif, a replicated biological annotation, a regional source for D7, a
 mask-to-payload mediation claim, or transcriptional function in cells.
 
+**D8 secondary performance boundary — the nominated mask reduces ranking quality and causes a
+small number of target label flips, but not net balanced-accuracy loss.** In a user-requested
+post-hoc evaluation of the unchanged tile-26 intervention, AUROC falls by 0.0332 in development
+(95% pair-bootstrap CI −0.0604 to −0.0069) and 0.0207 in confirmation (−0.0431 to −0.0019).
+Three of 107 and four of 124 real promoters flip from promoter to non-promoter. Accuracy changes
+by −0.0093 and +0.0081, with both intervals spanning zero, because six pseudo-TSS false positives
+also become correct negatives and other reverse transitions occur.
+
+This supports a bounded hard-label and ranking consequence on the fresh GENCODE/pseudo-TSS
+challenge. It does not show an accuracy loss on the original GUE task, independently validate
+the selected region, or identify its biological content.
+
 ## Established infrastructure facts
 
 These are implementation properties and prior instrument constraints, not claims about biological

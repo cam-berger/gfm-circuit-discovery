@@ -4,7 +4,7 @@
 
 This is an **index of the runnable scripts**, not the scientific ledger. It maps each active script to
 the claim(s) and controlling artifact it serves, grouped by result family. The authoritative
-claim→evidence record is [`results/MANIFEST.csv`](../results/MANIFEST.csv) (909 rows) plus
+claim→evidence record is [`results/MANIFEST.csv`](../results/MANIFEST.csv) (911 rows) plus
 [`studies/splicebert_partner_selection/CLAIMS.md`](../studies/splicebert_partner_selection/CLAIMS.md)
 (donor circuit, C1–C41 + IC1), [`studies/splicebert_head_context_atlas/CLAIMS.md`](../studies/splicebert_head_context_atlas/CLAIMS.md)
 (Atlas, HCA1–HCA23), and [`CORRECTIONS.md`](../studies/splicebert_partner_selection/CORRECTIONS.md)
@@ -64,6 +64,7 @@ has a row in the scientific result manifest.
 | `run_promoter_source_localization_preflight.py` | Qualify identity, sensitivity, precision, tile resolution, batch invariance, finiteness, and regional-null supply. | Refuses authorization unless every frozen gate passes; explicit raw and compact artifacts plus manifests |
 | `run_promoter_source_localization.py` | Run the unbiased tile atlas, matched regional-V nulls, independent annotation strata, and eligible motif disruptions on development or sealed confirmation. | Refuses without matching supply/config/preflight hashes; explicit raw and compact artifacts plus manifests |
 | `summarize_promoter_source_localization.py` | Apply the replication lock and record the behavioral region, failed payload localization, and biological-qualification boundary. | Explicit compact replication result plus manifest |
+| `evaluate_promoter_source_classification.py` | Re-run the nominated tile mask while retaining clean/masked margins; report accuracy, AUROC, MCC, and hard-label transitions. | Post-hoc descriptive raw and compact artifacts plus manifests; does not estimate original-GUE performance |
 
 The active protocol and bounded behavioral claims are in
 [`studies/dnabert2_reconstruction_atlas/`](../studies/dnabert2_reconstruction_atlas/README.md).
@@ -244,5 +245,5 @@ The competition branch (HCA2–HCA10) is CLOSED; its `competition_branch_closure
 # `scripts/verify_manifest.py`
 
 Validates that every `results/MANIFEST.csv` row's `script`, `artifact`, `manifest`, and `figure` path
-exists. Run it before merging any change to an active workflow. It currently passes (909 rows, 0
+exists. Run it before merging any change to an active workflow. It currently passes (911 rows, 0
 unresolved paths).

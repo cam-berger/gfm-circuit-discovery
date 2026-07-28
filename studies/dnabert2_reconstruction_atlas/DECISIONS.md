@@ -509,3 +509,21 @@
 - Decision: record a replicated classifier-relevant behavioral source region only. A
   native-nucleotide tile-26 intervention and mask-by-payload interaction/rescue must be frozen
   before sequence-specific or mediation claims.
+
+## 2026-07-28 — Record post-hoc tile-26 classification performance
+
+- Scope: after D8 nomination, retain clean and masked margins for the unchanged eligible
+  development and confirmation pairs. Label real TSS as promoter and matched pseudo-TSS as
+  non-promoter; use margin greater than zero as the hard call.
+- Development: accuracy is 0.5888 clean and 0.5794 masked; AUROC is 0.6775 and 0.6443.
+  Three real promoters flip to non-promoter and one flips in the reverse direction.
+- Confirmation: accuracy is 0.5806 clean and 0.5887 masked; AUROC is 0.6788 and 0.6580.
+  Four real promoters flip to non-promoter and two flip in the reverse direction.
+- Replication: AUROC change is negative with a negative 95% pair-bootstrap interval in both
+  splits. Accuracy-change intervals span zero in both splits; pooled accuracy is exactly
+  unchanged because target errors are offset by pseudo-TSS corrections.
+- Invariant: the rerun reproduces every previously recorded tile-26 target, control, and
+  target-specific margin loss exactly (maximum absolute difference zero).
+- Decision: record a post-hoc ranking degradation and seven target promoter→non-promoter flips,
+  not a net accuracy loss. The cohort is the fresh balanced GENCODE/pseudo-TSS challenge, not
+  the original GUE held-out task.

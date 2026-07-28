@@ -34,6 +34,7 @@ ablation, patching, rescue, mediation, and path interventions decide causal supp
 | Promoter circuit reverse engineering | sealed confirmation complete | L11H2/L11H5 is a replicated late output-carrier core; strict faithfulness requires a distributed MLP scaffold, while query-gating and early-to-late path models failed. |
 | Promoter address/payload decomposition | sealed confirmation complete | L11H2/L11H5 has replicated value-payload alignment dependence; target-specific content-key addressing stayed below the frozen practical threshold. |
 | Promoter source localization | sealed confirmation complete | Equal-dose masking localizes a replicated classifier-relevant source region to nominal +11 to +21 nt; no regional late-pair V effect or independent biological annotation replicated. |
+| Promoter source performance follow-up | post-hoc descriptive complete | Masking +11 to +21 lowers AUROC in both splits and flips 7/231 real promoters to non-promoter, but balanced accuracy is unchanged because pseudo-TSS corrections offset target errors. |
 
 Multisource v4 found no annotation-specific excess reconstruction over all empirical controls.
 The later context-margin-v1 amendment asks a different, model-native question: whether a
@@ -97,6 +98,15 @@ qualify, and no predefined EPD TATA/Inr/CCAAT/GC-box instance intersects it. The
 L11H2/L11H5 V-swap scan also stays below both frozen effect thresholds at every tile. D8 therefore
 supports a replicated **classifier-relevant source region**, not a canonical motif, a source for
 the D7 payload, mediation, or endogenous promoter function.
+
+A user-requested post-hoc follow-up reruns the unchanged tile-26 mask while retaining each clean
+and masked decision margin. On the balanced real-TSS/pseudo-TSS challenge cohort, AUROC falls
+from 0.678 to 0.644 in development (change −0.033, bootstrap 95% CI −0.060 to −0.007) and from
+0.679 to 0.658 in confirmation (−0.021, −0.043 to −0.002). Three of 107 and four of 124 real
+promoters cross from promoter to non-promoter. Balanced accuracy changes by −0.9 and +0.8
+percentage points, respectively, with both intervals spanning zero; six pseudo-TSS false
+positives also become correct negatives, offsetting the target errors. This is performance on the
+fresh GENCODE/pseudo-TSS challenge, not the original GUE held-out test set.
 
 ## Historical reconstruction estimand
 

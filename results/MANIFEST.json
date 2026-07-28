@@ -1,14 +1,14 @@
 {
- "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc); DNABERT-2 Reconstruction Atlas infrastructure, narrow v1 behavior, multisource-v4 bounded development, context-margin-v1 replication, and promoter-classifier-v2 bounded replication rows appended 2026-07-27; promoter clean-behavior head-atlas, promoter-circuit, promoter address/payload, and promoter source-localization rows appended 2026-07-28.",
-  "row_count": 909,
+ "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc); DNABERT-2 Reconstruction Atlas infrastructure, narrow v1 behavior, multisource-v4 bounded development, context-margin-v1 replication, and promoter-classifier-v2 bounded replication rows appended 2026-07-27; promoter clean-behavior head-atlas, promoter-circuit, promoter address/payload, promoter source-localization, and post-hoc source-performance rows appended 2026-07-28.",
+  "row_count": 911,
  "status_counts": {
     "canonical": 579,
-    "development": 166,
+    "development": 168,
   "infrastructure": 22,
   "superseded": 142
  },
  "polarity_counts": {
-    "bounded": 56,
+    "bounded": 58,
   "na": 296,
   "null": 19,
     "positive": 534,
@@ -9112,6 +9112,26 @@
       "polarity": "positive",
       "artifact": "results/dnabert2_reconstruction_atlas/promoter_source_localization_replication_v1.manifest.json",
       "script": "scripts/dnabert2_atlas/summarize_promoter_source_localization.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "D8",
+      "status": "development",
+      "evidence_level": "Behaviour",
+      "polarity": "bounded",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_source_classification_performance_v1.json",
+      "script": "scripts/dnabert2_atlas/evaluate_promoter_source_classification.py",
+      "manifest": "results/dnabert2_reconstruction_atlas/promoter_source_classification_performance_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "D8",
+      "status": "development",
+      "evidence_level": "Behaviour",
+      "polarity": "bounded",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_source_classification_performance_v1.manifest.json",
+      "script": "scripts/dnabert2_atlas/evaluate_promoter_source_classification.py",
       "manifest": "",
       "figure": ""
     }
