@@ -169,6 +169,23 @@ def check_memorials(
     expected_tokens: int,
     max_cover_difference_nt: int,
 ) -> dict[str, bool]:
+    """Evaluate the on-path memorials M3 (cover-length balance) and M4 (equal
+    token dose) over ``rows``.
+
+    Raises ``ValueError`` if ``rows`` is empty. Python's ``all()`` is
+    vacuously true on an empty sequence, so without this guard both
+    memorials would silently report "passed" having measured zero rows —
+    indistinguishable from a real pass, and this function gates a run that
+    opens sealed data. A memorial that cannot fail is not a memorial.
+    """
+
+    if not rows:
+        raise ValueError(
+            "check_memorials cannot be evaluated on zero rows: an empty "
+            "sequence would vacuously report both memorials as passed "
+            "under all(), which would silently mask that nothing was "
+            "measured"
+        )
     balanced = all(
         abs(row.target_cover_length - row.control_cover_length)
         <= max_cover_difference_nt
