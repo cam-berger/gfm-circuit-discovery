@@ -1,0 +1,5121 @@
+{
+  "checkpoint_reports": {
+    "2020": {
+      "checkpoint": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2020.pt",
+      "checkpoint_sha256": "2552486a0870e2466a223fcce34f0477c40526a09172622619f0d1672a1af45e",
+      "class_labels": [
+        "no_splice_site",
+        "donor",
+        "acceptor"
+      ],
+      "extra_keys": [],
+      "missing_keys": [],
+      "parameter_count": 19448323,
+      "seed": 2020,
+      "source_task": "SpliceAI-GTEx three-class token classification",
+      "tensor_count": 103
+    },
+    "2021": {
+      "checkpoint": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2021.pt",
+      "checkpoint_sha256": "2cb06d2a17d941857485329604d526b465eabda319632c932000b85d8d40cda6",
+      "class_labels": [
+        "no_splice_site",
+        "donor",
+        "acceptor"
+      ],
+      "extra_keys": [],
+      "missing_keys": [],
+      "parameter_count": 19448323,
+      "seed": 2021,
+      "source_task": "SpliceAI-GTEx three-class token classification",
+      "tensor_count": 103
+    },
+    "2022": {
+      "checkpoint": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2022.pt",
+      "checkpoint_sha256": "556e38c92319ce87fb15ca390743ae20c539f4c5400c4cca82a83cdf3d46bd0a",
+      "class_labels": [
+        "no_splice_site",
+        "donor",
+        "acceptor"
+      ],
+      "extra_keys": [],
+      "missing_keys": [],
+      "parameter_count": 19448323,
+      "seed": 2022,
+      "source_task": "SpliceAI-GTEx three-class token classification",
+      "tensor_count": 103
+    },
+    "2023": {
+      "checkpoint": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2023.pt",
+      "checkpoint_sha256": "03c25882ae3e4b48198265bf8447ef543308e40ec9fd700b4834d829dcb6100b",
+      "class_labels": [
+        "no_splice_site",
+        "donor",
+        "acceptor"
+      ],
+      "extra_keys": [],
+      "missing_keys": [],
+      "parameter_count": 19448323,
+      "seed": 2023,
+      "source_task": "SpliceAI-GTEx three-class token classification",
+      "tensor_count": 103
+    },
+    "2024": {
+      "checkpoint": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2024.pt",
+      "checkpoint_sha256": "d1caccec4db1784537178e355351a3e0b67cde4e70185bf6b6a6d63f792198f1",
+      "class_labels": [
+        "no_splice_site",
+        "donor",
+        "acceptor"
+      ],
+      "extra_keys": [],
+      "missing_keys": [],
+      "parameter_count": 19448323,
+      "seed": 2024,
+      "source_task": "SpliceAI-GTEx three-class token classification",
+      "tensor_count": 103
+    }
+  },
+  "cohort": {
+    "counts": {
+      "after_partition": 4690,
+      "after_prior_and_chromosome_exclusion": 9361,
+      "both_windows_cds": 1607,
+      "eligible_train_before_exclusion": 15196,
+      "unique_genes_cds": 856
+    },
+    "n": 16,
+    "n_genes": 16,
+    "prior_gene_count": 1310,
+    "prior_gene_source_aggregate_sha256": "2bf6cf8c0d0ffc5b8156d3864c0b6fcd353f79d7134866a1b0db38ad91d46365",
+    "prior_gene_source_files": [
+      {
+        "n_gene_ids": 334,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/five_seed_behavior_v1.json",
+        "sha256": "61fefe084de6f8cee8c23fdc69f08cf1cb41a2285114ef44f3394553ca101eec"
+      },
+      {
+        "n_gene_ids": 334,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_classifier_coupling_v1.json",
+        "sha256": "89286b6f76b019b5c9aec72de239f97c4b3dbc75856796a04ef26f75f99e3acd"
+      },
+      {
+        "n_gene_ids": 64,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_classifier_preflight_v1.json",
+        "sha256": "bb7637e5ab034c3ce9ba3aad9e9e4dad34c251ae239d1099c09d2d62bf9c92a2"
+      },
+      {
+        "n_gene_ids": 64,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_classifier_preflight_v2.json",
+        "sha256": "dae7bb5c98436fb418136ba11ed137984ec9b348533d27ae85cd239fb40a8b19"
+      },
+      {
+        "n_gene_ids": 179,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_component_bridge_v1.json",
+        "sha256": "23fe1117b6294eef98a1e0cac6219defa00c8b8296cee1626a216e57f0b8b659"
+      },
+      {
+        "n_gene_ids": 1,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_confirmation_audit_v1.json",
+        "sha256": "756f0ff63dc2e924573b65582d200fc33626583530d0893a83d0f99659b00841"
+      },
+      {
+        "n_gene_ids": 179,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_confirmation_v1.json",
+        "sha256": "d745e5877430ffadac24f07186976cb03459333fd2228f3e96896221473e85b5"
+      },
+      {
+        "n_gene_ids": 62,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_depth_trace_v1.json",
+        "sha256": "c28f71ffdf0df3f9be36444199a9ac473fb673707e109dd0ca12034378fbcba1"
+      },
+      {
+        "n_gene_ids": 126,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_discovery_v1.json",
+        "sha256": "4878db7b2166c1071df2f677502b2cadc362d508004ec55ce7a4e13256b5ca97"
+      },
+      {
+        "n_gene_ids": 123,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_discovery_v1.json",
+        "sha256": "22f3b9ebb6f1cece1d290067902b529e93c059551834a6ec64625b32cadb413f"
+      },
+      {
+        "n_gene_ids": 188,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_evaluation_v1.json",
+        "sha256": "aef33989f8a44a4dc038acc2ea463ca74f9329f928d6d3787123c960576f1bb1"
+      },
+      {
+        "n_gene_ids": 184,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_head_census_confirmation_v1.json",
+        "sha256": "c0ba0cfea122d118ee0fc547ae4126941ab0d54e74b3d167f325b1f14699a496"
+      },
+      {
+        "n_gene_ids": 118,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_head_census_discovery_v1.json",
+        "sha256": "7005ac25cde6273c79d79123d1278da3dd9acbf726b6b1402382ed2ec8bcd385"
+      },
+      {
+        "n_gene_ids": 188,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_joint_lowrank_confirmation_v1.json",
+        "sha256": "ad679f9e7281fc7d4e9691d443789ecbcac8f61ebbd6da4001a47329e3085340"
+      },
+      {
+        "n_gene_ids": 123,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_lowrank_discovery_v1.json",
+        "sha256": "c42e840bcfb243b7f24cca3e84408e29a93b3a797bc3de5b1e3d8f4e944c9bdf"
+      },
+      {
+        "n_gene_ids": 123,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_discovery_v1.json",
+        "sha256": "704c24352c1fa30f8b57634fdddacabbaae3ba8262d076bae16e1cb5730d62ae"
+      },
+      {
+        "n_gene_ids": 188,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_evaluation_v1.json",
+        "sha256": "87868ed70beaf54f8805dde5a14028957d3be8cbc1360519d48edcf52fea3bc6"
+      },
+      {
+        "n_gene_ids": 16,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_preflight_v1.json",
+        "sha256": "cdf85be1034265e81eb4d92fce6b2315c02946185d47f548d836e8ada30487dd"
+      },
+      {
+        "n_gene_ids": 334,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_mechanism_confirmation_v1.json",
+        "sha256": "f0287409ed968b21e78dd72956e8d7bd8a49c71ec5a5b429b3e4c8e45e7daa29"
+      },
+      {
+        "n_gene_ids": 121,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_mechanism_discovery_v1.json",
+        "sha256": "7b284324714ac89db0e8c55642a83c3ca6d7998b7aa770cf2966f3b4b79f88e1"
+      },
+      {
+        "n_gene_ids": 15,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_mechanism_preflight_v1.json",
+        "sha256": "1e938915eae43912465656f2f5f16cc68cef35cd2f972d30bae845a0fc8a0d8b"
+      },
+      {
+        "n_gene_ids": 334,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_mechanism_role_source_v1.json",
+        "sha256": "64585590269ac08eb863bca5ed815328b632eab5e4a50baeefde50353b760ae4"
+      },
+      {
+        "n_gene_ids": 334,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_representation_bridge_v1.json",
+        "sha256": "c52b78306f756b81a281732d7f58c2818d71a7e89236147cac33c56ce7a40639"
+      },
+      {
+        "n_gene_ids": 16,
+        "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/preflight_v1.json",
+        "sha256": "388279f8fbc0026c69bd2eed5449e006d20d84d7a18a6056681cf8b3fbe7b2e4"
+      }
+    ]
+  },
+  "device": "mps",
+  "endpoint_gates": {
+    "acceptor": {
+      "local_effect_at_least_5": true,
+      "local_effect_at_least_5_each_seed": true,
+      "target_ci_above_zero": true,
+      "target_effect_at_least_0.05": true,
+      "target_minus_sham_ci_above_zero": true,
+      "target_minus_sham_q_at_most_0.05": true,
+      "target_positive_5_of_5": true,
+      "target_q_at_most_0.05": true
+    },
+    "donor": {
+      "local_effect_at_least_5": true,
+      "local_effect_at_least_5_each_seed": true,
+      "target_ci_above_zero": true,
+      "target_effect_at_least_0.05": true,
+      "target_minus_sham_ci_above_zero": true,
+      "target_minus_sham_q_at_most_0.05": true,
+      "target_positive_5_of_5": true,
+      "target_q_at_most_0.05": true
+    }
+  },
+  "experiment": "gtex_native_biological_features_preflight_v1",
+  "family_summaries": {
+    "acceptor": {
+      "local": {
+        "ci_high": 21.90811844506301,
+        "ci_low": 20.238685307111588,
+        "estimate": 21.074164183065292,
+        "n": 16,
+        "n_boot": 5000,
+        "n_groups": 16,
+        "p_signflip_add_one": 0.0001,
+        "seed_estimates": {
+          "2020": 21.826529201120138,
+          "2021": 20.27351143397391,
+          "2022": 18.53366221487522,
+          "2023": 23.13186949118972,
+          "2024": 21.60524857416749
+        }
+      },
+      "sham": {
+        "ci_high": 0.31989004611968996,
+        "ci_low": 0.03251070141792297,
+        "estimate": 0.1487044796347618,
+        "n": 16,
+        "n_boot": 5000,
+        "n_groups": 16,
+        "p_signflip_add_one": 0.0161,
+        "seed_estimates": {
+          "2020": 0.2720346003770828,
+          "2021": 0.10521405190229416,
+          "2022": 0.19780974835157394,
+          "2023": 0.08507954329252243,
+          "2024": 0.0833844542503357
+        }
+      },
+      "target": {
+        "ci_high": 2.1460651041008534,
+        "ci_low": 0.6326821834780276,
+        "estimate": 1.3312208347022534,
+        "n": 16,
+        "n_boot": 5000,
+        "n_groups": 16,
+        "p_signflip_add_one": 0.0011,
+        "q_bh_primary_family": 0.0041333333333333335,
+        "seed_estimates": {
+          "2020": 1.305763404816389,
+          "2021": 1.397128377109766,
+          "2022": 1.2770293541252613,
+          "2023": 1.2257957495748997,
+          "2024": 1.4503872878849506
+        }
+      },
+      "target_minus_sham": {
+        "ci_high": 2.002780470903962,
+        "ci_low": 0.49225213032215837,
+        "estimate": 1.1825163550674915,
+        "n": 16,
+        "n_boot": 5000,
+        "n_groups": 16,
+        "p_signflip_add_one": 0.005,
+        "q_bh_primary_family": 0.005,
+        "seed_estimates": {
+          "2020": 1.0337288044393063,
+          "2021": 1.2919143252074718,
+          "2022": 1.0792196057736874,
+          "2023": 1.1407162062823772,
+          "2024": 1.367002833634615
+        }
+      }
+    },
+    "donor": {
+      "local": {
+        "ci_high": 22.039287721458823,
+        "ci_low": 18.987833201615143,
+        "estimate": 20.75481690503657,
+        "n": 16,
+        "n_boot": 5000,
+        "n_groups": 16,
+        "p_signflip_add_one": 0.0002,
+        "seed_estimates": {
+          "2020": 21.595475926995277,
+          "2021": 20.488045562058687,
+          "2022": 20.92768417671323,
+          "2023": 19.18409326300025,
+          "2024": 21.5787855964154
+        }
+      },
+      "sham": {
+        "ci_high": 0.13033845730125895,
+        "ci_low": -0.01982258625328541,
+        "estimate": 0.054114308953285215,
+        "n": 16,
+        "n_boot": 5000,
+        "n_groups": 16,
+        "p_signflip_add_one": 0.1902,
+        "seed_estimates": {
+          "2020": 0.03907892480492592,
+          "2021": 0.028450530022382736,
+          "2022": 0.05661873146891594,
+          "2023": 0.10731863975524902,
+          "2024": 0.03910471871495247
+        }
+      },
+      "target": {
+        "ci_high": 1.046834134692326,
+        "ci_low": 0.32568316036835315,
+        "estimate": 0.6690475348383187,
+        "n": 16,
+        "n_boot": 5000,
+        "n_groups": 16,
+        "p_signflip_add_one": 0.003,
+        "q_bh_primary_family": 0.0041333333333333335,
+        "seed_estimates": {
+          "2020": 0.6053133495151997,
+          "2021": 0.7133332192897797,
+          "2022": 0.7709684874862432,
+          "2023": 0.5569023415446281,
+          "2024": 0.6987202763557434
+        }
+      },
+      "target_minus_sham": {
+        "ci_high": 0.9658744306210426,
+        "ci_low": 0.28587493343278764,
+        "estimate": 0.6149332258850335,
+        "n": 16,
+        "n_boot": 5000,
+        "n_groups": 16,
+        "p_signflip_add_one": 0.0031,
+        "q_bh_primary_family": 0.0041333333333333335,
+        "seed_estimates": {
+          "2020": 0.5662344247102737,
+          "2021": 0.6848826892673969,
+          "2022": 0.7143497560173273,
+          "2023": 0.4495837017893791,
+          "2024": 0.6596155576407909
+        }
+      }
+    }
+  },
+  "numerical_checks": {
+    "2020": {
+      "acceptor_complete_mlp_composition_max_abs_error": 0.0,
+      "donor_complete_mlp_composition_max_abs_error": 0.0,
+      "final_layer_replay_max_abs_error": 0.0,
+      "final_projection_max_abs_error": 0.0,
+      "identity_input_max_abs_error": 0.0
+    },
+    "2021": {
+      "final_projection_max_abs_error": 0.0,
+      "identity_input_max_abs_error": 0.0
+    },
+    "2022": {
+      "final_projection_max_abs_error": 0.0,
+      "identity_input_max_abs_error": 0.0
+    },
+    "2023": {
+      "final_projection_max_abs_error": 0.0,
+      "identity_input_max_abs_error": 0.0
+    },
+    "2024": {
+      "final_projection_max_abs_error": 0.0,
+      "identity_input_max_abs_error": 0.0
+    }
+  },
+  "numerical_gate": true,
+  "protocol": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/studies/splicebert_gtex_finetune_shift/PREREGISTRATION_NATIVE_BIOLOGICAL_FEATURES_V1.md",
+  "raw": [
+    {
+      "annotation": {
+        "acceptor": {
+          "absolute_end": 387,
+          "absolute_start": 355,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0
+          ],
+          "complete_codon_starts": [
+            356,
+            359,
+            362,
+            365,
+            368,
+            371,
+            374,
+            377,
+            380,
+            383
+          ],
+          "endpoint": "acceptor",
+          "genomic_end": 109757847,
+          "genomic_start": 109757815,
+          "relative_window": "+16:+48"
+        },
+        "donor": {
+          "absolute_end": 211,
+          "absolute_start": 179,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0
+          ],
+          "complete_codon_starts": [
+            180,
+            183,
+            186,
+            189,
+            192,
+            195,
+            198,
+            201,
+            204,
+            207
+          ],
+          "endpoint": "donor",
+          "genomic_end": 109758023,
+          "genomic_start": 109757991,
+          "relative_window": "-80:-48"
+        }
+      },
+      "chrom": "chr1",
+      "example_id": "chr1:109757943-109758058:-:ENSG00000198758.13",
+      "gene_id": "ENSG00000198758.13",
+      "seed_effects": {
+        "2020": {
+          "acceptor": {
+            "local": 26.094666481018066,
+            "sham": 0.4185903072357178,
+            "target": 2.9621434211730957,
+            "target_minus_sham": 2.543553113937378
+          },
+          "donor": {
+            "local": 23.538989067077637,
+            "sham": -0.060300350189208984,
+            "target": 0.5013396739959717,
+            "target_minus_sham": 0.5616400241851807
+          }
+        },
+        "2021": {
+          "acceptor": {
+            "local": 22.827484607696533,
+            "sham": 0.026667118072509766,
+            "target": 1.8490673303604126,
+            "target_minus_sham": 1.8224002122879028
+          },
+          "donor": {
+            "local": 22.92144286632538,
+            "sham": -0.04269814491271973,
+            "target": 0.9473702907562256,
+            "target_minus_sham": 0.9900684356689453
+          }
+        },
+        "2022": {
+          "acceptor": {
+            "local": 21.474401712417603,
+            "sham": 0.08381462097167969,
+            "target": 2.2552340030670166,
+            "target_minus_sham": 2.171419382095337
+          },
+          "donor": {
+            "local": 24.711088716983795,
+            "sham": -0.0333256721496582,
+            "target": 0.6160616874694824,
+            "target_minus_sham": 0.6493873596191406
+          }
+        },
+        "2023": {
+          "acceptor": {
+            "local": 25.902133762836456,
+            "sham": 0.10060465335845947,
+            "target": 1.7844563722610474,
+            "target_minus_sham": 1.683851718902588
+          },
+          "donor": {
+            "local": 20.414034605026245,
+            "sham": -0.05526375770568848,
+            "target": 0.5894930362701416,
+            "target_minus_sham": 0.6447567939758301
+          }
+        },
+        "2024": {
+          "acceptor": {
+            "local": 23.560304045677185,
+            "sham": 0.043898582458496094,
+            "target": 2.001992702484131,
+            "target_minus_sham": 1.9580941200256348
+          },
+          "donor": {
+            "local": 24.604092836380005,
+            "sham": -0.022759199142456055,
+            "target": 0.5483169555664062,
+            "target_minus_sham": 0.5710761547088623
+          }
+        }
+      }
+    },
+    {
+      "annotation": {
+        "acceptor": {
+          "absolute_end": 520,
+          "absolute_start": 488,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0
+          ],
+          "complete_codon_starts": [
+            489,
+            492,
+            495,
+            498,
+            501,
+            504,
+            507,
+            510,
+            513,
+            516
+          ],
+          "endpoint": "acceptor",
+          "genomic_end": 50217462,
+          "genomic_start": 50217430,
+          "relative_window": "+16:+48"
+        },
+        "donor": {
+          "absolute_end": 330,
+          "absolute_start": 298,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0
+          ],
+          "complete_codon_starts": [
+            299,
+            302,
+            305,
+            308,
+            311,
+            314,
+            317,
+            320,
+            323,
+            326
+          ],
+          "endpoint": "donor",
+          "genomic_end": 50217272,
+          "genomic_start": 50217240,
+          "relative_window": "-80:-48"
+        }
+      },
+      "chrom": "chr3",
+      "example_id": "chr3:50217237-50217320:+:ENSG00000188338.17",
+      "gene_id": "ENSG00000188338.17",
+      "seed_effects": {
+        "2020": {
+          "acceptor": {
+            "local": 24.58194351196289,
+            "sham": -0.2149519920349121,
+            "target": 0.9784138202667236,
+            "target_minus_sham": 1.1933658123016357
+          },
+          "donor": {
+            "local": 24.400938749313354,
+            "sham": -0.02592015266418457,
+            "target": 0.6646695137023926,
+            "target_minus_sham": 0.6905896663665771
+          }
+        },
+        "2021": {
+          "acceptor": {
+            "local": 23.823142051696777,
+            "sham": -0.030488014221191406,
+            "target": 1.9654171466827393,
+            "target_minus_sham": 1.9959051609039307
+          },
+          "donor": {
+            "local": 20.75008749961853,
+            "sham": 0.0027332305908203125,
+            "target": 0.3542637825012207,
+            "target_minus_sham": 0.3515305519104004
+          }
+        },
+        "2022": {
+          "acceptor": {
+            "local": 19.002379953861237,
+            "sham": -0.09760355949401855,
+            "target": 2.0743857622146606,
+            "target_minus_sham": 2.171989321708679
+          },
+          "donor": {
+            "local": 21.58749806880951,
+            "sham": 0.03536081314086914,
+            "target": 0.6694869995117188,
+            "target_minus_sham": 0.6341261863708496
+          }
+        },
+        "2023": {
+          "acceptor": {
+            "local": 24.767258942127228,
+            "sham": -0.053492188453674316,
+            "target": 1.0381622314453125,
+            "target_minus_sham": 1.0916544198989868
+          },
+          "donor": {
+            "local": 18.579847812652588,
+            "sham": 0.016694068908691406,
+            "target": 0.3694331645965576,
+            "target_minus_sham": 0.3527390956878662
+          }
+        },
+        "2024": {
+          "acceptor": {
+            "local": 23.403635263442993,
+            "sham": -0.15150880813598633,
+            "target": 1.5032215118408203,
+            "target_minus_sham": 1.6547303199768066
+          },
+          "donor": {
+            "local": 23.280178427696228,
+            "sham": -0.004236936569213867,
+            "target": 0.36202216148376465,
+            "target_minus_sham": 0.3662590980529785
+          }
+        }
+      }
+    },
+    {
+      "annotation": {
+        "acceptor": {
+          "absolute_end": 409,
+          "absolute_start": 377,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0
+          ],
+          "complete_codon_starts": [
+            378,
+            381,
+            384,
+            387,
+            390,
+            393,
+            396,
+            399,
+            402,
+            405
+          ],
+          "endpoint": "acceptor",
+          "genomic_end": 74428721,
+          "genomic_start": 74428689,
+          "relative_window": "+16:+48"
+        },
+        "donor": {
+          "absolute_end": 203,
+          "absolute_start": 171,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0
+          ],
+          "complete_codon_starts": [
+            172,
+            175,
+            178,
+            181,
+            184,
+            187,
+            190,
+            193,
+            196,
+            199
+          ],
+          "endpoint": "donor",
+          "genomic_end": 74428927,
+          "genomic_start": 74428895,
+          "relative_window": "-80:-48"
+        }
+      },
+      "chrom": "chr2",
+      "example_id": "chr2:74428847-74428942:-:ENSG00000114993.18",
+      "gene_id": "ENSG00000114993.18",
+      "seed_effects": {
+        "2020": {
+          "acceptor": {
+            "local": 17.874847292900085,
+            "sham": 0.013733863830566406,
+            "target": -0.9674968719482422,
+            "target_minus_sham": -0.9812307357788086
+          },
+          "donor": {
+            "local": 23.804467797279358,
+            "sham": 0.10279011726379395,
+            "target": 0.5282199382781982,
+            "target_minus_sham": 0.4254298210144043
+          }
+        },
+        "2021": {
+          "acceptor": {
+            "local": 17.23306715488434,
+            "sham": -0.21889281272888184,
+            "target": -0.7578983306884766,
+            "target_minus_sham": -0.5390055179595947
+          },
+          "donor": {
+            "local": 22.10457706451416,
+            "sham": 0.0820164680480957,
+            "target": 0.2214527130126953,
+            "target_minus_sham": 0.1394362449645996
+          }
+        },
+        "2022": {
+          "acceptor": {
+            "local": 16.682483077049255,
+            "sham": 0.14767813682556152,
+            "target": -0.8937913179397583,
+            "target_minus_sham": -1.0414694547653198
+          },
+          "donor": {
+            "local": 20.114039421081543,
+            "sham": -0.06677651405334473,
+            "target": 0.6948204040527344,
+            "target_minus_sham": 0.7615969181060791
+          }
+        },
+        "2023": {
+          "acceptor": {
+            "local": 20.861046850681305,
+            "sham": -0.10791015625,
+            "target": -0.9117904901504517,
+            "target_minus_sham": -0.8038803339004517
+          },
+          "donor": {
+            "local": 20.385927200317383,
+            "sham": -0.004427194595336914,
+            "target": 0.3567495346069336,
+            "target_minus_sham": 0.3611767292022705
+          }
+        },
+        "2024": {
+          "acceptor": {
+            "local": 17.39796769618988,
+            "sham": 0.004895687103271484,
+            "target": -0.7065057754516602,
+            "target_minus_sham": -0.7114014625549316
+          },
+          "donor": {
+            "local": 23.577467530965805,
+            "sham": -0.10932540893554688,
+            "target": 0.6118893623352051,
+            "target_minus_sham": 0.721214771270752
+          }
+        }
+      }
+    },
+    {
+      "annotation": {
+        "acceptor": {
+          "absolute_end": 555,
+          "absolute_start": 523,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1
+          ],
+          "complete_codon_starts": [
+            523,
+            526,
+            529,
+            532,
+            535,
+            538,
+            541,
+            544,
+            547,
+            550
+          ],
+          "endpoint": "acceptor",
+          "genomic_end": 41504624,
+          "genomic_start": 41504592,
+          "relative_window": "+16:+48"
+        },
+        "donor": {
+          "absolute_end": 327,
+          "absolute_start": 295,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1
+          ],
+          "complete_codon_starts": [
+            295,
+            298,
+            301,
+            304,
+            307,
+            310,
+            313,
+            316,
+            319,
+            322
+          ],
+          "endpoint": "donor",
+          "genomic_end": 41504852,
+          "genomic_start": 41504820,
+          "relative_window": "-80:-48"
+        }
+      },
+      "chrom": "chr15",
+      "example_id": "chr15:41504772-41504874:-:ENSG00000062524.18",
+      "gene_id": "ENSG00000062524.18",
+      "seed_effects": {
+        "2020": {
+          "acceptor": {
+            "local": 24.09804630279541,
+            "sham": 0.2504422664642334,
+            "target": 5.36857271194458,
+            "target_minus_sham": 5.118130445480347
+          },
+          "donor": {
+            "local": 19.588102340698242,
+            "sham": 0.07267642021179199,
+            "target": 1.0186045169830322,
+            "target_minus_sham": 0.9459280967712402
+          }
+        },
+        "2021": {
+          "acceptor": {
+            "local": 19.911651492118835,
+            "sham": 0.12602996826171875,
+            "target": 4.863488018512726,
+            "target_minus_sham": 4.737458050251007
+          },
+          "donor": {
+            "local": 19.94946551322937,
+            "sham": 0.07581758499145508,
+            "target": 0.6536211967468262,
+            "target_minus_sham": 0.5778036117553711
+          }
+        },
+        "2022": {
+          "acceptor": {
+            "local": 17.814798831939697,
+            "sham": 0.26920557022094727,
+            "target": 4.776948690414429,
+            "target_minus_sham": 4.5077431201934814
+          },
+          "donor": {
+            "local": 19.64452052116394,
+            "sham": 0.14463114738464355,
+            "target": 1.0790331363677979,
+            "target_minus_sham": 0.9344019889831543
+          }
+        },
+        "2023": {
+          "acceptor": {
+            "local": 20.61409205198288,
+            "sham": 0.18556451797485352,
+            "target": 5.768938362598419,
+            "target_minus_sham": 5.583373844623566
+          },
+          "donor": {
+            "local": 18.586958169937134,
+            "sham": 0.12281417846679688,
+            "target": 0.8240823745727539,
+            "target_minus_sham": 0.701268196105957
+          }
+        },
+        "2024": {
+          "acceptor": {
+            "local": 21.70664954185486,
+            "sham": 0.08085966110229492,
+            "target": 5.5016191601753235,
+            "target_minus_sham": 5.420759499073029
+          },
+          "donor": {
+            "local": 20.368276596069336,
+            "sham": 0.07300806045532227,
+            "target": 0.8051941394805908,
+            "target_minus_sham": 0.7321860790252686
+          }
+        }
+      }
+    },
+    {
+      "annotation": {
+        "acceptor": {
+          "absolute_end": 432,
+          "absolute_start": 400,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2
+          ],
+          "complete_codon_starts": [
+            402,
+            405,
+            408,
+            411,
+            414,
+            417,
+            420,
+            423,
+            426,
+            429
+          ],
+          "endpoint": "acceptor",
+          "genomic_end": 50074191,
+          "genomic_start": 50074159,
+          "relative_window": "+16:+48"
+        },
+        "donor": {
+          "absolute_end": 197,
+          "absolute_start": 165,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2
+          ],
+          "complete_codon_starts": [
+            167,
+            170,
+            173,
+            176,
+            179,
+            182,
+            185,
+            188,
+            191,
+            194
+          ],
+          "endpoint": "donor",
+          "genomic_end": 50073956,
+          "genomic_start": 50073924,
+          "relative_window": "-80:-48"
+        }
+      },
+      "chrom": "chr17",
+      "example_id": "chr17:50073915-50074004:+:ENSG00000005884.20",
+      "gene_id": "ENSG00000005884.20",
+      "seed_effects": {
+        "2020": {
+          "acceptor": {
+            "local": 25.433861255645752,
+            "sham": 0.11497688293457031,
+            "target": 0.49011945724487305,
+            "target_minus_sham": 0.37514257431030273
+          },
+          "donor": {
+            "local": 22.509278297424316,
+            "sham": -0.23262524604797363,
+            "target": 0.728339433670044,
+            "target_minus_sham": 0.9609646797180176
+          }
+        },
+        "2021": {
+          "acceptor": {
+            "local": 20.677705585956573,
+            "sham": 0.08798408508300781,
+            "target": 0.6315345764160156,
+            "target_minus_sham": 0.5435504913330078
+          },
+          "donor": {
+            "local": 18.197547912597656,
+            "sham": -0.2693345546722412,
+            "target": 1.0584030151367188,
+            "target_minus_sham": 1.32773756980896
+          }
+        },
+        "2022": {
+          "acceptor": {
+            "local": 17.533702969551086,
+            "sham": 0.07252645492553711,
+            "target": 0.3569214344024658,
+            "target_minus_sham": 0.2843949794769287
+          },
+          "donor": {
+            "local": 20.153200507164,
+            "sham": -0.2264118194580078,
+            "target": 0.7455062866210938,
+            "target_minus_sham": 0.9719181060791016
+          }
+        },
+        "2023": {
+          "acceptor": {
+            "local": 25.762629568576813,
+            "sham": -0.044573068618774414,
+            "target": 0.28030312061309814,
+            "target_minus_sham": 0.32487618923187256
+          },
+          "donor": {
+            "local": 17.40743350982666,
+            "sham": -0.2465219497680664,
+            "target": 0.5919063091278076,
+            "target_minus_sham": 0.838428258895874
+          }
+        },
+        "2024": {
+          "acceptor": {
+            "local": 24.01990669965744,
+            "sham": 0.036890506744384766,
+            "target": 0.4669351577758789,
+            "target_minus_sham": 0.43004465103149414
+          },
+          "donor": {
+            "local": 20.84108304977417,
+            "sham": -0.1006326675415039,
+            "target": 0.4897923469543457,
+            "target_minus_sham": 0.5904250144958496
+          }
+        }
+      }
+    },
+    {
+      "annotation": {
+        "acceptor": {
+          "absolute_end": 592,
+          "absolute_start": 560,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2
+          ],
+          "complete_codon_starts": [
+            562,
+            565,
+            568,
+            571,
+            574,
+            577,
+            580,
+            583,
+            586,
+            589
+          ],
+          "endpoint": "acceptor",
+          "genomic_end": 121984014,
+          "genomic_start": 121983982,
+          "relative_window": "+16:+48"
+        },
+        "donor": {
+          "absolute_end": 352,
+          "absolute_start": 320,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2
+          ],
+          "complete_codon_starts": [
+            322,
+            325,
+            328,
+            331,
+            334,
+            337,
+            340,
+            343,
+            346,
+            349
+          ],
+          "endpoint": "donor",
+          "genomic_end": 121983774,
+          "genomic_start": 121983742,
+          "relative_window": "-80:-48"
+        }
+      },
+      "chrom": "chr7",
+      "example_id": "chr7:121983664-121983822:+:ENSG00000106278.14",
+      "gene_id": "ENSG00000106278.14",
+      "seed_effects": {
+        "2020": {
+          "acceptor": {
+            "local": 23.148092687129974,
+            "sham": 0.03819751739501953,
+            "target": 0.048284053802490234,
+            "target_minus_sham": 0.010086536407470703
+          },
+          "donor": {
+            "local": 23.681731700897217,
+            "sham": -0.045465946197509766,
+            "target": -0.7333788871765137,
+            "target_minus_sham": -0.6879129409790039
+          }
+        },
+        "2021": {
+          "acceptor": {
+            "local": 17.849994629621506,
+            "sham": 0.011688232421875,
+            "target": 0.17829227447509766,
+            "target_minus_sham": 0.16660404205322266
+          },
+          "donor": {
+            "local": 21.704174876213074,
+            "sham": -0.2678539752960205,
+            "target": -0.9824259281158447,
+            "target_minus_sham": -0.7145719528198242
+          }
+        },
+        "2022": {
+          "acceptor": {
+            "local": 21.609489917755127,
+            "sham": 0.030745744705200195,
+            "target": 0.14119601249694824,
+            "target_minus_sham": 0.11045026779174805
+          },
+          "donor": {
+            "local": 23.266138315200806,
+            "sham": -0.17447280883789062,
+            "target": -0.9178564548492432,
+            "target_minus_sham": -0.7433836460113525
+          }
+        },
+        "2023": {
+          "acceptor": {
+            "local": 24.570049703121185,
+            "sham": -0.018467307090759277,
+            "target": 0.10305142402648926,
+            "target_minus_sham": 0.12151873111724854
+          },
+          "donor": {
+            "local": 21.193130493164062,
+            "sham": -0.03510403633117676,
+            "target": -0.8048412799835205,
+            "target_minus_sham": -0.7697372436523438
+          }
+        },
+        "2024": {
+          "acceptor": {
+            "local": 21.561639606952667,
+            "sham": 0.011996030807495117,
+            "target": 0.2997701168060303,
+            "target_minus_sham": 0.28777408599853516
+          },
+          "donor": {
+            "local": 22.154125809669495,
+            "sham": -0.26081275939941406,
+            "target": -1.1654047966003418,
+            "target_minus_sham": -0.9045920372009277
+          }
+        }
+      }
+    },
+    {
+      "annotation": {
+        "acceptor": {
+          "absolute_end": 549,
+          "absolute_start": 517,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1
+          ],
+          "complete_codon_starts": [
+            517,
+            520,
+            523,
+            526,
+            529,
+            532,
+            535,
+            538,
+            541,
+            544
+          ],
+          "endpoint": "acceptor",
+          "genomic_end": 58457363,
+          "genomic_start": 58457331,
+          "relative_window": "+16:+48"
+        },
+        "donor": {
+          "absolute_end": 345,
+          "absolute_start": 313,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1
+          ],
+          "complete_codon_starts": [
+            313,
+            316,
+            319,
+            322,
+            325,
+            328,
+            331,
+            334,
+            337,
+            340
+          ],
+          "endpoint": "donor",
+          "genomic_end": 58457567,
+          "genomic_start": 58457535,
+          "relative_window": "-80:-48"
+        }
+      },
+      "chrom": "chr5",
+      "example_id": "chr5:58457487-58457583:-:ENSG00000145632.17",
+      "gene_id": "ENSG00000145632.17",
+      "seed_effects": {
+        "2020": {
+          "acceptor": {
+            "local": 20.115955114364624,
+            "sham": 0.08843994140625,
+            "target": 1.872878074645996,
+            "target_minus_sham": 1.784438133239746
+          },
+          "donor": {
+            "local": 22.532863199710846,
+            "sham": 0.01947951316833496,
+            "target": 1.3743057250976562,
+            "target_minus_sham": 1.3548262119293213
+          }
+        },
+        "2021": {
+          "acceptor": {
+            "local": 22.337549805641174,
+            "sham": 0.05453777313232422,
+            "target": 2.4390368461608887,
+            "target_minus_sham": 2.3844990730285645
+          },
+          "donor": {
+            "local": 21.39214587211609,
+            "sham": -0.03516387939453125,
+            "target": 1.3556766510009766,
+            "target_minus_sham": 1.3908405303955078
+          }
+        },
+        "2022": {
+          "acceptor": {
+            "local": 21.58496904373169,
+            "sham": 0.04630470275878906,
+            "target": 1.026220679283142,
+            "target_minus_sham": 0.979915976524353
+          },
+          "donor": {
+            "local": 22.277190327644348,
+            "sham": -0.11232638359069824,
+            "target": 0.933784008026123,
+            "target_minus_sham": 1.0461103916168213
+          }
+        },
+        "2023": {
+          "acceptor": {
+            "local": 23.21617740392685,
+            "sham": -0.07707321643829346,
+            "target": 1.0289700031280518,
+            "target_minus_sham": 1.1060432195663452
+          },
+          "donor": {
+            "local": 17.282797157764435,
+            "sham": -0.030364990234375,
+            "target": 0.9294664859771729,
+            "target_minus_sham": 0.9598314762115479
+          }
+        },
+        "2024": {
+          "acceptor": {
+            "local": 22.393768548965454,
+            "sham": 0.13430500030517578,
+            "target": 1.0323679447174072,
+            "target_minus_sham": 0.8980629444122314
+          },
+          "donor": {
+            "local": 21.6082524061203,
+            "sham": -0.023752450942993164,
+            "target": 1.786362648010254,
+            "target_minus_sham": 1.810115098953247
+          }
+        }
+      }
+    },
+    {
+      "annotation": {
+        "acceptor": {
+          "absolute_end": 380,
+          "absolute_start": 348,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1
+          ],
+          "complete_codon_starts": [
+            348,
+            351,
+            354,
+            357,
+            360,
+            363,
+            366,
+            369,
+            372,
+            375
+          ],
+          "endpoint": "acceptor",
+          "genomic_end": 171006873,
+          "genomic_start": 171006841,
+          "relative_window": "+16:+48"
+        },
+        "donor": {
+          "absolute_end": 202,
+          "absolute_start": 170,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1
+          ],
+          "complete_codon_starts": [
+            170,
+            173,
+            176,
+            179,
+            182,
+            185,
+            188,
+            191,
+            194,
+            197
+          ],
+          "endpoint": "donor",
+          "genomic_end": 171007051,
+          "genomic_start": 171007019,
+          "relative_window": "-80:-48"
+        }
+      },
+      "chrom": "chr2",
+      "example_id": "chr2:171006971-171007063:-:ENSG00000198586.16",
+      "gene_id": "ENSG00000198586.16",
+      "seed_effects": {
+        "2020": {
+          "acceptor": {
+            "local": 19.185272574424744,
+            "sham": 0.21768081188201904,
+            "target": 2.9480797052383423,
+            "target_minus_sham": 2.7303988933563232
+          },
+          "donor": {
+            "local": 22.21394294500351,
+            "sham": 0.24400711059570312,
+            "target": 1.8262202739715576,
+            "target_minus_sham": 1.5822131633758545
+          }
+        },
+        "2021": {
+          "acceptor": {
+            "local": 19.063304901123047,
+            "sham": 0.1939222812652588,
+            "target": 5.124298572540283,
+            "target_minus_sham": 4.930376291275024
+          },
+          "donor": {
+            "local": 22.469430208206177,
+            "sham": 0.3332366943359375,
+            "target": 2.7206279039382935,
+            "target_minus_sham": 2.387391209602356
+          }
+        },
+        "2022": {
+          "acceptor": {
+            "local": 17.39286381006241,
+            "sham": 0.4850732088088989,
+            "target": 4.093335449695587,
+            "target_minus_sham": 3.6082622408866882
+          },
+          "donor": {
+            "local": 22.995325326919556,
+            "sham": 0.21220088005065918,
+            "target": 3.004297375679016,
+            "target_minus_sham": 2.792096495628357
+          }
+        },
+        "2023": {
+          "acceptor": {
+            "local": 19.59026598930359,
+            "sham": 0.3932640552520752,
+            "target": 4.530983924865723,
+            "target_minus_sham": 4.1377198696136475
+          },
+          "donor": {
+            "local": 21.233999252319336,
+            "sham": 0.3189113140106201,
+            "target": 1.8381264209747314,
+            "target_minus_sham": 1.5192151069641113
+          }
+        },
+        "2024": {
+          "acceptor": {
+            "local": 21.13612937927246,
+            "sham": 0.46022939682006836,
+            "target": 4.194844305515289,
+            "target_minus_sham": 3.734614908695221
+          },
+          "donor": {
+            "local": 22.075225234031677,
+            "sham": 0.11732029914855957,
+            "target": 2.5279457569122314,
+            "target_minus_sham": 2.410625457763672
+          }
+        }
+      }
+    },
+    {
+      "annotation": {
+        "acceptor": {
+          "absolute_end": 593,
+          "absolute_start": 561,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1
+          ],
+          "complete_codon_starts": [
+            561,
+            564,
+            567,
+            570,
+            573,
+            576,
+            579,
+            582,
+            585,
+            588
+          ],
+          "endpoint": "acceptor",
+          "genomic_end": 28960655,
+          "genomic_start": 28960623,
+          "relative_window": "+16:+48"
+        },
+        "donor": {
+          "absolute_end": 364,
+          "absolute_start": 332,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1
+          ],
+          "complete_codon_starts": [
+            332,
+            335,
+            338,
+            341,
+            344,
+            347,
+            350,
+            353,
+            356,
+            359
+          ],
+          "endpoint": "donor",
+          "genomic_end": 28960884,
+          "genomic_start": 28960852,
+          "relative_window": "-80:-48"
+        }
+      },
+      "chrom": "chr17",
+      "example_id": "chr17:28960804-28960973:-:ENSG00000063015.22",
+      "gene_id": "ENSG00000063015.22",
+      "seed_effects": {
+        "2020": {
+          "acceptor": {
+            "local": 18.77137279510498,
+            "sham": 0.08875703811645508,
+            "target": 0.5776257514953613,
+            "target_minus_sham": 0.48886871337890625
+          },
+          "donor": {
+            "local": 19.723460257053375,
+            "sham": 0.11742210388183594,
+            "target": 0.13589239120483398,
+            "target_minus_sham": 0.018470287322998047
+          }
+        },
+        "2021": {
+          "acceptor": {
+            "local": 20.606825947761536,
+            "sham": 0.1531820297241211,
+            "target": 0.5208911895751953,
+            "target_minus_sham": 0.3677091598510742
+          },
+          "donor": {
+            "local": 19.059635400772095,
+            "sham": 0.08858227729797363,
+            "target": -0.01367044448852539,
+            "target_minus_sham": -0.10225272178649902
+          }
+        },
+        "2022": {
+          "acceptor": {
+            "local": 15.52894526720047,
+            "sham": 0.07590508460998535,
+            "target": 0.9936459064483643,
+            "target_minus_sham": 0.9177408218383789
+          },
+          "donor": {
+            "local": 19.712828397750854,
+            "sham": 0.017373085021972656,
+            "target": 0.26022863388061523,
+            "target_minus_sham": 0.24285554885864258
+          }
+        },
+        "2023": {
+          "acceptor": {
+            "local": 24.15679830312729,
+            "sham": 0.02482438087463379,
+            "target": 0.8171682357788086,
+            "target_minus_sham": 0.7923438549041748
+          },
+          "donor": {
+            "local": 17.214172065258026,
+            "sham": 0.07073140144348145,
+            "target": 0.10658717155456543,
+            "target_minus_sham": 0.035855770111083984
+          }
+        },
+        "2024": {
+          "acceptor": {
+            "local": 21.865358114242554,
+            "sham": 0.01805591583251953,
+            "target": 0.5741171836853027,
+            "target_minus_sham": 0.5560612678527832
+          },
+          "donor": {
+            "local": 20.624812841415405,
+            "sham": 0.047499656677246094,
+            "target": 0.20214200019836426,
+            "target_minus_sham": 0.15464234352111816
+          }
+        }
+      }
+    },
+    {
+      "annotation": {
+        "acceptor": {
+          "absolute_end": 524,
+          "absolute_start": 492,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2
+          ],
+          "complete_codon_starts": [
+            494,
+            497,
+            500,
+            503,
+            506,
+            509,
+            512,
+            515,
+            518,
+            521
+          ],
+          "endpoint": "acceptor",
+          "genomic_end": 76927324,
+          "genomic_start": 76927292,
+          "relative_window": "+16:+48"
+        },
+        "donor": {
+          "absolute_end": 334,
+          "absolute_start": 302,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2
+          ],
+          "complete_codon_starts": [
+            304,
+            307,
+            310,
+            313,
+            316,
+            319,
+            322,
+            325,
+            328,
+            331
+          ],
+          "endpoint": "donor",
+          "genomic_end": 76927134,
+          "genomic_start": 76927102,
+          "relative_window": "-80:-48"
+        }
+      },
+      "chrom": "chr18",
+      "example_id": "chr18:76927036-76927182:+:ENSG00000130856.19",
+      "gene_id": "ENSG00000130856.19",
+      "seed_effects": {
+        "2020": {
+          "acceptor": {
+            "local": 20.153878688812256,
+            "sham": 0.2873724699020386,
+            "target": 3.2843223214149475,
+            "target_minus_sham": 2.996949851512909
+          },
+          "donor": {
+            "local": 23.31642484664917,
+            "sham": 0.022176742553710938,
+            "target": 0.4569554328918457,
+            "target_minus_sham": 0.43477869033813477
+          }
+        },
+        "2021": {
+          "acceptor": {
+            "local": 20.237600445747375,
+            "sham": 0.4387243986129761,
+            "target": 3.351317524909973,
+            "target_minus_sham": 2.912593126296997
+          },
+          "donor": {
+            "local": 24.540159463882446,
+            "sham": 0.010163307189941406,
+            "target": 0.368300199508667,
+            "target_minus_sham": 0.3581368923187256
+          }
+        },
+        "2022": {
+          "acceptor": {
+            "local": 17.82281643152237,
+            "sham": 0.07224178314208984,
+            "target": 1.3910162448883057,
+            "target_minus_sham": 1.3187744617462158
+          },
+          "donor": {
+            "local": 24.466435313224792,
+            "sham": -0.010890722274780273,
+            "target": 0.8460192680358887,
+            "target_minus_sham": 0.856909990310669
+          }
+        },
+        "2023": {
+          "acceptor": {
+            "local": 19.453494369983673,
+            "sham": 0.1619868278503418,
+            "target": 2.06682813167572,
+            "target_minus_sham": 1.9048413038253784
+          },
+          "donor": {
+            "local": 22.980315446853638,
+            "sham": -0.03424811363220215,
+            "target": 0.713299036026001,
+            "target_minus_sham": 0.7475471496582031
+          }
+        },
+        "2024": {
+          "acceptor": {
+            "local": 24.36370587348938,
+            "sham": -0.17891407012939453,
+            "target": 5.437820613384247,
+            "target_minus_sham": 5.616734683513641
+          },
+          "donor": {
+            "local": 24.080441415309906,
+            "sham": 0.005604982376098633,
+            "target": 0.7313673496246338,
+            "target_minus_sham": 0.7257623672485352
+          }
+        }
+      }
+    },
+    {
+      "annotation": {
+        "acceptor": {
+          "absolute_end": 572,
+          "absolute_start": 540,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2
+          ],
+          "complete_codon_starts": [
+            542,
+            545,
+            548,
+            551,
+            554,
+            557,
+            560,
+            563,
+            566,
+            569
+          ],
+          "endpoint": "acceptor",
+          "genomic_end": 158064873,
+          "genomic_start": 158064841,
+          "relative_window": "+16:+48"
+        },
+        "donor": {
+          "absolute_end": 401,
+          "absolute_start": 369,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2
+          ],
+          "complete_codon_starts": [
+            371,
+            374,
+            377,
+            380,
+            383,
+            386,
+            389,
+            392,
+            395,
+            398
+          ],
+          "endpoint": "donor",
+          "genomic_end": 158064702,
+          "genomic_start": 158064670,
+          "relative_window": "-80:-48"
+        }
+      },
+      "chrom": "chr6",
+      "example_id": "chr6:158064600-158064750:+:ENSG00000078269.16",
+      "gene_id": "ENSG00000078269.16",
+      "seed_effects": {
+        "2020": {
+          "acceptor": {
+            "local": 24.28524088859558,
+            "sham": 2.690619945526123,
+            "target": 0.23690557479858398,
+            "target_minus_sham": -2.453714370727539
+          },
+          "donor": {
+            "local": 18.194104194641113,
+            "sham": 0.05114555358886719,
+            "target": -0.0788109302520752,
+            "target_minus_sham": -0.12995648384094238
+          }
+        },
+        "2021": {
+          "acceptor": {
+            "local": 20.657078623771667,
+            "sham": 0.5470643043518066,
+            "target": 0.2241067886352539,
+            "target_minus_sham": -0.32295751571655273
+          },
+          "donor": {
+            "local": 21.127094984054565,
+            "sham": 0.06897783279418945,
+            "target": -0.06039929389953613,
+            "target_minus_sham": -0.12937712669372559
+          }
+        },
+        "2022": {
+          "acceptor": {
+            "local": 17.556008636951447,
+            "sham": 1.6613435745239258,
+            "target": 0.35370922088623047,
+            "target_minus_sham": -1.3076343536376953
+          },
+          "donor": {
+            "local": 21.45894980430603,
+            "sham": 0.20391297340393066,
+            "target": 0.04292702674865723,
+            "target_minus_sham": -0.16098594665527344
+          }
+        },
+        "2023": {
+          "acceptor": {
+            "local": 22.18859899044037,
+            "sham": 0.6762627363204956,
+            "target": 0.2837347984313965,
+            "target_minus_sham": -0.3925279378890991
+          },
+          "donor": {
+            "local": 20.304779529571533,
+            "sham": 0.20691823959350586,
+            "target": -0.00555729866027832,
+            "target_minus_sham": -0.21247553825378418
+          }
+        },
+        "2024": {
+          "acceptor": {
+            "local": 17.092472791671753,
+            "sham": 0.6706500053405762,
+            "target": 0.27488017082214355,
+            "target_minus_sham": -0.3957698345184326
+          },
+          "donor": {
+            "local": 21.900877833366394,
+            "sham": -0.008313655853271484,
+            "target": 0.014956235885620117,
+            "target_minus_sham": 0.0232698917388916
+          }
+        }
+      }
+    },
+    {
+      "annotation": {
+        "acceptor": {
+          "absolute_end": 622,
+          "absolute_start": 590,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2
+          ],
+          "complete_codon_starts": [
+            592,
+            595,
+            598,
+            601,
+            604,
+            607,
+            610,
+            613,
+            616,
+            619
+          ],
+          "endpoint": "acceptor",
+          "genomic_end": 90638782,
+          "genomic_start": 90638750,
+          "relative_window": "+16:+48"
+        },
+        "donor": {
+          "absolute_end": 438,
+          "absolute_start": 406,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2
+          ],
+          "complete_codon_starts": [
+            408,
+            411,
+            414,
+            417,
+            420,
+            423,
+            426,
+            429,
+            432,
+            435
+          ],
+          "endpoint": "donor",
+          "genomic_end": 90638598,
+          "genomic_start": 90638566,
+          "relative_window": "-80:-48"
+        }
+      },
+      "chrom": "chr15",
+      "example_id": "chr15:90638445-90638646:+:ENSG00000140577.19",
+      "gene_id": "ENSG00000140577.19",
+      "seed_effects": {
+        "2020": {
+          "acceptor": {
+            "local": 18.08597445487976,
+            "sham": 0.2713901996612549,
+            "target": 1.1209759712219238,
+            "target_minus_sham": 0.849585771560669
+          },
+          "donor": {
+            "local": 22.382920742034912,
+            "sham": 0.14857077598571777,
+            "target": 0.06835603713989258,
+            "target_minus_sham": -0.0802147388458252
+          }
+        },
+        "2021": {
+          "acceptor": {
+            "local": 19.799464464187622,
+            "sham": 0.27527332305908203,
+            "target": 0.49918293952941895,
+            "target_minus_sham": 0.22390961647033691
+          },
+          "donor": {
+            "local": 17.635249376296997,
+            "sham": 0.20010757446289062,
+            "target": 0.01680779457092285,
+            "target_minus_sham": -0.18329977989196777
+          }
+        },
+        "2022": {
+          "acceptor": {
+            "local": 16.039028644561768,
+            "sham": 0.29317474365234375,
+            "target": 1.1176420450210571,
+            "target_minus_sham": 0.8244673013687134
+          },
+          "donor": {
+            "local": 20.39958882331848,
+            "sham": 0.25016164779663086,
+            "target": 0.14768433570861816,
+            "target_minus_sham": -0.1024773120880127
+          }
+        },
+        "2023": {
+          "acceptor": {
+            "local": 20.935282766819,
+            "sham": 0.11952805519104004,
+            "target": 0.6440832614898682,
+            "target_minus_sham": 0.5245552062988281
+          },
+          "donor": {
+            "local": 18.40505576133728,
+            "sham": 0.22835326194763184,
+            "target": 0.030558347702026367,
+            "target_minus_sham": -0.19779491424560547
+          }
+        },
+        "2024": {
+          "acceptor": {
+            "local": 18.332855939865112,
+            "sham": 0.26498842239379883,
+            "target": 0.24480509757995605,
+            "target_minus_sham": -0.020183324813842773
+          },
+          "donor": {
+            "local": 19.134352445602417,
+            "sham": 0.4268362522125244,
+            "target": 0.19225645065307617,
+            "target_minus_sham": -0.23457980155944824
+          }
+        }
+      }
+    },
+    {
+      "annotation": {
+        "acceptor": {
+          "absolute_end": 379,
+          "absolute_start": 347,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2
+          ],
+          "complete_codon_starts": [
+            349,
+            352,
+            355,
+            358,
+            361,
+            364,
+            367,
+            370,
+            373,
+            376
+          ],
+          "endpoint": "acceptor",
+          "genomic_end": 10494433,
+          "genomic_start": 10494401,
+          "relative_window": "+16:+48"
+        },
+        "donor": {
+          "absolute_end": 164,
+          "absolute_start": 132,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2
+          ],
+          "complete_codon_starts": [
+            134,
+            137,
+            140,
+            143,
+            146,
+            149,
+            152,
+            155,
+            158,
+            161
+          ],
+          "endpoint": "donor",
+          "genomic_end": 10494648,
+          "genomic_start": 10494616,
+          "relative_window": "-80:-48"
+        }
+      },
+      "chrom": "chr17",
+      "example_id": "chr17:10494568-10494673:-:ENSG00000109061.12",
+      "gene_id": "ENSG00000109061.12",
+      "seed_effects": {
+        "2020": {
+          "acceptor": {
+            "local": 16.58903443813324,
+            "sham": 0.04751420021057129,
+            "target": 0.6272182464599609,
+            "target_minus_sham": 0.5797040462493896
+          },
+          "donor": {
+            "local": 21.081067979335785,
+            "sham": 0.21990752220153809,
+            "target": 0.5320837497711182,
+            "target_minus_sham": 0.3121762275695801
+          }
+        },
+        "2021": {
+          "acceptor": {
+            "local": 19.326197683811188,
+            "sham": 0.06315469741821289,
+            "target": 0.44692468643188477,
+            "target_minus_sham": 0.3837699890136719
+          },
+          "donor": {
+            "local": 22.03082299232483,
+            "sham": 0.19936037063598633,
+            "target": 0.5964398384094238,
+            "target_minus_sham": 0.3970794677734375
+          }
+        },
+        "2022": {
+          "acceptor": {
+            "local": 16.705981224775314,
+            "sham": 0.07831764221191406,
+            "target": 0.7219672203063965,
+            "target_minus_sham": 0.6436495780944824
+          },
+          "donor": {
+            "local": 21.125429391860962,
+            "sham": 0.6418633460998535,
+            "target": 0.6606795787811279,
+            "target_minus_sham": 0.018816232681274414
+          }
+        },
+        "2023": {
+          "acceptor": {
+            "local": 22.85275787115097,
+            "sham": 0.025183916091918945,
+            "target": 0.6764894723892212,
+            "target_minus_sham": 0.6513055562973022
+          },
+          "donor": {
+            "local": 17.737849533557892,
+            "sham": 0.36591672897338867,
+            "target": 0.9487712383270264,
+            "target_minus_sham": 0.5828545093536377
+          }
+        },
+        "2024": {
+          "acceptor": {
+            "local": 20.596745669841766,
+            "sham": 0.022436141967773438,
+            "target": 0.8454761505126953,
+            "target_minus_sham": 0.8230400085449219
+          },
+          "donor": {
+            "local": 21.183422207832336,
+            "sham": 0.2259218692779541,
+            "target": 0.7774286270141602,
+            "target_minus_sham": 0.551506757736206
+          }
+        }
+      }
+    },
+    {
+      "annotation": {
+        "acceptor": {
+          "absolute_end": 590,
+          "absolute_start": 558,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1
+          ],
+          "complete_codon_starts": [
+            558,
+            561,
+            564,
+            567,
+            570,
+            573,
+            576,
+            579,
+            582,
+            585
+          ],
+          "endpoint": "acceptor",
+          "genomic_end": 31832051,
+          "genomic_start": 31832019,
+          "relative_window": "+16:+48"
+        },
+        "donor": {
+          "absolute_end": 346,
+          "absolute_start": 314,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1
+          ],
+          "complete_codon_starts": [
+            314,
+            317,
+            320,
+            323,
+            326,
+            329,
+            332,
+            335,
+            338,
+            341
+          ],
+          "endpoint": "donor",
+          "genomic_end": 31831807,
+          "genomic_start": 31831775,
+          "relative_window": "-80:-48"
+        }
+      },
+      "chrom": "chr20",
+      "example_id": "chr20:31831702-31831855:+:ENSG00000101306.13",
+      "gene_id": "ENSG00000101306.13",
+      "seed_effects": {
+        "2020": {
+          "acceptor": {
+            "local": 24.666635513305664,
+            "sham": 0.11032390594482422,
+            "target": -0.032180070877075195,
+            "target_minus_sham": -0.14250397682189941
+          },
+          "donor": {
+            "local": 25.468684911727905,
+            "sham": -0.02959275245666504,
+            "target": 0.9531991481781006,
+            "target_minus_sham": 0.9827919006347656
+          }
+        },
+        "2021": {
+          "acceptor": {
+            "local": 21.50808608531952,
+            "sham": 0.0613245964050293,
+            "target": -0.005800724029541016,
+            "target_minus_sham": -0.06712532043457031
+          },
+          "donor": {
+            "local": 24.668895721435547,
+            "sham": 0.0003638267517089844,
+            "target": 2.65460467338562,
+            "target_minus_sham": 2.654240846633911
+          }
+        },
+        "2022": {
+          "acceptor": {
+            "local": 20.126579195261,
+            "sham": 0.18176555633544922,
+            "target": 0.04633283615112305,
+            "target_minus_sham": -0.13543272018432617
+          },
+          "donor": {
+            "local": 23.95572257041931,
+            "sham": -0.01797652244567871,
+            "target": 2.0703063011169434,
+            "target_minus_sham": 2.088282823562622
+          }
+        },
+        "2023": {
+          "acceptor": {
+            "local": 25.815015971660614,
+            "sham": 0.07900881767272949,
+            "target": 0.0520930290222168,
+            "target_minus_sham": -0.026915788650512695
+          },
+          "donor": {
+            "local": 22.362091541290283,
+            "sham": -0.03738856315612793,
+            "target": 1.2391281127929688,
+            "target_minus_sham": 1.2765166759490967
+          }
+        },
+        "2024": {
+          "acceptor": {
+            "local": 23.06491231918335,
+            "sham": 0.0042650699615478516,
+            "target": 0.031591176986694336,
+            "target_minus_sham": 0.027326107025146484
+          },
+          "donor": {
+            "local": 24.094321310520172,
+            "sham": -0.062326669692993164,
+            "target": 1.5805227756500244,
+            "target_minus_sham": 1.6428494453430176
+          }
+        }
+      }
+    },
+    {
+      "annotation": {
+        "acceptor": {
+          "absolute_end": 387,
+          "absolute_start": 355,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2
+          ],
+          "complete_codon_starts": [
+            357,
+            360,
+            363,
+            366,
+            369,
+            372,
+            375,
+            378,
+            381,
+            384
+          ],
+          "endpoint": "acceptor",
+          "genomic_end": 31697072,
+          "genomic_start": 31697040,
+          "relative_window": "+16:+48"
+        },
+        "donor": {
+          "absolute_end": 160,
+          "absolute_start": 128,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2
+          ],
+          "complete_codon_starts": [
+            130,
+            133,
+            136,
+            139,
+            142,
+            145,
+            148,
+            151,
+            154,
+            157
+          ],
+          "endpoint": "donor",
+          "genomic_end": 31697299,
+          "genomic_start": 31697267,
+          "relative_window": "-80:-48"
+        }
+      },
+      "chrom": "chr1",
+      "example_id": "chr1:31697219-31697300:-:ENSG00000084636.20",
+      "gene_id": "ENSG00000084636.20",
+      "seed_effects": {
+        "2020": {
+          "acceptor": {
+            "local": 22.954131364822388,
+            "sham": -0.15332770347595215,
+            "target": 0.9834973812103271,
+            "target_minus_sham": 1.1368250846862793
+          },
+          "donor": {
+            "local": 23.070124566555023,
+            "sham": 0.053510427474975586,
+            "target": 1.417945146560669,
+            "target_minus_sham": 1.3644347190856934
+          }
+        },
+        "2021": {
+          "acceptor": {
+            "local": 21.334320545196533,
+            "sham": -0.06830215454101562,
+            "target": 0.5406680107116699,
+            "target_minus_sham": 0.6089701652526855
+          },
+          "donor": {
+            "local": 19.86176562309265,
+            "sham": 0.10465812683105469,
+            "target": 1.2067887783050537,
+            "target_minus_sham": 1.102130651473999
+          }
+        },
+        "2022": {
+          "acceptor": {
+            "local": 20.947549700737,
+            "sham": -0.13124561309814453,
+            "target": 0.9522302150726318,
+            "target_minus_sham": 1.0834758281707764
+          },
+          "donor": {
+            "local": 20.41804528236389,
+            "sham": 0.22716546058654785,
+            "target": 1.3281400203704834,
+            "target_minus_sham": 1.1009745597839355
+          }
+        },
+        "2023": {
+          "acceptor": {
+            "local": 25.54135286808014,
+            "sham": -0.13228213787078857,
+            "target": 0.4540613889694214,
+            "target_minus_sham": 0.58634352684021
+          },
+          "donor": {
+            "local": 21.574441611766815,
+            "sham": 0.7102086544036865,
+            "target": 1.1080622673034668,
+            "target_minus_sham": 0.3978536128997803
+          }
+        },
+        "2024": {
+          "acceptor": {
+            "local": 21.19612205028534,
+            "sham": -0.09804725646972656,
+            "target": 0.8278257846832275,
+            "target_minus_sham": 0.9258730411529541
+          },
+          "donor": {
+            "local": 25.20613431930542,
+            "sham": 0.3585941791534424,
+            "target": 1.3424286842346191,
+            "target_minus_sham": 0.9838345050811768
+          }
+        }
+      }
+    },
+    {
+      "annotation": {
+        "acceptor": {
+          "absolute_end": 575,
+          "absolute_start": 543,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0
+          ],
+          "complete_codon_starts": [
+            544,
+            547,
+            550,
+            553,
+            556,
+            559,
+            562,
+            565,
+            568,
+            571
+          ],
+          "endpoint": "acceptor",
+          "genomic_end": 42126736,
+          "genomic_start": 42126704,
+          "relative_window": "+16:+48"
+        },
+        "donor": {
+          "absolute_end": 387,
+          "absolute_start": 355,
+          "annotation_checks": {
+            "cds_fully_covered": true,
+            "cds_register_unambiguous": true,
+            "no_annotated_splice_boundary_nearby": true,
+            "no_conflicting_cds_overlap": true,
+            "no_partial_cds_boundary_inside": true
+          },
+          "codon_slots": [
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0
+          ],
+          "complete_codon_starts": [
+            356,
+            359,
+            362,
+            365,
+            368,
+            371,
+            374,
+            377,
+            380,
+            383
+          ],
+          "endpoint": "donor",
+          "genomic_end": 42126924,
+          "genomic_start": 42126892,
+          "relative_window": "-80:-48"
+        }
+      },
+      "chrom": "chr22",
+      "example_id": "chr22:42126844-42126992:-:ENSG00000100197.25",
+      "gene_id": "ENSG00000100197.25",
+      "seed_effects": {
+        "2020": {
+          "acceptor": {
+            "local": 23.185513854026794,
+            "sham": 0.0827939510345459,
+            "target": 0.3928549289703369,
+            "target_minus_sham": 0.310060977935791
+          },
+          "donor": {
+            "local": 10.020513236522675,
+            "sham": -0.03251904249191284,
+            "target": 0.29107242822647095,
+            "target_minus_sham": 0.3235914707183838
+          }
+        },
+        "2021": {
+          "acceptor": {
+            "local": 17.18270891904831,
+            "sham": -0.03844499588012695,
+            "target": 0.48352718353271484,
+            "target_minus_sham": 0.5219721794128418
+          },
+          "donor": {
+            "local": 9.39623361825943,
+            "sham": -0.09575825929641724,
+            "target": 0.3154703378677368,
+            "target_minus_sham": 0.41122859716415405
+          }
+        },
+        "2022": {
+          "acceptor": {
+            "local": 18.716597020626068,
+            "sham": -0.10429167747497559,
+            "target": 1.025475263595581,
+            "target_minus_sham": 1.1297669410705566
+          },
+          "donor": {
+            "local": 8.556946039199829,
+            "sham": -0.1845892071723938,
+            "target": 0.15437719225883484,
+            "target_minus_sham": 0.33896639943122864
+          }
+        },
+        "2023": {
+          "acceptor": {
+            "local": 23.882956445217133,
+            "sham": 0.028842806816101074,
+            "target": 0.9951987266540527,
+            "target_minus_sham": 0.9663559198379517
+          },
+          "donor": {
+            "local": 11.282658517360687,
+            "sham": 0.11986899375915527,
+            "target": 0.0751725435256958,
+            "target_minus_sham": -0.04469645023345947
+          }
+        },
+        "2024": {
+          "acceptor": {
+            "local": 23.991803646087646,
+            "sham": 0.009150981903076172,
+            "target": 0.6754353046417236,
+            "target_minus_sham": 0.6662843227386475
+          },
+          "donor": {
+            "local": 10.527505278587341,
+            "sham": -0.03695005178451538,
+            "target": 0.37230372428894043,
+            "target_minus_sham": 0.4092537760734558
+          }
+        }
+      }
+    }
+  ],
+  "sequence_checks": {
+    "all_79_psams_loaded": true,
+    "all_annotation_gates": true,
+    "cohort_size": true,
+    "genes_unique": true,
+    "max_recode_dose_90_percent": true,
+    "no_new_ag_gt_in_recodes": true,
+    "prior_genes_excluded": true,
+    "psam_identity_exact": true,
+    "rna_instruments_finite": true,
+    "shuffle_dose": true,
+    "shuffle_invariants": true,
+    "synonymous_translation_exact": true,
+    "ten_complete_codons_each": true
+  },
+  "sequence_instrument": {
+    "audits": {
+      "acceptor": [
+        {
+          "example_id": "chr1:109757943-109758058:-:ENSG00000198758.13",
+          "n_saturation_variants": 12,
+          "recode_draws": [
+            {
+              "hamming": 9,
+              "n_changed_codons": 9
+            },
+            {
+              "hamming": 9,
+              "n_changed_codons": 9
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 291,
+            "absolute_start": 259,
+            "candidate_index": 12,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 25,
+            "hamming_fraction": 0.78125,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 387,
+            "absolute_start": 355,
+            "candidate_index": 11,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 28,
+            "hamming_fraction": 0.875,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr3:50217237-50217320:+:ENSG00000188338.17",
+          "n_saturation_variants": 29,
+          "recode_draws": [
+            {
+              "hamming": 13,
+              "n_changed_codons": 8
+            },
+            {
+              "hamming": 10,
+              "n_changed_codons": 7
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 424,
+            "absolute_start": 392,
+            "candidate_index": 57,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 26,
+            "hamming_fraction": 0.8125,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 520,
+            "absolute_start": 488,
+            "candidate_index": 21,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 28,
+            "hamming_fraction": 0.875,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr2:74428847-74428942:-:ENSG00000114993.18",
+          "n_saturation_variants": 32,
+          "recode_draws": [
+            {
+              "hamming": 12,
+              "n_changed_codons": 9
+            },
+            {
+              "hamming": 12,
+              "n_changed_codons": 9
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 313,
+            "absolute_start": 281,
+            "candidate_index": 48,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 23,
+            "hamming_fraction": 0.71875,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 409,
+            "absolute_start": 377,
+            "candidate_index": 53,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 28,
+            "hamming_fraction": 0.875,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr15:41504772-41504874:-:ENSG00000062524.18",
+          "n_saturation_variants": 23,
+          "recode_draws": [
+            {
+              "hamming": 9,
+              "n_changed_codons": 8
+            },
+            {
+              "hamming": 9,
+              "n_changed_codons": 8
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 459,
+            "absolute_start": 427,
+            "candidate_index": 51,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 26,
+            "hamming_fraction": 0.8125,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 555,
+            "absolute_start": 523,
+            "candidate_index": 51,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 27,
+            "hamming_fraction": 0.84375,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr17:50073915-50074004:+:ENSG00000005884.20",
+          "n_saturation_variants": 34,
+          "recode_draws": [
+            {
+              "hamming": 12,
+              "n_changed_codons": 10
+            },
+            {
+              "hamming": 11,
+              "n_changed_codons": 10
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 336,
+            "absolute_start": 304,
+            "candidate_index": 45,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 23,
+            "hamming_fraction": 0.71875,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 432,
+            "absolute_start": 400,
+            "candidate_index": 29,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 26,
+            "hamming_fraction": 0.8125,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr7:121983664-121983822:+:ENSG00000106278.14",
+          "n_saturation_variants": 25,
+          "recode_draws": [
+            {
+              "hamming": 8,
+              "n_changed_codons": 7
+            },
+            {
+              "hamming": 7,
+              "n_changed_codons": 7
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 496,
+            "absolute_start": 464,
+            "candidate_index": 38,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 24,
+            "hamming_fraction": 0.75,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 592,
+            "absolute_start": 560,
+            "candidate_index": 33,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 27,
+            "hamming_fraction": 0.84375,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr5:58457487-58457583:-:ENSG00000145632.17",
+          "n_saturation_variants": 28,
+          "recode_draws": [
+            {
+              "hamming": 11,
+              "n_changed_codons": 9
+            },
+            {
+              "hamming": 11,
+              "n_changed_codons": 9
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 453,
+            "absolute_start": 421,
+            "candidate_index": 0,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 27,
+            "hamming_fraction": 0.84375,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 549,
+            "absolute_start": 517,
+            "candidate_index": 34,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 27,
+            "hamming_fraction": 0.84375,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr2:171006971-171007063:-:ENSG00000198586.16",
+          "n_saturation_variants": 21,
+          "recode_draws": [
+            {
+              "hamming": 9,
+              "n_changed_codons": 8
+            },
+            {
+              "hamming": 9,
+              "n_changed_codons": 8
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 284,
+            "absolute_start": 252,
+            "candidate_index": 21,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 23,
+            "hamming_fraction": 0.71875,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 380,
+            "absolute_start": 348,
+            "candidate_index": 12,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 25,
+            "hamming_fraction": 0.78125,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr17:28960804-28960973:-:ENSG00000063015.22",
+          "n_saturation_variants": 22,
+          "recode_draws": [
+            {
+              "hamming": 9,
+              "n_changed_codons": 9
+            },
+            {
+              "hamming": 9,
+              "n_changed_codons": 9
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 497,
+            "absolute_start": 465,
+            "candidate_index": 41,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 26,
+            "hamming_fraction": 0.8125,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 593,
+            "absolute_start": 561,
+            "candidate_index": 32,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 27,
+            "hamming_fraction": 0.84375,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr18:76927036-76927182:+:ENSG00000130856.19",
+          "n_saturation_variants": 26,
+          "recode_draws": [
+            {
+              "hamming": 11,
+              "n_changed_codons": 9
+            },
+            {
+              "hamming": 11,
+              "n_changed_codons": 9
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 428,
+            "absolute_start": 396,
+            "candidate_index": 56,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 27,
+            "hamming_fraction": 0.84375,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 524,
+            "absolute_start": 492,
+            "candidate_index": 13,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 27,
+            "hamming_fraction": 0.84375,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr6:158064600-158064750:+:ENSG00000078269.16",
+          "n_saturation_variants": 32,
+          "recode_draws": [
+            {
+              "hamming": 9,
+              "n_changed_codons": 9
+            },
+            {
+              "hamming": 9,
+              "n_changed_codons": 9
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 476,
+            "absolute_start": 444,
+            "candidate_index": 58,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 24,
+            "hamming_fraction": 0.75,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 572,
+            "absolute_start": 540,
+            "candidate_index": 57,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 28,
+            "hamming_fraction": 0.875,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr15:90638445-90638646:+:ENSG00000140577.19",
+          "n_saturation_variants": 16,
+          "recode_draws": [
+            {
+              "hamming": 10,
+              "n_changed_codons": 10
+            },
+            {
+              "hamming": 10,
+              "n_changed_codons": 10
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 526,
+            "absolute_start": 494,
+            "candidate_index": 31,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 25,
+            "hamming_fraction": 0.78125,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 622,
+            "absolute_start": 590,
+            "candidate_index": 59,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 27,
+            "hamming_fraction": 0.84375,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr17:10494568-10494673:-:ENSG00000109061.12",
+          "n_saturation_variants": 29,
+          "recode_draws": [
+            {
+              "hamming": 12,
+              "n_changed_codons": 9
+            },
+            {
+              "hamming": 12,
+              "n_changed_codons": 9
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 283,
+            "absolute_start": 251,
+            "candidate_index": 12,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 25,
+            "hamming_fraction": 0.78125,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 379,
+            "absolute_start": 347,
+            "candidate_index": 53,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 29,
+            "hamming_fraction": 0.90625,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr20:31831702-31831855:+:ENSG00000101306.13",
+          "n_saturation_variants": 23,
+          "recode_draws": [
+            {
+              "hamming": 10,
+              "n_changed_codons": 9
+            },
+            {
+              "hamming": 10,
+              "n_changed_codons": 9
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 494,
+            "absolute_start": 462,
+            "candidate_index": 27,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 26,
+            "hamming_fraction": 0.8125,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 590,
+            "absolute_start": 558,
+            "candidate_index": 5,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 26,
+            "hamming_fraction": 0.8125,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr1:31697219-31697300:-:ENSG00000084636.20",
+          "n_saturation_variants": 26,
+          "recode_draws": [
+            {
+              "hamming": 11,
+              "n_changed_codons": 9
+            },
+            {
+              "hamming": 11,
+              "n_changed_codons": 9
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 291,
+            "absolute_start": 259,
+            "candidate_index": 28,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 26,
+            "hamming_fraction": 0.8125,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 387,
+            "absolute_start": 355,
+            "candidate_index": 4,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 27,
+            "hamming_fraction": 0.84375,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr22:42126844-42126992:-:ENSG00000100197.25",
+          "n_saturation_variants": 27,
+          "recode_draws": [
+            {
+              "hamming": 10,
+              "n_changed_codons": 9
+            },
+            {
+              "hamming": 10,
+              "n_changed_codons": 9
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 479,
+            "absolute_start": 447,
+            "candidate_index": 62,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 27,
+            "hamming_fraction": 0.84375,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 575,
+            "absolute_start": 543,
+            "candidate_index": 61,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 26,
+            "hamming_fraction": 0.8125,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          }
+        }
+      ],
+      "donor": [
+        {
+          "example_id": "chr1:109757943-109758058:-:ENSG00000198758.13",
+          "n_saturation_variants": 19,
+          "recode_draws": [
+            {
+              "hamming": 7,
+              "n_changed_codons": 7
+            },
+            {
+              "hamming": 7,
+              "n_changed_codons": 7
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 307,
+            "absolute_start": 275,
+            "candidate_index": 34,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 23,
+            "hamming_fraction": 0.71875,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 211,
+            "absolute_start": 179,
+            "candidate_index": 26,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 27,
+            "hamming_fraction": 0.84375,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr3:50217237-50217320:+:ENSG00000188338.17",
+          "n_saturation_variants": 17,
+          "recode_draws": [
+            {
+              "hamming": 8,
+              "n_changed_codons": 8
+            },
+            {
+              "hamming": 8,
+              "n_changed_codons": 8
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 426,
+            "absolute_start": 394,
+            "candidate_index": 4,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 24,
+            "hamming_fraction": 0.75,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 330,
+            "absolute_start": 298,
+            "candidate_index": 35,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 28,
+            "hamming_fraction": 0.875,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr2:74428847-74428942:-:ENSG00000114993.18",
+          "n_saturation_variants": 36,
+          "recode_draws": [
+            {
+              "hamming": 12,
+              "n_changed_codons": 10
+            },
+            {
+              "hamming": 12,
+              "n_changed_codons": 10
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 299,
+            "absolute_start": 267,
+            "candidate_index": 53,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 28,
+            "hamming_fraction": 0.875,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 203,
+            "absolute_start": 171,
+            "candidate_index": 60,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 26,
+            "hamming_fraction": 0.8125,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr15:41504772-41504874:-:ENSG00000062524.18",
+          "n_saturation_variants": 26,
+          "recode_draws": [
+            {
+              "hamming": 10,
+              "n_changed_codons": 8
+            },
+            {
+              "hamming": 10,
+              "n_changed_codons": 8
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 423,
+            "absolute_start": 391,
+            "candidate_index": 21,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 21,
+            "hamming_fraction": 0.65625,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 327,
+            "absolute_start": 295,
+            "candidate_index": 28,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 26,
+            "hamming_fraction": 0.8125,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr17:50073915-50074004:+:ENSG00000005884.20",
+          "n_saturation_variants": 26,
+          "recode_draws": [
+            {
+              "hamming": 9,
+              "n_changed_codons": 8
+            },
+            {
+              "hamming": 9,
+              "n_changed_codons": 8
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 293,
+            "absolute_start": 261,
+            "candidate_index": 26,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 27,
+            "hamming_fraction": 0.84375,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 197,
+            "absolute_start": 165,
+            "candidate_index": 24,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 26,
+            "hamming_fraction": 0.8125,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr7:121983664-121983822:+:ENSG00000106278.14",
+          "n_saturation_variants": 32,
+          "recode_draws": [
+            {
+              "hamming": 10,
+              "n_changed_codons": 9
+            },
+            {
+              "hamming": 10,
+              "n_changed_codons": 9
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 448,
+            "absolute_start": 416,
+            "candidate_index": 54,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 23,
+            "hamming_fraction": 0.71875,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 352,
+            "absolute_start": 320,
+            "candidate_index": 51,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 25,
+            "hamming_fraction": 0.78125,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr5:58457487-58457583:-:ENSG00000145632.17",
+          "n_saturation_variants": 28,
+          "recode_draws": [
+            {
+              "hamming": 10,
+              "n_changed_codons": 9
+            },
+            {
+              "hamming": 11,
+              "n_changed_codons": 9
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 441,
+            "absolute_start": 409,
+            "candidate_index": 54,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 23,
+            "hamming_fraction": 0.71875,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 345,
+            "absolute_start": 313,
+            "candidate_index": 9,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 26,
+            "hamming_fraction": 0.8125,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr2:171006971-171007063:-:ENSG00000198586.16",
+          "n_saturation_variants": 21,
+          "recode_draws": [
+            {
+              "hamming": 9,
+              "n_changed_codons": 8
+            },
+            {
+              "hamming": 9,
+              "n_changed_codons": 8
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 298,
+            "absolute_start": 266,
+            "candidate_index": 26,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 24,
+            "hamming_fraction": 0.75,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 202,
+            "absolute_start": 170,
+            "candidate_index": 1,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 29,
+            "hamming_fraction": 0.90625,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr17:28960804-28960973:-:ENSG00000063015.22",
+          "n_saturation_variants": 23,
+          "recode_draws": [
+            {
+              "hamming": 8,
+              "n_changed_codons": 7
+            },
+            {
+              "hamming": 8,
+              "n_changed_codons": 7
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 460,
+            "absolute_start": 428,
+            "candidate_index": 23,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 27,
+            "hamming_fraction": 0.84375,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 364,
+            "absolute_start": 332,
+            "candidate_index": 42,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 26,
+            "hamming_fraction": 0.8125,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr18:76927036-76927182:+:ENSG00000130856.19",
+          "n_saturation_variants": 30,
+          "recode_draws": [
+            {
+              "hamming": 12,
+              "n_changed_codons": 10
+            },
+            {
+              "hamming": 12,
+              "n_changed_codons": 10
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 430,
+            "absolute_start": 398,
+            "candidate_index": 16,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 27,
+            "hamming_fraction": 0.84375,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 334,
+            "absolute_start": 302,
+            "candidate_index": 30,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 27,
+            "hamming_fraction": 0.84375,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr6:158064600-158064750:+:ENSG00000078269.16",
+          "n_saturation_variants": 24,
+          "recode_draws": [
+            {
+              "hamming": 10,
+              "n_changed_codons": 7
+            },
+            {
+              "hamming": 10,
+              "n_changed_codons": 7
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 497,
+            "absolute_start": 465,
+            "candidate_index": 51,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 27,
+            "hamming_fraction": 0.84375,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 401,
+            "absolute_start": 369,
+            "candidate_index": 38,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 28,
+            "hamming_fraction": 0.875,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr15:90638445-90638646:+:ENSG00000140577.19",
+          "n_saturation_variants": 22,
+          "recode_draws": [
+            {
+              "hamming": 9,
+              "n_changed_codons": 9
+            },
+            {
+              "hamming": 9,
+              "n_changed_codons": 9
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 534,
+            "absolute_start": 502,
+            "candidate_index": 30,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 27,
+            "hamming_fraction": 0.84375,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 438,
+            "absolute_start": 406,
+            "candidate_index": 5,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 22,
+            "hamming_fraction": 0.6875,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr17:10494568-10494673:-:ENSG00000109061.12",
+          "n_saturation_variants": 24,
+          "recode_draws": [
+            {
+              "hamming": 10,
+              "n_changed_codons": 8
+            },
+            {
+              "hamming": 10,
+              "n_changed_codons": 8
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 260,
+            "absolute_start": 228,
+            "candidate_index": 1,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 27,
+            "hamming_fraction": 0.84375,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 164,
+            "absolute_start": 132,
+            "candidate_index": 5,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 28,
+            "hamming_fraction": 0.875,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr20:31831702-31831855:+:ENSG00000101306.13",
+          "n_saturation_variants": 16,
+          "recode_draws": [
+            {
+              "hamming": 8,
+              "n_changed_codons": 8
+            },
+            {
+              "hamming": 8,
+              "n_changed_codons": 8
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 442,
+            "absolute_start": 410,
+            "candidate_index": 49,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 28,
+            "hamming_fraction": 0.875,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 346,
+            "absolute_start": 314,
+            "candidate_index": 9,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 28,
+            "hamming_fraction": 0.875,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr1:31697219-31697300:-:ENSG00000084636.20",
+          "n_saturation_variants": 17,
+          "recode_draws": [
+            {
+              "hamming": 10,
+              "n_changed_codons": 9
+            },
+            {
+              "hamming": 10,
+              "n_changed_codons": 9
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 256,
+            "absolute_start": 224,
+            "candidate_index": 62,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 27,
+            "hamming_fraction": 0.84375,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 160,
+            "absolute_start": 128,
+            "candidate_index": 7,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 28,
+            "hamming_fraction": 0.875,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          }
+        },
+        {
+          "example_id": "chr22:42126844-42126992:-:ENSG00000100197.25",
+          "n_saturation_variants": 18,
+          "recode_draws": [
+            {
+              "hamming": 8,
+              "n_changed_codons": 8
+            },
+            {
+              "hamming": 8,
+              "n_changed_codons": 8
+            }
+          ],
+          "sham_shuffle": {
+            "absolute_end": 483,
+            "absolute_start": 451,
+            "candidate_index": 58,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 26,
+            "hamming_fraction": 0.8125,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "+16:+48",
+            "width": 32
+          },
+          "target_shuffle": {
+            "absolute_end": 387,
+            "absolute_start": 355,
+            "candidate_index": 46,
+            "candidates": 64,
+            "dinucleotides_preserved": true,
+            "draw": 0,
+            "endpoints_preserved": true,
+            "hamming": 25,
+            "hamming_fraction": 0.78125,
+            "length_preserved": true,
+            "mononucleotides_preserved": true,
+            "outside_preserved": true,
+            "relative_window": "-80:-48",
+            "width": 32
+          }
+        }
+      ]
+    },
+    "identity_accessibility": 0.02944629741303239,
+    "identity_mfe": -58.599998474121094,
+    "max_recode_dose_pass_fraction": 1.0,
+    "rbns_model_count": 79
+  },
+  "status": "PASS"
+}
