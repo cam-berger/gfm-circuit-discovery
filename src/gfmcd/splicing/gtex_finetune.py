@@ -186,6 +186,7 @@ def load_gtex_token_classifier(
     checkpoint_path: str | Path,
     *,
     device: str = "cpu",
+    attn_implementation: str | None = None,
 ) -> tuple[Any, Any, GtexNativeClassifierReport]:
     """Load the authors' native three-class model with a strict tensor contract."""
 
@@ -200,6 +201,8 @@ def load_gtex_token_classifier(
     config.num_labels = 3
     config.id2label = {0: "no_splice_site", 1: "donor", 2: "acceptor"}
     config.label2id = {value: key for key, value in config.id2label.items()}
+    if attn_implementation is not None:
+        config._attn_implementation = attn_implementation
     model = AutoModelForTokenClassification.from_config(config)
     state = load_gtex_state_dict(checkpoint_path)
     report = validate_gtex_token_classifier_state(
