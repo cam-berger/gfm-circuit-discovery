@@ -116,6 +116,16 @@ The canonical index is [`results/phase-lattice/RESULTS_INDEX.md`](results/phase-
 It maps position spectra, carrier deletion, mediation, attention gates, and biological source assays to
 their scripts, immutable JSON, and manifests.
 
+### GTEx fine-tuning shift
+
+The five published SpliceAI-GTEx fine-tunes contain a token-classification encoder/head, not an MLM head.
+`scripts/splicebert/prepare_gtex_mlm_transplant.py` strictly transplants each complete encoder into the
+original masked LM and writes a derived Hugging Face checkpoint with an audit report. Run
+`run_gtex_finetune_preflight.py` before `run_gtex_coupling_shift.py`; the latter requires all five seeds,
+replays the exact base validation result before opening them, and stops at behavior. Exact hashes, readout
+scope, commands, and the outcome-aware verification status are in
+[`studies/splicebert_gtex_finetune_shift/`](studies/splicebert_gtex_finetune_shift/README.md).
+
 ### Head–Context Atlas
 
 | Stage | Canonical entry point | Durable record |

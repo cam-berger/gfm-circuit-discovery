@@ -66,6 +66,7 @@ same change; the verifier fails otherwise.
 | `splicebert_visualizer/` | [`RESULTS_INDEX.md`](splicebert_visualizer/RESULTS_INDEX.md) | none — export bundle, not a claim artifact |
 | `origin-siblings/` | [`RESULTS_INDEX.md`](origin-siblings/RESULTS_INDEX.md) | `studies/splicebert_partner_selection/CLAIMS.md` (C39) |
 | `origin-crossmodel/` | [`README.md`](origin-crossmodel/README.md) | `studies/splicebert_partner_selection/CLAIMS.md` (C40) |
+| `splicebert_gtex_finetune_shift/` | [`RESULTS_INDEX.md`](splicebert_gtex_finetune_shift/RESULTS_INDEX.md) | `studies/splicebert_gtex_finetune_shift/CLAIMS.md` (GFS1–GFS5) |
 
 **Layout convention.** Most trees keep their **canonical artifacts at the directory root**, with
 `development/` and `superseded/` subtrees beside them — the `canonical/`-subdirectory half of the 2026-07-22

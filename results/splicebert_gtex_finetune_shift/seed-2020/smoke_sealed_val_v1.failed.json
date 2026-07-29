@@ -1,0 +1,53 @@
+{
+  "study": "splicebert_gtex_finetune_shift",
+  "stage": "seed-2020 mechanics smoke",
+  "status": "STOPPED_BEHAVIOR_GATE",
+  "created_at_utc": "2026-07-29T02:51:13Z",
+  "command": [
+    "scripts/splicebert/run_sealed_test.py",
+    "--split",
+    "val",
+    "--n",
+    "32",
+    "--n-mech",
+    "12",
+    "--n-null",
+    "20",
+    "--batch",
+    "4",
+    "--model",
+    "data/models/splicebert_gtex/mlm_transplants/seed-2020",
+    "--out",
+    "results/splicebert_gtex_finetune_shift/seed-2020/smoke_sealed_val_v1.json"
+  ],
+  "behavior": {
+    "n": 32,
+    "coupling": 0.011,
+    "coupling_ci": [
+      -0.074,
+      0.09
+    ],
+    "median": -0.013,
+    "n_paired": 32,
+    "other_donor": -0.176,
+    "paired_diff_vs_other": 0.186,
+    "paired_diff_vs_other_ci": [
+      0.082,
+      0.293
+    ],
+    "nonpartner_ag": -0.003,
+    "paired_diff_vs_nonpartner": 0.014,
+    "paired_diff_vs_nonpartner_ci": [
+      -0.075,
+      0.096
+    ]
+  },
+  "mechanism_cohort": {
+    "requested": 12,
+    "eligible": 5,
+    "screened": 72,
+    "minimum_coupling": 0.3
+  },
+  "error": "only 5 of 72 screened val examples clear min_effect=0.3; asked for 12",
+  "interpretation": "Outcome-limited smoke only. The mechanism denominator gate failed, so no mechanism or representational-shift inference is licensed."
+}
