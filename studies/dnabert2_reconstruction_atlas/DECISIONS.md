@@ -646,3 +646,30 @@
   additionally threaded E1b through the Stop rules and What-would-refute-this sections, which had
   still reasoned only over E1/E2 and left the Phase-H gate undefined for the case that matters most.
   v1 remains preserved and superseded, not deleted.
+
+## 2026-07-29 — Authorise Phase H regardless of the E1/E1b edge gate (pre-outcome)
+
+- Trigger: Cam reviewed the Phase-H gate in Stop rules — Phase H licensed only if at least one of E1
+  or E1b qualifies — and authorised Phase H to proceed regardless of the E1/E1b verdict, explicitly
+  accepting the compute cost of running it even where the edge gate would otherwise block it.
+- Decision: Phase H (the helical-phase assay) may run irrespective of whether E1 or E1b qualifies;
+  compute cost is no longer a stop condition. The authorisation changes only whether the run happens,
+  not how any Phase H result may be described.
+- Verified timing: at the moment of authorisation, no D12 confirmation-split outcome had been read
+  beyond the already-public `mask|tile26` value —
+  `results/dnabert2_reconstruction_atlas/promoter_domain_confirmation_v1.json` did not exist, no
+  confirmation runner script existed in `scripts/dnabert2_atlas/`, no such process was running, and
+  the branch's most recent commit was preflight-stage qualification work. The authorisation is
+  therefore outcome-blind by construction.
+- Wording constraint: if both E1 and E1b fail, the bounded-domain premise remains unsupported exactly
+  as Stop rules and What would refute this already state. Phase H then remains a well-defined
+  measurement of phase dependence over a fixed sequence window, but it may not be written up as "the
+  domain's phase dependence," and no Phase H result — however strong its own internal statistics —
+  may be used to argue backwards that the domain exists. Such a result is exploratory with respect to
+  the domain claim.
+- Boundary: Amendment 1 and the E1/E1b gating text in Stop rules and What would refute this remain
+  otherwise in force. This decision overrides only the licensing condition for running Phase H, not
+  any endpoint definition, SESOI, or qualification rule.
+- Effect: `studies/dnabert2_reconstruction_atlas/PREREGISTRATION_D12_DOWNSTREAM_DOMAIN.md` is amended
+  in place (Amendment 2) to record the authorisation, the verified pre-outcome timing, and the wording
+  constraint on any Phase H result obtained under a failed edge gate.

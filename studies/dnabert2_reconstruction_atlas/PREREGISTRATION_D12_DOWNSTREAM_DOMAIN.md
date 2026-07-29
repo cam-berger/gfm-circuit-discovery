@@ -1,6 +1,7 @@
 # D12 preregistration — bounded downstream domain and TSS polarity
 
-> **Tier: T1 — frozen protocol.** Frozen 2026-07-28; amended 2026-07-28 (Amendment 1, pre-outcome).
+> **Tier: T1 — frozen protocol.** Frozen 2026-07-28; amended 2026-07-28 (Amendment 1, pre-outcome);
+> amended 2026-07-29 (Amendment 2, pre-outcome).
 > Controls
 > [`../../configs/dnabert2_atlas/promoter_domain_v2.frozen.json`](../../configs/dnabert2_atlas/promoter_domain_v2.frozen.json)
 > (`schema_version` 2, `status` `FROZEN`, study `dnabert2_biological_reconstruction_atlas`, assay
@@ -293,3 +294,38 @@ difference (development n=90). E2 tests a different property, the TSS polarity r
 - **E3 failing to clear its SESOI is not a null result.** E3 is two-sided and powered only for effects
   at or above 0.10 absolute; a small or non-significant tile-22 effect under that power does not
   license the conclusion that no reversal exists.
+
+## Amendment 2 — Phase H authorised to proceed regardless of the edge gate (pre-outcome)
+
+**Trigger.** The Phase-H gate in **Stop rules** licenses Phase H only if at least one of E1 or E1b
+qualifies. Cam reviewed that gate and authorised Phase H to run regardless of the E1/E1b verdict,
+explicitly accepting the compute cost of running it even in the case where the edge gate would
+otherwise block it.
+
+**Decision.** Phase H (the downstream helical-phase assay) is licensed to proceed irrespective of
+whether E1 or E1b qualifies. Compute cost is no longer a stop condition for Phase H.
+
+**Verified pre-outcome timing.** No D12 confirmation-split outcome had been read for any endpoint
+beyond the already-public `mask|tile26` value when this authorisation was given and recorded:
+`results/dnabert2_reconstruction_atlas/promoter_domain_confirmation_v1.json` did not exist, and the
+confirmatory run that would produce it had not been dispatched — no confirmation runner script existed
+in `scripts/dnabert2_atlas/`, no such process was running, and the branch's most recent commit at the
+time of authorisation was preflight-stage work. This amendment is therefore outcome-blind by
+construction: it was made before E1, E1b, or E2 could have been known in either direction. The same
+amendment made after that outcome was read would be outcome-aware and would contaminate the study.
+
+**What this authorisation does not change.** This is the scientifically load-bearing part of this
+amendment, stated plainly and prominently:
+
+- The authorisation changes only whether the Phase H *run* happens. It does not change how the Phase H
+  *result* may be described.
+- If both E1 and E1b fail, the bounded-domain premise is unsupported. Phase H would then remain a
+  well-defined measurement of phase dependence over a fixed sequence window, but it **may not** be
+  written up as "the domain's phase dependence," and no Phase H result may be used to argue backwards
+  that the domain exists.
+- A Phase H result obtained under a failed edge gate is exploratory with respect to the domain claim,
+  whatever its own internal statistics show.
+
+**Scope.** Amendment 1 and the E1/E1b gating text in **Stop rules** and **What would refute this**
+remain otherwise in force. This amendment overrides only the licensing condition for *running* Phase
+H; it does not touch any endpoint definition, SESOI, or qualification rule.
