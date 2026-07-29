@@ -71,7 +71,7 @@ MAX_RANK = 64
 MIN_EFFECT = 0.05
 MAX_Q = 0.05
 NAMESPACE = "gtex-native-context-joint-lowrank-v1"
-COHORT_TAG = "gtex-native-context-per-seed-alignment-discovery-v1"
+COHORT_TAG = "gtex-native-context-lowrank-discovery-v1"
 FORBIDDEN_CHROMS = frozenset({"chr8", "chr9", "chr11", "chr16", "chr19"})
 RANKS = (1, 2, 4, 8, 16, 32, 64)
 

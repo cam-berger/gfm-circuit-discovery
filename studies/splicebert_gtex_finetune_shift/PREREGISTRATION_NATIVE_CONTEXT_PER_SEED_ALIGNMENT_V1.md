@@ -5,6 +5,13 @@
 > confirmation artifacts are known. This follow-up deliberately reuses those
 > already-opened gene partitions and is therefore exploratory/developmental rather
 > than an independent confirmation.
+>
+> **Pre-outcome cohort-tag correction (2026-07-29):** the first discovery invocation
+> stopped at the exact example-ID invariant before loading any checkpoint or
+> collecting any outcome. The cohort namespace reproduced the gene partition, but the
+> newly named cohort tag changed within-gene example sampling. The runners now reuse
+> the exact GFS18 discovery and confirmation cohort tags, as Section 2 already
+> required. No rank, intervention, threshold, or statistical family changed.
 
 ## 1. Question and evidence boundary
 
