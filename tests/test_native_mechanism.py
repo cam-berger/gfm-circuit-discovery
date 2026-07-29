@@ -7,6 +7,7 @@ from torch import nn
 from gfmcd.splicing.native_mechanism import (
     FinalLayerRun,
     attention_context_reconstruction_error,
+    compose_target_mlp_hidden,
     deterministic_control_heads,
     donor_margin,
     donor_token_positions,
@@ -70,6 +71,29 @@ def test_attention_context_reconstruction():
         attention=attention,
     )
     assert attention_context_reconstruction_error(run, num_heads=1) == 0.0
+
+
+def test_compose_target_mlp_hidden_substitutes_only_target_write():
+    residual = torch.arange(24, dtype=torch.float32).reshape(2, 4, 3)
+    run = FinalLayerRun(
+        hidden=torch.empty(0),
+        heads=torch.empty(0),
+        mlp_write=torch.empty(0),
+        query=torch.empty(0),
+        key=torch.empty(0),
+        value=torch.empty(0),
+        attention=None,
+        mlp_residual=residual,
+    )
+    vectors = torch.tensor([[1.0, 2.0, 3.0], [-1.0, -2.0, -3.0]])
+    result = compose_target_mlp_hidden(
+        run,
+        torch.tensor([1, 3]),
+        vectors,
+        nn.Identity(),
+    )
+    expected = torch.stack((residual[0, 1], residual[1, 3])) + vectors
+    assert torch.equal(result, expected)
 
 
 def _head_summary(damage, recovery, *, q=0.01, low=0.01):

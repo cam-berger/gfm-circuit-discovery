@@ -42,6 +42,7 @@ class FinalLayerRun:
     key: torch.Tensor
     value: torch.Tensor
     attention: torch.Tensor | None
+    mlp_residual: torch.Tensor | None = None
 
 
 def donor_token_positions(
@@ -165,7 +166,8 @@ def capture_final_layer_run(
     """Replay one layer while capturing exact head, Q/K/V, and MLP tensors."""
 
     attention_module = adapter.attention_self_modules[layer]
-    mlp_dense = adapter.encoder_layers[layer].output.dense
+    mlp_output = adapter.encoder_layers[layer].output
+    mlp_dense = mlp_output.dense
     store: dict[str, torch.Tensor] = {}
     handles = []
 
@@ -185,10 +187,16 @@ def capture_final_layer_run(
 
         return hook
 
+    def capture_mlp_residual(_module: Any, inputs: Any) -> None:
+        if len(inputs) < 2 or not torch.is_tensor(inputs[1]):
+            raise RuntimeError("BERT MLP output did not receive its residual input")
+        store["mlp_residual"] = inputs[1].detach().clone()
+
     handles.append(attention_module.register_forward_hook(capture_context))
     for name in ("query", "key", "value"):
         handles.append(getattr(attention_module, name).register_forward_hook(capture(name)))
     handles.append(mlp_dense.register_forward_hook(capture("mlp_write")))
+    handles.append(mlp_output.register_forward_pre_hook(capture_mlp_residual))
     try:
         with torch.no_grad():
             output = adapter.encoder_layers[layer](
@@ -200,7 +208,14 @@ def capture_final_layer_run(
         for handle in handles:
             handle.remove()
 
-    required = {"heads", "query", "key", "value", "mlp_write"}
+    required = {
+        "heads",
+        "query",
+        "key",
+        "value",
+        "mlp_write",
+        "mlp_residual",
+    }
     if output_attentions:
         required.add("attention")
     if set(store) != required:
@@ -215,7 +230,45 @@ def capture_final_layer_run(
         key=store["key"],
         value=store["value"],
         attention=attention,
+        mlp_residual=store["mlp_residual"],
     )
+
+
+def compose_target_mlp_hidden(
+    run: FinalLayerRun,
+    token_positions: torch.Tensor,
+    write_vectors: torch.Tensor,
+    layer_norm: Any,
+) -> torch.Tensor:
+    """Compose target states from a residual and substituted final-MLP writes.
+
+    There is no token mixing after the final BERT MLP. At one target token,
+    ``LayerNorm(mlp_residual + mlp_write)`` is therefore algebraically
+    equivalent to clamping the final MLP dense output at that position.
+    """
+
+    if run.mlp_residual is None:
+        raise ValueError("run did not capture the MLP residual input")
+    if token_positions.ndim != 1 or write_vectors.ndim != 2:
+        raise ValueError("expected positions [B] and write vectors [B,D]")
+    if (
+        run.mlp_residual.shape[0] != token_positions.shape[0]
+        or write_vectors.shape
+        != (run.mlp_residual.shape[0], run.mlp_residual.shape[2])
+    ):
+        raise ValueError("target-vector batch or width mismatch")
+    positions = token_positions.to(
+        device=run.mlp_residual.device,
+        dtype=torch.long,
+    )
+    if torch.any(positions < 0) or torch.any(
+        positions >= run.mlp_residual.shape[1]
+    ):
+        raise ValueError("target position outside residual tensor")
+    rows = torch.arange(run.mlp_residual.shape[0], device=positions.device)
+    residual = run.mlp_residual[rows, positions]
+    write = write_vectors.to(device=residual.device, dtype=residual.dtype)
+    return layer_norm(residual + write)
 
 
 def donor_margin(
@@ -350,6 +403,7 @@ __all__ = [
     "attention_context_reconstruction_error",
     "cache_final_layer_inputs",
     "capture_final_layer_run",
+    "compose_target_mlp_hidden",
     "deterministic_control_heads",
     "donor_margin",
     "donor_token_positions",
