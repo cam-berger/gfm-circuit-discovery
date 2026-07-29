@@ -135,6 +135,12 @@ per example before gene-grouped inference. A candidate confirms only if:
 Multiplicity correction spans all frozen candidate-by-direction primary tests. Control contrasts are a
 separate declared family. Candidate and control interventions always have identical dimensionality.
 
+**Pre-confirmation clarification (2026-07-29):** frozen after the train-split discovery and candidate
+freeze, but before any validation intervention. “Multiplicity correction spans” means that candidate
+primary tests and candidate-versus-control tests must also have their declared family BH q-value `≤0.05`
+to confirm. This makes the decision rule explicit; it does not change a candidate, control, effect-size
+threshold, cohort, or observed validation outcome.
+
 ### 5.2 Routing versus transported content
 
 For confirmed heads, projection patching is performed at layer 5:
@@ -234,4 +240,3 @@ The result is reported using the strongest row reached:
 
 An anomalous preflight or QKV replay freezes interpretation. A null is preserved and narrows the mechanism;
 candidate rules, controls, windows, and thresholds are not revised to manufacture a sparse circuit.
-
