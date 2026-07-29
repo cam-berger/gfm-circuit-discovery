@@ -1,10 +1,13 @@
 # D13 preregistration — composition vs. position in the confirmed TSS polarity
 
-> **Tier: T1 — frozen protocol.** Frozen 2026-07-29.
+> **Tier: T1 — frozen protocol.** Frozen 2026-07-29; amended 2026-07-29 (Amendment 1, pre-outcome).
 > Controls
+> [`../../configs/dnabert2_atlas/promoter_composition_v2.frozen.json`](../../configs/dnabert2_atlas/promoter_composition_v2.frozen.json)
+> (`schema_version` 2, `status` `FROZEN`, study `dnabert2_biological_reconstruction_atlas`, assay
+> `promoter_composition_v2`, `supersedes` `promoter_composition_v1.frozen.json`). The original
 > [`../../configs/dnabert2_atlas/promoter_composition_v1.frozen.json`](../../configs/dnabert2_atlas/promoter_composition_v1.frozen.json)
-> (`schema_version` 1, `status` `FROZEN`, study `dnabert2_biological_reconstruction_atlas`, assay
-> `promoter_composition_v1`). Read before treating any result from this assay as evidence.
+> is preserved unedited and superseded, not deleted — see **Amendment 1** below for why. Read before
+> treating any result from this assay as evidence.
 
 D13 is the causal follow-up to D12's confirmed TSS-polarity result. D12 qualified one endpoint,
 `E2_tss_polarity`
@@ -239,6 +242,101 @@ seeds — nothing is re-tuned between splits.
   polarity, and that must be reported as the finding.
 - P3 is secondary and never gates confirmation.
 - No result licenses any statement about a bounded domain or a distal edge; D12 refuted those.
+
+## Amendment 1 — MDE ceiling and block granularity (pre-outcome)
+
+**Trigger.** v1 set `calibration.projected_MDE_ceiling = 0.15` equal to the P1 SESOI, without
+checking that value against the per-locus variance the matched-pair design can actually achieve.
+It cannot: the study cannot pass its own calibration gate at any supply reachable under v1's 1-Mb
+block-disjointness rule. This was found, and this amendment made, before any D13 target result had
+been read — see **Verified pre-outcome timing** below.
+
+**Measured basis.** The per-locus SD of the P1 estimator — a single in-caliper matched pair, which
+is what P1 actually computes per locus, not an average over several in-caliper candidates — measured
+on the matched subset of the D12 confirmation data, is **1.2745**. An earlier figure of 1.09 that
+circulated for this quantity was wrong: it described a different, *averaged* estimator, not the
+single-pair one P1 computes. Projected MDE follows the standard two-sided, 80%-power form
+`MDE = 2.80 * sd / sqrt(n)`. At the matched-pair supply v1 actually achieved
+(`results/dnabert2_reconstruction_atlas/promoter_composition_supply_audit_v1.json`,
+`matching_feasibility.by_split.development.matched_pair_frozen_caliper = 122`), the projected MDE is
+`2.80 * 1.2745 / sqrt(122) = 0.323` — above even an *amended* ceiling of 0.28, and far above v1's
+0.15. Reaching an MDE of 0.28 needs `n >= 163` matched loci per split
+(`2.80 * 1.2745 / sqrt(163) = 0.2797`).
+
+**Rejected alternative — variance-reduction redesign.** Before relaxing supply, a change to the
+estimator itself was tested: averaging `target_specific_loss` over *all* in-caliper candidate pairs
+at a locus, instead of taking the single best-matched pair. Measured on the same matched subset, this
+gives `sd = 1.2677` versus the single-pair estimator's `1.2745` — a 0.5% variance reduction. Candidate
+pairs inside the same ~30-nt region share tokens and are highly correlated with each other, so
+averaging them buys almost nothing: the dominant variance component is **between-locus**
+heterogeneity in mask sensitivity, not within-locus estimator noise, and no within-locus estimator
+change addresses it. This redesign is recorded here as tested and rejected specifically so that it is
+not re-proposed in a future amendment without new evidence.
+
+**Decision (two changes, both frozen in
+[`../../configs/dnabert2_atlas/promoter_composition_v2.frozen.json`](../../configs/dnabert2_atlas/promoter_composition_v2.frozen.json),
+which declares `"supersedes": "configs/dnabert2_atlas/promoter_composition_v1.frozen.json"`). v1 is
+not edited — it stays immutable as the record of what was originally specified and why it needed to
+change.**
+
+1. `calibration.projected_MDE_ceiling`: `0.15` → **`0.28`**. On its own this is necessary but not
+   sufficient: at the achieved development `n = 122` the corrected MDE (0.323) still exceeds 0.28.
+2. Block granularity relaxed from 1 Mb to **250 kb**, with **own-block exclusion**: a 250-kb block is
+   available unless *that block itself* contains a TSS already consumed by a prior cohort — recomputed
+   directly from each prior cohort's raw target-TSS coordinate at 250-kb granularity, not from that
+   cohort's own (possibly 1-Mb) stored block id. This is the change that actually restores supply: the
+   more conservative reading — excluding an entire former 1-Mb parent block whenever *any* TSS inside
+   it had already been consumed, i.e. inheriting exclusion from the coarser 1-Mb grid rather than
+   checking the 250-kb block itself — frees only 641 blocks, which does not reach the supply this
+   amendment requires. Own-block exclusion frees approximately **5,106** blocks, which is ample.
+
+Supply targets follow from these two changes: `target_raw_pairs_per_split` `220` → **`400`**,
+`minimum_matched_pairs_per_split` `120` → **`163`**. At 400 raw pairs per split and the ~55% matched
+yield v1 actually measured (not its own 62% pre-build proxy — see
+`configs/dnabert2_atlas/promoter_composition_v2.frozen.json`'s `supply.yield_basis`), projected matched
+supply is ~220 per split, giving a projected MDE of **0.241**, clearing the amended 0.28 ceiling with
+margin. The bootstrap `cluster_unit` (`inference.cluster_unit`) becomes the unique **250-kb** block,
+matching the new admission granularity.
+
+**Independence cost — a limitation, not a technicality.** The 1-Mb block rule existed to keep cohort
+members independent for the cluster bootstrap. At 250 kb, two cohort members can sit far closer
+together than v1 ever permitted, and neighbouring promoters share regulatory context and sequence
+composition. The bootstrap's cluster-independence assumption is therefore **genuinely weaker** under
+this amendment than at any prior phase of this study — not a bookkeeping detail, but a real limitation
+of any P1/P2/P3 result obtained under v2. Any report of a D13 outcome under this config must state
+this alongside the result, not leave it implicit in the block-size number. The same declaration is
+recorded in the config itself, at `boundaries.independence_cost`.
+
+**A failed P1 licenses no null, even at the amended ceiling.** This study is powered against the
+discriminating contrast this question actually turns on — the confirmed polarity of
+**+0.3262** (`E2_tss_polarity`,
+`results/dnabert2_reconstruction_atlas/promoter_domain_confirmation_v1.json`) surviving matching at
+roughly that magnitude, versus composition explaining it down toward zero — not against the 0.15 SESOI
+floor as an abstract detection target. A qualified P1 with a positive lower bound answers the question
+this study asks; a P1 that fails while the planted positive passes still supports composition as the
+explanation of the polarity, per **Stop rules** above, unchanged by this amendment. Nothing in this
+amendment relaxes that: it only widens the instrument enough to read the ~0.30-magnitude contrast at
+all, at the cost above.
+
+**Verified pre-outcome timing.** No D13 target result existed when this amendment was written or when
+it was implemented: neither
+`results/dnabert2_reconstruction_atlas/promoter_composition_development_v1.json` nor
+`results/dnabert2_reconstruction_atlas/promoter_composition_confirmation_v1.json` exists anywhere in
+the working tree. No script that could produce either — a development- or confirmation-split scorer
+computing `target_specific_loss` for this assay — exists yet under `scripts/dnabert2_atlas/`; only the
+outcome-blind cohort builder and the outcome-blind supply/matching-feasibility audit
+(`model_outcomes_computed: false` throughout) exist. No such process was running at the time. The
+branch's most recent commit at the time of this amendment was Task 4's cohort build and audit
+(`2de0b28`, itself outcome-blind). This amendment is therefore outcome-blind by construction, in the
+same sense as D12 Amendment 2: it was made before any P1, P2, or P3 value could have been known in
+either direction.
+
+**What this amendment does not change.** The calipers (GC 0.05 / CpG 0.03 tight match, 0.20 unmatched
+separation), the regions, the endpoint definitions and their SESOIs, the memorials, the calibration
+checks themselves (only the MDE ceiling they are compared against), the split gate, the stop rules,
+and the seeds are all unchanged from v1 — copied byte-for-byte into v2. **The calipers in particular
+are never widened by this amendment**; widening either caliper is the exact confound this study exists
+to control for, and no supply shortfall licenses it.
 
 ## Prior art
 

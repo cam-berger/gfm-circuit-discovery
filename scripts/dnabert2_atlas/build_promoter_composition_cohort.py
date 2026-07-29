@@ -8,14 +8,30 @@ geometry, control-offset ladder, and matching-balance tolerances are read from
 that same admission-rule configuration
 (`configs/dnabert2_atlas/promoter_classifier_v2.frozen.json`), unchanged.
 
-The only intended change is the transcript filter (per
-`.superpowers/sdd/2026-07-29-composition-vs-position/task-4-brief.md`):
-GENCODE v50 protein-coding TSSs, one per gene, drawn from
+The only intended change (v1, per
+`.superpowers/sdd/2026-07-29-composition-vs-position/task-4-brief.md`) was the
+transcript filter: GENCODE v50 protein-coding TSSs, one per gene, drawn from
 `iter_gencode_protein_coding_tss` (which prefers a non-MANE-Select transcript
-whenever a gene has one), and restricted to 1-Mb blocks that are disjoint from
-every prior cohort under `data/processed/dnabert2_atlas/*/cohort.jsonl`. MANE
-Select is exhausted under the block-disjointness rule alone, so this extends
-the source definition rather than reusing D4/D7-D12's MANE-only pool.
+whenever a gene has one), restricted to locus blocks disjoint from every prior
+cohort under `data/processed/dnabert2_atlas/*/cohort.jsonl`. MANE Select is
+exhausted under the block-disjointness rule alone, so this extends the source
+definition rather than reusing D4/D7-D12's MANE-only pool.
+
+**Block size and exclusion rule (v2, Amendment 1,
+`studies/dnabert2_reconstruction_atlas/PREREGISTRATION_D13_COMPOSITION_VS_POSITION.md`):**
+the locus-block size is read from the run's config
+(`boundaries.block_size_nt`; defaults to 1,000,000 -- v1's hardcoded value --
+when a config carries no `boundaries` section, so this script still reproduces
+v1 byte-for-byte). "Disjoint from every prior cohort" is **own-block
+exclusion**: a candidate block is unavailable only if *that block itself* (at
+the current run's block size) contains a TSS already consumed by a prior
+cohort. Every prior cohort's consumed footprint is recomputed from its raw
+`target.chrom` / `target.tss`, not from that cohort's own stored
+`homology_cluster` string, so relaxing block size (e.g. v1's 1 Mb to v2's
+250 kb) is applied uniformly to prior cohorts regardless of the block size
+each was itself built under. See `boundaries.independence_cost` in v2's config
+and preregistration Amendment 1 for why this loosens the cluster-bootstrap
+independence assumption and is not a free relaxation.
 
 Declared confound (see the supply audit and
 `studies/dnabert2_reconstruction_atlas/PREREGISTRATION_D13_COMPOSITION_VS_POSITION.md`):
@@ -88,6 +104,7 @@ def main() -> None:
     if upstream + downstream + 1 != int(collection_config["input_length_nt"]):
         raise SystemExit("composition cohort window geometry is inconsistent")
 
+    block_size_nt = int(config.get("boundaries", {}).get("block_size_nt", 1_000_000))
     target_per_split = int(config["supply"]["target_raw_pairs_per_split"])
     out_path = Path(args.out).resolve()
 
@@ -97,7 +114,7 @@ def main() -> None:
     tss_by_chrom = all_gencode_tss_by_chrom(args.gtf)
     candidates = iter_gencode_protein_coding_tss(args.gtf)
     prior_cohort_paths = _prior_cohort_paths(out_path)
-    consumed_blocks = _consumed_blocks(prior_cohort_paths)
+    consumed_blocks = _consumed_blocks(prior_cohort_paths, block_size_nt)
     fasta = Fasta(args.genome, as_raw=True, sequence_always_upper=True)
 
     counters: Counter[str] = Counter()
@@ -105,7 +122,7 @@ def main() -> None:
     candidate_rows: list[dict[str, Any]] = []
     for feature in candidates:
         counters["protein_coding_gene_candidates_offered"] += 1
-        block = _block(feature.chrom, feature.tss)
+        block = _block(feature.chrom, feature.tss, block_size_nt)
         if block in consumed_blocks:
             counters["block_already_consumed_by_prior_cohort"] += 1
             continue
@@ -280,10 +297,11 @@ def main() -> None:
     matching_cpg = [
         row["matching"]["absolute_cpg_fraction_difference"] for row in selected
     ]
+    assay_version = str(config["assay"]).rsplit("_", 1)[-1]
     cohort_path, cohort_manifest = write_jsonl_bundle(
         args.out,
         selected,
-        experiment_id="dnabert2_promoter_composition_cohort_v1",
+        experiment_id=f"dnabert2_promoter_composition_cohort_{assay_version}",
         status="PREFLIGHT",
         model_identity=model_identity,
         input_paths=source_inputs,
@@ -296,9 +314,12 @@ def main() -> None:
             "source_definition": (
                 "GENCODE v50 protein-coding TSSs including non-MANE-Select "
                 "transcripts (one per gene, non-MANE preferred), restricted to "
-                "1-Mb blocks unused by any prior cohort under "
-                "data/processed/dnabert2_atlas/*/cohort.jsonl"
+                f"own-block-excluded {_format_block_size(block_size_nt)} blocks unused "
+                "by any prior cohort under data/processed/dnabert2_atlas/*/cohort.jsonl "
+                "(own-block exclusion: a block is unavailable only if that block itself "
+                "contains a TSS already consumed by a prior cohort)"
             ),
+            "block_size_nt": block_size_nt,
             "target_raw_pairs_per_split": target_per_split,
             "n_examples": len(selected),
             "split_counts": dict(sorted(split_counts.items())),
@@ -357,7 +378,14 @@ def _prior_cohort_paths(out_path: Path) -> tuple[Path, ...]:
     return tuple(paths)
 
 
-def _consumed_blocks(paths: tuple[Path, ...]) -> set[str]:
+def _consumed_blocks(paths: tuple[Path, ...], block_size_nt: int) -> set[str]:
+    """Own-block exclusion: recompute, at *this run's* block size, the block each prior
+    cohort's target TSS falls in -- never trust a prior cohort's own stored
+    `homology_cluster`, which may have been computed at a different (e.g. coarser 1-Mb)
+    block size. A block is "consumed" only if it itself contains a prior target TSS;
+    unconsumed sibling sub-blocks under the same former, coarser parent block remain
+    available. See `boundaries.exclusion_rule_definition` in the composition v2 config
+    and PREREGISTRATION_D13_COMPOSITION_VS_POSITION.md Amendment 1."""
     blocks: set[str] = set()
     for path in paths:
         with Path(path).open(encoding="utf-8") as handle:
@@ -366,10 +394,21 @@ def _consumed_blocks(paths: tuple[Path, ...]) -> set[str]:
                 if not line:
                     continue
                 row = json.loads(line)
-                cluster = row.get("homology_cluster")
-                if cluster:
-                    blocks.add(str(cluster))
+                target = row.get("target") or {}
+                chrom = target.get("chrom")
+                tss = target.get("tss")
+                if chrom is None or tss is None:
+                    continue
+                blocks.add(_block(str(chrom), int(tss), block_size_nt))
     return blocks
+
+
+def _format_block_size(block_size_nt: int) -> str:
+    if block_size_nt % 1_000_000 == 0:
+        return f"{block_size_nt // 1_000_000}-Mb"
+    if block_size_nt % 1_000 == 0:
+        return f"{block_size_nt // 1_000}-kb"
+    return f"{block_size_nt}-nt"
 
 
 def _resolve_gue_root() -> Path:
@@ -389,15 +428,21 @@ def _resolve_gue_root() -> Path:
     return Path(hits[0])
 
 
-def _block(chrom: str, tss: int) -> str:
-    return f"locus1000000:{chrom}:{tss // 1_000_000}"
+def _block(chrom: str, tss: int, block_size_nt: int) -> str:
+    """The block id embeds the block size, so ids computed at different sizes never
+    collide as strings (e.g. `locus1000000:...` vs `locus250000:...`) -- consumed-block
+    membership must always be recomputed at the current run's block size, never compared
+    across differently-sized runs by string equality alone."""
+    return f"locus{block_size_nt}:{chrom}:{tss // block_size_nt}"
 
 
 def _select_locus_blocked(
     rows: list[dict[str, Any]], *, maximum_per_split: int
 ) -> list[dict[str, Any]]:
-    """One row per (split, 1-Mb block), ranked by a seeded hash -- copied from
-    `build_promoter_classifier_cohort.py`'s `_select_locus_blocked`, unchanged."""
+    """One row per (split, locus block -- size set by the run's config), ranked by a
+    seeded hash -- copied from `build_promoter_classifier_cohort.py`'s
+    `_select_locus_blocked`, unchanged (the algorithm is size-agnostic; it only ever
+    treats `homology_cluster` as an opaque cluster key)."""
 
     by_split_cluster: dict[str, dict[str, dict[str, Any]]] = defaultdict(dict)
     for row in rows:

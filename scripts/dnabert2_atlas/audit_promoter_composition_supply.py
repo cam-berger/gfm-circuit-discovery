@@ -2,7 +2,7 @@
 """Outcome-blind supply AND matching-feasibility audit for the D13 composition cohort.
 
 Reports, per split, without computing any model score: pair count, unique
-1-Mb blocks, zero GUE hits, zero block overlap with prior cohorts, and --
+locus blocks, zero GUE hits, zero block overlap with prior cohorts, and --
 the real risk this study faces -- how many loci admit a composition-matched
 downstream/upstream cover pair inside the frozen tight caliper (GC 0.05,
 CpG 0.03), and how many admit an unmatched (planted-positive) pair at the
@@ -13,11 +13,25 @@ No classifier margin or loss is read; `model_outcomes_computed` is `false`
 throughout.
 
 The calipers are FROZEN
-(`configs/dnabert2_atlas/promoter_composition_v1.frozen.json`) and are never
+(`configs/dnabert2_atlas/promoter_composition_v1.frozen.json`,
+superseded by `promoter_composition_v2.frozen.json` -- Amendment 1 changes
+the MDE ceiling and block granularity, never the calipers) and are never
 widened here, including when the matched-pair count comes in short: per the
 task brief, a shortfall is reported as an achieved caliper-vs-supply curve
 and left for a decision, not papered over by loosening the caliper that this
 study exists to hold fixed.
+
+The block size for "prior-cohort overlap" is read from the run's config
+(`boundaries.block_size_nt`, defaulting to 1,000,000 -- v1's implicit value
+-- when absent) and every prior cohort's consumed footprint is independently
+recomputed at that size from its raw `target.chrom`/`target.tss`, matching
+`build_promoter_composition_cohort.py`'s own-block-exclusion rule exactly
+(own-block exclusion: a block is unavailable only if that block itself
+contains a previously consumed TSS). This audit does not trust the builder's
+self-reported overlap count; recomputing at the wrong (e.g. stale, coarser)
+block size would make the overlap check pass vacuously regardless of whether
+the builder was actually correct, which defeats the point of an independent
+recheck.
 """
 
 from __future__ import annotations
@@ -110,9 +124,10 @@ def main() -> None:
     upstream_region = tuple(int(v) for v in regions["upstream_relative"])
 
     # ---- supply invariants, recomputed independently of the builder -------
+    block_size_nt = int(config.get("boundaries", {}).get("block_size_nt", 1_000_000))
     cohort_path = Path(args.cohort).resolve()
     prior_cohort_paths = _prior_cohort_paths(cohort_path)
-    consumed_blocks = _consumed_blocks(prior_cohort_paths)
+    consumed_blocks = _consumed_blocks(prior_cohort_paths, block_size_nt)
     gue_root = _resolve_gue_root()
     gue_paths = [gue_root / f"{split}.csv" for split in ("train", "dev", "test")]
     gue_index = read_gue_sequences(gue_paths)
@@ -300,6 +315,7 @@ def main() -> None:
             "It computes no classifier margin, loss, or target outcome."
         ),
         "supply": supply,
+        "block_size_nt": block_size_nt,
         "split_leakage_clusters": split_leakage,
         "matching_feasibility": {
             "frozen_caliper": {"GC": tight_caliper_gc, "CpG": tight_caliper_cpg},
@@ -329,10 +345,11 @@ def main() -> None:
             "rows": len(rows),
         },
     }
+    assay_version = str(config["assay"]).rsplit("_", 1)[-1]
     write_result_bundle(
         args.out,
         payload,
-        experiment_id="dnabert2_promoter_composition_supply_audit_v1",
+        experiment_id=f"dnabert2_promoter_composition_supply_audit_{assay_version}",
         status="PREFLIGHT",
         model_identity=bundle.identity(),
         input_paths=common_inputs,
@@ -343,6 +360,7 @@ def main() -> None:
             "nominal_width_nt": NOMINAL_WIDTH_NT,
             "minimum_matched_pairs_per_split": minimum_matched,
             "target_raw_pairs_per_split": target_raw,
+            "block_size_nt": block_size_nt,
         },
         seeds={"inference": int(config["inference"]["seed"])},
         command=sys.argv,
@@ -368,7 +386,23 @@ def _prior_cohort_paths(cohort_path: Path) -> tuple[Path, ...]:
     )
 
 
-def _consumed_blocks(paths: tuple[Path, ...]) -> set[str]:
+def _block(chrom: str, tss: int, block_size_nt: int) -> str:
+    """Matches `build_promoter_composition_cohort.py`'s `_block` exactly -- the block id
+    embeds the block size, so ids computed at different sizes never collide as strings."""
+    return f"locus{block_size_nt}:{chrom}:{tss // block_size_nt}"
+
+
+def _consumed_blocks(paths: tuple[Path, ...], block_size_nt: int) -> set[str]:
+    """Own-block exclusion, independently recomputed at *this run's* block size from each
+    prior cohort's raw target TSS coordinate -- never from that cohort's own stored
+    `homology_cluster`, which may have been written at a different (e.g. coarser 1-Mb)
+    block size. Without this, comparing a 250-kb cohort's block ids against a 1-Mb prior
+    cohort's stored block ids by string equality would never find a collision regardless
+    of whether the builder's own exclusion was correct -- the whole point of recomputing
+    this independently of the builder is defeated if the recomputation trusts a
+    differently-scoped stored value. See `build_promoter_composition_cohort.py`'s
+    `_consumed_blocks` (kept in sync; duplicated rather than imported so this audit does
+    not depend on the builder module at runtime)."""
     blocks: set[str] = set()
     for path in paths:
         with Path(path).open(encoding="utf-8") as handle:
@@ -377,9 +411,12 @@ def _consumed_blocks(paths: tuple[Path, ...]) -> set[str]:
                 if not line:
                     continue
                 row = json.loads(line)
-                cluster = row.get("homology_cluster")
-                if cluster:
-                    blocks.add(str(cluster))
+                target = row.get("target") or {}
+                chrom = target.get("chrom")
+                tss = target.get("tss")
+                if chrom is None or tss is None:
+                    continue
+                blocks.add(_block(str(chrom), int(tss), block_size_nt))
     return blocks
 
 
