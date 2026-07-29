@@ -51,5 +51,17 @@ The complete layer-5 context-head census is:
 These artifacts control GFS17. They establish shared context carriers `L5H14`/`L5H8`, a donor-selected
 `L5H12` assignment, and an acceptor-selected `L5H11` assignment under bidirectional one-head
 interventions. Their positive descriptive opposite-endpoint measurements do not license specialization.
-Joint head interventions and head-to-MLP path patching have not yet been run, so the census does not
-establish completeness or a directed circuit.
+
+The joint/path/low-rank extension is:
+
+- `native_context_lowrank_discovery_v1.json`: fresh seed-2020 gene means and frozen endpoint SVD bases,
+  task directions, ranks, and random-subspace tags;
+- `native_context_joint_lowrank_confirmation_v1.json`: untouched `n=200`, five-seed joint-head,
+  head→MLP path, and low-rank confirmation.
+
+These artifacts control GFS18. The frozen triples confirm above three matched-size control sets and carry
+`28.6–34.4%` of behavior, so they are a structured but incomplete causal core. Their joint effects are
+mildly super-additive rather than redundant. Path patching places `98.0–100.0%` of the triple effect
+through the induced final-MLP write. The seed-2020 task direction does not confirm across all seeds, and
+no tested rank through 64 reaches 50% of the full-MLP effect; raw low-rank coordinates are therefore
+bounded as seed-specific rather than licensed as a universal classifier direction.

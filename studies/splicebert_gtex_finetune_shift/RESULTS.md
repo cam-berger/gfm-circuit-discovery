@@ -29,6 +29,8 @@ Immutable results:
 | frozen `L5H6`/MLP component bridge | `scripts/splicebert/run_gtex_native_context_component_bridge.py` | `results/splicebert_gtex_finetune_shift/native_context_component_bridge_v1.json` (MLP transfers; `L5H6` does not) |
 | complete train-only L5 context-head census | `scripts/splicebert/run_gtex_native_context_head_census_discovery.py` | `results/splicebert_gtex_finetune_shift/native_context_head_census_discovery_v1.json` (all 16 heads; candidates/controls frozen) |
 | fresh five-seed context-head confirmation | `scripts/splicebert/run_gtex_native_context_head_census_confirmation.py` | `results/splicebert_gtex_finetune_shift/native_context_head_census_confirmation_v1.json` (`L5H14`/`L5H8` shared; `L5H12` donor-selected; `L5H11` acceptor-selected) |
+| fresh low-rank direction freeze | `scripts/splicebert/run_gtex_native_context_lowrank_discovery.py` | `results/splicebert_gtex_finetune_shift/native_context_lowrank_discovery_v1.json` (seed-2020 endpoint bases/directions frozen) |
+| joint heads, head→MLP path, and low-rank confirmation | `scripts/splicebert/run_gtex_native_context_joint_lowrank_confirmation.py` | `results/splicebert_gtex_finetune_shift/native_context_joint_lowrank_confirmation_v1.json` (joint/path confirm; completeness and universal direction do not) |
 
 The five-seed artifact includes all 400 paired per-example values for the base and each seed, gene-grouped
 bootstrap intervals, 9,999 gene-level sign flips with add-one p-values, BH correction across the 15
@@ -77,5 +79,22 @@ confirmed for donor context, and `L5H11` for acceptor context. Damage ranges fro
 recovery from `0.079` to `0.204`; every frozen candidate effect is positive in all five seeds and exceeds
 its three equal-size controls. Non-top-three eligible heads remain exploratory, and positive descriptive
 opposite-endpoint measurements prevent a stronger specialization claim. These are causal carriers, not
-yet a complete circuit: their joint faithfulness, redundancy, and directed mediation into the final MLP
-remain unmeasured.
+yet a complete circuit.
+
+The frozen joint intervention now quantifies that boundary. The donor triple causes `0.356/0.411`
+damage/recovery and the acceptor triple `0.347/0.416`, each well above three matched-size control sets.
+They recover only `28.6–34.4%` of behavior, but their joint effects are mildly super-additive relative to
+the singleton sum and every leave-one-out marginal is positive. They are therefore complementary causal
+cores inside the broader head population, not redundant or complete circuits. Head→MLP path patching is
+decisive: the induced MLP write reproduces `98.0–100.0%` of each triple effect, whereas the controlled
+residual-bypass route contributes at most `2.1%`.
+
+The low-rank arm bounds the coordinate-level interpretation. The seed-2020 discovery matrices are
+spectrally concentrated, but the frozen one-dimensional task direction fails the five-seed sign gate.
+Ranks 4/16/64 have detectable effects above dimension-matched random subspaces, yet even rank 64 has
+ratio estimates of only `28.9–33.9%` of the full-MLP effect and no tested rank clears the frozen 50%
+criterion. Seed-level
+estimates show that most magnitude comes from the checkpoint on which the basis was fit. The publishable
+mechanism is thus a seed-reproducible **functional path**—multiple heads into the final MLP—not a single
+shared raw-coordinate direction. A per-seed fit plus preregistered subspace alignment is required before
+claiming geometric convergence.

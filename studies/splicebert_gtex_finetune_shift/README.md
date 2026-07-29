@@ -114,8 +114,20 @@ All six endpoint assignments pass bidirectional effect, five-seed, multiplicity,
 control gates. Individual head recovery accounts for `5.8–14.9%` of the corresponding behavior by a
 ratio of gene means, so the result supports several routes into the MLP rather than a
 single universal head. The opposite-endpoint measurements of `L5H11` and `L5H12` were descriptive
-controls and are also positive, so endpoint specialization is not licensed. Joint intervention and
-head-to-MLP path patching remain necessary before making a completeness or directed-circuit claim.
+controls and are also positive, so endpoint specialization is not licensed.
+
+Joint intervention and head-to-MLP path patching resolve the next level. The donor and acceptor triples
+each carry `28.6–34.4%` of the corresponding behavior and exceed three matched-size control sets. They
+are mildly complementary rather than redundant, but fail the frozen 80%-completeness rule. Replaying only
+the MLP-write change induced by each frozen triple reproduces `98.0–100.0%` of its total effect; clamping
+away that MLP change leaves at most `2.1%` through the residual bypass. This establishes a replicated
+many-head→final-MLP causal route for both context signals.
+
+The raw-coordinate low-rank hypothesis does not generalize cleanly. A task direction and SVD basis fit on
+seed 2020 have substantial causal effect in that checkpoint but little magnitude in seeds 2021–2024.
+The task direction fails the five-seed gate, and no tested rank through 64 reaches half of the full-MLP
+effect. The mechanism is therefore shared at the functional level—late heads feeding a dominant final
+MLP transformation—while its exact vector coordinates remain seed-specific.
 
 One 16-nt acceptor half has no alternative exact Eulerian ordering for one sequence. The correction audit
 quarantines that half-resolution contrast; it does not affect either full 32-nt region, sham, independent
