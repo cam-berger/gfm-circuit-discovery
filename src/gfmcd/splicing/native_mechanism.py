@@ -171,6 +171,13 @@ def capture_final_layer_run(
 
     def capture_context(_module: Any, _inputs: Any, output: Any) -> None:
         store["heads"] = _split_heads(_first_tensor(output), adapter.num_heads)
+        if (
+            output_attentions
+            and isinstance(output, (tuple, list))
+            and len(output) > 1
+            and torch.is_tensor(output[1])
+        ):
+            store["attention"] = output[1].detach().clone()
 
     def capture(name: str):
         def hook(_module: Any, _inputs: Any, output: Any) -> None:
@@ -194,13 +201,11 @@ def capture_final_layer_run(
             handle.remove()
 
     required = {"heads", "query", "key", "value", "mlp_write"}
+    if output_attentions:
+        required.add("attention")
     if set(store) != required:
         raise RuntimeError(f"missing final-layer captures: {sorted(required - set(store))}")
-    attention = None
-    if output_attentions:
-        if not isinstance(output, (tuple, list)) or len(output) < 2:
-            raise RuntimeError("final layer did not return attention probabilities")
-        attention = output[1].detach().clone()
+    attention = store.get("attention")
     hidden = _first_tensor(output).detach().clone()
     return FinalLayerRun(
         hidden=hidden,
