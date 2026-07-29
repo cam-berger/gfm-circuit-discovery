@@ -148,3 +148,25 @@ heads. The final MLP carries `99.7–99.9%` of both context effects, while `L5H6
 and smaller than the controls for both endpoints. The conclusion is therefore not “one universal context
 head.” The fine-tune has multiple late attention routes that converge on a shared task-aligned final MLP;
 `L5H6` is a specialized paired-acceptor carrier within that broader computation.
+
+## 2026-07-29 — complete the L5 census on a fresh internal gene split
+
+The prior component bridge exposed four heads on the historical validation cohort, so it could not serve
+as an unbiased discovery or confirmation census. Before evaluating another head, the all-16 protocol was
+frozen in
+[`PREREGISTRATION_NATIVE_CONTEXT_HEAD_CENSUS_V1.md`](PREREGISTRATION_NATIVE_CONTEXT_HEAD_CENSUS_V1.md).
+Every gene previously used in a train-stage GTEx mechanism/context artifact was excluded. The remaining
+chromosome-train genes were hash-partitioned 70/30 into discovery and fresh internal confirmation, with
+zero gene overlap and no use of historical validation or sealed chr8/9 examples.
+
+Seed-2020 discovery froze donor candidates `L5H14`, `L5H8`, and `L5H12`, and acceptor candidates
+`L5H11`, `L5H14`, and `L5H8`, each with three deterministic non-candidate controls. On the fresh
+five-seed confirmation cohort, every candidate passes the bidirectional `≥0.05` effect floor, interval,
+multiplicity, all-five-seed, and equal-size-control gates.
+
+The resulting organization is neither “all MLP” nor “one context head.” `L5H14` and `L5H8` are shared
+carriers, while `L5H12` and `L5H11` are donor- and acceptor-specialized respectively. Individual
+recoveries remain only `5.8–14.9%` of behavior, and nonlinear interactions make their effects
+non-additive. The next experiment must therefore test the frozen head sets jointly against matched-size
+random sets and path-patch their writes into the final MLP; the census alone does not license
+completeness, redundancy, or a directed circuit.

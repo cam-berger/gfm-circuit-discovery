@@ -1,17 +1,17 @@
 {
- "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc). GFS rows appended 2026-07-28 (GTEx fine-tuning shift). Native-classifier GFS6\u2013GFS9 rows appended 2026-07-29. Final-layer mechanism GFS10\u2013GFS13 rows appended 2026-07-29. Context-localization GFS14\u2013GFS16 rows appended 2026-07-29.",
- "row_count": 842,
+ "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc). GFS rows appended 2026-07-28 (GTEx fine-tuning shift). Native-classifier GFS6\u2013GFS9 rows appended 2026-07-29. Final-layer mechanism GFS10\u2013GFS13 rows appended 2026-07-29. Context-localization GFS14\u2013GFS16 rows appended 2026-07-29. Complete L5 context-head census GFS17 rows appended 2026-07-29.",
+ "row_count": 846,
  "status_counts": {
-  "canonical": 559,
-  "development": 133,
+  "canonical": 561,
+  "development": 135,
   "infrastructure": 14,
   "superseded": 136
  },
  "polarity_counts": {
-  "bounded": 43,
+  "bounded": 45,
   "na": 287,
   "null": 19,
-  "positive": 488,
+  "positive": 490,
   "refutation": 5
  },
  "columns": [
@@ -8432,6 +8432,46 @@
    "polarity": "bounded",
    "artifact": "results/splicebert_gtex_finetune_shift/native_context_component_bridge_v1.manifest.json",
    "script": "scripts/splicebert/run_gtex_native_context_component_bridge.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS17",
+   "status": "development",
+   "evidence_level": "Candidate generation",
+   "polarity": "bounded",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_context_head_census_discovery_v1.json",
+   "script": "scripts/splicebert/run_gtex_native_context_head_census_discovery.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/native_context_head_census_discovery_v1.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS17",
+   "status": "development",
+   "evidence_level": "Candidate generation",
+   "polarity": "bounded",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_context_head_census_discovery_v1.manifest.json",
+   "script": "scripts/splicebert/run_gtex_native_context_head_census_discovery.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS17",
+   "status": "canonical",
+   "evidence_level": "Mediation",
+   "polarity": "positive",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_context_head_census_confirmation_v1.json",
+   "script": "scripts/splicebert/run_gtex_native_context_head_census_confirmation.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/native_context_head_census_confirmation_v1.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS17",
+   "status": "canonical",
+   "evidence_level": "Mediation",
+   "polarity": "positive",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_context_head_census_confirmation_v1.manifest.json",
+   "script": "scripts/splicebert/run_gtex_native_context_head_census_confirmation.py",
    "manifest": "",
    "figure": ""
   },

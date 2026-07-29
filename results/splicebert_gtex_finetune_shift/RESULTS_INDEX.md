@@ -40,3 +40,15 @@ The native context-localization series is:
 These artifacts control GFS14–GFS16. They establish two higher-order context dependencies, late
 source-to-target integration, and convergence on the final MLP. They do not yet identify the biological
 grammar or the final-attention carriers of those regions.
+
+The complete layer-5 context-head census is:
+
+- `native_context_head_census_discovery_v1.json`: all 16 heads, both endpoints and both patch
+  directions on a prior-gene-excluded train partition; candidates and controls frozen;
+- `native_context_head_census_confirmation_v1.json`: fresh, gene-disjoint `n=200` confirmation across
+  all five checkpoints.
+
+These artifacts control GFS17. They establish shared context carriers `L5H14`/`L5H8`, donor-specific
+`L5H12`, and acceptor-specific `L5H11` under bidirectional one-head interventions. Joint head
+interventions and head-to-MLP path patching have not yet been run, so the census does not establish
+completeness or a directed circuit.

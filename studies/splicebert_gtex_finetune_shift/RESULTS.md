@@ -27,6 +27,8 @@ Immutable results:
 | delivered-dose correction audit | `scripts/splicebert/audit_gtex_native_context_confirmation.py` | `results/splicebert_gtex_finetune_shift/native_context_confirmation_audit_v1.json` (full regions licensed; one acceptor half quarantined) |
 | source-to-target depth trace | `scripts/splicebert/run_gtex_native_context_depth_trace.py` | `results/splicebert_gtex_finetune_shift/native_context_depth_trace_v1.json` (material arrival after layer 4) |
 | frozen `L5H6`/MLP component bridge | `scripts/splicebert/run_gtex_native_context_component_bridge.py` | `results/splicebert_gtex_finetune_shift/native_context_component_bridge_v1.json` (MLP transfers; `L5H6` does not) |
+| complete train-only L5 context-head census | `scripts/splicebert/run_gtex_native_context_head_census_discovery.py` | `results/splicebert_gtex_finetune_shift/native_context_head_census_discovery_v1.json` (all 16 heads; candidates/controls frozen) |
+| fresh five-seed context-head confirmation | `scripts/splicebert/run_gtex_native_context_head_census_confirmation.py` | `results/splicebert_gtex_finetune_shift/native_context_head_census_confirmation_v1.json` (`L5H14`/`L5H8` shared; `L5H12` donor; `L5H11` acceptor) |
 
 The five-seed artifact includes all 400 paired per-example values for the base and each seed, gene-grouped
 bootstrap intervals, 9,999 gene-level sign flips with add-one p-values, BH correction across the 15
@@ -65,3 +67,12 @@ arrival at the classifier target after layer 4, and is fully integrated after th
 MLP carries essentially all of both context effects, but the coupling-selected `L5H6` carries neither
 under the frozen control rule. The resulting model is therefore **multiple late attention routes
 converging on a shared final task transformation**, not one universal final-layer context head.
+
+The completed L5 census identifies those routes at one-head resolution. The all-16 seed-2020 discovery
+froze three candidates per endpoint. A fresh internal gene split, excluding every previously exposed
+train gene and every historical validation/test chromosome, confirms all six assignments across the
+five checkpoints. `L5H14` and `L5H8` are shared donor/acceptor context carriers; `L5H12` is donor-specific
+and `L5H11` acceptor-specific under the frozen interventions. Damage ranges from `0.057` to `0.142`, and
+recovery from `0.079` to `0.204`; every effect is positive in all five seeds and exceeds its three
+equal-size controls. These are causal carriers, not yet a complete circuit: their joint faithfulness,
+redundancy, and directed mediation into the final MLP remain unmeasured.

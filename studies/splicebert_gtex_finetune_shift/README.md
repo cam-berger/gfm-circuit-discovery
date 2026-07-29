@@ -102,9 +102,19 @@ acceptor context. The broader mechanistic definition is therefore **multiple dis
 sequence signals converging on a shared final-MLP splice-classification transformation**. `L5H6` is one
 specialized coupling carrier, not a universal context pathway.
 
+The complete layer-5 census resolves the upstream attention routes. All 16 heads were scanned on a
+prior-gene-excluded training partition before any fresh confirmation outcome was opened. On a new
+gene-disjoint 200-example partition across all five checkpoints, `L5H14` and `L5H8` confirm for both
+context effects, `L5H12` confirms only for donor context, and `L5H11` confirms only for acceptor context.
+All six endpoint assignments pass bidirectional effect, five-seed, multiplicity, and frozen equal-size
+control gates. Individual head recovery accounts for `5.8–14.9%` of the corresponding behavior by a
+ratio of gene means, so the result supports shared and specialized routes into the MLP rather than a
+single universal head. Joint intervention and head-to-MLP path patching remain necessary before making
+a completeness or directed-circuit claim.
+
 One 16-nt acceptor half has no alternative exact Eulerian ordering for one sequence. The correction audit
 quarantines that half-resolution contrast; it does not affect either full 32-nt region, sham, independent
-draw, depth trace, or component bridge.
+draw, depth trace, component bridge, or head census.
 
 The native models were trained on 900-nt examples, while this unchanged coupling assay uses the base
 study's 1,024-nt windows. The architecture supports the full length and the native preflight is healthy,
