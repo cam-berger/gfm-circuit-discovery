@@ -1,10 +1,13 @@
 # D12 preregistration — bounded downstream domain and TSS polarity
 
-> **Tier: T1 — frozen protocol.** Frozen 2026-07-28. Controls
+> **Tier: T1 — frozen protocol.** Frozen 2026-07-28; amended 2026-07-28 (Amendment 1, pre-outcome).
+> Controls
+> [`../../configs/dnabert2_atlas/promoter_domain_v2.frozen.json`](../../configs/dnabert2_atlas/promoter_domain_v2.frozen.json)
+> (`schema_version` 2, `status` `FROZEN`, study `dnabert2_biological_reconstruction_atlas`, assay
+> `promoter_domain_v2`, `supersedes` `promoter_domain_v1.frozen.json`). The original
 > [`../../configs/dnabert2_atlas/promoter_domain_v1.frozen.json`](../../configs/dnabert2_atlas/promoter_domain_v1.frozen.json)
-> (`schema_version` 1, `status` `FROZEN`, study `dnabert2_biological_reconstruction_atlas`, assay
-> `promoter_domain_v1`). Read before treating any tile-level confirmation number from this assay as
-> evidence.
+> is preserved unedited and superseded, not deleted — see **Amendment 1** below for why. Read before
+> treating any tile-level confirmation number from this assay as evidence.
 
 D12 is the confirmatory follow-up to D8 (`studies/dnabert2_reconstruction_atlas/CLAIMS.md`, D8 entry).
 It reuses D8's own sealed confirmation split, under a protocol frozen before any of its primary-endpoint
@@ -43,7 +46,13 @@ is negative with a bootstrap interval excluding zero — the opposite sign from 
 
 Further exploratory re-aggregation favors a domain reading over a single-tile reading:
 
-- A pooled per-locus domain contrast of +0.319, 95% CI [+0.073, +0.580], n=39 loci.
+- A pooled per-locus domain contrast of +0.319, 95% CI [+0.073, +0.580], n=39 loci, computed under
+  **D8's own localisation-contrast definition**: per-locus mean(`target_specific_loss` over inner
+  tiles 25, 26, 27) minus that locus's mean over *all* its other eligible tiles (at least 10
+  required), with all three inner tiles required present. **This is not the E1/E2 estimand.** E1 and
+  E2 compare the inner tiles against small, specifically named outer/upstream tile sets ({28, 29} and
+  {21, 22, 23}), not against a locus's full remaining tile panel. This number motivates the domain
+  hypothesis; it is not an E1, E1b, or E2 estimate, and it should not be read as one.
 - **Composition dissociation:** tiles 26 and 28 have near-identical masked-cover content (GC 0.617 vs.
   0.621, CpG 0.054 vs. 0.055) yet a paired effect difference of +0.295, 95% CI [+0.085, +0.518], on 70
   shared loci — the distal edge is not explained by a composition difference between the two covers.
@@ -78,7 +87,7 @@ The cohort is D8's own annotated source,
 D12 scores only the **confirmation** split; it opens no new locus blocks.
 
 The confirmation split is reused, and only `mask|tile26` has ever been opened on it. **Design
-decision:** the two primary endpoints, E1 and E2, are defined over tiles whose confirmation values
+decision:** the primary endpoints — E1, E1b, and E2 — are defined over tiles whose confirmation values
 have never been read, so that tile 26's already-public value cannot partially inform a primary result.
 E4 includes tile 26 for exactly this reason and is descriptive only — it can never qualify.
 
@@ -101,8 +110,8 @@ primary or secondary endpoint.
 | 23 | −19:−9 | E2 (upstream) |
 | 25 | +1:+11 | E1 (inner), E2 (downstream) |
 | 26 | +11:+21 | M2 record anchor only |
-| 27 | +21:+31 | E1 (inner), E2 (downstream) |
-| 28 | +31:+41 | E1 (outer) |
+| 27 | +21:+31 | E1 (inner), E1b, E2 (downstream) |
+| 28 | +31:+41 | E1 (outer), E1b |
 | 29 | +41:+51 | E1 (outer) |
 
 `tiles_to_score` and `tiles_remaining_sealed` partition `{0, …, 29}` exactly: every tile is either
@@ -110,20 +119,81 @@ scored now or explicitly sealed, with no gap and no overlap.
 
 ## Endpoints
 
+The definitions below are **v2**
+(`configs/dnabert2_atlas/promoter_domain_v2.frozen.json`), in force since Amendment 1. **v1**
+(`configs/dnabert2_atlas/promoter_domain_v1.frozen.json`) is preserved, unedited, and superseded — it
+required every named tile to be present at a locus before scoring it, which collapsed the scorable
+cohort before any confirmation outcome was read. See **Amendment 1** immediately below for the
+numbers and the reasoning.
+
 **E1 — downstream edge (primary).** Per locus: mean(`target_specific_loss` over tiles 25, 27) minus
-mean over tiles 28, 29. Excludes tile 26. One-sided positive alternative. SESOI: 0.10 logit margin.
+mean over tiles 28, 29. **Completeness rule (v2):** at least one inner tile (25 or 27) and at least
+one outer tile (28 or 29) must be present at that locus; the mean is taken over whichever are
+available. Excludes tile 26. One-sided positive alternative. SESOI: 0.10 logit margin.
+
+**E1b — sharp edge (primary, added in v2).** Per locus: `target_specific_loss` at tile 27 minus
+`target_specific_loss` at tile 28. Both tiles required — a locus missing either is not scored. This is
+the sharpest available statement of the +31 nt boundary: it needs only two tiles per locus, so it is
+not subject to E1's inner/outer averaging. One-sided positive alternative. SESOI: 0.10 logit margin.
 
 **E2 — TSS polarity (primary).** Per locus: mean(`target_specific_loss` over tiles 25, 27) minus mean
-over tiles 21, 22, 23. Excludes tile 26. One-sided positive alternative. SESOI: 0.15 logit margin.
+over tiles 21, 22, 23. **Completeness rule (v2):** at least one downstream tile (25 or 27) and at
+least one upstream tile (21, 22, or 23) must be present at that locus; the mean is taken over
+whichever are available. Excludes tile 26. One-sided positive alternative. SESOI: 0.15 logit margin.
 
-**E3 — upstream anti-evidence (secondary).** Per locus: `target_specific_loss` at tile 22 alone.
-**Design decision:** D8's protocol used a one-sided positive alternative throughout, which made an
-upstream negative effect structurally invisible regardless of its size. E3 is explicitly **two-sided**.
-SESOI: 0.10 absolute logit margin.
+**E3 — upstream anti-evidence (secondary, unchanged by Amendment 1).** Per locus:
+`target_specific_loss` at tile 22 alone. **Design decision:** D8's protocol used a one-sided positive
+alternative throughout, which made an upstream negative effect structurally invisible regardless of
+its size. E3 is explicitly **two-sided**. SESOI: 0.10 absolute logit margin.
 
-**E4 — full domain (descriptive only).** Per locus: mean(`target_specific_loss` over tiles 25, 26, 27)
-minus mean over tiles 28, 29. Includes tile 26, whose confirmation value D8 already opened, so E4
-**can never qualify** — it is reported for context only.
+**E4 — full domain (descriptive only, unchanged by Amendment 1).** Per locus:
+mean(`target_specific_loss` over tiles 25, 26, 27) minus mean over tiles 28, 29. Includes tile 26,
+whose confirmation value D8 already opened, so E4 **can never qualify** — it is reported for context
+only.
+
+## Amendment 1 — endpoint completeness rule (pre-outcome)
+
+**Trigger.** v1's E1 and E2 required *every* named tile to be present at a locus before scoring it —
+tiles 25, 27, 28, 29 for E1; tiles 25, 27, 21, 22, 23 for E2. Tile eligibility varies by locus (not
+every locus has an eligible two-token BPE cover at every nominal tile), so this all-or-nothing rule
+discarded most of the cohort. Computed under v1's own endpoint definitions, from
+`data/processed/dnabert2_atlas/promoter_source_localization_v1/development.raw.jsonl`:
+
+| Endpoint (v1 definition) | Estimate | 95% CI | n |
+|---|---|---|---|
+| E1 — all of 25, 27, 28, 29 required per locus | +0.1419 | [−0.1009, +0.4074] | 34 |
+| E2 — all of 25, 27, 21, 22, 23 required per locus | +0.7433 | [+0.2346, +1.2806] | 22 |
+
+E1's development interval **spans zero** under this rule. Opening the sealed confirmation split on an
+endpoint whose own development estimate cannot be distinguished from zero would spend that seal on a
+test that was never adequately powered by its own design.
+
+**Decision.** Freeze v2 (`configs/dnabert2_atlas/promoter_domain_v2.frozen.json`, which declares
+`"supersedes": "configs/dnabert2_atlas/promoter_domain_v1.frozen.json"`). v1 is not edited — it stays
+immutable as the record of what was originally specified and why it needed to change. v2 relaxes E1
+and E2 to a **completeness rule** (at least one inner/downstream tile and at least one outer/upstream
+tile present, averaging over whichever are available) and adds a new primary endpoint, **E1b**, that
+needs only tiles 27 and 28 (both required) and states the downstream edge in its sharpest, most
+tile-parsimonious form. `inference.multiplicity` becomes `Holm across E1, E1b, E2, E3`. E3 and E4 are
+unchanged. `tiles_to_score` and `tiles_remaining_sealed` are unchanged and were re-verified to still
+partition `{0, …, 29}` exactly, with no gap and no overlap.
+
+Under the v2 definitions, the same development data give:
+
+| Endpoint (v2 definition) | Estimate | 95% CI | n |
+|---|---|---|---|
+| E1 — mean(avail {25,27}) minus mean(avail {28,29}), ≥1 tile each side | +0.2291 | [+0.0917, +0.3752] | 149 |
+| E1b — tile 27 minus tile 28, both required | +0.2631 | [+0.0695, +0.4890] | 90 |
+| E2 — mean(avail {25,27}) minus mean(avail {21,22,23}), ≥1 tile each side | +0.4045 | [+0.1661, +0.6451] | 160 |
+| E3 — tile 22 alone, two-sided (unchanged) | −0.2793 | [−0.5307, −0.0420] | 126 |
+
+**No confirmation-split outcome had been read when this amendment was made.** This is a pre-outcome
+design correction to a definitional flaw, not a post-outcome adjustment.
+
+**Disclosure.** *"The endpoint definitions in v2 were selected after inspecting several variants on
+the development split. That selection inflates the development estimates reported here and they must
+not be read as effect-size estimates. It does not affect the confirmation test, which remains sealed
+for every endpoint except `mask|tile26`."*
 
 ## Memorials
 
@@ -147,7 +217,8 @@ length) is at most 2 nt.
 ## Inference
 
 Cluster unit: unique 1-Mb locus block. 5,000 bootstrap draws, 9,999 sign-flip draws, seed `20260729`,
-add-one p-values, Holm correction across E1, E2, E3, `α=0.05`.
+add-one p-values, Holm correction across E1, E1b, E2, E3 (updated by Amendment 1; v1 read `Holm across
+E1, E2, E3`), `α=0.05`.
 
 ## Split gate
 

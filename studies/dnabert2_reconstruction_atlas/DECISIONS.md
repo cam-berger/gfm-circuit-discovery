@@ -601,3 +601,33 @@
 - Interpretation: retain “dominant low-rank carrier,” not “complete bottleneck.” The orthogonal
   complement remains positive, rank-4 hard-label intervals include zero, and cohort reuse
   remains explicit in every summary.
+
+## 2026-07-28 — Freeze D12 promoter-domain v2 after v1's completeness rule collapsed E1/E2
+
+- Trigger: computing D12's frozen v1 endpoints under their own definitions, from
+  `data/processed/dnabert2_atlas/promoter_source_localization_v1/development.raw.jsonl`, found that
+  requiring every named tile per locus collapsed the scorable cohort. E1 (tiles 25,27,28,29 all
+  required) fell to n=34 with development estimate +0.1419 (95% CI −0.1009 to +0.4074 — the
+  interval spans zero). E2 (tiles 25,27,21,22,23 all required) fell to n=22 with development
+  estimate +0.7433 (+0.2346 to +1.2806). No confirmation-split outcome had been read.
+- Decision: freeze `configs/dnabert2_atlas/promoter_domain_v2.frozen.json`, declaring
+  `"supersedes": "configs/dnabert2_atlas/promoter_domain_v1.frozen.json"`. v1 is not edited or
+  deleted; it remains the immutable record of the original specification and of why it changed.
+- Amendment: relax E1 and E2 to a completeness rule (at least one inner/downstream tile and at
+  least one outer/upstream tile present per locus, averaging over whichever are available) and add
+  a new primary endpoint, E1b — tile 27 minus tile 28, both required, the sharpest and most
+  tile-parsimonious statement of the downstream edge. Under the relaxed v2 definitions the same
+  development data give E1 +0.2291 (95% CI +0.0917 to +0.3752, n=149), E1b +0.2631 (+0.0695 to
+  +0.4890, n=90), and E2 +0.4045 (+0.1661 to +0.6451, n=160); E3 (tile 22 alone, two-sided,
+  unchanged) is −0.2793 (−0.5307 to −0.0420, n=126). `inference.multiplicity` becomes `Holm across
+  E1, E1b, E2, E3`. `tiles_to_score` and `tiles_remaining_sealed` are unchanged and were
+  re-verified to still partition `{0, ..., 29}` exactly, with no gap and no overlap.
+- Boundary: this is a pre-outcome design correction, not a post-outcome fix — the confirmation
+  split remains sealed for every endpoint except the already-public `mask|tile26`. The v2
+  development numbers above were selected after inspecting several completeness-rule variants on
+  the development split, so they are inflated by that selection and must not be read as
+  effect-size estimates; they license only the endpoint redesign, not a claim.
+- Effect: `studies/dnabert2_reconstruction_atlas/PREREGISTRATION_D12_DOWNSTREAM_DOMAIN.md` is
+  amended in place (Amendment 1) to record this trigger, the before/after numbers, and the
+  disclosure above; its Provenance-and-honesty and Prior-art sections are unchanged. v1 remains
+  preserved and superseded, not deleted.
