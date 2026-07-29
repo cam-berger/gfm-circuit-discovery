@@ -33,6 +33,63 @@ def _replace_hidden(output, hidden: torch.Tensor):
     raise TypeError(f"unsupported layer output type: {type(output)!r}")
 
 
+def capture_embedding_output(
+    adapter: SpliceBertAdapter,
+    run_forward: Callable[[], object],
+) -> torch.Tensor:
+    """Capture the post-embedding hidden state used as encoder input."""
+
+    cache: list[torch.Tensor] = []
+
+    def hook(_module, _inputs, output):
+        cache.append(_hidden_from_output(output).detach().clone())
+
+    handle = adapter.model.bert.embeddings.register_forward_hook(hook)
+    try:
+        run_forward()
+    finally:
+        handle.remove()
+    if len(cache) != 1:
+        raise RuntimeError(
+            f"expected one embedding invocation, captured {len(cache)}"
+        )
+    return cache[0]
+
+
+@contextmanager
+def patch_embedding_output(
+    adapter: SpliceBertAdapter,
+    source: torch.Tensor,
+    *,
+    token_mask: torch.Tensor | None = None,
+) -> Iterator[None]:
+    """Patch encoder-input embeddings from an aligned source run."""
+
+    def hook(_module, _inputs, output):
+        target = _hidden_from_output(output).clone()
+        replacement_source = source.to(target.device, target.dtype)
+        if replacement_source.shape != target.shape:
+            raise ValueError("source/target embedding shapes disagree")
+        if token_mask is None:
+            replacement = replacement_source
+        else:
+            mask = token_mask.to(target.device)
+            if mask.shape != target.shape[:2]:
+                raise ValueError("token_mask must have shape [batch, sequence]")
+            replacement = torch.where(
+                mask[..., None],
+                replacement_source,
+                target,
+            )
+        return _replace_hidden(output, replacement)
+
+    handle = adapter.model.bert.embeddings.register_forward_hook(hook)
+    try:
+        yield
+    finally:
+        handle.remove()
+
+
 def capture_layer_outputs(
     adapter: SpliceBertAdapter,
     run_forward: Callable[[], object],
