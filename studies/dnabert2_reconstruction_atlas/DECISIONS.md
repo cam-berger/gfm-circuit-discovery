@@ -627,7 +627,22 @@
   development numbers above were selected after inspecting several completeness-rule variants on
   the development split, so they are inflated by that selection and must not be read as
   effect-size estimates; they license only the endpoint redesign, not a claim.
+- Phase-H gating ruling (fix round 2): E1 and E1b are two measurements of the same distal-edge claim
+  (E1 the relaxed multi-tile contrast, E1b the sharper paired tile-27-minus-tile-28 difference); E2
+  tests a different property, TSS polarity. Phase H (the helical-phase assay) is licensed only if at
+  least one of E1 or E1b qualifies — if both fail, the bounded-domain premise is unsupported and
+  Phase H must not run, regardless of E2. E2 qualifying alone does not license Phase H, because a
+  polarity reversal is compatible with an unbounded downstream gradient as much as with a bounded
+  domain. Refutation is per endpoint: E1 and E1b both failing refutes the domain reading (tile 26's
+  D8 result would then stand alone as a single-tile effect); E1 qualifying with E1b failing is
+  weaker evidence (elevated downstream sensitivity, not a sharp +31 boundary); E1b qualifying with
+  E1 failing is stronger evidence for the edge specifically than for the domain as a block; E2
+  failing refutes only polarity and leaves the domain claim intact; E3 failing licenses no null. The
+  frozen `stop_rules` field in both v1 and v2 is unchanged and still reads literally "if E1 and E2
+  both fail…"; this ruling, not that literal wording, is the operative gate now that E1b exists.
 - Effect: `studies/dnabert2_reconstruction_atlas/PREREGISTRATION_D12_DOWNSTREAM_DOMAIN.md` is
   amended in place (Amendment 1) to record this trigger, the before/after numbers, and the
-  disclosure above; its Provenance-and-honesty and Prior-art sections are unchanged. v1 remains
-  preserved and superseded, not deleted.
+  disclosure above; its Provenance-and-honesty and Prior-art sections are unchanged. Fix round 2
+  additionally threaded E1b through the Stop rules and What-would-refute-this sections, which had
+  still reasoned only over E1/E2 and left the Phase-H gate undefined for the case that matters most.
+  v1 remains preserved and superseded, not deleted.

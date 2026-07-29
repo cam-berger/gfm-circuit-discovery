@@ -239,7 +239,14 @@ An endpoint qualifies only if, jointly:
 ## Stop rules
 
 - If M1 or M2 fails, record `INSTRUMENT_UNRESOLVED` and open no confirmation endpoint.
-- If E1 and E2 both fail, the domain claim is not supported; do not run Phase H.
+- **Phase-H gate:** Phase H (the helical-phase assay) is licensed only if **at least one of E1 or
+  E1b qualifies**. If both E1 and E1b fail, the bounded-domain premise is unsupported and Phase H
+  must not run — regardless of E2's outcome. **E2 does not gate Phase H on its own:** E2 tests TSS
+  polarity, a different property from the downstream edge, and a polarity reversal is compatible
+  with an unbounded downstream gradient as much as with a bounded domain. E2 qualifying while neither
+  E1 nor E1b qualifies does not license Phase H. (The frozen config's own `stop_rules` field is
+  unchanged since v1 and still reads literally "If E1 and E2 both fail…, do not run Phase H"; that
+  wording predates E1b, and this paragraph is the operative gating ruling.)
 - Failure of E3 licenses no null: it is powered only for effects at or above 0.10 absolute.
 
 ## Provenance and honesty
@@ -266,12 +273,23 @@ confirmation is required before D12 licenses anything.
 
 ## What would refute this
 
-- **E1 ≤ 0, or its 95% interval spans zero:** refutes a bounded downstream domain. The plateau read
-  from D8 development would not replicate.
-- **A positive E1 and a positive E2, but no tile-22 sign reversal on E3:** refutes only the
-  *polarity-reversal* reading, not the bounded-domain reading. E2 tests the upstream tiles as a group,
-  so a group-level polarity difference can pass without the specific tile-22 negative value
-  replicating.
+Refutation is evaluated per endpoint. "Failing" means: the point estimate falls below the endpoint's
+SESOI, or its 95% interval spans zero, or its sign disagrees with the frozen development prediction.
+E1 and E1b are two measurements of the *same* claim — the distal edge at ≈+31 nt: E1 is the relaxed
+multi-tile contrast (higher n, development n=149); E1b is the sharper paired tile-27-minus-tile-28
+difference (development n=90). E2 tests a different property, the TSS polarity reversal.
+
+- **E1 and E1b both failing** refutes the bounded-domain reading. Neither the relaxed multi-tile
+  contrast nor the sharper paired-tile difference would have qualified, so the plateau read from D8
+  development would not replicate; tile 26's D8 result would then stand alone as a single-tile
+  effect, not a domain. Phase H must not run in this case, regardless of E2 (see Stop rules).
+- **E1 qualifying while E1b fails** is a **weaker** result: it supports elevated downstream mask
+  sensitivity but not a sharp boundary specifically at +31. Record it as such, not as a domain
+  confirmation.
+- **E1b qualifying while E1 fails** is **stronger evidence for the edge specifically** than for the
+  domain as a block. Report it that way, not as a general domain result.
+- **E2 failing** refutes only the polarity-reversal reading and leaves the domain claim (E1/E1b)
+  intact. E2's outcome does not change whether Phase H is licensed either way — see Stop rules.
 - **E3 failing to clear its SESOI is not a null result.** E3 is two-sided and powered only for effects
   at or above 0.10 absolute; a small or non-significant tile-22 effect under that power does not
   license the conclusion that no reversal exists.
