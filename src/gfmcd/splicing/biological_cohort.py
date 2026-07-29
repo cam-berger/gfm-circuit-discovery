@@ -164,6 +164,7 @@ def load_fresh_cds_cohort(
     excluded_gene_ids: Iterable[str],
     additional_excluded_gene_ids: Iterable[str] = (),
     discovery_percent: int = 50,
+    require_folding_context: bool = False,
 ) -> tuple[list[CouplingExample], dict[str, dict[str, CodingWindowAudit]], dict[str, int]]:
     """Filter annotation first, then deterministically select one example per gene."""
 
@@ -176,6 +177,7 @@ def load_fresh_cds_cohort(
         "eligible_train_before_exclusion": 0,
         "after_prior_and_chromosome_exclusion": 0,
         "after_partition": 0,
+        "folding_context_feasible": 0,
         "both_windows_cds": 0,
         "unique_genes_cds": 0,
     }
@@ -194,6 +196,26 @@ def load_fresh_cds_cohort(
         ):
             continue
         counts["after_partition"] += 1
+        if require_folding_context:
+            folding_ok = True
+            for window, anchor in (
+                (DONOR_WINDOW, int(example.donor_pos)),
+                (ACCEPTOR_WINDOW, int(example.next_acceptor_pos)),
+            ):
+                region_start, region_end = window.absolute(
+                    anchor,
+                    len(example.sequence),
+                )
+                context_start, context_end = region_start - 84, region_end + 85
+                folding_ok &= (
+                    context_start >= 0
+                    and context_end <= len(example.sequence)
+                    and set(example.sequence[context_start:context_end])
+                    <= set("ACGTN")
+                )
+            if not folding_ok:
+                continue
+        counts["folding_context_feasible"] += 1
         donor = audit_coding_window(
             example,
             endpoint="donor",

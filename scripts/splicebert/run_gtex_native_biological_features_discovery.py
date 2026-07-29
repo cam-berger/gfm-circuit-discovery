@@ -417,6 +417,7 @@ def main() -> None:
         tag="gtex-native-biological-features-discovery-v1",
         excluded_gene_ids=prior.gene_ids,
         discovery_percent=50,
+        require_folding_context=True,
     )
     discovery_genes = {example.gene_id for example in examples}
     confirmation_examples, confirmation_audits, confirmation_counts = (
@@ -431,6 +432,7 @@ def main() -> None:
             excluded_gene_ids=prior.gene_ids,
             additional_excluded_gene_ids=discovery_genes,
             discovery_percent=50,
+            require_folding_context=True,
         )
     )
     confirmation_genes = {example.gene_id for example in confirmation_examples}
@@ -445,6 +447,7 @@ def main() -> None:
         excluded_gene_ids=prior.gene_ids,
         additional_excluded_gene_ids=discovery_genes | confirmation_genes,
         discovery_percent=50,
+        require_folding_context=True,
     )
     if discovery_genes & confirmation_genes:
         raise RuntimeError("discovery and confirmation genes overlap")
