@@ -12,6 +12,16 @@
 > newly named cohort tag changed within-gene example sampling. The runners now reuse
 > the exact GFS18 discovery and confirmation cohort tags, as Section 2 already
 > required. No rank, intervention, threshold, or statistical family changed.
+>
+> **Post-outcome verdict-code correction (2026-07-29):** the complete causal run and
+> all preregistered statistics finished correctly, but its summary-only decision code
+> required the minimal own-checkpoint rank (rank 1) itself to be one of the
+> preregistered cross-seed inferential ranks (4 or 64). Section 6 had frozen rank 4 as
+> the only cross-seed rank at or below 16. The raw output is preserved unchanged; a
+> separate correction audit applies every Section 7 gate at rank 4. The runner now
+> chooses the smallest preregistered cross-seed rank at or below 16 whose own-basis
+> gate passes. No array, estimate, interval, p-value, q-value, threshold, or family is
+> recomputed or changed.
 
 ## 1. Question and evidence boundary
 

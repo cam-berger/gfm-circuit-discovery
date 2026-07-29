@@ -1025,22 +1025,37 @@ def main() -> None:
         compact_rank = compactness[endpoint][
             "minimal_rank_at_most_16_reaching_50pct"
         ]
+        decision_rank = next(
+            (
+                rank
+                for rank in PRIMARY_RANKS
+                if rank <= 16
+                and all(
+                    own_results[endpoint][str(rank)][direction][
+                        "ratio_to_full_mlp"
+                    ]["ci_low"]
+                    >= 0.50
+                    for direction in ("damage", "recovery")
+                )
+            ),
+            None,
+        )
         basis_pass = False
-        if compact_rank in PRIMARY_RANKS:
+        if decision_rank is not None:
             basis_pass = all(
-                cross_results["aligned"][endpoint][str(compact_rank)][direction][
+                cross_results["aligned"][endpoint][str(decision_rank)][direction][
                     "ratio_to_full_mlp"
                 ]["ci_low"]
                 >= 0.50
-                and cross_results["aligned"][endpoint][str(compact_rank)][
+                and cross_results["aligned"][endpoint][str(decision_rank)][
                     direction
                 ]["q_bh_16_cross_basis_effects"]
                 <= MAX_Q
-                and cross_results["aligned"][endpoint][str(compact_rank)][
+                and cross_results["aligned"][endpoint][str(decision_rank)][
                     direction
                 ]["vs_random"]["ci_low"]
                 > 0
-                and cross_results["aligned"][endpoint][str(compact_rank)][
+                and cross_results["aligned"][endpoint][str(decision_rank)][
                     direction
                 ]["vs_random"][
                     "q_bh_16_cross_basis_random_contrasts"
@@ -1052,7 +1067,7 @@ def main() -> None:
                 and entry["summary"]["q_bh_8_aligned_minus_raw_basis"] <= MAX_Q
                 for entry in aligned_raw_entries
                 if entry["endpoint"] == endpoint
-                and entry["rank"] == compact_rank
+                and entry["rank"] == decision_rank
             )
         vector_pass = all(
             vector_results["aligned"][endpoint][direction][
@@ -1080,6 +1095,7 @@ def main() -> None:
         )
         decision[endpoint] = {
             **compactness[endpoint],
+            "cross_seed_decision_rank": decision_rank,
             "rotated_shared_lowrank_code": basis_pass,
             "aligned_instance_vector_transport": vector_pass,
         }

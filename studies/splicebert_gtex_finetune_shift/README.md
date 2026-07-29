@@ -127,7 +127,20 @@ The raw-coordinate low-rank hypothesis does not generalize cleanly. A task direc
 seed 2020 have substantial causal effect in that checkpoint but little magnitude in seeds 2021–2024.
 The task direction fails the five-seed gate, and no tested rank through 64 reaches half of the full-MLP
 effect. The mechanism is therefore shared at the functional level—late heads feeding a dominant final
-MLP transformation—while its exact vector coordinates remain seed-specific.
+MLP transformation—while its exact raw vector coordinates remain seed-specific.
+
+An exploratory per-seed alignment assay resolves that boundary. All five checkpoints
+put more than 99.6% of discovery MLP-delta energy in four dimensions, and even the
+seed-specific rank-1 directions carry about 64–72% of the family causal effect on the
+gene-disjoint evaluation partition. Orthogonal maps fit only on discovery activations
+make cross-seed rank-4 subspaces recover about 99% of the full MLP effect; they also
+transport the actual example-conditioned write at about 95–101%. Raw transport fails
+recovery, while aligned transport exceeds dimension- or norm-matched controls and is
+positive for every ordered checkpoint pair. This supports checkpoint-specific
+rotations of a shared compact causal code, not a universal raw direction. Because the
+assay reused the already-opened GFS18 partitions, it remains exploratory pending a new
+analysis-sealed replication. A preserved summary-code error and its rank-4 correction
+audit do not alter any intervention array or statistic.
 
 One 16-nt acceptor half has no alternative exact Eulerian ordering for one sequence. The correction audit
 quarantines that half-resolution contrast; it does not affect either full 32-nt region, sham, independent
