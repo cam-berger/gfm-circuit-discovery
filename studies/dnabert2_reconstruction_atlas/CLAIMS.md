@@ -247,6 +247,68 @@ This is explicitly post-hoc and cohort-reused. D10 selected L11MLP after both co
 scored, and no unused MANE 1-Mb blocks remained. Unchanged-basis transfer tests structural
 compression, not fresh independent replication.
 
+**D12 — A replicated downstream-vs-upstream mask-sensitivity polarity survives confirmation, but the
+bounded downstream domain and its distal edge are refuted; D8's tile 26 stands alone as a
+single-tile effect.** D12 is the confirmatory follow-up to D8, reusing D8's own sealed 192-pair
+confirmation split under a protocol frozen before any of its five endpoints had been read beyond the
+already-public `mask|tile26` value. Amendment 1 (pre-outcome) relaxed the original all-tile-required
+completeness rule for E1 and E2 — which had collapsed E1 to an underpowered, zero-spanning
+development estimate — to a looser rule requiring only one inner/downstream and one outer/upstream
+tile present per locus, and added a second, sharper primary endpoint, E1b, needing just two tiles.
+
+Of five scored endpoints, exactly one qualifies. **E2 (TSS polarity)** — mean target-specific mask
+loss over downstream tiles 25/27 minus mean loss over upstream tiles 21/22/23 — replicates at
++0.3262 logits (95% CI +0.1110 to +0.5564, n=149), matching its development-predicted sign and
+development point estimate of +0.4045, clearing the +0.15 SESOI with a positive lower bound, and
+passing Holm correction (`p=0.0096`). This licenses a replicated **classifier-level
+mask-sensitivity polarity**: masking the +1:+31 downstream span costs more target-specific promoter
+margin than masking the −39:−9 upstream span.
+
+**E1 (downstream edge)** and **E1b (sharp edge)** both fail. E1 is +0.0375 (95% CI −0.0964 to
++0.1666, n=138) against a development point estimate of +0.2291; E1b is +0.0496 (−0.0746 to
++0.1815, n=77) against +0.2631 in development. Both keep the predicted sign but clear neither their
++0.10 SESOI nor a zero-excluding interval nor Holm correction (`p=0.47` for each). Per D12's own
+preregistered refutation rule — E1 and E1b failing together refutes the bounded-domain reading —
+**the bounded downstream domain and the sharp distal edge near +31 are refuted**. D8's tile 26
+result (+0.2056, replicated at the time) now stands alone as a single-tile effect, not a domain. E4
+(full domain, descriptive-only because it includes the already-opened tile 26 and can never qualify)
+is +0.0846 (−0.0442 to +0.2295, n=162).
+
+The development-to-confirmation shrinkage is diagnostic, not incidental. The three endpoints that
+contrast against the +31:+51 downstream flank collapse sharply: E1 shrinks from +0.2291 to +0.0375
+(about 6.1×), E1b from +0.2631 to +0.0496 (about 5.3×), and E4 from +0.2524 to +0.0846 (about
+3.0×) — all three fail. The two endpoints that never reference that flank shrink far less: E2 from
++0.4045 to +0.3262 (about 1.24×) and E3 from −0.2793 to −0.2164 (about 1.29×). Amendment 1 discloses
+that the v2 endpoint definitions — including E1's completeness rule and E1b's addition — were
+selected after inspecting several variants on the development split, which inflates the development
+estimates reported there. This pattern is consistent with **selection-inflated development
+estimates for the flank-contrasting endpoints**, not with sampling noise alone.
+
+**E3 (upstream anti-evidence)** has the predicted negative sign and clears its 0.10 absolute SESOI
+at −0.2164 (95% CI −0.4189 to +0.0005, n=128), but its interval misses excluding zero by 4.5e-04
+and Holm `p=0.1476` fails. E3 licenses no null: it is preregistered as powered only for effects at
+or above 0.10 absolute, so this near-miss calls for fresh data, not a conclusion that the upstream
+reversal is absent.
+
+The frozen instrument preflight is `QUALIFIED`, passing all four preregistered memorials plus a
+batch-invariance check, but the four are not equally informative. **M2 (record anchor)** re-derived
+all 124 recorded per-example `mask|tile26` confirmation values from D8's own record through an
+independent code path, with a worst absolute difference of 1.133e-05 against a 1e-4 tolerance — this
+is the historical-fidelity evidence that D12 is scoring the same instrument D8 used. **M1
+(identity)** is a Q/K/V-style no-op patch (worst absolute difference 0.0 against the recorded value;
+worst absolute value 2.38e-06) that is largely architecture-forced: correctly wired, it returns
+near-zero almost regardless of checkpoint or tokens. It validates the patch machinery's internal
+consistency, not fidelity to the historical run, and is flagged as such rather than counted as
+independent confirmatory evidence alongside M2.
+
+D12 licenses a replicated classifier-level mask-sensitivity polarity between the +1:+31 downstream
+span and the −39:−9 upstream span, target-specifically. It does not license a bounded domain or any
+distal edge — both are refuted here; a biological promoter element; a nucleotide motif;
+native-sequence necessity; mediation by any internal component, including L11H2/L11H5 or L11MLP; or
+transcriptional function in cells. Whether the polarity reflects GC/CpG composition rather than
+position is open; it is the exact question D13 tests. Tiles 0–20 and 24 of the 30-tile scan (22
+tiles) remain sealed and unspent.
+
 ## Established infrastructure facts
 
 These are implementation properties and prior instrument constraints, not claims about biological
@@ -300,7 +362,7 @@ reconstruction.
 | H5 | A bounded internal DNABERT-2 component set causally mediates a D3 context-margin effect. | open but untested for the nine D3 classes | Freeze candidates and matched-size necessity/mediation tests before inspecting internal effects. |
 | H6 | A promoter-fine-tuned DNABERT-2 has a replicated target-specific local-context effect at training-corpus-excluded human TSSs. | not supported: clean promoter margin replicated, but the context difference failed confirmation | A new independently justified context intervention/null and a fresh sealed cohort; D4 does not authorize internal localization. |
 | H7 | A bounded set of head outputs at `[CLS]` mediates the replicated clean promoter-classifier contrast. | refined by D7: L11H2/L11H5 is a replicated late output-carrier core with value-payload alignment dependence and a distributed MLP scaffold; target-query, content-key-address, and early-six-to-late models fail their gates | Freeze an equal-dose source-localization phase for the replicated V estimand; do not infer bands or motifs from the stable residual direction alone. |
-| H8 | A bounded TSS-relative source band or sequence feature supplies the late pair's replicated value payload. | not supported at +11:+21: regional V was null and exact-composition native reordering failed development; the `[MASK]` effect remains classifier-level only | A new independently justified native intervention/source band and fresh cohort; D8/D9 do not authorize mask-by-payload tracing. |
+| H8 | A bounded TSS-relative source band or sequence feature supplies the late pair's replicated value payload. | refuted as a bounded band: D12's confirmatory tile-domain test shows neither a bounded downstream domain nor a distal edge near +31 replicates (E1/E1b both fail confirmation); D8's +11:+21 tile stands alone as a single-tile effect. A distinct classifier-level downstream-vs-upstream mask-sensitivity polarity does replicate (D12 E2), but regional V was already null (D8) and exact-composition native reordering already failed development (D9), so no span tested has payload-mediation evidence | D8/D9/D12 do not authorize mask-by-payload tracing or mediation; D13 (open) tests whether the polarity is a composition artifact before any mediation test is justified. |
 | H9 | One individual CLS head context or MLP write is independently necessary for correct promoter classification. | not qualified; L11MLP is rank 1 in both splits but its confirmation accuracy-loss CI touches zero, and no head passes the full-family gate | A preregistered targeted L11MLP intervention on new data, preferably including zero ablation and matched MLP nulls; D10 remains an atlas-level candidate result. |
 | H10 | A low-dimensional L11MLP write subspace carries most of the promoter class-margin effect. | supported post-hoc on reused D10 cohorts: the unchanged rank-4 basis captures 89.7%/84.5% of full exchange and beats 31 matched random subspaces in both splits; the complement remains positive | Transfer the fixed basis to genuinely new examples, then test late-head-to-subspace mediation and rescue. |
 

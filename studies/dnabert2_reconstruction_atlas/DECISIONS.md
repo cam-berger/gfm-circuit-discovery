@@ -673,3 +673,42 @@
 - Effect: `studies/dnabert2_reconstruction_atlas/PREREGISTRATION_D12_DOWNSTREAM_DOMAIN.md` is amended
   in place (Amendment 2) to record the authorisation, the verified pre-outcome timing, and the wording
   constraint on any Phase H result obtained under a failed edge gate.
+
+## 2026-07-29 — Record D12 as replicated TSS polarity, with the bounded domain and distal edge refuted
+
+- Trigger: the D12 confirmatory run (authorized outcome-blind by the Amendment 2 entry immediately
+  above) completed and its artifacts
+  (`results/dnabert2_reconstruction_atlas/promoter_domain_confirmation_v1.json`,
+  `promoter_domain_preflight_v1.json`, `promoter_domain_development_predictions_v1.json`) were
+  committed, but `CLAIMS.md` still stopped at D11 while the already-frozen D13 preregistration cited
+  D12's refutation of the bounded domain as settled background — the claim ledger and a downstream
+  frozen protocol disagreed about what the study knows.
+- Decision: record D12 in `CLAIMS.md`. Of five scored endpoints, only E2 (TSS polarity) qualifies:
+  +0.3262 logits (95% CI +0.1110 to +0.5564, n=149, Holm `p=0.0096`), matching its development sign
+  and clearing the +0.15 SESOI — masking downstream tiles 25/27 costs more target-specific promoter
+  margin than masking upstream tiles 21/22/23. E1 (downstream edge, +0.0375, n=138) and E1b (sharp
+  edge, +0.0496, n=77) both fail their SESOI, interval, and Holm gates despite matching the
+  predicted sign; per D12's own preregistered refutation rule this refutes the bounded downstream
+  domain and the distal edge near +31, so D8's tile 26 result now stands alone as a single-tile
+  effect. E3 (upstream anti-evidence, −0.2164, n=128) clears its absolute SESOI and keeps sign but
+  misses excluding zero by 4.5e-04 — a near-miss that licenses no null, not evidence the reversal is
+  absent. E4 was never eligible to qualify. The shrinkage from development to confirmation is
+  diagnostic: the three endpoints contrasted against the +31:+51 flank (E1, E1b, E4) shrink about
+  3.0–6.1× and fail, while the two that never touch it (E2, E3) shrink only about 1.24–1.29×,
+  consistent with Amendment 1's own disclosure that the v2 endpoint definitions were selected after
+  inspecting several variants on the development split. The preflight's four memorials plus batch
+  invariance all pass, but M1 (a Q/K/V identity patch, near-zero almost regardless of checkpoint or
+  tokens once wired correctly) is flagged as largely architecture-forced rather than counted as
+  evidence independent of M2 (which re-derives all 124 recorded tile-26 values through an
+  independent code path, worst difference 1.133e-05) — consistent with this project's convention of
+  flagging forced-by-architecture memorials rather than reporting a pass count as if every memorial
+  carried equal weight.
+- Effect: updated `studies/dnabert2_reconstruction_atlas/CLAIMS.md` (new D12 entry; H8's status and
+  bridge columns updated to record the bounded-band refutation) and
+  `studies/dnabert2_reconstruction_atlas/RESULTS.md` (new index row and detail section). Tiles 0–20
+  and 24 (22 of the 30 scanned tiles) remain sealed and unspent. Amendment 2's authorization is now
+  live because the E1/E1b gate it overrode did in fact fail: Phase H may proceed, but per Amendment
+  2's own wording constraint, no Phase H result may be described as a bounded domain's phase
+  dependence or used to argue backwards that the domain exists. The open question this leaves —
+  whether the surviving E2 polarity reflects GC/CpG composition rather than position — is D13's, a
+  separate frozen protocol already recorded.

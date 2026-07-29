@@ -18,6 +18,7 @@
 | Promoter native-source development v10 | Is the +11:+21 mask nomination reproduced by a native exact-composition sequence reorder? | development positive gate failed; confirmation, residual tracing, and mediation sealed | `../../results/dnabert2_reconstruction_atlas/promoter_native_source_development_v10.json` | `../../results/dnabert2_reconstruction_atlas/promoter_native_source_development_v10.manifest.json` | D9 |
 | Promoter all-node accuracy atlas v1 | Which of all 144 CLS head contexts and 12 MLP writes matter most for correct labels? | L11MLP ranks first with 13/12-point accuracy loss and 0.214/0.283 AUROC loss; confirmation CI touches zero, so no node passes the complete replicated gate | `../../results/dnabert2_reconstruction_atlas/promoter_node_accuracy_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_node_accuracy_replication_v1.manifest.json` | D10 |
 | Promoter L11MLP low-rank assay v1 | Can a small causal subspace capture the L11MLP exchange effect? | a fixed rank-4 basis captures 89.7%/84.5% of the class-margin effect and beats 31 matched random subspaces in both reused D10 splits | `../../results/dnabert2_reconstruction_atlas/promoter_low_rank_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_low_rank_replication_v1.manifest.json` | D11 |
+| Promoter downstream-domain confirmation v1 | Is the D8 mask profile a bounded downstream domain with a distal edge and a TSS polarity reversal, rather than a single 10-nt tile? | TSS polarity (E2) replicated; bounded domain and distal edge (E1/E1b) refuted, tile 26 stands alone; upstream reversal (E3) is a near-miss that licenses no null | `../../results/dnabert2_reconstruction_atlas/promoter_domain_confirmation_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_domain_confirmation_v1.manifest.json` | D12 |
 
 ### Promoter source localization v1
 
@@ -157,6 +158,65 @@ but it is not exhaustive: the orthogonal complement remains positive. The hard-l
 interval includes zero in both splits. SVD variance is descriptive; causal evidence comes from
 projected activation exchange and the matched random-subspace comparison. The result does not
 identify neurons, late-head mediation, sequence content, or promoter biology.
+
+### Promoter downstream-domain confirmation v1
+
+D12 reuses D8's own sealed 192-pair confirmation split under a protocol frozen before any of its
+five endpoints were read beyond the already-public `mask|tile26` value. Development predictions are
+computed from D8's own development records and require no model run
+(`promoter_domain_development_predictions_v1.json`, `FROZEN`). Amendment 1 relaxed the original
+all-tile-required completeness rule for E1/E2 — which had collapsed E1 to n=34 with a
+zero-spanning development interval — to a looser per-locus completeness rule, and added a second,
+sharper primary endpoint, E1b (tile 27 minus tile 28, both required).
+
+| Endpoint | Development (point estimate) | Confirmation (95% CI, n) | Holm p | Verdict |
+|---|---:|---:|---:|---|
+| E1 downstream edge | +0.2291 | +0.0375 (−0.0964, +0.1666), n=138 | 0.47 | failed |
+| E1b sharp edge | +0.2631 | +0.0496 (−0.0746, +0.1815), n=77 | 0.47 | failed |
+| E2 TSS polarity | +0.4045 | +0.3262 (+0.1110, +0.5564), n=149 | 0.0096 | qualified |
+| E3 upstream anti-evidence | −0.2793 | −0.2164 (−0.4189, +0.0005), n=128 | 0.1476 | failed; licenses no null |
+| E4 full domain (descriptive only) | +0.2524 | +0.0846 (−0.0442, +0.2295), n=162 | — | never eligible |
+
+Only E2 qualifies: masking downstream tiles 25/27 costs more target-specific promoter margin than
+masking upstream tiles 21/22/23, exceeding the +0.15 SESOI with a positive lower bound and passing
+Holm correction. E1 and E1b both keep the development-predicted sign but fail their SESOI, interval,
+and Holm gates; per the preregistered refutation rule this refutes the bounded-domain and
+distal-edge reading, so D8's tile 26 result stands alone as a single-tile effect. E4 was never
+eligible to qualify because it includes the already-opened tile 26.
+
+Shrinkage from development to confirmation tracks exactly which endpoints touch the +31:+51
+downstream flank. E1, E1b, and E4 — all defined against that flank — shrink about 6.1×, 5.3×, and
+3.0× respectively and fail; E2 and E3, which never reference it, shrink only about 1.24× and 1.29×
+and hold sign and direction. Amendment 1 discloses that the v2 endpoint definitions were chosen
+after inspecting several completeness-rule variants on the development split, so this shrinkage
+pattern is consistent with selection-inflated development estimates for the flank-referencing
+endpoints specifically, not with sampling noise alone.
+
+E3 clears its 0.10 absolute SESOI and keeps the predicted sign, but its 95% interval
+(−0.4189, +0.0005) misses excluding zero by 4.5e-04, and Holm `p=0.1476` fails. E3 is preregistered
+as powered only for effects at or above 0.10 absolute, so per D12's own protocol this failure
+licenses no null about the upstream reversal — it is a near-miss, not evidence of absence.
+
+The frozen preflight (`promoter_domain_preflight_v1.json`) is `QUALIFIED`: M1 (identity), M2 (record
+anchor), M3 (cover balance), M4 (equal dose), and a separate batch-invariance check all pass. M2
+re-derives all 124 recorded `mask|tile26` confirmation values through an independent code path
+(worst absolute difference 1.133e-05 against a 1e-4 tolerance) and is the historical-fidelity check.
+M1 is a Q/K/V-style no-op patch (worst absolute difference 0.0, worst absolute value 2.38e-06) that
+is largely architecture-forced — correctly wired, it returns near-zero almost regardless of
+checkpoint or tokens — so it demonstrates patch-machinery consistency, not historical fidelity, and
+should not be counted as evidence independent of M2.
+
+Amendment 2, authorized before any confirmation outcome was read, permits the planned downstream
+Phase H (helical-phase) assay to proceed regardless of the E1/E1b verdict. Because E1 and E1b both
+failed here, that authorization is now live: Phase H may run, but per Amendment 2's own wording
+constraint, no Phase H result may be described as a bounded domain's phase dependence or used to
+argue backwards that the domain exists.
+
+D12 licenses a replicated classifier-level downstream-vs-upstream mask-sensitivity polarity. It does
+not license a bounded domain, a distal edge, a biological promoter element, a nucleotide motif,
+native-sequence necessity, mediation by any internal component, or transcriptional function in
+cells. Tiles 0–20 and 24 (22 of the 30 scanned tiles) remain sealed. Whether the polarity reflects
+GC/CpG composition rather than position is tested by D13.
 
 ### Promoter address/payload decomposition v1
 
