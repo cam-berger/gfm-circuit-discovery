@@ -169,6 +169,15 @@ def test_vienna_unpaired_mean_requires_a_valid_region():
         vienna_unpaired_mean("ACGT", start=0, end=3, unpaired_length=7)
 
 
+def test_vienna_unpaired_mean_accepts_unknown_flanking_bases():
+    value = vienna_unpaired_mean(
+        "A" * 84 + "N" + "A" * 116,
+        start=84,
+        end=116,
+    )
+    assert np.isfinite(value)
+
+
 def test_kmer_counts_and_codon_preference():
     values, names = kmer_count_vector("ACAC", min_k=1, max_k=2)
     counts = dict(zip(names, values))

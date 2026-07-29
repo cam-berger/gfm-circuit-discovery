@@ -640,7 +640,7 @@ def vienna_unpaired_mean(
             "ViennaRNA is required for the preregistered structure arm"
         ) from exc
     if (
-        set(sequence) - set("ACGTU")
+        set(sequence) - set("ACGTUN")
         or not 0 <= start < end <= len(sequence)
         or unpaired_length < 1
         or end - start < unpaired_length
