@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 from dataclasses import dataclass
+import hashlib
 from typing import Any
 
 import numpy as np
@@ -153,6 +154,63 @@ def load_annotation_cohort(
     if len(examples) < n:
         raise RuntimeError(
             f"only {len(examples)} annotation-eligible {split} examples; asked for {n}"
+        )
+    return examples[:n]
+
+
+def gene_hash_partition(
+    gene_id: str,
+    *,
+    namespace: str,
+    discovery_percent: int = 70,
+) -> str:
+    """Assign every example from one gene to a deterministic analysis partition."""
+
+    if not namespace:
+        raise ValueError("gene-hash namespace must be non-empty")
+    if not 1 <= discovery_percent <= 99:
+        raise ValueError("discovery_percent must be in [1, 99]")
+    digest = hashlib.sha256(f"{namespace}:{gene_id}".encode("utf-8")).digest()
+    bucket = int.from_bytes(digest[:8], "big") % 100
+    return "discovery" if bucket < discovery_percent else "confirmation"
+
+
+def load_annotation_gene_hash_cohort(
+    gtf: str,
+    fasta: str,
+    *,
+    base_split: str,
+    analysis_partition: str,
+    namespace: str,
+    n: int,
+    tag: str,
+    excluded_gene_ids: Sequence[str] = (),
+    discovery_percent: int = 70,
+) -> list[CouplingExample]:
+    """Load an outcome-independent, gene-disjoint subset of one chromosome split."""
+
+    from gfmcd.splicing.circuit import _dataset, eligible
+    from gfmcd.splicing.coupling import CouplingConfig, stable_rng
+
+    if analysis_partition not in {"discovery", "confirmation"}:
+        raise ValueError("analysis_partition must be discovery or confirmation")
+    excluded = set(excluded_gene_ids)
+    examples = [
+        example
+        for example in eligible(_dataset(gtf, fasta), base_split)
+        if example.gene_id not in excluded
+        and gene_hash_partition(
+            example.gene_id,
+            namespace=namespace,
+            discovery_percent=discovery_percent,
+        )
+        == analysis_partition
+    ]
+    stable_rng(tag, CouplingConfig().seed).shuffle(examples)
+    if len(examples) < n:
+        raise RuntimeError(
+            f"only {len(examples)} eligible {analysis_partition} examples after "
+            f"excluding {len(excluded)} genes; asked for {n}"
         )
     return examples[:n]
 

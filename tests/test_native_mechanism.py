@@ -97,6 +97,27 @@ def test_candidate_rule_requires_both_directions_and_ranks_minimum():
     assert select_head_candidates(summaries) == [1, 0]
 
 
+def test_candidate_rule_accepts_declared_multiplicity_field():
+    summaries = {
+        0: {
+            "damage": {
+                "estimate": 0.10,
+                "ci_low": 0.01,
+                "q_bh_64_tests": 0.02,
+            },
+            "recovery": {
+                "estimate": 0.08,
+                "ci_low": 0.01,
+                "q_bh_64_tests": 0.03,
+            },
+        }
+    }
+    assert select_head_candidates(
+        summaries,
+        q_field="q_bh_64_tests",
+    ) == [0]
+
+
 def test_control_heads_are_unique_reproducible_and_exclude_candidates():
     first = deterministic_control_heads([1, 4], num_heads=16)
     second = deterministic_control_heads([1, 4], num_heads=16)

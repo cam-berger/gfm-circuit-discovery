@@ -265,6 +265,7 @@ def select_head_candidates(
     min_effect: float = 0.05,
     max_q: float = 0.10,
     max_candidates: int = 3,
+    q_field: str = "q_bh_32_tests",
 ) -> list[int]:
     """Apply the frozen bidirectional candidate rule and deterministic ranking."""
 
@@ -278,8 +279,8 @@ def select_head_candidates(
                 float(recovery["estimate"]) >= min_effect,
                 float(damage["ci_low"]) > 0.0,
                 float(recovery["ci_low"]) > 0.0,
-                float(damage["q_bh_32_tests"]) <= max_q,
-                float(recovery["q_bh_32_tests"]) <= max_q,
+                float(damage[q_field]) <= max_q,
+                float(recovery[q_field]) <= max_q,
             )
         )
         if passes:
