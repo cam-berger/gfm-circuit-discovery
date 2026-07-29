@@ -44,6 +44,11 @@ itself establish what the native three-class classifier uses.
 The preregistration is [`PREREGISTRATION.md`](PREREGISTRATION.md), live status is in
 [`CLAIMS.md`](CLAIMS.md), and run provenance is indexed in [`RESULTS.md`](RESULTS.md).
 
+The follow-up native-head arm is frozen separately in
+[`PREREGISTRATION_NATIVE_CLASSIFIER.md`](PREREGISTRATION_NATIVE_CLASSIFIER.md). It tests whether the
+released three-class splice-site classifier can read paired-acceptor dependence from the fine-tuned
+encoder, then permits a layerwise representation bridge only if that behavior passes its controls.
+
 ## Current result
 
 The fixed-readout behavior gate is closed. The base checkpoint replayed the recorded validation values
@@ -56,3 +61,19 @@ specific: masked-MLM health also fell from `0.523` to `0.209–0.309`. The resul
 MLM-readout incompatibility after supervised fine-tuning, not erasure of splice-site coupling from the
 fine-tuned encoder and not a claim about the native three-class classifier. The old circuit is not traced
 because the required behavior/denominator gate failed.
+
+The released native classifier resolves the erasure ambiguity. After a preserved v1 coordinate failure,
+the corrected assay passed all 51 controls. Destroying the paired acceptor lowers native donor evidence by
+`0.646 [0.563,0.733]` nats across the five-seed mean, positive in every seed; a second substitution
+replicates it, non-partner AGs are near-null, and the partner-specific contrast against a different donor
+is `0.317 [0.237,0.402]`.
+
+Under the same fine-tuned classifier vector, paired-acceptor coupling is only `0.022` nats after encoder
+layer 4 and becomes `0.646` after the final layer, a `0.624 [0.547,0.704]` projected increment. Base/fine
+donor-state CKA simultaneously drops from `0.731` to `0.363`. Thus the evidence supports re-expression in
+a co-adapted final-layer splice-classification representation, not erasure. This layer localization is
+descriptive and does not yet establish causal necessity or continuity with the base circuit.
+
+The native models were trained on 900-nt examples, while this unchanged coupling assay uses the base
+study's 1,024-nt windows. The architecture supports the full length and the native preflight is healthy,
+but claims remain scoped to this validation instrument rather than the upstream benchmark distribution.

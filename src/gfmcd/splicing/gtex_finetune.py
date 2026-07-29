@@ -83,6 +83,24 @@ class GtexTransplantReport:
         return asdict(self)
 
 
+@dataclass(frozen=True)
+class GtexNativeClassifierReport:
+    """Auditable description of a strict native token-classifier load."""
+
+    source_task: str
+    checkpoint: str
+    checkpoint_sha256: str
+    seed: int | None
+    tensor_count: int
+    parameter_count: int
+    class_labels: tuple[str, ...]
+    missing_keys: tuple[str, ...]
+    extra_keys: tuple[str, ...]
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
 def checkpoint_seed(path: str | Path) -> int | None:
     """Extract the documented 2020--2024 training seed from a checkpoint name."""
 
@@ -117,6 +135,85 @@ def load_gtex_state_dict(path: str | Path) -> dict[str, torch.Tensor]:
         raise FileNotFoundError(checkpoint)
     payload = torch.load(checkpoint, map_location="cpu", weights_only=True)
     return _state_dict(payload)
+
+
+def validate_gtex_token_classifier_state(
+    model: Any,
+    state: Mapping[str, torch.Tensor],
+    *,
+    checkpoint_path: str | Path,
+) -> GtexNativeClassifierReport:
+    """Require the published state to exactly cover a three-class token classifier."""
+
+    expected_state = model.state_dict()
+    expected = set(expected_state)
+    observed = set(state)
+    missing = tuple(sorted(expected - observed))
+    extra = tuple(sorted(observed - expected))
+    if missing or extra:
+        raise GtexCheckpointError(
+            "native classifier key mismatch: "
+            f"missing={list(missing)}, extra={list(extra)}"
+        )
+
+    for name in sorted(expected):
+        expected_tensor = expected_state[name]
+        observed_tensor = state[name]
+        if tuple(observed_tensor.shape) != tuple(expected_tensor.shape):
+            raise GtexCheckpointError(
+                f"{name} has shape {tuple(observed_tensor.shape)}, "
+                f"expected {tuple(expected_tensor.shape)}"
+            )
+        if not torch.isfinite(observed_tensor).all():
+            raise GtexCheckpointError(f"{name} contains non-finite values")
+
+    checkpoint = Path(checkpoint_path)
+    return GtexNativeClassifierReport(
+        source_task="SpliceAI-GTEx three-class token classification",
+        checkpoint=str(checkpoint.resolve()),
+        checkpoint_sha256=sha256_file(checkpoint),
+        seed=checkpoint_seed(checkpoint),
+        tensor_count=len(expected),
+        parameter_count=sum(tensor.numel() for tensor in expected_state.values()),
+        class_labels=("no_splice_site", "donor", "acceptor"),
+        missing_keys=missing,
+        extra_keys=extra,
+    )
+
+
+def load_gtex_token_classifier(
+    base_model_path: str | Path,
+    checkpoint_path: str | Path,
+    *,
+    device: str = "cpu",
+) -> tuple[Any, Any, GtexNativeClassifierReport]:
+    """Load the authors' native three-class model with a strict tensor contract."""
+
+    from transformers import (
+        AutoConfig,
+        AutoModelForTokenClassification,
+        AutoTokenizer,
+    )
+
+    base_path = str(Path(base_model_path).expanduser().resolve())
+    config = AutoConfig.from_pretrained(base_path)
+    config.num_labels = 3
+    config.id2label = {0: "no_splice_site", 1: "donor", 2: "acceptor"}
+    config.label2id = {value: key for key, value in config.id2label.items()}
+    model = AutoModelForTokenClassification.from_config(config)
+    state = load_gtex_state_dict(checkpoint_path)
+    report = validate_gtex_token_classifier_state(
+        model,
+        state,
+        checkpoint_path=checkpoint_path,
+    )
+    model.load_state_dict(state, strict=True)
+    model.to(device)
+    model.eval()
+    for parameter in model.parameters():
+        parameter.requires_grad_(False)
+    tokenizer = AutoTokenizer.from_pretrained(base_path)
+    return model, tokenizer, report
 
 
 def _tensor_shift(name: str, base: torch.Tensor, tuned: torch.Tensor) -> TensorShift:

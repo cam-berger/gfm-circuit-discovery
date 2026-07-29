@@ -11,6 +11,7 @@ from gfmcd.splicing.gtex_finetune import (
     checkpoint_seed,
     state_dict_sha256,
     validate_gtex_encoder,
+    validate_gtex_token_classifier_state,
 )
 
 
@@ -26,6 +27,13 @@ class TinyMlm(nn.Module):
         super().__init__()
         self.bert = TinyEncoder()
         self.config = SimpleNamespace(hidden_size=4)
+
+
+class TinyClassifier(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.bert = TinyEncoder()
+        self.classifier = nn.Linear(4, 3)
 
 
 def published_state(model: TinyMlm) -> OrderedDict[str, torch.Tensor]:
@@ -89,3 +97,38 @@ def test_state_dict_digest_is_order_independent_and_content_sensitive():
     c = OrderedDict([("x", torch.tensor([1.0])), ("y", torch.tensor([3.0]))])
     assert state_dict_sha256(a) == state_dict_sha256(b)
     assert state_dict_sha256(a) != state_dict_sha256(c)
+
+
+def test_native_classifier_requires_exact_finite_state(tmp_path: Path):
+    model = TinyClassifier()
+    checkpoint = tmp_path / "SpliceBERT.SpliceAI-GTEx.2022.pt"
+    state = model.state_dict()
+    torch.save(state, checkpoint)
+    report = validate_gtex_token_classifier_state(
+        model,
+        state,
+        checkpoint_path=checkpoint,
+    )
+    assert report.seed == 2022
+    assert report.class_labels == ("no_splice_site", "donor", "acceptor")
+    assert report.tensor_count == len(state)
+
+    missing = OrderedDict(state)
+    missing.pop("classifier.bias")
+    with pytest.raises(GtexCheckpointError):
+        validate_gtex_token_classifier_state(
+            model,
+            missing,
+            checkpoint_path=checkpoint,
+        )
+
+    nonfinite = OrderedDict(
+        (name, tensor.detach().clone()) for name, tensor in state.items()
+    )
+    nonfinite["classifier.bias"][0] = float("nan")
+    with pytest.raises(GtexCheckpointError):
+        validate_gtex_token_classifier_state(
+            model,
+            nonfinite,
+            checkpoint_path=checkpoint,
+        )

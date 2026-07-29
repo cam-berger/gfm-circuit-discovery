@@ -1,0 +1,3512 @@
+{
+  "study": "splicebert_gtex_finetune_shift",
+  "stage": "native classifier preflight",
+  "protocol": "studies/splicebert_gtex_finetune_shift/PREREGISTRATION_NATIVE_CLASSIFIER_V2.md",
+  "status": "PASS",
+  "thresholds": {
+    "min_clean_donor_positive_fraction": 0.7,
+    "min_clean_acceptor_positive_fraction": 0.7,
+    "min_local_drop_mean": 1.0,
+    "min_local_drop_positive_fraction": 0.75,
+    "max_neutral_fraction_of_local": 0.25,
+    "max_projection_error": 1e-05
+  },
+  "checks": {
+    "base_hash": true,
+    "checkpoint_hashes": true,
+    "cohort_size": true,
+    "donor_motifs": true,
+    "acceptor_motifs": true,
+    "neutral_controls_available": true,
+    "seed_2020:strict_checkpoint": true,
+    "seed_2020:tokenizer_coordinates": true,
+    "seed_2020:finite_forward": true,
+    "seed_2020:final_projection": true,
+    "seed_2020:clean_donor_recognition": true,
+    "seed_2020:clean_acceptor_recognition": true,
+    "seed_2020:local_cc_sensitivity": true,
+    "seed_2020:local_aa_sensitivity": true,
+    "seed_2020:neutral_specificity": true,
+    "seed_2021:strict_checkpoint": true,
+    "seed_2021:tokenizer_coordinates": true,
+    "seed_2021:finite_forward": true,
+    "seed_2021:final_projection": true,
+    "seed_2021:clean_donor_recognition": true,
+    "seed_2021:clean_acceptor_recognition": true,
+    "seed_2021:local_cc_sensitivity": true,
+    "seed_2021:local_aa_sensitivity": true,
+    "seed_2021:neutral_specificity": true,
+    "seed_2022:strict_checkpoint": true,
+    "seed_2022:tokenizer_coordinates": true,
+    "seed_2022:finite_forward": true,
+    "seed_2022:final_projection": true,
+    "seed_2022:clean_donor_recognition": true,
+    "seed_2022:clean_acceptor_recognition": true,
+    "seed_2022:local_cc_sensitivity": true,
+    "seed_2022:local_aa_sensitivity": true,
+    "seed_2022:neutral_specificity": true,
+    "seed_2023:strict_checkpoint": true,
+    "seed_2023:tokenizer_coordinates": true,
+    "seed_2023:finite_forward": true,
+    "seed_2023:final_projection": true,
+    "seed_2023:clean_donor_recognition": true,
+    "seed_2023:clean_acceptor_recognition": true,
+    "seed_2023:local_cc_sensitivity": true,
+    "seed_2023:local_aa_sensitivity": true,
+    "seed_2023:neutral_specificity": true,
+    "seed_2024:strict_checkpoint": true,
+    "seed_2024:tokenizer_coordinates": true,
+    "seed_2024:finite_forward": true,
+    "seed_2024:final_projection": true,
+    "seed_2024:clean_donor_recognition": true,
+    "seed_2024:clean_acceptor_recognition": true,
+    "seed_2024:local_cc_sensitivity": true,
+    "seed_2024:local_aa_sensitivity": true,
+    "seed_2024:neutral_specificity": true
+  },
+  "n_passed": 51,
+  "n_checks": 51,
+  "device": "mps",
+  "hashes": {
+    "base": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+    "checkpoints": {
+      "2020": "2552486a0870e2466a223fcce34f0477c40526a09172622619f0d1672a1af45e",
+      "2021": "2cb06d2a17d941857485329604d526b465eabda319632c932000b85d8d40cda6",
+      "2022": "556e38c92319ce87fb15ca390743ae20c539f4c5400c4cca82a83cdf3d46bd0a",
+      "2023": "03c25882ae3e4b48198265bf8447ef543308e40ec9fd700b4834d829dcb6100b",
+      "2024": "d1caccec4db1784537178e355351a3e0b67cde4e70185bf6b6a6d63f792198f1"
+    }
+  },
+  "seeds": {
+    "2020": {
+      "report": {
+        "source_task": "SpliceAI-GTEx three-class token classification",
+        "checkpoint": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2020.pt",
+        "checkpoint_sha256": "2552486a0870e2466a223fcce34f0477c40526a09172622619f0d1672a1af45e",
+        "seed": 2020,
+        "tensor_count": 103,
+        "parameter_count": 19448323,
+        "class_labels": [
+          "no_splice_site",
+          "donor",
+          "acceptor"
+        ],
+        "missing_keys": [],
+        "extra_keys": []
+      },
+      "observed": {
+        "clean_donor_margin_mean": 4.848709280602634,
+        "clean_donor_probability_mean": 0.894261501699612,
+        "clean_donor_positive_fraction": 0.890625,
+        "clean_acceptor_margin_mean": 5.216497292276472,
+        "clean_acceptor_probability_mean": 0.9561947099209762,
+        "clean_acceptor_positive_fraction": 0.96875,
+        "local_cc_drop_mean": 21.132915522437543,
+        "local_cc_drop_positive_fraction": 1.0,
+        "local_aa_drop_mean": 21.51394006749615,
+        "local_aa_drop_positive_fraction": 1.0,
+        "neutral_drop_mean": 0.2022024025209248,
+        "neutral_abs_mean_to_local_ratio": 0.009568126191875397,
+        "final_projection_max_abs_error": 0.0
+      },
+      "checks": {
+        "strict_checkpoint": true,
+        "tokenizer_coordinates": true,
+        "finite_forward": true,
+        "final_projection": true,
+        "clean_donor_recognition": true,
+        "clean_acceptor_recognition": true,
+        "local_cc_sensitivity": true,
+        "local_aa_sensitivity": true,
+        "neutral_specificity": true
+      },
+      "PASS": true,
+      "raw": [
+        {
+          "example_id": "chr19:6381121-6381195:-:ENSG00000125651.16",
+          "gene_id": "ENSG00000125651.16",
+          "neutral_position": 279,
+          "clean_donor_margin": 7.352535009384155,
+          "clean_acceptor_margin": 7.157704830169678,
+          "local_cc_drop": 21.50396579504013,
+          "local_aa_drop": 22.040809988975525,
+          "neutral_drop": 0.22400450706481934
+        },
+        {
+          "example_id": "chr11:64898260-64898362:-:ENSG00000110046.16",
+          "gene_id": "ENSG00000110046.16",
+          "neutral_position": 412,
+          "clean_donor_margin": 6.94820237159729,
+          "clean_acceptor_margin": 6.56900429725647,
+          "local_cc_drop": 24.134320497512817,
+          "local_aa_drop": 24.61021614074707,
+          "neutral_drop": 0.042199134826660156
+        },
+        {
+          "example_id": "chr11:67434379-67434484:+:ENSG00000175634.17",
+          "gene_id": "ENSG00000175634.17",
+          "neutral_position": 433,
+          "clean_donor_margin": 7.182563781738281,
+          "clean_acceptor_margin": 6.5766260623931885,
+          "local_cc_drop": 20.31898808479309,
+          "local_aa_drop": 20.85188126564026,
+          "neutral_drop": 0.0555872917175293
+        },
+        {
+          "example_id": "chr19:45777666-45777873:-:ENSG00000104936.22",
+          "gene_id": "ENSG00000104936.22",
+          "neutral_position": 488,
+          "clean_donor_margin": 7.244851350784302,
+          "clean_acceptor_margin": 6.009456634521484,
+          "local_cc_drop": 23.00976699590683,
+          "local_aa_drop": 23.92122119665146,
+          "neutral_drop": 0.16857647895812988
+        },
+        {
+          "example_id": "chr16:29911959-29912049:-:ENSG00000174943.13",
+          "gene_id": "ENSG00000174943.13",
+          "neutral_position": 375,
+          "clean_donor_margin": 7.264904260635376,
+          "clean_acceptor_margin": 6.094680070877075,
+          "local_cc_drop": 23.447181463241577,
+          "local_aa_drop": 22.764407873153687,
+          "neutral_drop": -0.03388524055480957
+        },
+        {
+          "example_id": "chr16:75113965-75114030:-:ENSG00000166816.17",
+          "gene_id": "ENSG00000166816.17",
+          "neutral_position": 356,
+          "clean_donor_margin": 6.215534210205078,
+          "clean_acceptor_margin": 5.778895378112793,
+          "local_cc_drop": 22.081681191921234,
+          "local_aa_drop": 20.871555358171463,
+          "neutral_drop": 0.4548032283782959
+        },
+        {
+          "example_id": "chr11:102797255-102797500:-:ENSG00000196611.7",
+          "gene_id": "ENSG00000196611.7",
+          "neutral_position": 573,
+          "clean_donor_margin": 7.153847932815552,
+          "clean_acceptor_margin": 7.252269983291626,
+          "local_cc_drop": 24.285207748413086,
+          "local_aa_drop": 24.79567688703537,
+          "neutral_drop": -0.02786540985107422
+        },
+        {
+          "example_id": "chr19:50406181-50406322:+:ENSG00000062822.18",
+          "gene_id": "ENSG00000062822.18",
+          "neutral_position": 360,
+          "clean_donor_margin": 6.839897632598877,
+          "clean_acceptor_margin": 6.5957677364349365,
+          "local_cc_drop": 22.510697156190872,
+          "local_aa_drop": 22.310026854276657,
+          "neutral_drop": 0.0535123348236084
+        },
+        {
+          "example_id": "chr16:2462414-2462526:+:ENSG00000162062.17",
+          "gene_id": "ENSG00000162062.17",
+          "neutral_position": 336,
+          "clean_donor_margin": 4.9555511474609375,
+          "clean_acceptor_margin": 6.6534106731414795,
+          "local_cc_drop": 22.310792088508606,
+          "local_aa_drop": 22.327574849128723,
+          "neutral_drop": -0.029013395309448242
+        },
+        {
+          "example_id": "chr11:64224794-64224970:-:ENSG00000149743.16",
+          "gene_id": "ENSG00000149743.16",
+          "neutral_position": 414,
+          "clean_donor_margin": -0.06951403617858887,
+          "clean_acceptor_margin": 4.648942470550537,
+          "local_cc_drop": 17.628440380096436,
+          "local_aa_drop": 18.2039213180542,
+          "neutral_drop": -0.14222216606140137
+        },
+        {
+          "example_id": "chr19:13808835-13808984:+:ENSG00000132003.12",
+          "gene_id": "ENSG00000132003.12",
+          "neutral_position": 496,
+          "clean_donor_margin": 6.360629081726074,
+          "clean_acceptor_margin": 6.2049338817596436,
+          "local_cc_drop": 20.826655626296997,
+          "local_aa_drop": 21.131337881088257,
+          "neutral_drop": 0.018622398376464844
+        },
+        {
+          "example_id": "chr11:67405398-67405506:+:ENSG00000175463.14",
+          "gene_id": "ENSG00000175463.14",
+          "neutral_position": 313,
+          "clean_donor_margin": 6.890741586685181,
+          "clean_acceptor_margin": 5.864358425140381,
+          "local_cc_drop": 23.507823705673218,
+          "local_aa_drop": 22.544767379760742,
+          "neutral_drop": 0.09541177749633789
+        },
+        {
+          "example_id": "chr16:31141722-31141960:-:ENSG00000178226.13",
+          "gene_id": "ENSG00000178226.13",
+          "neutral_position": 524,
+          "clean_donor_margin": 0.657197892665863,
+          "clean_acceptor_margin": 1.3023388385772705,
+          "local_cc_drop": 20.100027978420258,
+          "local_aa_drop": 19.64025753736496,
+          "neutral_drop": 0.6372988820075989
+        },
+        {
+          "example_id": "chr16:29862814-29863178:-:ENSG00000103502.16",
+          "gene_id": "ENSG00000103502.16",
+          "neutral_position": 611,
+          "clean_donor_margin": 4.214954853057861,
+          "clean_acceptor_margin": 5.116528511047363,
+          "local_cc_drop": 22.618181943893433,
+          "local_aa_drop": 22.977088451385498,
+          "neutral_drop": 0.011985063552856445
+        },
+        {
+          "example_id": "chr16:31324398-31324553:+:ENSG00000169896.20",
+          "gene_id": "ENSG00000169896.20",
+          "neutral_position": 363,
+          "clean_donor_margin": 5.761375427246094,
+          "clean_acceptor_margin": 6.311635255813599,
+          "local_cc_drop": 22.940899074077606,
+          "local_aa_drop": 22.818417012691498,
+          "neutral_drop": -0.20625567436218262
+        },
+        {
+          "example_id": "chr16:88859662-88859750:+:ENSG00000167515.13",
+          "gene_id": "ENSG00000167515.13",
+          "neutral_position": 396,
+          "clean_donor_margin": 6.388351202011108,
+          "clean_acceptor_margin": 7.304472923278809,
+          "local_cc_drop": 23.19061255455017,
+          "local_aa_drop": 22.69820523262024,
+          "neutral_drop": 0.03349804878234863
+        },
+        {
+          "example_id": "chr16:67539727-67539751:+:ENSG00000039523.22",
+          "gene_id": "ENSG00000039523.22",
+          "neutral_position": 206,
+          "clean_donor_margin": 5.3018248081207275,
+          "clean_acceptor_margin": 5.853316128253937,
+          "local_cc_drop": 24.096299409866333,
+          "local_aa_drop": 24.42470622062683,
+          "neutral_drop": -0.048178672790527344
+        },
+        {
+          "example_id": "chr11:63373643-63373798:+:ENSG00000149742.12",
+          "gene_id": "ENSG00000149742.12",
+          "neutral_position": 370,
+          "clean_donor_margin": 3.66636323928833,
+          "clean_acceptor_margin": 4.107854843139648,
+          "local_cc_drop": 21.9365451335907,
+          "local_aa_drop": 21.861645340919495,
+          "neutral_drop": 0.08486557006835938
+        },
+        {
+          "example_id": "chr11:117202828-117203193:+:ENSG00000149591.19",
+          "gene_id": "ENSG00000149591.19",
+          "neutral_position": 631,
+          "clean_donor_margin": 6.842835426330566,
+          "clean_acceptor_margin": 7.228007555007935,
+          "local_cc_drop": 23.02157497406006,
+          "local_aa_drop": 24.836281478405,
+          "neutral_drop": 0.06908059120178223
+        },
+        {
+          "example_id": "chr11:46726497-46726631:+:ENSG00000180210.17",
+          "gene_id": "ENSG00000180210.17",
+          "neutral_position": 399,
+          "clean_donor_margin": -1.7876543998718262,
+          "clean_acceptor_margin": 6.155196905136108,
+          "local_cc_drop": 16.17715686559677,
+          "local_aa_drop": 17.619406938552856,
+          "neutral_drop": -0.02134418487548828
+        },
+        {
+          "example_id": "chr19:622841-622985:-:ENSG00000099821.16",
+          "gene_id": "ENSG00000099821.16",
+          "neutral_position": 406,
+          "clean_donor_margin": -2.559899866580963,
+          "clean_acceptor_margin": 5.9120261669158936,
+          "local_cc_drop": 15.970556437969208,
+          "local_aa_drop": 15.814965665340424,
+          "neutral_drop": -0.05089986324310303
+        },
+        {
+          "example_id": "chr19:38362375-38362574:+:ENSG00000099338.24",
+          "gene_id": "ENSG00000099338.24",
+          "neutral_position": 478,
+          "clean_donor_margin": 4.022572994232178,
+          "clean_acceptor_margin": 2.6916306018829346,
+          "local_cc_drop": 19.56520175933838,
+          "local_aa_drop": 20.449144929647446,
+          "neutral_drop": 0.5914514064788818
+        },
+        {
+          "example_id": "chr16:67945968-67946082:-:ENSG00000124067.19",
+          "gene_id": "ENSG00000124067.19",
+          "neutral_position": 301,
+          "clean_donor_margin": -0.9336462020874023,
+          "clean_acceptor_margin": 5.6919097900390625,
+          "local_cc_drop": 17.488178491592407,
+          "local_aa_drop": 17.42491054534912,
+          "neutral_drop": -0.19507908821105957
+        },
+        {
+          "example_id": "chr16:30231747-30231847:-:ENSG00000198064.17",
+          "gene_id": "ENSG00000198064.17",
+          "neutral_position": 345,
+          "clean_donor_margin": 5.981852293014526,
+          "clean_acceptor_margin": 2.3581953048706055,
+          "local_cc_drop": 21.045408487319946,
+          "local_aa_drop": 20.840380907058716,
+          "neutral_drop": 0.8610022068023682
+        },
+        {
+          "example_id": "chr19:50820153-50820443:-:ENSG00000167748.12",
+          "gene_id": "ENSG00000167748.12",
+          "neutral_position": 523,
+          "clean_donor_margin": 5.931427001953125,
+          "clean_acceptor_margin": 4.288331508636475,
+          "local_cc_drop": 21.057910442352295,
+          "local_aa_drop": 21.253800451755524,
+          "neutral_drop": 0.20217370986938477
+        },
+        {
+          "example_id": "chr19:15239058-15239264:-:ENSG00000141867.20",
+          "gene_id": "ENSG00000141867.20",
+          "neutral_position": 563,
+          "clean_donor_margin": 6.00750470161438,
+          "clean_acceptor_margin": 6.835517644882202,
+          "local_cc_drop": 16.893620014190674,
+          "local_aa_drop": 17.67404156923294,
+          "neutral_drop": -0.08592605590820312
+        },
+        {
+          "example_id": "chr19:39167991-39168085:+:ENSG00000130669.19",
+          "gene_id": "ENSG00000130669.19",
+          "neutral_position": 356,
+          "clean_donor_margin": -2.8545742630958557,
+          "clean_acceptor_margin": -0.14665037393569946,
+          "local_cc_drop": 16.516038596630096,
+          "local_aa_drop": 16.878374755382538,
+          "neutral_drop": 1.9068118333816528
+        },
+        {
+          "example_id": "chr19:4475274-4475351:+:ENSG00000167674.17",
+          "gene_id": "ENSG00000167674.17",
+          "neutral_position": 379,
+          "clean_donor_margin": 7.494471311569214,
+          "clean_acceptor_margin": 7.272368669509888,
+          "local_cc_drop": 19.690688610076904,
+          "local_aa_drop": 22.649344563484192,
+          "neutral_drop": 0.045478105545043945
+        },
+        {
+          "example_id": "chr19:41410636-41410816:+:ENSG00000255730.5",
+          "gene_id": "ENSG00000255730.5",
+          "neutral_position": 512,
+          "clean_donor_margin": 6.561623811721802,
+          "clean_acceptor_margin": 6.898380279541016,
+          "local_cc_drop": 21.59511709213257,
+          "local_aa_drop": 22.715216159820557,
+          "neutral_drop": 0.023810148239135742
+        },
+        {
+          "example_id": "chr16:1348095-1348237:+:ENSG00000007516.17",
+          "gene_id": "ENSG00000007516.17",
+          "neutral_position": 513,
+          "clean_donor_margin": 4.543753147125244,
+          "clean_acceptor_margin": 4.79730486869812,
+          "local_cc_drop": 21.6884982585907,
+          "local_aa_drop": 21.78465586900711,
+          "neutral_drop": -0.011405706405639648
+        },
+        {
+          "example_id": "chr16:66941505-66941646:+:ENSG00000172831.16",
+          "gene_id": "ENSG00000172831.16",
+          "neutral_position": 503,
+          "clean_donor_margin": 7.349705219268799,
+          "clean_acceptor_margin": 4.049862623214722,
+          "local_cc_drop": 20.063113927841187,
+          "local_aa_drop": 21.611724317073822,
+          "neutral_drop": 0.0746006965637207
+        },
+        {
+          "example_id": "chr11:72826526-72826589:+:ENSG00000168010.13",
+          "gene_id": "ENSG00000168010.13",
+          "neutral_position": 297,
+          "clean_donor_margin": 4.770113468170166,
+          "clean_acceptor_margin": 4.284086465835571,
+          "local_cc_drop": 22.160934269428253,
+          "local_aa_drop": 21.833812594413757,
+          "neutral_drop": -0.7149782180786133
+        },
+        {
+          "example_id": "chr19:49646525-49646626:+:ENSG00000126461.17",
+          "gene_id": "ENSG00000126461.17",
+          "neutral_position": 319,
+          "clean_donor_margin": 3.8800790309906006,
+          "clean_acceptor_margin": 5.944905042648315,
+          "local_cc_drop": 23.43838930130005,
+          "local_aa_drop": 23.607577085494995,
+          "neutral_drop": 1.3282959461212158
+        },
+        {
+          "example_id": "chr19:6479858-6479902:-:ENSG00000205744.12",
+          "gene_id": "ENSG00000205744.12",
+          "neutral_position": 414,
+          "clean_donor_margin": 3.955808162689209,
+          "clean_acceptor_margin": 2.605071783065796,
+          "local_cc_drop": 20.273278295993805,
+          "local_aa_drop": 20.349543392658234,
+          "neutral_drop": 0.44113922119140625
+        },
+        {
+          "example_id": "chr19:7911249-7911330:+:ENSG00000076984.20",
+          "gene_id": "ENSG00000076984.20",
+          "neutral_position": 259,
+          "clean_donor_margin": 7.09842324256897,
+          "clean_acceptor_margin": 7.442392349243164,
+          "local_cc_drop": 23.34309983253479,
+          "local_aa_drop": 23.554563283920288,
+          "neutral_drop": 0.040509939193725586
+        },
+        {
+          "example_id": "chr19:14563528-14563702:+:ENSG00000099797.17",
+          "gene_id": "ENSG00000099797.17",
+          "neutral_position": 459,
+          "clean_donor_margin": 6.636889696121216,
+          "clean_acceptor_margin": 6.429865837097168,
+          "local_cc_drop": 23.026527911424637,
+          "local_aa_drop": 23.141990929841995,
+          "neutral_drop": 0.3497583866119385
+        },
+        {
+          "example_id": "chr19:48614707-48614839:-:ENSG00000105523.6",
+          "gene_id": "ENSG00000105523.6",
+          "neutral_position": 434,
+          "clean_donor_margin": 1.498055338859558,
+          "clean_acceptor_margin": 0.5768290460109711,
+          "local_cc_drop": 19.601795077323914,
+          "local_aa_drop": 20.335086405277252,
+          "neutral_drop": 0.3706405460834503
+        },
+        {
+          "example_id": "chr19:5691318-5691453:+:ENSG00000130255.15",
+          "gene_id": "ENSG00000130255.15",
+          "neutral_position": 483,
+          "clean_donor_margin": 6.946777105331421,
+          "clean_acceptor_margin": 5.8896098136901855,
+          "local_cc_drop": 21.282490491867065,
+          "local_aa_drop": 21.40132784843445,
+          "neutral_drop": 0.02506875991821289
+        },
+        {
+          "example_id": "chr19:1877507-1877675:-:ENSG00000129968.19",
+          "gene_id": "ENSG00000129968.19",
+          "neutral_position": 412,
+          "clean_donor_margin": 6.059412002563477,
+          "clean_acceptor_margin": 5.786198377609253,
+          "local_cc_drop": 18.502046048641205,
+          "local_aa_drop": 18.29193288087845,
+          "neutral_drop": -0.26276445388793945
+        },
+        {
+          "example_id": "chr11:47171663-47171788:-:ENSG00000149182.17",
+          "gene_id": "ENSG00000149182.17",
+          "neutral_position": 429,
+          "clean_donor_margin": 7.114029169082642,
+          "clean_acceptor_margin": 6.503796339035034,
+          "local_cc_drop": 23.06344383955002,
+          "local_aa_drop": 23.655528783798218,
+          "neutral_drop": 0.0019156932830810547
+        },
+        {
+          "example_id": "chr11:615344-615622:-:ENSG00000185507.23",
+          "gene_id": "ENSG00000185507.23",
+          "neutral_position": 643,
+          "clean_donor_margin": 2.088271677494049,
+          "clean_acceptor_margin": -1.448261320590973,
+          "local_cc_drop": 14.909980833530426,
+          "local_aa_drop": 14.642860233783722,
+          "neutral_drop": 2.68422394990921
+        },
+        {
+          "example_id": "chr11:62839506-62839706:-:ENSG00000133316.18",
+          "gene_id": "ENSG00000133316.18",
+          "neutral_position": 541,
+          "clean_donor_margin": 4.017866134643555,
+          "clean_acceptor_margin": 5.26227879524231,
+          "local_cc_drop": 18.91869693994522,
+          "local_aa_drop": 20.20174413919449,
+          "neutral_drop": -0.015511512756347656
+        },
+        {
+          "example_id": "chr16:89636263-89636396:+:ENSG00000015413.12",
+          "gene_id": "ENSG00000015413.12",
+          "neutral_position": 524,
+          "clean_donor_margin": 6.142448902130127,
+          "clean_acceptor_margin": 6.6193201541900635,
+          "local_cc_drop": 21.433489382267,
+          "local_aa_drop": 21.615210115909576,
+          "neutral_drop": -0.03955721855163574
+        },
+        {
+          "example_id": "chr16:2786088-2786121:-:ENSG00000103355.16",
+          "gene_id": "ENSG00000103355.16",
+          "neutral_position": 314,
+          "clean_donor_margin": 4.7715089321136475,
+          "clean_acceptor_margin": 2.51023006439209,
+          "local_cc_drop": 16.976355373859406,
+          "local_aa_drop": 18.24354714155197,
+          "neutral_drop": 0.491809606552124
+        },
+        {
+          "example_id": "chr19:6731198-6731314:-:ENSG00000125734.18",
+          "gene_id": "ENSG00000125734.18",
+          "neutral_position": 396,
+          "clean_donor_margin": 6.791895151138306,
+          "clean_acceptor_margin": 6.204326868057251,
+          "local_cc_drop": 24.340929210186005,
+          "local_aa_drop": 24.877210915088654,
+          "neutral_drop": 0.0028564929962158203
+        },
+        {
+          "example_id": "chr11:134153139-134153200:-:ENSG00000151503.16",
+          "gene_id": "ENSG00000151503.16",
+          "neutral_position": 295,
+          "clean_donor_margin": 3.4996917247772217,
+          "clean_acceptor_margin": 4.0236029624938965,
+          "local_cc_drop": 22.66823101043701,
+          "local_aa_drop": 23.19374990463257,
+          "neutral_drop": -0.22704339027404785
+        },
+        {
+          "example_id": "chr19:36125450-36125523:+:ENSG00000105254.14",
+          "gene_id": "ENSG00000105254.14",
+          "neutral_position": 433,
+          "clean_donor_margin": 6.8288774490356445,
+          "clean_acceptor_margin": 5.39903450012207,
+          "local_cc_drop": 23.03974038362503,
+          "local_aa_drop": 22.980571508407593,
+          "neutral_drop": 0.08860373497009277
+        },
+        {
+          "example_id": "chr11:17634843-17634948:+:ENSG00000188162.12",
+          "gene_id": "ENSG00000188162.12",
+          "neutral_position": 454,
+          "clean_donor_margin": 5.27006196975708,
+          "clean_acceptor_margin": 5.211468696594238,
+          "local_cc_drop": 22.013184249401093,
+          "local_aa_drop": 21.338195025920868,
+          "neutral_drop": 0.22481393814086914
+        },
+        {
+          "example_id": "chr11:60902582-60902656:-:ENSG00000110107.11",
+          "gene_id": "ENSG00000110107.11",
+          "neutral_position": 464,
+          "clean_donor_margin": 6.278732538223267,
+          "clean_acceptor_margin": 6.590851306915283,
+          "local_cc_drop": 24.527345418930054,
+          "local_aa_drop": 25.256023645401,
+          "neutral_drop": 0.13632750511169434
+        },
+        {
+          "example_id": "chr19:46124267-46124321:-:ENSG00000188624.4",
+          "gene_id": "ENSG00000188624.4",
+          "neutral_position": 361,
+          "clean_donor_margin": 6.188073635101318,
+          "clean_acceptor_margin": 2.4421064853668213,
+          "local_cc_drop": 18.841762363910675,
+          "local_aa_drop": 19.544471442699432,
+          "neutral_drop": 0.06569385528564453
+        },
+        {
+          "example_id": "chr19:38212279-38212361:-:ENSG00000011332.24",
+          "gene_id": "ENSG00000011332.24",
+          "neutral_position": 459,
+          "clean_donor_margin": 5.186288833618164,
+          "clean_acceptor_margin": 4.609789133071899,
+          "local_cc_drop": 22.86593061685562,
+          "local_aa_drop": 23.21793842315674,
+          "neutral_drop": -0.3392798900604248
+        },
+        {
+          "example_id": "chr19:42336806-42336952:+:ENSG00000105429.14",
+          "gene_id": "ENSG00000105429.14",
+          "neutral_position": 534,
+          "clean_donor_margin": 6.256443738937378,
+          "clean_acceptor_margin": 6.374488115310669,
+          "local_cc_drop": 24.464475274086,
+          "local_aa_drop": 24.854486227035522,
+          "neutral_drop": 0.13175702095031738
+        },
+        {
+          "example_id": "chr16:84181745-84181863:-:ENSG00000103168.19",
+          "gene_id": "ENSG00000103168.19",
+          "neutral_position": 422,
+          "clean_donor_margin": 4.960064172744751,
+          "clean_acceptor_margin": 1.269945204257965,
+          "local_cc_drop": 21.847377955913544,
+          "local_aa_drop": 23.212383687496185,
+          "neutral_drop": 0.4029269218444824
+        },
+        {
+          "example_id": "chr19:17881959-17882072:+:ENSG00000105641.5",
+          "gene_id": "ENSG00000105641.5",
+          "neutral_position": 322,
+          "clean_donor_margin": 5.7051873207092285,
+          "clean_acceptor_margin": 5.785381078720093,
+          "local_cc_drop": 22.80716323852539,
+          "local_aa_drop": 24.269379913806915,
+          "neutral_drop": 2.5181403160095215
+        },
+        {
+          "example_id": "chr19:43543611-43543687:-:ENSG00000073050.14",
+          "gene_id": "ENSG00000073050.14",
+          "neutral_position": 329,
+          "clean_donor_margin": 6.626740217208862,
+          "clean_acceptor_margin": 3.080660581588745,
+          "local_cc_drop": 20.752422869205475,
+          "local_aa_drop": 20.82676100730896,
+          "neutral_drop": -0.06865596771240234
+        },
+        {
+          "example_id": "chr16:28608707-28608859:-:ENSG00000196502.17",
+          "gene_id": "ENSG00000196502.17",
+          "neutral_position": 481,
+          "clean_donor_margin": 7.113433599472046,
+          "clean_acceptor_margin": 6.6341047286987305,
+          "local_cc_drop": 22.466542899608612,
+          "local_aa_drop": 23.416440784931183,
+          "neutral_drop": -0.0021665096282958984
+        },
+        {
+          "example_id": "chr19:46608204-46608340:+:ENSG00000160014.19",
+          "gene_id": "ENSG00000160014.19",
+          "neutral_position": 363,
+          "clean_donor_margin": 7.010066986083984,
+          "clean_acceptor_margin": 7.4972944259643555,
+          "local_cc_drop": 23.738109588623047,
+          "local_aa_drop": 23.434468746185303,
+          "neutral_drop": 0.3021678924560547
+        },
+        {
+          "example_id": "chr19:5914939-5915095:+:ENSG00000105519.19",
+          "gene_id": "ENSG00000105519.19",
+          "neutral_position": 511,
+          "clean_donor_margin": -2.150190055370331,
+          "clean_acceptor_margin": 6.311038970947266,
+          "local_cc_drop": 15.357549786567688,
+          "local_aa_drop": 15.457992792129517,
+          "neutral_drop": 0.10766398906707764
+        },
+        {
+          "example_id": "chr11:118530512-118530561:+:ENSG00000172425.14",
+          "gene_id": "ENSG00000172425.14",
+          "neutral_position": 334,
+          "clean_donor_margin": -7.196836829185486,
+          "clean_acceptor_margin": 4.033998727798462,
+          "local_cc_drop": 11.26620465517044,
+          "local_aa_drop": 10.935124963521957,
+          "neutral_drop": -8.034706115722656e-05
+        },
+        {
+          "example_id": "chr16:3564858-3565112:-:ENSG00000167984.20",
+          "gene_id": "ENSG00000167984.20",
+          "neutral_position": 481,
+          "clean_donor_margin": 5.452625036239624,
+          "clean_acceptor_margin": 3.338226079940796,
+          "local_cc_drop": 21.46826261281967,
+          "local_aa_drop": 20.66196781396866,
+          "neutral_drop": -0.06528472900390625
+        },
+        {
+          "example_id": "chr19:1112188-1112301:-:ENSG00000064932.18",
+          "gene_id": "ENSG00000064932.18",
+          "neutral_position": 455,
+          "clean_donor_margin": 6.609931468963623,
+          "clean_acceptor_margin": 6.930774450302124,
+          "local_cc_drop": 24.82412362098694,
+          "local_aa_drop": 25.228418111801147,
+          "neutral_drop": 0.019759178161621094
+        },
+        {
+          "example_id": "chr19:55648945-55649077:+:ENSG00000173581.10",
+          "gene_id": "ENSG00000173581.10",
+          "neutral_position": 500,
+          "clean_donor_margin": 4.212230682373047,
+          "clean_acceptor_margin": 5.804765462875366,
+          "local_cc_drop": 20.48272842168808,
+          "local_aa_drop": 20.904570698738098,
+          "neutral_drop": 0.13023591041564941
+        },
+        {
+          "example_id": "chr11:65131131-65131197:-:ENSG00000162298.21",
+          "gene_id": "ENSG00000162298.21",
+          "neutral_position": 329,
+          "clean_donor_margin": 6.768779277801514,
+          "clean_acceptor_margin": 6.836580514907837,
+          "local_cc_drop": 24.220232516527176,
+          "local_aa_drop": 23.956547558307648,
+          "neutral_drop": 0.006594181060791016
+        },
+        {
+          "example_id": "chr11:67282270-67282365:+:ENSG00000173020.13",
+          "gene_id": "ENSG00000173020.13",
+          "neutral_position": 324,
+          "clean_donor_margin": 6.995831251144409,
+          "clean_acceptor_margin": 7.636787176132202,
+          "local_cc_drop": 22.36259835958481,
+          "local_aa_drop": 26.104771375656128,
+          "neutral_drop": 0.0026750564575195312
+        }
+      ]
+    },
+    "2021": {
+      "report": {
+        "source_task": "SpliceAI-GTEx three-class token classification",
+        "checkpoint": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2021.pt",
+        "checkpoint_sha256": "2cb06d2a17d941857485329604d526b465eabda319632c932000b85d8d40cda6",
+        "seed": 2021,
+        "tensor_count": 103,
+        "parameter_count": 19448323,
+        "class_labels": [
+          "no_splice_site",
+          "donor",
+          "acceptor"
+        ],
+        "missing_keys": [],
+        "extra_keys": []
+      },
+      "observed": {
+        "clean_donor_margin_mean": 5.279523150064051,
+        "clean_donor_probability_mean": 0.9020768101609984,
+        "clean_donor_positive_fraction": 0.90625,
+        "clean_acceptor_margin_mean": 5.751909373793751,
+        "clean_acceptor_probability_mean": 0.9878705958584206,
+        "clean_acceptor_positive_fraction": 1.0,
+        "local_cc_drop_mean": 19.12362256180495,
+        "local_cc_drop_positive_fraction": 1.0,
+        "local_aa_drop_mean": 20.208438568748534,
+        "local_aa_drop_positive_fraction": 1.0,
+        "neutral_drop_mean": 0.19755825633183122,
+        "neutral_abs_mean_to_local_ratio": 0.01033058750732764,
+        "final_projection_max_abs_error": 0.0
+      },
+      "checks": {
+        "strict_checkpoint": true,
+        "tokenizer_coordinates": true,
+        "finite_forward": true,
+        "final_projection": true,
+        "clean_donor_recognition": true,
+        "clean_acceptor_recognition": true,
+        "local_cc_sensitivity": true,
+        "local_aa_sensitivity": true,
+        "neutral_specificity": true
+      },
+      "PASS": true,
+      "raw": [
+        {
+          "example_id": "chr19:6381121-6381195:-:ENSG00000125651.16",
+          "gene_id": "ENSG00000125651.16",
+          "neutral_position": 279,
+          "clean_donor_margin": 6.2640697956085205,
+          "clean_acceptor_margin": 7.609031677246094,
+          "local_cc_drop": 17.963009119033813,
+          "local_aa_drop": 19.403056383132935,
+          "neutral_drop": 0.16295862197875977
+        },
+        {
+          "example_id": "chr11:64898260-64898362:-:ENSG00000110046.16",
+          "gene_id": "ENSG00000110046.16",
+          "neutral_position": 412,
+          "clean_donor_margin": 7.240225791931152,
+          "clean_acceptor_margin": 6.7822065353393555,
+          "local_cc_drop": 19.197890877723694,
+          "local_aa_drop": 23.524787425994873,
+          "neutral_drop": 0.05045437812805176
+        },
+        {
+          "example_id": "chr11:67434379-67434484:+:ENSG00000175634.17",
+          "gene_id": "ENSG00000175634.17",
+          "neutral_position": 433,
+          "clean_donor_margin": 7.733006954193115,
+          "clean_acceptor_margin": 6.750282287597656,
+          "local_cc_drop": 17.06509017944336,
+          "local_aa_drop": 21.506775617599487,
+          "neutral_drop": 0.051813602447509766
+        },
+        {
+          "example_id": "chr19:45777666-45777873:-:ENSG00000104936.22",
+          "gene_id": "ENSG00000104936.22",
+          "neutral_position": 488,
+          "clean_donor_margin": 7.74225926399231,
+          "clean_acceptor_margin": 4.407575488090515,
+          "local_cc_drop": 20.4023699760437,
+          "local_aa_drop": 22.35480046272278,
+          "neutral_drop": 0.14682769775390625
+        },
+        {
+          "example_id": "chr16:29911959-29912049:-:ENSG00000174943.13",
+          "gene_id": "ENSG00000174943.13",
+          "neutral_position": 375,
+          "clean_donor_margin": 7.733349323272705,
+          "clean_acceptor_margin": 6.6655802726745605,
+          "local_cc_drop": 18.54713213443756,
+          "local_aa_drop": 22.641423225402832,
+          "neutral_drop": -0.012071371078491211
+        },
+        {
+          "example_id": "chr16:75113965-75114030:-:ENSG00000166816.17",
+          "gene_id": "ENSG00000166816.17",
+          "neutral_position": 356,
+          "clean_donor_margin": 7.196725130081177,
+          "clean_acceptor_margin": 6.438458442687988,
+          "local_cc_drop": 16.65597367286682,
+          "local_aa_drop": 19.69488549232483,
+          "neutral_drop": 0.2236635684967041
+        },
+        {
+          "example_id": "chr11:102797255-102797500:-:ENSG00000196611.7",
+          "gene_id": "ENSG00000196611.7",
+          "neutral_position": 573,
+          "clean_donor_margin": 7.26623010635376,
+          "clean_acceptor_margin": 7.194133758544922,
+          "local_cc_drop": 22.68169939517975,
+          "local_aa_drop": 23.67321527004242,
+          "neutral_drop": -0.03849983215332031
+        },
+        {
+          "example_id": "chr19:50406181-50406322:+:ENSG00000062822.18",
+          "gene_id": "ENSG00000062822.18",
+          "neutral_position": 360,
+          "clean_donor_margin": 7.765602350234985,
+          "clean_acceptor_margin": 6.609286785125732,
+          "local_cc_drop": 19.430404901504517,
+          "local_aa_drop": 19.324814796447754,
+          "neutral_drop": 0.015105247497558594
+        },
+        {
+          "example_id": "chr16:2462414-2462526:+:ENSG00000162062.17",
+          "gene_id": "ENSG00000162062.17",
+          "neutral_position": 336,
+          "clean_donor_margin": 6.371322154998779,
+          "clean_acceptor_margin": 7.208166122436523,
+          "local_cc_drop": 21.268466234207153,
+          "local_aa_drop": 22.066799640655518,
+          "neutral_drop": -0.0225980281829834
+        },
+        {
+          "example_id": "chr11:64224794-64224970:-:ENSG00000149743.16",
+          "gene_id": "ENSG00000149743.16",
+          "neutral_position": 414,
+          "clean_donor_margin": 0.793997049331665,
+          "clean_acceptor_margin": 4.809316277503967,
+          "local_cc_drop": 14.726126194000244,
+          "local_aa_drop": 15.437629461288452,
+          "neutral_drop": -0.06782391667366028
+        },
+        {
+          "example_id": "chr19:13808835-13808984:+:ENSG00000132003.12",
+          "gene_id": "ENSG00000132003.12",
+          "neutral_position": 496,
+          "clean_donor_margin": 7.227341651916504,
+          "clean_acceptor_margin": 6.7888312339782715,
+          "local_cc_drop": 15.250419586896896,
+          "local_aa_drop": 17.013347506523132,
+          "neutral_drop": 0.013530731201171875
+        },
+        {
+          "example_id": "chr11:67405398-67405506:+:ENSG00000175463.14",
+          "gene_id": "ENSG00000175463.14",
+          "neutral_position": 313,
+          "clean_donor_margin": 7.271039962768555,
+          "clean_acceptor_margin": 6.4569292068481445,
+          "local_cc_drop": 20.531843423843384,
+          "local_aa_drop": 22.674739122390747,
+          "neutral_drop": 0.34232020378112793
+        },
+        {
+          "example_id": "chr16:31141722-31141960:-:ENSG00000178226.13",
+          "gene_id": "ENSG00000178226.13",
+          "neutral_position": 524,
+          "clean_donor_margin": 1.5044470429420471,
+          "clean_acceptor_margin": 3.802958369255066,
+          "local_cc_drop": 18.86427539587021,
+          "local_aa_drop": 19.437388598918915,
+          "neutral_drop": 0.17259591817855835
+        },
+        {
+          "example_id": "chr16:29862814-29863178:-:ENSG00000103502.16",
+          "gene_id": "ENSG00000103502.16",
+          "neutral_position": 611,
+          "clean_donor_margin": 5.01959753036499,
+          "clean_acceptor_margin": 4.9409099817276,
+          "local_cc_drop": 20.32430136203766,
+          "local_aa_drop": 22.5956928730011,
+          "neutral_drop": 0.05030226707458496
+        },
+        {
+          "example_id": "chr16:31324398-31324553:+:ENSG00000169896.20",
+          "gene_id": "ENSG00000169896.20",
+          "neutral_position": 363,
+          "clean_donor_margin": 6.917307376861572,
+          "clean_acceptor_margin": 6.277569770812988,
+          "local_cc_drop": 18.003925561904907,
+          "local_aa_drop": 18.999322652816772,
+          "neutral_drop": -0.15376973152160645
+        },
+        {
+          "example_id": "chr16:88859662-88859750:+:ENSG00000167515.13",
+          "gene_id": "ENSG00000167515.13",
+          "neutral_position": 396,
+          "clean_donor_margin": 7.162430286407471,
+          "clean_acceptor_margin": 6.8884453773498535,
+          "local_cc_drop": 19.322916507720947,
+          "local_aa_drop": 18.587071418762207,
+          "neutral_drop": 0.0845487117767334
+        },
+        {
+          "example_id": "chr16:67539727-67539751:+:ENSG00000039523.22",
+          "gene_id": "ENSG00000039523.22",
+          "neutral_position": 206,
+          "clean_donor_margin": 4.5893542766571045,
+          "clean_acceptor_margin": 6.065238356590271,
+          "local_cc_drop": 24.414287328720093,
+          "local_aa_drop": 24.52291512489319,
+          "neutral_drop": -0.045317888259887695
+        },
+        {
+          "example_id": "chr11:63373643-63373798:+:ENSG00000149742.12",
+          "gene_id": "ENSG00000149742.12",
+          "neutral_position": 370,
+          "clean_donor_margin": 3.0734943151474,
+          "clean_acceptor_margin": 5.3679327964782715,
+          "local_cc_drop": 18.264383912086487,
+          "local_aa_drop": 17.532604813575745,
+          "neutral_drop": 0.1404263973236084
+        },
+        {
+          "example_id": "chr11:117202828-117203193:+:ENSG00000149591.19",
+          "gene_id": "ENSG00000149591.19",
+          "neutral_position": 631,
+          "clean_donor_margin": 6.54091477394104,
+          "clean_acceptor_margin": 6.63699197769165,
+          "local_cc_drop": 22.106712877750397,
+          "local_aa_drop": 23.65574675798416,
+          "neutral_drop": 0.06942081451416016
+        },
+        {
+          "example_id": "chr11:46726497-46726631:+:ENSG00000180210.17",
+          "gene_id": "ENSG00000180210.17",
+          "neutral_position": 399,
+          "clean_donor_margin": -2.331466853618622,
+          "clean_acceptor_margin": 6.470355987548828,
+          "local_cc_drop": 14.84661465883255,
+          "local_aa_drop": 15.289577305316925,
+          "neutral_drop": 0.14695847034454346
+        },
+        {
+          "example_id": "chr19:622841-622985:-:ENSG00000099821.16",
+          "gene_id": "ENSG00000099821.16",
+          "neutral_position": 406,
+          "clean_donor_margin": -1.756542146205902,
+          "clean_acceptor_margin": 6.1786651611328125,
+          "local_cc_drop": 16.992298662662506,
+          "local_aa_drop": 16.913104593753815,
+          "neutral_drop": 0.12074649333953857
+        },
+        {
+          "example_id": "chr19:38362375-38362574:+:ENSG00000099338.24",
+          "gene_id": "ENSG00000099338.24",
+          "neutral_position": 478,
+          "clean_donor_margin": 5.743625640869141,
+          "clean_acceptor_margin": 4.344093918800354,
+          "local_cc_drop": 15.330328941345215,
+          "local_aa_drop": 16.499778270721436,
+          "neutral_drop": 0.33575892448425293
+        },
+        {
+          "example_id": "chr16:67945968-67946082:-:ENSG00000124067.19",
+          "gene_id": "ENSG00000124067.19",
+          "neutral_position": 301,
+          "clean_donor_margin": -0.9729404449462891,
+          "clean_acceptor_margin": 6.414086818695068,
+          "local_cc_drop": 18.132704496383667,
+          "local_aa_drop": 18.19143533706665,
+          "neutral_drop": -0.12344729900360107
+        },
+        {
+          "example_id": "chr16:30231747-30231847:-:ENSG00000198064.17",
+          "gene_id": "ENSG00000198064.17",
+          "neutral_position": 345,
+          "clean_donor_margin": 6.461199522018433,
+          "clean_acceptor_margin": 3.4322619438171387,
+          "local_cc_drop": 18.20465660095215,
+          "local_aa_drop": 19.140522241592407,
+          "neutral_drop": 0.43572354316711426
+        },
+        {
+          "example_id": "chr19:50820153-50820443:-:ENSG00000167748.12",
+          "gene_id": "ENSG00000167748.12",
+          "neutral_position": 523,
+          "clean_donor_margin": 5.334975719451904,
+          "clean_acceptor_margin": 4.344235301017761,
+          "local_cc_drop": 17.13363814353943,
+          "local_aa_drop": 16.849599838256836,
+          "neutral_drop": 0.26071667671203613
+        },
+        {
+          "example_id": "chr19:15239058-15239264:-:ENSG00000141867.20",
+          "gene_id": "ENSG00000141867.20",
+          "neutral_position": 563,
+          "clean_donor_margin": 7.259302377700806,
+          "clean_acceptor_margin": 7.059223651885986,
+          "local_cc_drop": 21.32667088508606,
+          "local_aa_drop": 22.11943483352661,
+          "neutral_drop": -0.07991361618041992
+        },
+        {
+          "example_id": "chr19:39167991-39168085:+:ENSG00000130669.19",
+          "gene_id": "ENSG00000130669.19",
+          "neutral_position": 356,
+          "clean_donor_margin": -4.739871680736542,
+          "clean_acceptor_margin": 1.1113640367984772,
+          "local_cc_drop": 12.607922732830048,
+          "local_aa_drop": 12.598973512649536,
+          "neutral_drop": 1.0048813819885254
+        },
+        {
+          "example_id": "chr19:4475274-4475351:+:ENSG00000167674.17",
+          "gene_id": "ENSG00000167674.17",
+          "neutral_position": 379,
+          "clean_donor_margin": 7.840298175811768,
+          "clean_acceptor_margin": 7.276893138885498,
+          "local_cc_drop": 17.38480234146118,
+          "local_aa_drop": 15.468531012535095,
+          "neutral_drop": -0.01714611053466797
+        },
+        {
+          "example_id": "chr19:41410636-41410816:+:ENSG00000255730.5",
+          "gene_id": "ENSG00000255730.5",
+          "neutral_position": 512,
+          "clean_donor_margin": 7.037268877029419,
+          "clean_acceptor_margin": 7.619209289550781,
+          "local_cc_drop": 21.57687544822693,
+          "local_aa_drop": 21.981450080871582,
+          "neutral_drop": 0.07120370864868164
+        },
+        {
+          "example_id": "chr16:1348095-1348237:+:ENSG00000007516.17",
+          "gene_id": "ENSG00000007516.17",
+          "neutral_position": 513,
+          "clean_donor_margin": 3.400870680809021,
+          "clean_acceptor_margin": 4.670633435249329,
+          "local_cc_drop": 17.43808615207672,
+          "local_aa_drop": 17.50080406665802,
+          "neutral_drop": 0.07351112365722656
+        },
+        {
+          "example_id": "chr16:66941505-66941646:+:ENSG00000172831.16",
+          "gene_id": "ENSG00000172831.16",
+          "neutral_position": 503,
+          "clean_donor_margin": 7.762985706329346,
+          "clean_acceptor_margin": 5.623302936553955,
+          "local_cc_drop": 17.235418885946274,
+          "local_aa_drop": 20.941407322883606,
+          "neutral_drop": 0.09472799301147461
+        },
+        {
+          "example_id": "chr11:72826526-72826589:+:ENSG00000168010.13",
+          "gene_id": "ENSG00000168010.13",
+          "neutral_position": 297,
+          "clean_donor_margin": 4.845681428909302,
+          "clean_acceptor_margin": 4.204095959663391,
+          "local_cc_drop": 19.382429599761963,
+          "local_aa_drop": 19.42483639717102,
+          "neutral_drop": -0.6368405818939209
+        },
+        {
+          "example_id": "chr19:49646525-49646626:+:ENSG00000126461.17",
+          "gene_id": "ENSG00000126461.17",
+          "neutral_position": 319,
+          "clean_donor_margin": 5.801350355148315,
+          "clean_acceptor_margin": 6.748979568481445,
+          "local_cc_drop": 21.752142667770386,
+          "local_aa_drop": 23.507556438446045,
+          "neutral_drop": 1.93754243850708
+        },
+        {
+          "example_id": "chr19:6479858-6479902:-:ENSG00000205744.12",
+          "gene_id": "ENSG00000205744.12",
+          "neutral_position": 414,
+          "clean_donor_margin": 5.201366662979126,
+          "clean_acceptor_margin": 4.91890561580658,
+          "local_cc_drop": 18.648045539855957,
+          "local_aa_drop": 19.92481803894043,
+          "neutral_drop": 0.7671651840209961
+        },
+        {
+          "example_id": "chr19:7911249-7911330:+:ENSG00000076984.20",
+          "gene_id": "ENSG00000076984.20",
+          "neutral_position": 259,
+          "clean_donor_margin": 7.000898838043213,
+          "clean_acceptor_margin": 7.449835300445557,
+          "local_cc_drop": 20.314716815948486,
+          "local_aa_drop": 23.799498558044434,
+          "neutral_drop": 0.018930912017822266
+        },
+        {
+          "example_id": "chr19:14563528-14563702:+:ENSG00000099797.17",
+          "gene_id": "ENSG00000099797.17",
+          "neutral_position": 459,
+          "clean_donor_margin": 7.078928470611572,
+          "clean_acceptor_margin": 7.025729179382324,
+          "local_cc_drop": 24.104241132736206,
+          "local_aa_drop": 23.918620347976685,
+          "neutral_drop": 0.47095203399658203
+        },
+        {
+          "example_id": "chr19:48614707-48614839:-:ENSG00000105523.6",
+          "gene_id": "ENSG00000105523.6",
+          "neutral_position": 434,
+          "clean_donor_margin": 1.7741329669952393,
+          "clean_acceptor_margin": 2.1669617891311646,
+          "local_cc_drop": 16.854302883148193,
+          "local_aa_drop": 18.391650915145874,
+          "neutral_drop": 0.11245745420455933
+        },
+        {
+          "example_id": "chr19:5691318-5691453:+:ENSG00000130255.15",
+          "gene_id": "ENSG00000130255.15",
+          "neutral_position": 483,
+          "clean_donor_margin": 7.105516672134399,
+          "clean_acceptor_margin": 5.608822345733643,
+          "local_cc_drop": 20.7570583820343,
+          "local_aa_drop": 21.743659257888794,
+          "neutral_drop": 0.025713682174682617
+        },
+        {
+          "example_id": "chr19:1877507-1877675:-:ENSG00000129968.19",
+          "gene_id": "ENSG00000129968.19",
+          "neutral_position": 412,
+          "clean_donor_margin": 6.4439897537231445,
+          "clean_acceptor_margin": 6.0475287437438965,
+          "local_cc_drop": 17.21723198890686,
+          "local_aa_drop": 16.807601392269135,
+          "neutral_drop": -0.16550302505493164
+        },
+        {
+          "example_id": "chr11:47171663-47171788:-:ENSG00000149182.17",
+          "gene_id": "ENSG00000149182.17",
+          "neutral_position": 429,
+          "clean_donor_margin": 7.312652111053467,
+          "clean_acceptor_margin": 6.31519079208374,
+          "local_cc_drop": 17.780924320220947,
+          "local_aa_drop": 18.36721420288086,
+          "neutral_drop": 0.0017991065979003906
+        },
+        {
+          "example_id": "chr11:615344-615622:-:ENSG00000185507.23",
+          "gene_id": "ENSG00000185507.23",
+          "neutral_position": 643,
+          "clean_donor_margin": 3.3755048513412476,
+          "clean_acceptor_margin": 3.5773741006851196,
+          "local_cc_drop": 19.4278781414032,
+          "local_aa_drop": 19.881039023399353,
+          "neutral_drop": 1.297105312347412
+        },
+        {
+          "example_id": "chr11:62839506-62839706:-:ENSG00000133316.18",
+          "gene_id": "ENSG00000133316.18",
+          "neutral_position": 541,
+          "clean_donor_margin": 4.901421308517456,
+          "clean_acceptor_margin": 5.794095516204834,
+          "local_cc_drop": 19.943798422813416,
+          "local_aa_drop": 21.78683316707611,
+          "neutral_drop": 0.05824160575866699
+        },
+        {
+          "example_id": "chr16:89636263-89636396:+:ENSG00000015413.12",
+          "gene_id": "ENSG00000015413.12",
+          "neutral_position": 524,
+          "clean_donor_margin": 4.745154142379761,
+          "clean_acceptor_margin": 6.94704532623291,
+          "local_cc_drop": 20.614587783813477,
+          "local_aa_drop": 20.94788670539856,
+          "neutral_drop": -0.2413015365600586
+        },
+        {
+          "example_id": "chr16:2786088-2786121:-:ENSG00000103355.16",
+          "gene_id": "ENSG00000103355.16",
+          "neutral_position": 314,
+          "clean_donor_margin": 4.989153861999512,
+          "clean_acceptor_margin": 5.1257065534591675,
+          "local_cc_drop": 15.833219051361084,
+          "local_aa_drop": 18.13312578201294,
+          "neutral_drop": 0.23967552185058594
+        },
+        {
+          "example_id": "chr19:6731198-6731314:-:ENSG00000125734.18",
+          "gene_id": "ENSG00000125734.18",
+          "neutral_position": 396,
+          "clean_donor_margin": 7.574191331863403,
+          "clean_acceptor_margin": 6.221587181091309,
+          "local_cc_drop": 21.56575083732605,
+          "local_aa_drop": 23.293726444244385,
+          "neutral_drop": -0.014621734619140625
+        },
+        {
+          "example_id": "chr11:134153139-134153200:-:ENSG00000151503.16",
+          "gene_id": "ENSG00000151503.16",
+          "neutral_position": 295,
+          "clean_donor_margin": 4.323119401931763,
+          "clean_acceptor_margin": 4.659305930137634,
+          "local_cc_drop": 22.600136160850525,
+          "local_aa_drop": 22.560500383377075,
+          "neutral_drop": -0.10474777221679688
+        },
+        {
+          "example_id": "chr19:36125450-36125523:+:ENSG00000105254.14",
+          "gene_id": "ENSG00000105254.14",
+          "neutral_position": 433,
+          "clean_donor_margin": 7.259417533874512,
+          "clean_acceptor_margin": 5.997646808624268,
+          "local_cc_drop": 22.062174558639526,
+          "local_aa_drop": 21.78117823600769,
+          "neutral_drop": 0.14155030250549316
+        },
+        {
+          "example_id": "chr11:17634843-17634948:+:ENSG00000188162.12",
+          "gene_id": "ENSG00000188162.12",
+          "neutral_position": 454,
+          "clean_donor_margin": 5.839505672454834,
+          "clean_acceptor_margin": 4.78706967830658,
+          "local_cc_drop": 17.54036384820938,
+          "local_aa_drop": 21.303527116775513,
+          "neutral_drop": 0.1862938404083252
+        },
+        {
+          "example_id": "chr11:60902582-60902656:-:ENSG00000110107.11",
+          "gene_id": "ENSG00000110107.11",
+          "neutral_position": 464,
+          "clean_donor_margin": 7.3116912841796875,
+          "clean_acceptor_margin": 7.108401298522949,
+          "local_cc_drop": 24.75153237581253,
+          "local_aa_drop": 26.506788969039917,
+          "neutral_drop": 0.18329477310180664
+        },
+        {
+          "example_id": "chr19:46124267-46124321:-:ENSG00000188624.4",
+          "gene_id": "ENSG00000188624.4",
+          "neutral_position": 361,
+          "clean_donor_margin": 6.782403945922852,
+          "clean_acceptor_margin": 4.257859826087952,
+          "local_cc_drop": 18.819689512252808,
+          "local_aa_drop": 19.55097985267639,
+          "neutral_drop": 0.06804394721984863
+        },
+        {
+          "example_id": "chr19:38212279-38212361:-:ENSG00000011332.24",
+          "gene_id": "ENSG00000011332.24",
+          "neutral_position": 459,
+          "clean_donor_margin": 5.071499347686768,
+          "clean_acceptor_margin": 4.30006468296051,
+          "local_cc_drop": 19.468278646469116,
+          "local_aa_drop": 19.841739177703857,
+          "neutral_drop": -0.34586453437805176
+        },
+        {
+          "example_id": "chr19:42336806-42336952:+:ENSG00000105429.14",
+          "gene_id": "ENSG00000105429.14",
+          "neutral_position": 534,
+          "clean_donor_margin": 6.382321119308472,
+          "clean_acceptor_margin": 6.345317363739014,
+          "local_cc_drop": 18.865510642528534,
+          "local_aa_drop": 19.574540436267853,
+          "neutral_drop": 0.293809175491333
+        },
+        {
+          "example_id": "chr16:84181745-84181863:-:ENSG00000103168.19",
+          "gene_id": "ENSG00000103168.19",
+          "neutral_position": 422,
+          "clean_donor_margin": 6.8013646602630615,
+          "clean_acceptor_margin": 2.0512855052948,
+          "local_cc_drop": 22.247089624404907,
+          "local_aa_drop": 23.748958110809326,
+          "neutral_drop": 0.029119253158569336
+        },
+        {
+          "example_id": "chr19:17881959-17882072:+:ENSG00000105641.5",
+          "gene_id": "ENSG00000105641.5",
+          "neutral_position": 322,
+          "clean_donor_margin": 6.038793563842773,
+          "clean_acceptor_margin": 6.270002841949463,
+          "local_cc_drop": 17.169548273086548,
+          "local_aa_drop": 16.810566663742065,
+          "neutral_drop": 5.1761834025383
+        },
+        {
+          "example_id": "chr19:43543611-43543687:-:ENSG00000073050.14",
+          "gene_id": "ENSG00000073050.14",
+          "neutral_position": 329,
+          "clean_donor_margin": 7.674766778945923,
+          "clean_acceptor_margin": 4.969215035438538,
+          "local_cc_drop": 17.79692244529724,
+          "local_aa_drop": 19.96468758583069,
+          "neutral_drop": -0.03006291389465332
+        },
+        {
+          "example_id": "chr16:28608707-28608859:-:ENSG00000196502.17",
+          "gene_id": "ENSG00000196502.17",
+          "neutral_position": 481,
+          "clean_donor_margin": 7.709430694580078,
+          "clean_acceptor_margin": 6.941415786743164,
+          "local_cc_drop": 19.258512020111084,
+          "local_aa_drop": 21.36916470527649,
+          "neutral_drop": 0.02676558494567871
+        },
+        {
+          "example_id": "chr19:46608204-46608340:+:ENSG00000160014.19",
+          "gene_id": "ENSG00000160014.19",
+          "neutral_position": 363,
+          "clean_donor_margin": 7.01099157333374,
+          "clean_acceptor_margin": 7.563340187072754,
+          "local_cc_drop": 20.29016947746277,
+          "local_aa_drop": 20.871766090393066,
+          "neutral_drop": -0.16095852851867676
+        },
+        {
+          "example_id": "chr19:5914939-5915095:+:ENSG00000105519.19",
+          "gene_id": "ENSG00000105519.19",
+          "neutral_position": 511,
+          "clean_donor_margin": -2.349711000919342,
+          "clean_acceptor_margin": 5.872634410858154,
+          "local_cc_drop": 16.298796594142914,
+          "local_aa_drop": 16.50008863210678,
+          "neutral_drop": -0.15551865100860596
+        },
+        {
+          "example_id": "chr11:118530512-118530561:+:ENSG00000172425.14",
+          "gene_id": "ENSG00000172425.14",
+          "neutral_position": 334,
+          "clean_donor_margin": -6.0363450050354,
+          "clean_acceptor_margin": 4.861438632011414,
+          "local_cc_drop": 11.62022864818573,
+          "local_aa_drop": 11.725488185882568,
+          "neutral_drop": -0.02268517017364502
+        },
+        {
+          "example_id": "chr16:3564858-3565112:-:ENSG00000167984.20",
+          "gene_id": "ENSG00000167984.20",
+          "neutral_position": 481,
+          "clean_donor_margin": 5.786947250366211,
+          "clean_acceptor_margin": 4.188639998435974,
+          "local_cc_drop": 18.628423929214478,
+          "local_aa_drop": 18.79164719581604,
+          "neutral_drop": -0.17008566856384277
+        },
+        {
+          "example_id": "chr19:1112188-1112301:-:ENSG00000064932.18",
+          "gene_id": "ENSG00000064932.18",
+          "neutral_position": 455,
+          "clean_donor_margin": 7.677260637283325,
+          "clean_acceptor_margin": 7.066864013671875,
+          "local_cc_drop": 24.138437747955322,
+          "local_aa_drop": 25.394478797912598,
+          "neutral_drop": 0.10904121398925781
+        },
+        {
+          "example_id": "chr19:55648945-55649077:+:ENSG00000173581.10",
+          "gene_id": "ENSG00000173581.10",
+          "neutral_position": 500,
+          "clean_donor_margin": 5.328272342681885,
+          "clean_acceptor_margin": 6.059533596038818,
+          "local_cc_drop": 21.705487370491028,
+          "local_aa_drop": 21.321449518203735,
+          "neutral_drop": 0.011788129806518555
+        },
+        {
+          "example_id": "chr11:65131131-65131197:-:ENSG00000162298.21",
+          "gene_id": "ENSG00000162298.21",
+          "neutral_position": 329,
+          "clean_donor_margin": 7.172070026397705,
+          "clean_acceptor_margin": 7.181271076202393,
+          "local_cc_drop": 21.177493810653687,
+          "local_aa_drop": 21.444344997406006,
+          "neutral_drop": 0.008220911026000977
+        },
+        {
+          "example_id": "chr11:67282270-67282365:+:ENSG00000173020.13",
+          "gene_id": "ENSG00000173020.13",
+          "neutral_position": 324,
+          "clean_donor_margin": 7.5033183097839355,
+          "clean_acceptor_margin": 7.2448649406433105,
+          "local_cc_drop": 22.045474112033844,
+          "local_aa_drop": 26.20847201347351,
+          "neutral_drop": 0.02061605453491211
+        }
+      ]
+    },
+    "2022": {
+      "report": {
+        "source_task": "SpliceAI-GTEx three-class token classification",
+        "checkpoint": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2022.pt",
+        "checkpoint_sha256": "556e38c92319ce87fb15ca390743ae20c539f4c5400c4cca82a83cdf3d46bd0a",
+        "seed": 2022,
+        "tensor_count": 103,
+        "parameter_count": 19448323,
+        "class_labels": [
+          "no_splice_site",
+          "donor",
+          "acceptor"
+        ],
+        "missing_keys": [],
+        "extra_keys": []
+      },
+      "observed": {
+        "clean_donor_margin_mean": 5.03663446335122,
+        "clean_donor_probability_mean": 0.8851276419928678,
+        "clean_donor_positive_fraction": 0.875,
+        "clean_acceptor_margin_mean": 5.237814482301474,
+        "clean_acceptor_probability_mean": 0.9657183134441641,
+        "clean_acceptor_positive_fraction": 0.984375,
+        "local_cc_drop_mean": 20.10597432265058,
+        "local_cc_drop_positive_fraction": 1.0,
+        "local_aa_drop_mean": 20.348166071344167,
+        "local_aa_drop_positive_fraction": 1.0,
+        "neutral_drop_mean": 0.30696787452325225,
+        "neutral_abs_mean_to_local_ratio": 0.015267495600918708,
+        "final_projection_max_abs_error": 0.0
+      },
+      "checks": {
+        "strict_checkpoint": true,
+        "tokenizer_coordinates": true,
+        "finite_forward": true,
+        "final_projection": true,
+        "clean_donor_recognition": true,
+        "clean_acceptor_recognition": true,
+        "local_cc_sensitivity": true,
+        "local_aa_sensitivity": true,
+        "neutral_specificity": true
+      },
+      "PASS": true,
+      "raw": [
+        {
+          "example_id": "chr19:6381121-6381195:-:ENSG00000125651.16",
+          "gene_id": "ENSG00000125651.16",
+          "neutral_position": 279,
+          "clean_donor_margin": 7.245100975036621,
+          "clean_acceptor_margin": 6.7875776290893555,
+          "local_cc_drop": 22.298269629478455,
+          "local_aa_drop": 21.57092845439911,
+          "neutral_drop": 0.5033190250396729
+        },
+        {
+          "example_id": "chr11:64898260-64898362:-:ENSG00000110046.16",
+          "gene_id": "ENSG00000110046.16",
+          "neutral_position": 412,
+          "clean_donor_margin": 6.774662733078003,
+          "clean_acceptor_margin": 6.738892078399658,
+          "local_cc_drop": 23.23640787601471,
+          "local_aa_drop": 24.0516095161438,
+          "neutral_drop": 0.11002779006958008
+        },
+        {
+          "example_id": "chr11:67434379-67434484:+:ENSG00000175634.17",
+          "gene_id": "ENSG00000175634.17",
+          "neutral_position": 433,
+          "clean_donor_margin": 7.483490943908691,
+          "clean_acceptor_margin": 6.905468463897705,
+          "local_cc_drop": 19.24074685573578,
+          "local_aa_drop": 19.70004165172577,
+          "neutral_drop": 0.055731773376464844
+        },
+        {
+          "example_id": "chr19:45777666-45777873:-:ENSG00000104936.22",
+          "gene_id": "ENSG00000104936.22",
+          "neutral_position": 488,
+          "clean_donor_margin": 7.680240154266357,
+          "clean_acceptor_margin": 3.279620051383972,
+          "local_cc_drop": 21.003316044807434,
+          "local_aa_drop": 22.207606434822083,
+          "neutral_drop": 0.18833661079406738
+        },
+        {
+          "example_id": "chr16:29911959-29912049:-:ENSG00000174943.13",
+          "gene_id": "ENSG00000174943.13",
+          "neutral_position": 375,
+          "clean_donor_margin": 7.306053400039673,
+          "clean_acceptor_margin": 5.831673860549927,
+          "local_cc_drop": 20.63692855834961,
+          "local_aa_drop": 20.199347376823425,
+          "neutral_drop": -0.010716438293457031
+        },
+        {
+          "example_id": "chr16:75113965-75114030:-:ENSG00000166816.17",
+          "gene_id": "ENSG00000166816.17",
+          "neutral_position": 356,
+          "clean_donor_margin": 6.910325527191162,
+          "clean_acceptor_margin": 6.218068361282349,
+          "local_cc_drop": 17.33837330341339,
+          "local_aa_drop": 17.43657660484314,
+          "neutral_drop": 0.20707368850708008
+        },
+        {
+          "example_id": "chr11:102797255-102797500:-:ENSG00000196611.7",
+          "gene_id": "ENSG00000196611.7",
+          "neutral_position": 573,
+          "clean_donor_margin": 7.065543174743652,
+          "clean_acceptor_margin": 6.772348165512085,
+          "local_cc_drop": 23.201278567314148,
+          "local_aa_drop": 22.993546664714813,
+          "neutral_drop": -0.022318124771118164
+        },
+        {
+          "example_id": "chr19:50406181-50406322:+:ENSG00000062822.18",
+          "gene_id": "ENSG00000062822.18",
+          "neutral_position": 360,
+          "clean_donor_margin": 7.354935169219971,
+          "clean_acceptor_margin": 6.5269482135772705,
+          "local_cc_drop": 22.568225145339966,
+          "local_aa_drop": 21.971117973327637,
+          "neutral_drop": 0.018759727478027344
+        },
+        {
+          "example_id": "chr16:2462414-2462526:+:ENSG00000162062.17",
+          "gene_id": "ENSG00000162062.17",
+          "neutral_position": 336,
+          "clean_donor_margin": 5.32587742805481,
+          "clean_acceptor_margin": 7.0793139934539795,
+          "local_cc_drop": 23.40913438796997,
+          "local_aa_drop": 23.248597741127014,
+          "neutral_drop": -0.1227271556854248
+        },
+        {
+          "example_id": "chr11:64224794-64224970:-:ENSG00000149743.16",
+          "gene_id": "ENSG00000149743.16",
+          "neutral_position": 414,
+          "clean_donor_margin": -0.3677464723587036,
+          "clean_acceptor_margin": 4.5049731731414795,
+          "local_cc_drop": 11.688517689704895,
+          "local_aa_drop": 12.254919409751892,
+          "neutral_drop": -0.29460465908050537
+        },
+        {
+          "example_id": "chr19:13808835-13808984:+:ENSG00000132003.12",
+          "gene_id": "ENSG00000132003.12",
+          "neutral_position": 496,
+          "clean_donor_margin": 7.182115077972412,
+          "clean_acceptor_margin": 6.477346897125244,
+          "local_cc_drop": 22.681929290294647,
+          "local_aa_drop": 22.38153648376465,
+          "neutral_drop": 0.010042905807495117
+        },
+        {
+          "example_id": "chr11:67405398-67405506:+:ENSG00000175463.14",
+          "gene_id": "ENSG00000175463.14",
+          "neutral_position": 313,
+          "clean_donor_margin": 6.623404264450073,
+          "clean_acceptor_margin": 5.950807571411133,
+          "local_cc_drop": 20.396028518676758,
+          "local_aa_drop": 20.282727360725403,
+          "neutral_drop": 0.25564074516296387
+        },
+        {
+          "example_id": "chr16:31141722-31141960:-:ENSG00000178226.13",
+          "gene_id": "ENSG00000178226.13",
+          "neutral_position": 524,
+          "clean_donor_margin": -0.7061238288879395,
+          "clean_acceptor_margin": 0.7679950594902039,
+          "local_cc_drop": 16.522686004638672,
+          "local_aa_drop": 16.647575736045837,
+          "neutral_drop": 0.3865879774093628
+        },
+        {
+          "example_id": "chr16:29862814-29863178:-:ENSG00000103502.16",
+          "gene_id": "ENSG00000103502.16",
+          "neutral_position": 611,
+          "clean_donor_margin": 5.663286447525024,
+          "clean_acceptor_margin": 4.378661394119263,
+          "local_cc_drop": 22.526518642902374,
+          "local_aa_drop": 22.54551351070404,
+          "neutral_drop": -0.0018007755279541016
+        },
+        {
+          "example_id": "chr16:31324398-31324553:+:ENSG00000169896.20",
+          "gene_id": "ENSG00000169896.20",
+          "neutral_position": 363,
+          "clean_donor_margin": 6.296707630157471,
+          "clean_acceptor_margin": 5.966242790222168,
+          "local_cc_drop": 19.277421474456787,
+          "local_aa_drop": 19.873337626457214,
+          "neutral_drop": -0.12399435043334961
+        },
+        {
+          "example_id": "chr16:88859662-88859750:+:ENSG00000167515.13",
+          "gene_id": "ENSG00000167515.13",
+          "neutral_position": 396,
+          "clean_donor_margin": 6.598968505859375,
+          "clean_acceptor_margin": 6.690186262130737,
+          "local_cc_drop": 21.869522094726562,
+          "local_aa_drop": 21.299121379852295,
+          "neutral_drop": 0.07473874092102051
+        },
+        {
+          "example_id": "chr16:67539727-67539751:+:ENSG00000039523.22",
+          "gene_id": "ENSG00000039523.22",
+          "neutral_position": 206,
+          "clean_donor_margin": 6.877542018890381,
+          "clean_acceptor_margin": 2.201015889644623,
+          "local_cc_drop": 24.805545687675476,
+          "local_aa_drop": 25.55788278579712,
+          "neutral_drop": -0.012629508972167969
+        },
+        {
+          "example_id": "chr11:63373643-63373798:+:ENSG00000149742.12",
+          "gene_id": "ENSG00000149742.12",
+          "neutral_position": 370,
+          "clean_donor_margin": 2.5169050693511963,
+          "clean_acceptor_margin": 4.183319091796875,
+          "local_cc_drop": 16.299397826194763,
+          "local_aa_drop": 16.441643238067627,
+          "neutral_drop": 0.07431578636169434
+        },
+        {
+          "example_id": "chr11:117202828-117203193:+:ENSG00000149591.19",
+          "gene_id": "ENSG00000149591.19",
+          "neutral_position": 631,
+          "clean_donor_margin": 6.932981252670288,
+          "clean_acceptor_margin": 6.926959037780762,
+          "local_cc_drop": 23.73509842157364,
+          "local_aa_drop": 22.984873592853546,
+          "neutral_drop": 0.13388538360595703
+        },
+        {
+          "example_id": "chr11:46726497-46726631:+:ENSG00000180210.17",
+          "gene_id": "ENSG00000180210.17",
+          "neutral_position": 399,
+          "clean_donor_margin": -2.625787854194641,
+          "clean_acceptor_margin": 6.344672441482544,
+          "local_cc_drop": 14.214611053466797,
+          "local_aa_drop": 13.84789228439331,
+          "neutral_drop": -0.020570993423461914
+        },
+        {
+          "example_id": "chr19:622841-622985:-:ENSG00000099821.16",
+          "gene_id": "ENSG00000099821.16",
+          "neutral_position": 406,
+          "clean_donor_margin": -2.006626009941101,
+          "clean_acceptor_margin": 7.0408525466918945,
+          "local_cc_drop": 16.33606791496277,
+          "local_aa_drop": 16.560235381126404,
+          "neutral_drop": 0.0983814001083374
+        },
+        {
+          "example_id": "chr19:38362375-38362574:+:ENSG00000099338.24",
+          "gene_id": "ENSG00000099338.24",
+          "neutral_position": 478,
+          "clean_donor_margin": 4.038207650184631,
+          "clean_acceptor_margin": 2.9625765085220337,
+          "local_cc_drop": 18.867003679275513,
+          "local_aa_drop": 18.51392352581024,
+          "neutral_drop": 0.5151171684265137
+        },
+        {
+          "example_id": "chr16:67945968-67946082:-:ENSG00000124067.19",
+          "gene_id": "ENSG00000124067.19",
+          "neutral_position": 301,
+          "clean_donor_margin": -1.764025330543518,
+          "clean_acceptor_margin": 6.006131649017334,
+          "local_cc_drop": 17.464953064918518,
+          "local_aa_drop": 17.08844006061554,
+          "neutral_drop": -0.2772176265716553
+        },
+        {
+          "example_id": "chr16:30231747-30231847:-:ENSG00000198064.17",
+          "gene_id": "ENSG00000198064.17",
+          "neutral_position": 345,
+          "clean_donor_margin": 5.578726530075073,
+          "clean_acceptor_margin": 3.209968686103821,
+          "local_cc_drop": 17.531943202018738,
+          "local_aa_drop": 18.15608501434326,
+          "neutral_drop": 0.7423772811889648
+        },
+        {
+          "example_id": "chr19:50820153-50820443:-:ENSG00000167748.12",
+          "gene_id": "ENSG00000167748.12",
+          "neutral_position": 523,
+          "clean_donor_margin": 5.5173938274383545,
+          "clean_acceptor_margin": 3.7234959602355957,
+          "local_cc_drop": 17.410157322883606,
+          "local_aa_drop": 16.868162393569946,
+          "neutral_drop": 0.3560309410095215
+        },
+        {
+          "example_id": "chr19:15239058-15239264:-:ENSG00000141867.20",
+          "gene_id": "ENSG00000141867.20",
+          "neutral_position": 563,
+          "clean_donor_margin": 6.728178262710571,
+          "clean_acceptor_margin": 6.955214023590088,
+          "local_cc_drop": 21.97399628162384,
+          "local_aa_drop": 21.817103624343872,
+          "neutral_drop": -0.10108351707458496
+        },
+        {
+          "example_id": "chr19:39167991-39168085:+:ENSG00000130669.19",
+          "gene_id": "ENSG00000130669.19",
+          "neutral_position": 356,
+          "clean_donor_margin": -2.5505064725875854,
+          "clean_acceptor_margin": -0.0171205997467041,
+          "local_cc_drop": 13.733015418052673,
+          "local_aa_drop": 14.046426653862,
+          "neutral_drop": 1.5123172998428345
+        },
+        {
+          "example_id": "chr19:4475274-4475351:+:ENSG00000167674.17",
+          "gene_id": "ENSG00000167674.17",
+          "neutral_position": 379,
+          "clean_donor_margin": 7.770031213760376,
+          "clean_acceptor_margin": 7.26030969619751,
+          "local_cc_drop": 25.04981032013893,
+          "local_aa_drop": 23.735517233610153,
+          "neutral_drop": 0.024179458618164062
+        },
+        {
+          "example_id": "chr19:41410636-41410816:+:ENSG00000255730.5",
+          "gene_id": "ENSG00000255730.5",
+          "neutral_position": 512,
+          "clean_donor_margin": 7.1238720417022705,
+          "clean_acceptor_margin": 7.305211067199707,
+          "local_cc_drop": 24.07610821723938,
+          "local_aa_drop": 22.571786880493164,
+          "neutral_drop": 0.04709315299987793
+        },
+        {
+          "example_id": "chr16:1348095-1348237:+:ENSG00000007516.17",
+          "gene_id": "ENSG00000007516.17",
+          "neutral_position": 513,
+          "clean_donor_margin": 4.941404581069946,
+          "clean_acceptor_margin": 4.842326879501343,
+          "local_cc_drop": 17.526315450668335,
+          "local_aa_drop": 17.99236559867859,
+          "neutral_drop": -0.07212471961975098
+        },
+        {
+          "example_id": "chr16:66941505-66941646:+:ENSG00000172831.16",
+          "gene_id": "ENSG00000172831.16",
+          "neutral_position": 503,
+          "clean_donor_margin": 7.414915084838867,
+          "clean_acceptor_margin": 3.8191840648651123,
+          "local_cc_drop": 18.97679626941681,
+          "local_aa_drop": 19.257134437561035,
+          "neutral_drop": 0.014436006546020508
+        },
+        {
+          "example_id": "chr11:72826526-72826589:+:ENSG00000168010.13",
+          "gene_id": "ENSG00000168010.13",
+          "neutral_position": 297,
+          "clean_donor_margin": 4.8678648471832275,
+          "clean_acceptor_margin": 4.665794134140015,
+          "local_cc_drop": 19.270416259765625,
+          "local_aa_drop": 19.773032665252686,
+          "neutral_drop": -0.5367326736450195
+        },
+        {
+          "example_id": "chr19:49646525-49646626:+:ENSG00000126461.17",
+          "gene_id": "ENSG00000126461.17",
+          "neutral_position": 319,
+          "clean_donor_margin": 4.227353572845459,
+          "clean_acceptor_margin": 5.862246036529541,
+          "local_cc_drop": 20.203144550323486,
+          "local_aa_drop": 20.553017020225525,
+          "neutral_drop": 3.1231976747512817
+        },
+        {
+          "example_id": "chr19:6479858-6479902:-:ENSG00000205744.12",
+          "gene_id": "ENSG00000205744.12",
+          "neutral_position": 414,
+          "clean_donor_margin": 3.96865713596344,
+          "clean_acceptor_margin": 3.1299885511398315,
+          "local_cc_drop": 15.096503853797913,
+          "local_aa_drop": 15.466047883033752,
+          "neutral_drop": 1.050637125968933
+        },
+        {
+          "example_id": "chr19:7911249-7911330:+:ENSG00000076984.20",
+          "gene_id": "ENSG00000076984.20",
+          "neutral_position": 259,
+          "clean_donor_margin": 7.570262670516968,
+          "clean_acceptor_margin": 7.496236562728882,
+          "local_cc_drop": 22.498809933662415,
+          "local_aa_drop": 22.668787240982056,
+          "neutral_drop": 0.0605165958404541
+        },
+        {
+          "example_id": "chr19:14563528-14563702:+:ENSG00000099797.17",
+          "gene_id": "ENSG00000099797.17",
+          "neutral_position": 459,
+          "clean_donor_margin": 7.131512641906738,
+          "clean_acceptor_margin": 6.685906648635864,
+          "local_cc_drop": 22.503478407859802,
+          "local_aa_drop": 22.825732946395874,
+          "neutral_drop": 0.21495795249938965
+        },
+        {
+          "example_id": "chr19:48614707-48614839:-:ENSG00000105523.6",
+          "gene_id": "ENSG00000105523.6",
+          "neutral_position": 434,
+          "clean_donor_margin": 1.261290580034256,
+          "clean_acceptor_margin": 0.8782142996788025,
+          "local_cc_drop": 18.635807543992996,
+          "local_aa_drop": 18.81155589222908,
+          "neutral_drop": 0.18487372994422913
+        },
+        {
+          "example_id": "chr19:5691318-5691453:+:ENSG00000130255.15",
+          "gene_id": "ENSG00000130255.15",
+          "neutral_position": 483,
+          "clean_donor_margin": 7.329455375671387,
+          "clean_acceptor_margin": 5.55712890625,
+          "local_cc_drop": 22.717456817626953,
+          "local_aa_drop": 23.210880279541016,
+          "neutral_drop": 0.029735565185546875
+        },
+        {
+          "example_id": "chr19:1877507-1877675:-:ENSG00000129968.19",
+          "gene_id": "ENSG00000129968.19",
+          "neutral_position": 412,
+          "clean_donor_margin": 6.703799486160278,
+          "clean_acceptor_margin": 6.076665639877319,
+          "local_cc_drop": 18.277584314346313,
+          "local_aa_drop": 18.423734664916992,
+          "neutral_drop": -0.106353759765625
+        },
+        {
+          "example_id": "chr11:47171663-47171788:-:ENSG00000149182.17",
+          "gene_id": "ENSG00000149182.17",
+          "neutral_position": 429,
+          "clean_donor_margin": 7.107617616653442,
+          "clean_acceptor_margin": 5.890954256057739,
+          "local_cc_drop": 20.708507746458054,
+          "local_aa_drop": 23.003816962242126,
+          "neutral_drop": 0.0024466514587402344
+        },
+        {
+          "example_id": "chr11:615344-615622:-:ENSG00000185507.23",
+          "gene_id": "ENSG00000185507.23",
+          "neutral_position": 643,
+          "clean_donor_margin": 4.400018930435181,
+          "clean_acceptor_margin": 2.5491254329681396,
+          "local_cc_drop": 17.671768069267273,
+          "local_aa_drop": 17.62013816833496,
+          "neutral_drop": 2.687944769859314
+        },
+        {
+          "example_id": "chr11:62839506-62839706:-:ENSG00000133316.18",
+          "gene_id": "ENSG00000133316.18",
+          "neutral_position": 541,
+          "clean_donor_margin": 4.57542085647583,
+          "clean_acceptor_margin": 5.419320106506348,
+          "local_cc_drop": 19.357058733701706,
+          "local_aa_drop": 21.410466372966766,
+          "neutral_drop": 0.0773475170135498
+        },
+        {
+          "example_id": "chr16:89636263-89636396:+:ENSG00000015413.12",
+          "gene_id": "ENSG00000015413.12",
+          "neutral_position": 524,
+          "clean_donor_margin": 6.8716161251068115,
+          "clean_acceptor_margin": 6.981813907623291,
+          "local_cc_drop": 21.38476824760437,
+          "local_aa_drop": 21.397724390029907,
+          "neutral_drop": -0.07817316055297852
+        },
+        {
+          "example_id": "chr16:2786088-2786121:-:ENSG00000103355.16",
+          "gene_id": "ENSG00000103355.16",
+          "neutral_position": 314,
+          "clean_donor_margin": 3.4188960790634155,
+          "clean_acceptor_margin": 2.5190473794937134,
+          "local_cc_drop": 14.425825119018555,
+          "local_aa_drop": 15.311054110527039,
+          "neutral_drop": 0.43330931663513184
+        },
+        {
+          "example_id": "chr19:6731198-6731314:-:ENSG00000125734.18",
+          "gene_id": "ENSG00000125734.18",
+          "neutral_position": 396,
+          "clean_donor_margin": 7.370871305465698,
+          "clean_acceptor_margin": 6.386063814163208,
+          "local_cc_drop": 23.49826967716217,
+          "local_aa_drop": 24.905126214027405,
+          "neutral_drop": 0.012609481811523438
+        },
+        {
+          "example_id": "chr11:134153139-134153200:-:ENSG00000151503.16",
+          "gene_id": "ENSG00000151503.16",
+          "neutral_position": 295,
+          "clean_donor_margin": 3.364890217781067,
+          "clean_acceptor_margin": 3.8621926307678223,
+          "local_cc_drop": 21.7137268781662,
+          "local_aa_drop": 21.63354802131653,
+          "neutral_drop": -0.12566781044006348
+        },
+        {
+          "example_id": "chr19:36125450-36125523:+:ENSG00000105254.14",
+          "gene_id": "ENSG00000105254.14",
+          "neutral_position": 433,
+          "clean_donor_margin": 6.341216325759888,
+          "clean_acceptor_margin": 6.0604188442230225,
+          "local_cc_drop": 22.477973103523254,
+          "local_aa_drop": 22.60724127292633,
+          "neutral_drop": 0.03356027603149414
+        },
+        {
+          "example_id": "chr11:17634843-17634948:+:ENSG00000188162.12",
+          "gene_id": "ENSG00000188162.12",
+          "neutral_position": 454,
+          "clean_donor_margin": 4.724646806716919,
+          "clean_acceptor_margin": 4.548853158950806,
+          "local_cc_drop": 20.265793204307556,
+          "local_aa_drop": 21.203071355819702,
+          "neutral_drop": 0.26724839210510254
+        },
+        {
+          "example_id": "chr11:60902582-60902656:-:ENSG00000110107.11",
+          "gene_id": "ENSG00000110107.11",
+          "neutral_position": 464,
+          "clean_donor_margin": 6.5202414989471436,
+          "clean_acceptor_margin": 6.603989362716675,
+          "local_cc_drop": 25.637704849243164,
+          "local_aa_drop": 25.811850905418396,
+          "neutral_drop": 0.27249717712402344
+        },
+        {
+          "example_id": "chr19:46124267-46124321:-:ENSG00000188624.4",
+          "gene_id": "ENSG00000188624.4",
+          "neutral_position": 361,
+          "clean_donor_margin": 5.757706880569458,
+          "clean_acceptor_margin": 4.196171760559082,
+          "local_cc_drop": 20.970053672790527,
+          "local_aa_drop": 21.892645835876465,
+          "neutral_drop": 0.14568209648132324
+        },
+        {
+          "example_id": "chr19:38212279-38212361:-:ENSG00000011332.24",
+          "gene_id": "ENSG00000011332.24",
+          "neutral_position": 459,
+          "clean_donor_margin": 5.13406777381897,
+          "clean_acceptor_margin": 3.9889707565307617,
+          "local_cc_drop": 21.056713223457336,
+          "local_aa_drop": 21.764551639556885,
+          "neutral_drop": -0.31720781326293945
+        },
+        {
+          "example_id": "chr19:42336806-42336952:+:ENSG00000105429.14",
+          "gene_id": "ENSG00000105429.14",
+          "neutral_position": 534,
+          "clean_donor_margin": 6.8539955615997314,
+          "clean_acceptor_margin": 5.925649642944336,
+          "local_cc_drop": 20.02992534637451,
+          "local_aa_drop": 19.878721952438354,
+          "neutral_drop": 0.22480249404907227
+        },
+        {
+          "example_id": "chr16:84181745-84181863:-:ENSG00000103168.19",
+          "gene_id": "ENSG00000103168.19",
+          "neutral_position": 422,
+          "clean_donor_margin": 6.009397745132446,
+          "clean_acceptor_margin": 0.7324733138084412,
+          "local_cc_drop": 20.490970730781555,
+          "local_aa_drop": 22.06952953338623,
+          "neutral_drop": 0.3805410861968994
+        },
+        {
+          "example_id": "chr19:17881959-17882072:+:ENSG00000105641.5",
+          "gene_id": "ENSG00000105641.5",
+          "neutral_position": 322,
+          "clean_donor_margin": 6.037724256515503,
+          "clean_acceptor_margin": 5.494082927703857,
+          "local_cc_drop": 17.531728744506836,
+          "local_aa_drop": 19.106024622917175,
+          "neutral_drop": 6.77425742149353
+        },
+        {
+          "example_id": "chr19:43543611-43543687:-:ENSG00000073050.14",
+          "gene_id": "ENSG00000073050.14",
+          "neutral_position": 329,
+          "clean_donor_margin": 7.365610599517822,
+          "clean_acceptor_margin": 3.7223085165023804,
+          "local_cc_drop": 18.40363311767578,
+          "local_aa_drop": 18.81470489501953,
+          "neutral_drop": -0.014562368392944336
+        },
+        {
+          "example_id": "chr16:28608707-28608859:-:ENSG00000196502.17",
+          "gene_id": "ENSG00000196502.17",
+          "neutral_position": 481,
+          "clean_donor_margin": 7.687154054641724,
+          "clean_acceptor_margin": 7.177630186080933,
+          "local_cc_drop": 21.652376770973206,
+          "local_aa_drop": 23.632508516311646,
+          "neutral_drop": 0.07074236869812012
+        },
+        {
+          "example_id": "chr19:46608204-46608340:+:ENSG00000160014.19",
+          "gene_id": "ENSG00000160014.19",
+          "neutral_position": 363,
+          "clean_donor_margin": 7.239491701126099,
+          "clean_acceptor_margin": 7.2388646602630615,
+          "local_cc_drop": 25.48427104949951,
+          "local_aa_drop": 25.62202823162079,
+          "neutral_drop": 0.23163151741027832
+        },
+        {
+          "example_id": "chr19:5914939-5915095:+:ENSG00000105519.19",
+          "gene_id": "ENSG00000105519.19",
+          "neutral_position": 511,
+          "clean_donor_margin": -3.238640785217285,
+          "clean_acceptor_margin": 6.768455266952515,
+          "local_cc_drop": 11.708921432495117,
+          "local_aa_drop": 12.156969785690308,
+          "neutral_drop": 0.13394999504089355
+        },
+        {
+          "example_id": "chr11:118530512-118530561:+:ENSG00000172425.14",
+          "gene_id": "ENSG00000172425.14",
+          "neutral_position": 334,
+          "clean_donor_margin": -6.936265647411346,
+          "clean_acceptor_margin": 5.186825752258301,
+          "local_cc_drop": 9.981548845767975,
+          "local_aa_drop": 9.431565940380096,
+          "neutral_drop": 0.1252160668373108
+        },
+        {
+          "example_id": "chr16:3564858-3565112:-:ENSG00000167984.20",
+          "gene_id": "ENSG00000167984.20",
+          "neutral_position": 481,
+          "clean_donor_margin": 6.102301597595215,
+          "clean_acceptor_margin": 2.4506311416625977,
+          "local_cc_drop": 22.53313699364662,
+          "local_aa_drop": 22.013185292482376,
+          "neutral_drop": -0.06394720077514648
+        },
+        {
+          "example_id": "chr19:1112188-1112301:-:ENSG00000064932.18",
+          "gene_id": "ENSG00000064932.18",
+          "neutral_position": 455,
+          "clean_donor_margin": 7.055336952209473,
+          "clean_acceptor_margin": 7.152365207672119,
+          "local_cc_drop": 24.94156324863434,
+          "local_aa_drop": 25.251437664031982,
+          "neutral_drop": 0.07882356643676758
+        },
+        {
+          "example_id": "chr19:55648945-55649077:+:ENSG00000173581.10",
+          "gene_id": "ENSG00000173581.10",
+          "neutral_position": 500,
+          "clean_donor_margin": 4.243688583374023,
+          "clean_acceptor_margin": 5.719674348831177,
+          "local_cc_drop": 22.310567140579224,
+          "local_aa_drop": 23.283915996551514,
+          "neutral_drop": -0.02504706382751465
+        },
+        {
+          "example_id": "chr11:65131131-65131197:-:ENSG00000162298.21",
+          "gene_id": "ENSG00000162298.21",
+          "neutral_position": 329,
+          "clean_donor_margin": 7.082862615585327,
+          "clean_acceptor_margin": 7.095294713973999,
+          "local_cc_drop": 23.014647722244263,
+          "local_aa_drop": 23.161879301071167,
+          "neutral_drop": 0.006315469741821289
+        },
+        {
+          "example_id": "chr11:67282270-67282365:+:ENSG00000173020.13",
+          "gene_id": "ENSG00000173020.13",
+          "neutral_position": 324,
+          "clean_donor_margin": 7.264488697052002,
+          "clean_acceptor_margin": 7.556528091430664,
+          "local_cc_drop": 24.43157708644867,
+          "local_aa_drop": 23.4625563621521,
+          "neutral_drop": 0.0221865177154541
+        }
+      ]
+    },
+    "2023": {
+      "report": {
+        "source_task": "SpliceAI-GTEx three-class token classification",
+        "checkpoint": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2023.pt",
+        "checkpoint_sha256": "03c25882ae3e4b48198265bf8447ef543308e40ec9fd700b4834d829dcb6100b",
+        "seed": 2023,
+        "tensor_count": 103,
+        "parameter_count": 19448323,
+        "class_labels": [
+          "no_splice_site",
+          "donor",
+          "acceptor"
+        ],
+        "missing_keys": [],
+        "extra_keys": []
+      },
+      "observed": {
+        "clean_donor_margin_mean": 4.702622248791158,
+        "clean_donor_probability_mean": 0.9097099433585802,
+        "clean_donor_positive_fraction": 0.90625,
+        "clean_acceptor_margin_mean": 5.705641916953027,
+        "clean_acceptor_probability_mean": 0.9771209483742614,
+        "clean_acceptor_positive_fraction": 1.0,
+        "local_cc_drop_mean": 19.373369838576764,
+        "local_cc_drop_positive_fraction": 1.0,
+        "local_aa_drop_mean": 21.25179866096005,
+        "local_aa_drop_positive_fraction": 1.0,
+        "neutral_drop_mean": 0.15305302664637566,
+        "neutral_abs_mean_to_local_ratio": 0.007900175752677391,
+        "final_projection_max_abs_error": 0.0
+      },
+      "checks": {
+        "strict_checkpoint": true,
+        "tokenizer_coordinates": true,
+        "finite_forward": true,
+        "final_projection": true,
+        "clean_donor_recognition": true,
+        "clean_acceptor_recognition": true,
+        "local_cc_sensitivity": true,
+        "local_aa_sensitivity": true,
+        "neutral_specificity": true
+      },
+      "PASS": true,
+      "raw": [
+        {
+          "example_id": "chr19:6381121-6381195:-:ENSG00000125651.16",
+          "gene_id": "ENSG00000125651.16",
+          "neutral_position": 279,
+          "clean_donor_margin": 6.155951023101807,
+          "clean_acceptor_margin": 7.163039028644562,
+          "local_cc_drop": 21.556187748908997,
+          "local_aa_drop": 22.12121307849884,
+          "neutral_drop": 0.5440554618835449
+        },
+        {
+          "example_id": "chr11:64898260-64898362:-:ENSG00000110046.16",
+          "gene_id": "ENSG00000110046.16",
+          "neutral_position": 412,
+          "clean_donor_margin": 6.275327682495117,
+          "clean_acceptor_margin": 7.101405560970306,
+          "local_cc_drop": 17.860791206359863,
+          "local_aa_drop": 22.82595419883728,
+          "neutral_drop": 0.025324583053588867
+        },
+        {
+          "example_id": "chr11:67434379-67434484:+:ENSG00000175634.17",
+          "gene_id": "ENSG00000175634.17",
+          "neutral_position": 433,
+          "clean_donor_margin": 6.7258501052856445,
+          "clean_acceptor_margin": 7.219160616397858,
+          "local_cc_drop": 18.15688669681549,
+          "local_aa_drop": 21.049755811691284,
+          "neutral_drop": 0.034524738788604736
+        },
+        {
+          "example_id": "chr19:45777666-45777873:-:ENSG00000104936.22",
+          "gene_id": "ENSG00000104936.22",
+          "neutral_position": 488,
+          "clean_donor_margin": 6.626755058765411,
+          "clean_acceptor_margin": 5.344226896762848,
+          "local_cc_drop": 20.455027997493744,
+          "local_aa_drop": 24.845401108264923,
+          "neutral_drop": 0.09040355682373047
+        },
+        {
+          "example_id": "chr16:29911959-29912049:-:ENSG00000174943.13",
+          "gene_id": "ENSG00000174943.13",
+          "neutral_position": 375,
+          "clean_donor_margin": 6.6656575202941895,
+          "clean_acceptor_margin": 6.549799859523773,
+          "local_cc_drop": 19.754603564739227,
+          "local_aa_drop": 23.7441463470459,
+          "neutral_drop": -0.023809194564819336
+        },
+        {
+          "example_id": "chr16:75113965-75114030:-:ENSG00000166816.17",
+          "gene_id": "ENSG00000166816.17",
+          "neutral_position": 356,
+          "clean_donor_margin": 6.144359350204468,
+          "clean_acceptor_margin": 6.453690350055695,
+          "local_cc_drop": 16.11479479074478,
+          "local_aa_drop": 17.96276021003723,
+          "neutral_drop": 0.1421191692352295
+        },
+        {
+          "example_id": "chr11:102797255-102797500:-:ENSG00000196611.7",
+          "gene_id": "ENSG00000196611.7",
+          "neutral_position": 573,
+          "clean_donor_margin": 6.022367715835571,
+          "clean_acceptor_margin": 7.218226611614227,
+          "local_cc_drop": 22.13689637184143,
+          "local_aa_drop": 24.474344611167908,
+          "neutral_drop": -0.022603511810302734
+        },
+        {
+          "example_id": "chr19:50406181-50406322:+:ENSG00000062822.18",
+          "gene_id": "ENSG00000062822.18",
+          "neutral_position": 360,
+          "clean_donor_margin": 6.630300998687744,
+          "clean_acceptor_margin": 7.115054190158844,
+          "local_cc_drop": 20.495235413312912,
+          "local_aa_drop": 21.355393409729004,
+          "neutral_drop": 0.027207136154174805
+        },
+        {
+          "example_id": "chr16:2462414-2462526:+:ENSG00000162062.17",
+          "gene_id": "ENSG00000162062.17",
+          "neutral_position": 336,
+          "clean_donor_margin": 5.71473503112793,
+          "clean_acceptor_margin": 7.04949277639389,
+          "local_cc_drop": 21.08014965057373,
+          "local_aa_drop": 22.006507635116577,
+          "neutral_drop": -0.016161441802978516
+        },
+        {
+          "example_id": "chr11:64224794-64224970:-:ENSG00000149743.16",
+          "gene_id": "ENSG00000149743.16",
+          "neutral_position": 414,
+          "clean_donor_margin": 0.9191842675209045,
+          "clean_acceptor_margin": 4.568463981151581,
+          "local_cc_drop": 17.153187572956085,
+          "local_aa_drop": 19.17152178287506,
+          "neutral_drop": -0.12854278087615967
+        },
+        {
+          "example_id": "chr19:13808835-13808984:+:ENSG00000132003.12",
+          "gene_id": "ENSG00000132003.12",
+          "neutral_position": 496,
+          "clean_donor_margin": 6.22443962097168,
+          "clean_acceptor_margin": 6.897702515125275,
+          "local_cc_drop": 16.839954733848572,
+          "local_aa_drop": 20.011681616306305,
+          "neutral_drop": 0.013571023941040039
+        },
+        {
+          "example_id": "chr11:67405398-67405506:+:ENSG00000175463.14",
+          "gene_id": "ENSG00000175463.14",
+          "neutral_position": 313,
+          "clean_donor_margin": 6.291633605957031,
+          "clean_acceptor_margin": 6.7875959277153015,
+          "local_cc_drop": 19.130819469690323,
+          "local_aa_drop": 19.91103768348694,
+          "neutral_drop": 0.1024930477142334
+        },
+        {
+          "example_id": "chr16:31141722-31141960:-:ENSG00000178226.13",
+          "gene_id": "ENSG00000178226.13",
+          "neutral_position": 524,
+          "clean_donor_margin": 2.630096673965454,
+          "clean_acceptor_margin": 4.813929378986359,
+          "local_cc_drop": 20.184235751628876,
+          "local_aa_drop": 20.331413745880127,
+          "neutral_drop": 0.15144896507263184
+        },
+        {
+          "example_id": "chr16:29862814-29863178:-:ENSG00000103502.16",
+          "gene_id": "ENSG00000103502.16",
+          "neutral_position": 611,
+          "clean_donor_margin": 4.553785562515259,
+          "clean_acceptor_margin": 5.6878902316093445,
+          "local_cc_drop": 21.072149336338043,
+          "local_aa_drop": 22.145301580429077,
+          "neutral_drop": 0.0324709415435791
+        },
+        {
+          "example_id": "chr16:31324398-31324553:+:ENSG00000169896.20",
+          "gene_id": "ENSG00000169896.20",
+          "neutral_position": 363,
+          "clean_donor_margin": 5.498967170715332,
+          "clean_acceptor_margin": 5.913496196269989,
+          "local_cc_drop": 18.92269539833069,
+          "local_aa_drop": 21.486025661230087,
+          "neutral_drop": -0.14051270484924316
+        },
+        {
+          "example_id": "chr16:88859662-88859750:+:ENSG00000167515.13",
+          "gene_id": "ENSG00000167515.13",
+          "neutral_position": 396,
+          "clean_donor_margin": 5.485546350479126,
+          "clean_acceptor_margin": 7.223071873188019,
+          "local_cc_drop": 20.487199544906616,
+          "local_aa_drop": 21.49386429786682,
+          "neutral_drop": 0.03702044486999512
+        },
+        {
+          "example_id": "chr16:67539727-67539751:+:ENSG00000039523.22",
+          "gene_id": "ENSG00000039523.22",
+          "neutral_position": 206,
+          "clean_donor_margin": 4.658243417739868,
+          "clean_acceptor_margin": 0.6197578310966492,
+          "local_cc_drop": 22.11793041229248,
+          "local_aa_drop": 24.004860877990723,
+          "neutral_drop": -0.02049875259399414
+        },
+        {
+          "example_id": "chr11:63373643-63373798:+:ENSG00000149742.12",
+          "gene_id": "ENSG00000149742.12",
+          "neutral_position": 370,
+          "clean_donor_margin": 2.8850324153900146,
+          "clean_acceptor_margin": 4.503996551036835,
+          "local_cc_drop": 16.5297749042511,
+          "local_aa_drop": 17.50579273700714,
+          "neutral_drop": -0.0020170211791992188
+        },
+        {
+          "example_id": "chr11:117202828-117203193:+:ENSG00000149591.19",
+          "gene_id": "ENSG00000149591.19",
+          "neutral_position": 631,
+          "clean_donor_margin": 6.056525945663452,
+          "clean_acceptor_margin": 7.591949284076691,
+          "local_cc_drop": 21.094959914684296,
+          "local_aa_drop": 22.944048404693604,
+          "neutral_drop": 0.10167431831359863
+        },
+        {
+          "example_id": "chr11:46726497-46726631:+:ENSG00000180210.17",
+          "gene_id": "ENSG00000180210.17",
+          "neutral_position": 399,
+          "clean_donor_margin": -1.0946853160858154,
+          "clean_acceptor_margin": 6.4498918652534485,
+          "local_cc_drop": 17.764954566955566,
+          "local_aa_drop": 18.348575830459595,
+          "neutral_drop": 0.009763240814208984
+        },
+        {
+          "example_id": "chr19:622841-622985:-:ENSG00000099821.16",
+          "gene_id": "ENSG00000099821.16",
+          "neutral_position": 406,
+          "clean_donor_margin": -1.692065715789795,
+          "clean_acceptor_margin": 6.10624772310257,
+          "local_cc_drop": 15.922785222530365,
+          "local_aa_drop": 16.972606420516968,
+          "neutral_drop": -0.06426429748535156
+        },
+        {
+          "example_id": "chr19:38362375-38362574:+:ENSG00000099338.24",
+          "gene_id": "ENSG00000099338.24",
+          "neutral_position": 478,
+          "clean_donor_margin": 4.796119689941406,
+          "clean_acceptor_margin": 4.799266517162323,
+          "local_cc_drop": 18.088672041893005,
+          "local_aa_drop": 20.69700264930725,
+          "neutral_drop": 0.13731813430786133
+        },
+        {
+          "example_id": "chr16:67945968-67946082:-:ENSG00000124067.19",
+          "gene_id": "ENSG00000124067.19",
+          "neutral_position": 301,
+          "clean_donor_margin": -0.8956694602966309,
+          "clean_acceptor_margin": 6.728608429431915,
+          "local_cc_drop": 16.739754676818848,
+          "local_aa_drop": 17.51470685005188,
+          "neutral_drop": -0.0724024772644043
+        },
+        {
+          "example_id": "chr16:30231747-30231847:-:ENSG00000198064.17",
+          "gene_id": "ENSG00000198064.17",
+          "neutral_position": 345,
+          "clean_donor_margin": 5.127357244491577,
+          "clean_acceptor_margin": 1.6954734921455383,
+          "local_cc_drop": 16.312788009643555,
+          "local_aa_drop": 21.801700949668884,
+          "neutral_drop": 0.6256241798400879
+        },
+        {
+          "example_id": "chr19:50820153-50820443:-:ENSG00000167748.12",
+          "gene_id": "ENSG00000167748.12",
+          "neutral_position": 523,
+          "clean_donor_margin": 5.058885097503662,
+          "clean_acceptor_margin": 3.8728718161582947,
+          "local_cc_drop": 18.710007190704346,
+          "local_aa_drop": 17.52893966436386,
+          "neutral_drop": 0.18884778022766113
+        },
+        {
+          "example_id": "chr19:15239058-15239264:-:ENSG00000141867.20",
+          "gene_id": "ENSG00000141867.20",
+          "neutral_position": 563,
+          "clean_donor_margin": 6.103267431259155,
+          "clean_acceptor_margin": 7.392889559268951,
+          "local_cc_drop": 21.646742343902588,
+          "local_aa_drop": 23.033908367156982,
+          "neutral_drop": -0.04516887664794922
+        },
+        {
+          "example_id": "chr19:39167991-39168085:+:ENSG00000130669.19",
+          "gene_id": "ENSG00000130669.19",
+          "neutral_position": 356,
+          "clean_donor_margin": -3.3890106081962585,
+          "clean_acceptor_margin": 0.6786978840827942,
+          "local_cc_drop": 15.82232129573822,
+          "local_aa_drop": 15.730561226606369,
+          "neutral_drop": 1.298020839691162
+        },
+        {
+          "example_id": "chr19:4475274-4475351:+:ENSG00000167674.17",
+          "gene_id": "ENSG00000167674.17",
+          "neutral_position": 379,
+          "clean_donor_margin": 6.875009536743164,
+          "clean_acceptor_margin": 7.444302141666412,
+          "local_cc_drop": 18.16550713777542,
+          "local_aa_drop": 22.486117660999298,
+          "neutral_drop": 0.016215085983276367
+        },
+        {
+          "example_id": "chr19:41410636-41410816:+:ENSG00000255730.5",
+          "gene_id": "ENSG00000255730.5",
+          "neutral_position": 512,
+          "clean_donor_margin": 6.005929708480835,
+          "clean_acceptor_margin": 7.4166616797447205,
+          "local_cc_drop": 19.3178688287735,
+          "local_aa_drop": 21.101746022701263,
+          "neutral_drop": -0.00866389274597168
+        },
+        {
+          "example_id": "chr16:1348095-1348237:+:ENSG00000007516.17",
+          "gene_id": "ENSG00000007516.17",
+          "neutral_position": 513,
+          "clean_donor_margin": 4.808294296264648,
+          "clean_acceptor_margin": 5.8984255194664,
+          "local_cc_drop": 18.086304187774658,
+          "local_aa_drop": 20.330678164958954,
+          "neutral_drop": 0.023230552673339844
+        },
+        {
+          "example_id": "chr16:66941505-66941646:+:ENSG00000172831.16",
+          "gene_id": "ENSG00000172831.16",
+          "neutral_position": 503,
+          "clean_donor_margin": 6.682672023773193,
+          "clean_acceptor_margin": 4.724933564662933,
+          "local_cc_drop": 12.666788816452026,
+          "local_aa_drop": 20.047697961330414,
+          "neutral_drop": 0.040204763412475586
+        },
+        {
+          "example_id": "chr11:72826526-72826589:+:ENSG00000168010.13",
+          "gene_id": "ENSG00000168010.13",
+          "neutral_position": 297,
+          "clean_donor_margin": 4.524801671504974,
+          "clean_acceptor_margin": 5.949326813220978,
+          "local_cc_drop": 19.11477655172348,
+          "local_aa_drop": 20.312558829784393,
+          "neutral_drop": -0.3090163469314575
+        },
+        {
+          "example_id": "chr19:49646525-49646626:+:ENSG00000126461.17",
+          "gene_id": "ENSG00000126461.17",
+          "neutral_position": 319,
+          "clean_donor_margin": 5.057049512863159,
+          "clean_acceptor_margin": 6.249405562877655,
+          "local_cc_drop": 21.78774803876877,
+          "local_aa_drop": 23.79790210723877,
+          "neutral_drop": 1.1374883651733398
+        },
+        {
+          "example_id": "chr19:6479858-6479902:-:ENSG00000205744.12",
+          "gene_id": "ENSG00000205744.12",
+          "neutral_position": 414,
+          "clean_donor_margin": 4.258809804916382,
+          "clean_acceptor_margin": 3.314935863018036,
+          "local_cc_drop": 14.472133815288544,
+          "local_aa_drop": 16.721238434314728,
+          "neutral_drop": 0.47297215461730957
+        },
+        {
+          "example_id": "chr19:7911249-7911330:+:ENSG00000076984.20",
+          "gene_id": "ENSG00000076984.20",
+          "neutral_position": 259,
+          "clean_donor_margin": 6.370567083358765,
+          "clean_acceptor_margin": 7.758485376834869,
+          "local_cc_drop": 22.88375687599182,
+          "local_aa_drop": 23.63611340522766,
+          "neutral_drop": 0.02265787124633789
+        },
+        {
+          "example_id": "chr19:14563528-14563702:+:ENSG00000099797.17",
+          "gene_id": "ENSG00000099797.17",
+          "neutral_position": 459,
+          "clean_donor_margin": 6.011380434036255,
+          "clean_acceptor_margin": 6.972817003726959,
+          "local_cc_drop": 22.194132089614868,
+          "local_aa_drop": 23.340728282928467,
+          "neutral_drop": 0.13261842727661133
+        },
+        {
+          "example_id": "chr19:48614707-48614839:-:ENSG00000105523.6",
+          "gene_id": "ENSG00000105523.6",
+          "neutral_position": 434,
+          "clean_donor_margin": 2.8540115356445312,
+          "clean_acceptor_margin": 2.9042076468467712,
+          "local_cc_drop": 20.795898854732513,
+          "local_aa_drop": 21.962688446044922,
+          "neutral_drop": 0.1259150505065918
+        },
+        {
+          "example_id": "chr19:5691318-5691453:+:ENSG00000130255.15",
+          "gene_id": "ENSG00000130255.15",
+          "neutral_position": 483,
+          "clean_donor_margin": 6.3864219188690186,
+          "clean_acceptor_margin": 5.691681087017059,
+          "local_cc_drop": 22.633674383163452,
+          "local_aa_drop": 24.600353956222534,
+          "neutral_drop": 0.05604743957519531
+        },
+        {
+          "example_id": "chr19:1877507-1877675:-:ENSG00000129968.19",
+          "gene_id": "ENSG00000129968.19",
+          "neutral_position": 412,
+          "clean_donor_margin": 5.978869915008545,
+          "clean_acceptor_margin": 5.5644126534461975,
+          "local_cc_drop": 18.71535563468933,
+          "local_aa_drop": 19.98612940311432,
+          "neutral_drop": 0.02630758285522461
+        },
+        {
+          "example_id": "chr11:47171663-47171788:-:ENSG00000149182.17",
+          "gene_id": "ENSG00000149182.17",
+          "neutral_position": 429,
+          "clean_donor_margin": 6.356905460357666,
+          "clean_acceptor_margin": 6.7607768177986145,
+          "local_cc_drop": 19.734588861465454,
+          "local_aa_drop": 22.260157346725464,
+          "neutral_drop": -0.003819704055786133
+        },
+        {
+          "example_id": "chr11:615344-615622:-:ENSG00000185507.23",
+          "gene_id": "ENSG00000185507.23",
+          "neutral_position": 643,
+          "clean_donor_margin": 3.2273173332214355,
+          "clean_acceptor_margin": 4.880435883998871,
+          "local_cc_drop": 20.158386707305908,
+          "local_aa_drop": 21.885811179876328,
+          "neutral_drop": 1.5568583011627197
+        },
+        {
+          "example_id": "chr11:62839506-62839706:-:ENSG00000133316.18",
+          "gene_id": "ENSG00000133316.18",
+          "neutral_position": 541,
+          "clean_donor_margin": 4.035382270812988,
+          "clean_acceptor_margin": 5.887997925281525,
+          "local_cc_drop": 18.197815895080566,
+          "local_aa_drop": 20.50822615623474,
+          "neutral_drop": 0.014106035232543945
+        },
+        {
+          "example_id": "chr16:89636263-89636396:+:ENSG00000015413.12",
+          "gene_id": "ENSG00000015413.12",
+          "neutral_position": 524,
+          "clean_donor_margin": 5.78068208694458,
+          "clean_acceptor_margin": 7.233428657054901,
+          "local_cc_drop": 20.268824100494385,
+          "local_aa_drop": 22.238003969192505,
+          "neutral_drop": -0.0011615753173828125
+        },
+        {
+          "example_id": "chr16:2786088-2786121:-:ENSG00000103355.16",
+          "gene_id": "ENSG00000103355.16",
+          "neutral_position": 314,
+          "clean_donor_margin": 3.555229663848877,
+          "clean_acceptor_margin": 3.545182764530182,
+          "local_cc_drop": 15.118603229522705,
+          "local_aa_drop": 17.723120391368866,
+          "neutral_drop": 0.30521297454833984
+        },
+        {
+          "example_id": "chr19:6731198-6731314:-:ENSG00000125734.18",
+          "gene_id": "ENSG00000125734.18",
+          "neutral_position": 396,
+          "clean_donor_margin": 6.517024517059326,
+          "clean_acceptor_margin": 6.715143382549286,
+          "local_cc_drop": 23.431525468826294,
+          "local_aa_drop": 24.867093086242676,
+          "neutral_drop": -0.021163225173950195
+        },
+        {
+          "example_id": "chr11:134153139-134153200:-:ENSG00000151503.16",
+          "gene_id": "ENSG00000151503.16",
+          "neutral_position": 295,
+          "clean_donor_margin": 3.4294612407684326,
+          "clean_acceptor_margin": 4.801491320133209,
+          "local_cc_drop": 22.84420108795166,
+          "local_aa_drop": 23.26671528816223,
+          "neutral_drop": 0.015278100967407227
+        },
+        {
+          "example_id": "chr19:36125450-36125523:+:ENSG00000105254.14",
+          "gene_id": "ENSG00000105254.14",
+          "neutral_position": 433,
+          "clean_donor_margin": 6.274932146072388,
+          "clean_acceptor_margin": 6.275597870349884,
+          "local_cc_drop": 24.480085253715515,
+          "local_aa_drop": 24.318140506744385,
+          "neutral_drop": 0.030893325805664062
+        },
+        {
+          "example_id": "chr11:17634843-17634948:+:ENSG00000188162.12",
+          "gene_id": "ENSG00000188162.12",
+          "neutral_position": 454,
+          "clean_donor_margin": 5.5440003871917725,
+          "clean_acceptor_margin": 5.303343713283539,
+          "local_cc_drop": 19.29645562171936,
+          "local_aa_drop": 22.294880151748657,
+          "neutral_drop": -0.005643606185913086
+        },
+        {
+          "example_id": "chr11:60902582-60902656:-:ENSG00000110107.11",
+          "gene_id": "ENSG00000110107.11",
+          "neutral_position": 464,
+          "clean_donor_margin": 6.38742208480835,
+          "clean_acceptor_margin": 7.301915943622589,
+          "local_cc_drop": 23.986212491989136,
+          "local_aa_drop": 25.38392424583435,
+          "neutral_drop": 0.12108325958251953
+        },
+        {
+          "example_id": "chr19:46124267-46124321:-:ENSG00000188624.4",
+          "gene_id": "ENSG00000188624.4",
+          "neutral_position": 361,
+          "clean_donor_margin": 5.041632175445557,
+          "clean_acceptor_margin": 3.5045977234840393,
+          "local_cc_drop": 17.617614030838013,
+          "local_aa_drop": 21.450716018676758,
+          "neutral_drop": 0.06312036514282227
+        },
+        {
+          "example_id": "chr19:38212279-38212361:-:ENSG00000011332.24",
+          "gene_id": "ENSG00000011332.24",
+          "neutral_position": 459,
+          "clean_donor_margin": 4.946462631225586,
+          "clean_acceptor_margin": 3.939599573612213,
+          "local_cc_drop": 22.763665199279785,
+          "local_aa_drop": 22.776585340499878,
+          "neutral_drop": -0.17266631126403809
+        },
+        {
+          "example_id": "chr19:42336806-42336952:+:ENSG00000105429.14",
+          "gene_id": "ENSG00000105429.14",
+          "neutral_position": 534,
+          "clean_donor_margin": 5.9818434715271,
+          "clean_acceptor_margin": 6.993020594120026,
+          "local_cc_drop": 19.96327418088913,
+          "local_aa_drop": 21.169244170188904,
+          "neutral_drop": 0.1350722312927246
+        },
+        {
+          "example_id": "chr16:84181745-84181863:-:ENSG00000103168.19",
+          "gene_id": "ENSG00000103168.19",
+          "neutral_position": 422,
+          "clean_donor_margin": 5.7693586349487305,
+          "clean_acceptor_margin": 1.9241285920143127,
+          "local_cc_drop": 21.872491717338562,
+          "local_aa_drop": 23.82810354232788,
+          "neutral_drop": 0.2402029037475586
+        },
+        {
+          "example_id": "chr19:17881959-17882072:+:ENSG00000105641.5",
+          "gene_id": "ENSG00000105641.5",
+          "neutral_position": 322,
+          "clean_donor_margin": 5.671432256698608,
+          "clean_acceptor_margin": 6.075452506542206,
+          "local_cc_drop": 15.110420167446136,
+          "local_aa_drop": 18.890395879745483,
+          "neutral_drop": 2.928469955921173
+        },
+        {
+          "example_id": "chr19:43543611-43543687:-:ENSG00000073050.14",
+          "gene_id": "ENSG00000073050.14",
+          "neutral_position": 329,
+          "clean_donor_margin": 6.264052629470825,
+          "clean_acceptor_margin": 4.5690619349479675,
+          "local_cc_drop": 15.222767770290375,
+          "local_aa_drop": 18.858384668827057,
+          "neutral_drop": -0.03796076774597168
+        },
+        {
+          "example_id": "chr16:28608707-28608859:-:ENSG00000196502.17",
+          "gene_id": "ENSG00000196502.17",
+          "neutral_position": 481,
+          "clean_donor_margin": 6.723356008529663,
+          "clean_acceptor_margin": 6.957884728908539,
+          "local_cc_drop": 16.8642675280571,
+          "local_aa_drop": 20.757174730300903,
+          "neutral_drop": 0.04535865783691406
+        },
+        {
+          "example_id": "chr19:46608204-46608340:+:ENSG00000160014.19",
+          "gene_id": "ENSG00000160014.19",
+          "neutral_position": 363,
+          "clean_donor_margin": 6.027350425720215,
+          "clean_acceptor_margin": 7.953836977481842,
+          "local_cc_drop": 21.58473038673401,
+          "local_aa_drop": 22.152932703495026,
+          "neutral_drop": -0.024702787399291992
+        },
+        {
+          "example_id": "chr19:5914939-5915095:+:ENSG00000105519.19",
+          "gene_id": "ENSG00000105519.19",
+          "neutral_position": 511,
+          "clean_donor_margin": -1.0560016632080078,
+          "clean_acceptor_margin": 6.735102474689484,
+          "local_cc_drop": 16.02055212855339,
+          "local_aa_drop": 16.61381697654724,
+          "neutral_drop": 0.035531044006347656
+        },
+        {
+          "example_id": "chr11:118530512-118530561:+:ENSG00000172425.14",
+          "gene_id": "ENSG00000172425.14",
+          "neutral_position": 334,
+          "clean_donor_margin": -5.0720102190971375,
+          "clean_acceptor_margin": 4.343143045902252,
+          "local_cc_drop": 14.225835144519806,
+          "local_aa_drop": 14.592102587223053,
+          "neutral_drop": -0.00509488582611084
+        },
+        {
+          "example_id": "chr16:3564858-3565112:-:ENSG00000167984.20",
+          "gene_id": "ENSG00000167984.20",
+          "neutral_position": 481,
+          "clean_donor_margin": 4.83214259147644,
+          "clean_acceptor_margin": 1.669489324092865,
+          "local_cc_drop": 19.10678505897522,
+          "local_aa_drop": 19.185773372650146,
+          "neutral_drop": -0.06884288787841797
+        },
+        {
+          "example_id": "chr19:1112188-1112301:-:ENSG00000064932.18",
+          "gene_id": "ENSG00000064932.18",
+          "neutral_position": 455,
+          "clean_donor_margin": 6.658367872238159,
+          "clean_acceptor_margin": 7.220658242702484,
+          "local_cc_drop": 24.413270950317383,
+          "local_aa_drop": 25.672895908355713,
+          "neutral_drop": 0.034897565841674805
+        },
+        {
+          "example_id": "chr19:55648945-55649077:+:ENSG00000173581.10",
+          "gene_id": "ENSG00000173581.10",
+          "neutral_position": 500,
+          "clean_donor_margin": 4.262408018112183,
+          "clean_acceptor_margin": 6.331466376781464,
+          "local_cc_drop": 20.919009566307068,
+          "local_aa_drop": 22.013075828552246,
+          "neutral_drop": 0.0027222633361816406
+        },
+        {
+          "example_id": "chr11:65131131-65131197:-:ENSG00000162298.21",
+          "gene_id": "ENSG00000162298.21",
+          "neutral_position": 329,
+          "clean_donor_margin": 5.692896842956543,
+          "clean_acceptor_margin": 7.093469560146332,
+          "local_cc_drop": 21.78108310699463,
+          "local_aa_drop": 22.461804628372192,
+          "neutral_drop": -0.0002040863037109375
+        },
+        {
+          "example_id": "chr11:67282270-67282365:+:ENSG00000173020.13",
+          "gene_id": "ENSG00000173020.13",
+          "neutral_position": 324,
+          "clean_donor_margin": 6.12339973449707,
+          "clean_acceptor_margin": 7.709364891052246,
+          "local_cc_drop": 21.92775297164917,
+          "local_aa_drop": 25.60305619239807,
+          "neutral_drop": -0.1540369987487793
+        }
+      ]
+    },
+    "2024": {
+      "report": {
+        "source_task": "SpliceAI-GTEx three-class token classification",
+        "checkpoint": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2024.pt",
+        "checkpoint_sha256": "d1caccec4db1784537178e355351a3e0b67cde4e70185bf6b6a6d63f792198f1",
+        "seed": 2024,
+        "tensor_count": 103,
+        "parameter_count": 19448323,
+        "class_labels": [
+          "no_splice_site",
+          "donor",
+          "acceptor"
+        ],
+        "missing_keys": [],
+        "extra_keys": []
+      },
+      "observed": {
+        "clean_donor_margin_mean": 5.1471282709389925,
+        "clean_donor_probability_mean": 0.9055811701773768,
+        "clean_donor_positive_fraction": 0.90625,
+        "clean_acceptor_margin_mean": 5.381267664954066,
+        "clean_acceptor_probability_mean": 0.9730583694116094,
+        "clean_acceptor_positive_fraction": 1.0,
+        "local_cc_drop_mean": 21.001224846579134,
+        "local_cc_drop_positive_fraction": 1.0,
+        "local_aa_drop_mean": 21.332305944059044,
+        "local_aa_drop_positive_fraction": 1.0,
+        "neutral_drop_mean": 0.19817887526005507,
+        "neutral_abs_mean_to_local_ratio": 0.009436538902269608,
+        "final_projection_max_abs_error": 0.0
+      },
+      "checks": {
+        "strict_checkpoint": true,
+        "tokenizer_coordinates": true,
+        "finite_forward": true,
+        "final_projection": true,
+        "clean_donor_recognition": true,
+        "clean_acceptor_recognition": true,
+        "local_cc_sensitivity": true,
+        "local_aa_sensitivity": true,
+        "neutral_specificity": true
+      },
+      "PASS": true,
+      "raw": [
+        {
+          "example_id": "chr19:6381121-6381195:-:ENSG00000125651.16",
+          "gene_id": "ENSG00000125651.16",
+          "neutral_position": 279,
+          "clean_donor_margin": 6.908276557922363,
+          "clean_acceptor_margin": 6.816215991973877,
+          "local_cc_drop": 17.476551175117493,
+          "local_aa_drop": 16.2796049118042,
+          "neutral_drop": 0.2675178050994873
+        },
+        {
+          "example_id": "chr11:64898260-64898362:-:ENSG00000110046.16",
+          "gene_id": "ENSG00000110046.16",
+          "neutral_position": 412,
+          "clean_donor_margin": 6.9898529052734375,
+          "clean_acceptor_margin": 6.43527626991272,
+          "local_cc_drop": 24.724278450012207,
+          "local_aa_drop": 25.246906042099,
+          "neutral_drop": -0.009369611740112305
+        },
+        {
+          "example_id": "chr11:67434379-67434484:+:ENSG00000175634.17",
+          "gene_id": "ENSG00000175634.17",
+          "neutral_position": 433,
+          "clean_donor_margin": 7.451159954071045,
+          "clean_acceptor_margin": 6.328731298446655,
+          "local_cc_drop": 20.70816469192505,
+          "local_aa_drop": 22.134212911128998,
+          "neutral_drop": 0.008077859878540039
+        },
+        {
+          "example_id": "chr19:45777666-45777873:-:ENSG00000104936.22",
+          "gene_id": "ENSG00000104936.22",
+          "neutral_position": 488,
+          "clean_donor_margin": 7.3690197467803955,
+          "clean_acceptor_margin": 5.259114980697632,
+          "local_cc_drop": 19.517804622650146,
+          "local_aa_drop": 22.438577353954315,
+          "neutral_drop": 0.06589794158935547
+        },
+        {
+          "example_id": "chr16:29911959-29912049:-:ENSG00000174943.13",
+          "gene_id": "ENSG00000174943.13",
+          "neutral_position": 375,
+          "clean_donor_margin": 7.380935907363892,
+          "clean_acceptor_margin": 5.913664102554321,
+          "local_cc_drop": 19.981669902801514,
+          "local_aa_drop": 21.83774369955063,
+          "neutral_drop": -0.08672046661376953
+        },
+        {
+          "example_id": "chr16:75113965-75114030:-:ENSG00000166816.17",
+          "gene_id": "ENSG00000166816.17",
+          "neutral_position": 356,
+          "clean_donor_margin": 6.743891000747681,
+          "clean_acceptor_margin": 5.983721017837524,
+          "local_cc_drop": 17.85696530342102,
+          "local_aa_drop": 18.216511011123657,
+          "neutral_drop": 0.09287071228027344
+        },
+        {
+          "example_id": "chr11:102797255-102797500:-:ENSG00000196611.7",
+          "gene_id": "ENSG00000196611.7",
+          "neutral_position": 573,
+          "clean_donor_margin": 6.900651454925537,
+          "clean_acceptor_margin": 6.99400520324707,
+          "local_cc_drop": 24.850639820098877,
+          "local_aa_drop": 26.13966989517212,
+          "neutral_drop": -0.008673906326293945
+        },
+        {
+          "example_id": "chr19:50406181-50406322:+:ENSG00000062822.18",
+          "gene_id": "ENSG00000062822.18",
+          "neutral_position": 360,
+          "clean_donor_margin": 7.403355360031128,
+          "clean_acceptor_margin": 6.838494300842285,
+          "local_cc_drop": 23.785260915756226,
+          "local_aa_drop": 23.258179426193237,
+          "neutral_drop": 0.028690576553344727
+        },
+        {
+          "example_id": "chr16:2462414-2462526:+:ENSG00000162062.17",
+          "gene_id": "ENSG00000162062.17",
+          "neutral_position": 336,
+          "clean_donor_margin": 4.095279693603516,
+          "clean_acceptor_margin": 6.5803258419036865,
+          "local_cc_drop": 23.33155083656311,
+          "local_aa_drop": 22.929418087005615,
+          "neutral_drop": -0.025432825088500977
+        },
+        {
+          "example_id": "chr11:64224794-64224970:-:ENSG00000149743.16",
+          "gene_id": "ENSG00000149743.16",
+          "neutral_position": 414,
+          "clean_donor_margin": 1.2684932947158813,
+          "clean_acceptor_margin": 3.960658073425293,
+          "local_cc_drop": 18.584882855415344,
+          "local_aa_drop": 18.72034990787506,
+          "neutral_drop": -0.0540311336517334
+        },
+        {
+          "example_id": "chr19:13808835-13808984:+:ENSG00000132003.12",
+          "gene_id": "ENSG00000132003.12",
+          "neutral_position": 496,
+          "clean_donor_margin": 6.80089807510376,
+          "clean_acceptor_margin": 6.2781453132629395,
+          "local_cc_drop": 22.223456621170044,
+          "local_aa_drop": 22.04079580307007,
+          "neutral_drop": -0.011141777038574219
+        },
+        {
+          "example_id": "chr11:67405398-67405506:+:ENSG00000175463.14",
+          "gene_id": "ENSG00000175463.14",
+          "neutral_position": 313,
+          "clean_donor_margin": 6.890104055404663,
+          "clean_acceptor_margin": 6.266899347305298,
+          "local_cc_drop": 26.024110078811646,
+          "local_aa_drop": 25.537206172943115,
+          "neutral_drop": 0.1788008213043213
+        },
+        {
+          "example_id": "chr16:31141722-31141960:-:ENSG00000178226.13",
+          "gene_id": "ENSG00000178226.13",
+          "neutral_position": 524,
+          "clean_donor_margin": 0.5798790454864502,
+          "clean_acceptor_margin": 2.587723970413208,
+          "local_cc_drop": 17.88749462366104,
+          "local_aa_drop": 18.604974031448364,
+          "neutral_drop": 0.39277195930480957
+        },
+        {
+          "example_id": "chr16:29862814-29863178:-:ENSG00000103502.16",
+          "gene_id": "ENSG00000103502.16",
+          "neutral_position": 611,
+          "clean_donor_margin": 4.872791528701782,
+          "clean_acceptor_margin": 5.480466604232788,
+          "local_cc_drop": 20.91956239938736,
+          "local_aa_drop": 22.792201042175293,
+          "neutral_drop": -0.04287552833557129
+        },
+        {
+          "example_id": "chr16:31324398-31324553:+:ENSG00000169896.20",
+          "gene_id": "ENSG00000169896.20",
+          "neutral_position": 363,
+          "clean_donor_margin": 6.379737615585327,
+          "clean_acceptor_margin": 5.890214920043945,
+          "local_cc_drop": 21.500522911548615,
+          "local_aa_drop": 21.26576766371727,
+          "neutral_drop": -0.032851457595825195
+        },
+        {
+          "example_id": "chr16:88859662-88859750:+:ENSG00000167515.13",
+          "gene_id": "ENSG00000167515.13",
+          "neutral_position": 396,
+          "clean_donor_margin": 6.1710045337677,
+          "clean_acceptor_margin": 6.740846395492554,
+          "local_cc_drop": 22.991206407546997,
+          "local_aa_drop": 22.90759778022766,
+          "neutral_drop": -0.03711533546447754
+        },
+        {
+          "example_id": "chr16:67539727-67539751:+:ENSG00000039523.22",
+          "gene_id": "ENSG00000039523.22",
+          "neutral_position": 206,
+          "clean_donor_margin": 6.870859384536743,
+          "clean_acceptor_margin": 4.300999224185944,
+          "local_cc_drop": 23.968005418777466,
+          "local_aa_drop": 23.66877570748329,
+          "neutral_drop": 0.0072743892669677734
+        },
+        {
+          "example_id": "chr11:63373643-63373798:+:ENSG00000149742.12",
+          "gene_id": "ENSG00000149742.12",
+          "neutral_position": 370,
+          "clean_donor_margin": 3.1992063522338867,
+          "clean_acceptor_margin": 5.100996732711792,
+          "local_cc_drop": 18.7745321393013,
+          "local_aa_drop": 19.320059418678284,
+          "neutral_drop": 0.034372806549072266
+        },
+        {
+          "example_id": "chr11:117202828-117203193:+:ENSG00000149591.19",
+          "gene_id": "ENSG00000149591.19",
+          "neutral_position": 631,
+          "clean_donor_margin": 7.016150712966919,
+          "clean_acceptor_margin": 7.030400037765503,
+          "local_cc_drop": 23.911301016807556,
+          "local_aa_drop": 25.292723894119263,
+          "neutral_drop": -0.005547285079956055
+        },
+        {
+          "example_id": "chr11:46726497-46726631:+:ENSG00000180210.17",
+          "gene_id": "ENSG00000180210.17",
+          "neutral_position": 399,
+          "clean_donor_margin": -1.4987895488739014,
+          "clean_acceptor_margin": 6.1246373653411865,
+          "local_cc_drop": 16.478351593017578,
+          "local_aa_drop": 16.02366578578949,
+          "neutral_drop": -0.002944350242614746
+        },
+        {
+          "example_id": "chr19:622841-622985:-:ENSG00000099821.16",
+          "gene_id": "ENSG00000099821.16",
+          "neutral_position": 406,
+          "clean_donor_margin": -1.1611870527267456,
+          "clean_acceptor_margin": 5.355379343032837,
+          "local_cc_drop": 15.994898587465286,
+          "local_aa_drop": 16.595967769622803,
+          "neutral_drop": -0.12476241588592529
+        },
+        {
+          "example_id": "chr19:38362375-38362574:+:ENSG00000099338.24",
+          "gene_id": "ENSG00000099338.24",
+          "neutral_position": 478,
+          "clean_donor_margin": 5.1079864501953125,
+          "clean_acceptor_margin": 3.570591688156128,
+          "local_cc_drop": 18.096285820007324,
+          "local_aa_drop": 18.18101930618286,
+          "neutral_drop": 0.3944978713989258
+        },
+        {
+          "example_id": "chr16:67945968-67946082:-:ENSG00000124067.19",
+          "gene_id": "ENSG00000124067.19",
+          "neutral_position": 301,
+          "clean_donor_margin": -0.784541130065918,
+          "clean_acceptor_margin": 6.35300874710083,
+          "local_cc_drop": 14.83272010087967,
+          "local_aa_drop": 14.251578629016876,
+          "neutral_drop": -0.16746079921722412
+        },
+        {
+          "example_id": "chr16:30231747-30231847:-:ENSG00000198064.17",
+          "gene_id": "ENSG00000198064.17",
+          "neutral_position": 345,
+          "clean_donor_margin": 6.265869379043579,
+          "clean_acceptor_margin": 4.161459922790527,
+          "local_cc_drop": 20.32688409090042,
+          "local_aa_drop": 20.84877896308899,
+          "neutral_drop": 0.550976037979126
+        },
+        {
+          "example_id": "chr19:50820153-50820443:-:ENSG00000167748.12",
+          "gene_id": "ENSG00000167748.12",
+          "neutral_position": 523,
+          "clean_donor_margin": 6.452167749404907,
+          "clean_acceptor_margin": 5.947709798812866,
+          "local_cc_drop": 23.832200050354004,
+          "local_aa_drop": 22.879504084587097,
+          "neutral_drop": 0.32328081130981445
+        },
+        {
+          "example_id": "chr19:15239058-15239264:-:ENSG00000141867.20",
+          "gene_id": "ENSG00000141867.20",
+          "neutral_position": 563,
+          "clean_donor_margin": 6.564699411392212,
+          "clean_acceptor_margin": 6.773396253585815,
+          "local_cc_drop": 22.069979190826416,
+          "local_aa_drop": 21.956511855125427,
+          "neutral_drop": 0.0006783008575439453
+        },
+        {
+          "example_id": "chr19:39167991-39168085:+:ENSG00000130669.19",
+          "gene_id": "ENSG00000130669.19",
+          "neutral_position": 356,
+          "clean_donor_margin": -3.2432756423950195,
+          "clean_acceptor_margin": 0.17365920543670654,
+          "local_cc_drop": 14.867470771074295,
+          "local_aa_drop": 14.755405485630035,
+          "neutral_drop": 1.7974194288253784
+        },
+        {
+          "example_id": "chr19:4475274-4475351:+:ENSG00000167674.17",
+          "gene_id": "ENSG00000167674.17",
+          "neutral_position": 379,
+          "clean_donor_margin": 7.484240293502808,
+          "clean_acceptor_margin": 6.756519079208374,
+          "local_cc_drop": 22.23162865638733,
+          "local_aa_drop": 20.468917906284332,
+          "neutral_drop": 0.02766108512878418
+        },
+        {
+          "example_id": "chr19:41410636-41410816:+:ENSG00000255730.5",
+          "gene_id": "ENSG00000255730.5",
+          "neutral_position": 512,
+          "clean_donor_margin": 7.200875997543335,
+          "clean_acceptor_margin": 7.40881872177124,
+          "local_cc_drop": 22.642043590545654,
+          "local_aa_drop": 22.229727685451508,
+          "neutral_drop": 0.06894588470458984
+        },
+        {
+          "example_id": "chr16:1348095-1348237:+:ENSG00000007516.17",
+          "gene_id": "ENSG00000007516.17",
+          "neutral_position": 513,
+          "clean_donor_margin": 5.414772272109985,
+          "clean_acceptor_margin": 5.85313868522644,
+          "local_cc_drop": 22.658921599388123,
+          "local_aa_drop": 23.31729745864868,
+          "neutral_drop": 0.014958381652832031
+        },
+        {
+          "example_id": "chr16:66941505-66941646:+:ENSG00000172831.16",
+          "gene_id": "ENSG00000172831.16",
+          "neutral_position": 503,
+          "clean_donor_margin": 7.407906532287598,
+          "clean_acceptor_margin": 5.219248056411743,
+          "local_cc_drop": 19.389457941055298,
+          "local_aa_drop": 18.857361793518066,
+          "neutral_drop": -0.05928325653076172
+        },
+        {
+          "example_id": "chr11:72826526-72826589:+:ENSG00000168010.13",
+          "gene_id": "ENSG00000168010.13",
+          "neutral_position": 297,
+          "clean_donor_margin": 5.4417548179626465,
+          "clean_acceptor_margin": 4.994648218154907,
+          "local_cc_drop": 21.542477309703827,
+          "local_aa_drop": 21.233932971954346,
+          "neutral_drop": -0.5253090858459473
+        },
+        {
+          "example_id": "chr19:49646525-49646626:+:ENSG00000126461.17",
+          "gene_id": "ENSG00000126461.17",
+          "neutral_position": 319,
+          "clean_donor_margin": 5.167998313903809,
+          "clean_acceptor_margin": 4.948154926300049,
+          "local_cc_drop": 22.352055966854095,
+          "local_aa_drop": 21.946255326271057,
+          "neutral_drop": 2.6105117797851562
+        },
+        {
+          "example_id": "chr19:6479858-6479902:-:ENSG00000205744.12",
+          "gene_id": "ENSG00000205744.12",
+          "neutral_position": 414,
+          "clean_donor_margin": 5.1533331871032715,
+          "clean_acceptor_margin": 4.031438589096069,
+          "local_cc_drop": 20.136911273002625,
+          "local_aa_drop": 20.14011323451996,
+          "neutral_drop": 0.48071789741516113
+        },
+        {
+          "example_id": "chr19:7911249-7911330:+:ENSG00000076984.20",
+          "gene_id": "ENSG00000076984.20",
+          "neutral_position": 259,
+          "clean_donor_margin": 7.514706373214722,
+          "clean_acceptor_margin": 7.344814300537109,
+          "local_cc_drop": 26.707273244857788,
+          "local_aa_drop": 26.751851797103882,
+          "neutral_drop": 0.014347076416015625
+        },
+        {
+          "example_id": "chr19:14563528-14563702:+:ENSG00000099797.17",
+          "gene_id": "ENSG00000099797.17",
+          "neutral_position": 459,
+          "clean_donor_margin": 6.353598594665527,
+          "clean_acceptor_margin": 6.165395259857178,
+          "local_cc_drop": 23.433972716331482,
+          "local_aa_drop": 23.339526057243347,
+          "neutral_drop": 0.1863844394683838
+        },
+        {
+          "example_id": "chr19:48614707-48614839:-:ENSG00000105523.6",
+          "gene_id": "ENSG00000105523.6",
+          "neutral_position": 434,
+          "clean_donor_margin": 1.0471730828285217,
+          "clean_acceptor_margin": 0.030272185802459717,
+          "local_cc_drop": 18.18259072303772,
+          "local_aa_drop": 18.643256187438965,
+          "neutral_drop": 0.094490647315979
+        },
+        {
+          "example_id": "chr19:5691318-5691453:+:ENSG00000130255.15",
+          "gene_id": "ENSG00000130255.15",
+          "neutral_position": 483,
+          "clean_donor_margin": 7.0005106925964355,
+          "clean_acceptor_margin": 5.365642547607422,
+          "local_cc_drop": 19.736183404922485,
+          "local_aa_drop": 21.23021173477173,
+          "neutral_drop": -0.0027163028717041016
+        },
+        {
+          "example_id": "chr19:1877507-1877675:-:ENSG00000129968.19",
+          "gene_id": "ENSG00000129968.19",
+          "neutral_position": 412,
+          "clean_donor_margin": 7.093053817749023,
+          "clean_acceptor_margin": 5.773358106613159,
+          "local_cc_drop": 20.090717434883118,
+          "local_aa_drop": 19.564860343933105,
+          "neutral_drop": -0.05678725242614746
+        },
+        {
+          "example_id": "chr11:47171663-47171788:-:ENSG00000149182.17",
+          "gene_id": "ENSG00000149182.17",
+          "neutral_position": 429,
+          "clean_donor_margin": 7.243039608001709,
+          "clean_acceptor_margin": 6.039963006973267,
+          "local_cc_drop": 22.22589483857155,
+          "local_aa_drop": 22.86419451236725,
+          "neutral_drop": -0.0013692378997802734
+        },
+        {
+          "example_id": "chr11:615344-615622:-:ENSG00000185507.23",
+          "gene_id": "ENSG00000185507.23",
+          "neutral_position": 643,
+          "clean_donor_margin": 2.4427981972694397,
+          "clean_acceptor_margin": 1.0739572048187256,
+          "local_cc_drop": 15.926384329795837,
+          "local_aa_drop": 16.376366913318634,
+          "neutral_drop": 1.4300863146781921
+        },
+        {
+          "example_id": "chr11:62839506-62839706:-:ENSG00000133316.18",
+          "gene_id": "ENSG00000133316.18",
+          "neutral_position": 541,
+          "clean_donor_margin": 3.6479275226593018,
+          "clean_acceptor_margin": 5.145521879196167,
+          "local_cc_drop": 17.634552478790283,
+          "local_aa_drop": 17.861349642276764,
+          "neutral_drop": 0.039075613021850586
+        },
+        {
+          "example_id": "chr16:89636263-89636396:+:ENSG00000015413.12",
+          "gene_id": "ENSG00000015413.12",
+          "neutral_position": 524,
+          "clean_donor_margin": 6.002727270126343,
+          "clean_acceptor_margin": 6.962296009063721,
+          "local_cc_drop": 24.269545435905457,
+          "local_aa_drop": 24.339572072029114,
+          "neutral_drop": -0.09438920021057129
+        },
+        {
+          "example_id": "chr16:2786088-2786121:-:ENSG00000103355.16",
+          "gene_id": "ENSG00000103355.16",
+          "neutral_position": 314,
+          "clean_donor_margin": 5.116186857223511,
+          "clean_acceptor_margin": 2.6486268043518066,
+          "local_cc_drop": 19.380256175994873,
+          "local_aa_drop": 20.935087084770203,
+          "neutral_drop": 0.33441758155822754
+        },
+        {
+          "example_id": "chr19:6731198-6731314:-:ENSG00000125734.18",
+          "gene_id": "ENSG00000125734.18",
+          "neutral_position": 396,
+          "clean_donor_margin": 7.180725336074829,
+          "clean_acceptor_margin": 5.869521379470825,
+          "local_cc_drop": 21.545038104057312,
+          "local_aa_drop": 23.158949345350266,
+          "neutral_drop": 0.04286980628967285
+        },
+        {
+          "example_id": "chr11:134153139-134153200:-:ENSG00000151503.16",
+          "gene_id": "ENSG00000151503.16",
+          "neutral_position": 295,
+          "clean_donor_margin": 5.6241536140441895,
+          "clean_acceptor_margin": 4.652031421661377,
+          "local_cc_drop": 25.05256748199463,
+          "local_aa_drop": 24.745463848114014,
+          "neutral_drop": -0.12585759162902832
+        },
+        {
+          "example_id": "chr19:36125450-36125523:+:ENSG00000105254.14",
+          "gene_id": "ENSG00000105254.14",
+          "neutral_position": 433,
+          "clean_donor_margin": 6.79410457611084,
+          "clean_acceptor_margin": 5.924168586730957,
+          "local_cc_drop": 22.781579613685608,
+          "local_aa_drop": 22.32248219847679,
+          "neutral_drop": -0.026272058486938477
+        },
+        {
+          "example_id": "chr11:17634843-17634948:+:ENSG00000188162.12",
+          "gene_id": "ENSG00000188162.12",
+          "neutral_position": 454,
+          "clean_donor_margin": 5.650786638259888,
+          "clean_acceptor_margin": 5.268664360046387,
+          "local_cc_drop": 22.745080828666687,
+          "local_aa_drop": 23.036009550094604,
+          "neutral_drop": 0.14708423614501953
+        },
+        {
+          "example_id": "chr11:60902582-60902656:-:ENSG00000110107.11",
+          "gene_id": "ENSG00000110107.11",
+          "neutral_position": 464,
+          "clean_donor_margin": 6.422764301300049,
+          "clean_acceptor_margin": 6.229309320449829,
+          "local_cc_drop": 24.20327663421631,
+          "local_aa_drop": 25.81666851043701,
+          "neutral_drop": 0.06611299514770508
+        },
+        {
+          "example_id": "chr19:46124267-46124321:-:ENSG00000188624.4",
+          "gene_id": "ENSG00000188624.4",
+          "neutral_position": 361,
+          "clean_donor_margin": 6.7562947273254395,
+          "clean_acceptor_margin": 4.017422914505005,
+          "local_cc_drop": 17.648749619722366,
+          "local_aa_drop": 20.569535434246063,
+          "neutral_drop": -0.020551204681396484
+        },
+        {
+          "example_id": "chr19:38212279-38212361:-:ENSG00000011332.24",
+          "gene_id": "ENSG00000011332.24",
+          "neutral_position": 459,
+          "clean_donor_margin": 5.284634351730347,
+          "clean_acceptor_margin": 4.049091100692749,
+          "local_cc_drop": 22.650300562381744,
+          "local_aa_drop": 22.850912511348724,
+          "neutral_drop": -0.3993408679962158
+        },
+        {
+          "example_id": "chr19:42336806-42336952:+:ENSG00000105429.14",
+          "gene_id": "ENSG00000105429.14",
+          "neutral_position": 534,
+          "clean_donor_margin": 6.575730800628662,
+          "clean_acceptor_margin": 6.853620290756226,
+          "local_cc_drop": 22.876711130142212,
+          "local_aa_drop": 23.241234064102173,
+          "neutral_drop": 0.1411144733428955
+        },
+        {
+          "example_id": "chr16:84181745-84181863:-:ENSG00000103168.19",
+          "gene_id": "ENSG00000103168.19",
+          "neutral_position": 422,
+          "clean_donor_margin": 5.980753660202026,
+          "clean_acceptor_margin": 2.823512315750122,
+          "local_cc_drop": 21.761398553848267,
+          "local_aa_drop": 22.355820655822754,
+          "neutral_drop": 0.42908811569213867
+        },
+        {
+          "example_id": "chr19:17881959-17882072:+:ENSG00000105641.5",
+          "gene_id": "ENSG00000105641.5",
+          "neutral_position": 322,
+          "clean_donor_margin": 5.900285482406616,
+          "clean_acceptor_margin": 5.832526683807373,
+          "local_cc_drop": 21.857978582382202,
+          "local_aa_drop": 23.580753564834595,
+          "neutral_drop": 4.5559492111206055
+        },
+        {
+          "example_id": "chr19:43543611-43543687:-:ENSG00000073050.14",
+          "gene_id": "ENSG00000073050.14",
+          "neutral_position": 329,
+          "clean_donor_margin": 7.177999019622803,
+          "clean_acceptor_margin": 3.447131633758545,
+          "local_cc_drop": 18.922409296035767,
+          "local_aa_drop": 19.09346044063568,
+          "neutral_drop": -0.042922019958496094
+        },
+        {
+          "example_id": "chr16:28608707-28608859:-:ENSG00000196502.17",
+          "gene_id": "ENSG00000196502.17",
+          "neutral_position": 481,
+          "clean_donor_margin": 7.258410692214966,
+          "clean_acceptor_margin": 6.643600940704346,
+          "local_cc_drop": 21.395772695541382,
+          "local_aa_drop": 23.06416431069374,
+          "neutral_drop": 0.01735663414001465
+        },
+        {
+          "example_id": "chr19:46608204-46608340:+:ENSG00000160014.19",
+          "gene_id": "ENSG00000160014.19",
+          "neutral_position": 363,
+          "clean_donor_margin": 5.9890055656433105,
+          "clean_acceptor_margin": 7.074156284332275,
+          "local_cc_drop": 24.07438373565674,
+          "local_aa_drop": 23.278934955596924,
+          "neutral_drop": -0.10962820053100586
+        },
+        {
+          "example_id": "chr19:5914939-5915095:+:ENSG00000105519.19",
+          "gene_id": "ENSG00000105519.19",
+          "neutral_position": 511,
+          "clean_donor_margin": -0.860338568687439,
+          "clean_acceptor_margin": 6.214892864227295,
+          "local_cc_drop": 18.02088725566864,
+          "local_aa_drop": 17.867786645889282,
+          "neutral_drop": 0.06354713439941406
+        },
+        {
+          "example_id": "chr11:118530512-118530561:+:ENSG00000172425.14",
+          "gene_id": "ENSG00000172425.14",
+          "neutral_position": 334,
+          "clean_donor_margin": -8.840669512748718,
+          "clean_acceptor_margin": 3.6189775466918945,
+          "local_cc_drop": 8.279896438121796,
+          "local_aa_drop": 8.114805459976196,
+          "neutral_drop": 0.1091698408126831
+        },
+        {
+          "example_id": "chr16:3564858-3565112:-:ENSG00000167984.20",
+          "gene_id": "ENSG00000167984.20",
+          "neutral_position": 481,
+          "clean_donor_margin": 5.4672160148620605,
+          "clean_acceptor_margin": 4.2556211948394775,
+          "local_cc_drop": 21.738200664520264,
+          "local_aa_drop": 21.319669008255005,
+          "neutral_drop": -0.07682991027832031
+        },
+        {
+          "example_id": "chr19:1112188-1112301:-:ENSG00000064932.18",
+          "gene_id": "ENSG00000064932.18",
+          "neutral_position": 455,
+          "clean_donor_margin": 6.895350933074951,
+          "clean_acceptor_margin": 6.523621320724487,
+          "local_cc_drop": 23.46179288625717,
+          "local_aa_drop": 23.637113571166992,
+          "neutral_drop": -0.02058100700378418
+        },
+        {
+          "example_id": "chr19:55648945-55649077:+:ENSG00000173581.10",
+          "gene_id": "ENSG00000173581.10",
+          "neutral_position": 500,
+          "clean_donor_margin": 4.633320331573486,
+          "clean_acceptor_margin": 5.683355093002319,
+          "local_cc_drop": 22.21403193473816,
+          "local_aa_drop": 22.48243761062622,
+          "neutral_drop": 0.04977989196777344
+        },
+        {
+          "example_id": "chr11:65131131-65131197:-:ENSG00000162298.21",
+          "gene_id": "ENSG00000162298.21",
+          "neutral_position": 329,
+          "clean_donor_margin": 7.014642715454102,
+          "clean_acceptor_margin": 6.931447982788086,
+          "local_cc_drop": 26.286771774291992,
+          "local_aa_drop": 25.66332221031189,
+          "neutral_drop": -0.01943516731262207
+        },
+        {
+          "example_id": "chr11:67282270-67282365:+:ENSG00000173020.13",
+          "gene_id": "ENSG00000173020.13",
+          "neutral_position": 324,
+          "clean_donor_margin": 6.783958435058594,
+          "clean_acceptor_margin": 7.4799017906188965,
+          "local_cc_drop": 22.503944873809814,
+          "local_aa_drop": 24.844467163085938,
+          "neutral_drop": -0.19314908981323242
+        }
+      ]
+    }
+  }
+}

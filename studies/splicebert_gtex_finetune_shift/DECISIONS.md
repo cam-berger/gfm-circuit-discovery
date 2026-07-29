@@ -34,3 +34,29 @@ rule: do not trace the old mechanism until behavior is established. The next run
 to the unchanged behavior/specificity arms on the full validation cohort across all five seeds, with paired
 per-example output. Because that comparison runner is finalized after seeing the seed-2020 smoke, its result
 is verification tier, not confirmatory.
+
+## 2026-07-29 — freeze a native-classifier bridge before opening the released head
+
+GFS4 leaves encoder erasure and readout incompatibility unresolved because the fixed MLM head loses both
+coupling and broad masked-nucleotide competence. The next assay therefore uses the authors' released
+three-class head on unmasked sequence. Its donor-vs-no-site logit margin follows the documented
+`0=no-site, 1=donor, 2=acceptor` training labels.
+
+[`PREREGISTRATION_NATIVE_CLASSIFIER.md`](PREREGISTRATION_NATIVE_CLASSIFIER.md) was frozen before any
+native classifier forward pass. Local donor destruction, clean donor/acceptor recognition, a distant
+neutral mutation, and exact final-projection reconstruction form the preflight. Paired-acceptor outcomes
+remain unopened until every seed passes. Layerwise or geometric representation results remain unopened
+until the native coupling behavior gate passes.
+
+## 2026-07-29 — v1 preflight catches an upstream label-coordinate mismatch
+
+The immutable native preflight v1 failed 20 of 51 checks. All five seeds passed strict loading, finite
+forwards, exact final-state projection, and clean acceptor recognition, but none recognized a donor at
+the first intronic `G`. The target paired-acceptor intervention had not been run.
+
+The upstream `SpliceaiDataset.check_dataset` code resolves the anomaly: class-1 positions are last-exonic
+boundary labels and their `GT` is checked at `label+1:label+3`, whereas the original MLM assay names the
+motif's `G` itself as `donor_pos`. The v1 coordinate definition is retracted as an instrument error.
+[`PREREGISTRATION_NATIVE_CLASSIFIER_V2.md`](PREREGISTRATION_NATIVE_CLASSIFIER_V2.md) freezes the
+one-nucleotide correction before inspecting that corrected output. Thresholds and all other design
+choices are unchanged.

@@ -1,18 +1,18 @@
 {
- "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc). GFS rows appended 2026-07-28 (GTEx fine-tuning shift).",
- "row_count": 814,
+ "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc). GFS rows appended 2026-07-28 (GTEx fine-tuning shift). Native-classifier GFS6\u2013GFS9 rows appended 2026-07-29.",
+ "row_count": 822,
  "status_counts": {
-  "canonical": 537,
+  "canonical": 543,
   "development": 129,
   "infrastructure": 14,
-  "superseded": 134
+  "superseded": 136
  },
  "polarity_counts": {
-  "bounded": 31,
-  "na": 286,
+  "bounded": 33,
+  "na": 287,
   "null": 19,
-  "positive": 474,
-  "refutation": 4
+  "positive": 478,
+  "refutation": 5
  },
  "columns": [
   "claim_id",
@@ -8152,6 +8152,86 @@
    "polarity": "positive",
    "artifact": "results/splicebert_gtex_finetune_shift/five_seed_behavior_v1.manifest.json",
    "script": "scripts/splicebert/run_gtex_coupling_shift.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS6",
+   "status": "superseded",
+   "evidence_level": "Behaviour",
+   "polarity": "refutation",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_classifier_preflight_v1.json",
+   "script": "scripts/splicebert/run_gtex_native_classifier_preflight.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/native_classifier_preflight_v1.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS6",
+   "status": "superseded",
+   "evidence_level": "",
+   "polarity": "na",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_classifier_preflight_v1.manifest.json",
+   "script": "scripts/splicebert/run_gtex_native_classifier_preflight.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS7",
+   "status": "canonical",
+   "evidence_level": "",
+   "polarity": "positive",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_classifier_preflight_v2.json",
+   "script": "scripts/splicebert/run_gtex_native_classifier_preflight.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/native_classifier_preflight_v2.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS7",
+   "status": "canonical",
+   "evidence_level": "",
+   "polarity": "positive",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_classifier_preflight_v2.manifest.json",
+   "script": "scripts/splicebert/run_gtex_native_classifier_preflight.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS8",
+   "status": "canonical",
+   "evidence_level": "Behaviour",
+   "polarity": "positive",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_classifier_coupling_v1.json",
+   "script": "scripts/splicebert/run_gtex_native_classifier_coupling.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/native_classifier_coupling_v1.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS8",
+   "status": "canonical",
+   "evidence_level": "Behaviour",
+   "polarity": "positive",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_classifier_coupling_v1.manifest.json",
+   "script": "scripts/splicebert/run_gtex_native_classifier_coupling.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS9",
+   "status": "canonical",
+   "evidence_level": "Representation",
+   "polarity": "bounded",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_representation_bridge_v1.json",
+   "script": "scripts/splicebert/run_gtex_native_representation_bridge.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/native_representation_bridge_v1.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS9",
+   "status": "canonical",
+   "evidence_level": "Representation",
+   "polarity": "bounded",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_representation_bridge_v1.manifest.json",
+   "script": "scripts/splicebert/run_gtex_native_representation_bridge.py",
    "manifest": "",
    "figure": ""
   },
