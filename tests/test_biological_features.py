@@ -7,10 +7,12 @@ from gfmcd.splicing.biological_features import (
     PsamComponent,
     RbpPsam,
     beam_synonymous_optimize,
+    codon_log_preference,
     codon_amino_acid,
     complete_codon_starts,
     feature_delta,
     maximal_synonymous_recode,
+    kmer_count_vector,
     parse_rbns_psam,
     psam_region_score,
     synonymous_saturation_variants,
@@ -165,3 +167,18 @@ def test_synonymous_beam_optimizes_sequence_only_objective(monkeypatch):
 def test_vienna_unpaired_mean_requires_a_valid_region():
     with pytest.raises(ValueError, match="invalid"):
         vienna_unpaired_mean("ACGT", start=0, end=3, unpaired_length=7)
+
+
+def test_kmer_counts_and_codon_preference():
+    values, names = kmer_count_vector("ACAC", min_k=1, max_k=2)
+    counts = dict(zip(names, values))
+    assert counts["A"] == 2
+    assert counts["C"] == 2
+    assert counts["AC"] == 2
+    assert counts["CA"] == 1
+    preference = codon_log_preference(
+        "GAAGAG",
+        (0, 3),
+        {"GAA": 9, "GAG": 1},
+    )
+    assert np.isfinite(preference)

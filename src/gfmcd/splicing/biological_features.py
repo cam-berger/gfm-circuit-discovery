@@ -13,6 +13,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import hashlib
+import itertools
 from pathlib import Path
 import re
 from typing import Callable, Iterable, Mapping, Sequence
@@ -452,7 +453,9 @@ def beam_synonymous_optimize(
     objective: Callable[[str], float],
     maximize: bool,
     max_changed_bases: int = 4,
+    min_changed_bases: int = 0,
     beam_size: int = 256,
+    validator: Callable[[str], bool] | None = None,
 ) -> tuple[str, dict[str, object]]:
     """Optimize a sequence-only objective over synonymous codon choices.
 
@@ -461,8 +464,13 @@ def beam_synonymous_optimize(
     to construct the requested counterfactual rather than a silent edit.
     """
 
-    if max_changed_bases < 1 or beam_size < 2:
-        raise ValueError("max_changed_bases and beam_size must be positive")
+    if (
+        max_changed_bases < 1
+        or min_changed_bases < 0
+        or min_changed_bases > max_changed_bases
+        or beam_size < 2
+    ):
+        raise ValueError("invalid changed-base or beam-size constraint")
     clean = str(example.sequence)
     starts = complete_codon_starts(
         example,
@@ -503,8 +511,16 @@ def beam_synonymous_optimize(
         beam = dict(ranked[:beam_size])
     if not beam:
         raise RuntimeError("synonymous beam search produced no candidates")
+    finalists = [
+        item
+        for item in beam.items()
+        if item[1][0] >= min_changed_bases
+        and (validator is None or validator(item[0]))
+    ]
+    if not finalists:
+        raise RuntimeError("no synonymous candidate passed the frozen constraints")
     winner, (dose, changes) = min(
-        beam.items(),
+        finalists,
         key=lambda item: (
             -objective(item[0]) if maximize else objective(item[0]),
             item[1][0],
@@ -525,7 +541,66 @@ def beam_synonymous_optimize(
         ],
         "beam_size": int(beam_size),
         "max_changed_bases": int(max_changed_bases),
+        "min_changed_bases": int(min_changed_bases),
     }
+
+
+def kmer_count_vector(
+    sequence: str,
+    *,
+    min_k: int = 1,
+    max_k: int = 4,
+) -> tuple[np.ndarray, tuple[str, ...]]:
+    """Return deterministic overlapping A/C/G/T k-mer counts."""
+
+    if set(sequence) - set(_BASE_TO_INDEX) or min_k < 1 or max_k < min_k:
+        raise ValueError("invalid sequence or k-mer range")
+    names = tuple(
+        "".join(chars)
+        for k in range(min_k, max_k + 1)
+        for chars in itertools.product("ACGT", repeat=k)
+    )
+    counts = np.asarray(
+        [
+            sum(
+                sequence[start : start + len(name)] == name
+                for start in range(len(sequence) - len(name) + 1)
+            )
+            for name in names
+        ],
+        dtype=np.float64,
+    )
+    return counts, names
+
+
+def codon_log_preference(
+    sequence: str,
+    codon_starts: Sequence[int],
+    codon_counts: Mapping[str, float],
+    *,
+    pseudocount: float = 1.0,
+) -> float:
+    """Sum smoothed log synonymous-codon frequencies over declared codons."""
+
+    if pseudocount <= 0:
+        raise ValueError("pseudocount must be positive")
+    score = 0.0
+    for start in codon_starts:
+        codon = sequence[int(start) : int(start) + 3]
+        amino_acid = codon_amino_acid(codon)
+        family = tuple(
+            candidate
+            for candidate, candidate_amino_acid in _AA_BY_CODON.items()
+            if candidate_amino_acid == amino_acid
+        )
+        denominator = sum(
+            float(codon_counts.get(candidate, 0.0)) + pseudocount
+            for candidate in family
+        )
+        score += np.log(
+            (float(codon_counts.get(codon, 0.0)) + pseudocount) / denominator
+        )
+    return float(score)
 
 
 def vienna_mfe(sequence: str) -> float:
