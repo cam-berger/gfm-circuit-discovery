@@ -74,26 +74,64 @@ REFERENCE_CALIPER_CURVE = (
     (0.15, 0.08),
 )
 
-SOURCE_DEFINITION_CONFOUND = {
-    "statement": (
-        "The D13 composition cohort draws from GENCODE v50 protein-coding TSSs "
-        "including non-MANE-Select transcripts, because MANE Select supply is "
-        "exhausted under the block-disjointness admission rule (every block "
-        "already used by a prior cohort is excluded). Non-MANE transcripts are "
-        "alternative promoters -- a different promoter class from the MANE "
-        "Select TSSs the D12 TSS-polarity effect was confirmed on."
-    ),
-    "asymmetry": (
-        "A QUALIFIED (positive) P1/P2 result on this cohort generalises the "
-        "confirmed effect beyond MANE Select promoters to alternative "
-        "(non-MANE) promoters. A negative or null result on this cohort is "
-        "AMBIGUOUS: it could mean the underlying effect is false, or that "
-        "alternative promoters behave differently from the MANE Select "
-        "promoters the effect was originally confirmed on. Neither this audit "
-        "nor any downstream P1/P2 result may treat a negative outcome here as "
-        "a clean refutation of the MANE-Select-confirmed effect."
-    ),
-}
+def _source_definition_confound(supply: dict[str, dict[str, Any]]) -> dict[str, str]:
+    """Built from each run's own realised MANE/non-MANE split (`supply`, computed
+    earlier in `main`), not a hardcoded assumption. v1's 1-Mb parent-block-disjointness
+    rule happened to exhaust MANE Select supply entirely (0/440 MANE-Select rows,
+    `promoter_composition_supply_audit_v1.json`); v2's own-block exclusion is less
+    restrictive and does not (17/400 development, 18/400 confirmation,
+    `promoter_composition_supply_audit_v2.json`) -- a later run must not silently inherit
+    v1's "wholly non-MANE, exhausted" framing verbatim (fix round 1, caught by
+    independent review after the v1 wording was found stale for v2's mixed cohort)."""
+    mane_total = sum(int(split_supply["MANE_Select_rows"]) for split_supply in supply.values())
+    row_total = sum(int(split_supply["pairs"]) for split_supply in supply.values())
+    per_split = ", ".join(
+        f"{split}: {split_supply['MANE_Select_rows']}/{split_supply['pairs']} MANE-Select"
+        for split, split_supply in sorted(supply.items())
+    )
+    if mane_total == 0:
+        composition = (
+            f"This cohort is wholly non-MANE ({per_split}): MANE Select supply was "
+            "fully exhausted under this run's block-disjointness admission rule."
+        )
+        weakening = ""
+    else:
+        composition = (
+            f"This cohort is MIXED MANE/non-MANE ({per_split}; {mane_total}/{row_total} "
+            "MANE-Select overall): MANE Select supply was NOT exhausted under this run's "
+            "block-disjointness admission rule. `iter_gencode_protein_coding_tss` still "
+            "prefers a non-MANE transcript per gene whenever an admissible block offers "
+            "one; MANE-Select rows occur only where a gene's sole available transcript in "
+            "an admissible block is its MANE-Select one."
+        )
+        weakening = (
+            " Because this cohort is mixed, this asymmetry is WEAKER than it would be for "
+            "a wholly non-MANE cohort: a mixed cohort's qualified result partly "
+            "corroborates the exact promoter class (MANE Select) the D12 effect was "
+            "confirmed on, and a negative result cannot be fully explained away as an "
+            "alternative-promoter-class artifact the way a wholly non-MANE cohort's "
+            "negative result could. The asymmetry is narrowed, not eliminated: most of "
+            "the cohort is still non-MANE."
+        )
+    return {
+        "statement": (
+            "The D13 composition cohort draws from GENCODE v50 protein-coding TSSs, "
+            "preferring a non-MANE-Select transcript per gene whenever an admissible "
+            "block offers one and falling back to a gene's MANE-Select transcript "
+            "otherwise. " + composition
+        ),
+        "asymmetry": (
+            "A QUALIFIED (positive) P1/P2 result on this cohort generalises the "
+            "confirmed effect beyond MANE Select promoters to the non-MANE alternative "
+            "promoters also present in the cohort. A negative or null result is "
+            "AMBIGUOUS with respect to those non-MANE rows specifically: it could mean "
+            "the underlying effect is false, or that alternative promoters behave "
+            "differently from the MANE Select promoters the effect was originally "
+            "confirmed on. Neither this audit nor any downstream P1/P2 result may treat "
+            "a negative outcome here as a clean refutation of the MANE-Select-confirmed "
+            "effect." + weakening
+        ),
+    }
 
 
 def main() -> None:
@@ -339,7 +377,7 @@ def main() -> None:
             "selected_example_ids": selected_ids,
             "selected_id_sha256": selected_id_sha256,
         },
-        "source_definition_confound": SOURCE_DEFINITION_CONFOUND,
+        "source_definition_confound": _source_definition_confound(supply),
         "cohort": {
             "path": str(cohort_path.relative_to(REPO_ROOT)),
             "rows": len(rows),

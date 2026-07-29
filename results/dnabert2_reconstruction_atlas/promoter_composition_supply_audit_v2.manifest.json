@@ -58,7 +58,7 @@
     "vocab_size": 4096
   },
   "code": {
-    "git_commit": "2de0b28102c3d3b0561ef8263d605480439ab0ec",
+    "git_commit": "01f819ff4f00ddcf96202499b666d3a21b16d53d",
     "git_dirty": true
   },
   "command": [
@@ -72,7 +72,7 @@
     "--device",
     "cpu"
   ],
-  "created_at_utc": "2026-07-29T15:55:34.446637+00:00",
+  "created_at_utc": "2026-07-29T16:11:13.091156+00:00",
   "data": [
     {
       "path": "data/processed/dnabert2_atlas/promoter_composition_v2/cohort.jsonl",
@@ -81,8 +81,8 @@
     },
     {
       "path": "configs/dnabert2_atlas/promoter_composition_v2.frozen.json",
-      "sha256": "a764c0db83f5262c5f203a81a916962bad095b09f75b1748af948adab9bb751a",
-      "size_bytes": 11667
+      "sha256": "c4d7b2016b3af6edcbe311f039ab4730ae3ba9869cf3e452460af45ec8003628",
+      "size_bytes": 13296
     },
     {
       "path": "/Users/cberg/.cache/huggingface/hub/datasets--leannmlindsey--GUE/snapshots/240df51a2cd2c0fb1d88efffaf86e8d1e477f932/GUE/prom_300_all/train.csv",
@@ -158,8 +158,8 @@
   "outputs": [
     {
       "path": "results/dnabert2_reconstruction_atlas/promoter_composition_supply_audit_v2.json",
-      "sha256": "afc68bda24a070fe446c7facbf21ea1a0ca6bc06fa1b776210f09da43b53907e",
-      "size_bytes": 43379
+      "sha256": "0e64cefdd42f931d28f69c4e92dcc17addc5cea20188d4519c0d1a871f223523",
+      "size_bytes": 44184
     }
   ],
   "parameters": {

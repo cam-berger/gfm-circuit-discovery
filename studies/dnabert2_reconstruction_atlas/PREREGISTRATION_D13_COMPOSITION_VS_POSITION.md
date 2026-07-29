@@ -307,6 +307,50 @@ of any P1/P2/P3 result obtained under v2. Any report of a D13 outcome under this
 this alongside the result, not leave it implicit in the block-size number. The same declaration is
 recorded in the config itself, at `boundaries.independence_cost`.
 
+**Independence cost, measured — a stronger statement than "can sit closer" (fix round 1).** Checked
+directly against the built v2 cohort, not just inferred from the admission rule: **all 800 of 800 v2
+cohort loci** — development and confirmation combined, not a subset — **lie inside a 1-Mb region that
+an earlier phase of this study (D4, D7–D12, or v1 itself) had already drawn a locus from.** This is the
+expected and correct consequence of own-block exclusion running after v1 had already mined every
+unconsumed 1-Mb region — v2 necessarily draws from megabase regions the study has used before — and it
+is not a rule violation: within those regions, the 250-kb blocks and the TSS coordinates themselves
+remain fully disjoint from every prior cohort (0/800 250-kb block collisions, 0/800 exact-TSS
+collisions, independently verified; nothing needs rebuilding). But the consequence is scientific, not
+merely bookkeeping: **D13 is not genomically independent of D12 at the megabase scale.** Any
+region-specific idiosyncrasy — local chromatin state, mutation/GC landscape, gene-family clustering, or
+any other unmeasured megabase-scale confound — that influenced D12's polarity result could in principle
+also influence D13's, because every D13 locus shares a 1-Mb neighbourhood with a locus some earlier
+phase of this study already tested. **This bounds how strongly a qualified D13 result may be read as
+independent corroboration of D12**: it corroborates at the level of a fresh TSS and a fresh 250-kb
+neighbourhood, but not at the level of a fresh megabase region. Any report of a D13 outcome must state
+this distinction explicitly, not leave it to be inferred from the block-size number.
+
+**Cohort composition is mixed MANE/non-MANE, unlike v1 (fix round 1).** v1's cohort was **wholly
+non-MANE** (0/440 MANE-Select rows,
+`results/dnabert2_reconstruction_atlas/promoter_composition_supply_audit_v1.json`) because its 1-Mb
+parent-block-disjointness rule happened to exhaust MANE Select supply entirely. v2's own-block
+exclusion is less restrictive and does **not** exhaust it: the built v2 cohort contains **17/400
+MANE-Select rows in development and 18/400 in confirmation** (35/800 overall — exact counts, not the
+ambiguous "17/18 of 400" figure reported informally in fix round 0;
+`supply.development.MANE_Select_rows` / `supply.confirmation.MANE_Select_rows`,
+`results/dnabert2_reconstruction_atlas/promoter_composition_supply_audit_v2.json`), with the remaining
+383/400 and 382/400 non-MANE. `iter_gencode_protein_coding_tss`'s preference for a non-MANE transcript
+whenever an admissible block offers one is unchanged; MANE-Select rows occur only where a gene's sole
+available transcript in an admissible block is its MANE-Select one. This **weakens** — narrows, does not
+eliminate — the source-definition confound recorded for v1: a mixed cohort generalises better than a
+purely alternative-promoter one, because a qualified result now partly corroborates the exact promoter
+class (MANE Select) the D12 effect was confirmed on, and a negative result cannot be fully explained
+away as an alternative-promoter-class artifact the way a wholly non-MANE cohort's negative result could.
+`SOURCE_DEFINITION_CONFOUND` in `audit_promoter_composition_supply.py` — previously a static constant
+asserting MANE Select was "exhausted" and the cohort wholly non-MANE, which was accurate for v1 but
+would have been silently wrong if left attached to v2 — is now computed from each run's own realised
+`supply` counts (`_source_definition_confound`), so its `statement`/`asymmetry` text states the correct
+composition and the correct (narrowed, not eliminated) asymmetry for whichever cohort actually produced
+it. `promoter_composition_supply_audit_v2.json` was regenerated with this corrected text; the cohort,
+the calipers, and every threshold are unchanged, and the regenerated matched/unmatched counts are
+byte-identical to the first run (220/234 matched, 381/367 unmatched planted-positive, both splits) —
+only the confound narrative and the manifest hash changed.
+
 **A failed P1 licenses no null, even at the amended ceiling.** This study is powered against the
 discriminating contrast this question actually turns on — the confirmed polarity of
 **+0.3262** (`E2_tss_polarity`,
