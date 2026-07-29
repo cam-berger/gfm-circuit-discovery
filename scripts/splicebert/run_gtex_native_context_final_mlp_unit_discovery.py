@@ -75,6 +75,8 @@ NUM_HEADS = 16
 HIDDEN_SIZE = 512
 INTERMEDIATE_SIZE = 2048
 GROUP_SIZES = (1, 4, 16, 64, 256, 1024)
+WRITE_RECONSTRUCTION_TOLERANCE = 5e-4
+COMPOSITION_TOLERANCE = 1e-5
 NAMESPACE = "gtex-native-context-joint-lowrank-v1"
 COHORT_TAG = "gtex-native-context-lowrank-discovery-v1"
 FORBIDDEN_CHROMS = frozenset({"chr8", "chr9", "chr11", "chr16", "chr19"})
@@ -565,12 +567,18 @@ def main() -> None:
                 )
             )
             if (
-                max_reconstruction_error > 1e-5
-                or composition_error > 1e-5
-                or complete_delta_error > 1e-5
+                max_reconstruction_error > WRITE_RECONSTRUCTION_TOLERANCE
+                or composition_error > COMPOSITION_TOLERANCE
+                or complete_delta_error > WRITE_RECONSTRUCTION_TOLERANCE
                 or zero_error != 0.0
             ):
-                raise RuntimeError("native-unit algebra preflight failed")
+                raise RuntimeError(
+                    "native-unit algebra preflight failed: "
+                    f"write={max_reconstruction_error:.9g}, "
+                    f"composition={composition_error:.9g}, "
+                    f"complete={complete_delta_error:.9g}, "
+                    f"zero={zero_error:.9g}"
+                )
             preflight_rows.append(
                 {
                     "seed": seed,
@@ -694,6 +702,8 @@ def main() -> None:
             "max_complete_delta_error": max(
                 row["complete_delta_max_abs_error"] for row in preflight_rows
             ),
+            "write_reconstruction_tolerance": WRITE_RECONSTRUCTION_TOLERANCE,
+            "composition_tolerance": COMPOSITION_TOLERANCE,
             "PASS": True,
         },
         "behavior": behavior_entries,

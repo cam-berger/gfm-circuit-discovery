@@ -5,6 +5,18 @@
 > sequence effects, five checkpoints, final MLP stage, L5 head triples, and
 > checkpoint-specific compact output code. This study reuses the already-opened GFS18
 > partitions and is exploratory.
+>
+> **Pre-unit-outcome MPS precision correction (2026-07-29):** two discovery
+> invocations stopped at the all-unit algebra preflight after seed-2020 donor capture
+> and before computing a one-unit effect or ranking. CPU float64 reconstruction from
+> the captured float32 activations and weights differed from the MPS dense-kernel write
+> by at most `1.59e-4`; the corresponding clean-minus-corrupt reconstruction differed
+> by `2.08e-4`. Native final composition itself matched within `1.28e-6`, locating the
+> discrepancy to backend matrix-multiplication precision rather than coordinates or
+> hooks. The write/all-unit threshold below is therefore `5e-4`; the independent
+> LayerNorm/classifier threshold remains `1e-5`. No unit effect, ranking, group,
+> control, or evaluation outcome had been computed, and no scientific threshold or
+> statistical family changed.
 
 ## 1. Question
 
@@ -55,10 +67,10 @@ Required gates:
 1. existing final-layer mechanism preflight remains `PASS`;
 2. architecture is 6 layers, 16 heads, hidden width 512, intermediate width 2,048;
 3. captured intermediate activations and output matrices are finite;
-4. reconstructing `m` from all 2,048 captured units matches the hooked dense write
-   within `1e-5`;
+4. reconstructing `m` from all 2,048 captured units matches the hooked MPS dense write
+   within the frozen backend tolerance `5e-4`;
 5. a zero-unit group is an exact no-op;
-6. all 2,048 units reproduce the complete MLP-write intervention within `1e-5`;
+6. all 2,048 units reproduce the complete MLP-write intervention within `5e-4`;
 7. NumPy final LayerNorm/classifier composition matches native margins within `1e-5`;
 8. discovery and family evaluation behaviors pass mean `>=0.05`, interval above zero,
    corrected `q<=0.05`, and positive checkpoint signs.
