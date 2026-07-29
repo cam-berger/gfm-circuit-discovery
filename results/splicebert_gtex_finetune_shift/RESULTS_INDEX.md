@@ -15,3 +15,14 @@ instrument and records the corrected 51/51 pass in `native_classifier_preflight_
 behavior result is `native_classifier_coupling_v1.json`; the behavior-gated descriptive layer map is
 `native_representation_bridge_v1.json`. Each has a sibling manifest. Claims are GFS6–GFS9 in the study
 ledger.
+
+The final-block mechanism series is:
+
+- `native_mechanism_preflight_v1.json`: exact intervention instrument PASS;
+- `native_mechanism_discovery_v1.json`: seed-2020 train scan and frozen candidates/controls;
+- `native_mechanism_confirmation_v1.json`: five-seed validation, confirming `L5H6` and the final MLP;
+- `native_mechanism_role_source_v1.json`: QK/V and MLP interaction, partner specificity, bounded
+  equal-window source localization, and descriptive cross-seed geometry.
+
+These artifacts control GFS10–GFS13. The final source result is intentionally bounded: no four-token
+region passes the unique-winner rule, so no region-specific K/V follow-up is authorized.

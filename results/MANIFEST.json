@@ -1,17 +1,17 @@
 {
- "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc). GFS rows appended 2026-07-28 (GTEx fine-tuning shift). Native-classifier GFS6\u2013GFS9 rows appended 2026-07-29.",
- "row_count": 822,
+ "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc). GFS rows appended 2026-07-28 (GTEx fine-tuning shift). Native-classifier GFS6\u2013GFS9 rows appended 2026-07-29. Final-layer mechanism GFS10\u2013GFS13 rows appended 2026-07-29.",
+ "row_count": 830,
  "status_counts": {
-  "canonical": 543,
-  "development": 129,
+  "canonical": 549,
+  "development": 131,
   "infrastructure": 14,
   "superseded": 136
  },
  "polarity_counts": {
-  "bounded": 33,
+  "bounded": 37,
   "na": 287,
   "null": 19,
-  "positive": 478,
+  "positive": 482,
   "refutation": 5
  },
  "columns": [
@@ -8232,6 +8232,86 @@
    "polarity": "bounded",
    "artifact": "results/splicebert_gtex_finetune_shift/native_representation_bridge_v1.manifest.json",
    "script": "scripts/splicebert/run_gtex_native_representation_bridge.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS10",
+   "status": "canonical",
+   "evidence_level": "Instrument",
+   "polarity": "positive",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_mechanism_preflight_v1.json",
+   "script": "scripts/splicebert/run_gtex_native_mechanism_preflight.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/native_mechanism_preflight_v1.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS10",
+   "status": "canonical",
+   "evidence_level": "Instrument",
+   "polarity": "positive",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_mechanism_preflight_v1.manifest.json",
+   "script": "scripts/splicebert/run_gtex_native_mechanism_preflight.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS11",
+   "status": "development",
+   "evidence_level": "Candidate generation",
+   "polarity": "bounded",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_mechanism_discovery_v1.json",
+   "script": "scripts/splicebert/run_gtex_native_mechanism_discovery.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/native_mechanism_discovery_v1.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS11",
+   "status": "development",
+   "evidence_level": "Candidate generation",
+   "polarity": "bounded",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_mechanism_discovery_v1.manifest.json",
+   "script": "scripts/splicebert/run_gtex_native_mechanism_discovery.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS11;GFS12",
+   "status": "canonical",
+   "evidence_level": "Mediation",
+   "polarity": "positive",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_mechanism_confirmation_v1.json",
+   "script": "scripts/splicebert/run_gtex_native_mechanism_confirmation.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/native_mechanism_confirmation_v1.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS11;GFS12",
+   "status": "canonical",
+   "evidence_level": "Mediation",
+   "polarity": "positive",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_mechanism_confirmation_v1.manifest.json",
+   "script": "scripts/splicebert/run_gtex_native_mechanism_confirmation.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS13",
+   "status": "canonical",
+   "evidence_level": "Mediation",
+   "polarity": "bounded",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_mechanism_role_source_v1.json",
+   "script": "scripts/splicebert/run_gtex_native_mechanism_role_source.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/native_mechanism_role_source_v1.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS13",
+   "status": "canonical",
+   "evidence_level": "Mediation",
+   "polarity": "bounded",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_mechanism_role_source_v1.manifest.json",
+   "script": "scripts/splicebert/run_gtex_native_mechanism_role_source.py",
    "manifest": "",
    "figure": ""
   },

@@ -17,6 +17,10 @@ Immutable results:
 | corrected native classifier preflight v2 | same runner, last-exonic-base donor label frozen before rerun | `results/splicebert_gtex_finetune_shift/native_classifier_preflight_v2.json` (51/51 PASS) |
 | five-seed native classifier coupling | `scripts/splicebert/run_gtex_native_classifier_coupling.py` | `results/splicebert_gtex_finetune_shift/native_classifier_coupling_v1.json` (behavior gate PASS) |
 | gated layerwise representation bridge | `scripts/splicebert/run_gtex_native_representation_bridge.py` | `results/splicebert_gtex_finetune_shift/native_representation_bridge_v1.json` (representation candidate) |
+| native final-block intervention preflight | `scripts/splicebert/run_gtex_native_mechanism_preflight.py` | `results/splicebert_gtex_finetune_shift/native_mechanism_preflight_v1.json` (PASS) |
+| train component discovery and freeze | `scripts/splicebert/run_gtex_native_mechanism_discovery.py` | `results/splicebert_gtex_finetune_shift/native_mechanism_discovery_v1.json` (`L5H6`, `L5H1`, `L5H3` frozen) |
+| five-seed component confirmation | `scripts/splicebert/run_gtex_native_mechanism_confirmation.py` | `results/splicebert_gtex_finetune_shift/native_mechanism_confirmation_v1.json` (`L5H6` and final MLP confirm) |
+| QK/V, MLP-interaction, source, and specificity | `scripts/splicebert/run_gtex_native_mechanism_role_source.py` | `results/splicebert_gtex_finetune_shift/native_mechanism_role_source_v1.json` (V-leaning mixed; distributed source) |
 
 The five-seed artifact includes all 400 paired per-example values for the base and each seed, gene-grouped
 bootstrap intervals, 9,999 gene-level sign flips with add-one p-values, BH correction across the 15
@@ -29,4 +33,16 @@ claim scope are decided.
 The native behavior result resolves the central ambiguity in GFS4: coupling was not erased from the
 released fine-tuned model. It remains visible to the supervised head, while the original MLM readout
 becomes broadly incompatible. The layerwise bridge places the classifier-aligned change primarily at the
-last encoder block, but this is a representation/readout result rather than a causal layer intervention.
+last encoder block.
+
+The gated causal follow-up now resolves part of that block. Seed-2020 train discovery nominated three
+heads; untouched five-seed validation confirms only `L5H6`. Its paired-acceptor-dependent output causes
+`0.081` damage and `0.142` recovery and retains 99.3% of local donor sensitivity. The final MLP carries
+`0.640/0.643` damage/recovery, and clamping its clean write removes nearly all of `L5H6`'s damage,
+establishing a controlled head×MLP interaction.
+
+`L5H6` is value-leaning but misses the preregistered two-direction threshold for a content-dominant label.
+It is partner-specific, yet no equal-width source window accounts for enough of its signal: full-sequence
+K+V restoration recovers `0.136`, compared with `0.031` for the best four-token window. The result therefore
+defines the co-adapted representation as a partner-specific distributed value signal transformed by the
+final MLP—not a direct terminal-`AG` attention head.

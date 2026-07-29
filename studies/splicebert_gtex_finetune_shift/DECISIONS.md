@@ -78,3 +78,29 @@ The biological baseline is deliberately sequence-defined: local donor, annotated
 distance-matched non-partner `AG`, other donor, and equal-width adjacent windows. Branch-point, PPT,
 splice-strength, and usage semantics are deferred until matched perturbations and external validators
 exist. This prevents a visually attractive attention map from being renamed as spliceosome biology.
+
+## 2026-07-29 — only L5H6 confirms; preserve the other train candidates as non-replications
+
+The exact final-layer preflight passed, including zero-error QKV/whole-head equality. Seed-2020 train
+discovery froze `L5H6`, `L5H1`, and `L5H3` plus three deterministic equal-size controls for each.
+Validation applied those identities unchanged across all five checkpoints. Only `L5H6` passes every
+effect-size, cross-seed, matched-control, multiplicity, and local-donor-health gate. `L5H1` and `L5H3`
+remain in the immutable artifact as discovery effects that did not confirm; they are not silently
+promoted or replaced.
+
+## 2026-07-29 — define the representation as a head-to-MLP transformation with distributed source
+
+QKV exactly reproduces the `L5H6` whole-head intervention in all five seeds. V perturbation is stronger
+than QK, but the noising contrast falls just short of the frozen `0.05` two-direction dominance rule, so
+the role is recorded as **value-leaning mixed**, not content-dominant.
+
+Clamping the final MLP clean during `L5H6` noising leaves only `0.0011` damage, while the controlled
+head×MLP interaction is `0.0802`. This establishes that the causal `L5H6` signal is expressed through the
+final MLP, without treating the nonlinear contrast as an additive mediation fraction.
+
+The source-localization gate is a bounded null. None of five equal-width K+V windows reaches the frozen
+`0.05` effect threshold; the best local window is immediately upstream of the terminal acceptor
+(`0.031`), while full-sequence K+V restores `0.136`. Region-specific K-only/V-only follow-up is therefore
+not authorized. This rules out the simple direct-terminal-`AG` account at the assay's resolution and
+redirects the next biological study toward rigorously matched composite-acceptor or distributed-context
+interventions.

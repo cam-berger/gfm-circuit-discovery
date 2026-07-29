@@ -71,8 +71,21 @@ is `0.317 [0.237,0.402]`.
 Under the same fine-tuned classifier vector, paired-acceptor coupling is only `0.022` nats after encoder
 layer 4 and becomes `0.646` after the final layer, a `0.624 [0.547,0.704]` projected increment. Base/fine
 donor-state CKA simultaneously drops from `0.731` to `0.363`. Thus the evidence supports re-expression in
-a co-adapted final-layer splice-classification representation, not erasure. This layer localization is
-descriptive and does not yet establish causal necessity or continuity with the base circuit.
+a co-adapted final-layer splice-classification representation, not erasure.
+
+The causal follow-up identifies one reproducible component of that representation. `L5H6`, selected on
+train and tested unchanged across five validation checkpoints, causes `0.081 [0.065,0.100]` damage and
+`0.142 [0.114,0.173]` recovery, exceeds frozen same-size controls, and preserves 99.3% of local donor
+sensitivity. The final MLP write carries nearly the entire coupling shift (`0.640/0.643` bidirectionally);
+clamping it clean reduces `L5H6` damage to `0.0011`, placing the head upstream of a strong MLP-dependent
+transformation.
+
+Mechanistically, `L5H6` is value-leaning but formally mixed, and its causal effect is partner-specific.
+It is not a direct terminal-`AG` reader: clean K+V restored only at the paired acceptor recovers `0.0095`,
+while full-sequence restoration recovers `0.136`, and no four-token region passes the unique-source gate.
+The evidence now defines the phenomenon as a **seed-reproducible, partner-specific distributed value
+signal transformed by the final MLP into splice-classification evidence**. Continuity with the base
+masked-LM circuit and the positive biological identity of that distributed signal remain open.
 
 The native models were trained on 900-nt examples, while this unchanged coupling assay uses the base
 study's 1,024-nt windows. The architecture supports the full length and the native preflight is healthy,
