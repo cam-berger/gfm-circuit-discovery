@@ -11,6 +11,7 @@ from gfmcd.reconstruction_atlas.promoter_assay import (
     context_indices,
     has_nearby_tss,
     iter_gencode_mane_tss,
+    iter_gencode_protein_coding_tss,
     matched_context_shuffles,
     oriented_tss_window,
     read_gue_sequences,
@@ -44,6 +45,63 @@ def test_iter_gencode_mane_tss_filters_and_converts_coordinates(
         ("t1", 10),
         ("t2", 69),
     ]
+
+
+def test_iter_gencode_protein_coding_tss_prefers_non_mane_and_falls_back(
+    tmp_path: Path,
+) -> None:
+    path = tmp_path / "tiny.gtf.gz"
+    rows = [
+        # g1: MANE Select transcript t1 AND a non-MANE alternate promoter t1alt.
+        # The non-MANE alternate must win.
+        (
+            'chr1\tX\ttranscript\t11\t30\t.\t+\t.\tgene_id "g1"; '
+            'transcript_id "t1"; gene_type "protein_coding"; gene_name "A"; '
+            'tag "MANE_Select";\n'
+        ),
+        (
+            'chr1\tX\ttranscript\t101\t130\t.\t+\t.\tgene_id "g1"; '
+            'transcript_id "t1alt"; gene_type "protein_coding"; gene_name "A";\n'
+        ),
+        # g2: only a MANE Select transcript -- must fall back to it.
+        (
+            'chr1\tX\ttranscript\t41\t70\t.\t-\t.\tgene_id "g2"; '
+            'transcript_id "t2"; gene_type "protein_coding"; gene_name "B"; '
+            'tag "MANE_Select";\n'
+        ),
+        # g3: two non-MANE isoforms, one Ensembl_canonical -- canonical wins.
+        (
+            'chr1\tX\ttranscript\t201\t230\t.\t+\t.\tgene_id "g3"; '
+            'transcript_id "t3z"; gene_type "protein_coding"; gene_name "C";\n'
+        ),
+        (
+            'chr1\tX\ttranscript\t301\t330\t.\t+\t.\tgene_id "g3"; '
+            'transcript_id "t3canon"; gene_type "protein_coding"; gene_name "C"; '
+            'tag "Ensembl_canonical";\n'
+        ),
+        # g4: a lncRNA -- excluded regardless of tags.
+        (
+            'chr1\tX\ttranscript\t80\t90\t.\t+\t.\tgene_id "g4"; '
+            'transcript_id "t4"; gene_type "lncRNA"; tag "MANE_Select";\n'
+        ),
+    ]
+    with gzip.open(path, "wt", encoding="utf-8") as handle:
+        handle.writelines(rows)
+    features = {
+        feature.gene_id: feature for feature in iter_gencode_protein_coding_tss(path)
+    }
+    assert set(features) == {"g1", "g2", "g3"}
+    assert (features["g1"].transcript_id, features["g1"].tss, features["g1"].is_mane) == (
+        "t1alt",
+        100,
+        False,
+    )
+    assert (features["g2"].transcript_id, features["g2"].tss, features["g2"].is_mane) == (
+        "t2",
+        69,
+        True,
+    )
+    assert (features["g3"].transcript_id, features["g3"].is_mane) == ("t3canon", False)
 
 
 def test_oriented_tss_window_and_nearby_tss() -> None:

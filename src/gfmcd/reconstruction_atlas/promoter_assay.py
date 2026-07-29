@@ -28,6 +28,7 @@ class GencodeTss:
     gene_id: str
     transcript_id: str
     gene_name: str
+    is_mane: bool = True
 
 
 def iter_gencode_mane_tss(path: str | Path) -> Iterable[GencodeTss]:
@@ -60,7 +61,70 @@ def iter_gencode_mane_tss(path: str | Path) -> Iterable[GencodeTss]:
                 gene_id=attributes["gene_id"],
                 transcript_id=attributes["transcript_id"],
                 gene_name=attributes.get("gene_name", ""),
+                is_mane=True,
             )
+
+
+def iter_gencode_protein_coding_tss(path: str | Path) -> list[GencodeTss]:
+    """One protein-coding TSS per gene, preferring a non-MANE-Select transcript.
+
+    MANE Select supply is exhausted under the block-disjointness admission rule
+    used by this study's earlier cohorts (see
+    ``studies/dnabert2_reconstruction_atlas/PREREGISTRATION_D13_COMPOSITION_VS_POSITION.md``),
+    so this iterator deliberately prefers an alternate-promoter (non-MANE-Select)
+    transcript for every gene that has one, falling back to the gene's MANE
+    Select transcript only when it is that gene's sole protein-coding
+    transcript. Selection within a preference tier is deterministic --
+    ``Ensembl_canonical`` first, then the lexicographically smallest
+    transcript ID -- so the result does not depend on GTF line order.
+
+    Unlike :func:`iter_gencode_mane_tss` this must see every transcript of a
+    gene before it can pick a winner, so it returns a materialized list
+    rather than a lazy generator.
+    """
+
+    best: dict[str, tuple[tuple[int, int, str], GencodeTss]] = {}
+    opener = gzip.open if Path(path).suffix == ".gz" else open
+    with opener(path, "rt", encoding="utf-8") as handle:
+        for line in handle:
+            if not line.strip() or line.startswith("#"):
+                continue
+            fields = line.rstrip("\n").split("\t")
+            if (
+                len(fields) < 9
+                or fields[2] != "transcript"
+                or fields[0] not in PRIMARY_CHROMS
+                or fields[6] not in {"+", "-"}
+            ):
+                continue
+            attributes = dict(_GTF_ATTRIBUTE.findall(fields[8]))
+            if attributes.get("gene_type") != "protein_coding":
+                continue
+            is_mane = 'tag "MANE_Select"' in fields[8]
+            is_canonical = 'tag "Ensembl_canonical"' in fields[8]
+            start = int(fields[3]) - 1
+            end = int(fields[4])
+            tss = start if fields[6] == "+" else end - 1
+            gene_id = attributes["gene_id"]
+            transcript_id = attributes["transcript_id"]
+            # Lower rank wins. MANE (1) always loses to non-MANE (0); within a
+            # tier, a canonical tag (0) wins, then the smallest transcript ID.
+            rank = (1 if is_mane else 0, 0 if is_canonical else 1, transcript_id)
+            previous = best.get(gene_id)
+            if previous is None or rank < previous[0]:
+                best[gene_id] = (
+                    rank,
+                    GencodeTss(
+                        chrom=fields[0],
+                        tss=tss,
+                        strand=fields[6],
+                        gene_id=gene_id,
+                        transcript_id=transcript_id,
+                        gene_name=attributes.get("gene_name", ""),
+                        is_mane=is_mane,
+                    ),
+                )
+    return [feature for _, feature in best.values()]
 
 
 def all_gencode_tss_by_chrom(path: str | Path) -> dict[str, list[int]]:
