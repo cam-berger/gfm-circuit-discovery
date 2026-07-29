@@ -320,6 +320,29 @@ def deterministic_control_heads(
     }
 
 
+def orthogonal_procrustes_cosine(x: Any, y: Any) -> float:
+    """Cosine after the optimal orthogonal alignment of centered row representations."""
+
+    import numpy as np
+
+    x_array = np.asarray(x, dtype=np.float64)
+    y_array = np.asarray(y, dtype=np.float64)
+    if (
+        x_array.ndim != 2
+        or y_array.ndim != 2
+        or x_array.shape != y_array.shape
+    ):
+        raise ValueError("Procrustes cosine requires matched 2D matrices")
+    x_centered = x_array - x_array.mean(axis=0, keepdims=True)
+    y_centered = y_array - y_array.mean(axis=0, keepdims=True)
+    u, _, vt = np.linalg.svd(x_centered.T @ y_centered, full_matrices=False)
+    aligned = x_centered @ (u @ vt)
+    denominator = np.linalg.norm(aligned) * np.linalg.norm(y_centered)
+    if denominator <= np.finfo(np.float64).eps:
+        raise ValueError("Procrustes cosine is undefined for zero-variance inputs")
+    return float(np.sum(aligned * y_centered) / denominator)
+
+
 __all__ = [
     "FinalLayerInputs",
     "FinalLayerRun",
@@ -329,6 +352,7 @@ __all__ = [
     "deterministic_control_heads",
     "donor_margin",
     "donor_token_positions",
+    "orthogonal_procrustes_cosine",
     "position_mask",
     "replay_final_layer",
     "select_head_candidates",

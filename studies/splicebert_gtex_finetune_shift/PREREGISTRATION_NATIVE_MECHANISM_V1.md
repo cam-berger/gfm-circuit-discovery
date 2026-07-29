@@ -194,6 +194,13 @@ source claim requires positive clean-to-corrupt recovery with a 95% interval abo
 larger than every same-size control-window recovery with family-corrected inference. If donor-local wins,
 the head is a donor-side carrier of already-assembled evidence, not a direct acceptor reader.
 
+**Pre-source clarification (2026-07-29):** frozen after causal confirmation of `L5H6`, but before any
+source-window or Q/K/V outcome. The five equal-width region recoveries form one BH family, and the ten
+unordered pairwise region contrasts form a second BH family, each at `q≤0.05`. A region “wins” only if its
+recovery is at least `0.05`, its interval is wholly positive, and all four signed pairwise contrasts in
+its favor have positive intervals and pass the contrast-family q threshold. Otherwise source identity is
+unresolved and no region is frozen for the subsequent K-only/V-only analysis.
+
 Q-only, K-only, and V-only patches are then run only at the winning frozen region. A key-only effect
 supports address/routing; a value-only effect supports transported content; neither is interpreted without
 the combined K+V positive result.

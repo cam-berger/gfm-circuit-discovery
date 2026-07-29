@@ -10,6 +10,7 @@ from gfmcd.splicing.native_mechanism import (
     deterministic_control_heads,
     donor_margin,
     donor_token_positions,
+    orthogonal_procrustes_cosine,
     position_mask,
     select_head_candidates,
 )
@@ -103,3 +104,13 @@ def test_control_heads_are_unique_reproducible_and_exclude_candidates():
     flat = [head for values in first.values() for head in values]
     assert len(flat) == len(set(flat)) == 6
     assert not ({1, 4} & set(flat))
+
+
+def test_orthogonal_procrustes_cosine_recovers_rotated_geometry():
+    generator = torch.Generator().manual_seed(9)
+    x = torch.randn(30, 4, generator=generator).numpy()
+    q, _ = torch.linalg.qr(
+        torch.randn(4, 4, generator=generator)
+    )
+    y = x @ q.numpy()
+    assert orthogonal_procrustes_cosine(x, y) == pytest.approx(1.0)
