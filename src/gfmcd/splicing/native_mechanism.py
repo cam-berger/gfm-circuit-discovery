@@ -43,6 +43,7 @@ class FinalLayerRun:
     value: torch.Tensor
     attention: torch.Tensor | None
     mlp_residual: torch.Tensor | None = None
+    mlp_intermediate: torch.Tensor | None = None
 
 
 def donor_token_positions(
@@ -168,6 +169,7 @@ def capture_final_layer_run(
     attention_module = adapter.attention_self_modules[layer]
     mlp_output = adapter.encoder_layers[layer].output
     mlp_dense = mlp_output.dense
+    mlp_intermediate = adapter.encoder_layers[layer].intermediate
     store: dict[str, torch.Tensor] = {}
     handles = []
 
@@ -196,6 +198,9 @@ def capture_final_layer_run(
     for name in ("query", "key", "value"):
         handles.append(getattr(attention_module, name).register_forward_hook(capture(name)))
     handles.append(mlp_dense.register_forward_hook(capture("mlp_write")))
+    handles.append(
+        mlp_intermediate.register_forward_hook(capture("mlp_intermediate"))
+    )
     handles.append(mlp_output.register_forward_pre_hook(capture_mlp_residual))
     try:
         with torch.no_grad():
@@ -215,6 +220,7 @@ def capture_final_layer_run(
         "value",
         "mlp_write",
         "mlp_residual",
+        "mlp_intermediate",
     }
     if output_attentions:
         required.add("attention")
@@ -231,6 +237,7 @@ def capture_final_layer_run(
         value=store["value"],
         attention=attention,
         mlp_residual=store["mlp_residual"],
+        mlp_intermediate=store["mlp_intermediate"],
     )
 
 
