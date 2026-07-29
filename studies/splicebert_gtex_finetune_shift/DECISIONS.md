@@ -165,8 +165,9 @@ five-seed confirmation cohort, every candidate passes the bidirectional `≥0.05
 multiplicity, all-five-seed, and equal-size-control gates.
 
 The resulting organization is neither “all MLP” nor “one context head.” `L5H14` and `L5H8` are shared
-carriers, while `L5H12` and `L5H11` are donor- and acceptor-specialized respectively. Individual
-recoveries remain only `5.8–14.9%` of behavior, and nonlinear interactions make their effects
-non-additive. The next experiment must therefore test the frozen head sets jointly against matched-size
-random sets and path-patch their writes into the final MLP; the census alone does not license
-completeness, redundancy, or a directed circuit.
+carriers; `L5H12` and `L5H11` are the donor- and acceptor-selected additional candidates. Their
+opposite-endpoint effects were measured descriptively as controls and are also positive, so this is not
+evidence of endpoint specialization. Individual recoveries remain only `5.8–14.9%` of behavior, and
+nonlinear interactions make their effects non-additive. The next experiment must therefore test the
+frozen head sets jointly against matched-size random sets and path-patch their writes into the final MLP;
+the census alone does not license completeness, redundancy, or a directed circuit.

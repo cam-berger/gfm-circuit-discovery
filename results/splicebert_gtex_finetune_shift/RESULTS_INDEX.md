@@ -48,7 +48,8 @@ The complete layer-5 context-head census is:
 - `native_context_head_census_confirmation_v1.json`: fresh, gene-disjoint `n=200` confirmation across
   all five checkpoints.
 
-These artifacts control GFS17. They establish shared context carriers `L5H14`/`L5H8`, donor-specific
-`L5H12`, and acceptor-specific `L5H11` under bidirectional one-head interventions. Joint head
-interventions and head-to-MLP path patching have not yet been run, so the census does not establish
-completeness or a directed circuit.
+These artifacts control GFS17. They establish shared context carriers `L5H14`/`L5H8`, a donor-selected
+`L5H12` assignment, and an acceptor-selected `L5H11` assignment under bidirectional one-head
+interventions. Their positive descriptive opposite-endpoint measurements do not license specialization.
+Joint head interventions and head-to-MLP path patching have not yet been run, so the census does not
+establish completeness or a directed circuit.
