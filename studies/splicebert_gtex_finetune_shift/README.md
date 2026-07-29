@@ -142,6 +142,23 @@ assay reused the already-opened GFS18 partitions, it remains exploratory pending
 analysis-sealed replication. A preserved summary-code error and its rank-4 correction
 audit do not alter any intervention array or statistic.
 
+The exact 2,048-unit MLP census then resolves how that compact output code is
+implemented. Frozen seed-specific top-64 native-unit groups carry about 64–81% of the
+full MLP effect, depending on endpoint and direction; 256 units cross the 80%
+completeness threshold for both effects. The code is therefore neither a handful of
+privileged neurons nor diffuse across nearly the entire MLP. It is a mesoscale,
+overcomplete population—hundreds of native units synthesizing a one-to-four-dimensional
+write.
+
+Head→unit patching sharpens the directed story. The complete 2,048-unit route replays
+the prior head→MLP effect within `2.1×10⁻⁶`. The acceptor triple reaches 80% of that
+path with 64 head-responsive units, while the donor triple requires 256. Those
+head-responsive top-64 populations overlap the whole-context top-64 populations by
+84–86%, and every controlled group exceeds output-norm-matched nulls. Descriptively,
+the singleton heads converge on much of the same population rather than feeding three
+disjoint downstream modules. Unit identities remain checkpoint- and endpoint-specific,
+and the reused GFS18 partitions keep this result exploratory.
+
 One 16-nt acceptor half has no alternative exact Eulerian ordering for one sequence. The correction audit
 quarantines that half-resolution contrast; it does not affect either full 32-nt region, sham, independent
 draw, depth trace, component bridge, or head census.

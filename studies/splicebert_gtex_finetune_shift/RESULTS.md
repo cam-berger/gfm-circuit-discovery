@@ -31,6 +31,10 @@ Immutable results:
 | fresh five-seed context-head confirmation | `scripts/splicebert/run_gtex_native_context_head_census_confirmation.py` | `results/splicebert_gtex_finetune_shift/native_context_head_census_confirmation_v1.json` (`L5H14`/`L5H8` shared; `L5H12` donor-selected; `L5H11` acceptor-selected) |
 | fresh low-rank direction freeze | `scripts/splicebert/run_gtex_native_context_lowrank_discovery.py` | `results/splicebert_gtex_finetune_shift/native_context_lowrank_discovery_v1.json` (seed-2020 endpoint bases/directions frozen) |
 | joint heads, head→MLP path, and low-rank confirmation | `scripts/splicebert/run_gtex_native_context_joint_lowrank_confirmation.py` | `results/splicebert_gtex_finetune_shift/native_context_joint_lowrank_confirmation_v1.json` (joint/path confirm; completeness and universal direction do not) |
+| per-seed subspace/alignment freeze | `scripts/splicebert/run_gtex_native_context_per_seed_alignment_discovery.py` | `results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_discovery_v1.json` plus `.npz` |
+| cross-seed causal alignment evaluation | `scripts/splicebert/run_gtex_native_context_per_seed_alignment_evaluation.py` | `results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_evaluation_v1.json` plus `.npz`; rank-4 verdict correction in `native_context_per_seed_alignment_evaluation_audit_v1.json` |
+| complete 2,048-unit MLP discovery census | `scripts/splicebert/run_gtex_native_context_final_mlp_unit_discovery.py` | `results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_discovery_v1.json` (context/head groups and controls frozen) |
+| native-unit completeness and head→unit evaluation | `scripts/splicebert/run_gtex_native_context_final_mlp_unit_evaluation.py` | `results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_evaluation_v1.json` plus `.npz` |
 
 The five-seed artifact includes all 400 paired per-example values for the base and each seed, gene-grouped
 bootstrap intervals, 9,999 gene-level sign flips with add-one p-values, BH correction across the 15
@@ -98,3 +102,20 @@ estimates show that most magnitude comes from the checkpoint on which the basis 
 mechanism is thus a seed-reproducible **functional path**—multiple heads into the final MLP—not a single
 shared raw-coordinate direction. A per-seed fit plus preregistered subspace alignment is required before
 claiming geometric convergence.
+
+That alignment follow-up succeeds at exploratory tier on the reused partitions. Every checkpoint places
+more than 99.6% of discovery MLP-delta energy in four dimensions. Discovery-only orthogonal maps let
+cross-seed rank-4 bases recover about 99% of the full MLP causal effect, and transport the actual
+example-conditioned delta at about 95–101%. Raw transport fails recovery. All aligned ordered-pair
+endpoint estimates are positive and exceed dimension- or norm-matched controls. The preserved evaluation
+output contains a summary-only rank-selection bug; its immutable correction audit applies the frozen
+rank-4 gate without changing any outcome.
+
+The exact native-unit census then distinguishes low output rank from implementation sparsity. Top-64
+post-GELU groups carry `63.9–81.1%` across endpoint/direction combinations, while top-256 groups carry
+`91.4–109.4%` and first clear the frozen 80% gate for both context effects. Head-responsive populations
+are more concentrated for acceptor (80% at 64) than donor (80% at 256), reproduce the prior head→MLP
+path within `2.1e-6`, and overlap the corresponding whole-context top-64 groups by 84–86%. The most
+precise current implementation account is therefore a **mesoscale overcomplete native-unit population
+writing a compact, checkpoint-rotated task code**. It remains exploratory because the alignment and unit
+arms reused GFS18's opened gene partitions.

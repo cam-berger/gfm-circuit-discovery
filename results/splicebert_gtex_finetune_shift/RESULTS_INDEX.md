@@ -65,3 +65,28 @@ mildly super-additive rather than redundant. Path patching places `98.0–100.0%
 through the induced final-MLP write. The seed-2020 task direction does not confirm across all seeds, and
 no tested rank through 64 reaches 50% of the full-MLP effect; raw low-rank coordinates are therefore
 bounded as seed-specific rather than licensed as a universal classifier direction.
+
+The exploratory coordinate-alignment extension is:
+
+- `native_context_per_seed_alignment_discovery_v1.json` plus `.npz`: five seed-specific bases and
+  discovery-only orthogonal maps;
+- `native_context_per_seed_alignment_evaluation_v1.json` plus `.npz`: raw/aligned basis and
+  example-conditioned vector transport;
+- `native_context_per_seed_alignment_evaluation_audit_v1.json`: preserved correction of the
+  summary-only rank-4 verdict bug.
+
+These artifacts control GFS19. Aligned rank-4 bases and example-conditioned writes recover nearly the
+complete MLP effect; raw coordinates do not. The reused GFS18 partitions keep this exploratory.
+
+The exact native-unit extension is:
+
+- `native_context_final_mlp_unit_discovery_v1.json`: every post-GELU unit tested individually; nested
+  context/head-induced groups and output-norm controls frozen per seed and endpoint;
+- `native_context_final_mlp_unit_evaluation_v1.json` plus `.npz`: completeness curves, exact
+  head→unit paths, and descriptive singleton ownership.
+
+These artifacts control GFS20. Both context effects first reach 80% with 256 of 2,048 native units.
+The acceptor triple's induced path reaches 80% with 64 units, the donor triple with 256, and the
+head-responsive top-64 groups overlap whole-context top-64 groups by 84–86%. This is a mesoscale
+overcomplete implementation of the compact output code, not evidence that any unit is a monosemantic
+biological feature.
