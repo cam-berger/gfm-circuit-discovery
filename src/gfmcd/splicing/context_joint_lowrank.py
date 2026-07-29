@@ -156,6 +156,90 @@ def project_rows(matrix: np.ndarray, basis: np.ndarray) -> np.ndarray:
     return (values @ vectors.T) @ vectors
 
 
+def mean_row_cosine(left: np.ndarray, right: np.ndarray) -> float:
+    """Mean paired-row cosine, ignoring pairs with a zero vector."""
+
+    x = np.asarray(left, dtype=np.float64)
+    y = np.asarray(right, dtype=np.float64)
+    if x.ndim != 2 or y.ndim != 2 or x.shape != y.shape:
+        raise ValueError("left and right must be same-shaped 2D matrices")
+    denominator = np.linalg.norm(x, axis=1) * np.linalg.norm(y, axis=1)
+    valid = denominator > np.finfo(np.float64).eps
+    if not np.any(valid):
+        return float("nan")
+    cosines = np.sum(x[valid] * y[valid], axis=1) / denominator[valid]
+    return float(np.mean(np.clip(cosines, -1.0, 1.0)))
+
+
+def fit_orthogonal_alignment(
+    source: np.ndarray,
+    target: np.ndarray,
+) -> dict[str, Any]:
+    """Fit the outcome-blind row-vector map minimizing ``||source R-target||``."""
+
+    x = np.asarray(source, dtype=np.float64)
+    y = np.asarray(target, dtype=np.float64)
+    if x.ndim != 2 or y.ndim != 2 or x.shape != y.shape:
+        raise ValueError("source and target must be same-shaped 2D matrices")
+    if x.shape[0] < 2 or x.shape[1] < 1:
+        raise ValueError("alignment requires at least two rows and one feature")
+    u, singular_values, vt = np.linalg.svd(x.T @ y, full_matrices=False)
+    rotation = u @ vt
+    aligned = x @ rotation
+    denominator = float(np.linalg.norm(y))
+    relative_error = (
+        float(np.linalg.norm(aligned - y)) / denominator
+        if denominator > np.finfo(np.float64).eps
+        else float("inf")
+    )
+    return {
+        "rotation": rotation,
+        "cross_singular_values": singular_values,
+        "orthogonality_error": float(
+            np.max(np.abs(rotation.T @ rotation - np.eye(rotation.shape[0])))
+        ),
+        "relative_error": relative_error,
+        "mean_row_cosine": mean_row_cosine(aligned, y),
+    }
+
+
+def transform_row_basis(
+    basis: np.ndarray,
+    rotation: np.ndarray,
+) -> np.ndarray:
+    """Transport a row-orthonormal source basis into target coordinates."""
+
+    vectors = np.asarray(basis, dtype=np.float64)
+    transform = np.asarray(rotation, dtype=np.float64)
+    if vectors.ndim != 2 or transform.ndim != 2:
+        raise ValueError("basis and rotation must be 2D")
+    if transform.shape[0] != transform.shape[1]:
+        raise ValueError("rotation must be square")
+    if vectors.shape[1] != transform.shape[0]:
+        raise ValueError("basis and rotation widths disagree")
+    return vectors @ transform
+
+
+def deterministic_signed_permutation(
+    matrix: np.ndarray,
+    *,
+    tag: str,
+    draw: int,
+) -> np.ndarray:
+    """Apply a deterministic norm-preserving signed-coordinate permutation."""
+
+    values = np.asarray(matrix, dtype=np.float64)
+    if values.ndim != 2 or values.shape[1] < 1:
+        raise ValueError("matrix must be a non-empty 2D array")
+    if not tag or draw < 0:
+        raise ValueError("tag must be non-empty and draw non-negative")
+    digest = hashlib.sha256(f"{tag}:{draw}".encode("utf-8")).digest()
+    generator = np.random.default_rng(int.from_bytes(digest[:8], "big"))
+    permutation = generator.permutation(values.shape[1])
+    signs = generator.choice(np.asarray([-1.0, 1.0]), size=values.shape[1])
+    return values[:, permutation] * signs
+
+
 def replace_target_vectors(
     write: torch.Tensor,
     token_positions: torch.Tensor,
@@ -182,12 +266,16 @@ def replace_target_vectors(
 
 
 __all__ = [
+    "deterministic_signed_permutation",
     "deterministic_random_basis",
     "fit_lowrank_structure",
+    "fit_orthogonal_alignment",
     "group_mean_rows",
+    "mean_row_cosine",
     "matched_control_sets",
     "ordered_nonempty_subsets",
     "project_rows",
     "projection_matrix_error",
     "replace_target_vectors",
+    "transform_row_basis",
 ]

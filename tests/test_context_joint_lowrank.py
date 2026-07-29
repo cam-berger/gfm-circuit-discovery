@@ -3,13 +3,17 @@ import pytest
 import torch
 
 from gfmcd.splicing.context_joint_lowrank import (
+    deterministic_signed_permutation,
     deterministic_random_basis,
+    fit_orthogonal_alignment,
     fit_lowrank_structure,
     matched_control_sets,
+    mean_row_cosine,
     ordered_nonempty_subsets,
     project_rows,
     projection_matrix_error,
     replace_target_vectors,
+    transform_row_basis,
 )
 
 
@@ -80,3 +84,41 @@ def test_replace_target_vectors_changes_only_selected_rows_and_positions():
     assert replaced[1, 3].tolist() == [4.0, 5.0, 6.0]
     assert torch.count_nonzero(replaced[0, [0, 2, 3]]) == 0
     assert torch.count_nonzero(replaced[1, [0, 1, 2]]) == 0
+
+
+def test_orthogonal_alignment_recovers_rotated_code():
+    generator = np.random.default_rng(23)
+    source = generator.standard_normal((40, 8))
+    rotation, _ = np.linalg.qr(generator.standard_normal((8, 8)))
+    target = source @ rotation
+
+    fitted = fit_orthogonal_alignment(source, target)
+
+    assert fitted["orthogonality_error"] < 1e-12
+    assert fitted["relative_error"] < 1e-12
+    assert fitted["mean_row_cosine"] > 1 - 1e-12
+    assert np.allclose(source @ fitted["rotation"], target, atol=1e-12)
+
+
+def test_transform_row_basis_preserves_orthonormality():
+    generator = np.random.default_rng(29)
+    basis, _ = np.linalg.qr(generator.standard_normal((12, 4)))
+    rotation, _ = np.linalg.qr(generator.standard_normal((12, 12)))
+    transported = transform_row_basis(basis.T, rotation)
+    assert projection_matrix_error(transported) < 1e-12
+
+
+def test_signed_permutation_is_deterministic_and_norm_preserving():
+    matrix = np.arange(24, dtype=np.float64).reshape(4, 6)
+    first = deterministic_signed_permutation(matrix, tag="control", draw=2)
+    second = deterministic_signed_permutation(matrix, tag="control", draw=2)
+    other = deterministic_signed_permutation(matrix, tag="control", draw=3)
+    assert np.array_equal(first, second)
+    assert not np.array_equal(first, other)
+    assert np.allclose(np.linalg.norm(first, axis=1), np.linalg.norm(matrix, axis=1))
+
+
+def test_mean_row_cosine_ignores_zero_pairs():
+    left = np.asarray([[1.0, 0.0], [0.0, 0.0], [0.0, 1.0]])
+    right = np.asarray([[1.0, 0.0], [1.0, 0.0], [0.0, -1.0]])
+    assert mean_row_cosine(left, right) == pytest.approx(0.0)
