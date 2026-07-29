@@ -11,6 +11,7 @@ import json
 from pathlib import Path
 import sys
 from typing import Any
+import warnings
 
 import numpy as np
 import torch
@@ -195,8 +196,17 @@ def attention_mass(
 
 
 def nanmean_stack(values: list[np.ndarray]) -> np.ndarray:
-    with np.errstate(invalid="ignore"):
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", category=RuntimeWarning)
         return np.nanmean(np.stack(values), axis=0)
+
+
+def json_default(value: Any) -> Any:
+    if isinstance(value, np.ndarray):
+        return value.tolist()
+    if isinstance(value, np.generic):
+        return value.item()
+    raise TypeError(f"{type(value).__name__} is not JSON serializable")
 
 
 def main() -> None:
@@ -1051,9 +1061,7 @@ def main() -> None:
             result,
             indent=2,
             sort_keys=True,
-            default=lambda value: (
-                value.item() if isinstance(value, np.generic) else value
-            ),
+            default=json_default,
         )
         + "\n"
     )
