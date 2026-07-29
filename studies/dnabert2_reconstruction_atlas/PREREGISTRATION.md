@@ -256,6 +256,26 @@ The complete lock is
 pinned in `SOURCE_MANIFEST_PROMOTER_LOCALIZATION_V1.json`. Mask localization, annotation overlap,
 motif necessity, regional V routing, and mediation remain distinct evidence levels.
 
+### Promoter L11MLP low-rank structure v1 — frozen post-hoc amendment
+
+D10 nominates L11MLP but leaves its residual-write dimensionality unresolved. Before computing a
+projection outcome, freeze an uncentered SVD of development target-minus-control L11MLP CLS
+writes and the rank grid 1/2/4/8/16/32. For each rank, exchange only that projection between the
+paired target and pseudo-TSS. Compare with full L11MLP exchange, the orthogonal complement, and
+31 uniformly random subspaces of the same dimension.
+
+Select the smallest development rank with at least 0.5-logit class-margin loss, 80% capture of
+the full-write effect, 0.02 paired accuracy loss, a positive bootstrap lower bound, and add-one
+`p≤0.05` against the random-subspace family. Transfer the unchanged basis and rank to
+confirmation. A fresh disjoint GUE slice must first pass clean behavior, full-write sensitivity,
+rank-zero no-op, projection-reconstruction, orthonormality, deterministic-basis, batch, and
+finiteness checks.
+
+All MANE locus blocks admitted under the current source definition were consumed by D4 and
+D7–D10. This assay therefore reuses the D10 splits, on which L11MLP was already selected.
+Confirmation is an unchanged-basis transfer test, not a new independent cohort. The controlling
+lock is `configs/dnabert2_atlas/promoter_low_rank_v1.frozen.json`.
+
 ## Possible outcomes
 
 - `SUPPORTED: BEHAVIOR` — excess reconstruction passes and replicates; internal mechanism unknown.

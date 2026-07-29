@@ -4,7 +4,7 @@
 
 This is an **index of the runnable scripts**, not the scientific ledger. It maps each active script to
 the claim(s) and controlling artifact it serves, grouped by result family. The authoritative
-claim→evidence record is [`results/MANIFEST.csv`](../results/MANIFEST.csv) (911 rows) plus
+claim→evidence record is [`results/MANIFEST.csv`](../results/MANIFEST.csv) (953 rows) plus
 [`studies/splicebert_partner_selection/CLAIMS.md`](../studies/splicebert_partner_selection/CLAIMS.md)
 (donor circuit, C1–C41 + IC1), [`studies/splicebert_head_context_atlas/CLAIMS.md`](../studies/splicebert_head_context_atlas/CLAIMS.md)
 (Atlas, HCA1–HCA23), and [`CORRECTIONS.md`](../studies/splicebert_partner_selection/CORRECTIONS.md)
@@ -249,5 +249,5 @@ The competition branch (HCA2–HCA10) is CLOSED; its `competition_branch_closure
 # `scripts/verify_manifest.py`
 
 Validates that every `results/MANIFEST.csv` row's `script`, `artifact`, `manifest`, and `figure` path
-exists. Run it before merging any change to an active workflow. It currently passes (911 rows, 0
+exists. Run it before merging any change to an active workflow. It currently passes (953 rows, 0
 unresolved paths).

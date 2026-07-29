@@ -201,6 +201,24 @@ repeated exchanges prevent it from being an exact terminal swap. A passing atlas
 CLS-write candidates under paired exchange; it does not establish zero-ablation necessity,
 sufficiency, source positions, or a complete circuit.
 
+### Promoter low-rank L11MLP amendment
+
+Fit an uncentered SVD to the development target-minus-control L11MLP CLS-write matrix. Scan the
+frozen ranks 1, 2, 4, 8, 16, and 32 by exchanging only the selected projection between each
+target/control pair. Full L11MLP exchange is the reference; the orthogonal complement and 31
+uniform dimension-matched random subspaces are controls.
+
+The primary endpoint is paired class-margin loss divided by the full-write effect. Development
+selects the smallest rank with at least 0.5-logit loss, 80% full-effect capture, 0.02 paired
+accuracy loss, a positive bootstrap lower bound, and an add-one rank-null `p≤0.05`.
+Confirmation transfers the unchanged development basis and rank and repeats every gate.
+Directional target-from-control and control-from-target patches, AUROC, and complement effects
+are secondary.
+
+This reuses the D10 splits after L11MLP was selected. It can establish low-rank structural
+compression on those loci, but not a fresh independent replication, neuron-level mechanism,
+sequence source, or biological promoter function.
+
 ## Phase D — informative source regions
 
 For behavior-qualified targets, exchange or perturb:

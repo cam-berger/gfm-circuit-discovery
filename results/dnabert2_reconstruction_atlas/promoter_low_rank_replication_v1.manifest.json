@@ -1,0 +1,68 @@
+{
+  "checkpoint": {
+    "checkpoint": "prom_300_all",
+    "revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12"
+  },
+  "code": {
+    "git_commit": "4c64d9ee631bb241fdea2904a894e274a8c79c72",
+    "git_dirty": true
+  },
+  "command": [
+    "scripts/dnabert2_atlas/summarize_promoter_low_rank.py",
+    "--development",
+    "results/dnabert2_reconstruction_atlas/promoter_low_rank_development_v1.json",
+    "--confirmation",
+    "results/dnabert2_reconstruction_atlas/promoter_low_rank_confirmation_v1.json",
+    "--config",
+    "configs/dnabert2_atlas/promoter_low_rank_v1.frozen.json",
+    "--preflight-report",
+    "results/dnabert2_reconstruction_atlas/promoter_low_rank_preflight_v1.json",
+    "--out",
+    "results/dnabert2_reconstruction_atlas/promoter_low_rank_replication_v1.json"
+  ],
+  "created_at_utc": "2026-07-29T00:25:27.671443+00:00",
+  "data": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_low_rank_development_v1.json",
+      "sha256": "7da93830afe9a036248f0a36c45e89b134fda4f323900a46c1ec9395258195af",
+      "size_bytes": 187231
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_low_rank_confirmation_v1.json",
+      "sha256": "72322af5a5a008f37c1094a59b8ab45503e358c4d222b16925bd1b4db3ee981d",
+      "size_bytes": 177092
+    },
+    {
+      "path": "configs/dnabert2_atlas/promoter_low_rank_v1.frozen.json",
+      "sha256": "a91105eb0a8f8f7e47cb7e9e7ea1bd9d1dd885e0d8529992860b41e9ee31ad2c",
+      "size_bytes": 3299
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_low_rank_preflight_v1.json",
+      "sha256": "02452205c943845d79990837dd7d144f31adea02d410fa59850ae90ebd103ff8",
+      "size_bytes": 5659
+    }
+  ],
+  "environment": {
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "dnabert2_promoter_low_rank_replication_v1",
+  "outputs": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_low_rank_replication_v1.json",
+      "sha256": "af1d63ac3d5bd6388b3d3e368c165d11c5cf075e432054b006814c36a5a5d8e1",
+      "size_bytes": 6869
+    }
+  ],
+  "parameters": {
+    "combination": "post_hoc_development_fit_then_unchanged_basis_transfer",
+    "no_new_model_scores": true,
+    "selected_rank": 4
+  },
+  "schema_version": 1,
+  "seeds": {
+    "none": 0
+  },
+  "status": "SEALED"
+}

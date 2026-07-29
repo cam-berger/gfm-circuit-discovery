@@ -579,3 +579,25 @@
   node passes the complete replicated gate.
 - Decision: prioritize L11MLP for a new targeted MLP causal phase, retain L11H2/L11H5 as the
   leading heads, and do not claim a standalone necessary node from this atlas.
+
+## 2026-07-28 — Freeze a post-hoc low-rank L11MLP assay
+
+- Trigger: D10 ranks L11MLP first in both splits, but a full 768-dimensional write exchange does
+  not show whether the causal effect is compressible.
+- Supply boundary: D4 and D7–D10 consume every currently admitted exact-GUE-excluded MANE 1-Mb
+  block. No fresh cohort exists without changing the biological source definition.
+- Decision: reuse D10 development to fit an uncentered target-minus-control SVD and transfer the
+  unchanged basis to D10 confirmation. Label the result post-hoc and cohort-reused because
+  L11MLP selection already inspected both splits.
+- Rank family: 1, 2, 4, 8, 16, and 32 of 768 dimensions. Select the smallest rank clearing the
+  frozen margin, capture, accuracy, interval, and 31-random-subspace gates.
+- Controls: full L11MLP exchange, orthogonal-complement exchange, directional patches, and a new
+  disjoint GUE instrument slice beginning at pair offset 960.
+- Boundary: a passing result licenses low-rank causal compression on these loci. It cannot supply
+  fresh standalone L11MLP necessity, neuron identity, nucleotide source, or biological function.
+- Outcome: rank 4 is the smallest qualified development rank. It captures 89.7% of the full
+  class-margin effect in development and 84.5% under unchanged-basis confirmation, beating all
+  31 dimension-matched random subspaces in each split.
+- Interpretation: retain “dominant low-rank carrier,” not “complete bottleneck.” The orthogonal
+  complement remains positive, rank-4 hard-label intervals include zero, and cohort reuse
+  remains explicit in every summary.

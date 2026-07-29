@@ -31,6 +31,7 @@ PatchDirection = Literal[
     "bidirectional_swap",
 ]
 QueryPatchDirection = Literal["target_from_control", "target_from_self"]
+ProjectionComponent = Literal["subspace", "complement"]
 
 PROMOTER_SOURCE_BANDS: Mapping[str, tuple[int, int]] = {
     "far_upstream": (-249, -50),
@@ -244,6 +245,62 @@ def paired_cls_write_patch_tensor(
     return patched
 
 
+def paired_cls_projection_patch_tensor(
+    writes: Any,
+    *,
+    cls_rows: Any,
+    basis: Any,
+    direction: PatchDirection,
+    component: ProjectionComponent,
+) -> Any:
+    """Patch only a low-rank subspace or its orthogonal complement."""
+
+    import torch
+
+    if writes.ndim != 2:
+        raise ValueError("MosaicBERT residual write must be [valid_tokens, hidden]")
+    rows = cls_rows.to(writes.device)
+    if rows.ndim != 1 or rows.numel() % 2:
+        raise ValueError("CLS rows must contain interleaved target/control pairs")
+    if int(rows.max()) >= writes.shape[0]:
+        raise ValueError("CLS row falls outside the unpadded residual write")
+    basis = basis.to(device=writes.device, dtype=writes.dtype)
+    if basis.ndim != 2 or basis.shape[0] != writes.shape[1]:
+        raise ValueError("projection basis must be [hidden, rank]")
+    if basis.shape[1]:
+        gram = basis.T @ basis
+        identity = torch.eye(basis.shape[1], device=writes.device, dtype=writes.dtype)
+        if not torch.allclose(gram, identity, atol=1e-4, rtol=1e-4):
+            raise ValueError("projection basis must have orthonormal columns")
+    if component not in {"subspace", "complement"}:
+        raise ValueError(f"unknown projection component: {component}")
+
+    target_rows, control_rows = rows[0::2], rows[1::2]
+    patched = writes.clone()
+
+    def update(destination: Any, source: Any) -> None:
+        delta = writes[source] - writes[destination]
+        projection = (delta @ basis) @ basis.T
+        if component == "complement":
+            projection = delta - projection
+        patched[destination] = writes[destination] + projection
+
+    if direction == "target_from_control":
+        update(target_rows, control_rows)
+    elif direction == "control_from_target":
+        update(control_rows, target_rows)
+    elif direction == "target_from_self":
+        update(target_rows, target_rows)
+    elif direction == "bidirectional_swap":
+        update(target_rows, control_rows)
+        update(control_rows, target_rows)
+    else:  # pragma: no cover - guarded by the Literal at typed call sites
+        raise ValueError(f"unknown projection-patch direction: {direction}")
+    if not torch.isfinite(patched).all():
+        raise RuntimeError("projection patch created a non-finite activation")
+    return patched
+
+
 def paired_padded_cls_patch_tensor(
     hidden_states: Any,
     *,
@@ -415,6 +472,77 @@ def patch_paired_cls_mlp_writes(
     finally:
         for handle in handles:
             handle.remove()
+
+
+@contextmanager
+def patch_paired_cls_mlp_projection(
+    bundle: Dnabert2PromoterBundle,
+    batch: PairedPromoterBatch,
+    *,
+    layer: int,
+    basis: Any,
+    direction: PatchDirection,
+    component: ProjectionComponent,
+):
+    """Patch a frozen subspace of one paired CLS MLP write."""
+
+    (selected_layer,) = validate_promoter_layers(bundle, (layer,))
+
+    def hook(_module: Any, _inputs: Any, output: Any) -> Any:
+        if not hasattr(output, "shape"):
+            raise TypeError("MosaicBERT MLP output projection did not return a tensor")
+        return paired_cls_projection_patch_tensor(
+            output,
+            cls_rows=batch.cls_rows,
+            basis=basis,
+            direction=direction,
+            component=component,
+        )
+
+    module = bundle.model.bert.encoder.layer[selected_layer].mlp.wo
+    handle = module.register_forward_hook(hook)
+    try:
+        yield
+    finally:
+        handle.remove()
+
+
+def capture_paired_cls_mlp_writes(
+    bundle: Dnabert2PromoterBundle,
+    batch: PairedPromoterBatch,
+    *,
+    layer: int,
+) -> tuple[Any, Any]:
+    """Return native margins and one MLP's paired CLS writes."""
+
+    import torch
+
+    (selected_layer,) = validate_promoter_layers(bundle, (layer,))
+    captured = None
+
+    def hook(_module: Any, _inputs: Any, output: Any) -> Any:
+        nonlocal captured
+        if not hasattr(output, "shape"):
+            raise TypeError("MosaicBERT MLP output projection did not return a tensor")
+        captured = output.detach().clone()
+        return output
+
+    module = bundle.model.bert.encoder.layer[selected_layer].mlp.wo
+    handle = module.register_forward_hook(hook)
+    try:
+        with torch.no_grad():
+            margins = promoter_margin_tensor(bundle, batch).detach()
+    finally:
+        handle.remove()
+    if captured is None:
+        raise RuntimeError("failed to capture the MLP output projection")
+    rows = batch.cls_rows.to(captured.device)
+    cls_writes = captured[rows].detach()
+    if cls_writes.shape != (2 * batch.n_pairs, int(bundle.config.hidden_size)):
+        raise RuntimeError("captured CLS MLP writes have unexpected geometry")
+    if not torch.isfinite(cls_writes).all():
+        raise RuntimeError("captured CLS MLP writes are non-finite")
+    return margins, cls_writes
 
 
 @contextmanager

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import pytest
 import torch
 
 from gfmcd.adapters.dnabert2.promoter_address_payload import (
@@ -14,6 +15,7 @@ from gfmcd.adapters.dnabert2.promoter_head_atlas import (
     PairedPromoterBatch,
     _token_band_allocations,
     paired_cls_patch_tensor,
+    paired_cls_projection_patch_tensor,
     paired_cls_query_patch_tensor,
     paired_cls_write_patch_tensor,
     paired_padded_cls_patch_tensor,
@@ -95,6 +97,76 @@ def test_paired_cls_write_patch_can_swap_both_classes() -> None:
     )
     assert torch.equal(patched[0], writes[4])
     assert torch.equal(patched[4], writes[0])
+
+
+def test_projection_patch_splits_subspace_and_complement() -> None:
+    writes = torch.tensor(
+        [
+            [1.0, 2.0, 3.0],
+            [0.0, 0.0, 0.0],
+            [4.0, 6.0, 8.0],
+            [10.0, 20.0, 30.0],
+        ]
+    )
+    rows = torch.tensor([0, 2])
+    basis = torch.tensor([[1.0], [0.0], [0.0]])
+    subspace = paired_cls_projection_patch_tensor(
+        writes,
+        cls_rows=rows,
+        basis=basis,
+        direction="target_from_control",
+        component="subspace",
+    )
+    complement = paired_cls_projection_patch_tensor(
+        writes,
+        cls_rows=rows,
+        basis=basis,
+        direction="target_from_control",
+        component="complement",
+    )
+    full_delta = writes[2] - writes[0]
+    assert torch.equal(subspace[0] - writes[0], torch.tensor([3.0, 0.0, 0.0]))
+    assert torch.equal(complement[0] - writes[0], torch.tensor([0.0, 4.0, 5.0]))
+    assert torch.allclose(
+        (subspace[0] - writes[0]) + (complement[0] - writes[0]),
+        full_delta,
+    )
+    assert torch.equal(subspace[1:], writes[1:])
+    assert torch.equal(complement[1:], writes[1:])
+
+
+def test_projection_patch_bidirectional_and_rank_zero_noop() -> None:
+    writes = torch.arange(8 * 4, dtype=torch.float32).view(8, 4)
+    rows = torch.tensor([0, 4])
+    full_basis = torch.eye(4)
+    swapped = paired_cls_projection_patch_tensor(
+        writes,
+        cls_rows=rows,
+        basis=full_basis,
+        direction="bidirectional_swap",
+        component="subspace",
+    )
+    noop = paired_cls_projection_patch_tensor(
+        writes,
+        cls_rows=rows,
+        basis=torch.empty((4, 0)),
+        direction="bidirectional_swap",
+        component="subspace",
+    )
+    assert torch.allclose(swapped[0], writes[4])
+    assert torch.allclose(swapped[4], writes[0])
+    assert torch.equal(noop, writes)
+
+
+def test_projection_patch_rejects_nonorthonormal_basis() -> None:
+    with pytest.raises(ValueError, match="orthonormal"):
+        paired_cls_projection_patch_tensor(
+            torch.zeros((2, 3)),
+            cls_rows=torch.tensor([0, 1]),
+            basis=torch.ones((3, 1)),
+            direction="target_from_control",
+            component="subspace",
+        )
 
 
 def test_paired_padded_cls_patch_swaps_only_terminal_cls_rows() -> None:

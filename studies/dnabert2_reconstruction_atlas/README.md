@@ -42,12 +42,13 @@ forward/reverse GUE exclusion.
 | Classification impact | Masking the nominated region reduced AUROC in both splits and caused 7/231 real-promoter label flips. | Balanced accuracy did not change because control corrections offset target errors. |
 | Native-base qualification | Exact mono- and linear-dinucleotide-preserving reordering failed the development positive gate. | The mask effect is not evidence that native sequence order is necessary. |
 | All-node atlas | L11MLP ranked first in both splits; L11H2/L11H5 remained the leading heads. | No individual node passed the complete replicated accuracy gate because the L11MLP confirmation interval touched zero. |
+| L11MLP low-rank structure | Four of 768 dimensions captured 89.7%/84.5% of the full class-margin effect and beat matched random subspaces in both splits. | This reused D10 cohorts post-hoc; the complement remained positive and hard-label intervals included zero. |
 
 The current circuit trace is therefore:
 
 1. a distributed representation maintained by MLP writes;
 2. late L11H2/L11H5 output transport with value-payload alignment dependence;
-3. a final L11MLP write that is the strongest accuracy-relevant candidate;
+3. a final L11MLP write whose dominant class-margin effect is carried in a rank-4 subspace;
 4. the supervised classifier readout.
 
 This ordering is a causal priority map, not a complete directed circuit. The nucleotide content
@@ -65,6 +66,7 @@ of the routed representation remains unresolved.
 | Promoter payload decomposition | Value-alignment dependence replicated |
 | Promoter source localization | Mask-sensitive region replicated; biological and native-base qualification failed |
 | Promoter all-node accuracy atlas | Completed; no single node fully qualified |
+| Promoter L11MLP low-rank assay | Rank-4 causal carrier supported post-hoc on reused cohorts; fresh transfer remains open |
 
 Failed preflights and negative outcomes remain in the immutable artifacts and ledgers. They are
 not rewritten as biological nulls.
@@ -82,6 +84,9 @@ not rewritten as biological nulls.
   equal-dose source masking, and matched-size or full-family null inference.
 - **Accuracy atlas:** balanced paired-accuracy loss after exchanging one of 144 head contexts or
   12 MLP writes at `[CLS]`.
+- **Low-rank structure:** class-margin, accuracy, and AUROC loss after exchanging only a fitted
+  L11MLP write subspace, compared with full exchange, its complement, and matched random
+  subspaces.
 
 Exact definitions, thresholds, correction families, and opening rules are in
 [`PROTOCOL.md`](PROTOCOL.md) and [`PREREGISTRATION.md`](PREREGISTRATION.md).

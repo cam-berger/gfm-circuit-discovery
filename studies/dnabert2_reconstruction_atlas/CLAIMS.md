@@ -224,6 +224,29 @@ under reciprocal paired activation exchange. It does not license zero-ablation n
 individual-node sufficiency, a complete circuit, a nucleotide source, or biological promoter
 function.
 
+**D11 — a four-dimensional subspace is the dominant causal carrier of the L11MLP exchange
+effect on the reused D10 cohorts.** The assay fits an uncentered SVD to the 50 development
+target-minus-control L11MLP `[CLS]` writes, selects the smallest rank passing frozen causal
+gates, and transfers the exact basis to the disjoint 50-pair confirmation split. Rank 4 uses
+0.52% of the 768-dimensional write.
+
+Projected reciprocal exchange captures 0.828 of the 0.922-logit full L11MLP class-margin loss in
+development (89.7%) and 0.923 of 1.092 logits in confirmation (84.5%). It reduces AUROC by
+0.184/0.236, compared with 0.214/0.283 for full exchange. The selected subspace beats all 31
+dimension-matched random subspaces in each split (add-one `p=0.03125`). Target-from-control and
+control-from-target directional effects are positive in both splits.
+
+The orthogonal complement retains 0.079 logits in development (95% CI 0.002 to 0.155) and 0.156
+in confirmation (0.070 to 0.246), so rank 4 is not a complete account of L11MLP. Its balanced
+accuracy loss is 0.110/0.070, but both confidence intervals include zero. D11 therefore licenses
+a **dominant low-rank causal carrier for class margin under reciprocal activation exchange**,
+not a precise hard-label effect, standalone L11MLP necessity, neuron identity, an upstream
+path, a nucleotide source, or a biological promoter mechanism.
+
+This is explicitly post-hoc and cohort-reused. D10 selected L11MLP after both cohorts had been
+scored, and no unused MANE 1-Mb blocks remained. Unchanged-basis transfer tests structural
+compression, not fresh independent replication.
+
 ## Established infrastructure facts
 
 These are implementation properties and prior instrument constraints, not claims about biological
@@ -264,6 +287,7 @@ reconstruction.
 | IF31 | Dinucleotide-only supply v9 binds 60 fresh unique locus blocks per split; frozen preflight v10 passes all eight checks on a third disjoint GUE slice with projected 60-locus MDE 0.156 and zero replay/batch drift. | `promoter_native_source_supply_audit_v9.json` and `promoter_native_source_preflight_v10.json` | Authorizes D9 development only. |
 | IF32 | The all-node accuracy supply contains exactly the final 100 outcome-unseen unique 1-Mb blocks after excluding every D4/D7/D8/D9 example and block, with 50 pairs frozen per split. | `promoter_node_accuracy_supply_v1.json` | Outcome-blind supply fact only; it does not identify an important component. |
 | IF33 | All-node preflight v1 is preserved as `INSTRUMENT_UNRESOLVED` because simultaneous layerwise exchange is not a terminal classifier-input swap. V2 changes only the positive control: exact terminal CLS residual exchange takes held-out GUE accuracy from 0.891 to 0.109 and AUROC from 0.977 to 0.023; all 156 hooks are finite and self/batch drift is zero. | `promoter_node_accuracy_preflight_v1.json` and `promoter_node_accuracy_preflight_v2.json` | V2 authorizes D10; neither preflight is a target-cohort component result. |
+| IF34 | Frozen low-rank preflight v1 is `QUALIFIED` on a new GUE slice: clean accuracy/AUROC are 0.906/0.992, full L11MLP exchange loses 6.856 class-margin logits, rank-zero drift is zero, reconstruction error is \(9.54\times10^{-7}\), and deterministic-basis, orthonormality, batch, and finiteness checks pass. | `promoter_low_rank_preflight_v1.json` | Authorizes the D11 projection instrument only; it reads no D10 target outcome. |
 
 ## Open hypotheses
 
@@ -278,5 +302,6 @@ reconstruction.
 | H7 | A bounded set of head outputs at `[CLS]` mediates the replicated clean promoter-classifier contrast. | refined by D7: L11H2/L11H5 is a replicated late output-carrier core with value-payload alignment dependence and a distributed MLP scaffold; target-query, content-key-address, and early-six-to-late models fail their gates | Freeze an equal-dose source-localization phase for the replicated V estimand; do not infer bands or motifs from the stable residual direction alone. |
 | H8 | A bounded TSS-relative source band or sequence feature supplies the late pair's replicated value payload. | not supported at +11:+21: regional V was null and exact-composition native reordering failed development; the `[MASK]` effect remains classifier-level only | A new independently justified native intervention/source band and fresh cohort; D8/D9 do not authorize mask-by-payload tracing. |
 | H9 | One individual CLS head context or MLP write is independently necessary for correct promoter classification. | not qualified; L11MLP is rank 1 in both splits but its confirmation accuracy-loss CI touches zero, and no head passes the full-family gate | A preregistered targeted L11MLP intervention on new data, preferably including zero ablation and matched MLP nulls; D10 remains an atlas-level candidate result. |
+| H10 | A low-dimensional L11MLP write subspace carries most of the promoter class-margin effect. | supported post-hoc on reused D10 cohorts: the unchanged rank-4 basis captures 89.7%/84.5% of full exchange and beats 31 matched random subspaces in both splits; the complement remains positive | Transfer the fixed basis to genuinely new examples, then test late-head-to-subspace mediation and rescue. |
 
 Negative, retracted, and superseded rows will remain here permanently once evidence exists.

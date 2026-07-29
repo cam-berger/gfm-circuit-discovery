@@ -16,7 +16,8 @@
 | Promoter source localization v1 | Where is classifier-relevant promoter information, and does the replicated late-pair V payload localize to the same region? | nominal +11 to +21 mask effect replicated; regional V, independent biological annotations, and predefined motifs did not replicate/qualify | `../../results/dnabert2_reconstruction_atlas/promoter_source_localization_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_source_localization_replication_v1.manifest.json` | D8 |
 | Promoter source classification performance v1 | Does the nominated mask alter hard-label performance and ranking? | post-hoc AUROC loss repeats in both splits; 7/231 target promoter→non-promoter flips; balanced accuracy unchanged by offsetting control corrections | `../../results/dnabert2_reconstruction_atlas/promoter_source_classification_performance_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_source_classification_performance_v1.manifest.json` | D8 |
 | Promoter native-source development v10 | Is the +11:+21 mask nomination reproduced by a native exact-composition sequence reorder? | development positive gate failed; confirmation, residual tracing, and mediation sealed | `../../results/dnabert2_reconstruction_atlas/promoter_native_source_development_v10.json` | `../../results/dnabert2_reconstruction_atlas/promoter_native_source_development_v10.manifest.json` | D9 |
-| Promoter all-node accuracy atlas v1 | Which of all 144 CLS head contexts and 12 CLS MLP writes matter most for correct labels? | L11MLP ranks first with 13/12-point accuracy loss and 0.214/0.283 AUROC loss; confirmation CI touches zero, so no node passes the complete replicated gate | `../../results/dnabert2_reconstruction_atlas/promoter_node_accuracy_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_node_accuracy_replication_v1.manifest.json` | D10 |
+| Promoter all-node accuracy atlas v1 | Which of all 144 CLS head contexts and 12 MLP writes matter most for correct labels? | L11MLP ranks first with 13/12-point accuracy loss and 0.214/0.283 AUROC loss; confirmation CI touches zero, so no node passes the complete replicated gate | `../../results/dnabert2_reconstruction_atlas/promoter_node_accuracy_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_node_accuracy_replication_v1.manifest.json` | D10 |
+| Promoter L11MLP low-rank assay v1 | Can a small causal subspace capture the L11MLP exchange effect? | a fixed rank-4 basis captures 89.7%/84.5% of the class-margin effect and beats 31 matched random subspaces in both reused D10 splits | `../../results/dnabert2_reconstruction_atlas/promoter_low_rank_replication_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_low_rank_replication_v1.manifest.json` | D11 |
 
 ### Promoter source localization v1
 
@@ -126,6 +127,36 @@ terminal `[CLS]` residual exchange. It reduced GUE accuracy from 0.891 to 0.109 
 D10 identifies L11MLP as the highest-priority missing component and independently returns
 L11H2/L11H5 as the leading heads. These are reciprocal paired-exchange results, not zero
 ablations, source localization, a complete circuit, or biological promoter mechanisms.
+
+### Promoter L11MLP low-rank assay v1
+
+All currently admitted exact-GUE-excluded MANE locus blocks were already used by D4 and D7–D10.
+The low-rank assay therefore reuses the D10 development and confirmation splits. L11MLP had
+already been selected after both splits were read, so this is a post-hoc structural-transfer
+test rather than fresh independent replication.
+
+An uncentered SVD of development target-minus-control L11MLP `[CLS]` writes defines a maximum
+32-dimensional basis. The rank scan tests 1, 2, 4, 8, 16, and 32 dimensions. Each rank is
+evaluated by projected reciprocal exchange; the selected rank is compared with full exchange,
+its orthogonal complement, both directional transfers, and 31 Gaussian-QR random subspaces of
+the same dimension.
+
+| Endpoint | Development | Unchanged-basis confirmation |
+|---|---:|---:|
+| Selected rank | 4/768 (0.52%) | 4/768 (0.52%) |
+| Rank-4 class-margin loss | +0.828 (+0.270, +1.401) | +0.923 (+0.300, +1.538) |
+| Full L11MLP class-margin loss | +0.922 (+0.360, +1.530) | +1.092 (+0.433, +1.721) |
+| Full margin effect captured | 89.7% | 84.5% |
+| Rank-4 accuracy loss | +0.110 (0.000, +0.220) | +0.070 (−0.030, +0.170) |
+| Rank-4 / full AUROC loss | 0.184 / 0.214 | 0.236 / 0.283 |
+| Random-subspace add-one p | 0.03125 | 0.03125 |
+| Complement class-margin loss | +0.079 (+0.002, +0.155) | +0.156 (+0.070, +0.246) |
+
+The rank-4 subspace is a dominant causal carrier of the reciprocal L11MLP class-margin effect,
+but it is not exhaustive: the orthogonal complement remains positive. The hard-label accuracy
+interval includes zero in both splits. SVD variance is descriptive; causal evidence comes from
+projected activation exchange and the matched random-subspace comparison. The result does not
+identify neurons, late-head mediation, sequence content, or promoter biology.
 
 ### Promoter address/payload decomposition v1
 
