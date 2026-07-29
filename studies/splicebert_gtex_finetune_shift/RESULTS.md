@@ -21,6 +21,12 @@ Immutable results:
 | train component discovery and freeze | `scripts/splicebert/run_gtex_native_mechanism_discovery.py` | `results/splicebert_gtex_finetune_shift/native_mechanism_discovery_v1.json` (`L5H6`, `L5H1`, `L5H3` frozen) |
 | five-seed component confirmation | `scripts/splicebert/run_gtex_native_mechanism_confirmation.py` | `results/splicebert_gtex_finetune_shift/native_mechanism_confirmation_v1.json` (`L5H6` and final MLP confirm) |
 | QK/V, MLP-interaction, source, and specificity | `scripts/splicebert/run_gtex_native_mechanism_role_source.py` | `results/splicebert_gtex_finetune_shift/native_mechanism_role_source_v1.json` (V-leaning mixed; distributed source) |
+| native context-localization preflight | `scripts/splicebert/run_gtex_native_context_preflight.py` | `results/splicebert_gtex_finetune_shift/native_context_preflight_v1.json` (21/21 PASS) |
+| train equal-width context discovery | `scripts/splicebert/run_gtex_native_context_discovery.py` | `results/splicebert_gtex_finetune_shift/native_context_discovery_v1.json` (regions and shams frozen) |
+| five-seed context confirmation | `scripts/splicebert/run_gtex_native_context_confirmation.py` | `results/splicebert_gtex_finetune_shift/native_context_confirmation_v1.json` (both 32-nt regions confirm) |
+| delivered-dose correction audit | `scripts/splicebert/audit_gtex_native_context_confirmation.py` | `results/splicebert_gtex_finetune_shift/native_context_confirmation_audit_v1.json` (full regions licensed; one acceptor half quarantined) |
+| source-to-target depth trace | `scripts/splicebert/run_gtex_native_context_depth_trace.py` | `results/splicebert_gtex_finetune_shift/native_context_depth_trace_v1.json` (material arrival after layer 4) |
+| frozen `L5H6`/MLP component bridge | `scripts/splicebert/run_gtex_native_context_component_bridge.py` | `results/splicebert_gtex_finetune_shift/native_context_component_bridge_v1.json` (MLP transfers; `L5H6` does not) |
 
 The five-seed artifact includes all 400 paired per-example values for the base and each seed, gene-grouped
 bootstrap intervals, 9,999 gene-level sign flips with add-one p-values, BH correction across the 15
@@ -46,3 +52,16 @@ It is partner-specific, yet no equal-width source window accounts for enough of 
 K+V restoration recovers `0.136`, compared with `0.031` for the best four-token window. The result therefore
 defines the co-adapted representation as a partner-specific distributed value signal transformed by the
 final MLP—not a direct terminal-`AG` attention head.
+
+The context-localization extension makes that representation more general and more modular. Exact
+directed-dinucleotide-preserving shuffles establish two nonlocal sequence-order dependencies: donor
+`[-80,−48)` contributes `0.808 [0.647,0.971]`, and acceptor `[+16,+48)` contributes
+`1.054 [0.855,1.266]`. Their held-out candidate-minus-sham contrasts are `0.799` and `0.816`; both
+replicate in every seed and under a second shuffle draw. These coordinates are sequence-defined and are
+not yet licensed as exon enhancers, codons, or RBP motifs.
+
+Clean-state patching shows the information remains locally recoverable through layer 3, begins material
+arrival at the classifier target after layer 4, and is fully integrated after the final block. The final
+MLP carries essentially all of both context effects, but the coupling-selected `L5H6` carries neither
+under the frozen control rule. The resulting model is therefore **multiple late attention routes
+converging on a shared final task transformation**, not one universal final-layer context head.

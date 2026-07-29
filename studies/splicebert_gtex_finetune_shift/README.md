@@ -87,6 +87,25 @@ The evidence now defines the phenomenon as a **seed-reproducible, partner-specif
 signal transformed by the final MLP into splice-classification evidence**. Continuity with the base
 masked-LM circuit and the positive biological identity of that distributed signal remain open.
 
+A classifier-native context decomposition now extends this beyond coupling. Exact
+directed-dinucleotide-preserving shuffles identify two nonlocal order dependencies: `[-80,−48)` relative
+to the donor contributes `0.808 [0.647,0.971]` donor-margin units, and `[+16,+48)` relative to the
+acceptor contributes `1.054 [0.855,1.266]` acceptor-margin units. Both exceed frozen equal-width shams,
+are positive in all five checkpoint seeds, and replicate with an independently generated shuffle. These
+are target-relative sequence regions, not yet named biological modules.
+
+Their causal depth profiles are nearly symmetric. Clean information remains recoverable at the source
+through layer 3, transfers sharply toward the classified token across the last two layers, and is fully
+integrated only after layer 5. The final MLP carries `99.7–99.9%` of both effects. The fixed coupling head
+`L5H6` does not transfer: it is null for donor context and smaller than all frozen control heads for the
+acceptor context. The broader mechanistic definition is therefore **multiple distributed, late-integrated
+sequence signals converging on a shared final-MLP splice-classification transformation**. `L5H6` is one
+specialized coupling carrier, not a universal context pathway.
+
+One 16-nt acceptor half has no alternative exact Eulerian ordering for one sequence. The correction audit
+quarantines that half-resolution contrast; it does not affect either full 32-nt region, sham, independent
+draw, depth trace, or component bridge.
+
 The native models were trained on 900-nt examples, while this unchanged coupling assay uses the base
 study's 1,024-nt windows. The architecture supports the full length and the native preflight is healthy,
 but claims remain scoped to this validation instrument rather than the upstream benchmark distribution.

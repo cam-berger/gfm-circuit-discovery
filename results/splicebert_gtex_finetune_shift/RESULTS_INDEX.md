@@ -26,3 +26,17 @@ The final-block mechanism series is:
 
 These artifacts control GFS10–GFS13. The final source result is intentionally bounded: no four-token
 region passes the unique-winner rule, so no region-specific K/V follow-up is authorized.
+
+The native context-localization series is:
+
+- `native_context_preflight_v1.json`: 21/21 string, behavior, resolution, and patch controls pass;
+- `native_context_discovery_v1.json`: train-only equal-width scan and frozen 32-nt regions/shams;
+- `native_context_confirmation_v1.json`: five-seed confirmation and independent shuffle draw;
+- `native_context_confirmation_audit_v1.json`: full regions licensed; one unshufflable acceptor
+  16-nt half quarantined;
+- `native_context_depth_trace_v1.json`: source-versus-target recovery through embeddings and six layers;
+- `native_context_component_bridge_v1.json`: frozen `L5H6` controls and final-MLP transfer.
+
+These artifacts control GFS14–GFS16. They establish two higher-order context dependencies, late
+source-to-target integration, and convergence on the final MLP. They do not yet identify the biological
+grammar or the final-attention carriers of those regions.

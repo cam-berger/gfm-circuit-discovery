@@ -104,3 +104,47 @@ The source-localization gate is a bounded null. None of five equal-width K+V win
 not authorized. This rules out the simple direct-terminal-`AG` account at the assay's resolution and
 redirects the next biological study toward rigorously matched composite-acceptor or distributed-context
 interventions.
+
+## 2026-07-29 — replace single-example MLM attribution with native causal context localization
+
+The legacy segment-attribution bundle uses one sequence, an MLM reconstruction endpoint, and
+activation×Jacobian edges. It remains a candidate generator but cannot establish which sequence regions
+the released classifier uses.
+
+[`PREREGISTRATION_NATIVE_CONTEXT_LOCALIZATION_V1.md`](PREREGISTRATION_NATIVE_CONTEXT_LOCALIZATION_V1.md)
+therefore freezes two native endpoints, 16 equal-width 32-nt windows, exact directed-dinucleotide
+shuffles, train-only selection, held-out same-size shams, and source-versus-target state patching. The
+preflight passes all 21 controls. Validation remains closed until seed-2020 train discovery freezes one
+distal region, sham, and two halves per endpoint.
+
+Both regions confirm across five seeds and an independent shuffle draw: donor `[-80,−48)` and acceptor
+`[+16,+48)`. Their coordinates stay sequence-defined. Dinucleotide preservation rules out mono- and
+dinucleotide composition as the sufficient explanation, but does not distinguish codon statistics,
+higher-order motifs, exon/intron architecture, RNA-binding grammar, or another ordering feature.
+
+## 2026-07-29 — quarantine one half-window without retracting the full-region result
+
+The confirmation artifact exposes a delivered-dose anomaly that its original summary did not gate: one
+acceptor `[+32,+48)` segment has only one valid Eulerian ordering, so draw 0 changes zero bases for that
+example. The immutable result is preserved.
+
+`native_context_confirmation_audit_v1.json` reconstructs every string intervention without loading a
+model. Both confirmed 32-nt candidates, both second draws, and both 32-nt shams pass the per-example
+`≥0.25` Hamming-dose gate. The donor halves also pass. Only the acceptor half-to-half resolution contrast
+is quarantined. No half is promoted, and the full-region confirmation and depth trace remain licensed.
+
+## 2026-07-29 — define the broader final representation as multiple routes into one MLP stage
+
+The causal depth trace produces a reciprocal profile for both regions. Source recovery remains
+`0.689/0.705` through layer 3, drops to `0.181/0.254` after layer 4, and is zero after layer 5. Target
+recovery becomes materially positive after layer 4 (`0.120/0.090`) and reaches the exact ceiling after
+layer 5. This bounds most integration to the final block without treating source and target patches as
+additive path fractions.
+
+The contingent bridge is frozen separately in
+[`PREREGISTRATION_NATIVE_CONTEXT_COMPONENT_BRIDGE_V1.md`](PREREGISTRATION_NATIVE_CONTEXT_COMPONENT_BRIDGE_V1.md).
+It transfers the independently selected `L5H6`, its three controls, and the final MLP without rescanning
+heads. The final MLP carries `99.7–99.9%` of both context effects, while `L5H6` is null for donor context
+and smaller than the controls for both endpoints. The conclusion is therefore not “one universal context
+head.” The fine-tune has multiple late attention routes that converge on a shared task-aligned final MLP;
+`L5H6` is a specialized paired-acceptor carrier within that broader computation.
