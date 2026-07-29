@@ -60,3 +60,21 @@ motif's `G` itself as `donor_pos`. The v1 coordinate definition is retracted as 
 [`PREREGISTRATION_NATIVE_CLASSIFIER_V2.md`](PREREGISTRATION_NATIVE_CLASSIFIER_V2.md) freezes the
 one-nucleotide correction before inspecting that corrected output. Thresholds and all other design
 choices are unchanged.
+
+## 2026-07-29 — operationalize “co-adapted final-layer representation”
+
+GFS9 is a representation candidate, not yet a mechanism. Before opening any final-layer head, MLP,
+attention, or Q/K/V outcome, the follow-up is frozen in
+[`PREREGISTRATION_NATIVE_MECHANISM_V1.md`](PREREGISTRATION_NATIVE_MECHANISM_V1.md).
+
+The phrase now requires an evidence chain: interface compatibility and final-layer emergence; bidirectional
+causal component patching; routing/value/MLP separation; paired-site and task-health controls; and
+index-aligned replication across the five fine-tuning seeds. The component screen uses seed 2020 on the
+training split, and validation remains untouched until candidate identities and equal-size control heads
+are frozen. Attention and representation geometry can describe a confirmed causal component but cannot
+select or promote one.
+
+The biological baseline is deliberately sequence-defined: local donor, annotated paired acceptor,
+distance-matched non-partner `AG`, other donor, and equal-width adjacent windows. Branch-point, PPT,
+splice-strength, and usage semantics are deferred until matched perturbations and external validators
+exist. This prevents a visually attractive attention map from being renamed as spliceosome biology.
