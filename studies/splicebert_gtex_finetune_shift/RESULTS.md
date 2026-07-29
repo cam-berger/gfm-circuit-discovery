@@ -69,11 +69,13 @@ under the frozen control rule. The resulting model is therefore **multiple late 
 converging on a shared final task transformation**, not one universal final-layer context head.
 
 The completed L5 census identifies those routes at one-head resolution. The all-16 seed-2020 discovery
-froze three candidates per endpoint. A fresh internal gene split, excluding every previously exposed
-train gene and every historical validation/test chromosome, confirms all six assignments across the
-five checkpoints. `L5H14` and `L5H8` are shared donor/acceptor context carriers; `L5H12` was selected and
+found 8/16 donor and 6/16 acceptor heads above the bidirectional eligibility floor, then froze the top
+three candidates per endpoint. A fresh internal gene split, excluding every previously exposed train
+gene and every historical validation/test chromosome, confirms all six assignments across the five
+checkpoints. `L5H14` and `L5H8` are shared donor/acceptor context carriers; `L5H12` was selected and
 confirmed for donor context, and `L5H11` for acceptor context. Damage ranges from `0.057` to `0.142`, and
 recovery from `0.079` to `0.204`; every frozen candidate effect is positive in all five seeds and exceeds
-its three equal-size controls. Positive descriptive opposite-endpoint measurements prevent a stronger
-specialization claim. These are causal carriers, not yet a complete circuit: their joint faithfulness,
-redundancy, and directed mediation into the final MLP remain unmeasured.
+its three equal-size controls. Non-top-three eligible heads remain exploratory, and positive descriptive
+opposite-endpoint measurements prevent a stronger specialization claim. These are causal carriers, not
+yet a complete circuit: their joint faithfulness, redundancy, and directed mediation into the final MLP
+remain unmeasured.

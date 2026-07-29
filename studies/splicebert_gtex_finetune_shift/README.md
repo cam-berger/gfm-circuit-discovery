@@ -107,6 +107,9 @@ prior-gene-excluded training partition before any fresh confirmation outcome was
 gene-disjoint 200-example partition across all five checkpoints, `L5H14` and `L5H8` confirm for both
 context effects, `L5H12` confirms as a donor-selected candidate, and `L5H11` confirms as an
 acceptor-selected candidate.
+The discovery signal is broad: 8/16 donor heads and 6/16 acceptor heads cleared the bidirectional
+eligibility rule before the frozen top-three cap; the remaining eligible heads were not confirmatory
+candidates and remain exploratory.
 All six endpoint assignments pass bidirectional effect, five-seed, multiplicity, and frozen equal-size
 control gates. Individual head recovery accounts for `5.8–14.9%` of the corresponding behavior by a
 ratio of gene means, so the result supports several routes into the MLP rather than a
