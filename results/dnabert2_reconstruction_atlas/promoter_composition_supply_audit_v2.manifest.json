@@ -58,7 +58,7 @@
     "vocab_size": 4096
   },
   "code": {
-    "git_commit": "01f819ff4f00ddcf96202499b666d3a21b16d53d",
+    "git_commit": "f3fbccb3073923ad4413ed0cf1da3c8d8300ed2f",
     "git_dirty": true
   },
   "command": [
@@ -72,7 +72,7 @@
     "--device",
     "cpu"
   ],
-  "created_at_utc": "2026-07-29T16:11:13.091156+00:00",
+  "created_at_utc": "2026-07-29T16:31:53.625674+00:00",
   "data": [
     {
       "path": "data/processed/dnabert2_atlas/promoter_composition_v2/cohort.jsonl",
@@ -158,8 +158,8 @@
   "outputs": [
     {
       "path": "results/dnabert2_reconstruction_atlas/promoter_composition_supply_audit_v2.json",
-      "sha256": "0e64cefdd42f931d28f69c4e92dcc17addc5cea20188d4519c0d1a871f223523",
-      "size_bytes": 44184
+      "sha256": "70bf98f0877b250eaf6f03f3885166cb869271091fe1688c1d6966bd678f91c4",
+      "size_bytes": 47160
     }
   ],
   "parameters": {

@@ -32,6 +32,25 @@ self-reported overlap count; recomputing at the wrong (e.g. stale, coarser)
 block size would make the overlap check pass vacuously regardless of whether
 the builder was actually correct, which defeats the point of an independent
 recheck.
+
+Not every entry in `checks` carries equal weight (fix round 2, found by
+auditing the audit). Two of the four supply/leakage integrity checks are
+ARCHITECTURE-FORCED and cannot fail for any cohort this builder could
+actually produce: `unique_locus_blocks_equal_pairs` (guaranteed by
+`_select_locus_blocked`'s cluster-keyed dedup, before any row is emitted) and
+`zero_split_leakage_clusters` (guaranteed by `split_for_cluster` being a pure
+hash of `(seed, cluster)`, so every row sharing a block gets the identical
+split by construction). Their PASS is a regression guard against a future
+edit breaking that dedup or that hash purity, not independent empirical
+evidence that this run's cohort was checked and found clean. The other two
+-- `zero_GUE_exact_overlaps` and `zero_block_overlap_with_prior_cohorts` --
+are genuinely EMPIRICALLY_FALSIFIABLE: both are recomputed independently of
+the builder's own counters (see above) and can fail on a real defect. See
+`CHECK_FALSIFIABILITY` below and `checks_falsifiability` in the output
+payload for the per-check classification; never cite an architecture-forced
+check as independent verification (the same rule this repo applies to
+memorials, R7/R21 -- D12's preflight carries the analogous caveat for its
+M1).
 """
 
 from __future__ import annotations
@@ -72,6 +91,76 @@ REFERENCE_CALIPER_CURVE = (
     (0.05, 0.03),
     (0.10, 0.05),
     (0.15, 0.08),
+)
+
+# Falsifiability classification for the four supply/leakage integrity checks in
+# `checks` (fix round 2 -- found by auditing the audit, the same way the vacuous
+# block-ID string comparison was found). Deliberately does NOT cover
+# `exact_pairs_per_split` (has a real failure mode: an audit run against a
+# --cohort/--config pair whose target_raw_pairs_per_split values disagree) or
+# `matched_pairs_meet_minimum` (a genuine empirical measurement over real sequence
+# composition, evidently not forced -- every run so far has landed below the raw
+# target). A static, code-level classification, not derived from any run's data:
+# whether a check can fail is a property of the algorithm, not of what this run
+# happened to observe.
+CHECK_FALSIFIABILITY: dict[str, dict[str, str]] = {
+    "zero_GUE_exact_overlaps": {
+        "class": "empirically_falsifiable",
+        "why": (
+            "Independently indexes ~59,000 real forward- and reverse-complement GUE "
+            "sequences (train+dev+test) and re-scans every selected row's target and "
+            "control sequence against that index, rather than reusing the builder's own "
+            "counters. A genuine leak from the GUE benchmark's own train/test partition "
+            "would be caught here."
+        ),
+    },
+    "zero_block_overlap_with_prior_cohorts": {
+        "class": "empirically_falsifiable",
+        "why": (
+            "Recomputes every prior cohort's consumed-block footprint independently, from "
+            "each prior row's raw target TSS coordinate at this run's own block size -- not "
+            "from the builder's self-reported count and not by trusting prior cohorts' own "
+            "stored (possibly differently-scoped) homology_cluster. A genuine overlap with a "
+            "prior cohort's block would be caught here even if the builder's own exclusion "
+            "logic were broken (fix round 0 found and fixed exactly this failure mode)."
+        ),
+    },
+    "unique_locus_blocks_equal_pairs": {
+        "class": "architecture_forced",
+        "why": (
+            "`_select_locus_blocked` (build_promoter_composition_cohort.py:439) dedups "
+            "through a (split, cluster)-keyed dict before any row is emitted, so no cohort "
+            "this builder can produce ever contains a duplicate block within a split -- "
+            "duplicate_blocks == 0 is guaranteed for any file the builder actually wrote. "
+            "PASS is a regression guard against a future edit that broke that dedup, not "
+            "evidence this run's cohort was checked for duplicates and found clean."
+        ),
+    },
+    "zero_split_leakage_clusters": {
+        "class": "architecture_forced",
+        "why": (
+            "`split_for_cluster` (src/gfmcd/reconstruction_atlas/assembly.py:647) is a pure "
+            "SHA-256 hash of (seed, cluster), called once per candidate before "
+            "`_select_locus_blocked` groups by (split, cluster); every row sharing a block "
+            "therefore gets the identical split by construction, so a block can never land "
+            "in two splits for any cohort this builder can produce. PASS is a regression "
+            "guard against a future edit that broke that hash purity, not evidence this "
+            "run's cohort was checked for split leakage and found clean."
+        ),
+    },
+}
+
+CHECK_FALSIFIABILITY_BOUNDARY = (
+    "Two of the four checks above (unique_locus_blocks_equal_pairs, "
+    "zero_split_leakage_clusters) are ARCHITECTURE-FORCED: they cannot fail for any "
+    "cohort build_promoter_composition_cohort.py could actually produce, so their PASS "
+    "is a regression guard against a future code change, not independent empirical "
+    "evidence about this run. The other two (zero_GUE_exact_overlaps, "
+    "zero_block_overlap_with_prior_cohorts) are genuinely EMPIRICALLY_FALSIFIABLE and "
+    "their PASS is real evidence about this run's cohort. Do not cite an "
+    "architecture-forced check as independent verification -- see the per-check "
+    "class/why fields. Same rule this repo applies to memorials (R7/R21); D12's "
+    "preflight carries the analogous caveat for its M1."
 )
 
 def _source_definition_confound(supply: dict[str, dict[str, Any]]) -> dict[str, str]:
@@ -373,6 +462,10 @@ def main() -> None:
             "by_split": caliper_curve,
         },
         "checks": checks,
+        "checks_falsifiability": {
+            "by_check": CHECK_FALSIFIABILITY,
+            "boundary": CHECK_FALSIFIABILITY_BOUNDARY,
+        },
         "selection": {
             "selected_example_ids": selected_ids,
             "selected_id_sha256": selected_id_sha256,
