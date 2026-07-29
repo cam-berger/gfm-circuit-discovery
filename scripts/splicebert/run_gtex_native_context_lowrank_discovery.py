@@ -53,7 +53,7 @@ N_BOOT = 5000
 N_PERM = 9999
 FINAL_LAYER = 5
 NUM_HEADS = 16
-HIDDEN_SIZE = 768
+HIDDEN_SIZE = 512
 MAX_RANK = 64
 MIN_BEHAVIOR = 0.05
 MAX_Q = 0.05
@@ -291,7 +291,7 @@ def main() -> None:
         or adapter.num_heads != NUM_HEADS
         or adapter.hidden_size != HIDDEN_SIZE
     ):
-        raise RuntimeError("frozen architecture is 6 x 16 x 768")
+        raise RuntimeError("frozen architecture is 6 x 16 x 512")
 
     windows = {
         task_name: parse_window(census_discovery["regions"][task_name])

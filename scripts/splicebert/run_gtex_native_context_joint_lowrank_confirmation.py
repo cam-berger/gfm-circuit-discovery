@@ -75,7 +75,7 @@ N_BOOT = 5000
 N_PERM = 9999
 FINAL_LAYER = 5
 NUM_HEADS = 16
-HIDDEN_SIZE = 768
+HIDDEN_SIZE = 512
 RANKS = (1, 4, 16, 64)
 MIN_EFFECT = 0.05
 MAX_Q = 0.05
@@ -495,7 +495,7 @@ def main() -> None:
             or adapter.num_heads != NUM_HEADS
             or adapter.hidden_size != HIDDEN_SIZE
         ):
-            raise RuntimeError("frozen architecture is 6 x 16 x 768")
+            raise RuntimeError("frozen architecture is 6 x 16 x 512")
         layer_norm = adapter.encoder_layers[FINAL_LAYER].output.LayerNorm
         seed_arrays[seed] = {}
 

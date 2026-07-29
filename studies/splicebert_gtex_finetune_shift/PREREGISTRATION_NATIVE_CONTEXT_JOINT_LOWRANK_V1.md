@@ -4,6 +4,12 @@
 > or low-rank projection outcome. GFS14–GFS17 and their individual-head values are
 > known. They fix the regions and head identities but do not determine a joint effect
 > or representation direction.
+>
+> **Pre-outcome architecture correction (2026-07-29):** the released SpliceBERT
+> configuration has hidden width 512, not 768. The first discovery invocation stopped
+> at the architecture invariant before collecting or writing any outcome. Every
+> occurrence below was corrected from 768 to 512; ranks, thresholds, splits, and
+> statistical tests are unchanged.
 
 ## 1. Questions and evidence boundary
 
@@ -61,7 +67,7 @@ The package requires:
    checkpoint used at that stage;
 6. every fitted basis to be orthonormal within `1e-8`, every direction to have unit
    norm within `1e-8`, a zero-rank projection to be an exact no-op, and a complete
-   768-dimensional projection to reproduce the full clean-minus-corrupt MLP-write
+   512-dimensional projection to reproduce the full clean-minus-corrupt MLP-write
    delta within `1e-6`.
 
 Any failure stops interpretation. No direction, rank, or head set may be reselected.
@@ -136,7 +142,7 @@ geometry.
 
 Two objects are frozen per endpoint:
 
-1. **Uncentered SVD basis:** the first 64 right singular vectors of the gene × 768
+1. **Uncentered SVD basis:** the first 64 right singular vectors of the gene × 512
    `Δm` matrix. The preregistered rank curve is `r∈{1,4,16,64}`.
 2. **Task-covariance direction:** the unit vector
    `u_task ∝ Xᵀy`, where `X` is the gene-level `Δm` matrix and `y` is the corresponding
