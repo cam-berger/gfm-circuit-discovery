@@ -1,5 +1,7 @@
 # D13 preregistration — composition vs. position in the confirmed TSS polarity
 
+> **Tier: T3 — historical.** Retired unrun; kept as a design record. Never cite as current.
+
 > ## RETIRED UNRUN — 2026-07-29. Superseded by D14.
 >
 > No confirmatory run was executed and no seal was spent. Retired for three verified reasons:

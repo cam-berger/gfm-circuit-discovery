@@ -1,5 +1,7 @@
 # D16 preregistration — did fine-tuning move the attention, or only the readout?
 
+> **Tier: T1 — frozen protocol.** Frozen 2026-07-29 before any base-model measurement.
+
 > **Status: FROZEN 2026-07-29, before any base-model measurement is taken.** The interpretation
 > rule in §4 is fixed here precisely so that it cannot be chosen after seeing the numbers.
 

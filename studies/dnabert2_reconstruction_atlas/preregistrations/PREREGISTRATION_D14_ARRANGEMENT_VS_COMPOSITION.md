@@ -1,5 +1,7 @@
 # PREREGISTRATION D14 — What carries the TSS polarity: arrangement or composition?
 
+> **Tier: T1 — frozen protocol.** Frozen 2026-07-29 before any confirmation-split scoring.
+
 > **Status: FROZEN on 2026-07-29, before any confirmation-split scoring of the two native arms.**
 > Supersedes the intent of D13 (`PREREGISTRATION_D13_COMPOSITION_VS_POSITION.md`), which is
 > **retired unrun** — see §9.

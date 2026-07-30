@@ -1,5 +1,8 @@
 # D17 preregistration — is L9H7 a content detector, a fixed-offset reader, or conjunctive?
 
+> **Tier: T1 — frozen protocol.** Frozen 2026-07-29; a defect in its own decision rule is
+> recorded in `CLAIMS.md` and `DECISIONS.md` rather than repaired here.
+
 > **Status: FROZEN 2026-07-29.** Thresholds and the trichotomy were fixed in
 > `scripts/dnabert2_atlas/run_l9h7_rotation_probe.py` before any rotation was scored.
 >

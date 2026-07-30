@@ -1110,3 +1110,40 @@ artifact was never committed, so the "shrinkage 1.29×" argument rests on uncomm
 lineage memorial for D16/D17 (no artifact verifies the base checkpoint is this fine-tune's
 initialization), a CI for D15's unpaired 4.13× density ratio, and four further bounds on D14/D15.
 These are real and should be addressed before submission; they were not attempted tonight.
+
+## 2026-07-30 — Whole-repo hygiene audit before merge; one deviation taken deliberately
+
+Ran the repository's own `gfm-repo-hygiene` audit kernel over the full tree, not just this study.
+
+**Clean:**
+- **Invariant 1 (immutable result + manifest).** Every result artifact this branch adds has its
+  sibling manifest — zero exceptions. The study is 94 results / 94 manifests. The audit's 23 manifest
+  gaps are all in `phase-lattice` and `splicebert_coupling` and all **pre-existing on
+  `origin/master`**; they belong to other arcs and are not touched by this merge.
+- **Invariant 5 (retired-term guard).** Seven hits, **zero real leaks** on inspection: one is
+  `MECHANISM.md` stating the payload "must **not** be called splice-site strength"; two are a docs
+  section titled *why it was the natural (wrong) label*; three are a nomenclature-audit checklist that
+  lists the retired terms in order to find them; one is a frozen SpliceBERT preregistration. All are
+  retirement documentation or meta-usage — exactly where the vocabulary is permitted. Nothing was
+  "fixed", because correct prose is not a defect and a frozen protocol is not editable.
+- **Doc tiers.** Five tracked docs were untiered — the D13–D17 preregistrations. Tagged: D14–D17 as
+  **T1 frozen protocol**, D13 as **T3 historical** (retired unrun, never cite as current). Now zero
+  untiered tracked docs. The other 27 the audit flagged are `.superpowers/` session notes, untracked,
+  and do not ship.
+
+**Invariant 2 (canonical/ vs development/ folders) — deliberately not applied.** This study's 188
+result files are flat, while `origin-siblings` and `origin-crossmodel` use `canonical/`. Moving them
+would require rewriting **94 immutable `.manifest.json` files that record their own path** and
+updating **19 frozen configs** that reference those paths. That directly violates invariant 1 — *never
+overwrite the scientific record* — and **invariant 1 outranks invariant 2 when they conflict.** Note
+also that the convention is applied unevenly repo-wide already: `phase-lattice` keeps 50 files flat,
+`splicebert_coupling` 91, `splicebert_head_context_atlas` 78.
+
+Invariant 2's *purpose* — a reader can tell canonical from exploratory at a glance — is met here by a
+mechanism the repo already enforces mechanically rather than by folder convention: the
+`results/MANIFEST.{csv,json}` `status` column (`canonical` / `development` / `superseded` /
+`infrastructure`), which `scripts/verify_manifest.py` checks on every row, and which now carries a
+`claim_id` for all 183 of this study's rows. That is stronger than a directory name because it cannot
+drift from the tree without failing the verifier. Recorded as a reasoned deviation rather than silently
+skipped; if a reviewer prefers the folder layout, it should be done as a dedicated migration that
+re-emits manifests, not folded into this merge.

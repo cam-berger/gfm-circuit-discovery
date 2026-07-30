@@ -1,5 +1,7 @@
 # D15 preregistration — regional information density vs the ALiBi-forced attention prior
 
+> **Tier: T1 — frozen protocol.** Frozen 2026-07-29; Amendment 1 pre-outcome.
+
 > **Status: FROZEN 2026-07-29**, after the §10 design red-team and the §7 development pilot, and
 > **before any confirmation-split scoring**. Sections §2–§3 analyse already-open artifacts and fix
 > the hypothesis; §4 onward is the confirmatory protocol.
