@@ -1117,9 +1117,14 @@ Ran the repository's own `gfm-repo-hygiene` audit kernel over the full tree, not
 
 **Clean:**
 - **Invariant 1 (immutable result + manifest).** Every result artifact this branch adds has its
-  sibling manifest — zero exceptions. The study is 94 results / 94 manifests. The audit's 23 manifest
-  gaps are all in `phase-lattice` and `splicebert_coupling` and all **pre-existing on
-  `origin/master`**; they belong to other arcs and are not touched by this merge.
+  sibling manifest — zero exceptions. The study is 94 results / 94 manifests.
+  **Corrected 2026-07-30:** an earlier version of this entry said "23 manifest gaps" from a partial
+  view of the kernel output. The audited figure is **56 flagged**, of which **32 are derived outputs**
+  (`.summary`/`.audit`/`.shortlist`) whose primary artifact *is* manifested — legitimate, not
+  violations — leaving **24 genuine invariant-1 violations**: 17 in `phase-lattice`, 5 in
+  `splicebert_coupling`, 2 in `splicebert_head_context_atlas`. **All 24 are pre-existing on
+  `origin/master`** and in other arcs. Measured against a clean `origin/master` worktree, this branch
+  introduces **zero** new manifest gaps while adding 94 fully-manifested results.
 - **Invariant 5 (retired-term guard).** Seven hits, **zero real leaks** on inspection: one is
   `MECHANISM.md` stating the payload "must **not** be called splice-site strength"; two are a docs
   section titled *why it was the natural (wrong) label*; three are a nomenclature-audit checklist that
@@ -1147,3 +1152,13 @@ mechanism the repo already enforces mechanically rather than by folder conventio
 drift from the tree without failing the verifier. Recorded as a reasoned deviation rather than silently
 skipped; if a reviewer prefers the folder layout, it should be done as a dedicated migration that
 re-emits manifests, not folded into this merge.
+
+### Why the 24 pre-existing manifest gaps are reported and not fixed
+
+A manifest records checkpoint SHA-256, tokenizer, dataset hashes, split, parameters, seed, command and
+git revision for a specific execution. I did not run those experiments and do not hold that
+provenance. Synthesising it retroactively would produce a **false** record, which is strictly worse
+than an absent one — a fabricated manifest asserts verifiability that does not exist. The honest
+action is to name the 24 files precisely and leave them to whoever holds the run provenance. They are
+listed in this session's audit output; the worst-affected family is `phase-lattice` (17 of 34
+top-level results).
