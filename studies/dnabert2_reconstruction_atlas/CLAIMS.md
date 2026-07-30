@@ -454,11 +454,18 @@ fine-tuning, and stayed there:
 | L11H2 | +0.0256 | +0.0463 | +0.0206 | 0.10 |
 | L11H5 | +0.0141 | +0.0318 | +0.0178 | 0.10 |
 
-Across all 144 heads the `[CLS]` attention geometry is largely preserved: Pearson correlation of
-per-head excess `far_upstream` between checkpoints is **0.951**, mean |Δ| is 0.062 against a mean
-|excess| of 0.34. **No layer-11 head moved into the TSS-proximal bands** (largest is L11H3 at
-+0.0130). There is no population-wide drift off the attention-sink tokens (mean Δ`special` +0.0215,
-62/144 decreasing — a coin flip).
+Across all 144 heads the `[CLS]` attention **structure** is preserved — Pearson correlation of
+per-head excess `far_upstream` between checkpoints is **0.951**, mean |Δ| 0.062 against a mean
+|excess| of 0.34 — and **no layer-11 head moved into the TSS-proximal bands** (largest is L11H3 at
++0.0130).
+
+**This is not the same as "attention barely moved."** Twenty-two heads shift more than 0.15 of their
+`[CLS]` mass, and the large movers mostly run **opposite** to L9H7 — *toward* the sink: L9H10 +0.323
+onto `special`, L6H1 +0.319, L6H3 +0.305, L5H1 +0.290, L8H1 +0.290, L9H0 +0.280. Population-wide the
+drift is mildly *onto* the special tokens (82/144 heads increase, mean Δ`special` +0.0215). The
+correct statement is therefore not that attention is static but that **every large shift except
+L9H7's is traffic between the special tokens and the near-`[CLS]` bulk — a change in how much budget
+is parked, not in which sequence is read.**
 
 **The one large change: L9H7 left the attention-sink regime and became a TSS reader.** Raw `[CLS]` mass:
 

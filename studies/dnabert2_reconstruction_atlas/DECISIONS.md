@@ -899,3 +899,25 @@
   controlled result. Whether *some* head reliably makes this conversion, or specifically L9H7, cannot
   be told apart without additional fine-tuning runs.
 - `CLAIMS.md` and `RESULTS.md` amended with the calibration paragraph rather than rewritten.
+
+## 2026-07-29 — D16 sharpening: "structure preserved" is not "attention static"
+
+- The D16 wording leaned on Pearson 0.951 and mean |Δ| 0.062 to say the `[CLS]` geometry is "largely
+  preserved." True of the *structure*, but it undersold the movement: **22 of 144 heads shift more
+  than 0.15** of their `[CLS]` mass between checkpoints.
+- The direction matters and was not recorded. The large movers mostly run **opposite** to L9H7 —
+  *toward* the sink: L9H10 +0.323 onto `special`, L6H1 +0.319, L6H3 +0.305, L5H1 +0.290, L8H1 +0.290,
+  L9H0 +0.280. Population-wide the drift is mildly onto the special tokens (82/144 heads increase,
+  mean Δ`special` +0.0215), not off them. The earlier "coin flip" phrasing was about the count and
+  hid the magnitudes.
+- Correct statement, now in `CLAIMS.md` and `RESULTS.md`: every large shift except L9H7's is traffic
+  between the special tokens and the near-`[CLS]` bulk — **a change in how much budget is parked, not
+  in which sequence is read.** L9H7's +0.583 TSS-proximal relocation remains the only movement onto
+  sequence near the TSS (runner-up +0.043; median across 144 heads −0.0000).
+- Also recorded for completeness: L9H7's new TSS-proximal mass is drawn from **two** sources, not one
+  — `special` −0.372 and `far_upstream` −0.231, redistributed to `proximal_upstream` +0.449,
+  `proximal_downstream` +0.080, `tss_anchor` +0.054, `distal_downstream` +0.020.
+- Standing boundary worth restating whenever D16 is quoted: fine-tuning changed **every** weight. D16
+  measured only where `[CLS]` looks. Because D15/D16 together show the carriers' attention geometry is
+  unchanged, whatever makes this checkpoint a promoter classifier must live largely in the **readout**
+  (OV, MLPs, classification head) — which no experiment in this study has characterised.

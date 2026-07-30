@@ -525,6 +525,13 @@ both far under the 0.10 threshold in the *base* model. Population Pearson betwee
 **0.951**, mean |Δ| 0.062 against mean |excess| 0.34. No layer-11 head moved into the TSS-proximal
 bands (max L11H3 +0.0130).
 
+Structure preserved is not the same as attention static: **22 heads shift more than 0.15** of their
+`[CLS]` mass, and the large movers mostly run *opposite* to L9H7, toward the sink (L9H10 +0.323 onto
+`special`, L6H1 +0.319, L6H3 +0.305, L5H1 +0.290, L8H1 +0.290, L9H0 +0.280); population drift is
+mildly onto the special tokens (82/144 increase, mean +0.0215). Every large shift except L9H7's is
+traffic between special tokens and the near-`[CLS]` bulk — a change in how much budget is parked, not
+in which sequence is read.
+
 **L9H7 leaves the attention-sink regime and becomes a TSS reader.** Raw `[CLS]` mass on `special`
 collapses 0.3759 → 0.0038 while `proximal_upstream` rises 0.1005 → 0.5495; summed TSS-proximal excess
 −0.055 → +0.528 (Δ +0.583). The next largest such shift is L10H5 at +0.043, 14× smaller. Other large
