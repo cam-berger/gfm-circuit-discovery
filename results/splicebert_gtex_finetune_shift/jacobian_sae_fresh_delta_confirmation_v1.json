@@ -1,0 +1,3059 @@
+{
+  "capture_artifact": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_activation_capture_v1.json",
+  "capture_artifact_sha256": "eb0989e8e2b579f761bc3e82cf02dadd43556f911c184887f8d266470c5c3921",
+  "cells": [
+    {
+      "PASS": false,
+      "checkpoint_seed": 2020,
+      "endpoint": "donor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": false,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 0,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": -0.012209000218060248,
+          "error_only_effect": -0.053807991323751844,
+          "error_shapley_effect": -0.03994118045297926,
+          "error_shapley_fraction": 3.2714538241956936,
+          "feature_only_effect": 0.013865369364146427,
+          "feature_shapley_effect": 0.027732180234919,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.1783109226255384,
+          "shapley_sum_max_abs_error": 2.220446049250313e-16
+        },
+        "recovery": {
+          "dense_effect": -0.008964750729515185,
+          "error_only_effect": -0.026140295306025248,
+          "error_shapley_effect": -0.03925194321304074,
+          "error_shapley_fraction": 4.378475698583478,
+          "feature_only_effect": 0.04339884039054105,
+          "feature_shapley_effect": 0.030287192483525557,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.17770898155986514,
+          "shapley_sum_max_abs_error": 2.220446049250313e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.026074369582206675,
+        "damage_ratio": -1.1356678775085927,
+        "damage_relative_error": 2.1356678775085927,
+        "dense_damage": -0.012209000218060248,
+        "dense_recovery": -0.008964750729515185,
+        "recovery_absolute_error": 0.05236359112005624,
+        "recovery_ratio": -4.841053778289279,
+        "recovery_relative_error": 5.841053778289279,
+        "sequence_effect": -0.011688703367941759,
+        "sparse_damage": 0.013865369364146427,
+        "sparse_recovery": 0.04339884039054105
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 0.9637190617244907,
+          "error_only_effect": 0.0036867836033776455,
+          "error_shapley_effect": -0.012257698329068756,
+          "error_shapley_fraction": 0.012719161440196773,
+          "feature_only_effect": 0.991921241986006,
+          "feature_shapley_effect": 0.9759767600535595,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.23044475808970166,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 0.9692411725230985,
+          "error_only_effect": -0.02777073328919965,
+          "error_shapley_effect": -0.011554403693455655,
+          "error_shapley_fraction": 0.011921082204316178,
+          "feature_only_effect": 0.9645792466208102,
+          "feature_shapley_effect": 0.9807955762165542,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.23094719359686697,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.02820218026151522,
+        "damage_ratio": 1.029263902086828,
+        "damage_relative_error": 0.029263902086827973,
+        "dense_damage": 0.9637190617244907,
+        "dense_recovery": 0.9692411725230985,
+        "recovery_absolute_error": 0.004661925902288311,
+        "recovery_ratio": 0.9951901280770477,
+        "recovery_relative_error": 0.004809871922952396,
+        "sequence_effect": 0.9729162223955062,
+        "sparse_damage": 0.991921241986006,
+        "sparse_recovery": 0.9645792466208102
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2020,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 0,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": 0.19480467157855513,
+          "error_only_effect": 0.022066697411805114,
+          "error_shapley_effect": 0.024569954261064245,
+          "error_shapley_fraction": 0.12612610396848922,
+          "feature_only_effect": 0.16773146046823179,
+          "feature_shapley_effect": 0.17023471731749085,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.08426544605673375,
+          "shapley_sum_max_abs_error": 1.7763568394002505e-15
+        },
+        "recovery": {
+          "dense_effect": 0.1977955022735673,
+          "error_only_effect": 0.027616613576021985,
+          "error_shapley_effect": 0.024823836436866913,
+          "error_shapley_fraction": 0.12550253242125559,
+          "feature_only_effect": 0.17576444297585544,
+          "feature_shapley_effect": 0.1729716658367004,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.08452682157670247,
+          "shapley_sum_max_abs_error": 2.220446049250313e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.027073211110323347,
+        "damage_ratio": 0.8610238096913089,
+        "damage_relative_error": 0.1389761903086911,
+        "dense_damage": 0.19480467157855513,
+        "dense_recovery": 0.1977955022735673,
+        "recovery_absolute_error": 0.022031059297711847,
+        "recovery_ratio": 0.8886169855003018,
+        "recovery_relative_error": 0.11138301449969827,
+        "sequence_effect": 0.2006771118122599,
+        "sparse_damage": 0.16773146046823179,
+        "sparse_recovery": 0.17576444297585544
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.4409234592600773,
+          "error_only_effect": 0.02230694457153972,
+          "error_shapley_effect": 0.039919568261184424,
+          "error_shapley_fraction": 0.02770415597347784,
+          "feature_only_effect": 1.383391267309248,
+          "feature_shapley_effect": 1.4010038909988927,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.21301357763493917,
+          "shapley_sum_max_abs_error": 1.7763568394002505e-15
+        },
+        "recovery": {
+          "dense_effect": 1.4535932059201073,
+          "error_only_effect": 0.05880091931557444,
+          "error_shapley_effect": 0.040637095549808974,
+          "error_shapley_fraction": 0.027956305370928157,
+          "feature_only_effect": 1.4311199341360639,
+          "feature_shapley_effect": 1.4129561103702983,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.21379941281203377,
+          "shapley_sum_max_abs_error": 1.7763568394002505e-15
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.05753219195082915,
+        "damage_ratio": 0.9600726939511608,
+        "damage_relative_error": 0.03992730604883917,
+        "dense_damage": 1.4409234592600773,
+        "dense_recovery": 1.4535932059201073,
+        "recovery_absolute_error": 0.022473271784043458,
+        "recovery_ratio": 0.9845395041112495,
+        "recovery_relative_error": 0.015460495888750486,
+        "sequence_effect": 1.475104412838062,
+        "sparse_damage": 1.383391267309248,
+        "sparse_recovery": 1.4311199341360639
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2020,
+      "endpoint": "donor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 1,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": -0.012209000218060248,
+          "error_only_effect": -0.022364153560104377,
+          "error_shapley_effect": -0.010541958418257016,
+          "error_shapley_fraction": 0.863457959699497,
+          "feature_only_effect": -0.013489236941650593,
+          "feature_shapley_effect": -0.0016670417998032316,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.14369373946433528,
+          "shapley_sum_max_abs_error": 2.220446049250313e-16
+        },
+        "recovery": {
+          "dense_effect": -0.008964750729515185,
+          "error_only_effect": 0.0013521187141136495,
+          "error_shapley_effect": -0.009839880272670354,
+          "error_shapley_fraction": 1.0976189488765067,
+          "feature_only_effect": 0.012067128529939165,
+          "feature_shapley_effect": 0.0008751295431551759,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.14310236017951777,
+          "shapley_sum_max_abs_error": 5.551115123125783e-17
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.0012802367235903445,
+        "damage_ratio": 1.1048600786898624,
+        "damage_relative_error": 0.10486007868986237,
+        "dense_damage": -0.012209000218060248,
+        "dense_recovery": -0.008964750729515185,
+        "recovery_absolute_error": 0.02103187925945435,
+        "recovery_ratio": -1.3460640339066916,
+        "recovery_relative_error": 2.3460640339066914,
+        "sequence_effect": -0.011688703367941759,
+        "sparse_damage": -0.013489236941650593,
+        "sparse_recovery": 0.012067128529939165
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 0.9637190617244907,
+          "error_only_effect": -0.07785138809729442,
+          "error_shapley_effect": -0.05589227985516345,
+          "error_shapley_fraction": 0.05799644530756621,
+          "feature_only_effect": 0.9976522333375233,
+          "feature_shapley_effect": 1.0196113415796542,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.2097389611062534,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 0.9692411725230985,
+          "error_only_effect": -0.03319814499975725,
+          "error_shapley_effect": -0.05532789349704824,
+          "error_shapley_fraction": 0.05708372184914554,
+          "feature_only_effect": 1.0466988145174376,
+          "feature_shapley_effect": 1.0245690660201467,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.20924261685476417,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.03393317161303255,
+        "damage_ratio": 1.0352106469205995,
+        "damage_relative_error": 0.035210646920599574,
+        "dense_damage": 0.9637190617244907,
+        "dense_recovery": 0.9692411725230985,
+        "recovery_absolute_error": 0.07745764199433913,
+        "recovery_ratio": 1.079915756975845,
+        "recovery_relative_error": 0.07991575697584515,
+        "sequence_effect": 0.9729162223955062,
+        "sparse_damage": 0.9976522333375233,
+        "sparse_recovery": 1.0466988145174376
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2020,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 1,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": 0.19480467157855513,
+          "error_only_effect": 0.009005904706392218,
+          "error_shapley_effect": 0.014613383568588016,
+          "error_shapley_fraction": 0.07501557046949543,
+          "feature_only_effect": 0.17458380914777136,
+          "feature_shapley_effect": 0.18019128800996712,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.08400653490233134,
+          "shapley_sum_max_abs_error": 2.220446049250313e-16
+        },
+        "recovery": {
+          "dense_effect": 0.1977955022735673,
+          "error_only_effect": 0.02066558441273761,
+          "error_shapley_effect": 0.014916148849361096,
+          "error_shapley_fraction": 0.0754119718492428,
+          "feature_only_effect": 0.18862878898758273,
+          "feature_shapley_effect": 0.18287935342420622,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.08427533700363317,
+          "shapley_sum_max_abs_error": 5.551115123125783e-17
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.020220862430783776,
+        "damage_ratio": 0.8961992940573312,
+        "damage_relative_error": 0.10380070594266882,
+        "dense_damage": 0.19480467157855513,
+        "dense_recovery": 0.1977955022735673,
+        "recovery_absolute_error": 0.009166713285984562,
+        "recovery_ratio": 0.9536556029807682,
+        "recovery_relative_error": 0.046344397019231764,
+        "sequence_effect": 0.2006771118122599,
+        "sparse_damage": 0.17458380914777136,
+        "sparse_recovery": 0.18862878898758273
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.4409234592600773,
+          "error_only_effect": 0.0007636568424390939,
+          "error_shapley_effect": 0.030158598590073263,
+          "error_shapley_fraction": 0.020930048987862188,
+          "feature_only_effect": 1.3813699189223696,
+          "feature_shapley_effect": 1.410764860670004,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.23760799611576577,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.4535932059201073,
+          "error_only_effect": 0.061235466600304794,
+          "error_shapley_effect": 0.03140463585012982,
+          "error_shapley_fraction": 0.021604831201898097,
+          "feature_only_effect": 1.4520194008201524,
+          "feature_shapley_effect": 1.4221885700699775,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.2383121664792328,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.059553540337707656,
+        "damage_ratio": 0.9586698794061631,
+        "damage_relative_error": 0.04133012059383692,
+        "dense_damage": 1.4409234592600773,
+        "dense_recovery": 1.4535932059201073,
+        "recovery_absolute_error": 0.0015738050999549724,
+        "recovery_ratio": 0.9989173001816841,
+        "recovery_relative_error": 0.0010826998183159314,
+        "sequence_effect": 1.475104412838062,
+        "sparse_damage": 1.3813699189223696,
+        "sparse_recovery": 1.4520194008201524
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2020,
+      "endpoint": "donor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 2,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": -0.012209000218060248,
+          "error_only_effect": -0.017880509248660775,
+          "error_shapley_effect": -0.014857228866275196,
+          "error_shapley_fraction": 1.216907904080265,
+          "feature_only_effect": -0.00037505173417063525,
+          "feature_shapley_effect": 0.0026482286482149633,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.13469096230225922,
+          "shapley_sum_max_abs_error": 0.0
+        },
+        "recovery": {
+          "dense_effect": -0.008964750729515185,
+          "error_only_effect": -0.01191640353590247,
+          "error_shapley_effect": -0.014536321303571654,
+          "error_shapley_fraction": 1.6214975454602272,
+          "feature_only_effect": 0.008191488341725651,
+          "feature_shapley_effect": 0.0055715705740564635,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.13449720945642113,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.011833948483889613,
+        "damage_ratio": 0.03071928310852492,
+        "damage_relative_error": 0.9692807168914751,
+        "dense_damage": -0.012209000218060248,
+        "dense_recovery": -0.008964750729515185,
+        "recovery_absolute_error": 0.017156239071240836,
+        "recovery_ratio": -0.913744128406864,
+        "recovery_relative_error": 1.9137441284068641,
+        "sequence_effect": -0.011688703367941759,
+        "sparse_damage": -0.00037505173417063525,
+        "sparse_recovery": 0.008191488341725651
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 0.9637190617244907,
+          "error_only_effect": -0.011246052253583272,
+          "error_shapley_effect": -0.007761648463859785,
+          "error_shapley_fraction": 0.008053849687242874,
+          "feature_only_effect": 0.967996306398627,
+          "feature_shapley_effect": 0.9714807101883506,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.2035598821500497,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 0.9692411725230985,
+          "error_only_effect": -0.0026707563031834487,
+          "error_shapley_effect": -0.00691732901767193,
+          "error_shapley_fraction": 0.007136850160486841,
+          "feature_only_effect": 0.9804050742552589,
+          "feature_shapley_effect": 0.9761585015407706,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.20436954031477492,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.00427724467413626,
+        "damage_ratio": 1.0044382692467269,
+        "damage_relative_error": 0.004438269246726848,
+        "dense_damage": 0.9637190617244907,
+        "dense_recovery": 0.9692411725230985,
+        "recovery_absolute_error": 0.01116390173216042,
+        "recovery_ratio": 1.0115181876798516,
+        "recovery_relative_error": 0.011518187679851546,
+        "sequence_effect": 0.9729162223955062,
+        "sparse_damage": 0.967996306398627,
+        "sparse_recovery": 0.9804050742552589
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2020,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 2,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": 0.19480467157855513,
+          "error_only_effect": -0.009313543228555906,
+          "error_shapley_effect": -0.0078034765793244115,
+          "error_shapley_fraction": 0.04005795403206054,
+          "feature_only_effect": 0.20109808150864805,
+          "feature_shapley_effect": 0.20260814815787953,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.07657438576719393,
+          "shapley_sum_max_abs_error": 2.220446049250313e-16
+        },
+        "recovery": {
+          "dense_effect": 0.1977955022735673,
+          "error_only_effect": -0.005226861902039959,
+          "error_shapley_effect": -0.007235205783984986,
+          "error_shapley_fraction": 0.03657922298950007,
+          "feature_only_effect": 0.20703905193949732,
+          "feature_shapley_effect": 0.2050307080575523,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.07623367109911419,
+          "shapley_sum_max_abs_error": 2.220446049250313e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.006293409930092919,
+        "damage_ratio": 1.0323062577457496,
+        "damage_relative_error": 0.03230625774574968,
+        "dense_damage": 0.19480467157855513,
+        "dense_recovery": 0.1977955022735673,
+        "recovery_absolute_error": 0.009243549665930023,
+        "recovery_ratio": 1.0467328607560824,
+        "recovery_relative_error": 0.04673286075608252,
+        "sequence_effect": 0.2006771118122599,
+        "sparse_damage": 0.20109808150864805,
+        "sparse_recovery": 0.20703905193949732
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.4409234592600773,
+          "error_only_effect": -0.008885343143032867,
+          "error_shapley_effect": 0.025102558221788286,
+          "error_shapley_fraction": 0.017421160062643853,
+          "feature_only_effect": 1.3818329996734675,
+          "feature_shapley_effect": 1.415820901038289,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.19162160500600886,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.4535932059201073,
+          "error_only_effect": 0.06205437752022402,
+          "error_shapley_effect": 0.027121737922525504,
+          "error_shapley_fraction": 0.01865840994032286,
+          "feature_only_effect": 1.4614041075952802,
+          "feature_shapley_effect": 1.4264714679975818,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.19145508945747441,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.059090459586609745,
+        "damage_ratio": 0.9589912571643792,
+        "damage_relative_error": 0.04100874283562088,
+        "dense_damage": 1.4409234592600773,
+        "dense_recovery": 1.4535932059201073,
+        "recovery_absolute_error": 0.007810901675172843,
+        "recovery_ratio": 1.0053735127842929,
+        "recovery_relative_error": 0.0053735127842927935,
+        "sequence_effect": 1.475104412838062,
+        "sparse_damage": 1.3818329996734675,
+        "sparse_recovery": 1.4614041075952802
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2021,
+      "endpoint": "donor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 0,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": -0.0014608202265704168,
+          "error_only_effect": -0.013713440483348173,
+          "error_shapley_effect": -0.008518054914357172,
+          "error_shapley_fraction": 5.831008333143839,
+          "feature_only_effect": 0.0018618491187957498,
+          "feature_shapley_effect": 0.0070572346877867675,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.12448989457008397,
+          "shapley_sum_max_abs_error": 4.440892098500626e-16
+        },
+        "recovery": {
+          "dense_effect": 0.00035208009533077567,
+          "error_only_effect": -0.0035666848623882585,
+          "error_shapley_effect": -0.008169301152047653,
+          "error_shapley_fraction": 23.20296222475365,
+          "feature_only_effect": 0.013123997537037836,
+          "feature_shapley_effect": 0.008521381247378425,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.1247565409004553,
+          "shapley_sum_max_abs_error": 4.440892098500626e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.0033226693453661665,
+        "damage_ratio": -1.274523096635123,
+        "damage_relative_error": 2.2745230966351233,
+        "dense_damage": -0.0014608202265704168,
+        "dense_recovery": 0.00035208009533077567,
+        "recovery_absolute_error": 0.01277191744170706,
+        "recovery_ratio": 37.27560208908707,
+        "recovery_relative_error": 36.27560208908707,
+        "sequence_effect": -0.00406387294817636,
+        "sparse_damage": 0.0018618491187957498,
+        "sparse_recovery": 0.013123997537037836
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.1929711265965695,
+          "error_only_effect": -0.04736493612077742,
+          "error_shapley_effect": -0.04359279102837221,
+          "error_shapley_fraction": 0.03654136303595059,
+          "feature_only_effect": 1.2327917725325368,
+          "feature_shapley_effect": 1.2365639176249417,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.16919518187211718,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.197010406693304,
+          "error_only_effect": -0.03959405425220191,
+          "error_shapley_effect": -0.04399235285465129,
+          "error_shapley_fraction": 0.03675185496187832,
+          "feature_only_effect": 1.2454010581504047,
+          "feature_shapley_effect": 1.2410027595479551,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.1687076420330578,
+          "shapley_sum_max_abs_error": 1.7763568394002505e-15
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.03982064593596735,
+        "damage_ratio": 1.033379387856244,
+        "damage_relative_error": 0.03337938785624408,
+        "dense_damage": 1.1929711265965695,
+        "dense_recovery": 1.197010406693304,
+        "recovery_absolute_error": 0.04839065145710064,
+        "recovery_ratio": 1.0404262579393757,
+        "recovery_relative_error": 0.040426257939375806,
+        "sequence_effect": 1.2138003821453736,
+        "sparse_damage": 1.2327917725325368,
+        "sparse_recovery": 1.2454010581504047
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2021,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 0,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": 0.11247644068433867,
+          "error_only_effect": -0.0182605682488907,
+          "error_shapley_effect": -0.01404130328602389,
+          "error_shapley_fraction": 0.12483772779964059,
+          "feature_only_effect": 0.12229847900749574,
+          "feature_shapley_effect": 0.12651774397036258,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.07274207414142868,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 0.11358490965000305,
+          "error_only_effect": -0.009719851500143423,
+          "error_shapley_effect": -0.01395844455180404,
+          "error_shapley_fraction": 0.12288995602334105,
+          "feature_only_effect": 0.1317819472534677,
+          "feature_shapley_effect": 0.12754335420180707,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.07279785980537354,
+          "shapley_sum_max_abs_error": 0.0
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.009822038323157076,
+        "damage_ratio": 1.0873252946430114,
+        "damage_relative_error": 0.08732529464301146,
+        "dense_damage": 0.11247644068433867,
+        "dense_recovery": 0.11358490965000305,
+        "recovery_absolute_error": 0.018197037603464652,
+        "recovery_ratio": 1.160206471612615,
+        "recovery_relative_error": 0.160206471612615,
+        "sequence_effect": 0.11367666248504321,
+        "sparse_damage": 0.12229847900749574,
+        "sparse_recovery": 0.1317819472534677
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.2221682956091646,
+          "error_only_effect": -0.03755065245863022,
+          "error_shapley_effect": -0.05113600647791977,
+          "error_shapley_fraction": 0.041840396827207894,
+          "feature_only_effect": 1.2868896561063736,
+          "feature_shapley_effect": 1.2733043020870842,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.15570016309174683,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.2239403377441505,
+          "error_only_effect": -0.0644238631263928,
+          "error_shapley_effect": -0.05122193632134534,
+          "error_shapley_fraction": 0.04185002711468167,
+          "feature_only_effect": 1.2619603472604481,
+          "feature_shapley_effect": 1.2751622740654955,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.15582429748847254,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.064721360497209,
+        "damage_ratio": 1.0529561769272946,
+        "damage_relative_error": 0.052956176927294596,
+        "dense_damage": 1.2221682956091646,
+        "dense_recovery": 1.2239403377441505,
+        "recovery_absolute_error": 0.03802000951629769,
+        "recovery_ratio": 1.0310636134326387,
+        "recovery_relative_error": 0.031063613432638824,
+        "sequence_effect": 1.2455302246531252,
+        "sparse_damage": 1.2868896561063736,
+        "sparse_recovery": 1.2619603472604481
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2021,
+      "endpoint": "donor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 1,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": -0.0014608202265704168,
+          "error_only_effect": -0.032240986815954754,
+          "error_shapley_effect": -0.024968103320801162,
+          "error_shapley_fraction": 17.091838452578827,
+          "feature_only_effect": 0.01623439959907716,
+          "feature_shapley_effect": 0.02350728309423074,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.09348341514640046,
+          "shapley_sum_max_abs_error": 4.440892098500626e-16
+        },
+        "recovery": {
+          "dense_effect": 0.00035208009533077567,
+          "error_only_effect": -0.018021496539131755,
+          "error_shapley_effect": -0.024894616854056733,
+          "error_shapley_fraction": 70.70725435548549,
+          "feature_only_effect": 0.0321198172643125,
+          "feature_shapley_effect": 0.025246696949387516,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.09327038020812443,
+          "shapley_sum_max_abs_error": 0.0
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.017695219825647576,
+        "damage_ratio": -11.11320839059768,
+        "damage_relative_error": 12.11320839059768,
+        "dense_damage": -0.0014608202265704168,
+        "dense_recovery": 0.00035208009533077567,
+        "recovery_absolute_error": 0.03176773716898172,
+        "recovery_ratio": 91.2287223568724,
+        "recovery_relative_error": 90.2287223568724,
+        "sequence_effect": -0.00406387294817636,
+        "sparse_damage": 0.01623439959907716,
+        "sparse_recovery": 0.0321198172643125
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.1929711265965695,
+          "error_only_effect": -0.03657513583712915,
+          "error_shapley_effect": -0.03734723157224894,
+          "error_shapley_fraction": 0.03130606494961614,
+          "feature_only_effect": 1.2310904539039382,
+          "feature_shapley_effect": 1.2303183581688186,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.15044849686097472,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.197010406693304,
+          "error_only_effect": -0.03766981610813899,
+          "error_shapley_effect": -0.03766989963556019,
+          "error_shapley_fraction": 0.031469985076923314,
+          "feature_only_effect": 1.2346803898562855,
+          "feature_shapley_effect": 1.234680306328864,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.15123680461665495,
+          "shapley_sum_max_abs_error": 1.7763568394002505e-15
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.03811932730736878,
+        "damage_ratio": 1.0319532689916138,
+        "damage_relative_error": 0.031953268991613826,
+        "dense_damage": 1.1929711265965695,
+        "dense_recovery": 1.197010406693304,
+        "recovery_absolute_error": 0.037669983162981424,
+        "recovery_ratio": 1.0314700548569526,
+        "recovery_relative_error": 0.0314700548569526,
+        "sequence_effect": 1.2138003821453736,
+        "sparse_damage": 1.2310904539039382,
+        "sparse_recovery": 1.2346803898562855
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2021,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 1,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": 0.11247644068433867,
+          "error_only_effect": 0.017009052364449443,
+          "error_shapley_effect": 0.023710466238001503,
+          "error_shapley_fraction": 0.21080384562082763,
+          "feature_only_effect": 0.0820645605727851,
+          "feature_shapley_effect": 0.08876597444633715,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.08105004849432942,
+          "shapley_sum_max_abs_error": 4.440892098500626e-16
+        },
+        "recovery": {
+          "dense_effect": 0.11358490965000305,
+          "error_only_effect": 0.030665164912535705,
+          "error_shapley_effect": 0.023953079000798426,
+          "error_shapley_fraction": 0.21088258180251837,
+          "feature_only_effect": 0.0963439165609419,
+          "feature_shapley_effect": 0.0896318306492046,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.08105931459795712,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.03041188011155356,
+        "damage_ratio": 0.7296155539193895,
+        "damage_relative_error": 0.2703844460806106,
+        "dense_damage": 0.11247644068433867,
+        "dense_recovery": 0.11358490965000305,
+        "recovery_absolute_error": 0.017240993089061143,
+        "recovery_ratio": 0.848210531291639,
+        "recovery_relative_error": 0.15178946870836094,
+        "sequence_effect": 0.11367666248504321,
+        "sparse_damage": 0.0820645605727851,
+        "sparse_recovery": 0.0963439165609419
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.2221682956091646,
+          "error_only_effect": 0.024905139504288746,
+          "error_shapley_effect": 0.0286218433390066,
+          "error_shapley_fraction": 0.023418905106469507,
+          "feature_only_effect": 1.1898297484354399,
+          "feature_shapley_effect": 1.1935464522701578,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.15466941966259862,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.2239403377441505,
+          "error_only_effect": 0.03274211683059898,
+          "error_shapley_effect": 0.028906906967373656,
+          "error_shapley_fraction": 0.023617905281765692,
+          "feature_only_effect": 1.198868640640002,
+          "feature_shapley_effect": 1.1950334307767767,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.1549661561547936,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.03233854717372475,
+        "damage_ratio": 0.973540021214831,
+        "damage_relative_error": 0.02645997878516908,
+        "dense_damage": 1.2221682956091646,
+        "dense_recovery": 1.2239403377441505,
+        "recovery_absolute_error": 0.02507169710414847,
+        "recovery_ratio": 0.9795155888477716,
+        "recovery_relative_error": 0.0204844111522284,
+        "sequence_effect": 1.2455302246531252,
+        "sparse_damage": 1.1898297484354399,
+        "sparse_recovery": 1.198868640640002
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2021,
+      "endpoint": "donor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 2,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": -0.0014608202265704168,
+          "error_only_effect": -0.003961615831270898,
+          "error_shapley_effect": 0.000857311723099679,
+          "error_shapley_fraction": 0.5868701072906136,
+          "feature_only_effect": -0.007137059504040658,
+          "feature_shapley_effect": -0.0023181319496701006,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.08083622213783939,
+          "shapley_sum_max_abs_error": 4.440892098500626e-16
+        },
+        "recovery": {
+          "dense_effect": 0.00035208009533077567,
+          "error_only_effect": 0.005697896282326846,
+          "error_shapley_effect": 0.0012305750346287038,
+          "error_shapley_fraction": 3.495156502592375,
+          "feature_only_effect": 0.0035888263084001976,
+          "feature_shapley_effect": -0.0008784949392979247,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.0811344345715204,
+          "shapley_sum_max_abs_error": 4.440892098500626e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.005676239277470241,
+        "damage_ratio": 4.885652165972817,
+        "damage_relative_error": 3.8856521659728167,
+        "dense_damage": -0.0014608202265704168,
+        "dense_recovery": 0.00035208009533077567,
+        "recovery_absolute_error": 0.003236746213069422,
+        "recovery_ratio": 10.193209886030427,
+        "recovery_relative_error": 9.193209886030427,
+        "sequence_effect": -0.00406387294817636,
+        "sparse_damage": -0.007137059504040658,
+        "sparse_recovery": 0.0035888263084001976
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.1929711265965695,
+          "error_only_effect": -0.04912839519947708,
+          "error_shapley_effect": -0.04101878646277163,
+          "error_shapley_fraction": 0.034383721071099375,
+          "feature_only_effect": 1.2258803043226356,
+          "feature_shapley_effect": 1.2339899130593412,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.16054526746984052,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.197010406693304,
+          "error_only_effect": -0.03306117810169787,
+          "error_shapley_effect": -0.04168258830681562,
+          "error_shapley_fraction": 0.03482224387836543,
+          "feature_only_effect": 1.2473144052052372,
+          "feature_shapley_effect": 1.2386929950001195,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.1613947957789721,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.03290917772606616,
+        "damage_ratio": 1.0275858962487658,
+        "damage_relative_error": 0.027585896248765757,
+        "dense_damage": 1.1929711265965695,
+        "dense_recovery": 1.197010406693304,
+        "recovery_absolute_error": 0.05030399851193312,
+        "recovery_ratio": 1.0420246960516375,
+        "recovery_relative_error": 0.04202469605163753,
+        "sequence_effect": 1.2138003821453736,
+        "sparse_damage": 1.2258803043226356,
+        "sparse_recovery": 1.2473144052052372
+      }
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2021,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": false,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 2,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": 0.11247644068433867,
+          "error_only_effect": 0.009065647937843863,
+          "error_shapley_effect": 0.017231777188692014,
+          "error_shapley_fraction": 0.15320343606046724,
+          "feature_only_effect": 0.0870785342447985,
+          "feature_shapley_effect": 0.09524466349564664,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.09500098094491714,
+          "shapley_sum_max_abs_error": 4.440892098500626e-16
+        },
+        "recovery": {
+          "dense_effect": 0.11358490965000305,
+          "error_only_effect": 0.025717907056873344,
+          "error_shapley_effect": 0.017516313834151226,
+          "error_shapley_fraction": 0.15421338880424734,
+          "feature_only_effect": 0.10427018903857393,
+          "feature_shapley_effect": 0.09606859581585181,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.09513154918377276,
+          "shapley_sum_max_abs_error": 4.440892098500626e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.025397906439540166,
+        "damage_ratio": 0.774193544132335,
+        "damage_relative_error": 0.22580645586766507,
+        "dense_damage": 0.11247644068433867,
+        "dense_recovery": 0.11358490965000305,
+        "recovery_absolute_error": 0.009314720611429114,
+        "recovery_ratio": 0.9179933264010932,
+        "recovery_relative_error": 0.08200667359890676,
+        "sequence_effect": 0.11367666248504321,
+        "sparse_damage": 0.0870785342447985,
+        "sparse_recovery": 0.10427018903857393
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.2221682956091646,
+          "error_only_effect": -0.0426926172696232,
+          "error_shapley_effect": -0.023409803983756673,
+          "error_shapley_fraction": 0.01915432110934324,
+          "feature_only_effect": 1.2262952863070544,
+          "feature_shapley_effect": 1.245578099592921,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.13933949332106893,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.2239403377441505,
+          "error_only_effect": -0.0029633217897939053,
+          "error_shapley_effect": -0.022412679102385914,
+          "error_shapley_fraction": 0.018311904928057864,
+          "feature_only_effect": 1.2658023741591284,
+          "feature_shapley_effect": 1.2463530168465362,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.1389478119083036,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.0041269906978897986,
+        "damage_ratio": 1.0033767777422444,
+        "damage_relative_error": 0.0033767777422443975,
+        "dense_damage": 1.2221682956091646,
+        "dense_recovery": 1.2239403377441505,
+        "recovery_absolute_error": 0.04186203641497799,
+        "recovery_ratio": 1.034202677307077,
+        "recovery_relative_error": 0.034202677307076976,
+        "sequence_effect": 1.2455302246531252,
+        "sparse_damage": 1.2262952863070544,
+        "sparse_recovery": 1.2658023741591284
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2022,
+      "endpoint": "donor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 0,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": -0.023114322775392684,
+          "error_only_effect": -0.0094428946147843,
+          "error_shapley_effect": -0.0035818041974295996,
+          "error_shapley_fraction": 0.15496037812722588,
+          "feature_only_effect": -0.025393608995317795,
+          "feature_shapley_effect": -0.019532518577963086,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.10991319785539291,
+          "shapley_sum_max_abs_error": 0.0
+        },
+        "recovery": {
+          "dense_effect": -0.022137371951114128,
+          "error_only_effect": 0.0022070466011576383,
+          "error_shapley_effect": -0.0035306357185322214,
+          "error_shapley_fraction": 0.15948757270415434,
+          "feature_only_effect": -0.012869053912892042,
+          "feature_shapley_effect": -0.018606736232581886,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.10994293084513658,
+          "shapley_sum_max_abs_error": 2.220446049250313e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.0022792862199251113,
+        "damage_ratio": 1.0986092580809514,
+        "damage_relative_error": 0.09860925808095146,
+        "dense_damage": -0.023114322775392684,
+        "dense_recovery": -0.022137371951114128,
+        "recovery_absolute_error": 0.009268318038222086,
+        "recovery_ratio": 0.5813270853157603,
+        "recovery_relative_error": 0.4186729146842397,
+        "sequence_effect": -0.023800719898405032,
+        "sparse_damage": -0.025393608995317795,
+        "sparse_recovery": -0.012869053912892042
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.1279039336633727,
+          "error_only_effect": -0.026255883832763158,
+          "error_shapley_effect": -0.0288121765364385,
+          "error_shapley_fraction": 0.025544885230480634,
+          "feature_only_effect": 1.1592724029034867,
+          "feature_shapley_effect": 1.1567161101998114,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.18105609134446438,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.1334159565248374,
+          "error_only_effect": -0.03128865755242543,
+          "error_shapley_effect": -0.02883305970300674,
+          "error_shapley_fraction": 0.025439080451462568,
+          "feature_only_effect": 1.1597934183784253,
+          "feature_shapley_effect": 1.162249016227844,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.18122776708197236,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.03136846924011394,
+        "damage_ratio": 1.0278112951856022,
+        "damage_relative_error": 0.027811295185602197,
+        "dense_damage": 1.1279039336633727,
+        "dense_recovery": 1.1334159565248374,
+        "recovery_absolute_error": 0.026377461853587914,
+        "recovery_ratio": 1.0232725344139884,
+        "recovery_relative_error": 0.02327253441398845,
+        "sequence_effect": 1.1486226584368775,
+        "sparse_damage": 1.1592724029034867,
+        "sparse_recovery": 1.1597934183784253
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2022,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 0,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": 0.13714118931788816,
+          "error_only_effect": 0.0026568061317856356,
+          "error_shapley_effect": 0.006309335759628387,
+          "error_shapley_fraction": 0.046006132738163605,
+          "feature_only_effect": 0.12717932393041703,
+          "feature_shapley_effect": 0.13083185355825977,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.09123162051731099,
+          "shapley_sum_max_abs_error": 0.0
+        },
+        "recovery": {
+          "dense_effect": 0.13748671919449446,
+          "error_only_effect": 0.010025918142714868,
+          "error_shapley_effect": 0.006375044043033715,
+          "error_shapley_fraction": 0.04636843529603257,
+          "feature_only_effect": 0.1347625492511419,
+          "feature_shapley_effect": 0.13111167515146074,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.09118050671430936,
+          "shapley_sum_max_abs_error": 4.440892098500626e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.009961865387471125,
+        "damage_ratio": 0.9273605148313254,
+        "damage_relative_error": 0.07263948516867455,
+        "dense_damage": 0.13714118931788816,
+        "dense_recovery": 0.13748671919449446,
+        "recovery_absolute_error": 0.0027241699433525612,
+        "recovery_ratio": 0.9801859411635327,
+        "recovery_relative_error": 0.019814058836467228,
+        "sequence_effect": 0.13940269004469802,
+        "sparse_damage": 0.12717932393041703,
+        "sparse_recovery": 0.1347625492511419
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.3343804258963223,
+          "error_only_effect": 0.02131824161970545,
+          "error_shapley_effect": 0.02662916622818791,
+          "error_shapley_fraction": 0.019956202677584033,
+          "feature_only_effect": 1.302440335059652,
+          "feature_shapley_effect": 1.3077512596681344,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.21018924353485446,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.3364518257649096,
+          "error_only_effect": 0.03215181673330261,
+          "error_shapley_effect": 0.027116577560184284,
+          "error_shapley_fraction": 0.02028997756403549,
+          "feature_only_effect": 1.3143704873778437,
+          "feature_shapley_effect": 1.3093352482047256,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.21022254372810323,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.031940090836670265,
+        "damage_ratio": 0.9760637294906244,
+        "damage_relative_error": 0.023936270509375655,
+        "dense_damage": 1.3343804258963223,
+        "dense_recovery": 1.3364518257649096,
+        "recovery_absolute_error": 0.02208133838706594,
+        "recovery_ratio": 0.9834776398510079,
+        "recovery_relative_error": 0.01652236014899215,
+        "sequence_effect": 1.360616544449622,
+        "sparse_damage": 1.302440335059652,
+        "sparse_recovery": 1.3143704873778437
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2022,
+      "endpoint": "donor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 1,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": -0.023114322775392684,
+          "error_only_effect": -0.016625738540133404,
+          "error_shapley_effect": -0.011590676637220852,
+          "error_shapley_fraction": 0.5014499775680293,
+          "feature_only_effect": -0.016558708041084377,
+          "feature_shapley_effect": -0.01152364613817183,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.12047814507265303,
+          "shapley_sum_max_abs_error": 1.1102230246251565e-16
+        },
+        "recovery": {
+          "dense_effect": -0.022137371951114128,
+          "error_only_effect": -0.006533223691519728,
+          "error_shapley_effect": -0.011359488510099106,
+          "error_shapley_fraction": 0.5131362717843934,
+          "feature_only_effect": -0.005951618622435647,
+          "feature_shapley_effect": -0.010777883441015011,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.12070156164140755,
+          "shapley_sum_max_abs_error": 4.440892098500626e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.006555614734308306,
+        "damage_ratio": 0.7163830064150805,
+        "damage_relative_error": 0.28361699358491954,
+        "dense_damage": -0.023114322775392684,
+        "dense_recovery": -0.022137371951114128,
+        "recovery_absolute_error": 0.01618575332867848,
+        "recovery_ratio": 0.26884937541721676,
+        "recovery_relative_error": 0.7311506245827832,
+        "sequence_effect": -0.023800719898405032,
+        "sparse_damage": -0.016558708041084377,
+        "sparse_recovery": -0.005951618622435647
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.1279039336633727,
+          "error_only_effect": -0.06449784164968973,
+          "error_shapley_effect": -0.06585010086566057,
+          "error_shapley_fraction": 0.058382721170040515,
+          "feature_only_effect": 1.1951062937450043,
+          "feature_shapley_effect": 1.1937540345290332,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.18568210201055224,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.1334159565248374,
+          "error_only_effect": -0.06695779305858801,
+          "error_shapley_effect": -0.0658011810686357,
+          "error_shapley_fraction": 0.05805563322964718,
+          "feature_only_effect": 1.1980605256035206,
+          "feature_shapley_effect": 1.199217137593473,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.18596214265728925,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.0672023600816316,
+        "damage_ratio": 1.0595816346374127,
+        "damage_relative_error": 0.059581634637412666,
+        "dense_damage": 1.1279039336633727,
+        "dense_recovery": 1.1334159565248374,
+        "recovery_absolute_error": 0.06464456907868321,
+        "recovery_ratio": 1.0570351676333283,
+        "recovery_relative_error": 0.057035167633328276,
+        "sequence_effect": 1.1486226584368775,
+        "sparse_damage": 1.1951062937450043,
+        "sparse_recovery": 1.1980605256035206
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2022,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 1,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": 0.13714118931788816,
+          "error_only_effect": -0.010856272777031117,
+          "error_shapley_effect": -0.00808426965721742,
+          "error_shapley_fraction": 0.05894851646997449,
+          "feature_only_effect": 0.14245345585529187,
+          "feature_shapley_effect": 0.1452254589751056,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.08683666728584363,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 0.13748671919449446,
+          "error_only_effect": -0.005275634011296925,
+          "error_shapley_effect": -0.008041525114774226,
+          "error_shapley_fraction": 0.05848946837838459,
+          "feature_only_effect": 0.148294135412746,
+          "feature_shapley_effect": 0.14552824430926872,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.08682229332598063,
+          "shapley_sum_max_abs_error": 4.440892098500626e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.005312266537403715,
+        "damage_ratio": 1.0387357479093322,
+        "damage_relative_error": 0.03873574790933218,
+        "dense_damage": 0.13714118931788816,
+        "dense_recovery": 0.13748671919449446,
+        "recovery_absolute_error": 0.010807416218251542,
+        "recovery_ratio": 1.0786069831440441,
+        "recovery_relative_error": 0.07860698314404405,
+        "sequence_effect": 0.13940269004469802,
+        "sparse_damage": 0.14245345585529187,
+        "sparse_recovery": 0.148294135412746
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.3343804258963223,
+          "error_only_effect": -0.01721773638519252,
+          "error_shapley_effect": -0.004541087686108565,
+          "error_shapley_fraction": 0.003403143210121845,
+          "feature_only_effect": 1.3262448648833471,
+          "feature_shapley_effect": 1.3389215135824308,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.17241291458201963,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.3364518257649096,
+          "error_only_effect": 0.008365255367143033,
+          "error_shapley_effect": -0.0042333356922483285,
+          "error_shapley_fraction": 0.003167593182661415,
+          "feature_only_effect": 1.3532837525165493,
+          "feature_shapley_effect": 1.340685161457158,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.17227986538975215,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.00813556101297519,
+        "damage_ratio": 0.9939031172407146,
+        "damage_relative_error": 0.006096882759285395,
+        "dense_damage": 1.3343804258963223,
+        "dense_recovery": 1.3364518257649096,
+        "recovery_absolute_error": 0.016831926751639692,
+        "recovery_ratio": 1.0125944882016276,
+        "recovery_relative_error": 0.012594488201627506,
+        "sequence_effect": 1.360616544449622,
+        "sparse_damage": 1.3262448648833471,
+        "sparse_recovery": 1.3532837525165493
+      }
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2022,
+      "endpoint": "donor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": false,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 2,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": -0.023114322775392684,
+          "error_only_effect": -0.026941535486799492,
+          "error_shapley_effect": -0.016984962812159894,
+          "error_shapley_fraction": 0.7348241597734347,
+          "feature_only_effect": -0.016085932637872377,
+          "feature_shapley_effect": -0.006129359963232776,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.11436291096078667,
+          "shapley_sum_max_abs_error": 1.1102230246251565e-16
+        },
+        "recovery": {
+          "dense_effect": -0.022137371951114128,
+          "error_only_effect": -0.006988082454955356,
+          "error_shapley_effect": -0.0166698825695366,
+          "error_shapley_fraction": 0.7530199432140652,
+          "feature_only_effect": 0.004214310733003714,
+          "feature_shapley_effect": -0.0054674893815775324,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.11407601069752792,
+          "shapley_sum_max_abs_error": 0.0
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.007028390137520307,
+        "damage_ratio": 0.6959292207772285,
+        "damage_relative_error": 0.3040707792227714,
+        "dense_damage": -0.023114322775392684,
+        "dense_recovery": -0.022137371951114128,
+        "recovery_absolute_error": 0.02635168268411784,
+        "recovery_ratio": -0.1903708688777584,
+        "recovery_relative_error": 1.1903708688777583,
+        "sequence_effect": -0.023800719898405032,
+        "sparse_damage": -0.016085932637872377,
+        "sparse_recovery": 0.004214310733003714
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.1279039336633727,
+          "error_only_effect": 0.0012415168480797156,
+          "error_shapley_effect": 0.003656555918575206,
+          "error_shapley_fraction": 0.003241903684739271,
+          "feature_only_effect": 1.1218323386743023,
+          "feature_shapley_effect": 1.1242473777447977,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.17162088814946483,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.1334159565248374,
+          "error_only_effect": 0.006025231356401224,
+          "error_shapley_effect": 0.0035182135905735936,
+          "error_shapley_fraction": 0.00310407981317007,
+          "feature_only_effect": 1.132404760700091,
+          "feature_shapley_effect": 1.1298977429342636,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.17210645858902723,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.006071594989070395,
+        "damage_ratio": 0.9946169218779563,
+        "damage_relative_error": 0.005383078122043757,
+        "dense_damage": 1.1279039336633727,
+        "dense_recovery": 1.1334159565248374,
+        "recovery_absolute_error": 0.0010111958247462915,
+        "recovery_ratio": 0.999107833431385,
+        "recovery_relative_error": 0.0008921665686150347,
+        "sequence_effect": 1.1486226584368775,
+        "sparse_damage": 1.1218323386743023,
+        "sparse_recovery": 1.132404760700091
+      }
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2022,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": false,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 2,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": 0.13714118931788816,
+          "error_only_effect": -0.03610661602080472,
+          "error_shapley_effect": -0.0321551187757581,
+          "error_shapley_fraction": 0.2344672591486992,
+          "feature_only_effect": 0.16534481084859967,
+          "feature_shapley_effect": 0.16929630809364626,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.08921651469841728,
+          "shapley_sum_max_abs_error": 4.440892098500626e-16
+        },
+        "recovery": {
+          "dense_effect": 0.13748671919449446,
+          "error_only_effect": -0.027981114661605723,
+          "error_shapley_effect": -0.03197030950754482,
+          "error_shapley_fraction": 0.23253380177265184,
+          "feature_only_effect": 0.1734462235479784,
+          "feature_shapley_effect": 0.16945702870203927,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.08914002173183395,
+          "shapley_sum_max_abs_error": 4.440892098500626e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.028203621530711515,
+        "damage_ratio": 1.205653907997958,
+        "damage_relative_error": 0.20565390799795802,
+        "dense_damage": 0.13714118931788816,
+        "dense_recovery": 0.13748671919449446,
+        "recovery_absolute_error": 0.03595950435348394,
+        "recovery_ratio": 1.261548930428794,
+        "recovery_relative_error": 0.2615489304287938,
+        "sequence_effect": 0.13940269004469802,
+        "sparse_damage": 0.16534481084859967,
+        "sparse_recovery": 0.1734462235479784
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.3343804258963223,
+          "error_only_effect": 0.002791825245551876,
+          "error_shapley_effect": 0.007412726775677933,
+          "error_shapley_fraction": 0.0055551824890556975,
+          "feature_only_effect": 1.3223467975905183,
+          "feature_shapley_effect": 1.3269676991206443,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.1908105499650189,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.3364518257649096,
+          "error_only_effect": 0.012824965937578248,
+          "error_shapley_effect": 0.008247031052659191,
+          "error_shapley_fraction": 0.00617084049994773,
+          "feature_only_effect": 1.3327827295971697,
+          "feature_shapley_effect": 1.3282047947122506,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.1910409675048707,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.012033628305804012,
+        "damage_ratio": 0.9909818608904422,
+        "damage_relative_error": 0.009018139109557795,
+        "dense_damage": 1.3343804258963223,
+        "dense_recovery": 1.3364518257649096,
+        "recovery_absolute_error": 0.003669096167739916,
+        "recovery_ratio": 0.9972545990083557,
+        "recovery_relative_error": 0.0027454009916443732,
+        "sequence_effect": 1.360616544449622,
+        "sparse_damage": 1.3223467975905183,
+        "sparse_recovery": 1.3327827295971697
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2023,
+      "endpoint": "donor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 0,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": -0.013493886963124601,
+          "error_only_effect": -0.04494543480737902,
+          "error_shapley_effect": -0.041976727158218194,
+          "error_shapley_fraction": 3.11079581983531,
+          "feature_only_effect": 0.025514132545932787,
+          "feature_shapley_effect": 0.028482840195093603,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.10544617797380682,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": -0.011005819480844541,
+          "error_only_effect": -0.03918383150726995,
+          "error_shapley_effect": -0.04248218906307871,
+          "error_shapley_fraction": 3.8599750919973115,
+          "feature_only_effect": 0.03477472713804296,
+          "feature_shapley_effect": 0.03147636958223416,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.10596541696281024,
+          "shapley_sum_max_abs_error": 4.440892098500626e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.039008019509057384,
+        "damage_ratio": -1.890791927904576,
+        "damage_relative_error": 2.8907919279045755,
+        "dense_damage": -0.013493886963124601,
+        "dense_recovery": -0.011005819480844541,
+        "recovery_absolute_error": 0.0457805466188875,
+        "recovery_ratio": -3.159667228648247,
+        "recovery_relative_error": 4.159667228648247,
+        "sequence_effect": -0.014233486179356325,
+        "sparse_damage": 0.025514132545932787,
+        "sparse_recovery": 0.03477472713804296
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 0.880189067280992,
+          "error_only_effect": -0.07073724739456826,
+          "error_shapley_effect": -0.06201833929960787,
+          "error_shapley_fraction": 0.07046024724118631,
+          "feature_only_effect": 0.9334884984856394,
+          "feature_shapley_effect": 0.9422074065805999,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.15661672317669068,
+          "shapley_sum_max_abs_error": 2.220446049250313e-16
+        },
+        "recovery": {
+          "dense_effect": 0.8858759947503885,
+          "error_only_effect": -0.05224478685100947,
+          "error_shapley_effect": -0.06147704151910404,
+          "error_shapley_fraction": 0.06939689288727854,
+          "feature_only_effect": 0.9565852909375872,
+          "feature_shapley_effect": 0.9473530362694926,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.15614930849626296,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.05329943120464742,
+        "damage_ratio": 1.0605545253695272,
+        "damage_relative_error": 0.060554525369527316,
+        "dense_damage": 0.880189067280992,
+        "dense_recovery": 0.8858759947503885,
+        "recovery_absolute_error": 0.07070929618719868,
+        "recovery_ratio": 1.0798185034996035,
+        "recovery_relative_error": 0.07981850349960357,
+        "sequence_effect": 0.8878425404967119,
+        "sparse_damage": 0.9334884984856394,
+        "sparse_recovery": 0.9565852909375872
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2023,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 0,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": 0.16924445562627702,
+          "error_only_effect": 0.015987522551665315,
+          "error_shapley_effect": 0.022827927076156704,
+          "error_shapley_fraction": 0.134881387940796,
+          "feature_only_effect": 0.13957612402562894,
+          "feature_shapley_effect": 0.14641652855012033,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.10153408230009378,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 0.17123529753294053,
+          "error_only_effect": 0.02996214548874088,
+          "error_shapley_effect": 0.02315042491241273,
+          "error_shapley_fraction": 0.1351965701344916,
+          "feature_only_effect": 0.15489659319685598,
+          "feature_shapley_effect": 0.14808487262052777,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.101713921124959,
+          "shapley_sum_max_abs_error": 4.440892098500626e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.02966833160064808,
+        "damage_ratio": 0.8247013085843047,
+        "damage_relative_error": 0.17529869141569535,
+        "dense_damage": 0.16924445562627702,
+        "dense_recovery": 0.17123529753294053,
+        "recovery_absolute_error": 0.01633870433608456,
+        "recovery_ratio": 0.9045833156394553,
+        "recovery_relative_error": 0.09541668436054478,
+        "sequence_effect": 0.17133205302671062,
+        "sparse_damage": 0.13957612402562894,
+        "sparse_recovery": 0.15489659319685598
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.3805736808225109,
+          "error_only_effect": 0.041540090193834756,
+          "error_shapley_effect": 0.04418312542895751,
+          "error_shapley_fraction": 0.03200345337789891,
+          "feature_only_effect": 1.3337475201584308,
+          "feature_shapley_effect": 1.3363905553935536,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.17009369203542773,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.3885605561727408,
+          "error_only_effect": 0.04764465182957875,
+          "error_shapley_effect": 0.04473048214213403,
+          "error_shapley_fraction": 0.03221356241417636,
+          "feature_only_effect": 1.3467442437180512,
+          "feature_shapley_effect": 1.3438300740306066,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.17098311604163857,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.046826160664080074,
+        "damage_ratio": 0.9660820995543083,
+        "damage_relative_error": 0.0339179004456917,
+        "dense_damage": 1.3805736808225109,
+        "dense_recovery": 1.3885605561727408,
+        "recovery_absolute_error": 0.04181631245468953,
+        "recovery_ratio": 0.9698851358921307,
+        "recovery_relative_error": 0.03011486410786932,
+        "sequence_effect": 1.4085615893150523,
+        "sparse_damage": 1.3337475201584308,
+        "sparse_recovery": 1.3467442437180512
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2023,
+      "endpoint": "donor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 1,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": -0.013493886963124601,
+          "error_only_effect": 0.026855808692981407,
+          "error_shapley_effect": 0.03035337053020829,
+          "error_shapley_fraction": 2.249416392263876,
+          "feature_only_effect": -0.04734481933055977,
+          "feature_shapley_effect": -0.04384725749333289,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.12435898638999722,
+          "shapley_sum_max_abs_error": 2.220446049250313e-16
+        },
+        "recovery": {
+          "dense_effect": -0.011005819480844541,
+          "error_only_effect": 0.03380469772580345,
+          "error_shapley_effect": 0.030243636592794998,
+          "error_shapley_fraction": 2.7479677133932263,
+          "feature_only_effect": -0.03768839494063109,
+          "feature_shapley_effect": -0.04124945607363954,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.12420434127638535,
+          "shapley_sum_max_abs_error": 0.0
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.033850932367435166,
+        "damage_ratio": 3.5086124153804796,
+        "damage_relative_error": 2.508612415380479,
+        "dense_damage": -0.013493886963124601,
+        "dense_recovery": -0.011005819480844541,
+        "recovery_absolute_error": 0.026682575459786546,
+        "recovery_ratio": 3.4244060613775424,
+        "recovery_relative_error": 2.4244060613775424,
+        "sequence_effect": -0.014233486179356325,
+        "sparse_damage": -0.04734481933055977,
+        "sparse_recovery": -0.03768839494063109
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 0.880189067280992,
+          "error_only_effect": 0.048392745987405845,
+          "error_shapley_effect": 0.056438988249122725,
+          "error_shapley_fraction": 0.06412143748100556,
+          "feature_only_effect": 0.8157038367701523,
+          "feature_shapley_effect": 0.8237500790318693,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.16471401399571792,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 0.8858759947503885,
+          "error_only_effect": 0.06542754154061146,
+          "error_shapley_effect": 0.05699675715887225,
+          "error_shapley_fraction": 0.06433943068401138,
+          "feature_only_effect": 0.8373100219732555,
+          "feature_shapley_effect": 0.8288792375915162,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.16432813227455353,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.06448523051083965,
+        "damage_ratio": 0.9267370694457248,
+        "damage_relative_error": 0.07326293055427528,
+        "dense_damage": 0.880189067280992,
+        "dense_recovery": 0.8858759947503885,
+        "recovery_absolute_error": 0.048565972777132926,
+        "recovery_ratio": 0.945177459300252,
+        "recovery_relative_error": 0.05482254069974801,
+        "sequence_effect": 0.8878425404967119,
+        "sparse_damage": 0.8157038367701523,
+        "sparse_recovery": 0.8373100219732555
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2023,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 1,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": 0.16924445562627702,
+          "error_only_effect": -0.005413663827693298,
+          "error_shapley_effect": -0.006058102068728987,
+          "error_shapley_fraction": 0.03579498097182217,
+          "feature_only_effect": 0.1759469959360417,
+          "feature_shapley_effect": 0.17530255769500602,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.09772701706390863,
+          "shapley_sum_max_abs_error": 4.440892098500626e-16
+        },
+        "recovery": {
+          "dense_effect": 0.17123529753294053,
+          "error_only_effect": -0.006658521109575521,
+          "error_shapley_effect": -0.005984830779229136,
+          "error_shapley_fraction": 0.03495091762887167,
+          "feature_only_effect": 0.17654643798182323,
+          "feature_shapley_effect": 0.17722012831216966,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.09781399913772731,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.006702540309764693,
+        "damage_ratio": 1.0396027171759479,
+        "damage_relative_error": 0.03960271717594778,
+        "dense_damage": 0.16924445562627702,
+        "dense_recovery": 0.17123529753294053,
+        "recovery_absolute_error": 0.005311140448882701,
+        "recovery_ratio": 1.0310166217211203,
+        "recovery_relative_error": 0.0310166217211203,
+        "sequence_effect": 0.17133205302671062,
+        "sparse_damage": 0.1759469959360417,
+        "sparse_recovery": 0.17654643798182323
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.3805736808225109,
+          "error_only_effect": -0.015073031081794544,
+          "error_shapley_effect": -0.01706062965297233,
+          "error_shapley_fraction": 0.012357637908038373,
+          "feature_only_effect": 1.3996219090466613,
+          "feature_shapley_effect": 1.3976343104754836,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.2158476995985888,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.3885605561727408,
+          "error_only_effect": -0.018354063225335164,
+          "error_shapley_effect": -0.016634509647808743,
+          "error_shapley_fraction": 0.011979678937199598,
+          "feature_only_effect": 1.403475512243023,
+          "feature_shapley_effect": 1.4051950658205494,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.21576019797926643,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.01904822822415042,
+        "damage_ratio": 1.0137973282330008,
+        "damage_relative_error": 0.013797328233000913,
+        "dense_damage": 1.3805736808225109,
+        "dense_recovery": 1.3885605561727408,
+        "recovery_absolute_error": 0.014914956070282148,
+        "recovery_ratio": 1.0107413076109493,
+        "recovery_relative_error": 0.010741307610949224,
+        "sequence_effect": 1.4085615893150523,
+        "sparse_damage": 1.3996219090466613,
+        "sparse_recovery": 1.403475512243023
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2023,
+      "endpoint": "donor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 2,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": -0.013493886963124601,
+          "error_only_effect": -0.028819668705453518,
+          "error_shapley_effect": -0.024170323897907083,
+          "error_shapley_fraction": 1.791205452065702,
+          "feature_only_effect": 0.006027092127236046,
+          "feature_shapley_effect": 0.010676436934782488,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.10010947341282772,
+          "shapley_sum_max_abs_error": 2.220446049250313e-16
+        },
+        "recovery": {
+          "dense_effect": -0.011005819480844541,
+          "error_only_effect": -0.019632392810254057,
+          "error_shapley_effect": -0.02426805777342881,
+          "error_shapley_fraction": 2.2050205180692806,
+          "feature_only_effect": 0.017897903255759025,
+          "feature_shapley_effect": 0.013262238292584261,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.10016526169077747,
+          "shapley_sum_max_abs_error": 4.440892098500626e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.019520979090360647,
+        "damage_ratio": -0.4466535212356953,
+        "damage_relative_error": 1.4466535212356952,
+        "dense_damage": -0.013493886963124601,
+        "dense_recovery": -0.011005819480844541,
+        "recovery_absolute_error": 0.028903722736603566,
+        "recovery_ratio": -1.6262217717553926,
+        "recovery_relative_error": 2.6262217717553926,
+        "sequence_effect": -0.014233486179356325,
+        "sparse_damage": 0.006027092127236046,
+        "sparse_recovery": 0.017897903255759025
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 0.880189067280992,
+          "error_only_effect": -0.05094944193740472,
+          "error_shapley_effect": -0.030630524514230033,
+          "error_shapley_fraction": 0.03479993748258126,
+          "feature_only_effect": 0.8905006743720474,
+          "feature_shapley_effect": 0.9108195917952221,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.15549743031925584,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 0.8858759947503885,
+          "error_only_effect": -0.00916789727540104,
+          "error_shapley_effect": -0.030015768258904875,
+          "error_shapley_fraction": 0.03388258451157417,
+          "feature_only_effect": 0.9367396339927971,
+          "feature_shapley_effect": 0.9158917630092934,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.15510688663282785,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.010311607091055386,
+        "damage_ratio": 1.0117152183256595,
+        "damage_relative_error": 0.01171521832565946,
+        "dense_damage": 0.880189067280992,
+        "dense_recovery": 0.8858759947503885,
+        "recovery_absolute_error": 0.050863639242408665,
+        "recovery_ratio": 1.0574162067194748,
+        "recovery_relative_error": 0.05741620671947478,
+        "sequence_effect": 0.8878425404967119,
+        "sparse_damage": 0.8905006743720474,
+        "sparse_recovery": 0.9367396339927971
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2023,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 2,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": 0.16924445562627702,
+          "error_only_effect": 0.014155123851208649,
+          "error_shapley_effect": 0.02228140944196311,
+          "error_shapley_fraction": 0.13165222671261134,
+          "feature_only_effect": 0.13883676059355943,
+          "feature_shapley_effect": 0.14696304618431394,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.07742593538574746,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 0.17123529753294053,
+          "error_only_effect": 0.030755275373290893,
+          "error_shapley_effect": 0.022666697961603567,
+          "error_shapley_fraction": 0.13237164467941065,
+          "feature_only_effect": 0.15665717698302428,
+          "feature_shapley_effect": 0.148568599571337,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.0776806508391237,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.03040769503271759,
+        "damage_ratio": 0.8203326961571882,
+        "damage_relative_error": 0.1796673038428118,
+        "dense_damage": 0.16924445562627702,
+        "dense_recovery": 0.17123529753294053,
+        "recovery_absolute_error": 0.014578120549916251,
+        "recovery_ratio": 0.9148649795927043,
+        "recovery_relative_error": 0.08513502040729574,
+        "sequence_effect": 0.17133205302671062,
+        "sparse_damage": 0.13883676059355943,
+        "sparse_recovery": 0.15665717698302428
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.3805736808225109,
+          "error_only_effect": 0.044354240903048854,
+          "error_shapley_effect": 0.048564266173995715,
+          "error_shapley_fraction": 0.03517687382325176,
+          "feature_only_effect": 1.3277993893775686,
+          "feature_shapley_effect": 1.3320094146485153,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.1833247182019437,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.3885605561727408,
+          "error_only_effect": 0.054212678693991656,
+          "error_shapley_effect": 0.04947289952540633,
+          "error_shapley_fraction": 0.03562891031685893,
+          "feature_only_effect": 1.3438274358159197,
+          "feature_shapley_effect": 1.3390876566473344,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.18298145764228008,
+          "shapley_sum_max_abs_error": 4.440892098500626e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.05277429144494228,
+        "damage_ratio": 0.9617736509264028,
+        "damage_relative_error": 0.03822634907359721,
+        "dense_damage": 1.3805736808225109,
+        "dense_recovery": 1.3885605561727408,
+        "recovery_absolute_error": 0.04473312035682109,
+        "recovery_ratio": 0.9677845376220984,
+        "recovery_relative_error": 0.03221546237790163,
+        "sequence_effect": 1.4085615893150523,
+        "sparse_damage": 1.3277993893775686,
+        "sparse_recovery": 1.3438274358159197
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2024,
+      "endpoint": "donor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 0,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": 0.00902162141686011,
+          "error_only_effect": 0.04185741309100176,
+          "error_shapley_effect": 0.033910035183891706,
+          "error_shapley_fraction": 3.7587517384091003,
+          "feature_only_effect": -0.01694103585992153,
+          "feature_shapley_effect": -0.0248884137670316,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.11323987293895643,
+          "shapley_sum_max_abs_error": 1.1102230246251565e-16
+        },
+        "recovery": {
+          "dense_effect": 0.01566460708305497,
+          "error_only_effect": 0.025804001676599297,
+          "error_shapley_effect": 0.03536798164785087,
+          "error_shapley_fraction": 2.257827563776549,
+          "feature_only_effect": -0.029267354536047473,
+          "feature_shapley_effect": -0.019703374564795893,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.1147973104464482,
+          "shapley_sum_max_abs_error": 1.1102230246251565e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.02596265727678164,
+        "damage_ratio": -1.8778260666382183,
+        "damage_relative_error": 2.8778260666382183,
+        "dense_damage": 0.00902162141686011,
+        "dense_recovery": 0.01566460708305497,
+        "recovery_absolute_error": 0.04493196161910244,
+        "recovery_ratio": -1.8683746346697159,
+        "recovery_relative_error": 2.868374634669716,
+        "sequence_effect": 0.00866264875752077,
+        "sparse_damage": -0.01694103585992153,
+        "sparse_recovery": -0.029267354536047473
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.1919164635084616,
+          "error_only_effect": 0.06406698625855095,
+          "error_shapley_effect": 0.05963007806668466,
+          "error_shapley_fraction": 0.05002873933896403,
+          "feature_only_effect": 1.136723293633643,
+          "feature_shapley_effect": 1.1322863854417768,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.16347312153013074,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.198708705093487,
+          "error_only_effect": 0.055854516429441316,
+          "error_shapley_effect": 0.06013278454170762,
+          "error_shapley_fraction": 0.05016463489936688,
+          "feature_only_effect": 1.1342976524395132,
+          "feature_shapley_effect": 1.1385759205517794,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.16331991778447508,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.05519316987481848,
+        "damage_ratio": 0.9536937599533152,
+        "damage_relative_error": 0.04630624004668483,
+        "dense_damage": 1.1919164635084616,
+        "dense_recovery": 1.198708705093487,
+        "recovery_absolute_error": 0.06441105265397384,
+        "recovery_ratio": 0.946266301078584,
+        "recovery_relative_error": 0.053733698921415975,
+        "sequence_effect": 1.2101850287890317,
+        "sparse_damage": 1.136723293633643,
+        "sparse_recovery": 1.1342976524395132
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2024,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 0,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": 0.1364641982578095,
+          "error_only_effect": -0.007259919411845526,
+          "error_shapley_effect": 0.001273664431262314,
+          "error_shapley_fraction": 0.009333322933947076,
+          "feature_only_effect": 0.12665694998343935,
+          "feature_shapley_effect": 0.13519053382654717,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.08873501270565165,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 0.1382378641178285,
+          "error_only_effect": 0.010261064093441142,
+          "error_shapley_effect": 0.001626144670030718,
+          "error_shapley_fraction": 0.011763381041858808,
+          "feature_only_effect": 0.14524663887120826,
+          "feature_shapley_effect": 0.13661171944779776,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.0884191673623375,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.009807248274370156,
+        "damage_ratio": 0.9281331777889303,
+        "damage_relative_error": 0.07186682221106964,
+        "dense_damage": 0.1364641982578095,
+        "dense_recovery": 0.1382378641178285,
+        "recovery_absolute_error": 0.007008774753379743,
+        "recovery_ratio": 1.050700832207634,
+        "recovery_relative_error": 0.05070083220763408,
+        "sequence_effect": 0.1403843639435236,
+        "sparse_damage": 0.12665694998343935,
+        "sparse_recovery": 0.14524663887120826
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.3320440079836056,
+          "error_only_effect": 0.027472232151898802,
+          "error_shapley_effect": 0.03280478227237617,
+          "error_shapley_fraction": 0.02462740125383299,
+          "feature_only_effect": 1.293906675590752,
+          "feature_shapley_effect": 1.2992392257112293,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.16691055473621091,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.3397574287947493,
+          "error_only_effect": 0.039594047457626395,
+          "error_shapley_effect": 0.033583975119835185,
+          "error_shapley_fraction": 0.025067205747869935,
+          "feature_only_effect": 1.3121835260127055,
+          "feature_shapley_effect": 1.3061734536749143,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.16785321315254975,
+          "shapley_sum_max_abs_error": 1.7763568394002505e-15
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.03813733239285355,
+        "damage_ratio": 0.9713693150044012,
+        "damage_relative_error": 0.028630684995598836,
+        "dense_damage": 1.3320440079836056,
+        "dense_recovery": 1.3397574287947493,
+        "recovery_absolute_error": 0.027573902782043858,
+        "recovery_ratio": 0.9794187349221497,
+        "recovery_relative_error": 0.02058126507785028,
+        "sequence_effect": 1.3694094152248555,
+        "sparse_damage": 1.293906675590752,
+        "sparse_recovery": 1.3121835260127055
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2024,
+      "endpoint": "donor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 1,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": 0.00902162141686011,
+          "error_only_effect": 0.021252682383358402,
+          "error_shapley_effect": 0.010706886536019665,
+          "error_shapley_fraction": 1.1868029084007048,
+          "feature_only_effect": 0.008860530728179175,
+          "feature_shapley_effect": -0.0016852651191595486,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.0996336958429822,
+          "shapley_sum_max_abs_error": 0.0
+        },
+        "recovery": {
+          "dense_effect": 0.01566460708305497,
+          "error_only_effect": 2.5840458570383987e-05,
+          "error_shapley_effect": 0.010693953953758049,
+          "error_shapley_fraction": 0.6826825529078304,
+          "feature_only_effect": -0.00569746036589075,
+          "feature_shapley_effect": 0.004970653129296933,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.09963026125112757,
+          "shapley_sum_max_abs_error": 0.0
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.00016109068868093435,
+        "damage_ratio": 0.9821439316462693,
+        "damage_relative_error": 0.017856068353730638,
+        "dense_damage": 0.00902162141686011,
+        "dense_recovery": 0.01566460708305497,
+        "recovery_absolute_error": 0.02136206744894572,
+        "recovery_ratio": -0.3637154979810454,
+        "recovery_relative_error": 1.3637154979810455,
+        "sequence_effect": 0.00866264875752077,
+        "sparse_damage": 0.008860530728179175,
+        "sparse_recovery": -0.00569746036589075
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.1919164635084616,
+          "error_only_effect": -0.0058740395597447325,
+          "error_shapley_effect": -0.00670031815389533,
+          "error_shapley_fraction": 0.005621466234447867,
+          "feature_only_effect": 1.1994430602565074,
+          "feature_shapley_effect": 1.1986167816623567,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.15882273359922028,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.198708705093487,
+          "error_only_effect": -0.007191316223618069,
+          "error_shapley_effect": -0.006435977225991381,
+          "error_shapley_fraction": 0.005369091922536293,
+          "feature_only_effect": 1.2043893433218518,
+          "feature_shapley_effect": 1.2051446823194785,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.15878912771642595,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.0075265967480457885,
+        "damage_ratio": 1.0063147015570966,
+        "damage_relative_error": 0.00631470155709646,
+        "dense_damage": 1.1919164635084616,
+        "dense_recovery": 1.198708705093487,
+        "recovery_absolute_error": 0.005680638228364732,
+        "recovery_ratio": 1.0047389646911105,
+        "recovery_relative_error": 0.004738964691110422,
+        "sequence_effect": 1.2101850287890317,
+        "sparse_damage": 1.1994430602565074,
+        "sparse_recovery": 1.2043893433218518
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2024,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 1,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": 0.1364641982578095,
+          "error_only_effect": -0.002055569524093636,
+          "error_shapley_effect": -2.2315885182287894e-05,
+          "error_shapley_fraction": 0.00016352922940366017,
+          "feature_only_effect": 0.1344532605040804,
+          "feature_shapley_effect": 0.1364865141429918,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.11233764754479389,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 0.1382378641178285,
+          "error_only_effect": 0.002069845118666068,
+          "error_shapley_effect": 0.0001610958937983192,
+          "error_shapley_fraction": 0.00116535288523416,
+          "feature_only_effect": 0.13998551744889795,
+          "feature_shapley_effect": 0.1380767682240302,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.11262868883298385,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.0020109377537290973,
+        "damage_ratio": 0.9852639902670295,
+        "damage_relative_error": 0.014736009732970503,
+        "dense_damage": 0.1364641982578095,
+        "dense_recovery": 0.1382378641178285,
+        "recovery_absolute_error": 0.0017476533310694375,
+        "recovery_ratio": 1.0126423635247996,
+        "recovery_relative_error": 0.012642363524799593,
+        "sequence_effect": 0.1403843639435236,
+        "sparse_damage": 0.1344532605040804,
+        "sparse_recovery": 0.13998551744889795
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.3320440079836056,
+          "error_only_effect": -0.009782737632823075,
+          "error_shapley_effect": 0.0036664570280463896,
+          "error_shapley_fraction": 0.0027525044263338747,
+          "feature_only_effect": 1.3149283562946898,
+          "feature_shapley_effect": 1.328377550955559,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.17372832929945395,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.3397574287947493,
+          "error_only_effect": 0.018751256656640167,
+          "error_shapley_effect": 0.004968594914902836,
+          "error_shapley_fraction": 0.003708577991892608,
+          "feature_only_effect": 1.348571495621584,
+          "feature_shapley_effect": 1.3347888338798466,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.1737261430792232,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.017115651688915712,
+        "damage_ratio": 0.9871508361688255,
+        "damage_relative_error": 0.012849163831174537,
+        "dense_damage": 1.3320440079836056,
+        "dense_recovery": 1.3397574287947493,
+        "recovery_absolute_error": 0.00881406682683461,
+        "recovery_ratio": 1.006578852736621,
+        "recovery_relative_error": 0.00657885273662097,
+        "sequence_effect": 1.3694094152248555,
+        "sparse_damage": 1.3149283562946898,
+        "sparse_recovery": 1.348571495621584
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2024,
+      "endpoint": "donor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 2,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": 0.00902162141686011,
+          "error_only_effect": 0.0400461525065221,
+          "error_shapley_effect": 0.028128064217117842,
+          "error_shapley_fraction": 3.1178502086720847,
+          "feature_only_effect": -0.007188354510853472,
+          "feature_shapley_effect": -0.019106442800257733,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.13359342049215625,
+          "shapley_sum_max_abs_error": 2.220446049250313e-16
+        },
+        "recovery": {
+          "dense_effect": 0.01566460708305497,
+          "error_only_effect": 0.016098773563588596,
+          "error_shapley_effect": 0.02928963789714699,
+          "error_shapley_fraction": 1.8697971638772068,
+          "feature_only_effect": -0.0268158951476504,
+          "feature_shapley_effect": -0.013625030814092002,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.13487145943625894,
+          "shapley_sum_max_abs_error": 1.1102230246251565e-16
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.01620997592771358,
+        "damage_ratio": -0.7967918602103469,
+        "damage_relative_error": 1.7967918602103468,
+        "dense_damage": 0.00902162141686011,
+        "dense_recovery": 0.01566460708305497,
+        "recovery_absolute_error": 0.042480502230705375,
+        "recovery_ratio": -1.7118779300029954,
+        "recovery_relative_error": 2.711877930002996,
+        "sequence_effect": 0.00866264875752077,
+        "sparse_damage": -0.007188354510853472,
+        "sparse_recovery": -0.0268158951476504
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.1919164635084616,
+          "error_only_effect": -0.0604836142350757,
+          "error_shapley_effect": -0.06567629402622222,
+          "error_shapley_fraction": 0.05510142366261222,
+          "feature_only_effect": 1.2627854373258303,
+          "feature_shapley_effect": 1.2575927575346837,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.18306838244848384,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.198708705093487,
+          "error_only_effect": -0.07073606986417554,
+          "error_shapley_effect": -0.06571260871763036,
+          "error_shapley_fraction": 0.0548194973794784,
+          "feature_only_effect": 1.2593978526645724,
+          "feature_shapley_effect": 1.2644213138111173,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.18365156543537925,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.07086897381736867,
+        "damage_ratio": 1.0594580039684682,
+        "damage_relative_error": 0.05945800396846818,
+        "dense_damage": 1.1919164635084616,
+        "dense_recovery": 1.198708705093487,
+        "recovery_absolute_error": 0.060689147571085345,
+        "recovery_ratio": 1.0506287702034767,
+        "recovery_relative_error": 0.05062877020347676,
+        "sequence_effect": 1.2101850287890317,
+        "sparse_damage": 1.2627854373258303,
+        "sparse_recovery": 1.2593978526645724
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2024,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_error_fraction": true,
+        "damage_joint_replay": true,
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_error_fraction": true,
+        "recovery_joint_replay": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 2,
+      "sham_error_accounting": {
+        "damage": {
+          "dense_effect": 0.1364641982578095,
+          "error_only_effect": 0.0005644935658811563,
+          "error_shapley_effect": 0.009267735283520397,
+          "error_shapley_fraction": 0.0679133091450968,
+          "feature_only_effect": 0.11849322125664984,
+          "feature_shapley_effect": 0.1271964629742891,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.060325523085486235,
+          "shapley_sum_max_abs_error": 4.440892098500626e-16
+        },
+        "recovery": {
+          "dense_effect": 0.1382378641178285,
+          "error_only_effect": 0.018271899562768895,
+          "error_shapley_effect": 0.009567653118020273,
+          "error_shapley_fraction": 0.06921152304454865,
+          "feature_only_effect": 0.1373744574445569,
+          "feature_shapley_effect": 0.12867021099980827,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.06057285408914994,
+          "shapley_sum_max_abs_error": 0.0
+        }
+      },
+      "sham_shuffle": {
+        "damage_absolute_error": 0.01797097700115967,
+        "damage_ratio": 0.8683099506640656,
+        "damage_relative_error": 0.13169004933593442,
+        "dense_damage": 0.1364641982578095,
+        "dense_recovery": 0.1382378641178285,
+        "recovery_absolute_error": 0.0008634066732716161,
+        "recovery_ratio": 0.9937541955036596,
+        "recovery_relative_error": 0.0062458044963403245,
+        "sequence_effect": 0.1403843639435236,
+        "sparse_damage": 0.11849322125664984,
+        "sparse_recovery": 0.1373744574445569
+      },
+      "target_error_accounting": {
+        "damage": {
+          "dense_effect": 1.3320440079836056,
+          "error_only_effect": -0.04039442458833506,
+          "error_shapley_effect": -0.030091357151909626,
+          "error_shapley_fraction": 0.022590362609311014,
+          "feature_only_effect": 1.3518322976990897,
+          "feature_shapley_effect": 1.362135365135515,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.15770313975603178,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        },
+        "recovery": {
+          "dense_effect": 1.3397574287947493,
+          "error_only_effect": -0.018717244070058002,
+          "error_shapley_effect": -0.029246133089897517,
+          "error_shapley_fraction": 0.02182942408926028,
+          "feature_only_effect": 1.3795324509044866,
+          "feature_shapley_effect": 1.369003561884647,
+          "joint_dense_margin_max_abs_error": 0.0,
+          "mean_absolute_error_shapley": 0.1571206536797793,
+          "shapley_sum_max_abs_error": 8.881784197001252e-16
+        }
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.019788289715484186,
+        "damage_ratio": 1.0148555825459842,
+        "damage_relative_error": 0.014855582545984273,
+        "dense_damage": 1.3320440079836056,
+        "dense_recovery": 1.3397574287947493,
+        "recovery_absolute_error": 0.03977502210973727,
+        "recovery_ratio": 1.0296882265810752,
+        "recovery_relative_error": 0.02968822658107522,
+        "sequence_effect": 1.3694094152248555,
+        "sparse_damage": 1.3518322976990897,
+        "sparse_recovery": 1.3795324509044866
+      }
+    }
+  ],
+  "checkpoint_records": {
+    "2020": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2020.pt",
+      "sha256": "2552486a0870e2466a223fcce34f0477c40526a09172622619f0d1672a1af45e"
+    },
+    "2021": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2021.pt",
+      "sha256": "2cb06d2a17d941857485329604d526b465eabda319632c932000b85d8d40cda6"
+    },
+    "2022": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2022.pt",
+      "sha256": "556e38c92319ce87fb15ca390743ae20c539f4c5400c4cca82a83cdf3d46bd0a"
+    },
+    "2023": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2023.pt",
+      "sha256": "03c25882ae3e4b48198265bf8447ef543308e40ec9fd700b4834d829dcb6100b"
+    },
+    "2024": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2024.pt",
+      "sha256": "d1caccec4db1784537178e355351a3e0b67cde4e70185bf6b6a6d63f792198f1"
+    }
+  },
+  "complete_write_replacement_authorized": false,
+  "development_artifact": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/jacobian_sae_delta_preflight_v1.json",
+  "development_artifact_sha256": "193077dcfe60210a71ef717b6701952e48c5e2b260e9db0842baf2ba6a76116f",
+  "evidence_tier": "instrument",
+  "feature_semantics_established": false,
+  "fresh_cohort": {
+    "n_genes": 128,
+    "n_states": 768,
+    "namespace": "gtex-jacobian-sae-fresh-delta-confirmation-v1",
+    "sham_pairs_by_endpoint": {
+      "acceptor": 128,
+      "donor": 128
+    },
+    "target_pairs_by_endpoint": {
+      "acceptor": 128,
+      "donor": 128
+    }
+  },
+  "implementation_addendum": "studies/splicebert_gtex_finetune_shift/IMPLEMENTATION_ADDENDUM_JACOBIAN_SAE_FRESH_DELTA_CONFIRMATION_V1.md",
+  "individual_feature_identity_opened": false,
+  "instrument_gate": {
+    "PASS": false,
+    "all_30_behavioral_cells_PASS": false,
+    "decoded_arrays_frozen_before_classifier_load": true,
+    "mechanical_PASS": false
+  },
+  "licensed_claim": "Residual-preserving J-SAE feature/edge discovery and steering remain closed.",
+  "mechanical_cells": [
+    {
+      "PASS": true,
+      "checkpoint_seed": 2020,
+      "decoder_difference_max_abs_error": 1.7762184143066406e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": true
+      },
+      "initialization": 0,
+      "zero_delta_identity_max_abs_error": 0.0
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2020,
+      "decoder_difference_max_abs_error": 1.9073486328125e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": true
+      },
+      "initialization": 1,
+      "zero_delta_identity_max_abs_error": 0.0
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2020,
+      "decoder_difference_max_abs_error": 2.7179718017578125e-05,
+      "gates": {
+        "all_feature_decomposition": false,
+        "zero_delta_identity": true
+      },
+      "initialization": 2,
+      "zero_delta_identity_max_abs_error": 0.0
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2021,
+      "decoder_difference_max_abs_error": 1.9073486328125e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": true
+      },
+      "initialization": 0,
+      "zero_delta_identity_max_abs_error": 0.0
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2021,
+      "decoder_difference_max_abs_error": 1.9073486328125e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": true
+      },
+      "initialization": 1,
+      "zero_delta_identity_max_abs_error": 0.0
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2021,
+      "decoder_difference_max_abs_error": 1.52587890625e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": true
+      },
+      "initialization": 2,
+      "zero_delta_identity_max_abs_error": 0.0
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2022,
+      "decoder_difference_max_abs_error": 2.193450927734375e-05,
+      "gates": {
+        "all_feature_decomposition": false,
+        "zero_delta_identity": true
+      },
+      "initialization": 0,
+      "zero_delta_identity_max_abs_error": 0.0
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2022,
+      "decoder_difference_max_abs_error": 2.288818359375e-05,
+      "gates": {
+        "all_feature_decomposition": false,
+        "zero_delta_identity": true
+      },
+      "initialization": 1,
+      "zero_delta_identity_max_abs_error": 0.0
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2022,
+      "decoder_difference_max_abs_error": 2.4557113647460938e-05,
+      "gates": {
+        "all_feature_decomposition": false,
+        "zero_delta_identity": true
+      },
+      "initialization": 2,
+      "zero_delta_identity_max_abs_error": 0.0
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2023,
+      "decoder_difference_max_abs_error": 2.288818359375e-05,
+      "gates": {
+        "all_feature_decomposition": false,
+        "zero_delta_identity": true
+      },
+      "initialization": 0,
+      "zero_delta_identity_max_abs_error": 0.0
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2023,
+      "decoder_difference_max_abs_error": 2.6464462280273438e-05,
+      "gates": {
+        "all_feature_decomposition": false,
+        "zero_delta_identity": true
+      },
+      "initialization": 1,
+      "zero_delta_identity_max_abs_error": 0.0
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2023,
+      "decoder_difference_max_abs_error": 2.09808349609375e-05,
+      "gates": {
+        "all_feature_decomposition": false,
+        "zero_delta_identity": true
+      },
+      "initialization": 2,
+      "zero_delta_identity_max_abs_error": 0.0
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2024,
+      "decoder_difference_max_abs_error": 1.9073486328125e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": true
+      },
+      "initialization": 0,
+      "zero_delta_identity_max_abs_error": 0.0
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2024,
+      "decoder_difference_max_abs_error": 2.09808349609375e-05,
+      "gates": {
+        "all_feature_decomposition": false,
+        "zero_delta_identity": true
+      },
+      "initialization": 1,
+      "zero_delta_identity_max_abs_error": 0.0
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2024,
+      "decoder_difference_max_abs_error": 2.288818359375e-05,
+      "gates": {
+        "all_feature_decomposition": false,
+        "zero_delta_identity": true
+      },
+      "initialization": 2,
+      "zero_delta_identity_max_abs_error": 0.0
+    }
+  ],
+  "replication_artifact": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/jacobian_sae_replication_v1.json",
+  "replication_artifact_sha256": "a5de18a8acb51fe0cc8438e66ba106a06c0f52e09f071660fb1f90097625c4b4",
+  "residual_preserving_feature_delta_authorized": false,
+  "stage": "gene-fresh residual-preserving delta confirmation",
+  "status": "INSTRUMENT_UNRESOLVED",
+  "study": "SpliceBERT GTEx layer-5 Jacobian SAE",
+  "thresholds": {
+    "decoder_decomposition_max_abs_error": 2e-05,
+    "dense_effect_minimum": 0.05,
+    "error_shapley_fraction_maximum": 0.1,
+    "joint_margin_max_abs_error": 1e-10,
+    "relative_error_maximum": 0.1,
+    "required_behavioral_cells": 30,
+    "required_mechanical_cells": 15,
+    "sham_minus_target_absolute_error_maximum": 0.02,
+    "zero_delta_identity_max_abs_error": 1e-12
+  }
+}
