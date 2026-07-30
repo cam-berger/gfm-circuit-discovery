@@ -11,8 +11,8 @@ environment below.
 From the repository root:
 
 ```bash
-uv sync --extra splicebert --extra dev
-uv run --extra splicebert --extra dev pytest
+uv sync --extra splicebert --extra biology --extra dev
+uv run --extra splicebert --extra biology --extra dev pytest
 ```
 
 **Pass the extras on the `uv run` too.** A bare `uv run pytest` re-syncs to the default dependency set

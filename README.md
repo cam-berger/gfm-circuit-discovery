@@ -165,8 +165,8 @@ the per-study `CLAIMS.md` files.
 For development:
 
 ```bash
-uv sync --extra splicebert --extra dev
-uv run pytest
+uv sync --extra splicebert --extra biology --extra dev
+uv run --extra splicebert --extra biology --extra dev pytest
 ```
 
 Run experiments from the repository root. Result-producing scripts must write an immutable result and a
