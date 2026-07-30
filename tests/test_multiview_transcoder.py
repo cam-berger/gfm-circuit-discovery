@@ -4,6 +4,9 @@ import torch
 from gfmcd.circuits.multiview_transcoder import (
     MultiViewSparseTranscoder,
     MultiViewTranscoderConfig,
+    StructuredMultiViewSparseTranscoder,
+    StructuredMultiViewTranscoderConfig,
+    batch_topk,
     decoder_alignment_loss,
     feature_similarity_matrices,
     multiview_transcoder_loss,
@@ -170,3 +173,73 @@ def test_configuration_and_shape_failures_are_explicit():
         model.encode("2020", torch.randn(2, 4))
     with pytest.raises(ValueError, match="unique"):
         model.selected_feature_write("2020", torch.rand(2, 5), [1, 1])
+
+
+def make_structured_model() -> StructuredMultiViewSparseTranscoder:
+    torch.manual_seed(7)
+    return StructuredMultiViewSparseTranscoder(
+        StructuredMultiViewTranscoderConfig(
+            input_dim=4,
+            output_dim=4,
+            num_features=16,
+            active_features=4,
+            views=("base", "2020", "2021"),
+            tuned_views=("2020", "2021"),
+            threshold_momentum=0.0,
+        )
+    )
+
+
+def test_batch_topk_enforces_global_average_activity():
+    values = torch.arange(1.0, 25.0).reshape(4, 6)
+    selected, threshold = batch_topk(values, 2)
+    assert torch.count_nonzero(selected).item() == 8
+    assert threshold.item() == pytest.approx(17.0)
+    assert torch.equal(selected[selected > 0], values[values >= 17.0])
+
+
+def test_structured_capacity_masks_tuned_features_from_base():
+    model = make_structured_model()
+    inputs = torch.randn(12, 4)
+    model.train()
+    base_features = model.encode("base", inputs, force_batch_topk=True)
+    tuned_features = model.encode("2020", inputs, force_batch_topk=True)
+    assert torch.count_nonzero(base_features[:, 8:12]).item() == 0
+    assert torch.count_nonzero(tuned_features[:, 8:12]).item() <= 12
+    assert torch.count_nonzero(base_features).item() <= 12 * 4
+    assert torch.count_nonzero(tuned_features).item() <= 12 * 4
+
+
+def test_structured_threshold_calibration_supports_batch_independent_eval():
+    model = make_structured_model()
+    inputs = {
+        view: torch.randn(64, 4) + 1.0 for view in model.config.views
+    }
+    model.calibrate_thresholds(inputs)
+    model.eval()
+    whole = model.encode("2020", inputs["2020"])
+    split = torch.cat(
+        [
+            model.encode("2020", inputs["2020"][:19]),
+            model.encode("2020", inputs["2020"][19:]),
+        ]
+    )
+    assert torch.allclose(whole, split, atol=1e-6)
+    assert torch.count_nonzero(model.encode("base", inputs["base"])[:, 8:12]) == 0
+
+
+def test_structured_loss_uses_only_shared_and_tuned_consistency_blocks():
+    model = make_structured_model()
+    inputs = {view: torch.randn(10, 4) for view in model.config.views}
+    targets = {view: torch.randn(10, 4) for view in model.config.views}
+    result = multiview_transcoder_loss(
+        model,
+        inputs,
+        targets,
+        contrast_pairs=(("base", "2020"), ("base", "2021")),
+        view_difference_weight=0.5,
+        consistency_weight=0.5,
+        consistency_indices=model.config.consistent_slice,
+    )
+    assert torch.isfinite(result["loss"])
+    result["loss"].backward()

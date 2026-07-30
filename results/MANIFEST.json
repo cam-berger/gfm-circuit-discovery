@@ -1,17 +1,17 @@
 {
- "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc). GFS rows appended 2026-07-28 (GTEx fine-tuning shift). Native-classifier GFS6\u2013GFS9 rows appended 2026-07-29. Final-layer mechanism GFS10\u2013GFS13 rows appended 2026-07-29. Context-localization GFS14\u2013GFS16 rows appended 2026-07-29. Complete L5 context-head census GFS17 rows appended 2026-07-29. Joint/path/low-rank GFS18 rows appended 2026-07-29. Per-seed alignment GFS19 and exact native-unit GFS20 rows appended 2026-07-29.",
- "row_count": 863,
+ "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc). GFS rows appended 2026-07-28 (GTEx fine-tuning shift). Native-classifier GFS6\u2013GFS9 rows appended 2026-07-29. Final-layer mechanism GFS10\u2013GFS13 rows appended 2026-07-29. Context-localization GFS14\u2013GFS16 rows appended 2026-07-29. Complete L5 context-head census GFS17 rows appended 2026-07-29. Joint/path/low-rank GFS18 rows appended 2026-07-29. Per-seed alignment GFS19 and exact native-unit GFS20 rows appended 2026-07-29. Biological-feature GFS21 preflight and discovery rows appended 2026-07-29.",
+ "row_count": 869,
  "status_counts": {
   "canonical": 563,
-  "development": 150,
+  "development": 156,
   "infrastructure": 14,
   "superseded": 136
  },
  "polarity_counts": {
-  "bounded": 51,
+  "bounded": 55,
   "na": 287,
   "null": 19,
-  "positive": 501,
+  "positive": 503,
   "refutation": 5
  },
  "columns": [
@@ -8643,6 +8643,66 @@
    "artifact": "results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_evaluation_v1.npz",
    "script": "scripts/splicebert/run_gtex_native_context_final_mlp_unit_evaluation.py",
    "manifest": "results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_evaluation_v1.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS21",
+   "status": "development",
+   "evidence_level": "Instrument",
+   "polarity": "positive",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_biological_features_preflight_v1.json",
+   "script": "scripts/splicebert/run_gtex_native_biological_features_preflight.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/native_biological_features_preflight_v1.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS21",
+   "status": "development",
+   "evidence_level": "Instrument",
+   "polarity": "positive",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_biological_features_preflight_v1.manifest.json",
+   "script": "scripts/splicebert/run_gtex_native_biological_features_preflight.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS21",
+   "status": "development",
+   "evidence_level": "Candidate generation",
+   "polarity": "bounded",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_biological_features_discovery_v1.json",
+   "script": "scripts/splicebert/run_gtex_native_biological_features_discovery.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/native_biological_features_discovery_v1.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS21",
+   "status": "development",
+   "evidence_level": "Candidate generation",
+   "polarity": "bounded",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_biological_features_discovery_v1.manifest.json",
+   "script": "scripts/splicebert/run_gtex_native_biological_features_discovery.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS21",
+   "status": "development",
+   "evidence_level": "Instrument",
+   "polarity": "bounded",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_biological_construction_audit_v2.json",
+   "script": "scripts/splicebert/run_gtex_native_biological_construction_audit.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/native_biological_construction_audit_v2.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS21",
+   "status": "development",
+   "evidence_level": "Instrument",
+   "polarity": "bounded",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_biological_construction_audit_v2.manifest.json",
+   "script": "scripts/splicebert/run_gtex_native_biological_construction_audit.py",
+   "manifest": "",
    "figure": ""
   },
   {
