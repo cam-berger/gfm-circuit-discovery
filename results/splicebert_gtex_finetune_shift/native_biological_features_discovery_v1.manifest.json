@@ -1,0 +1,140 @@
+{
+  "command": [
+    "scripts/splicebert/run_gtex_native_biological_features_discovery.py",
+    "--preflight",
+    "results/splicebert_gtex_finetune_shift/native_biological_features_preflight_v1.json",
+    "--base-model",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+    "--checkpoint",
+    "data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2020.pt",
+    "--basic-gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+    "--comprehensive-gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+    "--fasta",
+    "/Users/cberg/Research/data/genomes/hg38.fa",
+    "--prior-results",
+    "results/splicebert_gtex_finetune_shift",
+    "--rbns-psams",
+    "data/external/sam_rbns_psams",
+    "--device",
+    "mps",
+    "--batch",
+    "8",
+    "--out",
+    "results/splicebert_gtex_finetune_shift/native_biological_features_discovery_v1.json"
+  ],
+  "config": {
+    "elastic_grid": [
+      [
+        0.0001,
+        0.1
+      ],
+      [
+        0.0001,
+        0.5
+      ],
+      [
+        0.0001,
+        0.9
+      ],
+      [
+        0.001,
+        0.1
+      ],
+      [
+        0.001,
+        0.5
+      ],
+      [
+        0.001,
+        0.9
+      ],
+      [
+        0.01,
+        0.1
+      ],
+      [
+        0.01,
+        0.5
+      ],
+      [
+        0.01,
+        0.9
+      ],
+      [
+        0.1,
+        0.1
+      ],
+      [
+        0.1,
+        0.5
+      ],
+      [
+        0.1,
+        0.9
+      ]
+    ],
+    "n_baseline": 400,
+    "n_boot": 5000,
+    "n_confirmation_frozen": 200,
+    "n_discovery": 128,
+    "seed": 2020
+  },
+  "created_at_utc": "2026-07-30T00:23:23.229495+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 25520,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "gtex-native-biological-features-discovery-v1",
+  "git_commit": "eef84bff53b08ce5e75084afb1c47d4bd8dfa4d5",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/studies/splicebert_gtex_finetune_shift/PREREGISTRATION_NATIVE_BIOLOGICAL_FEATURES_V1.md",
+      "sha256": "24322a133a9b48f64bf37ba44481ea3ac6f6f29446448d4e0b47f34c1c38c429",
+      "size_bytes": 23581
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_biological_features_preflight_v1.json",
+      "sha256": "cd67f36532e248607ef8f277fecab4a49c7c97dd30aed9a0dab06f287f56bfe8",
+      "size_bytes": 143017
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+      "sha256": "83fba3e9b03f0b8c958f3595c6c350adc55f468abf8b0e47b6d5284cfe13a453",
+      "size_bytes": 124527720
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2020.pt",
+      "sha256": "2552486a0870e2466a223fcce34f0477c40526a09172622619f0d1672a1af45e",
+      "size_bytes": 77835365
+    }
+  ],
+  "notes": [
+    "Confirmation cohort identities were frozen before any confirmation outcome.",
+    "RBP high/low construction did not access classifier outcomes.",
+    "RNAplfold settings: W=150, L=100, u=7 on 201 nt."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_biological_features_discovery_v1.json",
+      "sha256": "11b0106aabff1e921c6f009aaec83157a8da8d7f5121d746df7c65f77e74c3c3",
+      "size_bytes": 36723523
+    }
+  ],
+  "seeds": {},
+  "status": "COMPLETE"
+}
