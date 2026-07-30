@@ -105,3 +105,14 @@ leaves all fine-tuned shared and tuned-only blocks inactive. The behavioral pref
 so the artifact licenses no sparse-feature identity, causal patch, or steering claim. This bounds the
 specified shared-index sparse parameterization; it does not negate the native-unit mechanism or show
 that fine-tuning learned no biological feature.
+
+The exact-dose biological confirmation construction is:
+
+- `native_biological_features_confirmation_construction_v1.json`: 6,400 outcome-blind low/high
+  candidate/control sequence states on 200 frozen held-out genes, with an adjacent manifest.
+
+This artifact controls GFS22 and has status `STOPPED_MINIMUM_COHORT`. Complete candidate-plus-three-
+control cohorts contain only 23 donor/DAZAP1, 33 donor/SFPQ, 22 acceptor/UNK, and 21 acceptor/DAZAP1
+genes after exact low/high edit-dose and nuisance matching, below the frozen 60-example/45-gene gate.
+No checkpoint was loaded and no confirmation output was read. The downstream native-unit, steering,
+external-candidate, and reporter-outcome stages therefore remain closed.

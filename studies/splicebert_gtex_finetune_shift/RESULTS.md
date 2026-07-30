@@ -38,6 +38,7 @@ Immutable results:
 | label-free biological sequence package | `scripts/splicebert/export_gtex_sparse_transcoder_sequence_package.py` | `results/splicebert_gtex_finetune_shift/sparse_transcoder_sequence_package_v1.json` |
 | six-view final-MLP activation capture | `scripts/splicebert/run_gtex_sparse_transcoder_activation_capture.py` | `results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.json` plus `.npz` |
 | frozen sparse final-MLP grid | `scripts/splicebert/run_gtex_sparse_transcoder_training.py` | `results/splicebert_gtex_finetune_shift/sparse_transcoder_training_v1.json` plus `.pt` (`INSTRUMENT_UNRESOLVED`) |
+| exact-dose held-out biological construction | `scripts/splicebert/freeze_gtex_native_biological_features_confirmation.py` | `results/splicebert_gtex_finetune_shift/native_biological_features_confirmation_construction_v1.json` (`STOPPED_MINIMUM_COHORT`; no model output) |
 
 The five-seed artifact includes all 400 paired per-example values for the base and each seed, gene-grouped
 bootstrap intervals, 9,999 gene-level sign flips with add-one p-values, BH correction across the 15
@@ -130,4 +131,13 @@ setting, `w128_k32`, has mean write-delta FVE `0.877` and worst-view FVE `0.530`
 joint fit routes all five fine-tuned views through private capacity while leaving their shared and
 tuned-only blocks inactive. The frozen behavioral preflight was therefore not opened. This stops every
 sparse-latent, feature-label, and steering claim from that instrument while leaving the exact native-unit
-route available for a fresh biological-sequence confirmation.
+route available only if a fresh biological-sequence construction passes its frozen gate.
+
+That exact-dose construction has now run on the 200 held-out genes and stops before model inference.
+Candidate-only low/high synonymous recodings remain feasible for 101–114 genes per assignment, but the
+complete candidate-plus-three-control sets shrink to 23 donor/DAZAP1, 33 donor/SFPQ, 22 acceptor/UNK,
+and 21 acceptor/DAZAP1 genes once every control must match the candidate's exact low/high nucleotide
+dose and all discovery-frozen nuisance calipers. Every assignment misses the required 60 examples from
+45 genes. The correct interpretation is an isolation/feasibility failure of this confirmatory assay,
+not a negative result about an RBP. No held-out classifier outcome, native-unit ranking, steering test,
+external candidate lock, or reporter outcome was opened.

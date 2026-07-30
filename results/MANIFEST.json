@@ -1,14 +1,14 @@
 {
- "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc). GFS rows appended 2026-07-28 (GTEx fine-tuning shift). Native-classifier GFS6\u2013GFS9 rows appended 2026-07-29. Final-layer mechanism GFS10\u2013GFS13 rows appended 2026-07-29. Context-localization GFS14\u2013GFS16 rows appended 2026-07-29. Complete L5 context-head census GFS17 rows appended 2026-07-29. Joint/path/low-rank GFS18 rows appended 2026-07-29. Per-seed alignment GFS19 and exact native-unit GFS20 rows appended 2026-07-29. Biological-feature GFS21 preflight and discovery rows appended 2026-07-29.",
- "row_count": 879,
+ "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc). GFS rows appended 2026-07-28 (GTEx fine-tuning shift). Native-classifier GFS6\u2013GFS9 rows appended 2026-07-29. Final-layer mechanism GFS10\u2013GFS13 rows appended 2026-07-29. Context-localization GFS14\u2013GFS16 rows appended 2026-07-29. Complete L5 context-head census GFS17 rows appended 2026-07-29. Joint/path/low-rank GFS18 rows appended 2026-07-29. Per-seed alignment GFS19 and exact native-unit GFS20 rows appended 2026-07-29. Biological-feature GFS21 preflight and discovery rows appended 2026-07-29. Exact-dose biological construction GFS22 rows appended 2026-07-30.",
+ "row_count": 881,
  "status_counts": {
   "canonical": 563,
-  "development": 166,
+  "development": 168,
   "infrastructure": 14,
   "superseded": 136
  },
  "polarity_counts": {
-  "bounded": 60,
+  "bounded": 62,
   "na": 287,
   "null": 19,
   "positive": 508,
@@ -8803,6 +8803,26 @@
    "artifact": "results/splicebert_gtex_finetune_shift/sparse_transcoder_training_v1.pt",
    "script": "scripts/splicebert/run_gtex_sparse_transcoder_training.py",
    "manifest": "results/splicebert_gtex_finetune_shift/sparse_transcoder_training_v1.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS22",
+   "status": "development",
+   "evidence_level": "Instrument",
+   "polarity": "bounded",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_biological_features_confirmation_construction_v1.json",
+   "script": "scripts/splicebert/freeze_gtex_native_biological_features_confirmation.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/native_biological_features_confirmation_construction_v1.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS22",
+   "status": "development",
+   "evidence_level": "Instrument",
+   "polarity": "bounded",
+   "artifact": "results/splicebert_gtex_finetune_shift/native_biological_features_confirmation_construction_v1.manifest.json",
+   "script": "scripts/splicebert/freeze_gtex_native_biological_features_confirmation.py",
+   "manifest": "",
    "figure": ""
   },
   {
