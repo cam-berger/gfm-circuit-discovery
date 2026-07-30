@@ -10,7 +10,7 @@ were replaced by [MASK]" cancels exactly in the between-arm differences.
   U       -49:-9    dose 7    specificity check (development sign was negative)
   B       -249:-49  dose 30   the whole far-upstream band, deliberately over-dosed
 
-Protocol: studies/dnabert2_reconstruction_atlas/PREREGISTRATION_D15_ATTENTION_CAUSALITY_DISSOCIATION.md
+Protocol: studies/dnabert2_reconstruction_atlas/preregistrations/PREREGISTRATION_D15_ATTENTION_CAUSALITY_DISSOCIATION.md
 """
 from __future__ import annotations
 

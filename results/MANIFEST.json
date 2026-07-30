@@ -1,15 +1,15 @@
 {
   "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc); DNABERT-2 Reconstruction Atlas infrastructure, narrow v1 behavior, multisource-v4 bounded development, context-margin-v1 replication, and promoter-classifier-v2 bounded replication rows appended 2026-07-27; promoter clean-behavior head-atlas, promoter-circuit, promoter address/payload, promoter source-localization, post-hoc source-performance, all-node accuracy, and low-rank L11MLP rows appended 2026-07-28. D12 preflight/development-predictions/confirmation rows (debt from commit ed8c131) and the D13 exploratory post-hoc composition-vs-position rows appended 2026-07-29 (MANIFEST coverage fix, task-1 fix round 1); all eight rows carry no claim_id because none has a CLAIMS.md entry. D13 task-4 promoter-composition supply/matching-feasibility audit rows (infrastructure, no claim_id yet) appended 2026-07-29. D13 Amendment 1 promoter-composition v2 supply/matching-feasibility audit rows (infrastructure, no claim_id yet) appended 2026-07-29. D13 task-5 promoter-composition preflight v2 rows (development, no claim_id yet; decision INSTRUMENT_UNRESOLVED -- planted-positive calibration failed) appended 2026-07-29. D14 arrangement-vs-composition rows appended 2026-07-29: Phase 0 exploratory summary, smoke gate (PREFLIGHT), and the sealed confirmatory v4 record (per-locus values embedded inline, since results/dnabert2_reconstruction_atlas/**/*.jsonl is gitignored for this study) (polarity 'refutation' - the study refutes arrangement as the carrier of the D12 TSS polarity). Superseded confirmation v1/v2 were deleted pre-claim (v1 lacked Holm and raw persistence; v2 carried a p-value extraction bug); v3 endpoints are bit-identical to v1.",
-  "row_count": 991,
+  "row_count": 995,
   "status_counts": {
     "canonical": 599,
     "development": 195,
-    "infrastructure": 54,
+    "infrastructure": 58,
     "superseded": 143
   },
   "polarity_counts": {
     "bounded": 77,
-    "na": 339,
+    "na": 343,
     "null": 19,
     "positive": 548,
     "refutation": 8
@@ -9932,6 +9932,46 @@
       "polarity": "na",
       "artifact": "results/dnabert2_reconstruction_atlas/l9h7_position_vs_content_v1.manifest.json",
       "script": "scripts/dnabert2_atlas/analyze_l9h7_position_vs_content.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "D12",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_domain_smoke.json",
+      "script": "scripts/dnabert2_atlas/run_promoter_domain.py",
+      "manifest": "results/dnabert2_reconstruction_atlas/promoter_domain_smoke.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "D12",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_domain_smoke.manifest.json",
+      "script": "scripts/dnabert2_atlas/run_promoter_domain.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "D12",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_domain_preflight_smoke.json",
+      "script": "scripts/dnabert2_atlas/run_promoter_domain_preflight.py",
+      "manifest": "results/dnabert2_reconstruction_atlas/promoter_domain_preflight_smoke.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "D12",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert2_reconstruction_atlas/promoter_domain_preflight_smoke.manifest.json",
+      "script": "scripts/dnabert2_atlas/run_promoter_domain_preflight.py",
       "manifest": "",
       "figure": ""
     }

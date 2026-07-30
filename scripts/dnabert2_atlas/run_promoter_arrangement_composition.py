@@ -6,7 +6,7 @@ Three arms applied per 10-nt tile at D12's E2 tiles:
   B  dinucleotide_reorder  (destroys arrangement, holds mono+dinucleotide counts exactly)
   C  gc_depletion          (changes GC with real bases, no [MASK])
 
-Protocol: studies/dnabert2_reconstruction_atlas/PREREGISTRATION_D14_ARRANGEMENT_VS_COMPOSITION.md
+Protocol: studies/dnabert2_reconstruction_atlas/preregistrations/PREREGISTRATION_D14_ARRANGEMENT_VS_COMPOSITION.md
 """
 
 from __future__ import annotations
@@ -287,7 +287,7 @@ def main() -> None:
         "study": "D14",
         "split": args.split,
         "phase": "smoke" if args.smoke else "confirmatory",
-        "protocol": "studies/dnabert2_reconstruction_atlas/PREREGISTRATION_D14_ARRANGEMENT_VS_COMPOSITION.md",
+        "protocol": "studies/dnabert2_reconstruction_atlas/preregistrations/PREREGISTRATION_D14_ARRANGEMENT_VS_COMPOSITION.md",
         "memorials": memorials,
         "specificity_control_inert_tile": specificity,
         "supply_by_arm": supply_by_arm,

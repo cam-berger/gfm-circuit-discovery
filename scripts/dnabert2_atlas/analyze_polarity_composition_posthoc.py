@@ -10,7 +10,7 @@ per se. This script re-aggregates the D12 confirmation rows -- already opened, s
 -- to ask, observationally, whether the target-minus-control GC/CpG composition differential tracks
 the polarity. It does not intervene on composition and licenses no exclusion of the composition
 explanation either way; it exists only to motivate and power D13
-(`studies/dnabert2_reconstruction_atlas/PREREGISTRATION_D13_COMPOSITION_VS_POSITION.md`).
+(`studies/dnabert2_reconstruction_atlas/preregistrations/PREREGISTRATION_D13_COMPOSITION_VS_POSITION.md`).
 
 No model is loaded. This is pure arithmetic over two already-written JSONL files:
   --confirmation-raw   data/processed/dnabert2_atlas/promoter_domain_v1/confirmation.raw.jsonl

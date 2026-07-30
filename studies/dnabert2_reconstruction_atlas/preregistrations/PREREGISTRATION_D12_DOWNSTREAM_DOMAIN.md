@@ -3,10 +3,10 @@
 > **Tier: T1 — frozen protocol.** Frozen 2026-07-28; amended 2026-07-28 (Amendment 1, pre-outcome);
 > amended 2026-07-29 (Amendment 2, pre-outcome).
 > Controls
-> [`../../configs/dnabert2_atlas/promoter_domain_v2.frozen.json`](../../configs/dnabert2_atlas/promoter_domain_v2.frozen.json)
+> [`../../configs/dnabert2_atlas/promoter_domain_v2.frozen.json`](../../../configs/dnabert2_atlas/promoter_domain_v2.frozen.json)
 > (`schema_version` 2, `status` `FROZEN`, study `dnabert2_biological_reconstruction_atlas`, assay
 > `promoter_domain_v2`, `supersedes` `promoter_domain_v1.frozen.json`). The original
-> [`../../configs/dnabert2_atlas/promoter_domain_v1.frozen.json`](../../configs/dnabert2_atlas/promoter_domain_v1.frozen.json)
+> [`../../configs/dnabert2_atlas/promoter_domain_v1.frozen.json`](../../../configs/dnabert2_atlas/promoter_domain_v1.frozen.json)
 > is preserved unedited and superseded, not deleted — see **Amendment 1** below for why. Read before
 > treating any tile-level confirmation number from this assay as evidence.
 

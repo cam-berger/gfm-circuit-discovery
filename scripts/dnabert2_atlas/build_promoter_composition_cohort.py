@@ -18,7 +18,7 @@ exhausted under the block-disjointness rule alone, so this extends the source
 definition rather than reusing D4/D7-D12's MANE-only pool.
 
 **Block size and exclusion rule (v2, Amendment 1,
-`studies/dnabert2_reconstruction_atlas/PREREGISTRATION_D13_COMPOSITION_VS_POSITION.md`):**
+`studies/dnabert2_reconstruction_atlas/preregistrations/PREREGISTRATION_D13_COMPOSITION_VS_POSITION.md`):**
 the locus-block size is read from the run's config
 (`boundaries.block_size_nt`; defaults to 1,000,000 -- v1's hardcoded value --
 when a config carries no `boundaries` section, so this script still reproduces
@@ -34,7 +34,7 @@ and preregistration Amendment 1 for why this loosens the cluster-bootstrap
 independence assumption and is not a free relaxation.
 
 Declared confound (see the supply audit and
-`studies/dnabert2_reconstruction_atlas/PREREGISTRATION_D13_COMPOSITION_VS_POSITION.md`):
+`studies/dnabert2_reconstruction_atlas/preregistrations/PREREGISTRATION_D13_COMPOSITION_VS_POSITION.md`):
 non-MANE transcripts are alternative promoters, a different promoter class
 from the MANE Select TSSs the original TSS-polarity effect was confirmed on.
 """

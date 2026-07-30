@@ -7,7 +7,7 @@ sealed confirmation split to test the four preregistered endpoints E1, E1b, E2, 
 value D8 already opened). Tiles {0-20, 24} MUST remain sealed for future work.
 
 Frozen protocol of record:
-  studies/dnabert2_reconstruction_atlas/PREREGISTRATION_D12_DOWNSTREAM_DOMAIN.md
+  studies/dnabert2_reconstruction_atlas/preregistrations/PREREGISTRATION_D12_DOWNSTREAM_DOMAIN.md
   configs/dnabert2_atlas/promoter_domain_v2.frozen.json
 
 This is the confirmatory analogue of scripts/dnabert2_atlas/freeze_promoter_domain_predictions.py

@@ -19,10 +19,10 @@
 
 > **Tier: T1 — frozen protocol.** Frozen 2026-07-29; amended 2026-07-29 (Amendment 1, pre-outcome).
 > Controls
-> [`../../configs/dnabert2_atlas/promoter_composition_v2.frozen.json`](../../configs/dnabert2_atlas/promoter_composition_v2.frozen.json)
+> [`../../configs/dnabert2_atlas/promoter_composition_v2.frozen.json`](../../../configs/dnabert2_atlas/promoter_composition_v2.frozen.json)
 > (`schema_version` 2, `status` `FROZEN`, study `dnabert2_biological_reconstruction_atlas`, assay
 > `promoter_composition_v2`, `supersedes` `promoter_composition_v1.frozen.json`). The original
-> [`../../configs/dnabert2_atlas/promoter_composition_v1.frozen.json`](../../configs/dnabert2_atlas/promoter_composition_v1.frozen.json)
+> [`../../configs/dnabert2_atlas/promoter_composition_v1.frozen.json`](../../../configs/dnabert2_atlas/promoter_composition_v1.frozen.json)
 > is preserved unedited and superseded, not deleted — see **Amendment 1** below for why. Read before
 > treating any result from this assay as evidence.
 
@@ -291,7 +291,7 @@ change addresses it. This redesign is recorded here as tested and rejected speci
 not re-proposed in a future amendment without new evidence.
 
 **Decision (two changes, both frozen in
-[`../../configs/dnabert2_atlas/promoter_composition_v2.frozen.json`](../../configs/dnabert2_atlas/promoter_composition_v2.frozen.json),
+[`../../configs/dnabert2_atlas/promoter_composition_v2.frozen.json`](../../../configs/dnabert2_atlas/promoter_composition_v2.frozen.json),
 which declares `"supersedes": "configs/dnabert2_atlas/promoter_composition_v1.frozen.json"`). v1 is
 not edited — it stays immutable as the record of what was originally specified and why it needed to
 change.**

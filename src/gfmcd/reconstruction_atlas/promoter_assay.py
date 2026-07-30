@@ -70,7 +70,7 @@ def iter_gencode_protein_coding_tss(path: str | Path) -> list[GencodeTss]:
 
     MANE Select supply is exhausted under the block-disjointness admission rule
     used by this study's earlier cohorts (see
-    ``studies/dnabert2_reconstruction_atlas/PREREGISTRATION_D13_COMPOSITION_VS_POSITION.md``),
+    ``studies/dnabert2_reconstruction_atlas/preregistrations/PREREGISTRATION_D13_COMPOSITION_VS_POSITION.md``),
     so this iterator deliberately prefers an alternate-promoter (non-MANE-Select)
     transcript for every gene that has one, falling back to the gene's MANE
     Select transcript only when it is that gene's sole protein-coding

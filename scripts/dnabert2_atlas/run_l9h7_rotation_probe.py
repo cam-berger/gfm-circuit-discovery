@@ -24,7 +24,7 @@ Design red-team (2026-07-29) forced three changes:
     collapse needs (a) an OOD-severity-matched shuffled-content arm, giving the identified
     difference dF = F_intact - F_shuffled, and (b) a global-stability readout.
 
-Protocol: studies/dnabert2_reconstruction_atlas/PREREGISTRATION_D17_L9H7_ROTATION_PROBE.md
+Protocol: studies/dnabert2_reconstruction_atlas/preregistrations/PREREGISTRATION_D17_L9H7_ROTATION_PROBE.md
 """
 from __future__ import annotations
 

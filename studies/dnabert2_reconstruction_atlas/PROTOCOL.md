@@ -267,8 +267,41 @@ For a frozen candidate set:
 Null families of different intervention sizes are never pooled. Attention or attribution alone can
 never populate the “Causal support” column.
 
+### Promoter attention-dissociation amendment (D15–D17)
+
+**Two-checkpoint scope.** D16 and D17 compare the pinned base checkpoint
+`zhihan1996/DNABERT-2-117M` against the fine-tuned `magicslabnu/DNABERT-2-finetuned-prom_300_all`.
+Any two-checkpoint measurement carries a hard precondition: a **runtime tokenization-identity check**
+on the actual cohort — identical `input_ids` *and* identical offset mappings for every sequence.
+Comparing tokenizer *specifications* is not sufficient; if the runtime check fails, the
+nucleotide-band allocation differs between models and every reported difference is an artifact.
+
+**ALiBi band mass is architecture, not evidence.** DNABERT-2 has symmetric ALiBi and no position
+embeddings, and the classifier reads `[CLS]` at window index 0. Because `far_upstream` is the widest
+band and the one nearest `[CLS]`, the ALiBi-only prior places 49–89% of *every* head's `[CLS]` mass
+there at all twelve slopes. **Raw band mass may never be reported as a content preference.** Only
+*measured minus the per-condition ALiBi prior*, computed on that condition's actual BPE offsets, is
+interpretable — and any decision threshold applied to raw mass must be re-checked against a
+prior-only synthetic head before it is frozen.
+
+**Equal-dose span masking.** Regional contrasts mask an identical BPE token count in target and
+control with matched nucleotide cover, so any artifact depending only on "k tokens were masked"
+cancels exactly in a between-region difference. Unequal-dose arms are descriptive and cannot qualify
+a claim.
+
+**Position-vs-content discrimination.** The task geometry is degenerate — the TSS sits at window
+index 249 in every input — so distance-from-`[CLS]` is equivalent to absolute window position, and a
+head attending to a TSS-relative band is indistinguishable from one attending to a constant offset.
+Separating them requires a displacement manipulation (window rotation or genomic re-anchor) paired
+with an out-of-distribution-severity-matched content-destruction arm, plus a global-stability
+readout that distinguishes head-specific loss of selectivity from network collapse.
+
 ## Stopping rules
 
+- **An attention-band measurement may name a position, never a content class.** Calling a head a
+  reader, detector, or recogniser of any biological entity requires a displacement or
+  content-destruction control on that same head. This rule exists because D16 named L9H7 a "TSS
+  reader" on attention alone and D17 had to retract it.
 - No preflight pass: stop before target outcomes.
 - Raw reconstruction without either the historical empirical-excess gate or a separately frozen,
   replicated model-native behavior gate: do not localize internals.

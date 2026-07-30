@@ -640,7 +640,7 @@
   failing refutes only polarity and leaves the domain claim intact; E3 failing licenses no null. The
   frozen `stop_rules` field in both v1 and v2 is unchanged and still reads literally "if E1 and E2
   both fail…"; this ruling, not that literal wording, is the operative gate now that E1b exists.
-- Effect: `studies/dnabert2_reconstruction_atlas/PREREGISTRATION_D12_DOWNSTREAM_DOMAIN.md` is
+- Effect: `studies/dnabert2_reconstruction_atlas/preregistrations/PREREGISTRATION_D12_DOWNSTREAM_DOMAIN.md` is
   amended in place (Amendment 1) to record this trigger, the before/after numbers, and the
   disclosure above; its Provenance-and-honesty and Prior-art sections are unchanged. Fix round 2
   additionally threaded E1b through the Stop rules and What-would-refute-this sections, which had
@@ -670,7 +670,7 @@
 - Boundary: Amendment 1 and the E1/E1b gating text in Stop rules and What would refute this remain
   otherwise in force. This decision overrides only the licensing condition for running Phase H, not
   any endpoint definition, SESOI, or qualification rule.
-- Effect: `studies/dnabert2_reconstruction_atlas/PREREGISTRATION_D12_DOWNSTREAM_DOMAIN.md` is amended
+- Effect: `studies/dnabert2_reconstruction_atlas/preregistrations/PREREGISTRATION_D12_DOWNSTREAM_DOMAIN.md` is amended
   in place (Amendment 2) to record the authorisation, the verified pre-outcome timing, and the wording
   constraint on any Phase H result obtained under a failed edge gate.
 
@@ -763,7 +763,7 @@
   `results/dnabert2_reconstruction_atlas/**/*.jsonl` is gitignored for this study and a
   reproducibility record a fresh checkout cannot see is not a record. v4's endpoints are
   bit-identical to v3's and v3's to v1's.
-- Effect: new `PREREGISTRATION_D14_ARRANGEMENT_VS_COMPOSITION.md`; new D14 entry in `CLAIMS.md`;
+- Effect: new `preregistrations/PREREGISTRATION_D14_ARRANGEMENT_VS_COMPOSITION.md`; new D14 entry in `CLAIMS.md`;
   H8 corrected; `RESULTS.md` index and detail; eight `results/MANIFEST` rows appended and
   `scripts/verify_manifest.py` green at 973 rows. Track B (which heads, relay vs direct) is
   deferred — §2 of the prereg constrains it but no attention or ablation endpoint was preregistered.
@@ -827,7 +827,7 @@
   analysis step, so **no confirmation value was written or seen and the seal stayed intact**. After
   that, every signature in `statistics.py` was dumped and checked at once rather than one at a time —
   this is the second run in a row lost to a return-shape assumption.
-- Effect: new `PREREGISTRATION_D15_ATTENTION_CAUSALITY_DISSOCIATION.md`; new D15 entry in
+- Effect: new `preregistrations/PREREGISTRATION_D15_ATTENTION_CAUSALITY_DISSOCIATION.md`; new D15 entry in
   `CLAIMS.md` with H11/H12 added to open hypotheses; `RESULTS.md` detail section; new runners
   `run_promoter_region_density.py` and `analyze_promoter_alibi_reach.py`. **H12 (relay) is explicitly
   an untested inference** — D15 patches no path and identifies no relay position or layer. The next
@@ -879,7 +879,7 @@
   Same class of call as retiring D13 unrun and deferring P3.4 in the sibling study: the blocker is
   scientific, not engineering. A real behavioural before/after needs a base-model readout that is
   position-symmetric, and none was available here.
-- Effect: new `PREREGISTRATION_D16_FINETUNING_ATTENTION_SHIFT.md`; new D16 entry in `CLAIMS.md`;
+- Effect: new `preregistrations/PREREGISTRATION_D16_FINETUNING_ATTENTION_SHIFT.md`; new D16 entry in `CLAIMS.md`;
   `RESULTS.md` detail; new runner `compare_base_finetuned_attention.py`.
 
 ## 2026-07-29 — D16 wording correction: L9H7 was not a distinctively sink-like head
@@ -993,3 +993,54 @@
 - Follow-up not run: the genomic re-anchor ladder from hg38 is now known to be available and would
   test the same question with contiguous real sequence and no junction. Given three concordant lines
   it is corroboration, not a gap.
+
+## 2026-07-29 — Pre-PR audit: six record defects fixed, preregistrations moved
+
+Audit before opening the PR against `origin/master` (754454a). Findings verified against the files
+individually rather than taken from the audit report.
+
+**Record defects fixed (all verified present before the fix):**
+- **The D16 licensing sentence still asserted what D17 retracted.** The retraction blockquote sat
+  *above* it and said "read every occurrence of 'reader' as positional addressing", but the operative
+  sentence read "converted … into a **TSS-proximal reader**" — and "TSS-proximal" asserts
+  TSS-relative addressing, which is exactly what D17 refutes. Rewritten to "onto a fixed window
+  position — indices 199–247", with the original preserved in a dated superseded blockquote. Same
+  defect fixed at `RESULTS.md` (the bolded section lede).
+- **`RESULTS.md` forward-referenced a run that will never exist:** "Whether the polarity reflects
+  GC/CpG composition rather than position is tested by D13." D13 is retired unrun. Replaced with the
+  D14 outcome and an explicit statement that composition remains open.
+- **The study README was six claims stale** — `grep` for D12/D14/D15/D16/D17/L9H7 returned **zero**
+  hits, and its circuit synthesis described L11H2/L11H5 "output transport" with no mention that D15
+  showed those heads have no demonstrated source. Added five rows to the glance table, five to
+  evidence status, four new measurement definitions, and corrected the synthesis.
+- **No statement of where the study stops.** Every claim had bounds; the body of work had none.
+  Added `## What this study does not establish` — eight items, including the largest gap: the readout
+  (OV, MLPs, classification head) is uncharacterised, which is where the promoter behaviour must
+  largely live given D16 showed the carriers' attention geometry is unchanged.
+- **`docs/PREREG_CONFORMANCE.md` would have become false on merge.** It claims to cover "every
+  preregistered experiment family in this repository"; `grep -c dnabert2` returned **0**. Rescoped to
+  the SpliceBERT arc and given an explicit coverage-gap block listing this study's four known
+  self-reported departures.
+- **`PROTOCOL.md` had no rule for the regime the last three claims ran in** — which is precisely the
+  gap D17 had to retract into. Added a D15–D17 amendment (two-checkpoint scope and the runtime
+  tokenization-identity precondition; ALiBi band mass is architecture and only measured-minus-prior
+  is interpretable; equal-dose span masking; position-vs-content discrimination) and a new stopping
+  rule: *an attention-band measurement may name a position, never a content class.*
+
+**Manifest.** The `claim_id` column was populated for D1–D11 and empty from D12 onward — 38 rows,
+including every row added for D14–D17. Filled per the existing convention.
+
+**Layout.** The seven `PREREGISTRATION*.md` files moved from the study root into
+`preregistrations/`, matching the sibling study, with a new index README. Cost accounted for
+honestly:
+- 13 files updated to the new path (scripts, config, `src/`, and the four study ledgers).
+- **Two immutable result artifacts** (`promoter_arrangement_composition_confirmation_v4.json`,
+  `..._smoke_v1.json`) embed the old flat path in their provenance blocks. They were **not**
+  rewritten. The new `preregistrations/README.md` records the move date so an old path resolves.
+- **Three frozen preregistrations had relative links broken by the move** (`../../` → `../../../`).
+  Repaired. Only link *targets* changed — no protocol text, no estimand, no threshold, no memorial;
+  the diff is auditable at a glance and link labels were deliberately left alone. Editing a frozen
+  protocol at all is a step not taken lightly; the alternative was shipping 19 broken links.
+- All 82 internal markdown links in the study, `docs/`, and the results directory now resolve.
+
+459 passed / 46 skipped; `verify_manifest.py` green at 991 rows.

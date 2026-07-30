@@ -2,13 +2,24 @@
 
 > **Tier: T1 — canonical.** Current, authoritative. Read this.
 
-**What this document is.** For every preregistered experiment family in this repository, a record of
-where the **executed code** departed from the **frozen protocol**, and whether any live claim's wording
-depends on the gap. It exists because a reviewer's hardest question about a preregistered project is not
-"what did you find" but "did you do what you said you would" — and until this file existed, that question
-had no answer here short of reading 34 protocols against 150 runners.
+**What this document is.** For every preregistered experiment family **in the SpliceBERT arc**, a
+record of where the **executed code** departed from the **frozen protocol**, and whether any live
+claim's wording depends on the gap. It exists because a reviewer's hardest question about a
+preregistered project is not "what did you find" but "did you do what you said you would" — and until
+this file existed, that question had no answer here short of reading 34 protocols against 150 runners.
 
-**Scope and method.** 25 families audited (every frozen protocol on disk plus the two unfrozen ones,
+> **Coverage gap, stated rather than hidden.** The **DNABERT-2 reconstruction atlas** — seven frozen
+> protocols under `studies/dnabert2_reconstruction_atlas/` (`PREREGISTRATION.md` and `_D12_`
+> through `_D17_`) — has **not** been through this audit. Its known protocol-vs-execution departures
+> are self-reported in that study's `DECISIONS.md` and in the amendment sections of the individual
+> preregistrations: D12 Amendment 1 (endpoint definitions chosen after inspecting the development
+> split), D14's pre-run underpowered declaration for P2, D15 Amendment 1 (a memorial that could not
+> fail, plus population memorials being gated at smoke scale), and D17's frozen decision rule being
+> architecture-forced for L11H2 and run before the defect was found. Self-reported is not
+> independently audited. **Do not read this file's totals as covering that arc.**
+
+**Scope and method.** 25 SpliceBERT-arc families audited (every frozen protocol on disk for that arc
+plus the two unfrozen ones,
 marked as such), each by an independent agent reading the protocol in full, then the runner(s) in full,
 then the resulting artifact, the `CLAIMS.md` row, and any memorial test. Each checked eight things:
 estimand, preregistered gates, memorials, verdict rule, sample size/split/seeds, controls and nulls,

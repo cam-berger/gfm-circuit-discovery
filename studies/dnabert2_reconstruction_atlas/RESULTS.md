@@ -222,7 +222,9 @@ D12 licenses a replicated classifier-level downstream-vs-upstream mask-sensitivi
 not license a bounded domain, a distal edge, a biological promoter element, a nucleotide motif,
 native-sequence necessity, mediation by any internal component, or transcriptional function in
 cells. Tiles 0–20 and 24 (22 of the 30 scanned tiles) remain sealed. Whether the polarity reflects
-GC/CpG composition rather than position is tested by D13.
+GC/CpG composition rather than position was to have been tested by D13, which is **retired unrun**;
+D14 replaced it and answers the arrangement half only (P3 +0.0619, CI [−0.0719, +0.1986]).
+**Composition remains open** — D14's P2 was declared underpowered before the run (MDE 0.448).
 
 ### Promoter address/payload decomposition v1
 
@@ -431,7 +433,7 @@ confirmation runner refuses to open because no class development-qualified; P4�
 
 `results/dnabert2_reconstruction_atlas/promoter_arrangement_composition_confirmation_v4.json`
 (sealed confirmation split, three-arm intersection n=83; per-locus values embedded inline).
-Protocol `PREREGISTRATION_D14_ARRANGEMENT_VS_COMPOSITION.md`. Smoke gate
+Protocol `preregistrations/PREREGISTRATION_D14_ARRANGEMENT_VS_COMPOSITION.md`. Smoke gate
 `promoter_arrangement_composition_smoke_v1.json`; exploratory development-split Phase 0
 `promoter_arrangement_composition_phase0_v1.json`.
 
@@ -465,7 +467,7 @@ magnitude is skew-inflated — robust estimates ≈0.25–0.32, sign test 51/83,
 
 ### D15 — regional information density vs the ALiBi-forced attention prior
 
-Track B. Protocol `PREREGISTRATION_D15_ATTENTION_CAUSALITY_DISSOCIATION.md` (frozen 2026-07-29,
+Track B. Protocol `preregistrations/PREREGISTRATION_D15_ATTENTION_CAUSALITY_DISSOCIATION.md` (frozen 2026-07-29,
 Amendment 1 pre-outcome). Instrument: equal-dose contiguous span masking — 7 BPE tokens in target and
 control with matched cover, so any artifact that depends only on "seven tokens were masked" cancels
 exactly in a between-arm difference.
@@ -515,7 +517,7 @@ attention and behaviour come from different cohorts; "relay" remains an inferenc
 
 ### D16 — did fine-tuning move the attention, or only the readout?
 
-Protocol `PREREGISTRATION_D16_FINETUNING_ATTENTION_SHIFT.md`, frozen before any base-model number was
+Protocol `preregistrations/PREREGISTRATION_D16_FINETUNING_ATTENTION_SHIFT.md`, frozen before any base-model number was
 read. The study's first measurement on **both** checkpoints; all 384 source-localization loci,
 `[CLS]`-row attention band mass for all 144 heads, minus the common ALiBi-only prior.
 
@@ -538,7 +540,9 @@ mildly onto the special tokens (82/144 increase, mean +0.0215). Every large shif
 traffic between special tokens and the near-`[CLS]` bulk — a change in how much budget is parked, not
 in which sequence is read.
 
-**L9H7 leaves the attention-sink regime and becomes a TSS reader.** Raw `[CLS]` mass on `special`
+**L9H7 leaves the attention-sink regime and locks onto a fixed window position (199–247).** The
+band is TSS-proximal only because the TSS is always at index 249; D17 shows the addressing is
+positional, not TSS-relative. Raw `[CLS]` mass on `special`
 collapses 0.3759 → 0.0038 while `proximal_upstream` rises 0.1005 → 0.5495; summed TSS-proximal excess
 −0.055 → +0.528 (Δ +0.583). The next largest such shift is L10H5 at +0.043, 14× smaller. Other large
 movers are pure `special ↔ far_upstream` rebalances with TSS-proximal shifts of 0.0000 to four
@@ -575,7 +579,7 @@ structure).
 
 ### D17 — L9H7 addresses a window position, not TSS content
 
-Protocol `PREREGISTRATION_D17_L9H7_ROTATION_PROBE.md`. Settles the D16 caveat: three independent
+Protocol `preregistrations/PREREGISTRATION_D17_L9H7_ROTATION_PROBE.md`. Settles the D16 caveat: three independent
 lines, two of them zero-forward-pass.
 
 **Line 1 — pseudo-TSS control arm, recovered from the committed head atlas.** Control windows are

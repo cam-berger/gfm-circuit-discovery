@@ -355,7 +355,7 @@ under either native arm, and P1/P2/P3/S1 had never been estimated on them.
 Artifacts: `promoter_arrangement_composition_confirmation_v4.json` (per-locus values embedded),
 `promoter_arrangement_composition_smoke_v1.json`,
 `promoter_arrangement_composition_phase0_v1.json` (exploratory, development split).
-Protocol: `PREREGISTRATION_D14_ARRANGEMENT_VS_COMPOSITION.md`.
+Protocol: `preregistrations/PREREGISTRATION_D14_ARRANGEMENT_VS_COMPOSITION.md`.
 
 **D15 — promoter information density is ~4× concentrated near the TSS, while the dominant carrier
 heads attend at the ALiBi-forced positional prior.** Track B's first result. Three strands: an
@@ -433,7 +433,7 @@ cells.
 
 Artifacts: `promoter_region_density_confirmation_v1.json`, `promoter_region_density_smoke_v2.json`,
 `promoter_alibi_reach_analysis_v1.json`.
-Protocol: `PREREGISTRATION_D15_ATTENTION_CAUSALITY_DISSOCIATION.md` (Amendment 1, pre-outcome).
+Protocol: `preregistrations/PREREGISTRATION_D15_ATTENTION_CAUSALITY_DISSOCIATION.md` (Amendment 1, pre-outcome).
 
 **D16 — fine-tuning built exactly one reader and left the readout layer's attention geometry
 untouched.** The study's **first measurement on two checkpoints**. D1–D3 used base
@@ -512,10 +512,16 @@ median head. The distinctive fact is not its starting state but the **completene
 half-parked on special). Wording that implies L9H7 was *the* attention sink would overstate this.
 
 D16 licenses: **fine-tuning this checkpoint for promoter classification did not redistribute `[CLS]`
-attention. It converted a single mid-network attention-sink head (L9H7) into a TSS-proximal reader and
-left the readout layer's attention essentially as pretraining had it.** Read together with D15 — where
-L9H7 contributes ~19× less to the decision than the two unchanged, positionally-pinned carriers — the
-reader fine-tuning built is not the component that carries the decision.
+attention. It moved a single mid-network head (L9H7) out of the attention-sink regime and onto a
+fixed window position — indices 199–247 — and left the readout layer's attention essentially as
+pretraining had it.** Read together with D15 — where L9H7 contributes ~19× less to the decision than
+the two unchanged, positionally-pinned carriers — the one head fine-tuning moved is not the component
+that carries the decision.
+
+> **As originally licensed 2026-07-29, superseded by D17:** *"It converted a single mid-network
+> attention-sink head (L9H7) into a **TSS-proximal reader**…"* — "TSS-proximal reader" asserts
+> TSS-relative addressing, which D17 refutes. Preserved rather than deleted, per the study's
+> correction convention.
 
 **Bounds.** (i) **Descriptive only** — attention, not behaviour, not causation; nothing here shows a
 changed head caused a changed output. (ii) **Attention mass is not information transfer**; a head at
@@ -529,7 +535,7 @@ cohort** through a different code path — to within 0.01; batch invariance is e
 
 Artifacts: `promoter_finetuning_attention_shift_v1.json`,
 `promoter_finetuning_attention_shift_smoke_v1.json`.
-Protocol: `PREREGISTRATION_D16_FINETUNING_ATTENTION_SHIFT.md`.
+Protocol: `preregistrations/PREREGISTRATION_D16_FINETUNING_ATTENTION_SHIFT.md`.
 
 **D17 — L9H7 addresses a window position, not TSS content. D16's "TSS reader" is retracted.**
 Three independent lines, two of them free.
@@ -591,7 +597,7 @@ reuses already-open development and confirmation splits. (v) Single third-party 
 
 Artifacts: `l9h7_rotation_probe_v1.json`, `l9h7_position_vs_content_v1.json`,
 `l9h7_rotation_probe_smoke_v1.json`. Protocol:
-`PREREGISTRATION_D17_L9H7_ROTATION_PROBE.md`.
+`preregistrations/PREREGISTRATION_D17_L9H7_ROTATION_PROBE.md`.
 
 ## Established infrastructure facts
 

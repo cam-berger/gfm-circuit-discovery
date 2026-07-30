@@ -4,42 +4,42 @@
 > MULTISOURCE MODEL OUTCOMES.**
 
 The historical machine-readable lock candidate is
-[`../../configs/dnabert2_atlas/preflight_v1.draft.json`](../../configs/dnabert2_atlas/preflight_v1.draft.json).
+[`../../configs/dnabert2_atlas/preflight_v1.draft.json`](../../../configs/dnabert2_atlas/preflight_v1.draft.json).
 The controlling lock is
-[`../../configs/dnabert2_atlas/preflight_v1.frozen.json`](../../configs/dnabert2_atlas/preflight_v1.frozen.json),
+[`../../configs/dnabert2_atlas/preflight_v1.frozen.json`](../../../configs/dnabert2_atlas/preflight_v1.frozen.json),
 frozen from calibration v3 before any empirical target-control outcome. A preflight report may
 set `frozen=true` only for that exact hash.
 
 The superseded seven-nucleotide multisource lock is
-[`../../configs/dnabert2_atlas/preflight_v2.frozen.json`](../../configs/dnabert2_atlas/preflight_v2.frozen.json)
+[`../../configs/dnabert2_atlas/preflight_v2.frozen.json`](../../../configs/dnabert2_atlas/preflight_v2.frozen.json)
 with the corresponding
-[`site_classes.v2.json`](../../configs/dnabert2_atlas/site_classes.v2.json) and
+[`site_classes.v2.json`](../../../configs/dnabert2_atlas/site_classes.v2.json) and
 failed outcome-blind supply record
-[`../../results/dnabert2_reconstruction_atlas/collection_qualification_v2.json`](../../results/dnabert2_reconstruction_atlas/collection_qualification_v2.json).
+[`../../results/dnabert2_reconstruction_atlas/collection_qualification_v2.json`](../../../results/dnabert2_reconstruction_atlas/collection_qualification_v2.json).
 The five-nucleotide 128-candidate supply lock is
-[`../../configs/dnabert2_atlas/preflight_v3.frozen.json`](../../configs/dnabert2_atlas/preflight_v3.frozen.json)
-with [`site_classes.v3.json`](../../configs/dnabert2_atlas/site_classes.v3.json) and
-[`SOURCE_MANIFEST_V2.json`](SOURCE_MANIFEST_V2.json). It inherits the already qualified
+[`../../configs/dnabert2_atlas/preflight_v3.frozen.json`](../../../configs/dnabert2_atlas/preflight_v3.frozen.json)
+with [`site_classes.v3.json`](../../../configs/dnabert2_atlas/site_classes.v3.json) and
+[`SOURCE_MANIFEST_V2.json`](../SOURCE_MANIFEST_V2.json). It inherits the already qualified
 instrument thresholds unchanged. Its supply audit is
-[`../../results/dnabert2_reconstruction_atlas/collection_qualification_v3.json`](../../results/dnabert2_reconstruction_atlas/collection_qualification_v3.json).
+[`../../results/dnabert2_reconstruction_atlas/collection_qualification_v3.json`](../../../results/dnabert2_reconstruction_atlas/collection_qualification_v3.json).
 The controlling multisource lock is
-[`../../configs/dnabert2_atlas/preflight_v4.frozen.json`](../../configs/dnabert2_atlas/preflight_v4.frozen.json).
+[`../../configs/dnabert2_atlas/preflight_v4.frozen.json`](../../../configs/dnabert2_atlas/preflight_v4.frozen.json).
 It changes only the local candidate bound to 512 and requires a new v4 qualified preflight bound
 to the exact v4 inputs.
 
 The later context-margin amendment is controlled by
-[`../../configs/dnabert2_atlas/context_margin_v1.frozen.json`](../../configs/dnabert2_atlas/context_margin_v1.frozen.json),
+[`../../configs/dnabert2_atlas/context_margin_v1.frozen.json`](../../../configs/dnabert2_atlas/context_margin_v1.frozen.json),
 frozen from control-only calibration before any structured-versus-irrelevant target effect.
 Its qualified preflight is
-[`../../results/dnabert2_reconstruction_atlas/context_margin_v1_preflight_qualified_rerun.json`](../../results/dnabert2_reconstruction_atlas/context_margin_v1_preflight_qualified_rerun.json).
+[`../../results/dnabert2_reconstruction_atlas/context_margin_v1_preflight_qualified_rerun.json`](../../../results/dnabert2_reconstruction_atlas/context_margin_v1_preflight_qualified_rerun.json).
 Splice acceptor and donor were frozen as instrument-unresolved before target scoring.
 
 The promoter-specific classifier amendment is controlled by
-[`../../configs/dnabert2_atlas/promoter_classifier_v2.frozen.json`](../../configs/dnabert2_atlas/promoter_classifier_v2.frozen.json).
+[`../../configs/dnabert2_atlas/promoter_classifier_v2.frozen.json`](../../../configs/dnabert2_atlas/promoter_classifier_v2.frozen.json).
 It preserves the failed v1 preflight, keeps all biological SESOIs unchanged, and freezes the
 replacement null/model-health instrument before any GENCODE target outcome. Its qualified report
 is
-[`../../results/dnabert2_reconstruction_atlas/promoter_classifier_preflight_v2.json`](../../results/dnabert2_reconstruction_atlas/promoter_classifier_preflight_v2.json).
+[`../../results/dnabert2_reconstruction_atlas/promoter_classifier_preflight_v2.json`](../../../results/dnabert2_reconstruction_atlas/promoter_classifier_preflight_v2.json).
 The EPDnew cohort is excluded because its 300-nt windows are members of GUE.
 
 ## Question

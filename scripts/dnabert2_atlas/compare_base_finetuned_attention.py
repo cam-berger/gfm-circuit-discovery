@@ -8,7 +8,7 @@ Both checkpoints share the vendored MosaicBERT encoder and (verified at load, an
 here) an identical BPE, so the offsets and therefore the prior are common to both and cancel in any
 difference.
 
-Protocol: studies/dnabert2_reconstruction_atlas/PREREGISTRATION_D16_FINETUNING_ATTENTION_SHIFT.md
+Protocol: studies/dnabert2_reconstruction_atlas/preregistrations/PREREGISTRATION_D16_FINETUNING_ATTENTION_SHIFT.md
 """
 from __future__ import annotations
 

@@ -5,7 +5,7 @@ ZERO model forward passes. Every input is a committed artifact; only the pinned 
 (no model weights) so that the ALiBi-only positional prior can be computed on real BPE offsets.
 
 This is the reproducible source of the §2 and §3 tables in
-studies/dnabert2_reconstruction_atlas/PREREGISTRATION_D15_ATTENTION_CAUSALITY_DISSOCIATION.md.
+studies/dnabert2_reconstruction_atlas/preregistrations/PREREGISTRATION_D15_ATTENTION_CAUSALITY_DISSOCIATION.md.
 
 Status is EXPLORATORY: §2 is architecture (not evidence) and §3 is a hypothesis-generating analysis
 of already-open development data and reused head-atlas artifacts.
