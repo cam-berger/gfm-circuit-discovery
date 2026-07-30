@@ -181,3 +181,13 @@ the loss, and the attenuation effects remain larger than power-preserving phase 
 `q=0.00015`. Neither band changes paired-acceptor donor coupling detectably. Thus the inherited clocks
 are functional inputs to local splice-site classification, not the specialized coupling computation
 traced through `L5H6`.
+
+The direct model-difference J-SAE now gives a sharper negative boundary. On its frozen seed-2020 pilot,
+a signed TopK-16 code reconstructs the state-, parameter-, and total-induced final-MLP write differences
+at FSEE `0.9985–0.9995` and their native operator actions at `0.9617–0.9813`. It does not faithfully
+reconstruct the upstream base→fine-tuned state change (FSEE `0.7853`), fails all eight
+sequence-perturbation input-contrast cells, and misses both graph-concentration improvements against its
+matched no-graph control. The family therefore stops before feature identity, classifier behavior,
+biology, or steering. The licensed interpretation is that fine-tuning's distributed upstream change is
+compressed by the final MLP into a compact downstream difference—not that a sparse directed
+base→fine-tuned feature graph has been established.

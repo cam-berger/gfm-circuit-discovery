@@ -47,6 +47,7 @@ Immutable results:
 | outcome-blind fresh J-SAE cohort and activation capture | `scripts/splicebert/build_gtex_jacobian_sae_fresh_cohort.py`; `scripts/splicebert/capture_gtex_jacobian_sae_fresh_activations.py` | `results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_cohort_v1.json`; `jacobian_sae_fresh_activation_capture_v1.json` plus `.npz` |
 | gene-fresh residual-delta confirmation | `scripts/splicebert/run_gtex_jacobian_sae_fresh_delta_confirmation.py` | `results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_delta_confirmation_v1.json` (`INSTRUMENT_UNRESOLVED`; all 30 target paths pass, 4 sham cells and 9 numerical decoder-sum cells fail) |
 | larger paired-delta J-SAE pilot | `scripts/splicebert/run_gtex_jacobian_sae_large.py` | `results/splicebert_gtex_finetune_shift/jacobian_sae_large_v1.json` plus `.pt` (`INSTRUMENT_UNRESOLVED`; seed-2020 pilot stops the family before classifier opening) |
+| base→fine-tuned model-difference J-SAE pilot | `scripts/splicebert/run_gtex_model_difference_jsae.py` | `results/splicebert_gtex_finetune_shift/model_difference_jsae_pilot_v1.json` plus `.pt` (`INSTRUMENT_UNRESOLVED`; downstream write/operator fidelity passes, upstream state and graph-concentration gates stop the family) |
 
 The five-seed artifact includes all 400 paired per-example values for the base and each seed, gene-grouped
 bootstrap intervals, 9,999 gene-level sign flips with add-one p-values, BH correction across the 15
@@ -182,3 +183,16 @@ AuxK supplies `69.6%` of late loss. The preregistered pilot rule therefore stops
 initializations, checkpoints, base comparison, and fresh behavior cohort. Enlarging the dictionary and
 adding paired-delta training improved output-path fidelity and graph concentration but did not create a
 healthy, complete sparse input representation.
+
+The model-difference assay then asks only what changes between the base and fine-tuned final-block
+computations. Exact four-cell replay separates state and parameter contributions with symmetric Shapley
+terms, and the seed-2020 pilot passes all planted, algebraic, autograd, finite-difference, sparsity, and
+dead-feature controls. Its sparse output code preserves the state/parameter/total final-MLP write
+differences at FSEE `0.9985/0.9991/0.9995` and their decoded native operator actions at
+`0.9617/0.9813/0.9799`. However, input-state FSEE is only `0.7853`; all eight perturbation-stratified
+input contrasts fail; and the component-union graph reductions of `13.95%` E90 and `6.49%` effective
+edges miss their frozen `15%/10%` floors. The exact decomposition also has large state×parameter
+interaction energy (`0.913` of total), making an ordered “state versus parameter” causal attribution
+path-dependent. The stop rule closes the remaining seeds, feature identity, classifier behavior,
+biological semantics, and steering. The strongest descriptive result is a distributed upstream
+representational shift compressed by the final MLP into a compact downstream difference.

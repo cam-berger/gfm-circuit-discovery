@@ -1,0 +1,192 @@
+{
+  "command": [
+    "scripts/splicebert/run_gtex_model_difference_jsae.py",
+    "--pilot-only",
+    "--activation-artifact",
+    "results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.json",
+    "--model-dir",
+    "base=/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+    "--model-dir",
+    "2020=data/models/splicebert_gtex/mlm_transplants/seed-2020",
+    "--model-dir",
+    "2021=data/models/splicebert_gtex/mlm_transplants/seed-2021",
+    "--model-dir",
+    "2022=data/models/splicebert_gtex/mlm_transplants/seed-2022",
+    "--model-dir",
+    "2023=data/models/splicebert_gtex/mlm_transplants/seed-2023",
+    "--model-dir",
+    "2024=data/models/splicebert_gtex/mlm_transplants/seed-2024",
+    "--device",
+    "mps",
+    "--model-out",
+    "results/splicebert_gtex_finetune_shift/model_difference_jsae_pilot_v1.pt",
+    "--out",
+    "results/splicebert_gtex_finetune_shift/model_difference_jsae_pilot_v1.json"
+  ],
+  "config": {
+    "architecture": {
+      "active_features": 16,
+      "input_features": 512,
+      "mlp_width": 2048,
+      "native_width": 512,
+      "output_features": 128,
+      "shared_output_support_for_shapley_blocks": true,
+      "signed_topk": true,
+      "zero_encoder_and_decoder_bias": true
+    },
+    "device": "mps",
+    "objective": {
+      "auxiliary_loss": null,
+      "conditions": {
+        "shapley_deltaJ": 0.25,
+        "shapley_no_deltaJ": 0.0
+      },
+      "contrast_orientation": "changed-reference",
+      "fixed_epochs": 40,
+      "level_targets": [
+        "input",
+        "state",
+        "parameter",
+        "total"
+      ],
+      "pair_batch": 32,
+      "state_batch": 64
+    }
+  },
+  "created_at_utc": "2026-07-30T17:36:57.894248+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 80933,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_gtex_finetune_shift:model_difference_jsae_v1",
+  "git_commit": "712b1d4f83cf3f201d912f4ad1328acaf2221fda",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/studies/splicebert_gtex_finetune_shift/IMPLEMENTATION_ADDENDUM_MODEL_DIFFERENCE_JSAE_V1.md",
+      "sha256": "5b087d6f3007ed356a3a39fdcf56750dc32d5b2b38784ee16d8c2cc6433d13ea",
+      "size_bytes": 12084
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/src/gfmcd/circuits/model_difference_jsae.py",
+      "sha256": "91c82489eba2f82f396166c7ba519afa23df59d134e196ab8b10fa5a1cff9ad4",
+      "size_bytes": 21277
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.json",
+      "sha256": "142ce4ee5976970b9b296685ef403cce30e56f440a87d7222a1933fe09d96b5b",
+      "size_bytes": 5721606
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.npz",
+      "sha256": "fa6c972f4765d5c57354abeb262b3e62d6ac3ff8c69e5850a1511c7cf054d559",
+      "size_bytes": 181248960
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/config.json",
+      "sha256": "51ea51e42951f18cc1d3455d7111fe0a41cebad476ba8314afc161a0e956303e",
+      "size_bytes": 685
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/mlm_transplants/seed-2020/config.json",
+      "sha256": "6768e14e3304fca9818bc5ad864d041415c70bb9e11ccdd5ae5a4734dd4a517c",
+      "size_bytes": 746
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/mlm_transplants/seed-2020/model.safetensors",
+      "sha256": "0bf47fd1f656f753a487fe2556ba063d6acdb1439c8d4f0c9857ea1e41438811",
+      "size_bytes": 78854048
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/mlm_transplants/seed-2021/config.json",
+      "sha256": "6768e14e3304fca9818bc5ad864d041415c70bb9e11ccdd5ae5a4734dd4a517c",
+      "size_bytes": 746
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/mlm_transplants/seed-2021/model.safetensors",
+      "sha256": "a111a959c1a00cb2f794d3dd92d8468310ae2c6ad47ab887cd2bce2b5c3928fe",
+      "size_bytes": 78854048
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/mlm_transplants/seed-2022/config.json",
+      "sha256": "6768e14e3304fca9818bc5ad864d041415c70bb9e11ccdd5ae5a4734dd4a517c",
+      "size_bytes": 746
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/mlm_transplants/seed-2022/model.safetensors",
+      "sha256": "a28b286fd199747d44d604d95f3f7219067b5b9678396903559d8f0a15edb598",
+      "size_bytes": 78854048
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/mlm_transplants/seed-2023/config.json",
+      "sha256": "6768e14e3304fca9818bc5ad864d041415c70bb9e11ccdd5ae5a4734dd4a517c",
+      "size_bytes": 746
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/mlm_transplants/seed-2023/model.safetensors",
+      "sha256": "d24180427adaaf2eac0b78ee2bb2d7c47370fdf998ac4378823537e815b53187",
+      "size_bytes": 78854048
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/mlm_transplants/seed-2024/config.json",
+      "sha256": "6768e14e3304fca9818bc5ad864d041415c70bb9e11ccdd5ae5a4734dd4a517c",
+      "size_bytes": 746
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/mlm_transplants/seed-2024/model.safetensors",
+      "sha256": "0c7ea06d3d16285670c21d38d76bf9cdce5962d7463bf30c03ab278c4db214e2",
+      "size_bytes": 78854048
+    }
+  ],
+  "notes": [
+    "Only base-to-tuned differences were reconstructed.",
+    "State and final-MLP-parameter write/Jacobian shifts use exact Shapley accounting.",
+    "All fits were sequential and used no AuxK.",
+    "No classifier parameter, task margin, feature ranking, or biological outcome was loaded."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/model_difference_jsae_pilot_v1.json",
+      "sha256": "10d81b33d3fbf1d5f2197280557b9533290a93192134e703d7d1c238bfb58d9f",
+      "size_bytes": 208686
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/model_difference_jsae_pilot_v1.pt",
+      "sha256": "fd24b85f711ad1c9223a97cc736ace715557595a8f15df0150347260bcbe82fc",
+      "size_bytes": 8985669
+    }
+  ],
+  "seeds": {
+    "executed_dictionary_initializations": [
+      25200000
+    ],
+    "planned_dictionary_initializations": [
+      25200000,
+      25200001,
+      25200002,
+      25210000,
+      25210001,
+      25210002,
+      25220000,
+      25220001,
+      25220002,
+      25230000,
+      25230001,
+      25230002,
+      25240000,
+      25240001,
+      25240002
+    ],
+    "synthetic_preflight": [
+      771204
+    ]
+  },
+  "status": "INSTRUMENT_UNRESOLVED"
+}
