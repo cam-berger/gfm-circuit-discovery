@@ -164,6 +164,25 @@ def test_synonymous_beam_optimizes_sequence_only_objective(monkeypatch):
     assert audit["objective_changed"] > audit["objective_clean"]
 
 
+def test_synonymous_beam_searches_within_final_validator(monkeypatch):
+    coding_slots(monkeypatch)
+    example = Example(sequence="GAAGAA")
+    sequence, audit = beam_synonymous_optimize(
+        example,
+        RelativeWindow(0, 6),
+        {},
+        anchor=0,
+        objective=lambda value: float(value.count("G")),
+        maximize=True,
+        min_changed_bases=1,
+        max_changed_bases=2,
+        beam_size=16,
+        validator=lambda value: value != "GAGGAG",
+    )
+    assert sequence in {"GAGGAA", "GAAGAG"}
+    assert audit["changed_bases"] == 1
+
+
 def test_vienna_unpaired_mean_requires_a_valid_region():
     with pytest.raises(ValueError, match="invalid"):
         vienna_unpaired_mean("ACGT", start=0, end=3, unpaired_length=7)

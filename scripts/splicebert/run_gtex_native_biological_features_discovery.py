@@ -322,10 +322,9 @@ def psam_information(model) -> float:
             component.matrix.sum(axis=1, keepdims=True),
             np.finfo(np.float64).eps,
         )
-        entropy = -np.sum(
-            np.where(matrix > 0, matrix * np.log2(matrix), 0.0),
-            axis=1,
-        )
+        log_matrix = np.zeros_like(matrix)
+        np.log2(matrix, out=log_matrix, where=matrix > 0)
+        entropy = -np.sum(matrix * log_matrix, axis=1)
         components.append(float(np.sum(2.0 - entropy)))
     return float(max(components))
 

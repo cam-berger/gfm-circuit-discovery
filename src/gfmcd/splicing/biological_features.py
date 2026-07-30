@@ -515,11 +515,10 @@ def beam_synonymous_optimize(
         item
         for item in beam.items()
         if item[1][0] >= min_changed_bases
-        and (validator is None or validator(item[0]))
     ]
     if not finalists:
         raise RuntimeError("no synonymous candidate passed the frozen constraints")
-    winner, (dose, changes) = min(
+    ranked_finalists = sorted(
         finalists,
         key=lambda item: (
             -objective(item[0]) if maximize else objective(item[0]),
@@ -527,6 +526,17 @@ def beam_synonymous_optimize(
             _stable_tiebreak(example.example_id, window.name, item[0]),
         ),
     )
+    winner_and_metadata = next(
+        (
+            item
+            for item in ranked_finalists
+            if validator is None or validator(item[0])
+        ),
+        None,
+    )
+    if winner_and_metadata is None:
+        raise RuntimeError("no synonymous candidate passed the frozen constraints")
+    winner, (dose, changes) = winner_and_metadata
     return winner, {
         "objective_clean": float(objective(clean)),
         "objective_changed": float(objective(winner)),
