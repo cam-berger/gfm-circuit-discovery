@@ -1,0 +1,489 @@
+{
+  "command": [
+    "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/.venv/bin/python3",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/scripts/splicebert/freeze_gtex_native_biological_features_confirmation.py",
+    "--discovery",
+    "results/splicebert_gtex_finetune_shift/native_biological_features_discovery_v1.json",
+    "--construction-audit",
+    "results/splicebert_gtex_finetune_shift/native_biological_construction_audit_v2.json",
+    "--basic-gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+    "--comprehensive-gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+    "--fasta",
+    "/Users/cberg/Research/data/genomes/hg38.fa",
+    "--rbns-psams",
+    "data/external/sam_rbns_psams",
+    "--out",
+    "results/splicebert_gtex_finetune_shift/native_biological_features_confirmation_construction_v1.json"
+  ],
+  "config": {
+    "beam_size": 256,
+    "candidate_assignments": 4,
+    "candidate_max_changed_bases": 4,
+    "candidate_min_changed_bases": 1,
+    "confirmation_examples": 200,
+    "control_high_dose": "exact candidate delivered high dose",
+    "control_low_dose": "exact candidate delivered low dose",
+    "matched_controls_per_candidate": 3,
+    "max_abs_maxent_delta": 1.0,
+    "minimum_complete_matched_examples": 60,
+    "minimum_complete_matched_genes": 45,
+    "no_new_ag_or_gt_overlapping_target_region": true,
+    "no_new_competitive_site": true,
+    "nuisance_caliper_method": "higher",
+    "nuisance_caliper_quantile": 0.95
+  },
+  "created_at_utc": "2026-07-30T05:21:57.467057+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 47624,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "gtex_native_biological_confirmation_construction_v1",
+  "git_commit": "470687921bba043638d956441375435f4e1546d7",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/studies/splicebert_gtex_finetune_shift/PREREGISTRATION_NATIVE_BIOLOGICAL_FEATURES_V1.md",
+      "sha256": "24322a133a9b48f64bf37ba44481ea3ac6f6f29446448d4e0b47f34c1c38c429",
+      "size_bytes": 23581
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_biological_features_discovery_v1.json",
+      "sha256": "11b0106aabff1e921c6f009aaec83157a8da8d7f5121d746df7c65f77e74c3c3",
+      "size_bytes": 36723523
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_biological_construction_audit_v2.json",
+      "sha256": "1cb6ca1f9b7e1f6db29eaaf276f9bef360a53e983fc968f7683bf0f574284724",
+      "size_bytes": 3999121
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+      "sha256": "83fba3e9b03f0b8c958f3595c6c350adc55f468abf8b0e47b6d5284cfe13a453",
+      "size_bytes": 124527720
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/A1CF.txt",
+      "sha256": "24e4479fe9b3bca0dc1b83ee48a39702b2feb051ac90062ed63c53065bada520",
+      "size_bytes": 3367
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/BOLL.txt",
+      "sha256": "b29e7cfe5c938951c22a91d9cc4aea04f64b46999eaaef3e438eeb0e2ee093fe",
+      "size_bytes": 3369
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/CELF1.txt",
+      "sha256": "6c4d8e60bb8b44db3ad07730c6412ea9034158e6bd06971f7e9ab473d644dbe8",
+      "size_bytes": 3369
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/CNOT4.txt",
+      "sha256": "e47bb6f510ba36bcd09ba2c59fd39c0df905344816fe3fda786bdbd80848b9ea",
+      "size_bytes": 2097
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/CPEB1.txt",
+      "sha256": "4e69165af9332cdef88ecd5069bc74bf3f1ebcfbdd5982ebb2945c0c4dd157dc",
+      "size_bytes": 2107
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/DAZ3.txt",
+      "sha256": "1dd91b70f5ad7f6a50f677082a96bab2f6a4bf7550b67d38f335c926e4b225bb",
+      "size_bytes": 3361
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/DAZAP1.txt",
+      "sha256": "eb7d2a167645077a3aa7538f7e51efd0c9712bd3f4499481029c0419bcc1edb9",
+      "size_bytes": 2528
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/EIF4G2.txt",
+      "sha256": "fba5bfe2f7c242cfae621ac498c0898214f0696c9ff6b0a0b6eb66542220c29f",
+      "size_bytes": 2743
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/ELAVL4.txt",
+      "sha256": "c041793d843e81682ec3e3fb978e5545990dd44e8cca7bd371f50893889b9e97",
+      "size_bytes": 3100
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/ESRP1.txt",
+      "sha256": "1eeaabd9fb8b6be2c17cd3bd6282d3260d805638bc2873d84d0a116a74ded662",
+      "size_bytes": 2729
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/EWSR1.txt",
+      "sha256": "f6a2e31de21409dd2326d11825c81176e95cc55691896900548308542a69dc5d",
+      "size_bytes": 2733
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/FUBP1.txt",
+      "sha256": "9adc57dc6283128c5478fdcfcccaefbbaa61d57c7fea1052668c57f1ccbf0d8e",
+      "size_bytes": 3327
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/FUBP3.txt",
+      "sha256": "6db48093cdd22e27be2495f25fc2947516fa096245502a044975d3ffb4586c90",
+      "size_bytes": 3319
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/FUS.txt",
+      "sha256": "b004907cb51ae1a64d5648b73ecbb356244c49a14219d183083110c7a03dfbdf",
+      "size_bytes": 837
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/HNRNPA0.txt",
+      "sha256": "0fb246f80635b8f6966cf830fbd32a80f887ca982a7a7221e7e92fa5ac88c85d",
+      "size_bytes": 3351
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/HNRNPA1.txt",
+      "sha256": "4b7b4db31826caa4930ace81082c92bdd4389ebc84aeb5734e53c1544f5f29de",
+      "size_bytes": 3364
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/HNRNPA2B1.txt",
+      "sha256": "b9099f1f03c90cc354c471d7fe5b341fb7793649d38b745d47cd3d129cc0c421",
+      "size_bytes": 1985
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/HNRNPC.txt",
+      "sha256": "39d39d8bc445326b7290304073a113c66207c2544ea632a753df8da74db6b46b",
+      "size_bytes": 1500
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/HNRNPCL1.txt",
+      "sha256": "1ae40d8a25a9e2d2740bbccc88758641628abd3a80b0d04a59101fd91aae5d79",
+      "size_bytes": 2739
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/HNRNPD.txt",
+      "sha256": "1898b83e7cb62f0f8ff05df0095e37592dedb27363ad8f66a3a97358a3aceeab",
+      "size_bytes": 3356
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/HNRNPDL.txt",
+      "sha256": "90576261e53505eecb98449aa10dbb5c656d65a88b5692e3a51005e41ab7e1f8",
+      "size_bytes": 3316
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/HNRNPF.txt",
+      "sha256": "442eb65c55d3feba6179769cfeb434830420c619892aa9d5c3fed1e9df775c06",
+      "size_bytes": 2746
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/HNRNPH2.txt",
+      "sha256": "243c598825f6bc860d22677c3476daf62c761d0205858b14f0d96e0d397b0169",
+      "size_bytes": 3369
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/HNRNPK.txt",
+      "sha256": "f1d416cf0c29a000770f02c502299687bbf38687c9cfa755f3b84dd1ac313c34",
+      "size_bytes": 3364
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/HNRNPL.txt",
+      "sha256": "3fc2ce363940bea70eab410978ca1c80d82c14730632f2c208bb69bb02c30531",
+      "size_bytes": 3359
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/IGF2BP1.txt",
+      "sha256": "adf26063a8abd38e5c6150833690feb373cf9e47a0c53bc5530f02ec909b9c5a",
+      "size_bytes": 2753
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/IGF2BP2.txt",
+      "sha256": "981d8b8264572cf612851b9b27c9dd61b36887313596d4f6b57d6c625161d6ec",
+      "size_bytes": 3350
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/ILF2.txt",
+      "sha256": "30173176702216426aee80d6a2fb39ecb9f95c79b608c54326fca78b3ee32ca3",
+      "size_bytes": 3361
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/KHDRBS2.txt",
+      "sha256": "c7e15b19d68f8550cac5391da3e26976088747345c0cdd6c40d9dec26ec9a7f1",
+      "size_bytes": 3366
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/KHDRBS3.txt",
+      "sha256": "e3be7ba5164f409b990d82b73e1b767b681cf48c9684960c1bd0e63d187b9417",
+      "size_bytes": 3329
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/KHSRP.txt",
+      "sha256": "36a51a48dfc0df5fa7d1520653819ba84a7d30fad17163d0d682290db994a24f",
+      "size_bytes": 3314
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/MBNL1.txt",
+      "sha256": "b6fa41b8b21e1234b4b85a17033c61e15b8d331338640c4926c1e38c961d7939",
+      "size_bytes": 3359
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/MSI1.txt",
+      "sha256": "14e801ab744b1d78405f47e3b938c7bef2d9d6bcd1c40f3eb72297194dbc381a",
+      "size_bytes": 3351
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/NOVA1.txt",
+      "sha256": "b0dbac0ca3d9492f2538bb2306ab54361ae1f7680f527e8d7deaf296fb246ff0",
+      "size_bytes": 2739
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/NUPL2.txt",
+      "sha256": "c184266fcd60f6f876484c4bebacc8ea39022ee4e7bde5fee71fdf1f48ff3d95",
+      "size_bytes": 2746
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/PABPN1L.txt",
+      "sha256": "17306eb193a3d893cbfa70f3552510cd0f20263013dc0af46c136c7b9c73745e",
+      "size_bytes": 2564
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/PCBP1.txt",
+      "sha256": "08e48f2707f27b698346e650055f2fe53e135107abae6416f04794203e236160",
+      "size_bytes": 3354
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/PCBP2.txt",
+      "sha256": "529a4a2fcf2477b4e84e95a4a28be87075a706dc7fb23b9e89a3b3880fadf335",
+      "size_bytes": 2739
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/PCBP4.txt",
+      "sha256": "afda06a3f6cf8237c3c00fc4b970de8e2d2e567df5d6110b9a44d49eb183830a",
+      "size_bytes": 3360
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/PRR3.txt",
+      "sha256": "966d8a83f12b10527c8609a5ae10013420401cc5ebacef6cbd3aad892c8e3c44",
+      "size_bytes": 2688
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/PTBP3.txt",
+      "sha256": "d0b3273d682199ee578bc19215e74ed34429a06f8b39462ffeacb38e1b965400",
+      "size_bytes": 3371
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/PUF60.txt",
+      "sha256": "1dda9ceada061182aed1513c966dfe7d2165f33c4ae6d422b41d0a4ee028e305",
+      "size_bytes": 3380
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/PUM1.txt",
+      "sha256": "7d19a0a6f31c7ad51039a85c1597085437f1b30f0205889d8c33356ccc7303c7",
+      "size_bytes": 3361
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/RALY.txt",
+      "sha256": "0f7d8e52f256607730bd74714768a96b970092b78b76af68869bac5afae1b1b5",
+      "size_bytes": 2107
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/RBFOX2.txt",
+      "sha256": "e4a4f2dd414ce4f635e225d04cb420ee1fcd51b30d7fb3d7ba52fd5c5c5953d2",
+      "size_bytes": 888
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/RBFOX3.txt",
+      "sha256": "13245acf20bdaa0c2631e99bb23899bbaae29240fad48768273a153723040f23",
+      "size_bytes": 875
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/RBM15B.txt",
+      "sha256": "33f7e157ca8789e09e36b09697fa27218d064985260017f3adae11eb37996b24",
+      "size_bytes": 3286
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/RBM22.txt",
+      "sha256": "a05ed3d2c55d38ccab5a5ca99754b04d984369086ff920ae24cc7d7e49d7a2bc",
+      "size_bytes": 2094
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/RBM23.txt",
+      "sha256": "5a312be7d2463fb8de3d6feeba13d917c2662a263d2bbcb1f80fe99bb0bec949",
+      "size_bytes": 1982
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/RBM24.txt",
+      "sha256": "14ccac18822cdb84b2a3b452b792713d29007cfe97c1c40a46d58ef89c17e94b",
+      "size_bytes": 2086
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/RBM25.txt",
+      "sha256": "a621054017a08cc945fed0f53b20bab2d291234a699913d6d5d0d4135f20160f",
+      "size_bytes": 2748
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/RBM4.txt",
+      "sha256": "557b559b5beabb36f73f4ee572d71f174593851f25b228f1740b2954f729e278",
+      "size_bytes": 3369
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/RBM41.txt",
+      "sha256": "d5a7d28db7b314dc8da6f75caf8b5d19854c317147cefaf11cc723bb285d1e16",
+      "size_bytes": 3356
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/RBM45.txt",
+      "sha256": "15ba011609aab05a5eeaf31cbec10c058b1a8f4a697d1611778bd7ba7019d008",
+      "size_bytes": 3346
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/RBM47.txt",
+      "sha256": "ee9148bcc1987d7d30c0a6af282035840cdf896bc74c90a743f4964bf6230c4e",
+      "size_bytes": 2682
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/RBM4B.txt",
+      "sha256": "231a8e218edeb6c9925b5726501334d104c0dcfc4ea27f8f56fee3441db8e68a",
+      "size_bytes": 2740
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/RBM6.txt",
+      "sha256": "d9814f308423499a62846d070f0061204afc138572c6af487080a454471d80e7",
+      "size_bytes": 3343
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/RBMS2.txt",
+      "sha256": "81a24f79f6f4629db9d544dd142f8c423bf69c498d3ffeb27538cd2c407c8908",
+      "size_bytes": 2743
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/RBMS3.txt",
+      "sha256": "68875e22af2d71dd23d1d0347a98ac0a12aa71d1d9cd98066bf3af1d77bdefb7",
+      "size_bytes": 2121
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/RC3H1.txt",
+      "sha256": "25d56c02590810fd93a893cd0d3a212f78a8c127b06cc52473582908fee69b0e",
+      "size_bytes": 3321
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/SF1.txt",
+      "sha256": "7ef375f47f65c41d9c988bc7bbec90d8e6e0f9eeda2978e31c6500d246983cf5",
+      "size_bytes": 2738
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/SFPQ.txt",
+      "sha256": "a28bb418164660d13f078438db32c36bb314149356fbabe583820d36babd12ea",
+      "size_bytes": 3348
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/SNRPA.txt",
+      "sha256": "d9fe8f4512a59dfd6472498f77ec79dfd98a4ee6f8ee3b82638842753c378d81",
+      "size_bytes": 2121
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/SRSF10.txt",
+      "sha256": "61e243205cfd85002216823d8e0d258165cd13244242903c548e783bafea6a73",
+      "size_bytes": 1476
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/SRSF11.txt",
+      "sha256": "465bf3351b352c409cdb7716d35103a754a177e3fb3e3e7899d9f387dffd8e44",
+      "size_bytes": 832
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/SRSF2.txt",
+      "sha256": "35316bdb28477c79d21564bddbc964e929dd391d4a53e590ef98c7ca0dabc47a",
+      "size_bytes": 2138
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/SRSF4.txt",
+      "sha256": "07b8d4fa375c2c2fbb04ee28f0b86977fa9ace7ed2ae6f82505dd8e4041aa46e",
+      "size_bytes": 844
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/SRSF5.txt",
+      "sha256": "ba21dc8702f8805a11ca1a8e024fa44394e9ab83e3c026527792ef15c80128ad",
+      "size_bytes": 1502
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/SRSF8.txt",
+      "sha256": "cadd58818c4ae31040c15918f0f39b1fa04e06c73351468bc1166b61fc8acf5e",
+      "size_bytes": 3382
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/SRSF9.txt",
+      "sha256": "290142ed762b6d0844377bf17a00e50e9a26075f08f7c8f66a9db09ff653a90a",
+      "size_bytes": 1480
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/TAF15.txt",
+      "sha256": "c7b9cca9fd0179f62dc09dd0b56c5cfdb8986ec85e00a1404b9f93d7ec474049",
+      "size_bytes": 1939
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/TARDBP.txt",
+      "sha256": "6ca4aac7ba0d2d7c6f09737cea1180463d825ac9c5ac14c38aa83e9af5854bad",
+      "size_bytes": 2088
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/TIA1.txt",
+      "sha256": "071b08395f141ee3190f7dfaa9887898930af3f24f5c149424168575306ac286",
+      "size_bytes": 3322
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/TRA2A.txt",
+      "sha256": "51e97a4b12dafa72f4eba47fb16427a059fd512a2600ba6778285ada291cd724",
+      "size_bytes": 3339
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/TRNAU1AP.txt",
+      "sha256": "bace246bcd16925441aba8a24dcc4b12ac85c6ad9fc53f1db019733b618b8378",
+      "size_bytes": 3347
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/UNK.txt",
+      "sha256": "5c4aca10e13eaa68f0767b4863a47ed9ced156de686df722fd8096d754d49b38",
+      "size_bytes": 2725
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/ZCRB1.txt",
+      "sha256": "b3e1780a8ef4a83c63681096997fece13998b8036180eb8716fa69511945637a",
+      "size_bytes": 2124
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/ZFP36.txt",
+      "sha256": "1825823658126daa779856d53ac2af31f4f3f00b004b6d28326a0235e961c08e",
+      "size_bytes": 2726
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/external/sam_rbns_psams/ZNF326.txt",
+      "sha256": "4a48e799ae9f2de9162566bd791b56c5f0e39ae78b3ecc260d58dae1d76cec97",
+      "size_bytes": 3322
+    }
+  ],
+  "notes": [
+    "No checkpoint or neural-model weights were loaded and no model inference was invoked.",
+    "Nuisance calipers were frozen from corrected discovery constructions before confirmation sequence construction.",
+    "Control low/high searches used exact candidate-delivered low/high edit counts.",
+    "A failed minimum-cohort gate is serialized as a preserved non-authorizing STOPPED artifact."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_biological_features_confirmation_construction_v1.json",
+      "sha256": "eeec16f27b92cfd6c1a95bddb84170b77cee095c945d8f921357d1f4ce4ce130",
+      "size_bytes": 23273643
+    }
+  ],
+  "seeds": {},
+  "status": "STOPPED_MINIMUM_COHORT"
+}
