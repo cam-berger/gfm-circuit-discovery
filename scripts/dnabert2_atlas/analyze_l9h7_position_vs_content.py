@@ -158,15 +158,23 @@ def main() -> int:
     }
     payload["rule_defect"] = {
         "id": "D17-F3",
-        "statement": "The frozen D17 rule compares RAW F against a 0.35 threshold. Applied to "
-                     "L11H2 it returns CONTENT_ADDRESSED at k>=175 purely from the ALiBi prior. "
-                     "The rule is therefore invalid for heads whose prior mass sits where the "
-                     "displaced band lands.",
+        "statement": "The frozen rule's INDEX_ADDRESSED gate thresholds RAW P at 0.35, and 27.1% "
+                     "of L9H7's measured mean P (0.1458 of 0.5376) is ALiBi prior. Prior-corrected, "
+                     "P excess is +0.3918 -- still above the bar, but by 0.042 rather than 0.188. "
+                     "Separately, raw F is not comparable across rotations (L11H2 reaches F=0.6637 "
+                     "at k=199 with an excess of only +0.0253, 96% architecture), which is why "
+                     "every reported F is an excess.",
         "affects_L9H7_verdict": False,
         "why_not": "L9H7's slope is 0.0039 (near-uniform prior), so its prior on the displaced "
                    "band is substantial while its measured mass there is near zero -- its excess "
                    "is strongly NEGATIVE. Correcting the defect strengthens INDEX_ADDRESSED "
                    "rather than weakening it.",
+        "supersedes_v1_statement": "v1 of this artifact asserted that the frozen rule thresholds "
+                                   "RAW F and would score L11H2 CONTENT_ADDRESSED. That was FALSE: "
+                                   "the frozen rule thresholds dF and P and never touches raw F; "
+                                   "applied as frozen L11H2 scores CONJUNCTIVE (mean dF -0.0075, "
+                                   "mean P 0.0043). The F>=0.35 bar belonged to the DRAFT rule that "
+                                   "the pre-freeze red-team removed. v1 is retained as superseded.",
     }
 
     write_result_bundle(

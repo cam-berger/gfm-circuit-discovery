@@ -272,7 +272,7 @@ preregistered refutation rule — E1 and E1b failing together refutes the bounde
 **the bounded downstream domain and the sharp distal edge near +31 are refuted**. D8's tile 26
 result (+0.2056, replicated at the time) now stands alone as a single-tile effect, not a domain. E4
 (full domain, descriptive-only because it includes the already-opened tile 26 and can never qualify)
-is +0.0846 (−0.0442 to +0.2295, n=162).
+is +0.0846 (−0.0442 to +0.2295, n=160).
 
 The development-to-confirmation shrinkage is diagnostic, not incidental. The three endpoints that
 contrast against the +31:+51 downstream flank collapse sharply: E1 shrinks from +0.2291 to +0.0375
@@ -346,9 +346,9 @@ upper bound is **0.1986**, above the 0.15 SESOI, and reaching equivalence would 
 reproduces ~55% of the mask effect but is not confirmed. (iii) "Arrangement" means arrangement
 **modulo exact dinucleotide content** — such a shuffle preserves CpG count and much local structure,
 so a motif can partially survive it. (iv) P1's magnitude is **skew-inflated**: median +0.2500, 10%
-trimmed +0.3206, +0.2481 after dropping the five most extreme loci, and the non-parametric sign test
+trimmed **+0.3438** (8 dropped per side of 83), +0.2481 after dropping the five most extreme loci, and the non-parametric sign test
 is marginal (51/83, exact binomial `p=0.0475`). The *direction* is robust across all variants and
-five bootstrap seeds; the *magnitude* should be read as ≈0.25–0.32, not 0.42. (v) Seal status is a
+five bootstrap seeds; the *magnitude* should be read as ≈0.25–0.34, not 0.42. (v) Seal status is a
 **partial seal**: these loci were opened by D12 for the `mask` endpoints, but had never been scored
 under either native arm, and P1/P2/P3/S1 had never been estimated on them.
 
@@ -370,8 +370,9 @@ far-upstream attention dominance is therefore **architecture-forced and is not e
 preference**; all attention statements below are *measured minus prior*.
 
 **Attention (descriptive, reused head-atlas artifacts).** L11H2 and L11H5 — the replicated causal core
-(D6/D7), top two by exact patch — sit essentially **at** their positional prior (excess `far_up`
-+0.046 and +0.032, ≈0.000 in every other band). They perform no measurable content-driven source
+(D6/D7), top two by exact patch — sit essentially **at** their positional prior (excess `far_up` +0.046 and +0.032,
+offset almost exactly by `special` at −0.047 and −0.031, and ≈0.000 in the four remaining sequence
+bands). They perform no measurable content-driven source
 selection. The one candidate head that does redirect strongly onto the TSS neighbourhood, **L9H7**
 (excess `prox_up` +0.401, `tss` +0.051, `prox_dn` +0.082), contributes about **19× less**
 (necessity 0.0169 vs 0.3154).
@@ -435,8 +436,8 @@ Artifacts: `promoter_region_density_confirmation_v1.json`, `promoter_region_dens
 `promoter_alibi_reach_analysis_v1.json`.
 Protocol: `preregistrations/PREREGISTRATION_D15_ATTENTION_CAUSALITY_DISSOCIATION.md` (Amendment 1, pre-outcome).
 
-**D16 — fine-tuning built exactly one reader and left the readout layer's attention geometry
-untouched.** The study's **first measurement on two checkpoints**. D1–D3 used base
+**D16 — the readout layer's `[CLS]` sequence addressing is the same in both checkpoints; exactly
+one head differs, and it moved onto a fixed window offset.** The study's **first measurement on two checkpoints**. D1–D3 used base
 `zhihan1996/DNABERT-2-117M`, D4–D15 used `magicslabnu/DNABERT-2-finetuned-prom_300_all`, and no prior
 script loaded both — so nothing in the record was a before/after of anything. This is descriptive
 (attention only) on all 384 `promoter_source_localization_v1` loci.
@@ -513,7 +514,7 @@ half-parked on special). Wording that implies L9H7 was *the* attention sink woul
 
 D16 licenses: **fine-tuning this checkpoint for promoter classification did not redistribute `[CLS]`
 attention. It moved a single mid-network head (L9H7) out of the attention-sink regime and onto a
-fixed window position — indices 199–247 — and left the readout layer's attention essentially as
+fixed window position — indices 199–247 — and left the readout layer's *sequence* addressing as
 pretraining had it.** Read together with D15 — where L9H7 contributes ~19× less to the decision than
 the two unchanged, positionally-pinned carriers — the one head fine-tuning moved is not the component
 that carries the decision.
@@ -530,8 +531,10 @@ before/after.** The base model has no promoter readout, so D15's endpoint has no
 counterpart; that comparison was **retired at design** (see `DECISIONS.md`, 2026-07-29) because every
 affordable base-model readout is either non-functional (`[CLS]` is not read by an MLM) or
 distance-confounded. (iv) `[CLS]`-row only. (v) Verification: the prior recomputes against D15's
-artifact to 4.27e-07, and D16's fine-tuned excesses reproduce D15's — measured on a **different
-cohort** through a different code path — to within 0.01; batch invariance is exactly 0.0.
+artifact to 4.27e-07 (an ad-hoc cross-artifact check, not persisted in any result file), and D16's fine-tuned excesses reproduce D15's — measured on a **different
+cohort** through a different code path — to ≤0.005 for seven of the eight candidate heads, with L9H7
+the outlier at 0.0202 (the largest cross-cohort disagreement, and it is on the head this entry is
+about); batch invariance is exactly 0.0.
 
 Artifacts: `promoter_finetuning_attention_shift_v1.json`,
 `promoter_finetuning_attention_shift_smoke_v1.json`.
@@ -574,20 +577,30 @@ Frozen verdict: **INDEX_ADDRESSED**.
 
 **Line 3 — in-place content destruction.** At `k=0`, mononucleotide-shuffling the band (composition
 exact) removes only **ΔF = +0.0405 of F = 0.5610 — 7.2%**. Even undisplaced, 93% of the attention to
-that band is content-independent. This also excludes **conjunctive addressing** (content recognised
-only at the trained offset), which would have required the in-place shuffle to bite.
+that band is content-independent. This **bounds** — it does not exclude — **conjunctive
+addressing** (content recognised only at the trained offset): the in-place shuffle *did* bite, but
+only slightly (ΔF +0.0405, CI [+0.0211, +0.0594] — CI-positive, yet far below the frozen 0.15
+content bar). Conjunctive addressing is bounded to ≤7.2% of the band's attention, not ruled out.
 
 Global stability rules out generic collapse: the promoter margin stays positive at every rotation
 (3.61 native → 1.85–2.17), and mean P-band drift across all 144 heads is ≤ 0.0015.
 
-**A defect in this study's own decision rule, found and corrected.** The frozen D17 rule thresholds
-**raw** `F`. Applied to L11H2 — the archetype ALiBi-pinned head — it returns `F = 0.6637` at k=199
-and would score it **CONTENT_ADDRESSED** with zero content sensitivity, because at k=199 the
-displaced band lands next to `[CLS]` where L11H2's prior already sits. Prior correction removes the
-artifact exactly: L11H2's F *excess* is only **+0.0253**, i.e. 96% of that 0.664 is architecture.
-The defect does **not** touch the L9H7 verdict — L9H7's near-uniform prior (slope 0.0039) means
-correction pushes its F excess *negative*, strengthening `INDEX_ADDRESSED`. Recorded because the
-raw-threshold rule was frozen and run before the defect was found.
+**A defect in this study's own decision rule — and a correction to how it was first described.**
+The frozen rule's `INDEX_ADDRESSED` gate thresholds **raw `P`** at 0.35, and **27.1%** of L9H7's
+measured mean `P = 0.5376` is ALiBi prior (0.1458). Prior-corrected, L9H7's `P` excess is
+**+0.3918** — still above the bar, but by 0.042 rather than 0.188. Separately, raw `F` is not
+comparable across rotations: L11H2, the archetype ALiBi-pinned head, reaches `F = 0.6637` at k=199
+with an `F` *excess* of only **+0.0253**, i.e. 96% architecture. That is why every `F` figure above
+is an excess.
+
+> **Correction, 2026-07-30.** This paragraph originally stated that the frozen rule "thresholds
+> **raw** `F`" and would score L11H2 `CONTENT_ADDRESSED`. **That was false.** The frozen rule
+> (`run_l9h7_rotation_probe.py`, `INDEX_ADDRESSED`/`CONTENT_ADDRESSED`/`CONJUNCTIVE` branches)
+> thresholds `ΔF` and `P` and never touches raw `F`; applied as frozen, L11H2 scores
+> **`CONJUNCTIVE`** (mean ΔF −0.0075, mean P 0.0043). The `F ≥ 0.35` threshold the original text
+> attacked belonged to the *draft* rule that the pre-freeze red-team removed — draft and frozen were
+> conflated. Neither the real defect nor the false one touches the L9H7 verdict: L9H7's near-uniform
+> prior drives its `F` excess negative under correction, strengthening `INDEX_ADDRESSED`.
 
 **Bounds.** (i) `[CLS]`-row attention only; no OV, no mediation, no behaviour. (ii) Rotation is
 out-of-distribution by construction — which is why ΔF (severity-matched) and the global-stability
@@ -595,7 +608,7 @@ readout carry the inference, not raw `F`. (iii) This bounds D16's *wording*, not
 the `special` → `proximal_upstream` shift is real; only "TSS recognition" is refuted. (iv) Line 1
 reuses already-open development and confirmation splits. (v) Single third-party checkpoint pair.
 
-Artifacts: `l9h7_rotation_probe_v1.json`, `l9h7_position_vs_content_v1.json`,
+Artifacts: `l9h7_rotation_probe_v1.json`, `l9h7_position_vs_content_v2.json`,
 `l9h7_rotation_probe_smoke_v1.json`. Protocol:
 `preregistrations/PREREGISTRATION_D17_L9H7_ROTATION_PROBE.md`.
 

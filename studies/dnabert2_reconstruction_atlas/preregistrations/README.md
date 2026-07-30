@@ -18,7 +18,7 @@ path resolves to this directory.
 | [`PREREGISTRATION_D14_ARRANGEMENT_VS_COMPOSITION.md`](PREREGISTRATION_D14_ARRANGEMENT_VS_COMPOSITION.md) | D14 | Frozen, run. Replaced D13 and answered the arrangement half |
 | [`PREREGISTRATION_D15_ATTENTION_CAUSALITY_DISSOCIATION.md`](PREREGISTRATION_D15_ATTENTION_CAUSALITY_DISSOCIATION.md) | D15 | Frozen, run. Amendment 1 pre-outcome (a memorial that could not fail; population memorials gated at smoke scale) |
 | [`PREREGISTRATION_D16_FINETUNING_ATTENTION_SHIFT.md`](PREREGISTRATION_D16_FINETUNING_ATTENTION_SHIFT.md) | D16 | Frozen, run. Interpretation rule fixed before any base-model number was read |
-| [`PREREGISTRATION_D17_L9H7_ROTATION_PROBE.md`](PREREGISTRATION_D17_L9H7_ROTATION_PROBE.md) | D17 | Frozen, run. Its own decision rule was later found architecture-forced for L11H2 — recorded in the protocol and in `CLAIMS.md`, not silently repaired |
+| [`PREREGISTRATION_D17_L9H7_ROTATION_PROBE.md`](PREREGISTRATION_D17_L9H7_ROTATION_PROBE.md) | D17 | Frozen, run. Its `INDEX_ADDRESSED` gate thresholds **raw `P`**, 27% of which is ALiBi prior — recorded in `CLAIMS.md` and `DECISIONS.md`, not silently repaired; the frozen protocol itself is unedited. An earlier description of this defect (that the rule thresholds raw `F`) was itself wrong and is corrected in place |
 
 **Conformance caveat.** These protocols have **not** been through the independent
 protocol-vs-execution audit in [`docs/PREREG_CONFORMANCE.md`](../../../docs/PREREG_CONFORMANCE.md),

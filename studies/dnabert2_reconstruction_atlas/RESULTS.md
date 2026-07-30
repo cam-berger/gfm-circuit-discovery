@@ -23,7 +23,7 @@
 | Promoter region density v1 | At equal dose, does −9:+31 carry more of the promoter decision than far-upstream windows, and does carrier attention track that? | E_reg qualified (+0.3490, Holm 0.0058; 4.13× per-token density); attention sits at the ALiBi prior, so attention mass does not track information density; E_band underpowered and negative, refuting the "far-upstream is inert" reading | `../../results/dnabert2_reconstruction_atlas/promoter_region_density_confirmation_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_region_density_confirmation_v1.manifest.json` | D15 |
 | Fine-tuning attention shift v1 | Did fine-tuning move the `[CLS]` attention, or only the readout? | ALREADY AT PRIOR — carriers unchanged and pinned before fine-tuning (Pearson 0.951); L9H7 is the sole TSS-proximal relocation (+0.583). Its **"TSS reader" naming is RETRACTED by D17**; the relocation measurement stands | `../../results/dnabert2_reconstruction_atlas/promoter_finetuning_attention_shift_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_finetuning_attention_shift_v1.manifest.json` | D16 |
 | L9H7 rotation probe v1 | Does L9H7 attend to TSS-proximal content, or to a fixed window offset? | INDEX_ADDRESSED — attention stays locked on window positions 199–247 (prior-corrected excess +0.39…+0.44) and lands *below* prior at the content's displaced location (−0.137…−0.164); ΔF ≈ 0 at every disjoint rotation | `../../results/dnabert2_reconstruction_atlas/l9h7_rotation_probe_v1.json` | `../../results/dnabert2_reconstruction_atlas/l9h7_rotation_probe_v1.manifest.json` | D17 |
-| L9H7 position vs content v1 | Is the acquired band concentration present when there is no TSS? | yes — the committed pseudo-TSS control arm shows 88.1%/91.6% of it survives in same-locus windows with no TSS; also supplies the prior correction that removes an architecture-forced false positive in D17's own rule | `../../results/dnabert2_reconstruction_atlas/l9h7_position_vs_content_v1.json` | `../../results/dnabert2_reconstruction_atlas/l9h7_position_vs_content_v1.manifest.json` | D17 |
+| L9H7 position vs content v1 | Is the acquired band concentration present when there is no TSS? | yes — the committed pseudo-TSS control arm shows 88.1%/91.6% of it survives in same-locus windows with no TSS; also supplies the prior correction that removes an architecture-forced false positive in D17's own rule | `../../results/dnabert2_reconstruction_atlas/l9h7_position_vs_content_v2.json` | `../../results/dnabert2_reconstruction_atlas/l9h7_position_vs_content_v1.manifest.json` | D17 |
 | ALiBi reach and attention prior | What does the architecture force, and where does measured `[CLS]` attention deviate from it? | exploratory: the ALiBi-only prior places 49–89% of every head's mass on far-upstream, so raw attention profiles are not interpretable; head reach does **not** predict causal effect (null, 4 tests) | `../../results/dnabert2_reconstruction_atlas/promoter_alibi_reach_analysis_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_alibi_reach_analysis_v1.manifest.json` | D15 |
 
 ### Promoter source localization v1
@@ -181,7 +181,7 @@ sharper primary endpoint, E1b (tile 27 minus tile 28, both required).
 | E1b sharp edge | +0.2631 | +0.0496 (−0.0746, +0.1815), n=77 | 0.47 | failed |
 | E2 TSS polarity | +0.4045 | +0.3262 (+0.1110, +0.5564), n=149 | 0.0096 | qualified |
 | E3 upstream anti-evidence | −0.2793 | −0.2164 (−0.4189, +0.0005), n=128 | 0.1476 | failed; licenses no null |
-| E4 full domain (descriptive only) | +0.2524 | +0.0846 (−0.0442, +0.2295), n=162 | — | never eligible |
+| E4 full domain (descriptive only) | +0.2524 | +0.0846 (−0.0442, +0.2295), n=160 | — | never eligible |
 
 Only E2 qualifies: masking downstream tiles 25/27 costs more target-specific promoter margin than
 masking upstream tiles 21/22/23, exceeding the +0.15 SESOI with a positive lower bound and passing
@@ -461,7 +461,7 @@ Gates: exact replay of D12's stored per-locus mask values, worst absolute differ
 yields +0.2625 while 4.917 nt yields +0.0619) and not a `[MASK]` artifact (S1 spans zero,
 `gc_depletion` uses only real bases). **Not licensed:** "arrangement contributes nothing" (bound
 0.1986 > SESOI 0.15) or "composition is the carrier" (P2 declared underpowered pre-run). P1's
-magnitude is skew-inflated — robust estimates ≈0.25–0.32, sign test 51/83, exact binomial
+magnitude is skew-inflated — robust estimates ≈0.25–0.34, sign test 51/83, exact binomial
 `p=0.0475`; direction robust across five bootstrap seeds. Partial seal: loci opened by D12 for
 `mask`, never scored under either native arm.
 
@@ -566,8 +566,9 @@ across all 144 heads (median 0.498; 93 heads above 0.35), and L9H7's 0.376 ranks
 distinctive is the completeness of its exit — the largest drop in the model, to a near-zero absolute
 level, where the runner-up L5H3 falls 0.806 → 0.494 and remains half-parked on special.
 
-Verification: prior recomputes against the D15 artifact to 4.27e-07; D16's fine-tuned excesses match
-D15's cross-cohort values to within 0.01.
+Verification: prior recomputes against the D15 artifact to 4.27e-07 (ad-hoc check, not persisted); D16's fine-tuned excesses match
+D15's cross-cohort values to ≤0.005 for seven of the eight candidate heads; L9H7 is the outlier
+at 0.0202 — the largest cross-cohort disagreement, and it is on the head this section is about.
 
 **Bounds.** Descriptive only — attention, not behaviour, not causation. Attention mass is not
 information transfer. The behavioural before/after was **retired at design**: the base model has no
@@ -608,13 +609,17 @@ invariant. Frozen verdict **INDEX_ADDRESSED**. Promoter margin stays positive at
 (3.61 → 1.85–2.17) and 144-head P drift is ≤ 0.0015, so this is not generic collapse.
 
 **Line 3 — in-place shuffle.** At k=0, destroying band content removes 7.2% of the attention to it.
-This also excludes conjunctive addressing, which required the in-place shuffle to bite.
+This **bounds** rather than excludes conjunctive addressing: the shuffle did bite (ΔF +0.0405, CI
+[+0.0211, +0.0594], CI-positive) but at ≤7.2% of the band, far below the frozen 0.15 content bar.
 
-**Rule defect found in this study's own frozen rule.** Thresholding raw `F` scores L11H2 —
-the archetype ALiBi-pinned head — as CONTENT_ADDRESSED at k=199 (`F` = 0.6637) with zero content
-sensitivity, because the displaced band lands where its prior already is. Prior correction reduces
-L11H2's F excess to +0.0253 (96% architecture) and pushes L9H7's negative, strengthening the
-verdict. Recorded because the raw rule was frozen and run before the defect was found.
+**Rule defect in this study's own frozen rule.** The `INDEX_ADDRESSED` gate thresholds **raw `P`**
+at 0.35, and 27.1% of L9H7's measured `P` = 0.5376 is ALiBi prior; prior-corrected, `P` excess is
++0.3918 — still above the bar, by 0.042 not 0.188. Raw `F` is separately not comparable across
+rotations (L11H2 reaches `F` = 0.6637 at k=199 with an excess of +0.0253, 96% architecture), which
+is why every `F` figure here is an excess. **Corrected 2026-07-30:** this section originally said the
+frozen rule thresholds raw `F` and would score L11H2 CONTENT_ADDRESSED. It does not — the frozen rule
+thresholds `ΔF` and `P`, and L11H2 scores CONJUNCTIVE under it. The `F ≥ 0.35` bar belonged to the
+draft rule the pre-freeze red-team removed.
 
 **Bounds.** `[CLS]`-row only; descriptive; rotation is OOD by construction; bounds D16's wording,
 not its measurement; Line 1 reuses already-open splits; single checkpoint pair.

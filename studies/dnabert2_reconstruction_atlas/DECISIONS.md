@@ -750,10 +750,10 @@
   (Holm 0.4506); P2 +0.2006 (Holm 0.4506, underpowered as declared). Replay control 0.0 across 93
   rows; batch invariance 0.0; inert-tile specificity −0.0623. Effect is non-monotone in Hamming
   dose (3 nt → +0.2625 vs 4.917 nt → +0.0619), so P1 is not a perturbation-size artifact.
-- Honest qualification: P1's magnitude is skew-inflated — median +0.2500, 10% trimmed +0.3206,
+- Honest qualification: P1's magnitude is skew-inflated — median +0.2500, 10% trimmed +0.3438,
   +0.2481 dropping the five most extreme loci, sign test 51/83 (exact binomial `p=0.0475`).
   Direction robust across five bootstrap seeds and every robust variant; magnitude should be read
-  as ≈0.25–0.32. Arrangement is bounded at 0.1986, **above** the 0.15 SESOI, so "arrangement
+  as ≈0.25–0.34. Arrangement is bounded at 0.1986, **above** the 0.15 SESOI, so "arrangement
   contributes nothing" is *not* claimed; equivalence would need ≈474 loci.
 - Artifact hygiene: confirmation v1/v2 were deleted pre-claim and before any citation — v1 lacked
   the preregistered Holm adjustment and per-locus persistence, v2 carried a p-value extraction bug
@@ -863,7 +863,8 @@
   to the decision than the two positionally-pinned carriers it did not touch.
 - Independent verification: the ALiBi prior recomputes against D15's committed artifact to 4.27e-07;
   D16's fine-tuned excesses reproduce D15's — a **different cohort through a different code path** — to
-  within 0.01; batch invariance is exactly 0.0; and the capture reproduces D5's committed head-atlas
+  ≤0.005 for seven of eight candidate heads (L9H7 the outlier at 0.0202); batch invariance is
+  exactly 0.0; and the capture reproduces D5's committed head-atlas
   values (L11H2 0.9232 vs 0.9221, L11H5 0.7633 vs 0.7627). Four independent agreements.
 - **Second experiment retired at design, not run.** The intended companion was the behavioural
   before/after: run D15's span-mask arms on the base model. It is **not identifiable at affordable
@@ -967,14 +968,24 @@
   GC-matched) — **88.1% / 91.6% of the "acquired" concentration**, with a TSS-specific increment of
   only +0.0675 / +0.0458 that *shrinks* on confirmation. This was committed and readable the whole
   time. I ran a model experiment to establish something the record already contained.
-- **Error 3 — my own frozen decision rule was architecture-forced in one direction.** D17 thresholds
-  **raw** `F`. Applied to L11H2, the archetype ALiBi-pinned head, it returns `F = 0.6637` at k=199 and
-  would score it CONTENT_ADDRESSED with zero content sensitivity, purely because the displaced band
-  lands next to `[CLS]` where L11H2's prior already sits. This is the R7/R21 forced-memorial failure
-  again, in the decision rule rather than a memorial. Prior correction removes it exactly (L11H2 F
-  *excess* +0.0253, so 96% of the 0.664 is architecture). It does **not** touch the L9H7 verdict:
-  L9H7's near-uniform prior (slope 0.0039) means correction drives its F excess *negative*, which
-  strengthens INDEX_ADDRESSED. Recorded rather than silently switching estimand.
+- **Error 3 — my own frozen decision rule is partly architecture-inflated.** The `INDEX_ADDRESSED`
+  gate thresholds **raw `P`** at 0.35, and **27.1%** of L9H7's measured mean `P = 0.5376` is ALiBi
+  prior (0.1458). Prior-corrected, `P` excess is +0.3918 — still above the bar, but by 0.042 rather
+  than 0.188. This is the R7/R21 forced-artifact failure again, in the decision rule rather than a
+  memorial. Separately, raw `F` is not comparable across rotations: L11H2 reaches `F = 0.6637` at
+  k=199 with an excess of only +0.0253 (96% architecture), which is why every reported `F` is an
+  excess. Neither touches the L9H7 verdict — its near-uniform prior (slope 0.0039) drives `F` excess
+  *negative* under correction, strengthening INDEX_ADDRESSED.
+
+  > **Correction, 2026-07-30.** As first written, Error 3 asserted the frozen rule "thresholds
+  > **raw** `F`" and would score L11H2 CONTENT_ADDRESSED. **That was false** — and since it was the
+  > showpiece of this entry's self-correction, the error is worth stating plainly. The frozen rule
+  > thresholds `ΔF` and `P` and never touches raw `F`; applied as frozen, L11H2 scores
+  > **CONJUNCTIVE** (mean ΔF −0.0075, mean P 0.0043). The `F ≥ 0.35` bar I attacked belonged to the
+  > *draft* rule the pre-freeze red-team had already removed: I reasoned from L11H2's raw
+  > `F = 0.6637` against a threshold no longer in the code, conflating draft with frozen. The real
+  > defect (raw `P`) is stated above. Caught by an independent pre-PR audit and verified against
+  > `run_l9h7_rotation_probe.py` and the committed artifact before being accepted.
 - Evidence as it now stands, three independent lines: (1) 88–92% of the band attention is present
   with no TSS; (2) under rotation, prior-corrected F excess goes +0.412 → **−0.137…−0.164** (below
   prior — the head *avoids* the content's new location) while P excess is invariant at +0.387…+0.443,
@@ -1044,3 +1055,58 @@ honestly:
 - All 82 internal markdown links in the study, `docs/`, and the results directory now resolve.
 
 459 passed / 46 skipped; `verify_manifest.py` green at 991 rows.
+
+## 2026-07-30 — Second pre-PR audit: my own self-correction was wrong, plus six false numbers
+
+An independent four-lens audit run against `418b74e` returned after the first cleanup landed. It
+confirmed the six fixes from `98978dc` and found more. Every finding below was re-verified against
+the files and artifacts before being accepted; nothing was taken on report.
+
+**The serious one — the study's showpiece self-correction was itself false.** D17's "defect found and
+corrected" asserted that the frozen decision rule "thresholds **raw** `F`" and would score L11H2
+`CONTENT_ADDRESSED`. **It does not.** `run_l9h7_rotation_probe.py` thresholds `ΔF` and `P`; raw `F`
+appears in no branch. Applied as frozen, L11H2 scores **CONJUNCTIVE** (mean ΔF −0.0075, mean P
+0.0043). The `F ≥ 0.35` bar I attacked belonged to the *draft* rule the pre-freeze red-team had
+already removed — I reasoned from L11H2's raw `F = 0.6637` against a threshold no longer in the code,
+conflating draft with frozen. The false statement had propagated to `CLAIMS.md`, `RESULTS.md`,
+`DECISIONS.md`, `preregistrations/README.md`, a committed artifact, and a commit message.
+
+The **real** defect, now stated: the `INDEX_ADDRESSED` gate thresholds **raw `P`** at 0.35, and
+**27.1%** of L9H7's measured mean `P = 0.5376` is ALiBi prior. Prior-corrected, `P` excess is
++0.3918 — still above the bar, but by 0.042 rather than 0.188. The verdict is unchanged either way.
+`l9h7_position_vs_content_v1.json` is marked **superseded**; `_v2.json` carries the corrected
+statement and a `supersedes_v1_statement` field. Every number in v2 is bit-identical to v1 — only the
+prose changed.
+
+**Five further numbers that were false or did not reproduce, all verified:**
+- **D14 `10% trimmed +0.3206`** does not reproduce from the committed 83 per-locus rows: symmetric
+  10% trimming (8 per side) gives **+0.3438**. The robust range becomes ≈0.25–0.34. `+0.2481`
+  (drop-5) and the 51/83 sign test both reproduce exactly and are unchanged.
+- **D12 E4 `n=162`** — the artifact says `n_loci: 160`.
+- **D16 "reproduce D15's values to within 0.01"** — the worst disagreement is **0.0202**, and it is
+  on **L9H7**, the very head the entry is about. Restated as ≤0.005 for seven of eight candidates
+  with L9H7 the named outlier.
+- **D15 carriers "≈0.000 in every other band"** — false: `special` excess is **−0.047 / −0.031**,
+  the same magnitude as the `far_up` gain it offsets.
+- **D17 "excludes conjunctive addressing"** — overstated. The in-place shuffle *did* bite: ΔF at k=0
+  is +0.0405 with CI [+0.0211, +0.0594], which excludes zero. It fails the 0.15 content bar but is
+  not nothing. Restated as **bounds** conjunctive addressing to ≤7.2%.
+- **`4.27e-07`** (the D16 prior cross-check) is from an ad-hoc shell verification and is persisted in
+  no artifact. Now labelled as such wherever cited.
+
+**D16's headline overstated.** "left the readout layer's attention geometry **untouched**" is false:
+**L11H0** shifts +0.176 between `special` and `far_upstream`. The defensible claim — already in the
+body — is that no layer-11 head moved into the TSS-proximal bands (largest, L11H3, +0.0130). Retitled
+to "the readout layer's `[CLS]` **sequence** addressing is the same in both checkpoints".
+
+**Process note.** This is the second time a workflow synthesis arrived after I had already acted on a
+partial result. Both times the late synthesis contained the most important finding. The rule I should
+have followed, and did not, is the one this project already has: do not build on an audit until the
+audit is finished.
+
+**Still open, recorded not fixed:** the audit also proposes committing a
+`promoter_region_density_development_v1.json` (D15's +0.4495 and 4.67× are cited but the development
+artifact was never committed, so the "shrinkage 1.29×" argument rests on uncommitted numbers), a
+lineage memorial for D16/D17 (no artifact verifies the base checkpoint is this fine-tune's
+initialization), a CI for D15's unpaired 4.13× density ratio, and four further bounds on D14/D15.
+These are real and should be addressed before submission; they were not attempted tonight.
