@@ -1,0 +1,70 @@
+{
+  "checkpoint": {
+    "base_hf_id": "zhihan1996/DNABERT-2-117M",
+    "base_tokenizer_revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+    "candidate": "prom_300_all",
+    "hf_id": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
+    "revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12"
+  },
+  "code": {
+    "git_commit": "c7a6d105b0bcdfab184b2d3390242c5c5da20e35",
+    "git_dirty": true
+  },
+  "command": [
+    "scripts/dnabert2_atlas/summarize_promoter_classifier_atlas.py",
+    "--development",
+    "results/dnabert2_reconstruction_atlas/promoter_classifier_development_v1.json",
+    "--confirmation",
+    "results/dnabert2_reconstruction_atlas/promoter_classifier_confirmation_v1.json",
+    "--config",
+    "configs/dnabert2_atlas/promoter_classifier_v2.frozen.json",
+    "--preflight-report",
+    "results/dnabert2_reconstruction_atlas/promoter_classifier_preflight_v2.json",
+    "--out",
+    "results/dnabert2_reconstruction_atlas/promoter_classifier_replication_v2.json"
+  ],
+  "created_at_utc": "2026-07-28T01:20:32.949136+00:00",
+  "data": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_classifier_development_v1.json",
+      "sha256": "f5e5218bb5889905a6b6b835e9e83f1e3b818d92f715ad664af49432f71f0b4f",
+      "size_bytes": 3817
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_classifier_confirmation_v1.json",
+      "sha256": "9098b7419a9c388ea45ec07161ace7653d2644f1ec4d3f89a7a70a2183783a6b",
+      "size_bytes": 3832
+    },
+    {
+      "path": "configs/dnabert2_atlas/promoter_classifier_v2.frozen.json",
+      "sha256": "45d02c8353bd21154281353cd4c0ac398c0a9e4add70020e1c915538d614f0db",
+      "size_bytes": 6898
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_classifier_preflight_v2.json",
+      "sha256": "1f3c9d725ea2a79e9e760bf49147a48e237f9011c2d388ea05b31943587bb164",
+      "size_bytes": 7696
+    }
+  ],
+  "environment": {
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "dnabert2_promoter_classifier_replication_v2",
+  "outputs": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_classifier_replication_v2.json",
+      "sha256": "5b62b669c63366da21a73607256c036754e600f865ed6d4135bcd1f0c3d159a1",
+      "size_bytes": 3263
+    }
+  ],
+  "parameters": {
+    "combination": "development_gate_then_sealed_confirmation",
+    "no_new_model_scores": true
+  },
+  "schema_version": 1,
+  "seeds": {
+    "none": 0
+  },
+  "status": "SEALED"
+}

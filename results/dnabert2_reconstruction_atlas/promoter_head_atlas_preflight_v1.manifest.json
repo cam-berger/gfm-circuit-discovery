@@ -1,0 +1,221 @@
+{
+  "checkpoint": {
+    "base_hf_id": "zhihan1996/DNABERT-2-117M",
+    "base_tokenizer_revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+    "candidate": "prom_300_all",
+    "classification_head_complete": true,
+    "device": "cpu",
+    "dtype": "torch.float32",
+    "env": {
+      "python": "3.11.15",
+      "torch": "2.13.0",
+      "transformers": "4.44.2"
+    },
+    "hf_id": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
+    "hidden_size": 768,
+    "label_semantics": {
+      "0": "non_promoter",
+      "1": "promoter"
+    },
+    "n_heads": 12,
+    "n_layers": 12,
+    "num_labels": 2,
+    "revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+    "state_dict_keys": 140,
+    "task_geometry": {
+      "input_length_nt": 300,
+      "tss_downstream_nt": 50,
+      "tss_upstream_nt": 249
+    },
+    "tokenizer_equivalence": {
+      "comparisons": {
+        "added_tokens": true,
+        "merge_order": true,
+        "model_type": true,
+        "post_processor": true,
+        "pre_tokenizer": true,
+        "vocabulary": true
+      },
+      "equivalent": true,
+      "merge_count": 4087,
+      "runtime_tokenizer_revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+      "vocab_size": 4096
+    },
+    "upstream_sha256": {
+      "config.json": "9f5c0949193cf3ff81691369610c8fcca8c082fce66aa1ff13dd4b06fb955637",
+      "model.safetensors": "ce09ef08160640ac62b68b2995b8ea86c0118d920ee74ba449a56df37a3b4e82",
+      "special_tokens_map.json": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a",
+      "tokenizer.json": "1b805880bea234d909b35050a412f5f2db91e700f5cfcd16a4b573bfcbc22466",
+      "tokenizer_config.json": "ce3e974680079d483cb4dcd66a2000dc331414c21b7b24b0b6b4a690e192a3db",
+      "trainer_state.json": "6ec01510af14b779950af3be4f9582652a18b9c3002d328a22f1c1753bac3e86",
+      "training_args.bin": "f77ae2e3c1ef76aa2812d2e52a52ee2a88cc8e89d81280216628021c62b28960"
+    },
+    "vendor_sha256": {
+      "bert_layers.py": "317ad7e9667980ac724c07f0174ba265c8446ca5230f6b473068ff1b911edcf9",
+      "bert_padding.py": "44d1c68afb1f585fdc66c150d4c60f1ed44a89c006abc57d50531d71940d7421",
+      "configuration_bert.py": "95fc868641b87bbcd7a32d2cd7b9f4769c27592e129daf167d14b5b8c74ec4c5"
+    },
+    "vocab_size": 4096
+  },
+  "code": {
+    "git_commit": "a33471258356f094c6a9704b1e6ed9c7fac68a80",
+    "git_dirty": true
+  },
+  "command": [
+    "scripts/dnabert2_atlas/run_promoter_head_atlas_preflight.py",
+    "--gue-test",
+    "/Users/cberg/.cache/huggingface/hub/datasets--leannmlindsey--GUE/snapshots/240df51a2cd2c0fb1d88efffaf86e8d1e477f932/GUE/prom_300_all/test.csv",
+    "--cohort",
+    "data/processed/dnabert2_atlas/promoter_classifier_v1/cohort.jsonl",
+    "--cohort-audit",
+    "results/dnabert2_reconstruction_atlas/promoter_classifier_cohort_audit_v1.json",
+    "--checkpoint-audit",
+    "results/dnabert2_reconstruction_atlas/promoter_classifier_checkpoint_audit_v2.json",
+    "--calibration",
+    "results/dnabert2_reconstruction_atlas/promoter_head_atlas_calibration_v1.json",
+    "--group-calibration",
+    "results/dnabert2_reconstruction_atlas/promoter_head_group_calibration_v1.json",
+    "--config",
+    "configs/dnabert2_atlas/promoter_head_atlas_v1.frozen.json",
+    "--raw-out",
+    "data/processed/dnabert2_atlas/promoter_head_atlas_v1/preflight.raw.jsonl",
+    "--out",
+    "results/dnabert2_reconstruction_atlas/promoter_head_atlas_preflight_v1.json"
+  ],
+  "created_at_utc": "2026-07-28T03:18:58.485788+00:00",
+  "data": [
+    {
+      "path": "/Users/cberg/.cache/huggingface/hub/datasets--leannmlindsey--GUE/snapshots/240df51a2cd2c0fb1d88efffaf86e8d1e477f932/GUE/prom_300_all/test.csv",
+      "sha256": "c77b312eb3f2c149ee5e54f0c781b585c4e65b742f0e7d9324818f2b56e71e67",
+      "size_bytes": 1799696
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/promoter_classifier_v1/cohort.jsonl",
+      "sha256": "e2a84b662807c56bdd201548f660175f8c4aaba28f1cf8f3309e1351e8111e06",
+      "size_bytes": 2235918
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_classifier_cohort_audit_v1.json",
+      "sha256": "48997c7b7426526ed8f4a89f692594d2a30225514c5d0771411ad106de4ba749",
+      "size_bytes": 1780
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_classifier_checkpoint_audit_v2.json",
+      "sha256": "96f73e55234fa53d667128e4ada41e7fed03d756dd239cfd2866d9f58f868f81",
+      "size_bytes": 11320
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_head_atlas_calibration_v1.json",
+      "sha256": "2eff54619b46de0d70e1dcd9e680861b79beba91341192c7a17ee243d7ce90bb",
+      "size_bytes": 46570
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_head_group_calibration_v1.json",
+      "sha256": "c12841ad1e35f91e101a7c41f50b22e42d3a1d3a93b3222cbbb8d6e5a7988f8c",
+      "size_bytes": 2198
+    },
+    {
+      "path": "configs/dnabert2_atlas/promoter_head_atlas_v1.frozen.json",
+      "sha256": "e6a55280ae07468665060a784835c4d4bb492546a7eb6c9f7887cb7e4097899f",
+      "size_bytes": 7669
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/promoter_head_atlas_v1/preflight.raw.jsonl",
+      "sha256": "d0c19c0d1c927954ea262bcdb43cbd6cc6a8d461ebdeba79fe3806bb762c534f",
+      "size_bytes": 1179608
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/promoter_head_atlas_v1/preflight.raw.manifest.json",
+      "sha256": "948c35378b6317c4c98ce4c1c5550a1947817ece97941914c57f631a29fb3434",
+      "size_bytes": 5648
+    }
+  ],
+  "environment": {
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "dnabert2_promoter_head_atlas_preflight_v1",
+  "outputs": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_head_atlas_preflight_v1.json",
+      "sha256": "daaf941fc56b34a00e265d4e8424227713b78cf66e26c3bae15df67eaa96a27b",
+      "size_bytes": 45704
+    }
+  ],
+  "parameters": {
+    "candidate_selection": {
+      "attribution_exact_minimum_spearman_each_direction": 0.3,
+      "candidate_count": 8,
+      "eligibility": "positive development mean for exact necessity, exact sufficiency, necessity attribution, and sufficiency attribution",
+      "maximum_per_layer": 2,
+      "minimum_candidates_to_open_confirmation": 8,
+      "ranking": "ascending mean fractional rank across the same four measurements",
+      "tie_break": "layer then head"
+    },
+    "group_validation": {
+      "bootstrap_draws": 5000,
+      "candidate_set_size": 8,
+      "distinct_layer_matched_null_sets": 63,
+      "familywise_alpha": 0.05,
+      "multiple_testing": "Holm across candidate-set necessity and sufficiency",
+      "necessity_SESOI_logit_margin": 0.6,
+      "null_excludes_candidates": true,
+      "null_matches_exact_per_layer_candidate_count": true,
+      "random_set_inference": "one-sided add-one rank against distinct layer-profile-matched set means",
+      "sign_permutations": 9999,
+      "sufficiency_SESOI_logit_margin": 0.6
+    },
+    "mandatory_gates": {
+      "invariants": {
+        "maximum_missing_head_rows": 0,
+        "required_heads_per_layer": 12,
+        "required_layers": 12,
+        "required_scanned_heads": 144,
+        "requires_calibration_preflight_disjointness": true,
+        "requires_unpadded_CLS_mapping": true
+      },
+      "matching_balance": {
+        "maximum_pair_count_difference": 0,
+        "required_negative_examples_per_GUE_pair": 1,
+        "required_positive_examples_per_GUE_pair": 1
+      },
+      "model_health": {
+        "maximum_batch_invariance_absolute_margin_difference": 1e-05,
+        "maximum_repeat_absolute_margin_difference": 1e-06,
+        "requires_complete_two_class_head": true,
+        "requires_finite_scores": true
+      },
+      "negative_control": {
+        "maximum_absolute_noop_effect": 1e-06,
+        "minimum_cross_class_to_same_class_absolute_effect_ratio": 1.5
+      },
+      "positive_control": {
+        "minimum_GUE_test_AUROC": 0.95,
+        "minimum_GUE_test_MCC": 0.8,
+        "minimum_attribution_exact_spearman_each_direction": 0.6,
+        "minimum_full_head_patch_necessity_mean": 2.0,
+        "minimum_full_head_patch_sufficiency_mean": 2.0
+      },
+      "resolution": {
+        "maximum_two_endpoint_Holm_floor": 0.05,
+        "minimum_distinct_layer_matched_null_sets": 63
+      },
+      "sensitivity": {
+        "maximum_prospective_MDE_logit_margin": 0.6,
+        "power": 0.8,
+        "target_pairs": 192
+      },
+      "token_geometry": {
+        "maximum_tokens": 256,
+        "maximum_truncated_inputs": 0,
+        "requires_300_nt_inputs": true
+      }
+    },
+    "target_GENCODE_outcomes_computed": false
+  },
+  "schema_version": 1,
+  "seeds": {
+    "preflight_and_null_sets": 20260728
+  },
+  "status": "PREFLIGHT"
+}

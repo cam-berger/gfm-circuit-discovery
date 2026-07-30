@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "status": "DRAFT",
+  "drafted_on": "2026-07-28",
+  "scope": {
+    "question": "Which individual CLS attention-head contexts and MLP writes are most important for correct promoter versus pseudo-TSS classification?",
+    "intervention": "reciprocal paired exchange of one target/control CLS node",
+    "primary_endpoint": "balanced paired accuracy loss",
+    "secondary_endpoints": [
+      "AUROC loss",
+      "target and control label flips",
+      "class-margin loss"
+    ],
+    "boundary": "The atlas identifies class-specific CLS write nodes under paired activation exchange. It does not establish a source motif, a complete circuit, or zero-ablation behavior."
+  },
+  "checkpoint": {
+    "candidate": "prom_300_all",
+    "revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+    "layers": 12,
+    "heads_per_layer": 12
+  },
+  "node_universe": {
+    "attention_heads": 144,
+    "mlp_writes": 12,
+    "total": 156,
+    "position": "unpadded CLS row",
+    "head_hook": "attention context before shared output projection",
+    "mlp_hook": "MLP output projection before residual addition"
+  },
+  "cohort": {
+    "source": "data/processed/dnabert2_atlas/promoter_native_source_cohort_v2/cohort.jsonl",
+    "pairs_per_split": 50,
+    "new_split_tag": "promoter-node-accuracy-v1",
+    "exclude_all_original_D4_D7_D8_D9_example_ids_and_1Mb_blocks": true
+  },
+  "inference": {
+    "accuracy_SESOI": 0.02,
+    "bootstrap_draws": 5000,
+    "shared_sign_permutations": 9999,
+    "familywise_alpha": 0.05,
+    "multiplicity": "one-sided maximum sign-flip correction across all 156 nodes",
+    "development_candidates": {
+      "heads": 8,
+      "mlps": 4,
+      "ranking": [
+        "accuracy_loss",
+        "AUROC_loss",
+        "class_margin_loss",
+        "stable_node_label"
+      ]
+    },
+    "seed": 20260728
+  }
+}

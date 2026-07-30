@@ -1,0 +1,65 @@
+{
+  "assay": "promoter_domain_v1",
+  "boundary": "Exploratory. Derived by re-aggregating D8 development records that had already been read. These are predictions, not evidence.",
+  "endpoints": {
+    "E1_downstream_edge": {
+      "ci95": [
+        0.09498982916542348,
+        0.37735894932442865
+      ],
+      "mean": 0.229094395801525,
+      "n_clusters": 149,
+      "n_loci": 149,
+      "predicted_sign": 1
+    },
+    "E1b_sharp_edge": {
+      "ci95": [
+        0.06830306367741691,
+        0.4820572525262833
+      ],
+      "mean": 0.26309498134586545,
+      "n_clusters": 90,
+      "n_loci": 90,
+      "predicted_sign": 1
+    },
+    "E2_tss_polarity": {
+      "ci95": [
+        0.16503817417348424,
+        0.6537243925966323
+      ],
+      "mean": 0.40453742435202,
+      "n_clusters": 160,
+      "n_loci": 160,
+      "predicted_sign": 1
+    },
+    "E3_upstream_anti_evidence": {
+      "ci95": [
+        -0.5310891540277571,
+        -0.02678335706392924
+      ],
+      "mean": -0.2793009967084915,
+      "n_clusters": 126,
+      "n_loci": 126,
+      "predicted_sign": -1
+    },
+    "E4_full_domain": {
+      "ci95": [
+        0.1352871130278081,
+        0.37324050249754154
+      ],
+      "mean": 0.25243389747515627,
+      "n_clusters": 162,
+      "n_loci": 162,
+      "predicted_sign": 1
+    }
+  },
+  "memorials": {
+    "M3_cover_balance": true,
+    "M4_equal_dose": true
+  },
+  "model_outcomes_computed": false,
+  "phase": "DEVELOPMENT_PREDICTIONS_FROZEN",
+  "schema_version": 1,
+  "status": "FROZEN",
+  "study": "dnabert2_biological_reconstruction_atlas"
+}

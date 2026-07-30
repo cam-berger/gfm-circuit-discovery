@@ -1,0 +1,61 @@
+{
+  "GUE_candidate_offset": 352,
+  "GUE_candidate_pairs": 64,
+  "assay": "promoter_native_source_calibration_v6",
+  "boundary": "Reserved GUE calibration estimates native-edit sensitivity and projected precision. It reads no GENCODE target outcome and freezes no biological conclusion.",
+  "checkpoint_revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+  "identity_replay_max_absolute_margin_difference": 0.0,
+  "measurements": {
+    "dinucleotide_reorder": {
+      "edit_replicates_per_locus": 3,
+      "maximum": 0.8527115980784098,
+      "mean": -0.03301999966303507,
+      "mean_absolute": 0.24647892514864603,
+      "minimum": -1.049009641011556,
+      "n": 16,
+      "projected_80pct_MDE_at_target_n": 0.24894268393895153,
+      "projected_95pct_CI_half_width_at_target_n": 0.17425987875726606,
+      "stdev": 0.3976091169919577
+    },
+    "gc_depletion": {
+      "edit_replicates_per_locus": 3,
+      "maximum": 5.825502872467041,
+      "mean": 0.44482094421982765,
+      "mean_absolute": 0.7757897538443407,
+      "minimum": -1.2449013392130535,
+      "n": 16,
+      "projected_80pct_MDE_at_target_n": 0.998824423526603,
+      "projected_95pct_CI_half_width_at_target_n": 0.6991770964686221,
+      "stdev": 1.5953137918518034
+    }
+  },
+  "model_outcomes_computed": true,
+  "n_pairs": 16,
+  "pair_ids": [
+    "GUE-head-pair-0354",
+    "GUE-head-pair-0355",
+    "GUE-head-pair-0361",
+    "GUE-head-pair-0362",
+    "GUE-head-pair-0363",
+    "GUE-head-pair-0364",
+    "GUE-head-pair-0367",
+    "GUE-head-pair-0372",
+    "GUE-head-pair-0373",
+    "GUE-head-pair-0374",
+    "GUE-head-pair-0376",
+    "GUE-head-pair-0383",
+    "GUE-head-pair-0384",
+    "GUE-head-pair-0385",
+    "GUE-head-pair-0386",
+    "GUE-head-pair-0388"
+  ],
+  "raw": {
+    "manifest": "data/processed/dnabert2_atlas/promoter_native_source_rescue_v6/calibration.raw.manifest.json",
+    "path": "data/processed/dnabert2_atlas/promoter_native_source_rescue_v6/calibration.raw.jsonl",
+    "rows": 96
+  },
+  "schema_version": 1,
+  "status": "CALIBRATION",
+  "study": "dnabert2_biological_reconstruction_atlas",
+  "target_cohort_outcomes_computed": false
+}

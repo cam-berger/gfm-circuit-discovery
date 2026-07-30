@@ -66,8 +66,11 @@ Four things live near 10 nt, and conflating them has been the central risk of th
 | **Human-only component** | ≈10.2 (sub-bin ≈10.17) | 0 of 14 preregistered readers. **Does not reach Level A.** |
 | **Kogan splice phasing** | *unresolvable* | Real phenomenon; a 51-nt window has ΔT ≈ 4 nt at T = 10. |
 
-The carrier and the nucleosomal signal differ by **0.33 nt**, and the carrier is fitted to
-±0.005. **They are not the same wavelength**, and the multi-species carrier is therefore *not*
+The carrier and the nucleosomal signal differ by **0.33 nt**. That gap is **~7× the largest
+uncertainty on either side**: the carrier's two multi-species sub-bin fits span 0.045 nt
+(10.6074 on the 512-row grid, 10.6524 on the 1026-row grid) and the nucleosomal signal's three
+estimators span 0.045 nt (10.2976 fine-scan, 10.2959 genic, 10.2525 phase-rotation).
+**They are not the same wavelength**, and the multi-species carrier is therefore *not*
 the measured nucleosomal periodicity. The upper tier shows why the Kogan phasing cannot arbitrate
 this: at its coherence length the whole 7–16 nt scan is about two resolution elements wide, so its
 peak is free to wander and cannot attribute anything.

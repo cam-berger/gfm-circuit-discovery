@@ -6,14 +6,13 @@ This repository develops a disciplined way to discover **how genomic foundation 
 implement biological computations**. The objective is not to catalogue salient activations; it is to
 move from a model-native behavior to a causally supported, explicitly bounded mechanism.
 
-> **Repository state (2026-07-24):** the current scientific record is consolidated on `master` — the
-> donor circuit (A0–A12), the period-3 and ≈10.63 carriers, the Head–Context Atlas, cross-example
-> transduction (C38/C41), and cross-model carrier origin (C39/C40). Earlier development branches
-> (`donor-graph-address-payload`, `p3-closure-confirmatory`, `b3-confirmatory-redesign`) are superseded
-> ancestors kept for history.
+> **Repository state (2026-07-28):** the scientific record includes the SpliceBERT donor circuit
+> (A0–A12), positional carriers, Head–Context Atlas, cross-example transduction, and cross-model
+> carrier origin. The active transfer study is the DNABERT-2 Biological Reconstruction Atlas.
 
-**SpliceBERT is the first worked example, not the boundary of the project.** The transfer target is a
-second real GFM; Caduceus is the prepared but deferred candidate study.
+**SpliceBERT is the first worked example, not the boundary of the project.** The active transfer
+program is the DNABERT-2 Biological Reconstruction Atlas: a behavior-first census across annotated
+sequence elements. Caduceus remains a prepared, deferred architecture-contrast design.
 
 ## Current mechanism, in one sentence
 
@@ -41,7 +40,7 @@ gene-dyadic inference (R22).
 | Native donor–acceptor coupling | Behavior + specificity | A masked donor score depends on its own paired acceptor under canonical short-intron controls. | Wider biological and sequence-context transduction. |
 | Donor graph A0→A12 | QK → attention → OV/mediation → behavior | An acceptor-local generator feeds L3H1, which binds payload to a mostly relative address and delivers a low-rank donor-side signal through a structured core. | Payload semantics; cross-context causal transfer. |
 | Period-3 carrier C8/C34/C35/C39 | Position → routing → mediation → behavior; origin corpus-attributed | A distributed relative-positional routing coordinate shapes L3H1's attention across the donor–acceptor span. Origin: built by multi-species pretraining, codon-linked (absent in human-only sibling and in ncRNA models, C39/C40). | Training *dynamics* (trajectory); upstream effects on payload construction. |
-| Multispecies ≈10.63 carrier C12/C37/C39 | Position → QK → attention; origin corpus-attributed | Eight heads read a distinct positional carrier after softmax. Origin: multi-species pretraining — strong in the 72-species stage-1 sibling, absent in the human-only sibling, and **not detectable** at ≈10.63 in 60 Mb of human genome above that unanchored assay's 5–10% modulation floor (a sensitivity limit, not an absence). The nucleosomal comparator that excludes the chromatin reading, ≈10.298 nt, is measured in **mouse** ES-cell chromatin (Voong 2016, mm9) — 0.33 nt from the carrier, which is fitted to ±0.005, so this remains a powered refutation (R30). | General OV/behavioral function still open. |
+| Multispecies ≈10.63 carrier C12/C37/C39 | Position → QK → attention; origin corpus-attributed | Eight heads read a distinct positional carrier after softmax. Origin: multi-species pretraining — strong in the 72-species stage-1 sibling, absent in the human-only sibling, and **not detectable** at ≈10.63 in 60 Mb of human genome above that unanchored assay's 5–10% modulation floor (a sensitivity limit, not an absence). The nucleosomal comparator that excludes the chromatin reading, ≈10.298 nt, is measured in **mouse** ES-cell chromatin (Voong 2016, mm9) — 0.33 nt from the carrier — a gap ~7× the largest uncertainty on either side (0.045 nt each), so this remains a powered refutation (R30, R37). Do not quote a "±0.005" carrier fit precision (R37). | General OV/behavioral function still open. |
 | Human-only ≈10.2 proposal | Position/QK; fails at attention | The proposed chromatin-reader circuit is closed at the attention gate. | No higher claim is licensed. |
 | Head–Context Atlas | Matched discovery → group validation → conditional mechanism tests | Four general-use component candidates validate; context-specific signals remain exploratory because they missed the frozen precision gate. | Better-powered context cohorts and cross-example transduction. |
 
@@ -80,6 +79,7 @@ Attribution ranks; intervention decides. See the [methodology](docs/METHODOLOGY.
 | [`studies/splicebert_head_context_atlas/`](studies/splicebert_head_context_atlas/README.md) | discovery and internal validation complete | Multi-context head/MLP reuse atlas; context-specific follow-ups remain exploratory. |
 | [`studies/splicebert_gtex_finetune_shift/`](studies/splicebert_gtex_finetune_shift/README.md) | native causal mechanism mapped; sparse-difference instrument bounded | Native-head coupling; several late attention routes into a compact final-MLP code; inherited positional-carrier use; unresolved sparse and biological feature bridges. |
 | [`studies/splicebert_segment_attribution/`](studies/splicebert_segment_attribution/README.md) | exploratory instrument | Joint-mask attribution DAGs used as candidate generators, not causal claims. |
+| [`studies/dnabert2_reconstruction_atlas/`](studies/dnabert2_reconstruction_atlas/FINDINGS.md) | baseline census bounded; promoter circuit traced to a late core, then shown to be positionally rather than content addressed (D17) | Systematic DNABERT-2 behavior census and causal reverse engineering of a promoter-fine-tuned model. |
 | [`studies/caduceus_partner_transfer/`](studies/caduceus_partner_transfer/README.md) | design hardened; deferred, not run | Planned cross-architecture behavioral transfer to an RC-equivariant bidirectional Mamba MLM. |
 | [`studies/codon_phase_lattice/`](studies/codon_phase_lattice/README.md) | historical exploratory protocol | Superseded phase-shift framing retained for provenance; not an active result family. |
 
@@ -93,7 +93,10 @@ The reusable study template is under
 - `scripts/splicebert_head_context_atlas/` — Atlas census, screening, mechanism, merge, and audit workflows.
 - `scripts/crossmodel/` — cross-model carrier runners (C39/C40). These require a separate environment;
   see [`REPRODUCE.md`](REPRODUCE.md).
+- `scripts/dnabert2_atlas/` — annotated-collection assembly, validation, and phase-gated atlas runs.
 - `src/gfmcd/adapters/` — model access and hook interfaces.
+- `src/gfmcd/reconstruction_atlas/` — BPE-aware masking, controls, source-region interventions,
+  statistics, gates, and immutable atlas artifact contracts.
 - `src/gfmcd/circuits/` — reusable circuit-analysis primitives.
 - `src/gfmcd/crossmodel/` — cross-model carrier-origin assays (RNA-FM / RNA-BERT / DNABERT-2; C39/C40).
 - `src/gfmcd/splicing/` — SpliceBERT-specific assays, competition logic, and cohort utilities.
@@ -105,11 +108,12 @@ The reusable study template is under
 - `figures/splicebert/` — generated figures and declared provenance.
 - `tests/` — the memorial and analysis-logic suite. Many memorials are data-gated and skip without a
   local genome; see [`REPRODUCE.md`](REPRODUCE.md).
-- `configs/` — run configuration for the partner-selection study (input paths and cohort parameters).
+- `configs/` — versioned study configurations, including DNABERT-2 site registries and frozen
+  phase configs.
 - `data/` — documentation only (`NUCLEOSOME_MAP.md`). The model, FASTA, and GTF are **not committed**
   and must be supplied; see [`REPRODUCE.md`](REPRODUCE.md).
-- `handoff/` and `logs/` — machine-readable session state and retained run logs. Working records, not
-  evidence; nothing here is a controlling artifact.
+- Runtime handoffs, logs, and scratch files are ignored. Historical DNABERT-2 programs are referenced
+  by commit from the atlas archive index rather than copied into the active tree.
 
 Large Atlas shards and reproducible runtime intermediates are intentionally excluded from Git; compact
 results, manifests, audits, code, tests, and Colab notebooks are version-controlled.
@@ -158,8 +162,8 @@ the per-study `CLAIMS.md` files.
    cross-context branch.
 5. Review the [GTEx fine-tuning-shift findings](studies/splicebert_gtex_finetune_shift/FINDINGS.md) for
    the supervised task representation and its current sparse/biological boundaries.
-6. Read the [transfer guide](docs/TRANSFER_GUIDE.md) and
-   [Caduceus package](studies/caduceus_partner_transfer/README.md) for the stated mission endpoint.
+6. Read the [transfer guide](docs/TRANSFER_GUIDE.md) and the
+   [DNABERT-2 Atlas](studies/dnabert2_reconstruction_atlas/README.md) for the active second-GFM program.
 7. Follow [`REPRODUCE.md`](REPRODUCE.md) for the canonical environment and claim→script→artifact map.
 
 For development:

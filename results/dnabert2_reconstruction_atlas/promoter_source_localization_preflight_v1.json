@@ -1,0 +1,101 @@
+{
+  "GUE_pair_ids": [
+    "GUE-head-pair-0128",
+    "GUE-head-pair-0129",
+    "GUE-head-pair-0130",
+    "GUE-head-pair-0131",
+    "GUE-head-pair-0132",
+    "GUE-head-pair-0133",
+    "GUE-head-pair-0134",
+    "GUE-head-pair-0135",
+    "GUE-head-pair-0136",
+    "GUE-head-pair-0137",
+    "GUE-head-pair-0138",
+    "GUE-head-pair-0139",
+    "GUE-head-pair-0140",
+    "GUE-head-pair-0141",
+    "GUE-head-pair-0142",
+    "GUE-head-pair-0143",
+    "GUE-head-pair-0144",
+    "GUE-head-pair-0145",
+    "GUE-head-pair-0146",
+    "GUE-head-pair-0147",
+    "GUE-head-pair-0148",
+    "GUE-head-pair-0149",
+    "GUE-head-pair-0150",
+    "GUE-head-pair-0151",
+    "GUE-head-pair-0152",
+    "GUE-head-pair-0153",
+    "GUE-head-pair-0154",
+    "GUE-head-pair-0155",
+    "GUE-head-pair-0156",
+    "GUE-head-pair-0157",
+    "GUE-head-pair-0158",
+    "GUE-head-pair-0159"
+  ],
+  "assay": "promoter_source_localization_preflight_v1",
+  "boundary": "Reserved GUE preflight qualifies numerical reconstruction, tile sensitivity, BPE resolution, precision, and null resolution only.",
+  "checkpoint_revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+  "checks": {
+    "batch_invariance": true,
+    "candidate_value_precision": true,
+    "finite_outputs": true,
+    "fresh_disjoint_GUE_slice": true,
+    "identity_reconstruction": true,
+    "mask_precision": true,
+    "mask_sensitivity": true,
+    "regional_null_resolution": true,
+    "regional_value_sensitivity": true,
+    "tile_resolution": true
+  },
+  "config_sha256": "894fe9c6a2f3152e1be7c2cccdcd988a91b585628ad1e207fdea356670fce512",
+  "input_sha256": {
+    "calibration": "fd7e8b009bc55392c5c29862fe86e16e968675a6379c6cd9e6e28a944335868c",
+    "checkpoint_audit": "96f73e55234fa53d667128e4ada41e7fed03d756dd239cfd2866d9f58f868f81",
+    "config": "4a6b07e5e4513f7430278a040b1f1e8fe24c05abcb7af2afad5f1a06d009b609",
+    "gue_test": "c77b312eb3f2c149ee5e54f0c781b585c4e65b742f0e7d9324818f2b56e71e67",
+    "source_manifest": "9320a230ae677999022920fcddc619f8c0796d676a6a241672b59705a7f3d6c3",
+    "supply_audit": "1f0a7514565080970ba23f22e4d29b24c38c972000b23b0f2200c8d388eaeb43"
+  },
+  "measurements": {
+    "batch_invariance_max_absolute_margin_difference": 0.0,
+    "identity_maximum_absolute_margin_difference": 1.9073486328125e-06,
+    "minimum_tile_pairs": 17,
+    "operations": {
+      "all_layer_value_swap": {
+        "maximum_absolute": 0.09553003311157227,
+        "maximum_tile_stdev": 0.02867640971223789,
+        "mean": -0.0007404744238504824,
+        "mean_absolute": 0.0032109403397021052,
+        "projected_80pct_MDE": 0.007762308860220271,
+        "rows": 636
+      },
+      "candidate_value_swap": {
+        "maximum_absolute": 0.016577720642089844,
+        "maximum_tile_stdev": 0.004703410170333387,
+        "mean": -3.909282152007961e-06,
+        "mean_absolute": 0.0009237531127419861,
+        "projected_80pct_MDE": 0.0012731483056907342,
+        "rows": 636
+      },
+      "mask": {
+        "maximum_absolute": 5.178513050079346,
+        "maximum_tile_stdev": 1.642731803931556,
+        "mean": 0.09136491752106626,
+        "mean_absolute": 0.3739262267232597,
+        "projected_80pct_MDE": 0.4446648574414036,
+        "rows": 636
+      }
+    },
+    "regional_null_pair_count": 45
+  },
+  "qualified": true,
+  "raw": {
+    "manifest": "data/processed/dnabert2_atlas/promoter_source_localization_v1/preflight.raw.manifest.json",
+    "n_rows": 2544,
+    "path": "data/processed/dnabert2_atlas/promoter_source_localization_v1/preflight.raw.jsonl"
+  },
+  "schema_version": 1,
+  "status": "QUALIFIED",
+  "study": "dnabert2_biological_reconstruction_atlas"
+}

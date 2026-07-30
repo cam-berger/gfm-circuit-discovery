@@ -460,3 +460,47 @@ larger harm. They are therefore **inventoried, not edited**:
 so a new runner that defaults `--out` at the record fails CI the day it lands, while the existing 56 stay
 byte-stable. Fix forward in successor runners. Until then, **always pass an explicit `--out` to a new path
 when reproducing a claim** (documented at `REPRODUCE.md` §2.2).
+
+## R37 — the "≈10.63 carrier is fitted to ±0.005" precision claim withdrawn (drafted 2026-07-24; renumbered on merge 2026-07-30)
+
+> **Numbering note.** This correction was drafted as **R29** on 2026-07-24 but was never merged. The `master` line independently assigned **R29** to the L2H15 unit error on 2026-07-25, so the two collided. The published R29 keeps its number (it is already cited from `RESULTS_VERIFICATION.md`, `docs/PREREG_CONFORMANCE.md`, `run_l2_accounting.py` and `run_a3_l2h15_address_payload.py`) and this entry is renumbered to the next free slot. Nothing in its content changed. Item **(b)** below — that the nucleosomal comparator is mouse and the docs never said whose DNA — was subsequently **resolved by R30**; it is left as written to preserve what was open at the drafting date.
+
+**What was claimed.** Five live documents stated that the ≈10.63 carrier "is fitted to ±0.005" nt, using
+that figure as the uncertainty against which the 0.33-nt gap to the ≈10.298 nucleosomal signal was called
+a powered refutation.
+
+**Why it was wrong.** No artifact supports ±0.005 as a fit uncertainty on the carrier.
+`results/phase-lattice/carrier_subbin.json` records **two** multi-species sub-bin fits — **10.6074**
+(stage-1, 512-row grid, bin 48, r²=0.9996) and **10.6524** (final, 1026-row grid, bin 96, r²=0.9405) —
+whose **spread is 0.0450 nt**, nine times the claimed bar; the reported 10.630 is their mean
+(`consensus_wavelength` = 10.62994). `run_carrier_subbin.py` itself only certifies the two grids as
+`CONSISTENT` under a **0.05-nt** tolerance (`d < 0.05`), which 0.045 barely clears. The estimator's own
+detuning control at bin 48 gives scatter **0.0955 bins = 0.0212 nt** (bias 0.0022 nt) — still 4× the
+claimed figure. The literal `0.005` in the artifact is
+`control.abs_tone|10.7789|d0.76|L512|s0 → err = 0.005`, an error in **bin units** on a synthetic tone at
+true bin 47.5, i.e. **0.0011 nt** — a plumbing check that the estimator recovers a known synthetic input.
+Two compounded slips: **bin units read as nt**, and a **synthetic control read as a measurement
+uncertainty**.
+
+**What is unaffected.** C14 stands, and the refutation is if anything better characterised. The gap is
+**+0.332 nt** = 7.4× the carrier's two-grid spread (0.045) and 15.6× the estimator scatter (0.021); the
+nucleosomal signal's own three estimators span **0.0451 nt** (fine-scan 10.2976, genic 10.2959,
+phase-rotation 10.2525), also far inside the gap. No result artifact was edited and no number in
+`carrier_subbin.json`, `dyad_real.json`, or `dyad_wavelength.json` changed.
+
+**Rule.** State the distinctness as the gap **relative to the measured spreads** — *carrier 10.63 ± 0.05,
+nucleosomal 10.30 ± 0.05, gap ~7× the larger uncertainty* — and never quote a ±0.005 carrier fit
+precision. `docs/NOMENCLATURE.md` §2 carries the guard. Corrected in `MECHANISM.md`,
+`RESULTS_VERIFICATION.md`, `docs/NOMENCLATURE.md`, `docs/BIOLOGICAL_BRIDGES.md`, and
+`figures/splicebert/fig4_carrier_circuit.CAPTION.md`. **Not** corrected, by frozen-record convention:
+`PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR.md:73` and the dated T2 review/handoff docs
+(`docs/REVIEW_2026-07-22.md:44,294`, `docs/OPEN_TRACKS_EXPANDED_2026-07-22.md:64`,
+`docs/TIER2_HANDOFF_2026-07-23.md:252`) — these are historical records of what was believed at their date.
+
+**Also noted (not corrected here; owner ruling needed).** (a) `results/phase-lattice/dyad_real.json`
+anchors its matched filter on `T0 = 10.6667` — the **retired** grid label — as the reference wavelength;
+the reported 10.298 comes from the fine scan, so no conclusion depends on it, but a retired label is
+load-bearing inside a canonical result file. (b) The nucleosomal signal is **mouse** (mm9 ESC, Voong 2016
+GSM2183909) while the carrier is vertebrate/human; "measured in DNA" in `docs/NOMENCLATURE.md:27` and the
+fig4 caption never says whose DNA. Helical periodicity is not species-specific at this resolution, so the
+distinctness argument is unaffected.

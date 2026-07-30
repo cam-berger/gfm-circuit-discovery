@@ -1,0 +1,176 @@
+{
+  "checkpoint": {
+    "base_hf_id": "zhihan1996/DNABERT-2-117M",
+    "base_tokenizer_revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+    "candidate": "prom_300_all",
+    "classification_head_complete": true,
+    "device": "mps",
+    "dtype": "torch.float32",
+    "env": {
+      "python": "3.11.15",
+      "torch": "2.13.0",
+      "transformers": "4.44.2"
+    },
+    "hf_id": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
+    "hidden_size": 768,
+    "label_semantics": {
+      "0": "non_promoter",
+      "1": "promoter"
+    },
+    "n_heads": 12,
+    "n_layers": 12,
+    "num_labels": 2,
+    "revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+    "state_dict_keys": 140,
+    "task_geometry": {
+      "input_length_nt": 300,
+      "tss_downstream_nt": 50,
+      "tss_upstream_nt": 249
+    },
+    "tokenizer_equivalence": {
+      "comparisons": {
+        "added_tokens": true,
+        "merge_order": true,
+        "model_type": true,
+        "post_processor": true,
+        "pre_tokenizer": true,
+        "vocabulary": true
+      },
+      "equivalent": true,
+      "merge_count": 4087,
+      "runtime_tokenizer_revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+      "vocab_size": 4096
+    },
+    "upstream_sha256": {
+      "config.json": "9f5c0949193cf3ff81691369610c8fcca8c082fce66aa1ff13dd4b06fb955637",
+      "model.safetensors": "ce09ef08160640ac62b68b2995b8ea86c0118d920ee74ba449a56df37a3b4e82",
+      "special_tokens_map.json": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a",
+      "tokenizer.json": "1b805880bea234d909b35050a412f5f2db91e700f5cfcd16a4b573bfcbc22466",
+      "tokenizer_config.json": "ce3e974680079d483cb4dcd66a2000dc331414c21b7b24b0b6b4a690e192a3db",
+      "trainer_state.json": "6ec01510af14b779950af3be4f9582652a18b9c3002d328a22f1c1753bac3e86",
+      "training_args.bin": "f77ae2e3c1ef76aa2812d2e52a52ee2a88cc8e89d81280216628021c62b28960"
+    },
+    "vendor_sha256": {
+      "bert_layers.py": "317ad7e9667980ac724c07f0174ba265c8446ca5230f6b473068ff1b911edcf9",
+      "bert_padding.py": "44d1c68afb1f585fdc66c150d4c60f1ed44a89c006abc57d50531d71940d7421",
+      "configuration_bert.py": "95fc868641b87bbcd7a32d2cd7b9f4769c27592e129daf167d14b5b8c74ec4c5"
+    },
+    "vocab_size": 4096
+  },
+  "code": {
+    "git_commit": "4c64d9ee631bb241fdea2904a894e274a8c79c72",
+    "git_dirty": true
+  },
+  "command": [
+    "scripts/dnabert2_atlas/run_promoter_low_rank.py",
+    "--split",
+    "development",
+    "--cohort",
+    "data/processed/dnabert2_atlas/promoter_node_accuracy_v1/cohort.jsonl",
+    "--supply-audit",
+    "results/dnabert2_reconstruction_atlas/promoter_node_accuracy_supply_v1.json",
+    "--checkpoint-audit",
+    "results/dnabert2_reconstruction_atlas/promoter_classifier_checkpoint_audit_v2.json",
+    "--config",
+    "configs/dnabert2_atlas/promoter_low_rank_v1.frozen.json",
+    "--preflight-report",
+    "results/dnabert2_reconstruction_atlas/promoter_low_rank_preflight_v1.json",
+    "--raw-out",
+    "data/processed/dnabert2_atlas/promoter_low_rank_v1/development.raw.jsonl",
+    "--out",
+    "results/dnabert2_reconstruction_atlas/promoter_low_rank_development_v1.json",
+    "--device",
+    "mps",
+    "--batch-pairs",
+    "50"
+  ],
+  "created_at_utc": "2026-07-29T00:22:09.283451+00:00",
+  "data": [
+    {
+      "path": "data/processed/dnabert2_atlas/promoter_node_accuracy_v1/cohort.jsonl",
+      "sha256": "9c5e940f22fce48583e935156fc7a78dbab6ac3749d9e81f99ac6dba074f3d60",
+      "size_bytes": 306299
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_node_accuracy_supply_v1.json",
+      "sha256": "8c9062e2710c97253173928b6d94b9732ba9410f217a754e1318a57cae7b574c",
+      "size_bytes": 6086
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_classifier_checkpoint_audit_v2.json",
+      "sha256": "96f73e55234fa53d667128e4ada41e7fed03d756dd239cfd2866d9f58f868f81",
+      "size_bytes": 11320
+    },
+    {
+      "path": "configs/dnabert2_atlas/promoter_low_rank_v1.frozen.json",
+      "sha256": "a91105eb0a8f8f7e47cb7e9e7ea1bd9d1dd885e0d8529992860b41e9ee31ad2c",
+      "size_bytes": 3299
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_low_rank_preflight_v1.json",
+      "sha256": "02452205c943845d79990837dd7d144f31adea02d410fa59850ae90ebd103ff8",
+      "size_bytes": 5659
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/promoter_low_rank_v1/development.raw.jsonl",
+      "sha256": "092a9bd268db97c175b2bfe3f162d2fc4ba3175df8c61a3f25e853ae6f68652e",
+      "size_bytes": 1037411
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/promoter_low_rank_v1/development.raw.manifest.json",
+      "sha256": "60862badf52a67e1e8202c5aee22709653174d9b06b404e04b74b652fc9ebc84",
+      "size_bytes": 5090
+    }
+  ],
+  "environment": {
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "dnabert2_promoter_low_rank_development_v1",
+  "outputs": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_low_rank_development_v1.json",
+      "sha256": "7da93830afe9a036248f0a36c45e89b134fda4f323900a46c1ec9395258195af",
+      "size_bytes": 187231
+    }
+  ],
+  "parameters": {
+    "basis": {
+      "confirmation_uses_unchanged_development_basis": true,
+      "fit_matrix": "uncentered paired target-minus-control L11MLP CLS writes",
+      "maximum_fraction_of_hidden_dimensions": 0.041666666666666664,
+      "maximum_rank": 32,
+      "method": "right singular vectors with deterministic sign canonicalization",
+      "rank_grid": [
+        1,
+        2,
+        4,
+        8,
+        16,
+        32
+      ]
+    },
+    "batch_pairs": 50,
+    "config_sha256": "05bd112fd1e40a8d9a624e14c7d32b4114762a079af57ce0db456c2cbb7fcafa",
+    "inference": {
+      "accuracy_loss_SESOI": 0.02,
+      "bootstrap_draws": 5000,
+      "class_margin_loss_SESOI": 0.5,
+      "confirmation_rule": "same rank and basis must clear the unchanged effect, capture, accuracy, interval, and random-subspace gates",
+      "minimum_full_effect_capture_fraction": 0.8,
+      "random_subspace_add_one_alpha": 0.05,
+      "random_subspace_distribution": "Gaussian QR in the full 768-dimensional residual space",
+      "random_subspaces": 31,
+      "requires_positive_class_margin_bootstrap_lower_bound": true,
+      "seed": 20260728,
+      "selection_rule": "smallest rank in the frozen grid clearing every development gate and all 31 dimension-matched random subspaces",
+      "sign_permutations": 9999
+    },
+    "split": "development"
+  },
+  "schema_version": 1,
+  "seeds": {
+    "basis_and_inference": 20264920
+  },
+  "status": "DEVELOPMENT"
+}

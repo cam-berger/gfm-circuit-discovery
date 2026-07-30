@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_POSTHOC_DESCRIPTIVE",
+  "specified_on": "2026-07-28",
+  "basis": "User-requested secondary evaluation after D8 localized the source-region candidate.",
+  "cohort": "The unchanged D8 development and confirmation pairs eligible for tile 26.",
+  "nominated_relative_interval": [
+    11,
+    21
+  ],
+  "intervention": "The unchanged two-BPE-token post-tokenization [MASK] operation.",
+  "labels": {
+    "target": 1,
+    "control": 0
+  },
+  "decision_rule": "promoter logit minus non-promoter logit > 0",
+  "metrics": [
+    "accuracy",
+    "AUROC",
+    "promoter_to_non_promoter_label_flips"
+  ],
+  "additional_reported_diagnostics": [
+    "MCC",
+    "confusion matrices",
+    "control label transitions",
+    "paired target and control clean/masked margins"
+  ],
+  "bootstrap_draws": 5000,
+  "seed": 20260728,
+  "inference": "Pair bootstrap confidence intervals are descriptive; there is no new qualification threshold or confirmatory claim.",
+  "boundary": "This analysis measures performance on the balanced fresh GENCODE-TSS versus same-locus pseudo-TSS cohort, not the original GUE held-out test set."
+}

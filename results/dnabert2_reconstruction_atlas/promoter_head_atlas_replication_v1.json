@@ -1,0 +1,726 @@
+{
+  "assay": "promoter_clean_behavior_CLS_head_attribution_and_patching_v1",
+  "attention_source_clues": [
+    {
+      "boundary": "descriptive attention only",
+      "dominant_target_genomic_attention_mass": 0.8391817441831032,
+      "dominant_target_genomic_band": "far_upstream",
+      "head": "L2H2",
+      "largest_target_control_genomic_shift": -0.0013905543213089677,
+      "largest_target_control_genomic_shift_band": "far_upstream",
+      "special_token_target_attention_mass": 0.15639113739598542
+    },
+    {
+      "boundary": "descriptive attention only",
+      "dominant_target_genomic_attention_mass": 0.7098477159937223,
+      "dominant_target_genomic_band": "far_upstream",
+      "head": "L4H6",
+      "largest_target_control_genomic_shift": 0.006847324509484082,
+      "largest_target_control_genomic_shift_band": "distal_downstream",
+      "special_token_target_attention_mass": 0.006625055456728053
+    },
+    {
+      "boundary": "descriptive attention only",
+      "dominant_target_genomic_attention_mass": 0.044575036639192454,
+      "dominant_target_genomic_band": "far_upstream",
+      "head": "L4H7",
+      "largest_target_control_genomic_shift": -0.0016271634764658885,
+      "largest_target_control_genomic_shift_band": "far_upstream",
+      "special_token_target_attention_mass": 0.9356710969780883
+    },
+    {
+      "boundary": "descriptive attention only",
+      "dominant_target_genomic_attention_mass": 0.5475322862330358,
+      "dominant_target_genomic_band": "proximal_upstream",
+      "head": "L9H7",
+      "largest_target_control_genomic_shift": 0.04577346981386654,
+      "largest_target_control_genomic_shift_band": "proximal_upstream",
+      "special_token_target_attention_mass": 0.0009771462799221808
+    },
+    {
+      "boundary": "descriptive attention only",
+      "dominant_target_genomic_attention_mass": 0.38494913396425545,
+      "dominant_target_genomic_band": "far_upstream",
+      "head": "L10H1",
+      "largest_target_control_genomic_shift": -0.035026666009798646,
+      "largest_target_control_genomic_shift_band": "far_upstream",
+      "special_token_target_attention_mass": 0.6150226473497847
+    },
+    {
+      "boundary": "descriptive attention only",
+      "dominant_target_genomic_attention_mass": 0.5882894365737835,
+      "dominant_target_genomic_band": "far_upstream",
+      "head": "L10H5",
+      "largest_target_control_genomic_shift": -0.033560303835353494,
+      "largest_target_control_genomic_shift_band": "distal_downstream",
+      "special_token_target_attention_mass": 0.13397686424044272
+    },
+    {
+      "boundary": "descriptive attention only",
+      "dominant_target_genomic_attention_mass": 0.9224390223001441,
+      "dominant_target_genomic_band": "far_upstream",
+      "head": "L11H2",
+      "largest_target_control_genomic_shift": -0.002977373699347141,
+      "largest_target_control_genomic_shift_band": "far_upstream",
+      "special_token_target_attention_mass": 0.07181985784942906
+    },
+    {
+      "boundary": "descriptive attention only",
+      "dominant_target_genomic_attention_mass": 0.763040685094893,
+      "dominant_target_genomic_band": "far_upstream",
+      "head": "L11H5",
+      "largest_target_control_genomic_shift": 0.009818696416914463,
+      "largest_target_control_genomic_shift_band": "far_upstream",
+      "special_token_target_attention_mass": 0.0029478348539366075
+    }
+  ],
+  "behavior": "clean promoter classifier enrichment: margin(true GENCODE MANE TSS)-margin(composition-matched same-locus pseudo-TSS)",
+  "boundary": [
+    "The replicated layer-matched null result belongs to the eight-head set, not to each member.",
+    "Individual exact patches and corrected sign tests prioritize heads but do not establish individual-head specificity without a matched single-head null family.",
+    "Attention source bands are candidate-generating descriptions; they do not show which source positions or motifs causally drive a head.",
+    "The intervention is at each head's CLS context before the shared output projection; QK selection, OV content, downstream paths, and a sparse circuit remain unresolved.",
+    "The result concerns the clean supervised TSS-versus-pseudo-TSS contrast and does not revive the failed target-preserving local-context hypothesis.",
+    "Exact GUE exclusion cannot rule out undocumented near-duplicate fine-tuning sequences.",
+    "No claim about transcriptional function in cells is licensed."
+  ],
+  "candidate_set_CLS_head_output_effect_replicated": true,
+  "checkpoint": {
+    "base_tokenizer_revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+    "candidate": "prom_300_all",
+    "classifier_readout": "linear head after tanh-pooled CLS",
+    "head_size": 64,
+    "heads_per_layer": 12,
+    "hf_id": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
+    "layers": 12,
+    "revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12"
+  },
+  "config_sha256": "e19406b0a7d3e1e88310a398d63eee09d853700956726cb784068413be7dab4a",
+  "confirmation": {
+    "attribution_exact_patch_spearman": {
+      "necessity": 0.6022184711839884,
+      "sufficiency": 0.7986938349007314
+    },
+    "candidate_group_tests": {
+      "necessity": {
+        "SESOI_logit_margin": 0.6,
+        "checks": {
+          "Holm_random_set_p_at_most_alpha": true,
+          "mean_at_least_SESOI": true,
+          "positive_lower_CI": true
+        },
+        "cluster_bootstrap_CI": [
+          0.5442531363417705,
+          0.9288537086298069
+        ],
+        "mean": 0.7322093962381283,
+        "n_clusters": 192,
+        "n_pairs": 192,
+        "null_set_mean_max": 0.3314980117914577,
+        "null_set_mean_median": 0.10875229044662167,
+        "null_set_mean_min": -0.003652030136436224,
+        "p_add_one_layer_matched_random_sets": 0.015625,
+        "p_add_one_sign_diagnostic": 0.0001,
+        "p_holm_layer_matched_random_sets": 0.03125,
+        "qualified": true
+      },
+      "sufficiency": {
+        "SESOI_logit_margin": 0.6,
+        "checks": {
+          "Holm_random_set_p_at_most_alpha": true,
+          "mean_at_least_SESOI": true,
+          "positive_lower_CI": true
+        },
+        "cluster_bootstrap_CI": [
+          0.9041231938948234,
+          1.3746131053194404
+        ],
+        "mean": 1.1383905420079827,
+        "n_clusters": 192,
+        "n_pairs": 192,
+        "null_set_mean_max": 0.6002819805095593,
+        "null_set_mean_median": 0.19566230289638042,
+        "null_set_mean_min": 0.03519284864887595,
+        "p_add_one_layer_matched_random_sets": 0.015625,
+        "p_add_one_sign_diagnostic": 0.0001,
+        "p_holm_layer_matched_random_sets": 0.03125,
+        "qualified": true
+      }
+    },
+    "clean_behavior": {
+      "SESOI_logit_margin": 0.5,
+      "checks": {
+        "mean_at_least_SESOI": true,
+        "p_add_one_at_most_alpha": true,
+        "positive_lower_CI": true
+      },
+      "cluster_bootstrap_CI": [
+        1.546492050246646,
+        2.328681039473546
+      ],
+      "mean": 1.9325366272484341,
+      "p_add_one_sign": 0.0001,
+      "qualified": true
+    },
+    "n_pairs": 192,
+    "n_unique_locus_blocks": 192,
+    "qualified": true
+  },
+  "development": {
+    "attribution_exact_patch_spearman": {
+      "necessity": 0.7472027972027973,
+      "sufficiency": 0.8764408005787316
+    },
+    "candidate_group_tests": {
+      "necessity": {
+        "SESOI_logit_margin": 0.6,
+        "checks": {
+          "Holm_random_set_p_at_most_alpha": true,
+          "mean_at_least_SESOI": true,
+          "positive_lower_CI": true
+        },
+        "cluster_bootstrap_CI": [
+          0.8179473142760495,
+          1.3145681157087286
+        ],
+        "mean": 1.061445845446239,
+        "n_clusters": 192,
+        "n_pairs": 192,
+        "null_set_mean_max": 0.40959735090533894,
+        "null_set_mean_median": 0.18859274056740105,
+        "null_set_mean_min": 0.00025141541846096516,
+        "p_add_one_layer_matched_random_sets": 0.015625,
+        "p_add_one_sign_diagnostic": 0.0001,
+        "p_holm_layer_matched_random_sets": 0.03125,
+        "qualified": true
+      },
+      "sufficiency": {
+        "SESOI_logit_margin": 0.6,
+        "checks": {
+          "Holm_random_set_p_at_most_alpha": true,
+          "mean_at_least_SESOI": true,
+          "positive_lower_CI": true
+        },
+        "cluster_bootstrap_CI": [
+          1.1489636957024534,
+          1.6863437027980883
+        ],
+        "mean": 1.4165964853018522,
+        "n_clusters": 192,
+        "n_pairs": 192,
+        "null_set_mean_max": 0.7540020144854983,
+        "null_set_mean_median": 0.26561284391209483,
+        "null_set_mean_min": 0.01969039688507716,
+        "p_add_one_layer_matched_random_sets": 0.015625,
+        "p_add_one_sign_diagnostic": 0.0001,
+        "p_holm_layer_matched_random_sets": 0.03125,
+        "qualified": true
+      }
+    },
+    "clean_behavior": {
+      "SESOI_logit_margin": 0.5,
+      "checks": {
+        "mean_at_least_SESOI": true,
+        "p_add_one_at_most_alpha": true,
+        "positive_lower_CI": true
+      },
+      "cluster_bootstrap_CI": [
+        1.9484390085757088,
+        2.8240650521280863
+      ],
+      "mean": 2.3802385546441656,
+      "p_add_one_sign": 0.0001,
+      "qualified": true
+    },
+    "n_pairs": 192,
+    "n_unique_locus_blocks": 192,
+    "qualified": true
+  },
+  "development_frozen_candidates": [
+    "L2H2",
+    "L4H6",
+    "L4H7",
+    "L9H7",
+    "L10H1",
+    "L10H5",
+    "L11H2",
+    "L11H5"
+  ],
+  "individual_candidate_priorities": [
+    {
+      "boundary": "candidate evidence; no individual matched-head null claim",
+      "confirmation": {
+        "necessity": {
+          "cluster_bootstrap_CI": [
+            -0.00018774865505596003,
+            0.0025191024566690126
+          ],
+          "endpoint": "necessity",
+          "head": "L2H2",
+          "mean": 0.001166565731788675,
+          "p_add_one_sign": 0.0445,
+          "p_holm_sign_16_tests": 0.22249999999999998,
+          "positive_sign_supported": false
+        },
+        "sufficiency": {
+          "cluster_bootstrap_CI": [
+            -0.002939830689380566,
+            0.0005289415518442789
+          ],
+          "endpoint": "sufficiency",
+          "head": "L2H2",
+          "mean": -0.0011592411319725215,
+          "p_add_one_sign": 0.8982,
+          "p_holm_sign_16_tests": 0.8982,
+          "positive_sign_supported": false
+        }
+      },
+      "development": {
+        "necessity": {
+          "cluster_bootstrap_CI": [
+            0.0018253755600502093,
+            0.00532342850541075
+          ],
+          "endpoint": "necessity",
+          "head": "L2H2",
+          "mean": 0.003489531072167059,
+          "p_add_one_sign": 0.0001,
+          "p_holm_sign_16_tests": 0.0016,
+          "positive_sign_supported": true
+        },
+        "sufficiency": {
+          "cluster_bootstrap_CI": [
+            -0.0011990441077311214,
+            0.0019825422496069223
+          ],
+          "endpoint": "sufficiency",
+          "head": "L2H2",
+          "mean": 0.0003807986843942975,
+          "p_add_one_sign": 0.3217,
+          "p_holm_sign_16_tests": 0.6201,
+          "positive_sign_supported": false
+        }
+      },
+      "head": "L2H2",
+      "positive_sign_supported_both_directions_both_splits": false
+    },
+    {
+      "boundary": "candidate evidence; no individual matched-head null claim",
+      "confirmation": {
+        "necessity": {
+          "cluster_bootstrap_CI": [
+            0.005889567158495386,
+            0.05587652255780995
+          ],
+          "endpoint": "necessity",
+          "head": "L4H6",
+          "mean": 0.02939141223517557,
+          "p_add_one_sign": 0.0083,
+          "p_holm_sign_16_tests": 0.0581,
+          "positive_sign_supported": false
+        },
+        "sufficiency": {
+          "cluster_bootstrap_CI": [
+            -0.007697758497670293,
+            0.03636621489810447
+          ],
+          "endpoint": "sufficiency",
+          "head": "L4H6",
+          "mean": 0.014800112112425268,
+          "p_add_one_sign": 0.1025,
+          "p_holm_sign_16_tests": 0.3075,
+          "positive_sign_supported": false
+        }
+      },
+      "development": {
+        "necessity": {
+          "cluster_bootstrap_CI": [
+            0.005737988743931055,
+            0.046128314531718694
+          ],
+          "endpoint": "necessity",
+          "head": "L4H6",
+          "mean": 0.026056258861596387,
+          "p_add_one_sign": 0.0043,
+          "p_holm_sign_16_tests": 0.0172,
+          "positive_sign_supported": true
+        },
+        "sufficiency": {
+          "cluster_bootstrap_CI": [
+            -0.012646634830161929,
+            0.029711853538174182
+          ],
+          "endpoint": "sufficiency",
+          "head": "L4H6",
+          "mean": 0.008797782104617605,
+          "p_add_one_sign": 0.2067,
+          "p_holm_sign_16_tests": 0.6201,
+          "positive_sign_supported": false
+        }
+      },
+      "head": "L4H6",
+      "positive_sign_supported_both_directions_both_splits": false
+    },
+    {
+      "boundary": "candidate evidence; no individual matched-head null claim",
+      "confirmation": {
+        "necessity": {
+          "cluster_bootstrap_CI": [
+            -0.00018373717709134021,
+            0.0016336425517996152
+          ],
+          "endpoint": "necessity",
+          "head": "L4H7",
+          "mean": 0.0007176309591159225,
+          "p_add_one_sign": 0.0646,
+          "p_holm_sign_16_tests": 0.2584,
+          "positive_sign_supported": false
+        },
+        "sufficiency": {
+          "cluster_bootstrap_CI": [
+            -0.00075295214386036,
+            0.0017846085829660296
+          ],
+          "endpoint": "sufficiency",
+          "head": "L4H7",
+          "mean": 0.000573428658147653,
+          "p_add_one_sign": 0.1903,
+          "p_holm_sign_16_tests": 0.3806,
+          "positive_sign_supported": false
+        }
+      },
+      "development": {
+        "necessity": {
+          "cluster_bootstrap_CI": [
+            -0.0005031071292857329,
+            0.0011445584241300821
+          ],
+          "endpoint": "necessity",
+          "head": "L4H7",
+          "mean": 0.0003003017821659644,
+          "p_add_one_sign": 0.2434,
+          "p_holm_sign_16_tests": 0.6201,
+          "positive_sign_supported": false
+        },
+        "sufficiency": {
+          "cluster_bootstrap_CI": [
+            0.0005515997375672063,
+            0.0028108950646128505
+          ],
+          "endpoint": "sufficiency",
+          "head": "L4H7",
+          "mean": 0.001670940905266131,
+          "p_add_one_sign": 0.0021,
+          "p_holm_sign_16_tests": 0.010499999999999999,
+          "positive_sign_supported": true
+        }
+      },
+      "head": "L4H7",
+      "positive_sign_supported_both_directions_both_splits": false
+    },
+    {
+      "boundary": "candidate evidence; no individual matched-head null claim",
+      "confirmation": {
+        "necessity": {
+          "cluster_bootstrap_CI": [
+            0.012130780261941254,
+            0.021630642275946837
+          ],
+          "endpoint": "necessity",
+          "head": "L9H7",
+          "mean": 0.016894284441756707,
+          "p_add_one_sign": 0.0001,
+          "p_holm_sign_16_tests": 0.0016,
+          "positive_sign_supported": true
+        },
+        "sufficiency": {
+          "cluster_bootstrap_CI": [
+            0.04436349876535436,
+            0.06364143476821482
+          ],
+          "endpoint": "sufficiency",
+          "head": "L9H7",
+          "mean": 0.05383560092498859,
+          "p_add_one_sign": 0.0001,
+          "p_holm_sign_16_tests": 0.0016,
+          "positive_sign_supported": true
+        }
+      },
+      "development": {
+        "necessity": {
+          "cluster_bootstrap_CI": [
+            0.013178140157833695,
+            0.023776188492774963
+          ],
+          "endpoint": "necessity",
+          "head": "L9H7",
+          "mean": 0.01858489968193074,
+          "p_add_one_sign": 0.0001,
+          "p_holm_sign_16_tests": 0.0016,
+          "positive_sign_supported": true
+        },
+        "sufficiency": {
+          "cluster_bootstrap_CI": [
+            0.045485087825606264,
+            0.06380802967275183
+          ],
+          "endpoint": "sufficiency",
+          "head": "L9H7",
+          "mean": 0.05450128193479031,
+          "p_add_one_sign": 0.0001,
+          "p_holm_sign_16_tests": 0.0016,
+          "positive_sign_supported": true
+        }
+      },
+      "head": "L9H7",
+      "positive_sign_supported_both_directions_both_splits": true
+    },
+    {
+      "boundary": "candidate evidence; no individual matched-head null claim",
+      "confirmation": {
+        "necessity": {
+          "cluster_bootstrap_CI": [
+            2.510612830519676e-06,
+            0.0003242124415313204
+          ],
+          "endpoint": "necessity",
+          "head": "L10H1",
+          "mean": 0.0001709851979588469,
+          "p_add_one_sign": 0.0217,
+          "p_holm_sign_16_tests": 0.1302,
+          "positive_sign_supported": false
+        },
+        "sufficiency": {
+          "cluster_bootstrap_CI": [
+            0.0015982715801025431,
+            0.002344345072439561
+          ],
+          "endpoint": "sufficiency",
+          "head": "L10H1",
+          "mean": 0.001968433915559823,
+          "p_add_one_sign": 0.0001,
+          "p_holm_sign_16_tests": 0.0016,
+          "positive_sign_supported": true
+        }
+      },
+      "development": {
+        "necessity": {
+          "cluster_bootstrap_CI": [
+            9.675797385474046e-05,
+            0.0004331410552064578
+          ],
+          "endpoint": "necessity",
+          "head": "L10H1",
+          "mean": 0.00027275504544377327,
+          "p_add_one_sign": 0.0009,
+          "p_holm_sign_16_tests": 0.0054,
+          "positive_sign_supported": true
+        },
+        "sufficiency": {
+          "cluster_bootstrap_CI": [
+            0.001846269170831268,
+            0.0026140636764466763
+          ],
+          "endpoint": "sufficiency",
+          "head": "L10H1",
+          "mean": 0.002212887736580645,
+          "p_add_one_sign": 0.0001,
+          "p_holm_sign_16_tests": 0.0016,
+          "positive_sign_supported": true
+        }
+      },
+      "head": "L10H1",
+      "positive_sign_supported_both_directions_both_splits": false
+    },
+    {
+      "boundary": "candidate evidence; no individual matched-head null claim",
+      "confirmation": {
+        "necessity": {
+          "cluster_bootstrap_CI": [
+            0.00584067462477833,
+            0.0103709795512259
+          ],
+          "endpoint": "necessity",
+          "head": "L10H5",
+          "mean": 0.008043224496456483,
+          "p_add_one_sign": 0.0001,
+          "p_holm_sign_16_tests": 0.0016,
+          "positive_sign_supported": true
+        },
+        "sufficiency": {
+          "cluster_bootstrap_CI": [
+            0.00888335204217583,
+            0.01645169748614232
+          ],
+          "endpoint": "sufficiency",
+          "head": "L10H5",
+          "mean": 0.012649538732754687,
+          "p_add_one_sign": 0.0001,
+          "p_holm_sign_16_tests": 0.0016,
+          "positive_sign_supported": true
+        }
+      },
+      "development": {
+        "necessity": {
+          "cluster_bootstrap_CI": [
+            0.0075139617547392845,
+            0.012851967631528774
+          ],
+          "endpoint": "necessity",
+          "head": "L10H5",
+          "mean": 0.010137425580372414,
+          "p_add_one_sign": 0.0001,
+          "p_holm_sign_16_tests": 0.0016,
+          "positive_sign_supported": true
+        },
+        "sufficiency": {
+          "cluster_bootstrap_CI": [
+            0.009995241853175685,
+            0.018179468082962558
+          ],
+          "endpoint": "sufficiency",
+          "head": "L10H5",
+          "mean": 0.013989835967853045,
+          "p_add_one_sign": 0.0001,
+          "p_holm_sign_16_tests": 0.0016,
+          "positive_sign_supported": true
+        }
+      },
+      "head": "L10H5",
+      "positive_sign_supported_both_directions_both_splits": true
+    },
+    {
+      "boundary": "candidate evidence; no individual matched-head null claim",
+      "confirmation": {
+        "necessity": {
+          "cluster_bootstrap_CI": [
+            0.20861045084893703,
+            0.42573836383720237
+          ],
+          "endpoint": "necessity",
+          "head": "L11H2",
+          "mean": 0.31536493885020417,
+          "p_add_one_sign": 0.0001,
+          "p_holm_sign_16_tests": 0.0016,
+          "positive_sign_supported": true
+        },
+        "sufficiency": {
+          "cluster_bootstrap_CI": [
+            0.48684436952074367,
+            0.7609564770633975
+          ],
+          "endpoint": "sufficiency",
+          "head": "L11H2",
+          "mean": 0.6268051179746786,
+          "p_add_one_sign": 0.0001,
+          "p_holm_sign_16_tests": 0.0016,
+          "positive_sign_supported": true
+        }
+      },
+      "development": {
+        "necessity": {
+          "cluster_bootstrap_CI": [
+            0.37669817730784416,
+            0.6435793604080876
+          ],
+          "endpoint": "necessity",
+          "head": "L11H2",
+          "mean": 0.506474386745443,
+          "p_add_one_sign": 0.0001,
+          "p_holm_sign_16_tests": 0.0016,
+          "positive_sign_supported": true
+        },
+        "sufficiency": {
+          "cluster_bootstrap_CI": [
+            0.6098560901979605,
+            0.9118434622262915
+          ],
+          "endpoint": "sufficiency",
+          "head": "L11H2",
+          "mean": 0.7646590573713183,
+          "p_add_one_sign": 0.0001,
+          "p_holm_sign_16_tests": 0.0016,
+          "positive_sign_supported": true
+        }
+      },
+      "head": "L11H2",
+      "positive_sign_supported_both_directions_both_splits": true
+    },
+    {
+      "boundary": "candidate evidence; no individual matched-head null claim",
+      "confirmation": {
+        "necessity": {
+          "cluster_bootstrap_CI": [
+            0.1383838104084134,
+            0.27798754442483187
+          ],
+          "endpoint": "necessity",
+          "head": "L11H5",
+          "mean": 0.20843732822686434,
+          "p_add_one_sign": 0.0001,
+          "p_holm_sign_16_tests": 0.0016,
+          "positive_sign_supported": true
+        },
+        "sufficiency": {
+          "cluster_bootstrap_CI": [
+            0.5258558932691813,
+            0.8008158854208887
+          ],
+          "endpoint": "sufficiency",
+          "head": "L11H5",
+          "mean": 0.6598868904014429,
+          "p_add_one_sign": 0.0001,
+          "p_holm_sign_16_tests": 0.0016,
+          "positive_sign_supported": true
+        }
+      },
+      "development": {
+        "necessity": {
+          "cluster_bootstrap_CI": [
+            0.21470837201923132,
+            0.3960260630895694
+          ],
+          "endpoint": "necessity",
+          "head": "L11H5",
+          "mean": 0.30549455247819424,
+          "p_add_one_sign": 0.0001,
+          "p_holm_sign_16_tests": 0.0016,
+          "positive_sign_supported": true
+        },
+        "sufficiency": {
+          "cluster_bootstrap_CI": [
+            0.5874377526342869,
+            0.8829592193166415
+          ],
+          "endpoint": "sufficiency",
+          "head": "L11H5",
+          "mean": 0.7291273415709535,
+          "p_add_one_sign": 0.0001,
+          "p_holm_sign_16_tests": 0.0016,
+          "positive_sign_supported": true
+        }
+      },
+      "head": "L11H5",
+      "positive_sign_supported_both_directions_both_splits": true
+    }
+  ],
+  "licensed_claim": "Across two disjoint 192-locus GENCODE splits, the development-frozen eight-head set at the unpadded CLS destination causally supports the fine-tuned classifier's clean true-TSS versus paired-pseudo-TSS margin in both transfer directions and exceeds exact layer-profile-matched random head sets. This supports candidate-set CLS head-output mediation.",
+  "mechanistic_priorities": {
+    "bidirectional_sign_replicated_candidates": [
+      "L9H7",
+      "L10H5",
+      "L11H2",
+      "L11H5"
+    ],
+    "highest_individual_effect_candidates": [
+      "L11H2",
+      "L11H5"
+    ],
+    "source_localization_candidate": "L9H7: unlike the dominant far-upstream or special-token patterns of the other candidates, its target CLS attention shifts toward the proximal-upstream and TSS-anchor bands. This is attention-only evidence."
+  },
+  "next_gate": "Freeze a second-stage decomposition before new outcomes: test L11H2/L11H5 as an exact layer-matched pair; then separately localize QK source selection, OV-carried content, and downstream path mediation with matched-size nulls.",
+  "preflight_report_id": "dnabert2-promoter-head-atlas-v1",
+  "schema_version": 1,
+  "status": "SEALED",
+  "study": "dnabert2_biological_reconstruction_atlas"
+}

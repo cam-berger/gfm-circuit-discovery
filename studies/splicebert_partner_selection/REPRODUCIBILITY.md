@@ -4,7 +4,7 @@
 
 The shortest path from a claim to its script and machine-readable artifact for the SpliceBERT donor-circuit
 study (C1–C41 + IC1), covering the full current arc. The authoritative claim ledger is
-[`CLAIMS.md`](CLAIMS.md); correction/retraction history (R1–R36) is in [`CORRECTIONS.md`](CORRECTIONS.md);
+[`CLAIMS.md`](CLAIMS.md); correction/retraction history (R1–R37) is in [`CORRECTIONS.md`](CORRECTIONS.md);
 the machine-checkable claim→file index is [`../../results/MANIFEST.csv`](../../results/MANIFEST.csv)
 (780 rows, all paths resolve; `scripts/verify_manifest.py` passes). Repository-wide environment,
 checkpoint, and data requirements are defined in [`../../REPRODUCE.md`](../../REPRODUCE.md); this file is

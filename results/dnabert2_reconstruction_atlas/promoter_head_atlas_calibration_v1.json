@@ -1,0 +1,1433 @@
+{
+  "GUE_slice": {
+    "offset": 0,
+    "pair_ids": [
+      "GUE-head-pair-0000",
+      "GUE-head-pair-0001",
+      "GUE-head-pair-0002",
+      "GUE-head-pair-0003",
+      "GUE-head-pair-0004",
+      "GUE-head-pair-0005",
+      "GUE-head-pair-0006",
+      "GUE-head-pair-0007",
+      "GUE-head-pair-0008",
+      "GUE-head-pair-0009",
+      "GUE-head-pair-0010",
+      "GUE-head-pair-0011",
+      "GUE-head-pair-0012",
+      "GUE-head-pair-0013",
+      "GUE-head-pair-0014",
+      "GUE-head-pair-0015"
+    ],
+    "pairs": 16
+  },
+  "attribution_exact_patch_spearman": {
+    "necessity": 0.8387549232376819,
+    "sufficiency": 0.786701229804678
+  },
+  "boundary": "Calibration uses only a reserved GUE slice. Attribution ranks candidates; the exact paired patch is the intervention.",
+  "checkpoint": {
+    "base_hf_id": "zhihan1996/DNABERT-2-117M",
+    "base_tokenizer_revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+    "candidate": "prom_300_all",
+    "classification_head_complete": true,
+    "device": "cpu",
+    "dtype": "torch.float32",
+    "env": {
+      "python": "3.11.15",
+      "torch": "2.13.0",
+      "transformers": "4.44.2"
+    },
+    "hf_id": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
+    "hidden_size": 768,
+    "label_semantics": {
+      "0": "non_promoter",
+      "1": "promoter"
+    },
+    "n_heads": 12,
+    "n_layers": 12,
+    "num_labels": 2,
+    "revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+    "state_dict_keys": 140,
+    "task_geometry": {
+      "input_length_nt": 300,
+      "tss_downstream_nt": 50,
+      "tss_upstream_nt": 249
+    },
+    "tokenizer_equivalence": {
+      "comparisons": {
+        "added_tokens": true,
+        "merge_order": true,
+        "model_type": true,
+        "post_processor": true,
+        "pre_tokenizer": true,
+        "vocabulary": true
+      },
+      "equivalent": true,
+      "merge_count": 4087,
+      "runtime_tokenizer_revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+      "vocab_size": 4096
+    },
+    "upstream_sha256": {
+      "config.json": "9f5c0949193cf3ff81691369610c8fcca8c082fce66aa1ff13dd4b06fb955637",
+      "model.safetensors": "ce09ef08160640ac62b68b2995b8ea86c0118d920ee74ba449a56df37a3b4e82",
+      "special_tokens_map.json": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a",
+      "tokenizer.json": "1b805880bea234d909b35050a412f5f2db91e700f5cfcd16a4b573bfcbc22466",
+      "tokenizer_config.json": "ce3e974680079d483cb4dcd66a2000dc331414c21b7b24b0b6b4a690e192a3db",
+      "trainer_state.json": "6ec01510af14b779950af3be4f9582652a18b9c3002d328a22f1c1753bac3e86",
+      "training_args.bin": "f77ae2e3c1ef76aa2812d2e52a52ee2a88cc8e89d81280216628021c62b28960"
+    },
+    "vendor_sha256": {
+      "bert_layers.py": "317ad7e9667980ac724c07f0174ba265c8446ca5230f6b473068ff1b911edcf9",
+      "bert_padding.py": "44d1c68afb1f585fdc66c150d4c60f1ed44a89c006abc57d50531d71940d7421",
+      "configuration_bert.py": "95fc868641b87bbcd7a32d2cd7b9f4769c27592e129daf167d14b5b8c74ec4c5"
+    },
+    "vocab_size": 4096
+  },
+  "full_144_head_CLS_patch": {
+    "necessity": {
+      "max": 12.363777160644531,
+      "mean": 7.536240860819817,
+      "median": 8.383721828460693,
+      "min": 1.094961166381836,
+      "n": 16
+    },
+    "sufficiency": {
+      "max": 12.363777160644531,
+      "mean": 7.536240860819817,
+      "median": 8.383721828460693,
+      "min": 1.094961166381836,
+      "n": 16
+    }
+  },
+  "head_summaries": [
+    {
+      "attribution_necessity_mean": 0.6316855158656836,
+      "attribution_sufficiency_mean": 0.43282640108373016,
+      "head": 5,
+      "head_label": "L11H5",
+      "layer": 11,
+      "necessity_mean": 2.5019472911953926,
+      "sufficiency_mean": 3.17111574113369
+    },
+    {
+      "attribution_necessity_mean": 0.421428591478616,
+      "attribution_sufficiency_mean": 0.3870846775826067,
+      "head": 2,
+      "head_label": "L11H2",
+      "layer": 11,
+      "necessity_mean": 2.4343010038137436,
+      "sufficiency_mean": 2.7445579543709755
+    },
+    {
+      "attribution_necessity_mean": 0.3272891812957823,
+      "attribution_sufficiency_mean": 0.1551696101669222,
+      "head": 6,
+      "head_label": "L11H6",
+      "layer": 11,
+      "necessity_mean": 0.5334316715598106,
+      "sufficiency_mean": 0.6026370134204626
+    },
+    {
+      "attribution_necessity_mean": 0.14173360099084675,
+      "attribution_sufficiency_mean": 0.2277576073538512,
+      "head": 7,
+      "head_label": "L11H7",
+      "layer": 11,
+      "necessity_mean": 0.36137861013412476,
+      "sufficiency_mean": 0.6820373991504312
+    },
+    {
+      "attribution_necessity_mean": -0.12788265210110694,
+      "attribution_sufficiency_mean": -0.12782098146271892,
+      "head": 11,
+      "head_label": "L11H11",
+      "layer": 11,
+      "necessity_mean": 0.45600803941488266,
+      "sufficiency_mean": 0.7603048756718636
+    },
+    {
+      "attribution_necessity_mean": 0.09884572762530297,
+      "attribution_sufficiency_mean": -0.03167395887430757,
+      "head": 3,
+      "head_label": "L11H3",
+      "layer": 11,
+      "necessity_mean": 0.20611795783042908,
+      "sufficiency_mean": 0.26895127817988396
+    },
+    {
+      "attribution_necessity_mean": -0.031927898176945746,
+      "attribution_sufficiency_mean": 0.1401449111290276,
+      "head": 10,
+      "head_label": "L11H10",
+      "layer": 11,
+      "necessity_mean": 0.0027004778385162354,
+      "sufficiency_mean": 0.26431366335600615
+    },
+    {
+      "attribution_necessity_mean": 0.11603758682031184,
+      "attribution_sufficiency_mean": 0.013446813856717199,
+      "head": 4,
+      "head_label": "L4H4",
+      "layer": 4,
+      "necessity_mean": 0.14149989932775497,
+      "sufficiency_mean": 0.015319311991333961
+    },
+    {
+      "attribution_necessity_mean": 0.030452351871645078,
+      "attribution_sufficiency_mean": 0.04293656873051077,
+      "head": 4,
+      "head_label": "L11H4",
+      "layer": 11,
+      "necessity_mean": 0.09949150681495667,
+      "sufficiency_mean": 0.11127536743879318
+    },
+    {
+      "attribution_necessity_mean": 0.02598051296081394,
+      "attribution_sufficiency_mean": 0.035555842419853434,
+      "head": 9,
+      "head_label": "L11H9",
+      "layer": 11,
+      "necessity_mean": 0.03863784670829773,
+      "sufficiency_mean": 0.16107194125652313
+    },
+    {
+      "attribution_necessity_mean": 0.018081965623423457,
+      "attribution_sufficiency_mean": 0.04602810292271897,
+      "head": 0,
+      "head_label": "L11H0",
+      "layer": 11,
+      "necessity_mean": 0.0434432327747345,
+      "sufficiency_mean": 0.11472841911017895
+    },
+    {
+      "attribution_necessity_mean": 0.06717443809611723,
+      "attribution_sufficiency_mean": 0.023288214579224586,
+      "head": 5,
+      "head_label": "L4H5",
+      "layer": 4,
+      "necessity_mean": 0.08771704137325287,
+      "sufficiency_mean": 0.029085516929626465
+    },
+    {
+      "attribution_necessity_mean": 0.040061308769509196,
+      "attribution_sufficiency_mean": 0.037180592626100406,
+      "head": 1,
+      "head_label": "L11H1",
+      "layer": 11,
+      "necessity_mean": 0.04845432937145233,
+      "sufficiency_mean": 0.0730763291940093
+    },
+    {
+      "attribution_necessity_mean": 0.07653129380196333,
+      "attribution_sufficiency_mean": 0.009408127143615275,
+      "head": 7,
+      "head_label": "L9H7",
+      "layer": 9,
+      "necessity_mean": 0.05123472213745117,
+      "sufficiency_mean": 0.013527129776775837
+    },
+    {
+      "attribution_necessity_mean": 0.038895018165931106,
+      "attribution_sufficiency_mean": 0.02120130928233266,
+      "head": 6,
+      "head_label": "L4H6",
+      "layer": 4,
+      "necessity_mean": 0.033847689628601074,
+      "sufficiency_mean": 0.024609100073575974
+    },
+    {
+      "attribution_necessity_mean": -0.006740617973264307,
+      "attribution_sufficiency_mean": 0.028052371984813362,
+      "head": 8,
+      "head_label": "L11H8",
+      "layer": 11,
+      "necessity_mean": 0.0002317875623703003,
+      "sufficiency_mean": 0.054480292834341526
+    },
+    {
+      "attribution_necessity_mean": 0.0225566776789492,
+      "attribution_sufficiency_mean": 0.001985438322662958,
+      "head": 8,
+      "head_label": "L4H8",
+      "layer": 4,
+      "necessity_mean": 0.026073545217514038,
+      "sufficiency_mean": 0.002295934595167637
+    },
+    {
+      "attribution_necessity_mean": 0.0173840433380974,
+      "attribution_sufficiency_mean": -0.0028314630890236003,
+      "head": 10,
+      "head_label": "L4H10",
+      "layer": 4,
+      "necessity_mean": 0.022021576762199402,
+      "sufficiency_mean": -0.002687648870050907
+    },
+    {
+      "attribution_necessity_mean": 0.00495549249171745,
+      "attribution_sufficiency_mean": 0.0077341534961306024,
+      "head": 0,
+      "head_label": "L7H0",
+      "layer": 7,
+      "necessity_mean": 0.006239667534828186,
+      "sufficiency_mean": -0.0009448183700442314
+    },
+    {
+      "attribution_necessity_mean": 0.007074312266922789,
+      "attribution_sufficiency_mean": -0.0035893065651180223,
+      "head": 5,
+      "head_label": "L10H5",
+      "layer": 10,
+      "necessity_mean": 0.005890056490898132,
+      "sufficiency_mean": 0.007249271497130394
+    },
+    {
+      "attribution_necessity_mean": 0.0022502711217384785,
+      "attribution_sufficiency_mean": 0.003496274478493433,
+      "head": 1,
+      "head_label": "L4H1",
+      "layer": 4,
+      "necessity_mean": 0.004896774888038635,
+      "sufficiency_mean": 0.0033983197063207626
+    },
+    {
+      "attribution_necessity_mean": 0.0039588674262631685,
+      "attribution_sufficiency_mean": 0.002262896807224024,
+      "head": 7,
+      "head_label": "L10H7",
+      "layer": 10,
+      "necessity_mean": 0.00475601851940155,
+      "sufficiency_mean": 0.0029179202392697334
+    },
+    {
+      "attribution_necessity_mean": 0.00235661003353016,
+      "attribution_sufficiency_mean": 0.004045995516662515,
+      "head": 4,
+      "head_label": "L2H4",
+      "layer": 2,
+      "necessity_mean": 0.0036206990480422974,
+      "sufficiency_mean": 0.0035058436915278435
+    },
+    {
+      "attribution_necessity_mean": 0.0066918744196300395,
+      "attribution_sufficiency_mean": 0.001495047230491764,
+      "head": 2,
+      "head_label": "L0H2",
+      "layer": 0,
+      "necessity_mean": 0.0004144012928009033,
+      "sufficiency_mean": 0.004292147234082222
+    },
+    {
+      "attribution_necessity_mean": 0.010596872962196358,
+      "attribution_sufficiency_mean": -0.005447977031508344,
+      "head": 0,
+      "head_label": "L4H0",
+      "layer": 4,
+      "necessity_mean": 0.013539209961891174,
+      "sufficiency_mean": -0.0060423994436860085
+    },
+    {
+      "attribution_necessity_mean": 0.0042969083879143,
+      "attribution_sufficiency_mean": 0.0036648593631980475,
+      "head": 2,
+      "head_label": "L6H2",
+      "layer": 6,
+      "necessity_mean": 0.004957512021064758,
+      "sufficiency_mean": -0.00035940390080213547
+    },
+    {
+      "attribution_necessity_mean": 0.004637088016352209,
+      "attribution_sufficiency_mean": 0.0004147543850194779,
+      "head": 7,
+      "head_label": "L0H7",
+      "layer": 0,
+      "necessity_mean": 0.004624888300895691,
+      "sufficiency_mean": 0.00030755065381526947
+    },
+    {
+      "attribution_necessity_mean": 0.002622160997816536,
+      "attribution_sufficiency_mean": 0.00039884254010758013,
+      "head": 5,
+      "head_label": "L1H5",
+      "layer": 1,
+      "necessity_mean": 0.0027866512537002563,
+      "sufficiency_mean": 0.00023751240223646164
+    },
+    {
+      "attribution_necessity_mean": 0.002968531935039209,
+      "attribution_sufficiency_mean": 0.0005272723765301635,
+      "head": 1,
+      "head_label": "L5H1",
+      "layer": 5,
+      "necessity_mean": 0.0019081085920333862,
+      "sufficiency_mean": 0.0005037207156419754
+    },
+    {
+      "attribution_necessity_mean": 0.0014474314066319494,
+      "attribution_sufficiency_mean": 0.0009504196796115139,
+      "head": 1,
+      "head_label": "L0H1",
+      "layer": 0,
+      "necessity_mean": 8.581578731536865e-05,
+      "sufficiency_mean": 0.0031071947887539864
+    },
+    {
+      "attribution_necessity_mean": 0.003405790663236985,
+      "attribution_sufficiency_mean": -0.0012367245387849835,
+      "head": 9,
+      "head_label": "L2H9",
+      "layer": 2,
+      "necessity_mean": 0.0031071901321411133,
+      "sufficiency_mean": 0.00029879575595259666
+    },
+    {
+      "attribution_necessity_mean": 0.0022696904252370587,
+      "attribution_sufficiency_mean": 0.001333255931513122,
+      "head": 10,
+      "head_label": "L1H10",
+      "layer": 1,
+      "necessity_mean": 0.000811159610748291,
+      "sufficiency_mean": 0.0010797269642353058
+    },
+    {
+      "attribution_necessity_mean": 0.00023950497597979847,
+      "attribution_sufficiency_mean": 0.00209799414005829,
+      "head": 10,
+      "head_label": "L10H10",
+      "layer": 10,
+      "necessity_mean": 0.0005687028169631958,
+      "sufficiency_mean": 0.002500823698937893
+    },
+    {
+      "attribution_necessity_mean": 0.002227975615824107,
+      "attribution_sufficiency_mean": 0.00045269608017406426,
+      "head": 10,
+      "head_label": "L8H10",
+      "layer": 8,
+      "necessity_mean": 0.002024143934249878,
+      "sufficiency_mean": 0.0001718960702419281
+    },
+    {
+      "attribution_necessity_mean": 0.002965294348541647,
+      "attribution_sufficiency_mean": -0.0004500874936184118,
+      "head": 1,
+      "head_label": "L6H1",
+      "layer": 6,
+      "necessity_mean": 0.0027800649404525757,
+      "sufficiency_mean": -0.0005595050752162933
+    },
+    {
+      "attribution_necessity_mean": 0.0025773106981432647,
+      "attribution_sufficiency_mean": -0.0003065935316044488,
+      "head": 10,
+      "head_label": "L6H10",
+      "layer": 6,
+      "necessity_mean": 0.0028222501277923584,
+      "sufficiency_mean": -0.00039046164602041245
+    },
+    {
+      "attribution_necessity_mean": 0.0021147309539628623,
+      "attribution_sufficiency_mean": 0.00044737195912603056,
+      "head": 2,
+      "head_label": "L5H2",
+      "layer": 5,
+      "necessity_mean": 0.001667410135269165,
+      "sufficiency_mean": 0.00031836796551942825
+    },
+    {
+      "attribution_necessity_mean": -0.0003299951586086536,
+      "attribution_sufficiency_mean": 0.0021832158672623336,
+      "head": 7,
+      "head_label": "L6H7",
+      "layer": 6,
+      "necessity_mean": 0.0005473047494888306,
+      "sufficiency_mean": 0.002007231116294861
+    },
+    {
+      "attribution_necessity_mean": 0.0012370770191409974,
+      "attribution_sufficiency_mean": 0.0008411107983192778,
+      "head": 1,
+      "head_label": "L10H1",
+      "layer": 10,
+      "necessity_mean": 0.0013085603713989258,
+      "sufficiency_mean": 0.0009476523846387863
+    },
+    {
+      "attribution_necessity_mean": 0.0017240529032278573,
+      "attribution_sufficiency_mean": 0.00026284055320502375,
+      "head": 0,
+      "head_label": "L5H0",
+      "layer": 5,
+      "necessity_mean": 0.0016750842332839966,
+      "sufficiency_mean": 0.00025541242212057114
+    },
+    {
+      "attribution_necessity_mean": -0.0019508669211063534,
+      "attribution_sufficiency_mean": 0.0024692406445865345,
+      "head": 8,
+      "head_label": "L1H8",
+      "layer": 1,
+      "necessity_mean": -0.0006190836429595947,
+      "sufficiency_mean": 0.00373219046741724
+    },
+    {
+      "attribution_necessity_mean": 0.001068149015736708,
+      "attribution_sufficiency_mean": 0.0006774700450478122,
+      "head": 0,
+      "head_label": "L10H0",
+      "layer": 10,
+      "necessity_mean": 0.0011027157306671143,
+      "sufficiency_mean": 0.0007598595693707466
+    },
+    {
+      "attribution_necessity_mean": 0.0005621807026727765,
+      "attribution_sufficiency_mean": 0.0011772161644785228,
+      "head": 6,
+      "head_label": "L0H6",
+      "layer": 0,
+      "necessity_mean": 0.00048692524433135986,
+      "sufficiency_mean": 0.001065562479197979
+    },
+    {
+      "attribution_necessity_mean": 0.0020254784167264006,
+      "attribution_sufficiency_mean": -0.00044991175764153013,
+      "head": 3,
+      "head_label": "L6H3",
+      "layer": 6,
+      "necessity_mean": 0.002417042851448059,
+      "sufficiency_mean": -0.0007161777466535568
+    },
+    {
+      "attribution_necessity_mean": 0.0006696517339150887,
+      "attribution_sufficiency_mean": 0.0008626819794699259,
+      "head": 6,
+      "head_label": "L7H6",
+      "layer": 7,
+      "necessity_mean": 0.000515475869178772,
+      "sufficiency_mean": 0.0007489193230867386
+    },
+    {
+      "attribution_necessity_mean": 0.0016191526065085782,
+      "attribution_sufficiency_mean": -0.00020095468426006846,
+      "head": 5,
+      "head_label": "L9H5",
+      "layer": 9,
+      "necessity_mean": 0.0015020966529846191,
+      "sufficiency_mean": -0.00018629245460033417
+    },
+    {
+      "attribution_necessity_mean": 0.0007055914031752764,
+      "attribution_sufficiency_mean": 0.0006540604329074995,
+      "head": 3,
+      "head_label": "L9H3",
+      "layer": 9,
+      "necessity_mean": 0.0006039589643478394,
+      "sufficiency_mean": 0.0006558839231729507
+    },
+    {
+      "attribution_necessity_mean": 0.0004268596994734253,
+      "attribution_sufficiency_mean": 0.0008389030417674803,
+      "head": 1,
+      "head_label": "L2H1",
+      "layer": 2,
+      "necessity_mean": 0.0004511028528213501,
+      "sufficiency_mean": 0.0008273227140307426
+    },
+    {
+      "attribution_necessity_mean": 0.0006151470443001017,
+      "attribution_sufficiency_mean": 0.0007217879733616428,
+      "head": 0,
+      "head_label": "L8H0",
+      "layer": 8,
+      "necessity_mean": 0.0005879998207092285,
+      "sufficiency_mean": 0.0005439985543489456
+    },
+    {
+      "attribution_necessity_mean": -6.565346848219633e-05,
+      "attribution_sufficiency_mean": 0.0012412771263825562,
+      "head": 0,
+      "head_label": "L0H0",
+      "layer": 0,
+      "necessity_mean": -0.0001361370086669922,
+      "sufficiency_mean": 0.0012521734461188316
+    },
+    {
+      "attribution_necessity_mean": 0.0005445409833555459,
+      "attribution_sufficiency_mean": 0.0001417431194568053,
+      "head": 8,
+      "head_label": "L5H8",
+      "layer": 5,
+      "necessity_mean": 0.0013761073350906372,
+      "sufficiency_mean": 0.00020414963364601135
+    },
+    {
+      "attribution_necessity_mean": 0.0013437007519314648,
+      "attribution_sufficiency_mean": -0.0004099717599501673,
+      "head": 10,
+      "head_label": "L2H10",
+      "layer": 2,
+      "necessity_mean": 0.001517966389656067,
+      "sufficiency_mean": -0.00037023983895778656
+    },
+    {
+      "attribution_necessity_mean": 0.0008629629519418813,
+      "attribution_sufficiency_mean": 0.00028381162610457977,
+      "head": 11,
+      "head_label": "L5H11",
+      "layer": 5,
+      "necessity_mean": 0.0005071908235549927,
+      "sufficiency_mean": 0.00025296490639448166
+    },
+    {
+      "attribution_necessity_mean": 0.0007237874965539959,
+      "attribution_sufficiency_mean": -6.0580911849683616e-05,
+      "head": 4,
+      "head_label": "L10H4",
+      "layer": 10,
+      "necessity_mean": 0.001138538122177124,
+      "sufficiency_mean": 9.566545486450195e-05
+    },
+    {
+      "attribution_necessity_mean": 0.0005075481417406991,
+      "attribution_sufficiency_mean": 0.0003871064685654346,
+      "head": 2,
+      "head_label": "L9H2",
+      "layer": 9,
+      "necessity_mean": 0.00047303736209869385,
+      "sufficiency_mean": 0.0003890320658683777
+    },
+    {
+      "attribution_necessity_mean": 0.0013796611965517513,
+      "attribution_sufficiency_mean": -0.0004964720246789511,
+      "head": 5,
+      "head_label": "L6H5",
+      "layer": 6,
+      "necessity_mean": 0.0011819154024124146,
+      "sufficiency_mean": -0.0003393888473510742
+    },
+    {
+      "attribution_necessity_mean": 0.0006606382921745535,
+      "attribution_sufficiency_mean": 0.00023569330392092525,
+      "head": 9,
+      "head_label": "L5H9",
+      "layer": 5,
+      "necessity_mean": 0.0005328357219696045,
+      "sufficiency_mean": 0.0002338690683245659
+    },
+    {
+      "attribution_necessity_mean": 0.0005761199381595361,
+      "attribution_sufficiency_mean": 0.00016675911865604576,
+      "head": 9,
+      "head_label": "L10H9",
+      "layer": 10,
+      "necessity_mean": 0.0006737262010574341,
+      "sufficiency_mean": 0.00021790433675050735
+    },
+    {
+      "attribution_necessity_mean": 0.0006514479482575553,
+      "attribution_sufficiency_mean": 0.00017323032210470046,
+      "head": 7,
+      "head_label": "L8H7",
+      "layer": 8,
+      "necessity_mean": 0.0006515085697174072,
+      "sufficiency_mean": 0.0001580696552991867
+    },
+    {
+      "attribution_necessity_mean": 0.0005893223224120447,
+      "attribution_sufficiency_mean": 0.00038175393910933053,
+      "head": 2,
+      "head_label": "L3H2",
+      "layer": 3,
+      "necessity_mean": 0.0010306835174560547,
+      "sufficiency_mean": -0.00043585244566202164
+    },
+    {
+      "attribution_necessity_mean": 0.0008623736566732987,
+      "attribution_sufficiency_mean": -0.0001145872201959719,
+      "head": 10,
+      "head_label": "L9H10",
+      "layer": 9,
+      "necessity_mean": 0.0008085519075393677,
+      "sufficiency_mean": -9.856931865215302e-05
+    },
+    {
+      "attribution_necessity_mean": 0.0004022760235784517,
+      "attribution_sufficiency_mean": 0.00028720026216433325,
+      "head": 4,
+      "head_label": "L9H4",
+      "layer": 9,
+      "necessity_mean": 0.00038732588291168213,
+      "sufficiency_mean": 0.0002818061038851738
+    },
+    {
+      "attribution_necessity_mean": 0.0004369938424133579,
+      "attribution_sufficiency_mean": 0.0002372791832385701,
+      "head": 9,
+      "head_label": "L8H9",
+      "layer": 8,
+      "necessity_mean": 0.0004484206438064575,
+      "sufficiency_mean": 0.00018547289073467255
+    },
+    {
+      "attribution_necessity_mean": 0.0005427612932180637,
+      "attribution_sufficiency_mean": 5.1035771377883066e-05,
+      "head": 0,
+      "head_label": "L1H0",
+      "layer": 1,
+      "necessity_mean": 0.0005621165037155151,
+      "sufficiency_mean": 0.00010783225297927856
+    },
+    {
+      "attribution_necessity_mean": 0.0005702467301489378,
+      "attribution_sufficiency_mean": 6.0251292154589464e-05,
+      "head": 6,
+      "head_label": "L8H6",
+      "layer": 8,
+      "necessity_mean": 0.0005693286657333374,
+      "sufficiency_mean": 5.3617171943187714e-05
+    },
+    {
+      "attribution_necessity_mean": 0.0012170451027486706,
+      "attribution_sufficiency_mean": -2.6006508051068522e-05,
+      "head": 3,
+      "head_label": "L1H3",
+      "layer": 1,
+      "necessity_mean": 0.0011066794395446777,
+      "sufficiency_mean": -0.0013141892850399017
+    },
+    {
+      "attribution_necessity_mean": 0.0012211589373691822,
+      "attribution_sufficiency_mean": 7.937269492686028e-05,
+      "head": 5,
+      "head_label": "L5H5",
+      "layer": 5,
+      "necessity_mean": -0.0003994852304458618,
+      "sufficiency_mean": 7.650256156921387e-05
+    },
+    {
+      "attribution_necessity_mean": 0.00033996112608747353,
+      "attribution_sufficiency_mean": 5.384691172594103e-05,
+      "head": 10,
+      "head_label": "L3H10",
+      "layer": 3,
+      "necessity_mean": 0.0003452003002166748,
+      "sufficiency_mean": 4.731956869363785e-05
+    },
+    {
+      "attribution_necessity_mean": -1.2709856491710525e-06,
+      "attribution_sufficiency_mean": 0.00036336580296847387,
+      "head": 7,
+      "head_label": "L7H7",
+      "layer": 7,
+      "necessity_mean": 4.3004751205444336e-05,
+      "sufficiency_mean": 0.00036584213376045227
+    },
+    {
+      "attribution_necessity_mean": 0.0004288538916625839,
+      "attribution_sufficiency_mean": -7.524959789861896e-05,
+      "head": 11,
+      "head_label": "L10H11",
+      "layer": 10,
+      "necessity_mean": 0.0004312843084335327,
+      "sufficiency_mean": -5.858391523361206e-05
+    },
+    {
+      "attribution_necessity_mean": 0.0007850233096178272,
+      "attribution_sufficiency_mean": -0.0005519998215959276,
+      "head": 11,
+      "head_label": "L2H11",
+      "layer": 2,
+      "necessity_mean": 0.0008009970188140869,
+      "sufficiency_mean": -0.000451432541012764
+    },
+    {
+      "attribution_necessity_mean": 0.0002316533089015138,
+      "attribution_sufficiency_mean": 4.179961109684882e-05,
+      "head": 11,
+      "head_label": "L9H11",
+      "layer": 9,
+      "necessity_mean": 0.0002298206090927124,
+      "sufficiency_mean": 4.1901133954524994e-05
+    },
+    {
+      "attribution_necessity_mean": 0.00021693141025025398,
+      "attribution_sufficiency_mean": 7.551128049954059e-06,
+      "head": 6,
+      "head_label": "L3H6",
+      "layer": 3,
+      "necessity_mean": 0.0002950131893157959,
+      "sufficiency_mean": 1.2694858014583588e-05
+    },
+    {
+      "attribution_necessity_mean": -0.0010394518531029462,
+      "attribution_sufficiency_mean": 0.0016245958522631554,
+      "head": 7,
+      "head_label": "L1H7",
+      "layer": 1,
+      "necessity_mean": -0.0011463314294815063,
+      "sufficiency_mean": 0.0010918322950601578
+    },
+    {
+      "attribution_necessity_mean": 0.00023190418298213444,
+      "attribution_sufficiency_mean": 3.518416906445054e-05,
+      "head": 3,
+      "head_label": "L7H3",
+      "layer": 7,
+      "necessity_mean": 0.00023037195205688477,
+      "sufficiency_mean": 3.231130540370941e-05
+    },
+    {
+      "attribution_necessity_mean": 0.0001050773330462107,
+      "attribution_sufficiency_mean": -0.00016294644456138485,
+      "head": 6,
+      "head_label": "L6H6",
+      "layer": 6,
+      "necessity_mean": 0.0006526559591293335,
+      "sufficiency_mean": -0.0001497054472565651
+    },
+    {
+      "attribution_necessity_mean": 0.0007568036407974432,
+      "attribution_sufficiency_mean": -0.0005228220657045313,
+      "head": 9,
+      "head_label": "L1H9",
+      "layer": 1,
+      "necessity_mean": 0.0006640851497650146,
+      "sufficiency_mean": -0.00045960862189531326
+    },
+    {
+      "attribution_necessity_mean": 0.0001633528854654287,
+      "attribution_sufficiency_mean": 5.378482433116005e-05,
+      "head": 0,
+      "head_label": "L9H0",
+      "layer": 9,
+      "necessity_mean": 0.00013788044452667236,
+      "sufficiency_mean": 7.545948028564453e-05
+    },
+    {
+      "attribution_necessity_mean": 0.00041219483773602406,
+      "attribution_sufficiency_mean": -0.00022610836504100007,
+      "head": 9,
+      "head_label": "L9H9",
+      "layer": 9,
+      "necessity_mean": 0.0004114508628845215,
+      "sufficiency_mean": -0.00021344143897294998
+    },
+    {
+      "attribution_necessity_mean": 4.6903777430884475e-06,
+      "attribution_sufficiency_mean": 0.00019166389871116962,
+      "head": 4,
+      "head_label": "L0H4",
+      "layer": 0,
+      "necessity_mean": 4.023313522338867e-06,
+      "sufficiency_mean": 0.00018282420933246613
+    },
+    {
+      "attribution_necessity_mean": 0.0004567605164993438,
+      "attribution_sufficiency_mean": -0.0002719146825711505,
+      "head": 1,
+      "head_label": "L9H1",
+      "layer": 9,
+      "necessity_mean": 0.00044251978397369385,
+      "sufficiency_mean": -0.0002496521919965744
+    },
+    {
+      "attribution_necessity_mean": -0.00048402176253148355,
+      "attribution_sufficiency_mean": 0.0005602080841526913,
+      "head": 8,
+      "head_label": "L10H8",
+      "layer": 10,
+      "necessity_mean": -0.00032025575637817383,
+      "sufficiency_mean": 0.0005878908559679985
+    },
+    {
+      "attribution_necessity_mean": 0.0002486774019416771,
+      "attribution_sufficiency_mean": -7.696083184782765e-05,
+      "head": 1,
+      "head_label": "L3H1",
+      "layer": 3,
+      "necessity_mean": 0.00024862587451934814,
+      "sufficiency_mean": -8.537713438272476e-05
+    },
+    {
+      "attribution_necessity_mean": 0.0001430616540289975,
+      "attribution_sufficiency_mean": 8.30482118630016e-06,
+      "head": 1,
+      "head_label": "L7H1",
+      "layer": 7,
+      "necessity_mean": 0.00014442205429077148,
+      "sufficiency_mean": 8.33999365568161e-06
+    },
+    {
+      "attribution_necessity_mean": -0.0004170714983047219,
+      "attribution_sufficiency_mean": 0.0003583384545891022,
+      "head": 2,
+      "head_label": "L1H2",
+      "layer": 1,
+      "necessity_mean": -0.0005202293395996094,
+      "sufficiency_mean": 0.0008801324293017387
+    },
+    {
+      "attribution_necessity_mean": 0.00010574460776524575,
+      "attribution_sufficiency_mean": 4.345807656136458e-05,
+      "head": 5,
+      "head_label": "L8H5",
+      "layer": 8,
+      "necessity_mean": 0.00010409951210021973,
+      "sufficiency_mean": 4.3585896492004395e-05
+    },
+    {
+      "attribution_necessity_mean": 6.769900346625946e-05,
+      "attribution_sufficiency_mean": 7.638539747745199e-05,
+      "head": 5,
+      "head_label": "L0H5",
+      "layer": 0,
+      "necessity_mean": 6.766617298126221e-05,
+      "sufficiency_mean": 7.57882371544838e-05
+    },
+    {
+      "attribution_necessity_mean": -0.000220499880015268,
+      "attribution_sufficiency_mean": 0.0006699132100038696,
+      "head": 4,
+      "head_label": "L3H4",
+      "layer": 3,
+      "necessity_mean": 3.497302532196045e-05,
+      "sufficiency_mean": -0.00020907819271087646
+    },
+    {
+      "attribution_necessity_mean": 0.0001447013901270111,
+      "attribution_sufficiency_mean": -4.296036358653055e-05,
+      "head": 8,
+      "head_label": "L3H8",
+      "layer": 3,
+      "necessity_mean": 0.00014550983905792236,
+      "sufficiency_mean": -4.8206187784671783e-05
+    },
+    {
+      "attribution_necessity_mean": -0.0006254875042941421,
+      "attribution_sufficiency_mean": 0.001044511666350445,
+      "head": 5,
+      "head_label": "L3H5",
+      "layer": 3,
+      "necessity_mean": -0.0004627704620361328,
+      "sufficiency_mean": 0.0002333344891667366
+    },
+    {
+      "attribution_necessity_mean": 0.0005611139936263498,
+      "attribution_sufficiency_mean": -0.00041238879657612415,
+      "head": 4,
+      "head_label": "L1H4",
+      "layer": 1,
+      "necessity_mean": 0.0004075169563293457,
+      "sufficiency_mean": -0.00038433121517300606
+    },
+    {
+      "attribution_necessity_mean": -0.0023127417371142656,
+      "attribution_sufficiency_mean": 0.001606923084182199,
+      "head": 2,
+      "head_label": "L4H2",
+      "layer": 4,
+      "necessity_mean": 0.0007068514823913574,
+      "sufficiency_mean": 0.00012203957885503769
+    },
+    {
+      "attribution_necessity_mean": 2.8972935524507193e-05,
+      "attribution_sufficiency_mean": -2.8254233257030137e-05,
+      "head": 3,
+      "head_label": "L10H3",
+      "layer": 10,
+      "necessity_mean": 4.105269908905029e-05,
+      "sufficiency_mean": 1.0835938155651093e-05
+    },
+    {
+      "attribution_necessity_mean": -0.00041021174956767936,
+      "attribution_sufficiency_mean": 0.00042331340614509827,
+      "head": 8,
+      "head_label": "L9H8",
+      "layer": 9,
+      "necessity_mean": -0.00039207935333251953,
+      "sufficiency_mean": 0.00041081570088863373
+    },
+    {
+      "attribution_necessity_mean": 1.549982611948053e-05,
+      "attribution_sufficiency_mean": -6.252667716921678e-07,
+      "head": 11,
+      "head_label": "L8H11",
+      "layer": 8,
+      "necessity_mean": 1.5541911125183105e-05,
+      "sufficiency_mean": -4.98257577419281e-07
+    },
+    {
+      "attribution_necessity_mean": 3.3272378061610652e-06,
+      "attribution_sufficiency_mean": 8.823578333760906e-06,
+      "head": 10,
+      "head_label": "L7H10",
+      "layer": 7,
+      "necessity_mean": 2.8759241104125977e-06,
+      "sufficiency_mean": 9.519979357719421e-06
+    },
+    {
+      "attribution_necessity_mean": 2.3485915789933642e-06,
+      "attribution_sufficiency_mean": -2.857813854006963e-06,
+      "head": 11,
+      "head_label": "L7H11",
+      "layer": 7,
+      "necessity_mean": 1.2218952178955078e-06,
+      "sufficiency_mean": -2.8032809495925903e-06
+    },
+    {
+      "attribution_necessity_mean": -2.6711108631616298e-05,
+      "attribution_sufficiency_mean": 1.767977195754611e-05,
+      "head": 3,
+      "head_label": "L0H3",
+      "layer": 0,
+      "necessity_mean": -2.7313828468322754e-05,
+      "sufficiency_mean": 1.806207001209259e-05
+    },
+    {
+      "attribution_necessity_mean": -1.57702063177112e-05,
+      "attribution_sufficiency_mean": -2.548369877786172e-06,
+      "head": 10,
+      "head_label": "L0H10",
+      "layer": 0,
+      "necessity_mean": -1.665949821472168e-05,
+      "sufficiency_mean": -1.8337741494178772e-06
+    },
+    {
+      "attribution_necessity_mean": -2.604542004291943e-05,
+      "attribution_sufficiency_mean": 6.980175783155573e-06,
+      "head": 4,
+      "head_label": "L7H4",
+      "layer": 7,
+      "necessity_mean": -2.6732683181762695e-05,
+      "sufficiency_mean": 7.624737918376923e-06
+    },
+    {
+      "attribution_necessity_mean": -3.463185005259106e-05,
+      "attribution_sufficiency_mean": 1.2120977288532231e-05,
+      "head": 2,
+      "head_label": "L8H2",
+      "layer": 8,
+      "necessity_mean": -3.421306610107422e-05,
+      "sufficiency_mean": 1.2509524822235107e-05
+    },
+    {
+      "attribution_necessity_mean": -1.046277395744255e-05,
+      "attribution_sufficiency_mean": -2.1712070122248406e-05,
+      "head": 3,
+      "head_label": "L8H3",
+      "layer": 8,
+      "necessity_mean": -1.0788440704345703e-05,
+      "sufficiency_mean": -2.0529143512248993e-05
+    },
+    {
+      "attribution_necessity_mean": 1.3693140772375045e-05,
+      "attribution_sufficiency_mean": -7.309822393608556e-05,
+      "head": 1,
+      "head_label": "L1H1",
+      "layer": 1,
+      "necessity_mean": 1.1831521987915039e-05,
+      "sufficiency_mean": -7.039867341518402e-05
+    },
+    {
+      "attribution_necessity_mean": -0.0012962843593413709,
+      "attribution_sufficiency_mean": 0.0011398980823287275,
+      "head": 7,
+      "head_label": "L4H7",
+      "layer": 4,
+      "necessity_mean": -0.0011041909456253052,
+      "sufficiency_mean": 0.0011343248188495636
+    },
+    {
+      "attribution_necessity_mean": -4.180780990736821e-05,
+      "attribution_sufficiency_mean": -3.758740479042899e-05,
+      "head": 0,
+      "head_label": "L3H0",
+      "layer": 3,
+      "necessity_mean": -4.026293754577637e-05,
+      "sufficiency_mean": -4.4537708163261414e-05
+    },
+    {
+      "attribution_necessity_mean": -0.00016391787806924185,
+      "attribution_sufficiency_mean": 7.620490998760943e-05,
+      "head": 9,
+      "head_label": "L3H9",
+      "layer": 3,
+      "necessity_mean": -0.00014890730381011963,
+      "sufficiency_mean": 6.553530693054199e-05
+    },
+    {
+      "attribution_necessity_mean": -0.0007447565567417769,
+      "attribution_sufficiency_mean": 0.0006039358604539302,
+      "head": 11,
+      "head_label": "L6H11",
+      "layer": 6,
+      "necessity_mean": -0.0006330609321594238,
+      "sufficiency_mean": 0.0004941709339618683
+    },
+    {
+      "attribution_necessity_mean": -0.00042671102619351586,
+      "attribution_sufficiency_mean": 0.00025896912552525464,
+      "head": 7,
+      "head_label": "L3H7",
+      "layer": 3,
+      "necessity_mean": -0.0003664940595626831,
+      "sufficiency_mean": 0.00018993765115737915
+    },
+    {
+      "attribution_necessity_mean": -0.0001809473392313521,
+      "attribution_sufficiency_mean": 9.79315368567768e-05,
+      "head": 8,
+      "head_label": "L8H8",
+      "layer": 8,
+      "necessity_mean": -0.00027880072593688965,
+      "sufficiency_mean": -1.8290244042873383e-05
+    },
+    {
+      "attribution_necessity_mean": -2.8761944577126997e-06,
+      "attribution_sufficiency_mean": -0.00032214946952535684,
+      "head": 0,
+      "head_label": "L2H0",
+      "layer": 2,
+      "necessity_mean": 1.8164515495300293e-05,
+      "sufficiency_mean": -0.00031419843435287476
+    },
+    {
+      "attribution_necessity_mean": -0.0003048317562388547,
+      "attribution_sufficiency_mean": -0.0003337819607622805,
+      "head": 5,
+      "head_label": "L7H5",
+      "layer": 7,
+      "necessity_mean": -0.00022931396961212158,
+      "sufficiency_mean": -0.00035754498094320297
+    },
+    {
+      "attribution_necessity_mean": 0.0004026905262435321,
+      "attribution_sufficiency_mean": -0.0019289631213723624,
+      "head": 7,
+      "head_label": "L2H7",
+      "layer": 2,
+      "necessity_mean": 0.0028187185525894165,
+      "sufficiency_mean": -0.002572727855294943
+    },
+    {
+      "attribution_necessity_mean": -0.0003960114008805249,
+      "attribution_sufficiency_mean": -0.0003149133895021805,
+      "head": 6,
+      "head_label": "L9H6",
+      "layer": 9,
+      "necessity_mean": -0.000421866774559021,
+      "sufficiency_mean": -0.0002466849982738495
+    },
+    {
+      "attribution_necessity_mean": -0.001361566362902522,
+      "attribution_sufficiency_mean": 0.0007188153149400023,
+      "head": 3,
+      "head_label": "L3H3",
+      "layer": 3,
+      "necessity_mean": -0.0011208653450012207,
+      "sufficiency_mean": 0.0002524247393012047
+    },
+    {
+      "attribution_necessity_mean": -0.0006652767851846875,
+      "attribution_sufficiency_mean": -0.0001155481568275718,
+      "head": 11,
+      "head_label": "L3H11",
+      "layer": 3,
+      "necessity_mean": -0.0004386603832244873,
+      "sufficiency_mean": -0.0004339246079325676
+    },
+    {
+      "attribution_necessity_mean": -0.0002830381436069729,
+      "attribution_sufficiency_mean": -0.0005509681418516266,
+      "head": 1,
+      "head_label": "L8H1",
+      "layer": 8,
+      "necessity_mean": -0.00031691789627075195,
+      "sufficiency_mean": -0.0007749060168862343
+    },
+    {
+      "attribution_necessity_mean": 0.0008333657006005524,
+      "attribution_sufficiency_mean": -0.0018861938557961366,
+      "head": 8,
+      "head_label": "L2H8",
+      "layer": 2,
+      "necessity_mean": 0.0008026361465454102,
+      "sufficiency_mean": -0.0017027854919433594
+    },
+    {
+      "attribution_necessity_mean": 0.00039596762962901266,
+      "attribution_sufficiency_mean": -0.001485447689447028,
+      "head": 8,
+      "head_label": "L6H8",
+      "layer": 6,
+      "necessity_mean": 0.0006362348794937134,
+      "sufficiency_mean": -0.0016350047662854195
+    },
+    {
+      "attribution_necessity_mean": -0.0010625479505961266,
+      "attribution_sufficiency_mean": 1.5397708466480253e-05,
+      "head": 4,
+      "head_label": "L8H4",
+      "layer": 8,
+      "necessity_mean": -0.0011051148176193237,
+      "sufficiency_mean": 7.335096597671509e-06
+    },
+    {
+      "attribution_necessity_mean": -0.0012440604295989033,
+      "attribution_sufficiency_mean": 1.547888325603708e-05,
+      "head": 11,
+      "head_label": "L4H11",
+      "layer": 4,
+      "necessity_mean": -0.0012168288230895996,
+      "sufficiency_mean": 2.057477831840515e-05
+    },
+    {
+      "attribution_necessity_mean": -0.0018131300312234089,
+      "attribution_sufficiency_mean": -0.00011097745846200269,
+      "head": 3,
+      "head_label": "L2H3",
+      "layer": 2,
+      "necessity_mean": -8.970499038696289e-05,
+      "sufficiency_mean": -0.000497676432132721
+    },
+    {
+      "attribution_necessity_mean": -0.0011330200377415167,
+      "attribution_sufficiency_mean": -0.0008290249279525597,
+      "head": 2,
+      "head_label": "L10H2",
+      "layer": 10,
+      "necessity_mean": -0.0008323341608047485,
+      "sufficiency_mean": -0.00040659867227077484
+    },
+    {
+      "attribution_necessity_mean": -0.0007623425190104172,
+      "attribution_sufficiency_mean": -0.0006893637000757735,
+      "head": 2,
+      "head_label": "L7H2",
+      "layer": 7,
+      "necessity_mean": 0.00038070976734161377,
+      "sufficiency_mean": -0.0021346481516957283
+    },
+    {
+      "attribution_necessity_mean": -0.005408025208453182,
+      "attribution_sufficiency_mean": 0.002374937779677566,
+      "head": 9,
+      "head_label": "L4H9",
+      "layer": 4,
+      "necessity_mean": -0.002141624689102173,
+      "sufficiency_mean": 0.0018510883674025536
+    },
+    {
+      "attribution_necessity_mean": 0.000298565279081231,
+      "attribution_sufficiency_mean": -0.0030900713745722896,
+      "head": 2,
+      "head_label": "L2H2",
+      "layer": 2,
+      "necessity_mean": 0.0005684792995452881,
+      "sufficiency_mean": -0.0017880359664559364
+    },
+    {
+      "attribution_necessity_mean": -0.001142476487075328,
+      "attribution_sufficiency_mean": -0.00108470947452588,
+      "head": 9,
+      "head_label": "L6H9",
+      "layer": 6,
+      "necessity_mean": -0.0006123185157775879,
+      "sufficiency_mean": -0.0013785874471068382
+    },
+    {
+      "attribution_necessity_mean": 0.0009865656866168138,
+      "attribution_sufficiency_mean": -0.003148305472677748,
+      "head": 11,
+      "head_label": "L1H11",
+      "layer": 1,
+      "necessity_mean": 0.0002948194742202759,
+      "sufficiency_mean": -0.0026148236356675625
+    },
+    {
+      "attribution_necessity_mean": 1.3320375728653744e-05,
+      "attribution_sufficiency_mean": -0.003997522810095688,
+      "head": 6,
+      "head_label": "L10H6",
+      "layer": 10,
+      "necessity_mean": 0.0008231103420257568,
+      "sufficiency_mean": -0.0015809591859579086
+    },
+    {
+      "attribution_necessity_mean": -0.0026220022050438274,
+      "attribution_sufficiency_mean": 0.0001891746865112509,
+      "head": 6,
+      "head_label": "L5H6",
+      "layer": 5,
+      "necessity_mean": -0.002508699893951416,
+      "sufficiency_mean": 0.0001751519739627838
+    },
+    {
+      "attribution_necessity_mean": -0.001080975032891729,
+      "attribution_sufficiency_mean": -0.0007102253994162311,
+      "head": 11,
+      "head_label": "L0H11",
+      "layer": 0,
+      "necessity_mean": -0.003827318549156189,
+      "sufficiency_mean": 0.0008136173710227013
+    },
+    {
+      "attribution_necessity_mean": -0.004045285352731298,
+      "attribution_sufficiency_mean": 8.441606325959583e-05,
+      "head": 4,
+      "head_label": "L5H4",
+      "layer": 5,
+      "necessity_mean": -0.002628341317176819,
+      "sufficiency_mean": 8.879229426383972e-05
+    },
+    {
+      "attribution_necessity_mean": -0.00420045367172861,
+      "attribution_sufficiency_mean": 0.0006173352538780819,
+      "head": 5,
+      "head_label": "L2H5",
+      "layer": 2,
+      "necessity_mean": -0.0033861249685287476,
+      "sufficiency_mean": 0.0003858627751469612
+    },
+    {
+      "attribution_necessity_mean": -0.0033104779686254915,
+      "attribution_sufficiency_mean": -0.0004820912008653977,
+      "head": 10,
+      "head_label": "L5H10",
+      "layer": 5,
+      "necessity_mean": -0.002704039216041565,
+      "sufficiency_mean": -0.0005988199263811111
+    },
+    {
+      "attribution_necessity_mean": -0.0038847074829391204,
+      "attribution_sufficiency_mean": -0.00021467302576638758,
+      "head": 4,
+      "head_label": "L6H4",
+      "layer": 6,
+      "necessity_mean": -0.003335416316986084,
+      "sufficiency_mean": -3.447197377681732e-05
+    },
+    {
+      "attribution_necessity_mean": -0.00903092572298192,
+      "attribution_sufficiency_mean": 0.0008793067408987554,
+      "head": 7,
+      "head_label": "L5H7",
+      "layer": 5,
+      "necessity_mean": -0.0005921721458435059,
+      "sufficiency_mean": 0.0008565569296479225
+    },
+    {
+      "attribution_necessity_mean": -0.00488704731924372,
+      "attribution_sufficiency_mean": 0.001138456453645631,
+      "head": 9,
+      "head_label": "L0H9",
+      "layer": 0,
+      "necessity_mean": -0.007888555526733398,
+      "sufficiency_mean": 0.0034881504252552986
+    },
+    {
+      "attribution_necessity_mean": -0.002832455593306804,
+      "attribution_sufficiency_mean": -0.001535135488211381,
+      "head": 6,
+      "head_label": "L2H6",
+      "layer": 2,
+      "necessity_mean": -0.0018672943115234375,
+      "sufficiency_mean": -0.0024464065209031105
+    },
+    {
+      "attribution_necessity_mean": -0.0015480640649911948,
+      "attribution_sufficiency_mean": -0.003980042547482299,
+      "head": 9,
+      "head_label": "L7H9",
+      "layer": 7,
+      "necessity_mean": 0.004494369029998779,
+      "sufficiency_mean": -0.0078100115060806274
+    },
+    {
+      "attribution_necessity_mean": 0.000338504742103396,
+      "attribution_sufficiency_mean": -0.003465134293946903,
+      "head": 8,
+      "head_label": "L7H8",
+      "layer": 7,
+      "necessity_mean": 0.0012361407279968262,
+      "sufficiency_mean": -0.008189926855266094
+    },
+    {
+      "attribution_necessity_mean": -0.006323500158032402,
+      "attribution_sufficiency_mean": -0.00288554966027732,
+      "head": 0,
+      "head_label": "L6H0",
+      "layer": 6,
+      "necessity_mean": -0.0007023364305496216,
+      "sufficiency_mean": -0.0015356140211224556
+    },
+    {
+      "attribution_necessity_mean": -0.007301660157736478,
+      "attribution_sufficiency_mean": 0.0007444157272402663,
+      "head": 3,
+      "head_label": "L5H3",
+      "layer": 5,
+      "necessity_mean": -0.006713852286338806,
+      "sufficiency_mean": 0.0005254345014691353
+    },
+    {
+      "attribution_necessity_mean": -0.0040924977911345195,
+      "attribution_sufficiency_mean": -0.0016255736600214732,
+      "head": 8,
+      "head_label": "L0H8",
+      "layer": 0,
+      "necessity_mean": -0.007636085152626038,
+      "sufficiency_mean": -6.187614053487778e-05
+    },
+    {
+      "attribution_necessity_mean": -0.014154739124933258,
+      "attribution_sufficiency_mean": 0.0014905971256666817,
+      "head": 3,
+      "head_label": "L4H3",
+      "layer": 4,
+      "necessity_mean": -0.008261352777481079,
+      "sufficiency_mean": 0.0014373334124684334
+    },
+    {
+      "attribution_necessity_mean": -0.017316046029009158,
+      "attribution_sufficiency_mean": -0.006934652749805537,
+      "head": 6,
+      "head_label": "L1H6",
+      "layer": 1,
+      "necessity_mean": -0.003512963652610779,
+      "sufficiency_mean": -0.014274328015744686
+    }
+  ],
+  "native": {
+    "mean_clean_enrichment": 7.536240942776203,
+    "mean_control_margin": -4.77839370816946,
+    "mean_target_margin": 2.757847234606743,
+    "n": 16
+  },
+  "no_op_and_numerical": {
+    "all_values_finite": true,
+    "maximum_absolute_self_patch_effect": 0.0,
+    "maximum_batch_invariance_absolute_margin_difference": 4.76837158203125e-07
+  },
+  "phase": "PROMOTER_HEAD_ATLAS_CALIBRATION",
+  "raw": {
+    "manifest": "data/processed/dnabert2_atlas/promoter_head_atlas_v1/calibration.raw.manifest.json",
+    "n_rows": 2320,
+    "path": "data/processed/dnabert2_atlas/promoter_head_atlas_v1/calibration.raw.jsonl"
+  },
+  "same_class_full_patch_negative_control": {
+    "mean_absolute_effect": 3.3927169144153595,
+    "n": 32,
+    "signed": {
+      "max": 10.957572937011719,
+      "mean": 0.0,
+      "median": 0.0790400505065918,
+      "min": -10.710577011108398,
+      "n": 32
+    }
+  },
+  "schema_version": 1,
+  "status": "PREFLIGHT",
+  "study": "dnabert2_biological_reconstruction_atlas",
+  "target_GENCODE_outcomes_computed": false
+}

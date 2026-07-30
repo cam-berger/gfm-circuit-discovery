@@ -1,0 +1,50 @@
+{
+  "GUE_pair_offset": 112,
+  "assay": "promoter_source_localization_GUE_calibration_v1",
+  "boundary": "Reserved GUE calibration sets sensitivity and precision thresholds. It is not evidence about fresh GENCODE loci or promoter features.",
+  "n_pairs": 16,
+  "projected_target_pairs": 107,
+  "raw": {
+    "manifest": "data/processed/dnabert2_atlas/promoter_source_localization_v1/calibration.raw.manifest.json",
+    "n_rows": 1252,
+    "path": "data/processed/dnabert2_atlas/promoter_source_localization_v1/calibration.raw.jsonl"
+  },
+  "schema_version": 1,
+  "status": "CALIBRATION",
+  "study": "dnabert2_biological_reconstruction_atlas",
+  "summaries": {
+    "identity_maximum_absolute_margin_difference": 9.5367431640625e-07,
+    "operations": {
+      "all_layer_value_swap": {
+        "maximum_absolute": 0.20001602172851562,
+        "maximum_tile_pairs": 13,
+        "maximum_tile_stdev": 0.07551536529204042,
+        "mean": -0.0010984537129204114,
+        "mean_absolute": 0.005533873558806154,
+        "minimum_tile_pairs": 6,
+        "projected_80pct_MDE_at_minimum_target_n": 0.020440968551199812,
+        "rows": 313
+      },
+      "candidate_value_swap": {
+        "maximum_absolute": 0.022600650787353516,
+        "maximum_tile_pairs": 13,
+        "maximum_tile_stdev": 0.010957666397257947,
+        "mean": -0.00023988698618099713,
+        "mean_absolute": 0.0014381235399947,
+        "minimum_tile_pairs": 6,
+        "projected_80pct_MDE_at_minimum_target_n": 0.0029660892634852613,
+        "rows": 313
+      },
+      "mask": {
+        "maximum_absolute": 5.050798416137695,
+        "maximum_tile_pairs": 13,
+        "maximum_tile_stdev": 1.8734584074092306,
+        "mean": 0.11945783382597061,
+        "mean_absolute": 0.4627959723004137,
+        "minimum_tile_pairs": 6,
+        "projected_80pct_MDE_at_minimum_target_n": 0.5071193688825263,
+        "rows": 313
+      }
+    }
+  }
+}

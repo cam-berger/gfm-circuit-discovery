@@ -1,0 +1,50 @@
+{
+  "checkpoint": {
+    "base": "zhihan1996/DNABERT-2-117M@7bce263b15377fc15361f52cfab88f8b586abda0",
+    "fine_tuned": "magicslabnu/DNABERT-2-finetuned-prom_300_all@7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12"
+  },
+  "code": {
+    "git_commit": "4c82324fdfc0b104355a3db0b2fac7d192b2a823",
+    "git_dirty": true
+  },
+  "command": [
+    "scripts/dnabert2_atlas/compare_base_finetuned_attention.py",
+    "--batch-pairs",
+    "16",
+    "--out",
+    "results/dnabert2_reconstruction_atlas/promoter_finetuning_attention_shift_v1.json"
+  ],
+  "created_at_utc": "2026-07-30T01:05:02.388168+00:00",
+  "data": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-dnabert2-atlas/data/processed/dnabert2_atlas/promoter_source_localization_v1/cohort.jsonl",
+      "sha256": "a42cf94247219d38b70bcb4fae7a51c1cb76c05b2b8a09c43319a4bde70d0786",
+      "size_bytes": 7347939
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-dnabert2-atlas/results/dnabert2_reconstruction_atlas/promoter_head_atlas_development_v1.json",
+      "sha256": "74a882c90e439d2df4bf000909983e5b9bcccc6aee2af4379b705432ae24fabb",
+      "size_bytes": 246834
+    }
+  ],
+  "environment": {
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "D16_finetuning_attention_shift",
+  "outputs": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_finetuning_attention_shift_v1.json",
+      "sha256": "9b8ec3b072ef4faf4edae0e6a3b06ece95b4f0b8bb85eea2826c7dd0b8b98ae2",
+      "size_bytes": 283363
+    }
+  ],
+  "parameters": {
+    "n_loci": 384,
+    "threshold": 0.1,
+    "tss_index": 249
+  },
+  "schema_version": 1,
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

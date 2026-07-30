@@ -190,8 +190,9 @@ biological bridge; the true correlate is unknown.**
 ### The result
 
 The obvious bridge is excluded. The model's separate multi-species carrier sits at **10.630** and the
-real dyad-anchored nucleosomal sequence signal sits at **10.298** — the two are **0.33 nt apart**, the
-carrier is fitted to ±0.005, and the nucleosomal signal is strong (held-out signed **z = +249**, depth
+real dyad-anchored nucleosomal sequence signal sits at **10.298** — the two are **0.33 nt apart**, ~7×
+the largest uncertainty on either side (carrier two-grid sub-bin spread 0.045 nt; nucleosomal estimator
+spread 0.045 nt), and the nucleosomal signal is strong (held-out signed **z = +249**, depth
 4.87%), so this is a **powered refutation, not an underpowered null** (C14; figure
 `figures/splicebert/fig4_carrier_circuit.CAPTION.md`). The separately proposed human-only ≈10.2
 chromatin-reader circuit is closed one level earlier: **zero** corrected Level-A heads, so it does not

@@ -1,0 +1,190 @@
+{
+  "assay": "promoter_L11MLP_low_rank_replication_v1",
+  "boundary": [
+    "L11MLP was selected on these D10 cohorts before this assay. Development-to-confirmation basis transfer tests structural compression but is a post-hoc, cohort-reused follow-up, not a fresh independent confirmation or a biological mechanism.",
+    "The orthogonal complement retains a positive class-margin effect in both splits, so the rank-4 subspace is not a complete account of L11MLP.",
+    "The selected-subspace hard-label accuracy interval includes zero in both splits; the class-margin endpoint provides the clearest evidence.",
+    "SVD energy and mean-difference capture are descriptive; causal support comes from projected activation exchange and matched random-subspace tests.",
+    "The subspace does not identify neurons, upstream inputs, nucleotide features, or a biological promoter mechanism."
+  ],
+  "config_sha256": "05bd112fd1e40a8d9a624e14c7d32b4114762a079af57ce0db456c2cbb7fcafa",
+  "confirmation_transfer_qualified": true,
+  "development_basis_sha256": "5cd3b2a9d7cfe197fefa18083d883624132d2338b6d9512671e6163bd4275305",
+  "development_basis_transferred_unchanged": true,
+  "development_selection_qualified": true,
+  "dimension_fraction": 0.005208333333333333,
+  "evidence_status": "SUPPORTED_POST_HOC_COHORT_REUSE",
+  "hidden_size": 768,
+  "licensed_claim": "A four-dimensional development-fitted subspace is the dominant causal carrier of the paired L11MLP CLS-write exchange effect on promoter class margin and transfers unchanged to the disjoint confirmation split against dimension-matched random subspaces.",
+  "next_gate": "Preregister unchanged-basis transfer to genuinely new examples, then test whether L11H2/L11H5 corruption changes the rank-4 coordinates and whether restoring those coordinates rescues the classifier effect.",
+  "node": "L11MLP",
+  "preflight_sha256": "02452205c943845d79990837dd7d144f31adea02d410fa59850ae90ebd103ff8",
+  "schema_version": 1,
+  "selected_rank": 4,
+  "splits": {
+    "confirmation": {
+      "directional": {
+        "necessity": {
+          "AUROC_loss": 0.12319999999999998,
+          "accuracy_loss": 0.0,
+          "accuracy_loss_CI95": [
+            -0.05,
+            0.05
+          ],
+          "class_margin_loss": 0.466240708231926,
+          "class_margin_loss_CI95": [
+            0.15929639339447021,
+            0.7769302329421044
+          ],
+          "class_margin_loss_p_add_one": 0.002
+        },
+        "sufficiency": {
+          "AUROC_loss": 0.07200000000000006,
+          "accuracy_loss": 0.07,
+          "accuracy_loss_CI95": [
+            0.0,
+            0.14
+          ],
+          "class_margin_loss": 0.4569752102345228,
+          "class_margin_loss_CI95": [
+            0.13776608020067216,
+            0.7614852678030729
+          ],
+          "class_margin_loss_p_add_one": 0.0034
+        }
+      },
+      "full_L11MLP": {
+        "AUROC_loss": 0.2832,
+        "accuracy_loss": 0.12,
+        "accuracy_loss_CI95": [
+          0.0,
+          0.24
+        ],
+        "class_margin_loss": 1.0922706435620784,
+        "class_margin_loss_CI95": [
+          0.4325452433526516,
+          1.7214648371189833
+        ],
+        "class_margin_loss_p_add_one": 0.001
+      },
+      "n_pairs": 50,
+      "orthogonal_complement": {
+        "AUROC_loss": 0.03320000000000001,
+        "accuracy_loss": 0.01,
+        "accuracy_loss_CI95": [
+          0.0,
+          0.03
+        ],
+        "class_margin_loss": 0.1563999904692173,
+        "class_margin_loss_CI95": [
+          0.07024504095315934,
+          0.2464986403286457
+        ],
+        "class_margin_loss_p_add_one": 0.0004,
+        "full_class_margin_effect_fraction": 0.14318794649572436
+      },
+      "qualified": true,
+      "selected_subspace": {
+        "AUROC_loss": 0.23560000000000003,
+        "accuracy_loss": 0.07,
+        "accuracy_loss_CI95": [
+          -0.03,
+          0.17
+        ],
+        "class_margin_loss": 0.9232159184664488,
+        "class_margin_loss_CI95": [
+          0.3004952687770128,
+          1.5375194853544236
+        ],
+        "class_margin_loss_p_add_one": 0.0027,
+        "full_AUROC_effect_capture_fraction": 0.8319209039548023,
+        "full_accuracy_effect_capture_fraction": 0.5833333333333334,
+        "full_class_margin_effect_capture_fraction": 0.8452263401089737,
+        "random_subspace_p_add_one": 0.03125
+      }
+    },
+    "development": {
+      "directional": {
+        "necessity": {
+          "AUROC_loss": 0.10119999999999996,
+          "accuracy_loss": 0.02,
+          "accuracy_loss_CI95": [
+            -0.04,
+            0.08
+          ],
+          "class_margin_loss": 0.42436202600598333,
+          "class_margin_loss_CI95": [
+            0.14087819680571556,
+            0.7215783052146435
+          ],
+          "class_margin_loss_p_add_one": 0.0035
+        },
+        "sufficiency": {
+          "AUROC_loss": 0.052000000000000046,
+          "accuracy_loss": 0.09,
+          "accuracy_loss_CI95": [
+            0.02,
+            0.16
+          ],
+          "class_margin_loss": 0.4032313346862793,
+          "class_margin_loss_CI95": [
+            0.12036359697580337,
+            0.6693300601840019
+          ],
+          "class_margin_loss_p_add_one": 0.0041
+        }
+      },
+      "full_L11MLP": {
+        "AUROC_loss": 0.2136,
+        "accuracy_loss": 0.13,
+        "accuracy_loss_CI95": [
+          0.03,
+          0.23
+        ],
+        "class_margin_loss": 0.9221288941986859,
+        "class_margin_loss_CI95": [
+          0.36016218349337575,
+          1.5296251067146658
+        ],
+        "class_margin_loss_p_add_one": 0.0018
+      },
+      "n_pairs": 50,
+      "orthogonal_complement": {
+        "AUROC_loss": 0.011600000000000055,
+        "accuracy_loss": 0.02,
+        "accuracy_loss_CI95": [
+          0.0,
+          0.05
+        ],
+        "class_margin_loss": 0.07872816607356072,
+        "class_margin_loss_CI95": [
+          0.002427613437175751,
+          0.1545267517864704
+        ],
+        "class_margin_loss_p_add_one": 0.0255,
+        "full_class_margin_effect_fraction": 0.08537653094795834
+      },
+      "qualified": true,
+      "selected_subspace": {
+        "AUROC_loss": 0.18359999999999999,
+        "accuracy_loss": 0.11,
+        "accuracy_loss_CI95": [
+          0.0,
+          0.22
+        ],
+        "class_margin_loss": 0.8275933606922626,
+        "class_margin_loss_CI95": [
+          0.27047749012708666,
+          1.400910691022873
+        ],
+        "class_margin_loss_p_add_one": 0.0042,
+        "full_AUROC_effect_capture_fraction": 0.8595505617977527,
+        "full_accuracy_effect_capture_fraction": 0.8461538461538461,
+        "full_class_margin_effect_capture_fraction": 0.8974812153689501,
+        "random_subspace_p_add_one": 0.03125
+      }
+    }
+  },
+  "status": "SEALED",
+  "study": "dnabert2_biological_reconstruction_atlas"
+}

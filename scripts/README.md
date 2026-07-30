@@ -1,21 +1,22 @@
-# Scripts index — SpliceBERT circuit discovery
+# Scripts index — mechanistic discovery workflows
 
 > **Tier: T1 — canonical.** Current, authoritative. Read this.
 
 This is an **index of the runnable scripts**, not the scientific ledger. It maps each active script to
 the claim(s) and controlling artifact it serves, grouped by result family. The authoritative
-claim→evidence record is [`results/MANIFEST.csv`](../results/MANIFEST.csv) (780 rows) plus
+claim→evidence record is [`results/MANIFEST.csv`](../results/MANIFEST.csv) (953 rows) plus
 [`studies/splicebert_partner_selection/CLAIMS.md`](../studies/splicebert_partner_selection/CLAIMS.md)
 (donor circuit, C1–C41 + IC1), [`studies/splicebert_head_context_atlas/CLAIMS.md`](../studies/splicebert_head_context_atlas/CLAIMS.md)
 (Atlas, HCA1–HCA23), and [`CORRECTIONS.md`](../studies/splicebert_partner_selection/CORRECTIONS.md)
-(R1–R36). The per-claim command map with reproduction rules is
+(R1–R37). The per-claim command map with reproduction rules is
 [`studies/splicebert_partner_selection/REPRODUCIBILITY.md`](../studies/splicebert_partner_selection/REPRODUCIBILITY.md);
 the repo-level entry point is [`REPRODUCE.md`](../REPRODUCE.md).
 
-`scripts/` has three trees: `splicebert/` (donor circuit + carriers + origin siblings),
-`splicebert_head_context_atlas/` (the Atlas sibling study), and `crossmodel/` (cross-model origin).
-Superseded and VOID runners live in Git history, not alongside live workflows. Every artifact named
-below exists on disk; every MANIFEST row's script/artifact/manifest/figure path resolves
+`scripts/` has four active trees: `splicebert/` (donor circuit + carriers + origin siblings),
+`splicebert_head_context_atlas/` (the SpliceBERT Atlas sibling study), `crossmodel/` (cross-model
+origin), and `dnabert2_atlas/` (the new biological reconstruction census). Superseded and VOID
+runners live in Git history, not alongside live workflows. Every artifact named below exists on
+disk; every MANIFEST row's script/artifact/manifest/figure path resolves
 (`scripts/verify_manifest.py` passes).
 
 ## Execution contract
@@ -29,6 +30,48 @@ below exists on disk; every MANIFEST row's script/artifact/manifest/figure path 
 - The sealed chr8/9 test (`run_sealed_test.py`) is provenance, not a routine smoke test — it requires the
   unsealing flag in `preregistrations/PREREGISTRATION_SEALED.md`.
 - Generate figures only from recorded artifacts.
+
+---
+
+# `scripts/dnabert2_atlas/` — Biological Reconstruction Atlas
+
+The frozen preflights determine which runners may produce behavioral evidence. Every settled output
+has a row in the scientific result manifest.
+
+| Script | Purpose | Output contract |
+|---|---|---|
+| `validate_collection.py` | Validate nucleotide coordinates, evidence labels, pair links, and split fields; print a census. | Read-only |
+| `build_bed_collection.py` | Assemble any evidence-labeled promoter, branch-point/PPT, poly(A), TFBS, or other source normalized to the atlas BED contract. | Explicit new JSONL path plus immutable manifest |
+| `build_gencode_collection.py` | Derive splice donors/acceptors, start/stop codons, and contiguous Kozak spans from a pinned GENCODE GTF; assemble transcription-oriented windows. | Explicit new JSONL path plus immutable manifest |
+| `build_candidate_sites.py` | Stream GENCODE exclusions and create outcome-blind within-window empirical-control candidates. | Explicit new JSONL path plus immutable manifest |
+| `build_control_matches.py` | Apply exact site-class/token-cover constraints and composition calipers to an outcome-blind candidate-site pool, keeping all empirical families separate. | Explicit new JSONL path plus immutable manifest |
+| `analyze_collection_qualification.py` | Compact the source, split, balance, supply, and quarantine facts without reading model outcomes. | Explicit new compact JSON plus manifest |
+| `run_preflight.py` | Calibrate, then execute, copy-plant, negative, sensitivity, geometry, balance, invariant, and model-health gates. | Explicit new compact JSON plus manifest |
+| `run_behavioral_screen.py` | Score minimal BPE covers, compute separate empirical/baseline advantages, and run cluster-first add-one inference. | Refuses without a matching frozen `QUALIFIED` preflight; explicit new JSON plus manifest |
+| `analyze_behavioral_replication.py` | Combine frozen development and sealed confirmation screens under the unchanged behavior lock. | Explicit new compact JSON plus manifest |
+| `audit_promoter_checkpoints.py` | Compare compatible GUE promoter heads, verify pinned upstream files, and audit overlap with the existing EPD cohort. | Explicit new compact JSON plus manifest |
+| `build_promoter_classifier_cohort.py` | Build exact-GUE-excluded GENCODE MANE TSS/pseudo-TSS pairs and freeze composition, split, and shuffle invariants. | Explicit new cohort files, compact audit, and manifest |
+| `run_promoter_classifier_preflight.py` | Test native performance, positive/negative/sensitivity controls, numerical invariants, and prospective power. | Refuses to authorize the atlas unless every frozen gate passes; explicit new compact JSON plus manifest |
+| `run_promoter_classifier_atlas.py` | Score clean promoter margin and the target-preserving context difference on development or sealed confirmation loci. | Refuses without the qualified v2 preflight and matching hashes; explicit new JSON plus manifest |
+| `summarize_promoter_classifier_atlas.py` | Apply the unchanged replication lock and record the strongest licensed promoter claim. | Explicit new compact JSON plus manifest |
+| `audit_promoter_decomposition_supply.py` | Bind fresh promoter example IDs/locus blocks and validate the fixed K/V token-surgery dose without reading target outcomes. | Explicit compact audit plus manifest |
+| `calibrate_promoter_address_payload.py` | Calibrate identity, K, V, joint K/V, and residual-write instrumentation on a reserved GUE slice. | Explicit raw and compact calibration artifacts plus manifests |
+| `run_promoter_address_payload_preflight.py` | Qualify K/V sensitivity, resolution, matched-null supply, batch invariance, residual finiteness, and model/token health. | Refuses to authorize development unless every frozen gate passes; explicit raw and compact artifacts plus manifests |
+| `run_promoter_address_payload.py` | Test the fixed L11H2/L11H5 pair and all 45 equal-size layer-11 null pairs under K/V surgeries on development or sealed confirmation loci. | Refuses without bound fresh IDs and a matching qualified preflight; explicit raw and compact artifacts plus manifests |
+| `summarize_promoter_address_payload.py` | Apply the unchanged replication lock and record the licensed payload role and failed address role. | Explicit compact replication result plus manifest |
+| `audit_promoter_source_localization_supply.py` | Bind the final unused promoter loci, exact two-token tile geometry, independent CAGE/PLS/CpG annotations, and geometry-qualified motif disruptions without target outcomes. | Explicit annotated cohort, compact audit, and manifests |
+| `calibrate_promoter_source_localization.py` | Calibrate identity, equal-dose mask, regional-V sensitivity, and projected precision on a disjoint reserved-GUE slice. | Explicit raw and compact calibration artifacts plus manifests |
+| `run_promoter_source_localization_preflight.py` | Qualify identity, sensitivity, precision, tile resolution, batch invariance, finiteness, and regional-null supply. | Refuses authorization unless every frozen gate passes; explicit raw and compact artifacts plus manifests |
+| `run_promoter_source_localization.py` | Run the unbiased tile atlas, matched regional-V nulls, independent annotation strata, and eligible motif disruptions on development or sealed confirmation. | Refuses without matching supply/config/preflight hashes; explicit raw and compact artifacts plus manifests |
+| `summarize_promoter_source_localization.py` | Apply the replication lock and record the behavioral region, failed payload localization, and biological-qualification boundary. | Explicit compact replication result plus manifest |
+| `evaluate_promoter_source_classification.py` | Re-run the nominated tile mask while retaining clean/masked margins; report accuracy, AUROC, MCC, and hard-label transitions. | Post-hoc descriptive raw and compact artifacts plus manifests; does not estimate original-GUE performance |
+| `build_promoter_node_accuracy_cohort.py` | Exhaust the remaining outcome-unseen promoter locus blocks and freeze 50 development/50 confirmation pairs without model outcomes. | Explicit cohort, supply audit, and manifests |
+| `run_promoter_node_accuracy_preflight.py` | Qualify all 156 head/MLP hooks, terminal-CLS positive control, self-patch, clean GUE behavior, and numerical invariants. | Preserves failed v1 control; v2 refuses authorization unless every corrected gate passes |
+| `run_promoter_node_accuracy_atlas.py` | Exchange each of all 144 CLS head contexts and 12 CLS MLP writes and rank their effects on correct target/control labels. | Complete-family development and confirmation raw/compact artifacts plus manifests |
+| `summarize_promoter_node_accuracy.py` | Combine unchanged full-family splits and record replicated gates and the accuracy-first joint ranking. | Explicit compact replication result plus manifest |
+
+The active protocol and bounded behavioral claims are in
+[`studies/dnabert2_reconstruction_atlas/`](../studies/dnabert2_reconstruction_atlas/README.md).
 
 ---
 
@@ -206,5 +249,5 @@ The competition branch (HCA2–HCA10) is CLOSED; its `competition_branch_closure
 # `scripts/verify_manifest.py`
 
 Validates that every `results/MANIFEST.csv` row's `script`, `artifact`, `manifest`, and `figure` path
-exists. Run it before merging any change to an active workflow. It currently passes (780 rows, 0
+exists. Run it before merging any change to an active workflow. It currently passes (953 rows, 0
 unresolved paths).

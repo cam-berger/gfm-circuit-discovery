@@ -158,7 +158,7 @@ The position table contains **two orthogonal rank-2 carriers** (plane overlap 0.
 
 **The human-only ≈10.2 chromatin proposal is closed.** The same validated post-softmax assay that finds 8 multispecies Level-A heads finds **0** in the human-only checkpoint after exact add-one correction. The proposal stops at QK. *(C13)*
 
-**The nucleosomal signal is real and distinct.** A dyad-anchored matched filter finds a WW/SS periodicity at **≈10.298 nt** (held-out signed **z = +249**, depth 4.87%, cross-split phase agreement 0.35°) — a strong biological signal at the **wrong wavelength** to explain the ≈10.630 carrier (the two differ by 0.33 nt, and the model is fit to ±0.005). This is a **powered refutation**, not an underpowered null. *(C14–C15, R17)*
+**The nucleosomal signal is real and distinct.** A dyad-anchored matched filter finds a WW/SS periodicity at **≈10.298 nt** (held-out signed **z = +249**, depth 4.87%, cross-split phase agreement 0.35°) — a strong biological signal at the **wrong wavelength** to explain the ≈10.630 carrier (the two differ by 0.33 nt — ~7× the largest uncertainty on either side: the carrier's two-grid sub-bin spread is 0.045 nt and the nucleosomal estimator spread is 0.045 nt). This is a **powered refutation**, not an underpowered null. *(C14–C15, R17, R37)*
 
 ### 4.1 Evidence-ladder status (verified)
 
