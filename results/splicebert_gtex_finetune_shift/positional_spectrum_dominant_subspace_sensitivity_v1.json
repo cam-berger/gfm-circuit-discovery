@@ -1,0 +1,761 @@
+{
+  "experiment_id": "gtex-positional-spectrum-dominant-subspace-sensitivity-v1",
+  "interpretation_boundary": "Leading-energy subspace alignment is an exploratory sensitivity descriptor. It does not replace the preregistered full numerical-rank overlap, establish behavior, or identify a biological frequency.",
+  "post_hoc": true,
+  "primary_estimands_unchanged": true,
+  "rank2_summary": {
+    "period10": {
+      "maximum": 0.9970685468620072,
+      "mean": 0.9964777308361198,
+      "minimum": 0.9961368809276667,
+      "values": [
+        0.9962729335990522,
+        0.9965439849845793,
+        0.9970685468620072,
+        0.9963663078072933,
+        0.9961368809276667
+      ]
+    },
+    "period3": {
+      "maximum": 0.9919333269495831,
+      "mean": 0.9898994999126449,
+      "minimum": 0.9881407025030745,
+      "values": [
+        0.9893714337501991,
+        0.9906010776522312,
+        0.9919333269495831,
+        0.9894509587081368,
+        0.9881407025030745
+      ]
+    }
+  },
+  "ranks": [
+    1,
+    2,
+    4,
+    8,
+    14
+  ],
+  "records": {
+    "period10": {
+      "2020": {
+        "1": {
+          "left_cumulative_energy_fraction": 0.4975355138757711,
+          "principal_cosines": [
+            0.9811034173192321
+          ],
+          "rank": 1,
+          "right_cumulative_energy_fraction": 0.48948555919000386,
+          "symmetric_projection_overlap": 0.9625639154754754
+        },
+        "14": {
+          "left_cumulative_energy_fraction": 1.0,
+          "principal_cosines": [
+            0.9987861622988887,
+            0.9984185086516816,
+            0.8798425501429111,
+            0.8372812911117602,
+            0.755299641582521,
+            0.712368108598693,
+            0.6510449551390806,
+            0.6263501920741632,
+            0.4911525011292116,
+            0.4231647693476807,
+            0.4001728286542402,
+            0.3519047452208333,
+            0.3192278536197988,
+            0.19405902269031047
+          ],
+          "rank": 14,
+          "right_cumulative_energy_fraction": 1.0,
+          "symmetric_projection_overlap": 0.4433954234322253
+        },
+        "2": {
+          "left_cumulative_energy_fraction": 0.986625356844387,
+          "principal_cosines": [
+            0.9983992040909243,
+            0.9978701801680985
+          ],
+          "rank": 2,
+          "right_cumulative_energy_fraction": 0.9739659402797439,
+          "symmetric_projection_overlap": 0.9962729335990522
+        },
+        "4": {
+          "left_cumulative_energy_fraction": 0.9925050408547766,
+          "principal_cosines": [
+            0.9984764200882462,
+            0.9979751663549663,
+            0.6975944868207191,
+            0.6387916131996437
+          ],
+          "rank": 4,
+          "right_cumulative_energy_fraction": 0.9822125863010025,
+          "symmetric_projection_overlap": 0.721900596817582
+        },
+        "8": {
+          "left_cumulative_energy_fraction": 0.9982169885484975,
+          "principal_cosines": [
+            0.9985747843995294,
+            0.998181607860111,
+            0.8097868828741466,
+            0.7468805021277566,
+            0.7147137572026333,
+            0.6397338057414385,
+            0.5303646120168137,
+            0.4105703560649013
+          ],
+          "rank": 8,
+          "right_cumulative_energy_fraction": 0.9916764411187228,
+          "symmetric_projection_overlap": 0.5721291422930669
+        }
+      },
+      "2021": {
+        "1": {
+          "left_cumulative_energy_fraction": 0.4975355138757711,
+          "principal_cosines": [
+            0.9982997528714679
+          ],
+          "rank": 1,
+          "right_cumulative_energy_fraction": 0.4921113297086077,
+          "symmetric_projection_overlap": 0.9966023965832338
+        },
+        "14": {
+          "left_cumulative_energy_fraction": 1.0,
+          "principal_cosines": [
+            0.9987588437660332,
+            0.9986140052128273,
+            0.8715123568330474,
+            0.8654491203971466,
+            0.7614212352275265,
+            0.7448758050277287,
+            0.680796375113575,
+            0.5854648932667226,
+            0.48061480516102456,
+            0.4434535657662385,
+            0.37974573194560185,
+            0.32747796110948363,
+            0.27239374674773864,
+            0.2136534026293182
+          ],
+          "rank": 14,
+          "right_cumulative_energy_fraction": 1.0,
+          "symmetric_projection_overlap": 0.44593404693572264
+        },
+        "2": {
+          "left_cumulative_energy_fraction": 0.986625356844387,
+          "principal_cosines": [
+            0.9984100817280352,
+            0.9981308925551683
+          ],
+          "rank": 2,
+          "right_cumulative_energy_fraction": 0.9742801368161597,
+          "symmetric_projection_overlap": 0.9965439849845793
+        },
+        "4": {
+          "left_cumulative_energy_fraction": 0.9925050408547766,
+          "principal_cosines": [
+            0.9984730524685849,
+            0.9982462692288799,
+            0.7605961034731865,
+            0.7395008408365817
+          ],
+          "rank": 4,
+          "right_cumulative_energy_fraction": 0.9819227250006481,
+          "symmetric_projection_overlap": 0.7797029941879793
+        },
+        "8": {
+          "left_cumulative_energy_fraction": 0.9982169885484975,
+          "principal_cosines": [
+            0.9985465790971941,
+            0.9984332411296497,
+            0.8300126115582771,
+            0.8206479684611648,
+            0.7066976809239881,
+            0.6356935614250235,
+            0.4712364688434176,
+            0.11500132295538996
+          ],
+          "rank": 8,
+          "right_cumulative_energy_fraction": 0.991281890623351,
+          "symmetric_projection_overlap": 0.5618956576518342
+        }
+      },
+      "2022": {
+        "1": {
+          "left_cumulative_energy_fraction": 0.4975355138757711,
+          "principal_cosines": [
+            0.9985159645251418
+          ],
+          "rank": 1,
+          "right_cumulative_energy_fraction": 0.49269447757721685,
+          "symmetric_projection_overlap": 0.9970341314115743
+        },
+        "14": {
+          "left_cumulative_energy_fraction": 1.0,
+          "principal_cosines": [
+            0.9990535950401218,
+            0.9988847338966129,
+            0.90159467326095,
+            0.8852331536811031,
+            0.7922256312771826,
+            0.744909927836493,
+            0.6704270177788999,
+            0.627019127580121,
+            0.5224822844621319,
+            0.5003343516476404,
+            0.4421325230130563,
+            0.38407024338678486,
+            0.29728163121857143,
+            0.19294683669484153
+          ],
+          "rank": 14,
+          "right_cumulative_energy_fraction": 1.0,
+          "symmetric_projection_overlap": 0.47210323452794156
+        },
+        "2": {
+          "left_cumulative_energy_fraction": 0.986625356844387,
+          "principal_cosines": [
+            0.9987093183821517,
+            0.9983570459012509
+          ],
+          "rank": 2,
+          "right_cumulative_energy_fraction": 0.9758200478626331,
+          "symmetric_projection_overlap": 0.9970685468620072
+        },
+        "4": {
+          "left_cumulative_energy_fraction": 0.9925050408547766,
+          "principal_cosines": [
+            0.9988101470786818,
+            0.9985243270696664,
+            0.7865354694780431,
+            0.7012415009560902
+          ],
+          "rank": 4,
+          "right_cumulative_energy_fraction": 0.9831736926833616,
+          "symmetric_projection_overlap": 0.776262557266866
+        },
+        "8": {
+          "left_cumulative_energy_fraction": 0.9982169885484975,
+          "principal_cosines": [
+            0.9988718512024668,
+            0.9986825519792963,
+            0.8364740089018893,
+            0.7902751563446313,
+            0.7531768455665739,
+            0.7087650491325898,
+            0.5041491057507482,
+            0.3770538493117786
+          ],
+          "rank": 8,
+          "right_cumulative_energy_fraction": 0.9920096613318193,
+          "symmetric_projection_overlap": 0.5981618233420123
+        }
+      },
+      "2023": {
+        "1": {
+          "left_cumulative_energy_fraction": 0.4975355138757711,
+          "principal_cosines": [
+            0.9972056501097535
+          ],
+          "rank": 1,
+          "right_cumulative_energy_fraction": 0.48979600548799757,
+          "symmetric_projection_overlap": 0.9944191086108161
+        },
+        "14": {
+          "left_cumulative_energy_fraction": 1.0,
+          "principal_cosines": [
+            0.998849139648742,
+            0.9983503300353914,
+            0.8892584283738239,
+            0.8502794533414075,
+            0.7643759324309212,
+            0.7239449218623861,
+            0.6870252970663647,
+            0.6241348885126734,
+            0.5154995945590749,
+            0.49644827333940217,
+            0.37356001794063204,
+            0.3311122532327491,
+            0.26793019033206605,
+            0.24308196775769503
+          ],
+          "rank": 14,
+          "right_cumulative_energy_fraction": 1.0,
+          "symmetric_projection_overlap": 0.45502372725588075
+        },
+        "2": {
+          "left_cumulative_energy_fraction": 0.986625356844387,
+          "principal_cosines": [
+            0.9985307290760947,
+            0.9978321495649201
+          ],
+          "rank": 2,
+          "right_cumulative_energy_fraction": 0.9743518326236931,
+          "symmetric_projection_overlap": 0.9963663078072933
+        },
+        "4": {
+          "left_cumulative_energy_fraction": 0.9925050408547766,
+          "principal_cosines": [
+            0.9985883399663062,
+            0.9978993616125637,
+            0.723324452053617,
+            0.6377257092266766
+          ],
+          "rank": 4,
+          "right_cumulative_energy_fraction": 0.9821172619465728,
+          "symmetric_projection_overlap": 0.7307185379426895
+        },
+        "8": {
+          "left_cumulative_energy_fraction": 0.9982169885484975,
+          "principal_cosines": [
+            0.9986675518480139,
+            0.998120802824265,
+            0.8316593657746497,
+            0.7682977800839258,
+            0.7046320843955137,
+            0.6771308685451864,
+            0.5361893041070972,
+            0.01818273387305096
+          ],
+          "rank": 8,
+          "right_cumulative_energy_fraction": 0.991101012721214,
+          "symmetric_projection_overlap": 0.5647953706066896
+        }
+      },
+      "2024": {
+        "1": {
+          "left_cumulative_energy_fraction": 0.4975355138757711,
+          "principal_cosines": [
+            0.9957113632131283
+          ],
+          "rank": 1,
+          "right_cumulative_energy_fraction": 0.4914173666513639,
+          "symmetric_projection_overlap": 0.9914411188317462
+        },
+        "14": {
+          "left_cumulative_energy_fraction": 1.0,
+          "principal_cosines": [
+            0.9987226823357312,
+            0.9984079527190914,
+            0.840905322815821,
+            0.8062004975568515,
+            0.7306760852039261,
+            0.7022345224476697,
+            0.619400552848977,
+            0.6162370953765139,
+            0.4575768591464241,
+            0.43514598122854115,
+            0.37852256012254926,
+            0.3216830708622194,
+            0.3054468279523862,
+            0.2548039818253505
+          ],
+          "rank": 14,
+          "right_cumulative_energy_fraction": 1.0,
+          "symmetric_projection_overlap": 0.4246773768947433
+        },
+        "2": {
+          "left_cumulative_energy_fraction": 0.986625356844387,
+          "principal_cosines": [
+            0.9982605425354663,
+            0.997872562540994
+          ],
+          "rank": 2,
+          "right_cumulative_energy_fraction": 0.9735358483251819,
+          "symmetric_projection_overlap": 0.9961368809276667
+        },
+        "4": {
+          "left_cumulative_energy_fraction": 0.9925050408547766,
+          "principal_cosines": [
+            0.9983528096752861,
+            0.9980242691393746,
+            0.6519480885989953,
+            0.626632019672687
+          ],
+          "rank": 4,
+          "right_cumulative_energy_fraction": 0.9821427433198171,
+          "symmetric_projection_overlap": 0.7026161931711691
+        },
+        "8": {
+          "left_cumulative_energy_fraction": 0.9982169885484975,
+          "principal_cosines": [
+            0.9984220902041822,
+            0.9982006960550155,
+            0.7908840408888994,
+            0.6983560804867108,
+            0.6877011867423459,
+            0.6104002631991836,
+            0.33486027463280554,
+            0.3091653899896865
+          ],
+          "rank": 8,
+          "right_cumulative_energy_fraction": 0.9911434681319462,
+          "symmetric_projection_overlap": 0.519960765819127
+        }
+      }
+    },
+    "period3": {
+      "2020": {
+        "1": {
+          "left_cumulative_energy_fraction": 0.4969753767266418,
+          "principal_cosines": [
+            0.9902241136735349
+          ],
+          "rank": 1,
+          "right_cumulative_energy_fraction": 0.4812014782421588,
+          "symmetric_projection_overlap": 0.9805437953005378
+        },
+        "14": {
+          "left_cumulative_energy_fraction": 1.0,
+          "principal_cosines": [
+            0.9986644659696715,
+            0.9982534142798286,
+            0.9686057623740546,
+            0.9591693860472716,
+            0.827465879045887,
+            0.8166786074596288,
+            0.7115207977172169,
+            0.683882499553307,
+            0.5915951693907172,
+            0.5532085703593577,
+            0.46807637033588095,
+            0.3022842329191355,
+            0.2542270827423618,
+            0.1403344787114934
+          ],
+          "rank": 14,
+          "right_cumulative_energy_fraction": 1.0,
+          "symmetric_projection_overlap": 0.5163203903294191
+        },
+        "2": {
+          "left_cumulative_energy_fraction": 0.9604210722093998,
+          "principal_cosines": [
+            0.9951560532451592,
+            0.9941867516668668
+          ],
+          "rank": 2,
+          "right_cumulative_energy_fraction": 0.9371547298414725,
+          "symmetric_projection_overlap": 0.9893714337501991
+        },
+        "4": {
+          "left_cumulative_energy_fraction": 0.9892233383520638,
+          "principal_cosines": [
+            0.9979444470551897,
+            0.9974909454034355,
+            0.9583081045281596,
+            0.9413901613375683
+          ],
+          "rank": 4,
+          "right_cumulative_energy_fraction": 0.9815841897016688,
+          "symmetric_projection_overlap": 0.9488627911594139
+        },
+        "8": {
+          "left_cumulative_energy_fraction": 0.9972536715021834,
+          "principal_cosines": [
+            0.9983816463599635,
+            0.9977831130803375,
+            0.96345541693264,
+            0.9509721783293744,
+            0.7618490096382787,
+            0.747203707868703,
+            0.5225707212573452,
+            0.003759271253971889
+          ],
+          "rank": 8,
+          "right_cumulative_energy_fraction": 0.9916131237097048,
+          "symmetric_projection_overlap": 0.6545941327856788
+        }
+      },
+      "2021": {
+        "1": {
+          "left_cumulative_energy_fraction": 0.4969753767266418,
+          "principal_cosines": [
+            0.9943621432510331
+          ],
+          "rank": 1,
+          "right_cumulative_energy_fraction": 0.4809047769575531,
+          "symmetric_projection_overlap": 0.9887560719307881
+        },
+        "14": {
+          "left_cumulative_energy_fraction": 1.0,
+          "principal_cosines": [
+            0.998713181168265,
+            0.9984049812153444,
+            0.9711356523645288,
+            0.9621672064292298,
+            0.8476341669765282,
+            0.8305413601189423,
+            0.7313330024773214,
+            0.7083293354372335,
+            0.6482702004634394,
+            0.6131062931026856,
+            0.4173196257968739,
+            0.3190258492915917,
+            0.13743648982447165,
+            0.11085881029010317
+          ],
+          "rank": 14,
+          "right_cumulative_energy_fraction": 1.0,
+          "symmetric_projection_overlap": 0.5293740685443223
+        },
+        "2": {
+          "left_cumulative_energy_fraction": 0.9604210722093998,
+          "principal_cosines": [
+            0.9956750695400888,
+            0.9949036693071353
+          ],
+          "rank": 2,
+          "right_cumulative_energy_fraction": 0.9396092147236631,
+          "symmetric_projection_overlap": 0.9906010776522312
+        },
+        "4": {
+          "left_cumulative_energy_fraction": 0.9892233383520638,
+          "principal_cosines": [
+            0.9981355959172562,
+            0.9976665263637745,
+            0.9607580978563551,
+            0.9458299007026745
+          ],
+          "rank": 4,
+          "right_cumulative_energy_fraction": 0.982633748757226,
+          "symmetric_projection_overlap": 0.952315872330912
+        },
+        "8": {
+          "left_cumulative_energy_fraction": 0.9972536715021834,
+          "principal_cosines": [
+            0.9984180955548677,
+            0.9980312859826692,
+            0.9679811545273618,
+            0.9569137196380225,
+            0.7780517643624213,
+            0.7416630078878859,
+            0.5252379528557607,
+            0.2962016508207691
+          ],
+          "rank": 8,
+          "right_cumulative_energy_fraction": 0.9920648293539148,
+          "symmetric_projection_overlap": 0.6705769267561341
+        }
+      },
+      "2022": {
+        "1": {
+          "left_cumulative_energy_fraction": 0.4969753767266418,
+          "principal_cosines": [
+            0.9949772284153827
+          ],
+          "rank": 1,
+          "right_cumulative_energy_fraction": 0.4855099027802385,
+          "symmetric_projection_overlap": 0.9899796850651567
+        },
+        "14": {
+          "left_cumulative_energy_fraction": 1.0,
+          "principal_cosines": [
+            0.9989024557148025,
+            0.998720418497704,
+            0.975570202200102,
+            0.9702399876886725,
+            0.8696503069701947,
+            0.8526254424168426,
+            0.7465845737748683,
+            0.7112832602016242,
+            0.6433188391232678,
+            0.6181302536612092,
+            0.4468718853349803,
+            0.36812132079843923,
+            0.2573642622690554,
+            0.14908065231111406
+          ],
+          "rank": 14,
+          "right_cumulative_energy_fraction": 1.0,
+          "symmetric_projection_overlap": 0.5467527842412776
+        },
+        "2": {
+          "left_cumulative_energy_fraction": 0.9604210722093998,
+          "principal_cosines": [
+            0.9961793647349281,
+            0.9957375794733677
+          ],
+          "rank": 2,
+          "right_cumulative_energy_fraction": 0.9420024231759595,
+          "symmetric_projection_overlap": 0.9919333269495831
+        },
+        "4": {
+          "left_cumulative_energy_fraction": 0.9892233383520638,
+          "principal_cosines": [
+            0.9982417250020676,
+            0.9980241699257514,
+            0.9673221257524367,
+            0.9576637190982948
+          ],
+          "rank": 4,
+          "right_cumulative_energy_fraction": 0.9834623250504653,
+          "symmetric_projection_overlap": 0.9613426697846201
+        },
+        "8": {
+          "left_cumulative_energy_fraction": 0.9972536715021834,
+          "principal_cosines": [
+            0.9986278238481271,
+            0.9981710882222317,
+            0.9727097382163409,
+            0.9619201818157544,
+            0.7901234956102229,
+            0.7024953392700433,
+            0.6925023289355786,
+            0.47264513616563114
+          ],
+          "rank": 8,
+          "right_cumulative_energy_fraction": 0.9923436943496139,
+          "symmetric_projection_overlap": 0.7107256829081796
+        }
+      },
+      "2023": {
+        "1": {
+          "left_cumulative_energy_fraction": 0.4969753767266418,
+          "principal_cosines": [
+            0.9941811883605967
+          ],
+          "rank": 1,
+          "right_cumulative_energy_fraction": 0.4835881727597291,
+          "symmetric_projection_overlap": 0.9883962352900881
+        },
+        "14": {
+          "left_cumulative_energy_fraction": 1.0,
+          "principal_cosines": [
+            0.9985238096465161,
+            0.9983610276156243,
+            0.9699354729115592,
+            0.960481614848697,
+            0.8462087843151874,
+            0.8147050289888992,
+            0.7586790808409032,
+            0.6451241231451872,
+            0.6211346667762825,
+            0.5417515822113607,
+            0.3886661171733503,
+            0.30110689752420433,
+            0.2416295296322431,
+            0.17900408938024193
+          ],
+          "rank": 14,
+          "right_cumulative_energy_fraction": 1.0,
+          "symmetric_projection_overlap": 0.5171517161377778
+        },
+        "2": {
+          "left_cumulative_energy_fraction": 0.9604210722093998,
+          "principal_cosines": [
+            0.9951572422575674,
+            0.9942655483313232
+          ],
+          "rank": 2,
+          "right_cumulative_energy_fraction": 0.9404370837570052,
+          "symmetric_projection_overlap": 0.9894509587081368
+        },
+        "4": {
+          "left_cumulative_energy_fraction": 0.9892233383520638,
+          "principal_cosines": [
+            0.9980904380242103,
+            0.9975572155362198,
+            0.956581056871739,
+            0.947202371654746
+          ],
+          "rank": 4,
+          "right_cumulative_energy_fraction": 0.9829182690675516,
+          "symmetric_projection_overlap": 0.9508861429944915
+        },
+        "8": {
+          "left_cumulative_energy_fraction": 0.9972536715021834,
+          "principal_cosines": [
+            0.9982712507771676,
+            0.9979961743920226,
+            0.9638204554539742,
+            0.955119826486368,
+            0.8050868534667287,
+            0.763398852359029,
+            0.5711863505367888,
+            0.21393729660417235
+          ],
+          "rank": 8,
+          "right_cumulative_energy_fraction": 0.992041671036892,
+          "symmetric_projection_overlap": 0.679588908856757
+        }
+      },
+      "2024": {
+        "1": {
+          "left_cumulative_energy_fraction": 0.4969753767266418,
+          "principal_cosines": [
+            0.9936981168793465
+          ],
+          "rank": 1,
+          "right_cumulative_energy_fraction": 0.4824100826862539,
+          "symmetric_projection_overlap": 0.9874359474895594
+        },
+        "14": {
+          "left_cumulative_energy_fraction": 1.0,
+          "principal_cosines": [
+            0.9981628766315288,
+            0.9980961406600637,
+            0.9655921368453171,
+            0.9571256639598462,
+            0.8132776639823281,
+            0.8079556657921549,
+            0.6724278254451166,
+            0.6412432998418911,
+            0.5446034560485306,
+            0.5159221252014173,
+            0.37930527468063846,
+            0.2979443647879252,
+            0.2067608644020054,
+            0.09261411560982881
+          ],
+          "rank": 14,
+          "right_cumulative_energy_fraction": 1.0,
+          "symmetric_projection_overlap": 0.4903776529469521
+        },
+        "2": {
+          "left_cumulative_energy_fraction": 0.9604210722093998,
+          "principal_cosines": [
+            0.9945789980908527,
+            0.9935260547981338
+          ],
+          "rank": 2,
+          "right_cumulative_energy_fraction": 0.9379025284916168,
+          "symmetric_projection_overlap": 0.9881407025030745
+        },
+        "4": {
+          "left_cumulative_energy_fraction": 0.9892233383520638,
+          "principal_cosines": [
+            0.9976334858890029,
+            0.9970248984071653,
+            0.9510170435846012,
+            0.9343842257525639
+          ],
+          "rank": 4,
+          "right_cumulative_energy_fraction": 0.9810546213856043,
+          "symmetric_projection_overlap": 0.9417096296836187
+        },
+        "8": {
+          "left_cumulative_energy_fraction": 0.9972536715021834,
+          "principal_cosines": [
+            0.997770219295968,
+            0.9973502463335409,
+            0.9584155333246022,
+            0.947998135642945,
+            0.7429208713658586,
+            0.6757298514370272,
+            0.49113241541877245,
+            0.3048601835004816
+          ],
+          "rank": 8,
+          "right_cumulative_energy_fraction": 0.9914532487943063,
+          "symmetric_projection_overlap": 0.643775844783627
+        }
+      }
+    }
+  },
+  "spectrum_source": {
+    "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/positional_spectrum_v1_target_gate_correction.json",
+    "sha256": "46a29e9c2f2bd07fc81802908cb1ee6659644e841c92b0a172cd753221103255",
+    "size_bytes": 609431
+  },
+  "status": "COMPLETE_EXPLORATORY"
+}

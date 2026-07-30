@@ -1,18 +1,18 @@
 {
-  "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc); DNABERT-2 Reconstruction Atlas infrastructure, narrow v1 behavior, multisource-v4 bounded development, context-margin-v1 replication, and promoter-classifier-v2 bounded replication rows appended 2026-07-27; promoter clean-behavior head-atlas, promoter-circuit, promoter address/payload, promoter source-localization, post-hoc source-performance, all-node accuracy, and low-rank L11MLP rows appended 2026-07-28. D12 preflight/development-predictions/confirmation rows (debt from commit ed8c131) and the D13 exploratory post-hoc composition-vs-position rows appended 2026-07-29 (MANIFEST coverage fix, task-1 fix round 1); all eight rows carry no claim_id because none has a CLAIMS.md entry. D13 task-4 promoter-composition supply/matching-feasibility audit rows (infrastructure, no claim_id yet) appended 2026-07-29. D13 Amendment 1 promoter-composition v2 supply/matching-feasibility audit rows (infrastructure, no claim_id yet) appended 2026-07-29. D13 task-5 promoter-composition preflight v2 rows (development, no claim_id yet; decision INSTRUMENT_UNRESOLVED -- planted-positive calibration failed) appended 2026-07-29. D14 arrangement-vs-composition rows appended 2026-07-29: Phase 0 exploratory summary, smoke gate (PREFLIGHT), and the sealed confirmatory v4 record (per-locus values embedded inline, since results/dnabert2_reconstruction_atlas/**/*.jsonl is gitignored for this study) (polarity 'refutation' - the study refutes arrangement as the carrier of the D12 TSS polarity). Superseded confirmation v1/v2 were deleted pre-claim (v1 lacked Holm and raw persistence; v2 carried a p-value extraction bug); v3 endpoints are bit-identical to v1.",
-  "row_count": 997,
+  "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md §4). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc); DNABERT-2 Reconstruction Atlas infrastructure, narrow v1 behavior, multisource-v4 bounded development, context-margin-v1 replication, and promoter-classifier-v2 bounded replication rows appended 2026-07-27; promoter clean-behavior head-atlas, promoter-circuit, promoter address/payload, promoter source-localization, post-hoc source-performance, all-node accuracy, and low-rank L11MLP rows appended 2026-07-28. D12 preflight/development-predictions/confirmation rows (debt from commit ed8c131) and the D13 exploratory post-hoc composition-vs-position rows appended 2026-07-29 (MANIFEST coverage fix, task-1 fix round 1); all eight rows carry no claim_id because none has a CLAIMS.md entry. D13 task-4 promoter-composition supply/matching-feasibility audit rows (infrastructure, no claim_id yet) appended 2026-07-29. D13 Amendment 1 promoter-composition v2 supply/matching-feasibility audit rows (infrastructure, no claim_id yet) appended 2026-07-29. D13 task-5 promoter-composition preflight v2 rows (development, no claim_id yet; decision INSTRUMENT_UNRESOLVED -- planted-positive calibration failed) appended 2026-07-29. D14 arrangement-vs-composition rows appended 2026-07-29: Phase 0 exploratory summary, smoke gate (PREFLIGHT), and the sealed confirmatory v4 record (per-locus values embedded inline, since results/dnabert2_reconstruction_atlas/**/*.jsonl is gitignored for this study) (polarity 'refutation' - the study refutes arrangement as the carrier of the D12 TSS polarity). Superseded confirmation v1/v2 were deleted pre-claim (v1 lacked Holm and raw persistence; v2 carried a p-value extraction bug); v3 endpoints are bit-identical to v1. GFS rows appended 2026-07-28 (GTEx fine-tuning shift). Native-classifier GFS6–GFS9 rows appended 2026-07-29. Final-layer mechanism GFS10–GFS13 rows appended 2026-07-29. Context-localization GFS14–GFS16 rows appended 2026-07-29. Complete L5 context-head census GFS17 rows appended 2026-07-29. Joint/path/low-rank GFS18 rows appended 2026-07-29. Per-seed alignment GFS19 and exact native-unit GFS20 rows appended 2026-07-29. Biological-feature GFS21 preflight and discovery rows appended 2026-07-29. Exact-dose biological construction GFS22 rows appended 2026-07-30 Positional-spectrum GFS23-GFS24 rows appended 2026-07-30. Named-carrier behavior GFS25 rows appended 2026-07-30. J-SAE GFS26-GFS34 rows appended 2026-07-30.",
+  "row_count": 1113,
   "status_counts": {
-    "canonical": 599,
-    "development": 195,
-    "infrastructure": 58,
-    "superseded": 145
+    "canonical": 629,
+    "development": 272,
+    "infrastructure": 59,
+    "superseded": 153
   },
   "polarity_counts": {
-    "bounded": 77,
-    "na": 344,
-    "null": 19,
-    "positive": 548,
-    "refutation": 9
+    "bounded": 136,
+    "na": 346,
+    "null": 21,
+    "positive": 600,
+    "refutation": 10
   },
   "columns": [
     "claim_id",
@@ -9992,6 +9992,1166 @@
       "polarity": "na",
       "artifact": "results/dnabert2_reconstruction_atlas/l9h7_position_vs_content_v2.manifest.json",
       "script": "scripts/dnabert2_atlas/analyze_l9h7_position_vs_content.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS2",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/preflight_v1.json",
+      "script": "scripts/splicebert/run_gtex_finetune_preflight.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/preflight_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS2",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/preflight_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_finetune_preflight.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS3",
+      "status": "development",
+      "evidence_level": "Behaviour",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/seed-2020/smoke_sealed_val_v1.failed.json",
+      "script": "scripts/splicebert/run_sealed_test.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS4",
+      "status": "canonical",
+      "evidence_level": "Behaviour",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/five_seed_behavior_v1.json",
+      "script": "scripts/splicebert/run_gtex_coupling_shift.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/five_seed_behavior_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS4",
+      "status": "canonical",
+      "evidence_level": "Behaviour",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/five_seed_behavior_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_coupling_shift.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS6",
+      "status": "superseded",
+      "evidence_level": "Behaviour",
+      "polarity": "refutation",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_classifier_preflight_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_classifier_preflight.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_classifier_preflight_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS6",
+      "status": "superseded",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_classifier_preflight_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_classifier_preflight.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS7",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_classifier_preflight_v2.json",
+      "script": "scripts/splicebert/run_gtex_native_classifier_preflight.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_classifier_preflight_v2.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS7",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_classifier_preflight_v2.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_classifier_preflight.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS8",
+      "status": "canonical",
+      "evidence_level": "Behaviour",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_classifier_coupling_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_classifier_coupling.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_classifier_coupling_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS8",
+      "status": "canonical",
+      "evidence_level": "Behaviour",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_classifier_coupling_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_classifier_coupling.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS9",
+      "status": "canonical",
+      "evidence_level": "Representation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_representation_bridge_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_representation_bridge.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_representation_bridge_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS9",
+      "status": "canonical",
+      "evidence_level": "Representation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_representation_bridge_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_representation_bridge.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS10",
+      "status": "canonical",
+      "evidence_level": "Instrument",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_mechanism_preflight_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_mechanism_preflight.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_mechanism_preflight_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS10",
+      "status": "canonical",
+      "evidence_level": "Instrument",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_mechanism_preflight_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_mechanism_preflight.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS11",
+      "status": "development",
+      "evidence_level": "Candidate generation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_mechanism_discovery_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_mechanism_discovery.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_mechanism_discovery_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS11",
+      "status": "development",
+      "evidence_level": "Candidate generation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_mechanism_discovery_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_mechanism_discovery.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS11;GFS12",
+      "status": "canonical",
+      "evidence_level": "Mediation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_mechanism_confirmation_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_mechanism_confirmation.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_mechanism_confirmation_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS11;GFS12",
+      "status": "canonical",
+      "evidence_level": "Mediation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_mechanism_confirmation_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_mechanism_confirmation.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS13",
+      "status": "canonical",
+      "evidence_level": "Mediation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_mechanism_role_source_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_mechanism_role_source.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_mechanism_role_source_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS13",
+      "status": "canonical",
+      "evidence_level": "Mediation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_mechanism_role_source_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_mechanism_role_source.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS14",
+      "status": "canonical",
+      "evidence_level": "Instrument",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_preflight_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_context_preflight.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_context_preflight_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS14",
+      "status": "canonical",
+      "evidence_level": "Instrument",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_preflight_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_context_preflight.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS14",
+      "status": "development",
+      "evidence_level": "Candidate generation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_discovery_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_context_discovery.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_context_discovery_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS14",
+      "status": "development",
+      "evidence_level": "Candidate generation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_discovery_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_context_discovery.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS14",
+      "status": "canonical",
+      "evidence_level": "Behaviour",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_confirmation_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_context_confirmation.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_context_confirmation_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS14",
+      "status": "canonical",
+      "evidence_level": "Behaviour",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_confirmation_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_context_confirmation.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS14",
+      "status": "canonical",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_confirmation_audit_v1.json",
+      "script": "scripts/splicebert/audit_gtex_native_context_confirmation.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_context_confirmation_audit_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS14",
+      "status": "canonical",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_confirmation_audit_v1.manifest.json",
+      "script": "scripts/splicebert/audit_gtex_native_context_confirmation.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS15",
+      "status": "canonical",
+      "evidence_level": "Mediation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_depth_trace_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_context_depth_trace.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_context_depth_trace_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS15",
+      "status": "canonical",
+      "evidence_level": "Mediation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_depth_trace_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_context_depth_trace.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS16",
+      "status": "canonical",
+      "evidence_level": "Mediation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_component_bridge_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_context_component_bridge.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_context_component_bridge_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS16",
+      "status": "canonical",
+      "evidence_level": "Mediation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_component_bridge_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_context_component_bridge.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS17",
+      "status": "development",
+      "evidence_level": "Candidate generation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_head_census_discovery_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_context_head_census_discovery.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_context_head_census_discovery_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS17",
+      "status": "development",
+      "evidence_level": "Candidate generation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_head_census_discovery_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_context_head_census_discovery.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS17",
+      "status": "canonical",
+      "evidence_level": "Mediation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_head_census_confirmation_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_context_head_census_confirmation.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_context_head_census_confirmation_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS17",
+      "status": "canonical",
+      "evidence_level": "Mediation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_head_census_confirmation_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_context_head_census_confirmation.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS18",
+      "status": "development",
+      "evidence_level": "Candidate generation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_lowrank_discovery_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_context_lowrank_discovery.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_context_lowrank_discovery_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS18",
+      "status": "development",
+      "evidence_level": "Candidate generation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_lowrank_discovery_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_context_lowrank_discovery.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS18",
+      "status": "canonical",
+      "evidence_level": "Mediation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_joint_lowrank_confirmation_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_context_joint_lowrank_confirmation.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_context_joint_lowrank_confirmation_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS18",
+      "status": "canonical",
+      "evidence_level": "Mediation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_joint_lowrank_confirmation_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_context_joint_lowrank_confirmation.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS19",
+      "status": "development",
+      "evidence_level": "Candidate generation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_discovery_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_context_per_seed_alignment_discovery.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_discovery_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS19",
+      "status": "development",
+      "evidence_level": "Candidate generation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_discovery_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_context_per_seed_alignment_discovery.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS19",
+      "status": "development",
+      "evidence_level": "Candidate generation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_discovery_v1.npz",
+      "script": "scripts/splicebert/run_gtex_native_context_per_seed_alignment_discovery.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_discovery_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS19",
+      "status": "development",
+      "evidence_level": "Mediation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_evaluation_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_context_per_seed_alignment_evaluation.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_evaluation_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS19",
+      "status": "development",
+      "evidence_level": "Mediation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_evaluation_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_context_per_seed_alignment_evaluation.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS19",
+      "status": "development",
+      "evidence_level": "Mediation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_evaluation_v1.npz",
+      "script": "scripts/splicebert/run_gtex_native_context_per_seed_alignment_evaluation.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_evaluation_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS19",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_evaluation_audit_v1.json",
+      "script": "scripts/splicebert/audit_gtex_native_context_per_seed_alignment.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_evaluation_audit_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS19",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_evaluation_audit_v1.manifest.json",
+      "script": "scripts/splicebert/audit_gtex_native_context_per_seed_alignment.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS20",
+      "status": "development",
+      "evidence_level": "Candidate generation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_discovery_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_context_final_mlp_unit_discovery.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_discovery_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS20",
+      "status": "development",
+      "evidence_level": "Candidate generation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_discovery_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_context_final_mlp_unit_discovery.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS20",
+      "status": "development",
+      "evidence_level": "Mediation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_evaluation_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_context_final_mlp_unit_evaluation.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_evaluation_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS20",
+      "status": "development",
+      "evidence_level": "Mediation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_evaluation_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_context_final_mlp_unit_evaluation.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS20",
+      "status": "development",
+      "evidence_level": "Mediation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_evaluation_v1.npz",
+      "script": "scripts/splicebert/run_gtex_native_context_final_mlp_unit_evaluation.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_evaluation_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS21",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_biological_features_preflight_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_biological_features_preflight.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_biological_features_preflight_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS21",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_biological_features_preflight_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_biological_features_preflight.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS21",
+      "status": "development",
+      "evidence_level": "Candidate generation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_biological_features_discovery_v1.json",
+      "script": "scripts/splicebert/run_gtex_native_biological_features_discovery.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_biological_features_discovery_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS21",
+      "status": "development",
+      "evidence_level": "Candidate generation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_biological_features_discovery_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_biological_features_discovery.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS21",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_biological_construction_audit_v2.json",
+      "script": "scripts/splicebert/run_gtex_native_biological_construction_audit.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_biological_construction_audit_v2.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS21",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_biological_construction_audit_v2.manifest.json",
+      "script": "scripts/splicebert/run_gtex_native_biological_construction_audit.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS21",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/sparse_transcoder_sequence_package_v1.json",
+      "script": "scripts/splicebert/export_gtex_sparse_transcoder_sequence_package.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/sparse_transcoder_sequence_package_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS21",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/sparse_transcoder_sequence_package_v1.manifest.json",
+      "script": "scripts/splicebert/export_gtex_sparse_transcoder_sequence_package.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS21",
+      "status": "development",
+      "evidence_level": "Representation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.json",
+      "script": "scripts/splicebert/run_gtex_sparse_transcoder_activation_capture.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS21",
+      "status": "development",
+      "evidence_level": "Representation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_sparse_transcoder_activation_capture.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS21",
+      "status": "development",
+      "evidence_level": "Representation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.npz",
+      "script": "scripts/splicebert/run_gtex_sparse_transcoder_activation_capture.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS21",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/sparse_transcoder_training_attempt1_failure.json",
+      "script": "scripts/splicebert/run_gtex_sparse_transcoder_training.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/sparse_transcoder_training_attempt1_failure.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS21",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/sparse_transcoder_training_attempt1_failure.manifest.json",
+      "script": "scripts/splicebert/run_gtex_sparse_transcoder_training.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS21",
+      "status": "development",
+      "evidence_level": "Representation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/sparse_transcoder_training_v1.json",
+      "script": "scripts/splicebert/run_gtex_sparse_transcoder_training.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/sparse_transcoder_training_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS21",
+      "status": "development",
+      "evidence_level": "Representation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/sparse_transcoder_training_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_sparse_transcoder_training.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS21",
+      "status": "development",
+      "evidence_level": "Representation",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/sparse_transcoder_training_v1.pt",
+      "script": "scripts/splicebert/run_gtex_sparse_transcoder_training.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/sparse_transcoder_training_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS22",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_biological_features_confirmation_construction_v1.json",
+      "script": "scripts/splicebert/freeze_gtex_native_biological_features_confirmation.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/native_biological_features_confirmation_construction_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS22",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/native_biological_features_confirmation_construction_v1.manifest.json",
+      "script": "scripts/splicebert/freeze_gtex_native_biological_features_confirmation.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS23",
+      "status": "superseded",
+      "evidence_level": "Representation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/positional_spectrum_v1.json",
+      "script": "scripts/splicebert/run_gtex_positional_spectrum.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/positional_spectrum_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS23",
+      "status": "superseded",
+      "evidence_level": "Representation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/positional_spectrum_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_positional_spectrum.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS23",
+      "status": "development",
+      "evidence_level": "Representation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/positional_spectrum_v1_target_gate_correction.json",
+      "script": "scripts/splicebert/run_gtex_positional_spectrum.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/positional_spectrum_v1_target_gate_correction.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS23",
+      "status": "development",
+      "evidence_level": "Representation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/positional_spectrum_v1_target_gate_correction.manifest.json",
+      "script": "scripts/splicebert/run_gtex_positional_spectrum.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS23",
+      "status": "development",
+      "evidence_level": "Representation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/positional_spectrum_dominant_subspace_sensitivity_v1.json",
+      "script": "scripts/splicebert/analyze_gtex_positional_spectrum_sensitivity.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/positional_spectrum_dominant_subspace_sensitivity_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS23",
+      "status": "development",
+      "evidence_level": "Representation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/positional_spectrum_dominant_subspace_sensitivity_v1.manifest.json",
+      "script": "scripts/splicebert/analyze_gtex_positional_spectrum_sensitivity.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS24",
+      "status": "superseded",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/positional_band_surgery_attempt1_failure.json",
+      "script": "scripts/splicebert/run_gtex_positional_band_surgery.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/positional_band_surgery_attempt1_failure.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS24",
+      "status": "superseded",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/positional_band_surgery_attempt1_failure.manifest.json",
+      "script": "scripts/splicebert/run_gtex_positional_band_surgery.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS24",
+      "status": "development",
+      "evidence_level": "Behaviour",
+      "polarity": "null",
+      "artifact": "results/splicebert_gtex_finetune_shift/positional_band_surgery_v1.json",
+      "script": "scripts/splicebert/run_gtex_positional_band_surgery.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/positional_band_surgery_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS24",
+      "status": "development",
+      "evidence_level": "Behaviour",
+      "polarity": "null",
+      "artifact": "results/splicebert_gtex_finetune_shift/positional_band_surgery_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_positional_band_surgery.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS25",
+      "status": "superseded",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/positional_native_margin_gate_v1.json",
+      "script": "scripts/splicebert/run_gtex_positional_native_margin_gate.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/positional_native_margin_gate_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS25",
+      "status": "superseded",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/positional_native_margin_gate_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_positional_native_margin_gate.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS25",
+      "status": "development",
+      "evidence_level": "Behaviour",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/positional_native_margin_gate_v2.json",
+      "script": "scripts/splicebert/run_gtex_positional_native_margin_gate_v2.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/positional_native_margin_gate_v2.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS25",
+      "status": "development",
+      "evidence_level": "Behaviour",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/positional_native_margin_gate_v2.manifest.json",
+      "script": "scripts/splicebert/run_gtex_positional_native_margin_gate_v2.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS26",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_instrument_v1.json",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_instrument.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/jacobian_sae_instrument_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS26",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_instrument_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_instrument.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS26",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_instrument_v1.pt",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_instrument.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/jacobian_sae_instrument_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS27",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_instrument_v2.json",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_instrument.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/jacobian_sae_instrument_v2.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS27",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_instrument_v2.manifest.json",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_instrument.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS27",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_instrument_v2.pt",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_instrument.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/jacobian_sae_instrument_v2.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS28",
+      "status": "development",
+      "evidence_level": "Representation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_instrument_v3.json",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_instrument.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/jacobian_sae_instrument_v3.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS28",
+      "status": "development",
+      "evidence_level": "Representation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_instrument_v3.manifest.json",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_instrument.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS28",
+      "status": "development",
+      "evidence_level": "Representation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_instrument_v3.pt",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_instrument.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/jacobian_sae_instrument_v3.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS29",
+      "status": "development",
+      "evidence_level": "Representation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_replication_v1.json",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_replication.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/jacobian_sae_replication_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS29",
+      "status": "development",
+      "evidence_level": "Representation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_replication_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_replication.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS29",
+      "status": "development",
+      "evidence_level": "Representation",
+      "polarity": "positive",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_replication_v1.pt",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_replication.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/jacobian_sae_replication_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS30",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_behavior_preflight_v1.json",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_behavior_preflight.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/jacobian_sae_behavior_preflight_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS30",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_behavior_preflight_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_behavior_preflight.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS31",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_delta_preflight_v1.json",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_delta_preflight.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/jacobian_sae_delta_preflight_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS31",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_delta_preflight_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_delta_preflight.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS32",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_cohort_v1.json",
+      "script": "scripts/splicebert/build_gtex_jacobian_sae_fresh_cohort.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_cohort_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS32",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_cohort_v1.manifest.json",
+      "script": "scripts/splicebert/build_gtex_jacobian_sae_fresh_cohort.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS32",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_activation_capture_v1.json",
+      "script": "scripts/splicebert/capture_gtex_jacobian_sae_fresh_activations.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_activation_capture_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS32",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_activation_capture_v1.manifest.json",
+      "script": "scripts/splicebert/capture_gtex_jacobian_sae_fresh_activations.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS32",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_activation_capture_v1.npz",
+      "script": "scripts/splicebert/capture_gtex_jacobian_sae_fresh_activations.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_activation_capture_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS32",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_delta_confirmation_v1.json",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_fresh_delta_confirmation.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_delta_confirmation_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS32",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_delta_confirmation_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_fresh_delta_confirmation.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS33",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_large_v1.json",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_large.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/jacobian_sae_large_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS33",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_large_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_large.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS33",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/jacobian_sae_large_v1.pt",
+      "script": "scripts/splicebert/run_gtex_jacobian_sae_large.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/jacobian_sae_large_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS34",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/model_difference_jsae_pilot_v1.json",
+      "script": "scripts/splicebert/run_gtex_model_difference_jsae.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/model_difference_jsae_pilot_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS34",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/model_difference_jsae_pilot_v1.manifest.json",
+      "script": "scripts/splicebert/run_gtex_model_difference_jsae.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "GFS34",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_gtex_finetune_shift/model_difference_jsae_pilot_v1.pt",
+      "script": "scripts/splicebert/run_gtex_model_difference_jsae.py",
+      "manifest": "results/splicebert_gtex_finetune_shift/model_difference_jsae_pilot_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_gtex_finetune_shift/RESULTS_INDEX.md",
+      "script": "",
       "manifest": "",
       "figure": ""
     }

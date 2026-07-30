@@ -11,8 +11,8 @@ environment below.
 From the repository root:
 
 ```bash
-uv sync --extra splicebert --extra dev
-uv run --extra splicebert --extra dev pytest
+uv sync --extra splicebert --extra biology --extra dev
+uv run --extra splicebert --extra biology --extra dev pytest
 ```
 
 **Pass the extras on the `uv run` too.** A bare `uv run pytest` re-syncs to the default dependency set
@@ -115,6 +115,16 @@ and the protocol status index is
 The canonical index is [`results/phase-lattice/RESULTS_INDEX.md`](results/phase-lattice/RESULTS_INDEX.md).
 It maps position spectra, carrier deletion, mediation, attention gates, and biological source assays to
 their scripts, immutable JSON, and manifests.
+
+### GTEx fine-tuning shift
+
+The five published SpliceAI-GTEx fine-tunes contain a token-classification encoder/head, not an MLM head.
+`scripts/splicebert/prepare_gtex_mlm_transplant.py` strictly transplants each complete encoder into the
+original masked LM and writes a derived Hugging Face checkpoint with an audit report. Run
+`run_gtex_finetune_preflight.py` before `run_gtex_coupling_shift.py`; the latter requires all five seeds,
+replays the exact base validation result before opening them, and stops at behavior. Exact hashes, readout
+scope, commands, and the outcome-aware verification status are in
+[`studies/splicebert_gtex_finetune_shift/`](studies/splicebert_gtex_finetune_shift/README.md).
 
 ### Head–Context Atlas
 

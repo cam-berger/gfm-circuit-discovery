@@ -1,0 +1,89 @@
+{
+  "command": [
+    "scripts/splicebert/run_gtex_jacobian_sae_instrument.py",
+    "--activation-artifact",
+    "results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.json",
+    "--model-dir",
+    "data/models/splicebert_gtex/mlm_transplants/seed-2020",
+    "--device",
+    "mps",
+    "--model-out",
+    "results/splicebert_gtex_finetune_shift/jacobian_sae_instrument_v1.pt",
+    "--out",
+    "results/splicebert_gtex_finetune_shift/jacobian_sae_instrument_v1.json"
+  ],
+  "config": {
+    "active_features": 8,
+    "batch": 128,
+    "device": "mps",
+    "epochs": 40,
+    "feature_width": 512,
+    "jacobian_coefficients": [
+      0.0,
+      0.015625,
+      0.0625,
+      0.25
+    ],
+    "learning_rate": 0.0005,
+    "patience": 6,
+    "view": "2020"
+  },
+  "created_at_utc": "2026-07-30T14:39:24.271083+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 68125,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_gtex_finetune_shift:jacobian_sae_instrument_v1",
+  "git_commit": "49454864ba7e0dfb82128d6c85e8ae6b0d2066e1",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/studies/splicebert_gtex_finetune_shift/PREREGISTRATION_JACOBIAN_SAE_V1.md",
+      "sha256": "d1078fa562d1d74cb17fac187d1fd006b24bc7240d850a3a562f10e5c1f3c3ba",
+      "size_bytes": 11541
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.json",
+      "sha256": "142ce4ee5976970b9b296685ef403cce30e56f440a87d7222a1933fe09d96b5b",
+      "size_bytes": 5721606
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.npz",
+      "sha256": "fa6c972f4765d5c57354abeb262b3e62d6ac3ff8c69e5850a1511c7cf054d559",
+      "size_bytes": 181248960
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/mlm_transplants/seed-2020/config.json",
+      "sha256": "6768e14e3304fca9818bc5ad864d041415c70bb9e11ccdd5ae5a4734dd4a517c",
+      "size_bytes": 746
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/mlm_transplants/seed-2020/model.safetensors",
+      "sha256": "0bf47fd1f656f753a487fe2556ba063d6acdb1439c8d4f0c9857ea1e41438811",
+      "size_bytes": 78854048
+    }
+  ],
+  "notes": [
+    "No classifier output, margin, class label, or external outcome was read.",
+    "The zero-Jacobian-penalty candidate is the matched TopK SAE-pair control.",
+    "The exact active Jacobian is evaluated at the native MLP input."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/jacobian_sae_instrument_v1.json",
+      "sha256": "19560a4400ab4138df04616bf4878fd4d22a580ba82829b12286509b6de6cffe",
+      "size_bytes": 178585
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/jacobian_sae_instrument_v1.pt",
+      "sha256": "8cff8a86b306f475af8bcf11a0842838a872e200fc57e0ec74f30807959434f9",
+      "size_bytes": 50442389
+    }
+  ],
+  "seeds": {
+    "dictionary_initialization": 1512008
+  },
+  "status": "INSTRUMENT_UNRESOLVED"
+}

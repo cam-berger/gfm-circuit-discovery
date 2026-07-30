@@ -1,0 +1,72 @@
+{
+  "command": [
+    "scripts/splicebert/audit_gtex_native_context_confirmation.py",
+    "--confirmation",
+    "results/splicebert_gtex_finetune_shift/native_context_confirmation_v1.json",
+    "--discovery",
+    "results/splicebert_gtex_finetune_shift/native_context_discovery_v1.json",
+    "--gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+    "--fasta",
+    "/Users/cberg/Research/data/genomes/hg38.fa",
+    "--out",
+    "results/splicebert_gtex_finetune_shift/native_context_confirmation_audit_v1.json"
+  ],
+  "config": {
+    "cohort_tag": "gtex-native-context-localization-confirmation-v1",
+    "minimum_hamming_fraction": 0.25,
+    "model_forward_passes": 0,
+    "n": 200,
+    "split": "val"
+  },
+  "created_at_utc": "2026-07-29T15:08:05.451187+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 1271,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_gtex_finetune_shift:native_context_confirmation_audit_v1",
+  "git_commit": "53f557a7b5366ddff07b1a104cfb9365a0d71f92",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/studies/splicebert_gtex_finetune_shift/PREREGISTRATION_NATIVE_CONTEXT_LOCALIZATION_V1.md",
+      "sha256": "794d625b5a2e3f481901c325c96677dc0840b5fbe5c0290ea016674b5d8e4765",
+      "size_bytes": 10395
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_confirmation_v1.json",
+      "sha256": "d745e5877430ffadac24f07186976cb03459333fd2228f3e96896221473e85b5",
+      "size_bytes": 972426
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_discovery_v1.json",
+      "sha256": "4878db7b2166c1071df2f677502b2cadc362d508004ec55ce7a4e13256b5ca97",
+      "size_bytes": 1454212
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    }
+  ],
+  "notes": [
+    "This audit reconstructs only outcome-independent string interventions.",
+    "No checkpoint is loaded and no model outcome is recomputed."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_confirmation_audit_v1.json",
+      "sha256": "756f0ff63dc2e924573b65582d200fc33626583530d0893a83d0f99659b00841",
+      "size_bytes": 3832
+    }
+  ],
+  "seeds": {},
+  "status": "PARTIAL_PASS_RESOLUTION_QUARANTINED"
+}

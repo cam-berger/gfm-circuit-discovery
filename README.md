@@ -77,6 +77,7 @@ Attribution ranks; intervention decides. See the [methodology](docs/METHODOLOGY.
 | [`studies/splicebert/`](studies/splicebert/README.md) | worked-example overview | Concise entry point to the SpliceBERT evidence ladder. |
 | [`studies/splicebert_partner_selection/`](studies/splicebert_partner_selection/README.md) | completed core record; open limitations | Donor graph, period-3 carrier, compact claims, corrections, preregistrations, and reproduction map. |
 | [`studies/splicebert_head_context_atlas/`](studies/splicebert_head_context_atlas/README.md) | discovery and internal validation complete | Multi-context head/MLP reuse atlas; context-specific follow-ups remain exploratory. |
+| [`studies/splicebert_gtex_finetune_shift/`](studies/splicebert_gtex_finetune_shift/README.md) | native causal mechanism mapped; sparse-difference instrument bounded | Native-head coupling; several late attention routes into a compact final-MLP code; inherited positional-carrier use; unresolved sparse and biological feature bridges. |
 | [`studies/splicebert_segment_attribution/`](studies/splicebert_segment_attribution/README.md) | exploratory instrument | Joint-mask attribution DAGs used as candidate generators, not causal claims. |
 | [`studies/dnabert2_reconstruction_atlas/`](studies/dnabert2_reconstruction_atlas/FINDINGS.md) | baseline census bounded; promoter circuit traced to a late core, then shown to be positionally rather than content addressed (D17) | Systematic DNABERT-2 behavior census and causal reverse engineering of a promoter-fine-tuned model. |
 | [`studies/caduceus_partner_transfer/`](studies/caduceus_partner_transfer/README.md) | design hardened; deferred, not run | Planned cross-architecture behavioral transfer to an RC-equivariant bidirectional Mamba MLM. |
@@ -122,10 +123,12 @@ preserved in Git history rather than restored to the active tree.
 
 ## Document tiers
 
-Over 160 markdown documents accumulated across the study's history, and several of them cover
-overlapping ground. Nothing is deleted or merged: the superseded narratives are part of the record. Instead
-every document carries a tier banner immediately under its title, so a reader can tell at a glance whether
-it is current guidance or a retained record.
+Over 200 markdown documents accumulated across the study's history, and several of them cover
+overlapping ground. Nothing is deleted or merged: the superseded narratives are part of the record.
+Mutable documents carry a tier banner immediately under their title, so a reader can tell at a glance
+whether each is current guidance or a retained record. Frozen, content-addressed protocol inputs are not
+rewritten merely to add a banner; the verified exceptions are indexed by
+[`tests/test_repository_hygiene.py`](tests/test_repository_hygiene.py).
 
 | Tier | Meaning | Where it is used |
 |---|---|---|
@@ -144,7 +147,9 @@ The canonical set is small on purpose:
 [`docs/NOMENCLATURE.md`](docs/NOMENCLATURE.md) · [`docs/BIOLOGICAL_BRIDGES.md`](docs/BIOLOGICAL_BRIDGES.md) ·
 [`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) ·
 [`docs/REFERENCES.md`](docs/REFERENCES.md) · [`docs/TRANSFER_GUIDE.md`](docs/TRANSFER_GUIDE.md) ·
-[`docs/ROADMAP.md`](docs/ROADMAP.md) · [`results/RESULTS_INDEX.md`](results/RESULTS_INDEX.md) ·
+[`docs/ROADMAP.md`](docs/ROADMAP.md) ·
+[`docs/REPO_SCRUB_PROCEDURE.md`](docs/REPO_SCRUB_PROCEDURE.md) ·
+[`results/RESULTS_INDEX.md`](results/RESULTS_INDEX.md) ·
 the per-study `CLAIMS.md` files.
 
 ## Start here
@@ -155,15 +160,17 @@ the per-study `CLAIMS.md` files.
    [corrections](studies/splicebert_partner_selection/CORRECTIONS.md) before quoting a result.
 4. Review the [Head–Context Atlas](studies/splicebert_head_context_atlas/README.md) for the current
    cross-context branch.
-5. Read the [transfer guide](docs/TRANSFER_GUIDE.md) and the
+5. Review the [GTEx fine-tuning-shift findings](studies/splicebert_gtex_finetune_shift/FINDINGS.md) for
+   the supervised task representation and its current sparse/biological boundaries.
+6. Read the [transfer guide](docs/TRANSFER_GUIDE.md) and the
    [DNABERT-2 Atlas](studies/dnabert2_reconstruction_atlas/README.md) for the active second-GFM program.
-6. Follow [`REPRODUCE.md`](REPRODUCE.md) for the canonical environment and claim→script→artifact map.
+7. Follow [`REPRODUCE.md`](REPRODUCE.md) for the canonical environment and claim→script→artifact map.
 
 For development:
 
 ```bash
-uv sync --extra splicebert --extra dev
-uv run pytest
+uv sync --extra splicebert --extra biology --extra dev
+uv run --extra splicebert --extra biology --extra dev pytest
 ```
 
 Run experiments from the repository root. Result-producing scripts must write an immutable result and a

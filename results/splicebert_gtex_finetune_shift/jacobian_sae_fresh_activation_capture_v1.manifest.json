@@ -1,0 +1,106 @@
+{
+  "command": [
+    "scripts/splicebert/capture_gtex_jacobian_sae_fresh_activations.py",
+    "--cohort",
+    "results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_cohort_v1.json",
+    "--base-model",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+    "--checkpoint",
+    "2020=data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2020.pt",
+    "--checkpoint",
+    "2021=data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2021.pt",
+    "--checkpoint",
+    "2022=data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2022.pt",
+    "--checkpoint",
+    "2023=data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2023.pt",
+    "--checkpoint",
+    "2024=data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2024.pt",
+    "--batch",
+    "16",
+    "--device",
+    "mps",
+    "--arrays-out",
+    "results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_activation_capture_v1.npz",
+    "--out",
+    "results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_activation_capture_v1.json"
+  ],
+  "config": {
+    "batch": 16,
+    "device": "mps",
+    "n_states": 768,
+    "namespace": "gtex-jacobian-sae-fresh-delta-confirmation-v1"
+  },
+  "created_at_utc": "2026-07-30T15:26:53.571911+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 71645,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_gtex_finetune_shift:jacobian_sae_fresh_capture_v1",
+  "git_commit": "2e7f9546972a606b948a971c148b5241f36cfb45",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/studies/splicebert_gtex_finetune_shift/IMPLEMENTATION_ADDENDUM_JACOBIAN_SAE_FRESH_DELTA_CONFIRMATION_V1.md",
+      "sha256": "48de079224e80e3b9035c6540f98e52fbc134acd68c1915e0f32f0489b87e79d",
+      "size_bytes": 4561
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_cohort_v1.json",
+      "sha256": "d11a9b716c8c0e0ca055334add2ba0a6b847285c894ba541af064c56b5312afc",
+      "size_bytes": 1516882
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2020.pt",
+      "sha256": "2552486a0870e2466a223fcce34f0477c40526a09172622619f0d1672a1af45e",
+      "size_bytes": 77835365
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2021.pt",
+      "sha256": "2cb06d2a17d941857485329604d526b465eabda319632c932000b85d8d40cda6",
+      "size_bytes": 77835365
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2022.pt",
+      "sha256": "556e38c92319ce87fb15ca390743ae20c539f4c5400c4cca82a83cdf3d46bd0a",
+      "size_bytes": 77835365
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2023.pt",
+      "sha256": "03c25882ae3e4b48198265bf8447ef543308e40ec9fd700b4834d829dcb6100b",
+      "size_bytes": 77835365
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2024.pt",
+      "sha256": "d1caccec4db1784537178e355351a3e0b67cde4e70185bf6b6a6d63f792198f1",
+      "size_bytes": 77835365
+    }
+  ],
+  "notes": [
+    "Checkpoints were loaded and released sequentially.",
+    "No classifier output, margin, or SAE feature was evaluated."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_activation_capture_v1.json",
+      "sha256": "eb0989e8e2b579f761bc3e82cf02dadd43556f911c184887f8d266470c5c3921",
+      "size_bytes": 602021
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_activation_capture_v1.npz",
+      "sha256": "dcbc177b350077098ffeb161c7f4226d7387547ed1103174afbda504122d1847",
+      "size_bytes": 14597394
+    }
+  ],
+  "seeds": {
+    "checkpoint_family": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ]
+  },
+  "status": "INSTRUMENT"
+}

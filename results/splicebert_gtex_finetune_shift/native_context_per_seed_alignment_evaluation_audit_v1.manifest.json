@@ -1,0 +1,49 @@
+{
+  "command": [
+    "scripts/splicebert/audit_gtex_native_context_per_seed_alignment.py",
+    "--result",
+    "results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_evaluation_v1.json",
+    "--out",
+    "results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_evaluation_audit_v1.json"
+  ],
+  "config": {
+    "decision_rank": 4,
+    "max_q": 0.05,
+    "minimum_ratio": 0.5
+  },
+  "created_at_utc": "2026-07-29T22:08:29.611476+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 17092,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_gtex_finetune_shift:native_context_per_seed_alignment_audit_v1",
+  "git_commit": "56a8ea0b274e586311810157bc13276212b2b23b",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/studies/splicebert_gtex_finetune_shift/PREREGISTRATION_NATIVE_CONTEXT_PER_SEED_ALIGNMENT_V1.md",
+      "sha256": "fff0f97ac2109de9501abc377defcca7a2e055d36825f6cf7ad4ada1c0ae2c20",
+      "size_bytes": 9289
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_evaluation_v1.json",
+      "sha256": "87868ed70beaf54f8805dde5a14028957d3be8cbc1360519d48edcf52fea3bc6",
+      "size_bytes": 441695
+    }
+  ],
+  "notes": [
+    "This audit changes only the summary verdict produced by an implementation bug.",
+    "Every estimate, interval, p-value, q-value, and intervention array remains unchanged."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_evaluation_audit_v1.json",
+      "sha256": "80be0f2d8b07aaba788cfaf38b6f5e2c990d6652c7ba5d0327620b1dcd8d55f8",
+      "size_bytes": 1645
+    }
+  ],
+  "seeds": {},
+  "status": "AUDIT"
+}

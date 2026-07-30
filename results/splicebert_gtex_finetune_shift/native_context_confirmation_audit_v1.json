@@ -1,0 +1,127 @@
+{
+  "condition_audit": {
+    "acceptor": {
+      "candidate_draw0": {
+        "dose_gate_pass": true,
+        "draw": 0,
+        "mean_hamming_fraction": 0.83234375,
+        "minimum_hamming_fraction": 0.71875,
+        "n_below_threshold": 0,
+        "window": "+16:+48"
+      },
+      "candidate_draw1": {
+        "dose_gate_pass": true,
+        "draw": 1,
+        "mean_hamming_fraction": 0.833125,
+        "minimum_hamming_fraction": 0.71875,
+        "n_below_threshold": 0,
+        "window": "+16:+48"
+      },
+      "half1_draw0": {
+        "dose_gate_pass": true,
+        "draw": 0,
+        "mean_hamming_fraction": 0.799375,
+        "minimum_hamming_fraction": 0.5,
+        "n_below_threshold": 0,
+        "window": "+16:+32"
+      },
+      "half2_draw0": {
+        "dose_gate_pass": false,
+        "draw": 0,
+        "mean_hamming_fraction": 0.7934375,
+        "minimum_hamming_fraction": 0.0,
+        "n_below_threshold": 1,
+        "window": "+32:+48"
+      },
+      "sham_draw0": {
+        "dose_gate_pass": true,
+        "draw": 0,
+        "mean_hamming_fraction": 0.7834375,
+        "minimum_hamming_fraction": 0.5,
+        "n_below_threshold": 0,
+        "window": "-80:-48"
+      }
+    },
+    "donor": {
+      "candidate_draw0": {
+        "dose_gate_pass": true,
+        "draw": 0,
+        "mean_hamming_fraction": 0.82671875,
+        "minimum_hamming_fraction": 0.6875,
+        "n_below_threshold": 0,
+        "window": "-80:-48"
+      },
+      "candidate_draw1": {
+        "dose_gate_pass": true,
+        "draw": 1,
+        "mean_hamming_fraction": 0.83015625,
+        "minimum_hamming_fraction": 0.65625,
+        "n_below_threshold": 0,
+        "window": "-80:-48"
+      },
+      "half1_draw0": {
+        "dose_gate_pass": true,
+        "draw": 0,
+        "mean_hamming_fraction": 0.7925,
+        "minimum_hamming_fraction": 0.5,
+        "n_below_threshold": 0,
+        "window": "-80:-64"
+      },
+      "half2_draw0": {
+        "dose_gate_pass": true,
+        "draw": 0,
+        "mean_hamming_fraction": 0.789375,
+        "minimum_hamming_fraction": 0.5,
+        "n_below_threshold": 0,
+        "window": "-64:-48"
+      },
+      "sham_draw0": {
+        "dose_gate_pass": true,
+        "draw": 0,
+        "mean_hamming_fraction": 0.77140625,
+        "minimum_hamming_fraction": 0.4375,
+        "n_below_threshold": 0,
+        "window": "+16:+48"
+      }
+    }
+  },
+  "failures": [
+    {
+      "condition": "half2_draw0",
+      "draw": 0,
+      "example_id": "chr16:67879586-67879774:+:ENSG00000038358.17",
+      "gene_id": "ENSG00000038358.17",
+      "hamming": 0,
+      "hamming_fraction": 0.0,
+      "invariants_pass": true,
+      "task": "acceptor",
+      "width": 16,
+      "window": "+32:+48"
+    }
+  ],
+  "interpretation": "The confirmed 32-nt candidate regions and matched shams satisfy delivered-dose controls. The acceptor half-window contrast is unlicensed because one sequence has no alternative exact Eulerian ordering at that 16-nt resolution.",
+  "licenses": {
+    "acceptor": {
+      "confirmed_32nt_region_licensed": true,
+      "half_resolution_dose_gate": false,
+      "half_resolution_licensed": false,
+      "main_32nt_and_sham_dose_gate": true,
+      "model_confirmation_gate": true
+    },
+    "donor": {
+      "confirmed_32nt_region_licensed": true,
+      "half_resolution_dose_gate": true,
+      "half_resolution_licensed": true,
+      "main_32nt_and_sham_dose_gate": true,
+      "model_confirmation_gate": true
+    }
+  },
+  "protocol": "studies/splicebert_gtex_finetune_shift/PREREGISTRATION_NATIVE_CONTEXT_LOCALIZATION_V1.md",
+  "stage": "confirmation delivered-dose audit",
+  "status": "PARTIAL_PASS_RESOLUTION_QUARANTINED",
+  "study": "native GTEx classifier context localization",
+  "threshold": {
+    "minimum_hamming_fraction": 0.25,
+    "scope": "each example and condition"
+  }
+}

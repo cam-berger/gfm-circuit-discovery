@@ -1,0 +1,89 @@
+{
+  "command": [
+    "scripts/splicebert/export_gtex_sparse_transcoder_sequence_package.py",
+    "--preflight",
+    "results/splicebert_gtex_finetune_shift/native_biological_features_preflight_v1.json",
+    "--discovery",
+    "results/splicebert_gtex_finetune_shift/native_biological_features_discovery_v1.json",
+    "--basic-gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+    "--comprehensive-gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+    "--fasta",
+    "/Users/cberg/Research/data/genomes/hg38.fa",
+    "--out",
+    "results/splicebert_gtex_finetune_shift/sparse_transcoder_sequence_package_v1.json"
+  ],
+  "config": {
+    "cohort_namespace": "gtex-native-biological-features-v1",
+    "n_examples": 128,
+    "n_states": 7991,
+    "partition": "discovery"
+  },
+  "created_at_utc": "2026-07-30T01:24:12.273431+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 33508,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_gtex_finetune_shift:sparse_sequence_package_v1",
+  "git_commit": "523f69f65d9d5bd8599e28d273a675043eacdd86",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/studies/splicebert_gtex_finetune_shift/PREREGISTRATION_NATIVE_BIOLOGICAL_FEATURES_V1.md",
+      "sha256": "24322a133a9b48f64bf37ba44481ea3ac6f6f29446448d4e0b47f34c1c38c429",
+      "size_bytes": 23581
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/studies/splicebert_gtex_finetune_shift/IMPLEMENTATION_ADDENDUM_SPARSE_TRANSCODER_V1.md",
+      "sha256": "7359ca3341eaa1a4ba1316ff8171ab147e3e2a38a9f25934c85d3ed80daf50cd",
+      "size_bytes": 6974
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_biological_features_preflight_v1.json",
+      "sha256": "cd67f36532e248607ef8f277fecab4a49c7c97dd30aed9a0dab06f287f56bfe8",
+      "size_bytes": 143017
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_biological_features_discovery_v1.json",
+      "sha256": "11b0106aabff1e921c6f009aaec83157a8da8d7f5121d746df7c65f77e74c3c3",
+      "size_bytes": 36723523
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+      "sha256": "83fba3e9b03f0b8c958f3595c6c350adc55f468abf8b0e47b6d5284cfe13a453",
+      "size_bytes": 124527720
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/scripts/splicebert/export_gtex_sparse_transcoder_sequence_package.py",
+      "sha256": "bfbdc172e9c86016450037ae83f65029f9545fa035fc1e5a95466c77d560b5a7",
+      "size_bytes": 16586
+    }
+  ],
+  "notes": [
+    "The discovery JSON container was parsed, but only the frozen cohort identity and annotation subtree affected output.",
+    "No classifier outcome, candidate rank, descriptor, or external assay value is present in the package.",
+    "Activation capture independently re-hashes all bound sources."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/sparse_transcoder_sequence_package_v1.json",
+      "sha256": "e2feec266f8555eadef89f7cedd21014b8f7abedfb876b4df241b9c8f119e4a2",
+      "size_bytes": 14078627
+    }
+  ],
+  "seeds": {},
+  "status": "INSTRUMENT"
+}

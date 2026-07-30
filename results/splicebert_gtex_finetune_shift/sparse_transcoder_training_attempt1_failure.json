@@ -1,0 +1,43 @@
+{
+  "experiment": "splicebert_gtex_finetune_shift:sparse_transcoder_training_v1",
+  "attempt": 1,
+  "status": "INSTRUMENT_FAILURE",
+  "created_at_utc": "2026-07-30T01:49:03Z",
+  "git_commit": "fa1178d58fc2e9f5986ee886d2686904427b79a6",
+  "stage_reached": "first primary dictionary fit, post-fit BatchTopK threshold diagnostic",
+  "scientific_outcome_available": false,
+  "error_type": "RuntimeError",
+  "error": "cannot calibrate inactive block 2020:shared",
+  "diagnosis": "The tuned 2020 shared block contained no positive score after the first fit. The runner treated its full-training BatchTopK threshold as mandatory even though frozen inference uses per-row TopK and the implementation addendum declares stored BatchTopK thresholds diagnostic.",
+  "resolution": "Preserve this attempt; record inactive diagnostic blocks with a null threshold and allow the preregistered reconstruction, permutation, stability, and native-head gates to determine whether a setting passes.",
+  "command": [
+    "scripts/splicebert/run_gtex_sparse_transcoder_training.py",
+    "--activation-artifact",
+    "results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.json",
+    "--native-unit-artifact",
+    "results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_evaluation_v1.json",
+    "--device",
+    "mps",
+    "--batch",
+    "256",
+    "--epochs",
+    "60",
+    "--patience",
+    "8",
+    "--learning-rate",
+    "0.001",
+    "--model-out",
+    "results/splicebert_gtex_finetune_shift/sparse_transcoder_training_v1.pt",
+    "--out",
+    "results/splicebert_gtex_finetune_shift/sparse_transcoder_training_v1.json"
+  ],
+  "inputs": {
+    "activation_artifact_sha256": "142ce4ee5976970b9b296685ef403cce30e56f440a87d7222a1933fe09d96b5b",
+    "activation_arrays_sha256": "fa6c972f4765d5c57354abeb262b3e62d6ac3ff8c69e5850a1511c7cf054d559",
+    "native_unit_artifact_sha256": "aef33989f8a44a4dc038acc2ea463ca74f9329f928d6d3787123c960576f1bb1"
+  },
+  "code": {
+    "src/gfmcd/circuits/multiview_transcoder.py": "39dc6c591ab9a476b8fb5358932ae5273e90bf356dca16e3666c0d135724f154",
+    "scripts/splicebert/run_gtex_sparse_transcoder_training.py": "e9b19520ef1fffc1f3903a1b767ba374230e2aea23da242c7a5680cdd5db34dd"
+  }
+}

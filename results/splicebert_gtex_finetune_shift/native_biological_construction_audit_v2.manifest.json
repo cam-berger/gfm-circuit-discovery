@@ -1,0 +1,71 @@
+{
+  "command": [
+    "scripts/splicebert/run_gtex_native_biological_construction_audit.py",
+    "--discovery",
+    "results/splicebert_gtex_finetune_shift/native_biological_features_discovery_v1.json",
+    "--basic-gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+    "--comprehensive-gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+    "--fasta",
+    "/Users/cberg/Research/data/genomes/hg38.fa",
+    "--rbns-psams",
+    "data/external/sam_rbns_psams",
+    "--out",
+    "results/splicebert_gtex_finetune_shift/native_biological_construction_audit_v2.json"
+  ],
+  "config": {
+    "beam_size": 256,
+    "max_abs_maxent_delta": 1.0,
+    "max_changed_bases": 4,
+    "min_changed_bases": 1,
+    "min_discovery_examples": 40,
+    "min_discovery_genes": 30,
+    "no_new_competitive_site": true
+  },
+  "created_at_utc": "2026-07-30T01:02:20.962423+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 28143,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "gtex-native-biological-construction-audit-v2",
+  "git_commit": "3b7c70a6d41bf70f113a42570cbb4c607228319d",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_biological_features_discovery_v1.json",
+      "sha256": "11b0106aabff1e921c6f009aaec83157a8da8d7f5121d746df7c65f77e74c3c3",
+      "size_bytes": 36723523
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+      "sha256": "83fba3e9b03f0b8c958f3595c6c350adc55f468abf8b0e47b6d5284cfe13a453",
+      "size_bytes": 124527720
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    }
+  ],
+  "notes": [
+    "No model was loaded and no candidate was reselected.",
+    "The immutable v1 construction failure remains recorded."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_biological_construction_audit_v2.json",
+      "sha256": "1cb6ca1f9b7e1f6db29eaaf276f9bef360a53e983fc968f7683bf0f574284724",
+      "size_bytes": 3999121
+    }
+  ],
+  "seeds": {},
+  "status": "COMPLETE"
+}

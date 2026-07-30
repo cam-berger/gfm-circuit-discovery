@@ -1,0 +1,104 @@
+{
+  "command": [
+    "scripts/splicebert/run_gtex_native_mechanism_discovery.py",
+    "--preflight",
+    "results/splicebert_gtex_finetune_shift/native_mechanism_preflight_v1.json",
+    "--base-model",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+    "--checkpoint",
+    "data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2020.pt",
+    "--gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+    "--fasta",
+    "/Users/cberg/Research/data/genomes/hg38.fa",
+    "--batch",
+    "4",
+    "--device",
+    "mps",
+    "--out",
+    "results/splicebert_gtex_finetune_shift/native_mechanism_discovery_v1.json"
+  ],
+  "config": {
+    "batch_size": 4,
+    "candidate_rule": {
+      "both_ci_low_above_zero": true,
+      "both_q_bh_32_tests_at_most": 0.1,
+      "max_candidates": 3,
+      "min_damage_and_recovery": 0.05,
+      "rank": "descending min(damage,recovery), head index tie-break"
+    },
+    "cohort_tag": "gtex-native-mechanism-discovery-v1",
+    "final_layer": 5,
+    "heads_scanned": 16,
+    "n": 128,
+    "n_boot": 5000,
+    "n_perm": 9999,
+    "split": "train"
+  },
+  "created_at_utc": "2026-07-29T13:39:07.081785+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 94483,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_gtex_finetune_shift:native_mechanism_discovery_v1",
+  "git_commit": "059a620d4e7dec4d30347a9aa9874404c3c6e491",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/studies/splicebert_gtex_finetune_shift/PREREGISTRATION_NATIVE_MECHANISM_V1.md",
+      "sha256": "57e5a0b12343e8af4bc55e0185e5f143e93374d5b75f98f42a6392c93e99c696",
+      "size_bytes": 14295
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_mechanism_preflight_v1.json",
+      "sha256": "1e938915eae43912465656f2f5f16cc68cef35cd2f972d30bae845a0fc8a0d8b",
+      "size_bytes": 5240
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/config.json",
+      "sha256": "51ea51e42951f18cc1d3455d7111fe0a41cebad476ba8314afc161a0e956303e",
+      "size_bytes": 685
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2020.pt",
+      "sha256": "2552486a0870e2466a223fcce34f0477c40526a09172622619f0d1672a1af45e",
+      "size_bytes": 77835365
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    }
+  ],
+  "notes": [
+    "All 16 final-layer heads were scanned without outcome filtering.",
+    "Noising and denoising patch only one head context at the donor token.",
+    "The whole MLP is a separate intervention-size family.",
+    "Candidate and equal-size control identities are frozen before validation."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_mechanism_discovery_v1.json",
+      "sha256": "7b284324714ac89db0e8c55642a83c3ca6d7998b7aa770cf2966f3b4b79f88e1",
+      "size_bytes": 293568
+    }
+  ],
+  "seeds": {
+    "bootstrap_base": 2020,
+    "checkpoint": 2020,
+    "mlp_inference_base": 40000
+  },
+  "status": "EXPLORATORY"
+}

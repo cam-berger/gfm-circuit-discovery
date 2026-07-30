@@ -1,0 +1,145 @@
+{
+  "command": [
+    "scripts/splicebert/run_gtex_native_context_head_census_discovery.py",
+    "--mechanism-preflight",
+    "results/splicebert_gtex_finetune_shift/native_mechanism_preflight_v1.json",
+    "--mechanism-discovery",
+    "results/splicebert_gtex_finetune_shift/native_mechanism_discovery_v1.json",
+    "--context-preflight",
+    "results/splicebert_gtex_finetune_shift/native_context_preflight_v1.json",
+    "--context-discovery",
+    "results/splicebert_gtex_finetune_shift/native_context_discovery_v1.json",
+    "--context-audit",
+    "results/splicebert_gtex_finetune_shift/native_context_confirmation_audit_v1.json",
+    "--component-bridge",
+    "results/splicebert_gtex_finetune_shift/native_context_component_bridge_v1.json",
+    "--base-model",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+    "--checkpoint",
+    "data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2020.pt",
+    "--gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+    "--fasta",
+    "/Users/cberg/Research/data/genomes/hg38.fa",
+    "--batch",
+    "4",
+    "--device",
+    "mps",
+    "--out",
+    "results/splicebert_gtex_finetune_shift/native_context_head_census_discovery_v1.json"
+  ],
+  "config": {
+    "batch": 4,
+    "candidate_rule": {
+      "both_ci_low_above_zero": true,
+      "both_q_bh_64_tests_at_most": 0.1,
+      "max_candidates_per_endpoint": 3,
+      "min_damage_and_recovery": 0.05,
+      "rank": "descending min(damage,recovery), head index tie-break"
+    },
+    "cohort_namespace": "gtex-native-context-head-census-v1",
+    "cohort_tag": "gtex-native-context-head-census-discovery-v1",
+    "device": "mps",
+    "heads_scanned": 16,
+    "multiplicity_family": 64,
+    "n": 128,
+    "n_boot": 5000,
+    "n_perm": 9999,
+    "split": "train gene-hash discovery"
+  },
+  "created_at_utc": "2026-07-29T16:25:59.329828+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 5461,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_gtex_finetune_shift:native_context_head_census_discovery_v1",
+  "git_commit": "635a8cbc4e50db59444c95e26e3dd3f9242910c7",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/studies/splicebert_gtex_finetune_shift/PREREGISTRATION_NATIVE_CONTEXT_HEAD_CENSUS_V1.md",
+      "sha256": "dc4b7531ac696ccb177a7373c6911802d483118ea94021117906543fadcbcd7a",
+      "size_bytes": 7243
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_mechanism_preflight_v1.json",
+      "sha256": "1e938915eae43912465656f2f5f16cc68cef35cd2f972d30bae845a0fc8a0d8b",
+      "size_bytes": 5240
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_mechanism_discovery_v1.json",
+      "sha256": "7b284324714ac89db0e8c55642a83c3ca6d7998b7aa770cf2966f3b4b79f88e1",
+      "size_bytes": 293568
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_preflight_v1.json",
+      "sha256": "cdf85be1034265e81eb4d92fce6b2315c02946185d47f548d836e8ada30487dd",
+      "size_bytes": 47512
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_discovery_v1.json",
+      "sha256": "4878db7b2166c1071df2f677502b2cadc362d508004ec55ce7a4e13256b5ca97",
+      "size_bytes": 1454212
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_confirmation_audit_v1.json",
+      "sha256": "756f0ff63dc2e924573b65582d200fc33626583530d0893a83d0f99659b00841",
+      "size_bytes": 3832
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_component_bridge_v1.json",
+      "sha256": "23fe1117b6294eef98a1e0cac6219defa00c8b8296cee1626a216e57f0b8b659",
+      "size_bytes": 504283
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/config.json",
+      "sha256": "51ea51e42951f18cc1d3455d7111fe0a41cebad476ba8314afc161a0e956303e",
+      "size_bytes": 685
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/tokenizer.json",
+      "sha256": "b380c8c93ba20313c0c0239b8c70f0c67253028ca76cfda4f55b46049abe4fa3",
+      "size_bytes": 2792
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2020.pt",
+      "sha256": "2552486a0870e2466a223fcce34f0477c40526a09172622619f0d1672a1af45e",
+      "size_bytes": 77835365
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    }
+  ],
+  "notes": [
+    "All 16 layer-5 heads were scanned for both endpoints and directions.",
+    "Prior train-exposed genes and all validation/test chromosomes were excluded.",
+    "Candidate and equal-size control identities are frozen before confirmation.",
+    "The fresh split is analysis-sealed, not claimed absent from checkpoint training."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_head_census_discovery_v1.json",
+      "sha256": "7005ac25cde6273c79d79123d1278da3dd9acbf726b6b1402382ed2ec8bcd385",
+      "size_bytes": 742928
+    }
+  ],
+  "seeds": {
+    "checkpoint": 2020,
+    "summary_base": 200000
+  },
+  "status": "EXPLORATORY"
+}

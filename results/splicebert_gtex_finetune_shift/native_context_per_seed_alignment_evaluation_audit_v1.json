@@ -1,0 +1,43 @@
+{
+  "all_corrected_gates_pass": true,
+  "corrected_decision": {
+    "acceptor": {
+      "aligned_effect_and_random_gate": true,
+      "aligned_instance_vector_transport": true,
+      "aligned_minus_raw_gate": true,
+      "cross_seed_decision_rank": 4,
+      "own_basis_gate": true,
+      "rotated_shared_lowrank_code": true
+    },
+    "donor": {
+      "aligned_effect_and_random_gate": true,
+      "aligned_instance_vector_transport": true,
+      "aligned_minus_raw_gate": true,
+      "cross_seed_decision_rank": 4,
+      "own_basis_gate": true,
+      "rotated_shared_lowrank_code": true
+    }
+  },
+  "original_decision": {
+    "acceptor": {
+      "aligned_instance_vector_transport": true,
+      "compact_within_checkpoint": true,
+      "minimal_rank_at_most_16_reaching_50pct": 1,
+      "minimal_tested_rank_through_64_reaching_50pct": 1,
+      "rotated_shared_lowrank_code": false
+    },
+    "donor": {
+      "aligned_instance_vector_transport": true,
+      "compact_within_checkpoint": true,
+      "minimal_rank_at_most_16_reaching_50pct": 1,
+      "minimal_tested_rank_through_64_reaching_50pct": 1,
+      "rotated_shared_lowrank_code": false
+    }
+  },
+  "protocol": "studies/splicebert_gtex_finetune_shift/PREREGISTRATION_NATIVE_CONTEXT_PER_SEED_ALIGNMENT_V1.md",
+  "scope": "Applies frozen rank-4 decision gates to existing recorded summaries; does not recompute or alter any outcome.",
+  "source_result": "results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_evaluation_v1.json",
+  "stage": "post-outcome summary-verdict correction audit",
+  "status": "PASS",
+  "study": "native GTEx per-seed final-MLP alignment"
+}

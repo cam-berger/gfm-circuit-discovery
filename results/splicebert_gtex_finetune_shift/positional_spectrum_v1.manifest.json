@@ -1,0 +1,138 @@
+{
+  "command": [
+    "scripts/splicebert/run_gtex_positional_spectrum.py",
+    "--base-weights",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+    "--checkpoint-dir",
+    "data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights",
+    "--out",
+    "results/splicebert_gtex_finetune_shift/positional_spectrum_v1.json"
+  ],
+  "config": {
+    "continuous_specs": {
+      "period10": {
+        "nominated_period": 10.652435732380217,
+        "period_high": 10.9,
+        "period_low": 10.4,
+        "step": 0.001
+      },
+      "period3": {
+        "nominated_period": 3.0,
+        "period_high": 3.05,
+        "period_low": 2.95,
+        "step": 0.001
+      }
+    },
+    "named_bands": {
+      "period10": [
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100
+      ],
+      "period3": [
+        339,
+        340,
+        341,
+        342,
+        343,
+        344,
+        345
+      ]
+    },
+    "period6_exclusion": [
+      168,
+      169,
+      170,
+      171,
+      172,
+      173,
+      174
+    ],
+    "protocol_sha256": "108020ddd704f56d7be05d4875ab744d738cec5b1ab1a9a68e8359e61339c72d",
+    "scan": {
+      "start_max": 507,
+      "start_min": 3,
+      "width": 7
+    }
+  },
+  "created_at_utc": "2026-07-30T12:43:53.964292+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 58324,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "gtex-positional-spectrum-v1",
+  "git_commit": "b4f2af071394886e412d35b01b2c5d28d3fffe4b",
+  "git_dirty": false,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/studies/splicebert_gtex_finetune_shift/PREREGISTRATION_POSITIONAL_SPECTRUM_V1.md",
+      "sha256": "108020ddd704f56d7be05d4875ab744d738cec5b1ab1a9a68e8359e61339c72d",
+      "size_bytes": 10297
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/phase-lattice/carrier_subbin.json",
+      "sha256": "8a79ff0ba261020a439fc54797679a24382dcf0254f055b4450efd96c29bf7fb",
+      "size_bytes": 2135
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/phase-lattice/carrier_geometry.json",
+      "sha256": "2a46ebffc44b82f625adeba0ea0ff2bdada6a0ff8e8cb1233e8c3d678db248ef",
+      "size_bytes": 429
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/phase-lattice/fig_phase_data.json",
+      "sha256": "91d7f51e113fecd7d8972d6b3a1f87278de9c3efe22fbc600f82e9584ebe9316",
+      "size_bytes": 79577
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2020.pt",
+      "sha256": "2552486a0870e2466a223fcce34f0477c40526a09172622619f0d1672a1af45e",
+      "size_bytes": 77835365
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2021.pt",
+      "sha256": "2cb06d2a17d941857485329604d526b465eabda319632c932000b85d8d40cda6",
+      "size_bytes": 77835365
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2022.pt",
+      "sha256": "556e38c92319ce87fb15ca390743ae20c539f4c5400c4cca82a83cdf3d46bd0a",
+      "size_bytes": 77835365
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2023.pt",
+      "sha256": "03c25882ae3e4b48198265bf8447ef543308e40ec9fd700b4834d829dcb6100b",
+      "size_bytes": 77835365
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2024.pt",
+      "sha256": "d1caccec4db1784537178e355351a3e0b67cde4e70185bf6b6a6d63f792198f1",
+      "size_bytes": 77835365
+    }
+  ],
+  "notes": [],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/positional_spectrum_v1.json",
+      "sha256": "91981d09b9edf254046fc116010c4bd0e7394ffbf8f03046a374961aa5e4fdc9",
+      "size_bytes": 608093
+    }
+  ],
+  "seeds": {
+    "rotation": 161803,
+    "row_permutation": 314159,
+    "synthetic": 271828
+  },
+  "status": "COMPLETE"
+}
