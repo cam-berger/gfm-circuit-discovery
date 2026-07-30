@@ -300,8 +300,9 @@ def train_one(
     patience: int,
     auxk_repair: bool = False,
     capacity_repair: bool = False,
+    initialization_seed: int = INITIALIZATION_SEED,
 ) -> tuple[JacobianSAEPair, dict[str, Any]]:
-    torch.manual_seed(INITIALIZATION_SEED)
+    torch.manual_seed(initialization_seed)
     model = build_pair(
         weights,
         inputs[train_indices],
@@ -339,7 +340,7 @@ def train_one(
         order = gene_balanced_epoch(
             train_indices,
             genes,
-            seed=INITIALIZATION_SEED + 10_000 * epoch,
+            seed=initialization_seed + 10_000 * epoch,
         )
         epoch_losses = []
         epoch_reconstruction = []
@@ -473,6 +474,7 @@ def train_one(
         "dead_steps_threshold": (
             dead_steps_threshold if auxk_repair else None
         ),
+        "initialization_seed": initialization_seed,
     }
 
 
