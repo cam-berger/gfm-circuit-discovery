@@ -102,6 +102,37 @@ def replace_band(
     return values - band_component(values, bins) + band_component(source_values, bins)
 
 
+def scale_band(
+    table: np.ndarray,
+    bins: Sequence[int],
+    scale: float,
+) -> np.ndarray:
+    """Scale one mean-zero Fourier component without changing other bins."""
+
+    values = validate_table(table)
+    if not np.isfinite(scale):
+        raise ValueError("scale must be finite")
+    return values + (float(scale) - 1.0) * band_component(values, bins)
+
+
+def phase_rotate_band(
+    table: np.ndarray,
+    bins: Sequence[int],
+    phases: Sequence[float],
+) -> np.ndarray:
+    """Rotate nominated rFFT coefficients while preserving their magnitudes."""
+
+    values = validate_table(table)
+    selected = _validated_bins(bins, values.shape[0])
+    angles = np.asarray(phases, dtype=np.float64)
+    if angles.shape != (len(selected),) or not np.isfinite(angles).all():
+        raise ValueError("phases must be one finite angle per selected bin")
+    mean = values.mean(axis=0, keepdims=True)
+    spectrum = np.fft.rfft(values - mean, axis=0)
+    spectrum[list(selected)] *= np.exp(1j * angles[:, None])
+    return mean + np.fft.irfft(spectrum, n=values.shape[0], axis=0)
+
+
 def band_coefficient_matrix(table: np.ndarray, bins: Sequence[int]) -> np.ndarray:
     """Stack real and imaginary coefficient vectors for hidden-space geometry."""
 
@@ -520,9 +551,11 @@ __all__ = [
     "dominant_subspace_comparison",
     "exact_signflip_pvalue",
     "parseval_relative_error",
+    "phase_rotate_band",
     "power_spectrum",
     "reconstruction_cosine",
     "replace_band",
+    "scale_band",
     "scan_windows",
     "select_power_matched_controls",
     "select_scan_candidates",

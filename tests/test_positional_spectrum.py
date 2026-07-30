@@ -10,7 +10,9 @@ from gfmcd.splicing.positional_spectrum import (
     exact_signflip_pvalue,
     parseval_relative_error,
     power_spectrum,
+    phase_rotate_band,
     replace_band,
+    scale_band,
     scan_windows,
     select_power_matched_controls,
     select_scan_candidates,
@@ -106,6 +108,28 @@ def test_power_matched_controls_respect_protected_and_nonoverlap():
 def test_band_coefficient_matrix_has_real_imag_rows():
     matrix = band_coefficient_matrix(_tone_table(), (21, 22, 23))
     assert matrix.shape == (6, 8)
+
+
+def test_phase_rotation_preserves_power_and_matches_deletion_dose_at_sixty_degrees():
+    rng = np.random.default_rng(19)
+    table = rng.normal(size=(66, 8))
+    bins = (10, 11, 12)
+    deleted = scale_band(table, bins, 0.0)
+    rotated = phase_rotate_band(
+        table,
+        bins,
+        (np.pi / 3, -np.pi / 3, np.pi / 3),
+    )
+    original_power = power_spectrum(table)
+    rotated_power = power_spectrum(rotated)
+    assert rotated_power[list(bins)] == pytest.approx(original_power[list(bins)])
+    assert np.linalg.norm(rotated - table) == pytest.approx(
+        np.linalg.norm(deleted - table),
+        rel=1e-12,
+    )
+    outside = np.ones(len(original_power), dtype=bool)
+    outside[list(bins)] = False
+    assert rotated_power[outside] == pytest.approx(original_power[outside])
 
 
 def test_dominant_subspace_comparison_ignores_orthogonal_low_energy_tail():
