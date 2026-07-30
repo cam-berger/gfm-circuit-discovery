@@ -435,6 +435,66 @@ Artifacts: `promoter_region_density_confirmation_v1.json`, `promoter_region_dens
 `promoter_alibi_reach_analysis_v1.json`.
 Protocol: `PREREGISTRATION_D15_ATTENTION_CAUSALITY_DISSOCIATION.md` (Amendment 1, pre-outcome).
 
+**D16 — fine-tuning built exactly one reader and left the readout layer's attention geometry
+untouched.** The study's **first measurement on two checkpoints**. D1–D3 used base
+`zhihan1996/DNABERT-2-117M`, D4–D15 used `magicslabnu/DNABERT-2-finetuned-prom_300_all`, and no prior
+script loaded both — so nothing in the record was a before/after of anything. This is descriptive
+(attention only) on all 384 `promoter_source_localization_v1` loci.
+
+The comparison is licensed because the two checkpoints tokenize **identically**: 0 `input_id`
+mismatches and 0 offset mismatches over all 768 cohort sequences (M1). The BPE offsets, the
+nucleotide-band allocation and the ALiBi-only prior are therefore common to both models and cancel in
+every difference below.
+
+**Frozen §4 verdict: ALREADY AT PRIOR.** The carriers were pinned to the positional prior *before*
+fine-tuning, and stayed there:
+
+| head | base excess `far_up` | fine-tuned excess `far_up` | Δ | threshold |
+|---|---:|---:|---:|---:|
+| L11H2 | +0.0256 | +0.0463 | +0.0206 | 0.10 |
+| L11H5 | +0.0141 | +0.0318 | +0.0178 | 0.10 |
+
+Across all 144 heads the `[CLS]` attention geometry is largely preserved: Pearson correlation of
+per-head excess `far_upstream` between checkpoints is **0.951**, mean |Δ| is 0.062 against a mean
+|excess| of 0.34. **No layer-11 head moved into the TSS-proximal bands** (largest is L11H3 at
++0.0130). There is no population-wide drift off the attention-sink tokens (mean Δ`special` +0.0215,
+62/144 decreasing — a coin flip).
+
+**The one large change: L9H7 converted from an attention sink into a TSS reader.** Raw `[CLS]` mass:
+
+| band | base | fine-tuned |
+|---|---:|---:|
+| `special` (`[CLS]`/`[SEP]`) | **0.3759** | **0.0038** |
+| `far_upstream` | 0.3757 | 0.1450 |
+| **`proximal_upstream`** | **0.1005** | **0.5495** |
+| `tss_anchor` | 0.0112 | 0.0651 |
+| `proximal_downstream` | 0.0236 | 0.1035 |
+
+Summed TSS-proximal excess moves from **−0.055 to +0.528 (Δ +0.583)**. The next-largest such shift in
+the whole model is L10H5 at **+0.043 — 14× smaller** — so this is a singleton, not a trend. The other
+large movers (L9H10, L6H1, L5H1, L8H1, L9H0) are pure `special ↔ far_upstream` rebalances with
+TSS-proximal shifts of 0.0000 to four decimals.
+
+D16 licenses: **fine-tuning this checkpoint for promoter classification did not redistribute `[CLS]`
+attention. It converted a single mid-network attention-sink head (L9H7) into a TSS-proximal reader and
+left the readout layer's attention essentially as pretraining had it.** Read together with D15 — where
+L9H7 contributes ~19× less to the decision than the two unchanged, positionally-pinned carriers — the
+reader fine-tuning built is not the component that carries the decision.
+
+**Bounds.** (i) **Descriptive only** — attention, not behaviour, not causation; nothing here shows a
+changed head caused a changed output. (ii) **Attention mass is not information transfer**; a head at
+its positional prior can still move information. (iii) **This does not fill the behavioural
+before/after.** The base model has no promoter readout, so D15's endpoint has no base-model
+counterpart; that comparison was **retired at design** (see `DECISIONS.md`, 2026-07-29) because every
+affordable base-model readout is either non-functional (`[CLS]` is not read by an MLM) or
+distance-confounded. (iv) `[CLS]`-row only. (v) Verification: the prior recomputes against D15's
+artifact to 4.27e-07, and D16's fine-tuned excesses reproduce D15's — measured on a **different
+cohort** through a different code path — to within 0.01; batch invariance is exactly 0.0.
+
+Artifacts: `promoter_finetuning_attention_shift_v1.json`,
+`promoter_finetuning_attention_shift_smoke_v1.json`.
+Protocol: `PREREGISTRATION_D16_FINETUNING_ATTENTION_SHIFT.md`.
+
 ## Established infrastructure facts
 
 These are implementation properties and prior instrument constraints, not claims about biological

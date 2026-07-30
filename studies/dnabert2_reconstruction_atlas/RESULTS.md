@@ -507,6 +507,40 @@ E_band's point estimate is negative, masking the whole band costs +0.8168 agains
 low-density rather than unimportant, and dose-30 masking is a different regime. No mediation is shown;
 attention and behaviour come from different cohorts; "relay" remains an inference with no path patched.
 
+### D16 — did fine-tuning move the attention, or only the readout?
+
+Protocol `PREREGISTRATION_D16_FINETUNING_ATTENTION_SHIFT.md`, frozen before any base-model number was
+read. The study's first measurement on **both** checkpoints; all 384 source-localization loci,
+`[CLS]`-row attention band mass for all 144 heads, minus the common ALiBi-only prior.
+
+Memorials: **M1 runtime tokenization identity — 0 `input_id` mismatches and 0 offset mismatches over
+768 sequences** (load-bearing: without it the band allocation would differ between models); M2 batch
+invariance **0.0**; M5 base checkpoint has a complete MLM head and no learned position table; M4
+band-mass normalisation flagged architecture-forced. M3 (reported, not gated) reproduces D5's
+committed head-atlas values on a different cohort — L11H2 0.9232 vs 0.9221, L11H5 0.7633 vs 0.7627,
+L9H7 0.1450 vs 0.1248, L4H7 0.0442 vs 0.0449.
+
+**Frozen verdict: ALREADY AT PRIOR.** L11H2 base excess +0.0256 → +0.0463; L11H5 +0.0141 → +0.0318;
+both far under the 0.10 threshold in the *base* model. Population Pearson between checkpoints
+**0.951**, mean |Δ| 0.062 against mean |excess| 0.34. No layer-11 head moved into the TSS-proximal
+bands (max L11H3 +0.0130).
+
+**L9H7: attention sink → TSS reader.** Raw `[CLS]` mass on `special` collapses 0.3759 → 0.0038 while
+`proximal_upstream` rises 0.1005 → 0.5495; summed TSS-proximal excess −0.055 → +0.528 (Δ +0.583). The
+next largest such shift is L10H5 at +0.043, 14× smaller. Other large movers are pure
+`special ↔ far_upstream` rebalances with TSS-proximal shifts of 0.0000 to four decimals.
+
+Verification: prior recomputes against the D15 artifact to 4.27e-07; D16's fine-tuned excesses match
+D15's cross-cohort values to within 0.01.
+
+**Bounds.** Descriptive only — attention, not behaviour, not causation. Attention mass is not
+information transfer. The behavioural before/after was **retired at design**: the base model has no
+promoter readout, and every affordable substitute is either non-functional (`[CLS]` is not read by an
+MLM) or distance-confounded (a fixed probe set for MLM pseudo-likelihood is dominated by proximity,
+and the only probe window disjoint from all arms sits adjacent to the signal arm while the
+far-upstream arms are 100–250 nt away, so the contrast would be won by locality rather than promoter
+structure).
+
 ## Infrastructure verification
 
 The test suite verifies coordinate schemas, BPE cover selection, masking, scoring normalization,

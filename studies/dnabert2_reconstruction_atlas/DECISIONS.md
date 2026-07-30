@@ -833,3 +833,51 @@
   an untested inference** — D15 patches no path and identifies no relay position or layer. The next
   bridge is layer-resolved path patching on a cohort where attention and behaviour are measured on
   the *same* loci.
+
+## 2026-07-29 — D16: the study's first two-checkpoint measurement, and one design retired
+
+- Prompted by a question the record could not answer: *what changed when the model was fine-tuned?*
+  Checking rather than answering revealed the study has **no before/after measurement of anything**.
+  D1–D3 used base `zhihan1996/DNABERT-2-117M`; D4–D15 used the fine-tuned `prom_300_all`; **no script
+  loads both**, and the two arcs measure different quantities (MLM nats per nucleotide vs classifier
+  logit margin). Stating that plainly was more useful than filling the blank from the adjacent D3
+  promoter result, which is a different metric on a different head.
+- The prereg's §4 interpretation rule was **frozen before any base-model number was read**, with the
+  0.10 threshold justified in advance (L9H7's +0.401 is the scale of real content-driven selection;
+  D15's carriers sit at 0.03–0.05, so 0.10 lies between "at prior" and "really selecting"). This
+  mattered: the outcome is the one the rule labels ALREADY_AT_PRIOR, and picking the threshold
+  afterwards would have made that unfalsifiable.
+- The comparison's validity rests on **M1**, a runtime check rather than a spec comparison: both
+  checkpoints tokenize the actual cohort identically — **0 `input_id` mismatches and 0 offset
+  mismatches over 768 sequences**. Without it the band allocation and the ALiBi prior would differ
+  between models and every difference reported would be an artifact. (`verify_tokenizer_equivalence`
+  already gates the classifier load at `promoter_classifier.py:191`, but that compares tokenizer
+  *specifications*; M1 compares outputs on the data actually used.)
+- Result: **fine-tuning did not redistribute `[CLS]` attention.** Carriers L11H2/L11H5 were already at
+  the positional prior in the *base* model (+0.0256/+0.0141) and stayed there (+0.0463/+0.0318);
+  population Pearson between checkpoints is 0.951; no layer-11 head moved into the TSS-proximal bands.
+  The single large change is **L9H7 converting from an attention sink into a TSS reader** — `special`
+  mass 0.3759 → 0.0038, `proximal_upstream` 0.1005 → 0.5495, summed TSS-proximal excess −0.055 →
+  +0.528. The next-largest such shift is 14× smaller, so this is a singleton, not a trend.
+- Read with D15 this is the interesting part: the one reader fine-tuning built contributes **~19× less**
+  to the decision than the two positionally-pinned carriers it did not touch.
+- Independent verification: the ALiBi prior recomputes against D15's committed artifact to 4.27e-07;
+  D16's fine-tuned excesses reproduce D15's — a **different cohort through a different code path** — to
+  within 0.01; batch invariance is exactly 0.0; and the capture reproduces D5's committed head-atlas
+  values (L11H2 0.9232 vs 0.9221, L11H5 0.7633 vs 0.7627). Four independent agreements.
+- **Second experiment retired at design, not run.** The intended companion was the behavioural
+  before/after: run D15's span-mask arms on the base model. It is **not identifiable at affordable
+  cost**, for a reason worth recording so it is not re-attempted:
+  - the base model has **no promoter readout**, so D15's margin endpoint has no counterpart;
+  - `‖Δ[CLS]‖` is available but `[CLS]` is **not functionally read by an MLM** — it measures an
+    incidental representation;
+  - the functional MLM analogue (pseudo-likelihood of the sequence outside the masked region) is
+    **distance-confounded**: PLL at a fixed probe set is dominated by proximity, and the only probe
+    window disjoint from every arm (+31:+51) sits *adjacent* to the signal arm (−9:+31) while the
+    far-upstream arms are 100–250 nt away. The S-vs-F contrast would be won by locality, not by
+    promoter structure. Arm-specific probes break comparability across arms.
+  Same class of call as retiring D13 unrun and deferring P3.4 in the sibling study: the blocker is
+  scientific, not engineering. A real behavioural before/after needs a base-model readout that is
+  position-symmetric, and none was available here.
+- Effect: new `PREREGISTRATION_D16_FINETUNING_ATTENTION_SHIFT.md`; new D16 entry in `CLAIMS.md`;
+  `RESULTS.md` detail; new runner `compare_base_finetuned_attention.py`.
