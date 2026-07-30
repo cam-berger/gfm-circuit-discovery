@@ -515,7 +515,32 @@ def main() -> None:
         for target in targets
         if seed_controls[target["name"]] is None
     ]
-    surgery_authorized = not missing_controls
+    stopped_targets = [
+        {
+            **target,
+            "missing_control_seeds": [
+                seed
+                for seed, seed_controls in controls.items()
+                if seed_controls[target["name"]] is None
+            ],
+        }
+        for target in targets
+        if any(
+            seed_controls[target["name"]] is None
+            for seed_controls in controls.values()
+        )
+    ]
+    authorized_targets = [
+        target
+        for target in targets
+        if all(
+            seed_controls[target["name"]] is not None
+            for seed_controls in controls.values()
+        )
+    ]
+    # Preregistration section 6 freezes a target-specific stop, not an
+    # all-or-nothing package stop.  Unavailable controls close only that target.
+    surgery_authorized = bool(authorized_targets)
     family_labels = {
         name: _family_labels(seed_records)
         for name, seed_records in comparisons.items()
@@ -553,10 +578,16 @@ def main() -> None:
         },
         "surgery_package": {
             "authorized": surgery_authorized,
+            "all_targets_authorized": not stopped_targets,
+            "authorized_targets": authorized_targets,
+            "stopped_targets": stopped_targets,
             "target_order": targets,
             "matched_controls_by_seed": controls,
             "missing_control_sets": missing_controls,
             "selection_used_classifier_outputs": False,
+            "authorization_semantics": (
+                "target_specific_stop_per_preregistration_section_6"
+            ),
         },
         "surgery_authorized": surgery_authorized,
         "strongest_claim": (
@@ -572,6 +603,8 @@ def main() -> None:
         "family_labels": family_labels,
         "candidates": candidates,
         "surgery_authorized": surgery_authorized,
+        "authorized_targets": authorized_targets,
+        "stopped_targets": stopped_targets,
         "missing_control_sets": missing_controls,
         "output": str(output),
     }, indent=2, sort_keys=True))
