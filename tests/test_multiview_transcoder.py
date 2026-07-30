@@ -228,6 +228,26 @@ def test_structured_threshold_calibration_supports_batch_independent_eval():
     assert torch.count_nonzero(model.encode("base", inputs["base"])[:, 8:12]) == 0
 
 
+def test_structured_threshold_calibration_records_inactive_diagnostic_blocks():
+    model = make_structured_model()
+    with torch.no_grad():
+        for encoder in model.encoders.values():
+            encoder.weight.zero_()
+            encoder.bias.fill_(-1.0)
+    inputs = {
+        view: torch.zeros(12, 4)
+        for view in model.config.views
+    }
+    audit = model.calibrate_thresholds(inputs)
+    assert audit["2020:shared"] == {
+        "active_positive_entries": 0,
+        "inactive": True,
+        "diagnostic_threshold": None,
+    }
+    model.eval()
+    assert torch.count_nonzero(model.encode("2020", inputs["2020"])) == 0
+
+
 def test_structured_loss_uses_only_shared_and_tuned_consistency_blocks():
     model = make_structured_model()
     inputs = {view: torch.randn(10, 4) for view in model.config.views}

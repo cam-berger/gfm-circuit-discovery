@@ -1,0 +1,53 @@
+{
+  "experiment_id": "splicebert_gtex_finetune_shift:sparse_transcoder_training_v1:attempt1",
+  "status": "INSTRUMENT_FAILURE",
+  "created_at_utc": "2026-07-30T01:49:03Z",
+  "git_commit": "fa1178d58fc2e9f5986ee886d2686904427b79a6",
+  "git_dirty": true,
+  "command": [
+    "scripts/splicebert/run_gtex_sparse_transcoder_training.py",
+    "--activation-artifact",
+    "results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.json",
+    "--native-unit-artifact",
+    "results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_evaluation_v1.json",
+    "--device",
+    "mps",
+    "--batch",
+    "256",
+    "--epochs",
+    "60",
+    "--patience",
+    "8",
+    "--learning-rate",
+    "0.001",
+    "--model-out",
+    "results/splicebert_gtex_finetune_shift/sparse_transcoder_training_v1.pt",
+    "--out",
+    "results/splicebert_gtex_finetune_shift/sparse_transcoder_training_v1.json"
+  ],
+  "inputs": [
+    {
+      "path": "results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.json",
+      "sha256": "142ce4ee5976970b9b296685ef403cce30e56f440a87d7222a1933fe09d96b5b"
+    },
+    {
+      "path": "results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.npz",
+      "sha256": "fa6c972f4765d5c57354abeb262b3e62d6ac3ff8c69e5850a1511c7cf054d559"
+    },
+    {
+      "path": "results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_evaluation_v1.json",
+      "sha256": "aef33989f8a44a4dc038acc2ea463ca74f9329f928d6d3787123c960576f1bb1"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "results/splicebert_gtex_finetune_shift/sparse_transcoder_training_attempt1_failure.json",
+      "size_bytes": 2233,
+      "sha256": "2a2cfffb3847a212c8a067d70ce707ae02dc00a7756e0a2d2649048b64c05c8d"
+    }
+  ],
+  "notes": [
+    "No complete dictionary grid or scientific outcome was produced.",
+    "The failed diagnostic and its resolution are preserved before rerunning."
+  ]
+}

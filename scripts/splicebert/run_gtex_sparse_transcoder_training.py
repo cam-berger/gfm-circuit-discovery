@@ -510,7 +510,7 @@ def train_one(
         )
         for view in VIEWS
     }
-    model.calibrate_thresholds(calibration_inputs)
+    calibration_audit = model.calibrate_thresholds(calibration_inputs)
     metrics, features = evaluate_model(
         model,
         normalized_inputs,
@@ -526,6 +526,12 @@ def train_one(
             "epochs_completed": len(history),
             "training_tail": history[-5:],
             "seed": seed,
+            "batch_topk_threshold_diagnostics": calibration_audit,
+            "inactive_diagnostic_blocks": sorted(
+                key
+                for key, value in calibration_audit.items()
+                if value["inactive"]
+            ),
         }
     )
     return model, metrics, features

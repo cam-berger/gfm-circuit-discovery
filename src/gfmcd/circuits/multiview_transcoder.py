@@ -741,22 +741,29 @@ class StructuredMultiViewSparseTranscoder(nn.Module):
     def calibrate_thresholds(
         self,
         inputs: Mapping[str, torch.Tensor],
-    ) -> None:
+    ) -> dict[str, dict[str, float | int | bool | None]]:
         """Freeze block thresholds to the exact full-training BatchTopK boundary."""
 
         if set(inputs) != set(self.config.views):
             raise ValueError("calibration inputs must contain every view")
+        audit: dict[str, dict[str, float | int | bool | None]] = {}
         for view in self.config.views:
             scores = self.raw_scores(view, inputs[view])
             for block, block_slice, active in self.block_slices(view):
-                _, threshold = batch_topk(scores[:, block_slice], active)
-                if not torch.isfinite(threshold):
-                    raise RuntimeError(
-                        f"cannot calibrate inactive block {view}:{block}"
-                    )
+                selected, threshold = batch_topk(scores[:, block_slice], active)
+                positive_count = int(torch.count_nonzero(selected).cpu())
+                inactive = not bool(torch.isfinite(threshold))
                 self.inference_threshold[view][
                     self._threshold_index(block)
                 ].copy_(threshold)
+                audit[f"{view}:{block}"] = {
+                    "active_positive_entries": positive_count,
+                    "inactive": inactive,
+                    "diagnostic_threshold": (
+                        None if inactive else float(threshold.detach().cpu())
+                    ),
+                }
+        return audit
 
     def decode(
         self,
