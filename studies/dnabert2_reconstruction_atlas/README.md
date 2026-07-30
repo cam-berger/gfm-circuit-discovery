@@ -1,6 +1,9 @@
 # DNABERT-2 Biological Reconstruction Atlas
 
 > **Tier: T2 — provenance.** Study overview. `CLAIMS.md` controls scientific wording.
+>
+> **Reviewing this study? Read [`FINDINGS.md`](FINDINGS.md) instead** — sixteen claims condensed to
+> six findings in two pages. This file is the fuller overview; the ledgers below it are the detail.
 
 ## Question
 
@@ -162,11 +165,21 @@ data. Every result-producing command requires an explicit new output path.
 
 ## Read next
 
-1. [`CLAIMS.md`](CLAIMS.md) — authoritative claim wording and open hypotheses
-2. [`RESULTS.md`](RESULTS.md) — run index and numerical summaries
-3. [`PROTOCOL.md`](PROTOCOL.md) — measurements and phase gates
-4. [`preregistrations/`](preregistrations/README.md) — the seven frozen protocols, D1–D17, with
-   their amendments, retirements, and conformance caveat
-5. [`DECISIONS.md`](DECISIONS.md) — design changes and failed controls
-6. [`DATA_CATALOG.md`](DATA_CATALOG.md) — biological sources
-7. [`archive/LEGACY_DNABERT2_STUDIES.md`](archive/LEGACY_DNABERT2_STUDIES.md) — historical branches
+**Start here — two pages, the whole story.**
+
+- [`FINDINGS.md`](FINDINGS.md) — the sixteen claims decomposed into **six findings**, each with its
+  strongest number and its bound. This is the reviewer entry point.
+
+**Detail, when you want to check a number.**
+
+- [`CLAIMS.md`](CLAIMS.md) — authoritative claim wording, bounds, and open hypotheses
+- [`RESULTS.md`](RESULTS.md) — run index and numerical summaries
+- [`PROTOCOL.md`](PROTOCOL.md) — measurements, phase gates, and stopping rules
+- [`preregistrations/`](preregistrations/README.md) — the seven frozen protocols, with amendments,
+  retirements, and the conformance caveat
+
+**Provenance, when you want to check the process.**
+
+- [`DECISIONS.md`](DECISIONS.md) — running rationale, failed controls, and corrections
+- [`DATA_CATALOG.md`](DATA_CATALOG.md) — biological sources
+- [`archive/LEGACY_DNABERT2_STUDIES.md`](archive/LEGACY_DNABERT2_STUDIES.md) — historical branches
