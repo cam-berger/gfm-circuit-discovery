@@ -41,9 +41,11 @@ REPO = Path(__file__).resolve().parents[1]
 CLAIMS_FILES = [
     REPO / "studies/splicebert_partner_selection/CLAIMS.md",
     REPO / "studies/splicebert_head_context_atlas/CLAIMS.md",
+    REPO / "studies/splicebert_gtex_finetune_shift/CLAIMS.md",
 ]
 CORRECTIONS = REPO / "studies/splicebert_partner_selection/CORRECTIONS.md"
 MANIFEST_CSV = REPO / "results/MANIFEST.csv"
+CLAIM_ID_PATTERN = r"(C\d+|HCA\d+|GFS\d+)"
 
 # IDs cited in prose that legitimately have no standalone defining row.
 CLAIM_ID_EXCEPTIONS = {
@@ -81,7 +83,7 @@ def _defined_claim_ids() -> set[str]:
     ids: set[str] = set()
     for f in CLAIMS_FILES:
         if f.exists():
-            ids |= set(re.findall(r"^\|\s*(C\d+|HCA\d+)\s*\|", f.read_text(), re.M))
+            ids |= set(re.findall(rf"^\|\s*{CLAIM_ID_PATTERN}\s*\|", f.read_text(), re.M))
     return ids
 
 
@@ -111,7 +113,7 @@ def test_every_cited_claim_id_resolves() -> None:
     assert defined, "no claim rows parsed -- the CLAIMS.md row format changed"
     unresolved = {
         cid: files
-        for cid, files in _cited(r"\b(C\d+|HCA\d+)\b").items()
+        for cid, files in _cited(rf"\b{CLAIM_ID_PATTERN}\b").items()
         if cid not in defined and cid not in CLAIM_ID_EXCEPTIONS
     }
     assert not unresolved, "Claim IDs cited but never defined:\n" + "\n".join(
@@ -173,9 +175,31 @@ def test_manifest_claim_ids_resolve() -> None:
     seen: set[str] = set()
     with open(MANIFEST_CSV, newline="") as fh:
         for row in csv.DictReader(fh):
-            seen |= set(re.findall(r"\b(C\d+|HCA\d+)\b", row.get("claim_id") or ""))
+            seen |= set(re.findall(rf"\b{CLAIM_ID_PATTERN}\b", row.get("claim_id") or ""))
     unresolved = sorted(seen - defined - set(CLAIM_ID_EXCEPTIONS))
     assert not unresolved, f"MANIFEST.csv claim_ids with no defining row: {unresolved}"
+
+
+def test_gtex_controlling_artifact_references_exist() -> None:
+    """Every artifact named by a GFS row must resolve without relying on prose inference."""
+    claims = REPO / "studies/splicebert_gtex_finetune_shift/CLAIMS.md"
+    if not claims.exists():
+        pytest.skip("GTEx fine-tuning-shift claim ledger is absent")
+
+    result_root = REPO / "results/splicebert_gtex_finetune_shift"
+    missing: list[str] = []
+    for line in claims.read_text().splitlines():
+        if not re.match(r"^\|\s*GFS\d+\s*\|", line):
+            continue
+        cells = [cell.strip() for cell in line.strip("|").split("|")]
+        assert len(cells) == 5, f"malformed GFS claim row: {line[:100]}"
+        claim_id, controlling = cells[0], cells[3]
+        for raw in re.findall(r"`([^`]+\.(?:json|npz|pt|csv))`", controlling):
+            path = REPO / raw if "/" in raw else result_root / raw
+            if not path.exists():
+                missing.append(f"{claim_id}: {raw}")
+
+    assert not missing, "GFS controlling artifacts are missing:\n  " + "\n  ".join(missing)
 
 
 @pytest.mark.skipif(not MANIFEST_CSV.exists(), reason="MANIFEST.csv not present")

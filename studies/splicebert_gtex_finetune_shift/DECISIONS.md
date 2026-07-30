@@ -194,3 +194,17 @@ The corrected five-seed preflight passes, but target deletion and base-band rest
 by only about `10⁻⁴`, with mixed signs and `q=0.9704`. These gains are therefore parameter-space
 byproducts for this behavior, not the missing classifier mechanism. The named carriers remain
 behaviorally unresolved because their exceptional power prevents the preregistered three-control match.
+
+## 2026-07-30 — correct the native-classifier margin unit label
+
+`NativeClassifierTask.score` computes `logit(class) - logit(no-site)` directly from the released
+three-class head. These effects are raw logit differences. They are not cross-entropy values and therefore
+must be reported as **logit units**, not nats.
+
+The operative GFS7, GFS8, and GFS24 rows and the current study summaries now use `logit units`. No number,
+interval, threshold, polarity, or evidential status changed. Frozen preregistrations are not rewritten.
+
+> Superseded wording preserved: “local `GT` destruction costs `19.1–21.5` nats,” “paired `AG→CC` lowers
+> donor evidence by `+0.646 [0.563,0.733]` nats,” and “local `GT→CC` destruction is
+> `18.93–21.17` nats.” Read each occurrence as the same numerical difference in raw classifier-logit
+> units.

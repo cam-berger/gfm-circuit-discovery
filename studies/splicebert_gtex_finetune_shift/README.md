@@ -6,6 +6,15 @@ This study asks what happens to the established SpliceBERT donor–acceptor coup
 same `SpliceBERT.1024nt` encoder is fine-tuned for three-class splice-site prediction on SpliceAI's GTEx
 dataset. It is a matched-checkpoint transfer study, not a new model or a claim about biological splicing.
 
+## Read this study
+
+- **Start here:** [`FINDINGS.md`](FINDINGS.md) groups GFS1–GFS34 into six current findings.
+- **Exact claim wording:** [`CLAIMS.md`](CLAIMS.md) is the authoritative claim ledger.
+- **Design decisions and preserved stops:** [`DECISIONS.md`](DECISIONS.md).
+- **Run map and provenance:** [`RESULTS.md`](RESULTS.md) and the
+  [result index](../../results/splicebert_gtex_finetune_shift/RESULTS_INDEX.md).
+- **Frozen designs:** the preregistrations and implementation addenda in this directory.
+
 ## Study identity
 
 - **Base checkpoint:** `SpliceBERT.1024nt`, SHA-256 `2ad91428…0149d`.
@@ -64,11 +73,11 @@ because the required behavior/denominator gate failed.
 
 The released native classifier resolves the erasure ambiguity. After a preserved v1 coordinate failure,
 the corrected assay passed all 51 controls. Destroying the paired acceptor lowers native donor evidence by
-`0.646 [0.563,0.733]` nats across the five-seed mean, positive in every seed; a second substitution
+`0.646 [0.563,0.733]` logit units across the five-seed mean, positive in every seed; a second substitution
 replicates it, non-partner AGs are near-null, and the partner-specific contrast against a different donor
 is `0.317 [0.237,0.402]`.
 
-Under the same fine-tuned classifier vector, paired-acceptor coupling is only `0.022` nats after encoder
+Under the same fine-tuned classifier vector, paired-acceptor coupling is only `0.022` logit units after encoder
 layer 4 and becomes `0.646` after the final layer, a `0.624 [0.547,0.704]` projected increment. Base/fine
 donor-state CKA simultaneously drops from `0.731` to `0.363`. Thus the evidence supports re-expression in
 a co-adapted final-layer splice-classification representation, not erasure.
