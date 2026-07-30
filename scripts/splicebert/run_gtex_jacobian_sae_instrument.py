@@ -44,6 +44,8 @@ TRAIN_NAMESPACE = "gtex-native-biological-features-transcoder-train-v1"
 VALIDATION_PERCENT = 20
 FROZEN_VIEW = "2020"
 FEATURE_WIDTH = 512
+CAPACITY_REPAIR_INPUT_WIDTH = 256
+CAPACITY_REPAIR_OUTPUT_WIDTH = 64
 ACTIVE_FEATURES = 8
 JACOBIAN_COEFFICIENTS = (0.0, 0.015625, 0.0625, 0.25)
 INITIALIZATION_SEED = 1_512_008
@@ -161,6 +163,7 @@ def build_pair(
     train_writes: torch.Tensor,
     *,
     device: torch.device,
+    capacity_repair: bool = False,
 ) -> JacobianSAEPair:
     input_center, input_scale = scalar_normalization(train_inputs)
     output_center, output_scale = scalar_normalization(train_writes)
@@ -168,7 +171,16 @@ def build_pair(
         input_dim=512,
         output_dim=512,
         mlp_dim=2048,
-        num_features=FEATURE_WIDTH,
+        num_features=(
+            CAPACITY_REPAIR_INPUT_WIDTH
+            if capacity_repair
+            else FEATURE_WIDTH
+        ),
+        output_num_features=(
+            CAPACITY_REPAIR_OUTPUT_WIDTH
+            if capacity_repair
+            else None
+        ),
         active_features=ACTIVE_FEATURES,
     )
     return JacobianSAEPair(
@@ -287,6 +299,7 @@ def train_one(
     epochs: int,
     patience: int,
     auxk_repair: bool = False,
+    capacity_repair: bool = False,
 ) -> tuple[JacobianSAEPair, dict[str, Any]]:
     torch.manual_seed(INITIALIZATION_SEED)
     model = build_pair(
@@ -294,6 +307,7 @@ def train_one(
         inputs[train_indices],
         writes[train_indices],
         device=device,
+        capacity_repair=capacity_repair,
     )
     optimizer = torch.optim.Adam(
         model.parameters(),
@@ -309,12 +323,12 @@ def train_one(
     stale = 0
     history = []
     input_steps_since_fired = torch.zeros(
-        FEATURE_WIDTH,
+        model.input_sae.num_features,
         dtype=torch.long,
         device=device,
     )
     output_steps_since_fired = torch.zeros(
-        FEATURE_WIDTH,
+        model.output_sae.num_features,
         dtype=torch.long,
         device=device,
     )
@@ -484,8 +498,14 @@ def evaluate_model(
     raw_l1 = []
     l1_over_rms = []
     threshold_counts = {str(value): [] for value in (0.005, 0.01, 0.02)}
-    input_frequency = torch.zeros(model.config.num_features, dtype=torch.int64)
-    output_frequency = torch.zeros(model.config.num_features, dtype=torch.int64)
+    input_frequency = torch.zeros(
+        model.input_sae.num_features,
+        dtype=torch.int64,
+    )
+    output_frequency = torch.zeros(
+        model.output_sae.num_features,
+        dtype=torch.int64,
+    )
     input_l0 = []
     output_l0 = []
 
@@ -775,6 +795,7 @@ def main() -> None:
     parser.add_argument("--patience", type=int, default=DEFAULT_PATIENCE)
     parser.add_argument("--learning-rate", type=float, default=DEFAULT_LR)
     parser.add_argument("--auxk-repair", action="store_true")
+    parser.add_argument("--capacity-repair", action="store_true")
     parser.add_argument("--model-out", required=True)
     parser.add_argument("--out", required=True)
     args = parser.parse_args()
@@ -794,23 +815,25 @@ def main() -> None:
             else "cuda" if torch.cuda.is_available() else "cpu"
         )
     )
-    protocol_name = (
-        "PREREGISTRATION_JACOBIAN_SAE_V2.md"
-        if args.auxk_repair
-        else "PREREGISTRATION_JACOBIAN_SAE_V1.md"
-    )
+    if args.capacity_repair and args.auxk_repair:
+        raise ValueError("--capacity-repair already includes the v2 AuxK repair")
+    version = 3 if args.capacity_repair else 2 if args.auxk_repair else 1
+    effective_auxk_repair = args.auxk_repair or args.capacity_repair
+    protocol_name = f"PREREGISTRATION_JACOBIAN_SAE_V{version}.md"
     protocol = (
         REPO
         / "studies/splicebert_gtex_finetune_shift/"
         / protocol_name
     )
-    v1_failure = (
+    parent_failure = (
         REPO
         / "results/splicebert_gtex_finetune_shift/"
-        "jacobian_sae_instrument_v1.json"
+        f"jacobian_sae_instrument_v{version - 1}.json"
     )
-    if args.auxk_repair and not v1_failure.is_file():
-        raise RuntimeError("v2 requires the preserved v1 failure artifact")
+    if version > 1 and not parent_failure.is_file():
+        raise RuntimeError(
+            f"v{version} requires the preserved v{version - 1} failure artifact"
+        )
     activation_path = Path(args.activation_artifact).expanduser().resolve()
     model_dir = Path(args.model_dir).expanduser().resolve()
     output = guard_output_path(Path(args.out).resolve())
@@ -840,6 +863,7 @@ def main() -> None:
         inputs[train_indices],
         writes[train_indices],
         device=device,
+        capacity_repair=args.capacity_repair,
     )
     maximum_replay_error = 0.0
     with torch.no_grad():
@@ -863,13 +887,26 @@ def main() -> None:
     candidates: dict[str, dict[str, Any]] = {}
     model_payload = {
         "schema": (
-            "gfmcd.splicebert.jacobian_sae.instrument.v2"
-            if args.auxk_repair
-            else "gfmcd.splicebert.jacobian_sae.instrument.v1"
+            f"gfmcd.splicebert.jacobian_sae.instrument.v{version}"
         ),
         "view": args.view,
         "config": asdict(
-            JacobianSAEConfig(512, 512, 2048, FEATURE_WIDTH, ACTIVE_FEATURES)
+            JacobianSAEConfig(
+                512,
+                512,
+                2048,
+                (
+                    CAPACITY_REPAIR_INPUT_WIDTH
+                    if args.capacity_repair
+                    else FEATURE_WIDTH
+                ),
+                ACTIVE_FEATURES,
+                output_num_features=(
+                    CAPACITY_REPAIR_OUTPUT_WIDTH
+                    if args.capacity_repair
+                    else None
+                ),
+            )
         ),
         "initialization_seed": INITIALIZATION_SEED,
         "checkpoint_sha256": checkpoint_sha256,
@@ -889,7 +926,8 @@ def main() -> None:
             batch_size=args.batch,
             epochs=args.epochs,
             patience=args.patience,
-            auxk_repair=args.auxk_repair,
+            auxk_repair=effective_auxk_repair,
+            capacity_repair=args.capacity_repair,
         )
         validation = evaluate_model(
             model,
@@ -941,10 +979,10 @@ def main() -> None:
         "protocol": str(protocol.relative_to(REPO)),
         "parent_failure": (
             {
-                "path": str(v1_failure),
-                "sha256": sha256_file(v1_failure),
+                "path": str(parent_failure),
+                "sha256": sha256_file(parent_failure),
             }
-            if args.auxk_repair
+            if version > 1
             else None
         ),
         "view": args.view,
@@ -980,7 +1018,16 @@ def main() -> None:
             "label_free": True,
         },
         "architecture": {
-            "feature_width": FEATURE_WIDTH,
+            "input_feature_width": (
+                CAPACITY_REPAIR_INPUT_WIDTH
+                if args.capacity_repair
+                else FEATURE_WIDTH
+            ),
+            "output_feature_width": (
+                CAPACITY_REPAIR_OUTPUT_WIDTH
+                if args.capacity_repair
+                else FEATURE_WIDTH
+            ),
             "active_features": ACTIVE_FEATURES,
             "derivative_evaluation": "native_mlp_input",
             "active_jacobian_shape": [
@@ -989,12 +1036,13 @@ def main() -> None:
             ],
             "jacobian_metric_trained": "raw_l1",
             "posthoc_scale_sensitivity": "l1_over_rms_and_edge_mass_counts",
-            "auxk_dead_feature_repair": args.auxk_repair,
+            "auxk_dead_feature_repair": effective_auxk_repair,
+            "asymmetric_capacity_repair": args.capacity_repair,
             "auxiliary_features": (
-                AUTOAUX_FEATURES if args.auxk_repair else 0
+                AUTOAUX_FEATURES if effective_auxk_repair else 0
             ),
             "auxiliary_coefficient": (
-                AUTOAUX_COEFFICIENT if args.auxk_repair else 0.0
+                AUTOAUX_COEFFICIENT if effective_auxk_repair else 0.0
             ),
         },
         "mechanical_preflight": {
@@ -1035,16 +1083,23 @@ def main() -> None:
 
     manifest = ExperimentManifest.create(
         (
-            "splicebert_gtex_finetune_shift:jacobian_sae_instrument_v2"
-            if args.auxk_repair
-            else "splicebert_gtex_finetune_shift:jacobian_sae_instrument_v1"
+            f"splicebert_gtex_finetune_shift:jacobian_sae_instrument_v{version}"
         ),
         sys.argv,
         repo=REPO,
         status=status,
         config={
             "view": args.view,
-            "feature_width": FEATURE_WIDTH,
+            "input_feature_width": (
+                CAPACITY_REPAIR_INPUT_WIDTH
+                if args.capacity_repair
+                else FEATURE_WIDTH
+            ),
+            "output_feature_width": (
+                CAPACITY_REPAIR_OUTPUT_WIDTH
+                if args.capacity_repair
+                else FEATURE_WIDTH
+            ),
             "active_features": ACTIVE_FEATURES,
             "jacobian_coefficients": list(JACOBIAN_COEFFICIENTS),
             "batch": args.batch,
@@ -1052,7 +1107,8 @@ def main() -> None:
             "patience": args.patience,
             "learning_rate": args.learning_rate,
             "device": str(device),
-            "auxk_repair": args.auxk_repair,
+            "auxk_repair": effective_auxk_repair,
+            "capacity_repair": args.capacity_repair,
         },
         seeds={"dictionary_initialization": INITIALIZATION_SEED},
         notes=[
@@ -1061,9 +1117,16 @@ def main() -> None:
             "The exact active Jacobian is evaluated at the native MLP input.",
         ],
     )
+    parent_protocols = [
+        REPO
+        / "studies/splicebert_gtex_finetune_shift/"
+        f"PREREGISTRATION_JACOBIAN_SAE_V{parent_version}.md"
+        for parent_version in range(1, version)
+    ]
     for path in (
         protocol,
-        *([v1_failure] if args.auxk_repair else []),
+        *parent_protocols,
+        *([parent_failure] if version > 1 else []),
         activation_path,
         Path(report["arrays"]["path"]),
         model_dir / "config.json",

@@ -51,6 +51,33 @@ def test_topk_sae_enforces_l0_and_unit_decoder_rows():
     )
 
 
+def test_pair_supports_asymmetric_input_and_output_capacities():
+    torch.manual_seed(2)
+    config = JacobianSAEConfig(
+        input_dim=4,
+        output_dim=3,
+        mlp_dim=6,
+        num_features=9,
+        output_num_features=5,
+        active_features=2,
+    )
+    pair = JacobianSAEPair(
+        config,
+        input_weight=torch.randn(6, 4),
+        input_bias=torch.zeros(6),
+        output_weight=torch.randn(3, 6),
+        output_bias=torch.zeros(3),
+        input_center=torch.zeros(4),
+        input_scale=torch.ones(()),
+        output_center=torch.zeros(3),
+        output_scale=torch.ones(()),
+    )
+    run = pair(torch.randn(7, 4))
+    assert run["input_activations"].shape == (7, 9)
+    assert run["output_activations"].shape == (7, 5)
+    assert run["active_jacobian"].shape == (7, 2, 2)
+
+
 def test_analytic_active_jacobian_matches_autograd():
     pair = make_pair()
     raw_input = torch.randn(3, 4)

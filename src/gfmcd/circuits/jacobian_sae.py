@@ -30,6 +30,7 @@ class JacobianSAEConfig:
     mlp_dim: int
     num_features: int
     active_features: int
+    output_num_features: int | None = None
     eps: float = 1e-8
 
     def __post_init__(self) -> None:
@@ -44,8 +45,23 @@ class JacobianSAEConfig:
             raise ValueError("all dimensions and active counts must be positive")
         if self.active_features > self.num_features:
             raise ValueError("active_features cannot exceed num_features")
+        if (
+            self.output_num_features is not None
+            and self.output_num_features < self.active_features
+        ):
+            raise ValueError(
+                "active_features cannot exceed output_num_features"
+            )
         if self.eps <= 0:
             raise ValueError("eps must be positive")
+
+    @property
+    def output_feature_count(self) -> int:
+        return (
+            self.num_features
+            if self.output_num_features is None
+            else self.output_num_features
+        )
 
 
 def _validate_center_scale(
@@ -236,7 +252,7 @@ class JacobianSAEPair(nn.Module):
         )
         self.output_sae = TopKSAE(
             config.output_dim,
-            config.num_features,
+            config.output_feature_count,
             config.active_features,
             eps=config.eps,
         )
