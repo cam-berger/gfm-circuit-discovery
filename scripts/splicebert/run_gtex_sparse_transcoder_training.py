@@ -1016,15 +1016,18 @@ def main() -> None:
     representation_candidates = [
         row for row in candidates.values() if row["representation_gate"]
     ]
-    if not representation_candidates:
-        raise RuntimeError("no sparse setting passed representation preflight")
+    representation_gate_passed = bool(representation_candidates)
 
     model_output.parent.mkdir(parents=True, exist_ok=True)
     torch.save(model_payload, model_output)
     result = {
         "study": "native GTEx six-view sparse final-MLP feature model",
         "stage": "label-free sparse training and representation preflight",
-        "status": "COMPLETE",
+        "status": (
+            "COMPLETE"
+            if representation_gate_passed
+            else "INSTRUMENT_UNRESOLVED"
+        ),
         "evidence_tier": "candidate-generation instrument",
         "protocol": str(protocol.relative_to(REPO)),
         "implementation_addendum": str(addendum.relative_to(REPO)),
@@ -1071,11 +1074,13 @@ def main() -> None:
         "instrument_gate": {
             "label_free_training": True,
             "planted_feature_recovered": planted["PASS"],
-            "at_least_one_representation_candidate": True,
+            "at_least_one_representation_candidate": (
+                representation_gate_passed
+            ),
             "behavioral_preflight_required": True,
-            "PASS": True,
+            "PASS": representation_gate_passed,
         },
-        "behavioral_preflight_authorized": True,
+        "behavioral_preflight_authorized": representation_gate_passed,
     }
     assert_label_free_payload(result)
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -1084,7 +1089,11 @@ def main() -> None:
         "splicebert_gtex_finetune_shift:sparse_transcoder_training_v1",
         sys.argv,
         repo=REPO,
-        status="EXPLORATORY",
+        status=(
+            "EXPLORATORY"
+            if representation_gate_passed
+            else "INSTRUMENT_UNRESOLVED"
+        ),
         config={
             "grid": result["grid"],
             "dictionary_split": result["dictionary_split"],
