@@ -21,7 +21,9 @@
 | Promoter downstream-domain confirmation v1 | Is the D8 mask profile a bounded downstream domain with a distal edge and a TSS polarity reversal, rather than a single 10-nt tile? | TSS polarity (E2) replicated; bounded domain and distal edge (E1/E1b) refuted, tile 26 stands alone; upstream reversal (E3) is a near-miss that licenses no null | `../../results/dnabert2_reconstruction_atlas/promoter_domain_confirmation_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_domain_confirmation_v1.manifest.json` | D12 |
 | Promoter arrangement vs composition v4 | Is the D12 TSS polarity carried by nucleotide arrangement, or by something composition-like? | arrangement refuted as the carrier (P1 +0.4172, Holm 0.0066; arrangement retains 12.9%); composition NOT established — P2 declared underpowered before the run | `../../results/dnabert2_reconstruction_atlas/promoter_arrangement_composition_confirmation_v4.json` | `../../results/dnabert2_reconstruction_atlas/promoter_arrangement_composition_confirmation_v4.manifest.json` | D14 |
 | Promoter region density v1 | At equal dose, does −9:+31 carry more of the promoter decision than far-upstream windows, and does carrier attention track that? | E_reg qualified (+0.3490, Holm 0.0058; 4.13× per-token density); attention sits at the ALiBi prior, so attention mass does not track information density; E_band underpowered and negative, refuting the "far-upstream is inert" reading | `../../results/dnabert2_reconstruction_atlas/promoter_region_density_confirmation_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_region_density_confirmation_v1.manifest.json` | D15 |
-| Fine-tuning attention shift v1 | Did fine-tuning move the `[CLS]` attention, or only the readout? | ALREADY AT PRIOR — carriers unchanged and pinned before fine-tuning (Pearson 0.951); L9H7 is the sole TSS-proximal relocation (+0.583) but is **not established as a TSS reader** (fixed task geometry admits a constant-offset explanation) | `../../results/dnabert2_reconstruction_atlas/promoter_finetuning_attention_shift_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_finetuning_attention_shift_v1.manifest.json` | D16 |
+| Fine-tuning attention shift v1 | Did fine-tuning move the `[CLS]` attention, or only the readout? | ALREADY AT PRIOR — carriers unchanged and pinned before fine-tuning (Pearson 0.951); L9H7 is the sole TSS-proximal relocation (+0.583). Its **"TSS reader" naming is RETRACTED by D17**; the relocation measurement stands | `../../results/dnabert2_reconstruction_atlas/promoter_finetuning_attention_shift_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_finetuning_attention_shift_v1.manifest.json` | D16 |
+| L9H7 rotation probe v1 | Does L9H7 attend to TSS-proximal content, or to a fixed window offset? | INDEX_ADDRESSED — attention stays locked on window positions 199–247 (prior-corrected excess +0.39…+0.44) and lands *below* prior at the content's displaced location (−0.137…−0.164); ΔF ≈ 0 at every disjoint rotation | `../../results/dnabert2_reconstruction_atlas/l9h7_rotation_probe_v1.json` | `../../results/dnabert2_reconstruction_atlas/l9h7_rotation_probe_v1.manifest.json` | D17 |
+| L9H7 position vs content v1 | Is the acquired band concentration present when there is no TSS? | yes — the committed pseudo-TSS control arm shows 88.1%/91.6% of it survives in same-locus windows with no TSS; also supplies the prior correction that removes an architecture-forced false positive in D17's own rule | `../../results/dnabert2_reconstruction_atlas/l9h7_position_vs_content_v1.json` | `../../results/dnabert2_reconstruction_atlas/l9h7_position_vs_content_v1.manifest.json` | D17 |
 | ALiBi reach and attention prior | What does the architecture force, and where does measured `[CLS]` attention deviate from it? | exploratory: the ALiBi-only prior places 49–89% of every head's mass on far-upstream, so raw attention profiles are not interpretable; head reach does **not** predict causal effect (null, 4 tests) | `../../results/dnabert2_reconstruction_atlas/promoter_alibi_reach_analysis_v1.json` | `../../results/dnabert2_reconstruction_atlas/promoter_alibi_reach_analysis_v1.manifest.json` | D15 |
 
 ### Promoter source localization v1
@@ -542,7 +544,12 @@ collapses 0.3759 → 0.0038 while `proximal_upstream` rises 0.1005 → 0.5495; s
 movers are pure `special ↔ far_upstream` rebalances with TSS-proximal shifts of 0.0000 to four
 decimals.
 
-**Caveat — "TSS reader" is not established.** The task geometry is fixed (checkpoint pins
+**RETRACTED by D17 — "TSS reader" is wrong, not merely unestablished.** See the D17 section below:
+the pseudo-TSS control arm already in the record shows 88–92% of this band attention is present in
+windows containing no TSS; rotation shows the attention does not follow the content; an in-place
+content shuffle removes only 7.2% of it. The measurement stands, the name does not.
+
+**Original caveat as first raised — "TSS reader" is not established.** The task geometry is fixed (checkpoint pins
 `tss_upstream_nt=249`; TSS at index 249 in all 384 records; GUE `prom_300_all` is 47,356 sequences of
 exactly 300 nt), and with `[CLS]` at index 0 and ALiBi keyed on distance from the query, absolute
 window position is recoverable. L9H7's acquired target (−50:−2) is window positions 199–247 — a fixed
@@ -565,6 +572,48 @@ MLM) or distance-confounded (a fixed probe set for MLM pseudo-likelihood is domi
 and the only probe window disjoint from all arms sits adjacent to the signal arm while the
 far-upstream arms are 100–250 nt away, so the contrast would be won by locality rather than promoter
 structure).
+
+### D17 — L9H7 addresses a window position, not TSS content
+
+Protocol `PREREGISTRATION_D17_L9H7_ROTATION_PROBE.md`. Settles the D16 caveat: three independent
+lines, two of them zero-forward-pass.
+
+**Line 1 — pseudo-TSS control arm, recovered from the committed head atlas.** Control windows are
+same-locus, 300 nt, TSS exclusion radius 300 nt, GC-matched — they contain no TSS.
+
+| split | L9H7 `proximal_upstream`, real TSS | same locus, no TSS | present without a TSS |
+|---|---:|---:|---:|
+| development (n=192) | 0.5673 | 0.4998 | **88.1%** |
+| confirmation (n=192) | 0.5475 | 0.5018 | **91.6%** |
+
+D16's comparison script computed these control values and discarded them at the writer.
+
+**Line 2 — circular rotation, n=384, prior-corrected excess.** Rotation preserves content exactly
+(composition identical; token count 64.30 → 64.40; 93.6% of BPE boundaries survive).
+
+| k | F excess (content) | P excess (position) | ΔF = intact − shuffled |
+|---:|---:|---:|---:|
+| 0 | +0.4118 | +0.4118 | +0.0405 [+0.021, +0.059] |
+| 125 | −0.1371 | +0.3868 | +0.0038 |
+| 149 | −0.1454 | +0.3875 | +0.0013 |
+| 175 | −0.1515 | +0.3965 | +0.0003 |
+| 199 | −0.1641 | +0.3964 | −0.0016 |
+
+Attention lands *below* the ALiBi prior at the content's new location while position excess is
+invariant. Frozen verdict **INDEX_ADDRESSED**. Promoter margin stays positive at every rotation
+(3.61 → 1.85–2.17) and 144-head P drift is ≤ 0.0015, so this is not generic collapse.
+
+**Line 3 — in-place shuffle.** At k=0, destroying band content removes 7.2% of the attention to it.
+This also excludes conjunctive addressing, which required the in-place shuffle to bite.
+
+**Rule defect found in this study's own frozen rule.** Thresholding raw `F` scores L11H2 —
+the archetype ALiBi-pinned head — as CONTENT_ADDRESSED at k=199 (`F` = 0.6637) with zero content
+sensitivity, because the displaced band lands where its prior already is. Prior correction reduces
+L11H2's F excess to +0.0253 (96% architecture) and pushes L9H7's negative, strengthening the
+verdict. Recorded because the raw rule was frozen and run before the defect was found.
+
+**Bounds.** `[CLS]`-row only; descriptive; rotation is OOD by construction; bounds D16's wording,
+not its measurement; Line 1 reuses already-open splits; single checkpoint pair.
 
 ## Infrastructure verification
 

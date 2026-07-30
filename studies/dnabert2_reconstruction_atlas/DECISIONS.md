@@ -948,3 +948,48 @@
 - Note this confound is narrower than it first looks for the *rest* of the record: D15's endpoints are
   within-locus paired contrasts at matched dose, so a fixed-offset preference does not by itself
   explain the regional density result. It bears specifically on the semantic interpretation of L9H7.
+
+## 2026-07-29 — D17 retracts D16's "TSS reader". Three of my own errors, recorded.
+
+- Outcome first: **L9H7 addresses a window position, not TSS content.** D16's naming is retracted;
+  D16's *measurement* (the `special` → `proximal_upstream` relocation) stands unchanged.
+- **Error 1 — I searched the wrong directory and built a design around a constraint that did not
+  exist.** I concluded "no reference genome is available" after looking only at the atlas repo's
+  `data/`. `hg38.fa`, `hg38.fa.fai` and `gencode.v50.basic.annotation.gtf.gz` are present at
+  `/Users/cberg/Research/data/genomes/`, and every cohort row carries `chrom`/`tss`/`strand`. A
+  genomic re-anchor ladder — contiguous real sequence, no artificial junction — was available and is
+  the design I should have reached for first. Circular rotation was chosen to work around nothing.
+- **Error 2 — I discarded the data that already answered the question.** D5's head atlas measured
+  `[CLS]` band attention on BOTH branches. My `compare_base_finetuned_attention.py::run_model`
+  computes `control_<band>` for all 768 sequences and the `per_head` writer then emits `target_<band>`
+  only. The control arm shows **L9H7 puts 0.4998 (dev) / 0.5018 (conf) of its `[CLS]` attention on
+  `proximal_upstream` in same-locus pseudo-TSS windows that contain no TSS** (exclusion radius 300 nt,
+  GC-matched) — **88.1% / 91.6% of the "acquired" concentration**, with a TSS-specific increment of
+  only +0.0675 / +0.0458 that *shrinks* on confirmation. This was committed and readable the whole
+  time. I ran a model experiment to establish something the record already contained.
+- **Error 3 — my own frozen decision rule was architecture-forced in one direction.** D17 thresholds
+  **raw** `F`. Applied to L11H2, the archetype ALiBi-pinned head, it returns `F = 0.6637` at k=199 and
+  would score it CONTENT_ADDRESSED with zero content sensitivity, purely because the displaced band
+  lands next to `[CLS]` where L11H2's prior already sits. This is the R7/R21 forced-memorial failure
+  again, in the decision rule rather than a memorial. Prior correction removes it exactly (L11H2 F
+  *excess* +0.0253, so 96% of the 0.664 is architecture). It does **not** touch the L9H7 verdict:
+  L9H7's near-uniform prior (slope 0.0039) means correction drives its F excess *negative*, which
+  strengthens INDEX_ADDRESSED. Recorded rather than silently switching estimand.
+- Evidence as it now stands, three independent lines: (1) 88–92% of the band attention is present
+  with no TSS; (2) under rotation, prior-corrected F excess goes +0.412 → **−0.137…−0.164** (below
+  prior — the head *avoids* the content's new location) while P excess is invariant at +0.387…+0.443,
+  and ΔF ≈ 0 at every disjoint rotation; (3) in-place mononucleotide shuffling removes only
+  **7.2%** of the attention to the band, which also **excludes conjunctive addressing** — that
+  hypothesis required the in-place shuffle to bite.
+- Global stability confirms this is not OOD collapse: promoter margin 3.61 native → 1.85–2.17 across
+  rotations (still positive), 144-head P drift ≤ 0.0015.
+- **Process note on the red-team.** The four-lens workflow initially appeared to return only one
+  lens; I proceeded on that one lens plus my own analysis. The full synthesis arrived afterwards and
+  contained both Error 1 and Error 2 — i.e. the design I had already run was superseded by evidence
+  I already had. The lesson is not "the red-team was slow": it is that I started building before the
+  audit finished, which is exactly the failure mode the formalize→audit→execute order exists to
+  prevent. I also verified every load-bearing agent claim against disk rather than adopting it, and
+  rejected one (the lens asserted k=149 puts the F band at 99–147; it is 50–98, so k=149 is clean).
+- Follow-up not run: the genomic re-anchor ladder from hg38 is now known to be available and would
+  test the same question with contiguous real sequence and no junction. Given three concordant lines
+  it is corroboration, not a gap.

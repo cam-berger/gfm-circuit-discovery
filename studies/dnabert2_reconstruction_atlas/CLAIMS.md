@@ -482,7 +482,16 @@ the whole model is L10H5 at **+0.043 — 14× smaller** — so this is a singlet
 large movers (L9H10, L6H1, L5H1, L8H1, L9H0) are pure `special ↔ far_upstream` rebalances with
 TSS-proximal shifts of 0.0000 to four decimals.
 
-**Load-bearing caveat — "TSS reader" is NOT established; it may be a fixed-offset reader.** The task
+> **RETRACTED 2026-07-29 by D17 — "TSS reader" is WRONG, not merely unestablished.** L9H7 addresses
+> a **window position**, not TSS content. Three independent lines agree (see D17 below): the
+> pseudo-TSS control arm already in the committed record shows **88–92% of the band attention is
+> present in windows containing no TSS**; circular rotation shows the attention does **not** follow
+> the content (prior-corrected excess goes from +0.412 to **−0.137…−0.164**, i.e. below prior) while
+> staying locked on the window position (P excess +0.387…+0.443); and an in-place content shuffle
+> removes only **7.2%** of it. The measurement below stands; the name does not. Read every
+> occurrence of "reader" in this entry as **positional addressing**.
+
+**Original caveat as first raised (kept for the record) — "TSS reader" is NOT established; it may be a fixed-offset reader.** The task
 geometry is completely fixed: the checkpoint spec pins `tss_upstream_nt=249, tss_downstream_nt=50`,
 GUE `prom_300_all` is 47,356 sequences of exactly 300 nt, and the TSS sits at index **249 in all 384**
 cohort records. Meanwhile `[CLS]` is at index 0 and ALiBi's only positional signal is distance from
@@ -521,6 +530,68 @@ cohort** through a different code path — to within 0.01; batch invariance is e
 Artifacts: `promoter_finetuning_attention_shift_v1.json`,
 `promoter_finetuning_attention_shift_smoke_v1.json`.
 Protocol: `PREREGISTRATION_D16_FINETUNING_ATTENTION_SHIFT.md`.
+
+**D17 — L9H7 addresses a window position, not TSS content. D16's "TSS reader" is retracted.**
+Three independent lines, two of them free.
+
+**Line 1 — the pseudo-TSS control arm, already in the committed record.** D5's head atlas measured
+`[CLS]` band attention on *both* branches: real TSS windows and same-locus pseudo-TSS windows
+(300 nt, TSS exclusion radius 300 nt, GC-matched — they contain **no TSS**). D16's comparison script
+computed the control values and then discarded them at the writer, emitting `target_*` only. They
+answer the question directly:
+
+| split | L9H7 `proximal_upstream`, real TSS | same locus, **no TSS** | present without a TSS |
+|---|---:|---:|---:|
+| development (n=192) | 0.5673 | **0.4998** | **88.1%** |
+| confirmation (n=192) | 0.5475 | **0.5018** | **91.6%** |
+
+The TSS-specific increment is only +0.0675 / +0.0458, and it *shrinks* from development to
+confirmation. Nine-tenths of the concentration D16 called TSS reading is there when no TSS is.
+
+**Line 2 — circular rotation (n=384, all cohort loci).** `s' = s[k:] + s[:k]` preserves content
+exactly (composition identical, token count 64.30→64.40, 93.6% of BPE boundaries survive) and moves
+it to a new offset. `F` tracks the original nucleotides; `P` tracks window positions 199–247.
+Reported as **excess over the per-rotation ALiBi prior**, because raw mass is not comparable across
+rotations:
+
+| k | F excess (content) | P excess (position) | ΔF = F_intact − F_shuffled |
+|---:|---:|---:|---:|
+| 0 | +0.4118 | +0.4118 | +0.0405 [+0.021, +0.059] |
+| 125 | **−0.1371** | +0.3868 | +0.0038 [+0.000, +0.008] |
+| 149 | **−0.1454** | +0.3875 | +0.0013 [−0.002, +0.005] |
+| 175 | **−0.1515** | +0.3965 | +0.0003 [−0.003, +0.004] |
+| 199 | **−0.1641** | +0.3964 | −0.0016 [−0.004, +0.001] |
+
+Attention does not follow the content — it lands **below** the ALiBi prior at the content's new
+location, i.e. the head actively avoids it — while position excess is invariant at +0.39–0.44.
+Frozen verdict: **INDEX_ADDRESSED**.
+
+**Line 3 — in-place content destruction.** At `k=0`, mononucleotide-shuffling the band (composition
+exact) removes only **ΔF = +0.0405 of F = 0.5610 — 7.2%**. Even undisplaced, 93% of the attention to
+that band is content-independent. This also excludes **conjunctive addressing** (content recognised
+only at the trained offset), which would have required the in-place shuffle to bite.
+
+Global stability rules out generic collapse: the promoter margin stays positive at every rotation
+(3.61 native → 1.85–2.17), and mean P-band drift across all 144 heads is ≤ 0.0015.
+
+**A defect in this study's own decision rule, found and corrected.** The frozen D17 rule thresholds
+**raw** `F`. Applied to L11H2 — the archetype ALiBi-pinned head — it returns `F = 0.6637` at k=199
+and would score it **CONTENT_ADDRESSED** with zero content sensitivity, because at k=199 the
+displaced band lands next to `[CLS]` where L11H2's prior already sits. Prior correction removes the
+artifact exactly: L11H2's F *excess* is only **+0.0253**, i.e. 96% of that 0.664 is architecture.
+The defect does **not** touch the L9H7 verdict — L9H7's near-uniform prior (slope 0.0039) means
+correction pushes its F excess *negative*, strengthening `INDEX_ADDRESSED`. Recorded because the
+raw-threshold rule was frozen and run before the defect was found.
+
+**Bounds.** (i) `[CLS]`-row attention only; no OV, no mediation, no behaviour. (ii) Rotation is
+out-of-distribution by construction — which is why ΔF (severity-matched) and the global-stability
+readout carry the inference, not raw `F`. (iii) This bounds D16's *wording*, not its measurement:
+the `special` → `proximal_upstream` shift is real; only "TSS recognition" is refuted. (iv) Line 1
+reuses already-open development and confirmation splits. (v) Single third-party checkpoint pair.
+
+Artifacts: `l9h7_rotation_probe_v1.json`, `l9h7_position_vs_content_v1.json`,
+`l9h7_rotation_probe_smoke_v1.json`. Protocol:
+`PREREGISTRATION_D17_L9H7_ROTATION_PROBE.md`.
 
 ## Established infrastructure facts
 
