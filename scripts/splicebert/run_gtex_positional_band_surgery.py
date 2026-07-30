@@ -44,6 +44,7 @@ from gfmcd.splicing.grouped_stats import (  # noqa: E402
     grouped_signflip_pvalue,
 )
 from gfmcd.splicing.gtex_finetune import (  # noqa: E402
+    load_gtex_state_dict,
     load_gtex_token_classifier,
 )
 from gfmcd.splicing.native_classifier import (  # noqa: E402
@@ -129,7 +130,37 @@ def _position_table_from_weight_file(path: Path) -> np.ndarray:
     if len(hits) != 1 or not isinstance(hits[0], torch.Tensor):
         raise ValueError("base weights must expose exactly one position embedding table")
     return validate_table(
-        hits[0].detach().to(dtype=torch.float64, device="cpu").numpy(),
+        hits[0].detach().cpu().to(dtype=torch.float64).numpy(),
+        shape=(1026, 512),
+    )
+
+
+def _position_table_from_checkpoint(path: Path) -> np.ndarray:
+    state = load_gtex_state_dict(path)
+    hits = [
+        tensor
+        for name, tensor in state.items()
+        if name.endswith("position_embeddings.weight")
+    ]
+    if len(hits) != 1:
+        raise ValueError("checkpoint must expose exactly one position embedding table")
+    return validate_table(
+        hits[0].detach().cpu().to(dtype=torch.float64).numpy(),
+        shape=(1026, 512),
+    )
+
+
+def _embedding_table_cpu_float64(weight: torch.Tensor) -> np.ndarray:
+    """Transfer off accelerator before converting to unsupported float64.
+
+    Apple MPS does not support float64. A combined
+    ``weight.to(device="cpu", dtype=float64)`` can attempt the dtype conversion
+    on MPS first and silently produce corrupt values. The operation order here
+    is therefore part of the assay's numerical contract.
+    """
+
+    return validate_table(
+        weight.detach().cpu().to(dtype=torch.float64).numpy(),
         shape=(1026, 512),
     )
 
@@ -340,10 +371,9 @@ def preflight_seed(
         batch_size=batch_size,
     )
     embedding = model.bert.embeddings.position_embeddings
-    original = validate_table(
-        embedding.weight.detach().to(dtype=torch.float64, device="cpu").numpy(),
-        shape=base_table.shape,
-    )
+    original = _embedding_table_cpu_float64(embedding.weight)
+    checkpoint_table = _position_table_from_checkpoint(checkpoint)
+    device_transfer_error = float(np.max(np.abs(original - checkpoint_table)))
     tables, arm_specs = _arm_tables(original, base_table, targets, controls)
     spectral_audits = {
         name: _support_audit(original, table, arm_specs[name]["bins"])
@@ -411,6 +441,7 @@ def preflight_seed(
         if name != "intact"
     )
     checks = {
+        "device_table_transfer": device_transfer_error == 0.0,
         "identity_logits": identity_logit_error <= IDENTITY_LOGIT_TOLERANCE,
         "full_table_reconstruction": table_reconstruction_error <= 1e-10,
         "spectral_support": all(
@@ -429,6 +460,7 @@ def preflight_seed(
         "passed": bool(all(checks.values())),
         "checks": checks,
         "checkpoint": report.to_dict(),
+        "device_table_transfer_max_abs_error": device_transfer_error,
         "identity_logit_max_abs_error": identity_logit_error,
         "full_table_reconstruction_max_abs_error": table_reconstruction_error,
         "spectral_support_audits": spectral_audits,
@@ -477,10 +509,7 @@ def paired_seed(
         batch_size=batch_size,
     )
     embedding = model.bert.embeddings.position_embeddings
-    original = validate_table(
-        embedding.weight.detach().to(dtype=torch.float64, device="cpu").numpy(),
-        shape=base_table.shape,
-    )
+    original = _embedding_table_cpu_float64(embedding.weight)
     tables, _ = _arm_tables(original, base_table, targets, controls)
     paired_margins: dict[str, np.ndarray] = {}
     for name, table in tables.items():

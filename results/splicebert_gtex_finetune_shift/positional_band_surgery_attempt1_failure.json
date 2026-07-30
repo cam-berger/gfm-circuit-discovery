@@ -1,0 +1,42 @@
+{
+  "attempt": 1,
+  "code_commit": "e7d7a4a9157926712dde55cd5cf104bd763234bc",
+  "experiment_id": "gtex-positional-band-surgery-v1",
+  "failure_class": "instrument_implementation",
+  "failure_stage": "seed_2022_position_table_capture_before_target_outcome",
+  "observed": {
+    "seed_2020_preflight_reported_passed": false,
+    "seed_2021_preflight_reported_passed": false,
+    "seed_2022_exception": "ValueError: position table contains non-finite values",
+    "traceback_site": "preflight_seed -> validate_table",
+    "paired_acceptor_outcome_opened": false
+  },
+  "root_cause": {
+    "confirmed": true,
+    "description": "The runner combined transfer from MPS to CPU with conversion to float64 in one Tensor.to call. Apple MPS does not support float64, and that operation produced corrupt finite values in seeds 2020-2021 and non-finite values in seed 2022. Writing the corrupted table back into the model invalidated the apparent classifier-health failures.",
+    "differential_replay": {
+      "cpu_default_local_gt_cc_drop": 21.946121782064438,
+      "cpu_eager_local_gt_cc_drop": 21.94611892104149,
+      "mps_default_local_gt_cc_drop": 21.946122229099274,
+      "mps_eager_local_gt_cc_drop": 21.946122884750366
+    },
+    "direct_transfer_probe": {
+      "combined_mps_to_cpu_float64_finite": false,
+      "combined_transfer_max_abs": 1.776565192014412e+308,
+      "cpu_first_then_float64_finite": true,
+      "cpu_first_then_float64_max_abs": 0.5248954892158508
+    },
+    "mechanical_fourier_support_passed_all_five_seeds": true,
+    "maximum_outside_band_relative_delta_by_seed": {
+      "2020": 1.6917197797361683e-15,
+      "2021": 1.5144440608029197e-15,
+      "2022": 1.3727072839547959e-15,
+      "2023": 1.7775665500696553e-15,
+      "2024": 1.352450522890633e-15
+    }
+  },
+  "scientific_interpretation": "None. This attempt did not open the paired-acceptor endpoint and cannot support a positive or negative claim about either positional band.",
+  "status": "CRASHED_INSTRUMENT",
+  "supersession_rule": "Preserve this artifact. A corrected immutable run must transfer accelerator tensors to CPU before float64 conversion and must exactly compare the captured device table with the raw checkpoint table.",
+  "timestamp_utc": "2026-07-30T13:05:22Z"
+}

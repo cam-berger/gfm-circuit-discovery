@@ -57,3 +57,32 @@ def test_full_reconstruction_is_exact_at_float_precision():
     table = rng.normal(size=(66, 8))
     reconstructed = SURGERY._full_reconstruction(table)
     assert np.max(np.abs(reconstructed - table)) <= 1e-14
+
+
+def test_accelerator_table_transfer_moves_to_cpu_before_float64():
+    class TransferSpy:
+        def __init__(self):
+            self.events = []
+
+        def detach(self):
+            self.events.append("detach")
+            return self
+
+        def cpu(self):
+            self.events.append("cpu")
+            return self
+
+        def to(self, *, dtype):
+            assert self.events[-1] == "cpu"
+            self.events.append(("to", dtype))
+            return self
+
+        def numpy(self):
+            self.events.append("numpy")
+            return np.zeros((1026, 512), dtype=np.float64)
+
+    spy = TransferSpy()
+    table = SURGERY._embedding_table_cpu_float64(spy)
+    assert table.shape == (1026, 512)
+    assert spy.events[0:2] == ["detach", "cpu"]
+    assert spy.events[-1] == "numpy"

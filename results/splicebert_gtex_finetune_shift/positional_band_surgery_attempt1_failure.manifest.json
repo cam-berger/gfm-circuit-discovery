@@ -1,0 +1,94 @@
+{
+  "command": [
+    "uv",
+    "run",
+    "python",
+    "scripts/splicebert/run_gtex_positional_band_surgery.py",
+    "--spectrum",
+    "results/splicebert_gtex_finetune_shift/positional_spectrum_v1_target_gate_correction.json",
+    "--base-model",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+    "--checkpoint",
+    "2020=...2020.pt",
+    "--checkpoint",
+    "2021=...2021.pt",
+    "--checkpoint",
+    "2022=...2022.pt",
+    "--checkpoint",
+    "2023=...2023.pt",
+    "--checkpoint",
+    "2024=...2024.pt",
+    "--gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+    "--fasta",
+    "/Users/cberg/Research/data/genomes/hg38.fa",
+    "--prior-results",
+    "results/splicebert_gtex_finetune_shift",
+    "--n",
+    "200",
+    "--batch",
+    "4",
+    "--device",
+    "mps",
+    "--out",
+    "results/splicebert_gtex_finetune_shift/positional_band_surgery_v1.json"
+  ],
+  "config": {
+    "batch": 4,
+    "device": "mps",
+    "n": 200,
+    "paired_acceptor_outcome_opened": false,
+    "protocol_sha256": "108020ddd704f56d7be05d4875ab744d738cec5b1ab1a9a68e8359e61339c72d",
+    "spectrum_sha256": "46a29e9c2f2bd07fc81802908cb1ee6659644e841c92b0a172cd753221103255"
+  },
+  "created_at_utc": "2026-07-30T13:05:22Z",
+  "environment": {
+    "platform": "macOS",
+    "processor": "Apple",
+    "torch_device": "mps"
+  },
+  "experiment_id": "gtex-positional-band-surgery-v1-attempt1",
+  "git_commit": "e7d7a4a9157926712dde55cd5cf104bd763234bc",
+  "git_dirty": false,
+  "inputs": [
+    {
+      "path": "scripts/splicebert/run_gtex_positional_band_surgery.py@e7d7a4a",
+      "sha256": "5d1baf3a3c0f14fa01da096034085a63b04cf2d77b72fde9ba81a228c3594754"
+    },
+    {
+      "path": "results/splicebert_gtex_finetune_shift/positional_spectrum_v1_target_gate_correction.json",
+      "sha256": "46a29e9c2f2bd07fc81802908cb1ee6659644e841c92b0a172cd753221103255"
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    }
+  ],
+  "notes": [
+    "The process crashed before writing its planned result artifact.",
+    "The preserved failure JSON records the confirmed MPS float64 transfer-order bug.",
+    "No paired-acceptor outcome was opened."
+  ],
+  "outputs": [
+    {
+      "path": "results/splicebert_gtex_finetune_shift/positional_band_surgery_attempt1_failure.json",
+      "sha256": "db4e87b34cb10ad9519973fa5c799732acb53a1c531765a1f2d1b1671dcbdac6",
+      "size_bytes": 2269
+    }
+  ],
+  "seeds": {
+    "checkpoint_2020": 2020,
+    "checkpoint_2021": 2021,
+    "checkpoint_2022": 2022,
+    "checkpoint_2023": 2023,
+    "checkpoint_2024": 2024,
+    "cohort": 0
+  },
+  "status": "CRASHED_INSTRUMENT"
+}
