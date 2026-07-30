@@ -1,0 +1,163 @@
+{
+  "command": [
+    "scripts/splicebert/run_gtex_sparse_transcoder_training.py",
+    "--activation-artifact",
+    "results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.json",
+    "--native-unit-artifact",
+    "results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_evaluation_v1.json",
+    "--device",
+    "mps",
+    "--batch",
+    "256",
+    "--epochs",
+    "60",
+    "--patience",
+    "8",
+    "--learning-rate",
+    "0.001",
+    "--model-out",
+    "results/splicebert_gtex_finetune_shift/sparse_transcoder_training_v1.pt",
+    "--out",
+    "results/splicebert_gtex_finetune_shift/sparse_transcoder_training_v1.json"
+  ],
+  "config": {
+    "batch": 256,
+    "device": "mps",
+    "dictionary_split": {
+      "n_train_genes": 105,
+      "n_train_pairs": 6320,
+      "n_train_states": 6530,
+      "n_validation_genes": 23,
+      "n_validation_pairs": 1415,
+      "n_validation_states": 1461,
+      "namespace": "gtex-native-biological-features-transcoder-train-v1",
+      "validation_gene_ids": [
+        "ENSG00000044090.15",
+        "ENSG00000049283.21",
+        "ENSG00000071462.15",
+        "ENSG00000092148.16",
+        "ENSG00000099904.18",
+        "ENSG00000113073.17",
+        "ENSG00000117395.15",
+        "ENSG00000131899.15",
+        "ENSG00000137877.10",
+        "ENSG00000144045.16",
+        "ENSG00000144426.20",
+        "ENSG00000146530.17",
+        "ENSG00000148835.14",
+        "ENSG00000163510.16",
+        "ENSG00000166825.17",
+        "ENSG00000168477.22",
+        "ENSG00000169248.14",
+        "ENSG00000169855.22",
+        "ENSG00000171608.20",
+        "ENSG00000185532.21",
+        "ENSG00000198765.13",
+        "ENSG00000213585.13",
+        "ENSG00000249931.5"
+      ],
+      "validation_gene_ids_sha256": "af856ec7f1fe61463d5df496dc6601245f788a8475756a2afc166cefdc06258f",
+      "validation_percent": 20,
+      "validation_state_ids_sha256": "13d1ad430437f46ad2b0012a82250133888fbf88b4e31cd8a04dc300ad2989ba"
+    },
+    "epochs": 60,
+    "grid": {
+      "active_features": [
+        8,
+        16,
+        32
+      ],
+      "capacity": "one-half shared, one-quarter tuned-only, one-quarter private",
+      "feature_widths": [
+        128,
+        256,
+        512,
+        1024
+      ],
+      "initializations": [
+        0,
+        1,
+        2
+      ],
+      "loss_weights": {
+        "consistency": 0.1,
+        "paired_difference": 1.0,
+        "reconstruction": 1.0,
+        "sparsity": 0.001,
+        "view_difference": 1.0
+      },
+      "sparsity": "blockwise BatchTopK training with fixed-L0 per-example TopK evaluation; full-training thresholds retained as diagnostics"
+    },
+    "learning_rate": 0.001,
+    "patience": 8
+  },
+  "created_at_utc": "2026-07-30T04:27:42.102976+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 35656,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_gtex_finetune_shift:sparse_transcoder_training_v1",
+  "git_commit": "efb8bf43df9a89882794f5873b96e165eb010705",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/studies/splicebert_gtex_finetune_shift/PREREGISTRATION_NATIVE_BIOLOGICAL_FEATURES_V1.md",
+      "sha256": "24322a133a9b48f64bf37ba44481ea3ac6f6f29446448d4e0b47f34c1c38c429",
+      "size_bytes": 23581
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/studies/splicebert_gtex_finetune_shift/IMPLEMENTATION_ADDENDUM_SPARSE_TRANSCODER_V1.md",
+      "sha256": "7359ca3341eaa1a4ba1316ff8171ab147e3e2a38a9f25934c85d3ed80daf50cd",
+      "size_bytes": 6974
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.json",
+      "sha256": "142ce4ee5976970b9b296685ef403cce30e56f440a87d7222a1933fe09d96b5b",
+      "size_bytes": 5721606
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.npz",
+      "sha256": "fa6c972f4765d5c57354abeb262b3e62d6ac3ff8c69e5850a1511c7cf054d559",
+      "size_bytes": 181248960
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_evaluation_v1.json",
+      "sha256": "aef33989f8a44a4dc038acc2ea463ca74f9329f928d6d3787123c960576f1bb1",
+      "size_bytes": 382246
+    }
+  ],
+  "notes": [
+    "The process loaded only recorded label-free MLP inputs and writes.",
+    "Classifier parameters, native margins, sequence labels, and external outcomes were unavailable.",
+    "Configuration selection is deferred to the immutable behavioral preflight."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/sparse_transcoder_training_v1.json",
+      "sha256": "7f92fd672431e4b121eaf2e06e64362e580a72b8c95fb7c0395c10f890b10088",
+      "size_bytes": 597553
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/sparse_transcoder_training_v1.pt",
+      "sha256": "4de7e06e7fa45cdde75d1e7d29cf1b79c3d82c4a0382b45f2b8fa05b2ee08b17",
+      "size_bytes": 425907119
+    }
+  ],
+  "seeds": {
+    "checkpoint_family": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "dictionary_initializations": [
+      0,
+      1,
+      2
+    ]
+  },
+  "status": "INSTRUMENT_UNRESOLVED"
+}
