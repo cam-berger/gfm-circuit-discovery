@@ -46,6 +46,7 @@ Immutable results:
 | complete-write and residual-delta development gates | `scripts/splicebert/run_gtex_jacobian_sae_behavior_preflight.py`; `scripts/splicebert/run_gtex_jacobian_sae_delta_preflight.py` | `results/splicebert_gtex_finetune_shift/jacobian_sae_behavior_preflight_v1.json`; `jacobian_sae_delta_preflight_v1.json` (both unresolved; target deltas preserved, absolute/sham calibration fails) |
 | outcome-blind fresh J-SAE cohort and activation capture | `scripts/splicebert/build_gtex_jacobian_sae_fresh_cohort.py`; `scripts/splicebert/capture_gtex_jacobian_sae_fresh_activations.py` | `results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_cohort_v1.json`; `jacobian_sae_fresh_activation_capture_v1.json` plus `.npz` |
 | gene-fresh residual-delta confirmation | `scripts/splicebert/run_gtex_jacobian_sae_fresh_delta_confirmation.py` | `results/splicebert_gtex_finetune_shift/jacobian_sae_fresh_delta_confirmation_v1.json` (`INSTRUMENT_UNRESOLVED`; all 30 target paths pass, 4 sham cells and 9 numerical decoder-sum cells fail) |
+| larger paired-delta J-SAE pilot | `scripts/splicebert/run_gtex_jacobian_sae_large.py` | `results/splicebert_gtex_finetune_shift/jacobian_sae_large_v1.json` plus `.pt` (`INSTRUMENT_UNRESOLVED`; seed-2020 pilot stops the family before classifier opening) |
 
 The five-seed artifact includes all 400 paired per-example values for the base and each seed, gene-grouped
 bootstrap intervals, 9,999 gene-level sign flips with add-one p-values, BH correction across the 15
@@ -171,3 +172,13 @@ Base-model bands rescue nearly the same amount, and attenuation-minus-phase cont
 `1.060–1.543`; all local effects are positive in all five seeds with `q=0.00015`. Paired-site donor
 coupling remains null for both carriers. The clocks are therefore functional for local site
 classification but separable from the final-layer coupling route.
+
+The larger paired-delta J-SAE repair is also a preserved instrument failure. On the frozen seed-2020
+pilot, the 512/128 TopK-16 pair reconstructs held-out output writes at FVE `0.9980`, preserves the
+reconstructed-input MLP output at `0.9928`, and reduces median E90 from `62` to `10` relative to the
+matched paired-delta no-Jacobian control. Analytic/autograd and finite-difference Jacobians agree.
+However, held-out input FVE is only `0.9408`, five input-delta strata miss their frozen floors, and
+AuxK supplies `69.6%` of late loss. The preregistered pilot rule therefore stops the other
+initializations, checkpoints, base comparison, and fresh behavior cohort. Enlarging the dictionary and
+adding paired-delta training improved output-path fidelity and graph concentration but did not create a
+healthy, complete sparse input representation.

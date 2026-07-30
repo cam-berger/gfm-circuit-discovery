@@ -137,3 +137,14 @@ the frozen deletion/rescue and power-matched-control gates. Equal-dose, same-ban
 permit a direct test of the exceptionally powerful named carriers. Period-3 and ≈10.63 interventions
 both lower native donor and acceptor margins, and base-model carrier replacement rescues those losses.
 Neither carrier changes paired-site coupling detectably.
+
+The larger paired-delta J-SAE repair is:
+
+- `jacobian_sae_large_v1.json` plus `.pt`: the exact-hash-pinned 512-input/128-output TopK-16
+  factorial pilot, with its adjacent manifest.
+
+This artifact controls GFS33 and has status `INSTRUMENT_UNRESOLVED`. The seed-2020 pilot passes MLP,
+Jacobian, output-write, sandwich, graph-concentration, and dead-feature controls, but fails held-out
+input FVE, five input-delta cells, and the late AuxK-share ceiling. The frozen pilot stop prevents the
+remaining checkpoint family, base comparison, fresh-v2 cohort, classifier behavior, feature identity,
+edge semantics, and steering from being opened.
