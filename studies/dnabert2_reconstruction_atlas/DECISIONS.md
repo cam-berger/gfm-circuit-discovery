@@ -881,3 +881,21 @@
   position-symmetric, and none was available here.
 - Effect: new `PREREGISTRATION_D16_FINETUNING_ATTENTION_SHIFT.md`; new D16 entry in `CLAIMS.md`;
   `RESULTS.md` detail; new runner `compare_base_finetuned_attention.py`.
+
+## 2026-07-29 — D16 wording correction: L9H7 was not a distinctively sink-like head
+
+- D16's first wording said L9H7 "converted from an attention sink into a TSS reader." Calibrating the
+  base model's population shows that overstates the starting state: mass parked on `[CLS]`/`[SEP]` is
+  the **norm** in base DNABERT-2 — mean **0.506** across all 144 heads, median 0.498, **93 of 144
+  above 0.35**. L9H7's base 0.376 ranks **92nd of 144**, i.e. slightly *less* sink-like than the
+  median head.
+- The measurement is unchanged; only the framing was wrong. What is distinctive is the **completeness
+  of the exit** (0.376 → 0.004, the largest drop in the model, to a near-zero absolute level), not the
+  starting point. The runner-up, L5H3, drops 0.806 → 0.494 and is still half-parked on special.
+- Also corrected in conversation and worth recording: **this project did not fine-tune anything.**
+  `magicslabnu/DNABERT-2-finetuned-prom_300_all` is a third-party checkpoint *selected* under IF18.
+  D16 compares two published checkpoints with an unknown training recipe, data order and seed, at
+  **n=1 pair** — so "fine-tuning caused this" is an inference from a single observation, not a
+  controlled result. Whether *some* head reliably makes this conversion, or specifically L9H7, cannot
+  be told apart without additional fine-tuning runs.
+- `CLAIMS.md` and `RESULTS.md` amended with the calibration paragraph rather than rewritten.

@@ -525,10 +525,16 @@ both far under the 0.10 threshold in the *base* model. Population Pearson betwee
 **0.951**, mean |Δ| 0.062 against mean |excess| 0.34. No layer-11 head moved into the TSS-proximal
 bands (max L11H3 +0.0130).
 
-**L9H7: attention sink → TSS reader.** Raw `[CLS]` mass on `special` collapses 0.3759 → 0.0038 while
-`proximal_upstream` rises 0.1005 → 0.5495; summed TSS-proximal excess −0.055 → +0.528 (Δ +0.583). The
-next largest such shift is L10H5 at +0.043, 14× smaller. Other large movers are pure
-`special ↔ far_upstream` rebalances with TSS-proximal shifts of 0.0000 to four decimals.
+**L9H7 leaves the attention-sink regime and becomes a TSS reader.** Raw `[CLS]` mass on `special`
+collapses 0.3759 → 0.0038 while `proximal_upstream` rises 0.1005 → 0.5495; summed TSS-proximal excess
+−0.055 → +0.528 (Δ +0.583). The next largest such shift is L10H5 at +0.043, 14× smaller. Other large
+movers are pure `special ↔ far_upstream` rebalances with TSS-proximal shifts of 0.0000 to four
+decimals.
+
+**Calibration.** L9H7 was *not* distinctively sink-like beforehand: base special mass averages 0.506
+across all 144 heads (median 0.498; 93 heads above 0.35), and L9H7's 0.376 ranks 92nd of 144. What is
+distinctive is the completeness of its exit — the largest drop in the model, to a near-zero absolute
+level, where the runner-up L5H3 falls 0.806 → 0.494 and remains half-parked on special.
 
 Verification: prior recomputes against the D15 artifact to 4.27e-07; D16's fine-tuned excesses match
 D15's cross-cohort values to within 0.01.

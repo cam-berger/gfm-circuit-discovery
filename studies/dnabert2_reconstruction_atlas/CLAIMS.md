@@ -460,7 +460,7 @@ per-head excess `far_upstream` between checkpoints is **0.951**, mean |Δ| is 0.
 +0.0130). There is no population-wide drift off the attention-sink tokens (mean Δ`special` +0.0215,
 62/144 decreasing — a coin flip).
 
-**The one large change: L9H7 converted from an attention sink into a TSS reader.** Raw `[CLS]` mass:
+**The one large change: L9H7 left the attention-sink regime and became a TSS reader.** Raw `[CLS]` mass:
 
 | band | base | fine-tuned |
 |---|---:|---:|
@@ -474,6 +474,13 @@ Summed TSS-proximal excess moves from **−0.055 to +0.528 (Δ +0.583)**. The ne
 the whole model is L10H5 at **+0.043 — 14× smaller** — so this is a singleton, not a trend. The other
 large movers (L9H10, L6H1, L5H1, L8H1, L9H0) are pure `special ↔ far_upstream` rebalances with
 TSS-proximal shifts of 0.0000 to four decimals.
+
+**Calibration — L9H7 was not a distinctively sink-like head to begin with.** In the base model, mass
+parked on `[CLS]`/`[SEP]` is the *norm*: mean **0.506** over all 144 heads, median 0.498, and **93 of
+144 heads above 0.35**. L9H7's base 0.376 ranks **92nd of 144** — slightly *less* sink-like than the
+median head. The distinctive fact is not its starting state but the **completeness of its exit**
+(0.376 → 0.004, the largest drop in the model; the runner-up, L5H3, falls 0.806 → 0.494 and is still
+half-parked on special). Wording that implies L9H7 was *the* attention sink would overstate this.
 
 D16 licenses: **fine-tuning this checkpoint for promoter classification did not redistribute `[CLS]`
 attention. It converted a single mid-network attention-sink head (L9H7) into a TSS-proximal reader and
