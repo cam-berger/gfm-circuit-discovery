@@ -538,6 +538,14 @@ collapses 0.3759 → 0.0038 while `proximal_upstream` rises 0.1005 → 0.5495; s
 movers are pure `special ↔ far_upstream` rebalances with TSS-proximal shifts of 0.0000 to four
 decimals.
 
+**Caveat — "TSS reader" is not established.** The task geometry is fixed (checkpoint pins
+`tss_upstream_nt=249`; TSS at index 249 in all 384 records; GUE `prom_300_all` is 47,356 sequences of
+exactly 300 nt), and with `[CLS]` at index 0 and ALiBi keyed on distance from the query, absolute
+window position is recoverable. L9H7's acquired target (−50:−2) is window positions 199–247 — a fixed
+offset. Detecting TSS-proximal content and attending to a constant offset that always contains the
+TSS are **indistinguishable here**. Discriminating test: re-cut windows so the TSS lands at varying
+indices and see whether the peak follows it.
+
 **Calibration.** L9H7 was *not* distinctively sink-like beforehand: base special mass averages 0.506
 across all 144 heads (median 0.498; 93 heads above 0.35), and L9H7's 0.376 ranks 92nd of 144. What is
 distinctive is the completeness of its exit — the largest drop in the model, to a near-zero absolute

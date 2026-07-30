@@ -921,3 +921,30 @@
   measured only where `[CLS]` looks. Because D15/D16 together show the carriers' attention geometry is
   unchanged, whatever makes this checkpoint a promoter classifier must live largely in the **readout**
   (OV, MLPs, classification head) — which no experiment in this study has characterised.
+
+## 2026-07-29 — D16 caveat raised against my own claim: "TSS reader" may be a fixed-offset reader
+
+- Prompted by the question "is TSS a known promoter classification proxy?". It is not a proxy — it is
+  the **definition** (a core promoter is conventionally ~−40:+40 around the transcription start site;
+  EPDnew, GUE's source, is a TSS database). Following that through exposed a confound in D16's
+  headline language that I had not stated.
+- Verified geometry: the checkpoint pins `input_length_nt=300, tss_upstream_nt=249,
+  tss_downstream_nt=50`; the TSS sits at index **249 in all 384** cohort records; GUE `prom_300_all`
+  is **47,356 sequences, every one exactly 300 nt**, balanced 50/50. The task geometry is completely
+  fixed.
+- The consequence: `[CLS]` is at index 0 and ALiBi's only positional signal is distance from the
+  query, so **in a fixed-length window distance-from-`[CLS]` is absolute window position**. L9H7's
+  acquired target, `proximal_upstream` (−50:−2), is window positions **199–247** — a constant offset.
+- Therefore **"L9H7 became a TSS reader" is not established.** The data are equally consistent with
+  L9H7 learning to attend to a fixed window offset that always contains the TSS. Nothing in D16
+  distinguishes content detection from positional habit, and the "reader" language must be read as
+  positional rather than semantic until it does.
+- This qualifies a claim already committed (`ffb3276`, `d2b28e8`, `295500e`). Recorded rather than
+  quietly reworded; `CLAIMS.md` and `RESULTS.md` now carry the caveat next to the result.
+- Discriminating experiment, cheap and attention-only: re-cut windows over the same genomic loci so
+  the TSS lands at varying indices (real sequence throughout, no synthetic construction), then
+  re-measure L9H7's `[CLS]` attention. Peak follows the TSS → detector. Peak stays at positions
+  199–247 → offset reader. Not run.
+- Note this confound is narrower than it first looks for the *rest* of the record: D15's endpoints are
+  within-locus paired contrasts at matched dose, so a fixed-offset preference does not by itself
+  explain the regional density result. It bears specifically on the semantic interpretation of L9H7.

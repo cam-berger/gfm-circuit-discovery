@@ -482,6 +482,19 @@ the whole model is L10H5 at **+0.043 — 14× smaller** — so this is a singlet
 large movers (L9H10, L6H1, L5H1, L8H1, L9H0) are pure `special ↔ far_upstream` rebalances with
 TSS-proximal shifts of 0.0000 to four decimals.
 
+**Load-bearing caveat — "TSS reader" is NOT established; it may be a fixed-offset reader.** The task
+geometry is completely fixed: the checkpoint spec pins `tss_upstream_nt=249, tss_downstream_nt=50`,
+GUE `prom_300_all` is 47,356 sequences of exactly 300 nt, and the TSS sits at index **249 in all 384**
+cohort records. Meanwhile `[CLS]` is at index 0 and ALiBi's only positional signal is distance from
+the query — so **in a fixed-length window, distance-from-`[CLS]` is absolute window position.** L9H7's
+acquired target, `proximal_upstream` (−50:−2), is window positions **199–247**, a fixed offset. Every
+measurement here is therefore equally consistent with (a) L9H7 detecting TSS-proximal sequence content
+and (b) L9H7 learning to attend to a constant window offset that always happens to contain the TSS.
+**This study cannot distinguish them**, and the "reader" language throughout should be read as
+positional, not semantic. Discriminating test (cheap, attention-only): re-cut windows over the same
+loci so the TSS lands at varying indices and check whether L9H7's peak follows the TSS or stays at
+positions 199–247.
+
 **Calibration — L9H7 was not a distinctively sink-like head to begin with.** In the base model, mass
 parked on `[CLS]`/`[SEP]` is the *norm*: mean **0.506** over all 144 heads, median 0.498, and **93 of
 144 heads above 0.35**. L9H7's base 0.376 ranks **92nd of 144** — slightly *less* sink-like than the
