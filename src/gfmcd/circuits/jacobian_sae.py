@@ -118,15 +118,18 @@ class TopKSAE(nn.Module):
     def decoder(self) -> torch.Tensor:
         return F.normalize(self.decoder_raw, p=2.0, dim=1, eps=self.eps)
 
+    def preactivations(self, values: torch.Tensor) -> torch.Tensor:
+        if values.ndim != 2 or values.shape[1] != self.input_dim:
+            raise ValueError("SAE input must be [batch, input_dim]")
+        return values @ self.encoder_weight + self.encoder_bias
+
     def encode(
         self,
         values: torch.Tensor,
         *,
         return_indices: bool = False,
     ) -> torch.Tensor | tuple[torch.Tensor, torch.Tensor]:
-        if values.ndim != 2 or values.shape[1] != self.input_dim:
-            raise ValueError("SAE input must be [batch, input_dim]")
-        scores = values @ self.encoder_weight + self.encoder_bias
+        scores = self.preactivations(values)
         selected, indices = torch.topk(
             scores,
             k=self.active_features,
@@ -154,6 +157,47 @@ class TopKSAE(nn.Module):
     ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         activations, indices = self.encode(values, return_indices=True)
         return self.decode(activations), activations, indices
+
+
+def auxiliary_dead_feature_loss(
+    sae: TopKSAE,
+    values: torch.Tensor,
+    reconstruction: torch.Tensor,
+    dead_mask: torch.Tensor,
+    *,
+    auxiliary_features: int,
+    eps: float = 1e-8,
+) -> torch.Tensor:
+    """AuxK reconstruction loss using only features that have stopped firing.
+
+    This follows the dead-latent recovery objective in Gao et al. (2024).  The
+    auxiliary reconstruction models the detached main residual; it is used only
+    during training and never changes deployment-time TopK activity.
+    """
+
+    if values.shape != reconstruction.shape or values.ndim != 2:
+        raise ValueError("values and reconstruction must be matching 2D tensors")
+    if dead_mask.shape != (sae.num_features,) or dead_mask.dtype != torch.bool:
+        raise ValueError("dead_mask must be a boolean feature mask")
+    if auxiliary_features < 1:
+        raise ValueError("auxiliary_features must be positive")
+    dead_count = int(dead_mask.sum().detach().cpu())
+    if dead_count == 0:
+        return values.new_zeros(())
+    count = min(auxiliary_features, dead_count)
+    scores = sae.preactivations(values)
+    masked_scores = scores.masked_fill(~dead_mask.unsqueeze(0), float("-inf"))
+    selected, indices = torch.topk(masked_scores, k=count, dim=1, sorted=False)
+    selected = F.relu(selected)
+    auxiliary_activations = torch.zeros_like(scores)
+    auxiliary_activations.scatter_(1, indices, selected)
+    auxiliary_reconstruction = sae.decode(auxiliary_activations)
+    target = values - reconstruction.detach() + sae.decoder_bias.detach()
+    numerator = torch.mean((auxiliary_reconstruction - target) ** 2)
+    denominator = torch.mean(
+        (target - target.mean(dim=0, keepdim=True)) ** 2
+    )
+    return numerator / denominator.clamp_min(eps)
 
 
 class JacobianSAEPair(nn.Module):
@@ -409,6 +453,7 @@ __all__ = [
     "JacobianSAEConfig",
     "JacobianSAEPair",
     "TopKSAE",
+    "auxiliary_dead_feature_loss",
     "edge_mass_count",
     "explained_variance",
     "scalar_normalization",

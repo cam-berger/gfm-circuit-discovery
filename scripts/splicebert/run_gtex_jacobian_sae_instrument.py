@@ -24,6 +24,7 @@ from gfmcd.artifact_guard import guard_output_path  # noqa: E402
 from gfmcd.circuits.jacobian_sae import (  # noqa: E402
     JacobianSAEConfig,
     JacobianSAEPair,
+    auxiliary_dead_feature_loss,
     edge_mass_count,
     explained_variance,
     scalar_normalization,
@@ -52,6 +53,8 @@ DEFAULT_PATIENCE = 6
 DEFAULT_LR = 5e-4
 MINIMUM_IMPROVEMENT = 1e-5
 GRADIENT_CLIP = 1.0
+AUTOAUX_FEATURES = 256
+AUTOAUX_COEFFICIENT = 1 / 32
 MLP_REPLAY_TOLERANCE = 5e-4
 AUTOGRAD_ABSOLUTE_TOLERANCE = 2e-5
 AUTOGRAD_RELATIVE_TOLERANCE = 2e-4
@@ -283,6 +286,7 @@ def train_one(
     batch_size: int,
     epochs: int,
     patience: int,
+    auxk_repair: bool = False,
 ) -> tuple[JacobianSAEPair, dict[str, Any]]:
     torch.manual_seed(INITIALIZATION_SEED)
     model = build_pair(
@@ -304,6 +308,17 @@ def train_one(
     best_epoch = -1
     stale = 0
     history = []
+    input_steps_since_fired = torch.zeros(
+        FEATURE_WIDTH,
+        dtype=torch.long,
+        device=device,
+    )
+    output_steps_since_fired = torch.zeros(
+        FEATURE_WIDTH,
+        dtype=torch.long,
+        device=device,
+    )
+    dead_steps_threshold = steps_per_epoch
 
     for epoch in range(epochs):
         model.train()
@@ -315,6 +330,7 @@ def train_one(
         epoch_losses = []
         epoch_reconstruction = []
         epoch_jacobian = []
+        epoch_auxiliary = []
         for start in range(0, len(order), batch_size):
             selected = order[start : start + batch_size]
             x = inputs[selected].to(device)
@@ -332,8 +348,8 @@ def train_one(
 
             x_norm = model.normalize_input(x)
             y_norm = model.normalize_output(y)
-            x_hat, _, input_indices = model.input_sae(x_norm)
-            y_hat, _, output_indices = model.output_sae(y_norm)
+            x_hat, input_acts, input_indices = model.input_sae(x_norm)
+            y_hat, output_acts, output_indices = model.output_sae(y_norm)
             input_mse = torch.mean((x_hat - x_norm) ** 2)
             output_mse = torch.mean((y_hat - y_norm) ** 2)
             reconstruction = input_mse + output_mse
@@ -346,7 +362,42 @@ def train_one(
                 jacobian_penalty = jacobian.abs().mean()
             else:
                 jacobian_penalty = reconstruction.new_zeros(())
-            loss = reconstruction + current_coefficient * jacobian_penalty
+            if auxk_repair:
+                with torch.no_grad():
+                    input_fired = (input_acts > 1e-3).any(dim=0)
+                    output_fired = (output_acts > 1e-3).any(dim=0)
+                    input_steps_since_fired.mul_(~input_fired).add_(1)
+                    output_steps_since_fired.mul_(~output_fired).add_(1)
+                    input_dead = (
+                        input_steps_since_fired > dead_steps_threshold
+                    )
+                    output_dead = (
+                        output_steps_since_fired > dead_steps_threshold
+                    )
+                input_auxiliary = auxiliary_dead_feature_loss(
+                    model.input_sae,
+                    x_norm,
+                    x_hat,
+                    input_dead,
+                    auxiliary_features=AUTOAUX_FEATURES,
+                )
+                output_auxiliary = auxiliary_dead_feature_loss(
+                    model.output_sae,
+                    y_norm,
+                    y_hat,
+                    output_dead,
+                    auxiliary_features=AUTOAUX_FEATURES,
+                )
+                auxiliary = AUTOAUX_COEFFICIENT * (
+                    input_auxiliary + output_auxiliary
+                )
+            else:
+                auxiliary = reconstruction.new_zeros(())
+            loss = (
+                reconstruction
+                + current_coefficient * jacobian_penalty
+                + auxiliary
+            )
             loss.backward()
             torch.nn.utils.clip_grad_norm_(model.parameters(), GRADIENT_CLIP)
             optimizer.step()
@@ -354,6 +405,7 @@ def train_one(
             epoch_losses.append(float(loss.detach().cpu()))
             epoch_reconstruction.append(float(reconstruction.detach().cpu()))
             epoch_jacobian.append(float(jacobian_penalty.detach().cpu()))
+            epoch_auxiliary.append(float(auxiliary.detach().cpu()))
             global_step += 1
 
         validation_loss = reconstruction_loss(
@@ -371,6 +423,7 @@ def train_one(
                     np.mean(epoch_reconstruction)
                 ),
                 "training_jacobian_l1": float(np.mean(epoch_jacobian)),
+                "training_auxiliary_loss": float(np.mean(epoch_auxiliary)),
                 "validation_reconstruction_loss": validation_loss,
             }
         )
@@ -398,6 +451,14 @@ def train_one(
         "epochs_completed": len(history),
         "best_validation_reconstruction_loss": best_loss,
         "history": history,
+        "auxk_repair": auxk_repair,
+        "auxiliary_features": AUTOAUX_FEATURES if auxk_repair else 0,
+        "auxiliary_coefficient": (
+            AUTOAUX_COEFFICIENT if auxk_repair else 0.0
+        ),
+        "dead_steps_threshold": (
+            dead_steps_threshold if auxk_repair else None
+        ),
     }
 
 
@@ -644,10 +705,10 @@ def select_candidate(
                 >= baseline_metrics["sandwich_output_fve"] - 0.03
             ),
             "input_dead_fraction": (
-                metrics["input_dead_feature_fraction"] <= 0.50
+                row["train"]["input_dead_feature_fraction"] <= 0.50
             ),
             "output_dead_fraction": (
-                metrics["output_dead_feature_fraction"] <= 0.50
+                row["train"]["output_dead_feature_fraction"] <= 0.50
             ),
         }
         edge_reduction = (
@@ -713,6 +774,7 @@ def main() -> None:
     parser.add_argument("--epochs", type=int, default=DEFAULT_EPOCHS)
     parser.add_argument("--patience", type=int, default=DEFAULT_PATIENCE)
     parser.add_argument("--learning-rate", type=float, default=DEFAULT_LR)
+    parser.add_argument("--auxk-repair", action="store_true")
     parser.add_argument("--model-out", required=True)
     parser.add_argument("--out", required=True)
     args = parser.parse_args()
@@ -732,11 +794,23 @@ def main() -> None:
             else "cuda" if torch.cuda.is_available() else "cpu"
         )
     )
+    protocol_name = (
+        "PREREGISTRATION_JACOBIAN_SAE_V2.md"
+        if args.auxk_repair
+        else "PREREGISTRATION_JACOBIAN_SAE_V1.md"
+    )
     protocol = (
         REPO
         / "studies/splicebert_gtex_finetune_shift/"
-        "PREREGISTRATION_JACOBIAN_SAE_V1.md"
+        / protocol_name
     )
+    v1_failure = (
+        REPO
+        / "results/splicebert_gtex_finetune_shift/"
+        "jacobian_sae_instrument_v1.json"
+    )
+    if args.auxk_repair and not v1_failure.is_file():
+        raise RuntimeError("v2 requires the preserved v1 failure artifact")
     activation_path = Path(args.activation_artifact).expanduser().resolve()
     model_dir = Path(args.model_dir).expanduser().resolve()
     output = guard_output_path(Path(args.out).resolve())
@@ -788,7 +862,11 @@ def main() -> None:
 
     candidates: dict[str, dict[str, Any]] = {}
     model_payload = {
-        "schema": "gfmcd.splicebert.jacobian_sae.instrument.v1",
+        "schema": (
+            "gfmcd.splicebert.jacobian_sae.instrument.v2"
+            if args.auxk_repair
+            else "gfmcd.splicebert.jacobian_sae.instrument.v1"
+        ),
         "view": args.view,
         "config": asdict(
             JacobianSAEConfig(512, 512, 2048, FEATURE_WIDTH, ACTIVE_FEATURES)
@@ -811,6 +889,7 @@ def main() -> None:
             batch_size=args.batch,
             epochs=args.epochs,
             patience=args.patience,
+            auxk_repair=args.auxk_repair,
         )
         validation = evaluate_model(
             model,
@@ -860,6 +939,14 @@ def main() -> None:
         "status": status,
         "evidence_tier": "instrument",
         "protocol": str(protocol.relative_to(REPO)),
+        "parent_failure": (
+            {
+                "path": str(v1_failure),
+                "sha256": sha256_file(v1_failure),
+            }
+            if args.auxk_repair
+            else None
+        ),
         "view": args.view,
         "checkpoint": {
             "model_dir": str(model_dir),
@@ -902,6 +989,13 @@ def main() -> None:
             ],
             "jacobian_metric_trained": "raw_l1",
             "posthoc_scale_sensitivity": "l1_over_rms_and_edge_mass_counts",
+            "auxk_dead_feature_repair": args.auxk_repair,
+            "auxiliary_features": (
+                AUTOAUX_FEATURES if args.auxk_repair else 0
+            ),
+            "auxiliary_coefficient": (
+                AUTOAUX_COEFFICIENT if args.auxk_repair else 0.0
+            ),
         },
         "mechanical_preflight": {
             "maximum_mlp_replay_error": maximum_replay_error,
@@ -940,7 +1034,11 @@ def main() -> None:
     output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
 
     manifest = ExperimentManifest.create(
-        "splicebert_gtex_finetune_shift:jacobian_sae_instrument_v1",
+        (
+            "splicebert_gtex_finetune_shift:jacobian_sae_instrument_v2"
+            if args.auxk_repair
+            else "splicebert_gtex_finetune_shift:jacobian_sae_instrument_v1"
+        ),
         sys.argv,
         repo=REPO,
         status=status,
@@ -954,6 +1052,7 @@ def main() -> None:
             "patience": args.patience,
             "learning_rate": args.learning_rate,
             "device": str(device),
+            "auxk_repair": args.auxk_repair,
         },
         seeds={"dictionary_initialization": INITIALIZATION_SEED},
         notes=[
@@ -964,6 +1063,7 @@ def main() -> None:
     )
     for path in (
         protocol,
+        *([v1_failure] if args.auxk_repair else []),
         activation_path,
         Path(report["arrays"]["path"]),
         model_dir / "config.json",

@@ -4,6 +4,7 @@ from gfmcd.circuits.jacobian_sae import (
     JacobianSAEConfig,
     JacobianSAEPair,
     TopKSAE,
+    auxiliary_dead_feature_loss,
     edge_mass_count,
     explained_variance,
     scalar_normalization,
@@ -93,6 +94,29 @@ def test_loss_backpropagates_only_into_saes():
     assert pair.output_sae.encoder_weight.grad is not None
     assert pair.mlp_input_weight.grad is None
     assert pair.mlp_output_weight.grad is None
+
+
+def test_auxiliary_loss_routes_gradients_to_dead_features():
+    torch.manual_seed(4)
+    sae = TopKSAE(5, 12, 2)
+    values = torch.randn(7, 5)
+    reconstruction, activations, _ = sae(values)
+    dead = torch.zeros(12, dtype=torch.bool)
+    dead[6:] = True
+    loss = auxiliary_dead_feature_loss(
+        sae,
+        values,
+        reconstruction,
+        dead,
+        auxiliary_features=4,
+    )
+    loss.backward()
+    assert torch.isfinite(loss)
+    assert float(loss.detach()) > 0
+    assert torch.any(sae.encoder_weight.grad[:, dead] != 0)
+    assert torch.all(activations[:, dead] == 0) or torch.any(
+        sae.encoder_weight.grad[:, dead] != 0
+    )
 
 
 def test_metrics_report_fve_and_edge_concentration():

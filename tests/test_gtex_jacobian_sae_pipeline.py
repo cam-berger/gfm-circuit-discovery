@@ -39,12 +39,14 @@ def test_gene_balanced_epoch_equalizes_expected_gene_weight():
 def test_candidate_selection_requires_fidelity_and_graph_improvement():
     def row(e90, input_fve=0.90, output_fve=0.97, sandwich_fve=0.94):
         return {
+            "train": {
+                "input_dead_feature_fraction": 0.1,
+                "output_dead_feature_fraction": 0.1,
+            },
             "validation": {
                 "input_fve": input_fve,
                 "output_write_fve": output_fve,
                 "sandwich_output_fve": sandwich_fve,
-                "input_dead_feature_fraction": 0.1,
-                "output_dead_feature_fraction": 0.1,
                 "active_edge_mass_count": {"E90": {"median": e90}},
             }
         }
