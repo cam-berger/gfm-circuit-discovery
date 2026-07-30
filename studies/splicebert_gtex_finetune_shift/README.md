@@ -171,5 +171,13 @@ The positional Fourier follow-up shows that supervised fine-tuning did not erase
 period-3 and ≈10.63 peaks retain their frequencies, most of their normalized power, and—under an
 exploratory energy-ranked sensitivity—their dominant two-dimensional carrier planes. Two new ≈2.2-nt
 gain bands are reproducible in weight space but causally null for native donor coupling under
-preflighted deletion, base-band restoration, and three power-matched controls. The named carriers remain
-outside that causal test because their exceptional power leaves no valid matched-control family.
+preflighted deletion, base-band restoration, and three power-matched controls.
+
+An equal-dose same-band phase design resolves the named-carrier control problem. Full period-3 deletion
+was preserved as a stopped V1 because it impaired the local `GT→CC` positive control in four seeds; V2
+therefore removed 50% of period 3 and fully removed ≈10.63 on the next 64 genes. Both interventions pass
+the health gate and causally lower native donor and acceptor margins. Base-model band replacement rescues
+the loss, and the attenuation effects remain larger than power-preserving phase surgery with
+`q=0.00015`. Neither band changes paired-acceptor donor coupling detectably. Thus the inherited clocks
+are functional inputs to local splice-site classification, not the specialized coupling computation
+traced through `L5H6`.

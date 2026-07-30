@@ -126,9 +126,14 @@ The positional-carrier extension is:
 - `positional_band_surgery_attempt1_failure.json`: preserved MPS float64-transfer instrument failure;
 - `positional_band_surgery_v1.json`: corrected five-seed native-coupling surgery result;
 - `positional_spectrum_dominant_subspace_sensitivity_v1.json`: explicitly post-hoc leading-energy
-  geometry sensitivity.
+  geometry sensitivity;
+- `positional_native_margin_gate_v1.json`: preserved full-dose stop after period-3 deletion failed the
+  classifier-health threshold in four seeds;
+- `positional_native_margin_gate_v2.json`: health-preserving named-carrier test on the next 64 genes.
 
-These artifacts control GFS23–GFS24. Both named carrier frequencies and their dominant rank-2 planes
+These artifacts control GFS23–GFS25. Both named carrier frequencies and their dominant rank-2 planes
 survive fine-tuning. The two newly amplified ≈2.2-nt bands are not causal for native donor coupling under
-the frozen deletion/rescue and power-matched-control gates. The named carriers stop before causal testing
-because three eligible same-power controls cannot be formed.
+the frozen deletion/rescue and power-matched-control gates. Equal-dose, same-band phase controls then
+permit a direct test of the exceptionally powerful named carriers. Period-3 and ≈10.63 interventions
+both lower native donor and acceptor margins, and base-model carrier replacement rescues those losses.
+Neither carrier changes paired-site coupling detectably.

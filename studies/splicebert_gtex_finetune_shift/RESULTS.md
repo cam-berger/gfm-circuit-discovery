@@ -39,6 +39,8 @@ Immutable results:
 | six-view final-MLP activation capture | `scripts/splicebert/run_gtex_sparse_transcoder_activation_capture.py` | `results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.json` plus `.npz` |
 | frozen sparse final-MLP grid | `scripts/splicebert/run_gtex_sparse_transcoder_training.py` | `results/splicebert_gtex_finetune_shift/sparse_transcoder_training_v1.json` plus `.pt` (`INSTRUMENT_UNRESOLVED`) |
 | exact-dose held-out biological construction | `scripts/splicebert/freeze_gtex_native_biological_features_confirmation.py` | `results/splicebert_gtex_finetune_shift/native_biological_features_confirmation_construction_v1.json` (`STOPPED_MINIMUM_COHORT`; no model output) |
+| named-carrier native-margin gate v1 | `scripts/splicebert/run_gtex_positional_native_margin_gate.py` | `results/splicebert_gtex_finetune_shift/positional_native_margin_gate_v1.json` (`STOPPED_INTERVENTION_PREFLIGHT`; full period-3 deletion unhealthy) |
+| health-preserving named-carrier gate v2 | `scripts/splicebert/run_gtex_positional_native_margin_gate_v2.py` | `results/splicebert_gtex_finetune_shift/positional_native_margin_gate_v2.json` (period 3 and ≈10.63 local-margin screens PASS; coupling screens null) |
 
 The five-seed artifact includes all 400 paired per-example values for the base and each seed, gene-grouped
 bootstrap intervals, 9,999 gene-level sign flips with add-one p-values, BH correction across the 15
@@ -153,5 +155,14 @@ The full scan finds two adjacent ≈`2.21–2.28`-nt bands that gain `2.74–2.7
 all intervention-health controls but are causally null for native donor coupling: deletion and base-band
 restoration effects are on the order of `10⁻⁴`, mixed across seeds, indistinguishable from three
 power-matched bands, and have `q=0.9704`. Thus fine-tuning preserved the old positional carriers and added
-high-frequency weight structure that the tested classifier behavior does not use. Period 3 and ≈10.63
-could not enter this deletion/rescue test because no valid three-band power-matched control set exists.
+high-frequency weight structure that the tested classifier behavior does not use.
+
+The named carriers can be tested without pretending that weak other-frequency bands are comparable.
+Three same-band phase controls preserve carrier power while matching the exact table-space intervention
+dose. A full period-3 deletion first stopped because it reduced the frozen local-task health response
+below 80% in four seeds. On the next 64 genes, health-preserving 50% period-3 attenuation lowers native
+donor/acceptor margins by `1.657/1.724`, while full ≈10.63 removal lowers them by `1.530/0.983`.
+Base-model bands rescue nearly the same amount, and attenuation-minus-phase contrasts remain
+`1.060–1.543`; all local effects are positive in all five seeds with `q=0.00015`. Paired-site donor
+coupling remains null for both carriers. The clocks are therefore functional for local site
+classification but separable from the final-layer coupling route.

@@ -1,17 +1,17 @@
 {
- "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc). GFS rows appended 2026-07-28 (GTEx fine-tuning shift). Native-classifier GFS6\u2013GFS9 rows appended 2026-07-29. Final-layer mechanism GFS10\u2013GFS13 rows appended 2026-07-29. Context-localization GFS14\u2013GFS16 rows appended 2026-07-29. Complete L5 context-head census GFS17 rows appended 2026-07-29. Joint/path/low-rank GFS18 rows appended 2026-07-29. Per-seed alignment GFS19 and exact native-unit GFS20 rows appended 2026-07-29. Biological-feature GFS21 preflight and discovery rows appended 2026-07-29. Exact-dose biological construction GFS22 rows appended 2026-07-30 Positional-spectrum GFS23-GFS24 rows appended 2026-07-30.",
- "row_count": 891,
+ "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc). GFS rows appended 2026-07-28 (GTEx fine-tuning shift). Native-classifier GFS6\u2013GFS9 rows appended 2026-07-29. Final-layer mechanism GFS10\u2013GFS13 rows appended 2026-07-29. Context-localization GFS14\u2013GFS16 rows appended 2026-07-29. Complete L5 context-head census GFS17 rows appended 2026-07-29. Joint/path/low-rank GFS18 rows appended 2026-07-29. Per-seed alignment GFS19 and exact native-unit GFS20 rows appended 2026-07-29. Biological-feature GFS21 preflight and discovery rows appended 2026-07-29. Exact-dose biological construction GFS22 rows appended 2026-07-30 Positional-spectrum GFS23-GFS24 rows appended 2026-07-30. Named-carrier behavior GFS25 rows appended 2026-07-30.",
+ "row_count": 895,
  "status_counts": {
   "canonical": 563,
-  "development": 174,
+  "development": 176,
   "infrastructure": 14,
-  "superseded": 140
+  "superseded": 142
  },
  "polarity_counts": {
-  "bounded": 64,
+  "bounded": 66,
   "na": 287,
   "null": 21,
-  "positive": 514,
+  "positive": 516,
   "refutation": 5
  },
  "columns": [
@@ -8922,6 +8922,46 @@
    "polarity": "null",
    "artifact": "results/splicebert_gtex_finetune_shift/positional_band_surgery_v1.manifest.json",
    "script": "scripts/splicebert/run_gtex_positional_band_surgery.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS25",
+   "status": "superseded",
+   "evidence_level": "Instrument",
+   "polarity": "bounded",
+   "artifact": "results/splicebert_gtex_finetune_shift/positional_native_margin_gate_v1.json",
+   "script": "scripts/splicebert/run_gtex_positional_native_margin_gate.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/positional_native_margin_gate_v1.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS25",
+   "status": "superseded",
+   "evidence_level": "Instrument",
+   "polarity": "bounded",
+   "artifact": "results/splicebert_gtex_finetune_shift/positional_native_margin_gate_v1.manifest.json",
+   "script": "scripts/splicebert/run_gtex_positional_native_margin_gate.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS25",
+   "status": "development",
+   "evidence_level": "Behaviour",
+   "polarity": "positive",
+   "artifact": "results/splicebert_gtex_finetune_shift/positional_native_margin_gate_v2.json",
+   "script": "scripts/splicebert/run_gtex_positional_native_margin_gate_v2.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/positional_native_margin_gate_v2.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS25",
+   "status": "development",
+   "evidence_level": "Behaviour",
+   "polarity": "positive",
+   "artifact": "results/splicebert_gtex_finetune_shift/positional_native_margin_gate_v2.manifest.json",
+   "script": "scripts/splicebert/run_gtex_positional_native_margin_gate_v2.py",
    "manifest": "",
    "figure": ""
   },

@@ -1,0 +1,178 @@
+{
+  "command": [
+    "scripts/splicebert/run_gtex_positional_native_margin_gate_v2.py",
+    "--spectrum",
+    "results/splicebert_gtex_finetune_shift/positional_spectrum_v1_target_gate_correction.json",
+    "--cohort-source",
+    "results/splicebert_gtex_finetune_shift/positional_band_surgery_v1.json",
+    "--v1-result",
+    "results/splicebert_gtex_finetune_shift/positional_native_margin_gate_v1.json",
+    "--base-model",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+    "--checkpoint",
+    "2020=data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2020.pt",
+    "--checkpoint",
+    "2021=data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2021.pt",
+    "--checkpoint",
+    "2022=data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2022.pt",
+    "--checkpoint",
+    "2023=data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2023.pt",
+    "--checkpoint",
+    "2024=data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2024.pt",
+    "--gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+    "--fasta",
+    "/Users/cberg/Research/data/genomes/hg38.fa",
+    "--device",
+    "mps",
+    "--batch",
+    "4",
+    "--out",
+    "results/splicebert_gtex_finetune_shift/positional_native_margin_gate_v2.json"
+  ],
+  "config": {
+    "batch": 4,
+    "cohort_slice_zero_based": [
+      64,
+      128
+    ],
+    "cohort_source_sha256": "27965b7833ec4a1f62df966158a2e9d446cf6fdcc696e3d86fedc7d7010128d6",
+    "n": 64,
+    "n_boot": 5000,
+    "n_perm": 9999,
+    "phase_angles_radians": {
+      "period10": 1.0471975511965976,
+      "period3": 0.5053605102841573
+    },
+    "phase_patterns": {
+      "all_positive": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "alternating": [
+        1,
+        -1,
+        1,
+        -1,
+        1,
+        -1,
+        1
+      ],
+      "mixed": [
+        1,
+        1,
+        -1,
+        1,
+        -1,
+        -1,
+        1
+      ]
+    },
+    "protocol_sha256": "4c87a0c6ddd6e2ee784d0ceaafe8ae31fbb98a1e8c2e19b4561bb79ee090f4cd",
+    "removal_fractions": {
+      "period10": 1.0,
+      "period3": 0.5
+    },
+    "spectrum_sha256": "46a29e9c2f2bd07fc81802908cb1ee6659644e841c92b0a172cd753221103255",
+    "thresholds": {
+      "maximum_q": 0.05,
+      "minimum_health_retention": 0.8,
+      "minimum_intact_local_destruction": 5.0,
+      "minimum_screen_effect": 0.05,
+      "phase_dose_tolerance": 1e-10,
+      "phase_power_tolerance": 1e-10,
+      "spectral_support_tolerance": 1e-10
+    },
+    "v1_result_sha256": "7259f609e648953f3858365f6bd60a6f7dab2184eeaebbe71f14393b87100a00"
+  },
+  "created_at_utc": "2026-07-30T13:57:21.228136+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 64392,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "gtex-positional-native-margin-gate-v2",
+  "git_commit": "aec70cf3ff738c8cb5d08708221f16381bea233d",
+  "git_dirty": false,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/positional_spectrum_v1_target_gate_correction.json",
+      "sha256": "46a29e9c2f2bd07fc81802908cb1ee6659644e841c92b0a172cd753221103255",
+      "size_bytes": 609431
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/positional_band_surgery_v1.json",
+      "sha256": "27965b7833ec4a1f62df966158a2e9d446cf6fdcc696e3d86fedc7d7010128d6",
+      "size_bytes": 4042160
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/positional_native_margin_gate_v1.json",
+      "sha256": "7259f609e648953f3858365f6bd60a6f7dab2184eeaebbe71f14393b87100a00",
+      "size_bytes": 980386
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/studies/splicebert_gtex_finetune_shift/PREREGISTRATION_POSITIONAL_NATIVE_MARGIN_GATE_V2.md",
+      "sha256": "4c87a0c6ddd6e2ee784d0ceaafe8ae31fbb98a1e8c2e19b4561bb79ee090f4cd",
+      "size_bytes": 4128
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2020.pt",
+      "sha256": "2552486a0870e2466a223fcce34f0477c40526a09172622619f0d1672a1af45e",
+      "size_bytes": 77835365
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2021.pt",
+      "sha256": "2cb06d2a17d941857485329604d526b465eabda319632c932000b85d8d40cda6",
+      "size_bytes": 77835365
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2022.pt",
+      "sha256": "556e38c92319ce87fb15ca390743ae20c539f4c5400c4cca82a83cdf3d46bd0a",
+      "size_bytes": 77835365
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2023.pt",
+      "sha256": "03c25882ae3e4b48198265bf8447ef543308e40ec9fd700b4834d829dcb6100b",
+      "size_bytes": 77835365
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2024.pt",
+      "sha256": "d1caccec4db1784537178e355351a3e0b67cde4e70185bf6b6a6d63f792198f1",
+      "size_bytes": 77835365
+    }
+  ],
+  "notes": [],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/positional_native_margin_gate_v2.json",
+      "sha256": "e18dc4cb3c9d0da2e312295bf2ab10234ff34da115423136b5f781532e1f23fb",
+      "size_bytes": 854924
+    }
+  ],
+  "seeds": {
+    "bootstrap_base": 750000,
+    "permutation_base": 850000
+  },
+  "status": "COMPLETE"
+}
