@@ -1,0 +1,1498 @@
+{
+  "activation_artifact": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.json",
+  "activation_artifact_sha256": "142ce4ee5976970b9b296685ef403cce30e56f440a87d7222a1933fe09d96b5b",
+  "behavior_artifact": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/jacobian_sae_behavior_preflight_v1.json",
+  "behavior_artifact_sha256": "6b1316bf1ef368b8d0b19fbe486f473d16cb2373b6c0197fb018171bcdd3ded8",
+  "biological_protocol": "studies/splicebert_gtex_finetune_shift/PREREGISTRATION_NATIVE_BIOLOGICAL_FEATURES_V1.md",
+  "cells": [
+    {
+      "PASS": true,
+      "checkpoint_seed": 2020,
+      "endpoint": "donor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 0,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.004659999553396878,
+        "damage_ratio": 0.8553896961241935,
+        "damage_relative_error": 0.14461030387580656,
+        "dense_damage": 0.03222453330434154,
+        "dense_recovery": 0.032307352050914485,
+        "recovery_absolute_error": 0.003712381884248942,
+        "recovery_ratio": 0.8850917314920007,
+        "recovery_relative_error": 0.11490826850799926,
+        "sequence_effect": 0.03126363875662541,
+        "sparse_damage": 0.02756453375094466,
+        "sparse_recovery": 0.028594970166665543
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.05763968717335999,
+        "damage_ratio": 1.0494860763390967,
+        "damage_relative_error": 0.04948607633909665,
+        "dense_damage": 1.164765757106945,
+        "dense_recovery": 1.165064958447259,
+        "recovery_absolute_error": 0.06015127924513175,
+        "recovery_ratio": 1.051629120598819,
+        "recovery_relative_error": 0.05162912059881915,
+        "sequence_effect": 1.1621328789582295,
+        "sparse_damage": 1.222405444280305,
+        "sparse_recovery": 1.2252162376923907
+      }
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2020,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": false,
+        "sham_recovery_error": false,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 0,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.10107285770891526,
+        "damage_ratio": 0.38496669474719913,
+        "damage_relative_error": 0.6150333052528009,
+        "dense_damage": 0.16433721043345884,
+        "dense_recovery": 0.1646734554222226,
+        "recovery_absolute_error": 0.14353868164798533,
+        "recovery_ratio": 0.1283435373360431,
+        "recovery_relative_error": 0.8716564626639569,
+        "sequence_effect": 0.1636164593768304,
+        "sparse_damage": 0.06326435272454357,
+        "sparse_recovery": 0.02113477377423725
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.026521034013390565,
+        "damage_ratio": 1.0195027034079713,
+        "damage_relative_error": 0.019502703407971386,
+        "dense_damage": 1.3598644997365115,
+        "dense_recovery": 1.36437003718279,
+        "recovery_absolute_error": 0.11358351312102699,
+        "recovery_ratio": 0.9167502143659215,
+        "recovery_relative_error": 0.0832497856340785,
+        "sequence_effect": 1.3725583696244648,
+        "sparse_damage": 1.386385533749902,
+        "sparse_recovery": 1.250786524061763
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2020,
+      "endpoint": "donor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 1,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.01698743269512997,
+        "damage_ratio": 1.5271583775843633,
+        "damage_relative_error": 0.5271583775843635,
+        "dense_damage": 0.03222453330434154,
+        "dense_recovery": 0.032307352050914485,
+        "recovery_absolute_error": 0.017688515260574973,
+        "recovery_ratio": 1.5475074290427429,
+        "recovery_relative_error": 0.5475074290427427,
+        "sequence_effect": 0.03126363875662541,
+        "sparse_damage": 0.04921196599947151,
+        "sparse_recovery": 0.04999586731148946
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.06116220491501956,
+        "damage_ratio": 1.0525103047903253,
+        "damage_relative_error": 0.05251030479032519,
+        "dense_damage": 1.164765757106945,
+        "dense_recovery": 1.165064958447259,
+        "recovery_absolute_error": 0.0497101677110634,
+        "recovery_ratio": 1.0426672927982614,
+        "recovery_relative_error": 0.042667292798261355,
+        "sequence_effect": 1.1621328789582295,
+        "sparse_damage": 1.2259279620219645,
+        "sparse_recovery": 1.2147751261583224
+      }
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2020,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": false,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 1,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.027662956758130075,
+        "damage_ratio": 1.1683304510595365,
+        "damage_relative_error": 0.1683304510595364,
+        "dense_damage": 0.16433721043345884,
+        "dense_recovery": 0.1646734554222226,
+        "recovery_absolute_error": 0.09602474499428645,
+        "recovery_ratio": 0.4168778158685072,
+        "recovery_relative_error": 0.5831221841314929,
+        "sequence_effect": 0.1636164593768304,
+        "sparse_damage": 0.1920001671915889,
+        "sparse_recovery": 0.06864871042793613
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.04005349845817796,
+        "damage_ratio": 0.9705459636118607,
+        "damage_relative_error": 0.029454036388139232,
+        "dense_damage": 1.3598644997365115,
+        "dense_recovery": 1.36437003718279,
+        "recovery_absolute_error": 0.05810224607518344,
+        "recovery_ratio": 0.9574145983188289,
+        "recovery_relative_error": 0.04258540168117108,
+        "sequence_effect": 1.3725583696244648,
+        "sparse_damage": 1.3198110012783335,
+        "sparse_recovery": 1.3062677911076066
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2020,
+      "endpoint": "donor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 2,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.006557358741575845,
+        "damage_ratio": 0.796510358128526,
+        "damage_relative_error": 0.20348964187147398,
+        "dense_damage": 0.03222453330434154,
+        "dense_recovery": 0.032307352050914485,
+        "recovery_absolute_error": 0.00590957041379633,
+        "recovery_ratio": 0.817082798847668,
+        "recovery_relative_error": 0.18291720115233198,
+        "sequence_effect": 0.03126363875662541,
+        "sparse_damage": 0.025667174562765693,
+        "sparse_recovery": 0.026397781637118155
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.023952407309632662,
+        "damage_ratio": 1.020564141041651,
+        "damage_relative_error": 0.02056414104165103,
+        "dense_damage": 1.164765757106945,
+        "dense_recovery": 1.165064958447259,
+        "recovery_absolute_error": 0.03802917498984981,
+        "recovery_ratio": 1.0326412486395036,
+        "recovery_relative_error": 0.03264124863950352,
+        "sequence_effect": 1.1621328789582295,
+        "sparse_damage": 1.1887181644165776,
+        "sparse_recovery": 1.2030941334371088
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2020,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 2,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.0628187715140513,
+        "damage_ratio": 0.6177446888117466,
+        "damage_relative_error": 0.38225531118825345,
+        "dense_damage": 0.16433721043345884,
+        "dense_recovery": 0.1646734554222226,
+        "recovery_absolute_error": 0.04703925491354716,
+        "recovery_ratio": 0.714348285259828,
+        "recovery_relative_error": 0.285651714740172,
+        "sequence_effect": 0.1636164593768304,
+        "sparse_damage": 0.10151843891940754,
+        "sparse_recovery": 0.11763420050867543
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.057486080676174334,
+        "damage_ratio": 0.9577266112268443,
+        "damage_relative_error": 0.042273388773155625,
+        "dense_damage": 1.3598644997365115,
+        "dense_recovery": 1.36437003718279,
+        "recovery_absolute_error": 0.06722799470963792,
+        "recovery_ratio": 0.9507259813118931,
+        "recovery_relative_error": 0.04927401868810691,
+        "sequence_effect": 1.3725583696244648,
+        "sparse_damage": 1.3023784190603371,
+        "sparse_recovery": 1.2971420424731521
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2021,
+      "endpoint": "donor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 0,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.008436683700312184,
+        "damage_ratio": 0.8130038816754459,
+        "damage_relative_error": 0.18699611832455415,
+        "dense_damage": 0.04511689213606728,
+        "dense_recovery": 0.045197573454253404,
+        "recovery_absolute_error": 0.008649755290223805,
+        "recovery_ratio": 0.8086234585363608,
+        "recovery_relative_error": 0.19137654146363922,
+        "sequence_effect": 0.043640975934515554,
+        "sparse_damage": 0.0366802084357551,
+        "sparse_recovery": 0.0365478181640296
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.00988690469180109,
+        "damage_ratio": 0.9929943274185069,
+        "damage_relative_error": 0.007005672581493055,
+        "dense_damage": 1.4112713057586235,
+        "dense_recovery": 1.4123056073076758,
+        "recovery_absolute_error": 0.011944265584303837,
+        "recovery_ratio": 0.9915427188545448,
+        "recovery_relative_error": 0.008457281145455181,
+        "sequence_effect": 1.4036440936190335,
+        "sparse_damage": 1.4013844010668224,
+        "sparse_recovery": 1.400361341723372
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2021,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 0,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.008444178631828836,
+        "damage_ratio": 0.8697961319514503,
+        "damage_relative_error": 0.13020386804854966,
+        "dense_damage": 0.06485351593917486,
+        "dense_recovery": 0.06502978369595096,
+        "recovery_absolute_error": 0.012122051177501245,
+        "recovery_ratio": 0.8135923189568287,
+        "recovery_relative_error": 0.18640768104317126,
+        "sequence_effect": 0.06291834689749098,
+        "sparse_damage": 0.05640933730734603,
+        "sparse_recovery": 0.05290773251844971
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.07516831246884492,
+        "damage_ratio": 1.0683878659255648,
+        "damage_relative_error": 0.06838786592556485,
+        "dense_damage": 1.0991469239683556,
+        "dense_recovery": 1.1014557813703998,
+        "recovery_absolute_error": 0.06969027310427967,
+        "recovery_ratio": 1.0632710584328433,
+        "recovery_relative_error": 0.06327105843284332,
+        "sequence_effect": 1.110940998627114,
+        "sparse_damage": 1.1743152364372005,
+        "sparse_recovery": 1.1711460544746795
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2021,
+      "endpoint": "donor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 1,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.002792656410447042,
+        "damage_ratio": 0.9381017557232285,
+        "damage_relative_error": 0.06189824427677146,
+        "dense_damage": 0.04511689213606728,
+        "dense_recovery": 0.045197573454253404,
+        "recovery_absolute_error": 0.0001376301526638396,
+        "recovery_ratio": 0.9969549216441201,
+        "recovery_relative_error": 0.003045078355879914,
+        "sequence_effect": 0.043640975934515554,
+        "sparse_damage": 0.04232423572562024,
+        "sparse_recovery": 0.045059943301589564
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.018054745637997804,
+        "damage_ratio": 0.9872067507046121,
+        "damage_relative_error": 0.012793249295387995,
+        "dense_damage": 1.4112713057586235,
+        "dense_recovery": 1.4123056073076758,
+        "recovery_absolute_error": 0.000677874314017668,
+        "recovery_ratio": 0.9995200229252719,
+        "recovery_relative_error": 0.00047997707472812617,
+        "sequence_effect": 1.4036440936190335,
+        "sparse_damage": 1.3932165601206257,
+        "sparse_recovery": 1.4116277329936582
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2021,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 1,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.014517972458628813,
+        "damage_ratio": 0.7761420911667303,
+        "damage_relative_error": 0.22385790883326975,
+        "dense_damage": 0.06485351593917486,
+        "dense_recovery": 0.06502978369595096,
+        "recovery_absolute_error": 0.016883055106069793,
+        "recovery_ratio": 0.7403796514992713,
+        "recovery_relative_error": 0.2596203485007287,
+        "sequence_effect": 0.06291834689749098,
+        "sparse_damage": 0.05033554348054605,
+        "sparse_recovery": 0.048146728589881164
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.02193278592819592,
+        "damage_ratio": 1.0199543713855923,
+        "damage_relative_error": 0.019954371385592272,
+        "dense_damage": 1.0991469239683556,
+        "dense_recovery": 1.1014557813703998,
+        "recovery_absolute_error": 0.054769571741202006,
+        "recovery_ratio": 1.0497247122104705,
+        "recovery_relative_error": 0.049724712210470465,
+        "sequence_effect": 1.110940998627114,
+        "sparse_damage": 1.1210797098965515,
+        "sparse_recovery": 1.1562253531116018
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2021,
+      "endpoint": "donor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 2,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.005136102154631131,
+        "damage_ratio": 0.8861601074129564,
+        "damage_relative_error": 0.11383989258704359,
+        "dense_damage": 0.04511689213606728,
+        "dense_recovery": 0.045197573454253404,
+        "recovery_absolute_error": 0.006681252211995281,
+        "recovery_ratio": 0.8521767497372909,
+        "recovery_relative_error": 0.14782325026270915,
+        "sequence_effect": 0.043640975934515554,
+        "sparse_damage": 0.03998078998143615,
+        "sparse_recovery": 0.03851632124225812
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.01303623411974808,
+        "damage_ratio": 0.9907627724970002,
+        "damage_relative_error": 0.00923722750299986,
+        "dense_damage": 1.4112713057586235,
+        "dense_recovery": 1.4123056073076758,
+        "recovery_absolute_error": 0.021713787711318266,
+        "recovery_ratio": 0.9846252910142359,
+        "recovery_relative_error": 0.015374708985764042,
+        "sequence_effect": 1.4036440936190335,
+        "sparse_damage": 1.3982350716388754,
+        "sparse_recovery": 1.3905918195963576
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2021,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 2,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.008324276989644663,
+        "damage_ratio": 1.1283550609261013,
+        "damage_relative_error": 0.1283550609261012,
+        "dense_damage": 0.06485351593917486,
+        "dense_recovery": 0.06502978369595096,
+        "recovery_absolute_error": 0.005168183476406102,
+        "recovery_ratio": 1.0794740991384828,
+        "recovery_relative_error": 0.07947409913848284,
+        "sequence_effect": 0.06291834689749098,
+        "sparse_damage": 0.07317779292881953,
+        "sparse_recovery": 0.07019796717235706
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.02765786480693011,
+        "damage_ratio": 0.974836972015466,
+        "damage_relative_error": 0.02516302798453392,
+        "dense_damage": 1.0991469239683556,
+        "dense_recovery": 1.1014557813703998,
+        "recovery_absolute_error": 0.00925352787069933,
+        "recovery_ratio": 1.0084011796271897,
+        "recovery_relative_error": 0.008401179627189713,
+        "sequence_effect": 1.110940998627114,
+        "sparse_damage": 1.0714890591614255,
+        "sparse_recovery": 1.1107093092410991
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2022,
+      "endpoint": "donor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 0,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.012538827079895745,
+        "damage_ratio": 1.3489502358172019,
+        "damage_relative_error": 0.34895023581720197,
+        "dense_damage": -0.03593299500294428,
+        "dense_recovery": -0.03586255979941853,
+        "recovery_absolute_error": 0.028794048618868355,
+        "recovery_ratio": 1.8028999820401894,
+        "recovery_relative_error": 0.8028999820401894,
+        "sequence_effect": -0.037332840677131995,
+        "sparse_damage": -0.048471822082840024,
+        "sparse_recovery": -0.06465660841828688
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.054202505816232094,
+        "damage_ratio": 1.0460367118174332,
+        "damage_relative_error": 0.046036711817433094,
+        "dense_damage": 1.1773757003146084,
+        "dense_recovery": 1.1770109062956873,
+        "recovery_absolute_error": 0.05538479489785875,
+        "recovery_ratio": 1.0470554644834744,
+        "recovery_relative_error": 0.04705546448347442,
+        "sequence_effect": 1.1788318939236624,
+        "sparse_damage": 1.2315782061308405,
+        "sparse_recovery": 1.232395701193546
+      }
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2022,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": false,
+        "sham_recovery_error": false,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 0,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.04343598264749904,
+        "damage_ratio": 1.2741249761699938,
+        "damage_relative_error": 0.27412497616999365,
+        "dense_damage": 0.15845321084702255,
+        "dense_recovery": 0.15817080555681648,
+        "recovery_absolute_error": 0.04089874334101956,
+        "recovery_ratio": 1.258573275877566,
+        "recovery_relative_error": 0.258573275877566,
+        "sequence_effect": 0.15819729633646923,
+        "sparse_damage": 0.20188919349452158,
+        "sparse_recovery": 0.19906954889783604
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.013702423520521867,
+        "damage_ratio": 0.9874111589795428,
+        "damage_relative_error": 0.01258884102045719,
+        "dense_damage": 1.0884579047630418,
+        "dense_recovery": 1.0884982981732874,
+        "recovery_absolute_error": 0.0032007316451772017,
+        "recovery_ratio": 1.00294050220432,
+        "recovery_relative_error": 0.002940502204320075,
+        "sequence_effect": 1.0935035697835338,
+        "sparse_damage": 1.07475548124252,
+        "sparse_recovery": 1.0916990298184646
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2022,
+      "endpoint": "donor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 1,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.017299221993587004,
+        "damage_ratio": 0.518569994174726,
+        "damage_relative_error": 0.48143000582527395,
+        "dense_damage": -0.03593299500294428,
+        "dense_recovery": -0.03586255979941853,
+        "recovery_absolute_error": 0.017980035190304,
+        "recovery_ratio": 0.4986404960809427,
+        "recovery_relative_error": 0.5013595039190574,
+        "sequence_effect": -0.037332840677131995,
+        "sparse_damage": -0.018633773009357275,
+        "sparse_recovery": -0.017882524609114527
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.10122061583194153,
+        "damage_ratio": 1.0859713817814434,
+        "damage_relative_error": 0.08597138178144344,
+        "dense_damage": 1.1773757003146084,
+        "dense_recovery": 1.1770109062956873,
+        "recovery_absolute_error": 0.10493941093479053,
+        "recovery_ratio": 1.0891575518743986,
+        "recovery_relative_error": 0.0891575518743985,
+        "sequence_effect": 1.1788318939236624,
+        "sparse_damage": 1.27859631614655,
+        "sparse_recovery": 1.2819503172304778
+      }
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2022,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": false,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 1,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.05257063830770467,
+        "damage_ratio": 1.33177389102237,
+        "damage_relative_error": 0.33177389102237,
+        "dense_damage": 0.15845321084702255,
+        "dense_recovery": 0.15817080555681648,
+        "recovery_absolute_error": 0.0687180702784797,
+        "recovery_ratio": 1.434454828984199,
+        "recovery_relative_error": 0.43445482898419907,
+        "sequence_effect": 0.15819729633646923,
+        "sparse_damage": 0.21102384915472722,
+        "sparse_recovery": 0.22688887583529618
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.03762510715234879,
+        "damage_ratio": 1.034567351652005,
+        "damage_relative_error": 0.03456735165200514,
+        "dense_damage": 1.0884579047630418,
+        "dense_recovery": 1.0884982981732874,
+        "recovery_absolute_error": 0.037219895126872515,
+        "recovery_ratio": 1.0341938018546604,
+        "recovery_relative_error": 0.03419380185466047,
+        "sequence_effect": 1.0935035697835338,
+        "sparse_damage": 1.1260830119153906,
+        "sparse_recovery": 1.1257181933001599
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2022,
+      "endpoint": "donor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 2,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.013072038756316302,
+        "damage_ratio": 1.3637892904625737,
+        "damage_relative_error": 0.36378929046257363,
+        "dense_damage": -0.03593299500294428,
+        "dense_recovery": -0.03586255979941853,
+        "recovery_absolute_error": 0.009724213034742864,
+        "recovery_ratio": 1.271152229208706,
+        "recovery_relative_error": 0.2711522292087062,
+        "sequence_effect": -0.037332840677131995,
+        "sparse_damage": -0.04900503375926058,
+        "sparse_recovery": -0.04558677283416139
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.03235043045845276,
+        "damage_ratio": 1.0274767267999572,
+        "damage_relative_error": 0.027476726799957187,
+        "dense_damage": 1.1773757003146084,
+        "dense_recovery": 1.1770109062956873,
+        "recovery_absolute_error": 0.04585566818484055,
+        "recovery_ratio": 1.0389594250482848,
+        "recovery_relative_error": 0.038959425048284764,
+        "sequence_effect": 1.1788318939236624,
+        "sparse_damage": 1.2097261307730611,
+        "sparse_recovery": 1.2228665744805278
+      }
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2022,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": false,
+        "sham_recovery_error": false,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 2,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.05538009256653473,
+        "damage_ratio": 1.3495043885226221,
+        "damage_relative_error": 0.3495043885226221,
+        "dense_damage": 0.15845321084702255,
+        "dense_recovery": 0.15817080555681648,
+        "recovery_absolute_error": 0.04411956003291337,
+        "recovery_ratio": 1.2789361783775275,
+        "recovery_relative_error": 0.27893617837752743,
+        "sequence_effect": 0.15819729633646923,
+        "sparse_damage": 0.21383330341355727,
+        "sparse_recovery": 0.20229036558972985
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.032715416687933985,
+        "damage_ratio": 1.030056666909003,
+        "damage_relative_error": 0.03005666690900293,
+        "dense_damage": 1.0884579047630418,
+        "dense_recovery": 1.0884982981732874,
+        "recovery_absolute_error": 0.01532803840245145,
+        "recovery_ratio": 1.0140818211917968,
+        "recovery_relative_error": 0.01408182119179689,
+        "sequence_effect": 1.0935035697835338,
+        "sparse_damage": 1.1211733214509758,
+        "sparse_recovery": 1.1038263365757388
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2023,
+      "endpoint": "donor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 0,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.01552238226808969,
+        "damage_ratio": 0.3444055411058356,
+        "damage_relative_error": 0.6555944588941643,
+        "dense_damage": 0.023676805161337612,
+        "dense_recovery": 0.023759022528186454,
+        "recovery_absolute_error": 0.01570481688424181,
+        "recovery_ratio": 0.338995665094789,
+        "recovery_relative_error": 0.661004334905211,
+        "sequence_effect": 0.023775081248014716,
+        "sparse_damage": 0.008154422893247922,
+        "sparse_recovery": 0.008054205643944642
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.00062090651474489,
+        "damage_ratio": 0.9994288509708639,
+        "damage_relative_error": 0.000571149029136119,
+        "dense_damage": 1.087118217961485,
+        "dense_recovery": 1.0894083885739207,
+        "recovery_absolute_error": 0.02440114133186566,
+        "recovery_ratio": 0.9776014747198636,
+        "recovery_relative_error": 0.022398525280136434,
+        "sequence_effect": 1.0789077447647077,
+        "sparse_damage": 1.08649731144674,
+        "sparse_recovery": 1.065007247242055
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2023,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 0,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.03603134880346681,
+        "damage_ratio": 0.5879463365246183,
+        "damage_relative_error": 0.41205366347538175,
+        "dense_damage": 0.08744334050950506,
+        "dense_recovery": 0.08767882024024144,
+        "recovery_absolute_error": 0.03488123043263626,
+        "recovery_ratio": 0.6021703948905665,
+        "recovery_relative_error": 0.3978296051094335,
+        "sequence_effect": 0.08453163149469721,
+        "sparse_damage": 0.051411991706038246,
+        "sparse_recovery": 0.05279758980760518
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.029861691666198897,
+        "damage_ratio": 0.97631746542594,
+        "damage_relative_error": 0.02368253457405999,
+        "dense_damage": 1.260916206954769,
+        "dense_recovery": 1.266349376058243,
+        "recovery_absolute_error": 0.01892358303961439,
+        "recovery_ratio": 0.9850565859648325,
+        "recovery_relative_error": 0.014943414035167527,
+        "sequence_effect": 1.2754765471586942,
+        "sparse_damage": 1.2310545152885701,
+        "sparse_recovery": 1.2474257930186285
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2023,
+      "endpoint": "donor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 1,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.040848547792675195,
+        "damage_ratio": -0.7252558997857409,
+        "damage_relative_error": 1.7252558997857408,
+        "dense_damage": 0.023676805161337612,
+        "dense_recovery": 0.023759022528186454,
+        "recovery_absolute_error": 0.03933409216213497,
+        "recovery_ratio": -0.6555433673868981,
+        "recovery_relative_error": 1.655543367386898,
+        "sequence_effect": 0.023775081248014716,
+        "sparse_damage": -0.017171742631337583,
+        "sparse_recovery": -0.01557506963394852
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.033332576447065776,
+        "damage_ratio": 1.0306614091239954,
+        "damage_relative_error": 0.030661409123995294,
+        "dense_damage": 1.087118217961485,
+        "dense_recovery": 1.0894083885739207,
+        "recovery_absolute_error": 0.028310029377991652,
+        "recovery_ratio": 1.0259866085803238,
+        "recovery_relative_error": 0.02598660858032369,
+        "sequence_effect": 1.0789077447647077,
+        "sparse_damage": 1.1204507944085507,
+        "sparse_recovery": 1.1177184179519124
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2023,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 1,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.0008211673169585681,
+        "damage_ratio": 1.0093908502599955,
+        "damage_relative_error": 0.009390850259995587,
+        "dense_damage": 0.08744334050950506,
+        "dense_recovery": 0.08767882024024144,
+        "recovery_absolute_error": 0.00199588589575167,
+        "recovery_ratio": 1.0227636034595688,
+        "recovery_relative_error": 0.02276360345956879,
+        "sequence_effect": 0.08453163149469721,
+        "sparse_damage": 0.08826450782646363,
+        "sparse_recovery": 0.08967470613599311
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.015206501886488422,
+        "damage_ratio": 1.0120598829665404,
+        "damage_relative_error": 0.012059882966540298,
+        "dense_damage": 1.260916206954769,
+        "dense_recovery": 1.266349376058243,
+        "recovery_absolute_error": 0.031607515916711515,
+        "recovery_ratio": 1.0249595542227816,
+        "recovery_relative_error": 0.024959554222781722,
+        "sequence_effect": 1.2754765471586942,
+        "sparse_damage": 1.2761227088412574,
+        "sparse_recovery": 1.2979568919749545
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2023,
+      "endpoint": "donor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 2,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.003347265456398501,
+        "damage_ratio": 0.8586268107715679,
+        "damage_relative_error": 0.14137318922843214,
+        "dense_damage": 0.023676805161337612,
+        "dense_recovery": 0.023759022528186454,
+        "recovery_absolute_error": 0.0016145875176307029,
+        "recovery_ratio": 0.9320431841960147,
+        "recovery_relative_error": 0.06795681580398526,
+        "sequence_effect": 0.023775081248014716,
+        "sparse_damage": 0.02032953970493911,
+        "sparse_recovery": 0.02214443501055575
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.019603362505737687,
+        "damage_ratio": 0.9819675890056401,
+        "damage_relative_error": 0.01803241099435996,
+        "dense_damage": 1.087118217961485,
+        "dense_recovery": 1.0894083885739207,
+        "recovery_absolute_error": 0.005015756142091599,
+        "recovery_ratio": 0.9953958899208979,
+        "recovery_relative_error": 0.00460411007910213,
+        "sequence_effect": 1.0789077447647077,
+        "sparse_damage": 1.0675148554557472,
+        "sparse_recovery": 1.0843926324318292
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2023,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 2,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.0004276516359725674,
+        "damage_ratio": 0.9951093858779779,
+        "damage_relative_error": 0.004890614122022041,
+        "dense_damage": 0.08744334050950506,
+        "dense_recovery": 0.08767882024024144,
+        "recovery_absolute_error": 0.005071371629808183,
+        "recovery_ratio": 1.0578403269559575,
+        "recovery_relative_error": 0.05784032695595743,
+        "sequence_effect": 0.08453163149469721,
+        "sparse_damage": 0.08701568887353249,
+        "sparse_recovery": 0.09275019187004963
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.06989726825300302,
+        "damage_ratio": 1.0554337138879446,
+        "damage_relative_error": 0.05543371388794461,
+        "dense_damage": 1.260916206954769,
+        "dense_recovery": 1.266349376058243,
+        "recovery_absolute_error": 0.049486785218880724,
+        "recovery_ratio": 1.039078303471762,
+        "recovery_relative_error": 0.039078303471762194,
+        "sequence_effect": 1.2754765471586942,
+        "sparse_damage": 1.330813475207772,
+        "sparse_recovery": 1.3158361612771237
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2024,
+      "endpoint": "donor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 0,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.017345063804211303,
+        "damage_ratio": 1.1369138588649994,
+        "damage_relative_error": 0.1369138588649993,
+        "dense_damage": 0.12668596114374364,
+        "dense_recovery": 0.12674767427523956,
+        "recovery_absolute_error": 0.022301341548604775,
+        "recovery_ratio": 1.1759506963431627,
+        "recovery_relative_error": 0.17595069634316274,
+        "sequence_effect": 0.12589622872190828,
+        "sparse_damage": 0.14403102494795494,
+        "sparse_recovery": 0.14904901582384433
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.0028342334802500257,
+        "damage_ratio": 0.998073315033506,
+        "damage_relative_error": 0.0019266849664939633,
+        "dense_damage": 1.4710414673591143,
+        "dense_recovery": 1.4710402200675297,
+        "recovery_absolute_error": 0.01658262465344751,
+        "recovery_ratio": 1.0112727200978138,
+        "recovery_relative_error": 0.011272720097813686,
+        "sequence_effect": 1.4722935739467249,
+        "sparse_damage": 1.4682072338788643,
+        "sparse_recovery": 1.4876228447209772
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2024,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 0,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.010189273240662669,
+        "damage_ratio": 1.0870687831127601,
+        "damage_relative_error": 0.08706878311276005,
+        "dense_damage": 0.11702556158924217,
+        "dense_recovery": 0.11711822908108689,
+        "recovery_absolute_error": 0.008854188975396957,
+        "recovery_ratio": 1.0756004342352783,
+        "recovery_relative_error": 0.07560043423527821,
+        "sequence_effect": 0.11614038001791183,
+        "sparse_damage": 0.12721483482990484,
+        "sparse_recovery": 0.12597241805648385
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.05492904048812308,
+        "damage_ratio": 0.960092165579124,
+        "damage_relative_error": 0.039907834420876004,
+        "dense_damage": 1.376397423844913,
+        "dense_recovery": 1.384192450841137,
+        "recovery_absolute_error": 0.01725324205627876,
+        "recovery_ratio": 0.9875355178784608,
+        "recovery_relative_error": 0.012464482121539115,
+        "sequence_effect": 1.399936964568511,
+        "sparse_damage": 1.32146838335679,
+        "sparse_recovery": 1.3669392087848582
+      }
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2024,
+      "endpoint": "donor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": false,
+        "sham_recovery_error": false,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 1,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.06413700145690476,
+        "damage_ratio": 1.5062676312186796,
+        "damage_relative_error": 0.5062676312186795,
+        "dense_damage": 0.12668596114374364,
+        "dense_recovery": 0.12674767427523956,
+        "recovery_absolute_error": 0.0585904349252378,
+        "recovery_ratio": 1.4622604340495073,
+        "recovery_relative_error": 0.46226043404950723,
+        "sequence_effect": 0.12589622872190828,
+        "sparse_damage": 0.1908229626006484,
+        "sparse_recovery": 0.18533810920047736
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.012553263605726173,
+        "damage_ratio": 1.0085335892184348,
+        "damage_relative_error": 0.00853358921843475,
+        "dense_damage": 1.4710414673591143,
+        "dense_recovery": 1.4710402200675297,
+        "recovery_absolute_error": 0.0038551781380313788,
+        "recovery_ratio": 1.002620715657832,
+        "recovery_relative_error": 0.0026207156578318454,
+        "sequence_effect": 1.4722935739467249,
+        "sparse_damage": 1.4835947309648405,
+        "sparse_recovery": 1.474895398205561
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2024,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 1,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.006623971556877467,
+        "damage_ratio": 1.0566027752135683,
+        "damage_relative_error": 0.056602775213568296,
+        "dense_damage": 0.11702556158924217,
+        "dense_recovery": 0.11711822908108689,
+        "recovery_absolute_error": 0.007643539498304236,
+        "recovery_ratio": 1.0652634483826786,
+        "recovery_relative_error": 0.06526344838267854,
+        "sequence_effect": 0.11614038001791183,
+        "sparse_damage": 0.12364953314611964,
+        "sparse_recovery": 0.12476176857939113
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.022401638872816543,
+        "damage_ratio": 1.0162755600124842,
+        "damage_relative_error": 0.016275560012484206,
+        "dense_damage": 1.376397423844913,
+        "dense_recovery": 1.384192450841137,
+        "recovery_absolute_error": 0.07531370482182287,
+        "recovery_ratio": 1.054409850867238,
+        "recovery_relative_error": 0.05440985086723796,
+        "sequence_effect": 1.399936964568511,
+        "sparse_damage": 1.3987990627177296,
+        "sparse_recovery": 1.4595061556629598
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2024,
+      "endpoint": "donor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 2,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.02074302468522074,
+        "damage_ratio": 1.1637357801760273,
+        "damage_relative_error": 0.16373578017602727,
+        "dense_damage": 0.12668596114374364,
+        "dense_recovery": 0.12674767427523956,
+        "recovery_absolute_error": 0.019897197784154053,
+        "recovery_ratio": 1.156982744637556,
+        "recovery_relative_error": 0.15698274463755596,
+        "sequence_effect": 0.12589622872190828,
+        "sparse_damage": 0.14742898582896438,
+        "sparse_recovery": 0.1466448720593936
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.02494016872981364,
+        "damage_ratio": 0.9830459104768899,
+        "damage_relative_error": 0.016954089523110078,
+        "dense_damage": 1.4710414673591143,
+        "dense_recovery": 1.4710402200675297,
+        "recovery_absolute_error": 0.039551801515550045,
+        "recovery_ratio": 0.9731130386674713,
+        "recovery_relative_error": 0.02688696133252861,
+        "sequence_effect": 1.4722935739467249,
+        "sparse_damage": 1.4461012986293007,
+        "sparse_recovery": 1.4314884185519796
+      }
+    },
+    {
+      "PASS": true,
+      "checkpoint_seed": 2024,
+      "endpoint": "acceptor",
+      "gates": {
+        "damage_relative_error": true,
+        "dense_damage": true,
+        "dense_recovery": true,
+        "recovery_relative_error": true,
+        "sham_damage_error": true,
+        "sham_recovery_error": true,
+        "sparse_damage_sign": true,
+        "sparse_recovery_sign": true
+      },
+      "initialization": 2,
+      "sham_shuffle": {
+        "damage_absolute_error": 0.015734415305055982,
+        "damage_ratio": 0.8655471924989899,
+        "damage_relative_error": 0.13445280750101013,
+        "dense_damage": 0.11702556158924217,
+        "dense_recovery": 0.11711822908108689,
+        "recovery_absolute_error": 0.011692025904804323,
+        "recovery_ratio": 0.900169034346401,
+        "recovery_relative_error": 0.09983096565359899,
+        "sequence_effect": 0.11614038001791183,
+        "sparse_damage": 0.10129114628418619,
+        "sparse_recovery": 0.10542620317628257
+      },
+      "target_shuffle": {
+        "damage_absolute_error": 0.046142752701336276,
+        "damage_ratio": 1.0335242945837826,
+        "damage_relative_error": 0.03352429458378255,
+        "dense_damage": 1.376397423844913,
+        "dense_recovery": 1.384192450841137,
+        "recovery_absolute_error": 0.09795507620826993,
+        "recovery_ratio": 1.0707669487351599,
+        "recovery_relative_error": 0.07076694873515979,
+        "sequence_effect": 1.399936964568511,
+        "sparse_damage": 1.4225401765462493,
+        "sparse_recovery": 1.4821475270494069
+      }
+    }
+  ],
+  "checkpoint_records": {
+    "2020": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2020.pt",
+      "sha256": "2552486a0870e2466a223fcce34f0477c40526a09172622619f0d1672a1af45e"
+    },
+    "2021": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2021.pt",
+      "sha256": "2cb06d2a17d941857485329604d526b465eabda319632c932000b85d8d40cda6"
+    },
+    "2022": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2022.pt",
+      "sha256": "556e38c92319ce87fb15ca390743ae20c539f4c5400c4cca82a83cdf3d46bd0a"
+    },
+    "2023": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2023.pt",
+      "sha256": "03c25882ae3e4b48198265bf8447ef543308e40ec9fd700b4834d829dcb6100b"
+    },
+    "2024": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/data/models/splicebert_gtex/SpliceBERT_on_SpliceAI-GTEx.model_weights/SpliceBERT.SpliceAI-GTEx.2024.pt",
+      "sha256": "d1caccec4db1784537178e355351a3e0b67cde4e70185bf6b6a6d63f792198f1"
+    }
+  },
+  "complete_write_replacement_authorized": false,
+  "evidence_tier": "instrument",
+  "feature_identity_opened": false,
+  "feature_semantics_established": false,
+  "held_out_validation": {
+    "n_genes": 23,
+    "n_states": 1461,
+    "sham_pairs_by_endpoint": {
+      "acceptor": 23,
+      "donor": 23
+    },
+    "target_pairs_by_endpoint": {
+      "acceptor": 23,
+      "donor": 23
+    }
+  },
+  "implementation_addendum": "studies/splicebert_gtex_finetune_shift/IMPLEMENTATION_ADDENDUM_JACOBIAN_SAE_DELTA_BEHAVIOR_V2.md",
+  "instrument_gate": {
+    "PASS": false,
+    "all_30_behavioral_cells_PASS": false,
+    "decoded_arrays_frozen_before_classifier_load": true,
+    "mechanical_PASS": false
+  },
+  "licensed_claim": "Residual-preserving J-SAE feature/edge discovery and steering remain closed.",
+  "mechanical_cells": [
+    {
+      "PASS": false,
+      "checkpoint_seed": 2020,
+      "decoder_difference_max_abs_error": 1.52587890625e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": false
+      },
+      "initialization": 0,
+      "zero_delta_identity_max_abs_error": 7.62939453125e-06
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2020,
+      "decoder_difference_max_abs_error": 1.52587890625e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": false
+      },
+      "initialization": 1,
+      "zero_delta_identity_max_abs_error": 7.62939453125e-06
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2020,
+      "decoder_difference_max_abs_error": 1.52587890625e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": false
+      },
+      "initialization": 2,
+      "zero_delta_identity_max_abs_error": 7.62939453125e-06
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2021,
+      "decoder_difference_max_abs_error": 1.33514404296875e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": false
+      },
+      "initialization": 0,
+      "zero_delta_identity_max_abs_error": 7.62939453125e-06
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2021,
+      "decoder_difference_max_abs_error": 1.52587890625e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": false
+      },
+      "initialization": 1,
+      "zero_delta_identity_max_abs_error": 7.62939453125e-06
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2021,
+      "decoder_difference_max_abs_error": 1.1444091796875e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": false
+      },
+      "initialization": 2,
+      "zero_delta_identity_max_abs_error": 7.62939453125e-06
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2022,
+      "decoder_difference_max_abs_error": 1.9073486328125e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": false
+      },
+      "initialization": 0,
+      "zero_delta_identity_max_abs_error": 7.62939453125e-06
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2022,
+      "decoder_difference_max_abs_error": 1.9073486328125e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": false
+      },
+      "initialization": 1,
+      "zero_delta_identity_max_abs_error": 7.62939453125e-06
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2022,
+      "decoder_difference_max_abs_error": 1.621246337890625e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": false
+      },
+      "initialization": 2,
+      "zero_delta_identity_max_abs_error": 7.62939453125e-06
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2023,
+      "decoder_difference_max_abs_error": 1.52587890625e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": false
+      },
+      "initialization": 0,
+      "zero_delta_identity_max_abs_error": 7.62939453125e-06
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2023,
+      "decoder_difference_max_abs_error": 1.9073486328125e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": false
+      },
+      "initialization": 1,
+      "zero_delta_identity_max_abs_error": 7.62939453125e-06
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2023,
+      "decoder_difference_max_abs_error": 1.1444091796875e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": false
+      },
+      "initialization": 2,
+      "zero_delta_identity_max_abs_error": 7.62939453125e-06
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2024,
+      "decoder_difference_max_abs_error": 1.52587890625e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": false
+      },
+      "initialization": 0,
+      "zero_delta_identity_max_abs_error": 7.62939453125e-06
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2024,
+      "decoder_difference_max_abs_error": 1.52587890625e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": false
+      },
+      "initialization": 1,
+      "zero_delta_identity_max_abs_error": 7.62939453125e-06
+    },
+    {
+      "PASS": false,
+      "checkpoint_seed": 2024,
+      "decoder_difference_max_abs_error": 1.52587890625e-05,
+      "gates": {
+        "all_feature_decomposition": true,
+        "zero_delta_identity": false
+      },
+      "initialization": 2,
+      "zero_delta_identity_max_abs_error": 7.62939453125e-06
+    }
+  ],
+  "protocol": "studies/splicebert_gtex_finetune_shift/PREREGISTRATION_JACOBIAN_SAE_V1.md",
+  "replication_artifact": "/Users/cberg/Research/projects/gfm-circuit-discovery-gtex-shift/results/splicebert_gtex_finetune_shift/jacobian_sae_replication_v1.json",
+  "replication_artifact_sha256": "a5de18a8acb51fe0cc8438e66ba106a06c0f52e09f071660fb1f90097625c4b4",
+  "residual_preserving_feature_delta_authorized": false,
+  "stage": "residual-preserving all-feature delta preflight",
+  "status": "INSTRUMENT_UNRESOLVED",
+  "study": "SpliceBERT GTEx layer-5 Jacobian SAE",
+  "thresholds": {
+    "decoder_decomposition_max_abs_error": 2e-05,
+    "dense_effect_minimum": 0.05,
+    "relative_error_maximum": 0.1,
+    "required_behavioral_cells": 30,
+    "required_mechanical_cells": 15,
+    "sham_minus_target_absolute_error_maximum": 0.02,
+    "zero_delta_identity_max_abs_error": 1e-12
+  }
+}
