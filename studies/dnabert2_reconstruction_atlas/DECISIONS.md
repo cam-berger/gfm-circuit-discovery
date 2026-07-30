@@ -767,3 +767,69 @@
   H8 corrected; `RESULTS.md` index and detail; eight `results/MANIFEST` rows appended and
   `scripts/verify_manifest.py` green at 973 rows. Track B (which heads, relay vs direct) is
   deferred — §2 of the prereg constrains it but no attention or ablation endpoint was preregistered.
+
+## 2026-07-29 — Track B opens: D15, attention allocation vs information density
+
+- Context: D14 closed the *what* of D12's TSS polarity (not arrangement). Track B was deferred with
+  no preregistered endpoint. The record carried an unexplained contradiction worth attacking first:
+  **D8's regional `L11H2/L11H5` value swap was null at every one of 30 tiles** (max +0.00124 against
+  a +0.005 SESOI) while D6/D7 show the same pair is a replicated causal core with V-payload
+  dependence. Either the carriers do not read the tiles, or the instrument was wrong.
+- Decision: attack it with **zero-forward-pass analysis first**. The head atlas already stored, for
+  all 144 heads on both splits, the measured `[CLS]` band attention *and* the exact-patch causal
+  effect; D8's development raw already held all thirty tiles. The question was answerable from
+  committed artifacts before spending any model compute — which also respected the request to be
+  careful with a shared machine.
+- **Load-bearing correction to how attention had been read.** `far_upstream` is `(−249,−50)`: 200 of
+  300 nt and the band *nearest* `[CLS]` at index 0. Computing the ALiBi-only prior on real BPE
+  offsets shows it places **49%–89% of every head's mass there, at all twelve slopes**. So a head's
+  far-upstream dominance is **architecture-forced**, and D5's descriptive attention clues must be
+  read as measured-minus-prior or not at all. On that basis L11H2/L11H5 sit essentially *at* their
+  prior (excess +0.046/+0.032, ≈0 elsewhere) — no content-driven source selection — while L9H7,
+  the one real TSS reader (excess `prox_up` +0.401), is ~19× weaker causally.
+- **A prediction of mine failed and is recorded, not dropped.** The D14 prereg §2 argued only
+  long-reach heads could carry downstream evidence to `[CLS]`. Within-layer reach-vs-effect across
+  all 144 heads is **null** in all four split×endpoint tests (p=0.146–1.000). A post-hoc
+  slope-enrichment result on D5's eight-head set (p=0.0232) was **downgraded** for the same reason
+  the D14 TATA stratification was: the statistic was chosen after seeing the list, and the
+  better-powered test disagrees.
+- **The pilot refuted the study's own founding hypothesis, before the seal was spent.** I set out to
+  show the carriers attend to an *inert* region. The development pilot showed masking the whole
+  far-upstream band costs +0.4635 against +0.5663 for the 7-token signal window — far-upstream is
+  **diffuse and low-density, not unimportant**. Rather than quietly re-scope, §3d of the prereg
+  records the refutation, the claim was weakened from *inertness* to *density*, and `E_band` was
+  demoted from confirmatory to descriptive-with-declared-underpowering (12% at the SESOI).
+- Design red-team, five lenses, three of which changed the design: (1) the primary endpoint was
+  renamed `E_pos → E_reg` because the `S` window straddles a GC-rich CpG core and the contrast
+  cannot separate position from resident composition — **the same estimand-drift failure the D14
+  red-team caught, recurring**; (2) the hypothesis change above; (3) `F1` abuts `[CLS]` and carries
+  the largest prior weight, so its inclusion was fixed in advance after checking that *excluding* it
+  would inflate the result (+0.4839 vs +0.4495).
+- Smoke gate earned its keep twice. **`M2b` as originally written could not fail** — it checked a
+  per-pair cover bound that the qualification filter already enforces, the same vacuous-memorial
+  flaw caught in D14. Replaced by the per-arm *mean* cover difference, which the filter does not
+  constrain. And **M1/M3 are population-mean memorials that were being gated at n=24**, where they
+  fail on sampling noise alone; they are now evaluated only at ≥100 loci. Both fixes are Amendment 1,
+  made pre-outcome.
+- Result (confirmation, n=186): **E_reg = +0.3490, CI [+0.1153, +0.5892], Holm p=0.0058 — qualifies.**
+  Per-token density 0.0668 vs 0.0162, a **4.13×** ratio at identical dose. Shrinkage 1.29×. All
+  memorials pass (clean anchor +1.866, cover balance 0.828 nt, non-degeneracy 0.817 vs 0.113, batch
+  invariance 5.25e-06); the far-vs-far null control is +0.0806, inside the SESOI.
+- Honest qualification, stronger than D14's: the per-locus **sign test fails** (104/186, exact
+  p=0.1234) and the **median +0.1464 sits below the 0.25 SESOI**. The preregistered cluster
+  sign-flip test passes (raw p=0.0029), 10% trimming leaves +0.2899 and the CI is stable across five
+  seeds, so the direction holds — but this is a distributional shift, not an effect present at most
+  loci, and the magnitude should be read as ≈0.15–0.29. `E_band` came out **negative** (−0.3319) and
+  super-additive, reinforcing that far-upstream is diffusely important; no claim is drawn from an
+  arm declared underpowered before the run.
+- One bug, caught before it reached a claim: `cluster_bootstrap_interval` returns `(low, high)`, not
+  `(mean, low, high)`. The first confirmatory attempt completed all forward passes then died in the
+  analysis step, so **no confirmation value was written or seen and the seal stayed intact**. After
+  that, every signature in `statistics.py` was dumped and checked at once rather than one at a time —
+  this is the second run in a row lost to a return-shape assumption.
+- Effect: new `PREREGISTRATION_D15_ATTENTION_CAUSALITY_DISSOCIATION.md`; new D15 entry in
+  `CLAIMS.md` with H11/H12 added to open hypotheses; `RESULTS.md` detail section; new runners
+  `run_promoter_region_density.py` and `analyze_promoter_alibi_reach.py`. **H12 (relay) is explicitly
+  an untested inference** — D15 patches no path and identifies no relay position or layer. The next
+  bridge is layer-resolved path patching on a cohort where attention and behaviour are measured on
+  the *same* loci.

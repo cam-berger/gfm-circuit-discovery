@@ -457,6 +457,56 @@ magnitude is skew-inflated — robust estimates ≈0.25–0.32, sign test 51/83,
 `p=0.0475`; direction robust across five bootstrap seeds. Partial seal: loci opened by D12 for
 `mask`, never scored under either native arm.
 
+### D15 — regional information density vs the ALiBi-forced attention prior
+
+Track B. Protocol `PREREGISTRATION_D15_ATTENTION_CAUSALITY_DISSOCIATION.md` (frozen 2026-07-29,
+Amendment 1 pre-outcome). Instrument: equal-dose contiguous span masking — 7 BPE tokens in target and
+control with matched cover, so any artifact that depends only on "seven tokens were masked" cancels
+exactly in a between-arm difference.
+
+**Architecture (zero forward passes, not evidence).** `far_upstream` is `(−249,−50)`: 200 of 300 nt and
+the band nearest `[CLS]` at index 0. The ALiBi-only prior therefore places 49%–89% of *every* head's
+`[CLS]` mass there, at all twelve slopes. Far-upstream attention dominance is forced; only
+measured-minus-prior is interpretable.
+
+| head | slope | excess `far_up` | excess `prox_up` | excess `tss` | excess `prox_dn` | necessity |
+|---|---:|---:|---:|---:|---:|---:|
+| L11H2 | 0.1250 | +0.046 | +0.000 | +0.000 | +0.000 | 0.3154 |
+| L11H5 | 0.0156 | +0.032 | +0.002 | +0.000 | +0.001 | 0.2084 |
+| L9H7 | 0.0039 | −0.525 | +0.401 | +0.051 | +0.082 | 0.0169 |
+
+Head reach does **not** predict causal effect within layer (mean Spearman 0.062–0.284, sign-test
+p=0.146–1.000, four tests, nothing qualifies) — a **failed prediction** of the D14 prereg §2.
+
+**Confirmation split, n=186.**
+
+| arm | TSS-relative | dose | mean target-specific loss |
+|---|---|---:|---:|
+| `S` | −9:+31 | 7 | +0.4675 |
+| `F1`…`F5` | −249:−49, five 40-nt windows | 7 | +0.146, +0.089, +0.066, +0.038, +0.226 |
+| `U` | −49:−9 | 7 | −0.018 |
+| `B` | −249:−49 whole band | 30 | +0.8168 |
+
+| endpoint | n | mean | 95% CI | Holm p | verdict |
+|---|---:|---:|---|---:|---|
+| **E_reg** | 186 | **+0.3490** | **[+0.1153, +0.5892]** | **0.0058** | **QUALIFIES** |
+| E_band | 114 | −0.3319 | [−0.9109, +0.2488] | 0.265 | fails; underpowered by pre-run declaration |
+| N1 null control | 178 | +0.0806 | [−0.1153, +0.2910] | — | passes |
+| spec `S − U` | 175 | +0.4504 | [+0.0747, +0.8169] | — | predicted sign holds |
+
+Per-token density 0.0668 (`S`) vs 0.0162 (far window) = **4.13×**, both at identical dose.
+Development→confirmation shrinkage 1.29×. Memorials: clean anchor +1.866, cover balance 0.828 nt,
+non-degeneracy 0.817 vs 0.113, batch invariance 5.25e-06 — all pass.
+
+**Bounds.** E_reg is **regional, not positional** (composition confound, D14's P2 still open). The
+magnitude is skew-inflated and the per-locus sign test **fails**: median +0.1464 is below the SESOI and
+only 104/186 loci are positive (exact p=0.1234); read the magnitude as ≈0.15–0.29 and the effect as
+distributional. **The "far-upstream is inert" hypothesis is refuted by this study's own data** —
+E_band's point estimate is negative, masking the whole band costs +0.8168 against the signal window's
++0.4675, and the band arm is super-additive (5× a window = +0.566), so far-upstream is diffuse and
+low-density rather than unimportant, and dose-30 masking is a different regime. No mediation is shown;
+attention and behaviour come from different cohorts; "relay" remains an inference with no path patched.
+
 ## Infrastructure verification
 
 The test suite verifies coordinate schemas, BPE cover selection, masking, scoring normalization,

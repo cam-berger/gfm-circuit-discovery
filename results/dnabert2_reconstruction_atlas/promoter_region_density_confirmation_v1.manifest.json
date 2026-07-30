@@ -1,0 +1,63 @@
+{
+  "checkpoint": {
+    "checkpoint": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
+    "name": "prom_300_all",
+    "revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+    "upstream_sha256": {
+      "config.json": "9f5c0949193cf3ff81691369610c8fcca8c082fce66aa1ff13dd4b06fb955637",
+      "model.safetensors": "ce09ef08160640ac62b68b2995b8ea86c0118d920ee74ba449a56df37a3b4e82",
+      "special_tokens_map.json": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a",
+      "tokenizer.json": "1b805880bea234d909b35050a412f5f2db91e700f5cfcd16a4b573bfcbc22466",
+      "tokenizer_config.json": "ce3e974680079d483cb4dcd66a2000dc331414c21b7b24b0b6b4a690e192a3db",
+      "trainer_state.json": "6ec01510af14b779950af3be4f9582652a18b9c3002d328a22f1c1753bac3e86",
+      "training_args.bin": "f77ae2e3c1ef76aa2812d2e52a52ee2a88cc8e89d81280216628021c62b28960"
+    }
+  },
+  "code": {
+    "git_commit": "c448d500973a5b6fc7d8db7d546fada4d3388045",
+    "git_dirty": true
+  },
+  "command": [
+    "scripts/dnabert2_atlas/run_promoter_region_density.py",
+    "--split",
+    "confirmation",
+    "--batch-pairs",
+    "16",
+    "--out",
+    "results/dnabert2_reconstruction_atlas/promoter_region_density_confirmation_v1.json"
+  ],
+  "created_at_utc": "2026-07-30T00:40:37.405526+00:00",
+  "data": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-dnabert2-atlas/data/processed/dnabert2_atlas/promoter_source_localization_v1/cohort.jsonl",
+      "sha256": "a42cf94247219d38b70bcb4fae7a51c1cb76c05b2b8a09c43319a4bde70d0786",
+      "size_bytes": 7347939
+    }
+  ],
+  "environment": {
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "D15_region_density_vs_attention_prior",
+  "outputs": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_region_density_confirmation_v1.json",
+      "sha256": "cd119a353f9a216b3f7e0b7b21bab9283e243f17bf732f255e530799d898783c",
+      "size_bytes": 71432
+    }
+  ],
+  "parameters": {
+    "K_band": 30,
+    "K_window": 7,
+    "SESOI": 0.25,
+    "draws": 8000,
+    "max_cover_diff_nt": 8,
+    "permutations": 9999,
+    "split": "confirmation"
+  },
+  "schema_version": 1,
+  "seeds": {
+    "analysis": 20260729
+  },
+  "status": "SEALED"
+}

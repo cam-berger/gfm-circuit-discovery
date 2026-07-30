@@ -357,6 +357,84 @@ Artifacts: `promoter_arrangement_composition_confirmation_v4.json` (per-locus va
 `promoter_arrangement_composition_phase0_v1.json` (exploratory, development split).
 Protocol: `PREREGISTRATION_D14_ARRANGEMENT_VS_COMPOSITION.md`.
 
+**D15 — promoter information density is ~4× concentrated near the TSS, while the dominant carrier
+heads attend at the ALiBi-forced positional prior.** Track B's first result. Three strands: an
+architectural deduction (not evidence), a reused-artifact analysis (hypothesis-generating), and one
+confirmatory endpoint on the sealed split.
+
+**Architecture, not evidence.** DNABERT-2 has symmetric ALiBi and no position embeddings
+(`bert_layers.py:394`), and the classifier reads `[CLS]` at window index 0 = TSS-relative −249. Because
+`far_upstream` is `(−249,−50)` — 200 of 300 nt and the band nearest `[CLS]` — the ALiBi-only prior
+places **49%–89% of every head's `[CLS]` mass in `far_upstream`, at all twelve slopes**. A head's
+far-upstream attention dominance is therefore **architecture-forced and is not evidence of a content
+preference**; all attention statements below are *measured minus prior*.
+
+**Attention (descriptive, reused head-atlas artifacts).** L11H2 and L11H5 — the replicated causal core
+(D6/D7), top two by exact patch — sit essentially **at** their positional prior (excess `far_up`
++0.046 and +0.032, ≈0.000 in every other band). They perform no measurable content-driven source
+selection. The one candidate head that does redirect strongly onto the TSS neighbourhood, **L9H7**
+(excess `prox_up` +0.401, `tss` +0.051, `prox_dn` +0.082), contributes about **19× less**
+(necessity 0.0169 vs 0.3154).
+
+**A failed prediction, recorded.** Head reach does **not** predict causal importance within layer:
+mean within-layer Spearman 0.062–0.284 across four split×endpoint tests, sign-test p=0.146–1.000,
+**nothing qualifies**. The D14 prereg §2 predicted that only long-reach heads could carry downstream
+evidence to `[CLS]`; that prediction **fails**. A post-hoc slope-enrichment observation on D5's
+eight-head set (p=0.0232) is **downgraded** — the statistic was chosen after seeing the head list and
+the better-powered within-layer test is null.
+
+**Confirmatory (sealed split, n=186).** Equal-dose contiguous span masking: 7 BPE tokens in target and
+control, matched cover, contrasting the `−9:+31` region against five disjoint 40-nt far-upstream
+windows. Any artifact that is a function only of "seven tokens were masked" cancels **exactly** in the
+difference.
+
+| endpoint | n | mean | 95% CI | Holm p | verdict |
+|---|---:|---:|---|---:|---|
+| **E_reg** `S − mean(F₁..F₅)` | 186 | **+0.3490** | **[+0.1153, +0.5892]** | **0.0058** | **QUALIFIES** |
+| E_band `S − B` (dose 7 vs 30) | 114 | −0.3319 | [−0.9109, +0.2488] | 0.265 | fails; declared underpowered pre-run |
+| N1 far-vs-far null control | 178 | +0.0806 | [−0.1153, +0.2910] | — | passes (< SESOI) |
+| spec `S − U` (−49:−9) | 175 | +0.4504 | [+0.0747, +0.8169] | — | predicted sign, holds |
+
+Per-token density is **0.0668** in `−9:+31` against **0.0162** in a far-upstream window — a **4.13×
+ratio** (development 4.67×), both sides at identical dose. Development→confirmation shrinkage is
+**1.29×** (+0.4495 → +0.3490), against the 5–6× that killed D12's E1/E1b. All memorials pass: clean
+anchor +1.866, cover balance 0.828 nt, non-degeneracy 0.817 vs 0.113, batch invariance 5.25e-06.
+
+D15 licenses: **at equal dose, width and contiguity the `−9:+31` region carries materially more of
+the promoter decision than far-upstream windows do, while the carrier heads' attention is distributed
+as the architectural prior dictates.** In short, **attention mass does not track information density**
+— which is what makes D8's null (regional `L11H2/L11H5` V swap ≈0 at all 30 tiles) unsurprising rather
+than anomalous.
+
+**Bounds — what D15 does not license.**
+(i) **E_reg is REGIONAL, not positional.** It cannot separate position from the composition resident
+at that position — exactly what D14's P2 left open at declared-insufficient power. Calling it
+positional would repeat the estimand drift the D14 red-team caught.
+(ii) **The magnitude is skew-inflated and the per-locus sign test fails.** Median +0.1464 (*below* the
+0.25 SESOI), 10%-trimmed +0.2899, 5/95-winsorised +0.3560, drop-5-extreme +0.2812, and only
+**104/186 loci positive (exact sign test p=0.1234, not significant)**. The preregistered cluster
+sign-flip test passes (raw p=0.0029) and the CI is stable across five seeds, so the *direction* is
+robust, but read the magnitude as **≈0.15–0.29** and treat this as a distributional shift, not an
+effect present at most loci.
+(iii) **My "far-upstream is inert" hypothesis is REFUTED, by my own data.** E_band's point estimate is
+**negative** (−0.3319): masking the whole far-upstream band costs **+0.8168** against **+0.4675** for
+the signal window. Far-upstream is diffuse and low-density, **not** unimportant. E_band was declared
+underpowered before the run (12% at the SESOI) and its CI spans zero, so no claim is made either way —
+but nothing here supports inertness. The band arm is also **super-additive** on confirmation
+(5× a window = +0.566 against a measured +0.817), so dose-30 masking is a different regime and is not
+safely comparable to dose-7 arms.
+(iv) **No mediation.** Attention mass is descriptive and is measured on a different cohort from the
+behaviour (head atlas vs source-localization; §3e of the prereg). Nothing here shows any component
+causally mediates the `S` effect, and attention mass is not information transfer.
+(v) **"Relay" remains an inference**, not a measurement — no path was patched and no relay position or
+layer was identified.
+(vi) **Partial seal**, and no biological claim: no motif, no CpG-island mechanism, no transcription in
+cells.
+
+Artifacts: `promoter_region_density_confirmation_v1.json`, `promoter_region_density_smoke_v2.json`,
+`promoter_alibi_reach_analysis_v1.json`.
+Protocol: `PREREGISTRATION_D15_ATTENTION_CAUSALITY_DISSOCIATION.md` (Amendment 1, pre-outcome).
+
 ## Established infrastructure facts
 
 These are implementation properties and prior instrument constraints, not claims about biological
@@ -413,5 +491,7 @@ reconstruction.
 | H8 | A bounded TSS-relative source band or sequence feature supplies the late pair's replicated value payload. | refuted as a bounded band: D12's confirmatory tile-domain test shows neither a bounded downstream domain nor a distal edge near +31 replicates (E1/E1b both fail confirmation); D8's +11:+21 tile stands alone as a single-tile effect. A distinct classifier-level downstream-vs-upstream mask-sensitivity polarity does replicate (D12 E2), but regional V was already null (D8), so no span tested has payload-mediation evidence. **Corrected 2026-07-29:** an earlier wording cited D9 ("exact-composition native reordering already failed development") in support of a general arrangement null. D9 scored **tile 26 only** (+11:+21), which is *not* in D12's E2 contrast `{25,27}` vs `{21,22,23}` — and D12's own E4, the only endpoint containing tile 26, also failed. D9's null is bounded to tile 26. **D14** has since tested the E2 tiles directly and finds arrangement carries 12.9% of the polarity (P3 `+0.0619`, CI `[−0.0719,+0.1986]`) while `mask − reorder` survives Holm at `p=0.0066` | D8/D12/D14 do not authorize mask-by-payload tracing or mediation. D13 is **retired unrun**; D14 replaced it and answers the arrangement half. Whether composition specifically is the carrier remains open — D14's P2 was declared underpowered pre-run. |
 | H9 | One individual CLS head context or MLP write is independently necessary for correct promoter classification. | not qualified; L11MLP is rank 1 in both splits but its confirmation accuracy-loss CI touches zero, and no head passes the full-family gate | A preregistered targeted L11MLP intervention on new data, preferably including zero ablation and matched MLP nulls; D10 remains an atlas-level candidate result. |
 | H10 | A low-dimensional L11MLP write subspace carries most of the promoter class-margin effect. | supported post-hoc on reused D10 cohorts: the unchanged rank-4 basis captures 89.7%/84.5% of full exchange and beats 31 matched random subspaces in both splits; the complement remains positive | Transfer the fixed basis to genuinely new examples, then test late-head-to-subspace mediation and rescue. |
+| H11 | The `[CLS]` attention of the promoter classifier's causal carrier heads is allocated by the ALiBi positional prior rather than by where the promoter evidence is. | supported descriptively by D15: L11H2/L11H5 sit at their prior (excess +0.046/+0.032) while confirmatory per-token information density is 4.13× higher in −9:+31 than in far-upstream windows (E_reg +0.3490, Holm p=0.0058). Head reach does not predict causal effect (null, 4 tests). **Not** a mediation result: attention and behaviour are measured on different cohorts and attention mass is not information transfer. | A within-cohort test that pairs the attention measurement and the mask behaviour on the same loci, then a path-patching test of whether `−9:+31` reaches `[CLS]` directly or via intermediate positions. |
+| H12 | TSS-proximal promoter evidence reaches `[CLS]` by multi-hop relay rather than by direct attention from the carrier heads. | **untested inference only.** D15 makes direct reading by L11H2/L11H5 hard to sustain (their attention there is ≈0.1%–11%) and explains D8's all-tile V-swap null, but D15 patches no path and identifies no relay position or layer. | Layer-resolved path patching: block or restore the residual stream at intermediate positions between `−9:+31` and `[CLS]`, and locate the depth at which the information becomes readable at `[CLS]`. |
 
 Negative, retracted, and superseded rows will remain here permanently once evidence exists.
