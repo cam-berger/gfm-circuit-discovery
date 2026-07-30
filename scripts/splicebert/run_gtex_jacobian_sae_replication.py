@@ -94,7 +94,7 @@ def fingerprints_and_graph(
             model.output_sae.num_features,
             model.input_sae.num_features,
         ),
-        dtype=torch.float64,
+        dtype=torch.float32,
         device=device,
     )
     for start in range(0, len(indices), batch_size):
@@ -118,7 +118,7 @@ def fingerprints_and_graph(
         input_grid = input_indices[:, None, :].expand_as(jacobian)
         graph.index_put_(
             (output_grid.reshape(-1), input_grid.reshape(-1)),
-            jacobian.abs().double().reshape(-1),
+            jacobian.abs().reshape(-1),
             accumulate=True,
         )
         input_features.append(input_acts.cpu().numpy())

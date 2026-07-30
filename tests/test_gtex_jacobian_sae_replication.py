@@ -2,6 +2,7 @@ import importlib.util
 from pathlib import Path
 
 import numpy as np
+import torch
 
 
 REPO = Path(__file__).resolve().parents[1]
@@ -69,3 +70,39 @@ def test_representation_gate_requires_matched_graph_gain():
         mechanical_pass=True,
     )
     assert not failed["PASS"]
+
+
+def test_graph_accumulator_uses_float32_for_mps_compatibility():
+    class FakeSAE:
+        num_features = 3
+
+        def encode(self, values, return_indices=False):
+            acts = torch.ones((len(values), 3))
+            indices = torch.tensor([[0, 1]]).repeat(len(values), 1)
+            return (acts, indices) if return_indices else acts
+
+    class FakeModel:
+        input_center = torch.zeros(2)
+        input_sae = FakeSAE()
+        output_sae = FakeSAE()
+
+        def eval(self):
+            return self
+
+        def normalize_input(self, values):
+            return values
+
+        def normalize_output(self, values):
+            return values
+
+        def active_jacobian(self, values, input_indices, output_indices):
+            return torch.ones((len(values), 2, 2), dtype=torch.float32)
+
+    _, _, graph = RUNNER.fingerprints_and_graph(
+        FakeModel(),
+        torch.zeros((4, 2)),
+        torch.zeros((4, 2)),
+        np.arange(4),
+        batch_size=2,
+    )
+    assert graph.dtype == np.float32
