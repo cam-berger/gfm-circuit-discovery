@@ -83,3 +83,12 @@ def test_endpoint_gate_rejects_wrong_feature_delta():
     assert not metrics["PASS"]
     assert not metrics["gates"]["damage_relative_error"]
     assert not metrics["gates"]["recovery_relative_error"]
+
+
+def test_float64_zero_delta_identity_is_exact_for_large_float32_values():
+    native = np.asarray([[100.0, -100.0]], dtype=np.float32).astype(np.float64)
+    reconstruction = np.asarray([[63.125, -72.5]], dtype=np.float32).astype(
+        np.float64
+    )
+    zero_delta = reconstruction - reconstruction
+    assert np.max(np.abs(native + zero_delta - native)) == 0.0

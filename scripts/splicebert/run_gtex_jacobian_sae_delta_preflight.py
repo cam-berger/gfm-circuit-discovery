@@ -368,15 +368,13 @@ def main() -> None:
                         )
                     )
             decomposition_error = max(errors)
+            native_values = writes.cpu().numpy().astype(np.float64)
+            zero_delta = (
+                reconstructed.astype(np.float64)
+                - reconstructed.astype(np.float64)
+            )
             identity_error = float(
-                np.max(
-                    np.abs(
-                        writes.cpu().numpy()
-                        + reconstructed
-                        - reconstructed
-                        - writes.cpu().numpy()
-                    )
-                )
+                np.max(np.abs(native_values + zero_delta - native_values))
             )
             gates = {
                 "all_feature_decomposition": (
