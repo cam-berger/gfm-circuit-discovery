@@ -712,3 +712,58 @@
   dependence or used to argue backwards that the domain exists. The open question this leaves —
   whether the surviving E2 polarity reflects GC/CpG composition rather than position — is D13's, a
   separate frozen protocol already recorded.
+
+## 2026-07-29 — Retire D13 unrun; run D14 and settle the arrangement half
+
+- Architecture, established before any compute: DNABERT-2 has no position embeddings, its ALiBi
+  bias is `-m_h·|i-j|` (`bert_layers.py:394`, `torch.abs`, symmetric), and the classifier reads
+  `hidden_states[:, 0]` — `[CLS]` at TSS-relative −249. The model cannot represent "downstream of
+  the TSS" as a positional fact, and the only positional asymmetry it has (distance to `[CLS]`)
+  uniformly favours **upstream** in every head: measured separation 8.45 tokens, per-head headwind
+  `m_h × 8.45` from 5.98 logits (H8) to 0.033 (H7). D12's downstream-dominant polarity therefore
+  runs *against* the architectural gradient and cannot be a readout-geometry artifact.
+- Consequence for D13: its "composition vs **position**" dichotomy had an architecturally empty
+  arm. Combined with a planted positive confounded with its own result and MDE 0.241 against a
+  plausible 0.06–0.10 gap, D13 is **retired unrun**. Its prereg is kept as a design record.
+- Replacement: D14 holds composition fixed *within* each locus by construction rather than matching
+  across loci. `dinucleotide_reorder` preserves mono- and linear-dinucleotide counts exactly, so GC
+  and CpG are exactly fixed while arrangement is destroyed — exact where D13 was caliper-approximate,
+  and paired, which is where the power came from.
+- D9 correction: D9's reorder null was scored at **tile 26 only** (+11:+21), which is not in D12's
+  E2 contrast, and D12's own E4 — the only endpoint containing tile 26 — also failed. The null is
+  bounded to tile 26 and does not license a general arrangement null. CLAIMS H8 amended.
+- Design red-team before running, three fixes recorded rather than silently applied: (1) an earlier
+  draft labelled `mask − reorder` "does arrangement carry the polarity?", which is wrong —
+  `E2_reorder` *is* the arrangement contribution, so P3 is the direct test and P1 measures the
+  non-arrangement remainder; (2) the positive control was changed from CI-containment to **exact
+  replay** of D12's stored per-locus values, because the geometry filter makes arm A a *selected*
+  subset whose mean legitimately differs (+0.5752 vs +0.4045 on development) — a CI gate would have
+  failed for a reason that is not instrument failure; (3) the analysis set was fixed to the
+  three-arm intersection, which internally neutralises the filter-selection threat (same 90 loci,
+  same filter, `gc_depletion` +0.344 vs `reorder` +0.017).
+- Power stated before the run and honoured after: P1 powered (MDE 0.397), **P2 and S1 declared
+  underpowered** (MDE 0.448 / 0.571) and reported at achieved precision. A variance lever was tried
+  and rejected — averaging 4 reorder replicates per tile cut sd 16% but collapsed supply 113 → 24,
+  making MDE *worse* (0.307 → 0.557). Recorded so it is not retried.
+- Result on the sealed split (n=83): `mask` +0.4791, `gc_depletion` +0.2625, `reorder` +0.0619;
+  P1 `mask − reorder` **+0.4172 [+0.1705, +0.6608], Holm p=0.0066**; P3 arrangement +0.0619
+  (Holm 0.4506); P2 +0.2006 (Holm 0.4506, underpowered as declared). Replay control 0.0 across 93
+  rows; batch invariance 0.0; inert-tile specificity −0.0623. Effect is non-monotone in Hamming
+  dose (3 nt → +0.2625 vs 4.917 nt → +0.0619), so P1 is not a perturbation-size artifact.
+- Honest qualification: P1's magnitude is skew-inflated — median +0.2500, 10% trimmed +0.3206,
+  +0.2481 dropping the five most extreme loci, sign test 51/83 (exact binomial `p=0.0475`).
+  Direction robust across five bootstrap seeds and every robust variant; magnitude should be read
+  as ≈0.25–0.32. Arrangement is bounded at 0.1986, **above** the 0.15 SESOI, so "arrangement
+  contributes nothing" is *not* claimed; equivalence would need ≈474 loci.
+- Artifact hygiene: confirmation v1/v2 were deleted pre-claim and before any citation — v1 lacked
+  the preregistered Holm adjustment and per-locus persistence, v2 carried a p-value extraction bug
+  (`paired_cluster_sign_permutation` returns `(observed, null)`; taking `[0]` reported the observed
+  mean as a p-value, which showed up as p-values numerically equal to the means). v3 fixed the
+  statistics; v4 is the record and embeds per-locus values inline because
+  `results/dnabert2_reconstruction_atlas/**/*.jsonl` is gitignored for this study and a
+  reproducibility record a fresh checkout cannot see is not a record. v4's endpoints are
+  bit-identical to v3's and v3's to v1's.
+- Effect: new `PREREGISTRATION_D14_ARRANGEMENT_VS_COMPOSITION.md`; new D14 entry in `CLAIMS.md`;
+  H8 corrected; `RESULTS.md` index and detail; eight `results/MANIFEST` rows appended and
+  `scripts/verify_manifest.py` green at 973 rows. Track B (which heads, relay vs direct) is
+  deferred — §2 of the prereg constrains it but no attention or ablation endpoint was preregistered.

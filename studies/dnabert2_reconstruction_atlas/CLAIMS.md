@@ -306,8 +306,56 @@ span and the −39:−9 upstream span, target-specifically. It does not license 
 distal edge — both are refuted here; a biological promoter element; a nucleotide motif;
 native-sequence necessity; mediation by any internal component, including L11H2/L11H5 or L11MLP; or
 transcriptional function in cells. Whether the polarity reflects GC/CpG composition rather than
-position is open; it is the exact question D13 tests. Tiles 0–20 and 24 of the 30-tile scan (22
-tiles) remain sealed and unspent.
+position was open at the time of writing; **D14 answers the arrangement half of it** and D13 is
+retired unrun. Tiles 0–20 and 24 of the 30-tile scan (22 tiles) remain sealed and unspent.
+
+**D14 — the D12 polarity is NOT carried by nucleotide arrangement.** Three interventions applied
+per 10-nt tile at D12's own E2 tiles, so the endpoint is structurally identical to the one D12
+confirmed, scored on the sealed confirmation split (three-arm intersection, n=83). Arm A (`mask`)
+is not re-estimated: D12's stored per-locus values are **replayed**, and the replay reproduces all
+93 compared rows to a worst absolute difference of **0.0** — the positive control D13 never had.
+
+| arm | what it destroys | what it holds fixed | E2 | 95% CI |
+|---|---|---|---:|---|
+| `mask` | content **and** manifold | nothing | +0.4791 | [+0.2288, +0.7358] |
+| `gc_depletion` (dose 3) | GC/CpG content | purine/pyrimidine class; real bases | +0.2625 | [−0.0622, +0.5934] |
+| `dinucleotide_reorder` | arrangement | mono- **and** linear-dinucleotide counts **exactly** | +0.0619 | [−0.0719, +0.1986] |
+
+| endpoint | mean | 95% CI | sign-flip p | Holm p |
+|---|---:|---|---:|---:|
+| **P1** `mask − reorder` | **+0.4172** | **[+0.1705, +0.6608]** | 0.0022 | **0.0066** |
+| P3 arrangement contribution | +0.0619 | [−0.0719, +0.1986] | 0.3616 | 0.4506 |
+| P2 `gc_depletion − reorder` | +0.2006 | [−0.1191, +0.5238] | 0.2253 | 0.4506 |
+| S1 `mask − gc_depletion` | +0.2166 | [−0.1307, +0.5561] | — | — |
+
+Scrambling the bases within each tile while holding mono- and dinucleotide counts **exactly** fixed
+(so GC *and* CpG counts are exactly preserved) leaves the polarity essentially intact: arrangement
+carries **12.9%** of the mask effect, its median is **−0.0070**, and only 41/83 loci are positive —
+a coin flip. Meanwhile `mask − reorder` survives Holm at `p=0.0066`. The result is **not** a
+perturbation-size artifact: `gc_depletion` changes **3** nt and yields **+0.2625**, while `reorder`
+changes **4.917** nt and yields **+0.0619**, so effect is **not monotone in Hamming dose**. Nor is
+it a `[MASK]` off-manifold artifact: S1's CI spans zero, and `gc_depletion` uses only real bases.
+Specificity: `reorder` at an inert far-upstream tile (tile 5, −199:−189) gives −0.0623, inside the
+0.15 SESOI. Development-to-confirmation shrinkage is **1.27×** (+0.5303 → +0.4172), against the
+5–6× that killed D12's E1/E1b.
+
+**Bounds — what D14 does not license.** (i) *Not* "arrangement contributes nothing": the achieved
+upper bound is **0.1986**, above the 0.15 SESOI, and reaching equivalence would need ≈474 loci.
+(ii) *Not* "composition is the carrier": P2 was **declared underpowered before the run**
+(MDE 0.448 against a development estimate of +0.327) and its CI spans zero; `gc_depletion`
+reproduces ~55% of the mask effect but is not confirmed. (iii) "Arrangement" means arrangement
+**modulo exact dinucleotide content** — such a shuffle preserves CpG count and much local structure,
+so a motif can partially survive it. (iv) P1's magnitude is **skew-inflated**: median +0.2500, 10%
+trimmed +0.3206, +0.2481 after dropping the five most extreme loci, and the non-parametric sign test
+is marginal (51/83, exact binomial `p=0.0475`). The *direction* is robust across all variants and
+five bootstrap seeds; the *magnitude* should be read as ≈0.25–0.32, not 0.42. (v) Seal status is a
+**partial seal**: these loci were opened by D12 for the `mask` endpoints, but had never been scored
+under either native arm, and P1/P2/P3/S1 had never been estimated on them.
+
+Artifacts: `promoter_arrangement_composition_confirmation_v4.json` (per-locus values embedded),
+`promoter_arrangement_composition_smoke_v1.json`,
+`promoter_arrangement_composition_phase0_v1.json` (exploratory, development split).
+Protocol: `PREREGISTRATION_D14_ARRANGEMENT_VS_COMPOSITION.md`.
 
 ## Established infrastructure facts
 
@@ -362,7 +410,7 @@ reconstruction.
 | H5 | A bounded internal DNABERT-2 component set causally mediates a D3 context-margin effect. | open but untested for the nine D3 classes | Freeze candidates and matched-size necessity/mediation tests before inspecting internal effects. |
 | H6 | A promoter-fine-tuned DNABERT-2 has a replicated target-specific local-context effect at training-corpus-excluded human TSSs. | not supported: clean promoter margin replicated, but the context difference failed confirmation | A new independently justified context intervention/null and a fresh sealed cohort; D4 does not authorize internal localization. |
 | H7 | A bounded set of head outputs at `[CLS]` mediates the replicated clean promoter-classifier contrast. | refined by D7: L11H2/L11H5 is a replicated late output-carrier core with value-payload alignment dependence and a distributed MLP scaffold; target-query, content-key-address, and early-six-to-late models fail their gates | Freeze an equal-dose source-localization phase for the replicated V estimand; do not infer bands or motifs from the stable residual direction alone. |
-| H8 | A bounded TSS-relative source band or sequence feature supplies the late pair's replicated value payload. | refuted as a bounded band: D12's confirmatory tile-domain test shows neither a bounded downstream domain nor a distal edge near +31 replicates (E1/E1b both fail confirmation); D8's +11:+21 tile stands alone as a single-tile effect. A distinct classifier-level downstream-vs-upstream mask-sensitivity polarity does replicate (D12 E2), but regional V was already null (D8) and exact-composition native reordering already failed development (D9), so no span tested has payload-mediation evidence | D8/D9/D12 do not authorize mask-by-payload tracing or mediation; D13 (open) tests whether the polarity is a composition artifact before any mediation test is justified. |
+| H8 | A bounded TSS-relative source band or sequence feature supplies the late pair's replicated value payload. | refuted as a bounded band: D12's confirmatory tile-domain test shows neither a bounded downstream domain nor a distal edge near +31 replicates (E1/E1b both fail confirmation); D8's +11:+21 tile stands alone as a single-tile effect. A distinct classifier-level downstream-vs-upstream mask-sensitivity polarity does replicate (D12 E2), but regional V was already null (D8), so no span tested has payload-mediation evidence. **Corrected 2026-07-29:** an earlier wording cited D9 ("exact-composition native reordering already failed development") in support of a general arrangement null. D9 scored **tile 26 only** (+11:+21), which is *not* in D12's E2 contrast `{25,27}` vs `{21,22,23}` — and D12's own E4, the only endpoint containing tile 26, also failed. D9's null is bounded to tile 26. **D14** has since tested the E2 tiles directly and finds arrangement carries 12.9% of the polarity (P3 `+0.0619`, CI `[−0.0719,+0.1986]`) while `mask − reorder` survives Holm at `p=0.0066` | D8/D12/D14 do not authorize mask-by-payload tracing or mediation. D13 is **retired unrun**; D14 replaced it and answers the arrangement half. Whether composition specifically is the carrier remains open — D14's P2 was declared underpowered pre-run. |
 | H9 | One individual CLS head context or MLP write is independently necessary for correct promoter classification. | not qualified; L11MLP is rank 1 in both splits but its confirmation accuracy-loss CI touches zero, and no head passes the full-family gate | A preregistered targeted L11MLP intervention on new data, preferably including zero ablation and matched MLP nulls; D10 remains an atlas-level candidate result. |
 | H10 | A low-dimensional L11MLP write subspace carries most of the promoter class-margin effect. | supported post-hoc on reused D10 cohorts: the unchanged rank-4 basis captures 89.7%/84.5% of full exchange and beats 31 matched random subspaces in both splits; the complement remains positive | Transfer the fixed basis to genuinely new examples, then test late-head-to-subspace mediation and rescue. |
 

@@ -421,6 +421,42 @@ empirical estimate, PPT versus same-sequence non-site (+0.020), has add-one `p=0
 Holm `p=1.0`. D2 is therefore a bounded development result, not a confirmatory null. The
 confirmation runner refuses to open because no class development-qualified; P4–P6 are stopped.
 
+### D14 — arrangement vs composition behind the D12 TSS polarity
+
+`results/dnabert2_reconstruction_atlas/promoter_arrangement_composition_confirmation_v4.json`
+(sealed confirmation split, three-arm intersection n=83; per-locus values embedded inline).
+Protocol `PREREGISTRATION_D14_ARRANGEMENT_VS_COMPOSITION.md`. Smoke gate
+`promoter_arrangement_composition_smoke_v1.json`; exploratory development-split Phase 0
+`promoter_arrangement_composition_phase0_v1.json`.
+
+Three interventions at D12's own E2 tiles, applied per 10-nt tile:
+
+| arm | E2 | 95% CI | mean Hamming |
+|---|---:|---|---:|
+| `mask` (replayed from D12, not re-estimated) | +0.4791 | [+0.2288, +0.7358] | token cover |
+| `gc_depletion` (dose 3, real bases) | +0.2625 | [−0.0622, +0.5934] | 3.000 nt |
+| `dinucleotide_reorder` (composition exactly fixed) | +0.0619 | [−0.0719, +0.1986] | 4.917 nt |
+
+| endpoint | mean | 95% CI | Holm p |
+|---|---:|---|---:|
+| **P1 `mask − reorder`** | **+0.4172** | **[+0.1705, +0.6608]** | **0.0066** |
+| P3 arrangement contribution | +0.0619 | [−0.0719, +0.1986] | 0.4506 |
+| P2 `gc_depletion − reorder` | +0.2006 | [−0.1191, +0.5238] | 0.4506 |
+| S1 `mask − gc_depletion` | +0.2166 | [−0.1307, +0.5561] | — |
+
+Gates: exact replay of D12's stored per-locus mask values, worst absolute difference **0.0** across
+93 rows; batch invariance 0.0; clean-behaviour anchor +1.9568; inert-tile (tile 5) specificity
+−0.0623, inside the 0.15 SESOI; M1/M2/M3/M4 pass, each reported only on the arm where it can fail.
+
+**Reading.** The polarity survives exact composition-preserving scrambling — arrangement carries
+12.9% of the mask effect, median −0.0070, 41/83 loci positive. It is not a dose artifact (3 nt
+yields +0.2625 while 4.917 nt yields +0.0619) and not a `[MASK]` artifact (S1 spans zero,
+`gc_depletion` uses only real bases). **Not licensed:** "arrangement contributes nothing" (bound
+0.1986 > SESOI 0.15) or "composition is the carrier" (P2 declared underpowered pre-run). P1's
+magnitude is skew-inflated — robust estimates ≈0.25–0.32, sign test 51/83, exact binomial
+`p=0.0475`; direction robust across five bootstrap seeds. Partial seal: loci opened by D12 for
+`mask`, never scored under either native arm.
+
 ## Infrastructure verification
 
 The test suite verifies coordinate schemas, BPE cover selection, masking, scoring normalization,

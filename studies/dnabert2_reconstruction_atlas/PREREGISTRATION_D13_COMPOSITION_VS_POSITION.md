@@ -1,5 +1,22 @@
 # D13 preregistration — composition vs. position in the confirmed TSS polarity
 
+> ## RETIRED UNRUN — 2026-07-29. Superseded by D14.
+>
+> No confirmatory run was executed and no seal was spent. Retired for three verified reasons:
+>
+> 1. **The planted positive was confounded with the result.** It compared naturally unmatched
+>    against caliper-matched pairs, but the size of that gap *is* the quantity D13 measures — the
+>    control fails exactly when the hypothesis is true, and no sample size repairs that. The
+>    preflight returned `INSTRUMENT_UNRESOLVED` (`promoter_composition_preflight_v2.json`).
+> 2. **Underpowered for its own effect:** MDE 0.241 against a plausible gap of 0.06–0.10.
+> 3. **The "position" arm is architecturally unavailable.** DNABERT-2 has no position embeddings
+>    and its ALiBi bias is `-m_h·|i-j|` (`bert_layers.py:394`, `torch.abs`, symmetric), so the model
+>    cannot represent "downstream of the TSS" as a positional fact. The dichotomy had an empty arm.
+>
+> **D14** (`PREREGISTRATION_D14_ARRANGEMENT_VS_COMPOSITION.md`) replaces it, holding composition
+> exactly fixed *within* each locus via `dinucleotide_reorder` rather than matching across loci.
+> This file is kept as a design record; its cohort, calipers and supply audits remain reusable.
+
 > **Tier: T1 — frozen protocol.** Frozen 2026-07-29; amended 2026-07-29 (Amendment 1, pre-outcome).
 > Controls
 > [`../../configs/dnabert2_atlas/promoter_composition_v2.frozen.json`](../../configs/dnabert2_atlas/promoter_composition_v2.frozen.json)
