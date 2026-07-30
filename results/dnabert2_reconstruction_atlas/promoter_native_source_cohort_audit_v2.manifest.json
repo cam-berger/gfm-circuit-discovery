@@ -1,0 +1,125 @@
+{
+  "checkpoint": {
+    "candidate": "prom_300_all",
+    "hf_id": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
+    "revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+    "used_for_collection_build": false
+  },
+  "code": {
+    "git_commit": "15f2a7e233261ff394ae47ffebce89e415c68a85",
+    "git_dirty": true
+  },
+  "command": [
+    "scripts/dnabert2_atlas/build_promoter_classifier_cohort.py",
+    "--gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+    "--fasta",
+    "/Users/cberg/Research/data/genomes/hg38.fa",
+    "--gue-root",
+    "/Users/cberg/.cache/huggingface/hub/datasets--leannmlindsey--GUE/snapshots/240df51a2cd2c0fb1d88efffaf86e8d1e477f932/GUE/prom_300_all",
+    "--config",
+    "configs/dnabert2_atlas/promoter_native_source_cohort_v2.frozen.json",
+    "--cohort-out",
+    "data/processed/dnabert2_atlas/promoter_native_source_cohort_v2/cohort.jsonl",
+    "--audit-out",
+    "results/dnabert2_reconstruction_atlas/promoter_native_source_cohort_audit_v2.json"
+  ],
+  "created_at_utc": "2026-07-28T16:40:25.807750+00:00",
+  "data": [
+    {
+      "path": "/Users/cberg/.cache/huggingface/hub/datasets--leannmlindsey--GUE/snapshots/240df51a2cd2c0fb1d88efffaf86e8d1e477f932/GUE/prom_300_all/train.csv",
+      "sha256": "4bcf0670a38b64ab7e87571b7dcec695084852708e65b797744849d0c6b4ed08",
+      "size_bytes": 14396240
+    },
+    {
+      "path": "/Users/cberg/.cache/huggingface/hub/datasets--leannmlindsey--GUE/snapshots/240df51a2cd2c0fb1d88efffaf86e8d1e477f932/GUE/prom_300_all/dev.csv",
+      "sha256": "d55d950af5d3a7882f9706cd25309a3f513ce7c60bf39d0cc423c8bffd5a5a3c",
+      "size_bytes": 1799696
+    },
+    {
+      "path": "/Users/cberg/.cache/huggingface/hub/datasets--leannmlindsey--GUE/snapshots/240df51a2cd2c0fb1d88efffaf86e8d1e477f932/GUE/prom_300_all/test.csv",
+      "sha256": "c77b312eb3f2c149ee5e54f0c781b585c4e65b742f0e7d9324818f2b56e71e67",
+      "size_bytes": 1799696
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    },
+    {
+      "path": "configs/dnabert2_atlas/promoter_native_source_cohort_v2.frozen.json",
+      "sha256": "6dbf9a8871e97f427978d9efcf3b768dafcd3a83cd05179eb8c73e46f860fabd",
+      "size_bytes": 3092
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/promoter_native_source_cohort_v2/cohort.jsonl",
+      "sha256": "1ea4d12f43b60d82182acff4d3360e6529d425b1ca4094a577823a3fec5bf0a2",
+      "size_bytes": 5111731
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/promoter_native_source_cohort_v2/cohort.manifest.json",
+      "sha256": "5cd7a9896ad833392be40203b6303a410b0e6e24ee72880b6cc0f01f3d0f2091",
+      "size_bytes": 4541
+    }
+  ],
+  "environment": {
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "dnabert2_promoter_classifier_cohort_audit_v1",
+  "outputs": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_native_source_cohort_audit_v2.json",
+      "sha256": "7e2f589e7be96fe8cab0bdb8e9cd1576ed929b4a02fcce4379b1255c4ca283da",
+      "size_bytes": 1817
+    }
+  ],
+  "parameters": {
+    "collection": {
+      "control_TSS_exclusion_radius_nt": 300,
+      "control_family": "same_locus_pseudo_TSS",
+      "control_offsets_transcription_nt": [
+        -2500,
+        -2000,
+        -1500,
+        -1000,
+        -750,
+        750,
+        1000,
+        1500,
+        2000,
+        2500
+      ],
+      "development_percent": 50,
+      "fresh_mechanistic_selection": "exclude every example_id and 1Mb locus block used by promoter_classifier_v1, D7 address/payload, and D8 source localization before native-edit geometry qualification",
+      "input_length_nt": 300,
+      "maximum_absolute_CpG_fraction_difference": 0.03,
+      "maximum_absolute_GC_fraction_difference": 0.08,
+      "maximum_clusters_per_split": 1000,
+      "minimum_clusters_per_split": 800,
+      "release": "DNABERT2-promoter-native-source-GENCODE-v50-v2",
+      "split_unit": "shared_1Mb_genomic_locus_block",
+      "training_corpus_exclusion": "exact_forward_or_reverse_complement_across_all_GUE_prom_300_all_splits",
+      "window_downstream_nt": 50,
+      "window_upstream_nt": 249
+    },
+    "context_intervention": {
+      "candidate_shuffles": 512,
+      "downstream_context_nt": 10,
+      "operation": "deterministic_seeded_joint_mononucleotide_shuffle",
+      "target_anchor_width_nt": 5,
+      "upstream_context_nt": 50
+    },
+    "outcome_blind": true
+  },
+  "schema_version": 1,
+  "seeds": {
+    "collection_and_intervention": 20260727
+  },
+  "status": "PREFLIGHT"
+}

@@ -1,0 +1,102 @@
+{
+  "assay": "fine_tuned_promoter_margin_target_preserving_context_v1",
+  "checkpoint_candidate": "prom_300_all",
+  "config_sha256": "e4b0fdd0a0ecd33a7a69f0f88e7f80fe13a41271d55b9b449f433acb95398719",
+  "confirmation_gate": "confirmation_may_open",
+  "decisions": {
+    "clean_enrichment": {
+      "SESOI_logit_margin": 0.5,
+      "checks": {
+        "Holm_p_at_most_alpha": true,
+        "mean_at_least_SESOI": true,
+        "minimum_clusters": true,
+        "positive_lower_CI": true
+      },
+      "qualified": true
+    },
+    "context_difference": {
+      "SESOI_logit_margin": 0.25,
+      "checks": {
+        "Holm_p_at_most_alpha": true,
+        "mean_at_least_SESOI": true,
+        "minimum_clusters": true,
+        "positive_lower_CI": true
+      },
+      "qualified": true
+    }
+  },
+  "effect_definition": {
+    "clean_enrichment": "target_clean_margin-control_clean_margin",
+    "control_context_loss": "control_clean_margin-control_context_shuffle_margin",
+    "primary_context_difference": "target_context_loss-control_context_loss",
+    "target_context_loss": "target_clean_margin-target_context_shuffle_margin"
+  },
+  "inference": {
+    "bootstrap_draws": 5000,
+    "multiplicity": "Holm_across_two_preregistered_effects",
+    "permutations": 9999,
+    "tests": {
+      "clean_enrichment": {
+        "cluster_bootstrap_CI": [
+          1.7813103444689962,
+          2.4080358477173527
+        ],
+        "n_clusters": 384,
+        "n_rows": 384,
+        "observed_cluster_mean": 2.095629078166288,
+        "p_add_one": 0.0001,
+        "p_holm": 0.0002
+      },
+      "context_difference": {
+        "cluster_bootstrap_CI": [
+          0.32503951640016265,
+          1.0080399665578927
+        ],
+        "n_clusters": 384,
+        "n_rows": 384,
+        "observed_cluster_mean": 0.6655290590175961,
+        "p_add_one": 0.0001,
+        "p_holm": 0.0002
+      }
+    }
+  },
+  "measurement": {
+    "clean_enrichment": "margin(true_TSS_window)-margin(matched_pseudo_TSS_window)",
+    "definition": "classifier_logit(label_1_promoter)-classifier_logit(label_0_non_promoter)",
+    "name": "supervised_promoter_logit_margin",
+    "primary_context_effect": "target_context_loss-control_context_loss",
+    "target_preserving_context_loss": "margin(clean)-margin(context_shuffle)",
+    "why_BPE_is_valid": "Both class logits are read from one supervised head on the same tokenized input; unlike MLM alternative-word margins, no candidate sequence is compared under a different BPE segmentation."
+  },
+  "mechanistic_boundary": {
+    "does_not_establish": [
+      "transcriptional_function_in_cells",
+      "independence_from_unobserved_near_duplicate_GUE_training_sequences",
+      "causal_model_component",
+      "mediation",
+      "basewise_promoter_grammar"
+    ],
+    "next_gate": "internal candidate generation requires development and confirmation replication of the context difference-in-differences",
+    "qualified_claim": "promoter_classifier_margin_and_target_preserving_local_context_effect_at_GUE_excluded_GENCODE_TSSs"
+  },
+  "n_clusters": 384,
+  "n_examples": 384,
+  "preflight_decision": "QUALIFIED",
+  "preflight_report_id": "dnabert2-promoter-classifier-v1-qualified",
+  "qualified_on_split": true,
+  "raw_scores": {
+    "manifest": "data/processed/dnabert2_atlas/promoter_classifier_v1/development.raw.manifest.json",
+    "n_rows": 1536,
+    "path": "data/processed/dnabert2_atlas/promoter_classifier_v1/development.raw.jsonl"
+  },
+  "schema_version": 1,
+  "split": "development",
+  "status": "DEVELOPMENT",
+  "study": "dnabert2_biological_reconstruction_atlas",
+  "summary": {
+    "mean_control_clean_margin": 1.7698597938093978,
+    "mean_control_context_loss": 0.8711658307159572,
+    "mean_target_clean_margin": 3.8654888719756855,
+    "mean_target_context_loss": 1.5366948897335533
+  }
+}

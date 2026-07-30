@@ -3,6 +3,11 @@ __pycache__/
 .pytest_cache/
 .DS_Store
 
+# Runtime agent/session scratch. Scientific evidence belongs under results/ with a manifest.
+/logs/
+/handoff/
+/scratch/
+
 # External genomes, annotations, model archives, and derived data.
 data/raw/
 data/processed/
@@ -50,3 +55,10 @@ results/splicebert_partner_selection/**/*.jsonl
 results/**/figures/
 results/splicebert_coupling/ic2_feasibility_smoke.json
 results/splicebert_coupling/ic2_calibration_smoke.json
+
+# DNABERT-2 Atlas bulk runtime products. Commit compact settled results and manifests only.
+results/dnabert2_reconstruction_atlas/**/shards/
+results/dnabert2_reconstruction_atlas/**/*.jsonl
+results/dnabert2_reconstruction_atlas/**/*.jsonl.gz
+results/dnabert2_reconstruction_atlas/**/activations/
+results/dnabert2_reconstruction_atlas/**/candidate_pools/

@@ -1,0 +1,72 @@
+{
+  "assay": "polarity_composition_posthoc_v1",
+  "bootstrap": {
+    "base_seed": 20260729,
+    "draws": 5000
+  },
+  "claim_boundary": "Computed on D12 confirmation rows that were already opened. Observational, not causal: it adjusts for composition, it does not intervene on it. It licenses no exclusion of the composition explanation and exists only to motivate and power D13.",
+  "correlations": {
+    "n": 149,
+    "r_polarity_delta_cpg": 0.2135812751980678,
+    "r_polarity_delta_gc": 0.3839575736877763
+  },
+  "definitions": {
+    "delta_cpg": "per tile cover: CpG_dinucleotide_count(target cover) / (length - 1) minus the same rate for the control cover; aggregated to a per-locus contrast identically to delta_gc",
+    "delta_gc": "per tile cover: GC_fraction(target cover) - GC_fraction(control cover); then per locus, mean over present downstream tiles minus mean over present upstream tiles, identically to how polarity aggregates target_specific_loss",
+    "matched_unmatched_split": "loci ranked ascending by abs(delta_gc); the lower floor(n/2) form the best-matched half, the remaining ceil(n/2) form the worst-matched half",
+    "polarity": "per locus: mean(target_specific_loss, present downstream tiles) - mean(target_specific_loss, present upstream tiles); >=1 tile required per side (D12 E2_tss_polarity's own completeness rule and tile set)"
+  },
+  "matched_half": {
+    "ci95": [
+      0.04651111746962006,
+      0.5479620077588537
+    ],
+    "mean": 0.2967175931946651,
+    "mean_abs_delta_gc": 0.07217806592806593,
+    "n": 74,
+    "n_clusters": 74
+  },
+  "mean_delta_cpg": 0.008735826688846824,
+  "mean_delta_gc": 0.00914195175940142,
+  "model_outcomes_computed": false,
+  "n_loci": 149,
+  "n_rows_consumed": 599,
+  "polarity": {
+    "ci95": [
+      0.10487471690913976,
+      0.554651198271137
+    ],
+    "mean": 0.32622278633400364,
+    "n": 149,
+    "n_clusters": 149
+  },
+  "provenance": {
+    "cohort": "data/processed/dnabert2_atlas/promoter_source_localization_v1/cohort.jsonl",
+    "confirmation_raw": "data/processed/dnabert2_atlas/promoter_domain_v1/confirmation.raw.jsonl",
+    "confirmed_effect": "results/dnabert2_reconstruction_atlas/promoter_domain_confirmation_v1.json (E2_tss_polarity = +0.3262, 95% CI [+0.1110, +0.5564], Holm p = 0.0096, n=149)"
+  },
+  "schema_version": 1,
+  "status": "EXPLORATORY_POSTHOC",
+  "study": "dnabert2_biological_reconstruction_atlas",
+  "tiles": {
+    "downstream": [
+      25,
+      27
+    ],
+    "upstream": [
+      21,
+      22,
+      23
+    ]
+  },
+  "unmatched_half": {
+    "ci95": [
+      -0.0033215094274944654,
+      0.724587957892153
+    ],
+    "mean": 0.35533457689815096,
+    "mean_abs_delta_gc": 0.30688028638028636,
+    "n": 75,
+    "n_clusters": 75
+  }
+}

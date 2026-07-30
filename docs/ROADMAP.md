@@ -98,9 +98,26 @@ without generic MLM damage, with its semantic label no stronger than the externa
 
 ## Transfer milestone — second real GFM
 
-Caduceus-PS is the prepared architectural contrast. Its v2 behavioral-transfer design integrates the
-five-lens red-team; the CUDA/Colab package is locally dry-run validated but the model experiment is not
-run. Before deployment:
+The active milestone is the DNABERT-2 Biological Reconstruction Atlas. It asks which annotated
+elements show reconstruction advantage beyond matched motif/token/composition controls, then qualifies
+source regions before internal screening. Its frozen multisource preflight is qualified. The
+13-class development census spans GENCODE, EPDnew, PolyASite, ENCODE/UCSC, and Mercer annotations,
+but no admitted class beat every empirical control, so confirmation remains sealed and
+context/internal screening is stopped. Five classes were adequately powered for the development
+gate; eight retain explicitly underpowered estimates. The completed deployment steps were:
+
+1. pin every admitted annotation release and pass coordinate/evidence/split audits;
+2. freeze calibrated, site-class-specific behavior and precision thresholds;
+3. pass positive, negative, sensitivity, resolution, token-geometry, balance, invariant, and health gates;
+4. run the development census and seal candidate/threshold rules before confirmation;
+5. stop before localization because no site class behavior-qualified.
+
+**Exit condition:** DNABERT-2 reaches a justified point on the same evidence ladder for one or more
+site classes, including an honest qualified null or instrument limit.
+
+Caduceus-PS remains the prepared architecture contrast. Its v2 behavioral-transfer design integrates
+the five-lens red-team; the CUDA/Colab package is locally dry-run validated but the model experiment is not
+run. Before any later deployment:
 
 1. confirm the frozen default forks (permuted-partner meaningfulness floor, distance-matched primary plus
    strength-caliper secondary, no PH companion);
@@ -109,8 +126,8 @@ run. Before deployment:
 4. if behavior qualifies, design architecture-native state-space localization and interventions rather
    than searching for SpliceBERT head analogues.
 
-**Exit condition:** a second GFM reaches a justified point on the same evidence ladder, including an
-honest architecture null if both local and long-range instruments are certified.
+**Exit condition:** Caduceus supplies a later architecture-native comparison, including an honest
+architecture null if both local and long-range instruments are certified.
 
 ## Repository milestones
 

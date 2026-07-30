@@ -16,7 +16,7 @@ claim_id,status,evidence_level,polarity,artifact,script,manifest,figure
   `OV/mediation`, `Behaviour`, `Biology`, `Directed circuit`); blank where the file is not itself
   evidence.
 - `polarity` — the *direction* of the evidence, so a null can never be silently re-read as a positive:
-  `positive` (470), `null` (16), `bounded` (30), `refutation` (4), `na` (260, non-evidence rows).
+  `positive` (504), `null` (19), `bounded` (56), `refutation` (4), `na` (292, non-evidence rows).
   `tests/test_manifest.py` pins the non-positive polarities; adding a claim whose result is a null or a
   bound without setting this field is what that guard exists to catch.
 - `artifact` — the file this row describes, repository-relative.
@@ -66,6 +66,7 @@ same change; the verifier fails otherwise.
 | `splicebert_visualizer/` | [`RESULTS_INDEX.md`](splicebert_visualizer/RESULTS_INDEX.md) | none — export bundle, not a claim artifact |
 | `origin-siblings/` | [`RESULTS_INDEX.md`](origin-siblings/RESULTS_INDEX.md) | `studies/splicebert_partner_selection/CLAIMS.md` (C39) |
 | `origin-crossmodel/` | [`README.md`](origin-crossmodel/README.md) | `studies/splicebert_partner_selection/CLAIMS.md` (C40) |
+| `dnabert2_reconstruction_atlas/` | [`FINDINGS.md`](../studies/dnabert2_reconstruction_atlas/FINDINGS.md) → [`RESULTS.md`](../studies/dnabert2_reconstruction_atlas/RESULTS.md) | [`CLAIMS.md`](../studies/dnabert2_reconstruction_atlas/CLAIMS.md) (D1–D12, D14–D17, IF1–IF34) |
 
 **Layout convention.** Most trees keep their **canonical artifacts at the directory root**, with
 `development/` and `superseded/` subtrees beside them — the `canonical/`-subdirectory half of the 2026-07-22

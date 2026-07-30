@@ -1,0 +1,9 @@
+# Isolated DNABERT-2 Reconstruction Atlas environment.
+# The vendored MosaicBERT implementation and pinned checkpoint are verified on every load.
+transformers==4.44.2
+tokenizers>=0.19,<0.20
+torch>=2.2
+einops>=0.7
+numpy>=1.24
+scipy>=1.11
+pyfaidx>=0.8

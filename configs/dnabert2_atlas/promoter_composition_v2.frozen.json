@@ -1,0 +1,149 @@
+{
+  "schema_version": 2,
+  "status": "FROZEN",
+  "frozen_on": "2026-07-29",
+  "study": "dnabert2_biological_reconstruction_atlas",
+  "assay": "promoter_composition_v2",
+  "supersedes": "configs/dnabert2_atlas/promoter_composition_v1.frozen.json",
+  "supersession_reason": "v1 set calibration.projected_MDE_ceiling = 0.15 equal to the P1 SESOI without checking it against the achievable per-locus variance. The corrected per-locus SD of the single in-caliper-pair estimator P1 actually computes, measured on the matched subset of the D12 confirmation data, is 1.2745 (an earlier figure of 1.09 was wrong -- it described a different, averaged estimator, not the single-pair one P1 computes). Projected MDE = 2.80*sd/sqrt(n) is 0.323 at the achieved development n=122 (results/dnabert2_reconstruction_atlas/promoter_composition_supply_audit_v1.json), above even an amended 0.28 ceiling, let alone v1's 0.15. This amendment was made before any D13 target result had been read on either split of v1 (v1's only result on record is the outcome-blind supply/matching-feasibility audit; model_outcomes_computed is false throughout it). v2 raises the ceiling to 0.28, relaxes block granularity from 1 Mb to 250 kb with own-block exclusion to reach the supply the corrected variance requires, and raises target_raw_pairs_per_split accordingly -- all before any confirmation (or development) endpoint opens. A variance-reduction redesign (averaging over all in-caliper pairs per locus instead of the single best pair) was tested and rejected: sd 1.2677 vs 1.2745, a 0.5% gain, because in-caliper candidates within a 30-nt region share tokens and are highly correlated -- the variance is between-locus, not within-locus. See PREREGISTRATION_D13_COMPOSITION_VS_POSITION.md, Amendment 1, for the full derivation and the independence cost of the block-size relaxation.",
+  "scope": {
+    "question": "Is the confirmed TSS polarity effect explained by the target-minus-control GC/CpG composition differential, or does it survive at matched composition?",
+    "frozen_basis": {
+      "confirmed_effect": "results/dnabert2_reconstruction_atlas/promoter_domain_confirmation_v1.json",
+      "exploratory_motivation": "results/dnabert2_reconstruction_atlas/polarity_composition_posthoc_v1.json"
+    },
+    "licensed_if_qualified": "that the target-minus-control GC/CpG composition differential does not account for the replicated TSS polarity in mask sensitivity",
+    "explicitly_excluded": [
+      "a bounded downstream domain or any distal edge - REFUTED by D12",
+      "a biological promoter element",
+      "a nucleotide motif",
+      "native-sequence necessity",
+      "mediation by any internal component",
+      "transcriptional function in cells",
+      "exclusion of compositional features other than GC and CpG"
+    ]
+  },
+  "checkpoint": {
+    "hf_id": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
+    "revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+    "device": "mps"
+  },
+  "supply": {
+    "source_definition_change": "GENCODE v50 protein-coding TSSs including non-MANE-Select transcripts, restricted to 250-kb blocks available under own-block exclusion: a block is usable unless that block itself contains a TSS already consumed by a prior cohort (see boundaries). Supersedes v1's 1-Mb block-disjointness rule; every other admission rule (window geometry, control-offset ladder, matching-balance tolerances, GUE exclusion) is unchanged.",
+    "verified_available_blocks_250kb_own_block_exclusion": 5106,
+    "rejected_conservative_reading_available_blocks": 641,
+    "minimum_matched_pairs_per_split": 163,
+    "target_raw_pairs_per_split": 400,
+    "measured_matched_pair_yield_at_frozen_caliper": 0.55,
+    "measured_unmatched_arm_yield_at_0.20_separation": 0.95,
+    "yield_basis": "Actual matched/unmatched yield achieved by v1's real (not proxy) non-MANE composition cohort build and audit (results/dnabert2_reconstruction_atlas/promoter_composition_supply_audit_v1.json): matched_pair_frozen_caliper 122/220 (55.5%) development, 128/220 (58.2%) confirmation; unmatched_pair_planted_positive 212/220 (96.4%) development, 209/220 (95.0%) confirmation. v1's own pre-build projection instead used a 62% matched-yield proxy measured on the older MANE-based 384-pair promoter_source_localization_v1 cohort, before any non-MANE composition cohort existed. At target_raw_pairs_per_split=400 and the conservative ~55% matched yield, projected matched supply is ~220 per split, giving a projected MDE of 0.241 at sd=1.2745 -- clearing the amended 0.28 ceiling with margin. Reaching the minimum_matched_pairs_per_split=163 floor itself requires MDE<=0.28, i.e. n>=163 (2.80*1.2745/sqrt(163)=0.2797). See PREREGISTRATION_D13_COMPOSITION_VS_POSITION.md Amendment 1.",
+    "requires_exact_forward_and_reverse_GUE_exclusion": true,
+    "requires_composition_matched_same_locus_pseudo_TSS": true,
+    "requires_block_disjoint_from_all_prior_cohorts": true
+  },
+  "boundaries": {
+    "block_size_nt": 250000,
+    "supersedes_block_size_nt": 1000000,
+    "exclusion_rule": "own_block_exclusion",
+    "exclusion_rule_definition": "A candidate 250-kb block is available unless that block itself contains a TSS already consumed by a prior cohort. This is recomputed at 250 kb directly from each prior cohort's raw target-TSS genomic coordinate, not from that prior cohort's own stored block id (which may have been computed at 1-Mb granularity) -- so the rule applies uniformly to every prior cohort regardless of the block size it was itself built under.",
+    "rejected_alternative": "The conservative reading -- excluding an entire former 1-Mb parent block whenever any TSS inside it had already been consumed by a prior cohort, i.e. inheriting exclusion from the coarser 1-Mb grid rather than checking the 250-kb block itself -- frees only 641 blocks and does not reach the >=163-matched-pairs-per-split supply this amendment requires. Own-block exclusion frees approximately 5,106 blocks, which is ample.",
+    "independence_cost": "The 1-Mb block rule existed to keep cohort members independent for the cluster bootstrap (inference.cluster_unit). At 250 kb, two cohort members can sit far closer together than v1 ever permitted, and neighbouring promoters share regulatory context and sequence composition -- so the bootstrap's cluster-independence assumption is genuinely weaker under this config than at any prior phase of this study. This is a real limitation of any D13 result obtained under v2, not a technicality: it must be reported alongside any P1/P2 outcome, not left implicit in the block-size number. MEASURED, STRONGER STATEMENT (verified directly against the built cohort, not inferred from the rule): all 800 of 800 v2 cohort loci -- development and confirmation combined, not a subset -- lie inside a 1-Mb region that an earlier phase of this study (D4, D7-D12, or v1 itself) had already drawn a locus from. This is the expected and correct consequence of own-block exclusion running after v1 already mined every unconsumed 1-Mb region: v2 necessarily draws from megabase regions already used elsewhere in the study. Within those regions the 250-kb blocks and the TSSs themselves remain fully disjoint from every prior cohort (0/800 250-kb block collisions, 0/800 exact-TSS-coordinate collisions, independently verified), so no admission-rule invariant is violated and nothing needs rebuilding. But the consequence is scientific, not merely statistical: D13 is NOT genomically independent of D12 at the megabase scale. Any region-specific idiosyncrasy -- local chromatin state, mutation/GC landscape, gene-family clustering, or any other unmeasured megabase-scale confound -- that influenced D12's polarity result could in principle also influence D13's, because every D13 locus shares a 1-Mb neighbourhood with a locus some earlier phase of this study already tested. This bounds how strongly a qualified D13 result may be read as independent corroboration of D12: it corroborates at the level of a fresh TSS and a fresh 250-kb neighbourhood, but not at the level of a fresh megabase region, and that distinction must be stated alongside any D13 confirmation, not left for a reader to infer from the block-size number alone."
+  },
+  "regions": {
+    "downstream_relative": [1, 31],
+    "upstream_relative": [-39, -9],
+    "boundary": "These are the two regions whose contrast D12 confirmed. They are NOT a claim that the downstream region is bounded; D12 refuted the edge."
+  },
+  "matching": {
+    "delta_definition": "for one BPE cover: delta_X = X(target cover) - X(control cover), for X in {GC fraction, CpG count per nucleotide}",
+    "pair_statistic": "abs(delta_X(downstream cover) - delta_X(upstream cover))",
+    "tight_caliper_GC": 0.05,
+    "tight_caliper_CpG": 0.03,
+    "unmatched_arm_minimum_GC_separation": 0.20,
+    "token_dose_per_cover": 2,
+    "maximum_cover_nt": 18,
+    "maximum_cover_length_difference_nt": 2,
+    "selection_is_outcome_blind": true,
+    "selection_rule": "among all eligible downstream/upstream cover pairs for a locus, choose the pair minimizing abs(delta_GC difference) then abs(delta_CpG difference) then cover-center distance; ties broken by lowest start coordinate"
+  },
+  "endpoints": {
+    "P1_matched_polarity": {
+      "role": "primary",
+      "definition": "per locus: target_specific_loss at the matched downstream cover minus target_specific_loss at the matched upstream cover, over pairs inside the tight caliper",
+      "alternative": "one_sided_positive",
+      "SESOI_logit_margin": 0.15,
+      "interpretation": "meets SESOI with a positive lower bound => composition does not account for the polarity"
+    },
+    "P2_composition_attributable": {
+      "role": "primary",
+      "definition": "per locus: unmatched-arm polarity minus matched-arm polarity, on loci supplying both arms",
+      "alternative": "two_sided",
+      "SESOI_logit_margin": 0.15,
+      "interpretation": "the component of the polarity attributable to the composition differential"
+    },
+    "P3_dose_response": {
+      "role": "secondary",
+      "definition": "OLS slope of per-pair polarity on abs(delta_GC difference), across all eligible pairs",
+      "alternative": "two_sided",
+      "SESOI_slope": 0.50,
+      "interpretation": "a flat slope supports position; a steep positive slope supports composition"
+    }
+  },
+  "calibration": {
+    "planted_positive": {
+      "check": "the deliberately unmatched arm (GC separation at least 0.20) must produce a larger polarity than the matched arm on the same loci, by at least the P2 SESOI, on reserved GUE data",
+      "rationale": "this study's primary claim is an EXCLUSION. Without demonstrated sensitivity to a composition effect, a null P2 is uninterpretable.",
+      "can_fail": true
+    },
+    "permuted_label_fpr": {
+      "check": "with target/control labels permuted 256 times, the matched-arm polarity center must fall within 0.05 of zero",
+      "can_fail": true
+    },
+    "projected_MDE_ceiling": 0.28
+  },
+  "memorials": {
+    "M1_identity": {
+      "check": "masking zero tokens yields target_specific_loss with maximum absolute value below tolerance",
+      "tolerance": 1e-5,
+      "can_fail": true,
+      "on_measurement_path": true,
+      "note": "NOT architecture-forced: this is a genuine no-op of the same token-substitution path the endpoints use, unlike D12's M1 which was a Q/K/V identity patch and was largely architecture-forced."
+    },
+    "M2_caliper_respected": {
+      "check": "every scored matched pair satisfies both tight calipers; every scored unmatched pair meets the minimum GC separation",
+      "can_fail": true
+    },
+    "M3_equal_dose": {
+      "check": "every scored cover masks exactly 2 genomic tokens on each branch, and target/control cover lengths differ by at most 2 nt",
+      "can_fail": true
+    },
+    "M4_region_containment": {
+      "check": "every downstream cover lies within +1:+31 and every upstream cover within -39:-9, inclusive of partial overlap but with cover center inside the region",
+      "can_fail": true
+    }
+  },
+  "inference": {
+    "cluster_unit": "unique 250-kb locus block",
+    "bootstrap_draws": 5000,
+    "sign_flip_draws": 9999,
+    "seed": 20260730,
+    "add_one_pvalues": true,
+    "multiplicity": "Holm across P1 and P2",
+    "alpha": 0.05
+  },
+  "split_gate": {
+    "development_requires": [
+      "qualified outcome-blind supply audit",
+      "QUALIFIED preflight including both calibration arms",
+      "clean target-minus-control promoter margin at least 0.50 logits with a positive 95% lower bound"
+    ],
+    "confirmation_opens_if": "P1 qualifies in development AND the planted-positive calibration passed",
+    "confirmation_uses": "unchanged development definitions, calipers, regions, thresholds and seeds"
+  },
+  "stop_rules": [
+    "If the planted-positive calibration fails, record INSTRUMENT_UNRESOLVED and open nothing. A null P1 without demonstrated sensitivity licenses no exclusion.",
+    "If P1 fails while the planted positive passed, composition is supported as an explanation of the polarity and that must be reported as the finding.",
+    "P3 is secondary and never gates confirmation.",
+    "No result licenses any statement about a bounded domain or a distal edge; D12 refuted those."
+  ]
+}

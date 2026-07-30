@@ -1,0 +1,618 @@
+{
+  "assay": "geometry_qualified_margin_class_specific_context",
+  "by_split_and_class": {
+    "confirmation|enhancer.encode_dels_core": {
+      "BPE_overhang_nucleotides": {
+        "max": 9,
+        "median": 5.0,
+        "min": 0
+      },
+      "changed_nucleotides": {
+        "max": 86,
+        "median": 73.0,
+        "min": 57
+      },
+      "eligibility_fraction": 0.2552083333333333,
+      "eligible": 98,
+      "eligible_alternatives": {
+        "max": 12,
+        "median": 6.0,
+        "min": 1
+      },
+      "ineligible": 286,
+      "offered": 384,
+      "site_class": "enhancer.encode_dels_core",
+      "split": "confirmation"
+    },
+    "confirmation|polya.cleavage_region": {
+      "BPE_overhang_nucleotides": {
+        "max": 7,
+        "median": 5.0,
+        "min": 2
+      },
+      "changed_nucleotides": {
+        "max": 55,
+        "median": 44.0,
+        "min": 29
+      },
+      "eligibility_fraction": 0.28125,
+      "eligible": 108,
+      "eligible_alternatives": {
+        "max": 3,
+        "median": 2.0,
+        "min": 1
+      },
+      "ineligible": 276,
+      "offered": 384,
+      "site_class": "polya.cleavage_region",
+      "split": "confirmation"
+    },
+    "confirmation|polya.signal": {
+      "BPE_overhang_nucleotides": {
+        "max": 10,
+        "median": 4,
+        "min": 0
+      },
+      "changed_nucleotides": {
+        "max": 33,
+        "median": 25,
+        "min": 15
+      },
+      "eligibility_fraction": 0.6380208333333334,
+      "eligible": 245,
+      "eligible_alternatives": {
+        "max": 14,
+        "median": 8,
+        "min": 1
+      },
+      "ineligible": 139,
+      "offered": 384,
+      "site_class": "polya.signal",
+      "split": "confirmation"
+    },
+    "confirmation|promoter.epd_tss_core": {
+      "BPE_overhang_nucleotides": {
+        "max": 11,
+        "median": 4,
+        "min": 0
+      },
+      "changed_nucleotides": {
+        "max": 54,
+        "median": 42,
+        "min": 27
+      },
+      "eligibility_fraction": 0.2630208333333333,
+      "eligible": 101,
+      "eligible_alternatives": {
+        "max": 11,
+        "median": 6,
+        "min": 1
+      },
+      "ineligible": 283,
+      "offered": 384,
+      "site_class": "promoter.epd_tss_core",
+      "split": "confirmation"
+    },
+    "confirmation|splice.acceptor": {
+      "BPE_overhang_nucleotides": {
+        "max": 12,
+        "median": 5.0,
+        "min": 2
+      },
+      "changed_nucleotides": {
+        "max": 39,
+        "median": 29.0,
+        "min": 20
+      },
+      "eligibility_fraction": 0.21354166666666666,
+      "eligible": 82,
+      "eligible_alternatives": {
+        "max": 5,
+        "median": 2.0,
+        "min": 1
+      },
+      "ineligible": 302,
+      "offered": 384,
+      "site_class": "splice.acceptor",
+      "split": "confirmation"
+    },
+    "confirmation|splice.branchpoint": {
+      "BPE_overhang_nucleotides": {
+        "max": 7,
+        "median": 4.0,
+        "min": 2
+      },
+      "changed_nucleotides": {
+        "max": 41,
+        "median": 32.0,
+        "min": 21
+      },
+      "eligibility_fraction": 0.359375,
+      "eligible": 138,
+      "eligible_alternatives": {
+        "max": 3,
+        "median": 1.0,
+        "min": 1
+      },
+      "ineligible": 246,
+      "offered": 384,
+      "site_class": "splice.branchpoint",
+      "split": "confirmation"
+    },
+    "confirmation|splice.donor": {
+      "BPE_overhang_nucleotides": {
+        "max": 12,
+        "median": 4.0,
+        "min": 1
+      },
+      "changed_nucleotides": {
+        "max": 23,
+        "median": 15.0,
+        "min": 6
+      },
+      "eligibility_fraction": 0.6979166666666666,
+      "eligible": 268,
+      "eligible_alternatives": {
+        "max": 6,
+        "median": 3.0,
+        "min": 1
+      },
+      "ineligible": 116,
+      "offered": 384,
+      "site_class": "splice.donor",
+      "split": "confirmation"
+    },
+    "confirmation|splice.polypyrimidine_tract": {
+      "BPE_overhang_nucleotides": {
+        "max": 14,
+        "median": 4.0,
+        "min": 0
+      },
+      "changed_nucleotides": {
+        "max": 25,
+        "median": 19.0,
+        "min": 9
+      },
+      "eligibility_fraction": 0.59375,
+      "eligible": 228,
+      "eligible_alternatives": {
+        "max": 15,
+        "median": 7.0,
+        "min": 1
+      },
+      "ineligible": 156,
+      "offered": 384,
+      "site_class": "splice.polypyrimidine_tract",
+      "split": "confirmation"
+    },
+    "confirmation|tfbs.cebpb_peak_core": {
+      "BPE_overhang_nucleotides": {
+        "max": 10,
+        "median": 5,
+        "min": 0
+      },
+      "changed_nucleotides": {
+        "max": 14,
+        "median": 8,
+        "min": 4
+      },
+      "eligibility_fraction": 0.5546875,
+      "eligible": 213,
+      "eligible_alternatives": {
+        "max": 14,
+        "median": 7,
+        "min": 1
+      },
+      "ineligible": 171,
+      "offered": 384,
+      "site_class": "tfbs.cebpb_peak_core",
+      "split": "confirmation"
+    },
+    "confirmation|tfbs.ctcf_peak_core": {
+      "BPE_overhang_nucleotides": {
+        "max": 10,
+        "median": 4.0,
+        "min": 0
+      },
+      "changed_nucleotides": {
+        "max": 14,
+        "median": 8.0,
+        "min": 2
+      },
+      "eligibility_fraction": 0.515625,
+      "eligible": 198,
+      "eligible_alternatives": {
+        "max": 13,
+        "median": 6.0,
+        "min": 1
+      },
+      "ineligible": 186,
+      "offered": 384,
+      "site_class": "tfbs.ctcf_peak_core",
+      "split": "confirmation"
+    },
+    "confirmation|tfbs.rest_peak_core": {
+      "BPE_overhang_nucleotides": {
+        "max": 11,
+        "median": 4.0,
+        "min": 0
+      },
+      "changed_nucleotides": {
+        "max": 14,
+        "median": 8.5,
+        "min": 3
+      },
+      "eligibility_fraction": 0.5989583333333334,
+      "eligible": 230,
+      "eligible_alternatives": {
+        "max": 12,
+        "median": 6.0,
+        "min": 1
+      },
+      "ineligible": 154,
+      "offered": 384,
+      "site_class": "tfbs.rest_peak_core",
+      "split": "confirmation"
+    },
+    "confirmation|translation.start_codon": {
+      "BPE_overhang_nucleotides": {
+        "max": 10,
+        "median": 3.0,
+        "min": 1
+      },
+      "changed_nucleotides": {
+        "max": 12,
+        "median": 6.0,
+        "min": 2
+      },
+      "eligibility_fraction": 0.578125,
+      "eligible": 222,
+      "eligible_alternatives": {
+        "max": 8,
+        "median": 3.0,
+        "min": 1
+      },
+      "ineligible": 162,
+      "offered": 384,
+      "site_class": "translation.start_codon",
+      "split": "confirmation"
+    },
+    "confirmation|translation.stop_codon": {
+      "BPE_overhang_nucleotides": {
+        "max": 11,
+        "median": 3.0,
+        "min": 0
+      },
+      "changed_nucleotides": {
+        "max": 9,
+        "median": 5.0,
+        "min": 2
+      },
+      "eligibility_fraction": 0.6666666666666666,
+      "eligible": 256,
+      "eligible_alternatives": {
+        "max": 9,
+        "median": 4.0,
+        "min": 1
+      },
+      "ineligible": 128,
+      "offered": 384,
+      "site_class": "translation.stop_codon",
+      "split": "confirmation"
+    },
+    "development|enhancer.encode_dels_core": {
+      "BPE_overhang_nucleotides": {
+        "max": 11,
+        "median": 5,
+        "min": 0
+      },
+      "changed_nucleotides": {
+        "max": 85,
+        "median": 74,
+        "min": 59
+      },
+      "eligibility_fraction": 0.22135416666666666,
+      "eligible": 85,
+      "eligible_alternatives": {
+        "max": 11,
+        "median": 6,
+        "min": 1
+      },
+      "ineligible": 299,
+      "offered": 384,
+      "site_class": "enhancer.encode_dels_core",
+      "split": "development"
+    },
+    "development|polya.cleavage_region": {
+      "BPE_overhang_nucleotides": {
+        "max": 7,
+        "median": 4.0,
+        "min": 2
+      },
+      "changed_nucleotides": {
+        "max": 53,
+        "median": 44.0,
+        "min": 32
+      },
+      "eligibility_fraction": 0.2916666666666667,
+      "eligible": 112,
+      "eligible_alternatives": {
+        "max": 3,
+        "median": 2.0,
+        "min": 1
+      },
+      "ineligible": 272,
+      "offered": 384,
+      "site_class": "polya.cleavage_region",
+      "split": "development"
+    },
+    "development|polya.signal": {
+      "BPE_overhang_nucleotides": {
+        "max": 11,
+        "median": 4,
+        "min": 0
+      },
+      "changed_nucleotides": {
+        "max": 33,
+        "median": 25,
+        "min": 16
+      },
+      "eligibility_fraction": 0.6276041666666666,
+      "eligible": 241,
+      "eligible_alternatives": {
+        "max": 16,
+        "median": 8,
+        "min": 1
+      },
+      "ineligible": 143,
+      "offered": 384,
+      "site_class": "polya.signal",
+      "split": "development"
+    },
+    "development|promoter.epd_tss_core": {
+      "BPE_overhang_nucleotides": {
+        "max": 9,
+        "median": 4,
+        "min": 0
+      },
+      "changed_nucleotides": {
+        "max": 53,
+        "median": 42,
+        "min": 30
+      },
+      "eligibility_fraction": 0.22135416666666666,
+      "eligible": 85,
+      "eligible_alternatives": {
+        "max": 12,
+        "median": 6,
+        "min": 1
+      },
+      "ineligible": 299,
+      "offered": 384,
+      "site_class": "promoter.epd_tss_core",
+      "split": "development"
+    },
+    "development|splice.acceptor": {
+      "BPE_overhang_nucleotides": {
+        "max": 11,
+        "median": 5.0,
+        "min": 2
+      },
+      "changed_nucleotides": {
+        "max": 39,
+        "median": 29.0,
+        "min": 21
+      },
+      "eligibility_fraction": 0.234375,
+      "eligible": 90,
+      "eligible_alternatives": {
+        "max": 6,
+        "median": 2.0,
+        "min": 1
+      },
+      "ineligible": 294,
+      "offered": 384,
+      "site_class": "splice.acceptor",
+      "split": "development"
+    },
+    "development|splice.branchpoint": {
+      "BPE_overhang_nucleotides": {
+        "max": 7,
+        "median": 4,
+        "min": 2
+      },
+      "changed_nucleotides": {
+        "max": 42,
+        "median": 33,
+        "min": 22
+      },
+      "eligibility_fraction": 0.3776041666666667,
+      "eligible": 145,
+      "eligible_alternatives": {
+        "max": 3,
+        "median": 2,
+        "min": 1
+      },
+      "ineligible": 239,
+      "offered": 384,
+      "site_class": "splice.branchpoint",
+      "split": "development"
+    },
+    "development|splice.donor": {
+      "BPE_overhang_nucleotides": {
+        "max": 14,
+        "median": 4,
+        "min": 2
+      },
+      "changed_nucleotides": {
+        "max": 22,
+        "median": 16,
+        "min": 7
+      },
+      "eligibility_fraction": 0.6848958333333334,
+      "eligible": 263,
+      "eligible_alternatives": {
+        "max": 6,
+        "median": 3,
+        "min": 1
+      },
+      "ineligible": 121,
+      "offered": 384,
+      "site_class": "splice.donor",
+      "split": "development"
+    },
+    "development|splice.polypyrimidine_tract": {
+      "BPE_overhang_nucleotides": {
+        "max": 15,
+        "median": 4.0,
+        "min": 0
+      },
+      "changed_nucleotides": {
+        "max": 24,
+        "median": 18.0,
+        "min": 10
+      },
+      "eligibility_fraction": 0.6510416666666666,
+      "eligible": 250,
+      "eligible_alternatives": {
+        "max": 13,
+        "median": 7.0,
+        "min": 1
+      },
+      "ineligible": 134,
+      "offered": 384,
+      "site_class": "splice.polypyrimidine_tract",
+      "split": "development"
+    },
+    "development|tfbs.cebpb_peak_core": {
+      "BPE_overhang_nucleotides": {
+        "max": 12,
+        "median": 4.0,
+        "min": 0
+      },
+      "changed_nucleotides": {
+        "max": 14,
+        "median": 8.0,
+        "min": 4
+      },
+      "eligibility_fraction": 0.5625,
+      "eligible": 216,
+      "eligible_alternatives": {
+        "max": 13,
+        "median": 7.0,
+        "min": 1
+      },
+      "ineligible": 168,
+      "offered": 384,
+      "site_class": "tfbs.cebpb_peak_core",
+      "split": "development"
+    },
+    "development|tfbs.ctcf_peak_core": {
+      "BPE_overhang_nucleotides": {
+        "max": 10,
+        "median": 4,
+        "min": 0
+      },
+      "changed_nucleotides": {
+        "max": 14,
+        "median": 8,
+        "min": 2
+      },
+      "eligibility_fraction": 0.5651041666666666,
+      "eligible": 217,
+      "eligible_alternatives": {
+        "max": 11,
+        "median": 6,
+        "min": 1
+      },
+      "ineligible": 167,
+      "offered": 384,
+      "site_class": "tfbs.ctcf_peak_core",
+      "split": "development"
+    },
+    "development|tfbs.rest_peak_core": {
+      "BPE_overhang_nucleotides": {
+        "max": 13,
+        "median": 4.0,
+        "min": 0
+      },
+      "changed_nucleotides": {
+        "max": 14,
+        "median": 8.0,
+        "min": 4
+      },
+      "eligibility_fraction": 0.5416666666666666,
+      "eligible": 208,
+      "eligible_alternatives": {
+        "max": 12,
+        "median": 6.0,
+        "min": 1
+      },
+      "ineligible": 176,
+      "offered": 384,
+      "site_class": "tfbs.rest_peak_core",
+      "split": "development"
+    },
+    "development|translation.start_codon": {
+      "BPE_overhang_nucleotides": {
+        "max": 10,
+        "median": 3,
+        "min": 1
+      },
+      "changed_nucleotides": {
+        "max": 12,
+        "median": 7,
+        "min": 2
+      },
+      "eligibility_fraction": 0.5703125,
+      "eligible": 219,
+      "eligible_alternatives": {
+        "max": 9,
+        "median": 4,
+        "min": 1
+      },
+      "ineligible": 165,
+      "offered": 384,
+      "site_class": "translation.start_codon",
+      "split": "development"
+    },
+    "development|translation.stop_codon": {
+      "BPE_overhang_nucleotides": {
+        "max": 11,
+        "median": 3,
+        "min": 0
+      },
+      "changed_nucleotides": {
+        "max": 9,
+        "median": 5,
+        "min": 2
+      },
+      "eligibility_fraction": 0.7317708333333334,
+      "eligible": 281,
+      "eligible_alternatives": {
+        "max": 9,
+        "median": 4,
+        "min": 1
+      },
+      "ineligible": 103,
+      "offered": 384,
+      "site_class": "translation.stop_codon",
+      "split": "development"
+    }
+  },
+  "checkpoint_revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+  "invariants": {
+    "split_leakage": [],
+    "structured_irrelevant_dose_mismatches": 0,
+    "target_geometry_violations": 0,
+    "target_or_scored_cover_changes": 0
+  },
+  "n_variants": 4799,
+  "outcome_blind": true,
+  "schema_version": 1,
+  "study": "dnabert2_biological_reconstruction_atlas",
+  "variant_supply": {
+    "manifest": "data/processed/dnabert2_atlas/multisource_v4/context_margin_v1.variants.manifest.json",
+    "path": "data/processed/dnabert2_atlas/multisource_v4/context_margin_v1.variants.jsonl"
+  }
+}

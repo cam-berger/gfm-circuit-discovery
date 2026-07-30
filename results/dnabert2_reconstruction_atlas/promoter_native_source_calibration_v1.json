@@ -1,0 +1,59 @@
+{
+  "GUE_candidate_offset": 160,
+  "GUE_candidate_pairs": 64,
+  "assay": "promoter_native_source_calibration_v1",
+  "boundary": "Reserved GUE calibration estimates native-edit sensitivity and projected precision. It reads no GENCODE target outcome and freezes no biological conclusion.",
+  "checkpoint_revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+  "identity_replay_max_absolute_margin_difference": 0.0,
+  "measurements": {
+    "dinucleotide_reorder": {
+      "maximum": 0.25882816314697266,
+      "mean": -0.19808217138051987,
+      "mean_absolute": 0.2823460325598717,
+      "minimum": -1.6716581583023071,
+      "n": 16,
+      "projected_80pct_MDE_at_target_n": 0.20231042629064763,
+      "projected_95pct_CI_half_width_at_target_n": 0.14161729840345336,
+      "stdev": 0.4569726724843262
+    },
+    "gc_depletion": {
+      "maximum": 1.4357109069824219,
+      "mean": 0.14281021058559418,
+      "mean_absolute": 0.46530289947986603,
+      "minimum": -1.033410906791687,
+      "n": 16,
+      "projected_80pct_MDE_at_target_n": 0.28719002236582036,
+      "projected_95pct_CI_half_width_at_target_n": 0.2010330156560743,
+      "stdev": 0.6486961371076365
+    }
+  },
+  "model_outcomes_computed": true,
+  "n_pairs": 16,
+  "pair_ids": [
+    "GUE-head-pair-0160",
+    "GUE-head-pair-0161",
+    "GUE-head-pair-0162",
+    "GUE-head-pair-0163",
+    "GUE-head-pair-0164",
+    "GUE-head-pair-0165",
+    "GUE-head-pair-0167",
+    "GUE-head-pair-0168",
+    "GUE-head-pair-0170",
+    "GUE-head-pair-0171",
+    "GUE-head-pair-0172",
+    "GUE-head-pair-0173",
+    "GUE-head-pair-0174",
+    "GUE-head-pair-0177",
+    "GUE-head-pair-0178",
+    "GUE-head-pair-0180"
+  ],
+  "raw": {
+    "manifest": "data/processed/dnabert2_atlas/promoter_native_source_rescue_v4/calibration.raw.manifest.json",
+    "path": "data/processed/dnabert2_atlas/promoter_native_source_rescue_v4/calibration.raw.jsonl",
+    "rows": 32
+  },
+  "schema_version": 1,
+  "status": "CALIBRATION",
+  "study": "dnabert2_biological_reconstruction_atlas",
+  "target_cohort_outcomes_computed": false
+}

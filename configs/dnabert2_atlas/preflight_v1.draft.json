@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "status": "DRAFT_NOT_FROZEN",
+  "checkpoint": {
+    "hf_id": "zhihan1996/DNABERT-2-117M",
+    "revision": "7bce263b15377fc15361f52cfab88f8b586abda0"
+  },
+  "seed": 20260727,
+  "collection": {
+    "source": "GENCODE v50 basic annotation",
+    "assembly": "GRCh38",
+    "gene_types": ["protein_coding"],
+    "chromosomes": [
+      "chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8",
+      "chr9", "chr10", "chr11", "chr12", "chr13", "chr14", "chr15",
+      "chr16", "chr17", "chr18", "chr19", "chr20", "chr21", "chr22",
+      "chrX", "chrY"
+    ],
+    "split_percentages": {
+      "development": 30,
+      "baseline_training": 20,
+      "confirmation": 50
+    },
+    "sampled_genes_per_split": 768,
+    "maximum_clusters_per_site_class_per_split": 512,
+    "candidate_positions_per_example": 256,
+    "controls_per_family": 1,
+    "window_upstream_nt": 512,
+    "window_downstream_nt": 512
+  },
+  "mandatory_gates": {
+    "positive_control": {
+      "design": "graded target-copy plant in a non-overlapping context region",
+      "threshold": null,
+      "requires_monotonicity": true,
+      "region_selection": "nearest eligible downstream region after scored BPE cover",
+      "minimum_target_buffer_nt": 4
+    },
+    "negative_control": {
+      "design": "sham and matched irrelevant-region exchanges",
+      "equivalence_threshold": null
+    },
+    "sensitivity": {
+      "minimum_detectable_effect_nats_per_covered_nt": null,
+      "minimum_power": 0.8
+    },
+    "resolution": {
+      "maximum_cluster_ci_half_width": null
+    },
+    "invariants": {
+      "maximum_coordinate_violations": 0,
+      "maximum_split_leakage_clusters": 0,
+      "maximum_duplicate_ids": 0
+    },
+    "matching_balance": {
+      "maximum_absolute_smd": 0.1,
+      "families_evaluated_separately": true
+    },
+    "token_geometry": {
+      "maximum_mask_integrity_violations": 0,
+      "maximum_label_leakage_violations": 0,
+      "context_requires_exact_target_geometry": true
+    },
+    "model_health": {
+      "determinism_absolute_tolerance": 1e-6,
+      "batch_invariance_absolute_tolerance": 1e-6,
+      "requires_finite_logits": true
+    }
+  },
+  "behavior": {
+    "admitted_site_classes": null,
+    "preflight_minimum_clusters_per_site_class": 32,
+    "preflight_maximum_clusters_per_site_class": 64,
+    "site_class_minimum_clusters": null,
+    "primary_sesoi_nats_per_covered_nt": null,
+    "familywise_alpha": 0.05,
+    "permutation_pvalue": "add_one",
+    "multiple_testing": "holm_over_full_site_class_by_contrast_family"
+  },
+  "stop_rule": "Any non-PASS mandatory gate yields INSTRUMENT_UNRESOLVED and blocks target outcomes."
+}

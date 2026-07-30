@@ -1,0 +1,73 @@
+{
+  "checkpoint": {
+    "base_tokenizer_revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+    "candidate": "prom_300_all",
+    "classifier_readout": "linear head after tanh-pooled CLS",
+    "head_size": 64,
+    "heads_per_layer": 12,
+    "hf_id": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
+    "layers": 12,
+    "revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12"
+  },
+  "code": {
+    "git_commit": "a33471258356f094c6a9704b1e6ed9c7fac68a80",
+    "git_dirty": true
+  },
+  "command": [
+    "scripts/dnabert2_atlas/summarize_promoter_head_atlas.py",
+    "--development",
+    "results/dnabert2_reconstruction_atlas/promoter_head_atlas_development_v1.json",
+    "--confirmation",
+    "results/dnabert2_reconstruction_atlas/promoter_head_atlas_confirmation_v1.json",
+    "--config",
+    "configs/dnabert2_atlas/promoter_head_atlas_v1.frozen.json",
+    "--preflight-report",
+    "results/dnabert2_reconstruction_atlas/promoter_head_atlas_preflight_v1.json",
+    "--out",
+    "results/dnabert2_reconstruction_atlas/promoter_head_atlas_replication_v1.json"
+  ],
+  "created_at_utc": "2026-07-28T04:23:10.650240+00:00",
+  "data": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_head_atlas_development_v1.json",
+      "sha256": "74a882c90e439d2df4bf000909983e5b9bcccc6aee2af4379b705432ae24fabb",
+      "size_bytes": 246834
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_head_atlas_confirmation_v1.json",
+      "sha256": "293526348474b3f8a95098c2b6475579407e2dc363a86519ed62778c70cd21d7",
+      "size_bytes": 246925
+    },
+    {
+      "path": "configs/dnabert2_atlas/promoter_head_atlas_v1.frozen.json",
+      "sha256": "e6a55280ae07468665060a784835c4d4bb492546a7eb6c9f7887cb7e4097899f",
+      "size_bytes": 7669
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_head_atlas_preflight_v1.json",
+      "sha256": "daaf941fc56b34a00e265d4e8424227713b78cf66e26c3bae15df67eaa96a27b",
+      "size_bytes": 45704
+    }
+  ],
+  "environment": {
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "dnabert2_promoter_head_atlas_replication_v1",
+  "outputs": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/promoter_head_atlas_replication_v1.json",
+      "sha256": "58207ee78d956d7f22c64f95ec7763bfd0985d9fef0e9513db9f63a847d657b0",
+      "size_bytes": 24629
+    }
+  ],
+  "parameters": {
+    "combination": "development_frozen_candidates_then_sealed_confirmation",
+    "no_new_model_scores": true
+  },
+  "schema_version": 1,
+  "seeds": {
+    "none": 0
+  },
+  "status": "SEALED"
+}

@@ -1,0 +1,67 @@
+{
+  "checkpoint": {
+    "hf_id": "zhihan1996/DNABERT-2-117M",
+    "revision": "7bce263b15377fc15361f52cfab88f8b586abda0"
+  },
+  "code": {
+    "git_commit": "663048fc8ed5694b521ad68ae572cb1e6dff38bf",
+    "git_dirty": true
+  },
+  "command": [
+    "scripts/dnabert2_atlas/summarize_context_margin_atlas.py",
+    "--development",
+    "results/dnabert2_reconstruction_atlas/context_margin_v1_development.json",
+    "--confirmation",
+    "results/dnabert2_reconstruction_atlas/context_margin_v1_confirmation.json",
+    "--config",
+    "configs/dnabert2_atlas/context_margin_v1.frozen.json",
+    "--preflight-report",
+    "results/dnabert2_reconstruction_atlas/context_margin_v1_preflight_qualified_rerun.json",
+    "--out",
+    "results/dnabert2_reconstruction_atlas/context_margin_v1_replication.json"
+  ],
+  "created_at_utc": "2026-07-28T00:24:32.988464+00:00",
+  "data": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/context_margin_v1_development.json",
+      "sha256": "1c22d90b6607065b09da9fc2f3a7faa6aa085ec8d42d92b9f06b009b5265d33f",
+      "size_bytes": 20000
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/context_margin_v1_confirmation.json",
+      "sha256": "7725e4cc1837557fcd2145ce1d689113f33aef8f8ad9299bb53b402168881ef4",
+      "size_bytes": 18498
+    },
+    {
+      "path": "configs/dnabert2_atlas/context_margin_v1.frozen.json",
+      "sha256": "9b3b96783383e98ffe78fa11b2cae05e3a1f594e65fd7fc71f6e87d564143b2f",
+      "size_bytes": 7657
+    },
+    {
+      "path": "results/dnabert2_reconstruction_atlas/context_margin_v1_preflight_qualified_rerun.json",
+      "sha256": "bcbc0dc927f1d606beee57fed30e71af9d7fe58b4eb77e732ac09c31def6d84c",
+      "size_bytes": 19297
+    }
+  ],
+  "environment": {
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "dnabert2_context_margin_atlas_replication",
+  "outputs": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/context_margin_v1_replication.json",
+      "sha256": "7659cc78fcee9c0e312cfea2f446387521f831bf96ff966f9f6f89842d75eed8",
+      "size_bytes": 8263
+    }
+  ],
+  "parameters": {
+    "combination": "development_selection_then_confirmation_replication",
+    "no_new_model_scores": true
+  },
+  "schema_version": 1,
+  "seeds": {
+    "none": 0
+  },
+  "status": "SEALED"
+}

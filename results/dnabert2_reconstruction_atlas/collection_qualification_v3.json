@@ -1,0 +1,143 @@
+{
+  "baseline_clusters": 592,
+  "baseline_examples": 4992,
+  "claim_boundary": "Collection and control supply are instrument facts. They do not show that DNABERT-2 reconstructs any biological element.",
+  "comparison_supply": null,
+  "controls_per_family": 1,
+  "matching_balance": {
+    "composition_token_matched": {
+      "covered_nucleotides": 0.0,
+      "cpg_fraction": 0.0,
+      "gc_fraction": 0.0,
+      "token_count": 0.0
+    },
+    "same_motif_unannotated": {
+      "covered_nucleotides": 0.0,
+      "cpg_fraction": 0.0,
+      "gc_fraction": 0.0,
+      "token_count": 0.0
+    },
+    "same_sequence_non_site": {
+      "covered_nucleotides": 0.0,
+      "cpg_fraction": 0.0,
+      "gc_fraction": 0.0,
+      "token_count": 0.0
+    }
+  },
+  "phase": "A_COLLECTION_QUALIFICATION",
+  "preflight_eligible_site_classes": [
+    "enhancer.encode_dels_core",
+    "polya.cleavage_region",
+    "polya.signal",
+    "promoter.epd_tss_core",
+    "splice.acceptor",
+    "splice.branchpoint",
+    "splice.donor",
+    "splice.polypyrimidine_tract",
+    "tfbs.cebpb_peak_core",
+    "tfbs.ctcf_peak_core",
+    "tfbs.rest_peak_core",
+    "translation.start_codon",
+    "translation.stop_codon"
+  ],
+  "quarantined_site_classes": [],
+  "schema_version": 1,
+  "site_class_decisions": {
+    "enhancer.encode_dels_core": {
+      "confirmation_matched_clusters": 216,
+      "development_matched_clusters": 210,
+      "preflight_minimum_clusters": 32,
+      "reason": "all empirical control families supplied on both target splits",
+      "status": "PREFLIGHT_ELIGIBLE"
+    },
+    "polya.cleavage_region": {
+      "confirmation_matched_clusters": 382,
+      "development_matched_clusters": 383,
+      "preflight_minimum_clusters": 32,
+      "reason": "all empirical control families supplied on both target splits",
+      "status": "PREFLIGHT_ELIGIBLE"
+    },
+    "polya.signal": {
+      "confirmation_matched_clusters": 195,
+      "development_matched_clusters": 198,
+      "preflight_minimum_clusters": 32,
+      "reason": "all empirical control families supplied on both target splits",
+      "status": "PREFLIGHT_ELIGIBLE"
+    },
+    "promoter.epd_tss_core": {
+      "confirmation_matched_clusters": 234,
+      "development_matched_clusters": 222,
+      "preflight_minimum_clusters": 32,
+      "reason": "all empirical control families supplied on both target splits",
+      "status": "PREFLIGHT_ELIGIBLE"
+    },
+    "splice.acceptor": {
+      "confirmation_matched_clusters": 374,
+      "development_matched_clusters": 373,
+      "preflight_minimum_clusters": 32,
+      "reason": "all empirical control families supplied on both target splits",
+      "status": "PREFLIGHT_ELIGIBLE"
+    },
+    "splice.branchpoint": {
+      "confirmation_matched_clusters": 383,
+      "development_matched_clusters": 384,
+      "preflight_minimum_clusters": 32,
+      "reason": "all empirical control families supplied on both target splits",
+      "status": "PREFLIGHT_ELIGIBLE"
+    },
+    "splice.donor": {
+      "confirmation_matched_clusters": 318,
+      "development_matched_clusters": 316,
+      "preflight_minimum_clusters": 32,
+      "reason": "all empirical control families supplied on both target splits",
+      "status": "PREFLIGHT_ELIGIBLE"
+    },
+    "splice.polypyrimidine_tract": {
+      "confirmation_matched_clusters": 98,
+      "development_matched_clusters": 87,
+      "preflight_minimum_clusters": 32,
+      "reason": "all empirical control families supplied on both target splits",
+      "status": "PREFLIGHT_ELIGIBLE"
+    },
+    "tfbs.cebpb_peak_core": {
+      "confirmation_matched_clusters": 215,
+      "development_matched_clusters": 196,
+      "preflight_minimum_clusters": 32,
+      "reason": "all empirical control families supplied on both target splits",
+      "status": "PREFLIGHT_ELIGIBLE"
+    },
+    "tfbs.ctcf_peak_core": {
+      "confirmation_matched_clusters": 135,
+      "development_matched_clusters": 134,
+      "preflight_minimum_clusters": 32,
+      "reason": "all empirical control families supplied on both target splits",
+      "status": "PREFLIGHT_ELIGIBLE"
+    },
+    "tfbs.rest_peak_core": {
+      "confirmation_matched_clusters": 159,
+      "development_matched_clusters": 146,
+      "preflight_minimum_clusters": 32,
+      "reason": "all empirical control families supplied on both target splits",
+      "status": "PREFLIGHT_ELIGIBLE"
+    },
+    "translation.start_codon": {
+      "confirmation_matched_clusters": 263,
+      "development_matched_clusters": 244,
+      "preflight_minimum_clusters": 32,
+      "reason": "all empirical control families supplied on both target splits",
+      "status": "PREFLIGHT_ELIGIBLE"
+    },
+    "translation.stop_codon": {
+      "confirmation_matched_clusters": 287,
+      "development_matched_clusters": 296,
+      "preflight_minimum_clusters": 32,
+      "reason": "all empirical control families supplied on both target splits",
+      "status": "PREFLIGHT_ELIGIBLE"
+    }
+  },
+  "study": "dnabert2_biological_reconstruction_atlas",
+  "target_baseline_cluster_overlap": 0,
+  "target_clusters": 1952,
+  "target_examples": 9984,
+  "target_outcomes_computed": false
+}

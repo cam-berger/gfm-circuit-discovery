@@ -1,0 +1,77 @@
+{
+  "checkpoint": {
+    "env": {
+      "python": "3.11.15",
+      "torch": "2.13.0",
+      "transformers": "4.44.2"
+    },
+    "hf_id": "zhihan1996/DNABERT-2-117M",
+    "revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+    "tokenizer_only": true,
+    "upstream_sha256": {
+      "config.json": "ba9bdafaff0cc3e30556927474d4a179519a9864012bed2628e9f1bc23c84bfd",
+      "pytorch_model.bin": "7ff39ec77a484dd01070a41bfd6e95cdd7247bec80fe357ab43a4be33687aeba",
+      "tokenizer.json": "5d178e8ce2ba55df97fff197f4b30f40133b95d7096be398c2df6b526c5d8cd3",
+      "tokenizer_config.json": "f9d18c81f4dd9dd7db02e9f27cc1203228147d890bfce9167c3af6465ff5b769"
+    }
+  },
+  "code": {
+    "git_commit": "663048fc8ed5694b521ad68ae572cb1e6dff38bf",
+    "git_dirty": true
+  },
+  "command": [
+    "scripts/dnabert2_atlas/build_context_margin_variants.py",
+    "--collection",
+    "data/processed/dnabert2_atlas/multisource_v4/target_collection.jsonl",
+    "--config",
+    "configs/dnabert2_atlas/context_margin_v1.draft.json",
+    "--variants-out",
+    "data/processed/dnabert2_atlas/multisource_v4/context_margin_v1.variants.jsonl",
+    "--audit-out",
+    "results/dnabert2_reconstruction_atlas/context_margin_v1_supply_audit.json"
+  ],
+  "created_at_utc": "2026-07-28T00:07:55.300457+00:00",
+  "data": [
+    {
+      "path": "data/processed/dnabert2_atlas/multisource_v4/target_collection.jsonl",
+      "sha256": "ee15c9809db2748aa82b3e6f87115f9df3bd22be4dc6e777332b4722b7c86ffa",
+      "size_bytes": 29787692
+    },
+    {
+      "path": "configs/dnabert2_atlas/context_margin_v1.draft.json",
+      "sha256": "9c2002667eea5b84ff2699b135875e2223c91409cb29cb9c6049e3e5be49e647",
+      "size_bytes": 8284
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/multisource_v4/context_margin_v1.variants.jsonl",
+      "sha256": "2093a3d2c52725e9274747be8b0b890f66cc6f61de6acaab8cc958f3e919b6da",
+      "size_bytes": 15676439
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/multisource_v4/context_margin_v1.variants.manifest.json",
+      "sha256": "3d875d4d59dab5140376bf29578a95d8e7b81fcc10d0fa1ad812a45f320ccb1c",
+      "size_bytes": 2501
+    }
+  ],
+  "environment": {
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "dnabert2_atlas_context_margin_supply_audit",
+  "outputs": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/context_margin_v1_supply_audit.json",
+      "sha256": "88567a9e5d7ca56a28d7d7a10dd7dfbbe6f820f3e6c9c388b5395b33fb0ea220",
+      "size_bytes": 14734
+    }
+  ],
+  "parameters": {
+    "candidate_shuffles": 512,
+    "outcome_blind": true
+  },
+  "schema_version": 1,
+  "seeds": {
+    "variant_construction": 20260727
+  },
+  "status": "PREFLIGHT"
+}

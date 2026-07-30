@@ -148,7 +148,8 @@ embeddings (C40). The carrier is therefore a feature multi-species training manu
 reflection of a human-sequence statistic.
 
 "Corpus-attributed origin" does not reopen the nucleosomal reading: the ≈10.298-nt nucleosomal signal
-sits 0.33 nt from the ≈10.630 carrier, which is fitted to ±0.005, so the record holds that as a powered
+sits 0.33 nt from the ≈10.630 carrier — a gap ~7× the largest uncertainty on either side (two-grid
+sub-bin spread 0.045 nt; nucleosomal estimator spread 0.045 nt) — so the record holds that as a powered
 refutation of the nucleosome bridge rather than support for it (C14, R17;
 [`docs/NOMENCLATURE.md`](docs/NOMENCLATURE.md)). The carrier's OV/behavioral function inside the model
 stays open; only its *corpus* origin is now licensed.

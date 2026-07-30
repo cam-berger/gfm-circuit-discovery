@@ -1,0 +1,118 @@
+{
+  "checkpoint": {
+    "attention_impl": "pytorch_reference (triton absent; flash_attn_triton.py not vendored)",
+    "device": "mps",
+    "dtype": "torch.float32",
+    "env": {
+      "python": "3.11.15",
+      "torch": "2.13.0",
+      "transformers": "4.44.2"
+    },
+    "has_learned_position_table": false,
+    "hf_id": "zhihan1996/DNABERT-2-117M",
+    "hidden_size": 768,
+    "mlm_head_complete": true,
+    "n_heads": 12,
+    "n_layers": 12,
+    "revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+    "snapshot": "/Users/cberg/.cache/huggingface/hub/models--zhihan1996--DNABERT-2-117M/snapshots/7bce263b15377fc15361f52cfab88f8b586abda0",
+    "state_dict_keys": 142,
+    "upstream_sha256": {
+      "config.json": "ba9bdafaff0cc3e30556927474d4a179519a9864012bed2628e9f1bc23c84bfd",
+      "pytorch_model.bin": "7ff39ec77a484dd01070a41bfd6e95cdd7247bec80fe357ab43a4be33687aeba",
+      "tokenizer.json": "5d178e8ce2ba55df97fff197f4b30f40133b95d7096be398c2df6b526c5d8cd3",
+      "tokenizer_config.json": "f9d18c81f4dd9dd7db02e9f27cc1203228147d890bfce9167c3af6465ff5b769"
+    },
+    "vendor_sha256": {
+      "bert_layers.py": "317ad7e9667980ac724c07f0174ba265c8446ca5230f6b473068ff1b911edcf9",
+      "bert_padding.py": "44d1c68afb1f585fdc66c150d4c60f1ed44a89c006abc57d50531d71940d7421",
+      "configuration_bert.py": "95fc868641b87bbcd7a32d2cd7b9f4769c27592e129daf167d14b5b8c74ec4c5"
+    },
+    "vocab_size": 4096
+  },
+  "code": {
+    "git_commit": "1c29abaf68eb517cc049017b4f9ac82c2bdb411f",
+    "git_dirty": false
+  },
+  "command": [
+    "scripts/dnabert2_atlas/run_preflight.py",
+    "--mode",
+    "qualified",
+    "--collection",
+    "data/processed/dnabert2_atlas/gencode_v50_bounded_v1/target_collection.jsonl",
+    "--matches",
+    "data/processed/dnabert2_atlas/gencode_v50_bounded_v1/matches_c1.jsonl",
+    "--matching-audit",
+    "data/processed/dnabert2_atlas/gencode_v50_bounded_v1/matching_audit_c1.json",
+    "--baseline-training",
+    "data/processed/dnabert2_atlas/gencode_v50_bounded_v1/baseline_training.jsonl",
+    "--preflight-config",
+    "configs/dnabert2_atlas/preflight_v1.frozen.json",
+    "--device",
+    "mps",
+    "--batch-size",
+    "16",
+    "--bootstrap-draws",
+    "5000",
+    "--seed",
+    "20260727",
+    "--out",
+    "results/dnabert2_reconstruction_atlas/preflight_qualified_v1.json"
+  ],
+  "created_at_utc": "2026-07-27T19:19:02.132797+00:00",
+  "data": [
+    {
+      "path": "data/processed/dnabert2_atlas/gencode_v50_bounded_v1/target_collection.jsonl",
+      "sha256": "68db424aa7fe9b845bc5ba98ecc618e834f70d8ecfec0163ffde03cd714cafc1",
+      "size_bytes": 134400893
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/gencode_v50_bounded_v1/matches_c1.jsonl",
+      "sha256": "e585d9d6959a84c946eaff8bb5a77c87fe4ffa376e2fbb01297aa7e0a920d5c6",
+      "size_bytes": 5970351
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/gencode_v50_bounded_v1/matching_audit_c1.json",
+      "sha256": "0928ba8f141d29801ef01c7c44b8942a7774ac8e5b1521da7c1b73a98fa7d76c",
+      "size_bytes": 369947
+    },
+    {
+      "path": "data/processed/dnabert2_atlas/gencode_v50_bounded_v1/baseline_training.jsonl",
+      "sha256": "548743340d29ceb5d41ee785d57decd5eaf3daaa867f8149a1e6c2b75a095146",
+      "size_bytes": 67693437
+    },
+    {
+      "path": "configs/dnabert2_atlas/preflight_v1.frozen.json",
+      "sha256": "65c15cf837c0dc0cb143e23cc58fbfb50a273cfcdd28da1366f7da2a79502074",
+      "size_bytes": 2868
+    }
+  ],
+  "environment": {
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.11.15"
+  },
+  "experiment_id": "dnabert2_atlas_preflight_qualified",
+  "outputs": [
+    {
+      "path": "results/dnabert2_reconstruction_atlas/preflight_qualified_v1.json",
+      "sha256": "cbb4dc53abf5c865d3478dd7e7b4aef47356bc172be3b424beff5d3c2380ba7b",
+      "size_bytes": 9512
+    }
+  ],
+  "parameters": {
+    "batch_size": 16,
+    "bootstrap_draws": 5000,
+    "copy_doses": [
+      1,
+      2,
+      4
+    ],
+    "mode": "qualified",
+    "target_outcomes_computed": false
+  },
+  "schema_version": 1,
+  "seeds": {
+    "preflight": 20260727
+  },
+  "status": "PREFLIGHT"
+}

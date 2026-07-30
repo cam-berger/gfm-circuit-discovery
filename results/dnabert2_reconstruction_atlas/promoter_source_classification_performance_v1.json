@@ -1,0 +1,349 @@
+{
+  "assay": "promoter_source_classification_performance_v1",
+  "config_sha256": "894fe9c6a2f3152e1be7c2cccdcd988a91b585628ad1e207fdea356670fce512",
+  "interpretation_boundary": "These are post-hoc secondary performance endpoints for an already nominated intervention. They do not independently validate the region, identify a motif, or estimate performance on the original GUE test set.",
+  "metric_scope": "Balanced real-GENCODE-TSS versus same-locus pseudo-TSS classification among pairs eligible for the previously nominated tile; margin > 0 is the promoter call.",
+  "per_split": {
+    "confirmation": {
+      "bootstrap": {
+        "change_ci95": {
+          "accuracy": [
+            -0.020161290322580627,
+            0.03629032258064513
+          ],
+          "auroc": [
+            -0.04305411030176909,
+            -0.0018860561914672003
+          ],
+          "mcc": [
+            -0.05901956577006054,
+            0.08090508882610908
+          ]
+        },
+        "clean_ci95": {
+          "accuracy": [
+            0.5403225806451613,
+            0.6209677419354839
+          ],
+          "auroc": [
+            0.6190166493236212,
+            0.7356269510926119
+          ],
+          "mcc": [
+            0.10206207261596575,
+            0.30557771176494686
+          ]
+        },
+        "draws": 5000,
+        "masked_ci95": {
+          "accuracy": [
+            0.5403225806451613,
+            0.6330645161290323
+          ],
+          "auroc": [
+            0.5963839750260146,
+            0.7170915712799167
+          ],
+          "mcc": [
+            0.10373979834081698,
+            0.32659863237109044
+          ]
+        },
+        "seed": 20252504,
+        "target_flip_fraction_ci95": {
+          "promoter_to_non_promoter_fraction_all_targets": [
+            0.008064516129032258,
+            0.06451612903225806
+          ],
+          "promoter_to_non_promoter_fraction_clean_positive": [
+            0.008620689655172414,
+            0.07339449541284404
+          ]
+        }
+      },
+      "changes": {
+        "accuracy": 0.008064516129032251,
+        "auroc": -0.020746618106139425,
+        "mcc": 0.01043833754970605
+      },
+      "clean": {
+        "accuracy": 0.5806451612903226,
+        "auroc": 0.6787851196670135,
+        "confusion": {
+          "fn": 13,
+          "fp": 91,
+          "tn": 33,
+          "tp": 111
+        },
+        "mcc": 0.20747959668163396,
+        "mean_margin_negative": 1.6785379268769776,
+        "mean_margin_positive": 3.408811516068395,
+        "n": 248
+      },
+      "label_transitions": {
+        "control": {
+          "clean_predicted_non_promoter": 33,
+          "non_promoter_to_promoter": 1,
+          "promoter_to_non_promoter": 5
+        },
+        "target": {
+          "clean_predicted_promoter": 111,
+          "non_promoter_to_promoter": 2,
+          "promoter_to_non_promoter": 4,
+          "promoter_to_non_promoter_fraction_all_targets": 0.03225806451612903,
+          "promoter_to_non_promoter_fraction_clean_positive": 0.036036036036036036
+        }
+      },
+      "masked": {
+        "accuracy": 0.5887096774193549,
+        "auroc": 0.6580385015608741,
+        "confusion": {
+          "fn": 15,
+          "fp": 87,
+          "tn": 37,
+          "tp": 109
+        },
+        "mcc": 0.21791793423134,
+        "mean_margin_negative": 1.6078717815839956,
+        "mean_margin_positive": 3.1325381713949385,
+        "n": 248
+      },
+      "n_pairs": 124,
+      "n_sequences": 248
+    },
+    "development": {
+      "bootstrap": {
+        "change_ci95": {
+          "accuracy": [
+            -0.03271028037383178,
+            0.014018691588784993
+          ],
+          "auroc": [
+            -0.06035461612367887,
+            -0.006900165953358406
+          ],
+          "mcc": [
+            -0.1085810775981616,
+            0.03529946551635524
+          ]
+        },
+        "clean_ci95": {
+          "accuracy": [
+            0.5467289719626168,
+            0.6355140186915887
+          ],
+          "auroc": [
+            0.614900864704341,
+            0.7391038518647917
+          ],
+          "mcc": [
+            0.14383899044561524,
+            0.36027809705790065
+          ]
+        },
+        "draws": 5000,
+        "masked_ci95": {
+          "accuracy": [
+            0.5327102803738317,
+            0.6261682242990654
+          ],
+          "auroc": [
+            0.5802253471918944,
+            0.707922089265438
+          ],
+          "mcc": [
+            0.10183501544346311,
+            0.34069257193462343
+          ]
+        },
+        "seed": 20264808,
+        "target_flip_fraction_ci95": {
+          "promoter_to_non_promoter_fraction_all_targets": [
+            0.0,
+            0.06542056074766354
+          ],
+          "promoter_to_non_promoter_fraction_clean_positive": [
+            0.0,
+            0.0673076923076923
+          ]
+        }
+      },
+      "changes": {
+        "accuracy": -0.009345794392523366,
+        "auroc": -0.033190671674382055,
+        "mcc": -0.03369356159810258
+      },
+      "clean": {
+        "accuracy": 0.5887850467289719,
+        "auroc": 0.6775264215215303,
+        "confusion": {
+          "fn": 5,
+          "fp": 83,
+          "tn": 24,
+          "tp": 102
+        },
+        "mcc": 0.25939926297660376,
+        "mean_margin_negative": 2.091278088531483,
+        "mean_margin_positive": 3.595828513675761,
+        "n": 214
+      },
+      "label_transitions": {
+        "control": {
+          "clean_predicted_non_promoter": 24,
+          "non_promoter_to_promoter": 1,
+          "promoter_to_non_promoter": 1
+        },
+        "target": {
+          "clean_predicted_promoter": 102,
+          "non_promoter_to_promoter": 1,
+          "promoter_to_non_promoter": 3,
+          "promoter_to_non_promoter_fraction_all_targets": 0.028037383177570093,
+          "promoter_to_non_promoter_fraction_clean_positive": 0.029411764705882353
+        }
+      },
+      "masked": {
+        "accuracy": 0.5794392523364486,
+        "auroc": 0.6443357498471483,
+        "confusion": {
+          "fn": 7,
+          "fp": 83,
+          "tn": 24,
+          "tp": 100
+        },
+        "mcc": 0.22570570137850118,
+        "mean_margin_negative": 2.081023688941637,
+        "mean_margin_positive": 3.340404586675011,
+        "n": 214
+      },
+      "n_pairs": 107,
+      "n_sequences": 214
+    }
+  },
+  "pooled_descriptive": {
+    "bootstrap": {
+      "change_ci95": {
+        "accuracy": [
+          -0.017316017316017396,
+          0.017316017316017396
+        ],
+        "auroc": [
+          -0.04269035437866597,
+          -0.010606997619984626
+        ],
+        "mcc": [
+          -0.05969824899644005,
+          0.039145379484189724
+        ]
+      },
+      "clean_ci95": {
+        "accuracy": [
+          0.5541125541125541,
+          0.6147186147186147
+        ],
+        "auroc": [
+          0.6371319877813384,
+          0.7205262270197336
+        ],
+        "mcc": [
+          0.15240015240022858,
+          0.301696917085152
+        ]
+      },
+      "draws": 5000,
+      "masked_ci95": {
+        "accuracy": [
+          0.551948051948052,
+          0.6168831168831169
+        ],
+        "auroc": [
+          0.6094151159086224,
+          0.6949082663368378
+        ],
+        "mcc": [
+          0.13804169488873558,
+          0.2976573579991359
+        ]
+      },
+      "seed": 20256584,
+      "target_flip_fraction_ci95": {
+        "promoter_to_non_promoter_fraction_all_targets": [
+          0.012987012987012988,
+          0.05627705627705628
+        ],
+        "promoter_to_non_promoter_fraction_clean_positive": [
+          0.013513513513513514,
+          0.06018518518518518
+        ]
+      }
+    },
+    "changes": {
+      "accuracy": 0.0,
+      "auroc": -0.026442532936039376,
+      "mcc": -0.009026994345689321
+    },
+    "clean": {
+      "accuracy": 0.5844155844155844,
+      "auroc": 0.6779295740334701,
+      "confusion": {
+        "fn": 18,
+        "fp": 174,
+        "tn": 57,
+        "tp": 213
+      },
+      "mcc": 0.2289172356446622,
+      "mean_margin_negative": 1.8697205991585018,
+      "mean_margin_positive": 3.495438437038041,
+      "n": 462
+    },
+    "label_transitions": {
+      "control": {
+        "clean_predicted_non_promoter": 57,
+        "non_promoter_to_promoter": 2,
+        "promoter_to_non_promoter": 6
+      },
+      "target": {
+        "clean_predicted_promoter": 213,
+        "non_promoter_to_promoter": 3,
+        "promoter_to_non_promoter": 7,
+        "promoter_to_non_promoter_fraction_all_targets": 0.030303030303030304,
+        "promoter_to_non_promoter_fraction_clean_positive": 0.03286384976525822
+      }
+    },
+    "masked": {
+      "accuracy": 0.5844155844155844,
+      "auroc": 0.6514870410974307,
+      "confusion": {
+        "fn": 22,
+        "fp": 170,
+        "tn": 61,
+        "tp": 209
+      },
+      "mcc": 0.2198902412989729,
+      "mean_margin_negative": 1.8270373836933793,
+      "mean_margin_positive": 3.2288226148363575,
+      "n": 462
+    },
+    "n_pairs": 231,
+    "n_sequences": 462
+  },
+  "raw": {
+    "manifest": "data/processed/dnabert2_atlas/promoter_source_localization_v1/classification_performance.raw.manifest.json",
+    "n_rows": 231,
+    "path": "data/processed/dnabert2_atlas/promoter_source_localization_v1/classification_performance.raw.jsonl"
+  },
+  "schema_version": 1,
+  "selected_id_sha256": {
+    "confirmation": "5fc61ebdda2114a6fd4deb3921b528144ed5eee5eec6608a0dcc8e98a9488ef4",
+    "development": "7a1de8b54073d526172f2dffc70fd5454e5a1d2ace9613e39bb274b6223c1dfa"
+  },
+  "status": "POSTHOC_DESCRIPTIVE",
+  "study": "dnabert2_biological_reconstruction_atlas",
+  "tile": {
+    "nominal_relative_interval": [
+      11,
+      21
+    ],
+    "operation": "two-BPE-token post-tokenization [MASK]",
+    "tile_index": 26
+  }
+}

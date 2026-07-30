@@ -1,0 +1,626 @@
+{
+  "calibration_eligible_site_classes": [
+    "enhancer.encode_dels_core",
+    "polya.cleavage_region",
+    "polya.signal",
+    "promoter.epd_tss_core",
+    "splice.acceptor",
+    "splice.branchpoint",
+    "splice.donor",
+    "splice.polypyrimidine_tract",
+    "tfbs.cebpb_peak_core",
+    "tfbs.ctcf_peak_core",
+    "tfbs.rest_peak_core",
+    "translation.start_codon",
+    "translation.stop_codon"
+  ],
+  "checkpoint_revision": "7bce263b15377fc15361f52cfab88f8b586abda0",
+  "class_metrics": {
+    "enhancer.encode_dels_core": {
+      "copy_dose_4_ci": [
+        0.10881768207484749,
+        0.18700199839679194
+      ],
+      "copy_dose_4_ci_half_width": 0.039092158160972224,
+      "copy_dose_4_paired_sd": 0.15982626555917037,
+      "copy_effect_mean_by_dose": {
+        "1": 0.004513129692403507,
+        "2": 0.05616047952212711,
+        "4": 0.14763880389962644
+      },
+      "copy_means_monotonic": true,
+      "irrelevant_effect_ci": [
+        -0.00685253473789985,
+        0.0023859997574876253
+      ],
+      "irrelevant_effect_ci_half_width": 0.004619267247693738,
+      "irrelevant_effect_mean": -0.0015282139415515855,
+      "irrelevant_effect_paired_sd": 0.019478403079638402,
+      "irrelevant_equivalence_half_width": 0.00685253473789985,
+      "irrelevant_minimum_detectable_effect_nats_per_covered_nt": 0.006821300767545132,
+      "minimum_detectable_effect_nats_per_covered_nt": 0.055970862882096184,
+      "n_clusters": 64,
+      "n_examples": 64
+    },
+    "polya.cleavage_region": {
+      "copy_dose_4_ci": [
+        0.11576533191615629,
+        0.23449872656769696
+      ],
+      "copy_dose_4_ci_half_width": 0.05936669732577034,
+      "copy_dose_4_paired_sd": 0.24575343264065572,
+      "copy_effect_mean_by_dose": {
+        "1": 0.019317014045303785,
+        "2": 0.05252254890011889,
+        "4": 0.17264324794745162
+      },
+      "copy_means_monotonic": true,
+      "irrelevant_effect_ci": [
+        -0.0011854974109501946,
+        0.003106028338273373
+      ],
+      "irrelevant_effect_ci_half_width": 0.002145762874611784,
+      "irrelevant_effect_mean": 0.000890849779049567,
+      "irrelevant_effect_paired_sd": 0.008871442502567467,
+      "irrelevant_equivalence_half_width": 0.003106028338273373,
+      "irrelevant_minimum_detectable_effect_nats_per_covered_nt": 0.003106762772316516,
+      "minimum_detectable_effect_nats_per_covered_nt": 0.08606239802332274,
+      "n_clusters": 64,
+      "n_examples": 64
+    },
+    "polya.signal": {
+      "copy_dose_4_ci": [
+        0.18666486580130334,
+        0.269419982073677
+      ],
+      "copy_dose_4_ci_half_width": 0.041377558136186834,
+      "copy_dose_4_paired_sd": 0.17316352365862783,
+      "copy_effect_mean_by_dose": {
+        "1": 0.04140883561099488,
+        "2": 0.10720556995783152,
+        "4": 0.22628416936803858
+      },
+      "copy_means_monotonic": true,
+      "irrelevant_effect_ci": [
+        0.0008598692551005406,
+        0.004835585540207882
+      ],
+      "irrelevant_effect_ci_half_width": 0.0019878581425536706,
+      "irrelevant_effect_mean": 0.0026982545182985505,
+      "irrelevant_effect_paired_sd": 0.008173508705965225,
+      "irrelevant_equivalence_half_width": 0.004835585540207882,
+      "irrelevant_minimum_detectable_effect_nats_per_covered_nt": 0.0028623476463437284,
+      "minimum_detectable_effect_nats_per_covered_nt": 0.060641546024795864,
+      "n_clusters": 64,
+      "n_examples": 64
+    },
+    "promoter.epd_tss_core": {
+      "copy_dose_4_ci": [
+        0.11494003605193003,
+        0.18882256679255033
+      ],
+      "copy_dose_4_ci_half_width": 0.03694126537031015,
+      "copy_dose_4_paired_sd": 0.14897230664467564,
+      "copy_effect_mean_by_dose": {
+        "1": 0.02720311329554963,
+        "2": 0.08474787412076547,
+        "4": 0.15070973537624896
+      },
+      "copy_means_monotonic": true,
+      "irrelevant_effect_ci": [
+        -0.0018076219147442128,
+        0.0037821061071613223
+      ],
+      "irrelevant_effect_ci_half_width": 0.0027948640109527675,
+      "irrelevant_effect_mean": 0.000964438038055677,
+      "irrelevant_effect_paired_sd": 0.011797473569879802,
+      "irrelevant_equivalence_half_width": 0.0037821061071613223,
+      "irrelevant_minimum_detectable_effect_nats_per_covered_nt": 0.00413145344555671,
+      "minimum_detectable_effect_nats_per_covered_nt": 0.052169826525489446,
+      "n_clusters": 64,
+      "n_examples": 64
+    },
+    "splice.acceptor": {
+      "copy_dose_4_ci": [
+        0.04392378694266297,
+        0.11690581519946906
+      ],
+      "copy_dose_4_ci_half_width": 0.03649101412840305,
+      "copy_dose_4_paired_sd": 0.1529368664823938,
+      "copy_effect_mean_by_dose": {
+        "1": -0.022353810968057594,
+        "2": 0.009007810818469547,
+        "4": 0.08155739251013529
+      },
+      "copy_means_monotonic": true,
+      "irrelevant_effect_ci": [
+        -0.017081411144176092,
+        0.0003838836622638217
+      ],
+      "irrelevant_effect_ci_half_width": 0.008732647403219957,
+      "irrelevant_effect_mean": -0.007010095343692563,
+      "irrelevant_effect_paired_sd": 0.03610227135819381,
+      "irrelevant_equivalence_half_width": 0.017081411144176092,
+      "irrelevant_minimum_detectable_effect_nats_per_covered_nt": 0.012642948722177371,
+      "minimum_detectable_effect_nats_per_covered_nt": 0.05355820805519888,
+      "n_clusters": 64,
+      "n_examples": 64
+    },
+    "splice.branchpoint": {
+      "copy_dose_4_ci": [
+        0.11472066593844266,
+        0.2188752163755929
+      ],
+      "copy_dose_4_ci_half_width": 0.05207727521857512,
+      "copy_dose_4_paired_sd": 0.21307788802333272,
+      "copy_effect_mean_by_dose": {
+        "1": 0.030252190342261686,
+        "2": 0.0668351149496933,
+        "4": 0.1619588569183612
+      },
+      "copy_means_monotonic": true,
+      "irrelevant_effect_ci": [
+        -0.005076589080549417,
+        0.00111992036302885
+      ],
+      "irrelevant_effect_ci_half_width": 0.0030982547217891336,
+      "irrelevant_effect_mean": -0.002000040986708215,
+      "irrelevant_effect_paired_sd": 0.012551750328696525,
+      "irrelevant_equivalence_half_width": 0.005076589080549417,
+      "irrelevant_minimum_detectable_effect_nats_per_covered_nt": 0.004395599772790097,
+      "minimum_detectable_effect_nats_per_covered_nt": 0.07461948267411239,
+      "n_clusters": 64,
+      "n_examples": 64
+    },
+    "splice.donor": {
+      "copy_dose_4_ci": [
+        0.09581885388100746,
+        0.24191028786280838
+      ],
+      "copy_dose_4_ci_half_width": 0.07304571699090046,
+      "copy_dose_4_paired_sd": 0.3008312245486647,
+      "copy_effect_mean_by_dose": {
+        "1": -0.05005664861113792,
+        "2": -0.04670748253837674,
+        "4": 0.16683099139735055
+      },
+      "copy_means_monotonic": true,
+      "irrelevant_effect_ci": [
+        -0.00542894011930512,
+        0.01171318339696675
+      ],
+      "irrelevant_effect_ci_half_width": 0.008571061758135934,
+      "irrelevant_effect_mean": 0.001732941424228706,
+      "irrelevant_effect_paired_sd": 0.03583538886904397,
+      "irrelevant_equivalence_half_width": 0.01171318339696675,
+      "irrelevant_minimum_detectable_effect_nats_per_covered_nt": 0.012549486967605447,
+      "minimum_detectable_effect_nats_per_covered_nt": 0.10535053898029524,
+      "n_clusters": 64,
+      "n_examples": 64
+    },
+    "splice.polypyrimidine_tract": {
+      "copy_dose_4_ci": [
+        0.10007558925860296,
+        0.17057921598609696
+      ],
+      "copy_dose_4_ci_half_width": 0.035251813363747,
+      "copy_dose_4_paired_sd": 0.1442132321126269,
+      "copy_effect_mean_by_dose": {
+        "1": 0.027993731568013863,
+        "2": 0.06599249760370642,
+        "4": 0.13459144900274328
+      },
+      "copy_means_monotonic": true,
+      "irrelevant_effect_ci": [
+        -0.008897217937253796,
+        0.003941449127865582
+      ],
+      "irrelevant_effect_ci_half_width": 0.006419333532559689,
+      "irrelevant_effect_mean": -0.0030244200184315947,
+      "irrelevant_effect_paired_sd": 0.026057532230323095,
+      "irrelevant_equivalence_half_width": 0.008897217937253796,
+      "irrelevant_minimum_detectable_effect_nats_per_covered_nt": 0.009125299639621928,
+      "minimum_detectable_effect_nats_per_covered_nt": 0.05050320741787874,
+      "n_clusters": 64,
+      "n_examples": 64
+    },
+    "tfbs.cebpb_peak_core": {
+      "copy_dose_4_ci": [
+        0.05209381847130337,
+        0.18430408567249304
+      ],
+      "copy_dose_4_ci_half_width": 0.06610513360059483,
+      "copy_dose_4_paired_sd": 0.27171290526282943,
+      "copy_effect_mean_by_dose": {
+        "1": -0.0394772631041289,
+        "2": 0.01801826858250602,
+        "4": 0.1142647059242917
+      },
+      "copy_means_monotonic": true,
+      "irrelevant_effect_ci": [
+        -0.004331333310450744,
+        -0.001167273724654595
+      ],
+      "irrelevant_effect_ci_half_width": 0.0015820297928980744,
+      "irrelevant_effect_mean": -0.002737300292944796,
+      "irrelevant_effect_paired_sd": 0.006638301474234744,
+      "irrelevant_equivalence_half_width": 0.004331333310450744,
+      "irrelevant_minimum_detectable_effect_nats_per_covered_nt": 0.0023247209104491975,
+      "minimum_detectable_effect_nats_per_covered_nt": 0.09515335736935902,
+      "n_clusters": 64,
+      "n_examples": 64
+    },
+    "tfbs.ctcf_peak_core": {
+      "copy_dose_4_ci": [
+        0.1048996544800445,
+        0.19564313308092596
+      ],
+      "copy_dose_4_ci_half_width": 0.04537173930044073,
+      "copy_dose_4_paired_sd": 0.1815780902002233,
+      "copy_effect_mean_by_dose": {
+        "1": -0.0031012373434817914,
+        "2": 0.05099800087954818,
+        "4": 0.1489439461888444
+      },
+      "copy_means_monotonic": true,
+      "irrelevant_effect_ci": [
+        -0.0029964881469147827,
+        0.0015945728312905332
+      ],
+      "irrelevant_effect_ci_half_width": 0.002295530489102658,
+      "irrelevant_effect_mean": -0.0005780466419850138,
+      "irrelevant_effect_paired_sd": 0.00954333306371733,
+      "irrelevant_equivalence_half_width": 0.0029964881469147827,
+      "irrelevant_minimum_detectable_effect_nats_per_covered_nt": 0.0033420576053549015,
+      "minimum_detectable_effect_nats_per_covered_nt": 0.0635883116797661,
+      "n_clusters": 64,
+      "n_examples": 64
+    },
+    "tfbs.rest_peak_core": {
+      "copy_dose_4_ci": [
+        0.10611366877496284,
+        0.19548502034127369
+      ],
+      "copy_dose_4_ci_half_width": 0.044685675783155424,
+      "copy_dose_4_paired_sd": 0.186709044283024,
+      "copy_effect_mean_by_dose": {
+        "1": 0.012082313413598694,
+        "2": 0.0447053248877133,
+        "4": 0.150399249746272
+      },
+      "copy_means_monotonic": true,
+      "irrelevant_effect_ci": [
+        -0.003739367679170041,
+        0.0029657301701293565
+      ],
+      "irrelevant_effect_ci_half_width": 0.0033525489246496987,
+      "irrelevant_effect_mean": -0.00032774662279120344,
+      "irrelevant_effect_paired_sd": 0.01370053685342988,
+      "irrelevant_equivalence_half_width": 0.003739367679170041,
+      "irrelevant_minimum_detectable_effect_nats_per_covered_nt": 0.004797902691097638,
+      "minimum_detectable_effect_nats_per_covered_nt": 0.06538516231891495,
+      "n_clusters": 64,
+      "n_examples": 64
+    },
+    "translation.start_codon": {
+      "copy_dose_4_ci": [
+        0.10310533120905681,
+        0.19679453807948816
+      ],
+      "copy_dose_4_ci_half_width": 0.046844603435215675,
+      "copy_dose_4_paired_sd": 0.19406097947677653,
+      "copy_effect_mean_by_dose": {
+        "1": 0.038141831262426894,
+        "2": 0.07386272972823264,
+        "4": 0.1493613930316951
+      },
+      "copy_means_monotonic": true,
+      "irrelevant_effect_ci": [
+        -0.005711740509621664,
+        0.006047749690023422
+      ],
+      "irrelevant_effect_ci_half_width": 0.005879745099822543,
+      "irrelevant_effect_mean": 4.253362024598736e-06,
+      "irrelevant_effect_paired_sd": 0.024087749259496836,
+      "irrelevant_equivalence_half_width": 0.006047749690023422,
+      "irrelevant_minimum_detectable_effect_nats_per_covered_nt": 0.00843548528287724,
+      "minimum_detectable_effect_nats_per_covered_nt": 0.06795979643933264,
+      "n_clusters": 64,
+      "n_examples": 64
+    },
+    "translation.stop_codon": {
+      "copy_dose_4_ci": [
+        0.10925616521578194,
+        0.22539754110491936
+      ],
+      "copy_dose_4_ci_half_width": 0.05807068794456871,
+      "copy_dose_4_paired_sd": 0.23742690047028728,
+      "copy_effect_mean_by_dose": {
+        "1": -0.00038856516749028423,
+        "2": 0.04467888385912272,
+        "4": 0.16440114961963015
+      },
+      "copy_means_monotonic": true,
+      "irrelevant_effect_ci": [
+        -0.011188881396701492,
+        0.003073606255745132
+      ],
+      "irrelevant_effect_ci_half_width": 0.007131243826223313,
+      "irrelevant_effect_mean": -0.003247823975116057,
+      "irrelevant_effect_paired_sd": 0.030414363464267152,
+      "irrelevant_equivalence_half_width": 0.011188881396701492,
+      "irrelevant_minimum_detectable_effect_nats_per_covered_nt": 0.010651053887475746,
+      "minimum_detectable_effect_nats_per_covered_nt": 0.08314646184249196,
+      "n_clusters": 64,
+      "n_examples": 64
+    }
+  },
+  "config_sha256": "fc5ef48b831ca052edebb44ca4737f32df3d1bc4b7f283b6a7f01ada72437860",
+  "dataset_release": "DNABERT2-atlas-multisource-v4",
+  "decision": "QUALIFIED",
+  "evaluated_site_classes": [
+    "enhancer.encode_dels_core",
+    "polya.cleavage_region",
+    "polya.signal",
+    "promoter.epd_tss_core",
+    "splice.acceptor",
+    "splice.branchpoint",
+    "splice.donor",
+    "splice.polypyrimidine_tract",
+    "tfbs.cebpb_peak_core",
+    "tfbs.ctcf_peak_core",
+    "tfbs.rest_peak_core",
+    "translation.start_codon",
+    "translation.stop_codon"
+  ],
+  "frozen": true,
+  "geometry": {
+    "eligible_examples_by_site_class": {
+      "enhancer.encode_dels_core": 64,
+      "polya.cleavage_region": 64,
+      "polya.signal": 64,
+      "promoter.epd_tss_core": 64,
+      "splice.acceptor": 64,
+      "splice.branchpoint": 64,
+      "splice.donor": 64,
+      "splice.polypyrimidine_tract": 64,
+      "tfbs.cebpb_peak_core": 64,
+      "tfbs.ctcf_peak_core": 64,
+      "tfbs.rest_peak_core": 64,
+      "translation.start_codon": 64,
+      "translation.stop_codon": 64
+    },
+    "ineligible_examples_by_site_class": {},
+    "target_geometry_violations": 0,
+    "target_sequence_violations": 0
+  },
+  "input_sha256": {
+    "baseline_training": "1e3f1d971564ca98a38708b6caa74fbb79bbefe088773fdfb31460c765ef2ea0",
+    "collection": "ee15c9809db2748aa82b3e6f87115f9df3bd22be4dc6e777332b4722b7c86ffa",
+    "matches": "4a383df13607c14a803cf5d96af8548ae012d780dd602b99efe7b8b309e1b1df",
+    "matching_audit": "ccbc0bf217d3253b788a53b7b67e450a995e9c03d12d73024362d0d4bf3d5dd4"
+  },
+  "mode": "qualified",
+  "model_health": {
+    "all_scores_finite": true,
+    "maximum_batch_invariance_absolute_difference": 0.0,
+    "maximum_determinism_absolute_difference": 0.0
+  },
+  "notes": [
+    "No empirical target-control reconstruction contrast was computed.",
+    "Classes evaluated: enhancer.encode_dels_core, polya.cleavage_region, polya.signal, promoter.epd_tss_core, splice.acceptor, splice.branchpoint, splice.donor, splice.polypyrimidine_tract, tfbs.cebpb_peak_core, tfbs.ctcf_peak_core, tfbs.rest_peak_core, translation.start_codon, translation.stop_codon"
+  ],
+  "outcomes": [
+    {
+      "name": "invariants",
+      "notes": [],
+      "observed": {
+        "coordinate_violations": 0,
+        "duplicate_ids": 0,
+        "split_leakage_clusters": 0
+      },
+      "state": "PASS",
+      "threshold": {
+        "maximum_coordinate_violations": 0,
+        "maximum_duplicate_ids": 0,
+        "maximum_split_leakage_clusters": 0
+      }
+    },
+    {
+      "name": "matching_balance",
+      "notes": [],
+      "observed": {
+        "maximum_absolute_smd": 0.0
+      },
+      "state": "PASS",
+      "threshold": {
+        "families_evaluated_separately": true,
+        "maximum_absolute_smd": 0.1
+      }
+    },
+    {
+      "name": "model_health",
+      "notes": [],
+      "observed": {
+        "all_scores_finite": true,
+        "maximum_batch_invariance_absolute_difference": 0.0,
+        "maximum_determinism_absolute_difference": 0.0
+      },
+      "state": "PASS",
+      "threshold": {
+        "batch_invariance_absolute_tolerance": 1e-06,
+        "determinism_absolute_tolerance": 1e-06,
+        "requires_finite_logits": true
+      }
+    },
+    {
+      "name": "negative_control",
+      "notes": [],
+      "observed": {
+        "enhancer.encode_dels_core": 0.00685253473789985,
+        "polya.cleavage_region": 0.003106028338273373,
+        "polya.signal": 0.004835585540207882,
+        "promoter.epd_tss_core": 0.0037821061071613223,
+        "splice.acceptor": 0.017081411144176092,
+        "splice.branchpoint": 0.005076589080549417,
+        "splice.donor": 0.01171318339696675,
+        "splice.polypyrimidine_tract": 0.008897217937253796,
+        "tfbs.cebpb_peak_core": 0.004331333310450744,
+        "tfbs.ctcf_peak_core": 0.0029964881469147827,
+        "tfbs.rest_peak_core": 0.003739367679170041,
+        "translation.start_codon": 0.006047749690023422,
+        "translation.stop_codon": 0.011188881396701492
+      },
+      "state": "PASS",
+      "threshold": {
+        "design": "sham and matched irrelevant-region exchanges",
+        "equivalence_threshold": 0.02
+      }
+    },
+    {
+      "name": "positive_control",
+      "notes": [],
+      "observed": {
+        "enhancer.encode_dels_core": {
+          "copy_dose_4_mean": 0.14763880389962644,
+          "monotonic": true
+        },
+        "polya.cleavage_region": {
+          "copy_dose_4_mean": 0.17264324794745162,
+          "monotonic": true
+        },
+        "polya.signal": {
+          "copy_dose_4_mean": 0.22628416936803858,
+          "monotonic": true
+        },
+        "promoter.epd_tss_core": {
+          "copy_dose_4_mean": 0.15070973537624896,
+          "monotonic": true
+        },
+        "splice.acceptor": {
+          "copy_dose_4_mean": 0.08155739251013529,
+          "monotonic": true
+        },
+        "splice.branchpoint": {
+          "copy_dose_4_mean": 0.1619588569183612,
+          "monotonic": true
+        },
+        "splice.donor": {
+          "copy_dose_4_mean": 0.16683099139735055,
+          "monotonic": true
+        },
+        "splice.polypyrimidine_tract": {
+          "copy_dose_4_mean": 0.13459144900274328,
+          "monotonic": true
+        },
+        "tfbs.cebpb_peak_core": {
+          "copy_dose_4_mean": 0.1142647059242917,
+          "monotonic": true
+        },
+        "tfbs.ctcf_peak_core": {
+          "copy_dose_4_mean": 0.1489439461888444,
+          "monotonic": true
+        },
+        "tfbs.rest_peak_core": {
+          "copy_dose_4_mean": 0.150399249746272,
+          "monotonic": true
+        },
+        "translation.start_codon": {
+          "copy_dose_4_mean": 0.1493613930316951,
+          "monotonic": true
+        },
+        "translation.stop_codon": {
+          "copy_dose_4_mean": 0.16440114961963015,
+          "monotonic": true
+        }
+      },
+      "state": "PASS",
+      "threshold": {
+        "design": "graded target-copy plant in a non-overlapping context region",
+        "minimum_target_buffer_nt": 4,
+        "region_selection": "nearest eligible downstream region after scored BPE cover",
+        "requires_monotonicity": true,
+        "threshold": 0.05
+      }
+    },
+    {
+      "name": "resolution",
+      "notes": [],
+      "observed": {
+        "enhancer.encode_dels_core": 0.004619267247693738,
+        "polya.cleavage_region": 0.002145762874611784,
+        "polya.signal": 0.0019878581425536706,
+        "promoter.epd_tss_core": 0.0027948640109527675,
+        "splice.acceptor": 0.008732647403219957,
+        "splice.branchpoint": 0.0030982547217891336,
+        "splice.donor": 0.008571061758135934,
+        "splice.polypyrimidine_tract": 0.006419333532559689,
+        "tfbs.cebpb_peak_core": 0.0015820297928980744,
+        "tfbs.ctcf_peak_core": 0.002295530489102658,
+        "tfbs.rest_peak_core": 0.0033525489246496987,
+        "translation.start_codon": 0.005879745099822543,
+        "translation.stop_codon": 0.007131243826223313
+      },
+      "state": "PASS",
+      "threshold": {
+        "maximum_cluster_ci_half_width": 0.01
+      }
+    },
+    {
+      "name": "sensitivity",
+      "notes": [],
+      "observed": {
+        "enhancer.encode_dels_core": 0.006821300767545132,
+        "polya.cleavage_region": 0.003106762772316516,
+        "polya.signal": 0.0028623476463437284,
+        "promoter.epd_tss_core": 0.00413145344555671,
+        "splice.acceptor": 0.012642948722177371,
+        "splice.branchpoint": 0.004395599772790097,
+        "splice.donor": 0.012549486967605447,
+        "splice.polypyrimidine_tract": 0.009125299639621928,
+        "tfbs.cebpb_peak_core": 0.0023247209104491975,
+        "tfbs.ctcf_peak_core": 0.0033420576053549015,
+        "tfbs.rest_peak_core": 0.004797902691097638,
+        "translation.start_codon": 0.00843548528287724,
+        "translation.stop_codon": 0.010651053887475746
+      },
+      "state": "PASS",
+      "threshold": {
+        "minimum_detectable_effect_nats_per_covered_nt": 0.015,
+        "minimum_power": 0.8
+      }
+    },
+    {
+      "name": "token_geometry",
+      "notes": [],
+      "observed": {
+        "eligible_examples_by_site_class": {
+          "enhancer.encode_dels_core": 64,
+          "polya.cleavage_region": 64,
+          "polya.signal": 64,
+          "promoter.epd_tss_core": 64,
+          "splice.acceptor": 64,
+          "splice.branchpoint": 64,
+          "splice.donor": 64,
+          "splice.polypyrimidine_tract": 64,
+          "tfbs.cebpb_peak_core": 64,
+          "tfbs.ctcf_peak_core": 64,
+          "tfbs.rest_peak_core": 64,
+          "translation.start_codon": 64,
+          "translation.stop_codon": 64
+        },
+        "ineligible_examples_by_site_class": {},
+        "target_geometry_violations": 0,
+        "target_sequence_violations": 0
+      },
+      "state": "PASS",
+      "threshold": {
+        "context_requires_exact_target_geometry": true,
+        "maximum_label_leakage_violations": 0,
+        "maximum_mask_integrity_violations": 0
+      }
+    }
+  ],
+  "report_id": "dnabert2-atlas-preflight-schema4-qualified",
+  "split": "development"
+}

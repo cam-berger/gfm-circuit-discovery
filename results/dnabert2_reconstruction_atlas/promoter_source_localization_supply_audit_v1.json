@@ -1,0 +1,1480 @@
+{
+  "annotated_cohort": {
+    "manifest": "data/processed/dnabert2_atlas/promoter_source_localization_v1/cohort.manifest.json",
+    "path": "data/processed/dnabert2_atlas/promoter_source_localization_v1/cohort.jsonl",
+    "rows": 384
+  },
+  "boundary": "This artifact uses the tokenizer only to bind BPE geometry. It computes no classifier margin, attention value, head effect, or target outcome. CAGE, PLS, CpG, and motif evidence remain separate.",
+  "checks": {
+    "complete_tile_catalog": true,
+    "exact_pairs_per_split": true,
+    "fresh_from_original": true,
+    "fresh_from_previous_D7_blocks": true,
+    "fresh_from_previous_D7_ids": true,
+    "motif_disruptions_composition_preserving": true,
+    "split_disjoint": true,
+    "unique_locus_blocks": true
+  },
+  "geometry": {
+    "by_split_and_tile": {
+      "confirmation": {
+        "0": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 1,
+            "CpG_island": 33,
+            "PLS_cCRE": 56
+          },
+          "eligible_pairs": 133,
+          "motif_overlap_pairs": {},
+          "relative_end": -239,
+          "relative_start": -249
+        },
+        "1": {
+          "actual_cover_nt_max": 16,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 1,
+            "CpG_island": 29,
+            "PLS_cCRE": 48
+          },
+          "eligible_pairs": 118,
+          "motif_overlap_pairs": {},
+          "relative_end": -229,
+          "relative_start": -239
+        },
+        "10": {
+          "actual_cover_nt_max": 16,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 0,
+            "CpG_island": 30,
+            "PLS_cCRE": 76
+          },
+          "eligible_pairs": 114,
+          "motif_overlap_pairs": {
+            "GC_box": 3
+          },
+          "relative_end": -139,
+          "relative_start": -149
+        },
+        "11": {
+          "actual_cover_nt_max": 16,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 3,
+            "CpG_island": 34,
+            "PLS_cCRE": 83
+          },
+          "eligible_pairs": 118,
+          "motif_overlap_pairs": {
+            "CCAAT": 1,
+            "GC_box": 1
+          },
+          "relative_end": -129,
+          "relative_start": -139
+        },
+        "12": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 1,
+            "CpG_island": 36,
+            "PLS_cCRE": 89
+          },
+          "eligible_pairs": 120,
+          "motif_overlap_pairs": {
+            "CCAAT": 3
+          },
+          "relative_end": -119,
+          "relative_start": -129
+        },
+        "13": {
+          "actual_cover_nt_max": 16,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 0,
+            "CpG_island": 34,
+            "PLS_cCRE": 89
+          },
+          "eligible_pairs": 115,
+          "motif_overlap_pairs": {
+            "CCAAT": 2
+          },
+          "relative_end": -109,
+          "relative_start": -119
+        },
+        "14": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 4,
+            "CpG_island": 41,
+            "PLS_cCRE": 93
+          },
+          "eligible_pairs": 129,
+          "motif_overlap_pairs": {
+            "CCAAT": 4,
+            "GC_box": 5
+          },
+          "relative_end": -99,
+          "relative_start": -109
+        },
+        "15": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 3,
+            "CpG_island": 38,
+            "PLS_cCRE": 86
+          },
+          "eligible_pairs": 116,
+          "motif_overlap_pairs": {
+            "CCAAT": 2,
+            "GC_box": 2
+          },
+          "relative_end": -89,
+          "relative_start": -99
+        },
+        "16": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 5,
+            "CpG_island": 42,
+            "PLS_cCRE": 91
+          },
+          "eligible_pairs": 118,
+          "motif_overlap_pairs": {
+            "CCAAT": 3,
+            "GC_box": 8
+          },
+          "relative_end": -79,
+          "relative_start": -89
+        },
+        "17": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 4,
+            "CpG_island": 47,
+            "PLS_cCRE": 94
+          },
+          "eligible_pairs": 123,
+          "motif_overlap_pairs": {
+            "CCAAT": 4,
+            "GC_box": 4
+          },
+          "relative_end": -69,
+          "relative_start": -79
+        },
+        "18": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 5,
+            "CpG_island": 44,
+            "PLS_cCRE": 92
+          },
+          "eligible_pairs": 120,
+          "motif_overlap_pairs": {
+            "CCAAT": 2,
+            "GC_box": 7
+          },
+          "relative_end": -59,
+          "relative_start": -69
+        },
+        "19": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 0,
+            "CpG_island": 45,
+            "PLS_cCRE": 88
+          },
+          "eligible_pairs": 116,
+          "motif_overlap_pairs": {
+            "GC_box": 8
+          },
+          "relative_end": -49,
+          "relative_start": -59
+        },
+        "2": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 2,
+            "CpG_island": 20,
+            "PLS_cCRE": 51
+          },
+          "eligible_pairs": 114,
+          "motif_overlap_pairs": {},
+          "relative_end": -219,
+          "relative_start": -229
+        },
+        "20": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 6,
+            "CpG_island": 41,
+            "PLS_cCRE": 82
+          },
+          "eligible_pairs": 111,
+          "motif_overlap_pairs": {
+            "GC_box": 6
+          },
+          "relative_end": -39,
+          "relative_start": -49
+        },
+        "21": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 15,
+            "CpG_island": 43,
+            "PLS_cCRE": 95
+          },
+          "eligible_pairs": 119,
+          "motif_overlap_pairs": {
+            "GC_box": 9,
+            "TATA": 16
+          },
+          "relative_end": -29,
+          "relative_start": -39
+        },
+        "22": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 6,
+            "CpG_island": 50,
+            "PLS_cCRE": 96
+          },
+          "eligible_pairs": 128,
+          "motif_overlap_pairs": {
+            "GC_box": 1,
+            "TATA": 22
+          },
+          "relative_end": -19,
+          "relative_start": -29
+        },
+        "23": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 4,
+            "CpG_island": 50,
+            "PLS_cCRE": 90
+          },
+          "eligible_pairs": 121,
+          "motif_overlap_pairs": {
+            "TATA": 19
+          },
+          "relative_end": -9,
+          "relative_start": -19
+        },
+        "24": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 46,
+            "CpG_island": 47,
+            "PLS_cCRE": 89
+          },
+          "eligible_pairs": 119,
+          "motif_overlap_pairs": {
+            "GC_box": 2,
+            "Inr": 51
+          },
+          "relative_end": 1,
+          "relative_start": -9
+        },
+        "25": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 30,
+            "CpG_island": 43,
+            "PLS_cCRE": 86
+          },
+          "eligible_pairs": 113,
+          "motif_overlap_pairs": {
+            "GC_box": 1,
+            "Inr": 52
+          },
+          "relative_end": 11,
+          "relative_start": 1
+        },
+        "26": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 18,
+            "CpG_island": 54,
+            "PLS_cCRE": 92
+          },
+          "eligible_pairs": 124,
+          "motif_overlap_pairs": {},
+          "relative_end": 21,
+          "relative_start": 11
+        },
+        "27": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 13,
+            "CpG_island": 45,
+            "PLS_cCRE": 87
+          },
+          "eligible_pairs": 118,
+          "motif_overlap_pairs": {},
+          "relative_end": 31,
+          "relative_start": 21
+        },
+        "28": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 15,
+            "CpG_island": 53,
+            "PLS_cCRE": 82
+          },
+          "eligible_pairs": 124,
+          "motif_overlap_pairs": {},
+          "relative_end": 41,
+          "relative_start": 31
+        },
+        "29": {
+          "actual_cover_nt_max": 13,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 12,
+            "CpG_island": 58,
+            "PLS_cCRE": 89
+          },
+          "eligible_pairs": 132,
+          "motif_overlap_pairs": {},
+          "relative_end": 51,
+          "relative_start": 41
+        },
+        "3": {
+          "actual_cover_nt_max": 17,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 1,
+            "CpG_island": 34,
+            "PLS_cCRE": 63
+          },
+          "eligible_pairs": 125,
+          "motif_overlap_pairs": {},
+          "relative_end": -209,
+          "relative_start": -219
+        },
+        "4": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 0,
+            "CpG_island": 33,
+            "PLS_cCRE": 59
+          },
+          "eligible_pairs": 114,
+          "motif_overlap_pairs": {},
+          "relative_end": -199,
+          "relative_start": -209
+        },
+        "5": {
+          "actual_cover_nt_max": 13,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 1,
+            "CpG_island": 35,
+            "PLS_cCRE": 73
+          },
+          "eligible_pairs": 128,
+          "motif_overlap_pairs": {},
+          "relative_end": -189,
+          "relative_start": -199
+        },
+        "6": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 2,
+            "CpG_island": 29,
+            "PLS_cCRE": 71
+          },
+          "eligible_pairs": 121,
+          "motif_overlap_pairs": {
+            "CCAAT": 2
+          },
+          "relative_end": -179,
+          "relative_start": -189
+        },
+        "7": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 0,
+            "CpG_island": 32,
+            "PLS_cCRE": 78
+          },
+          "eligible_pairs": 116,
+          "motif_overlap_pairs": {
+            "CCAAT": 2
+          },
+          "relative_end": -169,
+          "relative_start": -179
+        },
+        "8": {
+          "actual_cover_nt_max": 16,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 2,
+            "CpG_island": 32,
+            "PLS_cCRE": 73
+          },
+          "eligible_pairs": 116,
+          "motif_overlap_pairs": {
+            "CCAAT": 2,
+            "GC_box": 4
+          },
+          "relative_end": -159,
+          "relative_start": -169
+        },
+        "9": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 2,
+            "CpG_island": 32,
+            "PLS_cCRE": 76
+          },
+          "eligible_pairs": 118,
+          "motif_overlap_pairs": {
+            "GC_box": 8
+          },
+          "relative_end": -149,
+          "relative_start": -159
+        }
+      },
+      "development": {
+        "0": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 2,
+            "CpG_island": 25,
+            "PLS_cCRE": 42
+          },
+          "eligible_pairs": 121,
+          "motif_overlap_pairs": {},
+          "relative_end": -239,
+          "relative_start": -249
+        },
+        "1": {
+          "actual_cover_nt_max": 16,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 2,
+            "CpG_island": 29,
+            "PLS_cCRE": 44
+          },
+          "eligible_pairs": 121,
+          "motif_overlap_pairs": {},
+          "relative_end": -229,
+          "relative_start": -239
+        },
+        "10": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 2,
+            "CpG_island": 43,
+            "PLS_cCRE": 102
+          },
+          "eligible_pairs": 139,
+          "motif_overlap_pairs": {
+            "CCAAT": 1,
+            "GC_box": 9
+          },
+          "relative_end": -139,
+          "relative_start": -149
+        },
+        "11": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 2,
+            "CpG_island": 44,
+            "PLS_cCRE": 98
+          },
+          "eligible_pairs": 138,
+          "motif_overlap_pairs": {
+            "CCAAT": 1,
+            "GC_box": 5
+          },
+          "relative_end": -129,
+          "relative_start": -139
+        },
+        "12": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 1,
+            "CpG_island": 35,
+            "PLS_cCRE": 84
+          },
+          "eligible_pairs": 117,
+          "motif_overlap_pairs": {
+            "CCAAT": 3,
+            "GC_box": 6
+          },
+          "relative_end": -119,
+          "relative_start": -129
+        },
+        "13": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 1,
+            "CpG_island": 38,
+            "PLS_cCRE": 90
+          },
+          "eligible_pairs": 134,
+          "motif_overlap_pairs": {
+            "CCAAT": 3,
+            "GC_box": 11
+          },
+          "relative_end": -109,
+          "relative_start": -119
+        },
+        "14": {
+          "actual_cover_nt_max": 16,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 1,
+            "CpG_island": 40,
+            "PLS_cCRE": 87
+          },
+          "eligible_pairs": 125,
+          "motif_overlap_pairs": {
+            "CCAAT": 2,
+            "GC_box": 5
+          },
+          "relative_end": -99,
+          "relative_start": -109
+        },
+        "15": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 1,
+            "CpG_island": 41,
+            "PLS_cCRE": 91
+          },
+          "eligible_pairs": 124,
+          "motif_overlap_pairs": {
+            "CCAAT": 1,
+            "GC_box": 4
+          },
+          "relative_end": -89,
+          "relative_start": -99
+        },
+        "16": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 1,
+            "CpG_island": 39,
+            "PLS_cCRE": 85
+          },
+          "eligible_pairs": 122,
+          "motif_overlap_pairs": {
+            "CCAAT": 1,
+            "GC_box": 2
+          },
+          "relative_end": -79,
+          "relative_start": -89
+        },
+        "17": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 0,
+            "CpG_island": 37,
+            "PLS_cCRE": 93
+          },
+          "eligible_pairs": 118,
+          "motif_overlap_pairs": {
+            "CCAAT": 4,
+            "GC_box": 4
+          },
+          "relative_end": -69,
+          "relative_start": -79
+        },
+        "18": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 3,
+            "CpG_island": 48,
+            "PLS_cCRE": 99
+          },
+          "eligible_pairs": 129,
+          "motif_overlap_pairs": {
+            "CCAAT": 4,
+            "GC_box": 9
+          },
+          "relative_end": -59,
+          "relative_start": -69
+        },
+        "19": {
+          "actual_cover_nt_max": 13,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 3,
+            "CpG_island": 50,
+            "PLS_cCRE": 104
+          },
+          "eligible_pairs": 137,
+          "motif_overlap_pairs": {
+            "CCAAT": 2,
+            "GC_box": 16
+          },
+          "relative_end": -49,
+          "relative_start": -59
+        },
+        "2": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 0,
+            "CpG_island": 24,
+            "PLS_cCRE": 43
+          },
+          "eligible_pairs": 119,
+          "motif_overlap_pairs": {},
+          "relative_end": -219,
+          "relative_start": -229
+        },
+        "20": {
+          "actual_cover_nt_max": 13,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 3,
+            "CpG_island": 45,
+            "PLS_cCRE": 88
+          },
+          "eligible_pairs": 116,
+          "motif_overlap_pairs": {
+            "GC_box": 18
+          },
+          "relative_end": -39,
+          "relative_start": -49
+        },
+        "21": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 5,
+            "CpG_island": 48,
+            "PLS_cCRE": 93
+          },
+          "eligible_pairs": 127,
+          "motif_overlap_pairs": {
+            "GC_box": 12,
+            "TATA": 15
+          },
+          "relative_end": -29,
+          "relative_start": -39
+        },
+        "22": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 12,
+            "CpG_island": 47,
+            "PLS_cCRE": 92
+          },
+          "eligible_pairs": 126,
+          "motif_overlap_pairs": {
+            "GC_box": 4,
+            "TATA": 17
+          },
+          "relative_end": -19,
+          "relative_start": -29
+        },
+        "23": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 6,
+            "CpG_island": 51,
+            "PLS_cCRE": 97
+          },
+          "eligible_pairs": 126,
+          "motif_overlap_pairs": {
+            "GC_box": 7,
+            "TATA": 16
+          },
+          "relative_end": -9,
+          "relative_start": -19
+        },
+        "24": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 46,
+            "CpG_island": 50,
+            "PLS_cCRE": 95
+          },
+          "eligible_pairs": 124,
+          "motif_overlap_pairs": {
+            "GC_box": 4,
+            "Inr": 40,
+            "TATA": 1
+          },
+          "relative_end": 1,
+          "relative_start": -9
+        },
+        "25": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 29,
+            "CpG_island": 42,
+            "PLS_cCRE": 83
+          },
+          "eligible_pairs": 111,
+          "motif_overlap_pairs": {
+            "GC_box": 1,
+            "Inr": 51
+          },
+          "relative_end": 11,
+          "relative_start": 1
+        },
+        "26": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 8,
+            "CpG_island": 41,
+            "PLS_cCRE": 76
+          },
+          "eligible_pairs": 107,
+          "motif_overlap_pairs": {},
+          "relative_end": 21,
+          "relative_start": 11
+        },
+        "27": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 14,
+            "CpG_island": 50,
+            "PLS_cCRE": 91
+          },
+          "eligible_pairs": 129,
+          "motif_overlap_pairs": {},
+          "relative_end": 31,
+          "relative_start": 21
+        },
+        "28": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 5,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 11,
+            "CpG_island": 49,
+            "PLS_cCRE": 93
+          },
+          "eligible_pairs": 129,
+          "motif_overlap_pairs": {},
+          "relative_end": 41,
+          "relative_start": 31
+        },
+        "29": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 10,
+            "CpG_island": 54,
+            "PLS_cCRE": 99
+          },
+          "eligible_pairs": 140,
+          "motif_overlap_pairs": {},
+          "relative_end": 51,
+          "relative_start": 41
+        },
+        "3": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 4,
+            "CpG_island": 26,
+            "PLS_cCRE": 49
+          },
+          "eligible_pairs": 124,
+          "motif_overlap_pairs": {},
+          "relative_end": -209,
+          "relative_start": -219
+        },
+        "4": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 1,
+            "CpG_island": 18,
+            "PLS_cCRE": 55
+          },
+          "eligible_pairs": 110,
+          "motif_overlap_pairs": {},
+          "relative_end": -199,
+          "relative_start": -209
+        },
+        "5": {
+          "actual_cover_nt_max": 14,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 0,
+            "CpG_island": 30,
+            "PLS_cCRE": 71
+          },
+          "eligible_pairs": 125,
+          "motif_overlap_pairs": {},
+          "relative_end": -189,
+          "relative_start": -199
+        },
+        "6": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 2,
+            "CpG_island": 30,
+            "PLS_cCRE": 81
+          },
+          "eligible_pairs": 136,
+          "motif_overlap_pairs": {
+            "CCAAT": 1
+          },
+          "relative_end": -179,
+          "relative_start": -189
+        },
+        "7": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 7,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 0,
+            "CpG_island": 27,
+            "PLS_cCRE": 69
+          },
+          "eligible_pairs": 109,
+          "motif_overlap_pairs": {
+            "GC_box": 1
+          },
+          "relative_end": -169,
+          "relative_start": -179
+        },
+        "8": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 1,
+            "CpG_island": 32,
+            "PLS_cCRE": 77
+          },
+          "eligible_pairs": 128,
+          "motif_overlap_pairs": {
+            "CCAAT": 1,
+            "GC_box": 3
+          },
+          "relative_end": -159,
+          "relative_start": -169
+        },
+        "9": {
+          "actual_cover_nt_max": 15,
+          "actual_cover_nt_min": 6,
+          "annotation_overlap_pairs": {
+            "CAGE_dominant_CTSS": 2,
+            "CpG_island": 32,
+            "PLS_cCRE": 82
+          },
+          "eligible_pairs": 123,
+          "motif_overlap_pairs": {
+            "CCAAT": 3,
+            "GC_box": 7
+          },
+          "relative_end": -149,
+          "relative_start": -159
+        }
+      }
+    },
+    "fixed_BPE_token_dose": 2,
+    "maximum_actual_cover_nt": 18,
+    "maximum_target_control_cover_difference_nt": 2,
+    "nominal_tile_width_nt": 10,
+    "tile_count": 30
+  },
+  "independent_annotations": {
+    "confirmation": {
+      "TSS_support_counts": {
+        "CAGE_within_tolerance": 105,
+        "within_CpG_island": 73,
+        "within_PLS_cCRE": 142
+      },
+      "control_motif_positive_pairs": {
+        "CCAAT": 12,
+        "GC_box": 31,
+        "Inr": 39,
+        "TATA": 12
+      },
+      "geometry_qualified_paired_disruptions": {
+        "CCAAT": 8,
+        "GC_box": 19,
+        "Inr": 64,
+        "TATA": 13
+      },
+      "pairs": 192,
+      "target_motif_positive_pairs": {
+        "CCAAT": 17,
+        "GC_box": 46,
+        "Inr": 86,
+        "TATA": 34
+      }
+    },
+    "development": {
+      "TSS_support_counts": {
+        "CAGE_within_tolerance": 105,
+        "within_CpG_island": 70,
+        "within_PLS_cCRE": 138
+      },
+      "control_motif_positive_pairs": {
+        "CCAAT": 7,
+        "GC_box": 36,
+        "Inr": 43,
+        "TATA": 7
+      },
+      "geometry_qualified_paired_disruptions": {
+        "CCAAT": 12,
+        "GC_box": 15,
+        "Inr": 57,
+        "TATA": 9
+      },
+      "pairs": 192,
+      "target_motif_positive_pairs": {
+        "CCAAT": 17,
+        "GC_box": 63,
+        "Inr": 82,
+        "TATA": 24
+      }
+    },
+    "motif_definitions": {
+      "CCAAT": {
+        "cutoff": -4.54,
+        "family": "promoter_associated",
+        "length": 12,
+        "position_offsets": [
+          -7,
+          -6,
+          -5,
+          -4,
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "preferred_position0_relative_TSS": [
+          -212,
+          -57
+        ],
+        "source_sha256": "fa475bd84e8d15a4d132fbdcae9eaeb0992990579f3bb7c0e2f9e3a39c5e3725"
+      },
+      "GC_box": {
+        "cutoff": -4.9,
+        "family": "promoter_associated",
+        "length": 14,
+        "position_offsets": [
+          -6,
+          -5,
+          -4,
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "preferred_position0_relative_TSS": [
+          -164,
+          1
+        ],
+        "source_sha256": "74868a536b412465cdfe5db8f4f0d7253baf496e0ec3306049126921029b391b"
+      },
+      "Inr": {
+        "cutoff": -3.75,
+        "family": "core_promoter",
+        "length": 8,
+        "position_offsets": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "preferred_position0_relative_TSS": [
+          1,
+          5
+        ],
+        "source_sha256": "492378b8aab4a53a39120588279246bbd8e788d119932e0a8558c323dbb88c05"
+      },
+      "TATA": {
+        "cutoff": -8.16,
+        "family": "core_promoter",
+        "length": 15,
+        "position_offsets": [
+          -3,
+          -2,
+          -1,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "preferred_position0_relative_TSS": [
+          -36,
+          -20
+        ],
+        "source_sha256": "4207834332267d0b66d67bc55cd891d1c499aa6d46200462683a4012ead8ef9a"
+      }
+    }
+  },
+  "model_outcomes_computed": false,
+  "phase": "PROMOTER_SOURCE_LOCALIZATION_OUTCOME_BLIND_SUPPLY",
+  "schema_version": 1,
+  "selection": {
+    "pairs_per_split": 192,
+    "selected_example_ids": {
+      "confirmation": [
+        "promoter-classifier:796b3810d632b4c5",
+        "promoter-classifier:f1a5639edb2484e2",
+        "promoter-classifier:454b844fc87d6945",
+        "promoter-classifier:f0515354ce0a3406",
+        "promoter-classifier:5b254619e7dc451e",
+        "promoter-classifier:70bbc648231ab23e",
+        "promoter-classifier:5a1c2d523d1d0ccc",
+        "promoter-classifier:3ff524522bcabf6b",
+        "promoter-classifier:c4c466daaf9d48d2",
+        "promoter-classifier:00e03f5a0771380c",
+        "promoter-classifier:26e8608fb3bc2478",
+        "promoter-classifier:386ed9f93efa629f",
+        "promoter-classifier:63e6bd5b368e9372",
+        "promoter-classifier:bc0222e0530ce831",
+        "promoter-classifier:8a3e4e2afd6e9000",
+        "promoter-classifier:8a30c25a12dbb70c",
+        "promoter-classifier:f95bc729960b0e36",
+        "promoter-classifier:0f69d491a9c39f71",
+        "promoter-classifier:80dbf1d3d5cfc603",
+        "promoter-classifier:c9711701c9947447",
+        "promoter-classifier:ef95aeab37c36d5d",
+        "promoter-classifier:e159493035ee4487",
+        "promoter-classifier:f0bfc4aca983c607",
+        "promoter-classifier:1377701a9cd3aeff",
+        "promoter-classifier:53638577cd7fc8f8",
+        "promoter-classifier:beb171b837ce17af",
+        "promoter-classifier:9e3ef4090aecc6e6",
+        "promoter-classifier:da42c9b00c271ff3",
+        "promoter-classifier:9eb0ed20e4630a90",
+        "promoter-classifier:41dc73860559e454",
+        "promoter-classifier:a4cf23f91f3ab6ec",
+        "promoter-classifier:033137adc096cf41",
+        "promoter-classifier:bd289d0b3e82d12f",
+        "promoter-classifier:9aafb8428222b9c7",
+        "promoter-classifier:8600ff2e662504f0",
+        "promoter-classifier:fcefb9cae258aad8",
+        "promoter-classifier:1df35db6fc445959",
+        "promoter-classifier:3510a907ee4dc62f",
+        "promoter-classifier:f8ffb009cd05d6fc",
+        "promoter-classifier:821150f77c3e4042",
+        "promoter-classifier:5f178d3abbc05f7b",
+        "promoter-classifier:40c0901604b160d4",
+        "promoter-classifier:276a628c2acb84dc",
+        "promoter-classifier:077021f0a27df704",
+        "promoter-classifier:2f996d76eee9120f",
+        "promoter-classifier:1480d5bbe428080b",
+        "promoter-classifier:699456e0ce6bef50",
+        "promoter-classifier:32904fe0dedc3402",
+        "promoter-classifier:81d96d0706c2eb0d",
+        "promoter-classifier:f3c6017ae0fc294c",
+        "promoter-classifier:bb63e88cff6b0dca",
+        "promoter-classifier:ea34ce9c9967a692",
+        "promoter-classifier:7516763e8a6fe22e",
+        "promoter-classifier:03dbce38a4950611",
+        "promoter-classifier:ae107f70b840a85d",
+        "promoter-classifier:11a932f41d5f31b0",
+        "promoter-classifier:74c9d64c46093d12",
+        "promoter-classifier:bad843dac69502f5",
+        "promoter-classifier:bd9424eab3ca416e",
+        "promoter-classifier:d87c165f1d896afb",
+        "promoter-classifier:c19b9c00b7b8cf3a",
+        "promoter-classifier:c45ebb3b67f83801",
+        "promoter-classifier:376cbe05cc22a593",
+        "promoter-classifier:b557c523fd7c49e1",
+        "promoter-classifier:4cd1aa37ae403e61",
+        "promoter-classifier:3383010a40f2e7a6",
+        "promoter-classifier:57641182ef366ab4",
+        "promoter-classifier:e2e3aae12cfbbeaf",
+        "promoter-classifier:6e0b78f266333819",
+        "promoter-classifier:6e466bea21b6f1dc",
+        "promoter-classifier:3573ce5f1349e108",
+        "promoter-classifier:b9bab79ef421fdab",
+        "promoter-classifier:38126dbdbcda1b03",
+        "promoter-classifier:fda4d87ec7bc6319",
+        "promoter-classifier:5dcdeed3fa44e98b",
+        "promoter-classifier:ac7a2814caad81f4",
+        "promoter-classifier:c1e44984fe810f4e",
+        "promoter-classifier:7ee91456dee1f993",
+        "promoter-classifier:86440270e42bb9b8",
+        "promoter-classifier:252d6484a65c9afd",
+        "promoter-classifier:b73a36be869a68c1",
+        "promoter-classifier:95fd1ea6e17e910b",
+        "promoter-classifier:f66f6365a92e2ddd",
+        "promoter-classifier:ce2e125eb8c42aea",
+        "promoter-classifier:22eaa78d0efbbedd",
+        "promoter-classifier:68b0994be0b772bc",
+        "promoter-classifier:888e081bebf3aa88",
+        "promoter-classifier:7430f369ca077d30",
+        "promoter-classifier:7444424e1682a231",
+        "promoter-classifier:8be33d63625e6fbf",
+        "promoter-classifier:670efef5eb77041a",
+        "promoter-classifier:e6ad74661ee82fbd",
+        "promoter-classifier:eb7bbd1a2e36f27f",
+        "promoter-classifier:d2abade94c0ba13b",
+        "promoter-classifier:1b105d861d133848",
+        "promoter-classifier:ff1fb106ac6e23f3",
+        "promoter-classifier:c2efe2da9b7ac465",
+        "promoter-classifier:a538c637be56b39e",
+        "promoter-classifier:92111276cfe53e9a",
+        "promoter-classifier:08fb4af7e16551e9",
+        "promoter-classifier:b4f894a6743e7141",
+        "promoter-classifier:d33a7fff85a6aa5f",
+        "promoter-classifier:00724cb92b0dd085",
+        "promoter-classifier:9acf3ae8097d9b5d",
+        "promoter-classifier:337f73dd2e7da4c0",
+        "promoter-classifier:225c15219cce32c7",
+        "promoter-classifier:16326f53bbbb7db4",
+        "promoter-classifier:4db8adab1e8aef2c",
+        "promoter-classifier:e861536fd053117e",
+        "promoter-classifier:d5cf0bfb02d2b648",
+        "promoter-classifier:d65703c6b2cec298",
+        "promoter-classifier:43a92333d8df039c",
+        "promoter-classifier:ae9e6637edb86adc",
+        "promoter-classifier:bc140d1d0d8dcfe9",
+        "promoter-classifier:95252fe424348cc2",
+        "promoter-classifier:615d8436a63fb25b",
+        "promoter-classifier:d8bf2497bfd1b7bf",
+        "promoter-classifier:1b03c1b37ebf09ad",
+        "promoter-classifier:94474d07189597e5",
+        "promoter-classifier:de2992c3d37c8b02",
+        "promoter-classifier:2642a44c3c4fbd8f",
+        "promoter-classifier:4c7ff3ade4748f00",
+        "promoter-classifier:76f003be9c6045d4",
+        "promoter-classifier:737d8c51d0b42c1b",
+        "promoter-classifier:b3f144f0367ed237",
+        "promoter-classifier:099081785c4d3843",
+        "promoter-classifier:b7d39abf20c26a58",
+        "promoter-classifier:847cc45939064e76",
+        "promoter-classifier:6bcf9cfa2e3e7819",
+        "promoter-classifier:0e3264b74c87ca97",
+        "promoter-classifier:5415d8328ef63838",
+        "promoter-classifier:7b1a452623fd9863",
+        "promoter-classifier:49209cdf0256c929",
+        "promoter-classifier:a6a22bba273d9af7",
+        "promoter-classifier:5844f04b9a0e637e",
+        "promoter-classifier:09ba9465e884eb81",
+        "promoter-classifier:c3a1421501e79685",
+        "promoter-classifier:062abdf92a6e5b38",
+        "promoter-classifier:f5a5b020bba061ce",
+        "promoter-classifier:e576b0ae88c2d838",
+        "promoter-classifier:5010b5a5cb17d7a7",
+        "promoter-classifier:d57883abd374ff03",
+        "promoter-classifier:60e486783cabd804",
+        "promoter-classifier:87cb0cf2f828b0c2",
+        "promoter-classifier:c7fe34645044fd54",
+        "promoter-classifier:d4ce4aee412c0b31",
+        "promoter-classifier:4c4cf2aa97e359b7",
+        "promoter-classifier:ac1a0090504ee40c",
+        "promoter-classifier:0b95426b6cf5e21a",
+        "promoter-classifier:c2d820f4698afa18",
+        "promoter-classifier:9be29b5aa24af85c",
+        "promoter-classifier:cf578fcf586896f4",
+        "promoter-classifier:4397e32e1b7b1b29",
+        "promoter-classifier:a6d6a3ad6acf4c8c",
+        "promoter-classifier:07d4f5c4a962f992",
+        "promoter-classifier:5295eac4341993cc",
+        "promoter-classifier:efc4af5cdf1c5c3f",
+        "promoter-classifier:f8005f741186eec4",
+        "promoter-classifier:0e7e658cb3114aed",
+        "promoter-classifier:0d2e13541177b002",
+        "promoter-classifier:84c21c66e6d4200d",
+        "promoter-classifier:e525d6be32031ce3",
+        "promoter-classifier:ab99292cb778f637",
+        "promoter-classifier:75483d55d1e08f06",
+        "promoter-classifier:dba422fba2bf94e4",
+        "promoter-classifier:2818d97265a731e0",
+        "promoter-classifier:5ceb14787d82ee4c",
+        "promoter-classifier:4392f9efa21c341e",
+        "promoter-classifier:d960ce65ac77b519",
+        "promoter-classifier:cee81ccb1bda7f5e",
+        "promoter-classifier:6129011d26bd9f86",
+        "promoter-classifier:4c1f42ff8f907483",
+        "promoter-classifier:e9e13518dbd387c9",
+        "promoter-classifier:a5d821bb6da80a10",
+        "promoter-classifier:dc27c4328232aef4",
+        "promoter-classifier:15b2f9de3de447fa",
+        "promoter-classifier:7f1209ec07aa065d",
+        "promoter-classifier:9670fec3ad3ef8f4",
+        "promoter-classifier:dad0911f1336e8f2",
+        "promoter-classifier:dd4a452451a7948d",
+        "promoter-classifier:a7198249fcda9918",
+        "promoter-classifier:411b3a35f6bae124",
+        "promoter-classifier:2e368047279fe89f",
+        "promoter-classifier:51653e37e7689654",
+        "promoter-classifier:1ee5152d05f7b321",
+        "promoter-classifier:d94b6b57121aa6e7",
+        "promoter-classifier:135c6c99459b2289",
+        "promoter-classifier:be253f3a6e8def1a",
+        "promoter-classifier:0bc94e439b7a0901",
+        "promoter-classifier:b45d54dee286876b",
+        "promoter-classifier:01e03db775496d57",
+        "promoter-classifier:c7353fe4caa1eb51"
+      ],
+      "development": [
+        "promoter-classifier:beb69ecffb422abf",
+        "promoter-classifier:ad47d26631694d82",
+        "promoter-classifier:d00efa19815219c9",
+        "promoter-classifier:c2e2cf145cf92484",
+        "promoter-classifier:057e1a3a120e5579",
+        "promoter-classifier:c86d4995093e3c9e",
+        "promoter-classifier:d68dc21d1d1c9119",
+        "promoter-classifier:751b940c0315385c",
+        "promoter-classifier:26df5a9f95f7bdeb",
+        "promoter-classifier:4f98510382e719b0",
+        "promoter-classifier:7f5c752ab6d35f87",
+        "promoter-classifier:4da34dfaa3130ebf",
+        "promoter-classifier:cd73cad829d1ed26",
+        "promoter-classifier:98152aa173cf816c",
+        "promoter-classifier:155e4536797f3c5c",
+        "promoter-classifier:57793634f45bc4c0",
+        "promoter-classifier:744e48c8b28e0211",
+        "promoter-classifier:6c863547197ea4e1",
+        "promoter-classifier:7b9397c9f7ad4632",
+        "promoter-classifier:97519f6f65b12909",
+        "promoter-classifier:f7f473a7dcc29e2a",
+        "promoter-classifier:1abdc83d2985fcff",
+        "promoter-classifier:4f7cf3619aebf806",
+        "promoter-classifier:d1d5803e9b125d40",
+        "promoter-classifier:0d4b7efecfa1c9dd",
+        "promoter-classifier:6fbf812953672905",
+        "promoter-classifier:f1604f09b680640f",
+        "promoter-classifier:dd91cf6a5192ab9f",
+        "promoter-classifier:8bd4695946741e03",
+        "promoter-classifier:ec20048fa839807c",
+        "promoter-classifier:1f6d43cd339167a1",
+        "promoter-classifier:25bd3eda2685ff0c",
+        "promoter-classifier:c927e5e95e9ba948",
+        "promoter-classifier:e786fb61ea98b597",
+        "promoter-classifier:0b30a343165ff9b5",
+        "promoter-classifier:fc99a31cb7eace66",
+        "promoter-classifier:a9f18d8171825efd",
+        "promoter-classifier:9e41dda9da7c22b0",
+        "promoter-classifier:7bd07245625746e7",
+        "promoter-classifier:c802aba2dd02ce24",
+        "promoter-classifier:32b91b207ab9142b",
+        "promoter-classifier:a9b518ce9b78662a",
+        "promoter-classifier:ee58cf86f328e151",
+        "promoter-classifier:47d46f692abdd53f",
+        "promoter-classifier:710c267622d0e932",
+        "promoter-classifier:cde6eded34b02b15",
+        "promoter-classifier:aa16c06555c44e1d",
+        "promoter-classifier:0fead8c7834e60e9",
+        "promoter-classifier:60b5e6d6128b7d11",
+        "promoter-classifier:0ab740c5f4a1e2af",
+        "promoter-classifier:c433e2852c00ffc1",
+        "promoter-classifier:df4bc07d22628838",
+        "promoter-classifier:f8460dfe4060dfc7",
+        "promoter-classifier:9445cca97a7b5505",
+        "promoter-classifier:491e86972ec5e3d1",
+        "promoter-classifier:1df95576ae9d944a",
+        "promoter-classifier:ad2f92175bb87919",
+        "promoter-classifier:0c918a2ed2974a1c",
+        "promoter-classifier:c47022184e06fd42",
+        "promoter-classifier:449c119f1de5c352",
+        "promoter-classifier:ed8e0d4e3a3ca6d9",
+        "promoter-classifier:3516cf77fbf9e0d7",
+        "promoter-classifier:d22528c768a5e0e1",
+        "promoter-classifier:771b35623330a4cd",
+        "promoter-classifier:5a4ba2db92155a07",
+        "promoter-classifier:b9201b993fb07311",
+        "promoter-classifier:bb2fa4d29a8839d5",
+        "promoter-classifier:154ff02dd9aa433f",
+        "promoter-classifier:0f1f2bf982fc8cb4",
+        "promoter-classifier:2ecd1d528b41bdce",
+        "promoter-classifier:e316fafd88944363",
+        "promoter-classifier:f9b37ac74691677a",
+        "promoter-classifier:f5311d3309f348b5",
+        "promoter-classifier:a3efbf8d05842e80",
+        "promoter-classifier:7d5fabc9c4febded",
+        "promoter-classifier:7ee40adf7d20c686",
+        "promoter-classifier:8ca310dfdbc43597",
+        "promoter-classifier:43efc75a42716dae",
+        "promoter-classifier:2775be3747149d0c",
+        "promoter-classifier:c2026ea2dfd1106b",
+        "promoter-classifier:a13f5de19a7d4269",
+        "promoter-classifier:827e96149e1ab445",
+        "promoter-classifier:fd1f128e61ce0138",
+        "promoter-classifier:d9d16ee3939bcd24",
+        "promoter-classifier:fb0fc452ca28dbc2",
+        "promoter-classifier:4a2793822025237a",
+        "promoter-classifier:7cf8b8749c8ceb68",
+        "promoter-classifier:8dfb7b1dc07b3820",
+        "promoter-classifier:2d8d5fcdb04e3ebb",
+        "promoter-classifier:af6c867daf04e355",
+        "promoter-classifier:51652ee81f106946",
+        "promoter-classifier:ad9b1e4a1886ac7e",
+        "promoter-classifier:2bef132152ab9836",
+        "promoter-classifier:0fae336110a41734",
+        "promoter-classifier:ad17c7e906662db8",
+        "promoter-classifier:d70bba6978cab522",
+        "promoter-classifier:b11db37d863a23e8",
+        "promoter-classifier:c030b9e51d5cc869",
+        "promoter-classifier:c740715fcdb6b27c",
+        "promoter-classifier:b32b8ce56e66304a",
+        "promoter-classifier:602388d0146ebe8a",
+        "promoter-classifier:371ef7ef6a110313",
+        "promoter-classifier:5a8e6d85dcb46269",
+        "promoter-classifier:9aec7a2f28543fdf",
+        "promoter-classifier:11d37c9876af673b",
+        "promoter-classifier:01ab089c73e20b45",
+        "promoter-classifier:3d72aef346f2ce17",
+        "promoter-classifier:6fc1cf4e6c37740a",
+        "promoter-classifier:ca7cd187be8f3a55",
+        "promoter-classifier:8b9597fb4ab2e5c4",
+        "promoter-classifier:12625576f4aa1f53",
+        "promoter-classifier:fac646911342f887",
+        "promoter-classifier:20a25064cde7b564",
+        "promoter-classifier:b055e523978a94e7",
+        "promoter-classifier:a2cb0c6444edda21",
+        "promoter-classifier:3698c9d4fbb1fc75",
+        "promoter-classifier:3ee106bebb78418d",
+        "promoter-classifier:d7f6868a23bce8f4",
+        "promoter-classifier:d13d87b755674161",
+        "promoter-classifier:e58ee9a54ab670e4",
+        "promoter-classifier:54f0f1245dd82782",
+        "promoter-classifier:2523dd1e9d834abf",
+        "promoter-classifier:03f43df2fd488ad3",
+        "promoter-classifier:776cc10f312c71e4",
+        "promoter-classifier:c3148fac68642b52",
+        "promoter-classifier:e48632d456625707",
+        "promoter-classifier:999df8b06b22c7e8",
+        "promoter-classifier:a9f40cba05e982a7",
+        "promoter-classifier:ade413a1002192d7",
+        "promoter-classifier:51df21d76b13d61e",
+        "promoter-classifier:d02bfaace9d8ca8b",
+        "promoter-classifier:310c302b6d322f77",
+        "promoter-classifier:4667752246d5301c",
+        "promoter-classifier:e3ad894eb325c7b5",
+        "promoter-classifier:71667c4f207c1a86",
+        "promoter-classifier:d54ca23b28d40c12",
+        "promoter-classifier:1728c9b426115d38",
+        "promoter-classifier:3229125c7807078a",
+        "promoter-classifier:500fd54dc3bf263a",
+        "promoter-classifier:fc3d8ecad6e720a0",
+        "promoter-classifier:6bc1f408462bd4b5",
+        "promoter-classifier:41215d675ec7c6f5",
+        "promoter-classifier:657372d5f239aeaf",
+        "promoter-classifier:111fcfd18d2d0570",
+        "promoter-classifier:dea8ee5dc91c7f88",
+        "promoter-classifier:eadb47a854044f8c",
+        "promoter-classifier:a0424d4c957c3c52",
+        "promoter-classifier:8ca0f53221e649a3",
+        "promoter-classifier:86ed29c8e93fe84a",
+        "promoter-classifier:3f198d3d3959c2a1",
+        "promoter-classifier:aef572a423fc8516",
+        "promoter-classifier:4e12182cd04f5fe4",
+        "promoter-classifier:4d8767193bddbd6c",
+        "promoter-classifier:7f54146cb1fc83d6",
+        "promoter-classifier:49557e42783675d4",
+        "promoter-classifier:e3999d3e9151c937",
+        "promoter-classifier:9cc806a678296291",
+        "promoter-classifier:1a83b900c3ead670",
+        "promoter-classifier:d0430beec6d4f1f4",
+        "promoter-classifier:f318ab6727bb4325",
+        "promoter-classifier:f55bb479ab9b2695",
+        "promoter-classifier:8c47de5e623b3bee",
+        "promoter-classifier:c6dcbf68df374ec0",
+        "promoter-classifier:7ca0d6e2f5074943",
+        "promoter-classifier:547b2c18f88cc94c",
+        "promoter-classifier:1f7f8089eaee4abe",
+        "promoter-classifier:8abcd630e4e6e965",
+        "promoter-classifier:81a4603488fed20e",
+        "promoter-classifier:fed9bfacf2e9b736",
+        "promoter-classifier:ee249a0d8d451708",
+        "promoter-classifier:9b2f38ad1e3db0b3",
+        "promoter-classifier:03214be420cfbcba",
+        "promoter-classifier:41bf512310ecf35c",
+        "promoter-classifier:9020e7786714b6ee",
+        "promoter-classifier:409dab20a616fb18",
+        "promoter-classifier:b015005f53b1492e",
+        "promoter-classifier:eeccc679171b8b3f",
+        "promoter-classifier:eaeabc4f674190d4",
+        "promoter-classifier:6ff18e2b68afe37e",
+        "promoter-classifier:a3c6fa5f48bcb676",
+        "promoter-classifier:24eb8ca1775431d2",
+        "promoter-classifier:37d56b66cc36fb86",
+        "promoter-classifier:b84cb2aee8d57323",
+        "promoter-classifier:f2dd33de01cbd87c",
+        "promoter-classifier:faddfa87fb73a005",
+        "promoter-classifier:ff6ee378ccf3adcb",
+        "promoter-classifier:c99f3d54c52174ce",
+        "promoter-classifier:c4760c042c4cdff3",
+        "promoter-classifier:d7694844c44f8b10",
+        "promoter-classifier:7ad792168d06aca8",
+        "promoter-classifier:7d1e8f0fde40a0fa",
+        "promoter-classifier:1547bfe158664c9d"
+      ]
+    },
+    "selected_id_sha256": {
+      "confirmation": "f7df7c032d3105c843e831a43b0a981443e7e1573d0ced4824e0af7b139f6d7f",
+      "development": "a661595afb066eb3e8adcb9d271d6f43a2e0bd22c0563587b8297c7a75e890f9"
+    },
+    "tag": "promoter-source-localization-v1",
+    "unique_locus_blocks": {
+      "confirmation": 192,
+      "development": 192
+    }
+  },
+  "status": "QUALIFIED",
+  "study": "dnabert2_biological_reconstruction_atlas"
+}

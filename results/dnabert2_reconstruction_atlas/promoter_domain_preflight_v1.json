@@ -1,0 +1,106 @@
+{
+  "assay": "promoter_domain_preflight_v1",
+  "boundary": "Qualifies numerical reproduction of the recorded D8 tile-26 confirmation memorials plus instrument batch invariance only. Does not open the D12 sealed confirmation split (tiles 21,22,23,25,27,28,29) and licenses no biological conclusion.",
+  "checkpoint_revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+  "checks": {
+    "M1_identity": true,
+    "M2_record_anchor": true,
+    "M3_cover_balance": true,
+    "M4_equal_dose": true,
+    "batch_invariance": true
+  },
+  "config_sha256": "5b5aab046d968fe1eef884eae5255b385e527032c53326de71b20ef4df1be7bc",
+  "decision": "QUALIFIED",
+  "environment": {
+    "python": "3.11.15",
+    "torch": "2.13.0",
+    "transformers": "4.44.2"
+  },
+  "failing_checks": [],
+  "gue_pair_ids": [
+    "GUE-head-pair-0992",
+    "GUE-head-pair-0993",
+    "GUE-head-pair-0994",
+    "GUE-head-pair-0995",
+    "GUE-head-pair-0996",
+    "GUE-head-pair-0997",
+    "GUE-head-pair-0998",
+    "GUE-head-pair-0999",
+    "GUE-head-pair-1000",
+    "GUE-head-pair-1001",
+    "GUE-head-pair-1002",
+    "GUE-head-pair-1003",
+    "GUE-head-pair-1004",
+    "GUE-head-pair-1005",
+    "GUE-head-pair-1006",
+    "GUE-head-pair-1007",
+    "GUE-head-pair-1008",
+    "GUE-head-pair-1009",
+    "GUE-head-pair-1010",
+    "GUE-head-pair-1011",
+    "GUE-head-pair-1012",
+    "GUE-head-pair-1013",
+    "GUE-head-pair-1014",
+    "GUE-head-pair-1015",
+    "GUE-head-pair-1016",
+    "GUE-head-pair-1017",
+    "GUE-head-pair-1018",
+    "GUE-head-pair-1019",
+    "GUE-head-pair-1020",
+    "GUE-head-pair-1021",
+    "GUE-head-pair-1022",
+    "GUE-head-pair-1023"
+  ],
+  "gue_pair_offset": 992,
+  "gue_pairs_requested": 32,
+  "input_sha256": {
+    "cohort": "a42cf94247219d38b70bcb4fae7a51c1cb76c05b2b8a09c43319a4bde70d0786",
+    "config": "92418401f0584dcc7d09d0b730b52181e11e59c60530a10203771062a6036d37",
+    "confirmation_raw": "b75f0200ae443a5dc945bfa6280405468e63e9e5d5c115e69c2833cba28ba505",
+    "gue_test": "c77b312eb3f2c149ee5e54f0c781b585c4e65b742f0e7d9324818f2b56e71e67"
+  },
+  "measurements": {
+    "M1_identity": {
+      "candidate_heads": [
+        [
+          11,
+          2
+        ],
+        [
+          11,
+          5
+        ]
+      ],
+      "n_rows": 124,
+      "pass": true,
+      "status": "RAN",
+      "tolerance": 1e-05,
+      "worst_absolute_difference_vs_recorded": 0.0,
+      "worst_absolute_value": 2.384185791015625e-06,
+      "worst_pair_id": "promoter-classifier:a5d821bb6da80a10"
+    },
+    "M2_record_anchor": {
+      "n_rows": 124,
+      "pass": true,
+      "status": "RAN",
+      "tolerance": 0.0001,
+      "worst_absolute_difference": 1.132674515247345e-05,
+      "worst_pair_id": "promoter-classifier:e159493035ee4487"
+    },
+    "M3_cover_balance": true,
+    "M4_equal_dose": true,
+    "batch_invariance": {
+      "batch_sizes_compared": [
+        1,
+        16
+      ],
+      "max_absolute_margin_difference": 4.5299530029296875e-06,
+      "n_pairs": 16,
+      "pass": true,
+      "tolerance": 1e-05
+    }
+  },
+  "schema_version": 1,
+  "smoke": false,
+  "study": "dnabert2_biological_reconstruction_atlas"
+}
