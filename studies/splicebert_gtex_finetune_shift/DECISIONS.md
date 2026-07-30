@@ -173,3 +173,24 @@ negative. Individual recoveries remain only `5.8–14.9%` of behavior, and
 nonlinear interactions make their effects non-additive. The next experiment must therefore test the
 frozen head sets jointly against matched-size random sets and path-patch their writes into the final MLP;
 the census alone does not license completeness, redundancy, or a directed circuit.
+
+## 2026-07-30 — retain the positional clocks but reject new high-frequency gains as the coupling route
+
+Before reading any tuned coefficient, the positional-spectrum protocol froze the established period-3
+bins `339–345`, ≈10.63 bins `94–100`, a complete seven-bin scan, synthetic/identity/rotation controls,
+and a target-specific native-classifier surgery gate. All spectrum preflights pass. Both named peaks
+remain at essentially the same frequency in all five fine-tunes. Period 3 retains `1.055–1.063×`
+normalized power and ≈10.63 retains `0.819–0.849×`.
+
+The primary full-rank coordinate-overlap threshold does not produce an all-seed retention label. A
+post-hoc, explicitly non-controlling sensitivity shows that this is weak-tail instability, not rotation
+of the dominant carrier: the top-two planes retain `0.988–0.992` period-3 overlap and `0.996–0.997`
+≈10.63 overlap while containing nearly all carrier energy.
+
+The scan freezes two adjacent ≈2.2-nt gain bands. A first surgery attempt is preserved as an instrument
+failure: converting an MPS tensor to CPU and float64 in one operation corrupted the table before any
+paired outcome opened. CPU-first conversion plus exact raw-checkpoint replay fixes the instrument.
+The corrected five-seed preflight passes, but target deletion and base-band restoration change coupling
+by only about `10⁻⁴`, with mixed signs and `q=0.9704`. These gains are therefore parameter-space
+byproducts for this behavior, not the missing classifier mechanism. The named carriers remain
+behaviorally unresolved because their exceptional power prevents the preregistered three-control match.

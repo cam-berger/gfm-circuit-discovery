@@ -141,3 +141,17 @@ dose and all discovery-frozen nuisance calipers. Every assignment misses the req
 45 genes. The correct interpretation is an isolation/feasibility failure of this confirmatory assay,
 not a negative result about an RBP. No held-out classifier outcome, native-unit ranking, steering test,
 external candidate lock, or reporter outcome was opened.
+
+The positional-spectrum assay answers a separate continuity question. Both learned positional clocks
+survive supervised fine-tuning: period 3 peaks at `2.997` nt in every tuned checkpoint and keeps
+`1.055–1.063×` normalized power, while the ≈10.63 carrier peaks at `10.649–10.651` nt and keeps
+`0.819–0.849×`. A post-hoc energy-ranked sensitivity shows that their dominant rank-2 planes are also
+nearly unchanged (`0.988–0.992` and `0.996–0.997` overlap). The lower preregistered full-rank overlap is
+driven by weak coefficient directions and is preserved as the primary geometry result.
+
+The full scan finds two adjacent ≈`2.21–2.28`-nt bands that gain `2.74–2.76×` normalized power. They pass
+all intervention-health controls but are causally null for native donor coupling: deletion and base-band
+restoration effects are on the order of `10⁻⁴`, mixed across seeds, indistinguishable from three
+power-matched bands, and have `q=0.9704`. Thus fine-tuning preserved the old positional carriers and added
+high-frequency weight structure that the tested classifier behavior does not use. Period 3 and ≈10.63
+could not enter this deletion/rescue test because no valid three-band power-matched control set exists.

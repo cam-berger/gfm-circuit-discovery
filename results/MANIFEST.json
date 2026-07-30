@@ -1,17 +1,17 @@
 {
- "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc). GFS rows appended 2026-07-28 (GTEx fine-tuning shift). Native-classifier GFS6\u2013GFS9 rows appended 2026-07-29. Final-layer mechanism GFS10\u2013GFS13 rows appended 2026-07-29. Context-localization GFS14\u2013GFS16 rows appended 2026-07-29. Complete L5 context-head census GFS17 rows appended 2026-07-29. Joint/path/low-rank GFS18 rows appended 2026-07-29. Per-seed alignment GFS19 and exact native-unit GFS20 rows appended 2026-07-29. Biological-feature GFS21 preflight and discovery rows appended 2026-07-29. Exact-dose biological construction GFS22 rows appended 2026-07-30.",
- "row_count": 881,
+ "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc). GFS rows appended 2026-07-28 (GTEx fine-tuning shift). Native-classifier GFS6\u2013GFS9 rows appended 2026-07-29. Final-layer mechanism GFS10\u2013GFS13 rows appended 2026-07-29. Context-localization GFS14\u2013GFS16 rows appended 2026-07-29. Complete L5 context-head census GFS17 rows appended 2026-07-29. Joint/path/low-rank GFS18 rows appended 2026-07-29. Per-seed alignment GFS19 and exact native-unit GFS20 rows appended 2026-07-29. Biological-feature GFS21 preflight and discovery rows appended 2026-07-29. Exact-dose biological construction GFS22 rows appended 2026-07-30 Positional-spectrum GFS23-GFS24 rows appended 2026-07-30.",
+ "row_count": 891,
  "status_counts": {
   "canonical": 563,
-  "development": 168,
+  "development": 174,
   "infrastructure": 14,
-  "superseded": 136
+  "superseded": 140
  },
  "polarity_counts": {
-  "bounded": 62,
+  "bounded": 64,
   "na": 287,
-  "null": 19,
-  "positive": 508,
+  "null": 21,
+  "positive": 514,
   "refutation": 5
  },
  "columns": [
@@ -8822,6 +8822,106 @@
    "polarity": "bounded",
    "artifact": "results/splicebert_gtex_finetune_shift/native_biological_features_confirmation_construction_v1.manifest.json",
    "script": "scripts/splicebert/freeze_gtex_native_biological_features_confirmation.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS23",
+   "status": "superseded",
+   "evidence_level": "Representation",
+   "polarity": "positive",
+   "artifact": "results/splicebert_gtex_finetune_shift/positional_spectrum_v1.json",
+   "script": "scripts/splicebert/run_gtex_positional_spectrum.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/positional_spectrum_v1.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS23",
+   "status": "superseded",
+   "evidence_level": "Representation",
+   "polarity": "positive",
+   "artifact": "results/splicebert_gtex_finetune_shift/positional_spectrum_v1.manifest.json",
+   "script": "scripts/splicebert/run_gtex_positional_spectrum.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS23",
+   "status": "development",
+   "evidence_level": "Representation",
+   "polarity": "positive",
+   "artifact": "results/splicebert_gtex_finetune_shift/positional_spectrum_v1_target_gate_correction.json",
+   "script": "scripts/splicebert/run_gtex_positional_spectrum.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/positional_spectrum_v1_target_gate_correction.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS23",
+   "status": "development",
+   "evidence_level": "Representation",
+   "polarity": "positive",
+   "artifact": "results/splicebert_gtex_finetune_shift/positional_spectrum_v1_target_gate_correction.manifest.json",
+   "script": "scripts/splicebert/run_gtex_positional_spectrum.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS23",
+   "status": "development",
+   "evidence_level": "Representation",
+   "polarity": "positive",
+   "artifact": "results/splicebert_gtex_finetune_shift/positional_spectrum_dominant_subspace_sensitivity_v1.json",
+   "script": "scripts/splicebert/analyze_gtex_positional_spectrum_sensitivity.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/positional_spectrum_dominant_subspace_sensitivity_v1.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS23",
+   "status": "development",
+   "evidence_level": "Representation",
+   "polarity": "positive",
+   "artifact": "results/splicebert_gtex_finetune_shift/positional_spectrum_dominant_subspace_sensitivity_v1.manifest.json",
+   "script": "scripts/splicebert/analyze_gtex_positional_spectrum_sensitivity.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS24",
+   "status": "superseded",
+   "evidence_level": "Instrument",
+   "polarity": "bounded",
+   "artifact": "results/splicebert_gtex_finetune_shift/positional_band_surgery_attempt1_failure.json",
+   "script": "scripts/splicebert/run_gtex_positional_band_surgery.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/positional_band_surgery_attempt1_failure.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS24",
+   "status": "superseded",
+   "evidence_level": "Instrument",
+   "polarity": "bounded",
+   "artifact": "results/splicebert_gtex_finetune_shift/positional_band_surgery_attempt1_failure.manifest.json",
+   "script": "scripts/splicebert/run_gtex_positional_band_surgery.py",
+   "manifest": "",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS24",
+   "status": "development",
+   "evidence_level": "Behaviour",
+   "polarity": "null",
+   "artifact": "results/splicebert_gtex_finetune_shift/positional_band_surgery_v1.json",
+   "script": "scripts/splicebert/run_gtex_positional_band_surgery.py",
+   "manifest": "results/splicebert_gtex_finetune_shift/positional_band_surgery_v1.manifest.json",
+   "figure": ""
+  },
+  {
+   "claim_id": "GFS24",
+   "status": "development",
+   "evidence_level": "Behaviour",
+   "polarity": "null",
+   "artifact": "results/splicebert_gtex_finetune_shift/positional_band_surgery_v1.manifest.json",
+   "script": "scripts/splicebert/run_gtex_positional_band_surgery.py",
    "manifest": "",
    "figure": ""
   },

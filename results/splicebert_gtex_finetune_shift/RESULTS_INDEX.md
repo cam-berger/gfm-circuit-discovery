@@ -116,3 +116,19 @@ control cohorts contain only 23 donor/DAZAP1, 33 donor/SFPQ, 22 acceptor/UNK, an
 genes after exact low/high edit-dose and nuisance matching, below the frozen 60-example/45-gene gate.
 No checkpoint was loaded and no confirmation output was read. The downstream native-unit, steering,
 external-candidate, and reporter-outcome stages therefore remain closed.
+
+The positional-carrier extension is:
+
+- `positional_spectrum_v1.json`: immutable spectrum result with an overly conservative package-level
+  surgery stop preserved;
+- `positional_spectrum_v1_target_gate_correction.json`: controlling target-specific gate, retaining
+  period 3 and ≈10.63 and freezing two high-frequency gain bands;
+- `positional_band_surgery_attempt1_failure.json`: preserved MPS float64-transfer instrument failure;
+- `positional_band_surgery_v1.json`: corrected five-seed native-coupling surgery result;
+- `positional_spectrum_dominant_subspace_sensitivity_v1.json`: explicitly post-hoc leading-energy
+  geometry sensitivity.
+
+These artifacts control GFS23–GFS24. Both named carrier frequencies and their dominant rank-2 planes
+survive fine-tuning. The two newly amplified ≈2.2-nt bands are not causal for native donor coupling under
+the frozen deletion/rescue and power-matched-control gates. The named carriers stop before causal testing
+because three eligible same-power controls cannot be formed.

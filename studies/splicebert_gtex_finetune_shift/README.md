@@ -166,3 +166,10 @@ draw, depth trace, component bridge, or head census.
 The native models were trained on 900-nt examples, while this unchanged coupling assay uses the base
 study's 1,024-nt windows. The architecture supports the full length and the native preflight is healthy,
 but claims remain scoped to this validation instrument rather than the upstream benchmark distribution.
+
+The positional Fourier follow-up shows that supervised fine-tuning did not erase the base clocks. The
+period-3 and ≈10.63 peaks retain their frequencies, most of their normalized power, and—under an
+exploratory energy-ranked sensitivity—their dominant two-dimensional carrier planes. Two new ≈2.2-nt
+gain bands are reproducible in weight space but causally null for native donor coupling under
+preflighted deletion, base-band restoration, and three power-matched controls. The named carriers remain
+outside that causal test because their exceptional power leaves no valid matched-control family.
