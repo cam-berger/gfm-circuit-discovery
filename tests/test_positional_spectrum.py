@@ -6,6 +6,7 @@ from gfmcd.splicing.positional_spectrum import (
     band_component,
     compare_band,
     delete_band,
+    dominant_subspace_comparison,
     exact_signflip_pvalue,
     parseval_relative_error,
     power_spectrum,
@@ -105,3 +106,14 @@ def test_power_matched_controls_respect_protected_and_nonoverlap():
 def test_band_coefficient_matrix_has_real_imag_rows():
     matrix = band_coefficient_matrix(_tone_table(), (21, 22, 23))
     assert matrix.shape == (6, 8)
+
+
+def test_dominant_subspace_comparison_ignores_orthogonal_low_energy_tail():
+    left = np.zeros((4, 6))
+    left[0, 0], left[1, 1], left[2, 2], left[3, 3] = 10.0, 9.0, 0.01, 0.01
+    right = np.zeros((4, 6))
+    right[0, 0], right[1, 1], right[2, 4], right[3, 5] = 10.0, 9.0, 0.01, 0.01
+    result = dominant_subspace_comparison(left, right, (1, 2, 4))
+    assert result["2"]["symmetric_projection_overlap"] == pytest.approx(1.0)
+    assert result["2"]["left_cumulative_energy_fraction"] > 0.999
+    assert result["4"]["symmetric_projection_overlap"] == pytest.approx(0.5)

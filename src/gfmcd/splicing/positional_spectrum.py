@@ -147,6 +147,46 @@ def subspace_comparison(left: np.ndarray, right: np.ndarray) -> dict:
     }
 
 
+def dominant_subspace_comparison(
+    left: np.ndarray,
+    right: np.ndarray,
+    ranks: Sequence[int],
+) -> dict[str, dict]:
+    """Compare leading energy-ranked row subspaces at fixed SVD ranks.
+
+    This is a sensitivity descriptor for coefficient matrices whose numerical
+    full rank includes low-energy directions. It must not silently replace a
+    preregistered full-rank subspace estimand.
+    """
+
+    left_values = np.asarray(left, dtype=np.float64)
+    right_values = np.asarray(right, dtype=np.float64)
+    _, left_singular, left_vh = np.linalg.svd(left_values, full_matrices=False)
+    _, right_singular, right_vh = np.linalg.svd(right_values, full_matrices=False)
+    maximum = min(left_vh.shape[0], right_vh.shape[0])
+    selected = tuple(sorted(set(int(rank) for rank in ranks)))
+    if not selected or selected[0] < 1 or selected[-1] > maximum:
+        raise ValueError(f"ranks must lie in [1, {maximum}]")
+    left_energy = np.square(left_singular)
+    right_energy = np.square(right_singular)
+    result: dict[str, dict] = {}
+    for rank in selected:
+        cross = left_vh[:rank] @ right_vh[:rank].T
+        principal = np.linalg.svd(cross, compute_uv=False)
+        result[str(rank)] = {
+            "rank": rank,
+            "symmetric_projection_overlap": float(np.square(cross).sum() / rank),
+            "principal_cosines": [float(value) for value in principal],
+            "left_cumulative_energy_fraction": float(
+                left_energy[:rank].sum() / left_energy.sum()
+            ),
+            "right_cumulative_energy_fraction": float(
+                right_energy[:rank].sum() / right_energy.sum()
+            ),
+        }
+    return result
+
+
 def reconstruction_cosine(left: np.ndarray, right: np.ndarray) -> float:
     """Raw cosine between two table reconstructions."""
 
@@ -477,6 +517,7 @@ __all__ = [
     "continuous_coefficients",
     "continuous_peak",
     "delete_band",
+    "dominant_subspace_comparison",
     "exact_signflip_pvalue",
     "parseval_relative_error",
     "power_spectrum",
