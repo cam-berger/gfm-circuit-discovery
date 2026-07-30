@@ -35,6 +35,9 @@ Immutable results:
 | cross-seed causal alignment evaluation | `scripts/splicebert/run_gtex_native_context_per_seed_alignment_evaluation.py` | `results/splicebert_gtex_finetune_shift/native_context_per_seed_alignment_evaluation_v1.json` plus `.npz`; rank-4 verdict correction in `native_context_per_seed_alignment_evaluation_audit_v1.json` |
 | complete 2,048-unit MLP discovery census | `scripts/splicebert/run_gtex_native_context_final_mlp_unit_discovery.py` | `results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_discovery_v1.json` (context/head groups and controls frozen) |
 | native-unit completeness and head→unit evaluation | `scripts/splicebert/run_gtex_native_context_final_mlp_unit_evaluation.py` | `results/splicebert_gtex_finetune_shift/native_context_final_mlp_unit_evaluation_v1.json` plus `.npz` |
+| label-free biological sequence package | `scripts/splicebert/export_gtex_sparse_transcoder_sequence_package.py` | `results/splicebert_gtex_finetune_shift/sparse_transcoder_sequence_package_v1.json` |
+| six-view final-MLP activation capture | `scripts/splicebert/run_gtex_sparse_transcoder_activation_capture.py` | `results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.json` plus `.npz` |
+| frozen sparse final-MLP grid | `scripts/splicebert/run_gtex_sparse_transcoder_training.py` | `results/splicebert_gtex_finetune_shift/sparse_transcoder_training_v1.json` plus `.pt` (`INSTRUMENT_UNRESOLVED`) |
 
 The five-seed artifact includes all 400 paired per-example values for the base and each seed, gene-grouped
 bootstrap intervals, 9,999 gene-level sign flips with add-one p-values, BH correction across the 15
@@ -119,3 +122,12 @@ path within `2.1e-6`, and overlap the corresponding whole-context top-64 groups 
 precise current implementation account is therefore a **mesoscale overcomplete native-unit population
 writing a compact, checkpoint-rotated task code**. It remains exploratory because the alignment and unit
 arms reused GFS18's opened gene partitions.
+
+The first preregistered sparse decomposition is a preserved instrument failure, not a biological
+negative. Its planted sparse detector/writer control passes, but none of the 12 width/activity settings
+reaches the all-view `0.95` write-delta FVE and optimizer-stability floors. The numerically strongest
+setting, `w128_k32`, has mean write-delta FVE `0.877` and worst-view FVE `0.530`. More importantly, every
+joint fit routes all five fine-tuned views through private capacity while leaving their shared and
+tuned-only blocks inactive. The frozen behavioral preflight was therefore not opened. This stops every
+sparse-latent, feature-label, and steering claim from that instrument while leaving the exact native-unit
+route available for a fresh biological-sequence confirmation.

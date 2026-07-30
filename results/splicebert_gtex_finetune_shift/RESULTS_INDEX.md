@@ -90,3 +90,18 @@ The acceptor triple's induced path reaches 80% with 64 units, the donor triple w
 head-responsive top-64 groups overlap whole-context top-64 groups by 84–86%. This is a mesoscale
 overcomplete implementation of the compact output code, not evidence that any unit is a monosemantic
 biological feature.
+
+The biological-feature sparse-instrument arm is:
+
+- `sparse_transcoder_sequence_package_v1.json`: strict label-free sequence states with source hashes;
+- `sparse_transcoder_activation_capture_v1.json` plus `.npz`: exact base and five-seed final-MLP
+  input/write views;
+- `sparse_transcoder_training_attempt1_failure.json`: preserved inactive-threshold diagnostic failure;
+- `sparse_transcoder_training_v1.json` plus `.pt`: the complete frozen grid and unresolved verdict.
+
+These artifacts control GFS21. The planted sparse detector/writer control passes, but no joint setting
+passes the all-view write-delta reconstruction and initialization-stability gates. Every joint fit
+leaves all fine-tuned shared and tuned-only blocks inactive. The behavioral preflight was not opened,
+so the artifact licenses no sparse-feature identity, causal patch, or steering claim. This bounds the
+specified shared-index sparse parameterization; it does not negate the native-unit mechanism or show
+that fine-tuning learned no biological feature.
