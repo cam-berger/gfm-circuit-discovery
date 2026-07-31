@@ -67,7 +67,10 @@ in its twin is not blind.
 The one real limit of the permutation budget, stated rather than buried: at 400 permutations,
 BH-FDR requires **≥ 4 heads at the p-floor** before any head can be called significant, so a
 *lone* reader would be undetectable. That is not what is happening here — the best human-only head
-has m_T = 0.001.
+is **L2H9**, at `m_T = 0.556` with `p_exact = 0.796`: 318 of its 400 permutations match or exceed
+it, so its apparent signal sits **inside its own permutation null** rather than being a near-miss the
+budget could not resolve (`results/phase-lattice/fig_report_data.json`, `levelA.human_only`; the
+earlier "`m_T = 0.001`" here was L1H3's band mass, a different quantity — **R38**).
 
 ## Statistical conventions used throughout
 

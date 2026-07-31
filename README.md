@@ -6,13 +6,14 @@ This repository develops a disciplined way to discover **how genomic foundation 
 implement biological computations**. The objective is not to catalogue salient activations; it is to
 move from a model-native behavior to a causally supported, explicitly bounded mechanism.
 
-> **Repository state (2026-07-28):** the scientific record includes the SpliceBERT donor circuit
-> (A0–A12), positional carriers, Head–Context Atlas, cross-example transduction, and cross-model
-> carrier origin. The active transfer study is the DNABERT-2 Biological Reconstruction Atlas.
+> **Repository state (2026-07-31):** the record is the SpliceBERT donor circuit (A0–A12), both
+> positional carriers and their corpus-attributed origin, the Head–Context Atlas, and cross-example
+> transduction. Earlier exploratory programs were removed from the working tree in a cleanup and
+> remain in Git history; see *Study map* below.
 
-**SpliceBERT is the first worked example, not the boundary of the project.** The active transfer
-program is the DNABERT-2 Biological Reconstruction Atlas: a behavior-first census across annotated
-sequence elements. Caduceus remains a prepared, deferred architecture-contrast design.
+**SpliceBERT is the first worked example, not the boundary of the project.** The method is meant to
+transfer; [`docs/TRANSFER_GUIDE.md`](docs/TRANSFER_GUIDE.md) states what a second GFM requires, and
+the cross-model carrier assays under `scripts/crossmodel/` (C39/C40) are the first exercise of it.
 
 ## Current mechanism, in one sentence
 
@@ -74,29 +75,27 @@ Attribution ranks; intervention decides. See the [methodology](docs/METHODOLOGY.
 
 | Study | Status | Purpose |
 |---|---|---|
-| [`studies/splicebert/`](studies/splicebert/README.md) | worked-example overview | Concise entry point to the SpliceBERT evidence ladder. |
-| [`studies/splicebert_partner_selection/`](studies/splicebert_partner_selection/README.md) | completed core record; open limitations | Donor graph, period-3 carrier, compact claims, corrections, preregistrations, and reproduction map. |
-| [`studies/splicebert_head_context_atlas/`](studies/splicebert_head_context_atlas/README.md) | discovery and internal validation complete | Multi-context head/MLP reuse atlas; context-specific follow-ups remain exploratory. |
-| [`studies/splicebert_gtex_finetune_shift/`](studies/splicebert_gtex_finetune_shift/README.md) | native causal mechanism mapped; sparse-difference instrument bounded | Native-head coupling; several late attention routes into a compact final-MLP code; inherited positional-carrier use; unresolved sparse and biological feature bridges. |
-| [`studies/splicebert_segment_attribution/`](studies/splicebert_segment_attribution/README.md) | exploratory instrument | Joint-mask attribution DAGs used as candidate generators, not causal claims. |
-| [`studies/dnabert2_reconstruction_atlas/`](studies/dnabert2_reconstruction_atlas/FINDINGS.md) | baseline census bounded; promoter circuit traced to a late core, then shown to be positionally rather than content addressed (D17) | Systematic DNABERT-2 behavior census and causal reverse engineering of a promoter-fine-tuned model. |
-| [`studies/caduceus_partner_transfer/`](studies/caduceus_partner_transfer/README.md) | design hardened; deferred, not run | Planned cross-architecture behavioral transfer to an RC-equivariant bidirectional Mamba MLM. |
-| [`studies/codon_phase_lattice/`](studies/codon_phase_lattice/README.md) | historical exploratory protocol | Superseded phase-shift framing retained for provenance; not an active result family. |
+| [`studies/splicebert_partner_selection/`](studies/splicebert_partner_selection/README.md) | **core record**; open limitations | The donor circuit and both positional carriers: claims, corrections, preregistrations, and the reproduction map. |
+| [`studies/splicebert_head_context_atlas/`](studies/splicebert_head_context_atlas/README.md) | discovery and internal validation complete | Multi-context head/MLP reuse atlas. Supplies the gene-disjoint cohort behind C41 and an independent rediscovery of L3H1; context-specific follow-ups remain exploratory. |
+| [`studies/splicebert_gtex_finetune_shift/`](studies/splicebert_gtex_finetune_shift/README.md) | native causal mechanism mapped; sparse-difference instrument bounded | What happens to the same encoder under supervised fine-tuning: late attention routes into a compact final-MLP code, and inherited positional-carrier use. |
 
 The reusable study template is under
 [`studies/TEMPLATE_REAL_GFM_STUDY/`](studies/TEMPLATE_REAL_GFM_STUDY/README.md).
 
+Five earlier study directories were removed from the working tree in the 2026-07-31 cleanup and remain
+in Git history: the DNABERT-2 reconstruction atlas, the Caduceus transfer design (hardened but never
+run), the superseded codon phase-lattice protocol, the joint-segment attribution instrument, and the
+`splicebert/` overview stub whose content is now in [`MECHANISM.md`](MECHANISM.md). None of them
+controls a live claim in the ledgers above.
+
 ## Repository map
 
-- `docs/` — transferable method, evidence rules, transfer guide, roadmap, and cleanup record.
+- `docs/` — transferable method, evidence rules, nomenclature, transfer guide, and roadmap.
 - `scripts/splicebert/` — active SpliceBERT experiment, audit, and figure scripts.
 - `scripts/splicebert_head_context_atlas/` — Atlas census, screening, mechanism, merge, and audit workflows.
 - `scripts/crossmodel/` — cross-model carrier runners (C39/C40). These require a separate environment;
   see [`REPRODUCE.md`](REPRODUCE.md).
-- `scripts/dnabert2_atlas/` — annotated-collection assembly, validation, and phase-gated atlas runs.
 - `src/gfmcd/adapters/` — model access and hook interfaces.
-- `src/gfmcd/reconstruction_atlas/` — BPE-aware masking, controls, source-region interventions,
-  statistics, gates, and immutable atlas artifact contracts.
 - `src/gfmcd/circuits/` — reusable circuit-analysis primitives.
 - `src/gfmcd/crossmodel/` — cross-model carrier-origin assays (RNA-FM / RNA-BERT / DNABERT-2; C39/C40).
 - `src/gfmcd/splicing/` — SpliceBERT-specific assays, competition logic, and cohort utilities.
@@ -108,15 +107,15 @@ The reusable study template is under
 - `figures/splicebert/` — generated figures and declared provenance.
 - `tests/` — the memorial and analysis-logic suite. Many memorials are data-gated and skip without a
   local genome; see [`REPRODUCE.md`](REPRODUCE.md).
-- `configs/` — versioned study configurations, including DNABERT-2 site registries and frozen
-  phase configs.
+- `configs/` — versioned study configurations and frozen phase configs.
 - `data/` — documentation only (`NUCLEOSOME_MAP.md`). The model, FASTA, and GTF are **not committed**
   and must be supplied; see [`REPRODUCE.md`](REPRODUCE.md).
-- Runtime handoffs, logs, and scratch files are ignored. Historical DNABERT-2 programs are referenced
-  by commit from the atlas archive index rather than copied into the active tree.
+- Runtime handoffs, logs, and scratch files are ignored.
 
-Large Atlas shards and reproducible runtime intermediates are intentionally excluded from Git; compact
-results, manifests, audits, code, tests, and Colab notebooks are version-controlled.
+Large Atlas shards, fitted dictionaries (`*.pt`), raw activation captures (`*.npz`), and other
+reproducible runtime intermediates are intentionally excluded from Git; the compact result JSON,
+its manifest, and the audit that let someone check a claim are version-controlled. No claim in any
+ledger is controlled by a binary artifact.
 
 Historical GFM-nano, reading-frame, repeat-copy, and retracted v1 partner-selection implementations are
 preserved in Git history rather than restored to the active tree.
@@ -162,8 +161,7 @@ the per-study `CLAIMS.md` files.
    cross-context branch.
 5. Review the [GTEx fine-tuning-shift findings](studies/splicebert_gtex_finetune_shift/FINDINGS.md) for
    the supervised task representation and its current sparse/biological boundaries.
-6. Read the [transfer guide](docs/TRANSFER_GUIDE.md) and the
-   [DNABERT-2 Atlas](studies/dnabert2_reconstruction_atlas/README.md) for the active second-GFM program.
+6. Read the [transfer guide](docs/TRANSFER_GUIDE.md) for how to port the method to another GFM.
 7. Follow [`REPRODUCE.md`](REPRODUCE.md) for the canonical environment and claim→script→artifact map.
 
 For development:

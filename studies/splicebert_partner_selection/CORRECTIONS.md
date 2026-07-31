@@ -85,6 +85,15 @@ Status vocabulary:
 | R23 | The **P3.3 "address × payload BINDING" endpoint** — a CI-positive L3H1 attention×value interaction `Δ_bind` as evidence of binding — and the **"independently-constructed payload"** clause (via a `payload_source` estimand). | **`Δ_bind` is architecture-forced:** L3H1's output is bilinear `O=A·V`, so the 2×2 DiD equals the identity `(A_I−A_D)(V_I−V_D)` — non-zero for **any** perturbation moving both A and V, with **no carrier-specificity** (there is an energy-matched null for the main deletion but **none for the interaction**; the same positive `Δ_bind` would arise from a junk band or any random PE perturbation). **`payload_source` is non-identifiable:** no delivery-independent, carrier-uncontaminated observable exists (the carrier feeds the generator; MLP2 is dual address+payload, C29). Caught by the **2026-07-17 4-lens design red-team** (`redteam/REDTEAM_SYNTHESIS_P3_4lens.md`) **before any confirmatory run** — new instances of R7/R15/R21 (architecture-forced answers; position already inside V). | **Do not claim address×payload binding from an L3H1 A×V interaction, nor an "independently-constructed payload," within a carrier-deletion+patching design.** P3.3 is reframed to an *A-vs-V routing decomposition on coupling* (conditional mediation; axis "A vs V", not "address vs payload" — R15), requiring an **importance-matched interaction null** (`Δ_bind` above the E-band distribution) and reporting the bilinear floor. Construction-vs-binding is **non-identifiable here → Endpoint B**. **C23** (behaviour-level reconstruct-inject address×payload binding — a DIFFERENT, non-forced design) is **unaffected**. |
 | R24 | Two P3.3/P3.2 framing overreaches: **(a)** C35's clause **"the carrier does NOT build the payload"** — a categorical, cross-intervention reading of the L3H1 value-null; **(b)** describing C34's **confirm split as a confirmation** despite the preregistered gate **M1 (`C_del/C_intact ≤ 0.05`, part of Global PASS, prereg §8) FAILING on confirm (5.5% > 5%)**. | **(a)** The value main effect is a null on **L3H1's own value vectors** under carrier patching; it cannot exclude carrier effects on payload *construction* upstream (the carrier feeds the L0→MLP2 generator, C29/C30). Over-generalizing "L3H1's values are carrier-independent" to "the carrier plays no role in the payload" exceeds the intervention (same empirical-vs-interpretation discipline as R20). **(b)** M1 was frozen into Global PASS; 5.5% residual means deletion left >5% of coupling on confirm, so not every preregistered precondition held on that split — robustness of the denominator does not retroactively pass a failed gate. | **(a)** State C35 **within the intervention**: *the carrier's contribution to coupling is mediated predominantly through L3H1's attention pattern, not through carrier-dependent changes in L3H1's values; this does not exclude upstream carrier effects on payload construction.* **(b)** Report C34 as **all-gates-pass on discovery, gate-qualified / verification-level on confirm**; a clean confirmatory locus needs a disjoint untouched split on which M1 also passes (tighten the deletion, or the `min_effect` conditioning that inflates residual coupling). The empirical findings — distributed locus (C34) and routing≫value (C35) — are **unaffected**. |
 
+> **R2–R3 supporting measurement**, folded in from `src/gfmcd/splicing/rivals.py` before that retracted
+> v1/v2 scaffolding was deleted (2026-07-31). The preregistered shortcut table is the measurement that
+> killed v1: a **geometry-oracle** adversary reading **zero nucleotides** scored **PMR 1.000** on v1
+> (oracle site detector also 1.000; leak-only 0.483; length-only 0.495), which is identification failure,
+> not model skill. Under v2 (chr22) the same adversary collapses to **0.076** against a chance rate of
+> 0.458, the oracle site detector sits at exactly chance (0.458) and the candidate-index prior at 0.469 —
+> the empirical evidence that the v1 forced-choice task was unidentified and that the v2 redesign removed
+> the shortcut.
+
 ## Interpretive firewall
 
 For every candidate, record the highest level reached and do not auto-promote:
@@ -496,6 +505,8 @@ precision. `docs/NOMENCLATURE.md` §2 carries the guard. Corrected in `MECHANISM
 `PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR.md:73` and the dated T2 review/handoff docs
 (`docs/REVIEW_2026-07-22.md:44,294`, `docs/OPEN_TRACKS_EXPANDED_2026-07-22.md:64`,
 `docs/TIER2_HANDOFF_2026-07-23.md:252`) — these are historical records of what was believed at their date.
+(The last two of those sites were removed with their files in the 2026-07-31 record cleanup; the list is
+appended to rather than edited, since it records what was deliberately left uncorrected at its date.)
 
 **Also noted (not corrected here; owner ruling needed).** (a) `results/phase-lattice/dyad_real.json`
 anchors its matched filter on `T0 = 10.6667` — the **retired** grid label — as the reference wavelength;
@@ -504,3 +515,26 @@ load-bearing inside a canonical result file. (b) The nucleosomal signal is **mou
 GSM2183909) while the carrier is vertebrate/human; "measured in DNA" in `docs/NOMENCLATURE.md:27` and the
 fig4 caption never says whose DNA. Helical periodicity is not species-specific at this resolution, so the
 distinctness argument is unaffected.
+
+## R38 — the human-only "best head has `m_T = 0.001`" was L1H3's band mass, not an effect size (2026-07-31)
+
+**What was claimed.** `figures/splicebert/EVIDENCE.md` § "Why the human-only null is a null and not a
+blind instrument" answered the lone-reader power objection with *"the best human-only head has
+`m_T = 0.001`"* — i.e. the null is safe because the strongest human-only effect is ~0.
+
+**Why it was wrong.** `results/phase-lattice/fig_report_data.json` (`levelA.human_only`, 75 heads)
+records the best human-only head as **L2H9 at `m_T = 0.556`**, with **`p_exact = 0.796`** — 318 of its
+400 permutations match or exceed it. **No human-only head has `m_T = 0.001`**; that figure is L1H3's
+**band mass** (`0.00193`, the 0.19% quoted correctly two paragraphs earlier in the same section), a
+different quantity read as an effect size. Found by the 2026-07-24 draft-sourcing audit, which recorded
+the discrepancy but did not edit the of-record document.
+
+**What is unaffected.** **C13 stands, and the argument is stronger on the correct number:** the closure
+holds because the best head's apparent signal sits **inside its own permutation null**, not because the
+effects are ~0 — a stricter refutation of the blind-instrument objection than the one written. Zero of
+the 14 preregistered readers reach Level A after add-one correction (R19), the twin-model sensitivity
+argument (eight Level-A heads multi-species) is untouched, and no artifact value changed.
+
+**Rule.** `m_T` and band mass are separate quantities on separate scales — quote each with the head it
+belongs to. A power-objection rebuttal must report the best head's `p_exact` against its own null, not a
+bare effect size. Corrected in `figures/splicebert/EVIDENCE.md`.

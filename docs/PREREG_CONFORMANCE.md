@@ -18,8 +18,10 @@ this file existed, that question had no answer here short of reading 34 protocol
 > architecture-forced for L11H2 and run before the defect was found. Self-reported is not
 > independently audited. **Do not read this file's totals as covering that arc.**
 
-**Scope and method.** 25 SpliceBERT-arc families audited (every frozen protocol on disk for that arc
-plus the two unfrozen ones,
+**Scope and method.** This audit was commissioned by the 2026-07-24 publication-readiness review, which
+returned *Major Revision — not ready for external artifact review* and named this table its single
+highest-leverage deliverable. 25 SpliceBERT-arc families audited (every frozen protocol on disk for
+that arc plus the two unfrozen ones,
 marked as such), each by an independent agent reading the protocol in full, then the runner(s) in full,
 then the resulting artifact, the `CLAIMS.md` row, and any memorial test. Each checked eight things:
 estimand, preregistered gates, memorials, verdict rule, sample size/split/seeds, controls and nulls,
@@ -183,7 +185,7 @@ rows are in the JSON. `—` in the location column means the finding is about an
 | high | `scripts/splicebert/run_a10_generator_edges.py:210` | The preregistered sufficiency half of the "Minimal L0 set found" verdict (R_H(L0* ∪ rest) ≥ 0.90·R_H(A)) is never computed, yet the T1 ledger reports a resolved three-head L0 set | Either (a) run the one missing condition on the same cohort (open `L0* ∪ {L1,L2 heads, MLP0, MLP1}` at ACC, report R_H against 0.90·R_H(A)) and write it to a NEW artifact with its own manifest; or (b) log a dated correction (new R |
 | high | `studies/splicebert_partner_selection/CLAIMS.md:54` | The "partial redundancy between H12/H10" element of C31 is stated as established/held-out although it is a discovery-split-only point estimate, carries no confidence interval, and comes from a head pair the prereg did not designate | Add the discovery-only qualifier to CLAIMS.md:54 and to the CORRECTIONS.md:54 status cell (e.g. "partial H12/H10 redundancy, DISCOVERY-SPLIT ONLY, no CI, exploratory pair"), and mirror the fix in DECISIONS_A0.md:461,535 and MECHAN |
 | medium | `scripts/splicebert/run_a10_generator_edges.py:224` | The frozen serial-chain verdict clause "R(MLP1 only) ≈ 0" is operationalized by a code-chosen 0.10 threshold that appears in no preregistration or amendment | Record the operationalization where it is auditable without reading the source: state in the runner docstring and in a dated DECISIONS_A0 note that "≈ 0" was implemented as `< 0.10` (and `confirmatory` as n ≥ 150), and that the ob |
-| medium | `docs/ULTRAREVIEW_2026-07-24.md:69` | No test pins any A10/C31 number or verdict flag — and in fact no test in the suite loads any A6–A12 artifact, contradicting the ULTRAREVIEW's stated premise that the C1–C33 family is covered | Add a skipif-gated memorial (e.g. tests/test_generator_edges_memorials.py) that loads results/splicebert_coupling/a10_generator_edges.json and asserts: preflight_PASS and confirmatory true; value_linearity < 1e-4 in the preflight |
+| medium | — | No test pins any A10/C31 number or verdict flag — and in fact no test in the suite loads any A6–A12 artifact. This supersedes the 2026-07-24 publication-readiness review's premise that the recent C38/C39/C40 claims lacked test coverage "unlike every prior C1–C33 family": the A6–A12 block of that family is uncovered too | Add a skipif-gated memorial (e.g. tests/test_generator_edges_memorials.py) that loads results/splicebert_coupling/a10_generator_edges.json and asserts: preflight_PASS and confirmatory true; value_linearity < 1e-4 in the preflight |
 | | | | |
 | **A12** | | | |
 | critical | `scripts/splicebert/run_a12_faithfulness_size.py:170` | The preregistered INTERPOLATED node counts were replaced in code by grid-snapping to the next larger of 17 fixed sizes, inflating the headline "90% needs ~72/103 nodes" (interpolated value: 64.2) — unlogged deviation from a frozen prereg | Do not edit the frozen prereg or the immutable artifact. Recompute the four interpolated counts from the committed curve_H (they are pure arithmetic on the existing JSON: 29/51/64/73) and file a LOGGED CORRECTION with an R-number |
@@ -310,6 +312,5 @@ document, and it is why the file exists rather than a note saying conformance wa
 ## Related records
 
 `studies/splicebert_partner_selection/CORRECTIONS.md` — R28 and R29–R35, the deviations whose claim
-wording moved · `docs/FORMALIZATION_REVIEW_2026-07-24.md` — the review that commissioned this audit ·
-`tests/test_hash_pin_ledger.py`, `tests/test_ledger_consistency.py`, `tests/test_overwrite_guard.py` —
-the guards that now enforce what was previously prose.
+wording moved · `tests/test_hash_pin_ledger.py`, `tests/test_ledger_consistency.py`,
+`tests/test_overwrite_guard.py` — the guards that now enforce what was previously prose.

@@ -7,7 +7,7 @@ import pytest
 
 SCRIPT = (
     Path(__file__).resolve().parents[1]
-    / "scripts/splicebert/run_gtex_coupling_shift.py"
+    / "scripts/splicebert_gtex_finetune_shift/run_gtex_coupling_shift.py"
 )
 SPEC = importlib.util.spec_from_file_location("run_gtex_coupling_shift", SCRIPT)
 MODULE = importlib.util.module_from_spec(SPEC)

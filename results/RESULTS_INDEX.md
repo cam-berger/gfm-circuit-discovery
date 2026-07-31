@@ -63,11 +63,13 @@ same change; the verifier fails otherwise.
 | `phase-lattice/` | [`RESULTS_INDEX.md`](phase-lattice/RESULTS_INDEX.md) | `studies/splicebert_partner_selection/CLAIMS.md` |
 | `splicebert_coupling/` | [`RESULTS_INDEX.md`](splicebert_coupling/RESULTS_INDEX.md) | `studies/splicebert_partner_selection/CLAIMS.md` |
 | `splicebert_head_context_atlas/` | [`RESULTS_INDEX.md`](splicebert_head_context_atlas/RESULTS_INDEX.md) | `studies/splicebert_head_context_atlas/CLAIMS.md` |
-| `splicebert_visualizer/` | [`RESULTS_INDEX.md`](splicebert_visualizer/RESULTS_INDEX.md) | none — export bundle, not a claim artifact |
 | `origin-siblings/` | [`RESULTS_INDEX.md`](origin-siblings/RESULTS_INDEX.md) | `studies/splicebert_partner_selection/CLAIMS.md` (C39) |
 | `origin-crossmodel/` | [`README.md`](origin-crossmodel/README.md) | `studies/splicebert_partner_selection/CLAIMS.md` (C40) |
 | `splicebert_gtex_finetune_shift/` | [`RESULTS_INDEX.md`](splicebert_gtex_finetune_shift/RESULTS_INDEX.md) | `studies/splicebert_gtex_finetune_shift/CLAIMS.md` (GFS1–GFS34) |
-| `dnabert2_reconstruction_atlas/` | [`FINDINGS.md`](../studies/dnabert2_reconstruction_atlas/FINDINGS.md) → [`RESULTS.md`](../studies/dnabert2_reconstruction_atlas/RESULTS.md) | [`CLAIMS.md`](../studies/dnabert2_reconstruction_atlas/CLAIMS.md) (D1–D12, D14–D17, IF1–IF34) |
+
+The `dnabert2_reconstruction_atlas/` and `splicebert_visualizer/` trees were removed from the working
+tree in the 2026-07-31 cleanup along with their studies; both remain in Git history. Neither controlled
+a claim in a surviving ledger.
 
 **Layout convention.** Most trees keep their **canonical artifacts at the directory root**, with
 `development/` and `superseded/` subtrees beside them — the `canonical/`-subdirectory half of the 2026-07-22

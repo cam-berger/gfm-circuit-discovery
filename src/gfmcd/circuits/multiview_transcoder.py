@@ -166,7 +166,7 @@ def validate_label_free_state_rows(
         or authorization.get("preflight_status") != "PASS"
         or authorization.get("discovery_status") != "COMPLETE"
         or authorization.get("producer")
-        != "scripts/splicebert/export_gtex_sparse_transcoder_sequence_package.py"
+        != "scripts/splicebert_gtex_finetune_shift/export_gtex_sparse_transcoder_sequence_package.py"
     ):
         raise ValueError("sequence package authorization declaration is invalid")
     binding = authorization.get("binding_sha256")

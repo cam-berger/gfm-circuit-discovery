@@ -6,7 +6,7 @@ import torch
 
 
 REPO = Path(__file__).resolve().parents[1]
-SCRIPT = REPO / "scripts/splicebert/run_gtex_jacobian_sae_replication.py"
+SCRIPT = REPO / "scripts/splicebert_gtex_finetune_shift/run_gtex_jacobian_sae_replication.py"
 SPEC = importlib.util.spec_from_file_location(SCRIPT.stem, SCRIPT)
 RUNNER = importlib.util.module_from_spec(SPEC)
 assert SPEC.loader is not None

@@ -7,7 +7,7 @@ import numpy as np
 SCRIPT = (
     Path(__file__).parents[1]
     / "scripts"
-    / "splicebert"
+    / "splicebert_gtex_finetune_shift"
     / "run_gtex_positional_native_margin_gate_v2.py"
 )
 SPEC = spec_from_file_location("positional_native_margin_gate_v2", SCRIPT)

@@ -94,5 +94,7 @@ rewritten provenance.
 6. **Inspect before deleting, resetting, stashing, or cleaning.**
 7. **Wait for the complete audit synthesis before building on partial output.**
 
-The current application of this procedure is recorded in
-[`REPO_SCRUB_GTEX_SHIFT_2026-07-30.md`](REPO_SCRUB_GTEX_SHIFT_2026-07-30.md).
+Individual dated applications of this procedure are not retained as documents; the durable outputs are
+the corrections they produced (`studies/splicebert_partner_selection/CORRECTIONS.md`) and the guards
+that keep them from recurring (`tests/test_repository_hygiene.py`, `tests/test_ledger_consistency.py`,
+`tests/test_manifest.py`).

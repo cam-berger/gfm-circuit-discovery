@@ -18,9 +18,9 @@ uv run --extra splicebert --extra biology --extra dev pytest
 **Pass the extras on the `uv run` too.** A bare `uv run pytest` re-syncs to the default dependency set
 first, uninstalling `pytest` and `pyfaidx`, and silently reports a smaller suite. The extras form is what
 `.github/workflows/tests.yml` executes and is the only command that reproduces the documented baseline:
-**294 passed, 46 skipped** at `a8aa70d`. All skips are data-gated or optional-dependency; none is a
-failure. (`docs/ULTRAREVIEW_2026-07-24.md` records a different baseline, 305/35, measured on a branch
-with a different working tree; the two have not been reconciled.)
+**648 passed, 46 skipped**, measured on this tree immediately before the 2026-07-31 cleanup. All skips
+are data-gated or optional-dependency; none is a failure. The count moves as the cleanup removes tests,
+so treat it as "the suite passes", not as a fixed number.
 
 Use `PYTHONHASHSEED=0` for cohort construction and any shuffle or selection path whose manifest declares
 determinism. Use `TOKENIZERS_PARALLELISM=false` for model runs when deterministic, quiet tokenization is
@@ -119,7 +119,7 @@ their scripts, immutable JSON, and manifests.
 ### GTEx fine-tuning shift
 
 The five published SpliceAI-GTEx fine-tunes contain a token-classification encoder/head, not an MLM head.
-`scripts/splicebert/prepare_gtex_mlm_transplant.py` strictly transplants each complete encoder into the
+`scripts/splicebert_gtex_finetune_shift/prepare_gtex_mlm_transplant.py` strictly transplants each complete encoder into the
 original masked LM and writes a derived Hugging Face checkpoint with an audit report. Run
 `run_gtex_finetune_preflight.py` before `run_gtex_coupling_shift.py`; the latter requires all five seeds,
 replays the exact base validation result before opening them, and stops at behavior. Exact hashes, readout

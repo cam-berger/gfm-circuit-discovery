@@ -21,7 +21,7 @@ NAMESPACE = "gtex-native-biological-features-v1"
 
 
 def load_script(name: str):
-    path = REPO / "scripts/splicebert" / name
+    path = REPO / "scripts/splicebert_gtex_finetune_shift" / name
     spec = importlib.util.spec_from_file_location(path.stem, path)
     module = importlib.util.module_from_spec(spec)
     assert spec.loader is not None
@@ -84,7 +84,7 @@ def sequence_package():
         "preflight_status": "PASS",
         "discovery_status": "COMPLETE",
         "producer": (
-            "scripts/splicebert/"
+            "scripts/splicebert_gtex_finetune_shift/"
             "export_gtex_sparse_transcoder_sequence_package.py"
         ),
     }
@@ -287,7 +287,7 @@ def test_stability_census_covers_every_tuned_view_and_fit_pair():
 def test_label_free_trainer_has_no_model_or_classifier_import():
     path = (
         REPO
-        / "scripts/splicebert/run_gtex_sparse_transcoder_training.py"
+        / "scripts/splicebert_gtex_finetune_shift/run_gtex_sparse_transcoder_training.py"
     )
     tree = ast.parse(path.read_text())
     imported = set()
