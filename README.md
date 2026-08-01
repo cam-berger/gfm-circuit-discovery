@@ -112,22 +112,6 @@ controls a live claim in the ledgers above.
   and must be supplied; see [`REPRODUCE.md`](REPRODUCE.md).
 - Runtime handoffs, logs, and scratch files are ignored.
 
-Large Atlas shards, fitted dictionaries (`*.pt`), raw activation captures (`*.npz`), and other
-reproducible runtime intermediates are intentionally excluded from Git; the compact result JSON,
-its manifest, and the audit that let someone check a claim are version-controlled. No claim in any
-ledger is controlled by a binary artifact.
-
-Historical GFM-nano, reading-frame, repeat-copy, and retracted v1 partner-selection implementations are
-preserved in Git history rather than restored to the active 
-[`MECHANISM.md`](MECHANISM.md) · [`REPRODUCE.md`](REPRODUCE.md) ·
-[`docs/METHODOLOGY.md`](docs/METHODOLOGY.md) · [`docs/EVIDENCE_LADDER.md`](docs/EVIDENCE_LADDER.md) ·
-[`docs/NOMENCLATURE.md`](docs/NOMENCLATURE.md) · [`docs/BIOLOGICAL_BRIDGES.md`](docs/BIOLOGICAL_BRIDGES.md) ·
-[`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) ·
-[`docs/REFERENCES.md`](docs/REFERENCES.md) · [`docs/TRANSFER_GUIDE.md`](docs/TRANSFER_GUIDE.md) ·
-[`docs/ROADMAP.md`](docs/ROADMAP.md) ·
-[`docs/REPO_SCRUB_PROCEDURE.md`](docs/REPO_SCRUB_PROCEDURE.md) ·
-[`results/RESULTS_INDEX.md`](results/RESULTS_INDEX.md) ·
-the per-study `CLAIMS.md` files.
 
 ## Start here
 
