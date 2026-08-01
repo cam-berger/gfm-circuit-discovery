@@ -63,12 +63,24 @@ def load_eager(hf_id):
         attn_implementation="eager")
 
 
+def _stable_seed(head: str, period: float) -> int:
+    """Per-(head, period) seed that does not move between processes.
+
+    This used to be `hash((h, round(T, 4))) % 2**31`. `h` is a string like "L3H1", and CPython
+    randomizes `hash()` of a str per process unless PYTHONHASHSEED is set — which this runner does
+    not set and its manifest does not record. So the published `n_sig` permutation draw was NOT
+    governed by the `seed: 0` the artifact and manifest both declare (CORRECTIONS.md R43). Same
+    sha256 idiom as `shash` in scripts/splicebert/run_ic1_distal_intron_necessity.py:48.
+    """
+    return int(hashlib.sha256(f"{head}:{period:.4f}".encode()).hexdigest()[:8], 16)
+
+
 def n_sig(prof, T, band, w, nperm=NPERM):
     pvals = []
     for h, p in prof.items():
         pf = p[SPAN + band]
         _, pv, _ = rs.head_permutation_fpr(pf, T, band, w,
-                                           np.random.default_rng(hash((h, round(T, 4))) % 2**31),
+                                           np.random.default_rng(_stable_seed(h, round(T, 4))),
                                            nperm=nperm)
         pvals.append(pv)
     pvals = np.array(pvals)

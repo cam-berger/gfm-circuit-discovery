@@ -698,3 +698,48 @@ composite claim IDs naming the removed rows and were repointed so every ID still
 unverifiable one, and it should not sit in a ledger a reviewer is told is the point of contact. Removing
 it is legitimate *only* when the row is preserved in this file and every citation is repointed in the
 same change, so the record loses nothing but the live ledger stops asserting what it cannot support.
+
+## R43 — C40's published `n_sig` was not governed by the seed its manifest records, and the overwrite guard was blind to the idiom that dominates the two newest studies (2026-08-01)
+
+Two independent defects found by a reproducibility audit. Both are pre-existing; both were verified in
+code before this entry was written.
+
+**1. `n_sig` is seeded from CPython's randomized `hash()`, while `seed: 0` is recorded.**
+`scripts/crossmodel/run_reader_freqcontrol.py` drew its per-head permutation RNG from
+`np.random.default_rng(hash((h, round(T, 4))) % 2**31)`, where `h` is a head label string such as
+`"L3H1"`. CPython randomizes `hash()` of a `str` per process unless `PYTHONHASHSEED` is set — verified:
+three runs of `python3 -c "print(hash(('L3H1',0.1)))"` give three different integers, while the same
+call under `PYTHONHASHSEED=0` is stable. **The runner does not set `PYTHONHASHSEED` and neither the
+artifact nor the manifest records it**, yet both declare `"seed": 0`. That declaration therefore does
+not govern this statistic. C40's row quotes the affected numbers verbatim — *"n_sig 14 < frequency-control
+grid max 28; period-3 n_sig=0"*.
+
+**Status of the claim.** The seeding is fixed going forward: the draw now uses the repository's existing
+stable-digest idiom (`shash`, `run_ic1_distal_intron_necessity.py:48`), so a rerun is deterministic
+regardless of `PYTHONHASHSEED`. **The committed artifact was produced by the old code and cannot be
+regenerated bit-identically** — not by the new code, and not by the old code either, which is the actual
+problem. C40's substantive conclusion is not knife-edge (14 against a control-grid max of 28, with
+period-3 at 0), so it is **not** withdrawn; but the exact `n_sig` integers should be read as one draw
+from an unrecorded seed, not as a reproducible constant. Re-running C40 in the `gfmcd-mm` side
+environment would settle it.
+
+**2. The overwrite guard resolved only bare string literals.**
+`tests/test_overwrite_guard.py::_out_default` returned a value only for
+`ast.Constant` defaults, so it was blind to `default=str(RESULTS_DIR / "name.json")` — the idiom the
+Atlas and GTEx trees use. Consequence: `analyze_b5_context_signal_power.py` defaulted `--out` to
+`results/splicebert_head_context_atlas/b5_context_signal_power_v1.json`, which is the **canonical
+controlling artifact for the live claim HCA23**, with **no exists-check and no guard call**, and it was
+absent from the 56-entry inventory that exists to catch exactly this. `scripts/verify_manifest.py`
+passes regardless — it checks that listed paths resolve, never that a runner might overwrite them.
+
+**Fixed.** The resolver now handles `str(...)`, `NAME / "literal"` chains, and module-level path
+constants including the `Path(__file__).resolve().parents[N]` root anchor. `analyze_b5_context_signal_power.py`
+now calls `guard_output_path` before writing — it is a pure analysis script with no pinned-provenance
+argument, so **R35's "inventoried, not edited" exemption does not cover it**. The inventory is
+re-baselined 56 → 63; the seven additions carry `detected_by` and were invisible to the old checker,
+not newly created.
+
+**Rule.** A guard that silently fails to parse is worse than no guard, because the inventory it produces
+reads as complete. When a checker walks source, it must be tested against the *idioms actually in the
+tree*, not only the one the first author happened to use — and any statistic seeded from `hash()` of a
+`str` is not reproducible unless `PYTHONHASHSEED` is both set and recorded.
