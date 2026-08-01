@@ -132,9 +132,59 @@ def _out_default(script: Path) -> str | None:
         if "--out" not in flags:
             continue
         for kw in node.keywords:
-            if kw.arg == "default" and isinstance(kw.value, ast.Constant):
-                if isinstance(kw.value.value, str):
-                    return kw.value.value
+            if kw.arg != "default":
+                continue
+            resolved = _resolve_default(tree, kw.value)
+            if resolved is not None:
+                return resolved
+    return None
+
+
+def _resolve_default(tree: ast.AST, node: ast.AST) -> str | None:
+    """Resolve an `--out` default to a repo-relative path string.
+
+    Originally this handled only a bare string literal, which made the checker blind to the
+    `str(RESULTS_DIR / "name.json")` idiom that dominates the two newest studies — and therefore
+    blind to `analyze_b5_context_signal_power.py`, whose default IS the canonical artifact
+    controlling HCA23 and which had no exists-check at all (CORRECTIONS.md R43). Widening the
+    resolver is why the inventory below is larger than the 56 it once held: the checker got
+    sharper, not the tree worse.
+    """
+    if isinstance(node, ast.Constant) and isinstance(node.value, str):
+        return node.value
+    # str(<expr>) -> resolve the inner expression
+    if (isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
+            and node.func.id == "str" and len(node.args) == 1):
+        return _resolve_default(tree, node.args[0])
+    # <NAME> / "literal" [/ "literal" ...] -> join the module-level constant with the literals
+    if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Div):
+        left = _resolve_default(tree, node.left)
+        right = _resolve_default(tree, node.right)
+        if left is not None and right is not None:
+            # `left` is "" when the anchor is the checkout root, so lstrip keeps the result
+            # repo-relative rather than absolute — otherwise it would never match a MANIFEST row.
+            return f"{left.rstrip('/')}/{right.lstrip('/')}".lstrip("/")
+        return None
+    if isinstance(node, ast.Name):
+        return _module_constant(tree, node.id)
+    return None
+
+
+def _module_constant(tree: ast.AST, name: str) -> str | None:
+    """Best-effort value of a module-level `NAME = ...` path constant, repo-relative."""
+    for stmt in getattr(tree, "body", []):
+        if not isinstance(stmt, ast.Assign):
+            continue
+        if not any(isinstance(t, ast.Name) and t.id == name for t in stmt.targets):
+            continue
+        # REPO / "results/..." collapses to the literal part; a bare REPO root resolves to "".
+        value = _resolve_default(tree, stmt.value)
+        if value is not None:
+            return value
+        # A repo-root anchor: `Path(__file__).resolve().parents[N]` (a Subscript) or a bare
+        # `Path(...)` call. Both denote the checkout root, which is the empty repo-relative prefix.
+        if isinstance(stmt.value, (ast.Call, ast.Subscript)):
+            return ""
     return None
 
 

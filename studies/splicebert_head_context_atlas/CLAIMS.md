@@ -45,13 +45,15 @@ artifact or a dated `DECISIONS.md` entry. IDs are `HCA*` to stay disjoint from t
 | HCA16 | The conditional-mechanism stage is mechanically complete and independently reconstructible: B candidate/control QK and V/OV patches, exact QKV↔whole bridges, A/B downstream MLP recovery, an upstream attention→MLP path, exact-group integration, joint gene/dyad covariance, and 200,000-draw max-\|t\| inference execute with zero audit discrepancies. | Instrument / conditional mechanism analysis | supported | three fixed candidates, four discovery smoke packets, six endpoint families / 34 family members; no internal-validation access | `MECHANISM_VALIDATION_AMENDMENT_A2.md`, `atlas_stage2_package_smoke_v2.*`, `atlas_stage2_mechanism_smoke_v4/validation_audit_v2.json`, `atlas_stage2_mechanism_analysis_smoke_v5.*` + both independent audits | Licenses stage two only for candidates whose whole effects validate. Full conditional routing/value/path labels are restricted to the A2 simultaneous-interval rules; smoke labels are suppressed, and no binding or biological function label is assigned. |
 | HCA17 | The post-audit representative-DAG boundary is mechanically enforceable: real six-layer masked-base screening graphs retain source positions and explicit remainder mass; matched negative-context graphs are separately labeled; audited population evidence is overlaid without upgrading screening edges; and A QK/V interchange is representative-only. | Instrument / visualization handoff | supported | two fixed discovery smoke relations (A and B attention), donor role; no internal-validation access; `export_eligible=false` | `atlas_representative_dag_smoke_v4.json` + manifest + independent `.audit.json` | Full DAG generation is allowed only after a passing stage-two audit. Only full bundles with `export_eligible=true` and a zero-failure DAG audit may enter `gfm-visualizer`; this smoke is permanently non-exportable. |
 
-> **Reviewer note — three rows are not checkable from this checkout.** **HCA20, HCA21 and HCA22** name
-> controlling artifacts that live on the author's Google Drive (`gfm_atlas_stage2_v1_results/…`) or in the
-> separate `gfm-visualizer` repository, not here. HCA20 carries the Atlas's headline numbers. They are
-> retained at their stated status because the runs happened and their audits passed, but **a reviewer
-> cannot verify them from this repository** — treat them as reported-by-the-author until the compact
-> artifacts are committed. Every other row in this ledger resolves to a file in the tree. This is a known
-> gap, not an oversight; see `results/RESULTS_INDEX.md`.
+> **Reviewer note — three rows are backed off-repo, and they are not equally sourced.**
+> **HCA21** names artifacts on the author's Google Drive but gives **working URLs and a bundle SHA-256**
+> in `RESULTS.md`, so a reviewer can fetch and verify them. **HCA20 and HCA22 cannot be verified at all
+> from here**: HCA20 cites `Drive gfm_atlas_stage2_v1_results/…` as a bare folder name with no URL — and
+> it carries the Atlas's headline numbers — while HCA22 cites `gfm-visualizer/public/data/…`, a separate
+> repository whose location appears nowhere in this tree. All three are retained at their stated status
+> because the runs happened and their audits passed, but **treat HCA20 and HCA22 as
+> reported-by-the-author** until either the compact artifacts are committed or a retrievable URL plus
+> hash is added, as HCA21 already does. Every other row in this ledger resolves to a file in the tree.
 
 ## 3. Results
 

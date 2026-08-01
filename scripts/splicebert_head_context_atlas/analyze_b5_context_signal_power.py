@@ -35,6 +35,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 _src = REPO_ROOT / "src"
 if str(_src) not in sys.path:
     sys.path.insert(0, str(_src))
+from gfmcd.artifact_guard import guard_output_path  # noqa: E402
 from gfmcd.provenance import ExperimentManifest  # noqa: E402
 
 # --------------------------------------------------------------------------------------------------
@@ -383,6 +384,10 @@ def main() -> int:
     }
 
     out_path = Path(args.out)
+    # This default IS the canonical artifact controlling HCA23, and this is a pure analysis script
+    # with no pinned-provenance argument — so R35's "inventoried, not edited" exemption does not
+    # cover it. Refuse rather than overwrite the record (CORRECTIONS.md R43).
+    guard_output_path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
 
