@@ -17,10 +17,11 @@ uv run --extra splicebert --extra biology --extra dev pytest
 
 **Pass the extras on the `uv run` too.** A bare `uv run pytest` re-syncs to the default dependency set
 first, uninstalling `pytest` and `pyfaidx`, and silently reports a smaller suite. The extras form is what
-`.github/workflows/tests.yml` executes and is the only command that reproduces the documented baseline:
-**648 passed, 46 skipped**, measured on this tree immediately before the 2026-07-31 cleanup. All skips
-are data-gated or optional-dependency; none is a failure. The count moves as the cleanup removes tests,
-so treat it as "the suite passes", not as a fixed number.
+`.github/workflows/tests.yml` executes. The baseline on this tree is **482 passed, 24 skipped** (it was
+648/46 before the 2026-07-31 cleanup, which removed the DNABERT-2 suite along with that study, a dead
+supervised-probe code island, and four memorial files whose artifact *and* runner had already been
+deleted — so those tests could never fire again). All skips are data-gated or optional-dependency; none
+is a failure. Treat the number as "the suite passes", not as a fixed constant.
 
 Use `PYTHONHASHSEED=0` for cohort construction and any shuffle or selection path whose manifest declares
 determinism. Use `TOKENIZERS_PARALLELISM=false` for model runs when deterministic, quiet tokenization is
@@ -72,7 +73,7 @@ record a third file, `gencode.v50.annotation.gtf.gz` (comprehensive, not basic).
 hg38 and the GENCODE primary assembly is equivalent for these purposes, but **the basic-vs-comprehensive
 annotation split is not** — check which one a given manifest names before comparing to its artifact.
 
-### 2.2 Two limits on exact reproduction — read before comparing numbers
+### 2.2 Four limits on exact reproduction — read before comparing numbers
 
 1. **Code revision is not recoverable for almost every claim.** Of the 93 manifests referenced by
    canonical `results/MANIFEST.csv` rows, exactly **one** records a revision with a clean working tree
@@ -87,6 +88,24 @@ annotation split is not** — check which one a given manifest names before comp
    for new runners to call, and `tests/test_overwrite_guard.py` keeps the inventory of the 56 from growing,
    but the existing runners are pinned by their manifests and were deliberately not edited (R35) — so
    **always pass an explicit `--out` to a new path when reproducing.**
+3. **47 canonical result JSONs have no sibling `.manifest.json`.** The repo's own convention is that a
+   result-producing run writes an immutable artifact *and* a manifest recording checkpoint, tokenizer,
+   data hashes, split, parameters, seed, command, and revision. 47 of 429 canonical result JSONs predate
+   or skipped that step — including `results/p3_carrier_locus.json` (C34), `results/p3_av_decomposition.json`
+   (C35), and much of `results/phase-lattice/` (C8, C11, C13, C14, C15). Their `manifest` cell in
+   `results/MANIFEST.csv` is empty, and `scripts/verify_manifest.py` passes because it only checks that
+   *non-empty* reference paths resolve. For those claims the recorded numbers are the evidence and the
+   execution environment is not recoverable. This is a disclosed gap in the record, not an oversight of
+   this cleanup, and closing it would require re-running the affected experiments.
+4. **Regenerable binary inputs are not committed.** Fitted dictionaries (`*.pt`) and activation captures
+   (`*.npz`) were untracked on 2026-07-31 (847 MB; `.gitignore` had always excluded them and they had
+   been force-added). No claim is controlled by one — every controlling artifact is the compact JSON
+   twin, and the sibling manifests recording their SHA-256 are kept. But a **second-stage** GTEx runner
+   that consumes a first-stage capture cannot run from a fresh clone until you regenerate it: notably
+   `run_gtex_native_context_per_seed_alignment_evaluation.py` reads the discovery `.npz` named in
+   `native_context_per_seed_alignment_discovery_v1.json` (GFS19), and the J-SAE evaluation stages read
+   their capture files. Re-run the first-stage runner to rebuild the input, then compare against the
+   recorded hash in the manifest.
 
 Where a runner departed from its frozen protocol, the deviation is recorded in
 [`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) — read it before treating any preregistered
@@ -103,7 +122,7 @@ gate as having been enforced.
 | C20–C26 address/payload and `U_info` | `run_acceptor_address.py`, `run_a0_*.py` through `run_a5_*.py` | `acceptor_address.json`, `a0_*.json` through `a5_*.json` |
 | C27–C33 faithfulness, generator, semantics, geometry | `run_a6_*.py` through `run_a12_*.py` | `a6_*.json` through `a12_*.json` |
 | IC1 distal arrangement | `run_ic1_distal_intron_necessity.py` | `ic1_distal_intron_necessity_v8.json` |
-| C34/C35 period-3 locus and A-vs-V | runners named in the P3 manifest | `p3_carrier_locus.json`, `p3_av_decomposition.json` |
+| C34/C35 period-3 locus and A-vs-V | `run_p3_carrier_locus.py`, `run_p3_av_decomposition.py` | `results/p3_carrier_locus.json`, `results/p3_av_decomposition.json` (**no sibling `.manifest.json` — see §2.2**) |
 
 The detailed command map is
 [`studies/splicebert_partner_selection/REPRODUCIBILITY.md`](studies/splicebert_partner_selection/REPRODUCIBILITY.md),

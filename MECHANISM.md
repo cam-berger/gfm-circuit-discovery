@@ -96,15 +96,22 @@ but none is established.
 
 Most donor-graph causal evidence comes from canonical short introns and intra-example clean/corrupt
 patching. That establishes the mechanism on the tested distribution, not interventional generality.
-The Head–Context Atlas broadens observational and component-level validation across clustered,
-multi-pair, cassette, and matched-control contexts, but it does not yet show that the same internal state
-can be transplanted across examples or contexts to predictably move behavior.
 
-A decisive follow-up should perform **cross-example transduction**: derive a source state or direction
-on one gene/context, inject it into a gene-disjoint target while matching site type, distance, strength,
-coding status, and corruption magnitude, and require a dose-ordered target-margin change above
-matched-random and within-example controls. This connects the Atlas to the donor circuit without
-promoting attention or attribution to causality.
+The cross-example transduction test this section used to call for **has now been run, on both sides,
+and the answer is not the one it anticipated.** Deriving a state on one gene and injecting it into a
+gene-disjoint, context-mismatched target does move the target margin, largely and dose-monotonically —
+but on the donor side the transfer is carried entirely by a **gene-generic readout axis**, and the
+example-specific component is causally inert for the donor margin in the linear regime (**C41**, at
+verification tier per R28/R32). On the acceptor side, content-specificity is **not separable at
+achievable validation precision**: a norm-matched scramble still recovers about a third, and powering up
+did not shrink the interval because the variance is gene-heterogeneity-dominated (**C38**).
+
+So the open question has changed shape. It is no longer "can the state be transplanted at all" — it can —
+but **whether anything example-specific is transported, and if so where it lives**. C41 bounds only the
+C16/C26 final-residual state under additive injection; it says nothing about the addressing and routing
+components (C17/C18/C23), which were never intervened on, nor about earlier-layer or non-additive
+example-specificity. A clean acceptor-side call would need the sealed chr8/9 cohort, which has not been
+opened.
 
 ### 3. Carrier origin
 

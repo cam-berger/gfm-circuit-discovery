@@ -547,3 +547,30 @@ argument (eight Level-A heads multi-species) is untouched, and no artifact value
 **Rule.** `m_T` and band mass are separate quantities on separate scales — quote each with the head it
 belongs to. A power-objection rebuttal must report the best head's `p_exact` against its own null, not a
 bare effect size. Corrected in `figures/splicebert/EVIDENCE.md`.
+
+## R39 — four period-3 memorial test files were deleted, and the missing-artifact correction they were waiting for was never written (2026-07-31)
+
+**What changed.** `tests/test_carrier_phase_memorials.py`, `test_carrier_strata_memorials.py`,
+`test_dual_reader_memorials.py`, and `test_dyad_assay_memorials.py` were removed from the tree. Each was
+gated on an artifact that no longer exists — `results/phase-lattice/{carrier_phase,carrier_strata,dual_reader,dyad_assay}.json` —
+and on a runner that no longer exists, both deleted in `af64808`. Every test in all four files had been
+skipping since that commit and could never fire again; `results/MANIFEST.csv` carries no row for any of
+the four artifacts.
+
+**Why this needs an entry rather than a silent delete.** The artifact deletion in `af64808` was itself
+never logged. `docs/PREREG_CONFORMANCE.md` already flags the gap for the carrier-phase family — the
+remediation it names ("delete the test *or* restore the artifact, and log the correction") was half
+applied, twice: the artifacts went, then the tests went, and neither step wrote a correction. This entry
+closes that. **No claim is affected:** none of the four artifacts is cited by any live claim row, and the
+period-3 record rests on `carrier_surgery.json`, `carrier_dose.json`, `carrier_mediation.json`, and the
+C36 confirmation package, all present and all still covered by memorial tests.
+
+**What was lost.** The four suites' *assertions* are gone with them. Whatever invariants they encoded
+about the carrier-phase, carrier-strata, dual-reader, and dyad-assay outputs are recoverable only from
+Git history, and if any of those experiments is revived its memorials must be rewritten from the
+preregistration rather than restored from the deleted file — a memorial written against an artifact that
+no longer exists cannot be assumed still valid.
+
+**Rule.** Deleting a result artifact and deleting the memorial that guards it are two separate edits to
+the scientific record, and **both** require a correction entry. A permanently-skipping test is not
+harmless: it reads as coverage in the suite count while asserting nothing.

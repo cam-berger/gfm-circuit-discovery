@@ -16,9 +16,11 @@ claim_id,status,evidence_level,polarity,artifact,script,manifest,figure
   `OV/mediation`, `Behaviour`, `Biology`, `Directed circuit`); blank where the file is not itself
   evidence.
 - `polarity` — the *direction* of the evidence, so a null can never be silently re-read as a positive:
-  `positive` (504), `null` (19), `bounded` (56), `refutation` (4), `na` (292, non-evidence rows).
+  `positive`, `null`, `bounded`, `refutation`, and `na` (non-evidence rows).
   `tests/test_manifest.py` pins the non-positive polarities; adding a claim whose result is a null or a
-  bound without setting this field is what that guard exists to catch.
+  bound without setting this field is what that guard exists to catch. For the current tallies run
+  `uv run python scripts/verify_manifest.py`, which prints them — they are deliberately not restated
+  here, because the counts written into this file had already drifted from the manifest once.
 - `artifact` — the file this row describes, repository-relative.
 - `script` — the runner that produced it.
 - `manifest` — its sibling `*.manifest.json` provenance record, where one exists.

@@ -48,7 +48,7 @@ The frozen one-sentence mechanism statement, its checkpoint caveats, and its sco
 | Question | File that owns the answer |
 |---|---|
 | What is claimed, in what words? | the three `CLAIMS.md` ledgers: [donor circuit](studies/splicebert_partner_selection/CLAIMS.md) (`C*`), [Head–Context Atlas](studies/splicebert_head_context_atlas/CLAIMS.md) (`HCA*`), [GTEx fine-tuning shift](studies/splicebert_gtex_finetune_shift/CLAIMS.md) (`GFS*`) |
-| What was retracted or bounded, and why? | [`CORRECTIONS.md`](studies/splicebert_partner_selection/CORRECTIONS.md) — **R1–R38**. R1–R24 are table rows (some are ranges); R25–R38 are `##` sections later in the same file — scan both. |
+| What was retracted or bounded, and why? | [`CORRECTIONS.md`](studies/splicebert_partner_selection/CORRECTIONS.md) — **R1–R39**. R1–R24 are table rows (some are ranges); R25–R39 are `##` sections later in the same file — scan both. |
 | Why was an experiment designed that way? | [`DECISIONS_A0.md`](studies/splicebert_partner_selection/DECISIONS_A0.md) and each study's `DECISIONS*.md` |
 | What is next, and what is deferred? | [`docs/ROADMAP.md`](docs/ROADMAP.md) |
 | Was a preregistered gate actually enforced? | [`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) — **read before citing any gate as enforced**; many runners departed from their frozen protocol |

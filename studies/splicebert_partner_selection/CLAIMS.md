@@ -4,7 +4,7 @@
 
 This is the point-of-contact record for the strongest wording currently licensed by the evidence. Each
 row is deliberately limited to one claim, one evidence level, one controlling artifact set, and one
-scope boundary. Full numerical detail, superseded narratives, and permanent retractions R1–R38 are
+scope boundary. Full numerical detail, superseded narratives, and permanent retractions R1–R39 are
 preserved in [`CORRECTIONS.md`](CORRECTIONS.md); the experiment chronology is in
 [`DECISIONS_A0.md`](DECISIONS_A0.md).
 
@@ -19,22 +19,22 @@ Status vocabulary:
 
 ## Live claims
 
-**How to read this ledger.** Rows are grouped under navigational headings and an index; the grouping is the only thing that changed in the 2026-07-31 pass. Every row below is byte-for-byte what it was before — no wording, number, interval, evidence level, status word, or scope boundary was touched, because an earlier attempt to also compress the prose was rejected for drifting. Headings are descriptive only and assert nothing: the rows carry the claims. The `Paper` column points at the section of [`docs/PAPER_SPINE.md`](../../docs/PAPER_SPINE.md) that these rows support.
+**How to read this ledger.** Rows are grouped under navigational headings and an index. The grouping is mechanical: rows were re-emitted verbatim and the transform refuses to run unless the set of row lines is unchanged. An earlier attempt to also *compress* the prose was rejected — three independent checks found it had inverted a negation and upgraded an evidence level — so no row was reworded to make it shorter. Headings are descriptive only and assert nothing: the rows carry the claims. Two rows in this file were changed deliberately in the same pass and are the only exceptions: **C38** lost a stale tier word that contradicted C41's own row (logged under R32), and **ED1** is new — it gives a defining row to four canonical results that had carried an undefined `claim_id`.
 
-| # | Section | Claims | Paper |
-|---|---|---|---|
-| 1 | [The behaviour and its specificity](#1-the-behaviour-and-its-specificity) | C1, C2, C19 | §2 |
-| 2 | [Necessity and anatomy of the subcircuit](#2-necessity-and-anatomy-of-the-subcircuit) | C3, C4, C5, C6 | §3 |
-| 3 | [The address: how L3H1 finds the partner](#3-the-address-how-l3h1-finds-the-partner) | C20, C21, C22, C32, C25 | §4 |
-| 4 | [The payload: what is read at the acceptor](#4-the-payload-what-is-read-at-the-acceptor) | C24, C28, C29, C31, C30, IC1 | §5 |
-| 5 | [Binding and delivery to the donor readout](#5-binding-and-delivery-to-the-donor-readout) | C23, C16, C17, C18, C26 | §6 |
-| 6 | [What “circuit” means here: faithfulness and minimality](#6-what-circuit-means-here-faithfulness-and-minimality) | C27, C33, C7 | §7 |
-| 7 | [The period-3 carrier and its causal use](#7-the-period-3-carrier-and-its-causal-use) | C8, C9, C10, C34, C35, C36 | §8 |
-| 8 | [Where the carriers came from](#8-where-the-carriers-came-from) | C39, C40 | §8 |
-| 9 | [The separate ≈10.63 carrier](#9-the-separate-1063-carrier) | C11, C12, C13 | §9 |
-| 10 | [The chromatin comparator, and what it refutes](#10-the-chromatin-comparator-and-what-it-refutes) | C14, C15 | §9 |
-| 11 | [Cross-example generality](#11-cross-example-generality) | C41, C38 | §9 |
-| 12 | [A preregistered arc whose gates failed](#12-a-preregistered-arc-whose-gates-failed) | ED1 | §9 |
+| # | Section | Claims |
+|---|---|---|
+| 1 | [The behaviour and its specificity](#1-the-behaviour-and-its-specificity) | C1, C2, C19 |
+| 2 | [Necessity and anatomy of the subcircuit](#2-necessity-and-anatomy-of-the-subcircuit) | C3, C4, C5, C6 |
+| 3 | [The address: how L3H1 finds the partner](#3-the-address-how-l3h1-finds-the-partner) | C20, C21, C22, C32, C25 |
+| 4 | [The payload: what is read at the acceptor](#4-the-payload-what-is-read-at-the-acceptor) | C24, C28, C29, C31, C30, IC1 |
+| 5 | [Binding and delivery to the donor readout](#5-binding-and-delivery-to-the-donor-readout) | C23, C16, C17, C18, C26 |
+| 6 | [What “circuit” means here: faithfulness and minimality](#6-what-circuit-means-here-faithfulness-and-minimality) | C27, C33, C7 |
+| 7 | [The period-3 carrier and its causal use](#7-the-period-3-carrier-and-its-causal-use) | C8, C9, C10, C34, C35, C36 |
+| 8 | [Where the carriers came from](#8-where-the-carriers-came-from) | C39, C40 |
+| 9 | [The separate ≈10.63 carrier](#9-the-separate-1063-carrier) | C11, C12, C13 |
+| 10 | [The chromatin comparator, and what it refutes](#10-the-chromatin-comparator-and-what-it-refutes) | C14, C15 |
+| 11 | [Cross-example generality](#11-cross-example-generality) | C41, C38 |
+| 12 | [A preregistered arc whose gates failed](#12-a-preregistered-arc-whose-gates-failed) | ED1 |
 
 ## 1. The behaviour and its specificity
 
@@ -134,15 +134,18 @@ Status vocabulary:
 
 ## 12. A preregistered arc whose gates failed
 
-The ED1 arc ran to completion on validation and returned nothing. Its artifacts have carried the
+The ED1 arc ran to completion on validation and returned nothing usable. Its artifacts have carried the
 `ED1` label in `results/MANIFEST.csv` since 2026-07-25 with no defining row here, which left four
 canonical rows pointing at an identifier the ledger did not define; the row below closes that gap.
-It is placed last because a failed gate licenses no interpretation — not because the result is
-uninteresting.
+
+It is placed last, and stated as a **non-result**, because two of its four calibration gates failed —
+so it is not a clean null either. It licenses nothing about the intron→exon definition switch in either
+direction. It is in the ledger because an executed arc with committed artifacts should be findable, not
+because it establishes anything.
 
 | ID | Current licensed claim | Evidence level | Controlling artifact(s) | Scope / first boundary |
 |---|---|---|---|---|
-| ED1 | On a distance-clean contrast, **no intron→exon definition switch is detected**. The classical prediction is that once an intron exceeds ~200–250 nt the donor should pair with its *upstream* acceptor across the exon instead of its downstream one. The preregistered primary was an **intersection–union test** over two quantities, and it failed: the raw architecture × direction interaction `ΔΔ` is large (**+0.673 [0.629, 0.714]**, sign-flip `p=0.000`) but is *definitionally entangled* with separation, while its distance-clean half `E_switch` is **+0.0136 [−0.0129, +0.0402]** (sign-flip `p=0.309`) and straddles zero. Both were required, so the arc returns **`GATES_FAILED — no interpretation`**. All seven memorials PASS; sensitivity calibration reaches power **1.00** against a planted **0.106** effect, so this is a well-powered non-detection on the clean half, not an underpowered one. | closed: preregistered gates failed — **no interpretation licensed** | `ed1_architecture_boundary_pairing.json` (+ manifest); `development/ed1_val_secondary_complete.json`; prereg `PREREGISTRATION_ED1_ARCHITECTURE_BOUNDARY_PAIRING.md`; log `DECISIONS_ED1.md` | n=3,472 matched pairs / 1,933 genes, **validation split only — chr8/9 stayed sealed and were not read**. A failed intersection–union test is **not** evidence *against* the switch: `ΔΔ` alone cannot carry the claim because `L_down` *is* the cross-intron separation, so "coupling falls when the intron is long" is what plain distance decay already predicts. The permuted-label FPR is 0.06 against a 0.05 target, so a positive verdict would additionally have had to clear the calibrated `p* = 0.03`. |
+| ED1 | On a distance-clean contrast, **no intron→exon definition switch is detected**. The classical prediction is that once an intron exceeds ~200–250 nt the donor should pair with its *upstream* acceptor across the exon instead of its downstream one. The preregistered primary was an **intersection–union test** over two quantities, and it failed: the raw architecture × direction interaction `ΔΔ` is large (**+0.673 [0.629, 0.714]**, sign-flip `p=0.000`) but is *definitionally entangled* with separation, while its distance-clean half `E_switch` is **+0.0136 [−0.0129, +0.0402]** (sign-flip `p=0.309`) and straddles zero. Both were required, so the arc returns **`GATES_FAILED — no interpretation`**. Sensitivity calibration reaches power **1.00** against a planted **0.106** effect, so the clean half is a well-powered non-detection rather than an underpowered one — but **two of the four calibration gates FAILED**, and the arc is not interpretable in either direction. | closed: preregistered gates failed — **no interpretation licensed**, in either direction | `ed1_architecture_boundary_pairing.json` (+ manifest); `development/ed1_val_secondary_complete.json`; prereg `PREREGISTRATION_ED1_ARCHITECTURE_BOUNDARY_PAIRING.md`; log `DECISIONS_ED1.md` | n=3,472 matched pairs / 1,933 genes, **validation split only — chr8/9 stayed sealed and were not read**. **Calibration is not clean: `planted_confound_null` FAILED** (false-positive rate **0.285** against a 0.1 target), so the design does not demonstrably reject a planted confound; the wild-bootstrap FPR fallback also failed (0.065 vs 0.05), and the primary dyadic FPR passed only at 0.06 with a calibrated `p* = 0.03` that a positive verdict would have had to clear. **Memorial count:** the artifact emits seven, all PASS, but **two (`identity_noop_exact`, `did_regrouping_identity`) are flagged `forced: true`** — architecture-guaranteed and therefore not falsifiable evidence (R7/R21); the prereg's eighth memorial `determinism_hashseed` is enforced externally by `tests/test_ed1_determinism.py` and never enters the artifact. A failed intersection–union test is **not** evidence *against* the switch: `ΔΔ` alone cannot carry the claim because `L_down` *is* the cross-intron separation, so "coupling falls when the intron is long" is what plain distance decay already predicts. |
 
 ## Interpretation guardrails
 

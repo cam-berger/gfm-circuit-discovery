@@ -4,13 +4,24 @@
 
 These documents define the research program independently of any one model.
 
-- [PAPER_SPINE.md](PAPER_SPINE.md) — what the ~9-page write-up would contain, section by section, and which claim, figure, and artifact backs each part. Start here if you want to know what this repository is *for*.
 - [METHODOLOGY.md](METHODOLOGY.md) — the end-to-end discovery workflow and tool families.
 - [EVIDENCE_LADDER.md](EVIDENCE_LADDER.md) — what each experiment licenses, and where claims must stop.
+- [NOMENCLATURE.md](NOMENCLATURE.md) — the controlled vocabulary. Read before writing any prose that
+  names a carrier wavelength or the acceptor payload; it lists the retired terms that must not reappear.
+- [PREREG_CONFORMANCE.md](PREREG_CONFORMANCE.md) — where executed code departed from its frozen protocol.
+  Read before treating any preregistered gate as having been enforced.
+- [BIOLOGICAL_BRIDGES.md](BIOLOGICAL_BRIDGES.md) — what would be needed to connect a model mechanism to biology.
 - [TRANSFER_GUIDE.md](TRANSFER_GUIDE.md) — how to port the approach to another GFM.
-- [ROADMAP.md](ROADMAP.md) — the next milestones for turning the SpliceBERT case into a cross-model program.
+- [ROADMAP.md](ROADMAP.md) — open problems, and what is deferred or stopped.
+- [REFERENCES.md](REFERENCES.md) — external literature, with verification status.
+- [REPO_SCRUB_PROCEDURE.md](REPO_SCRUB_PROCEDURE.md) — how to audit this repository without damaging the record.
 - [../MECHANISM.md](../MECHANISM.md) — one-file current SpliceBERT mechanism, scope, and open bridges.
 - [../REPRODUCE.md](../REPRODUCE.md) — canonical environment and claim-to-artifact reproduction map.
+
+Three point-in-time records are also kept here and are **not** current guidance:
+[REVIEW_2026-07-22.md](REVIEW_2026-07-22.md) (pinned by `scripts/verify_manifest.py`, which cites its §4
+as the manifest specification), [REVIEW_OPEN_QUESTIONS.md](REVIEW_OPEN_QUESTIONS.md) (pinned by the CI
+workflow and `tests/test_manifest.py`), and the two 2026-07-23 B2/B3 disposition notes.
 
 The detailed SpliceBERT record lives under
 [`studies/splicebert_partner_selection/`](../studies/splicebert_partner_selection/README.md); generated

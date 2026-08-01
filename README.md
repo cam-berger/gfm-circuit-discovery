@@ -122,8 +122,11 @@ preserved in Git history rather than restored to the active tree.
 
 ## Document tiers
 
-Over 200 markdown documents accumulated across the study's history, and several of them cover
-overlapping ground. Nothing is deleted or merged: the superseded narratives are part of the record.
+Over 200 markdown documents accumulated across the study's history; the 2026-07-31 cleanup removed the
+dated agent-session handoffs, triage notes, and superseded drafts among them, leaving 166. **The
+scientific record itself is never deleted or rewritten** — claim rows, corrections, frozen
+preregistrations, red-team syntheses, and decision logs are append-only, and superseded narratives that
+carry evidence are retained. What was removed was process exhaust, and it remains in Git history.
 Mutable documents carry a tier banner immediately under their title, so a reader can tell at a glance
 whether each is current guidance or a retained record. Frozen, content-addressed protocol inputs are not
 rewritten merely to add a banner; the verified exceptions are indexed by
@@ -142,7 +145,6 @@ correction ledgers decide — `studies/splicebert_partner_selection/CLAIMS.md` f
 
 The canonical set is small on purpose:
 [`MECHANISM.md`](MECHANISM.md) · [`REPRODUCE.md`](REPRODUCE.md) ·
-[`docs/PAPER_SPINE.md`](docs/PAPER_SPINE.md) ·
 [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md) · [`docs/EVIDENCE_LADDER.md`](docs/EVIDENCE_LADDER.md) ·
 [`docs/NOMENCLATURE.md`](docs/NOMENCLATURE.md) · [`docs/BIOLOGICAL_BRIDGES.md`](docs/BIOLOGICAL_BRIDGES.md) ·
 [`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) ·
@@ -154,9 +156,6 @@ the per-study `CLAIMS.md` files.
 
 ## Start here
 
-0. If you want to know what this repository is *for* before reading any evidence, read
-   [`docs/PAPER_SPINE.md`](docs/PAPER_SPINE.md) — the nine-page write-up the record backs, mapped
-   section by section to its claims, figures, and artifacts, with the known gaps stated.
 1. Read the [methodology](docs/METHODOLOGY.md) and [evidence ladder](docs/EVIDENCE_LADDER.md).
 2. Read the one-file [current mechanism and limitations](MECHANISM.md).
 3. Use the [live claim ledger](studies/splicebert_partner_selection/CLAIMS.md); consult

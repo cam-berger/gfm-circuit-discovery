@@ -16,16 +16,16 @@ artifact or a dated `DECISIONS.md` entry. IDs are `HCA*` to stay disjoint from t
 > `closed` status** per the never-delete rule; they are exploratory provenance and must not be cited as live.
 > The wider Head–Context Atlas (**HCA11–HCA22**) is a separate, active program and is unaffected.
 
-**How to read this ledger.** Rows are grouped under navigational headings and an index; the grouping is the only thing that changed in the 2026-07-31 pass. Every row below is byte-for-byte what it was before — no wording, number, interval, evidence level, status word, or scope boundary was touched, because an earlier attempt to also compress the prose was rejected for drifting. Headings are descriptive only and assert nothing: the rows carry the claims. The `Paper` column points at the section of [`docs/PAPER_SPINE.md`](../../docs/PAPER_SPINE.md) that these rows support.
+**How to read this ledger.** Rows are grouped under navigational headings and an index. The grouping is mechanical: rows were re-emitted verbatim and the transform refuses to run unless the set of row lines is unchanged. An earlier attempt to also *compress* the prose was rejected — three independent checks found it had inverted a negation and upgraded an evidence level — so no row was reworded to make it shorter. Headings are descriptive only and assert nothing: the rows carry the claims.
 
-| # | Section | Claims | Paper |
-|---|---|---|---|
-| 1 | [Cohort construction](#1-cohort-construction) | HCA1, HCA11 | — |
-| 2 | [Instruments that authorized each stage](#2-instruments-that-authorized-each-stage) | HCA12, HCA13, HCA14, HCA15, HCA16, HCA17 | — |
-| 3 | [Results](#3-results) | HCA18, HCA19, HCA20, HCA23 | §9 |
-| 4 | [Cross-study positive control](#4-cross-study-positive-control) | HCA9 | §9 |
-| 5 | [Visualization transport](#5-visualization-transport) | HCA21, HCA22 | — |
-| 6 | [Closed competition branch — retained provenance, not live](#6-closed-competition-branch-retained-provenance-not-live) | HCA2, HCA3, HCA4, HCA5, HCA6, HCA7, HCA8, HCA10 | — |
+| # | Section | Claims |
+|---|---|---|
+| 1 | [Cohort construction](#1-cohort-construction) | HCA1, HCA11 |
+| 2 | [Instruments that authorized each stage](#2-instruments-that-authorized-each-stage) | HCA12, HCA13, HCA14, HCA15, HCA16, HCA17 |
+| 3 | [Results](#3-results) | HCA18, HCA19, HCA20, HCA23 |
+| 4 | [Cross-study positive control](#4-cross-study-positive-control) | HCA9 |
+| 5 | [Visualization transport](#5-visualization-transport) | HCA21, HCA22 |
+| 6 | [Closed competition branch — retained provenance, not live](#6-closed-competition-branch-retained-provenance-not-live) | HCA2, HCA3, HCA4, HCA5, HCA6, HCA7, HCA8, HCA10 |
 
 ## 1. Cohort construction
 

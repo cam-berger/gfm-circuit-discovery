@@ -8,15 +8,23 @@ claim→evidence record is [`results/MANIFEST.csv`](../results/MANIFEST.csv) plu
 [`studies/splicebert_partner_selection/CLAIMS.md`](../studies/splicebert_partner_selection/CLAIMS.md)
 (donor circuit, C1–C41 + IC1), [`studies/splicebert_head_context_atlas/CLAIMS.md`](../studies/splicebert_head_context_atlas/CLAIMS.md)
 (Atlas, HCA1–HCA23), and [`CORRECTIONS.md`](../studies/splicebert_partner_selection/CORRECTIONS.md)
-(R1–R38). The per-claim command map with reproduction rules is
+(R1–R39). The per-claim command map with reproduction rules is
 [`studies/splicebert_partner_selection/REPRODUCIBILITY.md`](../studies/splicebert_partner_selection/REPRODUCIBILITY.md);
 the repo-level entry point is [`REPRODUCE.md`](../REPRODUCE.md).
 
-`scripts/` has three active trees: `splicebert/` (donor circuit + carriers + origin siblings),
-`splicebert_head_context_atlas/` (the SpliceBERT Atlas sibling study), and `crossmodel/` (cross-model
-origin). Superseded and VOID runners live in Git history, not alongside live workflows. Every artifact named below exists on
-disk; every MANIFEST row's script/artifact/manifest/figure path resolves
-(`scripts/verify_manifest.py` passes).
+`scripts/` has four active trees, one per study plus the cross-model runners:
+`splicebert/` (donor circuit + carriers + origin siblings), `splicebert_head_context_atlas/` (the Atlas
+sibling study), `splicebert_gtex_finetune_shift/` (the supervised fine-tuning study), and `crossmodel/`
+(cross-model origin). Superseded and VOID runners live in Git history, not alongside live workflows.
+Every artifact named below exists on disk; every MANIFEST row's script/artifact/manifest/figure path
+resolves (`scripts/verify_manifest.py` passes).
+
+> **Path note (2026-07-31).** The 47 GTEx runners moved out of `scripts/splicebert/` into their own
+> tree. `results/MANIFEST.csv` and all code, tests, and live documents follow the new paths. The
+> per-artifact `*.manifest.json` provenance sidecars deliberately do **not**: they record the command
+> as it was executed, and rewriting them would falsify the execution record. A sidecar naming
+> `scripts/splicebert/run_gtex_*.py` is correct history — the runner is now the same basename under
+> `scripts/splicebert_gtex_finetune_shift/`.
 
 ## Execution contract
 

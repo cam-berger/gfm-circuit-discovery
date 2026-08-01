@@ -2,17 +2,17 @@
 
 > **Tier: T1 — canonical.** Current, authoritative. Read this.
 
-**How to read this ledger.** Rows are grouped under navigational headings and an index; the grouping is the only thing that changed in the 2026-07-31 pass. Every row below is byte-for-byte what it was before — no wording, number, interval, evidence level, status word, or scope boundary was touched, because an earlier attempt to also compress the prose was rejected for drifting. Headings are descriptive only and assert nothing: the rows carry the claims. The `Paper` column points at the section of [`docs/PAPER_SPINE.md`](../../docs/PAPER_SPINE.md) that these rows support.
+**How to read this ledger.** Rows are grouped under navigational headings and an index. The grouping is mechanical: rows were re-emitted verbatim and the transform refuses to run unless the set of row lines is unchanged. An earlier attempt to also *compress* the prose was rejected — three independent checks found it had inverted a negation and upgraded an evidence level — so no row was reworded to make it shorter. Headings are descriptive only and assert nothing: the rows carry the claims.
 
-| # | Section | Claims | Paper |
-|---|---|---|---|
-| 1 | [Instrument and provenance](#1-instrument-and-provenance) | GFS1, GFS2, GFS3, GFS5, GFS6, GFS7 | — |
-| 2 | [What fine-tuning did to the coupling behaviour](#2-what-fine-tuning-did-to-the-coupling-behaviour) | GFS4, GFS8, GFS9 | §9 |
-| 3 | [The final-block causal mechanism](#3-the-final-block-causal-mechanism) | GFS10, GFS11, GFS12, GFS13 | — |
-| 4 | [Nonlocal context regions and their carriers](#4-nonlocal-context-regions-and-their-carriers) | GFS14, GFS15, GFS16, GFS17, GFS18, GFS19, GFS20 | — |
-| 5 | [The biological-feature bridge, stopped at its gate](#5-the-biological-feature-bridge-stopped-at-its-gate) | GFS22 | — |
-| 6 | [Inherited positional carriers](#6-inherited-positional-carriers) | GFS23, GFS24, GFS25 | §9 |
-| 7 | [Sparse-dictionary decomposition — the arc did not resolve](#7-sparse-dictionary-decomposition-the-arc-did-not-resolve) | GFS21, GFS26, GFS27, GFS28, GFS29, GFS30, GFS31, GFS32, GFS33, GFS34 | §9 |
+| # | Section | Claims |
+|---|---|---|
+| 1 | [Instrument and provenance](#1-instrument-and-provenance) | GFS1, GFS2, GFS3, GFS5, GFS6, GFS7 |
+| 2 | [What fine-tuning did to the coupling behaviour](#2-what-fine-tuning-did-to-the-coupling-behaviour) | GFS4, GFS8, GFS9 |
+| 3 | [The final-block causal mechanism](#3-the-final-block-causal-mechanism) | GFS10, GFS11, GFS12, GFS13 |
+| 4 | [Nonlocal context regions and their carriers](#4-nonlocal-context-regions-and-their-carriers) | GFS14, GFS15, GFS16, GFS17, GFS18, GFS19, GFS20 |
+| 5 | [The biological-feature bridge, stopped at its gate](#5-the-biological-feature-bridge-stopped-at-its-gate) | GFS22 |
+| 6 | [Inherited positional carriers](#6-inherited-positional-carriers) | GFS23, GFS24, GFS25 |
+| 7 | [Sparse-dictionary decomposition — the arc did not resolve](#7-sparse-dictionary-decomposition-the-arc-did-not-resolve) | GFS21, GFS26, GFS27, GFS28, GFS29, GFS30, GFS31, GFS32, GFS33, GFS34 |
 
 ## 1. Instrument and provenance
 

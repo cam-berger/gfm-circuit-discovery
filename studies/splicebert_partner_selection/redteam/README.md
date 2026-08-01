@@ -7,8 +7,9 @@ not alternative live claim ledgers.
 
 - [`REDTEAM_SYNTHESIS_P3_4lens.md`](REDTEAM_SYNTHESIS_P3_4lens.md) — four-lens review that retired the
   architecture-forced P3 binding endpoint before the confirmatory run (R23).
-- [`P3_NIGHT_RUN_SUMMARY.md`](P3_NIGHT_RUN_SUMMARY.md) — execution summary for the surviving P3 locus and
-  A-vs-V tests (C34/C35).
+  (An overnight execution summary for the P3 locus and A-vs-V tests sat here until 2026-07-31. It was a
+  session report addressed to the repository owner, not a review; its adjudicated content is R24 in
+  `../CORRECTIONS.md` and the C34/C35 rows. Removed; in Git history.)
 - [`REDTEAM_SYNTHESIS_P3_4.md`](REDTEAM_SYNTHESIS_P3_4.md) — carrier-origin audit; explains why origin is
   deferred to training-time or cross-model evidence.
 - [`REDTEAM_SYNTHESIS_B1.md`](REDTEAM_SYNTHESIS_B1.md) — 5-lens review of B1 (≈10.63 carrier past
