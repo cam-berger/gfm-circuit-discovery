@@ -56,6 +56,21 @@ CLAIM_ID_EXCEPTIONS = {
         "closed-bounded row rather than as a standalone claim. 8 MANIFEST rows carry C37 as "
         "their claim_id. See CLAIMS.md C12 and CORRECTIONS.md R31."
     ),
+    "HCA5": (
+        "Removed from the Atlas ledger 2026-08-01 (CORRECTIONS.md R42): its controlling artifacts "
+        "head_effect_summary.json / head_effect_matrix.jsonl were never committed on this branch, so "
+        "the claim was not checkable. It was already terminal (withdrawn / invalid estimand) and is "
+        "superseded by HCA10. The only remaining citation is the R42 entry that removed it, which "
+        "quotes the row verbatim -- that is the intended end state, not a dangling reference."
+    ),
+    "HCA8": (
+        "Removed from the Atlas ledger 2026-08-01 (CORRECTIONS.md R42): it cited "
+        "head_effect_matrix.jsonl, which was never committed. Its checkable content -- competitor- and "
+        "matched-decoy-destroy recruit the same head family, licensing no competition module -- is "
+        "carried by HCA10 on exact joint patches with all artifacts present. HCA9 remains the live "
+        "consumer of head_effect_donor_valid_reanalysis_v1.json and is unaffected. The only remaining "
+        "citation is R42, which quotes the row verbatim."
+    ),
 }
 
 # Tokens matching \bR\d+\b that are not correction IDs.

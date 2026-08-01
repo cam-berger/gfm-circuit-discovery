@@ -9,7 +9,7 @@ claim→evidence record is [`results/MANIFEST.csv`](../results/MANIFEST.csv) plu
 (donor circuit, C1–C41 + IC1), [`studies/splicebert_head_context_atlas/CLAIMS.md`](../studies/splicebert_head_context_atlas/CLAIMS.md)
 (Atlas, HCA1–HCA23), [`studies/splicebert_gtex_finetune_shift/CLAIMS.md`](../studies/splicebert_gtex_finetune_shift/CLAIMS.md)
 (GTEx fine-tuning shift, GFS1–GFS34), and [`CORRECTIONS.md`](../studies/splicebert_partner_selection/CORRECTIONS.md)
-(R1–R41). The per-claim command map with reproduction rules is
+(R1–R42). The per-claim command map with reproduction rules is
 [`studies/splicebert_partner_selection/REPRODUCIBILITY.md`](../studies/splicebert_partner_selection/REPRODUCIBILITY.md);
 the repo-level entry point is [`REPRODUCE.md`](../REPRODUCE.md).
 
@@ -235,7 +235,7 @@ durable index at `results/splicebert_head_context_atlas/RESULTS_INDEX.md`.
 | `build_census.py` | HCA1 | `census_v1.json` |
 | `behavioral_pilot.py` | HCA2/HCA3/HCA7 | `behavioral_pilot_v1.json` |
 | `specificity_pilot.py` | HCA4/HCA7 | `specificity_pilot_v1.json` |
-| `reanalyze_valid_donor_rows.py` | HCA8/HCA9 (L3H1 donor rediscovery) | `head_effect_donor_valid_reanalysis_v1.json` |
+| `reanalyze_valid_donor_rows.py` | HCA9 (L3H1 donor rediscovery) | `head_effect_donor_valid_reanalysis_v1.json` |
 | `run_group_mlp_closure.py` | HCA9/HCA10, HCA10 | `group_mlp_closure_v1.json`, `group_head_rerank_valid_donor_v2.json` |
 | `build_atlas_context_census.py`, `enrich_atlas_context_packets.py`, `build_atlas_matched_cohorts.py`, `validate_atlas_matched_cohorts.py` | HCA11 (wider-atlas cohort + matching) | `atlas_context_census_v1.json`, `atlas_context_enrichment_v1.json`, `atlas_context_matched_v7.*` |
 | `run_atlas_model_preflight.py`, `run_atlas_discovery_screen.py`, `merge_atlas_discovery_screen.py`, `validate_atlas_discovery_screen.py` | HCA12, HCA12/HCA13 (discovery screen instrument) | `atlas_model_preflight_v1.*`, `atlas_discovery_screen_v1/`, `atlas_discovery_screen_smoke_v2_merged.*` |
@@ -251,7 +251,7 @@ Atlas support / head-screen / visualizer (no MANIFEST claim row in this study's 
 screen), `build_example_covariates.py`, `benchmark_colab.py`, `export_atlas_visualizer_evidence.py`,
 `validate_atlas_visualizer_evidence.py` (HCA21/HCA22 visualizer handoff — see the Atlas study record).
 The competition branch (HCA2–HCA10) is CLOSED; its `competition_branch_closure_audit_v1.json`
-(HCA5/HCA7-HCA10) is a decision-audit artifact with **no runner**.
+(HCA7-HCA10) is a decision-audit artifact with **no runner**.
 
 ---
 

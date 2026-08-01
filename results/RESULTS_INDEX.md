@@ -77,6 +77,12 @@ uv run python scripts/verify_manifest.py
 Whenever a file under `results/` is added, removed, or moved, the manifest must be updated in the
 same change; the verifier fails otherwise.
 
+> **Three Atlas claims are backed by artifacts that are not in this repository.** HCA20, HCA21 and HCA22
+> name results under the author's Google Drive (`gfm_atlas_stage2_v1_results/…`) and in the separate
+> `gfm-visualizer` repository. They have no row in `MANIFEST.csv` because there is no file here to index.
+> The repository-level promise that every claim resolves to a committed artifact holds for every other
+> row in every ledger; these three are the exception and are flagged in the Atlas ledger too.
+
 ## Directories
 
 | Directory | Index | Claim ledger |

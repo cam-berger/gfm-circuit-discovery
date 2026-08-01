@@ -656,3 +656,45 @@ repository's guards only measure the first. A memorial gated on an artifact that
 worse than no memorial: it occupies a slot in the coverage count. When an artifact is deleted, grep the
 test suite for its path and split any conjunctive skip gate that mentions it, so the tests that do not
 depend on it keep firing.
+
+
+## R42 — HCA5 and HCA8 removed from the Atlas ledger: their controlling artifacts were never committed and are not obtainable (2026-08-01)
+
+**What changed.** Two rows were removed from `studies/splicebert_head_context_atlas/CLAIMS.md`. This is a
+deliberate exception to the never-delete rule, taken by the repository owner, and the rows are preserved
+verbatim below so nothing is erased — only relocated out of the live ledger.
+
+**Why.** Both cited `head_effect_summary.json` and/or `head_effect_matrix.jsonl`. Neither file exists
+anywhere in the tree and neither has ever been committed on this branch
+(`git log --all -- '*head_effect_matrix.jsonl'` is empty), so neither claim was checkable by a reviewer.
+
+- **HCA5** was already terminal: *closed (competition branch; **withdrawn / invalid estimand**)*. The
+  rank-concentration statistic it reported is not faithfulness, and its pooled acceptor rows used the
+  wrong coordinate. It had been superseded by HCA10's exact joint donor-only curves. Removing it costs
+  the record nothing that HCA10 does not already carry.
+- **HCA8** is the narrower case and worth stating precisely: **one of its two artifacts does exist.**
+  `head_effect_donor_valid_reanalysis_v1.json` is committed and canonical; only `head_effect_matrix.jsonl`
+  is missing. Its surviving, checkable content — that competitor-destroy and matched-decoy-destroy recruit
+  largely the same head family, so no distinct competition module is licensed — is **already carried by
+  HCA10**, which reaches the same conclusion on exact joint patches and whose artifacts are all present.
+  **HCA9** remains the sole live consumer of `head_effect_donor_valid_reanalysis_v1.json` and is
+  unaffected; it is the salvaged L3H1 positive control cited from the donor-circuit ledger.
+
+**Downstream edits made in the same change.** Three `results/MANIFEST.csv` / `MANIFEST.json` rows carried
+composite claim IDs naming the removed rows and were repointed so every ID still resolves:
+`HCA5/HCA7-HCA10` → `HCA7-HCA10`, and `HCA8/HCA9` → `HCA9` (two rows). `scripts/README.md` and the study's
+`RESULTS.md` were repointed identically, and `RESULTS.md`'s `head_screen_v1` row is marked retired.
+**No artifact was deleted** and no number in any surviving row changed.
+
+**The removed rows, verbatim:**
+
+```
+| HCA5 | Single-head concentration identifies whether C is sparse or distributed | Mediation | closed (competition branch; **withdrawn / invalid estimand**) | historical train+val screen | `head_effect_summary.json`, `AMENDMENT_HEAD_SCREEN.md` | The rank-concentration statistic is not faithfulness, and pooled acceptor rows used the wrong coordinate. Replaced by exact joint donor-only curves (HCA10). |
+
+| HCA8 | On coordinate-valid donor targets, competitor-destroy C and matched-decoy-destroy D recruit largely the same head family (`r=0.804` signed; `r=0.942` magnitude). Per-head C>D magnitude tendencies exist, but do not establish a distinct competition module. | Mediation | closed (competition branch; supported exploratory, donor-only) | train donor targets, intron-mate ≤1 kb; chr8/9 untouched | `head_effect_donor_valid_reanalysis_v1.json`, `head_effect_matrix.jsonl` | Pooled/acceptor numbers are withdrawn. Exact joint closure in HCA10 resolves the nonadditivity question; behavioral specificity remains failed. |
+```
+
+**Rule.** A claim whose controlling artifact was never committed is not a weak claim — it is an
+unverifiable one, and it should not sit in a ledger a reviewer is told is the point of contact. Removing
+it is legitimate *only* when the row is preserved in this file and every citation is repointed in the
+same change, so the record loses nothing but the live ledger stops asserting what it cannot support.
