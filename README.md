@@ -1,18 +1,6 @@
 # Mechanistic Discovery in Genomic Foundation Models
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
-This repository develops a disciplined way to discover **how genomic foundation models (GFMs)
-implement biological computations**. The objective is not to catalogue salient activations; it is to
-move from a model-native behavior to a causally supported, explicitly bounded mechanism.
-
-> **Repository state (2026-07-31):** the record is the SpliceBERT donor circuit (A0–A12), both
-> positional carriers and their corpus-attributed origin, the Head–Context Atlas, and cross-example
-> transduction. Earlier exploratory programs were removed from the working tree in a cleanup and
-> remain in Git history; see *Study map* below.
-
-
-## Current mechanism, in one sentence
+## Current mechanism
 
 > A structured, top-ranked causal core binds a predominantly relative positional address to an
 > acceptor-local payload, then delivers the resulting information to the donor readout within an
@@ -31,7 +19,7 @@ preregistered bulk-composition variables, but its **semantic identity remains un
 “splice-site strength” label was withdrawn after it failed independently seeded draws and two-way
 gene-dyadic inference (R22).
 
-## Current scientific record
+## Scientific record
 
 | Result | Evidence reached | Licensed interpretation | First missing bridge |
 |---|---|---|---|
