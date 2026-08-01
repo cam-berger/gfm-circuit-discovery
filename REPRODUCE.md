@@ -73,7 +73,7 @@ record a third file, `gencode.v50.annotation.gtf.gz` (comprehensive, not basic).
 hg38 and the GENCODE primary assembly is equivalent for these purposes, but **the basic-vs-comprehensive
 annotation split is not** — check which one a given manifest names before comparing to its artifact.
 
-### 2.2 Four limits on exact reproduction — read before comparing numbers
+### 2.2 Five limits on exact reproduction — read before comparing numbers
 
 1. **Code revision is not recoverable for almost every claim.** Of the 93 manifests referenced by
    canonical `results/MANIFEST.csv` rows, exactly **one** records a revision with a clean working tree
@@ -106,6 +106,17 @@ annotation split is not** — check which one a given manifest names before comp
    `native_context_per_seed_alignment_discovery_v1.json` (GFS19), and the J-SAE evaluation stages read
    their capture files. Re-run the first-stage runner to rebuild the input, then compare against the
    recorded hash in the manifest.
+5. **Some runners hardcode absolute paths from the original machine.** 21 tracked files carry a
+   `/Users/cberg/...` constant. Most feed an argparse `default=` and are overridable with `--fasta` /
+   `--gtf`. Eight are **not** overridable without editing source: `measure_band_mass.py:46`,
+   `run_postsoftmax.py:380`, `run_dyad_real.py:57-58` (mm9 + the nucleosome dyad map),
+   `run_dyad_wavelength.py:120`, `run_splice_phasing.py:64-65`, `audit_ed1_provenance.py:56-58`,
+   `src/gfmcd/splicing/circuit.py:73-74`, and `run_g1_cross_example_transduction.py:94-95` — the **C41**
+   runner, which hardcodes the repository checkout path as well as the genome, so it will not run from
+   a clone or a git worktree. These were deliberately not rewritten: they are pinned by their manifests
+   and R35 records the standing decision not to edit a runner's defaults, since that changes what a
+   rerun does. Either edit the constant locally or place your data at the recorded paths. Logged as
+   **R41**.
 
 Where a runner departed from its frozen protocol, the deviation is recorded in
 [`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) — which audits the **SpliceBERT donor/carrier

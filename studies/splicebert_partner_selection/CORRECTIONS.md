@@ -614,3 +614,45 @@ a verification pass diffed the deleted file against what had actually been salva
 seeds or draws must be written as such — "range", "SD", or "min–max across N draws" — because the two
 carry opposite messages about precision. And a pilot value may never appear in a confirmatory summary
 without being labelled: check which split produced every number before it enters a row.
+
+## R41 — reproducibility gaps found by a dedicated audit: a canonical figure producer could not run, and twelve live memorials had been silently dead since af64808 (2026-07-31)
+
+**What was wrong.** Three defects, all pre-dating the 2026-07-31 cleanup, all invisible to the test
+suite because the guards check paths and IDs, never whether a runner can execute.
+
+1. **C8's figure-data producer could not run.** `scripts/splicebert/make_fig_phase_data.py` — the
+   canonical producer of `results/phase-lattice/fig_phase_data.json` — does an unguarded module-level
+   `from make_fig_wave_fit import build`, and `make_fig_wave_fit.py` was deleted in `af64808`. Any
+   attempt to regenerate that artifact died at import. **Fixed:** the module (102 lines, a pure
+   function of already-recorded `R(k)`, depending only on `src/gfmcd/splicing/wave.py`, which
+   survives) was restored from `af64808^`.
+2. **Twelve memorials for a live claim had been dead since the same commit.**
+   `tests/test_chromatin_refutation_memorials.py` pins R17 — the powered refutation of the nucleosome
+   reading behind **C14**. Its module-level `skipif` ANDed three artifacts; one of them,
+   `results/phase-lattice/synth_grid.json`, was deleted in `af64808`, so **all twelve tripwires
+   skipped**, including the seven that need only `dyad_wavelength.json` and `dyad_real.json` — both
+   present the whole time. Twelve memorials defending a live refutation counted as suite coverage
+   while asserting nothing. **Fixed:** the gate is now per-artifact; seven tripwires run again. The
+   five D27 grid tripwires remain skipped and are now *individually* marked with the reason —
+   `synth_grid.json` is gone and no runner in the tree regenerates it, so that leg of R17 is
+   **unverifiable from this checkout**.
+3. **Several canonical runners hardcode absolute paths from the original machine.** 21 tracked files
+   carry a non-CLI-overridable `/Users/cberg/...` constant. Most are `DEFAULT_*` values feeding an
+   argparse default and can be overridden; the following cannot without editing source:
+   `measure_band_mass.py:46`, `run_postsoftmax.py:380`, `run_dyad_real.py:57-58`,
+   `run_dyad_wavelength.py:120`, `run_splice_phasing.py:64-65`, `audit_ed1_provenance.py:56-58`,
+   `src/gfmcd/splicing/circuit.py:73-74`, and — worst — `run_g1_cross_example_transduction.py:94-95`,
+   the **C41** runner, which hardcodes not only the genome but the *repository checkout path itself*,
+   so it does not run from a clone or a worktree. **Not fixed here:** these runners are pinned by
+   their manifests and R35 records the standing decision not to edit them, because changing a default
+   changes what a rerun does. Disclosed instead in `REPRODUCE.md` §2.2 item 5.
+
+**What is unaffected.** No claim, number, interval, or evidence level changes. Every artifact these
+runners produced is committed and its recorded values stand; what was broken is the ability to
+*regenerate* them, and — for the twelve memorials — the ability to notice if a committed value drifted.
+
+**Rule.** "The suite is green" and "the record is reproducible" are different properties, and this
+repository's guards only measure the first. A memorial gated on an artifact that no longer exists is
+worse than no memorial: it occupies a slot in the coverage count. When an artifact is deleted, grep the
+test suite for its path and split any conjunctive skip gate that mentions it, so the tests that do not
+depend on it keep firing.
