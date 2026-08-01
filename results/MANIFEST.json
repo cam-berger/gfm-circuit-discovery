@@ -6086,7 +6086,7 @@
       "figure": ""
     },
     {
-      "claim_id": "HCA5/HCA7-HCA10",
+      "claim_id": "HCA7-HCA10",
       "status": "canonical",
       "evidence_level": "OV/mediation",
       "polarity": "bounded",
@@ -7226,7 +7226,7 @@
       "figure": ""
     },
     {
-      "claim_id": "HCA8/HCA9",
+      "claim_id": "HCA9",
       "status": "canonical",
       "evidence_level": "OV/mediation",
       "polarity": "positive",
@@ -7236,7 +7236,7 @@
       "figure": ""
     },
     {
-      "claim_id": "HCA8/HCA9",
+      "claim_id": "HCA9",
       "status": "canonical",
       "evidence_level": "OV/mediation",
       "polarity": "positive",

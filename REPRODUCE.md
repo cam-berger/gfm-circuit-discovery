@@ -16,7 +16,9 @@ uv run --extra splicebert --extra biology --extra dev pytest
 ```
 
 **Pass the extras on the `uv run` too.** A bare `uv run pytest` re-syncs to the default dependency set
-first, uninstalling `pytest` and `pyfaidx`, and silently reports a smaller suite. The extras form is what
+first, uninstalling `pytest` and `pyfaidx`. It does not merely report a smaller suite — it reports a
+**failing** one, because tests whose imports vanish error at collection. A red run from that command
+means you dropped the extras, not that the record is broken. The extras form is what
 `.github/workflows/tests.yml` executes. The baseline on this tree is **482 passed, 24 skipped** (it was
 648/46 before the 2026-07-31 cleanup, which removed the DNABERT-2 suite along with that study, a dead
 supervised-probe code island, and four memorial files whose artifact *and* runner had already been
@@ -35,7 +37,7 @@ now `pyproject.toml` plus `uv.lock`.
 
 | Package | Needed by | How to get it |
 |---|---|---|
-| `maxentpy` 0.0.4 | MaxEntScan scoring: `run_a9_payload_semantics.py` (C30), `run_ic1_pilot2/3.py`, `run_ic2_feasibility.py`, `run_b2_payload_steering.py`, the atlas covariate builders, and `src/gfmcd/splicing/{specificity,splice_landscape}.py` | Not on PyPI. `uv pip install "maxentpy @ git+https://github.com/kepbod/maxentpy.git@b5e69aadd745fcd9ee65c9dd0ff21b902a63a825"` (the commit the recorded runs used). MaxEnt tables sha256 `8b6d7b46…b7c00`. |
+| `maxentpy` 0.0.4 | MaxEntScan scoring: `run_a9_payload_semantics.py` (C30), `run_ic1_pilot2/3.py`, `run_ic2_feasibility.py`, `run_b2_payload_steering.py`, the atlas covariate builders, and `src/gfmcd/splicing/{specificity,splice_landscape}.py` | Not on PyPI, but `pyproject.toml` ships a locked **`maxent` extra** pinning the exact commit the recorded runs used — add `--extra maxent` to your `uv sync`/`uv run`. MaxEnt tables sha256 `8b6d7b46…b7c00`. |
 | `multimolecule` 0.2.0 | the three cross-model carrier runners under `scripts/crossmodel/` (C39/C40) | A **separate** environment by design — the runners record `"environment": "gfmcd-mm (conda): python3.11 torch transformers multimolecule0.2.0"` in their manifests. Do not add it to the main env; build the side environment and run those scripts there. |
 
 The library modules import `maxentpy` lazily, so `import gfmcd` works without it; the four runners above
@@ -48,6 +50,14 @@ import it at module level and will fail immediately if it is absent.
   `2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d`.
 - **Primary genome/annotation:** hg38 plus the GENCODE files named and hashed in each result manifest.
 - **Atlas annotation:** GENCODE v50 comprehensive, hash recorded in the Atlas census/package manifests.
+
+**Four more checkpoints are needed for the origin claims, and this repository records no acquisition URL
+for any of them — including SpliceBERT itself.** C39 needs the stage-1 sibling pair `SpliceBERT.510nt` and
+`SpliceBERT-human.510nt`, which differ only in training corpus; C40 needs RNA-FM and RNA-BERT, loaded
+through `multimolecule` in the separate side environment. Their SHA-256 values are recorded in the
+manifests under `results/origin-siblings/` and `results/origin-crossmodel/`, so you can verify a candidate
+file — but you must locate it yourself from the upstream publications. Obtaining the right artifact is a
+prerequisite this document does not solve.
 
 Models, FASTA/GTF inputs, and large Atlas runtime shards are not committed. A rerun is comparable only
 when its manifest matches the checkpoint, tokenizer, data hashes, split, parameters, seed, and code
@@ -67,13 +77,15 @@ data/
 ```
 
 **Two specs disagree and this is unresolved.** The config above is repo-relative and names
-`GRCh38.primary_assembly.genome.fa`; 62 canonical manifests instead record the absolute
-`/Users/cberg/Research/data/genomes/hg38.fa` plus `gencode.v50.basic.annotation.gtf.gz`, and 33 more
-record a third file, `gencode.v50.annotation.gtf.gz` (comprehensive, not basic). The sequence content of
-hg38 and the GENCODE primary assembly is equivalent for these purposes, but **the basic-vs-comprehensive
-annotation split is not** — check which one a given manifest names before comparing to its artifact.
+`GRCh38.primary_assembly.genome.fa`. Counted over all 219 tracked `*.manifest.json` files: **80** record
+the absolute `/Users/cberg/Research/data/genomes/hg38.fa`, **81** name `gencode.v50.basic.annotation.gtf.gz`,
+**24** name `gencode.v50.annotation.gtf.gz` (comprehensive, not basic), and none names the
+primary-assembly FASTA the config declares. The sequence content of hg38 and the GENCODE primary assembly
+is equivalent for these purposes, but **the basic-vs-comprehensive annotation split is not** — check which
+one a given manifest names before comparing to its artifact. Many manifests name neither, so for a large
+share of artifacts the annotation actually used is not recorded at all.
 
-### 2.2 Five limits on exact reproduction — read before comparing numbers
+### 2.2 Six limits on exact reproduction — read before comparing numbers
 
 1. **Code revision is not recoverable for almost every claim.** Of the 93 manifests referenced by
    canonical `results/MANIFEST.csv` rows, exactly **one** records a revision with a clean working tree
@@ -98,15 +110,25 @@ annotation split is not** — check which one a given manifest names before comp
    execution environment is not recoverable. This is a disclosed gap in the record, not an oversight of
    this cleanup, and closing it would require re-running the affected experiments.
 4. **Regenerable binary inputs are not committed.** Fitted dictionaries (`*.pt`) and activation captures
-   (`*.npz`) were untracked on 2026-07-31 (847 MB; `.gitignore` had always excluded them and they had
-   been force-added). No claim is controlled by one — every controlling artifact is the compact JSON
+   (`*.npz`) were untracked on 2026-07-31 (~847 MB in the checkout, 268 MiB packed; `.gitignore` had
+   always excluded them and they had been force-added). **One small `.npz` was deliberately kept** —
+   `native_context_final_mlp_unit_evaluation_v1.npz`, 108 KB, which its own manifest names as an
+   input. No claim is controlled by a binary — every controlling artifact is the compact JSON
    twin, and the sibling manifests recording their SHA-256 are kept. But a **second-stage** GTEx runner
    that consumes a first-stage capture cannot run from a fresh clone until you regenerate it: notably
    `run_gtex_native_context_per_seed_alignment_evaluation.py` reads the discovery `.npz` named in
    `native_context_per_seed_alignment_discovery_v1.json` (GFS19), and the J-SAE evaluation stages read
    their capture files. Re-run the first-stage runner to rebuild the input, then compare against the
    recorded hash in the manifest.
-5. **Some runners hardcode absolute paths from the original machine.** 21 tracked files carry a
+5. **14 canonical-row runners have no `argparse` at all.** They take no flags, so `--help` is *not*
+   handled: passing it does not print usage, it **starts a real run** against whatever paths are compiled
+   in, and several of those runs write to a path `results/MANIFEST.csv` registers as an artifact (limit 2).
+   The affected runners are `make_fig5_p3_phase_surgery_confirmation.py`, `make_fig_phase_data.py`,
+   `make_fig_report_data.py`, `measure_band_mass.py`, `run_carrier_geometry.py`, `run_carrier_subbin.py`,
+   `run_dyad_wavelength.py`, `run_human_carrier.py`, `run_postsoftmax.py`, `run_second_carrier.py`,
+   `run_sibling_pspectrum.py`, `run_sibling_validate.py`, `run_splice_long.py`, `run_splice_profile.py`.
+   **Read the source before invoking any of them** — do not probe them with `--help`.
+6. **Some runners hardcode absolute paths from the original machine.** 21 tracked files carry a
    `/Users/cberg/...` constant. Most feed an argparse `default=` and are overridable with `--fasta` /
    `--gtf`. Eight are **not** overridable without editing source: `measure_band_mass.py:46`,
    `run_postsoftmax.py:380`, `run_dyad_real.py:57-58` (mm9 + the nucleosome dyad map),
