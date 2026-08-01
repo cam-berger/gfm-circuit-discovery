@@ -22,6 +22,14 @@ this file existed, that question had no answer here short of reading 34 protocol
 > the protocols and `DECISIONS.md` named above are not checkable in a current checkout. The coverage gap
 > is unchanged by the removal: those departures were never independently audited, and this paragraph
 > remains the only in-tree statement that they exist.
+>
+> **A second arc is also uncovered: the GTEx fine-tuning-shift study.** Its 17 preregistrations and
+> implementation addenda and its 34 claims (GFS1–GFS34) were never audited here, and no family in the
+> table below is a GTEx family. That study *is* in the working tree, so its protocols are readable — but
+> nobody has independently checked its runners against them. `CLAUDE.md`, `REPRODUCE.md` and
+> `docs/README.md` route readers here "before treating any preregistered gate as having been enforced";
+> for a `GFS*` claim there is nothing here to read, and the gate status is whatever that study's own
+> ledger and `DECISIONS.md` self-report. Treat GTEx gates as self-reported, not audited.
 
 **Scope and method.** This audit was commissioned by the 2026-07-24 publication-readiness review, which
 returned *Major Revision — not ready for external artifact review* and named this table its single

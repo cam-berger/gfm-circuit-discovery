@@ -51,7 +51,7 @@ The frozen one-sentence mechanism statement, its checkpoint caveats, and its sco
 | What was retracted or bounded, and why? | [`CORRECTIONS.md`](studies/splicebert_partner_selection/CORRECTIONS.md) — **R1–R40**. R1–R24 are table rows (some are ranges); R25–R40 are `##` sections later in the same file — scan both. |
 | Why was an experiment designed that way? | [`DECISIONS_A0.md`](studies/splicebert_partner_selection/DECISIONS_A0.md) and each study's `DECISIONS*.md` |
 | What is next, and what is deferred? | [`docs/ROADMAP.md`](docs/ROADMAP.md) |
-| Was a preregistered gate actually enforced? | [`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) — **read before citing any gate as enforced**; many runners departed from their frozen protocol |
+| Was a preregistered gate actually enforced? | [`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) — **read before citing any gate as enforced**; many runners departed from their frozen protocol. Covers the SpliceBERT donor/carrier arc only — `GFS*` gates are self-reported, not audited |
 | Which artifact controls a claim? | [`results/RESULTS_INDEX.md`](results/RESULTS_INDEX.md) and `results/MANIFEST.csv` |
 
 Cite by ID; let the ledger carry the number, or it drifts. Three studies carry the record

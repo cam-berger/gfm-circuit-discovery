@@ -108,7 +108,9 @@ annotation split is not** — check which one a given manifest names before comp
    recorded hash in the manifest.
 
 Where a runner departed from its frozen protocol, the deviation is recorded in
-[`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) — read it before treating any preregistered
+[`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) — which audits the **SpliceBERT donor/carrier
+arc only**. The GTEx fine-tuning study's gates (`GFS*`) are self-reported by its own ledger and
+`DECISIONS.md`, not independently audited. Read the conformance file before treating any preregistered
 gate as having been enforced.
 
 ## 3. Claim → script → artifact

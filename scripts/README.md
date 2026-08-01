@@ -7,7 +7,8 @@ the claim(s) and controlling artifact it serves, grouped by result family. The a
 claim→evidence record is [`results/MANIFEST.csv`](../results/MANIFEST.csv) plus
 [`studies/splicebert_partner_selection/CLAIMS.md`](../studies/splicebert_partner_selection/CLAIMS.md)
 (donor circuit, C1–C41 + IC1), [`studies/splicebert_head_context_atlas/CLAIMS.md`](../studies/splicebert_head_context_atlas/CLAIMS.md)
-(Atlas, HCA1–HCA23), and [`CORRECTIONS.md`](../studies/splicebert_partner_selection/CORRECTIONS.md)
+(Atlas, HCA1–HCA23), [`studies/splicebert_gtex_finetune_shift/CLAIMS.md`](../studies/splicebert_gtex_finetune_shift/CLAIMS.md)
+(GTEx fine-tuning shift, GFS1–GFS34), and [`CORRECTIONS.md`](../studies/splicebert_partner_selection/CORRECTIONS.md)
 (R1–R40). The per-claim command map with reproduction rules is
 [`studies/splicebert_partner_selection/REPRODUCIBILITY.md`](../studies/splicebert_partner_selection/REPRODUCIBILITY.md);
 the repo-level entry point is [`REPRODUCE.md`](../REPRODUCE.md).
@@ -164,6 +165,62 @@ beside their assets), documented in `figures/splicebert/README.md`.
 `run_pair_categories.py` (figure data
 `figures/splicebert/data/pair_categories.json`), `analyse_comb_shift.py` (comb-shift analysis companion),
 `calibration_audit.py`, `test_ic1_determinism.py` (determinism test).
+
+---
+
+# `scripts/splicebert_gtex_finetune_shift/` — supervised fine-tuning study
+
+48 runners, moved here from `scripts/splicebert/` on 2026-07-31. Full claim text is in
+[`studies/splicebert_gtex_finetune_shift/CLAIMS.md`](../studies/splicebert_gtex_finetune_shift/CLAIMS.md)
+(GFS1–GFS34); the narrative walkthrough with commands is
+[`studies/splicebert_gtex_finetune_shift/RESULTS.md`](../studies/splicebert_gtex_finetune_shift/RESULTS.md).
+Artifacts live under `results/splicebert_gtex_finetune_shift/`.
+
+| Claim | Runner(s) | Controlling artifact |
+|---|---|---|
+| GFS2 | `run_gtex_finetune_preflight.py` | `preflight_v1.json` |
+| GFS3 | `run_sealed_test.py` | — |
+| GFS4 | `run_gtex_coupling_shift.py` | `five_seed_behavior_v1.json` |
+| GFS6 | `run_gtex_native_classifier_preflight.py` | — |
+| GFS7 | `run_gtex_native_classifier_preflight.py` | `native_classifier_preflight_v2.json` |
+| GFS8 | `run_gtex_native_classifier_coupling.py` | `native_classifier_coupling_v1.json` |
+| GFS9 | `run_gtex_native_representation_bridge.py` | `native_representation_bridge_v1.json` |
+| GFS10 | `run_gtex_native_mechanism_preflight.py` | `native_mechanism_preflight_v1.json` |
+| GFS11 | `run_gtex_native_mechanism_confirmation.py`, `run_gtex_native_mechanism_discovery.py` | `native_mechanism_confirmation_v1.json` |
+| GFS12 | `run_gtex_native_mechanism_confirmation.py` | `native_mechanism_confirmation_v1.json` |
+| GFS13 | `run_gtex_native_mechanism_role_source.py` | `native_mechanism_role_source_v1.json` |
+| GFS14 | `audit_gtex_native_context_confirmation.py`, `run_gtex_native_context_confirmation.py`, `run_gtex_native_context_discovery.py`, `run_gtex_native_context_preflight.py` | `native_context_confirmation_audit_v1.json`, `native_context_confirmation_v1.json`, `native_context_preflight_v1.json` |
+| GFS15 | `run_gtex_native_context_depth_trace.py` | `native_context_depth_trace_v1.json` |
+| GFS16 | `run_gtex_native_context_component_bridge.py` | `native_context_component_bridge_v1.json` |
+| GFS17 | `run_gtex_native_context_head_census_confirmation.py`, `run_gtex_native_context_head_census_discovery.py` | `native_context_head_census_confirmation_v1.json` |
+| GFS18 | `run_gtex_native_context_joint_lowrank_confirmation.py`, `run_gtex_native_context_lowrank_discovery.py` | `native_context_joint_lowrank_confirmation_v1.json` |
+| GFS19 | `audit_gtex_native_context_per_seed_alignment.py`, `run_gtex_native_context_per_seed_alignment_discovery.py`, `run_gtex_native_context_per_seed_alignment_evaluation.py` | — |
+| GFS20 | `run_gtex_native_context_final_mlp_unit_discovery.py`, `run_gtex_native_context_final_mlp_unit_evaluation.py` | — |
+| GFS21 | `export_gtex_sparse_transcoder_sequence_package.py`, `run_gtex_native_biological_construction_audit.py`, `run_gtex_native_biological_features_discovery.py`, `run_gtex_native_biological_features_preflight.py`, `run_gtex_sparse_transcoder_activation_capture.py`, `run_gtex_sparse_transcoder_training.py` | — |
+| GFS22 | `freeze_gtex_native_biological_features_confirmation.py` | — |
+| GFS23 | `analyze_gtex_positional_spectrum_sensitivity.py`, `run_gtex_positional_spectrum.py` | — |
+| GFS24 | `run_gtex_positional_band_surgery.py` | — |
+| GFS25 | `run_gtex_positional_native_margin_gate.py`, `run_gtex_positional_native_margin_gate_v2.py` | — |
+| GFS26 | `run_gtex_jacobian_sae_instrument.py` | — |
+| GFS27 | `run_gtex_jacobian_sae_instrument.py` | — |
+| GFS28 | `run_gtex_jacobian_sae_instrument.py` | — |
+| GFS29 | `run_gtex_jacobian_sae_replication.py` | — |
+| GFS30 | `run_gtex_jacobian_sae_behavior_preflight.py` | — |
+| GFS31 | `run_gtex_jacobian_sae_delta_preflight.py` | — |
+| GFS32 | `build_gtex_jacobian_sae_fresh_cohort.py`, `capture_gtex_jacobian_sae_fresh_activations.py`, `run_gtex_jacobian_sae_fresh_delta_confirmation.py` | — |
+| GFS33 | `run_gtex_jacobian_sae_large.py` | — |
+| GFS34 | `run_gtex_model_difference_jsae.py` | — |
+
+**Rows absent from this table.** GFS1 is upstream provenance with no runner. GFS3, GFS5 and GFS6 are a
+stopped smoke, a closed gate, and a retracted instrument — their artifacts are `development` or
+`superseded`, not canonical. **GFS19–GFS34 have no canonical MANIFEST rows**: that is the
+sparse-dictionary and per-seed-alignment arc, which is exploratory or self-labelled *unresolved
+instrument / preserved negative result*. Their runners are here and their artifacts are committed, but
+they are development-status by design — see the claim ledger before citing any of them.
+
+**Two runners need a regenerated input.** The `.pt`/`.npz` first-stage outputs were untracked on
+2026-07-31; a second-stage runner that consumes one must rebuild it first
+([`REPRODUCE.md`](../REPRODUCE.md) §2.2 item 4).
 
 ---
 

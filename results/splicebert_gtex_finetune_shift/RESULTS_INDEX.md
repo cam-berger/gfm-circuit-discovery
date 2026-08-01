@@ -84,7 +84,7 @@ The exact native-unit extension is:
 
 - `native_context_final_mlp_unit_discovery_v1.json`: every post-GELU unit tested individually; nested
   context/head-induced groups and output-norm controls frozen per seed and endpoint;
-- `native_context_final_mlp_unit_evaluation_v1.json` (its `.npz` companion is **not tracked** — see below): completeness curves, exact
+- `native_context_final_mlp_unit_evaluation_v1.json` plus its `.npz` (small, still tracked — a named manifest input): completeness curves, exact
   head→unit paths, and descriptive singleton ownership.
 
 These artifacts control GFS20. Both context effects first reach 80% with 256 of 2,048 native units.
