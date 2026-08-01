@@ -11,9 +11,6 @@ move from a model-native behavior to a causally supported, explicitly bounded me
 > transduction. Earlier exploratory programs were removed from the working tree in a cleanup and
 > remain in Git history; see *Study map* below.
 
-**SpliceBERT is the first worked example, not the boundary of the project.** The method is meant to
-transfer; [`docs/TRANSFER_GUIDE.md`](docs/TRANSFER_GUIDE.md) states what a second GFM requires, and
-the cross-model carrier assays under `scripts/crossmodel/` (C39/C40) are the first exercise of it.
 
 ## Current mechanism, in one sentence
 
