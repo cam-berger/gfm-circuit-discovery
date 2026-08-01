@@ -17,10 +17,24 @@ data/models/
 # Regenerable local caches.
 data/cache/
 
-# Model weights and large runtime outputs.
+# Model weights, fitted dictionaries, and raw activation captures.
+#
+# These are training/runtime outputs, not evidence: no claim row in any ledger
+# is controlled by one. ~847 MB of them in the checkout (268 MiB packed) had
+# been force-added past these rules and were untracked on 2026-07-31. The
+# compact result JSON, its .manifest.json, and its audit are what make a claim
+# checkable — commit those instead. If you ever need `git add -f` here, you are
+# committing the wrong artifact.
+#
+# Note the exact scope: a manifest may still declare one of these as a
+# hash-pinned INPUT, so a second-stage runner can need one regenerated before
+# it will run. That is a reproduction step, not a missing claim artifact — see
+# REPRODUCE.md §2.2 item 4.
 checkpoints/
 *.pt
 *.safetensors
+*.npz
+*.npy
 colab_results/**/*.pt
 colab_results/**/*.jsonl
 *.pkl
@@ -55,10 +69,3 @@ results/splicebert_partner_selection/**/*.jsonl
 results/**/figures/
 results/splicebert_coupling/ic2_feasibility_smoke.json
 results/splicebert_coupling/ic2_calibration_smoke.json
-
-# DNABERT-2 Atlas bulk runtime products. Commit compact settled results and manifests only.
-results/dnabert2_reconstruction_atlas/**/shards/
-results/dnabert2_reconstruction_atlas/**/*.jsonl
-results/dnabert2_reconstruction_atlas/**/*.jsonl.gz
-results/dnabert2_reconstruction_atlas/**/activations/
-results/dnabert2_reconstruction_atlas/**/candidate_pools/

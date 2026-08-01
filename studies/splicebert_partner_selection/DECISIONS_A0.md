@@ -872,3 +872,23 @@ equivalence.** Per the A7 stopping rule (binding, anti-chasing) the run **STOPS*
 further power-up. **A clean content-specificity call requires the sealed chr8/9 cohort (NOT opened).** C38
 updated to the powered (n=512) characterization; the n=260 result stays immutable. Files:
 `b3_cross_example_transduction_n512.json`; prereg §A7.
+
+---
+
+### C14 nomenclature repair (2026-07-31, ledger restructure) — AWAITING OWNER RATIFICATION
+
+`CLAIMS.md` C14 previously read *"A real nucleosomal signal occurs near 10.298 nt, distinguishable from the
+model's ≈10.63 carrier"* — both numbers in one sentence with **neither** the organism attribution **nor**
+the gap/power qualifier that `docs/NOMENCLATURE.md` standing phrase 2 makes mandatory. The row was repaired
+in place during the ledger restructure to carry, in the same sentence: ≈10.298 nt as measured in **mouse**
+ES-cell chromatin (Voong 2016, mm9) and **not in the model**; the **0.33 nt** separation from ≈10.63; and
+that this is **~7× the 0.045 nt measured spread on either side**, hence a **powered refutation**. Its scope
+cell gained the two standing pointers: no human dyad-anchored measurement exists in this record (R30), and
+no "±0.005" carrier fit precision may be quoted (R37).
+
+**This is a content change, not formatting.** It *adds* a qualification rather than removing one — the safe
+direction — and the evidence-level cell (`established: biological-source distinction`) and the artifact set
+are byte-unchanged, so nothing the row licenses moved. It is nevertheless recorded here rather than left as
+a silent side-effect of the restructure, and **it has not been ratified by the owner**: the repair was made
+under the agreed editing brief, whose flagged item F1 requires an explicit owner decision. Ratify or revert
+before this ledger is cited in the write-up.

@@ -21,9 +21,24 @@ GRID = REPO / "results/phase-lattice/synth_grid.json"
 WAVE = REPO / "results/phase-lattice/dyad_wavelength.json"
 REAL = REPO / "results/phase-lattice/dyad_real.json"
 
+# Gate per-artifact, not as one conjunction.
+#
+# This used to be a single module-level skipif over GRID and WAVE and REAL. `synth_grid.json` was
+# deleted in af64808 without a correction entry, so from that commit the whole file skipped — all
+# twelve tripwires, including the seven that need only WAVE and REAL, which are present. Twelve
+# memorials defending a live claim (C14/R17, the powered refutation of the nucleosome reading) read
+# as passing coverage in the suite count while asserting nothing. Splitting the gate revives them.
+#
+# The five D27 grid tripwires still cannot run: their artifact is gone and no runner in the tree
+# regenerates it. They are marked so, rather than being hidden inside a broader skip.
+_MISSING_GRID = pytest.mark.skipif(
+    not GRID.exists(),
+    reason="results/phase-lattice/synth_grid.json was deleted in af64808 and has no runner in the "
+           "tree; the D27 grid-resolution tripwires cannot be evaluated (see CORRECTIONS.md R41)")
+
 pytestmark = pytest.mark.skipif(
-    not (GRID.exists() and WAVE.exists() and REAL.exists()),
-    reason="phase-lattice results not present")
+    not (WAVE.exists() and REAL.exists()),
+    reason="dyad_wavelength.json / dyad_real.json not present")
 
 
 @pytest.fixture(scope="module")
@@ -42,6 +57,7 @@ def real():
 
 
 # ---------------------------------------------------------------- D27: the grid does NOT snap
+@_MISSING_GRID
 def test_an_OFF_grid_tone_is_represented_FAITHFULLY_not_snapped(grid):
     """THE load-bearing fact of R17's first leg.
 
@@ -59,6 +75,7 @@ def test_an_OFF_grid_tone_is_represented_FAITHFULLY_not_snapped(grid):
     assert r["p2n"] < 5.0, "peak-to-neighbour must be LOW -- the tone is SPLIT across two bins"
 
 
+@_MISSING_GRID
 def test_on_grid_tones_at_TWO_DIFFERENT_bins_are_both_sharp(grid):
     """The control that makes the split above mean 'faithful', not 'failed to learn'.
 
@@ -76,6 +93,7 @@ def test_on_grid_tones_at_TWO_DIFFERENT_bins_are_both_sharp(grid):
         assert r["final_loss"] < 1.22, "the model must have LEARNED the tone (oracle ~1.2025)"
 
 
+@_MISSING_GRID
 def test_the_readout_reports_the_flat_null_when_there_is_no_carrier(grid):
     """The negative arm.  Same readout, order-destroyed corpus -> nothing.  It is not blind,
     and it does not hallucinate."""
@@ -86,6 +104,7 @@ def test_the_readout_reports_the_flat_null_when_there_is_no_carrier(grid):
         "the control must converge to H_binary(0.59) + ln2 = 1.3700 -- composition, nothing else")
 
 
+@_MISSING_GRID
 def test_the_VOID_stage_P_control_is_never_treated_as_a_control(grid):
     """make_corpus_abs originally had no shuffle_mod, so this 'control' regenerated the TREATMENT
     corpus and came back BIT-IDENTICAL.  It is marked void.  If anyone un-marks it, fail."""
@@ -169,6 +188,7 @@ def test_THREE_nulls_that_are_not_evidence():
         "D30 must be recorded as a LIMIT.  If anyone rewrites it as a null, fail.")
 
 
+@_MISSING_GRID
 def test_the_phase_reset_null_is_BOUNDED_to_a_small_model(grid):
     """D29 says a 4-layer MLM cannot learn a relative ruler at 76% depth.  It does NOT say
     transformers cannot.  SpliceBERT is far larger.  The scale-up has NOT been run."""

@@ -41,13 +41,16 @@ bounded atlas cell, not the organizing objective. See **`RESEARCH_SPINE.md`**.
 - `RESEARCH_SPINE.md` — persistent objective, evidence ladder, drift guard, and immediate return path.
 - `EXPERIMENTS.md` — prioritized working hypotheses and falsifiable follow-up tests, including a causal
   site-choice steering program from latent-direction discovery through biological validation.
-- `COMPLETION_AUDIT.md` — requirement-by-requirement closure evidence and fail-closed pending gates.
+- `results/splicebert_head_context_atlas/competition_branch_closure_audit_v1.json` — machine-readable,
+  requirement-by-requirement closure evidence for the competition branch (indexed in `RESULTS.md`); the
+  stage-gate status it closes is the table below.
 - `PREREGISTRATION_C_COMPETITION.md` — confirmatory gates, controls, thresholds, stopping rules.
 - `DECISIONS.md` — dated design decisions + the red-team pivot.
 - `CLAIMS.md` — claim ledger (evidence level, status, scope, next bridge).
 - `RESULTS.md` — index into immutable artifacts + manifests.
 - `REDTEAM_SYNTHESIS_C_6lens.md` — the pre-compute adversarial design red-team (verdict + must-fixes).
-- `DESIGN_DRAFT.md` — the formalized design the red-team attacked (superseded by the prereg).
+  Its target was a pre-freeze design draft that is no longer in the tree; the must-fixes were folded into
+  `PREREGISTRATION_C_COMPETITION.md`, which supersedes that draft as the design of record.
 
 ## Stage-gate status (2026-07-19)
 | Gate | Status |

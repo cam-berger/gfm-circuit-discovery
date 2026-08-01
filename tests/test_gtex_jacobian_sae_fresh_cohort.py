@@ -4,7 +4,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 SCRIPT = (
-    REPO / "scripts/splicebert/build_gtex_jacobian_sae_fresh_cohort.py"
+    REPO / "scripts/splicebert_gtex_finetune_shift/build_gtex_jacobian_sae_fresh_cohort.py"
 )
 SPEC = importlib.util.spec_from_file_location(SCRIPT.stem, SCRIPT)
 RUNNER = importlib.util.module_from_spec(SPEC)

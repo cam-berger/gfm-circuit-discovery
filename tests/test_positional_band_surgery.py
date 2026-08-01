@@ -7,7 +7,7 @@ import pytest
 
 RUNNER = (
     Path(__file__).resolve().parents[1]
-    / "scripts/splicebert/run_gtex_positional_band_surgery.py"
+    / "scripts/splicebert_gtex_finetune_shift/run_gtex_positional_band_surgery.py"
 )
 SPEC = spec_from_file_location("run_gtex_positional_band_surgery", RUNNER)
 assert SPEC is not None and SPEC.loader is not None

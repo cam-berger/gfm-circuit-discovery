@@ -25,7 +25,7 @@ but “splice-site strength” was withdrawn by R22.
 | Record | Purpose |
 |---|---|
 | [`CLAIMS.md`](CLAIMS.md) | Compact live claims, evidence level, controlling artifact, and scope. |
-| [`CORRECTIONS.md`](CORRECTIONS.md) | Full historical ledger and permanent R1–R37 correction record. R1–R24 are table rows; R25–R37 are `##` sections. |
+| [`CORRECTIONS.md`](CORRECTIONS.md) | Full historical ledger and permanent R1–R41 correction record. R1–R24 are table rows; R25–R41 are `##` sections. |
 | [`FINDINGS.md`](FINDINGS.md) | Concise scientific narrative and limitations. |
 | [`P3_CLOSURE_CONFIRMATORY_REPORT.md`](P3_CLOSURE_CONFIRMATORY_REPORT.md) | Clean C36 design, result, provenance, and licensed claim. |
 | [`DECISIONS_A0.md`](DECISIONS_A0.md) | Detailed A0→A12 rationale, amendments, and post-outcome adjudication. |
@@ -36,8 +36,9 @@ but “splice-site strength” was withdrawn by R22.
 | [`redteam/`](redteam/README.md) | P3 adversarial design reviews and execution synthesis. |
 | [`archive/`](archive/README.md) | Historical records preserved but not current entry points. |
 
-`DONOR_CIRCUIT_ACCOUNT.md` is retained as the original C16–C19 synthesis; it predates A0→A12 and
-R22–R24, so the repository-level `MECHANISM.md` controls current framing.
+The original C16–C19 donor-circuit synthesis — a T3 historical document — is no longer in the tree. It
+predated A0→A12 and R22–R24; current framing is controlled by the repository-level
+[`../../MECHANISM.md`](../../MECHANISM.md) and the compact [`CLAIMS.md`](CLAIMS.md) above.
 
 ## Evidence boundaries
 

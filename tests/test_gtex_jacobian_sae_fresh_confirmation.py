@@ -7,7 +7,7 @@ import numpy as np
 REPO = Path(__file__).resolve().parents[1]
 SCRIPT = (
     REPO
-    / "scripts/splicebert/run_gtex_jacobian_sae_fresh_delta_confirmation.py"
+    / "scripts/splicebert_gtex_finetune_shift/run_gtex_jacobian_sae_fresh_delta_confirmation.py"
 )
 SPEC = importlib.util.spec_from_file_location(SCRIPT.stem, SCRIPT)
 RUNNER = importlib.util.module_from_spec(SPEC)

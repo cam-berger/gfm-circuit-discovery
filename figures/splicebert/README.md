@@ -112,7 +112,7 @@ full evolution of the older assets.
 
 ## Detailed provenance
 
-- `studies/splicebert/README.md` — concise worked example
+- `../../MECHANISM.md` — the one-file mechanism account (replaces the former `studies/splicebert/` overview)
 - `studies/splicebert_partner_selection/CLAIMS.md` — claims, corrections, and retractions
 - `studies/splicebert_partner_selection/CORRECTIONS.md` — full correction and supersession history
 - `../../MECHANISM.md` — current mechanism including post-figure C34/C35 refinements

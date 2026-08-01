@@ -18,9 +18,11 @@ Design notes that matter for anyone editing it
 * `CORRECTIONS.md` uses **two** formats: R1-R24 are table rows (some as *ranges*, e.g.
   `| R2-R3 |`), R25+ are `##` sections. The parser handles both; forgetting the ranges makes
   R2-R6/R12-R13 look undefined.
-* `R100` appears in `TIER2_VERIFICATION_REPORT_2026-07-23.md` as **git's rename-similarity
-  score** ("all 229 are R100"), not a correction ID. It is excluded by name, not by a numeric
-  cutoff, so a real R100 would still have to be declared.
+* `R100` is **git's rename-similarity score**, not a correction ID: `git diff -M --name-status`
+  reports a rename as `R<percent>`, so a pure move with zero content change reads `R100`. Any
+  doc quoting rename status therefore matches the `R<number>` scan and would otherwise look
+  like an undeclared correction. It is excluded by name, not by a numeric cutoff, so a real
+  R100 would still have to be declared.
 * Exceptions are a small explicit map with a reason each. Adding one is a visible diff.
 
 Mutation checks: cite a nonexistent `C99` in any tracked .md -> fail; write "R1-R24" in a
@@ -58,7 +60,11 @@ CLAIM_ID_EXCEPTIONS = {
 
 # Tokens matching \bR\d+\b that are not correction IDs.
 NON_CORRECTION_R_TOKENS = {
-    "R100": "git rename-similarity score in TIER2_VERIFICATION_REPORT_2026-07-23.md, not a correction ID",
+    "R100": (
+        "git rename-similarity score, not a correction ID -- `git diff -M --name-status` reports "
+        "a rename as `R<percent>`, so a pure move with zero content change reads `R100`. Excluded "
+        "by name, not by a numeric cutoff: a real R100 correction would still need a defining row."
+    ),
 }
 
 DASHES = "–—-"  # en dash, em dash, hyphen

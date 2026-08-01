@@ -1,9 +1,0 @@
-# Pinned to match the local gfm-thrust1 env so Colab-CUDA reproduces MPS baseline margins.
-# Torch is preinstalled on Colab (CUDA build); do NOT reinstall it — only pin the rest.
-transformers==4.44.2
-tokenizers>=0.19,<0.20
-numpy>=1.26,<2.1
-pyfaidx>=0.8
-# maxentpy is GitHub-only (NOT on PyPI) — install from source (this is v0.0.4, matrices bundled):
-maxentpy @ git+https://github.com/kepbod/maxentpy.git
-einops>=0.7

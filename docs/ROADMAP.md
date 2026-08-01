@@ -98,36 +98,25 @@ without generic MLM damage, with its semantic label no stronger than the externa
 
 ## Transfer milestone — second real GFM
 
-The active milestone is the DNABERT-2 Biological Reconstruction Atlas. It asks which annotated
-elements show reconstruction advantage beyond matched motif/token/composition controls, then qualifies
-source regions before internal screening. Its frozen multisource preflight is qualified. The
-13-class development census spans GENCODE, EPDnew, PolyASite, ENCODE/UCSC, and Mercer annotations,
-but no admitted class beat every empirical control, so confirmation remains sealed and
-context/internal screening is stopped. Five classes were adequately powered for the development
-gate; eight retain explicitly underpowered estimates. The completed deployment steps were:
+**There is no active second-GFM milestone in this tree.** Two were prepared and both left the working
+tree in the 2026-07-31 cleanup; each remains in Git history and is revivable as a design asset.
 
-1. pin every admitted annotation release and pass coordinate/evidence/split audits;
-2. freeze calibrated, site-class-specific behavior and precision thresholds;
-3. pass positive, negative, sensitivity, resolution, token-geometry, balance, invariant, and health gates;
-4. run the development census and seal candidate/threshold rules before confirmation;
-5. stop before localization because no site class behavior-qualified.
+- **DNABERT-2 Biological Reconstruction Atlas** — reached a bounded stopping point rather than a
+  finding. Its multisource preflight qualified and its 13-class development census ran, but no admitted
+  class beat every empirical control, so confirmation stayed sealed and internal screening stopped
+  before localization. Five classes were adequately powered for the development gate; eight retained
+  explicitly underpowered estimates. It is stopped, not abandoned.
+- **Caduceus-PS** — the prepared architecture contrast. Its v2 behavioral-transfer design integrates a
+  five-lens red-team and its Colab package was locally dry-run validated, but **the model experiment was
+  never run** and it needs CUDA.
 
-**Exit condition:** DNABERT-2 reaches a justified point on the same evidence ladder for one or more
-site classes, including an honest qualified null or instrument limit.
+The only cross-model work that produced live claims is the carrier-origin pair **C39/C40**
+(`scripts/crossmodel/`, `results/origin-siblings/`, `results/origin-crossmodel/`), which is a
+published-checkpoint natural experiment rather than a full second-model study.
 
-Caduceus-PS remains the prepared architecture contrast. Its v2 behavioral-transfer design integrates
-the five-lens red-team; the CUDA/Colab package is locally dry-run validated but the model experiment is not
-run. Before any later deployment:
-
-1. confirm the frozen default forks (permuted-partner meaningfulness floor, distance-matched primary plus
-   strength-caliper secondary, no PH companion);
-2. pin a compatible CUDA/Torch/Mamba environment and pass the coordinate/long-range-channel preflight;
-3. run behavioral qualification before any SSM mechanism screen;
-4. if behavior qualifies, design architecture-native state-space localization and interventions rather
-   than searching for SpliceBERT head analogues.
-
-**Exit condition:** Caduceus supplies a later architecture-native comparison, including an honest
-architecture null if both local and long-range instruments are certified.
+**Exit condition for reviving either:** a second GFM reaches a justified point on the same evidence
+ladder — including, and explicitly counting as success, an honest qualified null or instrument limit.
+Read [`TRANSFER_GUIDE.md`](TRANSFER_GUIDE.md) first; it states what a second model must supply.
 
 ## Repository milestones
 

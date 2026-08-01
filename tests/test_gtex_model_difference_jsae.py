@@ -16,7 +16,7 @@ REPO = Path(__file__).resolve().parents[1]
 
 
 def _load_runner():
-    path = REPO / "scripts/splicebert/run_gtex_model_difference_jsae.py"
+    path = REPO / "scripts/splicebert_gtex_finetune_shift/run_gtex_model_difference_jsae.py"
     spec = importlib.util.spec_from_file_location("model_difference_runner", path)
     module = importlib.util.module_from_spec(spec)
     assert spec.loader is not None
@@ -201,7 +201,7 @@ def test_primary_assay_has_no_auxiliary_repair_or_full_state_condition() -> None
         "shapley_no_deltaJ": 0.0,
     }
     source = (
-        REPO / "scripts/splicebert/run_gtex_model_difference_jsae.py"
+        REPO / "scripts/splicebert_gtex_finetune_shift/run_gtex_model_difference_jsae.py"
     ).read_text()
     assert "auxiliary_dead_feature_loss" not in source
     assert "shared_private" not in source

@@ -66,7 +66,8 @@ Design decisions and post-diagnostic pivots. Preregistered confirmatory choices 
   → **scrub-to-corrupt** (not mean-ablation); estimand → **group/faithfulness-size** (per-head null
   expected); decoy → real strength-matched to the competitor; collider-aware between-cohort matching;
   channel-faithful calibration; SLOT positive control; pooled seeded draws with a stability-SD trigger.
-- **Files:** `DESIGN_DRAFT.md`, `REDTEAM_SYNTHESIS_C_6lens.md`, `src/gfmcd/splicing/competition.py`.
+- **Files:** `REDTEAM_SYNTHESIS_C_6lens.md`, `src/gfmcd/splicing/competition.py`, and the pre-freeze design
+  draft the red-team attacked — no longer in the tree, superseded by `PREREGISTRATION_C_COMPETITION.md`.
 
 ## 2026-07-18 — STAGE 0 census result: cohort exists but short-intron-biased; power anchor-dependent
 - **Evidence (`results/.../census_v1.json`):** intron-mate usable competition = 3,014 sealed examples /
@@ -492,5 +493,7 @@ discipline as P3.4). The companion partner-selection branches (B1/B2/B3) are log
   (`../splicebert_partner_selection/CLAIMS.md` interpretation guardrails and `../splicebert_partner_selection/DECISIONS.md`
   2026-07-22). It corroborates the donor-circuit reader (C3/C4/C5/C17) on a disjoint donor-target cohort.
 - **Scope:** the wider Head–Context Atlas (HCA11–HCA22) is a separate, active program and is untouched by this
-  closure. The prior closure prose in `RESEARCH_SPINE.md` §"Closed competition branch" and `COMPLETION_AUDIT.md`
-  is unchanged; this entry only makes the `CLAIMS.md` ledger reflect the closure with terminal statuses.
+  closure. The prior closure prose in `RESEARCH_SPINE.md` §"Closed competition branch" and the
+  requirement-by-requirement closure evidence in
+  `results/splicebert_head_context_atlas/competition_branch_closure_audit_v1.json` are unchanged; this entry
+  only makes the `CLAIMS.md` ledger reflect the closure with terminal statuses.

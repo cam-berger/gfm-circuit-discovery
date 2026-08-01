@@ -16,9 +16,11 @@ claim_id,status,evidence_level,polarity,artifact,script,manifest,figure
   `OV/mediation`, `Behaviour`, `Biology`, `Directed circuit`); blank where the file is not itself
   evidence.
 - `polarity` — the *direction* of the evidence, so a null can never be silently re-read as a positive:
-  `positive` (504), `null` (19), `bounded` (56), `refutation` (4), `na` (292, non-evidence rows).
+  `positive`, `null`, `bounded`, `refutation`, and `na` (non-evidence rows).
   `tests/test_manifest.py` pins the non-positive polarities; adding a claim whose result is a null or a
-  bound without setting this field is what that guard exists to catch.
+  bound without setting this field is what that guard exists to catch. For the current tallies run
+  `uv run python scripts/verify_manifest.py`, which prints them — they are deliberately not restated
+  here, because the counts written into this file had already drifted from the manifest once.
 - `artifact` — the file this row describes, repository-relative.
 - `script` — the runner that produced it.
 - `manifest` — its sibling `*.manifest.json` provenance record, where one exists.
@@ -42,6 +44,25 @@ them.
 licenses is given by `evidence_level` and, authoritatively, by the claim ledgers — never by this
 index. Evidence never promotes itself between rungs.
 
+## `claim_id` values that are not claim IDs
+
+Most rows carry a ledger claim ID (`C*`, `HCA*`, `GFS*`, `IC1`, `ED1`). Six values do not resolve to a
+ledger row, because they name an **experiment arc** rather than a claim. They are listed here so a
+reader of the manifest is not left chasing an identifier that does not exist. `tests/test_ledger_consistency.py`
+only validates the `C*`/`HCA*`/`GFS*` forms, so these are not caught automatically.
+
+(A seventh, `ED1`, *was* an unresolved identifier until 2026-07-31: four canonical rows carried it with
+no defining row anywhere. It now has one — see the last section of the donor-circuit ledger.)
+
+| `claim_id` | What it is | Where the claim actually lives |
+|---|---|---|
+| `A4` | The first address-geometry design, superseded before it produced a claim. | Redesigned as A11 → **C32**. |
+| `A9` | Preflight for the payload-semantics arc. | The arc's surviving result is **C30**; its naming was withdrawn by **R22**. |
+| `R22` | `a9c_sweep_seeded_draws.json` is evidence *for a retraction*, not for a claim. | `CORRECTIONS.md` R22. |
+| `IC2` | Acceptor-competition feasibility and calibration for an arc retired before its confirmatory run. | No claim; the premise was refuted by Atlas HCA4/HCA10. |
+| `P3-shift-diagnostic` | An exploratory period-3 shift diagnostic, outcome-aware; never promoted. | No claim. The carrier claims are C8, C34–C36. |
+| `HCA7-HCA10` | A range label on one closure-audit artifact. | The individual rows HCA7…HCA10 exist in the Atlas ledger. |
+
 ## Integrity check
 
 `scripts/verify_manifest.py` verifies that every tracked file under `results/` has exactly one
@@ -63,11 +84,13 @@ same change; the verifier fails otherwise.
 | `phase-lattice/` | [`RESULTS_INDEX.md`](phase-lattice/RESULTS_INDEX.md) | `studies/splicebert_partner_selection/CLAIMS.md` |
 | `splicebert_coupling/` | [`RESULTS_INDEX.md`](splicebert_coupling/RESULTS_INDEX.md) | `studies/splicebert_partner_selection/CLAIMS.md` |
 | `splicebert_head_context_atlas/` | [`RESULTS_INDEX.md`](splicebert_head_context_atlas/RESULTS_INDEX.md) | `studies/splicebert_head_context_atlas/CLAIMS.md` |
-| `splicebert_visualizer/` | [`RESULTS_INDEX.md`](splicebert_visualizer/RESULTS_INDEX.md) | none — export bundle, not a claim artifact |
 | `origin-siblings/` | [`RESULTS_INDEX.md`](origin-siblings/RESULTS_INDEX.md) | `studies/splicebert_partner_selection/CLAIMS.md` (C39) |
 | `origin-crossmodel/` | [`README.md`](origin-crossmodel/README.md) | `studies/splicebert_partner_selection/CLAIMS.md` (C40) |
 | `splicebert_gtex_finetune_shift/` | [`RESULTS_INDEX.md`](splicebert_gtex_finetune_shift/RESULTS_INDEX.md) | `studies/splicebert_gtex_finetune_shift/CLAIMS.md` (GFS1–GFS34) |
-| `dnabert2_reconstruction_atlas/` | [`FINDINGS.md`](../studies/dnabert2_reconstruction_atlas/FINDINGS.md) → [`RESULTS.md`](../studies/dnabert2_reconstruction_atlas/RESULTS.md) | [`CLAIMS.md`](../studies/dnabert2_reconstruction_atlas/CLAIMS.md) (D1–D12, D14–D17, IF1–IF34) |
+
+The `dnabert2_reconstruction_atlas/` and `splicebert_visualizer/` trees were removed from the working
+tree in the 2026-07-31 cleanup along with their studies; both remain in Git history. Neither controlled
+a claim in a surviving ledger.
 
 **Layout convention.** Most trees keep their **canonical artifacts at the directory root**, with
 `development/` and `superseded/` subtrees beside them — the `canonical/`-subdirectory half of the 2026-07-22

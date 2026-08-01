@@ -17,9 +17,24 @@ this file existed, that question had no answer here short of reading 34 protocol
 > fail, plus population memorials being gated at smoke scale), and D17's frozen decision rule being
 > architecture-forced for L11H2 and run before the defect was found. Self-reported is not
 > independently audited. **Do not read this file's totals as covering that arc.**
+>
+> That study was removed from the working tree in the 2026-07 cleanup and survives in Git history only, so
+> the protocols and `DECISIONS.md` named above are not checkable in a current checkout. The coverage gap
+> is unchanged by the removal: those departures were never independently audited, and this paragraph
+> remains the only in-tree statement that they exist.
+>
+> **A second arc is also uncovered: the GTEx fine-tuning-shift study.** Its 17 preregistrations and
+> implementation addenda and its 34 claims (GFS1–GFS34) were never audited here, and no family in the
+> table below is a GTEx family. That study *is* in the working tree, so its protocols are readable — but
+> nobody has independently checked its runners against them. `CLAUDE.md`, `REPRODUCE.md` and
+> `docs/README.md` route readers here "before treating any preregistered gate as having been enforced";
+> for a `GFS*` claim there is nothing here to read, and the gate status is whatever that study's own
+> ledger and `DECISIONS.md` self-report. Treat GTEx gates as self-reported, not audited.
 
-**Scope and method.** 25 SpliceBERT-arc families audited (every frozen protocol on disk for that arc
-plus the two unfrozen ones,
+**Scope and method.** This audit was commissioned by the 2026-07-24 publication-readiness review, which
+returned *Major Revision — not ready for external artifact review* and named this table its single
+highest-leverage deliverable. 25 SpliceBERT-arc families audited (every frozen protocol on disk for
+that arc plus the two unfrozen ones,
 marked as such), each by an independent agent reading the protocol in full, then the runner(s) in full,
 then the resulting artifact, the `CLAIMS.md` row, and any memorial test. Each checked eight things:
 estimand, preregistered gates, memorials, verdict rule, sample size/split/seeds, controls and nulls,
@@ -183,7 +198,7 @@ rows are in the JSON. `—` in the location column means the finding is about an
 | high | `scripts/splicebert/run_a10_generator_edges.py:210` | The preregistered sufficiency half of the "Minimal L0 set found" verdict (R_H(L0* ∪ rest) ≥ 0.90·R_H(A)) is never computed, yet the T1 ledger reports a resolved three-head L0 set | Either (a) run the one missing condition on the same cohort (open `L0* ∪ {L1,L2 heads, MLP0, MLP1}` at ACC, report R_H against 0.90·R_H(A)) and write it to a NEW artifact with its own manifest; or (b) log a dated correction (new R |
 | high | `studies/splicebert_partner_selection/CLAIMS.md:54` | The "partial redundancy between H12/H10" element of C31 is stated as established/held-out although it is a discovery-split-only point estimate, carries no confidence interval, and comes from a head pair the prereg did not designate | Add the discovery-only qualifier to CLAIMS.md:54 and to the CORRECTIONS.md:54 status cell (e.g. "partial H12/H10 redundancy, DISCOVERY-SPLIT ONLY, no CI, exploratory pair"), and mirror the fix in DECISIONS_A0.md:461,535 and MECHAN |
 | medium | `scripts/splicebert/run_a10_generator_edges.py:224` | The frozen serial-chain verdict clause "R(MLP1 only) ≈ 0" is operationalized by a code-chosen 0.10 threshold that appears in no preregistration or amendment | Record the operationalization where it is auditable without reading the source: state in the runner docstring and in a dated DECISIONS_A0 note that "≈ 0" was implemented as `< 0.10` (and `confirmatory` as n ≥ 150), and that the ob |
-| medium | `docs/ULTRAREVIEW_2026-07-24.md:69` | No test pins any A10/C31 number or verdict flag — and in fact no test in the suite loads any A6–A12 artifact, contradicting the ULTRAREVIEW's stated premise that the C1–C33 family is covered | Add a skipif-gated memorial (e.g. tests/test_generator_edges_memorials.py) that loads results/splicebert_coupling/a10_generator_edges.json and asserts: preflight_PASS and confirmatory true; value_linearity < 1e-4 in the preflight |
+| medium | — | No test pins any A10/C31 number or verdict flag — and in fact no test in the suite loads any A6–A12 artifact. This supersedes the 2026-07-24 publication-readiness review's premise that the recent C38/C39/C40 claims lacked test coverage "unlike every prior C1–C33 family": the A6–A12 block of that family is uncovered too | Add a skipif-gated memorial (e.g. tests/test_generator_edges_memorials.py) that loads results/splicebert_coupling/a10_generator_edges.json and asserts: preflight_PASS and confirmatory true; value_linearity < 1e-4 in the preflight |
 | | | | |
 | **A12** | | | |
 | critical | `scripts/splicebert/run_a12_faithfulness_size.py:170` | The preregistered INTERPOLATED node counts were replaced in code by grid-snapping to the next larger of 17 fixed sizes, inflating the headline "90% needs ~72/103 nodes" (interpolated value: 64.2) — unlogged deviation from a frozen prereg | Do not edit the frozen prereg or the immutable artifact. Recompute the four interpolated counts from the committed curve_H (they are pure arithmetic on the existing JSON: 29/51/64/73) and file a LOGGED CORRECTION with an R-number |
@@ -199,7 +214,7 @@ rows are in the JSON. `—` in the location column means the finding is about an
 | high | `studies/splicebert_partner_selection/preregistrations/README.md:36` | The preregistration index marks PERIOD3_COMPUTATION a 'completed historical protocol' producing C8–C10, but the protocol was never implemented and its primary discriminator does not exist in code | Change the disposition cell to something like: 'frozen, NEVER EXECUTED — infrastructure built and unit-tested (gfmcd.splicing.phase.codon_slot, tests/test_phase.py); no runner; its questions were modernized as P3.4, which is defer |
 | high | `results/MANIFEST.csv:116` | The R14-retracted 42-head 'codon-phase attention lattice' inventory is registered as canonical, positive evidence for C8 and C11 at the wrong ladder rung | Reclassify both phase_inventory rows to `superseded` with `polarity` reflecting the R14 retraction and blank `claim_id` (or claim_id R14), or move the file under results/phase-lattice/superseded/. Rewrite RESULTS_INDEX.md:49 to sa |
 | medium | `results/MANIFEST.csv:18` | comb_shift.json is registered as canonical positive Attention evidence for C8 although its own generator forbids reading a verdict from it, and the designated primary artifact does not exist | Either run analyse_comb_shift.py against comb_shift.json and commit comb_shift_primary.json (+ manifest + MANIFEST rows) as the verdict-bearing artifact, or downgrade comb_shift.json's manifest polarity/status and annotate RESULTS |
-| medium | `tests/test_carrier_phase_memorials.py:17` | Four period-3 carrier memorials are permanently unfireable: their gating artifact and its runner were both deleted from the tree | Either restore run_carrier_phase.py (and regenerate carrier_phase.json with a manifest and MANIFEST rows) so the four memorials actually run, or delete tests/test_carrier_phase_memorials.py and record in CORRECTIONS.md that the ca |
+| medium | `tests/test_carrier_phase_memorials.py:17` — **no longer in the tree** (Git history only) | Four period-3 carrier memorials were permanently unfireable: their gating artifact `results/phase-lattice/carrier_phase.json` and its runner `scripts/splicebert/run_carrier_phase.py` were both deleted from the tree in commit `af64808`, so the test could never fire | **Partly actioned.** The remediation offered two branches — restore the runner and regenerate the artifact so the four memorials actually run, or delete the dead test and record the removal in `CORRECTIONS.md`. The second branch was taken as far as the deletion: the test file was removed in the 2026-07 cleanup, so no period-3 carrier-phase memorial is enforced anywhere in the tree. The matching `CORRECTIONS.md` entry has **not** been written, so this row remains the only record of it. |
 | medium | `scripts/splicebert/run_comb_shift.py:343` | The comb-shift design's declared load-bearing manipulation check is print-only: it cannot halt the run and its result is not written to the artifact | Write the check into the artifact as an explicit pass/fail field (e.g. `"copier_flatness": {"ratio": ..., "threshold": 0.10, "pass": true}`) and make failure either abort before the statistics block or force a `"verdict": "VOID_co |
 | medium | `scripts/splicebert/run_carrier_surgery.py:258` | The C8 runner labels its contrast 'CDS-exon' and prints a codon-reading conclusion, but reads no CDS annotation at all | Change the runner's region label from 'CDS-exon interior' to 'internal-exon interior', and soften the :254/:258 verdict strings to what the design licenses ('period-3 deletion costs more in exon interiors than intron interiors; CD |
 | medium | `results/phase-lattice/carrier_surgery.json:565` | C8's reported control-band p-value is the resolution floor of the null, and unlike the C39 replication this is nowhere disclosed | State in the C8 CLAIMS.md note (and RESULTS_VERIFICATION.md:148) that the add-one p is the 1/22 floor at n_control=21 — the treatment DiD exceeded every control band — and report the effect-size separation (treatment DiD +0.131 vs |
@@ -275,7 +290,7 @@ rows are in the JSON. `—` in the location column means the finding is about an
 | medium | `scripts/splicebert_head_context_atlas/analyze_b5_context_signal_power.py:231` | B5's PP1–PP4 planted positives travel a re-implemented copy of the reachability rule (classify_synthetic) rather than the real signal_table path, so the cell→ceiling mapping the verdict depends on is never exercised — the same dead-planted-positive failure v2 was amended to fix | Extract one predicate (e.g. `is_closed(n_req, ceil_hard)`) used by signal_table, classify_synthetic and N2 alike, and route PP3/PP4 through signal_table by injecting the synthetic rows into the real table with their true contrast |
 | medium | `studies/splicebert_head_context_atlas/RESULTS.md:42` | The B5 results row claims the artifact was 'independently re-derived', but B5 is the only atlas run with no independent verifier script and no .audit.json sibling | Either write scripts/splicebert_head_context_atlas/validate_b5_context_signal_power.py as an independent re-derivation emitting b5_context_signal_power_v1.audit.json (it is seconds of CPU — recompute N_req, the ceilings, and the c |
 | | | | |
-| **CADUCEUS** | | | |
+| **CADUCEUS** — **study no longer in the working tree.** `studies/caduceus_partner_transfer/` (prereg, `colab_package/caduceus_t1.py`, `run_t1.py`, `build_cohort.py`, `make_notebook.py`) was removed in the 2026-07 cleanup and survives in Git history only. The rows below are retained deliberately: they are the only record of where this code departed from its protocol, and deleting them would silently improve the apparent conformance rate. Read every path in them as a historical pointer, and note that the "cheap pre-freeze fix" each remediation describes is no longer available in-tree. | | | |
 | high | `studies/caduceus_partner_transfer/colab_package/caduceus_t1.py:179` | The flagship "honest architecture/objective null" verdict is emitted, with text asserting the channel is certified, on a code path where long-range certification never ran | Require `lr_ok is True` for the DOES-NOT-QUALIFY return: move the `lr_ok is None` guard above the gates_pass test so any uncertified channel yields INDETERMINATE/INSTRUMENT-RANGE-LIMIT regardless of gate outcome, and assemble the |
 | high | `studies/caduceus_partner_transfer/colab_package/run_t1.py:126` | No `--smoke` mode exists; a single invocation scores every construct and unseals the confirmatory verdict in the same process, so the preregistered discovery-sealed stage is not implementable | Add `--smoke` (memorials + tiny-n, decide() not called) and `--stage {discovery,confirm}` so a discovery run emits τ, per-arm MDE and joint power to a sealed manifest, and a second explicit invocation consumes that frozen τ agains |
 | high | `studies/caduceus_partner_transfer/colab_package/caduceus_t1.py:98` | Two verdict-determining constants (anticipated ρ = 0.15, long-range non-negligibility = 10%) appear only as Python defaults, are absent from the preregistration, and are documented as "pre-registered" | Before freeze, write both values (and their justification) into prereg §4, or record them in a dated amendment; then delete the word "pre-registered" from colab_package/README.md:57 and README.md:33 until that is true, and make bo |
@@ -298,8 +313,10 @@ document, and it is why the file exists rather than a note saying conformance wa
 
 - **The two unfrozen protocols** (`PREREGISTRATION_P3_4_CARRIER_ORIGIN.md`, deferred and explicitly not
   frozen; the Caduceus T1 pair, designed but never run) are audited here as *design* conformance only.
-  Caduceus in particular is pre-freeze, which makes it the one place where the cheap fix is available:
-  correct the code and the protocol numbers **before** freezing.
+  Caduceus in particular is pre-freeze, which made it the one place where the cheap fix was available:
+  correct the code and the protocol numbers **before** freezing. That fix was never applied, and the
+  Caduceus study has since been removed from the working tree (Git history only), so its **CADUCEUS** rows
+  above stand as an unremediated design-conformance record rather than an open action.
 - **Atlas amendment chronology.** Whether each Head–Context Atlas amendment was logged *before* the
   analysis it changed is a provenance question this audit flags (`MECHANISM_VALIDATION_AMENDMENT_A3`
   relaxed a numerical gate 100× after it had already failed on completed Stage-2 forwards) but does not
@@ -310,6 +327,5 @@ document, and it is why the file exists rather than a note saying conformance wa
 ## Related records
 
 `studies/splicebert_partner_selection/CORRECTIONS.md` — R28 and R29–R35, the deviations whose claim
-wording moved · `docs/FORMALIZATION_REVIEW_2026-07-24.md` — the review that commissioned this audit ·
-`tests/test_hash_pin_ledger.py`, `tests/test_ledger_consistency.py`, `tests/test_overwrite_guard.py` —
-the guards that now enforce what was previously prose.
+wording moved · `tests/test_hash_pin_ledger.py`, `tests/test_ledger_consistency.py`,
+`tests/test_overwrite_guard.py` — the guards that now enforce what was previously prose.

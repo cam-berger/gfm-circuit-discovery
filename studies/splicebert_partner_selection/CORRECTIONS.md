@@ -85,6 +85,15 @@ Status vocabulary:
 | R23 | The **P3.3 "address × payload BINDING" endpoint** — a CI-positive L3H1 attention×value interaction `Δ_bind` as evidence of binding — and the **"independently-constructed payload"** clause (via a `payload_source` estimand). | **`Δ_bind` is architecture-forced:** L3H1's output is bilinear `O=A·V`, so the 2×2 DiD equals the identity `(A_I−A_D)(V_I−V_D)` — non-zero for **any** perturbation moving both A and V, with **no carrier-specificity** (there is an energy-matched null for the main deletion but **none for the interaction**; the same positive `Δ_bind` would arise from a junk band or any random PE perturbation). **`payload_source` is non-identifiable:** no delivery-independent, carrier-uncontaminated observable exists (the carrier feeds the generator; MLP2 is dual address+payload, C29). Caught by the **2026-07-17 4-lens design red-team** (`redteam/REDTEAM_SYNTHESIS_P3_4lens.md`) **before any confirmatory run** — new instances of R7/R15/R21 (architecture-forced answers; position already inside V). | **Do not claim address×payload binding from an L3H1 A×V interaction, nor an "independently-constructed payload," within a carrier-deletion+patching design.** P3.3 is reframed to an *A-vs-V routing decomposition on coupling* (conditional mediation; axis "A vs V", not "address vs payload" — R15), requiring an **importance-matched interaction null** (`Δ_bind` above the E-band distribution) and reporting the bilinear floor. Construction-vs-binding is **non-identifiable here → Endpoint B**. **C23** (behaviour-level reconstruct-inject address×payload binding — a DIFFERENT, non-forced design) is **unaffected**. |
 | R24 | Two P3.3/P3.2 framing overreaches: **(a)** C35's clause **"the carrier does NOT build the payload"** — a categorical, cross-intervention reading of the L3H1 value-null; **(b)** describing C34's **confirm split as a confirmation** despite the preregistered gate **M1 (`C_del/C_intact ≤ 0.05`, part of Global PASS, prereg §8) FAILING on confirm (5.5% > 5%)**. | **(a)** The value main effect is a null on **L3H1's own value vectors** under carrier patching; it cannot exclude carrier effects on payload *construction* upstream (the carrier feeds the L0→MLP2 generator, C29/C30). Over-generalizing "L3H1's values are carrier-independent" to "the carrier plays no role in the payload" exceeds the intervention (same empirical-vs-interpretation discipline as R20). **(b)** M1 was frozen into Global PASS; 5.5% residual means deletion left >5% of coupling on confirm, so not every preregistered precondition held on that split — robustness of the denominator does not retroactively pass a failed gate. | **(a)** State C35 **within the intervention**: *the carrier's contribution to coupling is mediated predominantly through L3H1's attention pattern, not through carrier-dependent changes in L3H1's values; this does not exclude upstream carrier effects on payload construction.* **(b)** Report C34 as **all-gates-pass on discovery, gate-qualified / verification-level on confirm**; a clean confirmatory locus needs a disjoint untouched split on which M1 also passes (tighten the deletion, or the `min_effect` conditioning that inflates residual coupling). The empirical findings — distributed locus (C34) and routing≫value (C35) — are **unaffected**. |
 
+> **R2–R3 supporting measurement**, folded in from `src/gfmcd/splicing/rivals.py` before that retracted
+> v1/v2 scaffolding was deleted (2026-07-31). The preregistered shortcut table is the measurement that
+> killed v1: a **geometry-oracle** adversary reading **zero nucleotides** scored **PMR 1.000** on v1
+> (oracle site detector also 1.000; leak-only 0.483; length-only 0.495), which is identification failure,
+> not model skill. Under v2 (chr22) the same adversary collapses to **0.076** against a chance rate of
+> 0.458, the oracle site detector sits at exactly chance (0.458) and the candidate-index prior at 0.469 —
+> the empirical evidence that the v1 forced-choice task was unidentified and that the v2 redesign removed
+> the shortcut.
+
 ## Interpretive firewall
 
 For every candidate, record the highest level reached and do not auto-promote:
@@ -348,7 +357,16 @@ planted-positive gate and the planted-confound arm.
 `preregistrations/README.md:44`, `docs/METHODOLOGY.md:39`. **Deliberately not scoped past R28:** the
 `--smoke`/`D_src` cohort assignment for planted-positive is prereg-licensed (§4, §9) and is *not* a
 deviation; calling it one would create a second false statement.
-**Left as dated record:** `DECISIONS.md:201`, `docs/DRAFT_SOURCING_AUDIT_2026-07-24.md:203`.
+**Left as dated record:** `DECISIONS.md:201`. (A second dated site, the 2026-07-24 draft-sourcing audit, was removed with its file in the 2026-07-31 cleanup; its unapplied findings became R38 and R40.)
+**Additional site corrected (2026-07-31, ledger restructure):** `CLAIMS.md` C38 carried a second,
+missed instance — a clause describing C41 as *"confirmatory on the Atlas `H_conf` split"*, which
+contradicted C41's own row and this entry. R32 corrected five sites on 2026-07-25 and this one was
+overlooked; it surfaced during the ledger restructure. The false tier word is **removed rather than
+paraphrased forward** (restating it in other words would create a second false statement), and C38 now
+defers to C41's own row for the tier instead of asserting one. The finding is unchanged: the donor-side
+delivered state still transfers as a generic readout axis. **Lesson:** correcting a claim's own row is
+not enough — grep the ledger for every row that *describes* that claim, because a cross-reference can
+carry a retracted status word forward invisibly.
 
 ## R33 — C39's sibling band-deletion is verification-level, and its artifact `verdict` is a hand-written adjudication (2026-07-25)
 
@@ -496,6 +514,8 @@ precision. `docs/NOMENCLATURE.md` §2 carries the guard. Corrected in `MECHANISM
 `PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR.md:73` and the dated T2 review/handoff docs
 (`docs/REVIEW_2026-07-22.md:44,294`, `docs/OPEN_TRACKS_EXPANDED_2026-07-22.md:64`,
 `docs/TIER2_HANDOFF_2026-07-23.md:252`) — these are historical records of what was believed at their date.
+(The last two of those sites were removed with their files in the 2026-07-31 record cleanup; the list is
+appended to rather than edited, since it records what was deliberately left uncorrected at its date.)
 
 **Also noted (not corrected here; owner ruling needed).** (a) `results/phase-lattice/dyad_real.json`
 anchors its matched filter on `T0 = 10.6667` — the **retired** grid label — as the reference wavelength;
@@ -504,3 +524,135 @@ load-bearing inside a canonical result file. (b) The nucleosomal signal is **mou
 GSM2183909) while the carrier is vertebrate/human; "measured in DNA" in `docs/NOMENCLATURE.md:27` and the
 fig4 caption never says whose DNA. Helical periodicity is not species-specific at this resolution, so the
 distinctness argument is unaffected.
+
+## R38 — the human-only "best head has `m_T = 0.001`" was L1H3's band mass, not an effect size (2026-07-31)
+
+**What was claimed.** `figures/splicebert/EVIDENCE.md` § "Why the human-only null is a null and not a
+blind instrument" answered the lone-reader power objection with *"the best human-only head has
+`m_T = 0.001`"* — i.e. the null is safe because the strongest human-only effect is ~0.
+
+**Why it was wrong.** `results/phase-lattice/fig_report_data.json` (`levelA.human_only`, 75 heads)
+records the best human-only head as **L2H9 at `m_T = 0.556`**, with **`p_exact = 0.796`** — 318 of its
+400 permutations match or exceed it. **No human-only head has `m_T = 0.001`**; that figure is L1H3's
+**band mass** (`0.00193`, the 0.19% quoted correctly two paragraphs earlier in the same section), a
+different quantity read as an effect size. Found by the 2026-07-24 draft-sourcing audit, which recorded
+the discrepancy but did not edit the of-record document.
+
+**What is unaffected.** **C13 stands, and the argument is stronger on the correct number:** the closure
+holds because the best head's apparent signal sits **inside its own permutation null**, not because the
+effects are ~0 — a stricter refutation of the blind-instrument objection than the one written. Zero of
+the 14 preregistered readers reach Level A after add-one correction (R19), the twin-model sensitivity
+argument (eight Level-A heads multi-species) is untouched, and no artifact value changed.
+
+**Rule.** `m_T` and band mass are separate quantities on separate scales — quote each with the head it
+belongs to. A power-objection rebuttal must report the best head's `p_exact` against its own null, not a
+bare effect size. Corrected in `figures/splicebert/EVIDENCE.md`.
+
+## R39 — four period-3 memorial test files were deleted, and the missing-artifact correction they were waiting for was never written (2026-07-31)
+
+**What changed.** `tests/test_carrier_phase_memorials.py`, `test_carrier_strata_memorials.py`,
+`test_dual_reader_memorials.py`, and `test_dyad_assay_memorials.py` were removed from the tree. Each was
+gated on an artifact that no longer exists — `results/phase-lattice/{carrier_phase,carrier_strata,dual_reader,dyad_assay}.json` —
+and on a runner that no longer exists, both deleted in `af64808`. Every test in all four files had been
+skipping since that commit and could never fire again; `results/MANIFEST.csv` carries no row for any of
+the four artifacts.
+
+**Why this needs an entry rather than a silent delete.** The artifact deletion in `af64808` was itself
+never logged. `docs/PREREG_CONFORMANCE.md` already flags the gap for the carrier-phase family — the
+remediation it names ("delete the test *or* restore the artifact, and log the correction") was half
+applied, twice: the artifacts went, then the tests went, and neither step wrote a correction. This entry
+closes that. **No claim is affected:** none of the four artifacts is cited by any live claim row, and the
+period-3 record rests on `carrier_surgery.json`, `carrier_dose.json`, `carrier_mediation.json`, and the
+C36 confirmation package, all present and all still covered by memorial tests.
+
+**What was lost.** The four suites' *assertions* are gone with them. Whatever invariants they encoded
+about the carrier-phase, carrier-strata, dual-reader, and dyad-assay outputs are recoverable only from
+Git history, and if any of those experiments is revived its memorials must be rewritten from the
+preregistration rather than restored from the deleted file — a memorial written against an artifact that
+no longer exists cannot be assumed still valid.
+
+**Rule.** Deleting a result artifact and deleting the memorial that guards it are two separate edits to
+the scientific record, and **both** require a correction entry. A permanently-skipping test is not
+harmless: it reads as coverage in the suite count while asserting nothing.
+
+**One deletion in the same pass was reversed for this reason.** `src/gfmcd/circuits/attribution.py` was
+removed as dead code — verified zero importers, and its only test was itself permanently skipped on a
+`colab_results/` path deleted in `af64808`. But the **frozen** `PREREGISTRATION_B4_L3H1_CARRIER_TO_L2MLP.md:163`
+cites it by path in an inventory of the ACDC-family path/edge-patching primitives the repository has, and
+B4 ran (22 result rows). Deleting it would have left a frozen protocol pointing at nothing and quietly
+weakened a documented capability claim, so the module was restored. Its permanently-skipped test was not.
+**Rule:** "zero importers" is not sufficient grounds to delete a module — grep the frozen preregistrations
+and red-team syntheses for its path first, because those cite tooling as evidence and cannot be edited.
+
+## R40 — C41 rendered across-draw ranges in confidence-interval notation, and quoted a pilot dose slope as a confirmatory one (2026-07-31)
+
+**What was claimed.** C41's row wrote `Δ_spec = −0.33 [−0.345, −0.276]` and `τ_PERP = 0.00 [−0.015, +0.010]`
+in the same bracket notation every other row in this ledger uses for a confidence interval, and gave the
+dose slope as `β = 0.27`.
+
+**Why it was wrong.** Verified directly against `results/splicebert_coupling/g1_cross_example_transduction.json`:
+
+- Those brackets are the **min/max across the 8 resampled-source draws** (`across_draw.Delta_spec`,
+  `across_draw.PERP_MATCHED_lin`), not intervals. Across-draw mean `Δ_spec` is **−0.320** (median −0.330,
+  SD 0.023); `τ_PERP` is **−0.0001**. The **per-draw dyadic CIs are far wider** — draw 0's `Δ_spec` CI is
+  `[−0.527, −0.220]`, half-width **0.153**, roughly 4× the full across-draw spread. A reader taking the
+  notation at face value understates the uncertainty by that factor.
+- `β = 0.27` is not the confirmatory value. The confirmatory across-draw mean of `beta_dose_REAL` over the
+  8 draws is **0.2425** (median 0.240, range 0.215–0.266). `0.27` matches the `H_dev` **pilot** (0.2737) —
+  a pilot number quoted in a confirmatory summary.
+
+**What is unaffected.** **The finding is unchanged and none of the verdicts move.** Δ_spec is negative in
+all 8 draws and its across-draw spread does not approach zero; τ_PERP straddles zero in every draw; the
+modal verdict stays 6/8 GENERIC, 0/8 TRANSDUCING. The dose relation is still monotone and positive — only
+its slope was overstated by about 11%. C41's tier is untouched (verification, R28/R32).
+
+**How it was found.** The 2026-07-24 draft-sourcing audit recorded both, but the document was a dated
+review and no one applied its §6; the 2026-07-31 cleanup deleted it, and the finding surfaced only because
+a verification pass diffed the deleted file against what had actually been salvaged.
+
+**Rule.** In a claim row, `[a, b]` means a confidence interval and nothing else. A stability spread across
+seeds or draws must be written as such — "range", "SD", or "min–max across N draws" — because the two
+carry opposite messages about precision. And a pilot value may never appear in a confirmatory summary
+without being labelled: check which split produced every number before it enters a row.
+
+## R41 — reproducibility gaps found by a dedicated audit: a canonical figure producer could not run, and twelve live memorials had been silently dead since af64808 (2026-07-31)
+
+**What was wrong.** Three defects, all pre-dating the 2026-07-31 cleanup, all invisible to the test
+suite because the guards check paths and IDs, never whether a runner can execute.
+
+1. **C8's figure-data producer could not run.** `scripts/splicebert/make_fig_phase_data.py` — the
+   canonical producer of `results/phase-lattice/fig_phase_data.json` — does an unguarded module-level
+   `from make_fig_wave_fit import build`, and `make_fig_wave_fit.py` was deleted in `af64808`. Any
+   attempt to regenerate that artifact died at import. **Fixed:** the module (102 lines, a pure
+   function of already-recorded `R(k)`, depending only on `src/gfmcd/splicing/wave.py`, which
+   survives) was restored from `af64808^`.
+2. **Twelve memorials for a live claim had been dead since the same commit.**
+   `tests/test_chromatin_refutation_memorials.py` pins R17 — the powered refutation of the nucleosome
+   reading behind **C14**. Its module-level `skipif` ANDed three artifacts; one of them,
+   `results/phase-lattice/synth_grid.json`, was deleted in `af64808`, so **all twelve tripwires
+   skipped**, including the seven that need only `dyad_wavelength.json` and `dyad_real.json` — both
+   present the whole time. Twelve memorials defending a live refutation counted as suite coverage
+   while asserting nothing. **Fixed:** the gate is now per-artifact; seven tripwires run again. The
+   five D27 grid tripwires remain skipped and are now *individually* marked with the reason —
+   `synth_grid.json` is gone and no runner in the tree regenerates it, so that leg of R17 is
+   **unverifiable from this checkout**.
+3. **Several canonical runners hardcode absolute paths from the original machine.** 21 tracked files
+   carry a non-CLI-overridable `/Users/cberg/...` constant. Most are `DEFAULT_*` values feeding an
+   argparse default and can be overridden; the following cannot without editing source:
+   `measure_band_mass.py:46`, `run_postsoftmax.py:380`, `run_dyad_real.py:57-58`,
+   `run_dyad_wavelength.py:120`, `run_splice_phasing.py:64-65`, `audit_ed1_provenance.py:56-58`,
+   `src/gfmcd/splicing/circuit.py:73-74`, and — worst — `run_g1_cross_example_transduction.py:94-95`,
+   the **C41** runner, which hardcodes not only the genome but the *repository checkout path itself*,
+   so it does not run from a clone or a worktree. **Not fixed here:** these runners are pinned by
+   their manifests and R35 records the standing decision not to edit them, because changing a default
+   changes what a rerun does. Disclosed instead in `REPRODUCE.md` §2.2 item 5.
+
+**What is unaffected.** No claim, number, interval, or evidence level changes. Every artifact these
+runners produced is committed and its recorded values stand; what was broken is the ability to
+*regenerate* them, and — for the twelve memorials — the ability to notice if a committed value drifted.
+
+**Rule.** "The suite is green" and "the record is reproducible" are different properties, and this
+repository's guards only measure the first. A memorial gated on an artifact that no longer exists is
+worse than no memorial: it occupies a slot in the coverage count. When an artifact is deleted, grep the
+test suite for its path and split any conjunctive skip gate that mentions it, so the tests that do not
+depend on it keep firing.

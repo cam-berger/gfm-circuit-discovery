@@ -14,7 +14,7 @@ REPO = Path(__file__).resolve().parents[1]
 SCRIPT = (
     REPO
     / "scripts"
-    / "splicebert"
+    / "splicebert_gtex_finetune_shift"
     / "freeze_gtex_native_biological_features_confirmation.py"
 )
 SPEC = importlib.util.spec_from_file_location(
