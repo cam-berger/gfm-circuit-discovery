@@ -33,7 +33,7 @@ This is a method-first mechanistic-interpretability repository. SpliceBERT is th
 - Update the study claim ledger when evidence changes status. A summary document may point to the ledger but may not supersede it silently.
 - Do not restore GFM-nano, reading-frame, repeat-copy, or v1 partner-selection code to the active tree. Nor the study programs removed on 2026-07-31 (DNABERT-2 reconstruction atlas, Caduceus transfer, codon phase lattice, segment attribution). Use Git history when historical context is needed.
 - Do not commit fitted dictionaries, activation captures, or other large binaries. The compact result JSON, its manifest, and its audit are what make a claim checkable; a `.pt` or `.npz` is not evidence and `.gitignore` already excludes them.
-- Do not write inter-agent handoff, triage, or dated review documents into the tree. Durable outputs go to the claim ledger, `CORRECTIONS.md`, the relevant `DECISIONS*.md`, or a test that prevents the defect from recurring.
+- Do not write inter-agent handoff, triage, or dated review documents into the tree. Durable outputs go to the claim ledger, `CORRECTIONS.md`, the relevant `DECISIONS*.md`, or a test that prevents the defect from recurring. Four dated documents remain under `docs/` and are **not** exceptions to this rule — each is cited by executable code or by a frozen protocol (`verify_manifest.py` and `tests/test_manifest.py` cite `REVIEW_2026-07-22.md` §4 as the manifest specification; frozen preregistrations cite the two B2/B3 notes; `CORRECTIONS.md` and `results/origin-siblings/RESULTS_INDEX.md` cite the carrier-origin synthesis). They are pinned, not retained by preference.
 
 ## Before finishing
 

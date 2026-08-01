@@ -70,9 +70,9 @@ bounded as seed-specific rather than licensed as a universal classifier directio
 
 The exploratory coordinate-alignment extension is:
 
-- `native_context_per_seed_alignment_discovery_v1.json` plus `.npz`: five seed-specific bases and
+- `native_context_per_seed_alignment_discovery_v1.json` (its `.npz` companion is **not tracked** — see below): five seed-specific bases and
   discovery-only orthogonal maps;
-- `native_context_per_seed_alignment_evaluation_v1.json` plus `.npz`: raw/aligned basis and
+- `native_context_per_seed_alignment_evaluation_v1.json` (its `.npz` companion is **not tracked** — see below): raw/aligned basis and
   example-conditioned vector transport;
 - `native_context_per_seed_alignment_evaluation_audit_v1.json`: preserved correction of the
   summary-only rank-4 verdict bug.
@@ -84,7 +84,7 @@ The exact native-unit extension is:
 
 - `native_context_final_mlp_unit_discovery_v1.json`: every post-GELU unit tested individually; nested
   context/head-induced groups and output-norm controls frozen per seed and endpoint;
-- `native_context_final_mlp_unit_evaluation_v1.json` plus `.npz`: completeness curves, exact
+- `native_context_final_mlp_unit_evaluation_v1.json` (its `.npz` companion is **not tracked** — see below): completeness curves, exact
   head→unit paths, and descriptive singleton ownership.
 
 These artifacts control GFS20. Both context effects first reach 80% with 256 of 2,048 native units.
@@ -96,10 +96,10 @@ biological feature.
 The biological-feature sparse-instrument arm is:
 
 - `sparse_transcoder_sequence_package_v1.json`: strict label-free sequence states with source hashes;
-- `sparse_transcoder_activation_capture_v1.json` plus `.npz`: exact base and five-seed final-MLP
+- `sparse_transcoder_activation_capture_v1.json` (its `.npz` companion is **not tracked** — see below): exact base and five-seed final-MLP
   input/write views;
 - `sparse_transcoder_training_attempt1_failure.json`: preserved inactive-threshold diagnostic failure;
-- `sparse_transcoder_training_v1.json` plus `.pt`: the complete frozen grid and unresolved verdict.
+- `sparse_transcoder_training_v1.json` (its `.pt` companion is **not tracked** — see below): the complete frozen grid and unresolved verdict.
 
 These artifacts control GFS21. The planted sparse detector/writer control passes, but no joint setting
 passes the all-view write-delta reconstruction and initialization-stability gates. Every joint fit
@@ -142,7 +142,7 @@ Neither carrier changes paired-site coupling detectably.
 
 The larger paired-delta J-SAE repair is:
 
-- `jacobian_sae_large_v1.json` plus `.pt`: the exact-hash-pinned 512-input/128-output TopK-16
+- `jacobian_sae_large_v1.json` (its `.pt` companion is **not tracked** — see below): the exact-hash-pinned 512-input/128-output TopK-16
   factorial pilot, with its adjacent manifest.
 
 This artifact controls GFS33 and has status `INSTRUMENT_UNRESOLVED`. The seed-2020 pilot passes MLP,

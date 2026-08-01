@@ -357,7 +357,7 @@ planted-positive gate and the planted-confound arm.
 `preregistrations/README.md:44`, `docs/METHODOLOGY.md:39`. **Deliberately not scoped past R28:** the
 `--smoke`/`D_src` cohort assignment for planted-positive is prereg-licensed (§4, §9) and is *not* a
 deviation; calling it one would create a second false statement.
-**Left as dated record:** `DECISIONS.md:201`, `docs/DRAFT_SOURCING_AUDIT_2026-07-24.md:203`.
+**Left as dated record:** `DECISIONS.md:201`. (A second dated site, the 2026-07-24 draft-sourcing audit, was removed with its file in the 2026-07-31 cleanup; its unapplied findings became R38 and R40.)
 **Additional site corrected (2026-07-31, ledger restructure):** `CLAIMS.md` C38 carried a second,
 missed instance — a clause describing C41 as *"confirmatory on the Atlas `H_conf` split"*, which
 contradicted C41's own row and this entry. R32 corrected five sites on 2026-07-25 and this one was
@@ -574,3 +574,43 @@ no longer exists cannot be assumed still valid.
 **Rule.** Deleting a result artifact and deleting the memorial that guards it are two separate edits to
 the scientific record, and **both** require a correction entry. A permanently-skipping test is not
 harmless: it reads as coverage in the suite count while asserting nothing.
+
+**One deletion in the same pass was reversed for this reason.** `src/gfmcd/circuits/attribution.py` was
+removed as dead code — verified zero importers, and its only test was itself permanently skipped on a
+`colab_results/` path deleted in `af64808`. But the **frozen** `PREREGISTRATION_B4_L3H1_CARRIER_TO_L2MLP.md:163`
+cites it by path in an inventory of the ACDC-family path/edge-patching primitives the repository has, and
+B4 ran (22 result rows). Deleting it would have left a frozen protocol pointing at nothing and quietly
+weakened a documented capability claim, so the module was restored. Its permanently-skipped test was not.
+**Rule:** "zero importers" is not sufficient grounds to delete a module — grep the frozen preregistrations
+and red-team syntheses for its path first, because those cite tooling as evidence and cannot be edited.
+
+## R40 — C41 rendered across-draw ranges in confidence-interval notation, and quoted a pilot dose slope as a confirmatory one (2026-07-31)
+
+**What was claimed.** C41's row wrote `Δ_spec = −0.33 [−0.345, −0.276]` and `τ_PERP = 0.00 [−0.015, +0.010]`
+in the same bracket notation every other row in this ledger uses for a confidence interval, and gave the
+dose slope as `β = 0.27`.
+
+**Why it was wrong.** Verified directly against `results/splicebert_coupling/g1_cross_example_transduction.json`:
+
+- Those brackets are the **min/max across the 8 resampled-source draws** (`across_draw.Delta_spec`,
+  `across_draw.PERP_MATCHED_lin`), not intervals. Across-draw mean `Δ_spec` is **−0.320** (median −0.330,
+  SD 0.023); `τ_PERP` is **−0.0001**. The **per-draw dyadic CIs are far wider** — draw 0's `Δ_spec` CI is
+  `[−0.527, −0.220]`, half-width **0.153**, roughly 4× the full across-draw spread. A reader taking the
+  notation at face value understates the uncertainty by that factor.
+- `β = 0.27` is not the confirmatory value. The confirmatory across-draw mean of `beta_dose_REAL` over the
+  8 draws is **0.2425** (median 0.240, range 0.215–0.266). `0.27` matches the `H_dev` **pilot** (0.2737) —
+  a pilot number quoted in a confirmatory summary.
+
+**What is unaffected.** **The finding is unchanged and none of the verdicts move.** Δ_spec is negative in
+all 8 draws and its across-draw spread does not approach zero; τ_PERP straddles zero in every draw; the
+modal verdict stays 6/8 GENERIC, 0/8 TRANSDUCING. The dose relation is still monotone and positive — only
+its slope was overstated by about 11%. C41's tier is untouched (verification, R28/R32).
+
+**How it was found.** The 2026-07-24 draft-sourcing audit recorded both, but the document was a dated
+review and no one applied its §6; the 2026-07-31 cleanup deleted it, and the finding surfaced only because
+a verification pass diffed the deleted file against what had actually been salvaged.
+
+**Rule.** In a claim row, `[a, b]` means a confidence interval and nothing else. A stability spread across
+seeds or draws must be written as such — "range", "SD", or "min–max across N draws" — because the two
+carry opposite messages about precision. And a pilot value may never appear in a confirmatory summary
+without being labelled: check which split produced every number before it enters a row.
