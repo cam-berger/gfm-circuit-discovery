@@ -3,26 +3,25 @@
 > **Tier: T2 — provenance.** Figure provenance for the sequence→head→output circuit figures, 2026-07-24.
 > Every value is licensed from the frozen record; nothing here is a new claim.
 
-Three publication figures (vector PDF + 300-dpi PNG), all driven by
-[`../viz/circuit_data.json`](../viz/circuit_data.json) (values from `CLAIMS.md` + frozen artifacts) and, for the
-real-attention panels, a live SpliceBERT.1024nt forward pass (`../viz/live_attention.json`).
+One publication figure (vector PDF + 300-dpi PNG), driven by
+[`../viz/circuit_data.json`](../viz/circuit_data.json) — values from `CLAIMS.md` and frozen artifacts.
 
 ## Figures
 
-- **`fig1_hero.*`** — the multi-panel Figure 1. (a) front-to-back circuit schematic; (b) real attention from a
-  live forward pass, all 6×16 heads scored by donor→acceptor read, circuit heads ringed; (c) payload-branch
-  conditional necessity (C31) with 95% CIs; (d) the readout cascade (distributed chain: 0.023 → 0.818 as blocks
-  are released).
-- **`fig2_circuit_schematic.*`** — the standalone front-to-back schematic (Figure 2 / hero), matplotlib-native
-  vector.
-- **`fig3_real_attention.*`** — the real-attention evidence plate: 96-head address grid + per-head attention
-  maps (L3H1, L0H7, L2H15) from the live forward pass.
+- **`fig2_circuit_schematic.*`** — the standalone front-to-back circuit schematic, matplotlib-native vector.
 
-## Provenance of the live attention
+## Removed on 2026-07-31 — not regenerable
 
-`../viz/live_attention.json` is one CPU forward pass of **SpliceBERT.1024nt** (6 layers × 16 heads, eager
-attention) on a canonical short-intron donor–acceptor example (intron 106 nt, within the licensed 60–150 nt
-regime). It is a **visualization input only** — not a claim-ledger result and not registered in `MANIFEST`.
+`fig1_hero.*` and `fig3_real_attention.*` were removed, along with the `make_paper_figures.py` stub that
+claimed to build them. Both depended on `../viz/live_attention.json` — a single live SpliceBERT.1024nt
+forward pass used as a visualization input — and **that file was never committed**. Neither figure could be
+rebuilt from the repository, neither carried a `.provenance.json`, and neither had a `MANIFEST` row, so both
+violated rule 1 of [`../README.md`](../README.md). The stub generator contained no executable statements.
+
+If a hero figure is wanted for submission it must be built from real code against committed artifacts, with a
+provenance sidecar, exactly like `fig1_coupling` and `fig5_p3_phase_surgery_confirmation`. The data-derived
+[`../fig_full_circuit.png`](../fig_full_circuit.png) already covers the front-to-back schematic and does have
+declared provenance.
 
 ## Values shown (all licensed)
 

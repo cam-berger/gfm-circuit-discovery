@@ -9,8 +9,9 @@ This is a method-first mechanistic-interpretability repository. SpliceBERT is th
 1. `README.md`
 2. `docs/METHODOLOGY.md`
 3. `docs/EVIDENCE_LADDER.md`
-4. `studies/splicebert/README.md`
+4. `MECHANISM.md`
 5. For a detailed claim, `studies/splicebert_partner_selection/CLAIMS.md` and the relevant result manifest.
+6. Before citing any preregistered gate as enforced, `docs/PREREG_CONFORMANCE.md`.
 
 ## Non-negotiable research rules
 
@@ -25,12 +26,14 @@ This is a method-first mechanistic-interpretability repository. SpliceBERT is th
 
 ## Change discipline
 
-- Active SpliceBERT code belongs under `scripts/splicebert/`, `src/gfmcd/splicing/`, or the reusable adapter/circuit packages.
+- Active SpliceBERT code belongs under `scripts/splicebert/`, `src/gfmcd/splicing/`, or the reusable adapter/circuit packages. Each study owns its own `scripts/<study>/` tree; do not add a second study's runners to `scripts/splicebert/`.
 - A new GFM gets an adapter under `src/gfmcd/adapters/` and a study directory created from `studies/TEMPLATE_REAL_GFM_STUDY/`.
 - Every result-producing run writes immutable machine-readable output plus a manifest containing checkpoint, data, parameters, seed, code revision, and command.
 - Figures must be generated from recorded artifacts and declare their sources.
 - Update the study claim ledger when evidence changes status. A summary document may point to the ledger but may not supersede it silently.
-- Do not restore GFM-nano, reading-frame, repeat-copy, or v1 partner-selection code to the active tree. Use Git history when historical context is needed.
+- Do not restore GFM-nano, reading-frame, repeat-copy, or v1 partner-selection code to the active tree. Nor the study programs removed on 2026-07-31 (DNABERT-2 reconstruction atlas, Caduceus transfer, codon phase lattice, segment attribution). Use Git history when historical context is needed.
+- Do not commit fitted dictionaries, activation captures, or other large binaries. The compact result JSON, its manifest, and its audit are what make a claim checkable; a `.pt` or `.npz` is not evidence and `.gitignore` already excludes them.
+- Do not write inter-agent handoff, triage, or dated review documents into the tree. Durable outputs go to the claim ledger, `CORRECTIONS.md`, the relevant `DECISIONS*.md`, or a test that prevents the defect from recurring.
 
 ## Before finishing
 

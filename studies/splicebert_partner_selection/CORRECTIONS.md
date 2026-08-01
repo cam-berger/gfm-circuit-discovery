@@ -358,6 +358,15 @@ planted-positive gate and the planted-confound arm.
 `--smoke`/`D_src` cohort assignment for planted-positive is prereg-licensed (§4, §9) and is *not* a
 deviation; calling it one would create a second false statement.
 **Left as dated record:** `DECISIONS.md:201`, `docs/DRAFT_SOURCING_AUDIT_2026-07-24.md:203`.
+**Additional site corrected (2026-07-31, ledger restructure):** `CLAIMS.md` C38 carried a second,
+missed instance — a clause describing C41 as *"confirmatory on the Atlas `H_conf` split"*, which
+contradicted C41's own row and this entry. R32 corrected five sites on 2026-07-25 and this one was
+overlooked; it surfaced during the ledger restructure. The false tier word is **removed rather than
+paraphrased forward** (restating it in other words would create a second false statement), and C38 now
+defers to C41's own row for the tier instead of asserting one. The finding is unchanged: the donor-side
+delivered state still transfers as a generic readout axis. **Lesson:** correcting a claim's own row is
+not enough — grep the ledger for every row that *describes* that claim, because a cross-reference can
+carry a retracted status word forward invisibly.
 
 ## R33 — C39's sibling band-deletion is verification-level, and its artifact `verdict` is a hand-written adjudication (2026-07-25)
 

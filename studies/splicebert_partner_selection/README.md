@@ -36,8 +36,9 @@ but “splice-site strength” was withdrawn by R22.
 | [`redteam/`](redteam/README.md) | P3 adversarial design reviews and execution synthesis. |
 | [`archive/`](archive/README.md) | Historical records preserved but not current entry points. |
 
-`DONOR_CIRCUIT_ACCOUNT.md` is retained as the original C16–C19 synthesis; it predates A0→A12 and
-R22–R24, so the repository-level `MECHANISM.md` controls current framing.
+The original C16–C19 donor-circuit synthesis — a T3 historical document — is no longer in the tree. It
+predated A0→A12 and R22–R24; current framing is controlled by the repository-level
+[`../../MECHANISM.md`](../../MECHANISM.md) and the compact [`CLAIMS.md`](CLAIMS.md) above.
 
 ## Evidence boundaries
 

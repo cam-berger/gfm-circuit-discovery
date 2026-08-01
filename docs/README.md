@@ -4,6 +4,7 @@
 
 These documents define the research program independently of any one model.
 
+- [PAPER_SPINE.md](PAPER_SPINE.md) — what the ~9-page write-up would contain, section by section, and which claim, figure, and artifact backs each part. Start here if you want to know what this repository is *for*.
 - [METHODOLOGY.md](METHODOLOGY.md) — the end-to-end discovery workflow and tool families.
 - [EVIDENCE_LADDER.md](EVIDENCE_LADDER.md) — what each experiment licenses, and where claims must stop.
 - [TRANSFER_GUIDE.md](TRANSFER_GUIDE.md) — how to port the approach to another GFM.

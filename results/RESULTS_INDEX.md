@@ -42,6 +42,25 @@ them.
 licenses is given by `evidence_level` and, authoritatively, by the claim ledgers — never by this
 index. Evidence never promotes itself between rungs.
 
+## `claim_id` values that are not claim IDs
+
+Most rows carry a ledger claim ID (`C*`, `HCA*`, `GFS*`, `IC1`, `ED1`). Six values do not resolve to a
+ledger row, because they name an **experiment arc** rather than a claim. They are listed here so a
+reader of the manifest is not left chasing an identifier that does not exist. `tests/test_ledger_consistency.py`
+only validates the `C*`/`HCA*`/`GFS*` forms, so these are not caught automatically.
+
+(A seventh, `ED1`, *was* an unresolved identifier until 2026-07-31: four canonical rows carried it with
+no defining row anywhere. It now has one — see the last section of the donor-circuit ledger.)
+
+| `claim_id` | What it is | Where the claim actually lives |
+|---|---|---|
+| `A4` | The first address-geometry design, superseded before it produced a claim. | Redesigned as A11 → **C32**. |
+| `A9` | Preflight for the payload-semantics arc. | The arc's surviving result is **C30**; its naming was withdrawn by **R22**. |
+| `R22` | `a9c_sweep_seeded_draws.json` is evidence *for a retraction*, not for a claim. | `CORRECTIONS.md` R22. |
+| `IC2` | Acceptor-competition feasibility and calibration for an arc retired before its confirmatory run. | No claim; the premise was refuted by Atlas HCA4/HCA10. |
+| `P3-shift-diagnostic` | An exploratory period-3 shift diagnostic, outcome-aware; never promoted. | No claim. The carrier claims are C8, C34–C36. |
+| `HCA7-HCA10` | A range label on one closure-audit artifact. | The individual rows HCA7…HCA10 exist in the Atlas ledger. |
+
 ## Integrity check
 
 `scripts/verify_manifest.py` verifies that every tracked file under `results/` has exactly one

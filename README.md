@@ -142,6 +142,7 @@ correction ledgers decide — `studies/splicebert_partner_selection/CLAIMS.md` f
 
 The canonical set is small on purpose:
 [`MECHANISM.md`](MECHANISM.md) · [`REPRODUCE.md`](REPRODUCE.md) ·
+[`docs/PAPER_SPINE.md`](docs/PAPER_SPINE.md) ·
 [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md) · [`docs/EVIDENCE_LADDER.md`](docs/EVIDENCE_LADDER.md) ·
 [`docs/NOMENCLATURE.md`](docs/NOMENCLATURE.md) · [`docs/BIOLOGICAL_BRIDGES.md`](docs/BIOLOGICAL_BRIDGES.md) ·
 [`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) ·
@@ -153,6 +154,9 @@ the per-study `CLAIMS.md` files.
 
 ## Start here
 
+0. If you want to know what this repository is *for* before reading any evidence, read
+   [`docs/PAPER_SPINE.md`](docs/PAPER_SPINE.md) — the nine-page write-up the record backs, mapped
+   section by section to its claims, figures, and artifacts, with the known gaps stated.
 1. Read the [methodology](docs/METHODOLOGY.md) and [evidence ladder](docs/EVIDENCE_LADDER.md).
 2. Read the one-file [current mechanism and limitations](MECHANISM.md).
 3. Use the [live claim ledger](studies/splicebert_partner_selection/CLAIMS.md); consult

@@ -163,8 +163,9 @@ These are lifecycle closures, not retractions — no new R-number is warranted; 
 
 ## 2026-07-23 — Tier-1 closure: G1 EXECUTED (C41), C12 terminal, C30 closed-bounded
 
-The last substantive SpliceBERT loop was executed off the `tier1-handoff` brief
-(`docs/TIER1_HANDOFF_2026-07-23.md`), owner-authorized at the freeze checkpoint.
+The last substantive SpliceBERT loop was executed off a dated Tier-1 planner→executor handoff brief
+(owner-authorized at the freeze checkpoint). That brief is no longer in the tree; what it commissioned is
+recorded here and in `G1_REPORT.md`.
 
 - **G1 — cross-example transduction of the donor-side delivered state → C41: GENERIC READOUT AXIS
   (confirmatory).** The G1 prereg's real estimand is the **A5/C26 final-residual U_info patch** (not a
@@ -199,6 +200,7 @@ The last substantive SpliceBERT loop was executed off the `tier1-handoff` brief
   Retired-term guard: "splice-site strength" stays withdrawn.
 
 These are executions + lifecycle closures with one new confirmatory row (C41); no retraction. **Provenance/hygiene:**
-run in this worktree with `data/models` symlinked from the main checkout (gitignored). Executor return record:
-`return_to_planner_tier1.json`; one-page report: `G1_REPORT.md`. Commits held on the branch pending a GitHub
-credential (push blocked per the handoff).
+run in this worktree with `data/models` symlinked from the main checkout (gitignored). The executor returned a
+machine-readable record to the planner at the close of the loop; that reply is no longer in the tree, and the
+loop's outcome is carried by the one-page report `G1_REPORT.md` and the C41 row in the claim ledger. Commits
+held on the branch pending a GitHub credential (push blocked per the handoff).
