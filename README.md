@@ -118,32 +118,7 @@ its manifest, and the audit that let someone check a claim are version-controlle
 ledger is controlled by a binary artifact.
 
 Historical GFM-nano, reading-frame, repeat-copy, and retracted v1 partner-selection implementations are
-preserved in Git history rather than restored to the active tree.
-
-## Document tiers
-
-Over 200 markdown documents accumulated across the study's history; the 2026-07-31 cleanup removed the
-dated agent-session handoffs, triage notes, and superseded drafts among them, leaving 166. **The
-scientific record itself is never deleted or rewritten** — claim rows, corrections, frozen
-preregistrations, red-team syntheses, and decision logs are append-only, and superseded narratives that
-carry evidence are retained. What was removed was process exhaust, and it remains in Git history.
-Mutable documents carry a tier banner immediately under their title, so a reader can tell at a glance
-whether each is current guidance or a retained record. Frozen, content-addressed protocol inputs are not
-rewritten merely to add a banner; the verified exceptions are indexed by
-[`tests/test_repository_hygiene.py`](tests/test_repository_hygiene.py).
-
-| Tier | Meaning | Where it is used |
-|---|---|---|
-| **T1 — canonical** | Current, authoritative. Read this. | This file, `CLAUDE.md`, `AGENTS.md`, `MECHANISM.md`, `REPRODUCE.md`, the `docs/` method set, each study's `CLAIMS.md`, each `results/**/RESULTS_INDEX.md`, and the figure READMEs. |
-| **T2 — provenance** | Supporting record: preregistrations, decision logs, correction ledgers, audits. | `CORRECTIONS.md`, `DECISIONS*.md`, `preregistrations/`, `redteam/`, `RESULTS_VERIFICATION.md`, review and audit documents, study-level narratives and run reports. |
-| **T3 — historical** | Superseded or point-in-time; retained for the record. Not current guidance. | Documents whose own text marks them superseded or archived, dated one-off plans and handoffs, and captions for figures that are no longer figures of record. |
-
-The tier is navigational only. It records where a document sits relative to the current record; it never
-adjusts what that document says. Where a T2 or T3 document disagrees with a T1 one, the claim and
-correction ledgers decide — `studies/splicebert_partner_selection/CLAIMS.md` for live wording,
-[`CORRECTIONS.md`](studies/splicebert_partner_selection/CORRECTIONS.md) for why it changed.
-
-The canonical set is small on purpose:
+preserved in Git history rather than restored to the active 
 [`MECHANISM.md`](MECHANISM.md) · [`REPRODUCE.md`](REPRODUCE.md) ·
 [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md) · [`docs/EVIDENCE_LADDER.md`](docs/EVIDENCE_LADDER.md) ·
 [`docs/NOMENCLATURE.md`](docs/NOMENCLATURE.md) · [`docs/BIOLOGICAL_BRIDGES.md`](docs/BIOLOGICAL_BRIDGES.md) ·
