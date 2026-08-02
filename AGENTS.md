@@ -35,8 +35,24 @@ This is a method-first mechanistic-interpretability repository. SpliceBERT is th
 - Do not commit fitted dictionaries, activation captures, or other large binaries. The compact result JSON, its manifest, and its audit are what make a claim checkable; a `.pt` or `.npz` is not evidence and `.gitignore` already excludes them.
 - Do not write inter-agent handoff, triage, or dated review documents into the tree. Durable outputs go to the claim ledger, `CORRECTIONS.md`, the relevant `DECISIONS*.md`, or a test that prevents the defect from recurring. Four dated documents remain under `docs/` and are **not** exceptions to this rule — each is cited by executable code or by a frozen protocol (`verify_manifest.py` and `tests/test_manifest.py` cite `REVIEW_2026-07-22.md` §4 as the manifest specification; frozen preregistrations cite the two B2/B3 notes; `CORRECTIONS.md` and `results/origin-siblings/RESULTS_INDEX.md` cite the carrier-origin synthesis). They are pinned, not retained by preference.
 
+## The failure modes this suite does not catch
+
+Every guard here checks paths, IDs, links, and tier banners. **None checks meaning.** A negation can
+invert, an evidence level can be upgraded, a memorial can be dead for months, a seed can be
+unreproducible, and a claim's artifact can be missing — with `pytest` fully green throughout. A green
+suite means "nothing structural broke", never "the record is still true".
+
+Read [`.claude/skills/gfm-repo-discipline/`](.claude/skills/gfm-repo-discipline/SKILL.md) before
+editing a claim ledger, deleting anything, or reorganizing the tree; its `FAILURE_MODES.md` records
+the real incident behind each rule. Run its checker alongside the test suite:
+
+```bash
+python3 .claude/skills/gfm-repo-discipline/scripts/check_repo.py
+```
+
 ## Before finishing
 
 - Check links and imports affected by the change.
+- Run the discipline checker above; fix every `FAIL`, judge each `REVIEW`.
 - Run the narrowest relevant tests, then `uv run pytest` when feasible.
 - State what was run, what was not run, and the strongest claim the new evidence licenses.
