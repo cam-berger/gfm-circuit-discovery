@@ -5,6 +5,8 @@ description: Build rules and a defect checker for the gfm-circuit-discovery repo
 
 # Repository discipline for gfm-circuit-discovery
 
+> **Tier: T1 — canonical.** Current, authoritative. Read this.
+
 `AGENTS.md` states the research and change rules — read it first; this skill does not repeat it.
 What follows is the part that is not obvious: **the failure modes that a green test suite does not
 catch**, each drawn from a real defect that survived one here.

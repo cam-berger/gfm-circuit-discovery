@@ -1,5 +1,7 @@
 # Failure modes — the incident behind each rule
 
+> **Tier: T2 — provenance.** Supporting record: the incidents behind the rules in [`SKILL.md`](SKILL.md).
+
 Every entry is a defect that actually occurred in this repository and survived a passing test suite.
 `R*` names the correction entry in
 [`studies/splicebert_partner_selection/CORRECTIONS.md`](../../../studies/splicebert_partner_selection/CORRECTIONS.md).
