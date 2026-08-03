@@ -1,0 +1,19 @@
+{
+  "number_of_clean_sources": 378,
+  "number_of_promoters": 189,
+  "number_of_non_promoters": 189,
+  "intervention_bases": {
+    "promoter_direction_rank1": 1,
+    "gc_svd_rank1": 1,
+    "gc_svd_rank2": 2,
+    "gc_svd_rank4": 4
+  },
+  "intervention_fractions": [
+    0.0,
+    0.25,
+    0.5,
+    1.0
+  ],
+  "number_of_planned_runs": 6048,
+  "intervention_definition": "For each source, interpolate its clean Layer-1 MLP subspace coordinates toward the opposite class's empirical mean coordinates."
+}

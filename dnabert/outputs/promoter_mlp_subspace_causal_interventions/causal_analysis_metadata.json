@@ -1,0 +1,7 @@
+{
+  "bootstrap_iterations": 5000,
+  "bootstrap_seed": 42,
+  "clean_promoter_mean_logit": 7.393424485379779,
+  "clean_non_promoter_mean_logit": -3.2551954432536205,
+  "clean_class_separation": 10.6486199286334
+}

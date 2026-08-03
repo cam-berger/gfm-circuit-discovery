@@ -1,0 +1,23 @@
+{
+  "primary_claim": "A specific low-dimensional Layer-1 MLP subspace causally controls a substantial component of promoter-associated information readable by the fixed Layer-5 diagnostic probe.",
+  "causal_evidence": [
+    "Moving Layer-1 MLP coordinates toward the opposite class produced bidirectional changes in Layer-5 diagnostic probe logits.",
+    "Mean effects increased with intervention fraction, supporting a dose response.",
+    "The promoter direction produced a full-strength mean change of -3.938 logits for promoters and +2.035 logits for non-promoters.",
+    "The GC rank-4 subspace produced a full-strength mean change of -3.013 logits for promoters and +1.427 logits for non-promoters.",
+    "Learned GC rank-1 and rank-4 subspaces exceeded all 20 norm-matched random subspaces for both source classes."
+  ],
+  "specificity_result": {
+    "number_of_random_bases_per_rank": 20,
+    "empirical_one_sided_p_value": 0.047619047619047616,
+    "interpretation": "No sampled random basis matched or exceeded the corresponding learned GC-subspace effect."
+  },
+  "asymmetry": "The subspaces were more effective at reducing promoter evidence in promoters than at creating promoter evidence in arbitrary non-promoters.",
+  "limitations": [
+    "The output is a fixed diagnostic probe, not a native DNABERT-2 promoter classifier.",
+    "Class-conditional coordinate replacement is not equivalent to strict subspace ablation.",
+    "The experiment does not establish a complete promoter-recognition circuit.",
+    "GC association does not prove that the subspace encodes only GC content.",
+    "Twenty random bases limit empirical p-value resolution to 1/21."
+  ]
+}

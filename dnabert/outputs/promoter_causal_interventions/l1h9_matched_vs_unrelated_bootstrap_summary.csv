@@ -1,0 +1,2 @@
+comparison,number_of_pairs,matched_mean_rescue,unrelated_mean_rescue,mean_paired_difference,median_paired_difference,ci_2.5,ci_97.5,fraction_matched_better
+matched minus unrelated L1H9 donor,189,-2.3840565172947477,-2.919634512171763,0.5355779948770153,0.9398099999268572,-0.57868561946911,1.6969837310524587,0.5502645502645502

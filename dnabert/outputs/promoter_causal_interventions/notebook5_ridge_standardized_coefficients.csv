@@ -1,0 +1,10 @@
+feature,standardized_coefficient
+recipient_corrupt_logit,-4.517703193960803
+donor_probe_logit,3.6269676912405693
+gc_fraction,2.8722790402501883
+tata_min_hamming,1.0644393875748583
+cpg_observed_expected,0.7250430563398357
+recipient_gap,-0.5970565843973669
+longest_homopolymer_run,-0.31037825300411714
+gc_box_min_hamming,0.19112171650507792
+sequence_entropy,-0.1703149714879528

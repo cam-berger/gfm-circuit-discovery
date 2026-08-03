@@ -1,0 +1,2 @@
+component,number_of_pairs,mean_clean_logit,mean_corrupt_logit,mean_patched_logit,mean_rescue_amount,median_rescue_amount,mean_recovery_fraction,median_recovery_fraction,fraction_positive_rescue,fraction_at_least_25pct_recovery,fraction_at_least_50pct_recovery,fraction_full_or_over_recovery,fraction_patched_positive
+Layer 1 attention branch,189,7.39342354073619,1.024346879665004,0.21853768013401764,-0.8058091995309862,-1.043473357371015,-0.3953216529070961,-0.16257707762023965,0.3862433862433862,0.2275132275132275,0.14285714285714285,0.06349206349206349,0.5238095238095238

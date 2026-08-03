@@ -1,0 +1,6 @@
+experiment,mean_rescue,ci_2.5,ci_97.5,fraction_positive,interpretation
+L1H9 matched clean patch,-2.3840565172947477,-3.139281921360942,-1.5958062698858222,0.31216931216931215,No absolute rescue; single head is not independently sufficient.
+Layer-1 attention matched patch,-0.8058091995309862,-1.3631129694663189,-0.24818832817600825,0.3862433862433862,Whole attention branch does not restore the promoter-associated readout.
+Layer-1 MLP matched promoter patch,10.809578507055031,9.60177395990402,12.009044523201034,0.8994708994708994,Strong promoter-associated signal delivery.
+Layer-1 MLP unrelated promoter patch,9.524232496498229,7.979267657975611,11.106509172264131,0.8201058201058201,Promoter-class signal transfers across different promoter sequences.
+Layer-1 MLP non-promoter patch,0.28953817134818677,-1.1272422769460628,1.6967943413391646,0.49206349206349204,No reliable rescue from non-promoter donors.
