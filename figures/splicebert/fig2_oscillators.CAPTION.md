@@ -47,6 +47,6 @@ disagree. The **sub-bin** wavelength — recovered by inverting the sinc² leaka
 neighbouring bins — is **10.607** on one grid and **10.652** on the other, converging on
 **10.630**. The grids disagree; the measurement does not.
 
-This matters because the nucleosomal signal measured in DNA sits at **10.298** (Figure 4C), and
+This matters because the nucleosomal signal measured in DNA sits at **10.298** (C14), and
 the difference between 10.63 and 10.30 is far larger than the fit uncertainty. Quoting the bin
 label would have made the two look like the same number. They are not.

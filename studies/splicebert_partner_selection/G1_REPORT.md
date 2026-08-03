@@ -9,7 +9,7 @@
 
 **The donor-side delivered state (C16/C26) transfers across gene-disjoint, context-mismatched examples as a
 gene-generic readout axis — not as example-specific information.** On the sealed Atlas internal-validation
-confirmatory split (`H_conf`, 551 genes, gene- and window-disjoint from the sources), a U_info state derived
+split originally reserved for confirmation (`H_conf`, 551 genes, gene- and window-disjoint from the sources), a U_info state derived
 on gene-disjoint single-pair short-intron source examples moves a target's native donor margin: **large**
 (τ_REAL ≈ 0.65), **dose-monotone** (β = 0.27), and **content-dependent** (REAL ≫ matched-random +0.62, ≫
 scrambled-content +0.68). But the **example-specific part does not beat a norm-matched gene-generic axis**

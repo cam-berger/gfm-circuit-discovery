@@ -43,7 +43,7 @@ def kept_range(key: str) -> str:
 
     These four numbers used to be typed as literals, and one of them drifted: the
     carrier-deleted row read "40-44%" while the artifact says 27-44% (six of the eight
-    heads are below 40%), contradicting fig4_carrier_circuit and EVIDENCE.md. Deriving
+    heads are below 40%), contradicting EVIDENCE.md. Deriving
     them here means the card cannot disagree with its own data package again.
     """
     v = [r[key] for r in _LEVEL_A]

@@ -14,7 +14,7 @@ one-file reviewer account.
 | Donor–acceptor coupling | sealed behavior + specificity | A masked donor score depends on its own paired acceptor in the canonical short-intron domain. |
 | Structured donor core | QK → attention → OV/mediation → behavior | Address/payload binding and low-rank delivery form a causal core, not a minimal or sparse-faithful whole circuit. |
 | Period-3 carrier | position → routing → mediation → clean confirmatory behavior | A distributed relative-positional routing coordinate is causally used in a phase-aligned manner; coding enrichment remains unresolved. |
-| Multispecies ≈10.63 carrier | position → QK → post-softmax attention | A distinct positional attention circuit; OV, behavior, and origin remain open. |
+| Multispecies ≈10.63 carrier | position → QK → post-softmax attention | A distinct positional attention circuit; donor-scoped downstream arms are bounded, general function remains open, and comparative origin is associated with multi-species pretraining. |
 | Human-only ≈10.2 proposal | position/QK; fails attention | The proposed chromatin-reader circuit is closed at the attention gate. |
 | Nucleosomal ≈10.298 signal | sequence-side biological assay | A strong biological signal exists but is distinct from the ≈10.63 carrier. |
 
@@ -26,7 +26,8 @@ controls change it by only **+0.007/+0.005**. All frozen gates passed.
 
 This licenses partner-specific nonlocal coupling for canonical internal short introns (60–150 nt), both
 strands, one checkpoint, and the recorded splits. It does not establish literal transcript-level partner
-selection, splicing in cells, typical long-intron generality, or cross-context transduction.
+selection, splicing in cells, or typical long-intron generality. C38/C41 separately bound cross-example
+transfer.
 
 ## 2. Current causal account
 
@@ -89,12 +90,13 @@ C34/C35 refine the role:
 The licensed interpretation is a distributed relative-positional routing coordinate acting mainly
 through L3H1 attention within this intervention. C34's confirm split is gate-qualified because M1 missed
 its frozen threshold (5.5%>5%); C35 does not exclude upstream carrier effects on payload construction.
-Training origin is not identifiable from the frozen checkpoint.
+Comparative origin is associated with multi-species pretraining (C39/C40); the comparison does not
+isolate species diversity from corpus size, composition, sampling, or optimization history.
 
 C36 supplies the clean, nucleotide-invariant confirmation that C34 lacked. Moving only the learned P3
 position component inside annotation-safe blocks—without changing any nucleotide, codon, motif, MaxEnt
 score, coordinate, or sequence length—produces a material modulo-3 recovery contrast in CDS blocks:
-**Ψ_C=+0.141 [0.110,0.172] nats** across 943 untouched genes. In-register shifts `{3,6,9}` preserve
+**Ψ_C=+0.141 [0.110,0.172] raw logit units** across 943 untouched genes. In-register shifts `{3,6,9}` preserve
 coupling at about **0.757**, whereas adjacent off-register shifts reduce it to about **0.614**; the
 identical upstream-intron surgery changes coupling by only about **0.002**. The learned P3 direction
 exceeds all 19 signed-permutation controls that preserve its spatial waveform, Gram matrix, norms,
@@ -108,7 +110,7 @@ in CDS blocks, not coding specificity, reading-frame sensing, or training origin
 
 The separate multispecies **≈10.63** carrier reaches controlled post-softmax attention in eight heads. Its
 donor-side OV and behavioural arms ran (C37→C12) and returned a sub-SESOI non-detection and a small
-suppressive bound (−0.033 nats), not positives; its **general** OV content and behavioural function remain
+suppressive bound (−0.033 raw logit units), not positives; its **general** OV content and behavioural function remain
 unresolved, its biological origin is corpus-attributed (C39/C40), and the `U_info` write test was never
 computed **and is not evaluable as preregistered** — every per-head OV branch is scoped to L0 readers and
 no L0 head reaches Level A on this checkpoint, so that branch sits at protocol Endpoint B (R31/R36). The
@@ -116,15 +118,16 @@ human-only ≈10.2 proposal yields zero
 corrected Level-A heads and stops at attention. A dyad-anchored biological assay finds a real nucleosomal
 signal near **10.298 nt**, sufficiently resolved to distinguish it from ≈10.63.
 
-## 7. First missing bridges
+## 7. Remaining bridges
 
-1. **Cross-example/context transduction:** derive a state/direction on discovery genes and cause a
-   controlled, dose-ordered effect in gene-disjoint targets under matched controls.
+1. **Transfer specificity:** C38 establishes strong acceptor-side transfer but does not separate content
+   from its matched geometry floor; C41 identifies the final donor residual as a generic readout axis,
+   not example-specific information. Earlier-layer, non-additive, and wider-context specificity remain open.
 2. **Payload semantics/site-choice steering:** identify a causal local direction first, then validate its
    biological label with independently seeded draws and dyadic inference.
-3. **Period-3 origin:** use training trajectories, controlled retraining, corpus/objective ablations, or
-   cross-model evidence.
-4. **≈10.63 downstream use:** qualify OV and behavior before speculating about origin.
+3. **Period-3 causal origin:** use training trajectories or controlled corpus/objective ablations;
+   C39/C40 provide comparative association with multi-species pretraining, not coding specificity.
+4. **≈10.63 downstream use:** resolve the general function before speculating about a biological correlate.
 
 No candidate advances merely because it is visible in a probe, spectrum, attention map, or attribution
 graph. Attribution ranks; intervention decides.

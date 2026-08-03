@@ -57,13 +57,13 @@ without generic MLM damage, with its semantic label no stronger than the externa
    naming is withdrawn (R22).
 2. **Distributed generation:** the no-knee faithfulness curve explains why a small injected core can be
    sufficient without being a self-contained generator; adaptive minimality remains open.
-3. **Context generality:** Atlas components validate across matched cohorts, but cross-context state
-   transduction remains untested.
-4. **Period-3 origin:** present-day use is causal, and origin is now **corpus-attributed** (C39/C40,
-   2026-07-23): period-3 is strong in the 72-species stage-1 sibling and absent (powered null) in the
-   human-only sibling, and absent from single-nt transformer MLMs trained on ORF-free ncRNA — a
-   multi-species, codon-linked origin. Only training *dynamics* (the trajectory) still need checkpoint
-   series or controlled retraining. See [`CARRIER_ORIGIN_SYNTHESIS_2026-07-23.md`](CARRIER_ORIGIN_SYNTHESIS_2026-07-23.md).
+3. **Transfer specificity:** C38 establishes strong acceptor-side transfer with unresolved content
+   specificity; C41 shows that the final donor residual is a generic readout axis. Earlier-layer,
+   non-additive, and wider-context specificity remain open.
+4. **Period-3 origin:** present-day use is causal, and C39/C40 associate the carrier with multi-species
+   pretraining. Coding specificity and training dynamics remain unresolved, and the sibling comparison
+   cannot isolate species diversity from corpus size, composition, sampling, or optimization history.
+   See the live [`CLAIMS.md`](../studies/splicebert_partner_selection/CLAIMS.md).
 5. **≈10.63 carrier — the donor-readout write is OPEN and NOT EVALUABLE as preregistered (R36).** B1 v2
    preregistered the OV endpoint as `S_ov` (the `U_info`-projected `suff_recovery`) plus the `Ω` subspace
    overlap, each against a covariance-matched null with a `PP-ovplant` gate. **None of it was computed**, and

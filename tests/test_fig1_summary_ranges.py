@@ -6,8 +6,8 @@ Why this exists
 One of them drifted: the carrier-deleted row read ``"40-44%"`` while the controlling data
 package `results/phase-lattice/fig_report_data.json` gives **27-44%** across the eight
 Level-A heads -- five of the eight sit below 40%. The figure therefore contradicted
-`fig4_carrier_circuit.CAPTION.md` and `figures/splicebert/EVIDENCE.md`, which both carried
-the correct range, and overstated how much attention structure survives carrier deletion.
+`figures/splicebert/EVIDENCE.md`, which carried the correct range, and overstated how much
+attention structure survives carrier deletion.
 
 The generator now derives the ranges. This memorial makes the class of drift FAIL rather
 than sit undetected: it recomputes the ranges from the artifact and asserts the generator's

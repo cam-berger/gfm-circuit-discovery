@@ -84,7 +84,7 @@ Design decisions and post-diagnostic pivots. Preregistered confirmatory choices 
     null would be EVIDENCED, not defaulted. (alt5ss +0.108, alt3ss +0.244, both material.)
   - **`M_comp` signed: +0.006, CI [−0.026,+0.040], `bounded-null`** — no systematic directional effect.
   - **`|M_comp|`: +0.111, CI [+0.082,+0.142], `material`** — a competitor DOES move the target margin
-    (~0.11 nats), sign-heterogeneously. So MF1's "no behavior to attribute" is NOT cleanly satisfied —
+    (~0.11 raw logit units), sign-heterogeneously. So MF1's "no behavior to attribute" is NOT cleanly satisfied —
     there is a magnitude behavior.
   - **`M_comp − sham`: −0.015, CI [−0.067,+0.036], `inconclusive`** — the crude matched-distance 2-bp sham
     moves the margin comparably; **competition-specificity is UNPROVEN** (the R22/MF6 concern, live).
@@ -202,7 +202,7 @@ Design decisions and post-diagnostic pivots. Preregistered confirmatory choices 
 
 ## 2026-07-19 — Discovery analysis frozen before full outcomes; independent smoke audit passes
 
-- **Freeze:** `ANALYSIS_PLAN_V1.md` pins A/B definitions, `tau=0.05` nats, gene-clustered general-use
+- **Freeze:** `ANALYSIS_PLAN_V1.md` pins A/B definitions, `tau=0.05` raw logit units, gene-clustered general-use
   estimates, two-endpoint gene-dyadic matched differences, separate A/B BH families, fixed gene-hash
   stability halves, and deterministic shortlist caps (four general; eight context).
 - **Smoke-only amendment A1:** after viewing only the four-packet/two-pair plumbing smoke, clarify that
@@ -366,7 +366,7 @@ Design decisions and post-diagnostic pivots. Preregistered confirmatory choices 
 ## 2026-07-19 — A3 numerical recovery admitted the completed Stage 2 forwards without rewriting them
 
 - **Trigger:** all 4,019 target shards were written, but the immutable target manifest failed exactly one
-  gate: cross-stage whole-effect agreement was `2.9802322387695312e-05` nats against a `1e-6` tolerance.
+  gate: cross-stage whole-effect agreement was `2.9802322387695312e-05` raw logit units against a `1e-6` tolerance.
   Every other runtime gate passed. Conditional QK/V/MLP families had not been merged, classified, or read.
 - **Diagnosis:** Stage 1 and Stage 2 used different deterministic packet-rank namespaces, changing CUDA
   batch composition. The 32,152 reference discrepancies had median `1.4305e-06`, p90 `4.7684e-06`, p99
@@ -393,7 +393,7 @@ Design decisions and post-diagnostic pivots. Preregistered confirmatory choices 
   acceptors. L3H1 has material recovery at donor L3–L5 and acceptor L3/L5; acceptor L4 is detected but
   subfloor. L1H12 has material recovery at donor L1–L5 and acceptor L2/L3/L5; acceptor L1/L4 are
   detected but subfloor.
-- **Exact group:** jointly zeroing the frozen A group `{L1H12,L2H15,L3H1}` produces +1.762 nats in donors
+- **Exact group:** jointly zeroing the frozen A group `{L1H12,L2H15,L3H1}` produces +1.762 raw logit units in donors
   and +0.874 in acceptors under simultaneous intervals. This establishes a strong group relation, not
   synergy or an additive decomposition; the nested incremental contrasts needed for serial-versus-parallel
   structure were not in the frozen family.

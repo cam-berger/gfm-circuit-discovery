@@ -67,7 +67,10 @@ def _tracked_markdown() -> list[Path]:
         text=True,
         check=True,
     ).stdout.splitlines()
-    return [REPO / path for path in output]
+    # `git ls-files` includes paths deleted in the working tree until the index is updated.
+    # Repository hygiene should validate the tree that will remain, not crash on an intentional
+    # deletion during a cleanup change.
+    return [candidate for path in output if (candidate := REPO / path).is_file()]
 
 
 def _github_slug(text: str) -> str:

@@ -1,6 +1,6 @@
 {
-  "claim_boundary": "Confirms present-day phase-aligned P3 use in CDS blocks; coding enrichment and origin unresolved.",
-  "created_at_utc": "2026-07-22T16:40:05.075364+00:00",
+  "claim_boundary": "Confirms present-day phase-aligned period-3 use in CDS blocks; coding enrichment and origin remain unresolved.",
+  "created_at_utc": "2026-07-26T14:46:26.333925+00:00",
   "outputs": [
     {
       "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/phase-lattice/p3_phase_surgery_confirmation_v1/figure_data.json",
@@ -8,17 +8,17 @@
     },
     {
       "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/figures/splicebert/fig5_p3_phase_surgery_confirmation.png",
-      "sha256": "d4c761dc29c739f9b80eb664e8e992e6fa09e3b5613b66de8ea61cbe20e0863d"
+      "sha256": "acefaafb1dc6cdc94985af2ff0bdb17190e8540094c9dee8d2088ff0d0fa4a07"
     },
     {
       "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/figures/splicebert/fig5_p3_phase_surgery_confirmation.pdf",
-      "sha256": "c57c3c33ab39573661e987617adf2645dc8290e4934575cdd411ec5a8aa83e5f"
+      "sha256": "f3eec6e7c4a8e8b633ff4a68249facf8025396623a4bebb537456331e2f95c6a"
     }
   ],
   "schema": "gfmcd.figure_provenance.v1",
   "script": {
     "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert/make_fig5_p3_phase_surgery_confirmation.py",
-    "sha256": "9b314f4924fe53ce6883c67422146ae074eab04ca619336dd95879cced9d78d9"
+    "sha256": "9d3ff441deff3cad77eef2e4ac3662e488afdf06641ec770bc8a4d6a5f871af2"
   },
   "sources": [
     {

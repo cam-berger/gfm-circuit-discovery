@@ -129,6 +129,26 @@ def use_style() -> None:
     _use_style()
 
 
+def panel_header(axis, letter: str, title: str) -> None:
+    """Draw one short, consistently aligned panel header.
+
+    Point offsets keep the panel letter and title on the same baseline even
+    when neighboring axes have different widths.
+    """
+    common = {
+        "xy": (0, 1),
+        "xycoords": "axes fraction",
+        "textcoords": "offset points",
+        "ha": "left",
+        "va": "bottom",
+        "fontweight": "bold",
+        "color": INK,
+        "annotation_clip": False,
+    }
+    axis.annotate(letter, xytext=(-30, 12), fontsize=11.5, **common)
+    axis.annotate(title, xytext=(0, 12), fontsize=10, **common)
+
+
 def save_raster_and_vector(fig, out: str | Path, *, formats: Sequence[str] = ("png", "pdf"),
                            dpi: float | None = None,
                            bbox_inches: str | None = None) -> list[Path]:
@@ -184,5 +204,6 @@ __all__ = [
     "INK", "LAYER", "MAGENTA", "MIST", "MUT", "NUCLEOSOMAL", "OLIVE", "ORANGE", "PALEBLUE",
     "PANEL", "PERIOD3", "PHASE", "PURPLE", "RC", "RED", "RULE", "SAND", "SEC", "SLATE",
     "figure_provenance", "grouped_bars_ci", "interaction_plot", "nice_p", "panel_label",
-    "ranked_dots", "save_figure", "save_raster_and_vector", "style_axis", "use_style",
+    "panel_header", "ranked_dots", "save_figure", "save_raster_and_vector", "style_axis",
+    "use_style",
 ]
