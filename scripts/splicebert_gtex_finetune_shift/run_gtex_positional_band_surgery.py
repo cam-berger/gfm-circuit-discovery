@@ -34,6 +34,7 @@ from gfmcd.splicing.biological_cohort import (  # noqa: E402
 )
 from gfmcd.splicing.circuit import _dataset, eligible, pick_device  # noqa: E402
 from gfmcd.splicing.coupling import (  # noqa: E402
+    MOTIF_CLEAN_DONOR_ALT,
     CouplingConfig,
     CouplingExample,
     stable_rng,
@@ -795,7 +796,7 @@ def main() -> None:
         raise RuntimeError("cohort opened a forbidden chromosome")
     clean_sequences = [example.sequence for example in examples]
     local_sequences = [
-        substitute(example.sequence, int(example.donor_pos), "CC")
+        substitute(example.sequence, int(example.donor_pos), MOTIF_CLEAN_DONOR_ALT)
         for example in examples
     ]
     partner_sequences = [

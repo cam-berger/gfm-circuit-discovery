@@ -135,6 +135,81 @@ def destroy_donor(seq: str, donor_pos: int) -> list[str]:
     return [substitute(seq, donor_pos, a) for a in DONOR_ALTS]
 
 
+# --------------------------------------------------------------------------------------
+# Motif hygiene: what a substitution CREATES, not just what it destroys.  (R44)
+#
+# ``ACCEPTOR_ALTS`` / ``DONOR_ALTS`` guarantee only that the bases WRITTEN are not a splice
+# motif.  They say nothing about the two dinucleotides that STRADDLE the edit.  Writing
+# ``XY`` at ``[q-2, q)`` touches three overlapping registers:
+#
+#     [q-3, q-1) = seq[q-3] + X      [q-2, q) = XY      [q-1, q+1) = Y + seq[q]
+#
+# Cleanliness in EVERY flanking context forces ``X = A`` (T/C make GT/GC upstream, G makes
+# AG) and ``Y in {C, T}`` (G makes GT/GC downstream, A makes AG), with ``XY != AG``.  That
+# leaves exactly ``AC`` and ``AT`` -- and the derivation is identical at both sites, so one
+# constant serves both.  ``tests/test_motif_cleanliness.py`` proves this exhaustively over
+# all 16 flanking contexts rather than trusting the argument.
+#
+# WHEN THIS MATTERS: only where the substituted index is VISIBLE to the model.  Under a
+# masked readout (the donor-circuit study's masked-donor MLM) the substituted base is
+# hidden and nothing is planted.  Under an unmasked token-classifier readout it is not.
+# --------------------------------------------------------------------------------------
+MOTIF_CLEAN_ALT: str = "AC"        # clean at BOTH sites in every flanking context
+MOTIF_CLEAN_DONOR_ALT: str = MOTIF_CLEAN_ALT
+MOTIF_CLEAN_ACCEPTOR_ALT: str = MOTIF_CLEAN_ALT
+
+_PLANTED_DONOR_MOTIFS = ("GT", "GC")   # GC-AG introns are real (~0.8% of human introns)
+_PLANTED_ACCEPTOR_MOTIFS = ("AG",)
+
+
+def _straddling_registers(seq: str, q: int, alt: str) -> dict[str, str]:
+    """The three dinucleotide registers touched by writing ``alt`` at ``[q-2, q)``."""
+    return {"upstream": seq[q - 3] + alt[0], "written": alt, "downstream": alt[1] + seq[q]}
+
+
+def planted_motifs(seq: str, q: int, alt: str) -> dict[str, str]:
+    """Splice motifs CREATED by writing ``alt`` at ``[q-2, q)``.  Empty dict == clean.
+
+    Keys are register names, values the offending dinucleotide.  A planted ``AG`` is a
+    spurious acceptor; a planted ``GT``/``GC`` is a spurious donor.
+    """
+    return {k: v for k, v in _straddling_registers(seq, q, alt).items()
+            if v in _PLANTED_DONOR_MOTIFS or v in _PLANTED_ACCEPTOR_MOTIFS}
+
+
+def planted_donor_motifs(seq: str, donor_pos: int, alt: str) -> dict[str, str]:
+    """Motifs created by writing ``alt`` over the donor GT at ``[donor_pos, donor_pos+2)``."""
+    return planted_motifs(seq, donor_pos + 2, alt)
+
+
+def planted_acceptor_motifs(seq: str, acceptor_pos: int, alt: str) -> dict[str, str]:
+    """Motifs created by writing ``alt`` over the acceptor AG at ``[acceptor_pos-2, acceptor_pos)``."""
+    return planted_motifs(seq, acceptor_pos, alt)
+
+
+def destroy_donor_clean(seq: str, donor_pos: int) -> str:
+    """Destroy the donor WITHOUT planting a motif in any flanking context.
+
+    Prefer this over ``destroy_donor`` for any UNMASKED-readout caller: measured on the
+    GTEx cohorts, the shipped ``DONOR_ALTS[0] = "CC"`` plants a ``GC`` donor one base
+    upstream in 82.0% of examples, because the last exon base is ``G`` in 82.0% of donors
+    (the -1 G of the 5'SS consensus).  ``destroy_donor``'s averaging is contaminated for
+    the same reason -- ``TA`` plants a *canonical* ``GT``.
+    """
+    return substitute(seq, donor_pos, MOTIF_CLEAN_DONOR_ALT)
+
+
+def destroy_acceptor_clean(seq: str, acceptor_pos: int) -> str:
+    """Destroy the acceptor WITHOUT planting a motif in any flanking context.
+
+    The acceptor side is far less exposed than the donor side -- ``seq[a-3]`` is a
+    pyrimidine in ~96% of exons (the ``YAG`` 3'SS consensus), so ``CC`` plants only in
+    ~0.5%.  The real contaminant here is ``CA``, which plants an ``AG`` one base
+    DOWNSTREAM in ~55% of exons whenever the first exon base is ``G``.
+    """
+    return substitute(seq, acceptor_pos - 2, MOTIF_CLEAN_ACCEPTOR_ALT)
+
+
 def transplant_acceptor(seq: str, acceptor_pos: int, donor_seq: str, donor_acc_pos: int,
                         span: int = 20) -> str:
     """Swap in ANOTHER exon's acceptor context of comparable strength.

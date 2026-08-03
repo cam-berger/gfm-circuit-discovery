@@ -53,7 +53,13 @@ from run_all_head_screen import (  # noqa: E402
 from gfmcd.circuits.hf_bert import capture_head_outputs, patch_heads  # noqa: E402
 from gfmcd.splicing.circuit import capture_writes, clamp_write  # noqa: E402
 from gfmcd.splicing.competition_seq import build_window  # noqa: E402
-from gfmcd.splicing.coupling import destroy_acceptor, destroy_donor  # noqa: E402
+from gfmcd.splicing.coupling import (  # noqa: E402
+    MOTIF_CLEAN_ALT, destroy_acceptor, destroy_acceptor_clean, destroy_donor,
+    destroy_donor_clean,
+)
+
+# R44: default preserves the committed behaviour byte-for-byte.
+USE_CLEAN_ALT = False
 from gfmcd.splicing.dataset import PyfaidxGenome  # noqa: E402
 from gfmcd.splicing.specificity import find_matched_decoy  # noqa: E402
 
@@ -188,8 +194,10 @@ def destroyed_sequences(windows, decoys, condition: str) -> list[str]:
     for window, decoy in zip(windows, decoys):
         pos = decoy if pos_attr == "decoy_win" else getattr(window, pos_attr)
         is_donor = getattr(window, donor_attr)
-        variants = (destroy_donor if is_donor else destroy_acceptor)(window.seq, pos)
-        damaged = variants[0]
+        if USE_CLEAN_ALT:
+            damaged = (destroy_donor_clean if is_donor else destroy_acceptor_clean)(window.seq, pos)
+        else:
+            damaged = (destroy_donor if is_donor else destroy_acceptor)(window.seq, pos)[0]
         ok, msg = gate_destroy_real_bases(window.seq, damaged, pos, is_donor)
         if not ok:
             raise RuntimeError(f"invalid {condition} corruption for {window.example_id}: {msg}")
@@ -444,9 +452,13 @@ def main() -> None:
     ap.add_argument("--n-random", type=int, default=3)
     ap.add_argument("--device", default=None)
     ap.add_argument("--self-test", action="store_true")
+    ap.add_argument("--clean-alt", action="store_true",
+                    help="R44: destroy with MOTIF_CLEAN_ALT (AC) instead of variants[0]")
     ap.add_argument("--conditions", default="B,C,D", help="comma-separated subset of B,C,D")
     ap.add_argument("--skip-mlp", action="store_true", help="run only exact joint head-set curves")
     args = ap.parse_args()
+    global USE_CLEAN_ALT
+    USE_CLEAN_ALT = bool(args.clean_alt)
 
     if os.environ.get("PYTHONHASHSEED") != "0":
         raise RuntimeError("PYTHONHASHSEED=0 is required")

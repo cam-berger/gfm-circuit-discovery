@@ -36,13 +36,21 @@ from gfmcd.splicing.gtf import load_transcripts
 from gfmcd.splicing.competition import CompetitionConfig, build_competition_index, enumerate_competition_examples
 from gfmcd.splicing.competition_seq import build_window, WindowedCompetition
 from gfmcd.splicing.specificity import find_matched_decoy  # extracted decoy selector (see module)
-from gfmcd.splicing.coupling import destroy_donor, destroy_acceptor
+from gfmcd.splicing.coupling import (destroy_donor, destroy_acceptor, destroy_donor_clean,
+                                     destroy_acceptor_clean, planted_donor_motifs,
+                                     planted_acceptor_motifs, MOTIF_CLEAN_ALT)
+
 from gfmcd.splicing.dataset import PyfaidxGenome
 from gfmcd.circuits.hf_bert import capture_head_outputs, patch_heads, edit_heads
 
 SEALED = {"chr8", "chr9"}
 VALIDATION = {"chr11", "chr16", "chr19"}
 BASES = "ACGT"
+# R44 run-mode switches.  DEFAULTS PRESERVE THE COMMITTED BEHAVIOUR byte-for-byte: the
+# planted-motif rate is always RECORDED, but only enforced/replaced when asked.
+USE_CLEAN_ALT = False        # --clean-alt        : destroy with MOTIF_CLEAN_ALT ('AC')
+REQUIRE_MOTIF_CLEAN = False  # --require-motif-clean : make a planted motif fatal
+PLANTED_TOTALS: dict[str, int] = {}   # per-condition planted-motif counts, always recorded
 
 
 # --------------------------------------------------------------------------- metrics
@@ -93,6 +101,15 @@ class ScreenModel:
 
 # --------------------------------------------------------------------------- gates
 def gate_destroy_real_bases(seq, dseq, site_pos, is_donor):
+    """Length, footprint and alphabet.
+
+    NOTE (R44): this gate validates what the edit WRITES, never what it CREATES.  A
+    substitution that destroys the site while planting a splice motif in an adjacent
+    register passes it.  That blind spot is why the atlas ran for its whole life with a
+    planted motif on ~88% of donor-site destructions.  The creation check is
+    ``gate_no_planted_motif`` below -- kept separate so this function's verdict, and the
+    artifacts it gated, remain byte-reproducible.
+    """
     if len(seq) != len(dseq):
         return False, "length changed"
     diffs = [i for i in range(len(seq)) if seq[i] != dseq[i]]
@@ -101,6 +118,28 @@ def gate_destroy_real_bases(seq, dseq, site_pos, is_donor):
         return False, f"edit outside motif footprint: {diffs}"
     if set(dseq) - set(BASES):
         return False, "non-ACGT base introduced"
+    return True, ""
+
+
+def gate_no_planted_motif(seq, dseq, site_pos, is_donor):
+    """Reject a 'destruction' that CREATES a splice motif in a straddling register (R44).
+
+    Writing ``XY`` over a site touches three registers -- ``seq[q-3]+X``, ``XY``, and
+    ``Y+seq[q]``.  A spurious ``AG`` is a planted acceptor; a spurious ``GT``/``GC`` is a
+    planted donor.  In this study the corrupted site is never the masked readout site, so
+    a planted motif is fully visible to the model and the counterfactual silently becomes
+    "site MOVED one base" rather than "site removed".
+
+    Measured on this study's own discovery cohort
+    (``results/splicebert_head_context_atlas/atlas_planted_motif_census_v1.json``):
+    ``DONOR_ALTS[0]="CC"`` plants on 87.8% of condition-B donor sites and ``TA`` plants a
+    CANONICAL ``GT`` on 95.5%.  ``AC`` (``MOTIF_CLEAN_ALT``) plants on 0.0%.
+    """
+    alt = dseq[site_pos:site_pos + 2] if is_donor else dseq[site_pos - 2:site_pos]
+    hits = (planted_donor_motifs(seq, site_pos, alt) if is_donor
+            else planted_acceptor_motifs(seq, site_pos, alt))
+    if hits:
+        return False, f"alt {alt!r} plants {hits} (use MOTIF_CLEAN_ALT)"
     return True, ""
 
 
@@ -178,12 +217,22 @@ def screen_chunk(model: ScreenModel, windows, decoys, *, self_test=False):
         for j, w in enumerate(windows):
             pos = getattr(w, f"{site_attr}_win") if site_attr != "decoy" else decoys[j]
             isdon = getattr(w, isdon_attr) if isdon_attr != "decoy_is_donor" else w.competitor_is_donor
-            variants = (destroy_donor if isdon else destroy_acceptor)(w.seq, pos)
-            dseq = variants[0]
+            if USE_CLEAN_ALT:
+                dseq = (destroy_donor_clean if isdon else destroy_acceptor_clean)(w.seq, pos)
+            else:
+                dseq = (destroy_donor if isdon else destroy_acceptor)(w.seq, pos)[0]
             g_ok, g_msg = gate_destroy_real_bases(w.seq, dseq, pos, isdon)
             if not g_ok:
                 ok_all = False
                 gate_msgs.append((f"destroy_real_bases_{cond}", False, f"{w.example_id}: {g_msg}"))
+            # R44: always REPORT what the edit created; fatal only under --require-motif-clean.
+            m_ok, m_msg = gate_no_planted_motif(w.seq, dseq, pos, isdon)
+            if not m_ok:
+                PLANTED_TOTALS[cond] = PLANTED_TOTALS.get(cond, 0) + 1
+                if REQUIRE_MOTIF_CLEAN:
+                    ok_all = False
+                    gate_msgs.append((f"no_planted_motif_{cond}", False,
+                                      f"{w.example_id}: {m_msg}"))
             dseqs.append(dseq)
         enc_cf = model.enc(dseqs, targets)
         cf_logits = model.logits(enc_cf)
@@ -287,8 +336,15 @@ def main():
     ap.add_argument("--min-separation", type=int, default=30)
     ap.add_argument("--unlock-sealed", action="store_true")
     ap.add_argument("--confirm-sealed", default=None, help="required separate config to actually run sealed")
+    ap.add_argument("--clean-alt", action="store_true",
+                    help="R44: destroy with MOTIF_CLEAN_ALT (AC) instead of variants[0]")
+    ap.add_argument("--require-motif-clean", action="store_true",
+                    help="R44: fail the run if any destruction plants a splice motif")
     ap.add_argument("--self-test", action="store_true", help="run source-to-source no-op gate on chunk 1")
     args = ap.parse_args()
+    global USE_CLEAN_ALT, REQUIRE_MOTIF_CLEAN
+    USE_CLEAN_ALT = bool(args.clean_alt)
+    REQUIRE_MOTIF_CLEAN = bool(args.require_motif_clean)
     if os.environ.get("PYTHONHASHSEED") != "0":
         print("WARN PYTHONHASHSEED!=0", file=sys.stderr)
     if args.unlock_sealed and not args.confirm_sealed:
@@ -357,6 +413,10 @@ def main():
         if done % 40 == 0:
             print(f"[screen] {done}/{len(windows)} ({(time.time()-t0)/max(done,1):.2f}s/ex)", file=sys.stderr)
 
+    # R44: the planted-motif census of THIS run, recorded whether or not it was enforced.
+    manifest["planted_motif_counts"] = dict(PLANTED_TOTALS)
+    manifest["planted_motif_enforced"] = REQUIRE_MOTIF_CLEAN
+    manifest["destroy_alt_mode"] = ("MOTIF_CLEAN_ALT=" + MOTIF_CLEAN_ALT) if USE_CLEAN_ALT else "variants[0]"
     manifest["seconds"] = time.time() - t0
     # rebuild completed_shards from ALL shards on disk (resume-safe: includes prior-run shards)
     manifest["completed_shards"] = {p.name: _sha(p.read_text()) for p in sorted(out_dir.glob("shard_*.json"))}

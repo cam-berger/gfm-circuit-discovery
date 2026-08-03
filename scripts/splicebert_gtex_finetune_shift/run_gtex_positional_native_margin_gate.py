@@ -30,7 +30,7 @@ from gfmcd.provenance import (  # noqa: E402
 )
 from gfmcd.rigor import benjamini_hochberg  # noqa: E402
 from gfmcd.splicing.circuit import _dataset, eligible, pick_device  # noqa: E402
-from gfmcd.splicing.coupling import CouplingExample, substitute  # noqa: E402
+from gfmcd.splicing.coupling import MOTIF_CLEAN_DONOR_ALT, CouplingExample, substitute  # noqa: E402
 from gfmcd.splicing.grouped_stats import (  # noqa: E402
     grouped_bootstrap,
     grouped_signflip_pvalue,
@@ -744,7 +744,7 @@ def main() -> None:
     )
     clean_sequences = [example.sequence for example in examples]
     local_sequences = [
-        substitute(example.sequence, int(example.donor_pos), "CC")
+        substitute(example.sequence, int(example.donor_pos), MOTIF_CLEAN_DONOR_ALT)
         for example in examples
     ]
     paired_sequences = [

@@ -22,7 +22,7 @@ from gfmcd.circuits.hf_bert import patch_heads  # noqa: E402
 from gfmcd.provenance import ExperimentManifest, file_record  # noqa: E402
 from gfmcd.rigor import benjamini_hochberg  # noqa: E402
 from gfmcd.splicing.circuit import clamp_write, pick_device  # noqa: E402
-from gfmcd.splicing.coupling import substitute  # noqa: E402
+from gfmcd.splicing.coupling import MOTIF_CLEAN_DONOR_ALT, substitute  # noqa: E402
 from gfmcd.splicing.grouped_stats import (  # noqa: E402
     grouped_bootstrap,
     grouped_bootstrap_ratio,
@@ -231,7 +231,7 @@ def main() -> None:
             )
             local_encoded = task.encode(
                 [
-                    substitute(example.sequence, example.donor_pos, "CC")
+                    substitute(example.sequence, example.donor_pos, MOTIF_CLEAN_DONOR_ALT)
                     for example in chunk
                 ]
             )

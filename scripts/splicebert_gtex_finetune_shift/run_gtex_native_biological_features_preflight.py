@@ -42,7 +42,7 @@ from gfmcd.splicing.context_localization import (  # noqa: E402
     RelativeWindow,
     shuffle_relative_window,
 )
-from gfmcd.splicing.coupling import substitute  # noqa: E402
+from gfmcd.splicing.coupling import MOTIF_CLEAN_DONOR_ALT, substitute  # noqa: E402
 from gfmcd.splicing.grouped_stats import (  # noqa: E402
     grouped_bootstrap,
     grouped_signflip_pvalue,
@@ -261,7 +261,7 @@ def main() -> None:
             sequence_conditions[endpoint]["target"].append(target)
             sequence_conditions[endpoint]["sham"].append(sham)
             if endpoint == "donor":
-                local = substitute(example.sequence, int(example.donor_pos), "CC")
+                local = substitute(example.sequence, int(example.donor_pos), MOTIF_CLEAN_DONOR_ALT)
             else:
                 local = substitute(
                     example.sequence,

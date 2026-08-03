@@ -1,0 +1,701 @@
+{
+ "cohorts": {
+  "classifier_preflight_v1": {
+   "split": "val",
+   "n": 64,
+   "tag": "sealed-unc-val",
+   "consuming_artifact": "native_classifier_preflight_v1.json",
+   "n_genes": 64,
+   "validation": {
+    "all_acceptor_AG": true,
+    "all_donor_GT": true
+   },
+   "context": {
+    "donor_upstream_base_seq_d_minus_1": {
+     "A": 0.078125,
+     "C": 0.0625,
+     "G": 0.78125,
+     "T": 0.078125
+    },
+    "acceptor_upstream_base_seq_a_minus_3": {
+     "A": 0.0625,
+     "C": 0.8125,
+     "G": 0.0,
+     "T": 0.125
+    }
+   },
+   "donor_side": {
+    "CC": {
+     "plants_donor_frac": 0.78125,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 0.21875,
+     "n": 64,
+     "where": {
+      "upstream:GC": 0.78125
+     }
+    },
+    "AA": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.640625,
+     "motif_clean_frac": 0.359375,
+     "n": 64,
+     "where": {
+      "downstream:AG": 0.640625
+     }
+    },
+    "TA": {
+     "plants_donor_frac": 0.78125,
+     "plants_acceptor_frac": 0.640625,
+     "motif_clean_frac": 0.109375,
+     "n": 64,
+     "where": {
+      "downstream:AG": 0.640625,
+      "upstream:GT": 0.78125
+     }
+    },
+    "AC": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 1.0,
+     "n": 64,
+     "where": {}
+    },
+    "AT": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 1.0,
+     "n": 64,
+     "where": {}
+    }
+   },
+   "acceptor_side": {
+    "CC": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 1.0,
+     "n": 64,
+     "where": {}
+    },
+    "TT": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 1.0,
+     "n": 64,
+     "where": {}
+    },
+    "CA": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.53125,
+     "motif_clean_frac": 0.46875,
+     "n": 64,
+     "where": {
+      "downstream:AG": 0.53125
+     }
+    },
+    "TC": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 1.0,
+     "n": 64,
+     "where": {}
+    },
+    "AC": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 1.0,
+     "n": 64,
+     "where": {}
+    },
+    "AT": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 1.0,
+     "n": 64,
+     "where": {}
+    }
+   }
+  },
+  "mechanism_confirmation_v1": {
+   "split": "val",
+   "n": 400,
+   "tag": "sealed-unc-val",
+   "consuming_artifact": "native_mechanism_confirmation_v1.json",
+   "n_genes": 334,
+   "validation": {
+    "all_acceptor_AG": true,
+    "all_donor_GT": true
+   },
+   "context": {
+    "donor_upstream_base_seq_d_minus_1": {
+     "A": 0.0775,
+     "C": 0.045,
+     "G": 0.8175,
+     "T": 0.06
+    },
+    "acceptor_upstream_base_seq_a_minus_3": {
+     "A": 0.0325,
+     "C": 0.8475,
+     "G": 0.005,
+     "T": 0.115
+    }
+   },
+   "donor_side": {
+    "CC": {
+     "plants_donor_frac": 0.8175,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 0.1825,
+     "n": 400,
+     "where": {
+      "upstream:GC": 0.8175
+     }
+    },
+    "AA": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.63,
+     "motif_clean_frac": 0.37,
+     "n": 400,
+     "where": {
+      "downstream:AG": 0.63
+     }
+    },
+    "TA": {
+     "plants_donor_frac": 0.8175,
+     "plants_acceptor_frac": 0.63,
+     "motif_clean_frac": 0.0725,
+     "n": 400,
+     "where": {
+      "downstream:AG": 0.63,
+      "upstream:GT": 0.8175
+     }
+    },
+    "AC": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 1.0,
+     "n": 400,
+     "where": {}
+    },
+    "AT": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 1.0,
+     "n": 400,
+     "where": {}
+    }
+   },
+   "acceptor_side": {
+    "CC": {
+     "plants_donor_frac": 0.005,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 0.995,
+     "n": 400,
+     "where": {
+      "upstream:GC": 0.005
+     }
+    },
+    "TT": {
+     "plants_donor_frac": 0.005,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 0.995,
+     "n": 400,
+     "where": {
+      "upstream:GT": 0.005
+     }
+    },
+    "CA": {
+     "plants_donor_frac": 0.005,
+     "plants_acceptor_frac": 0.545,
+     "motif_clean_frac": 0.45,
+     "n": 400,
+     "where": {
+      "downstream:AG": 0.545,
+      "upstream:GC": 0.005
+     }
+    },
+    "TC": {
+     "plants_donor_frac": 0.005,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 0.995,
+     "n": 400,
+     "where": {
+      "upstream:GT": 0.005
+     }
+    },
+    "AC": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 1.0,
+     "n": 400,
+     "where": {}
+    },
+    "AT": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 1.0,
+     "n": 400,
+     "where": {}
+    }
+   }
+  },
+  "context_preflight_v1": {
+   "split": "train",
+   "n": 16,
+   "tag": "gtex-native-context-localization-preflight-v1",
+   "consuming_artifact": "native_context_preflight_v1.json",
+   "n_genes": 16,
+   "validation": {
+    "all_acceptor_AG": true,
+    "all_donor_GT": true
+   },
+   "context": {
+    "donor_upstream_base_seq_d_minus_1": {
+     "A": 0.125,
+     "C": 0.0,
+     "G": 0.875,
+     "T": 0.0
+    },
+    "acceptor_upstream_base_seq_a_minus_3": {
+     "A": 0.0625,
+     "C": 0.5625,
+     "G": 0.0,
+     "T": 0.375
+    }
+   },
+   "donor_side": {
+    "CC": {
+     "plants_donor_frac": 0.875,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 0.125,
+     "n": 16,
+     "where": {
+      "upstream:GC": 0.875
+     }
+    },
+    "AA": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.375,
+     "motif_clean_frac": 0.625,
+     "n": 16,
+     "where": {
+      "downstream:AG": 0.375
+     }
+    },
+    "TA": {
+     "plants_donor_frac": 0.875,
+     "plants_acceptor_frac": 0.375,
+     "motif_clean_frac": 0.0625,
+     "n": 16,
+     "where": {
+      "downstream:AG": 0.375,
+      "upstream:GT": 0.875
+     }
+    },
+    "AC": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 1.0,
+     "n": 16,
+     "where": {}
+    },
+    "AT": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 1.0,
+     "n": 16,
+     "where": {}
+    }
+   },
+   "acceptor_side": {
+    "CC": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 1.0,
+     "n": 16,
+     "where": {}
+    },
+    "TT": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 1.0,
+     "n": 16,
+     "where": {}
+    },
+    "CA": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.625,
+     "motif_clean_frac": 0.375,
+     "n": 16,
+     "where": {
+      "downstream:AG": 0.625
+     }
+    },
+    "TC": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 1.0,
+     "n": 16,
+     "where": {}
+    },
+    "AC": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 1.0,
+     "n": 16,
+     "where": {}
+    },
+    "AT": {
+     "plants_donor_frac": 0.0,
+     "plants_acceptor_frac": 0.0,
+     "motif_clean_frac": 1.0,
+     "n": 16,
+     "where": {}
+    }
+   }
+  }
+ },
+ "not_covered": {
+  "native_biological_features_preflight_v1": "built by load_fresh_cds_cohort (CDS-filtered), not load_annotation_cohort",
+  "positional_band_surgery_v1": "built by an in-runner load_fresh_cohort with prior-gene exclusion",
+  "positional_native_margin_gate_v1/v2": "replays a cohort_source JSON via _load_replayed_cohort"
+ },
+ "definitions": {
+  "planted_donor": [
+   "GT",
+   "GC"
+  ],
+  "planted_acceptor": [
+   "AG"
+  ],
+  "registers": "[q-3,q-1)=seq[q-3]+X ; [q-2,q)=XY ; [q-1,q+1)=Y+seq[q]",
+  "readout_note": "only bites where the substituted index is VISIBLE to the model (unmasked NativeClassifierTask); a masked-readout caller is unaffected"
+ },
+ "union": {
+  "n": 416,
+  "n_genes": 350,
+  "note": "deduplicated by example_id across the three load_annotation_cohort cohorts",
+  "context": {
+   "donor_upstream_base_seq_d_minus_1": {
+    "A": 0.07932692307692307,
+    "C": 0.04326923076923077,
+    "G": 0.8197115384615384,
+    "T": 0.057692307692307696
+   },
+   "acceptor_upstream_base_seq_a_minus_3": {
+    "A": 0.03365384615384615,
+    "C": 0.8365384615384616,
+    "G": 0.004807692307692308,
+    "T": 0.125
+   }
+  },
+  "donor_side": {
+   "AA": {
+    "plants_donor_frac": 0.0,
+    "plants_acceptor_frac": 0.6201923076923077,
+    "motif_clean_frac": 0.3798076923076923,
+    "n": 416,
+    "where": {
+     "downstream:AG": 0.6201923076923077
+    }
+   },
+   "AC": {
+    "plants_donor_frac": 0.0,
+    "plants_acceptor_frac": 0.0,
+    "motif_clean_frac": 1.0,
+    "n": 416,
+    "where": {}
+   },
+   "AG": {
+    "plants_donor_frac": 0.06971153846153846,
+    "plants_acceptor_frac": 1.0,
+    "motif_clean_frac": 0.0,
+    "n": 416,
+    "where": {
+     "downstream:GC": 0.04567307692307692,
+     "downstream:GT": 0.02403846153846154,
+     "written:AG": 1.0
+    }
+   },
+   "AT": {
+    "plants_donor_frac": 0.0,
+    "plants_acceptor_frac": 0.0,
+    "motif_clean_frac": 1.0,
+    "n": 416,
+    "where": {}
+   },
+   "CA": {
+    "plants_donor_frac": 0.8197115384615384,
+    "plants_acceptor_frac": 0.6201923076923077,
+    "motif_clean_frac": 0.07211538461538461,
+    "n": 416,
+    "where": {
+     "downstream:AG": 0.6201923076923077,
+     "upstream:GC": 0.8197115384615384
+    }
+   },
+   "CC": {
+    "plants_donor_frac": 0.8197115384615384,
+    "plants_acceptor_frac": 0.0,
+    "motif_clean_frac": 0.18028846153846154,
+    "n": 416,
+    "where": {
+     "upstream:GC": 0.8197115384615384
+    }
+   },
+   "CG": {
+    "plants_donor_frac": 0.8221153846153846,
+    "plants_acceptor_frac": 0.0,
+    "motif_clean_frac": 0.1778846153846154,
+    "n": 416,
+    "where": {
+     "downstream:GC": 0.04567307692307692,
+     "downstream:GT": 0.02403846153846154,
+     "upstream:GC": 0.8197115384615384
+    }
+   },
+   "CT": {
+    "plants_donor_frac": 0.8197115384615384,
+    "plants_acceptor_frac": 0.0,
+    "motif_clean_frac": 0.18028846153846154,
+    "n": 416,
+    "where": {
+     "upstream:GC": 0.8197115384615384
+    }
+   },
+   "GA": {
+    "plants_donor_frac": 0.0,
+    "plants_acceptor_frac": 0.65625,
+    "motif_clean_frac": 0.34375,
+    "n": 416,
+    "where": {
+     "downstream:AG": 0.6201923076923077,
+     "upstream:AG": 0.07932692307692307
+    }
+   },
+   "GC": {
+    "plants_donor_frac": 1.0,
+    "plants_acceptor_frac": 0.07932692307692307,
+    "motif_clean_frac": 0.0,
+    "n": 416,
+    "where": {
+     "upstream:AG": 0.07932692307692307,
+     "written:GC": 1.0
+    }
+   },
+   "GG": {
+    "plants_donor_frac": 0.06971153846153846,
+    "plants_acceptor_frac": 0.07932692307692307,
+    "motif_clean_frac": 0.8533653846153846,
+    "n": 416,
+    "where": {
+     "downstream:GC": 0.04567307692307692,
+     "downstream:GT": 0.02403846153846154,
+     "upstream:AG": 0.07932692307692307
+    }
+   },
+   "GT": {
+    "plants_donor_frac": 1.0,
+    "plants_acceptor_frac": 0.07932692307692307,
+    "motif_clean_frac": 0.0,
+    "n": 416,
+    "where": {
+     "upstream:AG": 0.07932692307692307,
+     "written:GT": 1.0
+    }
+   },
+   "TA": {
+    "plants_donor_frac": 0.8197115384615384,
+    "plants_acceptor_frac": 0.6201923076923077,
+    "motif_clean_frac": 0.07211538461538461,
+    "n": 416,
+    "where": {
+     "downstream:AG": 0.6201923076923077,
+     "upstream:GT": 0.8197115384615384
+    }
+   },
+   "TC": {
+    "plants_donor_frac": 0.8197115384615384,
+    "plants_acceptor_frac": 0.0,
+    "motif_clean_frac": 0.18028846153846154,
+    "n": 416,
+    "where": {
+     "upstream:GT": 0.8197115384615384
+    }
+   },
+   "TG": {
+    "plants_donor_frac": 0.8221153846153846,
+    "plants_acceptor_frac": 0.0,
+    "motif_clean_frac": 0.1778846153846154,
+    "n": 416,
+    "where": {
+     "downstream:GC": 0.04567307692307692,
+     "downstream:GT": 0.02403846153846154,
+     "upstream:GT": 0.8197115384615384
+    }
+   },
+   "TT": {
+    "plants_donor_frac": 0.8197115384615384,
+    "plants_acceptor_frac": 0.0,
+    "motif_clean_frac": 0.18028846153846154,
+    "n": 416,
+    "where": {
+     "upstream:GT": 0.8197115384615384
+    }
+   }
+  },
+  "acceptor_side": {
+   "AA": {
+    "plants_donor_frac": 0.0,
+    "plants_acceptor_frac": 0.5480769230769231,
+    "motif_clean_frac": 0.4519230769230769,
+    "n": 416,
+    "where": {
+     "downstream:AG": 0.5480769230769231
+    }
+   },
+   "AC": {
+    "plants_donor_frac": 0.0,
+    "plants_acceptor_frac": 0.0,
+    "motif_clean_frac": 1.0,
+    "n": 416,
+    "where": {}
+   },
+   "AG": {
+    "plants_donor_frac": 0.25,
+    "plants_acceptor_frac": 1.0,
+    "motif_clean_frac": 0.0,
+    "n": 416,
+    "where": {
+     "downstream:GC": 0.16105769230769232,
+     "downstream:GT": 0.0889423076923077,
+     "written:AG": 1.0
+    }
+   },
+   "AT": {
+    "plants_donor_frac": 0.0,
+    "plants_acceptor_frac": 0.0,
+    "motif_clean_frac": 1.0,
+    "n": 416,
+    "where": {}
+   },
+   "CA": {
+    "plants_donor_frac": 0.004807692307692308,
+    "plants_acceptor_frac": 0.5480769230769231,
+    "motif_clean_frac": 0.44711538461538464,
+    "n": 416,
+    "where": {
+     "downstream:AG": 0.5480769230769231,
+     "upstream:GC": 0.004807692307692308
+    }
+   },
+   "CC": {
+    "plants_donor_frac": 0.004807692307692308,
+    "plants_acceptor_frac": 0.0,
+    "motif_clean_frac": 0.9951923076923077,
+    "n": 416,
+    "where": {
+     "upstream:GC": 0.004807692307692308
+    }
+   },
+   "CG": {
+    "plants_donor_frac": 0.25240384615384615,
+    "plants_acceptor_frac": 0.0,
+    "motif_clean_frac": 0.7475961538461539,
+    "n": 416,
+    "where": {
+     "downstream:GC": 0.16105769230769232,
+     "downstream:GT": 0.0889423076923077,
+     "upstream:GC": 0.004807692307692308
+    }
+   },
+   "CT": {
+    "plants_donor_frac": 0.004807692307692308,
+    "plants_acceptor_frac": 0.0,
+    "motif_clean_frac": 0.9951923076923077,
+    "n": 416,
+    "where": {
+     "upstream:GC": 0.004807692307692308
+    }
+   },
+   "GA": {
+    "plants_donor_frac": 0.0,
+    "plants_acceptor_frac": 0.5576923076923077,
+    "motif_clean_frac": 0.4423076923076923,
+    "n": 416,
+    "where": {
+     "downstream:AG": 0.5480769230769231,
+     "upstream:AG": 0.03365384615384615
+    }
+   },
+   "GC": {
+    "plants_donor_frac": 1.0,
+    "plants_acceptor_frac": 0.03365384615384615,
+    "motif_clean_frac": 0.0,
+    "n": 416,
+    "where": {
+     "upstream:AG": 0.03365384615384615,
+     "written:GC": 1.0
+    }
+   },
+   "GG": {
+    "plants_donor_frac": 0.25,
+    "plants_acceptor_frac": 0.03365384615384615,
+    "motif_clean_frac": 0.71875,
+    "n": 416,
+    "where": {
+     "downstream:GC": 0.16105769230769232,
+     "downstream:GT": 0.0889423076923077,
+     "upstream:AG": 0.03365384615384615
+    }
+   },
+   "GT": {
+    "plants_donor_frac": 1.0,
+    "plants_acceptor_frac": 0.03365384615384615,
+    "motif_clean_frac": 0.0,
+    "n": 416,
+    "where": {
+     "upstream:AG": 0.03365384615384615,
+     "written:GT": 1.0
+    }
+   },
+   "TA": {
+    "plants_donor_frac": 0.004807692307692308,
+    "plants_acceptor_frac": 0.5480769230769231,
+    "motif_clean_frac": 0.44711538461538464,
+    "n": 416,
+    "where": {
+     "downstream:AG": 0.5480769230769231,
+     "upstream:GT": 0.004807692307692308
+    }
+   },
+   "TC": {
+    "plants_donor_frac": 0.004807692307692308,
+    "plants_acceptor_frac": 0.0,
+    "motif_clean_frac": 0.9951923076923077,
+    "n": 416,
+    "where": {
+     "upstream:GT": 0.004807692307692308
+    }
+   },
+   "TG": {
+    "plants_donor_frac": 0.25240384615384615,
+    "plants_acceptor_frac": 0.0,
+    "motif_clean_frac": 0.7475961538461539,
+    "n": 416,
+    "where": {
+     "downstream:GC": 0.16105769230769232,
+     "downstream:GT": 0.0889423076923077,
+     "upstream:GT": 0.004807692307692308
+    }
+   },
+   "TT": {
+    "plants_donor_frac": 0.004807692307692308,
+    "plants_acceptor_frac": 0.0,
+    "motif_clean_frac": 0.9951923076923077,
+    "n": 416,
+    "where": {
+     "upstream:GT": 0.004807692307692308
+    }
+   }
+  }
+ }
+}

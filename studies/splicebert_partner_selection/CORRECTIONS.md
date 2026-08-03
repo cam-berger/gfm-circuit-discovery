@@ -743,3 +743,143 @@ not newly created.
 reads as complete. When a checker walks source, it must be tested against the *idioms actually in the
 tree*, not only the one the first author happened to use — and any statistic seeded from `hash()` of a
 `str` is not reproducible unless `PYTHONHASHSEED` is both set and recorded.
+## R44 — corruption alts constrain what a substitution WRITES, not what it CREATES; the donor-side operator plants a splice motif wherever the readout leaves it visible (2026-08-02)
+
+**Outcome in one line: a real instrument defect, found and fixed, that changed no claim.** Every
+donor-side arm exposed to it was re-run with a motif-clean alt and re-compared on an identical cohort;
+**no row in any of the three ledgers moves.** Where anything shifted, the plant had been *suppressing*
+the measured effect, not inflating it — the atlas's ranked-vs-random separation widens from 1.15x to
+1.63x once it is removed. One gate came back **mixed** rather than clean and is reported as such below
+(GFS25 V1: 3/5 seeds, not the >=4/5 its acceptance rule required).
+
+**What was believed.** `ACCEPTOR_ALTS = ("CC","TT","CA","TC")` and `DONOR_ALTS = ("CC","AA","TA","AC")`
+(`src/gfmcd/splicing/coupling.py:55-56`) were documented as substitutions "guaranteed to DESTROY the
+motif and never create the other one", and `CORRUPT_ALT = ACCEPTOR_ALTS[0] = "CC"`
+(`src/gfmcd/splicing/circuit.py:66`) was used by every confirmatory and mechanistic runner in the donor
+arc. No reason to prefer `CC` within its tuple was ever recorded, and **no per-alt effect appeared
+anywhere under `results/` before 2026-08-02**.
+
+**The gap.** Writing `XY` at `[q-2, q)` touches three overlapping registers — `seq[q-3]+X`, `XY`, and
+`Y+seq[q]`. The tuples constrain only the middle one, so a substitution can destroy its target and
+simultaneously **create** a splice motif one base away. `tests/test_motif_cleanliness.py` proves
+exhaustively over all 16 flanking contexts that cleanliness forces `X="A"` and `Y∈{C,T}`, leaving exactly
+`AC` and `AT`; `MOTIF_CLEAN_ALT = "AC"` is clean at both sites.
+
+**Measured, model-free.** Acceptor side: `seq[a-3]="G"` in **0.36%** (train, n=15,196) / **0.35%** (val,
+n=5,930) / **0.5%** (GTEx cohorts, n=416) — `CC` plants a `GC` donor at a negligible rate; the acceptor
+outlier is `CA`, which plants a rescued `AG` one base downstream in ~51–55% of exons. Donor side:
+`seq[d-1]="G"` in **81.0%** (val GENCODE), **82.0%** (GTEx union), **87.8%** (atlas condition-B donor
+sites) — `CC` plants a `GC` donor one base upstream, `TA` plants a **canonical `GT`** (95.5% on atlas
+condition-B), `AA` plants an `AG` (62.0%), and `AC` plants nothing (**0.0%**) everywhere measured.
+Artifacts: `results/splicebert_gtex_finetune_shift/gtex_planted_motif_census_v1.json`,
+`results/splicebert_head_context_atlas/atlas_planted_motif_census_v1.json`.
+
+**Exposure is decided by the READOUT, not by the alt.** Where the substituted index is **masked** the
+base is invisible and nothing is planted; where it is **visible** the confound is live.
+
+**1. `splicebert_partner_selection` — NOT EXPOSED; no claim changes.** 0 of 42 rows rests on donor-side
+substitution; every corrupting row goes through `CouplingTask.pair` (`circuit.py:138-144`),
+acceptor-side, at a masked-donor readout. `AG→CC` is **retained**, and is independently validated
+alt-invariant within ±25% by **C42**. Swapping to `AC` here would *reduce* every effect ~11.6%
+(AR1 `arms.ACC`, ρ = 0.884) and correct nothing. C1 and C2 carry an appended scope note; no number,
+status word, or claim text changed.
+
+**2. Head-Context Atlas — EXPOSED; re-run with `AC`; NO CONCLUSION CHANGES.** Largest measured plant
+rate. Four arms re-run to new paths (originals byte-identical):
+
+| arm | claims | committed → clean-alt | agreement |
+|---|---|---|---|
+| `run_all_head_screen` cond. B | HCA12, HCA18 | +0.1551 → +0.1573 (+1.4%) | per-head **r = 0.9986**; **L3H1 still rank 1**; top5 5/5, top20 20/20 |
+| `group_mlp_closure` cond. B | HCA9, HCA10 | 0.1015 → 0.0976 (−3.9%) | r = 0.965; top10 9/10; L3H1-alone 0.0857 → 0.0810 |
+| `behavioral_pilot` | HCA2, HCA3, HCA7 | 0.1748 → 0.1604 (−8.2%) | `M_comp` +0.0063 → −0.0125, both ≪ SESOI 0.05 — null holds; `sham` unchanged to machine precision |
+| `specificity_pilot` | HCA4, HCA7 | −0.0473 → −0.0480 | specificity failure unchanged |
+
+**The confound was suppressing the atlas, not inflating it**: in `group_mlp_closure` the ranked-vs-random
+separation **widens** `1.15× → 1.63×` once the plant is removed, and `behavioral_pilot`'s MDE improves
+`0.0241 → 0.0218`. Conditions C and D of the head screen reshuffle more (per-head r = 0.846 / 0.889,
+top20 11/20 and 14/20), but their effects are ~0.02 against condition B's 0.155 — ranking 96 heads on an
+effect that small is noise-dominated, and neither carries a claim that depends on head order; C is
+already recorded as a non-specific "competitor-site perturbation response". **Only the two screens and
+`group_mlp_closure` are pure like-for-like** (`variants[0]` on both sides); the two pilots also changed
+from a 4-alt mean to a single construct, so their deltas mix the operator change with an averaging
+change. Reported, not hidden.
+
+**3. `splicebert_gtex_finetune_shift` — EXPOSED on CONTROLS; both follow-ups now CLOSED.** 8 of 34 rows
+touch a donor-side destroy; in all seven runners the donor-side quantity is a positive control / health
+gate, never the estimand — but GFS7, GFS11 and GFS24 quote its magnitude verbatim. The five published
+`SpliceBERT.SpliceAI-GTEx.<seed>.pt` checkpoints (seeds 2020–2024) were obtained and verified against
+the archive and per-seed sha256s already frozen in `configs/splicebert_gtex_finetune_shift/base.json`,
+which unblocked both:
+
+- **Classifier preflight, motif-clean third arm** (`native_classifier_preflight_clean_alt_v1.json`,
+  51/51 checks pass). The committed `CC` and `AA` arms reproduce **bit-exactly** (delta 0.00e+00 on all
+  five seeds), so only the added arm is new. Stratifying on `seq[d-1]=="G"` — the condition under which
+  `CC` can plant — gives `AC-CC` of **-1.238** (95% CI -1.419 to -1.069, n=250) where a plant is
+  possible and **-2.252** (95% CI -2.674 to -1.850, n=70) where it is not. The plant-attributable part
+  is the **interaction, +1.015**, against a local destruction effect of 19.1–21.5, i.e. **~5%**. Note
+  the raw difference is negative in *both* strata — writing `AC` is simply a milder edit at a donor than
+  `CC`, independent of any motif — so quoting the G-stratum figure alone would overstate the confound by
+  roughly 2x.
+- **GFS25 V1 clean-alt recheck** (`positional_native_margin_gate_v1_clean_alt_recheck.json`). Identical
+  replayed cohort, one changed input. `period3__delete` retention rises on every seed, by +0.007 to
+  +0.041, and **3 of 5 seeds remain below the 0.80 floor**; `status` stays
+  `STOPPED_INTERVENTION_PREFLIGHT` and `preflight.passed` stays `false`. The acceptance rule required
+  **>=4/5** to say the stop reason stands unaided, so this is recorded as **MIXED**: the interaction the
+  hypothesis predicted is real and measurable, but roughly an order of magnitude too small to explain
+  the stop — seeds 2022 and 2024 needed +0.15 and +0.08 and received +0.007 and +0.041. Only seed 2021
+  crosses, from 0.7835 to 0.8101, and it was already 0.0165 from the floor. **This settles only why V1
+  stopped and cannot promote GFS25**, whose licensed claim rests on the V2 run that passed.
+
+**A trap in the record, for anyone repeating this.** `native_classifier_preflight_v1.json` is a
+**FAILED** preflight (`status: FAIL`, 31/51 checks, every seed `PASS=false`, clean donor margin ≈ -17,
+`local_cc_drop_mean` *negative*). The passing run is **v2**, and it is v2 that carries the
+`local_cc_drop_mean` 21.13 / five-seed range 19.1–21.5 figures. A clean-alt comparison made against v1
+reads as a 21-logit shift where the true shift is zero.
+
+**Gate fix.** `gate_no_planted_motif` (`scripts/splicebert_head_context_atlas/run_all_head_screen.py`)
+rejects a "destruction" that creates a motif. It is kept **separate** from `gate_destroy_real_bases` —
+which checks length, footprint and alphabet, and so could never have caught this — leaving that
+function's verdict, and every artifact it gated, byte-reproducible. The planted-motif count is **always**
+recorded into the run manifest; it is fatal only under `--require-motif-clean`. The live gate
+independently reproduced the model-free census to the tenth of a percent (condition B 197/400 = 49.25%
+recorded vs 49.2% predicted; C 34.5% vs 34.5%; D 33.5% vs 33.5%), and the clean-alt runs recorded zero
+plants.
+
+**No existing result is shown to be wrong.** The difference-in-differences probe built to detect the
+planting in AR1's `DONA` arm came back **REFUTED** (`+0.014 [−0.022, +0.048]` against a ±0.265 bound),
+and every atlas re-run above preserves its conclusion. `AC` removes a confound that would otherwise have
+to be defended; it does not overturn anything.
+
+**Two reproducibility gaps found in passing — recorded, deliberately NOT fixed here.** (a) The atlas
+discovery config `studies/splicebert_head_context_atlas/colab_package/config.discovery.json` was removed
+in the 2026-07-31 cleanup (`7e254fc`) although **every committed HCA manifest cites it**; it was
+recovered from Git for these runs and its pinned GTF sha256 verified (`83fba3e9…13a453`), but as the tree
+stands the atlas cannot be re-run from a clean checkout. (b) `run_group_mlp_closure.py`'s committed
+invocation requires `/Users/cberg/Downloads/head_effect_reanalysis.json`, a machine-specific path outside
+the repository (FAILURE_MODES C5). Re-adding a deliberately-removed file is a decision, not a cleanup,
+so both are logged for the owner rather than silently repaired.
+
+**Owner decision (2026-08-02): the GTEx donor-side runners were switched to `MOTIF_CLEAN_DONOR_ALT`.**
+R44 originally left the seven runners unedited because each produced an immutable artifact. The owner
+elected to switch them so a future re-run is clean by default. **The consequence is recorded here rather
+than hidden: these seven runners no longer reproduce the committed artifacts they produced.** Any re-run
+now measures the motif-clean operator, and a byte-comparison against `native_classifier_preflight_v1/v2`,
+`native_mechanism_confirmation_v1`, `native_context_preflight_v1`,
+`native_biological_features_preflight_v1`, `positional_band_surgery_v1` or
+`positional_native_margin_gate_v1/v2` will differ for that reason and no other. The **acceptor**-side
+substitutions in those same files are deliberately untouched — `CC` is validated there by C42, and the
+census puts its plant rate at 0.5%.
+
+`run_gtex_native_classifier_preflight.py` is handled differently: rather than replacing its `CC` arm it
+**gains a third, motif-clean arm** (`local_ac_drop_mean`, `local_ac_drop_positive_fraction`,
+`local_ac_minus_cc_mean`), because R44's open item 2 asks for an *estimate* of the attenuation rather
+than the `+0.85` upper bound, and that needs `CC`, `AA` and `AC` measured on one cohort. The gate now
+turns on the clean arm (`local_ac_sensitivity`); `local_cc_sensitivity` and `local_aa_sensitivity` are
+retained as reported context, and the neutral-specificity floor now includes the clean arm so it cannot
+be flattered by two contaminated ones. The `local_cc_*` keys keep their original meaning — they are
+still the `CC` numbers — so no committed key changes meaning.
+
+**Rule.** An alt tuple that constrains only the bases it writes is not a motif-safety guarantee, and a
+gate that checks length, footprint and alphabet cannot catch what an edit creates. Any corruption whose
+substituted index is VISIBLE to the model must use `MOTIF_CLEAN_ALT`, or measure and report its planted
+rate.

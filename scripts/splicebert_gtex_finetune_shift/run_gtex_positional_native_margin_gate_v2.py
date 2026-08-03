@@ -22,7 +22,7 @@ from gfmcd.artifact_guard import guard_output_path  # noqa: E402
 from gfmcd.provenance import ExperimentManifest, file_record, sha256_file  # noqa: E402
 from gfmcd.rigor import benjamini_hochberg  # noqa: E402
 from gfmcd.splicing.circuit import _dataset, eligible, pick_device  # noqa: E402
-from gfmcd.splicing.coupling import CouplingExample, substitute  # noqa: E402
+from gfmcd.splicing.coupling import MOTIF_CLEAN_DONOR_ALT, CouplingExample, substitute  # noqa: E402
 from gfmcd.splicing.gtex_finetune import load_gtex_token_classifier  # noqa: E402
 from gfmcd.splicing.native_classifier import NativeClassifierTask  # noqa: E402
 from gfmcd.splicing.positional_spectrum import (  # noqa: E402
@@ -539,7 +539,7 @@ def main() -> None:
     )
     clean_sequences = [example.sequence for example in examples]
     local_sequences = [
-        substitute(example.sequence, int(example.donor_pos), "CC")
+        substitute(example.sequence, int(example.donor_pos), MOTIF_CLEAN_DONOR_ALT)
         for example in examples
     ]
     paired_sequences = [

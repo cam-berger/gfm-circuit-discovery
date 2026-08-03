@@ -1,0 +1,45 @@
+{
+  "command": [
+    "scripts/splicebert/run_ar1_alt_robustness.py",
+    "--smoke",
+    "--split",
+    "train",
+    "--batch",
+    "16",
+    "--model",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt"
+  ],
+  "config": {
+    "admissible_frac": 0.95,
+    "delta": [
+      0.75,
+      1.33
+    ],
+    "gtf": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+    "halfwidth_target": 0.15,
+    "min_support": 100,
+    "model": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+    "n": 8,
+    "n_boot": 2000,
+    "n_boot_in_gates": 400,
+    "n_genes": 8,
+    "prereg": "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_AR1_CORRUPTION_OPERATOR_SENSITIVITY.md",
+    "pythonhashseed": "0",
+    "split": "train"
+  },
+  "created_at_utc": "2026-08-02T23:58:37.016564+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 76949,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_coupling:ar1_corruption_operator_sensitivity",
+  "git_commit": "7fcd74d39a3510ad46f85a5ae6d7e19ce33b10f4",
+  "git_dirty": true,
+  "inputs": [],
+  "notes": [],
+  "outputs": [],
+  "seeds": {},
+  "status": "SMOKE"
+}

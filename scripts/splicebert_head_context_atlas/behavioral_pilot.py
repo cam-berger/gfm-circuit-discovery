@@ -36,7 +36,12 @@ from gfmcd.splicing.gtf import load_transcripts  # noqa: E402
 from gfmcd.splicing.competition import (  # noqa: E402
     CompetitionConfig, build_competition_index, enumerate_competition_examples)
 from gfmcd.splicing.competition_seq import build_window  # noqa: E402
-from gfmcd.splicing.coupling import destroy_donor, destroy_acceptor, perturb_random  # noqa: E402
+from gfmcd.splicing.coupling import (  # noqa: E402
+    destroy_donor, destroy_acceptor, destroy_donor_clean, destroy_acceptor_clean,
+    perturb_random,
+)
+
+USE_CLEAN_ALT = False   # R44 --clean-alt; default preserves committed behaviour
 from gfmcd.splicing.dataset import PyfaidxGenome  # noqa: E402
 
 DEFAULT_GTF = "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz"
@@ -50,6 +55,9 @@ def _order_key(eid: str) -> int:
 
 
 def _destroy(seq, pos, is_donor):
+    if USE_CLEAN_ALT:
+        # single motif-clean construct replaces the contaminated 4-alt mean (R44)
+        return [(destroy_donor_clean if is_donor else destroy_acceptor_clean)(seq, pos)]
     return destroy_donor(seq, pos) if is_donor else destroy_acceptor(seq, pos)
 
 
@@ -97,8 +105,11 @@ def main():
     ap.add_argument("--per-gene-cap", type=int, default=3)
     ap.add_argument("--batch", type=int, default=16)
     ap.add_argument("--sesoi", type=float, default=0.05)
+    ap.add_argument("--clean-alt", action="store_true", help="R44: destroy with MOTIF_CLEAN_ALT")
     ap.add_argument("--out", default=str(REPO / "results/splicebert_head_context_atlas/behavioral_pilot_v1.json"))
     args = ap.parse_args()
+    global USE_CLEAN_ALT
+    USE_CLEAN_ALT = bool(args.clean_alt)
     if os.environ.get("PYTHONHASHSEED") != "0":
         print("WARN: PYTHONHASHSEED != 0", file=sys.stderr)
 
