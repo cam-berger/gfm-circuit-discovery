@@ -190,7 +190,7 @@ their scripts, immutable JSON, and manifests.
 ## Figures
 
 Canonical paper figures are generated from recorded artifacts (`make_fig1_summary.py`,
-`make_fig2_oscillators.py`, `make_fig3_clock_circuit.py`, `make_fig4_carrier_circuit.py`,
+`make_fig2_oscillators.py`, `make_fig3_clock_circuit.py`,
 `make_fig5_p3_phase_surgery_confirmation.py`, `make_fig_phase_data.py`, `make_fig_report_data.py`;
 donor-circuit figure generators live in `figures/splicebert/`). A figure is explanatory; the JSON and
 manifest remain the scientific record. Sources documented under `figures/splicebert/README.md`.

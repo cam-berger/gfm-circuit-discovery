@@ -28,7 +28,7 @@ reciprocal band (89–97%) and of a low-leak band (~100%), and survives **conten
 > **Correction (2026-07-24).** This caption and the figure generator both read **40–44%** for the
 > carrier-deleted row. The controlling artifact `results/phase-lattice/fig_report_data.json` gives
 > **27–44%** over the eight Level-A heads (six of the eight are below 40%), which is what
-> `fig4_carrier_circuit.CAPTION.md` and `EVIDENCE.md` have always said. The caption is corrected
+> `EVIDENCE.md` and the controlling artifacts establish. The caption is corrected
 > above and `make_fig1_summary.py` now derives all three retention ranges from the artifact instead
 > of hard-coding them (`tests/test_fig1_summary_ranges.py` pins this).
 > **The committed `fig1_summary.svg`/`.png` still render 40–44% and require regeneration** — they are
@@ -46,7 +46,7 @@ figure says so in its footer. The period-3 circuit is measured in **SpliceBERT.1
 multi-species). The Level-A attention circuit is measured in **SpliceBERT.510nt** (stage-1,
 multi-species) — because establishing it required a matched contrast against
 **SpliceBERT-human.510nt**, its twin, which differs *only* in training data. That contrast is
-Figure 4A, and it is the reason the null in the human-only model can be believed.
+the controlled post-softmax assay, and it is the reason the null in the human-only model can be believed.
 
 ## What is deliberately not claimed
 

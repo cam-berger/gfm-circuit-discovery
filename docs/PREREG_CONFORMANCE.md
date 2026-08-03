@@ -8,6 +8,12 @@ claim's wording depends on the gap. It exists because a reviewer's hardest quest
 preregistered project is not "what did you find" but "did you do what you said you would" — and until
 this file existed, that question had no answer here short of reading 34 protocols against 150 runners.
 
+> **Resolution update (2026-08-03).** The historical audit row below that calls the C41 tier
+> "unresolved" is closed by R32: the live ledger, preregistration index, G1 report, and decision log all
+> place C41 at **verification tier, not confirmatory**. The substantive generic-readout-axis finding is
+> unchanged. The superseded carrier-origin synthesis named in another historical row was removed; C39/C40
+> in the live ledger now control the comparative multi-species association and its confounding caveat.
+
 > **Coverage gap, stated rather than hidden.** The **DNABERT-2 reconstruction atlas** — seven frozen
 > protocols under `studies/dnabert2_reconstruction_atlas/` (`PREREGISTRATION.md` and `_D12_`
 > through `_D17_`) — has **not** been through this audit. Its known protocol-vs-execution departures

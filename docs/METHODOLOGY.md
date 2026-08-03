@@ -34,7 +34,8 @@ Of that family, this repository performs activation and path patching, causal me
 circuit analysis. It does **not** perform *behaviour-directed* steering — no claim in this record rests on
 driving a model behaviour toward a chosen target. The one preregistered site-choice steering study (B2) was
 design-red-teamed, halted at its own smoke gate on first contact with the model, and retired before any
-confirmatory run (`docs/B2_B3_EXECUTION_DISPOSITION_2026-07-23.md`). G1 *does* additively inject a derived
+confirmatory run (see the B2 disposition in the live
+[`CLAIMS.md`](../studies/splicebert_partner_selection/CLAIMS.md)). G1 *does* additively inject a derived
 direction into the final donor residual across a dose grid, but as a sufficiency/specificity test whose
 verdict is **negative** for example-specificity (C41, reported at verification tier — R28/R32), not to
 steer a behaviour. The repository

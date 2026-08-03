@@ -93,7 +93,7 @@
       "artifact": "results/phase-lattice/band_mass.json",
       "script": "scripts/splicebert/measure_band_mass.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png;figures/splicebert/fig4_carrier_circuit.png"
+      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
     },
     {
       "claim_id": "C8",
@@ -103,7 +103,7 @@
       "artifact": "results/phase-lattice/carrier_dose.json",
       "script": "scripts/splicebert/run_carrier_dose.py",
       "manifest": "results/phase-lattice/carrier_dose.manifest.json",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png;figures/splicebert/fig4_carrier_circuit.png;figures/splicebert/fig_phase_circuit.png;figures/splicebert/fig_phase_clock.png;figures/splicebert/fig_phase_wave.png;figures/splicebert/fig_two_carriers.png"
+      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
     },
     {
       "claim_id": "C8",
@@ -123,7 +123,7 @@
       "artifact": "results/phase-lattice/carrier_geometry.json",
       "script": "scripts/splicebert/run_carrier_geometry.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png;figures/splicebert/fig4_carrier_circuit.png"
+      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
     },
     {
       "claim_id": "C9,C10",
@@ -133,7 +133,7 @@
       "artifact": "results/phase-lattice/carrier_mediation.json",
       "script": "scripts/splicebert/run_carrier_mediation.py",
       "manifest": "results/phase-lattice/carrier_mediation.manifest.json",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png;figures/splicebert/fig4_carrier_circuit.png;figures/splicebert/fig_phase_circuit.png;figures/splicebert/fig_phase_clock.png;figures/splicebert/fig_phase_wave.png;figures/splicebert/fig_two_carriers.png"
+      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
     },
     {
       "claim_id": "C9,C10",
@@ -153,7 +153,7 @@
       "artifact": "results/phase-lattice/carrier_provenance.json",
       "script": "scripts/splicebert/run_carrier_provenance.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig_phase_circuit.png;figures/splicebert/fig_phase_clock.png;figures/splicebert/fig_phase_wave.png;figures/splicebert/fig_two_carriers.png"
+      "figure": ""
     },
     {
       "claim_id": "C11",
@@ -163,7 +163,7 @@
       "artifact": "results/phase-lattice/carrier_subbin.json",
       "script": "scripts/splicebert/run_carrier_subbin.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png;figures/splicebert/fig4_carrier_circuit.png"
+      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
     },
     {
       "claim_id": "C8",
@@ -173,7 +173,7 @@
       "artifact": "results/phase-lattice/carrier_surgery.json",
       "script": "scripts/splicebert/run_carrier_surgery.py",
       "manifest": "results/phase-lattice/carrier_surgery.manifest.json",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png;figures/splicebert/fig4_carrier_circuit.png"
+      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
     },
     {
       "claim_id": "C8",
@@ -663,7 +663,7 @@
       "artifact": "results/phase-lattice/dyad_real.json",
       "script": "scripts/splicebert/run_dyad_real.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png;figures/splicebert/fig4_carrier_circuit.png"
+      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
     },
     {
       "claim_id": "C14",
@@ -673,7 +673,7 @@
       "artifact": "results/phase-lattice/dyad_wavelength.json",
       "script": "scripts/splicebert/run_dyad_wavelength.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png;figures/splicebert/fig4_carrier_circuit.png"
+      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
     },
     {
       "claim_id": "C8",
@@ -683,7 +683,7 @@
       "artifact": "results/phase-lattice/fig_phase_data.json",
       "script": "scripts/splicebert/make_fig_phase_data.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig_phase_circuit.png;figures/splicebert/fig_phase_clock.png;figures/splicebert/fig_phase_wave.png;figures/splicebert/fig_two_carriers.png"
+      "figure": ""
     },
     {
       "claim_id": "C8,C11,C13,C14",
@@ -693,7 +693,7 @@
       "artifact": "results/phase-lattice/fig_report_data.json",
       "script": "scripts/splicebert/make_fig_report_data.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png;figures/splicebert/fig4_carrier_circuit.png"
+      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
     },
     {
       "claim_id": "C13",
@@ -703,7 +703,7 @@
       "artifact": "results/phase-lattice/human_carrier.json",
       "script": "scripts/splicebert/run_human_carrier.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png;figures/splicebert/fig4_carrier_circuit.png"
+      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
     },
     {
       "claim_id": "C36",
@@ -1173,7 +1173,7 @@
       "artifact": "results/phase-lattice/postsoftmax.json",
       "script": "scripts/splicebert/run_postsoftmax.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png;figures/splicebert/fig4_carrier_circuit.png"
+      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
     },
     {
       "claim_id": "C11",
@@ -1183,7 +1183,7 @@
       "artifact": "results/phase-lattice/preflight_postsoftmax.json",
       "script": "scripts/splicebert/run_postsoftmax.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png;figures/splicebert/fig4_carrier_circuit.png"
+      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
     },
     {
       "claim_id": "C11",
@@ -1193,7 +1193,7 @@
       "artifact": "results/phase-lattice/second_carrier.json",
       "script": "scripts/splicebert/run_second_carrier.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig_two_carriers.png"
+      "figure": ""
     },
     {
       "claim_id": "C15",

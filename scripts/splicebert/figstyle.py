@@ -1,4 +1,4 @@
-"""Shared SVG primitives and the VALIDATED palette for the four publication figures.
+"""Shared SVG primitives and the validated palette for the phase-lattice figures.
 
 THE PALETTE IS NOT A TASTE DECISION -- IT WAS COMPUTED.  Every pair of colours that appears
 together in a panel was checked for separation under normal vision and under simulated
@@ -19,7 +19,7 @@ ONE HUE, ONE MEANING, ACROSS ALL FOUR FIGURES:
 BLUE vs ORANGE -- the two carriers, the central distinction of the whole report -- separate by
 dE = 74 under every colour-vision model.  Nothing else in the set comes close to colliding.
 
-The layer ramp in Figure 4A is SEQUENTIAL (layer is ordinal, read by lightness order), so the
+The layer ramp used for the attention summary is SEQUENTIAL (layer is ordinal, read by lightness order), so the
 categorical dE >= 12 floor does not apply to its adjacent steps; the Level-A highlight clears
 every step of it by dE >= 39.
 """

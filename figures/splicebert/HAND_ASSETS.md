@@ -1,8 +1,10 @@
-# Hand-authored and retired SpliceBERT assets
+# Hand-authored SpliceBERT assets
 
 > **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
 
-The four figures of record and their generating scripts are listed in [`README.md`](README.md). This file exists to prevent older hand-authored or superseded assets from being mistaken for current evidence.
+The figures of record and their generating scripts are listed in [`README.md`](README.md). Superseded
+phase snapshots and the stale `fig4_carrier_circuit` asset were removed from the active tree; Git
+history retains them.
 
 ## Original hand assets
 
@@ -19,17 +21,13 @@ The donor–acceptor binding illustration asserts a content-addressed, position-
 
 Use [`../../studies/splicebert_partner_selection/FINDINGS.md`](../../studies/splicebert_partner_selection/FINDINGS.md) for the current mechanism. It supports a conjunctive acceptor read and a period-3 positional contribution, but no pointer or content-addressed lookup claim.
 
-## Earlier phase figures
-
-`fig_phase_circuit`, `fig_phase_clock`, `fig_phase_wave`, and `fig_two_carriers` are historical snapshots. Their old generators were removed from the active script set during consolidation. They are not figures of record and should not be regenerated as current results.
-
-The canonical publication set is:
+## Canonical publication set
 
 | Figure | Generator |
 |---|---|
 | `fig1_summary` | `scripts/splicebert/make_fig1_summary.py` |
 | `fig2_oscillators` | `scripts/splicebert/make_fig2_oscillators.py` |
 | `fig3_clock_circuit` | `scripts/splicebert/make_fig3_clock_circuit.py` |
-| `fig4_carrier_circuit` | `scripts/splicebert/make_fig4_carrier_circuit.py` |
+| `fig5_p3_phase_surgery_confirmation` | `scripts/splicebert/make_fig5_p3_phase_surgery_confirmation.py` |
 
-All four read `results/phase-lattice/fig_report_data.json`. The machine-readable result, not the artwork, controls exact values.
+The machine-readable results, not the artwork, control exact values.

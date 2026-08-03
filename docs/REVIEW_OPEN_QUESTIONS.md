@@ -61,43 +61,18 @@ then the F2 guard is not CI-enforced.~~ Note this also means the documented-gree
 
 ## B3 — nomenclature (2026-07-22)
 
-Source: the read-only nomenclature audit (task A2) plus review §2.1/§2.3/§2.4 and fix F3. Applied
-changes were confined to `docs/NOMENCLATURE.md`, `README.md`, and `MECHANISM.md`. The following were
-escalated instead.
+The superseded phase captions and stale `fig4_carrier_circuit` asset were removed from the active tree
+on 2026-08-03; Git history preserves them. Two live nomenclature questions remain:
 
-1. **`figures/splicebert/fig_two_carriers.CAPTION.md` uses the retired "10.67" label in live prose.**
-   Line 69 asserts `**The carrier is ~10.67, and "10.69" is a Fourier grid, not a measurement.**`, line
-   58 carries an evidence-status row `| SpliceBERT selectively amplifies a **sharp** ~10.67 tone |
-   **established** |`, and line 65 says `at 10.67 it is *not even a local maximum*`. This directly
-   contradicts the retirement recorded at `results/phase-lattice/RESULTS_INDEX.md:102`. The file also
-   cites the superseded D22 numbering, is absent from the publication table in
-   `figures/splicebert/README.md`, and carries no historical/superseded stamp. **Decision required:**
-   stamp the file T3-historical (phase E1) versus correct the caption text. Correcting the text would
-   restate a superseded caption's conclusions and is therefore not an automated edit. Owner of the path
-   is D1/E1, not B3.
-
-2. **`data/NUCLEOSOME_MAP.md:36` calls the nucleosomal signal "10.67-nt".** Two defects in one phrase:
+1. **`data/NUCLEOSOME_MAP.md:36` calls the nucleosomal signal "10.67-nt".** Two defects in one phrase:
    the label is retired, and the nucleosomal signal is ≈10.298, not any 10.6x value. Rewording is a
    provenance-document change that touches how a measurement is described. **Decision required:** owner
    ruling on a wavelength-neutral rewording. Path is not owned by B3.
 
-3. **`figures/splicebert/fig4_carrier_circuit.CAPTION.md:64` labels the human-only component ≈10.17
-   while every other document says ≈10.2.** Both are recorded values (≈10.17 is the sub-bin estimate of
-   the component that other documents name ≈10.2). `docs/NOMENCLATURE.md` records the term as the
-   "human-only ≈10.2 component" because that is the ledger wording (C13). **Decision required:** which
-   label is canonical in prose. Do not change either recorded number without that ruling.
-
-4. **`figures/splicebert/EVIDENCE.md:49` says the human-only chromatin-circuit claim is "closed at
+2. **`figures/splicebert/EVIDENCE.md:49` says the human-only chromatin-circuit claim is "closed at
    QK"; `CLAIMS.md` C13 and four other documents say "closed at the attention gate".** These are
    different rungs of the evidence ladder, so this is not a free wording harmonisation. **Decision
    required:** confirm the intended rung, then harmonise. Path is not owned by B3.
-
-5. **`studies/splicebert_partner_selection/CLAIMS.md:33` (C14) states the 10.298-vs-≈10.63 distinctness
-   without the "0.33 nt apart, powered refutation" qualifier that review §2.3 requires in the same
-   sentence.** `CLAIMS.md` is read-only and the ledger's compactness is deliberate. **Resolution taken:**
-   the qualifier now lives in `docs/NOMENCLATURE.md` under the `10.298` entry, with `RESULTS_VERIFICATION.md`
-   and `fig4_carrier_circuit.CAPTION.md` as the authoritative detail, rather than being inserted into the
-   ledger. **Decision required only if** the owner would prefer the qualifier in the ledger itself.
 
 ---
 

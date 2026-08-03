@@ -97,7 +97,7 @@ def _tracked_markdown() -> list[Path]:
     out = subprocess.run(
         ["git", "ls-files", "*.md"], cwd=REPO, capture_output=True, text=True, check=True
     ).stdout.split()
-    return [REPO / p for p in out]
+    return [candidate for p in out if (candidate := REPO / p).is_file()]
 
 
 def _defined_claim_ids() -> set[str]:

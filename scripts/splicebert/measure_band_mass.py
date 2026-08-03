@@ -3,7 +3,7 @@
 the tested offsets.
 
 run_postsoftmax.py used band mass as a GATE -- a head under the 2% floor was dropped from the
-scan -- but it only ever stored the heads that passed, not the value.  Figure 4A wants it as
+scan -- but it only ever stored the heads that passed, not the value.  The controlled attention summary needs it as
 the point size, and it is not a number I am willing to invent.  So it is measured again here.
 
 This is ONE intact forward pass.  No deletions, no permutations, no training.  The inputs are
