@@ -850,14 +850,27 @@ planting in AR1's `DONA` arm came back **REFUTED** (`+0.014 [−0.022, +0.048]` 
 and every atlas re-run above preserves its conclusion. `AC` removes a confound that would otherwise have
 to be defended; it does not overturn anything.
 
-**Two reproducibility gaps found in passing — recorded, deliberately NOT fixed here.** (a) The atlas
-discovery config `studies/splicebert_head_context_atlas/colab_package/config.discovery.json` was removed
-in the 2026-07-31 cleanup (`7e254fc`) although **every committed HCA manifest cites it**; it was
-recovered from Git for these runs and its pinned GTF sha256 verified (`83fba3e9…13a453`), but as the tree
-stands the atlas cannot be re-run from a clean checkout. (b) `run_group_mlp_closure.py`'s committed
-invocation requires `/Users/cberg/Downloads/head_effect_reanalysis.json`, a machine-specific path outside
-the repository (FAILURE_MODES C5). Re-adding a deliberately-removed file is a decision, not a cleanup,
-so both are logged for the owner rather than silently repaired.
+**Two reproducibility gaps found in passing — both CLOSED by owner decision (2026-08-02).** Each was a
+committed result depending on an input that was not in the tree, i.e. the R42 failure mode (a claim whose
+controlling inputs are not obtainable), and each was cheap to close, so both were restored rather than
+logged.
+
+(a) The atlas discovery config `studies/splicebert_head_context_atlas/colab_package/config.discovery.json`
+was removed in the 2026-07-31 cleanup (`7e254fc`) although **every committed HCA manifest cites it by
+path**, and it carries the GTF and base-checkpoint sha256 pins. Restored byte-identically from Git
+(config sha256 `6169aeeb…f24f8f`; its pinned GTF sha256 `83fba3e9…13a453` verified against the local
+file). The atlas can now be re-run from a clean checkout.
+
+(b) `run_group_mlp_closure.py`'s committed invocation names `--ranking
+/Users/cberg/Downloads/head_effect_reanalysis.json`, a machine-specific path outside the repository
+(FAILURE_MODES C5). That file is a genuine input to `group_mlp_closure_v1.json`, the controlling artifact
+for HCA9/HCA10, and is **not** the same object as the tracked
+`head_effect_donor_valid_reanalysis_v1.json` (different sha256, and it carries `correlations_train_only`,
+`gene_clustered` and `provenance` keys the tracked file does not). It is committed as
+`results/splicebert_head_context_atlas/head_effect_reanalysis_train_only_v1.json`, sha256
+`de7610f1…79d48b`, with a `RESTORED_INPUT` manifest recording the original path it was taken from. The
+committed manifests still name the old absolute path — they are immutable — so this row is the mapping
+that closes the chain.
 
 **Owner decision (2026-08-02): the GTEx donor-side runners were switched to `MOTIF_CLEAN_DONOR_ALT`.**
 R44 originally left the seven runners unedited because each produced an immutable artifact. The owner
