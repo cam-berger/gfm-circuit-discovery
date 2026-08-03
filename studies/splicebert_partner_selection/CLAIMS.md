@@ -4,7 +4,7 @@
 
 This is the point-of-contact record for the strongest wording currently licensed by the evidence. Each
 row is deliberately limited to one claim, one evidence level, one controlling artifact set, and one
-scope boundary. Full numerical detail, superseded narratives, and permanent retractions R1–R43 are
+scope boundary. Full numerical detail, superseded narratives, and permanent retractions R1–R44 are
 preserved in [`CORRECTIONS.md`](CORRECTIONS.md); the experiment chronology is in
 [`DECISIONS_A0.md`](DECISIONS_A0.md).
 
@@ -23,7 +23,7 @@ Status vocabulary:
 
 | # | Section | Claims |
 |---|---|---|
-| 1 | [The behaviour and its specificity](#1-the-behaviour-and-its-specificity) | C1, C2, C19 |
+| 1 | [The behaviour and its specificity](#1-the-behaviour-and-its-specificity) | C1, C2, C19, C42 |
 | 2 | [Necessity and anatomy of the subcircuit](#2-necessity-and-anatomy-of-the-subcircuit) | C3, C4, C5, C6 |
 | 3 | [The address: how L3H1 finds the partner](#3-the-address-how-l3h1-finds-the-partner) | C20, C21, C22, C32, C25 |
 | 4 | [The payload: what is read at the acceptor](#4-the-payload-what-is-read-at-the-acceptor) | C24, C28, C29, C31, C30, IC1 |
@@ -40,8 +40,9 @@ Status vocabulary:
 
 | ID | Current licensed claim | Evidence level | Controlling artifact(s) | Scope / first boundary |
 |---|---|---|---|---|
-| C1 | Corrupting a donor's paired acceptor changes the native masked-donor margin by **+0.872 [0.771, 0.969]**. | established: behavior | `results/splicebert_coupling/sealed_test.json` | Canonical short introns, sealed chr8/9 split, one checkpoint. |
-| C2 | The coupling is partner- and donor-specific: matched non-partner AG and other-donor controls change the margin by only **+0.007/+0.005**. | established: specificity | `sealed_test.json` | Specific to the frozen controls; not a transcript-level splicing assay. |
+| C1 | Corrupting a donor's paired acceptor changes the native masked-donor margin by **+0.872 [0.771, 0.969]**. | established: behavior | `results/splicebert_coupling/sealed_test.json` | Canonical short introns, sealed chr8/9 split, one checkpoint. Corruption operator (AG→CC) validated alt-invariant within ±25% by C42/R44. |
+| C2 | The coupling is partner- and donor-specific: matched non-partner AG and other-donor controls change the margin by only **+0.007/+0.005**. | established: specificity | `sealed_test.json` | Specific to the frozen controls; not a transcript-level splicing assay. Corruption operator (AG→CC) validated alt-invariant within ±25% by C42/R44. |
+| C42 | **The partner-acceptor corruption operator is not an artifact of the single hardcoded alt `CC`.** Held-out val (n=1000 internal exons, 648 genes, chr11/16/19; sealed chr8/9 **not** spent), sweeping every motif-hygienic dinucleotide at the partner acceptor `[a−2, a)` under a frozen **±25% equivalence** rule on the gene-clustered ratio-of-means `ρ(z)=Δ(z)/Δ(CC)`, returns **ALT-INVARIANT**: `TC` **0.982 [0.972, 0.990]**, `CT` **0.979 [0.967, 0.990]**, `TT` **0.961 [0.945, 0.975]**, `AC` **0.884 [0.862, 0.906]**, `AT` **0.861 [0.839, 0.882]** — every admissible alt inside `[0.75, 1.33]`, CI half-widths ≤ **0.022**, i.e. a **well-powered equivalence, not an underpowered null** (planted-1.60 detection **PASS**, planted-1.00 specificity **PASS**, permuted-label FPR **0.000**; all six memorials PASS, two of them labelled FORCED and therefore not evidence). Replicates the train pilot (same ordering, |Δρ| ≤ 0.030). **`CC` is the maximal-effect alt** (ρ ≤ 1 for all 15) but was selected **blind** — `ACCEPTOR_ALTS[0]`, committed 2026-07-12 (`78ec376`), before any per-alt quantity existed anywhere in `results/`. Residual structure is real and reported, not suppressed: alts beginning `A` run ~12–14% below those beginning `C`/`T`. **Scoped to the ACCEPTOR operator only** — the DONOR-side operator is separately **NOT** invariant (R44). | established: operator robustness (confirmatory, held-out val, frozen equivalence bound) | `results/splicebert_coupling/ar1_corruption_operator_sensitivity.json`, `preregistrations/PREREGISTRATION_AR1_CORRUPTION_OPERATOR_SENSITIVITY.md` (+ `AMENDMENT_AR1_A1.md`, `AMENDMENT_AR1_A2.md`, `AMENDMENT_AR1_A3.md`) | Behaviour-level; one checkpoint; length-preserving dinucleotide substitutions only (no `[MASK]`, indels, or >2 nt edits). Does **NOT** transfer to the mechanism results: A0–A12 remain CC-only, and behaviour-level alt-invariance is necessary, **not sufficient**, for alt-invariance of a circuit decomposition. |
 | C19 | The delivered signal is partner- and donor-specific, strand-symmetric, and insensitive to intron-length mod 3 or annotated splice phase. | established: behavioral signature | `donor_signature.json` | Describes model behavior; does not name payload semantics. |
 
 ## 2. Necessity and anatomy of the subcircuit

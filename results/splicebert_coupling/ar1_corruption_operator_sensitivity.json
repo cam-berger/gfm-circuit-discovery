@@ -1,0 +1,1236 @@
+{
+ "memorials": {
+  "variant_construction_exact": {
+   "n_fail": 0,
+   "PASS": true,
+   "forced": false,
+   "examples": []
+  },
+  "motif_hygiene_recomputed": {
+   "n_fail": 0,
+   "PASS": true,
+   "forced": false,
+   "examples": []
+  },
+  "readout_anchor": {
+   "n_fail": 0,
+   "PASS": true,
+   "forced": false,
+   "examples": []
+  },
+  "batch_invariance": {
+   "n_fail": 0,
+   "PASS": true,
+   "forced": false,
+   "examples": []
+  },
+  "identity_noop": {
+   "n_fail": 0,
+   "PASS": true,
+   "forced": true,
+   "examples": [],
+   "note": "FORCED by construction: plumbing/architecture only (R7/R21)"
+  },
+  "masked_position_invisibility": {
+   "n_fail": 0,
+   "PASS": true,
+   "forced": true,
+   "examples": [],
+   "note": "FORCED by construction: plumbing/architecture only (R7/R21)"
+  }
+ },
+ "smoke": false,
+ "equivalence_bound": [
+  0.75,
+  1.33
+ ],
+ "arms": {
+  "ACC": {
+   "alts": {
+    "AA": {
+     "admissible_frac": 0.473,
+     "n_common_support": 473,
+     "in_panel": false,
+     "gc_content": 0,
+     "status": "INCONCLUSIVE",
+     "rho": 0.7542006138900447,
+     "rho_ci": [
+      0.7180164266612594,
+      0.7922664096135722
+     ],
+     "mean_delta": 0.7147256122079007,
+     "mean_delta_cc": 0.94765981231633,
+     "ci_halfwidth": 0.03712499147615639,
+     "den_clear_of_zero": true,
+     "paired_diff": -0.23293420010842933,
+     "paired_diff_ci": [
+      -0.28321654662973106,
+      -0.18460230723260765
+     ],
+     "winsorized_delta": 0.6696309916060772,
+     "tail_share_top_decile": 0.33822328214989533,
+     "n_genes": 362
+    },
+    "AC": {
+     "admissible_frac": 1.0,
+     "n_common_support": 995,
+     "in_panel": false,
+     "gc_content": 1,
+     "status": "EQUIVALENT",
+     "rho": 0.8839268603557356,
+     "rho_ci": [
+      0.862318997414437,
+      0.9056385433920261
+     ],
+     "mean_delta": 0.8759227881779024,
+     "mean_delta_cc": 0.9909448705126892,
+     "ci_halfwidth": 0.021659772988794568,
+     "den_clear_of_zero": true,
+     "paired_diff": -0.11502208233478681,
+     "paired_diff_ci": [
+      -0.1395120717725103,
+      -0.09170094412146046
+     ],
+     "winsorized_delta": 0.8369208836375769,
+     "tail_share_top_decile": 0.3360017923396645,
+     "n_genes": 646
+    },
+    "AT": {
+     "admissible_frac": 1.0,
+     "n_common_support": 995,
+     "in_panel": false,
+     "gc_content": 0,
+     "status": "EQUIVALENT",
+     "rho": 0.860692694312674,
+     "rho_ci": [
+      0.8393402638885694,
+      0.8821677957211579
+     ],
+     "mean_delta": 0.8528990105168903,
+     "mean_delta_cc": 0.9909448705126892,
+     "ci_halfwidth": 0.021413765916294236,
+     "den_clear_of_zero": true,
+     "paired_diff": -0.13804585999579885,
+     "paired_diff_ci": [
+      -0.1631994035590155,
+      -0.114401025633365
+     ],
+     "winsorized_delta": 0.8199554265444003,
+     "tail_share_top_decile": 0.3397758883144436,
+     "n_genes": 646
+    },
+    "CA": {
+     "admissible_frac": 0.473,
+     "n_common_support": 473,
+     "in_panel": true,
+     "gc_content": 1,
+     "status": "EQUIVALENT",
+     "rho": 0.9225443708142713,
+     "rho_ci": [
+      0.8912688895413104,
+      0.9536742466938481
+     ],
+     "mean_delta": 0.8742582252993392,
+     "mean_delta_cc": 0.94765981231633,
+     "ci_halfwidth": 0.03120267857626885,
+     "den_clear_of_zero": true,
+     "paired_diff": -0.07340158701699077,
+     "paired_diff_ci": [
+      -0.10825774188414569,
+      -0.041626068282765764
+     ],
+     "winsorized_delta": 0.8264491917214989,
+     "tail_share_top_decile": 0.3248018289595106,
+     "n_genes": 362
+    },
+    "CC": {
+     "admissible_frac": 0.995,
+     "n_common_support": 995,
+     "in_panel": true,
+     "gc_content": 2,
+     "status": "EQUIVALENT",
+     "rho": 1.0,
+     "rho_ci": [
+      1.0,
+      1.0
+     ],
+     "mean_delta": 0.9909448705126892,
+     "mean_delta_cc": 0.9909448705126892,
+     "ci_halfwidth": 0.0,
+     "den_clear_of_zero": true,
+     "paired_diff": 0.0,
+     "paired_diff_ci": [
+      0.0,
+      0.0
+     ],
+     "winsorized_delta": 0.9428517069349337,
+     "tail_share_top_decile": 0.3292341048398509,
+     "n_genes": 646
+    },
+    "CG": {
+     "admissible_frac": 0.732,
+     "n_common_support": 732,
+     "in_panel": false,
+     "gc_content": 2,
+     "status": "EQUIVALENT",
+     "rho": 0.8510587100240935,
+     "rho_ci": [
+      0.8215063653585397,
+      0.8810675339343232
+     ],
+     "mean_delta": 0.8956144588892577,
+     "mean_delta_cc": 1.0523533198595698,
+     "ci_halfwidth": 0.029780584287891765,
+     "den_clear_of_zero": true,
+     "paired_diff": -0.15673886097031212,
+     "paired_diff_ci": [
+      -0.19565515757031132,
+      -0.12223899094946175
+     ],
+     "winsorized_delta": 0.8586788730787449,
+     "tail_share_top_decile": 0.32614753473234165,
+     "n_genes": 511
+    },
+    "CT": {
+     "admissible_frac": 0.995,
+     "n_common_support": 995,
+     "in_panel": false,
+     "gc_content": 1,
+     "status": "EQUIVALENT",
+     "rho": 0.9786822713656492,
+     "rho_ci": [
+      0.9668394325840404,
+      0.9903535426704722
+     ],
+     "mean_delta": 0.9698201766714978,
+     "mean_delta_cc": 0.9909448705126892,
+     "ci_halfwidth": 0.011757055043215892,
+     "den_clear_of_zero": true,
+     "paired_diff": -0.02112469384119139,
+     "paired_diff_ci": [
+      -0.03293328125401707,
+      -0.009538085414132699
+     ],
+     "winsorized_delta": 0.922566542119237,
+     "tail_share_top_decile": 0.3313597937432014,
+     "n_genes": 646
+    },
+    "GA": {
+     "admissible_frac": 0.462,
+     "n_common_support": 462,
+     "in_panel": false,
+     "gc_content": 1,
+     "status": "EQUIVALENT",
+     "rho": 0.9566757928404517,
+     "rho_ci": [
+      0.916713272168689,
+      0.9971759186442706
+     ],
+     "mean_delta": 0.9190454086958072,
+     "mean_delta_cc": 0.9606654789153631,
+     "ci_halfwidth": 0.04023132323779077,
+     "den_clear_of_zero": true,
+     "paired_diff": -0.04162007021955597,
+     "paired_diff_ci": [
+      -0.08377893314999245,
+      -0.002643226855061341
+     ],
+     "winsorized_delta": 0.8662810546237153,
+     "tail_share_top_decile": 0.32679667031769605,
+     "n_genes": 353
+    },
+    "GC": {
+     "admissible_frac": 0.0,
+     "n_common_support": 0,
+     "in_panel": false,
+     "gc_content": 2,
+     "status": "INSUFFICIENT_SUPPORT"
+    },
+    "GG": {
+     "admissible_frac": 0.724,
+     "n_common_support": 719,
+     "in_panel": false,
+     "gc_content": 2,
+     "status": "EQUIVALENT",
+     "rho": 0.7852378746117655,
+     "rho_ci": [
+      0.7501087948195799,
+      0.8203721869909953
+     ],
+     "mean_delta": 0.8314367932512299,
+     "mean_delta_cc": 1.0588342973933929,
+     "ci_halfwidth": 0.03513169608570771,
+     "den_clear_of_zero": true,
+     "paired_diff": -0.22739750414216303,
+     "paired_diff_ci": [
+      -0.2767157988063232,
+      -0.1805684678973903
+     ],
+     "winsorized_delta": 0.8040873198789417,
+     "tail_share_top_decile": 0.3140316415293077,
+     "n_genes": 504
+    },
+    "GT": {
+     "admissible_frac": 0.0,
+     "n_common_support": 0,
+     "in_panel": false,
+     "gc_content": 1,
+     "status": "INSUFFICIENT_SUPPORT"
+    },
+    "TA": {
+     "admissible_frac": 0.473,
+     "n_common_support": 473,
+     "in_panel": false,
+     "gc_content": 0,
+     "status": "EQUIVALENT",
+     "rho": 0.9209172097403686,
+     "rho_ci": [
+      0.8867063524497545,
+      0.9568063998697186
+     ],
+     "mean_delta": 0.8727162301414361,
+     "mean_delta_cc": 0.94765981231633,
+     "ci_halfwidth": 0.03505002370998206,
+     "den_clear_of_zero": true,
+     "paired_diff": -0.07494358217489391,
+     "paired_diff_ci": [
+      -0.11254558891388426,
+      -0.03913257399056381
+     ],
+     "winsorized_delta": 0.8270609737324665,
+     "tail_share_top_decile": 0.3209541311000589,
+     "n_genes": 362
+    },
+    "TC": {
+     "admissible_frac": 0.995,
+     "n_common_support": 995,
+     "in_panel": true,
+     "gc_content": 1,
+     "status": "EQUIVALENT",
+     "rho": 0.9816344618289049,
+     "rho_ci": [
+      0.9724137095068401,
+      0.9904704089377641
+     ],
+     "mean_delta": 0.9727456346678375,
+     "mean_delta_cc": 0.9909448705126892,
+     "ci_halfwidth": 0.009028349715461959,
+     "den_clear_of_zero": true,
+     "paired_diff": -0.01819923584485174,
+     "paired_diff_ci": [
+      -0.02778541174763998,
+      -0.009331851226730095
+     ],
+     "winsorized_delta": 0.9246509393705196,
+     "tail_share_top_decile": 0.32963224634743576,
+     "n_genes": 646
+    },
+    "TG": {
+     "admissible_frac": 0.732,
+     "n_common_support": 732,
+     "in_panel": false,
+     "gc_content": 1,
+     "status": "EQUIVALENT",
+     "rho": 0.839385513248823,
+     "rho_ci": [
+      0.8107048892285625,
+      0.8684398077354013
+     ],
+     "mean_delta": 0.8833301315094279,
+     "mean_delta_cc": 1.0523533198595698,
+     "ci_halfwidth": 0.02886745925341938,
+     "den_clear_of_zero": true,
+     "paired_diff": -0.16902318835014202,
+     "paired_diff_ci": [
+      -0.20712289307410078,
+      -0.13319106516547802
+     ],
+     "winsorized_delta": 0.8477311005479977,
+     "tail_share_top_decile": 0.32046062330312675,
+     "n_genes": 511
+    },
+    "TT": {
+     "admissible_frac": 0.995,
+     "n_common_support": 995,
+     "in_panel": true,
+     "gc_content": 0,
+     "status": "EQUIVALENT",
+     "rho": 0.9605022055094802,
+     "rho_ci": [
+      0.9454715761747481,
+      0.9754098242832797
+     ],
+     "mean_delta": 0.9518047336657443,
+     "mean_delta_cc": 0.9909448705126892,
+     "ci_halfwidth": 0.014969124054265814,
+     "den_clear_of_zero": true,
+     "paired_diff": -0.039140136846944916,
+     "paired_diff_ci": [
+      -0.054302809421349234,
+      -0.02417027505507476
+     ],
+     "winsorized_delta": 0.9019214889212469,
+     "tail_share_top_decile": 0.3316062954331236,
+     "n_genes": 646
+    }
+   },
+   "verdict_panel": [
+    "AC",
+    "AT",
+    "CT",
+    "TC",
+    "TT"
+   ],
+   "verdict": "ALT_INVARIANT",
+   "excluded_noop": [],
+   "deduplicated_twins": {},
+   "reference_twins": [],
+   "contaminated": [
+    "AA",
+    "CA",
+    "CG",
+    "GA",
+    "GC",
+    "GG",
+    "GT",
+    "TA",
+    "TG"
+   ]
+  },
+  "DONM": {
+   "alts": {
+    "AA": {
+     "admissible_frac": 0.408,
+     "n_common_support": 408,
+     "in_panel": true,
+     "gc_content": 0,
+     "status": "INCONCLUSIVE",
+     "rho": 1.3722355079695763,
+     "rho_ci": [
+      1.311493479318075,
+      1.435964295220075
+     ],
+     "mean_delta": 3.664327393340714,
+     "mean_delta_cc": 2.670334189765009,
+     "ci_halfwidth": 0.06223540795100002,
+     "den_clear_of_zero": true,
+     "paired_diff": 0.9939932035757046,
+     "paired_diff_ci": [
+      0.8311780548049772,
+      1.1564751503967594
+     ],
+     "winsorized_delta": 3.625440433511839,
+     "tail_share_top_decile": 0.20805856469280362,
+     "n_genes": 328
+    },
+    "AC": {
+     "admissible_frac": 1.0,
+     "n_common_support": 1000,
+     "in_panel": true,
+     "gc_content": 1,
+     "status": "EQUIVALENT",
+     "rho": 1.0,
+     "rho_ci": [
+      1.0,
+      1.0
+     ],
+     "mean_delta": 2.603646219536662,
+     "mean_delta_cc": 2.603646219536662,
+     "ci_halfwidth": 0.0,
+     "den_clear_of_zero": true,
+     "paired_diff": 0.0,
+     "paired_diff_ci": [
+      0.0,
+      0.0
+     ],
+     "winsorized_delta": 2.595992576658726,
+     "tail_share_top_decile": 0.20113172965183515,
+     "n_genes": 648,
+     "excluded": "REFERENCE_TWIN -- byte-identical to CC; rho == 1 forced"
+    },
+    "AG": {
+     "admissible_frac": 0.933,
+     "n_common_support": 933,
+     "in_panel": false,
+     "gc_content": 1,
+     "status": "DIFFERENT",
+     "rho": 1.4296501488574136,
+     "rho_ci": [
+      1.3893459740773062,
+      1.468803696856673
+     ],
+     "mean_delta": 3.7937251219539907,
+     "mean_delta_cc": 2.653603837964108,
+     "ci_halfwidth": 0.039728861389683345,
+     "den_clear_of_zero": true,
+     "paired_diff": 1.1401212839898829,
+     "paired_diff_ci": [
+      1.0452294297922977,
+      1.233756404776997
+     ],
+     "winsorized_delta": 3.767621600966489,
+     "tail_share_top_decile": 0.1963069792285946,
+     "n_genes": 616
+    },
+    "AT": {
+     "admissible_frac": 1.0,
+     "n_common_support": 1000,
+     "in_panel": false,
+     "gc_content": 0,
+     "status": "DIFFERENT",
+     "rho": 0.0,
+     "rho_ci": [
+      0.0,
+      0.0
+     ],
+     "mean_delta": 0.0,
+     "mean_delta_cc": 2.603646219536662,
+     "ci_halfwidth": 0.0,
+     "den_clear_of_zero": true,
+     "paired_diff": -2.603646219536662,
+     "paired_diff_ci": [
+      -2.714352239817185,
+      -2.4986913957053227
+     ],
+     "winsorized_delta": 0.0,
+     "tail_share_top_decile": 0.0,
+     "n_genes": 648,
+     "excluded": "NO_OP -- visible construct byte-identical to clean (forced)"
+    },
+    "CA": {
+     "admissible_frac": 0.408,
+     "n_common_support": 408,
+     "in_panel": false,
+     "gc_content": 1,
+     "status": "INCONCLUSIVE",
+     "rho": 1.3722355079695763,
+     "rho_ci": [
+      1.311493479318075,
+      1.435964295220075
+     ],
+     "mean_delta": 3.664327393340714,
+     "mean_delta_cc": 2.670334189765009,
+     "ci_halfwidth": 0.06223540795100002,
+     "den_clear_of_zero": true,
+     "paired_diff": 0.9939932035757046,
+     "paired_diff_ci": [
+      0.8311780548049772,
+      1.1564751503967594
+     ],
+     "winsorized_delta": 3.625440433511839,
+     "tail_share_top_decile": 0.20805856469280362,
+     "n_genes": 328,
+     "excluded": "TWIN of AA (byte-identical, forced)"
+    },
+    "CC": {
+     "admissible_frac": 1.0,
+     "n_common_support": 1000,
+     "in_panel": true,
+     "gc_content": 2,
+     "status": "EQUIVALENT",
+     "rho": 1.0,
+     "rho_ci": [
+      1.0,
+      1.0
+     ],
+     "mean_delta": 2.603646219536662,
+     "mean_delta_cc": 2.603646219536662,
+     "ci_halfwidth": 0.0,
+     "den_clear_of_zero": true,
+     "paired_diff": 0.0,
+     "paired_diff_ci": [
+      0.0,
+      0.0
+     ],
+     "winsorized_delta": 2.595992576658726,
+     "tail_share_top_decile": 0.20113172965183515,
+     "n_genes": 648
+    },
+    "CG": {
+     "admissible_frac": 0.933,
+     "n_common_support": 933,
+     "in_panel": false,
+     "gc_content": 2,
+     "status": "DIFFERENT",
+     "rho": 1.4296501488574136,
+     "rho_ci": [
+      1.3893459740773062,
+      1.468803696856673
+     ],
+     "mean_delta": 3.7937251219539907,
+     "mean_delta_cc": 2.653603837964108,
+     "ci_halfwidth": 0.039728861389683345,
+     "den_clear_of_zero": true,
+     "paired_diff": 1.1401212839898829,
+     "paired_diff_ci": [
+      1.0452294297922977,
+      1.233756404776997
+     ],
+     "winsorized_delta": 3.767621600966489,
+     "tail_share_top_decile": 0.1963069792285946,
+     "n_genes": 616,
+     "excluded": "TWIN of AG (byte-identical, forced)"
+    },
+    "CT": {
+     "admissible_frac": 1.0,
+     "n_common_support": 1000,
+     "in_panel": false,
+     "gc_content": 1,
+     "status": "DIFFERENT",
+     "rho": 0.0,
+     "rho_ci": [
+      0.0,
+      0.0
+     ],
+     "mean_delta": 0.0,
+     "mean_delta_cc": 2.603646219536662,
+     "ci_halfwidth": 0.0,
+     "den_clear_of_zero": true,
+     "paired_diff": -2.603646219536662,
+     "paired_diff_ci": [
+      -2.714352239817185,
+      -2.4986913957053227
+     ],
+     "winsorized_delta": 0.0,
+     "tail_share_top_decile": 0.0,
+     "n_genes": 648,
+     "excluded": "NO_OP -- visible construct byte-identical to clean (forced)"
+    },
+    "GA": {
+     "admissible_frac": 0.408,
+     "n_common_support": 408,
+     "in_panel": false,
+     "gc_content": 1,
+     "status": "INCONCLUSIVE",
+     "rho": 1.3722355079695763,
+     "rho_ci": [
+      1.311493479318075,
+      1.435964295220075
+     ],
+     "mean_delta": 3.664327393340714,
+     "mean_delta_cc": 2.670334189765009,
+     "ci_halfwidth": 0.06223540795100002,
+     "den_clear_of_zero": true,
+     "paired_diff": 0.9939932035757046,
+     "paired_diff_ci": [
+      0.8311780548049772,
+      1.1564751503967594
+     ],
+     "winsorized_delta": 3.625440433511839,
+     "tail_share_top_decile": 0.20805856469280362,
+     "n_genes": 328,
+     "excluded": "TWIN of AA (byte-identical, forced)"
+    },
+    "GC": {
+     "admissible_frac": 1.0,
+     "n_common_support": 1000,
+     "in_panel": false,
+     "gc_content": 2,
+     "status": "EQUIVALENT",
+     "rho": 1.0,
+     "rho_ci": [
+      1.0,
+      1.0
+     ],
+     "mean_delta": 2.603646219536662,
+     "mean_delta_cc": 2.603646219536662,
+     "ci_halfwidth": 0.0,
+     "den_clear_of_zero": true,
+     "paired_diff": 0.0,
+     "paired_diff_ci": [
+      0.0,
+      0.0
+     ],
+     "winsorized_delta": 2.595992576658726,
+     "tail_share_top_decile": 0.20113172965183515,
+     "n_genes": 648,
+     "excluded": "REFERENCE_TWIN -- byte-identical to CC; rho == 1 forced"
+    },
+    "GG": {
+     "admissible_frac": 0.933,
+     "n_common_support": 933,
+     "in_panel": false,
+     "gc_content": 2,
+     "status": "DIFFERENT",
+     "rho": 1.4296501488574136,
+     "rho_ci": [
+      1.3893459740773062,
+      1.468803696856673
+     ],
+     "mean_delta": 3.7937251219539907,
+     "mean_delta_cc": 2.653603837964108,
+     "ci_halfwidth": 0.039728861389683345,
+     "den_clear_of_zero": true,
+     "paired_diff": 1.1401212839898829,
+     "paired_diff_ci": [
+      1.0452294297922977,
+      1.233756404776997
+     ],
+     "winsorized_delta": 3.767621600966489,
+     "tail_share_top_decile": 0.1963069792285946,
+     "n_genes": 616,
+     "excluded": "TWIN of AG (byte-identical, forced)"
+    },
+    "TA": {
+     "admissible_frac": 0.408,
+     "n_common_support": 408,
+     "in_panel": true,
+     "gc_content": 0,
+     "status": "INCONCLUSIVE",
+     "rho": 1.3722355079695763,
+     "rho_ci": [
+      1.311493479318075,
+      1.435964295220075
+     ],
+     "mean_delta": 3.664327393340714,
+     "mean_delta_cc": 2.670334189765009,
+     "ci_halfwidth": 0.06223540795100002,
+     "den_clear_of_zero": true,
+     "paired_diff": 0.9939932035757046,
+     "paired_diff_ci": [
+      0.8311780548049772,
+      1.1564751503967594
+     ],
+     "winsorized_delta": 3.625440433511839,
+     "tail_share_top_decile": 0.20805856469280362,
+     "n_genes": 328,
+     "excluded": "TWIN of AA (byte-identical, forced)"
+    },
+    "TC": {
+     "admissible_frac": 1.0,
+     "n_common_support": 1000,
+     "in_panel": false,
+     "gc_content": 1,
+     "status": "EQUIVALENT",
+     "rho": 1.0,
+     "rho_ci": [
+      1.0,
+      1.0
+     ],
+     "mean_delta": 2.603646219536662,
+     "mean_delta_cc": 2.603646219536662,
+     "ci_halfwidth": 0.0,
+     "den_clear_of_zero": true,
+     "paired_diff": 0.0,
+     "paired_diff_ci": [
+      0.0,
+      0.0
+     ],
+     "winsorized_delta": 2.595992576658726,
+     "tail_share_top_decile": 0.20113172965183515,
+     "n_genes": 648,
+     "excluded": "REFERENCE_TWIN -- byte-identical to CC; rho == 1 forced"
+    },
+    "TG": {
+     "admissible_frac": 0.933,
+     "n_common_support": 933,
+     "in_panel": false,
+     "gc_content": 1,
+     "status": "DIFFERENT",
+     "rho": 1.4296501488574136,
+     "rho_ci": [
+      1.3893459740773062,
+      1.468803696856673
+     ],
+     "mean_delta": 3.7937251219539907,
+     "mean_delta_cc": 2.653603837964108,
+     "ci_halfwidth": 0.039728861389683345,
+     "den_clear_of_zero": true,
+     "paired_diff": 1.1401212839898829,
+     "paired_diff_ci": [
+      1.0452294297922977,
+      1.233756404776997
+     ],
+     "winsorized_delta": 3.767621600966489,
+     "tail_share_top_decile": 0.1963069792285946,
+     "n_genes": 616,
+     "excluded": "TWIN of AG (byte-identical, forced)"
+    },
+    "TT": {
+     "admissible_frac": 1.0,
+     "n_common_support": 1000,
+     "in_panel": false,
+     "gc_content": 0,
+     "status": "DIFFERENT",
+     "rho": 0.0,
+     "rho_ci": [
+      0.0,
+      0.0
+     ],
+     "mean_delta": 0.0,
+     "mean_delta_cc": 2.603646219536662,
+     "ci_halfwidth": 0.0,
+     "den_clear_of_zero": true,
+     "paired_diff": -2.603646219536662,
+     "paired_diff_ci": [
+      -2.714352239817185,
+      -2.4986913957053227
+     ],
+     "winsorized_delta": 0.0,
+     "tail_share_top_decile": 0.0,
+     "n_genes": 648,
+     "excluded": "NO_OP -- visible construct byte-identical to clean (forced)"
+    }
+   },
+   "verdict_panel": [],
+   "verdict": "NO_ADMISSIBLE_PANEL",
+   "excluded_noop": [
+    "AT",
+    "CT",
+    "TT"
+   ],
+   "deduplicated_twins": {
+    "AC": "CC",
+    "CA": "AA",
+    "CG": "AG",
+    "GA": "AA",
+    "GC": "CC",
+    "GG": "AG",
+    "TA": "AA",
+    "TC": "CC",
+    "TG": "AG"
+   },
+   "reference_twins": [
+    "AC",
+    "GC",
+    "TC"
+   ],
+   "contaminated": [
+    "AA",
+    "AG",
+    "CA",
+    "CG",
+    "GA",
+    "GG",
+    "TA",
+    "TG"
+   ]
+  },
+  "DONA": {
+   "alts": {
+    "AA": {
+     "admissible_frac": 0.408,
+     "n_common_support": 84,
+     "in_panel": true,
+     "gc_content": 0,
+     "status": "INSUFFICIENT_SUPPORT"
+    },
+    "AC": {
+     "admissible_frac": 1.0,
+     "n_common_support": 190,
+     "in_panel": true,
+     "gc_content": 1,
+     "status": "EQUIVALENT",
+     "rho": 1.0030490211705079,
+     "rho_ci": [
+      0.9748211672340904,
+      1.0376313315625671
+     ],
+     "mean_delta": 1.1050340126219549,
+     "mean_delta_cc": 1.1016749822779706,
+     "ci_halfwidth": 0.031405082164238374,
+     "den_clear_of_zero": true,
+     "paired_diff": 0.0033590303439843027,
+     "paired_diff_ci": [
+      -0.02973814904210363,
+      0.0401447750287511
+     ],
+     "winsorized_delta": 1.090930215386968,
+     "tail_share_top_decile": 0.3260639862375651,
+     "n_genes": 171
+    },
+    "AG": {
+     "admissible_frac": 0.0,
+     "n_common_support": 0,
+     "in_panel": false,
+     "gc_content": 1,
+     "status": "INSUFFICIENT_SUPPORT"
+    },
+    "AT": {
+     "admissible_frac": 1.0,
+     "n_common_support": 190,
+     "in_panel": false,
+     "gc_content": 0,
+     "status": "DIFFERENT",
+     "rho": 0.5700230263581512,
+     "rho_ci": [
+      0.5127603602722498,
+      0.6355613286328953
+     ],
+     "mean_delta": 0.6279801074611513,
+     "mean_delta_cc": 1.1016749822779706,
+     "ci_halfwidth": 0.061400484180322734,
+     "den_clear_of_zero": true,
+     "paired_diff": -0.47369487481681927,
+     "paired_diff_ci": [
+      -0.5855943170222743,
+      -0.35489681512625937
+     ],
+     "winsorized_delta": 0.6085474576604993,
+     "tail_share_top_decile": 0.34598689003264077,
+     "n_genes": 171
+    },
+    "CA": {
+     "admissible_frac": 0.084,
+     "n_common_support": 84,
+     "in_panel": false,
+     "gc_content": 1,
+     "status": "INSUFFICIENT_SUPPORT"
+    },
+    "CC": {
+     "admissible_frac": 0.19,
+     "n_common_support": 190,
+     "in_panel": true,
+     "gc_content": 2,
+     "status": "EQUIVALENT",
+     "rho": 1.0,
+     "rho_ci": [
+      1.0,
+      1.0
+     ],
+     "mean_delta": 1.1016749822779706,
+     "mean_delta_cc": 1.1016749822779706,
+     "ci_halfwidth": 0.0,
+     "den_clear_of_zero": true,
+     "paired_diff": 0.0,
+     "paired_diff_ci": [
+      0.0,
+      0.0
+     ],
+     "winsorized_delta": 1.0936298453494122,
+     "tail_share_top_decile": 0.34433899885426694,
+     "n_genes": 171
+    },
+    "CG": {
+     "admissible_frac": 0.181,
+     "n_common_support": 181,
+     "in_panel": false,
+     "gc_content": 2,
+     "status": "EQUIVALENT",
+     "rho": 0.9725328028321922,
+     "rho_ci": [
+      0.9495858958505508,
+      0.9953298465745857
+     ],
+     "mean_delta": 1.1229818967165868,
+     "mean_delta_cc": 1.1546982204057894,
+     "ci_halfwidth": 0.02287197536201746,
+     "den_clear_of_zero": true,
+     "paired_diff": -0.031716323689202575,
+     "paired_diff_ci": [
+      -0.059712127948916865,
+      -0.005282873704799548
+     ],
+     "winsorized_delta": 1.1148900379792104,
+     "tail_share_top_decile": 0.32783596639917273,
+     "n_genes": 164
+    },
+    "CT": {
+     "admissible_frac": 0.19,
+     "n_common_support": 190,
+     "in_panel": false,
+     "gc_content": 1,
+     "status": "DIFFERENT",
+     "rho": 0.6584038741943776,
+     "rho_ci": [
+      0.606201426001495,
+      0.7126380344622592
+     ],
+     "mean_delta": 0.7253470764348381,
+     "mean_delta_cc": 1.1016749822779706,
+     "ci_halfwidth": 0.053218304230382096,
+     "den_clear_of_zero": true,
+     "paired_diff": -0.3763279058431324,
+     "paired_diff_ci": [
+      -0.466507514536309,
+      -0.28557108710290957
+     ],
+     "winsorized_delta": 0.7097378958212702,
+     "tail_share_top_decile": 0.34661330329974516,
+     "n_genes": 171
+    },
+    "GA": {
+     "admissible_frac": 0.365,
+     "n_common_support": 41,
+     "in_panel": false,
+     "gc_content": 1,
+     "status": "INSUFFICIENT_SUPPORT"
+    },
+    "GC": {
+     "admissible_frac": 0.0,
+     "n_common_support": 0,
+     "in_panel": false,
+     "gc_content": 2,
+     "status": "INSUFFICIENT_SUPPORT"
+    },
+    "GG": {
+     "admissible_frac": 0.85,
+     "n_common_support": 98,
+     "in_panel": false,
+     "gc_content": 2,
+     "status": "INSUFFICIENT_SUPPORT"
+    },
+    "TA": {
+     "admissible_frac": 0.084,
+     "n_common_support": 84,
+     "in_panel": true,
+     "gc_content": 0,
+     "status": "INSUFFICIENT_SUPPORT"
+    },
+    "TC": {
+     "admissible_frac": 0.19,
+     "n_common_support": 190,
+     "in_panel": false,
+     "gc_content": 1,
+     "status": "EQUIVALENT",
+     "rho": 0.9914425942294479,
+     "rho_ci": [
+      0.9746644418665683,
+      1.0096982596702764
+     ],
+     "mean_delta": 1.0922475024273521,
+     "mean_delta_cc": 1.1016749822779706,
+     "ci_halfwidth": 0.017516908901854034,
+     "den_clear_of_zero": true,
+     "paired_diff": -0.009427479850618464,
+     "paired_diff_ci": [
+      -0.02920887496423561,
+      0.010012428718336921
+     ],
+     "winsorized_delta": 1.090277445002606,
+     "tail_share_top_decile": 0.34171670238113144,
+     "n_genes": 171
+    },
+    "TG": {
+     "admissible_frac": 0.181,
+     "n_common_support": 181,
+     "in_panel": false,
+     "gc_content": 1,
+     "status": "EQUIVALENT",
+     "rho": 0.971793106107537,
+     "rho_ci": [
+      0.9452534372791259,
+      1.0005025909748202
+     ],
+     "mean_delta": 1.1221277702249874,
+     "mean_delta_cc": 1.1546982204057894,
+     "ci_halfwidth": 0.027624576847847138,
+     "den_clear_of_zero": true,
+     "paired_diff": -0.032570450180801895,
+     "paired_diff_ci": [
+      -0.065653056070676,
+      0.0005063798948338229
+     ],
+     "winsorized_delta": 1.1011079483927944,
+     "tail_share_top_decile": 0.3220158814476087,
+     "n_genes": 164
+    },
+    "TT": {
+     "admissible_frac": 0.19,
+     "n_common_support": 190,
+     "in_panel": false,
+     "gc_content": 0,
+     "status": "DIFFERENT",
+     "rho": 0.6407296891492513,
+     "rho_ci": [
+      0.5878139738920783,
+      0.6981538309306979
+     ],
+     "mean_delta": 0.7058758689384711,
+     "mean_delta_cc": 1.1016749822779706,
+     "ci_halfwidth": 0.0551699285193098,
+     "den_clear_of_zero": true,
+     "paired_diff": -0.3957991133394994,
+     "paired_diff_ci": [
+      -0.4903310282440229,
+      -0.295301035238782
+     ],
+     "winsorized_delta": 0.6922327741980553,
+     "tail_share_top_decile": 0.3504478224047167,
+     "n_genes": 171
+    }
+   },
+   "verdict_panel": [
+    "AC",
+    "AT"
+   ],
+   "verdict": "NOT_INVARIANT",
+   "excluded_noop": [],
+   "deduplicated_twins": {},
+   "reference_twins": [],
+   "contaminated": [
+    "AA",
+    "AG",
+    "CA",
+    "CC",
+    "CG",
+    "CT",
+    "GA",
+    "GC",
+    "GG",
+    "TA",
+    "TC",
+    "TG",
+    "TT"
+   ]
+  }
+ },
+ "calibration": {
+  "ACC": {
+   "noise_donor_alt": "AC",
+   "n_boot_in_gates": 2000,
+   "n_boot_in_permutation": 400,
+   "sensitivity_no_false_equivalence": {
+    "planted_tau": 1.35,
+    "verdict": "INCONCLUSIVE",
+    "rho_ci": [
+     1.3169988363528025,
+     1.3831597255537593
+    ],
+    "requirement": "NOT_EQUIVALENT",
+    "PASS": true
+   },
+   "sensitivity_detect": {
+    "planted_tau": 1.6,
+    "verdict": "DIFFERENT",
+    "rho_ci": [
+     1.5608875097514696,
+     1.6393004154711222
+    ],
+    "requirement": "DIFFERENT",
+    "PASS": true
+   },
+   "specificity_planted_1.00": {
+    "planted_tau": 1.0,
+    "verdict": "EQUIVALENT",
+    "rho_ci": [
+     0.9755546935946684,
+     1.0245627596694513
+    ],
+    "requirement": "EQUIVALENT",
+    "PASS": true
+   },
+   "rho_true_of_noise_donor": 0.8839268603557356,
+   "permuted_label_fpr": {
+    "fpr": 0.0,
+    "target": 0.05,
+    "n_perm": 200,
+    "PASS": true
+   }
+  },
+  "DONM": {
+   "noise_donor_alt": null,
+   "n_boot_in_gates": 2000,
+   "n_boot_in_permutation": 400,
+   "sensitivity_no_false_equivalence": {
+    "verdict": "NO_PANEL",
+    "PASS": true,
+    "applicable": false,
+    "note": "NOT_APPLICABLE: no alt cleared admissibility + common support, so there is nothing to plant into (A3)"
+   },
+   "sensitivity_detect": {
+    "verdict": "NO_PANEL",
+    "PASS": true,
+    "applicable": false,
+    "note": "NOT_APPLICABLE: no alt cleared admissibility + common support, so there is nothing to plant into (A3)"
+   },
+   "specificity_planted_1.00": {
+    "verdict": "NO_PANEL",
+    "PASS": true,
+    "applicable": false,
+    "note": "NOT_APPLICABLE: no alt cleared admissibility + common support, so there is nothing to plant into (A3)"
+   },
+   "permuted_label_fpr": {
+    "fpr": 0.0,
+    "target": 0.05,
+    "n_perm": 200,
+    "PASS": true
+   }
+  },
+  "DONA": {
+   "noise_donor_alt": "AC",
+   "n_boot_in_gates": 2000,
+   "n_boot_in_permutation": 400,
+   "sensitivity_no_false_equivalence": {
+    "planted_tau": 1.35,
+    "verdict": "INCONCLUSIVE",
+    "rho_ci": [
+     1.3120082348819864,
+     1.3965442047635914
+    ],
+    "requirement": "NOT_EQUIVALENT",
+    "PASS": true
+   },
+   "sensitivity_detect": {
+    "planted_tau": 1.6,
+    "verdict": "DIFFERENT",
+    "rho_ci": [
+     1.554972722823095,
+     1.655163501942034
+    ],
+    "requirement": "DIFFERENT",
+    "PASS": true
+   },
+   "specificity_planted_1.00": {
+    "planted_tau": 1.0,
+    "verdict": "EQUIVALENT",
+    "rho_ci": [
+     0.9718579517644342,
+     1.0344771887137711
+    ],
+    "requirement": "EQUIVALENT",
+    "PASS": true
+   },
+   "rho_true_of_noise_donor": 1.0030490211705079,
+   "permuted_label_fpr": {
+    "fpr": 0.0,
+    "target": 0.05,
+    "n_perm": 200,
+    "PASS": true
+   }
+  }
+ },
+ "arm_gates_pass": {
+  "ACC": true,
+  "DONM": true,
+  "DONA": true
+ },
+ "donor_confound_probe": {
+  "DiD": 0.013811685835254162,
+  "ci": [
+   -0.022398123661309534,
+   0.04842502880869469
+  ],
+  "n_G": 810,
+  "n_notG": 190,
+  "mean_delta_AC": 1.0612754200845957,
+  "mean_delta_CC": 1.069103855267167,
+  "refute_bound": 0.26531885502114894,
+  "status": "REFUTED",
+  "predicted_sign": "negative (CC drop SMALLER where a GC/GT is planted)"
+ },
+ "verdict": {
+  "ACC": "ALT_INVARIANT",
+  "DONM": "NO_ADMISSIBLE_PANEL",
+  "DONA": "NOT_INVARIANT"
+ },
+ "provenance": {
+  "split": "val",
+  "n": 1000,
+  "n_genes": 648,
+  "pythonhashseed": "0",
+  "model": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+  "gtf": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+  "n_boot": 2000,
+  "n_boot_in_gates": 400,
+  "delta": [
+   0.75,
+   1.33
+  ],
+  "admissible_frac": 0.95,
+  "min_support": 100,
+  "halfwidth_target": 0.15,
+  "min_support_relaxed_for_smoke": false,
+  "prereg": "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_AR1_CORRUPTION_OPERATOR_SENSITIVITY.md"
+ }
+}

@@ -1,0 +1,159 @@
+{
+ "operators": {
+  "committed": "variants[0]",
+  "clean": "MOTIF_CLEAN_ALT=AC"
+ },
+ "planted_motif_counts": {
+  "committed": {
+   "B": 197,
+   "C": 138,
+   "D": 134
+  },
+  "clean": {}
+ },
+ "n_examples": {
+  "committed": 400,
+  "clean": 400
+ },
+ "metric": "effect_margin",
+ "conditions": {
+  "B": {
+   "n_examples_paired": 400,
+   "cohort_identical": true,
+   "behavioural": {
+    "committed_mean": 0.15509023305028677,
+    "clean_mean": 0.1572564584389329,
+    "delta": 0.002166225388646137,
+    "relative": 1.0139675164969528,
+    "pearson_r": 0.9946120460951978
+   },
+   "per_head": {
+    "n_heads": 96,
+    "pearson_r": 0.9986001983359234,
+    "top1_committed": "L3H1",
+    "top1_clean": "L3H1",
+    "top1_same": true,
+    "top5_overlap": 5,
+    "top10_overlap": 9,
+    "top20_overlap": 20,
+    "top10_committed": [
+     "L3H1",
+     "L0H12",
+     "L4H11",
+     "L4H9",
+     "L0H10",
+     "L4H7",
+     "L1H13",
+     "L2H5",
+     "L0H4",
+     "L0H7"
+    ],
+    "top10_clean": [
+     "L3H1",
+     "L0H12",
+     "L4H9",
+     "L0H10",
+     "L4H11",
+     "L1H13",
+     "L4H7",
+     "L0H7",
+     "L2H5",
+     "L2H15"
+    ],
+    "max_abs_head_delta": 0.004540239498019218
+   }
+  },
+  "C": {
+   "n_examples_paired": 400,
+   "cohort_identical": true,
+   "behavioural": {
+    "committed_mean": 0.020188952125608922,
+    "clean_mean": 0.014979393742978573,
+    "delta": -0.005209558382630349,
+    "relative": 0.7419599417434736,
+    "pearson_r": 0.7027275436310494
+   },
+   "per_head": {
+    "n_heads": 96,
+    "pearson_r": 0.8459699757608528,
+    "top1_committed": "L5H6",
+    "top1_clean": "L5H4",
+    "top1_same": false,
+    "top5_overlap": 4,
+    "top10_overlap": 7,
+    "top20_overlap": 11,
+    "top10_committed": [
+     "L5H6",
+     "L2H11",
+     "L4H5",
+     "L5H4",
+     "L4H6",
+     "L2H15",
+     "L1H1",
+     "L3H1",
+     "L5H15",
+     "L4H10"
+    ],
+    "top10_clean": [
+     "L5H4",
+     "L2H11",
+     "L4H5",
+     "L1H1",
+     "L5H6",
+     "L4H6",
+     "L0H4",
+     "L5H15",
+     "L2H4",
+     "L5H2"
+    ],
+    "max_abs_head_delta": 0.004441223293542861
+   }
+  },
+  "D": {
+   "n_examples_paired": 400,
+   "cohort_identical": true,
+   "behavioural": {
+    "committed_mean": 0.015405613631010055,
+    "clean_mean": 0.004540840797126293,
+    "delta": -0.010864772833883762,
+    "relative": 0.29475234845472215,
+    "pearson_r": 0.9398117691953636
+   },
+   "per_head": {
+    "n_heads": 96,
+    "pearson_r": 0.8885232138597334,
+    "top1_committed": "L4H10",
+    "top1_clean": "L4H10",
+    "top1_same": true,
+    "top5_overlap": 4,
+    "top10_overlap": 9,
+    "top20_overlap": 14,
+    "top10_committed": [
+     "L4H10",
+     "L2H11",
+     "L5H4",
+     "L3H1",
+     "L5H6",
+     "L5H0",
+     "L1H10",
+     "L3H7",
+     "L5H15",
+     "L5H13"
+    ],
+    "top10_clean": [
+     "L4H10",
+     "L5H0",
+     "L5H4",
+     "L3H1",
+     "L2H11",
+     "L3H7",
+     "L5H6",
+     "L1H12",
+     "L5H15",
+     "L5H13"
+    ],
+    "max_abs_head_delta": 0.005094064548611641
+   }
+  }
+ }
+}

@@ -1,0 +1,207 @@
+{
+  "interpretation_rules": {
+    "B_gate": "B must be material (positive) or the instrument is not eliciting coupling",
+    "MF1_gate": "M_comp material or small-but-detectable => behavior exists; bounded-null/inconclusive => INSTRUMENT-LIMITED"
+  },
+  "n_genes": 370,
+  "n_windows": 400,
+  "power_projection": {
+    "MDE_perhead_sealed_examples_Mcompsd": 0.021815454831271303,
+    "MDE_perhead_sealed_genes_Mcompsd": 0.05793042605116967,
+    "note": "E_ih (head ablation of M_comp) has SD >= SD(M_comp); this is a LOWER bound on E_ih MDE",
+    "sd_example_Mcomp": 0.27723761189804436,
+    "sd_gene_Mcomp": 0.28256245862516843,
+    "sesoi_c": 0.05
+  },
+  "report": {
+    "BOTH": {
+      "B_partner_coupling": {
+        "ci": [
+          0.11055819736530392,
+          0.2124891423291253
+        ],
+        "class": "material",
+        "mean": 0.1604068661373956,
+        "n": 400,
+        "n_genes": 370,
+        "sd_example": 0.4976816593201263,
+        "sd_gene": 0.4971700865870942
+      },
+      "M_comp": {
+        "ci": [
+          -0.042021481470351195,
+          0.015367251960919896
+        ],
+        "class": "bounded-null",
+        "mean": -0.012490399315458228,
+        "n": 400,
+        "n_genes": 370,
+        "sd_example": 0.27723761189804436,
+        "sd_gene": 0.28256245862516843
+      },
+      "M_comp_abs": {
+        "ci": [
+          0.0795352862779285,
+          0.1329321899618833
+        ],
+        "class": "material",
+        "mean": 0.10467696957822956,
+        "n": 400,
+        "n_genes": 370,
+        "sd_example": 0.257900710406206,
+        "sd_gene": 0.2629781875506354
+      },
+      "M_comp_minus_sham": {
+        "ci": [
+          -0.08587066852218055,
+          0.002747343003308043
+        ],
+        "class": "inconclusive",
+        "mean": -0.03917854048786914,
+        "n": 257,
+        "n_genes": 244,
+        "sd_example": 0.34854638836643326,
+        "sd_gene": 0.3551295046927132
+      },
+      "sham": {
+        "ci": [
+          -0.002206600182374832,
+          0.045147192267487285
+        ],
+        "class": "bounded-null",
+        "mean": 0.01974469542476639,
+        "n": 257,
+        "n_genes": 244,
+        "sd_example": 0.1903975039747943,
+        "sd_gene": 0.19286382585587142
+      }
+    },
+    "alt3ss_acceptor": {
+      "B_partner_coupling": {
+        "ci": [
+          0.14345122303073415,
+          0.3179806575714013
+        ],
+        "class": "material",
+        "mean": 0.2257607881529018,
+        "n": 208,
+        "n_genes": 195,
+        "sd_example": 0.6250506789483693,
+        "sd_gene": 0.6288843046271438
+      },
+      "M_comp": {
+        "ci": [
+          -0.002900986665597138,
+          0.04228965228733917
+        ],
+        "class": "bounded-null",
+        "mean": 0.01871758689984488,
+        "n": 208,
+        "n_genes": 195,
+        "sd_example": 0.17338766531474595,
+        "sd_gene": 0.1652545403671633
+      },
+      "M_comp_abs": {
+        "ci": [
+          0.05466075482924517,
+          0.09614945783306701
+        ],
+        "class": "material",
+        "mean": 0.073982815280891,
+        "n": 208,
+        "n_genes": 195,
+        "sd_example": 0.157738614023879,
+        "sd_gene": 0.14938366516842813
+      },
+      "M_comp_minus_sham": {
+        "ci": [
+          -0.06678951893678405,
+          0.036330747327380446
+        ],
+        "class": "inconclusive",
+        "mean": -0.012924715972862634,
+        "n": 140,
+        "n_genes": 133,
+        "sd_example": 0.2925063188824647,
+        "sd_gene": 0.2971121594348014
+      },
+      "sham": {
+        "ci": [
+          -0.00633816583059322,
+          0.07773039937912159
+        ],
+        "class": "inconclusive",
+        "mean": 0.03244771314189678,
+        "n": 140,
+        "n_genes": 133,
+        "sd_example": 0.24111826980578055,
+        "sd_gene": 0.24513901309689115
+      }
+    },
+    "alt5ss_donor": {
+      "B_partner_coupling": {
+        "ci": [
+          0.05925766266018693,
+          0.14080442643363872
+        ],
+        "class": "material",
+        "mean": 0.09833793385675357,
+        "n": 192,
+        "n_genes": 186,
+        "sd_example": 0.29119007922585166,
+        "sd_gene": 0.29051505206742323
+      },
+      "M_comp": {
+        "ci": [
+          -0.09933021195863138,
+          0.005984260346170934
+        ],
+        "class": "inconclusive",
+        "mean": -0.04187878735378505,
+        "n": 192,
+        "n_genes": 186,
+        "sd_example": 0.3554862729680035,
+        "sd_gene": 0.36043062939091636
+      },
+      "M_comp_abs": {
+        "ci": [
+          0.09343655296405452,
+          0.19006208208845227
+        ],
+        "class": "material",
+        "mean": 0.13571110572690964,
+        "n": 192,
+        "n_genes": 186,
+        "sd_example": 0.3318082935426115,
+        "sd_gene": 0.3364181405761725
+      },
+      "M_comp_minus_sham": {
+        "ci": [
+          -0.14379607406310524,
+          0.003504995754561748
+        ],
+        "class": "inconclusive",
+        "mean": -0.0635851678203664,
+        "n": 117,
+        "n_genes": 117,
+        "sd_example": 0.40525197011309955,
+        "sd_gene": 0.40525197011309955
+      },
+      "sham": {
+        "ci": [
+          -0.015865360389853644,
+          0.020338124587224466
+        ],
+        "class": "bounded-null",
+        "mean": 0.002562841336823936,
+        "n": 117,
+        "n_genes": 117,
+        "sd_example": 0.09913805911011583,
+        "sd_gene": 0.09913805911011582
+      }
+    }
+  },
+  "schema": "head_context_atlas.behavioral_pilot/1",
+  "sesoi_c_candidate": 0.05,
+  "split": "discovery (train, \u2209 chr8/9/11/16/19)"
+}

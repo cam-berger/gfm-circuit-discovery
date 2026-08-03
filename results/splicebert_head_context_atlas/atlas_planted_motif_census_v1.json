@@ -1,0 +1,139 @@
+{
+ "cohort": {
+  "n_windows": 400,
+  "n_genes": 833,
+  "gtf": "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+  "per_gene_cap": 3,
+  "min_separation": 30,
+  "policy": "train_only_excluding_val_and_sealed"
+ },
+ "conditions": {
+  "B": {
+   "n": 400,
+   "n_donor_sites": 222,
+   "n_acceptor_sites": 178,
+   "donor_site_frac": 0.555,
+   "alts": {
+    "variants[0]": {
+     "alt_for_donor": "CC",
+     "alt_for_acceptor": "CC",
+     "plants_any_frac": 0.4925,
+     "plants_on_donor_sites_frac": 0.8783783783783784
+    },
+    "variant[0]": {
+     "donor_alt": "CC",
+     "acceptor_alt": "CC",
+     "plants_on_donor_sites_frac": 0.8783783783783784,
+     "plants_on_acceptor_sites_frac": 0.011235955056179775
+    },
+    "variant[1]": {
+     "donor_alt": "AA",
+     "acceptor_alt": "TT",
+     "plants_on_donor_sites_frac": 0.509009009009009,
+     "plants_on_acceptor_sites_frac": 0.011235955056179775
+    },
+    "variant[2]": {
+     "donor_alt": "TA",
+     "acceptor_alt": "CA",
+     "plants_on_donor_sites_frac": 0.954954954954955,
+     "plants_on_acceptor_sites_frac": 0.5280898876404494
+    },
+    "variant[3]": {
+     "donor_alt": "AC",
+     "acceptor_alt": "TC",
+     "plants_on_donor_sites_frac": 0.0,
+     "plants_on_acceptor_sites_frac": 0.011235955056179775
+    },
+    "AC (clean)": {
+     "plants_on_donor_sites_frac": 0.0,
+     "plants_on_acceptor_sites_frac": 0.0
+    }
+   }
+  },
+  "C": {
+   "n": 400,
+   "n_donor_sites": 178,
+   "n_acceptor_sites": 222,
+   "donor_site_frac": 0.445,
+   "alts": {
+    "variants[0]": {
+     "alt_for_donor": "CC",
+     "alt_for_acceptor": "CC",
+     "plants_any_frac": 0.345,
+     "plants_on_donor_sites_frac": 0.7191011235955056
+    },
+    "variant[0]": {
+     "donor_alt": "CC",
+     "acceptor_alt": "CC",
+     "plants_on_donor_sites_frac": 0.7191011235955056,
+     "plants_on_acceptor_sites_frac": 0.04504504504504504
+    },
+    "variant[1]": {
+     "donor_alt": "AA",
+     "acceptor_alt": "TT",
+     "plants_on_donor_sites_frac": 0.46629213483146065,
+     "plants_on_acceptor_sites_frac": 0.04504504504504504
+    },
+    "variant[2]": {
+     "donor_alt": "TA",
+     "acceptor_alt": "CA",
+     "plants_on_donor_sites_frac": 0.8370786516853933,
+     "plants_on_acceptor_sites_frac": 0.4009009009009009
+    },
+    "variant[3]": {
+     "donor_alt": "AC",
+     "acceptor_alt": "TC",
+     "plants_on_donor_sites_frac": 0.0,
+     "plants_on_acceptor_sites_frac": 0.04504504504504504
+    },
+    "AC (clean)": {
+     "plants_on_donor_sites_frac": 0.0,
+     "plants_on_acceptor_sites_frac": 0.0
+    }
+   }
+  },
+  "D": {
+   "n": 400,
+   "n_donor_sites": 178,
+   "n_acceptor_sites": 222,
+   "donor_site_frac": 0.445,
+   "alts": {
+    "variants[0]": {
+     "alt_for_donor": "CC",
+     "alt_for_acceptor": "CC",
+     "plants_any_frac": 0.335,
+     "plants_on_donor_sites_frac": 0.6966292134831461
+    },
+    "variant[0]": {
+     "donor_alt": "CC",
+     "acceptor_alt": "CC",
+     "plants_on_donor_sites_frac": 0.6966292134831461,
+     "plants_on_acceptor_sites_frac": 0.04504504504504504
+    },
+    "variant[1]": {
+     "donor_alt": "AA",
+     "acceptor_alt": "TT",
+     "plants_on_donor_sites_frac": 0.48314606741573035,
+     "plants_on_acceptor_sites_frac": 0.04504504504504504
+    },
+    "variant[2]": {
+     "donor_alt": "TA",
+     "acceptor_alt": "CA",
+     "plants_on_donor_sites_frac": 0.8146067415730337,
+     "plants_on_acceptor_sites_frac": 0.38288288288288286
+    },
+    "variant[3]": {
+     "donor_alt": "AC",
+     "acceptor_alt": "TC",
+     "plants_on_donor_sites_frac": 0.0,
+     "plants_on_acceptor_sites_frac": 0.04504504504504504
+    },
+    "AC (clean)": {
+     "plants_on_donor_sites_frac": 0.0,
+     "plants_on_acceptor_sites_frac": 0.0
+    }
+   }
+  }
+ },
+ "note": "bites only because the corrupted site is never the masked readout site in this study (readout = target_base_position)"
+}

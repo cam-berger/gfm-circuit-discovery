@@ -45,6 +45,10 @@ studies/**/colab_atlas_package/dist/
 # the audited external run bundles. Keep compact results, manifests, and audits.
 results/splicebert_head_context_atlas/**/target_shards/
 results/splicebert_head_context_atlas/**/health_shards/
+# R44 clean-alt screens: 25MB of shards each; the compact artifact of record is
+# head_screen_clean_alt_comparison_v1.json (see R44).
+results/splicebert_head_context_atlas/head_screen_clean_alt/
+results/splicebert_head_context_atlas/development/head_screen_cc_baseline/
 results/splicebert_head_context_atlas/atlas_context_packets_v1.jsonl
 results/splicebert_head_context_atlas/atlas_context_packets_enriched_v1.jsonl
 results/splicebert_head_context_atlas/atlas_context_sequences_v1.jsonl

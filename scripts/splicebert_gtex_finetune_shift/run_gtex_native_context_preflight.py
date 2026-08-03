@@ -33,7 +33,7 @@ from gfmcd.splicing.context_localization import (  # noqa: E402
     shuffle_relative_window,
     target_token_mask,
 )
-from gfmcd.splicing.coupling import substitute  # noqa: E402
+from gfmcd.splicing.coupling import MOTIF_CLEAN_DONOR_ALT, substitute  # noqa: E402
 from gfmcd.splicing.gtex_finetune import load_gtex_token_classifier  # noqa: E402
 from gfmcd.splicing.native_classifier import (  # noqa: E402
     ACCEPTOR_LABEL,
@@ -167,7 +167,7 @@ def main() -> None:
             label = DONOR_LABEL
             sham_window = DONOR_PREFLIGHT_SHAM
             exact_sequences = [
-                substitute(example.sequence, int(example.donor_pos), "CC")
+                substitute(example.sequence, int(example.donor_pos), MOTIF_CLEAN_DONOR_ALT)
                 for example in examples
             ]
         else:

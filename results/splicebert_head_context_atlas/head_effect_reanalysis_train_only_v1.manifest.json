@@ -1,0 +1,26 @@
+{
+  "command": [
+    "(restored input; not re-executed)"
+  ],
+  "config": {
+    "consumed_by": "results/splicebert_head_context_atlas/group_mlp_closure_v1.json",
+    "note": "the --ranking input named by group_mlp_closure_v1's committed invocation; committed under R44 so HCA9/HCA10 resolve to obtainable inputs",
+    "restored_from": "/Users/cberg/Downloads/head_effect_reanalysis.json",
+    "sha256": "de7610f1dade22aeef4ea5bc58aee08ec47573e14bafd0770df9a3305779d48b"
+  },
+  "created_at_utc": "2026-08-03T14:50:58.816997+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 16572,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_head_context_atlas:head_effect_reanalysis_train_only",
+  "git_commit": "10e2386d22913a9636a381bd426731c7daaf0a1f",
+  "git_dirty": true,
+  "inputs": [],
+  "notes": [],
+  "outputs": [],
+  "seeds": {},
+  "status": "RESTORED_INPUT"
+}

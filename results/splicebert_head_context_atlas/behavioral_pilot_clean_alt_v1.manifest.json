@@ -1,0 +1,46 @@
+{
+  "command": [
+    "python",
+    "scripts/splicebert_head_context_atlas/behavioral_pilot.py",
+    "--n",
+    "400",
+    "--model",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+    "--clean-alt",
+    "--out",
+    "results/splicebert_head_context_atlas/behavioral_pilot_clean_alt_v1.json"
+  ],
+  "config": {},
+  "created_at_utc": "2026-08-03T02:04:23.692767+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 96216,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "head_context_atlas_behavioral_pilot_v1",
+  "git_commit": "7fcd74d39a3510ad46f85a5ae6d7e19ce33b10f4",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+      "sha256": "83fba3e9b03f0b8c958f3595c6c350adc55f468abf8b0e47b6d5284cfe13a453",
+      "size_bytes": 124527720
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    }
+  ],
+  "notes": [],
+  "outputs": [
+    {
+      "path": "results/splicebert_head_context_atlas/behavioral_pilot_clean_alt_v1.json",
+      "sha256": "df037b248d03a4e546a1d99a8b6d6ac612dddbc62d0d4db4c6ac29decebec3fb",
+      "size_bytes": 5577
+    }
+  ],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

@@ -1,6 +1,6 @@
 {
-  "_README": "Runners whose --out default resolves to a path listed as an artifact in results/MANIFEST.csv. Re-running any of these with defaults would write over the record. The library guard (gfmcd.artifact_guard.guard_output_path) protects ExperimentManifest.write; these runners write their RESULT json by other means and are pinned by manifests, so they are inventoried rather than edited (CORRECTIONS.md R35). tests/test_overwrite_guard.py asserts this inventory does not grow. NOTE 2026-08-01 (R43): the count rose 56 -> 63 because the CHECKER was widened, not because seven runners were added. It previously resolved only bare string literals and was blind to the str(RESULTS_DIR / 'name.json') idiom that dominates the two newest studies. Entries carrying detected_by were invisible to the old checker. analyze_b5_context_signal_power.py is additionally marked guarded: it is a pure analysis script with no pinned-provenance argument, so R35's inventoried-not-edited exemption did not cover it and it now calls guard_output_path.",
-  "count": 63,
+  "_README": "Runners whose --out default resolves to a path listed as an artifact in results/MANIFEST.csv. Re-running any of these with defaults would write over the record. The library guard (gfmcd.artifact_guard.guard_output_path) protects ExperimentManifest.write; these runners write their RESULT json by other means and are pinned by manifests, so they are inventoried rather than edited (CORRECTIONS.md R35). tests/test_overwrite_guard.py asserts this inventory does not grow. NOTE 2026-08-01 (R43): the count rose 56 -> 63 because the CHECKER was widened, not because seven runners were added. It previously resolved only bare string literals and was blind to the str(RESULTS_DIR / 'name.json') idiom that dominates the two newest studies. Entries carrying detected_by were invisible to the old checker. analyze_b5_context_signal_power.py is additionally marked guarded: it is a pure analysis script with no pinned-provenance argument, so R35's inventoried-not-edited exemption did not cover it and it now calls guard_output_path. NOTE 2026-08-02 (R44): the count rose 63 -> 66 with three model-free audit scripts added by R44. All three call guard_output_path() before writing and are marked guarded; they are inventoried because their --out default names the canonical artifact they produce.",
+  "count": 66,
   "entries": [
     {
       "script": "scripts/splicebert/analyze_p3_shift_mod3.py",
@@ -324,6 +324,24 @@
       "out_default": "results/splicebert_head_context_atlas/specificity_pilot_v1.json",
       "manifest_status": "canonical",
       "detected_by": "checker widened 2026-08-01 (R43): str(CONST / 'literal') defaults"
+    },
+    {
+      "script": "scripts/splicebert_gtex_finetune_shift/audit_gtex_planted_motif_census.py",
+      "out_default": "results/splicebert_gtex_finetune_shift/gtex_planted_motif_census_v1.json",
+      "manifest_status": "canonical",
+      "guarded": true
+    },
+    {
+      "script": "scripts/splicebert_head_context_atlas/audit_atlas_planted_motif_census.py",
+      "out_default": "results/splicebert_head_context_atlas/atlas_planted_motif_census_v1.json",
+      "manifest_status": "canonical",
+      "guarded": true
+    },
+    {
+      "script": "scripts/splicebert_head_context_atlas/compare_head_screen_clean_alt.py",
+      "out_default": "results/splicebert_head_context_atlas/head_screen_clean_alt_comparison_v1.json",
+      "manifest_status": "canonical",
+      "guarded": true
     }
   ]
 }

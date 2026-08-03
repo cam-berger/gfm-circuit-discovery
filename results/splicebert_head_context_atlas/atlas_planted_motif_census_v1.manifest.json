@@ -1,0 +1,27 @@
+{
+  "command": [
+    "scripts/splicebert_head_context_atlas/audit_atlas_planted_motif_census.py"
+  ],
+  "config": {
+    "fasta": "/Users/cberg/Research/data/genomes/hg38.fa",
+    "gtf": "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+    "min_separation": 30,
+    "n": 400,
+    "per_gene_cap": 3
+  },
+  "created_at_utc": "2026-08-03T01:49:51.992546+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 89443,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_head_context_atlas:planted_motif_census",
+  "git_commit": "7fcd74d39a3510ad46f85a5ae6d7e19ce33b10f4",
+  "git_dirty": true,
+  "inputs": [],
+  "notes": [],
+  "outputs": [],
+  "seeds": {},
+  "status": "ANNOTATION_ONLY_NO_MODEL"
+}

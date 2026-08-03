@@ -28,7 +28,10 @@ sys.path.insert(0, str(REPO / "src"))
 from gfmcd.splicing.gtf import load_transcripts
 from gfmcd.splicing.competition import CompetitionConfig, build_competition_index, enumerate_competition_examples
 from gfmcd.splicing.competition_seq import build_window
-from gfmcd.splicing.coupling import destroy_donor, destroy_acceptor
+from gfmcd.splicing.coupling import (destroy_donor, destroy_acceptor,
+                                     destroy_donor_clean, destroy_acceptor_clean)
+
+USE_CLEAN_ALT = False   # R44 --clean-alt; default preserves committed behaviour
 from gfmcd.splicing.dataset import PyfaidxGenome
 from gfmcd.splicing.specificity import find_matched_decoy  # shared: MaxEnt-matched decoy selector
 
@@ -64,8 +67,11 @@ def main():
     ap.add_argument("--model", default=DEFAULT_MODEL); ap.add_argument("--n", type=int, default=300)
     ap.add_argument("--per-gene-cap", type=int, default=3); ap.add_argument("--batch", type=int, default=16)
     ap.add_argument("--sesoi", type=float, default=0.05)
+    ap.add_argument("--clean-alt", action="store_true", help="R44: destroy with MOTIF_CLEAN_ALT")
     ap.add_argument("--out", default=str(REPO / "results/splicebert_head_context_atlas/specificity_pilot_v1.json"))
     args = ap.parse_args()
+    global USE_CLEAN_ALT
+    USE_CLEAN_ALT = bool(args.clean_alt)
     if os.environ.get("PYTHONHASHSEED") != "0":
         print("WARN PYTHONHASHSEED!=0", file=sys.stderr)
 
@@ -120,7 +126,10 @@ def main():
         flat, groups = [], []
         for k, w in enumerate(windows):
             pos = pos_of(k, w); isd = is_donor_of(w)
-            variants = destroy_donor(w.seq, pos) if isd else destroy_acceptor(w.seq, pos)
+            if USE_CLEAN_ALT:
+                variants = [(destroy_donor_clean if isd else destroy_acceptor_clean)(w.seq, pos)]
+            else:
+                variants = destroy_donor(w.seq, pos) if isd else destroy_acceptor(w.seq, pos)
             a = len(flat); flat += [(v, w.target_win, w.target_is_donor) for v in variants]; groups.append((a, len(flat)))
         m = score(flat); return np.array([m[a:b].mean() for a, b in groups])
 

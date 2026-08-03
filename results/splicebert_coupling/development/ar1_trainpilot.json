@@ -1,0 +1,127 @@
+{
+ "memorials": {
+  "variant_construction_exact": {
+   "n_fail": 0,
+   "PASS": true,
+   "forced": false,
+   "examples": []
+  },
+  "motif_hygiene_recomputed": {
+   "n_fail": 0,
+   "PASS": true,
+   "forced": false,
+   "examples": []
+  },
+  "readout_anchor": {
+   "n_fail": 0,
+   "PASS": true,
+   "forced": false,
+   "examples": []
+  },
+  "batch_invariance": {
+   "n_fail": 0,
+   "PASS": true,
+   "forced": false,
+   "examples": []
+  },
+  "identity_noop": {
+   "n_fail": 0,
+   "PASS": true,
+   "forced": true,
+   "examples": [],
+   "note": "FORCED by construction: plumbing/architecture only (R7/R21)"
+  },
+  "masked_position_invisibility": {
+   "n_fail": 0,
+   "PASS": true,
+   "forced": true,
+   "examples": [],
+   "note": "FORCED by construction: plumbing/architecture only (R7/R21)"
+  }
+ },
+ "smoke": false,
+ "equivalence_bound": [
+  0.75,
+  1.33
+ ],
+ "arms": null,
+ "calibration": {
+  "ACC": {
+   "planted_target_alt": "AC",
+   "n_boot_in_gates": 400,
+   "sensitivity_planted_1.35": {
+    "verdict": "EQUIVALENT",
+    "PASS": false,
+    "note": "a design that cannot see a planted 35% shift cannot license equivalence"
+   },
+   "specificity_planted_1.00": {
+    "verdict": "EQUIVALENT",
+    "PASS": true
+   },
+   "permuted_label_fpr": {
+    "fpr": 0.0,
+    "target": 0.05,
+    "n_perm": 200,
+    "PASS": true
+   }
+  },
+  "DONM": {
+   "planted_target_alt": "AC",
+   "n_boot_in_gates": 400,
+   "sensitivity_planted_1.35": {
+    "verdict": "DIFFERENT",
+    "PASS": true,
+    "note": "a design that cannot see a planted 35% shift cannot license equivalence"
+   },
+   "specificity_planted_1.00": {
+    "verdict": "EQUIVALENT",
+    "PASS": true
+   },
+   "permuted_label_fpr": {
+    "fpr": 0.0,
+    "target": 0.05,
+    "n_perm": 200,
+    "PASS": true
+   }
+  },
+  "DONA": {
+   "planted_target_alt": "AA",
+   "n_boot_in_gates": 400,
+   "sensitivity_planted_1.35": {
+    "verdict": "INSUFFICIENT_SUPPORT",
+    "PASS": false,
+    "note": "a design that cannot see a planted 35% shift cannot license equivalence"
+   },
+   "specificity_planted_1.00": {
+    "verdict": "INSUFFICIENT_SUPPORT",
+    "PASS": false
+   },
+   "permuted_label_fpr": {
+    "fpr": 0.0,
+    "target": 0.05,
+    "n_perm": 200,
+    "PASS": true
+   }
+  }
+ },
+ "verdict": "GATES_FAILED -- no interpretation (prereg SS6)",
+ "provenance": {
+  "split": "train",
+  "n": 400,
+  "n_genes": 365,
+  "pythonhashseed": "0",
+  "model": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+  "gtf": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+  "n_boot": 2000,
+  "n_boot_in_gates": 400,
+  "delta": [
+   0.75,
+   1.33
+  ],
+  "admissible_frac": 0.95,
+  "min_support": 100,
+  "halfwidth_target": 0.15,
+  "min_support_relaxed_for_smoke": false,
+  "prereg": "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_AR1_CORRUPTION_OPERATOR_SENSITIVITY.md"
+ }
+}

@@ -1,0 +1,26 @@
+{
+  "command": [
+    "scripts/splicebert_head_context_atlas/compare_head_screen_clean_alt.py"
+  ],
+  "config": {
+    "clean_dir": "results/splicebert_head_context_atlas/head_screen_clean_alt",
+    "committed_dir": "results/splicebert_head_context_atlas/development/head_screen_cc_baseline",
+    "metric": "effect_margin",
+    "note": "raw shards (25MB/screen) intentionally not committed"
+  },
+  "created_at_utc": "2026-08-03T03:11:51.533113+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 280,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_head_context_atlas:head_screen_clean_alt_comparison",
+  "git_commit": "7fcd74d39a3510ad46f85a5ae6d7e19ce33b10f4",
+  "git_dirty": true,
+  "inputs": [],
+  "notes": [],
+  "outputs": [],
+  "seeds": {},
+  "status": "VERIFICATION"
+}

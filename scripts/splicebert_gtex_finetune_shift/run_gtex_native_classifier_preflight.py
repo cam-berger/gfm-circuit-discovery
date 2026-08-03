@@ -19,7 +19,7 @@ sys.path.insert(0, str(REPO / "src"))
 from gfmcd.artifact_guard import guard_output_path  # noqa: E402
 from gfmcd.provenance import ExperimentManifest, file_record, sha256_file  # noqa: E402
 from gfmcd.splicing.circuit import pick_device  # noqa: E402
-from gfmcd.splicing.coupling import perturb_random, substitute  # noqa: E402
+from gfmcd.splicing.coupling import MOTIF_CLEAN_DONOR_ALT, perturb_random, substitute  # noqa: E402
 from gfmcd.splicing.gtex_finetune import load_gtex_token_classifier  # noqa: E402
 from gfmcd.splicing.native_classifier import (  # noqa: E402
     ACCEPTOR_LABEL,
@@ -156,6 +156,13 @@ def main() -> None:
         substitute(example.sequence, example.donor_pos, "AA")
         for example in examples
     ]
+    # R44: the motif-clean third arm.  "CC" plants a GC donor at [d-1,d] on ~82% of donors and
+    # "AA" plants an AG at [d+1,d+2] on ~62%, so the committed CC-vs-AA contrast compares two
+    # contaminated operators.  MOTIF_CLEAN_DONOR_ALT plants nothing in any flanking context.
+    local_ac_sequences = [
+        substitute(example.sequence, example.donor_pos, MOTIF_CLEAN_DONOR_ALT)
+        for example in examples
+    ]
     neutral_sequences = [
         perturb_random(example.sequence, int(position), 2)
         for example, position in zip(examples, neutral_positions)
@@ -193,6 +200,7 @@ def main() -> None:
         clean_logits = task.logits(clean_sequences)
         cc_logits = task.logits(local_cc_sequences)
         aa_logits = task.logits(local_aa_sequences)
+        ac_logits = task.logits(local_ac_sequences)
         neutral_logits = task.logits(neutral_sequences)
         clean_donor = task.score(
             clean_logits,
@@ -214,6 +222,11 @@ def main() -> None:
             donor_label_positions,
             label=DONOR_LABEL,
         ).margin
+        ac_margin = task.score(
+            ac_logits,
+            donor_label_positions,
+            label=DONOR_LABEL,
+        ).margin
         neutral_margin = task.score(
             neutral_logits,
             donor_label_positions,
@@ -221,8 +234,12 @@ def main() -> None:
         ).margin
         cc_drop = clean_donor.margin - cc_margin
         aa_drop = clean_donor.margin - aa_margin
+        ac_drop = clean_donor.margin - ac_margin
         neutral_drop = clean_donor.margin - neutral_margin
-        local_floor = min(float(cc_drop.mean()), float(aa_drop.mean()))
+        # R44: the floor now includes the motif-clean arm; a neutral-control ratio
+        # computed against contaminated arms only would flatter the specificity gate.
+        local_floor = min(float(cc_drop.mean()), float(aa_drop.mean()),
+                          float(ac_drop.mean()))
 
         observed = {
             "clean_donor_margin_mean": float(clean_donor.margin.mean()),
@@ -241,6 +258,10 @@ def main() -> None:
             "local_cc_drop_positive_fraction": float(np.mean(cc_drop > 0)),
             "local_aa_drop_mean": float(aa_drop.mean()),
             "local_aa_drop_positive_fraction": float(np.mean(aa_drop > 0)),
+            "local_ac_drop_mean": float(ac_drop.mean()),
+            "local_ac_drop_positive_fraction": float(np.mean(ac_drop > 0)),
+            "local_ac_minus_cc_mean": float((ac_drop - cc_drop).mean()),
+            "local_destroy_alt_clean": MOTIF_CLEAN_DONOR_ALT,
             "neutral_drop_mean": float(neutral_drop.mean()),
             "neutral_abs_mean_to_local_ratio": (
                 abs(float(neutral_drop.mean())) / max(local_floor, 1e-12)
@@ -280,6 +301,13 @@ def main() -> None:
                 and observed["local_aa_drop_positive_fraction"]
                 >= THRESHOLDS["min_local_drop_positive_fraction"]
             ),
+            # R44: the motif-clean arm is the one that decides the gate; cc/aa are retained
+            # as measured context because both plant a motif (see R44 census).
+            "local_ac_sensitivity": (
+                observed["local_ac_drop_mean"] >= THRESHOLDS["min_local_drop_mean"]
+                and observed["local_ac_drop_positive_fraction"]
+                >= THRESHOLDS["min_local_drop_positive_fraction"]
+            ),
             "neutral_specificity": (
                 observed["neutral_abs_mean_to_local_ratio"]
                 <= THRESHOLDS["max_neutral_fraction_of_local"]
@@ -299,7 +327,14 @@ def main() -> None:
                     "clean_acceptor_margin": float(clean_acceptor.margin[index]),
                     "local_cc_drop": float(cc_drop[index]),
                     "local_aa_drop": float(aa_drop[index]),
+                    "local_ac_drop": float(ac_drop[index]),
                     "neutral_drop": float(neutral_drop[index]),
+                    # R44 item 2: the stratifier. "CC" plants a GC donor at [d-1,d] only when
+                    # the last exon base is G, so AC-CC within each stratum separates the
+                    # plant attenuation from plain base-identity nuisance.
+                    "upstream_donor_base_is_G": bool(
+                        example.sequence[example.donor_pos - 1] == "G"
+                    ),
                 }
                 for index, example in enumerate(examples)
             ],
