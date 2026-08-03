@@ -163,18 +163,18 @@ These are lifecycle closures, not retractions — no new R-number is warranted; 
 
 ## 2026-07-23 — Tier-1 closure: G1 EXECUTED (C41), C12 terminal, C30 closed-bounded
 
-The last substantive SpliceBERT loop was executed off a dated Tier-1 planner→executor handoff brief
-(owner-authorized at the freeze checkpoint). That brief is no longer in the tree; what it commissioned is
-recorded here and in `G1_REPORT.md`.
+The last substantive SpliceBERT loop was owner-authorized at the freeze checkpoint and executed under
+the frozen G1 preregistration. The obsolete point-in-time handoff was removed after closure; its outcome
+is recorded here and in `G1_REPORT.md`.
 
 - **G1 — cross-example transduction of the donor-side delivered state → C41: GENERIC READOUT AXIS
-  (confirmatory).** The G1 prereg's real estimand is the **A5/C26 final-residual U_info patch** (not a
+  (verification tier; R28/R32).** The G1 prereg's real estimand is the **A5/C26 final-residual U_info patch** (not a
   B3-style L3H1 value-path fork), injected cross-example on the audited **Head–Context Atlas donor cohorts**
   (`run_g1_cross_example_transduction.py`; a new Atlas→CouplingExample adapter; MPS-trivial because the arm×dose
   grid is head-only on the bit-exact `cls` readout). Pipeline: pre-flight GO → smoke PASS → H_dev pilot →
   PAR/PERP decomposition → **4-lens design red-team** (`redteam/REDTEAM_SYNTHESIS_G1.json`:
   FIXABLE_THEN_RUNNABLE, survivor=YES, 0 FATAL) → **all 9 must-fixes folded in + re-validated** → FROZEN prereg
-  (FREEZE ADDENDUM) → confirmatory on the sealed `H_conf` (8 resampled-source draws) → adversarial re-derivation
+  (FREEZE ADDENDUM) → run on the sealed `H_conf` (8 resampled-source draws) → adversarial re-derivation
   (**RESULT_STANDS_WITH_CAVEATS**). **Result:** transfer is real, dose-monotone (β=0.27), content-dependent
   (REAL≫RANDOM +0.62, ≫SCRAMBLE +0.68) but the example-specific part does **not** beat a gene-generic axis
   (Δ_spec=−0.33, point-stable across draws SD 0.023), and — the load-bearing red-team fix — the example-specific
@@ -199,8 +199,9 @@ recorded here and in `G1_REPORT.md`.
   preregistered bulk composition excluded (A9b); semantic identity needs training-time/external-assay evidence.
   Retired-term guard: "splice-site strength" stays withdrawn.
 
-These are executions + lifecycle closures with one new confirmatory row (C41); no retraction. **Provenance/hygiene:**
-run in this worktree with `data/models` symlinked from the main checkout (gitignored). The executor returned a
-machine-readable record to the planner at the close of the loop; that reply is no longer in the tree, and the
-loop's outcome is carried by the one-page report `G1_REPORT.md` and the C41 row in the claim ledger. Commits
-held on the branch pending a GitHub credential (push blocked per the handoff).
+These are executions + lifecycle closures with one new verification-tier row (C41); no retraction.
+C41 cannot be promoted to confirmatory because the planted-confound arm was absent, the planted-positive
+was a point check rather than the frozen slope-CI gate, and the random-floor rule was adapted (R28/R32).
+**Provenance/hygiene:** run in this worktree with `data/models` symlinked from the main checkout
+(gitignored). The executor's machine-readable return is no longer in the tree; the loop's outcome is
+carried by the one-page report `G1_REPORT.md` and the C41 row in the claim ledger.

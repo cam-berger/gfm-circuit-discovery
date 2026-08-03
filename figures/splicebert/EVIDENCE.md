@@ -31,7 +31,7 @@ not identify the carrier's training origin or exclude upstream effects on payloa
 
 C36 closes the clean current-use gap with a nucleotide-invariant intervention on 943 untouched genes:
 the learned P3 direction shows a material phase-aligned coupling contrast of **+0.141
-[0.110,0.172] nats** and exceeds all 19 same-geometry hidden-axis controls. The matched
+[0.110,0.172] raw logit units** and exceeds all 19 same-geometry hidden-axis controls. The matched
 CDS-minus-non-CDS-exon contrast is inconclusive, so the evidence reaches model behavior but not coding
 specificity or biological/training origin.
 
@@ -44,8 +44,8 @@ blank**. Eight heads read it through the softmax with every control clean (carri
 27–44% retained; reciprocal band → 89–97%; low-leak → ~100%; **content shuffle → 93–107%**, the
 positivity check a positional comb must pass). Both downstream interventions ran on 2026-07-23 (B1 → C37,
 folded into C12): restoring the readers' carrier-intact values moves the donor coupling margin **below the
-pre-declared `SESOI_v` = 0.02 nats** (`Mv = DI−DD`, −0.009 → +0.013 across nine readers), and deleting the
-carrier moves coupling by only **−0.033 [−0.061, −0.005]** nats — small, *suppressive*, sub-SESOI.
+pre-declared `SESOI_v` = 0.02 raw logit units** (`Mv = DI−DD`, −0.009 → +0.013 across nine readers), and deleting the
+carrier moves coupling by only **−0.033 [−0.061, −0.005]** raw logit units — small, *suppressive*, sub-SESOI.
 **Do not read the three ✓ as five**: these are a non-detection and a bound, not positives. Equally, do not
 read them as "no experiment" — and note the scope, because it is narrower than it looks: the preregistered
 `U_info`-projected write test (`S_ov`, `Ω`) and its planted-positive calibration were **never computed**, so
@@ -55,13 +55,14 @@ whether this carrier writes onto the donor readout is **OPEN** (**R31**).
 table (12.7× median), and 14 QK readers were preregistered on the strength of that — hence
 "provisional". At Level A, **0 of 14** reach significance. The preregistered primary, L1H3, puts
 **0.19%** of its attention mass in the tested offsets: ten times below the 2% floor required even
-to enter the scan. The stopping rule fires. The chromatin-circuit claim is **closed at QK**.
+to enter the scan. The stopping rule fires. The chromatin-circuit claim is **closed at the controlled
+attention gate**.
 
 ## Why the human-only null is a null and not a blind instrument
 
 The identical estimator, with the identical frozen gates and the same 400 permutations, found
 **eight** Level-A heads in the multi-species checkpoint — a model that differs from the human-only
-one *only in training data*. See Figure 4A. An instrument that finds eight in one model and zero
+one *only in training data*. An instrument that finds eight in one model and zero
 in its twin is not blind.
 
 The one real limit of the permutation budget, stated rather than buried: at 400 permutations,

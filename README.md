@@ -1,5 +1,7 @@
 # Mechanistic Discovery in Genomic Foundation Models
 
+> **Tier: T1 — canonical.** Current, authoritative. Read this.
+
 ## Current mechanism
 
 > A structured, top-ranked causal core binds a predominantly relative positional address to an
@@ -28,7 +30,7 @@ gene-dyadic inference (R22).
 | Period-3 carrier C8/C34/C35/C39 | Position → routing → mediation → behavior; origin corpus-attributed | A distributed relative-positional routing coordinate shapes L3H1's attention across the donor–acceptor span. Origin: built by multi-species pretraining, codon-linked (absent in human-only sibling and in ncRNA models, C39/C40). | Training *dynamics* (trajectory); upstream effects on payload construction. |
 | Multispecies ≈10.63 carrier C12/C37/C39 | Position → QK → attention; origin corpus-attributed | Eight heads read a distinct positional carrier after softmax. Origin: multi-species pretraining — strong in the 72-species stage-1 sibling, absent in the human-only sibling, and **not detectable** at ≈10.63 in 60 Mb of human genome above that unanchored assay's 5–10% modulation floor (a sensitivity limit, not an absence). The nucleosomal comparator that excludes the chromatin reading, ≈10.298 nt, is measured in **mouse** ES-cell chromatin (Voong 2016, mm9) — 0.33 nt from the carrier — a gap ~7× the largest uncertainty on either side (0.045 nt each), so this remains a powered refutation (R30, R37). Do not quote a "±0.005" carrier fit precision (R37). | General OV/behavioral function still open. |
 | Human-only ≈10.2 proposal | Position/QK; fails at attention | The proposed chromatin-reader circuit is closed at the attention gate. | No higher claim is licensed. |
-| Head–Context Atlas | Matched discovery → group validation → conditional mechanism tests | Four general-use component candidates validate; context-specific signals remain exploratory because they missed the frozen precision gate. | Better-powered context cohorts and cross-example transduction. |
+| Head–Context Atlas | Matched discovery → group validation → conditional mechanism tests | Four general-use component candidates validate; context-specific signals remain exploratory because they missed the frozen precision gate. C38/C41 separately establish strong but bounded cross-example transfer. | Better-powered context cohorts and transfer-specificity tests. |
 
 Evidence levels are not interchangeable. A feature in a position table is not automatically used by
 attention; attention is not automatically causal; a causal model mechanism is not automatically a
@@ -96,6 +98,9 @@ controls a live claim in the ledgers above.
 - `data/` — documentation only (`NUCLEOSOME_MAP.md`). The model, FASTA, and GTF are **not committed**
   and must be supplied; see [`REPRODUCE.md`](REPRODUCE.md).
 - Runtime handoffs, logs, and scratch files are ignored.
+
+Repository code is distributed under the [MIT License](LICENSE). External data and model dependencies,
+including their separate terms, are summarized in [third-party assets](docs/THIRD_PARTY_ASSETS.md).
 
 
 ## Start here

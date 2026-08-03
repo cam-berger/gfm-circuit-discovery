@@ -78,7 +78,7 @@ smallest faithful set, so **minimality remains unclaimed**.
   payload jointly; L3H1 writes a stable low-rank donor-side object that downstream heads transport.
 - **Carrier role:** the learned period-3 code acts as a distributed relative-positional routing
   coordinate supporting L3H1 attention and donor coupling. Nucleotide-invariant local surgery cleanly
-  confirms phase-aligned use in CDS blocks (`Ψ_C=+0.141 [0.110,0.172]`), above same-geometry hidden-axis
+  confirms phase-aligned use in CDS blocks (`Ψ_C=+0.141 [0.110,0.172]` raw logit units), above same-geometry hidden-axis
   controls; matched coding-context enrichment remains unresolved.
 
 ## Key limitations and open questions
@@ -122,19 +122,19 @@ cannot say why training built it, but two published-checkpoint natural experimen
 - **Corpus, not human sequence.** In the sibling stage-1 checkpoints — same architecture, stage, and
   510-nt length, differing only in corpus — the period-3 carrier is strong in the 72-species model
   (band power 435× median) and undetected in the human-only model (6.2×, below a powered noise floor).
-  The human-only absence is the surprising part: codon structure exists in human coding sequence, yet
-  training on human alone did not build the period-3 code. It is a product of *multi-species* pre-training.
+  This supports comparative attribution to *multi-species* pretraining. It does not isolate species
+  diversity from corpus size, composition, sampling, or optimization history.
   In the sibling where it exists, band-deletion reproduces C8's exon-selective damage pattern (exon vs intron
   masked-base damage +0.170 vs +0.032 nats, DiD +0.138 against an energy-matched-control DiD max +0.005;
   intron-channel health 87.6%), reproducing C8 on a second checkpoint.
-- **Codon-linked, not universal.** In two single-nucleotide transformer MLMs trained on ORF-free ncRNA
+- **Not universal across the tested models.** In two single-nucleotide transformer MLMs trained on ORF-free ncRNA
   (RNA-FM, RNA-BERT), the period-3 carrier is absent from the position-embedding matrix under a powered
-  null (band power ≈1× median control; a ≥5% carrier would have been detected). A codon-scale positional
-  code does not form when the training corpus lacks reading frames — consistent with a codon origin.
+  null (band power ≈1× median control; a ≥5% carrier would have been detected). Codon periodicity is a
+  plausible corpus correlate, not an established coding-specific or reading-frame mechanism.
 
-Origin *dynamics* (the trajectory over training) still require checkpoint series or controlled retraining
-that public artifacts do not provide; the licensed claim is comparative attribution, not a training-time
-mechanism.
+Origin *dynamics* and a causal species-diversity interpretation require checkpoint series or controlled
+corpus/objective ablations. The licensed claim is comparative association with multi-species
+pretraining, not a training-time mechanism or coding-specific origin.
 
 ### 4. Separate ≈10.63 carrier
 
@@ -165,8 +165,8 @@ stays open; only its *corpus* origin is now licensed.
 
 The core behavior is established for one SpliceBERT checkpoint, canonical internal short introns, both
 strands, and the recorded gene splits. It is a model mechanism, not a direct claim about spliceosome
-biochemistry or transcript abundance. Generalization requires the transduction and cross-model tests
-above.
+biochemistry or transcript abundance. Cross-example generality is bounded by C38/C41 as described
+above; wider biological and cross-model generalization remains open.
 
 **Units.** Coupling and its patching/restoration effects are raw MLM logit-differences (logit units); "nats"
 denotes masked-base cross-entropy damage only. See [`docs/NOMENCLATURE.md`](docs/NOMENCLATURE.md).

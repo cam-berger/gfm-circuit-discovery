@@ -1,0 +1,94 @@
+{
+  "claim_boundary": "Confirms present-day phase-aligned period-3 use in CDS blocks; coding specificity and reading-frame semantics remain unresolved.",
+  "created_at_utc": "2026-08-03T14:33:40.146439+00:00",
+  "layout": {
+    "context_xlim": [
+      -0.42,
+      0.44
+    ],
+    "controls_ylim": [
+      -0.018,
+      0.165
+    ],
+    "figsize": [
+      3.25,
+      4.25
+    ],
+    "legend_location": "lower right",
+    "line_label_mode": "direct",
+    "primary_xlim": [
+      -0.065,
+      0.205
+    ],
+    "register_offsets": [
+      3,
+      6,
+      9
+    ],
+    "titles": {
+      "A": "Register",
+      "B": "Primary effect",
+      "C": "Controls",
+      "D": "Coding boundary"
+    }
+  },
+  "outputs": [
+    {
+      "path": "figures/splicebert/workshop_edits/fig5_p3_phase_surgery_confirmation_edit.pdf",
+      "sha256": "8b48ddfc9a717810ee8952be72243533e99c51a2d5dc07270aafa81a7e06e973"
+    },
+    {
+      "path": "figures/splicebert/workshop_edits/fig5_p3_phase_surgery_confirmation_edit.svg",
+      "sha256": "4922553fc14ef448daf73b8b08231bd8790c5b3a392dfe2e642aec2cff4c07df"
+    },
+    {
+      "path": "figures/splicebert/workshop_edits/fig5_p3_phase_surgery_confirmation_edit.png",
+      "sha256": "a551d10a8a2e207b03c7e2de0543d9ec9f46ea2ae5bdc3825ca80d6b03785e8d"
+    }
+  ],
+  "renderer": "figures/splicebert/editable_paper_figures.py",
+  "schema": "gfmcd.figure_edit_provenance.v1",
+  "sources": [
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/confirmation_analysis.json",
+      "sha256": "77959c53c9dd33d4ae3a591b19ba7e8c581a5f327080a1a53218056be82746e9"
+    },
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json",
+      "sha256": "e8217e1ed923be4853009b103de35bc34b23c300cc045820f2531dd24f8e97a5"
+    }
+  ],
+  "style": {
+    "annotation_font_pt": 6.4,
+    "axis_linewidth": 0.65,
+    "base_font_pt": 7.2,
+    "data_linewidth": 1.35,
+    "font_family": "sans-serif",
+    "font_sans": [
+      "Arial",
+      "Helvetica",
+      "DejaVu Sans"
+    ],
+    "grid_linewidth": 0.45,
+    "marker_size": 3.8,
+    "node_subtitle_pt": 6.2,
+    "node_title_pt": 7.1,
+    "panel_letter_pt": 8.4,
+    "semantic": {
+      "coordinate": "#0B6FB8",
+      "coordinate_fill": "#EEF5FA",
+      "coupling": "#6A4A9C",
+      "ink": "#16232E",
+      "intron": "#00845F",
+      "neutral": "#8794A0",
+      "neutral_fill": "#F5F6F7",
+      "panel": "#F7F9FB",
+      "payload": "#6A4A9C",
+      "payload_fill": "#F5F0F8",
+      "rule": "#E1E7EC",
+      "secondary": "#5A6672",
+      "white": "#FFFFFF"
+    },
+    "title_font_pt": 8.0
+  }
+}

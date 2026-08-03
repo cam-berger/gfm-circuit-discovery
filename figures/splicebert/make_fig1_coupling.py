@@ -1,23 +1,8 @@
 #!/usr/bin/env python
-"""Figure 1 -- same-intron boundary coupling and its causal localisation to L3H1.
+"""Figure 1: partner-specific coupling and causal localization to L3H1.
 
-  A  Causal analogue of the SpliceBERT attention figure.  Same pair categories, but the
-     y-axis is CAUSAL COUPLING, not attention.  Intact vs L3H1-ablated.
-     Message: same-intron coupling collapses under L3H1 ablation; same-exon coupling and
-     every control are untouched.  The attention analysis showed the association exists;
-     this shows which association the model actually USES, and that one head carries it.
-
-  B  Mechanistic localisation.  Held-out 96-head denoise scan, ranked.
-     Message: L3H1 is #1 of 96, ~4x the next head, and its held-out recovery matches its
-     discovery-set recovery -- so it is not a cherry-pick.
-
-  C  The computation.  2x2 factorial as an interaction plot.
-     Message: the lines are NOT parallel.  L3H1's contribution CHANGES SIGN with partner
-     status: +0.910 when the partner is intact, -0.200 when it is corrupted.  The head
-     supplies signed evidence for or against a donor given its same-intron partner.
-
-This script computes NOTHING.  It reads manifest-stamped artifacts and hashes them into
-<name>.provenance.json.  If a number here is not in an artifact, that is a bug.
+Every plotted value is read from the recorded pair-category and confirmation
+artifacts. The figure reports raw logit differences as logit units.
 """
 from __future__ import annotations
 
@@ -25,99 +10,193 @@ import json
 from pathlib import Path
 import sys
 
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
-import numpy as np  # noqa: E402
+import matplotlib.pyplot as plt
+import numpy as np
 
-REPO = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(REPO / "src"))
+HERE = Path(__file__).resolve().parent
+REPO = HERE.parents[1]
+sys.path.insert(0, str(HERE))
 
-from gfmcd.figures import (  # noqa: E402
-    COLORS, grouped_bars_ci, interaction_plot, panel_label, ranked_dots, save_figure,
+from figstyle import (  # noqa: E402
+    COUPLING,
+    DELETED,
+    INK,
+    MUT,
+    RULE,
+    SEC,
+    panel_header,
+    save_figure,
     use_style,
 )
 
-HERE = Path(__file__).parent
-CATS = HERE / "data" / "pair_categories.json"
-CONF = REPO / "results" / "splicebert_coupling" / "confirmation.json"
+CATEGORIES = HERE / "data" / "pair_categories.json"
+CONFIRMATION = REPO / "results" / "splicebert_coupling" / "confirmation.json"
+OUT = HERE / "fig1_coupling"
+
+def _open_axis(ax) -> None:
+    ax.spines[["top", "right"]].set_visible(False)
+    ax.grid(axis="y", color=RULE, linewidth=0.65)
+    ax.grid(axis="x", visible=False)
+    ax.tick_params(colors=INK)
+    ax.xaxis.label.set_color(INK)
+    ax.yaxis.label.set_color(INK)
 
 
 def main() -> None:
-    if not CONF.exists():
-        raise SystemExit(f"missing {CONF} -- run scripts/splicebert/run_confirm.py first")
-    cats = json.loads(CATS.read_text())["categories"]
-    conf = json.loads(CONF.read_text())
+    cats = json.loads(CATEGORIES.read_text())["categories"]
+    conf = json.loads(CONFIRMATION.read_text())
 
     use_style()
-    fig, axes = plt.subplots(1, 3, figsize=(11.0, 3.3))
-
-    # ---- A: causal coupling by pair category ------------------------------------
-    names = list(cats)
-    intact = [cats[c]["intact"] for c in names]
-    abl = [cats[c]["L3H1 ablated"] for c in names]
-    grouped_bars_ci(
-        axes[0], [n.replace("\n", "\n") for n in names],
-        {"SpliceBERT intact": ([r["mean"] for r in intact],
-                               [r["lo"] for r in intact], [r["hi"] for r in intact]),
-         "L3H1 ablated": ([r["mean"] for r in abl],
-                          [r["lo"] for r in abl], [r["hi"] for r in abl])},
-        ylabel="causal coupling\n(Δ donor logit margin)",
-        colors={"SpliceBERT intact": COLORS["signal"], "L3H1 ablated": COLORS["ablated"]},
+    plt.rcParams.update(
+        {
+            "font.size": 8.2,
+            "axes.titlesize": 10,
+            "axes.labelsize": 8.5,
+            "xtick.labelsize": 7.3,
+            "ytick.labelsize": 7.3,
+            "legend.fontsize": 7.5,
+            "lines.linewidth": 1.8,
+        }
     )
-    axes[0].set_title("Which association does the model USE?", pad=8)
-    panel_label(axes[0], "A")
 
-    # ---- B: held-out 96-head scan -------------------------------------------------
-    scan = conf["scan_top"]
-    # the artifact stores the top-k; pad the rest of the population at ~0 for context
-    vals = [s["recovery"] for s in scan]
-    labels = [f"L{s['layer']}H{s['head']}" for s in scan]
+    fig = plt.figure(figsize=(10.9, 3.25), constrained_layout=True)
+    grid = fig.add_gridspec(1, 3, width_ratios=(1.34, 0.88, 1.08), wspace=0.30)
+    axes = [fig.add_subplot(grid[0, i]) for i in range(3)]
+
+    # A — paired dot-and-interval display avoids bar-area decoration.
+    ax = axes[0]
+    keys = list(cats)
+    labels = [
+        "Same\nintron",
+        "Same\nexon",
+        "No\npair",
+        "Other\ndonor",
+        "A–A\ncontrol",
+        "Random\nmatch",
+    ]
+    x = np.arange(len(keys), dtype=float)
+    for offset, condition, label, color, marker in (
+        (-0.12, "intact", "Intact model", COUPLING, "o"),
+        (0.12, "L3H1 ablated", "L3H1 ablated", DELETED, "s"),
+    ):
+        means = np.asarray([cats[key][condition]["mean"] for key in keys])
+        lows = np.asarray([cats[key][condition]["lo"] for key in keys])
+        highs = np.asarray([cats[key][condition]["hi"] for key in keys])
+        ax.errorbar(
+            x + offset,
+            means,
+            yerr=np.vstack((means - lows, highs - means)),
+            fmt=marker,
+            color=color,
+            markerfacecolor=color,
+            markeredgecolor="white",
+            markeredgewidth=0.7,
+            markersize=5.2,
+            capsize=2.4,
+            elinewidth=1.25,
+            label=label,
+            zorder=3,
+        )
+    ax.axhline(0, color=INK, linewidth=0.8)
+    ax.set_xticks(x, labels)
+    ax.set_ylabel("Causal coupling (logit units)")
+    ax.set_ylim(-0.12, 1.10)
+    ax.legend(loc="upper right", frameon=False, handletextpad=0.45)
+    panel_header(ax, "A", "L3H1: Intron Coupling")
+    _open_axis(ax)
+
+    # B — horizontal ranking is readable at manuscript scale.
     ax = axes[1]
-    xs = np.arange(len(vals))
-    cols = [COLORS["signal"] if labels[i] == "L3H1" else COLORS["muted"]
-            for i in range(len(vals))]
-    ax.scatter(xs, vals, c=cols, s=30, zorder=3)
-    ax.axhline(0, color=COLORS["text"], lw=0.8)
-    ax.set_xticks(xs)
-    ax.set_xticklabels(labels, rotation=90)
-    ax.set_ylabel("effect recovered by\nsingle-head denoising")
-    top = vals[0]
-    ax.annotate(f"#1 of 96\n{top:.3f}", xy=(0, top), xytext=(1.2, top * 0.92),
-                fontsize=7, color=COLORS["signal"],
-                arrowprops=dict(arrowstyle="->", color=COLORS["signal"], lw=0.8))
-    ax.set_title(f"Localisation (held-out, rank #{conf['scan_rank_of_L3H1']}/96)", pad=8)
-    panel_label(ax, "B")
-
-    # ---- C: the 2x2 factorial as an interaction plot -------------------------------
-    f = conf["factorial"]
-    ax = axes[2]
-    interaction_plot(
-        ax, ["partner\nintact", "partner\ncorrupted"],
-        {"L3H1 intact": [f["M_CI"], f["M_XI"]],
-         "L3H1 ablated": [f["M_CA"], f["M_XA"]]},
-        ylabel="donor logit margin",
+    scan = conf["scan_top"]
+    names = [f"L{row['layer']}H{row['head']}" for row in scan][::-1]
+    values = np.asarray([row["recovery"] for row in scan][::-1])
+    colors = [COUPLING if name == "L3H1" else MUT for name in names]
+    y = np.arange(len(names))
+    ax.hlines(y, 0, values, color=colors, linewidth=1.5, zorder=1)
+    ax.scatter(
+        values,
+        y,
+        s=[43 if name == "L3H1" else 26 for name in names],
+        color=colors,
+        edgecolor="white",
+        linewidth=0.7,
+        zorder=3,
     )
-    ax.annotate("", xy=(0, f["M_CA"]), xytext=(0, f["M_CI"]),
-                arrowprops=dict(arrowstyle="<->", color=COLORS["text"], lw=0.8))
-    ax.text(0.07, (f["M_CI"] + f["M_CA"]) / 2,
-            f"+{f['M_CI']-f['M_CA']:.3f}\nhead SUPPORTS\nthe donor",
-            fontsize=6.5, va="center", ha="left")
-    ax.annotate("", xy=(1, f["M_XA"]), xytext=(1, f["M_XI"]),
-                arrowprops=dict(arrowstyle="<->", color=COLORS["text"], lw=0.8))
-    ax.text(0.93, (f["M_XI"] + f["M_XA"]) / 2,
-            f"{f['M_XI']-f['M_XA']:.3f}\nhead OPPOSES\nthe donor",
-            fontsize=6.5, va="center", ha="right")
-    # headroom so the annotations never collide with the axis labels
-    ys = [f["M_CI"], f["M_XI"], f["M_CA"], f["M_XA"]]
-    ax.set_ylim(min(ys) - 0.18, max(ys) + 0.18)
-    did, ci = f["did"], f["did_ci"]
-    ax.set_title(f"Signed partner-consistency\nDiD = {did:+.3f} [{ci[0]:.3f}, {ci[1]:.3f}]", pad=8)
-    panel_label(ax, "C")
+    ax.axvline(0, color=INK, linewidth=0.8)
+    ax.set_yticks(y, names)
+    ax.set_xlabel("Recovered coupling (logit units)")
+    ax.set_xlim(-0.02, 0.88)
+    ax.text(values[-1] + 0.025, y[-1], f"{values[-1]:.3f}", va="center", color=COUPLING)
+    panel_header(ax, "B", "Coupling Strength")
+    _open_axis(ax)
 
-    fig.tight_layout(w_pad=2.2)
-    out = save_figure(fig, HERE / "fig1_coupling", sources=[CATS, CONF])
-    print(f"wrote {out}.png / .pdf  (+ provenance)")
+    # C — the factorial is the mechanistic sign test.
+    ax = axes[2]
+    factorial = conf["factorial"]
+    xx = np.asarray([0.0, 1.0])
+    intact = np.asarray([factorial["M_CI"], factorial["M_XI"]])
+    ablated = np.asarray([factorial["M_CA"], factorial["M_XA"]])
+    ax.plot(
+        xx,
+        intact,
+        marker="o",
+        color=COUPLING,
+        markersize=5.5,
+        markeredgecolor="white",
+        markeredgewidth=0.7,
+        label="L3H1 intact",
+    )
+    ax.plot(
+        xx,
+        ablated,
+        marker="s",
+        color=DELETED,
+        markersize=5.2,
+        markeredgecolor="white",
+        markeredgewidth=0.7,
+        label="L3H1 ablated",
+    )
+    ax.set_xticks(xx, ["Intact\nacceptor", "Corrupted\nacceptor"])
+    ax.set_ylabel("Donor margin (logit units)")
+    ax.set_xlim(-0.18, 1.18)
+    ax.set_ylim(3.78, 5.48)
+    ax.legend(loc="upper right", frameon=False, handletextpad=0.45)
+    ax.annotate(
+        f"+{factorial['M_CI'] - factorial['M_CA']:.3f}",
+        xy=(0, np.mean([factorial["M_CI"], factorial["M_CA"]])),
+        xytext=(0.09, 4.86),
+        fontsize=7.3,
+        color=INK,
+    )
+    ax.annotate(
+        f"{factorial['M_XI'] - factorial['M_XA']:.3f}",
+        xy=(1, np.mean([factorial["M_XI"], factorial["M_XA"]])),
+        xytext=(0.78, 4.02),
+        fontsize=7.3,
+        color=INK,
+    )
+    ci = factorial["did_ci"]
+    ax.text(
+        0.02,
+        0.04,
+        f"Interaction {factorial['did']:+.3f} [{ci[0]:.3f}, {ci[1]:.3f}]",
+        transform=ax.transAxes,
+        color=SEC,
+        fontsize=7.2,
+        va="bottom",
+    )
+    panel_header(ax, "C", "Partner Dependence")
+    _open_axis(ax)
+
+    save_figure(
+        fig,
+        OUT,
+        sources=[CATEGORIES, CONFIRMATION],
+        formats=("png", "pdf"),
+        dpi=450,
+        bbox_inches="tight",
+    )
+    plt.close(fig)
 
 
 if __name__ == "__main__":
