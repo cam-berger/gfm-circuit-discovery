@@ -1,0 +1,913 @@
+<title>Acceptor-Recognition Circuit — Phase 0–5 Dashboard</title>
+<style>
+  :root {
+    color-scheme: light;
+    --surface: #fcfcfb;
+    --surface-raised: #ffffff;
+    --surface-sunken: #f2f1ec;
+    --ink-primary: #0b0b0b;
+    --ink-secondary: #52514e;
+    --ink-muted: #898781;
+    --grid: #e1e0d9;
+    --baseline: #c3c2b7;
+    --border: rgba(11,11,11,0.10);
+    --accent-a: #2a78d6;
+    --accent-a-soft: rgba(42,120,214,0.12);
+    --accent-b: #eb6834;
+    --accent-b-soft: rgba(235,104,52,0.12);
+    --status-good: #0ca30c;
+    --status-good-soft: rgba(12,163,12,0.12);
+    --status-warning: #a8710a;
+    --status-warning-soft: rgba(250,178,25,0.20);
+    --status-serious: #c1512e;
+    --status-serious-soft: rgba(236,131,90,0.20);
+
+    --font-display: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+    --font-body: -apple-system, 'Segoe UI', system-ui, Roboto, sans-serif;
+    --font-mono: ui-monospace, 'Cascadia Code', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --surface: #1a1a19;
+      --surface-raised: #221f1c;
+      --surface-sunken: #141412;
+      --ink-primary: #ffffff;
+      --ink-secondary: #c3c2b7;
+      --ink-muted: #93918a;
+      --grid: #2c2c2a;
+      --baseline: #46443e;
+      --border: rgba(255,255,255,0.12);
+      --accent-a: #3987e5;
+      --accent-a-soft: rgba(57,135,229,0.18);
+      --accent-b: #d95926;
+      --accent-b-soft: rgba(217,89,38,0.20);
+      --status-good: #2fbf3f;
+      --status-good-soft: rgba(47,191,63,0.16);
+      --status-warning: #fab219;
+      --status-warning-soft: rgba(250,178,25,0.18);
+      --status-serious: #ec835a;
+      --status-serious-soft: rgba(236,131,90,0.18);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface: #1a1a19;
+    --surface-raised: #221f1c;
+    --surface-sunken: #141412;
+    --ink-primary: #ffffff;
+    --ink-secondary: #c3c2b7;
+    --ink-muted: #93918a;
+    --grid: #2c2c2a;
+    --baseline: #46443e;
+    --border: rgba(255,255,255,0.12);
+    --accent-a: #3987e5;
+    --accent-a-soft: rgba(57,135,229,0.18);
+    --accent-b: #d95926;
+    --accent-b-soft: rgba(217,89,38,0.20);
+    --status-good: #2fbf3f;
+    --status-good-soft: rgba(47,191,63,0.16);
+    --status-warning: #fab219;
+    --status-warning-soft: rgba(250,178,25,0.18);
+    --status-serious: #ec835a;
+    --status-serious-soft: rgba(236,131,90,0.18);
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --surface: #fcfcfb;
+    --surface-raised: #ffffff;
+    --surface-sunken: #f2f1ec;
+    --ink-primary: #0b0b0b;
+    --ink-secondary: #52514e;
+    --ink-muted: #898781;
+    --grid: #e1e0d9;
+    --baseline: #c3c2b7;
+    --border: rgba(11,11,11,0.10);
+    --accent-a: #2a78d6;
+    --accent-a-soft: rgba(42,120,214,0.12);
+    --accent-b: #eb6834;
+    --accent-b-soft: rgba(235,104,52,0.12);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--surface);
+    color: var(--ink-primary);
+    font-family: var(--font-body);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px 80px; }
+
+  /* ---------- masthead ---------- */
+  .masthead {
+    padding: 48px 24px 32px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, var(--surface-sunken), var(--surface));
+  }
+  .masthead-inner { max-width: 1180px; margin: 0 auto; }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 0 0 10px;
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.7rem, 1.3rem + 1.6vw, 2.5rem);
+    line-height: 1.15;
+    margin: 0 0 12px;
+    text-wrap: balance;
+    max-width: 22ch;
+  }
+  .lede {
+    font-size: 1.02rem;
+    color: var(--ink-secondary);
+    max-width: 64ch;
+    margin: 0 0 20px;
+  }
+  .status-line {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 9px 14px;
+  }
+  .status-line b { color: var(--accent-a); font-weight: 600; }
+
+  /* ---------- stat tiles ---------- */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 28px 0 0;
+  }
+  .stat-tile {
+    background: var(--surface-raised);
+    padding: 18px 18px 16px;
+    min-width: 0;
+  }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 0 0 10px;
+  }
+  .stat-value {
+    font-family: var(--font-mono);
+    font-size: 1.55rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    margin: 0 0 2px;
+  }
+  .stat-ci {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+    margin: 0 0 10px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 3px 8px 3px 6px;
+    border-radius: 100px;
+    font-weight: 600;
+  }
+  .chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; flex: none; }
+  .chip.good { color: var(--status-good); background: var(--status-good-soft); }
+  .chip.good::before { background: var(--status-good); }
+  .chip.warning { color: var(--status-warning); background: var(--status-warning-soft); }
+  .chip.warning::before { background: var(--status-warning); }
+  .chip.serious { color: var(--status-serious); background: var(--status-serious-soft); }
+  .chip.serious::before { background: var(--status-serious); }
+
+  /* ---------- section chrome ---------- */
+  section.block { padding: 44px 0 0; }
+  .block-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 6px; }
+  h2 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .block-sub { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-muted); }
+  .block-intro { color: var(--ink-secondary); max-width: 76ch; margin: 10px 0 22px; }
+
+  .phase {
+    display: grid;
+    grid-template-columns: 168px 1fr;
+    gap: 28px;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 26px;
+  }
+  @media (max-width: 760px) {
+    .phase { grid-template-columns: 1fr; }
+  }
+  .rail { border-left: 3px solid var(--rail-color, var(--accent-a)); padding-left: 16px; }
+  .rail .num { font-family: var(--font-display); font-size: 2.1rem; font-weight: 600; line-height: 1; color: var(--ink-primary); }
+  .rail .name { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted); margin: 6px 0 14px; }
+  .rail .takeaway { font-size: 0.86rem; color: var(--ink-secondary); }
+  .content > .chart-card + .chart-card { margin-top: 22px; }
+  .chart-card h3 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.92rem;
+    margin: 0 0 4px;
+  }
+  .chart-note { font-size: 0.82rem; color: var(--ink-muted); margin: 0 0 10px; }
+  .prose { color: var(--ink-secondary); font-size: 0.95rem; margin-top: 18px; }
+  .prose strong { color: var(--ink-primary); }
+  .prose p { margin: 0 0 10px; }
+  .prose p:last-child { margin-bottom: 0; }
+
+  .chart-legend { display: flex; flex-wrap: wrap; gap: 14px; margin: 0 0 10px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-secondary); }
+  .chart-legend .item { display: inline-flex; align-items: center; gap: 6px; }
+  .swatch { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
+  .swatch.ring { background: var(--surface-raised); border: 2px solid currentColor; }
+
+  svg.chart { width: 100%; height: auto; display: block; overflow: visible; }
+  svg text { font-family: var(--font-mono); }
+  .mark-hit { cursor: pointer; }
+  .mark-hit:focus-visible { outline: 2px solid var(--accent-a); outline-offset: 2px; }
+
+  /* ---------- schematic ---------- */
+  .schematic-card { background: var(--surface-raised); border: 1px solid var(--border); border-radius: 8px; padding: 22px 26px 18px; }
+
+  /* ---------- tooltip ---------- */
+  #tooltip {
+    position: fixed;
+    z-index: 50;
+    pointer-events: none;
+    background: var(--ink-primary);
+    color: var(--surface);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    padding: 8px 10px;
+    border-radius: 4px;
+    max-width: 280px;
+    opacity: 0;
+    transform: translate(-50%, calc(-100% - 10px));
+    transition: opacity 0.1s ease;
+  }
+  #tooltip.show { opacity: 1; }
+  #tooltip .t-val { font-weight: 700; font-size: 0.86rem; }
+  #tooltip .t-label { opacity: 0.75; }
+
+  /* ---------- table ---------- */
+  .table-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; }
+  table.verdicts { width: 100%; border-collapse: collapse; font-size: 0.86rem; background: var(--surface-raised); min-width: 760px; }
+  table.verdicts th, table.verdicts td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+  table.verdicts th { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); font-weight: 600; }
+  table.verdicts td.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+  table.verdicts tbody tr:hover { background: var(--surface-sunken); }
+  table.verdicts tbody tr:last-child td { border-bottom: none; }
+  td.effect-name { white-space: normal; min-width: 220px; }
+  td.effect-name .phase-tag { display: block; font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-muted); text-transform: uppercase; }
+
+  footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--border); color: var(--ink-muted); font-size: 0.82rem; }
+  footer code { font-family: var(--font-mono); background: var(--surface-sunken); padding: 1px 5px; border-radius: 3px; }
+</style>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">SpliceBERT · acceptor-recognition circuit · real data (GUE splice_reconstructed)</p>
+    <h1>Phase 0–5 dashboard: from a synthetic pilot to a real-data verdict</h1>
+    <p class="lede">Six experiment phases on the same n=200 real 3′ splice-site windows: the founding six-effect pilot, a control-and-composition fix, an absolute-vs-floor test, a per-sequence branch-point relocation, an attention-level head content-control, and a causal intervention ladder. Each phase is a check on the one before it.</p>
+    <div class="status-line">GO on context + AG-scanning &nbsp;·&nbsp; headline shifted <b>branch point → polypyrimidine tract</b> &nbsp;·&nbsp; branch-point effect <b>unresolved</b> after 4 checks &nbsp;·&nbsp; content-sensitive heads found (L5H8, L4H12) but <b>causal necessity is a clean null</b></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="stat-row" id="stat-row" aria-label="Headline effect sizes"></div>
+
+  <section class="block">
+    <div class="block-head"><h2>Where each phase looked</h2><span class="block-sub">400nt window · AG fixed at 198–200</span></div>
+    <p class="block-intro">Every acceptor window in GUE's <code style="font-family:var(--font-mono)">splice_reconstructed</code> set is 400nt with the acceptor AG at the same position. This schematic lines up every region any phase touched, on that one shared ruler — Phase 0/1/2's fixed offsets, Phase 3's per-sequence located branch point, and the two control regions.</p>
+    <div class="schematic-card">
+      <svg class="chart" id="schematic" viewBox="0 0 1040 190" role="img" aria-label="Annotated diagram of the 400 nucleotide acceptor window"></svg>
+    </div>
+  </section>
+
+  <section class="block" id="phase0">
+    <div class="block-head"><h2>Phase 0 — six founding effects</h2><span class="block-sub">results/phase0_results.json</span></div>
+    <div class="phase" style="--rail-color: var(--accent-a);">
+      <div class="rail">
+        <div class="num">0</div>
+        <div class="name">Founding pilot</div>
+        <div class="takeaway">Context and AG-scanning land clean. The tract effect is large. The branch-point effect is small — and turns out to need three more checks.</div>
+      </div>
+      <div class="content">
+        <div class="chart-card">
+          <h3>Effect sizes vs. the (later-corrected) floor</h3>
+          <p class="chart-note">Filled = clears the Phase-1 far-intronic floor · hollow ring = CI overlaps it. Shaded band = floor's 95% CI.</p>
+          <div class="chart-legend">
+            <span class="item"><span class="swatch" style="background:var(--accent-a)"></span>clears the floor</span>
+            <span class="item"><span class="swatch ring" style="color:var(--accent-a)"></span>marginal (overlaps floor)</span>
+          </div>
+          <svg class="chart" id="chart-phase0" role="img" aria-label="Forest plot of Phase 0 effect sizes"></svg>
+        </div>
+        <div class="prose">
+          <p><strong>Context is required</strong> (+1.319) and <strong>AG-scanning is supported</strong> (+0.916) — the model clearly won't fire on a bare AG, and prefers the correctly-positioned site over a downstream decoy. Both are the largest, cleanest effects in the whole project.</p>
+          <p><strong>PPT-only disruption</strong> (+1.245) is large. <strong>BP-only disruption</strong> (+0.212) is an order of magnitude smaller — already a hint that the tract, not the branch point, is doing most of the work.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="phase1">
+    <div class="block-head"><h2>Phase 1 — control fix: is it real, and is it order or composition?</h2><span class="block-sub">results/phase1_results.json</span></div>
+    <div class="phase" style="--rail-color: var(--accent-b);">
+      <div class="rail">
+        <div class="num">1</div>
+        <div class="name">Control &amp; composition</div>
+        <div class="takeaway">The far-intronic floor is tiny (+0.046) — real effects clear it easily. But shuffling the tract in place barely dents its effect: this is an order/identity signal, not bulk pyrimidine density.</div>
+      </div>
+      <div class="content">
+        <div class="chart-card">
+          <h3>A — the matched noise floor</h3>
+          <p class="chart-note">Content-destroying corruption of a region with no known functional role, deep in the intron (position 40–55) — the honest replacement for GUE's non-splice-label control, which wasn't reliably intronic.</p>
+          <svg class="chart" id="chart-phase1-floor" role="img" aria-label="Far-intronic noise floor bar"></svg>
+        </div>
+        <div class="chart-card">
+          <h3>B — order vs. composition: content-destroying vs. shuffle-in-place</h3>
+          <p class="chart-note">Same region, two corruption methods: full replacement (destroys composition and order) vs. a permutation of the same bases (destroys order, keeps composition exactly).</p>
+          <div class="chart-legend">
+            <span class="item"><span class="swatch" style="background:var(--accent-a)"></span>content-destroying</span>
+            <span class="item"><span class="swatch" style="background:var(--accent-b)"></span>shuffle-in-place</span>
+          </div>
+          <svg class="chart" id="chart-phase1-pair" role="img" aria-label="Paired comparison of content-destroying corruption vs shuffle in place"></svg>
+        </div>
+        <div class="prose">
+          <p>The floor (+0.046) is 5–27× smaller than every real effect, so context, AG-scanning, and the tract effect are unambiguous. The branch-point effect (+0.212) sits right at its edge — the better control didn't clear it, it just made "looks real" honest: <strong>marginal</strong>.</p>
+          <p>The bigger surprise is panel B: <strong>PPT shuffle-in-place still shows +1.207</strong>, almost matching full corruption (+1.245). Reordering the same bases already destroys nearly the whole signal — so whatever SpliceBERT reads in the tract is a specific pattern or position-level dependency, not aggregate pyrimidine content.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="phase2">
+    <div class="block-head"><h2>Phase 2 — absolute m_acc vs. the random-AG floor</h2><span class="block-sub">results/phase2_results.json · no model re-run</span></div>
+    <div class="phase" style="--rail-color: var(--accent-a);">
+      <div class="rail">
+        <div class="num">2</div>
+        <div class="name">Gate vs. artifact</div>
+        <div class="takeaway">PPT-only disruption alone already crashes to the floor. BP-only stays clearly above it. "Both collapses" needs no interaction to explain it.</div>
+      </div>
+      <div class="content">
+        <div class="chart-card">
+          <h3>Absolute m_acc by condition, against the random-AG floor</h3>
+          <p class="chart-note">Reuses Phase 0's per-sample values directly (they were already absolute, not differenced) — this is a re-analysis, not a re-run.</p>
+          <div class="chart-legend">
+            <span class="item"><span class="swatch" style="background:var(--accent-a)"></span>clearly above floor</span>
+            <span class="item"><span class="swatch" style="background:var(--accent-b)"></span>indistinguishable from floor</span>
+          </div>
+          <svg class="chart" id="chart-phase2" role="img" aria-label="Absolute m_acc by condition against the random AG floor"></svg>
+        </div>
+        <div class="prose">
+          <p>A Δ alone can't tell a real interaction from a corruption method that's already hit bottom. In absolute terms, <strong>PPT disruption alone lands statistically on the random-AG floor</strong> — the same confidence as no real context at all. <strong>BP disruption alone stays well above it</strong>, retaining real signal.</p>
+          <p>That rules out reading "both disrupted" as an AND-gate: PPT alone already explains the collapse. The simpler picture survives — <strong>the tract is close to sufficient by itself; the branch point adds a smaller, dispensable increment on top of it.</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="phase3">
+    <div class="block-head"><h2>Phase 3 — real coordinates instead of a fixed offset</h2><span class="block-sub">results/phase3_results.json</span></div>
+    <div class="phase" style="--rail-color: var(--accent-b);">
+      <div class="rail">
+        <div class="num">3</div>
+        <div class="name">Relocate, don't assume</div>
+        <div class="takeaway">Per-sequence branch-point localization doesn't rescue the branch-point effect — it shrinks further and loses significance, while the tract effect grows.</div>
+      </div>
+      <div class="content">
+        <div class="chart-card">
+          <h3>Fixed-offset (Phase 0) vs. per-sequence located coordinate</h3>
+          <p class="chart-note">Branch point located per sequence by a yUnAy-consensus scan over the canonical 18–45nt upstream window (2/200 sequences had no candidate and fell back to the fixed offset); tract redefined as everything between the located branch point and the AG (mean 27nt vs. the fixed 15nt window).</p>
+          <div class="chart-legend">
+            <span class="item"><span class="swatch" style="background:var(--accent-a)"></span>fixed offset</span>
+            <span class="item"><span class="swatch" style="background:var(--accent-b)"></span>real coordinate</span>
+          </div>
+          <svg class="chart" id="chart-phase3" role="img" aria-label="Fixed offset versus real coordinate comparison"></svg>
+        </div>
+        <div class="prose">
+          <p>If the fixed 23nt branch-point window was simply mislocated, giving the model its real, per-sequence branch point should have <em>grown</em> the effect. Instead it shrinks (+0.212 → +0.090) and its CI now straddles zero. The tract effect, given more accurate (and longer, on average) boundaries, grows instead (+1.245 → +1.433).</p>
+          <p>Mislocation is not what was hiding a bigger branch-point signal. The honest reading: no positive evidence of a standalone, legible branch-point effect survives three independent checks — <em>pending a real branchpointer/LaBranchoR annotation</em>, since this project's locator is a documented PWM stand-in, not those tools.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="phase4">
+    <div class="block-head"><h2>Phase 4 — head content-control, retargeted to tract-readers</h2><span class="block-sub">results/phase4_results.json</span></div>
+    <div class="phase" style="--rail-color: var(--accent-a);">
+      <div class="rail">
+        <div class="num">4</div>
+        <div class="name">Content vs. locality</div>
+        <div class="takeaway">All 6 donor-circuit candidate heads are saturated positional-locality heads — 0/6 pass. A data-driven ranking of all 96 heads found 5 new heads that genuinely read the tract's content; none read the branch point.</div>
+      </div>
+      <div class="content">
+        <div class="chart-card">
+          <h3>The 5 discovered tract-readers: content-destroying vs. shuffle-in-place attention drop</h3>
+          <p class="chart-note">Δ attention mass (clean − corrupted/shuffled) from the masked-AG query into the tract, for 4 of the 5 tested heads that pass content-control (L0H14 omitted — real but ~1000x smaller in magnitude, since it's already ~100% saturated). L5H8 and L4H12 drop under both full corruption <em>and</em> composition-preserving shuffle — order-sensitive, matching the m_acc tract signal's own order-dependence.</p>
+          <div class="chart-legend">
+            <span class="item"><span class="swatch" style="background:var(--accent-a)"></span>content-destroying</span>
+            <span class="item"><span class="swatch" style="background:var(--accent-b)"></span>shuffle-in-place</span>
+          </div>
+          <svg class="chart" id="chart-phase4" role="img" aria-label="Content-destroying vs shuffle-in-place attention drop for five discovered tract-reading heads"></svg>
+        </div>
+        <div class="prose">
+          <p>All 6 candidates carried over from the donor-circuit proposal (L0H2, L1H14, L2H7, L2H0, L3H10, L1H1) spend 80–100% of the masked-AG query's attention on the tract's 15nt window — but that mass barely moves when the window's content is destroyed. That's the signature of a previous-token / local-window head, not a content reader: <strong>0/6 pass content-control, at either region</strong>.</p>
+          <p>Ranking all 96 heads by actual clean-condition attention (free from the same forward passes) surfaced a completely different, non-overlapping set of top branch-point attenders. Testing those 15 discovered heads found <strong>5 genuine tract readers</strong> (L5H8, L4H12, L3H5, L0H13, L0H14) — real, statistically robust drops under corruption, well below the saturated candidates' ~100% attention share (6–38% of budget). <strong>Zero of the 21 tested heads pass content-control for the branch point</strong> — some even attend <em>more</em> once it's corrupted.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="phase5">
+    <div class="block-head"><h2>Phase 5 — the intervention ladder: necessity, mediation, routing vs. content</h2><span class="block-sub">results/phase5_results.json</span></div>
+    <div class="phase" style="--rail-color: var(--accent-b);">
+      <div class="rail">
+        <div class="num">5</div>
+        <div class="name">Correlation vs. causation</div>
+        <div class="takeaway">Mean-ablation, restoration patching, and the Q/V split all come back null for L5H8/L4H12 individually. Even jointly ablating all 5 discovered heads barely clears significance, at ~2% of the real tract-corruption effect.</div>
+      </div>
+      <div class="content">
+        <div class="chart-card">
+          <h3>Mean-ablation (necessity): single heads vs. joint groups</h3>
+          <p class="chart-note">Δ m_acc (clean − ablated) at each head's output, on the clean sequence. Filled = 95% CI excludes 0. L0H2 is a negative control — Phase 4's most attention-saturated donor-circuit head, which failed content-control.</p>
+          <div class="chart-legend">
+            <span class="item"><span class="swatch" style="background:var(--accent-a)"></span>individual head</span>
+            <span class="item"><span class="swatch" style="background:var(--ink-muted)"></span>control head</span>
+            <span class="item"><span class="swatch" style="background:var(--accent-b)"></span>joint group</span>
+          </div>
+          <svg class="chart" id="chart-phase5-ablation" role="img" aria-label="Mean ablation forest plot for five heads and two joint groups"></svg>
+        </div>
+        <div class="prose">
+          <p><strong>Zero of the five heads individually pass necessity</strong> — every CI straddles 0, including the control. Jointly ablating the four real readers together is still not significant. Jointly ablating all five barely clears 0 (−0.030 [−0.060, −0.002]) — but that's only <strong>~2% of the size of the real PPT-corruption effect</strong> (+1.2 to +1.4), confirming these five heads' direct AG-position output, even summed, are nowhere near sufficient to explain the tract effect alone.</p>
+          <p><strong>Restoration patching and the Q/V split are null too</strong>: patching a single head's true clean-run output back into a corrupted or shuffled sequence recovers roughly 0% of the clean-vs-degraded gap for both L5H8 and L4H12 — so there's nothing left to decompose into routing (Q-patch) vs. content (V-patch) components.</p>
+          <p>Read plainly: Phase 4's attention filter correctly separated genuine content-readers from positional-locality artifacts, but attention content-sensitivity does not imply single- or small-group causal necessity here. The tract-reading computation is either more distributed across components than these five, routed indirectly through positions this layer-local intervention can't see, or both — next-steps item 6 broadens the search rather than deepening it on this fixed list.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="verdicts">
+    <div class="block-head"><h2>Every effect, one table</h2><span class="block-sub">all n=200, same sample, fixed seed</span></div>
+    <div class="table-scroll">
+      <table class="verdicts">
+        <thead>
+          <tr><th>Effect</th><th>Δ mean</th><th>95% CI</th><th>Status</th></tr>
+        </thead>
+        <tbody id="verdict-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    Model: <code>multimolecule/splicebert</code> (masked-LM) · Data: <code>leannmlindsey/GUE</code>, config <code>splice_reconstructed</code> · Metric: <code>m_acc</code>, masked-AG logit margin, 5000-resample bootstrap 95% CI.
+    Next: broaden the causal search beyond the 5 Phase-4 heads (path-patch backward from m_acc, include MLPs and non-AG-query positions, a true whole-circuit scrub as an upper bound), then the shared-transport check against the donor circuit's L4H0/L4H2/L5H11 and <code>U_info</code> once a mediating component is found. See <code>README.md</code>.
+  </footer>
+</div>
+
+<div id="tooltip" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var DATA = {
+    phase0: {
+      delta_ppt_bp_only: { mean: 0.2116770303947851, ci_lo: 0.06075565047608688, ci_hi: 0.36018649934045965 },
+      delta_ppt_control_nonsplice: { mean: -0.1048371154535562, ci_lo: -0.20098225919832474, ci_hi: -0.027495941889006736 },
+      context_required: { mean: 1.3190126265911386, ci_lo: 0.9189722806421342, ci_hi: 1.7389143967838023 },
+      ag_scanning: { mean: 0.9156921213166789, ci_lo: 0.477941085142782, ci_hi: 1.3622266578164413 },
+      ppt_only_alone: { mean: 1.2451600716914981, ci_lo: 0.874792890834855, ci_hi: 1.6242277658792443 },
+      ppt_only_control_nonsplice: { mean: 0.04581002694088964, ci_lo: -0.17127753099321855, ci_hi: 0.2665561752950307 },
+      both_disrupted: { mean: 1.3858588009723463, ci_lo: 0.9989351537057664, ci_hi: 1.7750534727058833 },
+      both_control_nonsplice: { mean: -0.14495200471952557, ci_lo: -0.43772258862410673, ci_hi: 0.1246251260749995 }
+    },
+    phase1: {
+      far_intronic_control: { mean: 0.046428877543658, ci_lo: 0.011075960718095306, ci_hi: 0.08452566103427671 },
+      ppt_shuffle_in_place: { mean: 1.2071925413329154, ci_lo: 0.8973668350044172, ci_hi: 1.5296895752483977 },
+      bp_shuffle_in_place: { mean: 0.16785177327226847, ci_lo: 0.04069275270192884, ci_hi: 0.305078683824744 }
+    },
+    phase2: {
+      clean: { mean: 0.6553929228056222, ci_lo: 0.25439275978156367, ci_hi: 1.0718889276694972 },
+      bp_only: { mean: 0.4437158924108371, ci_lo: 0.03738796186877882, ci_hi: 0.854971191702759 },
+      ppt_only: { mean: -0.5897671488858759, ci_lo: -0.841918155872845, ci_hi: -0.3309734815966805 },
+      both: { mean: -0.730465878166724, ci_lo: -0.935208604473446, ci_hi: -0.5151182645079688 },
+      rand_ag: { mean: -0.6636197037855163, ci_lo: -0.7284080463732825, ci_hi: -0.5952937636525604 }
+    },
+    phase3: {
+      bp_real: { mean: 0.0899727756064385, ci_lo: -0.007080608155345562, ci_hi: 0.18634967227117136 },
+      ppt_real: { mean: 1.4332689023064449, ci_lo: 1.0756238759564003, ci_hi: 1.8022748366016892 },
+      both_real: { mean: 1.4979705977393314, ci_lo: 1.0834582040446112, ci_hi: 1.9144540734621693 },
+      n_fallback: 2, mean_bp_distance_from_ag: 30.01, mean_ppt_len: 27.01
+    },
+    phase4: {
+      readers: [
+        { head: "L5H8", clean_mass: 0.076, corrupt: { mean: 0.0223, ci_lo: 0.0173, ci_hi: 0.0274 }, shuffle: { mean: 0.0080, ci_lo: 0.0049, ci_hi: 0.0110 } },
+        { head: "L4H12", clean_mass: 0.063, corrupt: { mean: 0.0119, ci_lo: 0.0077, ci_hi: 0.0162 }, shuffle: { mean: 0.0032, ci_lo: 0.0002, ci_hi: 0.0061 } },
+        { head: "L3H5", clean_mass: 0.081, corrupt: { mean: 0.0087, ci_lo: 0.0045, ci_hi: 0.0133 }, shuffle: { mean: 0.0023, ci_lo: -0.0014, ci_hi: 0.0061 } },
+        { head: "L0H13", clean_mass: 0.383, corrupt: { mean: 0.00085, ci_lo: 0.00037, ci_hi: 0.00135 }, shuffle: { mean: 0.00033, ci_lo: -0.00009, ci_hi: 0.00076 } }
+      ],
+      n_donor_circuit_pass: 0, n_donor_circuit_total: 6, n_discovered_pass: 5, n_discovered_total: 15
+    },
+    phase5: {
+      ablation: [
+        { label: "L5H8", mean: -0.004, ci_lo: -0.015, ci_hi: 0.007, kind: "target" },
+        { label: "L4H12", mean: 0.001, ci_lo: -0.009, ci_hi: 0.012, kind: "target" },
+        { label: "L3H5", mean: -0.014, ci_lo: -0.030, ci_hi: 0.0003, kind: "target" },
+        { label: "L0H13", mean: 0.003, ci_lo: -0.005, ci_hi: 0.011, kind: "target" },
+        { label: "L0H2 (control)", mean: -0.015, ci_lo: -0.031, ci_hi: 0.0003, kind: "control" },
+        { label: "joint: 4 readers", mean: -0.015, ci_lo: -0.041, ci_hi: 0.010, kind: "joint" },
+        { label: "joint: all 5", mean: -0.030, ci_lo: -0.060, ci_hi: -0.002, kind: "joint" }
+      ]
+    }
+  };
+
+  var NS = "http://www.w3.org/2000/svg";
+  function svgEl(tag, attrs) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) if (attrs.hasOwnProperty(k)) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+  function text(x, y, str, attrs) {
+    var merged = Object.assign({ x: x, y: y, fill: cssVar("--ink-secondary") }, attrs || {});
+    var t = svgEl("text", merged);
+    t.textContent = str;
+    return t;
+  }
+  function fmt(v) { return (v >= 0 ? "+" : "") + v.toFixed(3); }
+
+  var tip = document.getElementById("tooltip");
+  function showTip(evt, title, value, ciStr) {
+    tip.innerHTML = "";
+    var vEl = document.createElement("div");
+    vEl.className = "t-val"; vEl.textContent = value;
+    var lEl = document.createElement("div");
+    lEl.className = "t-label"; lEl.textContent = title + (ciStr ? "  " + ciStr : "");
+    tip.appendChild(vEl); tip.appendChild(lEl);
+    positionTip(evt);
+    tip.classList.add("show");
+  }
+  function positionTip(evt) {
+    var p = evt.touches ? evt.touches[0] : evt;
+    var x = p.clientX, y = p.clientY;
+    if (x === undefined) {
+      var r = evt.target.getBoundingClientRect();
+      x = r.left + r.width / 2; y = r.top;
+    }
+    tip.style.left = x + "px";
+    tip.style.top = y + "px";
+  }
+  function hideTip() { tip.classList.remove("show"); }
+
+  function attachHit(el, title, value, ciStr) {
+    el.classList.add("mark-hit");
+    el.setAttribute("tabindex", "0");
+    el.addEventListener("pointerenter", function (e) { showTip(e, title, value, ciStr); });
+    el.addEventListener("pointermove", positionTip);
+    el.addEventListener("pointerleave", hideTip);
+    el.addEventListener("focus", function (e) { showTip(e, title, value, ciStr); });
+    el.addEventListener("blur", hideTip);
+  }
+
+  var CSS = getComputedStyle(document.documentElement);
+  function cssVar(name) { return CSS.getPropertyValue(name).trim(); }
+
+  /* ---------------- Forest / dot-CI chart (Phase 0 and Phase 2) ---------------- */
+  function forestChart(svg, rows, opts) {
+    opts = opts || {};
+    var marginLeft = 190, marginRight = 30, rowH = 44, topPad = opts.floor ? 34 : 14, botPad = 26;
+    var width = 900, plotW = width - marginLeft - marginRight;
+    var height = topPad + rows.length * rowH + botPad;
+    svg.setAttribute("viewBox", "0 0 " + width + " " + height);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    var allVals = rows.reduce(function (a, r) { return a.concat([r.mean, r.lo, r.hi]); }, []);
+    if (opts.floor) allVals = allVals.concat([opts.floor.mean, opts.floor.lo, opts.floor.hi]);
+    var dMin = Math.min(0, Math.min.apply(null, allVals));
+    var dMax = Math.max.apply(null, allVals);
+    var pad = (dMax - dMin) * 0.12;
+    dMin -= pad; dMax += pad;
+    function x(v) { return marginLeft + (v - dMin) / (dMax - dMin) * plotW; }
+
+    var ticks = niceTicks(dMin, dMax, 6);
+    ticks.forEach(function (t) {
+      svg.appendChild(svgEl("line", { x1: x(t), x2: x(t), y1: topPad - 6, y2: height - botPad + 4, stroke: cssVar("--grid"), "stroke-width": 1 }));
+      svg.appendChild(text(x(t), height - botPad + 18, t.toFixed(t % 1 === 0 ? 0 : 1), { "text-anchor": "middle", "font-size": 10.5 }));
+    });
+    svg.appendChild(svgEl("line", { x1: x(0), x2: x(0), y1: topPad - 6, y2: height - botPad + 4, stroke: cssVar("--baseline"), "stroke-width": 1.4 }));
+
+    if (opts.floor) {
+      var fx0 = x(opts.floor.lo), fx1 = x(opts.floor.hi);
+      var band = svgEl("rect", { x: fx0, y: topPad - 6, width: Math.max(1, fx1 - fx0), height: height - topPad - botPad + 10, fill: cssVar("--accent-b"), opacity: 0.13 });
+      svg.appendChild(band);
+      svg.appendChild(svgEl("line", { x1: x(opts.floor.mean), x2: x(opts.floor.mean), y1: topPad - 6, y2: height - botPad + 4, stroke: cssVar("--accent-b"), "stroke-width": 1.4, "stroke-dasharray": "4,3" }));
+      svg.appendChild(text(x(opts.floor.mean), 14, opts.floor.label + ": " + fmt(opts.floor.mean), { "font-size": 11, fill: cssVar("--ink-muted") }));
+    }
+
+    rows.forEach(function (r, i) {
+      var y = topPad + i * rowH + rowH / 2;
+      svg.appendChild(text(marginLeft - 14, y + 4, r.label, { "text-anchor": "end", "font-size": 12.5, fill: cssVar("--ink-primary") }));
+      var color = r.status === "good" ? cssVar("--accent-a") : (r.status === "warning" ? cssVar("--accent-b") : cssVar("--ink-muted"));
+      svg.appendChild(svgEl("line", { x1: x(r.lo), x2: x(r.hi), y1: y, y2: y, stroke: color, "stroke-width": 2.4 }));
+      var dot = svgEl("circle", { cx: x(r.mean), cy: y, r: 7, fill: r.hollow ? cssVar("--surface-raised") : color, stroke: color, "stroke-width": 2 });
+      svg.appendChild(dot);
+      svg.appendChild(text(x(r.hi) + 10, y + 4, fmt(r.mean) + "  [" + fmt(r.lo) + ", " + fmt(r.hi) + "]", { "font-size": 11.5 }));
+      var hit = svgEl("rect", { x: marginLeft, y: y - rowH / 2, width: plotW, height: rowH, fill: "transparent", role: "img", "aria-label": r.label + " " + fmt(r.mean) });
+      attachHit(hit, r.label, fmt(r.mean), "95% CI [" + fmt(r.lo) + ", " + fmt(r.hi) + "]");
+      svg.appendChild(hit);
+    });
+  }
+
+  function niceTicks(min, max, count) {
+    var range = max - min;
+    var raw = range / count;
+    var mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    var norm = raw / mag;
+    var step = (norm < 1.5 ? 1 : norm < 3 ? 2 : norm < 7 ? 5 : 10) * mag;
+    var start = Math.ceil(min / step) * step;
+    var out = [];
+    for (var v = start; v <= max; v += step) out.push(Math.round(v * 1000) / 1000);
+    return out;
+  }
+
+  /* ---------------- single-bar floor chart (Phase 1 panel A) ---------------- */
+  function floorChart(svg, row) {
+    var marginLeft = 190, marginRight = 30, width = 900, height = 90;
+    svg.setAttribute("viewBox", "0 0 " + width + " " + height);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var plotW = width - marginLeft - marginRight;
+    var dMin = Math.min(0, row.lo) - 0.03, dMax = Math.max(row.hi, 0.12) + 0.03;
+    function x(v) { return marginLeft + (v - dMin) / (dMax - dMin) * plotW; }
+    var ticks = niceTicks(dMin, dMax, 5);
+    ticks.forEach(function (t) {
+      svg.appendChild(svgEl("line", { x1: x(t), x2: x(t), y1: 14, y2: 60, stroke: cssVar("--grid"), "stroke-width": 1 }));
+      svg.appendChild(text(x(t), 76, t.toFixed(2), { "text-anchor": "middle", "font-size": 10.5 }));
+    });
+    svg.appendChild(svgEl("line", { x1: x(0), x2: x(0), y1: 14, y2: 60, stroke: cssVar("--baseline"), "stroke-width": 1.4 }));
+    var y = 38;
+    svg.appendChild(text(marginLeft - 14, y + 4, "far-intronic control", { "text-anchor": "end", "font-size": 12.5 }));
+    svg.appendChild(svgEl("line", { x1: x(row.lo), x2: x(row.hi), y1: y, y2: y, stroke: cssVar("--accent-b"), "stroke-width": 2.4 }));
+    svg.appendChild(svgEl("circle", { cx: x(row.mean), cy: y, r: 7, fill: cssVar("--accent-b") }));
+    svg.appendChild(text(x(row.hi) + 10, y + 4, fmt(row.mean) + "  [" + fmt(row.lo) + ", " + fmt(row.hi) + "]  — 5–27× smaller than every real effect", { "font-size": 11.5 }));
+    var hit = svgEl("rect", { x: marginLeft, y: y - 20, width: plotW, height: 40, fill: "transparent" });
+    attachHit(hit, "Far-intronic control", fmt(row.mean), "95% CI [" + fmt(row.lo) + ", " + fmt(row.hi) + "]");
+    svg.appendChild(hit);
+  }
+
+  /* ---------------- paired comparison chart (Phase 1 panel B, Phase 3) ---------------- */
+  function pairedChart(svg, groups) {
+    var marginLeft = 190, marginRight = 30, rowH = 64, topPad = 14, botPad = 26;
+    var width = 900, plotW = width - marginLeft - marginRight;
+    var height = topPad + groups.length * rowH + botPad;
+    svg.setAttribute("viewBox", "0 0 " + width + " " + height);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    var allVals = [];
+    groups.forEach(function (g) { allVals.push(g.a.mean, g.a.lo, g.a.hi, g.b.mean, g.b.lo, g.b.hi); });
+    var dMin = Math.min(0, Math.min.apply(null, allVals));
+    var dMax = Math.max.apply(null, allVals);
+    var pad = (dMax - dMin) * 0.12;
+    dMin -= pad; dMax += pad;
+    function x(v) { return marginLeft + (v - dMin) / (dMax - dMin) * plotW; }
+
+    niceTicks(dMin, dMax, 6).forEach(function (t) {
+      svg.appendChild(svgEl("line", { x1: x(t), x2: x(t), y1: topPad - 6, y2: height - botPad + 4, stroke: cssVar("--grid"), "stroke-width": 1 }));
+      svg.appendChild(text(x(t), height - botPad + 18, t.toFixed(t % 1 === 0 ? 0 : 1), { "text-anchor": "middle", "font-size": 10.5 }));
+    });
+    svg.appendChild(svgEl("line", { x1: x(0), x2: x(0), y1: topPad - 6, y2: height - botPad + 4, stroke: cssVar("--baseline"), "stroke-width": 1.4 }));
+
+    groups.forEach(function (g, i) {
+      var yc = topPad + i * rowH + rowH / 2;
+      var yA = yc - 11, yB = yc + 11;
+      svg.appendChild(text(marginLeft - 14, yc + 4, g.label, { "text-anchor": "end", "font-size": 12.5 }));
+      svg.appendChild(svgEl("line", { x1: x(g.a.mean), x2: x(g.b.mean), y1: yA, y2: yB, stroke: cssVar("--ink-muted"), "stroke-width": 1, opacity: 0.5 }));
+
+      [["a", yA, cssVar("--accent-a")], ["b", yB, cssVar("--accent-b")]].forEach(function (pair) {
+        var d = g[pair[0]], y = pair[1], color = pair[2];
+        svg.appendChild(svgEl("line", { x1: x(d.lo), x2: x(d.hi), y1: y, y2: y, stroke: color, "stroke-width": 2.2 }));
+        svg.appendChild(svgEl("circle", { cx: x(d.mean), cy: y, r: 6, fill: color }));
+        svg.appendChild(text(x(d.hi) + 8, y + 4, fmt(d.mean) + "  [" + fmt(d.lo) + ", " + fmt(d.hi) + "]", { "font-size": 10.8 }));
+        var hit = svgEl("rect", { x: marginLeft, y: y - rowH / 4, width: plotW, height: rowH / 2, fill: "transparent" });
+        attachHit(hit, g.label + " — " + d.name, fmt(d.mean), "95% CI [" + fmt(d.lo) + ", " + fmt(d.hi) + "]");
+        svg.appendChild(hit);
+      });
+    });
+  }
+
+  /* ---------------- stat tile mini-bar ---------------- */
+  function miniBar(svg, row, domain) {
+    var width = 220, height = 30, margin = 4;
+    svg.setAttribute("viewBox", "0 0 " + width + " " + height);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    function x(v) { return margin + (v - domain[0]) / (domain[1] - domain[0]) * (width - margin * 2); }
+    svg.appendChild(svgEl("line", { x1: margin, x2: width - margin, y1: height / 2, y2: height / 2, stroke: cssVar("--grid"), "stroke-width": 3, "stroke-linecap": "round" }));
+    svg.appendChild(svgEl("line", { x1: x(0), x2: x(0), y1: 4, y2: height - 4, stroke: cssVar("--baseline"), "stroke-width": 1.2 }));
+    var color = row.hi < 0.3 && row.lo < 0 ? cssVar("--accent-b") : cssVar("--accent-a");
+    svg.appendChild(svgEl("line", { x1: x(row.lo), x2: x(row.hi), y1: height / 2, y2: height / 2, stroke: color, "stroke-width": 4, "stroke-linecap": "round" }));
+    svg.appendChild(svgEl("circle", { cx: x(row.mean), cy: height / 2, r: 5, fill: color, stroke: cssVar("--surface-raised"), "stroke-width": 1.5 }));
+  }
+
+  /* ---------------- render stat tiles ---------------- */
+  var statTiles = [
+    { label: "Context required", data: DATA.phase0.context_required, chip: null },
+    { label: "AG-scanning", data: DATA.phase0.ag_scanning, chip: null },
+    { label: "Tract effect (real coord.)", data: DATA.phase3.ppt_real, chip: null },
+    { label: "Branch point (real coord.)", data: DATA.phase3.bp_real, chip: { kind: "warning", text: "Unresolved" } }
+  ];
+  var statRow = document.getElementById("stat-row");
+  var sharedDomain = [-0.3, 2.0];
+  statTiles.forEach(function (t) {
+    var tile = document.createElement("div");
+    tile.className = "stat-tile";
+    var label = document.createElement("p"); label.className = "stat-label"; label.textContent = t.label;
+    var value = document.createElement("p"); value.className = "stat-value"; value.textContent = fmt(t.data.mean);
+    var ci = document.createElement("p"); ci.className = "stat-ci"; ci.textContent = "[" + fmt(t.data.ci_lo) + ", " + fmt(t.data.ci_hi) + "]";
+    tile.appendChild(label); tile.appendChild(value); tile.appendChild(ci);
+    var bar = svgEl("svg", { class: "chart", viewBox: "0 0 220 30", role: "img", "aria-label": t.label + " confidence interval" });
+    tile.appendChild(bar);
+    if (t.chip) {
+      var chip = document.createElement("span");
+      chip.className = "chip " + t.chip.kind;
+      chip.textContent = t.chip.text;
+      chip.style.marginTop = "10px";
+      tile.appendChild(chip);
+    }
+    statRow.appendChild(tile);
+    miniBar(bar, { mean: t.data.mean, lo: t.data.ci_lo, hi: t.data.ci_hi }, sharedDomain);
+  });
+
+  /* ---------------- Phase 0 chart ---------------- */
+  forestChart(document.getElementById("chart-phase0"), [
+    { label: "Context required", mean: DATA.phase0.context_required.mean, lo: DATA.phase0.context_required.ci_lo, hi: DATA.phase0.context_required.ci_hi, status: "good" },
+    { label: "AG-scanning", mean: DATA.phase0.ag_scanning.mean, lo: DATA.phase0.ag_scanning.ci_lo, hi: DATA.phase0.ag_scanning.ci_hi, status: "good" },
+    { label: "PPT-only disruption", mean: DATA.phase0.ppt_only_alone.mean, lo: DATA.phase0.ppt_only_alone.ci_lo, hi: DATA.phase0.ppt_only_alone.ci_hi, status: "good" },
+    { label: "BP-only disruption (Δppt)", mean: DATA.phase0.delta_ppt_bp_only.mean, lo: DATA.phase0.delta_ppt_bp_only.ci_lo, hi: DATA.phase0.delta_ppt_bp_only.ci_hi, status: "warning", hollow: true }
+  ], { floor: { mean: DATA.phase1.far_intronic_control.mean, lo: DATA.phase1.far_intronic_control.ci_lo, hi: DATA.phase1.far_intronic_control.ci_hi, label: "far-intronic floor (Phase 1)" } });
+
+  /* ---------------- Phase 1 charts ---------------- */
+  floorChart(document.getElementById("chart-phase1-floor"), { mean: DATA.phase1.far_intronic_control.mean, lo: DATA.phase1.far_intronic_control.ci_lo, hi: DATA.phase1.far_intronic_control.ci_hi });
+  pairedChart(document.getElementById("chart-phase1-pair"), [
+    { label: "Polypyrimidine\ntract", a: { name: "Content-destroying", mean: DATA.phase0.ppt_only_alone.mean, lo: DATA.phase0.ppt_only_alone.ci_lo, hi: DATA.phase0.ppt_only_alone.ci_hi }, b: { name: "Shuffle-in-place", mean: DATA.phase1.ppt_shuffle_in_place.mean, lo: DATA.phase1.ppt_shuffle_in_place.ci_lo, hi: DATA.phase1.ppt_shuffle_in_place.ci_hi } },
+    { label: "Branch point", a: { name: "Content-destroying", mean: DATA.phase0.delta_ppt_bp_only.mean, lo: DATA.phase0.delta_ppt_bp_only.ci_lo, hi: DATA.phase0.delta_ppt_bp_only.ci_hi }, b: { name: "Shuffle-in-place", mean: DATA.phase1.bp_shuffle_in_place.mean, lo: DATA.phase1.bp_shuffle_in_place.ci_lo, hi: DATA.phase1.bp_shuffle_in_place.ci_hi } }
+  ]);
+
+  /* ---------------- Phase 2 chart ---------------- */
+  forestChart(document.getElementById("chart-phase2"), [
+    { label: "Clean (intact)", mean: DATA.phase2.clean.mean, lo: DATA.phase2.clean.ci_lo, hi: DATA.phase2.clean.ci_hi, status: "good" },
+    { label: "BP disrupted", mean: DATA.phase2.bp_only.mean, lo: DATA.phase2.bp_only.ci_lo, hi: DATA.phase2.bp_only.ci_hi, status: "good" },
+    { label: "PPT disrupted", mean: DATA.phase2.ppt_only.mean, lo: DATA.phase2.ppt_only.ci_lo, hi: DATA.phase2.ppt_only.ci_hi, status: "warning" },
+    { label: "BP+PPT both disrupted", mean: DATA.phase2.both.mean, lo: DATA.phase2.both.ci_lo, hi: DATA.phase2.both.ci_hi, status: "warning" }
+  ], { floor: { mean: DATA.phase2.rand_ag.mean, lo: DATA.phase2.rand_ag.ci_lo, hi: DATA.phase2.rand_ag.ci_hi, label: "random-AG floor" } });
+
+  /* ---------------- Phase 3 chart ---------------- */
+  pairedChart(document.getElementById("chart-phase3"), [
+    { label: "BP-only\ndisruption", a: { name: "Fixed offset", mean: DATA.phase0.delta_ppt_bp_only.mean, lo: DATA.phase0.delta_ppt_bp_only.ci_lo, hi: DATA.phase0.delta_ppt_bp_only.ci_hi }, b: { name: "Real coordinate", mean: DATA.phase3.bp_real.mean, lo: DATA.phase3.bp_real.ci_lo, hi: DATA.phase3.bp_real.ci_hi } },
+    { label: "PPT-only\ndisruption", a: { name: "Fixed offset", mean: DATA.phase0.ppt_only_alone.mean, lo: DATA.phase0.ppt_only_alone.ci_lo, hi: DATA.phase0.ppt_only_alone.ci_hi }, b: { name: "Real coordinate", mean: DATA.phase3.ppt_real.mean, lo: DATA.phase3.ppt_real.ci_lo, hi: DATA.phase3.ppt_real.ci_hi } },
+    { label: "BP+PPT\nboth disrupted", a: { name: "Fixed offset", mean: DATA.phase0.both_disrupted.mean, lo: DATA.phase0.both_disrupted.ci_lo, hi: DATA.phase0.both_disrupted.ci_hi }, b: { name: "Real coordinate", mean: DATA.phase3.both_real.mean, lo: DATA.phase3.both_real.ci_lo, hi: DATA.phase3.both_real.ci_hi } }
+  ]);
+
+  /* ---------------- Phase 4 chart ---------------- */
+  pairedChart(document.getElementById("chart-phase4"), DATA.phase4.readers.map(function (r) {
+    return {
+      label: r.head,
+      a: { name: "Content-destroying", mean: r.corrupt.mean, lo: r.corrupt.ci_lo, hi: r.corrupt.ci_hi },
+      b: { name: "Shuffle-in-place", mean: r.shuffle.mean, lo: r.shuffle.ci_lo, hi: r.shuffle.ci_hi }
+    };
+  }));
+
+  /* ---------------- Phase 5 chart ---------------- */
+  forestChart(document.getElementById("chart-phase5-ablation"), DATA.phase5.ablation.map(function (r) {
+    var significant = r.ci_lo > 0 || r.ci_hi < 0;
+    var status = r.kind === "control" ? "muted" : (r.kind === "joint" ? "warning" : "good");
+    return { label: r.label, mean: r.mean, lo: r.ci_lo, hi: r.ci_hi, status: significant ? status : "muted", hollow: !significant };
+  }));
+
+  /* ---------------- schematic ---------------- */
+  (function schematic() {
+    var svg = document.getElementById("schematic");
+    var m = 40, plotW = 960, scale = plotW / 400;
+    function px(nt) { return m + nt * scale; }
+
+    function rect(x0, x1, y, h, fill, opacity) {
+      svg.appendChild(svgEl("rect", { x: px(x0), y: y, width: px(x1) - px(x0), height: h, fill: fill, opacity: opacity !== undefined ? opacity : 1, rx: 2 }));
+    }
+    function bracket(x0, x1, y, color, label, labelY) {
+      var yy = y;
+      svg.appendChild(svgEl("path", { d: "M" + px(x0) + " " + (yy + 8) + " V " + yy + " H " + px(x1) + " V " + (yy + 8), stroke: color, "stroke-width": 1.6, fill: "none" }));
+      svg.appendChild(text((px(x0) + px(x1)) / 2, labelY, label, { "text-anchor": "middle", "font-size": 11, fill: color }));
+    }
+
+    // ruler
+    for (var t = 0; t <= 400; t += 50) {
+      svg.appendChild(svgEl("line", { x1: px(t), x2: px(t), y1: 20, y2: 26, stroke: cssVar("--baseline"), "stroke-width": 1 }));
+      svg.appendChild(text(px(t), 15, t, { "text-anchor": "middle", "font-size": 10, fill: cssVar("--ink-muted") }));
+    }
+    svg.appendChild(svgEl("line", { x1: px(0), x2: px(400), y1: 26, y2: 26, stroke: cssVar("--baseline"), "stroke-width": 1 }));
+
+    // backbone
+    rect(0, 198, 34, 20, cssVar("--surface-sunken"));
+    rect(198, 200, 34, 20, cssVar("--ink-primary"));
+    rect(200, 400, 34, 20, cssVar("--grid"));
+    svg.appendChild(text(px(90), 48, "intron", { "text-anchor": "middle", "font-size": 10.5, fill: cssVar("--ink-muted") }));
+    svg.appendChild(text(px(300), 48, "exon", { "text-anchor": "middle", "font-size": 10.5, fill: cssVar("--ink-muted") }));
+    svg.appendChild(text(px(199), 68, "AG", { "text-anchor": "middle", "font-size": 10.5, fill: cssVar("--ink-primary"), "font-weight": "700" }));
+
+    // far-intronic control (Phase 1)
+    bracket(40, 55, 80, cssVar("--accent-b"), "", 0);
+    svg.appendChild(text(px(47.5), 96, "far-intronic", { "text-anchor": "middle", "font-size": 9.5, fill: cssVar("--accent-b") }));
+    svg.appendChild(text(px(47.5), 107, "control (Ph.1)", { "text-anchor": "middle", "font-size": 9.5, fill: cssVar("--accent-b") }));
+
+    // fixed BP/PPT (Phase 0/1/2)
+    bracket(160, 183, 118, cssVar("--accent-a"), "", 0);
+    svg.appendChild(text(px(171.5), 134, "BP (fixed, Ph.0-2)", { "text-anchor": "middle", "font-size": 9.5, fill: cssVar("--accent-a") }));
+    bracket(183, 198, 118, cssVar("--accent-a"), "", 0);
+    svg.appendChild(text(px(190.5), 134, "PPT (fixed)", { "text-anchor": "middle", "font-size": 9.5, fill: cssVar("--accent-a") }));
+
+    // real BP/tract (Phase 3, average location)
+    bracket(166, 171, 146, cssVar("--accent-b"), "", 0);
+    bracket(171, 198, 146, cssVar("--accent-b"), "", 0);
+    svg.appendChild(text(px(168.5), 162, "BP (located, avg)", { "text-anchor": "middle", "font-size": 9.5, fill: cssVar("--accent-b") }));
+    svg.appendChild(text(px(184.5), 174, "tract (located, avg 27nt, Ph.3)", { "text-anchor": "middle", "font-size": 9.5, fill: cssVar("--accent-b") }));
+
+    // decoy search window
+    svg.appendChild(svgEl("rect", { x: px(201), y: 34, width: px(280) - px(201), height: 20, fill: "none", stroke: cssVar("--ink-muted"), "stroke-width": 1, "stroke-dasharray": "3,2" }));
+    svg.appendChild(text(px(240), 66, "downstream decoy-AG search (Ph.0)", { "text-anchor": "middle", "font-size": 9.5, fill: cssVar("--ink-muted") }));
+  })();
+
+  /* ---------------- verdict table ---------------- */
+  var verdictRows = [
+    ["Phase 0", "Context required", DATA.phase0.context_required, "good", "SURVIVES"],
+    ["Phase 0", "AG-scanning", DATA.phase0.ag_scanning, "good", "SURVIVES"],
+    ["Phase 0", "PPT-only disruption", DATA.phase0.ppt_only_alone, "good", "SURVIVES"],
+    ["Phase 0", "BP-only disruption (Δppt)", DATA.phase0.delta_ppt_bp_only, "warning", "MARGINAL"],
+    ["Phase 0", "BP+PPT both disrupted", DATA.phase0.both_disrupted, "good", "SURVIVES (see Phase 2)"],
+    ["Phase 1", "Far-intronic control (floor)", DATA.phase1.far_intronic_control, "warning", "SMALL, NOT EXACTLY ZERO"],
+    ["Phase 1", "PPT shuffle-in-place", DATA.phase1.ppt_shuffle_in_place, "serious", "LARGE — order-driven, not composition"],
+    ["Phase 1", "BP shuffle-in-place", DATA.phase1.bp_shuffle_in_place, "warning", "SMALL, MARGINAL"],
+    ["Phase 2", "BP disrupted (absolute)", DATA.phase2.bp_only, "good", "ABOVE FLOOR"],
+    ["Phase 2", "PPT disrupted (absolute)", DATA.phase2.ppt_only, "warning", "AT FLOOR"],
+    ["Phase 2", "Both disrupted (absolute)", DATA.phase2.both, "warning", "AT FLOOR"],
+    ["Phase 3", "BP-only, real coordinate", DATA.phase3.bp_real, "warning", "NOT SIGNIFICANT (CI ⊇ 0)"],
+    ["Phase 3", "PPT-only, real coordinate", DATA.phase3.ppt_real, "good", "SURVIVES, STRENGTHENED"],
+    ["Phase 3", "Both, real coordinate", DATA.phase3.both_real, "good", "SURVIVES"],
+    ["Phase 4", "L5H8 tract attention (content-destroying drop)", DATA.phase4.readers[0].corrupt, "good", "PASSES CONTENT-CONTROL"],
+    ["Phase 4", "L4H12 tract attention (content-destroying drop)", DATA.phase4.readers[1].corrupt, "good", "PASSES CONTENT-CONTROL"],
+    ["Phase 4", "L3H5 tract attention (content-destroying drop)", DATA.phase4.readers[2].corrupt, "good", "PASSES CONTENT-CONTROL"],
+    ["Phase 4", "L0H13 tract attention (content-destroying drop)", DATA.phase4.readers[3].corrupt, "good", "PASSES CONTENT-CONTROL (saturated head)"],
+    ["Phase 5", "L5H8 mean-ablation (necessity)", DATA.phase5.ablation[0], "warning", "NOT SIGNIFICANT (CI ⊇ 0)"],
+    ["Phase 5", "L4H12 mean-ablation (necessity)", DATA.phase5.ablation[1], "warning", "NOT SIGNIFICANT (CI ⊇ 0)"],
+    ["Phase 5", "L3H5 mean-ablation (necessity)", DATA.phase5.ablation[2], "warning", "NOT SIGNIFICANT (CI ⊇ 0)"],
+    ["Phase 5", "L0H13 mean-ablation (necessity)", DATA.phase5.ablation[3], "warning", "NOT SIGNIFICANT (CI ⊇ 0)"],
+    ["Phase 5", "L0H2 mean-ablation (negative control)", DATA.phase5.ablation[4], "warning", "NOT SIGNIFICANT"],
+    ["Phase 5", "Joint ablation: 4 tract readers", DATA.phase5.ablation[5], "warning", "NOT SIGNIFICANT (CI ⊇ 0)"],
+    ["Phase 5", "Joint ablation: all 5 heads", DATA.phase5.ablation[6], "warning", "SIGNIFICANT BUT ~2% OF REAL EFFECT"]
+  ];
+  var tbody = document.getElementById("verdict-body");
+  verdictRows.forEach(function (row) {
+    var tr = document.createElement("tr");
+    var tdName = document.createElement("td"); tdName.className = "effect-name";
+    var tag = document.createElement("span"); tag.className = "phase-tag"; tag.textContent = row[0];
+    tdName.appendChild(tag);
+    tdName.appendChild(document.createTextNode(row[1]));
+    var tdMean = document.createElement("td"); tdMean.className = "num"; tdMean.textContent = fmt(row[2].mean);
+    var tdCi = document.createElement("td"); tdCi.className = "num"; tdCi.textContent = "[" + fmt(row[2].ci_lo) + ", " + fmt(row[2].ci_hi) + "]";
+    var tdStatus = document.createElement("td");
+    var chip = document.createElement("span"); chip.className = "chip " + row[3]; chip.textContent = row[4];
+    tdStatus.appendChild(chip);
+    tr.appendChild(tdName); tr.appendChild(tdMean); tr.appendChild(tdCi); tr.appendChild(tdStatus);
+    tbody.appendChild(tr);
+  });
+})();
+</script>
