@@ -1,7 +1,4 @@
 # Mechanistic Discovery in Genomic Foundation Models
-
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 ## Current mechanism
 
 > A structured, top-ranked causal core binds a predominantly relative positional address to an
