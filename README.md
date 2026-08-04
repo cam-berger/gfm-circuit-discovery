@@ -89,6 +89,9 @@ controls a live claim in the ledgers above.
   (C39/C40). These two use a `canonical/` subdirectory; the other result trees keep canonical artifacts
   at the subtree root. See [`results/RESULTS_INDEX.md`](results/RESULTS_INDEX.md).
 - `figures/splicebert/` — generated figures and declared provenance.
+- `tex/` — NeurIPS 2026 workshop submission (Interpretability for Discovery, Aug 29 deadline).
+  Compile with `pdflatex` from inside `tex/`; figures resolved via `graphicspath` relative to that dir.
+- `slides/` — presentation materials (Beamer talk).
 - `tests/` — the memorial and analysis-logic suite. Many memorials are data-gated and skip without a
   local genome; see [`REPRODUCE.md`](REPRODUCE.md).
 - `configs/` — versioned study configurations and frozen phase configs.

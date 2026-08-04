@@ -1,7 +1,15 @@
 __pycache__/
+*.py[cod]
 *.egg-info/
 .pytest_cache/
+
+# OS
 .DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
 
 # Runtime agent/session scratch. Scientific evidence belongs under results/ with a manifest.
 /logs/
@@ -73,3 +81,20 @@ results/splicebert_partner_selection/**/*.jsonl
 results/**/figures/
 results/splicebert_coupling/ic2_feasibility_smoke.json
 results/splicebert_coupling/ic2_calibration_smoke.json
+
+# LaTeX build artifacts (keep source and compiled PDF, ignore intermediates)
+tex/*.aux
+tex/*.bbl
+tex/*.blg
+tex/*.log
+tex/*.out
+tex/*.toc
+tex/*.nav
+tex/*.snm
+tex/*.vrb
+tex/*.fls
+tex/*.fdb_latexmk
+tex/*.synctex.gz
+
+# Local Claude Code permissions — each developer sets their own
+.claude/settings.local.json
