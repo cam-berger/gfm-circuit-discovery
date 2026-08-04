@@ -44,7 +44,7 @@ Every step is supported by activation patching and controlled interventions. The
 origin is attributed to multi-species pretraining by a natural experiment using matched
 sibling checkpoints.
 
-### What we still need
+### What we have scientifically and what we still need
 
 The acceptor payload's semantic identity is unresolved. We know it is local to the
 acceptor window and is not explained by bulk sequence composition, but we cannot yet name
@@ -53,6 +53,41 @@ beyond what is shown has not been demonstrated at the required specificity level
 circuit discovery (edge attribution patching) has not been run, so we cannot yet claim the
 identified circuit is the minimal sufficient subgraph. These are the three open problems
 the paper is honest about.
+
+Parallel work on a separate branch (`sri-algoverse-acceptor-interpretability`) studied the
+reciprocal question: how does SpliceBERT recognize the 3-prime acceptor from its branch point
+and polypyrimidine tract? That work ran five phases of behavioral and causal analysis. The
+key finding is that the polypyrimidine tract is the dominant, close-to-sufficient driver of
+acceptor confidence, and the signal is order-driven and identity-driven, not explained by
+bulk pyrimidine composition (a shuffle that preserves the same bases already destroys almost
+the full signal). Five attention heads (L5H8, L4H12, L3H5, L0H13, L0H14) show genuine
+content-sensitive attention into the tract. However, causal intervention found that none of
+these five heads individually or jointly explain more than about 2 percent of the real
+acceptor coupling effect. The computation is more distributed than a small head list can
+capture, and single-head or small-group causal necessity is a clean null in that study.
+
+This means the acceptor side of the circuit is open at the causal level. The next step
+there is to path-patch backward from the acceptor margin itself (the way the IOI methodology
+does) rather than filtering through attention patterns, and to include MLP outputs and
+non-AG-query token positions as candidate mediators.
+
+Whether the acceptor circuit shares its transport heads with the donor spine (L4H0, L4H2,
+L5H11) is an unanswered question. If the two circuits converge on the same delivery mechanism,
+that would considerably simplify the full account of how SpliceBERT handles splice-site
+recognition. If they do not, it suggests two independent communication pathways.
+
+Real branch-point annotations using branchpointer or LaBranchoR, instead of the PWM-based
+stand-in used in the acceptor study, may still reveal a legible branch-point signal that the
+heuristic locator missed. The branch-point-alone effect did not survive four independent
+attempts to confirm it, but those used an approximate locator and a small sample.
+
+Separately, a DNABERT-2 promoter circuit study (on the `codex/frozen-dnabert-initial` branch)
+completed nine phases of analysis including MLP subspace decomposition and pathway mediation
+validation for a promoter recognition task. That work is on a different model and a different
+biological task, but it demonstrated that a similar reconstruct-inject and low-rank-subspace
+methodology applies to DNABERT-2. Integrating those findings as a cross-model transfer
+example would require re-running the core assays with the same controlled vocabulary and
+evidence standards used here, and is not a short-term task.
 
 ---
 
@@ -183,6 +218,35 @@ was withdrawn after it failed independently seeded draws and two-way gene-dyadic
 (correction R22). The 10.63-nucleotide carrier's downstream write and behavioral function
 are open. Transfer of the mechanism across genes and contexts beyond what is shown has not
 been demonstrated at the required specificity level.
+
+**Claims to develop in future work (from other branches).**
+The following results exist in separate branches and are not yet part of the paper claims.
+They are recorded here so they are not lost when planning the next phase of the project.
+
+From `sri-algoverse-acceptor-interpretability`:
+- The polypyrimidine tract is the dominant, close-to-sufficient driver of SpliceBERT's
+  acceptor confidence signal (masked-AG margin). Effect size approximately +1.245 logit
+  units [0.875, 1.624] for PPT disruption, acceptor-specific against a far-intronic floor
+  of +0.046 [0.011, 0.085]. PPT disruption alone reaches the same absolute margin floor as
+  having no real context at all (random-AG floor), whereas branch-point disruption alone
+  does not.
+- The PPT signal is order-driven and identity-driven: a shuffle that preserves the same
+  bases but reorders them already destroys approximately 97 percent of the effect, so the
+  model is reading a specific positional pattern, not aggregate composition.
+- Five attention heads (L5H8, L4H12, L3H5, L0H13, L0H14) show genuine content-sensitive
+  attention into the tract, with L5H8 and L4H12 being order-sensitive. None of the original
+  six donor-circuit candidate heads pass this content-sensitivity test at either region.
+- These five heads do not individually or jointly explain more than approximately 2 percent
+  of the acceptor coupling effect, as measured by mean-ablation and restoration-patching.
+  The acceptor-tract computation is more distributed or more indirectly routed than a
+  five-head account can capture.
+- The branch-point-alone effect did not survive four independent attempts to establish it
+  (matched floor, absolute floor, per-sequence relocation, and attention content-control).
+  Treat it as unresolved and likely weak in this model pending real branch-point annotations.
+
+These results need to be incorporated into this branch with proper preregistration, gene-
+disjoint cohorts, and the controlled intervention methodology used in the donor-circuit arc
+before they can be claimed in the paper.
 
 ---
 
@@ -406,6 +470,43 @@ sufficient when injected into a functioning context but they are not a self-cont
 generator. This panel should prevent the reader from concluding that the circuit is a
 minimal sparse generator.
 
+### Figure 8: The acceptor circuit is a future extension (preliminary results from separate branch)
+
+Suggested filename: `fig_acceptor_circuit_prelim.pdf`
+
+This figure can be included in the long InterpScience version as a forward-looking section
+showing where the account is headed and what a reciprocal acceptor-circuit study would
+need to establish. It is based on preliminary results from the `sri-algoverse-acceptor-
+interpretability` branch and must be clearly labeled as preliminary and not yet part of the
+main paper claims. Do not include it in the five-page version.
+
+**Panel A: PPT disruption versus branch-point disruption of acceptor confidence.**
+A forest plot showing the change in masked-AG margin under four conditions: branch-point
+region disrupted alone, polypyrimidine tract disrupted alone, both disrupted together, and
+context required (real acceptor window minus random-AG baseline). Show the effect size and
+95 percent bootstrap confidence interval for each. The key result: PPT-alone reaches the
+same absolute floor as having no real context, while BP-alone stays above the floor. Acceptor-
+specific controls (matched far-intronic region) should appear at approximately +0.046 for
+reference. All numbers from the sri branch study, n = 200 acceptors, 5000-resample bootstrap.
+
+**Panel B: Content-sensitive attention heads versus causal null.**
+A two-panel comparison: on the left, a dot plot showing the five attention heads
+(L5H8, L4H12, L3H5, L0H13, L0H14) ranked by content-sensitive attention into the PPT
+region (the score that passed the content-control filter in Phase 4 of the sri study). On
+the right, the same five heads' joint mean-ablation effect on acceptor confidence as a bar,
+shown against the full PPT-disruption effect for scale. The small bar on the right illustrates
+the main finding: content-sensitive attention does not imply individual or small-group causal
+necessity in this model. Label the right panel as approximately 2 percent of the disruption
+effect.
+
+**Panel C: Shared-transport question (schematic, not yet data).**
+A schematic showing the open question: do the acceptor-reading heads write to the same
+transport heads (L4H0, L4H2, L5H11) that carry the donor payload to the donor readout? Use
+a split diagram, left side showing the established donor spine ending at the transport heads,
+right side showing the acceptor-reading circuit with an open arrow to the same transport
+heads labeled "shared?" and a separate arrow to an unlabeled output labeled "independent?"
+This communicates the shared-transport hypothesis as an open problem without claiming a result.
+
 ---
 
 ## Results to generate as soon as possible
@@ -451,6 +552,36 @@ causally sufficient without real biological content from a source example.
 The acceptor payload semantic identity question requires more power than the current
 cohort provides. A larger gene-disjoint cohort with paired site-choice contrasts is
 needed before the MaxEnt or splice-signal candidate directions can be tested properly.
+
+### Acceptor circuit work (separate branch, not yet integrated)
+
+The following experiments are needed to convert the preliminary acceptor-circuit findings
+from the `sri-algoverse-acceptor-interpretability` branch into proper paper claims. None
+of these is ready for the August 28 deadline; they are recorded here to plan the post-
+submission phase.
+
+**Path-patching backward from the acceptor margin.**
+Run path-patching backward from the masked-AG margin (the acceptor confidence metric) rather
+than forward from the PPT-attentive heads, the way the IOI methodology nominates components.
+This lets the model tell us which components matter rather than filtering by attention pattern
+first. Include MLP outputs at each layer and token positions other than the AG query, since
+a component could write tract information somewhere other than the AG row and a later layer
+could read it there.
+
+**Shared-transport test.**
+Once a mediating component in the acceptor circuit is found, test whether it routes
+information through the same transport heads (L4H0, L4H2, L5H11) that carry the donor
+payload. A full-spine ablation removing those three heads should degrade both donor coupling
+and acceptor confidence if the circuits share a delivery mechanism. An interchange
+intervention transplanting the acceptor-local state into the donor-spine framework would
+test whether the U-info readout direction is relevant to both.
+
+**Real branch-point annotations.**
+Replace the PWM-based branch-point locator used in Phases 1 to 3 of the sri study with
+branchpointer or LaBranchoR coordinates matched to the GUE acceptor sequences. Re-run
+the BP-only disruption analysis on a larger sample (n above 400) using real annotations
+before concluding the branch-point effect is absent. CIs in the existing study are wide
+enough that a larger sample with a correct locator could still show a small real signal.
 
 ---
 
