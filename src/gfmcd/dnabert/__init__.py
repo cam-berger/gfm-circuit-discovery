@@ -23,3 +23,21 @@ __all__ = [
     "sequence_sha256",
     "split_summary",
 ]
+
+from gfmcd.dnabert.perturb import (
+    changed_fraction,
+    dinucleotide_counts,
+    dinucleotide_shuffle,
+    hamming_distance,
+    mononucleotide_shuffle,
+    nucleotide_counts,
+)
+
+__all__ += [
+    "changed_fraction",
+    "dinucleotide_counts",
+    "dinucleotide_shuffle",
+    "hamming_distance",
+    "mononucleotide_shuffle",
+    "nucleotide_counts",
+]
