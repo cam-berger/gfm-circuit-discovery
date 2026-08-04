@@ -142,99 +142,223 @@ been demonstrated at the required specificity level.
 
 ## Figures needed
 
-The paper currently references two figures. Both must be final-quality PDFs placed in
-`figures/splicebert/workshop_edits/` for the short version and adapted as needed for the
-long version. Detailed descriptions of what each panel must show are given below.
+The paper needs at least seven figures. All must be final-quality PDFs placed in
+`figures/splicebert/workshop_edits/`. The short five-page version should include Figures 1
+through 5 and select the most important panels from Figures 6 and 7 as space permits. The
+long nine-page InterpScience version should include all seven. Detailed descriptions of what
+each panel must show are given below.
 
-### Figure 1: Circuit structure and faithfulness boundary
+### Figure 1: Paper idea overview
 
-Filename referenced in paper: `fig_full_circuit_edit.pdf`
+Suggested filename: `fig_overview_idea.pdf`
 
-**Panel A: Address-payload-deliver circuit diagram.**
-This panel should show the full information flow from the acceptor-local residual stream
-to the masked-donor margin. The diagram should make the following structure visible:
+This is the first figure a reader encounters and must explain the scientific question and
+experimental strategy at a glance, without requiring the reader to know how transformers
+work internally. It should be a schematic illustration, not a data figure.
 
-Acceptor local window (four token positions) feeds into three early attention heads
-(L0H7, L0H12, L0H10). These heads feed into MLP layer 0, which mediates the payload
-through MLP layer 1 and MLP layer 2. In parallel, the period-3 positional carrier
-(a rank-2 Fourier component of the position-embedding matrix) provides the address
-through head L2H15. These two streams (payload and address) converge at L3H1. L3H1
-writes the rank-8 U-info representation at the masked-donor position. Downstream
-transporter heads (L4H0, L4H2, L5H11) carry U-info to the masked-donor MLM margin.
+**Panel A: The biological problem.**
+Show a short intron in a pre-mRNA transcript. Label the splice donor site (GU dinucleotide
+at the start of the intron) and the splice acceptor site (AG dinucleotide at the end of the
+intron). Show that these two sites must be recognized as a matched pair for correct splicing.
+The distance between them (hundreds to thousands of nucleotides) should be visually
+represented, making clear that the model must bridge a large span to link them.
 
-The diagram should label each node with its layer and head number. It should indicate
-with arrows which stream carries the address and which carries the payload. It should
-show U-info as a bottleneck node between L3H1 and the transporter heads. It should
-not imply that this is a minimal circuit or that these components are the only ones
-contributing to the computation.
+**Panel B: The modeling setup.**
+Show the same transcript fed into SpliceBERT as a sequence of tokens. Indicate the masked
+donor token. Show the output as a probability distribution over nucleotide identities at the
+masked position, labeled as the masked-donor margin. The illustration should convey that the
+model predicts what nucleotide belongs at the donor site, and that we examine how its internal
+computations achieve this.
 
-**Panel B: Complement faithfulness size curve.**
-This panel should show the fraction of coupling preserved when only nodes outside the
-named circuit are active, plotted against the number of nodes in the complement set.
-The x axis should run from 0 to 103 (the total number of measured nodes). The y axis
-should run from 0 to 1 (fraction of coupling preserved). The curve should show that
-faithfulness rises gradually with no clear knee or elbow, crossing 90 percent only
-near 72 nodes. A horizontal dashed reference line at 0.9 is appropriate. A vertical
-marker indicating where the named circuit nodes end and the complement begins would
-help the reader understand the setup. The main message is that there is no sparse
-knee, which supports the irreducibly distributed conclusion.
+**Panel C: The experimental question and approach.**
+Show two sequences side by side: one with the acceptor intact and one with the acceptor
+corrupted (AG replaced by CC). Show that corrupting the acceptor changes the masked-donor
+margin. Then indicate that the paper uses mechanistic interpretability (activation patching,
+subspace analysis, Fourier analysis) to trace which internal components are responsible for
+this effect. This panel should convey the core logic: we perturb the acceptor, measure the
+effect at the donor, and trace the pathway carrying the information.
 
-### Figure 2: Phase surgery confirmation
+### Figure 2: Donor-acceptor coupling is behaviorally real and specific
 
-Filename referenced in paper: `fig5_p3_phase_surgery_confirmation_edit.pdf`
+Suggested filename: `fig_coupling_assay.pdf`
 
-**Panel A: Mean coupling under period-3 phase shifts.**
-This panel should show the mean donor-acceptor coupling score on the y axis and the
-phase shift value (0 through 9) on the x axis, for two conditions: CDS blocks (coding
-sequence) and upstream intron controls. Off-register shifts (1, 2, 4, 5, 7, 8) should
-show reduced coupling in CDS but not in the upstream intron condition. In-register
-shifts (3, 6, 9) should show coupling preserved close to the shift-0 baseline in both
-conditions. Ribbons showing plus or minus one gene-level standard error should be
-included as a descriptive measure (not a confidence interval for inference). The
-panel should make the modulo-3 pattern immediately visually apparent.
+This figure establishes the phenomenon being explained. It is a data figure based on the
+coupling assay results and should stand on its own as the answer to the question "does the
+model actually encode a relationship between donor and acceptor?"
+
+**Panel A: Coupling effect sizes by control type.**
+A dot plot or bar chart with 95 percent confidence intervals showing the change in
+masked-donor margin under four conditions: (1) partner acceptor corrupted; (2) non-partner
+acceptor corrupted at the same intron distance from a different gene; (3) non-donor masked
+position, meaning the same corruption but readout at a nearby donor that is not the
+paired donor; and (4) permuted-label null. The partner condition shows +0.872 logit units
+[0.771, 0.969]. The non-partner and non-donor controls show approximately +0.007 and +0.005
+respectively. The permuted null should be near zero. This panel establishes partner
+specificity and donor specificity, ruling out bulk sequence effects.
+
+**Panel B: Corruption operator validation.**
+A table or bar chart showing that the coupling effect is stable across the six
+motif-hygienic dinucleotide substitutions tested as corruption operators. Each operator
+should show an effect within 25 percent of the main estimate. This establishes that the
+result does not depend on the specific bases chosen for corruption, and that the assay
+design is robust before any circuit work begins.
+
+### Figure 3: The address-payload-deliver circuit
+
+Suggested filename: `fig_circuit_structure.pdf`
+
+This is the main mechanistic figure. It shows the full information flow from inputs to the
+masked-donor output through the identified circuit components.
+
+**Panel A: Circuit diagram.**
+A schematic diagram showing the address stream and the payload stream converging at L3H1.
+
+The payload stream runs from the acceptor-local window (four token positions around the
+acceptor site) through three early attention heads (L0H7, L0H12, L0H10), then through MLP
+layer 0, MLP layer 1, and MLP layer 2. Each step should be shown as a labeled node with an
+arrow to the next. Use one consistent color for this stream throughout, for example blue.
+
+The address stream runs from the position-embedding matrix through the period-3 Fourier
+component to head L2H15, which amplifies the positional attraction through L3H1's address
+channel. Use a second consistent color for this stream throughout, for example orange.
+
+The two streams converge at L3H1. L3H1 writes the rank-8 U-info representation at the
+masked-donor position, shown as a bottleneck node. Downstream transporter heads (L4H0, L4H2,
+L5H11) carry U-info to the masked-donor MLM margin.
+
+The diagram should include a label or annotation making clear that this is a structured
+causal core within an irreducibly distributed computation, not a minimal circuit.
+
+**Panel B: Key intervention results supporting the circuit.**
+A compact table or set of labeled bars showing the four most important intervention effects
+that support the circuit structure: (1) ablating L3H1 and L2H15 together removes 81.6
+percent of coupling while retaining 99.2 percent MLM health; (2) the key-only versus
+value-only versus key-and-value factorial at L3H1, showing an interaction of +0.531 [0.477,
+0.583]; (3) restoring L3H1 alone after full ablation recovers 0.83 of coupling; (4) U-info
+rank-8 recovery at 0.92 versus random-subspace controls at or below 0.05. Numbers should
+include confidence intervals or control comparisons where available.
+
+### Figure 4: Address and payload are separable streams
+
+Suggested filename: `fig_qk_ov_decomposition.pdf`
+
+This figure shows the evidence that the address and payload are distinct streams that can be
+independently manipulated. This supports the address-payload-deliver framing rather than a
+simpler single-stream account.
+
+**Panel A: Factorial intervention at L3H1.**
+A grouped bar chart showing coupling recovery under four conditions at L3H1: key only
+transplanted, value only transplanted, both transplanted, and neither (baseline). Key only
+and value only show small effects. Both together show approximately +0.663 logit units with
+an interaction of approximately +0.531. This is the main evidence that the two streams are
+conjunctive, not additive, at L3H1. Error bars should be shown.
+
+**Panel B: U-info subspace generalization across gene-disjoint sets.**
+A scatter plot or bar chart showing the rank-1 overlap of the U-info direction across
+independently derived gene-disjoint sets, with a value of approximately 0.970. The held-out
+sufficiency of approximately +0.875 logit units should also be shown. Random-subspace
+controls at each rank should appear for comparison. This establishes that U-info is a stable
+gene-generic readout direction and not an artifact of fitting to a specific gene set.
+
+**Panel C: Payload is localized to the acceptor window.**
+A heatmap or bar chart showing coupling recovery when the payload transplant is restricted
+to different token positions around the acceptor site. The four-token acceptor window should
+show strong recovery. Positions outside this window should show near-zero recovery. This
+localizes the payload to a specific position range and distinguishes it from a bulk-sequence
+or global effect.
+
+### Figure 5: Nucleotide-invariant phase surgery confirms causal carrier use
+
+Suggested filename: `fig_phase_surgery.pdf`
+
+This is the confirmatory figure for the period-3 carrier. It communicates that the carrier
+is causally required for coupling, that this is not driven by nucleotide content, and that
+the effect size exceeds the preregistered threshold.
+
+**Panel A: Mean coupling under period-3 phase shifts by genomic context.**
+Mean donor-acceptor coupling (y axis) against phase shift value 0 through 9 (x axis), shown
+separately for CDS blocks and upstream intron controls. Off-register shifts (1, 2, 4, 5, 7,
+8) reduce coupling in CDS but not upstream introns. In-register shifts (3, 6, 9) preserve
+coupling in both conditions close to the baseline. Ribbons of plus or minus one gene-level
+standard error are appropriate as a descriptive measure. The modulo-3 pattern should be
+immediately visible.
 
 **Panel B: The preregistered estimand Psi-C.**
-This panel should show a single point estimate with a 95 percent confidence interval:
-Psi-C = +0.141 logit units [0.110, 0.172], across n = 943 genes. A horizontal line at
-the frozen smallest effect size of interest (0.05 logit units) should be shown for
-reference. The panel should make clear that the estimate comfortably exceeds the
-preregistered threshold.
+A single point estimate with a 95 percent confidence interval: Psi-C = +0.141 logit units
+[0.110, 0.172], across n = 943 held-out genes. A horizontal reference line at the frozen
+smallest effect size of interest (0.05 logit units) should be shown. The estimate clearly
+exceeds the threshold.
 
 **Panel C: Learned direction versus same-geometry hidden-axis controls.**
-This panel should show the coupling effect of the learned period-3 direction compared
-to the 19 same-geometry hidden-axis control directions. One approach is a strip plot
-or dot plot with the 19 control effect sizes shown as gray points and the learned
-direction shown as a distinct colored point above all of them. The panel should
-communicate that the learned direction is an outlier relative to the same-geometry
-null distribution, supporting the interpretation that phase alignment to learned
-hidden features matters, not just Fourier support or perturbation magnitude.
+A strip plot or dot plot showing the coupling effect of the learned period-3 direction as
+a distinct colored point, with the 19 same-geometry hidden-axis control directions shown as
+gray points. The learned direction should be an outlier above all 19 controls. The paired
+excess is +0.136 [0.051, 0.222]. This shows that alignment to the specific learned hidden
+features matters, not just the Fourier support or perturbation magnitude.
 
-**Panel D: CDS versus non-CDS exon contrast.**
-This panel shows the contrast between CDS phase effects and non-CDS exon phase effects.
-The estimate is +0.006 logit units [negative 0.080, +0.093], which is inconclusive.
-This panel should be presented honestly: the interval crosses zero and coding enrichment
-is not established. A forest plot or interval plot centered on zero with the estimate
-shown is appropriate. The honest conclusion (coding enrichment not established) should
-be stated in the caption and reflected in the visual.
+**Panel D: Coding sequence versus non-coding exon contrast.**
+The contrast between CDS phase effects and non-CDS exon phase effects: +0.006 logit units
+[negative 0.080, +0.093]. Show this as a point estimate with its interval crossing zero.
+The honest conclusion is that coding enrichment is not established and this should be stated
+in the caption. Do not soften this result; the inconclusive estimate is part of the
+scientific record.
 
-### Figure 3 (long version only): Cross-model carrier comparison
+### Figure 6: The period-3 carrier is built by multi-species pretraining
 
-This figure is needed for the InterpScience long paper and can be added as a supplementary
-figure in the short version if space permits.
+Suggested filename: `fig_carrier_origin.pdf`
 
-**Panel A: Period-3 carrier power in sibling checkpoints.**
-A bar chart or strip chart showing the Fourier power of the period-3 band (relative to
-the median band across all frequencies) in four models: SpliceBERT.510nt (72 species,
-the multi-species sibling), SpliceBERT-human.510nt (human-only sibling), RNA-FM, and
-RNA-BERT. SpliceBERT.510nt should show 435 times median power. SpliceBERT-human.510nt
-should show 6.2 times. RNA-FM and RNA-BERT should show values near 1 (absent). The
-logarithmic scale is appropriate given the range.
+This figure provides the corpus-attribution evidence for the period-3 carrier and shows its
+Fourier structure in the position-embedding matrix.
 
-**Panel B: Period-10.63 carrier power in sibling checkpoints.**
-The same design as Panel A but for the approximately 10.63-nucleotide carrier. The
-contrast should be even larger: 369 times versus 2.4 times for the sibling pair.
-The message is that multi-species pretraining builds both carriers, and a human-only
-corpus does not.
+**Panel A: Fourier power spectrum of the position-embedding matrix.**
+The power spectrum of the 1026 position row vectors, plotted as power (y axis, log scale)
+against period in nucleotides (x axis). The period-3 peak should be clearly visible and
+labeled, showing 289 times median band power. The approximately 10.63-nucleotide peak
+should also be visible and labeled. All other periods should appear near the median baseline.
+This panel introduces the reader to what a carrier looks like before the cross-model
+comparison.
+
+**Panel B: Period-3 carrier power across four models.**
+A bar chart or strip chart showing the Fourier power of the period-3 band relative to the
+median band in four models: SpliceBERT.510nt (72 species), SpliceBERT-human.510nt
+(human-only sibling), RNA-FM, and RNA-BERT. The 72-species model shows 435 times median
+power. The human-only sibling shows 6.2 times. RNA-FM and RNA-BERT show values near 1.
+The logarithmic y scale is appropriate. The sibling pair shares architecture, training stage,
+and sequence length; only the training corpus differs. This is the natural experiment
+attributing the carrier to multi-species pretraining.
+
+**Panel C: Period-10.63 carrier power across the same four models.**
+The same design as Panel B but for the approximately 10.63-nucleotide carrier. The contrast
+is larger: 369 times versus 2.4 times for the sibling pair. Multi-species pretraining
+independently builds two distinct positional carriers, and a human-only corpus builds
+neither.
+
+### Figure 7: The named circuit is a structured core within a distributed computation
+
+Suggested filename: `fig_faithfulness_curve.pdf`
+
+This figure presents the faithfulness analysis. It stands alone from the circuit diagram so
+that the distributed structure argument gets its own dedicated visual.
+
+**Panel A: Complement faithfulness size curve.**
+The fraction of coupling preserved (y axis, 0 to 1) when only nodes outside the named
+circuit are active, plotted against the number of nodes included in the complement set
+(x axis, 0 to 103 nodes total). The curve rises gradually with no visible knee or elbow,
+crossing 90 percent only near 72 of 103 nodes. A horizontal dashed line at 0.90 should be
+drawn for reference. A vertical shaded region indicating the approximate 90 percent crossing
+range (between 64 and 72 nodes) is appropriate. The gradual rise is the main message:
+there is no sparse region where a small number of nodes accounts for nearly all the
+computation.
+
+**Panel B: Named spine necessity, sufficiency, and standalone generation.**
+Three point estimates on a common scale shown as labeled bars or a small table: necessity
+N = 0.989 (ablating all non-spine nodes leaves nearly zero coupling), sufficiency D = 0.986
+(injecting the spine into a corrupted stream recovers nearly full coupling), and standalone
+faithfulness F = 0.005 (running the spine alone without broader context generates almost no
+coupling). The contrast between D and F is the key result: the named components are causally
+sufficient when injected into a functioning context but they are not a self-contained
+generator. This panel should prevent the reader from concluding that the circuit is a
+minimal sparse generator.
 
 ---
 
