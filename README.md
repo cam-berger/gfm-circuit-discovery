@@ -1,7 +1,7 @@
 # Mechanistic Discovery in Genomic Foundation Models
 
 Branch: `jeyashree-ajay`
-Team: Jeyashree Krishnan, Ajay (Algoverse CSAP cohort, 2026)
+Mentors: Jeyashree Krishnan, Ajay (Algoverse CSAP cohort, 2026)
 
 This branch extends the main `gfm-circuit-discovery` repository with workshop paper preparation,
 repository cleanup, and a gap analysis of the interpretability methods used in this project.
