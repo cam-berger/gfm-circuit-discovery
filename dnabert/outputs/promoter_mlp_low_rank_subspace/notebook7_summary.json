@@ -1,0 +1,45 @@
+{
+  "notebook": "07_promoter_mlp_low_rank_subspace",
+  "model": "quietflamingo/dnabert2-no-flashattention",
+  "representation": "Mean-pooled Layer-1 MLP output",
+  "primary_intervention_vector": "GC-increased minus GC-decreased Layer-1 MLP representation",
+  "sample_structure": {
+    "biological_sources": 378,
+    "source_dose_vectors": 756,
+    "mutation_levels": [
+      4,
+      8
+    ],
+    "seeds_averaged_per_source_dose": 5,
+    "representation_dimension": 768
+  },
+  "pooled_uncentered_svd": {
+    "pc1_energy_fraction": 0.5707673884055393,
+    "participation_ratio": 2.9888084498198104,
+    "pc1_promoter_direction_alignment": 0.8943206838784015,
+    "rank_for_80_percent_energy": 19,
+    "rank_for_90_percent_energy": 64
+  },
+  "heldout_reconstruction": {
+    "pc1_mean_energy_fraction": 0.44615952038898665,
+    "pc1_promoter_projection_retained": 0.9823440270004516,
+    "four_dimensional_energy_fraction": 0.5905160906546474,
+    "eight_dimensional_energy_fraction": 0.6408652606350208,
+    "sixteen_dimensional_energy_fraction": 0.690299615336022
+  },
+  "downstream_prediction": {
+    "promoter_direction_r2": 0.5491328531359495,
+    "svd_1_r2": 0.5542405488973785,
+    "svd_4_r2": 0.6028310794920325,
+    "svd_8_r2": 0.6116314038553619,
+    "svd_16_r2": 0.6159977161321728,
+    "svd_64_r2": 0.623144707405612
+  },
+  "main_supported_claim": "The GC-responsive Layer-1 MLP change contains a dominant low-dimensional direction strongly aligned with promoter representation. This direction generalizes to held-out sequences and preserves nearly all of the mean promoter-aligned GC shift. A small set of low-rank coordinates predicts a substantial portion of the downstream Layer-5 diagnostic-probe effect.",
+  "claim_boundary": [
+    "Low-rank prediction and alignment do not establish causal mediation through the identified subspace.",
+    "The downstream target is a fixed diagnostic probe, not a native promoter-classification output of DNABERT-2.",
+    "The dominant shared GC direction is low-rank, but centered sequence-specific residuals are substantially more distributed.",
+    "GC-changing substitutions also alter local sequence context, motifs, dinucleotides, and tokenization."
+  ]
+}

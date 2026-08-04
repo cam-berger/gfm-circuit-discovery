@@ -1,0 +1,38 @@
+{
+  "notebook": "06_gc_controlled_interventions",
+  "model": "quietflamingo/dnabert2-no-flashattention",
+  "dataset": "GUE prom_core_all pilot test cohorts",
+  "source_sequences": {
+    "promoter": 189,
+    "non_promoter": 189
+  },
+  "sequence_length_nt": 70,
+  "mutation_levels": [
+    4,
+    8
+  ],
+  "variant_seeds_per_source": 5,
+  "total_intervention_rows": 15120,
+  "unique_variant_sequences": 11718,
+  "layer5_probe": {
+    "description": "Fixed diagnostic logistic probe trained on mean-pooled Layer-5 DNABERT-2 representations.",
+    "interpretation": "Probe scores measure promoter-associated evidence under the diagnostic readout; they are not native DNABERT-2 predictions."
+  },
+  "layer1_mlp_direction": {
+    "construction": "Difference between mean promoter and non-promoter pooled Layer-1 MLP outputs.",
+    "cross_validation": "Five-fold stratified cross-validation; each source and all of its intervention variants were evaluated using a direction learned without that source.",
+    "out_of_fold_roc_auc": 0.7556339408191262
+  },
+  "internal_downstream_association": {
+    "spearman_rho": 0.3867541180330471,
+    "p_value": 0.0
+  },
+  "main_supported_claim": "Controlled GC-increasing substitutions move Layer-1 MLP activations toward a held-out promoter-associated direction, while GC-decreasing substitutions move activations away from that direction. Effects exceed mutation-count-matched GC-neutral controls and increase with intervention magnitude.",
+  "limitations": [
+    "The model is a pretrained DNABERT-2 backbone with a diagnostic probe, not a fine-tuned native promoter classifier.",
+    "Base substitutions alter local sequence context, motifs, dinucleotides, and BPE tokenization in addition to GC content.",
+    "GC-neutral controls match mutation count but not the exact mutated positions or source-base classes of every directional intervention.",
+    "The results establish effects on internal representations and the downstream probe, but do not establish that the Layer-1 MLP fully mediates the downstream effect.",
+    "The source cohort contains selected recognized promoters and sampled non-promoters, limiting population-level generalization."
+  ]
+}

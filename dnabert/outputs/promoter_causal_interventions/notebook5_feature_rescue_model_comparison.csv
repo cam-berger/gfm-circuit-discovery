@@ -1,0 +1,2 @@
+baseline_features,baseline_training_r2,full_training_r2,sequence_feature_incremental_r2,number_of_sequences
+"donor_probe_logit, recipient_corrupt_logit, recipient_gap",0.4164906435554365,0.545217794369123,0.12872715081368646,189

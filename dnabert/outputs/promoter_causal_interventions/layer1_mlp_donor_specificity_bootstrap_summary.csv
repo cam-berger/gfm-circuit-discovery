@@ -1,0 +1,2 @@
+comparison,number_of_pairs,matched_mean_rescue,matched_ci_2.5,matched_ci_97.5,unrelated_mean_rescue,unrelated_ci_2.5,unrelated_ci_97.5,mean_paired_difference,median_paired_difference,difference_ci_2.5,difference_ci_97.5,fraction_matched_better,matched_excess_fraction
+matched minus unrelated Layer-1 MLP donor,189,10.809578507055031,9.60177395990402,12.009044523201034,9.524232496498229,7.979267657975611,11.106509172264131,1.2853460105568029,0.26590762272132906,-0.7551739759321788,3.276343756459249,0.5132275132275133,0.11890806008003946

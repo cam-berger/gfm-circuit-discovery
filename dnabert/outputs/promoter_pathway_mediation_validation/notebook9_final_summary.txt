@@ -1,0 +1,16 @@
+NOTEBOOK 9 — PATHWAY AND MEDIATION VALIDATION
+
+Primary conclusion:
+A low-dimensional promoter-associated intervention at the Layer-1 MLP propagates through a strongly transforming and non-additive downstream computation. Layer-4 attention and the Layer-5 MLP form the most compact validated downstream core, jointly mediating approximately 69% of the intervention-induced Layer-5 diagnostic-probe effect in both promoters and non-promoters.
+
+Candidate pathway:
+Layer-1 MLP promoter-associated subspace -> distributed Layer-2 and Layer-3 transformation -> Layer-4 attention -> Layer-5 MLP -> Layer-5 diagnostic representation
+
+Compact validated downstream core:
+Layer-4 attention branch -> Layer-5 MLP branch
+
+Promoter compact-core mediation: 0.697 [0.646, 0.748]
+Non-promoter compact-core mediation: 0.689 [0.635, 0.744]
+
+Key limitation:
+These results concern promoter-associated information measured by a fixed Layer-5 diagnostic probe; they do not establish a complete native DNABERT-2 promoter-classification circuit.

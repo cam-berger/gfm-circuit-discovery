@@ -1,0 +1,12 @@
+{
+  "representation_shape": [
+    11718,
+    768
+  ],
+  "promoter_direction_norm": 0.4571739148581631,
+  "oriented_pc1_promoter_cosine": 0.8943206835218754,
+  "gc_pc1_energy_fraction": 0.5707673884055393,
+  "gc_rank2_cumulative_energy": 0.6513227071532163,
+  "gc_rank4_cumulative_energy": 0.6986517105446713,
+  "gc_rank8_cumulative_energy": 0.7434503314131615
+}
