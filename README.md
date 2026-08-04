@@ -9,6 +9,53 @@ The scientific record on the main branch is preserved and extended here, not rep
 
 ---
 
+## What we found and fixed
+
+### Code issues corrected
+
+- About 34 scripts had absolute file paths hardcoded to one developer's local machine.
+  Every script now reads genome paths from environment variables or command line arguments,
+  so the code runs on any machine.
+- One script had an unclosed file handle inside a SHA-256 checksum call. This was replaced
+  with a safe read that closes the file automatically.
+- The provenance audit script referenced a path three directories above the repository root,
+  which would silently read the wrong file on any other machine. Fixed to a repository-relative
+  path.
+
+### Scientific issues corrected (inherited from main branch, documented here for awareness)
+
+- The payload was previously labeled as splice-site strength. This label was withdrawn after
+  it failed independently seeded draws and two-way gene-dyadic inference. The payload is now
+  described only as acceptor-local and of unresolved semantic identity (correction R22).
+- An earlier claim about the 10.63-nucleotide carrier's write to the donor readout was
+  preregistered but could not be evaluated as written because the required L0 reader heads
+  were not available. This is recorded as a bounded limitation, not a finding.
+- Several preregistration conformance gaps were identified: some runners departed from their
+  frozen protocol. These are documented in `docs/PREREG_CONFORMANCE.md` and the affected
+  results are labeled accordingly in the claim ledger.
+
+### What we have scientifically
+
+We have a causally supported circuit account of how SpliceBERT links a splice donor to its
+paired acceptor: a period-3 positional carrier routes addressing information through one
+keystone attention head, which combines it with an acceptor-local payload and writes a
+compact low-rank representation that downstream heads carry to the masked-donor output.
+Every step is supported by activation patching and controlled interventions. The carrier's
+origin is attributed to multi-species pretraining by a natural experiment using matched
+sibling checkpoints.
+
+### What we still need
+
+The acceptor payload's semantic identity is unresolved. We know it is local to the
+acceptor window and is not explained by bulk sequence composition, but we cannot yet name
+what biological information it encodes. The cross-context generalization of the mechanism
+beyond what is shown has not been demonstrated at the required specificity level. Automated
+circuit discovery (edge attribution patching) has not been run, so we cannot yet claim the
+identified circuit is the minimal sufficient subgraph. These are the three open problems
+the paper is honest about.
+
+---
+
 ## What this branch does
 
 ### 1. Workshop paper preparation
