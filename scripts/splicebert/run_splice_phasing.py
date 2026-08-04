@@ -52,6 +52,7 @@ import argparse
 import gzip
 import json
 import math
+import os
 import sys
 from pathlib import Path
 
@@ -61,8 +62,8 @@ from pyfaidx import Fasta
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO / "src"))
 
-GTF = Path("/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz")
-FASTA = Path("/Users/cberg/Research/data/genomes/hg38.fa")
+GTF = Path(os.environ.get("GFMCD_GTF", "/nonexistent/gencode.gtf.gz"))
+FASTA = Path(os.environ.get("GFMCD_FASTA", "/nonexistent/hg38.fa"))
 OUT = REPO / "results/phase-lattice/splice_phasing.json"
 
 W = 220                                              # half-width extracted per junction

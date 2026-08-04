@@ -35,8 +35,8 @@ USE_CLEAN_ALT = False   # R44 --clean-alt; default preserves committed behaviour
 from gfmcd.splicing.dataset import PyfaidxGenome
 from gfmcd.splicing.specificity import find_matched_decoy  # shared: MaxEnt-matched decoy selector
 
-DEFAULT_GTF = "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz"
-DEFAULT_FASTA = "/Users/cberg/Research/data/genomes/hg38.fa"
+DEFAULT_GTF: str | None = None  # supply via --gtf
+DEFAULT_FASTA: str | None = None  # supply via --fasta
 DEFAULT_MODEL = "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt"
 STD_CHROMS = {f"chr{i}" for i in range(1, 23)} | {"chrX", "chrY"}
 

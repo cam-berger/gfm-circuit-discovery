@@ -53,12 +53,12 @@ RESULTS = [
     "results/splicebert_coupling/development/ed1_trainpilot_sealed.json",
 ]
 BIO_INPUTS = [
-    "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
-    "/Users/cberg/Research/data/genomes/hg38.fa",
-    "/Users/cberg/Research/data/genomes/hg38.fa.fai",
+    os.environ.get("GFMCD_GTF", "/nonexistent/gencode.gtf.gz"),
+    os.environ.get("GFMCD_FASTA", "/nonexistent/hg38.fa"),
+    os.environ.get("GFMCD_FASTA_FAI", "/nonexistent/hg38.fa.fai"),
     str(REPO.parents[2] / "colab_results/splicebert_run/baselines/local_pair_baseline.pkl"),
-    str(REPO.parents[2] / "data/models/splicebert_official_archive/extracted/models/"
-                          "SpliceBERT.1024nt/pytorch_model.bin"),
+    str(REPO / "data/models/splicebert_official_archive/extracted/models/"
+               "SpliceBERT.1024nt/pytorch_model.bin"),
 ]
 
 

@@ -143,7 +143,7 @@ def main():
         "produced_utc": payload["produced_utc"], "git_rev": git_rev,
         "environment": "gfmcd-mm (conda): python3.11 torch transformers einops",
         "model": {"hf_id": HF_ID,
-                  "weights_sha256": hashlib.sha256(open(wpath, "rb").read()).hexdigest()},
+                  "weights_sha256": hashlib.sha256(Path(wpath).read_bytes()).hexdigest()},
         "params": {"nseq": args.nseq, "seqlen": args.seqlen}, "seed": SEED,
         "command": "python scripts/crossmodel/run_dnabert2_aliasing.py",
     }, indent=1))

@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import json
 import math
+import os
 import sys
 from pathlib import Path
 
@@ -117,7 +118,7 @@ def main() -> None:
     print("\n" + "=" * 82)
     print("3. GENIC RESTRICTION  — SpliceBERT saw pre-mRNA, not whole genome")
     print("=" * 82)
-    gtf = Path("/Users/cberg/Research/data/nucleosome/mm9_refGene.txt.gz")
+    gtf = Path(os.environ.get("GFMCD_MM9_REFGENE", "/nonexistent/mm9_refGene.txt.gz"))  # noqa: F841
     if not gtf.exists():
         print(f"   mm9 refGene not present at {gtf} — skipping.")
         print("   (fetch: https://hgdownload.soe.ucsc.edu/goldenPath/mm9/database/refGene.txt.gz)")

@@ -70,8 +70,8 @@ CORRUPT_ALT: str = ACCEPTOR_ALTS[0]    # "CC" -- destroys AG, cannot create AG
 GAP_MIN, GAP_MAX = 60, 150
 MIN_EFFECT = 0.3                       # ONLY for ratio denominators.  See module docstring.
 
-DEFAULT_GTF = "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz"
-DEFAULT_FASTA = "/Users/cberg/Research/data/genomes/hg38.fa"
+DEFAULT_GTF: str | None = None   # supply via --gtf or GFMCD_GTF env var
+DEFAULT_FASTA: str | None = None  # supply via --fasta or GFMCD_FASTA env var
 DEFAULT_MODEL = "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt"
 
 

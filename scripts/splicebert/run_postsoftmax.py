@@ -61,6 +61,7 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -377,7 +378,7 @@ LOWLEAK = [33, 34, 35]
 def measure(dev, PR) -> None:
     from pyfaidx import Fasta
     rng = np.random.default_rng(7)
-    fa = Fasta("/Users/cberg/Research/data/genomes/hg38.fa", as_raw=True)   # HUMAN: both models' domain
+    fa = Fasta(os.environ["GFMCD_FASTA"], as_raw=True)   # HUMAN: both models' domain
     s = np.frombuffer(fa["chr8"][40_000_000:40_200_000].upper().encode(), dtype=np.uint8)
     ok = np.isin(s, [65,67,71,84])
     st = [i for i in rng.integers(0, len(s)-520, 600) if ok[i:i+508].all()][:48]
