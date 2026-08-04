@@ -1,0 +1,28 @@
+{
+  "project": "dnabert_promoter_mechanism",
+  "seed": 42,
+  "dataset": {
+    "name": "leannmlindsey/GUE",
+    "config": "prom_core_all",
+    "train_split": "train",
+    "validation_split": "dev",
+    "test_split": "test",
+    "expected_sequence_length": 70
+  },
+  "model": {
+    "name": "quietflamingo/dnabert2-no-flashattention",
+    "revision": "813031b2bf86d9e960a027e2734c908009f31601",
+    "hidden_size": 768,
+    "num_layers": 12,
+    "num_heads": 12,
+    "pooling": "masked_mean",
+    "pooler_disabled": true
+  },
+  "frozen_probe": {
+    "classifier": "logistic_regression",
+    "standardize": true,
+    "max_iter": 2000,
+    "selection_metric": "balanced_accuracy"
+  },
+  "output_dir": "results/dnabert_promoter"
+}
