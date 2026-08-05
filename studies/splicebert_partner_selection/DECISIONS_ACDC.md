@@ -170,19 +170,31 @@ in the design moves, which is what makes the two edge sets comparable at all.
 of val GENCODE donors (82.0% GTEx, 87.8% atlas condition-B) — the −1 G of the 5′SS consensus. So at the
 donor:
 
-| alt | what it plants | rate |
-|---|---|---|
-| `CC` | a `GC` donor one base upstream | **81%** |
-| `TA` | a **canonical `GT`** | 95.5% |
-| `AA` | an `AG` | 62.0% |
-| `AC` | nothing | **0.0%** |
+| alt | what it plants | rate | scope of that rate |
+|---|---|---|---|
+| `CC` | a `GC` donor one base upstream | **~80%** | val GENCODE (81.0% −1 G); measured 19.8% admissible on the r1b-d0 cohort |
+| `TA` | a **canonical `GT`** | 95.5% | **atlas condition-B** (87.8% −1 G) — *not* val; AR1 train puts `TA` admissibility at 11.8%, so ~88% on val |
+| `AA` | an `AG` | 62.0% | R44 census |
+| `AC` | nothing | **0.0%** | everywhere measured |
+| `AT` | nothing | **0.0%** | equally clean — see below |
 
 R44 exempts `splicebert_partner_selection` from the defect because all 42 of its rows corrupt
 **acceptor**-side, where `seq[a−3] = "G"` in only 0.35–0.36%. **The acceptor arm corrupts the donor and
 therefore inherits the full exposure.** Using the symmetric `DONOR_ALTS[0] = "CC"` would convert the
-donor to a functional minor-class `GC` site in four of five examples — the arm would measure dependence
-on donor *class*, not on donor *presence*, and would read as a weak or absent coupling for a reason
-that has nothing to do with the model's computation.
+donor to a functional minor-class `GC` site in four of five examples — the destruction would be a
+**relocation**, the arm would measure dependence on donor *class* rather than *presence*, and every row
+resting on it would be void.
+
+**Correction (2026-08-05).** An earlier revision of this section said "only `AC` plants nothing." That
+is wrong. `tests/test_motif_cleanliness.py::test_AC_and_AT_are_the_only_universally_clean_alts` proves
+exhaustively over all 16 flanking contexts that cleanliness forces `X="A"` and `Y ∈ {C,T}` — **`AC` and
+`AT` are both universally clean**, which is what R44's own text says. The narrower true statement is
+that `AC` is the only clean member of the *shipped* `DONOR_ALTS` tuple, since `AT` is not in it; the
+sibling test `test_every_shipped_donor_alt_except_AC_plants_a_motif_somewhere` is scoped to that tuple
+and was over-generalised. This is not pedantry: **`AT` is the one-substitution clean alt** (`GT→AT`
+destroys only the G, `GT→AC` destroys both), so believing `AC` was the sole option would make a
+single-base decomposition unrunnable. The same revision also quoted `TA`'s 95.5% under a val GENCODE
+heading when R44 scopes it to atlas condition-B; the table above now carries scopes per row.
 
 So the arms use different letters **in order to be comparable**:
 
@@ -194,11 +206,12 @@ So the arms use different letters **in order to be comparable**:
 `motif_cleanliness` is a gating memorial on the acceptor arm: the planted-motif rate over the actual
 cohort must be **exactly 0**. It is model-free, computable from sequence alone, and it can fail.
 
-**The behaviour is not established, and that gates the run.** C1 establishes the donor direction
-(**+0.872 [0.771, 0.969]**, sealed). **No claim anywhere establishes the acceptor direction.** ACDC
-searches for the circuit implementing a behaviour; running it on a behaviour that has not been shown to
-exist would produce a circuit for nothing. So the acceptor arm carries a gating behavioural preflight,
-mirroring the donor's:
+**The behaviour gates the run — and it now passes.** C1 establishes the donor direction
+(**+0.872 [0.771, 0.969]**, sealed). The acceptor direction was unestablished when this section was
+first written; it is now established by **AC1** (`Y_A = +0.9763 [+0.9060, +1.0526]`, verdict **GO**,
+stable across three draws, nine memorials) through the R1 → R1b behaviour-and-specificity gate, and only
+then did R3 scan components. The gate is **retained** rather than retired: a runner must measure the
+behaviour on its own cohort, because AC1 licenses the direction, not any particular later cohort.
 
 - `acceptor_behaviour_exists` — unconditional mean `coupling_acc ≥ 0.20` on the cohort.
 - `acceptor_partner_specificity` — corrupting a motif-matched **non-partner** `GT` (`other_gt`, already
@@ -218,6 +231,42 @@ candidate at attribution level — an overlap statistic is not an intervention.
 measured kernel speed (D4). This is the single largest driver of the Colab budget and the first place to
 cut if the benchmark comes in slow — by trimming the τ grid or discovery `n` **equally on both arms**,
 never by giving the acceptor arm less, which would make the overlap statistic uninterpretable.
+
+---
+
+## D9 — R3 says A14's pruning metric will probably drop the addresser. Recorded before the run.
+
+R3 (`ae1c58b1`, paired 96-head scan, 974 exons / 645 genes) reports:
+
+> Mean-ablation as primary was decisive. L2H15 reads **0.473 / 0.505** here against **+0.0183** in the
+> noising-based shortlist; a noising-primary sweep would have concluded the addresser was irrelevant in
+> BOTH directions.
+
+**A14 prunes on ΔF, and `F` is complement-scrub-to-corrupt — a noising metric.** `L2H15 → L3H1` is in
+the `R_core` reference set frozen in A14 §6. So the most likely single disagreement between ACDC and the
+hand-found circuit is one R3 has already attributed to the *instrument*, not the model.
+
+Writing this down now is the point. After the run, "ACDC dropped the addresser" is available in two
+readings — the automated search disagrees with C22/C32, or the metric cannot see L2H15 — and the second
+would be easy to reach for only if the first were unflattering. Frozen pre-run:
+
+- **If `L2H15 → L3H1` is dropped under the ΔF arm, that is not evidence against C22/C32.** It is
+  expected under R3 and is reported as a metric limitation.
+- **A14 gains a mean-ablation metric arm** on the same τ grid and the same cohort. If the addresser's
+  edges survive there and not under ΔF, the disagreement is located in the metric and both are reported.
+  If they survive under neither, that is a genuine finding and is reportable as one.
+- This generalises past L2H15: R3's noising-vs-mean-ablation gap is a property of the metric family, so
+  **TPR against `R_core` is reported per metric arm and never pooled.**
+
+This is the same failure class ACDC's own §4 flags — a single metric systematically missing components —
+but sharper, because R3 measured the specific miss on the specific head in this specific model.
+
+**Relation to the `F`-near-null / sufficiency question.** C27 puts the 10-node circuit at `F = 0.005`,
+and C33 finds no knee, so a *forward* sufficiency search is ill-identified at `F ≈ 0` — which is exactly
+why A12's prereg specified pruning **from the full model** instead. A14 prunes backward from full, so it
+sits on the well-identified side of that. A sufficiency-carried arc (`D`) is a **different estimand**,
+not a better-powered version of the same one, and the two must not be reported as agreeing or
+disagreeing without saying which is which.
 
 ---
 

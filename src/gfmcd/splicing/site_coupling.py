@@ -16,8 +16,17 @@ THE ARMS ARE NOT SYMMETRIC IN THEIR ALT, AND MUST NOT BE (R44)
 --------------------------------------------------------------
 R44 measured, model-free, that the last exon base is ``G`` in **81.0%** of val GENCODE donors
 (the -1 G of the 5'SS consensus).  Writing the symmetric ``CC`` over a donor therefore plants a
-``GC`` -- a real minor-class donor -- one base upstream in four of five examples, and ``TA`` plants
-a *canonical* ``GT`` in 95.5%.  Only ``AC`` plants nothing (0.0%) everywhere measured.
+``GC`` -- a real minor-class donor -- one base upstream in four of five examples; ``TA`` plants a
+*canonical* ``GT`` (95.5% is R44's **atlas condition-B** figure, where the -1 G rate is 87.8%;
+AR1's train measurement puts ``TA`` admissibility at 11.8%).
+
+**``AC`` is not the only clean alt.**  ``tests/test_motif_cleanliness.py::
+test_AC_and_AT_are_the_only_universally_clean_alts`` proves exhaustively over all 16 flanking
+contexts that cleanliness forces ``X="A"`` and ``Y in {C,T}``, so ``AC`` **and** ``AT`` are both
+universally clean -- R44 says exactly this.  What is true of ``AC`` alone is narrower: it is the
+only clean member of the *shipped* ``DONOR_ALTS`` tuple, because ``AT`` is not in that tuple.
+Conflating the two matters, because ``AT`` is the **one-substitution** clean alt (``GT -> AT``
+destroys only the G, ``GT -> AC`` destroys both), and a single-base decomposition needs it.
 
 R44 exempts the partner-selection study because all of its corruptions are acceptor-side, where
 the analogous rate is 0.35-0.36%.  **The acceptor arm corrupts the donor and inherits the full
@@ -27,19 +36,23 @@ destroying it, and the arm would measure dependence on donor *class* instead of 
 So the two arms deliberately use different letters in order to be comparable:
 
     donor arm     AG -> "CC"  at the acceptor   (frozen; C42 alt-invariant within +/-25%)
-    acceptor arm  GT -> "AC"  at the donor      (MOTIF_CLEAN_DONOR_ALT; 0.0% plant rate)
+    acceptor arm  GT -> "AC"  at the donor      (MOTIF_CLEAN_DONOR_ALT; 0.0% plant rate.
+                                                 ``AT`` is equally clean and destroys only the G;
+                                                 prefer it for a single-base decomposition.)
 
 ``planted_motif_rate`` is the gating memorial: model-free, computable from sequence alone, and it
 returns a nonzero rate the moment someone "restores symmetry" by switching the acceptor arm to CC.
 
 THE ACCEPTOR BEHAVIOUR IS NOT ESTABLISHED
 -----------------------------------------
-C1 establishes the donor direction (+0.872 [0.771, 0.969], sealed).  Nothing in any ledger
-establishes the acceptor direction.  ACDC searches for the circuit implementing a behaviour, so
-the acceptor arm is gated on ``coupling >= 0.20`` plus partner-specificity against the
-motif-matched non-partner ``GT`` decoys already carried on ``CouplingExample.other_gt``.  If those
-fail the circuit search does not run and the arm reports NO BEHAVIOUR -- a directional asymmetry
-in cross-site dependence is a finding, not a failed experiment.
+C1 establishes the donor direction (+0.872 [0.771, 0.969], sealed).  The acceptor direction is
+established by **AC1** (``Y_A = +0.9763 [+0.9060, +1.0526]``, verdict GO, stable across three
+draws, nine memorials), via the R1 -> R1b behaviour-and-specificity gate.  The gate is retained
+here rather than dropped: it is what licenses a circuit search, and a runner that assumes the
+behaviour instead of measuring it on its own cohort would be searching for the circuit of nothing.
+``coupling >= 0.20`` plus partner-specificity against the motif-matched non-partner ``GT`` decoys
+on ``CouplingExample.other_gt``.  If either fails the search does not run and the arm reports NO
+BEHAVIOUR.
 """
 
 from __future__ import annotations
@@ -60,7 +73,9 @@ Site = Literal["donor", "acceptor"]
 SITES: tuple[Site, ...] = ("donor", "acceptor")
 
 DONOR_CORRUPT_ALT: str = ACCEPTOR_ALTS[0]           # "CC" -- frozen, matches circuit.CORRUPT_ALT
-ACCEPTOR_CORRUPT_ALT: str = MOTIF_CLEAN_DONOR_ALT   # "AC" -- the only 0.0%-plant alt at a donor
+# "AC" -- clean in every flanking context.  So is "AT"; AC is merely the only clean member of the
+# shipped DONOR_ALTS tuple.  See tests/test_motif_cleanliness.py::test_AC_and_AT_are_the_only_*.
+ACCEPTOR_CORRUPT_ALT: str = MOTIF_CLEAN_DONOR_ALT
 
 
 @dataclass(frozen=True)

@@ -85,6 +85,12 @@ encoders, not donor-specific.
   accepted and rejected decision**, and one τ arm is pruned on KL instead. ACDC's Appendix E.1 records
   that task-specific metrics systematically miss *negative* components — units that actively harm the
   task. That blind spot is disclosed, and the KL arm is how it is measured rather than assumed away.
+- **A mean-ablation arm**, on the same τ grid and cohort. R3 (`ae1c58b1`) measured L2H15 at
+  **0.473 / 0.505** under mean-ablation against **+0.0183** under noising, and records that a
+  noising-primary sweep "would have concluded the addresser was irrelevant in BOTH directions". `F` is a
+  noising metric and `L2H15 → L3H1` is in `R_core` (§6), so this arm exists to locate any such
+  disagreement in the metric rather than in the model. **Per D9, an addresser edge dropped under ΔF is
+  not evidence against C22/C32**, and TPR against `R_core` is reported per metric arm, never pooled.
 - **Algorithm 1, verbatim.** Reverse-topological node order; for each node `v`, for each parent `w`,
   remove `w → v` permanently if `metric(H \ {w→v}) − metric(H) < τ`. Nodes with no outgoing edge in `H`
   are skipped, as in the reference implementation.
