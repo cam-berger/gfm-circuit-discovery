@@ -618,12 +618,10 @@ def main() -> None:
     ap.add_argument("--floor", type=float, default=NATIVE_COUPLING_FLOOR)
     ap.add_argument("--nsim", type=int, default=100)
     ap.add_argument("--from-scores", default=None)
-    ap.add_argument("--gtf", default="/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz")
-    ap.add_argument("--fasta", default="/Users/cberg/Research/data/genomes/hg38.fa")
-    ap.add_argument("--pwm", default="/Users/cberg/Research/projects/gfm-circuit-discovery/"
-                                     "colab_results/splicebert_run/baselines/local_pair_baseline.pkl")
-    ap.add_argument("--model", default="/Users/cberg/Research/projects/gfm-circuit-discovery/data/"
-                                       "models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt")
+    ap.add_argument("--gtf", default=None)
+    ap.add_argument("--fasta", default=None)
+    ap.add_argument("--pwm", default=None)
+    ap.add_argument("--model", default=None)
     ap.add_argument("--tag", default=None)
     ap.add_argument("--overwrite-record", action="store_true",
                     help="replace an existing artifact of record (results are immutable by default)")

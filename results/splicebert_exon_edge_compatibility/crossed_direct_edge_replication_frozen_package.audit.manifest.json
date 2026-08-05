@@ -1,0 +1,71 @@
+{
+  "command": [
+    "scripts/splicebert_exon_edge_compatibility/audit_crossed_direct_edge_replication_freeze.py",
+    "--freeze-package",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_frozen_package.json",
+    "--freeze-manifest",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_frozen_package.manifest.json",
+    "--cohort",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cohort_v1.json",
+    "--construction-audit",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cohort_v1.audit_v4.json",
+    "--construction-audit-manifest",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cohort_v1.audit_v4.manifest.json"
+  ],
+  "config": {
+    "expected_blocks": 384,
+    "model_free": true
+  },
+  "created_at_utc": "2026-08-04T02:59:27.069143+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 90756,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert-exon-edge-compatibility:fresh-crossed-replication-freeze-audit",
+  "git_commit": "5f557fc0304e1300aacfa62df8c036e8ca728310",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_frozen_package.json",
+      "sha256": "9c0f55912ae2dd9520ad3b0918d4984811676d179e38a0360b2a48c024ff53e7",
+      "size_bytes": 15602
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_frozen_package.manifest.json",
+      "sha256": "55c08aafdab9afaa42213d5161e5038925ce9c373fed56657daa66ad998c55f8",
+      "size_bytes": 13469
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cohort_v1.json",
+      "sha256": "478838e64a3a3eff2bca5868212852a5b833d0ccf74ff720bb15cd00cf6fd5ca",
+      "size_bytes": 48290248
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cohort_v1.audit_v4.json",
+      "sha256": "2842d3a579cd7250810c901b031fc229e0a83b44add631c09f9df39d6c6987e1",
+      "size_bytes": 6781
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cohort_v1.audit_v4.manifest.json",
+      "sha256": "e4d96fd55998067f5cc48a4788c8851bd622870c19b6f5dc894b9d4db8acf66f",
+      "size_bytes": 7586
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_exon_edge_compatibility/audit_crossed_direct_edge_replication_freeze.py",
+      "sha256": "89933331fa52ba1fa7b6f28bedf2fdb90f6de0bc92953e37cd235598913c5184",
+      "size_bytes": 13936
+    }
+  ],
+  "notes": [],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_frozen_package.audit.json",
+      "sha256": "3ab2522649fba0ded7b9650bd3d6900a435f16fa95e054f395d7c64ee2b3730f",
+      "size_bytes": 1489
+    }
+  ],
+  "seeds": {},
+  "status": "PASS"
+}

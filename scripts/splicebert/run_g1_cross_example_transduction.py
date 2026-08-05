@@ -91,8 +91,8 @@ SRC_DIST_MIN, SRC_DIST_MAX = 60, 150   # sources = canonical single-pair SHORT i
 CORE_CONTEXTS = ("single_pair", "donor_cluster", "acceptor_cluster",
                  "multiple_independent_pairs", "cassette_exon", "complex_event")
 ATLAS = REPO / "results/splicebert_head_context_atlas"
-ATLAS_MAIN = Path("/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_head_context_atlas")
-MODEL_ABS = "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt"
+ATLAS_MAIN = ATLAS
+MODEL_ABS = str(REPO / "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt")
 ARMS = ("REAL", "MEAN", "SELF", "RANDOM", "SCRAMBLE", "SRC_SHAM", "POS_SHAM")
 
 

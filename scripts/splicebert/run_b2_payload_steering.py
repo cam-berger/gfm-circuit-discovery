@@ -79,7 +79,7 @@ from gfmcd.splicing.dataset import PyfaidxGenome                               #
 from gfmcd.splicing.circuit import (                                           # noqa: E402
     DEFAULT_FASTA, DEFAULT_MODEL, load_adapter, pick_device)
 
-DEFAULT_GTF = "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz"
+DEFAULT_GTF: str | None = None  # supply via --gtf
 L_INJECT = 3                       # residual layer for u_choice injection (L3 = payload/address locus)
 ACC_OFF = (-3, -2, -1, 0)          # four-token site window
 DOSE_GRID = (0.0, 0.5, 1.0, 1.5, 2.0)

@@ -30,7 +30,7 @@ from gfmcd.splicing.competition import (  # noqa: E402
     VAL_CHROMOSOMES, TEST_CHROMOSOMES,
 )
 
-DEFAULT_GTF = "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz"  # COMPREHENSIVE
+DEFAULT_GTF: str | None = None  # supply via --gtf
 STD_CHROMS = {f"chr{i}" for i in range(1, 23)} | {"chrX", "chrY"}
 
 # Achieved precision of the prior BEHAVIORAL competition contrasts, imported for the MDE projection.

@@ -26,8 +26,8 @@ from gfmcd.splicing.dataset import PyfaidxGenome, reverse_complement  # noqa: E4
 from gfmcd.splicing.specificity import acc_score, don_score  # noqa: E402
 
 DEFAULT_PACKETS = REPO / "results/splicebert_head_context_atlas/atlas_context_packets_v1.jsonl"
-DEFAULT_FASTA = "/Users/cberg/Research/data/genomes/hg38.fa"
-DEFAULT_GTF = "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz"
+DEFAULT_FASTA: str | None = None  # supply via --fasta
+DEFAULT_GTF: str | None = None  # supply via --gtf
 DONOR_MOTIFS = {"GT", "GC"}
 
 
