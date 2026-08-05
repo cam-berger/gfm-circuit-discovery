@@ -1,0 +1,64 @@
+{
+  "command": [
+    "scripts/splicebert_acceptor_coupling/run_r3_paired_component_scan.py",
+    "--n",
+    "1000",
+    "--gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+    "--fasta",
+    "/Users/cberg/Research/data/genomes/hg38.fa",
+    "--out",
+    "results/splicebert_acceptor_coupling/r3_paired_component_scan.json"
+  ],
+  "config": {
+    "SESOI": 0.05,
+    "device": "mps",
+    "draw_tag": "r1b-d0",
+    "n_genes": 645,
+    "n_heads": 96,
+    "n_paired": 974,
+    "sha256": "161dff038d747dbaa7b91a96d24b34d45f55de5482b5140410641354e46d2a8e"
+  },
+  "created_at_utc": "2026-08-05T16:29:48.154569+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 96808,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_acceptor_coupling:r3_paired_component_scan",
+  "git_commit": "7d9f699c546430157393f36914eb53b4d6a2f979",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "missing": true,
+      "path": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt"
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+      "sha256": "83fba3e9b03f0b8c958f3595c6c350adc55f468abf8b0e47b6d5284cfe13a453",
+      "size_bytes": 124527720
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    }
+  ],
+  "notes": [
+    "Validation split only; sealed chr8/9 not opened.",
+    "Mean-ablation primary; noising deferred to the detected set (prereg \u00a72).",
+    "MLP writes out of scope -- no mean-ablation primitive exists (prereg \u00a73)."
+  ],
+  "outputs": [
+    {
+      "path": "results/splicebert_acceptor_coupling/r3_paired_component_scan.json",
+      "sha256": "f2a768ef311be02f2ee9899ae24d4386c46d5b3e6bcc83f9a860463c483b0c4c",
+      "size_bytes": 54387
+    }
+  ],
+  "seeds": {
+    "bootstrap": 0
+  },
+  "status": "VERIFICATION"
+}

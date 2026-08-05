@@ -132,6 +132,52 @@ def test_destroy_donor_with_a_one_substitution_alt_leaves_the_T_standing():
 
 # ------------------------------------------------------- the role swap is a pure swap
 
+def test_reverse_health_masks_the_acceptor_where_the_forward_one_masks_the_donor():
+    """The reason ``reverse_mlm_health`` has to exist at all.
+
+    ``CouplingTask.mlm_health`` masks ``donor_pos``.  Health-gating a reverse-direction
+    ablation with it would score a DIFFERENT forward pass than the one whose coupling is
+    being damaged -- the gate would pass while the thing it guards was destroyed.
+    """
+    import inspect
+
+    from gfmcd.splicing.circuit import CouplingTask
+    from gfmcd.splicing.reverse_coupling import reverse_mlm_health
+
+    fwd = inspect.getsource(CouplingTask.mlm_health)
+    rev = inspect.getsource(reverse_mlm_health)
+    assert "x.donor_pos for x in ch" in fwd, "forward health no longer masks the donor"
+    assert "acceptor_readout(x)" in rev, "reverse health no longer masks the acceptor"
+    assert "x.donor_pos for x in ch" not in rev, "reverse health regressed to masking the donor"
+
+
+def test_reverse_health_probes_are_masked_and_exclude_both_sites():
+    """R8: an unmasked-probe health score once ROSE under ablation -- it measured copying.
+
+    And a probe landing on either site would score the intervention rather than collateral
+    health, so both exclusions are load-bearing.
+    """
+    import inspect
+
+    from gfmcd.splicing.reverse_coupling import reverse_mlm_health
+
+    src = inspect.getsource(reverse_mlm_health)
+    assert "task.encode(sub, pos)" in src, "probes are no longer masked (encode masks them)"
+    assert "abs(p - b) > 3" in src, "probes no longer exclude the masked acceptor"
+    assert "abs(p - x.donor_pos) > 3" in src, "probes no longer exclude the corrupted donor"
+
+
+def test_reverse_pseudo_coupling_corrupts_the_site_it_is_given():
+    """The specificity null must perturb the NON-site it is handed, never the real partner."""
+    import inspect
+
+    from gfmcd.splicing.reverse_coupling import reverse_pseudo_coupling
+
+    src = inspect.getsource(reverse_pseudo_coupling)
+    assert "zip(exs, sites)" in src, "pseudo-coupling no longer corrupts the supplied sites"
+    assert "destroy_donor" not in src, "pseudo-coupling regressed to destroying the real partner"
+
+
 def test_margin_readout_contains_nothing_donor_specific():
     """``CouplingTask.margin`` scores G vs max(A,C,T) at whatever positions it is given.
 

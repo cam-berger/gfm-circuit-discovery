@@ -176,6 +176,54 @@ should rest on them until one definition is fixed in one place and both directio
 arm. The nine-alt panel contained two of three cells; `GA`/`GG` supply the third and show the reverse
 coupling responds to **either** base of the `GT`, sub-additively, with the `T` contributing more.
 
+### R3 settled run — 974 exons / 645 genes, both readouts, 96 heads, all nine memorials PASS
+
+`Y_D = +0.9792`, `Y_A = +0.9763` on identical introns — the two directions differ by `0.003` at the
+behaviour level, so nothing below is explicable by one being a bigger effect. Pseudo-couplings
+`+0.0264` / `+0.0147`.
+
+**Partition: 73 `SHARED`, 17 `UNRESOLVED`, 4 `FORWARD_SPECIFIC`, 2 `REVERSE_SPECIFIC`.**
+
+| head | `frac_D` | `frac_A` | `Δ` | class |
+|---|---|---|---|---|
+| **L3H1** | +0.8210 | +0.8851 | +0.0640 [−0.0039, +0.1318] | UNRESOLVED — **rank 1 in both** |
+| **L2H15** | +0.4731 | +0.5045 | +0.0314 [−0.0230, +0.0862] | UNRESOLVED — rank 2 in both |
+| L1H12 | +0.2114 | +0.2610 | +0.0497 [+0.0101, +0.0863] | UNRESOLVED |
+| L2H4 | +0.0896 | −0.0347 | −0.1243 | FORWARD_SPECIFIC |
+| L4H2 | +0.0832 | −0.0126 | −0.0959 | FORWARD_SPECIFIC |
+| L5H11 | +0.0809 | −0.0063 | −0.0872 | FORWARD_SPECIFIC |
+| L1H8 | +0.0363 | −0.0408 | −0.0771 | FORWARD_SPECIFIC |
+| **L2H5** | −0.0695 | +0.1168 | **+0.1863** | REVERSE_SPECIFIC — largest of any component |
+| L4H12 | −0.0814 | +0.0109 | +0.0923 | REVERSE_SPECIFIC |
+| L4H0 | +0.0414 | +0.0209 | −0.0205 | SHARED |
+
+**The mean-ablation choice was decisive, exactly as prereg §2 argued.** `L2H15` reads `+0.473`/`+0.505`
+here against `+0.0183` in the noising-based shortlist. Had R3 used the shortlist's estimand it would
+have concluded the addresser was irrelevant **in both directions**. The 45× forward discrepancy
+generalises to the reverse.
+
+**Three of the four pre-stated expectations were wrong, and the fourth was only half right.**
+`L5H11 FORWARD_SPECIFIC` held. `L3H1 SHARED` did **not** — it is rank 1 in both but `UNRESOLVED`, and
+`UNRESOLVED` is explicitly not `SHARED`. `L4H11`/`L4H9`/`L4H7 REVERSE_SPECIFIC` did **not** — they came
+back `UNRESOLVED`/`UNRESOLVED`/`SHARED` (`Δ` `+0.048`/`+0.054`/`+0.015`), reverse-leaning in sign but
+none material. **The shortlist's direction transferred; its magnitudes did not** — which is what a
+4.4×-weaker train cohort under a different estimand should be expected to do, and is a finding about
+the shortlist rather than about the mechanism.
+
+**The genuinely new result is `L2H5`.** It sits in the same layer as the forward addresser, is
+`REVERSE_SPECIFIC` with the largest `|Δ|` in the scan, and its two arms have **opposite signs**:
+ablating it *raises* forward coupling (`frac_D = −0.070`) and *lowers* reverse coupling
+(`frac_A = +0.117`). The same shape appears at `L4H12` (`−0.081` / `+0.011`). Nothing in the record
+names either head. Suppression of one direction while supporting the other is not something the
+forward account predicts, and it is not explained here.
+
+**Health, interpreted rather than asserted.** Every component passes the `0.5` floor at `0.52–0.59`,
+and the **unablated** baseline is `0.529` forward / `0.585` reverse, with single-head ablation moving it
+by `≤0.003`. So the range is the model's intrinsic masked-probe accuracy (~2× the 0.25 chance level),
+not damage: "mechanism, not destruction" holds. **But the gate has only `0.029` of headroom above its
+floor**, so it fires only on near-total destruction. It is a coarse gate and should not be quoted as a
+tight one.
+
 ### Two weaknesses recorded now, not after someone finds them
 
 1. **The readout-specificity control sits near floor.** It reads at a spurious decoy `AG` whose clean

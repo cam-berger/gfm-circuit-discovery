@@ -50,10 +50,24 @@ states**: a donor destroyed with one substitution retains most of its effect.
 
 ## What is here
 
-- [`preregistrations/PREREGISTRATION_R1_REVERSE_COUPLING_GATE.md`](preregistrations/PREREGISTRATION_R1_REVERSE_COUPLING_GATE.md)
-  — frozen 2026-08-05. A **gate**, verification tier by construction: validation split, sealed chr8/9
-  not opened, design established by two disclosed pilots, decision rule corrected after the second
-  (§7.1). Its only job is to decide whether the mirrored mechanistic battery is worth running.
+Every arm is **verification tier**: validation split throughout, **sealed chr8/9 never opened and never
+spent**, so a confirmatory reverse-coupling claim still has a seal to spend if one is ever warranted.
+
+| arm | question | outcome |
+|---|---|---|
+| **R1** ([prereg](preregistrations/PREREGISTRATION_R1_REVERSE_COUPLING_GATE.md), frozen) | is there a reverse coupling, and is it specific? | `INSTRUMENT_UNRESOLVED` — from a power gate aimed at the effect rather than at the nulls. **Superseded; retained as provenance.** See `ACR1`. |
+| **R1b** ([prereg](preregistrations/PREREGISTRATION_R1b_REVERSE_COUPLING_GATE.md), frozen) | the same, with `MDE80` gated on the control arms + three-draw verdict stability | **`GO`**, stable on all three draws, nine memorials pass → `AC1` |
+| **R2** | which base of the donor `GT` carries it? | either base, sub-additively; the `T` contributes more than the `G` → `AC2`, correcting `ACR4` |
+| **R3** ([prereg](preregistrations/PREREGISTRATION_R3_PAIRED_COMPONENT_SCAN.md), frozen) | which of the 96 heads are **shared** between the two directions and which are **direction-specific**? | in progress |
+
+R3 is the arm that answers "same or different" as a **single paired estimand** rather than two screens:
+both readouts are measured on the same exons in the same process, so `Δ(c) = frac_A(c) − frac_D(c)`
+has cohort, distance, composition and gene structure cancelling inside every contrast. Its primary
+estimand is **mean-ablation**, because the repository's two idioms disagree 45× on exactly the class of
+component at issue (forward `L2H15`: `+0.0115` noising vs `+0.5146` ablation) — a noising-primary sweep
+returns a false null for the addresser. **MLP writes are out of scope**: no mean-ablation primitive for
+them exists in this tree, and `HCA18` reports MLP writes dominating its acceptor-cluster signals, so
+that is a named coverage gap rather than a silent one.
 - [`CLAIMS.md`](CLAIMS.md) — the claim ledger (`AC*`). Separate from the donor study's `C*` ledger on
   purpose: acceptor reconstruction is a different behaviour from donor reconstruction, and giving it
   its own ledger keeps C1–C42 from silently acquiring reverse-direction rows.

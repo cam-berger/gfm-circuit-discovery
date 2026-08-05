@@ -134,6 +134,79 @@ def reverse_coupling(
     return clean - corrupt
 
 
+def reverse_pseudo_coupling(
+    task,
+    exs: Sequence[CouplingExample],
+    sites: Sequence[int],
+    *,
+    alt: str = MOTIF_CLEAN_DONOR_ALT,
+) -> np.ndarray:
+    """Specificity null: destroy a NON-partner site and read the same masked acceptor.
+
+    Mirrors ``run_ablation_scan.py``'s ``drop_control`` idiom -- an ablation that damages the
+    real coupling *and* this pseudo-coupling equally is damaging the model, not the mechanism.
+    ``sites`` are corruption positions (e.g. ``matched_decoy_donor`` output), not readouts.
+    """
+    pos = [acceptor_readout(x) for x in exs]
+    clean = margins_at(task, pos, [x.sequence for x in exs])
+    corrupt = margins_at(task, pos, [substitute(x.sequence, s, alt) for x, s in zip(exs, sites)])
+    return clean - corrupt
+
+
+def reverse_mlm_health(
+    task,
+    exs: Sequence[CouplingExample],
+    ctx=None,
+    *,
+    n_probe: int = 40,
+    seed: int = 0,
+) -> float:
+    """Top-1 masked-prediction accuracy at random non-site positions, ACCEPTOR readout masked.
+
+    ``CouplingTask.mlm_health`` masks ``donor_pos``; a reverse-direction ablation must be
+    health-gated with the acceptor masked instead, or the gate is scoring a different forward
+    pass than the one whose coupling is being damaged.
+
+    THE PROBE POSITIONS ARE MASKED, and that is load-bearing (R8): an earlier version of the
+    forward control read the argmax at *unmasked* positions, i.e. scored the model's ability to
+    copy its own input, and returned ~0.99 for a model with 94 of 96 heads ablated.
+    """
+    import random as _random
+
+    ctx = ctx or (lambda: __import__("contextlib").nullcontext())
+    rng = _random.Random(seed)
+    hits = tot = 0
+    with torch.no_grad():
+        for i in range(0, len(exs), task.batch):
+            ch = exs[i:i + task.batch]
+            base = [acceptor_readout(x) for x in ch]
+            seqs, probes = [], []
+            for x, b in zip(ch, base):
+                n = len(x.sequence)
+                ps = [rng.randrange(4, n - 4) for _ in range(n_probe)]
+                # never probe either site: the acceptor is already masked, the donor is the edit
+                ps = [p for p in ps
+                      if abs(p - b) > 3 and abs(p - x.donor_pos) > 3]
+                probes.append(ps)
+                seqs.append(x.sequence)
+            for k in range(max((len(p) for p in probes), default=0)):
+                sel = [(j, probes[j][k]) for j in range(len(ch)) if k < len(probes[j])]
+                if not sel:
+                    continue
+                js = [j for j, _ in sel]
+                pos = [p for _, p in sel]
+                sub = [seqs[j] for j in js]
+                enc = task.encode(sub, pos)
+                with ctx():
+                    logits = task.ad.model(**enc).logits.float()
+                for row, (j, p) in enumerate(sel):
+                    v = logits[row, p + task.ad.prefix_tokens]
+                    pred = max("ACGT", key=lambda b_: v[task.bid[b_]].item())
+                    hits += int(pred == seqs[j][p])
+                    tot += 1
+    return hits / max(tot, 1)
+
+
 __all__ = [
     "FORWARD_ACCEPTOR_ALT",
     "MATCHED_TWO_SUB",
@@ -144,4 +217,6 @@ __all__ = [
     "margins_at",
     "matched_operators",
     "reverse_coupling",
+    "reverse_mlm_health",
+    "reverse_pseudo_coupling",
 ]
