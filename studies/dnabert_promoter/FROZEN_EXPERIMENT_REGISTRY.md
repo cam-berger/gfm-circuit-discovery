@@ -230,3 +230,56 @@ This is a validation result and must be confirmed on an untouched cohort.
   `f38a345`
 
 The same probe artifact must be used for validation and test confirmation.
+
+## Test confirmation: compact donor matrix
+
+An untouched high-signal cohort was selected from the test split:
+
+- 128 promoters
+- 128 non-promoters
+- mononucleotide corruption
+- fixed Layer-2 linear probe
+- preregistered component conditions:
+  - Layer-0 MLP
+  - Layer-0 MLP + L0H8
+
+### Test recovery fractions
+
+| Component | Matched | Same class | Opposite class | Zero |
+|---|---:|---:|---:|---:|
+| L0 MLP | 0.738897 | 0.685727 | -0.175620 | -0.225149 |
+| L0 MLP + L0H8 | 0.879318 | 0.842935 | -0.151602 | 0.121078 |
+
+### Test statistical conclusions
+
+Layer-0 MLP:
+
+- matched versus same-class:
+  mean difference = 0.053170
+  Holm-adjusted p = 0.181379
+- same-class versus opposite-class:
+  mean difference = 0.861347
+  Holm-adjusted p = 2.8539e-22
+
+Layer-0 MLP + L0H8:
+
+- matched versus same-class:
+  mean difference = 0.036383
+  Holm-adjusted p = 0.251984
+- same-class versus opposite-class:
+  mean difference = 0.994537
+  Holm-adjusted p = 2.8539e-22
+
+Identity interventions produced exactly zero change.
+
+### Confirmed interpretation
+
+The Layer-0 MLP carries a transferable promoter-class representation.
+L0H8 substantially improves delivery when combined with the MLP.
+Matched promoter activations are not significantly better than unrelated
+same-class promoter activations, whereas non-promoter activations push the
+readout in the opposite direction.
+
+The compact confirmed component set is:
+
+    Layer-0 MLP + L0H8

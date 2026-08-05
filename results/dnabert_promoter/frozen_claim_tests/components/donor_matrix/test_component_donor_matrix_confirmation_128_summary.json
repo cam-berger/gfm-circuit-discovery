@@ -1,0 +1,260 @@
+{
+  "component_conditions": {
+    "L0_MLP": {
+      "heads": [],
+      "mlp_layer": 0
+    },
+    "L0_MLP_L0H8": {
+      "heads": [
+        [
+          0,
+          8
+        ]
+      ],
+      "mlp_layer": 0
+    }
+  },
+  "identity_max_absolute_difference": 0.0,
+  "model_name": "quietflamingo/dnabert2-no-flashattention",
+  "model_revision": "813031b2bf86d9e960a027e2734c908009f31601",
+  "opposite_class_offsets": [
+    0,
+    3,
+    5,
+    7
+  ],
+  "results": {
+    "L0_MLP": {
+      "matched_promoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 1.0,
+          "maximum": 1.3216428589740996,
+          "mean": 0.7388969944947297,
+          "median": 0.7085733699133734,
+          "minimum": 0.24420923489890312,
+          "n": 128,
+          "std": 0.20595628457907258
+        },
+        "restored_amount": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 1.0,
+          "maximum": 8.31100583076477,
+          "mean": 4.858810035191709,
+          "median": 4.795098841190338,
+          "minimum": 1.4392201900482178,
+          "n": 128,
+          "std": 1.3231963672833291
+        }
+      },
+      "opposite_class_nonpromoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.783203125,
+          "fraction_positive": 0.216796875,
+          "maximum": 0.4231707860777998,
+          "mean": -0.17561996447417094,
+          "median": -0.15479265660394184,
+          "minimum": -0.943639173471649,
+          "n": 512,
+          "std": 0.23840754811588347
+        },
+        "restored_amount": {
+          "fraction_negative": 0.783203125,
+          "fraction_positive": 0.216796875,
+          "maximum": 2.61938738822937,
+          "mean": -1.1293031747918576,
+          "median": -1.0329861640930176,
+          "minimum": -5.681015074253082,
+          "n": 512,
+          "std": 1.5044052656842082
+        }
+      },
+      "same_class_promoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.02734375,
+          "fraction_positive": 0.97265625,
+          "maximum": 1.6841205995784774,
+          "mean": 0.6857270620061096,
+          "median": 0.6788639027930077,
+          "minimum": -0.4115072305384851,
+          "n": 512,
+          "std": 0.3344728390128277
+        },
+        "restored_amount": {
+          "fraction_negative": 0.02734375,
+          "fraction_positive": 0.97265625,
+          "maximum": 10.955775260925293,
+          "mean": 4.517593274198589,
+          "median": 4.530942767858505,
+          "minimum": -2.4774075150489807,
+          "n": 512,
+          "std": 2.155647020330877
+        }
+      },
+      "self_corrupt": {
+        "recovery_fraction": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "minimum": 0.0,
+          "n": 128,
+          "std": 0.0
+        },
+        "restored_amount": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "minimum": 0.0,
+          "n": 128,
+          "std": 0.0
+        }
+      },
+      "zero_activation": {
+        "recovery_fraction": {
+          "fraction_negative": 0.8515625,
+          "fraction_positive": 0.1484375,
+          "maximum": 0.25450763642178537,
+          "mean": -0.22514874079447364,
+          "median": -0.20517261631722705,
+          "minimum": -0.9072820601734791,
+          "n": 128,
+          "std": 0.21087398166254243
+        },
+        "restored_amount": {
+          "fraction_negative": 0.8515625,
+          "fraction_positive": 0.1484375,
+          "maximum": 1.555785894393921,
+          "mean": -1.4523027702234685,
+          "median": -1.4119203090667725,
+          "minimum": -5.6142120361328125,
+          "n": 128,
+          "std": 1.3307943141269187
+        }
+      }
+    },
+    "L0_MLP_L0H8": {
+      "matched_promoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 1.0,
+          "maximum": 1.28209240123186,
+          "mean": 0.8793178790453104,
+          "median": 0.8664561077475579,
+          "minimum": 0.4783012944048813,
+          "n": 128,
+          "std": 0.17579331760503214
+        },
+        "restored_amount": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 1.0,
+          "maximum": 8.745457410812378,
+          "mean": 5.791255030868342,
+          "median": 5.83538818359375,
+          "minimum": 3.1100345849990845,
+          "n": 128,
+          "std": 1.191687085184162
+        }
+      },
+      "opposite_class_nonpromoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.72265625,
+          "fraction_positive": 0.27734375,
+          "maximum": 0.5909916659115667,
+          "mean": -0.15160152449234832,
+          "median": -0.12833942128106923,
+          "minimum": -1.0988802427555981,
+          "n": 512,
+          "std": 0.2728302481007709
+        },
+        "restored_amount": {
+          "fraction_negative": 0.72265625,
+          "fraction_positive": 0.27734375,
+          "maximum": 3.6581828594207764,
+          "mean": -0.9707700847648084,
+          "median": -0.8402390480041504,
+          "minimum": -6.615616858005524,
+          "n": 512,
+          "std": 1.7197328176144109
+        }
+      },
+      "same_class_promoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.015625,
+          "fraction_positive": 0.984375,
+          "maximum": 1.8252560890529208,
+          "mean": 0.8429352943530838,
+          "median": 0.836988873547011,
+          "minimum": -0.5970433259660235,
+          "n": 512,
+          "std": 0.3501782555654685
+        },
+        "restored_amount": {
+          "fraction_negative": 0.015625,
+          "fraction_positive": 0.984375,
+          "maximum": 11.725501298904419,
+          "mean": 5.561085086745152,
+          "median": 5.674294412136078,
+          "minimum": -3.5943952202796936,
+          "n": 512,
+          "std": 2.2797132723349116
+        }
+      },
+      "self_corrupt": {
+        "recovery_fraction": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "minimum": 0.0,
+          "n": 128,
+          "std": 0.0
+        },
+        "restored_amount": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "minimum": 0.0,
+          "n": 128,
+          "std": 0.0
+        }
+      },
+      "zero_activation": {
+        "recovery_fraction": {
+          "fraction_negative": 0.359375,
+          "fraction_positive": 0.640625,
+          "maximum": 0.8731553896446903,
+          "mean": 0.1210783960172048,
+          "median": 0.12557379238645086,
+          "minimum": -0.8674737917152354,
+          "n": 128,
+          "std": 0.3177502260847342
+        },
+        "restored_amount": {
+          "fraction_negative": 0.359375,
+          "fraction_positive": 0.640625,
+          "maximum": 5.476825371384621,
+          "mean": 0.8334291131759528,
+          "median": 0.9078923463821411,
+          "minimum": -5.236591458320618,
+          "n": 128,
+          "std": 2.0531124146466753
+        }
+      }
+    }
+  },
+  "rows_per_class": 128,
+  "same_class_offsets": [
+    1,
+    3,
+    5,
+    7
+  ],
+  "selected_layer": 2
+}

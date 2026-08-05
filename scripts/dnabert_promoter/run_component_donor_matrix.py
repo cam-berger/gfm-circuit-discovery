@@ -133,11 +133,44 @@ def parse_args() -> argparse.Namespace:
     )
 
     parser.add_argument(
+        "--components",
+        default=",".join(COMPONENT_CONDITIONS),
+        help=(
+            "Comma-separated component conditions. "
+            f"Available: {','.join(COMPONENT_CONDITIONS)}"
+        ),
+    )
+
+    parser.add_argument(
         "--device",
         default="cuda:0",
     )
 
-    return parser.parse_args()
+    args = parser.parse_args()
+
+    args.components = tuple(
+        item.strip()
+        for item in args.components.split(",")
+        if item.strip()
+    )
+
+    unknown = [
+        item
+        for item in args.components
+        if item not in COMPONENT_CONDITIONS
+    ]
+
+    if unknown:
+        raise ValueError(
+            f"Unknown component conditions: {unknown}"
+        )
+
+    if not args.components:
+        raise ValueError(
+            "At least one component condition is required"
+        )
+
+    return args
 
 
 def load_class_rows(
@@ -543,7 +576,7 @@ def main() -> None:
     )
     print(
         "Component conditions:",
-        tuple(COMPONENT_CONDITIONS),
+        args.components,
     )
 
     print("\nLoading frozen DNABERT...")
@@ -715,7 +748,7 @@ def main() -> None:
     result_rows: list[dict[str, Any]] = []
 
     total_patch_runs = (
-        len(COMPONENT_CONDITIONS)
+        len(args.components)
         * args.limit
         * (
             1
@@ -727,7 +760,7 @@ def main() -> None:
 
     completed_patch_runs = 0
 
-    for condition_name in COMPONENT_CONDITIONS:
+    for condition_name in args.components:
         print(
             "\nRunning component condition:",
             condition_name,
@@ -1169,9 +1202,10 @@ def main() -> None:
         "opposite_class_offsets": list(
             args.opposite_class_offsets
         ),
-        "component_conditions": (
-            COMPONENT_CONDITIONS
-        ),
+        "component_conditions": {
+            name: COMPONENT_CONDITIONS[name]
+            for name in args.components
+        },
         "identity_max_absolute_difference": (
             float(
                 max(
@@ -1187,7 +1221,7 @@ def main() -> None:
 
     statistical_records = []
 
-    for condition_name in COMPONENT_CONDITIONS:
+    for condition_name in args.components:
         condition_rows = [
             row
             for row in result_rows
@@ -1402,9 +1436,10 @@ def main() -> None:
         "opposite_class_offsets": list(
             args.opposite_class_offsets
         ),
-        "component_conditions": (
-            COMPONENT_CONDITIONS
-        ),
+        "component_conditions": {
+            name: COMPONENT_CONDITIONS[name]
+            for name in args.components
+        },
         "per_example_file": str(
             per_example_path
         ),
@@ -1426,7 +1461,7 @@ def main() -> None:
 
     print("\n===== Donor matrix summary =====")
 
-    for condition_name in COMPONENT_CONDITIONS:
+    for condition_name in args.components:
         condition_summary = summary[
             "results"
         ][condition_name]
