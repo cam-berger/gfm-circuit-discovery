@@ -1,0 +1,136 @@
+{
+  "best_layer_by_balanced_accuracy": {
+    "accuracy": 0.8233108108108108,
+    "balanced_accuracy": 0.8232124474631956,
+    "f1": 0.8268785170473353,
+    "layer": 11,
+    "mean_absolute_margin": 2.868284225463867,
+    "mean_promoter_margin": 0.014464030042290688,
+    "roc_auc": 0.9050561227698501
+  },
+  "final_layer": {
+    "accuracy": 0.8233108108108108,
+    "balanced_accuracy": 0.8232124474631956,
+    "f1": 0.8268785170473353,
+    "layer": 11,
+    "mean_absolute_margin": 2.868284225463867,
+    "mean_promoter_margin": 0.014464030042290688,
+    "roc_auc": 0.9050561227698501
+  },
+  "layers": [
+    {
+      "accuracy": 0.3927364864864865,
+      "balanced_accuracy": 0.3923091813840485,
+      "f1": 0.43197977563596146,
+      "layer": 0,
+      "mean_absolute_margin": 0.06620141118764877,
+      "mean_promoter_margin": 0.014338413253426552,
+      "roc_auc": 0.36413468460339915
+    },
+    {
+      "accuracy": 0.4559121621621622,
+      "balanced_accuracy": 0.45414507012079,
+      "f1": 0.5743359323377825,
+      "layer": 1,
+      "mean_absolute_margin": 0.0710366815328598,
+      "mean_promoter_margin": 0.05382649227976799,
+      "roc_auc": 0.4386002938625462
+    },
+    {
+      "accuracy": 0.4721283783783784,
+      "balanced_accuracy": 0.4706894196129109,
+      "f1": 0.5698554714384033,
+      "layer": 2,
+      "mean_absolute_margin": 0.07141756266355515,
+      "mean_promoter_margin": 0.04706483706831932,
+      "roc_auc": 0.45102519175655403
+    },
+    {
+      "accuracy": 0.46841216216216214,
+      "balanced_accuracy": 0.4700351742487564,
+      "f1": 0.2913758162575996,
+      "layer": 3,
+      "mean_absolute_margin": 0.143754243850708,
+      "mean_promoter_margin": -0.10382780432701111,
+      "roc_auc": 0.39943180410898504
+    },
+    {
+      "accuracy": 0.5150337837837838,
+      "balanced_accuracy": 0.5176476181051561,
+      "f1": 0.1864550864267498,
+      "layer": 4,
+      "mean_absolute_margin": 0.16904740035533905,
+      "mean_promoter_margin": -0.15952035784721375,
+      "roc_auc": 0.5056007489351677
+    },
+    {
+      "accuracy": 0.512668918918919,
+      "balanced_accuracy": 0.5157619259102508,
+      "f1": 0.06543569808875932,
+      "layer": 5,
+      "mean_absolute_margin": 0.25481659173965454,
+      "mean_promoter_margin": -0.25355347990989685,
+      "roc_auc": 0.8070697534903455
+    },
+    {
+      "accuracy": 0.5282094594594594,
+      "balanced_accuracy": 0.5311361212723451,
+      "f1": 0.13822894168466524,
+      "layer": 6,
+      "mean_absolute_margin": 0.29999807476997375,
+      "mean_promoter_margin": -0.29459553956985474,
+      "roc_auc": 0.8455035298089688
+    },
+    {
+      "accuracy": 0.5962837837837838,
+      "balanced_accuracy": 0.5987415706842377,
+      "f1": 0.3498367791077258,
+      "layer": 7,
+      "mean_absolute_margin": 0.7240628600120544,
+      "mean_promoter_margin": -0.7012062668800354,
+      "roc_auc": 0.8890846374582408
+    },
+    {
+      "accuracy": 0.7608108108108108,
+      "balanced_accuracy": 0.7620370817415207,
+      "f1": 0.7061021170610212,
+      "layer": 8,
+      "mean_absolute_margin": 1.1041383743286133,
+      "mean_promoter_margin": -0.8675685524940491,
+      "roc_auc": 0.8994160529121509
+    },
+    {
+      "accuracy": 0.8011824324324325,
+      "balanced_accuracy": 0.80197989120032,
+      "f1": 0.7743048897411313,
+      "layer": 9,
+      "mean_absolute_margin": 1.6268244981765747,
+      "mean_promoter_margin": -0.9016124606132507,
+      "roc_auc": 0.9022714709643237
+    },
+    {
+      "accuracy": 0.8168918918918919,
+      "balanced_accuracy": 0.8171749452332027,
+      "f1": 0.8094903339191564,
+      "layer": 10,
+      "mean_absolute_margin": 2.514734983444214,
+      "mean_promoter_margin": -0.5794801712036133,
+      "roc_auc": 0.903382158619346
+    },
+    {
+      "accuracy": 0.8233108108108108,
+      "balanced_accuracy": 0.8232124474631956,
+      "f1": 0.8268785170473353,
+      "layer": 11,
+      "mean_absolute_margin": 2.868284225463867,
+      "mean_promoter_margin": 0.014464030042290688,
+      "roc_auc": 0.9050561227698501
+    }
+  ],
+  "num_layers": 12,
+  "precision": "bfloat16 autocast",
+  "readout": "native learned classifier applied to masked-mean intermediate hidden states",
+  "rows": 5920,
+  "seed": 42,
+  "split": "validation"
+}
