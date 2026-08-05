@@ -283,3 +283,50 @@ readout in the opposite direction.
 The compact confirmed component set is:
 
     Layer-0 MLP + L0H8
+
+## Biological feature test: early-window TATA-like motifs
+
+### Enrichment
+
+TATA-like motifs defined by `TATA[AT][AT]` were not promoter-enriched
+across the full 70-nt sequence.
+
+They were modestly enriched when restricted to starts at positions 0-7:
+
+- validation odds ratio: 1.3646, p = 0.0272
+- test odds ratio: 1.6233, p = 0.00104
+
+This window is described as the dataset-aligned early window because the
+exact genomic coordinate relative to the transcription start site has not
+yet been verified.
+
+### Controlled perturbation
+
+Validation cohort:
+
+- 71 promoter sequences
+- exactly one early-window TATA-like motif
+- two-base motif disruption
+- matched non-motif control with identical substitutions
+- both interventions changed T to G and A to C
+- identity control passed exactly
+
+Results:
+
+- mean motif damage: -0.302244
+- mean matched-control damage: -0.376305
+- mean excess motif damage: 0.074060
+- fraction motif disruption more damaging: 0.521
+- one-sided paired p-value: 0.233402
+
+Exploratory stratification by motif variant and motif position did not
+identify a coherent significant subgroup. In particular, starts at
+positions 2-4 had mean excess damage 0.004934 and p = 0.469945.
+
+### Conclusion
+
+Early-window TATA-like motifs are positionally enriched, but this
+controlled intervention does not establish that the frozen Layer-2
+promoter readout causally depends on them.
+
+No TATA-specific mechanistic claim is licensed.

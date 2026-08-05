@@ -1,0 +1,137 @@
+{
+  "all": {
+    "exploratory_p_value": 0.23340194631745848,
+    "fraction_motif_more_damaging": 0.5211267605633803,
+    "mean_control_damage": -0.3763046321839514,
+    "mean_excess_motif_damage": 0.07406031392829521,
+    "mean_motif_damage": -0.3022443182556562,
+    "median_excess_motif_damage": 0.0016353130340576,
+    "n": 71
+  },
+  "motif=TATAAA": {
+    "exploratory_p_value": 0.1132261835033006,
+    "fraction_motif_more_damaging": 0.5625,
+    "mean_control_damage": -0.5269281134630243,
+    "mean_excess_motif_damage": 0.14453409612178802,
+    "mean_motif_damage": -0.3823940173412363,
+    "median_excess_motif_damage": 0.0904018878936767,
+    "n": 48
+  },
+  "motif=TATAAT": {
+    "exploratory_p_value": 0.875,
+    "fraction_motif_more_damaging": 0.25,
+    "mean_control_damage": 0.36634641885757446,
+    "mean_excess_motif_damage": -0.5484800338745117,
+    "mean_motif_damage": -0.18213361501693726,
+    "median_excess_motif_damage": -0.5678071975708008,
+    "n": 4
+  },
+  "motif=TATATA": {
+    "exploratory_p_value": 0.52423095703125,
+    "fraction_motif_more_damaging": 0.42857142857142855,
+    "mean_control_damage": -0.12362848674612385,
+    "mean_excess_motif_damage": 0.02649588989359992,
+    "mean_motif_damage": -0.09713259685252393,
+    "median_excess_motif_damage": -0.04021775722503655,
+    "n": 14
+  },
+  "motif=TATATT": {
+    "exploratory_p_value": 0.40625,
+    "fraction_motif_more_damaging": 0.6,
+    "mean_control_damage": -0.23193325996398925,
+    "mean_excess_motif_damage": 0.02872467041015624,
+    "mean_motif_damage": -0.203208589553833,
+    "median_excess_motif_damage": 0.1660966873168945,
+    "n": 5
+  },
+  "start=0": {
+    "exploratory_p_value": 0.4375,
+    "fraction_motif_more_damaging": 0.75,
+    "mean_control_damage": -0.5739084184169769,
+    "mean_excess_motif_damage": 0.3696434795856476,
+    "mean_motif_damage": -0.20426493883132932,
+    "median_excess_motif_damage": 0.7631812691688538,
+    "n": 4
+  },
+  "start=1": {
+    "exploratory_p_value": 0.5,
+    "fraction_motif_more_damaging": 0.4,
+    "mean_control_damage": -0.14037060737609863,
+    "mean_excess_motif_damage": 0.11494812965393068,
+    "mean_motif_damage": -0.025422477722167956,
+    "median_excess_motif_damage": -0.0724594593048095,
+    "n": 5
+  },
+  "start=2": {
+    "exploratory_p_value": 0.43474388122558594,
+    "fraction_motif_more_damaging": 0.55,
+    "mean_control_damage": -0.5035165660083294,
+    "mean_excess_motif_damage": -0.04526048302650452,
+    "mean_motif_damage": -0.5487770490348339,
+    "median_excess_motif_damage": 0.24253320693969727,
+    "n": 20
+  },
+  "start=3": {
+    "exploratory_p_value": 0.615997314453125,
+    "fraction_motif_more_damaging": 0.47368421052631576,
+    "mean_control_damage": -0.24792282538194405,
+    "mean_excess_motif_damage": 0.0004822039290478337,
+    "mean_motif_damage": -0.24744062145289622,
+    "median_excess_motif_damage": -0.0079760551452636,
+    "n": 19
+  },
+  "start=4": {
+    "exploratory_p_value": 0.4301300048828125,
+    "fraction_motif_more_damaging": 0.5,
+    "mean_control_damage": -0.4109886437654495,
+    "mean_excess_motif_damage": 0.07296499982476234,
+    "mean_motif_damage": -0.3380236439406872,
+    "median_excess_motif_damage": 0.1309313774108887,
+    "n": 16
+  },
+  "start=5": {
+    "exploratory_p_value": 0.5,
+    "fraction_motif_more_damaging": 0.5,
+    "mean_control_damage": -0.17940878868103027,
+    "mean_excess_motif_damage": 0.3164765238761902,
+    "mean_motif_damage": 0.13706773519515986,
+    "median_excess_motif_damage": 0.3164765238761902,
+    "n": 2
+  },
+  "start=6": {
+    "exploratory_p_value": 0.3125,
+    "fraction_motif_more_damaging": 0.5,
+    "mean_control_damage": -0.10066491365432738,
+    "mean_excess_motif_damage": 0.18488800525665286,
+    "mean_motif_damage": 0.08422309160232541,
+    "median_excess_motif_damage": 0.06630408763885501,
+    "n": 4
+  },
+  "start=7": {
+    "exploratory_p_value": 0.5,
+    "fraction_motif_more_damaging": 1.0,
+    "mean_control_damage": -1.6019816398620603,
+    "mean_excess_motif_damage": 1.561070442199707,
+    "mean_motif_damage": -0.0409111976623535,
+    "median_excess_motif_damage": 1.561070442199707,
+    "n": 1
+  },
+  "start_in_2_3_4=False": {
+    "exploratory_p_value": 0.1156005859375,
+    "fraction_motif_more_damaging": 0.5625,
+    "mean_control_damage": -0.33505909889936447,
+    "mean_excess_motif_damage": 0.3116806298494339,
+    "mean_motif_damage": -0.023378469049930573,
+    "median_excess_motif_damage": 0.34241414070129395,
+    "n": 16
+  },
+  "start_in_2_3_4=True": {
+    "exploratory_p_value": 0.4699454712166645,
+    "fraction_motif_more_damaging": 0.509090909090909,
+    "mean_control_damage": -0.38830333277583123,
+    "mean_excess_motif_damage": 0.004934403842145745,
+    "mean_motif_damage": -0.38336892893368546,
+    "median_excess_motif_damage": 0.0007504224777221,
+    "n": 55
+  }
+}
