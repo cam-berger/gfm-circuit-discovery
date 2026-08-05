@@ -1,0 +1,95 @@
+{
+  "candidate_circuit": {
+    "heads": [
+      {
+        "head": 8,
+        "layer": 0
+      },
+      {
+        "head": 8,
+        "layer": 1
+      },
+      {
+        "head": 9,
+        "layer": 2
+      },
+      {
+        "head": 3,
+        "layer": 2
+      }
+    ],
+    "mlp_layers": [
+      0
+    ]
+  },
+  "cohort": "results/dnabert_promoter/causal/localization_cohorts/validation_localization_256.csv",
+  "definitions": {
+    "delivery_fraction": "(delivery_logit - corrupt_logit) / total_effect",
+    "delivery_intervention": "Clean candidate-circuit activations patched into the corrupt run.",
+    "necessity_fraction": "(clean_logit - knockout_logit) / total_effect",
+    "necessity_intervention": "Corrupt candidate-circuit activations patched into the clean run.",
+    "total_effect": "clean_logit - corrupt_logit"
+  },
+  "delivered_amount": {
+    "fraction_negative": 0.0,
+    "fraction_positive": 1.0,
+    "maximum": 9.567553281784058,
+    "mean": 5.755791448435048,
+    "median": 5.669270217418671,
+    "minimum": 2.777742624282837,
+    "n": 128,
+    "std": 1.2535136625886494
+  },
+  "delivery_fraction": {
+    "fraction_negative": 0.0,
+    "fraction_positive": 1.0,
+    "maximum": 1.3579120816674608,
+    "mean": 0.8392480144236968,
+    "median": 0.846141109690201,
+    "minimum": 0.4298944116305467,
+    "n": 128,
+    "std": 0.16568370427406515
+  },
+  "destroyed_amount": {
+    "fraction_negative": 0.0,
+    "fraction_positive": 1.0,
+    "maximum": 8.717411518096924,
+    "mean": 4.471672014158685,
+    "median": 4.454290390014648,
+    "minimum": 0.8875677585601807,
+    "n": 128,
+    "std": 1.3265713614835513
+  },
+  "fraction_positive_delivery": 1.0,
+  "fraction_positive_necessity": 1.0,
+  "fraction_positive_total_effect": 1.0,
+  "minimum_total_effect": 1e-08,
+  "model_name": "quietflamingo/dnabert2-no-flashattention",
+  "model_revision": "813031b2bf86d9e960a027e2734c908009f31601",
+  "necessity_fraction": {
+    "fraction_negative": 0.0,
+    "fraction_positive": 1.0,
+    "maximum": 1.2135348185021784,
+    "mean": 0.6508223885673996,
+    "median": 0.6678671946474631,
+    "minimum": 0.13139382911943331,
+    "n": 128,
+    "std": 0.18118302986036933
+  },
+  "probe_path": "results/dnabert_promoter/frozen/layer_probes/selected_layer_2_probe.joblib",
+  "rows": 128,
+  "selected_layer": 2,
+  "self_clean_max_absolute_difference": 0.0,
+  "self_corrupt_max_absolute_difference": 0.0,
+  "total_effect": {
+    "fraction_negative": 0.0,
+    "fraction_positive": 1.0,
+    "maximum": 10.137446403503418,
+    "mean": 6.867474260623567,
+    "median": 6.6531455516815186,
+    "minimum": 5.988861560821533,
+    "n": 128,
+    "std": 0.7783776830181149
+  },
+  "valid_normalized_rows": 128
+}
