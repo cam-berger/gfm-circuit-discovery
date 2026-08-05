@@ -1,0 +1,32 @@
+{
+  "difference_histogram": {
+    "-1": 41,
+    "-2": 16,
+    "-3": 5,
+    "-4": 1,
+    "0": 48,
+    "1": 66,
+    "2": 46,
+    "3": 20,
+    "4": 11,
+    "5": 2
+  },
+  "different_token_length_count": 208,
+  "equal_token_length_count": 48,
+  "equal_token_length_fraction": 0.1875,
+  "exact_token_id_match_count": 0,
+  "label_counts": {
+    "0": 128,
+    "1": 128
+  },
+  "model_name": "quietflamingo/dnabert2-no-flashattention",
+  "model_revision": "813031b2bf86d9e960a027e2734c908009f31601",
+  "rows": 256,
+  "token_count_difference": {
+    "maximum": 5,
+    "mean": 0.703125,
+    "mean_absolute": 1.421875,
+    "median": 1.0,
+    "minimum": -4
+  }
+}
