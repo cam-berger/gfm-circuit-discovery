@@ -1,0 +1,994 @@
+{
+  "cohort": "results/dnabert_promoter/behavioral/corruption_cohorts/validation_full.csv",
+  "hidden_state_mapping": "output.hidden_states[layer]",
+  "layer_summaries": [
+    {
+      "dinucleotide_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.539225762247345,
+          "fraction_positive": 0.460774237752655,
+          "maximum": 4.389583587646484,
+          "mean": -0.11814923584461212,
+          "median": -0.11843693256378174,
+          "minimum": -3.9058196544647217,
+          "std": 1.1044237613677979
+        },
+        "overall": {
+          "fraction_negative": 0.5889685792349727,
+          "fraction_positive": 0.4110314207650273,
+          "maximum": 4.729759216308594,
+          "mean": -0.26422950625419617,
+          "median": -0.2508486211299896,
+          "minimum": -4.086704730987549,
+          "std": 1.0938385725021362
+        },
+        "promoter": {
+          "fraction_negative": 0.6384065372829418,
+          "fraction_positive": 0.3615934627170582,
+          "maximum": 4.729759216308594,
+          "mean": -0.40941452980041504,
+          "median": -0.41806459426879883,
+          "minimum": -4.086704730987549,
+          "std": 1.0637022256851196
+        }
+      },
+      "layer": 0,
+      "metrics": {
+        "clean": {
+          "accuracy": 0.7962773224043715,
+          "balanced_accuracy": 0.7963053167563716,
+          "pr_auc": 0.874311674381496,
+          "roc_auc": 0.8748225117556617
+        },
+        "dinucleotide": {
+          "accuracy": 0.7679303278688525,
+          "balanced_accuracy": 0.7681134240426133,
+          "pr_auc": 0.852314551406098,
+          "roc_auc": 0.8485315060369623
+        },
+        "mononucleotide": {
+          "accuracy": 0.6473702185792349,
+          "balanced_accuracy": 0.6481211645305089,
+          "pr_auc": 0.7427693248843961,
+          "roc_auc": 0.7111659570636211
+        }
+      },
+      "mono_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.6378896882494005,
+          "fraction_positive": 0.36211031175059955,
+          "maximum": 4.833342552185059,
+          "mean": -0.6332466006278992,
+          "median": -0.6232944130897522,
+          "minimum": -8.302441596984863,
+          "std": 1.875629186630249
+        },
+        "overall": {
+          "fraction_negative": 0.7496584699453552,
+          "fraction_positive": 0.2503415300546448,
+          "maximum": 4.833342552185059,
+          "mean": -1.297067642211914,
+          "median": -1.1971991062164307,
+          "minimum": -9.527892112731934,
+          "std": 1.9760979413986206
+        },
+        "promoter": {
+          "fraction_negative": 0.8607422540006809,
+          "fraction_positive": 0.13925774599931903,
+          "maximum": 3.4560680389404297,
+          "mean": -1.9568204879760742,
+          "median": -1.786738634109497,
+          "minimum": -9.527892112731934,
+          "std": 1.8486132621765137
+        }
+      },
+      "probe_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_0_probe.joblib"
+    },
+    {
+      "dinucleotide_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.5693730729701952,
+          "fraction_positive": 0.4306269270298047,
+          "maximum": 4.318192958831787,
+          "mean": -0.22124694287776947,
+          "median": -0.2119971513748169,
+          "minimum": -5.4676618576049805,
+          "std": 1.1917755603790283
+        },
+        "overall": {
+          "fraction_negative": 0.6301229508196722,
+          "fraction_positive": 0.3698770491803279,
+          "maximum": 4.318192958831787,
+          "mean": -0.41707682609558105,
+          "median": -0.4126850366592407,
+          "minimum": -5.4676618576049805,
+          "std": 1.1995000839233398
+        },
+        "promoter": {
+          "fraction_negative": 0.6905005107252298,
+          "fraction_positive": 0.30949948927477017,
+          "maximum": 3.2067222595214844,
+          "mean": -0.6117064952850342,
+          "median": -0.6007524728775024,
+          "minimum": -5.373074054718018,
+          "std": 1.1754264831542969
+        }
+      },
+      "layer": 1,
+      "metrics": {
+        "clean": {
+          "accuracy": 0.8014002732240437,
+          "balanced_accuracy": 0.8014220172089381,
+          "pr_auc": 0.8831107823261408,
+          "roc_auc": 0.8819041366935636
+        },
+        "dinucleotide": {
+          "accuracy": 0.7645150273224044,
+          "balanced_accuracy": 0.7647652781029226,
+          "pr_auc": 0.8511516413885332,
+          "roc_auc": 0.8486666962942123
+        },
+        "mononucleotide": {
+          "accuracy": 0.641905737704918,
+          "balanced_accuracy": 0.642741665415661,
+          "pr_auc": 0.7391395813871002,
+          "roc_auc": 0.7092784841147948
+        }
+      },
+      "mono_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.644741349777321,
+          "fraction_positive": 0.355258650222679,
+          "maximum": 5.942992210388184,
+          "mean": -0.7372922897338867,
+          "median": -0.7381377220153809,
+          "minimum": -8.479926109313965,
+          "std": 1.9568140506744385
+        },
+        "overall": {
+          "fraction_negative": 0.766051912568306,
+          "fraction_positive": 0.23394808743169399,
+          "maximum": 5.942992210388184,
+          "mean": -1.5146864652633667,
+          "median": -1.444459080696106,
+          "minimum": -9.761238098144531,
+          "std": 2.1264357566833496
+        },
+        "promoter": {
+          "fraction_negative": 0.8866189989785496,
+          "fraction_positive": 0.11338100102145046,
+          "maximum": 3.9441797733306885,
+          "mean": -2.287316083908081,
+          "median": -2.100480318069458,
+          "minimum": -9.761238098144531,
+          "std": 2.003404378890991
+        }
+      },
+      "probe_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_1_probe.joblib"
+    },
+    {
+      "dinucleotide_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.5762247344981158,
+          "fraction_positive": 0.4237752655018842,
+          "maximum": 4.249512672424316,
+          "mean": -0.24427294731140137,
+          "median": -0.25469744205474854,
+          "minimum": -4.532599449157715,
+          "std": 1.2571145296096802
+        },
+        "overall": {
+          "fraction_negative": 0.6412226775956285,
+          "fraction_positive": 0.3587773224043716,
+          "maximum": 4.249512672424316,
+          "mean": -0.4594791531562805,
+          "median": -0.4484545588493347,
+          "minimum": -4.885181903839111,
+          "std": 1.2537505626678467
+        },
+        "promoter": {
+          "fraction_negative": 0.7058222676200204,
+          "fraction_positive": 0.2941777323799796,
+          "maximum": 2.9813361167907715,
+          "mean": -0.6733664274215698,
+          "median": -0.6391386985778809,
+          "minimum": -4.885181903839111,
+          "std": 1.2133514881134033
+        }
+      },
+      "layer": 2,
+      "metrics": {
+        "clean": {
+          "accuracy": 0.8049863387978142,
+          "balanced_accuracy": 0.805001292997413,
+          "pr_auc": 0.8862253693909998,
+          "roc_auc": 0.8847679772423123
+        },
+        "dinucleotide": {
+          "accuracy": 0.7558060109289617,
+          "balanced_accuracy": 0.7560756006314167,
+          "pr_auc": 0.848286652411679,
+          "roc_auc": 0.8454267958754257
+        },
+        "mononucleotide": {
+          "accuracy": 0.6352459016393442,
+          "balanced_accuracy": 0.6361053868126861,
+          "pr_auc": 0.7321708085850601,
+          "roc_auc": 0.7040947717530046
+        }
+      },
+      "mono_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.6467968482356972,
+          "fraction_positive": 0.35320315176430284,
+          "maximum": 5.838945388793945,
+          "mean": -0.7616100311279297,
+          "median": -0.7556788921356201,
+          "minimum": -7.2655415534973145,
+          "std": 1.9752638339996338
+        },
+        "overall": {
+          "fraction_negative": 0.7692964480874317,
+          "fraction_positive": 0.2307035519125683,
+          "maximum": 5.838945388793945,
+          "mean": -1.5607753992080688,
+          "median": -1.5181715488433838,
+          "minimum": -10.137450218200684,
+          "std": 2.1278069019317627
+        },
+        "promoter": {
+          "fraction_negative": 0.8910452843037112,
+          "fraction_positive": 0.10895471569628873,
+          "maximum": 4.068406105041504,
+          "mean": -2.3550424575805664,
+          "median": -2.2142255306243896,
+          "minimum": -10.137450218200684,
+          "std": 1.9710707664489746
+        }
+      },
+      "probe_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_2_probe.joblib"
+    },
+    {
+      "dinucleotide_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.578622816032888,
+          "fraction_positive": 0.42137718396711205,
+          "maximum": 3.898714542388916,
+          "mean": -0.25610655546188354,
+          "median": -0.269681453704834,
+          "minimum": -5.076244354248047,
+          "std": 1.3097833395004272
+        },
+        "overall": {
+          "fraction_negative": 0.6388319672131147,
+          "fraction_positive": 0.36116803278688525,
+          "maximum": 4.0695953369140625,
+          "mean": -0.4854999780654907,
+          "median": -0.4674800634384155,
+          "minimum": -6.752787113189697,
+          "std": 1.352216362953186
+        },
+        "promoter": {
+          "fraction_negative": 0.6986721144024515,
+          "fraction_positive": 0.30132788559754853,
+          "maximum": 4.0695953369140625,
+          "mean": -0.713487446308136,
+          "median": -0.6689414978027344,
+          "minimum": -6.752787113189697,
+          "std": 1.355383038520813
+        }
+      },
+      "layer": 3,
+      "metrics": {
+        "clean": {
+          "accuracy": 0.8031079234972678,
+          "balanced_accuracy": 0.8031422811553763,
+          "pr_auc": 0.8811065695436895,
+          "roc_auc": 0.8803532979832389
+        },
+        "dinucleotide": {
+          "accuracy": 0.7510245901639344,
+          "balanced_accuracy": 0.7512993836654009,
+          "pr_auc": 0.8440340217162136,
+          "roc_auc": 0.8406478961001635
+        },
+        "mononucleotide": {
+          "accuracy": 0.6273907103825137,
+          "balanced_accuracy": 0.6282637686727898,
+          "pr_auc": 0.7252236795881355,
+          "roc_auc": 0.6965335071793726
+        }
+      },
+      "mono_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.6536485097636177,
+          "fraction_positive": 0.34635149023638234,
+          "maximum": 6.836482524871826,
+          "mean": -0.7946613430976868,
+          "median": -0.7903326153755188,
+          "minimum": -6.9785051345825195,
+          "std": 2.0271599292755127
+        },
+        "overall": {
+          "fraction_negative": 0.7723702185792349,
+          "fraction_positive": 0.22762978142076504,
+          "maximum": 6.836482524871826,
+          "mean": -1.6083390712738037,
+          "median": -1.596590280532837,
+          "minimum": -11.140501022338867,
+          "std": 2.1802213191986084
+        },
+        "promoter": {
+          "fraction_negative": 0.8903643173306095,
+          "fraction_positive": 0.10963568266939054,
+          "maximum": 4.081052780151367,
+          "mean": -2.417030096054077,
+          "median": -2.343877077102661,
+          "minimum": -11.140501022338867,
+          "std": 2.0205397605895996
+        }
+      },
+      "probe_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_3_probe.joblib"
+    },
+    {
+      "dinucleotide_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.5837615621788284,
+          "fraction_positive": 0.41623843782117165,
+          "maximum": 4.162582874298096,
+          "mean": -0.25649651885032654,
+          "median": -0.2689032554626465,
+          "minimum": -5.708922386169434,
+          "std": 1.2908819913864136
+        },
+        "overall": {
+          "fraction_negative": 0.6463456284153005,
+          "fraction_positive": 0.3536543715846995,
+          "maximum": 6.418254375457764,
+          "mean": -0.4854176938533783,
+          "median": -0.4989025592803955,
+          "minimum": -6.166990280151367,
+          "std": 1.3313651084899902
+        },
+        "promoter": {
+          "fraction_negative": 0.7085461355124276,
+          "fraction_positive": 0.2914538644875724,
+          "maximum": 6.418254375457764,
+          "mean": -0.7129358649253845,
+          "median": -0.7113776206970215,
+          "minimum": -6.166990280151367,
+          "std": 1.3322007656097412
+        }
+      },
+      "layer": 4,
+      "metrics": {
+        "clean": {
+          "accuracy": 0.8014002732240437,
+          "balanced_accuracy": 0.8014377641327767,
+          "pr_auc": 0.8792702365837659,
+          "roc_auc": 0.8777305603350385
+        },
+        "dinucleotide": {
+          "accuracy": 0.755464480874317,
+          "balanced_accuracy": 0.7557361669397883,
+          "pr_auc": 0.8463238499746408,
+          "roc_auc": 0.8420749173315659
+        },
+        "mononucleotide": {
+          "accuracy": 0.6331967213114754,
+          "balanced_accuracy": 0.6340614360984582,
+          "pr_auc": 0.7293966855958567,
+          "roc_auc": 0.7007419600581026
+        }
+      },
+      "mono_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.6560465912983898,
+          "fraction_positive": 0.3439534087016101,
+          "maximum": 5.725339889526367,
+          "mean": -0.7661923766136169,
+          "median": -0.8035926818847656,
+          "minimum": -7.2689208984375,
+          "std": 1.9450321197509766
+        },
+        "overall": {
+          "fraction_negative": 0.7730532786885246,
+          "fraction_positive": 0.22694672131147542,
+          "maximum": 5.725339889526367,
+          "mean": -1.5550243854522705,
+          "median": -1.5201224088668823,
+          "minimum": -9.588118553161621,
+          "std": 2.1243457794189453
+        },
+        "promoter": {
+          "fraction_negative": 0.8893428668709568,
+          "fraction_positive": 0.11065713312904324,
+          "maximum": 5.211735725402832,
+          "mean": -2.339021921157837,
+          "median": -2.2260570526123047,
+          "minimum": -9.588118553161621,
+          "std": 2.0015218257904053
+        }
+      },
+      "probe_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_4_probe.joblib"
+    },
+    {
+      "dinucleotide_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.5727989037341555,
+          "fraction_positive": 0.42720109626584446,
+          "maximum": 3.9269039630889893,
+          "mean": -0.2598714828491211,
+          "median": -0.22338128089904785,
+          "minimum": -5.407483100891113,
+          "std": 1.267426609992981
+        },
+        "overall": {
+          "fraction_negative": 0.6342213114754098,
+          "fraction_positive": 0.36577868852459017,
+          "maximum": 6.4088239669799805,
+          "mean": -0.46013352274894714,
+          "median": -0.4647672772407532,
+          "minimum": -5.744547367095947,
+          "std": 1.308882236480713
+        },
+        "promoter": {
+          "fraction_negative": 0.6952672795369425,
+          "fraction_positive": 0.30473272046305755,
+          "maximum": 6.4088239669799805,
+          "mean": -0.6591682434082031,
+          "median": -0.6629354953765869,
+          "minimum": -5.744547367095947,
+          "std": 1.3192431926727295
+        }
+      },
+      "layer": 5,
+      "metrics": {
+        "clean": {
+          "accuracy": 0.7984972677595629,
+          "balanced_accuracy": 0.7985342063427909,
+          "pr_auc": 0.8763705349901183,
+          "roc_auc": 0.8752290156784539
+        },
+        "dinucleotide": {
+          "accuracy": 0.7561475409836066,
+          "balanced_accuracy": 0.7564360302214963,
+          "pr_auc": 0.8479817250587429,
+          "roc_auc": 0.8425101156489081
+        },
+        "mononucleotide": {
+          "accuracy": 0.6352459016393442,
+          "balanced_accuracy": 0.6360885900939252,
+          "pr_auc": 0.7280736155803201,
+          "roc_auc": 0.69549986743423
+        }
+      },
+      "mono_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.6478245974648852,
+          "fraction_positive": 0.35217540253511476,
+          "maximum": 5.464212417602539,
+          "mean": -0.7383621335029602,
+          "median": -0.7629818916320801,
+          "minimum": -7.192904472351074,
+          "std": 1.944817304611206
+        },
+        "overall": {
+          "fraction_negative": 0.7653688524590164,
+          "fraction_positive": 0.2346311475409836,
+          "maximum": 5.464212417602539,
+          "mean": -1.499338984489441,
+          "median": -1.4822700023651123,
+          "minimum": -9.053940773010254,
+          "std": 2.1130855083465576
+        },
+        "promoter": {
+          "fraction_negative": 0.8821927136533878,
+          "fraction_positive": 0.1178072863466122,
+          "maximum": 5.115350723266602,
+          "mean": -2.2556519508361816,
+          "median": -2.1958024501800537,
+          "minimum": -9.053940773010254,
+          "std": 1.9993360042572021
+        }
+      },
+      "probe_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_5_probe.joblib"
+    },
+    {
+      "dinucleotide_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.5700582391229874,
+          "fraction_positive": 0.4299417608770127,
+          "maximum": 5.0745015144348145,
+          "mean": -0.2148798406124115,
+          "median": -0.21095013618469238,
+          "minimum": -4.5442914962768555,
+          "std": 1.2728689908981323
+        },
+        "overall": {
+          "fraction_negative": 0.6340505464480874,
+          "fraction_positive": 0.36594945355191255,
+          "maximum": 5.524677753448486,
+          "mean": -0.4358638823032379,
+          "median": -0.43174296617507935,
+          "minimum": -5.5542988777160645,
+          "std": 1.3111190795898438
+        },
+        "promoter": {
+          "fraction_negative": 0.6976506639427987,
+          "fraction_positive": 0.3023493360572012,
+          "maximum": 5.524677753448486,
+          "mean": -0.6554935574531555,
+          "median": -0.6696386337280273,
+          "minimum": -5.5542988777160645,
+          "std": 1.3118863105773926
+        }
+      },
+      "layer": 6,
+      "metrics": {
+        "clean": {
+          "accuracy": 0.7925204918032787,
+          "balanced_accuracy": 0.792556849019544,
+          "pr_auc": 0.8771984201897993,
+          "roc_auc": 0.8745402335653729
+        },
+        "dinucleotide": {
+          "accuracy": 0.7532445355191257,
+          "balanced_accuracy": 0.7535177753025946,
+          "pr_auc": 0.8421213872964928,
+          "roc_auc": 0.8367438254270362
+        },
+        "mononucleotide": {
+          "accuracy": 0.636441256830601,
+          "balanced_accuracy": 0.6372645353730149,
+          "pr_auc": 0.7294246614878039,
+          "roc_auc": 0.695397804038981
+        }
+      },
+      "mono_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.6392600205549845,
+          "fraction_positive": 0.3607399794450154,
+          "maximum": 5.598523139953613,
+          "mean": -0.7048685550689697,
+          "median": -0.725745439529419,
+          "minimum": -6.376801013946533,
+          "std": 1.9265893697738647
+        },
+        "overall": {
+          "fraction_negative": 0.7552937158469946,
+          "fraction_positive": 0.24470628415300547,
+          "maximum": 5.598523139953613,
+          "mean": -1.4504387378692627,
+          "median": -1.4383370876312256,
+          "minimum": -9.817058563232422,
+          "std": 2.0763564109802246
+        },
+        "promoter": {
+          "fraction_negative": 0.8706162751106571,
+          "fraction_positive": 0.12938372488934285,
+          "maximum": 4.142616271972656,
+          "mean": -2.191439390182495,
+          "median": -2.070096015930176,
+          "minimum": -9.817058563232422,
+          "std": 1.9510592222213745
+        }
+      },
+      "probe_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_6_probe.joblib"
+    },
+    {
+      "dinucleotide_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.5601233299075026,
+          "fraction_positive": 0.4398766700924974,
+          "maximum": 5.366263389587402,
+          "mean": -0.21077695488929749,
+          "median": -0.1649785041809082,
+          "minimum": -4.411745548248291,
+          "std": 1.2605434656143188
+        },
+        "overall": {
+          "fraction_negative": 0.6260245901639344,
+          "fraction_positive": 0.3739754098360656,
+          "maximum": 5.366263389587402,
+          "mean": -0.43161770701408386,
+          "median": -0.4119829833507538,
+          "minimum": -6.3109235763549805,
+          "std": 1.314045786857605
+        },
+        "promoter": {
+          "fraction_negative": 0.6915219611848825,
+          "fraction_positive": 0.3084780388151175,
+          "maximum": 4.716719150543213,
+          "mean": -0.6511049270629883,
+          "median": -0.6438839435577393,
+          "minimum": -6.3109235763549805,
+          "std": 1.3294838666915894
+        }
+      },
+      "layer": 7,
+      "metrics": {
+        "clean": {
+          "accuracy": 0.7903005464480874,
+          "balanced_accuracy": 0.7903521047163437,
+          "pr_auc": 0.8716428038073828,
+          "roc_auc": 0.8700364383817619
+        },
+        "dinucleotide": {
+          "accuracy": 0.7532445355191257,
+          "balanced_accuracy": 0.7535219744822849,
+          "pr_auc": 0.8398415446811291,
+          "roc_auc": 0.8319930368269226
+        },
+        "mononucleotide": {
+          "accuracy": 0.6343920765027322,
+          "balanced_accuracy": 0.6352289830181674,
+          "pr_auc": 0.7262148655282308,
+          "roc_auc": 0.6932424584190812
+        }
+      },
+      "mono_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.6392600205549845,
+          "fraction_positive": 0.3607399794450154,
+          "maximum": 5.3682074546813965,
+          "mean": -0.6670309901237488,
+          "median": -0.6579799652099609,
+          "minimum": -7.139338970184326,
+          "std": 1.884039044380188
+        },
+        "overall": {
+          "fraction_negative": 0.7561475409836066,
+          "fraction_positive": 0.24385245901639344,
+          "maximum": 5.3682074546813965,
+          "mean": -1.401207447052002,
+          "median": -1.3683431148529053,
+          "minimum": -9.916677474975586,
+          "std": 2.0490100383758545
+        },
+        "promoter": {
+          "fraction_negative": 0.8723186925434117,
+          "fraction_positive": 0.12768130745658834,
+          "maximum": 4.6588850021362305,
+          "mean": -2.1308844089508057,
+          "median": -2.0330705642700195,
+          "minimum": -9.916677474975586,
+          "std": 1.9432525634765625
+        }
+      },
+      "probe_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_7_probe.joblib"
+    },
+    {
+      "dinucleotide_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.5556697499143542,
+          "fraction_positive": 0.44433025008564575,
+          "maximum": 4.427145481109619,
+          "mean": -0.18614400923252106,
+          "median": -0.17683157324790955,
+          "minimum": -4.900051116943359,
+          "std": 1.2210663557052612
+        },
+        "overall": {
+          "fraction_negative": 0.6203893442622951,
+          "fraction_positive": 0.3796106557377049,
+          "maximum": 5.784098148345947,
+          "mean": -0.40075477957725525,
+          "median": -0.3843207359313965,
+          "minimum": -5.44134521484375,
+          "std": 1.2831108570098877
+        },
+        "promoter": {
+          "fraction_negative": 0.6847122914538645,
+          "fraction_positive": 0.3152877085461355,
+          "maximum": 5.784098148345947,
+          "mean": -0.6140502691268921,
+          "median": -0.6291223764419556,
+          "minimum": -5.44134521484375,
+          "std": 1.3076889514923096
+        }
+      },
+      "layer": 8,
+      "metrics": {
+        "clean": {
+          "accuracy": 0.7882513661202186,
+          "balanced_accuracy": 0.7883039548224254,
+          "pr_auc": 0.8697553959830981,
+          "roc_auc": 0.8683569997934237
+        },
+        "dinucleotide": {
+          "accuracy": 0.7503415300546448,
+          "balanced_accuracy": 0.7506215660770668,
+          "pr_auc": 0.8404554323992687,
+          "roc_auc": 0.8316088702072051
+        },
+        "mononucleotide": {
+          "accuracy": 0.6311475409836066,
+          "balanced_accuracy": 0.6319586968685668,
+          "pr_auc": 0.7259757010448821,
+          "roc_auc": 0.6937198818210863
+        }
+      },
+      "mono_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.6334361082562522,
+          "fraction_positive": 0.36656389174374787,
+          "maximum": 4.868803977966309,
+          "mean": -0.6439532041549683,
+          "median": -0.6287059783935547,
+          "minimum": -7.181060791015625,
+          "std": 1.8417750597000122
+        },
+        "overall": {
+          "fraction_negative": 0.7486338797814208,
+          "fraction_positive": 0.25136612021857924,
+          "maximum": 4.957257270812988,
+          "mean": -1.3541620969772339,
+          "median": -1.3186917304992676,
+          "minimum": -9.313542366027832,
+          "std": 2.018068552017212
+        },
+        "promoter": {
+          "fraction_negative": 0.8631256384065373,
+          "fraction_positive": 0.13687436159346272,
+          "maximum": 4.957257270812988,
+          "mean": -2.060018301010132,
+          "median": -1.982892394065857,
+          "minimum": -9.313542366027832,
+          "std": 1.9365955591201782
+        }
+      },
+      "probe_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_8_probe.joblib"
+    },
+    {
+      "dinucleotide_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.5669749914354231,
+          "fraction_positive": 0.43302500856457693,
+          "maximum": 5.789576053619385,
+          "mean": -0.20240500569343567,
+          "median": -0.21260333061218262,
+          "minimum": -5.621347427368164,
+          "std": 1.2027338743209839
+        },
+        "overall": {
+          "fraction_negative": 0.6354166666666666,
+          "fraction_positive": 0.3645833333333333,
+          "maximum": 5.789576053619385,
+          "mean": -0.4267899990081787,
+          "median": -0.43773820996284485,
+          "minimum": -5.621347427368164,
+          "std": 1.2584669589996338
+        },
+        "promoter": {
+          "fraction_negative": 0.7034388832141641,
+          "fraction_positive": 0.2965611167858359,
+          "maximum": 5.189829349517822,
+          "mean": -0.6497998237609863,
+          "median": -0.6721334457397461,
+          "minimum": -5.282782554626465,
+          "std": 1.273106575012207
+        }
+      },
+      "layer": 9,
+      "metrics": {
+        "clean": {
+          "accuracy": 0.7918374316939891,
+          "balanced_accuracy": 0.7918863799956679,
+          "pr_auc": 0.8730511025659684,
+          "roc_auc": 0.8715662811936356
+        },
+        "dinucleotide": {
+          "accuracy": 0.7505122950819673,
+          "balanced_accuracy": 0.750776060896504,
+          "pr_auc": 0.8428371625422098,
+          "roc_auc": 0.83538492422172
+        },
+        "mononucleotide": {
+          "accuracy": 0.6350751366120219,
+          "balanced_accuracy": 0.6359036512217338,
+          "pr_auc": 0.7278864083477512,
+          "roc_auc": 0.6957618495893494
+        }
+      },
+      "mono_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.6539910928400137,
+          "fraction_positive": 0.3460089071599863,
+          "maximum": 7.263736724853516,
+          "mean": -0.6975787878036499,
+          "median": -0.6891262531280518,
+          "minimum": -7.148924827575684,
+          "std": 1.8774032592773438
+        },
+        "overall": {
+          "fraction_negative": 0.7640027322404371,
+          "fraction_positive": 0.23599726775956284,
+          "maximum": 7.263736724853516,
+          "mean": -1.4442262649536133,
+          "median": -1.3651764392852783,
+          "minimum": -10.694987297058105,
+          "std": 2.0526862144470215
+        },
+        "promoter": {
+          "fraction_negative": 0.8733401430030644,
+          "fraction_positive": 0.12665985699693566,
+          "maximum": 4.5521111488342285,
+          "mean": -2.186297655105591,
+          "median": -2.097105026245117,
+          "minimum": -10.694987297058105,
+          "std": 1.9479470252990723
+        }
+      },
+      "probe_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_9_probe.joblib"
+    },
+    {
+      "dinucleotide_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.5772524837273039,
+          "fraction_positive": 0.42274751627269613,
+          "maximum": 4.542028903961182,
+          "mean": -0.211797297000885,
+          "median": -0.2026369571685791,
+          "minimum": -4.527194499969482,
+          "std": 1.1490693092346191
+        },
+        "overall": {
+          "fraction_negative": 0.6359289617486339,
+          "fraction_positive": 0.3640710382513661,
+          "maximum": 5.164526462554932,
+          "mean": -0.4139952063560486,
+          "median": -0.39863720536231995,
+          "minimum": -5.234759330749512,
+          "std": 1.211679458618164
+        },
+        "promoter": {
+          "fraction_negative": 0.6942458290772897,
+          "fraction_positive": 0.30575417092271023,
+          "maximum": 5.164526462554932,
+          "mean": -0.6149539351463318,
+          "median": -0.6130784749984741,
+          "minimum": -5.234759330749512,
+          "std": 1.2387583255767822
+        }
+      },
+      "layer": 10,
+      "metrics": {
+        "clean": {
+          "accuracy": 0.7880806010928961,
+          "balanced_accuracy": 0.788135812668995,
+          "pr_auc": 0.8727470319139005,
+          "roc_auc": 0.8717705246280139
+        },
+        "dinucleotide": {
+          "accuracy": 0.7529030054644809,
+          "balanced_accuracy": 0.7531489473531345,
+          "pr_auc": 0.8470029185392729,
+          "roc_auc": 0.8382379168896024
+        },
+        "mononucleotide": {
+          "accuracy": 0.6244877049180327,
+          "balanced_accuracy": 0.625341314574198,
+          "pr_auc": 0.7230363389003581,
+          "roc_auc": 0.6932898158344767
+        }
+      },
+      "mono_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.6642685851318945,
+          "fraction_positive": 0.33573141486810554,
+          "maximum": 6.135125637054443,
+          "mean": -0.731431245803833,
+          "median": -0.7497539520263672,
+          "minimum": -7.2823991775512695,
+          "std": 1.8765590190887451
+        },
+        "overall": {
+          "fraction_negative": 0.7716871584699454,
+          "fraction_positive": 0.22831284153005466,
+          "maximum": 6.135125637054443,
+          "mean": -1.4739806652069092,
+          "median": -1.4162520170211792,
+          "minimum": -10.143235206604004,
+          "std": 2.050767183303833
+        },
+        "promoter": {
+          "fraction_negative": 0.8784473953013279,
+          "fraction_positive": 0.12155260469867211,
+          "maximum": 4.488649368286133,
+          "mean": -2.2119791507720947,
+          "median": -2.0934972763061523,
+          "minimum": -10.143235206604004,
+          "std": 1.9478298425674438
+        }
+      },
+      "probe_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_10_probe.joblib"
+    },
+    {
+      "dinucleotide_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.5666324083590271,
+          "fraction_positive": 0.43336759164097294,
+          "maximum": 3.8837883472442627,
+          "mean": -0.19234561920166016,
+          "median": -0.19673562049865723,
+          "minimum": -4.2292656898498535,
+          "std": 1.1808135509490967
+        },
+        "overall": {
+          "fraction_negative": 0.610655737704918,
+          "fraction_positive": 0.38934426229508196,
+          "maximum": 5.0060930252075195,
+          "mean": -0.3382059335708618,
+          "median": -0.3394487798213959,
+          "minimum": -6.193945407867432,
+          "std": 1.2231541872024536
+        },
+        "promoter": {
+          "fraction_negative": 0.6544092611508342,
+          "fraction_positive": 0.3455907388491658,
+          "maximum": 5.0060930252075195,
+          "mean": -0.48317229747772217,
+          "median": -0.4739718437194824,
+          "minimum": -6.193945407867432,
+          "std": 1.2472379207611084
+        }
+      },
+      "layer": 11,
+      "metrics": {
+        "clean": {
+          "accuracy": 0.7807377049180327,
+          "balanced_accuracy": 0.7807629279620226,
+          "pr_auc": 0.8618422622979174,
+          "roc_auc": 0.8607200916634268
+        },
+        "dinucleotide": {
+          "accuracy": 0.7599043715846995,
+          "balanced_accuracy": 0.760128858827428,
+          "pr_auc": 0.8440469741899566,
+          "roc_auc": 0.8381303129100397
+        },
+        "mononucleotide": {
+          "accuracy": 0.6272199453551912,
+          "balanced_accuracy": 0.628053634722457,
+          "pr_auc": 0.7214158142943187,
+          "roc_auc": 0.6913440792674483
+        }
+      },
+      "mono_logit_change": {
+        "nonpromoter": {
+          "fraction_negative": 0.645083932853717,
+          "fraction_positive": 0.354916067146283,
+          "maximum": 5.234508037567139,
+          "mean": -0.6932951211929321,
+          "median": -0.7076559066772461,
+          "minimum": -7.60783576965332,
+          "std": 1.866276502609253
+        },
+        "overall": {
+          "fraction_negative": 0.757172131147541,
+          "fraction_positive": 0.24282786885245902,
+          "maximum": 5.234508037567139,
+          "mean": -1.36733078956604,
+          "median": -1.3232707977294922,
+          "minimum": -9.285808563232422,
+          "std": 1.9884687662124634
+        },
+        "promoter": {
+          "fraction_negative": 0.8685733741913517,
+          "fraction_positive": 0.13142662580864828,
+          "maximum": 4.585808277130127,
+          "mean": -2.0372354984283447,
+          "median": -1.9433071613311768,
+          "minimum": -9.285808563232422,
+          "std": 1.876930594444275
+        }
+      },
+      "probe_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_11_probe.joblib"
+    }
+  ],
+  "model_name": "quietflamingo/dnabert2-no-flashattention",
+  "model_revision": "813031b2bf86d9e960a027e2734c908009f31601",
+  "num_layers": 12,
+  "rows": 5856
+}

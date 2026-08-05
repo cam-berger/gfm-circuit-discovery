@@ -118,7 +118,7 @@ def score_sequences(
             )
 
         hidden = output.hidden_states[
-            SELECTED_LAYER + 1
+            SELECTED_LAYER
         ]
 
         pooled = masked_mean(
