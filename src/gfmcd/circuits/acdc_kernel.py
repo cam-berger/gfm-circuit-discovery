@@ -256,6 +256,11 @@ class AcdcForward:
                 input_ids=clean_inputs["input_ids"],
                 token_type_ids=clean_inputs.get("token_type_ids"),
             )
+        # Masks are built by EdgeGraph on CPU by default and the model may live anywhere.
+        # Moving once here keeps every caller -- runner, equivalence check, floor panel --
+        # from having to know the device, and the mask is small enough that the copy is free
+        # relative to the forward pass it gates.
+        mask = mask.to(clean_embed.device)
         attn_bias = self._extended_attention_mask(clean_inputs, clean_embed.dtype)
 
         live = NodeWrites(
