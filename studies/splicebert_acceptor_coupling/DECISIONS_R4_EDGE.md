@@ -1,24 +1,39 @@
-# Decisions — A13/A14 automated circuit discovery (ACDC)
+# Decisions — R4 edge-level causal core (ACDC)
 
 > **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
 
 Engineering and execution decisions behind
-[`PREREGISTRATION_A13_ADAPTIVE_MINIMALITY.md`](preregistrations/PREREGISTRATION_A13_ADAPTIVE_MINIMALITY.md)
-and [`PREREGISTRATION_A14_EDGE_ACDC.md`](preregistrations/PREREGISTRATION_A14_EDGE_ACDC.md). The
-scientific protocol lives in those two documents; what follows is why the machinery is shaped the way
-it is.
+[`PREREGISTRATION_R4_EDGE_LEVEL_CAUSAL_CORE.md`](preregistrations/PREREGISTRATION_R4_EDGE_LEVEL_CAUSAL_CORE.md).
+The scientific protocol lives there; what follows is why the machinery is shaped the way it is.
+
+**History.** D1–D9 were written for a standalone donor-side pair of experiments, `A13` (node-level
+adaptive minimality) and `A14` (edge-level ACDC), in `studies/splicebert_partner_selection`. `A14` is
+**superseded by R4** and its draft protocol was deleted rather than frozen — it was never run and carries
+no result, so nothing is orphaned. `A13` stays in the donor study: it tests `C33`, a donor-side node-level
+claim, and does not belong to this arc. Read every "A14" below as R4.
 
 ---
 
-## D1 — This extends the donor-graph arc; it is not a new study
+## D1 — R4 belongs to the acceptor-coupling arc, not the donor arc
 
-A13/A14 use the frozen `CouplingTask`, the frozen corruption operator (`CORRUPT_ALT = "CC"` at the
-intron-mate acceptor AG), the frozen eligibility filter, and the A6 faithfulness `F`. They report into
-`studies/splicebert_partner_selection/CLAIMS.md` and can change C33's status. So they are experiments
-17 and 18 of the A0→A12 arc, with runners in `scripts/splicebert/` and preregistrations in
-`preregistrations/` — not a new `studies/` directory. The reusable kernel goes to
-`src/gfmcd/circuits/acdc.py` per `AGENTS.md`'s rule that reusable circuit primitives live in the
-circuit package.
+The edge-level work was first scoped as a donor-study experiment. That was wrong once `R3`/`AC4`
+existed: the question it answers — *do the two directions share their wiring, or only their
+components?* — is a **paired** question over both readouts, and the paired cohort, the matched-operator
+machinery (`reverse_coupling.matched_operators`) and the partition vocabulary
+(`SHARED`/`UNRESOLVED`/`FORWARD_SPECIFIC`/`REVERSE_SPECIFIC`) all live here. Filing it in the donor study
+would have let `C*` rows silently acquire reverse-direction meaning, which is the exact thing this
+study's separate `AC*` ledger exists to prevent.
+
+So: protocol in `studies/splicebert_acceptor_coupling/preregistrations/`, runner in
+`scripts/splicebert_acceptor_coupling/`, artifacts in `results/splicebert_acceptor_coupling/`, claims as
+`AC*`. The reusable kernel stays in `src/gfmcd/circuits/acdc*.py` per `AGENTS.md`'s rule that reusable
+circuit primitives live in the circuit package — it is model-generic over HF BERT encoders and is not
+acceptor-specific.
+
+`src/gfmcd/splicing/site_coupling.py`, written before this fold, **duplicated
+`src/gfmcd/splicing/reverse_coupling.py`** and was deleted. `reverse_coupling` is strictly better: it
+carries `edit_size`/`matched_operators`, which the duplicate lacked, and re-verifies admissibility per
+construct instead of trusting a constant.
 
 **Spec location.** The brainstorming workflow's default is a dated file under `docs/superpowers/specs/`.
 `AGENTS.md` forbids dated documents in the tree and names `DECISIONS*.md` and the preregistrations as

@@ -58,7 +58,8 @@ spent**, so a confirmatory reverse-coupling claim still has a seal to spend if o
 | **R1** ([prereg](preregistrations/PREREGISTRATION_R1_REVERSE_COUPLING_GATE.md), frozen) | is there a reverse coupling, and is it specific? | `INSTRUMENT_UNRESOLVED` — from a power gate aimed at the effect rather than at the nulls. **Superseded; retained as provenance.** See `ACR1`. |
 | **R1b** ([prereg](preregistrations/PREREGISTRATION_R1b_REVERSE_COUPLING_GATE.md), frozen) | the same, with `MDE80` gated on the control arms + three-draw verdict stability | **`GO`**, stable on all three draws, nine memorials pass → `AC1` |
 | **R2** | which base of the donor `GT` carries it? | either base, sub-additively; the `T` contributes more than the `G` → `AC2`, correcting `ACR4` |
-| **R3** ([prereg](preregistrations/PREREGISTRATION_R3_PAIRED_COMPONENT_SCAN.md), frozen) | which of the 96 heads are **shared** between the two directions and which are **direction-specific**? | in progress |
+| **R3** ([prereg](preregistrations/PREREGISTRATION_R3_PAIRED_COMPONENT_SCAN.md), frozen) | which of the 96 heads are **shared** between the two directions and which are **direction-specific**? | 73 SHARED / 17 UNRESOLVED / 4 FORWARD_SPECIFIC / 2 REVERSE_SPECIFIC → `AC4` |
+| **R4** ([prereg](preregistrations/PREREGISTRATION_R4_EDGE_LEVEL_CAUSAL_CORE.md), draft) | do the two directions share their **edges**, or only their **components**? | not run |
 
 R3 is the arm that answers "same or different" as a **single paired estimand** rather than two screens:
 both readouts are measured on the same exons in the same process, so `Δ(c) = frac_A(c) − frac_D(c)`
@@ -68,6 +69,13 @@ component at issue (forward `L2H15`: `+0.0115` noising vs `+0.5146` ablation) �
 returns a false null for the addresser. **MLP writes are out of scope**: no mean-ablation primitive for
 them exists in this tree, and `HCA18` reports MLP writes dominating its acceptor-cluster signals, so
 that is a named coverage gap rather than a silent one.
+R4 is the edge-level continuation. Shared components do not imply shared wiring — two directions can
+recruit the same 73 heads and route between them differently, which `AC4` cannot separate. R4 also
+closes the two gaps `AC4` names: **MLP writes** (its kernel decomposes MLP residual writes exactly, so
+all six are first-class nodes) and **R3's unrun noising second estimand** (§5.4), which it runs alongside
+mean-ablation on one cohort so the 45× idiom disagreement is measured rather than inherited. Engineering
+record: [`DECISIONS_R4_EDGE.md`](DECISIONS_R4_EDGE.md).
+
 - [`CLAIMS.md`](CLAIMS.md) — the claim ledger (`AC*`). Separate from the donor study's `C*` ledger on
   purpose: acceptor reconstruction is a different behaviour from donor reconstruction, and giving it
   its own ledger keeps C1–C42 from silently acquiring reverse-direction rows.

@@ -2,8 +2,15 @@
 
 > **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
 
-**Status: DRAFT.** Freeze before `run_a13_adaptive_minimality.py` runs. Engineering decisions and the
-Colab boundary are recorded in [`../DECISIONS_ACDC.md`](../DECISIONS_ACDC.md).
+**Status: DRAFT.** Freeze before `run_a13_adaptive_minimality.py` runs.
+
+A13 is **node-level and donor-side**: it tests whether C33's no-knee result survives the adaptive
+recompute A12 preregistered but did not execute. It runs locally (~1.8 h) on the A6 scrub and needs no
+new kernel. Its former edge-level sibling `A14` was **superseded before freezing** by
+[`R4`](../../splicebert_acceptor_coupling/preregistrations/PREREGISTRATION_R4_EDGE_LEVEL_CAUSAL_CORE.md),
+which asks the edge question as a paired estimand over both reading directions; the shared engineering
+record (kernel, τ floor, GPU policy) moved with it to
+[`DECISIONS_R4_EDGE.md`](../../splicebert_acceptor_coupling/DECISIONS_R4_EDGE.md).
 
 ---
 
