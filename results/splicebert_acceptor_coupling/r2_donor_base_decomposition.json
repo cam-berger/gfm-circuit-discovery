@@ -1,0 +1,89 @@
+{
+  "experiment": "R2_donor_base_decomposition",
+  "tier": "VERIFICATION",
+  "confirmatory": false,
+  "split": "val",
+  "sealed_split_opened": false,
+  "purpose": "identify AC2; licenses AC2's wording only",
+  "cohort": {
+    "n_paired": 974,
+    "n_genes": 645,
+    "draw_tag": "r1b-d0",
+    "device": "mps",
+    "reference_alt": "AC"
+  },
+  "reference_mean": 0.9763019539614722,
+  "arms": {
+    "AC": {
+      "n": 974,
+      "admissible_frac": 1.0,
+      "edit_size": 2,
+      "destroys": "GT",
+      "keeps_G_at_d": false,
+      "keeps_T_at_d_plus_1": false,
+      "mean": 0.9763019539614722,
+      "rho": 1.0,
+      "rho_ci": [
+        1.0,
+        1.0
+      ]
+    },
+    "AT": {
+      "n": 974,
+      "admissible_frac": 1.0,
+      "edit_size": 1,
+      "destroys": "G",
+      "keeps_G_at_d": false,
+      "keeps_T_at_d_plus_1": true,
+      "mean": 0.6562071863018757,
+      "rho": 0.672135483944521,
+      "rho_ci": [
+        0.6475086978146704,
+        0.6994070733826768
+      ]
+    },
+    "GA": {
+      "n": 360,
+      "admissible_frac": 0.37,
+      "edit_size": 1,
+      "destroys": "T",
+      "keeps_G_at_d": true,
+      "keeps_T_at_d_plus_1": false,
+      "mean": 0.8702212901165088,
+      "rho": 0.8567314473948314,
+      "rho_ci": [
+        0.8212405906773276,
+        0.8919777410990268
+      ]
+    },
+    "GG": {
+      "n": 820,
+      "admissible_frac": 0.842,
+      "edit_size": 1,
+      "destroys": "T",
+      "keeps_G_at_d": true,
+      "keeps_T_at_d_plus_1": false,
+      "mean": 0.8148739268140095,
+      "rho": 0.8342231185944224,
+      "rho_ci": [
+        0.8073969687166429,
+        0.8601362974452174
+      ]
+    }
+  },
+  "additivity": {
+    "g_only": 0.672135483944521,
+    "t_only_mean": 0.8454772829946269,
+    "both": 1.0,
+    "sum_of_singles": 1.517612766939148,
+    "NOTE": "both-bases is the reference and is 1.0 by construction; sum_of_singles > 1 means the two single-base destructions are sub-additive (saturating)"
+  },
+  "REFLECTION": {
+    "identification": "The nine-alt panel behind AC2's original wording contained only two of three cells: 'destroy both' and 'destroy G only'. Every alt that rewrote the T also destroyed the G, and z[1]=='T' held iff edit_size==1, so three readings were indistinguishable. GA/GG supply the 'destroy T only' cell and separate them.",
+    "could_not_have_failed": [
+      "AC is the reference; its rho is 1.000 by construction and is not evidence",
+      "GC is excluded because it IS a non-canonical U2 donor -- 0% admissible under R44's own rule, not a power failure"
+    ],
+    "residual_confound": "GA and GG are the only admissible T-only alts and both RETAIN the G at d. A 'destroy T, also destroy G' cell is by definition the both-bases arm, so retaining G is not separable from destroying T alone. GA and GG additionally sit on different admissibility sub-cohorts (37% vs 84%) and are reported separately for that reason; their agreement is the only cross-check available."
+  }
+}

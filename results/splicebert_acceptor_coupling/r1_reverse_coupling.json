@@ -1,0 +1,258 @@
+{
+  "experiment": "R1_reverse_coupling_gate",
+  "prereg": "studies/splicebert_acceptor_coupling/preregistrations/PREREGISTRATION_R1_REVERSE_COUPLING_GATE.md",
+  "tier": "VERIFICATION",
+  "confirmatory": false,
+  "split": "val",
+  "sealed_split_opened": false,
+  "smoke": false,
+  "cohort": {
+    "n_eligible": 1000,
+    "n_paired": 970,
+    "n_genes": 648,
+    "device": "mps",
+    "donor_alt": "AC",
+    "forward_acceptor_alt": "CC",
+    "decoy_tol": 40
+  },
+  "levels": {
+    "donor_clean": 4.56048575519901,
+    "acceptor_clean": 3.668209463726614,
+    "decoy_acceptor_clean": 0.1786142012354025
+  },
+  "endpoints": {
+    "Y_A_reverse": {
+      "mean": 1.020038600296704,
+      "ci": [
+        0.947212703688372,
+        1.091635544817857
+      ],
+      "n": 970
+    },
+    "Y_D_forward_anchor": {
+      "mean": 0.9435634425313202,
+      "ci": [
+        0.877235415538408,
+        1.0141804360869568
+      ],
+      "n": 970
+    },
+    "control_readout_decoy_acceptor": {
+      "mean": -0.018078343985006982,
+      "ci": [
+        -0.03265307185331136,
+        -0.006300506820878912
+      ],
+      "n": 970
+    },
+    "control_partner_decoy_GT": {
+      "mean": 0.012947696017235825,
+      "ci": [
+        -0.000546090202573947,
+        0.02702729446081946
+      ],
+      "n": 970
+    },
+    "paired_diff_vs_readout": {
+      "mean": 1.0381169442817109,
+      "ci": [
+        0.9627914331738976,
+        1.11134658256508
+      ],
+      "n": 970
+    },
+    "paired_diff_vs_partner": {
+      "mean": 1.007090904279468,
+      "ci": [
+        0.9333842908963561,
+        1.081625888077672
+      ],
+      "n": 970
+    },
+    "selectivity_ratio": {
+      "point": 19.910814977654752,
+      "ci": [
+        15.687848114148105,
+        25.16464260255784
+      ]
+    },
+    "mde80_max": 0.10618661443726858
+  },
+  "forward_comparison": {
+    "c2_nonpartner_ag": 0.007,
+    "c2_other_donor": 0.005,
+    "note": "C2's forward controls, quoted from sealed_test.json for comparison only; not recomputed and not evidence produced here"
+  },
+  "operators": {
+    "AC": {
+      "n": 970,
+      "admissible_frac": 1.0,
+      "mean": 1.020038600296704,
+      "rho": 1.0,
+      "rho_ci": [
+        1.0,
+        1.0
+      ],
+      "retains_T_at_d_plus_1": false
+    },
+    "AT": {
+      "n": 970,
+      "admissible_frac": 1.0,
+      "mean": 0.6864677934148877,
+      "rho": 0.6729821726503402,
+      "rho_ci": [
+        0.6488471903504318,
+        0.6960639395754545
+      ],
+      "retains_T_at_d_plus_1": true
+    },
+    "CC": {
+      "n": 172,
+      "admissible_frac": 0.177,
+      "mean": 0.8262264610723008,
+      "rho": 0.9961618962242725,
+      "rho_ci": [
+        0.964965912530009,
+        1.027460539225508
+      ],
+      "retains_T_at_d_plus_1": false
+    },
+    "CT": {
+      "n": 172,
+      "admissible_frac": 0.177,
+      "mean": 0.5596496971367404,
+      "rho": 0.674756534422213,
+      "rho_ci": [
+        0.626015953374261,
+        0.7243579621488547
+      ],
+      "retains_T_at_d_plus_1": true
+    },
+    "TC": {
+      "n": 172,
+      "admissible_frac": 0.177,
+      "mean": 0.8260901791238507,
+      "rho": 0.9959975842703648,
+      "rho_ci": [
+        0.9677391366128885,
+        1.024479037935994
+      ],
+      "retains_T_at_d_plus_1": false
+    },
+    "TT": {
+      "n": 172,
+      "admissible_frac": 0.177,
+      "mean": 0.5415524300621,
+      "rho": 0.6529370832972105,
+      "rho_ci": [
+        0.5980591672859208,
+        0.7050695401223799
+      ],
+      "retains_T_at_d_plus_1": true
+    },
+    "CG": {
+      "n": 165,
+      "admissible_frac": 0.17,
+      "mean": 0.8497536407275633,
+      "rho": 0.9876682604560211,
+      "rho_ci": [
+        0.94533785081432,
+        1.0310448548488258
+      ],
+      "retains_T_at_d_plus_1": false
+    },
+    "TG": {
+      "n": 165,
+      "admissible_frac": 0.17,
+      "mean": 0.8288747122793486,
+      "rho": 0.9634006916545768,
+      "rho_ci": [
+        0.9131941921593741,
+        1.0129372746765353
+      ],
+      "retains_T_at_d_plus_1": false
+    },
+    "AA": {
+      "n": 396,
+      "admissible_frac": 0.408,
+      "mean": 0.9562279213633802,
+      "rho": 1.0179252265905878,
+      "rho_ci": [
+        0.9993347229023384,
+        1.0362802322818065
+      ],
+      "retains_T_at_d_plus_1": false
+    }
+  },
+  "memorials": {
+    "instrument_anchor_forward_YD": {
+      "PASS": true,
+      "forced": false,
+      "observed": 0.9435634425313202,
+      "reference": 0.9909,
+      "tol": 0.15
+    },
+    "construction_zero_planted_motifs": {
+      "PASS": true,
+      "forced": false,
+      "n_plants": 0,
+      "n": 970
+    },
+    "edit_size_matched": {
+      "PASS": true,
+      "forced": false,
+      "donor_alt": "AC",
+      "acceptor_alt": "CC"
+    },
+    "readout_health_both_sites": {
+      "PASS": true,
+      "forced": false,
+      "acceptor": 3.668209463726614,
+      "donor": 4.56048575519901,
+      "floor": 1.0
+    },
+    "comparator_retention_published": {
+      "PASS": true,
+      "forced": true,
+      "retained": 970,
+      "eligible": 1000,
+      "frac": 0.97
+    },
+    "selection_audit_vs_DONA_stratum": {
+      "PASS": true,
+      "forced": false,
+      "n_cc_admissible": 172,
+      "frac": 0.1773,
+      "Y_A_on_stratum": 0.8294098220419052,
+      "Y_A_full_cohort": 1.020038600296704
+    },
+    "planted_positive": {
+      "PASS": true,
+      "forced": false,
+      "hits": 20,
+      "of": 20,
+      "required": 18,
+      "planted_effect": 0.15000000000000002
+    },
+    "permuted_label_fpr": {
+      "PASS": true,
+      "forced": false,
+      "rate": 0.020202020202020204,
+      "max": 0.05,
+      "seeds": 99
+    }
+  },
+  "memorials_all_pass": true,
+  "verdict": "INSTRUMENT_UNRESOLVED",
+  "verdict_under_drafted_rule": "INSTRUMENT_UNRESOLVED",
+  "SESOI": 0.05,
+  "REFLECTION": {
+    "intent_check": "Does destroying the partner donor move the masked-acceptor margin, partner- and site-specifically, as C2 established for the mirror?",
+    "scope": "Behaviour rung only. No mechanistic decomposition. Validation split; chr8/9 sealed and not opened. One checkpoint. Nothing about splicing or biology.",
+    "could_not_have_failed": [
+      "comparator_retention_published is FORCED \u2014 it records a number, it cannot fail",
+      "the readout-specificity control reads at a spurious decoy AG whose clean margin is far below a real acceptor's, so it sits near floor by construction; this weakness is inherited from C2's own idiom and applies to both directions"
+    ],
+    "disclosure": "Decision rule corrected after pilot 2 (prereg \u00a77.1); verdict_under_drafted_rule records the pre-correction outcome."
+  }
+}
