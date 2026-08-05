@@ -219,3 +219,14 @@ The current leading compact component set is:
     Layer-0 MLP + L0H8
 
 This is a validation result and must be confirmed on an untouched cohort.
+
+## Canonical probe artifact
+
+- Path:
+  `results/dnabert_promoter/frozen/layer_probes/selected_layer_2_probe.joblib`
+- SHA-256:
+  `bd0d9e14e1935e3ebd8e2ce638ccd5a721feb9dc9a0895447d9b62080ce98b3b`
+- Git commit preserving probe:
+  `f38a345`
+
+The same probe artifact must be used for validation and test confirmation.
