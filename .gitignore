@@ -73,3 +73,16 @@ results/splicebert_partner_selection/**/*.jsonl
 results/**/figures/
 results/splicebert_coupling/ic2_feasibility_smoke.json
 results/splicebert_coupling/ic2_calibration_smoke.json
+
+# NeurIPS style file: ships with the conference author kit and carries its own licence
+# terms. Download it into tex/ to build; do not redistribute it here. See tex/README.md.
+tex/neurips_*.sty
+
+# LaTeX build products.
+tex/*.aux
+tex/*.bbl
+tex/*.blg
+tex/*.log
+tex/*.out
+tex/*.pdf
+tex/*.synctex.gz
