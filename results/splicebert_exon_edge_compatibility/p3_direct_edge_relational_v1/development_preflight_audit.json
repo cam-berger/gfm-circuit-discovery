@@ -1,0 +1,32 @@
+{
+  "all_checks_passed": true,
+  "analysis_manifest_path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_analysis.manifest.json",
+  "analysis_manifest_sha256": "dd033e7b786befe5c6e6874c9255b366ea2d13852f940b9f4a916070d91b221d",
+  "analysis_path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_analysis.json",
+  "analysis_sha256": "78418a1ac9b94d434a83c6dd3f77faf0889639e3ccf934148351dfa763cf7039",
+  "checks": {
+    "analysis_manifest_inputs_outputs_hashes_and_chronology_exact": true,
+    "authorization_classification_and_scoped_claim_recomputed": true,
+    "canonical_package_a2_code_and_checkpoint_bindings": true,
+    "independent_pure_inference_analysis_core_exact": true,
+    "label_signed_and_matched_null_identities_separate_and_exact": true,
+    "mode_and_predecessor_chronology_exact": true,
+    "raw_stage_schemas_counts_hashes_and_batching_exact": true,
+    "request_forward_numerics_and_recorder_arithmetic_exact": true,
+    "sequence_state_bindings_exact": true
+  },
+  "failures": [],
+  "final_mechanism_classification": "INSTRUMENT_UNRESOLVED",
+  "independent_audit_passed": true,
+  "mode": "preflight",
+  "model_free": true,
+  "model_loaded": false,
+  "package_audit_sha256": "083737d6418087997e5e360e4959180b949d3c9a02a096bf71ed2ddac504459f",
+  "package_sha256": "da47eee2b811df2ea74c5a18683152cb66e95239e22892889b83449e82d22fc4",
+  "route_localization_authorized": false,
+  "schema": "gfmcd.splicebert_exon_edge_compatibility.p3_direct_edge_result_audit.v1",
+  "specificity_execution_authorized": false,
+  "status": "PASS",
+  "strongest_licensed_claim": "The frozen development preflight did not license target carrier exposure, so no target mechanism conclusion is available.",
+  "target_execution_authorized": false
+}

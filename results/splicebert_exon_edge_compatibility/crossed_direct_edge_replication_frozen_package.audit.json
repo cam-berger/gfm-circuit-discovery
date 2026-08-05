@@ -1,0 +1,37 @@
+{
+  "all_checks_passed": true,
+  "checks": {
+    "all_one_shot_outputs_absent": true,
+    "code_files_hash_current": true,
+    "cohort_and_pseudo_family": true,
+    "cohort_record": true,
+    "construction_audit": true,
+    "construction_audit_manifest": true,
+    "construction_audit_manifest_record": true,
+    "construction_audit_record": true,
+    "declared_freeze_invariants": true,
+    "eight_canonical_output_paths": true,
+    "freeze_manifest_binding": true,
+    "frozen_inference": true,
+    "official_checkpoint_hashes": true,
+    "protocol_record": true,
+    "required_schemas": true,
+    "schema_status_and_zero_outcomes": true,
+    "target_independent_power_source": true,
+    "two_canonical_attempt_paths": true
+  },
+  "cohort_sha256": "478838e64a3a3eff2bca5868212852a5b833d0ccf74ff720bb15cd00cf6fd5ca",
+  "construction_audit_manifest_sha256": "e4d96fd55998067f5cc48a4788c8851bd622870c19b6f5dc894b9d4db8acf66f",
+  "construction_audit_sha256": "2842d3a579cd7250810c901b031fc229e0a83b44add631c09f9df39d6c6987e1",
+  "failures": [],
+  "freeze_manifest_sha256": "55c08aafdab9afaa42213d5161e5038925ce9c373fed56657daa66ad998c55f8",
+  "freeze_package_sha256": "9c0f55912ae2dd9520ad3b0918d4984811676d179e38a0360b2a48c024ff53e7",
+  "model_free": true,
+  "model_loaded": false,
+  "model_outcomes_read": false,
+  "model_output_rows": {
+    "replication": 0
+  },
+  "schema": "gfmcd.splicebert_exon_edge_compatibility.crossed_direct_edge_replication_freeze_audit.v1",
+  "status": "PASS"
+}

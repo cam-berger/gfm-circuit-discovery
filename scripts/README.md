@@ -6,12 +6,16 @@ This is an **index of the runnable scripts**, not the scientific ledger. It maps
 the claim(s) and controlling artifact it serves, grouped by result family. The authoritative
 claim→evidence record is [`results/MANIFEST.csv`](../results/MANIFEST.csv) plus
 [`studies/splicebert_partner_selection/CLAIMS.md`](../studies/splicebert_partner_selection/CLAIMS.md)
-(donor circuit, C1–C41 + IC1), [`studies/splicebert_head_context_atlas/CLAIMS.md`](../studies/splicebert_head_context_atlas/CLAIMS.md)
+(donor circuit, C1–C44 + IC1), [`studies/splicebert_head_context_atlas/CLAIMS.md`](../studies/splicebert_head_context_atlas/CLAIMS.md)
 (Atlas, HCA1–HCA23), [`studies/splicebert_gtex_finetune_shift/CLAIMS.md`](../studies/splicebert_gtex_finetune_shift/CLAIMS.md)
 (GTEx fine-tuning shift, GFS1–GFS34), and [`CORRECTIONS.md`](../studies/splicebert_partner_selection/CORRECTIONS.md)
-(R1–R44). The per-claim command map with reproduction rules is
+(R1–R45). The per-claim command map with reproduction rules is
 [`studies/splicebert_partner_selection/REPRODUCIBILITY.md`](../studies/splicebert_partner_selection/REPRODUCIBILITY.md);
 the repo-level entry point is [`REPRODUCE.md`](../REPRODUCE.md).
+
+**C43 and C44 have no runners in this tree.** They were consolidated from the archived exon-edge arc
+(R45); their producing scripts are pinned by path and sha256 inside each artifact's sibling
+`*.manifest.json` and live on `codex/intron-exon-phase` at `fd26cc1b`. Do not look for them below.
 
 `scripts/` has four active trees, one per study plus the cross-model runners:
 `splicebert/` (donor circuit + carriers + origin siblings), `splicebert_head_context_atlas/` (the Atlas

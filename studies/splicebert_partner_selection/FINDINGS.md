@@ -3,7 +3,7 @@
 > **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
 
 This is the concise scientific narrative for the donor-circuit study. Exact live wording is controlled by
-[`CLAIMS.md`](CLAIMS.md); full superseded narratives and R1–R44 are preserved in
+[`CLAIMS.md`](CLAIMS.md); full superseded narratives and R1–R45 are preserved in
 [`CORRECTIONS.md`](CORRECTIONS.md). The repository-level [`../../MECHANISM.md`](../../MECHANISM.md) is the
 one-file reviewer account.
 
@@ -15,6 +15,7 @@ one-file reviewer account.
 | Structured donor core | QK → attention → OV/mediation → behavior | Address/payload binding and low-rank delivery form a causal core, not a minimal or sparse-faithful whole circuit. |
 | Period-3 carrier | position → routing → mediation → clean confirmatory behavior | A distributed relative-positional routing coordinate is causally used in a phase-aligned manner; coding enrichment remains unresolved. |
 | Multispecies ≈10.63 carrier | position → QK → post-softmax attention | A distinct positional attention circuit; donor-scoped downstream arms are bounded, general function remains open, and comparative origin is associated with multi-species pretraining. |
+| Coding-boundary phase (C43/C44) | behavior, outcome-blind replication; mediation unresolved | Partner coupling prefers donor–acceptor codon reading-frame **matches** — inside a frozen chimeric crossed lattice at one span, and without licensing "only". Whether the period-3 carrier implements it is **unresolved**, not answered either way. |
 | Human-only ≈10.2 proposal | position/QK; fails attention | The proposed chromatin-reader circuit is closed at the attention gate. |
 | Nucleosomal ≈10.298 signal | sequence-side biological assay | A strong biological signal exists but is distinct from the ≈10.63 carrier. |
 
