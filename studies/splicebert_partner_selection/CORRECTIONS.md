@@ -1067,3 +1067,107 @@ qualifier must be re-stated in the destination row, and any number that survives
 against the artifact rather than copied from the source prose. Where the source's own prose overstates
 its artifacts, the consolidation is the last checkpoint that can catch it — carrying the wording forward
 launders it into a ledger a reviewer is told to trust.
+
+## R46 — the jeyashree-ajay portability audit was ported: it fixed a real cross-machine defect, and it broke a script outright, crashed the R11 memorial, a C36 hash pin, two ED1 provenance hashes, and silenced thirteen memorials (2026-08-04)
+
+**Outcome in one line: a correct and overdue fix, incorporated in full, with five side effects that its
+own branch did not record — one of which left a script unable to import at all, and one of which
+crashed the memorial guarding R11.**
+
+**What was ported.** Commit `684d9bbb` on branch `jeyashree-ajay` (Jeyashree Krishnan, Ajay — Algoverse
+CSAP cohort 2026), plus `docs/MECH_INTERP_GAP_ANALYSIS.md`. The commit replaces every hardcoded
+`/Users/cberg/Research/data/genomes/...` constant across **34 files** with `None` (argparse defaults) or
+`os.environ.get("GFMCD_GTF" / "GFMCD_FASTA" / "GFMCD_FASTA_FAI", "/nonexistent/…")` (module and test
+constants), fixes a resource leak in `run_dnabert2_aliasing.py` (bare `open()` inside a SHA-256 call →
+`Path.read_bytes()`), and repairs `audit_ed1_provenance.py`, which resolved the model path through
+`REPO.parents[2]` — three directories **above** the repository root, so on any other machine it would
+have silently hashed the wrong file or none. The diagnosis is correct and the fix is the right shape:
+`REPRODUCE.md` §2 already documented that over a hundred manifests name the absolute
+`/Users/cberg/Research/data/genomes/hg38.fa`.
+
+**Not ported, deliberately:** the branch's README rewrite (branch-specific framing, mentor headers, and a
+summary of a separate acceptor study), the `md/` relocation of the four root documents (it would break
+every in-tree link to `AGENTS.md`, `MECHANISM.md`, and `REPRODUCE.md`, including links inside frozen
+preregistrations), `tex/`, and `slides/`. Those are that branch's deliverables, not this tree's record.
+
+**Defect 1 — the fix left `audit_ed1_provenance.py` unable to import.** The rewrite introduced three
+`os.environ.get(...)` calls at module scope (lines 56–58) without adding `import os`. The script raises
+`NameError: name 'os' is not defined` on any invocation, including `--help`. It is the provenance auditor
+for the `ED1` arc recorded in §12 of the live ledger, so the tool that certifies that arc's provenance was
+inert. **Fixed on port** by adding `import os`; verified by running it. Nothing in the suite covered this
+script, which is why the branch stayed green.
+
+**Defect 2 — a C36 frozen-package pin is now broken, and this entry is the amendment.**
+`src/gfmcd/splicing/circuit.py` is bound by sha256 in
+`results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json` (2 records). The fix changes
+`DEFAULT_GTF`/`DEFAULT_FASTA` from absolute paths to `None`, so the pin no longer verifies and
+`tests/test_hash_pin_ledger.py::test_c36_package_broken_set_is_exactly_the_ledger` fails. Reverting the
+file was considered and rejected: those two constants are imported as argparse defaults by live runners
+(`build_p3_closure_cohort.py`, `run_ic1_distal_intron_necessity.py`, and others), so a revert would leave
+the original defect in the module the most runners inherit from. **Owner decision (2026-08-04): log the
+amendment rather than revert**, following the R34 precedent for the same package. `circuit.py` is recorded
+in `tests/data/hash_pin_ledger.json` with recorded and current hashes and a reason; that ledger's
+`_README` now names both breaking events. **State it plainly: a re-run of the C36 confirmation from this
+tree no longer reproduces the pinned code hash.** Only the two default constants changed — `CORRUPT_ALT`,
+`GAP_MIN`/`GAP_MAX`, `MIN_EFFECT`, and every estimand, operator, and cohort rule are byte-identical — and
+the new failure mode is a loud one: without `--gtf`/`--fasta` the runner now fails instead of silently
+reading whatever sat at the old absolute path. **No C36 number, gate, or wording changes.** The ledger
+entry for `freeze_p3_phase_surgery_confirmation.py`, which this commit re-edits, had its stale
+`current_sha256` refreshed at the same time so the file cannot rot into a list of hashes nobody rechecked.
+
+**Defect 3 — two ED1 provenance hashes went stale with no guard to notice.**
+`results/splicebert_coupling/ed1_provenance_audit.json` records `disk_sha256` for ten ED1 sources. This
+port invalidates two of them: `run_ed1_architecture_boundary_pairing.py` and `run_ed1_cohort_pilot.py`.
+(A third, `coupling.py`, was already stale before this port — from the R44 clean-alt work — and is
+recorded here because nothing else records it.) **No test covers this artifact**: `test_hash_pin_ledger.py`
+guards the C36 package only. The audit is an immutable record of what was true at ED1 freeze time and is
+not rewritten; ED1's own status is unaffected, since it is a `GATES_FAILED — no interpretation` row that
+these two scripts' defaults cannot move. Recorded so a later reader does not mistake the mismatch for
+tampering.
+
+**Defect 4 — thirteen memorials went silently quiet on a machine that has the genome.** Because the new
+fallback is `/nonexistent/…` and the genome-dependent tests are `skipif`-guarded on file existence, the
+suite went from **512 passed / 17 skipped in ~90 s** to **499 passed / 29 skipped in ~11 s** — thirteen
+memorials stopped executing and *nothing failed*. That is precisely the failure mode R39 and R41 exist to
+document, arrived at from the opposite direction: not deleted artifacts, but a default that no longer
+resolves. The branch introduced the three environment variables and documented them **nowhere**, so a
+developer had no way to know coverage had dropped. **Fixed on port** by documenting `GFMCD_GTF`,
+`GFMCD_FASTA`, and `GFMCD_FASTA_FAI` in `REPRODUCE.md` §2 together with the exact pass/skip signature of
+both states, so an unset environment is diagnosable from the pytest summary line alone. With the variables
+exported, the suite returns to 512 passed / 17 skipped.
+
+**Defect 5 — the same `circuit.py` edit crashed the R11 minus-strand memorial.** The branch set
+`DEFAULT_GTF`/`DEFAULT_FASTA` to bare `None` in `circuit.py` while using
+`os.environ.get(..., "/nonexistent/…")` everywhere else — an inconsistency inside its own patch, and the
+consequential one. `tests/test_circuit_memorials.py::test_both_strands_are_present` imports those two
+constants directly and passes them to `_dataset(...)`, so `None` reaches `pathlib` and raises
+`TypeError: argument should be a str or an os.PathLike object … not 'NoneType'` **before** the existence
+check can decide to skip. Two memorials failed outright, one of them the memorial for **R11** — the defect
+where every minus-strand exon was silently dropped and "the study ran on half the genome for weeks without
+anyone saying so". A memorial that crashes on a type error is not guarding anything. **Fixed on port** by
+giving `circuit.py` the same env-var idiom the branch used in the test files, so the constants are always
+`str`: the `skipif` guard decides, as designed. Verified in both states — with the variables exported,
+**512 passed / 17 skipped**; without them, **500 passed / 29 skipped** and no crash.
+
+**The gap analysis was ported with five path corrections and one rewritten recommendation.**
+`docs/MECH_INTERP_GAP_ANALYSIS.md` maps the standard interpretability toolkit against this project and
+ranks what is missing (ACDC/EAP, integrated gradients, LogitLens as Priority A; SAEs, causal scrubbing,
+steering vectors as Priority B). It is **advisory** and licenses nothing. Its "already implemented" table
+cited four modules at paths that do not exist — `mlp_units.py` and `positional_spectrum.py` are under
+`src/gfmcd/splicing/`, not `src/gfmcd/circuits/`; there is no `carrier_dose.py` module, only
+`scripts/splicebert/run_carrier_dose.py`; and the faithfulness runner is `run_a12_faithfulness_size.py`.
+More consequentially, its Priority-A2 recommendation was to *create* `src/gfmcd/circuits/attribution.py`.
+**That module already exists**, and it is the one `ab670640` restored after a first deletion precisely
+because a frozen preregistration cites it *as evidence* — an agent following the recommendation as written
+would have overwritten a prereg-cited file. The recommendation now says to add integrated-gradient and
+attention-gradient variants *alongside* the existing `head_attribution_scan`, and says why the file may
+not be replaced. Its §3 paper edits are retargeted to the `jeyashree-ajay` branch, where the `tex/` source
+actually lives.
+
+**Rule.** A portability fix is a change to the measurement path. Replacing a default that resolved with
+one that cannot is not a neutral edit: it converts running memorials into skipped ones, and a skip is
+green. Any change to a genome, model, or data default must state the pass/skip signature before and after,
+and must be checked against the sha256 pins that bind the edited files — a green suite will not tell you,
+because the pins that matter here are covered by exactly one test and the ED1 audit by none. And a
+sentinel default must keep the **type** the callers expect: `None` turns a designed skip into a crash,
+and the callers here are the memorials themselves.

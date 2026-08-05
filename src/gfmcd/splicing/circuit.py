@@ -30,6 +30,7 @@ TWO SUBTLETIES THAT CHANGE WHAT THE NUMBERS MEAN
 
 from __future__ import annotations
 
+import os
 from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
@@ -70,8 +71,12 @@ CORRUPT_ALT: str = ACCEPTOR_ALTS[0]    # "CC" -- destroys AG, cannot create AG
 GAP_MIN, GAP_MAX = 60, 150
 MIN_EFFECT = 0.3                       # ONLY for ratio denominators.  See module docstring.
 
-DEFAULT_GTF = "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz"
-DEFAULT_FASTA = "/Users/cberg/Research/data/genomes/hg38.fa"
+# Supply via --gtf/--fasta or the GFMCD_GTF/GFMCD_FASTA environment variables (REPRODUCE.md §2).
+# These resolve to a non-existent path rather than None so that `Path(DEFAULT_GTF)` still type-checks:
+# the data-gated memorials import these constants directly and pass them to `_dataset(...)`, and a None
+# here raises TypeError inside pathlib instead of letting the caller's `skipif`/existence check decide.
+DEFAULT_GTF: str = os.environ.get("GFMCD_GTF", "/nonexistent/gencode.gtf.gz")
+DEFAULT_FASTA: str = os.environ.get("GFMCD_FASTA", "/nonexistent/hg38.fa")
 DEFAULT_MODEL = "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt"
 
 

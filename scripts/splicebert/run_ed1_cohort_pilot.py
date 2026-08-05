@@ -54,8 +54,8 @@ def smd(a: np.ndarray, b: np.ndarray) -> float:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--split", default="train", choices=["train", "val", "test"])
-    ap.add_argument("--gtf", default="/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz")
-    ap.add_argument("--fasta", default="/Users/cberg/Research/data/genomes/hg38.fa")
+    ap.add_argument("--gtf", default=None)
+    ap.add_argument("--fasta", default=None)
     ap.add_argument("--pwm", default=str(REPO.parent.parent.parent / PWM_PKL))
     ap.add_argument("--out", default=None)
     ap.add_argument("--overwrite-record", action="store_true",

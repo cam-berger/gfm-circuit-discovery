@@ -90,7 +90,7 @@ def main() -> None:
     ap.add_argument("--seqlen", type=int, default=508)
     ap.add_argument("--nperm", type=int, default=400)
     ap.add_argument("--smoke", action="store_true")
-    ap.add_argument("--fasta", default="/Users/cberg/Research/data/genomes/hg38.fa")
+    ap.add_argument("--fasta", default=None)
     ap.add_argument("--out", default=str(OUT))
     args = ap.parse_args()
     dev = pick_device(None)

@@ -28,7 +28,7 @@ from gfmcd.splicing.p3_cohort import (  # noqa: E402
 from gfmcd.splicing.phase import example_phase, load_cds_frames  # noqa: E402
 
 
-DEFAULT_COMPREHENSIVE_GTF = "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz"
+DEFAULT_COMPREHENSIVE_GTF: str | None = None  # supply via --gtf
 NAMESPACE = "p3-closure-v1"
 ROLE_WEIGHTS = (("development", 2), ("confirmation", 2), ("reserve", 1))
 EXCLUDED_CHROMOSOMES = frozenset(("chr8", "chr9", "chr11", "chr16", "chr19"))

@@ -51,6 +51,24 @@ import it at module level and will fail immediately if it is absent.
 - **Primary genome/annotation:** hg38 plus the GENCODE files named and hashed in each result manifest.
 - **Atlas annotation:** GENCODE v50 comprehensive, hash recorded in the Atlas census/package manifests.
 
+### Tell the code where the genome is — `GFMCD_GTF` / `GFMCD_FASTA` / `GFMCD_FASTA_FAI`
+
+Runners and data-gated tests no longer carry a hard-coded absolute path to one developer's machine
+(R46). They read three environment variables, falling back to a non-existent path when unset:
+
+```bash
+export GFMCD_GTF=/path/to/gencode.v50.basic.annotation.gtf.gz
+export GFMCD_FASTA=/path/to/hg38.fa
+export GFMCD_FASTA_FAI=/path/to/hg38.fa.fai
+```
+
+**Set these before running the suite, or you will silently lose coverage rather than see a failure.**
+The genome-dependent tests are `skipif`-guarded on file existence, so with the variables unset they
+report as *skipped*, not failed: **13 memorials go quiet and the suite finishes in ~11 s instead of
+~90 s**. On a machine with the data, `pytest` should report **512 passed, 17 skipped**; if you see
+**499–500 passed, 29 skipped**, the variables are unset and the memorials did not run. Every runner also
+accepts `--gtf` / `--fasta`, which override the environment.
+
 **Four more checkpoints are needed for the origin claims, and this repository records no acquisition URL
 for any of them — including SpliceBERT itself.** C39 needs the stage-1 sibling pair `SpliceBERT.510nt` and
 `SpliceBERT-human.510nt`, which differ only in training corpus; C40 needs RNA-FM and RNA-BERT, loaded
