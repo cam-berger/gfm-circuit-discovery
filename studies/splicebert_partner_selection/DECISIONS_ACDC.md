@@ -155,6 +155,72 @@ disconnect costs one node rather than a run. This is the Atlas shard-resume with
 
 ---
 
+## D8 — The acceptor arm: the same intron read from both ends, and why it is not symmetric
+
+A13/A14 gain a `--site {donor, acceptor}` axis. Both sites share the graph, the kernel, the algorithm,
+the cohort and the τ grid, and each emits its own artifact — **two discrete outputs, never pooled.**
+
+**The mirror.** The donor arm masks the G of the donor `GT` at `donor_pos` and corrupts the intron-mate
+acceptor `AG` at `[next_acceptor_pos−2, next_acceptor_pos)`. The acceptor arm masks the G of that same
+`AG` at `next_acceptor_pos−1` and corrupts that same donor `GT` at `donor_pos`. **Same intron, same
+pair, same separation, same cohort** — only the readout end and the corruption end swap. Nothing else
+in the design moves, which is what makes the two edge sets comparable at all.
+
+**Why the alt letters differ, and must.** R44 measured, model-free, that `seq[d−1] = "G"` in **81.0%**
+of val GENCODE donors (82.0% GTEx, 87.8% atlas condition-B) — the −1 G of the 5′SS consensus. So at the
+donor:
+
+| alt | what it plants | rate |
+|---|---|---|
+| `CC` | a `GC` donor one base upstream | **81%** |
+| `TA` | a **canonical `GT`** | 95.5% |
+| `AA` | an `AG` | 62.0% |
+| `AC` | nothing | **0.0%** |
+
+R44 exempts `splicebert_partner_selection` from the defect because all 42 of its rows corrupt
+**acceptor**-side, where `seq[a−3] = "G"` in only 0.35–0.36%. **The acceptor arm corrupts the donor and
+therefore inherits the full exposure.** Using the symmetric `DONOR_ALTS[0] = "CC"` would convert the
+donor to a functional minor-class `GC` site in four of five examples — the arm would measure dependence
+on donor *class*, not on donor *presence*, and would read as a weak or absent coupling for a reason
+that has nothing to do with the model's computation.
+
+So the arms use different letters **in order to be comparable**:
+
+- donor arm: `AG → CC` at the acceptor — unchanged, C42-validated alt-invariant within ±25%, and the
+  maximal-effect alt selected blind before any per-alt quantity existed.
+- acceptor arm: `GT → AC` (`MOTIF_CLEAN_DONOR_ALT`) at the donor — the only alt with a measured 0.0%
+  plant rate at that site.
+
+`motif_cleanliness` is a gating memorial on the acceptor arm: the planted-motif rate over the actual
+cohort must be **exactly 0**. It is model-free, computable from sequence alone, and it can fail.
+
+**The behaviour is not established, and that gates the run.** C1 establishes the donor direction
+(**+0.872 [0.771, 0.969]**, sealed). **No claim anywhere establishes the acceptor direction.** ACDC
+searches for the circuit implementing a behaviour; running it on a behaviour that has not been shown to
+exist would produce a circuit for nothing. So the acceptor arm carries a gating behavioural preflight,
+mirroring the donor's:
+
+- `acceptor_behaviour_exists` — unconditional mean `coupling_acc ≥ 0.20` on the cohort.
+- `acceptor_partner_specificity` — corrupting a motif-matched **non-partner** `GT` (`other_gt`, already
+  on `CouplingExample`) must move the masked-acceptor margin far less than the true partner does.
+
+If either fails, **the acceptor ACDC arm does not run**, and the artifact reports NO BEHAVIOUR. That
+outcome is not a failure of the experiment: C1 says the donor knows its acceptor, and a directional
+asymmetry in cross-site dependence would be a finding about exon definition in its own right, reportable
+without any circuit.
+
+**What the pairing buys if both arms do run.** A comparative estimand no single-site run can reach:
+the **overlap of the two recovered edge sets** against a matched null. High overlap argues one shared
+partner-selection mechanism read from both ends; low overlap argues two pathways. This is reported as a
+candidate at attribution level — an overlap statistic is not an intervention.
+
+**Cost.** Both sites at equal resources doubles A14: ~120 h local-equivalent for the two τ sweeps at the
+measured kernel speed (D4). This is the single largest driver of the Colab budget and the first place to
+cut if the benchmark comes in slow — by trimming the τ grid or discovery `n` **equally on both arms**,
+never by giving the acceptor arm less, which would make the overlap statistic uninterpretable.
+
+---
+
 ## D6 — Deferred, and deliberately not decided here
 
 - **Whether to spend the sealed chr8/9 test.** A14 reports at verification tier on `val`, which A12 and
