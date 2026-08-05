@@ -1,0 +1,67 @@
+{
+  "command": [
+    "scripts/splicebert_acceptor_coupling/run_r1b_reverse_coupling.py",
+    "--n",
+    "1000",
+    "--gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+    "--fasta",
+    "/Users/cberg/Research/data/genomes/hg38.fa",
+    "--out",
+    "results/splicebert_acceptor_coupling/r1b_reverse_coupling.json"
+  ],
+  "config": {
+    "SESOI": 0.05,
+    "decoy_tol": 40,
+    "device": "mps",
+    "donor_alt": "AC",
+    "draw_tags": [
+      "r1b-d0",
+      "r1b-d1",
+      "r1b-d2"
+    ],
+    "forward_acceptor_alt": "CC"
+  },
+  "created_at_utc": "2026-08-05T13:27:16.285958+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 89417,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_acceptor_coupling:r1b_reverse_coupling",
+  "git_commit": "fa83881a743c9218de37c88b8609cca1a28eb5d5",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "missing": true,
+      "path": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt"
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+      "sha256": "83fba3e9b03f0b8c958f3595c6c350adc55f468abf8b0e47b6d5284cfe13a453",
+      "size_bytes": 124527720
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    }
+  ],
+  "notes": [
+    "Validation split only; sealed chr8/9 not opened.",
+    "Supersedes the R1 gate's verdict; see CORRECTIONS.md AR1-R1.",
+    "Verdict GO; under R1's clause 3 INSTRUMENT_UNRESOLVED; draw-stable=True."
+  ],
+  "outputs": [
+    {
+      "path": "results/splicebert_acceptor_coupling/r1b_reverse_coupling.json",
+      "sha256": "b2d6509b3faa88cb74f053f2ed86b13f56b828f255f81662bee2bad66067f136",
+      "size_bytes": 16086
+    }
+  ],
+  "seeds": {
+    "bootstrap": 0
+  },
+  "status": "VERIFICATION"
+}
