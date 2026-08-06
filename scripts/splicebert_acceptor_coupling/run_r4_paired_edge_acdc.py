@@ -53,6 +53,7 @@ from gfmcd.splicing.circuit import (                                           #
     load_examples, matched_decoy_acceptor, matched_decoy_donor, pick_device, ratio_of_means,
     substitute,
 )
+from gfmcd.splicing.cohort_io import cohort_sha256, read_cohort               # noqa: E402
 from gfmcd.splicing.coupling import MOTIF_CLEAN_DONOR_ALT, planted_donor_motifs  # noqa: E402
 from gfmcd.splicing.reverse_coupling import (                                  # noqa: E402
     FORWARD_ACCEPTOR_ALT, acceptor_readout, donor_alt_admissible, matched_operators,
@@ -183,6 +184,9 @@ def partition(delta_ci: dict, band: float = SESOI) -> dict[str, str]:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--n", type=int, default=974)
+    ap.add_argument("--cohort", default=None,
+                    help="serialised cohort JSONL (build_r4_cohort.py). When given, no GTF, "
+                         "FASTA or pyfaidx is needed - this is the bundled/Colab path.")
     ap.add_argument("--gtf", default=DEFAULT_GTF)
     ap.add_argument("--fasta", default=DEFAULT_FASTA)
     ap.add_argument("--model", default=DEFAULT_MODEL)
@@ -221,7 +225,20 @@ def main() -> None:
     task = CouplingTask(ad, batch=batch)
 
     n = 16 if a.smoke else a.n
-    X, _ = load_examples(a.gtf, a.fasta, "val", n, task=task, tag=DRAW_TAG, min_effect=None)
+    if a.cohort:
+        # The bundled path: no GTF, no FASTA, no pyfaidx.  The file was written after
+        # eligibility and the tag-seeded shuffle, so [:n] reproduces load_examples exactly.
+        cohort_path = Path(a.cohort) if Path(a.cohort).is_absolute() else REPO / a.cohort
+        X = read_cohort(cohort_path, limit=n)
+        if len(X) < n:
+            raise SystemExit(
+                f"cohort {cohort_path} holds {len(X)} examples but --n is {n}; "
+                "rebuild it with a larger --n rather than silently analysing a smaller set."
+            )
+        cohort_source = {"cohort_file": str(cohort_path), "sha256": cohort_sha256(cohort_path)}
+    else:
+        X, _ = load_examples(a.gtf, a.fasta, "val", n, task=task, tag=DRAW_TAG, min_effect=None)
+        cohort_source = {"gtf": a.gtf, "fasta": a.fasta}
 
     # R3's cohort, built the same way so R4 is paired with AC4 rather than merely similar.
     dd = [matched_decoy_donor(x) for x in X]
@@ -250,7 +267,14 @@ def main() -> None:
         pass at smoke scale validates nothing, which is the R21/R7 forced-memorial pathology
         with the sign flipped.  It is recorded, reported, and excluded from PASS, never widened.
         """
-        M[k] = dict(PASS=bool(ok), forced=bool(forced), gating=bool(gating), **d)
+        # Several helpers (DeviceFloor.to_dict, equivalence_check) already carry a "PASS"
+        # key, and splatting one in collided with the PASS this sets -- a TypeError that
+        # only fires on the branch that computes a real cross-device floor, i.e. only on a
+        # GPU, i.e. only after a bundle had shipped. Reserved keys are dropped here so the
+        # collision cannot recur at a future call site; the verdict is `ok`, not the payload.
+        payload = {key: value for key, value in d.items()
+                   if key not in ("PASS", "forced", "gating")}
+        M[k] = dict(PASS=bool(ok), forced=bool(forced), gating=bool(gating), **payload)
 
     full = graph.full_mask()
     empty = torch.zeros_like(full)
@@ -321,7 +345,7 @@ def main() -> None:
         out.write_text(json.dumps({
             "schema": "acceptor_coupling.r4_reference_panel/1",
             "device": dev, "cohort_sha256": cohort_hash, "n": len(P),
-            "floor_n": a.floor_n,
+            "floor_n": a.floor_n, "cohort_source": cohort_source,
             "panel_values": panel_values, "memorials": M,
             "precision_policy": policy.to_dict(),
         }, indent=1))
@@ -357,7 +381,11 @@ def main() -> None:
                else f"cohort n={len(P)} < floor_n={a.floor_n}" if not floor_evaluable
                else f"reference floor_n={reference.get('floor_n')} != {a.floor_n}")
         mem("tau_above_device_floor", a.tau is not None,
-            note=f"{why}; --tau must be supplied explicitly")
+            gating=not a.smoke,
+            note=f"{why}; --tau must be supplied explicitly"
+                 + ("  --smoke forces n=16, so the floor is not evaluable at any floor_n>=32; "
+                    "recorded, not gating. Gating is restored for any non-smoke run."
+                    if a.smoke else ""))
     if a.tau:
         tau_grid = [a.tau]
 
@@ -389,8 +417,7 @@ def main() -> None:
         n_eq = a.equivalence_nodes if a.equivalence_nodes else EQUIVALENCE_NODES
         eq = equivalence_check(metrics["forward"], graph, tau_grid[0],
                                graph.reverse_topological()[:n_eq])
-        mem(f"equivalence_check_{idiom}", eq["PASS"] or a.mode == "sequential",
-            **{k: v for k, v in eq.items() if k != "PASS"})
+        mem(f"equivalence_check_{idiom}", eq["PASS"] or a.mode == "sequential", **eq)
 
         for tau in tau_grid:
             for name, metric_fn in metrics.items():
@@ -429,7 +456,7 @@ def main() -> None:
     payload = {
         "schema": "acceptor_coupling.r4_paired_edge_acdc/1",
         "cohort": {"n": len(P), "n_genes": len(set(genes)), "sha256": cohort_hash,
-                   "draw_tag": DRAW_TAG, "split": "val"},
+                   "draw_tag": DRAW_TAG, "split": "val", "source": cohort_source},
         "graph": {"n_nodes": graph.n_nodes, "n_edges": graph.n_edges,
                   "qkv_split": a.qkv_split},
         "baselines": {"Y_D": float(fwd.coupling.mean()), "Y_A": float(rev.coupling.mean())},
