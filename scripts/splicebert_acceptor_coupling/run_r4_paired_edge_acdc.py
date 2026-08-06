@@ -195,6 +195,9 @@ def main() -> None:
     ap.add_argument("--qkv-split", action="store_true")
     ap.add_argument("--state-dir", default=None, help="checkpoint per destination node (Colab)")
     ap.add_argument("--resume", action="store_true")
+    ap.add_argument("--equivalence-nodes", type=int, default=0,
+                    help="destination nodes the mode-equivalence gate checks (0 = protocol "
+                         "default of 8). Lower only for verification runs.")
     ap.add_argument("--max-nodes", type=int, default=0,
                     help="cap destination nodes visited (verification runs only; 0 = all). "
                          "A capped run is NOT a circuit and its artifact says so.")
@@ -303,7 +306,14 @@ def main() -> None:
         for c in cut:
             mask[graph.edge_slot_index(graph.edges[int(c)])] = False
         panel.append(mask)
-    panel_values = [float(floor_metric(m)) for m in panel]
+    # Only evaluate the panel when it will actually be used: emitting a reference, or
+    # comparing against one on a DIFFERENT device with a matching floor_n.  Evaluating 32
+    # subgraphs to then discard them is a pure waste of a kernel that costs 15x a forward.
+    panel_needed = a.reference_smoke or (
+        reference is not None and floor_evaluable
+        and reference.get("floor_n") == a.floor_n and reference["device"] != dev
+    )
+    panel_values = [float(floor_metric(m)) for m in panel] if panel_needed else []
 
     if a.reference_smoke:
         out = Path(a.out) if a.out else REPO / "results/splicebert_acceptor_coupling/r4_reference_smoke.json"
@@ -374,9 +384,13 @@ def main() -> None:
 
     for idiom in idioms:
         metrics = {"forward": fwd.metric(idiom), "reverse": rev.metric(idiom)}
+        # equivalence_check runs the whole search twice over its node subset, so its cost is
+        # 2 x (parents of those nodes) evaluations.  The readout alone has 103 parents.
+        n_eq = a.equivalence_nodes if a.equivalence_nodes else EQUIVALENCE_NODES
         eq = equivalence_check(metrics["forward"], graph, tau_grid[0],
-                               graph.reverse_topological()[:EQUIVALENCE_NODES])
-        mem(f"equivalence_check_{idiom}", eq["PASS"] or a.mode == "sequential", **eq)
+                               graph.reverse_topological()[:n_eq])
+        mem(f"equivalence_check_{idiom}", eq["PASS"] or a.mode == "sequential",
+            **{k: v for k, v in eq.items() if k != "PASS"})
 
         for tau in tau_grid:
             for name, metric_fn in metrics.items():
