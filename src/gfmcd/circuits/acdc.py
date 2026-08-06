@@ -145,15 +145,16 @@ def acdc_run(
                 position = graph.edge_slot_index((src, node, slot))
                 candidate = result.mask.clone()
                 candidate[position] = False
+                before = current                     # capture BEFORE any mutation below
                 after = metric_fn(candidate)
                 result.n_evaluations += 1
-                delta = after - current
+                delta = after - before
                 remove = delta < tau
                 if remove:
                     result.mask = candidate
                     current = after
                 result.decisions.append(EdgeDecision(
-                    src=src, dst=node, slot=slot, divergence_before=current if remove else after,
+                    src=src, dst=node, slot=slot, divergence_before=before,
                     divergence_after=after, delta=delta, kept=not remove,
                 ))
         else:

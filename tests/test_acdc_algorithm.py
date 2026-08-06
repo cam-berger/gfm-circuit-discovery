@@ -207,3 +207,34 @@ def test_initial_mask_allows_resume_from_a_checkpoint():
     partial[graph.edge_slot_index((("embed"), (1, 3), "in"))] = False
     result = acdc_run(metric, graph, tau=0.01, initial_mask=partial)
     assert set(result.kept_edges(graph)) == planted
+
+
+def test_decision_log_is_internally_consistent():
+    """``delta`` must equal ``after - before`` on EVERY logged decision.
+
+    The first implementation recorded ``divergence_before = current if remove else after``,
+    which is wrong in both branches: on removal ``current`` had already been advanced to
+    ``after``, and on retention it recorded ``after`` as the before-value.  ``delta`` was
+    computed correctly, so no decision changed -- but the trace was unusable, and a reader
+    reconstructing the search from it would have got nonsense.
+    """
+    graph = EdgeGraph(2, 4)
+    result = acdc_run(planted_metric(graph, planted_path(graph)), graph, tau=0.01)
+    assert result.decisions
+    for decision in result.decisions:
+        assert decision.delta == pytest.approx(
+            decision.divergence_after - decision.divergence_before, abs=1e-9
+        ), decision
+
+
+def test_decision_before_value_tracks_the_running_divergence():
+    """A removed edge's ``divergence_after`` becomes the next decision's ``divergence_before``."""
+    graph = EdgeGraph(2, 4)
+    result = acdc_run(planted_metric(graph, planted_path(graph)), graph, tau=0.01)
+    by_node: dict = {}
+    for decision in result.decisions:
+        by_node.setdefault(str(decision.dst), []).append(decision)
+    for decisions in by_node.values():
+        for earlier, later in zip(decisions, decisions[1:]):
+            expected = earlier.divergence_after if not earlier.kept else earlier.divergence_before
+            assert later.divergence_before == pytest.approx(expected, abs=1e-9)
