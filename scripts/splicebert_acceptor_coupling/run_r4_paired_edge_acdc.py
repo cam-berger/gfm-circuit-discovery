@@ -388,6 +388,14 @@ def main() -> None:
                     if a.smoke else ""))
     if a.tau:
         tau_grid = [a.tau]
+        # The memorial above was recorded for the DERIVED grid.  An explicit --tau would
+        # otherwise inherit that verdict without ever being examined, so re-check it.
+        measured = M.get("tau_above_device_floor", {}).get("floor")
+        if measured is not None:
+            mem("tau_above_device_floor", a.tau >= 3.0 * measured,
+                floor=measured, tau_grid=[a.tau], tau_floor_multiple=3.0,
+                note=f"explicit --tau {a.tau:.3e} re-checked against the measured floor "
+                     f"{measured:.3e}; requires >= 3x floor = {3.0 * measured:.3e}")
 
     pf = {"commit": git_commit(REPO), "n": len(P), "memorials": M,
           "PASS": all(v["PASS"] for v in M.values() if v.get("gating", True))}
@@ -412,25 +420,73 @@ def main() -> None:
 
     for idiom in idioms:
         metrics = {"forward": fwd.metric(idiom), "reverse": rev.metric(idiom)}
-        # equivalence_check runs the whole search twice over its node subset, so its cost is
-        # 2 x (parents of those nodes) evaluations.  The readout alone has 103 parents.
-        n_eq = a.equivalence_nodes if a.equivalence_nodes else EQUIVALENCE_NODES
-        eq = equivalence_check(metrics["forward"], graph, tau_grid[0],
-                               graph.reverse_topological()[:n_eq])
-        mem(f"equivalence_check_{idiom}", eq["PASS"] or a.mode == "sequential", **eq)
+        # equivalence_check exists to LICENSE the candidate-parallel path (D7.6).  Sequential
+        # mode IS Algorithm 1, so it needs no license, and running the gate there is pure cost:
+        # the whole search twice over its node subset, and the readout alone has 103 parents.
+        # Skipped by default in sequential mode; --equivalence-nodes N measures it anyway.
+        n_eq = a.equivalence_nodes or (0 if a.mode == "sequential" else EQUIVALENCE_NODES)
+        if n_eq:
+            eq = equivalence_check(metrics["forward"], graph, tau_grid[0],
+                                   graph.reverse_topological()[:n_eq])
+            mem(f"equivalence_check_{idiom}", eq["PASS"] or a.mode == "sequential", **eq)
+        else:
+            mem(f"equivalence_check_{idiom}", True, forced=True, n_nodes_checked=0,
+                note="sequential mode is Algorithm 1 verbatim and takes no license from the "
+                     "parallel-path gate (D7.6); not run. Pass --equivalence-nodes N to "
+                     "measure it regardless.")
 
         for tau in tau_grid:
             for name, metric_fn in metrics.items():
-                def checkpoint(node, res, _t=tau, _i=idiom, _n=name):
-                    if state_dir:
-                        (state_dir / f"r4_{_i}_{_n}_{_t:.3e}_{str(node).replace(' ', '')}.json"
-                         ).write_text(json.dumps({"n_edges_kept": res.n_edges_kept}))
+                stem = f"r4_{idiom}_{name}_{tau:.3e}"
+                state = (state_dir / f"{stem}.state.json") if state_dir else None
+                log = (state_dir / f"{stem}.decisions.jsonl") if state_dir else None
 
-                node_filter = (set(graph.reverse_topological()[:a.max_nodes])
-                               if a.max_nodes else None)
+                # Resume state: which destination nodes are finished, and the live mask.
+                # The old checkpoint wrote only an edge count, which cannot restart anything.
+                done: list[str] = []
+                prior: list[dict] = []
+                init_mask = None
+                if a.resume and state is not None and state.is_file():
+                    saved = json.loads(state.read_text())
+                    done = list(saved["done_nodes"])
+                    init_mask = torch.zeros_like(graph.full_mask())
+                    flat = init_mask.reshape(-1)
+                    for index in saved["kept"]:
+                        flat[index] = True
+                    if log is not None and log.is_file():
+                        prior = [json.loads(line) for line in
+                                 log.read_text().splitlines() if line.strip()]
+                    print(f"  resume {stem}: {len(done)} nodes done, "
+                          f"{saved['n_edges_kept']} edges kept", flush=True)
+
+                def checkpoint(node, res, _state=state, _log=log, _done=done):
+                    if _state is None:
+                        return
+                    _done.append(str(node))
+                    if _log is not None:
+                        with _log.open("a") as handle:
+                            for decision in res.decisions[len(prior):]:
+                                handle.write(json.dumps(decision.to_dict()) + "\n")
+                    _state.write_text(json.dumps({
+                        "done_nodes": _done,
+                        "kept": res.mask.reshape(-1).nonzero().flatten().tolist(),
+                        "n_edges_kept": res.n_edges_kept,
+                    }))
+
+                order = graph.reverse_topological()
+                if a.max_nodes:
+                    order = order[:a.max_nodes]
+                finished = set(done)
+                remaining = {node for node in order if str(node) not in finished}
+                if not remaining:
+                    print(f"  {stem}: already complete, skipping", flush=True)
                 res = acdc_run(metric_fn, graph, tau, mode=a.mode, on_node=checkpoint,
-                               node_filter=node_filter)
-                results[f"{idiom}/{name}/{tau:.3e}"] = res.to_dict(graph)
+                               node_filter=remaining, initial_mask=init_mask)
+                payload = res.to_dict(graph)
+                if prior:
+                    payload["decisions"] = prior + payload["decisions"]
+                    payload["resumed_from_nodes"] = len(done)
+                results[f"{idiom}/{name}/{tau:.3e}"] = payload
                 print(f"  {idiom:8s} {name:7s} tau={tau:.3e}  "
                       f"kept {res.n_edges_kept}/{graph.n_edges}  "
                       f"evals={res.n_evaluations}", flush=True)

@@ -238,3 +238,63 @@ def test_decision_before_value_tracks_the_running_divergence():
         for earlier, later in zip(decisions, decisions[1:]):
             expected = earlier.divergence_after if not earlier.kept else earlier.divergence_before
             assert later.divergence_before == pytest.approx(expected, abs=1e-9)
+
+
+# --------------------------------------------------------------------------------------
+# Resume.  A 10-hour Colab run that cannot restart is a coin flip, and the first
+# implementation persisted only an edge COUNT, which restarts nothing.
+# --------------------------------------------------------------------------------------
+def test_resume_from_a_checkpoint_reproduces_an_uninterrupted_run(tmp_path):
+    """Stop after the first node, reload mask + done-list, finish -> same mask."""
+    import json
+
+    graph = EdgeGraph(2, 4)
+    metric = planted_metric(graph, planted_path(graph))
+    order = graph.reverse_topological()
+
+    reference = acdc_run(metric, graph, tau=0.01)
+
+    # --- leg 1: run only the first node, checkpointing the way the runner does ---------
+    state = tmp_path / "leg.state.json"
+    done: list[str] = []
+
+    def checkpoint(node, res):
+        done.append(str(node))
+        state.write_text(json.dumps({
+            "done_nodes": done,
+            "kept": res.mask.reshape(-1).nonzero().flatten().tolist(),
+            "n_edges_kept": res.n_edges_kept,
+        }))
+
+    acdc_run(metric, graph, tau=0.01, node_filter={order[0]}, on_node=checkpoint)
+    assert state.is_file() and len(done) == 1
+
+    # --- leg 2: reload and finish the remainder ---------------------------------------
+    saved = json.loads(state.read_text())
+    restored = torch.zeros_like(graph.full_mask())
+    flat = restored.reshape(-1)
+    for index in saved["kept"]:
+        flat[index] = True
+    finished = set(saved["done_nodes"])
+    remaining = {node for node in order if str(node) not in finished}
+    assert len(remaining) == len(order) - 1
+
+    resumed = acdc_run(metric, graph, tau=0.01, node_filter=remaining, initial_mask=restored)
+    assert torch.equal(resumed.mask, reference.mask)
+    assert set(resumed.kept_edges(graph)) == set(reference.kept_edges(graph))
+
+
+def test_resume_with_every_node_done_is_a_no_op(tmp_path):
+    """The last checkpoint before a disconnect may already be complete."""
+    graph = EdgeGraph(2, 4)
+    metric = planted_metric(graph, planted_path(graph))
+    full_run = acdc_run(metric, graph, tau=0.01)
+    again = acdc_run(metric, graph, tau=0.01, node_filter=set(), initial_mask=full_run.mask)
+    assert torch.equal(again.mask, full_run.mask)
+    assert again.decisions == []
+
+
+def test_a_checkpoint_carrying_only_an_edge_count_cannot_restore_a_mask():
+    """Pins why the original checkpoint format was useless: it has no mask to restore."""
+    stale = {"n_edges_kept": 4480}
+    assert "kept" not in stale and "done_nodes" not in stale
