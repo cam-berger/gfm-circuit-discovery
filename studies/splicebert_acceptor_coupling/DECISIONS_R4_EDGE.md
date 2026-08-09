@@ -362,3 +362,78 @@ But it is **not Algorithm 1**: it tests every candidate against the node's entry
 wins (the shapes are fixed across the sweep, which suits both). Both can perturb numerics, and D7.2
 already removes most launch overhead. They stay off by default; the benchmark cell reports what they
 would give, and adopting either requires re-measuring `device_floor` under it.
+
+## D10 — The τ_HI run's objective was SIGNED. Its circuits over-recover, and are not faithful.
+
+**Recorded 2026-08-08, after reading the decision log. This is a negative result about the
+instrument, not about the model.**
+
+The τ_HI sweep ran to completion on an A100 (all four legs, `is_partial_sweep: false`, every memorial
+PASS, seal intact). Source artifact `r4_tau_hi.json`, 4,048,111 bytes, sha256
+`e9667fc52d31122a8b1cf644dd1977d8a52003a32f11f039a4965927d2263c2f`, in
+`MyDrive/gfm_r4_edge_acdc/target/`. **Not committed** — it is 4 MB and the protocol is still DRAFT;
+the hash above is what makes the numbers below checkable.
+
+Both idioms return `1 − (fraction of the coupling retained)`: 0 at the full graph, 1 when nothing is
+retained. `metric()`'s own docstring says it should be "0 at H=ALL, **rising** as edges are cut".
+It falls instead:
+
+| leg | edges kept | D_final | recovery |
+|---|---|---|---|
+| meanabl · donor | 1494 | −3.0918 | **4.09×** |
+| meanabl · acceptor | 1451 | −2.6642 | **3.66×** |
+| noising · donor | 438 | −0.2017 | **1.20×** |
+| noising · acceptor | 406 | −0.3079 | **1.31×** |
+
+**Why.** Algorithm 1 is implemented correctly — `delta = after − before; remove if delta < τ`
+(`acdc.py:151-152`). The paper's `D` is a **KL divergence**, so `D ≥ 0` and "minimise a signed score"
+and "stay close to the full model" are the same instruction. This metric is signed and unbounded
+below. Once a removal drives `D` under zero the two instructions diverge, and the rule keeps following
+the signed one: any edge whose removal *overshoots* has a large negative delta and is removed with
+certainty. `D` goes negative at evaluation 0–1 in every leg and never returns. Removals that moved
+`|D|` away from zero: 65 % / 62 % (meanabl), 48 % / 46 % (noising).
+
+**What this does and does not invalidate.** The rule is half sound and the halves separate cleanly.
+An edge was **kept** iff removing it *raised* `D` by more than τ — the intended half — so kept-edge
+identity remains a necessity statement, weakened only by the drifting path. What breaks is the
+**removed** side: many edges went not because they were inert but because dropping them pushed
+recovery above 1. **"91 % of edges are removable" must not be quoted as a sparsity result.**
+
+Mechanistically the over-recovery says the model contains components that push the masked-donor margin
+**down**, and a signed objective systematically purges them. Any circuit this run returned is enriched
+for margin-raising components and depleted of margin-lowering ones — a nameable bias, not noise.
+
+**The fix is a re-run, not a re-analysis.** Either make the metric a true divergence or compare
+`|D_after| − |D_before| < τ`. The greedy path is order-dependent, so it cannot be applied
+retroactively. A design for that re-run (R4b) was drafted and **red-teamed to DO-NOT-BUILD** on nine
+counts — among them that the existing planted-circuit tests cannot distinguish the two objectives
+(every injected metric is non-negative, so all 21 tests are bit-identical under both), and that τ has
+only ever been compared to the **device floor**, which is float reproducibility across GPUs and
+carries zero cohort sampling error. Do not ship the one-line fix without those.
+
+## D11 — The prereg's Δ(e) partition is NOT implemented. R4's output stands at set membership.
+
+`partition(delta_ci, band=SESOI)` (`run_r4_paired_edge_acdc.py:169-181`) implements §5's four-way
+vocabulary and **is never called**. What the runner emits is a bare set difference over `kept_edges`
+— `n_shared`, `n_forward_specific`, `n_reverse_specific`, `jaccard`. There is no `Δ(e) = frac_A − frac_D`,
+no interval, no Holm correction, and **no `UNRESOLVED` bucket** — while the artifact's own `scope`
+string still tells the reader "UNRESOLVED is NOT SHARED". `N_BOOT` and the `gboot` import are the
+orphans of the unbuilt estimand.
+
+The preregistered estimand is also **infeasible as written**: a per-edge retention frequency needs N
+resampled ACDC runs, i.e. GPU-years at `N_BOOT = 2000`. Any freeze of R4 must strike it or replace it.
+
+**Consequence for the numbers.** `n_forward_specific` / `n_reverse_specific` carry no uncertainty band,
+so the 37–42 % direction-specific share is an **upper bound**, not an estimate.
+
+**What the paired design does support**, computed from the same artifact and needing no GPU: a rank
+agreement between the two directions' per-edge **conditional** effects. Restricted to edges that
+mattered (`|delta| > τ` in either direction) Spearman ρ = **+0.536 [+0.468, +0.598]** (noising) and
+**+0.401 [+0.361, +0.440]** (meanabl). The finding is that agreement is **depth-structured** — both
+idioms independently put L5 at ρ ≈ 0.07 with the CI touching zero and L1–L2 at 0.35–0.50 well clear of
+it. The two reading directions share their shallow processing and diverge at the readout-facing end.
+
+Scope: ρ is agreement on the rank of a conditional effect measured from *differing* greedy states;
+intervals are bootstraps over **edges**, not cohorts; one draw (`r1b-d0`), n=124, R22 applies. It
+identifies no edge and licenses no shared-mechanism claim. **No `AC*` row is created from it** while
+the protocol is DRAFT and the source artifact uncommitted.
