@@ -1,0 +1,113 @@
+{
+ "schema": "acceptor_coupling.r4_reference_panel/1",
+ "device": "mps",
+ "cohort_sha256": "67a7894565aab0a4f5663be4a162697acb803c2943bc9acb418b021e81744b4b",
+ "n": 61,
+ "floor_n": 32,
+ "panel_values": [
+  0.16042598036233846,
+  -0.02562828366220704,
+  0.15410898344576673,
+  0.04222277886743775,
+  0.08177494270779129,
+  -0.010702824965921787,
+  -0.006949267274676263,
+  0.15894119600682888,
+  0.06069651125371556,
+  0.06904402739803228,
+  -0.05192359913444977,
+  0.11788430393682514,
+  -0.008575550576008562,
+  0.07284279663231541,
+  0.10634941472074955,
+  0.03589984487158526,
+  0.14794122429414447,
+  0.45815845888930695,
+  0.044676734678049446,
+  0.06364639249203363,
+  0.06711125082448655,
+  0.00658905790086417,
+  0.06114762879740754,
+  0.0860184281119869,
+  0.012053301743012779,
+  0.09570186158948579,
+  -0.016282031937335573,
+  0.1523443317215939,
+  0.03833434882162956,
+  0.32566788139967084,
+  0.23170975229528146,
+  -0.03852893845743166
+ ],
+ "memorials": {
+  "kernel_exact_full": {
+   "PASS": true,
+   "forced": false,
+   "gating": true,
+   "max_abs_err": 3.8147078174066706e-07
+  },
+  "kernel_exact_empty": {
+   "PASS": true,
+   "forced": false,
+   "gating": true,
+   "max_abs_err": 2.471322340102944e-07
+  },
+  "edge_count": {
+   "PASS": true,
+   "forced": false,
+   "gating": true,
+   "n_edges": 4636,
+   "n_nodes": 103
+  },
+  "behavioural_anchors": {
+   "PASS": false,
+   "forced": false,
+   "gating": true,
+   "Y_D": 0.7710019657846356,
+   "Y_A": 0.9434886535660165,
+   "tol": 0.15,
+   "note": null
+  },
+  "construction_zero_planted_motifs": {
+   "PASS": true,
+   "forced": false,
+   "gating": true,
+   "n_plants": 0,
+   "n": 61
+  },
+  "edit_size_matched": {
+   "PASS": true,
+   "forced": false,
+   "gating": true
+  },
+  "pairing_identity_same_cohort": {
+   "PASS": true,
+   "forced": true,
+   "gating": true,
+   "cohort_sha256": "67a7894565aab0a4f5663be4a162697acb803c2943bc9acb418b021e81744b4b",
+   "note": "both directions are built from one example list in one process; forced"
+  },
+  "checkpoint_recorded": {
+   "PASS": true,
+   "forced": true,
+   "gating": true,
+   "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d"
+  },
+  "chr8_9_absent": {
+   "PASS": true,
+   "forced": false,
+   "gating": true,
+   "chroms": [
+    "chr11",
+    "chr16",
+    "chr19"
+   ]
+  }
+ },
+ "precision_policy": {
+  "matmul_tf32": false,
+  "cudnn_tf32": false,
+  "matmul_precision": "highest",
+  "dtype": "float32",
+  "deterministic_algorithms": true
+ }
+}

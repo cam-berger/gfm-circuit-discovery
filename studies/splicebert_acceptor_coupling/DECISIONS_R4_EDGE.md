@@ -1,0 +1,439 @@
+# Decisions — R4 edge-level causal core (ACDC)
+
+> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+
+Engineering and execution decisions behind
+[`PREREGISTRATION_R4_EDGE_LEVEL_CAUSAL_CORE.md`](preregistrations/PREREGISTRATION_R4_EDGE_LEVEL_CAUSAL_CORE.md).
+The scientific protocol lives there; what follows is why the machinery is shaped the way it is.
+
+**History.** D1–D9 were written for a standalone donor-side pair of experiments, `A13` (node-level
+adaptive minimality) and `A14` (edge-level ACDC), in `studies/splicebert_partner_selection`. `A14` is
+**superseded by R4** and its draft protocol was deleted rather than frozen — it was never run and carries
+no result, so nothing is orphaned. `A13` stays in the donor study: it tests `C33`, a donor-side node-level
+claim, and does not belong to this arc. Read every "A14" below as R4.
+
+---
+
+## D1 — R4 belongs to the acceptor-coupling arc, not the donor arc
+
+The edge-level work was first scoped as a donor-study experiment. That was wrong once `R3`/`AC4`
+existed: the question it answers — *do the two directions share their wiring, or only their
+components?* — is a **paired** question over both readouts, and the paired cohort, the matched-operator
+machinery (`reverse_coupling.matched_operators`) and the partition vocabulary
+(`SHARED`/`UNRESOLVED`/`FORWARD_SPECIFIC`/`REVERSE_SPECIFIC`) all live here. Filing it in the donor study
+would have let `C*` rows silently acquire reverse-direction meaning, which is the exact thing this
+study's separate `AC*` ledger exists to prevent.
+
+So: protocol in `studies/splicebert_acceptor_coupling/preregistrations/`, runner in
+`scripts/splicebert_acceptor_coupling/`, artifacts in `results/splicebert_acceptor_coupling/`, claims as
+`AC*`. The reusable kernel stays in `src/gfmcd/circuits/acdc*.py` per `AGENTS.md`'s rule that reusable
+circuit primitives live in the circuit package — it is model-generic over HF BERT encoders and is not
+acceptor-specific.
+
+`src/gfmcd/splicing/site_coupling.py`, written before this fold, **duplicated
+`src/gfmcd/splicing/reverse_coupling.py`** and was deleted. `reverse_coupling` is strictly better: it
+carries `edit_size`/`matched_operators`, which the duplicate lacked, and re-verifies admissibility per
+construct instead of trusting a constant.
+
+**Spec location.** The brainstorming workflow's default is a dated file under `docs/superpowers/specs/`.
+`AGENTS.md` forbids dated documents in the tree and names `DECISIONS*.md` and the preregistrations as
+the home for durable design records. The repository's own rule wins; this file and the two preregs are
+the design record.
+
+---
+
+## D2 — Why ACDC's standard edge patching cannot be used unmodified
+
+ACDC's subgraph evaluation assumes residual additivity, `r_v = Σ_{u ∈ pa(v)} write(u)`. That holds in
+the pre-LayerNorm decoder models ACDC was built on. **SpliceBERT is post-LayerNorm**: HF `BertLayer`
+applies `LayerNorm(dense(context) + input)` and then `LayerNorm(dense(intermediate) + attn_output)`, so
+the stream is renormalized twice per layer and is not a sum of upstream writes at any depth.
+
+Three options were considered:
+
+| Option | Verdict |
+|---|---|
+| **Fold / freeze LayerNorm** — treat LN scale as a constant from a reference run, recovering additivity | Rejected. It makes the subgraph evaluation an approximation whose error is uncontrolled at exactly the small-`ΔF` decisions ACDC's threshold rule turns on. |
+| **Per-edge path patching** (Goldowsky-Dill et al.) — exact, but needs a separate forward per destination to build each input | Rejected on cost: ~103 forward passes per subgraph evaluation, ≈ 2 min per candidate edge. |
+| **Exact replay of the LN recursion per destination** | **Chosen.** See A14 §2. |
+
+The chosen construction is exact, not approximate: it reduces to the true clean forward at `H = ALL`
+and the true corrupt forward at `H = ∅`, and both identities gate the run.
+
+**Measured cost, 2026-08-05, real SpliceBERT.1024nt on MPS at S = 1024** (exactness confirmed in the
+same run: `kernel_exact_full` 3.05e-5, `kernel_exact_empty` 1.53e-5, `per_head_input_identity` 2.86e-6,
+all inside their gates):
+
+| Implementation | Overhead vs plain forward | ms/example |
+|---|---|---|
+| per-head Python `bool(mask[...])` selection | **9.2×** | 101 |
+| vectorised tensor selection over a destination axis | **15.3×** | 144 |
+
+**The 2–3× written here at design time was wrong**, and so was the first diagnosis of why. The cost is
+not per-head attention and it is not Python synchronisation: it is memory traffic. Edge granularity
+requires a *separate residual per destination*, so the LayerNorm recursion runs over `[n_dst, B, S, 512]`
+tensors roughly 528 times per forward against 12 in a plain pass. That is intrinsic to exact edge-level
+evaluation in a post-LN model, not an implementation defect.
+
+The vectorised form is kept even though it is slower **on MPS**, because per-element `bool()` selection
+forces a device synchronisation per head and that is far more punishing on CUDA than on MPS. **That
+ordering is an expectation, not a measurement** — the Colab benchmark cell measures both paths on the
+run device and the faster one is selected there, with the choice recorded in the manifest.
+
+Memory: 103 cached writes at `[B, S, 512]` fp32, ≈ 216 MB × B, plus a `[n_dst, B, S, 512]` transient
+per stage. D7.5 auto-tunes B from free VRAM rather than fixing it at the 16 GB-era default of 4.
+
+---
+
+## D3 — τ is derived from a measured device floor
+
+ACDC's rule is `ΔF < τ`. A τ below the hardware's numerical reproducibility floor yields a circuit that
+depends on which accelerator ran it, with nothing in the artifact disclosing that.
+
+This repository has already measured such a floor twice: `colab_atlas_package/CHECKLIST.md` gates its
+cross-device smoke at **absolute tolerance 0.002**, and `MECHANISM_VALIDATION_AMENDMENT_A3.md` accepts a
+cross-batch reference discrepancy in `(1e-6, 1e-4]`. An a-priori grid starting at 3e-4 — the natural
+first guess — would have sat **below** the Atlas floor.
+
+So the grid is not chosen. It is measured (A14 §4), gated by `tau_above_device_floor`, and recorded in
+the manifest. If the floor leaves no informative range, the run stops and reports an instrument limit.
+
+`decision_determinism` covers the adjacent failure: ACDC is a sequential greedy, so a single
+nondeterministic kernel call early in a sweep changes every downstream decision. The gate re-runs the
+first 200 decisions on one device and requires a bit-identical accept/reject sequence.
+
+---
+
+## D4 — Execution boundary: what runs where
+
+Local reference device is Apple MPS. A **plain** forward measures 18.4 ms/example, flat across batch
+sizes 8–32 (compute-bound at S = 1024), so an A13 node-level condition at n = 64 ≈ 1.2 s. The **A14
+edge kernel** measures 144 ms/example (D2), so an A14 condition at n = 64 ≈ 9.2 s.
+
+| Arm | Conditions | Est. local (measured) | Runs on |
+|---|---|---|---|
+| A13 adaptive node greedy | ~5,356 | ~1.8 h | **local** |
+| A14 reference smoke (n = 24, truncated) | ~200 | ~10 min | **local** — the artifact Colab is diffed against |
+| A14 τ sweep, head-granular | 5 × 4,636 | **~60 h** (was estimated ~20 h) | **Colab GPU** |
+| A14 calibration (planted + non-partner) | 2 × 4,636 | ~24 h | **Colab GPU**, before the target arm |
+| A14 Q/K/V arm on survivors | ~2,000–6,000 | ~5–15 h | **Colab GPU** |
+
+**The A14 estimates tripled** once the kernel was measured rather than assumed. The local numbers above
+are what makes the Colab requirement load-bearing rather than a convenience: at MPS speed the τ sweep
+alone is two and a half days. Whether a GPU closes the gap is the question the benchmark cell answers
+before `LAUNCH_TARGET` is set — and if it does not, the honest responses are to cut the τ grid, cut
+discovery `n`, or report an instrument limit, **not** to relax the τ floor or drop calibration arms.
+
+A13 staying local is unchanged and still cheap: it uses the A6 node scrub, not this kernel.
+
+---
+
+## D5 — Colab package design
+
+`studies/splicebert_partner_selection/colab_acdc_package/`, following
+`studies/splicebert_head_context_atlas/colab_atlas_package/` rather than inventing a second pattern:
+
+- **`build_bundle.py`** — zip containing all of `src/gfmcd/**.py`, the A13/A14 runners, the relevant
+  tests, the cohort artifact, the local reference smoke artifact, and the 75 MB checkpoint. Emits an
+  in-zip `BUNDLE_MANIFEST.json` with per-file sha256 plus an external `.sha256.json` sidecar, and
+  **refuses to overwrite an existing bundle**.
+- **`requirements-colab.txt`** — pins `transformers`, `numpy`, `scipy`, `pytest`. **Never `torch`** —
+  Colab's preinstalled CUDA build must survive.
+- **`README.md`**, **`CHECKLIST.md`**, **`run_acdc_colab.ipynb`**.
+
+**No GTF or FASTA on Colab.** The cohort ships as
+`results/splicebert_coupling/acdc_cohort_v1.sequences.jsonl` (~500 KB), built locally by
+`scripts/splicebert/build_acdc_cohort.py` and deterministic given `(GTF, FASTA, split, tag, seed)`.
+This follows the Atlas package ("the outcome-independent sequence windows are bundled") and the
+convention of committing the cohort artifact that makes a claim auditable. It also improves on
+rebuilding from a 3.2 GB genome: the exact cohort is sha256-pinned rather than regenerated.
+
+**The seal is enforced by absence.** Only `val` sequences enter the bundle. chr8/9 are not in the file,
+so a remote runtime cannot spend the seal by accident — the same mechanism the Atlas package uses
+("chr8/9 and historically touched chr11/16/19 are absent from the packaged sequences").
+
+**Resume granularity is the destination node.** ACDC state is `(live edge set, node index, parent
+index, decision log, RNG state)`, checkpointed to Drive after each of the 103 destination nodes as
+`acdc_state_<tau>_<node>.json`. At ~4 h per τ that is roughly five-minute granularity, so a Colab
+disconnect costs one node rather than a run. This is the Atlas shard-resume with the node as the shard.
+
+**Notebook phase order** (Atlas order, adapted):
+
+0. Mount Drive → verify bundle sha256 → assert CUDA → assert torch was not reinstalled
+1. Run tests; run the cross-device reference smoke against the committed local artifact →
+   **this is what measures `device_floor`** and therefore sets the τ grid
+2. Benchmark 32 conditions: GPU model, peak memory, s/condition, projected hours per τ
+3. Calibration arms — planted-circuit recovery and non-partner null. Both must pass.
+4. **Owner reads the benchmark and sets `LAUNCH_TARGET = True`.** The agent does not set it.
+5. Target τ sweep, resumable per node, writing to Drive
+6. Validate → merge → compact JSON + manifest → returned into `results/splicebert_coupling/`
+
+---
+
+## D8 — The acceptor arm: the same intron read from both ends, and why it is not symmetric
+
+A13/A14 gain a `--site {donor, acceptor}` axis. Both sites share the graph, the kernel, the algorithm,
+the cohort and the τ grid, and each emits its own artifact — **two discrete outputs, never pooled.**
+
+**The mirror.** The donor arm masks the G of the donor `GT` at `donor_pos` and corrupts the intron-mate
+acceptor `AG` at `[next_acceptor_pos−2, next_acceptor_pos)`. The acceptor arm masks the G of that same
+`AG` at `next_acceptor_pos−1` and corrupts that same donor `GT` at `donor_pos`. **Same intron, same
+pair, same separation, same cohort** — only the readout end and the corruption end swap. Nothing else
+in the design moves, which is what makes the two edge sets comparable at all.
+
+**Why the alt letters differ, and must.** R44 measured, model-free, that `seq[d−1] = "G"` in **81.0%**
+of val GENCODE donors (82.0% GTEx, 87.8% atlas condition-B) — the −1 G of the 5′SS consensus. So at the
+donor:
+
+| alt | what it plants | rate | scope of that rate |
+|---|---|---|---|
+| `CC` | a `GC` donor one base upstream | **~80%** | val GENCODE (81.0% −1 G); measured 19.8% admissible on the r1b-d0 cohort |
+| `TA` | a **canonical `GT`** | 95.5% | **atlas condition-B** (87.8% −1 G) — *not* val; AR1 train puts `TA` admissibility at 11.8%, so ~88% on val |
+| `AA` | an `AG` | 62.0% | R44 census |
+| `AC` | nothing | **0.0%** | everywhere measured |
+| `AT` | nothing | **0.0%** | equally clean — see below |
+
+R44 exempts `splicebert_partner_selection` from the defect because all 42 of its rows corrupt
+**acceptor**-side, where `seq[a−3] = "G"` in only 0.35–0.36%. **The acceptor arm corrupts the donor and
+therefore inherits the full exposure.** Using the symmetric `DONOR_ALTS[0] = "CC"` would convert the
+donor to a functional minor-class `GC` site in four of five examples — the destruction would be a
+**relocation**, the arm would measure dependence on donor *class* rather than *presence*, and every row
+resting on it would be void.
+
+**Correction (2026-08-05).** An earlier revision of this section said "only `AC` plants nothing." That
+is wrong. `tests/test_motif_cleanliness.py::test_AC_and_AT_are_the_only_universally_clean_alts` proves
+exhaustively over all 16 flanking contexts that cleanliness forces `X="A"` and `Y ∈ {C,T}` — **`AC` and
+`AT` are both universally clean**, which is what R44's own text says. The narrower true statement is
+that `AC` is the only clean member of the *shipped* `DONOR_ALTS` tuple, since `AT` is not in it; the
+sibling test `test_every_shipped_donor_alt_except_AC_plants_a_motif_somewhere` is scoped to that tuple
+and was over-generalised. This is not pedantry: **`AT` is the one-substitution clean alt** (`GT→AT`
+destroys only the G, `GT→AC` destroys both), so believing `AC` was the sole option would make a
+single-base decomposition unrunnable. The same revision also quoted `TA`'s 95.5% under a val GENCODE
+heading when R44 scopes it to atlas condition-B; the table above now carries scopes per row.
+
+So the arms use different letters **in order to be comparable**:
+
+- donor arm: `AG → CC` at the acceptor — unchanged, C42-validated alt-invariant within ±25%, and the
+  maximal-effect alt selected blind before any per-alt quantity existed.
+- acceptor arm: `GT → AC` (`MOTIF_CLEAN_DONOR_ALT`) at the donor — the only alt with a measured 0.0%
+  plant rate at that site.
+
+`motif_cleanliness` is a gating memorial on the acceptor arm: the planted-motif rate over the actual
+cohort must be **exactly 0**. It is model-free, computable from sequence alone, and it can fail.
+
+**The behaviour gates the run — and it now passes.** C1 establishes the donor direction
+(**+0.872 [0.771, 0.969]**, sealed). The acceptor direction was unestablished when this section was
+first written; it is now established by **AC1** (`Y_A = +0.9763 [+0.9060, +1.0526]`, verdict **GO**,
+stable across three draws, nine memorials) through the R1 → R1b behaviour-and-specificity gate, and only
+then did R3 scan components. The gate is **retained** rather than retired: a runner must measure the
+behaviour on its own cohort, because AC1 licenses the direction, not any particular later cohort.
+
+- `acceptor_behaviour_exists` — unconditional mean `coupling_acc ≥ 0.20` on the cohort.
+- `acceptor_partner_specificity` — corrupting a motif-matched **non-partner** `GT` (`other_gt`, already
+  on `CouplingExample`) must move the masked-acceptor margin far less than the true partner does.
+
+If either fails, **the acceptor ACDC arm does not run**, and the artifact reports NO BEHAVIOUR. That
+outcome is not a failure of the experiment: C1 says the donor knows its acceptor, and a directional
+asymmetry in cross-site dependence would be a finding about exon definition in its own right, reportable
+without any circuit.
+
+**What the pairing buys if both arms do run.** A comparative estimand no single-site run can reach:
+the **overlap of the two recovered edge sets** against a matched null. High overlap argues one shared
+partner-selection mechanism read from both ends; low overlap argues two pathways. This is reported as a
+candidate at attribution level — an overlap statistic is not an intervention.
+
+**Cost.** Both sites at equal resources doubles A14: ~120 h local-equivalent for the two τ sweeps at the
+measured kernel speed (D4). This is the single largest driver of the Colab budget and the first place to
+cut if the benchmark comes in slow — by trimming the τ grid or discovery `n` **equally on both arms**,
+never by giving the acceptor arm less, which would make the overlap statistic uninterpretable.
+
+---
+
+## D9 — R3 says A14's pruning metric will probably drop the addresser. Recorded before the run.
+
+R3 (`ae1c58b1`, paired 96-head scan, 974 exons / 645 genes) reports:
+
+> Mean-ablation as primary was decisive. L2H15 reads **0.473 / 0.505** here against **+0.0183** in the
+> noising-based shortlist; a noising-primary sweep would have concluded the addresser was irrelevant in
+> BOTH directions.
+
+**A14 prunes on ΔF, and `F` is complement-scrub-to-corrupt — a noising metric.** `L2H15 → L3H1` is in
+the `R_core` reference set frozen in A14 §6. So the most likely single disagreement between ACDC and the
+hand-found circuit is one R3 has already attributed to the *instrument*, not the model.
+
+Writing this down now is the point. After the run, "ACDC dropped the addresser" is available in two
+readings — the automated search disagrees with C22/C32, or the metric cannot see L2H15 — and the second
+would be easy to reach for only if the first were unflattering. Frozen pre-run:
+
+- **If `L2H15 → L3H1` is dropped under the ΔF arm, that is not evidence against C22/C32.** It is
+  expected under R3 and is reported as a metric limitation.
+- **A14 gains a mean-ablation metric arm** on the same τ grid and the same cohort. If the addresser's
+  edges survive there and not under ΔF, the disagreement is located in the metric and both are reported.
+  If they survive under neither, that is a genuine finding and is reportable as one.
+- This generalises past L2H15: R3's noising-vs-mean-ablation gap is a property of the metric family, so
+  **TPR against `R_core` is reported per metric arm and never pooled.**
+
+This is the same failure class ACDC's own §4 flags — a single metric systematically missing components —
+but sharper, because R3 measured the specific miss on the specific head in this specific model.
+
+**Relation to the `F`-near-null / sufficiency question.** C27 puts the 10-node circuit at `F = 0.005`,
+and C33 finds no knee, so a *forward* sufficiency search is ill-identified at `F ≈ 0` — which is exactly
+why A12's prereg specified pruning **from the full model** instead. A14 prunes backward from full, so it
+sits on the well-identified side of that. A sufficiency-carried arc (`D`) is a **different estimand**,
+not a better-powered version of the same one, and the two must not be reported as agreeing or
+disagreeing without saying which is which.
+
+---
+
+## D6 — Deferred, and deliberately not decided here
+
+- **Whether to spend the sealed chr8/9 test.** A14 reports at verification tier on `val`, which A12 and
+  A13 have already seen for the adjacent question. If A14 contradicts C33, opening the seal becomes a
+  decision for the owner at the REFLECTION gate. This protocol does not license it.
+- **Whether `R_core` is the right reference edge set.** It is assembled from C29/C31/C35 and the frozen
+  `CIRCUIT` constant; no single ledger row states it as one circuit. It is frozen in A14 §6 before the
+  run precisely so that it cannot be tuned after seeing the TPR — but its composition is a judgement
+  made here, and a reviewer may reasonably contest it. Contesting it after the run requires a new
+  reference set and a re-scored, separately reported arm.
+- **Promotion of any unreferenced edge ACDC recovers.** Those are attribution-level candidates. The
+  evidence ladder is not crossed by an edge surviving a greedy search.
+
+---
+
+## D7 — CUDA efficiency, and the one place it must not be bought
+
+The τ sweep is ~4,600 sequential subgraph evaluations per threshold. Six decisions shape what the GPU
+buys, and one of them is a place where a routine optimization would silently damage the result.
+
+**D7.1 — TF32 and reduced precision are OFF on the decision path.** On Ampere and later, TF32 carries a
+10-bit mantissa. Enabling it (or bf16 autocast) raises `device_floor`, which by A14 §4 raises the
+minimum admissible τ, which coarsens the recovered circuit — a scientific cost paid for a throughput
+gain, invisible in the artifact. The runner sets `torch.backends.cuda.matmul.allow_tf32 = False` and
+`torch.backends.cudnn.allow_tf32 = False` explicitly (not by relying on a library default, which has
+changed across versions) and records both in the manifest. The benchmark cell additionally *measures*
+what bf16 and TF32 would cost in floor terms and reports it, so the trade is quantified rather than
+assumed. **This is the only optimization in this section that is refused rather than tuned.**
+
+**D7.2 — The edge set is a boolean mask tensor, not a Python set.** `mask[src, dst]` of shape
+`[103, 103]`. Removing an edge is a mask flip, so the graph is structurally static across the whole
+sweep and the selection `sel_v(b) = where(mask[b, v], live[b], corrupt[b])` is a fused tensor op
+evaluated for all destinations at once. This removes Python from the inner loop and is the
+precondition for everything below.
+
+**D7.3 — Per-head attention is batched, not looped.** The kernel's cost is that heads in a layer no
+longer share an input, so a naive implementation issues 16 small attention calls per layer. Stacking
+per-head inputs to `[H, B, S, D]` and contracting against sliced weights
+(`einsum('hbse,hde->hbsd', r_heads, W_q_h)`) collapses that to one batched matmul per projection per
+layer. This is the difference between the ~2–3× slowdown estimated at design time and something close
+to parity.
+
+**D7.4 — SDPA for the attention math.** At S = 1026 the materialized attention tensor is
+`[B, 16, 1026, 1026]` — 2.2 GB at B = 32 in fp32. `scaled_dot_product_attention` avoids materializing
+it, which is what makes large batches affordable. `load_adapter`'s `eager=True` requirement exists
+because SDPA silently returns zero attention weights when `output_attentions=True`; A14's head-granular
+arm never reads attention weights, so the requirement does not bind. Numerical agreement with the eager
+path is verified against the device floor before the SDPA path is used.
+
+**D7.5 — Batch size is auto-tuned from free VRAM, not hardcoded.** Corrupt write caches are constant
+across the entire sweep and cost `103 × B × 1026 × 512 × 4 B ≈ 216 MB × B`, with a transient of the
+same order for live writes. So B = 4 → ~0.9 GB, B = 16 → ~3.5 GB, B = 32 → ~6.9 GB. The runner queries
+`torch.cuda.mem_get_info()` and selects B under a safety factor, recording the chosen value. The design
+default of B = 4 was set by a 16 GB assumption; on a 40 GB A100 it wastes most of the device.
+
+**D7.6 — Candidate-parallel evaluation is an arm with an equivalence gate, not a substitution.** Within
+a destination node, ACDC tests each parent edge in turn and *recomputes* after each accepted removal,
+so later candidates are tested against an already-pruned `H`. Evaluating all ~45 in-edges of a node in
+one batched forward — replicating along a candidate axis, which is exactly the parallelism a GPU
+supplies and MPS does not — reduces the sweep from ~4,600 sequential steps to ~103, roughly 4 h to
+~10 min per τ.
+
+But it is **not Algorithm 1**: it tests every candidate against the node's entry `H`. So:
+
+- `--edge-eval sequential` (exact Algorithm 1) is the default and produces the reported circuit unless
+  the gate below licenses otherwise.
+- `equivalence_check` memorial: run 8 destination nodes spanning layers 0–5 under both paths. The
+  retained edge sets must be **identical**. If they are, the parallel path is licensed for this task
+  with that evidence recorded in the manifest; if they are not, the discrepancy is reported and the
+  sequential path stands.
+- The manifest records which path produced the reported circuit. A speedup taken without the gate
+  passing is a protocol violation, not a tuning choice.
+
+**D7.7 — Deferred and measured, not assumed.** CUDA graphs and `torch.compile` are plausible further
+wins (the shapes are fixed across the sweep, which suits both). Both can perturb numerics, and D7.2
+already removes most launch overhead. They stay off by default; the benchmark cell reports what they
+would give, and adopting either requires re-measuring `device_floor` under it.
+
+## D10 — The τ_HI run's objective was SIGNED. Its circuits over-recover, and are not faithful.
+
+**Recorded 2026-08-08, after reading the decision log. This is a negative result about the
+instrument, not about the model.**
+
+The τ_HI sweep ran to completion on an A100 (all four legs, `is_partial_sweep: false`, every memorial
+PASS, seal intact). Source artifact `r4_tau_hi.json`, 4,048,111 bytes, sha256
+`e9667fc52d31122a8b1cf644dd1977d8a52003a32f11f039a4965927d2263c2f`, in
+`MyDrive/gfm_r4_edge_acdc/target/`. **Not committed** — it is 4 MB and the protocol is still DRAFT;
+the hash above is what makes the numbers below checkable.
+
+Both idioms return `1 − (fraction of the coupling retained)`: 0 at the full graph, 1 when nothing is
+retained. `metric()`'s own docstring says it should be "0 at H=ALL, **rising** as edges are cut".
+It falls instead:
+
+| leg | edges kept | D_final | recovery |
+|---|---|---|---|
+| meanabl · donor | 1494 | −3.0918 | **4.09×** |
+| meanabl · acceptor | 1451 | −2.6642 | **3.66×** |
+| noising · donor | 438 | −0.2017 | **1.20×** |
+| noising · acceptor | 406 | −0.3079 | **1.31×** |
+
+**Why.** Algorithm 1 is implemented correctly — `delta = after − before; remove if delta < τ`
+(`acdc.py:151-152`). The paper's `D` is a **KL divergence**, so `D ≥ 0` and "minimise a signed score"
+and "stay close to the full model" are the same instruction. This metric is signed and unbounded
+below. Once a removal drives `D` under zero the two instructions diverge, and the rule keeps following
+the signed one: any edge whose removal *overshoots* has a large negative delta and is removed with
+certainty. `D` goes negative at evaluation 0–1 in every leg and never returns. Removals that moved
+`|D|` away from zero: 65 % / 62 % (meanabl), 48 % / 46 % (noising).
+
+**What this does and does not invalidate.** The rule is half sound and the halves separate cleanly.
+An edge was **kept** iff removing it *raised* `D` by more than τ — the intended half — so kept-edge
+identity remains a necessity statement, weakened only by the drifting path. What breaks is the
+**removed** side: many edges went not because they were inert but because dropping them pushed
+recovery above 1. **"91 % of edges are removable" must not be quoted as a sparsity result.**
+
+Mechanistically the over-recovery says the model contains components that push the masked-donor margin
+**down**, and a signed objective systematically purges them. Any circuit this run returned is enriched
+for margin-raising components and depleted of margin-lowering ones — a nameable bias, not noise.
+
+**The fix is a re-run, not a re-analysis.** Either make the metric a true divergence or compare
+`|D_after| − |D_before| < τ`. The greedy path is order-dependent, so it cannot be applied
+retroactively. A design for that re-run (R4b) was drafted and **red-teamed to DO-NOT-BUILD** on nine
+counts — among them that the existing planted-circuit tests cannot distinguish the two objectives
+(every injected metric is non-negative, so all 21 tests are bit-identical under both), and that τ has
+only ever been compared to the **device floor**, which is float reproducibility across GPUs and
+carries zero cohort sampling error. Do not ship the one-line fix without those.
+
+## D11 — The prereg's Δ(e) partition is NOT implemented. R4's output stands at set membership.
+
+`partition(delta_ci, band=SESOI)` (`run_r4_paired_edge_acdc.py:169-181`) implements §5's four-way
+vocabulary and **is never called**. What the runner emits is a bare set difference over `kept_edges`
+— `n_shared`, `n_forward_specific`, `n_reverse_specific`, `jaccard`. There is no `Δ(e) = frac_A − frac_D`,
+no interval, no Holm correction, and **no `UNRESOLVED` bucket** — while the artifact's own `scope`
+string still tells the reader "UNRESOLVED is NOT SHARED". `N_BOOT` and the `gboot` import are the
+orphans of the unbuilt estimand.
+
+The preregistered estimand is also **infeasible as written**: a per-edge retention frequency needs N
+resampled ACDC runs, i.e. GPU-years at `N_BOOT = 2000`. Any freeze of R4 must strike it or replace it.
+
+**Consequence for the numbers.** `n_forward_specific` / `n_reverse_specific` carry no uncertainty band,
+so the 37–42 % direction-specific share is an **upper bound**, not an estimate.
+
+**What the paired design does support**, computed from the same artifact and needing no GPU: a rank
+agreement between the two directions' per-edge **conditional** effects. Restricted to edges that
+mattered (`|delta| > τ` in either direction) Spearman ρ = **+0.536 [+0.468, +0.598]** (noising) and
+**+0.401 [+0.361, +0.440]** (meanabl). The finding is that agreement is **depth-structured** — both
+idioms independently put L5 at ρ ≈ 0.07 with the CI touching zero and L1–L2 at 0.35–0.50 well clear of
+it. The two reading directions share their shallow processing and diverge at the readout-facing end.
+
+Scope: ρ is agreement on the rank of a conditional effect measured from *differing* greedy states;
+intervals are bootstraps over **edges**, not cohorts; one draw (`r1b-d0`), n=124, R22 applies. It
+identifies no edge and licenses no shared-mechanism claim. **No `AC*` row is created from it** while
+the protocol is DRAFT and the source artifact uncommitted.
