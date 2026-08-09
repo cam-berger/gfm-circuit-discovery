@@ -32,7 +32,7 @@ from gfmcd.splicing.circuit import (  # noqa: E402
     substitute,
 )
 from gfmcd.splicing.coupling import (  # noqa: E402
-    MOTIF_CLEAN_DONOR_ALT, planted_donor_motifs, stable_rng,
+    MOTIF_CLEAN_DONOR_ALT, stable_rng,
 )
 from gfmcd.splicing.reverse_coupling import (  # noqa: E402
     FORWARD_ACCEPTOR_ALT, acceptor_readout, destroy_donor, donor_alt_admissible,

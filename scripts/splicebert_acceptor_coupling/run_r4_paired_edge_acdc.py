@@ -54,7 +54,7 @@ from gfmcd.splicing.circuit import (                                           #
     substitute,
 )
 from gfmcd.splicing.cohort_io import cohort_sha256, read_cohort               # noqa: E402
-from gfmcd.splicing.coupling import MOTIF_CLEAN_DONOR_ALT, planted_donor_motifs  # noqa: E402
+from gfmcd.splicing.coupling import MOTIF_CLEAN_DONOR_ALT  # noqa: E402
 from gfmcd.splicing.reverse_coupling import (                                  # noqa: E402
     FORWARD_ACCEPTOR_ALT, acceptor_readout, donor_alt_admissible, matched_operators,
 )
