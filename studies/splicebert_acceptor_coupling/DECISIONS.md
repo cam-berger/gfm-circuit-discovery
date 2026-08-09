@@ -240,3 +240,115 @@ tight one.
    outlier, which `ACR3` identifies: R1b's three draws give `0.0147 / 0.0156 / 0.0144`, SD `0.0006` —
    about **2×** C2's `0.00728`, not 4×. See the 2026-08-05 (later) entry above for the surviving caveat,
    which is that the two directions' selectivity statistics still divide by different control arms.
+
+## 2026-08-08 — the BP arc: what it costs to leave the short-intron band
+
+An exploratory probe asked whether the acceptor-local payload (`C30`, semantics UNRESOLVED, bounded
+by `R22`) is branchpoint / polypyrimidine content, motivated by a verified literature window —
+branchpoints in U2-type **constitutive** human introns sit a median 28 nt upstream of the 3′ site,
+80 % within −49…−20 (Pineda & Bradley 2018, *Genes Dev* 32:577; corroborated at median 25 nt,
+90 % within 19–37 nt by Mercer 2015, *Genome Res* 25:290).
+
+**No prereg was frozen and nothing here is ledger-eligible.** No `AC*` row is created or changed.
+Runners and artifacts live outside the tree; only the conclusions are recorded here.
+
+### Two designs were killed before they consumed confirmatory compute
+
+1. **The window does not fit the cohort.** `circuit.eligible` bounds the donor→partner-acceptor span
+   to `GAP_MIN, GAP_MAX = 60, 150` nt; observed val median **95** (5th pct 74, 90th 135). A tiling
+   that reaches −199 fits **0 of 1200** examples. On a 95 nt intron the literature window is a third
+   of the whole intron, so "branchpoint zone" and "the intron" are not spatially separable and the
+   contrast is not identifiable on this cohort even in principle.
+
+2. **A `matched_decoy_acceptor`-anchored positional profile manufactures its own positive.** The
+   helper matches distance to the **donor**, which *arithmetically* forces the decoy within `tol`
+   (40 nt) of the acceptor. A profile anchored at the decoy is therefore the real profile shifted by
+   δ < one window, so the anchor difference `D(j) = Δ(x_j) − Δ(x_j + δ)` is a discrete **derivative**
+   of the decay curve. Under any smooth convex decay with **zero** branchpoint content it yields
+   `D(0) > 0` and `D(0) > mean(D(1..5))` — a false localisation.
+   **This does not affect R1/R1b/R3/R4 or the GTEx arm**, which use the helper for point comparisons
+   at a single decoy location, not as an anchor for a positional profile. Recorded so nobody builds
+   a profile on it later.
+
+### The coupling is a short-intron phenomenon, and that is an intervention result
+
+`README.md` already scopes this study to "canonical internal short introns". What was not recorded
+is the size of the cliff. One operator (`AG → CC`, the `AC1`/`C1` operator), one code path, only the
+span varying, n = 250 per bin, gene-clustered 95 % CI, val:
+
+| span (nt) | median | coupling |
+|---|---|---|
+| **60–150** | 96 | **+1.017 [0.887, 1.158]** — reproduces `C1` (+0.872) and `AC1`'s forward anchor (+0.968) |
+| 150–250 | 191 | +0.336 [0.271, 0.405] |
+| 250–400 | 319 | +0.065 [0.039, 0.099] |
+| 400–700 | 501 | +0.147 [0.115, 0.183] |
+| 700–1500 | 739 | +0.116 [0.081, 0.156] |
+
+That table **selects** on span, which confounds span with the partner acceptor's absolute position,
+the surviving 3′ context and long-intron composition. The layout makes this acute:
+`acc_win = randint(100, 300)` and `min_context = 100` is enforced after the exon's OWN donor and
+**never** after the partner acceptor, so a long span pushes the partner toward the window edge and
+only survives when the donor is early. SpliceBERT has **absolute** learned position embeddings, so
+absolute position is not a neutral covariate.
+
+So the span was **intervened on** instead. One base cohort (60–150 nt), two manipulations that both
+move the partner acceptor right by `k` with the same 3′ tail; filler is a dinucleotide-preserving
+shuffle of the example's own intron. n = 300 / 258 genes:
+
+| k | INSERT (span + k) | SHIFT (span fixed) | partner acceptor abs. position |
+|---|---|---|---|
+| 0 | +0.864 | +0.864 | 410 |
+| 100 | +0.420 | +0.655 | 510 |
+| 200 | +0.097 | +0.625 | 610 |
+| 400 | **+0.155** | **+0.752** | 810 |
+
+`k = 0` is identical by construction in both arms — the internal consistency check. At `k = 400`
+the arms differ **4.8×** at matched position and matched tail. **Span effect −82 %; position/edge
+effect −13 to −28 %.** The decay is a real span dependence, not a windowing artifact.
+
+Secondary, and not what was being looked for: the donor's **own clean margin** degrades with span
+(4.63 → 3.66) but not with position (4.63 → 4.47). The model's confidence that a donor is a donor
+depends on a partner acceptor being nearby.
+
+### A positionally specific branchpoint reader exists, and it is small
+
+With identification moved from position to **content at fixed coordinates**: at each 30 nt window,
+dinucleotide-preserving shuffle, then plant either `CTAAC` (yUnAy consensus) or a
+composition-matched scramble (`ACACT`/`CAACT`/`TCACA`) at the same coordinates. Both arms edit the
+same bases of the same molecule and differ only in the **order of five nucleotides**, so geometry,
+composition and window identity cancel exactly. No planted motif contains `AG` or `GT`, and the
+dinucleotide-preserving shuffle holds `AG`/`GT` counts fixed — R44 planting is zero by construction
+rather than by threshold. n = 1000 / 750 genes, val, span ≥ 250, all nine memorials PASS,
+sensitivity gate +0.117 [+0.100, +0.136].
+
+Recovery is **+0.00850 [+0.00670, +0.01031]** at −49…−19 (p = 0.0005, Holm ×6 = **0.0030**) and
+straddles zero at all five other windows (Holm 1.000 each). Contrast `j0 − mean(j1..5)` =
++0.00849 [+0.00663, +0.01034]. Destroying *order* shows no gradient across windows; restoring a
+*specific motif* localises — a motif-specific reader, not general order-sensitivity.
+
+**Four things bound it.** (i) It is 7.3 % of the +0.117 residual coupling it sits inside — 93 % is
+something else. (ii) +0.0085 against a clean margin of 3.34 is **~6× below this study's SESOI of
+0.05**: statistically unambiguous, practically small. (iii) It is measured at span ≥ 250 nt, i.e.
+**outside** the 60–150 nt band where `C1`/`AC1`/`C30` live and which carries 5× the coupling; that
+band cannot be probed this way because the window does not fit. (iv) One draw, one seed set —
+`R22` requires multiple seeded draws plus two-way dyadic inference before any effect-existence
+claim.
+
+### A statistics defect, found and corrected
+
+The first pass reported `p = 2·min(frac(v>0), frac(v<0))` over per-example values — a **sign test on
+examples**, not a test of the mean. It returned p = 0.808 for a mean ~9 SE from zero, and the Holm
+column was a correction over garbage. The frozen decision rule tested CI-excludes-zero and the CIs
+were always correct, so **no verdict depended on it**. It was replaced by a two-sided
+percentile-bootstrap p drawn from the *same* gene-clustered resampling that produces the CI, with a
+new memorial asserting the mirrored CI is bit-identical (< 1e-12) to `circuit.gboot`'s. The re-run
+reproduced every mean and CI bit-identically; only the p column changed.
+
+### One scope tension, flagged rather than resolved
+
+`README.md` states this study is "model-internal throughout — **no external biological assay enters
+this study at any point.**" That still holds literally: no assay was run. But the BP arc puts an
+externally-derived biological motif (`CTAAC`) into the *stimulus*, and takes its window from the
+branchpoint literature. That is external biological content entering the input, which the scope
+sentence was probably written to exclude. **Not resolved here.** Either the arc belongs in a
+different study, or the scope sentence needs amending — a reviewer's call, not a cleanup pass's.

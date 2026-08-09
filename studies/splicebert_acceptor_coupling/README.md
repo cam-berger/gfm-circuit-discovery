@@ -79,7 +79,14 @@ record: [`DECISIONS_R4_EDGE.md`](DECISIONS_R4_EDGE.md).
 - [`CLAIMS.md`](CLAIMS.md) — the claim ledger (`AC*`). Separate from the donor study's `C*` ledger on
   purpose: acceptor reconstruction is a different behaviour from donor reconstruction, and giving it
   its own ledger keeps C1–C42 from silently acquiring reverse-direction rows.
-- [`DECISIONS.md`](DECISIONS.md) — chronology, including both pilots and their numbers.
+- [`DECISIONS.md`](DECISIONS.md) — chronology, including both pilots and their numbers, and the
+  2026-08-08 BP arc (what it costs to leave the short-intron band; creates no claim row).
+- [`DECISIONS_R4_EDGE.md`](DECISIONS_R4_EDGE.md) — `D1`–`D11`, the edge-level R4 design record,
+  including the two negative results about the instrument (`D10` signed objective, `D11`
+  unimplemented partition).
+- [`CORRECTIONS.md`](CORRECTIONS.md) — `ACR*`. Never delete a correction; record, don't rewrite.
+- [`preregistrations/`](preregistrations/) — `R1`, `R1b`, `R3` **frozen**; `R4` **DRAFT**, and the
+  τ_HI run that used it is stamped `EXPLORATORY` for exactly that reason.
 - `scripts/splicebert_acceptor_coupling/` — runners. `src/gfmcd/splicing/reverse_coupling.py` — the
   reusable readout. `results/splicebert_acceptor_coupling/` — artifacts, each with a manifest.
 
