@@ -91,9 +91,8 @@ def census(examples, q_of, alts) -> dict:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--gtf", default="/Users/cberg/Research/data/genomes/"
-                                     "gencode.v50.basic.annotation.gtf.gz")
-    ap.add_argument("--fasta", default="/Users/cberg/Research/data/genomes/hg38.fa")
+    ap.add_argument("--gtf", default=None)
+    ap.add_argument("--fasta", default=None)
     ap.add_argument("--out", default="results/splicebert_gtex_finetune_shift/"
                                      "gtex_planted_motif_census_v1.json")
     ap.add_argument("--overwrite-record", action="store_true")

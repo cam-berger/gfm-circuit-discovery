@@ -59,9 +59,8 @@ def planted(seq: str, pos: int, is_donor: bool, alt: str) -> dict[str, str]:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--gtf", default="/Users/cberg/Research/data/genomes/"
-                                     "gencode.v50.annotation.gtf.gz")
-    ap.add_argument("--fasta", default="/Users/cberg/Research/data/genomes/hg38.fa")
+    ap.add_argument("--gtf", default=None)
+    ap.add_argument("--fasta", default=None)
     ap.add_argument("--n", type=int, default=400)
     ap.add_argument("--per-gene-cap", type=int, default=3)
     ap.add_argument("--min-separation", type=int, default=30)

@@ -25,6 +25,7 @@ gene-dyadic inference (R22).
 | Native donor–acceptor coupling | Behavior + specificity | A masked donor score depends on its own paired acceptor under canonical short-intron controls. | Wider biological and sequence-context transduction. |
 | Donor graph A0→A12 | QK → attention → OV/mediation → behavior | An acceptor-local generator feeds L3H1, which binds payload to a mostly relative address and delivers a low-rank donor-side signal through a structured core. | Payload semantics; cross-context causal transfer. |
 | Period-3 carrier C8/C34/C35/C39 | Position → routing → mediation → behavior; origin corpus-attributed | A distributed relative-positional routing coordinate shapes L3H1's attention across the donor–acceptor span. Origin: built by multi-species pretraining, codon-linked (absent in human-only sibling and in ncRNA models, C39/C40). | Training *dynamics* (trajectory); upstream effects on payload construction. |
+| Coding-boundary phase C43/C44 | Behavior (replicated); mediation unresolved | Masked-donor partner coupling prefers **annotated** donor–acceptor codon reading-frame matches (`Ψ=+0.3901`, fresh outcome-blind replication) — but only inside a frozen **chimeric** crossed lattice at one span, with the resolution gate passing at its Monte-Carlo noise floor, and "only when matched" is **not** licensed. Whether the period-3 carrier implements it is **unresolved** (C44): four of the frozen authorization gates failed, the 384-block target was never exposed, and neither a positive, a null, nor an inverted conclusion is licensed. | A capable mechanism instrument. The local carrier/A-V/Q-K family is attempted-and-unresolved, not eliminated. |
 | Multispecies ≈10.63 carrier C12/C37/C39 | Position → QK → attention; origin corpus-attributed | Eight heads read a distinct positional carrier after softmax. Origin: multi-species pretraining — strong in the 72-species stage-1 sibling, absent in the human-only sibling, and **not detectable** at ≈10.63 in 60 Mb of human genome above that unanchored assay's 5–10% modulation floor (a sensitivity limit, not an absence). The nucleosomal comparator that excludes the chromatin reading, ≈10.298 nt, is measured in **mouse** ES-cell chromatin (Voong 2016, mm9) — 0.33 nt from the carrier — a gap ~7× the largest uncertainty on either side (0.045 nt each), so this remains a powered refutation (R30, R37). Do not quote a "±0.005" carrier fit precision (R37). | General OV/behavioral function still open. |
 | Human-only ≈10.2 proposal | Position/QK; fails at attention | The proposed chromatin-reader circuit is closed at the attention gate. | No higher claim is licensed. |
 | Head–Context Atlas | Matched discovery → group validation → conditional mechanism tests | Four general-use component candidates validate; context-specific signals remain exploratory because they missed the frozen precision gate. C38/C41 separately establish strong but bounded cross-example transfer. | Better-powered context cohorts and transfer-specificity tests. |
@@ -71,6 +72,16 @@ in Git history: the DNABERT-2 reconstruction atlas, the Caduceus transfer design
 run), the superseded codon phase-lattice protocol, the joint-segment attribution instrument, and the
 `splicebert/` overview stub whose content is now in [`MECHANISM.md`](MECHANISM.md). None of them
 controls a live claim in the ledgers above.
+
+A sixth, the **exon-edge compatibility arc**, was **consolidated rather than merged** on 2026-08-04: its
+eleven `E*` rows became two rows in the donor ledger (**C43**, **C44**) and its ~100 MB of runners, modules,
+tests, and cohorts stayed on branch `codex/intron-exon-phase` at commit **`fd26cc1b`**. Unlike the five
+above it *does* control live claims, so
+[`studies/splicebert_exon_edge_compatibility/`](studies/splicebert_exon_edge_compatibility/README.md)
+survives holding only an archive record and the two frozen protocols behind those claims. Read
+[`CORRECTIONS.md` R45](studies/splicebert_partner_selection/CORRECTIONS.md) before citing anything from
+that arc: it reproduces the nine dropped rows and records three overstatements in the original
+study's prose that must not be reintroduced from Git history.
 
 ## Repository map
 

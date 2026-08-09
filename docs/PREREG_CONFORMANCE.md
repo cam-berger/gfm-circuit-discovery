@@ -37,6 +37,19 @@ this file existed, that question had no answer here short of reading 34 protocol
 > for a `GFS*` claim there is nothing here to read, and the gate status is whatever that study's own
 > ledger and `DECISIONS.md` self-report. Treat GTEx gates as self-reported, not audited.
 
+> **A third arc is uncovered: exon-edge compatibility (C43/C44).** Consolidated into the donor ledger on
+> 2026-08-04 (R45), it contributes **two live claims** and **no family in the table below**. Its two
+> governing protocols are in the tree — `studies/splicebert_exon_edge_compatibility/preregistrations/`,
+> deliberately kept so that "all ten target-independent gates passed" is checkable at all — but **nobody
+> has independently checked its runners against them**, and the runners themselves are archived at
+> `codex/intron-exon-phase` `fd26cc1b`, so doing so requires retrieving them from history. Three further
+> protocols and ten amendments governing the arc's dropped rows were not carried. Two departures are
+> already self-reported and are recorded in the claim rows rather than here: C44's development preflight
+> was **not outcome-blind** with respect to the behaviour it interrogates (its 114 blocks are the
+> predecessor development lattice, whose `Ψ` was already computed), and **neither carried audit is
+> re-executable** — the source branch gitignored the raw rows both recompute from. Treat C43/C44 gates as
+> **self-reported, not audited**.
+
 **Scope and method.** This audit was commissioned by the 2026-07-24 publication-readiness review, which
 returned *Major Revision — not ready for external artifact review* and named this table its single
 highest-leverage deliverable. 25 SpliceBERT-arc families audited (every frozen protocol on disk for

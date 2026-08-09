@@ -896,3 +896,278 @@ still the `CC` numbers — so no committed key changes meaning.
 gate that checks length, footprint and alphabet cannot catch what an edit creates. Any corruption whose
 substituted index is VISIBLE to the model must use `MOTIF_CLEAN_ALT`, or measure and report its planted
 rate.
+
+## R45 — the exon-edge compatibility arc was consolidated to two rows and archived; nine claim rows were dropped, and three defects in the source study's prose were not carried forward (2026-08-04)
+
+**Outcome in one line: eleven `E*` rows and ~100 MB of a fourth study were reduced to `C43`/`C44` in this
+ledger; nothing was deleted from the record, and three overstatements in the source prose were corrected
+on the way in rather than inherited.**
+
+**What was consolidated.** Branch `codex/intron-exon-phase`, commit **`fd26cc1b`** ("Add SpliceBERT
+exon-edge compatibility study", 2026-08-04), added `studies/splicebert_exon_edge_compatibility/` with
+eleven claim rows (`E0`, `E1`, `E1a`, `E2`, `E3`, `E4`, `E5`, `E6`, `E7`, `E7r`, `E8` — `E0`–`E8` is not
+exhaustive), 30 runners, 17 `src/gfmcd/splicing/` modules, 30 test files, 5 preregistrations with 13
+amendments, and a 99.4 MB results tree — 3.4 M inserted lines in one commit. It was **not merged**.
+Carried into this tree: **12 result artifacts (4.0 MB)** under
+`results/splicebert_exon_edge_compatibility/`, the **two frozen protocols** that govern the carried
+claims (plus Amendments P3-A1–A3) under `studies/splicebert_exon_edge_compatibility/preregistrations/`,
+and **two ledger rows**. Everything else remains at `fd26cc1b`.
+
+**Retrieval, stated because the 2026-07-31 cleanup did not state it.** That cleanup archived five studies
+with the instruction "remain in Git history" and recorded no sha, tag, or branch, which leaves a reader
+running `git log --all --diff-filter=D`. This entry records the pointer explicitly: the full arc is
+`git show fd26cc1b:<path>`, branch `codex/intron-exon-phase`, pushed to `origin`. Unlike those five, this
+arc **does** control live claims, so the pointer is load-bearing, not a courtesy.
+
+**Renaming.** `E7r` → **C43**; `E8` → **C44**. The `E*` family was not carried as an identifier:
+`tests/test_ledger_consistency.py` matches only `(C\d+|HCA\d+|GFS\d+)`, so `E*` IDs and every
+`results/MANIFEST.csv` row carrying them would have been invisible to every consistency guard — the same
+defect already documented for `ED1` at `results/RESULTS_INDEX.md`. Folding into `C*` puts both rows under
+the existing guards from the first commit. No `CLAIM_ID_EXCEPTIONS` entry is required, because no `E*`
+identifier survives in any manifest or index.
+
+**The nine rows that were dropped.** Reproduced here so nothing is erased, only relocated out of a
+live ledger. The source ledger has **eleven** rows — `E0`, `E1`, `E1a`, `E2`, `E3`, `E4`, `E5`, `E6`,
+`E7`, `E7r`, `E8` — so `E0`–`E8` is **not** an exhaustive enumeration; `E7r` and `E8` were carried as
+C43/C44 and the other nine appear below. The first five columns (ID, claim, evidence level, status,
+scope) are quoted **byte-for-byte** from `fd26cc1b`; the source's remaining two columns (supporting
+artifacts, missing bridge) are omitted here and readable at
+`git show fd26cc1b:studies/splicebert_exon_edge_compatibility/CLAIMS.md`. Status words are the source
+study's own.
+
+```
+| E0 | The model-native masked-donor behavior detects both native adjacent edges in the triad. | Behavior | supported | Development only, 117 genes: `U -> M +0.982 [0.790,1.184]`; `M -> D +0.589 [0.479,0.700]`. |
+| E1 | SpliceBERT's upstream-donor behavior is sensitive to the availability of the downstream acceptor when the middle acceptor is unavailable. | Behavior | instrument-unresolved | Fully coding `U-M-D` development triads. Mean distal effect `-0.004 [-0.069,+0.061]`, MDE80 `0.092`; the positive-control and resolution gates failed. |
+| E1a | The motif-clean 2×2 interaction differs by annotated exon-skipping phase gap. | Behavior | exploratory | Development only: `Delta_skip=+0.243 [0.142,0.363]`; resolution at the 0.05 SESOI failed (`MDE80=0.160`) and the pooled skip-path positive control failed. |
+| E2 | The learned P3 carrier preferentially supports the annotated-phase-predicted `U -> D` register over the raw-position-predicted register. | Circuit | instrument-unresolved | Diagnostic `g != h` triads; nucleotide-invariant four-block intervention was implemented but not executed. |
+| E3 | SpliceBERT generally represents independent donor and acceptor exon phases. | Representation | proposed | Not identified by the canonical triad geometry. |
+| E4 | The post-layer-2 residual at a fixed downstream acceptor contains a nearly equilateral state aligned with its annotated coding-boundary phase. | Representation | exploratory | Development only. Primary held-out balanced accuracy `0.894 [0.852,0.937]`; exact chromosome-and-intron-length-matched accuracy `0.973 [0.933,1.000]`; distance leakage gates pass. The frozen conditional permutation gate fails (`p=0.17`). |
+| E5 | Rotating only the decoded acceptor phase state changes direct-partner utility. | Mediation / behavior | instrument-unresolved | The rigid `+/-120 degree` operator passes algebra and all decoder-cycle cells, but fails natural-support in 6/18 cells; behavior was not exposed. |
+| E6 | Donor and acceptor phase states are compared relationally, so common-mode phase changes preserve partner utility while one-sided changes reduce it. | Selection / mediation | instrument-unresolved | The final-code learned-P3 successor reached its 114-block development preflight. Capability/health, q0 fidelity, mechanics, recorder identities, numerics, and all six projected-resolution gates pass, but the required carrier relocation, balanced-label specificity, A/V direction, and local-Q/K direction gates fail. `target_execution_authorized=false`; no target or specificity/route-localization stage was exposed. |
+| E7 | SpliceBERT's direct-partner coupling preferentially favors donor–acceptor coding-boundary phase matches in a complete crossed direct-edge lattice. | Behavior | instrument-unresolved | Development only, 120 complete blocks. `Psi=+0.376 [0.326,0.427]`; all five simultaneous directional lower bounds are positive; the target exceeds all 99 frozen pseudo-phase controls (exact add-one `p=0.01`). Native/crossed capability, bridge, AC/AT, protected-health, site-health, numerics, construction, and independent-audit gates pass. The frozen target-independent resolution gate fails (`MDE80=0.073 > 0.05`), so confirmation remains sealed with zero outcome rows. Descriptively, `M0=+0.348`, `M+=-0.049`, and `M-=-0.007`; the simultaneous `M+` interval `[-0.091,-0.007]` also forbids **only** even at development. No spliceosome, P3-implementation, or explicit-comparator claim. |
+```
+
+`E0` reads "supported" but its own controlling artifact carries `status: INSTRUMENT_LIMITED_STOP` with
+three failed gates, and the two endpoints it quotes have `MDE80` of 0.2817 and 0.1570 against that
+study's own 0.05 SESOI — positive controls never powered to the study's resolution standard. `E7` is the
+failed-resolution predecessor of C43 and is superseded by it, not additional to it. The rest reached no
+evidence level this ledger would record.
+
+**`E4` is the one dropped row a successor should read first.** Its post-layer-2 acceptor plane decodes
+annotated boundary phase at 0.894 held-out balanced accuracy (0.973 under exact donor-distance matching)
+with near-equilateral three-cycle geometry, and it is the **only** claim in the arc whose independent
+audit is still re-executable — 1.96 MB of committed inputs, no genome and no checkpoint required. It was
+not carried because its frozen specificity gate failed and the failure is not marginal: **16 of 99
+conditional-permutation null planes matched or exceeded the target's accuracy** (max null 0.9153,
+add-one `p = 0.17`). Under the study's own rule the decodability is not distinguishable from the
+conditional structure, so there is no representation claim to carry — only a lead.
+
+**Three defects in the source prose, corrected rather than inherited.**
+
+1. **"authentic-module" for a chimeric construct.** The source `RESULTS.md` calls the development result
+   "this fixed synthetic-module domain" and then, at exactly the point the claim is upgraded to
+   supported, calls the replication "the frozen crossed authentic-module context" — and the `E7r` row
+   repeats it. The modules are authentic hg38 sequence; the joined construct exists in no genome.
+   Dropping "synthetic" at the moment a claim becomes supported is the worst available place to drop it.
+   **C43 says chimeric.** Relatedly, "120-nt authentic-module geometry" names the donor→acceptor **span**,
+   not the module length (~424 nt); C43 states the span.
+
+2. **"Boundary phase is strongly decodable" (E4).** The source README asserts this and treats the failed
+   conditional-permutation gate as a concessive "but". That gate is not a separate limitation — it is the
+   representation-level test of whether the decoding is attributable to phase at all, and it failed with
+   16/99 nulls at or above target. `RESULTS.md` compounds it by assigning the failure to the causal rung
+   ("They do not establish a causal state because two frozen instrument gates failed"), which lets the
+   representation claim stand at a level its own gate denies it. Not carried; see above.
+
+3. **An unsourced quantitative rescue.** The source `RESULTS.md` explains the E4 gate failure with
+   "the tight conditional partition had 63 strata, of which 24 were phase-pure (34/180 rows)". Those
+   numbers appear in **no artifact, no audit check, and no decision entry** — `phase_state_preflight.json`
+   contains no stratum count or purity diagnostic, and a repo-wide grep for `phase-pure`/`phase_pure`
+   returns only that line and two unrelated code comments. Under the controlling-artifact contract an
+   unbacked number used to explain away a frozen gate failure must be computed and emitted or deleted.
+   It is not carried in any form.
+
+**One thing the source study omitted that C43 now states.** The replication cohort's own
+`stop_diagnostics` show that phase-**mismatched** joins carry ~0.61 more in-frame stop codons than
+matched joins (diagonal cell means 0.003/0.016/0.021 against off-diagonal 0.570–0.732), and the frozen
+protocol names this as interpretation-narrowing: a concentration of the effect in high-stop-load blocks
+"narrows the interpretation toward a stop-avoidance/coding-plausibility prior". The words *stop codon*,
+*stop load*, and *coding plausibility* appear nowhere in the source `CLAIMS.md`, `RESULTS.md`, or
+`README.md`. The omission was not concealment — the artifacts **defuse** the rival: Spearman
+`rho = -0.093`, and high-stop-load blocks give a *lower* `Psi` (0.359) than low-load blocks (0.421). It
+is reported in C43 with those diagnostics, because a prespecified confound a reviewer will find first
+must be in the row, not in the artifact.
+
+**Two fragilities now stated in C43 that the source row presented as clean passes.** The resolution gate
+passed by 0.46% (`MDE80 = 0.049770` against `<= 0.05`; a bootstrap SD 0.46% larger would have returned
+`INSTRUMENT_UNRESOLVED`), and it landed *worse* than the protocol's own three pre-run projections
+(0.0407 / 0.0459 / 0.0489). And "exact add-one `p = 0.01`" is the minimum attainable value with 99
+controls — E7 development and the E7r replication print the identical string at very different
+evidential strengths. C43 reports the separation (target `+0.3901` vs largest control `+0.0377`) rather
+than leaning on the floor value.
+
+**What C44 must never become.** `E8`'s claim *text* is phrased affirmatively ("Local learned-P3 carrier
+surgery relocates the phase-preference ridge ... and mediates that relocation through L3H1 A/V and Q/K")
+and is negated only by a status word in an adjacent column. Any condensation that drops the status word
+converts an instrument failure into a mechanism claim.
+
+The opposite error is subtler and this consolidation made it before catching it. A first draft of C44
+printed the preflight `Omega = +0.00545 [0.00086, 0.01049]` next to the protocol's `±0.05`
+**bounded-null** band and said only a failed capability gate stood in the way — which reads as "the number
+is null-shaped, a technicality blocks it". That framing is wrong twice. `P3_CARRIER_BOUNDED_NULL` is
+defined on the **384-block target** `Omega`, which was never measured (`target_execution_authorized =
+false`, zero target rows); the preflight `Omega` is a different quantity at a stage the protocol itself
+calls "channel-alive preflight gates, **not evidence about the target**". And Amendment P3-A2 §8 requires
+a *passing* development preflight plus every target capability gate, not one gate. The decisive blocker is
+that the estimand does not exist, not that a gate tripped. **The `±0.05` comparison must not be printed
+next to the preflight `Omega` at all.**
+
+Two more phrasings inherited from `E8` were removed on the same grounds. "The ridge did not move" is a
+null mechanism conclusion stated as fact — and an *inverted* one, since `S1` and `S2` have simultaneous
+upper bounds below zero; the protocol forbids positive, null, and inverted alike. And "closes only this
+checkpoint x behavior x context x local ... family" drops a conditional: the protocol says a **powered
+negative** closes that family, and there was no powered negative, so nothing is closed. C44 now states
+the affirmative hypothesis, the status, the failed authorization gates, and the withheld null — and says
+the family is attempted-and-unresolved, not eliminated.
+
+**The machine-readable index carries the same burden.** C44's four result rows in `results/MANIFEST.csv`
+are `polarity = na`, `evidence_level = Instrument` — **not** `null`. A first pass wrote `null`, silently
+reversing the source branch's own correct `na` and encoding into the index exactly the conclusion the row
+forbids; `polarity` exists so that "a null can never be silently re-read as a positive", and it works in
+this direction too. An authorization preflight that never exposed its endpoint has no evidence direction.
+Do not re-derive `null` from the `Omega` interval. C43's rows are `polarity = bounded`, matching its
+status word, so the index never reads stronger than the row it points at.
+
+**Deliberate deviations from the 2026-07-31 archiving recipe, and why.** That recipe deletes the study
+tree with no stub and no retrieval pointer. Here (a) a pointer is recorded above, because two live claims
+depend on the archived material; and (b) a minimal
+`studies/splicebert_exon_edge_compatibility/` survives holding **only** an archive README and the two
+governing frozen protocols, kept at their original relative paths. Be precise about why, because the
+obvious reason is wrong: the two carried *frozen-package audits* reference no preregistration at all. The
+bindings that actually resolve are in C44's `development_preflight_analysis.manifest.json` and
+`development_preflight_audit.manifest.json`, and they cover the P3 protocol plus Amendments P3-A1–A3 —
+path, sha256, and size all verified against the carried files. C43's protocol is bound by no carried
+artifact: its only path-plus-sha256 record lives in the **uncarried**
+`crossed_direct_edge_replication_frozen_package.json` at `fd26cc1b`. It is kept because the ten-gate
+claim is not humanly checkable without it. No `CLAIMS.md`, no runners, no `src/`, no tests. The repo's
+cardinal question is "did you do what you said you would"; retiring the protocol of a live claim to
+history alone would remove the only means of answering it.
+
+**Reproducibility cost, stated rather than discovered later.** The runners and `src/` modules that
+produced the carried artifacts are archived, so the `script` column is **blank** for all 12 new
+`results/MANIFEST.csv` rows; each sibling `*.manifest.json` still pins its runner by path and sha256, so
+provenance is intact and the code is recoverable from `fd26cc1b`. Independently of that choice, **both
+carried audits were already un-re-runnable on the source branch**: the source `.gitignore` excludes the
+54 MB replication cell rows and the 114 preflight shards (256 MB) those audits recompute from. Archiving
+the 48 MB and 37 MB cohorts costs nothing further. C43's and C44's headline numbers remain re-derivable
+from the per-block endpoint tables carried inside the artifacts themselves; both rows say so.
+
+**Rule.** Consolidating an arc is a translation, not a summary: every status word, failed gate, and scope
+qualifier must be re-stated in the destination row, and any number that survives must be re-verified
+against the artifact rather than copied from the source prose. Where the source's own prose overstates
+its artifacts, the consolidation is the last checkpoint that can catch it — carrying the wording forward
+launders it into a ledger a reviewer is told to trust.
+
+## R46 — the jeyashree-ajay portability audit was ported: it fixed a real cross-machine defect, and it broke a script outright, crashed the R11 memorial, a C36 hash pin, two ED1 provenance hashes, and silenced thirteen memorials (2026-08-04)
+
+**Outcome in one line: a correct and overdue fix, incorporated in full, with five side effects that its
+own branch did not record — one of which left a script unable to import at all, and one of which
+crashed the memorial guarding R11.**
+
+**What was ported.** Commit `684d9bbb` on branch `jeyashree-ajay` (Jeyashree Krishnan, Ajay — Algoverse
+CSAP cohort 2026), plus `docs/MECH_INTERP_GAP_ANALYSIS.md`. The commit replaces every hardcoded
+`/Users/cberg/Research/data/genomes/...` constant across **34 files** with `None` (argparse defaults) or
+`os.environ.get("GFMCD_GTF" / "GFMCD_FASTA" / "GFMCD_FASTA_FAI", "/nonexistent/…")` (module and test
+constants), fixes a resource leak in `run_dnabert2_aliasing.py` (bare `open()` inside a SHA-256 call →
+`Path.read_bytes()`), and repairs `audit_ed1_provenance.py`, which resolved the model path through
+`REPO.parents[2]` — three directories **above** the repository root, so on any other machine it would
+have silently hashed the wrong file or none. The diagnosis is correct and the fix is the right shape:
+`REPRODUCE.md` §2 already documented that over a hundred manifests name the absolute
+`/Users/cberg/Research/data/genomes/hg38.fa`.
+
+**Not ported, deliberately:** the branch's README rewrite (branch-specific framing, mentor headers, and a
+summary of a separate acceptor study), the `md/` relocation of the four root documents (it would break
+every in-tree link to `AGENTS.md`, `MECHANISM.md`, and `REPRODUCE.md`, including links inside frozen
+preregistrations), `tex/`, and `slides/`. Those are that branch's deliverables, not this tree's record.
+
+**Defect 1 — the fix left `audit_ed1_provenance.py` unable to import.** The rewrite introduced three
+`os.environ.get(...)` calls at module scope (lines 56–58) without adding `import os`. The script raises
+`NameError: name 'os' is not defined` on any invocation, including `--help`. It is the provenance auditor
+for the `ED1` arc recorded in §12 of the live ledger, so the tool that certifies that arc's provenance was
+inert. **Fixed on port** by adding `import os`; verified by running it. Nothing in the suite covered this
+script, which is why the branch stayed green.
+
+**Defect 2 — a C36 frozen-package pin is now broken, and this entry is the amendment.**
+`src/gfmcd/splicing/circuit.py` is bound by sha256 in
+`results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json` (2 records). The fix changes
+`DEFAULT_GTF`/`DEFAULT_FASTA` from absolute paths to `None`, so the pin no longer verifies and
+`tests/test_hash_pin_ledger.py::test_c36_package_broken_set_is_exactly_the_ledger` fails. Reverting the
+file was considered and rejected: those two constants are imported as argparse defaults by live runners
+(`build_p3_closure_cohort.py`, `run_ic1_distal_intron_necessity.py`, and others), so a revert would leave
+the original defect in the module the most runners inherit from. **Owner decision (2026-08-04): log the
+amendment rather than revert**, following the R34 precedent for the same package. `circuit.py` is recorded
+in `tests/data/hash_pin_ledger.json` with recorded and current hashes and a reason; that ledger's
+`_README` now names both breaking events. **State it plainly: a re-run of the C36 confirmation from this
+tree no longer reproduces the pinned code hash.** Only the two default constants changed — `CORRUPT_ALT`,
+`GAP_MIN`/`GAP_MAX`, `MIN_EFFECT`, and every estimand, operator, and cohort rule are byte-identical — and
+the new failure mode is a loud one: without `--gtf`/`--fasta` the runner now fails instead of silently
+reading whatever sat at the old absolute path. **No C36 number, gate, or wording changes.** The ledger
+entry for `freeze_p3_phase_surgery_confirmation.py`, which this commit re-edits, had its stale
+`current_sha256` refreshed at the same time so the file cannot rot into a list of hashes nobody rechecked.
+
+**Defect 3 — two ED1 provenance hashes went stale with no guard to notice.**
+`results/splicebert_coupling/ed1_provenance_audit.json` records `disk_sha256` for ten ED1 sources. This
+port invalidates two of them: `run_ed1_architecture_boundary_pairing.py` and `run_ed1_cohort_pilot.py`.
+(A third, `coupling.py`, was already stale before this port — from the R44 clean-alt work — and is
+recorded here because nothing else records it.) **No test covers this artifact**: `test_hash_pin_ledger.py`
+guards the C36 package only. The audit is an immutable record of what was true at ED1 freeze time and is
+not rewritten; ED1's own status is unaffected, since it is a `GATES_FAILED — no interpretation` row that
+these two scripts' defaults cannot move. Recorded so a later reader does not mistake the mismatch for
+tampering.
+
+**Defect 4 — thirteen memorials went silently quiet on a machine that has the genome.** Because the new
+fallback is `/nonexistent/…` and the genome-dependent tests are `skipif`-guarded on file existence, the
+suite went from **512 passed / 17 skipped in ~90 s** to **499 passed / 29 skipped in ~11 s** — thirteen
+memorials stopped executing and *nothing failed*. That is precisely the failure mode R39 and R41 exist to
+document, arrived at from the opposite direction: not deleted artifacts, but a default that no longer
+resolves. The branch introduced the three environment variables and documented them **nowhere**, so a
+developer had no way to know coverage had dropped. **Fixed on port** by documenting `GFMCD_GTF`,
+`GFMCD_FASTA`, and `GFMCD_FASTA_FAI` in `REPRODUCE.md` §2 together with the exact pass/skip signature of
+both states, so an unset environment is diagnosable from the pytest summary line alone. With the variables
+exported, the suite returns to 512 passed / 17 skipped.
+
+**Defect 5 — the same `circuit.py` edit crashed the R11 minus-strand memorial.** The branch set
+`DEFAULT_GTF`/`DEFAULT_FASTA` to bare `None` in `circuit.py` while using
+`os.environ.get(..., "/nonexistent/…")` everywhere else — an inconsistency inside its own patch, and the
+consequential one. `tests/test_circuit_memorials.py::test_both_strands_are_present` imports those two
+constants directly and passes them to `_dataset(...)`, so `None` reaches `pathlib` and raises
+`TypeError: argument should be a str or an os.PathLike object … not 'NoneType'` **before** the existence
+check can decide to skip. Two memorials failed outright, one of them the memorial for **R11** — the defect
+where every minus-strand exon was silently dropped and "the study ran on half the genome for weeks without
+anyone saying so". A memorial that crashes on a type error is not guarding anything. **Fixed on port** by
+giving `circuit.py` the same env-var idiom the branch used in the test files, so the constants are always
+`str`: the `skipif` guard decides, as designed. Verified in both states — with the variables exported,
+**512 passed / 17 skipped**; without them, **500 passed / 29 skipped** and no crash.
+
+**The gap analysis was ported with five path corrections and one rewritten recommendation.**
+`docs/MECH_INTERP_GAP_ANALYSIS.md` maps the standard interpretability toolkit against this project and
+ranks what is missing (ACDC/EAP, integrated gradients, LogitLens as Priority A; SAEs, causal scrubbing,
+steering vectors as Priority B). It is **advisory** and licenses nothing. Its "already implemented" table
+cited four modules at paths that do not exist — `mlp_units.py` and `positional_spectrum.py` are under
+`src/gfmcd/splicing/`, not `src/gfmcd/circuits/`; there is no `carrier_dose.py` module, only
+`scripts/splicebert/run_carrier_dose.py`; and the faithfulness runner is `run_a12_faithfulness_size.py`.
+More consequentially, its Priority-A2 recommendation was to *create* `src/gfmcd/circuits/attribution.py`.
+**That module already exists**, and it is the one `ab670640` restored after a first deletion precisely
+because a frozen preregistration cites it *as evidence* — an agent following the recommendation as written
+would have overwritten a prereg-cited file. The recommendation now says to add integrated-gradient and
+attention-gradient variants *alongside* the existing `head_attribution_scan`, and says why the file may
+not be replaced. Its §3 paper edits are retargeted to the `jeyashree-ajay` branch, where the `tex/` source
+actually lives.
+
+**Rule.** A portability fix is a change to the measurement path. Replacing a default that resolved with
+one that cannot is not a neutral edit: it converts running memorials into skipped ones, and a skip is
+green. Any change to a genome, model, or data default must state the pass/skip signature before and after,
+and must be checked against the sha256 pins that bind the edited files — a green suite will not tell you,
+because the pins that matter here are covered by exactly one test and the ED1 audit by none. And a
+sentinel default must keep the **type** the callers expect: `None` turns a designed skip into a crash,
+and the callers here are the memorials themselves.

@@ -96,6 +96,38 @@ without generic MLM damage, with its semantic label no stronger than the externa
    need its own bias control before any number is reportable; no mature human *chemical-cleavage* dyad map
    with comparable provenance was located. The refutation does not depend on closing this.
 
+## Disposition — exon-edge compatibility (coding-boundary phase)
+
+**Consolidated and archived, 2026-08-04.** The arc asked whether donor–acceptor coupling tracks codon
+reading-frame phase across a joined boundary. It reached a **replicated behaviour** (C43) and a
+**stopped mechanism attempt** (C44), and its remaining seven claim rows reached no evidence level this
+project records. Bulk stayed on `codex/intron-exon-phase` at `fd26cc1b`; see R45.
+
+What is genuinely open, in priority order:
+
+1. **Does C43 survive outside the chimeric lattice?** Everything rests on constructs joining a donor
+   module from one gene to an acceptor module from another at **one fixed 120-nt span**. A native-context
+   assay — or even the same lattice at two more separations — is the cheapest thing that would tell us
+   whether this is a property of the model's partner selection or of the construct family.
+2. **Stop-avoidance versus phase.** Mismatched joins carry ~0.61 more in-frame stop codons than matched
+   ones. The current diagnostics argue against that being the driver (`ρ = −0.093`; high-load blocks show
+   a *lower* `Ψ`), but nothing yet **manipulates** stop load independently of phase, which is what would
+   settle it.
+3. **A capable mechanism instrument.** C44 **closes nothing** — the protocol closes its local family
+   (learned-P3 carrier surgery, L3H1 A/V replacement, local L3H1 Q/K) only on a *powered negative*, and
+   this is not one: four authorization gates failed and the target was never exposed. That family is
+   attempted-and-unresolved. A successor needs a **newly preregistered capable** instrument; the failed
+   authorization path may not be reopened or relaxed. Note the reserved 384-block target is the C43
+   replication cohort, so it now carries a known behavioural covariate.
+4. **E4's lead, not E4's claim.** A post-layer-2 acceptor plane decodes boundary phase at 0.894 held-out
+   (0.973 exact-distance-matched), but its conditional-permutation specificity gate failed with 16/99
+   nulls at or above target. A successor needs an exchangeable null with genuinely mixed strata and fresh
+   outcomes. It is the one part of the arc whose audit is still re-runnable from history (1.96 MB, no
+   genome, no checkpoint).
+
+**Exit condition:** either C43 reproduces in a context that is not a fixed-geometry chimera, or the arc
+is recorded as a construct-scoped behavioural curiosity. No mechanism claim is licensed until (3).
+
 ## Transfer milestone — second real GFM
 
 **There is no active second-GFM milestone in this tree.** Two were prepared and both left the working

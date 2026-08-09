@@ -43,6 +43,7 @@ import gzip
 import json
 import math
 import sys
+import os
 from pathlib import Path
 
 import numpy as np
@@ -54,8 +55,8 @@ sys.path.insert(0, str(REPO / "scripts/splicebert"))
 
 from run_dyad_fpr import FILT, K, T0                      # noqa: E402  THE FROZEN INSTRUMENT
 
-MAP = Path("/Users/cberg/Research/data/nucleosome/GSM2183909_unique.map_95pc.txt.gz")
-FASTA = Path("/Users/cberg/Research/data/genomes/mm9.fa")
+MAP = Path(os.environ.get("GFMCD_DYAD_MAP", "/nonexistent/GSM2183909_unique.map_95pc.txt.gz"))
+FASTA = Path(os.environ.get("GFMCD_MM9_FASTA", "/nonexistent/mm9.fa"))
 OUT = REPO / "results/phase-lattice/dyad_real.json"
 
 CHROM = {**{str(i): f"chr{i}" for i in range(1, 20)}, "20": "chrX", "21": "chrY", "22": "chrM"}

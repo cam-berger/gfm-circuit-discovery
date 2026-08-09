@@ -1,0 +1,46 @@
+{
+  "command": [
+    "scripts/splicebert_exon_edge_compatibility/audit_p3_direct_edge_freeze.py"
+  ],
+  "config": {
+    "model_free": true,
+    "target_blocks": 384
+  },
+  "created_at_utc": "2026-08-04T05:51:46.254082+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 15215,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert-exon-edge-compatibility:p3-direct-edge-freeze-audit",
+  "git_commit": "5f557fc0304e1300aacfa62df8c036e8ca728310",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_frozen_package.json",
+      "sha256": "da47eee2b811df2ea74c5a18683152cb66e95239e22892889b83449e82d22fc4",
+      "size_bytes": 54507
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_frozen_package.manifest.json",
+      "sha256": "70adc705bf7d23b85a179cdcc980bac0709d2fabf88edde2ae51df8425f7effb",
+      "size_bytes": 26034
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_exon_edge_compatibility/audit_p3_direct_edge_freeze.py",
+      "sha256": "df40b47c3964c7b77995433c2aa55b7ad141d25e876b90f4c6b48f9397d6e597",
+      "size_bytes": 23801
+    }
+  ],
+  "notes": [],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_frozen_package.audit.json",
+      "sha256": "083737d6418087997e5e360e4959180b949d3c9a02a096bf71ed2ddac504459f",
+      "size_bytes": 1131
+    }
+  ],
+  "seeds": {},
+  "status": "PASS"
+}

@@ -18,13 +18,14 @@ a gate, state what would break it and check that the breaking result is reachabl
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 import pytest
 import torch
 
-GTF = Path("/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz")
-FASTA = Path("/Users/cberg/Research/data/genomes/hg38.fa")
+GTF = Path(os.environ.get("GFMCD_GTF", "/nonexistent/gencode.gtf.gz"))
+FASTA = Path(os.environ.get("GFMCD_FASTA", "/nonexistent/hg38.fa"))
 MODEL = (Path(__file__).resolve().parents[1]
          / "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt")
 

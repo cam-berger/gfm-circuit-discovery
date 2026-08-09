@@ -96,10 +96,21 @@ same change; the verifier fails otherwise.
 | `origin-crossmodel/` | [`README.md`](origin-crossmodel/README.md) | `studies/splicebert_partner_selection/CLAIMS.md` (C40) |
 | `splicebert_gtex_finetune_shift/` | [`RESULTS_INDEX.md`](splicebert_gtex_finetune_shift/RESULTS_INDEX.md) | `studies/splicebert_gtex_finetune_shift/CLAIMS.md` (GFS1–GFS34) |
 | `splicebert_acceptor_coupling/` | no per-directory index; the five artifacts and their manifests are the `MANIFEST.csv` rows | `studies/splicebert_acceptor_coupling/CLAIMS.md` (AC1–AC4) |
+| `splicebert_exon_edge_compatibility/` | [archive record](../studies/splicebert_exon_edge_compatibility/README.md) | `studies/splicebert_partner_selection/CLAIMS.md` (C43, C44) |
 
 The `dnabert2_reconstruction_atlas/` and `splicebert_visualizer/` trees were removed from the working
 tree in the 2026-07-31 cleanup along with their studies; both remain in Git history. Neither controlled
 a claim in a surviving ledger.
+
+`splicebert_exon_edge_compatibility/` is different: it is a **consolidation remnant, not a full tree**.
+Twelve artifacts (4.0 MB) were carried on 2026-08-04 for C43 and C44; the other ~99 MB of that study's
+results — including the 48 MB and 37 MB crossed cohorts — stayed on branch `codex/intron-exon-phase` at
+commit `fd26cc1b`, together with every runner that produced them. Consequently these twelve rows carry a
+**blank `script` column** by design: each sibling `*.manifest.json` pins its archived runner by path and
+sha256, so provenance is intact and the code is recoverable, but it is not in this tree. Both audits were
+already un-re-runnable on the source branch, whose own `.gitignore` excluded the raw rows they recompute
+from; the controlling numbers are re-derivable from per-block endpoint tables inside the artifacts. See
+[`CORRECTIONS.md` R45](../studies/splicebert_partner_selection/CORRECTIONS.md).
 
 **Layout convention.** Most trees keep their **canonical artifacts at the directory root**, with
 `development/` and `superseded/` subtrees beside them — the `canonical/`-subdirectory half of the 2026-07-22
