@@ -50,6 +50,21 @@ this file existed, that question had no answer here short of reading 34 protocol
 > re-executable** — the source branch gitignored the raw rows both recompute from. Treat C43/C44 gates as
 > **self-reported, not audited**.
 
+> **A fourth protocol is uncovered for the opposite reason: positional boundary coherence
+> (2026-08-10).** `studies/splicebert_positional_boundary_coherence/PREREGISTRATION.md` is a frozen
+> 1,091-line design with gates, thresholds, and an authorization graph, and it contributes **no claim and
+> no family below** — because **it has never been run**. There is no cohort, no preflight, no target, and
+> no artifact under `results/splicebert_positional_boundary_coherence/`. Nothing in that file may be cited
+> as a gate that was enforced; every gate in it is a gate that is *specified*.
+>
+> The distinction matters for how this file should grow. The three arcs above are retrospective coverage
+> gaps — code ran, nobody checked it against the protocol. This one is prospective, and the protocol
+> itself forecloses the gap: §"Present status" requires that a freeze package bind the final code and
+> inputs and that **an independent protocol-to-code conformance audit pass before the first target or
+> Phase-III reserve is opened**. That audit is the fix-forward this document's root-cause section asks
+> for — the decision layer checked against the protocol *before* the run, not reconstructed after it.
+> When it is performed, its family belongs in the table below like any other.
+
 **Scope and method.** This audit was commissioned by the 2026-07-24 publication-readiness review, which
 returned *Major Revision — not ready for external artifact review* and named this table its single
 highest-leverage deliverable. 25 SpliceBERT-arc families audited (every frozen protocol on disk for

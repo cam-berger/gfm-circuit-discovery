@@ -37,11 +37,13 @@ now `pyproject.toml` plus `uv.lock`.
 
 | Package | Needed by | How to get it |
 |---|---|---|
-| `maxentpy` 0.0.4 | MaxEntScan scoring: `run_a9_payload_semantics.py` (C30), `run_ic1_pilot2/3.py`, `run_ic2_feasibility.py`, `run_b2_payload_steering.py`, the atlas covariate builders, and `src/gfmcd/splicing/{specificity,splice_landscape}.py` | Not on PyPI, but `pyproject.toml` ships a locked **`maxent` extra** pinning the exact commit the recorded runs used — add `--extra maxent` to your `uv sync`/`uv run`. MaxEnt tables sha256 `8b6d7b46…b7c00`. |
+| `maxentpy` 0.0.4 | MaxEntScan scoring: `run_a9_payload_semantics.py` (C30), `run_ic1_pilot2/3.py`, `run_ic2_feasibility.py`, `run_b2_payload_steering.py`, the atlas covariate builders, `src/gfmcd/splicing/{specificity,splice_landscape}.py`, and the positional-boundary-coherence Phase-I candidate scorer (`src/gfmcd/splicing/pbc_biology.py`) | Not on PyPI, but `pyproject.toml` ships a locked **`maxent` extra** pinning the exact commit the recorded runs used — add `--extra maxent` to your `uv sync`/`uv run`. MaxEnt tables sha256 `8b6d7b46…b7c00`. |
 | `multimolecule` 0.2.0 | the three cross-model carrier runners under `scripts/crossmodel/` (C39/C40) | A **separate** environment by design — the runners record `"environment": "gfmcd-mm (conda): python3.11 torch transformers multimolecule0.2.0"` in their manifests. Do not add it to the main env; build the side environment and run those scripts there. |
 
 The library modules import `maxentpy` lazily, so `import gfmcd` works without it; the four runners above
-import it at module level and will fail immediately if it is absent.
+import it at module level and will fail immediately if it is absent. `tests/test_pbc_phase1_real_data.py`
+**skips** without it — a skipped run there is not a passing one, and what stops being checked (including
+the MaxEnt pin memorial) is listed at the top of that file.
 
 ## 2. Model and external data
 
@@ -211,6 +213,47 @@ scope, commands, and the outcome-aware verification status are in
 Bulk `target_shards/`, `health_shards/`, packet matrices, and Colab distribution archives are ignored
 because they are reproducible intermediates or retained in external run bundles. The compact artifacts
 required to audit the recorded claims are version-controlled.
+
+### Positional boundary coherence — nothing to reproduce yet
+
+**There is no run here to reproduce.** `studies/splicebert_positional_boundary_coherence/` ships a frozen
+preregistration, 28 runner/audit entrypoints under
+`scripts/splicebert_positional_boundary_coherence/`, ten `src/gfmcd/splicing/pbc_*` and
+`positional_boundary_coherence` modules, and their tests — and no artifact. Everything below is the
+*forward* path for whoever executes it, not a replay.
+
+| Stage | Producer | Independent authorization |
+|---|---|---|
+| Freshness registry | `build_freshness_registry.py` | `audit_freshness_registry.py` |
+| Real-sequence census | `build_candidate_census.py` | `audit_candidate_census.py` |
+| Balanced cohort | `build_composition_balanced_cohort.py` | `audit_composition_balanced_cohort.py` |
+| P3-first attenuation development | `calibrate_carrier_factorial.py` → `run_carrier_factorial_preflight.py` | `audit_carrier_factorial_preflight.py` → `freeze_carrier_factorial_target.py` |
+| Attenuation confirmation | `run_carrier_factorial_target.py` → `analyze_carrier_factorial.py` | `audit_carrier_factorial.py` |
+| P3 register development | `run_p3_register_preflight.py` → `analyze_p3_register_preflight.py` | `audit_p3_register_preflight.py` |
+| Route discovery and freeze | `run_p3_register_candidate_screen.py` → `freeze_p3_register_candidates.py` | `audit_p3_register_candidate_freeze.py` |
+| Reserve seal | `freeze_p3_register_target.py` | the seal binds authorization, candidates, code, inputs, and every output path |
+| Register confirmation | `run_p3_register_target.py` → `assemble_p3_register_target.py` → `analyze_p3_register_relocation.py` | `audit_p3_register_relocation.py` |
+| Route mediation | `run_p3_register_mediation_target.py` → `assemble_p3_register_mediation_target.py` → `analyze_p3_register_mediation.py` | `audit_p3_register_mediation.py` |
+
+Four things bind before the first model call, and each is fail-closed:
+
+1. **A conformance audit.** The preregistration's own "Present status" requires a freeze package binding
+   the final code and inputs, plus an independent protocol-to-code conformance audit, before any target
+   or Phase-III reserve opens. Do not run a target without it.
+2. **Checkpoint identity.** Base `SpliceBERT.1024nt`, `pytorch_model.bin` sha256 `2ad91428…0149d`,
+   recorded on every model run. A mismatch is fatal, not a warning.
+3. **The seal.** `chr8`/`chr9` stay globally sealed; no script may fall back to them when capacity is
+   low. `chrY` is excluded. Genes are excluded by the rederived freshness registry covering every
+   C43/C44/GFS25 role.
+4. **Producers cannot authorize themselves.** Every row above pairs a producer with a separate auditor,
+   and no later stage may infer a positive, negative, or bounded result from a failed instrument.
+
+Runners call `gfmcd.artifact_guard.guard_output_path`, so a rerun aimed at an existing artifact refuses
+rather than overwriting. Results go to `results/splicebert_positional_boundary_coherence/` under the
+layout its [`RESULTS_INDEX.md`](results/splicebert_positional_boundary_coherence/RESULTS_INDEX.md)
+declares. Tests are `uv run --extra splicebert --extra dev --extra maxent pytest tests/ -k pbc` — 110
+tests, ~11 minutes, no genome or checkpoint required (they build tiny FASTA/GTF fixtures in `tmp_path`).
+Drop `--extra maxent` and `tests/test_pbc_phase1_real_data.py` skips as a file.
 
 ## 4. Safe reproduction rules
 

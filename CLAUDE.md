@@ -47,19 +47,22 @@ The frozen one-sentence mechanism statement, its checkpoint caveats, and its sco
 
 | Question | File that owns the answer |
 |---|---|
-| What is claimed, in what words? | the three `CLAIMS.md` ledgers: [donor circuit](studies/splicebert_partner_selection/CLAIMS.md) (`C*`), [Head–Context Atlas](studies/splicebert_head_context_atlas/CLAIMS.md) (`HCA*`), [GTEx fine-tuning shift](studies/splicebert_gtex_finetune_shift/CLAIMS.md) (`GFS*`) |
+| What is claimed, in what words? | the three `CLAIMS.md` ledgers that carry rows: [donor circuit](studies/splicebert_partner_selection/CLAIMS.md) (`C*`), [Head–Context Atlas](studies/splicebert_head_context_atlas/CLAIMS.md) (`HCA*`), [GTEx fine-tuning shift](studies/splicebert_gtex_finetune_shift/CLAIMS.md) (`GFS*`). A fourth, [positional boundary coherence](studies/splicebert_positional_boundary_coherence/CLAIMS.md), is deliberately **empty**: that study is a frozen design with no outcome |
 | What was retracted or bounded, and why? | [`CORRECTIONS.md`](studies/splicebert_partner_selection/CORRECTIONS.md) — **R1–R46**. R1–R24 are table rows (some are ranges); R25–R46 are `##` sections later in the same file — scan both. |
 | Why was an experiment designed that way? | [`DECISIONS_A0.md`](studies/splicebert_partner_selection/DECISIONS_A0.md) and each study's `DECISIONS*.md` |
 | What is next, and what is deferred? | [`docs/ROADMAP.md`](docs/ROADMAP.md) |
-| Was a preregistered gate actually enforced? | [`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) — **read before citing any gate as enforced**; many runners departed from their frozen protocol. Covers the SpliceBERT donor/carrier arc only — `GFS*` gates are self-reported, not audited |
+| Was a preregistered gate actually enforced? | [`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) — **read before citing any gate as enforced**; many runners departed from their frozen protocol. Covers the SpliceBERT donor/carrier arc only — `GFS*` gates are self-reported, not audited, and the positional-boundary-coherence gates have never been executed |
 | Which artifact controls a claim? | [`results/RESULTS_INDEX.md`](results/RESULTS_INDEX.md) and `results/MANIFEST.csv` |
 
-Cite by ID; let the ledger carry the number, or it drifts. Three studies carry the record
-([study map](README.md#study-map)) — five earlier study directories left the working tree in the
-2026-07-31 cleanup and remain in Git history. A sixth arc, **exon-edge compatibility**, was consolidated
-on 2026-08-04 into two donor-ledger rows (**C43** behaviour, **C44** mediation-unresolved) plus twelve
-artifacts and two frozen protocols; its bulk stayed on `codex/intron-exon-phase` at `fd26cc1b`, and R45
-governs what may be said about it.
+Cite by ID; let the ledger carry the number, or it drifts. Four study directories are in the tree and
+**three carry the record** ([study map](README.md#study-map)); the fourth,
+[positional boundary coherence](studies/splicebert_positional_boundary_coherence/README.md), is a frozen
+design whose ledgers are empty by construction. Five earlier study directories left the working tree in
+the 2026-07-31 cleanup and remain in Git history. A sixth arc, **exon-edge compatibility**, was
+consolidated on 2026-08-04 into two donor-ledger rows (**C43** behaviour, **C44** mediation-unresolved)
+plus twelve artifacts and two frozen protocols; its bulk stayed on `codex/intron-exon-phase` at
+`fd26cc1b`, and R45 governs what may be said about it. The positional-boundary-coherence study is that
+arc's sanctioned successor and inherits blacklists and geometry from it, never its signs or magnitudes.
 
 ## How work is done here (conventions — follow these)
 

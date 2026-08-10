@@ -141,3 +141,32 @@ R45). That omission is defensible for a short workshop paper, but note that C44 
 whether the period-3 carrier implements a coding-phase preference, and it returned
 `INSTRUMENT_UNRESOLVED`. If the paper's period-3 discussion is expanded toward codon phase, C44 must be
 cited — the draft's own `[TODO: fill in results of the experimental run]` sits exactly there.
+
+### Update 2026-08-10 — the positional-boundary-coherence study changes no number here
+
+`studies/splicebert_positional_boundary_coherence/` landed on this date. It contributes **no result, no
+claim row, and no artifact**, so **not one figure in this draft moves**. The defect list above stands
+unchanged. What it changes is *scope and disclosure*, in six places:
+
+1. **§3.5, the `[TODO: fill in results of the experimental run]` after "codon periodicity a plausible
+   corpus correlate".** This TODO still cannot be filled — the successor specifies the experiment, it
+   does not report it. The disclosure that belongs there is C43 (replicated behaviour) plus C44
+   (`INSTRUMENT_UNRESOLVED`), written so that it says neither that period-3 implements the coding-phase
+   preference nor that it fails to (`NOMENCLATURE.md`, coding-boundary-phase row).
+2. **§5 `\paragraph{Periodicity}`, currently empty.** The natural home for both periodicity bridges. Note
+   `REVIEW_OPEN_QUESTIONS.md` **B4**: do **not** write the "10.630 lies outside the 10.2–10.5 bp
+   DNA-helical range" fallback into the paper — it is contested pending an owner ruling. The powered
+   0.33-nt ≈10.298 comparison is unaffected and is the argument to make.
+3. **§3.4, "shifted in register by 3, 6, or 9 nt".** "Register" now names three distinct operators
+   (C36 local hidden-axis shift, C44 local carrier surgery, the successor's span-wide analytic ramp).
+   Say which. See the `carrier register` row in `NOMENCLATURE.md`.
+4. **§3.1, the corruption operator.** This draft corrupts `AG`→`CC`; the successor uses `AG`→`AC`. If the
+   successor is mentioned, the operators must not be presented as one assay.
+5. **Reserved vocabulary that must not appear.** The `P3_*` outcome-tier labels and the phrase
+   *sequence-encoded coding-boundary coherence prior* are defined-but-unearned. They name rungs no run
+   has reached and must not be written as if they described an outcome.
+6. **Geometry, if the successor is described.** It keeps the fixed 120-nt chimeric span, so it does not
+   address `ROADMAP.md` open item 1 — a positive from it would still be construct-scoped.
+
+`checklist.tex`'s GENCODE **v43** (defect 15 above) is now wrong against three studies rather than one;
+the repository standard is v50.

@@ -97,6 +97,12 @@ same change; the verifier fails otherwise.
 | `splicebert_gtex_finetune_shift/` | [`RESULTS_INDEX.md`](splicebert_gtex_finetune_shift/RESULTS_INDEX.md) | `studies/splicebert_gtex_finetune_shift/CLAIMS.md` (GFS1–GFS34) |
 | `splicebert_acceptor_coupling/` | no per-directory index; the five artifacts and their manifests are the `MANIFEST.csv` rows | `studies/splicebert_acceptor_coupling/CLAIMS.md` (AC1–AC4) |
 | `splicebert_exon_edge_compatibility/` | [archive record](../studies/splicebert_exon_edge_compatibility/README.md) | `studies/splicebert_partner_selection/CLAIMS.md` (C43, C44) |
+| `splicebert_positional_boundary_coherence/` | [`RESULTS_INDEX.md`](splicebert_positional_boundary_coherence/RESULTS_INDEX.md) | `studies/splicebert_positional_boundary_coherence/CLAIMS.md` — **empty; the study has not run** |
+
+`splicebert_positional_boundary_coherence/` is a **reserved family**: it contains its index and no
+artifact. The layout it will use is declared inside that index, before the first write, so that a
+development preflight cannot land beside a target result. Its claim ledger, result ledger, and decision
+log are all deliberately empty, and its frozen preregistration is not evidence that anything was run.
 
 The `dnabert2_reconstruction_atlas/` and `splicebert_visualizer/` trees were removed from the working
 tree in the 2026-07-31 cleanup along with their studies; both remain in Git history. Neither controlled

@@ -19,6 +19,24 @@ from gfmcd.splicing.positional_boundary_coherence import (
 
 REPO = Path(__file__).resolve().parents[1]
 
+# `maxentpy` is the optional `maxent` extra (pinned to kepbod/maxentpy b5e69aad in pyproject.toml,
+# not the PyPI package). Phase-I candidate scoring genuinely needs it, so these tests cannot be
+# rewritten to run without it -- but a missing *optional* extra must skip, not fail, which is the
+# convention `tests/test_splice_landscape.py` already follows for the same dependency. Without this
+# the documented `uv run --extra splicebert --extra biology --extra dev pytest` goes red for reasons
+# that have nothing to do with the code under test. Install with `uv sync --extra maxent`.
+#
+# What stops being checked when this skips: the MaxEnt pin memorial
+# (`test_explicit_maxent_tables_match_installed_pinned_implementation`, which asserts the study's
+# scorer reproduces the pinned upstream implementation exactly), real-FASTA/GTF census
+# reconstruction on both strands, the recorded-exclusion paths, and the candidate-audit tamper
+# memorials. Do not read a skipped run as a passing one.
+pytest.importorskip(
+    "maxentpy",
+    reason="optional maxentpy unavailable; install the pinned `maxent` extra to run Phase-I "
+    "real-data and MaxEnt-pin memorials",
+)
+
 
 def _load(name: str, relative: str):
     path = REPO / relative
