@@ -100,8 +100,9 @@ study's prose that must not be reintroduced from Git history.
 - `src/gfmcd/splicing/` — SpliceBERT-specific assays, competition logic, and cohort utilities.
 - `results/splicebert_coupling/`, `results/phase-lattice/`, and
   `results/splicebert_head_context_atlas/` — immutable results, compact matrices, manifests, and audits.
-- `results/splicebert_positional_boundary_coherence/` — reserved for immutable successor-study artifacts;
-  it is empty until a gated run is completed.
+- `results/splicebert_positional_boundary_coherence/` — reserved for immutable successor-study artifacts.
+  It holds its `RESULTS_INDEX.md` and **no artifact**: that index declares the layout before the first
+  write so a preflight cannot land beside a target result.
 - `results/origin-crossmodel/` and `results/origin-siblings/` — the carrier-origin natural experiments
   (C39/C40). These two use a `canonical/` subdirectory; the other result trees keep canonical artifacts
   at the subtree root. See [`results/RESULTS_INDEX.md`](results/RESULTS_INDEX.md).

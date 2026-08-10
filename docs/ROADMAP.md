@@ -85,11 +85,15 @@ without generic MLM damage, with its semantic label no stronger than the externa
    it sits 0.33 nt from the carrier, a powered refutation (R30). Multi-species training built it.
 6. **No human dyad-anchored nucleosome measurement exists in this record (R30).** The ≈10.298 comparator
    that carries the powered refutation is measured in mouse ES cells (Voong 2016, mm9); every dyad script
-   in the tree is mm9. The refutation does not *depend* on the mouse estimate transferring to human at
-   better than 0.33 nt — 10.630 falls outside the 10.2–10.5 bp DNA-helical range recorded from the
-   literature — but the cross-species step is an assumption, not a measurement, and it is the most likely
-   line of attack on the project's flagship biological claim. Closing it needs an external human
-   dyad-anchored map (e.g. a chemical-cleavage or MNase dyad call set on hg38), not new model compute.
+   in the tree is mm9. It has been argued that the refutation does not *depend* on the mouse estimate
+   transferring to human at better than 0.33 nt, because 10.630 falls outside the 10.2–10.5 bp
+   DNA-helical range recorded from the literature. **That fallback is now contested**
+   (`REVIEW_OPEN_QUESTIONS.md` B4: a random-sequence estimate of 10.6 ± 0.1 bp would place 10.630 inside
+   the range), so treat the powered 0.33-nt comparison as the refutation and do not restate the range leg
+   until B4 is ruled on. Either way the cross-species step is an assumption, not a measurement, and it is
+   the most likely line of attack on the project's flagship biological claim. Closing it needs an
+   external human dyad-anchored map (e.g. a chemical-cleavage or MNase dyad call set on hg38), not new
+   model compute.
    Until then, always name the organism (see `docs/NOMENCLATURE.md`, standing phrase SP2).
    **Disposition (2026-07-25): NOT PURSUED — accepted as a disclosed limitation.** A human MNase dyad set
    is obtainable now but MNase's AT-cleavage bias directly confounds a WW-periodicity readout, so it would
@@ -127,6 +131,22 @@ What is genuinely open, in priority order:
 
 **Exit condition:** either C43 reproduces in a context that is not a fixed-geometry chimera, or the arc
 is recorded as a construct-scoped behavioural curiosity. No mechanism claim is licensed until (3).
+
+### Successor — positional boundary coherence (preregistered 2026-08-10, not executed)
+
+[`studies/splicebert_positional_boundary_coherence/`](../studies/splicebert_positional_boundary_coherence/README.md)
+is the sanctioned successor to (2) and (3). Its `PREREGISTRATION.md` freezes a three-phase design: a
+model-free composition-balanced cohort on genes disjoint from every C43/C44/GFS25 role, a period-3-first
+attenuation factorial with an independent dose preflight and capability gate per carrier, and an optional
+register-relocation and route-mediation phase. Stop load is one of the prespecified balanced covariates,
+which is what (2) asked for; the failed C44 authorization path is not reopened, which is what (3)
+requires.
+
+**It has produced nothing.** No cohort, no preflight, no target, no claim row — the design is frozen and
+the executable target package is not. Treat this as a *planned* track, not progress against the exit
+condition above. Two things it does **not** address: it keeps the fixed 120-nt chimeric geometry, so (1)
+stays fully open, and it does not revisit E4's decoding lead (4). Its own strongest possible outcome is a
+scoped model-mechanism statement — read its decision hierarchy before quoting any tier by name.
 
 ## Transfer milestone — second real GFM
 
