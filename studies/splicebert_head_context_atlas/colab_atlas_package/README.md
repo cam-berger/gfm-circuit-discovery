@@ -77,3 +77,10 @@ or mechanism label. Its SHA-256 is
 The A3 recovery preserves the original one-gate target failure, the first portability-failed A3 audit,
 and all target shards. It writes only new `*_a3_v2` merge/analysis/audit paths. Mechanism labels may be
 read only after both the A3 execution audit and independent analysis audit pass with zero failures.
+
+## Reproducing the Stage-2 target run
+
+[`RUN_STAGE2_COLAB.md`](RUN_STAGE2_COLAB.md) is the operational runbook for the audited stage-two target:
+overlay hash verification, the target-phase command, and the audit/merge/analyze/reconstruct sequence,
+together with the A3 recovery contract. It is the only written reproduction path for that result — read it
+before touching a Stage-2 artifact, and do not use it to overwrite the completed run.
