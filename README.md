@@ -61,7 +61,7 @@ Attribution ranks; intervention decides. See the [methodology](docs/METHODOLOGY.
 | Study | Status | Purpose |
 |---|---|---|
 | [`studies/splicebert_partner_selection/`](studies/splicebert_partner_selection/README.md) | **core record**; open limitations | The donor circuit and both positional carriers: claims, corrections, preregistrations, and the reproduction map. |
-| [`studies/splicebert_positional_boundary_coherence/`](studies/splicebert_positional_boundary_coherence/README.md) | prospective; preregistered design, no new outcome | Tests whether a composition-balanced coding-boundary preference is causally supported and relocated by the period-3 carrier; the ≈10.63 arm is optional and non-vetoing. |
+| [`studies/splicebert_positional_boundary_coherence/`](studies/splicebert_positional_boundary_coherence/README.md) | prospective; preregistered design, no new outcome | Tests a scoped causal link between period-3 and a composition-balanced coding-boundary preference; partial/full register concordance and mediation are strengthening tiers, while ≈10.63 is optional and non-vetoing. |
 | [`studies/splicebert_head_context_atlas/`](studies/splicebert_head_context_atlas/README.md) | discovery and internal validation complete | Multi-context head/MLP reuse atlas. Supplies the gene-disjoint cohort behind C41 and an independent rediscovery of L3H1; context-specific follow-ups remain exploratory. |
 | [`studies/splicebert_gtex_finetune_shift/`](studies/splicebert_gtex_finetune_shift/README.md) | native causal mechanism mapped; sparse-difference instrument bounded | What happens to the same encoder under supervised fine-tuning: late attention routes into a compact final-MLP code, and inherited positional-carrier use. |
 

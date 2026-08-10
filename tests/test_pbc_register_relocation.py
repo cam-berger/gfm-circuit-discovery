@@ -237,3 +237,122 @@ def test_opposite_handed_material_result_is_falsification_not_positive():
         phase2_p3_authorized=True,
     )
     assert result["code"] == "P3_REGISTER_HANDEDNESS_FALSIFIED"
+
+
+def _partial_specificity(*, expected: bool = True, opposite: bool = False):
+    return {
+        "passed": False,
+        "partial_concordance": {
+            "passed": expected,
+            "non_handedness_passed": expected,
+        },
+        "opposite_partial_concordance": {
+            "passed": opposite,
+            "non_handedness_passed": opposite,
+            "reverse_handedness_resolved": opposite,
+        },
+    }
+
+
+def test_partial_concordance_is_a_rough_link_not_full_relocation():
+    result = adjudicate_register_relocation(
+        {
+            "all_registers_positive": False,
+            "omega3_material_positive": True,
+            "expected_partial_concordance_pattern": True,
+            "opposite_partial_concordance_pattern": False,
+            "handedness_expected_lower_positive": True,
+            "partial_concordance_pattern": True,
+            "all_registers_bounded_null": False,
+        },
+        _partial_specificity(),
+        capability_passed=True,
+        phase2_p3_authorized=True,
+    )
+    assert result["code"] == "P3_REGISTER_PARTIAL_CONCORDANCE_SUPPORTED"
+    assert "not full cyclic relocation or path mediation" in result["licensed_claim"]
+
+
+def test_partial_concordance_with_unresolved_handedness_is_ambiguous():
+    # The named controls/rank pass independently of the unresolved H endpoint.
+    result = adjudicate_register_relocation(
+        {
+            "all_registers_positive": False,
+            "omega3_material_positive": True,
+            "expected_partial_concordance_pattern": True,
+            "opposite_partial_concordance_pattern": False,
+            "handedness_expected_lower_positive": False,
+            "partial_concordance_pattern": False,
+            "all_registers_bounded_null": False,
+        },
+        {
+            "passed": False,
+            "partial_concordance": {
+                "passed": False,
+                "non_handedness_passed": True,
+            },
+            "opposite_partial_concordance": {"passed": False},
+        },
+        capability_passed=True,
+        phase2_p3_authorized=True,
+    )
+    assert result["code"] == "P3_REGISTER_PARTIAL_HANDEDNESS_AMBIGUOUS"
+
+
+def test_opposite_only_partial_pattern_falsifies_expected_handedness():
+    result = adjudicate_register_relocation(
+        {
+            "all_registers_positive": False,
+            "omega3_material_positive": False,
+            "expected_partial_concordance_pattern": False,
+            "opposite_partial_concordance_pattern": True,
+            "all_registers_bounded_null": False,
+        },
+        _partial_specificity(expected=False, opposite=True),
+        capability_passed=True,
+        phase2_p3_authorized=True,
+    )
+    assert result["code"] == "P3_REGISTER_PARTIAL_HANDEDNESS_FALSIFIED"
+
+
+def test_opposite_partial_with_unresolved_h_is_ambiguous_not_falsified():
+    result = adjudicate_register_relocation(
+        {
+            "all_registers_positive": False,
+            "omega3_material_positive": False,
+            "expected_partial_concordance_pattern": False,
+            "opposite_partial_concordance_pattern": True,
+            "all_registers_bounded_null": False,
+        },
+        {
+            "passed": False,
+            "partial_concordance": {
+                "passed": False,
+                "non_handedness_passed": False,
+            },
+            "opposite_partial_concordance": {
+                "passed": False,
+                "non_handedness_passed": True,
+                "reverse_handedness_resolved": False,
+            },
+        },
+        capability_passed=True,
+        phase2_p3_authorized=True,
+    )
+    assert result["code"] == "P3_REGISTER_PARTIAL_HANDEDNESS_AMBIGUOUS"
+
+
+def test_both_partial_orientations_are_handedness_ambiguous():
+    result = adjudicate_register_relocation(
+        {
+            "all_registers_positive": False,
+            "omega3_material_positive": True,
+            "expected_partial_concordance_pattern": True,
+            "opposite_partial_concordance_pattern": True,
+            "all_registers_bounded_null": False,
+        },
+        _partial_specificity(expected=True, opposite=True),
+        capability_passed=True,
+        phase2_p3_authorized=True,
+    )
+    assert result["code"] == "P3_REGISTER_PARTIAL_HANDEDNESS_AMBIGUOUS"

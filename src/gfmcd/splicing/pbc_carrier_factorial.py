@@ -56,6 +56,13 @@ STRUCTURED_CONTROL_BASE_SEED: int = 20260810
 P3_CONTROL_SEED: int = 2026081003
 P10_CONTROL_SEED: int = 2026081004
 JOINT_CONTROL_SEED: int = 2026081005
+CLEAN_DIRECTION_ENDPOINTS: tuple[str, ...] = (
+    "Dplus",
+    "Dminus",
+    "Psi0",
+    "Psi1",
+    "Psi2",
+)
 
 
 @dataclass(frozen=True)
@@ -1784,8 +1791,50 @@ def carrier_phase2_decision(
     specificity: Mapping[str, Mapping[str, Any]],
     target_mode: str,
     target_resolution: Mapping[str, Mapping[str, Any]],
+    clean_directional_point_estimates: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Single frozen Phase-II decision engine used by target and fixture analyses."""
+
+    directional_rows = clean_directional_point_estimates or {}
+
+    def point_estimate(name: str) -> float:
+        value = directional_rows.get(name, float("nan"))
+        if isinstance(value, Mapping):
+            value = value.get("estimate", float("nan"))
+        try:
+            return float(value)
+        except (TypeError, ValueError):
+            return float("nan")
+
+    def lower_bound(name: str) -> float:
+        row = endpoints.get(name, {})
+        interval = row.get("ci") if isinstance(row, Mapping) else None
+        if not isinstance(interval, Sequence) or len(interval) != 2:
+            return float("nan")
+        try:
+            return float(interval[0])
+        except (TypeError, ValueError):
+            return float("nan")
+
+    def resolution_at_most(name: str, threshold: float) -> bool:
+        row = target_resolution.get(name, {})
+        try:
+            mde = float(row.get("mde80", math.inf))
+        except (AttributeError, TypeError, ValueError):
+            return False
+        return bool(
+            row.get("pass") is True and math.isfinite(mde) and mde <= threshold
+        )
+
+    directional_scoped = bool(
+        lower_bound("Psi00") > 0
+        and lower_bound("N3") > 0
+        and all(point_estimate(name) > 0 for name in CLEAN_DIRECTION_ENDPOINTS)
+        and specificity.get("Psi00", {}).get("corrected_pass") is True
+        and specificity.get("N3", {}).get("corrected_pass") is True
+        and resolution_at_most("Psi00", 0.04)
+        and resolution_at_most("N3", 0.04)
+    )
 
     p3 = bool(
         clean_behavior_classification == "BALANCED_PREFERENCE_MATERIAL"
@@ -1805,30 +1854,46 @@ def carrier_phase2_decision(
         and target_resolution.get("N10", {}).get("pass") is True
         and target_resolution.get("J", {}).get("pass") is True
     )
-    if clean_behavior_classification == "BALANCED_PREFERENCE_BOUNDED_NULL":
+    if p3:
+        p3_state = "P3_NECESSITY_SUPPORTED"
+    elif directional_scoped:
+        p3_state = "P3_DIRECTIONAL_SCOPED_SUPPORT"
+    elif (
+        endpoints.get("N3", {}).get("classification") == "BOUNDED_NULL"
+        and target_resolution.get("N3", {}).get("pass") is True
+    ):
+        p3_state = "P3_ATTENUATION_BOUNDED_NULL"
+    elif endpoints.get("N3", {}).get("classification") == "MATERIAL_SUPPRESSIVE":
+        p3_state = "P3_SUPPRESSIVE"
+    else:
+        p3_state = "P3_INCONCLUSIVE"
+
+    if p3:
+        if target_mode == "P3_ONLY":
+            verdict = "P3_ONLY_CLOSURE_PATH"
+        elif joint:
+            verdict = "DUAL_SCALE_INTERACTION_SUPPORTED"
+        elif endpoints.get("N10", {}).get("classification") == "BOUNDED_NULL":
+            verdict = "P3_ONLY_CLOSURE_PATH"
+        else:
+            verdict = "P3_NECESSITY_SUPPORTED"
+    elif directional_scoped:
+        verdict = "P3_DIRECTIONAL_SCOPED_SUPPORT"
+    elif clean_behavior_classification == "BALANCED_PREFERENCE_BOUNDED_NULL":
         verdict = "BALANCED_PREFERENCE_BOUNDED_NULL"
     elif clean_behavior_classification != "BALANCED_PREFERENCE_MATERIAL":
         verdict = "BALANCED_PREFERENCE_INCONCLUSIVE"
     else:
-        n3 = str(endpoints.get("N3", {}).get("classification"))
-        if p3:
-            p3_state = "P3_NECESSITY_SUPPORTED"
-        elif n3 == "BOUNDED_NULL" and target_resolution.get("N3", {}).get("pass") is True:
-            p3_state = "P3_ATTENUATION_BOUNDED_NULL"
-        elif n3 == "MATERIAL_SUPPRESSIVE":
-            p3_state = "P3_SUPPRESSIVE"
-        else:
-            p3_state = "P3_INCONCLUSIVE"
-        if target_mode == "P3_ONLY":
-            verdict = "P3_ONLY_CLOSURE_PATH" if p3 else p3_state
-        elif joint:
-            verdict = "DUAL_SCALE_INTERACTION_SUPPORTED"
-        elif endpoints.get("N10", {}).get("classification") == "BOUNDED_NULL":
-            verdict = "P3_ONLY_CLOSURE_PATH" if p3 else p3_state
-        else:
-            verdict = p3_state if p3_state != "P3_INCONCLUSIVE" else "INCONCLUSIVE"
+        verdict = p3_state if p3_state != "P3_INCONCLUSIVE" else "INCONCLUSIVE"
+    support_tiers = []
+    if directional_scoped:
+        support_tiers.append("P3_DIRECTIONAL_SCOPED_SUPPORT")
+    if p3:
+        support_tiers.append("P3_NECESSITY_SUPPORTED")
     return {
         "verdict": verdict,
+        "directional_scoped_support": directional_scoped,
+        "support_tiers": support_tiers,
         "p3_phase3_statistical_criteria": p3,
         "joint_phase3_statistical_criteria": joint,
         "authorize_p3_phase3": p3,
@@ -1838,6 +1903,7 @@ def carrier_phase2_decision(
 
 __all__ = [
     "COMMUTATIVITY_TOLERANCE",
+    "CLEAN_DIRECTION_ENDPOINTS",
     "DOSE_GRID",
     "MIN_PSEUDO_PHASE_CONTROLS",
     "MIN_STRUCTURED_CONTROLS",

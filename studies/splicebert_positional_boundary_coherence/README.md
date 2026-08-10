@@ -8,13 +8,22 @@
 This study asks one narrow mechanistic question:
 
 > After prespecified balance of phase-correlated boundary sequence, does the learned period-3 positional
-> carrier causally support and relocate SpliceBERT's preference for matched annotated coding-boundary
-> phase?
+> carrier causally support SpliceBERT's preference for matched annotated coding-boundary phase?
 
-The period-3 bridge is primary. The distinct ≈10.63 carrier is an ancillary interaction arm: it is measured
-when its own instrument is capable, but its origin or general biological meaning need not be resolved for
+The period-3 attenuation bridge is the primary paper target. A corrected directional Phase-II result can
+support a rough, assay-scoped link; clearing the frozen materiality threshold is a stronger tier and alone
+opens Phase III. Register relocation and route mediation are optional strengthening tests, not prerequisites
+for the scoped bridge. The distinct ≈10.63 carrier is an
+ancillary interaction arm: it is measured when its own instrument is capable, but its origin or general
+biological meaning need not be resolved for
 the period-3 result to close. The intended interpretation is a **sequence-encoded coding-boundary coherence
 prior**, not reading-frame sensing, translation, or spliceosomal biochemistry.
+
+Because this checkpoint learned from a finite and potentially uneven corpus, incomplete conformity across
+the three annotated register orientations could be compatible with uneven training support. That is a
+limitation hypothesis, not an established cause: it never excuses a failed instrument, relaxes a frozen
+threshold, or promotes a result. Without a separately capable training-corpus analysis, outcome prose may
+name this only as one possible explanation.
 
 The candidate biological narrative is kept separately in
 [`HYPOTHESIS_REGISTER.md`](HYPOTHESIS_REGISTER.md); it cannot promote a claim. The frozen design is
@@ -36,7 +45,7 @@ intentionally empty prospective ledgers. They acquire rows only from immutable, 
 | Biological computation | Relative positional support for sequence-encoded coherence across a joined coding boundary |
 | Model-native behavior | Change in the masked-donor native logit margin when the joined true acceptor is corrupted `AG→AC` |
 | Primary contrast | Composition-balanced matched-vs-mismatched annotated boundary phase, `Ψ` |
-| Primary mechanism | Period-3 attenuation, then period-3 register relocation and route-specific mediation |
+| Primary mechanism | Period-3 attenuation; register relocation and route-specific mediation are strengthening follow-ups |
 | Ancillary mechanism | ≈10.63 attenuation and its non-additive interaction with period-3 |
 | Primary geometry | Chimeric 3×3 donor-phase × acceptor-phase lattice at a fixed 120-nt donor→acceptor span |
 | Species / strand | Human; both strands; chromosome-by-strand sampling strata |
@@ -140,13 +149,27 @@ run is explicitly staged: only `Y00/Y10` may open, `Y01/Y11` remain unexecuted, 
 `OPTIONAL_INSTRUMENT_UNRESOLVED`. If both pass, the full 2×2 is mandatory. A P10 failure or capable null
 does not erase a valid P3 result.
 
-### Phase III — register relocation and mediation
+### Phase III — optional register strengthening and mediation
 
-A material, composition-balanced `Ψ00` plus a corrected, null-specific material `N3` authorizes a new
+A material, composition-balanced `Ψ00` plus a corrected, null-specific material `N3` closes the primary
+scoped causal bridge and authorizes a new
 period-3-only register-relocation instrument. Candidate localization occurs on development; all candidate
 heads/MLPs, signs, windows, doses, paths, and nulls are frozen before the Phase-III confirmation role opens.
-The target must show cyclic relocation across all three registers, not just a positive mean, then causal
-necessity and rescue through a frozen route.
+The original full-relocation target still requires cyclic relocation across all three registers, not just a
+positive mean, before causal necessity and rescue through a frozen route can be promoted.
+
+Amendment A3 adds a weaker, explicitly partial-concordance strengthening tier,
+`P3_REGISTER_PARTIAL_CONCORDANCE_SUPPORTED`. It requires a material
+aggregate register effect, positive point estimates for all three frozen orientations, simultaneous support
+for at least two of the three, full specificity/health/audit passage, superiority to the hidden-axis family,
+failure of common-mode and decoy controls to reproduce the partial pattern, and a resolved handedness
+contrast between the expected and opposite orientations. That tier strengthens the P3–boundary link but
+does not establish complete three-register relocation and cannot authorize route-mediation language. An
+opposite-only raw partial pattern is `P3_REGISTER_PARTIAL_HANDEDNESS_FALSIFIED` only when its own
+hidden-axis/paired-control specificity passes and a separately corrected family jointly resolves
+opposite-minus-expected handedness plus separation from common-mode and decoy; competing expected/opposite
+patterns or an unresolved handedness contrast are
+`P3_REGISTER_PARTIAL_HANDEDNESS_AMBIGUOUS`.
 
 The register sign is fixed before data: the rightward analytic ramp is
 `φ_r(t)=−(2πr/3)(t−d)/(a−d−1)` and predicts the ridge `δ=(p_A−p_D) mod 3=−r mod 3`.
@@ -163,7 +186,9 @@ even if this model-interaction arm succeeds.
 |---|---|
 | Balanced `Ψ00` equivalent to zero | No material residual annotated-phase preference is detected after the prespecified measured composition balance in this fresh domain |
 | Balanced `Ψ00` positive; capable `N3` bounded/null | The preference persists, but material dependence on the tested period-3 attenuation is not detected |
-| Balanced `Ψ00` positive; corrected `N3` positive and specific | Period-3 causally supports the composition-balanced preference under the tested attenuation |
+| Corrected `Ψ00` and `N3` are directionally resolved and specific, but one or both do not establish `>0.05` materiality | `P3_DIRECTIONAL_SCOPED_SUPPORT`: a rough, assay-scoped P3–boundary-preference link; no materiality or Phase-III claim |
+| Balanced `Ψ00` material; corrected `N3` material and specific | `P3_NECESSITY_SUPPORTED`: period-3 materially and causally supports the composition-balanced preference under the tested attenuation; Phase III may open |
+| Phase III has a material aggregate response, all three register estimates point as predicted, at least two are simultaneously resolved, and handedness/specificity pass | `P3_REGISTER_PARTIAL_CONCORDANCE_SUPPORTED`: partial concordance strengthens the scoped P3–boundary link; complete cyclic relocation remains unresolved |
 | P3 register relocation passes; route fails | Period-3 relocates the preference; the declared route is unresolved |
 | P3 relocation plus path necessity, restoration, and separate sufficiency pass | A period-3 relative register causally implements the scoped preference through the frozen model route |
 | `N10` and corrected `J` also pass, followed by joint mediation | Period-3 and ≈10.63 interact in the scoped model computation; the sign and route are reported without a biological identity claim |
@@ -223,7 +248,8 @@ positive, negative, or bounded result from a failed instrument.
 
 ## Present status
 
-`PREREGISTRATION.md` freezes the design and numerical decision rules. It does **not** assert that the new
+`PREREGISTRATION.md`, including pre-outcome Amendments A1–A3, freezes the design and numerical decision
+rules. It does **not** assert that the new
 cohort exists, that a preflight has passed, that a target is authorized, or that any endpoint has been
 measured. Before the first target run, the execution package must bind the completed code and inputs and an
 independent protocol-to-code conformance audit must pass.

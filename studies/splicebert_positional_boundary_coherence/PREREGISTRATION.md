@@ -960,3 +960,132 @@ Section 10.3 becomes mandatory before any head-specific routing/value subtype is
 paper figure; if it is not run, those subtype fields remain explicitly unadjudicated. This bound does not
 waive same-state output necessity, restoration, separate sufficiency, matched component-set controls, or
 the QK/attention/output evidence-level firewall required for the primary component-path result.
+
+## Amendment A3 — primary scoped bridge and partial register concordance (2026-08-10)
+
+**Timing:** additive before any successor development or target model outcome. **Scope:** changes the paper
+priority, adds one directional Phase-II tier and one partial-concordance Phase-III tier, and amends only the
+development-relocation success clause in Section 9.4 gate 6 as stated below. It does not change a primary
+endpoint, intervention, sign, SESOI, null family, construction/health/false-positive/power threshold,
+sample, or original material/full-relocation/mediation rule. It adds only the derived handedness guard `H`
+defined below.
+
+### A3.1 Primary paper target
+
+The primary paper target is the Phase-II P3 attenuation bridge, reported at the strongest of two positive
+tiers. Section 8.4 gains this lower tier:
+
+| Conditions | Classification | Licensed statement |
+|---|---|---|
+| Every construction, mechanical, P3-capability, health, false-positive, resolution, seal, and independent-audit gate passes; the primary-family simultaneous lower bounds for both `Ψ00` and `N3` are `>0`; all five clean directional point estimates `{D+,D−,Ψ0,Ψ1,Ψ2}` are `>0`; the clean pseudo-phase exact-p and paired-specificity requirements pass; both separate P3 structured-null exact-p and paired-specificity requirements pass; rescue passes; and observed `MDE80≤0.04` for both `Ψ00` and `N3` | `P3_DIRECTIONAL_SCOPED_SUPPORT` | Period-3 attenuation shifts a composition-balanced boundary preference in the prespecified aggregate direction relative to both intervention-matched control families. The link is statistically resolved but is not shown to exceed the `0.05` materiality threshold. |
+
+This is scoped directional causal support for a rough P3–boundary-preference link, not material mechanism
+closure. It does not license “material,” “only,” a universal orientation statement, register relocation,
+route mediation, or Phase-III exposure. If either simultaneous lower bound is not above zero, any clean
+directional point estimate is non-positive, a pseudo/structured-null specificity requirement fails, or an
+instrument/audit gate fails, this class is unavailable.
+
+The stronger Phase-II class remains `P3_NECESSITY_SUPPORTED`: material composition-balanced `Ψ00`, material
+corrected `N3`, both P3 structured-null families, rescue, health, resolution, seal, and independent-audit
+gates all pass under the original Section-8 rules. That result closes the material scoped bridge and alone
+authorizes Phase III. Phase III is strengthening evidence; it is not required for either Phase-II wording.
+
+### A3.2 Partial-concordance register tier
+
+For each register, define the frozen opposite-handed contrast by substituting `δ=+r mod 3` for the expected
+`δ=−r mod 3` relation:
+
+`Sopp_r = G(+r mod 3,r,P10 intact) − mean_{δ≠+r mod 3} G(δ,r,P10 intact)`,
+
+`Ωopp = mean_r Sopp_r`, and `H = Ω3(P10 intact) − Ωopp`.
+
+At block level, evaluate an expected-orientation **partial-only three-endpoint max-T family**:
+
+`{H_b, Ω3_b−Ωcommon_b, Ω3_b−Ωdecoy_b}`.
+
+Use the chromosome-by-strand whole-block bootstrap with 20,000 draws and seed `2026081010`. The simultaneous
+lower bounds for all three endpoints must exceed zero. This family jointly guards handedness and separation
+from the two named geometric controls. For the opposite-only falsification path, evaluate the mirrored
+three-endpoint family
+
+`{−H_b, Ωopp_b−Ωcommon,opp,b, Ωopp_b−Ωdecoy,opp,b}`
+
+with 20,000 draws and seed `2026081012`; all three simultaneous lower bounds must exceed zero. The two
+partial-family seeds and bootstrap count are bound in the pre-reserve seal and emitted in the analysis and
+manifest. The original Section-9.4/Section-10.4 two-endpoint specificity family for full relocation is
+unchanged; neither partial-only family replaces or relaxes it.
+
+Section 10.4 gains one classification below `P3_REGISTER_RELOCATION_SUPPORTED`:
+
+| Conditions | Classification | Licensed statement |
+|---|---|---|
+| Phase II is `P3_NECESSITY_SUPPORTED`; every Phase-III mechanical, health, replay, seal, and independent-audit gate passes; the simultaneous lower bound for `Ω3` is `>+0.05`; all three frozen-orientation `S_r` point estimates are `>0`; at least two of their three simultaneous lower bounds are `>0`; learned `Ω3` exceeds all 31 hidden-axis controls with exact `p≤1/32` and a positive paired learned-minus-control lower bound; all three simultaneous lower bounds in the partial-only `{H,target−common-mode,target−decoy}` family are `>0`; neither common-mode nor decoy satisfies the same raw partial rule; and the opposite diagnostic defined below does not pass | `P3_REGISTER_PARTIAL_CONCORDANCE_SUPPORTED` | The aggregate register response is material and all three estimates point in the prespecified direction, with at least two orientations individually resolved. This is partial register concordance that strengthens the rough, assay-scoped P3–boundary-coherence link; it is not complete cyclic relocation. |
+
+Classification is by strongest passing tier. If all three `S_r` simultaneous lower bounds exceed zero and
+the original Section-10.4 requirements pass, the result is
+`P3_REGISTER_RELOCATION_SUPPORTED`, not the partial class. If fewer than two `S_r` lower bounds exceed
+zero, any point estimate is non-positive, the aggregate is non-material, a named control reproduces the
+partial rule, or any instrument/specificity/audit gate fails, the supported class is unavailable.
+
+The frozen opposite diagnostic requires `Ωopp` lower bound `>+0.05`, positive point estimates for all three
+`Sopp_r`, at least two simultaneous `Sopp_r` lower bounds `>0`, opposite `Ωopp` superiority to all 31
+hidden-axis controls and to their paired mean, non-reproduction by common-mode and decoy, and all three
+lower bounds in the mirrored opposite-only family above `>0`. If that diagnostic passes while the expected
+raw partial pattern does not, classify `P3_REGISTER_PARTIAL_HANDEDNESS_FALSIFIED`. If both raw orientations
+satisfy their 2-of-3 pattern, or either otherwise qualifies but its orientation-specific handedness family
+is unresolved, classify
+`P3_REGISTER_PARTIAL_HANDEDNESS_AMBIGUOUS`. Neither class licenses a rough P3–boundary link. If neither
+orientation passes, the original bounded-null, failed-instrument, or inconclusive rule applies as
+appropriate.
+
+For development authorization only, Amendment A3 replaces Section 9.4 gate 6's requirement that every
+development `S_r` lower bound exceed zero with the partial-concordance rule above. Thus either audited
+`P3_REGISTER_PARTIAL_CONCORDANCE_SUPPORTED` or the stronger audited
+`P3_REGISTER_RELOCATION_SUPPORTED` may open the reserve. Gates 1–5, 7–8 and all mechanical, health,
+specificity, fixture, and projected-power requirements remain unchanged. A partial reserve result still
+cannot open the route-mediation arm; only the original full-relocation classification can do so.
+
+`P3_REGISTER_PARTIAL_CONCORDANCE_SUPPORTED` does not authorize “cyclically relocates across all three registers,” a
+universal orientation claim, route mediation, necessity/restoration/sufficiency language, or a directed
+circuit. Those promotions still require the original three-of-three relocation class and the separate
+Section-10 mediation gates. Optional P10 results never alter this hierarchy.
+
+### A3.3 Training-data limitation language
+
+A finite or uneven pretraining corpus is one plausible reason that a learned relation might be approximate
+rather than perfectly symmetric across the three annotated orientations. An unresolved orientation may be
+described as **compatible with uneven training support**, but not as caused by it. This compatibility
+hypothesis never waives a construction, capability, health, replay, specificity, resolution, seal, or audit
+gate and never converts an inconclusive or failed-instrument result into support.
+
+A positive training-data explanation requires a separate, outcome-independent census of the identifiable
+training corpus and, for causal attribution, a controlled corpus or training intervention. Without that
+evidence, the paper must say that finite-corpus support is a possible limitation—not that training-data
+scarcity explains the observed pattern.
+
+### A3.4 Outcome wording
+
+If Phase II reaches only `P3_DIRECTIONAL_SCOPED_SUPPORT`:
+
+> In a fresh composition-balanced fixed-span chimeric assay at `SpliceBERT.1024nt`, health-preserving
+> attenuation of the learned period-3 band shifts the model's annotated boundary-phase preference in the
+> prespecified direction relative to both intervention-matched control families. The effect is statistically
+> resolved but is not shown to exceed the `0.05` materiality threshold; this is a rough, assay-scoped causal
+> link, not material mechanism closure.
+
+If Phase II reaches `P3_NECESSITY_SUPPORTED` and no Phase-III strengthening tier passes:
+
+> In a fresh composition-balanced fixed-span chimeric assay at `SpliceBERT.1024nt`, health-preserving
+> attenuation of the learned period-3 band materially reduces the model's annotated boundary-phase
+> preference relative to intervention-matched controls. Period-3 therefore causally supports this scoped
+> sequence-encoded boundary-coherence behavior.
+
+If the partial-concordance tier also passes, add:
+
+> A full-span analytic period-3 register intervention produces a material aggregate response in the
+> prespecified direction: all three register estimates are concordant and at least two are individually
+> resolved. This partial register concordance strengthens the functional P3–boundary-preference link while
+> leaving complete three-register relocation and its internal mediation unresolved.
+
+The stronger Section-13 full-relocation and mediation wording remains available only when its original
+three-of-three and route-specific requirements pass.

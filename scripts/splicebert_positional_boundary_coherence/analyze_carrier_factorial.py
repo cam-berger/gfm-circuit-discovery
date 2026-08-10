@@ -276,25 +276,6 @@ def _clean_pseudo_phase(
     }, matrix
 
 
-def _verdict(
-    *,
-    clean_behavior_classification: str,
-    endpoints: Mapping[str, Mapping[str, Any]],
-    specificity: Mapping[str, Mapping[str, Any]],
-    target_mode: str,
-    target_resolution: Mapping[str, Mapping[str, Any]],
-) -> str:
-    return str(
-        carrier_phase2_decision(
-            clean_behavior_classification=clean_behavior_classification,
-            endpoints=endpoints,
-            specificity=specificity,
-            target_mode=target_mode,
-            target_resolution=target_resolution,
-        )["verdict"]
-    )
-
-
 def analyze_fixture_arrays(
     fixture: Mapping[str, Any],
     *,
@@ -533,6 +514,7 @@ def analyze_fixture_arrays(
         specificity=specificity,
         target_mode=target_mode,
         target_resolution=resolution,
+        clean_directional_point_estimates=direction_family,
     )
 
     def endpoint_record(
@@ -1169,13 +1151,11 @@ def analyze_factorial_rows(
             "governs_target_authorization": False,
         },
         "authorization": authorization,
-        "verdict": _verdict(
-            clean_behavior_classification=clean_behavior_classification,
-            endpoints=endpoints,
-            specificity=specificity,
-            target_mode=mode,
-            target_resolution=target_resolution,
+        "directional_scoped_support": bool(
+            phase2_decision["directional_scoped_support"]
         ),
+        "support_tiers": list(phase2_decision["support_tiers"]),
+        "verdict": str(phase2_decision["verdict"]),
         "per_block": [
             {
                 "block_id": block_id,

@@ -21,6 +21,10 @@ import numpy as np
 from gfmcd.provenance import sha256_file
 from gfmcd.splicing.pbc_register_candidates import validate_candidate_screen
 from gfmcd.splicing.pbc_register_mediation import validate_candidate_freeze
+from gfmcd.splicing.pbc_register_relocation import (
+    OPPOSITE_PARTIAL_SPECIFICITY_SEED,
+    PARTIAL_SPECIFICITY_SEED,
+)
 
 
 PHASE2_ANALYSIS_SCHEMA = "gfmcd.pbc.carrier_factorial_analysis.v1"
@@ -507,9 +511,10 @@ def register_preflight_decision(
     phase2_joint = phase2_authorization.get("phase2_joint_authorized")
     if type(phase2_p3) is not bool or type(phase2_joint) is not bool:
         raise RegisterStageError("Phase-II authorization flags are absent")
-    relocation_pass = (
-        development_analysis.get("status") == "P3_REGISTER_RELOCATION_SUPPORTED"
-    )
+    relocation_pass = development_analysis.get("status") in {
+        "P3_REGISTER_RELOCATION_SUPPORTED",
+        "P3_REGISTER_PARTIAL_CONCORDANCE_SUPPORTED",
+    }
     mandatory = bool(
         phase2_p3
         and relocation_pass
@@ -722,6 +727,8 @@ def make_register_target_seal(
             "analysis": str(relocation_analysis),
             "audit": str(relocation_audit),
             "inference_seed": MEDIATION_INFERENCE_SEED,
+            "expected_partial_specificity_seed": PARTIAL_SPECIFICITY_SEED,
+            "opposite_partial_specificity_seed": OPPOSITE_PARTIAL_SPECIFICITY_SEED,
             "bootstrap_draws": MEDIATION_BOOTSTRAP_DRAWS,
             "reserve_blocks": RESERVE_BLOCKS,
             "reserve_cells": RESERVE_CELLS,
@@ -837,6 +844,8 @@ def verify_register_target_seal(seal: Mapping[str, Any]) -> None:
         "analysis": str(Path(str(relocation.get("analysis", ""))).resolve()),
         "audit": str(Path(str(relocation.get("audit", ""))).resolve()),
         "inference_seed": MEDIATION_INFERENCE_SEED,
+        "expected_partial_specificity_seed": PARTIAL_SPECIFICITY_SEED,
+        "opposite_partial_specificity_seed": OPPOSITE_PARTIAL_SPECIFICITY_SEED,
         "bootstrap_draws": MEDIATION_BOOTSTRAP_DRAWS,
         "reserve_blocks": RESERVE_BLOCKS,
         "reserve_cells": RESERVE_CELLS,

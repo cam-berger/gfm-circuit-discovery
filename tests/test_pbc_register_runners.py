@@ -7,7 +7,12 @@ from pathlib import Path
 import pytest
 
 from gfmcd.provenance import file_record, sha256_file
-from gfmcd.splicing.pbc_register_relocation import REGISTERS, phase_delta, preferred_delta
+from gfmcd.splicing.pbc_register_relocation import (
+    REGISTERS,
+    opposite_preferred_delta,
+    phase_delta,
+    preferred_delta,
+)
 from gfmcd.splicing.pbc_register_stage import (
     REGISTER_PREFLIGHT_AUDIT_SCHEMA,
     make_register_target_seal,
@@ -67,6 +72,56 @@ def _rows(blocks: int = 24):
                                 "coupling": coupling,
                             }
                         )
+    return rows
+
+
+def _partial_rows(blocks: int = 24):
+    rows = _rows(blocks)
+    for row in rows:
+        if row["component"] != "p3" or row["register"] != 1:
+            continue
+        block = int(str(row["block_id"])[1:])
+        effect = 0.21 if (block // 4) % 2 == 0 else -0.19
+        coupling = (
+            effect
+            if row["phase_delta"] == preferred_delta(int(row["register"]))
+            else 0.0
+        )
+        row["intact_margin"] = 1.0 + coupling
+        row["corrupt_margin"] = 1.0
+        row["coupling"] = coupling
+    return rows
+
+
+def _opposite_partial_rows(
+    blocks: int = 24, *, unresolved_named_control: bool = False
+):
+    rows = _rows(blocks)
+    for row in rows:
+        component = str(row["component"])
+        register = int(row["register"])
+        if component == "p3":
+            block = int(str(row["block_id"])[1:])
+            centered = (block - (blocks - 1) / 2) * 0.001
+            effect = (
+                0.30 + centered
+                if register in {-1, 0}
+                else (0.21 if (block // 4) % 2 == 0 else -0.19)
+            )
+        elif unresolved_named_control and component == "p3_common_mode":
+            block = int(str(row["block_id"])[1:])
+            centered = (block - (blocks - 1) / 2) * 0.001
+            effect = 0.31 + centered if register in {-1, 0} else -0.01
+        else:
+            continue
+        coupling = (
+            effect
+            if row["phase_delta"] == opposite_preferred_delta(register)
+            else 0.0
+        )
+        row["intact_margin"] = 1.0 + coupling
+        row["corrupt_margin"] = 1.0
+        row["coupling"] = coupling
     return rows
 
 
@@ -148,6 +203,16 @@ def test_analysis_and_independent_audit_close_p3_without_joint_arm(tmp_path):
     analysis = ANALYZE.analyze_payload(target, seed=71, n_bootstrap=199)
     assert analysis["status"] == "P3_REGISTER_RELOCATION_SUPPORTED"
     assert analysis["specificity"]["passed"]
+    assert analysis["specificity"]["paired_target_minus_named_controls"][
+        "inference"
+    ]["names"] == ["p3_minus_p3_common_mode", "p3_minus_p3_decoy_span"]
+    assert analysis["specificity"]["partial_concordance"][
+        "handedness_specificity_family"
+    ]["members"] == [
+        "omega3_expected_minus_opposite",
+        "p3_minus_p3_common_mode",
+        "p3_minus_p3_decoy_span",
+    ]
     target.pop("self_sha256")
     audit = AUDIT.audit_payloads(
         target,
@@ -166,6 +231,174 @@ def test_analysis_and_independent_audit_close_p3_without_joint_arm(tmp_path):
     assert not confirmatory_audit["checks"]["confirmatory_seed"]
     assert not confirmatory_audit["checks"]["confirmatory_draws"]
     assert not confirmatory_audit["row_contract"]["confirmatory_counts"]
+
+
+def test_partial_concordance_analysis_and_independent_audit_agree(tmp_path):
+    target = {
+        "schema": ANALYZE.TARGET_SCHEMA,
+        "status": "COMPLETE",
+        "stage": "development",
+        "mode": "P3_ONLY",
+        "authorization": {
+            "phase2_p3_authorized": True,
+            "phase2_joint_authorized": False,
+            "register_preflight_passed": True,
+        },
+        "design": _design(),
+        "sources": _sources(tmp_path),
+        "mechanics": _mechanics(),
+        "rows": _partial_rows(),
+        "self_sha256": "synthetic-partial-target",
+    }
+    analysis = ANALYZE.analyze_payload(target, seed=71, n_bootstrap=199)
+    assert analysis["status"] == "P3_REGISTER_PARTIAL_CONCORDANCE_SUPPORTED"
+    assert analysis["target"]["positive_register_count"] == 2
+    assert analysis["target"]["all_register_point_estimates_positive"]
+    family = analysis["specificity"]["partial_concordance"][
+        "handedness_specificity_family"
+    ]
+    assert family["members"] == [
+        "omega3_expected_minus_opposite",
+        "p3_minus_p3_common_mode",
+        "p3_minus_p3_decoy_span",
+    ]
+    assert family["seed"] == 2026081010
+    assert family["inference"]["n_bootstrap"] == 199
+    opposite_family = analysis["specificity"]["opposite_partial_concordance"][
+        "opposite_handedness_specificity_family"
+    ]
+    assert opposite_family["members"] == [
+        "omega3_opposite_minus_expected",
+        "opposite_p3_minus_p3_common_mode",
+        "opposite_p3_minus_p3_decoy_span",
+    ]
+    assert opposite_family["seed"] == 2026081012
+    assert analysis["partial_specificity_seeds"] == {
+        "expected": 2026081010,
+        "opposite": 2026081012,
+    }
+    target.pop("self_sha256")
+    audit = AUDIT.audit_payloads(
+        target,
+        analysis,
+        target_sha256="synthetic-partial-target",
+        enforce_confirmatory_contract=False,
+    )
+    assert audit["status"] == "PASS"
+    assert audit["recomputed_status"] == analysis["status"]
+
+
+@pytest.mark.parametrize(
+    ("unresolved_named_control", "expected_status"),
+    (
+        (False, "P3_REGISTER_PARTIAL_HANDEDNESS_FALSIFIED"),
+        (True, "P3_REGISTER_INSTRUMENT_UNRESOLVED"),
+    ),
+)
+def test_opposite_partial_requires_its_mirrored_named_control_family(
+    tmp_path, unresolved_named_control, expected_status
+):
+    target = {
+        "schema": ANALYZE.TARGET_SCHEMA,
+        "status": "COMPLETE",
+        "stage": "development",
+        "mode": "P3_ONLY",
+        "authorization": {
+            "phase2_p3_authorized": True,
+            "phase2_joint_authorized": False,
+            "register_preflight_passed": True,
+        },
+        "design": _design(),
+        "sources": _sources(tmp_path),
+        "mechanics": _mechanics(),
+        "rows": _opposite_partial_rows(
+            unresolved_named_control=unresolved_named_control
+        ),
+        "self_sha256": "synthetic-opposite-partial-target",
+    }
+    analysis = ANALYZE.analyze_payload(target, seed=71, n_bootstrap=199)
+    assert analysis["status"] == expected_status
+    assert analysis["target"]["opposite_partial_concordance_pattern"]
+    assert not analysis["target"]["expected_partial_concordance_pattern"]
+    opposite = analysis["specificity"]["opposite_partial_concordance"]
+    family = opposite["opposite_handedness_specificity_family"]
+    assert family["members"] == [
+        "omega3_opposite_minus_expected",
+        "opposite_p3_minus_p3_common_mode",
+        "opposite_p3_minus_p3_decoy_span",
+    ]
+    assert family["seed"] == 2026081012
+    assert family["reverse_handedness_lower_positive"]
+    if unresolved_named_control:
+        assert not family["named_controls_lower_positive"]
+        assert not opposite["non_handedness_passed"]
+        assert not opposite["passed"]
+    else:
+        assert family["passed"]
+        assert opposite["non_handedness_passed"]
+        assert opposite["passed"]
+    target.pop("self_sha256")
+    audit = AUDIT.audit_payloads(
+        target,
+        analysis,
+        target_sha256="synthetic-opposite-partial-target",
+        enforce_confirmatory_contract=False,
+    )
+    assert audit["status"] == "PASS"
+    assert audit["recomputed_status"] == expected_status
+
+
+def test_independent_audit_uses_exact_partial_handedness_codes():
+    authorization = {
+        "phase2_p3_authorized": True,
+        "register_preflight_passed": True,
+    }
+    design = {"jreg_direction": None}
+    ambiguous = AUDIT._independent_status(
+        {
+            "all_registers_positive": False,
+            "omega3_material_positive": True,
+            "expected_partial_concordance_pattern": True,
+            "opposite_partial_concordance_pattern": True,
+            "all_registers_bounded_null": False,
+        },
+        {
+            "passed": False,
+            "partial_concordance": {"non_handedness_passed": True},
+            "opposite_partial_concordance": {
+                "non_handedness_passed": True,
+                "reverse_handedness_resolved": False,
+            },
+        },
+        authorization,
+        replay_passed=True,
+        mode="P3_ONLY",
+        design=design,
+    )
+    assert ambiguous == "P3_REGISTER_PARTIAL_HANDEDNESS_AMBIGUOUS"
+    falsified = AUDIT._independent_status(
+        {
+            "all_registers_positive": False,
+            "omega3_material_positive": False,
+            "expected_partial_concordance_pattern": False,
+            "opposite_partial_concordance_pattern": True,
+            "all_registers_bounded_null": False,
+        },
+        {
+            "passed": False,
+            "partial_concordance": {"non_handedness_passed": False},
+            "opposite_partial_concordance": {
+                "passed": True,
+                "non_handedness_passed": True,
+                "reverse_handedness_resolved": True,
+            },
+        },
+        authorization,
+        replay_passed=True,
+        mode="P3_ONLY",
+        design=design,
+    )
+    assert falsified == "P3_REGISTER_PARTIAL_HANDEDNESS_FALSIFIED"
 
 
 def test_audit_rejects_coupling_not_equal_to_paired_margins(tmp_path):

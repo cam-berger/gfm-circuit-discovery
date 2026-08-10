@@ -7,6 +7,7 @@ import sys
 
 import pytest
 
+from gfmcd.provenance import sha256_file
 from gfmcd.splicing.pbc_register_mediation import validate_compact_mediation
 
 import test_pbc_register_mediation as fixtures
@@ -179,3 +180,70 @@ def test_static_authorization_failure_occurs_before_checkpoint_loading(
     with pytest.raises(RuntimeError, match="not authorized"):
         RUN.main()
     assert loaded is False
+
+
+def test_mediation_source_gate_accepts_only_full_relocation_prefix(tmp_path: Path):
+    target_path = tmp_path / "relocation.json"
+    analysis_path = tmp_path / "relocation.analysis.json"
+    audit_path = tmp_path / "relocation.audit.json"
+    target_path.write_text(
+        json.dumps(
+            {
+                "schema": RUN.RELOCATION_TARGET_SCHEMA,
+                "status": "COMPLETE",
+                "stage": "phase3_reserve",
+                "n_blocks": RUN.RESERVE_BLOCKS,
+                "n_cells": RUN.RESERVE_CELLS,
+            }
+        )
+        + "\n"
+    )
+    target_hash = sha256_file(target_path)
+    audit_path.write_text(
+        json.dumps(
+            {
+                "schema": RUN.RELOCATION_AUDIT_SCHEMA,
+                "status": "PASS",
+                "target_sha256": target_hash,
+            }
+        )
+        + "\n"
+    )
+    seal = {
+        "relocation_outputs": {
+            "target": str(target_path.resolve()),
+            "analysis": str(analysis_path.resolve()),
+            "audit": str(audit_path.resolve()),
+        }
+    }
+
+    def write_analysis(status: str) -> None:
+        analysis_path.write_text(
+            json.dumps(
+                {
+                    "schema": RUN.RELOCATION_ANALYSIS_SCHEMA,
+                    "status": status,
+                    "target_sha256": target_hash,
+                }
+            )
+            + "\n"
+        )
+
+    full_status = "P3_REGISTER_RELOCATION_SUPPORTED_P10_NOT_AUTHORIZED"
+    write_analysis(full_status)
+    _, records = RUN.validate_relocation_sources(
+        seal,
+        target_path=target_path.resolve(),
+        analysis_path=analysis_path.resolve(),
+        audit_path=audit_path.resolve(),
+    )
+    assert records["relocation_status"] == full_status
+
+    write_analysis("P3_REGISTER_PARTIAL_CONCORDANCE_SUPPORTED")
+    with pytest.raises(RuntimeError, match="does not authorize mediation"):
+        RUN.validate_relocation_sources(
+            seal,
+            target_path=target_path.resolve(),
+            analysis_path=analysis_path.resolve(),
+            audit_path=audit_path.resolve(),
+        )

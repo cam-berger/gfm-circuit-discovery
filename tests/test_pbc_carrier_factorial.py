@@ -18,6 +18,7 @@ from gfmcd.splicing.pbc_carrier_factorial import (
     build_phase_control_family,
     build_world_tables,
     c43_margin,
+    carrier_phase2_decision,
     classify_effect_interval,
     classify_interaction_interval,
     evaluate_preflight,
@@ -40,6 +41,64 @@ from gfmcd.provenance import file_record, sha256_file
 def _table(hidden: int = 8) -> np.ndarray:
     rng = np.random.default_rng(17)
     return rng.normal(size=(1026, hidden))
+
+
+def test_directional_scoped_support_is_nonmaterial_and_cannot_authorize_phase3():
+    result = carrier_phase2_decision(
+        clean_behavior_classification="BALANCED_PREFERENCE_BOUNDED_NULL",
+        endpoints={
+            "Psi00": {"ci": [0.01, 0.04], "classification": "BOUNDED_NULL"},
+            "N3": {"ci": [0.005, 0.035], "classification": "BOUNDED_NULL"},
+            "N10": {"status": "NOT_RUN"},
+            "J": {"status": "NOT_RUN"},
+        },
+        specificity={
+            "Psi00": {"corrected_pass": True},
+            "N3": {"corrected_pass": True},
+        },
+        target_mode="P3_ONLY",
+        target_resolution={
+            "Psi00": {"pass": True, "mde80": 0.035},
+            "N3": {"pass": True, "mde80": 0.038},
+        },
+        clean_directional_point_estimates={
+            name: 0.01
+            for name in ("Dplus", "Dminus", "Psi0", "Psi1", "Psi2")
+        },
+    )
+    assert result["verdict"] == "P3_DIRECTIONAL_SCOPED_SUPPORT"
+    assert result["directional_scoped_support"]
+    assert result["support_tiers"] == ["P3_DIRECTIONAL_SCOPED_SUPPORT"]
+    assert not result["authorize_p3_phase3"]
+    assert not result["authorize_joint_phase3"]
+
+
+def test_directional_scoped_support_requires_all_five_point_signs():
+    result = carrier_phase2_decision(
+        clean_behavior_classification="BALANCED_PREFERENCE_BOUNDED_NULL",
+        endpoints={
+            "Psi00": {"ci": [0.01, 0.04], "classification": "BOUNDED_NULL"},
+            "N3": {"ci": [0.005, 0.035], "classification": "BOUNDED_NULL"},
+        },
+        specificity={
+            "Psi00": {"corrected_pass": True},
+            "N3": {"corrected_pass": True},
+        },
+        target_mode="P3_ONLY",
+        target_resolution={
+            "Psi00": {"pass": True, "mde80": 0.035},
+            "N3": {"pass": True, "mde80": 0.038},
+        },
+        clean_directional_point_estimates={
+            "Dplus": 0.01,
+            "Dminus": 0.01,
+            "Psi0": 0.01,
+            "Psi1": 0.01,
+            "Psi2": -0.001,
+        },
+    )
+    assert result["verdict"] == "BALANCED_PREFERENCE_BOUNDED_NULL"
+    assert not result["directional_scoped_support"]
 
 
 def _lattice_rows() -> list[dict[str, float | int]]:

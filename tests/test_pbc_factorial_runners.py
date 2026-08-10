@@ -256,7 +256,9 @@ def _seal(table: np.ndarray, tmp_path: Path, *, full: bool = False) -> dict[str,
     )
 
 
-def _synthetic_target(*, full: bool) -> dict[str, Any]:
+def _synthetic_target(
+    *, full: bool, directional_submaterial: bool = False
+) -> dict[str, Any]:
     blocks = 12
     specs: dict[str, dict[str, Any]] = {
         "Y00": {"family": "target", "control_id": None, "world": "Y00"},
@@ -294,9 +296,9 @@ def _synthetic_target(*, full: bool) -> dict[str, Any]:
     def amplitude(condition: str, spec: Mapping[str, Any], block: int) -> float:
         noise = 0.0015 * np.sin((block + 1) * (sum(map(ord, condition)) % 11 + 1))
         if condition == "Y00":
-            base = 0.30
+            base = 0.04 if directional_submaterial else 0.30
         elif condition == "Y10":
-            base = 0.15
+            base = 0.02 if directional_submaterial else 0.15
         elif condition == "Y01":
             base = 0.17
         elif condition == "Y11":
@@ -698,6 +700,25 @@ def test_p3_only_analysis_authorizes_closure_with_all_clean_direction_checks():
     )
 
 
+def test_directional_scoped_phase2_tier_is_independently_recomputed():
+    target = _synthetic_target(full=False, directional_submaterial=True)
+    result = analysis_runner.analyze_factorial_rows(
+        target,
+        n_bootstrap=analysis_runner.CONFIRMATORY_BOOTSTRAP_DRAWS,
+        bootstrap_seed=analysis_runner.CONFIRMATORY_BOOTSTRAP_SEED,
+        n_pseudo=analysis_runner.CONFIRMATORY_PSEUDO_CONTROLS,
+        pseudo_seed=analysis_runner.CONFIRMATORY_PSEUDO_SEED,
+    )
+    assert result["verdict"] == "P3_DIRECTIONAL_SCOPED_SUPPORT"
+    assert result["directional_scoped_support"]
+    assert result["support_tiers"] == ["P3_DIRECTIONAL_SCOPED_SUPPORT"]
+    assert not result["authorization"]["authorize_p3_phase3"]
+    independent = audit_runner._independent_statistical_recompute(target, result)
+    assert independent["passed"]
+    assert independent["expected_verdict"] == "P3_DIRECTIONAL_SCOPED_SUPPORT"
+    assert not independent["expected_p3_authorization"]
+
+
 def test_compact_target_is_the_complete_independently_auditable_evidence():
     target = _synthetic_target(full=True)
     contract, worlds = audit_runner._row_contract(target)
@@ -737,6 +758,10 @@ def test_fixture_calibration_uses_shared_analysis_and_decision_engines():
     assert not null["decision"]["authorize_p3_phase3"]
     assert planted["decision"]["authorize_p3_phase3"]
     assert planted["decision"]["authorize_joint_phase3"]
+    for row in (null, planted):
+        expected = bool(row["decision"]["directional_scoped_support"])
+        assert preflight_runner._fixture_directional_scoped_pass(row) is expected
+        assert preflight_audit_runner._fixture_directional_scoped(row) is expected
 
 
 def test_negative_joint_interaction_uses_absolute_rank_and_frozen_observed_sign():

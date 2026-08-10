@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import copy
 
+import pytest
+
 from gfmcd.provenance import file_record
 from gfmcd.splicing.pbc_register_stage import (
     PHASE2_ANALYSIS_SCHEMA,
@@ -9,6 +11,7 @@ from gfmcd.splicing.pbc_register_stage import (
     REGISTER_PREFLIGHT_ANALYSIS_SCHEMA,
     REGISTER_PREFLIGHT_AUDIT_SCHEMA,
     RegisterStageError,
+    canonical_json_sha256,
     make_register_target_seal,
     projected_mde80,
     register_preflight_decision,
@@ -73,9 +76,13 @@ def _health(*, joint: bool) -> dict:
     }
 
 
-def _preflight_decision(*, joint: bool = False):
+def _preflight_decision(
+    *,
+    joint: bool = False,
+    relocation_status: str = "P3_REGISTER_RELOCATION_SUPPORTED",
+):
     return register_preflight_decision(
-        development_analysis={"status": "P3_REGISTER_RELOCATION_SUPPORTED"},
+        development_analysis={"status": relocation_status},
         construction_mechanics={
             "passed": True,
             "register_zero_no_hook_max_abs": 0.0,
@@ -102,6 +109,15 @@ def _preflight_decision(*, joint: bool = False):
             "phase2_joint_authorized": joint,
         },
     )
+
+
+def test_partial_concordance_can_open_reserve_but_not_joint_arm():
+    result = _preflight_decision(
+        relocation_status="P3_REGISTER_PARTIAL_CONCORDANCE_SUPPORTED"
+    )
+    assert result["status"] == "P3_REGISTER_PREFLIGHT_PASS"
+    assert result["authorization"]["authorize_p3_register_reserve"]
+    assert not result["authorization"]["authorize_joint_register_reserve"]
 
 
 def test_phase2_p3_authorization_is_independent_of_optional_p10():
@@ -171,6 +187,8 @@ def test_target_seal_binds_files_and_refuses_design_tampering(tmp_path):
         prerequisite_manifest_chain=prerequisite_manifest_chain(),
     )
     verify_register_target_seal(seal)
+    assert seal["relocation_outputs"]["expected_partial_specificity_seed"] == 2026081010
+    assert seal["relocation_outputs"]["opposite_partial_specificity_seed"] == 2026081012
     tampered = copy.deepcopy(seal)
     tampered["design"]["direction"] = "left"
     try:
@@ -179,3 +197,14 @@ def test_target_seal_binds_files_and_refuses_design_tampering(tmp_path):
         pass
     else:
         raise AssertionError("tampered target seal was accepted")
+    for field in (
+        "expected_partial_specificity_seed",
+        "opposite_partial_specificity_seed",
+    ):
+        tampered = copy.deepcopy(seal)
+        tampered["relocation_outputs"][field] += 1
+        tampered_body = dict(tampered)
+        tampered_body.pop("seal_sha256")
+        tampered["seal_sha256"] = canonical_json_sha256(tampered_body)
+        with pytest.raises(RegisterStageError, match="inference bindings drifted"):
+            verify_register_target_seal(tampered)

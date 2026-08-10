@@ -565,33 +565,48 @@ def _audit_structured_nulls(
     return output
 
 
-def _audit_verdict(
+def _audit_decision(
     clean: str,
     endpoints: Mapping[str, Mapping[str, Any]],
     specificity: Mapping[str, Mapping[str, Any]],
     resolution: Mapping[str, Mapping[str, Any]],
     mode: str,
-) -> str:
-    if clean == "BALANCED_PREFERENCE_BOUNDED_NULL":
-        return clean
-    if clean != "BALANCED_PREFERENCE_MATERIAL":
-        return "BALANCED_PREFERENCE_INCONCLUSIVE"
+    direction: Mapping[str, Mapping[str, Any]],
+) -> dict[str, Any]:
+    directional_scoped = bool(
+        float(endpoints["Psi00"]["ci"][0]) > 0
+        and float(endpoints["N3"]["ci"][0]) > 0
+        and all(
+            float(direction[name]["estimate"]) > 0
+            for name in ("Dplus", "Dminus", "Psi0", "Psi1", "Psi2")
+        )
+        and specificity["Psi00"]["corrected_pass"] is True
+        and specificity["N3"]["corrected_pass"] is True
+        and resolution["Psi00"]["pass"] is True
+        and float(resolution["Psi00"]["mde80"]) <= 0.04
+        and resolution["N3"]["pass"] is True
+        and float(resolution["N3"]["mde80"]) <= 0.04
+    )
     n3 = str(endpoints["N3"]["classification"])
     if (
-        n3 == "MATERIAL_SUPPORTIVE"
+        clean == "BALANCED_PREFERENCE_MATERIAL"
+        and n3 == "MATERIAL_SUPPORTIVE"
         and specificity["N3"]["corrected_pass"]
         and resolution["N3"]["pass"]
     ):
         p3 = "P3_NECESSITY_SUPPORTED"
+    elif directional_scoped:
+        p3 = "P3_DIRECTIONAL_SCOPED_SUPPORT"
     elif n3 == "BOUNDED_NULL" and resolution["N3"]["pass"]:
         p3 = "P3_ATTENUATION_BOUNDED_NULL"
     elif n3 == "MATERIAL_SUPPRESSIVE":
         p3 = "P3_SUPPRESSIVE"
     else:
         p3 = "P3_INCONCLUSIVE"
-    if mode == "P3_ONLY":
-        return "P3_ONLY_CLOSURE_PATH" if p3 == "P3_NECESSITY_SUPPORTED" else p3
-    if (
+    strong = p3 == "P3_NECESSITY_SUPPORTED"
+    if strong and mode == "P3_ONLY":
+        verdict = "P3_ONLY_CLOSURE_PATH"
+    elif strong and (
         endpoints["N10"]["classification"] == "MATERIAL_SUPPORTIVE"
         and specificity["N10"]["corrected_pass"]
         and str(endpoints["J"]["classification"]).startswith("MATERIAL_")
@@ -599,10 +614,29 @@ def _audit_verdict(
         and resolution["N10"]["pass"]
         and resolution["J"]["pass"]
     ):
-        return "DUAL_SCALE_INTERACTION_SUPPORTED"
-    if endpoints["N10"]["classification"] == "BOUNDED_NULL":
-        return "P3_ONLY_CLOSURE_PATH" if p3 == "P3_NECESSITY_SUPPORTED" else p3
-    return p3 if p3 != "P3_INCONCLUSIVE" else "INCONCLUSIVE"
+        verdict = "DUAL_SCALE_INTERACTION_SUPPORTED"
+    elif strong and endpoints["N10"]["classification"] == "BOUNDED_NULL":
+        verdict = "P3_ONLY_CLOSURE_PATH"
+    elif strong:
+        verdict = "P3_NECESSITY_SUPPORTED"
+    elif directional_scoped:
+        verdict = "P3_DIRECTIONAL_SCOPED_SUPPORT"
+    elif clean == "BALANCED_PREFERENCE_BOUNDED_NULL":
+        verdict = clean
+    elif clean != "BALANCED_PREFERENCE_MATERIAL":
+        verdict = "BALANCED_PREFERENCE_INCONCLUSIVE"
+    else:
+        verdict = p3 if p3 != "P3_INCONCLUSIVE" else "INCONCLUSIVE"
+    support_tiers = []
+    if directional_scoped:
+        support_tiers.append("P3_DIRECTIONAL_SCOPED_SUPPORT")
+    if strong:
+        support_tiers.append("P3_NECESSITY_SUPPORTED")
+    return {
+        "verdict": verdict,
+        "directional_scoped_support": directional_scoped,
+        "support_tiers": support_tiers,
+    }
 
 
 def _nested_equal(left: Any, right: Any, *, tolerance: float = 1e-12) -> bool:
@@ -970,6 +1004,14 @@ def _independent_statistical_recompute(
         }
         for endpoint, families in nulls.items()
     }
+    decision = _audit_decision(
+        clean,
+        endpoints,
+        specificity,
+        resolution,
+        mode,
+        direction,
+    )
     expected = {
         "inference_families": inference_families,
         "worlds": {
@@ -1006,7 +1048,9 @@ def _independent_statistical_recompute(
             "requires_independent_result_audit": True,
             "authorization_is_provisional_until_audit_pass": True,
         },
-        "verdict": _audit_verdict(clean, endpoints, specificity, resolution, mode),
+        "directional_scoped_support": decision["directional_scoped_support"],
+        "support_tiers": decision["support_tiers"],
+        "verdict": decision["verdict"],
         "per_block": [
             {
                 "block_id": block,

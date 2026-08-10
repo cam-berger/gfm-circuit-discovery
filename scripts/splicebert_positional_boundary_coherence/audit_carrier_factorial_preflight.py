@@ -443,6 +443,41 @@ def _fixture_clean(row: Mapping[str, Any]) -> bool:
         return False
 
 
+def _fixture_directional_scoped(row: Mapping[str, Any]) -> bool:
+    clean = row.get("clean")
+    n3 = row.get("N3")
+    details = row.get("engine_details")
+    directions = (
+        details.get("direction_family") if isinstance(details, Mapping) else None
+    )
+    if not all(isinstance(value, Mapping) for value in (clean, n3, directions)):
+        return False
+    try:
+        clean_ci = [float(value) for value in clean["simultaneous_ci"]]
+        n3_ci = [float(value) for value in n3["simultaneous_ci"]]
+        return bool(
+            len(clean_ci) == len(n3_ci) == 2
+            and clean_ci[0] > 0
+            and n3_ci[0] > 0
+            and all(
+                float(directions[name]["estimate"]) > 0
+                for name in ("Dplus", "Dminus", "Psi0", "Psi1", "Psi2")
+            )
+            and float(clean["pseudo_add_one_p"]) <= 1 / 1000
+            and clean.get("target_exceeds_every_pseudo") is True
+            and clean.get("corrected_specificity_pass") is True
+            and float(clean["paired_pseudo_ci"][0]) > 0
+            and float(clean["mde80"]) <= 0.04
+            and all(float(value) <= 1 / 32 for value in n3["add_one_p"])
+            and n3.get("target_exceeds_every_control") is True
+            and n3.get("corrected_specificity_pass") is True
+            and all(float(interval[0]) > 0 for interval in n3["paired_cis"])
+            and float(n3["mde80"]) <= 0.04
+        )
+    except (KeyError, TypeError, ValueError):
+        return False
+
+
 def _fixture_summary(value: object) -> dict[str, Any]:
     if not isinstance(value, Mapping):
         return {"passed": False, "reason": "fixture calibration absent"}
@@ -509,6 +544,7 @@ def _fixture_summary(value: object) -> dict[str, Any]:
             and _fixture_endpoint(row, "N10")
             and _fixture_endpoint(row, "J")
         )
+        directional = _fixture_directional_scoped(row)
         decision = row.get("decision")
         return bool(
             row.get("analysis_engine")
@@ -525,6 +561,7 @@ def _fixture_summary(value: object) -> dict[str, Any]:
             and isinstance(decision, Mapping)
             and decision.get("authorize_p3_phase3") is p3
             and decision.get("authorize_joint_phase3") is joint
+            and decision.get("directional_scoped_support") is directional
         )
 
     if any(not engine_trace(row, group) for group, rows in indexed_groups for row in rows):
@@ -551,7 +588,8 @@ def _fixture_summary(value: object) -> dict[str, Any]:
             return {"passed": False, "reason": f"contract fixture failed: {name}"}
     null_hits = sum(
         int(
-            _fixture_clean(row)
+            _fixture_directional_scoped(row)
+            or _fixture_clean(row)
             or any(_fixture_endpoint(row, name) for name in ("N3", "N10", "J"))
         )
         for row in null_rows

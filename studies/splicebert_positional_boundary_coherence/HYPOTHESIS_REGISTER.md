@@ -1,5 +1,8 @@
 # Biological hypothesis register — SpliceBERT positional boundary coherence
 
+> **Tier: T2 — provenance.** Candidate biological narrative; it cannot promote a claim or supersede the
+> frozen design and claim ledger.
+
 **Status: candidate register.** This document is not a claim ledger, a preregistration, or evidence. The
 successor study's authoritative record is [`CLAIMS.md`](CLAIMS.md); prior evidence remains governed by
 the partner-selection [`CLAIMS.md`](../splicebert_partner_selection/CLAIMS.md), the GTEx fine-tuning
@@ -54,6 +57,13 @@ This account is biologically grounded without giving the model a frame sensor. P
 can arise from unequal codon use, and published intron-phase associations can arise from splice-site
 nucleotide bias. A 10–11-nt coding signal also has a plausible protein-sequence source, but that source has
 not been demonstrated in the SpliceBERT training distribution.
+
+The learned relationship need not be perfectly symmetric across all three annotated orientations to be
+scientifically interesting. SpliceBERT saw a finite, potentially uneven training corpus, so partial register
+concordance could be compatible with uneven support for the relevant boundary patterns. This is a candidate
+limitation, not an explanation established by the present model outcomes. It cannot excuse failed controls
+or change a decision threshold; a causal training-data account would require an independent corpus analysis
+and controlled training intervention.
 
 ### Checkpoint map
 
@@ -116,7 +126,9 @@ phase from phase-correlated sequence composition.*
 
 ### PBC-02 — Does period-3 causally implement the residual boundary preference?
 
-**Priority: 2 and the primary causal closure path. ≈10.63 is optional.**
+**Priority: 2 and the primary paper closure path. A corrected directional Phase-II P3 result supports a
+rough scoped link; a material result is stronger and alone opens Phase III. Register and route tests are
+optional strengthening. ≈10.63 is optional.**
 
 **Candidate.** Period-3 supplies a short relative register. The ≈10.63 carrier supplies a distinct,
 coarser positional coordinate. The two features can be used in parallel. They do not need to transform into
@@ -189,7 +201,7 @@ demonstrated local-classification function after fine-tuning. Its biological ref
 
 ---
 
-## 3. Three-phase closure sequence
+## 3. Three-phase sequence with Phase-II minimum closure
 
 The phases are gates. The clock does not authorize a later phase. Every result-producing run must write an
 immutable machine-readable artifact and manifest, and an independent audit must recompute the decision
@@ -364,6 +376,7 @@ experiment. Do not call the clean `Y00` result an independent replication of the
 |---|---|---|---|---|
 | capable equivalence/null | any | any | any | composition-associated account supported within the matched family; there is no positive clean preference to mediate, and edit-induced contrasts are reported separately |
 | material positive | bounded/null | bounded/null | equivalent/null | no material dependence on the two tested bands is detected under these edits and doses |
+| directional corrected positive | directional corrected positive | any | any | if one or both primary intervals do not establish `>0.05` materiality: rough, assay-scoped P3–boundary-preference link; no materiality language and no Phase III |
 | material positive | material positive | bounded/null | equivalent/null | period-3 bridge advances; keep ≈10.63 separate |
 | material positive | bounded/null | material positive | equivalent/null | ≈10.63 bridge advances; do not infer a three-state register |
 | material positive | material positive | material positive | equivalent/null | two parallel supports; do not call them coupled |
@@ -376,12 +389,13 @@ Negative `N3` or `N10` means attenuation increases the preference and is a suppr
 supportive use. A material `J` with one or both single-band effects bounded/null is a context-dependent
 interaction, not joint carrier support. The sign of `J` follows the frozen damage map above.
 
-### Phase III — period-3 register relocation and route-specific rescue
+### Phase III — optional period-3 register strengthening and route-specific rescue
 
-Reserve a third, outcome-fresh gene split at Phase-I freeze. The **P3-only path opens when the audited
-Phase-II clean preference and `N3` pass; it does not depend on `N10`, `J`, or resolution of ≈10.63's
-biological origin.** Discovery may use development data. All component identities, signs, windows, patch
-sites, controls, and output paths are frozen before the reserve opens.
+Reserve a third, outcome-fresh gene split at Phase-I freeze. Audited directional Phase-II support closes the
+minimum rough link, but **only material `Ψ00` and material corrected `N3` open the optional P3-only
+Phase-III path.** Opening does not depend on `N10`, `J`, or resolution of ≈10.63's biological origin.
+Discovery may use development data. All component identities, signs, windows, patch sites, controls, and
+output paths are frozen before the reserve opens.
 
 Use a new full-span analytic intervention on the complete learned P3 band, never the stopped `C44` local
 operator. Across nucleotide span `[392,512)`, impose register `r∈{-1,0,+1}` with a phase ramp from zero at
@@ -402,8 +416,23 @@ coupling endpoint `G`, preregister:
 - `Ω3(z) = mean_r S_r(z)`; and
 - `Jreg = Ω3(P10 intact) − Ω3(P10 attenuated)`.
 
-Require every `S_r` simultaneous lower bound above zero; a positive mean is insufficient. `Jreg` tests
-whether ≈10.63 changes the period-3 register effect. It does not by itself establish a directed arrow.
+The full relocation claim requires every `S_r` simultaneous lower bound above zero; a positive mean is
+insufficient for that claim. A weaker preregistered strengthening tier is available when `Ω3` is materially
+positive, all three `S_r` point estimates have the predicted sign, and at least two of the three simultaneous
+lower bounds exceed zero. It additionally requires full health/audit passage, superiority to the 31
+hidden-axis controls, a corrected partial-only family jointly separating target from common-mode and decoy
+while resolving handedness, and neither named control reproducing the partial rule. Define `Ωopp` by
+replacing the frozen preferred relation `δ=−r` with `δ=+r` in each register contrast, and
+`H=Ω3−Ωopp`; the simultaneous lower bound for `H` and the two target-minus-control bounds must exceed zero
+in that family, and the opposite orientation must not satisfy the same partial rule. That outcome,
+`P3_REGISTER_PARTIAL_CONCORDANCE_SUPPORTED`, is partial register concordance, not complete cyclic relocation
+and not authority for route mediation. An opposite-only raw partial pattern is
+`P3_REGISTER_PARTIAL_HANDEDNESS_FALSIFIED` only if its own hidden-axis and paired-control specificity pass
+and a separately corrected family jointly resolves opposite-minus-expected handedness plus separation from
+the common-mode and decoy controls. Expected and opposite raw partial patterns together, or either one with
+unresolved handedness, are
+`P3_REGISTER_PARTIAL_HANDEDNESS_AMBIGUOUS`. `Jreg` tests whether ≈10.63 changes the period-3 register effect.
+It does not by itself establish a directed arrow.
 
 On development, screen all 96 heads and all six MLP outputs with same-corruption-state, full-span output
 scrubs. Freeze the smallest jointly remeasured descending prefix reaching 80% of development `Ω3`, capped
@@ -434,12 +463,13 @@ all three conditions, write **joint use**, never an arrow.
 | Freeze | seal hypotheses, splits, feature family, test family, thresholds, commands, and manifests | any data or split provenance ambiguity |
 | Phase I | construct and independently audit the fresh composition-balanced cohort | balance, sensitivity, provenance, or calibration failure; the optional ≈10.63 origin branch never blocks P3 |
 | Phase II development | select P3 dose and pass capability, health, specificity, power, and false-positive gates | any mandatory P3 gate fails |
-| Phase II target | open the fresh target once, write immutable endpoints, and audit the clean preference plus `N3` | no Phase III if clean preference or P3 necessity is unsupported |
+| Phase II target | open the fresh target once and audit the clean preference plus `N3`; corrected directional support closes the minimum rough link, while material support alone opens Phase III | no Phase III unless clean preference and P3 necessity are material |
 | Phase III development | validate handedness, relocation controls, route discovery, matched component sets, and reserve power | any register or path instrument gate fails |
-| Phase III reserve | test P3 relocation, necessity, restoration, and separate sufficiency; audit each evidence level | no mediation wording without all frozen reserve gates |
+| Phase III reserve | optionally test partial/full P3 register concordance and, after full relocation, necessity, restoration, and separate sufficiency | no full relocation without three resolved orientations; no mediation wording without all frozen route gates |
 
-The required closure is a defensible P3 chain through the strongest passed rung. The ≈10.63 origin and
-optional modifier arm may remain unresolved.
+The minimum positive paper tier is a corrected directional Phase-II P3 attenuation link. A material
+Phase-II bridge, partial register concordance, complete three-register relocation, and path mediation are
+successively stronger rungs. The ≈10.63 origin and optional modifier arm may remain unresolved.
 
 Implementation belongs in a new study and script tree, created from
 [`studies/TEMPLATE_REAL_GFM_STUDY`](../TEMPLATE_REAL_GFM_STUDY/README.md). The archived exon-edge runners and
@@ -467,7 +497,31 @@ If the balanced contrast persists but both carrier effects are bounded:
 > material dependence on the period-3 or ≈10.63 bands is detected under the tested edits and doses. The
 > responsible sequence route remains unlocalized.
 
-### Strongest claim if the primary three-phase path passes
+### Primary paper claim at the directional Phase-II floor
+
+> **In a fresh composition-balanced fixed-span chimeric assay at `SpliceBERT.1024nt`, health-preserving
+> attenuation of the learned period-3 band shifts the model's annotated boundary-phase preference in the
+> prespecified direction relative to both intervention-matched control families. The effect is statistically
+> resolved but is not shown to exceed the `0.05` materiality threshold; this is a rough, assay-scoped causal
+> link, not material mechanism closure.**
+
+### Stronger paper claim if Phase II is material
+
+> **In a fresh composition-balanced fixed-span chimeric assay at `SpliceBERT.1024nt`, health-preserving
+> attenuation of the learned period-3 band materially reduces the model's annotated boundary-phase
+> preference relative to intervention-matched controls. Period-3 therefore causally supports this scoped
+> sequence-encoded boundary-coherence behavior.**
+
+If Phase III additionally finds a material aggregate response, the predicted sign in all three registers,
+simultaneous support in at least two, full specificity/health/audit passage, no reproduction by common-mode
+or decoy controls, a positive expected-minus-opposite handedness bound, and no opposite partial pattern, add:
+
+> *A full-span analytic period-3 register intervention is directionally concordant across all three
+> prespecified register relations, with at least two individually resolved. This partial concordance
+> strengthens the rough, assay-scoped P3–boundary-coherence link, while complete cyclic relocation and its
+> internal mediation remain unresolved.*
+
+### Strongest claim if full relocation and mediation also pass
 
 > **In a fresh composition-balanced fixed-span chimeric assay at `SpliceBERT.1024nt`, health-preserving
 > attenuation of the learned period-3 band materially reduces the model's annotated boundary-phase

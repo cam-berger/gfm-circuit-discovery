@@ -16,10 +16,14 @@ sys.path.insert(0, str(REPO / "src"))
 
 from gfmcd.provenance import ExperimentManifest, file_record, sha256_file  # noqa: E402
 from gfmcd.splicing.pbc_register_relocation import (  # noqa: E402
+    OPPOSITE_PARTIAL_SPECIFICITY_SEED,
     P10_INTACT,
+    PARTIAL_SPECIFICITY_SEED,
     REGISTERS,
     analyze_register_component,
     block_register_contrasts,
+    opposite_partial_handedness_specificity_family,
+    partial_handedness_specificity_family,
     paired_named_control_specificity,
     paired_register_specificity_interval,
     phase_delta,
@@ -151,6 +155,12 @@ def validate_confirmatory_provenance(
         == INFERENCE_SEED
         and int(relocation["bootstrap_draws"])
         == CONFIRMATORY_BOOTSTRAP_DRAWS,
+        "partial_specificity_seeds_frozen": int(
+            relocation["expected_partial_specificity_seed"]
+        )
+        == PARTIAL_SPECIFICITY_SEED
+        and int(relocation["opposite_partial_specificity_seed"])
+        == OPPOSITE_PARTIAL_SPECIFICITY_SEED,
         "analysis_recorded_seal_chain": bool(
             isinstance(recorded, Mapping)
             and recorded.get("reserve_seal_sha256") == seal_record.get("sha256")
@@ -259,17 +269,64 @@ def _independent_status(
         return "P3_REGISTER_NOT_AUTHORIZED"
     if authorization.get("register_preflight_passed") is not True or not replay_passed:
         return "P3_REGISTER_INSTRUMENT_UNRESOLVED"
-    if specificity.get("passed") is not True:
-        return "P3_REGISTER_INSTRUMENT_UNRESOLVED"
-    if not bool(target.get("all_registers_positive")) or not bool(
+    strong_relocation = bool(target.get("all_registers_positive")) and bool(
         target.get("omega3_material_positive")
-    ):
+    )
+    if strong_relocation and specificity.get("passed") is not True:
+        return "P3_REGISTER_INSTRUMENT_UNRESOLVED"
+    if not strong_relocation:
         if bool(target.get("opposite_all_registers_positive")) and bool(
             target.get("opposite_omega3_material_positive")
-        ):
+        ) and not bool(target.get("expected_partial_concordance_pattern")):
+            if specificity.get("passed") is not True:
+                return "P3_REGISTER_INSTRUMENT_UNRESOLVED"
             return "P3_REGISTER_HANDEDNESS_FALSIFIED"
+        expected_partial = bool(target.get("expected_partial_concordance_pattern"))
+        opposite_partial = bool(target.get("opposite_partial_concordance_pattern"))
+        partial = specificity.get("partial_concordance")
+        opposite = specificity.get("opposite_partial_concordance")
+        partial_pass = bool(
+            isinstance(partial, Mapping) and partial.get("passed") is True
+        )
+        partial_non_handedness = bool(
+            isinstance(partial, Mapping)
+            and partial.get("non_handedness_passed") is True
+        )
+        opposite_pass = bool(
+            isinstance(opposite, Mapping) and opposite.get("passed") is True
+        )
+        opposite_non_handedness = bool(
+            isinstance(opposite, Mapping)
+            and opposite.get("non_handedness_passed") is True
+        )
+        if expected_partial and opposite_partial:
+            return (
+                "P3_REGISTER_PARTIAL_HANDEDNESS_AMBIGUOUS"
+                if partial_non_handedness and opposite_non_handedness
+                else "P3_REGISTER_INSTRUMENT_UNRESOLVED"
+            )
+        if opposite_partial:
+            if opposite_non_handedness and not bool(
+                isinstance(opposite, Mapping)
+                and opposite.get("reverse_handedness_resolved") is True
+            ):
+                return "P3_REGISTER_PARTIAL_HANDEDNESS_AMBIGUOUS"
+            return (
+                "P3_REGISTER_PARTIAL_HANDEDNESS_FALSIFIED"
+                if opposite_pass
+                else "P3_REGISTER_INSTRUMENT_UNRESOLVED"
+            )
+        if expected_partial:
+            if not partial_non_handedness:
+                return "P3_REGISTER_INSTRUMENT_UNRESOLVED"
+            if not bool(target.get("handedness_expected_lower_positive")):
+                return "P3_REGISTER_PARTIAL_HANDEDNESS_AMBIGUOUS"
+            if partial_pass and bool(target.get("partial_concordance_pattern")):
+                return "P3_REGISTER_PARTIAL_CONCORDANCE_SUPPORTED"
         if bool(target.get("all_registers_bounded_null")):
             return "P3_REGISTER_BOUNDED_NULL"
+        if specificity.get("passed") is not True:
+            return "P3_REGISTER_INSTRUMENT_UNRESOLVED"
         return "P3_REGISTER_INCONCLUSIVE"
     base = "P3_REGISTER_RELOCATION_SUPPORTED"
     if mode != "JOINT":
@@ -315,6 +372,7 @@ def _independent_recompute(
         for label in expected
     }
     compact = {}
+    opposite_compact = {}
     controls = {}
     for label, blocks in component_blocks.items():
         omega = {
@@ -323,15 +381,36 @@ def _independent_recompute(
             )
             for state in states
         }
+        opposite_omega = {
+            state: float(
+                sum(
+                    float(row[f"opposite_omega3_{state}"]) for row in blocks
+                )
+                / len(blocks)
+            )
+            for state in states
+        }
         if label == "p3" or label in CONTROL_LABELS:
             compact[label] = {"omega3": omega}
+            opposite_compact[label] = {"omega3": opposite_omega}
         if label in CONTROL_LABELS:
-            controls[label] = {"n_blocks": len(blocks), "omega3": omega}
+            controls[label] = {
+                "n_blocks": len(blocks),
+                "omega3": omega,
+                "opposite_omega3": opposite_omega,
+            }
     rank = register_specificity(compact)
     paired = paired_register_specificity_interval(
         {label: component_blocks[label] for label in ("p3", *CONTROL_LABELS)},
         seed=seed + 1,
         n_bootstrap=draws,
+    )
+    opposite_rank = register_specificity(opposite_compact)
+    opposite_paired = paired_register_specificity_interval(
+        {label: component_blocks[label] for label in ("p3", *CONTROL_LABELS)},
+        seed=seed + 2,
+        n_bootstrap=draws,
+        endpoint=f"opposite_omega3_{P10_INTACT}",
     )
     diagnostics = {
         label: analyze_register_component(
@@ -349,15 +428,101 @@ def _independent_recompute(
         seed=seed + 30,
         n_bootstrap=draws,
     )
+    partial_family = partial_handedness_specificity_family(
+        component_blocks,
+        control_components=DIAGNOSTIC_LABELS,
+        seed=PARTIAL_SPECIFICITY_SEED,
+        n_bootstrap=draws,
+    )
+    opposite_partial_family = opposite_partial_handedness_specificity_family(
+        component_blocks,
+        control_components=DIAGNOSTIC_LABELS,
+        seed=OPPOSITE_PARTIAL_SPECIFICITY_SEED,
+        n_bootstrap=draws,
+    )
+    primary["handedness_specificity_family"] = partial_family
+    primary["opposite_handedness_specificity_family"] = opposite_partial_family
+    primary["handedness_expected_lower_positive"] = bool(
+        partial_family["handedness_lower_positive"]
+    )
+    primary["handedness_opposite_lower_positive"] = bool(
+        opposite_partial_family["reverse_handedness_lower_positive"]
+    )
+    primary["partial_concordance_pattern"] = bool(
+        primary["expected_partial_concordance_pattern"]
+        and primary["handedness_expected_lower_positive"]
+        and not primary["opposite_partial_concordance_pattern"]
+    )
     fail_to_reproduce = all(
         not bool(diagnostics[label]["all_registers_positive"])
         for label in DIAGNOSTIC_LABELS
+    )
+    fail_to_reproduce_partial = all(
+        not bool(diagnostics[label]["expected_partial_concordance_pattern"])
+        for label in DIAGNOSTIC_LABELS
+    )
+    fail_to_reproduce_opposite_partial = all(
+        not bool(diagnostics[label]["opposite_partial_concordance_pattern"])
+        for label in DIAGNOSTIC_LABELS
+    )
+    partial = {
+        "rank_target_exceeds_all_31": bool(rank["passed"]),
+        "paired_target_minus_mean_control": bool(paired["passed"]),
+        "common_mode_and_decoy_fail_to_reproduce": bool(
+            fail_to_reproduce_partial
+        ),
+        "simultaneous_handedness_and_named_controls": bool(
+            partial_family["passed"]
+        ),
+        "handedness_specificity_family": partial_family,
+    }
+    partial["passed"] = bool(
+        partial["rank_target_exceeds_all_31"]
+        and partial["paired_target_minus_mean_control"]
+        and partial["common_mode_and_decoy_fail_to_reproduce"]
+        and partial["simultaneous_handedness_and_named_controls"]
+    )
+    partial["non_handedness_passed"] = bool(
+        partial["rank_target_exceeds_all_31"]
+        and partial["paired_target_minus_mean_control"]
+        and partial["common_mode_and_decoy_fail_to_reproduce"]
+        and partial_family["named_controls_lower_positive"]
+    )
+    opposite_partial = {
+        "rank_target_exceeds_all_31": bool(opposite_rank["passed"]),
+        "paired_target_minus_mean_control": bool(opposite_paired["passed"]),
+        "common_mode_and_decoy_fail_to_reproduce": bool(
+            fail_to_reproduce_opposite_partial
+        ),
+        "simultaneous_reverse_handedness_and_named_controls": bool(
+            opposite_partial_family["passed"]
+        ),
+        "opposite_handedness_specificity_family": opposite_partial_family,
+        "reverse_handedness_resolved": bool(
+            opposite_partial_family["reverse_handedness_lower_positive"]
+        ),
+    }
+    opposite_partial["non_handedness_passed"] = bool(
+        opposite_partial["rank_target_exceeds_all_31"]
+        and opposite_partial["paired_target_minus_mean_control"]
+        and opposite_partial["common_mode_and_decoy_fail_to_reproduce"]
+        and opposite_partial_family["named_controls_lower_positive"]
+    )
+    opposite_partial["passed"] = bool(
+        opposite_partial["non_handedness_passed"]
+        and opposite_partial[
+            "simultaneous_reverse_handedness_and_named_controls"
+        ]
     )
     specificity = {
         **rank,
         "paired_target_minus_mean_control": paired,
         "paired_target_minus_named_controls": named,
         "diagnostics_fail_to_reproduce": bool(fail_to_reproduce),
+        "partial_concordance": partial,
+        "opposite_partial_concordance": opposite_partial,
+        "opposite_rank": opposite_rank,
+        "opposite_paired_target_minus_mean_control": opposite_paired,
         "passed": bool(
             rank["passed"] and paired["passed"] and named["passed"] and fail_to_reproduce
         ),
@@ -383,6 +548,10 @@ def _independent_recompute(
         "stage": str(target.get("stage") or "development"),
         "status": status,
         "mode": mode,
+        "partial_specificity_seeds": {
+            "expected": PARTIAL_SPECIFICITY_SEED,
+            "opposite": OPPOSITE_PARTIAL_SPECIFICITY_SEED,
+        },
         "target": primary,
         "controls": controls,
         "diagnostic_controls": diagnostics,
@@ -468,6 +637,11 @@ def audit_payloads(
             not enforce_confirmatory_contract
             or analysis.get("bootstrap_draws") == CONFIRMATORY_BOOTSTRAP_DRAWS
         ),
+        "partial_specificity_seeds": analysis.get("partial_specificity_seeds")
+        == {
+            "expected": PARTIAL_SPECIFICITY_SEED,
+            "opposite": OPPOSITE_PARTIAL_SPECIFICITY_SEED,
+        },
         "analysis_sha256_present": bool(
             not enforce_confirmatory_contract
             or (
@@ -526,6 +700,7 @@ def audit_payloads(
                 "status",
                 "stage",
                 "mode",
+                "partial_specificity_seeds",
                 "target",
                 "controls",
                 "diagnostic_controls",
@@ -549,6 +724,9 @@ def audit_payloads(
         "mechanics_contract": mechanics_contract,
         "recompute_error": recompute_error,
         "recomputed_status": None if recomputed is None else recomputed["status"],
+        "partial_specificity_seeds": None
+        if recomputed is None
+        else recomputed["partial_specificity_seeds"],
     }
 
 
@@ -597,7 +775,16 @@ def main() -> None:
         command=sys.argv,
         repo=REPO,
         status="AUDIT",
-        config={"stage": "phase3_reserve", "schema": AUDIT_SCHEMA},
+        config={
+            "stage": "phase3_reserve",
+            "schema": AUDIT_SCHEMA,
+            "expected_partial_specificity_seed": PARTIAL_SPECIFICITY_SEED,
+            "opposite_partial_specificity_seed": OPPOSITE_PARTIAL_SPECIFICITY_SEED,
+        },
+        seeds={
+            "expected_partial_specificity": PARTIAL_SPECIFICITY_SEED,
+            "opposite_partial_specificity": OPPOSITE_PARTIAL_SPECIFICITY_SEED,
+        },
         inputs=[
             file_record(path)
             for path in (

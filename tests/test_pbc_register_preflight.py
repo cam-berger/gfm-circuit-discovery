@@ -364,6 +364,14 @@ def test_positive_preflight_authorizes_only_after_all_gates_pass():
     assert result["authorization"]["authorize_p3_register_reserve"]
     assert not result["authorization"]["authorize_joint_register_reserve"]
     assert result["development_relocation"]["status"] == "P3_REGISTER_RELOCATION_SUPPORTED"
+    assert result["partial_specificity_seeds"] == {
+        "expected": 2026081010,
+        "opposite": 2026081012,
+    }
+    assert (
+        result["development_relocation"]["partial_specificity_seeds"]
+        == result["partial_specificity_seeds"]
+    )
 
 
 def test_missing_health_is_instrument_unresolved():
@@ -451,6 +459,20 @@ def test_independent_audit_recomputes_and_rejects_hash_bound_tampering(tmp_path)
     assert audit["schema"] == REGISTER_PREFLIGHT_AUDIT_SCHEMA
     assert audit["status"] == "PASS"
     assert audit["analysis_sha256"] == sha256_file(analysis_path)
+    assert audit["partial_specificity_seeds"] == analysis[
+        "partial_specificity_seeds"
+    ]
+
+    tampered_seeds = json.loads(json.dumps(analysis))
+    tampered_seeds["partial_specificity_seeds"]["opposite"] += 1
+    seed_audit = AUDIT.audit_payloads(
+        raw,
+        tampered_seeds,
+        preflight_sha256=raw_hash,
+        analysis_sha256="d" * 64,
+    )
+    assert seed_audit["status"] == "FAIL"
+    assert not seed_audit["checks"]["analysis_exact_recompute"]
 
     analysis["status"] = "P3_REGISTER_INSTRUMENT_UNRESOLVED"
     tampered = AUDIT.audit_payloads(

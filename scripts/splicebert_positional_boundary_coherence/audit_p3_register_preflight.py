@@ -22,6 +22,8 @@ sys.path.insert(0, str(SCRIPT_DIR))
 from gfmcd.artifact_guard import guard_output_path  # noqa: E402
 from gfmcd.provenance import ExperimentManifest, file_record, sha256_file  # noqa: E402
 from gfmcd.splicing.pbc_register_relocation import (  # noqa: E402
+    OPPOSITE_PARTIAL_SPECIFICITY_SEED,
+    PARTIAL_SPECIFICITY_SEED,
     REGISTERS,
     phase_delta,
 )
@@ -803,7 +805,10 @@ def _stage_decision_independent(
     joint_phase2 = phase2.get("phase2_joint_authorized")
     if type(p3) is not bool or type(joint_phase2) is not bool:
         raise ValueError("Phase-II authorization flags are absent")
-    relocation_pass = relocation_status == "P3_REGISTER_RELOCATION_SUPPORTED"
+    relocation_pass = relocation_status in {
+        "P3_REGISTER_RELOCATION_SUPPORTED",
+        "P3_REGISTER_PARTIAL_CONCORDANCE_SUPPORTED",
+    }
     mandatory = bool(
         p3
         and relocation_pass
@@ -906,6 +911,7 @@ def _independent_analysis_checks(
         "status",
         "stage",
         "mode",
+        "partial_specificity_seeds",
         "target",
         "controls",
         "diagnostic_controls",
@@ -923,6 +929,11 @@ def _independent_analysis_checks(
         and decision.get("code") == relocation_partial["status"]
         and reported_relocation.get("inference_seed") == seed
         and reported_relocation.get("bootstrap_draws") == draws
+        and reported_relocation.get("partial_specificity_seeds")
+        == {
+            "expected": PARTIAL_SPECIFICITY_SEED,
+            "opposite": OPPOSITE_PARTIAL_SPECIFICITY_SEED,
+        }
     )
 
     per_block = relocation_partial["target"]["per_block"]
@@ -996,6 +1007,11 @@ def _independent_analysis_checks(
     support_exact = bool(
         analysis.get("preflight_sha256") == preflight_sha256
         and analysis.get("construction_mechanics") == dict(mechanics)
+        and analysis.get("partial_specificity_seeds")
+        == {
+            "expected": PARTIAL_SPECIFICITY_SEED,
+            "opposite": OPPOSITE_PARTIAL_SPECIFICITY_SEED,
+        }
         and analysis.get("health") == stage_health
         and analysis.get("projected_resolution") == projected_expected
         and analysis.get("fixture_calibration") == fixture
@@ -1097,6 +1113,10 @@ def audit_payloads(
         "status": "PASS" if passed else "FAIL",
         "preflight_sha256": preflight_sha256,
         "analysis_sha256": analysis_sha256,
+        "partial_specificity_seeds": {
+            "expected": PARTIAL_SPECIFICITY_SEED,
+            "opposite": OPPOSITE_PARTIAL_SPECIFICITY_SEED,
+        },
         "checks": checks,
         "row_contract": row_contract,
         "mechanics": mechanics,
@@ -1165,7 +1185,16 @@ def main() -> None:
         command=sys.argv,
         repo=REPO,
         status="AUDIT",
-        config={"schema": REGISTER_PREFLIGHT_AUDIT_SCHEMA, "stage": "development"},
+        config={
+            "schema": REGISTER_PREFLIGHT_AUDIT_SCHEMA,
+            "stage": "development",
+            "expected_partial_specificity_seed": PARTIAL_SPECIFICITY_SEED,
+            "opposite_partial_specificity_seed": OPPOSITE_PARTIAL_SPECIFICITY_SEED,
+        },
+        seeds={
+            "expected_partial_specificity": PARTIAL_SPECIFICITY_SEED,
+            "opposite_partial_specificity": OPPOSITE_PARTIAL_SPECIFICITY_SEED,
+        },
         inputs=[
             file_record(preflight_path),
             file_record(preflight_manifest_path),

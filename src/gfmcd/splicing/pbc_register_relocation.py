@@ -28,6 +28,8 @@ REGISTERS = (-1, 0, 1)
 P10_INTACT = "intact"
 P10_ATTENUATED = "attenuated"
 TARGET_COMPONENT = "p3"
+PARTIAL_SPECIFICITY_SEED = 2026081010
+OPPOSITE_PARTIAL_SPECIFICITY_SEED = 2026081012
 
 
 @dataclass(frozen=True)
@@ -497,6 +499,7 @@ def analyze_register_component(
     )
     lower = dict(zip(primary_inference.names, primary_inference.lower))
     upper = dict(zip(primary_inference.names, primary_inference.upper))
+    means = dict(zip(primary_inference.names, primary_inference.means))
     required_intact = [
         register_endpoint_name(register, P10_INTACT) for register in REGISTERS
     ]
@@ -524,6 +527,16 @@ def analyze_register_component(
         "all_registers_positive": bool(
             all(lower[name] > 0 for name in required_intact)
         ),
+        # A rough boundary link is deliberately weaker than cyclic relocation:
+        # all three prespecified register point estimates must agree in sign, while
+        # only two need simultaneous lower bounds above zero.  Aggregate materiality
+        # remains a separate, unchanged >0.05 requirement in the adjudicator.
+        "positive_register_count": int(
+            sum(lower[name] > 0 for name in required_intact)
+        ),
+        "all_register_point_estimates_positive": bool(
+            all(means[name] > 0 for name in required_intact)
+        ),
         "all_joint_state_registers_positive": bool(
             all(lower.get(name, -math.inf) > 0 for name in required_joint)
         ),
@@ -550,16 +563,39 @@ def analyze_register_component(
     opposite_lower = dict(
         zip(opposite_inference.names, opposite_inference.lower)
     )
+    opposite_means = dict(
+        zip(opposite_inference.names, opposite_inference.means)
+    )
+    opposite_required = [
+        f"opposite_s_{register}_{P10_INTACT}" for register in REGISTERS
+    ]
     result["opposite_handed_inference"] = opposite_inference.as_dict()
     result["opposite_omega3_material_positive"] = bool(
         opposite_lower[f"opposite_omega3_{P10_INTACT}"] > 0.05
     )
     result["opposite_all_registers_positive"] = bool(
         all(
-            opposite_lower[f"opposite_s_{register}_{P10_INTACT}"] > 0
-            for register in REGISTERS
+            opposite_lower[name] > 0 for name in opposite_required
         )
     )
+    result["opposite_positive_register_count"] = int(
+        sum(opposite_lower[name] > 0 for name in opposite_required)
+    )
+    result["opposite_all_register_point_estimates_positive"] = bool(
+        all(opposite_means[name] > 0 for name in opposite_required)
+    )
+    expected_partial = bool(
+        result["omega3_material_positive"]
+        and result["all_register_point_estimates_positive"]
+        and int(result["positive_register_count"]) >= 2
+    )
+    opposite_partial = bool(
+        result["opposite_omega3_material_positive"]
+        and result["opposite_all_register_point_estimates_positive"]
+        and int(result["opposite_positive_register_count"]) >= 2
+    )
+    result["expected_partial_concordance_pattern"] = expected_partial
+    result["opposite_partial_concordance_pattern"] = opposite_partial
     if joint:
         attenuated_names = (f"omega3_{P10_ATTENUATED}",) + tuple(
             register_endpoint_name(register, P10_ATTENUATED)
@@ -641,6 +677,7 @@ def paired_register_specificity_interval(
     target_component: str = TARGET_COMPONENT,
     seed: int,
     n_bootstrap: int = 20_000,
+    endpoint: str = f"omega3_{P10_INTACT}",
 ) -> dict[str, object]:
     """Interval for target ``Omega3`` minus the mean same-family control per block."""
 
@@ -660,10 +697,10 @@ def paired_register_specificity_interval(
     strata = []
     for block_id in target_ids:
         target_row = indexed[target_component][block_id]
-        target = float(target_row[f"omega3_{P10_INTACT}"])
+        target = float(target_row[endpoint])
         control = float(
             np.mean(
-                [indexed[label][block_id][f"omega3_{P10_INTACT}"] for label in controls]
+                [indexed[label][block_id][endpoint] for label in controls]
             )
         )
         differences.append(target - control)
@@ -677,6 +714,7 @@ def paired_register_specificity_interval(
     )
     result = inference.as_dict()
     return {
+        "endpoint": endpoint,
         "inference": result,
         "passed": bool(result["lower"]["p3_minus_mean_control"] > 0),
     }
@@ -733,6 +771,143 @@ def paired_named_control_specificity(
     }
 
 
+def partial_handedness_specificity_family(
+    component_blocks: Mapping[str, Sequence[Mapping[str, object]]],
+    *,
+    control_components: Sequence[str],
+    target_component: str = TARGET_COMPONENT,
+    seed: int,
+    n_bootstrap: int = 20_000,
+) -> dict[str, object]:
+    """Joint max-T family for partial handedness and named-control specificity."""
+
+    controls = tuple(str(value) for value in control_components)
+    if not controls or len(set(controls)) != len(controls):
+        raise ValueError("partial controls must be a nonempty unique sequence")
+    required = {target_component, *controls}
+    if not required.issubset(component_blocks):
+        raise ValueError("partial target or named-control block table is absent")
+    indexed = {
+        label: {str(row["block_id"]): row for row in component_blocks[label]}
+        for label in required
+    }
+    target_ids = sorted(indexed[target_component])
+    if any(sorted(indexed[label]) != target_ids for label in controls):
+        raise ValueError("partial target and named controls must contain identical blocks")
+    handedness_name = "omega3_expected_minus_opposite"
+    control_names = tuple(f"p3_minus_{label}" for label in controls)
+    names = (handedness_name, *control_names)
+    matrix = []
+    strata = []
+    for block_id in target_ids:
+        target_row = indexed[target_component][block_id]
+        target_omega = float(target_row[f"omega3_{P10_INTACT}"])
+        matrix.append(
+            [
+                target_omega
+                - float(target_row[f"opposite_omega3_{P10_INTACT}"]),
+                *[
+                    target_omega
+                    - float(indexed[label][block_id][f"omega3_{P10_INTACT}"])
+                    for label in controls
+                ],
+            ]
+        )
+        strata.append(f"{target_row['chrom']}:{target_row['strand']}")
+    inference = stratified_studentized_max_t(
+        np.asarray(matrix, dtype=float),
+        names=names,
+        strata=strata,
+        seed=seed,
+        n_bootstrap=n_bootstrap,
+    ).as_dict()
+    lower = inference["lower"]
+    upper = inference["upper"]
+    return {
+        "controls": list(controls),
+        "members": list(names),
+        "seed": int(seed),
+        "inference": inference,
+        "handedness_lower_positive": bool(lower[handedness_name] > 0),
+        "reverse_handedness_upper_negative": bool(upper[handedness_name] < 0),
+        "named_controls_lower_positive": bool(
+            all(lower[name] > 0 for name in control_names)
+        ),
+        "passed": bool(all(lower[name] > 0 for name in names)),
+    }
+
+
+def opposite_partial_handedness_specificity_family(
+    component_blocks: Mapping[str, Sequence[Mapping[str, object]]],
+    *,
+    control_components: Sequence[str],
+    target_component: str = TARGET_COMPONENT,
+    seed: int,
+    n_bootstrap: int = 20_000,
+) -> dict[str, object]:
+    """Joint max-T family for the opposite-only partial falsification path."""
+
+    controls = tuple(str(value) for value in control_components)
+    if not controls or len(set(controls)) != len(controls):
+        raise ValueError("opposite partial controls must be a nonempty unique sequence")
+    required = {target_component, *controls}
+    if not required.issubset(component_blocks):
+        raise ValueError("opposite partial target or named-control block table is absent")
+    indexed = {
+        label: {str(row["block_id"]): row for row in component_blocks[label]}
+        for label in required
+    }
+    target_ids = sorted(indexed[target_component])
+    if any(sorted(indexed[label]) != target_ids for label in controls):
+        raise ValueError(
+            "opposite partial target and named controls must contain identical blocks"
+        )
+    handedness_name = "omega3_opposite_minus_expected"
+    control_names = tuple(f"opposite_p3_minus_{label}" for label in controls)
+    names = (handedness_name, *control_names)
+    matrix = []
+    strata = []
+    for block_id in target_ids:
+        target_row = indexed[target_component][block_id]
+        target_opposite = float(
+            target_row[f"opposite_omega3_{P10_INTACT}"]
+        )
+        matrix.append(
+            [
+                target_opposite - float(target_row[f"omega3_{P10_INTACT}"]),
+                *[
+                    target_opposite
+                    - float(
+                        indexed[label][block_id][
+                            f"opposite_omega3_{P10_INTACT}"
+                        ]
+                    )
+                    for label in controls
+                ],
+            ]
+        )
+        strata.append(f"{target_row['chrom']}:{target_row['strand']}")
+    inference = stratified_studentized_max_t(
+        np.asarray(matrix, dtype=float),
+        names=names,
+        strata=strata,
+        seed=seed,
+        n_bootstrap=n_bootstrap,
+    ).as_dict()
+    lower = inference["lower"]
+    return {
+        "controls": list(controls),
+        "members": list(names),
+        "seed": int(seed),
+        "inference": inference,
+        "reverse_handedness_lower_positive": bool(lower[handedness_name] > 0),
+        "named_controls_lower_positive": bool(
+            all(lower[name] > 0 for name in control_names)
+        ),
+        "passed": bool(all(lower[name] > 0 for name in names)),
+    }
+
+
 def adjudicate_register_relocation(
     target: Mapping[str, object],
     specificity: Mapping[str, object],
@@ -759,39 +934,153 @@ def adjudicate_register_relocation(
     if not capability_passed:
         return {
             "code": "P3_REGISTER_INSTRUMENT_UNRESOLVED",
-            "licensed_claim": "No register interpretation; a frozen capability or health gate failed.",
+            "licensed_claim": (
+                "No register interpretation; a frozen capability or health gate failed."
+            ),
         }
-    if not bool(specificity.get("passed")):
+    strong_relocation = bool(target.get("all_registers_positive")) and bool(
+        target.get("omega3_material_positive")
+    )
+    if strong_relocation and not bool(specificity.get("passed")):
         return {
             "code": "P3_REGISTER_INSTRUMENT_UNRESOLVED",
             "licensed_claim": (
-                "The imposed-register lattice is not specific to the learned period-3 hidden direction."
+                "The imposed-register lattice is not specific to the learned period-3 "
+                "hidden direction."
             ),
         }
-    if not bool(target.get("all_registers_positive")) or not bool(
-        target.get("omega3_material_positive")
-    ):
+    if not strong_relocation:
         if bool(target.get("opposite_all_registers_positive")) and bool(
             target.get("opposite_omega3_material_positive")
-        ):
+        ) and not bool(target.get("expected_partial_concordance_pattern")):
+            if not bool(specificity.get("passed")):
+                return {
+                    "code": "P3_REGISTER_INSTRUMENT_UNRESOLVED",
+                    "licensed_claim": "The opposite-handed pattern failed frozen specificity.",
+                }
             return {
                 "code": "P3_REGISTER_HANDEDNESS_FALSIFIED",
                 "licensed_claim": (
-                    "The material cyclic relocation followed the prespecified opposite orientation; "
+                    "The material cyclic relocation followed the prespecified opposite "
+                    "orientation; "
                     "the frozen biological handedness is falsified."
                 ),
             }
+        expected_partial = bool(
+            target.get("expected_partial_concordance_pattern")
+        )
+        opposite_partial = bool(
+            target.get("opposite_partial_concordance_pattern")
+        )
+        partial_specificity = specificity.get("partial_concordance")
+        opposite_specificity = specificity.get("opposite_partial_concordance")
+        partial_non_handedness = bool(
+            isinstance(partial_specificity, Mapping)
+            and partial_specificity.get("non_handedness_passed") is True
+        )
+        opposite_non_handedness = bool(
+            isinstance(opposite_specificity, Mapping)
+            and opposite_specificity.get("non_handedness_passed") is True
+        )
+        if expected_partial and opposite_partial:
+            if not (
+                partial_non_handedness
+                and opposite_non_handedness
+            ):
+                return {
+                    "code": "P3_REGISTER_INSTRUMENT_UNRESOLVED",
+                    "licensed_claim": (
+                        "The bidirectional partial pattern failed frozen specificity."
+                    ),
+                }
+            return {
+                "code": "P3_REGISTER_PARTIAL_HANDEDNESS_AMBIGUOUS",
+                "licensed_claim": (
+                    "Both prespecified orientations met the partial-concordance pattern; "
+                    "no directional register interpretation is licensed."
+                ),
+            }
+        if opposite_partial:
+            if not opposite_non_handedness:
+                return {
+                    "code": "P3_REGISTER_INSTRUMENT_UNRESOLVED",
+                    "licensed_claim": "The opposite partial pattern failed frozen specificity.",
+                }
+            if not bool(
+                isinstance(opposite_specificity, Mapping)
+                and opposite_specificity.get("reverse_handedness_resolved") is True
+            ):
+                return {
+                    "code": "P3_REGISTER_PARTIAL_HANDEDNESS_AMBIGUOUS",
+                    "licensed_claim": (
+                        "The opposite 2-of-3 pattern was present, but the corrected "
+                        "expected-minus-opposite handedness contrast was unresolved."
+                    ),
+                }
+            if not bool(
+                isinstance(opposite_specificity, Mapping)
+                and opposite_specificity.get("passed") is True
+            ):
+                return {
+                    "code": "P3_REGISTER_INSTRUMENT_UNRESOLVED",
+                    "licensed_claim": (
+                        "The opposite partial pattern failed its joint frozen specificity "
+                        "family."
+                    ),
+                }
+            return {
+                "code": "P3_REGISTER_PARTIAL_HANDEDNESS_FALSIFIED",
+                "licensed_claim": (
+                    "Only the prespecified opposite orientation met the material partial-"
+                    "concordance rule; the expected handedness is not supported."
+                ),
+            }
+        if expected_partial:
+            if not partial_non_handedness:
+                return {
+                    "code": "P3_REGISTER_INSTRUMENT_UNRESOLVED",
+                    "licensed_claim": "The expected partial pattern failed frozen specificity.",
+                }
+            if not bool(target.get("handedness_expected_lower_positive")):
+                return {
+                    "code": "P3_REGISTER_PARTIAL_HANDEDNESS_AMBIGUOUS",
+                    "licensed_claim": (
+                        "The expected 2-of-3 pattern was present, but the corrected "
+                        "expected-minus-opposite handedness contrast was unresolved."
+                    ),
+                }
+            if (
+                isinstance(partial_specificity, Mapping)
+                and partial_specificity.get("passed") is True
+                and bool(target.get("partial_concordance_pattern"))
+            ):
+                return {
+                    "code": "P3_REGISTER_PARTIAL_CONCORDANCE_SUPPORTED",
+                    "licensed_claim": (
+                        "The period-3 intervention produced a material aggregate boundary-phase "
+                        "effect with concordant point estimates in all three imposed registers "
+                        "and simultaneous positive support in at least two. This supports a rough "
+                        "period-3-to-boundary link, not full cyclic relocation or path mediation."
+                    ),
+                }
         if bool(target.get("all_registers_bounded_null")):
             return {
                 "code": "P3_REGISTER_BOUNDED_NULL",
                 "licensed_claim": (
-                    "No register-relocation effect larger than +/-0.05 was detected in the frozen domain."
+                    "No register-relocation effect larger than +/-0.05 was detected "
+                    "in the frozen domain."
                 ),
+            }
+        if not bool(specificity.get("passed")):
+            return {
+                "code": "P3_REGISTER_INSTRUMENT_UNRESOLVED",
+                "licensed_claim": "The unresolved register pattern failed frozen specificity.",
             }
         return {
             "code": "P3_REGISTER_INCONCLUSIVE",
             "licensed_claim": (
-                "The relocation family did not jointly clear the material Omega3 and all-register criteria."
+                "The relocation family did not jointly clear the material Omega3 and "
+                "all-register criteria."
             ),
         }
 
@@ -805,7 +1094,10 @@ def adjudicate_register_relocation(
     if not phase2_joint_authorized:
         return {
             "code": base_code + "_P10_NOT_AUTHORIZED",
-            "licensed_claim": base_claim + " The approximately-10.63 modifier arm was not authorized.",
+            "licensed_claim": (
+                base_claim
+                + " The approximately-10.63 modifier arm was not authorized."
+            ),
         }
     if not bool(target.get("all_joint_state_registers_positive")):
         return {
@@ -849,6 +1141,8 @@ __all__ = [
     "P10_INTACT",
     "P10_ATTENUATED",
     "TARGET_COMPONENT",
+    "PARTIAL_SPECIFICITY_SEED",
+    "OPPOSITE_PARTIAL_SPECIFICITY_SEED",
     "SimultaneousIntervals",
     "adjudicate_register_relocation",
     "analyze_register_component",
@@ -858,6 +1152,8 @@ __all__ = [
     "opposite_preferred_delta",
     "paired_register_specificity_interval",
     "paired_named_control_specificity",
+    "partial_handedness_specificity_family",
+    "opposite_partial_handedness_specificity_family",
     "preferred_delta",
     "register_specificity",
     "register_endpoint_name",

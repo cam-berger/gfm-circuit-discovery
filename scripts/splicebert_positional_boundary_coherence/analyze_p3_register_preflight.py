@@ -22,6 +22,8 @@ sys.path.insert(0, str(SCRIPT_DIR))
 from gfmcd.artifact_guard import guard_output_path  # noqa: E402
 from gfmcd.provenance import ExperimentManifest, file_record, sha256_file  # noqa: E402
 from gfmcd.splicing.pbc_register_relocation import (  # noqa: E402
+    OPPOSITE_PARTIAL_SPECIFICITY_SEED,
+    PARTIAL_SPECIFICITY_SEED,
     REGISTERS,
     phase_delta,
     preferred_delta,
@@ -57,6 +59,12 @@ FIXTURE_CASES = (
     "null",
 )
 UNRESOLVED_MDE = 1_000_000.0
+SUPPORTIVE_RELOCATION_STATUSES = frozenset(
+    {
+        "P3_REGISTER_RELOCATION_SUPPORTED",
+        "P3_REGISTER_PARTIAL_CONCORDANCE_SUPPORTED",
+    }
+)
 
 
 def _expected_health_labels(mode: str) -> set[str]:
@@ -189,12 +197,12 @@ def _fixture_case_passed(case: str, analysis: Mapping[str, object]) -> bool:
         return bool(
             target.get("opposite_all_registers_positive")
             and target.get("opposite_omega3_material_positive")
-            and status != "P3_REGISTER_RELOCATION_SUPPORTED"
+            and status not in SUPPORTIVE_RELOCATION_STATUSES
         )
     if case == "no_ramp":
         return bool(
             not target.get("all_registers_positive")
-            and status != "P3_REGISTER_RELOCATION_SUPPORTED"
+            and status not in SUPPORTIVE_RELOCATION_STATUSES
         )
     if case == "common_mode":
         diagnostics = analysis.get("diagnostic_controls")
@@ -210,7 +218,7 @@ def _fixture_case_passed(case: str, analysis: Mapping[str, object]) -> bool:
             and diagnostics["p3_decoy_span"]["all_registers_positive"]
             and not specificity.get("passed")
         )
-    return status != "P3_REGISTER_RELOCATION_SUPPORTED"
+    return status not in SUPPORTIVE_RELOCATION_STATUSES
 
 
 @lru_cache(maxsize=8)
@@ -252,7 +260,7 @@ def calibrate_fixture_suite(
             n_bootstrap=n_bootstrap,
         )
         null_false_positives += int(
-            null["status"] == "P3_REGISTER_RELOCATION_SUPPORTED"
+            null["status"] in SUPPORTIVE_RELOCATION_STATUSES
         )
         planted_positives += int(
             planted["status"] == "P3_REGISTER_RELOCATION_SUPPORTED"
@@ -557,6 +565,10 @@ def analyze_preflight(
         **decision,
         "preflight_sha256": preflight_sha256,
         "inference_seed": int(seed),
+        "partial_specificity_seeds": {
+            "expected": PARTIAL_SPECIFICITY_SEED,
+            "opposite": OPPOSITE_PARTIAL_SPECIFICITY_SEED,
+        },
         "bootstrap_draws": int(n_bootstrap),
         "development_relocation": relocation,
         "construction_mechanics": dict(mechanics),
@@ -631,10 +643,16 @@ def main() -> None:
             "schema": REGISTER_PREFLIGHT_ANALYSIS_SCHEMA,
             "stage": "development",
             "seed": args.seed,
+            "expected_partial_specificity_seed": PARTIAL_SPECIFICITY_SEED,
+            "opposite_partial_specificity_seed": OPPOSITE_PARTIAL_SPECIFICITY_SEED,
             "bootstrap_draws": args.bootstrap,
             "reserve_blocks_for_mde": RESERVE_BLOCKS,
         },
-        seeds={"whole_block_bootstrap": args.seed},
+        seeds={
+            "whole_block_bootstrap": args.seed,
+            "expected_partial_specificity": PARTIAL_SPECIFICITY_SEED,
+            "opposite_partial_specificity": OPPOSITE_PARTIAL_SPECIFICITY_SEED,
+        },
         inputs=[file_record(path) for path in inputs],
         outputs=[file_record(output)],
         notes=[
