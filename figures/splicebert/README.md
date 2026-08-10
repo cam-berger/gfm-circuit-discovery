@@ -117,3 +117,6 @@ canonical phase-lattice set.
 - `../../MECHANISM.md` — current mechanism including post-figure C34/C35 refinements
 - `results/splicebert_coupling/` — donor–acceptor circuit results
 - `results/phase-lattice/RESULTS_INDEX.md` — positional clock and carrier results
+- [`HAND_ASSETS.md`](HAND_ASSETS.md) — **T3 retirement record.** Hand-authored artwork removed from the
+  active tree, and why the donor–acceptor binding illustration must not be recovered from Git history and
+  cited: the content-addressed read it depicts is retracted as R15.
