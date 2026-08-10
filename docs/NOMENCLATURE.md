@@ -35,13 +35,15 @@ named gate; the term stays, but only as a closed result.
 | **period-3 carrier** | LIVE — role established; corpus origin attributed, training dynamics open | The period-3 carrier acts as a distributed relative-positional routing coordinate read across the donor–acceptor span, through L3H1's attention pattern; its **corpus origin is attributed** (C39/C40: multi-species and codon-linked — absent in the human-only sibling and in ORF-free ncRNA models), while training *dynamics* remain deferred. | C8, C34, C35, R24, C39, C40, R25 |
 | **coding-boundary phase** (also "annotated phase", `p`, the `0/1/2` of C43/C44) | LIVE — disambiguate from the period-3 carrier at first use | **Coding-boundary phase is a property of the annotation, not of the model's position table.** It is the codon reading-frame phase (0/1/2) of a coding exon boundary in GENCODE. It is **not** the period-3 carrier's phase, which is a positional routing coordinate learned by the model — the two are different objects at different evidence levels, and C44 is precisely the test of whether the carrier implements a coding-boundary-phase preference. That test returned `INSTRUMENT_UNRESOLVED`, so **no sentence may present the period-3 carrier as the mechanism of C43**, and equally none may say period-3 *fails* to implement it. Never write an unqualified "phase" in prose that also discusses the carrier. | C43, C44, R45; `studies/splicebert_exon_edge_compatibility/README.md` |
 | **"authentic-module" context** (C43's lattice) | RETIRED — say **chimeric** | The C43 constructs join a donor module from one gene to an acceptor module from another; each module is authentic hg38 sequence but the joined construct exists in no genome. The source study wrote "synthetic-module" while the result was a development candidate and "authentic-module" once it became supported; that substitution was corrected on consolidation (R45) and must not be reintroduced from Git history. The retired phrase nonetheless survives verbatim in the carried frozen protocol and in the `scope` fields of the carried artifacts, which are immutable and correctly untouched — read those occurrences as "chimeric". Relatedly, "120-nt" names the **donor→acceptor span**, not the length of either module. | C43, R45 |
+| **U2AF1** | PRE-REGISTERED MOTIVATION ONLY — never a component label | U2AF1 appears in this project **only as the published biology that motivated a frozen positional contrast** (−3 T-over-A, +1 G-over-A). It names no model component, no head, no direction, and no payload. Forbidden constructions, in live prose and in figures: "SpliceBERT's U2AF1 head/feature/module", "the model implements U2AF1", "U2AF1-like representation", "the model recognises the 3′ site". The only licensed form is a **functional and positional parallel**, stated with its denial in the same sentence — see standing phrase 3. | `preregistrations/PREREGISTRATION_BG1_ACCEPTOR_BOUNDARY_GRAMMAR.md` §1; `docs/BIOLOGICAL_BRIDGES.md` Bridge 4 |
+| **3′-boundary grammar** (also "boundary grammar", the `BG1`/`BG2` prefix) | DESIGN LABEL — **no evidence level yet**; BG1 is frozen and **not run** | "Boundary grammar" is the **name of a preregistered contrast**, not of a finding. It denotes the model's response to single-base substitutions at biological −3 and +1 on a synthetic panel that preserves the acceptor `AG` and every positioned `AG`/`GT`/`GC`. Until BG1 runs and is independently audited, no sentence may say SpliceBERT *has* a boundary grammar, *reads* one, or that the acceptor-local payload *is* one. "Grammar" carries no linguistic or spliceosomal content. | `preregistrations/PREREGISTRATION_BG1_ACCEPTOR_BOUNDARY_GRAMMAR.md`; `docs/ROADMAP.md` Track 2 |
 | **checkpoint attribution** | LIVE — mandatory disclosure | The donor circuit and the period-3 carrier are established on **SpliceBERT.1024nt**; the ≈10.63 carrier's attention circuit is measured on the stage-1 multi-species **SpliceBERT.510nt** against its human-only twin — state which checkpoint a result comes from, and never present the two as one measurement. | `figures/splicebert/fig1_summary.CAPTION.md` "A note on checkpoints" |
 
 ---
 
 ## Standing phrases
 
-Two phrases carry a caveat that a skimming reader would otherwise miss. Use them verbatim.
+Three phrases carry a caveat that a skimming reader would otherwise miss. Use them verbatim.
 
 1. **At first use of "circuit" in any top-level document:** *structured causal core within an
    irreducibly distributed computation*. The named circuit is not sparse and minimality is unclaimed.
@@ -54,6 +56,13 @@ Two phrases carry a caveat that a skimming reader would otherwise miss. Use them
    synthetic-control error misread as a measurement uncertainty (R37). The refutation does not rest on
    cross-species transfer at 0.33 nt precision: 10.630 lies outside the 10.2–10.5 bp DNA-helical range
    recorded from the literature in the entry below.
+3. **Whenever U2AF1 is named:** the denial must sit in the **same sentence** as the parallel — *"a
+   functional and positional parallel to U2AF1-centred 3′-site recognition; it does not imply that
+   SpliceBERT implements U2AF1, binds RNA, or performs spliceosomal biochemistry."* A protein name
+   beside a model component is the single most promotable construction in this project: a reader who
+   skims "−3/+1" and "U2AF1" in adjacent clauses will remember a protein in the network. The parallel is
+   a **motivation for a positional contrast**, never an identification, and it is not licensed as a
+   result at all until BG1 runs and passes its independent audit.
 
 ## Units convention
 

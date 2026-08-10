@@ -182,6 +182,47 @@ The detailed command map is
 and the protocol status index is
 [`studies/splicebert_partner_selection/preregistrations/README.md`](studies/splicebert_partner_selection/preregistrations/README.md).
 
+#### BG1/BG2 acceptor-boundary grammar — frozen, **not yet run**
+
+No artifact exists and no claim depends on this; the chain is recorded so the first run is reproducible
+rather than reconstructed afterwards. Each step **fails closed**: a step refuses to start unless the
+previous one produced a passing, hash-bound artifact, so the order below is enforced by the code, not by
+convention. All four commands need a local genome and the model checkpoint (§2).
+
+```bash
+# 1. Smoke the gates first — memorials and arithmetic only. A smoke artifact can never authorize a target.
+uv run python scripts/splicebert/run_bg1_boundary_preflight.py --smoke \
+  --out results/splicebert_coupling/bg1_boundary_preflight_smoke.json
+
+# 2. Train-split preflight. Supply, invariants, positive/specificity controls, planted power, FPR, MDE.
+#    Writes DEVELOPMENT_PREFLIGHT; PASS=false here stops the arc.
+uv run python scripts/splicebert/run_bg1_boundary_preflight.py
+
+# 3. BG1 behaviour on val (verification tier). Requires a passing, non-smoke preflight.
+uv run python scripts/splicebert/run_bg1_boundary_grammar.py --split val
+
+# 4. Independent model-free audit of BG1. Required before any BG1 wording is claim-bearing.
+uv run python scripts/splicebert/audit_bg_boundary.py \
+  --result   results/splicebert_coupling/bg1_boundary_grammar_val_v1.json \
+  --manifest results/splicebert_coupling/bg1_boundary_grammar_val_v1.manifest.json
+
+# 5. BG2 route recovery — only if BG1's verdict is SUPPORTED_VERIFICATION and its audit PASSes.
+#    BG2 re-runs the BG1 audit itself and compares, before loading the model.
+uv run python scripts/splicebert/run_bg2_boundary_payload_recovery.py --split val
+
+# 6. Independent audit of BG2.
+uv run python scripts/splicebert/audit_bg_boundary.py \
+  --result   results/splicebert_coupling/bg2_boundary_payload_recovery_val_v1.json \
+  --manifest results/splicebert_coupling/bg2_boundary_payload_recovery_val_v1.manifest.json
+```
+
+`--enable-test-replication` (chr8/9) is frozen **disabled** by the protocol and must stay off: §2 records
+that the motif-clean cohort cannot clear the target supply gate, so no sealed-test run is authorized. A
+halt at step 2 is a legitimate terminal outcome, not a failure to work around — do not relax a gate to get
+past it. Before citing any BG1/BG2 gate as enforced, read
+[`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) and the three open design questions in
+[`DECISIONS_A0.md`](studies/splicebert_partner_selection/DECISIONS_A0.md) § "BG1/BG2".
+
 ### Position/carrier record
 
 The canonical index is [`results/phase-lattice/RESULTS_INDEX.md`](results/phase-lattice/RESULTS_INDEX.md).
