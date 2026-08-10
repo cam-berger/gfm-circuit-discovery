@@ -19,11 +19,16 @@ uv run --extra splicebert --extra biology --extra dev pytest
 first, uninstalling `pytest` and `pyfaidx`. It does not merely report a smaller suite — it reports a
 **failing** one, because tests whose imports vanish error at collection. A red run from that command
 means you dropped the extras, not that the record is broken. The extras form is what
-`.github/workflows/tests.yml` executes. The baseline on this tree is **482 passed, 24 skipped** (it was
+`.github/workflows/tests.yml` executes. The baseline on this tree is **698 passed, 29 skipped** with
+`--extra maxent` added (it was 482/24 before the 2026-08-10 positional-boundary-coherence study, and
 648/46 before the 2026-07-31 cleanup, which removed the DNABERT-2 suite along with that study, a dead
 supervised-probe code island, and four memorial files whose artifact *and* runner had already been
 deleted — so those tests could never fire again). All skips are data-gated or optional-dependency; none
 is a failure. Treat the number as "the suite passes", not as a fixed constant.
+
+**Budget ~15 minutes single-threaded**, most of it the `pbc` tests (~11 min alone). CI's
+`timeout-minutes: 30` still clears it, but the margin is no longer generous — if that job starts timing
+out, split the `pbc` selection out rather than raising the ceiling blindly.
 
 Use `PYTHONHASHSEED=0` for cohort construction and any shuffle or selection path whose manifest declares
 determinism. Use `TOKENIZERS_PARALLELISM=false` for model runs when deterministic, quiet tokenization is
