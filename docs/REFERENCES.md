@@ -185,3 +185,47 @@ atlas.
 
 *Relevance:* the causal-foundation-model standard against which the single-cell audit reads as a gap
 rather than a technicality.
+
+---
+
+**Biology-motivation works — external, not ledger citations.** The two entries below are the published
+biology that motivated the **frozen positional contrasts** in
+`studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_BG1_ACCEPTOR_BOUNDARY_GRAMMAR.md`
+(§1). Neither supports any statement about SpliceBERT. They fix *which positions and which directions*
+BG1 tests — the directions were taken from this literature before any model forward, not chosen from
+model output — and nothing more. **No claim in any ledger cites them**, and none may until BG1/BG2 run and
+pass an independent audit; see `docs/NOMENCLATURE.md` (the `U2AF1` row, standing phrase 3) and
+`docs/BIOLOGICAL_BRIDGES.md` Bridge 4 for the wording constraints that apply if they ever do.
+
+Verified on 2026-08-10 by retrieving the Crossref DOI record and the open-access PMC full text for each,
+per the house rule at the head of this file.
+
+## Ilagan et al., 2015 — U2AF1 mutations and 3′ splice site preference
+
+**Janine O. Ilagan, Aravind Ramakrishnan, Brian Hayes, Michele E. Murphy, Ahmad S. Zebari, Philip Bradley,
+Robert K. Bradley.** *U2AF1 mutations alter splice site recognition in hematological malignancies.*
+*Genome Research* 25(1), 14–26, January 2015. DOI `10.1101/gr.181016.114` —
+<https://doi.org/10.1101/gr.181016.114> · PMID 25267526 · PMC4317169
+
+Reports that U2AF1 mutations alter the preferred 3′ splice site motif **in patients, in cell culture, and
+in vitro**, and shows that cassette exons with increased versus decreased inclusion carry different
+consensus nucleotides at the **−3 and +1** positions.
+
+*Cited for:* the existence of an experimentally resolved sequence organisation around the invariant `AG`,
+in `PREREGISTRATION_BG1_ACCEPTOR_BOUNDARY_GRAMMAR.md` §1. The −3/+1 positions in that protocol come from
+here. **Verification note:** the −3/+1 detail is in the results, not the abstract.
+
+## Yoshida et al., 2020 — U2AF1 structures and −3/+1 contacts
+
+**Hisashi Yoshida, Sam-Yong Park, Gyosuke Sakashita, Yuko Nariai, Kanako Kuwasako, Yutaka Muto,
+Takeshi Urano, Eiji Obayashi.** *Elucidation of the aberrant 3′ splice site selection by cancer-associated
+mutations on the U2AF1.* *Nature Communications* 11, article 4744, 2020. DOI
+`10.1038/s41467-020-18559-6` — <https://doi.org/10.1038/s41467-020-18559-6> · PMID 32958768 · PMC7505975
+
+Crystal structures of wild-type and pathogenic-mutant U2AF1 bound to target RNA, with ITC binding
+affinities. Resolves both contacts the protocol borrows: wild-type prefers **uracil at −3** (His29
+stacking, Ser34 hydrogen bond) and **guanine at +1** (Phe165 π–π, Arg150 cation–π).
+
+*Cited for:* the **direction** of the two frozen contrasts — −3 T-over-A and +1 G-over-A — in
+`PREREGISTRATION_BG1_ACCEPTOR_BOUNDARY_GRAMMAR.md` §1 and §4. This is what makes those directions
+outcome-blind rather than data-selected.

@@ -357,6 +357,17 @@ document, and it is why the file exists rather than a note saying conformance wa
   fully reconstruct; the atlas protocol pins are separately broken and ledgered under **R34**.
 - **Numerical re-execution.** Nothing here was re-run. These are protocol-vs-code readings, verified
   against committed artifacts, not replications.
+- **BG1/BG2 acceptor-boundary grammar — frozen 2026-08-10, not run, so there is nothing to audit yet.**
+  No artifact, no claim, no ledger row. It is named here because a reader scanning this file for "is this
+  arc audited?" must not read its absence as coverage. Two **design-conformance** readings were taken at
+  integration and are recorded in `studies/splicebert_partner_selection/DECISIONS_A0.md` § "BG1/BG2":
+  the frozen `INSTRUMENT_UNRESOLVED` verdict is never written by any runner (the code halts harder than
+  the protocol asks, but records nothing about why), and the frozen preflight output path puts a
+  `DEVELOPMENT_PREFLIGHT` artifact at a canonical path. A third reading is a **design** question rather
+  than a conformance gap: BG2's cross-gene control reuses target genes as sources while §6.2 prescribes a
+  one-way paired gene-bootstrap, which is the reuse pattern R22 names. This is the pre-freeze-equivalent
+  moment the Caduceus bullet above says was never used — the protocol is frozen but unrun, and the
+  runners are not yet pinned to any manifest, so a correction here costs nothing.
 
 ## Related records
 

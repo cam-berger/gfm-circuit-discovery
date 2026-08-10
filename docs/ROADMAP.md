@@ -51,6 +51,34 @@ reported at a licensed detection floor.
 **Exit condition:** a direction causes predictable, dose-responsive reallocation between matched sites
 without generic MLM damage, with its semantic label no stronger than the external validation supports.
 
+#### Active protocol — BG1/BG2 acceptor-boundary grammar (frozen 2026-08-10; **not run**)
+
+The first preregistered attempt at Track 2 since C30 was closed-bounded.
+[`PREREGISTRATION_BG1_ACCEPTOR_BOUNDARY_GRAMMAR.md`](../studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_BG1_ACCEPTOR_BOUNDARY_GRAMMAR.md)
+freezes an eight-cell AG-preserving panel at biological −3 and +1 (BG1, behaviour) followed conditionally
+by gene-disjoint L3H1 acceptor-window value recovery (BG2, route). Runners, an independent model-free
+auditor, and 42 tests are in the tree; no artifact exists and no claim is entered.
+
+**Why this is not a re-entry of the R22 failure** — the question C30's closure raises, and the first thing
+a reviewer will ask. R22 withdrew *absolute external strength* (MaxEnt) as the payload's semantic identity,
+on an estimand that proved sample-unstable and non-significant under dyadic inference. BG1 is a different
+object: synthetic within-gene counterfactuals at two frozen positions, no external covariate, no learned
+probe, no regression on strength labels, and the target cohort is **all** eligible genes rather than one
+tag-seeded draw — which structurally removes the sampling-stability defect R22 identified. The design
+rationale, and the three questions that remain open against it, are recorded in
+[`DECISIONS_A0.md`](../studies/splicebert_partner_selection/DECISIONS_A0.md) § "BG1/BG2 — the acceptor
+boundary contrast".
+
+**What a pass would and would not do.** BG1+BG2 would establish *where* the acceptor-local payload is
+sequence-sensitive and *that* the same edited-window change travels the L3H1 route. It would **not** name
+the payload's semantic identity, and it does not reopen C30 by itself: C30 is closed-bounded on a
+red-teamed finding, and moving it needs an R-number, not a new positive. Treat "the payload is a
+−3/+1-sensitive quantity" and "the payload's semantics are resolved" as different statements.
+
+**Exit condition:** a `SUPPORTED_VERIFICATION` BG1 with a passing independent audit, then either
+`BG2_ROUTE_SUPPORTED` or a reported `BG2_INCONCLUSIVE` — or an honest `INSTRUMENT_UNRESOLVED`/halt at the
+train preflight, which is a legitimate terminal outcome and must be recorded as one.
+
 ## Open scientific problems
 
 1. **Payload semantic identity:** established as acceptor-local and not bulk composition; absolute MaxEnt
