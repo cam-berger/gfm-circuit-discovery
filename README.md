@@ -61,6 +61,7 @@ Attribution ranks; intervention decides. See the [methodology](docs/METHODOLOGY.
 | Study | Status | Purpose |
 |---|---|---|
 | [`studies/splicebert_partner_selection/`](studies/splicebert_partner_selection/README.md) | **core record**; open limitations | The donor circuit and both positional carriers: claims, corrections, preregistrations, and the reproduction map. |
+| [`studies/splicebert_positional_boundary_coherence/`](studies/splicebert_positional_boundary_coherence/README.md) | prospective; preregistered design, no new outcome | Tests whether a composition-balanced coding-boundary preference is causally supported and relocated by the period-3 carrier; the ≈10.63 arm is optional and non-vetoing. |
 | [`studies/splicebert_head_context_atlas/`](studies/splicebert_head_context_atlas/README.md) | discovery and internal validation complete | Multi-context head/MLP reuse atlas. Supplies the gene-disjoint cohort behind C41 and an independent rediscovery of L3H1; context-specific follow-ups remain exploratory. |
 | [`studies/splicebert_gtex_finetune_shift/`](studies/splicebert_gtex_finetune_shift/README.md) | native causal mechanism mapped; sparse-difference instrument bounded | What happens to the same encoder under supervised fine-tuning: late attention routes into a compact final-MLP code, and inherited positional-carrier use. |
 
@@ -87,6 +88,9 @@ study's prose that must not be reintroduced from Git history.
 
 - `docs/` — transferable method, evidence rules, nomenclature, transfer guide, and roadmap.
 - `scripts/splicebert/` — active SpliceBERT experiment, audit, and figure scripts.
+- `scripts/splicebert_positional_boundary_coherence/` — model-free construction, carrier-factorial,
+  register-relocation, mediation, freeze, and independent-audit entrypoints for the prospective successor
+  study.
 - `scripts/splicebert_head_context_atlas/` — Atlas census, screening, mechanism, merge, and audit workflows.
 - `scripts/crossmodel/` — cross-model carrier runners (C39/C40). These require a separate environment;
   see [`REPRODUCE.md`](REPRODUCE.md).
@@ -96,6 +100,8 @@ study's prose that must not be reintroduced from Git history.
 - `src/gfmcd/splicing/` — SpliceBERT-specific assays, competition logic, and cohort utilities.
 - `results/splicebert_coupling/`, `results/phase-lattice/`, and
   `results/splicebert_head_context_atlas/` — immutable results, compact matrices, manifests, and audits.
+- `results/splicebert_positional_boundary_coherence/` — reserved for immutable successor-study artifacts;
+  it is empty until a gated run is completed.
 - `results/origin-crossmodel/` and `results/origin-siblings/` — the carrier-origin natural experiments
   (C39/C40). These two use a `canonical/` subdirectory; the other result trees keep canonical artifacts
   at the subtree root. See [`results/RESULTS_INDEX.md`](results/RESULTS_INDEX.md).
