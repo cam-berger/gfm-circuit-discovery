@@ -44,9 +44,15 @@ MIN_BG2_TARGET_GENES_PER_STRAND = 24
 SIGNED_SHAM_SEEDS = tuple(2026080900 + index for index in range(19))
 ATOL = 1e-8
 RTOL = 1e-8
+AMENDMENT = (
+    REPO
+    / "studies/splicebert_partner_selection/preregistrations/"
+    "AMENDMENT_BG1_BG2_PREEXECUTION_2026-08-11.md"
+)
 
 REQUIRED_BG1_CODE_INPUTS = (
     REPO / "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_BG1_ACCEPTOR_BOUNDARY_GRAMMAR.md",
+    AMENDMENT,
     REPO / "src/gfmcd/splicing/boundary_grammar.py",
     REPO / "scripts/splicebert/run_bg1_boundary_grammar.py",
     REPO / "src/gfmcd/splicing/coupling.py",
@@ -56,6 +62,7 @@ REQUIRED_BG1_CODE_INPUTS = (
 )
 REQUIRED_BG2_CODE_INPUTS = (
     REPO / "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_BG1_ACCEPTOR_BOUNDARY_GRAMMAR.md",
+    AMENDMENT,
     REPO / "src/gfmcd/splicing/boundary_grammar.py",
     REPO / "scripts/splicebert/run_bg2_boundary_payload_recovery.py",
     REPO / "scripts/splicebert/audit_bg_boundary.py",
@@ -674,6 +681,15 @@ def _audit_bg1(
     preflight = _json(preflight_path, "BG1 preflight")
     _require(preflight.get("schema") == PREFLIGHT_SCHEMA, "wrong BG1 preflight schema")
     _require(preflight.get("PASS") is True and preflight.get("smoke") is False, "BG1 preflight did not pass non-smoke")
+    _require(
+        preflight.get("instrument_PASS") is True
+        and preflight.get("target_authorization_PASS") is True,
+        "BG1 preflight lacks canonical authorization semantics",
+    )
+    _require(
+        preflight.get("amendment_sha256") == _sha256(AMENDMENT),
+        "BG1 preflight amendment hash mismatch",
+    )
     checks = _mapping(preflight.get("checks"), "preflight.checks")
     _require(
         checks and all(
@@ -897,6 +913,60 @@ def _transition_values(
     return output
 
 
+def _transition_dyadic_values(
+    cells: Sequence[Mapping[str, Any]],
+    value_fn: Callable[[Mapping[str, Any]], float],
+) -> dict[str, tuple[np.ndarray, list[str], list[str]]]:
+    """Independently reconstruct background-averaged target/source dyads."""
+
+    grouped: dict[tuple[str, str], list[tuple[str, float, str]]] = defaultdict(list)
+    for cell in cells:
+        cross = _mapping(cell.get("cross_gene"), "BG2 cross-gene dyad")
+        grouped[(str(cell["transition"]), str(cell["gene_id"]))].append(
+            (
+                str(cell["background"]),
+                _finite(value_fn(cell), "BG2 dyadic aggregate value"),
+                str(cross.get("source_gene_id")),
+            )
+        )
+    output: dict[str, tuple[np.ndarray, list[str], list[str]]] = {}
+    for transition, backgrounds in TRANSITION_BACKGROUNDS.items():
+        values: list[float] = []
+        target_genes: list[str] = []
+        source_genes: list[str] = []
+        for (item_transition, target_gene), rows in grouped.items():
+            if item_transition != transition:
+                continue
+            _require(
+                len(rows) == len(backgrounds)
+                and {background for background, _value, _source in rows}
+                == set(backgrounds),
+                f"BG2 gene {target_gene} lacks a unique complete {transition} dyadic average",
+            )
+            sources = {source for _background, _value, source in rows}
+            _require(
+                len(sources) == 1,
+                f"BG2 gene {target_gene} has background-dependent sources for {transition}",
+            )
+            source_gene = next(iter(sources))
+            _require(
+                source_gene != target_gene,
+                f"BG2 cross-gene dyad reused target gene {target_gene}",
+            )
+            values.append(
+                float(np.mean([value for _background, value, _source in rows]))
+            )
+            target_genes.append(target_gene)
+            source_genes.append(source_gene)
+        _require(values, f"BG2 transition has no dyadic rows: {transition}")
+        output[transition] = (
+            np.asarray(values, dtype=float),
+            target_genes,
+            source_genes,
+        )
+    return output
+
+
 def _mean_ci(values: np.ndarray, genes: Sequence[str], *, seed: int) -> dict[str, Any]:
     by_gene: dict[str, list[float]] = defaultdict(list)
     for value, gene in zip(values, genes):
@@ -918,6 +988,58 @@ def _mean_ci(values: np.ndarray, genes: Sequence[str], *, seed: int) -> dict[str
         "n_genes": len(set(genes)),
         "n_bootstrap": BG2_BOOTSTRAP_DRAWS,
         "seed": seed,
+    }
+
+
+def _dyadic_mean_ci(
+    values: np.ndarray,
+    target_genes: Sequence[str],
+    source_genes: Sequence[str],
+    *,
+    seed: int,
+) -> dict[str, Any]:
+    """Independent two-way multiplier implementation; imports no runner estimator."""
+
+    values = np.asarray(values, dtype=float)
+    _require(
+        len(values) > 0
+        and len(values) == len(target_genes) == len(source_genes)
+        and bool(np.isfinite(values).all()),
+        "BG2 dyadic inputs are empty, non-finite, or misaligned",
+    )
+    endpoints = sorted(set(target_genes) | set(source_genes))
+    endpoint_index = {gene: index for index, gene in enumerate(endpoints)}
+    target_index = np.asarray([endpoint_index[gene] for gene in target_genes])
+    source_index = np.asarray([endpoint_index[gene] for gene in source_genes])
+    mean = float(np.mean(values))
+    deviations = values - mean
+    same = target_index == source_index
+    rng = np.random.default_rng(seed)
+    draws = np.empty(BG2_BOOTSTRAP_DRAWS, dtype=float)
+    inverse_sqrt_two = 1.0 / np.sqrt(2.0)
+    for draw_index in range(BG2_BOOTSTRAP_DRAWS):
+        multipliers = rng.standard_normal(len(endpoints))
+        dyad_multiplier = np.where(
+            same,
+            multipliers[target_index],
+            (multipliers[target_index] + multipliers[source_index])
+            * inverse_sqrt_two,
+        )
+        draws[draw_index] = float(np.mean(dyad_multiplier * deviations))
+    lower_two_sided = mean - float(np.percentile(draws, 97.5))
+    upper_two_sided = mean - float(np.percentile(draws, 2.5))
+    lower_one_sided = mean - float(np.percentile(draws, 95.0))
+    return {
+        "mean": mean,
+        "lower_95_one_sided": lower_one_sided,
+        "target_source_dyadic_ci95": [lower_two_sided, upper_two_sided],
+        "n_dyads": len(values),
+        "n_target_genes": len(set(target_genes)),
+        "n_source_genes": len(set(source_genes)),
+        "n_endpoint_genes": len(endpoints),
+        "n_bootstrap": BG2_BOOTSTRAP_DRAWS,
+        "seed": seed,
+        "inference": "two_way_target_source_gene_multiplier_bootstrap",
     }
 
 
@@ -1186,7 +1308,11 @@ def _bg2_expected_summaries(cells: Sequence[Mapping[str, Any]]) -> dict[str, dic
     true_linear = _transition_values(cells, lambda cell: float(cell["true"]["linear_lift"]))
     true_max = _transition_values(cells, lambda cell: float(cell["true"]["max_lift"]))
     cross_linear = _transition_values(cells, lambda cell: float(cell["cross_gene"]["linear_lift"]))
-    true_minus_cross = _transition_values(cells, lambda cell: float(cell["true"]["linear_lift"]) - float(cell["cross_gene"]["linear_lift"]))
+    true_minus_cross = _transition_dyadic_values(
+        cells,
+        lambda cell: float(cell["true"]["linear_lift"])
+        - float(cell["cross_gene"]["linear_lift"]),
+    )
     transitions = list(TRANSITION_BACKGROUNDS)
     observed = np.asarray([np.mean(true_linear[name][0]) for name in transitions])
     null = np.empty((len(SIGNED_SHAM_SEEDS), len(transitions)))
@@ -1204,11 +1330,25 @@ def _bg2_expected_summaries(cells: Sequence[Mapping[str, Any]]) -> dict[str, dic
         maximum, max_genes = true_max[transition]
         denominator, denominator_genes = behavior_max[transition]
         cross, cross_genes = cross_linear[transition]
-        difference, difference_genes = true_minus_cross[transition]
-        _require(genes == max_genes == denominator_genes == cross_genes == difference_genes, f"BG2 {transition} gene ordering drifted")
+        difference, difference_target_genes, difference_source_genes = true_minus_cross[
+            transition
+        ]
+        _require(
+            genes
+            == max_genes
+            == denominator_genes
+            == cross_genes
+            == difference_target_genes,
+            f"BG2 {transition} gene ordering drifted",
+        )
         denominator_sum = float(np.sum(denominator))
         primary = _mean_ci(linear, genes, seed=ANALYSIS_SEED + index)
-        cross_difference = _mean_ci(difference, genes, seed=ANALYSIS_SEED + 10 + index)
+        cross_difference = _dyadic_mean_ci(
+            difference,
+            difference_target_genes,
+            difference_source_genes,
+            seed=ANALYSIS_SEED + 10 + index,
+        )
         expected = {
             "behavior_linear_reference_minus_edit": _mean_ci(
                 behavior_linear[transition][0], behavior_linear[transition][1],
@@ -1260,6 +1400,15 @@ def _audit_bg2(
     preflight = _json(preflight_path, "BG2 preflight")
     _require(preflight.get("schema") == PREFLIGHT_SCHEMA, "wrong BG2 preflight schema")
     _require(preflight.get("PASS") is True and preflight.get("smoke") is False, "BG2 preflight did not pass non-smoke")
+    _require(
+        preflight.get("instrument_PASS") is True
+        and preflight.get("target_authorization_PASS") is True,
+        "BG2 preflight lacks canonical authorization semantics",
+    )
+    _require(
+        preflight.get("amendment_sha256") == _sha256(AMENDMENT),
+        "BG2 preflight amendment hash mismatch",
+    )
     preflight_checks = _mapping(preflight.get("checks"), "BG2 preflight checks")
     _require(
         preflight_checks and all(
@@ -1415,6 +1564,7 @@ def _audit_bg2(
             "upstream_bg1_independent_audit": True,
             "base_logit_margins_and_lifts": True,
             "control_norm_tolerances": True,
+            "two_way_target_source_gene_inference": True,
             "max_family_add_one_pvalues": True,
             "route_verdict": True,
         },

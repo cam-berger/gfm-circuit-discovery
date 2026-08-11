@@ -155,7 +155,12 @@ def _bg1_fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> tuple[Path,
     preflight = {
         "schema": audit.PREFLIGHT_SCHEMA,
         "PASS": True,
+        "instrument_PASS": True,
+        "target_authorization_PASS": True,
         "smoke": False,
+        "amendment_sha256": hashlib.sha256(
+            audit.AMENDMENT.read_bytes()
+        ).hexdigest(),
         "config": config,
         "checks": {"instrument": {"PASS": True}},
         "target_cohorts": {"val": {**memberships, "target_route": route_membership}},
@@ -476,6 +481,11 @@ def test_bg2_audit_recomputes_background_nulls_and_norms(tmp_path, monkeypatch):
     report = audit.build_audit(result, manifest)
     assert report["PASS"] is True
     assert report["recomputed"]["verdict"] == "BG2_ROUTE_SUPPORTED"
+    payload = json.loads(result.read_text())
+    for summary in payload["summaries"].values():
+        dyadic = summary["cross_gene_same_transition"]["true_minus_cross_gene"]
+        assert dyadic["inference"] == "two_way_target_source_gene_multiplier_bootstrap"
+        assert "target_source_dyadic_ci95" in dyadic
 
 
 def test_audit_fails_closed_on_row_tamper_even_with_updated_manifest(tmp_path, monkeypatch):

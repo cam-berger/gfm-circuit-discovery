@@ -89,6 +89,11 @@ PROTOCOL = (
     / "studies/splicebert_partner_selection/preregistrations/"
     "PREREGISTRATION_BG1_ACCEPTOR_BOUNDARY_GRAMMAR.md"
 )
+AMENDMENT = (
+    REPO
+    / "studies/splicebert_partner_selection/preregistrations/"
+    "AMENDMENT_BG1_BG2_PREEXECUTION_2026-08-11.md"
+)
 DECLARATION = REPO / "src/gfmcd/splicing/boundary_grammar.py"
 PRIMARY_IDS = (TARGET_MINUS3_T_MINUS_A_ID, TARGET_PLUS1_G_MINUS_A_ID)
 MODEL_FILES = (
@@ -144,6 +149,7 @@ def validate_preflight(
     gtf: str | Path,
     fasta: str | Path,
     protocol: str | Path = PROTOCOL,
+    amendment: str | Path = AMENDMENT,
     declaration: str | Path = DECLARATION,
 ) -> dict:
     """Fail closed if the development authorization or any frozen input drifted."""
@@ -159,9 +165,15 @@ def validate_preflight(
         raise RuntimeError("BG1 preflight PASS is not true; target execution is forbidden")
     if result.get("smoke") is not False:
         raise RuntimeError("a smoke preflight cannot authorize target execution")
+    if (
+        result.get("instrument_PASS") is not True
+        or result.get("target_authorization_PASS") is not True
+    ):
+        raise RuntimeError("BG1 preflight does not carry canonical authorization semantics")
     sources = {
         "checkpoint_sha256": checkpoint_weights_path(checkpoint),
         "protocol_sha256": resolved(protocol),
+        "amendment_sha256": resolved(amendment),
         "declaration_sha256": resolved(declaration),
         "gtf_sha256": resolved(gtf),
         "fasta_sha256": resolved(fasta),
@@ -785,6 +797,7 @@ def main() -> None:
         args.fasta,
         *model_inputs,
         PROTOCOL,
+        AMENDMENT,
         DECLARATION,
         Path(__file__),
         REPO / "src/gfmcd/splicing/coupling.py",

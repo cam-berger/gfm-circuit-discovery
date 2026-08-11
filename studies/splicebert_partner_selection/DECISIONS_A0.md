@@ -967,3 +967,27 @@ code as frozen; the authorization chain fails closed at every link (preflight `P
 membership and hashes → BG1 verdict → freshly recomputed BG1 audit → BG2); and the +1/+2 arm is declared
 `PRESPECIFIED_DIAGNOSTIC_ONLY` at `n=57<80` **before** unblinding rather than after seeing it fail. Full
 suite 633 passed / 30 skipped; `verify_manifest.py` clean.
+
+### Pre-execution amendment (2026-08-11; before canonical target compute)
+
+The owner authorized the successor experiment and BG1/BG2 if not already complete. The artifact audit
+found no prior canonical BG1/BG2 outputs and exposed one execution bug plus the first open design issue
+above. The frozen protocol remains byte-unchanged; the binding departures are recorded in
+`preregistrations/AMENDMENT_BG1_BG2_PREEXECUTION_2026-08-11.md` and hash-bound into subsequent artifacts.
+
+Decision 1 is resolved before outcomes: BG2's target-only interval for `true - cross-gene` is replaced by
+a two-way target×source gene multiplier bootstrap, with the same 2,000 draws and frozen seed offsets. The
+auditor derives source clusters from public cells and mirrors the estimator independently. The signed-axis
+family and BG1 inference do not change.
+
+The development smoke is also made explicit as an instrument/mechanics check. Its raw MDE, planted-power,
+and calibrated-FPR outcomes are retained as non-authorizing undersized diagnostics; they cannot make a
+smoke fail or pass for target authorization. A non-smoke canonical preflight still activates every frozen
+gate, and both target runners still reject `smoke=true` without exception. The BG2 undefined supply aliases
+are repaired at the already frozen 96-total/24-per-strand minima and covered by a runner-contract test.
+
+Decision 2 remains open: invariant failures still halt before target output, but no
+`INSTRUMENT_UNRESOLVED` result plus manifest is written. This is safer than continuing and licenses no
+claim, yet it leaves failure provenance incomplete. It is deliberately not folded into the statistical
+amendment without a specified, testable partial-artifact schema. Decision 3 (the preflight output namespace)
+also remains a disclosed frozen-path issue; no canonical path is silently changed.

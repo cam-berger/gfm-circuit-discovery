@@ -53,6 +53,7 @@ from gfmcd.splicing.circuit import (  # noqa: E402
     pick_device,
     ratio_of_means,
 )
+from gfmcd.splicing.exon_intron import dyadic_bootstrap  # noqa: E402
 from gfmcd.splicing.payload import value_weight_head  # noqa: E402
 
 
@@ -63,7 +64,14 @@ LAYER, HEAD = 3, 1
 ACC4_BIOLOGICAL_POSITIONS = (-3, -2, -1, 1)
 N_BOOT_DEFAULT = 2000
 BOOT_SEED = 20260809
+MIN_TARGET_ROUTE_GENES = 96
+MIN_TARGET_ROUTE_PER_STRAND = 24
 SIGNED_SHAM_SEEDS = tuple(2026080900 + index for index in range(19))
+AMENDMENT = (
+    REPO
+    / "studies/splicebert_partner_selection/preregistrations/"
+    "AMENDMENT_BG1_BG2_PREEXECUTION_2026-08-11.md"
+)
 MODEL_FILES = (
     "config.json",
     "pytorch_model.bin",
@@ -177,6 +185,7 @@ def validate_preflight(
     expected_config: Mapping[str, Any],
     gtf_path: str | Path | None = None,
     fasta_path: str | Path | None = None,
+    amendment_path: str | Path = AMENDMENT,
 ) -> dict[str, Any]:
     """Load the BG1 authorization artifact and fail closed on any drift."""
     path = Path(path)
@@ -190,10 +199,16 @@ def validate_preflight(
         raise RuntimeError("BG1 preflight PASS is not true; target execution is forbidden")
     if result.get("smoke") is not False:
         raise RuntimeError("a smoke preflight cannot authorize BG2 target execution")
+    if (
+        result.get("instrument_PASS") is not True
+        or result.get("target_authorization_PASS") is not True
+    ):
+        raise RuntimeError("BG1 preflight does not carry canonical authorization semantics")
 
     bound = {
         "checkpoint_sha256": checkpoint_weights_path(checkpoint_path),
         "protocol_sha256": _resolved(protocol_path),
+        "amendment_sha256": _resolved(amendment_path),
         "declaration_sha256": _resolved(declaration_path),
     }
     for field, source in bound.items():
@@ -957,6 +972,56 @@ def _transition_gene_values(cells: Sequence[dict[str, Any]], value_fn):
     return output
 
 
+def _transition_dyadic_values(cells: Sequence[dict[str, Any]], value_fn):
+    """Background-average target rows while retaining both reused gene endpoints."""
+
+    expected = {
+        "minus3_T_to_A": {"p1_A", "p1_G"},
+        "plus1_G_to_A": {"m3_A", "m3_C", "m3_G", "m3_T"},
+    }
+    grouped: dict[tuple[str, str], list[tuple[str, float, str]]] = defaultdict(list)
+    for cell in cells:
+        grouped[(cell["transition"], cell["gene_id"])].append(
+            (
+                cell["background"],
+                float(value_fn(cell)),
+                str(cell["cross_gene"]["source_gene_id"]),
+            )
+        )
+    output: dict[str, tuple[np.ndarray, list[str], list[str]]] = {}
+    for transition, backgrounds in expected.items():
+        values, target_genes, source_genes = [], [], []
+        for (item_transition, target_gene), rows in grouped.items():
+            if item_transition != transition:
+                continue
+            if (
+                len(rows) != len(backgrounds)
+                or {background for background, _value, _source in rows} != backgrounds
+            ):
+                raise RuntimeError(
+                    f"gene {target_gene} lacks a unique complete {transition} background average"
+                )
+            sources = {source for _background, _value, source in rows}
+            if len(sources) != 1:
+                raise RuntimeError(
+                    f"gene {target_gene} has background-dependent cross-gene sources for {transition}"
+                )
+            source_gene = next(iter(sources))
+            if source_gene == target_gene:
+                raise RuntimeError("cross-gene dyad reused its target gene")
+            values.append(float(np.mean([value for _background, value, _source in rows])))
+            target_genes.append(target_gene)
+            source_genes.append(source_gene)
+        if not values:
+            raise RuntimeError(f"no cells for transition {transition}")
+        output[transition] = (
+            np.asarray(values, dtype=float),
+            target_genes,
+            source_genes,
+        )
+    return output
+
+
 def _mean_ci(values: np.ndarray, genes: Sequence[str], *, n_boot: int, seed: int):
     by_gene: dict[str, list[float]] = defaultdict(list)
     for value, gene in zip(values, genes):
@@ -987,6 +1052,60 @@ def _mean_ci(values: np.ndarray, genes: Sequence[str], *, n_boot: int, seed: int
     }
 
 
+def _dyadic_mean_ci(
+    values: np.ndarray,
+    target_genes: Sequence[str],
+    source_genes: Sequence[str],
+    *,
+    n_boot: int,
+    seed: int,
+):
+    """Two-way target-by-source gene interval for the cross-gene dyads."""
+
+    values = np.asarray(values, dtype=float)
+    if (
+        len(values) == 0
+        or len(values) != len(target_genes)
+        or len(values) != len(source_genes)
+        or not bool(np.isfinite(values).all())
+    ):
+        raise RuntimeError("dyadic bootstrap inputs are empty, non-finite, or misaligned")
+    mean, lower_two_sided, upper_two_sided = dyadic_bootstrap(
+        values,
+        target_genes,
+        source_genes,
+        n_boot=n_boot,
+        seed=seed,
+        alpha=0.05,
+    )
+    one_sided_mean, lower_one_sided, _upper_90 = dyadic_bootstrap(
+        values,
+        target_genes,
+        source_genes,
+        n_boot=n_boot,
+        seed=seed,
+        alpha=0.10,
+    )
+    if not np.isclose(mean, one_sided_mean, atol=1e-12, rtol=0.0):
+        raise RuntimeError("dyadic bootstrap point estimate drifted across alpha levels")
+    endpoint_genes = set(target_genes) | set(source_genes)
+    return {
+        "mean": float(mean),
+        "lower_95_one_sided": float(lower_one_sided),
+        "target_source_dyadic_ci95": [
+            float(lower_two_sided),
+            float(upper_two_sided),
+        ],
+        "n_dyads": len(values),
+        "n_target_genes": len(set(target_genes)),
+        "n_source_genes": len(set(source_genes)),
+        "n_endpoint_genes": len(endpoint_genes),
+        "n_bootstrap": n_boot,
+        "seed": seed,
+        "inference": "two_way_target_source_gene_multiplier_bootstrap",
+    }
+
+
 def summarize_cells(cells: Sequence[dict[str, Any]], bg, *, n_boot: int):
     behavior_linear = _transition_gene_values(
         cells, lambda cell: cell["reference_linear_margin"] - cell["edit_linear_margin"]
@@ -999,7 +1118,7 @@ def summarize_cells(cells: Sequence[dict[str, Any]], bg, *, n_boot: int):
     cross_linear = _transition_gene_values(
         cells, lambda cell: cell["cross_gene"]["linear_lift"]
     )
-    true_minus_cross = _transition_gene_values(
+    true_minus_cross = _transition_dyadic_values(
         cells,
         lambda cell: cell["true"]["linear_lift"] - cell["cross_gene"]["linear_lift"],
     )
@@ -1046,8 +1165,10 @@ def summarize_cells(cells: Sequence[dict[str, Any]], bg, *, n_boot: int):
                 )
             )
         cross_values, cross_genes = cross_linear[transition]
-        difference, difference_genes = true_minus_cross[transition]
-        if genes != cross_genes or genes != difference_genes:
+        difference, difference_target_genes, difference_source_genes = true_minus_cross[
+            transition
+        ]
+        if genes != cross_genes or genes != difference_target_genes:
             raise RuntimeError("cross-gene control is not target-paired")
         primary = _mean_ci(
             linear_values,
@@ -1055,9 +1176,10 @@ def summarize_cells(cells: Sequence[dict[str, Any]], bg, *, n_boot: int):
             n_boot=n_boot,
             seed=BOOT_SEED + transition_index,
         )
-        cross_difference = _mean_ci(
+        cross_difference = _dyadic_mean_ci(
             difference,
-            genes,
+            difference_target_genes,
+            difference_source_genes,
             n_boot=n_boot,
             seed=BOOT_SEED + 10 + transition_index,
         )
@@ -1214,6 +1336,23 @@ def _public_cells(
     return output
 
 
+def validate_runtime_contract(bg) -> None:
+    """Fail before model load if runner aliases drift from the frozen declaration."""
+
+    if (
+        bg.ANALYSIS_SEED != BOOT_SEED
+        or bg.BG2_BOOTSTRAP_DRAWS != N_BOOT_DEFAULT
+        or bg.preflight_config()["analysis"]["signed_coordinate_shams"]
+        != len(SIGNED_SHAM_SEEDS)
+    ):
+        raise RuntimeError("BG2 analysis seeds/count drifted from the frozen declaration")
+    if (
+        MIN_TARGET_ROUTE_GENES != bg.MIN_BG2_TARGET_GENES
+        or MIN_TARGET_ROUTE_PER_STRAND != bg.MIN_BG2_TARGET_GENES_PER_STRAND
+    ):
+        raise RuntimeError("BG2 runner supply constants drifted from the frozen declaration")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--preflight", default=(
@@ -1232,6 +1371,7 @@ def main() -> None:
         "studies/splicebert_partner_selection/preregistrations/"
         "PREREGISTRATION_BG1_ACCEPTOR_BOUNDARY_GRAMMAR.md"
     ))
+    parser.add_argument("--amendment", default=str(AMENDMENT))
     parser.add_argument(
         "--declaration", default="src/gfmcd/splicing/boundary_grammar.py"
     )
@@ -1255,25 +1395,15 @@ def main() -> None:
 
     from gfmcd.splicing import boundary_grammar as bg
 
-    if (
-        bg.ANALYSIS_SEED != BOOT_SEED
-        or bg.BG2_BOOTSTRAP_DRAWS != N_BOOT_DEFAULT
-        or bg.preflight_config()["analysis"]["signed_coordinate_shams"]
-        != len(SIGNED_SHAM_SEEDS)
-    ):
-        raise RuntimeError("BG2 analysis seeds/count drifted from the frozen declaration")
+    validate_runtime_contract(bg)
 
     preflight_path = _resolved(args.preflight)
     protocol_path = _resolved(args.protocol)
+    amendment_path = _resolved(args.amendment)
     declaration_path = _resolved(args.declaration)
     gtf_path = _resolved(args.gtf)
     fasta_path = _resolved(args.fasta)
     expected_config = bg.preflight_config()
-    if (
-        MIN_TARGET_ROUTE_GENES != bg.MIN_BG2_TARGET_GENES
-        or MIN_TARGET_ROUTE_PER_STRAND != bg.MIN_BG2_TARGET_GENES_PER_STRAND
-    ):
-        raise RuntimeError("BG2 runner supply constants drifted from the frozen declaration")
     preflight = validate_preflight(
         preflight_path,
         args.model,
@@ -1282,6 +1412,7 @@ def main() -> None:
         expected_config,
         gtf_path=gtf_path,
         fasta_path=fasta_path,
+        amendment_path=amendment_path,
     )
     behavior_path = _resolved(args.behavior_result)
     behavior = validate_behavior_result(
@@ -1507,6 +1638,7 @@ def main() -> None:
             "gtf_sha256": preflight["gtf_sha256"],
             "fasta_sha256": preflight["fasta_sha256"],
             "protocol_sha256": preflight["protocol_sha256"],
+            "amendment_sha256": preflight["amendment_sha256"],
             "declaration_file_sha256": preflight["declaration_sha256"],
             "declaration_payload_sha256": bg.declaration_sha256(),
             "train_cohort_sha256": preflight["cohort"]["sha256"],
@@ -1569,6 +1701,7 @@ def main() -> None:
         notes=[
             "BG1 passed non-smoke preflight was hash-validated before target execution.",
             "Cross-gene and signed-coordinate null families are separately recorded and never pooled.",
+            "The pre-execution amendment replaces only true-minus-cross inference with two-way target-source clustering.",
             "After an independent BG2 audit, the strongest positive claim is model-functional route sufficiency, not U2AF1 identity.",
         ],
     )
@@ -1586,6 +1719,7 @@ def main() -> None:
         behavior_manifest_path,
         behavior_audit_path,
         protocol_path,
+        amendment_path,
         declaration_path,
         Path(__file__),
         REPO / "scripts/splicebert/audit_bg_boundary.py",

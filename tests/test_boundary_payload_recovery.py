@@ -7,6 +7,7 @@ from types import SimpleNamespace
 
 import pytest
 import torch
+import audit_bg_boundary as AUDIT
 
 
 SCRIPT = (
@@ -160,6 +161,7 @@ def _passing_preflight(tmp_path: Path):
     checkpoint = tmp_path / "model"
     checkpoint.mkdir()
     protocol = tmp_path / "protocol.md"
+    amendment = tmp_path / "amendment.md"
     declaration = tmp_path / "boundary_grammar.py"
     gtf = tmp_path / "annotation.gtf.gz"
     fasta = tmp_path / "genome.fa"
@@ -169,6 +171,7 @@ def _passing_preflight(tmp_path: Path):
     }
     checkpoint_hash = model_hashes["pytorch_model.bin"]
     protocol_hash = _write(protocol, "frozen protocol")
+    amendment_hash = _write(amendment, "binding pre-execution amendment")
     declaration_hash = _write(declaration, "declaration")
     gtf_hash = _write(gtf, "annotation")
     fasta_hash = _write(fasta, "genome")
@@ -182,12 +185,15 @@ def _passing_preflight(tmp_path: Path):
     payload = {
         "schema": MODULE.PREFLIGHT_SCHEMA,
         "PASS": True,
+        "instrument_PASS": True,
+        "target_authorization_PASS": True,
         "smoke": False,
         "checkpoint_sha256": checkpoint_hash,
         "model_file_sha256": model_hashes,
         "gtf_sha256": gtf_hash,
         "fasta_sha256": fasta_hash,
         "protocol_sha256": protocol_hash,
+        "amendment_sha256": amendment_hash,
         "declaration_sha256": declaration_hash,
         "config": expected_config,
         "cohort": {
@@ -201,7 +207,16 @@ def _passing_preflight(tmp_path: Path):
     }
     preflight = tmp_path / "preflight.json"
     preflight.write_text(json.dumps(payload))
-    return preflight, checkpoint, protocol, declaration, expected_config, gtf, fasta
+    return (
+        preflight,
+        checkpoint,
+        protocol,
+        declaration,
+        expected_config,
+        gtf,
+        fasta,
+        amendment,
+    )
 
 
 def test_preflight_is_hash_bound_and_passed(tmp_path):
@@ -219,34 +234,98 @@ def test_preflight_is_hash_bound_and_passed(tmp_path):
     [("PASS", False, "PASS"), ("smoke", True, "smoke")],
 )
 def test_preflight_refuses_failed_or_smoke_artifact(tmp_path, field, value, match):
-    preflight, checkpoint, protocol, declaration, config, gtf, fasta = _passing_preflight(
-        tmp_path
-    )
+    (
+        preflight, checkpoint, protocol, declaration, config, gtf, fasta, amendment
+    ) = _passing_preflight(tmp_path)
     payload = json.loads(preflight.read_text())
     payload[field] = value
     preflight.write_text(json.dumps(payload))
     with pytest.raises(RuntimeError, match=match):
         MODULE.validate_preflight(
-            preflight, checkpoint, protocol, declaration, config, gtf, fasta
+            preflight, checkpoint, protocol, declaration, config, gtf, fasta, amendment
         )
 
 
 def test_preflight_refuses_declaration_or_config_drift(tmp_path):
-    preflight, checkpoint, protocol, declaration, config, gtf, fasta = _passing_preflight(
-        tmp_path
-    )
+    (
+        preflight, checkpoint, protocol, declaration, config, gtf, fasta, amendment
+    ) = _passing_preflight(tmp_path)
     declaration.write_text("changed declaration")
     with pytest.raises(RuntimeError, match="declaration_sha256"):
         MODULE.validate_preflight(
-            preflight, checkpoint, protocol, declaration, config, gtf, fasta
+            preflight, checkpoint, protocol, declaration, config, gtf, fasta, amendment
         )
 
     declaration.write_text("declaration")
     changed = {**config, "namespace": "bg-v2"}
     with pytest.raises(RuntimeError, match="config"):
         MODULE.validate_preflight(
-            preflight, checkpoint, protocol, declaration, changed, gtf, fasta
+            preflight, checkpoint, protocol, declaration, changed, gtf, fasta, amendment
         )
+
+
+def test_bg2_main_contract_binds_frozen_supply_constants_before_model_load():
+    fake = SimpleNamespace(
+        ANALYSIS_SEED=MODULE.BOOT_SEED,
+        BG2_BOOTSTRAP_DRAWS=MODULE.N_BOOT_DEFAULT,
+        MIN_BG2_TARGET_GENES=MODULE.MIN_TARGET_ROUTE_GENES,
+        MIN_BG2_TARGET_GENES_PER_STRAND=MODULE.MIN_TARGET_ROUTE_PER_STRAND,
+        preflight_config=lambda: {
+            "analysis": {"signed_coordinate_shams": len(MODULE.SIGNED_SHAM_SEEDS)}
+        },
+    )
+    MODULE.validate_runtime_contract(fake)
+
+    fake.MIN_BG2_TARGET_GENES += 1
+    with pytest.raises(RuntimeError, match="supply constants"):
+        MODULE.validate_runtime_contract(fake)
+
+
+def test_crossgene_interval_calls_two_way_target_source_bootstrap(monkeypatch):
+    calls = []
+
+    def fake_bootstrap(values, genes_a, genes_b, **kwargs):
+        calls.append((list(genes_a), list(genes_b), kwargs["alpha"]))
+        return float(sum(values) / len(values)), 0.1 + kwargs["alpha"], 0.9
+
+    monkeypatch.setattr(MODULE, "dyadic_bootstrap", fake_bootstrap)
+    summary = MODULE._dyadic_mean_ci(
+        MODULE.np.asarray([0.2, 0.4, 0.6]),
+        ["target-1", "target-2", "target-3"],
+        ["source-2", "source-2", "source-1"],
+        n_boot=101,
+        seed=17,
+    )
+    assert calls == [
+        (
+            ["target-1", "target-2", "target-3"],
+            ["source-2", "source-2", "source-1"],
+            0.05,
+        ),
+        (
+            ["target-1", "target-2", "target-3"],
+            ["source-2", "source-2", "source-1"],
+            0.10,
+        ),
+    ]
+    assert summary["lower_95_one_sided"] == pytest.approx(0.2)
+    assert summary["n_dyads"] == 3
+    assert summary["n_source_genes"] == 2
+    assert summary["inference"] == "two_way_target_source_gene_multiplier_bootstrap"
+
+
+def test_independent_auditor_exactly_mirrors_dyadic_interval(monkeypatch):
+    values = MODULE.np.asarray([0.8, -0.1, 0.4, 0.9, 0.2])
+    targets = ["t1", "t2", "t3", "t4", "t5"]
+    sources = ["s1", "s1", "s2", "s3", "s2"]
+    monkeypatch.setattr(AUDIT, "BG2_BOOTSTRAP_DRAWS", 257)
+    runner = MODULE._dyadic_mean_ci(
+        values, targets, sources, n_boot=257, seed=20260819
+    )
+    independently_audited = AUDIT._dyadic_mean_ci(
+        values, targets, sources, seed=20260819
+    )
+    assert independently_audited == runner
 
 
 def _passing_behavior(tmp_path: Path):
