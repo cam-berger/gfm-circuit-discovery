@@ -22,11 +22,12 @@
 - Test ROC-AUC: 0.8919269597801556
 - Test PR-AUC: 0.8918734234801855
 
-Two bounds apply to those three metrics and travel with them everywhere:
+Two notes travel with those three metrics everywhere:
 
-- **The split is not duplicate-clean.** 104 exact-duplicate groups span splits and 64 groups carry
-  conflicting labels; no de-duplication was applied. Treat the metrics as contaminated-split upper
-  bounds (`DBP2`, `DBPR1`).
+- **They are measured on leakage-controlled splits.** The raw cohort has 104 cross-split duplicate groups
+  and 64 label-conflicting groups; `clean_promoter_cohort.py` removes them (326 rows) and asserts the
+  retained splits are disjoint. Exact and reverse-complement identity are screened; near-duplicates are
+  not (`DBP2`).
 - **Layer 2 is the strongest *tested* endpoint by `0.0019` balanced accuracy on one seed** — layers 1–4
   score `0.8050 / 0.8031 / 0.8014 / 0.8014` on validation and are not separated by the data. It is a
   working choice, not a localization result (`DBP4`, `DBPR2`).
@@ -201,7 +202,8 @@ No sequence-specific delivery claim is currently licensed.
 > section: in this study "donor" means the source example whose activations are transplanted, but
 > everywhere else in this repository "donor" means a splice donor site, and the collision is a real
 > reading hazard (see `DECISIONS.md` D11 and `docs/NOMENCLATURE.md`). "Strong necessity" for L0H8 is also
-> bounded — the ranking statistic behind it is direction-blind (`DBP5`, `DBPR3`).
+> bounded: the ranking is correctly signed, but necessity needs the calibration pair and a multi-seed
+> replicate that have not been run (`DBP5`, `DBPR3`).
 
 ## Execution order
 

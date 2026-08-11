@@ -17,6 +17,7 @@ from sklearn.metrics import (
 )
 
 from gfmcd.adapters.dnabert import DnaBertAdapter
+from gfmcd.dnabert.manifest import write_run_manifest
 
 
 MODEL_NAME = "quietflamingo/dnabert2-no-flashattention"
@@ -430,6 +431,21 @@ def main() -> None:
     print("\nSaved:", summary_path)
     print("Saved:", detail_path)
     print("Saved:", feature_path)
+
+    # Sibling provenance record. Written after the outputs exist so their hashes are real.
+    manifest_path = write_run_manifest(
+        summary_path,
+        experiment_id="dnabert_promoter_behavioral_corruption",
+        config=vars(args),
+        outputs=[detail_path, feature_path],
+        inputs=[PROBE_PATH],
+        probe_path=PROBE_PATH,
+        selected_layer=SELECTED_LAYER,
+        model_name=MODEL_NAME,
+        model_revision=MODEL_REVISION,
+    )
+    print("Saved:", manifest_path)
+
     print("BEHAVIORAL CORRUPTION PROBE SUCCEEDED")
 
 

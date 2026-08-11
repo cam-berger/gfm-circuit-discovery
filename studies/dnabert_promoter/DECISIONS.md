@@ -11,9 +11,10 @@ reconstructions of what the runners do, not minutes of a choice that was written
 
 70-nt core-promoter sequences, balanced two-class, from `leannmlindsey/GUE`. Chosen because it is a
 standard genomic-LM benchmark with a fixed split, which makes the *method* comparison the interesting
-variable rather than the dataset. The cost is that the split is not curated for our purposes and turns
-out not to be duplicate-clean (**DBP2**); a benchmark split is not the same thing as a clean held-out
-set, and this study is the demonstration of that.
+variable rather than the dataset. The cost is that a benchmark split is not curated for our purposes: the
+raw cohort turns out to carry 259 exact-duplicate groups, 104 of them spanning splits. A separate cleaning
+stage handles that (**D13**, **DBP2**) — a published split being standard is not the same thing as its being
+a clean held-out set, and this study is the demonstration of that.
 
 ## D2 — A frozen encoder plus a fixed linear probe, not a fine-tuned classifier
 
@@ -121,6 +122,22 @@ immutable result artifact; and `"project": "dnabert_promoter_mechanism"` in
 `configs/dnabert_promoter/base.json`, so that the config keeps agreeing with the artifacts recorded under
 it. Both are labels, not paths — nothing resolves through them. Read either as naming this study.
 
+## D13 — Leakage control is a separate stage, and its report is not committed
+
+`build_promoter_cohort.py` writes `shared/leakage_report.json` over the **raw** GUE splits;
+`clean_promoter_cohort.py` then removes conflicting-label hashes globally, de-duplicates within split, drops
+cross-split repeats under `train > validation > test` precedence, and asserts the retained hash sets are
+pairwise disjoint. `extract_frozen_representations.py` reads the cleaned directory, so the cleaned cohort is
+what every number in the study is measured on (`DBP2`).
+
+Splitting diagnosis from treatment is the right shape — the raw report stays as evidence of what was wrong
+— but it has one sharp edge, which this review walked straight into: **the diagnosis is committed and the
+treatment's output is not.** A reader who finds `leakage_report.json` and stops there will conclude the
+study is contaminated. The fix is to commit `shared/clean/cleaning_report.json` and the cleaned split
+hashes; until then the cleaned row counts are recoverable only indirectly, from `train_rows` /
+`validation_rows` / `test_rows` in `frozen/layer_probes/all_layer_probe_results.json`. The manifest helper
+records which cohort a run read, so future artifacts state it on their own.
+
 ## Known departures from repository convention
 
 Recorded rather than quietly tolerated. Each blocks promotion of the affected rows.
@@ -129,6 +146,6 @@ Recorded rather than quietly tolerated. Each blocks promotion of the affected ro
 |---|---|---|
 | 1 — prereg → smoke → confirmatory → claim | **No preregistration was ever frozen** for this arc, though its prose said "preregistered". | `DBPR8`. No `DBP` row may be cited as preregistered; the family is unaudited in `docs/PREREG_CONFORMANCE.md`. A protocol must be frozen before the next confirmatory run. |
 | 2 — memorials that can fail, on the measurement path | Identity controls are genuine and exact, but there are no arithmetic anchors of the `value_linearity` kind. | Identity-zero is necessary and was met; it is not sufficient as a memorial set. |
-| 3 — calibration for identification claims | **No planted-positive sensitivity and no permuted-label FPR** for the head ranking, group selection, or donor matrix. | The identification claims (DBP5 especially) stay candidates. Calibration has caught decision-layer bugs in this repo before. |
+| 3 — calibration for identification claims | **No planted-positive sensitivity and no permuted-label FPR** for the head ranking, group selection, or transplant matrix. | The identification claims (DBP5 especially) stay candidates. Calibration has caught decision-layer bugs in this repo before, and it needs GPU runs, so it is a gate rather than something this review could close. |
 | 4 — held-out plus multiple seeded draws | Validation→test discipline honoured; **single seed (42) throughout**. | Every effect is single-seed. Effect-existence is not established for any of them, and the endpoint margin is inside noise. |
-| 7 — every result writes a manifest | **2 of 35 runners** emit a sibling `*.manifest.json`. | ~127 artifacts have no provenance record. Blocks promotion of every row; see the roadmap entry. |
+| 7 — every result writes a manifest | **Fixed forward, gap preserved backward.** `src/gfmcd/dnabert/manifest.py` is now wired into all 15 canonical runners, so a rerun writes hashed inputs/outputs, the probe sha256, split provenance, seed, command and git state; `tests/test_dnabert_manifest.py` pins the contract. The ~104 *existing* artifacts still have none. | Historical rows carry a blank `manifest` column rather than a back-filled record — the run conditions were never captured, and inventing them would be worse than an honest blank. They fill in when the affected assays are next re-run. |

@@ -19,15 +19,17 @@ reads encoder Layer 2 (`hidden_states[2]`) and scores with `selected_layer_2_pro
 The cue in a directory listing is the `layer3_` filename prefix; the cue inside a file is the
 `selected_layer` field. Check one of them before comparing anything to a published number.
 
-**The split is not duplicate-clean.** `shared/leakage_report.json` records 259 exact-duplicate groups,
-104 of them spanning splits, and 64 carrying conflicting labels. Every metric in this tree is a
-contaminated-split upper bound (`DBP2`, `DBPR1`).
+**`shared/leakage_report.json` is a diagnosis, not a defect left standing.** It reports the *raw* cohort:
+259 exact-duplicate groups, 104 spanning splits, 64 label-conflicting. `clean_promoter_cohort.py` then
+removes them — 326 rows — and asserts the retained splits are pairwise disjoint, and every artifact in
+this tree is computed on that cleaned cohort (`DBP2`). Its report and cleaned hashes are not committed,
+which is the residual gap; the counts are recoverable from `frozen/layer_probes/all_layer_probe_results.json`.
 
 ## Directories
 
 | Directory | Status | What it holds | Claims |
 |---|---|---|---|
-| `shared/` | canonical | Split manifest and hashes, dataset summary, and the leakage scan that bounds the whole family. | DBP2 |
+| `shared/` | canonical | Raw split manifest and hashes, dataset summary, and the leakage scan that motivated the cleaning stage. | DBP2 |
 | `provenance/` | infrastructure | `checkpoint_equivalence.md` — model/revision identity record. | DBP1 |
 | `frozen_claim_tests/registry/` | canonical | `frozen_config.json`, the pinned assay configuration. | DBP1 |
 | `frozen/layer_probes/` | mixed | Per-layer probe fits, rankings, test statistics, and the canonical probe artifact. The 12 `all_layer_probes/layer_*_probe.joblib` files are `development`; `selected_layer_2_probe.joblib` is `canonical` and pinned by hash. | DBP3, DBP4 |
@@ -50,23 +52,32 @@ be misquoted:
   null; only the class contrast is large (DBP8).
 - `biological_features/tata_perturbations/*` — **null**. No causal motif dependence at n=71 (DBP10).
 
-## Known provenance gap
+## Provenance: fixed forward, gap preserved backward
 
-**Only 5 of the ~132 tracked artifacts in this family have a sibling `*.manifest.json`** — the three
-`layer3_primary_head_donor_matrix` manifests (themselves superseded) and the two
-`components/donor_matrix` manifests. The repository invariant is one manifest per result, carrying
-checkpoint hash, tokenizer, dataset hashes, split, params, seed, command, and git revision. Only 2 of the
-35 runners emit one.
+**Only 5 of the ~109 artifacts in this family have a sibling `*.manifest.json`**, and those five are config
+echoes — they carry no `command`, `git_commit`, `created_at_utc`, seed, or input hashes. The repository
+invariant is one manifest per result, carrying all of that.
 
-Rather than back-fill provenance that was never recorded, the `manifest` column is left blank for the
-uncovered rows — `results/RESULTS_INDEX.md` defines that column as the sibling record "where one exists".
-Closing the gap means amending the runners to use the helper in `src/gfmcd/splicing/io.py` and re-running;
-it is a prerequisite for promoting any `DBP` row, and is tracked in
-[`docs/ROADMAP.md`](../../docs/ROADMAP.md).
+That is fixed for every future run: `src/gfmcd/dnabert/manifest.py` wraps the repository's own
+`ExperimentManifest` and is wired into all 15 canonical runners, so a rerun now writes hashed
+inputs/outputs, the probe sha256 that defines the readout, the split provenance, the seed, the command, and
+the git state. `tests/test_dnabert_manifest.py` pins that contract.
+
+The **historical** artifacts keep a blank `manifest` column, which `results/RESULTS_INDEX.md` defines as
+the record "where one exists". Back-filling them would mean asserting provenance nobody recorded — the run
+conditions were not captured at the time, and inventing them is worse than an honest blank. They fill in
+when the affected assays are next re-run, which the roadmap gates on multi-seed anyway. Note that new
+manifests use the repository-standard `<stem>.manifest.json` name; the five hand-written ones use an older
+`<stem>_manifest.json` spelling and are immutable.
 
 ## Figures
 
-Published figures are in [`figures/dnabert_promoter/`](../../figures/dnabert_promoter/) with captions
-beside them, following the repository figure convention. `results/**/figures/` is gitignored precisely so
-that published figures live in one place; the arc originally force-committed 24 files under
-`results/dnabert_promoter/figures/frozen/`, and they were relocated on 2026-08-11.
+Published figures are in [`figures/dnabert_promoter/`](../../figures/dnabert_promoter/) with captions beside
+them, following the repository figure convention. **Figures 1–3 and 9–12 are canonical; 4–8 depict the
+superseded Layer-3 replicate** (`DBPR7`). Figures 9–12 were added during the integration review because
+`DBP6`, `DBP7` and `DBP8` — including the faithfulness curve that carries the study's central negative
+result — had no published figure at all.
+
+`results/**/figures/` is gitignored precisely so that published figures live in one place; the arc
+originally force-committed 24 files under `results/dnabert_promoter/figures/frozen/`, and they were
+relocated on 2026-08-11.

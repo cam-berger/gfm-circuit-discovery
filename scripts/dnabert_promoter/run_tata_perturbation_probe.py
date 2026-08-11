@@ -19,6 +19,7 @@ from run_head_restoration_pilot import (
     MODEL_REVISION,
     PROBE_PATH,
 )
+from gfmcd.dnabert.manifest import write_run_manifest
 
 SELECTED_LAYER = 2
 
@@ -499,6 +500,21 @@ def main() -> None:
 
     print("\nSaved:", per_example_path)
     print("Saved:", summary_path)
+
+    # Sibling provenance record. Written after the outputs exist so their hashes are real.
+    manifest_path = write_run_manifest(
+        summary_path,
+        experiment_id="dnabert_promoter_tata_perturbation",
+        config=vars(args),
+        outputs=[per_example_path],
+        inputs=[PROBE_PATH, cohort_path],
+        probe_path=PROBE_PATH,
+        selected_layer=SELECTED_LAYER,
+        model_name=MODEL_NAME,
+        model_revision=MODEL_REVISION,
+    )
+    print("Saved:", manifest_path)
+
     print(
         "TATA PERTURBATION PROBE SUCCEEDED"
     )

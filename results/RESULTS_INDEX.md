@@ -114,9 +114,9 @@ a claim in a surviving ledger.
 model is not SpliceBERT — read its index before using any number in it, because two hazards are specific
 to this tree. First, **two readout endpoints coexist in `causal/`**: the canonical suite reads encoder
 Layer 2 against `selected_layer_2_probe.joblib`, while the 37 `superseded` rows under `causal/layer3_*`
-read encoder Layer 3 against a *different* probe and control nothing (`DBPR7`). Second, its split is
-**not duplicate-clean** — `shared/leakage_report.json` records 104 cross-split duplicate groups — so every
-metric in the tree is a contaminated-split upper bound (`DBP2`). It is also the family with the largest
+read encoder Layer 3 against a *different* probe and control nothing (`DBPR7`). Second, `shared/leakage_report.json` describes the **raw** cohort, not the one measured: the cleaning
+stage removes its 104 cross-split duplicate groups and asserts disjointness, and every result is computed
+on the cleaned splits (`DBP2`) whose own report is not committed. It is also the family with the largest
 **manifest gap** in the repository: only 5 of its ~109 rows have a sibling `*.manifest.json`, because 33
 of the study's 35 runners do not emit one. Those rows carry a blank `manifest` column truthfully rather
 than a back-filled provenance record, and closing the gap gates promotion of every `DBP` row.

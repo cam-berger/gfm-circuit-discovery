@@ -903,7 +903,7 @@
    "artifact": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/test_candidate_circuit_confirmation_128_summary.json",
    "script": "scripts/dnabert_promoter/run_frozen_circuit_accounting.py",
    "manifest": "",
-   "figure": ""
+   "figure": "figures/dnabert_promoter/figure10_candidate_circuit_accounting.pdf;figures/dnabert_promoter/figure10_candidate_circuit_accounting.png"
   },
   {
    "claim_id": "DBP6",
@@ -913,7 +913,7 @@
    "artifact": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/validation_candidate_circuit_128_summary.json",
    "script": "scripts/dnabert_promoter/run_frozen_circuit_accounting.py",
    "manifest": "",
-   "figure": ""
+   "figure": "figures/dnabert_promoter/figure10_candidate_circuit_accounting.pdf;figures/dnabert_promoter/figure10_candidate_circuit_accounting.png"
   },
   {
    "claim_id": "DBP7",
@@ -973,7 +973,7 @@
    "artifact": "results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_summary.json",
    "script": "scripts/dnabert_promoter/run_component_donor_matrix.py",
    "manifest": "results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_manifest.json",
-   "figure": ""
+   "figure": "figures/dnabert_promoter/figure12_test_component_transplant_matrix.pdf;figures/dnabert_promoter/figure12_test_component_transplant_matrix.png"
   },
   {
    "claim_id": "DBP8",
@@ -1013,7 +1013,7 @@
    "artifact": "results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/validation_component_donor_matrix_128_summary.json",
    "script": "scripts/dnabert_promoter/run_component_donor_matrix.py",
    "manifest": "results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/validation_component_donor_matrix_128_manifest.json",
-   "figure": ""
+   "figure": "figures/dnabert_promoter/figure11_validation_component_transplant_matrix.pdf;figures/dnabert_promoter/figure11_validation_component_transplant_matrix.png"
   },
   {
    "claim_id": "DBP8",
@@ -1053,7 +1053,7 @@
    "artifact": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/test_faithfulness_curve_confirmation_128_curve.csv",
    "script": "scripts/dnabert_promoter/run_frozen_faithfulness_curve.py",
    "manifest": "",
-   "figure": ""
+   "figure": "figures/dnabert_promoter/figure9_faithfulness_versus_circuit_size.pdf;figures/dnabert_promoter/figure9_faithfulness_versus_circuit_size.png"
   },
   {
    "claim_id": "DBP7",
@@ -1073,7 +1073,7 @@
    "artifact": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/validation_faithfulness_curve_refined_128_curve.csv",
    "script": "scripts/dnabert_promoter/run_frozen_faithfulness_curve.py",
    "manifest": "",
-   "figure": ""
+   "figure": "figures/dnabert_promoter/figure9_faithfulness_versus_circuit_size.pdf;figures/dnabert_promoter/figure9_faithfulness_versus_circuit_size.png"
   },
   {
    "claim_id": "DBP7",

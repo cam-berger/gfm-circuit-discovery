@@ -8,6 +8,7 @@ import hashlib
 import json
 import re
 from pathlib import Path
+from gfmcd.dnabert.manifest import write_run_manifest
 
 PATTERN = re.compile(r"TATA[AT][AT]")
 MOTIF_LENGTH = 6
@@ -384,6 +385,17 @@ def main() -> None:
             indent=2,
         )
     )
+
+
+    # Sibling provenance record. Written after the outputs exist so their hashes are real.
+    manifest_path = write_run_manifest(
+        summary_path,
+        experiment_id="dnabert_promoter_tata_cohort",
+        config=vars(args),
+        outputs=[output_path],
+        inputs=[input_path],
+    )
+    print("Saved:", manifest_path)
 
     print(
         "TATA PERTURBATION COHORT "

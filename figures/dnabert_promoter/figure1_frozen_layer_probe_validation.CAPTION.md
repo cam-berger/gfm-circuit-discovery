@@ -1,5 +1,7 @@
 # Figure 1 — frozen layer-probe trajectory
 
+> **Tier: T2 — provenance.** Supporting record for the frozen layer-probe trajectory (`DBP3`, `DBP4`).
+
 **Status: canonical.** Controls `DBP3`, `DBP4`.
 
 Balanced accuracy of a masked-mean linear probe fitted independently at each of DNABERT-2's 12 encoder
@@ -12,7 +14,8 @@ separate the early layers, so the figure supports "promoter information is linea
 does not improve with depth", not "layer 2 is the promoter layer" (`DBPR2`).
 
 Test metrics annotated on the figure (balanced accuracy `0.8102`, ROC-AUC `0.8919`) are descriptive: the
-test split took no part in selection. They are also **contaminated-split upper bounds** — 104
-exact-duplicate sequence groups span splits in this dataset (`DBP2`).
+test split took no part in selection. They are measured on the leakage-controlled splits — the raw cohort's
+104 cross-split duplicate groups and 64 label-conflicting groups are removed upstream, with disjointness
+asserted (`DBP2`). Near-duplicates are not screened.
 
 Controlling artifact: `results/dnabert_promoter/frozen/layer_probes/layer_probe_results.json`.

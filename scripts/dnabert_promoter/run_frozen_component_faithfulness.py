@@ -52,6 +52,7 @@ from run_head_restoration_pilot import (
     get_corrupt_sequence,
     tokenize_with_offsets,
 )
+from gfmcd.dnabert.manifest import write_run_manifest
 
 
 OUTPUT_DIR = Path(
@@ -990,6 +991,21 @@ def main() -> None:
     )
     print("\nSaved:", summary_path)
     print("Saved:", detail_path)
+
+    # Sibling provenance record. Written after the outputs exist so their hashes are real.
+    manifest_path = write_run_manifest(
+        summary_path,
+        experiment_id="dnabert_promoter_component_faithfulness",
+        config=vars(args),
+        outputs=[detail_path],
+        inputs=[PROBE_PATH],
+        probe_path=PROBE_PATH,
+        selected_layer=SELECTED_LAYER,
+        model_name=MODEL_NAME,
+        model_revision=MODEL_REVISION,
+    )
+    print("Saved:", manifest_path)
+
     print(
         "FROZEN COMPONENT FAITHFULNESS SUCCEEDED"
     )

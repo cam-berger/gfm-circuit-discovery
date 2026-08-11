@@ -19,6 +19,7 @@ from sklearn.metrics import (
     recall_score,
     roc_auc_score,
 )
+from gfmcd.dnabert.manifest import write_run_manifest
 
 REPRESENTATION_PATH = Path(
     "results/dnabert_promoter/frozen/representations/test.npz"
@@ -267,6 +268,19 @@ def main() -> None:
 
     print("Saved:", predictions_path)
     print("Saved:", summary_path)
+
+    # Sibling provenance record. Written after the outputs exist so their hashes are real.
+    manifest_path = write_run_manifest(
+        summary_path,
+        experiment_id="dnabert_promoter_frozen_test_statistics",
+        config={},
+        outputs=[predictions_path],
+        inputs=[PROBE_PATH],
+        seed=SEED,
+        probe_path=PROBE_PATH,
+    )
+    print("Saved:", manifest_path)
+
     print(
         "FROZEN TEST STATISTICAL "
         "VALIDATION SUCCEEDED"

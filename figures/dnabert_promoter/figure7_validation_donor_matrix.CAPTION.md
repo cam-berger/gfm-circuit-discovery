@@ -1,5 +1,7 @@
 # Figure 7 — activation-transplant matrix, validation (SUPERSEDED — encoder Layer 3)
 
+> **Tier: T3 — historical.** Superseded Layer-3 replicate. Never cite as current.
+
 **Status: superseded. Controls no claim. Do not quote.** See `DBPR7`.
 
 **This figure does not depict the validation donor matrix reported in `CLAIMS.md`.** It plots a single

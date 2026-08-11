@@ -112,7 +112,8 @@ arc's sanctioned successor and inherits blacklists and geometry from it, never i
   `DBP*` study has **none**, see DBPR8). `src/gfmcd/{splicing,circuits,adapters}/` hold the assays,
   reusable primitives and model access; `src/gfmcd/dnabert/` holds the DNABERT-2 dataset and
   perturbation utilities.
-- **Every result writes a sibling `*.manifest.json`** — with one live exception: 33 of the 35
-  `scripts/dnabert_promoter/` runners do not, leaving ~104 artifacts without a provenance record. Use the
-  helper in `src/gfmcd/splicing/io.py` when adding or amending a runner; do not copy the DNABERT-2
-  runners' pattern.
+- **Every result writes a sibling `*.manifest.json`.** Use `gfmcd.provenance.ExperimentManifest`, or for
+  the DNABERT-2 study the wrapper `gfmcd.dnabert.write_run_manifest`, which is wired into all 15 canonical
+  `scripts/dnabert_promoter/` runners. One backward gap remains: ~104 DNABERT-2 artifacts predate that
+  wiring and carry a blank `manifest` column truthfully rather than a back-filled record — they fill in on
+  re-run. Never invent a provenance record for a run whose conditions were not captured.

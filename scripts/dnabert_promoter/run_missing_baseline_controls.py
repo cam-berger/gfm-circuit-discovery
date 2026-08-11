@@ -18,6 +18,7 @@ from sklearn.metrics import (
 )
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
+from gfmcd.dnabert.manifest import write_run_manifest
 
 
 DATA_DIR = Path("results/dnabert_promoter/shared/clean")
@@ -452,6 +453,17 @@ def main() -> None:
     )
 
     print("\nSaved:", output_path)
+
+    # Sibling provenance record. Written after the outputs exist so their hashes are real.
+    manifest_path = write_run_manifest(
+        output_path,
+        experiment_id="dnabert_promoter_missing_baseline_controls",
+        config=vars(args),
+        seed=SEED,
+        selected_layer=SELECTED_LAYER,
+    )
+    print("Saved:", manifest_path)
+
     print("MISSING BASELINE CONTROLS SUCCEEDED")
 
 

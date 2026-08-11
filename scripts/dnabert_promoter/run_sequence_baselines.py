@@ -17,6 +17,7 @@ from sklearn.metrics import (
 )
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
+from gfmcd.dnabert.manifest import write_run_manifest
 
 
 DATA_DIR = Path("results/dnabert_promoter/shared/clean")
@@ -204,6 +205,16 @@ def main() -> None:
         print("Test:", result["test"])
 
     print("\nSaved:", output_path)
+
+    # Sibling provenance record. Written after the outputs exist so their hashes are real.
+    manifest_path = write_run_manifest(
+        output_path,
+        experiment_id="dnabert_promoter_sequence_baselines",
+        config={},
+        seed=SEED,
+    )
+    print("Saved:", manifest_path)
+
     print("SEQUENCE BASELINES SUCCEEDED")
 
 

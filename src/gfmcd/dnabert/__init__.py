@@ -41,3 +41,13 @@ __all__ += [
     "mononucleotide_shuffle",
     "nucleotide_counts",
 ]
+
+from gfmcd.dnabert.manifest import (
+    sibling_manifest_path,
+    write_run_manifest,
+)
+
+__all__ += [
+    "sibling_manifest_path",
+    "write_run_manifest",
+]

@@ -189,9 +189,10 @@ donor arc, a second model landed on C33's "structured causal core inside a distr
 
 Three things gate promoting it beyond a first pass, all recorded in the study's `DECISIONS.md`:
 
-1. **De-duplicate the split.** `shared/leakage_report.json` records 104 cross-split duplicate groups and
-   64 conflicting-label groups; every metric is a contaminated-split upper bound until it is re-run
-   (`DBP2`, `DBPR1`).
+1. **Commit the cleaning stage's provenance.** The splits *are* leakage-controlled — 326 rows removed,
+   disjointness asserted — but `shared/clean/cleaning_report.json` and the cleaned hashes are not
+   committed, so the control cannot be verified without re-running it. A near-duplicate screen is the
+   substantive follow-on; exact-hash matching does not provide one at 70 nt (`DBP2`).
 2. **Multiple seeds.** Everything is single-seed (42), and the endpoint margin is `0.0019` (`DBP4`).
 3. **Emit manifests.** 33 of 35 runners write none, leaving ~104 artifacts without a provenance record.
 

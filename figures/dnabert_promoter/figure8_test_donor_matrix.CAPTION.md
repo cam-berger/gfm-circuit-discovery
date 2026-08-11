@@ -1,5 +1,7 @@
 # Figure 8 — activation-transplant matrix, test (SUPERSEDED — encoder Layer 3)
 
+> **Tier: T3 — historical.** Superseded Layer-3 replicate. Never cite as current.
+
 **Status: superseded. Controls no claim. Do not quote.** See `DBPR7`.
 
 **The most misreadable figure in this set.** It shows a `PRIMARY_SIX_HEADS` transplant at encoder

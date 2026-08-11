@@ -1,5 +1,7 @@
 # Figure 2 — validation corruption trajectory
 
+> **Tier: T2 — provenance.** Supporting record for the validation corruption trajectory (`DBP5`).
+
 **Status: canonical.** Controls `DBP5`.
 
 Promoter-margin damage from mononucleotide-shuffle corruption, traced layer by layer through the frozen

@@ -13,8 +13,13 @@ prose reconciles to its committed artifact to all printed digits, the pinned pro
 interventions are exactly zero throughout, and the validation→test discipline is real. What failed review
 was **what the numbers were said to mean**, and the arc's integration into the repository record: it
 arrived with five 0-byte ledger files, no `MANIFEST` rows, and prose that promoted a null into a
-"confirmed compact" mechanism. Twenty-two findings: 5 blockers and 11 major issues fixed in this pass, and
-6 recorded as gated work that needs a re-run or an owner decision.
+"confirmed compact" mechanism.
+
+**Two of this review's own findings did not survive verification and are withdrawn** — both cases of reading
+a committed diagnostic file as an unaddressed defect without checking whether a later stage acted on it.
+They are recorded in full in `DBPR1` and `DBPR3` and in the "Refuted" section below, because a review that
+quietly drops its own bad findings is not auditable either. Final tally: **4 blockers and 13 major issues
+fixed**, **3 items recorded as gated work**, **2 findings refuted**.
 
 The arc's most valuable result was one it had argued *against* itself. Its own faithfulness curve refutes
 the compactness its prose claimed, and its own restoration verdict refutes the transferability its
@@ -26,9 +31,8 @@ the compactness its prose claimed, and its own restoration verdict refutes the t
 |---|---|---|---|
 | B1 | **The repository's own guard test failed on the branch.** `tests/test_manifest.py` had 2 failing tests: 132 tracked result files had no `results/MANIFEST.csv` row. This is what made the PR `mergeable_state: unstable`. | `test_repository_manifest_is_consistent`, `test_repository_manifest_indexes_every_tracked_result_file` | 109 rows added to `MANIFEST.csv`/`.json` with `status`, `evidence_level`, `polarity`, producing script, sibling manifest where one exists, and figure links. `verify_manifest.py` clean; **40/40 tests pass**. |
 | B2 | **No claims ledger.** `studies/dnabert_promoter_mechanism/{CLAIMS,PREREGISTRATION,DECISIONS,README,RESULTS}.md` were all **0 bytes**, while 277 lines of substantive prose sat in a root-level `dnabert_readme.md`. The study had live claims and no point of contact — invariant 3. | `wc -c` = 0 on all five | Study consolidated into `studies/dnabert_promoter/`. `CLAIMS.md` written with `DBP1`–`DBP10`, `CORRECTIONS.md` with `DBPR1`–`DBPR8`, `DECISIONS.md` with D1–D11 plus a departures table. Root readme became the study `README.md`. Empty placeholders removed. |
-| B3 | **Undisclosed split contamination.** The arc's *own* `leakage_report.json` records 259 exact-duplicate groups, **104 spanning splits**, and 64 groups where one 70-nt sequence carries both labels (20 cross-split). No de-duplication was applied and **leakage is mentioned nowhere in the prose**, while `0.810` / `0.892` were presented as clean held-out performance. | `results/dnabert_promoter/shared/leakage_report.json` | `DBP2` records the defect as a first-class bounding claim; `DBP3`/`DBP4` restated as contaminated-split upper bounds. `DBPR1`. De-duplicated re-run is the gating next step in the roadmap. |
-| B4 | **Two readout endpoints intermingled.** 42 artifacts under `causal/layer3_*` set `SELECTED_LAYER = 3`, read `hidden_states[3]`, and score with `all_layer_probes/layer_3_probe.joblib` (sha256 `2337441e…`) — not the canonical `selected_layer_2_probe.joblib` (`bd0d9e14…`). They sat flat beside the Layer-2 causal results with nothing marking the difference, and no prose cited them. | `selected_layer: 3` in 20 summaries; `grep SELECTED_LAYER scripts/dnabert_promoter/*.py` | Classified `superseded` (37 `MANIFEST` rows under `claim_id` `DBPR7`, registered as a non-claim ID in `results/RESULTS_INDEX.md`). Hazard documented at the top of the family index, in `DECISIONS.md` D6, and in the "Deliberately not claimed" section of the ledger. Retained, not deleted — results are immutable. |
-| B5 | **A null promoted to a confirmed mechanism.** "The compact confirmed component set is `Layer-0 MLP + L0H8`" — while the PR's own faithfulness curve gives that set standalone faithfulness `0.194`, no knee, and `1.000` only at size 39 with all three early MLPs. Conditional delivery (`0.882`) had been read as faithfulness. | `frozen_claim_tests/faithfulness_curve/*_curve.csv` | `DBP7` written as a bound/refutation with `polarity: bounded`; `DBPR4` retires *compact*, *sparse*, and bare *the circuit* for this study. Registry prose corrected in place. Nomenclature entry added. |
+| B3 | **Two readout endpoints intermingled.** 42 artifacts under `causal/layer3_*` set `SELECTED_LAYER = 3`, read `hidden_states[3]`, and score with `all_layer_probes/layer_3_probe.joblib` (sha256 `2337441e…`) — not the canonical `selected_layer_2_probe.joblib` (`bd0d9e14…`). They sat flat beside the Layer-2 causal results with nothing marking the difference, and no prose cited them. | `selected_layer: 3` in 20 summaries; `grep SELECTED_LAYER scripts/dnabert_promoter/*.py` | Classified `superseded` (37 `MANIFEST` rows under `claim_id` `DBPR7`, registered as a non-claim ID in `results/RESULTS_INDEX.md`). Hazard documented at the top of the family index, in `DECISIONS.md` D6, and in the "Deliberately not claimed" section of the ledger. Retained, not deleted — results are immutable. |
+| B4 | **A null promoted to a confirmed mechanism.** "The compact confirmed component set is `Layer-0 MLP + L0H8`" — while the PR's own faithfulness curve gives that set standalone faithfulness `0.194`, no knee, and `1.000` only at size 39 with all three early MLPs. Conditional delivery (`0.882`) had been read as faithfulness. | `frozen_claim_tests/faithfulness_curve/*_curve.csv` | `DBP7` written as a bound/refutation with `polarity: bounded`; `DBPR4` retires *compact*, *sparse*, and bare *the circuit* for this study. Registry prose corrected in place. Nomenclature entry added. |
 
 ## Major — fixed
 
@@ -44,7 +48,9 @@ the compactness its prose claimed, and its own restoration verdict refutes the t
 | M8 | **No doc tiers.** All three new markdown files lacked a `T1`/`T2`/`T3` tag — invariant 7. | Tier tags added to the registry (T2), both result-tree docs (T2), and every new document. |
 | M9 | **Not registered anywhere.** No family `RESULTS_INDEX.md`; untouched: `results/RESULTS_INDEX.md`, `README.md` study map, `CLAUDE.md`, `docs/ROADMAP.md`, `docs/PREREG_CONFORMANCE.md`, `docs/NOMENCLATURE.md`. | All updated. New `results/dnabert_promoter/RESULTS_INDEX.md`; study-map row; `CLAUDE.md` mission, ledger table, study count, corrections pointer, and a second-model entry in the environment section; roadmap transfer milestone; four nomenclature entries. |
 | M10 | **No dependency declaration.** `pyproject.toml` was untouched, so the second model's requirements were undeclared and implicitly borrowed from the `splicebert` extra (where `scikit-learn` lives); `joblib`, which persists every probe artifact, was only a transitive dependency. | A `dnabert` extra added — `transformers`, `scikit-learn`, `joblib`, `pandas`, `matplotlib` — and the study README's run block updated to `uv run --extra dnabert`. |
-| M11 | **`donor` collides with the repo's controlled vocabulary.** Repo-wide "donor" is a splice donor site; the arc uses it for the activation-source example ("donor matrix", "same-class donor", `negative_class_donors`). | `docs/NOMENCLATURE.md` entry marking it AMBIGUOUS with "activation source" preferred; `DECISIONS.md` D11; the restoration verdict's "not donor-specific" rewritten as "not source-specific". |
+| M11 | **33 of 35 runners emitted no `*.manifest.json`** — invariant 1, and the largest provenance gap in the repository. Only 5 of ~109 artifacts had a sibling record, and the 5 that existed were config echoes carrying no `command`, `git_commit`, `created_at_utc`, seed, or input hashes. | New `src/gfmcd/dnabert/manifest.py` wrapping the repository's own `ExperimentManifest`, wired into all 15 canonical runners; 11 unit tests in `tests/test_dnabert_manifest.py`. Records hashed inputs/outputs, the probe sha256 that defines the readout, the split provenance, seed, command, and git state. Historical artifacts keep a blank `manifest` column rather than a back-filled record. |
+| M12 | **No figure for the three load-bearing Layer-2 results.** `DBP6`, `DBP7`, `DBP8` had none, while 10 of the 24 committed figures depicted the superseded suite. The faithfulness curve — the study's central negative result — existed only as a CSV. | Figures **9–12** added and generated from the committed artifacts: the faithfulness curve with both MLP jumps annotated, the necessity/delivery accounting with the non-additivity marked, and the Layer-2 transplant matrix on both splits. Captions written; `MANIFEST` figure links updated. The originals were regenerated byte-for-byte identically and restored, so the diff carries only new files. |
+| M13 | **`donor` collides with the repo's controlled vocabulary.** Repo-wide "donor" is a splice donor site; the arc uses it for the activation-source example ("donor matrix", "same-class donor", `negative_class_donors`). | `docs/NOMENCLATURE.md` entry marking it AMBIGUOUS with "activation source" preferred; `DECISIONS.md` D11; the restoration verdict's "not donor-specific" rewritten as "not source-specific". |
 
 ## Recorded as gated work, not fixed here
 
@@ -52,12 +58,43 @@ These need a re-run or a decision, and each now blocks promotion of the rows it 
 
 | # | Finding | Where it is tracked |
 |---|---|---|
-| G1 | **33 of 35 runners emit no `*.manifest.json`** — invariant 1. Only 5 of ~109 artifacts have a sibling record. Back-filling would mean asserting provenance nobody recorded, so the `manifest` column is truthfully blank instead (`results/RESULTS_INDEX.md` defines it as the record "where one exists"). A helper already exists at `src/gfmcd/splicing/io.py`. | Family index "Known provenance gap"; `DECISIONS.md` departures table; roadmap gate 3; `CLAUDE.md` code-layout note. |
-| G2 | **Single seed (42) throughout**, against convention 4's requirement of multiple seeded draws for effect-existence — with a `0.0019` endpoint margin resting on it. | `DBP4`, `DBPR2`; roadmap gate 2. |
-| G3 | **No calibration pair** — no planted-positive sensitivity, no permuted-label FPR — for the head ranking, group selection, or donor matrix. | `DECISIONS.md` departures table; `PREREG_CONFORMANCE.md`; keeps `DBP5` a candidate. |
-| G4 | **Direction-blind ranking statistic.** Heads are ranked by `mean_absolute_logit_change`, which counts movement either way; `L0H8`'s signed effect is damaging in only `0.539` of examples. | `DBP5`, `DBPR3`. |
-| G5 | **Underpowered TATA strata** (cells of n=4 and n=5, uncorrected) quoted alongside the n=71 result. The arc did flag these as unstable — partial credit. | `DBP10` names the n=48 `TATAAA` cohort as the only one worth powering. |
-| G6 | **No figure for the three load-bearing Layer-2 results** (`DBP6`, `DBP7`, `DBP8`). The faithfulness curve — the study's central negative result — exists only as a CSV. | `figures/dnabert_promoter/README.md` "Not yet drawn"; roadmap. |
+| G1 | **Single seed (42) throughout**, against convention 4's requirement of multiple seeded draws for effect-existence — with a `0.0019` endpoint margin resting on it. | `DBP4`, `DBPR2`; roadmap gate 2. |
+| G2 | **No calibration pair** — no planted-positive sensitivity, no permuted-label FPR — for the head ranking, group selection, or donor matrix. | `DECISIONS.md` departures table; `PREREG_CONFORMANCE.md`; keeps `DBP5` a candidate. |
+| G3 | **Underpowered TATA strata** (cells of n=4 and n=5, uncorrected) quoted alongside the n=71 result. The arc did flag these as unstable — partial credit. | `DBP10` names the n=48 `TATAAA` cohort as the only one worth powering. |
+
+## Refuted — two of this review's own findings
+
+Both are recorded in the study's `CORRECTIONS.md` as well, so a reader who arrives at either row from the
+ledger finds the withdrawal rather than the claim.
+
+**R1 — "the split is contaminated and bounds every metric" (was `DBPR1`; originally blocker B3).** The
+first pass found `shared/leakage_report.json` — 259 exact-duplicate groups, 104 spanning splits, 64
+label-conflicting — noted that no prose mentioned it, and concluded every metric was a contaminated upper
+bound. Wrong: that file is the **diagnosis**, written over the raw cohort, and `clean_promoter_cohort.py`
+is the **treatment**. It removes all conflicting-label hashes globally, de-duplicates within split, drops
+cross-split repeats under `train > validation > test` precedence, and *asserts* pairwise disjointness of
+the retained hash sets. `extract_frozen_representations.py` reads its output directory, so every number in
+the study is computed on cleaned splits. Independently confirmable from committed artifacts: raw
+`47,356 / 5,920 / 5,920` against the probe run's own row counts `47,149 / 5,856 / 5,865` — 326 rows removed
+— and none of the 5,865 committed test-prediction hashes appears in the train-duplicated or
+label-conflicting sets. The corrected row, `DBP2`, is a *positive* data-hygiene claim whose real residual is
+narrow: exact and reverse-complement identity are screened, near-duplicates are not, and the cleaner's own
+report is uncommitted.
+
+**R2 — "the head ranking statistic is direction-blind" (was gated item G4).** The first pass reported that
+heads were ranked by `mean_absolute_logit_change` and that `L0H8`'s effect was damaging in only `0.539` of
+examples. Both halves were the reviewer's own artefact. `run_head_ablation_scan.py` sorts ascending by
+**`promoter_mean_damage`**, a signed quantity where negative means damaging, so the most
+promoter-supporting head sorts first; `run_frozen_faithfulness_curve.py` uses the same signed field as its
+primary key with the absolute one only as a tie-break, and says so in a comment. The `0.539` was
+`change_from_clean.fraction_positive` over **both classes**; the promoter-specific field is
+`promoter_fraction_damaged` = `0.914`. The signed ranking is the stronger result, and `DBP5` is now written
+from it.
+
+The common failure was reading a committed diagnostic as an unaddressed defect. Both would have been caught
+by one more question — *does anything downstream consume this?* — which is now the first check in
+[`REPO_SCRUB_PROCEDURE.md`](REPO_SCRUB_PROCEDURE.md) terms: trace the consumer before calling a file a
+finding.
 
 ## Checked and clean
 

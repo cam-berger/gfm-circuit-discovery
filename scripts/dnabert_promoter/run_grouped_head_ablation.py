@@ -13,6 +13,7 @@ import numpy as np
 import torch
 
 from gfmcd.adapters.dnabert import DnaBertAdapter
+from gfmcd.dnabert.manifest import write_run_manifest
 
 
 MODEL_NAME = "quietflamingo/dnabert2-no-flashattention"
@@ -610,6 +611,21 @@ def main() -> None:
 
     print("\nSaved:", summary_path)
     print("Saved:", detail_path)
+
+    # Sibling provenance record. Written after the outputs exist so their hashes are real.
+    manifest_path = write_run_manifest(
+        summary_path,
+        experiment_id="dnabert_promoter_grouped_head_ablation",
+        config=vars(args),
+        outputs=[detail_path],
+        inputs=[PROBE_PATH],
+        probe_path=PROBE_PATH,
+        selected_layer=SELECTED_LAYER,
+        model_name=MODEL_NAME,
+        model_revision=MODEL_REVISION,
+    )
+    print("Saved:", manifest_path)
+
     print("GROUPED HEAD ABLATION SUCCEEDED")
 
 

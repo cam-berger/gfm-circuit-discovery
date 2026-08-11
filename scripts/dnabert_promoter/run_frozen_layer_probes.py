@@ -20,6 +20,7 @@ from sklearn.metrics import (
 )
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
+from gfmcd.dnabert.manifest import write_run_manifest
 
 
 REPRESENTATION_DIR = Path(
@@ -647,6 +648,18 @@ def main() -> None:
         "Canonical selected probe:",
         selected_model_path,
     )
+
+    # Sibling provenance record. Written after the outputs exist so their hashes are real.
+    manifest_path = write_run_manifest(
+        results_path,
+        experiment_id="dnabert_promoter_frozen_layer_probes",
+        config={},
+        outputs=[trajectory_path, selected_model_path],
+        seed=SEED,
+        probe_path=selected_model_path,
+    )
+    print("Saved:", manifest_path)
+
     print(
         "ALL-LAYER FROZEN PROBES SUCCEEDED"
     )

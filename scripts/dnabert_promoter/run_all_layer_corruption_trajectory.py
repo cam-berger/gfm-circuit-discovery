@@ -18,6 +18,7 @@ from sklearn.metrics import (
 )
 
 from gfmcd.adapters.dnabert import DnaBertAdapter
+from gfmcd.dnabert.manifest import write_run_manifest
 
 
 MODEL_NAME = "quietflamingo/dnabert2-no-flashattention"
@@ -542,6 +543,18 @@ def main() -> None:
 
     print("\nSaved:", csv_path)
     print("Saved:", json_path)
+
+    # Sibling provenance record. Written after the outputs exist so their hashes are real.
+    manifest_path = write_run_manifest(
+        json_path,
+        experiment_id="dnabert_promoter_all_layer_corruption",
+        config=vars(args),
+        outputs=[csv_path],
+        model_name=MODEL_NAME,
+        model_revision=MODEL_REVISION,
+    )
+    print("Saved:", manifest_path)
+
     print(
         "ALL-LAYER CORRUPTION TRAJECTORY SUCCEEDED"
     )
