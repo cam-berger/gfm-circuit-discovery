@@ -265,13 +265,15 @@ Bulk `target_shards/`, `health_shards/`, packet matrices, and Colab distribution
 because they are reproducible intermediates or retained in external run bundles. The compact artifacts
 required to audit the recorded claims are version-controlled.
 
-### Positional boundary coherence — nothing to reproduce yet
+### Positional boundary coherence — model-free execution only
 
-**There is no run here to reproduce.** `studies/splicebert_positional_boundary_coherence/` ships a frozen
-preregistration, 29 runner/audit entrypoints under
+**There is no successor model outcome to reproduce.** `studies/splicebert_positional_boundary_coherence/`
+ships a frozen preregistration, 29 runner/audit entrypoints under
 `scripts/splicebert_positional_boundary_coherence/`, eleven `src/gfmcd/splicing/pbc_*` and
-`positional_boundary_coherence` modules, and their tests — and no artifact. Everything below is the
-*forward* path for whoever executes it, not a replay.
+`positional_boundary_coherence` modules, and their tests. The executed portion is model-free: compact
+freshness/census audit receipts and the terminal capacity-stop/audit are retained, while the 2.34-GB raw
+candidate census is intentionally ignored and must be regenerated from its bound producer manifest. There
+is no checkpoint, preflight, target, or model-outcome artifact.
 
 | Stage | Producer | Independent authorization |
 |---|---|---|
@@ -287,7 +289,16 @@ preregistration, 29 runner/audit entrypoints under
 | Register confirmation | `run_p3_register_target.py` → `assemble_p3_register_target.py` → `analyze_p3_register_relocation.py` | `audit_p3_register_relocation.py` |
 | Route mediation | `run_p3_register_mediation_target.py` → `assemble_p3_register_mediation_target.py` → `analyze_p3_register_mediation.py` | `audit_p3_register_mediation.py` |
 
-Four things bind before the first target call, and each is fail-closed:
+The terminal Phase-I capacity check precedes the four target bindings, and every edge is fail-closed:
+
+Before expensive cohort matching, the balanced-cohort producer checks the necessary unique normalized-gene
+capacity for all seven source slots against the total frozen request (120 + 600 + 384 = 1,104 blocks). A
+failure writes a compact `PHASE1_INSTRUMENT_UNRESOLVED` artifact and manifest with empty block/cell tables,
+then exits 2. The independent auditor rederives the capacity and exits 0 only when its own audit passes,
+returning `AUDIT_PASS_INSTRUMENT_UNRESOLVED`; target authorization remains false. Both records bind the
+ignored census's byte identity, semantic hashes, producer revision, and
+`candidate_census_v1.manifest.json` regeneration receipt and state `clean_checkout_reexecutable=false`.
+Do not reduce a role or open sealed chromosomes in response.
 
 1. **A conformance audit.** The preregistration's own "Present status" requires a freeze package binding
    the final code and inputs, plus an independent protocol-to-code conformance audit, before any target

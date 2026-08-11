@@ -50,12 +50,15 @@ this file existed, that question had no answer here short of reading 34 protocol
 > re-executable** — the source branch gitignored the raw rows both recompute from. Treat C43/C44 gates as
 > **self-reported, not audited**.
 
-> **A fourth protocol is uncovered for the opposite reason: positional boundary coherence
-> (2026-08-10).** `studies/splicebert_positional_boundary_coherence/PREREGISTRATION.md` is a frozen
-> 1,091-line design with gates, thresholds, and an authorization graph, and it contributes **no claim and
-> no family below** — because **it has never been run**. There is no cohort, no preflight, no target, and
-> no artifact under `results/splicebert_positional_boundary_coherence/`. Nothing in that file may be cited
-> as a gate that was enforced; every gate in it is a gate that is *specified*.
+> **A fourth protocol was initially uncovered for the opposite reason: positional boundary coherence
+> (2026-08-10; model-free status updated 2026-08-11).**
+> `studies/splicebert_positional_boundary_coherence/PREREGISTRATION.md` is a frozen design with gates,
+> thresholds, and an authorization graph, and it still contributes **no model claim and no family below**.
+> Its model-free freshness and candidate-census reconstruction ran; the audited census then failed the
+> already-frozen necessary supply condition for 1,104 globally gene-disjoint seven-source blocks. The
+> compact capacity certificate and independent audit may therefore be cited only as an enforced
+> `PHASE1_INSTRUMENT_UNRESOLVED` construction stop. There is no complete cohort, model preflight, target,
+> or model outcome. Every later gate remains *specified*, not enforced.
 >
 > The distinction matters for how this file should grow. The three arcs above are retrospective coverage
 > gaps — code ran, nobody checked it against the protocol. This one is prospective, and the protocol

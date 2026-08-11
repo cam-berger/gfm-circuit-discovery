@@ -119,6 +119,11 @@ annotated phase, one authentic acceptor module for each phase, one fixed bridge 
 600 blocks at 120 nt; development and Phase-III confirmation roles are gene-disjoint and frozen before
 model access.
 
+Amendment A5 makes the already-required supply stop executable and auditable. After the frozen eligibility
+filters, any role/phase or source-union unique-gene deficit writes a compact capacity certificate with no
+selected blocks or cells. Its independent audit may validate `INSTRUMENT_UNRESOLVED`; it cannot authorize a
+target.
+
 The unweighted lattice must balance the prespecified donor, acceptor, pairwise, coding-position, splice-core,
 stop-load, and genomic covariates. Both maximum absolute standardized mean difference and an outcome-blind,
 nested group-cross-fitted classifier must pass. A planted imbalance must be detected and permuted labels
@@ -249,8 +254,8 @@ positive, negative, or bounded result from a failed instrument.
 
 ## Present status
 
-`PREREGISTRATION.md`, including pre-outcome Amendments A1–A4, freezes the design and numerical decision
-rules. It does **not** assert that the new
-cohort exists, that a preflight has passed, that a target is authorized, or that any endpoint has been
-measured. Before the first target run, the execution package must bind the completed code and inputs and an
-independent protocol-to-code conformance audit must pass.
+`PREREGISTRATION.md`, including pre-model Amendments A1–A5, freezes the design and numerical decision rules.
+A5 records a model-free census capacity diagnostic; it does **not** assert that a complete cohort exists,
+that a preflight has passed, that a target is authorized, or that any endpoint has been measured. Before any
+future target run, the execution package must bind the completed code and inputs and an independent
+protocol-to-code conformance audit must pass.

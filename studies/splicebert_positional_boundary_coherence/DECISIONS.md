@@ -49,3 +49,32 @@ missing/failing conformance, runtime drift, shard-manifest generation, and final
 **Effect on claim scope.** None. This decision can only stop unauthorized execution or make already-declared
 writers complete. It creates no evidence about `Ψ`, P3/P10 necessity, register relocation, mediation, or
 biology, and it does not license a claim.
+
+## 2026-08-11 — record the audited Phase-I supply stop before selection
+
+**Evidence available.** The model-free production candidate census and its independent reconstruction had
+completed and passed. Across the permitted chromosomes after the frozen freshness and annotation filters,
+the unique normalized-gene counts for donor phases 0/1/2 were 1,908/1,400/809 and for acceptor phases 0/1/2
+were 2,000/1,496/854. The frozen roles require 1,104 complete blocks, each consuming one globally unique gene
+from every role/phase slot. Thus donor phase 2 has a necessary deficit of 295 genes and acceptor phase 2 a
+necessary deficit of 250. No successor checkpoint had been loaded and no model outcome existed.
+
+**Alternatives considered.** Letting the optimizer run until it raised without an artifact was rejected
+because it would consume substantial work yet leave the terminal gate unauditable. Writing the best partial
+cohort was rejected because partial selected blocks could be mistaken for a development result and cannot
+satisfy the frozen role sizes. Reducing a role, relaxing freshness/global disjointness, or opening sealed
+`chr8`/`chr9` was rejected because each changes the frozen design and none is authorized by low capacity.
+
+**Decision and affected files.** Adopt Amendment A5. Before matching, the producer records exact unique-gene
+capacity for all seven source slots and donor, acceptor, and global unions. A proved failure emits only a
+compact immutable capacity-stop artifact plus manifest. The independent cohort auditor separately rederives
+the certificate, binds the candidate/audit/manifest/blacklist/variance inputs, verifies that no block or cell
+was selected, and returns `AUDIT_PASS_INSTRUMENT_UNRESOLVED` for an exact stop or `AUDIT_FAIL` for a mismatch.
+The ordinary successful path is unchanged. Because the candidate census is intentionally ignored at 2.34 GB,
+both records bind its byte and semantic identities, name `candidate_census_v1.manifest.json` as the
+regeneration receipt, and state that direct clean-checkout re-execution requires regeneration.
+
+**Effect on claim scope.** Phase I-A is instrument-unresolved on supply and the execution chain stops before
+model access. This licenses no positive, null, inverted, behavioral, mechanistic, or biological conclusion;
+it proves only that the frozen 1,104-block globally gene-disjoint cohort cannot be built from the eligible
+census.

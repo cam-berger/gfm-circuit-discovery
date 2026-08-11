@@ -262,6 +262,244 @@ def test_sample_size_uses_only_frozen_variance():
     assert plan.planned_blocks == plan.calculated_blocks
 
 
+def test_capacity_stop_is_compact_exact_and_independently_auditable():
+    candidates = synthetic_candidate_package(n_per_pool=2)
+    variance = {"variance": 0.0, "sesoi": 0.05, "alpha": 0.05, "power": 0.8}
+    cohort = pbc.build_composition_balanced_cohort(
+        candidates,
+        blacklisted_gene_ids=set(),
+        frozen_variance=variance,
+        requested_blocks_by_split={
+            "development": 1,
+            "confirmation": 1,
+            "phase3_reserve": 1,
+        },
+        minimum_confirmation_blocks=1,
+        allowed_chromosomes={"chr1"},
+        forbidden_chromosomes={"chr8", "chr9"},
+        inner_folds=2,
+        auc_n_boot=2,
+        pseudo_family_size=1,
+        minimum_stratum_blocks=0,
+    )
+
+    assert cohort["schema"] == pbc.CAPACITY_STOP_SCHEMA
+    assert cohort["status"] == "PHASE1_INSTRUMENT_UNRESOLVED"
+    assert cohort["disposition"] == "NECESSARY_CAPACITY_FAILED"
+    assert cohort["target_execution_authorized"] is False
+    assert cohort["selection_attempted"] is False
+    assert cohort["blocks"] == [] and cohort["cells"] == []
+    assert cohort["model_execution"] == {
+        "checkpoint_loaded": False,
+        "forward_passes": 0,
+        "outcome_rows": 0,
+        "all_model_gates": "NOT_EVALUATED",
+    }
+    assert cohort["unevaluated_model_stages"]
+    capacity = cohort["capacity"]
+    assert capacity["requested_complete_blocks"] == 3
+    assert capacity["required_unique_source_genes"] == 21
+    assert capacity["slots"]["donor_phase_2"] == {
+        "required_unique_genes": 3,
+        "available_unique_genes": 2,
+        "deficit_unique_genes": 1,
+        "passed": False,
+        "gene_ids_sha256": capacity["slots"]["donor_phase_2"]["gene_ids_sha256"],
+    }
+    assert capacity["slots"]["acceptor_phase_2"]["deficit_unique_genes"] == 1
+    assert capacity["families"]["all_seven_source_roles"]["available_unique_genes"] == 14
+    assert capacity["families"]["all_seven_source_roles"]["deficit_unique_genes"] == 7
+
+    audit = pbc.audit_composition_balanced_cohort(
+        cohort,
+        candidates,
+        blacklisted_gene_ids=set(),
+        frozen_variance=variance,
+    )
+    assert audit["passed"] is True
+    assert audit["status"] == "AUDIT_PASS_INSTRUMENT_UNRESOLVED"
+    assert audit["model_outcomes_read"] is False
+    assert audit["target_execution_authorized"] is False
+    assert audit["checks"]["capacity_failure_rederived"] is True
+    assert audit["checks"]["model_execution_absent"] is True
+    assert audit["checks"]["all_model_stages_unevaluated"] is True
+
+
+def test_capacity_stop_audit_rejects_tampered_capacity_certificate():
+    candidates = synthetic_candidate_package(n_per_pool=1)
+    variance = {"variance": 0.0, "sesoi": 0.05, "alpha": 0.05, "power": 0.8}
+    cohort = pbc.build_composition_balanced_cohort(
+        candidates,
+        blacklisted_gene_ids=set(),
+        frozen_variance=variance,
+        requested_blocks_by_split={
+            "development": 1,
+            "confirmation": 1,
+            "phase3_reserve": 0,
+        },
+        minimum_confirmation_blocks=1,
+        allowed_chromosomes={"chr1"},
+        forbidden_chromosomes={"chr8", "chr9"},
+        inner_folds=2,
+        auc_n_boot=2,
+        pseudo_family_size=1,
+        minimum_stratum_blocks=0,
+    )
+    tampered = copy.deepcopy(cohort)
+    tampered["capacity"]["slots"]["donor_phase_2"]["available_unique_genes"] += 1
+
+    audit = pbc.audit_composition_balanced_cohort(
+        tampered,
+        candidates,
+        blacklisted_gene_ids=set(),
+        frozen_variance=variance,
+    )
+    assert audit["passed"] is False
+    assert audit["status"] == "AUDIT_FAIL"
+    assert audit["target_execution_authorized"] is False
+    assert audit["checks"]["capacity_record_rederived"] is False
+    assert audit["checks"]["capacity_seal"] is False
+    assert audit["checks"]["content_seal"] is False
+
+
+def test_capacity_stop_audit_rejects_coordinated_claim_and_keyset_tamper():
+    candidates = synthetic_candidate_package(n_per_pool=1)
+    variance = {"variance": 0.0, "sesoi": 0.05, "alpha": 0.05, "power": 0.8}
+    cohort = pbc.build_composition_balanced_cohort(
+        candidates,
+        blacklisted_gene_ids=set(),
+        frozen_variance=variance,
+        requested_blocks_by_split={
+            "development": 1,
+            "confirmation": 1,
+            "phase3_reserve": 0,
+        },
+        minimum_confirmation_blocks=1,
+        allowed_chromosomes={"chr1"},
+        forbidden_chromosomes={"chr8", "chr9"},
+        inner_folds=2,
+        auc_n_boot=2,
+        pseudo_family_size=1,
+        minimum_stratum_blocks=0,
+    )
+    tampered = copy.deepcopy(cohort)
+    tampered["evidence_boundary"] = "THIS ESTABLISHES A BIOLOGICAL MECHANISM"
+    tampered["unevaluated_construction_gates"] = []
+    tampered["extra_claim"] = "model target positive"
+    tampered["seal"]["content_sha256"] = pbc.sha256_payload(
+        {key: value for key, value in tampered.items() if key != "seal"}
+    )
+
+    audit = pbc.audit_composition_balanced_cohort(
+        tampered,
+        candidates,
+        blacklisted_gene_ids=set(),
+        frozen_variance=variance,
+    )
+    assert audit["passed"] is False
+    assert audit["status"] == "AUDIT_FAIL"
+    assert audit["checks"]["content_seal"] is True
+    assert audit["checks"]["evidence_boundary_exact"] is False
+    assert audit["checks"]["all_construction_gates_unevaluated"] is False
+    assert audit["checks"]["top_level_keyset_exact"] is False
+    assert audit["checks"]["stop_payload_exact"] is False
+    assert audit["checks"]["seal_exact"] is False
+    assert audit["target_execution_authorized"] is False
+
+
+def test_capacity_stop_audit_rejects_self_consistent_reduced_production_contract():
+    candidates = synthetic_candidate_package(n_per_pool=1)
+    candidates["candidate_mode"] = "production"
+    candidates["stage"] = "construction"
+    candidate_audit = {
+        "schema": pbc.CANDIDATE_AUDIT_SCHEMA,
+        "stage": "construction",
+        "status": "AUDIT_PASS",
+        "passed": True,
+        "candidate_census_sha256": pbc.sha256_payload(candidates),
+        "candidate_content_sha256": "b" * 64,
+        "reconstructed_candidates_sha256": "c" * 64,
+    }
+    candidate_receipt = {
+        "schema": pbc.CANDIDATE_CENSUS_RECEIPT_SCHEMA,
+        "candidate_file": {
+            "name": "candidate_census_v1.json",
+            "size_bytes": 123,
+            "sha256": "a" * 64,
+        },
+        "producer_manifest": {
+            "name": "candidate_census_v1.manifest.json",
+            "size_bytes": 456,
+            "sha256": "d" * 64,
+            "experiment_id": (
+                "splicebert-positional-boundary-coherence:candidate-census-v1"
+            ),
+            "status": "CENSUS_BUILT_AUDIT_PENDING",
+            "config": {
+                "acceptor_pos": 512,
+                "algorithm_version": "pbc-real-census-v1",
+                "allowed_chromosomes": sorted(pbc.DEFAULT_ALLOWED_CHROMS),
+                "construct_length": 1022,
+                "donor_pos": 392,
+                "stage": "construction",
+            },
+            "git_commit": pbc.CANONICAL_CANDIDATE_PRODUCER_REVISION,
+            "git_dirty": True,
+            "output_record_verified": True,
+        },
+        "semantic_hashes": {
+            "candidate_census_sha256": candidate_audit["candidate_census_sha256"],
+            "candidate_content_sha256": candidate_audit["candidate_content_sha256"],
+            "reconstructed_candidates_sha256": candidate_audit[
+                "reconstructed_candidates_sha256"
+            ],
+        },
+        "clean_checkout_reexecutable": False,
+        "regeneration_required": True,
+        "regeneration_receipt": "candidate_census_v1.manifest.json",
+    }
+    variance = {"variance": 0.0, "sesoi": 0.05, "alpha": 0.05, "power": 0.8}
+    cohort = pbc.build_composition_balanced_cohort(
+        candidates,
+        candidate_audit=candidate_audit,
+        candidate_census_receipt=candidate_receipt,
+        blacklisted_gene_ids=set(),
+        frozen_variance=variance,
+        requested_blocks_by_split={
+            "development": 1,
+            "confirmation": 1,
+            "phase3_reserve": 0,
+        },
+        minimum_confirmation_blocks=1,
+        allowed_chromosomes={"chr1"},
+        forbidden_chromosomes={"chr8", "chr9"},
+        inner_folds=2,
+        auc_n_boot=2,
+        pseudo_family_size=1,
+        minimum_stratum_blocks=0,
+    )
+    assert cohort["status"] == "PHASE1_INSTRUMENT_UNRESOLVED"
+    assert cohort["capacity"]["requested_complete_blocks"] == 2
+
+    audit = pbc.audit_composition_balanced_cohort(
+        cohort,
+        candidates,
+        candidate_audit=candidate_audit,
+        candidate_census_receipt=candidate_receipt,
+        blacklisted_gene_ids=set(),
+        frozen_variance=variance,
+    )
+    assert audit["passed"] is False
+    assert audit["status"] == "AUDIT_FAIL"
+    assert audit["checks"]["capacity_record_rederived"] is True
+    assert audit["checks"]["content_seal"] is True
+    assert audit["checks"]["production_role_counts"] is False
+    assert audit["checks"]["production_minimum_confirmation"] is False
+    assert audit["checks"]["production_calibration_contract"] is False
+    assert audit["checks"]["production_config_exact_values"] is False
+    assert audit["target_execution_authorized"] is False
+
+
 def test_independent_audit_reconstructs_and_detects_tampering():
     candidates = synthetic_candidate_package(n_per_pool=20)
     variance = {"variance": 0.0, "sesoi": 0.05, "alpha": 0.05, "power": 0.8}

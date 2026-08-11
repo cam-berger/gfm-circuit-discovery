@@ -31,6 +31,11 @@ from scipy.stats import norm
 CANDIDATE_SCHEMA = "gfmcd.positional_boundary_coherence.candidates.v1"
 CANDIDATE_AUDIT_SCHEMA = "gfmcd.positional_boundary_coherence.candidate_census_audit.v1"
 COHORT_SCHEMA = "gfmcd.positional_boundary_coherence.cohort.v1"
+CAPACITY_STOP_SCHEMA = "gfmcd.positional_boundary_coherence.phase1_capacity_stop.v1"
+CANDIDATE_CENSUS_RECEIPT_SCHEMA = (
+    "gfmcd.positional_boundary_coherence.candidate_census_receipt.v1"
+)
+CANONICAL_CANDIDATE_PRODUCER_REVISION = "addd7be93c321373118b02b82bc3d95eeb0bd20a"
 AUDIT_SCHEMA = "gfmcd.positional_boundary_coherence.cohort_audit.v1"
 ALGORITHM_VERSION = "pbc-composition-match-v1"
 NAMESPACE = "splicebert-positional-boundary-coherence-v1"
@@ -131,6 +136,14 @@ def canonical_json(payload: Any) -> str:
 
 def sha256_payload(payload: Any) -> str:
     return hashlib.sha256(canonical_json(payload).encode("utf-8")).hexdigest()
+
+
+def _is_lower_hex(value: Any, *, length: int) -> bool:
+    return (
+        isinstance(value, str)
+        and len(value) == length
+        and all(character in "0123456789abcdef" for character in value)
+    )
 
 
 def sequence_sha256(sequence: str) -> str:
@@ -1808,10 +1821,246 @@ def _proposal_imbalance_objective(cells: Sequence[Mapping[str, Any]]) -> float:
     return float(maximum)
 
 
+_CAPACITY_SLOT_ORDER = (
+    "scaffold",
+    "donor_phase_0",
+    "donor_phase_1",
+    "donor_phase_2",
+    "acceptor_phase_0",
+    "acceptor_phase_1",
+    "acceptor_phase_2",
+)
+
+
+def _capacity_entry(gene_ids: Iterable[str], *, required: int) -> dict[str, Any]:
+    """Return a compact exact certificate for one necessary gene-capacity constraint."""
+
+    normalized = sorted({gene_root(gene_id) for gene_id in gene_ids})
+    available = len(normalized)
+    deficit = max(0, int(required) - available)
+    return {
+        "required_unique_genes": int(required),
+        "available_unique_genes": int(available),
+        "deficit_unique_genes": int(deficit),
+        "passed": deficit == 0,
+        "gene_ids_sha256": sha256_payload(normalized),
+    }
+
+
+def _necessary_capacity_report(
+    scaffolds: Sequence[Mapping[str, Any]],
+    module_pools: Mapping[str, Mapping[int, Sequence[Mapping[str, Any]]]],
+    *,
+    quotas: Mapping[str, int],
+) -> dict[str, Any]:
+    """Certify cheap necessary conditions for globally disjoint seven-gene blocks.
+
+    Passing this certificate is deliberately not sufficient for construction:
+    matching, block-role hashing, stratum supply, and balance may still fail.  A
+    failed slot or union constraint, however, proves that the requested number
+    of complete blocks cannot exist and should stop construction before the
+    expensive matching and calibration path.
+    """
+
+    requested_blocks = sum(int(value) for value in quotas.values())
+    slot_genes: dict[str, set[str]] = {
+        "scaffold": {gene_root(str(row["gene_id"])) for row in scaffolds},
+    }
+    for role in ("donor", "acceptor"):
+        for phase in (0, 1, 2):
+            slot_genes[f"{role}_phase_{phase}"] = {
+                gene_root(str(row["gene_id"])) for row in module_pools[role][phase]
+            }
+    slots = {
+        name: _capacity_entry(slot_genes[name], required=requested_blocks)
+        for name in _CAPACITY_SLOT_ORDER
+    }
+    family_specs = {
+        "donor_all_phases": tuple(f"donor_phase_{phase}" for phase in (0, 1, 2)),
+        "acceptor_all_phases": tuple(f"acceptor_phase_{phase}" for phase in (0, 1, 2)),
+        "all_seven_source_roles": _CAPACITY_SLOT_ORDER,
+    }
+    families: dict[str, dict[str, Any]] = {}
+    for name, members in family_specs.items():
+        genes = set().union(*(slot_genes[member] for member in members))
+        entry = _capacity_entry(genes, required=requested_blocks * len(members))
+        entry["source_slots"] = list(members)
+        families[name] = entry
+    failed_constraints = [
+        *(f"slot:{name}" for name in _CAPACITY_SLOT_ORDER if not slots[name]["passed"]),
+        *(f"family:{name}" for name in family_specs if not families[name]["passed"]),
+    ]
+    return {
+        "criterion": "necessary_unique_normalized_gene_capacity",
+        "necessary_not_sufficient": True,
+        "requested_complete_blocks": int(requested_blocks),
+        "required_unique_source_genes": int(7 * requested_blocks),
+        "slots": slots,
+        "families": families,
+        "failed_constraints": failed_constraints,
+        "passed": not failed_constraints,
+    }
+
+
+def _construction_config(
+    *,
+    quotas: Mapping[str, int],
+    minimum_confirmation_blocks: int,
+    span_nt: int,
+    construct_length: int,
+    donor_pos: int,
+    acceptor_pos: int,
+    namespace: str,
+    split_weights: Sequence[tuple[str, int]],
+    allowed_chroms: set[str],
+    forbidden_chroms: set[str],
+    search_width: int,
+    neighbor_width: int,
+    global_search_width: int,
+    seed: int,
+    outer_folds: int,
+    inner_folds: int,
+    auc_n_boot: int,
+    pseudo_family_size: int,
+    minimum_stratum_blocks: int,
+    smd_threshold: float,
+    auc_upper_threshold: float,
+) -> dict[str, Any]:
+    return {
+        "algorithm_version": ALGORITHM_VERSION,
+        "namespace": namespace,
+        "split_weights": [[name, int(weight)] for name, weight in split_weights],
+        "requested_blocks_by_split": dict(quotas),
+        "minimum_confirmation_blocks": int(minimum_confirmation_blocks),
+        "span_nt": int(span_nt),
+        "construct_length": int(construct_length),
+        "donor_pos": int(donor_pos),
+        "acceptor_pos": int(acceptor_pos),
+        "allowed_chromosomes": sorted(allowed_chroms),
+        "forbidden_chromosomes": sorted(forbidden_chroms),
+        "search_width": int(search_width),
+        "neighbor_width": int(neighbor_width),
+        "global_search_width": int(global_search_width),
+        "seed": int(seed),
+        "outer_folds": int(outer_folds),
+        "inner_folds": int(inner_folds),
+        "auc_n_boot": int(auc_n_boot),
+        "pseudo_family_size": int(pseudo_family_size),
+        "minimum_stratum_blocks": int(minimum_stratum_blocks),
+        "smd_threshold": float(smd_threshold),
+        "auc_upper_threshold": float(auc_upper_threshold),
+    }
+
+
+def _capacity_stop_package(
+    *,
+    candidate_package: Mapping[str, Any],
+    candidate_audit: Mapping[str, Any] | None,
+    blacklist: set[str],
+    frozen_variance: Mapping[str, Any],
+    config: Mapping[str, Any],
+    plan: SampleSizePlan,
+    capacity: Mapping[str, Any],
+    candidate_census_receipt: Mapping[str, Any] | None,
+) -> dict[str, Any]:
+    """Build a compact non-outcome artifact for a proved Phase-I supply stop."""
+
+    candidate_package_sha256 = (
+        str(candidate_audit["candidate_census_sha256"])
+        if candidate_audit is not None
+        else sha256_payload(candidate_package)
+    )
+    if candidate_audit is not None and candidate_census_receipt is None:
+        raise ValueError("production capacity stop requires the candidate census receipt")
+    quotas = {
+        str(role): int(value)
+        for role, value in config["requested_blocks_by_split"].items()
+    }
+    core: dict[str, Any] = {
+        "schema": CAPACITY_STOP_SCHEMA,
+        "stage": "construction",
+        "status": "PHASE1_INSTRUMENT_UNRESOLVED",
+        "disposition": "NECESSARY_CAPACITY_FAILED",
+        "model_outcomes_read": False,
+        "construction_gates_pass": False,
+        "independent_audit_required": True,
+        "target_execution_authorized": False,
+        "selection_attempted": False,
+        "balance_or_calibration_evaluated": False,
+        "partial_blocks_recorded": False,
+        "clean_checkout_reexecutable": False,
+        "candidate_census_receipt": (
+            None if candidate_census_receipt is None else dict(candidate_census_receipt)
+        ),
+        "config": dict(config),
+        "sample_size_plan": plan.to_dict(),
+        "blacklist": {
+            "n_gene_ids": len(blacklist),
+            "gene_ids_sha256": sha256_payload(sorted(blacklist)),
+        },
+        "counts": {
+            "blocks": 0,
+            "cells": 0,
+            "genes": 0,
+            "blocks_by_split": {role: 0 for role in quotas},
+        },
+        "capacity": dict(capacity),
+        "gates": {"necessary_unique_gene_capacity": False},
+        "unevaluated_construction_gates": [
+            "block_assembly",
+            "role_hash_supply",
+            "chromosome_strand_strata",
+            "composition_balance",
+            "classifier_calibration",
+        ],
+        "model_execution": {
+            "checkpoint_loaded": False,
+            "forward_passes": 0,
+            "outcome_rows": 0,
+            "all_model_gates": "NOT_EVALUATED",
+        },
+        "unevaluated_model_stages": [
+            "phase2_carrier_factorial_calibration",
+            "phase2_model_preflight",
+            "phase2_target",
+            "phase3_register_preflight",
+            "phase3_candidate_screen",
+            "phase3_reserve",
+            "phase3_mediation",
+        ],
+        "blocks": [],
+        "cells": [],
+        "evidence_boundary": (
+            "This artifact proves only that the frozen Phase-I block request cannot be met "
+            "with globally unique eligible genes. No SpliceBERT checkpoint or model outcome "
+            "was loaded, and no biological or model-mechanism result is licensed."
+        ),
+    }
+    core["seal"] = {
+        "candidate_package_sha256": candidate_package_sha256,
+        "candidate_audit_sha256": (
+            None if candidate_audit is None else sha256_payload(candidate_audit)
+        ),
+        "frozen_variance_sha256": sha256_payload(frozen_variance),
+        "blacklist_sha256": sha256_payload(sorted(blacklist)),
+        "capacity_sha256": sha256_payload(capacity),
+        "candidate_census_receipt_sha256": (
+            None
+            if candidate_census_receipt is None
+            else sha256_payload(candidate_census_receipt)
+        ),
+    }
+    core["seal"]["content_sha256"] = sha256_payload(
+        {key: value for key, value in core.items() if key != "seal"}
+    )
+    return core
+
+
 def build_composition_balanced_cohort(
     candidate_package: Mapping[str, Any],
     *,
     candidate_audit: Mapping[str, Any] | None = None,
+    candidate_census_receipt: Mapping[str, Any] | None = None,
     blacklisted_gene_ids: Iterable[str],
     frozen_variance: Mapping[str, Any],
     requested_blocks_by_split: Mapping[str, int] | None = None,
@@ -1883,8 +2132,41 @@ def build_composition_balanced_cohort(
         }
         for role in ("donor", "acceptor")
     }
-    if not scaffolds or any(not module_pools[role][phase] for role in module_pools for phase in (0, 1, 2)):
-        raise CohortConstructionError("candidate package has an empty scaffold/role/phase pool")
+    config = _construction_config(
+        quotas=quotas,
+        minimum_confirmation_blocks=minimum_confirmation_blocks,
+        span_nt=span_nt,
+        construct_length=construct_length,
+        donor_pos=donor_pos,
+        acceptor_pos=acceptor_pos,
+        namespace=namespace,
+        split_weights=split_weights,
+        allowed_chroms=allowed_chroms,
+        forbidden_chroms=forbidden_chroms,
+        search_width=search_width,
+        neighbor_width=neighbor_width,
+        global_search_width=global_search_width,
+        seed=seed,
+        outer_folds=outer_folds,
+        inner_folds=inner_folds,
+        auc_n_boot=auc_n_boot,
+        pseudo_family_size=pseudo_family_size,
+        minimum_stratum_blocks=minimum_stratum_blocks,
+        smd_threshold=smd_threshold,
+        auc_upper_threshold=auc_upper_threshold,
+    )
+    capacity = _necessary_capacity_report(scaffolds, module_pools, quotas=quotas)
+    if not capacity["passed"]:
+        return _capacity_stop_package(
+            candidate_package=candidate_package,
+            candidate_audit=candidate_audit,
+            blacklist=blacklist,
+            frozen_variance=frozen_variance,
+            config=config,
+            plan=plan,
+            capacity=capacity,
+            candidate_census_receipt=candidate_census_receipt,
+        )
     donor_all = [candidate for phase in (0, 1, 2) for candidate in module_pools["donor"][phase]]
     acceptor_all = [candidate for phase in (0, 1, 2) for candidate in module_pools["acceptor"][phase]]
     feature_cache: dict[str, dict[str, float]] = {}
@@ -2186,30 +2468,6 @@ def build_composition_balanced_cohort(
         "permuted_labels_rejected": all(
             audit["gates"]["permuted_labels_rejected"] for audit in calibration_by_split.values()
         ),
-    }
-    config = {
-        "algorithm_version": ALGORITHM_VERSION,
-        "namespace": namespace,
-        "split_weights": [[name, int(weight)] for name, weight in split_weights],
-        "requested_blocks_by_split": quotas,
-        "minimum_confirmation_blocks": int(minimum_confirmation_blocks),
-        "span_nt": int(span_nt),
-        "construct_length": int(construct_length),
-        "donor_pos": int(donor_pos),
-        "acceptor_pos": int(acceptor_pos),
-        "allowed_chromosomes": sorted(allowed_chroms),
-        "forbidden_chromosomes": sorted(forbidden_chroms),
-        "search_width": int(search_width),
-        "neighbor_width": int(neighbor_width),
-        "global_search_width": int(global_search_width),
-        "seed": int(seed),
-        "outer_folds": int(outer_folds),
-        "inner_folds": int(inner_folds),
-        "auc_n_boot": int(auc_n_boot),
-        "pseudo_family_size": int(pseudo_family_size),
-        "minimum_stratum_blocks": int(minimum_stratum_blocks),
-        "smd_threshold": float(smd_threshold),
-        "auc_upper_threshold": float(auc_upper_threshold),
     }
     construction_passed = bool(all(gates.values()))
     development_block_ids = sorted(
@@ -2711,11 +2969,492 @@ def _audit_replay_selection(
     return blocks, cells
 
 
+def _audit_rederive_capacity(
+    candidates: Sequence[Mapping[str, Any]],
+    config: Mapping[str, Any],
+    blacklist: set[str],
+) -> dict[str, Any]:
+    """Auditor-local reconstruction of the necessary unique-gene certificate."""
+
+    quotas = {
+        str(role): int(value)
+        for role, value in config["requested_blocks_by_split"].items()
+    }
+    requested_blocks = sum(quotas.values())
+    allowed = {normalize_chromosome(value) for value in config["allowed_chromosomes"]}
+    forbidden = {normalize_chromosome(value) for value in config["forbidden_chromosomes"]}
+    slot_names = (
+        "scaffold",
+        "donor_phase_0",
+        "donor_phase_1",
+        "donor_phase_2",
+        "acceptor_phase_0",
+        "acceptor_phase_1",
+        "acceptor_phase_2",
+    )
+    slot_genes: dict[str, set[str]] = {name: set() for name in slot_names}
+    for candidate in candidates:
+        gene_id = gene_root(str(candidate["gene_id"]))
+        chrom = normalize_chromosome(str(candidate["chrom"]))
+        if gene_id in blacklist or chrom not in allowed or chrom in forbidden:
+            continue
+        role = str(candidate["role"])
+        if role == "scaffold":
+            if (
+                len(str(candidate["sequence"])) == int(config["construct_length"])
+                and int(candidate["donor_pos"]) == int(config["donor_pos"])
+                and int(candidate["acceptor_pos"]) == int(config["acceptor_pos"])
+                and tuple(candidate["donor_window"]) == DEFAULT_DONOR_WINDOW
+                and tuple(candidate["acceptor_window"]) == DEFAULT_ACCEPTOR_WINDOW
+            ):
+                slot_genes["scaffold"].add(gene_id)
+        elif role in {"donor", "acceptor"}:
+            phase = int(candidate["phase"])
+            if phase in {0, 1, 2}:
+                slot_genes[f"{role}_phase_{phase}"].add(gene_id)
+
+    def entry(genes: set[str], required: int) -> dict[str, Any]:
+        ordered = sorted(genes)
+        available = len(ordered)
+        deficit = max(0, int(required) - available)
+        return {
+            "required_unique_genes": int(required),
+            "available_unique_genes": int(available),
+            "deficit_unique_genes": int(deficit),
+            "passed": deficit == 0,
+            "gene_ids_sha256": sha256_payload(ordered),
+        }
+
+    slots = {
+        name: entry(slot_genes[name], requested_blocks) for name in slot_names
+    }
+    family_members = {
+        "donor_all_phases": (
+            "donor_phase_0",
+            "donor_phase_1",
+            "donor_phase_2",
+        ),
+        "acceptor_all_phases": (
+            "acceptor_phase_0",
+            "acceptor_phase_1",
+            "acceptor_phase_2",
+        ),
+        "all_seven_source_roles": slot_names,
+    }
+    families: dict[str, dict[str, Any]] = {}
+    for name, members in family_members.items():
+        genes: set[str] = set()
+        for member in members:
+            genes.update(slot_genes[member])
+        family = entry(genes, requested_blocks * len(members))
+        family["source_slots"] = list(members)
+        families[name] = family
+    failed_constraints = [
+        *(f"slot:{name}" for name in slot_names if not slots[name]["passed"]),
+        *(f"family:{name}" for name in family_members if not families[name]["passed"]),
+    ]
+    return {
+        "criterion": "necessary_unique_normalized_gene_capacity",
+        "necessary_not_sufficient": True,
+        "requested_complete_blocks": int(requested_blocks),
+        "required_unique_source_genes": int(7 * requested_blocks),
+        "slots": slots,
+        "families": families,
+        "failed_constraints": failed_constraints,
+        "passed": not failed_constraints,
+    }
+
+
+def _audit_config_contract(
+    candidate_package: Mapping[str, Any], config: Mapping[str, Any]
+) -> dict[str, bool]:
+    """Reject production artifacts that weaken any frozen construction setting."""
+
+    if candidate_package.get("candidate_mode") == "synthetic_fixture":
+        return {"explicit_synthetic_fixture_config_override": True}
+    expected: dict[str, Any] = {
+        "algorithm_version": ALGORITHM_VERSION,
+        "namespace": NAMESPACE,
+        "split_weights": [[name, int(weight)] for name, weight in DEFAULT_SPLIT_WEIGHTS],
+        "requested_blocks_by_split": dict(DEFAULT_BLOCK_COUNTS),
+        "minimum_confirmation_blocks": 600,
+        "span_nt": DEFAULT_SPAN_NT,
+        "construct_length": DEFAULT_CONSTRUCT_LENGTH,
+        "donor_pos": DEFAULT_DONOR_POS,
+        "acceptor_pos": DEFAULT_ACCEPTOR_POS,
+        "allowed_chromosomes": sorted(
+            {normalize_chromosome(chrom) for chrom in DEFAULT_ALLOWED_CHROMS}
+        ),
+        "forbidden_chromosomes": sorted(
+            {normalize_chromosome(chrom) for chrom in DEFAULT_FORBIDDEN_CHROMS}
+        ),
+        "search_width": 64,
+        "neighbor_width": 8,
+        "global_search_width": 16,
+        "seed": 73031,
+        "outer_folds": 5,
+        "inner_folds": 4,
+        "auc_n_boot": 2000,
+        "pseudo_family_size": 99,
+        "minimum_stratum_blocks": 5,
+        "smd_threshold": 0.10,
+        "auc_upper_threshold": 0.55,
+    }
+    groups = {
+        "production_config_exact_keyset": set(config) == set(expected),
+        "production_role_counts": config.get("requested_blocks_by_split")
+        == expected["requested_blocks_by_split"],
+        "production_minimum_confirmation": config.get("minimum_confirmation_blocks") == 600,
+        "production_geometry": all(
+            config.get(key) == expected[key]
+            for key in ("span_nt", "construct_length", "donor_pos", "acceptor_pos")
+        ),
+        "production_chromosome_firewall": all(
+            config.get(key) == expected[key]
+            for key in ("allowed_chromosomes", "forbidden_chromosomes")
+        ),
+        "production_split_contract": all(
+            config.get(key) == expected[key]
+            for key in ("namespace", "split_weights", "seed")
+        ),
+        "production_calibration_contract": all(
+            config.get(key) == expected[key]
+            for key in (
+                "outer_folds",
+                "inner_folds",
+                "auc_n_boot",
+                "pseudo_family_size",
+                "minimum_stratum_blocks",
+                "smd_threshold",
+                "auc_upper_threshold",
+            )
+        ),
+        "production_selector_contract": all(
+            config.get(key) == expected[key]
+            for key in (
+                "algorithm_version",
+                "search_width",
+                "neighbor_width",
+                "global_search_width",
+            )
+        ),
+        "production_config_exact_values": dict(config) == expected,
+    }
+    return groups
+
+
+def _audit_capacity_stop(
+    package: Mapping[str, Any],
+    candidate_package: Mapping[str, Any],
+    candidates: Sequence[Mapping[str, Any]],
+    *,
+    candidate_audit: Mapping[str, Any] | None,
+    candidate_census_receipt: Mapping[str, Any] | None,
+    blacklist: set[str],
+    frozen_variance: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Audit a fail-fast supply stop without replaying matching or calibration."""
+
+    candidate_package_sha256 = (
+        str(candidate_audit["candidate_census_sha256"])
+        if candidate_audit is not None
+        else sha256_payload(candidate_package)
+    )
+    config_error: str | None = None
+    rederived_capacity: dict[str, Any] = {}
+    rederived_plan: dict[str, Any] = {}
+    expected_counts: dict[str, Any] = {}
+    try:
+        config = dict(package["config"])
+        quotas = {
+            str(role): int(value)
+            for role, value in config["requested_blocks_by_split"].items()
+        }
+        rederived_capacity = _audit_rederive_capacity(candidates, config, blacklist)
+        rederived_plan = plan_sample_size(
+            frozen_variance,
+            minimum_blocks=int(config["minimum_confirmation_blocks"]),
+        ).to_dict()
+        expected_counts = {
+            "blocks": 0,
+            "cells": 0,
+            "genes": 0,
+            "blocks_by_split": {role: 0 for role in quotas},
+        }
+    except Exception as exc:
+        config_error = f"{type(exc).__name__}:{exc}"
+        config = {}
+    config_contract = _audit_config_contract(candidate_package, config)
+    seal = package.get("seal", {})
+    recorded_capacity = package.get("capacity", {})
+    recorded_receipt = package.get("candidate_census_receipt")
+    if candidate_audit is None:
+        receipt_contract = {
+            "synthetic_receipt_absent": recorded_receipt is None
+            and candidate_census_receipt is None,
+        }
+    else:
+        candidate_file_receipt = (
+            candidate_census_receipt.get("candidate_file", {})
+            if isinstance(candidate_census_receipt, Mapping)
+            else {}
+        )
+        producer_manifest_receipt = (
+            candidate_census_receipt.get("producer_manifest", {})
+            if isinstance(candidate_census_receipt, Mapping)
+            else {}
+        )
+        semantic_hashes = (
+            candidate_census_receipt.get("semantic_hashes", {})
+            if isinstance(candidate_census_receipt, Mapping)
+            else {}
+        )
+        receipt_contract = {
+            "candidate_receipt_supplied": isinstance(candidate_census_receipt, Mapping),
+            "candidate_receipt_schema": isinstance(candidate_census_receipt, Mapping)
+            and candidate_census_receipt.get("schema") == CANDIDATE_CENSUS_RECEIPT_SCHEMA,
+            "candidate_receipt_byte_identity": candidate_file_receipt.get("name")
+            == "candidate_census_v1.json"
+            and isinstance(candidate_file_receipt.get("size_bytes"), int)
+            and candidate_file_receipt.get("size_bytes", 0) > 0
+            and _is_lower_hex(candidate_file_receipt.get("sha256"), length=64),
+            "candidate_receipt_producer_manifest": producer_manifest_receipt.get("name")
+            == "candidate_census_v1.manifest.json"
+            and isinstance(producer_manifest_receipt.get("size_bytes"), int)
+            and producer_manifest_receipt.get("size_bytes", 0) > 0
+            and _is_lower_hex(producer_manifest_receipt.get("sha256"), length=64)
+            and producer_manifest_receipt.get("experiment_id")
+            == "splicebert-positional-boundary-coherence:candidate-census-v1"
+            and producer_manifest_receipt.get("status") == "CENSUS_BUILT_AUDIT_PENDING"
+            and producer_manifest_receipt.get("config")
+            == {
+                "acceptor_pos": DEFAULT_ACCEPTOR_POS,
+                "algorithm_version": "pbc-real-census-v1",
+                "allowed_chromosomes": sorted(DEFAULT_ALLOWED_CHROMS),
+                "construct_length": DEFAULT_CONSTRUCT_LENGTH,
+                "donor_pos": DEFAULT_DONOR_POS,
+                "stage": "construction",
+            }
+            and producer_manifest_receipt.get("git_commit")
+            == CANONICAL_CANDIDATE_PRODUCER_REVISION
+            and _is_lower_hex(producer_manifest_receipt.get("git_commit"), length=40)
+            and producer_manifest_receipt.get("git_dirty") is True
+            and producer_manifest_receipt.get("output_record_verified") is True,
+            "candidate_receipt_semantic_hashes": semantic_hashes
+            == {
+                "candidate_census_sha256": candidate_audit.get("candidate_census_sha256"),
+                "candidate_content_sha256": candidate_audit.get("candidate_content_sha256"),
+                "reconstructed_candidates_sha256": candidate_audit.get(
+                    "reconstructed_candidates_sha256"
+                ),
+            }
+            and all(_is_lower_hex(value, length=64) for value in semantic_hashes.values()),
+            "candidate_receipt_regeneration_boundary": isinstance(
+                candidate_census_receipt, Mapping
+            )
+            and candidate_census_receipt.get("clean_checkout_reexecutable") is False
+            and candidate_census_receipt.get("regeneration_required") is True
+            and candidate_census_receipt.get("regeneration_receipt")
+            == "candidate_census_v1.manifest.json",
+        }
+    expected_construction_gates = [
+        "block_assembly",
+        "role_hash_supply",
+        "chromosome_strand_strata",
+        "composition_balance",
+        "classifier_calibration",
+    ]
+    expected_model_stages = [
+        "phase2_carrier_factorial_calibration",
+        "phase2_model_preflight",
+        "phase2_target",
+        "phase3_register_preflight",
+        "phase3_candidate_screen",
+        "phase3_reserve",
+        "phase3_mediation",
+    ]
+    expected_model_execution = {
+        "checkpoint_loaded": False,
+        "forward_passes": 0,
+        "outcome_rows": 0,
+        "all_model_gates": "NOT_EVALUATED",
+    }
+    expected_evidence_boundary = (
+        "This artifact proves only that the frozen Phase-I block request cannot be met "
+        "with globally unique eligible genes. No SpliceBERT checkpoint or model outcome "
+        "was loaded, and no biological or model-mechanism result is licensed."
+    )
+    expected_core = {
+        "schema": CAPACITY_STOP_SCHEMA,
+        "stage": "construction",
+        "status": "PHASE1_INSTRUMENT_UNRESOLVED",
+        "disposition": "NECESSARY_CAPACITY_FAILED",
+        "model_outcomes_read": False,
+        "construction_gates_pass": False,
+        "independent_audit_required": True,
+        "target_execution_authorized": False,
+        "selection_attempted": False,
+        "balance_or_calibration_evaluated": False,
+        "partial_blocks_recorded": False,
+        "clean_checkout_reexecutable": False,
+        "candidate_census_receipt": candidate_census_receipt,
+        "config": config,
+        "sample_size_plan": rederived_plan,
+        "blacklist": {
+            "n_gene_ids": len(blacklist),
+            "gene_ids_sha256": sha256_payload(sorted(blacklist)),
+        },
+        "counts": expected_counts,
+        "capacity": rederived_capacity,
+        "gates": {"necessary_unique_gene_capacity": False},
+        "unevaluated_construction_gates": expected_construction_gates,
+        "model_execution": expected_model_execution,
+        "unevaluated_model_stages": expected_model_stages,
+        "blocks": [],
+        "cells": [],
+        "evidence_boundary": expected_evidence_boundary,
+    }
+    expected_seal = {
+        "candidate_package_sha256": candidate_package_sha256,
+        "candidate_audit_sha256": (
+            None if candidate_audit is None else sha256_payload(candidate_audit)
+        ),
+        "frozen_variance_sha256": sha256_payload(frozen_variance),
+        "blacklist_sha256": sha256_payload(sorted(blacklist)),
+        "capacity_sha256": sha256_payload(rederived_capacity),
+        "candidate_census_receipt_sha256": (
+            None
+            if candidate_census_receipt is None
+            else sha256_payload(candidate_census_receipt)
+        ),
+        "content_sha256": sha256_payload(expected_core),
+    }
+    checks = {
+        "schema": package.get("schema") == CAPACITY_STOP_SCHEMA,
+        "stage": package.get("stage") == "construction",
+        "status": package.get("status") == "PHASE1_INSTRUMENT_UNRESOLVED",
+        "disposition": package.get("disposition") == "NECESSARY_CAPACITY_FAILED",
+        "outcome_firewall": package.get("model_outcomes_read") is False
+        and candidate_package.get("model_outcomes_read") is False,
+        "model_execution_absent": package.get("model_execution")
+        == expected_model_execution,
+        "all_model_stages_unevaluated": package.get("unevaluated_model_stages")
+        == expected_model_stages,
+        "all_construction_gates_unevaluated": package.get(
+            "unevaluated_construction_gates"
+        )
+        == expected_construction_gates,
+        "evidence_boundary_exact": package.get("evidence_boundary")
+        == expected_evidence_boundary,
+        "top_level_keyset_exact": set(package) == {*expected_core, "seal"},
+        "stop_payload_exact": {
+            key: value for key, value in package.items() if key != "seal"
+        }
+        == expected_core,
+        "seal_keyset_exact": isinstance(seal, Mapping)
+        and set(seal) == set(expected_seal),
+        "seal_exact": seal == expected_seal,
+        "clean_checkout_boundary": package.get("clean_checkout_reexecutable") is False,
+        **receipt_contract,
+        "candidate_receipt_rederived": recorded_receipt == candidate_census_receipt,
+        "config_reconstructable": config_error is None,
+        **config_contract,
+        "capacity_failure_rederived": bool(rederived_capacity)
+        and rederived_capacity.get("passed") is False,
+        "capacity_record_rederived": recorded_capacity == rederived_capacity,
+        "no_selection_attempted": package.get("selection_attempted") is False,
+        "no_balance_or_calibration": package.get("balance_or_calibration_evaluated") is False,
+        "no_partial_blocks": package.get("partial_blocks_recorded") is False
+        and package.get("blocks") == []
+        and package.get("cells") == [],
+        "counts_rederived": package.get("counts") == expected_counts,
+        "sample_size_plan": package.get("sample_size_plan") == rederived_plan,
+        "construction_failed": package.get("construction_gates_pass") is False
+        and package.get("gates") == {"necessary_unique_gene_capacity": False},
+        "authorization_withheld": package.get("target_execution_authorized") is False
+        and package.get("independent_audit_required") is True,
+        "blacklist_record": package.get("blacklist")
+        == {
+            "n_gene_ids": len(blacklist),
+            "gene_ids_sha256": sha256_payload(sorted(blacklist)),
+        },
+        "candidate_seal": seal.get("candidate_package_sha256")
+        == candidate_package_sha256,
+        "candidate_audit_seal": seal.get("candidate_audit_sha256")
+        == (None if candidate_audit is None else sha256_payload(candidate_audit)),
+        "variance_seal": seal.get("frozen_variance_sha256")
+        == sha256_payload(frozen_variance),
+        "blacklist_seal": seal.get("blacklist_sha256")
+        == sha256_payload(sorted(blacklist)),
+        "capacity_seal": seal.get("capacity_sha256")
+        == sha256_payload(recorded_capacity),
+        "candidate_receipt_seal": seal.get("candidate_census_receipt_sha256")
+        == (
+            None
+            if recorded_receipt is None
+            else sha256_payload(recorded_receipt)
+        ),
+        "content_seal": seal.get("content_sha256")
+        == sha256_payload({key: value for key, value in package.items() if key != "seal"}),
+    }
+    passed = bool(all(checks.values()))
+    return {
+        "schema": AUDIT_SCHEMA,
+        "stage": "construction",
+        "status": "AUDIT_PASS_INSTRUMENT_UNRESOLVED" if passed else "AUDIT_FAIL",
+        "passed": passed,
+        "model_outcomes_read": False,
+        "clean_checkout_reexecutable": False,
+        "model_execution": {
+            "checkpoint_loaded": False,
+            "forward_passes": 0,
+            "outcome_rows": 0,
+            "all_model_gates": "NOT_EVALUATED",
+        },
+        "unevaluated_model_stages": list(
+            package.get("unevaluated_model_stages", [])
+        ),
+        "target_execution_authorized": False,
+        "checks": checks,
+        "rederived": {
+            "capacity": rederived_capacity,
+            "candidate_census_receipt": candidate_census_receipt,
+            "gates": {"necessary_unique_gene_capacity": False},
+            "status": (
+                "PHASE1_INSTRUMENT_UNRESOLVED"
+                if passed
+                else "CAPACITY_STOP_AUDIT_FAIL"
+            ),
+            "config_error": config_error,
+            "target_execution_authorized": False,
+        },
+        "input_seals": {
+            "cohort_content_sha256": seal.get("content_sha256"),
+            "candidate_package_sha256": candidate_package_sha256,
+            "candidate_audit_sha256": (
+                None if candidate_audit is None else sha256_payload(candidate_audit)
+            ),
+            "frozen_variance_sha256": sha256_payload(frozen_variance),
+            "blacklist_sha256": sha256_payload(sorted(blacklist)),
+            "candidate_census_receipt_sha256": (
+                None
+                if candidate_census_receipt is None
+                else sha256_payload(candidate_census_receipt)
+            ),
+        },
+        "evidence_boundary": (
+            "The audit verifies an outcome-blind Phase-I supply failure only. It does not "
+            "measure or authorize a model, behavioral, mechanism, or biological result."
+        ),
+    }
+
+
 def audit_composition_balanced_cohort(
     package: Mapping[str, Any],
     candidate_package: Mapping[str, Any],
     *,
     candidate_audit: Mapping[str, Any] | None = None,
+    candidate_census_receipt: Mapping[str, Any] | None = None,
     blacklisted_gene_ids: Iterable[str],
     frozen_variance: Mapping[str, Any],
 ) -> dict[str, Any]:
@@ -2729,6 +3468,16 @@ def audit_composition_balanced_cohort(
     candidates = validate_candidate_package(candidate_package)
     validate_candidate_audit_binding(candidate_package, candidate_audit)
     blacklist = {gene_root(gene) for gene in blacklisted_gene_ids}
+    if package.get("schema") == CAPACITY_STOP_SCHEMA:
+        return _audit_capacity_stop(
+            package,
+            candidate_package,
+            candidates,
+            candidate_audit=candidate_audit,
+            candidate_census_receipt=candidate_census_receipt,
+            blacklist=blacklist,
+            frozen_variance=frozen_variance,
+        )
     structural = _structural_audit(package, candidates, blacklist)
     if not all(structural.values()):
         return {
@@ -2757,6 +3506,7 @@ def audit_composition_balanced_cohort(
             },
         }
     config = dict(package.get("config", {}))
+    config_contract = _audit_config_contract(candidate_package, config)
     replay_error: str | None = None
     try:
         replay_blocks, replay_cells = _audit_replay_selection(candidates, config, blacklist)
@@ -2937,6 +3687,7 @@ def audit_composition_balanced_cohort(
     recorded_cells = list(package.get("cells", []))
     checks = {
         **structural,
+        **config_contract,
         "candidate_seal": package.get("seal", {}).get("candidate_package_sha256")
         == sha256_payload(candidate_package),
         "candidate_audit_seal": package.get("seal", {}).get("candidate_audit_sha256")
@@ -3018,6 +3769,9 @@ def audit_composition_balanced_cohort(
 __all__ = [
     "ALGORITHM_VERSION",
     "AUDIT_SCHEMA",
+    "CAPACITY_STOP_SCHEMA",
+    "CANDIDATE_CENSUS_RECEIPT_SCHEMA",
+    "CANONICAL_CANDIDATE_PRODUCER_REVISION",
     "CANDIDATE_SCHEMA",
     "CANDIDATE_AUDIT_SCHEMA",
     "COHORT_SCHEMA",

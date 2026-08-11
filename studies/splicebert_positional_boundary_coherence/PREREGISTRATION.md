@@ -1153,3 +1153,39 @@ first target forward. Assembly is model-free and consumes the already sealed sha
 target manifest now records its raw endpoint-stream identity when compact evidence is not yet available,
 and the final result audit records `target_mode` before using it in its manifest. These are pre-outcome
 repairs to guaranteed writer/reporting failures; they do not change any numerical computation or verdict.
+
+## Amendment A5 — fail-fast Phase-I capacity disposition (2026-08-11)
+
+**Timing:** additive after the candidate census and its independent audit completed, and before cohort
+selection, any successor model forward, development outcome, confirmation exposure, or Phase-III reserve
+exposure. **Scope:** execution-only implementation of the capacity stop already frozen in Sections 3.2 and
+4.2. No eligibility rule, sample size, split, matching objective, balance family, threshold, seed, endpoint,
+or licensed outcome wording changes.
+
+The audited eligible census contains only 809 unique version-normalized donor genes at annotated boundary
+phase 2 and 854 unique version-normalized acceptor genes at annotated boundary phase 2. The frozen roles
+request 120 development + 600 confirmation + 384 Phase-III-reserve = 1,104 complete seven-source blocks.
+Because every complete block consumes a distinct gene from each role/phase slot and genes are globally
+disjoint, each slot necessarily requires at least 1,104 unique genes. Donor phase 2 is therefore short by
+295 and acceptor phase 2 by 250 before matching or balance is attempted. This is a mathematical supply stop;
+neither reducing a role nor opening `chr8`/`chr9` is authorized.
+
+The cohort producer now evaluates this necessary, explicitly not sufficient, unique-gene capacity condition
+immediately after the already-frozen blacklist, chromosome, and geometry filters. On failure it writes a
+compact `gfmcd.positional_boundary_coherence.phase1_capacity_stop.v1` artifact and sibling manifest with no
+selected blocks or cells, exact per-slot and union capacities/deficits, normalized-gene-set hashes, all input
+seals, `model_outcomes_read=false`, and `target_execution_authorized=false`. It does not emit a favorable
+partial cohort. The independent cohort auditor rederives the filtered unique-gene sets from the candidate
+package and its passing audit, verifies the hashes and empty-selection claim, and returns
+`AUDIT_PASS_INSTRUMENT_UNRESOLVED` only when the failure certificate is exact. A mismatch returns
+`AUDIT_FAIL`. A passing capacity-stop audit validates the stop; it never authorizes a model run.
+
+The 2.34-GB candidate census is intentionally not a version-controlled result. The stop and audit therefore
+bind its exact byte size and SHA-256 from `candidate_census_v1.manifest.json`, the candidate package/content/
+reconstruction hashes from the passing census audit, and the producer revision. They record
+`clean_checkout_reexecutable=false`: direct re-audit requires regenerating the census from that receipt and
+the pinned reference inputs.
+
+If the necessary capacity condition passes on another admissible input, the existing block selection,
+matching, calibration, thresholds, seeds, and successful cohort artifact remain unchanged. The new branch
+therefore records an already-required terminal state without changing the successful scientific path.
