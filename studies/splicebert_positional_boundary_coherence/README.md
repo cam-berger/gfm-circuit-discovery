@@ -1,7 +1,7 @@
 # SpliceBERT positional boundary coherence
 
-> **Tier: T2 — provenance.** Prospective successor study. This directory contains a frozen design, not a
-> result or a claim.
+> **Tier: T2 — provenance.** The model-free Phase-I construction ran on 2026-08-11 and stopped on an
+> independently audited frozen-capacity failure. No successor checkpoint or model outcome was opened.
 
 ## Purpose
 
@@ -32,8 +32,9 @@ The candidate biological narrative is kept separately in
 [`EVIDENCE_LADDER.md`](../../docs/EVIDENCE_LADDER.md), and
 [`PREREG_CONFORMANCE.md`](../../docs/PREREG_CONFORMANCE.md).
 
-The successor [`CLAIMS.md`](CLAIMS.md), [`RESULTS.md`](RESULTS.md), and [`DECISIONS.md`](DECISIONS.md) are
-intentionally empty prospective ledgers. They acquire rows only from immutable, audited successor outputs.
+The successor [`CLAIMS.md`](CLAIMS.md), [`RESULTS.md`](RESULTS.md), and [`DECISIONS.md`](DECISIONS.md)
+record the model-free construction stop as `PBC1`. That row is an instrument result only: it licenses no
+statement about coding-boundary preference, either positional carrier, or a biological mechanism.
 
 ## Study identity
 
@@ -255,7 +256,7 @@ positive, negative, or bounded result from a failed instrument.
 ## Present status
 
 `PREREGISTRATION.md`, including pre-model Amendments A1–A5, freezes the design and numerical decision rules.
-A5 records a model-free census capacity diagnostic; it does **not** assert that a complete cohort exists,
-that a preflight has passed, that a target is authorized, or that any endpoint has been measured. Before any
-future target run, the execution package must bind the completed code and inputs and an independent
-protocol-to-code conformance audit must pass.
+The executed A5 certificate and its 48-check independent audit record `PBC1`: donor phase 2 and acceptor
+phase 2 cannot supply the frozen 1,104-block request. No complete cohort exists, no model preflight ran or
+opened, no target is authorized, and no model endpoint was measured. Any successor design must be separately
+preregistered; this frozen execution path remains closed.

@@ -118,7 +118,8 @@ The licensed statement is:
 
 ## Bridge 4 — 3′-boundary organisation and U2AF1-centred site recognition
 
-**Evidence level reached: none. This bridge is a preregistered *motivation*, not a result.**
+**Biological evidence level reached: none. The development instrument is unresolved; the bridge remains a
+motivation, not a result.**
 
 It is recorded here before it is tested, because that is the point at which a bridge is most likely to
 be promoted by accident, and because a protein name next to a model component is this project's most
@@ -138,11 +139,12 @@ passing BG1/BG2 would license is a statement about **where in the sequence** the
 payload is sensitive, and **whether that sensitivity uses the known route** — a functional and positional
 parallel, at the model level, to the organisation the U2AF1 literature describes.
 
-The wording licensed **if and only if** BG1 and BG2 both pass and both clear an independent audit is
-frozen verbatim in the protocol (§7). Until then the licensed statement is the empty one:
+The wording that would have required BG1 and BG2 both to pass and clear independent audit is frozen
+verbatim in the protocol (§7). The train-split preflight instead failed four frozen capability/resolution
+families, so BG1 validation and BG2 stayed sealed and the licensed statement remains the empty one:
 
 > No result in this repository relates SpliceBERT to U2AF1. A frozen protocol exists that would test a
-> positional parallel; it has not been run.
+> positional parallel; its development instrument failed before either target opened.
 
 See `docs/NOMENCLATURE.md` standing phrase 3 for the denial that must accompany every use of the protein
 name, and the `U2AF1` vocabulary row for the constructions that are forbidden outright.
@@ -156,4 +158,4 @@ name, and the `U2AF1` vocabulary row for the constructions that are forbidden ou
 | Donor–acceptor coupling ↔ intron definition | Partner-specific cross-intron communication has the functional geometry of intron definition. | ED1 failed its planted-confound gate; no intron/exon-definition implementation claim is licensed. |
 | Period-3 carrier | Current role is distributed relative-positional routing; comparative origin is associated with multi-species pretraining. | Coding specificity, reading-frame semantics, training dynamics, and a clean species-diversity causal contrast are not established. |
 | ≈10.63 carrier ↔ nucleosome | The carrier reaches attention, but the measured ≈10.298 nucleosomal signal is distinct. | General function and biological correlate remain open. |
-| 3′-boundary organisation ↔ U2AF1 recognition | **None — nothing is licensed.** BG1/BG2 are frozen and not run. | A positional parallel motivated by published biology; it can never become a protein identification, and it is not a result at all until BG1/BG2 run and pass an independent audit. |
+| 3′-boundary organisation ↔ U2AF1 recognition | **None — nothing is licensed.** The BG1 development preflight was instrument-unresolved; BG1 validation and BG2 were not run. | A positional parallel motivated by published biology; it can never become a protein identification, and the failed instrument supplies no model or biological result. |

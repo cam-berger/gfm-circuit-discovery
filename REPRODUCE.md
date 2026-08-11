@@ -300,6 +300,13 @@ ignored census's byte identity, semantic hashes, producer revision, and
 `candidate_census_v1.manifest.json` regeneration receipt and state `clean_checkout_reexecutable=false`.
 Do not reduce a role or open sealed chromosomes in response.
 
+The recorded run found donor-phase-2 capacity `809/1,104` (deficit 295) and acceptor-phase-2 capacity
+`854/1,104` (deficit 250); the independent audit passed all 48 checks with
+`target_execution_authorized=false`. A clean checkout must first regenerate
+`development/candidate_census_v1.json` from the exact command and pinned inputs in its retained manifest.
+For byte-identical replay use producer revision `addd7be93c321373118b02b82bc3d95eeb0bd20a`; the retained
+census byte SHA-256 is `9be356ac26ff18aa750b0552684d4a94fa6b8963fee01666608b38cc7de25614`.
+
 1. **A conformance audit.** The preregistration's own "Present status" requires a freeze package binding
    the final code and inputs, plus an independent protocol-to-code conformance audit, before any target
    or Phase-III reserve opens. Do not run a target without it.
@@ -314,8 +321,9 @@ Do not reduce a role or open sealed chromosomes in response.
 Runners call `gfmcd.artifact_guard.guard_output_path`, so a rerun aimed at an existing artifact refuses
 rather than overwriting. Results go to `results/splicebert_positional_boundary_coherence/` under the
 layout its [`RESULTS_INDEX.md`](results/splicebert_positional_boundary_coherence/RESULTS_INDEX.md)
-declares. Tests are `uv run --extra splicebert --extra dev --extra maxent pytest tests/ -k pbc` — 110
-tests, ~11 minutes, no genome or checkpoint required (they build tiny FASTA/GTF fixtures in `tmp_path`).
+declares. The PBC-focused suite is
+`uv run --extra splicebert --extra dev --extra maxent pytest tests/ -k pbc`; most tests need no genome or
+checkpoint because they build tiny FASTA/GTF fixtures in `tmp_path`.
 Drop `--extra maxent` and `tests/test_pbc_phase1_real_data.py` skips as a file.
 
 ## 4. Safe reproduction rules

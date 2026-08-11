@@ -1,0 +1,307 @@
+{
+  "balance_or_calibration_evaluated": false,
+  "blacklist": {
+    "gene_ids_sha256": "629c050b7bb6b4bb4d292aea981e6866a453bacce50557fefccd4c06ce3e8e74",
+    "n_gene_ids": 5998
+  },
+  "blocks": [],
+  "candidate_census_receipt": {
+    "candidate_file": {
+      "name": "candidate_census_v1.json",
+      "sha256": "9be356ac26ff18aa750b0552684d4a94fa6b8963fee01666608b38cc7de25614",
+      "size_bytes": 2343604295
+    },
+    "clean_checkout_reexecutable": false,
+    "producer_manifest": {
+      "config": {
+        "acceptor_pos": 512,
+        "algorithm_version": "pbc-real-census-v1",
+        "allowed_chromosomes": [
+          "chr1",
+          "chr10",
+          "chr11",
+          "chr12",
+          "chr13",
+          "chr14",
+          "chr15",
+          "chr16",
+          "chr17",
+          "chr18",
+          "chr19",
+          "chr2",
+          "chr20",
+          "chr21",
+          "chr22",
+          "chr3",
+          "chr4",
+          "chr5",
+          "chr6",
+          "chr7",
+          "chrX"
+        ],
+        "construct_length": 1022,
+        "donor_pos": 392,
+        "stage": "construction"
+      },
+      "experiment_id": "splicebert-positional-boundary-coherence:candidate-census-v1",
+      "git_commit": "addd7be93c321373118b02b82bc3d95eeb0bd20a",
+      "git_dirty": true,
+      "name": "candidate_census_v1.manifest.json",
+      "output_record_verified": true,
+      "sha256": "c8b6fa9d99e2323cd681ed4ffc2daeb5f80a280137e4b8446582f711cfa458fa",
+      "size_bytes": 5489,
+      "status": "CENSUS_BUILT_AUDIT_PENDING"
+    },
+    "regeneration_receipt": "candidate_census_v1.manifest.json",
+    "regeneration_required": true,
+    "schema": "gfmcd.positional_boundary_coherence.candidate_census_receipt.v1",
+    "semantic_hashes": {
+      "candidate_census_sha256": "cbacdea2441f0972fe9396774f8fc3dd853aed9273f2a33f58ecc31fc64797c9",
+      "candidate_content_sha256": "37c5caa908a8aca6975097be7842213f4d28a7e48489b5f05de7a5b65b46cf7b",
+      "reconstructed_candidates_sha256": "4ac9e2f4690bd2ac33dd0a8607c66d146a3bb46e49a054b80397843d245d45ff"
+    }
+  },
+  "capacity": {
+    "criterion": "necessary_unique_normalized_gene_capacity",
+    "failed_constraints": [
+      "slot:donor_phase_2",
+      "slot:acceptor_phase_2",
+      "family:donor_all_phases",
+      "family:acceptor_all_phases"
+    ],
+    "families": {
+      "acceptor_all_phases": {
+        "available_unique_genes": 3172,
+        "deficit_unique_genes": 140,
+        "gene_ids_sha256": "30e05a73829e5e6bba3395d70b863e0123d87e8f68ec1b18ef4f5ab8db07fd22",
+        "passed": false,
+        "required_unique_genes": 3312,
+        "source_slots": [
+          "acceptor_phase_0",
+          "acceptor_phase_1",
+          "acceptor_phase_2"
+        ]
+      },
+      "all_seven_source_roles": {
+        "available_unique_genes": 8790,
+        "deficit_unique_genes": 0,
+        "gene_ids_sha256": "2c1b9166161fc7f24ffee805e9a901440f3139778242246fab9485b2e7226168",
+        "passed": true,
+        "required_unique_genes": 7728,
+        "source_slots": [
+          "scaffold",
+          "donor_phase_0",
+          "donor_phase_1",
+          "donor_phase_2",
+          "acceptor_phase_0",
+          "acceptor_phase_1",
+          "acceptor_phase_2"
+        ]
+      },
+      "donor_all_phases": {
+        "available_unique_genes": 3032,
+        "deficit_unique_genes": 280,
+        "gene_ids_sha256": "c1780a24d7d3d81d6f942085742298257c5fac6921ec430bb93c1852b6bb9ad5",
+        "passed": false,
+        "required_unique_genes": 3312,
+        "source_slots": [
+          "donor_phase_0",
+          "donor_phase_1",
+          "donor_phase_2"
+        ]
+      }
+    },
+    "necessary_not_sufficient": true,
+    "passed": false,
+    "requested_complete_blocks": 1104,
+    "required_unique_source_genes": 7728,
+    "slots": {
+      "acceptor_phase_0": {
+        "available_unique_genes": 2000,
+        "deficit_unique_genes": 0,
+        "gene_ids_sha256": "721ad1afa62d0355f2ce3530811cd882ebcae62bcae5e4fb4aa142da3a8db5b8",
+        "passed": true,
+        "required_unique_genes": 1104
+      },
+      "acceptor_phase_1": {
+        "available_unique_genes": 1496,
+        "deficit_unique_genes": 0,
+        "gene_ids_sha256": "e30816d8e60147c60521a8e8b044d719b07ba285429aa3cdaf5150bb52772b52",
+        "passed": true,
+        "required_unique_genes": 1104
+      },
+      "acceptor_phase_2": {
+        "available_unique_genes": 854,
+        "deficit_unique_genes": 250,
+        "gene_ids_sha256": "5e535969b0a42889349b8eaecf11c48d799687fc38f28f2c34b159936981a7ea",
+        "passed": false,
+        "required_unique_genes": 1104
+      },
+      "donor_phase_0": {
+        "available_unique_genes": 1908,
+        "deficit_unique_genes": 0,
+        "gene_ids_sha256": "fe4276d2c29140d97e705dcac9cb0ed7210d00420f4a2dac3c061ccbf5294a87",
+        "passed": true,
+        "required_unique_genes": 1104
+      },
+      "donor_phase_1": {
+        "available_unique_genes": 1400,
+        "deficit_unique_genes": 0,
+        "gene_ids_sha256": "84c553af57911aa20183344ac2693e64768623fec42b3662f39ea97ecf788e73",
+        "passed": true,
+        "required_unique_genes": 1104
+      },
+      "donor_phase_2": {
+        "available_unique_genes": 809,
+        "deficit_unique_genes": 295,
+        "gene_ids_sha256": "0a5f896a71b2414f98e1001c70d02727606c4707bdc8cecb15789ed7c47a491f",
+        "passed": false,
+        "required_unique_genes": 1104
+      },
+      "scaffold": {
+        "available_unique_genes": 8761,
+        "deficit_unique_genes": 0,
+        "gene_ids_sha256": "c868fac6774c6cedcdf503566caa7b55be9a91cfa87241f387c2bbc0320ce156",
+        "passed": true,
+        "required_unique_genes": 1104
+      }
+    }
+  },
+  "cells": [],
+  "clean_checkout_reexecutable": false,
+  "config": {
+    "acceptor_pos": 512,
+    "algorithm_version": "pbc-composition-match-v1",
+    "allowed_chromosomes": [
+      "chr1",
+      "chr10",
+      "chr11",
+      "chr12",
+      "chr13",
+      "chr14",
+      "chr15",
+      "chr16",
+      "chr17",
+      "chr18",
+      "chr19",
+      "chr2",
+      "chr20",
+      "chr21",
+      "chr22",
+      "chr3",
+      "chr4",
+      "chr5",
+      "chr6",
+      "chr7",
+      "chrX"
+    ],
+    "auc_n_boot": 2000,
+    "auc_upper_threshold": 0.55,
+    "construct_length": 1022,
+    "donor_pos": 392,
+    "forbidden_chromosomes": [
+      "chr8",
+      "chr9",
+      "chrM",
+      "chrMT",
+      "chrY"
+    ],
+    "global_search_width": 16,
+    "inner_folds": 4,
+    "minimum_confirmation_blocks": 600,
+    "minimum_stratum_blocks": 5,
+    "namespace": "splicebert-positional-boundary-coherence-v1",
+    "neighbor_width": 8,
+    "outer_folds": 5,
+    "pseudo_family_size": 99,
+    "requested_blocks_by_split": {
+      "confirmation": 600,
+      "development": 120,
+      "phase3_reserve": 384
+    },
+    "search_width": 64,
+    "seed": 73031,
+    "smd_threshold": 0.1,
+    "span_nt": 120,
+    "split_weights": [
+      [
+        "development",
+        2
+      ],
+      [
+        "confirmation",
+        2
+      ],
+      [
+        "phase3_reserve",
+        1
+      ]
+    ]
+  },
+  "construction_gates_pass": false,
+  "counts": {
+    "blocks": 0,
+    "blocks_by_split": {
+      "confirmation": 0,
+      "development": 0,
+      "phase3_reserve": 0
+    },
+    "cells": 0,
+    "genes": 0
+  },
+  "disposition": "NECESSARY_CAPACITY_FAILED",
+  "evidence_boundary": "This artifact proves only that the frozen Phase-I block request cannot be met with globally unique eligible genes. No SpliceBERT checkpoint or model outcome was loaded, and no biological or model-mechanism result is licensed.",
+  "gates": {
+    "necessary_unique_gene_capacity": false
+  },
+  "independent_audit_required": true,
+  "model_execution": {
+    "all_model_gates": "NOT_EVALUATED",
+    "checkpoint_loaded": false,
+    "forward_passes": 0,
+    "outcome_rows": 0
+  },
+  "model_outcomes_read": false,
+  "partial_blocks_recorded": false,
+  "sample_size_plan": {
+    "alpha": 0.05,
+    "calculated_blocks": 365,
+    "design_effect": 1.0,
+    "minimum_blocks": 600,
+    "planned_blocks": 600,
+    "power": 0.8,
+    "sesoi": 0.05,
+    "standard_deviation": 0.340503,
+    "variance": 0.115942293009
+  },
+  "schema": "gfmcd.positional_boundary_coherence.phase1_capacity_stop.v1",
+  "seal": {
+    "blacklist_sha256": "629c050b7bb6b4bb4d292aea981e6866a453bacce50557fefccd4c06ce3e8e74",
+    "candidate_audit_sha256": "f4f1e408990f217e0a743486a326ebce53fc273af80f82eea0eecb438d2ed143",
+    "candidate_census_receipt_sha256": "9abf66bc8dbf4eefb1c7ee34c82567bd72880374a379333c317913d3de99dcc2",
+    "candidate_package_sha256": "cbacdea2441f0972fe9396774f8fc3dd853aed9273f2a33f58ecc31fc64797c9",
+    "capacity_sha256": "8591d959b08d45458cb5e083e0a7cbde3f45a76a76491e50bf0cce5947291353",
+    "content_sha256": "051e55481f4dec0d6913b558218982b7081ff37e0c4990d63e7359ce998a4b2a",
+    "frozen_variance_sha256": "a2fc0f2053fe8dd669d755cea978adb66d1b393a5990cf67dd1e7fa568ff30d1"
+  },
+  "selection_attempted": false,
+  "stage": "construction",
+  "status": "PHASE1_INSTRUMENT_UNRESOLVED",
+  "target_execution_authorized": false,
+  "unevaluated_construction_gates": [
+    "block_assembly",
+    "role_hash_supply",
+    "chromosome_strand_strata",
+    "composition_balance",
+    "classifier_calibration"
+  ],
+  "unevaluated_model_stages": [
+    "phase2_carrier_factorial_calibration",
+    "phase2_model_preflight",
+    "phase2_target",
+    "phase3_register_preflight",
+    "phase3_candidate_screen",
+    "phase3_reserve",
+    "phase3_mediation"
+  ]
+}

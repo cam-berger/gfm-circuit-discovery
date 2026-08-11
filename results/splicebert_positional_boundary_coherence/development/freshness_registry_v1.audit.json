@@ -1,0 +1,25 @@
+{
+  "checks": {
+    "all_sources_reread": true,
+    "category_records": true,
+    "content_hash": true,
+    "gene_count": true,
+    "gene_hash": true,
+    "outcome_firewall": true,
+    "required_categories": true,
+    "schema": true,
+    "sorted_unique_gene_ids": true,
+    "source_records": true,
+    "source_spec_pin": true,
+    "stage": true
+  },
+  "failures": [],
+  "independent_gene_ids_sha256": "629c050b7bb6b4bb4d292aea981e6866a453bacce50557fefccd4c06ce3e8e74",
+  "independent_normalized_count": 5998,
+  "passed": true,
+  "registry_content_sha256": "bc7919a8b28d845f7632641677416be0249b51bc2cbd969b2b7eb0f765e300ad",
+  "schema": "gfmcd.positional_boundary_coherence.freshness_registry_audit.v1",
+  "source_spec_sha256": "7960a87b515bd11eee5c3323d5e712a9b4f9128442e99c522bbb52353a1ede09",
+  "stage": "construction",
+  "status": "AUDIT_PASS"
+}

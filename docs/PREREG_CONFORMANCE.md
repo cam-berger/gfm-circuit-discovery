@@ -61,12 +61,12 @@ this file existed, that question had no answer here short of reading 34 protocol
 > or model outcome. Every later gate remains *specified*, not enforced.
 >
 > The distinction matters for how this file should grow. The three arcs above are retrospective coverage
-> gaps — code ran, nobody checked it against the protocol. This one is prospective, and the protocol
-> itself forecloses the gap: §"Present status" requires that a freeze package bind the final code and
-> inputs and that **an independent protocol-to-code conformance audit pass before the first target or
-> Phase-III reserve is opened**. That audit is the fix-forward this document's root-cause section asks
-> for — the decision layer checked against the protocol *before* the run, not reconstructed after it.
-> When it is performed, its family belongs in the table below like any other.
+> gaps — code ran, nobody checked it against the protocol. Here the model-free stop was independently
+> audited as it occurred, while the model-bearing portion remains prospective and sealed. §"Present
+> status" still requires that a freeze package bind final code and inputs and that **an independent
+> protocol-to-code conformance audit pass before any first target or Phase-III reserve is opened**. If a
+> separately preregistered successor ever reaches that point, its conformance family belongs in the table
+> below before the target, not reconstructed afterwards.
 
 **Scope and method.** This audit was commissioned by the 2026-07-24 publication-readiness review, which
 returned *Major Revision — not ready for external artifact review* and named this table its single
@@ -360,17 +360,14 @@ document, and it is why the file exists rather than a note saying conformance wa
   fully reconstruct; the atlas protocol pins are separately broken and ledgered under **R34**.
 - **Numerical re-execution.** Nothing here was re-run. These are protocol-vs-code readings, verified
   against committed artifacts, not replications.
-- **BG1/BG2 acceptor-boundary grammar — frozen 2026-08-10, not run, so there is nothing to audit yet.**
-  No artifact, no claim, no ledger row. It is named here because a reader scanning this file for "is this
-  arc audited?" must not read its absence as coverage. Two **design-conformance** readings were taken at
-  integration and are recorded in `studies/splicebert_partner_selection/DECISIONS_A0.md` § "BG1/BG2":
-  the frozen `INSTRUMENT_UNRESOLVED` verdict is never written by any runner (the code halts harder than
-  the protocol asks, but records nothing about why), and the frozen preflight output path puts a
-  `DEVELOPMENT_PREFLIGHT` artifact at a canonical path. A third reading is a **design** question rather
-  than a conformance gap: BG2's cross-gene control reuses target genes as sources while §6.2 prescribes a
-  one-way paired gene-bootstrap, which is the reuse pattern R22 names. This is the pre-freeze-equivalent
-  moment the Caduceus bullet above says was never used — the protocol is frozen but unrun, and the
-  runners are not yet pinned to any manifest, so a correction here costs nothing.
+- **BG1/BG2 acceptor-boundary grammar — frozen 2026-08-10; development preflight failed 2026-08-11.**
+  The pre-execution review found the missing durable `INSTRUMENT_UNRESOLVED` disposition, the canonical
+  preflight-path collision, the two-way-inference defect in BG2's cross-gene control, and a supply-check
+  crash. All were fixed forward in the explicitly pre-outcome
+  `AMENDMENT_BG1_BG2_PREEXECUTION_2026-08-11.md` and memorial tests. The canonical train preflight then
+  returned `PASS=false` on four frozen families: planted sensitivity, route dose sensitivity, route
+  resolution, and target resolution. BG1 validation, its audit, BG2, and the BG2 audit were not run. This
+  is an instrument result only; it supplies neither a positive nor a null boundary-grammar claim.
 
 ## Related records
 

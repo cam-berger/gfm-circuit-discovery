@@ -1,0 +1,58 @@
+{
+  "command": [
+    "scripts/splicebert_positional_boundary_coherence/audit_freshness_registry.py",
+    "--registry",
+    "results/splicebert_positional_boundary_coherence/development/freshness_registry_v1.json",
+    "--source-spec",
+    "configs/splicebert_positional_boundary_coherence/freshness_sources_v1.json",
+    "--out",
+    "results/splicebert_positional_boundary_coherence/development/freshness_registry_v1.audit.json"
+  ],
+  "config": {
+    "stage": "construction"
+  },
+  "created_at_utc": "2026-08-11T19:43:06.024691+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 68115,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert-positional-boundary-coherence:freshness-registry-audit-v1",
+  "git_commit": "470d68ffd420b2d62221a8161cab2ef5c9d8210b",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/results/splicebert_positional_boundary_coherence/development/freshness_registry_v1.json",
+      "sha256": "e36863c069d4ee0fba14c9b652b35543c2922d2a7cffa3236d9a3a3a89f9b34d",
+      "size_bytes": 530488
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/configs/splicebert_positional_boundary_coherence/freshness_sources_v1.json",
+      "sha256": "c3a145aa70d52eeba8276456822ba6f8aed5acd7e65ae62f67e14d7aec6c40d4",
+      "size_bytes": 5824
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/scripts/splicebert_positional_boundary_coherence/audit_freshness_registry.py",
+      "sha256": "d02f4176eea55a04742e7fde8c6590d9c055aa566a001d17d803e935c224c600",
+      "size_bytes": 3493
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/src/gfmcd/splicing/pbc_freshness.py",
+      "sha256": "cfbbbf9f552534bc00412f0dc845aa34155516d034bdbfa3626d7b985d976a77",
+      "size_bytes": 22067
+    }
+  ],
+  "notes": [
+    "Independent source re-read; no producer function or model output is used."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/results/splicebert_positional_boundary_coherence/development/freshness_registry_v1.audit.json",
+      "sha256": "402075399e6fa1c191293ee74d197f9a04ef1c214ca9a287661a2b01bae88fad",
+      "size_bytes": 849
+    }
+  ],
+  "seeds": {},
+  "status": "AUDIT_PASS"
+}

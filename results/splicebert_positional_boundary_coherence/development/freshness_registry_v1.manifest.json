@@ -1,0 +1,52 @@
+{
+  "command": [
+    "scripts/splicebert_positional_boundary_coherence/build_freshness_registry.py",
+    "--source-spec",
+    "configs/splicebert_positional_boundary_coherence/freshness_sources_v1.json",
+    "--out",
+    "results/splicebert_positional_boundary_coherence/development/freshness_registry_v1.json"
+  ],
+  "config": {
+    "stage": "construction"
+  },
+  "created_at_utc": "2026-08-11T19:43:00.076882+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 68024,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert-positional-boundary-coherence:freshness-registry-v1",
+  "git_commit": "470d68ffd420b2d62221a8161cab2ef5c9d8210b",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/configs/splicebert_positional_boundary_coherence/freshness_sources_v1.json",
+      "sha256": "c3a145aa70d52eeba8276456822ba6f8aed5acd7e65ae62f67e14d7aec6c40d4",
+      "size_bytes": 5824
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/scripts/splicebert_positional_boundary_coherence/build_freshness_registry.py",
+      "sha256": "e59c799a94b9f48851da14931b6b9e54720447d933596057c44ff41d108a8fa1",
+      "size_bytes": 3249
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/src/gfmcd/splicing/pbc_freshness.py",
+      "sha256": "cfbbbf9f552534bc00412f0dc845aa34155516d034bdbfa3626d7b985d976a77",
+      "size_bytes": 22067
+    }
+  ],
+  "notes": [
+    "All required historical categories are explicit and hash-pinned.",
+    "No missing source is treated as an empty cohort; no model outcome is read."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/results/splicebert_positional_boundary_coherence/development/freshness_registry_v1.json",
+      "sha256": "e36863c069d4ee0fba14c9b652b35543c2922d2a7cffa3236d9a3a3a89f9b34d",
+      "size_bytes": 530488
+    }
+  ],
+  "seeds": {},
+  "status": "BUILT_AUDIT_PENDING"
+}

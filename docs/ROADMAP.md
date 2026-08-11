@@ -51,13 +51,15 @@ reported at a licensed detection floor.
 **Exit condition:** a direction causes predictable, dose-responsive reallocation between matched sites
 without generic MLM damage, with its semantic label no stronger than the external validation supports.
 
-#### Active protocol — BG1/BG2 acceptor-boundary grammar (frozen 2026-08-10; **not run**)
+#### Terminal protocol — BG1/BG2 acceptor-boundary grammar (frozen 2026-08-10; **development instrument-unresolved 2026-08-11**)
 
 The first preregistered attempt at Track 2 since C30 was closed-bounded.
 [`PREREGISTRATION_BG1_ACCEPTOR_BOUNDARY_GRAMMAR.md`](../studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_BG1_ACCEPTOR_BOUNDARY_GRAMMAR.md)
 freezes an eight-cell AG-preserving panel at biological −3 and +1 (BG1, behaviour) followed conditionally
-by gene-disjoint L3H1 acceptor-window value recovery (BG2, route). Runners, an independent model-free
-auditor, and 42 tests are in the tree; no artifact exists and no claim is entered.
+by gene-disjoint L3H1 acceptor-window value recovery (BG2, route). The complete train-split preflight ran
+and returned `PASS=false`: planted sensitivity, route dose sensitivity, route resolution, and target
+resolution failed their frozen thresholds. The fail-closed chain therefore did not open BG1 validation or
+BG2, and no boundary-grammar claim is entered.
 
 **Why this is not a re-entry of the R22 failure** — the question C30's closure raises, and the first thing
 a reviewer will ask. R22 withdrew *absolute external strength* (MaxEnt) as the payload's semantic identity,
@@ -69,15 +71,14 @@ rationale, and the three questions that remain open against it, are recorded in
 [`DECISIONS_A0.md`](../studies/splicebert_partner_selection/DECISIONS_A0.md) § "BG1/BG2 — the acceptor
 boundary contrast".
 
-**What a pass would and would not do.** BG1+BG2 would establish *where* the acceptor-local payload is
+**What a pass would and would not have done.** BG1+BG2 would establish *where* the acceptor-local payload is
 sequence-sensitive and *that* the same edited-window change travels the L3H1 route. It would **not** name
 the payload's semantic identity, and it does not reopen C30 by itself: C30 is closed-bounded on a
 red-teamed finding, and moving it needs an R-number, not a new positive. Treat "the payload is a
 −3/+1-sensitive quantity" and "the payload's semantics are resolved" as different statements.
 
-**Exit condition:** a `SUPPORTED_VERIFICATION` BG1 with a passing independent audit, then either
-`BG2_ROUTE_SUPPORTED` or a reported `BG2_INCONCLUSIVE` — or an honest `INSTRUMENT_UNRESOLVED`/halt at the
-train preflight, which is a legitimate terminal outcome and must be recorded as one.
+**Recorded exit:** `INSTRUMENT_UNRESOLVED` at the train preflight. Development-only directional estimates
+remain candidate generators; they are not BG1 evidence and cannot authorize BG2.
 
 ## Open scientific problems
 
@@ -160,7 +161,7 @@ What is genuinely open, in priority order:
 **Exit condition:** either C43 reproduces in a context that is not a fixed-geometry chimera, or the arc
 is recorded as a construct-scoped behavioural curiosity. No mechanism claim is licensed until (3).
 
-### Successor — positional boundary coherence (preregistered 2026-08-10, not executed)
+### Successor — positional boundary coherence (preregistered 2026-08-10; Phase I instrument-unresolved 2026-08-11)
 
 [`studies/splicebert_positional_boundary_coherence/`](../studies/splicebert_positional_boundary_coherence/README.md)
 is the sanctioned successor to (2) and (3). Its `PREREGISTRATION.md` freezes a three-phase design: a
@@ -170,11 +171,12 @@ register-relocation and route-mediation phase. Stop load is one of the prespecif
 which is what (2) asked for; the failed C44 authorization path is not reopened, which is what (3)
 requires.
 
-**It has produced nothing.** No cohort, no preflight, no target, no claim row — the design is frozen and
-the executable target package is not. Treat this as a *planned* track, not progress against the exit
-condition above. Two things it does **not** address: it keeps the fixed 120-nt chimeric geometry, so (1)
-stays fully open, and it does not revisit E4's decoding lead (4). Its own strongest possible outcome is a
-scoped model-mechanism statement — read its decision hierarchy before quoting any tier by name.
+**It stopped before model access.** The freshness registry and real-sequence census passed independent
+reconstruction, but the frozen 120/600/384-block design needs 1,104 unique genes in every source slot and
+has only 809 donor-phase-2 and 854 acceptor-phase-2 genes. The independently audited capacity certificate
+is `PBC1`; selection was not attempted, zero blocks were emitted, and balance/classifier calibration never
+ran. This is not evidence for or against the boundary preference or either carrier. The fixed 120-nt chimeric-geometry limitation remains,
+and every Phase-II/III tier is still unearned and sealed.
 
 ## Transfer milestone — second real GFM
 

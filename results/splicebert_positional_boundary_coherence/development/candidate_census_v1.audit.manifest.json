@@ -1,0 +1,108 @@
+{
+  "command": [
+    "scripts/splicebert_positional_boundary_coherence/audit_candidate_census.py",
+    "--candidates",
+    "results/splicebert_positional_boundary_coherence/development/candidate_census_v1.json",
+    "--fasta",
+    "/Users/cberg/Research/data/genomes/hg38.fa",
+    "--fai",
+    "/Users/cberg/Research/data/genomes/hg38.fa.fai",
+    "--basic-gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+    "--comprehensive-gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+    "--maxent-donor-table",
+    ".venv/lib/python3.13/site-packages/maxentpy/data/score5_matrix.txt",
+    "--maxent-acceptor-table",
+    ".venv/lib/python3.13/site-packages/maxentpy/data/score3_matrix.txt",
+    "--freshness-registry",
+    "results/splicebert_positional_boundary_coherence/development/freshness_registry_v1.json",
+    "--freshness-audit",
+    "results/splicebert_positional_boundary_coherence/development/freshness_registry_v1.audit.json",
+    "--out",
+    "results/splicebert_positional_boundary_coherence/development/candidate_census_v1.audit.json"
+  ],
+  "config": {
+    "stage": "construction"
+  },
+  "created_at_utc": "2026-08-11T20:26:16.015644+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 78557,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert-positional-boundary-coherence:candidate-census-audit-v1",
+  "git_commit": "addd7be93c321373118b02b82bc3d95eeb0bd20a",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/results/splicebert_positional_boundary_coherence/development/candidate_census_v1.json",
+      "sha256": "9be356ac26ff18aa750b0552684d4a94fa6b8963fee01666608b38cc7de25614",
+      "size_bytes": 2343604295
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa.fai",
+      "sha256": "3b425de206296a5c8053023fa5ca61da43cfe78c1737c12e58c83367c7e83c21",
+      "size_bytes": 19381
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+      "sha256": "83fba3e9b03f0b8c958f3595c6c350adc55f468abf8b0e47b6d5284cfe13a453",
+      "size_bytes": 124527720
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/.venv/lib/python3.13/site-packages/maxentpy/data/score5_matrix.txt",
+      "sha256": "c64fa6aea3d8b71d6af69f5e3ece8f84de06f5450f6d4ba482fbbff6afcf8b5b",
+      "size_bytes": 409600
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/.venv/lib/python3.13/site-packages/maxentpy/data/score3_matrix.txt",
+      "sha256": "9e8a74dc795ae5c9c5b611d4343a1a5a70fff863956f4e00ae23a85f21beb3ae",
+      "size_bytes": 1676562
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/results/splicebert_positional_boundary_coherence/development/freshness_registry_v1.json",
+      "sha256": "e36863c069d4ee0fba14c9b652b35543c2922d2a7cffa3236d9a3a3a89f9b34d",
+      "size_bytes": 530488
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/results/splicebert_positional_boundary_coherence/development/freshness_registry_v1.audit.json",
+      "sha256": "402075399e6fa1c191293ee74d197f9a04ef1c214ca9a287661a2b01bae88fad",
+      "size_bytes": 849
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/scripts/splicebert_positional_boundary_coherence/audit_candidate_census.py",
+      "sha256": "9f7299072f40f4838102d24cd8192bad6d2a049c17fd89cab039ec7fcb85448e",
+      "size_bytes": 57551
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/src/gfmcd/splicing/pbc_biology.py",
+      "sha256": "e6dbfab0e7b17bec5cc2d7cf23c342f7f46a5a7d735deccfce5dd63f5b11b369",
+      "size_bytes": 36105
+    }
+  ],
+  "notes": [
+    "Independent biology reconstruction from pinned FASTA, FAI, both GTFs, and MaxEnt tables.",
+    "This audit authorizes only candidate-census use; it never authorizes a model target."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/results/splicebert_positional_boundary_coherence/development/candidate_census_v1.audit.json",
+      "sha256": "ff0750ee35cc994bd307e95860165852640508be6573de39d0419efe5f34a1bb",
+      "size_bytes": 6512
+    }
+  ],
+  "seeds": {},
+  "status": "AUDIT_PASS"
+}
