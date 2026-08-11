@@ -9,7 +9,13 @@ from pathlib import Path
 import pytest
 
 from gfmcd.splicing import pbc_freshness
-from gfmcd.splicing.pbc_biology import IndexedFasta, MaxEntTables
+from gfmcd.splicing.pbc_biology import (
+    GtfFeature,
+    IndexedFasta,
+    MaxEntTables,
+    _FeatureIntervalIndex,
+    _overlaps,
+)
 from gfmcd.splicing.positional_boundary_coherence import (
     DEFAULT_BRIDGE_ACCEPTOR_POS,
     _source_strata_complete,
@@ -180,6 +186,53 @@ def _freshness(gene: str = "ENSG00000888888") -> tuple[dict, dict]:
         "registry_content_sha256": registry["content_sha256"],
     }
     return registry, audit
+
+
+def _feature(start: int, end: int, label: str) -> GtfFeature:
+    return GtfFeature(
+        chrom="chr1",
+        feature="CDS",
+        start=start,
+        end=end,
+        strand="+",
+        frame=0,
+        gene_id=f"GENE_{label}",
+        transcript_id=label,
+        gene_type="protein_coding",
+        transcript_type="protein_coding",
+    )
+
+
+def test_feature_interval_index_matches_naive_overlap_and_source_order():
+    features = [
+        _feature(90, 110, "late"),
+        _feature(0, 1000, "spanning"),
+        _feature(20, 30, "right_boundary"),
+        _feature(15, 18, "inside"),
+        _feature(5, 10, "left_boundary"),
+        _feature(400, 405, "remote"),
+    ]
+    index = _FeatureIntervalIndex(features)
+    interval_families = [
+        ((10, 20),),
+        ((100, 110),),
+        ((10, 20), (400, 401)),
+        ((1001, 1010),),
+    ]
+    for intervals in interval_families:
+        expected = tuple(
+            feature
+            for feature in features
+            if any(_overlaps(feature, start, end) for start, end in intervals)
+        )
+        assert index.overlaps(intervals) == expected
+
+    assert [row.transcript_id for row in index.overlaps(((10, 20),))] == [
+        "spanning",
+        "inside",
+    ]
+    with pytest.raises(ValueError, match="non-empty"):
+        index.overlaps(((4, 4),))
 
 
 def _candidate_package(tmp_path: Path, **fixture_kwargs):
