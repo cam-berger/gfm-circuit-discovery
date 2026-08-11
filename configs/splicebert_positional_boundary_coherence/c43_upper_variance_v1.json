@@ -1,0 +1,19 @@
+{
+  "schema": "gfmcd.positional_boundary_coherence.frozen_variance.v1",
+  "variance": 0.115942293009,
+  "standard_deviation": 0.340503,
+  "sesoi": 0.05,
+  "alpha": 0.05,
+  "power": 0.8,
+  "design_effect": 1.0,
+  "source": {
+    "revision": "fd26cc1b",
+    "analysis_path": "results/splicebert_exon_edge_compatibility/crossed_direct_edge_development_analysis.json",
+    "analysis_sha256": "7de53b7b7605cf294b2c03bd94ea21fdc2989d15cd5fdc751ca206cccc984ab3",
+    "freeze_path": "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_frozen_package.json",
+    "freeze_sha256": "9c0f55912ae2dd9520ad3b0918d4984811676d179e38a0360b2a48c024ff53e7",
+    "protocol_path": "studies/splicebert_exon_edge_compatibility/preregistrations/PREREGISTRATION_FRESH_CROSSED_DIRECT_EDGE_REPLICATION.md",
+    "derivation": "square of the frozen one-sided 95% upper residual standard deviation 0.340503; target sign and magnitude excluded"
+  },
+  "planning_note": "The successor confirmation count remains frozen at 600 blocks, above the calculated count and the MDE80<=0.04 planning target."
+}

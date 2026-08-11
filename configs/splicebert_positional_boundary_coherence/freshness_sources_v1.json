@@ -1,0 +1,152 @@
+{
+  "schema": "gfmcd.positional_boundary_coherence.freshness_sources.v1",
+  "notes": [
+    "All entries are model-outcome-blind gene-identity sources used only for freshness exclusion.",
+    "C44 smoke and development were subsets of the C43 predecessor cohort, while C44 reserve was the C43 replication cohort. Their category entries conservatively extract each complete parent cohort. This does not enlarge the final union because those same parent cohorts are independently required by C43.",
+    "Historical exon-edge inputs remain Git objects at fd26cc1b and are not restored or executed."
+  ],
+  "sources": [
+    {
+      "source_id": "c43_predecessor_crossed_cohort_v1",
+      "category": "c43_predecessor",
+      "revision": "fd26cc1b",
+      "path": "results/splicebert_exon_edge_compatibility/crossed_direct_edge_cohort_v1.json",
+      "expected_sha256": "1f5523ed465bc0a575e2591ff47a53158d36f51c7fe4bc0cd087347ed46ec6bf",
+      "expected_normalized_count": 1680,
+      "extraction": {
+        "format": "json",
+        "pointers": [
+          "blocks.*.donors.0.gene_id",
+          "blocks.*.donors.1.gene_id",
+          "blocks.*.donors.2.gene_id",
+          "blocks.*.acceptors.0.gene_id",
+          "blocks.*.acceptors.1.gene_id",
+          "blocks.*.acceptors.2.gene_id",
+          "blocks.*.bridge.gene_id"
+        ]
+      }
+    },
+    {
+      "source_id": "c43_fresh_replication_cohort_v1",
+      "category": "c43_replication",
+      "revision": "fd26cc1b",
+      "path": "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cohort_v1.json",
+      "expected_sha256": "478838e64a3a3eff2bca5868212852a5b833d0ccf74ff720bb15cd00cf6fd5ca",
+      "expected_normalized_count": 2688,
+      "extraction": {
+        "format": "json",
+        "pointers": [
+          "blocks.*.donors.0.gene_id",
+          "blocks.*.donors.1.gene_id",
+          "blocks.*.donors.2.gene_id",
+          "blocks.*.acceptors.0.gene_id",
+          "blocks.*.acceptors.1.gene_id",
+          "blocks.*.acceptors.2.gene_id",
+          "blocks.*.bridge.gene_id"
+        ]
+      }
+    },
+    {
+      "source_id": "c44_smoke_parent_cohort_v3",
+      "category": "c44_smoke",
+      "revision": "fd26cc1b",
+      "path": "results/splicebert_exon_edge_compatibility/crossed_direct_edge_cohort_c1_c4_compact_v3.json",
+      "expected_sha256": "c77d14ea7b46b01b063efa51fd6f717a1ea28eb9cc74c970b1cfbec6629fc56f",
+      "expected_normalized_count": 1680,
+      "extraction": {
+        "format": "json",
+        "pointers": [
+          "blocks.*.donors.0.gene_id",
+          "blocks.*.donors.1.gene_id",
+          "blocks.*.donors.2.gene_id",
+          "blocks.*.acceptors.0.gene_id",
+          "blocks.*.acceptors.1.gene_id",
+          "blocks.*.acceptors.2.gene_id",
+          "blocks.*.bridge.gene_id"
+        ]
+      }
+    },
+    {
+      "source_id": "c44_development_parent_cohort_v3",
+      "category": "c44_development",
+      "revision": "fd26cc1b",
+      "path": "results/splicebert_exon_edge_compatibility/crossed_direct_edge_cohort_c1_c4_compact_v3.json",
+      "expected_sha256": "c77d14ea7b46b01b063efa51fd6f717a1ea28eb9cc74c970b1cfbec6629fc56f",
+      "expected_normalized_count": 1680,
+      "extraction": {
+        "format": "json",
+        "pointers": [
+          "blocks.*.donors.0.gene_id",
+          "blocks.*.donors.1.gene_id",
+          "blocks.*.donors.2.gene_id",
+          "blocks.*.acceptors.0.gene_id",
+          "blocks.*.acceptors.1.gene_id",
+          "blocks.*.acceptors.2.gene_id",
+          "blocks.*.bridge.gene_id"
+        ]
+      }
+    },
+    {
+      "source_id": "c44_reserve_replication_cohort_v1",
+      "category": "c44_reserve",
+      "revision": "fd26cc1b",
+      "path": "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cohort_v1.json",
+      "expected_sha256": "478838e64a3a3eff2bca5868212852a5b833d0ccf74ff720bb15cd00cf6fd5ca",
+      "expected_normalized_count": 2688,
+      "extraction": {
+        "format": "json",
+        "pointers": [
+          "blocks.*.donors.0.gene_id",
+          "blocks.*.donors.1.gene_id",
+          "blocks.*.donors.2.gene_id",
+          "blocks.*.acceptors.0.gene_id",
+          "blocks.*.acceptors.1.gene_id",
+          "blocks.*.acceptors.2.gene_id",
+          "blocks.*.bridge.gene_id"
+        ]
+      }
+    },
+    {
+      "source_id": "gfs25_stopped_v1_cohort",
+      "category": "gfs25_v1",
+      "revision": "703a5f15b8a41f2a3b0d04aed7ec8850d3c1a33e",
+      "path": "results/splicebert_gtex_finetune_shift/positional_native_margin_gate_v1.json",
+      "expected_sha256": "7259f609e648953f3858365f6bd60a6f7dab2184eeaebbe71f14393b87100a00",
+      "expected_normalized_count": 64,
+      "extraction": {
+        "format": "json",
+        "pointers": [
+          "cohort.gene_ids"
+        ]
+      }
+    },
+    {
+      "source_id": "gfs25_completed_v2_cohort",
+      "category": "gfs25_v2",
+      "revision": "703a5f15b8a41f2a3b0d04aed7ec8850d3c1a33e",
+      "path": "results/splicebert_gtex_finetune_shift/positional_native_margin_gate_v2.json",
+      "expected_sha256": "e18dc4cb3c9d0da2e312295bf2ab10234ff34da115423136b5f781532e1f23fb",
+      "expected_normalized_count": 64,
+      "extraction": {
+        "format": "json",
+        "pointers": [
+          "cohort.gene_ids"
+        ]
+      }
+    },
+    {
+      "source_id": "c43_source_protocol_prior_registry",
+      "category": "source_protocol_registry",
+      "revision": "fd26cc1b",
+      "path": "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cohort_v1.json",
+      "expected_sha256": "478838e64a3a3eff2bca5868212852a5b833d0ccf74ff720bb15cd00cf6fd5ca",
+      "expected_normalized_count": 3259,
+      "extraction": {
+        "format": "json",
+        "pointers": [
+          "prior_gene_blacklist.stable_gene_ids"
+        ]
+      }
+    }
+  ]
+}
