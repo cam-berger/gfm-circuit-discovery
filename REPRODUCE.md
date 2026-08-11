@@ -189,22 +189,27 @@ The detailed command map is
 and the protocol status index is
 [`studies/splicebert_partner_selection/preregistrations/README.md`](studies/splicebert_partner_selection/preregistrations/README.md).
 
-#### BG1/BG2 acceptor-boundary grammar — frozen, **not yet run**
+#### BG1/BG2 acceptor-boundary grammar — development preflight failed; targets not opened
 
-No artifact exists and no claim depends on this; the chain is recorded so the first run is reproducible
-rather than reconstructed afterwards. Each step **fails closed**: a step refuses to start unless the
-previous one produced a passing, hash-bound artifact, so the order below is enforced by the code, not by
-convention. All four commands need a local genome and the model checkpoint (§2).
+The 2026-08-11 execution stopped at the complete development preflight, exactly as the frozen chain
+requires. The pre-amendment smoke is preserved as superseded; the corrected smoke passed its active
+mechanical checks but was non-authorizing. The complete preflight then reported `PASS=false` on planted
+sensitivity, route dose sensitivity, route resolution, and target resolution. Its disposition is
+instrument-unresolved. No BG1 validation behavior or BG2 intervention was run, and no claim depends on
+the development estimates. The commands below document the chain and its terminal point; steps 3–6 are
+shown to make the authorization rule auditable, not as commands that may now be run.
 
 ```bash
-# 1. Smoke the gates first — memorials and arithmetic only. A smoke artifact can never authorize a target.
+# 1. Historical smoke sequence. A smoke artifact can never authorize a target.
+#    The first output is superseded; the v2 output carries the repaired smoke semantics.
 uv run python scripts/splicebert/run_bg1_boundary_preflight.py --smoke \
-  --out results/splicebert_coupling/bg1_boundary_preflight_smoke.json
+  --out results/splicebert_coupling/bg1_boundary_preflight_smoke_v2_20260811.json
 
-# 2. Train-split preflight. Supply, invariants, positive/specificity controls, planted power, FPR, MDE.
-#    Writes DEVELOPMENT_PREFLIGHT; PASS=false here stops the arc.
+# 2. Recorded terminal command: train-split supply, invariants, controls, power, FPR, and MDE.
+#    It wrote bg1_boundary_preflight_v1.json with PASS=false and stopped the arc.
 uv run python scripts/splicebert/run_bg1_boundary_preflight.py
 
+# NOT AUTHORIZED AFTER THE RECORDED PREFLIGHT FAILURE:
 # 3. BG1 behaviour on val (verification tier). Requires a passing, non-smoke preflight.
 uv run python scripts/splicebert/run_bg1_boundary_grammar.py --split val
 

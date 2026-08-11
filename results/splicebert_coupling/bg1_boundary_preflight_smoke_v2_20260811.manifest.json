@@ -1,0 +1,149 @@
+{
+  "command": [
+    "scripts/splicebert/run_bg1_boundary_preflight.py",
+    "--smoke",
+    "--device",
+    "mps",
+    "--gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+    "--fasta",
+    "/Users/cberg/Research/data/genomes/hg38.fa",
+    "--model",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+    "--out",
+    "results/splicebert_coupling/bg1_boundary_preflight_smoke_v2_20260811.json"
+  ],
+  "config": {
+    "PASS": true,
+    "device": "mps",
+    "instrument_PASS": true,
+    "n_behavior": 12,
+    "n_route": 4,
+    "smoke": true,
+    "target_authorization_PASS": false
+  },
+  "created_at_utc": "2026-08-11T19:46:13.228633+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 68674,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert-partner-selection:bg1-boundary-preflight-v1",
+  "git_commit": "518de28c50a1c3d308f40d3394b037a8953129d8",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7",
+      "size_bytes": 79970394
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-successor-runs/studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_BG1_ACCEPTOR_BOUNDARY_GRAMMAR.md",
+      "sha256": "7784bb47a569b7aab938a56e898144c5e9e88c8a8c4a514d4ac3ecae222a2e68",
+      "size_bytes": 19789
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-successor-runs/studies/splicebert_partner_selection/preregistrations/AMENDMENT_BG1_BG2_PREEXECUTION_2026-08-11.md",
+      "sha256": "b4cc9293e1966317d1b9031520c0078a8571832efb48a98722a6beca624fa258",
+      "size_bytes": 3582
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-successor-runs/src/gfmcd/splicing/boundary_grammar.py",
+      "sha256": "c61fbc5d42180d20e496a452a53520066c6079243e37d62acebb53a5f7bc8fd1",
+      "size_bytes": 42790
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-successor-runs/scripts/splicebert/run_bg1_boundary_preflight.py",
+      "sha256": "312eee69f51183698983fb3df480de36c513b728d5e2f85895f65b3d34c47b41",
+      "size_bytes": 41621
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-successor-runs/scripts/splicebert/run_bg1_boundary_grammar.py",
+      "sha256": "d9ac1fda2f98341837f633dfc23a904731af5bda9cbe76e13e00dda84bec781a",
+      "size_bytes": 30566
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-successor-runs/scripts/splicebert/run_bg2_boundary_payload_recovery.py",
+      "sha256": "9cfb49c7a60cc323b75f161cf3f7f145e87316f09a2320922d75fac7850edf97",
+      "size_bytes": 72917
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-successor-runs/src/gfmcd/splicing/coupling.py",
+      "sha256": "c74b35e0983fa1766b9db9682884b5ad7fbb604ec0327a839e7c1fbe16386055",
+      "size_bytes": 26358
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-successor-runs/src/gfmcd/splicing/circuit.py",
+      "sha256": "f94f30eb2f89c2d1616f8250d49093006dd579d0f0aabdf2f97a1a14c2d097b4",
+      "size_bytes": 32268
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-successor-runs/src/gfmcd/splicing/p3_stats.py",
+      "sha256": "8db42340249f66e51a30f054d3e87843a91636cfb644281af58e5a4d4f418080",
+      "size_bytes": 6039
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-successor-runs/src/gfmcd/splicing/payload.py",
+      "sha256": "0dc9ff88bdcb88f03fc59c1fa97361992cc2093d341edb5590be4a615652b21a",
+      "size_bytes": 3295
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-successor-runs/src/gfmcd/circuits/hf_bert.py",
+      "sha256": "597374d253221d8a621c215b5e852da7a4c37f27adffd172997155fd4d4f9449",
+      "size_bytes": 12341
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/config.json",
+      "sha256": "51ea51e42951f18cc1d3455d7111fe0a41cebad476ba8314afc161a0e956303e",
+      "size_bytes": 685
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/special_tokens_map.json",
+      "sha256": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+      "size_bytes": 125
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/tokenizer.json",
+      "sha256": "b380c8c93ba20313c0c0239b8c70f0c67253028ca76cfda4f55b46049abe4fa3",
+      "size_bytes": 2792
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/tokenizer_config.json",
+      "sha256": "a8f9a3828553689c1cb215689fc82af7551c1bb6ba642606612e834fda0c607c",
+      "size_bytes": 457
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/vocab.txt",
+      "sha256": "ba67bacb61d3de7d57e11e04ba59020a2cc67dbedbd9ae65715117b9fd4f30bc",
+      "size_bytes": 41
+    }
+  ],
+  "notes": [
+    "Train split only; no target role or target split can be authorized by a smoke artifact.",
+    "Smoke power/MDE/FPR checks are recorded raw as non-authorizing undersized diagnostics.",
+    "Outer attenuation remains diagnostic unless its separate outcome-blind power flag is true."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-successor-runs/results/splicebert_coupling/bg1_boundary_preflight_smoke_v2_20260811.json",
+      "sha256": "1705d7fea2d2919e2ad26270e4ef2f00611275613caed51530c0bc970c9c2df2",
+      "size_bytes": 315898
+    }
+  ],
+  "seeds": {
+    "analysis": 20260809,
+    "stable_roles": 0
+  },
+  "status": "DEVELOPMENT_SMOKE_INSTRUMENT_PASS"
+}
