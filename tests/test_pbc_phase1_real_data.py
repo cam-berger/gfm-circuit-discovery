@@ -235,6 +235,34 @@ def test_feature_interval_index_matches_naive_overlap_and_source_order():
         index.overlaps(((4, 4),))
 
 
+def test_auditor_interval_index_matches_naive_overlap_and_source_order():
+    rows = [
+        {"start": 90, "end": 110, "label": "late"},
+        {"start": 0, "end": 1000, "label": "spanning"},
+        {"start": 20, "end": 30, "label": "right_boundary"},
+        {"start": 15, "end": 18, "label": "inside"},
+        {"start": 5, "end": 10, "label": "left_boundary"},
+        {"start": 400, "end": 405, "label": "remote"},
+    ]
+    index = AUDIT_CENSUS._AuditFeatureIntervalIndex(rows)
+    intervals = ((10, 20), (400, 401))
+    expected = tuple(
+        row
+        for row in rows
+        if any(
+            int(row["start"]) < end and int(row["end"]) > start
+            for start, end in intervals
+        )
+    )
+    assert index.overlaps(intervals) == expected
+    assert [row["label"] for row in index.overlaps(((10, 20),))] == [
+        "spanning",
+        "inside",
+    ]
+    with pytest.raises(ValueError, match="non-empty"):
+        index.overlaps(((4, 4),))
+
+
 def _candidate_package(tmp_path: Path, **fixture_kwargs):
     fasta, fai, basic, comprehensive, donor_table, acceptor_table = _biology_fixture(
         tmp_path, **fixture_kwargs
@@ -403,6 +431,7 @@ def test_candidate_auditor_does_not_import_producer_biology_reconstructors(tmp_p
     package, registry, freshness_audit, paths = _candidate_package(tmp_path)
     fasta, fai, basic, comprehensive, donor_table, acceptor_table = paths
     producer_reconstructors = {
+        "_FeatureIntervalIndex",
         "enumerate_edge_evidence",
         "module_record",
         "scaffold_record",
