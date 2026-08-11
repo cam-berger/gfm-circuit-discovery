@@ -7,7 +7,6 @@ from types import SimpleNamespace
 
 import pytest
 import torch
-import audit_bg_boundary as AUDIT
 
 
 SCRIPT = (
@@ -20,6 +19,8 @@ SPEC = importlib.util.spec_from_file_location("run_bg2_boundary_payload_recovery
 assert SPEC is not None and SPEC.loader is not None
 MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MODULE)
+
+import audit_bg_boundary as AUDIT  # noqa: E402
 
 
 def test_edited_attention_recovery_uses_edited_row_exactly():
