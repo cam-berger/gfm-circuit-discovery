@@ -263,8 +263,8 @@ required to audit the recorded claims are version-controlled.
 ### Positional boundary coherence — nothing to reproduce yet
 
 **There is no run here to reproduce.** `studies/splicebert_positional_boundary_coherence/` ships a frozen
-preregistration, 28 runner/audit entrypoints under
-`scripts/splicebert_positional_boundary_coherence/`, ten `src/gfmcd/splicing/pbc_*` and
+preregistration, 29 runner/audit entrypoints under
+`scripts/splicebert_positional_boundary_coherence/`, eleven `src/gfmcd/splicing/pbc_*` and
 `positional_boundary_coherence` modules, and their tests — and no artifact. Everything below is the
 *forward* path for whoever executes it, not a replay.
 
@@ -273,6 +273,7 @@ preregistration, 28 runner/audit entrypoints under
 | Freshness registry | `build_freshness_registry.py` | `audit_freshness_registry.py` |
 | Real-sequence census | `build_candidate_census.py` | `audit_candidate_census.py` |
 | Balanced cohort | `build_composition_balanced_cohort.py` | `audit_composition_balanced_cohort.py` |
+| Pre-target protocol/code conformance | `audit_protocol_code_conformance.py` | its passing artifact and manifest are required and hash-bound by the Phase-II freezer |
 | P3-first attenuation development | `calibrate_carrier_factorial.py` → `run_carrier_factorial_preflight.py` | `audit_carrier_factorial_preflight.py` → `freeze_carrier_factorial_target.py` |
 | Attenuation confirmation | `run_carrier_factorial_target.py` → `analyze_carrier_factorial.py` | `audit_carrier_factorial.py` |
 | P3 register development | `run_p3_register_preflight.py` → `analyze_p3_register_preflight.py` | `audit_p3_register_preflight.py` |
@@ -281,7 +282,7 @@ preregistration, 28 runner/audit entrypoints under
 | Register confirmation | `run_p3_register_target.py` → `assemble_p3_register_target.py` → `analyze_p3_register_relocation.py` | `audit_p3_register_relocation.py` |
 | Route mediation | `run_p3_register_mediation_target.py` → `assemble_p3_register_mediation_target.py` → `analyze_p3_register_mediation.py` | `audit_p3_register_mediation.py` |
 
-Four things bind before the first model call, and each is fail-closed:
+Four things bind before the first target call, and each is fail-closed:
 
 1. **A conformance audit.** The preregistration's own "Present status" requires a freeze package binding
    the final code and inputs, plus an independent protocol-to-code conformance audit, before any target

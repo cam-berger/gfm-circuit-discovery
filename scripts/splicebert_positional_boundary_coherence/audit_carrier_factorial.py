@@ -1172,6 +1172,7 @@ def audit_payloads(
         "schema": AUDIT_SCHEMA,
         "stage": "target",
         "status": "PASS" if passed else "FAIL",
+        "target_mode": str(analysis.get("target_mode", "")),
         "analysis_sha256": analysis_sha256,
         "target_sha256": target_sha256,
         "preflight_sha256": preflight_sha256,

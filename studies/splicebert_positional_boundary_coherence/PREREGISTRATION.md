@@ -1089,3 +1089,67 @@ If the partial-concordance tier also passes, add:
 
 The stronger Section-13 full-relocation and mediation wording remains available only when its original
 three-of-three and route-specific requirements pass.
+
+## Amendment A4 — pre-target identity and conformance closure (2026-08-11)
+
+**Timing:** additive after model-free construction began and before any successor model forward,
+development outcome, confirmation exposure, or Phase-III reserve exposure. **Scope:** execution identity,
+authorization provenance, and deterministic crash repair only. No hypothesis, endpoint, estimand, sign,
+SESOI, threshold, dose, null family, seed, draw count, sample, split, decision rule, or licensed outcome
+wording changes.
+
+The following bytes are frozen for this execution. The official `SpliceBERT.1024nt` weight identity is
+`pytorch_model.bin` sha256
+`2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d`. Its directory may be outside the
+worktree: path equality is not identity, and every production model entrypoint verifies the weight digest
+and refuses an alternate `model.safetensors` weight source before loading. The construction identities are hg38 FASTA
+`5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51`, its FAI
+`3b425de206296a5c8053023fa5ca61da43cfe78c1737c12e58c83367c7e83c21`, GENCODE-v50 basic GTF
+`5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7`, GENCODE-v50 comprehensive GTF
+`83fba3e9b03f0b8c958f3595c6c350adc55f468abf8b0e47b6d5284cfe13a453`, donor MaxEnt table
+`c64fa6aea3d8b71d6af69f5e3ece8f84de06f5450f6d4ba482fbbff6afcf8b5b`, and acceptor MaxEnt table
+`9e8a74dc795ae5c9c5b611d4343a1a5a70fff863956f4e00ae23a85f21beb3ae`. The frozen freshness-source and
+sign-free-variance configuration digests are, respectively,
+`c3a145aa70d52eeba8276456822ba6f8aed5acd7e65ae62f67e14d7aec6c40d4` and
+`aaaf0b554ba1d11dc7c03485f1db583b886f13d786bc0508b729d09d0645584d`.
+
+The model-free candidate builder remains a general recorder rather than silently acquiring a new
+eligibility rule after a census began. A candidate package is execution-admissible only if the independent
+construction reconstruction passes and both the protocol-conformance auditor and Phase-II freezer re-read
+its recorded files, verify current byte sizes and digests against every identity above, and verify the
+GENCODE coordinate/phase conventions and named MaxEnt equations. Thus the construction already started at
+revision `470d68ff` need not be repeated merely because the gate moved into the execution layer; an
+independent reconstruction or any byte/convention mismatch can still stop it before model access.
+
+Before the first candidate artifact completed, the producer's local comprehensive-GTF overlap lookup was
+found to rescan every chromosome feature for every eligible edge. It is replaced by an exact interval range
+index that preserves source-file order and returns the identical overlapping feature sequence; the
+independent reconstruction receives its own equivalent implementation. This is a model-free performance
+repair only. It changes no eligibility predicate, conflict rule, candidate ordering, gate, seed, or outcome,
+and producer/auditor equality remains required.
+
+The first full census attempt then stopped before writing an artifact because alternative transcript edges
+materialized the same `(role, chromosome, strand, source_start, source_end)` locus more than once, violating
+the already-frozen Section-4.1 duplicate-locus exclusion. Producer and independent auditor now count these
+keys after materialization and exclude **every** occurrence of a duplicated key with reason
+`duplicate_source_locus:<role>`; they do not choose a representative. Unique donor, acceptor, and scaffold
+loci remain eligible. This implements the frozen exclusion and invariant without changing either: the
+stopped attempt created no candidate artifact, no model was loaded, and no gate, seed, threshold, or split
+was relaxed. The final conformance, preflight, and freeze inventories bind the integrated producer and
+auditor hashes.
+
+Before a Phase-II seal may be written, the independent source-level auditor must emit
+`gfmcd.pbc.protocol_code_conformance_audit.v1` with `PASS`, a sibling manifest, a clean tracked revision,
+no model load, and `target_outcomes_read=false`. It enumerates protocol requirements against the final
+construction, preflight, target, Phase-III, audit, reusable-module, and memorial-test inventory; verifies
+the input identities above; and hash-binds every audited file. The freezer independently revalidates that
+artifact and manifest, requires that both bind its exact final code and scientific inputs, and adds their
+hashes to the target authorization chain. The target runner revalidates that chain from pinned files. A
+preflight audit alone is not protocol-to-code conformance and cannot substitute for this artifact.
+
+The Phase-II seal additionally binds the resolved device, positive batch size, and loaded position-table
+dtype. Scoring refuses a device or batch mismatch before checkpoint loading and a dtype mismatch before the
+first target forward. Assembly is model-free and consumes the already sealed shard identity. The sharded
+target manifest now records its raw endpoint-stream identity when compact evidence is not yet available,
+and the final result audit records `target_mode` before using it in its manifest. These are pre-outcome
+repairs to guaranteed writer/reporting failures; they do not change any numerical computation or verdict.

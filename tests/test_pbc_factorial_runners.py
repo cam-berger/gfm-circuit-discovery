@@ -218,6 +218,30 @@ def _seal(table: np.ndarray, tmp_path: Path, *, full: bool = False) -> dict[str,
     )
     audit_manifest_path = tmp_path / "preflight.audit.manifest.json"
     audit_manifest_path.write_text(json.dumps({"outputs": [file_record(audit_path)]}))
+    conformance_path = tmp_path / "conformance.audit.json"
+    conformance_path.write_text(
+        json.dumps(
+            {
+                "schema": "gfmcd.pbc.protocol_code_conformance_audit.v1",
+                "stage": "development",
+                "status": "PASS",
+                "passed": True,
+                "target_outcomes_read": False,
+                "tracked_tree_clean": True,
+                "git_revision": "f" * 40,
+            }
+        )
+    )
+    conformance_manifest_path = tmp_path / "conformance.audit.manifest.json"
+    conformance_manifest_path.write_text(
+        json.dumps(
+            {
+                "experiment_id": "pbc-protocol-code-conformance-audit-v1",
+                "status": "PASS",
+                "outputs": [file_record(conformance_path)],
+            }
+        )
+    )
     paths = (
         construction_source_path,
         construction_audit_path,
@@ -226,6 +250,8 @@ def _seal(table: np.ndarray, tmp_path: Path, *, full: bool = False) -> dict[str,
         preflight_manifest_path,
         audit_path,
         audit_manifest_path,
+        conformance_path,
+        conformance_manifest_path,
     )
     return make_target_seal(
         preflight,
@@ -246,7 +272,12 @@ def _seal(table: np.ndarray, tmp_path: Path, *, full: bool = False) -> dict[str,
             "construction_audit_manifest_sha256": sha256_file(
                 construction_manifest_path
             ),
+            "conformance_audit_sha256": sha256_file(conformance_path),
+            "conformance_audit_manifest_sha256": sha256_file(
+                conformance_manifest_path
+            ),
         },
+        runtime={"device": "cpu", "batch_size": 4, "dtype": "float32"},
         target_outputs={
             "shard_count": 1,
             "shards": ["/tmp/pbc-target.json"],
@@ -528,6 +559,10 @@ def test_target_shards_are_deterministic_disjoint_and_complete(
         shard["source_cohort_sha256"] = "b" * 64
         shard["source_seal_file_sha256"] = "c" * 64
         shards.append(shard)
+    shard_manifest = target_runner.target_manifest_config(shards[0], seal)
+    assert shard_manifest["compact_evidence_schema"] is None
+    assert shard_manifest["raw_row_count"] == len(shards[0]["rows"])
+    assert len(shard_manifest["raw_endpoint_stream_sha256"]) == 64
     assembled = target_runner.assemble_target_shards(shards)
     assert assembled["schema"] == target_runner.TARGET_SCHEMA
     assert assembled["status"] == "TARGET_SCORED_UNANALYZED"
@@ -811,5 +846,6 @@ def test_audit_contract_hash_binds_analysis_and_fails_a_tampered_target_hash():
     assert audit["schema"] == "gfmcd.pbc.carrier_factorial_audit.v1"
     assert audit["status"] == "FAIL"
     assert audit["analysis_sha256"] == "a" * 64
+    assert audit["target_mode"] == "P3_ONLY"
     assert "target_hash_bound" in audit["failures"]
     assert not audit["authorization"]["authorize_p3_phase3"]

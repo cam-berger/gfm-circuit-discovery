@@ -1410,6 +1410,7 @@ def make_target_seal(
     control_seed: int,
     structured_control_hashes: Mapping[str, Mapping[str, Any]],
     preflight_authorization: Mapping[str, Any],
+    runtime: Mapping[str, Any],
     target_outputs: Mapping[str, Any],
     frozen_revision: str,
 ) -> dict[str, Any]:
@@ -1439,12 +1440,25 @@ def make_target_seal(
         "audit_manifest_sha256",
         "construction_audit_sha256",
         "construction_audit_manifest_sha256",
+        "conformance_audit_sha256",
+        "conformance_audit_manifest_sha256",
     )
     if any(
         len(str(preflight_authorization.get(name, ""))) != 64
         for name in required_hashes
     ):
         raise RuntimeError("preflight authorization chain has an invalid hash")
+    runtime_keys = {"device", "batch_size", "dtype"}
+    if (
+        set(runtime) != runtime_keys
+        or not isinstance(runtime.get("device"), str)
+        or not str(runtime.get("device"))
+        or type(runtime.get("batch_size")) is not int
+        or int(runtime.get("batch_size", 0)) < 1
+        or not isinstance(runtime.get("dtype"), str)
+        or not str(runtime.get("dtype"))
+    ):
+        raise RuntimeError("target runtime must bind device, batch_size, and dtype")
     revision = str(frozen_revision)
     if len(revision) != 40 or any(character not in "0123456789abcdef" for character in revision):
         raise RuntimeError("target seal requires a clean, full Git revision")
@@ -1479,6 +1493,11 @@ def make_target_seal(
         "structured_control_seed": int(control_seed),
         "structured_control_hashes": dict(structured_control_hashes),
         "preflight_authorization": dict(preflight_authorization),
+        "runtime": {
+            "device": str(runtime["device"]),
+            "batch_size": int(runtime["batch_size"]),
+            "dtype": str(runtime["dtype"]),
+        },
         "target_outputs": {
             "shard_count": shard_count,
             "shards": [str(path) for path in shards],
@@ -1517,6 +1536,18 @@ def verify_target_seal(seal: Mapping[str, Any]) -> None:
     mode = seal.get("target_mode")
     if seal.get("authorized_split_role") != "confirmation":
         raise RuntimeError("target seal does not authorize the confirmation role")
+    runtime = seal.get("runtime")
+    if (
+        not isinstance(runtime, Mapping)
+        or set(runtime) != {"device", "batch_size", "dtype"}
+        or not isinstance(runtime.get("device"), str)
+        or not str(runtime.get("device"))
+        or type(runtime.get("batch_size")) is not int
+        or int(runtime.get("batch_size", 0)) < 1
+        or not isinstance(runtime.get("dtype"), str)
+        or not str(runtime.get("dtype"))
+    ):
+        raise RuntimeError("target seal lacks an exact runtime binding")
     authorization = seal.get("preflight_authorization", {})
     required_hashes = (
         "preflight_sha256",
@@ -1527,6 +1558,8 @@ def verify_target_seal(seal: Mapping[str, Any]) -> None:
         "audit_manifest_sha256",
         "construction_audit_sha256",
         "construction_audit_manifest_sha256",
+        "conformance_audit_sha256",
+        "conformance_audit_manifest_sha256",
     )
     if (
         not isinstance(authorization, Mapping)
@@ -1567,6 +1600,12 @@ def verify_target_seal(seal: Mapping[str, Any]) -> None:
     construction_audit_manifest_path = pinned_path(
         str(authorization["construction_audit_manifest_sha256"])
     )
+    conformance_audit_path = pinned_path(
+        str(authorization["conformance_audit_sha256"])
+    )
+    conformance_audit_manifest_path = pinned_path(
+        str(authorization["conformance_audit_manifest_sha256"])
+    )
     if any(
         path is None
         for path in (
@@ -1576,6 +1615,8 @@ def verify_target_seal(seal: Mapping[str, Any]) -> None:
             audit_manifest_path,
             construction_audit_path,
             construction_audit_manifest_path,
+            conformance_audit_path,
+            conformance_audit_manifest_path,
         )
     ):
         raise RuntimeError("target seal does not pin the complete audit artifact chain")
@@ -1587,6 +1628,12 @@ def verify_target_seal(seal: Mapping[str, Any]) -> None:
         )
         construction_audit_manifest = json.loads(
             construction_audit_manifest_path.read_text()  # type: ignore[union-attr]
+        )
+        conformance_audit_payload = json.loads(
+            conformance_audit_path.read_text()  # type: ignore[union-attr]
+        )
+        conformance_audit_manifest = json.loads(
+            conformance_audit_manifest_path.read_text()  # type: ignore[union-attr]
         )
         preflight_manifest = json.loads(
             preflight_manifest_path.read_text()  # type: ignore[union-attr]
@@ -1672,6 +1719,22 @@ def verify_target_seal(seal: Mapping[str, Any]) -> None:
         or not manifest_binds(
             construction_audit_manifest,
             str(authorization["construction_audit_sha256"]),
+        )
+        or conformance_audit_payload.get("schema")
+        != "gfmcd.pbc.protocol_code_conformance_audit.v1"
+        or conformance_audit_payload.get("stage") != "development"
+        or conformance_audit_payload.get("status") != "PASS"
+        or conformance_audit_payload.get("passed") is not True
+        or conformance_audit_payload.get("target_outcomes_read") is not False
+        or conformance_audit_payload.get("tracked_tree_clean") is not True
+        or conformance_audit_payload.get("git_revision")
+        != str(seal.get("frozen_revision", ""))
+        or conformance_audit_manifest.get("experiment_id")
+        != "pbc-protocol-code-conformance-audit-v1"
+        or conformance_audit_manifest.get("status") != "PASS"
+        or not manifest_binds(
+            conformance_audit_manifest,
+            str(authorization["conformance_audit_sha256"]),
         )
     ):
         raise RuntimeError("target seal audit artifact chain is internally inconsistent")

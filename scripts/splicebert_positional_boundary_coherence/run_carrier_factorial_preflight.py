@@ -29,7 +29,9 @@ sys.path.insert(0, str(SCRIPT_DIR))
 
 from gfmcd.artifact_guard import guard_output_path  # noqa: E402
 from gfmcd.provenance import ExperimentManifest, sha256_file  # noqa: E402
-from gfmcd.splicing.circuit import DEFAULT_MODEL  # noqa: E402
+from gfmcd.splicing.pbc_frozen_inputs import (  # noqa: E402
+    validate_official_checkpoint,
+)
 from gfmcd.splicing.pbc_carrier_factorial import (  # noqa: E402
     DOSE_GRID,
     MIN_STRUCTURED_CONTROLS,
@@ -67,6 +69,7 @@ from run_carrier_factorial_target import (  # noqa: E402
     SpliceBertCellScorer,
     _split_cells,
 )
+from audit_protocol_code_conformance import conformance_code_files  # noqa: E402
 
 
 PREFLIGHT_SCHEMA = "gfmcd.pbc.carrier_factorial_preflight.v1"
@@ -2079,8 +2082,7 @@ def main() -> None:
     model_path = Path(args.model).expanduser().resolve()
     if args.provider is not None:
         parser.error("custom providers are fixture-only and cannot authorize a target")
-    if model_path != (REPO / DEFAULT_MODEL).resolve():
-        raise RuntimeError("preflight requires the frozen official SpliceBERT.1024nt path")
+    validate_official_checkpoint(model_path)
     cohort = json.loads(cohort_path.read_text())
     candidate_package = json.loads(candidate_path.read_text())
     validate_candidate_package(candidate_package)
@@ -2149,16 +2151,7 @@ def main() -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
 
-    code_files = (
-        REPO / "src/gfmcd/splicing/pbc_carrier_factorial.py",
-        Path(__file__).resolve(),
-        SCRIPT_DIR / "audit_carrier_factorial_preflight.py",
-        SCRIPT_DIR / "freeze_carrier_factorial_target.py",
-        SCRIPT_DIR / "run_carrier_factorial_target.py",
-        SCRIPT_DIR / "analyze_carrier_factorial.py",
-        SCRIPT_DIR / "audit_carrier_factorial.py",
-        SCRIPT_DIR / "calibrate_carrier_factorial.py",
-    )
+    code_files = conformance_code_files(REPO)
     pinned_paths = (
         cohort_path,
         candidate_path,

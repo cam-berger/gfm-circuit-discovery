@@ -482,6 +482,30 @@ def test_target_seal_hash_binds_control_seed_and_every_control(tmp_path: Path):
     )
     audit_manifest_path = tmp_path / "audit.manifest.json"
     audit_manifest_path.write_text(json.dumps({"outputs": [file_record(audit_path)]}))
+    conformance_path = tmp_path / "conformance.audit.json"
+    conformance_path.write_text(
+        json.dumps(
+            {
+                "schema": "gfmcd.pbc.protocol_code_conformance_audit.v1",
+                "stage": "development",
+                "status": "PASS",
+                "passed": True,
+                "target_outcomes_read": False,
+                "tracked_tree_clean": True,
+                "git_revision": "f" * 40,
+            }
+        )
+    )
+    conformance_manifest_path = tmp_path / "conformance.audit.manifest.json"
+    conformance_manifest_path.write_text(
+        json.dumps(
+            {
+                "experiment_id": "pbc-protocol-code-conformance-audit-v1",
+                "status": "PASS",
+                "outputs": [file_record(conformance_path)],
+            }
+        )
+    )
     chain_paths = (
         construction_source_path,
         construction_audit_path,
@@ -490,6 +514,8 @@ def test_target_seal_hash_binds_control_seed_and_every_control(tmp_path: Path):
         preflight_manifest_path,
         audit_path,
         audit_manifest_path,
+        conformance_path,
+        conformance_manifest_path,
     )
     authorization = {
         "audit_schema": "gfmcd.pbc.carrier_factorial_preflight_audit.v1",
@@ -505,6 +531,10 @@ def test_target_seal_hash_binds_control_seed_and_every_control(tmp_path: Path):
         "construction_audit_manifest_sha256": sha256_file(
             construction_manifest_path
         ),
+        "conformance_audit_sha256": sha256_file(conformance_path),
+        "conformance_audit_manifest_sha256": sha256_file(
+            conformance_manifest_path
+        ),
     }
     seal = make_target_seal(
         preflight,
@@ -512,6 +542,7 @@ def test_target_seal_hash_binds_control_seed_and_every_control(tmp_path: Path):
         control_seed=20260810,
         structured_control_hashes=hashes,
         preflight_authorization=authorization,
+        runtime={"device": "cpu", "batch_size": 4, "dtype": "float32"},
         target_outputs={
             "shard_count": 1,
             "shards": ["/tmp/pbc-target.json"],

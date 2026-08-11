@@ -235,6 +235,7 @@ that depends on an uncommitted raw shard must say so and cannot be called clean-
 | Freshness | `build_freshness_registry.py` | `audit_freshness_registry.py` |
 | Real-sequence census | `build_candidate_census.py` | `audit_candidate_census.py` |
 | Balanced cohort | `build_composition_balanced_cohort.py` | `audit_composition_balanced_cohort.py` |
+| Pre-target protocol/code conformance | `audit_protocol_code_conformance.py` | its passing artifact and manifest are required and hash-bound by the Phase-II freezer |
 | P3-first attenuation development | `calibrate_carrier_factorial.py`, then `run_carrier_factorial_preflight.py` | `audit_carrier_factorial_preflight.py`, then `freeze_carrier_factorial_target.py` |
 | Attenuation confirmation | `run_carrier_factorial_target.py`, `analyze_carrier_factorial.py` | `audit_carrier_factorial.py` |
 | P3 register development | `run_p3_register_preflight.py`, `analyze_p3_register_preflight.py` | `audit_p3_register_preflight.py` |
@@ -248,7 +249,7 @@ positive, negative, or bounded result from a failed instrument.
 
 ## Present status
 
-`PREREGISTRATION.md`, including pre-outcome Amendments A1–A3, freezes the design and numerical decision
+`PREREGISTRATION.md`, including pre-outcome Amendments A1–A4, freezes the design and numerical decision
 rules. It does **not** assert that the new
 cohort exists, that a preflight has passed, that a target is authorized, or that any endpoint has been
 measured. Before the first target run, the execution package must bind the completed code and inputs and an
