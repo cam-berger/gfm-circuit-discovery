@@ -14,11 +14,13 @@ the complete construction and audit path without a genome or model checkpoint.
 from __future__ import annotations
 
 from collections import Counter
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 import hashlib
 import itertools
 import json
 import math
+import os
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
@@ -58,6 +60,10 @@ DEFAULT_ALLOWED_CHROMS = frozenset(
     {*(f"chr{i}" for i in range(1, 8)), *(f"chr{i}" for i in range(10, 23)), "chrX"}
 )
 DEFAULT_FORBIDDEN_CHROMS = frozenset({"chr8", "chr9", "chrY", "chrM", "MT"})
+_AUC_OUTER_WORKERS = 5
+_AUC_BOOTSTRAP_CHUNK_SIZE = 256
+_AUC_BOOTSTRAP_EQUIVALENCE_ATOL = 1e-12
+_AUC_FROZEN_GATE_THRESHOLDS = (0.50, 0.55, 0.70)
 ROLE_WINDOWS = {
     "donor": {
         "core": (-3, 6),
@@ -1091,6 +1097,353 @@ def _balanced_outer_fold_map(
     return fold_map, [dict(sorted(count.items())) for count in fold_counts]
 
 
+@dataclass(frozen=True)
+class _NestedAUCDesign:
+    """Label-independent arrays reused by the 99 pseudo-label fits."""
+
+    names: tuple[str, ...]
+    matrix: np.ndarray
+    group_array: np.ndarray
+    stratum_array: np.ndarray
+    unique_groups: np.ndarray
+    row_group_codes: np.ndarray
+    groups_by_stratum: tuple[tuple[str, np.ndarray, np.ndarray], ...]
+
+
+def _prepare_nested_auc_design(
+    feature_rows: Sequence[Mapping[str, float]],
+    groups: Sequence[str],
+    strata: Sequence[str] | None,
+) -> _NestedAUCDesign:
+    """Materialize the frozen feature matrix and block indexes exactly once."""
+
+    if not feature_rows or len(feature_rows) != len(groups):
+        raise ValueError("AUC inputs must be non-empty and aligned")
+    names = tuple(sorted(set().union(*(row.keys() for row in feature_rows))))
+    matrix = np.asarray(
+        [[float(row.get(name, 0.0)) for name in names] for row in feature_rows],
+        dtype=np.float64,
+    )
+    group_array = np.asarray(groups, dtype=object)
+    stratum_array = np.asarray(
+        list(strata) if strata is not None else ["all"] * len(groups), dtype=object
+    )
+    if len(stratum_array) != len(group_array):
+        raise ValueError("strata must align to groups")
+    unique_groups = np.unique(group_array)
+    group_code = {str(group): index for index, group in enumerate(unique_groups)}
+    row_group_codes = np.asarray(
+        [group_code[str(group)] for group in group_array], dtype=np.int32
+    )
+    groups_by_stratum_raw: dict[str, list[str]] = {}
+    for group in unique_groups:
+        positions = np.flatnonzero(group_array == group)
+        group_strata = np.unique(stratum_array[positions])
+        if len(group_strata) != 1:
+            raise ValueError("all cells of a block must share one chromosome/strand stratum")
+        groups_by_stratum_raw.setdefault(str(group_strata[0]), []).append(str(group))
+    groups_by_stratum = tuple(
+        (
+            stratum,
+            np.asarray(groups_by_stratum_raw[stratum], dtype=object),
+            np.asarray(
+                [group_code[group] for group in groups_by_stratum_raw[stratum]],
+                dtype=np.int32,
+            ),
+        )
+        for stratum in sorted(groups_by_stratum_raw)
+    )
+    return _NestedAUCDesign(
+        names=names,
+        matrix=matrix,
+        group_array=group_array,
+        stratum_array=stratum_array,
+        unique_groups=unique_groups,
+        row_group_codes=row_group_codes,
+        groups_by_stratum=groups_by_stratum,
+    )
+
+
+def _draw_group_bootstrap_counts(
+    design: _NestedAUCDesign,
+    *,
+    n_boot: int,
+    seed: int,
+) -> np.ndarray:
+    """Replay the legacy draw order while retaining only group multiplicities."""
+
+    rng = np.random.default_rng(int(seed))
+    counts = np.zeros((int(n_boot), len(design.unique_groups)), dtype=np.int32)
+    for draw_index in range(int(n_boot)):
+        for _stratum, stratum_groups, stratum_group_codes in design.groups_by_stratum:
+            # `choice` receives the same sorted object array, size, and replacement
+            # flag as the original implementation, in the same draw-major order.
+            sampled = rng.choice(
+                stratum_groups, size=len(stratum_groups), replace=True
+            )
+            sampled_codes = stratum_group_codes[
+                np.searchsorted(stratum_groups, sampled)
+            ]
+            np.add.at(counts[draw_index], sampled_codes, 1)
+    return counts
+
+
+def _auc_from_group_counts(
+    labels: np.ndarray,
+    predictions: np.ndarray,
+    row_group_codes: np.ndarray,
+    counts: np.ndarray,
+    *,
+    chunk_size: int = _AUC_BOOTSTRAP_CHUNK_SIZE,
+) -> np.ndarray:
+    """Vectorized weighted Mann-Whitney AUC for whole-block resamples.
+
+    Repeating a block `k` times is exactly equivalent to giving each of its
+    rows integer weight `k`.  Tied prediction values receive the same one-half
+    credit as ``sklearn.metrics.roc_auc_score``.
+    """
+
+    order = np.argsort(predictions, kind="mergesort")
+    ordered_predictions = predictions[order]
+    ordered_labels = labels[order].astype(np.float64, copy=False)
+    ordered_group_codes = row_group_codes[order]
+    score_starts = np.r_[0, np.flatnonzero(np.diff(ordered_predictions)) + 1]
+    output = np.empty(len(counts), dtype=np.float64)
+    for start in range(0, len(counts), int(chunk_size)):
+        stop = min(start + int(chunk_size), len(counts))
+        row_weights = counts[start:stop, ordered_group_codes].astype(
+            np.float64, copy=False
+        )
+        positive_by_score = np.add.reduceat(
+            row_weights * ordered_labels, score_starts, axis=1
+        )
+        negative_by_score = np.add.reduceat(
+            row_weights * (1.0 - ordered_labels), score_starts, axis=1
+        )
+        negative_below = np.cumsum(negative_by_score, axis=1) - negative_by_score
+        numerator = np.sum(
+            positive_by_score * (negative_below + 0.5 * negative_by_score), axis=1
+        )
+        denominator = positive_by_score.sum(axis=1) * negative_by_score.sum(axis=1)
+        if np.any(denominator <= 0):
+            raise ValueError("bootstrap AUC resample contains only one label class")
+        output[start:stop] = numerator / denominator
+    return output
+
+
+def _reference_group_bootstrap_auc(
+    design: _NestedAUCDesign,
+    labels: np.ndarray,
+    predictions: np.ndarray,
+    *,
+    n_boot: int,
+    seed: int,
+) -> np.ndarray:
+    """Pre-optimization bootstrap retained only for threshold-edge fallback/tests."""
+
+    from sklearn.metrics import roc_auc_score
+
+    rng = np.random.default_rng(int(seed))
+    bootstrap = np.empty(int(n_boot), dtype=np.float64)
+    by_group = {
+        str(group): np.flatnonzero(design.group_array == group)
+        for group in design.unique_groups
+    }
+    for draw_index in range(int(n_boot)):
+        sampled: list[str] = []
+        for _stratum, stratum_groups, _codes in design.groups_by_stratum:
+            sampled.extend(
+                rng.choice(
+                    stratum_groups, size=len(stratum_groups), replace=True
+                ).tolist()
+            )
+        positions = np.concatenate([by_group[str(group)] for group in sampled])
+        bootstrap[draw_index] = float(
+            roc_auc_score(labels[positions], predictions[positions])
+        )
+    return bootstrap
+
+
+def _bootstrap_auc(
+    design: _NestedAUCDesign,
+    labels: np.ndarray,
+    predictions: np.ndarray,
+    *,
+    n_boot: int,
+    seed: int,
+) -> np.ndarray:
+    counts = _draw_group_bootstrap_counts(design, n_boot=n_boot, seed=seed)
+    bootstrap = _auc_from_group_counts(
+        labels, predictions, design.row_group_codes, counts
+    )
+    bounds = np.quantile(bootstrap, (0.025, 0.975))
+    # The vectorized weighted-rank calculation and sklearn's repeated-row ROC
+    # calculation agree to floating tolerance.  At a frozen decision boundary,
+    # replay the prior implementation so even a last-bit difference cannot flip
+    # a 0.50-containment, 0.55-upper, or 0.70-lower gate.
+    if any(
+        abs(float(bound) - threshold) <= _AUC_BOOTSTRAP_EQUIVALENCE_ATOL
+        for bound in bounds
+        for threshold in _AUC_FROZEN_GATE_THRESHOLDS
+    ):
+        return _reference_group_bootstrap_auc(
+            design, labels, predictions, n_boot=n_boot, seed=seed
+        )
+    return bootstrap
+
+
+def _nested_crossfit_auc_prepared(
+    design: _NestedAUCDesign,
+    labels: Sequence[bool | int],
+    *,
+    seed: int,
+    outer_folds: int,
+    inner_folds: int,
+    n_boot: int,
+    c_grid: Sequence[float],
+    executor: ThreadPoolExecutor | None = None,
+) -> dict[str, Any]:
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.metrics import roc_auc_score
+    from sklearn.model_selection import GroupKFold
+    from sklearn.preprocessing import StandardScaler
+
+    label_array = np.asarray(labels, dtype=np.int8)
+    if len(label_array) != len(design.group_array):
+        raise ValueError("AUC inputs must be non-empty and aligned")
+    outer_count = int(outer_folds)
+    if outer_count != 5:
+        raise ValueError("the frozen classifier requires exactly five outer folds")
+    if len(design.unique_groups) < outer_count:
+        return {
+            "evaluable": False,
+            "reason": "at least five independent blocks are required",
+            "n_groups": int(len(design.unique_groups)),
+        }
+    fold_map, fold_stratum_counts = _balanced_outer_fold_map(
+        design.group_array.tolist(),
+        design.stratum_array.tolist(),
+        n_folds=outer_count,
+        seed=seed,
+    )
+    row_folds = np.asarray(
+        [fold_map[str(group)] for group in design.group_array], dtype=np.int8
+    )
+
+    def fit_outer_fold(fold: int) -> tuple[int, np.ndarray, np.ndarray, dict[str, Any]]:
+        test = np.flatnonzero(row_folds == fold)
+        train = np.flatnonzero(row_folds != fold)
+        if test.size == 0:
+            raise ValueError(f"outer fold {fold} is empty")
+        train_groups = design.group_array[train]
+        inner_count = min(int(inner_folds), len(np.unique(train_groups)))
+        if inner_count < 2:
+            raise ValueError("nested training split has fewer than two blocks")
+        scores: dict[float, list[float]] = {float(c): [] for c in c_grid}
+        inner = GroupKFold(n_splits=inner_count)
+        for inner_train_rel, inner_val_rel in inner.split(
+            design.matrix[train], label_array[train], train_groups
+        ):
+            inner_train, inner_val = train[inner_train_rel], train[inner_val_rel]
+            scaler = StandardScaler().fit(design.matrix[inner_train])
+            train_x = scaler.transform(design.matrix[inner_train])
+            val_x = scaler.transform(design.matrix[inner_val])
+            for c_value in c_grid:
+                classifier = LogisticRegression(
+                    C=float(c_value),
+                    class_weight="balanced",
+                    max_iter=2000,
+                    random_state=int(seed),
+                    solver="liblinear",
+                ).fit(train_x, label_array[inner_train])
+                probability = classifier.predict_proba(val_x)[:, 1]
+                scores[float(c_value)].append(
+                    float(roc_auc_score(label_array[inner_val], probability))
+                )
+        selected_c = max(
+            scores,
+            key=lambda c_value: (float(np.mean(scores[c_value])), -float(c_value)),
+        )
+        scaler = StandardScaler().fit(design.matrix[train])
+        classifier = LogisticRegression(
+            C=selected_c,
+            class_weight="balanced",
+            max_iter=2000,
+            random_state=int(seed + fold),
+            solver="liblinear",
+        ).fit(scaler.transform(design.matrix[train]), label_array[train])
+        fold_predictions = classifier.predict_proba(
+            scaler.transform(design.matrix[test])
+        )[:, 1]
+        record = {
+            "fold": fold,
+            "selected_c": selected_c,
+            "inner_auc_by_c": {
+                str(c): float(np.mean(values)) for c, values in sorted(scores.items())
+            },
+            "n_train_blocks": int(len(np.unique(design.group_array[train]))),
+            "n_test_blocks": int(len(np.unique(design.group_array[test]))),
+            "test_stratum_blocks": fold_stratum_counts[fold],
+        }
+        return fold, test, fold_predictions, record
+
+    owns_executor = executor is None and _AUC_OUTER_WORKERS > 1
+    local_executor = executor
+    if owns_executor:
+        local_executor = ThreadPoolExecutor(
+            max_workers=min(_AUC_OUTER_WORKERS, os.cpu_count() or 1)
+        )
+    try:
+        if local_executor is None:
+            fold_outputs = [fit_outer_fold(fold) for fold in range(outer_count)]
+        else:
+            fold_outputs = list(local_executor.map(fit_outer_fold, range(outer_count)))
+    except ValueError as exc:
+        if str(exc).startswith("outer fold ") or str(exc).startswith("nested training split"):
+            return {"evaluable": False, "reason": str(exc)}
+        raise
+    finally:
+        if owns_executor and local_executor is not None:
+            local_executor.shutdown()
+    predictions = np.full(len(label_array), np.nan, dtype=np.float64)
+    fold_records: list[dict[str, Any]] = []
+    for _fold, test, fold_predictions, record in fold_outputs:
+        predictions[test] = fold_predictions
+        fold_records.append(record)
+    if not np.all(np.isfinite(predictions)):
+        raise AssertionError("cross-fit predictions were not complete")
+    estimate = float(roc_auc_score(label_array, predictions))
+    bootstrap = _bootstrap_auc(
+        design, label_array, predictions, n_boot=int(n_boot), seed=int(seed)
+    )
+    return {
+        "evaluable": True,
+        "orientation_free": False,
+        "estimate": float(estimate),
+        "ci_low": float(np.quantile(bootstrap, 0.025)),
+        "ci_high": float(np.quantile(bootstrap, 0.975)),
+        "n_rows": len(label_array),
+        "n_groups": len(design.unique_groups),
+        "n_features": len(design.names),
+        "outer_folds": outer_count,
+        "inner_folds": int(inner_folds),
+        "n_boot": int(n_boot),
+        "seed": int(seed),
+        "folds": fold_records,
+        "outer_fold_stratum_counts": fold_stratum_counts,
+        "outer_folds_stratum_balanced": all(
+            max(counts) - min(counts) <= 1
+            for stratum in sorted(
+                {key for fold_count in fold_stratum_counts for key in fold_count}
+            )
+            for counts in [
+                [fold_count.get(stratum, 0) for fold_count in fold_stratum_counts]
+            ]
+        ),
+        "prediction_sha256": hashlib.sha256(predictions.tobytes()).hexdigest(),
+    }
+
+
 def nested_crossfit_auc(
     feature_rows: Sequence[Mapping[str, float]],
     labels: Sequence[bool | int],
@@ -1105,143 +1458,18 @@ def nested_crossfit_auc(
 ) -> dict[str, Any]:
     """Nested group-cross-fit distinguishability with a block bootstrap bound."""
 
-    from sklearn.linear_model import LogisticRegression
-    from sklearn.metrics import roc_auc_score
-    from sklearn.model_selection import GroupKFold
-    from sklearn.preprocessing import StandardScaler
-
     if not feature_rows or len(feature_rows) != len(labels) or len(labels) != len(groups):
         raise ValueError("AUC inputs must be non-empty and aligned")
-    names = sorted(set().union(*(row.keys() for row in feature_rows)))
-    matrix = np.asarray(
-        [[float(row.get(name, 0.0)) for name in names] for row in feature_rows], dtype=np.float64
+    design = _prepare_nested_auc_design(feature_rows, groups, strata)
+    return _nested_crossfit_auc_prepared(
+        design,
+        labels,
+        seed=seed,
+        outer_folds=outer_folds,
+        inner_folds=inner_folds,
+        n_boot=n_boot,
+        c_grid=c_grid,
     )
-    label_array = np.asarray(labels, dtype=np.int8)
-    group_array = np.asarray(groups, dtype=object)
-    stratum_array = np.asarray(
-        list(strata) if strata is not None else ["all"] * len(groups), dtype=object
-    )
-    if len(stratum_array) != len(group_array):
-        raise ValueError("strata must align to groups")
-    unique_groups = np.unique(group_array)
-    outer_count = int(outer_folds)
-    if outer_count != 5:
-        raise ValueError("the frozen classifier requires exactly five outer folds")
-    if len(unique_groups) < outer_count:
-        return {
-            "evaluable": False,
-            "reason": "at least five independent blocks are required",
-            "n_groups": int(len(unique_groups)),
-        }
-    fold_map, fold_stratum_counts = _balanced_outer_fold_map(
-        group_array.tolist(), stratum_array.tolist(), n_folds=outer_count, seed=seed
-    )
-    predictions = np.full(len(label_array), np.nan, dtype=np.float64)
-    fold_records = []
-    for fold in range(outer_count):
-        test = np.asarray(
-            [index for index, group in enumerate(group_array) if fold_map[str(group)] == fold],
-            dtype=np.int64,
-        )
-        train = np.asarray(
-            [index for index, group in enumerate(group_array) if fold_map[str(group)] != fold],
-            dtype=np.int64,
-        )
-        if test.size == 0:
-            return {"evaluable": False, "reason": f"outer fold {fold} is empty"}
-        train_groups = group_array[train]
-        inner_count = min(int(inner_folds), len(np.unique(train_groups)))
-        if inner_count < 2:
-            return {"evaluable": False, "reason": "nested training split has fewer than two blocks"}
-        scores: dict[float, list[float]] = {float(c): [] for c in c_grid}
-        inner = GroupKFold(n_splits=inner_count)
-        for inner_train_rel, inner_val_rel in inner.split(
-            matrix[train], label_array[train], train_groups
-        ):
-            inner_train, inner_val = train[inner_train_rel], train[inner_val_rel]
-            scaler = StandardScaler().fit(matrix[inner_train])
-            train_x, val_x = scaler.transform(matrix[inner_train]), scaler.transform(matrix[inner_val])
-            for c_value in c_grid:
-                classifier = LogisticRegression(
-                    C=float(c_value),
-                    class_weight="balanced",
-                    max_iter=2000,
-                    random_state=int(seed),
-                    solver="liblinear",
-                ).fit(train_x, label_array[inner_train])
-                probability = classifier.predict_proba(val_x)[:, 1]
-                scores[float(c_value)].append(
-                    float(roc_auc_score(label_array[inner_val], probability))
-                )
-        # Conservative instrument check: give the classifier the hyperparameter
-        # with the highest inner validation distinguishability.
-        selected_c = max(
-            scores,
-            key=lambda c_value: (float(np.mean(scores[c_value])), -float(c_value)),
-        )
-        scaler = StandardScaler().fit(matrix[train])
-        classifier = LogisticRegression(
-            C=selected_c,
-            class_weight="balanced",
-            max_iter=2000,
-            random_state=int(seed + fold),
-            solver="liblinear",
-        ).fit(scaler.transform(matrix[train]), label_array[train])
-        predictions[test] = classifier.predict_proba(scaler.transform(matrix[test]))[:, 1]
-        fold_records.append(
-            {
-                "fold": fold,
-                "selected_c": selected_c,
-                "inner_auc_by_c": {
-                    str(c): float(np.mean(values)) for c, values in sorted(scores.items())
-                },
-                "n_train_blocks": int(len(np.unique(group_array[train]))),
-                "n_test_blocks": int(len(np.unique(group_array[test]))),
-                "test_stratum_blocks": fold_stratum_counts[fold],
-            }
-        )
-    if not np.all(np.isfinite(predictions)):
-        raise AssertionError("cross-fit predictions were not complete")
-    estimate = float(roc_auc_score(label_array, predictions))
-    rng = np.random.default_rng(int(seed))
-    bootstrap = np.empty(int(n_boot), dtype=np.float64)
-    by_group = {str(group): np.flatnonzero(group_array == group) for group in unique_groups}
-    groups_by_stratum: dict[str, list[str]] = {}
-    for group in unique_groups:
-        positions = by_group[str(group)]
-        stratum = str(stratum_array[positions[0]])
-        groups_by_stratum.setdefault(stratum, []).append(str(group))
-    for index in range(int(n_boot)):
-        sampled: list[str] = []
-        for stratum in sorted(groups_by_stratum):
-            stratum_groups = np.asarray(groups_by_stratum[stratum], dtype=object)
-            sampled.extend(
-                rng.choice(stratum_groups, size=len(stratum_groups), replace=True).tolist()
-            )
-        positions = np.concatenate([by_group[str(group)] for group in sampled])
-        bootstrap[index] = float(roc_auc_score(label_array[positions], predictions[positions]))
-    return {
-        "evaluable": True,
-        "orientation_free": False,
-        "estimate": float(estimate),
-        "ci_low": float(np.quantile(bootstrap, 0.025)),
-        "ci_high": float(np.quantile(bootstrap, 0.975)),
-        "n_rows": len(label_array),
-        "n_groups": len(unique_groups),
-        "n_features": len(names),
-        "outer_folds": outer_count,
-        "inner_folds": int(inner_folds),
-        "n_boot": int(n_boot),
-        "seed": int(seed),
-        "folds": fold_records,
-        "outer_fold_stratum_counts": fold_stratum_counts,
-        "outer_folds_stratum_balanced": all(
-            max(counts) - min(counts) <= 1
-            for stratum in sorted({key for fold_count in fold_stratum_counts for key in fold_count})
-            for counts in [[fold_count.get(stratum, 0) for fold_count in fold_stratum_counts]]
-        ),
-        "prediction_sha256": hashlib.sha256(predictions.tobytes()).hexdigest(),
-    }
 
 
 def balance_audit(
@@ -1255,6 +1483,8 @@ def balance_audit(
     inner_folds: int = 4,
     auc_n_boot: int = 2000,
     extra_feature: Sequence[float] | None = None,
+    _auc_design: _NestedAUCDesign | None = None,
+    _auc_executor: ThreadPoolExecutor | None = None,
 ) -> dict[str, Any]:
     feature_rows = [dict(cell["covariates"]) for cell in cells]
     if extra_feature is not None:
@@ -1271,15 +1501,16 @@ def balance_audit(
         if labels is None and extra_feature is None
         else standardized_mean_differences(feature_rows, chosen_labels, weights)
     )
-    auc = nested_crossfit_auc(
-        feature_rows,
+    design = _auc_design or _prepare_nested_auc_design(feature_rows, groups, strata)
+    auc = _nested_crossfit_auc_prepared(
+        design,
         chosen_labels,
-        groups,
-        strata,
         seed=seed,
         outer_folds=outer_folds,
         inner_folds=inner_folds,
         n_boot=auc_n_boot,
+        c_grid=(1e-4, 1e-3, 1e-2, 1e-1, 1.0, 10.0, 100.0),
+        executor=_auc_executor,
     )
     return {
         "smd": smd,
@@ -1338,56 +1569,66 @@ def calibration_hooks(
     auc_n_boot: int,
     auc_upper_threshold: float,
     pseudo_family_size: int = 99,
+    _auc_design: _NestedAUCDesign | None = None,
 ) -> dict[str, Any]:
     observed_labels = [bool(cell["phase_match"]) for cell in cells]
-    planted = balance_audit(
-        cells,
-        labels=observed_labels,
-        seed=seed + 101,
-        outer_folds=outer_folds,
-        inner_folds=inner_folds,
-        auc_n_boot=auc_n_boot,
-        extra_feature=[float(label) for label in observed_labels],
-    )
-    primary_pseudo_labels = _pseudo_labels(cells, seed=seed, assignment=0)
-    pseudo = balance_audit(
-        cells,
-        labels=primary_pseudo_labels,
-        seed=seed + 202,
-        outer_folds=outer_folds,
-        inner_folds=inner_folds,
-        auc_n_boot=auc_n_boot,
-        auc_upper_threshold=auc_upper_threshold,
-    )
     feature_rows = [dict(cell["covariates"]) for cell in cells]
     groups = [str(cell["block_id"]) for cell in cells]
     strata = [f"{cell['chrom']}|{cell['strand']}" for cell in cells]
-    pseudo_results = []
-    for assignment in range(int(pseudo_family_size)):
-        labels = _pseudo_labels(cells, seed=seed, assignment=assignment)
-        result = nested_crossfit_auc(
-            feature_rows,
-            labels,
-            groups,
-            strata,
-            seed=seed + 1000 + assignment,
+    base_design = _auc_design or _prepare_nested_auc_design(
+        feature_rows, groups, strata
+    )
+    max_workers = min(_AUC_OUTER_WORKERS, os.cpu_count() or 1)
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        planted = balance_audit(
+            cells,
+            labels=observed_labels,
+            seed=seed + 101,
             outer_folds=outer_folds,
             inner_folds=inner_folds,
-            n_boot=auc_n_boot,
+            auc_n_boot=auc_n_boot,
+            extra_feature=[float(label) for label in observed_labels],
+            _auc_executor=executor,
         )
-        pseudo_results.append(
-            {
-                "assignment": int(assignment),
-                "estimate": float(result.get("estimate", math.inf)),
-                "ci_low": float(result.get("ci_low", -math.inf)),
-                "ci_high": float(result.get("ci_high", math.inf)),
-                "same_ci_gate_passed": bool(
-                    result.get("evaluable")
-                    and result.get("outer_folds_stratum_balanced")
-                    and float(result.get("ci_high", math.inf)) <= auc_upper_threshold
-                ),
-            }
+        primary_pseudo_labels = _pseudo_labels(cells, seed=seed, assignment=0)
+        pseudo = balance_audit(
+            cells,
+            labels=primary_pseudo_labels,
+            seed=seed + 202,
+            outer_folds=outer_folds,
+            inner_folds=inner_folds,
+            auc_n_boot=auc_n_boot,
+            auc_upper_threshold=auc_upper_threshold,
+            _auc_design=base_design,
+            _auc_executor=executor,
         )
+        pseudo_results = []
+        for assignment in range(int(pseudo_family_size)):
+            labels = _pseudo_labels(cells, seed=seed, assignment=assignment)
+            result = _nested_crossfit_auc_prepared(
+                base_design,
+                labels,
+                seed=seed + 1000 + assignment,
+                outer_folds=outer_folds,
+                inner_folds=inner_folds,
+                n_boot=auc_n_boot,
+                c_grid=(1e-4, 1e-3, 1e-2, 1e-1, 1.0, 10.0, 100.0),
+                executor=executor,
+            )
+            pseudo_results.append(
+                {
+                    "assignment": int(assignment),
+                    "estimate": float(result.get("estimate", math.inf)),
+                    "ci_low": float(result.get("ci_low", -math.inf)),
+                    "ci_high": float(result.get("ci_high", math.inf)),
+                    "same_ci_gate_passed": bool(
+                        result.get("evaluable")
+                        and result.get("outer_folds_stratum_balanced")
+                        and float(result.get("ci_high", math.inf))
+                        <= auc_upper_threshold
+                    ),
+                }
+            )
     false_positive_count = sum(
         not row["same_ci_gate_passed"] for row in pseudo_results
     )
@@ -1853,6 +2094,12 @@ def build_composition_balanced_cohort(
             continue
         role_cells = [cell for cell in cells if cell["split_role"] == role]
         role_seed = seed + [name for name, _weight in split_weights].index(role)
+        role_feature_rows = [dict(cell["covariates"]) for cell in role_cells]
+        role_groups = [str(cell["block_id"]) for cell in role_cells]
+        role_strata = [f"{cell['chrom']}|{cell['strand']}" for cell in role_cells]
+        role_auc_design = _prepare_nested_auc_design(
+            role_feature_rows, role_groups, role_strata
+        )
         balance_by_split[role] = balance_audit(
             role_cells,
             seed=role_seed,
@@ -1861,6 +2108,7 @@ def build_composition_balanced_cohort(
             outer_folds=outer_folds,
             inner_folds=inner_folds,
             auc_n_boot=auc_n_boot,
+            _auc_design=role_auc_design,
         )
         if role in {"confirmation", "phase3_reserve"}:
             calibration_by_split[role] = calibration_hooks(
@@ -1871,6 +2119,7 @@ def build_composition_balanced_cohort(
                 auc_n_boot=auc_n_boot,
                 auc_upper_threshold=auc_upper_threshold,
                 pseudo_family_size=pseudo_family_size,
+                _auc_design=role_auc_design,
             )
     stratum_counts_by_split: dict[str, dict[str, int]] = {}
     expected_strata = [
@@ -2525,6 +2774,12 @@ def audit_composition_balanced_cohort(
             continue
         role_cells = [cell for cell in replay_cells if cell.get("split_role") == role]
         role_seed = int(config["seed"]) + [name for name, _weight in split_weights].index(role)
+        role_feature_rows = [dict(cell["covariates"]) for cell in role_cells]
+        role_groups = [str(cell["block_id"]) for cell in role_cells]
+        role_strata = [f"{cell['chrom']}|{cell['strand']}" for cell in role_cells]
+        role_auc_design = _prepare_nested_auc_design(
+            role_feature_rows, role_groups, role_strata
+        )
         rederived_balance[role] = balance_audit(
             role_cells,
             seed=role_seed,
@@ -2533,6 +2788,7 @@ def audit_composition_balanced_cohort(
             outer_folds=int(config["outer_folds"]),
             inner_folds=int(config["inner_folds"]),
             auc_n_boot=int(config["auc_n_boot"]),
+            _auc_design=role_auc_design,
         )
         if role in {"confirmation", "phase3_reserve"}:
             rederived_calibrations[role] = calibration_hooks(
@@ -2543,6 +2799,7 @@ def audit_composition_balanced_cohort(
                 auc_n_boot=int(config["auc_n_boot"]),
                 auc_upper_threshold=float(config["auc_upper_threshold"]),
                 pseudo_family_size=int(config["pseudo_family_size"]),
+                _auc_design=role_auc_design,
             )
     replay_role_counts = Counter(str(block["split_role"]) for block in replay_blocks)
     replay_genes = {
