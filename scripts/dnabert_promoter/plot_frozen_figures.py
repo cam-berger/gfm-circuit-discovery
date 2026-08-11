@@ -9,8 +9,16 @@ import pandas as pd
 
 
 ROOT = Path("results/dnabert_promoter")
-OUTDIR = ROOT / "figures" / "frozen"
+
+# Published figures belong in figures/<family>/, not under results/: `results/**/figures/` is
+# gitignored so that the published set lives in exactly one place, next to its captions.
+OUTDIR = Path("figures/dnabert_promoter")
 OUTDIR.mkdir(parents=True, exist_ok=True)
+
+# Figures 4-8 below are built from the SUPERSEDED encoder-Layer-3 replicate under
+# results/dnabert_promoter/causal/layer3_*, not from the canonical Layer-2 suite. They therefore do
+# not depict the numbers in studies/dnabert_promoter/CLAIMS.md (DBP5-DBP8) - see DBPR7 and each
+# figure's .CAPTION.md. Figures 1-3 are canonical.
 
 
 def save_both(fig: plt.Figure, stem: str) -> None:

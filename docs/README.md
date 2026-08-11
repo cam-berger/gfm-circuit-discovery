@@ -19,10 +19,12 @@ These documents define the research program independently of any one model.
 - [../MECHANISM.md](../MECHANISM.md) — one-file current SpliceBERT mechanism, scope, and open bridges.
 - [../REPRODUCE.md](../REPRODUCE.md) — canonical environment and claim-to-artifact reproduction map.
 
-Two point-in-time records are also kept here and are **not** current guidance:
+Three point-in-time records are also kept here and are **not** current guidance:
 [REVIEW_2026-07-22.md](REVIEW_2026-07-22.md) (pinned by `scripts/verify_manifest.py`, which cites its §4
-as the manifest specification, and by `results/MANIFEST.json`) and
-[REVIEW_OPEN_QUESTIONS.md](REVIEW_OPEN_QUESTIONS.md) (pinned by the CI workflow and
+as the manifest specification, and by `results/MANIFEST.json`),
+[REVIEW_2026-08-11_DNABERT_PR40.md](REVIEW_2026-08-11_DNABERT_PR40.md) (the integration review that gave
+the DNABERT-2 promoter arc its `DBP*` and `DBPR*` ledgers — read the ledgers, not this, for what is
+claimed), and [REVIEW_OPEN_QUESTIONS.md](REVIEW_OPEN_QUESTIONS.md) (pinned by the CI workflow and
 `tests/test_manifest.py`) — the latter still lists **live owner decisions**, so it is stale as narrative
 but open as a to-do list. One advisory sits alongside them:
 [MECH_INTERP_GAP_ANALYSIS.md](MECH_INTERP_GAP_ANALYSIS.md), a method-coverage survey ported from the

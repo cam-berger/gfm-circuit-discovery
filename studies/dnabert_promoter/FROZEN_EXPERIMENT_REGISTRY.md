@@ -1,17 +1,35 @@
 # Frozen DNABERT Mechanistic Experiment Registry
 
+> **Tier: T2 — provenance.** The arc's own working registry of assay definitions, metric formulas, and
+> per-block status. **Not a claim record.** The claims are in [`CLAIMS.md`](CLAIMS.md) and what was
+> withdrawn from this file is in [`CORRECTIONS.md`](CORRECTIONS.md).
+>
+> Interpretive sentences in this file were corrected on 2026-08-11 against the committed artifacts
+> (`DBPR2`–`DBPR5`, `DBPR8`). The **numbers were verified and left exactly as they were** — every metric
+> and mean difference here reconciles to its artifact. What changed is what they are said to mean.
+
 ## Canonical assay
 
 - Model: `quietflamingo/dnabert2-no-flashattention`
 - Revision: `813031b2bf86d9e960a027e2734c908009f31601`
 - Condition: frozen
-- Readout endpoint: encoder Layer 2 output
+- Readout endpoint: encoder Layer 2 output — i.e. `hidden_states[2]`, since this adapter returns the
+  12 encoder-layer outputs with no embedding output (see `DECISIONS.md` D5)
 - Pooling: masked mean over biological tokens
 - Readout: fixed linear probe
 - Primary outcome: promoter margin
 - Test balanced accuracy: 0.8102122021467204
 - Test ROC-AUC: 0.8919269597801556
 - Test PR-AUC: 0.8918734234801855
+
+Two bounds apply to those three metrics and travel with them everywhere:
+
+- **The split is not duplicate-clean.** 104 exact-duplicate groups span splits and 64 groups carry
+  conflicting labels; no de-duplication was applied. Treat the metrics as contaminated-split upper
+  bounds (`DBP2`, `DBPR1`).
+- **Layer 2 is the strongest *tested* endpoint by `0.0019` balanced accuracy on one seed** — layers 1–4
+  score `0.8050 / 0.8031 / 0.8014 / 0.8014` on validation and are not separated by the data. It is a
+  working choice, not a localization result (`DBP4`, `DBPR2`).
 
 ## Core metrics
 
@@ -113,7 +131,11 @@ Perturbations:
 - motif relocation;
 - motif-negative controls.
 
-Status: not run as a controlled assay.
+Status: **partly run.** Motif destruction with an edit-count-matched non-motif control *was* run as a
+controlled assay on a validation cohort of 71 and returned a null — see the "Biological feature test"
+section below, and `DBP10`. GC-matched replacement, motif relocation, and motif-negative controls were
+not run. (This line previously read "not run as a controlled assay", which contradicted the results in
+this same file; corrected 2026-08-11.)
 
 ### 6. Low-rank mediation
 
@@ -152,16 +174,34 @@ Measure:
 - faithfulness versus circuit size;
 - random-circuit controls.
 
-Status: not run against the corrected endpoint.
+Status: **mostly run against the corrected endpoint, and it produced the arc's most important negative
+result.** Necessity, delivery, standalone faithfulness, and faithfulness-versus-size were all run at
+`selected_layer: 2` on validation and an untouched test cohort — see `frozen_claim_tests/circuit_accounting/`
+and `frozen_claim_tests/faithfulness_curve/`, and `DBP6`/`DBP7`. **Random-circuit controls were not run.**
+The curve has no knee: the five-node candidate set reaches standalone faithfulness `0.194` and only the
+addition of `MLP1` (size 16 → `0.487`) and `MLP2` (size 39 → `1.000`) moves it, so compactness is refuted
+at the sizes tested. (This line previously read "not run against the corrected endpoint", which
+contradicted the artifacts shipped alongside it; corrected 2026-08-11.)
 
 ## Existing restoration verdict
 
 - L0H8: strong necessity, weak standalone recovery.
-- Layer-0 MLP: large recovery, but not donor-specific.
-- Combined MLP and heads: large recovery, but not donor-specific.
-- Cross-layer head set: modest recovery, not donor-specific.
+- Layer-0 MLP: large recovery, but not source-specific.
+- Combined MLP and heads: large recovery, but not source-specific.
+- Cross-layer head set: modest recovery, not source-specific.
 
 No sequence-specific delivery claim is currently licensed.
+
+> **This verdict was right, and it survived review.** The test-confirmation section below originally
+> contradicted it by calling the representation "transferable" and the set "compact"; those sentences were
+> withdrawn (`DBPR4`, `DBPR5`), not this one. When two sections of a registry disagree, the one that
+> reports the *control* is the one to keep.
+>
+> Two wording notes. "Not donor-specific" has been rewritten as "not **source**-specific" throughout this
+> section: in this study "donor" means the source example whose activations are transplanted, but
+> everywhere else in this repository "donor" means a splice donor site, and the collision is a real
+> reading hazard (see `DECISIONS.md` D11 and `docs/NOMENCLATURE.md`). "Strong necessity" for L0H8 is also
+> bounded — the ranking statistic behind it is direction-blind (`DBP5`, `DBPR3`).
 
 ## Execution order
 
@@ -210,15 +250,24 @@ Experiment:
 
 ### Interpretation
 
-The Layer-0 MLP carries a shared promoter-class representation.
-L0H8 contributes sequence-sensitive information and improves restoration
-when combined with the Layer-0 MLP, but is not sufficient alone.
+The Layer-0 MLP carries a shared promoter-**class** representation. Combining it with L0H8 raises
+matched recovery, and L0H8 alone recovers essentially nothing (`0.005147`).
 
-The current leading compact component set is:
+The current leading component set is:
 
     Layer-0 MLP + L0H8
 
 This is a validation result and must be confirmed on an untouched cohort.
+
+**Corrected 2026-08-11 (`DBPR4`, `DBPR5`).** This section previously called L0H8's contribution
+"sequence-sensitive" and the set "compact". Neither is licensed:
+
+- *Sequence-sensitive* would require matched restoration to beat same-class restoration. It does not —
+  the gap is `0.848330 − 0.819128 = 0.029` here and stays null on test (`DBP8`). What the artifact
+  supports is **class-level** transfer.
+- *Compact* is refuted by this arc's own faithfulness curve (`DBP7`): the set's standalone faithfulness
+  is `0.194`, and 1.0 is reached only at size 39. Say "a structured causal core within a distributed,
+  MLP-dominated computation".
 
 ## Canonical probe artifact
 
@@ -231,6 +280,13 @@ This is a validation result and must be confirmed on an untouched cohort.
 
 The same probe artifact must be used for validation and test confirmation.
 
+> **Verified 2026-08-11.** The committed file hashes to exactly that SHA-256; commit `f38a345`
+> ("Preserve canonical frozen DNABERT Layer 2 probe") exists; and the artifact is byte-identical to
+> `all_layer_probes/layer_2_probe.joblib`, so the same-artifact rule was genuinely enforced across
+> validation and test. Note that the superseded Layer-3 family uses a **different** probe —
+> `all_layer_probes/layer_3_probe.joblib`, sha256 `2337441effb785769dec…` — which is how to tell the two
+> suites apart when reading a summary (`DBPR7`).
+
 ## Test confirmation: compact donor matrix
 
 An untouched high-signal cohort was selected from the test split:
@@ -239,7 +295,8 @@ An untouched high-signal cohort was selected from the test split:
 - 128 non-promoters
 - mononucleotide corruption
 - fixed Layer-2 linear probe
-- preregistered component conditions:
+- component conditions fixed before the confirmation run (**not preregistered** — no protocol document
+  was frozen for this arc; see `DBPR8`):
   - Layer-0 MLP
   - Layer-0 MLP + L0H8
 
@@ -256,33 +313,45 @@ Layer-0 MLP:
 
 - matched versus same-class:
   mean difference = 0.053170
-  Holm-adjusted p = 0.181379
+  raw p = 0.090690, Holm-adjusted p = 0.181379 — **not significant**
 - same-class versus opposite-class:
   mean difference = 0.861347
-  Holm-adjusted p = 2.8539e-22
+  raw p underflowed to 0.0 in the artifact
 
 Layer-0 MLP + L0H8:
 
 - matched versus same-class:
   mean difference = 0.036383
-  Holm-adjusted p = 0.251984
+  raw p = 0.251984, Holm-adjusted p = 0.251984 — **not significant**
 - same-class versus opposite-class:
   mean difference = 0.994537
-  Holm-adjusted p = 2.8539e-22
+  raw p underflowed to 0.0 in the artifact
 
 Identity interventions produced exactly zero change.
 
+**Corrected 2026-08-11 (`DBPR5`).** Two reporting faults were fixed above. The class-contrast rows
+previously carried "Holm-adjusted p = 2.8539e-22"; that value **appears in no artifact** — the committed
+statistics record `p_value: 0.0` for both — so it has been replaced with what the record actually says.
+And Holm was applied across only the two matched-versus-same-class tests, not the six comparisons the
+artifact contains (`matched_vs_opposite_class` is also present for both components), so the adjustment
+family is stated rather than implied.
+
 ### Confirmed interpretation
 
-The Layer-0 MLP carries a transferable promoter-class representation.
-L0H8 substantially improves delivery when combined with the MLP.
-Matched promoter activations are not significantly better than unrelated
-same-class promoter activations, whereas non-promoter activations push the
-readout in the opposite direction.
+Matched promoter activations are **not** significantly better than unrelated same-class promoter
+activations, on either component, whereas non-promoter activations push the readout in the opposite
+direction. What transplants is therefore a **class label's worth of promoter evidence, not an
+example-specific payload**.
 
-The compact confirmed component set is:
+The confirmed component set is:
 
     Layer-0 MLP + L0H8
+
+**Corrected 2026-08-11 (`DBPR4`, `DBPR5`).** This section previously opened by calling the Layer-0 MLP
+representation "transferable" and saying L0H8 "substantially improves delivery", then called the set
+"compact" — while its own third sentence recorded the null that refutes the first two. The null is the
+result. `transferable`, `delivery`, and `compact` are retired for this study; the licensed readings are
+`DBP7` (no compactness) and `DBP8` (class-level transfer only).
 
 ## Biological feature test: early-window TATA-like motifs
 

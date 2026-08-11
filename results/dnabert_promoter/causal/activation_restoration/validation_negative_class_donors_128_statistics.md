@@ -1,5 +1,11 @@
 # DNABERT-2 Frozen Component-Level Causal Validation
 
+> **Tier: T2 — provenance.** A run's own statistics write-up, on the **validation** split. It is not a
+> claim record: the licensed reading of these restoration numbers is `DBP8` (class-level transfer, no
+> example specificity) with `DBPR5` retiring "transferable" and "delivery". "Donor" here means the
+> **source example** whose activations are transplanted, not a splice donor site — see
+> [`docs/NOMENCLATURE.md`](../../../../docs/NOMENCLATURE.md).
+
 ## Intervention
 
 Combined restoration of:

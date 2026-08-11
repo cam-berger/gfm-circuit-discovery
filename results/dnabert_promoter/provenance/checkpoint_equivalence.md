@@ -1,5 +1,8 @@
 # DNABERT-2 Checkpoint Provenance
 
+> **Tier: T2 — provenance.** Instrument identity record for the `DBP*` study. Supports `DBP1`; asserts no
+> mechanism. Claims are in [`studies/dnabert_promoter/CLAIMS.md`](../../../studies/dnabert_promoter/CLAIMS.md).
+
 ## Checkpoints
 
 - Original: `zhihan1996/DNABERT-2-117M`

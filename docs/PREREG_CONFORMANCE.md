@@ -369,8 +369,25 @@ document, and it is why the file exists rather than a note saying conformance wa
   moment the Caduceus bullet above says was never used — the protocol is frozen but unrun, and the
   runners are not yet pinned to any manifest, so a correction here costs nothing.
 
+- **DNABERT-2 promoter (`DBP1`–`DBP10`) — there is no protocol to audit.** This is a different kind of
+  absence from the BG1/BG2 bullet above, and a worse one. BG1/BG2 froze a protocol and has not run; the
+  DNABERT-2 study **ran, produced ten ledgered claims, and never froze a protocol at all**. Its prose
+  nonetheless described "preregistered component conditions" for the confirmatory donor-matrix run, which
+  is withdrawn under `DBPR8`. A reader scanning this file for "is this arc audited?" must read its
+  absence as *no preregistration exists*, not as coverage pending.
+
+  What the study did honour, verified at integration against the artifacts: the validation→test split was
+  real (test cohorts untouched by selection), and one probe artifact was reused across both, pinned by
+  sha256 in the study's registry and confirmed to match. What it lacks, beyond the missing protocol, is a
+  calibration pair — **no planted-positive sensitivity and no permuted-label FPR** for the head ranking,
+  the group selection, or the donor matrix — which is why `DBP5` stays a candidate. Recorded in
+  `studies/dnabert_promoter/DECISIONS.md` § "Known departures from repository convention". No `DBP` row
+  may be cited as a preregistered result, and none is.
+
 ## Related records
 
 `studies/splicebert_partner_selection/CORRECTIONS.md` — R28 and R29–R35, the deviations whose claim
-wording moved · `tests/test_hash_pin_ledger.py`, `tests/test_ledger_consistency.py`,
-`tests/test_overwrite_guard.py` — the guards that now enforce what was previously prose.
+wording moved · `studies/dnabert_promoter/CORRECTIONS.md` — `DBPR1`–`DBPR8`, the DNABERT-2 arc's
+withdrawals, of which `DBPR8` is the preregistration gap · `tests/test_hash_pin_ledger.py`,
+`tests/test_ledger_consistency.py`, `tests/test_overwrite_guard.py` — the guards that now enforce what was
+previously prose.
