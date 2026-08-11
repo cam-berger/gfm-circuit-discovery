@@ -15,13 +15,23 @@ These documents define the research program independently of any one model.
 - [ROADMAP.md](ROADMAP.md) — open problems, and what is deferred or stopped.
 - [REFERENCES.md](REFERENCES.md) — external literature, with verification status.
 - [REPO_SCRUB_PROCEDURE.md](REPO_SCRUB_PROCEDURE.md) — how to audit this repository without damaging the record.
+- [THIRD_PARTY_ASSETS.md](THIRD_PARTY_ASSETS.md) — external models, genomes, and annotation, with licences.
 - [../MECHANISM.md](../MECHANISM.md) — one-file current SpliceBERT mechanism, scope, and open bridges.
 - [../REPRODUCE.md](../REPRODUCE.md) — canonical environment and claim-to-artifact reproduction map.
 
-Three point-in-time records are also kept here and are **not** current guidance:
+Two point-in-time records are also kept here and are **not** current guidance:
 [REVIEW_2026-07-22.md](REVIEW_2026-07-22.md) (pinned by `scripts/verify_manifest.py`, which cites its §4
-as the manifest specification), [REVIEW_OPEN_QUESTIONS.md](REVIEW_OPEN_QUESTIONS.md) (pinned by the CI
-workflow and `tests/test_manifest.py`), and the two 2026-07-23 B2/B3 disposition notes.
+as the manifest specification, and by `results/MANIFEST.json`) and
+[REVIEW_OPEN_QUESTIONS.md](REVIEW_OPEN_QUESTIONS.md) (pinned by the CI workflow and
+`tests/test_manifest.py`) — the latter still lists **live owner decisions**, so it is stale as narrative
+but open as a to-do list. One advisory sits alongside them:
+[MECH_INTERP_GAP_ANALYSIS.md](MECH_INTERP_GAP_ANALYSIS.md), a method-coverage survey ported from the
+`jeyashree-ajay` branch and recorded as a correction in `CORRECTIONS.md`; re-read `CLAIMS.md` and
+`ROADMAP.md` before acting on anything in it.
+
+The two 2026-07-23 B2/B3 disposition notes this section used to name **no longer exist in the tree**; their
+dispositions are carried by C30 in `studies/splicebert_partner_selection/CLAIMS.md` and by the B2/B3
+red-team syntheses under `studies/splicebert_partner_selection/redteam/`.
 
 The detailed SpliceBERT record lives under
 [`studies/splicebert_partner_selection/`](../studies/splicebert_partner_selection/README.md); generated

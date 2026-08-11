@@ -1,0 +1,89 @@
+relative_path,filename,suffix,size_kb,matched_terms
+gc_controlled_interventions/gc_intervention_mlp_direction_contrasts.csv,gc_intervention_mlp_direction_contrasts.csv,.csv,318.6,mlp
+gc_controlled_interventions/gc_intervention_mlp_direction_scores.csv,gc_intervention_mlp_direction_scores.csv,.csv,5745.28,mlp
+gc_controlled_interventions/gc_intervention_mlp_direction_summary.csv,gc_intervention_mlp_direction_summary.csv,.csv,0.65,mlp
+gc_controlled_interventions/gc_unique_sequence_layer1_mlp_index.csv,gc_unique_sequence_layer1_mlp_index.csv,.csv,1313.56,"mlp, layer"
+gc_controlled_interventions/gc_unique_sequence_layer1_mlp_representations.npz,gc_unique_sequence_layer1_mlp_representations.npz,.npz,32653.11,"mlp, layer"
+gc_controlled_interventions/gc_unique_sequence_layer5_representations.npz,gc_unique_sequence_layer5_representations.npz,.npz,32735.65,layer
+gc_controlled_interventions/layer1_mlp_direction_class_summary.csv,layer1_mlp_direction_class_summary.csv,.csv,0.18,"mlp, layer"
+gc_controlled_interventions/layer1_mlp_direction_cross_validation_folds.csv,layer1_mlp_direction_cross_validation_folds.csv,.csv,0.2,"mlp, layer"
+gc_controlled_interventions/layer1_mlp_promoter_direction.npz,layer1_mlp_promoter_direction.npz,.npz,12.2,"mlp, layer"
+promoter_baseline_pilot/dnabert_layer5_probe.joblib,dnabert_layer5_probe.joblib,.joblib,25.34,layer
+promoter_baseline_pilot/layer5_dev_representations.npy,layer5_dev_representations.npy,.npy,2400.12,layer
+promoter_baseline_pilot/layer5_test_representations.npy,layer5_test_representations.npy,.npy,2400.12,layer
+promoter_baseline_pilot/layer5_train_representations.npy,layer5_train_representations.npy,.npy,6000.12,layer
+promoter_baseline_pilot/layer_probe_results.csv,layer_probe_results.csv,.csv,0.87,layer
+promoter_baseline_pilot/recreated_layer5_probe_results.csv,recreated_layer5_probe_results.csv,.csv,0.1,layer
+promoter_behavioral_localization/behavioral_localization_summary.csv,behavioral_localization_summary.csv,.csv,0.73,local
+promoter_causal_interventions/l1h9_absolute_rescue_bootstrap_summary.csv,l1h9_absolute_rescue_bootstrap_summary.csv,.csv,0.16,rescue
+promoter_causal_interventions/l1h9_clean_to_corrupt_patch_results.csv,l1h9_clean_to_corrupt_patch_results.csv,.csv,37.29,patch
+promoter_causal_interventions/l1h9_clean_to_corrupt_patch_summary.csv,l1h9_clean_to_corrupt_patch_summary.csv,.csv,0.55,patch
+promoter_causal_interventions/l1h9_corrupt_self_patch_control.csv,l1h9_corrupt_self_patch_control.csv,.csv,4.02,patch
+promoter_causal_interventions/layer1_attention_clean_to_corrupt_patch_results.csv,layer1_attention_clean_to_corrupt_patch_results.csv,.csv,37.21,"attention, patch, layer"
+promoter_causal_interventions/layer1_attention_clean_to_corrupt_patch_summary.csv,layer1_attention_clean_to_corrupt_patch_summary.csv,.csv,0.56,"attention, patch, layer"
+promoter_causal_interventions/layer1_attention_patch_bootstrap_summary.csv,layer1_attention_patch_bootstrap_summary.csv,.csv,0.16,"attention, patch, layer"
+promoter_causal_interventions/layer1_attention_recovery_distribution.png,layer1_attention_recovery_distribution.png,.png,75.49,"attention, layer"
+promoter_causal_interventions/layer1_mlp_clean_to_corrupt_patch_results.csv,layer1_mlp_clean_to_corrupt_patch_results.csv,.csv,36.52,"mlp, patch, layer"
+promoter_causal_interventions/layer1_mlp_clean_to_corrupt_patch_summary.csv,layer1_mlp_clean_to_corrupt_patch_summary.csv,.csv,0.55,"mlp, patch, layer"
+promoter_causal_interventions/layer1_mlp_corrupt_self_patch_control.csv,layer1_mlp_corrupt_self_patch_control.csv,.csv,4.02,"mlp, patch, layer"
+promoter_causal_interventions/layer1_mlp_donor_class_bootstrap_summary.csv,layer1_mlp_donor_class_bootstrap_summary.csv,.csv,0.66,"mlp, layer"
+promoter_causal_interventions/layer1_mlp_donor_logit_quartile_summary.csv,layer1_mlp_donor_logit_quartile_summary.csv,.csv,0.43,"mlp, layer"
+promoter_causal_interventions/layer1_mlp_donor_specificity_bootstrap_summary.csv,layer1_mlp_donor_specificity_bootstrap_summary.csv,.csv,0.53,"mlp, layer"
+promoter_causal_interventions/layer1_mlp_donor_strength_correlation_summary.csv,layer1_mlp_donor_strength_correlation_summary.csv,.csv,0.28,"mlp, layer"
+promoter_causal_interventions/layer1_mlp_donor_strength_vs_rescue.png,layer1_mlp_donor_strength_vs_rescue.png,.png,257.19,"mlp, rescue, layer"
+promoter_causal_interventions/layer1_mlp_donor_type_pairwise_results.csv,layer1_mlp_donor_type_pairwise_results.csv,.csv,11.07,"mlp, layer"
+promoter_causal_interventions/layer1_mlp_donor_type_summary.csv,layer1_mlp_donor_type_summary.csv,.csv,0.27,"mlp, layer"
+promoter_causal_interventions/layer1_mlp_matched_vs_unrelated_results.csv,layer1_mlp_matched_vs_unrelated_results.csv,.csv,18.08,"mlp, layer"
+promoter_causal_interventions/layer1_mlp_negative_donor_patch_results.csv,layer1_mlp_negative_donor_patch_results.csv,.csv,36.63,"mlp, patch, layer"
+promoter_causal_interventions/layer1_mlp_negative_donor_summary.csv,layer1_mlp_negative_donor_summary.csv,.csv,0.48,"mlp, layer"
+promoter_causal_interventions/layer1_mlp_non_promoter_absolute_bootstrap_summary.csv,layer1_mlp_non_promoter_absolute_bootstrap_summary.csv,.csv,0.18,"mlp, layer"
+promoter_causal_interventions/layer1_mlp_patch_bootstrap_summary.csv,layer1_mlp_patch_bootstrap_summary.csv,.csv,0.15,"mlp, patch, layer"
+promoter_causal_interventions/layer1_mlp_recovery_distribution.png,layer1_mlp_recovery_distribution.png,.png,80.18,"mlp, layer"
+promoter_causal_interventions/layer1_mlp_unrelated_donor_patch_results.csv,layer1_mlp_unrelated_donor_patch_results.csv,.csv,28.85,"mlp, patch, layer"
+promoter_causal_interventions/layer1_mlp_unrelated_donor_strength_results.csv,layer1_mlp_unrelated_donor_strength_results.csv,.csv,26.78,"mlp, layer"
+promoter_causal_interventions/notebook5_feature_rescue_associations.csv,notebook5_feature_rescue_associations.csv,.csv,3.1,rescue
+promoter_causal_interventions/notebook5_feature_rescue_model_comparison.csv,notebook5_feature_rescue_model_comparison.csv,.csv,0.22,rescue
+promoter_component_localization/attention_head_bootstrap_confidence_intervals.png,attention_head_bootstrap_confidence_intervals.png,.png,119.31,"attention, head"
+promoter_component_localization/attention_head_bootstrap_summary.csv,attention_head_bootstrap_summary.csv,.csv,4.79,"attention, head"
+promoter_component_localization/attention_head_reference_mean_summary.csv,attention_head_reference_mean_summary.csv,.csv,1.07,"attention, head"
+promoter_component_localization/attention_head_reference_means.pt,attention_head_reference_means.pt,.pt,11.3,"attention, head"
+promoter_component_localization/attention_mlp_branch_ablation_per_sequence.csv,attention_mlp_branch_ablation_per_sequence.csv,.csv,363.74,"ablation, attention, mlp"
+promoter_component_localization/attention_mlp_branch_ablation_scan.png,attention_mlp_branch_ablation_scan.png,.png,181.25,"ablation, attention, mlp"
+promoter_component_localization/attention_mlp_branch_ablation_summary.csv,attention_mlp_branch_ablation_summary.csv,.csv,1.71,"ablation, attention, mlp"
+promoter_component_localization/attention_mlp_mean_replacement_per_sequence.csv,attention_mlp_mean_replacement_per_sequence.csv,.csv,253.37,"attention, mlp"
+promoter_component_localization/attention_mlp_mean_replacement_scan.png,attention_mlp_mean_replacement_scan.png,.png,185.17,"attention, mlp"
+promoter_component_localization/attention_mlp_mean_replacement_summary.csv,attention_mlp_mean_replacement_summary.csv,.csv,1.68,"attention, mlp"
+promoter_component_localization/candidate_attention_head_scan.png,candidate_attention_head_scan.png,.png,115.8,"attention, head"
+promoter_component_localization/candidate_attention_head_scan_per_sequence.csv,candidate_attention_head_scan_per_sequence.csv,.csv,1265.47,"attention, head"
+promoter_component_localization/candidate_attention_head_scan_summary.csv,candidate_attention_head_scan_summary.csv,.csv,5.69,"attention, head"
+promoter_component_localization/component_localization_summary.csv,component_localization_summary.csv,.csv,1.09,"local, component"
+promoter_component_localization/dev_all_layers.npy,dev_all_layers.npy,.npy,28800.12,layer
+promoter_component_localization/joint_head_intervention_per_sequence.csv,joint_head_intervention_per_sequence.csv,.csv,99.21,head
+promoter_component_localization/joint_head_intervention_summary.csv,joint_head_intervention_summary.csv,.csv,0.86,head
+promoter_component_localization/layer_01_probe.joblib,layer_01_probe.joblib,.joblib,25.34,layer
+promoter_component_localization/layer_02_probe.joblib,layer_02_probe.joblib,.joblib,25.34,layer
+promoter_component_localization/layer_03_probe.joblib,layer_03_probe.joblib,.joblib,25.34,layer
+promoter_component_localization/layer_04_probe.joblib,layer_04_probe.joblib,.joblib,25.34,layer
+promoter_component_localization/layer_05_probe.joblib,layer_05_probe.joblib,.joblib,25.34,layer
+promoter_component_localization/layer_06_probe.joblib,layer_06_probe.joblib,.joblib,25.34,layer
+promoter_component_localization/layer_07_probe.joblib,layer_07_probe.joblib,.joblib,25.34,layer
+promoter_component_localization/layer_08_probe.joblib,layer_08_probe.joblib,.joblib,25.34,layer
+promoter_component_localization/layer_09_probe.joblib,layer_09_probe.joblib,.joblib,25.34,layer
+promoter_component_localization/layer_10_probe.joblib,layer_10_probe.joblib,.joblib,25.34,layer
+promoter_component_localization/layer_11_probe.joblib,layer_11_probe.joblib,.joblib,25.34,layer
+promoter_component_localization/layer_12_probe.joblib,layer_12_probe.joblib,.joblib,25.34,layer
+promoter_component_localization/layerwise_clean_corrupt_logit_drop.png,layerwise_clean_corrupt_logit_drop.png,.png,187.88,layer
+promoter_component_localization/layerwise_clean_corrupt_per_sequence.csv,layerwise_clean_corrupt_per_sequence.csv,.csv,339.97,layer
+promoter_component_localization/layerwise_clean_corrupt_summary.csv,layerwise_clean_corrupt_summary.csv,.csv,2.15,layer
+promoter_component_localization/layerwise_probe_performance.png,layerwise_probe_performance.png,.png,155.74,layer
+promoter_component_localization/layerwise_probe_results.csv,layerwise_probe_results.csv,.csv,0.61,layer
+promoter_component_localization/recognized_clean_all_layers.npy,recognized_clean_all_layers.npy,.npy,10476.12,layer
+promoter_component_localization/recognized_dinuc_all_layers.npy,recognized_dinuc_all_layers.npy,.npy,10476.12,layer
+promoter_component_localization/recognized_mono_all_layers.npy,recognized_mono_all_layers.npy,.npy,10476.12,layer
+promoter_component_localization/test_all_layers.npy,test_all_layers.npy,.npy,28800.12,layer
+promoter_component_localization/top_attention_head_candidates.csv,top_attention_head_candidates.csv,.csv,1.37,"attention, head"
+promoter_component_localization/top_head_interaction_bootstrap_summary.csv,top_head_interaction_bootstrap_summary.csv,.csv,0.4,head
+promoter_component_localization/train_all_layers.npy,train_all_layers.npy,.npy,72000.12,layer
+promoter_mlp_low_rank_subspace/cross_validated_subspace_components.csv,cross_validated_subspace_components.csv,.csv,3.46,component
+promoter_mlp_low_rank_subspace/matched_layer1_mlp_delta_matrices.npz,matched_layer1_mlp_delta_matrices.npz,.npz,62928.07,"mlp, layer"
+promoter_mlp_low_rank_subspace/source_averaged_svd_components.csv,source_averaged_svd_components.csv,.csv,119.12,component

@@ -1,0 +1,6 @@
+finding,result,interpretation
+Promoter cohort GC enrichment,Promoter mean GC = 0.644; non-promoter mean GC = 0.543,The probe-recognized rescue cohort is strongly enriched for GC-rich promoters.
+GC-box enrichment,GC-box present in 23.8% of promoters versus 8.5% of non-promoters,"GC-box-like motifs are enriched, but are not independently predictive beyond GC."
+GC-rescue association,Raw Spearman rho = 0.550; adjusted rho = 0.452,Higher-GC promoter donors produce stronger Layer-1 MLP transfer effects.
+GC cross-validated contribution,Mean incremental repeated-CV R2 = 0.106; 92% of folds improved,GC adds reproducible predictive information beyond donor probe score and recipient difficulty.
+Additional biology beyond GC,Mean incremental repeated-CV R2 = -0.033,The tested motifs and composition features do not improve generalization after GC is included.

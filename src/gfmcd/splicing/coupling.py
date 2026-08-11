@@ -380,7 +380,8 @@ class CouplingConfig:
 
 
 def build_coupling_dataset(gtf_path, genome, cfg: CouplingConfig, *,
-                           allowed_chromosomes=None, limit=None, **gtf_kwargs):
+                           allowed_chromosomes=None, limit=None,
+                           example_filter=None, transcripts=None, **gtf_kwargs):
     """Every internal exon in a fixed-length real-genome window, with stratification keys."""
     from collections import Counter, defaultdict
 
@@ -391,7 +392,16 @@ def build_coupling_dataset(gtf_path, genome, cfg: CouplingConfig, *,
     )
 
     cfg.validate()
-    txs = load_transcripts(gtf_path, allowed_chromosomes=allowed_chromosomes, **gtf_kwargs)
+    if transcripts is None:
+        txs = load_transcripts(
+            gtf_path, allowed_chromosomes=allowed_chromosomes, **gtf_kwargs
+        )
+    else:
+        if allowed_chromosomes is not None or gtf_kwargs:
+            raise ValueError(
+                "prebuilt transcripts cannot be combined with GTF loading filters"
+            )
+        txs = list(transcripts)
 
     # transcript support -> constitutive vs alternative (step 7)
     don_n: Counter = Counter()
@@ -506,7 +516,7 @@ def build_coupling_dataset(gtf_path, genome, cfg: CouplingConfig, *,
                      else "test" if c in cfg.test_chromosomes else "train")
 
             seen.add(key)
-            out.append(CouplingExample(
+            example = CouplingExample(
                 example_id=eid, sequence=seq, acceptor_pos=a, donor_pos=d,
                 chrom=exon.chrom, strand=exon.strand, gene_id=exon.gene_id, split=split,
                 exon_length=length, intron_length_down=intron,
@@ -517,7 +527,10 @@ def build_coupling_dataset(gtf_path, genome, cfg: CouplingConfig, *,
                 next_acceptor_pos=next_acc,
                 metadata={"genomic_window_start": ws, "genomic_window_end": we,
                           "genomic_exon_start": exon.start, "genomic_exon_end": exon.end},
-            ))
+            )
+            if example_filter is not None and not example_filter(example):
+                continue
+            out.append(example)
             if limit and len(out) >= limit:
                 return out
     return out

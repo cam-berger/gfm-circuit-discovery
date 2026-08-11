@@ -1,0 +1,167 @@
+{
+  "command": [
+    "scripts/splicebert_exon_edge_compatibility/audit_crossed_direct_edge_replication_results.py",
+    "--cohort",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cohort_v1.json",
+    "--construction-audit",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cohort_v1.audit_v4.json",
+    "--construction-audit-manifest",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cohort_v1.audit_v4.manifest.json",
+    "--freeze-package",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_frozen_package.json",
+    "--freeze-manifest",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_frozen_package.manifest.json",
+    "--freeze-audit",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_frozen_package.audit.json",
+    "--freeze-audit-manifest",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_frozen_package.audit.manifest.json",
+    "--native-attempt",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_native.attempt.json",
+    "--native",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_native.json",
+    "--native-manifest",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_native.manifest.json",
+    "--cells-attempt",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cells.attempt.json",
+    "--cells",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cells.json",
+    "--cells-manifest",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cells.manifest.json",
+    "--analysis",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_analysis.json",
+    "--analysis-manifest",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_analysis.manifest.json",
+    "--out",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_audit.json"
+  ],
+  "config": {
+    "batch": 16,
+    "blocks": 384,
+    "device": "mps",
+    "draws": 20000,
+    "model_free": true,
+    "role": "replication"
+  },
+  "created_at_utc": "2026-08-04T03:26:26.686679+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 91722,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert-exon-edge-compatibility:fresh-crossed-replication-result-audit",
+  "git_commit": "5f557fc0304e1300aacfa62df8c036e8ca728310",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cohort_v1.json",
+      "sha256": "478838e64a3a3eff2bca5868212852a5b833d0ccf74ff720bb15cd00cf6fd5ca",
+      "size_bytes": 48290248
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cohort_v1.audit_v4.json",
+      "sha256": "2842d3a579cd7250810c901b031fc229e0a83b44add631c09f9df39d6c6987e1",
+      "size_bytes": 6781
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cohort_v1.audit_v4.manifest.json",
+      "sha256": "e4d96fd55998067f5cc48a4788c8851bd622870c19b6f5dc894b9d4db8acf66f",
+      "size_bytes": 7586
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_frozen_package.json",
+      "sha256": "9c0f55912ae2dd9520ad3b0918d4984811676d179e38a0360b2a48c024ff53e7",
+      "size_bytes": 15602
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_frozen_package.manifest.json",
+      "sha256": "55c08aafdab9afaa42213d5161e5038925ce9c373fed56657daa66ad998c55f8",
+      "size_bytes": 13469
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_frozen_package.audit.json",
+      "sha256": "3ab2522649fba0ded7b9650bd3d6900a435f16fa95e054f395d7c64ee2b3730f",
+      "size_bytes": 1489
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_frozen_package.audit.manifest.json",
+      "sha256": "b7d2e2674262c7fe3ef9d31eb73e8e064fbf597129dcb91ef57e082213e74d6d",
+      "size_bytes": 3377
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_native.attempt.json",
+      "sha256": "4ecb2515590f142f51ceda7c75f9387d8805058c3ef71392ca631a7843da3070",
+      "size_bytes": 2003
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_native.json",
+      "sha256": "e67649a908789a26acb2086819ddd98eb9f374cd7e29db4749a4d57af665e79d",
+      "size_bytes": 1094019
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_native.manifest.json",
+      "sha256": "cd5e4c7ab5e823786c12a6839aa7347b56f7f4c01ff3e85baeb3e4b3e60b2bad",
+      "size_bytes": 6881
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cells.attempt.json",
+      "sha256": "bb840a1962e8040eb8df4a6f641cb1f257676638ea9baf8d008e80c17ac026ab",
+      "size_bytes": 2190
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cells.json",
+      "sha256": "428ad5d6b357bfba287fcfe3e358b00ab91ddcd748118b83b60b626593c440bf",
+      "size_bytes": 54229415
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cells.manifest.json",
+      "sha256": "672a750ebff2ee72bdb9c56c28e7252ff8b5b77c28a5a9427256c028e3f719d1",
+      "size_bytes": 7563
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_analysis.json",
+      "sha256": "fb7a357ef6bcdee21780894f4f344bdd379d6124ba72df0275d6d27e28604b07",
+      "size_bytes": 585479
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_analysis.manifest.json",
+      "sha256": "12cea0733a490d514e818281889c96ed630bea71626f24855c6dc4001d249548",
+      "size_bytes": 7041
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_exon_edge_compatibility/audit_crossed_direct_edge_replication_results.py",
+      "sha256": "7d0ca77343e4f51ba6249cc9c36d7327c288abf7b13488a7c637aa6111393492",
+      "size_bytes": 83354
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/provenance.py",
+      "sha256": "05d3cd48d49a6357f29b72ac1636b23586a11bfb0b059ce97e36f8a9f87ac632",
+      "size_bytes": 3990
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/phase_crossed_inference.py",
+      "sha256": "02b93bdd7883da49437e99842a3a9c2307cfc64d46d192075b0dae79fbbd0cbc",
+      "size_bytes": 12739
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/phase_crossed_replication.py",
+      "sha256": "ca9f6343f8412a7982b02b2b669a17ef4e1e8870c124b872d48d975c31c5ea7b",
+      "size_bytes": 30826
+    }
+  ],
+  "notes": [
+    "Independent audit from immutable raw rows; no checkpoint was loaded.",
+    "This is the first artifact allowed to report a final replication label."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_audit.json",
+      "sha256": "b2b15d99a87ac758a98fb82eeef1ba322a2813fd7133c119945ef1eee73113ac",
+      "size_bytes": 615345
+    }
+  ],
+  "seeds": {
+    "bootstrap": 20260803
+  },
+  "status": "PASS"
+}

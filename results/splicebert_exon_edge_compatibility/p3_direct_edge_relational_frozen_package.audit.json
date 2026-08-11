@@ -1,0 +1,30 @@
+{
+  "all_checks_passed": true,
+  "checks": {
+    "code_hashes_and_runtime": true,
+    "development_construction_and_assignment": true,
+    "development_records": true,
+    "final_code_tests_passed_before_freeze": true,
+    "freeze_manifest_binding": true,
+    "frozen_design": true,
+    "future_paths_exact_and_pristine": true,
+    "mechanical_only_smoke": true,
+    "official_checkpoint_inventory": true,
+    "passing_behavioral_prerequisite_chain": true,
+    "protocol_records": true,
+    "reference_data_records": true,
+    "schema_status_and_chronology": true,
+    "schemas_and_invariants": true,
+    "serialized_assignments_reconstruct": true,
+    "target_construction_and_assignment": true,
+    "target_records": true
+  },
+  "failures": [],
+  "mechanism_target_outcomes_read": false,
+  "model_free": true,
+  "model_loaded": false,
+  "package_manifest_sha256": "70adc705bf7d23b85a179cdcc980bac0709d2fabf88edde2ae51df8425f7effb",
+  "package_sha256": "da47eee2b811df2ea74c5a18683152cb66e95239e22892889b83449e82d22fc4",
+  "schema": "gfmcd.splicebert_exon_edge_compatibility.p3_direct_edge_package_audit.v1",
+  "status": "PASS"
+}

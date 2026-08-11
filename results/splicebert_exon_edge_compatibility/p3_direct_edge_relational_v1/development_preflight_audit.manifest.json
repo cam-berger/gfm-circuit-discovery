@@ -1,0 +1,802 @@
+{
+  "command": [
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_exon_edge_compatibility/audit_p3_direct_edge_results.py",
+    "--mode",
+    "preflight"
+  ],
+  "config": {
+    "bootstrap_draws": 20000,
+    "checkpoint_loaded": false,
+    "mode": "preflight",
+    "model_free": true,
+    "schema": "gfmcd.splicebert_exon_edge_compatibility.p3_direct_edge_result_audit.v1"
+  },
+  "created_at_utc": "2026-08-04T08:40:08.354175+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 20281,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert-direct-edge-p3-preflight-result-audit-v1",
+  "git_commit": "5f557fc0304e1300aacfa62df8c036e8ca728310",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_frozen_package.json",
+      "sha256": "da47eee2b811df2ea74c5a18683152cb66e95239e22892889b83449e82d22fc4",
+      "size_bytes": 54507
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_frozen_package.manifest.json",
+      "sha256": "70adc705bf7d23b85a179cdcc980bac0709d2fabf88edde2ae51df8425f7effb",
+      "size_bytes": 26034
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_frozen_package.audit.json",
+      "sha256": "083737d6418087997e5e360e4959180b949d3c9a02a096bf71ed2ddac504459f",
+      "size_bytes": 1131
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_frozen_package.audit.manifest.json",
+      "sha256": "5948fd6a8ceb790c5dca870b9c810aa3db3c4f829bbb070db93aba0cddde60f7",
+      "size_bytes": 1774
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight.attempt.json",
+      "sha256": "3af604399c97820a67ed41688fdf25e0af503403d73ad2effda17e54a4bd30b4",
+      "size_bytes": 7893
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/7518a84ae3ed384abc2a0dba9abadd5e3526e48fd3706acc8047e2c6170520e2.json",
+      "sha256": "7b24a55d38967450916038a9eae406b1573168b982b54540cd9be1ff5708a667",
+      "size_bytes": 2248774
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/6810ed4ce031b1063d3c523ddc9838d562956b0b8fccb828d949e2c856fce35c.json",
+      "sha256": "81a29222bcfdaccf98a67dd1ab4f4d9a0ba900edb31a06c8e6f693ef2cbb253e",
+      "size_bytes": 2245693
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/336b32c06ededa454c03650d6150c36294fc185a75b2c361d0ffe36540cef20c.json",
+      "sha256": "abf49889d0fb6a8bd73429d360fc820682409b9f0f3bb2d89a9a9bba40b6813c",
+      "size_bytes": 2247432
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/4d0699a579f0a83db1dbc0e791891052e2855215229907d68885ba6b3c8f4189.json",
+      "sha256": "a11be366b03fb016682bd97e2911a9f24bd0381bbc17a4102bcfd714cba4385a",
+      "size_bytes": 2246998
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/91fa1f18281dd16fae71bc1c2c2073d75d0c0b20d57b4fdafd740a14e69e8f9e.json",
+      "sha256": "de169f1e1bcbfd30fb9632a4af279b7bab331bdf94e41581568a680c8e9f2674",
+      "size_bytes": 2247852
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/4b946d5aba58a90b4f1c256d29d77a0186c1a4fe3ce5d910bb5a5f872359657a.json",
+      "sha256": "a492a7c5200e40610eab87eb69fd1e9af9c00b05513ad34d56b2f1edf3bd1618",
+      "size_bytes": 2246675
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/815402181a9f7f196b4d7cc2ced6d16cf9ff1480b160c40e55ddcb4f58416774.json",
+      "sha256": "0e6cb4b1772bfc8c28da3440e37150a29ca3da77940246aabbcaf73c62ceb608",
+      "size_bytes": 2247694
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/cf765c14df68feedae91547ab5c70346dca3c7f0f3515d2993c1a14153303ddb.json",
+      "sha256": "681b5e0a97df334dd4cc76ac7983e6431e1c07ceeeaf6b1f570b3240b74e75ce",
+      "size_bytes": 2247497
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/09fe35ec62a367890d996c4cf1c5500a9d8f8d474201f120ca6b30f8ce6aa8e4.json",
+      "sha256": "8d3288162e064b88f9a5cf83c3213fd402243fc72ce867fba6f61d8b269e3b87",
+      "size_bytes": 2246576
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/c00a5aae94537f0d99c518b9ac0f3a4f1d098408d8ca87377379a976b0e35f17.json",
+      "sha256": "e51a8515d5b7de223aa0c742c739923576d584498d88ba0075a859de7f5c3f53",
+      "size_bytes": 2249890
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/b35dfbeca80b9c35eb82f21e1e32f7191de3300011ebcac08e6d9924c7709e72.json",
+      "sha256": "491becb71bb91489febd75f03e8dd395d1405c86acf2fe4406256ddff9ea901a",
+      "size_bytes": 2246530
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/e4d5c58a2de6a6a852d61bc776d020d9ab45475d051192eef88d8725393a75fd.json",
+      "sha256": "ebd459b58221139b14dd2f91292fd0c8ead1eaac8ee032faff9ced0ab64a8533",
+      "size_bytes": 2246966
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/cda9cf1795d1449c83fc05d42269155f26b26bca07c5b0b84a1431f502565942.json",
+      "sha256": "c78bdbb5de8d79ba7c34bccb8c324335f19a7b4fa17cb76d85225f84760a5f0d",
+      "size_bytes": 2246707
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/293fcddcda50936d6c13113daa7eda6af8c3e5ce04d33438223aa734f4cea298.json",
+      "sha256": "69d267f75a57881a916c8c0ebae3ba05f2e64adb176568e6dad5b32eb9ac25ab",
+      "size_bytes": 2249665
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/e53e93de0db4bf544f28161c3474e9aeeefdf63404ead12a084b6e0ae7de2b20.json",
+      "sha256": "fa7dfc38fe16ad5e4136268f18e8932ee186602e00233c0e728e98ef1c583aae",
+      "size_bytes": 2249283
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/29ca373f0d504e03cf01e8641cc3aac15d9a4377fe20dc09bd52ffe1677153d0.json",
+      "sha256": "b874a45bcff5fff92df4c427ddd7cca9996ff05ed94b3ede13be0c828cb15018",
+      "size_bytes": 2247959
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/aacd355f7c1e358755799d90ceaca413a642e91d977e3e954d3115d70084df9e.json",
+      "sha256": "429c722d9b490cc5ceee6bd7f1dc798490236befdecbbc2bfeac9aaa746c97db",
+      "size_bytes": 2249582
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/6790609d501947a7088ea0c50b36823ec1ed8cd1cbdc7afec8a9ad7124773244.json",
+      "sha256": "5a1ed599246822040137889640d43647e37d66e4a48dd36f6d54da7ff6941ca6",
+      "size_bytes": 2246991
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/6dddeb6971e142622a360c36e347df9998d5f301a809aaf384e352902540f191.json",
+      "sha256": "749b71d46881a40d59b4ebb1cdeb3afe79105ff0eb9d2af1abe2438657082043",
+      "size_bytes": 2247243
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/92fba09a9974e8e8fb146b3ab2a787c4286610d7c453d32bf7dd8d3ef1a51994.json",
+      "sha256": "9fb4628ef82c3c53246f10ce824f50ac830af38feca182482dbdba71956f1955",
+      "size_bytes": 2246141
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/2d012f7c41d9dec9aadf1327aaafea8e4c30f3724d525a6518f4a05a1a0ef058.json",
+      "sha256": "887e27ca7fe6998e39c9dcf3a85a57bbc9f94b86796cb4eb91a8bc40b8e405de",
+      "size_bytes": 2247898
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/56cdf26cfd442fecc5318dac8c60f01b043c43132e7c67c5fb65f2e1c323e5b2.json",
+      "sha256": "fee23ca4ed4660afe24a885ab5bca72902959d11acf0668c2376d752c5ce35d4",
+      "size_bytes": 2245947
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/8ebb9715a3676dcc05569686da16de63f206d8ae7e574ae1e06aade409aacbb4.json",
+      "sha256": "791d4dbb83f953517eda21bcd2749db3c293aedf6e32f25bae30b349fc6ed08f",
+      "size_bytes": 2249921
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/fe1ab2b0719ee04467735c83cbd8993d1800c60f5d89d873a7ad6cdec3dede10.json",
+      "sha256": "099f821a03b7ac39e0acf9c27549186f13dd472c7aa09d0941f16fa442397fb9",
+      "size_bytes": 2245711
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/4cbc6973e0175510825eeb2d06909ec2fa3329203e151b627e234a6f6fff1d87.json",
+      "sha256": "b182136793b3b8913b87806f5612f19acd0929be2467931cb7447a103c36d014",
+      "size_bytes": 2246443
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/be00d54f768e4818e646745faea12701401616fca3fda13fc25911d5efff581f.json",
+      "sha256": "ba72aebed09a45573502e77af6f4a61d5a983c61d829d2a17526f361dc468e7a",
+      "size_bytes": 2249213
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/fa11f65ff9bb55bbcd3af48ef82042bfa8eb5e6acef5f194097aedf72fe96074.json",
+      "sha256": "65f8bb4ccd908406fce00187fca6521ac3ddd2d6eb9e925551c4b6b32ef8dd2e",
+      "size_bytes": 2249943
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/fcdd55607aea2938f0f131b0642b1b85d90686d23e7b39ca67d2c2a85dc692ee.json",
+      "sha256": "db73497d9a4bbcdf830972c8b1ab197ccd430f1338e8ceb2e3ab9db38ccdb7ba",
+      "size_bytes": 2248603
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/550f6b3c4e6ec26425478b372e022ac392bfbedb1b75d0fb52c631400afcd533.json",
+      "sha256": "31ef0a798ba392560d60ce077d5380b4253532a34a8544e9bb5db57a1dd7e63a",
+      "size_bytes": 2247382
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/58e7ac8a5d98afea9084b037b8a41c125a4f23603c33cfdd2bb6fbca3d52dc71.json",
+      "sha256": "b7f985d6c579c170529e0c82ff5ac8b8d96f37d94896b64c65d8be7941ea174c",
+      "size_bytes": 2248005
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/74dcec3a95b0d57df15b90891f697e0af3aa954e65c5946c4dc0f254788ac345.json",
+      "sha256": "5085f5fdef58c8437fbf0fa1bb51b3acb5dc71c355586013413357c780812a63",
+      "size_bytes": 2247038
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/6feb08c055d826a0a70f9a5f4a0861db036bbe66db8e6da38b5f95d6c89aa17d.json",
+      "sha256": "bfbb55daf6c667182fef95d28d415fcba2bdb8230f54cc4e31ce06ac543e1fc4",
+      "size_bytes": 2250565
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/f08ce69f4d0975b943c7d1742332cd51d7d69d5d7f54463b1d1b621c85934132.json",
+      "sha256": "366ed6eeac91e0d20c463119925ebbf26ee61f340507b56c913ad00a14bf9aae",
+      "size_bytes": 2247112
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/cf1a3ffb135ae865544073cd3e73a6422e89410dc19525c32cfac3993e8261bf.json",
+      "sha256": "3fd8764b3455d1da3443250d1698fa1f5c03f533064283c8beca12b74d2553d1",
+      "size_bytes": 2246277
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/03471887ab492e15740b7a736d92b9a3fec9658b289eae1d666e8127eb71482e.json",
+      "sha256": "03ffc4c5bd2c828638959373f9f2d6186699e13b6560d2e74fecb129957edb4b",
+      "size_bytes": 2248916
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/19cde277fd20de9e90f66ac1cb310e06091294a4da85b5035a1d869e22a2fbe3.json",
+      "sha256": "50926da17609a6f2a58579154357ed10ef1d0091abe7c1132128f108931c51ea",
+      "size_bytes": 2247133
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/f4f7e43ea9f6346e6c33de13518b39235c4a6b1d999ea21e07177703599c2f8d.json",
+      "sha256": "da0f4bf51fc5327f2eb94afd81e26ac390b78626efa556cbbd7e8ec21ff12bba",
+      "size_bytes": 2246998
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/0a27bbec2eb1c15548c486e70fdc55508c69b147daee6bb2c739f61a18d36ab3.json",
+      "sha256": "294997f9b43146949b106fe9bd50b7f2ff9167ea5d8cb923802b4d3c3bd1ce98",
+      "size_bytes": 2247782
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/eed88b09c6a6e179955ff98ece5e363b1891903a443c8456b49b26bf783156da.json",
+      "sha256": "b65b89efa008ea9063fa1f921d929f529b83e69af4cb27f590b32a1de680dce8",
+      "size_bytes": 2248608
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/2d4666d0a5ebcf8b4830796a483ebb62931d213ef1a4fa10f69a387ff6ad60a5.json",
+      "sha256": "2d702b92ea073da3dc328b3c0f1591f346389041225c3bf0595fb57689790569",
+      "size_bytes": 2246145
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/ac39612606072688bd4ae5be9b3c113ff834e969cd19298e7d8ae038fb5e4d9b.json",
+      "sha256": "ea7420a067504fe958c47f7b83709c7da87f1045234528970027f927b8670b2a",
+      "size_bytes": 2250942
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/ca492e1120a4f386420fbe5cf3507570636a005b0497be67741e99283fda6808.json",
+      "sha256": "95c18c622107ec9ade03a0cf99df0c7603b49f5be90b78622964463960cf78ae",
+      "size_bytes": 2246727
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/e0dafef480822ca02a31c19aa5408a64f82aa9273bd37c4e43f6f40b1901e650.json",
+      "sha256": "bbeb7ffab080438be597a5ec11e3d8800ab9b286ee19a685ee970574c3913392",
+      "size_bytes": 2246933
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/f65ebe628c03a994a7d2215827f105651fd798461331263d87dc6adf51738db3.json",
+      "sha256": "f8dd656299b6bcb4536575d3a7706d59b44c877283fbb14e5cb2bf0cb25b29d0",
+      "size_bytes": 2246917
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/e290e1cfdd60eb1d8cf9a5cde1b9b7aed0ec71a302cc942409b2f9415a09e4c0.json",
+      "sha256": "a152914f20bc4b435e86cef2697609d2af64d180c1fe85be5d412c77e5bc73e6",
+      "size_bytes": 2246277
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/391e318564c82f5825786ef9ff839953162bc1476395e23e747de09a7b7d31de.json",
+      "sha256": "26c9a5c42d95880d97c0ea234c6c6ea66e151e0e6ca129d54e1a0d8854aa5e04",
+      "size_bytes": 2248154
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/0620691f79e0765c2697f6179114bdaf4ca10ccf58140c879b040fae5327ad0c.json",
+      "sha256": "8f40f0f107fb5256e102c9ad47d62f3e0aa7237d05597fc3cd02b2bac7e5c604",
+      "size_bytes": 2246095
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/7db732f869b737dc62ec09c1ebeccc1fe347b04f56eb8b257d419e19b2e530d2.json",
+      "sha256": "e1c1096829808bd28976ed6b25b588d1b69d82608023924b6870b16ed3608c12",
+      "size_bytes": 2247241
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/350aa76004af78b079a4d458ffc2894f1f2e71c1a721329f555fd7a1d50599d3.json",
+      "sha256": "a5b3cbab1a95b40b1f869d5a2dafcbe8af42b0c10d9b697a45cf9793d9ed906b",
+      "size_bytes": 2247515
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/db605c49ec07d764b8c44464f03238cea9d2cbbd5e95b447f75394b17ef00e7d.json",
+      "sha256": "57406d706a6a9d6a881746ad94f1ee0aee070e1255003527cf74c4b47a654c08",
+      "size_bytes": 2249537
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/2d52ff344029a0f34174c9ac9bee4c15ef21fd6bf5da9e00e58190bd996c4391.json",
+      "sha256": "6260318d06f6c04e66a67f09644c2248f4273dd40dfd8fe3a7b1222e2ad1d6f0",
+      "size_bytes": 2247333
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/7de4a612759b2e98613aaf3435254008368a8275fc81a68ba299ca9aac44d492.json",
+      "sha256": "7f890f415c7aadd70802fe3fcfacea712799ce062cb1cc37883561429e18b571",
+      "size_bytes": 2246477
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/6c2b3099486b8a7856819a7cc8d7eea257957bf52b909cc855484afe86d66829.json",
+      "sha256": "c0ad47e5fedc6c4ea44c65f9efdb6e71ae607a59a43e9881138ac0c29536ffa4",
+      "size_bytes": 2247289
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/2cdd7877c1e7a35a5ddf5b7cc6424dbfc61a4d4f4705f31d70d9a0c2e0049ff9.json",
+      "sha256": "ea49bd54e24eac9f97fe967289e6ff07aa41fcf5ddf89e7c702288364720d447",
+      "size_bytes": 2246909
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/ad78bfca37485d4e2e5f665c259000a59077281c28bee6101be8ab012e0fbcb4.json",
+      "sha256": "9c2a004369f8d6b7bbf61e9d6ff49e83ce67f1dc8bf2e950a293ad8fee1a3d3a",
+      "size_bytes": 2248601
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/292c6cdbe8a3e2a844b6b125427ea784e3312a86fb4796972fcdd76f1d33b0f1.json",
+      "sha256": "90a15f926fd7d3e5a06fbc61adca279c55b74e593e3ff4257226a1fe1971fca4",
+      "size_bytes": 2246232
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/1fdea81f5d9bff99562e9f56462d51bff4723d323bcef4e2705e00cdde70de9b.json",
+      "sha256": "4c8a7c2e30753c899b9ab32946bfa1924c001d40ea7aa563f25df74bf1a6e98e",
+      "size_bytes": 2249933
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/f45b26b42db8e73a8171db03a1674a7d0c680a6d93bc3106fc3e5e48b2790bbf.json",
+      "sha256": "c658990f3c93e327defc6aa4b4a2aca7555e0d38c5fec377e0732b71ee7cacbb",
+      "size_bytes": 2245950
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/467253abc5b01354438e7e1237399ca405332ff4e40802aed3d9aa1b791ee350.json",
+      "sha256": "5c8ecd3f24d34950bf22fa36c1bc8bcf80bcff1ac97878b9cf02c4bdddaae7d4",
+      "size_bytes": 2246366
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/291d4926c32d110a874d2fc8d59e898525ef9685fdaa117a4e598d8192e89748.json",
+      "sha256": "64a5ecac3e2bfff3ba25e820bc0f9e047b662719fe208330cf099ac55ce0c7dd",
+      "size_bytes": 2246269
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/36b8b4843d6b12461b91c42d23eeabe0658bcd27b026dda0d7848ffd471204a2.json",
+      "sha256": "14b13579944ba332339971867b86918b4a2eb9faf8a0017ad2c610797424c4a7",
+      "size_bytes": 2247065
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/69db8d556cf45fdbcf361f533cc3bac65d4118ddb126d7469c0c637cdb8f7a98.json",
+      "sha256": "f2d59ff074349da4d53aa54a3a16a8aef3dc1dc6a50df00275f466b0c1a63880",
+      "size_bytes": 2246532
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/80343fad7d0985395c0db448a03ac3e93bce70f937fa91231c0761ed216a699a.json",
+      "sha256": "e2892d806b7d45e6024e6eac4e6b4747d15b65d1d85e0a6498f54060de06f1d7",
+      "size_bytes": 2246066
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/8b4e85b53a1df1b2bd8c52b98dd08860689da3aa30a18de98d82e30ee5e7e7ce.json",
+      "sha256": "9ce1f60c4c91849939a54ea332fdc445240fbef2d231162c556a86f15da5c205",
+      "size_bytes": 2246986
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/f4abcf65a01907cf60a7e608f2ee6fdebe45fdd8c93c996cfae1c72ccc61ce2f.json",
+      "sha256": "b129f725a95602fe8cec7c9d641b5caa5fb0099f12259e1bfc70fbbfcb64a70e",
+      "size_bytes": 2246573
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/d483d0d100ee32f5ee8635408a7ec90f8f50f9de5012b5f80918aa2bd96e70a5.json",
+      "sha256": "3c879ba7544d4d612a95e11aae06d5bf38bdcabfb5e9df5811a69aecd092b69c",
+      "size_bytes": 2247532
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/c4589f778e34549c0cb686d5156b6de079776c4548d28a6da08f208bb0f68b7d.json",
+      "sha256": "97811e110daf46f5ded5fee8cc105ecd287afbbd1fad18acbbdfc39058fa3323",
+      "size_bytes": 2249481
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/8243e2a58995a7d43544e4270de1a4b7af833d93f2b7f52ea92f126fb3a62ab8.json",
+      "sha256": "f855fb4f16f7beb1bc90e81197e3acabe2665fa5f169776f431d1704146dbb8e",
+      "size_bytes": 2248723
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/152b85db2e2ce3bb57320801d8d72325562ab55c16347231b1c6ee49c6445159.json",
+      "sha256": "619072fa9ceee5fd15a4478af2b000de6ce4c79254880d057667b8e5b3ce3bb0",
+      "size_bytes": 2246368
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/9f61fe3d1d84a3ece430660f9231ade0f0f2eb342d15a8eb5500b91885ca04c1.json",
+      "sha256": "52f731da151072caf0ab8de14bf09f05b8f2df7bb0baafa1c7e7c41e9e4fc012",
+      "size_bytes": 2247153
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/753de04475404f33252ee6c674c0dee050a181e5c3ba00744af39907d2134d08.json",
+      "sha256": "7085877f939ced7258e68a36d46631a19b77ee984c38e7bb81baac11490a49a2",
+      "size_bytes": 2247718
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/922b5d8a3e8773bcb996788c55c04a0427b73d48b4db8191cb14872dee8011ca.json",
+      "sha256": "7b86a787cf4145724714930c824ea368f4532918c3aaadbe71501c518a35da00",
+      "size_bytes": 2246400
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/8dad84bfd47bfc0e097efd1e4e76e71697c96f03c6ffa864e7206243552b7fb3.json",
+      "sha256": "e55f4ef5d1eec11d9e253042976d6a29cb1aa2e6ed77dcb8aea76707a9291ef8",
+      "size_bytes": 2247835
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/57252ccf09fe6283537b2323792377187abd22b13fe70920c0ed29aede613e8e.json",
+      "sha256": "5d7445a6ca3f1db7c242529052e35379f0db0c206a9890bc5b878d715151600a",
+      "size_bytes": 2249008
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/1204f51d4d36b9586c6db3696600d35a40ae6997a7e23452ebc7b3a6356aca01.json",
+      "sha256": "9b284f4b95e0cdbe8961c2b873859d4afe65d07b8504ef60048b0c502af09fdf",
+      "size_bytes": 2247404
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/5fb10e00dda80c226a3c8acc315042227ea1a59d7309190d30dbe739c19a7de4.json",
+      "sha256": "2c747132145cdf3c872207abf62c74bf2cd7ef3aaf69a73872bdaacfcf82d635",
+      "size_bytes": 2249267
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/f834c40b66fa278b89e4c6f9691c9207cc04814dcccb696a38f7227d7453cb3f.json",
+      "sha256": "45b13e3690882f48da700fb63cc07e55a0f09aacb1207f2f8753df160df55f06",
+      "size_bytes": 2246711
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/40cca49b8a569da543bc28cc7cc34848e168d8840ff82eb1036d95d88ac3f381.json",
+      "sha256": "02f4c3a6286d97fb7a936bab4aa09780ecf1293fd2560679ccb086f17cbfd87a",
+      "size_bytes": 2246451
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/82ed7f48c0a63e36ea6a4e9aa4c388c4ff7b664136d43daf14fd6d24f0e6e157.json",
+      "sha256": "8b62f7163435b408e51edfeb832d8d9950447c8728a403a6e87aeef383f818b5",
+      "size_bytes": 2247541
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/2568587564707a9bd6f203b2fc9acbb2d7b11528fca463db52db6b9f2210625e.json",
+      "sha256": "390ca399c7f7859318bd6a5dc0569ea0b8230b8cf1e2bf2e7c9755966929a35c",
+      "size_bytes": 2246835
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/f99a077fabccd6a91378c1a29155d23bd8f258979181073199aebf536a4dca78.json",
+      "sha256": "bfec6f63084e18df56dab6c1d2e6d5d8881be0c32fdd786ae1175bf47f67dd5b",
+      "size_bytes": 2248695
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/17fea6dec3a78d9e43702ff02f6e48746c4c68c20c151466d269a2c87f9067a2.json",
+      "sha256": "096ba7845912ab1805ef6412f183e5de895605253114ce779d63390979a6c730",
+      "size_bytes": 2246896
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/0f91287b1213ee1d7c26018b21017e956ee5e6a42ec3abb7fad0100b72cdbc6c.json",
+      "sha256": "e1046180bbaa99dffc83c7d7f477510a5fbaf3281d4a5a3b8f22dd95cf692bb5",
+      "size_bytes": 2247287
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/b8503c931462e7bf0297a42e3c35d76324b3bf7cf603c456c1d64cf2b6acb3aa.json",
+      "sha256": "7d5e8cf05b561eb07a2ca31725566bb96ecc877aed3f918a8076e9fc8501b84e",
+      "size_bytes": 2248652
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/201e3b3b35face1c4b26ac0e024cea74438b4c8de0661ac015b1f38094da8264.json",
+      "sha256": "9f6fde7bc90f73eaa3abf7366c3c4c08015788914948b593db72650ba51589b6",
+      "size_bytes": 2247132
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/9c2feb1ae16f5751646cd436a0d7bc36be724b82258c580db43bf21f5a8b99e2.json",
+      "sha256": "bd96b399edcf0c0840fcda2279d526af9d887b8c53ce26464eaa9505ebcc0c80",
+      "size_bytes": 2246885
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/1215eca0620bffb5d28800e97bf8a8f63b7593fc2afb068815b7eb4e27b61b9a.json",
+      "sha256": "c01f784b524c7ad760aac3865ec12b8440be8b16deb4ccf77442a984a981d99c",
+      "size_bytes": 2246720
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/38f30685119bda8c7bc4b89a97ad3b6bda3e9226bf761339c0fa31ee9fac8918.json",
+      "sha256": "ca7ac9a1e98ff8e45858c9389014a3f6794622609f1abaf28cf9f0604e348519",
+      "size_bytes": 2246782
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/7fbf78e44c0889bae3e4147e4a4766b1712e5f125f13da3821a5a16cf8444119.json",
+      "sha256": "fbb21ada4f9e99a11afc3456d7f21bc8e0a02034272c578c98c9c8957ae0a3fc",
+      "size_bytes": 2246640
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/751f9f0cf2e0ffbc896e4f1d0a58355ce1064ac17145b4955011f868343cf487.json",
+      "sha256": "ce76eba8d89dd51f953b5127b2fc599b15fb443d8e9f6c806f26cbe5b1c6c89c",
+      "size_bytes": 2246619
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/e01007595d90c41e147f44f5396827e4118d8cec95f61513bb1e0054caf26128.json",
+      "sha256": "2e1fcef426d1bf0642d512859b7469b97d296d302ef4b2eb59a5e811fabdb8a8",
+      "size_bytes": 2246929
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/7c675b736b9742f2885ecf53bc605446bcab7c19d95c1b002d91aab27c77d8ac.json",
+      "sha256": "3934e83233d02d3d035f8fbeadfb944f7a2441038daae32226845974c478c9fc",
+      "size_bytes": 2249556
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/f022744e1916cb5ee8779e0394b866b576a8e95178ed2b4b3aa1c221ef3cee23.json",
+      "sha256": "aaa592934cb9961bbc9383948e781dedff8d79d39812c2360a635ce67c13121b",
+      "size_bytes": 2246397
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/e240e81594176ccd124c521f2669d542166f2cb92a45cb1e29e5c27cdc619a7a.json",
+      "sha256": "3750d15c099986d0a8a15f8719d79be9d66a1d76ad5d4b94c5df15e6071bc5e0",
+      "size_bytes": 2247487
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/bfaf3434de8b307d10ced9f2ea803b3f958e0fe9ff9c138ce43b253c3ea5b83b.json",
+      "sha256": "665a8465b3c82fe08f1ba0f7f8edda408522ad81c00ed64ca5b415e4e8358793",
+      "size_bytes": 2246847
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/01fd3dbbda81656dac880b38c02554898bb44e665896e75907e24d7daacd756e.json",
+      "sha256": "a5e8c457788eef4f7caf8e0fb7c999a299f32ff826540e47f2f8df34e9fb23d1",
+      "size_bytes": 2246559
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/54cb36d11c801a1a6c048d65b481db4144954fd5fb061eb5dd4a65ce68a20bd5.json",
+      "sha256": "ce2b88226f1300c72e2f1e5b20e98ddec960f2fe9d9fcf6e52d93e77f5d1b368",
+      "size_bytes": 2247458
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/4b25a941b235645240aae3456c9e7eb1e2a9c89b64b88a27900c7a386730eeb4.json",
+      "sha256": "99e219c2301c4b511bb062756e0fe18a342da6300a31fab10cdd02e3731aaec5",
+      "size_bytes": 2246829
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/809c0521de8a664b4aade896b2a024eb7e30650e0476608a4edd55829b05e0cf.json",
+      "sha256": "1298e03990033554c72e42add9df3724f65440a0942f5afbcde67b4fc6a4ccc9",
+      "size_bytes": 2250614
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/3c0eaec20134938b81f6a78c5d2a671de8bbb24118eea71873901e4e24fe13c7.json",
+      "sha256": "1623def4c2daa90afbe1e99f0e22283e977884ec677c701d16e9257cd53551d8",
+      "size_bytes": 2247353
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/108cfe8613e0206bd0bde58f6bce4ac68b781477434bd9b7dc0b1ba11e0886d2.json",
+      "sha256": "502a337033069007766d2539790da9804cd2c7c229e8288e6b95f157a6dc7009",
+      "size_bytes": 2246433
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/a970eb47b7e54308876104cd57975e1baee67012a89de56adf3d701b2789beff.json",
+      "sha256": "affb0787661ebd7187eb948b2f515acb865249dd13140029a00131af50bb4020",
+      "size_bytes": 2248523
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/02d2e4f293ad278a1ee01e9e46b59dcc709c80166391fbc61e472f369d4c4418.json",
+      "sha256": "bb634cd9c871e80b5314a39cfc242729cc420d266705e3d4c456caad90511c4d",
+      "size_bytes": 2247575
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/f6d59d956d586a35f57a3871649a8f9bc367cd55c968b266192cd81525e4ab94.json",
+      "sha256": "5a2098720e6e6bdc947ad64d200a624f38391f13ed33d4e4e38323fa5b34f4c8",
+      "size_bytes": 2247095
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/84d99a02bfa0b0bc76b460599615e5ace5d8c7ae3c802c3b805f9496b8970c30.json",
+      "sha256": "45722ba5b85db5958ce52e36e845f13c50c69640ac503ac9a08dd1e07a97d2e8",
+      "size_bytes": 2246698
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/5ae83c361f144b386ba8b40701998563f0636d8b377268b0688b78f3c1bc772a.json",
+      "sha256": "941b057a9c0fe5b1b5cd15868273e0b8f057447f563d63bd9c42be4733534c5d",
+      "size_bytes": 2247742
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/4f44e5bc5316621ebcd1703e8f5a94787575d3d2f8d7a822123ba2efcd1b4f9f.json",
+      "sha256": "946caccbfe4f2f4071f099268957e321e3dd949dad567dc4b2be58ce2018e0d2",
+      "size_bytes": 2248933
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/4c4256ad264513d34a118483e4f90fc476b31a3403d076a590b93ab847232bc9.json",
+      "sha256": "88b610ccc35cbebd437ca334680985cd8a6526fb3b1c32120d1b4ac5fe4853cb",
+      "size_bytes": 2247487
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/42d8c88e19597c045b174b309a85f3ccbdcc6d9984b4118f28c898f376abeca5.json",
+      "sha256": "0ce34c98c4a8ad8261ce2a88eefffa9fb1af5b7238033c5f50776d37ca8fe392",
+      "size_bytes": 2246535
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/82c943d0dd9a03d626907d8e7572e111536296246b917dd8177e6e17f39941d5.json",
+      "sha256": "0b7817816b44c07ca032267925771058a3b41590a81f6b76a5022267a90db24c",
+      "size_bytes": 2247438
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/3b0ec725129f11a06081a1503a4e4c906032a974271bec1bc896e28063aa9725.json",
+      "sha256": "d7e16e5c92ebf12f253a52195fd637fe11e2648fad00d5069d5cb9e059fe67c5",
+      "size_bytes": 2247156
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/8aacf4ecf1c26e1b1e6b87c9d57785e8206ae8f5b60099b189c01d500b8d90c2.json",
+      "sha256": "7fd8a45cf9c6a471260e9af52ee3758b3c205d97ce4e8d90092e618bfe4bc4f6",
+      "size_bytes": 2246800
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/b05baae7f79636655663a18abb9900b557fbe704fbebb2995dccc374f294d3e7.json",
+      "sha256": "5d808c7bf40485c0c5916f6812af5f082e065dfeb2951056dc2c2746b4ba9fe0",
+      "size_bytes": 2246944
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_shards/3f026bad77e3d2575b85402735e535dd04e733c12fc6ef09aaeaa7320befdf7b.json",
+      "sha256": "2fe794fba8b90f79ece2d26c12997ba229193e1da91356b11e241815d2a78cf5",
+      "size_bytes": 2248056
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_manifest.json",
+      "sha256": "ebd00655f085e9d8096988c660ddd4cb60dc8b0ddbba61149f5e0a16c2015747",
+      "size_bytes": 60969
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/pyproject.toml",
+      "sha256": "ae084243998a7119d031f8cf48ee8cfb4feb4e6c83669c3d6c28004a2b3d08f1",
+      "size_bytes": 942
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/uv.lock",
+      "sha256": "c2d496796825b54d85e4f871e492baea1e0dea79333bcdd27aef745e3f3399a4",
+      "size_bytes": 835818
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_exon_edge_compatibility/smoke_p3_direct_edge.py",
+      "sha256": "ff0c68a484d7ec437f79d8dcf6b700ad48226c539f085350e74966b6b518c7bd",
+      "size_bytes": 29149
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_exon_edge_compatibility/record_p3_direct_edge_test_report.py",
+      "sha256": "9e21a644985a71a8a9296f41d12dc29677f310ec2dea19d89192462be3da8429",
+      "size_bytes": 3647
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_exon_edge_compatibility/freeze_p3_direct_edge_package.py",
+      "sha256": "407513ee4f2920d09528752b7ede90b88844ddc429b27f0a02fe557e56da3096",
+      "size_bytes": 20668
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_exon_edge_compatibility/audit_p3_direct_edge_freeze.py",
+      "sha256": "df40b47c3964c7b77995433c2aa55b7ad141d25e876b90f4c6b48f9397d6e597",
+      "size_bytes": 23801
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_exon_edge_compatibility/run_p3_direct_edge_experiment.py",
+      "sha256": "017172d75a27323b8f8b470a4ab76491262e89407c87bd9faff3102e74afe2b4",
+      "size_bytes": 62020
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_exon_edge_compatibility/analyze_p3_direct_edge_experiment.py",
+      "sha256": "a1aac41783359de23bcb12cf8ea04186a317f428d3fc4ea9b06dba2fa9c40075",
+      "size_bytes": 137654
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_exon_edge_compatibility/audit_p3_direct_edge_results.py",
+      "sha256": "74d42b7250c02252afdc680237bc54cf10517f82a9800681e348d0fbbcd49282",
+      "size_bytes": 113220
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_exon_edge_compatibility/run_crossed_direct_edge_model.py",
+      "sha256": "71c30d1080f3aa885609ceb93e8fbd3cfcec9d14898bfddfdc6dde95c5ca657a",
+      "size_bytes": 33669
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/p3_direct_edge_experiment.py",
+      "sha256": "9206b3f621df5e00f74233efc339b285c72dc473465d17d999be48194a49549f",
+      "size_bytes": 28356
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/p3_direct_edge_stats.py",
+      "sha256": "145e57af5a002c01771762014f37b04e4cba010e6e9edd8a577a4f1680779f7d",
+      "size_bytes": 17491
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/p3_direct_edge_inference.py",
+      "sha256": "94b8771d53e89f2bab4d743fcfa19ed3fb52d37b13989238a2ed0538d5ef7e9f",
+      "size_bytes": 84842
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/p3_direct_edge_intervention.py",
+      "sha256": "574a6d800aa6e1fea3ad25e0cd03ef03ff19fc9f068661543e59e51082b7da11",
+      "size_bytes": 34380
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/p3_direct_edge_routes.py",
+      "sha256": "1ad30dabebfbeffb6102274e1f71e4e09c5d2cbe4b0d9037fb05d136219bd963",
+      "size_bytes": 62095
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/p3_direct_edge_runner.py",
+      "sha256": "234c04b95b26bd8fcab9ac3177390cd23ecea88d8e84f6309877e9806dfad308",
+      "size_bytes": 77768
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/p3_phase_surgery.py",
+      "sha256": "094e48b303a81ee1992c42be625477f54c13f288c2998c8a921671deacde2fad",
+      "size_bytes": 7306
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/p3_edge_surgery.py",
+      "sha256": "021c737a79690cdfa6df7674e5ed04eeda4fd5e9a780c12b2c3db4facfb605fe",
+      "size_bytes": 2669
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/phase_crossed_lattice.py",
+      "sha256": "bf96f711c4713b0acdb0aac394013d8b7c1716779a63fdcb8dea5a10ed70f079",
+      "size_bytes": 23698
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/phase_crossed_runner.py",
+      "sha256": "f9edfd52ef32230aff84d4e69037cb68f863db074d5b80eb55a4c62488cf3174",
+      "size_bytes": 61664
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/phase_crossed_replication.py",
+      "sha256": "ca9f6343f8412a7982b02b2b669a17ef4e1e8870c124b872d48d975c31c5ea7b",
+      "size_bytes": 30826
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/circuit.py",
+      "sha256": "a24ef2e8aaf5acdaf009e85d63b2ca231627e767c053ec4f719f341dd0faa242",
+      "size_bytes": 31844
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/dataset.py",
+      "sha256": "5fd012788f6afed3cb739e6717aef30ab756fa6c95bdc7424b124ef178d93a45",
+      "size_bytes": 10023
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/adapters/base.py",
+      "sha256": "ccd7a075114c89472139df4a4789a0783ab1f46c43eac88db302abb035158b85",
+      "size_bytes": 923
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/adapters/splicebert.py",
+      "sha256": "1c7959fdbfa621c6ad42599c3c579f10ab02acd9d608fb31d4eae2338f640b6d",
+      "size_bytes": 12546
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/provenance.py",
+      "sha256": "05d3cd48d49a6357f29b72ac1636b23586a11bfb0b059ce97e36f8a9f87ac632",
+      "size_bytes": 3990
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_exon_edge_compatibility/preregistrations/PREREGISTRATION_DIRECT_EDGE_P3_RELATIONAL_MEDIATION.md",
+      "sha256": "e70ad4937ee2c2c7cecb433644772e59f1d8df0f4af7a7283aed83ae3c310fa3",
+      "size_bytes": 19095
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_exon_edge_compatibility/preregistrations/AMENDMENT_P3_A1_EXECUTABLE_STAGING.md",
+      "sha256": "df30ac79b1361c3372e6b84315a024f99fd2e6614fcd464d65568c907a2dd0ad",
+      "size_bytes": 9511
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_exon_edge_compatibility/preregistrations/AMENDMENT_P3_A2_ARTIFACT_AND_CHANNEL_BINDINGS.md",
+      "sha256": "64488aa4106be69118687e484a618928e7d7fe3343603bdc734e663c76c777bf",
+      "size_bytes": 7638
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_exon_edge_compatibility/preregistrations/AMENDMENT_P3_A3_CONDITIONAL_VALUE_MEDIATION.md",
+      "sha256": "7255fb5c410089e7c574c056359954421b696fbc4a726b7cad523fa9122f5f79",
+      "size_bytes": 4598
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_analysis.json",
+      "sha256": "78418a1ac9b94d434a83c6dd3f77faf0889639e3ccf934148351dfa763cf7039",
+      "size_bytes": 2835772
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_analysis.manifest.json",
+      "sha256": "dd033e7b786befe5c6e6874c9255b366ea2d13852f940b9f4a916070d91b221d",
+      "size_bytes": 52497
+    }
+  ],
+  "notes": [
+    "Independent audit from immutable raw shards through pure inference; no model or checkpoint was loaded.",
+    "Audit PASS establishes provenance and mathematical integrity even when a scientific authorization is false.",
+    "Claims remain checkpoint-, behavior-, context-, and intervention-family scoped."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_audit.json",
+      "sha256": "3b83a79629bb29a4f78de95383c88c6c1272803a54d6714a4462425be0700439",
+      "size_bytes": 1943
+    }
+  ],
+  "seeds": {
+    "whole_block_bootstrap": 20260806
+  },
+  "status": "PASS"
+}

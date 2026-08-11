@@ -1,0 +1,2 @@
+expected_rows,actual_rows,minimum_layers_per_run,maximum_layers_per_run,maximum_within_run_clean_logit_range,maximum_within_run_intervened_logit_range,maximum_requested_shift_error,duplicate_run_ids,maximum_clean_logit_difference_across_interventions
+9072,9072,12,12,0.0,0.0,3.2795863149185963e-07,0,0.0

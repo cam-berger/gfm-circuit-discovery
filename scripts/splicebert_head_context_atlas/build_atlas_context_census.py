@@ -25,7 +25,7 @@ from gfmcd.splicing.atlas_context import (  # noqa: E402
 )
 from gfmcd.splicing.gtf import load_transcripts  # noqa: E402
 
-DEFAULT_GTF = "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz"
+DEFAULT_GTF: str | None = None  # supply via --gtf
 STD_CHROMS = {f"chr{i}" for i in range(1, 23)} | {"chrX", "chrY"}
 CORE_CATEGORIES = (
     "single_pair",

@@ -20,7 +20,7 @@ from gfmcd.provenance import ExperimentManifest, file_record, git_commit, sha256
 from gfmcd.splicing.circuit import DEFAULT_FASTA, DEFAULT_GTF, DEFAULT_MODEL  # noqa: E402
 
 
-DEFAULT_COMPREHENSIVE_GTF = "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz"
+DEFAULT_COMPREHENSIVE_GTF: str | None = None  # supply via --gtf
 DEFAULT_CDS_COHORT = "results/phase-lattice/p3_phase_surgery_untouched_census_20260721.json"
 DEFAULT_NON_CDS_COHORT = (
     "results/phase-lattice/p3_phase_surgery_non_cds_untouched_census_20260721.json"

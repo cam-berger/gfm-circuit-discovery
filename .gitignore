@@ -74,3 +74,19 @@ results/**/figures/
 results/splicebert_coupling/ic2_feasibility_smoke.json
 results/splicebert_coupling/ic2_calibration_smoke.json
 .venv/
+
+# R4 Colab distribution archives are reproducible from build_bundle.py; the compact
+# artifacts of record are the reference panel and the result JSON plus their manifests.
+studies/splicebert_acceptor_coupling/colab_r4_package/dist/
+# NeurIPS style file: ships with the conference author kit and carries its own licence
+# terms. Download it into tex/ to build; do not redistribute it here. See tex/README.md.
+tex/neurips_*.sty
+
+# LaTeX build products.
+tex/*.aux
+tex/*.bbl
+tex/*.blg
+tex/*.log
+tex/*.out
+tex/*.pdf
+tex/*.synctex.gz
