@@ -113,8 +113,8 @@ def main() -> None:
     ap.add_argument("--min-effect", type=float, default=0.3,
                     help="localize only where the phenomenon is actually present")
     ap.add_argument("--chroms", nargs="*", default=["chr22", "chr21", "chr20", "chr19", "chr17"])
-    ap.add_argument("--gtf", default="/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz")
-    ap.add_argument("--fasta", default="/Users/cberg/Research/data/genomes/hg38.fa")
+    ap.add_argument("--gtf", default=None)
+    ap.add_argument("--fasta", default=None)
     ap.add_argument("--model", default="data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt")
     ap.add_argument("--out", default="results/splicebert_coupling/development/localization.json")
     args = ap.parse_args()

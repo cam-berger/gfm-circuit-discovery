@@ -9,6 +9,7 @@ Requires the real GENCODE GTF + hg38 (skipped if absent).
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 import pytest
@@ -20,8 +21,8 @@ from gfmcd.splicing.partner_data import (
     split_partner_examples,
 )
 
-GTF = Path("/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz")
-FASTA = Path("/Users/cberg/Research/data/genomes/hg38.fa")
+GTF = Path(os.environ.get("GFMCD_GTF", "/nonexistent/gencode.gtf.gz"))
+FASTA = Path(os.environ.get("GFMCD_FASTA", "/nonexistent/hg38.fa"))
 
 pytestmark = pytest.mark.skipif(
     not (GTF.exists() and FASTA.exists()), reason="genome/annotation not available"

@@ -1,0 +1,164 @@
+{
+  "component_conditions": {
+    "PRIMARY_SIX_HEADS": {
+      "heads": [
+        [
+          0,
+          8
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          3,
+          11
+        ]
+      ],
+      "mlp_layer": null
+    }
+  },
+  "identity_max_absolute_difference": 0.0,
+  "model_name": "quietflamingo/dnabert2-no-flashattention",
+  "model_revision": "813031b2bf86d9e960a027e2734c908009f31601",
+  "opposite_class_offsets": [
+    0,
+    3,
+    5,
+    7
+  ],
+  "results": {
+    "PRIMARY_SIX_HEADS": {
+      "matched_promoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.1328125,
+          "fraction_positive": 0.8671875,
+          "maximum": 0.9640964266335462,
+          "mean": 0.25841825389286827,
+          "median": 0.27239023451853345,
+          "minimum": -0.29292308077940116,
+          "n": 128,
+          "std": 0.23058364880680454
+        },
+        "restored_amount": {
+          "fraction_negative": 0.1328125,
+          "fraction_positive": 0.8671875,
+          "maximum": 5.928120136260986,
+          "mean": 1.6405188026838005,
+          "median": 1.7526806890964508,
+          "minimum": -1.6605541706085205,
+          "n": 128,
+          "std": 1.4743752176028773
+        }
+      },
+      "opposite_class_nonpromoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.548828125,
+          "fraction_positive": 0.451171875,
+          "maximum": 0.9244660289024464,
+          "mean": -0.03760727594101125,
+          "median": -0.033561061307680926,
+          "minimum": -0.8920538059500447,
+          "n": 512,
+          "std": 0.2790137275354459
+        },
+        "restored_amount": {
+          "fraction_negative": 0.548828125,
+          "fraction_positive": 0.451171875,
+          "maximum": 6.170152008533478,
+          "mean": -0.19629230396822095,
+          "median": -0.19508910179138184,
+          "minimum": -5.907577037811279,
+          "n": 512,
+          "std": 1.729146179368903
+        }
+      },
+      "same_class_promoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.1953125,
+          "fraction_positive": 0.8046875,
+          "maximum": 1.4390978581171554,
+          "mean": 0.25032047794206824,
+          "median": 0.23673618141273256,
+          "minimum": -0.6186571234449896,
+          "n": 512,
+          "std": 0.310127938653831
+        },
+        "restored_amount": {
+          "fraction_negative": 0.1953125,
+          "fraction_positive": 0.8046875,
+          "maximum": 8.060244917869568,
+          "mean": 1.5519162374985171,
+          "median": 1.3867789208889008,
+          "minimum": -4.387258052825928,
+          "n": 512,
+          "std": 1.8848725807741444
+        }
+      },
+      "self_corrupt": {
+        "recovery_fraction": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "minimum": 0.0,
+          "n": 128,
+          "std": 0.0
+        },
+        "restored_amount": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "minimum": 0.0,
+          "n": 128,
+          "std": 0.0
+        }
+      },
+      "zero_activation": {
+        "recovery_fraction": {
+          "fraction_negative": 0.171875,
+          "fraction_positive": 0.828125,
+          "maximum": 0.8236170025346461,
+          "mean": 0.2557523571016206,
+          "median": 0.2677489911025597,
+          "minimum": -0.5531957826203608,
+          "n": 128,
+          "std": 0.264208261023107
+        },
+        "restored_amount": {
+          "fraction_negative": 0.171875,
+          "fraction_positive": 0.828125,
+          "maximum": 6.8772805370390415,
+          "mean": 1.6254237657994963,
+          "median": 1.4536457061767578,
+          "minimum": -3.3073835372924805,
+          "n": 128,
+          "std": 1.7050358277572044
+        }
+      }
+    }
+  },
+  "rows_per_class": 128,
+  "same_class_offsets": [
+    1,
+    3,
+    5,
+    7
+  ],
+  "selected_layer": 3
+}

@@ -1,0 +1,80 @@
+[
+  {
+    "comparison": "matched_vs_same_class",
+    "component_condition": "L0_MLP",
+    "fraction_a_greater": 0.5390625,
+    "holm_adjusted_p": 0.181379294723381,
+    "mean_a": 0.7388969944947297,
+    "mean_b": 0.6857270620061097,
+    "mean_difference": 0.05316993248861995,
+    "median_difference": 0.03601151887929058,
+    "n": 128,
+    "p_value": 0.0906896473616905,
+    "wilcoxon_statistic": 4690.0
+  },
+  {
+    "comparison": "same_class_vs_opposite_class",
+    "component_condition": "L0_MLP",
+    "fraction_a_greater": 1.0,
+    "holm_adjusted_p": 2.8539007452300333e-22,
+    "mean_a": 0.6857270620061097,
+    "mean_b": -0.17561996447417094,
+    "mean_difference": 0.8613470264802805,
+    "median_difference": 0.8458915018058821,
+    "n": 128,
+    "p_value": 4.756501242050056e-23,
+    "wilcoxon_statistic": 8256.0
+  },
+  {
+    "comparison": "matched_vs_opposite_class",
+    "component_condition": "L0_MLP",
+    "fraction_a_greater": 1.0,
+    "holm_adjusted_p": 2.8539007452300333e-22,
+    "mean_a": 0.7388969944947297,
+    "mean_b": -0.17561996447417094,
+    "mean_difference": 0.9145169589689005,
+    "median_difference": 0.8724012455056595,
+    "n": 128,
+    "p_value": 4.756501242050056e-23,
+    "wilcoxon_statistic": 8256.0
+  },
+  {
+    "comparison": "matched_vs_same_class",
+    "component_condition": "L0_MLP_L0H8",
+    "fraction_a_greater": 0.5390625,
+    "holm_adjusted_p": 0.2519837851132549,
+    "mean_a": 0.8793178790453104,
+    "mean_b": 0.8429352943530838,
+    "mean_difference": 0.0363825846922265,
+    "median_difference": 0.012819665376230471,
+    "n": 128,
+    "p_value": 0.2519837851132549,
+    "wilcoxon_statistic": 4409.0
+  },
+  {
+    "comparison": "same_class_vs_opposite_class",
+    "component_condition": "L0_MLP_L0H8",
+    "fraction_a_greater": 1.0,
+    "holm_adjusted_p": 2.8539007452300333e-22,
+    "mean_a": 0.8429352943530838,
+    "mean_b": -0.1516015244923483,
+    "mean_difference": 0.994536818845432,
+    "median_difference": 0.9971137192033928,
+    "n": 128,
+    "p_value": 4.756501242050056e-23,
+    "wilcoxon_statistic": 8256.0
+  },
+  {
+    "comparison": "matched_vs_opposite_class",
+    "component_condition": "L0_MLP_L0H8",
+    "fraction_a_greater": 1.0,
+    "holm_adjusted_p": 2.8539007452300333e-22,
+    "mean_a": 0.8793178790453104,
+    "mean_b": -0.1516015244923483,
+    "mean_difference": 1.0309194035376588,
+    "median_difference": 0.9647862375388995,
+    "n": 128,
+    "p_value": 4.756501242050056e-23,
+    "wilcoxon_statistic": 8256.0
+  }
+]

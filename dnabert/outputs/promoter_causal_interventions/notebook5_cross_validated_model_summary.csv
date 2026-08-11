@@ -1,0 +1,3 @@
+model,number_of_features,mean_cv_r2,std_cv_r2,median_cv_r2
+baseline covariates,3,0.2717944173552716,0.3609159568680003,0.2936972355320941
+baseline plus biological features,9,0.3273547145553649,0.512025110085374,0.4335468598256323

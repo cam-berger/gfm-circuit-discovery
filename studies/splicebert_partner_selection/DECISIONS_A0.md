@@ -892,3 +892,78 @@ are byte-unchanged, so nothing the row licenses moved. It is nevertheless record
 a silent side-effect of the restructure, and **it has not been ratified by the owner**: the repair was made
 under the agreed editing brief, whose flagged item F1 requires an explicit owner decision. Ratify or revert
 before this ledger is cited in the write-up.
+
+---
+
+## BG1/BG2 — the acceptor boundary contrast (frozen 2026-08-10; not run)
+
+Recorded at **integration** time, before any run, because the questions below are cheap to answer now and
+expensive to answer after an artifact exists. `docs/PREREG_CONFORMANCE.md` records that the one place a
+protocol defect was ever cheap to fix was Caduceus — pre-freeze — and that the fix was never applied. BG1
+is frozen but unrun, which is the next-cheapest moment.
+
+### What was landed
+
+A frozen protocol, four runners (`run_bg1_boundary_preflight.py`, `run_bg1_boundary_grammar.py`,
+`run_bg2_boundary_payload_recovery.py`, `audit_bg_boundary.py`), `src/gfmcd/splicing/boundary_grammar.py`,
+and 42 tests. Two additive keyword arguments (`example_filter`, `transcripts`) were added to
+`build_coupling_dataset`; both default to `None` and no existing caller changes behaviour. No result, no
+manifest, no ledger row — correct, since nothing has run.
+
+### Why this is not R22 by another door
+
+R22 withdrew **absolute external strength** as the payload's semantic identity after A9b/A9c showed the
+A9 correlation was reproducible on its own draw but unstable across independently seeded draws and
+non-significant under two-way dyadic inference. The "Next (per Cam)" note in the A9b section above ruled
+out further rescues of the absolute-strength claim and pointed at conditional competitiveness instead.
+
+BG1 does not rescue that claim. It carries no external covariate, no learned probe, no regression on
+strength labels, and no correlation-on-interchange-pairs. It is a within-gene factorial over synthetic
+counterfactuals at two positions fixed **from the published biology before any model forward** (Yoshida
+2020 resolves −3 uracil and +1 guanine; Ilagan 2015 shows the motif shift in patients, cells, and in
+vitro — both verified in `docs/REFERENCES.md`). The two R22 lessons are addressed structurally rather than
+argued: the target cohort is **all** eligible genes (`n=None`), not one tag-seeded draw, so there is no
+draw to be unstable across; and BG1's contrasts are within-gene, so no sender/receiver reuse arises.
+
+That is a genuinely different estimand, and it is admissible. It is **not** a route to naming the payload:
+see the ROADMAP entry for the distinction between "sensitive at −3/+1" and "semantic identity resolved".
+
+### Three open questions against the frozen design
+
+Answering these is an owner decision. Each is a **design** reading of the frozen protocol, not an
+implementation defect — the code was checked against the protocol on the points below and conforms.
+
+1. **BG2's cross-gene control is dyadic but its inference is one-way.** `stable_half_roll` maps every
+   target to a **different target's** gene as its cross-gene source, so sources and receivers are drawn
+   from the same pool and reused across pairs. The frozen rule (§6.2) is a *paired gene-bootstrap* on
+   `true − cross`, resampling target genes only. That is exactly the reuse pattern R22's second
+   methodology lesson names, and the repo already carries the remedy — `dyadic_bootstrap` in
+   `src/gfmcd/splicing/exon_intron.py:280`, whose comment cites R22 by name. A one-way interval over a
+   dyadically-reused difference can be too narrow, so BG2's `true-minus-cross` lower bound is the one
+   endpoint whose stated coverage may not be its real coverage. **This is the highest-value pre-run fix
+   available.** The signed-coordinate family is unaffected (it is a within-target permutation).
+   Note BG1 is not affected at all — its contrasts are within-gene.
+2. **The frozen `INSTRUMENT_UNRESOLVED` verdict is never written.** §5.3 and §6.2 both specify that any
+   failed invariant yields `INSTRUMENT_UNRESOLVED`. The string appears nowhere in the runners. The
+   *behaviour* is stronger than the protocol asks — BG2 raises before writing anything, so it genuinely
+   halts, unlike the "halt semantics that do not halt" shape the conformance audit found five times
+   elsewhere — but a halt with no artifact records nothing about **why** it stopped. Fix-forward: write an
+   `INSTRUMENT_UNRESOLVED` artifact plus manifest, then raise.
+3. **The preflight's frozen output path contradicts the family's own namespace.** §7 sends it to
+   `results/splicebert_coupling/bg1_boundary_preflight_v1.json`, at the family root, while the runner
+   correctly stamps it `DEVELOPMENT_PREFLIGHT`. This family documents `preflight_*` as its preflight
+   prefix and keeps development artifacts in `development/`. A development artifact at a canonical path is
+   the "scatter" the hygiene conventions exist to prevent. Changing a frozen path is itself a departure,
+   so this is deliberately left as a disclosure rather than an edit; see
+   `results/splicebert_coupling/RESULTS_INDEX.md`.
+
+### Verified at integration
+
+Checked directly rather than taken from the protocol's word: the biological-to-array mapping
+(`biological_to_array_offset`) sends −3→`a−3`, +1→`a`, −4→`a−4`, +2→`a+1`, matching §2 exactly; the frozen
+constants (seed `20260809`, 4,999 bootstraps, 9,999 signflips, 19 sham seeds `2026080900…18`, SESOI 0.05,
+role weights 3:2:1, hash namespace `gfmcd-bg1-role-v1`, FPR ≤0.075, planted power ≥0.80) all appear in the
+code as frozen; the authorization chain fails closed at every link (preflight `PASS`/non-smoke → BG1
+membership and hashes → BG1 verdict → freshly recomputed BG1 audit → BG2); and the +1/+2 arm is declared
+`PRESPECIFIED_DIAGNOSTIC_ONLY` at `n=57<80` **before** unblinding rather than after seeing it fail. Full
+suite 633 passed / 30 skipped; `verify_manifest.py` clean.

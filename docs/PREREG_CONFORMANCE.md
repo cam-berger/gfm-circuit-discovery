@@ -37,6 +37,34 @@ this file existed, that question had no answer here short of reading 34 protocol
 > for a `GFS*` claim there is nothing here to read, and the gate status is whatever that study's own
 > ledger and `DECISIONS.md` self-report. Treat GTEx gates as self-reported, not audited.
 
+> **A third arc is uncovered: exon-edge compatibility (C43/C44).** Consolidated into the donor ledger on
+> 2026-08-04 (R45), it contributes **two live claims** and **no family in the table below**. Its two
+> governing protocols are in the tree — `studies/splicebert_exon_edge_compatibility/preregistrations/`,
+> deliberately kept so that "all ten target-independent gates passed" is checkable at all — but **nobody
+> has independently checked its runners against them**, and the runners themselves are archived at
+> `codex/intron-exon-phase` `fd26cc1b`, so doing so requires retrieving them from history. Three further
+> protocols and ten amendments governing the arc's dropped rows were not carried. Two departures are
+> already self-reported and are recorded in the claim rows rather than here: C44's development preflight
+> was **not outcome-blind** with respect to the behaviour it interrogates (its 114 blocks are the
+> predecessor development lattice, whose `Ψ` was already computed), and **neither carried audit is
+> re-executable** — the source branch gitignored the raw rows both recompute from. Treat C43/C44 gates as
+> **self-reported, not audited**.
+
+> **A fourth protocol is uncovered for the opposite reason: positional boundary coherence
+> (2026-08-10).** `studies/splicebert_positional_boundary_coherence/PREREGISTRATION.md` is a frozen
+> 1,091-line design with gates, thresholds, and an authorization graph, and it contributes **no claim and
+> no family below** — because **it has never been run**. There is no cohort, no preflight, no target, and
+> no artifact under `results/splicebert_positional_boundary_coherence/`. Nothing in that file may be cited
+> as a gate that was enforced; every gate in it is a gate that is *specified*.
+>
+> The distinction matters for how this file should grow. The three arcs above are retrospective coverage
+> gaps — code ran, nobody checked it against the protocol. This one is prospective, and the protocol
+> itself forecloses the gap: §"Present status" requires that a freeze package bind the final code and
+> inputs and that **an independent protocol-to-code conformance audit pass before the first target or
+> Phase-III reserve is opened**. That audit is the fix-forward this document's root-cause section asks
+> for — the decision layer checked against the protocol *before* the run, not reconstructed after it.
+> When it is performed, its family belongs in the table below like any other.
+
 **Scope and method.** This audit was commissioned by the 2026-07-24 publication-readiness review, which
 returned *Major Revision — not ready for external artifact review* and named this table its single
 highest-leverage deliverable. 25 SpliceBERT-arc families audited (every frozen protocol on disk for
@@ -329,6 +357,17 @@ document, and it is why the file exists rather than a note saying conformance wa
   fully reconstruct; the atlas protocol pins are separately broken and ledgered under **R34**.
 - **Numerical re-execution.** Nothing here was re-run. These are protocol-vs-code readings, verified
   against committed artifacts, not replications.
+- **BG1/BG2 acceptor-boundary grammar — frozen 2026-08-10, not run, so there is nothing to audit yet.**
+  No artifact, no claim, no ledger row. It is named here because a reader scanning this file for "is this
+  arc audited?" must not read its absence as coverage. Two **design-conformance** readings were taken at
+  integration and are recorded in `studies/splicebert_partner_selection/DECISIONS_A0.md` § "BG1/BG2":
+  the frozen `INSTRUMENT_UNRESOLVED` verdict is never written by any runner (the code halts harder than
+  the protocol asks, but records nothing about why), and the frozen preflight output path puts a
+  `DEVELOPMENT_PREFLIGHT` artifact at a canonical path. A third reading is a **design** question rather
+  than a conformance gap: BG2's cross-gene control reuses target genes as sources while §6.2 prescribes a
+  one-way paired gene-bootstrap, which is the reuse pattern R22 names. This is the pre-freeze-equivalent
+  moment the Caduceus bullet above says was never used — the protocol is frozen but unrun, and the
+  runners are not yet pinned to any manifest, so a correction here costs nothing.
 
 ## Related records
 

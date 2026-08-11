@@ -76,6 +76,40 @@ on 2026-08-03; Git history preserves them. Two live nomenclature questions remai
 
 ---
 
+## B4 — the DNA-helical range that backs up R30 (raised 2026-08-10)
+
+**Surfaced by, not caused by, the positional-boundary-coherence branch.** Its
+`HYPOTHESIS_REGISTER.md` (lines 181–186, sources at 580–584) records a source conflict against canonical
+prose and correctly declines to act on it. It is logged here because a T2 register of an unexecuted study
+is the wrong place for a challenge to a live canonical sentence.
+
+**The conflict.** `docs/NOMENCLATURE.md` records **10.2–10.5 bp** as "the generic DNA-helical periodicity
+range from the literature". The register cites **Rhodes and Klug, *Nature* 292:378–380 (1981)**, whose
+random-sequence DNA estimate is **10.6 ± 0.1 bp**. If that estimate belongs in the recorded range, then
+**10.630 does not lie outside it**.
+
+**Why it matters, precisely.** R30's refutation of the nucleosomal reading of the ≈10.63 carrier has two
+independent legs, and only the second is affected:
+
+1. **Primary — unaffected.** The 0.33-nt gap to the ≈10.298 **mouse ES-cell** dyad measurement is ~7× the
+   measured spreads on either side (0.045 nt each). This is the powered refutation and it does not use the
+   literature range at all.
+2. **Fallback — affected.** The sentence that the refutation "does not rest on cross-species transfer at
+   0.33 nt precision" *because* 10.630 falls outside the 10.2–10.5 bp range. That leg is what Rhodes and
+   Klug would remove. It appears in `docs/NOMENCLATURE.md` (the ≈10.298 row and standing phrase SP2) and
+   in `docs/ROADMAP.md` open problem 6.
+
+**No claim changes today** — C14/C15/R30 rest on leg 1, and the ≈10.63 carrier's corpus attribution
+(C39/C40) is independent of both. What is at risk is a fallback argument stated more strongly than its
+source may support, on the project's most externally contested claim.
+
+**Decision required:** an owner ruling on the recorded range — confirm 10.2–10.5 with its provenance,
+widen it to include the random-sequence estimate, or split the row into sequence-dependent and
+random-sequence referents. Then either restate or drop the fallback leg in the two locations above. This
+is a choice between two recorded numbers, so it is not applied here. Path is not owned by B3.
+
+---
+
 ## C1 — results/ reorganization (2026-07-22)
 
 Source: review fix F1, executed from `results/MANIFEST.csv` and the Phase-A `safe_to_move`

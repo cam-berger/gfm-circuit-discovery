@@ -1,6 +1,11 @@
-# The evidence ladder
+# Per-component evidence status — SpliceBERT figures
 
 > **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+>
+> **Not the ladder itself.** The ladder — the levels, what each licenses, and where claims must stop — is
+> defined once in [`../../docs/EVIDENCE_LADDER.md`](../../docs/EVIDENCE_LADDER.md) (T1). This file only
+> records **which rung each SpliceBERT component reached**, for the figures. Where the two differ, the T1
+> document defines the levels and `CLAIMS.md` controls the wording.
 
 The point of this table is to stop evidence from silently migrating between levels. A component
 can be **present in the position table (P)** without any head reading it; a head can **read it in

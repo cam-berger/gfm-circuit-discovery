@@ -1,0 +1,147 @@
+relative_path,matched_terms,preview
+promoter_component_localization/NOTEBOOK_3_CONCLUSIONS.md,"layer, head, mlp, attention, patch, rescue, ablation, causal","# Notebook 3: Promoter Component Localization
+
+## Experimental target
+
+A fixed linear diagnostic probe applied to mean-pooled Layer-5
+representations from baseline, non-fine-tuned DNABERT-2.
+
+The principal cohort contained 291 true promoter sequences that had
+positive clean Layer-5 probe logits. The remaining 109 true promoters
+were retained as a separate clean probe-failure cohort.
+
+## Layerwise localization
+
+Promoter information was linearly accessible throughout the network,
+but Layer 5 produced the strongest test performance:
+
+- Layer-5 balanced accuracy: 0.735
+- Layer-5 ROC-AUC: 0.811
+
+Layer 8 was the strongest secondary peak. Performance declined somewhat
+in the final layers.
+
+Layer 5 also showed the largest probe-logit loss under
+dinucleotide-preserving corruption, making it the strongest joint
+candidate for linear accessibility and higher-order sequence sensitivity.
+
+## Branch-level localization
+
+Zero ablation caused severe distribution shifts and produced several
+sign reversals. Therefore, branch ranking was based primarily on
+reference-mean replacement.
+
+The strongest mean-replacement effects were:
+
+- Layer 1 attention: 7.731 mean-logit drop
+- Layer 1 MLP: 7.561
+- Layer 2 attention: 5.183
+- Layer 4 attention: 3.364
+
+These effects indicate that early Layer-1 computation is especially
+important for constructing the promoter-associated Layer-5 representation.
+
+## Attention-head localization
+
+The strongest individual heads were:
+
+- L1H9: mean drop 6.646,
+  bootstrap 95% CI [5.970, 7.316],
+  positive for 88.0% of promoters
+
+- L1H2: mean drop 5.899,
+  bootstrap 95% CI [4.961, 6.892],
+  positive for 79.7% of promoters
+
+Secondary candidates included:
+
+- L1H11
+- L2H9
+- L2H1
+- L2H11
+
+No single Layer-4 head reproduced the full Layer-4 attention-branch
+effect, suggesting a more distributed or interaction-dependent
+contribution at that layer.
+
+## Head interactions
+
+Joint replacement of L1H9 and L1H2 produced a mean-logit drop of 8.118,
+compared with an additive expecta"
+promoter_causal_interventions/NOTEBOOK_4_CONCLUSIONS.md,"layer, mlp, attention, patch, rescue, causal","# Notebook 4: Promoter Causal Interventions
+
+## Experimental target
+
+All interventions were evaluated using the fixed Layer-5
+diagnostic promoter probe from Notebook 1. This probe is not
+a native DNABERT-2 promoter classifier.
+
+The primary causal cohort contained 189 true promoter
+sequences for which exact dinucleotide-preserving corruption
+reduced the clean probe logit by at least one unit.
+
+The cohort had:
+
+- mean clean logit: 7.393
+- mean corrupted logit: 1.024
+- mean clean-corrupt gap: 6.369
+
+## Tokenization alignment
+
+Clean and corrupted sequences did not share DNABERT-2 BPE
+boundaries:
+
+- only 59/189 pairs had equal token counts
+- 0/189 pairs had identical token-span patterns
+
+Therefore, clean activations were projected into corrupted
+token positions using overlap-weighted absolute nucleotide
+span alignment.
+
+Self-patching controls reproduced unpatched logits to within
+approximately 3e-5, confirming correct implementation.
+
+## L1H9
+
+Clean L1H9 patching did not rescue promoter evidence:
+
+- mean rescue: -2.384
+- 95% CI: [-3.139, -1.596]
+- positive rescue: 31.2%
+
+Matched clean donors did not reliably outperform unrelated
+clean promoter donors.
+
+Thus, L1H9 is strongly sensitivity-associated in clean-run
+mean replacement but is not independently sufficient to
+restore promoter evidence under global dinucleotide
+corruption.
+
+## Layer-1 attention
+
+Patching the full Layer-1 attention branch also failed to
+produce average rescue:
+
+- mean rescue: -0.806
+- 95% CI: [-1.363, -0.248]
+- positive rescue: 38.6%
+
+This indicates that coordinated Layer-1 attention output alone
+is not sufficient in the globally corrupted residual stream.
+
+## Layer-1 MLP
+
+Patching matched clean Layer-1 MLP outputs produced strong
+over-restoration:
+
+- mean rescue: 10.810
+- 95% CI: [9.602, 12.009]
+- positive rescue: 89.9%
+- median recovery fraction: 1.731
+
+However, unrelated clean promoter donors produced a similar
+effect:
+
+- mean rescue: 9.524
+- matched-minus-unrelated difference: 1.285
+- 95% CI: [-0"

@@ -1,0 +1,6 @@
+condition,mean_promoter_probability,mean_logit_drop,fraction_score_reduced,interpretation
+Clean promoters,0.7238825698809745,0.0,,Uncorrupted reference
+Circular shift,0.7046765893231154,0.4754538197983883,0.5478846153846154,Mostly preserves promoter evidence; original alignment is a weaker dependency
+Single 10-nt regional shuffle,,0.8234702134782184,0.5977857142857143,Order sensitivity is distributed; no single 10-nt window dominates
+Dinucleotide-preserving shuffle,0.6157099104136736,1.8288059766511362,0.665,Longer motifs or higher-order organization contribute beyond dinucleotide statistics
+Mononucleotide-preserving shuffle,0.4214803879335001,4.706492095632609,0.81,Strong dependence on nucleotide order beyond GC and base composition

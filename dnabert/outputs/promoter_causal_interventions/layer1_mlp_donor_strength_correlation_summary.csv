@@ -1,0 +1,3 @@
+predictor,outcome,spearman_rho,spearman_p,pearson_r,pearson_p
+donor clean logit,unrelated rescue amount,0.44085035283243573,2.1718425733746709e-10,0.4862756468722058,1.3061286433253064e-12
+donor clean probability,unrelated rescue amount,0.44085035283243573,2.1718425733746709e-10,,

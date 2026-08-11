@@ -1,0 +1,72 @@
+{
+  "bootstrap": {
+    "confidence_level": 0.95,
+    "intervals": {
+      "accuracy": {
+        "lower_95": 0.8005072463768116,
+        "upper_95": 0.8202898550724638
+      },
+      "balanced_accuracy": {
+        "lower_95": 0.8004846351593854,
+        "upper_95": 0.82024908669491
+      },
+      "f1": {
+        "lower_95": 0.7975660054684172,
+        "upper_95": 0.8180895874026474
+      },
+      "mcc": {
+        "lower_95": 0.6011177693808605,
+        "upper_95": 0.6408296236984289
+      },
+      "pr_auc": {
+        "lower_95": 0.8826762447555847,
+        "upper_95": 0.9011743526712297
+      },
+      "precision": {
+        "lower_95": 0.8058048637222806,
+        "upper_95": 0.8294939914670943
+      },
+      "recall_sensitivity": {
+        "lower_95": 0.7834699453551912,
+        "upper_95": 0.8131830601092896
+      },
+      "roc_auc": {
+        "lower_95": 0.8839295806192334,
+        "upper_95": 0.8999257779722069
+      },
+      "specificity": {
+        "lower_95": 0.8086397684712291,
+        "upper_95": 0.835886959482465
+      }
+    },
+    "method": "stratified nonparametric bootstrap",
+    "replicates": 2000,
+    "seed": 42
+  },
+  "classifier": "standardized_logistic_regression",
+  "confusion_matrix": {
+    "false_negative": 590,
+    "false_positive": 523,
+    "true_negative": 2414,
+    "true_positive": 2338
+  },
+  "endpoint": "encoder_layer_2_output",
+  "label_counts": {
+    "non_promoter": 2937,
+    "promoter": 2928
+  },
+  "layer_index": 2,
+  "metrics": {
+    "accuracy": 0.810230179028133,
+    "balanced_accuracy": 0.8102122021467204,
+    "f1": 0.8077388149939541,
+    "mcc": 0.6206081702978326,
+    "pr_auc": 0.8918734234801855,
+    "precision": 0.8171967843411395,
+    "recall_sensitivity": 0.7984972677595629,
+    "roc_auc": 0.8919269597801556,
+    "specificity": 0.821927136533878
+  },
+  "model": "quietflamingo/dnabert2-no-flashattention",
+  "test_examples": 5865
+}

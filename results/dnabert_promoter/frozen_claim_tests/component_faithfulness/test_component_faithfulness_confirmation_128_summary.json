@@ -1,0 +1,67 @@
+{
+  "all_clean_max_absolute_difference": 0.0,
+  "all_corrupt_max_absolute_difference": 0.0,
+  "candidate_circuit": {
+    "heads": [
+      {
+        "head": 8,
+        "layer": 0
+      },
+      {
+        "head": 8,
+        "layer": 1
+      },
+      {
+        "head": 3,
+        "layer": 2
+      },
+      {
+        "head": 9,
+        "layer": 2
+      }
+    ],
+    "mlp_layers": [
+      0
+    ]
+  },
+  "cohort": "results/dnabert_promoter/causal/localization_cohorts/test_localization_256.csv",
+  "complement": {
+    "attention_heads": "All heads in Layers 0--2 except candidate heads",
+    "mlp_layers": [
+      1,
+      2
+    ]
+  },
+  "definition": "(faithful_logit - corrupt_logit) / (clean_logit - corrupt_logit)",
+  "faithful_amount": {
+    "fraction_negative": 0.0546875,
+    "fraction_positive": 0.9453125,
+    "maximum": 3.071963906288147,
+    "mean": 1.2775606655923184,
+    "median": 1.2537578344345093,
+    "minimum": -0.8251919746398926,
+    "n": 128,
+    "std": 0.7855603273210642
+  },
+  "faithfulness_fraction": {
+    "fraction_negative": 0.0546875,
+    "fraction_positive": 0.9453125,
+    "maximum": 0.4901596593337717,
+    "mean": 0.19379524945172344,
+    "median": 0.19531073344351865,
+    "minimum": -0.136099905517471,
+    "n": 128,
+    "std": 0.11854230753685369
+  },
+  "fraction_positive_faithfulness": 0.9453125,
+  "model_name": "quietflamingo/dnabert2-no-flashattention",
+  "model_revision": "813031b2bf86d9e960a027e2734c908009f31601",
+  "patched_layers": [
+    0,
+    1,
+    2
+  ],
+  "rows": 128,
+  "scope_note": "Component-level faithfulness over attention.self head slices and mlp.wo outputs. Embeddings and residual-stream inputs are not independently patched.",
+  "selected_layer": 2
+}

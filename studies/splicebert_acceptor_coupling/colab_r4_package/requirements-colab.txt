@@ -1,0 +1,5 @@
+# Keep Colab's preinstalled CUDA-enabled torch. Do not add torch here.
+transformers==4.44.2
+numpy>=1.26
+scipy>=1.11
+pytest>=8

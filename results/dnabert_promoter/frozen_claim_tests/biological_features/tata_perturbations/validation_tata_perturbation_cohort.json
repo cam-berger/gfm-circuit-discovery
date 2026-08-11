@@ -1,0 +1,133 @@
+{
+  "excluded_rows": 28,
+  "exclusions": [
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "284"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "332"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "1147"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "1291"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "1496"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "1835"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "1962"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "2350"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "2443"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "2653"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "2686"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "2959"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "2990"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "3229"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "3623"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "3664"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "3955"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "4004"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "4022"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "4164"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "4581"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "4793"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "5183"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "5410"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "5414"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "5430"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "5914"
+    },
+    {
+      "reason": "no_matched_TA_control",
+      "source_index": "5918"
+    }
+  ],
+  "included_rows": 71,
+  "input_rows": 99,
+  "intervention": {
+    "edit_count": 2,
+    "motif_edit_offsets": [
+      2,
+      3
+    ],
+    "motif_pattern": "TATA[AT][AT]",
+    "substitutions": {
+      "A": "C",
+      "T": "G"
+    }
+  },
+  "output_file": "results/dnabert_promoter/frozen_claim_tests/biological_features/tata_perturbations/validation_tata_perturbation_cohort.csv",
+  "split": "validation"
+}

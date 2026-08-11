@@ -1,0 +1,592 @@
+{
+  "experiment": "R1b_reverse_coupling_gate",
+  "prereg": "studies/splicebert_acceptor_coupling/preregistrations/PREREGISTRATION_R1b_REVERSE_COUPLING_GATE.md",
+  "supersedes_gate": "R1 (verdict INSTRUMENT_UNRESOLVED; see CORRECTIONS.md AR1-R1)",
+  "tier": "VERIFICATION",
+  "confirmatory": false,
+  "split": "val",
+  "sealed_split_opened": false,
+  "smoke": false,
+  "config": {
+    "device": "mps",
+    "donor_alt": "AC",
+    "forward_acceptor_alt": "CC",
+    "decoy_tol": 40,
+    "draw_tags": [
+      "r1b-d0",
+      "r1b-d1",
+      "r1b-d2"
+    ],
+    "SESOI": 0.05
+  },
+  "primary_draw": "r1b-d0",
+  "draws": [
+    {
+      "tag": "r1b-d0",
+      "n_paired": 974,
+      "n_genes": 645,
+      "memorials": {
+        "instrument_anchor_forward_YD": {
+          "PASS": true,
+          "forced": false,
+          "observed": 0.979182832891569,
+          "reference": 0.9909,
+          "tol": 0.15
+        },
+        "construction_zero_planted_motifs": {
+          "PASS": true,
+          "forced": false,
+          "n_plants": 0,
+          "n": 974
+        },
+        "edit_size_matched": {
+          "PASS": true,
+          "forced": false,
+          "donor_alt": "AC",
+          "acceptor_alt": "CC"
+        },
+        "readout_health_both_sites": {
+          "PASS": true,
+          "forced": false,
+          "acceptor": 3.5692328512974587,
+          "donor": 4.428929123423183,
+          "floor": 1.0
+        },
+        "comparator_retention_published": {
+          "PASS": true,
+          "forced": true,
+          "retained": 974,
+          "eligible": 1000,
+          "frac": 0.974
+        },
+        "selection_audit_vs_DONA_stratum": {
+          "PASS": true,
+          "forced": false,
+          "n_cc_admissible": 191,
+          "frac": 0.1961,
+          "Y_A_on_stratum": 0.937205684434681,
+          "Y_A_full_cohort": 0.9763019539614722
+        },
+        "planted_positive": {
+          "PASS": true,
+          "forced": false,
+          "hits": 20,
+          "of": 20,
+          "required": 18,
+          "planted_effect": 0.15000000000000002
+        },
+        "permuted_label_fpr": {
+          "PASS": true,
+          "forced": false,
+          "rate": 0.0,
+          "max": 0.05,
+          "seeds": 99
+        },
+        "draw_stability": {
+          "PASS": true,
+          "forced": false,
+          "verdicts": [
+            "GO",
+            "GO",
+            "GO"
+          ],
+          "tags": [
+            "r1b-d0",
+            "r1b-d1",
+            "r1b-d2"
+          ]
+        }
+      },
+      "memorials_all_pass": true,
+      "shared_memorials_pass": true,
+      "endpoints": {
+        "Y_A_reverse": {
+          "mean": 0.9763019539614722,
+          "ci": [
+            0.9059797437342927,
+            1.0525575741399205
+          ],
+          "n": 974
+        },
+        "Y_D_forward_anchor": {
+          "mean": 0.979182832891569,
+          "ci": [
+            0.9026373948604139,
+            1.0611734924272531
+          ],
+          "n": 974
+        },
+        "control_readout_decoy_acceptor": {
+          "mean": -0.0008771173441801717,
+          "ci": [
+            -0.007855116112372149,
+            0.005587989037815454
+          ],
+          "n": 974
+        },
+        "control_partner_decoy_GT": {
+          "mean": 0.014684026001415213,
+          "ci": [
+            0.0018975219513960415,
+            0.029281249912226054
+          ],
+          "n": 974
+        },
+        "paired_diff_vs_readout": {
+          "mean": 0.9771790713056524,
+          "ci": [
+            0.905833125670031,
+            1.055956480337938
+          ],
+          "n": 974
+        },
+        "paired_diff_vs_partner": {
+          "mean": 0.9616179279600571,
+          "ci": [
+            0.8895630671210805,
+            1.0399493269870028
+          ],
+          "n": 974
+        },
+        "selectivity_ratio": {
+          "point": 18.15835162944337,
+          "ci": [
+            14.641625683164817,
+            22.690173778516165
+          ]
+        },
+        "mde80_controls_max": 0.019570982718127898,
+        "mde80_paired_max": 0.10748013919397145
+      },
+      "verdict": "GO",
+      "verdict_under_R1_rule": "INSTRUMENT_UNRESOLVED",
+      "verdict_on_shared_memorials": "GO",
+      "levels": {
+        "donor_clean": 4.428929123423183,
+        "acceptor_clean": 3.5692328512974587,
+        "decoy_acceptor_clean": 0.18149535131527902
+      }
+    },
+    {
+      "tag": "r1b-d1",
+      "n_paired": 970,
+      "n_genes": 632,
+      "memorials": {
+        "instrument_anchor_forward_YD": {
+          "PASS": true,
+          "forced": false,
+          "observed": 1.0380224554194617,
+          "reference": 0.9909,
+          "tol": 0.15
+        },
+        "construction_zero_planted_motifs": {
+          "PASS": true,
+          "forced": false,
+          "n_plants": 0,
+          "n": 970
+        },
+        "edit_size_matched": {
+          "PASS": true,
+          "forced": false,
+          "donor_alt": "AC",
+          "acceptor_alt": "CC"
+        },
+        "readout_health_both_sites": {
+          "PASS": true,
+          "forced": false,
+          "acceptor": 3.7389311087653807,
+          "donor": 4.5062846034458,
+          "floor": 1.0
+        },
+        "comparator_retention_published": {
+          "PASS": true,
+          "forced": true,
+          "retained": 970,
+          "eligible": 1000,
+          "frac": 0.97
+        },
+        "selection_audit_vs_DONA_stratum": {
+          "PASS": true,
+          "forced": false,
+          "n_cc_admissible": 173,
+          "frac": 0.1784,
+          "Y_A_on_stratum": 1.0633705114525867,
+          "Y_A_full_cohort": 1.0987182043108743
+        }
+      },
+      "memorials_all_pass": true,
+      "shared_memorials_pass": true,
+      "endpoints": {
+        "Y_A_reverse": {
+          "mean": 1.0987182043108743,
+          "ci": [
+            1.0261574134234444,
+            1.175914059251891
+          ],
+          "n": 970
+        },
+        "Y_D_forward_anchor": {
+          "mean": 1.0380224554194617,
+          "ci": [
+            0.9637075153284136,
+            1.1128180092830569
+          ],
+          "n": 970
+        },
+        "control_readout_decoy_acceptor": {
+          "mean": -0.0010704010725021361,
+          "ci": [
+            -0.008704309342015354,
+            0.006821859478691536
+          ],
+          "n": 970
+        },
+        "control_partner_decoy_GT": {
+          "mean": 0.015640530789021365,
+          "ci": [
+            0.003087009668502105,
+            0.029872742248984112
+          ],
+          "n": 970
+        },
+        "paired_diff_vs_readout": {
+          "mean": 1.0997886053833765,
+          "ci": [
+            1.0257893687331694,
+            1.1773297198619885
+          ],
+          "n": 970
+        },
+        "paired_diff_vs_partner": {
+          "mean": 1.083077673521853,
+          "ci": [
+            1.0107029289354184,
+            1.1626886098931268
+          ],
+          "n": 970
+        },
+        "selectivity_ratio": {
+          "point": 21.029149648320356,
+          "ci": [
+            16.55434859366105,
+            26.96337917677243
+          ]
+        },
+        "mde80_controls_max": 0.019143599080989386,
+        "mde80_paired_max": 0.10862323565589696
+      },
+      "verdict": "GO",
+      "verdict_under_R1_rule": "INSTRUMENT_UNRESOLVED",
+      "verdict_on_shared_memorials": "GO",
+      "levels": {
+        "donor_clean": 4.5062846034458,
+        "acceptor_clean": 3.7389311087653807,
+        "decoy_acceptor_clean": 0.22745374017155048
+      }
+    },
+    {
+      "tag": "r1b-d2",
+      "n_paired": 973,
+      "n_genes": 634,
+      "memorials": {
+        "instrument_anchor_forward_YD": {
+          "PASS": true,
+          "forced": false,
+          "observed": 0.9510985511333088,
+          "reference": 0.9909,
+          "tol": 0.15
+        },
+        "construction_zero_planted_motifs": {
+          "PASS": true,
+          "forced": false,
+          "n_plants": 0,
+          "n": 973
+        },
+        "edit_size_matched": {
+          "PASS": true,
+          "forced": false,
+          "donor_alt": "AC",
+          "acceptor_alt": "CC"
+        },
+        "readout_health_both_sites": {
+          "PASS": true,
+          "forced": false,
+          "acceptor": 3.68349148294786,
+          "donor": 4.455183223242138,
+          "floor": 1.0
+        },
+        "comparator_retention_published": {
+          "PASS": true,
+          "forced": true,
+          "retained": 973,
+          "eligible": 1000,
+          "frac": 0.973
+        },
+        "selection_audit_vs_DONA_stratum": {
+          "PASS": true,
+          "forced": false,
+          "n_cc_admissible": 176,
+          "frac": 0.1809,
+          "Y_A_on_stratum": 1.0534060026772998,
+          "Y_A_full_cohort": 1.0047544455509883
+        }
+      },
+      "memorials_all_pass": true,
+      "shared_memorials_pass": true,
+      "endpoints": {
+        "Y_A_reverse": {
+          "mean": 1.0047544455509883,
+          "ci": [
+            0.9206412999101583,
+            1.0840521881085219
+          ],
+          "n": 973
+        },
+        "Y_D_forward_anchor": {
+          "mean": 0.9510985511333088,
+          "ci": [
+            0.8803329540117774,
+            1.0226163213680841
+          ],
+          "n": 973
+        },
+        "control_readout_decoy_acceptor": {
+          "mean": 0.0031325020363127463,
+          "ci": [
+            -0.0065854694640232565,
+            0.013771989080342554
+          ],
+          "n": 973
+        },
+        "control_partner_decoy_GT": {
+          "mean": 0.014438620206630977,
+          "ci": [
+            0.0010438335909540024,
+            0.030911873548081725
+          ],
+          "n": 973
+        },
+        "paired_diff_vs_readout": {
+          "mean": 1.0016219435146754,
+          "ci": [
+            0.9178600558977211,
+            1.0813341833002348
+          ],
+          "n": 973
+        },
+        "paired_diff_vs_partner": {
+          "mean": 0.9903158253443571,
+          "ci": [
+            0.9047008426017596,
+            1.0706795627496324
+          ],
+          "n": 973
+        },
+        "selectivity_ratio": {
+          "point": 19.634968180068114,
+          "ci": [
+            14.907245459019089,
+            25.07864388129119
+          ]
+        },
+        "mde80_controls_max": 0.021346505291808426,
+        "mde80_paired_max": 0.11862397509343885
+      },
+      "verdict": "GO",
+      "verdict_under_R1_rule": "INSTRUMENT_UNRESOLVED",
+      "verdict_on_shared_memorials": "GO",
+      "levels": {
+        "donor_clean": 4.455183223242138,
+        "acceptor_clean": 3.68349148294786,
+        "decoy_acceptor_clean": 0.21952318581623262
+      }
+    }
+  ],
+  "across_draws": {
+    "Y_A_reverse": {
+      "values": [
+        0.9763,
+        1.0987,
+        1.0048
+      ],
+      "range": [
+        0.9763019539614722,
+        1.0987182043108743
+      ],
+      "sd": 0.06406308165595458,
+      "NOTE": "across-draw RANGE and SD, NOT a confidence interval"
+    },
+    "control_readout_decoy_acceptor": {
+      "values": [
+        -0.0009,
+        -0.0011,
+        0.0031
+      ],
+      "range": [
+        -0.0010704010725021361,
+        0.0031325020363127463
+      ],
+      "sd": 0.0023727199834137,
+      "NOTE": "across-draw RANGE and SD, NOT a confidence interval"
+    },
+    "control_partner_decoy_GT": {
+      "values": [
+        0.0147,
+        0.0156,
+        0.0144
+      ],
+      "range": [
+        0.014438620206630977,
+        0.015640530789021365
+      ],
+      "sd": 0.0006350478277118419,
+      "NOTE": "across-draw RANGE and SD, NOT a confidence interval"
+    },
+    "paired_diff_vs_readout": {
+      "values": [
+        0.9772,
+        1.0998,
+        1.0016
+      ],
+      "range": [
+        0.9771790713056524,
+        1.0997886053833765
+      ],
+      "sd": 0.06489381756765833,
+      "NOTE": "across-draw RANGE and SD, NOT a confidence interval"
+    },
+    "paired_diff_vs_partner": {
+      "values": [
+        0.9616,
+        1.0831,
+        0.9903
+      ],
+      "range": [
+        0.9616179279600571,
+        1.083077673521853
+      ],
+      "sd": 0.06348333059882837,
+      "NOTE": "across-draw RANGE and SD, NOT a confidence interval"
+    }
+  },
+  "operators": {
+    "AC": {
+      "n": 974,
+      "admissible_frac": 1.0,
+      "mean": 0.9763019539614722,
+      "rho": 1.0,
+      "rho_ci": [
+        1.0,
+        1.0
+      ],
+      "retains_T_at_d_plus_1": false
+    },
+    "AT": {
+      "n": 974,
+      "admissible_frac": 1.0,
+      "mean": 0.6562071863018757,
+      "rho": 0.672135483944521,
+      "rho_ci": [
+        0.6475086978146704,
+        0.6994070733826768
+      ],
+      "retains_T_at_d_plus_1": true
+    },
+    "CC": {
+      "n": 191,
+      "admissible_frac": 0.196,
+      "mean": 0.9246239790117553,
+      "rho": 0.9865752997107408,
+      "rho_ci": [
+        0.9549981704727317,
+        1.0175319332086905
+      ],
+      "retains_T_at_d_plus_1": false
+    },
+    "CT": {
+      "n": 191,
+      "admissible_frac": 0.196,
+      "mean": 0.6214208567017661,
+      "rho": 0.6630570716999062,
+      "rho_ci": [
+        0.6096883471033886,
+        0.7179164421660549
+      ],
+      "retains_T_at_d_plus_1": true
+    },
+    "TC": {
+      "n": 191,
+      "admissible_frac": 0.196,
+      "mean": 0.9256093928015044,
+      "rho": 0.9876267378380538,
+      "rho_ci": [
+        0.9640052539409791,
+        1.0126244876448747
+      ],
+      "retains_T_at_d_plus_1": false
+    },
+    "TT": {
+      "n": 191,
+      "admissible_frac": 0.196,
+      "mean": 0.6009436404205741,
+      "rho": 0.6412078483956924,
+      "rho_ci": [
+        0.5906116466965361,
+        0.6946568048783425
+      ],
+      "retains_T_at_d_plus_1": true
+    },
+    "CG": {
+      "n": 183,
+      "admissible_frac": 0.188,
+      "mean": 0.9574002685442649,
+      "rho": 0.9778255186444299,
+      "rho_ci": [
+        0.9399285048438513,
+        1.0168881715441385
+      ],
+      "retains_T_at_d_plus_1": false
+    },
+    "TG": {
+      "n": 183,
+      "admissible_frac": 0.188,
+      "mean": 0.9527117855887596,
+      "rho": 0.973037011237185,
+      "rho_ci": [
+        0.9345841819122419,
+        1.013313475833912
+      ],
+      "retains_T_at_d_plus_1": false
+    },
+    "AA": {
+      "n": 410,
+      "admissible_frac": 0.421,
+      "mean": 1.01910121877019,
+      "rho": 1.0212441758546678,
+      "rho_ci": [
+        1.0027815835394422,
+        1.0397521948907114
+      ],
+      "retains_T_at_d_plus_1": false
+    }
+  },
+  "forward_comparison": {
+    "c2_nonpartner_ag": 0.007,
+    "c2_other_donor": 0.005,
+    "note": "C2's forward controls, quoted from sealed_test.json for comparison only; not recomputed and not evidence here"
+  },
+  "verdict": "GO",
+  "verdict_under_R1_rule": "INSTRUMENT_UNRESOLVED",
+  "draw_stability": true,
+  "REFLECTION": {
+    "intent_check": "Does destroying the partner donor move the masked-acceptor margin, partner- and site-specifically, stably across cohort selection?",
+    "scope": "Behaviour rung only. Validation split; chr8/9 sealed and not opened. Three draws are RESAMPLED FROM THE SAME POOL -- they measure cohort-selection stability, not independent replication, and do not widen the population.",
+    "could_not_have_failed": [
+      "comparator_retention_published is FORCED -- it records a number (R7/R21)",
+      "the readout-specificity control reads at a spurious decoy AG whose clean margin is far below a real acceptor's, so it sits near floor by construction; inherited from C2's own idiom and applies to both directions equally",
+      "the z[1] operator split is no longer a prediction -- it was met twice before this run and is carried as a replication check only"
+    ],
+    "disclosure": "Every R1 endpoint was seen before this was frozen, on the same val pool this gate resamples. The MDE80 relocation was written knowing clause 3 was what blocked GO; prereg \u00a77 states the case without mitigation, and verdict_under_R1_rule preserves the other reading.",
+    "identifies_nothing": "A GO authorises designing the mechanistic battery. It says nothing about which components mediate the reverse direction, and in particular nothing about whether L3H1 transfers."
+  }
+}

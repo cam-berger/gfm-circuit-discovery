@@ -1,0 +1,21 @@
+{
+  "dataset_config": "prom_core_all",
+  "dataset_name": "leannmlindsey/GUE",
+  "splits": {
+    "test": {
+      "output_file": "test.csv",
+      "records_sha256": "d8f9fcfa3008cb0f40a72e9203511cf62ba7e5eae1db0e61ce06795c5a8a3b50",
+      "rows": 5920
+    },
+    "train": {
+      "output_file": "train.csv",
+      "records_sha256": "5bad7f2a1780700a572a1444c78906b488791c6202cab7b48c67714a450b49a9",
+      "rows": 47356
+    },
+    "validation": {
+      "output_file": "validation.csv",
+      "records_sha256": "c11c5c15340a0cdc68b5de8c0e23c726debcfbbad618637c20c53333885b5ee8",
+      "rows": 5920
+    }
+  }
+}
