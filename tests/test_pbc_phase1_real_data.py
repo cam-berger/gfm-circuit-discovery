@@ -124,7 +124,13 @@ def _install_motifs(sequence: list[str], rows: list[str]) -> None:
         sequence[acceptor : acceptor + 2] = list("CT")  # reverse complement -> AG
 
 
-def _biology_fixture(tmp_path: Path, *, conflict: bool = False, bad_plus_motif: bool = False):
+def _biology_fixture(
+    tmp_path: Path,
+    *,
+    conflict: bool = False,
+    bad_plus_motif: bool = False,
+    alternative_acceptor: bool = False,
+):
     tmp_path.mkdir(parents=True, exist_ok=True)
     sequence = list("A" * 12000)
     rows = []
@@ -141,6 +147,19 @@ def _biology_fixture(tmp_path: Path, *, conflict: bool = False, bad_plus_motif: 
         _install_motifs(sequence, edge_rows)
         rows.extend(edge_rows)
         rows_by_design.append(edge_rows)
+    if alternative_acceptor:
+        alternative_rows = []
+        for line in rows_by_design[0]:
+            columns = line.split("\t")
+            columns[8] = columns[8].replace(
+                "ENST_PLUS0.2", "ENST_PLUS0_ALTERNATIVE.1"
+            )
+            if int(columns[3]) > 1500:
+                columns[3] = str(int(columns[3]) + 99)
+                columns[4] = str(int(columns[4]) + 99)
+            alternative_rows.append("\t".join(columns))
+        _install_motifs(sequence, alternative_rows)
+        rows.extend(alternative_rows)
     if bad_plus_motif:
         plus_exons = [row.split("\t") for row in rows_by_design[0] if "\texon\t" in row]
         donor = min((int(row[4]) for row in plus_exons))
@@ -363,6 +382,50 @@ def test_coordinate_identical_basic_frame_conflict_is_excluded(tmp_path):
         "basic_coordinate_transcript_phase_conflict" in row["reasons"]
         for row in package["exclusions"]
     )
+
+
+def test_alternative_partner_duplicate_source_loci_are_all_excluded(tmp_path):
+    package, registry, freshness_audit, paths = _candidate_package(
+        tmp_path, alternative_acceptor=True
+    )
+    gene = "ENSG00000000001"
+    gene_rows = [
+        row for row in package["candidates"] if row["gene_id"].split(".", 1)[0] == gene
+    ]
+    assert not [row for row in gene_rows if row["role"] == "donor"]
+    assert len([row for row in gene_rows if row["role"] == "acceptor"]) == 2
+    assert len([row for row in gene_rows if row["role"] == "scaffold"]) == 2
+    duplicate_exclusions = [
+        row
+        for row in package["exclusions"]
+        if row["gene_id"] == gene
+        and row["reasons"] == ["duplicate_source_locus:donor"]
+    ]
+    assert len(duplicate_exclusions) == 2
+    loci = [
+        (
+            row["role"],
+            row["chrom"],
+            row["strand"],
+            row["source_start"],
+            row["source_end"],
+        )
+        for row in package["candidates"]
+    ]
+    assert len(loci) == len(set(loci))
+    fasta, fai, basic, comprehensive, donor_table, acceptor_table = paths
+    audited = AUDIT_CENSUS.audit_package(
+        package,
+        fasta_path=fasta,
+        fai_path=fai,
+        basic_gtf_path=basic,
+        comprehensive_gtf_path=comprehensive,
+        donor_table_path=donor_table,
+        acceptor_table_path=acceptor_table,
+        freshness_registry=registry,
+        freshness_audit=freshness_audit,
+    )
+    assert audited["passed"] is True
 
 
 def test_freshness_blacklist_removes_gene_before_candidate_materialization(tmp_path):

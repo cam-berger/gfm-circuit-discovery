@@ -1128,6 +1128,34 @@ def _audit_scaffold(
     }
 
 
+def _audit_source_locus(
+    record: Mapping[str, object],
+) -> tuple[str, str, str, int, int]:
+    return (
+        str(record["role"]),
+        str(record["chrom"]),
+        str(record["strand"]),
+        int(record["source_start"]),
+        int(record["source_end"]),
+    )
+
+
+def _audit_exclude_duplicate_source_loci(
+    materialized: list[tuple[dict[str, object], _AuditEdge]],
+    exclusions: list[dict[str, object]],
+) -> list[dict[str, object]]:
+    counts = Counter(_audit_source_locus(record) for record, _edge in materialized)
+    retained: list[dict[str, object]] = []
+    for record, edge in materialized:
+        if counts[_audit_source_locus(record)] > 1:
+            exclusions.append(
+                _audit_exclusion(edge, f"duplicate_source_locus:{record['role']}")
+            )
+        else:
+            retained.append(record)
+    return retained
+
+
 def independently_reconstruct(
     *,
     fasta_path: str | Path,
@@ -1150,7 +1178,7 @@ def independently_reconstruct(
         comprehensive_gtf_path,
         allowed_chromosomes=allowed_chromosomes,
     )
-    rebuilt: list[dict[str, object]] = []
+    materialized: list[tuple[dict[str, object], _AuditEdge]] = []
     rebuilt_exclusions = list(exclusions)
     for edge in edges:
         root = str(edge.representative["gene_id"]).split(".", 1)[0]
@@ -1165,13 +1193,16 @@ def independently_reconstruct(
                 _audit_exclusion(edge, f"module:{type(exc).__name__}:{exc}")
             )
         else:
-            rebuilt.extend((donor, acceptor))
+            materialized.extend(((donor, edge), (acceptor, edge)))
         try:
-            rebuilt.append(_audit_scaffold(edge, genome, scorer))
+            materialized.append((_audit_scaffold(edge, genome, scorer), edge))
         except (KeyError, ValueError, ZeroDivisionError) as exc:
             rebuilt_exclusions.append(
                 _audit_exclusion(edge, f"scaffold:{type(exc).__name__}:{exc}")
             )
+    rebuilt = _audit_exclude_duplicate_source_loci(
+        materialized, rebuilt_exclusions
+    )
     rebuilt.sort(key=lambda row: str(row["candidate_id"]))
     rebuilt_exclusions.sort(key=lambda row: (str(row["edge_id"]), tuple(row["reasons"])))
     counts = Counter(str(row["role"]) for row in rebuilt)
