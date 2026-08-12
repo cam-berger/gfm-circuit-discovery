@@ -213,3 +213,66 @@ content together, and the carrier's role is enabling rather than representationa
 codon usage bias, exonic splicing enhancer content, wobble composition and in-frame stop load one
 at a time. No training, no seal. If a training study follows, its endpoint should be `Ψ`
 degradation under carrier-targeted corpora, not ridge relocation.
+
+## 2026-08-12 — paired-lineage pilot: the behaviour IS trainable, but not through the carrier
+
+**Authorization.** The user directed this run explicitly after being shown that its original
+premise is falsified. Recorded here as their decision, not an inference from the evidence.
+
+**Scope, first, because it bounds everything below.** ONE SEED PER ARM. The replicate for a corpus
+intervention is the training SEED, not the evaluation gene. Every interval here is a
+gene-clustered interval over evaluation-cell resampling for one lineage pair. **None covers
+training-seed variability and none may be quoted as a training-process claim.** 2,000 steps,
+3,440 windows per arm.
+
+**Gate passed before training was allowed.** Checkpoint `2ad91428…0149d` verified. The base arm
+reproduced the record: `Ψ = +0.25625` against +0.256, coupling `+0.04918` against +0.049, 479
+cells. Had it drifted, a `ΔΨ` would have meant nothing.
+
+**Design.** L1 inserts `3k` exonic bases and deletes `3k` deep in the intron — length preserved,
+reading frame unchanged. L2 uses `3k+1` / `3k+2`, so the downstream exon's frame no longer
+continues the upstream one. Paired indel, not rotation, because rotation scrambles codon coherence
+and measurably destroys the effect. Same source windows, order, masking RNG, optimizer schedule,
+step count and token budget; **the only difference between corpora is the offset mod 3.**
+
+**Result.**
+
+| arm | `Ψ` | 95% CI |
+|---|---|---|
+| base | +0.25625 | reproduced |
+| **L1 phase-preserving** | **+0.64208** | [+0.5212, +0.7715] |
+| **L2 phase-decoupled** | **+0.29748** | [+0.2137, +0.3948] |
+
+| contrast | estimate | gene-clustered CI |
+|---|---|---|
+| **`ΔΨ` = L1 − L2** | **+0.3446** | acceptor [+0.2593, +0.4335] · donor [+0.2576, +0.4413] |
+| L1 − base | +0.3858 | [+0.2878, +0.4935] |
+| L2 − base | +0.0412 | [−0.0277, +0.1224] — covers zero |
+
+**Reading.** Phase-preserving continuation **strengthened** the boundary preference by 2.5×.
+Phase-decoupled continuation left it at baseline. So controlled continued pretraining does change
+the masked-token boundary preference, in the predicted direction.
+
+**And it did not go through the carrier.** Period-3 band power of the learned position table:
+L1 198,761, L2 198,592 — **0.085% apart**. MLM health identical (0.4736 / 0.4739), so no
+differential degradation. The corpus manipulation moved the behaviour while leaving the carrier
+untouched.
+
+**This confirms the base-checkpoint finding rather than contradicting it.** The carrier is
+necessary for `Ψ` but does not encode register identity; a corpus manipulation therefore changes
+`Ψ` through content, not through the carrier. The pilot shows exactly that pattern independently.
+
+**Status against the original two-part goal.** Part one — training changes the boundary preference
+on fresh genomic sequences — is **demonstrated at pilot strength**. Part two — that the change
+depends on the learned period-3 coordinate — is **refuted**: the coordinate did not change.
+The end-to-end "trainable positional surrogate" claim is therefore not available, and the honest
+statement is narrower: *the boundary preference is trainable by corpus phase structure, through a
+route that is not the period-3 positional carrier.*
+
+**Also worth recording.** Overall coupling went negative in both arms (L1 −0.134, L2 −0.004
+against base +0.049) while `Ψ` rose. Continued pretraining changed the model well beyond this
+endpoint, and that is not characterised here.
+
+**What a confirmatory version needs.** At least six paired seeds, so intervals cover training-seed
+variability; the frozen exclusion and balance gates; and a preregistered endpoint. Nothing in this
+entry substitutes for that.

@@ -992,3 +992,6 @@ PBC1,canonical,Instrument,na,results/splicebert_positional_boundary_coherence/de
 ,infrastructure,,na,results/splicebert_positional_clock/superseded/PBC_V2_CAPACITY_LADDER_V1.SUPERSEDED.md,,,
 ,development,,na,results/splicebert_positional_clock/real_panel_capacity_v1.audit.json,scripts/splicebert_positional_clock/audit_real_panel_capacity.py,results/splicebert_positional_clock/real_panel_capacity_v1.audit.manifest.json,
 ,development,,na,results/splicebert_positional_clock/real_panel_capacity_v1.audit.manifest.json,scripts/splicebert_positional_clock/audit_real_panel_capacity.py,,
+,infrastructure,,na,results/splicebert_positional_proxy_modifiability/RESULTS_INDEX.md,,,
+,development,Behaviour,na,results/splicebert_positional_proxy_modifiability/lineage_pilot_v1.json,scripts/splicebert_positional_proxy_modifiability/run_lineage_pilot.py,results/splicebert_positional_proxy_modifiability/lineage_pilot_v1.manifest.json,
+,development,Behaviour,na,results/splicebert_positional_proxy_modifiability/lineage_pilot_v1.manifest.json,scripts/splicebert_positional_proxy_modifiability/run_lineage_pilot.py,,
