@@ -1,0 +1,72 @@
+{
+  "command": [
+    "scripts/splicebert_positional_clock/audit_real_panel_capacity.py",
+    "--out",
+    "results/splicebert_positional_clock/real_panel_capacity_v1.audit.json"
+  ],
+  "config": {
+    "checkpoint_loaded": null,
+    "stage": "construction"
+  },
+  "created_at_utc": "2026-08-12T02:34:32.073146+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 18624,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert-positional-clock:real-panel-capacity-audit-v1",
+  "git_commit": "97350b5f8d33fd995aaa9d814f8fbd87a225d210",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/pbc-v2-capacity/results/splicebert_positional_clock/real_panel_capacity_v1.json",
+      "sha256": "39bfd21961c06bb6f01b1ddb2819ebadd54179ebaeef9db4df1b41b280597944",
+      "size_bytes": 9446
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/pbc-v2-capacity/results/splicebert_positional_clock/real_panel_capacity_v1.manifest.json",
+      "sha256": "5980bff39b499025466a70664f1f19b919891f7907724fb6d13caa761903d405",
+      "size_bytes": 3390
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/results/splicebert_positional_boundary_coherence/development/candidate_census_v1.json",
+      "sha256": "9be356ac26ff18aa750b0552684d4a94fa6b8963fee01666608b38cc7de25614",
+      "size_bytes": 2343604295
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/pbc-v2-capacity/results/splicebert_positional_boundary_coherence/development/composition_balanced_cohort_v1.json",
+      "sha256": "ccc723bbe1fac8054dad4f9c4d2990a85170bf43c3b056bf9ea1dd0ca55a02c9",
+      "size_bytes": 9455
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cells.json",
+      "sha256": "428ad5d6b357bfba287fcfe3e358b00ab91ddcd748118b83b60b626593c440bf",
+      "size_bytes": 54229415
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/pbc-v2-capacity/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_analysis.json",
+      "sha256": "fb7a357ef6bcdee21780894f4f344bdd379d6124ba72df0275d6d27e28604b07",
+      "size_bytes": 585479
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/pbc-v2-capacity/scripts/splicebert_positional_clock/audit_real_panel_capacity.py",
+      "sha256": "6b54366053a97bc0e250ed4e66b6a74732eb74d02ad79cd5a60f3ab703e669b2",
+      "size_bytes": 50021
+    }
+  ],
+  "notes": [
+    "Independent audit: recomputes every B1-B5 quantity in real_panel_capacity_v1.json from the same four raw inputs, on its own code path.",
+    "Imports no verdict function from run_real_panel_capacity.py or from any gfmcd.splicing module; the one shared low-level primitive (networkx's max-flow solver) is declared in the audit artifact's independence.shared_primitives_imported.",
+    "Not clean-checkout re-executable: the census and C43 cells file are untracked and live outside this repository."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/pbc-v2-capacity/results/splicebert_positional_clock/real_panel_capacity_v1.audit.json",
+      "sha256": "09bfb07640f93816ecc43ac1c4ecb2ba63c1ab79b1bb4f9294d433a4bdda0516",
+      "size_bytes": 18007
+    }
+  ],
+  "seeds": {},
+  "status": "AUDIT_PASS"
+}

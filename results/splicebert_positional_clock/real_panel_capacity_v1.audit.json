@@ -1,0 +1,482 @@
+{
+  "audited_artifact": {
+    "path": "results/splicebert_positional_clock/real_panel_capacity_v1.json",
+    "schema": "gfmcd.splicebert_positional_clock.real_panel_capacity.v1"
+  },
+  "audited_artifact_manifest": {
+    "path": "results/splicebert_positional_clock/real_panel_capacity_v1.manifest.json"
+  },
+  "checkpoint_loaded": null,
+  "checks": [
+    {
+      "id": "inputs.all_four_raw_inputs_present",
+      "missing": [],
+      "passed": true
+    },
+    {
+      "id": "chronology.artifact_sha256_matches_sibling_manifest",
+      "manifest_recorded": "39bfd21961c06bb6f01b1ddb2819ebadd54179ebaeef9db4df1b41b280597944",
+      "observed": "39bfd21961c06bb6f01b1ddb2819ebadd54179ebaeef9db4df1b41b280597944",
+      "passed": true
+    },
+    {
+      "created_at_utc": "2026-08-12T01:21:55.437030+00:00",
+      "id": "chronology.manifest_created_at_utc_not_in_the_future",
+      "passed": true
+    },
+    {
+      "expected": 2343604295,
+      "id": "input_identity.census_size_matches_pin",
+      "observed": 2343604295,
+      "passed": true
+    },
+    {
+      "expected": "9be356ac26ff18aa750b0552684d4a94fa6b8963fee01666608b38cc7de25614",
+      "id": "input_identity.census_sha256_matches_pin",
+      "observed": "9be356ac26ff18aa750b0552684d4a94fa6b8963fee01666608b38cc7de25614",
+      "passed": true
+    },
+    {
+      "artifact_reports": "9be356ac26ff18aa750b0552684d4a94fa6b8963fee01666608b38cc7de25614",
+      "id": "input_identity.census_sha256_matches_artifact_receipt",
+      "observed": "9be356ac26ff18aa750b0552684d4a94fa6b8963fee01666608b38cc7de25614",
+      "passed": true
+    },
+    {
+      "artifact_reports": "ccc723bbe1fac8054dad4f9c4d2990a85170bf43c3b056bf9ea1dd0ca55a02c9",
+      "id": "input_identity.certificate_sha256_matches_artifact_receipt",
+      "observed": "ccc723bbe1fac8054dad4f9c4d2990a85170bf43c3b056bf9ea1dd0ca55a02c9",
+      "passed": true
+    },
+    {
+      "expected": "428ad5d6b357bfba287fcfe3e358b00ab91ddcd748118b83b60b626593c440bf",
+      "id": "input_identity.cells_sha256_matches_pin",
+      "observed": "428ad5d6b357bfba287fcfe3e358b00ab91ddcd748118b83b60b626593c440bf",
+      "passed": true
+    },
+    {
+      "analysis_cells_result_sha256": "428ad5d6b357bfba287fcfe3e358b00ab91ddcd748118b83b60b626593c440bf",
+      "id": "input_identity.cells_sha256_equals_analysis_cells_result_sha256",
+      "note": "the ONLY thing binding the untracked C43 cells file into the record",
+      "observed_cells_sha256": "428ad5d6b357bfba287fcfe3e358b00ab91ddcd748118b83b60b626593c440bf",
+      "passed": true
+    },
+    {
+      "artifact_reports": "428ad5d6b357bfba287fcfe3e358b00ab91ddcd748118b83b60b626593c440bf",
+      "id": "input_identity.cells_sha256_matches_artifact_receipt",
+      "observed": "428ad5d6b357bfba287fcfe3e358b00ab91ddcd748118b83b60b626593c440bf",
+      "passed": true
+    },
+    {
+      "artifact_reports": "fb7a357ef6bcdee21780894f4f344bdd379d6124ba72df0275d6d27e28604b07",
+      "id": "input_identity.analysis_sha256_matches_artifact_receipt",
+      "observed": "fb7a357ef6bcdee21780894f4f344bdd379d6124ba72df0275d6d27e28604b07",
+      "passed": true
+    },
+    {
+      "certificate": "c868fac6774c6cedcdf503566caa7b55be9a91cfa87241f387c2bbc0320ce156",
+      "id": "slot_hashes.scaffold",
+      "observed": "c868fac6774c6cedcdf503566caa7b55be9a91cfa87241f387c2bbc0320ce156",
+      "passed": true
+    },
+    {
+      "certificate": "fe4276d2c29140d97e705dcac9cb0ed7210d00420f4a2dac3c061ccbf5294a87",
+      "id": "slot_hashes.donor_phase_0",
+      "observed": "fe4276d2c29140d97e705dcac9cb0ed7210d00420f4a2dac3c061ccbf5294a87",
+      "passed": true
+    },
+    {
+      "certificate": "84c553af57911aa20183344ac2693e64768623fec42b3662f39ea97ecf788e73",
+      "id": "slot_hashes.donor_phase_1",
+      "observed": "84c553af57911aa20183344ac2693e64768623fec42b3662f39ea97ecf788e73",
+      "passed": true
+    },
+    {
+      "certificate": "0a5f896a71b2414f98e1001c70d02727606c4707bdc8cecb15789ed7c47a491f",
+      "id": "slot_hashes.donor_phase_2",
+      "observed": "0a5f896a71b2414f98e1001c70d02727606c4707bdc8cecb15789ed7c47a491f",
+      "passed": true
+    },
+    {
+      "certificate": "721ad1afa62d0355f2ce3530811cd882ebcae62bcae5e4fb4aa142da3a8db5b8",
+      "id": "slot_hashes.acceptor_phase_0",
+      "observed": "721ad1afa62d0355f2ce3530811cd882ebcae62bcae5e4fb4aa142da3a8db5b8",
+      "passed": true
+    },
+    {
+      "certificate": "e30816d8e60147c60521a8e8b044d719b07ba285429aa3cdaf5150bb52772b52",
+      "id": "slot_hashes.acceptor_phase_1",
+      "observed": "e30816d8e60147c60521a8e8b044d719b07ba285429aa3cdaf5150bb52772b52",
+      "passed": true
+    },
+    {
+      "certificate": "5e535969b0a42889349b8eaecf11c48d799687fc38f28f2c34b159936981a7ea",
+      "id": "slot_hashes.acceptor_phase_2",
+      "observed": "5e535969b0a42889349b8eaecf11c48d799687fc38f28f2c34b159936981a7ea",
+      "passed": true
+    },
+    {
+      "artifact_slot_hash_verification": {
+        "all_verified": true,
+        "per_slot": {
+          "acceptor_phase_0": true,
+          "acceptor_phase_1": true,
+          "acceptor_phase_2": true,
+          "donor_phase_0": true,
+          "donor_phase_1": true,
+          "donor_phase_2": true,
+          "scaffold": true
+        }
+      },
+      "id": "slot_hashes.artifact_claims_all_verified",
+      "passed": true
+    },
+    {
+      "artifact_reports": 2904,
+      "id": "ceilings.union_of_four_phase01_module_slots",
+      "observed": 2904,
+      "passed": true
+    },
+    {
+      "artifact_reports": 726,
+      "id": "ceilings.exact_ceiling",
+      "observed": 726,
+      "passed": true
+    },
+    {
+      "artifact_reports": 544,
+      "id": "ceilings.ceiling_with_25pct_assignment_slack",
+      "observed": 544,
+      "passed": true
+    },
+    {
+      "artifact_reports": 647,
+      "id": "ceilings.rotated_lattice_ceiling_for_comparison",
+      "observed": 647,
+      "passed": true
+    },
+    {
+      "artifact_reports": 1869,
+      "id": "ceilings.donor_acceptor_phase_intersection_0",
+      "observed": 1869,
+      "passed": true
+    },
+    {
+      "artifact_reports": 1370,
+      "id": "ceilings.donor_acceptor_phase_intersection_1",
+      "observed": 1370,
+      "passed": true
+    },
+    {
+      "artifact_reports": 800,
+      "id": "ceilings.donor_acceptor_phase_intersection_2",
+      "observed": 800,
+      "passed": true
+    },
+    {
+      "expected": 282057,
+      "id": "exclusions.total_matches_pin",
+      "observed": 282057,
+      "passed": true
+    },
+    {
+      "artifact_reports": 282057,
+      "id": "exclusions.total_matches_artifact",
+      "observed": 282057,
+      "passed": true
+    },
+    {
+      "artifact_reports": {
+        "comprehensive_local_coding_register_conflict": 81958,
+        "comprehensive_local_gene_conflict": 4432,
+        "duplicate_source_locus:acceptor": 556,
+        "duplicate_source_locus:donor": 1522,
+        "duplicate_source_locus:scaffold": 17946,
+        "freshness_registry_gene": 84998,
+        "module:ValueError:module lacks canonical GT": 739,
+        "module:ValueError:native donor lacks the frozen health-window support": 60353,
+        "module:ValueError:native source motifs do not reconstruct": 3,
+        "scaffold:ValueError:fixed scaffold bridge lacks AG at frozen boundary 437": 104,
+        "scaffold:ValueError:module lacks canonical GT": 654,
+        "scaffold:ValueError:scaffold lacks a complete unambiguous 1,022-nt hg38 window": 1
+      },
+      "id": "exclusions.sole_reason_counts_match_artifact",
+      "observed": {
+        "comprehensive_local_coding_register_conflict": 81958,
+        "comprehensive_local_gene_conflict": 4432,
+        "duplicate_source_locus:acceptor": 556,
+        "duplicate_source_locus:donor": 1522,
+        "duplicate_source_locus:scaffold": 17946,
+        "freshness_registry_gene": 84998,
+        "module:ValueError:module lacks canonical GT": 739,
+        "module:ValueError:native donor lacks the frozen health-window support": 60353,
+        "module:ValueError:native source motifs do not reconstruct": 3,
+        "scaffold:ValueError:fixed scaffold bridge lacks AG at frozen boundary 437": 104,
+        "scaffold:ValueError:module lacks canonical GT": 654,
+        "scaffold:ValueError:scaffold lacks a complete unambiguous 1,022-nt hg38 window": 1
+      },
+      "passed": true
+    },
+    {
+      "artifact_reports": 28791,
+      "id": "exclusions.multi_reason_total_matches_artifact",
+      "observed": 28791,
+      "passed": true
+    },
+    {
+      "artifact_reports": 130922,
+      "id": "exclusions.phase_equal_occurrences_match_artifact",
+      "observed": 130922,
+      "passed": true
+    },
+    {
+      "candidates_from_occurrences": 65461,
+      "id": "exclusions.phase_equal_occurrences_is_exactly_2x_candidates",
+      "n_candidates_streamed": 65461,
+      "occurrences": 130922,
+      "passed": true
+    },
+    {
+      "artifact_reports": 65461,
+      "id": "exclusions.phase_equal_candidates_match_artifact",
+      "observed": 65461,
+      "passed": true
+    },
+    {
+      "id": "exclusions.phase_equal_never_a_raw_exclusion_reason",
+      "observed": 0,
+      "passed": true
+    },
+    {
+      "artifact_reports": 3456,
+      "id": "variance.n_cell_rows_matches_artifact",
+      "observed": 3456,
+      "passed": true
+    },
+    {
+      "artifact_reports": 384,
+      "id": "variance.n_blocks_matches_artifact",
+      "observed": 384,
+      "passed": true
+    },
+    {
+      "artifact_reports": 2688,
+      "id": "variance.pooled_within_block_within_group_df_matches_artifact",
+      "observed": 2688,
+      "passed": true
+    },
+    {
+      "artifact_reports": 0.17703982542638141,
+      "id": "variance.pooled_within_block_within_group_variance_matches_artifact",
+      "observed": 0.17703982542638141,
+      "passed": true
+    },
+    {
+      "artifact_reports": 0.14012168638599368,
+      "id": "variance.across_block_variance_psi_b_matches_artifact",
+      "observed": 0.14012168638599368,
+      "passed": true
+    },
+    {
+      "artifact_reports": 0.3743283136312209,
+      "id": "variance.block_sd_matches_artifact",
+      "observed": 0.3743283136312209,
+      "passed": true
+    },
+    {
+      "artifact_reports": 0.05160177367280297,
+      "id": "variance.sigma_u2_matches_artifact",
+      "observed": 0.05160177367280297,
+      "passed": true
+    },
+    {
+      "artifact_reports": 0.368264006833713,
+      "id": "variance.rho_matches_artifact",
+      "observed": 0.368264006833713,
+      "passed": true
+    },
+    {
+      "artifact_reports": 718,
+      "id": "power.psi_plain_2x2_blocks_needed_matches_artifact",
+      "observed": 718,
+      "passed": true
+    },
+    {
+      "artifact_reports": 996,
+      "id": "power.m_pm_plain_2x2_blocks_needed_matches_artifact",
+      "observed": 996,
+      "passed": true
+    },
+    {
+      "artifact_reports": 440,
+      "id": "power.psi_full_3x3_blocks_needed_matches_artifact",
+      "observed": 440,
+      "passed": true
+    },
+    {
+      "artifact_reports": 533,
+      "id": "power.m_pm_full_3x3_blocks_needed_matches_artifact",
+      "observed": 533,
+      "passed": true
+    },
+    {
+      "artifact_reports": 0.22864159909918438,
+      "id": "cross_lineage.var_psi_per_block_used_is_plain_lattice_not_raw_v9",
+      "observed_correct_formula": 0.22864159909918438,
+      "passed": true,
+      "raw_v9_bug_would_give": 0.14012168638599368
+    },
+    {
+      "artifact_reports": 0.6210813433510266,
+      "id": "cross_lineage.required_correlation_544_matches_recomputed_correct_formula",
+      "observed_correct": 0.6210813431110819,
+      "passed": true
+    },
+    {
+      "artifact_reports": 0.6210813433510266,
+      "expected_pin": 0.621,
+      "id": "cross_lineage.required_correlation_544_matches_expected_pin",
+      "passed": true
+    },
+    {
+      "artifact_reports": 0.6210813433510266,
+      "id": "cross_lineage.required_correlation_544_is_not_the_raw_v9_bug_value",
+      "passed": true,
+      "raw_v9_bug_value": 0.382,
+      "recomputed_raw_v9_value": 0.3817047890721257
+    },
+    {
+      "id": "cross_lineage.n_blocks_544_matches_artifact_ceiling_label",
+      "n_blocks": 544,
+      "passed": true
+    },
+    {
+      "artifact_reports": 0.4943107633692009,
+      "id": "cross_lineage.required_correlation_726_matches_recomputed_correct_formula",
+      "observed_correct": 0.4943107630489807,
+      "passed": true
+    },
+    {
+      "artifact_reports": 0.4943107633692009,
+      "expected_pin": 0.494,
+      "id": "cross_lineage.required_correlation_726_matches_expected_pin",
+      "passed": true
+    },
+    {
+      "artifact_reports": 0.4943107633692009,
+      "id": "cross_lineage.required_correlation_726_is_not_the_raw_v9_bug_value",
+      "passed": true,
+      "raw_v9_bug_value": 0.175,
+      "recomputed_raw_v9_value": 0.17484867071022658
+    },
+    {
+      "id": "cross_lineage.n_blocks_726_matches_artifact_ceiling_label",
+      "n_blocks": 726,
+      "passed": true
+    }
+  ],
+  "clean_checkout_blocking_inputs": [
+    "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/results/splicebert_positional_boundary_coherence/development/candidate_census_v1.json",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cells.json"
+  ],
+  "clean_checkout_note": "The 2.34 GB candidate census and the 54 MB C43 replication cells file both live outside this repository and are untracked. This audit is NOT re-executable from a clean checkout; it only runs on a machine that already has both local files at the paths above (or supplied via --census/--cells).",
+  "clean_checkout_reexecutable": false,
+  "cohort_selection_attempted": false,
+  "counts": {
+    "failed_checks": 0,
+    "passed_checks": 55,
+    "total_checks": 55
+  },
+  "independence": {
+    "note": "This module imports nothing from scripts/splicebert_positional_clock/run_real_panel_capacity.py, gfmcd.splicing.pbc_v2_capacity, or gfmcd.splicing.positional_boundary_coherence. Every reported quantity -- the census streamer, slot-bucketing filter, sha256/canonical-JSON hashing, sign-free variance decomposition, power formulas, rotated-lattice demand model, and exact max-flow feasibility -- is reimplemented from scratch on this file's own code path. The one declared exception is networkx itself, listed above.",
+    "producer_verdict_functions_imported": [],
+    "shared_primitives_imported": [
+      "networkx (nx.maximum_flow_value / nx.DiGraph -- the max-flow solver backing both this audit's feasibility() and the producer's own feasibility() helper; a bug in networkx's max-flow implementation would be invisible to this audit)"
+    ]
+  },
+  "model_execution": false,
+  "passed": true,
+  "producer_script": "scripts/splicebert_positional_clock/run_real_panel_capacity.py",
+  "recomputed": {
+    "b1_variance_components": {
+      "across_block_variance_psi_b": 0.14012168638599368,
+      "block_sd": 0.3743283136312209,
+      "n_blocks": 384,
+      "n_cell_rows": 3456,
+      "pooled_within_block_within_group_df": 2688,
+      "pooled_within_block_within_group_variance": 0.17703982542638141,
+      "rho": 0.368264006833713,
+      "sigma_u2": 0.05160177367280297
+    },
+    "b2_ceilings": {
+      "ceiling_with_25pct_assignment_slack": 544,
+      "donor_acceptor_phase_intersections": {
+        "0": 1869,
+        "1": 1370,
+        "2": 800
+      },
+      "exact_ceiling": 726,
+      "rotated_lattice_ceiling_for_comparison": 647,
+      "union_of_four_phase01_module_slots": 2904
+    },
+    "b3_power_at_measured_components": {
+      "m_pm_full_3x3": 533,
+      "m_pm_plain_2x2": 996,
+      "psi_full_3x3": 440,
+      "psi_plain_2x2": 718
+    },
+    "b4_cross_lineage": {
+      "required_same_block_correlation": {
+        "544": 0.6210813431110819,
+        "726": 0.4943107630489807
+      },
+      "var_psi_per_block_raw_v9_alternative": 0.14012168638599368,
+      "var_psi_per_block_used": 0.22864159909918438,
+      "z_critical": 2.8015852181129683
+    },
+    "b5_exclusions": {
+      "multi_reason_exclusions": 28791,
+      "sole_reason_counts": {
+        "comprehensive_local_coding_register_conflict": 81958,
+        "comprehensive_local_gene_conflict": 4432,
+        "duplicate_source_locus:acceptor": 556,
+        "duplicate_source_locus:donor": 1522,
+        "duplicate_source_locus:scaffold": 17946,
+        "freshness_registry_gene": 84998,
+        "module:ValueError:module lacks canonical GT": 739,
+        "module:ValueError:native donor lacks the frozen health-window support": 60353,
+        "module:ValueError:native source motifs do not reconstruct": 3,
+        "scaffold:ValueError:fixed scaffold bridge lacks AG at frozen boundary 437": 104,
+        "scaffold:ValueError:module lacks canonical GT": 654,
+        "scaffold:ValueError:scaffold lacks a complete unambiguous 1,022-nt hg38 window": 1
+      },
+      "total": 282057,
+      "upstream_downstream_phase_equal": {
+        "candidates": 65461,
+        "occurrences": 130922
+      }
+    },
+    "n_candidates_streamed": 65461,
+    "slot_gene_set_sizes": {
+      "acceptor_phase_0": 2000,
+      "acceptor_phase_1": 1496,
+      "acceptor_phase_2": 854,
+      "donor_phase_0": 1908,
+      "donor_phase_1": 1400,
+      "donor_phase_2": 809,
+      "scaffold": 8761
+    },
+    "slot_hashes": {
+      "acceptor_phase_0": "721ad1afa62d0355f2ce3530811cd882ebcae62bcae5e4fb4aa142da3a8db5b8",
+      "acceptor_phase_1": "e30816d8e60147c60521a8e8b044d719b07ba285429aa3cdaf5150bb52772b52",
+      "acceptor_phase_2": "5e535969b0a42889349b8eaecf11c48d799687fc38f28f2c34b159936981a7ea",
+      "donor_phase_0": "fe4276d2c29140d97e705dcac9cb0ed7210d00420f4a2dac3c061ccbf5294a87",
+      "donor_phase_1": "84c553af57911aa20183344ac2693e64768623fec42b3662f39ea97ecf788e73",
+      "donor_phase_2": "0a5f896a71b2414f98e1001c70d02727606c4707bdc8cecb15789ed7c47a491f",
+      "scaffold": "c868fac6774c6cedcdf503566caa7b55be9a91cfa87241f387c2bbc0320ce156"
+    }
+  },
+  "schema": "gfmcd.splicebert_positional_clock.real_panel_capacity_audit.v1",
+  "stage": "construction",
+  "status": "AUDIT_PASS"
+}
