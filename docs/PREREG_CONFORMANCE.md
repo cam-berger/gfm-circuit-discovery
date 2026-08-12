@@ -68,6 +68,33 @@ this file existed, that question had no answer here short of reading 34 protocol
 > separately preregistered successor ever reaches that point, its conformance family belongs in the table
 > below before the target, not reconstructed afterwards.
 
+> **A fifth protocol is uncovered, and for the plainest reason: positional-proxy modifiability
+> (2026-08-12). `studies/splicebert_positional_proxy_modifiability/PREREGISTRATION.md` HAS NEVER BEEN
+> EXECUTED. Every gate in it is *specified*, not enforced.**
+>
+> That study did produce work, and none of it ran under that protocol. Its construction record
+> (`PPM1`, the real-panel capacity finding and its independent audit) is model-free and predates the
+> protocol's gate chain. Its behavioural and training readings — the annotated-phase reproduction, the
+> designed-register constructs, the period-3 attenuation ladders, the relocation reading, and the two
+> continued-pretraining pilots — are **exploratory engineering runs deliberately taken OUTSIDE the
+> frozen protocol**, not attempts to satisfy it. They are recorded in that study's `DECISIONS.md` and
+> carry no claim row.
+>
+> So nothing in that protocol may be cited as a gate that was enforced, and no artifact in
+> `results/splicebert_positional_proxy_modifiability/` or `results/splicebert_positional_clock/` may be
+> read as having passed one. In particular the frozen relocation preflight — all three `S_r` oriented,
+> `Ω3` resolved, handedness superior to controls — **did not run in its frozen form**; what ran was an
+> exploratory version whose construct was later shown not to carry the behaviour. The training arms
+> were authorized by the study owner as an explicit override after that premise was reported as
+> unsupported, which is recorded in `DECISIONS.md` as their decision.
+>
+> The naming wart is deliberate and bounded: `results/splicebert_positional_clock/` and
+> `scripts/splicebert_positional_clock/` are the construction-record namespace of that same study. The
+> name was provisional, the artifacts record it as such in their own `study_directory_provisional`
+> field, and it was NOT renamed — renaming would desync self-describing artifacts from their recorded
+> paths, and result files are not rewritten here. Both index files state the relationship in both
+> directions.
+
 **Scope and method.** This audit was commissioned by the 2026-07-24 publication-readiness review, which
 returned *Major Revision — not ready for external artifact review* and named this table its single
 highest-leverage deliverable. 25 SpliceBERT-arc families audited (every frozen protocol on disk for
