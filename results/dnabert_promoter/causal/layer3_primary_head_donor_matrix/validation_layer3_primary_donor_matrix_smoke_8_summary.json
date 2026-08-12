@@ -1,0 +1,164 @@
+{
+  "component_conditions": {
+    "PRIMARY_SIX_HEADS": {
+      "heads": [
+        [
+          0,
+          8
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          3,
+          11
+        ]
+      ],
+      "mlp_layer": null
+    }
+  },
+  "identity_max_absolute_difference": 0.0,
+  "model_name": "quietflamingo/dnabert2-no-flashattention",
+  "model_revision": "813031b2bf86d9e960a027e2734c908009f31601",
+  "opposite_class_offsets": [
+    0,
+    3,
+    5,
+    7
+  ],
+  "results": {
+    "PRIMARY_SIX_HEADS": {
+      "matched_promoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 1.0,
+          "maximum": 0.45858192528155395,
+          "mean": 0.23608968459294782,
+          "median": 0.2504397503211459,
+          "minimum": 0.04132378953894535,
+          "n": 8,
+          "std": 0.15746060776776516
+        },
+        "restored_amount": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 1.0,
+          "maximum": 4.573034286499023,
+          "mean": 1.9399339258670807,
+          "median": 1.8971380293369293,
+          "minimum": 0.32647275924682617,
+          "n": 8,
+          "std": 1.4032524745725476
+        }
+      },
+      "opposite_class_nonpromoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.5625,
+          "fraction_positive": 0.4375,
+          "maximum": 0.36237644303936756,
+          "mean": -0.04217709850482457,
+          "median": -0.02309818223316623,
+          "minimum": -0.41588352677044393,
+          "n": 32,
+          "std": 0.1770463422633206
+        },
+        "restored_amount": {
+          "fraction_negative": 0.5625,
+          "fraction_positive": 0.4375,
+          "maximum": 2.9483463764190674,
+          "mean": -0.25384874641895294,
+          "median": -0.2301793098449707,
+          "minimum": -3.2016937732696533,
+          "n": 32,
+          "std": 1.4264211582563542
+        }
+      },
+      "same_class_promoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.1875,
+          "fraction_positive": 0.8125,
+          "maximum": 0.6244615530677857,
+          "mean": 0.24216067934701957,
+          "median": 0.2479610713737849,
+          "minimum": -0.1743594702095202,
+          "n": 32,
+          "std": 0.22232363119143014
+        },
+        "restored_amount": {
+          "fraction_negative": 0.1875,
+          "fraction_positive": 0.8125,
+          "maximum": 5.606409549713135,
+          "mean": 2.0857924595475197,
+          "median": 2.196820318698883,
+          "minimum": -1.2655751705169678,
+          "n": 32,
+          "std": 1.9104054050657293
+        }
+      },
+      "self_corrupt": {
+        "recovery_fraction": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "minimum": 0.0,
+          "n": 8,
+          "std": 0.0
+        },
+        "restored_amount": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "minimum": 0.0,
+          "n": 8,
+          "std": 0.0
+        }
+      },
+      "zero_activation": {
+        "recovery_fraction": {
+          "fraction_negative": 0.125,
+          "fraction_positive": 0.875,
+          "maximum": 0.5483365152839458,
+          "mean": 0.21564278589065275,
+          "median": 0.17757919671374894,
+          "minimum": -0.24718742343223069,
+          "n": 8,
+          "std": 0.27990517828430833
+        },
+        "restored_amount": {
+          "fraction_negative": 0.125,
+          "fraction_positive": 0.875,
+          "maximum": 6.108734488487244,
+          "mean": 2.036073938012123,
+          "median": 1.3833479285240173,
+          "minimum": -1.5316994190216064,
+          "n": 8,
+          "std": 2.5409298261003963
+        }
+      }
+    }
+  },
+  "rows_per_class": 8,
+  "same_class_offsets": [
+    1,
+    3,
+    5,
+    7
+  ],
+  "selected_layer": 3
+}

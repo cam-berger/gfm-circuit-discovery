@@ -180,14 +180,42 @@ and every Phase-II/III tier is still unearned and sealed.
 
 ## Transfer milestone — second real GFM
 
-**There is no active second-GFM milestone in this tree.** Two were prepared and both left the working
-tree in the 2026-07-31 cleanup; each remains in Git history and is revivable as a design asset.
+**The milestone is met, on its stated terms.** The [DNABERT-2 promoter study](../studies/dnabert_promoter/README.md)
+(`DBP1`–`DBP10`, landed 2026-08-11) took a second model to a justified stopping point on the same evidence
+ladder, and the exit condition below explicitly counts an honest qualified null as success. What it
+reached: a frozen representation (`DBP3`), a test-confirmed conditional causal core of five nodes
+(`DBP6`), and then three limits — **compactness refuted** with no knee in the held-out faithfulness curve
+(`DBP7`), transplant transfer that is **class-level only** (`DBP8`), and a **causal null** on the TATA
+bridge at n=71 (`DBP10`). The transferable finding is the *shape of the limit*: independently of the
+donor arc, a second model landed on C33's "structured causal core inside a distributed computation".
+
+Three things gate promoting it beyond a first pass, all recorded in the study's `DECISIONS.md`:
+
+1. **Commit the cleaning stage's provenance.** The splits *are* leakage-controlled — 326 rows removed,
+   disjointness asserted — but `shared/clean/cleaning_report.json` and the cleaned hashes are not
+   committed, so the control cannot be verified without re-running it. A near-duplicate screen is the
+   substantive follow-on; exact-hash matching does not provide one at 70 nt (`DBP2`).
+2. **Multiple seeds.** Everything is single-seed (42), and the endpoint margin is `0.0019` (`DBP4`).
+3. **Emit manifests.** 33 of 35 runners write none, leaving ~104 artifacts without a provenance record.
+
+A fourth, non-blocking item: no published figure exists for `DBP6`, `DBP7`, or `DBP8`. The faithfulness
+curve is the study's central negative result and currently exists only as a CSV.
+
+**Deferred, not started:** the frozen-versus-fine-tuned DNABERT-2 comparison. An earlier draft of the
+arc's prose reported fine-tuning smoke metrics, but no fine-tuning code or artifact exists in this
+repository and those numbers are withdrawn (`DBPR6`). Freezing a preregistration is a prerequisite —
+this study froze none (`DBPR8`).
+
+Two earlier second-GFM attempts left the working tree in the 2026-07-31 cleanup; each remains in Git
+history and is revivable as a design asset.
 
 - **DNABERT-2 Biological Reconstruction Atlas** — reached a bounded stopping point rather than a
   finding. Its multisource preflight qualified and its 13-class development census ran, but no admitted
   class beat every empirical control, so confirmation stayed sealed and internal screening stopped
   before localization. Five classes were adequately powered for the development gate; eight retained
-  explicitly underpowered estimates. It is stopped, not abandoned.
+  explicitly underpowered estimates. It is stopped, not abandoned. **It is not the study above**: it asked
+  whether the donor-circuit instrument rebuilt on DNABERT-2, where `DBP*` asks whether the method recovers
+  an account of promoter classification. They share a model family and no artifact, cohort, or claim.
 - **Caduceus-PS** — the prepared architecture contrast. Its v2 behavioral-transfer design integrates a
   five-lens red-team and its Colab package was locally dry-run validated, but **the model experiment was
   never run** and it needs CUDA.

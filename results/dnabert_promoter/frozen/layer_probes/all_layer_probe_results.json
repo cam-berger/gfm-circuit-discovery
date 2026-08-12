@@ -1,0 +1,600 @@
+{
+  "classifier": "standardized_logistic_regression",
+  "hidden_size": 768,
+  "layer_results": [
+    {
+      "layer": 0,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_0_probe.joblib",
+      "test": {
+        "accuracy": 0.7964194373401534,
+        "balanced_accuracy": 0.796399073159296,
+        "f1": 0.7934256055363322,
+        "pr_auc": 0.8816652251891758,
+        "precision": 0.8039971949509116,
+        "recall": 0.7831284153005464,
+        "roc_auc": 0.8819729343536674
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_0_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.7962773224043715,
+        "balanced_accuracy": 0.7963053167563716,
+        "f1": 0.7949114663916108,
+        "pr_auc": 0.874311674381496,
+        "precision": 0.8027777777777778,
+        "recall": 0.787197820905686,
+        "roc_auc": 0.8748225117556617
+      }
+    },
+    {
+      "layer": 1,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_1_probe.joblib",
+      "test": {
+        "accuracy": 0.8109121909633419,
+        "balanced_accuracy": 0.8108915992676815,
+        "f1": 0.808098286900848,
+        "pr_auc": 0.8897374017029763,
+        "precision": 0.8190108733777622,
+        "recall": 0.7974726775956285,
+        "roc_auc": 0.8885996872389393
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_1_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.8014002732240437,
+        "balanced_accuracy": 0.8014220172089381,
+        "f1": 0.8004803568365071,
+        "pr_auc": 0.8831107823261408,
+        "precision": 0.8067081604426003,
+        "recall": 0.794347974123255,
+        "roc_auc": 0.8819041366935636
+      }
+    },
+    {
+      "layer": 2,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_2_probe.joblib",
+      "test": {
+        "accuracy": 0.810230179028133,
+        "balanced_accuracy": 0.8102122021467204,
+        "f1": 0.8077388149939541,
+        "pr_auc": 0.8918734234801855,
+        "precision": 0.8171967843411395,
+        "recall": 0.7984972677595629,
+        "roc_auc": 0.8919269597801556
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_2_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.8049863387978142,
+        "balanced_accuracy": 0.805001292997413,
+        "f1": 0.8045190003423485,
+        "pr_auc": 0.8862253693909998,
+        "precision": 0.8089500860585198,
+        "recall": 0.8001361933946204,
+        "roc_auc": 0.8847679772423123
+      }
+    },
+    {
+      "layer": 3,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_3_probe.joblib",
+      "test": {
+        "accuracy": 0.8155157715260017,
+        "balanced_accuracy": 0.815493359176588,
+        "f1": 0.8125433125433126,
+        "pr_auc": 0.8903429307635773,
+        "precision": 0.8245428973277075,
+        "recall": 0.8008879781420765,
+        "roc_auc": 0.8907216621920068
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_3_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.8031079234972678,
+        "balanced_accuracy": 0.8031422811553763,
+        "f1": 0.8013781223083548,
+        "pr_auc": 0.8811065695436895,
+        "precision": 0.8110181311018131,
+        "recall": 0.7919645897173987,
+        "roc_auc": 0.8803532979832389
+      }
+    },
+    {
+      "layer": 4,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_4_probe.joblib",
+      "test": {
+        "accuracy": 0.8027280477408355,
+        "balanced_accuracy": 0.8027100531935677,
+        "f1": 0.800138193124892,
+        "pr_auc": 0.8851153512579923,
+        "precision": 0.8095071653268088,
+        "recall": 0.7909836065573771,
+        "roc_auc": 0.8842779424378245
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_4_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.8014002732240437,
+        "balanced_accuracy": 0.8014377641327767,
+        "f1": 0.7994481807208139,
+        "pr_auc": 0.8792702365837659,
+        "precision": 0.8099231306778477,
+        "recall": 0.7892407218249915,
+        "roc_auc": 0.8777305603350385
+      }
+    },
+    {
+      "layer": 5,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_5_probe.joblib",
+      "test": {
+        "accuracy": 0.7991474850809889,
+        "balanced_accuracy": 0.7991307903124076,
+        "f1": 0.7966862271315154,
+        "pr_auc": 0.8844281918296681,
+        "precision": 0.8053035589672016,
+        "recall": 0.7882513661202186,
+        "roc_auc": 0.8827533834383623
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_5_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.7984972677595629,
+        "balanced_accuracy": 0.7985342063427909,
+        "f1": 0.7965517241379311,
+        "pr_auc": 0.8763705349901183,
+        "precision": 0.8068459657701712,
+        "recall": 0.7865168539325843,
+        "roc_auc": 0.8752290156784539
+      }
+    },
+    {
+      "layer": 6,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_6_probe.joblib",
+      "test": {
+        "accuracy": 0.7996589940323956,
+        "balanced_accuracy": 0.7996388991219991,
+        "f1": 0.7967479674796748,
+        "pr_auc": 0.882763346418297,
+        "precision": 0.8072204696810376,
+        "recall": 0.7865437158469946,
+        "roc_auc": 0.8808222908770891
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_6_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.7925204918032787,
+        "balanced_accuracy": 0.792556849019544,
+        "f1": 0.7905533528701948,
+        "pr_auc": 0.8771984201897993,
+        "precision": 0.8006284916201117,
+        "recall": 0.7807286346612189,
+        "roc_auc": 0.8745402335653729
+      }
+    },
+    {
+      "layer": 7,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_7_probe.joblib",
+      "test": {
+        "accuracy": 0.7935208866155158,
+        "balanced_accuracy": 0.7934924047064864,
+        "f1": 0.789354670377457,
+        "pr_auc": 0.8804293310228006,
+        "precision": 0.804324707550514,
+        "recall": 0.774931693989071,
+        "roc_auc": 0.8794454724068834
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_7_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.7903005464480874,
+        "balanced_accuracy": 0.7903521047163437,
+        "f1": 0.7872487872487872,
+        "pr_auc": 0.8716428038073828,
+        "precision": 0.801410934744268,
+        "recall": 0.7735784814436499,
+        "roc_auc": 0.8700364383817619
+      }
+    },
+    {
+      "layer": 8,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_8_probe.joblib",
+      "test": {
+        "accuracy": 0.785848252344416,
+        "balanced_accuracy": 0.7858142578855417,
+        "f1": 0.7807262569832403,
+        "pr_auc": 0.876117104525523,
+        "precision": 0.7985714285714286,
+        "recall": 0.7636612021857924,
+        "roc_auc": 0.8741785603316271
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_8_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.7882513661202186,
+        "balanced_accuracy": 0.7883039548224254,
+        "f1": 0.7850953206239168,
+        "pr_auc": 0.8697553959830981,
+        "precision": 0.7995058242146135,
+        "recall": 0.7711950970377937,
+        "roc_auc": 0.8683569997934237
+      }
+    },
+    {
+      "layer": 9,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_9_probe.joblib",
+      "test": {
+        "accuracy": 0.7977834612105712,
+        "balanced_accuracy": 0.7977557742650301,
+        "f1": 0.7938108484005564,
+        "pr_auc": 0.8826556059738193,
+        "precision": 0.80842776203966,
+        "recall": 0.7797131147540983,
+        "roc_auc": 0.8794469841163524
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_9_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.7918374316939891,
+        "balanced_accuracy": 0.7918863799956679,
+        "f1": 0.7889908256880734,
+        "pr_auc": 0.8730511025659684,
+        "precision": 0.8024647887323944,
+        "recall": 0.7759618658495063,
+        "roc_auc": 0.8715662811936356
+      }
+    },
+    {
+      "layer": 10,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_10_probe.joblib",
+      "test": {
+        "accuracy": 0.7935208866155158,
+        "balanced_accuracy": 0.79349868411505,
+        "f1": 0.7902303828165599,
+        "pr_auc": 0.8767113898272183,
+        "precision": 0.8017574692442883,
+        "recall": 0.7790300546448088,
+        "roc_auc": 0.8756257314348124
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_10_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.7880806010928961,
+        "balanced_accuracy": 0.788135812668995,
+        "f1": 0.7847354726799654,
+        "pr_auc": 0.8727470319139005,
+        "precision": 0.7998585572842999,
+        "recall": 0.7701736465781409,
+        "roc_auc": 0.8717705246280139
+      }
+    },
+    {
+      "layer": 11,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_11_probe.joblib",
+      "test": {
+        "accuracy": 0.7887468030690538,
+        "balanced_accuracy": 0.7887188332021635,
+        "f1": 0.7845592070944184,
+        "pr_auc": 0.86828349505809,
+        "precision": 0.7991498405951116,
+        "recall": 0.7704918032786885,
+        "roc_auc": 0.8686599486297866
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_11_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.7807377049180327,
+        "balanced_accuracy": 0.7807629279620226,
+        "f1": 0.7794572311920303,
+        "pr_auc": 0.8618422622979174,
+        "precision": 0.7864818024263431,
+        "recall": 0.7725570309839973,
+        "roc_auc": 0.8607200916634268
+      }
+    }
+  ],
+  "num_layers": 12,
+  "ranked_layers": [
+    {
+      "layer": 2,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_2_probe.joblib",
+      "rank": 1,
+      "test": {
+        "accuracy": 0.810230179028133,
+        "balanced_accuracy": 0.8102122021467204,
+        "f1": 0.8077388149939541,
+        "pr_auc": 0.8918734234801855,
+        "precision": 0.8171967843411395,
+        "recall": 0.7984972677595629,
+        "roc_auc": 0.8919269597801556
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_2_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.8049863387978142,
+        "balanced_accuracy": 0.805001292997413,
+        "f1": 0.8045190003423485,
+        "pr_auc": 0.8862253693909998,
+        "precision": 0.8089500860585198,
+        "recall": 0.8001361933946204,
+        "roc_auc": 0.8847679772423123
+      }
+    },
+    {
+      "layer": 3,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_3_probe.joblib",
+      "rank": 2,
+      "test": {
+        "accuracy": 0.8155157715260017,
+        "balanced_accuracy": 0.815493359176588,
+        "f1": 0.8125433125433126,
+        "pr_auc": 0.8903429307635773,
+        "precision": 0.8245428973277075,
+        "recall": 0.8008879781420765,
+        "roc_auc": 0.8907216621920068
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_3_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.8031079234972678,
+        "balanced_accuracy": 0.8031422811553763,
+        "f1": 0.8013781223083548,
+        "pr_auc": 0.8811065695436895,
+        "precision": 0.8110181311018131,
+        "recall": 0.7919645897173987,
+        "roc_auc": 0.8803532979832389
+      }
+    },
+    {
+      "layer": 4,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_4_probe.joblib",
+      "rank": 3,
+      "test": {
+        "accuracy": 0.8027280477408355,
+        "balanced_accuracy": 0.8027100531935677,
+        "f1": 0.800138193124892,
+        "pr_auc": 0.8851153512579923,
+        "precision": 0.8095071653268088,
+        "recall": 0.7909836065573771,
+        "roc_auc": 0.8842779424378245
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_4_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.8014002732240437,
+        "balanced_accuracy": 0.8014377641327767,
+        "f1": 0.7994481807208139,
+        "pr_auc": 0.8792702365837659,
+        "precision": 0.8099231306778477,
+        "recall": 0.7892407218249915,
+        "roc_auc": 0.8777305603350385
+      }
+    },
+    {
+      "layer": 1,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_1_probe.joblib",
+      "rank": 4,
+      "test": {
+        "accuracy": 0.8109121909633419,
+        "balanced_accuracy": 0.8108915992676815,
+        "f1": 0.808098286900848,
+        "pr_auc": 0.8897374017029763,
+        "precision": 0.8190108733777622,
+        "recall": 0.7974726775956285,
+        "roc_auc": 0.8885996872389393
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_1_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.8014002732240437,
+        "balanced_accuracy": 0.8014220172089381,
+        "f1": 0.8004803568365071,
+        "pr_auc": 0.8831107823261408,
+        "precision": 0.8067081604426003,
+        "recall": 0.794347974123255,
+        "roc_auc": 0.8819041366935636
+      }
+    },
+    {
+      "layer": 5,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_5_probe.joblib",
+      "rank": 5,
+      "test": {
+        "accuracy": 0.7991474850809889,
+        "balanced_accuracy": 0.7991307903124076,
+        "f1": 0.7966862271315154,
+        "pr_auc": 0.8844281918296681,
+        "precision": 0.8053035589672016,
+        "recall": 0.7882513661202186,
+        "roc_auc": 0.8827533834383623
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_5_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.7984972677595629,
+        "balanced_accuracy": 0.7985342063427909,
+        "f1": 0.7965517241379311,
+        "pr_auc": 0.8763705349901183,
+        "precision": 0.8068459657701712,
+        "recall": 0.7865168539325843,
+        "roc_auc": 0.8752290156784539
+      }
+    },
+    {
+      "layer": 0,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_0_probe.joblib",
+      "rank": 6,
+      "test": {
+        "accuracy": 0.7964194373401534,
+        "balanced_accuracy": 0.796399073159296,
+        "f1": 0.7934256055363322,
+        "pr_auc": 0.8816652251891758,
+        "precision": 0.8039971949509116,
+        "recall": 0.7831284153005464,
+        "roc_auc": 0.8819729343536674
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_0_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.7962773224043715,
+        "balanced_accuracy": 0.7963053167563716,
+        "f1": 0.7949114663916108,
+        "pr_auc": 0.874311674381496,
+        "precision": 0.8027777777777778,
+        "recall": 0.787197820905686,
+        "roc_auc": 0.8748225117556617
+      }
+    },
+    {
+      "layer": 6,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_6_probe.joblib",
+      "rank": 7,
+      "test": {
+        "accuracy": 0.7996589940323956,
+        "balanced_accuracy": 0.7996388991219991,
+        "f1": 0.7967479674796748,
+        "pr_auc": 0.882763346418297,
+        "precision": 0.8072204696810376,
+        "recall": 0.7865437158469946,
+        "roc_auc": 0.8808222908770891
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_6_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.7925204918032787,
+        "balanced_accuracy": 0.792556849019544,
+        "f1": 0.7905533528701948,
+        "pr_auc": 0.8771984201897993,
+        "precision": 0.8006284916201117,
+        "recall": 0.7807286346612189,
+        "roc_auc": 0.8745402335653729
+      }
+    },
+    {
+      "layer": 9,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_9_probe.joblib",
+      "rank": 8,
+      "test": {
+        "accuracy": 0.7977834612105712,
+        "balanced_accuracy": 0.7977557742650301,
+        "f1": 0.7938108484005564,
+        "pr_auc": 0.8826556059738193,
+        "precision": 0.80842776203966,
+        "recall": 0.7797131147540983,
+        "roc_auc": 0.8794469841163524
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_9_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.7918374316939891,
+        "balanced_accuracy": 0.7918863799956679,
+        "f1": 0.7889908256880734,
+        "pr_auc": 0.8730511025659684,
+        "precision": 0.8024647887323944,
+        "recall": 0.7759618658495063,
+        "roc_auc": 0.8715662811936356
+      }
+    },
+    {
+      "layer": 7,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_7_probe.joblib",
+      "rank": 9,
+      "test": {
+        "accuracy": 0.7935208866155158,
+        "balanced_accuracy": 0.7934924047064864,
+        "f1": 0.789354670377457,
+        "pr_auc": 0.8804293310228006,
+        "precision": 0.804324707550514,
+        "recall": 0.774931693989071,
+        "roc_auc": 0.8794454724068834
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_7_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.7903005464480874,
+        "balanced_accuracy": 0.7903521047163437,
+        "f1": 0.7872487872487872,
+        "pr_auc": 0.8716428038073828,
+        "precision": 0.801410934744268,
+        "recall": 0.7735784814436499,
+        "roc_auc": 0.8700364383817619
+      }
+    },
+    {
+      "layer": 8,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_8_probe.joblib",
+      "rank": 10,
+      "test": {
+        "accuracy": 0.785848252344416,
+        "balanced_accuracy": 0.7858142578855417,
+        "f1": 0.7807262569832403,
+        "pr_auc": 0.876117104525523,
+        "precision": 0.7985714285714286,
+        "recall": 0.7636612021857924,
+        "roc_auc": 0.8741785603316271
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_8_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.7882513661202186,
+        "balanced_accuracy": 0.7883039548224254,
+        "f1": 0.7850953206239168,
+        "pr_auc": 0.8697553959830981,
+        "precision": 0.7995058242146135,
+        "recall": 0.7711950970377937,
+        "roc_auc": 0.8683569997934237
+      }
+    },
+    {
+      "layer": 10,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_10_probe.joblib",
+      "rank": 11,
+      "test": {
+        "accuracy": 0.7935208866155158,
+        "balanced_accuracy": 0.79349868411505,
+        "f1": 0.7902303828165599,
+        "pr_auc": 0.8767113898272183,
+        "precision": 0.8017574692442883,
+        "recall": 0.7790300546448088,
+        "roc_auc": 0.8756257314348124
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_10_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.7880806010928961,
+        "balanced_accuracy": 0.788135812668995,
+        "f1": 0.7847354726799654,
+        "pr_auc": 0.8727470319139005,
+        "precision": 0.7998585572842999,
+        "recall": 0.7701736465781409,
+        "roc_auc": 0.8717705246280139
+      }
+    },
+    {
+      "layer": 11,
+      "model_file": "results/dnabert_promoter/frozen/layer_probes/all_layer_probes/layer_11_probe.joblib",
+      "rank": 12,
+      "test": {
+        "accuracy": 0.7887468030690538,
+        "balanced_accuracy": 0.7887188332021635,
+        "f1": 0.7845592070944184,
+        "pr_auc": 0.86828349505809,
+        "precision": 0.7991498405951116,
+        "recall": 0.7704918032786885,
+        "roc_auc": 0.8686599486297866
+      },
+      "test_predictions_file": "results/dnabert_promoter/frozen/layer_probes/layer_11_test_predictions.csv",
+      "validation": {
+        "accuracy": 0.7807377049180327,
+        "balanced_accuracy": 0.7807629279620226,
+        "f1": 0.7794572311920303,
+        "pr_auc": 0.8618422622979174,
+        "precision": 0.7864818024263431,
+        "recall": 0.7725570309839973,
+        "roc_auc": 0.8607200916634268
+      }
+    }
+  ],
+  "representation_scope": "transformer layer outputs 0-11; embedding output not included",
+  "seed": 42,
+  "selected_layer": 2,
+  "selected_test_metrics": {
+    "accuracy": 0.810230179028133,
+    "balanced_accuracy": 0.8102122021467204,
+    "f1": 0.8077388149939541,
+    "pr_auc": 0.8918734234801855,
+    "precision": 0.8171967843411395,
+    "recall": 0.7984972677595629,
+    "roc_auc": 0.8919269597801556
+  },
+  "selected_validation_metrics": {
+    "accuracy": 0.8049863387978142,
+    "balanced_accuracy": 0.805001292997413,
+    "f1": 0.8045190003423485,
+    "pr_auc": 0.8862253693909998,
+    "precision": 0.8089500860585198,
+    "recall": 0.8001361933946204,
+    "roc_auc": 0.8847679772423123
+  },
+  "selection_metric": "validation_balanced_accuracy",
+  "test_rows": 5865,
+  "test_usage": "descriptive evaluation only; not used for layer selection",
+  "tie_breaker": "validation_roc_auc",
+  "train_rows": 47149,
+  "validation_rows": 5856
+}

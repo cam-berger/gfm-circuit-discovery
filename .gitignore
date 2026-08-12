@@ -77,6 +77,7 @@ results/splicebert_partner_selection/**/*.jsonl
 results/**/figures/
 results/splicebert_coupling/ic2_feasibility_smoke.json
 results/splicebert_coupling/ic2_calibration_smoke.json
+.venv/
 
 # R4 Colab distribution archives are reproducible from build_bundle.py; the compact
 # artifacts of record are the reference panel and the result JSON plus their manifests.

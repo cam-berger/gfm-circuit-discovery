@@ -1,0 +1,89 @@
+{
+  "fraction_matched_better_than_mismatched": 0.5546875,
+  "head_group": [
+    {
+      "head": 8,
+      "layer": 0
+    },
+    {
+      "head": 8,
+      "layer": 1
+    },
+    {
+      "head": 3,
+      "layer": 2
+    },
+    {
+      "head": 8,
+      "layer": 2
+    },
+    {
+      "head": 9,
+      "layer": 2
+    },
+    {
+      "head": 11,
+      "layer": 3
+    }
+  ],
+  "matched_minus_mismatched": {
+    "fraction_negative": 0.4453125,
+    "fraction_positive": 0.5546875,
+    "maximum": 6.167677044868469,
+    "mean": 0.29656733525916934,
+    "median": 0.16073915176093578,
+    "minimum": -5.7860249280929565,
+    "std": 2.004249340703914
+  },
+  "matched_recovery_fraction": {
+    "fraction_negative": 0.15625,
+    "fraction_positive": 0.84375,
+    "maximum": 0.9694153480102004,
+    "mean": 0.2343615691782751,
+    "median": 0.23023998882319913,
+    "minimum": -0.5769218012608324,
+    "std": 0.2649665360780107
+  },
+  "matched_restored_amount": {
+    "fraction_negative": 0.15625,
+    "fraction_positive": 0.84375,
+    "maximum": 6.6462565660476685,
+    "mean": 1.4831381559197325,
+    "median": 1.4268778562545776,
+    "minimum": -3.68265438079834,
+    "std": 1.677825205632995
+  },
+  "mismatched_donor_offset": 1,
+  "mismatched_recovery_fraction": {
+    "fraction_negative": 0.234375,
+    "fraction_positive": 0.765625,
+    "maximum": 1.6397857840757675,
+    "mean": 0.18008915582543375,
+    "median": 0.18512543618323374,
+    "minimum": -0.4920586631409988,
+    "std": 0.28894576320894855
+  },
+  "mismatched_restored_amount": {
+    "fraction_negative": 0.234375,
+    "fraction_positive": 0.765625,
+    "maximum": 8.333994626998901,
+    "mean": 1.1865708206605632,
+    "median": 1.1993304789066315,
+    "minimum": -3.1603970527648926,
+    "std": 1.7570159023225922
+  },
+  "model_name": "quietflamingo/dnabert2-no-flashattention",
+  "model_revision": "813031b2bf86d9e960a027e2734c908009f31601",
+  "rows": 128,
+  "selected_layer": 3,
+  "self_corrupt_max_absolute_difference": 0.0,
+  "self_corrupt_minus_baseline": {
+    "fraction_negative": 0.0,
+    "fraction_positive": 0.0,
+    "maximum": 0.0,
+    "mean": 0.0,
+    "median": 0.0,
+    "minimum": 0.0,
+    "std": 0.0
+  }
+}

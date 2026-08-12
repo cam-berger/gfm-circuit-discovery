@@ -62,6 +62,7 @@ no defining row anywhere. It now has one — see the last section of the donor-c
 | `IC2` | Acceptor-competition feasibility and calibration for an arc retired before its confirmatory run. | No claim; the premise was refuted by Atlas HCA4/HCA10. |
 | `P3-shift-diagnostic` | An exploratory period-3 shift diagnostic, outcome-aware; never promoted. | No claim. The carrier claims are C8, C34–C36. |
 | `HCA7-HCA10` | A range label on one closure-audit artifact. | The individual rows HCA7…HCA10 exist in the Atlas ledger. |
+| `DBPR7` | A **correction** ID, not a claim: the 37 superseded rows of the DNABERT-2 Layer-3 replicate, which was run against a different probe than every `DBP` claim and controls nothing. | `studies/dnabert_promoter/CORRECTIONS.md` DBPR7. |
 
 ## Integrity check
 
@@ -98,6 +99,9 @@ same change; the verifier fails otherwise.
 | `splicebert_acceptor_coupling/` | no per-directory index; the five artifacts and their manifests are the `MANIFEST.csv` rows | `studies/splicebert_acceptor_coupling/CLAIMS.md` (AC1–AC4) |
 | `splicebert_exon_edge_compatibility/` | [archive record](../studies/splicebert_exon_edge_compatibility/README.md) | `studies/splicebert_partner_selection/CLAIMS.md` (C43, C44) |
 | `splicebert_positional_boundary_coherence/` | [`RESULTS_INDEX.md`](splicebert_positional_boundary_coherence/RESULTS_INDEX.md) | `studies/splicebert_positional_boundary_coherence/CLAIMS.md` (`PBC1`, construction instrument-unresolved; no model claim) |
+| `dnabert_promoter/` | [`RESULTS_INDEX.md`](dnabert_promoter/RESULTS_INDEX.md) | `studies/dnabert_promoter/CLAIMS.md` (DBP1–DBP10) — the **second model** in the tree |
+| `splicebert_positional_clock/` | [`RESULTS_INDEX.md`](splicebert_positional_clock/RESULTS_INDEX.md) | `studies/splicebert_positional_proxy_modifiability/CLAIMS.md` (`PPM1`) — **provisional directory name**, and the construction-record namespace of that study, not a study of its own |
+| `splicebert_positional_proxy_modifiability/` | [`RESULTS_INDEX.md`](splicebert_positional_proxy_modifiability/RESULTS_INDEX.md) | `studies/splicebert_positional_proxy_modifiability/CLAIMS.md` (`PPM1` only) — its behavioural and continued-pretraining artifacts are **exploratory and carry no claim row** |
 
 `splicebert_positional_boundary_coherence/` contains compact model-free construction records. Its audited
 census passed, but the frozen 1,104-block design failed a necessary globally unique source-gene capacity
@@ -108,6 +112,17 @@ is licensed.
 The `dnabert2_reconstruction_atlas/` and `splicebert_visualizer/` trees were removed from the working
 tree in the 2026-07-31 cleanup along with their studies; both remain in Git history. Neither controlled
 a claim in a surviving ledger.
+
+`dnabert_promoter/` is the **first non-SpliceBERT family to carry live claims**, and the only one whose
+model is not SpliceBERT — read its index before using any number in it, because two hazards are specific
+to this tree. First, **two readout endpoints coexist in `causal/`**: the canonical suite reads encoder
+Layer 2 against `selected_layer_2_probe.joblib`, while the 37 `superseded` rows under `causal/layer3_*`
+read encoder Layer 3 against a *different* probe and control nothing (`DBPR7`). Second, `shared/leakage_report.json` describes the **raw** cohort, not the one measured: the cleaning
+stage removes its 104 cross-split duplicate groups and asserts disjointness, and every result is computed
+on the cleaned splits (`DBP2`) whose own report is not committed. It is also the family with the largest
+**manifest gap** in the repository: only 5 of its ~109 rows have a sibling `*.manifest.json`, because 33
+of the study's 35 runners do not emit one. Those rows carry a blank `manifest` column truthfully rather
+than a back-filled provenance record, and closing the gap gates promotion of every `DBP` row.
 
 `splicebert_exon_edge_compatibility/` is different: it is a **consolidation remnant, not a full tree**.
 Twelve artifacts (4.0 MB) were carried on 2026-08-04 for C43 and C44; the other ~99 MB of that study's

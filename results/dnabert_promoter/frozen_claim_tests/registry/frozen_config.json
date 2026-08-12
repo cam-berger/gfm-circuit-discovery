@@ -1,0 +1,56 @@
+{
+  "study": "frozen_dnabert_promoter_mechanism",
+  "model": {
+    "name": "quietflamingo/dnabert2-no-flashattention",
+    "revision": "813031b2bf86d9e960a027e2734c908009f31601",
+    "condition": "frozen",
+    "num_layers": 12,
+    "num_heads": 12,
+    "hidden_size": 768,
+    "head_dim": 64
+  },
+  "readout": {
+    "selected_layer": 2,
+    "endpoint": "encoder_layer_2_output",
+    "pooling": "masked_mean_biological_tokens",
+    "type": "fixed_linear_probe",
+    "selection_metric": "validation_balanced_accuracy"
+  },
+  "baseline_metrics": {
+    "validation_balanced_accuracy": 0.805001292997413,
+    "validation_roc_auc": 0.8847679772423123,
+    "test_balanced_accuracy": 0.8102122021467204,
+    "test_roc_auc": 0.8919269597801556,
+    "test_pr_auc": 0.8918734234801855
+  },
+  "global_discovery_cohort": {
+    "split": "validation",
+    "rows": 256,
+    "promoters": 128,
+    "non_promoters": 128,
+    "corruption": "mononucleotide"
+  },
+  "candidate_heads": [
+    {"layer": 0, "head": 8, "priority": 1},
+    {"layer": 0, "head": 3, "priority": 2},
+    {"layer": 0, "head": 10, "priority": 3},
+    {"layer": 1, "head": 8, "priority": 4},
+    {"layer": 2, "head": 9, "priority": 5},
+    {"layer": 2, "head": 3, "priority": 6}
+  ],
+  "candidate_mlps": [
+    {"layer": 0, "priority": 1},
+    {"layer": 1, "priority": 2},
+    {
+      "layer": 2,
+      "priority": 3,
+      "special_handling": "possible_global_margin_offset"
+    }
+  ],
+  "subspace_ranks": [1, 2, 4, 8, 16, 32],
+  "circuit_sizes": [1, 2, 4, 8, 12, 16, 24],
+  "faithfulness_thresholds": [0.5, 0.75, 0.9, 0.95],
+  "minimum_random_controls": 100,
+  "multiple_comparison_method": "holm",
+  "seed": 42
+}

@@ -1,0 +1,53 @@
+{
+  "test": {
+    "categories": {
+      "eligible_unique_early_motif": 110,
+      "multiple_tata_like_matches": 1,
+      "no_tata_like": 2836,
+      "tata_like_outside_early_window": 21
+    },
+    "eligible_rows": 110,
+    "motif_counts": {
+      "TATAAA": 68,
+      "TATAAT": 5,
+      "TATATA": 34,
+      "TATATT": 3
+    },
+    "motif_start_counts": {
+      "0": 9,
+      "1": 18,
+      "2": 31,
+      "3": 27,
+      "4": 18,
+      "5": 5,
+      "6": 2
+    },
+    "promoters": 2968
+  },
+  "validation": {
+    "categories": {
+      "eligible_unique_early_motif": 99,
+      "multiple_tata_like_matches": 1,
+      "no_tata_like": 2865,
+      "tata_like_outside_early_window": 14
+    },
+    "eligible_rows": 99,
+    "motif_counts": {
+      "TATAAA": 69,
+      "TATAAT": 5,
+      "TATATA": 19,
+      "TATATT": 6
+    },
+    "motif_start_counts": {
+      "0": 5,
+      "1": 7,
+      "2": 29,
+      "3": 28,
+      "4": 19,
+      "5": 6,
+      "6": 4,
+      "7": 1
+    },
+    "promoters": 2979
+  }
+}

@@ -64,6 +64,7 @@ Attribution ranks; intervention decides. See the [methodology](docs/METHODOLOGY.
 | [`studies/splicebert_positional_boundary_coherence/`](studies/splicebert_positional_boundary_coherence/README.md) | Phase I instrument-unresolved; no model outcome | The audited real-sequence census could not supply the frozen 1,104 globally gene-disjoint seven-source blocks, so the study stopped before selection, balance calibration, or model access. The planned period-3 and register tests remain sealed. |
 | [`studies/splicebert_head_context_atlas/`](studies/splicebert_head_context_atlas/README.md) | discovery and internal validation complete | Multi-context head/MLP reuse atlas. Supplies the gene-disjoint cohort behind C41 and an independent rediscovery of L3H1; context-specific follow-ups remain exploratory. |
 | [`studies/splicebert_gtex_finetune_shift/`](studies/splicebert_gtex_finetune_shift/README.md) | native causal mechanism mapped; sparse-difference instrument bounded | What happens to the same encoder under supervised fine-tuning: late attention routes into a compact final-MLP code, and inherited positional-carrier use. |
+| [`studies/dnabert_promoter/`](studies/dnabert_promoter/README.md) | **second model**; representation and conditional causal core established, compactness refuted, biology null | Does the method travel? A frozen DNABERT-2 promoter readout, its five-node causal core, and the three bounds that stop it there: a contaminated split, class-level-only transfer, and a faithfulness curve with no knee. |
 
 The reusable study template is under
 [`studies/TEMPLATE_REAL_GFM_STUDY/`](studies/TEMPLATE_REAL_GFM_STUDY/README.md).
@@ -73,6 +74,13 @@ in Git history: the DNABERT-2 reconstruction atlas, the Caduceus transfer design
 run), the superseded codon phase-lattice protocol, the joint-segment attribution instrument, and the
 `splicebert/` overview stub whose content is now in [`MECHANISM.md`](MECHANISM.md). None of them
 controls a live claim in the ledgers above.
+
+One of those five has since returned under a different question. The removed **DNABERT-2 reconstruction
+atlas** asked whether the donor-circuit *instrument* rebuilt on DNABERT-2; the new
+[`studies/dnabert_promoter/`](studies/dnabert_promoter/README.md) asks whether the *method* recovers a
+causally supported account of a different behaviour — promoter classification — in that model. They share
+a model family and nothing else: no artifact, no cohort, and no claim carries over, and the new study's
+`DBP*` ledger starts from its own evidence.
 
 A sixth, the **exon-edge compatibility arc**, was **consolidated rather than merged** on 2026-08-04: its
 eleven `E*` rows became two rows in the donor ledger (**C43**, **C44**) and its ~100 MB of runners, modules,
