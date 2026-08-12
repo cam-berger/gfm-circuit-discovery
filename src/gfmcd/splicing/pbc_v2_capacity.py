@@ -492,16 +492,31 @@ def _capacity_row(available: int, demand: int) -> dict:
 # as (1/m + 1/u), not as 1/k. Writing it as 1/k understates how much a 4-cell block loses relative
 # to a 9-cell block.
 #
-# The only permitted legacy input is the single sign-free block SD PBC-v1 already froze and audited
-# (sample_size_plan.standard_deviation). No sign, mean, or direction is read from any C43 artifact.
+# The only permitted legacy input is PBC-v1's frozen sign-free residual-SD upper bound
+# (sample_size_plan.standard_deviation / .variance). It is NOT a block SD and NOT measured on
+# 9-cell blocks: per PREREGISTRATION_FRESH_CROSSED_DIRECT_EDGE_REPLICATION.md Sec 3, it is the
+# pooled within-stratum residual SD of the STOPPED 120-BLOCK DEVELOPMENT role (0.301741, df=106) --
+# a variance source only, well upstream of and much smaller than the 384-block replication cohort
+# -- carried through its one-sided 95% upper bound (inflation factor 1.12846). See
+# `LEGACY_RESIDUAL_SD_PROVENANCE` below. Because this is an upper bound on the residual SD, every
+# block-count projection built on it is CONSERVATIVE for Psi (it can only overstate blocks needed,
+# never understate). No sign, mean, or direction is read from any C43 artifact.
 #
-# rho -- the fraction of that 9-cell block variance which is gene-level (irreducible by adding
-# cells) -- is NOT identifiable from anything committed: the 3,456 per-cell rows behind C43 were
-# gitignored at source. Every projection below is therefore a BAND over rho in [0, 1], never a
-# point, and the artifact records that explicitly.
+# rho -- the fraction of that block variance which is gene-level (irreducible by adding cells) --
+# is NOT identifiable from anything committed: the 3,456 per-cell rows behind C43 were gitignored
+# at source. Every projection below is therefore a BAND over rho in [0, 1], never a point, and the
+# artifact records that explicitly.
 
-LEGACY_BLOCK_SD_9CELL = 0.340503          # PBC-v1 frozen sign-free legacy input
-LEGACY_BLOCK_VARIANCE_9CELL = 0.115942293009
+LEGACY_RESIDUAL_SD_PROVENANCE = (
+    "studies/splicebert_exon_edge_compatibility/preregistrations/"
+    "PREREGISTRATION_FRESH_CROSSED_DIRECT_EDGE_REPLICATION.md#3-power-and-frozen-sample-size"
+)
+# Pooled within-stratum residual SD of the stopped 120-block DEVELOPMENT role (0.301741, df=106),
+# carried through its one-sided 95% upper bound (inflation factor 1.12846) -- see
+# LEGACY_RESIDUAL_SD_PROVENANCE. NOT a block SD, NOT measured on 9-cell blocks, NOT from the
+# 384-block replication cohort. An upper bound, so projections built on it are conservative for Psi.
+LEGACY_RESIDUAL_SD_UPPER_BOUND_DEV120 = 0.340503
+LEGACY_RESIDUAL_VARIANCE_UPPER_BOUND_DEV120 = 0.115942293009
 SESOI = 0.05
 ALPHA = 0.05
 POWER = 0.80
@@ -518,7 +533,7 @@ def _cell_variance(rho: float) -> float:
     """Cell-level component, pinned by requiring the 3x3 model to reproduce the frozen variance."""
 
     _check_rho(rho)
-    return 2.0 * (1.0 - rho) * LEGACY_BLOCK_VARIANCE_9CELL
+    return 2.0 * (1.0 - rho) * LEGACY_RESIDUAL_VARIANCE_UPPER_BOUND_DEV120
 
 
 def _check_rho(rho: float) -> None:
@@ -529,13 +544,38 @@ def _check_rho(rho: float) -> None:
 def var_psi(matched: int, mismatched: int, rho: float) -> float:
     """Block variance of Psi = mean(matched cells) - mean(mismatched cells)."""
 
-    return rho * LEGACY_BLOCK_VARIANCE_9CELL + _cell_variance(rho) * (1.0 / matched + 1.0 / mismatched)
+    return rho * LEGACY_RESIDUAL_VARIANCE_UPPER_BOUND_DEV120 + _cell_variance(rho) * (
+        1.0 / matched + 1.0 / mismatched
+    )
 
 
 def var_direction(delta_cells: int, matched: int, rho: float) -> float:
-    """Block variance of a directional endpoint M_delta = mean(delta cells) - mean(matched cells)."""
+    """Block variance of a directional endpoint M_delta = mean(delta cells) - mean(matched cells).
 
-    return rho * LEGACY_BLOCK_VARIANCE_9CELL + _cell_variance(rho) * (1.0 / delta_cells + 1.0 / matched)
+    Two assumptions are baked into this formula that the 3x3 Psi/M+/M- decomposition does not need,
+    and one of them is FALSE for the rotated 2x2 lattice specifically:
+
+    (i) the gene-level component of M_delta is assumed equal to Psi's -- both use the same
+    ``rho * LEGACY_RESIDUAL_VARIANCE_UPPER_BOUND_DEV120`` term;
+    (ii) within-block cell deviations are assumed exchangeable across the matched/mismatched/delta
+    groupings.
+
+    Under a donor-module/acceptor-module random-effects DGP, module terms cancel exactly in the 3x3
+    Psi, the 2x2 Psi, and the 3x3 M+/M- -- but NOT in the 2x2 M_delta: it is one off-diagonal cell
+    minus the mean of two diagonal cells, and carries an uncancelled module component
+    ``(u_a - u_b)/2 + (v_b - v_a)/2``. Simulation (400k blocks, sigma_donor=0.30,
+    sigma_acceptor=0.25, sigma_cell=0.20, sigma_block=0.10) gives this formula's model value
+    0.060149 against a simulated truth of 0.136010 for the 2x2 M_delta variance -- a 2.3x
+    understatement, with the gap equal to exactly ``(sigma_u**2 + sigma_v**2) / 2``. That module
+    variance is structurally invisible to a 3x3-only design (it contributes exactly zero there), so
+    it cannot be recovered from anything in this record. This function therefore returns a LOWER
+    BOUND on the true 2x2 M_delta variance, never a calibrated estimate -- see
+    ``power_projection``'s ``estimate_class`` / ``lower_bound_reason`` in its ``direction`` block.
+    """
+
+    return rho * LEGACY_RESIDUAL_VARIANCE_UPPER_BOUND_DEV120 + _cell_variance(rho) * (
+        1.0 / delta_cells + 1.0 / matched
+    )
 
 
 def mde80(variance: float, n_blocks: int) -> float:
@@ -552,6 +592,40 @@ def blocks_for_sesoi(variance: float) -> int:
     import math
 
     return math.ceil(_Z * _Z * variance / (SESOI ** 2))
+
+
+# A design calibrates the 2x2 M_delta module term (see var_direction's docstring) only when it
+# draws from every donor phase and every acceptor phase at each delta -- i.e. only the full 3x3
+# lattice (delta_cells=3). Anything with fewer cells per delta (the rotated 2x2, delta_cells=1)
+# leaves that module component uncancelled, so its blocks-needed figure is a floor, not a point.
+_CALIBRATED_MIN_DELTA_CELLS = 3
+
+
+def _direction_block(dir_best: float, dir_worst: float, delta_cells: int, matched: int, verdict_fn) -> dict:
+    """The ``direction`` (M_delta) sub-block of `power_projection`, with A2's honesty fields.
+
+    ``blocks_needed_floor`` (not ``blocks_needed_worst_case``, unlike the sibling ``psi`` block) is
+    named for what it is: per `var_direction`'s docstring, the 2x2 lattice's directional variance is
+    a lower bound, so this count is a floor on blocks needed, not a calibrated point.
+    """
+
+    payload = {
+        "mde80_best": dir_best,
+        "mde80_worst": dir_worst,
+        "verdict": verdict_fn(dir_best, dir_worst),
+        "blocks_needed_floor": blocks_for_sesoi(var_direction(delta_cells, matched, 0.0)),
+        "estimate_class": (
+            "calibrated" if delta_cells >= _CALIBRATED_MIN_DELTA_CELLS else "lower_bound_only"
+        ),
+    }
+    if delta_cells < _CALIBRATED_MIN_DELTA_CELLS:
+        payload["lower_bound_reason"] = (
+            "this lattice has fewer than 3 cells per delta class, so the M_delta variance formula "
+            "omits the uncancelled donor/acceptor module component, (u_a-u_b)/2 + (v_b-v_a)/2, that "
+            "a full 3x3 design cancels; simulation shows a ~2.3x understatement for the rotated 2x2 "
+            "-- see var_direction's docstring"
+        )
+    return payload
 
 
 def power_projection(n_blocks: int, *, lattice: str = "rotated_two_by_two") -> dict:
@@ -595,8 +669,13 @@ def power_projection(n_blocks: int, *, lattice: str = "rotated_two_by_two") -> d
         "alpha": ALPHA,
         "power": POWER,
         "sesoi": SESOI,
-        "legacy_variance_source": "PBC-v1 composition_balanced_cohort_v1.json sample_size_plan",
-        "legacy_block_sd_9cell": LEGACY_BLOCK_SD_9CELL,
+        "legacy_variance_source": (
+            f"{LEGACY_RESIDUAL_SD_PROVENANCE} (pooled within-stratum residual SD of the stopped "
+            "120-block development role, its one-sided 95% upper bound; this number is also "
+            "carried, unexplained, in the PBC-v1 certificate's sample_size_plan, which records the "
+            "value but not its meaning or its development-role source)"
+        ),
+        "legacy_residual_sd_upper_bound_dev120": LEGACY_RESIDUAL_SD_UPPER_BOUND_DEV120,
         "rho_identifiable": False,
         "rho_unidentifiable_reason": (
             "the 3,456 per-cell rows behind C43 were gitignored at source, so the gene-level vs "
@@ -610,14 +689,7 @@ def power_projection(n_blocks: int, *, lattice: str = "rotated_two_by_two") -> d
             "verdict": _verdict(psi_best, psi_worst),
             "blocks_needed_worst_case": blocks_for_sesoi(var_psi(matched, mismatched, 0.0)),
         },
-        "direction": {
-            "mde80_best": dir_best,
-            "mde80_worst": dir_worst,
-            "verdict": _verdict(dir_best, dir_worst),
-            "blocks_needed_worst_case": blocks_for_sesoi(
-                var_direction(delta_cells, matched, 0.0)
-            ),
-        },
+        "direction": _direction_block(dir_best, dir_worst, delta_cells, matched, _verdict),
         "n3": {
             "status": "unprojectable_pending_dose_calibration",
             "reason": (

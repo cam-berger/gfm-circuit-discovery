@@ -8,8 +8,13 @@ Three tests here are the load-bearing ones, and each fails against the implement
 * `test_hall_obstruction_is_invisible_to_counting_but_caught_by_flow` -- the entire justification
   for the max-flow layer. Per-slot counting returns PASS on that input.
 * `test_three_by_three_calibration_is_exact_for_every_rho` -- an exact arithmetic anchor on the
-  variance decomposition. It fails immediately if the cell term is written 1/k instead of
-  (1/m + 1/u).
+  variance decomposition, but narrower than its name suggests -- see its own docstring (a review
+  defect: it does not distinguish `1/k` from `(1/m + 1/u)` the way it once claimed to).
+
+A few other tests here are near-vacuous -- forced by construction or a drift tripwire rather than
+an independent check. They are kept (deleting a check silently is worse than a weak one) but each
+says so in its own docstring: `test_every_phase_slot_is_demanded_by_two_thirds_of_blocks` and
+`test_projection_reports_rho_and_cross_lineage_as_unidentifiable`.
 """
 
 from __future__ import annotations
@@ -20,7 +25,7 @@ from pathlib import Path
 import pytest
 
 from gfmcd.splicing.pbc_v2_capacity import (
-    LEGACY_BLOCK_VARIANCE_9CELL,
+    LEGACY_RESIDUAL_VARIANCE_UPPER_BOUND_DEV120,
     PAIR_TYPES,
     SESOI,
     allocate_blocks,
@@ -59,6 +64,14 @@ def test_allocate_blocks_is_exact_for_counts_not_divisible_by_three():
 
 
 def test_every_phase_slot_is_demanded_by_two_thirds_of_blocks():
+    """FORCED BY CONSTRUCTION, not an independent check on the real pool.
+
+    With three equal-weight pair types, each phase appears in exactly two of them, so
+    `sum(donor_phase_p for p in 0,1,2) == 2*n_blocks` follows algebraically from `PAIR_TYPES` and
+    `allocate_blocks` summing to `n_blocks` -- it cannot fail for any allocation respecting those
+    two facts. Kept as a documented restatement of the design's own arithmetic, not as evidence
+    the design (or its implementation) is correct.
+    """
     # Each phase appears in exactly two of the three pair types.
     for n_blocks in (600, 729, 819, 909):
         demands = rotated_demands(n_blocks)
@@ -112,20 +125,33 @@ def test_hall_obstruction_is_invisible_to_counting_but_caught_by_flow():
 
     Per-slot counting passes (10 >= 6 for each). The pair is jointly infeasible (12 > 10). This is
     the input that justifies modelling the assignment exactly instead of counting.
+
+    A third, NON-violating slot with its own five private genes is included specifically so
+    `min_cut_gene_count` is tested for the property it actually publishes: with only the two
+    violating slots present, `len(sink_side genes)` and "every gene in the graph" are the same
+    number (10), so a buggy implementation returning the latter would pass by coincidence. With a
+    third slot's disjoint, non-tight genes also in the graph (15 total), that coincidence is gone:
+    the correct answer is still 10 (only the violating pair's own union), never 15.
     """
 
     shared = {f"g{i}" for i in range(10)}
-    slot_sets = {"donor_phase_0": set(shared), "donor_phase_1": set(shared)}
-    demands = {"donor_phase_0": 6, "donor_phase_1": 6}
+    private = {f"p{i}" for i in range(5)}
+    slot_sets = {
+        "donor_phase_0": set(shared),
+        "donor_phase_1": set(shared),
+        "acceptor_phase_0": set(private),
+    }
+    demands = {"donor_phase_0": 6, "donor_phase_1": 6, "acceptor_phase_0": 2}
 
     counting = necessary_counts(slot_sets, demands)
     assert counting["entries"]["donor_phase_0"]["passed"] is True
     assert counting["entries"]["donor_phase_1"]["passed"] is True
+    assert counting["entries"]["acceptor_phase_0"]["passed"] is True
 
     exact = feasibility(slot_sets, demands)
     assert exact["feasible"] is False
     assert set(exact["min_cut_slots"]) == {"donor_phase_0", "donor_phase_1"}
-    assert exact["min_cut_gene_count"] == 10
+    assert exact["min_cut_gene_count"] == 10, "must be the violating pair's own union, not all 15 genes"
     assert exact["min_cut_demand"] == 12
     assert exact["shortfall"] == 2
 
@@ -157,15 +183,30 @@ def test_capacity_margin_definition_is_available_minus_demand_over_available():
 
 
 def test_three_by_three_calibration_is_exact_for_every_rho():
-    """Exact arithmetic anchor. Fails at once if the cell term is 1/k rather than (1/m + 1/u)."""
+    """Exact arithmetic anchor -- but narrower than it looks (a corrected review defect).
+
+    This pins that `var_psi(3, 6, rho)` reproduces the frozen
+    `LEGACY_RESIDUAL_VARIANCE_UPPER_BOUND_DEV120` for every rho -- i.e. it pins the PRODUCT of
+    `_cell_variance(rho)` and the matched/mismatched cell term evaluated at m=3, u=6. It does NOT
+    distinguish `(1/m + 1/u)` from `1/k` the way an earlier version of this docstring claimed:
+    writing the cell term as `1/k` (k=9) together with a correspondingly rescaled
+    `_cell_variance = 9*(1-rho)*V9` (instead of `2*(1-rho)*V9`) reproduces this exact same identity
+    at m=3, u=6 -- both give a cell term of `(1-rho)*V9` there -- so this test alone would not catch
+    that substitution. The 2x2 value that actually depends on `(1/m + 1/u)` vs `1/k` is pinned by
+    `test_rotated_lattice_loses_precision_relative_to_the_three_by_three` below -- which restates
+    the model's own arithmetic (it computes its expected value the same way the implementation
+    does) rather than anchoring against an externally, independently sourced number.
+    """
 
     for rho in (0.0, 0.1, 0.25, 0.5, 0.75, 0.9, 1.0):
-        assert var_psi(3, 6, rho) == pytest.approx(LEGACY_BLOCK_VARIANCE_9CELL, rel=1e-12)
+        assert var_psi(3, 6, rho) == pytest.approx(
+            LEGACY_RESIDUAL_VARIANCE_UPPER_BOUND_DEV120, rel=1e-12
+        )
 
 
 def test_rotated_lattice_loses_precision_relative_to_the_three_by_three():
     # At rho=0 the 2x2 Psi variance is exactly twice the frozen 9-cell variance.
-    assert var_psi(2, 2, 0.0) == pytest.approx(2.0 * LEGACY_BLOCK_VARIANCE_9CELL)
+    assert var_psi(2, 2, 0.0) == pytest.approx(2.0 * LEGACY_RESIDUAL_VARIANCE_UPPER_BOUND_DEV120)
     # At rho=1 all variance is gene-level, so cell count cannot matter.
     assert var_psi(2, 2, 1.0) == pytest.approx(var_psi(3, 6, 1.0))
     # Directional endpoints degrade further: 1 cell per delta instead of 3.
@@ -185,7 +226,48 @@ def test_directional_endpoints_are_not_powered_within_the_capacity_ceiling():
     assert power_projection(909)["direction"]["verdict"] == "conditional_on_rho"
 
 
+def test_direction_block_is_a_floor_only_for_the_rotated_two_by_two():
+    """A2: the rotated 2x2's M_delta blocks-needed figure is a floor, not a calibrated estimate.
+
+    `var_direction`'s uncancelled module term (see its docstring) is structurally invisible to any
+    lattice with fewer than 3 cells per delta class -- exactly the rotated 2x2 (1 cell per delta).
+    The full 3x3 (3 cells per delta) draws from every donor and acceptor phase at each delta, so
+    the module term cancels there and the estimate is calibrated.
+    """
+    rotated = power_projection(909, lattice="rotated_two_by_two")["direction"]
+    assert rotated["estimate_class"] == "lower_bound_only"
+    assert "lower_bound_reason" in rotated
+    assert "module" in rotated["lower_bound_reason"]
+    assert "blocks_needed_floor" in rotated
+    assert "blocks_needed_worst_case" not in rotated
+
+    full = power_projection(909, lattice="three_by_three")["direction"]
+    assert full["estimate_class"] == "calibrated"
+    assert "lower_bound_reason" not in full
+    assert "blocks_needed_floor" in full
+
+
+def test_psi_block_keeps_blocks_needed_worst_case_unrenamed():
+    """Only the `direction` block's key was renamed to `blocks_needed_floor` (A2); `psi` has no
+    uncancelled-module problem (module terms cancel in the 3x3 and the 2x2 Psi alike), so its key
+    stays `blocks_needed_worst_case`.
+    """
+    psi = power_projection(909)["psi"]
+    assert "blocks_needed_worst_case" in psi
+    assert "estimate_class" not in psi
+
+
 def test_projection_reports_rho_and_cross_lineage_as_unidentifiable():
+    """DRIFT TRIPWIRE, not a measurement of anything.
+
+    `rho_identifiable` and `cross_lineage["projectable"]` are hard-coded `False` literals in
+    `power_projection` with no computed condition behind them (there is no rho estimate or
+    cross-lineage variance anywhere in this module to be identifiable or not). This test only
+    catches an accidental flip of one of those literals during a refactor; it is not evidence that
+    rho actually is unidentifiable or that cross-lineage actually is unprojectable -- those are
+    modelling facts recorded in `rho_unidentifiable_reason` / `cross_lineage["reason"]`, not
+    something this assertion establishes.
+    """
     projection = power_projection(909)
     assert projection["rho_identifiable"] is False
     assert projection["cross_lineage"]["projectable"] is False

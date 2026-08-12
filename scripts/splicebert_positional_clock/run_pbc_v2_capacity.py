@@ -46,6 +46,7 @@ sys.path.insert(0, str(REPO / "src"))
 from gfmcd.artifact_guard import guard_output_path  # noqa: E402
 from gfmcd.provenance import ExperimentManifest, file_record  # noqa: E402
 from gfmcd.splicing.pbc_v2_capacity import (  # noqa: E402
+    LEGACY_RESIDUAL_VARIANCE_UPPER_BOUND_DEV120,
     SLOT_ORDER,
     allocate_blocks,
     feasibility,
@@ -66,7 +67,7 @@ from gfmcd.splicing.positional_boundary_coherence import (  # noqa: E402
 # Fixed design constants -- these are the brief's numbers, not tunables discovered at run time.
 # ---------------------------------------------------------------------------------------------
 
-SCHEMA = "gfmcd.splicebert_positional_clock.pbc_v2_capacity_ladder.v1"
+SCHEMA = "gfmcd.splicebert_positional_clock.pbc_v2_capacity_ladder.v2"
 EXPERIMENT_ID = "splicebert-positional-clock:pbc-v2-capacity-ladder-v1"
 
 LADDER: tuple[int, ...] = (600, 660, 729, 780, 819, 864, 909)
@@ -92,7 +93,8 @@ DEFAULT_CERTIFICATE_PATH = (
     REPO / "results/splicebert_positional_boundary_coherence/development/composition_balanced_cohort_v1.json"
 )
 # `--out` has no default (see `parse_args`); the canonical construction-stage path is
-# results/splicebert_positional_clock/development/pbc_v2_capacity_ladder_v1.json.
+# results/splicebert_positional_clock/development/pbc_v2_capacity_ladder_v2.json (v1 is
+# superseded -- see results/splicebert_positional_clock/superseded/PBC_V2_CAPACITY_LADDER_V1.SUPERSEDED.md).
 
 
 # ---------------------------------------------------------------------------------------------
@@ -109,23 +111,57 @@ def _serialize_allocation(allocation: Mapping[tuple[int, int], int]) -> list[dic
     ]
 
 
+_NOT_JOINTLY_REALIZABLE_NOTE = (
+    "available - demand per slot/union, exactly as necessary_counts' own margin column defines it. "
+    "This double-counts genes shared across slots (e.g. the donor_phase_2/acceptor_phase_2 overlap "
+    "in the real pool) -- it is NOT a jointly realizable holdout. See `joint_residuals` for the "
+    "max-flow-exact figure: the genes actually left over once this rung's demand is satisfied."
+)
+
+
 def _entries_with_holdout(counts: dict) -> dict[str, dict]:
-    """``necessary_counts``'s per-slot/union entries, plus the residual holdout column.
+    """``necessary_counts``'s per-slot/union entries, plus the (non-jointly-realizable) residual.
 
     ``margin`` is already defined once, in ``pbc_v2_capacity._capacity_row``, and is not redefined
-    here. The residual holdout is a plain integer count -- ``available - demand`` -- so the power /
-    capacity-margin / future-holdout trade-off the brief asks for is visible in the same table as
-    the margin fraction, without touching how margin itself is computed.
+    here. ``residual_unique_genes_per_slot_not_jointly_realizable`` is a plain integer count --
+    ``available - demand`` -- so the power / capacity-margin / future-holdout trade-off the brief
+    asks for is visible in the same table as the margin fraction, without touching how margin
+    itself is computed. Per its own name (and `_NOT_JOINTLY_REALIZABLE_NOTE`, carried alongside it
+    in the row this feeds), it double-counts genes shared across slots and must not be read as a
+    jointly buildable holdout -- that figure is `joint_residuals`.
     """
 
     entries: dict[str, dict] = {}
     for name, entry in counts["entries"].items():
         row = dict(entry)
-        row["residual_holdout_unique_genes"] = int(
+        row["residual_unique_genes_per_slot_not_jointly_realizable"] = int(
             entry["available_unique_genes"] - entry["demand_unique_genes"]
         )
         entries[name] = row
     return entries
+
+
+def _joint_residuals(slot_sets: Mapping[str, set], demands: Mapping[str, int], feas: dict) -> dict:
+    """Genuinely joint (max-flow-exact) leftover-gene figures, replacing the double-counted ones.
+
+    ``feas["max_flow"]`` is the number of genes the exact solver actually spent to satisfy this
+    rung's demand (every gene->source edge has capacity 1, so a gene is used at most once in the
+    flow), so ``|union of the seven real slots| - max_flow`` is the number of genes left unassigned
+    *overall* -- correct even when the rung is infeasible, where the naive available-minus-demand
+    sum undercounts leftovers by exactly the shortfall (unmet demand leaves its genes unspent too).
+
+    The ``{donor_phase_2, acceptor_phase_2}`` pair gets its own two-slot figure --
+    ``|union of the pair| - (demand_d2 + demand_a2)`` -- because that pair is this pool's tightest
+    real Hall-type obstruction (see `feasibility()`'s `min_cut_slots` for N in [660, 864]).
+    """
+
+    all_union = set().union(*(slot_sets[slot] for slot in SLOT_ORDER))
+    pair_union = slot_sets["donor_phase_2"] | slot_sets["acceptor_phase_2"]
+    pair_demand = int(demands["donor_phase_2"]) + int(demands["acceptor_phase_2"])
+    return {
+        "unassigned_overall": len(all_union) - int(feas["max_flow"]),
+        "donor_phase_2_acceptor_phase_2_pair": len(pair_union) - pair_demand,
+    }
 
 
 def _rung_row(
@@ -136,7 +172,7 @@ def _rung_row(
     pair_weights: tuple[int, ...],
     lattice: str,
 ) -> dict:
-    """One ladder row: allocation, demand, necessary counts (+ holdout), exact feasibility, power."""
+    """One ladder row: allocation, demand, necessary counts (+ residuals), exact feasibility, power."""
 
     allocation = allocate_blocks(n_blocks, pair_weights=pair_weights)
     demands = rotated_demands(n_blocks, pair_weights=pair_weights)
@@ -147,6 +183,7 @@ def _rung_row(
     feas = feasibility(slot_sets, real_demands)
     proj = power_projection(n_blocks, lattice=lattice)
     psi_verdict = proj["psi"]["verdict"]
+    joint_residuals = _joint_residuals(slot_sets, demands, feas)
 
     margin_threshold_met = all(
         entry["margin"] is not None and entry["margin"] >= margin_threshold
@@ -164,7 +201,9 @@ def _rung_row(
             "entries": entries,
             "passed": counts["passed"],
             "failed_constraints": counts["failed_constraints"],
+            "residual_unique_genes_per_slot_not_jointly_realizable_note": _NOT_JOINTLY_REALIZABLE_NOTE,
         },
+        "joint_residuals": joint_residuals,
         "feasibility": feas,
         "power_projection": proj,
         "psi_verdict": psi_verdict,
@@ -196,15 +235,22 @@ def _no_feasible_rung_reason(rows: list[dict], *, margin_threshold: float) -> st
     if not reasons:
         feasible_max = max(feasible_rows, key=lambda row: row["n_blocks"])
         powered_min = min(powered_rows, key=lambda row: row["n_blocks"])
-        feasible_max_ok = feasible_max["feasibility"]["feasible"]
         powered_min_feas = powered_min["feasibility"]
+        if len(margin_rows) == len(rows):
+            margin_clause = f"margin >= {margin_threshold} holds on every evaluated rung"
+        else:
+            margin_ns = sorted(row["n_blocks"] for row in margin_rows)
+            margin_clause = (
+                f"margin >= {margin_threshold} holds on {len(margin_rows)} of {len(rows)} "
+                f"evaluated rungs (N={margin_ns})"
+            )
         reasons.append(
-            "margin, exact feasibility, and the powered_for_every_rho Psi verdict are each "
-            "individually satisfiable on this ladder but never by the same rung: the largest "
-            f"exactly-feasible rung is N={feasible_max['n_blocks']} (feasible={feasible_max_ok}, "
-            f"Psi verdict {feasible_max['psi_verdict']!r}); the smallest rung with a "
-            f"powered_for_every_rho Psi verdict is N={powered_min['n_blocks']} "
-            f"(exact feasibility {'passes' if powered_min_feas['feasible'] else 'fails'}, "
+            f"{margin_clause}, but exact feasibility and the powered_for_every_rho Psi verdict "
+            "are each individually satisfiable on this ladder and never by the same rung: the "
+            f"largest exactly-feasible rung is N={feasible_max['n_blocks']} (Psi verdict "
+            f"{feasible_max['psi_verdict']!r}); the smallest rung with a powered_for_every_rho "
+            f"Psi verdict is N={powered_min['n_blocks']} (exact feasibility "
+            f"{'passes' if powered_min_feas['feasible'] else 'fails'}, "
             f"shortfall={powered_min_feas['shortfall']})"
         )
     return "; ".join(reasons)
@@ -285,6 +331,15 @@ def _public_filters_view(filters: Mapping) -> dict:
         "acceptor_pos": int(filters["acceptor_pos"]),
         "donor_window": list(filters["donor_window"]),
         "acceptor_window": list(filters["acceptor_window"]),
+        "blacklist_and_forbidden_chroms_note": (
+            "both are correctly empty here, not omissions, despite the certificate recording "
+            "5,998 blacklist members and 5 forbidden chromosomes: the certificate's blacklist is "
+            "built from unversioned gene roots but compared here against this census's versioned "
+            "gene_id, so it can never match -- a dead filter by construction, reproduced on "
+            "purpose (see slot_gene_sets' docstring); and the census's own allowed_chromosomes "
+            "(21 entries) already excludes every forbidden chromosome at build time, so restating "
+            "them here would be redundant, not corrective, over this input"
+        ),
     }
 
 
@@ -392,6 +447,21 @@ def _filters_from_certificate(cohort: dict) -> dict:
 # ---------------------------------------------------------------------------------------------
 
 
+def _repo_relative_or_absolute(path: Path, repo: Path) -> str:
+    """Repo-relative string when `path` is under `repo`, else the absolute path unchanged.
+
+    Used for provenance receipts of committed inputs (e.g. the PBC-v1 certificate) so a receipt
+    never bakes in a worktree-local absolute path (`.claude/worktrees/<name>/...`) that evaporates
+    the moment the branch merges. Inputs that genuinely live outside the repo (the 2.34 GB census)
+    are left absolute, since there is no repo-relative path for them to begin with.
+    """
+
+    try:
+        return str(path.relative_to(repo))
+    except ValueError:
+        return str(path)
+
+
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument(
@@ -492,6 +562,21 @@ def run_real(args: argparse.Namespace) -> tuple[Path, Path]:
     certificate_path = Path(args.certificate).expanduser().resolve()
 
     cohort = json.loads(certificate_path.read_text())
+
+    # The certificate's sample_size_plan carries LEGACY_RESIDUAL_VARIANCE_UPPER_BOUND_DEV120's
+    # value but not its meaning (see that constant's docstring in pbc_v2_capacity.py). Nothing
+    # previously checked that the two still agree; assert it and fail loudly on drift rather than
+    # silently projecting power off a variance the certificate no longer actually carries.
+    observed_variance = cohort["sample_size_plan"]["variance"]
+    if observed_variance != LEGACY_RESIDUAL_VARIANCE_UPPER_BOUND_DEV120:
+        raise SystemExit(
+            "FATAL: PBC-v1 certificate sample_size_plan.variance has drifted from the frozen "
+            f"legacy input LEGACY_RESIDUAL_VARIANCE_UPPER_BOUND_DEV120="
+            f"{LEGACY_RESIDUAL_VARIANCE_UPPER_BOUND_DEV120}: found {observed_variance} at "
+            f"{certificate_path}. Refusing to compute a capacity/power ladder against a variance "
+            "source that no longer matches its pinned provenance; no artifact was written."
+        )
+
     filters = _filters_from_certificate(cohort)
 
     # Stream the 2.34 GB census exactly once; every rung below reuses these same slot sets.
@@ -510,8 +595,12 @@ def run_real(args: argparse.Namespace) -> tuple[Path, Path]:
 
     census_receipt = file_record(census_path)
     census_receipt["mode"] = "file"
+    # census_path genuinely lives outside this repo, so it stays absolute; certificate_path lives
+    # inside it, so its receipt should not bake in a worktree-local absolute path that evaporates
+    # on merge (e.g. `.claude/worktrees/<name>/...`) -- record it repo-relative instead.
     certificate_receipt = file_record(certificate_path)
     certificate_receipt["mode"] = "file"
+    certificate_receipt["path"] = _repo_relative_or_absolute(certificate_path, REPO)
 
     artifact = assemble_artifact(
         mode="real",
