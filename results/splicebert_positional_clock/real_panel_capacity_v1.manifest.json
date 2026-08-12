@@ -1,0 +1,73 @@
+{
+  "command": [
+    "scripts/splicebert_positional_clock/run_real_panel_capacity.py",
+    "--out",
+    "results/splicebert_positional_clock/real_panel_capacity_v1.json"
+  ],
+  "config": {
+    "checkpoint_loaded": null,
+    "real_panel_constructible_at_sesoi": false,
+    "stage": "construction"
+  },
+  "created_at_utc": "2026-08-12T01:21:55.437030+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 11013,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert-positional-clock:real-panel-capacity-v1",
+  "git_commit": "cee6e7be5102f2a2fae965781647c72d82648a71",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "mode": "file",
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/results/splicebert_positional_boundary_coherence/development/candidate_census_v1.json",
+      "sha256": "9be356ac26ff18aa750b0552684d4a94fa6b8963fee01666608b38cc7de25614",
+      "size_bytes": 2343604295
+    },
+    {
+      "mode": "file",
+      "path": "results/splicebert_positional_boundary_coherence/development/composition_balanced_cohort_v1.json",
+      "sha256": "ccc723bbe1fac8054dad4f9c4d2990a85170bf43c3b056bf9ea1dd0ca55a02c9",
+      "size_bytes": 9455
+    },
+    {
+      "mode": "file",
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cells.json",
+      "sha256": "428ad5d6b357bfba287fcfe3e358b00ab91ddcd748118b83b60b626593c440bf",
+      "size_bytes": 54229415
+    },
+    {
+      "mode": "file",
+      "path": "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_analysis.json",
+      "sha256": "fb7a357ef6bcdee21780894f4f344bdd379d6124ba72df0275d6d27e28604b07",
+      "size_bytes": 585479
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/pbc-v2-capacity/scripts/splicebert_positional_clock/run_real_panel_capacity.py",
+      "sha256": "abb66783670945e50e8b92b9a01b468c1694fb31479eaaecd3e143894e63970a",
+      "size_bytes": 47972
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/pbc-v2-capacity/src/gfmcd/splicing/pbc_v2_capacity.py",
+      "sha256": "1da06676c8ce67380f1beb831a5e4d1762cb5e56d463a987bcc1fb5f6f6ae40c",
+      "size_bytes": 37430
+    }
+  ],
+  "notes": [
+    "Model-free construction-stage real-panel capacity/power record: no checkpoint loaded, no cohort selected, no block assembled, no cell materialised.",
+    "Slot gene sets were verified against the seven certificate gene_ids_sha256 hashes before B2/B5 were evaluated (hard gate, not a log line).",
+    "The cells file's sha256 was verified against both a pin and crossed_direct_edge_replication_analysis.json's cells_result_sha256 before any B1 row was read (hard gate).",
+    "Every B1-B5 quantity was asserted against the task-6 brief's audited literals before this artifact was written; any mismatch halts the run with NEEDS_CONTEXT."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/pbc-v2-capacity/results/splicebert_positional_clock/real_panel_capacity_v1.json",
+      "sha256": "39bfd21961c06bb6f01b1ddb2819ebadd54179ebaeef9db4df1b41b280597944",
+      "size_bytes": 9446
+    }
+  ],
+  "seeds": {},
+  "status": "BUILT"
+}

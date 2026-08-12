@@ -1,0 +1,165 @@
+{
+  "analysis_receipt": {
+    "mode": "file",
+    "path": "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_analysis.json",
+    "sha256": "fb7a357ef6bcdee21780894f4f344bdd379d6124ba72df0275d6d27e28604b07",
+    "size_bytes": 585479
+  },
+  "b1_measured_variance_components": {
+    "across_block_variance_psi_b": 0.14012168638599368,
+    "block_sd": 0.3743283136312209,
+    "n_blocks": 384,
+    "n_cell_rows": 3456,
+    "pooled_within_block_within_group_df": 2688,
+    "pooled_within_block_within_group_variance": 0.17703982542638141,
+    "rho": 0.368264006833713,
+    "rho_status": {
+      "note": "rho is a point estimate from one cohort, under an exchangeability assumption across cells within a compatibility group that is only approximate (cells differ by phase pair); it is a design diagnostic, not a frozen sizing input",
+      "type": "point_estimate_no_interval"
+    },
+    "sigma_u2": 0.05160177367280297,
+    "sign_free_restriction_note": "this runner never reads, computes, prints, or stores a mean, a sign, or a direction of any C43 endpoint -- only variances, as required by the B1 brief"
+  },
+  "b2_real_panel_ceilings": {
+    "ceiling_with_25pct_assignment_slack": 544,
+    "ceiling_with_25pct_assignment_slack_note": "largest N for which the plain lattice is both exactly max-flow feasible AND leaves >=25% margin on the four phase-0/1 module slots' own union -- verified by the exact solver at every candidate N, not derived by scaling the exact ceiling",
+    "donor_acceptor_phase_intersections": {
+      "0": 1869,
+      "1": 1370,
+      "2": 800
+    },
+    "exact_ceiling": 726,
+    "lattice": "plain_zero_one",
+    "rotated_design_withdrawn_reason": "the rotated 2x2 lattice purchases M+/M- identification (delta orthogonal to donor and acceptor phase, see delta_balance_report) at a cost of 79 blocks of capacity (726 - 647 = 79), while M+/M- is unpowerable on either lattice at the frozen SESOI regardless (see B3) -- so the rotated design is withdrawn in favour of the plain lattice for sizing purposes",
+    "rotated_lattice_ceiling_for_comparison": 647,
+    "slots_demanded_per_block": [
+      "donor_phase_0",
+      "donor_phase_1",
+      "acceptor_phase_0",
+      "acceptor_phase_1",
+      "scaffold"
+    ],
+    "union_of_four_phase01_module_slots": 2904
+  },
+  "b3_headline": "Psi needs 718 blocks against a usable ceiling of ~544 and an absolute ceiling of 726",
+  "b3_power_at_measured_components": {
+    "m_pm_full_3x3": {
+      "blocks_needed": 533,
+      "delta_cells": 3,
+      "estimate_class": "calibrated",
+      "matched_cells": 3
+    },
+    "m_pm_plain_2x2": {
+      "blocks_needed": 996,
+      "delta_cells": 1,
+      "estimate_class": "lower_bound_only",
+      "lower_bound_reason": "this lattice has fewer than 3 cells per delta class, so the M_delta variance formula omits the uncancelled donor/acceptor module component -- see A2 / gfmcd.splicing.pbc_v2_capacity.var_direction's docstring; this is a floor, not a calibrated point",
+      "matched_cells": 2
+    },
+    "psi_full_3x3": {
+      "blocks_needed": 440,
+      "matched_cells": 3,
+      "mismatched_cells": 6
+    },
+    "psi_plain_2x2": {
+      "blocks_needed": 718,
+      "matched_cells": 2,
+      "mismatched_cells": 2
+    },
+    "rho_used": 0.368264006833713,
+    "v9_used": 0.14012168638599368
+  },
+  "b4_cross_lineage_reframe": {
+    "delta_psi_blocks_needed": "not emitted -- the cross-lineage covariance is unknown (see each row's reason); a block count here would be invented",
+    "lattice_used_for_variance": "plain_zero_one",
+    "primary_endpoint_note": "single-checkpoint Psi is NOT the primary endpoint of the downstream study; Delta-Psi = Psi_L2 - Psi_L1 on the same blocks is, and it is paired, so the gene-level component largely cancels for a high enough same-block correlation",
+    "replicate_caveat": "this figure sizes the BLOCK axis only. The replicate for a corpus intervention is the training seed, not the block; a block-clustered interval on Delta-Psi with one L1 and one L2 seed is an interval for that lineage pair, not for the intervention",
+    "required_same_block_correlation": {
+      "544": {
+        "n_blocks": 544,
+        "reason": "the cross-lineage (same-block L1/L2) covariance must be estimated by a seed-level pilot; it is NOT C43's within-block rho (B1) and is not estimable from anything committed to this record",
+        "required_same_block_correlation_min": 0.6210813433510266,
+        "status": "requires_pilot"
+      },
+      "726": {
+        "n_blocks": 726,
+        "reason": "the cross-lineage (same-block L1/L2) covariance must be estimated by a seed-level pilot; it is NOT C43's within-block rho (B1) and is not estimable from anything committed to this record",
+        "required_same_block_correlation_min": 0.4943107633692009,
+        "status": "requires_pilot"
+      }
+    },
+    "var_psi_note": "(2 - rho) * V9 for the plain {0,1} lattice (m=2 matched, u=2 mismatched). NOT C43's raw V9, which is the 3x3 value and would understate the required correlation",
+    "var_psi_per_block_used": 0.22864159909918438
+  },
+  "b5_filter_relaxation_closed": {
+    "annotation_disagreement_note": "what DOES appear at scale is annotation disagreement BETWEEN SOURCES (comprehensive_coordinate_transcript_phase_conflict, basic_comprehensive_phase_conflict, basic_coordinate_transcript_phase_conflict) -- a GTF-consistency matter, not biology",
+    "annotation_disagreement_reason_counts": {
+      "basic_comprehensive_phase_conflict": 6325,
+      "basic_coordinate_transcript_phase_conflict": 3529,
+      "comprehensive_coordinate_transcript_phase_conflict": 9778
+    },
+    "census_exclusions_total": 282057,
+    "load_bearing_note": "each of the three largest sole-reason exclusions is load-bearing for a panel that reads annotated register -- freshness_registry_gene (freshness), module:ValueError:native donor lacks the frozen health-window support (phase-annotation safety), and comprehensive_local_coding_register_conflict (the geometry that makes C43 comparable) -- so none is available to lift supply by relaxing it",
+    "multi_reason_exclusions": 28791,
+    "sole_reason_counts": {
+      "comprehensive_local_coding_register_conflict": 81958,
+      "comprehensive_local_gene_conflict": 4432,
+      "duplicate_source_locus:acceptor": 556,
+      "duplicate_source_locus:donor": 1522,
+      "duplicate_source_locus:scaffold": 17946,
+      "freshness_registry_gene": 84998,
+      "module:ValueError:module lacks canonical GT": 739,
+      "module:ValueError:native donor lacks the frozen health-window support": 60353,
+      "module:ValueError:native source motifs do not reconstruct": 3,
+      "scaffold:ValueError:fixed scaffold bridge lacks AG at frozen boundary 437": 104,
+      "scaffold:ValueError:module lacks canonical GT": 654,
+      "scaffold:ValueError:scaffold lacks a complete unambiguous 1,022-nt hg38 window": 1
+    },
+    "upstream_downstream_phase_equal": {
+      "candidates": 65461,
+      "never_an_exclusion_reason": true,
+      "note": "no junction was excluded for donor/acceptor phase inequality; this is DEFINITIONAL (the candidate pool is constructed to require phase equality upstream) and merely UN-CONTRADICTED here, not empirically verified",
+      "occurrences": 130922
+    }
+  },
+  "cells_receipt": {
+    "mode": "file",
+    "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cells.json",
+    "sha256": "428ad5d6b357bfba287fcfe3e358b00ab91ddcd748118b83b60b626593c440bf",
+    "size_bytes": 54229415
+  },
+  "census_receipt": {
+    "mode": "file",
+    "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/results/splicebert_positional_boundary_coherence/development/candidate_census_v1.json",
+    "sha256": "9be356ac26ff18aa750b0552684d4a94fa6b8963fee01666608b38cc7de25614",
+    "size_bytes": 2343604295
+  },
+  "certificate_receipt": {
+    "mode": "file",
+    "path": "results/splicebert_positional_boundary_coherence/development/composition_balanced_cohort_v1.json",
+    "sha256": "ccc723bbe1fac8054dad4f9c4d2990a85170bf43c3b056bf9ea1dd0ca55a02c9",
+    "size_bytes": 9455
+  },
+  "checkpoint_loaded": null,
+  "cohort_selection_attempted": false,
+  "model_execution": false,
+  "purpose": "memorialize the real-panel capacity finding: the authentic-module design cannot be built at the frozen SESOI, using the real gene pool (not a synthetic one) and measured variance components (not the PBC-v1 development-role upper bound)",
+  "real_panel_constructible_at_sesoi": false,
+  "schema": "gfmcd.splicebert_positional_clock.real_panel_capacity.v1",
+  "slot_hash_verification": {
+    "all_verified": true,
+    "per_slot": {
+      "acceptor_phase_0": true,
+      "acceptor_phase_1": true,
+      "acceptor_phase_2": true,
+      "donor_phase_0": true,
+      "donor_phase_1": true,
+      "donor_phase_2": true,
+      "scaffold": true
+    }
+  },
+  "stage": "construction",
+  "study_directory": "results/splicebert_positional_clock/",
+  "study_directory_provisional": true,
+  "study_directory_provisional_note": "the study directory name 'splicebert_positional_clock' is PROVISIONAL and may be renamed before anything freezes; unlike the ladder family's development/ artifacts, this one lives at the study root deliberately -- it exists precisely so a later pivot to a different evaluation design cannot silently supersede this finding"
+}

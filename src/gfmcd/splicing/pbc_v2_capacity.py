@@ -145,6 +145,88 @@ def stream_candidates(path: str | Path) -> Iterator[dict]:
     return _iter_candidate_objects(resolved)
 
 
+# The census's top-level `"exclusions"` array sits AFTER `"candidates"` and uses the same 4-space
+# object-open/close markers (`_CANDIDATE_OPEN` / `_CANDIDATE_CLOSE_LINES` / `_ARRAY_CLOSE_LINES`
+# apply unchanged); only the array-open marker differs, so `_iter_exclusion_objects` mirrors
+# `_iter_candidate_objects` line for line rather than sharing an implementation, to avoid coupling
+# the two streamers' error messages and keep each one independently auditable against the section
+# of the file it actually scopes.
+_EXCLUSIONS_ARRAY_OPEN = '  "exclusions": ['
+
+
+def _iter_exclusion_objects(path: Path) -> Iterator[dict]:
+    """Yield each exclusion dict from the census's `exclusions` array, in file order.
+
+    Bounded-memory, line-oriented streaming -- see `_iter_candidate_objects`'s docstring for why
+    this must track the array's own open/close markers. Every exclusion carries `edge_id`,
+    `gene_id`, and a `reasons` list (one or more reason strings); this streamer does not interpret
+    those fields, only yields the parsed objects.
+    """
+
+    saw_array_open = False
+    saw_array_close = False
+    in_object = False
+    buffer: list[str] = []
+    with open(path, "r", encoding="utf-8") as handle:
+        for raw_line in handle:
+            line = raw_line.rstrip("\n")
+            if not saw_array_open:
+                if line == _EXCLUSIONS_ARRAY_OPEN:
+                    saw_array_open = True
+                continue
+            if in_object:
+                buffer.append(raw_line)
+                if line in _CANDIDATE_CLOSE_LINES:
+                    text = "".join(buffer).strip()
+                    if text.endswith(","):
+                        text = text[:-1]
+                    yield json.loads(text)
+                    buffer = []
+                    in_object = False
+                continue
+            if line == _CANDIDATE_OPEN:
+                in_object = True
+                buffer = [raw_line]
+                continue
+            if line in _ARRAY_CLOSE_LINES:
+                saw_array_close = True
+                break
+            raise ValueError(
+                f"{path}: unexpected line inside the exclusions array (neither an object open "
+                f"nor the array close): {line!r}. The census file's format has drifted from what "
+                "this streamer was written against."
+            )
+
+    if not saw_array_open:
+        raise ValueError(
+            f'{path}: never found the top-level "exclusions": [ array opener. The census file is '
+            "malformed, or is not the candidate_census_v1.json format this module expects."
+        )
+    if in_object:
+        raise ValueError(
+            f"{path}: exclusion stream ended in the middle of an object -- the file is truncated."
+        )
+    if not saw_array_close:
+        raise ValueError(
+            f"{path}: never found the exclusions array's closing ']' -- the file is truncated or "
+            "was not fully written."
+        )
+
+
+def stream_exclusions(path: str | Path) -> Iterator[dict]:
+    """Stream exclusion objects out of the hash-bound PBC census without ever loading it whole.
+
+    Verifies the file's sha256 against the same pin `stream_candidates` checks before any
+    exclusion is yielded. The `exclusions` array sits after `candidates` in the file, so this is
+    an independent full pass, not a continuation of a `stream_candidates` iterator -- the two
+    cannot be interleaved from a single open file handle.
+    """
+
+    resolved = Path(path)
+    _verify_census_checksum(resolved)
+    return _iter_exclusion_objects(resolved)
+
+
 def slot_gene_sets(
     candidates: Iterable[dict],
     *,
