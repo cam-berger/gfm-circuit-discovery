@@ -470,3 +470,52 @@ the exact axis the measurement is meant to detect, and show the measurement resp
 tests show the code runs. Axis-capability tests show the instrument can answer the scientific
 question. A green suite establishes only the former, and three of the seven above were introduced by
 the person most convinced the record was sound.
+
+## 2026-08-12 — closing disposition: what survives, and why the end-to-end case does not
+
+**The two statements that survive**, and the only two this arc licenses:
+
+1. **SpliceBERT genuinely favours donor–acceptor joins whose ANNOTATED registers match.**
+   `Ψ = +0.175 [+0.109, +0.247]` and `+0.25625` on a second draw, reproducing `C43`'s
+   `+0.3901 [+0.3553, +0.4252]` in an independent pipeline and cohort. Boundary: the masked-donor
+   margin under `AG→AC` in CHIMERIC constructs at one geometry — not splice prediction, not
+   spliceosomal recognition.
+
+2. **Attenuating the learned period-3 component degrades that preference, band-specifically and
+   disproportionately, so the component APPEARS NECESSARY.** At dose 0.50 on base: period-3 gives
+   coupling magnitude retention 34.8% with `Ψ` retention 10.7%; power-matched control bands give
+   magnitude 107% with `Ψ` 111%. At the gentler 0.75 dose, coupling magnitude 78% against `Ψ` 62%.
+   **Corrected caveat:** an earlier reading of "coupling 114%, behaviour intact" was a SIGNED-MEAN
+   artifact — the signed mean can rise while magnitudes collapse. General coupling IS degraded at
+   the doses where the effect is largest. The claim rests on band specificity and on `Ψ` falling
+   faster, never on the behaviour being unharmed.
+
+**Why the end-to-end "trainable positional surrogate" case is NOT established.** The intended chain
+was corpus structure → learned positional surrogate → masked-token behaviour. The engineering pilot
+measured the middle term directly, and it does not move:
+
+- every arm-vs-base per-bin phase rotation `< 1.1°` (`< 0.009` nt equivalent), coherence `> 0.998`,
+  band power within `+0.85%`, per-dimension TV `≤ 0.0021`, top-8 dimension overlap `1.000`;
+- **L1 vs L2 `≤ 0.34°`**.
+
+Training moved neither the carrier's amplitude, nor its phase, nor its distribution across
+dimensions. So what the difference-of-differences shows — `L1 − L2` collapsing under period-3
+attenuation, `+0.162 [+0.103, +0.219]` and `+0.130 [+0.074, +0.187]` against `−0.025…+0.018` for
+every control — is that the behaviour DEPENDS on an UNCHANGED coordinate. That is
+**necessary-but-not-sufficient**, and it is not the same thing as a coordinate that training
+re-shapes. **A surrogate that does not move under the manipulation is not a trainable surrogate.**
+
+**And the training story itself inverted once L0 existed.** `Ψ`: L0 `+0.656/+0.732` **>** L1
+`+0.579/+0.604` **>** L2 `+0.387/+0.456` **>** base `+0.256`. `L1 − L0` is NEGATIVE and excludes
+zero in both seeds — the rise above base is GENERIC CONTINUATION, not phase-preservation. What
+survives is `L1 − L2` (`+0.191/+0.148`): residue mod 3 moves `Ψ`, as SUPPRESSION between two edited
+arms that both sit below native. The earlier pilot's headline, which lacked L0, was wrong.
+
+**Claim rows: none.** Neither surviving statement is entered in `CLAIMS.md`. Both are
+base-checkpoint or two-seed engineering readings; the register-preference statement duplicates
+`C43`'s territory and would need its own confirmatory framing; the necessity statement is one
+operator, one cohort, and carries the health caveat above.
+
+**Open, and correctly so:** whether anything is a trainable surrogate for this relation; what
+carries register identity, given designed offsets do not reproduce `Ψ`; and `PPM1`'s paired-`ΔΨ`
+question, which two seeds cannot answer.
