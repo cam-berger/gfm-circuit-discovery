@@ -519,3 +519,51 @@ operator, one cohort, and carries the health caveat above.
 **Open, and correctly so:** whether anything is a trainable surrogate for this relation; what
 carries register identity, given designed offsets do not reproduce `Ψ`; and `PPM1`'s paired-`ΔΨ`
 question, which two seeds cannot answer.
+
+## 2026-08-12 — CORRECTION: this is a dissociation, not a negative closure
+
+The closing disposition above overreached in four places. Recorded as a correction rather than
+edited in place, per this repository's rule that history is not rewritten silently.
+
+**C1 — "the end-to-end case is answered negatively" is WITHDRAWN.** Replaced by:
+
+> The proposed carrier-REMODELING mechanism was not observed in two exploratory continuation runs.
+> The broader end-to-end mechanism remains UNRESOLVED: training may alter how downstream
+> computations read a stable period-3 coordinate.
+
+**C2 — "a surrogate that does not move under the manipulation is not a trainable surrogate" is
+WITHDRAWN, and it was the most serious error.** An unchanged position-embedding carrier rules
+against **rewriting the input period-3 carrier**. It says nothing about learning a different way to
+READ it. Training could change Q/K projections, attention patterns, OV/MLP integration, or
+content–position interactions while leaving the clock itself fixed. None of those were measured.
+The measured object is the input table; the unmeasured object is the reader.
+
+**C3 — "appears necessary" is downgraded.** The decisive period-3 attenuation also reduces coupling
+MAGNITUDE to 34.8%, so necessity is provisional. Licensed wording: the period-3 component
+**band-specifically and disproportionately SUPPORTS** the preference. Control bands at the same dose
+retain magnitude 107% and `Ψ` 111%, which is what makes it band-specific; the disproportion is
+`Ψ` 10.7% against magnitude 34.8%.
+
+**C4 — the difference-of-differences does NOT demonstrate differential carrier use.** L1 and L2
+retain nearly identical fractions of `Ψ` after attenuation (15.8%/16.1% and 17.8%/19.5%). Checked
+arithmetically: with a common retention `r`, the DiD reduces to `(Ψ_L1 − Ψ_L2)_intact × (1 − r)`.
+Seed 1 predicts `0.192 × 0.84 = 0.161` against `+0.162` reported; seed 2 predicts
+`0.148 × 0.81 = 0.120` against `+0.130`. **The DiD is the intact gap times a common collapse
+factor.** It shows the same collapse applied to a larger L1 baseline, not that L1 uses the carrier
+differently.
+
+**C5 — `L1 > L2` is not yet attributable to residue mod 3.** Two training seeds, and L2 carries
+about 5% more edit burden. Report as an **operator-specific exploratory difference**, not as a
+phase-residue effect.
+
+**The corrected headline, and the strongest statement this arc licenses:**
+
+> **SpliceBERT expresses a content-dependent boundary-register preference on a stable period-3
+> positional scaffold. The scaffold supports the preference but does not itself specify register
+> identity.**
+
+Three things have been experimentally separated: the behaviour, the positional support, and the
+register identity. The missing object is now sharply defined — **the content-dependent reader of
+the positional scaffold** — and it is the natural target of the next study.
+
+**Claim rows: still none.** That decision is unchanged and correct.
