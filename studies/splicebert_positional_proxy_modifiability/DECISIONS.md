@@ -314,3 +314,59 @@ route; it was not run on the trained arms.
 (its carrier paragraph is bounded to match); `tests/test_lineage_pretraining.py` (new memorial).
 The artifact `lineage_pilot_v1.json` is **not** edited — it records `period3_band_power` and its
 bins, which is a correct measurement; only the prose reading of it was overstated.
+
+## 2026-08-12 — pilot wording tightened, and a permanent preflight rule
+
+**Three wording corrections, adopted.** The pilot entry above was still overclaiming in three
+places. The licensed summary is now:
+
+> In one exploratory matched lineage pair, phase-preserving continuation exceeded phase-decoupled
+> continuation by `ΔΨ = +0.3446` on a held-out-from-training — but previously examined —
+> development panel. The point difference was primarily associated with an increase under L1;
+> L2 versus base remained unresolved. Total period-3 band power was nearly identical across the
+> trained arms, but carrier phase, internal redistribution, and causal use were not measured.
+
+| was | is |
+|---|---|
+| "demonstrated at pilot strength" | **"observed in one exploratory lineage pair"** — the bootstrap covers evaluation-parent uncertainty, never training-seed variability |
+| "L2 left it at baseline" | **unresolved** — its interval includes zero but also effects above the 0.05 SESOI. Non-detection, not equivalence |
+| "carrier amplitude unchanged" | **"aggregate period-3 band power was similar"** — a scalar sum can conceal per-frequency AND per-dimension redistribution, not only phase rotation |
+
+The third is the subtlest and I had not caught it: withdrawing "the carrier did not change" in favour
+of "amplitude unchanged" was still too strong, because band power is a sum.
+
+**Sequencing decision.** No six-seed confirmation yet. A corrected 2–3-pair ENGINEERING pilot comes
+first, carrying: an **L0 native/no-edit continuation arm** — without it L1's rise could reflect
+generic continuation rather than phase structure; `k ≈ 10` to shrink the edit-size mismatch that
+`k = 1` leaves between arms (reduced, not removed); edit-length and content controls; complex
+Fourier phase and per-dimension amplitude read from the weights; the causal endpoint as a
+DIFFERENCE OF DIFFERENCES, `[Ψ_L1 − Ψ_L2]_intact − [Ψ_L1 − Ψ_L2]_P3-attenuated`, against
+power-matched control bands; `Ω3` only if its own capability preflight passes, and kept separate
+because imposed relocation and trained phase change are different questions; and health gates
+stronger than a flat MLM accuracy, since overall coupling moved substantially under training.
+
+Only if that is capable: freeze a fresh panel, run ≥6 paired seeds (8 safer), with independent audit.
+
+**No claim row.** Not yet, on any of tonight's work.
+
+**The successor decomposition proceeds in parallel**, explicitly exploratory, and must not be mixed
+into the confirmatory family.
+
+## PERMANENT PREFLIGHT RULE — axis capability
+
+Seven defects this session shared one shape: **a measurement that cannot vary along the axis it is
+supposed to detect will read as confirmation.**
+
+- a blacklist filter comparing unversioned IDs against versioned ones — could never fire
+- `gate_designed_register` inferring register from a length delta, against a length-preserving operator
+- `gate_period3`'s expected-phase model, and separately its whole-sequence amplitude measurement, both encoding insertion geometry against a rotation operator
+- `clean_checkout_reexecutable` computing "inputs exist on this machine", the condition under which it is FALSE
+- a leakage screen run on chromosomes where no evaluation gene was at risk, reporting `0 dropped`
+- a spike-in capability control that exercised the estimator but not the causal path it certified
+- period-3 **band power** used to argue about carrier **phase**, when a 90° rotation leaves it unchanged to 1.2e-16
+
+**Rule, binding on every future measurement in this study:** ship a positive transformation along
+the exact axis the measurement is meant to detect, and show the measurement responds to it. Software
+tests show the code runs. Axis-capability tests show the instrument can answer the scientific
+question. A green suite establishes only the former, and three of the seven above were introduced by
+the person most convinced the record was sound.
