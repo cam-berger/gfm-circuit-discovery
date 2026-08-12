@@ -33,12 +33,22 @@ mismatch is fatal) on two corpora that differ in exactly one integer's residue m
 
 ### Read this before reading a number
 
-**The premise this study was opened on is falsified, and this run does not revive it.**
-`DECISIONS.md` (2026-08-12, final) records that the learned period-3 carrier is *necessary* for the
-annotated-phase preference `Ψ` but **does not encode which register is preferred** — relocating the
-carrier does not relocate the preference. So no result here may be read as evidence that SpliceBERT
-uses a trainable *positional surrogate* for a biological relation. The only question this run asks
-is the weaker survivor: **does phase-decoupled continued pretraining change `Ψ` at all, by any
+**The premise this study was opened on is not supported in the form proposed, and this run does not
+revive it.** `DECISIONS.md` (2026-08-12, CORRECTION) records the corrected reading: the learned
+period-3 carrier **band-specifically and disproportionately supports** the annotated-phase
+preference `Ψ`, but **does not encode which register is preferred** — relocating the carrier does
+not relocate the preference.
+
+Two boundaries on that, both load-bearing. *Support* rather than *necessity*: the decisive
+attenuation also cuts coupling MAGNITUDE to 34.8%, so the claim rests on band specificity (control
+bands retain magnitude 107% and `Ψ` 111%) and on `Ψ` falling faster, never on the behaviour being
+unharmed. And an unchanged position-embedding carrier rules against **rewriting the input carrier**,
+not against **learning a different way to read it** — Q/K, attention, OV/MLP and content–position
+interactions were never measured here.
+
+So no result here may be read as evidence that SpliceBERT uses a trainable *positional surrogate*
+for a biological relation; equally, none may be read as ruling one out. The only question this run
+asks is the weaker survivor: **does phase-decoupled continued pretraining change `Ψ` at all, by any
 route?**
 
 **ONE SEED PER ARM. This is not a training-process claim.** The replicate for a corpus intervention
