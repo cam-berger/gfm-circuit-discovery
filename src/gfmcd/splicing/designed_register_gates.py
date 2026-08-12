@@ -41,6 +41,30 @@ because proceeding on an unevaluated gate is exactly how an unaudited construct 
 this is a deliberate, documented default and can be overridden via
 ``evaluate_family(..., block_unevaluated_gates=False)`` for callers that explicitly want to
 record a partial verdict while a required dependency is unavailable.
+
+REALISATION SCHEMES (``gate_designed_register`` and ``gate_seam``)
+---------------------------------------------------------------------
+A designed register can be REALISED two ways, and the two are not interchangeable for auditing:
+
+* ``"rotation"`` (the default, and the PRIMARY genome-anchored operator) -- ``shift_module``
+  (``designed_register.py``) circularly rotates the module interior. It is strictly
+  LENGTH-PRESERVING, so "register" can never be inferred from a length delta (that inference is
+  either vacuously true or vacuously false against this operator -- a gate that cannot fail is
+  worse than no gate). Register is instead ``realised_register(shift) == shift % 3`` for the
+  DECLARED shift, verified against an exact byte-for-byte RECONSTRUCTION check
+  (``variant == shift_module(parent, shift=..., protect_5p=..., protect_3p=...)``), and the two
+  checks are independent: reconstruction catches a corrupted variant or a wrong protected-flank
+  width even when the declared shift's register happens to match; the register check catches a
+  declared shift whose ``% 3`` is simply wrong even when it does reconstruct some (different)
+  variant.
+* ``"insertion"`` -- a SECONDARY scheme for an operator-robustness panel, not the primary
+  mechanism assay. Register is inferred from the net length change relative to ``parent``, modulo
+  3. This inference is only meaningful when the register edit really was realised by inserting
+  bases; it is retained because other tests exercise it, not because it should audit
+  rotation-operator variants.
+
+Every gate that depends on the realisation scheme takes an explicit ``scheme`` argument (default
+``"rotation"``) rather than guessing from the data.
 """
 from __future__ import annotations
 
@@ -49,10 +73,23 @@ from typing import Mapping, Sequence
 
 import numpy as np
 
+from gfmcd.splicing.designed_register import shift_module
+
 STOP_CODONS = ("TAA", "TAG", "TGA")
 GC_BASES = frozenset("GC")
 ENCODABLE_BASES = {"A": 0.0, "T": 0.0, "U": 0.0, "G": 1.0, "C": 1.0}
 PERIOD3_CYCLES_PER_SAMPLE = 1.0 / 3.0
+
+#: The two register-realisation schemes ``gate_designed_register`` and ``gate_seam`` support. See
+#: "REALISATION SCHEMES" in the module docstring.
+REALISATION_SCHEMES = ("rotation", "insertion")
+
+#: Default ``gate_seam`` tolerance per scheme (used only when a caller does not pass ``tolerance``
+#: explicitly). See ``gate_seam``'s docstring for why these two values differ.
+SEAM_TOLERANCE_DEFAULTS: dict[str, float] = {
+    "rotation": 0.0,
+    "insertion": 2.0,
+}
 
 #: Defaults merged under any caller-supplied ``tolerances``; caller keys always win. Keeping these
 #: named and centralised means a test that asks "what does the boundary do" can read the exact
@@ -284,29 +321,141 @@ def _dinucleotide_positions(sequence: str, motif: str) -> list[int]:
 # ---------------------------------------------------------------------------------------------
 # Gate 1 -- designed register
 # ---------------------------------------------------------------------------------------------
+def realised_register(shift: int) -> int:
+    """The register realised by a rotation shift: ``shift % 3``.
+
+    This is the single source of truth for "what register does shift ``shift`` realise" against
+    the rotation operator (``designed_register.shift_module``). It is NEVER a function of length:
+    ``shift_module`` is strictly length-preserving (it circularly rotates the module interior), so
+    a length-based inference of register is meaningless against it -- against a length-preserving
+    operator, ``(len(variant) - len(parent)) % 3`` is always the same value (0) regardless of the
+    real shift, which means a length-based register gate either always passes or always fails, no
+    matter what register was actually realised. ``shift % 3`` has no such degeneracy and is
+    well-defined for any integer ``shift``, including negative shifts (Python's ``%`` is always
+    non-negative for a positive modulus, matching how ``shift_module`` itself reduces ``shift``
+    modulo the interior length) and multiples of 3 (register 0).
+    """
+    return shift % 3
+
+
 def gate_designed_register(
-    variants: Mapping[str, str], *, parent: str, intended_registers: Mapping[str, int]
+    variants: Mapping[str, str],
+    *,
+    parent: str,
+    intended_registers: Mapping[str, int],
+    scheme: str = "rotation",
+    shifts: Mapping[str, int] | None = None,
+    protect_5p: int | None = None,
+    protect_3p: int | None = None,
 ) -> dict:
     """The realised register of each variant must equal its intended register, EXACTLY.
 
-    "Realised register" is defined structurally, from the sequence alone: the net change in
-    length relative to ``parent``, modulo 3 -- the frame shift that length change induces at the
-    join. This is deliberately not tolerance-based: a register is either right or it is a
-    different experimental condition wearing the wrong label.
+    Two mutually exclusive realisation schemes are supported via ``scheme`` (see "REALISATION
+    SCHEMES" in the module docstring):
+
+    * ``"rotation"`` (default, PRIMARY): requires ``shifts`` (the DECLARED shift for each
+      variant), ``protect_5p``, and ``protect_3p``. A variant passes only if BOTH:
+
+      1. ``realised_register(shifts[name])`` equals the intended register, and
+      2. the variant reconstructs EXACTLY: ``variant == shift_module(parent, shift=shifts[name],
+         protect_5p=protect_5p, protect_3p=protect_3p)``, byte for byte.
+
+      These two checks are independent and both required -- (1) alone would pass a variant whose
+      declared shift has the right register but whose actual bytes were never produced by that
+      shift (a corrupted variant, or a wrong protected-flank width); (2) alone would not catch a
+      declared shift that reconstructs some variant but is not the one the study intended to
+      claim. A variant whose length differs from ``parent`` is rejected immediately with a stated
+      reason: ``shift_module`` cannot produce it, so no declared shift could be correct, and there
+      is no length delta to check reconstruction against.
+
+    * ``"insertion"`` (SECONDARY -- an operator-robustness panel, not the primary mechanism
+      assay): "realised register" is inferred structurally from the net change in length relative
+      to ``parent``, modulo 3 -- the frame shift that length change induces at the join. This
+      inference is only meaningful when the register edit really was realised by inserting bases;
+      retained for callers that exercise that scheme.
+
+    Boundary: exact match required in both schemes -- this gate is deliberately not
+    tolerance-based, a register is either right or it is a different experimental condition
+    wearing the wrong label.
     """
     _require_nonempty(variants)
     _require_registers(variants, intended_registers)
+    if scheme not in REALISATION_SCHEMES:
+        raise ValueError(f"scheme must be one of {REALISATION_SCHEMES}, got {scheme!r}")
+
     measured: dict[str, dict] = {}
     failing_members: list[str] = []
-    for name, seq in variants.items():
-        realised = (len(seq) - len(parent)) % 3
-        intended = int(intended_registers[name]) % 3
-        match = realised == intended
-        measured[name] = {"realised": realised, "intended": intended, "match": match}
-        if not match:
-            failing_members.append(name)
+
+    if scheme == "rotation":
+        if shifts is None or protect_5p is None or protect_3p is None:
+            raise ValueError(
+                "scheme='rotation' requires 'shifts' (the declared shift per variant), "
+                "'protect_5p', and 'protect_3p' -- against a length-preserving operator, register "
+                "is a property of the declared shift plus reconstruction, never of length"
+            )
+        missing_shifts = sorted(set(variants) - set(shifts))
+        if missing_shifts:
+            raise ValueError(f"shifts is missing entries for: {missing_shifts}")
+
+        for name, seq in variants.items():
+            intended = int(intended_registers[name]) % 3
+            shift = int(shifts[name])
+            realised = realised_register(shift)
+            register_match = realised == intended
+
+            if len(seq) != len(parent):
+                measured[name] = {
+                    "shift": shift,
+                    "realised": realised,
+                    "intended": intended,
+                    "register_match": register_match,
+                    "reconstructed": False,
+                    "match": False,
+                    "reason": (
+                        f"length changed under scheme='rotation' ({len(seq)} vs parent "
+                        f"{len(parent)}) -- shift_module is strictly length-preserving, so no "
+                        "declared shift can reconstruct this variant"
+                    ),
+                }
+                failing_members.append(name)
+                continue
+
+            expected = shift_module(
+                parent, shift=shift, protect_5p=protect_5p, protect_3p=protect_3p
+            )
+            reconstructed = seq == expected
+            match = register_match and reconstructed
+            entry = {
+                "shift": shift,
+                "realised": realised,
+                "intended": intended,
+                "register_match": register_match,
+                "reconstructed": reconstructed,
+                "match": match,
+            }
+            if not reconstructed:
+                entry["reason"] = (
+                    "variant does not equal shift_module(parent, shift=<declared>, "
+                    "protect_5p=..., protect_3p=...) byte for byte -- a wrong declared shift, a "
+                    "wrong protected-flank width, or a corrupted variant all fail this check"
+                )
+            elif not register_match:
+                entry["reason"] = "declared shift's register does not match the intended register"
+            measured[name] = entry
+            if not match:
+                failing_members.append(name)
+    else:  # scheme == "insertion"
+        for name, seq in variants.items():
+            realised = (len(seq) - len(parent)) % 3
+            intended = int(intended_registers[name]) % 3
+            match = realised == intended
+            measured[name] = {"realised": realised, "intended": intended, "match": match}
+            if not match:
+                failing_members.append(name)
+
     return {
         "gate": "designed_register",
+        "scheme": scheme,
         "threshold": "exact match (registers compared modulo 3)",
         "measured": measured,
         "failing_members": failing_members,
@@ -453,6 +602,20 @@ def gate_period3(
     degree "errors" that track nothing but the flank's size. ``phase_tolerance_deg`` bounds the
     circular distance between measured and (correctly) expected phase.
 
+    KNOWN LIMITATION -- NOT FIXED HERE: unlike ``gate_designed_register`` and ``gate_seam``, this
+    gate has no ``scheme`` parameter. Its expected-phase model (``_expected_seam_edit_coeff``)
+    hard-codes the INSERTION scheme's geometry -- "replace the seam span with ``register`` new
+    neutral bases", i.e. everything downstream of the seam is uniformly phase-shifted by
+    ``register`` positions. That is not what a ``"rotation"``-scheme edit does (nothing downstream
+    of the interior ever moves; the interior is permuted in place, at fixed absolute positions),
+    so this gate's phase check will spuriously fail genuinely correct rotation-scheme variants
+    (confirmed: reliably ~60-120 degrees of spurious error per unit of register, far outside the
+    default 20 degree tolerance) even though ``evaluate_family`` now calls it unconditionally under
+    the "rotation" default scheme. A caller auditing a rotation-scheme family today must either
+    widen ``phase_tolerance_deg`` past this spurious error or otherwise route around this gate;
+    giving it a rotation-aware expected-phase model is out of scope of the register-realisation fix
+    this module received and is left for follow-up.
+
     Boundary: both checks PASS when the measured value is exactly at the tolerance (``<=``).
     """
     _require_nonempty(variants)
@@ -563,35 +726,98 @@ def gate_created_motifs(variants: Mapping[str, str], *, parent: str, tolerance: 
 # ---------------------------------------------------------------------------------------------
 # Gate 7 -- seam match (edit-matched design)
 # ---------------------------------------------------------------------------------------------
-def gate_seam(variants: Mapping[str, str], *, parent: str, tolerance: float = 0.0) -> dict:
+def _seam_distance(variant: str, parent: str, *, scheme: str) -> int:
+    """The parent->variant distance ``gate_seam`` compares across a family, chosen per ``scheme``.
+
+    ``"rotation"``: plain POSITIONAL Hamming distance (same-index comparison), which is what is
+    actually invariant across a ``register_triplet``-built triplet. For an interior with no two
+    characters equal at the tested offset, a rotation by ANY nonzero amount (mod interior length)
+    changes EVERY interior position -- a fixed point at index i would require ``interior[i] ==
+    interior[(i + shift) % L]``, impossible for distinct-enough content unless ``shift % L == 0``
+    -- so Hamming distance to ``parent`` equals the interior length for every non-identity arm,
+    with EXACTLY zero spread across the family. General Levenshtein distance (``_levenshtein``) is
+    NOT this invariant: its optimal alignment can exploit an indel shortcut (delete the wrapped
+    span, reinsert it elsewhere) whose cost is ``2 * min(shift, L - shift)``, which differs across
+    a triplet's three distinct shifts -- using Levenshtein here would resurrect a
+    scheme-mismatched tolerance bug in a new place, the same shape as the length-based register
+    bug this module was written to fix. Requires equal-length inputs (callers must check length
+    equality themselves; ``gate_seam`` does, per-member, before calling this).
+
+    ``"insertion"``: Levenshtein edit distance (``_levenshtein``), because an insertion-based
+    register realisation changes length, for which positional Hamming distance is undefined.
+    """
+    if scheme == "rotation":
+        return sum(1 for a, b in zip(variant, parent) if a != b)
+    return _levenshtein(variant, parent)
+
+
+def gate_seam(
+    variants: Mapping[str, str],
+    *,
+    parent: str,
+    scheme: str = "rotation",
+    tolerance: float | None = None,
+) -> dict:
     """Seam position and edit distance, matched ACROSS VARIANTS -- what makes them edit-matched.
 
     "Seam position" is the parent-coordinate span edited (``parent_seam_start``,
-    ``parent_seam_end``), which must be IDENTICAL across every variant. "Edit distance" is the
-    Levenshtein distance from ``parent`` to each variant; its spread across the family (max -
-    min) must not exceed ``tolerance``. Boundary: a spread exactly equal to ``tolerance`` PASSES
-    (``<=``).
+    ``parent_seam_end``), which must be IDENTICAL across every variant, in both schemes.
+
+    "Edit distance" is SCHEME-DEPENDENT (see ``_seam_distance``), because the two realisation
+    schemes are edit-matched by different invariants:
+
+    * ``"rotation"`` (default): positional Hamming distance. A triplet built by
+      ``register_triplet`` + ``shift_module`` with a shared ``k`` displaces the same interior with
+      three distinct nonzero shifts, and Hamming distance to ``parent`` is EXACTLY equal (the full
+      interior length) for every arm -- hence a tolerance of 0. A variant whose length differs
+      from ``parent`` cannot be a rotation at all (``shift_module`` is strictly length-preserving);
+      it is reported per-member with a stated reason and fails the gate, rather than raising.
+    * ``"insertion"``: Levenshtein edit distance. An insertion-scheme triplet realising registers
+      0/+1/+2 via ``r in {0, 1, 2}`` extra neutral bases necessarily spans an edit-distance range
+      of 2 across the family -- hence the insertion-scheme default tolerance of 2.
+
+    When ``tolerance`` is not given explicitly, it defaults per ``scheme``
+    (``SEAM_TOLERANCE_DEFAULTS``); passing ``tolerance`` explicitly always overrides that default.
+    Boundary: a spread exactly equal to ``tolerance`` PASSES (``<=``).
     """
+    if scheme not in REALISATION_SCHEMES:
+        raise ValueError(f"scheme must be one of {REALISATION_SCHEMES}, got {scheme!r}")
+    if tolerance is None:
+        tolerance = SEAM_TOLERANCE_DEFAULTS[scheme]
     _require_nonempty(variants)
     names = list(variants)
     measured: dict[str, dict] = {}
     for name in names:
-        span = seam_span(variants[name], parent)
-        measured[name] = {
+        seq = variants[name]
+        span = seam_span(seq, parent)
+        entry = {
             "parent_seam_start": span["parent_seam_start"],
             "parent_seam_end": span["parent_seam_end"],
             "variant_seam_start": span["variant_seam_start"],
             "variant_seam_end": span["variant_seam_end"],
-            "edit_distance": _levenshtein(variants[name], parent),
         }
+        if scheme == "rotation" and len(seq) != len(parent):
+            entry["edit_distance"] = None
+            entry["reason"] = (
+                f"length changed under scheme='rotation' ({len(seq)} vs parent {len(parent)}) "
+                "-- positional Hamming distance is undefined and shift_module cannot have "
+                "produced this variant"
+            )
+        else:
+            entry["edit_distance"] = _seam_distance(seq, parent, scheme=scheme)
+        measured[name] = entry
+
     seam_positions = {(measured[n]["parent_seam_start"], measured[n]["parent_seam_end"]) for n in names}
     positions_match = len(seam_positions) <= 1
-    edit_distances = [measured[n]["edit_distance"] for n in names]
-    edit_spread = max(edit_distances) - min(edit_distances)
-    edit_ok = edit_spread <= tolerance
+    distances = [measured[n]["edit_distance"] for n in names]
+    has_undefined = any(d is None for d in distances)
+    defined = [d for d in distances if d is not None]
+    edit_spread = (max(defined) - min(defined)) if defined else 0.0
+    edit_ok = (not has_undefined) and edit_spread <= tolerance
     passed = positions_match and edit_ok
     return {
         "gate": "seam",
+        "scheme": scheme,
         "threshold": float(tolerance),
         "measured": measured,
         "seam_positions_match": positions_match,
@@ -739,9 +965,19 @@ def evaluate_family(
     parent: str,
     intended_registers: Mapping[str, int],
     tolerances: Mapping[str, float],
+    scheme: str = "rotation",
+    shifts: Mapping[str, int] | None = None,
+    protect_5p: int | None = None,
+    protect_3p: int | None = None,
     block_unevaluated_gates: bool = True,
 ) -> dict:
     """Run the full model-free gate battery and return ONE family-level verdict.
+
+    ``scheme`` (default ``"rotation"``, see "REALISATION SCHEMES" in the module docstring) is
+    threaded through to the two scheme-aware gates, ``designed_register`` and ``seam``.
+    ``scheme="rotation"`` additionally requires ``shifts`` (the declared shift per variant),
+    ``protect_5p``, and ``protect_3p`` -- the same arguments ``gate_designed_register`` requires
+    for that scheme. ``scheme="insertion"`` ignores all three.
 
     There is no per-cell "drop" path anywhere in this module: a failing member is never removed
     from the family, only recorded. ``family_passes`` is False if any evaluated gate failed, and
@@ -757,7 +993,13 @@ def evaluate_family(
 
     gates: dict[str, dict] = {
         "designed_register": gate_designed_register(
-            variants, parent=parent, intended_registers=intended_registers
+            variants,
+            parent=parent,
+            intended_registers=intended_registers,
+            scheme=scheme,
+            shifts=shifts,
+            protect_5p=protect_5p,
+            protect_3p=protect_3p,
         ),
         "stop_load": gate_stop_load(variants, parent=parent, tolerance=t["stop_load"]),
         "composition": gate_composition(variants, tolerance=t["composition"]),
@@ -774,7 +1016,7 @@ def evaluate_family(
         "created_motifs": gate_created_motifs(
             variants, parent=parent, tolerance=t["created_motifs"]
         ),
-        "seam": gate_seam(variants, parent=parent, tolerance=t["seam_edit_distance"]),
+        "seam": gate_seam(variants, parent=parent, scheme=scheme, tolerance=t["seam_edit_distance"]),
         "similarity_to_authentic": gate_similarity_to_authentic(
             variants, parent=parent, tolerance=t["similarity_to_authentic"]
         ),
@@ -802,10 +1044,13 @@ def evaluate_family(
 
 __all__ = [
     "DEFAULT_TOLERANCES",
+    "REALISATION_SCHEMES",
+    "SEAM_TOLERANCE_DEFAULTS",
     "STOP_CODONS",
     "numeric_encode",
     "period3_component",
     "seam_span",
+    "realised_register",
     "gate_designed_register",
     "gate_stop_load",
     "gate_composition",
