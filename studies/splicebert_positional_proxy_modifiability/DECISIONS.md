@@ -57,3 +57,56 @@ The end-to-end claim requires both. Either may stand alone at a lower rung witho
 existing claim in any ledger is changed, bounded, or supported by this decision. In particular this decision
 says nothing about `C43`, `C44`, or the closed study's status, and the predecessor's reserved `P3_*` outcome
 labels remain unearned and unavailable.
+
+## 2026-08-12 — base-checkpoint behavioural decomposition: the positional surrogate is not sufficient
+
+**Evidence available.** Base checkpoint only. No lineage was trained; no seal was spent. All
+readings use one pipeline: masked-donor margin, `AG→AC` acceptor corruption, gene-clustered
+intervals, authentic validation parents (chr11/16/19; chr8/chr9 never opened).
+
+**Positive control, run first.** The pipeline reproduces the annotated-phase preference on
+authentic chimeric joins: `Ψ = +0.1747 [+0.1091, +0.2474]`, 324 cells, matched `+0.1953` against
+mismatched `+0.0193` / `+0.0219`. This is a fresh measurement in this pipeline, not a re-audit of
+`C43`, and it is smaller than `C43`'s `+0.3901 [+0.3553, +0.4252]`; the two are **not pooled**.
+Without this control every comparison below would have been cross-pipeline and confounded.
+
+**Finding 1 — designed register does not reproduce annotated phase.** Three constructs, two
+operators, both settings of chimerism: circular rotation within gene `−0.0310 [−0.0611, −0.0066]`;
+paired indel within gene `−0.0398 [−0.0747, −0.0027]`; paired indel across genes
+`−0.0280 [−0.0463, −0.0110]`. All small, **negative**, roughly thirteen times too small, intervals
+excluding both zero and the annotated value. Manufacturing the arithmetic of a frame does not
+manufacture the preference.
+
+**Finding 2 — raw period-3 energy does not carry `Ψ` either.** On annotated-phase cells, matched
+joins carry *less* joined-span period-3 power than mismatched (162.5 vs 167.5, ratio 0.970); `Ψ` is
+flat across power tertiles (`+0.278` / `+0.284` / `+0.206`); and after regressing standardised
+power out of the coupling, `Ψ = +0.2552 [+0.1914, +0.3196]` — unchanged from `+0.2563`. A
+translation-invariant periodicity detector does not explain the behaviour.
+
+**Consequence.** `Ψ` requires the frame relation **and** authentic sequence content together. A
+period-3 positional coordinate is a frame-arithmetic device and cannot know which frame the
+*content* prefers; a positionless energy detector cannot see frame at all. So the learned carrier
+is **not sufficient** to account for `C43`. It may still be one input, supplying the offset over
+which content statistics are compared.
+
+**What this does NOT say.** It does not refute `C43`, which measured something real and
+replicated. It does not touch `C36`, which establishes the carrier is causally *used* in
+phase-aligned coupling — only the carrier's *sufficiency* for `C43` is newly bounded. It is base
+checkpoint, one readout, one geometry, one span, and three constructs are not an exhaustive
+operator space: a construct that also moved the correlated content features would be expected to
+reproduce `Ψ`, and that is the next experiment rather than a refutation of this one.
+
+**Effect on claim scope.** No claim row is added. This is base-checkpoint behavioural evidence
+about what `Ψ` responds to, and it licenses no mechanism, route, or biological statement.
+
+**Decision.** The lineage-training programme does **not** proceed. Its end-to-end chain was
+corpus structure → learned positional surrogate → masked-token behaviour, and the middle term is
+now shown insufficient to carry the behaviour on its own. Training paired lineages would test a
+link the behaviour does not use unaided. The frozen step-6 stop rule — no training without a
+passing relocation preflight — is what surfaced this before fifteen checkpoints were spent.
+
+**Successor, well-posed and cheaper.** Hold annotated phase fixed and vary, one at a time, the
+features that co-vary with it: codon usage bias, exonic splicing enhancer content, wobble-position
+composition, in-frame stop load. Whichever carries `Ψ` is the real target. No training, no carrier
+surgery, no sealed cohort. Finding 2 above is its first step and has already eliminated one
+candidate.
