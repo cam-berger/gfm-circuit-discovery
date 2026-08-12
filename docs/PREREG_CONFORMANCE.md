@@ -50,20 +50,50 @@ this file existed, that question had no answer here short of reading 34 protocol
 > re-executable** — the source branch gitignored the raw rows both recompute from. Treat C43/C44 gates as
 > **self-reported, not audited**.
 
-> **A fourth protocol is uncovered for the opposite reason: positional boundary coherence
-> (2026-08-10).** `studies/splicebert_positional_boundary_coherence/PREREGISTRATION.md` is a frozen
-> 1,091-line design with gates, thresholds, and an authorization graph, and it contributes **no claim and
-> no family below** — because **it has never been run**. There is no cohort, no preflight, no target, and
-> no artifact under `results/splicebert_positional_boundary_coherence/`. Nothing in that file may be cited
-> as a gate that was enforced; every gate in it is a gate that is *specified*.
+> **A fourth protocol was initially uncovered for the opposite reason: positional boundary coherence
+> (2026-08-10; model-free status updated 2026-08-11).**
+> `studies/splicebert_positional_boundary_coherence/PREREGISTRATION.md` is a frozen design with gates,
+> thresholds, and an authorization graph, and it still contributes **no model claim and no family below**.
+> Its model-free freshness and candidate-census reconstruction ran; the audited census then failed the
+> already-frozen necessary supply condition for 1,104 globally gene-disjoint seven-source blocks. The
+> compact capacity certificate and independent audit may therefore be cited only as an enforced
+> `PHASE1_INSTRUMENT_UNRESOLVED` construction stop. There is no complete cohort, model preflight, target,
+> or model outcome. Every later gate remains *specified*, not enforced.
 >
 > The distinction matters for how this file should grow. The three arcs above are retrospective coverage
-> gaps — code ran, nobody checked it against the protocol. This one is prospective, and the protocol
-> itself forecloses the gap: §"Present status" requires that a freeze package bind the final code and
-> inputs and that **an independent protocol-to-code conformance audit pass before the first target or
-> Phase-III reserve is opened**. That audit is the fix-forward this document's root-cause section asks
-> for — the decision layer checked against the protocol *before* the run, not reconstructed after it.
-> When it is performed, its family belongs in the table below like any other.
+> gaps — code ran, nobody checked it against the protocol. Here the model-free stop was independently
+> audited as it occurred, while the model-bearing portion remains prospective and sealed. §"Present
+> status" still requires that a freeze package bind final code and inputs and that **an independent
+> protocol-to-code conformance audit pass before any first target or Phase-III reserve is opened**. If a
+> separately preregistered successor ever reaches that point, its conformance family belongs in the table
+> below before the target, not reconstructed afterwards.
+
+> **A fifth protocol is uncovered, and for the plainest reason: positional-proxy modifiability
+> (2026-08-12). `studies/splicebert_positional_proxy_modifiability/PREREGISTRATION.md` HAS NEVER BEEN
+> EXECUTED. Every gate in it is *specified*, not enforced.**
+>
+> That study did produce work, and none of it ran under that protocol. Its construction record
+> (`PPM1`, the real-panel capacity finding and its independent audit) is model-free and predates the
+> protocol's gate chain. Its behavioural and training readings — the annotated-phase reproduction, the
+> designed-register constructs, the period-3 attenuation ladders, the relocation reading, and the two
+> continued-pretraining pilots — are **exploratory engineering runs deliberately taken OUTSIDE the
+> frozen protocol**, not attempts to satisfy it. They are recorded in that study's `DECISIONS.md` and
+> carry no claim row.
+>
+> So nothing in that protocol may be cited as a gate that was enforced, and no artifact in
+> `results/splicebert_positional_proxy_modifiability/` or `results/splicebert_positional_clock/` may be
+> read as having passed one. In particular the frozen relocation preflight — all three `S_r` oriented,
+> `Ω3` resolved, handedness superior to controls — **did not run in its frozen form**; what ran was an
+> exploratory version whose construct was later shown not to carry the behaviour. The training arms
+> were authorized by the study owner as an explicit override after that premise was reported as
+> unsupported, which is recorded in `DECISIONS.md` as their decision.
+>
+> The naming wart is deliberate and bounded: `results/splicebert_positional_clock/` and
+> `scripts/splicebert_positional_clock/` are the construction-record namespace of that same study. The
+> name was provisional, the artifacts record it as such in their own `study_directory_provisional`
+> field, and it was NOT renamed — renaming would desync self-describing artifacts from their recorded
+> paths, and result files are not rewritten here. Both index files state the relationship in both
+> directions.
 
 **Scope and method.** This audit was commissioned by the 2026-07-24 publication-readiness review, which
 returned *Major Revision — not ready for external artifact review* and named this table its single
@@ -357,17 +387,14 @@ document, and it is why the file exists rather than a note saying conformance wa
   fully reconstruct; the atlas protocol pins are separately broken and ledgered under **R34**.
 - **Numerical re-execution.** Nothing here was re-run. These are protocol-vs-code readings, verified
   against committed artifacts, not replications.
-- **BG1/BG2 acceptor-boundary grammar — frozen 2026-08-10, not run, so there is nothing to audit yet.**
-  No artifact, no claim, no ledger row. It is named here because a reader scanning this file for "is this
-  arc audited?" must not read its absence as coverage. Two **design-conformance** readings were taken at
-  integration and are recorded in `studies/splicebert_partner_selection/DECISIONS_A0.md` § "BG1/BG2":
-  the frozen `INSTRUMENT_UNRESOLVED` verdict is never written by any runner (the code halts harder than
-  the protocol asks, but records nothing about why), and the frozen preflight output path puts a
-  `DEVELOPMENT_PREFLIGHT` artifact at a canonical path. A third reading is a **design** question rather
-  than a conformance gap: BG2's cross-gene control reuses target genes as sources while §6.2 prescribes a
-  one-way paired gene-bootstrap, which is the reuse pattern R22 names. This is the pre-freeze-equivalent
-  moment the Caduceus bullet above says was never used — the protocol is frozen but unrun, and the
-  runners are not yet pinned to any manifest, so a correction here costs nothing.
+- **BG1/BG2 acceptor-boundary grammar — frozen 2026-08-10; development preflight failed 2026-08-11.**
+  The pre-execution review found the missing durable `INSTRUMENT_UNRESOLVED` disposition, the canonical
+  preflight-path collision, the two-way-inference defect in BG2's cross-gene control, and a supply-check
+  crash. All were fixed forward in the explicitly pre-outcome
+  `AMENDMENT_BG1_BG2_PREEXECUTION_2026-08-11.md` and memorial tests. The canonical train preflight then
+  returned `PASS=false` on four frozen families: planted sensitivity, route dose sensitivity, route
+  resolution, and target resolution. BG1 validation, its audit, BG2, and the BG2 audit were not run. This
+  is an instrument result only; it supplies neither a positive nor a null boundary-grammar claim.
 
 - **DNABERT-2 promoter (`DBP1`–`DBP10`) — there is no protocol to audit.** This is a different kind of
   absence from the BG1/BG2 bullet above, and a worse one. BG1/BG2 froze a protocol and has not run; the

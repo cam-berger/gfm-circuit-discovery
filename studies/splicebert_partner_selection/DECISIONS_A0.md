@@ -895,7 +895,7 @@ before this ledger is cited in the write-up.
 
 ---
 
-## BG1/BG2 — the acceptor boundary contrast (frozen 2026-08-10; not run)
+## BG1/BG2 — the acceptor boundary contrast (frozen 2026-08-10; development preflight failed 2026-08-11; targets not opened)
 
 Recorded at **integration** time, before any run, because the questions below are cheap to answer now and
 expensive to answer after an artifact exists. `docs/PREREG_CONFORMANCE.md` records that the one place a
@@ -967,3 +967,65 @@ code as frozen; the authorization chain fails closed at every link (preflight `P
 membership and hashes → BG1 verdict → freshly recomputed BG1 audit → BG2); and the +1/+2 arm is declared
 `PRESPECIFIED_DIAGNOSTIC_ONLY` at `n=57<80` **before** unblinding rather than after seeing it fail. Full
 suite 633 passed / 30 skipped; `verify_manifest.py` clean.
+
+### Pre-execution amendment (2026-08-11; before canonical target compute)
+
+The owner authorized the successor experiment and BG1/BG2 if not already complete. The artifact audit
+found no prior canonical BG1/BG2 outputs and exposed one execution bug plus the first open design issue
+above. The frozen protocol remains byte-unchanged; the binding departures are recorded in
+`preregistrations/AMENDMENT_BG1_BG2_PREEXECUTION_2026-08-11.md` and hash-bound into subsequent artifacts.
+
+Decision 1 is resolved before outcomes: BG2's target-only interval for `true - cross-gene` is replaced by
+a two-way target×source gene multiplier bootstrap, with the same 2,000 draws and frozen seed offsets. The
+auditor derives source clusters from public cells and mirrors the estimator independently. The signed-axis
+family and BG1 inference do not change.
+
+The development smoke is also made explicit as an instrument/mechanics check. Its raw MDE, planted-power,
+and calibrated-FPR outcomes are retained as non-authorizing undersized diagnostics; they cannot make a
+smoke fail or pass for target authorization. A non-smoke canonical preflight still activates every frozen
+gate, and both target runners still reject `smoke=true` without exception. The BG2 undefined supply aliases
+are repaired at the already frozen 96-total/24-per-strand minima and covered by a runner-contract test.
+
+Decision 2 remains open: invariant failures still halt before target output, but no
+`INSTRUMENT_UNRESOLVED` result plus manifest is written. This is safer than continuing and licenses no
+claim, yet it leaves failure provenance incomplete. It is deliberately not folded into the statistical
+amendment without a specified, testable partial-artifact schema. Decision 3 (the preflight output namespace)
+also remains a disclosed frozen-path issue; no canonical path is silently changed.
+
+### Canonical development-preflight outcome (2026-08-11)
+
+The first smoke artifact, `bg1_boundary_preflight_smoke_20260811.json`, was produced before the
+pre-execution repair above. It counted the undersized smoke's resolution and planted-power diagnostics
+as active gates, reported `PASS=false`, and did not carry the amendment hash or the explicit
+`instrument_PASS` / `target_authorization_PASS` fields. It is preserved as **superseded**, not interpreted.
+The corrected smoke, `bg1_boundary_preflight_smoke_v2_20260811.json`, passed every active mechanical and
+instrument check (`PASS=true`, `instrument_PASS=true`) while correctly remaining non-authorizing
+(`target_authorization_PASS=false`). Its raw target-resolution, route-resolution, and planted-power
+failures remain visible as undersized diagnostics.
+
+The complete non-smoke run then wrote
+`results/splicebert_coupling/bg1_boundary_preflight_v1.json` with `PASS=false`,
+`instrument_PASS=false`, and `target_authorization_PASS=false`. Four frozen gates failed:
+
+1. **Planted sensitivity:** power was `0.45`, below the required `0.80`. Calibration itself was controlled:
+   endpoint-family FPR was `0.015` and the worst joint-composite-null FPR was `0.01`, both below `0.075`.
+2. **Route dose sensitivity:** the monotone AG→AC positive control reached a full-dose mean linear lift of
+   `0.045510`, below the frozen `0.05` minimum.
+3. **Route resolution:** projected validation MDE80 values were `[0.052886, 0.005290]`; the first exceeded
+   the `0.05` ceiling.
+4. **Target resolution:** projected validation MDE80 values were `[0.115995, 0.036687]`; the first exceeded
+   the `0.05` ceiling.
+
+All other 15 checks passed, including frozen train and validation supply, both-strand coverage, panel and
+mask construction, batch/order invariance, positive-corruption and partner-specificity controls, value
+linearity, head reconstruction, injection identity, attention normalization, and both calibrated FPR
+checks. This pattern is an **instrument-unresolved terminal outcome**, not an implementation exception and
+not permission to tune a frozen threshold. The BG1 validation runner was not started; consequently no BG1
+validation behavior, BG1 audit, BG2 intervention, or BG2 audit artifact exists.
+
+The train-split estimates embedded in the preflight remain development-only candidate generators. In
+particular, the target means were `0.3385` for −3 T−A and `0.05867` for +1 G−A, while route means were
+`0.07788` and `−0.001945`, respectively. They cannot be promoted to BG1/BG2 evidence because the frozen
+instrument did not authorize opening the validation targets. The strongest licensed statement is only
+that this BG1/BG2 instrument, at its frozen sample, calibration, and sensitivity requirements, was unable
+to resolve the preregistered target family. No claim-ledger row is added.

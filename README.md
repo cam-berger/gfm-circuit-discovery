@@ -61,7 +61,7 @@ Attribution ranks; intervention decides. See the [methodology](docs/METHODOLOGY.
 | Study | Status | Purpose |
 |---|---|---|
 | [`studies/splicebert_partner_selection/`](studies/splicebert_partner_selection/README.md) | **core record**; open limitations | The donor circuit and both positional carriers: claims, corrections, preregistrations, and the reproduction map. |
-| [`studies/splicebert_positional_boundary_coherence/`](studies/splicebert_positional_boundary_coherence/README.md) | prospective; preregistered design, no new outcome | Tests a scoped causal link between period-3 and a composition-balanced coding-boundary preference; partial/full register concordance and mediation are strengthening tiers, while ≈10.63 is optional and non-vetoing. |
+| [`studies/splicebert_positional_boundary_coherence/`](studies/splicebert_positional_boundary_coherence/README.md) | Phase I instrument-unresolved; no model outcome | The audited real-sequence census could not supply the frozen 1,104 globally gene-disjoint seven-source blocks, so the study stopped before selection, balance calibration, or model access. The planned period-3 and register tests remain sealed. |
 | [`studies/splicebert_head_context_atlas/`](studies/splicebert_head_context_atlas/README.md) | discovery and internal validation complete | Multi-context head/MLP reuse atlas. Supplies the gene-disjoint cohort behind C41 and an independent rediscovery of L3H1; context-specific follow-ups remain exploratory. |
 | [`studies/splicebert_gtex_finetune_shift/`](studies/splicebert_gtex_finetune_shift/README.md) | native causal mechanism mapped; sparse-difference instrument bounded | What happens to the same encoder under supervised fine-tuning: late attention routes into a compact final-MLP code, and inherited positional-carrier use. |
 | [`studies/dnabert_promoter/`](studies/dnabert_promoter/README.md) | **second model**; representation and conditional causal core established, compactness refuted, biology null | Does the method travel? A frozen DNABERT-2 promoter readout, its five-node causal core, and the three bounds that stop it there: a contaminated split, class-level-only transfer, and a faithfulness curve with no knee. |
@@ -97,8 +97,8 @@ study's prose that must not be reintroduced from Git history.
 - `docs/` — transferable method, evidence rules, nomenclature, transfer guide, and roadmap.
 - `scripts/splicebert/` — active SpliceBERT experiment, audit, and figure scripts.
 - `scripts/splicebert_positional_boundary_coherence/` — model-free construction, carrier-factorial,
-  register-relocation, mediation, freeze, and independent-audit entrypoints for the prospective successor
-  study.
+  register-relocation, mediation, freeze, and independent-audit entrypoints for the successor study; its
+  current execution record ends at the audited Phase-I capacity stop.
 - `scripts/splicebert_head_context_atlas/` — Atlas census, screening, mechanism, merge, and audit workflows.
 - `scripts/crossmodel/` — cross-model carrier runners (C39/C40). These require a separate environment;
   see [`REPRODUCE.md`](REPRODUCE.md).
@@ -108,9 +108,9 @@ study's prose that must not be reintroduced from Git history.
 - `src/gfmcd/splicing/` — SpliceBERT-specific assays, competition logic, and cohort utilities.
 - `results/splicebert_coupling/`, `results/phase-lattice/`, and
   `results/splicebert_head_context_atlas/` — immutable results, compact matrices, manifests, and audits.
-- `results/splicebert_positional_boundary_coherence/` — reserved for immutable successor-study artifacts.
-  It holds its `RESULTS_INDEX.md` and **no artifact**: that index declares the layout before the first
-  write so a preflight cannot land beside a target result.
+- `results/splicebert_positional_boundary_coherence/` — compact model-free freshness/census receipts and
+  the audited Phase-I capacity stop. The 2.34-GB raw census is ignored and regenerable; no checkpoint,
+  preflight, target, or model-outcome artifact exists.
 - `results/origin-crossmodel/` and `results/origin-siblings/` — the carrier-origin natural experiments
   (C39/C40). These two use a `canonical/` subdirectory; the other result trees keep canonical artifacts
   at the subtree root. See [`results/RESULTS_INDEX.md`](results/RESULTS_INDEX.md).

@@ -65,6 +65,10 @@ results/splicebert_head_context_atlas/atlas_context_matched_v*.validation.*.json
 results/splicebert_head_context_atlas/atlas_discovery_v1.*_matrix.jsonl.gz
 results/splicebert_head_context_atlas/atlas_discovery_v1.pairs.jsonl.gz
 
+# PBC's full model-free source census is a regenerable multi-gigabyte construction
+# intermediate. Its compact producer manifest and independent audit are tracked.
+results/splicebert_positional_boundary_coherence/development/candidate_census_v1.json
+
 # Runtime model/readout artifacts. Settled metrics and manifests belong under results/.
 artifacts/
 results/splicebert_partner_selection/**/*.jsonl

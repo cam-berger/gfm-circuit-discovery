@@ -26,7 +26,10 @@ sys.path.insert(0, str(REPO / "src"))
 
 from gfmcd.artifact_guard import guard_output_path  # noqa: E402
 from gfmcd.provenance import ExperimentManifest, file_record, sha256_file  # noqa: E402
-from gfmcd.splicing.circuit import DEFAULT_MODEL, pick_device  # noqa: E402
+from gfmcd.splicing.circuit import pick_device  # noqa: E402
+from gfmcd.splicing.pbc_frozen_inputs import (  # noqa: E402
+    validate_official_checkpoint,
+)
 from gfmcd.splicing.pbc_carrier_factorial import (  # noqa: E402
     MIN_STRUCTURED_CONTROLS,
     build_phase_control_family,
@@ -219,6 +222,28 @@ def _require_runtime_revision(seal: Mapping[str, Any], repo: Path = REPO) -> Non
     ).strip()
     if revision != str(seal.get("frozen_revision", "")):
         raise RuntimeError("runtime Git revision differs from the audited target seal")
+
+
+def _require_sealed_runtime(
+    seal: Mapping[str, Any],
+    *,
+    requested_device: str | None,
+    batch_size: int,
+    observed_dtype: str | None = None,
+) -> Mapping[str, Any]:
+    """Match runtime choices to the pre-model-load execution seal."""
+
+    runtime = seal.get("runtime")
+    if not isinstance(runtime, Mapping):
+        raise RuntimeError("target seal lacks a runtime binding")
+    resolved_device = pick_device(requested_device)
+    if resolved_device != runtime.get("device"):
+        raise RuntimeError("runtime device differs from the audited target seal")
+    if type(batch_size) is not int or batch_size != runtime.get("batch_size"):
+        raise RuntimeError("runtime batch size differs from the audited target seal")
+    if observed_dtype is not None and observed_dtype != runtime.get("dtype"):
+        raise RuntimeError("runtime dtype differs from the audited target seal")
+    return runtime
 
 
 def _raw_endpoint_stream_sha256(rows: Sequence[Mapping[str, Any]]) -> str:
@@ -418,9 +443,10 @@ class SpliceBertCellScorer:
         from gfmcd.splicing.circuit import load_adapter
 
         self.torch = torch
+        self.device = pick_device(device)
         self.adapter = load_adapter(
             str(Path(model_path).expanduser().resolve()),
-            pick_device(device),
+            self.device,
             eager=eager,
         )
         self.batch_size = int(batch_size)
@@ -443,6 +469,13 @@ class SpliceBertCellScorer:
         }
         if len(set(self.base_ids.values())) != 4:
             raise RuntimeError("tokenizer does not expose distinct A/C/G/T tokens")
+
+    def runtime_config(self) -> Mapping[str, Any]:
+        return {
+            "device": self.device,
+            "batch_size": self.batch_size,
+            "dtype": str(self.embedding.weight.dtype).removeprefix("torch."),
+        }
 
     def position_table(self) -> np.ndarray:
         return np.array(self._original, copy=True)
@@ -706,6 +739,7 @@ def execute_target(
         "control_seed": control_seed,
         "selected_doses": dict(doses),
         "bands": dict(seal["bands"]),
+        "runtime": dict(seal["runtime"]),
         "scorer": dict(scorer.metadata()),
         "mechanical_audit": mechanics,
         "condition_specs": condition_specs,
@@ -746,6 +780,7 @@ def assemble_target_shards(
         "control_seed",
         "selected_doses",
         "bands",
+        "runtime",
         "scorer",
         "mechanical_audit",
         "condition_specs",
@@ -824,6 +859,40 @@ def assemble_target_shards(
     )
 
 
+def target_manifest_config(
+    result: Mapping[str, Any], seal: Mapping[str, Any]
+) -> dict[str, Any]:
+    """Build manifest metadata for either a raw shard or compact assembly."""
+
+    compact = result.get("compact_evidence")
+    if isinstance(compact, Mapping):
+        compact_schema = compact.get("schema")
+        raw_row_count = int(compact.get("raw_row_count", 0))
+        raw_stream_sha256 = str(compact.get("raw_endpoint_stream_sha256", ""))
+    else:
+        shard_rows = result.get("rows")
+        if not isinstance(shard_rows, list):
+            raise RuntimeError("target output lacks both compact evidence and raw shard rows")
+        compact_schema = None
+        raw_row_count = len(shard_rows)
+        raw_stream_sha256 = _raw_endpoint_stream_sha256(shard_rows)
+    return {
+        "stage": "target",
+        "target_mode": result["target_mode"],
+        "selected_doses": result["selected_doses"],
+        "bands": result["bands"],
+        "n_controls_per_family": result["n_controls_per_family"],
+        "control_seed": result["control_seed"],
+        "split_role": result["split_role"],
+        "shard": result.get("shard"),
+        "assembly": result.get("assembly", {}).get("status"),
+        "compact_evidence_schema": compact_schema,
+        "raw_row_count": raw_row_count,
+        "raw_endpoint_stream_sha256": raw_stream_sha256,
+        "runtime": dict(seal["runtime"]),
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--seal", required=True)
@@ -877,8 +946,12 @@ def main() -> None:
         model_path = Path(args.model).expanduser().resolve()
         if args.scorer is not None:
             parser.error("custom scorers are fixture-only and cannot execute a target")
-        if model_path != (REPO / DEFAULT_MODEL).resolve():
-            raise RuntimeError("target requires the frozen official SpliceBERT.1024nt path")
+        validate_official_checkpoint(model_path)
+        runtime = _require_sealed_runtime(
+            seal,
+            requested_device=args.device,
+            batch_size=args.batch,
+        )
         model_names = (
             "config.json",
             "pytorch_model.bin",
@@ -901,6 +974,14 @@ def main() -> None:
             device=args.device,
             batch_size=args.batch,
         )
+        if not isinstance(scorer, SpliceBertCellScorer):
+            raise RuntimeError("target scorer did not instantiate the frozen implementation")
+        _require_sealed_runtime(
+            seal,
+            requested_device=args.device,
+            batch_size=args.batch,
+            observed_dtype=str(scorer.runtime_config()["dtype"]),
+        )
         result = execute_target(
             seal=seal,
             cohort=cohort,
@@ -921,22 +1002,7 @@ def main() -> None:
         sys.argv,
         repo=REPO,
         status=result["status"],
-        config={
-            "stage": "target",
-            "target_mode": result["target_mode"],
-            "selected_doses": result["selected_doses"],
-            "bands": result["bands"],
-            "n_controls_per_family": result["n_controls_per_family"],
-            "control_seed": result["control_seed"],
-            "split_role": result["split_role"],
-            "shard": result.get("shard"),
-            "assembly": result.get("assembly", {}).get("status"),
-            "compact_evidence_schema": result["compact_evidence"]["schema"],
-            "raw_row_count": result["compact_evidence"]["raw_row_count"],
-            "raw_endpoint_stream_sha256": result["compact_evidence"][
-                "raw_endpoint_stream_sha256"
-            ],
-        },
+        config=target_manifest_config(result, seal),
         seeds={"structured_controls": int(result["control_seed"])},
     )
     for path in input_paths:

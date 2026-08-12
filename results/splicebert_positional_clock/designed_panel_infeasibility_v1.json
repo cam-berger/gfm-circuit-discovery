@@ -1,0 +1,172 @@
+{
+  "checkpoint_loaded": null,
+  "cohort_selection_attempted": false,
+  "d1_additive_capacity_failure": {
+    "demands_are_additive_note": "both panels are mandatory and both draw module parent genes from the SAME pool; their demands are therefore additive, and the earlier assessment sized each panel as if it had the pool to itself",
+    "designed_spend_per_block_module_parents": 2,
+    "margin_formula": "(pool_union_size - union_spend) / pool_union_size",
+    "margin_threshold": 0.25,
+    "pool_union_size": 3227,
+    "pool_union_size_provenance": "results/splicebert_positional_clock/development/pbc_v2_capacity_ladder_v2.json, N=909 rung, feasibility.min_cut_gene_count -- the min cut there violates exactly the six real donor/acceptor phase slots, so this figure is |donor parents UNION acceptor parents| by construction of the min-cut certificate",
+    "real_panel_four_slot_union": 2904,
+    "real_panel_four_slot_union_is_strict_subset_of_pool": true,
+    "real_panel_subset_note": "the real panel actually draws from D0 UNION D1 UNION A0 UNION A1, a strict SUBSET of the 3,227-gene pool union used above; the true position is therefore at least this bad and never better",
+    "real_spend_per_block_module_genes": 4,
+    "rows": [
+      {
+        "designed_blocks_needed": 440,
+        "designed_blocks_needed_raw": 439.91930612571014,
+        "designed_source": "psi_full_3x3 (naive V9 transfer, invalid for the designed panel -- B3)",
+        "designed_spend_per_block_module_parents": 2,
+        "margin": 0.052990393554384875,
+        "pool_union_size": 3227,
+        "real_blocks_needed": 544,
+        "real_source": "real panel usable ceiling (25% margin)",
+        "real_spend_per_block_module_genes": 4,
+        "row_label": "naive_psi_full_3x3_vs_usable_ceiling",
+        "union_spend": 3056,
+        "verdict": "below the 0.25 rule"
+      },
+      {
+        "designed_blocks_needed": 487,
+        "designed_blocks_needed_raw": 486.01933907208235,
+        "designed_source": "corrected designed-panel capacity at f=0 (D2 band floor)",
+        "designed_spend_per_block_module_parents": 2,
+        "margin": 0.024480942051440968,
+        "pool_union_size": 3227,
+        "real_blocks_needed": 544,
+        "real_source": "real panel usable ceiling (25% margin)",
+        "real_spend_per_block_module_genes": 4,
+        "row_label": "corrected_f0_vs_usable_ceiling",
+        "union_spend": 3148,
+        "verdict": "below the 0.25 rule"
+      },
+      {
+        "designed_blocks_needed": 440,
+        "designed_blocks_needed_raw": 439.91930612571014,
+        "designed_source": "psi_full_3x3 (naive V9 transfer, invalid for the designed panel -- B3)",
+        "designed_spend_per_block_module_parents": 2,
+        "margin": null,
+        "pool_union_size": 3227,
+        "real_blocks_needed": 726,
+        "real_source": "real panel absolute exact ceiling",
+        "real_spend_per_block_module_genes": 4,
+        "row_label": "naive_psi_full_3x3_vs_absolute_ceiling",
+        "union_spend": 3784,
+        "verdict": "infeasible"
+      },
+      {
+        "designed_blocks_needed": 764,
+        "designed_blocks_needed_raw": 763.9321988404316,
+        "designed_source": "corrected designed-panel Psi capacity at f=1.0 (D2 band ceiling)",
+        "designed_spend_per_block_module_parents": 2,
+        "margin": null,
+        "pool_union_size": 3227,
+        "real_blocks_needed": 544,
+        "real_source": "real panel usable ceiling (25% margin)",
+        "real_spend_per_block_module_genes": 4,
+        "row_label": "corrected_f1_psi_vs_usable_ceiling",
+        "union_spend": 3704,
+        "verdict": "infeasible"
+      }
+    ]
+  },
+  "d2_corrected_parent_pair_variance": {
+    "band": [
+      {
+        "f": 0.0,
+        "f_status": "unmeasured",
+        "n_m": 487,
+        "n_m_raw": 486.01933907208235,
+        "n_psi": 487,
+        "n_psi_raw": 486.01933907208235,
+        "var_dir_designed": 0.1548053210184089,
+        "var_psi_designed": 0.1548053210184089
+      },
+      {
+        "f": 0.25,
+        "f_status": "unmeasured",
+        "n_m": 579,
+        "n_m_raw": 578.6569589948655,
+        "n_psi": 556,
+        "n_psi_raw": 555.4975540141697,
+        "var_dir_designed": 0.18431195858947247,
+        "var_psi_designed": 0.17693529919670659
+      },
+      {
+        "f": 0.5,
+        "f_status": "unmeasured",
+        "n_m": 672,
+        "n_m_raw": 671.2945789176486,
+        "n_psi": 625,
+        "n_psi_raw": 624.975768956257,
+        "var_dir_designed": 0.21381859616053606,
+        "var_psi_designed": 0.19906527737500426
+      },
+      {
+        "f": 1.0,
+        "f_status": "unmeasured",
+        "n_m": 857,
+        "n_m_raw": 856.5698187632147,
+        "n_psi": 764,
+        "n_psi_raw": 763.9321988404316,
+        "var_dir_designed": 0.2728318713026632,
+        "var_psi_designed": 0.24332523373159962
+      }
+    ],
+    "band_note": "N values are a BAND over f, never a point; f is not measured",
+    "designed_panel_note": "in the designed panel ONE parent pair supplies all three diagonal cells, so u, v, w are identical across them and the factor 1/3 disappears -- the block-level term is the full 3*rho*V9, already larger than V9 before any cell noise is added",
+    "diagonal_averaging_note": "in C43's 3x3, the matched diagonal averages three DISTINCT donor genes and three DISTINCT acceptor genes, so the block-level true-effect variance carries a factor 1/3: (su2+sv2+sw2)/3 = rho*V9, giving su2+sv2+sw2 = 3*rho*V9",
+    "f_definition": "the ratio of designed within-block cell heterogeneity to C43's -- an UNKNOWN, not a measured quantity",
+    "f_status": "unmeasured",
+    "invalid_transfer_note": "the earlier figures (440 blocks for Psi, 533 for M+/M-) transferred C43's measured block variance V9 unchanged to the designed panel; that transfer is invalid",
+    "legacy_533_implicit_f": 0.12559041082662092,
+    "legacy_533_implicit_f_note": "the earlier 533 (M+/M-) implicitly assumed f approximately 0.125 -- an assumption never stated",
+    "no_f_makes_440_correct": true,
+    "no_f_makes_440_correct_derivation": "the f solving var_psi_designed(f) = V9 (440's variance) is -0.165879, which is negative; f must be >= 0, so no such f exists",
+    "rho": 0.368264006833713,
+    "sig_c2": 0.17703982542638141,
+    "three_rho_v9": 0.1548053210184089,
+    "three_rho_v9_over_v9_ratio": 1.104792020501139,
+    "v9": 0.14012168638599368
+  },
+  "d3_raw_periodicity_confound": {
+    "confound_statement": "the donor-to-acceptor span is 120 nt, and 120 is a multiple of 3. The two module interiors each carry a period-3 Fourier component, and their relative phase across the joined window is exactly delta * 120 degrees, with no fractional-cycle residue left by the intervening span (because the span itself is an exact multiple of the period). Matched registers therefore add constructively and mismatched add destructively: for comparable component magnitudes a ~ b, |a+b| = 2a against sqrt(a^2 + b^2 - ab) = a. A model that computes nothing but 'how strong is the 3-periodicity of this window' -- translation-invariant, with no positional coordinate and no long-range comparison -- reproduces the matched-over-mismatched ranking. That is precisely the alternative to the hypothesis the panel was built to test, and a sequence-only panel cannot separate the two",
+    "constructive_matched_magnitude": "|a+b| = 2a for comparable components a ~ b (delta = 0, in phase)",
+    "destructive_mismatched_magnitude": "sqrt(a^2 + b^2 - ab) = a for comparable components a ~ b (delta = 1 or 2, 120 or 240 degrees out of phase)",
+    "gate_unsatisfiable_note": "the proposed frozen gate 'match period-3 amplitude AND phase across register conditions' is structurally unsatisfiable on the joined construct: equalising joined-window period-3 phase across register conditions IS abolishing delta. Either the gate is enforced and the treatment vanishes, or it is not enforced and the confound stands unmeasured",
+    "period_nt": 3,
+    "span_cycles": 40,
+    "span_is_multiple_of_period": true,
+    "span_nt": 120,
+    "structural_not_a_power_problem": true
+  },
+  "d4_disposition": {
+    "designed_panel_viable_as_primary_identifier": false,
+    "successor_not_further_described_note": "the successor is not built yet, and this artifact must not imply it works",
+    "successor_primary_endpoint_note": "the successor primary endpoint is a carrier-register intervention (a prespecified cyclic delta x r interaction on identical sequences), not a sequence-only matched-minus-mismatched contrast",
+    "superseded_conclusion": "clears comfortably",
+    "superseded_conclusion_note": "an earlier assessment concluded the designed 3x3 register panel 'clears comfortably'; that conclusion was wrong -- see D1 (additive capacity), D2 (corrected parent-pair variance), and D3 (the raw-periodicity confound)"
+  },
+  "designed_panel_viable_as_primary_identifier": false,
+  "ladder_receipt": {
+    "mode": "file",
+    "path": "results/splicebert_positional_clock/development/pbc_v2_capacity_ladder_v2.json",
+    "sha256": "c63b24f75611fb2526015ed0bae185b9bc8869aa12a01f6577852eeb1d4fecba",
+    "size_bytes": 64106
+  },
+  "model_execution": false,
+  "purpose": "memorialize the designed 3x3 register panel's infeasibility: an earlier assessment concluded it 'clears comfortably'; an independent adversarial review found three confirmed defects (additive capacity, an invalid variance transfer, and a structural raw-periodicity confound), recorded here so a later pivot cannot silently supersede it",
+  "real_panel_receipt": {
+    "mode": "file",
+    "path": "results/splicebert_positional_clock/real_panel_capacity_v1.json",
+    "sha256": "39bfd21961c06bb6f01b1ddb2819ebadd54179ebaeef9db4df1b41b280597944",
+    "size_bytes": 9446
+  },
+  "schema": "gfmcd.splicebert_positional_clock.designed_panel_infeasibility.v1",
+  "scope_note": "this records an instrument/design failure. It is not evidence about biology, and it licenses no conclusion of any sign about the underlying science",
+  "stage": "construction",
+  "study_directory": "results/splicebert_positional_clock/",
+  "study_directory_provisional": true,
+  "study_directory_provisional_note": "the study directory name 'splicebert_positional_clock' is PROVISIONAL and may be renamed before anything freezes; this artifact deliberately lives at the study root, not under development/, so a later pivot to a different evaluation design cannot silently supersede the finding it memorializes -- exactly like its sibling real_panel_capacity_v1.json"
+}

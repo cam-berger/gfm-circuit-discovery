@@ -44,10 +44,11 @@ CLAIMS_FILES = [
     REPO / "studies/splicebert_partner_selection/CLAIMS.md",
     REPO / "studies/splicebert_head_context_atlas/CLAIMS.md",
     REPO / "studies/splicebert_gtex_finetune_shift/CLAIMS.md",
+    REPO / "studies/splicebert_positional_boundary_coherence/CLAIMS.md",
 ]
 CORRECTIONS = REPO / "studies/splicebert_partner_selection/CORRECTIONS.md"
 MANIFEST_CSV = REPO / "results/MANIFEST.csv"
-CLAIM_ID_PATTERN = r"(C\d+|HCA\d+|GFS\d+)"
+CLAIM_ID_PATTERN = r"(C\d+|HCA\d+|GFS\d+|PBC\d+)"
 
 # IDs cited in prose that legitimately have no standalone defining row.
 CLAIM_ID_EXCEPTIONS = {

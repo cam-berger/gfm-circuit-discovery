@@ -1,0 +1,91 @@
+{
+  "command": [
+    "scripts/splicebert_positional_boundary_coherence/audit_composition_balanced_cohort.py",
+    "--cohort",
+    "results/splicebert_positional_boundary_coherence/development/composition_balanced_cohort_v1.json",
+    "--candidates",
+    "results/splicebert_positional_boundary_coherence/development/candidate_census_v1.json",
+    "--candidate-audit",
+    "results/splicebert_positional_boundary_coherence/development/candidate_census_v1.audit.json",
+    "--blacklist",
+    "results/splicebert_positional_boundary_coherence/development/freshness_registry_v1.json",
+    "--frozen-variance",
+    "configs/splicebert_positional_boundary_coherence/c43_upper_variance_v1.json",
+    "--out",
+    "results/splicebert_positional_boundary_coherence/development/composition_balanced_cohort_v1.audit.json"
+  ],
+  "config": {
+    "stage": "construction"
+  },
+  "created_at_utc": "2026-08-11T21:17:59.849666+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 90005,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert-positional-boundary-coherence:composition-balanced-cohort-audit-v1",
+  "git_commit": "6bb49693abf9bd7ea900bc4f9d88639b98afde72",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/results/splicebert_positional_boundary_coherence/development/composition_balanced_cohort_v1.json",
+      "sha256": "ccc723bbe1fac8054dad4f9c4d2990a85170bf43c3b056bf9ea1dd0ca55a02c9",
+      "size_bytes": 9455
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/results/splicebert_positional_boundary_coherence/development/candidate_census_v1.json",
+      "sha256": "9be356ac26ff18aa750b0552684d4a94fa6b8963fee01666608b38cc7de25614",
+      "size_bytes": 2343604295
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/results/splicebert_positional_boundary_coherence/development/freshness_registry_v1.json",
+      "sha256": "e36863c069d4ee0fba14c9b652b35543c2922d2a7cffa3236d9a3a3a89f9b34d",
+      "size_bytes": 530488
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/configs/splicebert_positional_boundary_coherence/c43_upper_variance_v1.json",
+      "sha256": "aaaf0b554ba1d11dc7c03485f1db583b886f13d786bc0508b729d09d0645584d",
+      "size_bytes": 1092
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/studies/splicebert_positional_boundary_coherence/PREREGISTRATION.md",
+      "sha256": "f89450302d3c81463c87636ecf16c7a995eb931047f751a4c9aa5e5e164d5611",
+      "size_bytes": 78889
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/src/gfmcd/splicing/positional_boundary_coherence.py",
+      "sha256": "7225f26a9e9bdc50a1b1dea2ee423ce5ea7077b041840eee8436509844ba2dda",
+      "size_bytes": 159012
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/scripts/splicebert_positional_boundary_coherence/audit_composition_balanced_cohort.py",
+      "sha256": "3bbfcf96c6799554af184cb07fcfb26af53671095add1b9de78a6e7bb8dc92b5",
+      "size_bytes": 10336
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/results/splicebert_positional_boundary_coherence/development/candidate_census_v1.audit.json",
+      "sha256": "ff0750ee35cc994bd307e95860165852640508be6573de39d0419efe5f34a1bb",
+      "size_bytes": 6512
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/results/splicebert_positional_boundary_coherence/development/candidate_census_v1.manifest.json",
+      "sha256": "c8b6fa9d99e2323cd681ed4ffc2daeb5f80a280137e4b8446582f711cfa458fa",
+      "size_bytes": 5489
+    }
+  ],
+  "notes": [
+    "Independent reconstruction of the necessary unique-gene capacity stop.",
+    "No SpliceBERT checkpoint or model outcome was loaded.",
+    "A passing audit validates only the stop and never authorizes a target."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/results/splicebert_positional_boundary_coherence/development/composition_balanced_cohort_v1.audit.json",
+      "sha256": "5e1b6cabee70d554aa7e1d2340801996e4bdd2adcadf443148ff56a6233dd241",
+      "size_bytes": 9179
+    }
+  ],
+  "seeds": {},
+  "status": "AUDIT_PASS_INSTRUMENT_UNRESOLVED"
+}

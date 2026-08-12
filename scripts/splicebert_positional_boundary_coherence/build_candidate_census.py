@@ -71,6 +71,34 @@ def _validate_freshness(
     return {str(value) for value in genes}
 
 
+def _source_locus(record: Mapping[str, object]) -> tuple[str, str, str, int, int]:
+    return (
+        str(record["role"]),
+        str(record["chrom"]),
+        str(record["strand"]),
+        int(record["source_start"]),
+        int(record["source_end"]),
+    )
+
+
+def _exclude_duplicate_source_loci(
+    materialized: list[tuple[dict[str, object], Any]],
+    exclusions: list[dict[str, object]],
+) -> list[dict[str, object]]:
+    """Exclude every occurrence of a multiply materialized source locus."""
+
+    counts = Counter(_source_locus(record) for record, _edge in materialized)
+    retained: list[dict[str, object]] = []
+    for record, edge in materialized:
+        if counts[_source_locus(record)] > 1:
+            exclusions.append(
+                exclusion_record(edge, f"duplicate_source_locus:{record['role']}")
+            )
+        else:
+            retained.append(record)
+    return retained
+
+
 def construct_candidate_package(
     *,
     fasta_path: str | Path,
@@ -96,7 +124,7 @@ def construct_candidate_package(
         comprehensive_gtf_path,
         allowed_chromosomes=allowed,
     )
-    candidates: list[dict[str, object]] = []
+    materialized: list[tuple[dict[str, object], Any]] = []
     exclusions = list(annotation_exclusions)
     for edge in edges:
         root = edge.representative.gene_id.split(".", 1)[0]
@@ -106,14 +134,15 @@ def construct_candidate_package(
         try:
             donor = module_record(edge, genome, scorer, role="donor")
             acceptor = module_record(edge, genome, scorer, role="acceptor")
-            candidates.extend((donor, acceptor))
+            materialized.extend(((donor, edge), (acceptor, edge)))
         except (KeyError, ValueError, ZeroDivisionError) as exc:
             exclusions.append(exclusion_record(edge, f"module:{type(exc).__name__}:{exc}"))
         try:
-            candidates.append(scaffold_record(edge, genome, scorer))
+            materialized.append((scaffold_record(edge, genome, scorer), edge))
         except (KeyError, ValueError, ZeroDivisionError) as exc:
             exclusions.append(exclusion_record(edge, f"scaffold:{type(exc).__name__}:{exc}"))
 
+    candidates = _exclude_duplicate_source_loci(materialized, exclusions)
     candidates.sort(key=lambda row: str(row["candidate_id"]))
     exclusions.sort(key=lambda row: (str(row["edge_id"]), tuple(row["reasons"])))
     if not candidates:

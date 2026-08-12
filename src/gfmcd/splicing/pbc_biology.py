@@ -11,6 +11,7 @@ transcript direction on both strands.
 
 from __future__ import annotations
 
+from bisect import bisect_left
 from collections import defaultdict
 from dataclasses import dataclass
 import gzip
@@ -353,6 +354,87 @@ def _overlaps(feature: GtfFeature, start: int, end: int) -> bool:
     return feature.start < end and feature.end > start
 
 
+class _FeatureIntervalIndex:
+    """Report exact interval overlaps while retaining source-file order.
+
+    The census asks the same local-overlap question once per candidate edge.
+    Scanning every chromosome feature for every edge is quadratic on the full
+    GENCODE annotation.  This index sorts only lookup metadata; returned rows
+    are restored to their original order so downstream exclusion records and
+    candidate hashes are unchanged.
+    """
+
+    def __init__(self, features: Iterable[GtfFeature]):
+        self._features = tuple(features)
+        records = sorted(
+            (feature.start, feature.end, index)
+            for index, feature in enumerate(self._features)
+        )
+        self._records = tuple(records)
+        self._starts = tuple(record[0] for record in records)
+        size = 1
+        while size < len(records):
+            size *= 2
+        self._tree_size = size
+        max_ends = [-1] * (2 * size)
+        for offset, (_start, end, _index) in enumerate(records):
+            max_ends[size + offset] = end
+        for node in range(size - 1, 0, -1):
+            max_ends[node] = max(max_ends[2 * node], max_ends[2 * node + 1])
+        self._max_ends = tuple(max_ends)
+
+    def _collect(
+        self,
+        *,
+        node: int,
+        left: int,
+        right: int,
+        upper_record: int,
+        query_start: int,
+        found: set[int],
+    ) -> None:
+        if left >= upper_record or self._max_ends[node] <= query_start:
+            return
+        if right - left == 1:
+            found.add(self._records[left][2])
+            return
+        middle = (left + right) // 2
+        self._collect(
+            node=2 * node,
+            left=left,
+            right=middle,
+            upper_record=upper_record,
+            query_start=query_start,
+            found=found,
+        )
+        if middle < upper_record:
+            self._collect(
+                node=2 * node + 1,
+                left=middle,
+                right=right,
+                upper_record=upper_record,
+                query_start=query_start,
+                found=found,
+            )
+
+    def overlaps(self, intervals: Iterable[tuple[int, int]]) -> tuple[GtfFeature, ...]:
+        found: set[int] = set()
+        for start, end in intervals:
+            if end <= start:
+                raise ValueError("query interval must be non-empty")
+            upper_record = bisect_left(self._starts, end)
+            if upper_record:
+                self._collect(
+                    node=1,
+                    left=0,
+                    right=self._tree_size,
+                    upper_record=upper_record,
+                    query_start=start,
+                    found=found,
+                )
+        return tuple(self._features[index] for index in sorted(found))
+
+
 def _local_intervals(edge: EdgeSupport) -> tuple[tuple[int, int], tuple[int, int]]:
     return (
         oriented_interval(edge.donor, -90, 36, edge.strand),
@@ -398,6 +480,15 @@ def enumerate_edge_evidence(
     comp_by_chrom: dict[str, list[GtfFeature]] = defaultdict(list)
     for feature in comprehensive_features:
         comp_by_chrom[feature.chrom].append(feature)
+    comp_indexes = {
+        chrom: _FeatureIntervalIndex(features)
+        for chrom, features in comp_by_chrom.items()
+    }
+
+    # The supports and indexes now own every object needed below.  Releasing
+    # the multi-million-row parser lists keeps the production census bounded.
+    del basic_features, comprehensive_features, basic_supports, comprehensive_supports
+    del comp_by_chrom
 
     retained: list[EdgeEvidence] = []
     exclusions: list[dict[str, object]] = []
@@ -429,11 +520,8 @@ def enumerate_edge_evidence(
 
         representative = sorted(supports, key=lambda row: row.transcript_id)[0]
         intervals = _local_intervals(representative)
-        nearby = tuple(
-            feature
-            for feature in comp_by_chrom.get(chrom, ())
-            if any(_overlaps(feature, start, end) for start, end in intervals)
-        )
+        index = comp_indexes.get(chrom)
+        nearby = index.overlaps(intervals) if index is not None else ()
         if any(feature.strand != strand for feature in nearby):
             reasons.append("comprehensive_local_strand_conflict")
         if any(feature.gene_id.split(".", 1)[0] != root for feature in nearby):

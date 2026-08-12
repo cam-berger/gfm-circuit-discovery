@@ -25,6 +25,7 @@ sys.path.insert(0, str(REPO / "src"))
 sys.path.insert(0, str(REPO / "scripts" / "splicebert"))
 
 from run_bg1_boundary_grammar import (  # noqa: E402
+    AMENDMENT,
     DECLARATION,
     PREFLIGHT_SCHEMA,
     PROTOCOL,
@@ -108,11 +109,47 @@ BATCH_TOL = 1e-5
 MAX_CALIBRATED_FPR = 0.075
 MIN_PLANTED_POWER = 0.80
 MIN_ROUTE_LIFT = 0.05
+SMOKE_NONAUTHORIZING_CHECKS = frozenset({
+    "target_resolution",
+    "planted_sensitivity",
+    "endpoint_familywise_false_positive_rate",
+    "joint_claim_composite_null_false_positive_rate",
+    "route_resolution",
+})
 
 
 def resolved(path: str | Path) -> Path:
     candidate = Path(path)
     return candidate if candidate.is_absolute() else REPO / candidate
+
+
+def preflight_pass_semantics(checks: dict, *, smoke: bool) -> dict:
+    """Separate smoke instrument status from canonical target authorization."""
+
+    failed = [name for name, check in checks.items() if check.get("PASS") is not True]
+    diagnostic = sorted(
+        name for name in SMOKE_NONAUTHORIZING_CHECKS if name in checks
+    )
+    active = [
+        name
+        for name in checks
+        if not (smoke and name in SMOKE_NONAUTHORIZING_CHECKS)
+    ]
+    active_failed = [name for name in active if checks[name].get("PASS") is not True]
+    instrument_pass = not active_failed
+    authorization_pass = bool(not smoke and not failed)
+    return {
+        "PASS": bool(instrument_pass if smoke else authorization_pass),
+        "instrument_PASS": bool(instrument_pass),
+        "target_authorization_PASS": authorization_pass,
+        "failed_checks": failed,
+        "active_failed_checks": active_failed,
+        "non_authorizing_smoke_diagnostics": diagnostic if smoke else [],
+        "failed_non_authorizing_smoke_diagnostics": (
+            [name for name in failed if name in SMOKE_NONAUTHORIZING_CHECKS]
+            if smoke else []
+        ),
+    }
 
 
 def mean_ci(values: Sequence[float], *, draws: int, seed: int) -> tuple[float, float]:
@@ -510,6 +547,8 @@ def main() -> None:
     manifest_path = guard_output_path(out.with_suffix(".manifest.json"))
     if not PROTOCOL.is_file():
         raise FileNotFoundError(f"frozen BG1 protocol is missing: {PROTOCOL}")
+    if not AMENDMENT.is_file():
+        raise FileNotFoundError(f"binding BG1/BG2 amendment is missing: {AMENDMENT}")
     frozen_model_hashes = model_file_hashes(args.model)
     if frozen_model_hashes.get("pytorch_model.bin") != CHECKPOINT_SHA256:
         raise RuntimeError("the requested model is not the frozen SpliceBERT checkpoint")
@@ -796,21 +835,23 @@ def main() -> None:
             "threshold": SESOI,
         },
         "target_resolution": {
-            "PASS": bool(args.smoke or all(value <= SESOI for value in primary_mde)),
+            "PASS": bool(all(value <= SESOI for value in primary_mde)),
             "projected_validation_mde80": primary_mde,
             "target_n": len(val_behavior),
             "threshold": SESOI,
-            "smoke_relaxed": args.smoke,
+            "smoke_role": "non_authorizing_undersized_diagnostic",
         },
         "planted_sensitivity": {
             "PASS": calibration["planted_power"] >= MIN_PLANTED_POWER,
             **calibration,
             "threshold": MIN_PLANTED_POWER,
+            "smoke_role": "non_authorizing_undersized_diagnostic",
         },
         "endpoint_familywise_false_positive_rate": {
             "PASS": calibration["endpoint_familywise_false_positive_rate"] <= MAX_CALIBRATED_FPR,
             "value": calibration["endpoint_familywise_false_positive_rate"],
             "threshold": MAX_CALIBRATED_FPR,
+            "smoke_role": "non_authorizing_undersized_diagnostic",
         },
         "joint_claim_composite_null_false_positive_rate": {
             "PASS": calibration["joint_claim_worst_case_false_positive_rate"] <= MAX_CALIBRATED_FPR,
@@ -819,6 +860,7 @@ def main() -> None:
                 "joint_claim_composite_null_false_positive_rate_by_boundary_endpoint"
             ],
             "threshold": MAX_CALIBRATED_FPR,
+            "smoke_role": "non_authorizing_undersized_diagnostic",
         },
         "value_linearity": {
             "PASS": route_metrics["value_linearity"] <= LINEARITY_TOL,
@@ -847,20 +889,23 @@ def main() -> None:
             "minimum_full_lift": MIN_ROUTE_LIFT,
         },
         "route_resolution": {
-            "PASS": bool(args.smoke or all(value <= SESOI for value in route_mde)),
+            "PASS": bool(all(value <= SESOI for value in route_mde)),
             "projected_validation_mde80": route_mde,
             "target_n": len(val_route),
             "threshold": SESOI,
-            "smoke_relaxed": args.smoke,
+            "smoke_role": "non_authorizing_undersized_diagnostic",
         },
     }
-    passed = all(check["PASS"] for check in checks.values())
+    pass_semantics = preflight_pass_semantics(checks, smoke=args.smoke)
+    passed = pass_semantics["PASS"]
     weights = checkpoint_weights_path(args.model)
     gtf_path = resolved(args.gtf)
     fasta_path = resolved(args.fasta)
     result = {
         "schema": PREFLIGHT_SCHEMA,
         "PASS": bool(passed),
+        "instrument_PASS": pass_semantics["instrument_PASS"],
+        "target_authorization_PASS": pass_semantics["target_authorization_PASS"],
         "smoke": bool(args.smoke),
         "status": "DEVELOPMENT_PREFLIGHT",
         "checkpoint_sha256": sha256_file(weights),
@@ -868,12 +913,14 @@ def main() -> None:
         "gtf_sha256": frozen_gtf_hash,
         "fasta_sha256": frozen_fasta_hash,
         "protocol_sha256": sha256_file(PROTOCOL),
+        "amendment_sha256": sha256_file(AMENDMENT),
         "declaration_sha256": sha256_file(DECLARATION),
         "config": preflight_config(),
         "cohort": cohort,
         "target_cohorts": target_cohorts,
         "test_replication_enabled": bool(args.enable_test_replication),
         "checks": checks,
+        "pass_semantics": pass_semantics,
         "diagnostics": {
             "target_train_inference": target_inference,
             "route_train_inference": route_inference,
@@ -893,17 +940,28 @@ def main() -> None:
         "splicebert-partner-selection:bg1-boundary-preflight-v1",
         sys.argv,
         repo=REPO,
-        status="DEVELOPMENT_PREFLIGHT_PASS" if passed else "DEVELOPMENT_PREFLIGHT_FAILED",
+        status=(
+            "DEVELOPMENT_SMOKE_INSTRUMENT_PASS"
+            if args.smoke and passed else
+            "DEVELOPMENT_SMOKE_INSTRUMENT_FAILED"
+            if args.smoke else
+            "DEVELOPMENT_PREFLIGHT_PASS"
+            if passed else
+            "DEVELOPMENT_PREFLIGHT_FAILED"
+        ),
         config={
             "smoke": args.smoke,
             "n_behavior": len(behavior),
             "n_route": len(route),
             "device": device,
             "PASS": passed,
+            "instrument_PASS": pass_semantics["instrument_PASS"],
+            "target_authorization_PASS": pass_semantics["target_authorization_PASS"],
         },
         seeds={"stable_roles": 0, "analysis": args.seed},
         notes=[
             "Train split only; no target role or target split can be authorized by a smoke artifact.",
+            "Smoke power/MDE/FPR checks are recorded raw as non-authorizing undersized diagnostics.",
             "Outer attenuation remains diagnostic unless its separate outcome-blind power flag is true.",
         ],
     )
@@ -911,6 +969,7 @@ def main() -> None:
         gtf_path,
         fasta_path,
         PROTOCOL,
+        AMENDMENT,
         DECLARATION,
         Path(__file__),
         REPO / "scripts/splicebert/run_bg1_boundary_grammar.py",
@@ -932,8 +991,13 @@ def main() -> None:
     manifest.write(manifest_path)
     print(json.dumps({
         "PASS": passed,
+        "instrument_PASS": pass_semantics["instrument_PASS"],
+        "target_authorization_PASS": pass_semantics["target_authorization_PASS"],
         "smoke": args.smoke,
-        "failed": [name for name, check in checks.items() if not check["PASS"]],
+        "failed": pass_semantics["failed_checks"],
+        "failed_non_authorizing_smoke_diagnostics": pass_semantics[
+            "failed_non_authorizing_smoke_diagnostics"
+        ],
         "outer_claim_bearing": {
             "minus3_vs_minus4": minus_outer["claim_bearing"],
             "plus1_vs_plus2": plus_outer["claim_bearing"],

@@ -106,6 +106,33 @@ def test_calibration_exercises_the_joint_interval_and_signflip_decision():
     assert 0.0 <= result["planted_power"] <= 1.0
 
 
+def test_smoke_pass_is_instrument_only_and_canonical_gates_are_unchanged():
+    checks = {
+        "panel_construction": {"PASS": True},
+        "planted_sensitivity": {"PASS": False},
+        "target_resolution": {"PASS": False},
+    }
+    smoke = PREFLIGHT.preflight_pass_semantics(checks, smoke=True)
+    assert smoke["PASS"] is True
+    assert smoke["instrument_PASS"] is True
+    assert smoke["target_authorization_PASS"] is False
+    assert smoke["failed_non_authorizing_smoke_diagnostics"] == [
+        "planted_sensitivity",
+        "target_resolution",
+    ]
+
+    canonical = PREFLIGHT.preflight_pass_semantics(checks, smoke=False)
+    assert canonical["PASS"] is False
+    assert canonical["instrument_PASS"] is False
+    assert canonical["target_authorization_PASS"] is False
+
+    broken_instrument = PREFLIGHT.preflight_pass_semantics(
+        {**checks, "panel_construction": {"PASS": False}}, smoke=True
+    )
+    assert broken_instrument["PASS"] is False
+    assert broken_instrument["instrument_PASS"] is False
+
+
 def test_frozen_membership_detects_any_order_or_sequence_drift():
     examples = [
         SimpleNamespace(

@@ -20,14 +20,24 @@ sys.path.insert(0, str(SCRIPT_DIR))
 
 from gfmcd.artifact_guard import guard_output_path  # noqa: E402
 from gfmcd.provenance import ExperimentManifest, file_record, sha256_file  # noqa: E402
-from gfmcd.splicing.circuit import DEFAULT_MODEL  # noqa: E402
+from gfmcd.splicing.circuit import pick_device  # noqa: E402
 from gfmcd.splicing.pbc_carrier_factorial import (  # noqa: E402
     MIN_STRUCTURED_CONTROLS,
     build_phase_control_family,
     build_world_tables,
     make_target_seal,
 )
+from gfmcd.splicing.pbc_frozen_inputs import (  # noqa: E402
+    validate_candidate_input_pins,
+    validate_frozen_construction_configs,
+    validate_official_checkpoint,
+)
 from audit_carrier_factorial_preflight import AUDIT_SCHEMA  # noqa: E402
+from audit_protocol_code_conformance import (  # noqa: E402
+    CONFORMANCE_EXPERIMENT_ID,
+    CONFORMANCE_SCHEMA,
+    conformance_code_files,
+)
 from run_carrier_factorial_preflight import (  # noqa: E402
     EXPECTED_CONSTRUCTION_AUDIT_EXPERIMENT_ID,
     EXPECTED_CONSTRUCTION_AUDIT_SCHEMA,
@@ -110,6 +120,89 @@ def _manifest_binds_input(manifest: Mapping[str, Any], path: Path) -> bool:
     )
 
 
+def _canonical_json_sha256(value: Mapping[str, Any]) -> str:
+    return sha256(
+        json.dumps(
+            value,
+            sort_keys=True,
+            separators=(",", ":"),
+            ensure_ascii=True,
+            allow_nan=False,
+        ).encode("utf-8")
+    ).hexdigest()
+
+
+def validate_conformance_chain(
+    audit: Mapping[str, Any],
+    manifest: Mapping[str, Any],
+    *,
+    audit_path: Path,
+    required_inputs: tuple[Path, ...],
+    frozen_revision: str,
+) -> tuple[Path, ...]:
+    """Validate the independent protocol audit and return its pinned inputs."""
+
+    body = dict(audit)
+    observed_content_hash = str(body.pop("content_sha256", ""))
+    coverage = audit.get("coverage_matrix")
+    config = manifest.get("config")
+    audited_records = audit.get("audited_inputs")
+    manifest_records = manifest.get("inputs")
+    if (
+        audit.get("schema") != CONFORMANCE_SCHEMA
+        or audit.get("stage") != "development"
+        or audit.get("status") != "PASS"
+        or audit.get("passed") is not True
+        or audit.get("target_outcomes_read") is not False
+        or audit.get("model_loaded") is not False
+        or audit.get("tracked_tree_clean") is not True
+        or audit.get("git_revision") != frozen_revision
+        or audit.get("failures") != []
+        or not isinstance(coverage, list)
+        or not coverage
+        or not all(
+            isinstance(row, Mapping) and row.get("passed") is True for row in coverage
+        )
+        or observed_content_hash != _canonical_json_sha256(body)
+        or manifest.get("experiment_id") != CONFORMANCE_EXPERIMENT_ID
+        or manifest.get("status") != "PASS"
+        or manifest.get("git_commit") != frozen_revision
+        or not isinstance(config, Mapping)
+        or config.get("stage") != "development"
+        or config.get("target_outcomes_read") is not False
+        or config.get("git_revision") != frozen_revision
+        or not _manifest_binds_output(manifest, audit_path)
+        or not isinstance(audited_records, list)
+        or not audited_records
+        or not isinstance(manifest_records, list)
+        or not manifest_records
+        or not all(_file_record_valid(record) for record in audited_records)
+        or not all(_file_record_valid(record) for record in manifest_records)
+    ):
+        raise RuntimeError("protocol-to-code conformance producer chain is invalid")
+
+    def identities(records: list[object]) -> set[tuple[str, int, str]]:
+        return {
+            (
+                str(Path(str(record["path"])).expanduser().resolve()),
+                int(record["size_bytes"]),
+                str(record["sha256"]),
+            )
+            for record in records
+            if isinstance(record, Mapping)
+        }
+
+    if identities(audited_records) != identities(manifest_records):
+        raise RuntimeError("conformance artifact and manifest input inventories differ")
+    if not all(_manifest_binds_input(manifest, path) for path in required_inputs):
+        raise RuntimeError("conformance audit did not bind every final code/input file")
+    return tuple(
+        Path(str(record["path"])).expanduser().resolve()
+        for record in manifest_records
+        if isinstance(record, Mapping)
+    )
+
+
 def clean_tracked_revision(repo: Path = REPO) -> str:
     """Return HEAD only when tracked files exactly match the index and commit."""
 
@@ -173,6 +266,7 @@ def freeze_payload(
     original: np.ndarray,
     pinned_files: Mapping[str, Mapping[str, Any]],
     preflight_authorization: Mapping[str, Any],
+    runtime: Mapping[str, Any],
     target_outputs: Mapping[str, Any],
     frozen_revision: str,
 ) -> dict[str, Any]:
@@ -239,6 +333,7 @@ def freeze_payload(
         control_seed=int(preflight["control_seed"]),
         structured_control_hashes=control_hashes,
         preflight_authorization=preflight_authorization,
+        runtime=runtime,
         target_outputs=target_outputs,
         frozen_revision=frozen_revision,
     )
@@ -254,6 +349,8 @@ def main() -> None:
     parser.add_argument("--candidate-package", required=True)
     parser.add_argument("--construction-audit", required=True)
     parser.add_argument("--construction-audit-manifest", required=True)
+    parser.add_argument("--conformance-audit", required=True)
+    parser.add_argument("--conformance-audit-manifest", required=True)
     parser.add_argument("--protocol", required=True)
     parser.add_argument("--model", required=True)
     parser.add_argument("--target-output", required=True)
@@ -274,12 +371,25 @@ def main() -> None:
             ("candidate_package", args.candidate_package),
             ("construction_audit", args.construction_audit),
             ("construction_audit_manifest", args.construction_audit_manifest),
+            ("conformance_audit", args.conformance_audit),
+            ("conformance_audit_manifest", args.conformance_audit_manifest),
             ("protocol", args.protocol),
+            (
+                "source_spec",
+                REPO
+                / "configs/splicebert_positional_boundary_coherence/"
+                "freshness_sources_v1.json",
+            ),
+            (
+                "frozen_variance",
+                REPO
+                / "configs/splicebert_positional_boundary_coherence/"
+                "c43_upper_variance_v1.json",
+            ),
         )
     }
     model_path = Path(args.model).expanduser().resolve()
-    if model_path != (REPO / DEFAULT_MODEL).resolve():
-        raise RuntimeError("target freeze requires the official SpliceBERT.1024nt path")
+    validate_official_checkpoint(model_path)
     preflight = json.loads(paths["preflight"].read_text())
     preflight_manifest = json.loads(paths["preflight_manifest"].read_text())
     audit = json.loads(paths["preflight_audit"].read_text())
@@ -287,6 +397,18 @@ def main() -> None:
     construction_audit = json.loads(paths["construction_audit"].read_text())
     construction_audit_manifest = json.loads(
         paths["construction_audit_manifest"].read_text()
+    )
+    conformance_audit = json.loads(paths["conformance_audit"].read_text())
+    conformance_audit_manifest = json.loads(
+        paths["conformance_audit_manifest"].read_text()
+    )
+    candidate_package = json.loads(paths["candidate_package"].read_text())
+    biology_paths = validate_candidate_input_pins(candidate_package)
+    construction_config_paths = validate_frozen_construction_configs(
+        {
+            "source_spec": paths["source_spec"],
+            "frozen_variance": paths["frozen_variance"],
+        }
     )
     construction_inputs = construction_audit_manifest.get("inputs")
     construction_outputs = construction_audit_manifest.get("outputs")
@@ -360,16 +482,7 @@ def main() -> None:
         == sha256_file(paths["construction_audit_manifest"])
     ):
         raise RuntimeError("preflight does not bind the construction audit producer chain")
-    code_files = (
-        REPO / "src/gfmcd/splicing/pbc_carrier_factorial.py",
-        SCRIPT_DIR / "run_carrier_factorial_preflight.py",
-        SCRIPT_DIR / "audit_carrier_factorial_preflight.py",
-        Path(__file__).resolve(),
-        SCRIPT_DIR / "run_carrier_factorial_target.py",
-        SCRIPT_DIR / "analyze_carrier_factorial.py",
-        SCRIPT_DIR / "audit_carrier_factorial.py",
-        SCRIPT_DIR / "calibrate_carrier_factorial.py",
-    )
+    code_files = conformance_code_files(REPO)
     revision = clean_tracked_revision()
     for path in code_files:
         _require_tracked(path)
@@ -378,12 +491,33 @@ def main() -> None:
     model_files = _model_files(model_path)
     if not all(_manifest_binds_input(preflight_manifest, path) for path in model_files):
         raise RuntimeError("preflight manifest did not bind every checkpoint file")
+    conformance_input_paths = validate_conformance_chain(
+        conformance_audit,
+        conformance_audit_manifest,
+        audit_path=paths["conformance_audit"],
+        required_inputs=tuple(
+            dict.fromkeys(
+                (
+                    paths["protocol"],
+                    paths["candidate_package"],
+                    *construction_config_paths.values(),
+                    *biology_paths.values(),
+                    *code_files,
+                    *model_files,
+                )
+            )
+        ),
+        frozen_revision=revision,
+    )
     pinned_paths = tuple(
         dict.fromkeys(
             (
                 *paths.values(),
                 *preflight_input_paths,
                 *construction_input_paths,
+                *conformance_input_paths,
+                *biology_paths.values(),
+                *construction_config_paths.values(),
                 *code_files,
                 *model_files,
             )
@@ -407,17 +541,28 @@ def main() -> None:
         "construction_audit_manifest_sha256": sha256_file(
             paths["construction_audit_manifest"]
         ),
+        "conformance_audit_sha256": sha256_file(paths["conformance_audit"]),
+        "conformance_audit_manifest_sha256": sha256_file(
+            paths["conformance_audit_manifest"]
+        ),
     }
     plan = target_output_plan(args.target_output, args.target_shards)
+    if args.batch < 1:
+        parser.error("--batch must be positive")
+    resolved_device = pick_device(args.device)
     scorer = SpliceBertCellScorer(
-        model_path, device=args.device, batch_size=args.batch, eager=False
+        model_path, device=resolved_device, batch_size=args.batch, eager=False
     )
+    runtime = dict(scorer.runtime_config())
+    if runtime.get("device") != resolved_device or runtime.get("batch_size") != args.batch:
+        raise RuntimeError("loaded scorer runtime differs from the requested freeze runtime")
     seal = freeze_payload(
         preflight=preflight,
         audit=audit,
         original=scorer.position_table(),
         pinned_files=pinned,
         preflight_authorization=authorization,
+        runtime=runtime,
         target_outputs=plan,
         frozen_revision=revision,
     )
@@ -433,6 +578,7 @@ def main() -> None:
             "stage": "target",
             "target_mode": seal["target_mode"],
             "target_outputs": plan,
+            "runtime": runtime,
         },
         seeds={"structured_controls": int(seal["structured_control_seed"])},
     )

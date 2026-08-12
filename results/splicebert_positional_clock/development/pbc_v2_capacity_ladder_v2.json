@@ -1,0 +1,1656 @@
+{
+  "census_receipt": {
+    "mode": "file",
+    "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/results/splicebert_positional_boundary_coherence/development/candidate_census_v1.json",
+    "sha256": "9be356ac26ff18aa750b0552684d4a94fa6b8963fee01666608b38cc7de25614",
+    "size_bytes": 2343604295
+  },
+  "certificate_receipt": {
+    "mode": "file",
+    "path": "results/splicebert_positional_boundary_coherence/development/composition_balanced_cohort_v1.json",
+    "sha256": "ccc723bbe1fac8054dad4f9c4d2990a85170bf43c3b056bf9ea1dd0ca55a02c9",
+    "size_bytes": 9455
+  },
+  "checkpoint_loaded": null,
+  "cohort_selection_attempted": false,
+  "filters": {
+    "acceptor_pos": 512,
+    "acceptor_window": [
+      462,
+      602
+    ],
+    "allowed_chroms": [
+      "chr1",
+      "chr10",
+      "chr11",
+      "chr12",
+      "chr13",
+      "chr14",
+      "chr15",
+      "chr16",
+      "chr17",
+      "chr18",
+      "chr19",
+      "chr2",
+      "chr20",
+      "chr21",
+      "chr22",
+      "chr3",
+      "chr4",
+      "chr5",
+      "chr6",
+      "chr7",
+      "chrX"
+    ],
+    "blacklist_and_forbidden_chroms_note": "both are correctly empty here, not omissions, despite the certificate recording 5,998 blacklist members and 5 forbidden chromosomes: the certificate's blacklist is built from unversioned gene roots but compared here against this census's versioned gene_id, so it can never match -- a dead filter by construction, reproduced on purpose (see slot_gene_sets' docstring); and the census's own allowed_chromosomes (21 entries) already excludes every forbidden chromosome at build time, so restating them here would be redundant, not corrective, over this input",
+    "blacklist_size": 0,
+    "construct_length": 1022,
+    "donor_pos": 392,
+    "donor_window": [
+      302,
+      428
+    ],
+    "forbidden_chroms": []
+  },
+  "lattice": "rotated_two_by_two",
+  "margin_threshold": 0.25,
+  "mode": "real",
+  "model_execution": false,
+  "no_feasible_rung_reason": "margin >= 0.25 holds on every evaluated rung, but exact feasibility and the powered_for_every_rho Psi verdict are each individually satisfiable on this ladder and never by the same rung: the largest exactly-feasible rung is N=600 (Psi verdict 'conditional_on_rho'); the smallest rung with a powered_for_every_rho Psi verdict is N=729 (exact feasibility fails, shortfall=109)",
+  "pair_weights": [
+    1,
+    1,
+    1
+  ],
+  "rungs": [
+    {
+      "block_allocation": [
+        {
+          "blocks": 200,
+          "phase_pair": [
+            0,
+            1
+          ]
+        },
+        {
+          "blocks": 200,
+          "phase_pair": [
+            0,
+            2
+          ]
+        },
+        {
+          "blocks": 200,
+          "phase_pair": [
+            1,
+            2
+          ]
+        }
+      ],
+      "demand": {
+        "acceptor_all_phases": 1200,
+        "acceptor_phase_0": 400,
+        "acceptor_phase_1": 400,
+        "acceptor_phase_2": 400,
+        "all_roles": 3000,
+        "donor_all_phases": 1200,
+        "donor_phase_0": 400,
+        "donor_phase_1": 400,
+        "donor_phase_2": 400,
+        "scaffold": 600
+      },
+      "feasibility": {
+        "feasible": true,
+        "max_flow": 3000,
+        "min_cut_demand": null,
+        "min_cut_gene_count": null,
+        "min_cut_slots": [],
+        "modelled_slots": [
+          "acceptor_phase_0",
+          "acceptor_phase_1",
+          "acceptor_phase_2",
+          "donor_phase_0",
+          "donor_phase_1",
+          "donor_phase_2",
+          "scaffold"
+        ],
+        "shortfall": 0,
+        "total_demand": 3000
+      },
+      "joint_residuals": {
+        "donor_phase_2_acceptor_phase_2_pair": 63,
+        "unassigned_overall": 5790
+      },
+      "margin_threshold_met": true,
+      "n_blocks": 600,
+      "necessary_counts": {
+        "entries": {
+          "acceptor_all_phases": {
+            "available_unique_genes": 3172,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 1200,
+            "margin": 0.6216897856242118,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1972,
+            "source_slots": [
+              "acceptor_phase_0",
+              "acceptor_phase_1",
+              "acceptor_phase_2"
+            ]
+          },
+          "acceptor_phase_0": {
+            "available_unique_genes": 2000,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 400,
+            "margin": 0.8,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1600
+          },
+          "acceptor_phase_1": {
+            "available_unique_genes": 1496,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 400,
+            "margin": 0.732620320855615,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1096
+          },
+          "acceptor_phase_2": {
+            "available_unique_genes": 854,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 400,
+            "margin": 0.531615925058548,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 454
+          },
+          "all_roles": {
+            "available_unique_genes": 8790,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 3000,
+            "margin": 0.658703071672355,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 5790,
+            "source_slots": [
+              "scaffold",
+              "donor_phase_0",
+              "donor_phase_1",
+              "donor_phase_2",
+              "acceptor_phase_0",
+              "acceptor_phase_1",
+              "acceptor_phase_2"
+            ]
+          },
+          "donor_all_phases": {
+            "available_unique_genes": 3032,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 1200,
+            "margin": 0.604221635883905,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1832,
+            "source_slots": [
+              "donor_phase_0",
+              "donor_phase_1",
+              "donor_phase_2"
+            ]
+          },
+          "donor_phase_0": {
+            "available_unique_genes": 1908,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 400,
+            "margin": 0.790356394129979,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1508
+          },
+          "donor_phase_1": {
+            "available_unique_genes": 1400,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 400,
+            "margin": 0.7142857142857143,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1000
+          },
+          "donor_phase_2": {
+            "available_unique_genes": 809,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 400,
+            "margin": 0.5055624227441285,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 409
+          },
+          "scaffold": {
+            "available_unique_genes": 8761,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 600,
+            "margin": 0.9315146672754252,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 8161
+          }
+        },
+        "failed_constraints": [],
+        "passed": true,
+        "residual_unique_genes_per_slot_not_jointly_realizable_note": "available - demand per slot/union, exactly as necessary_counts' own margin column defines it. This double-counts genes shared across slots (e.g. the donor_phase_2/acceptor_phase_2 overlap in the real pool) -- it is NOT a jointly realizable holdout. See `joint_residuals` for the max-flow-exact figure: the genes actually left over once this rung's demand is satisfied."
+      },
+      "power_projection": {
+        "alpha": 0.05,
+        "band": {
+          "best_case_rho_1": {
+            "direction_mde80": 0.038944771033874774,
+            "psi_mde80": 0.038944771033874774,
+            "rho": 1.0
+          },
+          "worst_case_rho_0": {
+            "direction_mde80": 0.06745432211980783,
+            "psi_mde80": 0.055076223379620565,
+            "rho": 0.0
+          }
+        },
+        "cells": {
+          "matched": 2,
+          "mismatched": 2,
+          "per_delta": 1
+        },
+        "cross_lineage": {
+          "projectable": false,
+          "reason": "no repeated-training variance exists anywhere in this record; gene-block bootstraps give no degrees of freedom for a corpus intervention, and n_blocks is the wrong axis for it",
+          "replicate": "training_seed",
+          "resolution": "seed-level pilot: train 2-3 control-arm seeds and measure the seed-level SD of Psi"
+        },
+        "direction": {
+          "blocks_needed_floor": 1093,
+          "estimate_class": "lower_bound_only",
+          "lower_bound_reason": "this lattice has fewer than 3 cells per delta class, so the M_delta variance formula omits the uncancelled donor/acceptor module component, (u_a-u_b)/2 + (v_b-v_a)/2, that a full 3x3 design cancels; simulation shows a ~2.3x understatement for the rotated 2x2 -- see var_direction's docstring",
+          "mde80_best": 0.038944771033874774,
+          "mde80_worst": 0.06745432211980783,
+          "verdict": "conditional_on_rho"
+        },
+        "lattice": "rotated_two_by_two",
+        "legacy_residual_sd_upper_bound_dev120": 0.340503,
+        "legacy_variance_source": "studies/splicebert_exon_edge_compatibility/preregistrations/PREREGISTRATION_FRESH_CROSSED_DIRECT_EDGE_REPLICATION.md#3-power-and-frozen-sample-size (pooled within-stratum residual SD of the stopped 120-block development role, its one-sided 95% upper bound; this number is also carried, unexplained, in the PBC-v1 certificate's sample_size_plan, which records the value but not its meaning or its development-role source)",
+        "n3": {
+          "reason": "N3 = Y00 - Y10 is a paired within-block difference; its variance depends on an unknown carrier-state correlation determined by a dose operator that does not exist yet",
+          "status": "unprojectable_pending_dose_calibration"
+        },
+        "n_blocks": 600,
+        "power": 0.8,
+        "psi": {
+          "blocks_needed_worst_case": 729,
+          "mde80_best": 0.038944771033874774,
+          "mde80_worst": 0.055076223379620565,
+          "verdict": "conditional_on_rho"
+        },
+        "rho_identifiable": false,
+        "rho_unidentifiable_reason": "the 3,456 per-cell rows behind C43 were gitignored at source, so the gene-level vs cell-level split of the frozen block variance cannot be estimated from any committed artifact; projections are bands over rho in [0, 1], never points",
+        "sesoi": 0.05
+      },
+      "psi_verdict": "conditional_on_rho",
+      "selection_candidate": false
+    },
+    {
+      "block_allocation": [
+        {
+          "blocks": 220,
+          "phase_pair": [
+            0,
+            1
+          ]
+        },
+        {
+          "blocks": 220,
+          "phase_pair": [
+            0,
+            2
+          ]
+        },
+        {
+          "blocks": 220,
+          "phase_pair": [
+            1,
+            2
+          ]
+        }
+      ],
+      "demand": {
+        "acceptor_all_phases": 1320,
+        "acceptor_phase_0": 440,
+        "acceptor_phase_1": 440,
+        "acceptor_phase_2": 440,
+        "all_roles": 3300,
+        "donor_all_phases": 1320,
+        "donor_phase_0": 440,
+        "donor_phase_1": 440,
+        "donor_phase_2": 440,
+        "scaffold": 660
+      },
+      "feasibility": {
+        "feasible": false,
+        "max_flow": 3283,
+        "min_cut_demand": 880,
+        "min_cut_gene_count": 863,
+        "min_cut_slots": [
+          "acceptor_phase_2",
+          "donor_phase_2"
+        ],
+        "modelled_slots": [
+          "acceptor_phase_0",
+          "acceptor_phase_1",
+          "acceptor_phase_2",
+          "donor_phase_0",
+          "donor_phase_1",
+          "donor_phase_2",
+          "scaffold"
+        ],
+        "shortfall": 17,
+        "total_demand": 3300
+      },
+      "joint_residuals": {
+        "donor_phase_2_acceptor_phase_2_pair": -17,
+        "unassigned_overall": 5507
+      },
+      "margin_threshold_met": true,
+      "n_blocks": 660,
+      "necessary_counts": {
+        "entries": {
+          "acceptor_all_phases": {
+            "available_unique_genes": 3172,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 1320,
+            "margin": 0.5838587641866331,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1852,
+            "source_slots": [
+              "acceptor_phase_0",
+              "acceptor_phase_1",
+              "acceptor_phase_2"
+            ]
+          },
+          "acceptor_phase_0": {
+            "available_unique_genes": 2000,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 440,
+            "margin": 0.78,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1560
+          },
+          "acceptor_phase_1": {
+            "available_unique_genes": 1496,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 440,
+            "margin": 0.7058823529411765,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1056
+          },
+          "acceptor_phase_2": {
+            "available_unique_genes": 854,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 440,
+            "margin": 0.4847775175644028,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 414
+          },
+          "all_roles": {
+            "available_unique_genes": 8790,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 3300,
+            "margin": 0.6245733788395904,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 5490,
+            "source_slots": [
+              "scaffold",
+              "donor_phase_0",
+              "donor_phase_1",
+              "donor_phase_2",
+              "acceptor_phase_0",
+              "acceptor_phase_1",
+              "acceptor_phase_2"
+            ]
+          },
+          "donor_all_phases": {
+            "available_unique_genes": 3032,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 1320,
+            "margin": 0.5646437994722955,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1712,
+            "source_slots": [
+              "donor_phase_0",
+              "donor_phase_1",
+              "donor_phase_2"
+            ]
+          },
+          "donor_phase_0": {
+            "available_unique_genes": 1908,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 440,
+            "margin": 0.7693920335429769,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1468
+          },
+          "donor_phase_1": {
+            "available_unique_genes": 1400,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 440,
+            "margin": 0.6857142857142857,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 960
+          },
+          "donor_phase_2": {
+            "available_unique_genes": 809,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 440,
+            "margin": 0.4561186650185414,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 369
+          },
+          "scaffold": {
+            "available_unique_genes": 8761,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 660,
+            "margin": 0.9246661340029677,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 8101
+          }
+        },
+        "failed_constraints": [],
+        "passed": true,
+        "residual_unique_genes_per_slot_not_jointly_realizable_note": "available - demand per slot/union, exactly as necessary_counts' own margin column defines it. This double-counts genes shared across slots (e.g. the donor_phase_2/acceptor_phase_2 overlap in the real pool) -- it is NOT a jointly realizable holdout. See `joint_residuals` for the max-flow-exact figure: the genes actually left over once this rung's demand is satisfied."
+      },
+      "power_projection": {
+        "alpha": 0.05,
+        "band": {
+          "best_case_rho_1": {
+            "direction_mde80": 0.03713238222753499,
+            "psi_mde80": 0.03713238222753499,
+            "rho": 1.0
+          },
+          "worst_case_rho_0": {
+            "direction_mde80": 0.0643151726241582,
+            "psi_mde80": 0.05251311854940166,
+            "rho": 0.0
+          }
+        },
+        "cells": {
+          "matched": 2,
+          "mismatched": 2,
+          "per_delta": 1
+        },
+        "cross_lineage": {
+          "projectable": false,
+          "reason": "no repeated-training variance exists anywhere in this record; gene-block bootstraps give no degrees of freedom for a corpus intervention, and n_blocks is the wrong axis for it",
+          "replicate": "training_seed",
+          "resolution": "seed-level pilot: train 2-3 control-arm seeds and measure the seed-level SD of Psi"
+        },
+        "direction": {
+          "blocks_needed_floor": 1093,
+          "estimate_class": "lower_bound_only",
+          "lower_bound_reason": "this lattice has fewer than 3 cells per delta class, so the M_delta variance formula omits the uncancelled donor/acceptor module component, (u_a-u_b)/2 + (v_b-v_a)/2, that a full 3x3 design cancels; simulation shows a ~2.3x understatement for the rotated 2x2 -- see var_direction's docstring",
+          "mde80_best": 0.03713238222753499,
+          "mde80_worst": 0.0643151726241582,
+          "verdict": "conditional_on_rho"
+        },
+        "lattice": "rotated_two_by_two",
+        "legacy_residual_sd_upper_bound_dev120": 0.340503,
+        "legacy_variance_source": "studies/splicebert_exon_edge_compatibility/preregistrations/PREREGISTRATION_FRESH_CROSSED_DIRECT_EDGE_REPLICATION.md#3-power-and-frozen-sample-size (pooled within-stratum residual SD of the stopped 120-block development role, its one-sided 95% upper bound; this number is also carried, unexplained, in the PBC-v1 certificate's sample_size_plan, which records the value but not its meaning or its development-role source)",
+        "n3": {
+          "reason": "N3 = Y00 - Y10 is a paired within-block difference; its variance depends on an unknown carrier-state correlation determined by a dose operator that does not exist yet",
+          "status": "unprojectable_pending_dose_calibration"
+        },
+        "n_blocks": 660,
+        "power": 0.8,
+        "psi": {
+          "blocks_needed_worst_case": 729,
+          "mde80_best": 0.03713238222753499,
+          "mde80_worst": 0.05251311854940166,
+          "verdict": "conditional_on_rho"
+        },
+        "rho_identifiable": false,
+        "rho_unidentifiable_reason": "the 3,456 per-cell rows behind C43 were gitignored at source, so the gene-level vs cell-level split of the frozen block variance cannot be estimated from any committed artifact; projections are bands over rho in [0, 1], never points",
+        "sesoi": 0.05
+      },
+      "psi_verdict": "conditional_on_rho",
+      "selection_candidate": false
+    },
+    {
+      "block_allocation": [
+        {
+          "blocks": 243,
+          "phase_pair": [
+            0,
+            1
+          ]
+        },
+        {
+          "blocks": 243,
+          "phase_pair": [
+            0,
+            2
+          ]
+        },
+        {
+          "blocks": 243,
+          "phase_pair": [
+            1,
+            2
+          ]
+        }
+      ],
+      "demand": {
+        "acceptor_all_phases": 1458,
+        "acceptor_phase_0": 486,
+        "acceptor_phase_1": 486,
+        "acceptor_phase_2": 486,
+        "all_roles": 3645,
+        "donor_all_phases": 1458,
+        "donor_phase_0": 486,
+        "donor_phase_1": 486,
+        "donor_phase_2": 486,
+        "scaffold": 729
+      },
+      "feasibility": {
+        "feasible": false,
+        "max_flow": 3536,
+        "min_cut_demand": 972,
+        "min_cut_gene_count": 863,
+        "min_cut_slots": [
+          "acceptor_phase_2",
+          "donor_phase_2"
+        ],
+        "modelled_slots": [
+          "acceptor_phase_0",
+          "acceptor_phase_1",
+          "acceptor_phase_2",
+          "donor_phase_0",
+          "donor_phase_1",
+          "donor_phase_2",
+          "scaffold"
+        ],
+        "shortfall": 109,
+        "total_demand": 3645
+      },
+      "joint_residuals": {
+        "donor_phase_2_acceptor_phase_2_pair": -109,
+        "unassigned_overall": 5254
+      },
+      "margin_threshold_met": true,
+      "n_blocks": 729,
+      "necessary_counts": {
+        "entries": {
+          "acceptor_all_phases": {
+            "available_unique_genes": 3172,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 1458,
+            "margin": 0.5403530895334174,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1714,
+            "source_slots": [
+              "acceptor_phase_0",
+              "acceptor_phase_1",
+              "acceptor_phase_2"
+            ]
+          },
+          "acceptor_phase_0": {
+            "available_unique_genes": 2000,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 486,
+            "margin": 0.757,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1514
+          },
+          "acceptor_phase_1": {
+            "available_unique_genes": 1496,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 486,
+            "margin": 0.6751336898395722,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1010
+          },
+          "acceptor_phase_2": {
+            "available_unique_genes": 854,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 486,
+            "margin": 0.4309133489461358,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 368
+          },
+          "all_roles": {
+            "available_unique_genes": 8790,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 3645,
+            "margin": 0.5853242320819113,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 5145,
+            "source_slots": [
+              "scaffold",
+              "donor_phase_0",
+              "donor_phase_1",
+              "donor_phase_2",
+              "acceptor_phase_0",
+              "acceptor_phase_1",
+              "acceptor_phase_2"
+            ]
+          },
+          "donor_all_phases": {
+            "available_unique_genes": 3032,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 1458,
+            "margin": 0.5191292875989446,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1574,
+            "source_slots": [
+              "donor_phase_0",
+              "donor_phase_1",
+              "donor_phase_2"
+            ]
+          },
+          "donor_phase_0": {
+            "available_unique_genes": 1908,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 486,
+            "margin": 0.7452830188679245,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1422
+          },
+          "donor_phase_1": {
+            "available_unique_genes": 1400,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 486,
+            "margin": 0.6528571428571428,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 914
+          },
+          "donor_phase_2": {
+            "available_unique_genes": 809,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 486,
+            "margin": 0.3992583436341162,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 323
+          },
+          "scaffold": {
+            "available_unique_genes": 8761,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 729,
+            "margin": 0.9167903207396416,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 8032
+          }
+        },
+        "failed_constraints": [],
+        "passed": true,
+        "residual_unique_genes_per_slot_not_jointly_realizable_note": "available - demand per slot/union, exactly as necessary_counts' own margin column defines it. This double-counts genes shared across slots (e.g. the donor_phase_2/acceptor_phase_2 overlap in the real pool) -- it is NOT a jointly realizable holdout. See `joint_residuals` for the max-flow-exact figure: the genes actually left over once this rung's demand is satisfied."
+      },
+      "power_projection": {
+        "alpha": 0.05,
+        "band": {
+          "best_case_rho_1": {
+            "direction_mde80": 0.03533141377130211,
+            "psi_mde80": 0.03533141377130211,
+            "rho": 1.0
+          },
+          "worst_case_rho_0": {
+            "direction_mde80": 0.06119580375513397,
+            "psi_mde80": 0.049966164533190985,
+            "rho": 0.0
+          }
+        },
+        "cells": {
+          "matched": 2,
+          "mismatched": 2,
+          "per_delta": 1
+        },
+        "cross_lineage": {
+          "projectable": false,
+          "reason": "no repeated-training variance exists anywhere in this record; gene-block bootstraps give no degrees of freedom for a corpus intervention, and n_blocks is the wrong axis for it",
+          "replicate": "training_seed",
+          "resolution": "seed-level pilot: train 2-3 control-arm seeds and measure the seed-level SD of Psi"
+        },
+        "direction": {
+          "blocks_needed_floor": 1093,
+          "estimate_class": "lower_bound_only",
+          "lower_bound_reason": "this lattice has fewer than 3 cells per delta class, so the M_delta variance formula omits the uncancelled donor/acceptor module component, (u_a-u_b)/2 + (v_b-v_a)/2, that a full 3x3 design cancels; simulation shows a ~2.3x understatement for the rotated 2x2 -- see var_direction's docstring",
+          "mde80_best": 0.03533141377130211,
+          "mde80_worst": 0.06119580375513397,
+          "verdict": "conditional_on_rho"
+        },
+        "lattice": "rotated_two_by_two",
+        "legacy_residual_sd_upper_bound_dev120": 0.340503,
+        "legacy_variance_source": "studies/splicebert_exon_edge_compatibility/preregistrations/PREREGISTRATION_FRESH_CROSSED_DIRECT_EDGE_REPLICATION.md#3-power-and-frozen-sample-size (pooled within-stratum residual SD of the stopped 120-block development role, its one-sided 95% upper bound; this number is also carried, unexplained, in the PBC-v1 certificate's sample_size_plan, which records the value but not its meaning or its development-role source)",
+        "n3": {
+          "reason": "N3 = Y00 - Y10 is a paired within-block difference; its variance depends on an unknown carrier-state correlation determined by a dose operator that does not exist yet",
+          "status": "unprojectable_pending_dose_calibration"
+        },
+        "n_blocks": 729,
+        "power": 0.8,
+        "psi": {
+          "blocks_needed_worst_case": 729,
+          "mde80_best": 0.03533141377130211,
+          "mde80_worst": 0.049966164533190985,
+          "verdict": "powered_for_every_rho"
+        },
+        "rho_identifiable": false,
+        "rho_unidentifiable_reason": "the 3,456 per-cell rows behind C43 were gitignored at source, so the gene-level vs cell-level split of the frozen block variance cannot be estimated from any committed artifact; projections are bands over rho in [0, 1], never points",
+        "sesoi": 0.05
+      },
+      "psi_verdict": "powered_for_every_rho",
+      "selection_candidate": false
+    },
+    {
+      "block_allocation": [
+        {
+          "blocks": 260,
+          "phase_pair": [
+            0,
+            1
+          ]
+        },
+        {
+          "blocks": 260,
+          "phase_pair": [
+            0,
+            2
+          ]
+        },
+        {
+          "blocks": 260,
+          "phase_pair": [
+            1,
+            2
+          ]
+        }
+      ],
+      "demand": {
+        "acceptor_all_phases": 1560,
+        "acceptor_phase_0": 520,
+        "acceptor_phase_1": 520,
+        "acceptor_phase_2": 520,
+        "all_roles": 3900,
+        "donor_all_phases": 1560,
+        "donor_phase_0": 520,
+        "donor_phase_1": 520,
+        "donor_phase_2": 520,
+        "scaffold": 780
+      },
+      "feasibility": {
+        "feasible": false,
+        "max_flow": 3723,
+        "min_cut_demand": 1040,
+        "min_cut_gene_count": 863,
+        "min_cut_slots": [
+          "acceptor_phase_2",
+          "donor_phase_2"
+        ],
+        "modelled_slots": [
+          "acceptor_phase_0",
+          "acceptor_phase_1",
+          "acceptor_phase_2",
+          "donor_phase_0",
+          "donor_phase_1",
+          "donor_phase_2",
+          "scaffold"
+        ],
+        "shortfall": 177,
+        "total_demand": 3900
+      },
+      "joint_residuals": {
+        "donor_phase_2_acceptor_phase_2_pair": -177,
+        "unassigned_overall": 5067
+      },
+      "margin_threshold_met": true,
+      "n_blocks": 780,
+      "necessary_counts": {
+        "entries": {
+          "acceptor_all_phases": {
+            "available_unique_genes": 3172,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 1560,
+            "margin": 0.5081967213114754,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1612,
+            "source_slots": [
+              "acceptor_phase_0",
+              "acceptor_phase_1",
+              "acceptor_phase_2"
+            ]
+          },
+          "acceptor_phase_0": {
+            "available_unique_genes": 2000,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 520,
+            "margin": 0.74,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1480
+          },
+          "acceptor_phase_1": {
+            "available_unique_genes": 1496,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 520,
+            "margin": 0.6524064171122995,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 976
+          },
+          "acceptor_phase_2": {
+            "available_unique_genes": 854,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 520,
+            "margin": 0.3911007025761124,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 334
+          },
+          "all_roles": {
+            "available_unique_genes": 8790,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 3900,
+            "margin": 0.5563139931740614,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 4890,
+            "source_slots": [
+              "scaffold",
+              "donor_phase_0",
+              "donor_phase_1",
+              "donor_phase_2",
+              "acceptor_phase_0",
+              "acceptor_phase_1",
+              "acceptor_phase_2"
+            ]
+          },
+          "donor_all_phases": {
+            "available_unique_genes": 3032,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 1560,
+            "margin": 0.48548812664907653,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1472,
+            "source_slots": [
+              "donor_phase_0",
+              "donor_phase_1",
+              "donor_phase_2"
+            ]
+          },
+          "donor_phase_0": {
+            "available_unique_genes": 1908,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 520,
+            "margin": 0.7274633123689728,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1388
+          },
+          "donor_phase_1": {
+            "available_unique_genes": 1400,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 520,
+            "margin": 0.6285714285714286,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 880
+          },
+          "donor_phase_2": {
+            "available_unique_genes": 809,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 520,
+            "margin": 0.3572311495673671,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 289
+          },
+          "scaffold": {
+            "available_unique_genes": 8761,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 780,
+            "margin": 0.9109690674580527,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 7981
+          }
+        },
+        "failed_constraints": [],
+        "passed": true,
+        "residual_unique_genes_per_slot_not_jointly_realizable_note": "available - demand per slot/union, exactly as necessary_counts' own margin column defines it. This double-counts genes shared across slots (e.g. the donor_phase_2/acceptor_phase_2 overlap in the real pool) -- it is NOT a jointly realizable holdout. See `joint_residuals` for the max-flow-exact figure: the genes actually left over once this rung's demand is satisfied."
+      },
+      "power_projection": {
+        "alpha": 0.05,
+        "band": {
+          "best_case_rho_1": {
+            "direction_mde80": 0.034156823745335976,
+            "psi_mde80": 0.034156823745335976,
+            "rho": 1.0
+          },
+          "worst_case_rho_0": {
+            "direction_mde80": 0.05916135415209699,
+            "psi_mde80": 0.048305043388241514,
+            "rho": 0.0
+          }
+        },
+        "cells": {
+          "matched": 2,
+          "mismatched": 2,
+          "per_delta": 1
+        },
+        "cross_lineage": {
+          "projectable": false,
+          "reason": "no repeated-training variance exists anywhere in this record; gene-block bootstraps give no degrees of freedom for a corpus intervention, and n_blocks is the wrong axis for it",
+          "replicate": "training_seed",
+          "resolution": "seed-level pilot: train 2-3 control-arm seeds and measure the seed-level SD of Psi"
+        },
+        "direction": {
+          "blocks_needed_floor": 1093,
+          "estimate_class": "lower_bound_only",
+          "lower_bound_reason": "this lattice has fewer than 3 cells per delta class, so the M_delta variance formula omits the uncancelled donor/acceptor module component, (u_a-u_b)/2 + (v_b-v_a)/2, that a full 3x3 design cancels; simulation shows a ~2.3x understatement for the rotated 2x2 -- see var_direction's docstring",
+          "mde80_best": 0.034156823745335976,
+          "mde80_worst": 0.05916135415209699,
+          "verdict": "conditional_on_rho"
+        },
+        "lattice": "rotated_two_by_two",
+        "legacy_residual_sd_upper_bound_dev120": 0.340503,
+        "legacy_variance_source": "studies/splicebert_exon_edge_compatibility/preregistrations/PREREGISTRATION_FRESH_CROSSED_DIRECT_EDGE_REPLICATION.md#3-power-and-frozen-sample-size (pooled within-stratum residual SD of the stopped 120-block development role, its one-sided 95% upper bound; this number is also carried, unexplained, in the PBC-v1 certificate's sample_size_plan, which records the value but not its meaning or its development-role source)",
+        "n3": {
+          "reason": "N3 = Y00 - Y10 is a paired within-block difference; its variance depends on an unknown carrier-state correlation determined by a dose operator that does not exist yet",
+          "status": "unprojectable_pending_dose_calibration"
+        },
+        "n_blocks": 780,
+        "power": 0.8,
+        "psi": {
+          "blocks_needed_worst_case": 729,
+          "mde80_best": 0.034156823745335976,
+          "mde80_worst": 0.048305043388241514,
+          "verdict": "powered_for_every_rho"
+        },
+        "rho_identifiable": false,
+        "rho_unidentifiable_reason": "the 3,456 per-cell rows behind C43 were gitignored at source, so the gene-level vs cell-level split of the frozen block variance cannot be estimated from any committed artifact; projections are bands over rho in [0, 1], never points",
+        "sesoi": 0.05
+      },
+      "psi_verdict": "powered_for_every_rho",
+      "selection_candidate": false
+    },
+    {
+      "block_allocation": [
+        {
+          "blocks": 273,
+          "phase_pair": [
+            0,
+            1
+          ]
+        },
+        {
+          "blocks": 273,
+          "phase_pair": [
+            0,
+            2
+          ]
+        },
+        {
+          "blocks": 273,
+          "phase_pair": [
+            1,
+            2
+          ]
+        }
+      ],
+      "demand": {
+        "acceptor_all_phases": 1638,
+        "acceptor_phase_0": 546,
+        "acceptor_phase_1": 546,
+        "acceptor_phase_2": 546,
+        "all_roles": 4095,
+        "donor_all_phases": 1638,
+        "donor_phase_0": 546,
+        "donor_phase_1": 546,
+        "donor_phase_2": 546,
+        "scaffold": 819
+      },
+      "feasibility": {
+        "feasible": false,
+        "max_flow": 3866,
+        "min_cut_demand": 1092,
+        "min_cut_gene_count": 863,
+        "min_cut_slots": [
+          "acceptor_phase_2",
+          "donor_phase_2"
+        ],
+        "modelled_slots": [
+          "acceptor_phase_0",
+          "acceptor_phase_1",
+          "acceptor_phase_2",
+          "donor_phase_0",
+          "donor_phase_1",
+          "donor_phase_2",
+          "scaffold"
+        ],
+        "shortfall": 229,
+        "total_demand": 4095
+      },
+      "joint_residuals": {
+        "donor_phase_2_acceptor_phase_2_pair": -229,
+        "unassigned_overall": 4924
+      },
+      "margin_threshold_met": true,
+      "n_blocks": 819,
+      "necessary_counts": {
+        "entries": {
+          "acceptor_all_phases": {
+            "available_unique_genes": 3172,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 1638,
+            "margin": 0.48360655737704916,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1534,
+            "source_slots": [
+              "acceptor_phase_0",
+              "acceptor_phase_1",
+              "acceptor_phase_2"
+            ]
+          },
+          "acceptor_phase_0": {
+            "available_unique_genes": 2000,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 546,
+            "margin": 0.727,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1454
+          },
+          "acceptor_phase_1": {
+            "available_unique_genes": 1496,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 546,
+            "margin": 0.6350267379679144,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 950
+          },
+          "acceptor_phase_2": {
+            "available_unique_genes": 854,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 546,
+            "margin": 0.36065573770491804,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 308
+          },
+          "all_roles": {
+            "available_unique_genes": 8790,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 4095,
+            "margin": 0.5341296928327645,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 4695,
+            "source_slots": [
+              "scaffold",
+              "donor_phase_0",
+              "donor_phase_1",
+              "donor_phase_2",
+              "acceptor_phase_0",
+              "acceptor_phase_1",
+              "acceptor_phase_2"
+            ]
+          },
+          "donor_all_phases": {
+            "available_unique_genes": 3032,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 1638,
+            "margin": 0.45976253298153036,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1394,
+            "source_slots": [
+              "donor_phase_0",
+              "donor_phase_1",
+              "donor_phase_2"
+            ]
+          },
+          "donor_phase_0": {
+            "available_unique_genes": 1908,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 546,
+            "margin": 0.7138364779874213,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1362
+          },
+          "donor_phase_1": {
+            "available_unique_genes": 1400,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 546,
+            "margin": 0.61,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 854
+          },
+          "donor_phase_2": {
+            "available_unique_genes": 809,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 546,
+            "margin": 0.32509270704573545,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 263
+          },
+          "scaffold": {
+            "available_unique_genes": 8761,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 819,
+            "margin": 0.9065175208309554,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 7942
+          }
+        },
+        "failed_constraints": [],
+        "passed": true,
+        "residual_unique_genes_per_slot_not_jointly_realizable_note": "available - demand per slot/union, exactly as necessary_counts' own margin column defines it. This double-counts genes shared across slots (e.g. the donor_phase_2/acceptor_phase_2 overlap in the real pool) -- it is NOT a jointly realizable holdout. See `joint_residuals` for the max-flow-exact figure: the genes actually left over once this rung's demand is satisfied."
+      },
+      "power_projection": {
+        "alpha": 0.05,
+        "band": {
+          "best_case_rho_1": {
+            "direction_mde80": 0.03333364678476357,
+            "psi_mde80": 0.03333364678476357,
+            "rho": 1.0
+          },
+          "worst_case_rho_0": {
+            "direction_mde80": 0.05773556983276545,
+            "psi_mde80": 0.047140895366366946,
+            "rho": 0.0
+          }
+        },
+        "cells": {
+          "matched": 2,
+          "mismatched": 2,
+          "per_delta": 1
+        },
+        "cross_lineage": {
+          "projectable": false,
+          "reason": "no repeated-training variance exists anywhere in this record; gene-block bootstraps give no degrees of freedom for a corpus intervention, and n_blocks is the wrong axis for it",
+          "replicate": "training_seed",
+          "resolution": "seed-level pilot: train 2-3 control-arm seeds and measure the seed-level SD of Psi"
+        },
+        "direction": {
+          "blocks_needed_floor": 1093,
+          "estimate_class": "lower_bound_only",
+          "lower_bound_reason": "this lattice has fewer than 3 cells per delta class, so the M_delta variance formula omits the uncancelled donor/acceptor module component, (u_a-u_b)/2 + (v_b-v_a)/2, that a full 3x3 design cancels; simulation shows a ~2.3x understatement for the rotated 2x2 -- see var_direction's docstring",
+          "mde80_best": 0.03333364678476357,
+          "mde80_worst": 0.05773556983276545,
+          "verdict": "conditional_on_rho"
+        },
+        "lattice": "rotated_two_by_two",
+        "legacy_residual_sd_upper_bound_dev120": 0.340503,
+        "legacy_variance_source": "studies/splicebert_exon_edge_compatibility/preregistrations/PREREGISTRATION_FRESH_CROSSED_DIRECT_EDGE_REPLICATION.md#3-power-and-frozen-sample-size (pooled within-stratum residual SD of the stopped 120-block development role, its one-sided 95% upper bound; this number is also carried, unexplained, in the PBC-v1 certificate's sample_size_plan, which records the value but not its meaning or its development-role source)",
+        "n3": {
+          "reason": "N3 = Y00 - Y10 is a paired within-block difference; its variance depends on an unknown carrier-state correlation determined by a dose operator that does not exist yet",
+          "status": "unprojectable_pending_dose_calibration"
+        },
+        "n_blocks": 819,
+        "power": 0.8,
+        "psi": {
+          "blocks_needed_worst_case": 729,
+          "mde80_best": 0.03333364678476357,
+          "mde80_worst": 0.047140895366366946,
+          "verdict": "powered_for_every_rho"
+        },
+        "rho_identifiable": false,
+        "rho_unidentifiable_reason": "the 3,456 per-cell rows behind C43 were gitignored at source, so the gene-level vs cell-level split of the frozen block variance cannot be estimated from any committed artifact; projections are bands over rho in [0, 1], never points",
+        "sesoi": 0.05
+      },
+      "psi_verdict": "powered_for_every_rho",
+      "selection_candidate": false
+    },
+    {
+      "block_allocation": [
+        {
+          "blocks": 288,
+          "phase_pair": [
+            0,
+            1
+          ]
+        },
+        {
+          "blocks": 288,
+          "phase_pair": [
+            0,
+            2
+          ]
+        },
+        {
+          "blocks": 288,
+          "phase_pair": [
+            1,
+            2
+          ]
+        }
+      ],
+      "demand": {
+        "acceptor_all_phases": 1728,
+        "acceptor_phase_0": 576,
+        "acceptor_phase_1": 576,
+        "acceptor_phase_2": 576,
+        "all_roles": 4320,
+        "donor_all_phases": 1728,
+        "donor_phase_0": 576,
+        "donor_phase_1": 576,
+        "donor_phase_2": 576,
+        "scaffold": 864
+      },
+      "feasibility": {
+        "feasible": false,
+        "max_flow": 4031,
+        "min_cut_demand": 1152,
+        "min_cut_gene_count": 863,
+        "min_cut_slots": [
+          "acceptor_phase_2",
+          "donor_phase_2"
+        ],
+        "modelled_slots": [
+          "acceptor_phase_0",
+          "acceptor_phase_1",
+          "acceptor_phase_2",
+          "donor_phase_0",
+          "donor_phase_1",
+          "donor_phase_2",
+          "scaffold"
+        ],
+        "shortfall": 289,
+        "total_demand": 4320
+      },
+      "joint_residuals": {
+        "donor_phase_2_acceptor_phase_2_pair": -289,
+        "unassigned_overall": 4759
+      },
+      "margin_threshold_met": true,
+      "n_blocks": 864,
+      "necessary_counts": {
+        "entries": {
+          "acceptor_all_phases": {
+            "available_unique_genes": 3172,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 1728,
+            "margin": 0.4552332912988651,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1444,
+            "source_slots": [
+              "acceptor_phase_0",
+              "acceptor_phase_1",
+              "acceptor_phase_2"
+            ]
+          },
+          "acceptor_phase_0": {
+            "available_unique_genes": 2000,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 576,
+            "margin": 0.712,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1424
+          },
+          "acceptor_phase_1": {
+            "available_unique_genes": 1496,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 576,
+            "margin": 0.6149732620320856,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 920
+          },
+          "acceptor_phase_2": {
+            "available_unique_genes": 854,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 576,
+            "margin": 0.3255269320843091,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 278
+          },
+          "all_roles": {
+            "available_unique_genes": 8790,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 4320,
+            "margin": 0.5085324232081911,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 4470,
+            "source_slots": [
+              "scaffold",
+              "donor_phase_0",
+              "donor_phase_1",
+              "donor_phase_2",
+              "acceptor_phase_0",
+              "acceptor_phase_1",
+              "acceptor_phase_2"
+            ]
+          },
+          "donor_all_phases": {
+            "available_unique_genes": 3032,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 1728,
+            "margin": 0.43007915567282323,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1304,
+            "source_slots": [
+              "donor_phase_0",
+              "donor_phase_1",
+              "donor_phase_2"
+            ]
+          },
+          "donor_phase_0": {
+            "available_unique_genes": 1908,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 576,
+            "margin": 0.6981132075471698,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1332
+          },
+          "donor_phase_1": {
+            "available_unique_genes": 1400,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 576,
+            "margin": 0.5885714285714285,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 824
+          },
+          "donor_phase_2": {
+            "available_unique_genes": 809,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 576,
+            "margin": 0.2880098887515451,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 233
+          },
+          "scaffold": {
+            "available_unique_genes": 8761,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 864,
+            "margin": 0.9013811208766123,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 7897
+          }
+        },
+        "failed_constraints": [],
+        "passed": true,
+        "residual_unique_genes_per_slot_not_jointly_realizable_note": "available - demand per slot/union, exactly as necessary_counts' own margin column defines it. This double-counts genes shared across slots (e.g. the donor_phase_2/acceptor_phase_2 overlap in the real pool) -- it is NOT a jointly realizable holdout. See `joint_residuals` for the max-flow-exact figure: the genes actually left over once this rung's demand is satisfied."
+      },
+      "power_projection": {
+        "alpha": 0.05,
+        "band": {
+          "best_case_rho_1": {
+            "direction_mde80": 0.03245397586156231,
+            "psi_mde80": 0.03245397586156231,
+            "rho": 1.0
+          },
+          "worst_case_rho_0": {
+            "direction_mde80": 0.056211935099839856,
+            "psi_mde80": 0.045896852816350475,
+            "rho": 0.0
+          }
+        },
+        "cells": {
+          "matched": 2,
+          "mismatched": 2,
+          "per_delta": 1
+        },
+        "cross_lineage": {
+          "projectable": false,
+          "reason": "no repeated-training variance exists anywhere in this record; gene-block bootstraps give no degrees of freedom for a corpus intervention, and n_blocks is the wrong axis for it",
+          "replicate": "training_seed",
+          "resolution": "seed-level pilot: train 2-3 control-arm seeds and measure the seed-level SD of Psi"
+        },
+        "direction": {
+          "blocks_needed_floor": 1093,
+          "estimate_class": "lower_bound_only",
+          "lower_bound_reason": "this lattice has fewer than 3 cells per delta class, so the M_delta variance formula omits the uncancelled donor/acceptor module component, (u_a-u_b)/2 + (v_b-v_a)/2, that a full 3x3 design cancels; simulation shows a ~2.3x understatement for the rotated 2x2 -- see var_direction's docstring",
+          "mde80_best": 0.03245397586156231,
+          "mde80_worst": 0.056211935099839856,
+          "verdict": "conditional_on_rho"
+        },
+        "lattice": "rotated_two_by_two",
+        "legacy_residual_sd_upper_bound_dev120": 0.340503,
+        "legacy_variance_source": "studies/splicebert_exon_edge_compatibility/preregistrations/PREREGISTRATION_FRESH_CROSSED_DIRECT_EDGE_REPLICATION.md#3-power-and-frozen-sample-size (pooled within-stratum residual SD of the stopped 120-block development role, its one-sided 95% upper bound; this number is also carried, unexplained, in the PBC-v1 certificate's sample_size_plan, which records the value but not its meaning or its development-role source)",
+        "n3": {
+          "reason": "N3 = Y00 - Y10 is a paired within-block difference; its variance depends on an unknown carrier-state correlation determined by a dose operator that does not exist yet",
+          "status": "unprojectable_pending_dose_calibration"
+        },
+        "n_blocks": 864,
+        "power": 0.8,
+        "psi": {
+          "blocks_needed_worst_case": 729,
+          "mde80_best": 0.03245397586156231,
+          "mde80_worst": 0.045896852816350475,
+          "verdict": "powered_for_every_rho"
+        },
+        "rho_identifiable": false,
+        "rho_unidentifiable_reason": "the 3,456 per-cell rows behind C43 were gitignored at source, so the gene-level vs cell-level split of the frozen block variance cannot be estimated from any committed artifact; projections are bands over rho in [0, 1], never points",
+        "sesoi": 0.05
+      },
+      "psi_verdict": "powered_for_every_rho",
+      "selection_candidate": false
+    },
+    {
+      "block_allocation": [
+        {
+          "blocks": 303,
+          "phase_pair": [
+            0,
+            1
+          ]
+        },
+        {
+          "blocks": 303,
+          "phase_pair": [
+            0,
+            2
+          ]
+        },
+        {
+          "blocks": 303,
+          "phase_pair": [
+            1,
+            2
+          ]
+        }
+      ],
+      "demand": {
+        "acceptor_all_phases": 1818,
+        "acceptor_phase_0": 606,
+        "acceptor_phase_1": 606,
+        "acceptor_phase_2": 606,
+        "all_roles": 4545,
+        "donor_all_phases": 1818,
+        "donor_phase_0": 606,
+        "donor_phase_1": 606,
+        "donor_phase_2": 606,
+        "scaffold": 909
+      },
+      "feasibility": {
+        "feasible": false,
+        "max_flow": 4136,
+        "min_cut_demand": 3636,
+        "min_cut_gene_count": 3227,
+        "min_cut_slots": [
+          "acceptor_phase_0",
+          "acceptor_phase_1",
+          "acceptor_phase_2",
+          "donor_phase_0",
+          "donor_phase_1",
+          "donor_phase_2"
+        ],
+        "modelled_slots": [
+          "acceptor_phase_0",
+          "acceptor_phase_1",
+          "acceptor_phase_2",
+          "donor_phase_0",
+          "donor_phase_1",
+          "donor_phase_2",
+          "scaffold"
+        ],
+        "shortfall": 409,
+        "total_demand": 4545
+      },
+      "joint_residuals": {
+        "donor_phase_2_acceptor_phase_2_pair": -349,
+        "unassigned_overall": 4654
+      },
+      "margin_threshold_met": true,
+      "n_blocks": 909,
+      "necessary_counts": {
+        "entries": {
+          "acceptor_all_phases": {
+            "available_unique_genes": 3172,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 1818,
+            "margin": 0.42686002522068095,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1354,
+            "source_slots": [
+              "acceptor_phase_0",
+              "acceptor_phase_1",
+              "acceptor_phase_2"
+            ]
+          },
+          "acceptor_phase_0": {
+            "available_unique_genes": 2000,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 606,
+            "margin": 0.697,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1394
+          },
+          "acceptor_phase_1": {
+            "available_unique_genes": 1496,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 606,
+            "margin": 0.5949197860962567,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 890
+          },
+          "acceptor_phase_2": {
+            "available_unique_genes": 854,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 606,
+            "margin": 0.2903981264637002,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 248
+          },
+          "all_roles": {
+            "available_unique_genes": 8790,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 4545,
+            "margin": 0.48293515358361777,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 4245,
+            "source_slots": [
+              "scaffold",
+              "donor_phase_0",
+              "donor_phase_1",
+              "donor_phase_2",
+              "acceptor_phase_0",
+              "acceptor_phase_1",
+              "acceptor_phase_2"
+            ]
+          },
+          "donor_all_phases": {
+            "available_unique_genes": 3032,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 1818,
+            "margin": 0.4003957783641161,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1214,
+            "source_slots": [
+              "donor_phase_0",
+              "donor_phase_1",
+              "donor_phase_2"
+            ]
+          },
+          "donor_phase_0": {
+            "available_unique_genes": 1908,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 606,
+            "margin": 0.6823899371069182,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 1302
+          },
+          "donor_phase_1": {
+            "available_unique_genes": 1400,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 606,
+            "margin": 0.5671428571428572,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 794
+          },
+          "donor_phase_2": {
+            "available_unique_genes": 809,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 606,
+            "margin": 0.25092707045735474,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 203
+          },
+          "scaffold": {
+            "available_unique_genes": 8761,
+            "deficit_unique_genes": 0,
+            "demand_unique_genes": 909,
+            "margin": 0.8962447209222691,
+            "passed": true,
+            "residual_unique_genes_per_slot_not_jointly_realizable": 7852
+          }
+        },
+        "failed_constraints": [],
+        "passed": true,
+        "residual_unique_genes_per_slot_not_jointly_realizable_note": "available - demand per slot/union, exactly as necessary_counts' own margin column defines it. This double-counts genes shared across slots (e.g. the donor_phase_2/acceptor_phase_2 overlap in the real pool) -- it is NOT a jointly realizable holdout. See `joint_residuals` for the max-flow-exact figure: the genes actually left over once this rung's demand is satisfied."
+      },
+      "power_projection": {
+        "alpha": 0.05,
+        "band": {
+          "best_case_rho_1": {
+            "direction_mde80": 0.031640463616628665,
+            "psi_mde80": 0.031640463616628665,
+            "rho": 1.0
+          },
+          "worst_case_rho_0": {
+            "direction_mde80": 0.05480289055903536,
+            "psi_mde80": 0.04474637276640873,
+            "rho": 0.0
+          }
+        },
+        "cells": {
+          "matched": 2,
+          "mismatched": 2,
+          "per_delta": 1
+        },
+        "cross_lineage": {
+          "projectable": false,
+          "reason": "no repeated-training variance exists anywhere in this record; gene-block bootstraps give no degrees of freedom for a corpus intervention, and n_blocks is the wrong axis for it",
+          "replicate": "training_seed",
+          "resolution": "seed-level pilot: train 2-3 control-arm seeds and measure the seed-level SD of Psi"
+        },
+        "direction": {
+          "blocks_needed_floor": 1093,
+          "estimate_class": "lower_bound_only",
+          "lower_bound_reason": "this lattice has fewer than 3 cells per delta class, so the M_delta variance formula omits the uncancelled donor/acceptor module component, (u_a-u_b)/2 + (v_b-v_a)/2, that a full 3x3 design cancels; simulation shows a ~2.3x understatement for the rotated 2x2 -- see var_direction's docstring",
+          "mde80_best": 0.031640463616628665,
+          "mde80_worst": 0.05480289055903536,
+          "verdict": "conditional_on_rho"
+        },
+        "lattice": "rotated_two_by_two",
+        "legacy_residual_sd_upper_bound_dev120": 0.340503,
+        "legacy_variance_source": "studies/splicebert_exon_edge_compatibility/preregistrations/PREREGISTRATION_FRESH_CROSSED_DIRECT_EDGE_REPLICATION.md#3-power-and-frozen-sample-size (pooled within-stratum residual SD of the stopped 120-block development role, its one-sided 95% upper bound; this number is also carried, unexplained, in the PBC-v1 certificate's sample_size_plan, which records the value but not its meaning or its development-role source)",
+        "n3": {
+          "reason": "N3 = Y00 - Y10 is a paired within-block difference; its variance depends on an unknown carrier-state correlation determined by a dose operator that does not exist yet",
+          "status": "unprojectable_pending_dose_calibration"
+        },
+        "n_blocks": 909,
+        "power": 0.8,
+        "psi": {
+          "blocks_needed_worst_case": 729,
+          "mde80_best": 0.031640463616628665,
+          "mde80_worst": 0.04474637276640873,
+          "verdict": "powered_for_every_rho"
+        },
+        "rho_identifiable": false,
+        "rho_unidentifiable_reason": "the 3,456 per-cell rows behind C43 were gitignored at source, so the gene-level vs cell-level split of the frozen block variance cannot be estimated from any committed artifact; projections are bands over rho in [0, 1], never points",
+        "sesoi": 0.05
+      },
+      "psi_verdict": "powered_for_every_rho",
+      "selection_candidate": false
+    }
+  ],
+  "schema": "gfmcd.splicebert_positional_clock.pbc_v2_capacity_ladder.v2",
+  "selected_rung": null,
+  "selection_rule": "the largest N whose every slot and every union clears a margin of 0.25 AND whose exact feasibility passes AND whose Psi verdict is 'powered_for_every_rho'",
+  "slot_hash_verification": {
+    "all_verified": true,
+    "applicable": true,
+    "per_slot": {
+      "acceptor_phase_0": true,
+      "acceptor_phase_1": true,
+      "acceptor_phase_2": true,
+      "donor_phase_0": true,
+      "donor_phase_1": true,
+      "donor_phase_2": true,
+      "scaffold": true
+    }
+  },
+  "stage": "construction",
+  "study_directory": "results/splicebert_positional_clock/",
+  "study_directory_provisional": true,
+  "study_directory_provisional_note": "the study directory name 'splicebert_positional_clock' is PROVISIONAL and may be renamed before anything freezes; this artifact is written under development/ specifically so a later rename costs a move, not a retraction"
+}

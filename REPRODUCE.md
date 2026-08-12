@@ -189,22 +189,27 @@ The detailed command map is
 and the protocol status index is
 [`studies/splicebert_partner_selection/preregistrations/README.md`](studies/splicebert_partner_selection/preregistrations/README.md).
 
-#### BG1/BG2 acceptor-boundary grammar — frozen, **not yet run**
+#### BG1/BG2 acceptor-boundary grammar — development preflight failed; targets not opened
 
-No artifact exists and no claim depends on this; the chain is recorded so the first run is reproducible
-rather than reconstructed afterwards. Each step **fails closed**: a step refuses to start unless the
-previous one produced a passing, hash-bound artifact, so the order below is enforced by the code, not by
-convention. All four commands need a local genome and the model checkpoint (§2).
+The 2026-08-11 execution stopped at the complete development preflight, exactly as the frozen chain
+requires. The pre-amendment smoke is preserved as superseded; the corrected smoke passed its active
+mechanical checks but was non-authorizing. The complete preflight then reported `PASS=false` on planted
+sensitivity, route dose sensitivity, route resolution, and target resolution. Its disposition is
+instrument-unresolved. No BG1 validation behavior or BG2 intervention was run, and no claim depends on
+the development estimates. The commands below document the chain and its terminal point; steps 3–6 are
+shown to make the authorization rule auditable, not as commands that may now be run.
 
 ```bash
-# 1. Smoke the gates first — memorials and arithmetic only. A smoke artifact can never authorize a target.
+# 1. Historical smoke sequence. A smoke artifact can never authorize a target.
+#    The first output is superseded; the v2 output carries the repaired smoke semantics.
 uv run python scripts/splicebert/run_bg1_boundary_preflight.py --smoke \
-  --out results/splicebert_coupling/bg1_boundary_preflight_smoke.json
+  --out results/splicebert_coupling/bg1_boundary_preflight_smoke_v2_20260811.json
 
-# 2. Train-split preflight. Supply, invariants, positive/specificity controls, planted power, FPR, MDE.
-#    Writes DEVELOPMENT_PREFLIGHT; PASS=false here stops the arc.
+# 2. Recorded terminal command: train-split supply, invariants, controls, power, FPR, and MDE.
+#    It wrote bg1_boundary_preflight_v1.json with PASS=false and stopped the arc.
 uv run python scripts/splicebert/run_bg1_boundary_preflight.py
 
+# NOT AUTHORIZED AFTER THE RECORDED PREFLIGHT FAILURE:
 # 3. BG1 behaviour on val (verification tier). Requires a passing, non-smoke preflight.
 uv run python scripts/splicebert/run_bg1_boundary_grammar.py --split val
 
@@ -260,19 +265,22 @@ Bulk `target_shards/`, `health_shards/`, packet matrices, and Colab distribution
 because they are reproducible intermediates or retained in external run bundles. The compact artifacts
 required to audit the recorded claims are version-controlled.
 
-### Positional boundary coherence — nothing to reproduce yet
+### Positional boundary coherence — model-free execution only
 
-**There is no run here to reproduce.** `studies/splicebert_positional_boundary_coherence/` ships a frozen
-preregistration, 28 runner/audit entrypoints under
-`scripts/splicebert_positional_boundary_coherence/`, ten `src/gfmcd/splicing/pbc_*` and
-`positional_boundary_coherence` modules, and their tests — and no artifact. Everything below is the
-*forward* path for whoever executes it, not a replay.
+**There is no successor model outcome to reproduce.** `studies/splicebert_positional_boundary_coherence/`
+ships a frozen preregistration, 29 runner/audit entrypoints under
+`scripts/splicebert_positional_boundary_coherence/`, eleven `src/gfmcd/splicing/pbc_*` and
+`positional_boundary_coherence` modules, and their tests. The executed portion is model-free: compact
+freshness/census audit receipts and the terminal capacity-stop/audit are retained, while the 2.34-GB raw
+candidate census is intentionally ignored and must be regenerated from its bound producer manifest. There
+is no checkpoint, preflight, target, or model-outcome artifact.
 
 | Stage | Producer | Independent authorization |
 |---|---|---|
 | Freshness registry | `build_freshness_registry.py` | `audit_freshness_registry.py` |
 | Real-sequence census | `build_candidate_census.py` | `audit_candidate_census.py` |
 | Balanced cohort | `build_composition_balanced_cohort.py` | `audit_composition_balanced_cohort.py` |
+| Pre-target protocol/code conformance | `audit_protocol_code_conformance.py` | its passing artifact and manifest are required and hash-bound by the Phase-II freezer |
 | P3-first attenuation development | `calibrate_carrier_factorial.py` → `run_carrier_factorial_preflight.py` | `audit_carrier_factorial_preflight.py` → `freeze_carrier_factorial_target.py` |
 | Attenuation confirmation | `run_carrier_factorial_target.py` → `analyze_carrier_factorial.py` | `audit_carrier_factorial.py` |
 | P3 register development | `run_p3_register_preflight.py` → `analyze_p3_register_preflight.py` | `audit_p3_register_preflight.py` |
@@ -281,7 +289,23 @@ preregistration, 28 runner/audit entrypoints under
 | Register confirmation | `run_p3_register_target.py` → `assemble_p3_register_target.py` → `analyze_p3_register_relocation.py` | `audit_p3_register_relocation.py` |
 | Route mediation | `run_p3_register_mediation_target.py` → `assemble_p3_register_mediation_target.py` → `analyze_p3_register_mediation.py` | `audit_p3_register_mediation.py` |
 
-Four things bind before the first model call, and each is fail-closed:
+The terminal Phase-I capacity check precedes the four target bindings, and every edge is fail-closed:
+
+Before expensive cohort matching, the balanced-cohort producer checks the necessary unique normalized-gene
+capacity for all seven source slots against the total frozen request (120 + 600 + 384 = 1,104 blocks). A
+failure writes a compact `PHASE1_INSTRUMENT_UNRESOLVED` artifact and manifest with empty block/cell tables,
+then exits 2. The independent auditor rederives the capacity and exits 0 only when its own audit passes,
+returning `AUDIT_PASS_INSTRUMENT_UNRESOLVED`; target authorization remains false. Both records bind the
+ignored census's byte identity, semantic hashes, producer revision, and
+`candidate_census_v1.manifest.json` regeneration receipt and state `clean_checkout_reexecutable=false`.
+Do not reduce a role or open sealed chromosomes in response.
+
+The recorded run found donor-phase-2 capacity `809/1,104` (deficit 295) and acceptor-phase-2 capacity
+`854/1,104` (deficit 250); the independent audit passed all 48 checks with
+`target_execution_authorized=false`. A clean checkout must first regenerate
+`development/candidate_census_v1.json` from the exact command and pinned inputs in its retained manifest.
+For byte-identical replay use producer revision `addd7be93c321373118b02b82bc3d95eeb0bd20a`; the retained
+census byte SHA-256 is `9be356ac26ff18aa750b0552684d4a94fa6b8963fee01666608b38cc7de25614`.
 
 1. **A conformance audit.** The preregistration's own "Present status" requires a freeze package binding
    the final code and inputs, plus an independent protocol-to-code conformance audit, before any target
@@ -297,8 +321,9 @@ Four things bind before the first model call, and each is fail-closed:
 Runners call `gfmcd.artifact_guard.guard_output_path`, so a rerun aimed at an existing artifact refuses
 rather than overwriting. Results go to `results/splicebert_positional_boundary_coherence/` under the
 layout its [`RESULTS_INDEX.md`](results/splicebert_positional_boundary_coherence/RESULTS_INDEX.md)
-declares. Tests are `uv run --extra splicebert --extra dev --extra maxent pytest tests/ -k pbc` — 110
-tests, ~11 minutes, no genome or checkpoint required (they build tiny FASTA/GTF fixtures in `tmp_path`).
+declares. The PBC-focused suite is
+`uv run --extra splicebert --extra dev --extra maxent pytest tests/ -k pbc`; most tests need no genome or
+checkpoint because they build tiny FASTA/GTF fixtures in `tmp_path`.
 Drop `--extra maxent` and `tests/test_pbc_phase1_real_data.py` skips as a file.
 
 ## 4. Safe reproduction rules

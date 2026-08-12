@@ -1,7 +1,7 @@
 # SpliceBERT positional boundary coherence
 
-> **Tier: T2 — provenance.** Prospective successor study. This directory contains a frozen design, not a
-> result or a claim.
+> **Tier: T2 — provenance.** The model-free Phase-I construction ran on 2026-08-11 and stopped on an
+> independently audited frozen-capacity failure. No successor checkpoint or model outcome was opened.
 
 ## Purpose
 
@@ -32,8 +32,9 @@ The candidate biological narrative is kept separately in
 [`EVIDENCE_LADDER.md`](../../docs/EVIDENCE_LADDER.md), and
 [`PREREG_CONFORMANCE.md`](../../docs/PREREG_CONFORMANCE.md).
 
-The successor [`CLAIMS.md`](CLAIMS.md), [`RESULTS.md`](RESULTS.md), and [`DECISIONS.md`](DECISIONS.md) are
-intentionally empty prospective ledgers. They acquire rows only from immutable, audited successor outputs.
+The successor [`CLAIMS.md`](CLAIMS.md), [`RESULTS.md`](RESULTS.md), and [`DECISIONS.md`](DECISIONS.md)
+record the model-free construction stop as `PBC1`. That row is an instrument result only: it licenses no
+statement about coding-boundary preference, either positional carrier, or a biological mechanism.
 
 ## Study identity
 
@@ -118,6 +119,11 @@ annotated phase, one authentic acceptor module for each phase, one fixed bridge 
 3×3 chimeric lattice. Selection and balance use sequence and annotation only. The primary target is exactly
 600 blocks at 120 nt; development and Phase-III confirmation roles are gene-disjoint and frozen before
 model access.
+
+Amendment A5 makes the already-required supply stop executable and auditable. After the frozen eligibility
+filters, any role/phase or source-union unique-gene deficit writes a compact capacity certificate with no
+selected blocks or cells. Its independent audit may validate `INSTRUMENT_UNRESOLVED`; it cannot authorize a
+target.
 
 The unweighted lattice must balance the prespecified donor, acceptor, pairwise, coding-position, splice-core,
 stop-load, and genomic covariates. Both maximum absolute standardized mean difference and an outcome-blind,
@@ -235,6 +241,7 @@ that depends on an uncommitted raw shard must say so and cannot be called clean-
 | Freshness | `build_freshness_registry.py` | `audit_freshness_registry.py` |
 | Real-sequence census | `build_candidate_census.py` | `audit_candidate_census.py` |
 | Balanced cohort | `build_composition_balanced_cohort.py` | `audit_composition_balanced_cohort.py` |
+| Pre-target protocol/code conformance | `audit_protocol_code_conformance.py` | its passing artifact and manifest are required and hash-bound by the Phase-II freezer |
 | P3-first attenuation development | `calibrate_carrier_factorial.py`, then `run_carrier_factorial_preflight.py` | `audit_carrier_factorial_preflight.py`, then `freeze_carrier_factorial_target.py` |
 | Attenuation confirmation | `run_carrier_factorial_target.py`, `analyze_carrier_factorial.py` | `audit_carrier_factorial.py` |
 | P3 register development | `run_p3_register_preflight.py`, `analyze_p3_register_preflight.py` | `audit_p3_register_preflight.py` |
@@ -248,8 +255,8 @@ positive, negative, or bounded result from a failed instrument.
 
 ## Present status
 
-`PREREGISTRATION.md`, including pre-outcome Amendments A1–A3, freezes the design and numerical decision
-rules. It does **not** assert that the new
-cohort exists, that a preflight has passed, that a target is authorized, or that any endpoint has been
-measured. Before the first target run, the execution package must bind the completed code and inputs and an
-independent protocol-to-code conformance audit must pass.
+`PREREGISTRATION.md`, including pre-model Amendments A1–A5, freezes the design and numerical decision rules.
+The executed A5 certificate and its 48-check independent audit record `PBC1`: donor phase 2 and acceptor
+phase 2 cannot supply the frozen 1,104-block request. No complete cohort exists, no model preflight ran or
+opened, no target is authorized, and no model endpoint was measured. Any successor design must be separately
+preregistered; this frozen execution path remains closed.

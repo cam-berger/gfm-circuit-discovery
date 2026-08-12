@@ -9,7 +9,13 @@ from pathlib import Path
 import pytest
 
 from gfmcd.splicing import pbc_freshness
-from gfmcd.splicing.pbc_biology import IndexedFasta, MaxEntTables
+from gfmcd.splicing.pbc_biology import (
+    GtfFeature,
+    IndexedFasta,
+    MaxEntTables,
+    _FeatureIntervalIndex,
+    _overlaps,
+)
 from gfmcd.splicing.positional_boundary_coherence import (
     DEFAULT_BRIDGE_ACCEPTOR_POS,
     _source_strata_complete,
@@ -118,7 +124,13 @@ def _install_motifs(sequence: list[str], rows: list[str]) -> None:
         sequence[acceptor : acceptor + 2] = list("CT")  # reverse complement -> AG
 
 
-def _biology_fixture(tmp_path: Path, *, conflict: bool = False, bad_plus_motif: bool = False):
+def _biology_fixture(
+    tmp_path: Path,
+    *,
+    conflict: bool = False,
+    bad_plus_motif: bool = False,
+    alternative_acceptor: bool = False,
+):
     tmp_path.mkdir(parents=True, exist_ok=True)
     sequence = list("A" * 12000)
     rows = []
@@ -135,6 +147,19 @@ def _biology_fixture(tmp_path: Path, *, conflict: bool = False, bad_plus_motif: 
         _install_motifs(sequence, edge_rows)
         rows.extend(edge_rows)
         rows_by_design.append(edge_rows)
+    if alternative_acceptor:
+        alternative_rows = []
+        for line in rows_by_design[0]:
+            columns = line.split("\t")
+            columns[8] = columns[8].replace(
+                "ENST_PLUS0.2", "ENST_PLUS0_ALTERNATIVE.1"
+            )
+            if int(columns[3]) > 1500:
+                columns[3] = str(int(columns[3]) + 99)
+                columns[4] = str(int(columns[4]) + 99)
+            alternative_rows.append("\t".join(columns))
+        _install_motifs(sequence, alternative_rows)
+        rows.extend(alternative_rows)
     if bad_plus_motif:
         plus_exons = [row.split("\t") for row in rows_by_design[0] if "\texon\t" in row]
         donor = min((int(row[4]) for row in plus_exons))
@@ -180,6 +205,81 @@ def _freshness(gene: str = "ENSG00000888888") -> tuple[dict, dict]:
         "registry_content_sha256": registry["content_sha256"],
     }
     return registry, audit
+
+
+def _feature(start: int, end: int, label: str) -> GtfFeature:
+    return GtfFeature(
+        chrom="chr1",
+        feature="CDS",
+        start=start,
+        end=end,
+        strand="+",
+        frame=0,
+        gene_id=f"GENE_{label}",
+        transcript_id=label,
+        gene_type="protein_coding",
+        transcript_type="protein_coding",
+    )
+
+
+def test_feature_interval_index_matches_naive_overlap_and_source_order():
+    features = [
+        _feature(90, 110, "late"),
+        _feature(0, 1000, "spanning"),
+        _feature(20, 30, "right_boundary"),
+        _feature(15, 18, "inside"),
+        _feature(5, 10, "left_boundary"),
+        _feature(400, 405, "remote"),
+    ]
+    index = _FeatureIntervalIndex(features)
+    interval_families = [
+        ((10, 20),),
+        ((100, 110),),
+        ((10, 20), (400, 401)),
+        ((1001, 1010),),
+    ]
+    for intervals in interval_families:
+        expected = tuple(
+            feature
+            for feature in features
+            if any(_overlaps(feature, start, end) for start, end in intervals)
+        )
+        assert index.overlaps(intervals) == expected
+
+    assert [row.transcript_id for row in index.overlaps(((10, 20),))] == [
+        "spanning",
+        "inside",
+    ]
+    with pytest.raises(ValueError, match="non-empty"):
+        index.overlaps(((4, 4),))
+
+
+def test_auditor_interval_index_matches_naive_overlap_and_source_order():
+    rows = [
+        {"start": 90, "end": 110, "label": "late"},
+        {"start": 0, "end": 1000, "label": "spanning"},
+        {"start": 20, "end": 30, "label": "right_boundary"},
+        {"start": 15, "end": 18, "label": "inside"},
+        {"start": 5, "end": 10, "label": "left_boundary"},
+        {"start": 400, "end": 405, "label": "remote"},
+    ]
+    index = AUDIT_CENSUS._AuditFeatureIntervalIndex(rows)
+    intervals = ((10, 20), (400, 401))
+    expected = tuple(
+        row
+        for row in rows
+        if any(
+            int(row["start"]) < end and int(row["end"]) > start
+            for start, end in intervals
+        )
+    )
+    assert index.overlaps(intervals) == expected
+    assert [row["label"] for row in index.overlaps(((10, 20),))] == [
+        "spanning",
+        "inside",
+    ]
+    with pytest.raises(ValueError, match="non-empty"):
+        index.overlaps(((4, 4),))
 
 
 def _candidate_package(tmp_path: Path, **fixture_kwargs):
@@ -284,6 +384,50 @@ def test_coordinate_identical_basic_frame_conflict_is_excluded(tmp_path):
     )
 
 
+def test_alternative_partner_duplicate_source_loci_are_all_excluded(tmp_path):
+    package, registry, freshness_audit, paths = _candidate_package(
+        tmp_path, alternative_acceptor=True
+    )
+    gene = "ENSG00000000001"
+    gene_rows = [
+        row for row in package["candidates"] if row["gene_id"].split(".", 1)[0] == gene
+    ]
+    assert not [row for row in gene_rows if row["role"] == "donor"]
+    assert len([row for row in gene_rows if row["role"] == "acceptor"]) == 2
+    assert len([row for row in gene_rows if row["role"] == "scaffold"]) == 2
+    duplicate_exclusions = [
+        row
+        for row in package["exclusions"]
+        if row["gene_id"] == gene
+        and row["reasons"] == ["duplicate_source_locus:donor"]
+    ]
+    assert len(duplicate_exclusions) == 2
+    loci = [
+        (
+            row["role"],
+            row["chrom"],
+            row["strand"],
+            row["source_start"],
+            row["source_end"],
+        )
+        for row in package["candidates"]
+    ]
+    assert len(loci) == len(set(loci))
+    fasta, fai, basic, comprehensive, donor_table, acceptor_table = paths
+    audited = AUDIT_CENSUS.audit_package(
+        package,
+        fasta_path=fasta,
+        fai_path=fai,
+        basic_gtf_path=basic,
+        comprehensive_gtf_path=comprehensive,
+        donor_table_path=donor_table,
+        acceptor_table_path=acceptor_table,
+        freshness_registry=registry,
+        freshness_audit=freshness_audit,
+    )
+    assert audited["passed"] is True
+
+
 def test_freshness_blacklist_removes_gene_before_candidate_materialization(tmp_path):
     fasta, fai, basic, comprehensive, donor_table, acceptor_table = _biology_fixture(tmp_path)
     registry, freshness_audit = _freshness("ENSG00000000002")
@@ -350,6 +494,7 @@ def test_candidate_auditor_does_not_import_producer_biology_reconstructors(tmp_p
     package, registry, freshness_audit, paths = _candidate_package(tmp_path)
     fasta, fai, basic, comprehensive, donor_table, acceptor_table = paths
     producer_reconstructors = {
+        "_FeatureIntervalIndex",
         "enumerate_edge_evidence",
         "module_record",
         "scaffold_record",

@@ -45,6 +45,9 @@ TIER_EXEMPT_DIRS = (
 )
 
 FROZEN_UNTIERED_DOCS = {
+    "studies/splicebert_partner_selection/preregistrations/AMENDMENT_BG1_BG2_PREEXECUTION_2026-08-11.md":
+        ("results/splicebert_coupling/bg1_boundary_preflight_v1.manifest.json",
+         _PINNED_PROTOCOL_REASON),
     "studies/splicebert_gtex_finetune_shift/IMPLEMENTATION_ADDENDUM_JACOBIAN_SAE_BEHAVIOR_V1.md":
         ("results/splicebert_gtex_finetune_shift/jacobian_sae_behavior_preflight_v1.manifest.json",
          _PINNED_PROTOCOL_REASON),

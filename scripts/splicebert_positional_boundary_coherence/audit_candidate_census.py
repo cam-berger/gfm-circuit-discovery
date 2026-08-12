@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from bisect import bisect_left
 from collections import Counter, defaultdict
 import gzip
 import hashlib
@@ -421,6 +422,82 @@ def _audit_exclusion(edge: _AuditEdge, reason: str) -> dict[str, object]:
     return {"edge_id": _audit_edge_id(edge), "gene_id": root, "reasons": [reason]}
 
 
+class _AuditFeatureIntervalIndex:
+    """Auditor-owned exact interval index preserving annotation row order."""
+
+    def __init__(self, features: Iterable[Mapping[str, Any]]):
+        self._features = tuple(features)
+        records = sorted(
+            (int(feature["start"]), int(feature["end"]), index)
+            for index, feature in enumerate(self._features)
+        )
+        self._records = tuple(records)
+        self._starts = tuple(record[0] for record in records)
+        size = 1
+        while size < len(records):
+            size *= 2
+        self._tree_size = size
+        max_ends = [-1] * (2 * size)
+        for offset, (_start, end, _index) in enumerate(records):
+            max_ends[size + offset] = end
+        for node in range(size - 1, 0, -1):
+            max_ends[node] = max(max_ends[2 * node], max_ends[2 * node + 1])
+        self._max_ends = tuple(max_ends)
+
+    def _collect(
+        self,
+        *,
+        node: int,
+        left: int,
+        right: int,
+        upper_record: int,
+        query_start: int,
+        found: set[int],
+    ) -> None:
+        if left >= upper_record or self._max_ends[node] <= query_start:
+            return
+        if right - left == 1:
+            found.add(self._records[left][2])
+            return
+        middle = (left + right) // 2
+        self._collect(
+            node=2 * node,
+            left=left,
+            right=middle,
+            upper_record=upper_record,
+            query_start=query_start,
+            found=found,
+        )
+        if middle < upper_record:
+            self._collect(
+                node=2 * node + 1,
+                left=middle,
+                right=right,
+                upper_record=upper_record,
+                query_start=query_start,
+                found=found,
+            )
+
+    def overlaps(
+        self, intervals: Iterable[tuple[int, int]]
+    ) -> tuple[Mapping[str, Any], ...]:
+        found: set[int] = set()
+        for start, end in intervals:
+            if end <= start:
+                raise ValueError("audit query interval must be non-empty")
+            upper_record = bisect_left(self._starts, end)
+            if upper_record:
+                self._collect(
+                    node=1,
+                    left=0,
+                    right=self._tree_size,
+                    upper_record=upper_record,
+                    query_start=start,
+                    found=found,
+                )
+        return tuple(self._features[index] for index in sorted(found))
+
+
 def _audit_enumerate_edges(
     basic_gtf: str | Path,
     comprehensive_gtf: str | Path,
@@ -464,6 +541,13 @@ def _audit_enumerate_edges(
     comprehensive_by_chrom: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for feature in comprehensive_features:
         comprehensive_by_chrom[str(feature["chrom"])].append(feature)
+    comprehensive_indexes = {
+        chrom: _AuditFeatureIntervalIndex(features)
+        for chrom, features in comprehensive_by_chrom.items()
+    }
+
+    del basic_features, comprehensive_features, basic_supports, comprehensive_supports
+    del comprehensive_by_chrom
 
     retained: list[_AuditEdge] = []
     exclusions: list[dict[str, object]] = []
@@ -510,14 +594,8 @@ def _audit_enumerate_edges(
             _audit_oriented_interval(donor, -90, 36, strand),
             _audit_oriented_interval(acceptor, -50, 90, strand),
         )
-        nearby = tuple(
-            feature
-            for feature in comprehensive_by_chrom.get(chrom, [])
-            if any(
-                int(feature["start"]) < end and int(feature["end"]) > start
-                for start, end in intervals
-            )
-        )
+        index = comprehensive_indexes.get(chrom)
+        nearby = index.overlaps(intervals) if index is not None else ()
         if any(str(feature["strand"]) != strand for feature in nearby):
             reasons.append("comprehensive_local_strand_conflict")
         if any(str(feature["gene_id"]).split(".", 1)[0] != root for feature in nearby):
@@ -1050,6 +1128,34 @@ def _audit_scaffold(
     }
 
 
+def _audit_source_locus(
+    record: Mapping[str, object],
+) -> tuple[str, str, str, int, int]:
+    return (
+        str(record["role"]),
+        str(record["chrom"]),
+        str(record["strand"]),
+        int(record["source_start"]),
+        int(record["source_end"]),
+    )
+
+
+def _audit_exclude_duplicate_source_loci(
+    materialized: list[tuple[dict[str, object], _AuditEdge]],
+    exclusions: list[dict[str, object]],
+) -> list[dict[str, object]]:
+    counts = Counter(_audit_source_locus(record) for record, _edge in materialized)
+    retained: list[dict[str, object]] = []
+    for record, edge in materialized:
+        if counts[_audit_source_locus(record)] > 1:
+            exclusions.append(
+                _audit_exclusion(edge, f"duplicate_source_locus:{record['role']}")
+            )
+        else:
+            retained.append(record)
+    return retained
+
+
 def independently_reconstruct(
     *,
     fasta_path: str | Path,
@@ -1072,7 +1178,7 @@ def independently_reconstruct(
         comprehensive_gtf_path,
         allowed_chromosomes=allowed_chromosomes,
     )
-    rebuilt: list[dict[str, object]] = []
+    materialized: list[tuple[dict[str, object], _AuditEdge]] = []
     rebuilt_exclusions = list(exclusions)
     for edge in edges:
         root = str(edge.representative["gene_id"]).split(".", 1)[0]
@@ -1087,13 +1193,16 @@ def independently_reconstruct(
                 _audit_exclusion(edge, f"module:{type(exc).__name__}:{exc}")
             )
         else:
-            rebuilt.extend((donor, acceptor))
+            materialized.extend(((donor, edge), (acceptor, edge)))
         try:
-            rebuilt.append(_audit_scaffold(edge, genome, scorer))
+            materialized.append((_audit_scaffold(edge, genome, scorer), edge))
         except (KeyError, ValueError, ZeroDivisionError) as exc:
             rebuilt_exclusions.append(
                 _audit_exclusion(edge, f"scaffold:{type(exc).__name__}:{exc}")
             )
+    rebuilt = _audit_exclude_duplicate_source_loci(
+        materialized, rebuilt_exclusions
+    )
     rebuilt.sort(key=lambda row: str(row["candidate_id"]))
     rebuilt_exclusions.sort(key=lambda row: (str(row["edge_id"]), tuple(row["reasons"])))
     counts = Counter(str(row["role"]) for row in rebuilt)

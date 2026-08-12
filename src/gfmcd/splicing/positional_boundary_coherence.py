@@ -14,11 +14,13 @@ the complete construction and audit path without a genome or model checkpoint.
 from __future__ import annotations
 
 from collections import Counter
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 import hashlib
 import itertools
 import json
 import math
+import os
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
@@ -29,6 +31,11 @@ from scipy.stats import norm
 CANDIDATE_SCHEMA = "gfmcd.positional_boundary_coherence.candidates.v1"
 CANDIDATE_AUDIT_SCHEMA = "gfmcd.positional_boundary_coherence.candidate_census_audit.v1"
 COHORT_SCHEMA = "gfmcd.positional_boundary_coherence.cohort.v1"
+CAPACITY_STOP_SCHEMA = "gfmcd.positional_boundary_coherence.phase1_capacity_stop.v1"
+CANDIDATE_CENSUS_RECEIPT_SCHEMA = (
+    "gfmcd.positional_boundary_coherence.candidate_census_receipt.v1"
+)
+CANONICAL_CANDIDATE_PRODUCER_REVISION = "addd7be93c321373118b02b82bc3d95eeb0bd20a"
 AUDIT_SCHEMA = "gfmcd.positional_boundary_coherence.cohort_audit.v1"
 ALGORITHM_VERSION = "pbc-composition-match-v1"
 NAMESPACE = "splicebert-positional-boundary-coherence-v1"
@@ -58,6 +65,10 @@ DEFAULT_ALLOWED_CHROMS = frozenset(
     {*(f"chr{i}" for i in range(1, 8)), *(f"chr{i}" for i in range(10, 23)), "chrX"}
 )
 DEFAULT_FORBIDDEN_CHROMS = frozenset({"chr8", "chr9", "chrY", "chrM", "MT"})
+_AUC_OUTER_WORKERS = 5
+_AUC_BOOTSTRAP_CHUNK_SIZE = 256
+_AUC_BOOTSTRAP_EQUIVALENCE_ATOL = 1e-12
+_AUC_FROZEN_GATE_THRESHOLDS = (0.50, 0.55, 0.70)
 ROLE_WINDOWS = {
     "donor": {
         "core": (-3, 6),
@@ -125,6 +136,14 @@ def canonical_json(payload: Any) -> str:
 
 def sha256_payload(payload: Any) -> str:
     return hashlib.sha256(canonical_json(payload).encode("utf-8")).hexdigest()
+
+
+def _is_lower_hex(value: Any, *, length: int) -> bool:
+    return (
+        isinstance(value, str)
+        and len(value) == length
+        and all(character in "0123456789abcdef" for character in value)
+    )
 
 
 def sequence_sha256(sequence: str) -> str:
@@ -1091,6 +1110,353 @@ def _balanced_outer_fold_map(
     return fold_map, [dict(sorted(count.items())) for count in fold_counts]
 
 
+@dataclass(frozen=True)
+class _NestedAUCDesign:
+    """Label-independent arrays reused by the 99 pseudo-label fits."""
+
+    names: tuple[str, ...]
+    matrix: np.ndarray
+    group_array: np.ndarray
+    stratum_array: np.ndarray
+    unique_groups: np.ndarray
+    row_group_codes: np.ndarray
+    groups_by_stratum: tuple[tuple[str, np.ndarray, np.ndarray], ...]
+
+
+def _prepare_nested_auc_design(
+    feature_rows: Sequence[Mapping[str, float]],
+    groups: Sequence[str],
+    strata: Sequence[str] | None,
+) -> _NestedAUCDesign:
+    """Materialize the frozen feature matrix and block indexes exactly once."""
+
+    if not feature_rows or len(feature_rows) != len(groups):
+        raise ValueError("AUC inputs must be non-empty and aligned")
+    names = tuple(sorted(set().union(*(row.keys() for row in feature_rows))))
+    matrix = np.asarray(
+        [[float(row.get(name, 0.0)) for name in names] for row in feature_rows],
+        dtype=np.float64,
+    )
+    group_array = np.asarray(groups, dtype=object)
+    stratum_array = np.asarray(
+        list(strata) if strata is not None else ["all"] * len(groups), dtype=object
+    )
+    if len(stratum_array) != len(group_array):
+        raise ValueError("strata must align to groups")
+    unique_groups = np.unique(group_array)
+    group_code = {str(group): index for index, group in enumerate(unique_groups)}
+    row_group_codes = np.asarray(
+        [group_code[str(group)] for group in group_array], dtype=np.int32
+    )
+    groups_by_stratum_raw: dict[str, list[str]] = {}
+    for group in unique_groups:
+        positions = np.flatnonzero(group_array == group)
+        group_strata = np.unique(stratum_array[positions])
+        if len(group_strata) != 1:
+            raise ValueError("all cells of a block must share one chromosome/strand stratum")
+        groups_by_stratum_raw.setdefault(str(group_strata[0]), []).append(str(group))
+    groups_by_stratum = tuple(
+        (
+            stratum,
+            np.asarray(groups_by_stratum_raw[stratum], dtype=object),
+            np.asarray(
+                [group_code[group] for group in groups_by_stratum_raw[stratum]],
+                dtype=np.int32,
+            ),
+        )
+        for stratum in sorted(groups_by_stratum_raw)
+    )
+    return _NestedAUCDesign(
+        names=names,
+        matrix=matrix,
+        group_array=group_array,
+        stratum_array=stratum_array,
+        unique_groups=unique_groups,
+        row_group_codes=row_group_codes,
+        groups_by_stratum=groups_by_stratum,
+    )
+
+
+def _draw_group_bootstrap_counts(
+    design: _NestedAUCDesign,
+    *,
+    n_boot: int,
+    seed: int,
+) -> np.ndarray:
+    """Replay the legacy draw order while retaining only group multiplicities."""
+
+    rng = np.random.default_rng(int(seed))
+    counts = np.zeros((int(n_boot), len(design.unique_groups)), dtype=np.int32)
+    for draw_index in range(int(n_boot)):
+        for _stratum, stratum_groups, stratum_group_codes in design.groups_by_stratum:
+            # `choice` receives the same sorted object array, size, and replacement
+            # flag as the original implementation, in the same draw-major order.
+            sampled = rng.choice(
+                stratum_groups, size=len(stratum_groups), replace=True
+            )
+            sampled_codes = stratum_group_codes[
+                np.searchsorted(stratum_groups, sampled)
+            ]
+            np.add.at(counts[draw_index], sampled_codes, 1)
+    return counts
+
+
+def _auc_from_group_counts(
+    labels: np.ndarray,
+    predictions: np.ndarray,
+    row_group_codes: np.ndarray,
+    counts: np.ndarray,
+    *,
+    chunk_size: int = _AUC_BOOTSTRAP_CHUNK_SIZE,
+) -> np.ndarray:
+    """Vectorized weighted Mann-Whitney AUC for whole-block resamples.
+
+    Repeating a block `k` times is exactly equivalent to giving each of its
+    rows integer weight `k`.  Tied prediction values receive the same one-half
+    credit as ``sklearn.metrics.roc_auc_score``.
+    """
+
+    order = np.argsort(predictions, kind="mergesort")
+    ordered_predictions = predictions[order]
+    ordered_labels = labels[order].astype(np.float64, copy=False)
+    ordered_group_codes = row_group_codes[order]
+    score_starts = np.r_[0, np.flatnonzero(np.diff(ordered_predictions)) + 1]
+    output = np.empty(len(counts), dtype=np.float64)
+    for start in range(0, len(counts), int(chunk_size)):
+        stop = min(start + int(chunk_size), len(counts))
+        row_weights = counts[start:stop, ordered_group_codes].astype(
+            np.float64, copy=False
+        )
+        positive_by_score = np.add.reduceat(
+            row_weights * ordered_labels, score_starts, axis=1
+        )
+        negative_by_score = np.add.reduceat(
+            row_weights * (1.0 - ordered_labels), score_starts, axis=1
+        )
+        negative_below = np.cumsum(negative_by_score, axis=1) - negative_by_score
+        numerator = np.sum(
+            positive_by_score * (negative_below + 0.5 * negative_by_score), axis=1
+        )
+        denominator = positive_by_score.sum(axis=1) * negative_by_score.sum(axis=1)
+        if np.any(denominator <= 0):
+            raise ValueError("bootstrap AUC resample contains only one label class")
+        output[start:stop] = numerator / denominator
+    return output
+
+
+def _reference_group_bootstrap_auc(
+    design: _NestedAUCDesign,
+    labels: np.ndarray,
+    predictions: np.ndarray,
+    *,
+    n_boot: int,
+    seed: int,
+) -> np.ndarray:
+    """Pre-optimization bootstrap retained only for threshold-edge fallback/tests."""
+
+    from sklearn.metrics import roc_auc_score
+
+    rng = np.random.default_rng(int(seed))
+    bootstrap = np.empty(int(n_boot), dtype=np.float64)
+    by_group = {
+        str(group): np.flatnonzero(design.group_array == group)
+        for group in design.unique_groups
+    }
+    for draw_index in range(int(n_boot)):
+        sampled: list[str] = []
+        for _stratum, stratum_groups, _codes in design.groups_by_stratum:
+            sampled.extend(
+                rng.choice(
+                    stratum_groups, size=len(stratum_groups), replace=True
+                ).tolist()
+            )
+        positions = np.concatenate([by_group[str(group)] for group in sampled])
+        bootstrap[draw_index] = float(
+            roc_auc_score(labels[positions], predictions[positions])
+        )
+    return bootstrap
+
+
+def _bootstrap_auc(
+    design: _NestedAUCDesign,
+    labels: np.ndarray,
+    predictions: np.ndarray,
+    *,
+    n_boot: int,
+    seed: int,
+) -> np.ndarray:
+    counts = _draw_group_bootstrap_counts(design, n_boot=n_boot, seed=seed)
+    bootstrap = _auc_from_group_counts(
+        labels, predictions, design.row_group_codes, counts
+    )
+    bounds = np.quantile(bootstrap, (0.025, 0.975))
+    # The vectorized weighted-rank calculation and sklearn's repeated-row ROC
+    # calculation agree to floating tolerance.  At a frozen decision boundary,
+    # replay the prior implementation so even a last-bit difference cannot flip
+    # a 0.50-containment, 0.55-upper, or 0.70-lower gate.
+    if any(
+        abs(float(bound) - threshold) <= _AUC_BOOTSTRAP_EQUIVALENCE_ATOL
+        for bound in bounds
+        for threshold in _AUC_FROZEN_GATE_THRESHOLDS
+    ):
+        return _reference_group_bootstrap_auc(
+            design, labels, predictions, n_boot=n_boot, seed=seed
+        )
+    return bootstrap
+
+
+def _nested_crossfit_auc_prepared(
+    design: _NestedAUCDesign,
+    labels: Sequence[bool | int],
+    *,
+    seed: int,
+    outer_folds: int,
+    inner_folds: int,
+    n_boot: int,
+    c_grid: Sequence[float],
+    executor: ThreadPoolExecutor | None = None,
+) -> dict[str, Any]:
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.metrics import roc_auc_score
+    from sklearn.model_selection import GroupKFold
+    from sklearn.preprocessing import StandardScaler
+
+    label_array = np.asarray(labels, dtype=np.int8)
+    if len(label_array) != len(design.group_array):
+        raise ValueError("AUC inputs must be non-empty and aligned")
+    outer_count = int(outer_folds)
+    if outer_count != 5:
+        raise ValueError("the frozen classifier requires exactly five outer folds")
+    if len(design.unique_groups) < outer_count:
+        return {
+            "evaluable": False,
+            "reason": "at least five independent blocks are required",
+            "n_groups": int(len(design.unique_groups)),
+        }
+    fold_map, fold_stratum_counts = _balanced_outer_fold_map(
+        design.group_array.tolist(),
+        design.stratum_array.tolist(),
+        n_folds=outer_count,
+        seed=seed,
+    )
+    row_folds = np.asarray(
+        [fold_map[str(group)] for group in design.group_array], dtype=np.int8
+    )
+
+    def fit_outer_fold(fold: int) -> tuple[int, np.ndarray, np.ndarray, dict[str, Any]]:
+        test = np.flatnonzero(row_folds == fold)
+        train = np.flatnonzero(row_folds != fold)
+        if test.size == 0:
+            raise ValueError(f"outer fold {fold} is empty")
+        train_groups = design.group_array[train]
+        inner_count = min(int(inner_folds), len(np.unique(train_groups)))
+        if inner_count < 2:
+            raise ValueError("nested training split has fewer than two blocks")
+        scores: dict[float, list[float]] = {float(c): [] for c in c_grid}
+        inner = GroupKFold(n_splits=inner_count)
+        for inner_train_rel, inner_val_rel in inner.split(
+            design.matrix[train], label_array[train], train_groups
+        ):
+            inner_train, inner_val = train[inner_train_rel], train[inner_val_rel]
+            scaler = StandardScaler().fit(design.matrix[inner_train])
+            train_x = scaler.transform(design.matrix[inner_train])
+            val_x = scaler.transform(design.matrix[inner_val])
+            for c_value in c_grid:
+                classifier = LogisticRegression(
+                    C=float(c_value),
+                    class_weight="balanced",
+                    max_iter=2000,
+                    random_state=int(seed),
+                    solver="liblinear",
+                ).fit(train_x, label_array[inner_train])
+                probability = classifier.predict_proba(val_x)[:, 1]
+                scores[float(c_value)].append(
+                    float(roc_auc_score(label_array[inner_val], probability))
+                )
+        selected_c = max(
+            scores,
+            key=lambda c_value: (float(np.mean(scores[c_value])), -float(c_value)),
+        )
+        scaler = StandardScaler().fit(design.matrix[train])
+        classifier = LogisticRegression(
+            C=selected_c,
+            class_weight="balanced",
+            max_iter=2000,
+            random_state=int(seed + fold),
+            solver="liblinear",
+        ).fit(scaler.transform(design.matrix[train]), label_array[train])
+        fold_predictions = classifier.predict_proba(
+            scaler.transform(design.matrix[test])
+        )[:, 1]
+        record = {
+            "fold": fold,
+            "selected_c": selected_c,
+            "inner_auc_by_c": {
+                str(c): float(np.mean(values)) for c, values in sorted(scores.items())
+            },
+            "n_train_blocks": int(len(np.unique(design.group_array[train]))),
+            "n_test_blocks": int(len(np.unique(design.group_array[test]))),
+            "test_stratum_blocks": fold_stratum_counts[fold],
+        }
+        return fold, test, fold_predictions, record
+
+    owns_executor = executor is None and _AUC_OUTER_WORKERS > 1
+    local_executor = executor
+    if owns_executor:
+        local_executor = ThreadPoolExecutor(
+            max_workers=min(_AUC_OUTER_WORKERS, os.cpu_count() or 1)
+        )
+    try:
+        if local_executor is None:
+            fold_outputs = [fit_outer_fold(fold) for fold in range(outer_count)]
+        else:
+            fold_outputs = list(local_executor.map(fit_outer_fold, range(outer_count)))
+    except ValueError as exc:
+        if str(exc).startswith("outer fold ") or str(exc).startswith("nested training split"):
+            return {"evaluable": False, "reason": str(exc)}
+        raise
+    finally:
+        if owns_executor and local_executor is not None:
+            local_executor.shutdown()
+    predictions = np.full(len(label_array), np.nan, dtype=np.float64)
+    fold_records: list[dict[str, Any]] = []
+    for _fold, test, fold_predictions, record in fold_outputs:
+        predictions[test] = fold_predictions
+        fold_records.append(record)
+    if not np.all(np.isfinite(predictions)):
+        raise AssertionError("cross-fit predictions were not complete")
+    estimate = float(roc_auc_score(label_array, predictions))
+    bootstrap = _bootstrap_auc(
+        design, label_array, predictions, n_boot=int(n_boot), seed=int(seed)
+    )
+    return {
+        "evaluable": True,
+        "orientation_free": False,
+        "estimate": float(estimate),
+        "ci_low": float(np.quantile(bootstrap, 0.025)),
+        "ci_high": float(np.quantile(bootstrap, 0.975)),
+        "n_rows": len(label_array),
+        "n_groups": len(design.unique_groups),
+        "n_features": len(design.names),
+        "outer_folds": outer_count,
+        "inner_folds": int(inner_folds),
+        "n_boot": int(n_boot),
+        "seed": int(seed),
+        "folds": fold_records,
+        "outer_fold_stratum_counts": fold_stratum_counts,
+        "outer_folds_stratum_balanced": all(
+            max(counts) - min(counts) <= 1
+            for stratum in sorted(
+                {key for fold_count in fold_stratum_counts for key in fold_count}
+            )
+            for counts in [
+                [fold_count.get(stratum, 0) for fold_count in fold_stratum_counts]
+            ]
+        ),
+        "prediction_sha256": hashlib.sha256(predictions.tobytes()).hexdigest(),
+    }
+
+
 def nested_crossfit_auc(
     feature_rows: Sequence[Mapping[str, float]],
     labels: Sequence[bool | int],
@@ -1105,143 +1471,18 @@ def nested_crossfit_auc(
 ) -> dict[str, Any]:
     """Nested group-cross-fit distinguishability with a block bootstrap bound."""
 
-    from sklearn.linear_model import LogisticRegression
-    from sklearn.metrics import roc_auc_score
-    from sklearn.model_selection import GroupKFold
-    from sklearn.preprocessing import StandardScaler
-
     if not feature_rows or len(feature_rows) != len(labels) or len(labels) != len(groups):
         raise ValueError("AUC inputs must be non-empty and aligned")
-    names = sorted(set().union(*(row.keys() for row in feature_rows)))
-    matrix = np.asarray(
-        [[float(row.get(name, 0.0)) for name in names] for row in feature_rows], dtype=np.float64
+    design = _prepare_nested_auc_design(feature_rows, groups, strata)
+    return _nested_crossfit_auc_prepared(
+        design,
+        labels,
+        seed=seed,
+        outer_folds=outer_folds,
+        inner_folds=inner_folds,
+        n_boot=n_boot,
+        c_grid=c_grid,
     )
-    label_array = np.asarray(labels, dtype=np.int8)
-    group_array = np.asarray(groups, dtype=object)
-    stratum_array = np.asarray(
-        list(strata) if strata is not None else ["all"] * len(groups), dtype=object
-    )
-    if len(stratum_array) != len(group_array):
-        raise ValueError("strata must align to groups")
-    unique_groups = np.unique(group_array)
-    outer_count = int(outer_folds)
-    if outer_count != 5:
-        raise ValueError("the frozen classifier requires exactly five outer folds")
-    if len(unique_groups) < outer_count:
-        return {
-            "evaluable": False,
-            "reason": "at least five independent blocks are required",
-            "n_groups": int(len(unique_groups)),
-        }
-    fold_map, fold_stratum_counts = _balanced_outer_fold_map(
-        group_array.tolist(), stratum_array.tolist(), n_folds=outer_count, seed=seed
-    )
-    predictions = np.full(len(label_array), np.nan, dtype=np.float64)
-    fold_records = []
-    for fold in range(outer_count):
-        test = np.asarray(
-            [index for index, group in enumerate(group_array) if fold_map[str(group)] == fold],
-            dtype=np.int64,
-        )
-        train = np.asarray(
-            [index for index, group in enumerate(group_array) if fold_map[str(group)] != fold],
-            dtype=np.int64,
-        )
-        if test.size == 0:
-            return {"evaluable": False, "reason": f"outer fold {fold} is empty"}
-        train_groups = group_array[train]
-        inner_count = min(int(inner_folds), len(np.unique(train_groups)))
-        if inner_count < 2:
-            return {"evaluable": False, "reason": "nested training split has fewer than two blocks"}
-        scores: dict[float, list[float]] = {float(c): [] for c in c_grid}
-        inner = GroupKFold(n_splits=inner_count)
-        for inner_train_rel, inner_val_rel in inner.split(
-            matrix[train], label_array[train], train_groups
-        ):
-            inner_train, inner_val = train[inner_train_rel], train[inner_val_rel]
-            scaler = StandardScaler().fit(matrix[inner_train])
-            train_x, val_x = scaler.transform(matrix[inner_train]), scaler.transform(matrix[inner_val])
-            for c_value in c_grid:
-                classifier = LogisticRegression(
-                    C=float(c_value),
-                    class_weight="balanced",
-                    max_iter=2000,
-                    random_state=int(seed),
-                    solver="liblinear",
-                ).fit(train_x, label_array[inner_train])
-                probability = classifier.predict_proba(val_x)[:, 1]
-                scores[float(c_value)].append(
-                    float(roc_auc_score(label_array[inner_val], probability))
-                )
-        # Conservative instrument check: give the classifier the hyperparameter
-        # with the highest inner validation distinguishability.
-        selected_c = max(
-            scores,
-            key=lambda c_value: (float(np.mean(scores[c_value])), -float(c_value)),
-        )
-        scaler = StandardScaler().fit(matrix[train])
-        classifier = LogisticRegression(
-            C=selected_c,
-            class_weight="balanced",
-            max_iter=2000,
-            random_state=int(seed + fold),
-            solver="liblinear",
-        ).fit(scaler.transform(matrix[train]), label_array[train])
-        predictions[test] = classifier.predict_proba(scaler.transform(matrix[test]))[:, 1]
-        fold_records.append(
-            {
-                "fold": fold,
-                "selected_c": selected_c,
-                "inner_auc_by_c": {
-                    str(c): float(np.mean(values)) for c, values in sorted(scores.items())
-                },
-                "n_train_blocks": int(len(np.unique(group_array[train]))),
-                "n_test_blocks": int(len(np.unique(group_array[test]))),
-                "test_stratum_blocks": fold_stratum_counts[fold],
-            }
-        )
-    if not np.all(np.isfinite(predictions)):
-        raise AssertionError("cross-fit predictions were not complete")
-    estimate = float(roc_auc_score(label_array, predictions))
-    rng = np.random.default_rng(int(seed))
-    bootstrap = np.empty(int(n_boot), dtype=np.float64)
-    by_group = {str(group): np.flatnonzero(group_array == group) for group in unique_groups}
-    groups_by_stratum: dict[str, list[str]] = {}
-    for group in unique_groups:
-        positions = by_group[str(group)]
-        stratum = str(stratum_array[positions[0]])
-        groups_by_stratum.setdefault(stratum, []).append(str(group))
-    for index in range(int(n_boot)):
-        sampled: list[str] = []
-        for stratum in sorted(groups_by_stratum):
-            stratum_groups = np.asarray(groups_by_stratum[stratum], dtype=object)
-            sampled.extend(
-                rng.choice(stratum_groups, size=len(stratum_groups), replace=True).tolist()
-            )
-        positions = np.concatenate([by_group[str(group)] for group in sampled])
-        bootstrap[index] = float(roc_auc_score(label_array[positions], predictions[positions]))
-    return {
-        "evaluable": True,
-        "orientation_free": False,
-        "estimate": float(estimate),
-        "ci_low": float(np.quantile(bootstrap, 0.025)),
-        "ci_high": float(np.quantile(bootstrap, 0.975)),
-        "n_rows": len(label_array),
-        "n_groups": len(unique_groups),
-        "n_features": len(names),
-        "outer_folds": outer_count,
-        "inner_folds": int(inner_folds),
-        "n_boot": int(n_boot),
-        "seed": int(seed),
-        "folds": fold_records,
-        "outer_fold_stratum_counts": fold_stratum_counts,
-        "outer_folds_stratum_balanced": all(
-            max(counts) - min(counts) <= 1
-            for stratum in sorted({key for fold_count in fold_stratum_counts for key in fold_count})
-            for counts in [[fold_count.get(stratum, 0) for fold_count in fold_stratum_counts]]
-        ),
-        "prediction_sha256": hashlib.sha256(predictions.tobytes()).hexdigest(),
-    }
 
 
 def balance_audit(
@@ -1255,6 +1496,8 @@ def balance_audit(
     inner_folds: int = 4,
     auc_n_boot: int = 2000,
     extra_feature: Sequence[float] | None = None,
+    _auc_design: _NestedAUCDesign | None = None,
+    _auc_executor: ThreadPoolExecutor | None = None,
 ) -> dict[str, Any]:
     feature_rows = [dict(cell["covariates"]) for cell in cells]
     if extra_feature is not None:
@@ -1271,15 +1514,16 @@ def balance_audit(
         if labels is None and extra_feature is None
         else standardized_mean_differences(feature_rows, chosen_labels, weights)
     )
-    auc = nested_crossfit_auc(
-        feature_rows,
+    design = _auc_design or _prepare_nested_auc_design(feature_rows, groups, strata)
+    auc = _nested_crossfit_auc_prepared(
+        design,
         chosen_labels,
-        groups,
-        strata,
         seed=seed,
         outer_folds=outer_folds,
         inner_folds=inner_folds,
         n_boot=auc_n_boot,
+        c_grid=(1e-4, 1e-3, 1e-2, 1e-1, 1.0, 10.0, 100.0),
+        executor=_auc_executor,
     )
     return {
         "smd": smd,
@@ -1338,56 +1582,66 @@ def calibration_hooks(
     auc_n_boot: int,
     auc_upper_threshold: float,
     pseudo_family_size: int = 99,
+    _auc_design: _NestedAUCDesign | None = None,
 ) -> dict[str, Any]:
     observed_labels = [bool(cell["phase_match"]) for cell in cells]
-    planted = balance_audit(
-        cells,
-        labels=observed_labels,
-        seed=seed + 101,
-        outer_folds=outer_folds,
-        inner_folds=inner_folds,
-        auc_n_boot=auc_n_boot,
-        extra_feature=[float(label) for label in observed_labels],
-    )
-    primary_pseudo_labels = _pseudo_labels(cells, seed=seed, assignment=0)
-    pseudo = balance_audit(
-        cells,
-        labels=primary_pseudo_labels,
-        seed=seed + 202,
-        outer_folds=outer_folds,
-        inner_folds=inner_folds,
-        auc_n_boot=auc_n_boot,
-        auc_upper_threshold=auc_upper_threshold,
-    )
     feature_rows = [dict(cell["covariates"]) for cell in cells]
     groups = [str(cell["block_id"]) for cell in cells]
     strata = [f"{cell['chrom']}|{cell['strand']}" for cell in cells]
-    pseudo_results = []
-    for assignment in range(int(pseudo_family_size)):
-        labels = _pseudo_labels(cells, seed=seed, assignment=assignment)
-        result = nested_crossfit_auc(
-            feature_rows,
-            labels,
-            groups,
-            strata,
-            seed=seed + 1000 + assignment,
+    base_design = _auc_design or _prepare_nested_auc_design(
+        feature_rows, groups, strata
+    )
+    max_workers = min(_AUC_OUTER_WORKERS, os.cpu_count() or 1)
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        planted = balance_audit(
+            cells,
+            labels=observed_labels,
+            seed=seed + 101,
             outer_folds=outer_folds,
             inner_folds=inner_folds,
-            n_boot=auc_n_boot,
+            auc_n_boot=auc_n_boot,
+            extra_feature=[float(label) for label in observed_labels],
+            _auc_executor=executor,
         )
-        pseudo_results.append(
-            {
-                "assignment": int(assignment),
-                "estimate": float(result.get("estimate", math.inf)),
-                "ci_low": float(result.get("ci_low", -math.inf)),
-                "ci_high": float(result.get("ci_high", math.inf)),
-                "same_ci_gate_passed": bool(
-                    result.get("evaluable")
-                    and result.get("outer_folds_stratum_balanced")
-                    and float(result.get("ci_high", math.inf)) <= auc_upper_threshold
-                ),
-            }
+        primary_pseudo_labels = _pseudo_labels(cells, seed=seed, assignment=0)
+        pseudo = balance_audit(
+            cells,
+            labels=primary_pseudo_labels,
+            seed=seed + 202,
+            outer_folds=outer_folds,
+            inner_folds=inner_folds,
+            auc_n_boot=auc_n_boot,
+            auc_upper_threshold=auc_upper_threshold,
+            _auc_design=base_design,
+            _auc_executor=executor,
         )
+        pseudo_results = []
+        for assignment in range(int(pseudo_family_size)):
+            labels = _pseudo_labels(cells, seed=seed, assignment=assignment)
+            result = _nested_crossfit_auc_prepared(
+                base_design,
+                labels,
+                seed=seed + 1000 + assignment,
+                outer_folds=outer_folds,
+                inner_folds=inner_folds,
+                n_boot=auc_n_boot,
+                c_grid=(1e-4, 1e-3, 1e-2, 1e-1, 1.0, 10.0, 100.0),
+                executor=executor,
+            )
+            pseudo_results.append(
+                {
+                    "assignment": int(assignment),
+                    "estimate": float(result.get("estimate", math.inf)),
+                    "ci_low": float(result.get("ci_low", -math.inf)),
+                    "ci_high": float(result.get("ci_high", math.inf)),
+                    "same_ci_gate_passed": bool(
+                        result.get("evaluable")
+                        and result.get("outer_folds_stratum_balanced")
+                        and float(result.get("ci_high", math.inf))
+                        <= auc_upper_threshold
+                    ),
+                }
+            )
     false_positive_count = sum(
         not row["same_ci_gate_passed"] for row in pseudo_results
     )
@@ -1567,10 +1821,246 @@ def _proposal_imbalance_objective(cells: Sequence[Mapping[str, Any]]) -> float:
     return float(maximum)
 
 
+_CAPACITY_SLOT_ORDER = (
+    "scaffold",
+    "donor_phase_0",
+    "donor_phase_1",
+    "donor_phase_2",
+    "acceptor_phase_0",
+    "acceptor_phase_1",
+    "acceptor_phase_2",
+)
+
+
+def _capacity_entry(gene_ids: Iterable[str], *, required: int) -> dict[str, Any]:
+    """Return a compact exact certificate for one necessary gene-capacity constraint."""
+
+    normalized = sorted({gene_root(gene_id) for gene_id in gene_ids})
+    available = len(normalized)
+    deficit = max(0, int(required) - available)
+    return {
+        "required_unique_genes": int(required),
+        "available_unique_genes": int(available),
+        "deficit_unique_genes": int(deficit),
+        "passed": deficit == 0,
+        "gene_ids_sha256": sha256_payload(normalized),
+    }
+
+
+def _necessary_capacity_report(
+    scaffolds: Sequence[Mapping[str, Any]],
+    module_pools: Mapping[str, Mapping[int, Sequence[Mapping[str, Any]]]],
+    *,
+    quotas: Mapping[str, int],
+) -> dict[str, Any]:
+    """Certify cheap necessary conditions for globally disjoint seven-gene blocks.
+
+    Passing this certificate is deliberately not sufficient for construction:
+    matching, block-role hashing, stratum supply, and balance may still fail.  A
+    failed slot or union constraint, however, proves that the requested number
+    of complete blocks cannot exist and should stop construction before the
+    expensive matching and calibration path.
+    """
+
+    requested_blocks = sum(int(value) for value in quotas.values())
+    slot_genes: dict[str, set[str]] = {
+        "scaffold": {gene_root(str(row["gene_id"])) for row in scaffolds},
+    }
+    for role in ("donor", "acceptor"):
+        for phase in (0, 1, 2):
+            slot_genes[f"{role}_phase_{phase}"] = {
+                gene_root(str(row["gene_id"])) for row in module_pools[role][phase]
+            }
+    slots = {
+        name: _capacity_entry(slot_genes[name], required=requested_blocks)
+        for name in _CAPACITY_SLOT_ORDER
+    }
+    family_specs = {
+        "donor_all_phases": tuple(f"donor_phase_{phase}" for phase in (0, 1, 2)),
+        "acceptor_all_phases": tuple(f"acceptor_phase_{phase}" for phase in (0, 1, 2)),
+        "all_seven_source_roles": _CAPACITY_SLOT_ORDER,
+    }
+    families: dict[str, dict[str, Any]] = {}
+    for name, members in family_specs.items():
+        genes = set().union(*(slot_genes[member] for member in members))
+        entry = _capacity_entry(genes, required=requested_blocks * len(members))
+        entry["source_slots"] = list(members)
+        families[name] = entry
+    failed_constraints = [
+        *(f"slot:{name}" for name in _CAPACITY_SLOT_ORDER if not slots[name]["passed"]),
+        *(f"family:{name}" for name in family_specs if not families[name]["passed"]),
+    ]
+    return {
+        "criterion": "necessary_unique_normalized_gene_capacity",
+        "necessary_not_sufficient": True,
+        "requested_complete_blocks": int(requested_blocks),
+        "required_unique_source_genes": int(7 * requested_blocks),
+        "slots": slots,
+        "families": families,
+        "failed_constraints": failed_constraints,
+        "passed": not failed_constraints,
+    }
+
+
+def _construction_config(
+    *,
+    quotas: Mapping[str, int],
+    minimum_confirmation_blocks: int,
+    span_nt: int,
+    construct_length: int,
+    donor_pos: int,
+    acceptor_pos: int,
+    namespace: str,
+    split_weights: Sequence[tuple[str, int]],
+    allowed_chroms: set[str],
+    forbidden_chroms: set[str],
+    search_width: int,
+    neighbor_width: int,
+    global_search_width: int,
+    seed: int,
+    outer_folds: int,
+    inner_folds: int,
+    auc_n_boot: int,
+    pseudo_family_size: int,
+    minimum_stratum_blocks: int,
+    smd_threshold: float,
+    auc_upper_threshold: float,
+) -> dict[str, Any]:
+    return {
+        "algorithm_version": ALGORITHM_VERSION,
+        "namespace": namespace,
+        "split_weights": [[name, int(weight)] for name, weight in split_weights],
+        "requested_blocks_by_split": dict(quotas),
+        "minimum_confirmation_blocks": int(minimum_confirmation_blocks),
+        "span_nt": int(span_nt),
+        "construct_length": int(construct_length),
+        "donor_pos": int(donor_pos),
+        "acceptor_pos": int(acceptor_pos),
+        "allowed_chromosomes": sorted(allowed_chroms),
+        "forbidden_chromosomes": sorted(forbidden_chroms),
+        "search_width": int(search_width),
+        "neighbor_width": int(neighbor_width),
+        "global_search_width": int(global_search_width),
+        "seed": int(seed),
+        "outer_folds": int(outer_folds),
+        "inner_folds": int(inner_folds),
+        "auc_n_boot": int(auc_n_boot),
+        "pseudo_family_size": int(pseudo_family_size),
+        "minimum_stratum_blocks": int(minimum_stratum_blocks),
+        "smd_threshold": float(smd_threshold),
+        "auc_upper_threshold": float(auc_upper_threshold),
+    }
+
+
+def _capacity_stop_package(
+    *,
+    candidate_package: Mapping[str, Any],
+    candidate_audit: Mapping[str, Any] | None,
+    blacklist: set[str],
+    frozen_variance: Mapping[str, Any],
+    config: Mapping[str, Any],
+    plan: SampleSizePlan,
+    capacity: Mapping[str, Any],
+    candidate_census_receipt: Mapping[str, Any] | None,
+) -> dict[str, Any]:
+    """Build a compact non-outcome artifact for a proved Phase-I supply stop."""
+
+    candidate_package_sha256 = (
+        str(candidate_audit["candidate_census_sha256"])
+        if candidate_audit is not None
+        else sha256_payload(candidate_package)
+    )
+    if candidate_audit is not None and candidate_census_receipt is None:
+        raise ValueError("production capacity stop requires the candidate census receipt")
+    quotas = {
+        str(role): int(value)
+        for role, value in config["requested_blocks_by_split"].items()
+    }
+    core: dict[str, Any] = {
+        "schema": CAPACITY_STOP_SCHEMA,
+        "stage": "construction",
+        "status": "PHASE1_INSTRUMENT_UNRESOLVED",
+        "disposition": "NECESSARY_CAPACITY_FAILED",
+        "model_outcomes_read": False,
+        "construction_gates_pass": False,
+        "independent_audit_required": True,
+        "target_execution_authorized": False,
+        "selection_attempted": False,
+        "balance_or_calibration_evaluated": False,
+        "partial_blocks_recorded": False,
+        "clean_checkout_reexecutable": False,
+        "candidate_census_receipt": (
+            None if candidate_census_receipt is None else dict(candidate_census_receipt)
+        ),
+        "config": dict(config),
+        "sample_size_plan": plan.to_dict(),
+        "blacklist": {
+            "n_gene_ids": len(blacklist),
+            "gene_ids_sha256": sha256_payload(sorted(blacklist)),
+        },
+        "counts": {
+            "blocks": 0,
+            "cells": 0,
+            "genes": 0,
+            "blocks_by_split": {role: 0 for role in quotas},
+        },
+        "capacity": dict(capacity),
+        "gates": {"necessary_unique_gene_capacity": False},
+        "unevaluated_construction_gates": [
+            "block_assembly",
+            "role_hash_supply",
+            "chromosome_strand_strata",
+            "composition_balance",
+            "classifier_calibration",
+        ],
+        "model_execution": {
+            "checkpoint_loaded": False,
+            "forward_passes": 0,
+            "outcome_rows": 0,
+            "all_model_gates": "NOT_EVALUATED",
+        },
+        "unevaluated_model_stages": [
+            "phase2_carrier_factorial_calibration",
+            "phase2_model_preflight",
+            "phase2_target",
+            "phase3_register_preflight",
+            "phase3_candidate_screen",
+            "phase3_reserve",
+            "phase3_mediation",
+        ],
+        "blocks": [],
+        "cells": [],
+        "evidence_boundary": (
+            "This artifact proves only that the frozen Phase-I block request cannot be met "
+            "with globally unique eligible genes. No SpliceBERT checkpoint or model outcome "
+            "was loaded, and no biological or model-mechanism result is licensed."
+        ),
+    }
+    core["seal"] = {
+        "candidate_package_sha256": candidate_package_sha256,
+        "candidate_audit_sha256": (
+            None if candidate_audit is None else sha256_payload(candidate_audit)
+        ),
+        "frozen_variance_sha256": sha256_payload(frozen_variance),
+        "blacklist_sha256": sha256_payload(sorted(blacklist)),
+        "capacity_sha256": sha256_payload(capacity),
+        "candidate_census_receipt_sha256": (
+            None
+            if candidate_census_receipt is None
+            else sha256_payload(candidate_census_receipt)
+        ),
+    }
+    core["seal"]["content_sha256"] = sha256_payload(
+        {key: value for key, value in core.items() if key != "seal"}
+    )
+    return core
+
+
 def build_composition_balanced_cohort(
     candidate_package: Mapping[str, Any],
     *,
     candidate_audit: Mapping[str, Any] | None = None,
+    candidate_census_receipt: Mapping[str, Any] | None = None,
     blacklisted_gene_ids: Iterable[str],
     frozen_variance: Mapping[str, Any],
     requested_blocks_by_split: Mapping[str, int] | None = None,
@@ -1642,8 +2132,41 @@ def build_composition_balanced_cohort(
         }
         for role in ("donor", "acceptor")
     }
-    if not scaffolds or any(not module_pools[role][phase] for role in module_pools for phase in (0, 1, 2)):
-        raise CohortConstructionError("candidate package has an empty scaffold/role/phase pool")
+    config = _construction_config(
+        quotas=quotas,
+        minimum_confirmation_blocks=minimum_confirmation_blocks,
+        span_nt=span_nt,
+        construct_length=construct_length,
+        donor_pos=donor_pos,
+        acceptor_pos=acceptor_pos,
+        namespace=namespace,
+        split_weights=split_weights,
+        allowed_chroms=allowed_chroms,
+        forbidden_chroms=forbidden_chroms,
+        search_width=search_width,
+        neighbor_width=neighbor_width,
+        global_search_width=global_search_width,
+        seed=seed,
+        outer_folds=outer_folds,
+        inner_folds=inner_folds,
+        auc_n_boot=auc_n_boot,
+        pseudo_family_size=pseudo_family_size,
+        minimum_stratum_blocks=minimum_stratum_blocks,
+        smd_threshold=smd_threshold,
+        auc_upper_threshold=auc_upper_threshold,
+    )
+    capacity = _necessary_capacity_report(scaffolds, module_pools, quotas=quotas)
+    if not capacity["passed"]:
+        return _capacity_stop_package(
+            candidate_package=candidate_package,
+            candidate_audit=candidate_audit,
+            blacklist=blacklist,
+            frozen_variance=frozen_variance,
+            config=config,
+            plan=plan,
+            capacity=capacity,
+            candidate_census_receipt=candidate_census_receipt,
+        )
     donor_all = [candidate for phase in (0, 1, 2) for candidate in module_pools["donor"][phase]]
     acceptor_all = [candidate for phase in (0, 1, 2) for candidate in module_pools["acceptor"][phase]]
     feature_cache: dict[str, dict[str, float]] = {}
@@ -1853,6 +2376,12 @@ def build_composition_balanced_cohort(
             continue
         role_cells = [cell for cell in cells if cell["split_role"] == role]
         role_seed = seed + [name for name, _weight in split_weights].index(role)
+        role_feature_rows = [dict(cell["covariates"]) for cell in role_cells]
+        role_groups = [str(cell["block_id"]) for cell in role_cells]
+        role_strata = [f"{cell['chrom']}|{cell['strand']}" for cell in role_cells]
+        role_auc_design = _prepare_nested_auc_design(
+            role_feature_rows, role_groups, role_strata
+        )
         balance_by_split[role] = balance_audit(
             role_cells,
             seed=role_seed,
@@ -1861,6 +2390,7 @@ def build_composition_balanced_cohort(
             outer_folds=outer_folds,
             inner_folds=inner_folds,
             auc_n_boot=auc_n_boot,
+            _auc_design=role_auc_design,
         )
         if role in {"confirmation", "phase3_reserve"}:
             calibration_by_split[role] = calibration_hooks(
@@ -1871,6 +2401,7 @@ def build_composition_balanced_cohort(
                 auc_n_boot=auc_n_boot,
                 auc_upper_threshold=auc_upper_threshold,
                 pseudo_family_size=pseudo_family_size,
+                _auc_design=role_auc_design,
             )
     stratum_counts_by_split: dict[str, dict[str, int]] = {}
     expected_strata = [
@@ -1937,30 +2468,6 @@ def build_composition_balanced_cohort(
         "permuted_labels_rejected": all(
             audit["gates"]["permuted_labels_rejected"] for audit in calibration_by_split.values()
         ),
-    }
-    config = {
-        "algorithm_version": ALGORITHM_VERSION,
-        "namespace": namespace,
-        "split_weights": [[name, int(weight)] for name, weight in split_weights],
-        "requested_blocks_by_split": quotas,
-        "minimum_confirmation_blocks": int(minimum_confirmation_blocks),
-        "span_nt": int(span_nt),
-        "construct_length": int(construct_length),
-        "donor_pos": int(donor_pos),
-        "acceptor_pos": int(acceptor_pos),
-        "allowed_chromosomes": sorted(allowed_chroms),
-        "forbidden_chromosomes": sorted(forbidden_chroms),
-        "search_width": int(search_width),
-        "neighbor_width": int(neighbor_width),
-        "global_search_width": int(global_search_width),
-        "seed": int(seed),
-        "outer_folds": int(outer_folds),
-        "inner_folds": int(inner_folds),
-        "auc_n_boot": int(auc_n_boot),
-        "pseudo_family_size": int(pseudo_family_size),
-        "minimum_stratum_blocks": int(minimum_stratum_blocks),
-        "smd_threshold": float(smd_threshold),
-        "auc_upper_threshold": float(auc_upper_threshold),
     }
     construction_passed = bool(all(gates.values()))
     development_block_ids = sorted(
@@ -2462,11 +2969,492 @@ def _audit_replay_selection(
     return blocks, cells
 
 
+def _audit_rederive_capacity(
+    candidates: Sequence[Mapping[str, Any]],
+    config: Mapping[str, Any],
+    blacklist: set[str],
+) -> dict[str, Any]:
+    """Auditor-local reconstruction of the necessary unique-gene certificate."""
+
+    quotas = {
+        str(role): int(value)
+        for role, value in config["requested_blocks_by_split"].items()
+    }
+    requested_blocks = sum(quotas.values())
+    allowed = {normalize_chromosome(value) for value in config["allowed_chromosomes"]}
+    forbidden = {normalize_chromosome(value) for value in config["forbidden_chromosomes"]}
+    slot_names = (
+        "scaffold",
+        "donor_phase_0",
+        "donor_phase_1",
+        "donor_phase_2",
+        "acceptor_phase_0",
+        "acceptor_phase_1",
+        "acceptor_phase_2",
+    )
+    slot_genes: dict[str, set[str]] = {name: set() for name in slot_names}
+    for candidate in candidates:
+        gene_id = gene_root(str(candidate["gene_id"]))
+        chrom = normalize_chromosome(str(candidate["chrom"]))
+        if gene_id in blacklist or chrom not in allowed or chrom in forbidden:
+            continue
+        role = str(candidate["role"])
+        if role == "scaffold":
+            if (
+                len(str(candidate["sequence"])) == int(config["construct_length"])
+                and int(candidate["donor_pos"]) == int(config["donor_pos"])
+                and int(candidate["acceptor_pos"]) == int(config["acceptor_pos"])
+                and tuple(candidate["donor_window"]) == DEFAULT_DONOR_WINDOW
+                and tuple(candidate["acceptor_window"]) == DEFAULT_ACCEPTOR_WINDOW
+            ):
+                slot_genes["scaffold"].add(gene_id)
+        elif role in {"donor", "acceptor"}:
+            phase = int(candidate["phase"])
+            if phase in {0, 1, 2}:
+                slot_genes[f"{role}_phase_{phase}"].add(gene_id)
+
+    def entry(genes: set[str], required: int) -> dict[str, Any]:
+        ordered = sorted(genes)
+        available = len(ordered)
+        deficit = max(0, int(required) - available)
+        return {
+            "required_unique_genes": int(required),
+            "available_unique_genes": int(available),
+            "deficit_unique_genes": int(deficit),
+            "passed": deficit == 0,
+            "gene_ids_sha256": sha256_payload(ordered),
+        }
+
+    slots = {
+        name: entry(slot_genes[name], requested_blocks) for name in slot_names
+    }
+    family_members = {
+        "donor_all_phases": (
+            "donor_phase_0",
+            "donor_phase_1",
+            "donor_phase_2",
+        ),
+        "acceptor_all_phases": (
+            "acceptor_phase_0",
+            "acceptor_phase_1",
+            "acceptor_phase_2",
+        ),
+        "all_seven_source_roles": slot_names,
+    }
+    families: dict[str, dict[str, Any]] = {}
+    for name, members in family_members.items():
+        genes: set[str] = set()
+        for member in members:
+            genes.update(slot_genes[member])
+        family = entry(genes, requested_blocks * len(members))
+        family["source_slots"] = list(members)
+        families[name] = family
+    failed_constraints = [
+        *(f"slot:{name}" for name in slot_names if not slots[name]["passed"]),
+        *(f"family:{name}" for name in family_members if not families[name]["passed"]),
+    ]
+    return {
+        "criterion": "necessary_unique_normalized_gene_capacity",
+        "necessary_not_sufficient": True,
+        "requested_complete_blocks": int(requested_blocks),
+        "required_unique_source_genes": int(7 * requested_blocks),
+        "slots": slots,
+        "families": families,
+        "failed_constraints": failed_constraints,
+        "passed": not failed_constraints,
+    }
+
+
+def _audit_config_contract(
+    candidate_package: Mapping[str, Any], config: Mapping[str, Any]
+) -> dict[str, bool]:
+    """Reject production artifacts that weaken any frozen construction setting."""
+
+    if candidate_package.get("candidate_mode") == "synthetic_fixture":
+        return {"explicit_synthetic_fixture_config_override": True}
+    expected: dict[str, Any] = {
+        "algorithm_version": ALGORITHM_VERSION,
+        "namespace": NAMESPACE,
+        "split_weights": [[name, int(weight)] for name, weight in DEFAULT_SPLIT_WEIGHTS],
+        "requested_blocks_by_split": dict(DEFAULT_BLOCK_COUNTS),
+        "minimum_confirmation_blocks": 600,
+        "span_nt": DEFAULT_SPAN_NT,
+        "construct_length": DEFAULT_CONSTRUCT_LENGTH,
+        "donor_pos": DEFAULT_DONOR_POS,
+        "acceptor_pos": DEFAULT_ACCEPTOR_POS,
+        "allowed_chromosomes": sorted(
+            {normalize_chromosome(chrom) for chrom in DEFAULT_ALLOWED_CHROMS}
+        ),
+        "forbidden_chromosomes": sorted(
+            {normalize_chromosome(chrom) for chrom in DEFAULT_FORBIDDEN_CHROMS}
+        ),
+        "search_width": 64,
+        "neighbor_width": 8,
+        "global_search_width": 16,
+        "seed": 73031,
+        "outer_folds": 5,
+        "inner_folds": 4,
+        "auc_n_boot": 2000,
+        "pseudo_family_size": 99,
+        "minimum_stratum_blocks": 5,
+        "smd_threshold": 0.10,
+        "auc_upper_threshold": 0.55,
+    }
+    groups = {
+        "production_config_exact_keyset": set(config) == set(expected),
+        "production_role_counts": config.get("requested_blocks_by_split")
+        == expected["requested_blocks_by_split"],
+        "production_minimum_confirmation": config.get("minimum_confirmation_blocks") == 600,
+        "production_geometry": all(
+            config.get(key) == expected[key]
+            for key in ("span_nt", "construct_length", "donor_pos", "acceptor_pos")
+        ),
+        "production_chromosome_firewall": all(
+            config.get(key) == expected[key]
+            for key in ("allowed_chromosomes", "forbidden_chromosomes")
+        ),
+        "production_split_contract": all(
+            config.get(key) == expected[key]
+            for key in ("namespace", "split_weights", "seed")
+        ),
+        "production_calibration_contract": all(
+            config.get(key) == expected[key]
+            for key in (
+                "outer_folds",
+                "inner_folds",
+                "auc_n_boot",
+                "pseudo_family_size",
+                "minimum_stratum_blocks",
+                "smd_threshold",
+                "auc_upper_threshold",
+            )
+        ),
+        "production_selector_contract": all(
+            config.get(key) == expected[key]
+            for key in (
+                "algorithm_version",
+                "search_width",
+                "neighbor_width",
+                "global_search_width",
+            )
+        ),
+        "production_config_exact_values": dict(config) == expected,
+    }
+    return groups
+
+
+def _audit_capacity_stop(
+    package: Mapping[str, Any],
+    candidate_package: Mapping[str, Any],
+    candidates: Sequence[Mapping[str, Any]],
+    *,
+    candidate_audit: Mapping[str, Any] | None,
+    candidate_census_receipt: Mapping[str, Any] | None,
+    blacklist: set[str],
+    frozen_variance: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Audit a fail-fast supply stop without replaying matching or calibration."""
+
+    candidate_package_sha256 = (
+        str(candidate_audit["candidate_census_sha256"])
+        if candidate_audit is not None
+        else sha256_payload(candidate_package)
+    )
+    config_error: str | None = None
+    rederived_capacity: dict[str, Any] = {}
+    rederived_plan: dict[str, Any] = {}
+    expected_counts: dict[str, Any] = {}
+    try:
+        config = dict(package["config"])
+        quotas = {
+            str(role): int(value)
+            for role, value in config["requested_blocks_by_split"].items()
+        }
+        rederived_capacity = _audit_rederive_capacity(candidates, config, blacklist)
+        rederived_plan = plan_sample_size(
+            frozen_variance,
+            minimum_blocks=int(config["minimum_confirmation_blocks"]),
+        ).to_dict()
+        expected_counts = {
+            "blocks": 0,
+            "cells": 0,
+            "genes": 0,
+            "blocks_by_split": {role: 0 for role in quotas},
+        }
+    except Exception as exc:
+        config_error = f"{type(exc).__name__}:{exc}"
+        config = {}
+    config_contract = _audit_config_contract(candidate_package, config)
+    seal = package.get("seal", {})
+    recorded_capacity = package.get("capacity", {})
+    recorded_receipt = package.get("candidate_census_receipt")
+    if candidate_audit is None:
+        receipt_contract = {
+            "synthetic_receipt_absent": recorded_receipt is None
+            and candidate_census_receipt is None,
+        }
+    else:
+        candidate_file_receipt = (
+            candidate_census_receipt.get("candidate_file", {})
+            if isinstance(candidate_census_receipt, Mapping)
+            else {}
+        )
+        producer_manifest_receipt = (
+            candidate_census_receipt.get("producer_manifest", {})
+            if isinstance(candidate_census_receipt, Mapping)
+            else {}
+        )
+        semantic_hashes = (
+            candidate_census_receipt.get("semantic_hashes", {})
+            if isinstance(candidate_census_receipt, Mapping)
+            else {}
+        )
+        receipt_contract = {
+            "candidate_receipt_supplied": isinstance(candidate_census_receipt, Mapping),
+            "candidate_receipt_schema": isinstance(candidate_census_receipt, Mapping)
+            and candidate_census_receipt.get("schema") == CANDIDATE_CENSUS_RECEIPT_SCHEMA,
+            "candidate_receipt_byte_identity": candidate_file_receipt.get("name")
+            == "candidate_census_v1.json"
+            and isinstance(candidate_file_receipt.get("size_bytes"), int)
+            and candidate_file_receipt.get("size_bytes", 0) > 0
+            and _is_lower_hex(candidate_file_receipt.get("sha256"), length=64),
+            "candidate_receipt_producer_manifest": producer_manifest_receipt.get("name")
+            == "candidate_census_v1.manifest.json"
+            and isinstance(producer_manifest_receipt.get("size_bytes"), int)
+            and producer_manifest_receipt.get("size_bytes", 0) > 0
+            and _is_lower_hex(producer_manifest_receipt.get("sha256"), length=64)
+            and producer_manifest_receipt.get("experiment_id")
+            == "splicebert-positional-boundary-coherence:candidate-census-v1"
+            and producer_manifest_receipt.get("status") == "CENSUS_BUILT_AUDIT_PENDING"
+            and producer_manifest_receipt.get("config")
+            == {
+                "acceptor_pos": DEFAULT_ACCEPTOR_POS,
+                "algorithm_version": "pbc-real-census-v1",
+                "allowed_chromosomes": sorted(DEFAULT_ALLOWED_CHROMS),
+                "construct_length": DEFAULT_CONSTRUCT_LENGTH,
+                "donor_pos": DEFAULT_DONOR_POS,
+                "stage": "construction",
+            }
+            and producer_manifest_receipt.get("git_commit")
+            == CANONICAL_CANDIDATE_PRODUCER_REVISION
+            and _is_lower_hex(producer_manifest_receipt.get("git_commit"), length=40)
+            and producer_manifest_receipt.get("git_dirty") is True
+            and producer_manifest_receipt.get("output_record_verified") is True,
+            "candidate_receipt_semantic_hashes": semantic_hashes
+            == {
+                "candidate_census_sha256": candidate_audit.get("candidate_census_sha256"),
+                "candidate_content_sha256": candidate_audit.get("candidate_content_sha256"),
+                "reconstructed_candidates_sha256": candidate_audit.get(
+                    "reconstructed_candidates_sha256"
+                ),
+            }
+            and all(_is_lower_hex(value, length=64) for value in semantic_hashes.values()),
+            "candidate_receipt_regeneration_boundary": isinstance(
+                candidate_census_receipt, Mapping
+            )
+            and candidate_census_receipt.get("clean_checkout_reexecutable") is False
+            and candidate_census_receipt.get("regeneration_required") is True
+            and candidate_census_receipt.get("regeneration_receipt")
+            == "candidate_census_v1.manifest.json",
+        }
+    expected_construction_gates = [
+        "block_assembly",
+        "role_hash_supply",
+        "chromosome_strand_strata",
+        "composition_balance",
+        "classifier_calibration",
+    ]
+    expected_model_stages = [
+        "phase2_carrier_factorial_calibration",
+        "phase2_model_preflight",
+        "phase2_target",
+        "phase3_register_preflight",
+        "phase3_candidate_screen",
+        "phase3_reserve",
+        "phase3_mediation",
+    ]
+    expected_model_execution = {
+        "checkpoint_loaded": False,
+        "forward_passes": 0,
+        "outcome_rows": 0,
+        "all_model_gates": "NOT_EVALUATED",
+    }
+    expected_evidence_boundary = (
+        "This artifact proves only that the frozen Phase-I block request cannot be met "
+        "with globally unique eligible genes. No SpliceBERT checkpoint or model outcome "
+        "was loaded, and no biological or model-mechanism result is licensed."
+    )
+    expected_core = {
+        "schema": CAPACITY_STOP_SCHEMA,
+        "stage": "construction",
+        "status": "PHASE1_INSTRUMENT_UNRESOLVED",
+        "disposition": "NECESSARY_CAPACITY_FAILED",
+        "model_outcomes_read": False,
+        "construction_gates_pass": False,
+        "independent_audit_required": True,
+        "target_execution_authorized": False,
+        "selection_attempted": False,
+        "balance_or_calibration_evaluated": False,
+        "partial_blocks_recorded": False,
+        "clean_checkout_reexecutable": False,
+        "candidate_census_receipt": candidate_census_receipt,
+        "config": config,
+        "sample_size_plan": rederived_plan,
+        "blacklist": {
+            "n_gene_ids": len(blacklist),
+            "gene_ids_sha256": sha256_payload(sorted(blacklist)),
+        },
+        "counts": expected_counts,
+        "capacity": rederived_capacity,
+        "gates": {"necessary_unique_gene_capacity": False},
+        "unevaluated_construction_gates": expected_construction_gates,
+        "model_execution": expected_model_execution,
+        "unevaluated_model_stages": expected_model_stages,
+        "blocks": [],
+        "cells": [],
+        "evidence_boundary": expected_evidence_boundary,
+    }
+    expected_seal = {
+        "candidate_package_sha256": candidate_package_sha256,
+        "candidate_audit_sha256": (
+            None if candidate_audit is None else sha256_payload(candidate_audit)
+        ),
+        "frozen_variance_sha256": sha256_payload(frozen_variance),
+        "blacklist_sha256": sha256_payload(sorted(blacklist)),
+        "capacity_sha256": sha256_payload(rederived_capacity),
+        "candidate_census_receipt_sha256": (
+            None
+            if candidate_census_receipt is None
+            else sha256_payload(candidate_census_receipt)
+        ),
+        "content_sha256": sha256_payload(expected_core),
+    }
+    checks = {
+        "schema": package.get("schema") == CAPACITY_STOP_SCHEMA,
+        "stage": package.get("stage") == "construction",
+        "status": package.get("status") == "PHASE1_INSTRUMENT_UNRESOLVED",
+        "disposition": package.get("disposition") == "NECESSARY_CAPACITY_FAILED",
+        "outcome_firewall": package.get("model_outcomes_read") is False
+        and candidate_package.get("model_outcomes_read") is False,
+        "model_execution_absent": package.get("model_execution")
+        == expected_model_execution,
+        "all_model_stages_unevaluated": package.get("unevaluated_model_stages")
+        == expected_model_stages,
+        "all_construction_gates_unevaluated": package.get(
+            "unevaluated_construction_gates"
+        )
+        == expected_construction_gates,
+        "evidence_boundary_exact": package.get("evidence_boundary")
+        == expected_evidence_boundary,
+        "top_level_keyset_exact": set(package) == {*expected_core, "seal"},
+        "stop_payload_exact": {
+            key: value for key, value in package.items() if key != "seal"
+        }
+        == expected_core,
+        "seal_keyset_exact": isinstance(seal, Mapping)
+        and set(seal) == set(expected_seal),
+        "seal_exact": seal == expected_seal,
+        "clean_checkout_boundary": package.get("clean_checkout_reexecutable") is False,
+        **receipt_contract,
+        "candidate_receipt_rederived": recorded_receipt == candidate_census_receipt,
+        "config_reconstructable": config_error is None,
+        **config_contract,
+        "capacity_failure_rederived": bool(rederived_capacity)
+        and rederived_capacity.get("passed") is False,
+        "capacity_record_rederived": recorded_capacity == rederived_capacity,
+        "no_selection_attempted": package.get("selection_attempted") is False,
+        "no_balance_or_calibration": package.get("balance_or_calibration_evaluated") is False,
+        "no_partial_blocks": package.get("partial_blocks_recorded") is False
+        and package.get("blocks") == []
+        and package.get("cells") == [],
+        "counts_rederived": package.get("counts") == expected_counts,
+        "sample_size_plan": package.get("sample_size_plan") == rederived_plan,
+        "construction_failed": package.get("construction_gates_pass") is False
+        and package.get("gates") == {"necessary_unique_gene_capacity": False},
+        "authorization_withheld": package.get("target_execution_authorized") is False
+        and package.get("independent_audit_required") is True,
+        "blacklist_record": package.get("blacklist")
+        == {
+            "n_gene_ids": len(blacklist),
+            "gene_ids_sha256": sha256_payload(sorted(blacklist)),
+        },
+        "candidate_seal": seal.get("candidate_package_sha256")
+        == candidate_package_sha256,
+        "candidate_audit_seal": seal.get("candidate_audit_sha256")
+        == (None if candidate_audit is None else sha256_payload(candidate_audit)),
+        "variance_seal": seal.get("frozen_variance_sha256")
+        == sha256_payload(frozen_variance),
+        "blacklist_seal": seal.get("blacklist_sha256")
+        == sha256_payload(sorted(blacklist)),
+        "capacity_seal": seal.get("capacity_sha256")
+        == sha256_payload(recorded_capacity),
+        "candidate_receipt_seal": seal.get("candidate_census_receipt_sha256")
+        == (
+            None
+            if recorded_receipt is None
+            else sha256_payload(recorded_receipt)
+        ),
+        "content_seal": seal.get("content_sha256")
+        == sha256_payload({key: value for key, value in package.items() if key != "seal"}),
+    }
+    passed = bool(all(checks.values()))
+    return {
+        "schema": AUDIT_SCHEMA,
+        "stage": "construction",
+        "status": "AUDIT_PASS_INSTRUMENT_UNRESOLVED" if passed else "AUDIT_FAIL",
+        "passed": passed,
+        "model_outcomes_read": False,
+        "clean_checkout_reexecutable": False,
+        "model_execution": {
+            "checkpoint_loaded": False,
+            "forward_passes": 0,
+            "outcome_rows": 0,
+            "all_model_gates": "NOT_EVALUATED",
+        },
+        "unevaluated_model_stages": list(
+            package.get("unevaluated_model_stages", [])
+        ),
+        "target_execution_authorized": False,
+        "checks": checks,
+        "rederived": {
+            "capacity": rederived_capacity,
+            "candidate_census_receipt": candidate_census_receipt,
+            "gates": {"necessary_unique_gene_capacity": False},
+            "status": (
+                "PHASE1_INSTRUMENT_UNRESOLVED"
+                if passed
+                else "CAPACITY_STOP_AUDIT_FAIL"
+            ),
+            "config_error": config_error,
+            "target_execution_authorized": False,
+        },
+        "input_seals": {
+            "cohort_content_sha256": seal.get("content_sha256"),
+            "candidate_package_sha256": candidate_package_sha256,
+            "candidate_audit_sha256": (
+                None if candidate_audit is None else sha256_payload(candidate_audit)
+            ),
+            "frozen_variance_sha256": sha256_payload(frozen_variance),
+            "blacklist_sha256": sha256_payload(sorted(blacklist)),
+            "candidate_census_receipt_sha256": (
+                None
+                if candidate_census_receipt is None
+                else sha256_payload(candidate_census_receipt)
+            ),
+        },
+        "evidence_boundary": (
+            "The audit verifies an outcome-blind Phase-I supply failure only. It does not "
+            "measure or authorize a model, behavioral, mechanism, or biological result."
+        ),
+    }
+
+
 def audit_composition_balanced_cohort(
     package: Mapping[str, Any],
     candidate_package: Mapping[str, Any],
     *,
     candidate_audit: Mapping[str, Any] | None = None,
+    candidate_census_receipt: Mapping[str, Any] | None = None,
     blacklisted_gene_ids: Iterable[str],
     frozen_variance: Mapping[str, Any],
 ) -> dict[str, Any]:
@@ -2480,6 +3468,16 @@ def audit_composition_balanced_cohort(
     candidates = validate_candidate_package(candidate_package)
     validate_candidate_audit_binding(candidate_package, candidate_audit)
     blacklist = {gene_root(gene) for gene in blacklisted_gene_ids}
+    if package.get("schema") == CAPACITY_STOP_SCHEMA:
+        return _audit_capacity_stop(
+            package,
+            candidate_package,
+            candidates,
+            candidate_audit=candidate_audit,
+            candidate_census_receipt=candidate_census_receipt,
+            blacklist=blacklist,
+            frozen_variance=frozen_variance,
+        )
     structural = _structural_audit(package, candidates, blacklist)
     if not all(structural.values()):
         return {
@@ -2508,6 +3506,7 @@ def audit_composition_balanced_cohort(
             },
         }
     config = dict(package.get("config", {}))
+    config_contract = _audit_config_contract(candidate_package, config)
     replay_error: str | None = None
     try:
         replay_blocks, replay_cells = _audit_replay_selection(candidates, config, blacklist)
@@ -2525,6 +3524,12 @@ def audit_composition_balanced_cohort(
             continue
         role_cells = [cell for cell in replay_cells if cell.get("split_role") == role]
         role_seed = int(config["seed"]) + [name for name, _weight in split_weights].index(role)
+        role_feature_rows = [dict(cell["covariates"]) for cell in role_cells]
+        role_groups = [str(cell["block_id"]) for cell in role_cells]
+        role_strata = [f"{cell['chrom']}|{cell['strand']}" for cell in role_cells]
+        role_auc_design = _prepare_nested_auc_design(
+            role_feature_rows, role_groups, role_strata
+        )
         rederived_balance[role] = balance_audit(
             role_cells,
             seed=role_seed,
@@ -2533,6 +3538,7 @@ def audit_composition_balanced_cohort(
             outer_folds=int(config["outer_folds"]),
             inner_folds=int(config["inner_folds"]),
             auc_n_boot=int(config["auc_n_boot"]),
+            _auc_design=role_auc_design,
         )
         if role in {"confirmation", "phase3_reserve"}:
             rederived_calibrations[role] = calibration_hooks(
@@ -2543,6 +3549,7 @@ def audit_composition_balanced_cohort(
                 auc_n_boot=int(config["auc_n_boot"]),
                 auc_upper_threshold=float(config["auc_upper_threshold"]),
                 pseudo_family_size=int(config["pseudo_family_size"]),
+                _auc_design=role_auc_design,
             )
     replay_role_counts = Counter(str(block["split_role"]) for block in replay_blocks)
     replay_genes = {
@@ -2680,6 +3687,7 @@ def audit_composition_balanced_cohort(
     recorded_cells = list(package.get("cells", []))
     checks = {
         **structural,
+        **config_contract,
         "candidate_seal": package.get("seal", {}).get("candidate_package_sha256")
         == sha256_payload(candidate_package),
         "candidate_audit_seal": package.get("seal", {}).get("candidate_audit_sha256")
@@ -2761,6 +3769,9 @@ def audit_composition_balanced_cohort(
 __all__ = [
     "ALGORITHM_VERSION",
     "AUDIT_SCHEMA",
+    "CAPACITY_STOP_SCHEMA",
+    "CANDIDATE_CENSUS_RECEIPT_SCHEMA",
+    "CANONICAL_CANDIDATE_PRODUCER_REVISION",
     "CANDIDATE_SCHEMA",
     "CANDIDATE_AUDIT_SCHEMA",
     "COHORT_SCHEMA",

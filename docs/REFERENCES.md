@@ -193,8 +193,9 @@ biology that motivated the **frozen positional contrasts** in
 `studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_BG1_ACCEPTOR_BOUNDARY_GRAMMAR.md`
 (§1). Neither supports any statement about SpliceBERT. They fix *which positions and which directions*
 BG1 tests — the directions were taken from this literature before any model forward, not chosen from
-model output — and nothing more. **No claim in any ledger cites them**, and none may until BG1/BG2 run and
-pass an independent audit; see `docs/NOMENCLATURE.md` (the `U2AF1` row, standing phrase 3) and
+model output — and nothing more. **No claim in any ledger cites them.** The BG1 development preflight
+failed and BG1 validation/BG2 stayed sealed, so these works license no statement about SpliceBERT; see
+`docs/NOMENCLATURE.md` (the `U2AF1` row, standing phrase 3) and
 `docs/BIOLOGICAL_BRIDGES.md` Bridge 4 for the wording constraints that apply if they ever do.
 
 Verified on 2026-08-10 by retrieving the Crossref DOI record and the open-access PMC full text for each,

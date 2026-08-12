@@ -1,0 +1,77 @@
+{
+  "command": [
+    "scripts/splicebert_positional_clock/run_pbc_v2_capacity.py",
+    "--out",
+    "results/splicebert_positional_clock/development/pbc_v2_capacity_ladder_v2.json"
+  ],
+  "config": {
+    "checkpoint_loaded": null,
+    "ladder": [
+      600,
+      660,
+      729,
+      780,
+      819,
+      864,
+      909
+    ],
+    "lattice": "rotated_two_by_two",
+    "margin_threshold": 0.25,
+    "mode": "real",
+    "pair_weights": [
+      1,
+      1,
+      1
+    ],
+    "selected_rung": null,
+    "selection_rule": "the largest N whose every slot and every union clears a margin of 0.25 AND whose exact feasibility passes AND whose Psi verdict is 'powered_for_every_rho'",
+    "stage": "construction"
+  },
+  "created_at_utc": "2026-08-12T00:47:43.817641+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 7304,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert-positional-clock:pbc-v2-capacity-ladder-v1",
+  "git_commit": "ba6b07525f069f7016bcbb90c8f8fd7eec7a08a8",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "mode": "file",
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-pbc-successor/results/splicebert_positional_boundary_coherence/development/candidate_census_v1.json",
+      "sha256": "9be356ac26ff18aa750b0552684d4a94fa6b8963fee01666608b38cc7de25614",
+      "size_bytes": 2343604295
+    },
+    {
+      "mode": "file",
+      "path": "results/splicebert_positional_boundary_coherence/development/composition_balanced_cohort_v1.json",
+      "sha256": "ccc723bbe1fac8054dad4f9c4d2990a85170bf43c3b056bf9ea1dd0ca55a02c9",
+      "size_bytes": 9455
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/pbc-v2-capacity/scripts/splicebert_positional_clock/run_pbc_v2_capacity.py",
+      "sha256": "256e56177656ac5b2ebdf1e986d42286ef9c81cac81cfac1ba09bd3c91c8c74d",
+      "size_bytes": 29999
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/pbc-v2-capacity/src/gfmcd/splicing/pbc_v2_capacity.py",
+      "sha256": "9303958c4a9382661bb5df0657f89ebb48fdfbb625a0ff408265d3a576d8df2f",
+      "size_bytes": 33843
+    }
+  ],
+  "notes": [
+    "Model-free construction-stage capacity/power ladder: no checkpoint loaded, no cohort selected, no block assembled, no cell materialised.",
+    "Slot gene sets were verified against the seven certificate gene_ids_sha256 hashes before any rung was evaluated (hard gate, not a log line); see slot_hash_verification in the artifact and in this manifest's inputs."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/pbc-v2-capacity/results/splicebert_positional_clock/development/pbc_v2_capacity_ladder_v2.json",
+      "sha256": "c63b24f75611fb2526015ed0bae185b9bc8869aa12a01f6577852eeb1d4fecba",
+      "size_bytes": 64106
+    }
+  ],
+  "seeds": {},
+  "status": "BUILT"
+}
