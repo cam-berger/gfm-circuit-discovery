@@ -110,3 +110,52 @@ features that co-vary with it: codon usage bias, exonic splicing enhancer conten
 composition, in-frame stop load. Whichever carries `Ψ` is the real target. No training, no carrier
 surgery, no sealed cohort. Finding 2 above is its first step and has already eliminated one
 candidate.
+
+## 2026-08-12 (later) — necessity test: the carrier IS in the causal path. Prior entry's
+## recommendation is amended.
+
+**What was missing.** The entry above tested only SUFFICIENCY — whether a designed register
+offset reproduces `Ψ` (no), and whether raw periodic energy explains it (no). It then concluded
+that training "would test a link the behaviour does not use unaided". **NECESSITY was never
+tested, and that conclusion was stronger than the evidence supported.**
+
+**The test.** Delete the period-3 band from the learned position table (`C8`'s operator, rFFT bins
+339–345) and re-measure `Ψ` on the same annotated-phase cells. Three power-matched control bands
+of equal width, chosen with the frozen exclusion of periods near 3.0, 1.5 and 6.0 so no period-3
+harmonic can serve as a control.
+
+| condition | coupling | `Ψ` | `Ψ` retention |
+|---|---|---|---|
+| intact | +0.0492 | **+0.25625** | — |
+| **period-3 band deleted** | +0.0125 | **+0.00501** | **2.0%** |
+| control band 95–101 | +0.0448 | +0.24507 | 96% |
+| control band 96–102 | +0.0486 | +0.23822 | 93% |
+| control band 19–25 | +0.0497 | +0.30097 | 117% |
+| control mean | — | — | **102%** |
+
+**Deleting the carrier abolishes `Ψ`; deleting equal-power bands elsewhere does not touch it.**
+The specificity is not subtle.
+
+**The R12/R13 caveat, stated rather than waved away.** Period-3 deletion also cut general coupling
+to 25% of intact, and this repository forbids reading a mechanism from a destroyed behaviour. Two
+facts bear against dismissing the result on that ground: the control bands retained BOTH coupling
+(91–101%) and `Ψ` (102%), so the damage is band-specific rather than generic; and `Ψ`'s loss
+(98%) is much larger than coupling's (75%). It remains confounded, and the clean version is a
+DOSE-GRADED attenuation — if `Ψ` falls faster than coupling across doses, necessity is
+established without destroying anything.
+
+**The picture that now fits all the evidence.** The carrier is **necessary but not sufficient**.
+Not sufficient: three designed constructs across two operators give ≈ −0.03 where authentic
+annotated phase gives +0.175. Necessary: removing it abolishes `Ψ` with band specificity. It is
+one required input to a content-dependent frame-compatibility computation — supplying the offset
+over which content statistics are compared — and not the whole mechanism.
+
+**Amendment to the previous decision.** The prior entry said the training programme's middle term
+is "insufficient to carry the behaviour" and should not proceed. The first half stands; **the
+inference drawn from it does not**. The chain corpus → carrier → behaviour requires the carrier to
+be causally IN the path, and necessity is exactly that. Training is therefore not futile.
+
+**Revised gate before any lineage is trained.** Run the dose-graded attenuation to separate
+carrier necessity from general degradation. If `Ψ` falls faster than coupling, the programme
+proceeds on a supported premise. If both fall together, the necessity reading collapses and the
+prior entry's decision stands unamended.
