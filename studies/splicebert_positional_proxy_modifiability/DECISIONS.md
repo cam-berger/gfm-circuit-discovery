@@ -159,3 +159,57 @@ be causally IN the path, and necessity is exactly that. Training is therefore no
 carrier necessity from general degradation. If `Ψ` falls faster than coupling, the programme
 proceeds on a supported premise. If both fall together, the necessity reading collapses and the
 prior entry's decision stands unamended.
+
+## 2026-08-12 (final) — the mechanism question is answered: necessary, but not the register code
+
+**Two clean results, both on ANNOTATED-phase cells where `Ψ` is real (+0.256), both at doses that
+leave the behaviour intact so R12/R13 does not apply.**
+
+**1. Dose-graded necessity — PASSES.** Scaling the period-3 band:
+
+| band | dose | coupling retention | `Ψ` retention | ratio |
+|---|---|---|---|---|
+| P3 | 0.75 | 141% | 61.7% | 0.437 |
+| **P3** | **0.50** | **114.3%** | **10.7%** | **0.093** |
+| P3 | 0.25 | 40.7% | 3.3% | 0.080 |
+| control | 0.50 | 76.7% | 111.2% | 1.451 |
+
+At half attenuation the general behaviour is fully intact — 114% of baseline — while `Ψ` collapses
+to 10.7%. A power-matched control band does the opposite. Ratio 0.087 for P3 against 1.348 for the
+control. **The carrier is necessary, established without destroying anything.**
+
+**2. Relocation — the preference does NOT move.** Same cells, carrier register imposed at
+r ∈ {−1,0,+1} with the token sequence identical across r:
+
+| dose | `Ω3` | 95% CI | argmax matches prediction |
+|---|---|---|---|
+| 25% | +0.00136 | [−0.00389, +0.00576] | 1/3 |
+| 50% | +0.00395 | [−0.00800, +0.01540] | 1/3 |
+
+The preferred class stays at δ=0 for every r. The single "match" is r=0, which is FORCED — both
+handedness conventions predict δ=0 there — so it counts for nothing. Coupling is preserved
+throughout (0.049–0.058 against 0.049 intact). Relocation does, however, WEAKEN the ridge:
+G0 falls +0.2418 → +0.2168 (r=−1) → +0.1513 (r=+1).
+
+**What this settles.** The period-3 carrier is **necessary for `Ψ` but does not encode which
+register is preferred.** Disrupting it degrades the computation; relocating it does not relocate
+the preference. Combined with the earlier results — designed register offsets do not reproduce
+`Ψ`, and raw period-3 energy does not explain it — the carrier is a **required supporting input to
+a content-dependent frame-compatibility computation**, not a positional representation of the
+phase relation itself.
+
+**Consequence for the end-to-end goal.** The intended chain was corpus → learned positional
+surrogate → masked-token behaviour, licensing "SpliceBERT uses a trainable positional surrogate
+for a real biological relation". The carrier is in the path, but it is **not a surrogate for the
+relation** — it does not carry the register identity. A corpus manipulation that moved the carrier
+would be expected to degrade `Ψ`, not to re-target it, and degradation is not evidence of a
+positional surrogate.
+
+**Decision.** The lineage-training programme does not proceed on its original claim. What the
+evidence supports is narrower and worth stating on its own: `Ψ` requires the carrier AND authentic
+content together, and the carrier's role is enabling rather than representational.
+
+**Successor.** Identify what carries the register identity — hold annotated phase fixed and vary
+codon usage bias, exonic splicing enhancer content, wobble composition and in-frame stop load one
+at a time. No training, no seal. If a training study follows, its endpoint should be `Ψ`
+degradation under carrier-targeted corpora, not ridge relocation.
