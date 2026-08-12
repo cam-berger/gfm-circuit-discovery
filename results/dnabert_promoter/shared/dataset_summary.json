@@ -1,0 +1,60 @@
+{
+  "dataset_config": "prom_core_all",
+  "dataset_name": "leannmlindsey/GUE",
+  "source_split_mapping": {
+    "dev": "validation",
+    "test": "test",
+    "train": "train"
+  },
+  "splits": {
+    "test": {
+      "label_counts": {
+        "0": 2952,
+        "1": 2968
+      },
+      "maximum_gc_fraction": 0.9857142857142858,
+      "maximum_length": 70,
+      "mean_gc_fraction": 0.5857697876447876,
+      "minimum_gc_fraction": 0.12857142857142856,
+      "minimum_length": 70,
+      "rows": 5920,
+      "unique_lengths": [
+        70
+      ],
+      "unique_sequence_count": 5916
+    },
+    "train": {
+      "label_counts": {
+        "0": 23705,
+        "1": 23651
+      },
+      "maximum_gc_fraction": 0.9714285714285714,
+      "maximum_length": 70,
+      "mean_gc_fraction": 0.5853818493357306,
+      "minimum_gc_fraction": 0.1,
+      "minimum_length": 70,
+      "rows": 47356,
+      "unique_lengths": [
+        70
+      ],
+      "unique_sequence_count": 47208
+    },
+    "validation": {
+      "label_counts": {
+        "0": 2941,
+        "1": 2979
+      },
+      "maximum_gc_fraction": 0.9571428571428572,
+      "maximum_length": 70,
+      "mean_gc_fraction": 0.5865999034749034,
+      "minimum_gc_fraction": 0.17142857142857143,
+      "minimum_length": 70,
+      "rows": 5920,
+      "unique_lengths": [
+        70
+      ],
+      "unique_sequence_count": 5914
+    }
+  },
+  "total_rows": 59196
+}

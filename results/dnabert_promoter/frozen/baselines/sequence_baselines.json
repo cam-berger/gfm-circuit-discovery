@@ -1,0 +1,40 @@
+{
+  "data_dir": "results/dnabert_promoter/shared/clean",
+  "gc_composition": {
+    "test": {
+      "accuracy": 0.6758738277919863,
+      "balanced_accuracy": 0.6758419291459447,
+      "roc_auc": 0.722744750414441
+    },
+    "validation": {
+      "accuracy": 0.6647882513661202,
+      "balanced_accuracy": 0.6648590947758355,
+      "roc_auc": 0.7159184953219389
+    }
+  },
+  "kmer_3_to_6": {
+    "test": {
+      "accuracy": 0.7747655583972719,
+      "balanced_accuracy": 0.7747710457866563,
+      "roc_auc": 0.856347598289024
+    },
+    "validation": {
+      "accuracy": 0.7658811475409836,
+      "balanced_accuracy": 0.7658301200860411,
+      "roc_auc": 0.8507591708626386
+    }
+  },
+  "majority": {
+    "test": {
+      "accuracy": 0.50076726342711,
+      "balanced_accuracy": 0.5,
+      "roc_auc": 0.5
+    },
+    "validation": {
+      "accuracy": 0.4984631147540984,
+      "balanced_accuracy": 0.5,
+      "roc_auc": 0.5
+    }
+  },
+  "seed": 42
+}

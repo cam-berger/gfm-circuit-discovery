@@ -11,7 +11,11 @@ Durable orientation for an agent session: what the project is, how it reasons, h
 Discover **how genomic foundation models (GFMs) implement biological computations** — move from a model
 *behavior* to a *causally supported mechanism* with explicit controls and a clear stopping point for
 interpretation. **SpliceBERT is the first worked example, not the boundary.** The point is a
-transferable *method*, not a catalogue of activations.
+transferable *method*, not a catalogue of activations. A **second** model is now in the tree —
+[DNABERT-2 promoter](studies/dnabert_promoter/README.md) (`DBP*`) — and the first thing it transferred
+was a *limit*: it independently reached the same "structured causal core inside a distributed
+computation" shape that the donor arc reached at **C33**. No SpliceBERT number transfers to it, and it
+licenses nothing about any `C*`, `HCA*`, `AC*` or `GFS*` row.
 
 - Method & rules: [`README.md`](README.md), [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md),
   [`docs/EVIDENCE_LADDER.md`](docs/EVIDENCE_LADDER.md), [`docs/TRANSFER_GUIDE.md`](docs/TRANSFER_GUIDE.md).
@@ -47,17 +51,21 @@ The frozen one-sentence mechanism statement, its checkpoint caveats, and its sco
 
 | Question | File that owns the answer |
 |---|---|
-| What is claimed, in what words? | the three `CLAIMS.md` ledgers that carry rows: [donor circuit](studies/splicebert_partner_selection/CLAIMS.md) (`C*`), [Head–Context Atlas](studies/splicebert_head_context_atlas/CLAIMS.md) (`HCA*`), [GTEx fine-tuning shift](studies/splicebert_gtex_finetune_shift/CLAIMS.md) (`GFS*`). A fourth, [positional boundary coherence](studies/splicebert_positional_boundary_coherence/CLAIMS.md), is deliberately **empty**: that study is a frozen design with no outcome |
-| What was retracted or bounded, and why? | [`CORRECTIONS.md`](studies/splicebert_partner_selection/CORRECTIONS.md) — **R1–R46**. R1–R24 are table rows (some are ranges); R25–R46 are `##` sections later in the same file — scan both. |
+| What is claimed, in what words? | the five `CLAIMS.md` ledgers that carry rows: [donor circuit](studies/splicebert_partner_selection/CLAIMS.md) (`C*`, 45), [GTEx fine-tuning shift](studies/splicebert_gtex_finetune_shift/CLAIMS.md) (`GFS*`, 34), [Head–Context Atlas](studies/splicebert_head_context_atlas/CLAIMS.md) (`HCA*`, 21), [DNABERT-2 promoter](studies/dnabert_promoter/CLAIMS.md) (`DBP*`, 10 — the only **non-SpliceBERT** ledger), and [acceptor coupling](studies/splicebert_acceptor_coupling/CLAIMS.md) (`AC*`, 4 — the **reverse** direction; a masked *acceptor* readout, deliberately kept out of the donor ledger). A sixth, [positional boundary coherence](studies/splicebert_positional_boundary_coherence/CLAIMS.md), is deliberately **empty**: that study is a frozen design with no outcome |
+| What was retracted or bounded, and why? | [`CORRECTIONS.md`](studies/splicebert_partner_selection/CORRECTIONS.md) — **R1–R46**. R1–R24 are table rows (some are ranges); R25–R46 are `##` sections later in the same file — scan both. The DNABERT-2 study keeps its own: [`DBPR1–DBPR8`](studies/dnabert_promoter/CORRECTIONS.md) — read those before quoting any `DBP*` prose, five of that arc's headline sentences are bounded or withdrawn there. |
 | Why was an experiment designed that way? | [`DECISIONS_A0.md`](studies/splicebert_partner_selection/DECISIONS_A0.md) and each study's `DECISIONS*.md` |
 | What is next, and what is deferred? | [`docs/ROADMAP.md`](docs/ROADMAP.md) |
-| Was a preregistered gate actually enforced? | [`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) — **read before citing any gate as enforced**; many runners departed from their frozen protocol. Covers the SpliceBERT donor/carrier arc only — `GFS*` gates are self-reported, not audited, and the positional-boundary-coherence gates have never been executed |
+| Was a preregistered gate actually enforced? | [`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) — **read before citing any gate as enforced**; many runners departed from their frozen protocol. Covers the SpliceBERT donor/carrier arc only — `GFS*` gates are self-reported, not audited, the positional-boundary-coherence gates have never been executed, and the `DBP*` study **froze no preregistration at all** (DBPR8), so nothing in it may be cited as a preregistered result |
 | Which artifact controls a claim? | [`results/RESULTS_INDEX.md`](results/RESULTS_INDEX.md) and `results/MANIFEST.csv` |
 
-Cite by ID; let the ledger carry the number, or it drifts. Four study directories are in the tree and
-**three carry the record** ([study map](README.md#study-map)); the fourth,
+Cite by ID; let the ledger carry the number, or it drifts. Seven study directories are in the tree and
+**five carry the record** ([study map](README.md#study-map)); one,
 [positional boundary coherence](studies/splicebert_positional_boundary_coherence/README.md), is a frozen
-design whose ledgers are empty by construction. Five earlier study directories left the working tree in
+design whose ledgers are empty by construction, and one,
+[exon-edge compatibility](studies/splicebert_exon_edge_compatibility/README.md), is an archive remnant
+whose claims live in the donor ledger as C43/C44. One record-carrying study is easy to miss because the
+study map still omits it: **acceptor coupling** (`AC*`, the reverse direction — a masked *acceptor*
+readout). Five earlier study directories left the working tree in
 the 2026-07-31 cleanup and remain in Git history. A sixth arc, **exon-edge compatibility**, was
 consolidated on 2026-08-04 into two donor-ledger rows (**C43** behaviour, **C44** mediation-unresolved)
 plus twelve artifacts and two frozen protocols; its bulk stayed on `codex/intron-exon-phase` at
@@ -91,9 +99,21 @@ arc's sanctioned successor and inherits blacklists and geometry from it, never i
 - **Model:** SpliceBERT.1024nt, post-LayerNorm BERT-MLM (6L × 16H, hidden 512), **absolute learned
   position embeddings** (P=1026), checkpoint sha256 `2ad91428…0149d`. Post-LN ⇒ QKV linear in the
   layer-input residual, which is what makes exact reconstruct-inject possible.
+- **Second model:** DNABERT-2 (`quietflamingo/dnabert2-no-flashattention`, revision `813031b2…31601`,
+  12 layers, BPE over nucleotides) behind `src/gfmcd/adapters/dnabert.py`, for the `DBP*` study only.
+  Its adapter returns the **12 encoder-layer outputs with no embedding output**, so `hidden_states[i]`
+  *is* encoder layer `i` — the opposite of the usual HuggingFace convention, and asserted in the adapter.
+  Never carry a layer index between the two models.
 - Model, FASTA, and GTF are not committed; many memorials skip without a local genome. Long runs go to
   the background; smoke-gate first.
 - `scripts/splicebert/` holds the donor-circuit runners (`run_a*_*.py` = reconstruct-inject / scrub /
   interchange); each study owns its own `scripts/<study>/` tree and its own frozen `PREREGISTRATION_*.md`
-  protocols (under `preregistrations/` for the donor study, at the study root for the other two).
-  `src/gfmcd/{splicing,circuits,adapters}/` hold the assays, reusable primitives and model access.
+  protocols (under `preregistrations/` for the donor study, at the study root for the other two — the
+  `DBP*` study has **none**, see DBPR8). `src/gfmcd/{splicing,circuits,adapters}/` hold the assays,
+  reusable primitives and model access; `src/gfmcd/dnabert/` holds the DNABERT-2 dataset and
+  perturbation utilities.
+- **Every result writes a sibling `*.manifest.json`.** Use `gfmcd.provenance.ExperimentManifest`, or for
+  the DNABERT-2 study the wrapper `gfmcd.dnabert.write_run_manifest`, which is wired into all 15 canonical
+  `scripts/dnabert_promoter/` runners. One backward gap remains: ~104 DNABERT-2 artifacts predate that
+  wiring and carry a blank `manifest` column truthfully rather than a back-filled record — they fill in on
+  re-run. Never invent a provenance record for a run whose conditions were not captured.

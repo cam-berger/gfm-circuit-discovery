@@ -1,0 +1,106 @@
+{
+  "class_specific_logit_changes": {
+    "label_0": {
+      "dinucleotide_minus_clean": {
+        "fraction_negative": 0.5762247344981158,
+        "fraction_positive": 0.4237752655018842,
+        "maximum": 4.249512672424316,
+        "mean": -0.24427294731140137,
+        "median": -0.25469744205474854,
+        "minimum": -4.532599449157715,
+        "std": 1.2571145296096802
+      },
+      "mononucleotide_minus_clean": {
+        "fraction_negative": 0.6467968482356972,
+        "fraction_positive": 0.35320315176430284,
+        "maximum": 5.838945388793945,
+        "mean": -0.7616100311279297,
+        "median": -0.7556788921356201,
+        "minimum": -7.2655415534973145,
+        "std": 1.9752638339996338
+      }
+    },
+    "label_1": {
+      "dinucleotide_minus_clean": {
+        "fraction_negative": 0.7058222676200204,
+        "fraction_positive": 0.2941777323799796,
+        "maximum": 2.9813361167907715,
+        "mean": -0.6733664274215698,
+        "median": -0.6391386985778809,
+        "minimum": -4.885181903839111,
+        "std": 1.2133514881134033
+      },
+      "mononucleotide_minus_clean": {
+        "fraction_negative": 0.8910452843037112,
+        "fraction_positive": 0.10895471569628873,
+        "maximum": 4.068406105041504,
+        "mean": -2.3550424575805664,
+        "median": -2.2142255306243896,
+        "minimum": -10.137450218200684,
+        "std": 1.9710707664489746
+      }
+    }
+  },
+  "cohort": "results/dnabert_promoter/behavioral/corruption_cohorts/validation_full.csv",
+  "logit_changes": {
+    "dinucleotide_minus_clean": {
+      "fraction_negative": 0.6412226775956285,
+      "fraction_positive": 0.3587773224043716,
+      "maximum": 4.249512672424316,
+      "mean": -0.4594791531562805,
+      "median": -0.4484545588493347,
+      "minimum": -4.885181903839111,
+      "std": 1.2537505626678467
+    },
+    "mononucleotide_minus_clean": {
+      "fraction_negative": 0.7692964480874317,
+      "fraction_positive": 0.2307035519125683,
+      "maximum": 5.838945388793945,
+      "mean": -1.5607753992080688,
+      "median": -1.5181715488433838,
+      "minimum": -10.137450218200684,
+      "std": 2.1278069019317627
+    }
+  },
+  "metrics": {
+    "clean": {
+      "accuracy": 0.8049863387978142,
+      "balanced_accuracy": 0.805001292997413,
+      "roc_auc": 0.8847679772423123
+    },
+    "dinucleotide": {
+      "accuracy": 0.7558060109289617,
+      "balanced_accuracy": 0.7560756006314167,
+      "roc_auc": 0.8454267958754257
+    },
+    "mononucleotide": {
+      "accuracy": 0.6352459016393442,
+      "balanced_accuracy": 0.6361053868126861,
+      "roc_auc": 0.7040947717530046
+    }
+  },
+  "model_name": "quietflamingo/dnabert2-no-flashattention",
+  "model_revision": "813031b2bf86d9e960a027e2734c908009f31601",
+  "probability_changes": {
+    "dinucleotide_minus_clean": {
+      "fraction_negative": 0.6412226775956285,
+      "fraction_positive": 0.3587773224043716,
+      "maximum": 0.7849284410476685,
+      "mean": -0.06512973457574844,
+      "median": -0.03319455683231354,
+      "minimum": -0.7971700429916382,
+      "std": 0.18962843716144562
+    },
+    "mononucleotide_minus_clean": {
+      "fraction_negative": 0.7692964480874317,
+      "fraction_positive": 0.2307035519125683,
+      "maximum": 0.8641782402992249,
+      "mean": -0.22039736807346344,
+      "median": -0.15276747941970825,
+      "minimum": -0.9841392636299133,
+      "std": 0.3117673397064209
+    }
+  },
+  "rows": 5856,
+  "selected_layer": 2
+}

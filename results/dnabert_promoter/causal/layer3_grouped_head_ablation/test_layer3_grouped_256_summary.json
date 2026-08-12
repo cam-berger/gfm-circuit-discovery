@@ -1,0 +1,163 @@
+{
+  "groups": [
+    {
+      "change_from_clean": {
+        "fraction_negative": 0.48828125,
+        "fraction_positive": 0.51171875,
+        "maximum": 6.248466968536377,
+        "mean": 0.06304788589477539,
+        "mean_absolute": 3.0605382919311523,
+        "median": 0.18515443801879883,
+        "minimum": -11.999454498291016,
+        "std": 3.4410552978515625
+      },
+      "change_from_clean_by_label": {
+        "label_0": {
+          "fraction_negative": 0.03125,
+          "fraction_positive": 0.96875,
+          "maximum": 6.248466968536377,
+          "mean": 3.0226125717163086,
+          "mean_absolute": 3.0988593101501465,
+          "median": 3.002664566040039,
+          "minimum": -1.6969099044799805,
+          "std": 1.4036601781845093
+        },
+        "label_1": {
+          "fraction_negative": 0.9453125,
+          "fraction_positive": 0.0546875,
+          "maximum": 3.0431101322174072,
+          "mean": -2.896516799926758,
+          "mean_absolute": 3.0222175121307373,
+          "median": -2.7127010822296143,
+          "minimum": -11.999454498291016,
+          "std": 2.036839008331299
+        }
+      },
+      "heads": [
+        {
+          "head": 8,
+          "layer": 0
+        },
+        {
+          "head": 5,
+          "layer": 0
+        },
+        {
+          "head": 10,
+          "layer": 0
+        },
+        {
+          "head": 11,
+          "layer": 0
+        },
+        {
+          "head": 8,
+          "layer": 1
+        },
+        {
+          "head": 0,
+          "layer": 1
+        },
+        {
+          "head": 3,
+          "layer": 2
+        },
+        {
+          "head": 8,
+          "layer": 2
+        },
+        {
+          "head": 9,
+          "layer": 2
+        },
+        {
+          "head": 11,
+          "layer": 3
+        },
+        {
+          "head": 6,
+          "layer": 3
+        },
+        {
+          "head": 4,
+          "layer": 3
+        }
+      ],
+      "mean_absolute_logit_change": 3.0605382919311523,
+      "name": "expanded_path",
+      "num_heads": 12,
+      "promoter_fraction_damaged": 0.9453125,
+      "promoter_mean_damage": -2.896516799926758
+    },
+    {
+      "change_from_clean": {
+        "fraction_negative": 0.515625,
+        "fraction_positive": 0.484375,
+        "maximum": 5.64457893371582,
+        "mean": -0.13583862781524658,
+        "mean_absolute": 2.5087039470672607,
+        "median": -0.3695981502532959,
+        "minimum": -7.757634162902832,
+        "std": 2.78655743598938
+      },
+      "change_from_clean_by_label": {
+        "label_0": {
+          "fraction_negative": 0.0546875,
+          "fraction_positive": 0.9453125,
+          "maximum": 5.64457893371582,
+          "mean": 2.3184571266174316,
+          "mean_absolute": 2.389449119567871,
+          "median": 2.3607730865478516,
+          "minimum": -2.0617542266845703,
+          "std": 1.3133938312530518
+        },
+        "label_1": {
+          "fraction_negative": 0.9765625,
+          "fraction_positive": 0.0234375,
+          "maximum": 1.5212161540985107,
+          "mean": -2.590134382247925,
+          "mean_absolute": 2.6279587745666504,
+          "median": -2.6214535236358643,
+          "minimum": -7.757634162902832,
+          "std": 1.3129923343658447
+        }
+      },
+      "heads": [
+        {
+          "head": 8,
+          "layer": 0
+        },
+        {
+          "head": 8,
+          "layer": 1
+        },
+        {
+          "head": 3,
+          "layer": 2
+        },
+        {
+          "head": 8,
+          "layer": 2
+        },
+        {
+          "head": 9,
+          "layer": 2
+        },
+        {
+          "head": 11,
+          "layer": 3
+        }
+      ],
+      "mean_absolute_logit_change": 2.5087039470672607,
+      "name": "primary_path_all",
+      "num_heads": 6,
+      "promoter_fraction_damaged": 0.9765625,
+      "promoter_mean_damage": -2.590134382247925
+    }
+  ],
+  "identity_max_logit_difference": 0.0,
+  "model_name": "quietflamingo/dnabert2-no-flashattention",
+  "model_revision": "813031b2bf86d9e960a027e2734c908009f31601",
+  "rows": 256,
+  "selected_layer": 3
+}

@@ -1,0 +1,514 @@
+{
+  "component_conditions": {
+    "FULL_EARLY_GROUP": {
+      "heads": [
+        [
+          0,
+          8
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "mlp_layer": 0
+    },
+    "L0H8": {
+      "heads": [
+        [
+          0,
+          8
+        ]
+      ],
+      "mlp_layer": null
+    },
+    "L0_MLP": {
+      "heads": [],
+      "mlp_layer": 0
+    },
+    "L0_MLP_L0H8": {
+      "heads": [
+        [
+          0,
+          8
+        ]
+      ],
+      "mlp_layer": 0
+    }
+  },
+  "identity_max_absolute_difference": 0.0,
+  "model_name": "quietflamingo/dnabert2-no-flashattention",
+  "model_revision": "813031b2bf86d9e960a027e2734c908009f31601",
+  "opposite_class_offsets": [
+    0,
+    3,
+    5,
+    7
+  ],
+  "results": {
+    "FULL_EARLY_GROUP": {
+      "matched_promoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 1.0,
+          "maximum": 1.3579120816674608,
+          "mean": 0.8392480144236968,
+          "median": 0.846141109690201,
+          "minimum": 0.4298944116305467,
+          "n": 128,
+          "std": 0.16568370427406515
+        },
+        "restored_amount": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 1.0,
+          "maximum": 9.567553281784058,
+          "mean": 5.755791448435048,
+          "median": 5.669270217418671,
+          "minimum": 2.777742624282837,
+          "n": 128,
+          "std": 1.2535136625886494
+        }
+      },
+      "opposite_class_nonpromoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.73828125,
+          "fraction_positive": 0.26171875,
+          "maximum": 0.6048072253992981,
+          "mean": -0.13133235813691696,
+          "median": -0.12685670369351365,
+          "minimum": -0.7446422823940586,
+          "n": 512,
+          "std": 0.21440385742355692
+        },
+        "restored_amount": {
+          "fraction_negative": 0.73828125,
+          "fraction_positive": 0.26171875,
+          "maximum": 3.9784674644470215,
+          "mean": -0.8839851984521374,
+          "median": -0.9115287065505981,
+          "minimum": -5.223357200622559,
+          "n": 512,
+          "std": 1.4329970264324066
+        }
+      },
+      "same_class_promoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.001953125,
+          "fraction_positive": 0.998046875,
+          "maximum": 1.6849549929109597,
+          "mean": 0.8234828100769337,
+          "median": 0.8339416649679608,
+          "minimum": -0.11503989436400697,
+          "n": 512,
+          "std": 0.28612440280102525
+        },
+        "restored_amount": {
+          "fraction_negative": 0.001953125,
+          "fraction_positive": 0.998046875,
+          "maximum": 11.356772422790527,
+          "mean": 5.641437183570815,
+          "median": 5.639529705047607,
+          "minimum": -0.7096978425979614,
+          "n": 512,
+          "std": 1.9772825447681637
+        }
+      },
+      "self_corrupt": {
+        "recovery_fraction": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "minimum": 0.0,
+          "n": 128,
+          "std": 0.0
+        },
+        "restored_amount": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "minimum": 0.0,
+          "n": 128,
+          "std": 0.0
+        }
+      },
+      "zero_activation": {
+        "recovery_fraction": {
+          "fraction_negative": 0.40625,
+          "fraction_positive": 0.59375,
+          "maximum": 0.8947520677937335,
+          "mean": 0.07280063786168976,
+          "median": 0.08224254587744323,
+          "minimum": -0.6437907112397643,
+          "n": 128,
+          "std": 0.3046562922020984
+        },
+        "restored_amount": {
+          "fraction_negative": 0.40625,
+          "fraction_positive": 0.59375,
+          "maximum": 6.03072227537632,
+          "mean": 0.48869880347047,
+          "median": 0.5878902673721313,
+          "minimum": -4.332522869110107,
+          "n": 128,
+          "std": 2.029894634271247
+        }
+      }
+    },
+    "L0H8": {
+      "matched_promoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.4765625,
+          "fraction_positive": 0.5234375,
+          "maximum": 0.4846970219386269,
+          "mean": 0.005147047511921618,
+          "median": 0.007876716425935836,
+          "minimum": -0.4205317146497359,
+          "n": 128,
+          "std": 0.16028078405318444
+        },
+        "restored_amount": {
+          "fraction_negative": 0.4765625,
+          "fraction_positive": 0.5234375,
+          "maximum": 3.511450171470642,
+          "mean": 0.044272680301219225,
+          "median": 0.05542421340942383,
+          "minimum": -2.7743701934814453,
+          "n": 128,
+          "std": 1.0687724405954853
+        }
+      },
+      "opposite_class_nonpromoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.78515625,
+          "fraction_positive": 0.21484375,
+          "maximum": 0.4558344465404399,
+          "mean": -0.13459478161382094,
+          "median": -0.12145342697091535,
+          "minimum": -0.7579213419937971,
+          "n": 512,
+          "std": 0.1779762327258607
+        },
+        "restored_amount": {
+          "fraction_negative": 0.78515625,
+          "fraction_positive": 0.21484375,
+          "maximum": 3.0723717212677,
+          "mean": -0.898075737641193,
+          "median": -0.8421404361724854,
+          "minimum": -4.847926139831543,
+          "n": 512,
+          "std": 1.1743346015006568
+        }
+      },
+      "same_class_promoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.615234375,
+          "fraction_positive": 0.384765625,
+          "maximum": 0.5459171451695892,
+          "mean": -0.0595737708105979,
+          "median": -0.050007607273319404,
+          "minimum": -0.7260135166299387,
+          "n": 512,
+          "std": 0.18263840417187768
+        },
+        "restored_amount": {
+          "fraction_negative": 0.615234375,
+          "fraction_positive": 0.384765625,
+          "maximum": 3.3057174682617188,
+          "mean": -0.38985046674497426,
+          "median": -0.34983503818511963,
+          "minimum": -4.625442624092102,
+          "n": 512,
+          "std": 1.221313582962192
+        }
+      },
+      "self_corrupt": {
+        "recovery_fraction": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "minimum": 0.0,
+          "n": 128,
+          "std": 0.0
+        },
+        "restored_amount": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "minimum": 0.0,
+          "n": 128,
+          "std": 0.0
+        }
+      },
+      "zero_activation": {
+        "recovery_fraction": {
+          "fraction_negative": 0.0703125,
+          "fraction_positive": 0.9296875,
+          "maximum": 0.9820288856177084,
+          "mean": 0.3306884198875921,
+          "median": 0.32481554901221354,
+          "minimum": -0.2295604580006726,
+          "n": 128,
+          "std": 0.21592163999065495
+        },
+        "restored_amount": {
+          "fraction_negative": 0.0703125,
+          "fraction_positive": 0.9296875,
+          "maximum": 5.953259836882353,
+          "mean": 2.2584082524990663,
+          "median": 2.1685016751289368,
+          "minimum": -1.591655969619751,
+          "n": 128,
+          "std": 1.4920042529545292
+        }
+      }
+    },
+    "L0_MLP": {
+      "matched_promoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 1.0,
+          "maximum": 1.125230180171261,
+          "mean": 0.7181966987899013,
+          "median": 0.7250821641139193,
+          "minimum": 0.2648774447180341,
+          "n": 128,
+          "std": 0.18298443283982602
+        },
+        "restored_amount": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 1.0,
+          "maximum": 8.772589445114136,
+          "mean": 4.926446321653202,
+          "median": 4.985649928450584,
+          "minimum": 1.769207239151001,
+          "n": 128,
+          "std": 1.3286863700665577
+        }
+      },
+      "opposite_class_nonpromoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.7734375,
+          "fraction_positive": 0.2265625,
+          "maximum": 0.5018807686972094,
+          "mean": -0.17260965305846004,
+          "median": -0.16293211859289702,
+          "minimum": -0.9915592139306232,
+          "n": 512,
+          "std": 0.2192203649622293
+        },
+        "restored_amount": {
+          "fraction_negative": 0.7734375,
+          "fraction_positive": 0.2265625,
+          "maximum": 3.3014094829559326,
+          "mean": -1.1504366386216134,
+          "median": -1.1100364923477173,
+          "minimum": -5.938310861587524,
+          "n": 512,
+          "std": 1.4562588040097129
+        }
+      },
+      "same_class_promoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.013671875,
+          "fraction_positive": 0.986328125,
+          "maximum": 1.6227730647701624,
+          "mean": 0.6829613737559342,
+          "median": 0.6807279702541711,
+          "minimum": -0.3662794224207464,
+          "n": 512,
+          "std": 0.2952994681165437
+        },
+        "restored_amount": {
+          "fraction_negative": 0.013671875,
+          "fraction_positive": 0.986328125,
+          "maximum": 10.937659740447998,
+          "mean": 4.684339964667743,
+          "median": 4.785791873931885,
+          "minimum": -2.259631037712097,
+          "n": 512,
+          "std": 2.02660839093753
+        }
+      },
+      "self_corrupt": {
+        "recovery_fraction": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "minimum": 0.0,
+          "n": 128,
+          "std": 0.0
+        },
+        "restored_amount": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "minimum": 0.0,
+          "n": 128,
+          "std": 0.0
+        }
+      },
+      "zero_activation": {
+        "recovery_fraction": {
+          "fraction_negative": 0.8359375,
+          "fraction_positive": 0.1640625,
+          "maximum": 0.29806136840985215,
+          "mean": -0.19887787345452346,
+          "median": -0.1539633028130519,
+          "minimum": -0.8633986006422505,
+          "n": 128,
+          "std": 0.21411199860132743
+        },
+        "restored_amount": {
+          "fraction_negative": 0.8359375,
+          "fraction_positive": 0.1640625,
+          "maximum": 1.962507963180542,
+          "mean": -1.3246766878291965,
+          "median": -1.1460097432136536,
+          "minimum": -5.199634075164795,
+          "n": 128,
+          "std": 1.4046404137076738
+        }
+      }
+    },
+    "L0_MLP_L0H8": {
+      "matched_promoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 1.0,
+          "maximum": 1.2674656127266524,
+          "mean": 0.8483295024359059,
+          "median": 0.8235258409579662,
+          "minimum": 0.43390114406278957,
+          "n": 128,
+          "std": 0.16596551937150833
+        },
+        "restored_amount": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 1.0,
+          "maximum": 9.409102201461792,
+          "mean": 5.811144184175646,
+          "median": 5.770899295806885,
+          "minimum": 2.6767373085021973,
+          "n": 128,
+          "std": 1.2184911732451826
+        }
+      },
+      "opposite_class_nonpromoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.74609375,
+          "fraction_positive": 0.25390625,
+          "maximum": 0.5273890175213722,
+          "mean": -0.15070743482076088,
+          "median": -0.14233744058988723,
+          "minimum": -0.9985452905847844,
+          "n": 512,
+          "std": 0.22386102123721924
+        },
+        "restored_amount": {
+          "fraction_negative": 0.74609375,
+          "fraction_positive": 0.25390625,
+          "maximum": 3.4692046642303467,
+          "mean": -1.00893167743925,
+          "median": -0.9600100517272949,
+          "minimum": -5.980149507522583,
+          "n": 512,
+          "std": 1.4823405075493103
+        }
+      },
+      "same_class_promoter": {
+        "recovery_fraction": {
+          "fraction_negative": 0.00390625,
+          "fraction_positive": 0.99609375,
+          "maximum": 1.8184398812361344,
+          "mean": 0.8191277829962451,
+          "median": 0.8144048491372439,
+          "minimum": -0.22953140800860775,
+          "n": 512,
+          "std": 0.3091318859931473
+        },
+        "restored_amount": {
+          "fraction_negative": 0.00390625,
+          "fraction_positive": 0.99609375,
+          "maximum": 12.256474494934082,
+          "mean": 5.611769539769739,
+          "median": 5.67038768529892,
+          "minimum": -1.4160126447677612,
+          "n": 512,
+          "std": 2.1261745895515967
+        }
+      },
+      "self_corrupt": {
+        "recovery_fraction": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "minimum": 0.0,
+          "n": 128,
+          "std": 0.0
+        },
+        "restored_amount": {
+          "fraction_negative": 0.0,
+          "fraction_positive": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "minimum": 0.0,
+          "n": 128,
+          "std": 0.0
+        }
+      },
+      "zero_activation": {
+        "recovery_fraction": {
+          "fraction_negative": 0.3046875,
+          "fraction_positive": 0.6953125,
+          "maximum": 0.8995775992975462,
+          "mean": 0.1251462730197691,
+          "median": 0.11778916117351426,
+          "minimum": -0.7122399968650032,
+          "n": 128,
+          "std": 0.2796040003266232
+        },
+        "restored_amount": {
+          "fraction_negative": 0.3046875,
+          "fraction_positive": 0.6953125,
+          "maximum": 6.063246861100197,
+          "mean": 0.845924909808673,
+          "median": 0.7641898393630981,
+          "minimum": -4.833802580833435,
+          "n": 128,
+          "std": 1.8565957679684602
+        }
+      }
+    }
+  },
+  "rows_per_class": 128,
+  "same_class_offsets": [
+    1,
+    3,
+    5,
+    7
+  ],
+  "selected_layer": 2
+}

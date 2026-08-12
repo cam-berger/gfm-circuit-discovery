@@ -17,6 +17,10 @@ dependencies = [
 [project.optional-dependencies]
 models = ["transformers>=4.40", "datasets"]
 splicebert = ["transformers>=4.40", "pyfaidx>=0.8", "scikit-learn>=1.4"]
+# DNABERT-2 promoter study (DBP*). Declared separately from `splicebert` so the second model's
+# dependency set is explicit rather than borrowed: it needs no genome reader (pyfaidx), and it
+# persists probes with joblib, which was previously only a transitive scikit-learn dependency.
+dnabert = ["transformers>=4.40", "scikit-learn>=1.4", "joblib>=1.3", "pandas>=2.0", "matplotlib>=3.8"]
 genome = ["pyfaidx>=0.8", "numpy"]
 biology = ["ViennaRNA>=2.7,<3"]
 dev = ["pytest", "pytest-xdist"]

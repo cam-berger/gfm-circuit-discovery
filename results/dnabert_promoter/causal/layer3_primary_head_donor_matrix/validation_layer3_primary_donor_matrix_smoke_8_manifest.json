@@ -1,0 +1,53 @@
+{
+  "cohort": "results/dnabert_promoter/causal/localization_cohorts/validation_localization_256.csv",
+  "component_conditions": {
+    "PRIMARY_SIX_HEADS": {
+      "heads": [
+        [
+          0,
+          8
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          3,
+          11
+        ]
+      ],
+      "mlp_layer": null
+    }
+  },
+  "limit": 8,
+  "model_name": "quietflamingo/dnabert2-no-flashattention",
+  "model_revision": "813031b2bf86d9e960a027e2734c908009f31601",
+  "opposite_class_offsets": [
+    0,
+    3,
+    5,
+    7
+  ],
+  "per_example_file": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/validation_layer3_primary_donor_matrix_smoke_8_per_example.csv",
+  "same_class_offsets": [
+    1,
+    3,
+    5,
+    7
+  ],
+  "selected_layer": 3,
+  "statistics_file": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/validation_layer3_primary_donor_matrix_smoke_8_statistics.json",
+  "summary_file": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/validation_layer3_primary_donor_matrix_smoke_8_summary.json"
+}
