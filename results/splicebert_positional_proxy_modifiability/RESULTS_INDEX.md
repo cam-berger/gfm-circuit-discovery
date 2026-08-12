@@ -158,10 +158,17 @@ less (+0.220, −0.084/−0.071).
 
 ### Three things this does NOT show
 
-1. **Not a carrier effect.** Period-3 band power rose by +0.71% (L1) and +0.62% (L2) — a negligible
-   change, and *the same* change in both arms. Whatever separates the arms, it is not a change in
-   the learned period-3 carrier. This is consistent with, and does not disturb, `DECISIONS.md`'s
-   finding that the carrier is necessary for `Ψ` but does not encode the preferred register.
+1. **Not a change in carrier AMPLITUDE — and that is all this readout can say.** Period-3 band power
+   rose by +0.71% (L1) and +0.62% (L2): negligible, and *the same* in both arms, so the arms are not
+   separated by a change in carrier strength. **This does not show the effect bypassed the
+   carrier.** `period3_band_power` sums squared moduli, so a phase rotation of the band — this
+   study's own carrier operator, `positional_spectrum.phase_rotate_band`, the one the relocation
+   test used — leaves the number *exactly* unchanged (verified at relative `1e-16`; memorialised in
+   `tests/test_lineage_pretraining.py::test_period3_band_power_is_blind_to_a_phase_rotation`). A
+   phase-only change, or a change in how downstream heads read an unchanged carrier, would produce
+   precisely the reading above. The route is **not determined** by this pilot; the phase-sensitive
+   `Ω3` relocation readout is what could settle it, and it was not run on the trained arms. See
+   `DECISIONS.md`, 2026-08-12 (same day, bounding the entry above).
 2. **Not degradation.** Masked MLM top-1 at non-site positions is 0.4727 / 0.4736 / 0.4739 across
    base / L1 / L2 — flat. No arm broke the language model, so `R12`/`R13` (never read a mechanism
    from a destroyed behaviour) does not bite here. The probe is `CouplingTask.mlm_health`, which

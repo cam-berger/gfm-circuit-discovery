@@ -276,3 +276,41 @@ endpoint, and that is not characterised here.
 **What a confirmatory version needs.** At least six paired seeds, so intervals cover training-seed
 variability; the frozen exclusion and balance gates; and a preregistered endpoint. Nothing in this
 entry substitutes for that.
+
+## 2026-08-12 (same day, bounding the entry above) — "the carrier did not change" is not what was measured
+
+**What forced this entry.** The entry above reads equal period-3 **band power** across arms
+(198,761 vs 198,592, 0.085% apart) as showing that the corpus manipulation "did not go through the
+carrier", and states that part two of the original goal is **refuted** because "the coordinate did
+not change". That is stronger than the readout supports, and the gap is demonstrable rather than a
+matter of taste.
+
+**The demonstration.** `period3_band_power` is `sum(|rFFT|²)` over bins 339–345 of the mean-centred
+position table. Applying this study's own carrier operator — `positional_spectrum.phase_rotate_band`,
+the same function the relocation test used — at 90° to a random table leaves band power **exactly**
+unchanged (relative change `1.2e-16`) while the table is materially different. **A carrier
+relocation is invisible to this readout by construction**, because a phase rotation preserves every
+coefficient's modulus. Memorialised in `tests/test_lineage_pretraining.py::
+test_period3_band_power_is_blind_to_a_phase_rotation` so the limitation cannot be forgotten by the
+next reader of the number.
+
+**What the pilot's band-power reading therefore does and does not license.**
+
+* **Licensed:** the period-3 carrier's *amplitude* is unchanged, equally, in both arms — so the arms
+  are not separated by a change in carrier strength, and neither arm degraded or amplified the
+  carrier.
+* **Not licensed:** "the carrier did not change", "the coordinate did not change", or that the
+  corpus effect demonstrably bypasses the carrier. A phase-only change, or a change in how
+  downstream heads *read* an unchanged carrier, would produce exactly the observed reading. Neither
+  was measured here.
+
+**Effect on claim scope.** None — the entry above adds no claim row either, and no ledger row cites
+it. What changes is the wording available for it: the honest statement is *"the boundary preference
+moved without any change in period-3 carrier amplitude"*, not *"without going through the carrier"*.
+The `Ω3` relocation readout, which **is** phase-sensitive by construction, is what could settle the
+route; it was not run on the trained arms.
+
+**Affected files.** This log; `results/splicebert_positional_proxy_modifiability/RESULTS_INDEX.md`
+(its carrier paragraph is bounded to match); `tests/test_lineage_pretraining.py` (new memorial).
+The artifact `lineage_pilot_v1.json` is **not** edited — it records `period3_band_power` and its
+bins, which is a correct measurement; only the prose reading of it was overstated.

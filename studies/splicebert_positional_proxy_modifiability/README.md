@@ -5,10 +5,20 @@
 ## What this study is
 
 A prospective successor to `studies/splicebert_positional_boundary_coherence` (PBC v1, closed) and its
-in-flight PBC v2 successor line. It asks a narrower, purely logistical question before any model runs:
-**can a fresh, globally gene-disjoint, real-gene-module panel actually be built at the scale a
-composition-balanced `Ψ` (or paired `ΔΨ`) measurement needs?** This is supply/demand and statistical
-power, not biology — no SpliceBERT checkpoint is loaded anywhere in this study.
+in-flight PBC v2 successor line. It opened on a narrower, purely logistical question, asked before any
+model runs: **can a fresh, globally gene-disjoint, real-gene-module panel actually be built at the scale
+a composition-balanced `Ψ` (or paired `ΔΨ`) measurement needs?** That question is supply/demand and
+statistical power, not biology, and `PPM1` — the study's only claim — answers it with no checkpoint
+loaded anywhere in its controlling artifacts.
+
+**Since 2026-08-12 the study also contains one model run.** A development-stage **pilot**
+(`results/splicebert_positional_proxy_modifiability/lineage_pilot_v1.json`) continue-pretrains
+SpliceBERT on two corpora differing only in a reading-frame residue mod 3. It backs **no claim row**,
+has **no independent audit**, and has **one training seed per arm**, so it is not a training-process
+statement; see [`RESULTS.md`](RESULTS.md)'s audit note and the two 2026-08-12 pilot entries in
+[`DECISIONS.md`](DECISIONS.md) — the second of which bounds the first's carrier wording — for the full
+scope. Earlier revisions of this README stated that no checkpoint is loaded anywhere in this study;
+that was true until that date.
 
 `CLAIMS.md` currently carries exactly one row, **PPM1**: on the audited eligible census, no fresh
 gene-disjoint real-module panel can satisfy the single-checkpoint `Ψ` endpoint, the composition-balance
@@ -42,14 +52,21 @@ for what that tree currently contains.
 ## Ledgers
 
 - [`CLAIMS.md`](CLAIMS.md) — one row, PPM1, as above.
-- [`RESULTS.md`](RESULTS.md) and [`DECISIONS.md`](DECISIONS.md) are **intentionally empty prospective
-  ledgers**, matching the PBC v1 convention: they acquire rows only from immutable, audited outputs
-  produced under this study's own name, or from a decision this study itself is forced to make. Nothing
-  here promotes an entry from another study's ledger.
+- [`RESULTS.md`](RESULTS.md) carries one development-stage pilot row (no claim, no audit); it acquires
+  **claim-backing** rows only from immutable, independently audited outputs produced under this study's
+  own name. Nothing here promotes an entry from another study's ledger.
+- [`DECISIONS.md`](DECISIONS.md) records why this successor exists, the base-checkpoint decomposition,
+  the necessity and relocation tests that falsified the original premise, and the 2026-08-12 pilot.
 
 ## What is NOT claimed here
 
-No SpliceBERT checkpoint has been loaded by anything in this study. PPM1 is a gene-pool
-supply/demand and statistical-power finding about a **candidate construction design** — it says nothing
-about SpliceBERT's behaviour and nothing about splicing biology. See `CLAIMS.md`'s own "What is NOT
-claimed" section for the complete list of boundaries, including the open paired-`ΔΨ` question.
+PPM1 is a gene-pool supply/demand and statistical-power finding about a **candidate construction
+design**, with no checkpoint loaded in any of its controlling artifacts — it says nothing about
+SpliceBERT's behaviour and nothing about splicing biology. See `CLAIMS.md`'s own "What is NOT claimed"
+section for the complete list of boundaries, including the open paired-`ΔΨ` question, which the 2026
+pilot does **not** resolve (it has one seed per arm and yields no seed-level L1/L2 covariance).
+
+The study's **original premise is falsified** and is not claimed anywhere: the learned period-3 carrier
+is necessary for `Ψ` but does not encode which register is preferred, so no corpus manipulation can
+re-target the preference through the carrier. The pilot's `ΔΨ` is a *reinforcement* result on one
+lineage pair, not a re-targeting one, and it licenses no mechanism, route, or biological statement.

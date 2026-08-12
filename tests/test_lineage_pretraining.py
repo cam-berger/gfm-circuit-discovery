@@ -582,6 +582,29 @@ def test_period3_band_power_recovers_a_planted_period_three_signal():
     assert p3 > 1e3 * max(control, 1e-12)
 
 
+def test_period3_band_power_is_blind_to_a_phase_rotation():
+    """Band power CANNOT see a carrier relocation, and the record must not claim otherwise.
+
+    `period3_band_power` sums squared moduli, and a phase rotation preserves every modulus, so
+    rotating the period-3 band -- this study's own carrier operator, the one the relocation test
+    used -- leaves the number bit-for-bit identical while the table is materially different.
+
+    This is why "equal band power across arms" licenses only "carrier AMPLITUDE is unchanged" and
+    never "the carrier did not change" or "the effect did not go through the carrier". See
+    DECISIONS.md, 2026-08-12 (same day, bounding the entry above).
+    """
+    from gfmcd.splicing.positional_spectrum import phase_rotate_band
+
+    table = np.random.default_rng(0).normal(size=(1026, 32))
+    bins = tuple(range(339, 346))
+    rotated = phase_rotate_band(table, bins, [np.pi / 2] * len(bins))
+
+    assert not np.allclose(table, rotated)          # the table really did change
+    before = period3_band_power(table, bins)
+    after = period3_band_power(rotated, bins)
+    assert after == pytest.approx(before, rel=1e-12)
+
+
 def test_period3_band_power_rejects_bins_outside_the_spectrum():
     table = np.random.default_rng(0).normal(size=(64, 4))
     with pytest.raises(ValueError, match="outside the spectrum"):
