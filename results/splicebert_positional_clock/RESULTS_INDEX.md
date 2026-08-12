@@ -5,9 +5,9 @@
 
 **The directory name `splicebert_positional_clock` is PROVISIONAL** and may be renamed before
 anything freezes. Most output therefore lives under `development/` or `superseded/`, so a later
-rename costs a move, not a retraction; the one deliberate exception is `real_panel_capacity_v1.json`
-at the study root (see its own section below for why). Do not cite this path as a stable identifier
-yet.
+rename costs a move, not a retraction; the deliberate exceptions are `real_panel_capacity_v1.json`
+and `designed_panel_infeasibility_v1.json` at the study root (see each one's own section below for
+why). Do not cite this path as a stable identifier yet.
 
 Machine-readable entry point: [`../MANIFEST.csv`](../MANIFEST.csv) / [`../MANIFEST.json`](../MANIFEST.json).
 Filter the `artifact` column on `results/splicebert_positional_clock/`. Column semantics and the four
@@ -44,7 +44,7 @@ own section for the sign-free restriction.
 
 | Path | What may be written there |
 |---|---|
-| `./` (study root) | `real_panel_capacity_v1.json` only — deliberately NOT under `development/`, so a later pivot to a different evaluation design cannot silently supersede the finding it memorializes (see below) |
+| `./` (study root) | `real_panel_capacity_v1.json` and `designed_panel_infeasibility_v1.json` only — deliberately NOT under `development/`, so a later pivot to a different evaluation design cannot silently supersede the finding either one memorializes (see below) |
 | `./development/` | construction, calibration, smoke, and other pre-freeze output — everything this provisional study has produced so far |
 | `./superseded/` | artifacts replaced by a later version of themselves, retained for provenance — see each one's sibling `*.SUPERSEDED.md` note for why |
 
@@ -73,6 +73,7 @@ an existing artifact refuses rather than replacing it. Every new file here needs
 | Run / result | Stage | Status | Artifact | Manifest | Claim IDs |
 |---|---|---|---|---|---|
 | Real-panel capacity v1 | construction | `BUILT` | [`real_panel_capacity_v1.json`](real_panel_capacity_v1.json) | [`manifest`](real_panel_capacity_v1.manifest.json) | — |
+| Designed-panel infeasibility v1 | construction | `BUILT` | [`designed_panel_infeasibility_v1.json`](designed_panel_infeasibility_v1.json) | [`manifest`](designed_panel_infeasibility_v1.manifest.json) | — |
 | PBC v2 capacity/power ladder v2 | construction | `BUILT` | [`development/pbc_v2_capacity_ladder_v2.json`](development/pbc_v2_capacity_ladder_v2.json) | [`manifest`](development/pbc_v2_capacity_ladder_v2.manifest.json) | — |
 | PBC v2 capacity/power ladder v1 | construction | `superseded` | [`superseded/pbc_v2_capacity_ladder_v1.json`](superseded/pbc_v2_capacity_ladder_v1.json) | [`manifest`](superseded/pbc_v2_capacity_ladder_v1.manifest.json) | — |
 
@@ -149,6 +150,73 @@ GTF-consistency matter, not biology.
 Every B1–B5 quantity above is asserted in the runner against these exact literals before the
 artifact is written; any mismatch halts the run with a `NEEDS_CONTEXT` message rather than writing
 a silently-adjusted number. All seven `slot_hash_verification` booleans are `true`.
+
+### Designed-panel infeasibility v1
+
+`scripts/splicebert_positional_clock/run_designed_panel_infeasibility.py` memorializes that the
+**designed 3×3 register panel is not viable as a primary identifier**, so a later pivot to a
+different evaluation design cannot silently supersede this finding — deliberately at the study root,
+like its sibling above, not under `development/`. An earlier assessment sized this panel in
+isolation and concluded it "clears comfortably"; that conclusion was wrong. An independent
+adversarial review found three confirmed defects, all reproduced here by recomputation from two
+small, committed, read-only inputs: the PBC v2 ladder v2 artifact (N=909 rung's infeasible min-cut
+certificate, which supplies the pool union size) and `real_panel_capacity_v1.json` (ρ, `V9`, the
+real-panel ceilings, and its own naive 3×3 block counts).
+
+**This records an instrument/design failure. It is not evidence about biology, and it licenses no
+conclusion of any sign about the underlying science.**
+
+**D1 — the additive-capacity failure.** Both panels are mandatory and both draw module parent genes
+from the same pool — `|donor parents ∪ acceptor parents|` = **3,227** (the N=909 rung's min-cut
+certificate: at that N the cut violates exactly the six real donor/acceptor phase slots, so
+`min_cut_gene_count` there *is* the pool union by construction, not a hand-derived figure). A
+designed block spends 2 module parents; a real plain-{0,1} block spends 4 module genes — additive,
+not independent. Recomputed spend/margin/verdict at four (designed N, real N) pairs: **(440, 544) →
+spend 3056, margin 0.053, below the 0.25 rule; (487, 544) → spend 3148, margin 0.024, below the 0.25
+rule; (440, 726) → spend 3784, negative margin, infeasible; (764, 544) → spend 3704, negative margin,
+infeasible.** The real panel actually draws from `D0 ∪ D1 ∪ A0 ∪ A1` (union **2,904**), a strict
+subset of the 3,227-gene pool used above — the true position is therefore at least this bad and
+never better.
+
+**D2 — the corrected parent-pair variance.** The earlier figures (440 blocks for Ψ, 533 for M±)
+transferred `C43`'s measured block variance `V9` unchanged to the designed panel — invalid. `C43`'s
+3×3 matched diagonal averages three *distinct* donor genes and three *distinct* acceptor genes (a
+factor 1/3 on the block-level true-effect variance: `(su²+sv²+sw²)/3 = ρ·V9`); the designed panel's
+diagonal is supplied by a *single* parent pair, so u/v/w are identical across the three matched cells
+and the factor 1/3 disappears — the block-level term alone, `3·ρ·V9 = 1.1049·V9`, is already larger
+than `V9` before any cell noise is added. `f` (designed within-block cell heterogeneity relative to
+`C43`'s) is an **unmeasured** parameter, not a measured quantity, so every N below is a **band over
+f**, never a point: **f=0 → N_Ψ=487, N_M=487; f=0.25 → 556, 579; f=0.5 → 625, 672; f=1.0 → 764,
+857.** There is **no `f ≥ 0` at which 440 is correct** — the `f` that would reproduce it is negative.
+The earlier 533 implicitly assumed `f ≈ 0.125`, an assumption never stated.
+*Correction recorded at the runner's assertion site:* the source brief's own D2 table states
+`f=0.5 → 626` for N_Ψ; exact recomputation from the brief's own formula (verified three ways —
+full-precision ρ/`V9`, the brief's truncated 9-significant-figure `V9`, and a higher-precision `Z`)
+gives **625**, not 626, while the other seven of eight band literals reproduce exactly under the
+identical formula and code path. 625 is the value this runner asserts and records; see
+`run_designed_panel_infeasibility.py`'s `_D2_EXPECTED_BAND` comment for the full derivation.
+
+**D3 — the raw-periodicity confound (structural, not a power problem).** The donor-to-acceptor span
+is 120 nt, a multiple of the model's period-3 carrier (40 exact cycles, no fractional-cycle residue).
+The two module interiors each carry a period-3 Fourier component whose relative phase across the
+joined window is exactly `δ·120°`; matched registers add constructively (`|a+b| = 2a`) and mismatched
+add destructively (`√(a²+b²−ab) = a` for comparable `a ~ b`). A model computing nothing but
+"how strong is the 3-periodicity of this window" — translation-invariant, no positional coordinate,
+no long-range comparison — reproduces the matched-over-mismatched ranking the panel was built to
+test for; a sequence-only panel cannot separate the two. The proposed frozen gate ("match period-3
+amplitude *and* phase across register conditions") is **structurally unsatisfiable** on the joined
+construct: equalising joined-window period-3 phase across register conditions *is* abolishing `δ`.
+Either the gate is enforced and the treatment vanishes, or it is not enforced and the confound stands
+unmeasured.
+
+**D4 — disposition.** `designed_panel_viable_as_primary_identifier: false`. The superseded
+conclusion was "clears comfortably." The successor primary endpoint is a carrier-register
+intervention (a prespecified cyclic `δ × r` interaction on identical sequences), not a sequence-only
+matched-minus-mismatched contrast — not built yet, and this record does not imply it works.
+
+Every D1/D2 quantity above is asserted in the runner against exact recomputation before the artifact
+is written; any mismatch halts the run with a `NEEDS_CONTEXT` message rather than writing a
+silently-adjusted number.
 
 ### PBC v2 capacity/power ladder v2
 

@@ -1,0 +1,61 @@
+{
+  "command": [
+    "scripts/splicebert_positional_clock/run_designed_panel_infeasibility.py",
+    "--out",
+    "results/splicebert_positional_clock/designed_panel_infeasibility_v1.json"
+  ],
+  "config": {
+    "checkpoint_loaded": null,
+    "designed_panel_viable_as_primary_identifier": false,
+    "stage": "construction"
+  },
+  "created_at_utc": "2026-08-12T01:55:29.252123+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 15587,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert-positional-clock:designed-panel-infeasibility-v1",
+  "git_commit": "912ae5abd66f1159d120c4c0563c41bc1a4e56cf",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "mode": "file",
+      "path": "results/splicebert_positional_clock/development/pbc_v2_capacity_ladder_v2.json",
+      "sha256": "c63b24f75611fb2526015ed0bae185b9bc8869aa12a01f6577852eeb1d4fecba",
+      "size_bytes": 64106
+    },
+    {
+      "mode": "file",
+      "path": "results/splicebert_positional_clock/real_panel_capacity_v1.json",
+      "sha256": "39bfd21961c06bb6f01b1ddb2819ebadd54179ebaeef9db4df1b41b280597944",
+      "size_bytes": 9446
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/pbc-v2-capacity/scripts/splicebert_positional_clock/run_designed_panel_infeasibility.py",
+      "sha256": "b35ed9994d33db55f3e362a617b9ead9a857b2869dc5f281c0cf1df3bced9be6",
+      "size_bytes": 38231
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/pbc-v2-capacity/src/gfmcd/splicing/pbc_v2_capacity.py",
+      "sha256": "1da06676c8ce67380f1beb831a5e4d1762cb5e56d463a987bcc1fb5f6f6ae40c",
+      "size_bytes": 37430
+    }
+  ],
+  "notes": [
+    "Model-free construction-stage designed-panel infeasibility record: no checkpoint loaded, no cohort selected, no block assembled, no cell materialised.",
+    "pool_union_size, rho, V9, real ceilings, and the naive B3 block counts were verified against their audited literals before D1/D2 were evaluated (hard gate, not a log line).",
+    "Every D1/D2 quantity was asserted against exact recomputation before this artifact was written; any mismatch halts the run with NEEDS_CONTEXT. One correction was found and is documented at the assertion site in the runner source: the D2 f=0.5 N_Psi literal is 625 by exact recomputation, not 626.",
+    "This records an instrument/design failure. It is not evidence about biology, and it licenses no conclusion of any sign about the underlying science."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/pbc-v2-capacity/results/splicebert_positional_clock/designed_panel_infeasibility_v1.json",
+      "sha256": "72c24129e80b38c71f0bfa09b0b73d4da57533322807c9a43b150471dd5399d4",
+      "size_bytes": 10530
+    }
+  ],
+  "seeds": {},
+  "status": "BUILT"
+}
