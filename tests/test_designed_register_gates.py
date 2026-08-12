@@ -779,3 +779,100 @@ def test_evaluate_family_never_filters_members():
     assert not result["family_passes"]
     # the return value carries only measurements and a verdict -- no filtered variant mapping
     assert "members" in result and result["members"] == list(variants)
+
+
+# ---------------------------------------------------------------------------------------------
+# gate_period3 scheme awareness -- regression memorial for a gate that failed correct work
+# ---------------------------------------------------------------------------------------------
+def _rotation_family():
+    """A CORRECT shared-k rotation triplet: the thing the gate must not reject."""
+    from gfmcd.splicing.designed_register import register_triplet, shift_module
+
+    # The interior MUST carry real period-3 structure in the GC indicator that
+    # period3_component reads, or every amplitude is ~0 and a relative spread divides noise by
+    # noise. "GCA" gives GC = 1,1,0 repeating: period 3 exactly. "ACTG" does NOT -- it repeats
+    # with period 4 and produces a zero period-3 component.
+    parent = "GGCCTT" + ("GCA" * 24) + "TTAACC"
+    shifts = register_triplet(4)          # (12, 13, 14) -- shared k, registers 0/1/2
+    variants = {
+        f"r{s % 3}": shift_module(parent, shift=s, protect_5p=6, protect_3p=6) for s in shifts
+    }
+    registers = {f"r{s % 3}": s % 3 for s in shifts}
+    return parent, variants, registers, shifts
+
+
+def test_gate_period3_does_not_falsely_fail_a_correct_rotation_family():
+    """THE regression memorial.
+
+    The insertion expected-phase model assumes everything downstream of the seam shifts
+    uniformly by `register` positions. A rotation permutes the interior IN PLACE, so nothing
+    downstream moves, and applying that model produced ~60-120 degrees of spurious error per
+    unit of register against a 20 degree tolerance -- rejecting genuinely correct families.
+
+    Fails if the phase check is ever re-gated under the rotation scheme.
+    """
+    parent, variants, registers, _ = _rotation_family()
+    out = gate_period3(
+        variants, parent=parent, intended_registers=registers,
+        amplitude_tolerance=0.10, phase_tolerance_deg=20.0, scheme="rotation",
+        protect_5p=6, protect_3p=6,
+    )
+    assert out["passed"] is True
+    assert out["amplitude_measured_on"] == "interior"
+    assert out["amplitude_relative_spread"] < 1e-12   # rotation invariance is EXACT
+    assert out["phase_gated"] is False
+    assert out["phase_not_gated_reason"]
+    assert "gate_designed_register" in out["phase_not_gated_reason"]
+
+
+def test_gate_period3_still_gates_amplitude_under_rotation():
+    """Phase is ungated; amplitude is NOT. Without this, the fix would have silently turned a
+    real gate into a no-op."""
+    parent, variants, registers, _ = _rotation_family()
+    broken = dict(variants)
+    broken[sorted(broken)[0]] = "A" * len(parent)      # destroys the period-3 magnitude
+    out = gate_period3(
+        broken, parent=parent, intended_registers=registers,
+        amplitude_tolerance=0.10, phase_tolerance_deg=20.0, scheme="rotation",
+        protect_5p=6, protect_3p=6,
+    )
+    assert out["amplitude_passed"] is False
+    assert out["passed"] is False
+
+
+def test_gate_period3_rejects_an_unknown_scheme():
+    parent, variants, registers, _ = _rotation_family()
+    with pytest.raises(ValueError, match="unknown scheme"):
+        gate_period3(
+            variants, parent=parent, intended_registers=registers,
+            amplitude_tolerance=0.10, phase_tolerance_deg=20.0, scheme="teleportation",
+        )
+
+
+def test_amplitude_region_is_recorded_and_interior_invariance_is_exact():
+    """Rotation invariance of the period-3 magnitude holds EXACTLY on the interior, because a
+    circular rotation only multiplies each DFT bin by a phase.
+
+    It does NOT hold in general on the whole sequence: the protected flanks do not rotate, so
+    the total is |X_flank + X_interior * w^q| and flank-interior interference makes it register
+    dependent. How large that effect is depends on how much period-3 content the flanks carry,
+    so it is fixture dependent and is deliberately NOT asserted here as an inequality. What is
+    asserted is the invariant that always holds, plus the fact that the gate RECORDS which
+    region it measured -- so a reader can tell whether the number they are looking at is the
+    exact invariant or the fixture-dependent one.
+    """
+    parent, variants, registers, _ = _rotation_family()
+    whole = gate_period3(
+        variants, parent=parent, intended_registers=registers,
+        amplitude_tolerance=0.10, phase_tolerance_deg=20.0, scheme="rotation",
+    )
+    interior = gate_period3(
+        variants, parent=parent, intended_registers=registers,
+        amplitude_tolerance=0.10, phase_tolerance_deg=20.0, scheme="rotation",
+        protect_5p=6, protect_3p=6,
+    )
+    assert whole["amplitude_measured_on"] == "whole_sequence"
+    assert whole["amplitude_region_note"]
+    assert interior["amplitude_measured_on"] == "interior"
+    assert interior["amplitude_region_note"] is None
+    assert interior["amplitude_relative_spread"] < 1e-12

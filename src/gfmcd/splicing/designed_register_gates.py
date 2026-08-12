@@ -581,6 +581,9 @@ def gate_period3(
     intended_registers: Mapping[str, int],
     amplitude_tolerance: float,
     phase_tolerance_deg: float,
+    scheme: str = "rotation",
+    protect_5p: int | None = None,
+    protect_3p: int | None = None,
 ) -> dict:
     """Amplitude and phase of each variant's period-3 DFT component.
 
@@ -602,31 +605,60 @@ def gate_period3(
     degree "errors" that track nothing but the flank's size. ``phase_tolerance_deg`` bounds the
     circular distance between measured and (correctly) expected phase.
 
-    KNOWN LIMITATION -- NOT FIXED HERE: unlike ``gate_designed_register`` and ``gate_seam``, this
-    gate has no ``scheme`` parameter. Its expected-phase model (``_expected_seam_edit_coeff``)
-    hard-codes the INSERTION scheme's geometry -- "replace the seam span with ``register`` new
-    neutral bases", i.e. everything downstream of the seam is uniformly phase-shifted by
-    ``register`` positions. That is not what a ``"rotation"``-scheme edit does (nothing downstream
-    of the interior ever moves; the interior is permuted in place, at fixed absolute positions),
-    so this gate's phase check will spuriously fail genuinely correct rotation-scheme variants
-    (confirmed: reliably ~60-120 degrees of spurious error per unit of register, far outside the
-    default 20 degree tolerance) even though ``evaluate_family`` now calls it unconditionally under
-    the "rotation" default scheme. A caller auditing a rotation-scheme family today must either
-    widen ``phase_tolerance_deg`` past this spurious error or otherwise route around this gate;
-    giving it a rotation-aware expected-phase model is out of scope of the register-realisation fix
-    this module received and is left for follow-up.
+    SCHEME. The expected-phase model (``_expected_seam_edit_coeff``) encodes the INSERTION
+    geometry -- "replace the seam span with ``register`` new neutral bases", so everything
+    downstream of the seam shifts uniformly by ``register`` positions. A ``"rotation"`` edit does
+    something different in kind: nothing downstream of the interior moves at all, because the
+    interior is permuted in place at fixed absolute positions. Applying the insertion model to a
+    rotation variant produces reliably ~60-120 degrees of spurious error per unit of register,
+    far outside the 20 degree default -- it would fail genuinely correct families.
 
-    Boundary: both checks PASS when the measured value is exactly at the tolerance (``<=``).
+    There is no closed-form predicted phase for a partial-interior circular rotation with fixed
+    flanks, so under ``scheme="rotation"`` the phase is MEASURED AND REPORTED BUT NOT GATED, and
+    ``phase_gated`` is False with a stated reason. That is deliberately not the same thing as a
+    silently skipped gate: the register itself is verified EXACTLY, byte for byte, by
+    ``gate_designed_register``'s reconstruction check, which is a stronger test than any phase
+    tolerance. Gating here on a formula that does not describe the operator would be a check that
+    fails correct work while proving nothing.
+
+    AMPLITUDE, and where it must be measured. A circular rotation multiplies every DFT bin of the
+    ROTATED INTERIOR by a phase, so the interior's period-3 magnitude is EXACTLY invariant. The
+    WHOLE variant's magnitude is not: the protected flanks do not rotate, so the total is
+    |X_flank + X_interior * w^q| and the flank-interior interference makes it vary with the
+    register. Measuring amplitude on the whole sequence therefore fails correct rotation families
+    for a reason that has nothing to do with a defect -- it is the same interference that makes a
+    joined construct's period-3 power depend on register agreement at all.
+
+    So under ``scheme="rotation"``, when ``protect_5p``/``protect_3p`` are supplied, amplitude is
+    measured on the interior, where invariance is exact rather than approximate. Without them the
+    gate falls back to the whole sequence and says so in its output, because silently applying a
+    whole-sequence tolerance to a rotation family is how a correct family gets rejected.
+
+    Boundary: checks PASS when the measured value is exactly at the tolerance (``<=``).
     """
     _require_nonempty(variants)
     _require_registers(variants, intended_registers)
+    if scheme not in SEAM_TOLERANCE_DEFAULTS:
+        raise ValueError(
+            f"unknown scheme {scheme!r}; expected one of {sorted(SEAM_TOLERANCE_DEFAULTS)}"
+        )
+    phase_gated = scheme == "insertion"
     parent_amplitude, parent_phase = period3_component(parent)
+    interior_measured = (
+        scheme == "rotation" and protect_5p is not None and protect_3p is not None
+    )
+
+    def _amplitude_region(seq: str) -> str:
+        if not interior_measured:
+            return seq
+        return seq[int(protect_5p): len(seq) - int(protect_3p)]
+
     measured: dict[str, dict] = {}
     amplitudes: list[float] = []
     phase_failures: list[str] = []
     for name, seq in variants.items():
         amplitude, phase = period3_component(seq)
-        amplitudes.append(amplitude)
+        amplitudes.append(period3_component(_amplitude_region(seq))[0])
         register = int(intended_registers[name]) % 3
         span = seam_span(seq, parent)
         expected_coeff = _expected_seam_edit_coeff(
@@ -644,7 +676,7 @@ def gate_period3(
             "phase_error_deg": phase_error_deg,
             "phase_passed": phase_ok,
         }
-        if not phase_ok:
+        if phase_gated and not phase_ok:
             phase_failures.append(name)
     mean_amplitude = float(np.mean(amplitudes)) if amplitudes else 0.0
     if mean_amplitude > 0:
@@ -660,6 +692,30 @@ def gate_period3(
     passed = amplitude_ok and not phase_failures
     return {
         "gate": "period3",
+        "scheme": scheme,
+        "phase_gated": phase_gated,
+        "amplitude_measured_on": "interior" if interior_measured else "whole_sequence",
+        "amplitude_region_note": (
+            None
+            if interior_measured
+            else (
+                "measured on the WHOLE sequence. Under scheme='rotation' the protected flanks do "
+                "not rotate, so whole-sequence period-3 magnitude varies with register through "
+                "flank-interior interference and is not an invariant. Pass protect_5p/protect_3p "
+                "to measure the interior, where rotation invariance is exact."
+            )
+        ),
+        "phase_not_gated_reason": (
+            None
+            if phase_gated
+            else (
+                "a circular rotation permutes the interior in place with fixed flanks, so there "
+                "is no closed-form predicted phase; the insertion model would produce ~60-120 "
+                "degrees of spurious error and fail correct families. The register is verified "
+                "EXACTLY, byte for byte, by gate_designed_register's reconstruction check. Phase "
+                "is measured and reported here, not used as a pass/fail criterion."
+            )
+        ),
         "threshold": {
             "amplitude_relative_spread": float(amplitude_tolerance),
             "phase_deg": float(phase_tolerance_deg),
@@ -1012,6 +1068,9 @@ def evaluate_family(
             intended_registers=intended_registers,
             amplitude_tolerance=t["period3_amplitude"],
             phase_tolerance_deg=t["period3_phase_deg"],
+            scheme=scheme,
+            protect_5p=protect_5p,
+            protect_3p=protect_3p,
         ),
         "created_motifs": gate_created_motifs(
             variants, parent=parent, tolerance=t["created_motifs"]
