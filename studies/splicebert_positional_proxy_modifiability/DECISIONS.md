@@ -315,6 +315,106 @@ route; it was not run on the trained arms.
 The artifact `lineage_pilot_v1.json` is **not** edited — it records `period3_band_power` and its
 bins, which is a correct measurement; only the prose reading of it was overstated.
 
+## 2026-08-12 (three-arm carrier dependence) — the pilot's rise is GENERIC CONTINUATION, and the
+## carrier question is answered on both halves
+
+**Authorization and scope change.** The user directed a three-arm engineering pilot in place of a
+re-run of the two pilot arms. Recorded here as their decision. It is an **engineering pilot** with
+**two training seeds**, one lineage triple each: *observed in two exploratory lineage triples*, not
+demonstrated. Every interval below covers **evaluation-parent resampling only**; across-seed figures
+are a **range** over two draws and bound nothing.
+
+**Artifact.** `results/splicebert_positional_proxy_modifiability/lineage_carrier_dependence_v1.json`
+(+ sibling manifest), from
+`scripts/splicebert_positional_proxy_modifiability/run_lineage_carrier_dependence.py`. Trained
+weights and every per-cell array are persisted outside the repository with sha256 in the artifact.
+
+**Gate passed first.** Checkpoint `2ad91428…0149d` verified; base `Ψ = +0.25625` against the
+recorded +0.256, coupling +0.04918 against +0.049, 479 cells — identical to the pilot's base reading
+in every printed digit.
+
+**Design changes, each closing a hole.** (1) a third arm **L0**, native continued pretraining on the
+*unedited* windows, same crop plan, masking draws, schedule, step count and token budget; (2)
+**`k = 10`** so the arms differ by 1–2 bases in 30 rather than 1–2 in 3 — this **reduces and does not
+remove** the edit-size confound (75,930 against 79,707 inserted bases, 5.0% apart); (3) a
+**phase-sensitive** complex-Fourier carrier readout; (4) a **difference-of-differences** endpoint
+against power-matched control bands; (5) health probes at every dose — coupling distribution, masked
+MLM top-1, masked donor-G top-1, masked acceptor-G top-1.
+
+**Finding 1 — the pilot's central reading does not survive the control arm.**
+
+| arm | seed 20260812 | seed 20260813 |
+|---|---|---|
+| **L0 native, no edit** | **+0.65616** [+0.52317, +0.80166] | **+0.73215** [+0.58131, +0.89119] |
+| L1 phase-preserving | +0.57863 [+0.46520, +0.70041] | +0.60421 [+0.46663, +0.75517] |
+| L2 phase-decoupled | +0.38725 [+0.29050, +0.49293] | +0.45628 [+0.33578, +0.58509] |
+
+`L0 > L1 > L2` in both seeds, and `L1 − L0` is negative and excludes zero in both (−0.0775
+[−0.1371, −0.0186]; −0.1279 [−0.2003, −0.0618]). **The rise in `Ψ` under continued pretraining is
+generic continuation, not phase-preservation.** The edit-matched `L1 − L2` contrast is still positive
+and material (+0.1914 [+0.1330, +0.2469]; +0.1479 [+0.0869, +0.2096]), so residue mod 3 does move
+`Ψ` — but between two edited arms that both sit *below* native, i.e. the phase-decoupled edit
+suppresses the generic rise rather than the phase-preserving edit causing it.
+
+**This bounds the 2026-08-12 pilot entry.** Its sentence "Phase-preserving continuation
+**strengthened** the boundary preference by 2.5×" attributed to phase what a no-edit arm reproduces
+and exceeds; it is withdrawn as an attribution and survives only as "continued pretraining on these
+windows raised `Ψ`". Its sentence "Phase-decoupled continuation left it at baseline" is withdrawn
+twice over: it was a non-detection read as an equivalence, and at `k = 10` `L2 − base` is in fact
+resolved and material (+0.1310 [+0.0516, +0.2188]; +0.2000 [+0.0994, +0.3051]). The pilot artifact
+is **not** edited — its numbers are correct measurements of a two-arm design; what is withdrawn is
+the causal attribution the prose drew from them.
+
+**Finding 2 — training did not move the carrier, and this time it was measured.** Complex rFFT bins
+339–345 of the mean-centred position table, per bin and per hidden dimension: every arm-vs-base
+per-bin rotation is under **1.1°** (under **0.009 nt** of equivalent translation), coherence stays
+above 0.998, band power sits within +0.52% to +0.85% of base, per-bin energy total variation is
+≤ 0.0044 and per-dimension ≤ 0.0021 with top-8 dimension overlap 1.000. L1-vs-L2 rotation is ≤ 0.34°.
+The arms are separated by neither carrier amplitude, nor carrier phase, nor carrier redistribution —
+which is a **stronger and differently-supported statement** than the pilot's phase-blind band power,
+and it is the readout the 2026-08-12 bounding entry above said was missing.
+
+**Finding 3 — every checkpoint's `Ψ` depends on the carrier, the trained ones included.** `Ψ`
+retention under period-3 attenuation at dose 0.50: base 10.7%, L0 14.7%/18.1%, L1 **15.8%/17.8%**,
+L2 16.1%/19.5%; the three power-matched control bands at the same dose retain 97–117% everywhere.
+**L1's elevated preference collapses under carrier attenuation the way the base's does — training
+did not move the behaviour onto a different substrate.**
+
+**Finding 4 (primary endpoint) — the training contrast itself is carrier-dependent.** The difference
+of differences `[Ψ_L1 − Ψ_L2]_intact − [Ψ_L1 − Ψ_L2]_attenuated` at dose 0.50 is **+0.1623
+[+0.1029, +0.2186]** and **+0.1295 [+0.0741, +0.1868]** for period-3 — a gap retention of 15.2% and
+12.4% — against `DoD` between −0.025 and +0.018 and gap retention 89–113% for every control band. At
+the milder 0.75 dose the gap largely survives (77.1%, 91.6%), so the dependence appears between the
+0.75 and 0.50 rungs.
+
+**R12/R13, applied.** At dose 0.50 the trained arms hold masked MLM at 97–99% of intact and the
+acceptor-AG motif probe at 0.797–0.814 (intact 0.785–0.827), while coupling **magnitude** retention
+is 28–38% — band-specifically, since control bands at the same dose hold magnitude at 98–109%. That
+rung is read. **The 0.25 and 0.00 rungs are not read**: the AG probe falls to 0.58–0.72 and coupling
+magnitude to 15–25%, which is a destroyed behaviour.
+
+**This also qualifies the 2026-08-12 (final) base-checkpoint entry.** That entry's dose table is
+reproduced here to the digit from a committed runner (61.7% / 10.7% / 3.3%, control 111.2%, signed
+coupling 114.3% and 76.7%). But its reading of the 114% signed-mean ratio as "the general behaviour
+is fully intact" and its conclusion "established without destroying anything" are **too strong**: at
+that same dose the base's coupling magnitude retention is 34.8% and its acceptor-AG probe falls
+13 points, from 0.7474 to 0.6159. The **band specificity is untouched** — every control band retains
+`Ψ`, magnitude, MLM and the motif probe — so the supportable statement is that period-3 attenuation
+degrades `Ψ` *faster* than the general behaviour, band-specifically, with the general behaviour
+measurably degraded too.
+
+**`Ω3` was not run**, and no capability preflight for it was run. Imposed relocation is a different
+question from trained phase movement and neither stands in for the other.
+
+**Effect on claim scope.** No claim row is added and none is changed. `PPM1` is untouched. This is a
+two-seed engineering pilot; it licenses no mechanism, route, or biological statement, and the
+`ΔΨ`-as-reinforcement reading of the earlier pilot is withdrawn as an attribution.
+
+**Affected files.** This log; `results/splicebert_positional_proxy_modifiability/RESULTS_INDEX.md`;
+`studies/splicebert_positional_proxy_modifiability/RESULTS.md`; `README.md`; `results/MANIFEST.csv`
+and `results/MANIFEST.json`; new `src/gfmcd/splicing/carrier_phase.py`, new runner, and new/extended
+tests in `tests/test_carrier_phase.py` and `tests/test_lineage_pretraining.py`.
+
 ## 2026-08-12 — pilot wording tightened, and a permanent preflight rule
 
 **Three wording corrections, adopted.** The pilot entry above was still overclaiming in three

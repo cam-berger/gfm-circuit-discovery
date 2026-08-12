@@ -603,6 +603,178 @@ def corpus_digest(sequences: Iterable[str]) -> str:
     return hasher.hexdigest()
 
 
+# ------------------------------------------------------------------------------------------
+# Corpus composition and edit accounting
+# ------------------------------------------------------------------------------------------
+def kmer_profile(sequences: Iterable[str], k: int) -> dict[str, float]:
+    """Normalised k-mer frequencies over a corpus, as a plain dictionary.
+
+    The paired indel duplicates exonic bases and deletes intronic ones, so the arms are *nearly*
+    but not exactly composition-matched, and the L0 (unedited) arm is not edit-matched to either.
+    "Only the residue mod 3 differs" is a design intention; this function is how it is checked
+    rather than asserted. Frequencies, not counts, so corpora of different total length compare.
+    """
+    if k <= 0:
+        raise ValueError(f"k must be positive, got {k}")
+    counts: dict[str, int] = {}
+    total = 0
+    for sequence in sequences:
+        text = str(sequence)
+        for start in range(len(text) - k + 1):
+            counts[text[start : start + k]] = counts.get(text[start : start + k], 0) + 1
+            total += 1
+    if total == 0:
+        raise ValueError(f"no k-mers of length {k} in the corpus")
+    return {kmer: count / total for kmer, count in counts.items()}
+
+
+def profile_distance(left: dict[str, float], right: dict[str, float]) -> dict[str, float]:
+    """Distance between two k-mer profiles: total variation, L1, and the worst single k-mer.
+
+    Total variation is half the L1 distance and is the interpretable one -- it is the largest
+    difference in probability the two corpora assign to any single event, and 0 means the two
+    compositions are identical to the digit.
+    """
+    keys = set(left) | set(right)
+    if not keys:
+        raise ValueError("both profiles are empty")
+    differences = [abs(float(left.get(key, 0.0)) - float(right.get(key, 0.0))) for key in keys]
+    l1 = float(sum(differences))
+    return {
+        "total_variation": 0.5 * l1,
+        "l1": l1,
+        "max_abs_difference": float(max(differences)),
+        "n_kmers_union": float(len(keys)),
+    }
+
+
+def edit_budget(offsets: Sequence[int]) -> dict[str, int]:
+    """Total inserted bases, deleted bases and edit operations for one arm's per-window offsets.
+
+    The paired indel is exactly two operations per edited window -- one deletion of ``offset``
+    bases and one insertion of ``offset`` bases -- so inserted and deleted totals are equal by
+    construction and the window length is preserved. An unedited arm passes an all-zero (or
+    empty) offset list and receives an all-zero budget, which is the statement that it carries no
+    edit at all, not that its edit happened to cancel.
+    """
+    values = [int(value) for value in offsets]
+    if any(value < 0 for value in values):
+        raise ValueError("offsets must be non-negative")
+    edited = [value for value in values if value > 0]
+    return {
+        "windows": len(values),
+        "edited_windows": len(edited),
+        "inserted_bases": int(sum(edited)),
+        "deleted_bases": int(sum(edited)),
+        "edit_operations": 2 * len(edited),
+        "edits_per_edited_window": 2 if edited else 0,
+        "max_offset": max(values) if values else 0,
+        "min_nonzero_offset": min(edited) if edited else 0,
+    }
+
+
+# ------------------------------------------------------------------------------------------
+# Shared bootstrap draws
+# ------------------------------------------------------------------------------------------
+def cluster_draw_indices(
+    clusters: Sequence[str], delta: Sequence[int], *, n_boot: int, seed: int
+) -> tuple[tuple, ...]:
+    """Precompute the cluster resampling draws ``cluster_bootstrap`` would take.
+
+    Returns one ``(matched_indices, mismatched_indices)`` pair per non-degenerate replicate.
+    Splitting the draws out from the arithmetic is what lets **every** condition in a dose ladder
+    be resampled on the **same** draws: differences between conditions are then paired, and a
+    difference-of-differences interval is not inflated by independent resampling noise in each
+    of its four terms.
+
+    The draw sequence is byte-for-byte the one ``cluster_bootstrap`` produces for the same
+    ``seed`` -- same generator, same order, same degenerate-draw skip rule -- so the two cannot
+    silently diverge. ``tests/test_lineage_pretraining.py`` asserts that equality.
+    """
+    import numpy as np
+
+    labels = np.asarray(delta, dtype=np.int64)
+    groups = np.asarray(clusters, dtype=object)
+    if groups.shape != labels.shape:
+        raise ValueError("clusters must align with delta")
+    unique = np.unique(groups)
+    index_of = {g: np.where(groups == g)[0] for g in unique}
+    rng = np.random.default_rng(seed)
+    draws: list[tuple] = []
+    for _ in range(int(n_boot)):
+        picked = rng.choice(unique, size=len(unique), replace=True)
+        idx = np.concatenate([index_of[g] for g in picked])
+        sub = labels[idx]
+        matched = sub == 0
+        if not matched.any() or matched.all():
+            continue                      # degenerate draw: no contrast to compute, skip it
+        draws.append((idx[matched], idx[~matched]))
+    return tuple(draws)
+
+
+def psi_replicates(values: Sequence[float], draws: Sequence[tuple]):
+    """``Psi`` on each precomputed draw. One row per draw, in draw order."""
+    import numpy as np
+
+    arr = np.asarray(values, dtype=np.float64)
+    return np.asarray(
+        [float(arr[matched].mean() - arr[mismatched].mean()) for matched, mismatched in draws],
+        dtype=np.float64,
+    )
+
+
+def percentile_interval(replicates, estimate: float, *, alpha: float = 0.05) -> dict:
+    """A two-sided percentile interval around a point estimate computed on the full sample.
+
+    The point estimate is **not** the mean of the replicates: a bootstrap mean is a different
+    quantity and reporting it as the estimate silently substitutes a shrunk value for the one the
+    data gave.
+    """
+    import numpy as np
+
+    arr = np.asarray(replicates, dtype=np.float64)
+    if not 0.0 < alpha < 1.0:
+        raise ValueError(f"alpha must lie in (0, 1), got {alpha}")
+    return {
+        "estimate": float(estimate),
+        "ci_low": float(np.quantile(arr, alpha / 2.0)) if arr.size else float("nan"),
+        "ci_high": float(np.quantile(arr, 1.0 - alpha / 2.0)) if arr.size else float("nan"),
+        "n_boot_used": int(arr.size),
+    }
+
+
+def sesoi_verdict(interval: dict, sesoi: float) -> str:
+    """Classify an interval against a smallest effect of interest. NEVER returns "no effect".
+
+    An interval that covers zero is only evidence of absence when it *also* excludes everything
+    the programme would call material. The four verdicts are:
+
+    * ``resolved_material`` -- excludes zero and lies wholly beyond ``+/-sesoi``;
+    * ``resolved_nonzero_materiality_unresolved`` -- excludes zero but straddles ``sesoi``;
+    * ``resolved_below_sesoi`` -- lies wholly inside ``(-sesoi, +sesoi)``: the effect, whatever
+      its sign, is smaller than the programme cares about. This is the only equivalence-shaped
+      verdict, and it requires the interval to be that tight;
+    * ``unresolved`` -- covers zero *and* effects beyond ``sesoi``. **Non-detection, not
+      equivalence.** "left it at baseline" is exactly the wording this verdict forbids.
+    """
+    low = float(interval["ci_low"])
+    high = float(interval["ci_high"])
+    if not (low == low and high == high):        # NaN endpoints: nothing was resolved
+        return "unresolved"
+    if low > high:
+        raise ValueError(f"interval endpoints are inverted: [{low}, {high}]")
+    magnitude = abs(float(sesoi))
+    covers_zero = low <= 0.0 <= high
+    within_sesoi = -magnitude <= low and high <= magnitude
+    if within_sesoi:
+        return "resolved_below_sesoi"
+    if covers_zero:
+        return "unresolved"
+    if low > magnitude or high < -magnitude:
+        return "resolved_material"
+    return "resolved_nonzero_materiality_unresolved"
+
+
 def period3_band_power(table, bins: Sequence[int]) -> float:
     """Total power in ``bins`` of the mean-centred position table's row-wise rFFT.
 

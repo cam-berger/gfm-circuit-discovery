@@ -611,3 +611,191 @@ def test_period3_band_power_rejects_bins_outside_the_spectrum():
         period3_band_power(table, (1000,))
     with pytest.raises(ValueError, match="must not be empty"):
         period3_band_power(table, ())
+
+
+# ==========================================================================================
+# Corpus composition, edit accounting, and the shared bootstrap draws.
+# Added for the three-arm carrier-dependence run: "only the residue mod 3 differs" is a design
+# INTENTION, and these are the readouts that check it instead of asserting it.
+# ==========================================================================================
+def test_kmer_profile_is_a_normalised_frequency_table():
+    from gfmcd.splicing.lineage_pretraining import kmer_profile
+
+    profile = kmer_profile(["ACGT", "ACGT"], 1)
+    assert sum(profile.values()) == pytest.approx(1.0)
+    assert profile == {"A": 0.25, "C": 0.25, "G": 0.25, "T": 0.25}
+    assert kmer_profile(["AAAA"], 2) == {"AA": 1.0}
+
+
+def test_kmer_profile_rejects_nonsense():
+    from gfmcd.splicing.lineage_pretraining import kmer_profile
+
+    with pytest.raises(ValueError, match="k must be positive"):
+        kmer_profile(["ACGT"], 0)
+    with pytest.raises(ValueError, match="no k-mers"):
+        kmer_profile(["AC"], 5)
+
+
+def test_profile_distance_is_zero_for_identical_corpora_and_one_for_disjoint_ones():
+    from gfmcd.splicing.lineage_pretraining import kmer_profile, profile_distance
+
+    left = kmer_profile(["ACGTACGT"], 1)
+    assert profile_distance(left, left)["total_variation"] == pytest.approx(0.0)
+    disjoint = profile_distance(kmer_profile(["AAAA"], 1), kmer_profile(["CCCC"], 1))
+    assert disjoint["total_variation"] == pytest.approx(1.0)
+    assert disjoint["l1"] == pytest.approx(2.0)
+
+
+def test_profile_distance_detects_the_duplication_the_operator_introduces():
+    """A tandem duplication is a real composition change, and the readout must see it."""
+    from gfmcd.splicing.lineage_pretraining import kmer_profile, profile_distance
+
+    rng = np.random.default_rng(0)
+    source = "".join(rng.choice(list("ACGT"), size=400))
+    # Delete four bases early, duplicate four bases later: the operator's shape, length preserved.
+    edited = source[:40] + source[44:200] + source[196:200] + source[200:]
+    assert len(edited) == len(source)
+    distance = profile_distance(kmer_profile([source], 3), kmer_profile([edited], 3))
+    assert distance["total_variation"] > 0.0
+
+
+def test_edit_budget_counts_two_operations_per_edited_window():
+    from gfmcd.splicing.lineage_pretraining import edit_budget
+
+    budget = edit_budget([30, 31, 32])
+    assert budget["windows"] == 3
+    assert budget["edited_windows"] == 3
+    assert budget["inserted_bases"] == 93
+    assert budget["deleted_bases"] == 93           # equal by construction: length is preserved
+    assert budget["edit_operations"] == 6
+    assert budget["max_offset"] == 32
+    assert budget["min_nonzero_offset"] == 30
+
+
+def test_edit_budget_of_an_unedited_arm_is_all_zero():
+    from gfmcd.splicing.lineage_pretraining import edit_budget
+
+    assert edit_budget([0, 0, 0]) == {
+        "windows": 3,
+        "edited_windows": 0,
+        "inserted_bases": 0,
+        "deleted_bases": 0,
+        "edit_operations": 0,
+        "edits_per_edited_window": 0,
+        "max_offset": 0,
+        "min_nonzero_offset": 0,
+    }
+
+
+def test_edit_budget_rejects_negative_offsets():
+    from gfmcd.splicing.lineage_pretraining import edit_budget
+
+    with pytest.raises(ValueError, match="non-negative"):
+        edit_budget([30, -1])
+
+
+def _bootstrap_fixture(n_clusters: int = 40, seed: int = 5):
+    rng = np.random.default_rng(seed)
+    clusters, delta = [], []
+    for index in range(n_clusters):
+        for offset in range(3):
+            clusters.append(f"g{index}")
+            delta.append(offset)
+    values = rng.normal(size=len(delta)) + (np.asarray(delta) == 0) * 0.5
+    return np.asarray(clusters, dtype=object), np.asarray(delta), values
+
+
+def test_shared_draws_reproduce_cluster_bootstrap_exactly():
+    """The paired-draw path must be the SAME resampling, not merely a similar one.
+
+    If these diverged, a dose ladder's intervals and the pilot's intervals would rest on
+    different draw sequences and could not be placed beside one another.
+    """
+    from gfmcd.splicing.lineage_pretraining import (
+        cluster_draw_indices,
+        percentile_interval,
+        psi_replicates,
+    )
+
+    clusters, delta, values = _bootstrap_fixture()
+    reference = cluster_bootstrap({"arm": values}, delta, clusters, n_boot=300, seed=11)["arm"]
+    draws = cluster_draw_indices(clusters, delta, n_boot=300, seed=11)
+    mine = percentile_interval(psi_replicates(values, draws), psi(values, delta))
+    assert mine["n_boot_used"] == reference["n_boot_used"]
+    assert mine["estimate"] == reference["estimate"]
+    assert mine["ci_low"] == reference["ci_low"]
+    assert mine["ci_high"] == reference["ci_high"]
+
+
+def test_shared_draws_make_a_difference_paired():
+    """Resampling two arms on the SAME draws is what makes their difference paired."""
+    from gfmcd.splicing.lineage_pretraining import cluster_draw_indices, psi_replicates
+
+    clusters, delta, values = _bootstrap_fixture()
+    draws = cluster_draw_indices(clusters, delta, n_boot=200, seed=3)
+    left = psi_replicates(values, draws)
+    right = psi_replicates(values + 0.25, draws)
+    # A constant shift cannot move Psi, and on paired draws the difference is exactly zero.
+    assert np.abs(left - right).max() < 1e-12
+
+
+def test_cluster_draw_indices_rejects_misaligned_inputs():
+    from gfmcd.splicing.lineage_pretraining import cluster_draw_indices
+
+    with pytest.raises(ValueError, match="clusters must align"):
+        cluster_draw_indices(["a", "b"], [0, 1, 2], n_boot=5, seed=1)
+
+
+def test_percentile_interval_reports_the_sample_estimate_not_the_bootstrap_mean():
+    from gfmcd.splicing.lineage_pretraining import percentile_interval
+
+    block = percentile_interval(np.asarray([0.0, 1.0, 2.0, 3.0, 4.0]), estimate=99.0)
+    assert block["estimate"] == 99.0
+    assert block["n_boot_used"] == 5
+    with pytest.raises(ValueError, match="alpha"):
+        percentile_interval(np.asarray([1.0]), estimate=1.0, alpha=0.0)
+
+
+def test_percentile_interval_of_no_replicates_is_nan_not_a_crash():
+    from gfmcd.splicing.lineage_pretraining import percentile_interval
+
+    block = percentile_interval(np.asarray([]), estimate=0.5)
+    assert block["n_boot_used"] == 0
+    assert np.isnan(block["ci_low"]) and np.isnan(block["ci_high"])
+
+
+def test_sesoi_verdict_never_calls_a_wide_zero_covering_interval_an_absence():
+    """The wording rule, as arithmetic: covering zero is not equivalence.
+
+    An interval of [-0.03, +0.12] against a SESOI of 0.05 covers zero AND covers effects the
+    programme calls material. Reporting that as 'left it at baseline' is the exact overstatement
+    this verdict exists to block.
+    """
+    from gfmcd.splicing.lineage_pretraining import sesoi_verdict
+
+    assert sesoi_verdict({"ci_low": -0.03, "ci_high": 0.12}, 0.05) == "unresolved"
+
+
+def test_sesoi_verdict_classifies_the_four_cases():
+    from gfmcd.splicing.lineage_pretraining import sesoi_verdict
+
+    assert sesoi_verdict({"ci_low": 0.20, "ci_high": 0.40}, 0.05) == "resolved_material"
+    assert sesoi_verdict({"ci_low": -0.40, "ci_high": -0.20}, 0.05) == "resolved_material"
+    assert sesoi_verdict({"ci_low": -0.02, "ci_high": 0.03}, 0.05) == "resolved_below_sesoi"
+    assert (
+        sesoi_verdict({"ci_low": 0.01, "ci_high": 0.30}, 0.05)
+        == "resolved_nonzero_materiality_unresolved"
+    )
+
+
+def test_sesoi_verdict_of_a_nan_interval_is_unresolved():
+    from gfmcd.splicing.lineage_pretraining import sesoi_verdict
+
+    assert sesoi_verdict({"ci_low": float("nan"), "ci_high": float("nan")}, 0.05) == "unresolved"
+
+
+def test_sesoi_verdict_rejects_an_inverted_interval():
+    from gfmcd.splicing.lineage_pretraining import sesoi_verdict
+
+    with pytest.raises(ValueError, match="inverted"):
+        sesoi_verdict({"ci_low": 0.4, "ci_high": 0.1}, 0.05)

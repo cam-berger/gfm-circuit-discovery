@@ -11,14 +11,22 @@ a composition-balanced `Ψ` (or paired `ΔΨ`) measurement needs?** That questio
 statistical power, not biology, and `PPM1` — the study's only claim — answers it with no checkpoint
 loaded anywhere in its controlling artifacts.
 
-**Since 2026-08-12 the study also contains one model run.** A development-stage **pilot**
+**Since 2026-08-12 the study also contains two model runs.** A development-stage **pilot**
 (`results/splicebert_positional_proxy_modifiability/lineage_pilot_v1.json`) continue-pretrains
-SpliceBERT on two corpora differing only in a reading-frame residue mod 3. It backs **no claim row**,
-has **no independent audit**, and has **one training seed per arm**, so it is not a training-process
-statement; see [`RESULTS.md`](RESULTS.md)'s audit note and the two 2026-08-12 pilot entries in
-[`DECISIONS.md`](DECISIONS.md) — the second of which bounds the first's carrier wording — for the full
-scope. Earlier revisions of this README stated that no checkpoint is loaded anywhere in this study;
-that was true until that date.
+SpliceBERT on two corpora differing only in a reading-frame residue mod 3, and a three-arm
+**engineering pilot** (`lineage_carrier_dependence_v1.json`) adds the native no-edit control arm the
+first lacked. Both back **no claim row** and have **no independent audit**; the first has one
+training seed per arm and the second has two, so neither is a training-process statement. See
+[`RESULTS.md`](RESULTS.md)'s audit note and the 2026-08-12 entries in [`DECISIONS.md`](DECISIONS.md)
+for the full scope. Earlier revisions of this README stated that no checkpoint is loaded anywhere in
+this study; that was true until that date.
+
+**The second run bounds the first.** With a native, no-edit arm in place, the rise in `Ψ` under
+continued pretraining is **generic continuation** rather than phase-preservation: the unedited arm
+gives the *largest* `Ψ` in both seeds. What both runs do agree on, and what the second measures
+directly rather than inferring from a phase-blind number, is that the preference — trained or not —
+**depends on the learned period-3 carrier**, while training leaves that carrier's amplitude, phase
+and per-dimension distribution essentially untouched.
 
 `CLAIMS.md` currently carries exactly one row, **PPM1**: on the audited eligible census, no fresh
 gene-disjoint real-module panel can satisfy the single-checkpoint `Ψ` endpoint, the composition-balance
@@ -68,5 +76,7 @@ pilot does **not** resolve (it has one seed per arm and yields no seed-level L1/
 
 The study's **original premise is falsified** and is not claimed anywhere: the learned period-3 carrier
 is necessary for `Ψ` but does not encode which register is preferred, so no corpus manipulation can
-re-target the preference through the carrier. The pilot's `ΔΨ` is a *reinforcement* result on one
-lineage pair, not a re-targeting one, and it licenses no mechanism, route, or biological statement.
+re-target the preference through the carrier. The pilot's `ΔΨ` is not a re-targeting result, and it
+licenses no mechanism, route, or biological statement. It was described as a *reinforcement* result;
+that description is withdrawn — the three-arm run shows the reinforcement is generic continuation,
+and what residue mod 3 does is suppress it, between two edited arms that both sit below native.
