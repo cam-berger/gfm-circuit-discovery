@@ -1,0 +1,262 @@
+{
+  "meta": {
+    "phase": "05_component_feature_characterization",
+    "model": "InstaDeepAI/NTv3_8M_pre",
+    "seed": 42,
+    "runtime_seconds": 19.088796854019165,
+    "notes": [
+      "target component: deconv7_main (phase04's clearest transferable-signal carrier)",
+      "donor pool n=58 (unrelated-promoter + non-promoter donors from phase04's reconstruction)"
+    ],
+    "target_component": "deconv7_main",
+    "readout_depth_index": 15,
+    "readout_depth_label": "deconv7",
+    "donor_pool_size": 58,
+    "n_cv_folds": 5
+  },
+  "class_feature_differences": [
+    {
+      "feature": "cpg_count",
+      "promoter_mean": 3.8275862068965516,
+      "nonpromoter_mean": 4.586206896551724,
+      "diff": -0.7586206896551726
+    },
+    {
+      "feature": "probe_score",
+      "promoter_mean": 0.6679560013513127,
+      "nonpromoter_mean": 0.33475245444763113,
+      "diff": 0.3332035469036816
+    },
+    {
+      "feature": "cpg_obs_exp",
+      "promoter_mean": 0.5728071853165667,
+      "nonpromoter_mean": 0.822633152677962,
+      "diff": -0.24982596736139528
+    },
+    {
+      "feature": "gc_box_min_hamming",
+      "promoter_mean": 1.1379310344827587,
+      "nonpromoter_mean": 1.3448275862068966,
+      "diff": -0.2068965517241379
+    },
+    {
+      "feature": "gpc_count",
+      "promoter_mean": 6.0344827586206895,
+      "nonpromoter_mean": 5.827586206896552,
+      "diff": 0.2068965517241379
+    },
+    {
+      "feature": "tata_min_hamming",
+      "promoter_mean": 2.0,
+      "nonpromoter_mean": 1.8275862068965518,
+      "diff": 0.17241379310344818
+    },
+    {
+      "feature": "homopolymer_run",
+      "promoter_mean": 3.896551724137931,
+      "nonpromoter_mean": 3.7586206896551726,
+      "diff": 0.13793103448275845
+    },
+    {
+      "feature": "tata_present",
+      "promoter_mean": 0.10344827586206896,
+      "nonpromoter_mean": 0.0,
+      "diff": 0.10344827586206896
+    },
+    {
+      "feature": "gc_box_present",
+      "promoter_mean": 0.13793103448275862,
+      "nonpromoter_mean": 0.06896551724137931,
+      "diff": 0.06896551724137931
+    },
+    {
+      "feature": "sequence_entropy",
+      "promoter_mean": 1.8996476042795123,
+      "nonpromoter_mean": 1.948032856776807,
+      "diff": -0.04838525249729475
+    },
+    {
+      "feature": "caat_present",
+      "promoter_mean": 0.06896551724137931,
+      "nonpromoter_mean": 0.034482758620689655,
+      "diff": 0.034482758620689655
+    },
+    {
+      "feature": "initiator_present",
+      "promoter_mean": 0.3448275862068966,
+      "nonpromoter_mean": 0.3793103448275862,
+      "diff": -0.03448275862068961
+    },
+    {
+      "feature": "gc_fraction",
+      "promoter_mean": 0.5911330049261083,
+      "nonpromoter_mean": 0.5566502463054187,
+      "diff": 0.03448275862068961
+    },
+    {
+      "feature": "frac_T",
+      "promoter_mean": 0.19064039408866998,
+      "nonpromoter_mean": 0.22364532019704433,
+      "diff": -0.033004926108374355
+    },
+    {
+      "feature": "frac_C",
+      "promoter_mean": 0.29852216748768473,
+      "nonpromoter_mean": 0.28128078817733987,
+      "diff": 0.017241379310344862
+    },
+    {
+      "feature": "frac_G",
+      "promoter_mean": 0.2926108374384236,
+      "nonpromoter_mean": 0.2753694581280788,
+      "diff": 0.017241379310344807
+    },
+    {
+      "feature": "cpg_density",
+      "promoter_mean": 0.05467980295566501,
+      "nonpromoter_mean": 0.06551724137931034,
+      "diff": -0.010837438423645325
+    },
+    {
+      "feature": "gpc_density",
+      "promoter_mean": 0.08620689655172414,
+      "nonpromoter_mean": 0.08325123152709359,
+      "diff": 0.0029556650246305577
+    },
+    {
+      "feature": "frac_A",
+      "promoter_mean": 0.21822660098522173,
+      "nonpromoter_mean": 0.2197044334975369,
+      "diff": -0.0014778325123151748
+    }
+  ],
+  "rescue_correlations": [
+    {
+      "feature": "probe_score",
+      "spearman_rho": 0.726045095204405,
+      "spearman_p": 1.1244348597224646e-10
+    },
+    {
+      "feature": "sequence_entropy",
+      "spearman_rho": -0.5151734220665635,
+      "spearman_p": 3.5040114324014146e-05
+    },
+    {
+      "feature": "gc_fraction",
+      "spearman_rho": 0.35403902527710546,
+      "spearman_p": 0.006400856736899044
+    },
+    {
+      "feature": "cpg_obs_exp",
+      "spearman_rho": -0.34215190645695953,
+      "spearman_p": 0.008566395090591572
+    },
+    {
+      "feature": "gpc_count",
+      "spearman_rho": 0.3247193329135844,
+      "spearman_p": 0.01288431342275534
+    },
+    {
+      "feature": "gpc_density",
+      "spearman_rho": 0.3247193329135844,
+      "spearman_p": 0.01288431342275534
+    },
+    {
+      "feature": "frac_A",
+      "spearman_rho": -0.3045726259144281,
+      "spearman_p": 0.02009391897295209
+    },
+    {
+      "feature": "frac_T",
+      "spearman_rho": -0.2984477553509941,
+      "spearman_p": 0.02287214818484679
+    },
+    {
+      "feature": "gc_box_min_hamming",
+      "spearman_rho": -0.23385746406636013,
+      "spearman_p": 0.07725760347166484
+    },
+    {
+      "feature": "gc_box_present",
+      "spearman_rho": 0.22658162912667987,
+      "spearman_p": 0.08720064114210081
+    },
+    {
+      "feature": "frac_G",
+      "spearman_rho": 0.2177115115537121,
+      "spearman_p": 0.1006509067299341
+    },
+    {
+      "feature": "frac_C",
+      "spearman_rho": 0.17815348292367342,
+      "spearman_p": 0.18090527194238035
+    },
+    {
+      "feature": "initiator_present",
+      "spearman_rho": -0.1682233730258631,
+      "spearman_p": 0.20684804122734163
+    },
+    {
+      "feature": "homopolymer_run",
+      "spearman_rho": 0.16136181741438316,
+      "spearman_p": 0.22624343504602512
+    },
+    {
+      "feature": "caat_present",
+      "spearman_rho": -0.10928311850046714,
+      "spearman_p": 0.4141526091342398
+    },
+    {
+      "feature": "tata_min_hamming",
+      "spearman_rho": 0.10666927526616123,
+      "spearman_p": 0.42547290769722496
+    },
+    {
+      "feature": "cpg_density",
+      "spearman_rho": -0.09886783080636492,
+      "spearman_p": 0.4602860202572916
+    },
+    {
+      "feature": "cpg_count",
+      "spearman_rho": -0.09886783080636492,
+      "spearman_p": 0.4602860202572916
+    },
+    {
+      "feature": "tata_present",
+      "spearman_rho": -0.016276209138367446,
+      "spearman_p": 0.9034807208163825
+    }
+  ],
+  "cv_model_comparison": {
+    "probe_score_only": {
+      "mean_r2": 0.30196734799017916,
+      "fold_r2": [
+        0.3221872104144087,
+        0.014885086723598562,
+        0.6177422017640235,
+        0.40052877641205153,
+        0.15449346463681368
+      ]
+    },
+    "probe_score_plus_gc": {
+      "mean_r2": 0.29297546751006714,
+      "fold_r2": [
+        0.2851060525594443,
+        0.05435098853122289,
+        0.48779817067360953,
+        0.4225550626592198,
+        0.2150670631268392
+      ]
+    },
+    "full_biological_features": {
+      "mean_r2": -0.06105716783812394,
+      "fold_r2": [
+        -0.11287300610034845,
+        -0.23973804329217896,
+        0.5777904455689509,
+        -0.3277882245033772,
+        -0.20267701086366596
+      ]
+    }
+  }
+}
