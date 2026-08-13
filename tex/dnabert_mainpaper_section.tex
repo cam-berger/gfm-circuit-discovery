@@ -1,0 +1,136 @@
+\section{Transfer to Frozen DNABERT-2 Promoter Classification}
+\label{sec:dnabert}
+
+We next test whether the same behavior-first causal workflow transfers beyond SpliceBERT to a second
+genomic foundation model. We analyze a frozen DNABERT-2 encoder on promoter classification, using
+masked-mean pooled hidden states and a separately trained linear probe. This readout measures where
+promoter information is linearly accessible in the frozen representation; it is not a native pretrained
+DNABERT-2 output head. Candidate components are selected on validation data and evaluated on held-out
+test examples.
+
+\subsection{Frozen Representation and Corruption Localization}
+\label{sec:dnabert-representation}
+
+A corrected layer-wise probe sweep selects Layer~2 as the strongest frozen readout endpoint. On the
+held-out test split, the Layer-2 probe reaches approximately \(0.810\) balanced accuracy and \(0.892\)
+ROC--AUC, outperforming the strongest tested k-mer baseline. An earlier analysis selected Layer~5, but
+that endpoint was superseded after the frozen pipeline was corrected and rerun.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.94\linewidth]{images/figure1_frozen_layer_probe_validation.png}
+    \caption{\textbf{Frozen DNABERT-2 layer-wise promoter probing.}
+    Validation balanced accuracy and ROC--AUC peak at Layer~2, which is fixed as the downstream
+    readout for the subsequent frozen-model analysis. The selected Layer-2 probe reaches
+    \(0.810\) balanced accuracy and \(0.892\) ROC--AUC on the held-out test split.}
+    \label{fig:dnabert-layer-probe}
+\end{figure}
+
+Sequence corruption provides a complementary localization assay. Mononucleotide shuffling produces a
+substantially larger balanced-accuracy drop than dinucleotide-preserving shuffling, and the largest
+mononucleotide damage occurs at Layer~3 on both validation and held-out test trajectories. We therefore
+distinguish the strongest \emph{readout} layer (Layer~2) from the strongest corruption-sensitive
+\emph{processing} stage (Layer~3); the latter motivates component-level intervention rather than replacing
+the locked Layer-2 endpoint.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.94\linewidth]{images/figure3_test_corruption_trajectory_drops.png}
+    \caption{\textbf{Held-out DNABERT-2 corruption sensitivity.}
+    Balanced-accuracy damage under mononucleotide and dinucleotide-preserving corruption across layers.
+    Mononucleotide damage peaks at Layer~3, motivating targeted causal analysis of early components while
+    leaving Layer~2 fixed as the predictive readout.}
+    \label{fig:dnabert-corruption}
+\end{figure}
+
+\subsection{Component-Level Causal Localization}
+\label{sec:dnabert-causal}
+
+We next intervene on attention heads and structured groups in the early frozen network. Individual
+head ablations reveal heterogeneous effects, with several promoter-supporting heads concentrated in the
+early layers. These scans are used to generate candidates rather than to define a circuit by ranking
+alone.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.94\linewidth]{images/figure4_layer3_head_heatmap.png}
+    \caption{\textbf{Frozen DNABERT-2 head-ablation map.}
+    Promoter mean damage under head ablation across the tested early layers. More negative values indicate
+    components whose removal reduces promoter evidence. Marked heads are candidate components taken
+    forward to structured interventions.}
+    \label{fig:dnabert-head-map}
+\end{figure}
+
+Grouped ablation provides a stronger test of collective necessity. On the held-out test cohort, both the
+expanded pathway and the primary pathway damage promoter evidence in the large majority of promoter
+examples. This supports reproducible collective dependence on the selected component groups, but does
+not imply that the computation is sparse or that any single group is complete.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.90\linewidth]{images/figure6_test_grouped_ablation_fractions.png}
+    \caption{\textbf{Held-out grouped-ablation consistency.}
+    Fraction of promoter examples damaged by the validation-selected expanded and primary Layer-3
+    pathways. Both interventions affect most held-out promoters, supporting collective necessity of the
+    selected groups.}
+    \label{fig:dnabert-grouped-ablation}
+\end{figure}
+
+\subsection{Donor Transfer and Information Specificity}
+\label{sec:dnabert-donor}
+
+Ablation shows necessity but not whether a component carries recoverable promoter-relevant information.
+We therefore use donor-transfer interventions in which candidate internal activations are transplanted
+under matched and mismatched donor conditions. On held-out test examples, matched-promoter and same-class
+promoter donors yield positive mean recovery, whereas opposite-class non-promoter donors do not. This
+class-structured contrast is evidence that the tested pathway carries recoverable information related to
+the promoter decision rather than only generic activation magnitude.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.90\linewidth]{images/figure8_test_donor_matrix.png}
+    \caption{\textbf{Held-out Layer-3 donor-transfer matrix.}
+    Matched-promoter and same-class promoter donors produce positive recovery, whereas opposite-class
+    non-promoter donors do not. Zero activation provides a magnitude control and self-corrupt is the
+    reference baseline. The contrast supports class-structured recoverable information in the tested
+    pathway.}
+    \label{fig:dnabert-donor-matrix}
+\end{figure}
+
+\subsection{Biological Perturbation and Evidence Boundary}
+\label{sec:dnabert-tata}
+
+We separately test whether the frozen promoter representation reduces to sensitivity to canonical
+TATA-like promoter motifs. The current validation cohort contains 71 eligible promoters matching
+\texttt{TATA[AT][AT]}; 48 contain the canonical \texttt{TATAAA} pattern. The mean excess effect is
+\(0.074\) across all eligible TATA-like cases and \(0.145\) within the \texttt{TATAAA} subgroup, but the
+effects are heterogeneous and not statistically conclusive under the current assay. We therefore do not
+interpret the frozen DNABERT-2 mechanism as a TATA-box detector.
+
+\begin{table}[t]
+    \centering
+    \caption{\textbf{Exploratory frozen DNABERT-2 TATA-like perturbation results.}
+    These validation-stage results are treated as a biological hypothesis test, not as a confirmed
+    semantic interpretation of the causal components.}
+    \label{tab:dnabert-tata}
+    \small
+    \begin{tabular}{lrrrl}
+        \toprule
+        Cohort & \(n\) & Mean excess & Fraction \(>0\) & Interpretation \\
+        \midrule
+        All TATA-like & 71 & 0.074 & 0.521 & Not conclusive \\
+        TATAAA & 48 & 0.145 & 0.563 & Suggestive, not conclusive \\
+        TATATA & 14 & 0.027 & -- & Not conclusive \\
+        TATAAT & 4 & -0.549 & -- & Too small \\
+        TATATT & 5 & 0.029 & -- & Too small \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Taken together, the DNABERT-2 extension establishes a second-model transfer of the experimental
+workflow: promoter information is predictively accessible in the frozen model, corruption identifies an
+early sensitive stage, structured ablations test collective necessity, and donor interventions test
+recoverable information. The present evidence does not establish a fully mapped promoter-recognition
+circuit or a biologically identified TATA-specific mechanism. A matched fine-tuned DNABERT-2 analysis is
+being developed separately to test whether supervised training preserves, concentrates, or reorganizes
+this frozen computation.
