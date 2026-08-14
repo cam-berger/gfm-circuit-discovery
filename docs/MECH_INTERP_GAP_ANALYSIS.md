@@ -2,7 +2,8 @@
 
 > **Tier: T2 — advisory.** Tracks method coverage and open opportunities. Not a claims ledger.
 >
-> Current as of 2026-08-04. Re-read CLAIMS.md and ROADMAP.md before acting on any item here.
+> Method inventory current as of 2026-08-04; the paper-location note reflects the current in-tree draft.
+> Re-read CLAIMS.md and ROADMAP.md before acting on any item here.
 >
 > **Provenance.** Authored on branch `jeyashree-ajay` (Jeyashree Krishnan, Ajay — Algoverse CSAP cohort
 > 2026) and ported here on 2026-08-04. Five module paths were corrected against the tree during the port
@@ -196,21 +197,19 @@ against the full transplant.
 
 ---
 
-## 3. Recommended additions for the NeurIPS workshop submission
+## 3. Relation to the current paper draft
 
-The paper lives on the `jeyashree-ajay` branch (`tex/splicebert_neurips_2026.tex`); it is **not** in this
-tree, so the two edits below must be made there, not here. Recorded so the recommendation is not lost:
+The current anonymous NeurIPS 2026 main-track draft now lives at
+[`../tex/splicebert_neurips_2026.tex`](../tex/splicebert_neurips_2026.tex). Its purpose is not to claim that
+the repository has exhausted the mechanistic-interpretability toolkit. It uses the interventions already in
+the scientific record to show an evidence-gated transition from model behavior, through causal organization
+and measured boundaries, to a testable biological hypothesis.
 
-1. **Add one sentence to §3.3 (Faithfulness)** noting that an ACDC/EAP run is the natural next step to
-   validate the structured core as the minimal sufficient graph. This converts a limitation into an
-   explicit open direction — which reviewers respond to better than an unacknowledged gap.
-
-2. **Add a paragraph in §4 (Discussion)** about gradient attribution as the next candidate-generation
-   step for payload semantics. The sentence "its semantic identity remains unresolved" already appears;
-   add what method class would resolve it.
-
-These are prose additions, not code. They cost nothing and protect against a reviewer saying "why not
-ACDC?" or "why no attribution?"
+This advisory analysis predates that manuscript and does not control its scope. The ACDC/EAP, gradient,
+lens, steering, and SAE suggestions above are optional follow-up methods, not missing evidence silently
+required to license the draft's current claims. If one becomes part of a scientific claim, it must enter the
+normal preflight, intervention, null-comparison, immutable-artifact, and claim-ledger workflow before the
+paper can cite it as a result.
 
 ---
 

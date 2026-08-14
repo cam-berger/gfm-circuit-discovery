@@ -64,7 +64,9 @@ bridge.
 
 ---
 
-## Bridge 2 — period-3 carrier
+## Bridge 2 — period-3 carrier and coding-boundary register preference
+
+**Evidence level reached: two separate model-internal results; their causal bridge is unresolved.**
 
 Only two claims are licensed:
 
@@ -79,6 +81,24 @@ L3H1's attention pattern within the tested intervention. Nucleotide-invariant lo
 phase-aligned causal use in CDS blocks: **Ψ_C = +0.141 [0.110, 0.172] raw logit units**, n=943, and the
 learned direction exceeds all 19 same-geometry controls (C36).
 
+C43 establishes a separate behavior-level result: in one fixed 120-nt chimeric crossed lattice,
+masked-donor coupling is stronger for GENCODE-annotated donor–acceptor boundary-register matches than
+mismatches, **Ψ = +0.3901 [0.3553, 0.4252] raw logit units**. This does not establish the same preference
+in native sequence, does not show that coupling occurs only for register matches, and leaves stop-load and
+codon-position composition as live alternatives. C44 attempted to test period-3 mediation of that preference,
+but four frozen authorization gates failed and the target cohort was never exposed. It licenses neither a
+positive, a null, nor an inverted mechanism conclusion.
+
+The paper therefore treats the relationship as a discriminating hypothesis rather than a mechanism claim:
+
+> Period-3 geometry may provide positional coupling gain, while still-unidentified boundary content
+> determines where that gain is engaged.
+
+Testing this bridge requires register manipulations matched for span, motifs, edit dose, stop load, and
+composition, crossed with a capable phase-specific intervention and read out both internally and at the
+native margin. External reporter validation would be a later bridge. Until those steps pass, neither
+reading-frame sensing nor a cellular splicing mechanism is established.
+
 The comparative checkpoint evidence attributes the carrier to multi-species pretraining (C39/C40): it
 is strong in the 72-species stage-1 sibling, absent below a powered detection floor in the matched
 human-only sibling, and absent from the tested ORF-free ncRNA transformer MLMs. This comparison does
@@ -89,8 +109,9 @@ Coding-specific and reading-frame interpretations are not supported. C36's match
 CDS-minus-non-CDS-exon contrast is **+0.006 [−0.080,+0.093]**, n=52 pairs, and C19 finds no dependence of
 the delivered signal on intron length modulo 3 or annotated splice phase. Codon periodicity is a
 plausible corpus correlate, but the evidence does not establish coding enrichment, reading-frame
-semantics, or why training constructed the coordinate. Those questions require checkpoint trajectories
-or controlled corpus/objective ablations.
+semantics, period-3 implementation of the C43 preference, or why training constructed the coordinate.
+Those questions require the matched interaction above, checkpoint trajectories, or controlled
+corpus/objective ablations.
 
 ---
 
@@ -156,6 +177,6 @@ name, and the `U2AF1` vocabulary row for the constructions that are forbidden ou
 | Bridge | Licensed statement | Boundary |
 |---|---|---|
 | Donor–acceptor coupling ↔ intron definition | Partner-specific cross-intron communication has the functional geometry of intron definition. | ED1 failed its planted-confound gate; no intron/exon-definition implementation claim is licensed. |
-| Period-3 carrier | Current role is distributed relative-positional routing; comparative origin is associated with multi-species pretraining. | Coding specificity, reading-frame semantics, training dynamics, and a clean species-diversity causal contrast are not established. |
+| Period-3 carrier and boundary-register preference | Period-3 geometry is causally used in routing, and a separate fixed-span chimeric assay finds stronger coupling for annotated boundary-register matches. Together they motivate a positional-scaffold/content-gating hypothesis. | C44's mediation instrument failed authorization; the two results are not causally connected. Coding specificity, reading-frame semantics, native-sequence generality, and cellular splicing are not established. |
 | ≈10.63 carrier ↔ nucleosome | The carrier reaches attention, but the measured ≈10.298 nucleosomal signal is distinct. | General function and biological correlate remain open. |
 | 3′-boundary organisation ↔ U2AF1 recognition | **None — nothing is licensed.** The BG1 development preflight was instrument-unresolved; BG1 validation and BG2 were not run. | A positional parallel motivated by published biology; it can never become a protein identification, and the failed instrument supplies no model or biological result. |

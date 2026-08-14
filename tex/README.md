@@ -1,143 +1,123 @@
-# `tex/` — workshop paper source
+# `tex/` — NeurIPS 2026 paper draft
 
-> **Tier: T3 — draft.** Not authoritative for any claim. Where this directory and a claim ledger
-> disagree, **the ledger wins** and the paper is wrong.
+> **Tier: T3 — draft.** This directory is the current paper workspace, not a claim authority. If the
+> manuscript differs from a study claim ledger, correction ledger, or preregistration-conformance record,
+> the paper must be corrected.
 
-## What is here
+## Canonical draft
 
-| File | What it is |
+[`splicebert_neurips_2026.tex`](splicebert_neurips_2026.tex) is the current anonymous NeurIPS 2026
+main-track manuscript, **“Mechanistic Discovery in Genomic Foundation Models.”** The source and its author-kit
+dependencies were imported unchanged from the supplied NeurIPS bundle. The older
+[`neurips_2026_gfm_causal_discovery.tex`](neurips_2026_gfm_causal_discovery.tex) is a superseded predecessor
+and is not a build or editing target.
+
+The paper asks whether causal interpretability can turn a regularity learned by a genomic foundation model
+into an experimentally distinguishable discovery hypothesis. SpliceBERT is the worked case study. The paper
+is organized around four steps:
+
+1. establish a selective, model-native paired-boundary behavior on sealed gene-disjoint data;
+2. resolve an ordered **address → payload → write → delivery** computation with nested interventions;
+3. use cross-gene transfer and complement scrubbing to delimit what that account explains; and
+4. use two still-unconnected positional findings to motivate a testable positional-scaffold/content-gating
+   hypothesis and the experiments that could distinguish it from alternatives.
+
+The intended contribution is methodological and hypothesis-generating. The draft does **not** claim that
+SpliceBERT predicts cellular splicing, that the acceptor-local payload has a known biological identity, that
+the compact causal core is minimal or autonomously faithful, that period-3 geometry implements annotated
+coding-register preference, or that the SpliceBERT mechanism transfers wholesale to another GFM.
+
+## Author-kit contents
+
+The following files are the intact payload of the supplied NeurIPS 2026 bundle. Finder metadata from
+`__MACOSX/` is intentionally excluded.
+
+The import baseline is `Formatting_Instructions_For_NeurIPS_2026-2.zip`, SHA-256
+`38fd47e787451caef89c368bfa172b6f827622d13bc16bac5bca610eb4074937`. Every listed payload matched its
+archive member byte for byte at import. Later manuscript edits should be ordinary reviewed changes and
+must not be described as bundle-identical.
+
+| File | Role |
 |---|---|
-| `neurips_2026_gfm_causal_discovery.tex` | "Causal Mechanistic Discovery in Genomic Foundation Models" — the current draft. **Incomplete:** empty abstract, four live `[TODO:]` markers, two stub figure captions, and an empty §5. |
-| `refs.bib` | Bibliography, ported from branch `jeyashree-ajay`. **12 entries; the draft cites ~21 keys.** |
-| `checklist.tex` | NeurIPS responsible-use checklist, ported from the same branch. |
+| `splicebert_neurips_2026.tex` | Canonical anonymous main-track draft and appendices. |
+| `fig_headline.png` | Headline paired-boundary and positional-content figure. |
+| `figure_2.png` | Positional-results and scaffold-hypothesis figure. |
+| `refs.bib` | Bibliography used by the canonical draft. |
+| `checklist.tex` | Official NeurIPS paper checklist, included at the end of the manuscript. |
+| `neurips_2026.sty` | NeurIPS 2026 formatting package supplied with the author kit. |
+| `neurips_2026.tex` | Official author-kit example and formatting instructions. |
 
-A different and fuller paper, `tex/splicebert_neurips_2026.tex`, exists on `jeyashree-ajay` (it has an
-abstract, introduction, and related work, and all of its citations resolve). **Decide which draft is
-canonical before investing more effort** — they are not the same manuscript.
+These third-party formatting files remain subject to their upstream terms; tracking them here does not
+relicense them under the repository’s MIT license. See
+[`docs/THIRD_PARTY_ASSETS.md`](../docs/THIRD_PARTY_ASSETS.md).
+
+## Draft state
+
+The imported draft is current but not submission-ready:
+
+- the reciprocal-acceptor paragraph and DNABERT-2 comparison each end in a literal `TODO`;
+- the official checklist still contains its unanswered `[TODO]` fields; and
+- the acceptor-context paragraph describes branch-local source-audit and cohort-builder work that is not
+  included as a checkable implementation or registered artifact in this tree; only its draft protocol is
+  preserved here;
+- the anonymous appendix names `origin/padmaja/dnabert-clean-pipeline`, which requires an anonymity review
+  before submission;
+- scientific language must continue to be checked against the live ledgers and
+  [`docs/PREREG_CONFORMANCE.md`](../docs/PREREG_CONFORMANCE.md).
+
+Those markers are retained because the bundle is the source of truth for this import. Resolve them in a
+subsequent manuscript-editing change; do not silently substitute text from an older branch draft.
+
+## Figure provenance status
+
+The imported PNGs are the figures used by the current draft, but neither currently has an in-repository
+generator or provenance sidecar. Their scientific panels should be checked against these records before
+submission:
+
+- `fig_headline.png` draws on the sealed paired-acceptor behavior and matched stage-1 carrier-origin
+  comparison; its curves and attention intensity are explicitly schematic in the manuscript caption.
+- `figure_2.png` combines C36's phase-aligned period-3 intervention with C43's fixed-span chimeric
+  register preference; its bridge panel is a hypothesis, and C44 supplies no mediation result.
+
+Until source declarations or generators are added, these bitmaps do not satisfy the repository's normal
+generated-figure provenance standard. This is a packaging limitation, not new scientific evidence.
 
 ## Building
 
+Run the standard BibTeX sequence from this directory:
+
 ```bash
-cd tex && pdflatex neurips_2026_gfm_causal_discovery && bibtex neurips_2026_gfm_causal_discovery \
-  && pdflatex neurips_2026_gfm_causal_discovery && pdflatex neurips_2026_gfm_causal_discovery
+pdflatex -interaction=nonstopmode -halt-on-error splicebert_neurips_2026.tex
+bibtex splicebert_neurips_2026
+pdflatex -interaction=nonstopmode -halt-on-error splicebert_neurips_2026.tex
+pdflatex -interaction=nonstopmode -halt-on-error splicebert_neurips_2026.tex
 ```
 
-**It will not build yet.** `neurips_2026.sty` is not in this repository and is not in its history.
-Download it from the NeurIPS 2026 author kit and place it in `tex/`. It is **deliberately gitignored**:
-the conference style file carries its own licence terms and should not be redistributed here without
-checking them. No TeX toolchain is installed on the development machine, so no build has been executed
-against this draft — the defect list below is from source inspection, not from a compiler.
+The submission source uses `\usepackage[main]{neurips_2026}` for anonymous main-track review. Do not enable
+`final` or `preprint` for the review PDF. LaTeX products (`.aux`, `.bbl`, `.blg`, `.log`, `.out`, and `.pdf`)
+are ignored and should not be committed.
 
-`\graphicspath` was repaired on import: the draft arrived with a literal `{{TODO:}{./figures/}}`, which
-resolves nothing from `tex/`. It now points at `../figures/splicebert/`, where both included figures
-(`fig_full_circuit.pdf`, `fig5_p3_phase_surgery_confirmation.pdf`) actually live. **That is the only
-edit made to the draft.** Nothing else — no number, no sentence, no caption — was altered.
+## Claim authority and editing guardrails
 
-## Audit against the claim ledger — READ BEFORE SUBMITTING
+Use these records when checking or revising scientific prose:
 
-The draft was checked against `studies/splicebert_partner_selection/CLAIMS.md`, `CORRECTIONS.md`,
-`docs/NOMENCLATURE.md`, `docs/EVIDENCE_LADDER.md`, and the controlling artifacts under `results/`.
+1. [`studies/splicebert_partner_selection/CLAIMS.md`](../studies/splicebert_partner_selection/CLAIMS.md)
+   and its [`CORRECTIONS.md`](../studies/splicebert_partner_selection/CORRECTIONS.md) control the donor
+   mechanism, period-3 carrier, transfer, faithfulness, and coding-register claims.
+2. [`MECHANISM.md`](../MECHANISM.md) gives the current one-file mechanism and limitation narrative.
+3. [`docs/EVIDENCE_LADDER.md`](../docs/EVIDENCE_LADDER.md) controls promotion between observation,
+   intervention, mediation, directed-circuit, and biological claims.
+4. [`docs/PREREG_CONFORMANCE.md`](../docs/PREREG_CONFORMANCE.md) controls whether a preregistered gate may
+   be described as enforced.
+5. The claim-to-artifact map in the manuscript appendix identifies the compact results behind selected
+   statements; it is not a replacement for the ledgers.
 
-**Most numbers are correct.** Verified reproducing exactly from the artifacts: `+0.872 [0.771,0.969]`
-and the `+0.007`/`+0.005` controls (C1/C2); `81.6%` / `99.2%` (C3); joint `+0.365 [0.328,0.399]`,
-address-only `+0.01`, payload-only `+0.05` (C23, `a2_address_payload.json`); `0.946→0.027` (C8);
-`0.363`/`0.348` and the `0.042` one-head null max (C9); `+0.284 [0.192,0.386]` and `−0.005
-[−0.013,0.003]` (C35); `435×`/`6.2×` and `369×`/`2.4×` (C39); the eight Level-A reader heads and the
-`27–44 / 89–97 / ~100 / 93–107%` retention series; `−0.033 [−0.061,−0.005]` (C37); `0.002–0.003` (C12);
-the 60-Mb spectrum; and the `0.33`-nt gap at "about seven times the larger measured wavelength spread"
-(R37-compliant — the draft correctly avoids the withdrawn carrier-precision figure). The draft is also
-clean on the three retired labels `docs/NOMENCLATURE.md` guards: neither superseded Fourier-bin
-wavelength appears, and the payload-semantics term withdrawn under R22 does not appear — line 160
-correctly reads "Its semantic identity remains unresolved."
+Keep these boundaries explicit in every revision:
 
-**The following do not survive checking.** None is fixed here; all are the author's to resolve.
-
-### Blocking — would misstate the record
-
-1. **`L3H1 0.830 [0.654,0.994]`, `L2H15 0.515 [0.396,0.625]` described as "held-out denoising".**
-   Verified: these come from `results/splicebert_coupling/development/ablation_scan.json`, whose
-   manifest reads `"status": "EXPLORATORY"` and `"Exhaustive per-head ABLATION (necessity)"`. Three
-   problems at once — it is an **ablation, not denoising** (the opposite operation); it is a
-   **development-tier selection screen**, not a result; and the head rows carry only
-   `drop_partner`/`drop_control`/`specificity`, so **the two bracketed intervals are not in the
-   artifact at all** (they appear only in prereg prose). A pilot number must never appear as
-   confirmatory. Use the sealed C3 figures, or `faithfulness.json` sufficiency, and label the split.
-
-2. **`complement 0.005 [0.003,0.008]` inverts its referent.** Verified: `0.005394
-   [0.003150,0.007794]` is `F_C` in `a6_circuit_faithfulness.json` — the **circuit's** faithfulness
-   when the complement is scrubbed. It is not a measurement of the complement. As written a reader
-   concludes the complement recovers nothing; the record says the opposite. Write it as `F(C)`.
-
-3. **`≈10.298` nt appears without naming the organism.** `docs/NOMENCLATURE.md` makes this a
-   *mandatory standing phrase*: whenever ≈10.63 and ≈10.298 appear together, the same sentence must
-   carry the "0.33 nt apart / powered refutation" qualifier **and** name ≈10.298 as the **mouse ES-cell**
-   measurement (Voong 2016, mm9). The draft names no organism, and the surrounding sentences are about
-   the human genome — the exact misreading R30 exists to prevent.
-
-4. **First use of "circuit" is unqualified.** `NOMENCLATURE.md` requires the phrase *structured causal
-   core within an irreducibly distributed computation* at first use in any top-level document. The
-   draft's first use is the §3.2 heading; the phrase appears nowhere in the manuscript.
-
-5. **"we use it to resolve implementation of acceptor-donor coupling"** (Introduction) outruns the
-   ledger, and the draft contradicts it itself 100 lines later with "Its semantic identity remains
-   unresolved." The Conclusion is correctly scoped; the Introduction is the outlier.
-
-6. **C34's failed gate is not disclosed.** The span-locus result is stated flat. R24 records that the
-   confirm split missed its frozen M1 threshold (5.5% > 5%), and the draft's "approached one half at
-   32 nt" is that gate-qualified split's own value (confirm 0.50 vs discovery 0.41). A paper whose
-   Introduction promises to report failed gates must report this one.
-
-### Important
-
-7. **Checkpoint attribution collapses in §3.6.** The eight reader heads are stage-1 **SpliceBERT.510nt**;
-   the `−0.033` coupling bound is **SpliceBERT.1024nt** (a different, nine-head reader set); the
-   `369×`/`2.4×` contrast is the 510nt sibling pair. All three sit in one paragraph with no checkpoint
-   named, and Table 2 mixes them in one unlabelled column. `NOMENCLATURE.md` makes checkpoint
-   attribution mandatory disclosure.
-8. **`0.944–0.953` truncates the control dose series.** The arm actually matched to the `0.027`
-   full-deletion figure retains `0.970`; the full range is `0.944–0.973`. The record calls this band
-   "mildly non-inert", which the truncation hides.
-9. **The period-3 "energy-matched control" and the ≈10.63 carrier are the same position-table bins.**
-   The draft says deleting them leaves coupling unchanged (§3.5) and moves coupling by `−0.033` with a
-   CI excluding zero (§3.6), two paragraphs apart, without noting they are the same band.
-10. **C35 quotes only the confirm split, unlabelled**, in an explicitly discovery/confirm design. On
-    discovery the value arm is `−0.011 [−0.020,−0.000]`, which marginally *excludes* zero — so
-    "recovered none" is cleaner than the record supports.
-11. **`−0.033` is described as a "bound"** although the artifact's own verdict is
-    `INCONCLUSIVE_underpowered`, and the **direction is dropped**: deletion *raises* coupling, i.e. the
-    effect is suppressive.
-12. **`98.9% destroyed`** is `N(C\embed)=0.989`, a post-hoc diagnostic installed after the preregistered
-    `N(C)=1.00` was retracted as architecture-forced (R21). It has no CI and no null anywhere in the
-    record; rendering it as a percentage beside CI-bearing results promotes it.
-13. **`C_intron`** is ED1's symbol, and ED1 is a `GATES_FAILED — no interpretation` arc. The donor
-    study's threshold is `coupling >= 0.3` (`MIN_EFFECT`, ratio denominators only).
-14. **The 60-Mb non-detection omits its sensitivity floor** (5–10% modulation) and is conjoined with the
-    RNA-FM/RNA-BERT tables, which C40 records as *powered* nulls. Two different power statements are
-    merged into one.
-15. **`checklist.tex` says GENCODE v43; the paper says v50.** Both are `\input` into one PDF, which
-    therefore asserts two annotation releases and cites two GENCODE papers. The repo config is **v50**
-    (`configs/splicebert_partner_selection/base.json`). The checklist also describes an abstract,
-    an introduction, and a §4 Discussion that this draft does not contain.
-
-### Build defects
-
-16. **~16 of ~21 citation keys are undefined in `refs.bib`** and will render as `[?]`. Note two
-    near-misses: the draft cites `mudge2025gencode` (bib has `mudge2023gencode`) and `wang2023ioi`
-    (bib has `wang2022ioi`). `zhang2024patching` is absent entirely and is easy to miss because the
-    `\citep` spans two source lines.
-17. **`\setcounter{section}{1}`** makes the Introduction §2 and shifts every section number, so the
-    checklist's "§3", "§4", "§3.3" references all point at the wrong place.
-18. **Figure captions are stubs** (`\textbf{A }`, `\textbf{Clean}`), the text cites `Figure~\ref{fig:core}B`
-    though no panels are defined, and `\ref{app:artifacts}` points at a label that does not exist.
-19. **The author block is de-anonymized with placeholder `Address` and `email`**, while `checklist.tex`
-    promises code release "upon de-anonymization". Under `[final]`/`[preprint]` the placeholders print
-    verbatim. Also `\usepackage{neurips_2026}` uses the main-conference track, so the footer will not
-    name the workshop.
-
-### Scope note
-
-The draft predates the 2026-08-04 consolidation and does not mention **C43/C44** (coding-boundary phase;
-R45). That omission is defensible for a short workshop paper, but note that C44 is the direct test of
-whether the period-3 carrier implements a coding-phase preference, and it returned
-`INSTRUMENT_UNRESOLVED`. If the paper's period-3 discussion is expanded toward codon phase, C44 must be
-cited — the draft's own `[TODO: fill in results of the experimental run]` sits exactly there.
+- masked-token prediction is a model behavior, not an RNA-processing measurement;
+- position-specific transfer is established, but content specificity is not;
+- the final additive donor effect is captured by a gene-generic support axis in the tested regime;
+- the period-3 intervention and register-matching assay are separate results without a licensed causal
+  bridge;
+- reciprocal acceptor coupling is a validation authorization gate, not a reverse mechanism; and
+- the DNABERT-2 material is a bounded historical probe study, not a live cross-model replication.

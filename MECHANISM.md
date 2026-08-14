@@ -13,6 +13,14 @@ correction history by
 > acceptor-local payload, then delivers the resulting information to the donor readout within an
 > irreducibly distributed computation.
 
+## Relation to the current paper
+
+The NeurIPS draft uses this frozen donor-side mechanism as the established model-internal substrate for a
+discovery workflow. Its positional-scaffold/content-gating hypothesis is **not** part of the frozen mechanism:
+C36 establishes phase-aligned use of learned period-3 geometry, C43 establishes a separate register-shaped
+behavior in one fixed-span chimeric lattice, and C44 provides no mediation result because its instrument
+failed authorization before the target cohort was exposed.
+
 ## Checkpoints
 
 Two checkpoints appear in this document and must not be conflated. The donor mechanism and the period-3

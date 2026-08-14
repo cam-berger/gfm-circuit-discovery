@@ -155,3 +155,168 @@ Superseded by the C2 idiom imported from `run_sealed_test.py`, which builds both
 **spurious distance-matched motifs** rather than real annotated sites (`matched_decoy_acceptor` for the
 readout arm, `matched_decoy_donor` for the corruption arm). **`+0.0434` must not be quoted.** It appears
 in `DECISIONS.md` as provenance only, labelled there.
+
+## ACR5 — R3's preregistered noising second estimand was not run; AC4 is mean-ablation only (2026-08-11)
+
+**Frozen requirement.** `PREREGISTRATION_R3_PAIRED_COMPONENT_SCAN.md` §5.4 requires the detected set
+plus rank 1 in each direction to receive a noising second estimand. A component whose classification
+disagrees across the two interventions must be reported as estimand-dependent.
+
+**Execution.** `r3_paired_component_scan.json` contains the paired mean-ablation scan only. No R3
+noising artifact exists. The artifact and its manifest say noising was "deferred"; deferral is not
+execution, and no amendment removed the frozen requirement.
+
+**Correction.** AC4's four-way partition and rank-1 identifications are **mean-ablation results only**.
+They do not establish that any `SHARED`, `FORWARD_SPECIFIC`, or `REVERSE_SPECIFIC` label is stable across
+intervention estimands. Nothing from R3 licenses a claim that ablation and noising agree, a mediated
+reverse mechanism, or component equivalence across directions. The mean-ablation measurements, Holm
+partition, and verification-tier status remain as recorded.
+
+**Disposition.** Do not edit the frozen R3 protocol or backfill its immutable artifact. R4 was designed
+to compare both intervention idioms, but its protocol was never frozen and is now retired; its exploratory execution did
+not produce a licensed result (`DECISIONS_R4_EDGE.md`, `D10`–`D11`). A future frozen successor must run
+both estimands or narrow its claim before observing the outcome.
+
+## ACR6 — AC4 must not inferentially order ranks 2 and below (2026-08-11)
+
+**Published wording, now corrected:** AC4 called `L2H15` "rank 2 in both" and `L1H12` "third."
+
+**Frozen rule.** `PREREGISTRATION_R3_PAIRED_COMPONENT_SCAN.md` §5.3 authorises identification of rank 1
+in each direction. It requires ranks 2+ to be reported only as a detected set and explicitly says the
+arm is not powered to order them. The original AC4 row repeated that boundary in its final column while
+violating it in the claim sentence.
+
+**Correction.** `L2H15` has large mean-ablation effects in both directions (`0.473` / `0.505`), and
+`L1H12` also has positive effects (`0.211` / `0.259`). Those values may be reported; "rank 2," "third,"
+and any inferential ordering below `L3H1` may not. `L3H1` remains the identified rank-1 head in both
+directions.
+
+**Disposition.** AC4's wording now follows the frozen decision rule. No estimate, partition label,
+artifact, or evidence tier changes.
+
+## ACR7 — AC3's selection direction reverses on R1b draw 2 (2026-08-11)
+
+**Published wording, now retracted:** after `ACR3`, AC3 said that the `CC`-admissible stratum had a
+smaller reverse effect on every examined draw, with a `4–19%` shortfall.
+
+That correction had inspected only R1 and R1b draw 0. The committed R1b artifact carries the same
+memorial for all three draws:
+
+| run | stratum `Y_A` | full-cohort `Y_A` | signed shortfall |
+|---|---:|---:|---:|
+| R1 | 0.829410 | 1.020039 | +18.69% |
+| R1b draw 0 | 0.937206 | 0.976302 | +4.00% |
+| R1b draw 1 | 1.063371 | 1.098718 | +3.22% |
+| R1b draw 2 | **1.053406** | **1.004754** | **−4.84%** |
+
+The direction therefore does **not** reproduce. The stratum contrast was never a powered endpoint, has
+no gene-clustered interval, and did not enter the verdict. A pass/fail memorial that merely reports the
+values cannot establish its sign.
+
+**Correction.** AC3 is retracted. The four values may be reported as descriptive evidence that the
+operator-admissibility filter changes cohort composition, with an observed signed range of about
+`−4.8%` to `+18.7%`; no stable direction is licensed. This supersedes `ACR3`'s “direction holds”
+disposition without altering the immutable artifacts.
+
+## ACR8 — R1/R1b are gates, and their permutation memorial is not gene-preserving (2026-08-11)
+
+**Two distinct defects were being hidden by “established: behaviour; all memorials pass.”**
+
+First, the frozen R1 protocol says explicitly: *“This is a GATE, not a claim,”* that the result cannot
+reach established status, and that `GO` only authorises a mechanistic battery. R1b supersedes the power
+rule but inherits the task and verification scope. Its validation cohort is chr11/16/19. The
+`+0.9682` forward quantity in R1b is a same-cohort arithmetic anchor reproducing the earlier validation
+effect; it is not measured on C1's sealed chr8/9 cohort.
+
+Second, both runners describe their null as partner/decoy labels “permuted within gene,” but implement
+one independent sign flip per **row**:
+
+```python
+flip = np.array([1 if rng.random() < 0.5 else -1 for _ in range(len(own))])
+permuted = diff_partner * flip
+```
+
+R1b has 974 rows but 645 genes, so rows from the same gene can receive different labels. The subsequent
+gene bootstrap does not repair the randomisation unit. The artifact's `permuted_label_fpr` memorial is
+therefore not the frozen cluster-preserving null, and “all nine memorials pass” is a self-reported
+artifact field rather than a conformance conclusion.
+
+**Correction.** AC1 is a bounded validation-gate observation, not an established or confirmatory claim.
+Its large effect and recorded controls remain reportable with both R1b's `GO` and
+`verdict_under_R1_rule=INSTRUMENT_UNRESOLVED`, but protocol conformance and familywise FPR are unresolved.
+A successor must assign one exchangeable sign per gene and pass those signs through the actual decision
+path. The sealed split remains unopened.
+
+## ACR9 — R3's calibration path cannot license AC4's partition (2026-08-11)
+
+`ACR5` recorded the absent noising estimand and `ACR6` removed rank ordering below rank 1. A source audit
+found four additional protocol departures that reach the decision itself:
+
+1. The frozen specificity memorial requires the pseudo-coupling dispersion to be smaller in **both**
+   directions. The runner checks only `frac_D` against `drop_control_D`.
+2. The permuted-direction FPR uses `(base_rp - base_rp) * flip + scalar_noise`: an exact zero vector plus
+   a constant. It never permutes the observed component-by-direction effects and never asks whether
+   **any** component clears the Holm family.
+3. The planted positive is likewise a zero vector plus `3×SESOI`; it bypasses component construction,
+   Holm correction, health exclusion, and the four-way classifier it is supposed to calibrate.
+4. `SHARED` is assigned whenever an **unadjusted** percentile interval lies inside `±SESOI`. Holm is
+   used only for the nonzero direction-specific branch. The nominal 73-member set is therefore not a
+   familywise equivalence partition under the protocol's stated “Holm-corrected Δ” rule.
+
+The frozen decision rule is unambiguous: any memorial failure yields `INCONCLUSIVE` and licenses no
+component statement. A memorial incapable of failing on the target failure mode is not a passing
+calibration.
+
+**Correction.** The nominal `73 SHARED / 17 UNRESOLVED / 4 FORWARD_SPECIFIC / 2 REVERSE_SPECIFIC`
+partition and both rank identifications are retracted as inferential claims. The per-head mean-ablation
+point estimates remain an exploratory candidate screen: they nominate `L3H1`, `L2H15`, and `L1H12`,
+among others, but do not establish equivalence, direction specificity, rank, mediation, or wiring.
+`L5H11` and `L4H2` had near-zero/negative reverse point estimates under this one screen; “contribute
+nothing” is not licensed. This supersedes the dispositions in `ACR5` and `ACR6`; no frozen protocol or
+immutable artifact is edited.
+
+## ACR10 — committed acceptor artifacts do not pin a reconstructible code/checkpoint state (2026-08-11)
+
+The R1, R1b, R2, and R3 manifests record `git_dirty: true`. Their model input points to the checkpoint
+**directory**, which the file-only manifest hasher records as `missing: true`, rather than hashing the
+exact `pytorch_model.bin` (and configuration/tokenizer files where relevant). The genomic inputs and
+output hashes are present, so artifact integrity can be checked; the precise executable code and model
+bytes cannot be reconstructed independently from those manifests.
+
+The AC4 result row in `results/MANIFEST.csv` was additionally labelled `mediation`, contradicting both
+the artifact and ledger. It is an instrument-unresolved causal candidate screen. R4's reference smoke
+was labelled `calibration`; it is an instrument artifact from a draft exploratory runner.
+
+**Correction.** The manifest index now uses the repository evidence vocabulary (`Behaviour` for R1/R1b/R2,
+`Instrument` for R3 and R4), while the immutable run manifests remain untouched. Future acceptor runs
+must start from a clean commit, hash the exact checkpoint files and output, and record a versioned
+artifact path. No existing result is promoted by this metadata repair.
+
+## ACR11 — R3's reverse health control scored a different masking policy (2026-08-11)
+
+R3's reverse endpoint masks the `G` of the intron-mate acceptor while a component is intervened on.
+Its reverse health helper instead encoded each random probe as the sole masked position. The acceptor
+was therefore visible during the health pass, and the model forward pass was not the one whose
+competence the gate purported to protect. A high score could coexist with damage specific to the
+double-mask policy used when a non-site probe is added to the masked-acceptor behavior.
+
+**Required correction.** The implementation in this tree still uses the old single-mask health policy;
+no code repair is claimed here. A future successor must keep the acceptor `G` masked while adding one
+genuinely masked non-site probe, exclude both splice sites from probe selection, and add a behavioral
+test that inspects the encoded mask count and positions. It must then rerun health under every
+decision-bearing intervention. None of this can retroactively validate R3: its immutable health
+measurements used the old policy, adding another reason AC4's partition remains instrument-unresolved.
+
+## ACR12 — AC2's corrected missing cell is a post-outcome screen, not an established result (2026-08-11)
+
+`ACR4` correctly refuted the earlier claim that rewriting only `seq[d+1]` restores the full two-base
+effect. Its disposition nevertheless left AC2 “established,” citing replication of the older operator
+panel. The decisive `GA`/`GG` cells were designed after that panel's outcome and were run once on R1b
+draw 0. The older `AT`/`CT`/`TT` repetitions do not independently replicate the new comparison between
+`G`-only and `T`-only interventions.
+
+**Correction.** AC2 is **bounded post-outcome causal operator evidence**. The observed cells license the
+descriptive conclusion that this validation cohort responds to either donor base, sub-additively, with
+larger `GA`/`GG` than `AT`; they do not license a stable nucleotide-role or biological-mechanism claim.
+This supersedes only `ACR4`'s status disposition. Its numerical correction and the immutable R2
+artifact remain unchanged.
