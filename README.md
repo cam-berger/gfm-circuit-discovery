@@ -1,4 +1,30 @@
 # Mechanistic Discovery in Genomic Foundation Models
+
+## Current paper draft
+
+[`tex/splicebert_neurips_2026.tex`](tex/splicebert_neurips_2026.tex) is the repository copy of the current
+anonymous NeurIPS 2026 main-track draft, *Mechanistic Discovery in Genomic Foundation Models*. The paper asks
+whether causal interpretability can turn a model-native genomic regularity into an experimentally
+distinguishable discovery hypothesis. SpliceBERT is the worked case: the manuscript establishes selective
+paired donor–acceptor dependence, resolves an **address → payload → write → delivery** computation, and then
+uses transfer and complement scrubbing to measure where that account stops.
+
+The paper's biological proposal is prospective. Phase-aligned use of learned period-3 geometry and
+register-sensitive coupling in fixed-span chimeras are separate findings; no current experiment causally
+connects them. They motivate composition-controlled boundary-content × positional-geometry experiments and,
+later, external reporter validation. The manuscript does not claim resolved payload semantics, a sparse
+autonomous circuit, reading-frame sensing, period-3 mediation of register preference, or a cellular splicing
+mechanism.
+
+The reciprocal masked-acceptor and DNABERT-2 sections are deliberately bounded extensions: they illustrate
+how the same workflow exposes instrument and transfer limits, not replications of the donor mechanism or
+evidence for a universal circuit architecture.
+
+The manuscript is the source of truth for the paper's organization and wording, not for scientific
+adjudication. The claim and correction ledgers, immutable result artifacts, and
+[`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) control the underlying evidence. See the
+[`tex/` guide](tex/README.md) for the author-kit contents, draft state, and build instructions.
+
 ## Current mechanism
 
 > A structured, top-ranked causal core binds a predominantly relative positional address to an
@@ -24,8 +50,8 @@ gene-dyadic inference (R22).
 |---|---|---|---|
 | Native donor–acceptor coupling | Behavior + specificity | A masked donor score depends on its own paired acceptor under canonical short-intron controls. | Wider biological and sequence-context transduction. |
 | Donor graph A0→A12 | QK → attention → OV/mediation → behavior | An acceptor-local generator feeds L3H1, which binds payload to a mostly relative address and delivers a low-rank donor-side signal through a structured core. | Payload semantics; cross-context causal transfer. |
-| Period-3 carrier C8/C34/C35/C39 | Position → routing → mediation → behavior; origin corpus-attributed | A distributed relative-positional routing coordinate shapes L3H1's attention across the donor–acceptor span. Origin: built by multi-species pretraining, codon-linked (absent in human-only sibling and in ncRNA models, C39/C40). | Training *dynamics* (trajectory); upstream effects on payload construction. |
-| Coding-boundary phase C43/C44 | Behavior (replicated); mediation unresolved | Masked-donor partner coupling prefers **annotated** donor–acceptor codon reading-frame matches (`Ψ=+0.3901`, fresh outcome-blind replication) — but only inside a frozen **chimeric** crossed lattice at one span, with the resolution gate passing at its Monte-Carlo noise floor, and "only when matched" is **not** licensed. Whether the period-3 carrier implements it is **unresolved** (C44): four of the frozen authorization gates failed, the 384-block target was never exposed, and neither a positive, a null, nor an inverted conclusion is licensed. | A capable mechanism instrument. The local carrier/A-V/Q-K family is attempted-and-unresolved, not eliminated. |
+| Period-3 carrier C8/C34/C35/C39 | Position → routing → mediation → behavior; origin corpus-attributed | A distributed relative-positional routing coordinate shapes L3H1's attention across the donor–acceptor span. Its presence is comparatively associated with the multi-species pretraining condition (absent in the human-only sibling and in the tested ncRNA models, C39/C40); acquisition dynamics and coding specificity remain unresolved. | Training *dynamics* (trajectory); upstream effects on payload construction. |
+| Coding-boundary phase C43/C44 | Behavior (replicated); mediation unresolved | Masked-donor partner coupling prefers **GENCODE-annotated donor–acceptor boundary-register matches** (`Ψ=+0.3901`, fresh outcome-blind replication) — but only inside a frozen **chimeric** crossed lattice at one span, with the resolution gate passing at its Monte-Carlo noise floor, and "only when matched" is **not** licensed. Whether the period-3 carrier implements it is **unresolved** (C44): four of the frozen authorization gates failed, the 384-block target was never exposed, and neither a positive, a null, nor an inverted conclusion is licensed. | A capable mechanism instrument. The local carrier/A-V/Q-K family is attempted-and-unresolved, not eliminated. |
 | Multispecies ≈10.63 carrier C12/C37/C39 | Position → QK → attention; origin corpus-attributed | Eight heads read a distinct positional carrier after softmax. Origin: multi-species pretraining — strong in the 72-species stage-1 sibling, absent in the human-only sibling, and **not detectable** at ≈10.63 in 60 Mb of human genome above that unanchored assay's 5–10% modulation floor (a sensitivity limit, not an absence). The nucleosomal comparator that excludes the chromatin reading, ≈10.298 nt, is measured in **mouse** ES-cell chromatin (Voong 2016, mm9) — 0.33 nt from the carrier — a gap ~7× the largest uncertainty on either side (0.045 nt each), so this remains a powered refutation (R30, R37). Do not quote a "±0.005" carrier fit precision (R37). | General OV/behavioral function still open. |
 | Human-only ≈10.2 proposal | Position/QK; fails at attention | The proposed chromatin-reader circuit is closed at the attention gate. | No higher claim is licensed. |
 | Head–Context Atlas | Matched discovery → group validation → conditional mechanism tests | Four general-use component candidates validate; context-specific signals remain exploratory because they missed the frozen precision gate. C38/C41 separately establish strong but bounded cross-example transfer. | Better-powered context cohorts and transfer-specificity tests. |
@@ -42,7 +68,7 @@ one checkpoint is not a result about the other; see [`MECHANISM.md`](MECHANISM.m
 
 ## Method
 
-Every study follows the same broad sequence:
+The prescribed workflow for current and future studies is:
 
 1. Define the biological computation and a model-native behavior.
 2. Preflight the assay with positive, negative, sensitivity, resolution, and invariant gates.
@@ -53,6 +79,9 @@ Every study follows the same broad sequence:
 6. Replicate across appropriate examples, draws, splits, contexts, checkpoints, or models and stop at
    the strongest interpretation licensed by the evidence.
 
+This is the project standard, not a blanket claim that every historical run conformed to it. See
+[`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) for the audited departures and coverage gaps.
+
 Attribution ranks; intervention decides. See the [methodology](docs/METHODOLOGY.md),
 [evidence ladder](docs/EVIDENCE_LADDER.md), and [mechanism account](MECHANISM.md).
 
@@ -61,6 +90,8 @@ Attribution ranks; intervention decides. See the [methodology](docs/METHODOLOGY.
 | Study | Status | Purpose |
 |---|---|---|
 | [`studies/splicebert_partner_selection/`](studies/splicebert_partner_selection/README.md) | **core record**; open limitations | The donor circuit and both positional carriers: claims, corrections, preregistrations, and the reproduction map. |
+| [`studies/splicebert_acceptor_coupling/`](studies/splicebert_acceptor_coupling/README.md) | bounded validation gate; reverse mechanism unresolved | The reciprocal masked-acceptor behavior gate and corrected limits on its operator and component screens. |
+| [`studies/splicebert_acceptor_context/`](studies/splicebert_acceptor_context/README.md) | draft protocol; no registered model result | A prospective sourced-branchpoint × operational-pyrimidine factorial cited by the paper as a successor experiment. |
 | [`studies/splicebert_positional_boundary_coherence/`](studies/splicebert_positional_boundary_coherence/README.md) | Phase I instrument-unresolved; no model outcome | The audited real-sequence census could not supply the frozen 1,104 globally gene-disjoint seven-source blocks, so the study stopped before selection, balance calibration, or model access. The planned period-3 and register tests remain sealed. |
 | [`studies/splicebert_head_context_atlas/`](studies/splicebert_head_context_atlas/README.md) | discovery and internal validation complete | Multi-context head/MLP reuse atlas. Supplies the gene-disjoint cohort behind C41 and an independent rediscovery of L3H1; context-specific follow-ups remain exploratory. |
 | [`studies/splicebert_gtex_finetune_shift/`](studies/splicebert_gtex_finetune_shift/README.md) | native causal mechanism mapped; sparse-difference instrument bounded | What happens to the same encoder under supervised fine-tuning: late attention routes into a compact final-MLP code, and inherited positional-carrier use. |
@@ -115,6 +146,8 @@ study's prose that must not be reintroduced from Git history.
   (C39/C40). These two use a `canonical/` subdirectory; the other result trees keep canonical artifacts
   at the subtree root. See [`results/RESULTS_INDEX.md`](results/RESULTS_INDEX.md).
 - `figures/splicebert/` — generated figures and declared provenance.
+- `tex/` — the current NeurIPS 2026 manuscript bundle, its figures and bibliography, the official author-kit
+  files, and paper-specific build and claim-editing guidance.
 - `tests/` — the memorial and analysis-logic suite. Many memorials are data-gated and skip without a
   local genome; see [`REPRODUCE.md`](REPRODUCE.md).
 - `configs/` — versioned study configurations and frozen phase configs.
@@ -132,12 +165,13 @@ including their separate terms, are summarized in [third-party assets](docs/THIR
 2. Read the one-file [current mechanism and limitations](MECHANISM.md).
 3. Use the [live claim ledger](studies/splicebert_partner_selection/CLAIMS.md); consult
    [corrections](studies/splicebert_partner_selection/CORRECTIONS.md) before quoting a result.
-4. Review the [Head–Context Atlas](studies/splicebert_head_context_atlas/README.md) for the current
+4. Read the [paper guide](tex/README.md) before editing or building the NeurIPS manuscript.
+5. Review the [Head–Context Atlas](studies/splicebert_head_context_atlas/README.md) for the current
    cross-context branch.
-5. Review the [GTEx fine-tuning-shift findings](studies/splicebert_gtex_finetune_shift/FINDINGS.md) for
+6. Review the [GTEx fine-tuning-shift findings](studies/splicebert_gtex_finetune_shift/FINDINGS.md) for
    the supervised task representation and its current sparse/biological boundaries.
-6. Read the [transfer guide](docs/TRANSFER_GUIDE.md) for how to port the method to another GFM.
-7. Follow [`REPRODUCE.md`](REPRODUCE.md) for the canonical environment and claim→script→artifact map.
+7. Read the [transfer guide](docs/TRANSFER_GUIDE.md) for how to port the method to another GFM.
+8. Follow [`REPRODUCE.md`](REPRODUCE.md) for the canonical environment and claim→script→artifact map.
 
 For development:
 

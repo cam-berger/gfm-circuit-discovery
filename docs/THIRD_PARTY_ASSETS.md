@@ -4,7 +4,9 @@ The repository's original code and documentation are licensed under the root
 [`LICENSE`](../LICENSE) (MIT). That license does **not** relicense model checkpoints, reference genomes,
 annotations, human-subject data, or other third-party assets. Large models and source datasets are not
 redistributed in the tracked repository; users obtain them from the upstream providers and must follow
-their terms. Result manifests record the exact local source and hash used by each run.
+their terms. The current manifest standard requires exact source and hash records, but historical coverage
+is incomplete. Consult [`PREREG_CONFORMANCE.md`](PREREG_CONFORMANCE.md) and the relevant correction ledger
+before treating any run as exactly reconstructible.
 
 | Asset | Upstream source | Terms / license checked | Repository handling |
 |---|---|---|---|
@@ -16,7 +18,8 @@ their terms. Result manifests record the exact local source and hash used by eac
 | DNABERT-2 source code | [MAGICS-LAB/DNABERT_2](https://github.com/MAGICS-LAB/DNABERT_2) | Apache-2.0 in the upstream repository | Source is not vendored. The base and promoter-fine-tuned checkpoints are downloaded separately. Their Hugging Face cards do not currently declare a model license, so the checkpoints are not redistributed under this repository's MIT license. |
 | RNA-FM | [ml4bio/RNA-FM](https://github.com/ml4bio/RNA-FM) | MIT in the upstream repository | Model files are downloaded separately and are not tracked. |
 | RNA-BERT | Source cited by the RNA-BERT publication/model provider | No separate license was verified during this audit | Model files are not redistributed. Users must verify the current upstream terms before obtaining or sharing them. |
-| EPDnew, PolyASite, FANTOM5, and other atlas catalogs | Provider named in each study manifest/protocol | Dataset-specific terms apply; no blanket relicensing is asserted here | These inputs are not redistributed. The DNABERT-2 paper section is currently a placeholder and makes no result claim from them. |
+| EPDnew, PolyASite, FANTOM5, and other atlas catalogs | Provider named in each study manifest/protocol | Dataset-specific terms apply; no blanket relicensing is asserted here | These inputs are not redistributed. The manuscript's DNABERT-2 comparison is a bounded historical probe study, not a live claim from these catalogs. |
+| NeurIPS 2026 author kit | Supplied NeurIPS 2026 formatting bundle | No separate license statement was present in the supplied `neurips_2026.sty` header | The exact style, example, and checklist used by the current draft are tracked under `tex/` for reproducible typesetting. Their inclusion does not relicense them under the repository's MIT license. |
 | Third-party Python/R/system dependencies | `pyproject.toml`, lockfile, and environment documentation | Each package retains its upstream license | Dependencies are installed from their normal package channels; their source is not vendored by this repository. |
 
 ## Attribution and redistribution rules

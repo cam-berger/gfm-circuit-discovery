@@ -1,0 +1,324 @@
+\documentclass{article}
+
+% Anonymous NeurIPS main-track submission. For camera-ready, retain the track option and use:
+% \usepackage[main,final]{neurips_2026}
+\usepackage[main]{neurips_2026}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\title{Mechanistic Discovery in Genomic Foundation Models}
+
+\author{Anonymous Authors}
+
+\newcommand{\Uinfo}{\ensuremath{U_{\mathrm{info}}}}
+
+\begin{document}
+
+
+\maketitle
+
+\begin{abstract}
+Genomic foundation models can encode predictive regularities before their biological meaning is understood. We ask whether causal interpretability can turn regularity into a testable discovery hypothesis. In frozen \texttt{SpliceBERT.1024nt}, the prediction at a masked splice donor depends selectively on its annotated paired acceptor. On sealed, gene-disjoint data, corrupting that acceptor changes the donor base-logit margin by \(+0.872\;[0.771,0.969]\) logit units; matched non-partner and other-donor controls change it by only \(+0.007\) and \(+0.005\). Nested interventions resolve an ordered computation: positional geometry addresses a four-token acceptor window, L3H1 combines that address with an acceptor-local value state, and later value paths deliver a low-rank donor-side representation to the readout. Cross-gene transfer establishes position-specific action without establishing content specificity; at the donor, a norm-matched gene-generic axis matches or exceeds the final additive effect. Complement scrubbing finds no sparse faithful set at the measured node granularity. Separately, nucleotide intervention establishes phase-aligned use of a learned period-3 positional component, while chimeric joins show stronger coupling when annotated coding-boundary registers match. These findings motivate a specific hypothesis: period-3 geometry supplies a positional scaffold whose use is gated by boundary content. The gap between the model's causal organization and its biological interpretation defines new areas for discovery.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:introduction}
+
+Self-supervised genomic models may learn relations that support sequence prediction without mapping onto an established biological concept. They become useful instruments for discovery only if three questions remain separate: what information is present, what the model causally uses, and what that computation may mean biologically. A plausible interpretation of an internal state remains a hypothesis until an experiment distinguishes it from competing explanations.
+
+Domain-aware interpretation has recovered motif syntax and sequence interactions in regulatory models \citep{avsec2021bpnet,seitz2024squid,fu2025get}, while protein-language-model studies have used annotated and unannotated features to generate biological hypotheses \citep{simon2025interplm,adams2025mechanisticbiology}. Attention maps, probes, and aligned subspaces can nominate candidates, but they do not establish causal use \citep{jain2019attention,makelov2024subspace}. Mechanistic case studies add that requirement: define a native behavior, intervene on the proposed internal variables, and test whether the resulting account reproduces the behavior \citep{wang2023ioi,hanna2023greater}. Causal abstraction, controlled patching, and faithfulness tests make explicit what such interventions do and do not license \citep{chan2022causalscrubbing,geiger2025causal,zhang2024patching,hanna2024faithfulness,mueller2025mib}.
+
+Genomic foundation models provide a largely unexplored testbed for mechanistic interpretability: their internal computations may expose predictive structure before its biological meaning is settled. We examine this possibility in \texttt{SpliceBERT.1024nt}. We first establish a selective dependence between the model's masked-donor prediction and its annotated paired acceptor. Nested interventions then resolve four causal roles---address, payload, write, and delivery---while transfer and complement scrubbing bound their semantic and generative interpretations. Two additional findings define a discovery target: the model causally uses learned triplet-periodic geometry and prefers chimeric joins with matching annotated registers, although current evidence does not show that the geometry encodes register. Rather than assigning these observations a premature biological interpretation, we use the gap between them to formulate a testable positional-scaffold hypothesis and the perturbations needed to distinguish it from alternatives. Bounded reciprocal-acceptor and DNABERT-2 studies assess how far this causal workflow extends to other models and architectures.
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{fig_headline.png}
+  \caption{\textbf{Boundary and Positional Content.}
+  \textbf{(A)} We mask the G at a splice donor. Corrupting its own acceptor changes the native margin;   matched non-partner and other-donor controls produce much smaller changes. \textbf{(B)} Learned position embeddings contain  a period-3 component that is causally used in coupling and a distinct \(\simeq10.63\)-nt component whose function remains open. The spectral comparison uses matched stage-1 510-nt sibling checkpoints  and establishes comparative association with multi-species pretraining, not causal acquisition. Curves and attention intensity are schematic.}
+  \label{fig:headline}
+\end{figure}
+
+\section{A Model-Native Discovery Target}
+\label{sec:behavior}
+
+We restrict the study to canonical \texttt{GT--AG} introns and define a model-native behavior from their paired annotation: mask the donor G, corrupt the paired acceptor, and ask whether the donor prediction changes. This measures a relation used for masked-token prediction, not RNA processing.
+
+\texttt{SpliceBERT.1024nt} is a six-layer, 16-head, single-nucleotide masked language model trained on primary RNA from 72 vertebrates \citep{chen2024splicebert}. We study 60--150-nt canonical introns in 1024-nt transcript-oriented windows from GENCODE v50/GRCh38 \citep{mudge2025gencode}. Chromosomes 11, 16, and 19 provide validation data; chromosomes 8 and 9 form a sealed test split. All splits are gene-disjoint. GENCODE supplies boundary coordinates, not an experimental outcome.
+
+At donor position \(d\), define the masked-base margin and coupling effect
+\begin{equation}
+m(\mathbf{x};d)=\ell_{\mathrm G}(\mathbf{x};d)
+-\max_{b\in\{\mathrm{A,C,T}\}}\ell_b(\mathbf{x};d),\qquad
+C=m(\mathbf{x}^{N};d)-m(\mathbf{x}^{D^-};d),
+\label{eq:coupling}
+\end{equation}
+where \(N\) is intact and \(D^-\) replaces only the paired downstream acceptor \texttt{AG} with \texttt{CC}. Positive \(C\) means that the intact acceptor supports the donor prediction. On 400 sealed examples, \(C=+0.872\;[0.771,0.969]\) logit units. Matched non-partner \texttt{AG} and other-donor controls are \(+0.007\) and \(+0.005\). Held-out motif-hygienic alternatives support robustness of the acceptor corruption within the frozen equivalence bounds. The effect is therefore partner-selective rather than peculiar to \texttt{CC}. This robustness result applies to the behavioral acceptor operator; the internal assays remain \texttt{CC}-specific and mostly use a prespecified \(C\geq0.3\) cohort to stabilize normalized recovery.
+
+Descriptive scores nominate candidates; interventions test their roles. Query/key exchange probes selection, post-softmax pattern exchange probes routing, value/output exchange probes what is written, and conditional patching probes mediation \citep{elhage2021framework}. Complement scrubbing asks whether an account can reproduce the behavior rather than merely accept a clean state. Brackets denote 95\% confidence intervals unless identified as ranges. We use gene-clustered or gene-dyadic inference and size- and geometry-matched nulls where applicable. Appendix~\ref{app:methods} defines the assays; Appendix~\ref{app:conformance} records their evidence tiers and historical departures.
+
+\section{Dependence to Causal Organization}
+\label{sec:core}
+
+The intervention results support four roles in execution order: positional geometry supplies an
+\emph{address}; local acceptor values supply a \emph{payload}; L3H1 \emph{writes} their conjunction into a donor-side state; and later heads \emph{deliver} that state to the readout. Layer and head indices are zero-based.
+
+\paragraph{The dominant pair.}
+A scan of 96 heads nominates L3H1 and L2H15. Joint mean ablation removes 81.6\% of coupling on the mechanism cohort while retaining 99.2\% of non-site masked-token accuracy. The loss exceeds all 400 size-matched two-head nulls (add-one \(p=0.0025\)). This establishes scoped necessity, not a complete or minimal component set.
+
+\paragraph{Address and payload meet at L3H1.}
+For donor query \(d\), L3H1 writes \(Z_d=\sum_j A_{dj}V_j\). We cache intact and corrupt attention patterns \(A\) and values \(V\), reconstruct all four \(A\times V\) cells, and inject them into the same downstream run. Address-only recovery is \(0.010\;[-0.019,0.037]\), payload-only recovery is \(0.051\;[0.032,0.070]\), and joint recovery is \(0.365\;[0.328,0.399]\). Bi-linearity guarantees an interaction between \(A\) and \(V\); the informative result is its magnitude and asymmetry. Clean values recover 0.354 under the clean address but only 0.051 under the corrupt address. The local state matters chiefly when routed by the appropriate address.
+
+A token-by-position QK exchange separates the sources of that address. Position changes the acceptor-over-decoy score by \(+2.718\;[2.223,3.154]\), compared with \(+0.397\;[0.181,0.620]\) for nucleotide content. Moving donor and acceptor together largely preserves the preference but changes its strength, consistent with a predominantly relative-offset address with modest absolute-position dependence. After L2H15 ablation, restoring L3H1 attention recovers \(0.454\;[0.388,0.530]\), whereas restoring its values recovers \(0.019\;[0.012,0.028]\); L2H15 therefore acts on the address side of the channel.
+
+With L3H1 attention fixed intact, restoring values only in the four-token acceptor window yields \(0.382\;[0.349,0.415]\) normalized recovery. Reopening early non-core writers in the upstream \(a-30{:}a-5\) window instead changes recovery by \(-0.00055\;[-0.00199,0.00100]\). This null is specific to the pre-L3H1 masked-donor channel; it does not show that upstream sequence is unused elsewhere. The later donor-side subspace is weak at the acceptor source (0.060), while its orthogonal complement recovers 0.371, so L3H1 converts a broad local state into a compact donor-side format. Earlier interventions support an MLP-centered source path but not a minimal generator. A linear adjustment on common support does not attribute the localized effect to GC, pyrimidine, \(k\)-mer, or position-specific nucleotide composition; nonlinear dependence remains possible. We therefore call the quantity an \emph{acceptor-local state}, without assigning splice-site-strength semantics.
+
+\paragraph{Write and delivery.}
+Let \Uinfo{} be the leading right-singular subspace of intact-minus-corrupt final residuals at the
+donor. In a disjoint-gene replication, an operational rank-8 patch has mean normalized recovery 0.875 across two directions; the A\(\rightarrow\)B interval is \([0.853,0.901]\). The rank-1 bases overlap
+by 0.970, compared with 0.002 for a random reference. Restoring L3H1 recovers \(0.829\;[0.783,0.868]\), and conditional path patching recovers \(0.770\;[0.726,0.809]\) through \Uinfo{} in the donor \(\pm5\) neighborhood. L4H0, L4H2, and L5H11 then affect the margin through value/output exchange, while their query/key exchange is near zero. These interventions identify a conversion-and-delivery route; they do not establish intrinsic rank, unique wiring, or biological meaning for \Uinfo{}.
+
+\section{Causal Discovery: Specificity and Generation}
+\label{sec:transfer}
+
+A causal route is not yet a semantic account. We therefore ask whether the transferred state preserves information specific to its source and whether the compact route can reproduce the behavior when its inputs are not supplied.
+
+At the acceptor, injecting a matched-source state at the target position recovers \(0.931\;[0.828,1.050]\) of the clean--corrupt margin. The same state at a positional decoy gives \(-0.049\;[-0.105,-0.015]\), while scrambling its feature coordinates but preserving its energy still recovers \(0.339\;[0.241,0.452]\). The matched source exceeds a margin-mismatched source by only \(0.158\;[-0.110,0.331]\). This verification-stage assay used one sampled source--target assignment and omitted the planned denominator calibration. It therefore establishes position-specific action in the tested configuration, but not content specificity.
+
+At the donor, adding source-derived \Uinfo{} recovers 0.659 across eight source draws and 551 gene-disjoint targets. Recovery rises monotonically with dose, showing additive control of the margin, but a norm-matched donor-support direction estimated across genes matches or exceeds the source-derived effect. The source-minus-shared-direction contrast is \(-0.320\) on average, and the component orthogonal to the shared direction lies in \([-0.015,0.010]\) across draws. Thus the final additive effect on this scalar margin is captured by a shared donor-support axis, not source-specific cargo. This result does not exclude example-specific information in earlier states, nonlinear computations, or other outputs.
+
+Generation provides a second boundary on the account. Let \(\mathcal{V}\) denote the 103 measured nodes: the embedding, 96 attention-head outputs, and six MLP outputs. For \(S\subseteq\mathcal{V}\), \(\operatorname{restore}(S)\) runs the corrupted sequence while replacing the outputs of \(S\) with their paired intact values. Conversely, \(\operatorname{isolate}(S)\) runs the intact sequence while replacing every measured node outside \(S\) with its paired corrupt value. For any run \(r\), let \(\mu_r\) denote the cohort-level mean donor margin. We define
+\begin{equation}
+D(S)=
+\frac{\mu_{\operatorname{restore}(S)}-\mu_{D^-}}
+     {\mu_N-\mu_{D^-}},
+\qquad
+F(S)=
+\frac{\mu_{\operatorname{isolate}(S)}-\mu_{D^-}}
+     {\mu_N-\mu_{D^-}} .
+\label{eq:denoising_faithfulness}
+\end{equation}
+Here \(D(S)\) measures denoising recovery when a clean state is supplied, whereas \(F(S)\) measures node-level faithfulness when the measured complement is scrubbed \citep{chan2022causalscrubbing,zhang2024patching,hanna2024faithfulness,mueller2025mib}. Both are ratios of cohort-level means, not means of per-example ratios. Values of zero and one correspond to the corrupt and intact baselines, respectively, although neither score is mathematically restricted to this interval. The two quantities are not complements: they intervene in opposite directions and answer different causal questions.
+
+Let \(\mathrm{embed}\) denote the input embedding node, let \(S_{\mathrm{core}}\) be the frozen ten-node set that contains it, and let \(S_{\mathrm{out}}=S_{\mathrm{core}}\setminus\{\mathrm{embed}\}\) contain the nine residual-writer outputs. Supplying the clean outputs of \(S_{\mathrm{out}}\) restores nearly all of the margin, \(D(S_{\mathrm{out}})=0.986\;[0.982,0.991]\). This post-hoc diagnostic has no matched null and establishes sufficiency only when those outputs are supplied. Under the opposite intervention, retaining the ten-node core while scrubbing every other measured node preserves almost none of the effect: \(F(S_{\mathrm{core}})=0.0054\;[0.0032,0.0078]\).
+
+For the held-out size curve, let \(S_k\) denote the first \(k\) nodes under a static ranking fixed on a disjoint split. We find \(F(S_{64})=0.899\;[0.834,0.959]\) and \(F(S_{72})=0.937\;[0.877,0.999]\); 72 is therefore the first evaluated set above 90\%, and the sampled crossing lies in \((64,72]\) of 103 nodes. Static ranking makes this an upper bound on the size of a minimally faithful set. The curve has no sparse knee and is non-monotone at large \(k\), consistent with hybrid off-manifold effects. The compact route can carry a nearly complete state when that state is supplied, but it is not a faithful autonomous generator under complement scrubbing. Broad construction and loss of generic model competence remain compatible explanations.
+
+These tests relocate the discovery problem upstream. The unresolved question is which acceptor-dependent variable determines when and how strongly the shared donor-support direction is engaged. Boundary content may gate this common response without being copied to the donor as a source-identifying message. Testing that possibility requires varying boundary content independently of the positional structure that selects where the response is deployed.
+
+\section{A Positional Hypothesis for Boundary Coordination}
+\label{sec:period3}
+
+Two results point to positional structure. The learned position table contains a rank-2 period-3 component. Removing it changes raw donor coupling from 0.946 to 0.027 logit units, while an equal-energy control-band deletion leaves coupling at 0.970. Full removal also degrades exon-interior language-model performance,  indicating the importance of the structure for exon specific coding sequences, so this endpoint is a dose response in a damaged model rather than a clean lesion. With the component absent, restoring L2H15 or L3H1 recovers 0.363 and 0.348, above the largest matched one-head control (0.042).
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figure_2.png}
+\caption{\textbf{Two Positional Results Motivate a scaffold Hypothesis} \textbf{(A)} A learned period-3 positional component is used in a phase-aligned manner. \textbf{(B)} Coupling is stronger for matched donor and acceptor registers in fixed-span chimeras. \textbf{(C)} Schematic of register continuity across a splice junction. The two results are not yet causally connected.}
+  \label{fig:headline2}
+\end{figure}
+A cleaner nucleotide-invariant surgery shifts the component locally while preserving bases, motifs, coordinates, and length. In 943 previously unexamined genes, the phase-aligned CDS-minus-upstream-intron contrast is \(\Psi_{\mathrm C}=+0.141\;[0.110,0.172]\) raw logit units. The learned direction exceeds all 19 same-geometry controls, with paired excess \(+0.136\;[0.051,0.222]\). Yet the matched CDS minus non-CDS-exon contrast is \(+0.006\;[-0.080,0.093]\). The component is causally used in a phase-aligned way; its coding specificity and reading-frame meaning are not established.
+
+The carrier also has a corpus clue. At matched stage-1 checkpoints, its normalized band power is \(435\times\) after multi-species pretraining and \(6.2\times\) in the human-only sibling, below the instrument's powered detection floor. This comparison associates the carrier with the multi-species training condition. A distinct \(\simeq10.63\)-nt carrier has similar comparative provenance but no established biological function or coupling relation (Appendix~\ref{app:scope}).
+
+A separate assay finds a register-shaped behavior. Fixed-span chimeras join donor and acceptor modules from different genes and cross their GENCODE-annotated coding-boundary registers. Coupling is stronger when the registers match: \(\Psi=+0.3901\;[0.3553,0.4252]\) logit units across 384 globally gene-disjoint blocks, exceeding all 99 balanced pseudo-register controls (add-one \(p=0.01\)). These non-natural 120-nt joins establish a preference in this construction. Mismatched joins also contain more in-frame stops and alter codon-position composition; neither stop avoidance nor composition coherence has been excluded.
+
+The experiments intervene on different variables: \(\Psi_{\mathrm C}\) changes the phase of a learned coordinate, whereas \(\Psi\) changes agreement between annotated sequence registers. A planned mediation assay failed preflight before its target cohort was exposed, so no evidence connects the two findings. They instead motivate a conditional hypothesis: period-3 geometry may supply coupling gain, while still-unidentified boundary content determines where that gain is engaged. An interaction between composition-matched register edits and phase-specific intervention would support this scaffold account; no interaction would leave the findings as separate model regularities.
+
+\section{Bounded Extensions Across Endpoints and Models}
+\label{sec:extensions}
+
+\paragraph{Reciprocal acceptor coupling.}
+On one validation draw, corrupting the paired donor changes the masked-acceptor-G margin by \(+0.9763\;[0.9060,1.0526]\) logit units; matched readout- and partner-decoy effects are \(-0.0009\;[-0.0079,0.0056]\) and \(+0.0147\;[0.0019,0.0293]\). This is an authorization-gate observation on 974 pairs from 645 genes, not sealed confirmation or evidence of symmetry. An earlier power rule remains unresolved, one permutation check resampled rows rather than genes, and no reverse address or mediator is established. The branchpoint--pyrimidine-context successor remains prospective: its source audit and cohort builder exist, but no registered cohort, model preflight, or target run does. TODO
+
+\subsection{DNABERT-2 Comparison}
+\label{sec:dnabert}
+
+A branch-local pilot applies the same logic to an external 70-nt promoter probe in DNABERT-2 \citep{zhou2024dnabert2}. A fixed Layer-2 probe reaches balanced accuracy 0.8102 and ROC--AUC 0.8919. On an outcome-selected recipient cohort, matched-sequence transfer recovers 0.879, compared with 0.843 from an unrelated same-class sequence; the difference does not survive correction. A five-node candidate restores 0.882 under clean injection but retains 0.194 when its measured complement is scrubbed. These observations motivate class-generic transfer controls and the distinction between injectability and generation. They do not test a native DNABERT-2 behavior, lack matched-size null curves, and are not evidence that DNABERT-2 shares the SpliceBERT mechanism. TODO
+
+\section{Discussion}
+\label{sec:discussion}
+
+The strongest conclusion is model-internal. \texttt{SpliceBERT.1024nt} uses a paired-boundary relation through an ordered address--payload--write--delivery computation. The same experiments show where that account stops: the payload is localized but semantically unidentified; its final additive donor effect is captured by a shared support axis; and the compact core has no sparse faithful regime under complement scrubbing.
+
+The localization result nevertheless motivates a precise biological comparison. The effective four-token window is \texttt{yAG\(\vert\)r}: the intronic \(-3\) pyrimidine, the acceptor \texttt{AG}, and the first exonic base. This overlaps sequence contacted during 3' splice-site recognition \citep{zamore1989u2af,wu1999functional,smith1993scanning}. The correspondence is suggestive but partly built into the design: the window was chosen to bracket the corrupted di-nucleotide, contains the edited bases, and was not selected from an independent footprint. 
+
+\paragraph{Geometry From Content.}
+Two factorials distinguish the leading explanations. First, a boundary-content assay should edit the \(-3\) and \(+1\) bases outside the corrupted dinucleotide, use \(a-4\) as an out-of-window control, and compare a true acceptor with a position- and score-matched intronic \texttt{AG}. A consensus-ordered response would favor a graded splice-signal reader; a flat response would favor a simpler terminal-delimiter account. Second, a positional assay should vary annotated register independently of codon-position composition while holding span, motifs, edit dose, stop load, and period-3 amplitude fixed. Only after this separation should nucleotide-invariant phase surgery be crossed with the sequence manipulation. Each arm should be read at its predicted internal stage---QK selection, acceptor values, or \Uinfo{} delivery---as well as at the final margin.
+
+\paragraph{Biological Extension}
+A controlled continuation study should include an unedited continuation arm, matched token and edit budgets, fresh gene-disjoint evaluation, and paired seeds to estimate training covariance. Carrier amplitude and phase must be measured separately from QK, attention, value, and MLP changes. Such a study can establish maintenance or modifiability, not acquisition during the original pretraining run. Designed variants that selectively alter one causal stage can then be tested in mini-gene or pooled reporters while matching the raw MLM margin and established splice scores. Incremental prediction of splice choice beyond those baselines would support biological correspondence; agreement only at the masked-token logit would not.
+
+\paragraph{Claim Boundary}
+The sealed behavior is gene-disjoint and robust across tested acceptor corruptions. The internal account is restricted to one frozen \texttt{SpliceBERT.1024nt} checkpoint, \texttt{CC}, 60--150-nt canonical introns, and assay-specific cohorts. The register result uses one fixed-span chimeric design. No result identifies payload content, connects period-3 causally to register preference, or measures cellular splicing. Three alternatives remain live: boundary detection rather than graded splice-site recognition, composition coherence rather than an annotated register, and loss of general predictive capacity rather than distributed generation of the boundary effect. These are hypotheses that the causal analysis makes experimentally plausible.
+
+\section{Conclusion}
+\label{sec:Conclusion}
+Genomic foundation models provide a largely unexplored testbed for mechanistic interpretability. their internal computations can expose predictive structure that is difficult to formulate from sequence statistics alone, while causal interventions distinguish what a model uses from the biological meaning assigned to it. In SpliceBERT, this approach resolves an ordered computation for paired-boundary coordination, identifies a broader positional regularity, and makes clear where the two accounts remain unconnected. That gap is scientifically useful: it converts an unresolved model mechanism into specific perturbations of boundary content, annotated register, and period-3 geometry. These results show how genomic models can serve as instruments for generating experimentally distinguishable hypotheses. As GFMs become more capable, systematic study of their learned mechanisms may offer a complementary route to both mechanistic understanding and biological discovery.
+
+\clearpage
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\appendix
+
+\section{Assay and Intervention Definitions}
+\label{app:methods}
+
+\paragraph{Data, checkpoints, and cohorts.}
+Examples are 1024-nt genomic windows in transcript orientation. We exclude ambiguous sequence, non-canonical splice motifs, assembly-boundary crossings, and exons outside 20--500 nt. The upstream acceptor offset is randomized over 100--300 nt in the construction where this control applies. Behavioral effects use an unconditional cohort. Most primary-mechanism recovery assays use a prespecified \(C\geq0.3\) cohort; address rescue is unconditional, while transfer, faithfulness, period-3, and register experiments use assay-specific cohorts. Donor-mechanism and period-3 experiments use \texttt{SpliceBERT.1024nt}. Carrier-origin comparisons instead use stage-1 \texttt{SpliceBERT.510nt} sibling checkpoints and are not pooled with final-checkpoint results. The final-checkpoint weight file has SHA-256 \texttt{2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d}. All normalized intervention scores are ratios of cohort-level means rather than means of per-example ratios.
+
+The address--payload factorial uses 300 examples from 261 genes; the primary QK assay uses 120 examples from 103 genes; payload localization uses 300 examples from 256 genes; and the disjoint-gene \Uinfo{} replication uses 400 examples from 320 genes. The forward-path and delivery-head assays use 250 and 120 examples, respectively. These cohorts belong to separate interventions and are not pooled.
+
+\paragraph{Behavioral margins and the crossed-register estimand.}
+The primary donor behavior uses the hard-maximum margin in Equation~\ref{eq:coupling} and an \texttt{AG}\(\rightarrow\)\texttt{CC} acceptor corruption. The crossed-register experiment instead uses the linear margin
+\begin{equation}
+m^{\mathrm{lin}}(\mathbf{x};d)
+=
+\ell_{\mathrm G}(\mathbf{x};d)
+-\frac{1}{3}\sum_{b\neq\mathrm G}\ell_b(\mathbf{x};d),
+\label{eq:linear_margin}
+\end{equation}
+together with an \texttt{AG}\(\rightarrow\)\texttt{AC} corruption. For block \(b\), let \(M_{0,b}\), \(M_{+,b}\), and \(M_{-,b}\) denote the three perfect-matching means of the donor-register by acceptor-register \(3\times3\) lattice. The block-level matched-register contrast is
+\begin{equation}
+\Psi_b
+=
+M_{0,b}
+-\frac{M_{+,b}+M_{-,b}}{2},
+\qquad
+\Psi
+=
+\frac{1}{B}\sum_{b=1}^{B}\Psi_b .
+\label{eq:register_contrast}
+\end{equation}
+Thus \(\Psi>0\) indicates stronger coupling for annotated register matches than mismatches within the fixed chimeric construction. This estimand is specific to the crossed-register assay and is not pooled with the native donor behavior.
+
+\paragraph{Address--payload reconstruction.}
+For L3H1, \(A_{dj}\) is post-softmax attention from donor position \(d\) to source position \(j\), \(V_j\) is the corresponding value, and \(Z_d=\sum_j A_{dj}V_j\). We cache intact and corrupt patterns \(A_N,A_{D^-}\) and values \(V_N,V_{D^-}\), reconstruct the four cells \(Z(A,V)=AV\), and inject each cell into an otherwise common downstream run. Exact reconstruction, identity injection, and value linearity are required instrument checks. Consequently, the interaction between clean attention and clean values is interpreted only after confirming that the reconstruction itself reproduces the unmodified head output.
+
+\paragraph{Donor-side subspace.}
+\Uinfo{} is spanned by the leading right singular vectors of intact-minus-corrupt final residuals at the masked donor. The original rank-8 recovery estimate of 0.92 is in-sample. The independent replication estimates a basis in each direction between two disjoint gene groups. Its two-direction mean recovery is 0.875 without an associated interval; the reported \([0.853,0.901]\) bootstrap interval applies only to the A\(\rightarrow\)B direction and does not bound the two-direction mean.
+
+\paragraph{Denoising, necessity, and faithfulness.}
+Let \(\mathcal{V}\) denote the 103 measured nodes: the input embedding, 96 attention-head outputs, and six MLP outputs. The input embedding node, denoted \(\mathrm{embed}\), is the initial residual-stream write containing nucleotide-token and learned positional information. Let \(S_{\mathrm{core}}\) be the frozen ten-node set that includes this node, and let \(S_{\mathrm{out}}=S_{\mathrm{core}}\setminus\{\mathrm{embed}\}\) be its nine non-embedding outputs. Denoising \(D(S)\) and complement-scrub faithfulness \(F(S)\) are defined in Equation~\ref{eq:denoising_faithfulness}. For necessity, let \(\operatorname{remove}(S)\) denote an intact run in which the outputs of \(S\) are replaced by their paired corrupt values while the measured complement remains intact. Then
+\begin{equation}
+N(S)
+=
+\frac{\mu_N-\mu_{\operatorname{remove}(S)}}
+     {\mu_N-\mu_{D^-}} .
+\label{eq:necessity}
+\end{equation}
+The post-hoc diagnostics \(D(S_{\mathrm{out}})=0.986\;[0.982,0.991]\) and \(N(S_{\mathrm{out}})=0.989\) come from \path{results/splicebert_coupling/a6_reconcile.json}. Neither has a matched-null comparison, necessity has no confidence interval, and the artifact has no manifest. These diagnostics use a different clean-node set from the preregistered \(F(S_{\mathrm{core}})=0.0054\;[0.0032,0.0078]\), which retains the clean input embedding. Accordingly, \(D(S_{\mathrm{out}})\), \(N(S_{\mathrm{out}})\), and \(F(S_{\mathrm{core}})\) are distinct estimands and are not treated as algebraic complements.
+
+For the size curve, nodes are ranked by the loss of faithfulness caused by removing each node from the full measured model on a disjoint ranking split. The resulting static ranking is frozen before evaluating the top-\(k\) sets \(S_k\) on held-out genes. The committed curve gives \(F(S_{64})=0.899\;[0.834,0.959]\) and \(F(S_{72})=0.937\;[0.877,0.999]\). Thus 72 is the first evaluated set above 90\%, and the sampled crossing lies in \((64,72]\); linear interpolation gives 64.2 but is not more precise than the grid and intervals warrant. Because nodes are not iteratively re-ranked after each removal, either value is an upper bound on the size of a minimally faithful set. The curve is non-monotone at large \(k\) and reaches \(F(S_{88})=1.039\;[1.002,1.082]\), above the intact baseline and consistent with off-manifold hybrid effects. The endpoints \(F(\mathcal{V})=1\) and \(F(\varnothing)=0\) follow from the intervention construction and serve as implementation checks rather than independent evidence. Because non-site masked-token performance was not a preregistered endpoint along this curve, loss of generic model competence remains an alternative to broadly distributed construction.
+
+\paragraph{Period-3 carrier surgery.}
+Let \(P\) be the learned position-embedding table and let \(C_3\) be its centered rank-2 period-3 component, obtained by retaining Fourier bins 339--345 over the position axis. Within a selected coordinate block \(B\), the nucleotide-invariant phase intervention replaces
+\begin{equation}
+P_x
+\longmapsto
+P'_x
+=
+P_x-C_{3,x}+C_{3,x+s r},
+\qquad
+x\in B,\quad
+s\in\{-1,+1\},
+\label{eq:carrier_surgery}
+\end{equation}
+while leaving every position outside \(B\) unchanged. The intact and acceptor-corrupted forwards receive the same intervention. Offsets are \(r\in\{2,\ldots,10\}\); shifts \(r\in\{3,6,9\}\) are approximately phase-aligned, while their neighboring offsets provide local off-register comparisons. For an outcome \(Y_r\), define
+\begin{equation}
+\mathcal{S}(Y)
+=
+\frac{1}{3}\sum_{k=1}^{3}
+\left[
+Y_{3k}
+-\frac{Y_{3k-1}+Y_{3k+1}}{2}
+\right],
+\qquad
+\Psi_{\mathrm C}
+=
+\mathcal{S}(C_{\mathrm{CDS}})
+-\mathcal{S}(C_{\mathrm{intron}}).
+\label{eq:phase_alignment}
+\end{equation}
+Directions and coordinate blocks are averaged within gene before inference. A positive \(\Psi_{\mathrm C}\) means that phase-aligned carrier shifts preserve more coupling in coding blocks than in matched upstream-intron blocks. The secondary CDS-minus-non-CDS-exon contrast tests contextual specificity but does not alter the primary estimand.
+
+\paragraph{Carrier controls.}
+Learned position matrices are centered and decomposed over the position axis into Fourier sine--cosine subspaces. Target-band interventions remove, restore, shift, or scale a carrier. Matched controls preserve intervention rank, block geometry, and removed energy. Period-3 local controls additionally match the spatial waveform, Fourier support, Gram matrix, row norms, block geometry, and perturbation RMS.
+
+\section{Additional Evidence and Claim Boundaries}
+\label{app:scope}
+
+\paragraph{Carrier span and comparative provenance.}
+Site-local period-3 restoration recovers approximately 2--4\% of coupling in discovery. Under carrier deletion, the confirmation split retains 5.5\% residual coupling, narrowly missing the frozen \(\leq5\%\) residual gate. Full deletion retains 32\% of intact exon-interior headroom over chance and 82\% in intron interiors; the three lowest-amplitude dose points fall below the companion assay's 50\% health floor. The deletion endpoint is therefore interpreted through its dose response and equal-energy control rather than as a selective lesion. Span localization is established in discovery with gate-qualified verification rather than unconditional confirmation. At matched stage-1 \texttt{SpliceBERT.510nt} checkpoints with the same architecture and context length, period-3 power is \(435\times\) the median spectral band after multi-species pretraining and \(6.2\times\) in the human-only sibling, with the latter below the instrument's powered detection floor. This is a comparative association with the multi-species pretraining condition; it does not separate species diversity from corpus size, composition, sampling, or optimization history. Period-3 sequence composition in coding regions is a plausible corpus correlate \citep{tiwari1997period3,yin2005fourier}, but neither acquisition dynamics nor biological origin is identified.
+
+\paragraph{Architecture assay.}
+A separate 300--800-nt architecture assay fails two frozen calibration gates, including its planted-confound control, and therefore returns \texttt{GATES\_FAILED: no interpretation}. It establishes neither an intron-definition mechanism nor a length-dependent switch. Because the measurement instrument failed, it also provides no evidence that either possibility is absent.
+
+\paragraph{Distinct \(\simeq10.63\)-nt carrier.}
+At the multi-species stage-1 \texttt{SpliceBERT.510nt} checkpoint, eight heads read a distinct \(\simeq10.63\)-nt positional component. A different reader set at \texttt{SpliceBERT.1024nt} gives a descriptive intact-minus-deleted donor-coupling contrast of \(-0.033\;[-0.061,-0.005]\) raw logit units. The preregistered \(\pm0.05\) equivalence analysis returns \texttt{INCONCLUSIVE\_underpowered}: the interval half-width of 0.0277 exceeds the required 0.0167, no matched-band comparison is retained, and the planned \Uinfo{} endpoint was not computed. The experiment therefore does not establish a carrier-specific donor effect. The estimated wavelength also differs by 0.33 nt from the 10.298-nt mouse embryonic-stem-cell nucleosomal measurement \citep{voong2016nucleosome}, approximately seven times the larger estimated wavelength spread. The present evidence does not support identifying these two signals, but it leaves the model carrier's function open.
+
+\paragraph{Coding-boundary register preference.}
+A fresh, outcome-blind replication in the crossed chimeric lattice uses true-acceptor \texttt{AG}\(\rightarrow\)\texttt{AC} corruption and finds stronger masked-donor coupling for GENCODE-annotated donor--acceptor register matches than mismatches: \(\Psi=+0.3901\;[0.3553,0.4252]\) logit units at a fixed 120-nt span. This is behavior-level evidence in designed chimeric constructs, not evidence about native-genome coupling or an internal register-reading mechanism, and it does not show that coupling occurs only for register matches. The resolution gate passes narrowly, with \(\mathrm{MDE}_{80}=0.049770\) against a threshold of 0.05; the 0.00023 margin is comparable to its Monte Carlo standard error of approximately 0.00025 and is not demonstrably seed-stable. Mismatched chimeras contain approximately 0.61 more in-frame stop codons, leaving stop avoidance as a live alternative, although the register effect does not concentrate in high-stop-load blocks (Spearman \(\rho=-0.093\)). A planned period-3 mediation instrument failed four authorization gates, and its target cohort was never exposed. It therefore provides no evidence for or against period-3 implementation of the register preference.
+
+\paragraph{Head-context and fine-tuning studies.}
+A gene-disjoint atlas validates four general-use SpliceBERT components in donor and acceptor reconstruction, while all 20 context-associated leads remain underpowered. Released GTEx splicing classifiers preserve a paired-acceptor effect in their native readout, with a five-seed mean of \(+0.646\;[0.563,0.733]\) raw classifier-logit units at the verification tier. One L5H6\(\rightarrow\)final-MLP path is confirmed but accounts for a minority of the effect; the remainder is unresolved. Separate context assays identify several late routes into the final MLP. Collectively, these studies support component reuse and implementation change under fine-tuning, not a universal mechanism template or a resolved biological feature identity.
+
+\paragraph{Reciprocal acceptor gate and context successor.}
+On one validation draw, corrupting the paired donor changes the masked-acceptor margin by \(+0.9763\;[0.9060,1.0526]\) logit units, while distance-matched readout and partner controls are \(-0.0009\;[-0.0079,0.0056]\) and \(+0.0147\;[0.0019,0.0293]\). This is a verification-tier authorization gate on chromosomes 11, 16, and 19, not sealed confirmation. The result is unresolved under an earlier power rule, and one permutation check resampled rows rather than genes. No reverse address or mediator is established. The branchpoint-context successor defines one Mercer-sourced branchpoint and a deterministic \texttt{opPPT80\_v1} sequence interval. Its proposed factorial matches edit dose and transition signatures, applies motif-hygiene constraints, and uses a single-G masked-acceptor endpoint. A model-free source audit and cohort builder exist, but no registered cohort has been produced; the protocol remains a draft, and neither model preflight nor target experiment has run. The \texttt{opPPT80\_v1} interval is an operational pyrimidine-rich sequence window rather than an annotated or curated polypyrimidine tract.
+
+\paragraph{Bounded DNABERT-2 comparison.}
+A historical branch-local pilot uses a fixed linear probe on frozen DNABERT-2 Layer-2 states for a 70-nt promoter-classification benchmark. The probe reaches test balanced accuracy 0.8102 and ROC--AUC 0.8919. On an outcome-selected promoter cohort, an MLP0+L0H8 patch gives normalized recovery of 0.879 from the matched sequence, 0.843 from an unrelated same-class sequence, and \(-0.152\) from an opposite-class sequence; matched recovery does not exceed same-class recovery after correction. Separately, a five-node candidate restores 0.882 under conditional clean injection but retains only 0.194 when its measured complement is scrubbed. These external-probe results motivate class-generic transfer controls and the distinction between injectability and generation. They are not a live repository claim: the recipient cohort is selected on corruption damage, the scans lack matched-size null families, and neither a native DNABERT-2 pretraining behavior nor an external transcriptional endpoint is tested.
+
+\section{Preregistration Conformance}
+\label{app:conformance}
+
+The methodology described in this paper is a prescriptive standard rather than a blanket description of every historical run in the repository. A retrospective audit of 25 SpliceBERT-arc families, including two unfrozen protocols assessed only for design conformance, records 188 deviations, of which 157 are rated medium or higher. The audit reports no resulting change to a scientific result, but these deviations preclude claiming that every historical gate was enforced exactly. The GTEx fine-tuning and C43/C44 crossed-register arcs were outside independent coverage; their gates are self-reported, and the carried C43/C44 audits are not re-executable from a clean checkout because the raw cell rows were excluded. The reciprocal-acceptor arc was also outside the audit and is governed by its correction ledger, including ACR8 and ACR9. The historical DNABERT-2 arc was outside the audit and is not a live claim. The sourced-branchpoint and operational-PPT successor remains an unrun draft, so none of its model gates is reported as enforced. We therefore interpret results jointly through the relevant claim ledger, correction ledger, and \path{docs/PREREG_CONFORMANCE.md}; distinguish established, verification, bounded, and no-interpretation outcomes; and do not treat a preregistered label by itself as evidence of protocol conformance.
+
+\section{Selected Core Claim-to-Artifact Map}
+\label{app:artifacts}
+
+The following table maps selected claims to their primary compact machine-readable results. It is not an exhaustive evidence index. Manifest coverage is not uniform, and the repository index and study ledgers identify the remaining artifacts. The conformance limits above apply throughout.
+
+\begin{center}
+\textbf{Selected claims and primary artifacts. Paths are relative to the repository root.}
+
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.29\linewidth}>{\raggedright\arraybackslash}p{0.63\linewidth}}
+\toprule
+Claim & Primary artifact \\
+\midrule
+Selective donor behavior and necessary head pair & \path{results/splicebert_coupling/sealed_test.json} \\
+Corruption robustness & \path{results/splicebert_coupling/ar1_corruption_operator_sensitivity.json} \\
+Address geometry & \path{results/splicebert_coupling/a1_token_position.json}; \path{results/splicebert_coupling/a11_address_geometry.json} \\
+Address--payload factorial & \path{results/splicebert_coupling/a2_address_payload.json} \\
+Payload localization and composition controls & \path{results/splicebert_coupling/a2b_payload_localization.json}; \path{results/splicebert_coupling/a9b_payload_semantics_composition.json} \\
+Payload-source path & \path{results/splicebert_coupling/a7_source_localization.json}; \path{results/splicebert_coupling/a8_generator_path.json}; \path{results/splicebert_coupling/a10_generator_edges.json} \\
+Donor readout and mediation & \path{results/splicebert_coupling/donor_anchor.json}; \path{results/splicebert_coupling/donor_forward.json}; \path{results/splicebert_coupling/donor_heads.json}; \path{results/splicebert_coupling/a5_uinfo_replication.json} \\
+Cross-example transfer & \path{results/splicebert_coupling/b3_cross_example_transduction_n512.json}; \path{results/splicebert_coupling/g1_cross_example_transduction.json} \\
+Core and size-dependent faithfulness & \path{results/splicebert_coupling/a6_circuit_faithfulness.json}; \path{results/splicebert_coupling/a6_reconcile.json}; \path{results/splicebert_coupling/a12_faithfulness_size.json} \\
+Period-3 deletion and routing & \path{results/phase-lattice/carrier_surgery.json}; \path{results/phase-lattice/carrier_dose.json}; \path{results/phase-lattice/carrier_mediation.json}; \path{results/p3_carrier_locus.json}; \path{results/p3_av_decomposition.json} \\
+Period-3 phase-aligned use & \path{results/phase-lattice/p3_phase_surgery_confirmation_v1/confirmation_analysis.json} \\
+Register preference and unresolved mediation & \path{results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_audit.json}; \path{results/splicebert_exon_edge_compatibility/p3_direct_edge_relational_v1/development_preflight_audit.json} \\
+Comparative carrier association & \path{results/origin-siblings/canonical/sibling_pspectrum.json} \\
+Reciprocal acceptor validation gate & \path{results/splicebert_acceptor_coupling/r1b_reverse_coupling.json} \\
+Prospective branchpoint-context instrument & \path{studies/splicebert_acceptor_context/DRAFT_PREREGISTRATION.md} \\
+Historical DNABERT-2 probe, transfer, and accounting & Branch \texttt{origin/padmaja/dnabert-clean-pipeline}, revision \texttt{7a85d788}; paths under \path{results/dnabert_promoter/frozen/layer_probes/} and \path{results/dnabert_promoter/frozen_claim_tests/} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Claim records and assets.}
+Interpretations follow the study claim ledgers, correction ledgers, and the conformance audit in \path{docs/PREREG_CONFORMANCE.md}. Original repository code is MIT-licensed. The file \path{docs/THIRD_PARTY_ASSETS.md} records upstream sources, licenses, access terms, and redistribution constraints.
+
+\clearpage
+\input{checklist.tex}
+\end{document}

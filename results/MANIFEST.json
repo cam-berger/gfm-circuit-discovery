@@ -9,8 +9,8 @@
   },
   "polarity_counts": {
     "na": 444,
-    "positive": 570,
-    "bounded": 106,
+    "positive": 566,
+    "bounded": 110,
     "null": 36,
     "refutation": 5
   },
@@ -2618,8 +2618,8 @@
     {
       "claim_id": "AC1;AC2;AC3",
       "status": "canonical",
-      "evidence_level": "behavior",
-      "polarity": "positive",
+      "evidence_level": "Behaviour",
+      "polarity": "bounded",
       "artifact": "results/splicebert_acceptor_coupling/r1_reverse_coupling.json",
       "script": "scripts/splicebert_acceptor_coupling/run_r1_reverse_coupling.py",
       "manifest": "results/splicebert_acceptor_coupling/r1_reverse_coupling.manifest.json",
@@ -2638,8 +2638,8 @@
     {
       "claim_id": "AC1;AC2;AC3",
       "status": "canonical",
-      "evidence_level": "behavior",
-      "polarity": "positive",
+      "evidence_level": "Behaviour",
+      "polarity": "bounded",
       "artifact": "results/splicebert_acceptor_coupling/r1b_reverse_coupling.json",
       "script": "scripts/splicebert_acceptor_coupling/run_r1b_reverse_coupling.py",
       "manifest": "results/splicebert_acceptor_coupling/r1b_reverse_coupling.manifest.json",
@@ -2658,8 +2658,8 @@
     {
       "claim_id": "AC2",
       "status": "canonical",
-      "evidence_level": "behavior",
-      "polarity": "positive",
+      "evidence_level": "Behaviour",
+      "polarity": "bounded",
       "artifact": "results/splicebert_acceptor_coupling/r2_donor_base_decomposition.json",
       "script": "scripts/splicebert_acceptor_coupling/run_r2_donor_base_decomposition.py",
       "manifest": "results/splicebert_acceptor_coupling/r2_donor_base_decomposition.manifest.json",
@@ -2678,8 +2678,8 @@
     {
       "claim_id": "AC4",
       "status": "canonical",
-      "evidence_level": "mediation",
-      "polarity": "positive",
+      "evidence_level": "Instrument",
+      "polarity": "bounded",
       "artifact": "results/splicebert_acceptor_coupling/r3_paired_component_scan.json",
       "script": "scripts/splicebert_acceptor_coupling/run_r3_paired_component_scan.py",
       "manifest": "results/splicebert_acceptor_coupling/r3_paired_component_scan.manifest.json",
@@ -2698,7 +2698,7 @@
     {
       "claim_id": "R4",
       "status": "development",
-      "evidence_level": "calibration",
+      "evidence_level": "Instrument",
       "polarity": "na",
       "artifact": "results/splicebert_acceptor_coupling/r4_reference_smoke.json",
       "script": "scripts/splicebert_acceptor_coupling/run_r4_paired_edge_acdc.py",

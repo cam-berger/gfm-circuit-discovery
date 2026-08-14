@@ -48,7 +48,23 @@ this file existed, that question had no answer here short of reading 34 protocol
 > re-executable** — the source branch gitignored the raw rows both recompute from. Treat C43/C44 gates as
 > **self-reported, not audited**.
 
-> **A fourth protocol was initially uncovered for the opposite reason: positional boundary coherence
+> **A fourth arc is outside the table: SpliceBERT acceptor coupling (AC1–AC4).** Its frozen R1, R1b,
+> and R3 protocols are not represented below. A targeted source audit is recorded in that study's
+> correction ledger: R1/R1b are verification gates rather than claim-promoting protocols and their
+> nominal within-gene permutation is implemented row-wise (`ACR8`); AC3 reverses direction on a recorded
+> draw (`ACR7`); and R3's specificity, permutation, planted-positive, equivalence, missing-noising, and
+> reverse-health paths do not implement the frozen familywise decision (`ACR9`, `ACR11`). Its exact dirty
+> code/checkpoint state is not reconstructible from the manifests (`ACR10`), and AC2 is a post-outcome
+> screen (`ACR12`). Treat artifact-level PASS fields as **self-reported, with the targeted corrections
+> controlling**, and consult `studies/splicebert_acceptor_coupling/CORRECTIONS.md` before quoting them.
+
+> **A fifth protocol is outside the table: sourced-branchpoint × operational-pyrimidine acceptor
+> context.** `studies/splicebert_acceptor_context/DRAFT_PREREGISTRATION.md` is a draft design cited by the
+> current paper. No registered cohort, model preflight, target artifact, or live claim exists in this tree.
+> Model-free source and control-feasibility work described by the manuscript is instrument development,
+> not a model outcome. Every model gate remains specified rather than enforced.
+
+> **A sixth protocol was initially uncovered for the opposite reason: positional boundary coherence
 > (2026-08-10; model-free status updated 2026-08-11).**
 > `studies/splicebert_positional_boundary_coherence/PREREGISTRATION.md` is a frozen design with gates,
 > thresholds, and an authorization graph, and it still contributes **no model claim and no family below**.
@@ -58,15 +74,16 @@ this file existed, that question had no answer here short of reading 34 protocol
 > `PHASE1_INSTRUMENT_UNRESOLVED` construction stop. There is no complete cohort, model preflight, target,
 > or model outcome. Every later gate remains *specified*, not enforced.
 >
-> The distinction matters for how this file should grow. The three arcs above are retrospective coverage
-> gaps — code ran, nobody checked it against the protocol. Here the model-free stop was independently
-> audited as it occurred, while the model-bearing portion remains prospective and sealed. §"Present
+> The distinction matters for how this file should grow. The DNABERT, GTEx, exon-edge, and
+> acceptor-coupling arcs above are retrospective coverage gaps — code ran without inclusion in the table.
+> The acceptor-context design remains prospective. For positional boundary coherence, the model-free stop
+> was independently audited as it occurred, while the model-bearing portion remains prospective and sealed. §"Present
 > status" still requires that a freeze package bind final code and inputs and that **an independent
 > protocol-to-code conformance audit pass before any first target or Phase-III reserve is opened**. If a
 > separately preregistered successor ever reaches that point, its conformance family belongs in the table
 > below before the target, not reconstructed afterwards.
 
-> **A fifth protocol is uncovered, and for the plainest reason: positional-proxy modifiability
+> **A seventh protocol is uncovered, and for the plainest reason: positional-proxy modifiability
 > (2026-08-12). `studies/splicebert_positional_proxy_modifiability/PREREGISTRATION.md` HAS NEVER BEEN
 > EXECUTED. Every gate in it is *specified*, not enforced.**
 >
