@@ -90,3 +90,13 @@ resolved in favour of the artifacts, and the registry has been edited to match:
   circuit structure) while the arc *shipped* a controlled TATA perturbation and both circuit-accounting
   and faithfulness-curve artifacts at `selected_layer: 2`. Block 5 and block 8 status lines were stale
   and have been corrected; block 6 was accurate — low-rank mediation genuinely was not run.
+
+## Fine-tuned extension corrections opened 2026-08-13
+
+These rows do not rewrite DBPR6. DBPR6 remains the historical record of what was unsupported at the
+2026-08-11 integration review. The later artifact package is a new evidentiary event.
+
+| ID | Retired / bounded statement | What the artifact supports | Status |
+|---|---|---|---|
+| **DBPR9** | The live study text inherited DBPR6's historical statement that “no DNABERT fine-tuning code, checkpoint, or result artifact exists in this repository,” even after a later fine-tuned analysis package was committed. | A separately verified analysis of `magicslabnu/DNABERT-2-finetuned-prom_300_all` now exists, including checkpoint-loading validation, held-out predictive evaluation, layer probing, targeted ablation, activation restoration, activation-source swapping, and TATA perturbation. The old seed-42 self-fine-tuning smoke table remains unsupported and withdrawn. | **SUPERSEDED AS A CURRENT-STATUS STATEMENT, NOT REWRITTEN HISTORICALLY.** DBPR6 remains true about the evidence state on 2026-08-11. Current fine-tuned claims are DBP11–DBP16. |
+| **DBPR10** | “Fine-tuning substantially improves promoter prediction and relocates the strongest promoter representation from Layer 2 to Layer 10,” and equivalent prose that treats the frozen and fine-tuned results as a controlled before/after experiment whose only changed variable is fine-tuning. | The two packages differ in more than model weights: frozen uses GUE `prom_core_all` at 70 nt, leakage-cleaned splits, and a fixed masked-mean probe; fine-tuned uses GUE `prom_300_all` at 300 nt, the checkpoint classifier for primary behaviour, and a separate layer-probe sweep. The frozen Layer-2 choice is itself thin (`0.0019` validation-BA lead, one seed). The within-state fine-tuned results are real; the cross-state numerical differences are descriptive. | **BOUNDED.** Licensed wording: “The analyzed fine-tuned state shows late-layer linear accessibility together with strong early Layer-0 causal dependence; compared descriptively with the frozen study, the representational profiles differ.” Do not attribute the difference uniquely to fine-tuning until a matched assay is run (DBP17). |

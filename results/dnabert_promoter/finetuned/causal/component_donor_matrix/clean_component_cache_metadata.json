@@ -1,0 +1,25 @@
+{
+  "n_examples": 256,
+  "components": {
+    "L0H8": {
+      "shape_per_token": 64,
+      "location": "L0 attention output-projection input",
+      "slice": [
+        512,
+        576
+      ]
+    },
+    "L0_MLP": {
+      "shape_per_token": 768,
+      "location": "L0 mlp.wo output before residual and LayerNorm"
+    }
+  },
+  "alignment_coordinate_system": "tokenizer nucleotide offset_mapping",
+  "baseline_reproducibility": {
+    "max_absolute_probability_difference": 2.322164917023528e-06,
+    "mean_absolute_probability_difference": 7.811957574974243e-08,
+    "accepted_tolerance": 1e-05,
+    "n_examples_over_1e6": 4,
+    "n_examples_over_1e5": 0
+  }
+}

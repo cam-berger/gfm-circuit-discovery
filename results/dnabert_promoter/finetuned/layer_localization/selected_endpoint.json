@@ -1,0 +1,17 @@
+{
+  "selection_metric": "validation_balanced_accuracy",
+  "tie_breaker": "validation_roc_auc",
+  "fine_tuned_best_layer": 10,
+  "frozen_best_layer": 2,
+  "layer_shift": 8,
+  "fine_tuned_selected_layer_metrics": {
+    "dev_balanced_accuracy": 0.9429185094078528,
+    "dev_mcc": 0.885827919349083,
+    "dev_roc_auc": 0.985708226672346,
+    "test_balanced_accuracy": 0.9324179336163996,
+    "test_mcc": 0.8648605462974823,
+    "test_roc_auc": 0.9832818563667076
+  },
+  "interpretation_status": "correlational_localization_only",
+  "interpretation": "Promoter information is most linearly accessible at Layer 10 after HF task-specific fine-tuning, compared with frozen Layer 2. This supports representational relocation to later layers, but does not by itself establish causal mechanism relocation."
+}

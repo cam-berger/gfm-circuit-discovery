@@ -1,0 +1,27 @@
+{
+  "hf_model": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
+  "hf_model_revision": "7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12",
+  "compatible_implementation": "quietflamingo/dnabert2-no-flashattention",
+  "compatible_implementation_revision": "813031b2bf86d9e960a027e2734c908009f31601",
+  "tokenizer": "quietflamingo/dnabert2-no-flashattention",
+  "loading_method": "Instantiate quietflamingo BertForSequenceClassification on CPU, set pad_token_id=3 and num_labels=2, then load HF model.safetensors with torch load_state_dict.",
+  "flash_attention_used": false,
+  "checkpoint_tensor_count": 140,
+  "missing_keys": [],
+  "unexpected_keys": [],
+  "classifier_weight_shape": [
+    2,
+    768
+  ],
+  "classifier_bias_shape": [
+    2
+  ],
+  "classifier_exact_checkpoint_match": true,
+  "total_parameters": 117070082,
+  "gpu_forward_pass_success": true,
+  "smoke_test_logits_shape": [
+    2,
+    2
+  ],
+  "label_mapping_resolved": false
+}

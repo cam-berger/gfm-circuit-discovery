@@ -1,0 +1,14 @@
+{
+  "split": "dev",
+  "n_examples": 5920,
+  "n_layers": 12,
+  "hidden_size": 768,
+  "pooling": "masked_mean",
+  "max_length": 256,
+  "batch_size": 64,
+  "dtype": "float32",
+  "dataset": "GUE/prom_300_all",
+  "dataset_rows": 5920,
+  "model": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
+  "implementation": "quietflamingo/dnabert2-no-flashattention"
+}

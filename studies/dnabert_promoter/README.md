@@ -25,7 +25,7 @@ this review raised and then refuted — the arc's data hygiene and its direction
 | Example-specific delivery | **Null** — transfer is class-level (DBP8) |
 | Biological mechanism | Positional enrichment only; causal test is a null at n=71 (DBP9, DBP10) |
 | Preregistration | **None frozen.** Validation-selected and test-confirmed, but not preregistered (DBPR8) |
-| Fine-tuning comparison | Not started. No code or artifacts exist (DBPR6) |
+| Fine-tuned analysis | Completed artifact package: predictive evaluation, layer probing, early-component ablation/restoration, activation-source compatibility, and TATA perturbation (DBP11–DBP16). Cross-state interpretation remains descriptive because the frozen and fine-tuned assays are not matched (DBP17, DBPR10). |
 
 ## The one-paragraph account
 
@@ -53,23 +53,53 @@ no `C*`, `HCA*` or `GFS*` claim depends on anything in this study.
 - "Compact", "sparse", or bare "the circuit" — refuted at the sizes tested (DBP7, DBPR4).
 - "Transferable", "sequence-specific delivery" — null contrast (DBP8, DBPR5).
 - A TATA-box mechanism — the causal test is a null (DBP10).
-- Anything about a fine-tuned DNABERT-2 — no such artifact exists (DBPR6).
+- The old seed-42 self-fine-tuning smoke metrics withdrawn under DBPR6 — they remain withdrawn and are not revived by the later fine-tuned package.
+- A causal statement that fine-tuning *caused* an L2→L10 relocation or a +0.125 BA gain — the frozen and fine-tuned studies use different GUE promoter configurations, sequence lengths, readouts, and cohort policies (DBP17, DBPR10).
 - Anything from `results/dnabert_promoter/causal/layer3_*` — different endpoint, superseded (DBPR7).
 
 ## Layout
 
 | Path | What is there |
 |---|---|
-| [`CLAIMS.md`](CLAIMS.md) | The `DBP1`–`DBP10` ledger. The point of contact for every claim. |
-| [`CORRECTIONS.md`](CORRECTIONS.md) | `DBPR1`–`DBPR8`. What was withdrawn or bounded, why — and two findings raised against the arc that were refuted. |
+| [`CLAIMS.md`](CLAIMS.md) | The `DBP1`–`DBP17` ledger. The point of contact for every claim. |
+| [`CORRECTIONS.md`](CORRECTIONS.md) | `DBPR1`–`DBPR10`. What was withdrawn or bounded, why — including the fine-tuning artifact update and the unmatched-comparison boundary. |
 | [`DECISIONS.md`](DECISIONS.md) | Why the assays are shaped the way they are, including known departures. |
-| [`FROZEN_EXPERIMENT_REGISTRY.md`](FROZEN_EXPERIMENT_REGISTRY.md) | T2. The arc's own working registry of assay definitions, metric formulas, and per-block status. |
+| [`FROZEN_EXPERIMENT_REGISTRY.md`](FROZEN_EXPERIMENT_REGISTRY.md) | T2. The frozen arc's working registry of assay definitions, metric formulas, and per-block status. |
+| [`FINETUNED_VS_FROZEN.md`](FINETUNED_VS_FROZEN.md) | Concise record of the completed fine-tuned assays and the licensed descriptive comparison to the frozen study. |
 | [`results/dnabert_promoter/`](../../results/dnabert_promoter/RESULTS_INDEX.md) | Artifacts, with the family index naming which control claims. |
 | `scripts/dnabert_promoter/` | 35 runners: cohort building, probing, ablation, restoration, faithfulness, motif tests. |
 | `src/gfmcd/adapters/dnabert.py`, `src/gfmcd/dnabert/` | Model access, dataset, perturbation utilities. |
 | `configs/dnabert_promoter/base.json` | The frozen assay configuration. |
 | `figures/dnabert_promoter/` | Published figures with captions. Figures 1–3 and 9–12 are canonical; 4–8 depict the superseded Layer-3 replicate. |
 | `tests/test_dnabert_{adapter,dataset,perturb,manifest}.py` | Unit coverage for the adapter, dataset, perturbations, and the sibling-manifest contract. |
+
+## Fine-tuned extension
+
+A completed fine-tuned DNABERT-2 analysis is now part of this study family. It evaluates
+`magicslabnu/DNABERT-2-finetuned-prom_300_all` (revision
+`7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12`) using the compatible
+`quietflamingo/dnabert2-no-flashattention` implementation at revision
+`813031b2bf86d9e960a027e2734c908009f31601`.
+
+On the official GUE `prom_300_all` test split, the fine-tuned classifier reaches balanced accuracy
+`0.935205`, MCC `0.870487`, and ROC-AUC `0.984785`; excluding exact test sequences found in train or
+development leaves `n=5,900` and balanced accuracy `0.935136`. A validation-selected masked-mean linear
+probe is strongest at encoder Layer 10 (`dev BA = 0.942919`; descriptive test BA `0.932418`), but this is
+a representational-accessibility result, not causal localization.
+
+On a locked balanced 256-example test cohort, zeroing `L0H8` lowers balanced accuracy
+`0.957031 → 0.511719`; zeroing `L0_MLP` gives `0.816406`; ablating both gives `0.503906`.
+Restoring both clean activations after joint ablation reproduces the baseline logits exactly. Activation-source
+swaps are much more disruptive across classes than within class, especially for `L0_MLP` and the combined
+pathway. A paired TATA-like motif perturbation on 354 eligible promoters gives mean excess motif damage
+`-0.021874` (`p=0.162760`), so no positive TATA-specific dependence is licensed.
+
+**Comparison boundary.** These results do **not** form a controlled before/after fine-tuning experiment
+with the frozen arc: the frozen canonical study uses GUE `prom_core_all` at 70 nt on leakage-cleaned
+splits and a fixed Layer-2 probe, whereas the fine-tuned package uses GUE `prom_300_all` at 300 nt and
+the checkpoint's classifier for the primary behavioural evaluation. The two states may be compared
+descriptively, but differences may not be attributed uniquely to fine-tuning until a matched assay is run
+(DBP17, DBPR10). See [`FINETUNED_VS_FROZEN.md`](FINETUNED_VS_FROZEN.md).
 
 ## The instrument, precisely
 
@@ -135,4 +165,4 @@ In dependency order, each step gated on the one before:
    and the ~104 pre-existing artifacts fill in only when their assay is re-run.
 6. **Power the `TATAAA` cohort** (n=48 is the only stratum worth the attempt) with held-out confirmation
    and motif-specific component localization.
-7. Only then: the fine-tuning arc, and only then a cross-model comparison with the SpliceBERT record.
+7. **Matched frozen-versus-fine-tuned comparison.** The fine-tuned artifact package now exists, but it uses GUE `prom_300_all` at 300 nt while the canonical frozen arc uses `prom_core_all` at 70 nt with a different readout and cleaning policy. A matched assay is required before attributing performance or layer-profile differences to fine-tuning itself.

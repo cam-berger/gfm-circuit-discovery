@@ -1,0 +1,44 @@
+{
+  "dataset_task": "GUE/prom_300_all",
+  "classifier_index_mapping": {
+    "0": 0,
+    "1": 1
+  },
+  "semantic_mapping": {
+    "0": "non-promoter",
+    "1": "promoter"
+  },
+  "promoter_classifier_index": 1,
+  "non_promoter_classifier_index": 0,
+  "evidence": {
+    "checkpoint_config_explicit_mapping": false,
+    "dev_orientation_validation": {
+      "orientation_A": "classifier index equals dataset numeric label",
+      "accuracy": 0.9469594595,
+      "mcc": 0.894078409,
+      "result": "strongly matches checkpoint-recorded validation performance"
+    },
+    "flipped_orientation": {
+      "accuracy": 0.0530405405,
+      "mcc": -0.894078409,
+      "result": "rejected"
+    },
+    "biological_semantic_validation": {
+      "dataset": "GUE/prom_300_tata train",
+      "motif": "TATA[AT][AT]",
+      "label_0_fraction_with_motif": 0.3077,
+      "label_1_fraction_with_motif": 0.4083,
+      "label_0_occurrences_position_200_224": 572,
+      "label_1_occurrences_position_200_224": 869,
+      "label_0_TATAAA_occurrences_150_250": 325,
+      "label_1_TATAAA_occurrences_150_250": 640,
+      "interpretation": "Numeric label 1 shows substantially stronger promoter-like TATA positional enrichment around the expected upstream/TSS-centered region."
+    },
+    "documentation_note": "Public GUE/DNABERT-2 metadata does not explicitly provide id2label/label2id; semantic mapping therefore relies on dataset construction evidence and independent biological positional enrichment rather than test-set metric optimization."
+  },
+  "decision": {
+    "label_0": "non-promoter",
+    "label_1": "promoter",
+    "status": "locked for downstream evaluation"
+  }
+}

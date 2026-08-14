@@ -1,0 +1,62 @@
+{
+  "train": {
+    "path": "/root/.cache/huggingface/hub/datasets--leannmlindsey--GUE/snapshots/240df51a2cd2c0fb1d88efffaf86e8d1e477f932/GUE/prom_300_all/train.csv",
+    "rows": 47356,
+    "sha256": "4bcf0670a38b64ab7e87571b7dcec695084852708e65b797744849d0c6b4ed08",
+    "columns": [
+      "sequence",
+      "label"
+    ],
+    "label_counts": {
+      "0": 23684,
+      "1": 23672
+    },
+    "sequence_length_min": 300,
+    "sequence_length_max": 300,
+    "sequence_length_mean": 300.0,
+    "sequence_length_median": 300.0,
+    "duplicate_sequences": 114,
+    "missing_sequences": 0,
+    "missing_labels": 0
+  },
+  "dev": {
+    "path": "/root/.cache/huggingface/hub/datasets--leannmlindsey--GUE/snapshots/240df51a2cd2c0fb1d88efffaf86e8d1e477f932/GUE/prom_300_all/dev.csv",
+    "rows": 5920,
+    "sha256": "d55d950af5d3a7882f9706cd25309a3f513ce7c60bf39d0cc423c8bffd5a5a3c",
+    "columns": [
+      "sequence",
+      "label"
+    ],
+    "label_counts": {
+      "0": 2974,
+      "1": 2946
+    },
+    "sequence_length_min": 300,
+    "sequence_length_max": 300,
+    "sequence_length_mean": 300.0,
+    "sequence_length_median": 300.0,
+    "duplicate_sequences": 1,
+    "missing_sequences": 0,
+    "missing_labels": 0
+  },
+  "test": {
+    "path": "/root/.cache/huggingface/hub/datasets--leannmlindsey--GUE/snapshots/240df51a2cd2c0fb1d88efffaf86e8d1e477f932/GUE/prom_300_all/test.csv",
+    "rows": 5920,
+    "sha256": "c77b312eb3f2c149ee5e54f0c781b585c4e65b742f0e7d9324818f2b56e71e67",
+    "columns": [
+      "sequence",
+      "label"
+    ],
+    "label_counts": {
+      "0": 2940,
+      "1": 2980
+    },
+    "sequence_length_min": 300,
+    "sequence_length_max": 300,
+    "sequence_length_mean": 300.0,
+    "sequence_length_median": 300.0,
+    "duplicate_sequences": 3,
+    "missing_sequences": 0,
+    "missing_labels": 0
+  }
+}
