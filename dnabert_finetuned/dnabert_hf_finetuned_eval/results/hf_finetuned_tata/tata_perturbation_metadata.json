@@ -1,0 +1,9 @@
+{
+  "n_examples": 354,
+  "motif_target": "earliest TATA[AT][AT] per promoter",
+  "replacement": "CGCGCG",
+  "motif_window_length": 6,
+  "control_rule": "mirror the motif start across the 300-nt sequence; if overlapping the motif, shift by 12 nt",
+  "sequence_length": 300,
+  "status": "perturbations_locked_before_inference"
+}

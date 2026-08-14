@@ -1,0 +1,12 @@
+{
+  "dataset": "GUE/prom_300_all",
+  "split": "test",
+  "promoter_label": 1,
+  "n_test_promoters": 2980,
+  "motif_regex": "TATA[AT][AT]",
+  "canonical_motif": "TATAAA",
+  "selection_rule": "one target per promoter; earliest motif occurrence",
+  "n_eligible_promoters": 354,
+  "n_total_occurrences": 437,
+  "n_locked_canonical_TATAAA": 150
+}

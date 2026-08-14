@@ -1,0 +1,18 @@
+{
+  "n_examples": 256,
+  "cohort": "test_localization_256.csv",
+  "conditions": [
+    "baseline",
+    "ablated",
+    "restore_L0H8",
+    "restore_L0_MLP",
+    "restore_both"
+  ],
+  "ablation": "L0H8 + L0_MLP",
+  "head8_slice": [
+    512,
+    576
+  ],
+  "restoration_source": "same-example clean forward activations",
+  "restore_both_max_logit_diff": 0.0
+}

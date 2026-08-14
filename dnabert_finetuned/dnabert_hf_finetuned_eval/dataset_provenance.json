@@ -1,0 +1,52 @@
+{
+  "dataset_repo": "leannmlindsey/GUE",
+  "dataset_revision": "240df51a2cd2c0fb1d88efffaf86e8d1e477f932",
+  "task": "prom_300_all",
+  "split_sizes": {
+    "train": 47356,
+    "dev": 5920,
+    "test": 5920
+  },
+  "split_sha256": {
+    "train": "4bcf0670a38b64ab7e87571b7dcec695084852708e65b797744849d0c6b4ed08",
+    "dev": "d55d950af5d3a7882f9706cd25309a3f513ce7c60bf39d0cc423c8bffd5a5a3c",
+    "test": "c77b312eb3f2c149ee5e54f0c781b585c4e65b742f0e7d9324818f2b56e71e67"
+  },
+  "sequence_length_nt": 300,
+  "tokenization": {
+    "tokenizer": "quietflamingo/dnabert2-no-flashattention",
+    "tokenizer_revision": "813031b2bf86d9e960a027e2734c908009f31601",
+    "training_model_max_length": 256,
+    "test_natural_token_length_min": 49,
+    "test_natural_token_length_max": 77,
+    "test_natural_token_length_mean": 65.4,
+    "test_examples_truncated_at_256": 0
+  },
+  "cross_split_exact_sequence_overlap": {
+    "train_dev_unique_sequences": 39,
+    "train_test_unique_sequences": 19,
+    "dev_test_unique_sequences": 1,
+    "train_test_affected_test_rows": 19,
+    "train_test_affected_fraction": 0.0032094594594594596,
+    "all_train_test_overlap_labels_consistent": true,
+    "strict_unseen_test_rows_excluding_train_and_dev_overlap": 5900
+  },
+  "hf_training_provenance": {
+    "run_name": "dnabert_prom_300_all",
+    "output_dir": "output_pipe/prom_300_all/origin",
+    "seed": 42,
+    "train_batch_size": 64,
+    "num_train_epochs": 4,
+    "global_steps": 2960,
+    "steps_per_epoch": 740,
+    "canonical_steps_per_epoch_expected": 740,
+    "best_checkpoint_step": 1400,
+    "best_eval_loss": 0.1499287337064743,
+    "provenance_assessment": "Strongly consistent with canonical GUE prom_300_all train/dev splits; byte-identical training CSV provenance cannot be proven from checkpoint metadata alone."
+  },
+  "evaluation_policy": {
+    "primary_test_set": "Canonical 5920-row GUE prom_300_all test split for direct comparability.",
+    "leakage_sensitivity_test": "5900-row subset excluding any test sequence appearing exactly in train or dev.",
+    "fair_comparison_warning": "Do not claim HF superiority without reporting/discussing canonical split overlap."
+  }
+}
