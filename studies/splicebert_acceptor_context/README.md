@@ -1,6 +1,6 @@
 # SpliceBERT acceptor context — prospective branchpoint and pyrimidine-context study
 
-> **Tier: T2 — development.** No live claim or registered model result exists.
+> Development-only study summary. No live claim or registered model result exists.
 
 This directory preserves the prospective protocol cited by the NeurIPS manuscript's bounded-extension
 section and claim-to-artifact map. It asks whether the frozen model's single-`G` acceptor-reconstruction

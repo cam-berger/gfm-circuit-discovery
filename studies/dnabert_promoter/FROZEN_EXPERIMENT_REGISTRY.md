@@ -1,6 +1,6 @@
 # Frozen DNABERT Mechanistic Experiment Registry
 
-> **Tier: T2 — provenance.** The arc's own working registry of assay definitions, metric formulas, and
+> The arc's own working registry of assay definitions, metric formulas, and
 > per-block status. **Not a claim record.** The claims are in [`CLAIMS.md`](CLAIMS.md) and what was
 > withdrawn from this file is in [`CORRECTIONS.md`](CORRECTIONS.md).
 >

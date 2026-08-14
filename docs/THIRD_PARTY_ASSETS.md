@@ -1,7 +1,5 @@
 # Third-party assets, access, and licenses
 
-> **Tier: T1 — canonical.** Current disclosure for repository and paper artifacts.
-
 The repository's original code and documentation are licensed under the root
 [`LICENSE`](../LICENSE) (MIT). That license does **not** relicense model checkpoints, reference genomes,
 annotations, human-subject data, or other third-party assets. Large models and source datasets are not

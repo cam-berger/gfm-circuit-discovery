@@ -1,7 +1,5 @@
 # SpliceBERT positional-proxy modifiability
 
-> **Tier: T2 — prospective successor.** One audited construction-stage row; no model outcome yet.
-
 ## What this study is
 
 A prospective successor to `studies/splicebert_positional_boundary_coherence` (PBC v1, closed) and its

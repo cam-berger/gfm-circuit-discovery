@@ -1,7 +1,5 @@
 # Exploratory P3 shift diagnostic v1
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 **Status:** frozen exploratory diagnostic, 2026-07-21. This is not a confirmatory study and cannot
 identify the training origin of the period-3 carrier. It asks how the frozen SpliceBERT checkpoint
 currently responds when sequence content, splice-site geometry, and coding frame are shifted relative

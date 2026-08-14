@@ -1,7 +1,5 @@
 # Figure 4 — per-head ablation heatmap (SUPERSEDED — encoder Layer 3)
 
-> **Tier: T3 — historical.** Superseded Layer-3 replicate. Never cite as current.
-
 **Status: superseded. Controls no claim. Do not quote.** See `DBPR7`.
 
 Zero-ablation effect per attention head across layers 0–3, read at an encoder **Layer-3** probe

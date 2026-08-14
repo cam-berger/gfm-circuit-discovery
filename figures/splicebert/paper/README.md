@@ -1,6 +1,6 @@
 # Paper figures — donor–acceptor circuit (NeurIPS-grade)
 
-> **Tier: T2 — provenance.** Figure provenance for the sequence→head→output circuit figures, 2026-07-24.
+> Figure provenance for the sequence→head→output circuit figures, 2026-07-24.
 > Every value is licensed from the frozen record; nothing here is a new claim.
 
 One publication figure (vector PDF + 300-dpi PNG), driven by

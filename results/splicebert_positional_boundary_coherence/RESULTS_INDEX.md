@@ -1,6 +1,6 @@
 # Positional boundary coherence — results index
 
-> **Tier: T2 — provenance.** Model-free Phase I stopped on an independently audited frozen-capacity
+> Model-free Phase I stopped on an independently audited frozen-capacity
 > failure. This family contains no model outcome.
 
 Machine-readable entry point: [`../MANIFEST.csv`](../MANIFEST.csv) / [`../MANIFEST.json`](../MANIFEST.json).

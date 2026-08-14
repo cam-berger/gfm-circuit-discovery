@@ -1,8 +1,5 @@
 # Claim ledger — SpliceBERT positional boundary coherence
 
-> **Tier: T2 — provenance.** One model-free construction claim is recorded. No successor model claim
-> exists.
-
 Prior `C43`, `C44`, and carrier claims remain solely in the canonical
 [`CLAIMS.md`](../splicebert_partner_selection/CLAIMS.md); they are provenance, not rows in this ledger.
 

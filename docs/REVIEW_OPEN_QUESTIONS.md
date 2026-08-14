@@ -1,7 +1,5 @@
 # Review open questions — owner decisions
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 Items surfaced by the 2026-07-22 remediation program that could not be applied automatically, because
 applying them would choose between two recorded numbers, two recorded wordings, or would alter the
 meaning of a recorded statement. Nothing here has been changed in the repository. Each entry names the

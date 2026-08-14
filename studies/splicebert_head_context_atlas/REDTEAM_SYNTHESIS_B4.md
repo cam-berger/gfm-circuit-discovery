@@ -1,7 +1,5 @@
 # B4 — L3H1/carrier → L2MLP bridge (HCA20 residual): 5-lens design red-team synthesis (2026-07-22)
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 **Reviews:** `PREREGISTRATION_B4_L3H1_CARRIER_TO_L2MLP.md` v1 (DRAFT for pre-compute red-team). Five
 adversarial lenses, run BEFORE any confirmatory compute (formalize-audit-verify steps 1–2). **Outcome: the
 design is NOT freezable as the bridge study it names.** Two lenses returned `fatal` and a third lodged a

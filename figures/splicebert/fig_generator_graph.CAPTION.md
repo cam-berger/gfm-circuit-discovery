@@ -1,7 +1,5 @@
 # fig_generator_graph — the A10 payload generator, laid out by Graphviz from the edge artifact
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 The directed graph of the acceptor-local payload generator (A10 / **C31**, Directed-circuit level,
 held-out): six load-bearing layer-0 attention heads feed **MLP0**, which **mediates** their
 contribution, into the strictly serial backbone **MLP0 → MLP1 → MLP2**.

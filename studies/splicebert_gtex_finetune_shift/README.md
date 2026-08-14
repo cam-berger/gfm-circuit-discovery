@@ -1,7 +1,5 @@
 # SpliceBERT GTEx fine-tuning shift
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 This study asks what happens to the established SpliceBERT donor–acceptor coupling computation when the
 same `SpliceBERT.1024nt` encoder is fine-tuned for three-class splice-site prediction on SpliceAI's GTEx
 dataset. It is a matched-checkpoint transfer study, not a new model or a claim about biological splicing.

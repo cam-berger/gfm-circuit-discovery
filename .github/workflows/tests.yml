@@ -18,6 +18,10 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
+        with:
+          # Provenance guards verify historical manifest revisions with
+          # `git cat-file`; a depth-one checkout cannot satisfy them.
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v6

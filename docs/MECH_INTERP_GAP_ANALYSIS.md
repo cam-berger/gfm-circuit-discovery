@@ -1,6 +1,6 @@
 # Mech Interp Gap Analysis
 
-> **Tier: T2 — advisory.** Tracks method coverage and open opportunities. Not a claims ledger.
+> Tracks method coverage and open opportunities. Not a claims ledger.
 >
 > Method inventory current as of 2026-08-04; the paper-location note reflects the current in-tree draft.
 > Re-read CLAIMS.md and ROADMAP.md before acting on any item here.

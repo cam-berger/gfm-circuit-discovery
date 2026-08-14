@@ -1,6 +1,6 @@
 # Review 2026-08-11 — DNABERT-2 promoter arc (PR #40) against repository fundamentals
 
-> **Tier: T2 — provenance.** The integration review that gave the DNABERT-2 arc its ledgers. Not a claim
+> The integration review that gave the DNABERT-2 arc its ledgers. Not a claim
 > record: claims are in [`studies/dnabert_promoter/CLAIMS.md`](../studies/dnabert_promoter/CLAIMS.md) and
 > withdrawals in [`CORRECTIONS.md`](../studies/dnabert_promoter/CORRECTIONS.md).
 

@@ -1,7 +1,5 @@
 # Preregistration ↔ implementation conformance
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 **What this document is.** For every preregistered experiment family **in the SpliceBERT arc**, a
 record of where the **executed code** departed from the **frozen protocol**, and whether any live
 claim's wording depends on the gap. It exists because a reviewer's hardest question about a
@@ -413,9 +411,9 @@ document, and it is why the file exists rather than a note saying conformance wa
   resolution, and target resolution. BG1 validation, its audit, BG2, and the BG2 audit were not run. This
   is an instrument result only; it supplies neither a positive nor a null boundary-grammar claim.
 
-- **DNABERT-2 promoter (`DBP1`–`DBP10`) — there is no protocol to audit.** This is a different kind of
+- **DNABERT-2 promoter (`DBP1`–`DBP17`) — there is no protocol to audit.** This is a different kind of
   absence from the BG1/BG2 bullet above, and a worse one. BG1/BG2 froze a protocol and has not run; the
-  DNABERT-2 study **ran, produced ten ledgered claims, and never froze a protocol at all**. Its prose
+  DNABERT-2 study **ran, produced seventeen ledgered claims, and never froze a protocol at all**. Its prose
   nonetheless described "preregistered component conditions" for the confirmatory donor-matrix run, which
   is withdrawn under `DBPR8`. A reader scanning this file for "is this arc audited?" must read its
   absence as *no preregistration exists*, not as coverage pending.
@@ -427,6 +425,15 @@ document, and it is why the file exists rather than a note saying conformance wa
   the group selection, or the donor matrix — which is why `DBP5` stays a candidate. Recorded in
   `studies/dnabert_promoter/DECISIONS.md` § "Known departures from repository convention". No `DBP` row
   may be cited as a preregistered result, and none is.
+
+  The **fine-tuned extension** (`DBP11`–`DBP17`, landed 2026-08-14) inherits this position exactly and
+  adds nothing to it: it froze no protocol either, its endpoints were chosen after the sweep was seen,
+  and its 52 artifacts were produced by `notebooks/dnabert_finetuned_experiments.ipynb` rather than by
+  runners, so they carry no manifests and are not re-runnable from a clean checkout. Nothing in
+  `DBP11`–`DBP17` may be cited as preregistered or as gate-enforced. Two of its readings are bounded
+  further by `DBPR10` (the frozen/fine-tuned contrast is descriptive, not a fine-tuning effect) and
+  `DBPR11` (the Layer-10 endpoint is a band, not a point). The one exception, and the shape the rest
+  should take, is `layer_selection_band.json`, which has a producing script and a sibling manifest.
 
 ## Related records
 

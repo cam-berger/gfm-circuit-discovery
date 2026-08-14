@@ -1,7 +1,5 @@
 # Cross-model positional-carrier transfer (Phase 2)
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 **(a)** Leakage-aware carrier band power, expressed as Z = (band power at the carrier period)
 / (median band power at control periods), for the two SpliceBERT positional carriers measured
 in three single-nucleotide transformer MLMs. In SpliceBERT (trained on spliced pre-mRNA,

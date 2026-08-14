@@ -1,7 +1,5 @@
 # Results tree — index
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 `MANIFEST.csv` and `MANIFEST.json` are the **machine-readable entry point** to this tree. They carry
 one row per tracked file under `results/`, with the column set fixed by
 [`docs/REVIEW_2026-07-22.md`](../docs/REVIEW_2026-07-22.md) §4 (fix F2):

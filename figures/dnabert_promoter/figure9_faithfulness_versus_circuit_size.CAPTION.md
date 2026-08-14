@@ -1,7 +1,5 @@
 # Figure 9 — standalone faithfulness versus circuit size
 
-> **Tier: T2 — provenance.** Supporting record for the compactness bound (`DBP7`).
-
 **Status: canonical.** Controls `DBP7`. The study's central negative result.
 
 Mean standalone faithfulness of the candidate circuit as nodes are added in ranked order, with every

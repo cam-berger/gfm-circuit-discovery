@@ -1,6 +1,6 @@
 # ED1 — running decision log (architecture-conditioned boundary pairing)
 
-> **Tier: T2 — provenance.** Rationale for the ED1 arc: what was decided, why, and what was rejected.
+> Rationale for the ED1 arc: what was decided, why, and what was rejected.
 > Claims live in [`CLAIMS.md`](CLAIMS.md); the frozen protocol is
 > [`preregistrations/PREREGISTRATION_ED1_ARCHITECTURE_BOUNDARY_PAIRING.md`](preregistrations/PREREGISTRATION_ED1_ARCHITECTURE_BOUNDARY_PAIRING.md);
 > the design audit is [`redteam/REDTEAM_SYNTHESIS_ED1.md`](redteam/REDTEAM_SYNTHESIS_ED1.md).

@@ -1,6 +1,6 @@
 # Per-component evidence status — SpliceBERT figures
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
+> Supporting record: preregistrations, decision logs, correction ledgers, audits.
 >
 > **Not the ladder itself.** The ladder — the levels, what each licenses, and where claims must stop — is
 > defined once in [`../../docs/EVIDENCE_LADDER.md`](../../docs/EVIDENCE_LADDER.md) (T1). This file only

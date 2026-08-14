@@ -1,7 +1,5 @@
 # PREREGISTRATION — B5: The 20 context signals (HCA18) — power, not method (v2, FROZEN)
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 Status: **FROZEN 2026-07-22** after the 5-lens pre-compute design red-team (`REDTEAM_SYNTHESIS_B5.md`). v1
 was a DRAFT; this v2 incorporates the six pre-run must-fixes from the red-team (all applied **before any
 verdict was computed** — the branch schedules **zero model forward passes**, so freezing after design review

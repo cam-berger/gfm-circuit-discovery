@@ -1,7 +1,5 @@
 # PREREGISTRATION — P3: the causal role of the period-3 positional carrier in donor coupling (v2)
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 **Status: FROZEN-CANDIDATE v2 (post-4-lens design red-team). Not yet run confirmatorily.** v1 (the
 pre-red-team draft) is superseded; the audit trail is `REDTEAM_SYNTHESIS_P3_4lens.md`. All four lenses
 returned `fixable`, with **two estimand-level FATALs** that **retire the flagship "address × payload

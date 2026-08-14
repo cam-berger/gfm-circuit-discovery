@@ -1,7 +1,5 @@
 # SpliceBERT donor circuit and positional carriers
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 This directory is the detailed provenance record for the repository's first worked example: how
 SpliceBERT's masked-donor prediction depends on its paired acceptor, how the information is generated and
 routed, and where the evidence stops.

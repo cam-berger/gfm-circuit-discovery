@@ -1,7 +1,5 @@
 # Claim ledger
 
-> **Tier: T2 — provenance.** Template/infrastructure scaffold; not a live record.
-
 Use one row per claim or retraction. Do not delete superseded rows.
 
 | ID | Claim | Evidence level | Status | Scope | Supporting artifacts | Missing bridge / next test |

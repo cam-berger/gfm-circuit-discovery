@@ -1,6 +1,6 @@
 # DRAFT — sourced branchpoint × operational pyrimidine-rich interval factorial
 
-> **Tier: T2 — draft.** Prospective instrument specification; not a claim or result.
+> Prospective instrument specification; not a claim or result.
 >
 > **Status: DRAFT — NOT FROZEN.** Smoke and discovery preflight only. Target execution requires an
 > annotation/cohort audit and a reviewed frozen successor. No conforming builder, runner, registered

@@ -1,7 +1,5 @@
 # The Voong chemical-cleavage nucleosome map — provenance, and the traps in it
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 **Acquired 2026-07-13.** This is the external data Exp 2 (the dyad-anchored source assay) was
 blocked on. It is now in hand.
 

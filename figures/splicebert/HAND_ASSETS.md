@@ -1,7 +1,5 @@
 # Hand-authored SpliceBERT assets — retirement record
 
-> **Tier: T3 — historical.** Superseded or point-in-time; retained for the record. Not current guidance.
-
 This file exists to keep a retraction attached to artwork that no longer sits in the tree. It is not a
 figure index — the figures of record and their generating scripts are in [`README.md`](README.md).
 

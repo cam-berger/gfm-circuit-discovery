@@ -1,7 +1,5 @@
 # PREREGISTRATION — P3 closure: coding-context-enriched carrier use
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 **Status: FROZEN v1 — 2026-07-21; no untouched model outcome has been read.** The package, independent
 audit, development smoke, and clean-revision checks in §9 remain mandatory execution gates.
 

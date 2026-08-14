@@ -1,8 +1,7 @@
 # `tex/` — NeurIPS 2026 paper draft
 
-> **Tier: T3 — draft.** This directory is the current paper workspace, not a claim authority. If the
-> manuscript differs from a study claim ledger, correction ledger, or preregistration-conformance record,
-> the paper must be corrected.
+> Not authoritative for any claim. Where this directory and a claim ledger disagree, **the ledger wins**
+> and the paper is wrong.
 
 ## Canonical draft
 

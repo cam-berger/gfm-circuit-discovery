@@ -1,7 +1,5 @@
 # Corrections — SpliceBERT acceptor coupling
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 Permanent record of what was wrong, bounded, or mis-specified. Nothing here is edited away; wording that
 was retracted stays retracted.
 

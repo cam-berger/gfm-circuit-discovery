@@ -1,7 +1,5 @@
 # Decision log — Head–Context Atlas
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 Design decisions and post-diagnostic pivots. Preregistered confirmatory choices live in
 `PREREGISTRATION_C_COMPETITION.md`; this log records rationale and the red-team pivot.
 

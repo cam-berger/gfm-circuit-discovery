@@ -1,7 +1,5 @@
 # Red-team and synthesis records
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 These documents record adversarial design review and post-run synthesis. They are evidence provenance,
 not alternative live claim ledgers.
 

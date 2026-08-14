@@ -1,7 +1,5 @@
 # Colab package — R4 paired edge-level ACDC
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 Runs [`PREREGISTRATION_R4_EDGE_LEVEL_CAUSAL_CORE.md`](../preregistrations/PREREGISTRATION_R4_EDGE_LEVEL_CAUSAL_CORE.md)
 on a Colab GPU. `AC4` partitions the 96 heads; R4 asks the same question over the 4,636
 head-granular edges, on R3's cohort, both directions in one process.

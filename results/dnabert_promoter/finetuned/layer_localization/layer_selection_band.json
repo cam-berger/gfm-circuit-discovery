@@ -1,0 +1,36 @@
+{
+  "selection_metric": "dev_balanced_accuracy",
+  "selection_split": "dev",
+  "selection_split_label_counts": {
+    "0": 2974,
+    "1": 2946
+  },
+  "argmax_layer": 10,
+  "argmax_value": 0.9429185094078529,
+  "runner_up_layer": 7,
+  "runner_up_value": 0.941920952395301,
+  "margin_over_runner_up": 0.0009975570125518862,
+  "standard_error": 0.0030152875712827244,
+  "standard_error_method": "per-class binomial; balanced accuracy used as the proxy for both class recalls; unpaired, because per-layer per-example predictions are not committed",
+  "margin_in_standard_errors": 0.3308331258525761,
+  "layers_within_1_se_of_argmax": [
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "layers_within_2_se_of_argmax": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "test_argmax_layer": 8,
+  "test_argmax_value": 0.9352520202711958,
+  "argmax_layer_test_value": 0.9324179336163996,
+  "reading": "The validation argmax is not separated from its runner-up. Report the layer choice as the band, and describe Layer 10 only as the layer the stated selection rule returned on one seed."
+}

@@ -1,7 +1,5 @@
 # References
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 External works cited by [`docs/METHODOLOGY.md`](METHODOLOGY.md) and [`docs/EVIDENCE_LADDER.md`](EVIDENCE_LADDER.md).
 The final block holds method-context works that no methodology document cites and that no claim ledger
 carries.

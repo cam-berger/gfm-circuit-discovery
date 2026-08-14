@@ -1,6 +1,6 @@
 # Results index — SpliceBERT positional-proxy modifiability
 
-> **Tier: T2 — prospective successor.** One audited construction-stage row lives in `CLAIMS.md`. This
+> One audited construction-stage row lives in `CLAIMS.md`. This
 > index carries two rows of its own, both **development-stage pilots that back no claim** and
 > neither independently audited — see the audit note below before citing either anywhere.
 

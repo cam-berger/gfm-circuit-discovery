@@ -1,7 +1,5 @@
 # Method documentation
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 These documents define the research program independently of any one model.
 
 - [METHODOLOGY.md](METHODOLOGY.md) — the end-to-end discovery workflow and tool families.
@@ -19,7 +17,7 @@ These documents define the research program independently of any one model.
 - [../MECHANISM.md](../MECHANISM.md) — one-file current SpliceBERT mechanism, scope, and open bridges.
 - [../REPRODUCE.md](../REPRODUCE.md) — canonical environment and claim-to-artifact reproduction map.
 - [../tex/README.md](../tex/README.md) — purpose, structure, assets, draft state, and build instructions
-  for the current NeurIPS manuscript. The manuscript is T3 narrative; the records above control evidence.
+  for the current NeurIPS manuscript. The manuscript is narrative; the records above control evidence.
 
 Three point-in-time records are also kept here and are **not** current guidance:
 [REVIEW_2026-07-22.md](REVIEW_2026-07-22.md) (pinned by `scripts/verify_manifest.py`, which cites its §4

@@ -1,8 +1,5 @@
 # Decision log — SpliceBERT positional proxy modifiability
 
-> **Tier: T2 — provenance.** Prospective study; no model outcome exists and no post-outcome decision has been
-> made.
-
 The frozen choices belong in [`PREREGISTRATION.md`](PREREGISTRATION.md). Add a dated entry here only after
 data or diagnostics force a decision, amendment, stop, or scope change. Each entry must name the evidence
 available at the time, the alternatives considered, the affected files, and the effect on claim scope. This

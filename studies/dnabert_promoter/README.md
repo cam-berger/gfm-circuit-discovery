@@ -1,7 +1,5 @@
 # DNABERT-2 promoter mechanism — study README
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 The second real GFM in this repository, and the first test of whether the method travels. The question
 is **not** whether DNABERT-2 can classify promoters — it is whether the discipline built on SpliceBERT
 (prereg → intervention → bounded claim, with evidence that never promotes itself) recovers a causally
@@ -62,12 +60,13 @@ no `C*`, `HCA*` or `GFS*` claim depends on anything in this study.
 | Path | What is there |
 |---|---|
 | [`CLAIMS.md`](CLAIMS.md) | The `DBP1`–`DBP17` ledger. The point of contact for every claim. |
-| [`CORRECTIONS.md`](CORRECTIONS.md) | `DBPR1`–`DBPR10`. What was withdrawn or bounded, why — including the fine-tuning artifact update and the unmatched-comparison boundary. |
+| [`CORRECTIONS.md`](CORRECTIONS.md) | `DBPR1`–`DBPR11`. What was withdrawn or bounded, why — including the fine-tuning artifact update, the unmatched-comparison boundary, and the post-merge remediation that bounded the Layer-10 endpoint to a band. |
 | [`DECISIONS.md`](DECISIONS.md) | Why the assays are shaped the way they are, including known departures. |
-| [`FROZEN_EXPERIMENT_REGISTRY.md`](FROZEN_EXPERIMENT_REGISTRY.md) | T2. The frozen arc's working registry of assay definitions, metric formulas, and per-block status. |
+| [`FROZEN_EXPERIMENT_REGISTRY.md`](FROZEN_EXPERIMENT_REGISTRY.md) | The frozen arc's working registry of assay definitions, metric formulas, and per-block status. Not a claim record. |
 | [`FINETUNED_VS_FROZEN.md`](FINETUNED_VS_FROZEN.md) | Concise record of the completed fine-tuned assays and the licensed descriptive comparison to the frozen study. |
 | [`results/dnabert_promoter/`](../../results/dnabert_promoter/RESULTS_INDEX.md) | Artifacts, with the family index naming which control claims. |
-| `scripts/dnabert_promoter/` | 35 runners: cohort building, probing, ablation, restoration, faithfulness, motif tests. |
+| `scripts/dnabert_promoter/` | 36 runners: cohort building, probing, ablation, restoration, faithfulness, motif tests, and `analyze_finetuned_layer_selection.py`. |
+| `notebooks/dnabert_finetuned_experiments.ipynb` | The producer of the 52 fine-tuned artifacts. **Not a runner** — it has no manifests and is not re-runnable from a clean checkout. Porting it to `scripts/dnabert_promoter/` is the gating item for the fine-tuned rows (`DBPR11`). |
 | `src/gfmcd/adapters/dnabert.py`, `src/gfmcd/dnabert/` | Model access, dataset, perturbation utilities. |
 | `configs/dnabert_promoter/base.json` | The frozen assay configuration. |
 | `figures/dnabert_promoter/` | Published figures with captions. Figures 1–3 and 9–12 are canonical; 4–8 depict the superseded Layer-3 replicate. |
@@ -83,9 +82,11 @@ A completed fine-tuned DNABERT-2 analysis is now part of this study family. It e
 
 On the official GUE `prom_300_all` test split, the fine-tuned classifier reaches balanced accuracy
 `0.935205`, MCC `0.870487`, and ROC-AUC `0.984785`; excluding exact test sequences found in train or
-development leaves `n=5,900` and balanced accuracy `0.935136`. A validation-selected masked-mean linear
-probe is strongest at encoder Layer 10 (`dev BA = 0.942919`; descriptive test BA `0.932418`), but this is
-a representational-accessibility result, not causal localization.
+development leaves `n=5,900` and balanced accuracy `0.935136`. A masked-mean linear probe sweep returns
+Layer 10 under the stated development rule (`dev BA = 0.942919`; descriptive test BA `0.932418`), but that
+argmax leads its runner-up by `0.33` standard errors: layers **7–11** are within one standard error and
+**5–11** within two, and the test argmax is Layer 8. Quote the band, not Layer 10 — and read it as
+representational accessibility, not causal localization (`DBP13`, `DBPR11`).
 
 On a locked balanced 256-example test cohort, zeroing `L0H8` lowers balanced accuracy
 `0.957031 → 0.511719`; zeroing `L0_MLP` gives `0.816406`; ablating both gives `0.503906`.

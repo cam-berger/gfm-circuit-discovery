@@ -1,8 +1,5 @@
 # Figure 1 — L3H1 selectively carries partner-specific coupling
 
-> **Tier: T2 — provenance.** Supporting record: confirmatory pair-category and
-> head-localization artifacts.
-
 **A.** Corrupting the annotated same-intron acceptor strongly changes the masked-donor
 margin in the intact model. The same-exon, unpaired, other-donor, acceptor–acceptor,
 and matched-random controls are smaller. Ablating L3H1 selectively removes the

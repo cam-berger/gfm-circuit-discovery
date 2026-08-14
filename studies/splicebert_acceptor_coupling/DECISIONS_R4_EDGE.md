@@ -1,7 +1,5 @@
 # Decisions — R4 edge-level causal core (ACDC)
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 Engineering and execution decisions behind
 [`PREREGISTRATION_R4_EDGE_LEVEL_CAUSAL_CORE.md`](preregistrations/PREREGISTRATION_R4_EDGE_LEVEL_CAUSAL_CORE.md).
 The scientific protocol lives there; what follows is why the machinery is shaped the way it is.

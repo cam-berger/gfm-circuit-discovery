@@ -1,7 +1,5 @@
 # Pre-registration — A2: address–payload factorization of L3H1 (donor-graph experiment 5)
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 **Status: FROZEN.** Written before `run_a2_address_payload.py` runs. Every cell, readout, and
 threshold is fixed here and imported from `gfmcd.circuits.hf_bert` / `gfmcd.splicing.circuit`.
 Pre-run corrections logged inline as `**Amendment (YYYY-MM-DD, pre-run, no data seen).**`.

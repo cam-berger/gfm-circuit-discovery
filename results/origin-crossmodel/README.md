@@ -1,7 +1,5 @@
 # Cross-model carrier transfer (origin-crossmodel)
 
-> **Tier: T1 — canonical.** Phase 2 of the positional-carrier origin study.
-
 **Question.** Are SpliceBERT's two learned positional carriers — the **period-3** (codon-scale)
 carrier and the distinct **≈10.63** carrier — idiosyncratic to SpliceBERT, or do other
 single-nucleotide transformer MLMs build them too? This is a natural experiment on frozen

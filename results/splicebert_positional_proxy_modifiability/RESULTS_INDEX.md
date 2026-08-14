@@ -1,6 +1,6 @@
 # Positional-proxy modifiability — results index
 
-> **Tier: T2 — provenance.** Two development-stage pilots. No claim ledger row is backed by
+> Two development-stage pilots. No claim ledger row is backed by
 > anything in this directory, and none should be until a multi-seed run exists.
 
 Machine-readable entry point: [`../MANIFEST.csv`](../MANIFEST.csv) / [`../MANIFEST.json`](../MANIFEST.json).

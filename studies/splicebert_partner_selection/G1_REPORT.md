@@ -1,6 +1,6 @@
 # G1 — cross-example transduction of the donor-side delivered state: REPORT
 
-> **Tier: T2 — provenance.** One-page executor report (research-handoff schema). Canonical claim wording
+> One-page executor report (research-handoff schema). Canonical claim wording
 > lives in `CLAIMS.md` (C41). Full protocol: the FROZEN
 > [G1 prereg](preregistrations/PREREGISTRATION_G1_CROSS_EXAMPLE_TRANSDUCTION.md); design audit:
 > [red-team synthesis](redteam/REDTEAM_SYNTHESIS_G1.json).

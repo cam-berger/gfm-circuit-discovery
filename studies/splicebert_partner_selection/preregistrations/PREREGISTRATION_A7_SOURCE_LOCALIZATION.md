@@ -1,7 +1,5 @@
 # Pre-registration — A7: position×layer localization of the distributed generation (donor-graph experiment 11)
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 **Status: FROZEN.** Written before `run_a7_source_localization.py` runs. Design per the 2026-07-16
 review. Imported from `gfmcd.circuits.hf_bert` (`patch_heads`) / `gfmcd.splicing.circuit`
 (`clamp_write`, `build_windows`, `ratio_of_means`, `gboot_ratio`) / `gfmcd.splicing.provenance`
