@@ -1,7 +1,5 @@
 # Pre-registration — A3: does L2H15 build L3H1's address or its payload? (donor-graph experiment 7)
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 **Status: FROZEN.** Written before `run_a3_l2h15_address_payload.py` runs. Imported from
 `gfmcd.circuits.hf_bert` / `gfmcd.splicing.circuit` / `gfmcd.splicing.payload`. Pre-run
 corrections logged inline as `**Amendment (YYYY-MM-DD, pre-run, no data seen).**`.

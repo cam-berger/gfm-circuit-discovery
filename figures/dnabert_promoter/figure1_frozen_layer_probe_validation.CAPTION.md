@@ -1,7 +1,5 @@
 # Figure 1 — frozen layer-probe trajectory
 
-> **Tier: T2 — provenance.** Supporting record for the frozen layer-probe trajectory (`DBP3`, `DBP4`).
-
 **Status: canonical.** Controls `DBP3`, `DBP4`.
 
 Balanced accuracy of a masked-mean linear probe fitted independently at each of DNABERT-2's 12 encoder

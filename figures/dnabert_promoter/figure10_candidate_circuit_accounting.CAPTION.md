@@ -1,7 +1,5 @@
 # Figure 10 — candidate-circuit necessity and delivery
 
-> **Tier: T2 — provenance.** Supporting record for candidate-circuit necessity and delivery (`DBP6`).
-
 **Status: canonical.** Controls `DBP6`.
 
 Two conditional interventions on the five-node candidate circuit (`L0H8`, `L1H8`, `L2H9`, `L2H3`,

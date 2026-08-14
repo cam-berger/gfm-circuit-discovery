@@ -1,7 +1,5 @@
 # SpliceBERT positional circuits — current results index
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 This directory contains the machine-readable record for two distinct positional mechanisms in
 SpliceBERT:
 

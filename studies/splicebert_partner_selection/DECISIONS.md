@@ -1,7 +1,5 @@
 # SpliceBERT decision record
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 This is a consolidated chronology of scientific pivots. It records why the active tree changed; it is not a second claim ledger.
 
 ## 2026-07-10 to 2026-07-11 — initial partner-selection framing

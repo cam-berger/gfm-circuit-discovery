@@ -1,7 +1,5 @@
 # A0 decisions & running log — stage-wise provenance of L3H1's acceptor targeting
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 Frozen protocol: `preregistrations/PREREGISTRATION_A0_TARGETING_PROVENANCE.md`. This file is the post-unblinding
 log and the setup-time reasoning; the prereg is frozen and only takes **pre-run** amendments.
 

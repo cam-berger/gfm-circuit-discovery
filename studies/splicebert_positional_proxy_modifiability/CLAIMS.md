@@ -1,7 +1,5 @@
 # SpliceBERT positional-proxy modifiability — claim ledger
 
-> **Tier: T2 — prospective successor.** One audited construction-stage row; no model outcome yet.
-
 Point-of-contact record for the strongest wording currently licensed. One claim, one evidence level, one
 controlling artifact set, one scope boundary per row. Status vocabulary matches the donor ledger:
 **established** / **bounded** / **open** / **retracted** / **closed**.

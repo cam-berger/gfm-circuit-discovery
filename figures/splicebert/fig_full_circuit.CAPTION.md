@@ -1,8 +1,5 @@
 # Figure 2 — Structured donor–acceptor core and its faithfulness boundary
 
-> **Tier: T2 — provenance.** Supporting record: confirmatory topology and held-out
-> complement-faithfulness artifacts.
-
 **A.** An acceptor-local value payload is built through L0H7/H12/H10 and the
 MLP0→MLP1 backbone. A learned period-3 coordinate contributes to a predominantly
 positional address through L2H15. Both streams converge through MLP2 at L3H1, which

@@ -1,6 +1,6 @@
 # `tex/` — workshop paper source
 
-> **Tier: T3 — draft.** Not authoritative for any claim. Where this directory and a claim ledger
+> Not authoritative for any claim. Where this directory and a claim ledger
 > disagree, **the ledger wins** and the paper is wrong.
 
 ## What is here

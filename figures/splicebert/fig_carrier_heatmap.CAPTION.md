@@ -1,7 +1,5 @@
 # fig_carrier_heatmap — the two-carrier surface, readable off the page
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 A 2D companion to the 3D render in `phase_graphs_3D/carrier-wave-interaction-paper.svg`. Same
 function, same constants, no recomputation: `joint_weight` and its parameters are imported from
 `phase_graphs_3D/generate_carrier_paper_figure.py`, so the two figures cannot drift apart. The 3D

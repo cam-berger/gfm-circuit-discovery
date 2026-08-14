@@ -1,7 +1,5 @@
 # Head–Context Atlas cohort v1
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 Status: **outcome-independent mechanical preflight passed; no atlas model outcomes read**.
 
 This document freezes the representation and matching policy for the first wider SpliceBERT atlas

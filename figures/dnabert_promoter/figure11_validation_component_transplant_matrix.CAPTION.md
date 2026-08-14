@@ -1,7 +1,5 @@
 # Figure 11 — Layer-2 activation transplant, validation
 
-> **Tier: T2 — provenance.** Supporting record for the validation transplant matrix (`DBP8`).
-
 **Status: canonical.** Controls `DBP8`.
 
 Mean recovery fraction when clean activations from a **source example** are transplanted into a corrupt

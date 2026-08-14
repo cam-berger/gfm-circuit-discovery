@@ -1,6 +1,6 @@
 # DNABERT-2 promoter study — design decisions
 
-> **Tier: T2 — provenance.** Why the assays are shaped this way. Not a claim record; claims are in
+> Why the assays are shaped this way. Not a claim record; claims are in
 > [`CLAIMS.md`](CLAIMS.md).
 
 Recorded on 2026-08-11 from the committed scripts, configs, and artifacts. Where a decision was made
@@ -170,6 +170,16 @@ with development ROC-AUC as tie-breaker. Test metrics remain descriptive. Layer 
 development rule; Layer 8 has slightly higher test BA and is not substituted post hoc. The probe is
 interpreted as linear accessibility, never as causal localization.
 
+**Amended 2026-08-14 (`DBPR11`).** The rule is kept, but its output is no longer reported as a point.
+The Layer-10 lead over Layer 7 is `0.000998` development BA = `0.33` standard errors, so the sweep does
+not separate layers 7–11 at one SE or 5–11 at two. `analyze_finetuned_layer_selection.py` computes that
+band from the committed metrics and writes
+`layer_localization/layer_selection_band.json` with a sibling manifest; `DBP13` now quotes the band.
+This is an unpaired bound — per-layer per-example predictions were not committed, so the tighter paired
+test cannot be run from the tree. Note also that the `dev` split now carries two selection roles: it
+selects this probe layer, and it is the split against which the third-party checkpoint's own model
+selection is undocumented.
+
 ## D17 — Lock one balanced 256-example test cohort for targeted causal assays
 
 The targeted ablation and activation-restoration assays use a deterministic seed-42 cohort of 256 test
@@ -228,4 +238,4 @@ Recorded rather than quietly tolerated. Each blocks promotion of the affected ro
 | 2 — memorials that can fail, on the measurement path | Identity controls are genuine and exact, but there are no arithmetic anchors of the `value_linearity` kind. | Identity-zero is necessary and was met; it is not sufficient as a memorial set. |
 | 3 — calibration for identification claims | **No planted-positive sensitivity and no permuted-label FPR** for the head ranking, group selection, or transplant matrix. | The identification claims (DBP5 especially) stay candidates. Calibration has caught decision-layer bugs in this repo before, and it needs GPU runs, so it is a gate rather than something this review could close. |
 | 4 — held-out plus multiple seeded draws | Validation→test discipline honoured; **single seed (42) throughout**. | Every effect is single-seed. Effect-existence is not established for any of them, and the endpoint margin is inside noise. |
-| 7 — every result writes a manifest | **Fixed forward, gap preserved backward.** `src/gfmcd/dnabert/manifest.py` is now wired into all 15 canonical runners, so a rerun writes hashed inputs/outputs, the probe sha256, split provenance, seed, command and git state; `tests/test_dnabert_manifest.py` pins the contract. The ~104 *existing* artifacts still have none. | Historical rows carry a blank `manifest` column rather than a back-filled record — the run conditions were never captured, and inventing them would be worse than an honest blank. They fill in when the affected assays are next re-run. |
+| 7 — every result writes a manifest | **Fixed forward for runners; extended forward once by the fine-tuned package.** `src/gfmcd/dnabert/manifest.py` is wired into all 15 canonical frozen runners plus `analyze_finetuned_layer_selection.py`, so a rerun writes hashed inputs/outputs, the probe sha256, split provenance, seed, command and git state; `tests/test_dnabert_manifest.py` pins the contract. The ~104 *existing* frozen artifacts still have none. **The fine-tuned extension added 52 more without manifests** (`DBPR11`): it was produced by `notebooks/dnabert_finetuned_experiments.ipynb` rather than by runners, so those rows carry blank `script` *and* blank `manifest`. `layer_selection_band.json` is the one fine-tuned artifact with both. | Historical rows carry a blank `manifest` column rather than a back-filled record — the run conditions were never captured, and inventing them would be worse than an honest blank. The fine-tuned rows are a **disclosed, accepted debt**, not an oversight: their inputs are pinned by revision in `finetuned/shared/`, but the assays are not re-runnable from the tree until the notebook is ported to `scripts/dnabert_promoter/`. That port is the gating item before any fine-tuned row is promoted past its current tier. |

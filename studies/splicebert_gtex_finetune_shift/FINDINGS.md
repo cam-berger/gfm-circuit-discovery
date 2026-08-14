@@ -1,7 +1,5 @@
 # SpliceBERT GTEx fine-tuning-shift findings
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 This is the concise entry point for the GTEx fine-tuning-shift study. Exact licensed wording is controlled
 by [`CLAIMS.md`](CLAIMS.md); run provenance is in [`RESULTS.md`](RESULTS.md) and the
 [result index](../../results/splicebert_gtex_finetune_shift/RESULTS_INDEX.md).

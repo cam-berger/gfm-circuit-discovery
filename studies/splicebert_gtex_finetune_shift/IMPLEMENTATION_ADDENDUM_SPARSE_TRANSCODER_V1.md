@@ -1,6 +1,6 @@
 # Implementation addendum v1: six-view sparse final-MLP instrument
 
-> **Tier: T2 — provenance.** Frozen after the biological-feature discovery artifact
+> Frozen after the biological-feature discovery artifact
 > and before exporting any sparse-training sequence state, capturing any activation
 > for this instrument, fitting any dictionary, or applying any native classifier
 > head to a reconstruction. This addendum fixes numerical implementation choices

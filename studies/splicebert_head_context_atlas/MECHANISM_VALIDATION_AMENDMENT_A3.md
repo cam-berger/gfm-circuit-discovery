@@ -1,7 +1,5 @@
 # Head–Context Atlas mechanism-validation amendment A3 — numerical recovery
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 Status: **FROZEN AFTER THE TARGET FORWARDS AND THEIR MECHANICAL REFERENCE-GATE FAILURE, BUT BEFORE
 ANY STAGE-TWO QK/V/MLP FAMILY WAS MERGED, ANALYZED, CLASSIFIED, OR READ.** The failed runtime manifest
 and all target shards remain immutable. This amendment changes no biological estimand, intervention,

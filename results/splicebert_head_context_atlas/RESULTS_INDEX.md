@@ -1,7 +1,5 @@
 # Head–Context Atlas — results index
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 Machine-readable entry point: [`../MANIFEST.csv`](../MANIFEST.csv) /
 [`../MANIFEST.json`](../MANIFEST.json). Filter the `artifact` column on
 `results/splicebert_head_context_atlas/` to get every file here with its `claim_id` (`HCA*`),

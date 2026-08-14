@@ -1,7 +1,5 @@
 # Biological bridges and their evidence levels
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 This document separates model mechanism from biological interpretation. Exact model claims are
 controlled by [`studies/splicebert_partner_selection/CLAIMS.md`](../studies/splicebert_partner_selection/CLAIMS.md),
 and corrections by

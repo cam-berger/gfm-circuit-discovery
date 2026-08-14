@@ -4,39 +4,47 @@
   "entries": [
     {
       "path": "studies/splicebert_head_context_atlas/ANALYSIS_AMENDMENT_A1.md",
-      "kind": "atlas-protocol-pin",
+      "kind": "repaired",
       "pin_field": "analysis_amendment_sha256",
       "occurrences": 8,
       "recorded_sha256": "00008afa6747b67a263385f81e2778e5ab235c732460161145dd0e0000e5768b",
-      "current_sha256": "dd10e50c8df3067b61c14d52cdf4ba7e9a4e4af2a1793eef714f09b068863b34",
-      "reason": "additive tier banner inserted at line 3 by commit c38e1ba; protocol content unchanged"
+      "current_sha256": "00008afa6747b67a263385f81e2778e5ab235c732460161145dd0e0000e5768b",
+      "reason": "additive tier banner inserted at line 3 by commit c38e1ba; protocol content unchanged. REPAIRED 2026-08-14 (R47): the tier system was retired and the banner removed, restoring this document to the exact bytes its pin records. The pin verifies again.",
+      "prior_kind": "atlas-protocol-pin",
+      "repaired_on": "2026-08-14"
     },
     {
       "path": "studies/splicebert_head_context_atlas/ANALYSIS_PLAN_V1.md",
-      "kind": "atlas-protocol-pin",
+      "kind": "repaired",
       "pin_field": "analysis_plan_sha256",
       "occurrences": 13,
       "recorded_sha256": "21e696e360c259c9a1f7ecd6b09c5447fc5f63b3f1d5251497744f7ce69de5ef",
-      "current_sha256": "1687ef1788aac341d47a83ef17fadf74da61fec9bfdab4f1f2f02e2f47cf83b7",
-      "reason": "additive tier banner inserted at line 3 by commit c38e1ba; protocol content unchanged"
+      "current_sha256": "21e696e360c259c9a1f7ecd6b09c5447fc5f63b3f1d5251497744f7ce69de5ef",
+      "reason": "additive tier banner inserted at line 3 by commit c38e1ba; protocol content unchanged. REPAIRED 2026-08-14 (R47): the tier system was retired and the banner removed, restoring this document to the exact bytes its pin records. The pin verifies again.",
+      "prior_kind": "atlas-protocol-pin",
+      "repaired_on": "2026-08-14"
     },
     {
       "path": "studies/splicebert_head_context_atlas/MECHANISM_VALIDATION_AMENDMENT_A1.md",
-      "kind": "atlas-protocol-pin",
+      "kind": "repaired",
       "pin_field": "mechanism_amendment_sha256",
       "occurrences": 3,
       "recorded_sha256": "9c60a92c49d479830e2fecc95798dad397fd9d388f8fac364790fd2cf380967c",
-      "current_sha256": "a0e4e868ad6ac0a62aa13cc7c7defd079378859346fb00805cb6e4f34d92a29c",
-      "reason": "additive tier banner inserted at line 3 by commit c38e1ba; protocol content unchanged"
+      "current_sha256": "9c60a92c49d479830e2fecc95798dad397fd9d388f8fac364790fd2cf380967c",
+      "reason": "additive tier banner inserted at line 3 by commit c38e1ba; protocol content unchanged. REPAIRED 2026-08-14 (R47): the tier system was retired and the banner removed, restoring this document to the exact bytes its pin records. The pin verifies again.",
+      "prior_kind": "atlas-protocol-pin",
+      "repaired_on": "2026-08-14"
     },
     {
       "path": "studies/splicebert_head_context_atlas/MECHANISM_VALIDATION_AMENDMENT_A2.md",
-      "kind": "atlas-protocol-pin",
+      "kind": "repaired",
       "pin_field": "amendment_a2_sha256",
       "occurrences": 5,
       "recorded_sha256": "cf118b6169a36681fcfff8ffcfdc36c0291b5dc50f935bd244023ef1ed29ddfa",
-      "current_sha256": "968e3b42ec555cd26dcd21f2832cf7b48ce7b9c06be0f4a466b88405d7166260",
-      "reason": "additive tier banner inserted at line 3 by commit c38e1ba; protocol content unchanged"
+      "current_sha256": "cf118b6169a36681fcfff8ffcfdc36c0291b5dc50f935bd244023ef1ed29ddfa",
+      "reason": "additive tier banner inserted at line 3 by commit c38e1ba; protocol content unchanged. REPAIRED 2026-08-14 (R47): the tier system was retired and the banner removed, restoring this document to the exact bytes its pin records. The pin verifies again.",
+      "prior_kind": "atlas-protocol-pin",
+      "repaired_on": "2026-08-14"
     },
     {
       "path": "scripts/splicebert/freeze_p3_phase_surgery_confirmation.py",
@@ -47,17 +55,21 @@
     },
     {
       "path": "studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_P3_CLOSURE.md",
-      "kind": "content-drift",
+      "kind": "repaired",
       "recorded_sha256": "81186a642a9f583ff6f4fae6bb3e334bf42401d25b2e3c098ba0c6160d560879",
-      "current_sha256": "098ba7254847d17a671fd6c49d655b1edb4d9a3c1e6c55443985a7e3e2af64ce",
-      "reason": "additive tier banner inserted by commit c38e1ba; content otherwise unchanged"
+      "current_sha256": "81186a642a9f583ff6f4fae6bb3e334bf42401d25b2e3c098ba0c6160d560879",
+      "reason": "additive tier banner inserted by commit c38e1ba; content otherwise unchanged. REPAIRED 2026-08-14 (R47): the tier system was retired and the banner removed, restoring this document to the exact bytes its pin records. The pin verifies again.",
+      "prior_kind": "content-drift",
+      "repaired_on": "2026-08-14"
     },
     {
       "path": "studies/splicebert_partner_selection/redteam/REDTEAM_SYNTHESIS_P3_CLOSURE.md",
-      "kind": "content-drift",
+      "kind": "repaired",
       "recorded_sha256": "17c0afeb8a30bb4a40548f1994d7c43ae67ef1d03db78958155a7c1de7dd022f",
-      "current_sha256": "5afdd871369864affdb8587cd20e88238ea4c1a00161d21ad0018b557ec85948",
-      "reason": "additive tier banner inserted by commit c38e1ba; content otherwise unchanged"
+      "current_sha256": "17c0afeb8a30bb4a40548f1994d7c43ae67ef1d03db78958155a7c1de7dd022f",
+      "reason": "additive tier banner inserted by commit c38e1ba; content otherwise unchanged. REPAIRED 2026-08-14 (R47): the tier system was retired and the banner removed, restoring this document to the exact bytes its pin records. The pin verifies again.",
+      "prior_kind": "content-drift",
+      "repaired_on": "2026-08-14"
     },
     {
       "path": "results/phase-lattice/p3_phase_surgery_context_difference_development_n33_20260721.json",
@@ -150,5 +162,6 @@
   "amendments": [
     "R34",
     "R46"
-  ]
+  ],
+  "note": "Entries with kind \"repaired\" were broken by the c38e1ba tier-banner insertion and were restored on 2026-08-14 when the tier system was retired (R47). They are retained rather than deleted so the break and its repair both stay on the record; tests assert they still verify."
 }

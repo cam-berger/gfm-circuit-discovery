@@ -1,7 +1,5 @@
 # Pre-registration — A5: independent replication of donor-side U_info (donor-graph experiment 9)
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 **Status: FROZEN.** Written before `run_a5_uinfo_replication.py` runs. Imported from
 `gfmcd.splicing.subspace` / `circuit` / `unembed`. Pre-run corrections logged inline as
 `**Amendment (YYYY-MM-DD, pre-run, no data seen).**`.

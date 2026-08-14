@@ -1,7 +1,5 @@
 # Repository scrub procedure
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 This procedure audits a research branch from the cheapest objective checks to the most expensive
 scientific judgments. Do not reorganize evidence until the branch has passed the preceding layer.
 
@@ -41,7 +39,8 @@ Run the same checks on the branch and a clean checkout of the merge target:
 - `test_ledger_consistency.py`;
 - `test_hash_pin_ledger.py`;
 - `test_overwrite_guard.py`;
-- repository-hygiene guards, including tier and canonical-claim coverage.
+- repository-hygiene guards: internal link/anchor resolution, hash-pinned protocol documents, and
+  canonical-claim coverage. (The document tier system was retired on 2026-08-14; see R47.)
 
 Compare failures. A branch defect is a failure introduced relative to the target, not every historical
 gap visible in the repository.

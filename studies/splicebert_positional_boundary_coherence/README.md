@@ -1,6 +1,6 @@
 # SpliceBERT positional boundary coherence
 
-> **Tier: T2 — provenance.** The model-free Phase-I construction ran on 2026-08-11 and stopped on an
+> The model-free Phase-I construction ran on 2026-08-11 and stopped on an
 > independently audited frozen-capacity failure. No successor checkpoint or model outcome was opened.
 
 ## Purpose

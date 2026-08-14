@@ -1,7 +1,5 @@
 # SpliceBERT corrections and full historical claim record
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 This file preserves the complete pre-condensation claim ledger verbatim, including superseded narratives,
 R-number corrections, calibration detail, and the permanent retraction table. It is the provenance record
 for how interpretations changed; it is intentionally dense.
@@ -1171,3 +1169,51 @@ and must be checked against the sha256 pins that bind the edited files — a gre
 because the pins that matter here are covered by exactly one test and the ED1 audit by none. And a
 sentinel default must keep the **type** the callers expect: `None` turns a designed skip into a crash,
 and the callers here are the memorials themselves.
+
+## R47 — the document tier system was retired, which reversed R34's damage: six content-addressed pins verify again (2026-08-14)
+
+**What changed.** The `> **Tier: T1 — canonical.**` banner convention was removed at the owner's
+direction as outdated. Banners were stripped from **181** Markdown documents: 133 mutable documents and
+48 frozen documents whose banner had been *inserted after freezing* by commit `c38e1ba`. The **36**
+frozen documents that were created *with* a banner as part of their original content were left
+byte-identical, because for those the banner is frozen content, not a later stamp. The two enforcing
+tests — `test_every_document_has_a_tier_or_a_verified_frozen_exception` and
+`test_tier_exemptions_are_still_needed` — were deleted along with `TIER_EXEMPT_DOCS`,
+`TIER_EXEMPT_DIRS`, and the tier framing of `FROZEN_UNTIERED_DOCS`.
+
+**Why this is a repair, not a new edit.** **R34** recorded that `c38e1ba`'s "additive, non-destructive"
+banner insertion broke 17 content-addressed pins, and the owner's decision then was to *log an amendment
+rather than revert*. Removing the banner reverses exactly that insertion. Six of those pins are restored
+to their originally recorded sha256, verified byte-for-byte before and after:
+
+| Document | Pin kind |
+|---|---|
+| `studies/splicebert_head_context_atlas/ANALYSIS_PLAN_V1.md` | atlas protocol pin |
+| `studies/splicebert_head_context_atlas/ANALYSIS_AMENDMENT_A1.md` | atlas protocol pin |
+| `studies/splicebert_head_context_atlas/MECHANISM_VALIDATION_AMENDMENT_A1.md` | atlas protocol pin |
+| `studies/splicebert_head_context_atlas/MECHANISM_VALIDATION_AMENDMENT_A2.md` | atlas protocol pin |
+| `studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_P3_CLOSURE.md` | C36 package bound file |
+| `studies/splicebert_partner_selection/redteam/REDTEAM_SYNTHESIS_P3_CLOSURE.md` | C36 package bound file |
+
+The four atlas pins are the ones R34 recorded as leaving `build_atlas_mechanism_package.py:295` unable
+to run; that gate is no longer blocked by banner drift.
+
+**What is NOT repaired, and must not be read as repaired.** The other two `content-drift` entries —
+`scripts/splicebert/freeze_p3_phase_surgery_confirmation.py` and `src/gfmcd/splicing/circuit.py` — were
+broken by the **R46** portability fix, not by a banner. They remain broken and remain in the ledger.
+
+**Ledger and test handling.** The six repaired entries were **not deleted** from
+`tests/data/hash_pin_ledger.json`; their `kind` became `repaired`, they retain the original break reason
+with the repair appended, and `test_repaired_pins_still_verify` now asserts they *match* — so a third
+edit to any of them fails loudly instead of silently rejoining the broken set. The hash-pin verification
+that `FROZEN_UNTIERED_DOCS` carried was kept as its own test,
+`test_hash_pinned_protocol_documents_still_match_their_manifests`; it never had anything to do with tiers.
+
+**The caveat that remains open.** `build_atlas_mechanism_package.py` is no longer in the tree, so the
+committed atlas audits — which record `"status": "PASS"` against the *drifted* bytes — could not be
+regenerated as part of this change. Their PASS verdicts were recorded while the pins were broken and are
+not evidence that the pins verified at the time. Re-running them needs the builder restored first.
+
+**Historical prose is left alone.** Sentences elsewhere in this file and in study READMEs that refer to
+a document's former tier (e.g. R33's "the same T1 sentence", R34 itself) describe what was true when
+written and are not rewritten. The vocabulary is retired going forward, not erased backward.

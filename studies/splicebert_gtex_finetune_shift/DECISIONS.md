@@ -1,7 +1,5 @@
 # Decisions: SpliceBERT GTEx fine-tuning shift
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 ## 2026-07-28 — preserve the original MLM readout as a derived instrument
 
 The published checkpoint has a three-class token-classification head and no MLM head. The primary question

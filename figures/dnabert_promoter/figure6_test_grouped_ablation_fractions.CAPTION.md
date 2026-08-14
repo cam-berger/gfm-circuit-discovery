@@ -1,7 +1,5 @@
 # Figure 6 — grouped-head ablation, test (SUPERSEDED — encoder Layer 3)
 
-> **Tier: T3 — historical.** Superseded Layer-3 replicate. Never cite as current.
-
 **Status: superseded. Controls no claim. Do not quote.** See `DBPR7`.
 
 Figure 5's assay on the test cohort, still at the **Layer-3** endpoint and probe. Replication between two

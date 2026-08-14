@@ -1,7 +1,5 @@
 # Nomenclature: the project's controlled vocabulary
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 Several of this project's terms have been retired, withdrawn, or bounded, and several near-identical
 numbers refer to entirely different objects at entirely different evidence levels. This file is the
 single controlled vocabulary. It **records** decisions taken elsewhere; it does not make new ones.

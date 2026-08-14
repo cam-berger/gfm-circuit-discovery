@@ -1,8 +1,5 @@
 # Positional clock (PBC v2 successor) — results index
 
-> **Tier: T2 — provenance.** Model-free construction-stage capacity/power record. This family
-> contains no model outcome.
-
 **The directory name `splicebert_positional_clock` is PROVISIONAL** and may be renamed before
 anything freezes. Most output therefore lives under `development/` or `superseded/`, so a later
 rename costs a move, not a retraction; the deliberate exceptions are `real_panel_capacity_v1.json`

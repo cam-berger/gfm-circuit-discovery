@@ -1,7 +1,5 @@
 # Archived study records
 
-> **Tier: T3 — historical.** Superseded or point-in-time; retained for the record. Not current guidance.
-
 These files are retained for provenance but are not current entry points.
 
 - [`DECISIONS_ACCEPTOR_ADDRESS.md`](DECISIONS_ACCEPTOR_ADDRESS.md) — detailed pre-run and post-run log for

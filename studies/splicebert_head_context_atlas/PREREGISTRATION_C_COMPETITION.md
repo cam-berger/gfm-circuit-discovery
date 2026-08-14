@@ -1,7 +1,5 @@
 # PREREGISTRATION — Estimand C: competitor-conditioned component recruitment
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 > FROZEN 2026-07-18 after the 6-lens design red-team (`REDTEAM_SYNTHESIS_C_6lens.md`) and the Stage-0
 > census + Stage-1 behavioral pilot. Amendments allowed only pre-run, logged inline as
 > `Amendment (date, pre-run, no data seen)`. Discovery = autosomes ∉ {chr8,9,11,16,19}; **chr8/9 SEALED**.

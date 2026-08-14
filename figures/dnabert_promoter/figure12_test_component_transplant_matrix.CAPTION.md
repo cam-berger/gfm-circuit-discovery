@@ -1,7 +1,5 @@
 # Figure 12 — Layer-2 activation transplant, test confirmation
 
-> **Tier: T2 — provenance.** Supporting record for the test transplant matrix (`DBP8`).
-
 **Status: canonical.** Controls `DBP8`.
 
 Figure 11's assay on the untouched test cohort, restricted to the two component sets carried into

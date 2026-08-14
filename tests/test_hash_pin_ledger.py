@@ -187,23 +187,26 @@ def test_relocated_artifacts_are_byte_identical_at_their_new_path() -> None:
         )
 
 
-def test_atlas_protocol_pins_match_the_ledger() -> None:
-    """The four Atlas protocol pins gate build_atlas_mechanism_package.py:295."""
-    entries = [e for e in _ledger()["entries"] if e["kind"] == "atlas-protocol-pin"]
-    assert entries, "atlas pin entries missing from the ledger"
+def test_repaired_pins_still_verify() -> None:
+    """The pins c38e1ba broke were repaired on 2026-08-14; they must stay repaired.
+
+    Retiring the document tier system (R47) removed the banner c38e1ba had inserted, restoring
+    six documents -- the four Atlas protocol pins that gate `build_atlas_mechanism_package.py`,
+    plus the P3-closure preregistration and its red-team synthesis -- to the exact bytes their
+    pins record. The assertion is therefore the ordinary one now: they match. A failure here
+    means a pinned protocol document has been edited again.
+    """
+    entries = [e for e in _ledger()["entries"] if e["kind"] == "repaired"]
+    assert entries, "repaired pin entries missing from the ledger"
     for e in entries:
         doc = REPO / e["path"]
         if not doc.exists():
-            pytest.fail(f"pinned atlas protocol {e['path']} is missing")
+            pytest.fail(f"pinned protocol {e['path']} is missing")
         current = _sha256(doc)
-        assert current != e["recorded_sha256"], (
-            f"{e['path']} now matches its recorded pin again -- the drift was repaired, so "
-            "remove this entry from tests/data/hash_pin_ledger.json (and re-run the atlas audits)"
-        )
-        assert current == e["current_sha256"], (
-            f"{e['path']} has drifted AGAIN since the amendment was logged "
-            f"(ledger recorded {e['current_sha256'][:12]}..., now {current[:12]}...). "
-            "A pinned protocol document was edited a second time."
+        assert current == e["recorded_sha256"], (
+            f"{e['path']} no longer matches its recorded pin "
+            f"(pin {e['recorded_sha256'][:12]}..., now {current[:12]}...). "
+            "This document was repaired on 2026-08-14 and has since been edited again."
         )
 
 

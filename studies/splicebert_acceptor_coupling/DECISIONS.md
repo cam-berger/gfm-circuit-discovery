@@ -1,7 +1,5 @@
 # Decision log — SpliceBERT acceptor coupling
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 Why each experiment was designed the way it was, and what was seen before what was frozen. Numbers here
 are provenance; the licensed wording lives in [`CLAIMS.md`](CLAIMS.md).
 

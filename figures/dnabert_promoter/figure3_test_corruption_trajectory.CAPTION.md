@@ -1,7 +1,5 @@
 # Figure 3 — test corruption trajectory
 
-> **Tier: T2 — provenance.** Supporting record for the test corruption trajectory (`DBP5`).
-
 **Status: canonical.** Controls `DBP5`.
 
 The Figure 2 assay repeated on the held-out test cohort, same corruption family and same Layer-2 readout.

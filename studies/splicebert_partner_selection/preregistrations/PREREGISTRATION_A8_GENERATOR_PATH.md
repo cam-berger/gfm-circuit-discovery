@@ -1,7 +1,5 @@
 # Pre-registration — A8: backward-pruned exact path search through the acceptor-local generator (donor-graph experiment 12)
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 **Status: FROZEN.** Written before `run_a8_generator_path.py` runs. Design per the 2026-07-16 review
 (backward pruning, scaffold-aware forward confirmation, value-path metric, discovery/confirmation gene
 split). Reuses A6/A7 scrub (`patch_heads`/`clamp_write_mask`/`clamp_layer_input`) + A2b/A3

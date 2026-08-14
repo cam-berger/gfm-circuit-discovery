@@ -1,7 +1,5 @@
 # Pre-registration — resolving L4/L5 attention into heads (donor-graph 1c)
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 **Status: FROZEN.** Written before `run_donor_heads.py` is executed. Definitions import from
 `gfmcd.splicing.circuit` / `gfmcd.circuits.hf_bert`; no threshold is revisable by the run.
 Builds on **C17** (L3H1 delivers `U_info`, assembled at MLP3/MLP4) and the `readout_path`

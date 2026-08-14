@@ -1,7 +1,5 @@
 # Figure 5 — grouped-head ablation, validation (SUPERSEDED — encoder Layer 3)
 
-> **Tier: T3 — historical.** Superseded Layer-3 replicate. Never cite as current.
-
 **Status: superseded. Controls no claim. Do not quote.** See `DBPR7`.
 
 Collective ablation of head groups at an encoder **Layer-3** readout against the Layer-3 probe. The

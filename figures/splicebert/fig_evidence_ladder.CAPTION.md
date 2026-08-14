@@ -1,7 +1,5 @@
 # fig_evidence_ladder — how a claim is licensed (methods figure)
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 The method, rendered rather than restated: the seven-stage workflow, the evidence ladder, and the
 tool-to-question map, drawn directly from `docs/METHODOLOGY.md` and `docs/EVIDENCE_LADDER.md`.
 

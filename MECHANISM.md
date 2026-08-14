@@ -1,7 +1,5 @@
 # Current SpliceBERT mechanism and its limits
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 This is the one-file reviewer narrative. Exact claims are controlled by
 [`studies/splicebert_partner_selection/CLAIMS.md`](studies/splicebert_partner_selection/CLAIMS.md), and
 correction history by

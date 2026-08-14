@@ -1,7 +1,5 @@
 # SpliceBERT Head–Context Atlas
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 Across multiple overlapping biological sequence contexts, which SpliceBERT components are reused
 generally, which are recruited selectively, and what computations do the validated components perform?
 The goal is an evidence-graded map of *when and how* SpliceBERT reuses its circuitry—not a gallery of

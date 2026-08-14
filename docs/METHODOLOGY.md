@@ -1,7 +1,5 @@
 # Methodology: causal mechanistic discovery in GFMs
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 ## Objective
 
 The unit of discovery is not a neuron, head, motif, or attention map. It is a **model computation**: a reproducible behavior, the internal information and components that produce it, and a causal account of how that information moves through the model.

@@ -1,7 +1,5 @@
 # P3 closure — clean confirmatory report
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 **Result:** SpliceBERT causally uses its learned period-3 position direction in a phase-aligned manner
 to support donor–acceptor coupling in CDS blocks. The matched experiment does not establish that this
 use is enriched over non-CDS exons.

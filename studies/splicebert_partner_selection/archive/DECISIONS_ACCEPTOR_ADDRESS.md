@@ -1,7 +1,5 @@
 # Decisions — acceptor-address transplantation (donor-graph experiment 3)
 
-> **Tier: T3 — historical.** Superseded or point-in-time; retained for the record. Not current guidance.
-
 Chronological log of design changes made *before any confirmatory run* (val/test unseen),
 recording what the setup-time diagnostics revealed and how the frozen protocol was corrected.
 Per METHODOLOGY.md, corrections live here; the prereg is edited only pre-run with no data seen.

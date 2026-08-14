@@ -1,7 +1,5 @@
 # B1 v2 — redesigned value-main OV estimand — focused 3-lens re-audit synthesis (2026-07-22)
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 > **Resolution (2026-07-22, applied):** the must-fixes below were applied in-place to
 > [`../preregistrations/PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR_V2.md`](../preregistrations/PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR_V2.md),
 > now a **SPLIT-FREEZE** — behavioural arm FROZEN_RUNNABLE, OV arm design-frozen pending its `--smoke` gate on

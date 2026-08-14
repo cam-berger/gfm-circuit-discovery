@@ -1,10 +1,8 @@
 # SpliceBERT live claim ledger
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 This is the point-of-contact record for the strongest wording currently licensed by the evidence. Each
 row is deliberately limited to one claim, one evidence level, one controlling artifact set, and one
-scope boundary. Full numerical detail, superseded narratives, and permanent retractions R1–R46 are
+scope boundary. Full numerical detail, superseded narratives, and permanent retractions R1–R47 are
 preserved in [`CORRECTIONS.md`](CORRECTIONS.md); the experiment chronology is in
 [`DECISIONS_A0.md`](DECISIONS_A0.md).
 

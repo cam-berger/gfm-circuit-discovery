@@ -1,7 +1,5 @@
 # SpliceBERT figures — current record
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 Start with [`EVIDENCE.md`](EVIDENCE.md), which keeps position-table, QK, attention,
 OV/mediation, and behavioral evidence separate.
 

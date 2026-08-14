@@ -1,9 +1,14 @@
 """Repository-scrub guards for documentation and evidence navigation.
 
 These checks encode the cheap layers of ``docs/REPO_SCRUB_PROCEDURE.md``. They deliberately
-do not rewrite frozen records to make the tree look tidier: the nine untiered GTEx documents
-below are content-addressed protocol inputs, so their tier is recorded externally and their
-bytes remain immutable.
+do not rewrite frozen records to make the tree look tidier: the documents listed below are
+content-addressed protocol inputs whose bytes are bound by a result manifest, so they are
+verified rather than edited.
+
+The document **tier** system (``> **Tier: T1 — canonical.**`` banners) was retired on
+2026-08-14 and its two enforcing tests were removed with it; see ``CORRECTIONS.md`` R47. The
+hash-pin guard below outlived it and is kept, because it never had anything to do with tiers:
+it checks that documents a manifest binds by sha256 still match those bytes.
 """
 
 from __future__ import annotations
@@ -19,32 +24,12 @@ from urllib.parse import unquote
 REPO = Path(__file__).resolve().parents[1]
 
 _PINNED_PROTOCOL_REASON = (
-    "content-addressed protocol input; adding a tier banner would rewrite the executed design"
+    "content-addressed protocol input; its bytes are bound by a result manifest"
 )
 
-# Documents that sit OUTSIDE the tier system, each with the reason it does.
-#
-# This is distinct from FROZEN_UNTIERED_DOCS below, which exempts documents whose bytes are
-# hash-pinned by a result manifest and verifies that pin. Nothing here is hash-pinned, so no such
-# check is possible; the protection is instead that every entry needs a written reason and must
-# still exist, and that widening this dict is a visible diff in a checked-in file.
-TIER_EXEMPT_DOCS = {
-    "README.md": (
-        "the repository front door, not an internal tiered record. The banner was removed "
-        "deliberately by the owner in 5f557fc0 ('Update README to remove tier details'); this "
-        "entry records that decision instead of silently reinstating it"
-    ),
-}
-
-# Directories whose Markdown is MACHINE-WRITTEN run output rather than curated prose. The DNABERT
-# notebooks rewrite these files wholesale (`with open(conclusion_path, "w")`), so a banner added by
-# hand is gone on the next run -- requiring one would be a guard that quietly stops holding. They
-# are run artifacts, in the same category as everything under results/.
-TIER_EXEMPT_DIRS = (
-    "dnabert/outputs/",
-)
-
-FROZEN_UNTIERED_DOCS = {
+# Documents whose bytes are hash-pinned by a result manifest. Editing one silently invalidates
+# the manifest that binds it, so they are verified here rather than reformatted.
+HASH_PINNED_DOCS = {
     "studies/splicebert_partner_selection/preregistrations/AMENDMENT_BG1_BG2_PREEXECUTION_2026-08-11.md":
         ("results/splicebert_coupling/bg1_boundary_preflight_v1.manifest.json",
          _PINNED_PROTOCOL_REASON),
@@ -167,37 +152,12 @@ def test_internal_markdown_links_and_anchors_resolve() -> None:
     assert not failures, "Broken local Markdown links:\n  " + "\n  ".join(failures)
 
 
-def test_tier_exemptions_are_still_needed() -> None:
-    """The exemption lists must not rot into a record of files that no longer exist."""
-    for relative, reason in TIER_EXEMPT_DOCS.items():
-        assert reason.strip(), f"{relative} needs an explicit exemption reason"
-        assert (REPO / relative).is_file(), (
-            f"{relative} is exempted from the tier banner but no longer exists -- drop the entry"
-        )
-    for directory in TIER_EXEMPT_DIRS:
-        assert list((REPO / directory).rglob("*.md")), (
-            f"{directory} is exempted as generated output but contains no Markdown -- drop the entry"
-        )
-
-
-def test_every_document_has_a_tier_or_a_verified_frozen_exception() -> None:
-    missing = {
-        relative
-        for path in _tracked_markdown()
-        if (relative := str(path.relative_to(REPO))) not in TIER_EXEMPT_DOCS
-        and not relative.startswith(TIER_EXEMPT_DIRS)
-        and not any("**Tier: T" in line for line in path.read_text(errors="ignore").splitlines()[:8])
-    }
-    assert missing == set(FROZEN_UNTIERED_DOCS), (
-        "Untiered Markdown set changed. Add a banner to a mutable document; for a frozen "
-        "content-addressed input, add a manifest-backed exception with a reason:\n"
-        f"  observed-only={sorted(missing - set(FROZEN_UNTIERED_DOCS))}\n"
-        f"  stale-exceptions={sorted(set(FROZEN_UNTIERED_DOCS) - missing)}"
-    )
-
-    for relative, (manifest_relative, reason) in FROZEN_UNTIERED_DOCS.items():
-        assert reason.strip(), f"{relative} needs an explicit exception reason"
+def test_hash_pinned_protocol_documents_still_match_their_manifests() -> None:
+    """A document a manifest binds by sha256 must still be byte-identical to that record."""
+    for relative, (manifest_relative, reason) in HASH_PINNED_DOCS.items():
+        assert reason.strip(), f"{relative} needs an explicit reason"
         document = REPO / relative
+        assert document.is_file(), f"{relative} is hash-pinned but no longer exists"
         manifest = json.loads((REPO / manifest_relative).read_text())
         current_hash = _sha256(document)
         matches = [
@@ -207,8 +167,8 @@ def test_every_document_has_a_tier_or_a_verified_frozen_exception() -> None:
             and record.get("sha256") == current_hash
         ]
         assert matches, (
-            f"{relative} is exempt from the tier banner only because it is hash-pinned, "
-            f"but {manifest_relative} does not bind its current bytes"
+            f"{relative} is hash-pinned, but {manifest_relative} does not bind its current "
+            "bytes -- the document was edited without re-freezing the manifest"
         )
 
 
