@@ -1,0 +1,3 @@
+# SpliceBERT checkpoint (masked-LM, via the `multimolecule` HF integration).
+checkpoint: multimolecule/splicebert
+device: auto        # auto | cpu | cuda
