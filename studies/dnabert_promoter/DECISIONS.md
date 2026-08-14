@@ -138,6 +138,86 @@ hashes; until then the cleaned row counts are recoverable only indirectly, from 
 `validation_rows` / `test_rows` in `frozen/layer_probes/all_layer_probe_results.json`. The manifest helper
 records which cohort a run read, so future artifacts state it on their own.
 
+
+## Fine-tuned extension decisions
+
+These entries record the design of the completed fine-tuned checkpoint analysis. They extend the frozen
+study record; they do not retroactively change D1–D13.
+
+## D14 — Treat the fine-tuned checkpoint as a distinct analyzed model state
+
+The analyzed task-specific checkpoint is `magicslabnu/DNABERT-2-finetuned-prom_300_all` at revision
+`7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12`. It is instantiated through
+`quietflamingo/dnabert2-no-flashattention` at revision
+`813031b2bf86d9e960a027e2734c908009f31601` because that implementation is compatible with the current
+environment. State-dict loading is exact (zero missing/unexpected keys) and the classifier head is checked
+against the checkpoint. The model state is therefore pinned for analysis, but this does not by itself prove
+that it is the exact supervised descendant of the frozen assay state under a controlled training run.
+
+## D15 — Fine-tuned behaviour is GUE `prom_300_all`, 300 nt
+
+The fine-tuned checkpoint is evaluated on `leannmlindsey/GUE`, task `prom_300_all`, with 300-nt sequences
+and official split sizes `47,356 / 5,920 / 5,920`. This is deliberately recorded as a different scoped
+behaviour from D1's frozen `prom_core_all`, 70-nt assay. Exact cross-split overlaps are audited and a
+strict-unseen test sensitivity analysis is reported, but the frozen cleaner's policy is not silently
+ported to this separate package.
+
+## D16 — Layer probing is a representation assay, selected only on development data
+
+Masked-mean representations are extracted from all 12 encoder layers and each layer receives an independent
+`StandardScaler + LogisticRegression` probe. The endpoint is selected by development balanced accuracy
+with development ROC-AUC as tie-breaker. Test metrics remain descriptive. Layer 10 wins by the stated
+development rule; Layer 8 has slightly higher test BA and is not substituted post hoc. The probe is
+interpreted as linear accessibility, never as causal localization.
+
+## D17 — Lock one balanced 256-example test cohort for targeted causal assays
+
+The targeted ablation and activation-restoration assays use a deterministic seed-42 cohort of 256 test
+examples, balanced `128/128` across non-promoter/promoter labels. Reusing one locked cohort makes the
+ablation and restoration conditions directly comparable. It does not substitute for multi-seed or
+multi-cohort robustness.
+
+## D18 — Intervene on `L0H8` before the attention output projection and on the Layer-0 MLP output
+
+For the 12-head, 768-dimensional encoder, head 8 occupies concatenated head slice `[512:576]`. The head
+intervention zeros that slice immediately before `attention.output.dense`. The MLP intervention zeros the
+Layer-0 `mlp.wo` output before residual addition and LayerNorm. These sites are chosen so the interventions
+target the branch outputs directly and are reproducible.
+
+## D19 — Restoration is evaluated in the joint-ablation background
+
+Clean `L0H8` and `L0_MLP` activations are cached, both branches are ablated, and then H8 alone, MLP alone,
+or both are restored. This design asks how much of the jointly corrupted computation each clean branch can
+recover. It is intentionally not used to rank branches as context-free causes: independent ablation and
+joint-background restoration answer different questions.
+
+## D20 — Align activation sources by nucleotide overlap, not raw BPE token index
+
+DNABERT-2 token boundaries vary across sequences, so transplanting activations by token index would mix
+different nucleotide spans. For each recipient token, the fine-tuned donor-matrix assay uses tokenizer
+offsets to find overlapping source-token nucleotide intervals and inserts an overlap-weighted source
+activation; `[CLS]` and `[SEP]` map to their corresponding special tokens. The primary contrast is
+same-class versus opposite-class source compatibility.
+
+## D21 — Use a paired motif-versus-mirrored-control TATA assay
+
+For each eligible `TATA[AT][AT]` promoter, the earliest occurrence is selected and replaced with `CGCGCG`.
+A mirrored 6-nt control window in the same sequence receives the same replacement, shifted deterministically
+if it overlaps the motif. The primary statistic is excess motif damage:
+`(baseline - motif_perturbed) - (baseline - control_perturbed)`. This controls local edit magnitude but is
+not the same perturbation design as D11's frozen 70-nt assay.
+
+## D22 — Cross-state comparison is descriptive until task and readout are matched
+
+The completed fine-tuned package does not make D1/D2 and D15 the same experiment. Frozen and fine-tuned
+states differ in GUE task configuration, sequence length, cohort treatment, and primary readout, and the
+frozen Layer-2 working choice is not a stable localization result. Therefore the current comparison is
+allowed to ask what each analyzed state looks like internally, but not to identify fine-tuning as the
+unique cause of their difference. A causal fine-tuning comparison requires a matched assay, ideally
+evaluating the exact pre-fine-tune parent and fine-tuned checkpoint on the same examples under the same
+representation/intervention definitions.
+
+
 ## Known departures from repository convention
 
 Recorded rather than quietly tolerated. Each blocks promotion of the affected rows.
