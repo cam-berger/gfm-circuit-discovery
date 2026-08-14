@@ -1,7 +1,5 @@
 # Pre-registration — IC1: does distal intron interstitial ARRANGEMENT modulate donor–acceptor coupling?
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 **Status: v8 (2026-07-17). Amendment A1 (outcome-blind) corrected the mis-calibrated distal-OOD gate.
 Amendment A2 then fixes a shuffler REPRODUCIBILITY bug + removes a tautological verdict-precondition — but
 these were made AFTER ΔC=+0.033 was seen on the v7 run, so v8 is an OUTCOME-AWARE DETERMINISTIC

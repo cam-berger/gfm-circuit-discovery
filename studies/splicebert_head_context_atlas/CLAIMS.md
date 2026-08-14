@@ -1,7 +1,5 @@
 # Claim ledger — Head–Context Atlas
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 **Units correction.** Every masked-margin value in this ledger is a raw logit difference, reported in
 **logit units**. Historical HCA documents that call these quantities “nats” use the wrong label; true
 nats are reserved for cross-entropy/NLL quantities.

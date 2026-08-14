@@ -1,14 +1,12 @@
 # `figures/dnabert_promoter/` — frozen DNABERT-2 promoter figures
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 Built by `scripts/dnabert_promoter/plot_frozen_figures.py`. Each figure has a `.CAPTION.md` beside it
 carrying the narrative and the controlling artifact, per the repository figure convention — the artwork
 itself states no claim.
 
-A caption is a tracked Markdown document, so it needs a `**Tier: T…**` banner within its first eight lines
-or `tests/test_repository_hygiene.py` fails. Captions for canonical figures are **T2** (they support a
-claim, they are not the claim); captions for the superseded Layer-3 figures are **T3**.
+A caption states which artifact controls the figure and what the figure may be quoted for. It supports a
+claim; it is not the claim, and for the superseded Layer-3 figures it says so in the caption itself. (The
+document tier system these captions used to carry was retired on 2026-08-14; see R47.)
 
 **Only figures 1–3 depict the canonical Layer-2 assay.** Figures 4–8 were built from the superseded
 encoder-Layer-3 replicate (`results/dnabert_promoter/causal/layer3_*`) and do **not** show the numbers in

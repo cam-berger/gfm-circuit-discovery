@@ -1,7 +1,5 @@
 # Pre-registration — the sealed chr8/chr9 test
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 **Status: FROZEN.** Written before `run_sealed_test.py --split test` was executed.
 The test chromosomes (chr8, chr9) have never been evaluated. They may be opened **once**.
 

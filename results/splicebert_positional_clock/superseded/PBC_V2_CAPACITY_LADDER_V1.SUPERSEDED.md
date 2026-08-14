@@ -1,7 +1,5 @@
 # `pbc_v2_capacity_ladder_v1` — superseded
 
-> **Tier: T3 — historical.** Superseded; retained for the record. Not current guidance.
-
 `pbc_v2_capacity_ladder_v1.json` and its sibling manifest are retained here for provenance only.
 They are superseded by
 [`../development/pbc_v2_capacity_ladder_v2.json`](../development/pbc_v2_capacity_ladder_v2.json)

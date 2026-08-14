@@ -1,7 +1,5 @@
 # SpliceBERT acceptor coupling — the donor circuit read from the other end
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 ## Why this study exists
 
 `studies/splicebert_partner_selection` masks the **donor** and corrupts the intron-mate **acceptor**,

@@ -1,7 +1,5 @@
 # results/origin-siblings — sibling-checkpoint carrier origin
 
-> **Tier: T2 — provenance.** Index/infrastructure record.
-
 **Tier:** T1. Controlling claim: **C39**. Natural experiment on the published SpliceBERT stage-1 siblings
 (`SpliceBERT.510nt` 72-species vs `SpliceBERT-human.510nt` human-only; same 6L×16H×512 architecture,
 stage, and 510-nt length). The live synthesis and its corpus-comparison caveat are in

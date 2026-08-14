@@ -1,8 +1,5 @@
 # Decision log — SpliceBERT positional boundary coherence
 
-> **Tier: T2 — provenance.** Model-free construction decisions are recorded below; no successor model
-> outcome exists.
-
 The frozen choices belong in [`PREREGISTRATION.md`](PREREGISTRATION.md). Add a dated entry here only after
 data or diagnostics force a decision, amendment, stop, or scope change. Each entry must name the evidence
 available at the time, alternatives considered, affected files, and effect on claim scope. This log never

@@ -1,7 +1,5 @@
 # SpliceBERT donor–acceptor coupling — results index
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 Machine-readable entry point: [`../MANIFEST.csv`](../MANIFEST.csv) /
 [`../MANIFEST.json`](../MANIFEST.json). Filter the `artifact` column on
 `results/splicebert_coupling/` to get every file in this directory with its `claim_id`, `status`,

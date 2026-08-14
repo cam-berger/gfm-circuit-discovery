@@ -1,7 +1,5 @@
 # Pre-registration — A9: semantic identity of the acceptor payload (donor-graph experiment 13)
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 **Status: FROZEN.** External scorer resolved (Cam chose **A: canonical MaxEntScan**). All rules frozen
 per Cam's conditional-go red-lines (2026-07-16). Matched **interchange interventions**
 (causal-abstraction test, Geiger et al. 2021 arXiv:2106.02997), reusing the A8 value-path

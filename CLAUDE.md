@@ -1,7 +1,5 @@
 # CLAUDE.md — agent entry point & project core
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 Durable orientation for an agent session: what the project is, how it reasons, how to run it. It carries
 **no running status** — anything dated, numeric, or contested belongs to the files under
 [Where the current state lives](#where-the-current-state-lives), which own it and stay current.
@@ -51,8 +49,8 @@ The frozen one-sentence mechanism statement, its checkpoint caveats, and its sco
 
 | Question | File that owns the answer |
 |---|---|
-| What is claimed, in what words? | the five `CLAIMS.md` ledgers that carry rows: [donor circuit](studies/splicebert_partner_selection/CLAIMS.md) (`C*`, 45), [GTEx fine-tuning shift](studies/splicebert_gtex_finetune_shift/CLAIMS.md) (`GFS*`, 34), [Head–Context Atlas](studies/splicebert_head_context_atlas/CLAIMS.md) (`HCA*`, 21), [DNABERT-2 promoter](studies/dnabert_promoter/CLAIMS.md) (`DBP*`, 10 — the only **non-SpliceBERT** ledger), and [acceptor coupling](studies/splicebert_acceptor_coupling/CLAIMS.md) (`AC*`, 4 — the **reverse** direction; a masked *acceptor* readout, deliberately kept out of the donor ledger). A sixth, [positional boundary coherence](studies/splicebert_positional_boundary_coherence/CLAIMS.md), is deliberately **empty**: that study is a frozen design with no outcome |
-| What was retracted or bounded, and why? | [`CORRECTIONS.md`](studies/splicebert_partner_selection/CORRECTIONS.md) — **R1–R46**. R1–R24 are table rows (some are ranges); R25–R46 are `##` sections later in the same file — scan both. The DNABERT-2 study keeps its own: [`DBPR1–DBPR8`](studies/dnabert_promoter/CORRECTIONS.md) — read those before quoting any `DBP*` prose, five of that arc's headline sentences are bounded or withdrawn there. |
+| What is claimed, in what words? | the five `CLAIMS.md` ledgers that carry rows: [donor circuit](studies/splicebert_partner_selection/CLAIMS.md) (`C*`, 45), [GTEx fine-tuning shift](studies/splicebert_gtex_finetune_shift/CLAIMS.md) (`GFS*`, 34), [Head–Context Atlas](studies/splicebert_head_context_atlas/CLAIMS.md) (`HCA*`, 21), [DNABERT-2 promoter](studies/dnabert_promoter/CLAIMS.md) (`DBP*`, 17 — the only **non-SpliceBERT** ledger; `DBP11`–`DBP17` are the fine-tuned extension), and [acceptor coupling](studies/splicebert_acceptor_coupling/CLAIMS.md) (`AC*`, 4 — the **reverse** direction; a masked *acceptor* readout, deliberately kept out of the donor ledger). A sixth, [positional boundary coherence](studies/splicebert_positional_boundary_coherence/CLAIMS.md), is deliberately **empty**: that study is a frozen design with no outcome |
+| What was retracted or bounded, and why? | [`CORRECTIONS.md`](studies/splicebert_partner_selection/CORRECTIONS.md) — **R1–R47**. R1–R24 are table rows (some are ranges); R25–R47 are `##` sections later in the same file — scan both. The DNABERT-2 study keeps its own: [`DBPR1–DBPR11`](studies/dnabert_promoter/CORRECTIONS.md) — read those before quoting any `DBP*` prose, five of that arc's headline sentences are bounded or withdrawn there, and `DBPR11` bounds the fine-tuned Layer-10 endpoint to a band. |
 | Why was an experiment designed that way? | [`DECISIONS_A0.md`](studies/splicebert_partner_selection/DECISIONS_A0.md) and each study's `DECISIONS*.md` |
 | What is next, and what is deferred? | [`docs/ROADMAP.md`](docs/ROADMAP.md) |
 | Was a preregistered gate actually enforced? | [`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) — **read before citing any gate as enforced**; many runners departed from their frozen protocol. Covers the SpliceBERT donor/carrier arc only — `GFS*` gates are self-reported, not audited, the positional-boundary-coherence gates have never been executed, and the `DBP*` study **froze no preregistration at all** (DBPR8), so nothing in it may be cited as a preregistered result |
@@ -114,6 +112,9 @@ arc's sanctioned successor and inherits blacklists and geometry from it, never i
   perturbation utilities.
 - **Every result writes a sibling `*.manifest.json`.** Use `gfmcd.provenance.ExperimentManifest`, or for
   the DNABERT-2 study the wrapper `gfmcd.dnabert.write_run_manifest`, which is wired into all 15 canonical
-  `scripts/dnabert_promoter/` runners. One backward gap remains: ~104 DNABERT-2 artifacts predate that
-  wiring and carry a blank `manifest` column truthfully rather than a back-filled record — they fill in on
-  re-run. Never invent a provenance record for a run whose conditions were not captured.
+  `scripts/dnabert_promoter/` runners plus `analyze_finetuned_layer_selection.py`. Two gaps remain, both
+  disclosed rather than back-filled: ~104 frozen DNABERT-2 artifacts predate that wiring, and the 52
+  fine-tuned artifacts (`DBP11`–`DBP16`) came from `notebooks/dnabert_finetuned_experiments.ipynb` rather
+  than from runners, so they carry blank `script` *and* `manifest` columns truthfully (`DBPR11`). Porting
+  that notebook to `scripts/dnabert_promoter/` is the gating item before any fine-tuned row is promoted.
+  Never invent a provenance record for a run whose conditions were not captured.

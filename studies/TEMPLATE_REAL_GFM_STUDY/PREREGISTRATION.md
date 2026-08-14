@@ -1,7 +1,5 @@
 # Preregistration
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 ## Question and scope
 
 - Biological computation:

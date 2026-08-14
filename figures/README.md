@@ -1,7 +1,5 @@
 # Figures
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 One folder per study: `figures/<study>/`.
 
 ## Rules

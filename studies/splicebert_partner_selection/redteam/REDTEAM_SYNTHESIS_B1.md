@@ -1,7 +1,5 @@
 # B1 — ≈10.63 carrier past attention (closes C12) — 5-lens design red-team synthesis (2026-07-22)
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 **Reviews:** `../preregistrations/PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR.md` v1 (DRAFT, not frozen). Five
 independent adversarial lenses, run BEFORE any confirmatory compute (formalize-audit-verify step 2). **Outcome:
 the branch is SALVAGEABLE and MPS-feasible, but NOT freezable as written.** The design has TWO structurally

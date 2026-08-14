@@ -1,6 +1,6 @@
 # DNABERT-2 fine-tuned versus frozen — concise comparison
 
-> **Tier: T2 — synthesis.** This document summarizes the completed fine-tuned assays and the licensed
+> This document summarizes the completed fine-tuned assays and the licensed
 > descriptive comparison with the canonical frozen DNABERT-2 promoter study. Canonical claims live in
 > [`CLAIMS.md`](CLAIMS.md); corrections and boundaries live in [`CORRECTIONS.md`](CORRECTIONS.md).
 
@@ -48,15 +48,22 @@ the fine-tuned checkpoint's test performance (DBP12).
 A masked-mean linear probe is fit independently at every encoder layer and selected by development
 balanced accuracy, with development ROC-AUC as tie-breaker.
 
-- selected endpoint: **Layer 10**
+- layer returned by the stated rule: **Layer 10**
 - development BA: `0.942919`
 - development ROC-AUC: `0.985708`
 - descriptive test BA: `0.932418`
 - descriptive test ROC-AUC: `0.983282`
 
-Layer 8 has the numerically highest test BA (`0.935252`), but test was not used to select the endpoint.
-The licensed statement is that promoter information is strongly linearly accessible across late layers
-and Layer 10 wins the prespecified development rule. This is not causal localization (DBP13).
+**The rule returns a layer; the data do not separate one.** Layer 10 leads its runner-up (Layer 7) by
+`0.000998` development BA, which is `0.33` standard errors on this split. Layers **7–11** lie within one
+standard error of the argmax and layers **5–11** within two
+(`results/dnabert_promoter/finetuned/layer_localization/layer_selection_band.json`). Layer 8 has the
+numerically highest test BA (`0.935252`), but test was not used to select the endpoint.
+
+The licensed statement is that promoter information is strongly linearly accessible across a band of
+late layers, and that Layer 10 is the layer the stated development rule returned on one seed. This is
+neither causal localization nor a localized endpoint (DBP13, DBPR11). The seeded probe repeat that
+would settle the choice has not been run.
 
 ## Fine-tuned early causal dependence
 

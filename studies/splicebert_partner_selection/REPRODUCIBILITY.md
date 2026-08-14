@@ -1,14 +1,12 @@
 # SpliceBERT reproducibility map
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 The shortest path from a claim to its script and machine-readable artifact for the SpliceBERT donor-circuit
 study (C1–C42 + IC1), covering the full current arc. **C43 and C44 are deliberately absent from the map
 below:** they were consolidated from the archived exon-edge arc (R45) and the runners that produced their
 artifacts are not in this tree — each artifact's sibling `*.manifest.json` pins its runner by path and
 sha256, recoverable from `codex/intron-exon-phase` at `fd26cc1b`. Neither is re-executable regardless: the
 source branch gitignored the raw rows both audits recompute from. The authoritative claim ledger is
-[`CLAIMS.md`](CLAIMS.md); correction/retraction history (R1–R46) is in [`CORRECTIONS.md`](CORRECTIONS.md);
+[`CLAIMS.md`](CLAIMS.md); correction/retraction history (R1–R47) is in [`CORRECTIONS.md`](CORRECTIONS.md);
 the machine-checkable claim→file index is [`../../results/MANIFEST.csv`](../../results/MANIFEST.csv)
 (953 rows, all paths resolve; `scripts/verify_manifest.py` passes). Repository-wide environment,
 checkpoint, and data requirements are defined in [`../../REPRODUCE.md`](../../REPRODUCE.md); this file is

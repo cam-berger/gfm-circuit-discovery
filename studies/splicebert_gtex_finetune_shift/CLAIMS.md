@@ -1,7 +1,5 @@
 # SpliceBERT GTEx fine-tuning-shift claim ledger
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 **How to read this ledger.** Rows are grouped under navigational headings and an index. The grouping is mechanical: rows were re-emitted verbatim and the transform refuses to run unless the set of row lines is unchanged. An earlier attempt to also *compress* the prose was rejected — three independent checks found it had inverted a negation and upgraded an evidence level — so no row was reworded to make it shorter. Headings are descriptive only and assert nothing: the rows carry the claims.
 
 | # | Section | Claims |

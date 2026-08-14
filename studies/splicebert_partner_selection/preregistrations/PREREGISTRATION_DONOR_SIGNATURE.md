@@ -1,7 +1,5 @@
 # Pre-registration — the causal signature of U_info (donor-graph 1e, core)
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 **Status: FROZEN.** Written before `run_donor_signature.py`. Definitions import from
 `gfmcd.splicing.circuit`. Builds on **C16–C18**: the donor coupling is carried by a low-rank
 object `U_info` (C16) that L3H1 delivers (C17) and L4/L5 transporter heads relay (C18). 1a–1c

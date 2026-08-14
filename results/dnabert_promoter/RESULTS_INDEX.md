@@ -1,13 +1,11 @@
 # `results/dnabert_promoter/` — family index
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 Artifacts of the DNABERT-2 promoter study, including the canonical frozen arc and the completed fine-tuned extension.
 
 Claims live in
 [`studies/dnabert_promoter/CLAIMS.md`](../../studies/dnabert_promoter/CLAIMS.md) as `DBP1`–`DBP17`;
 withdrawals and bounded historical statements live in
-[`CORRECTIONS.md`](../../studies/dnabert_promoter/CORRECTIONS.md) as `DBPR1`–`DBPR10`.
+[`CORRECTIONS.md`](../../studies/dnabert_promoter/CORRECTIONS.md) as `DBPR1`–`DBPR11`.
 
 Per-file rows — `claim_id`, `status`, `evidence_level`, `polarity`, `script`, `manifest`, `figure` — are
 in [`results/MANIFEST.csv`](../MANIFEST.csv); this page says which directories matter and why.
@@ -60,7 +58,7 @@ matched before/after fine-tuning experiment with the frozen 70-nt `prom_core_all
 | `finetuned/causal/activation_restoration/` | canonical | Restoration of clean `L0H8` and `L0_MLP` activations in the joint-ablation background. | DBP14 |
 | `finetuned/causal/component_donor_matrix/` | canonical | Nucleotide-aligned activation-source swapping and same-class versus opposite-class compatibility statistics. | DBP15 |
 | `finetuned/tata/` | canonical | Fine-tuned TATA-like motif eligibility, baseline evaluation, matched perturbation controls, per-example results, and statistical summaries. | DBP16 |
-| `finetuned/performance_comparison/` | bounded | Descriptive frozen/fine-tuned performance contrast. It does not identify a causal effect of fine-tuning because the two studies are not matched on task, sequence length, cohort policy, or readout. | DBP17 |
+| `finetuned/performance_comparison/` | canonical | `frozen_hf_performance.csv` — descriptive frozen/fine-tuned performance contrast, carrying only artifact-backed rows at full precision with the GUE task and sequence length on each row. It does not identify a causal effect of fine-tuning because the two studies are not matched on task, sequence length, cohort policy, or readout. | DBP17 |
 
 ## Frozen polarity, so a null is never re-read as a positive
 
@@ -73,10 +71,66 @@ to be misquoted:
 
 ## Fine-tuned evidence summary
 
-The fine-tuned checkpoint reaches:
+The fine-tuned checkpoint reaches, on the official GUE `prom_300_all` test split (n=5,920):
 
 ```text
 Balanced accuracy: 0.935205
 MCC:               0.870487
 ROC-AUC:           0.984785
 PR-AUC:            0.984351
+```
+
+Removing exact test sequences that also occur in train or development leaves n=5,900 and balanced
+accuracy `0.935136`, so the reported performance is not materially explained by exact overlap (`DBP12`).
+Near-duplicate leakage is not screened by that analysis.
+
+**The layer choice is a band, not a point.** `layer_localization/selected_endpoint.json` records the
+layer the stated validation rule returned; `layer_localization/layer_selection_band.json` records what
+that selection can bear. The argmax leads its runner-up by `0.000998` balanced accuracy, which is
+`0.33` standard errors on this split: layers 7–11 are within one standard error of the argmax and
+layers 5–11 within two, and the *test* argmax is Layer 8, not Layer 10. Quote the band (`DBP13`,
+`DBPR11`), never Layer 10 alone, and never as a relocation relative to the frozen Layer-2 endpoint
+(`DBP17`, `DBPR10`).
+
+## Provenance: fixed forward, gap now extended forward once
+
+**Only 5 of the ~109 frozen artifacts in this family have a sibling `*.manifest.json`**, and those five
+are config echoes — they carry no `command`, `git_commit`, `created_at_utc`, seed, or input hashes. The
+repository invariant is one manifest per result, carrying all of that.
+
+That is fixed for every future *runner*: `src/gfmcd/dnabert/manifest.py` wraps the repository's own
+`ExperimentManifest` and is wired into all 15 canonical frozen runners plus
+`analyze_finetuned_layer_selection.py`, so a rerun writes hashed inputs/outputs, the probe sha256 that
+defines the readout, the split provenance, the seed, the command, and the git state.
+`tests/test_dnabert_manifest.py` pins that contract.
+
+**The fine-tuned extension extended the gap forward rather than closing it.** Its 52 artifacts were
+produced by a notebook rather than by runners, and carry neither sibling manifests nor a `script` entry;
+their MANIFEST rows record that truthfully with blank `script` and `manifest` columns. This is a
+disclosed, accepted debt, not an oversight — the assays are real and their inputs are pinned by
+revision in `finetuned/shared/`, but they are not re-runnable from the tree until the notebook is
+ported to `scripts/dnabert_promoter/`. `layer_selection_band.json` is the one fine-tuned artifact that
+does have both, and is the shape the rest should take.
+
+The **historical** frozen artifacts keep a blank `manifest` column, which `results/RESULTS_INDEX.md`
+defines as the record "where one exists". Back-filling them would mean asserting provenance nobody
+recorded — the run conditions were not captured at the time, and inventing them is worse than an honest
+blank. They fill in when the affected assays are next re-run, which the roadmap gates on multi-seed
+anyway. Note that new manifests use the repository-standard `<stem>.manifest.json` name; the five
+hand-written ones use an older `<stem>_manifest.json` spelling and are immutable.
+
+## Figures
+
+Published figures are in [`figures/dnabert_promoter/`](../../figures/dnabert_promoter/) with captions beside
+them, following the repository figure convention. **Figures 1–3 and 9–12 are canonical; 4–8 depict the
+superseded Layer-3 replicate** (`DBPR7`). Figures 9–12 were added during the integration review because
+`DBP6`, `DBP7` and `DBP8` — including the faithfulness curve that carries the study's central negative
+result — had no published figure at all.
+
+The six fine-tuned figures under `figures/dnabert_promoter/finetuned/` (12 files, PDF and PNG) came from the same notebook and
+have no producing script and no caption files yet; they are indexed against `DBP12`–`DBP16` and share the
+debt recorded above.
+
+`results/**/figures/` is gitignored precisely so that published figures live in one place; the arc
+originally force-committed 24 files under `results/dnabert_promoter/figures/frozen/`, and they were
+relocated on 2026-08-11.

@@ -1,6 +1,6 @@
 # Results index — SpliceBERT positional boundary coherence
 
-> **Tier: T2 — provenance.** Model-free Phase I stopped on an independently audited necessary-capacity
+> Model-free Phase I stopped on an independently audited necessary-capacity
 > failure. No model outcome was produced.
 
 The freshness and census records establish the inputs to the stop, not a target result. The full

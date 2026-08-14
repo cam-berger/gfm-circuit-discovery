@@ -1,7 +1,5 @@
 # Colab package — wider SpliceBERT Head–Context Atlas discovery screen
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 This package runs the original atlas objective: measure **all 96 attention heads and all six MLPs**
 across six overlapping biological context labels, using a balanced discovery cohort. Competition is not
 the organizing question.

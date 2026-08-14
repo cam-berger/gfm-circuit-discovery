@@ -1,7 +1,5 @@
 # Evidence ladder
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 The ladder prevents a familiar failure mode: a striking observation gradually acquires causal or biological language without the experiment needed for that promotion.
 
 ## General ladder

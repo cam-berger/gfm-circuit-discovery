@@ -1,7 +1,5 @@
 # SpliceBERT acceptor-coupling claim ledger
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 Point-of-contact record for the strongest wording currently licensed. One claim, one evidence level, one
 controlling artifact set, one scope boundary per row. `AC*` rows govern the **reverse** direction — a
 masked **acceptor** readout. They are deliberately kept out of

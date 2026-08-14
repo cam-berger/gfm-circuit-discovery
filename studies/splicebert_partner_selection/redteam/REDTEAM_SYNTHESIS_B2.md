@@ -1,7 +1,5 @@
 # B2 PAYLOAD SEMANTICS (close C30) — 5-lens design red-team synthesis (2026-07-22)
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 **Reviews:** `../preregistrations/PREREGISTRATION_B2_PAYLOAD_STEERING.md` v1 (DRAFT for pre-compute red-team).
 Five independent adversarial lenses, run BEFORE any confirmatory compute. **Outcome: NOT freezable as
 written.** The drafter's disposition (FIXABLE_THEN_RUNNABLE, "existence+specificity core runnable now") is

@@ -1,6 +1,6 @@
 # Biological hypothesis register — SpliceBERT positional boundary coherence
 
-> **Tier: T2 — provenance.** Candidate biological narrative; it cannot promote a claim or supersede the
+> Candidate biological narrative; it cannot promote a claim or supersede the
 > frozen design and claim ledger.
 
 **Status: candidate register.** This document is not a claim ledger, a preregistration, or evidence. The

@@ -1,7 +1,5 @@
 # Head–Context Atlas mechanism-validation amendment A1
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 Status: **FROZEN BEFORE THE FULL DISCOVERY MATRIX OR ANY INTERNAL-VALIDATION MODEL OUTCOME WAS READ**
 (2026-07-19).
 

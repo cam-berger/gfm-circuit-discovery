@@ -1,7 +1,5 @@
 # SpliceBERT discovery methodology
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 This document records the study-specific implementation of the repository's transferable mechanistic-discovery method. It consolidates the former method note, methods audit, experiment designs, tracing plan, gate report, and migration notes.
 
 ## 1. Start from a model-native behavior

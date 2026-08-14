@@ -1,6 +1,6 @@
 # SpliceBERT exon-edge compatibility — archive record
 
-> **Tier: T2 — provenance.** This directory is **not a study**. It holds the two frozen protocols that
+> This directory is **not a study**. It holds the two frozen protocols that
 > govern two live claims, and this pointer. Nothing here is a claim ledger.
 
 ## What this was

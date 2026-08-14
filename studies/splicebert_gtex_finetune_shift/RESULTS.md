@@ -1,7 +1,5 @@
 # Results index: SpliceBERT GTEx fine-tuning shift
 
-> **Tier: T1 — canonical.** Current, authoritative. Read this.
-
 The fixed-MLM gate is closed, while the native-classifier behavior and its gated representation bridge
 are complete. Runtime-derived checkpoints live under ignored `data/models/` paths and must carry
 `transplant.json` plus `transplant.manifest.json`.

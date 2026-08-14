@@ -1,7 +1,5 @@
 # Readiness checklist — R4 paired edge-level ACDC
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 ## Green locally before packaging
 
 - [x] Kernel exact on the real checkpoint at S=1024: `kernel_exact_full` 3.05e-5,

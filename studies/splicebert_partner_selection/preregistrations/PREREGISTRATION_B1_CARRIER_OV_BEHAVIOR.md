@@ -1,7 +1,5 @@
 # PREREGISTRATION — B1: ≈10.63 carrier past attention (closes C12) (v1)
 
-> **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
-
 **Status: NOT FROZEN — the 5-lens design red-team (2026-07-22) adjudicated this draft FIXABLE_THEN_RUNNABLE (survivor=NO). → SUPERSEDED by [`PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR_V2.md`](PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR_V2.md) (SPLIT-FREEZE: behavioural arm FROZEN, OV arm design-frozen after a focused re-audit). This v1 is retained as the design-of-record.**
 See [`../redteam/REDTEAM_SYNTHESIS_B1.md`](../redteam/REDTEAM_SYNTHESIS_B1.md). Behavioural arm (ΔC coupling from
 re-pointing the deletion instrument to the ≈10.63 plane) is clean and identifiable, but the OV-write arm is
