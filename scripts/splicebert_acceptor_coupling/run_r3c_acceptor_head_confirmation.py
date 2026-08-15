@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""R3c v2: acceptor-only confirmation of fixed retrieval and delivery head candidates.
+"""R3c v2.1: acceptor-only confirmation of fixed retrieval and delivery head candidates.
 
 This instrument never constructs a donor readout.  Every model endpoint masks the G in
 the downstream intron-mate acceptor (``next_acceptor_pos - 1``), then compares the paired
@@ -114,12 +114,12 @@ TARGET_ATTEMPT_LEDGER = (
 )
 
 RESULT_SCHEMA = "gfmcd.r3c.acceptor_head_confirmation/2"
-INSTRUMENT_REVISION = "r3c-v2-monotone-health-authorization"
+INSTRUMENT_REVISION = "r3c-v2.1-monotone-health-early-preflight-authorization"
 
 # These values remain literal ``None`` until a reviewed freeze.  Do not replace them from
 # a development run.  The normalized runner hash excludes only their assignment values.
-FROZEN_PROTOCOL_SHA256: str | None = "4968e6a04175818a8585cd835026503ef63cc277996dde8dc32c6da55ed8a234"
-FROZEN_INSTRUMENT_FINGERPRINT_SHA256: str | None = "8050ec7bce63e541004d39157b1f828a257004783cab036a6b5cbe248a0740d4"
+FROZEN_PROTOCOL_SHA256: str | None = "c0239606079aa985fd173f31bee68ec154e162af54ede74ee5315033c8e22c38"
+FROZEN_INSTRUMENT_FINGERPRINT_SHA256: str | None = "178c888e2876ce9be0590ea112899dde24daf2ce5e35143c849ff3001e680eed"
 FROZEN_PREFLIGHT_ARTIFACT_SHA256: str | None = None
 
 PREFLIGHT_N = 500
@@ -3019,6 +3019,9 @@ def instrument_binding_payload(
         "sesoi": SESOI,
         "family_alpha": FAMILY_ALPHA,
         "strict_path_p_threshold": "Holm-adjusted p < alpha",
+        "target_authorization_order": (
+            "literal seals and required preflight argument before model/GTF/FASTA/output paths"
+        ),
         "interval_rule": "strict_interval_decision on 62-row simultaneous envelope",
         "interval_scaling": "fixed endpoint bootstrap SD max-deviation",
         "interval_historical_classifier_used": False,
@@ -4329,6 +4332,10 @@ def main() -> None:
             )
         except TargetSealError as exc:
             raise SystemExit(str(exc)) from exc
+        if not args.preflight_artifact:
+            raise SystemExit(
+                "R3c target requires --preflight-artifact before inspecting any user paths"
+            )
 
     args.n = args.n if args.n is not None else (
         30 if args.stage == "smoke" else PREFLIGHT_N if args.stage == "preflight" else TARGET_N

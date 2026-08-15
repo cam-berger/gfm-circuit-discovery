@@ -1,6 +1,6 @@
-# FROZEN R3c v2 successor — acceptor-only focused head confirmation
+# FROZEN R3c v2.1 successor — acceptor-only focused head confirmation
 
-> **Status: FROZEN V2 FOR CLEAN BUCKET-0 PREFLIGHT — BUCKET 1 REMAINS SEALED.** R3c v1 produced a development-only
+> **Status: FROZEN V2.1 FOR CLEAN BUCKET-0 PREFLIGHT — BUCKET 1 REMAINS SEALED.** R3c v1 produced a development-only
 > bucket-0 preflight, artifact SHA-256
 > `b4d9172b911588f7ba83e7441564851b0111763e3c0ffea5931403dc27d3f913`. Independent review found
 > that `L2H15_mean_component` failed bucket-0 health and could nevertheless be revived by bucket-1
@@ -9,6 +9,14 @@
 > calibrates all seven paths synthetically. Target execution remains hard-blocked until this
 > successor protocol and instrument are frozen, a fresh clean-worktree bucket-0 preflight passes,
 > and its exact artifact-byte hash is reviewed and installed. There is no command-line bypass.
+
+The first durable v2 preflight (artifact SHA-256
+`bc5f0797201a85fa2584a644212454aeb6fb7f4f1fd5c33497f9a552a981c031`) passed every scientific,
+calibration, and capability gate. Activating its literal pin exposed an authorization-order defect:
+a target invocation missing `--preflight-artifact` inspected the supplied model path before failing.
+No bucket-1 outcome was opened. V2.1 adds an early mandatory-argument stop before model, GTF, FASTA,
+output, or cohort paths are inspected. Because runner bytes are bound, v2 cannot authorize v2.1;
+the corrected guard requires a fresh clean bucket-0 artifact even though the estimands are unchanged.
 
 ## 1. Question and evidence boundary
 
@@ -351,6 +359,10 @@ component order, 62 rows, seven paths, and capability record match the target in
 reviewed preflight artifact bytes then receive a third literal SHA-256 pin, excluded from runner-hash
 normalization exactly like the other seal literals. An editable artifact plus an editable sibling
 manifest is never sufficient.
+
+On target, the runner validates the protocol and all three literal seals and requires the
+`--preflight-artifact` argument before inspecting any caller-supplied model, GTF, FASTA, output,
+cohort, or preflight path. There is no later-path fallback for a missing authorization input.
 
 At binding, observed 62-row and two-row capability inference are replayed from exact gene counts and
 raw cluster sums through the frozen production classifier, including CI, boundary p-values, Holm,
