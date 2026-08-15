@@ -1,10 +1,14 @@
-# FROZEN R3c — acceptor-only focused head confirmation
+# FROZEN R3c v2 successor — acceptor-only focused head confirmation
 
-> **Status: FROZEN FOR CLEAN BUCKET-0 PREFLIGHT — BUCKET 1 REMAINS SEALED.** The registry,
-> interventions, family, thresholds, calibration, capability battery, and target design are frozen.
-> Target execution remains hard-blocked until a fresh clean-worktree bucket-0 preflight passes and
-> its exact artifact-byte hash is reviewed and installed. There is no command-line bypass. Any
-> scientific or inferential change requires a successor protocol and a correction-ledger entry.
+> **Status: FROZEN V2 FOR CLEAN BUCKET-0 PREFLIGHT — BUCKET 1 REMAINS SEALED.** R3c v1 produced a development-only
+> bucket-0 preflight, artifact SHA-256
+> `b4d9172b911588f7ba83e7441564851b0111763e3c0ffea5931403dc27d3f913`. Independent review found
+> that `L2H15_mean_component` failed bucket-0 health and could nevertheless be revived by bucket-1
+> health even though its v1 plant had been suppressed. No bucket-1 outcome was opened. V2 carries
+> that reviewed L2H15 suppression forward, makes later live-health authorization monotone, and
+> calibrates all seven paths synthetically. Target execution remains hard-blocked until this
+> successor protocol and instrument are frozen, a fresh clean-worktree bucket-0 preflight passes,
+> and its exact artifact-byte hash is reviewed and installed. There is no command-line bypass.
 
 ## 1. Question and evidence boundary
 
@@ -235,11 +239,12 @@ offset and record hashes, namespace templates, and the deterministic worst-surfa
 The coherent sensitivity plant is frozen at `delta = 0.40`. In primitive space it adds `+0.40` only
 to the partner row for each positive component/mode and leaves every pseudo and route comparator at
 zero. Thus every positive specificity and both route gaps derive to exactly `+0.40`. Per-path planted
-power is recorded; a health-ineligible path remains suppressed and does not globally invalidate an
-unrelated path. All health-eligible paths must have a one-sided 95% Clopper--Pearson power lower bound
-of at least 0.90.
+power is recorded with all seven synthetic paths health-enabled, regardless of observed live health.
+This makes the engineering false-positive and power preflight no easier when a live path happens to
+fail health. Every path must have a one-sided 95% Clopper--Pearson power lower bound of at least 0.90.
+Live health is applied separately and can only suppress a scientific declaration.
 
-With 200 plant trials, every health-eligible path needs at least 188 successes for its one-sided 95%
+With 200 plant trials, every path needs at least 188 successes for its one-sided 95%
 Clopper--Pearson lower bound to reach 0.90. Across 28 boundary surfaces plus one coherent plant, the
 production preflight invokes the exact production classifier 5,800 times. Diagnostic or plant
 failures cannot be overridden.
@@ -276,6 +281,19 @@ motifs, nonzero health trials, the exact 40/62 row registries, passing boundary-
 planted-power gates, and the independent live-hook battery. A target inherits the exact pinned
 bucket-0 capability record. L3H1, L2H15, H11, H9, and every other candidate may fail to confirm on
 bucket 1 without turning that scientific negative into instrument failure.
+
+Bucket-0 live health freezes the maximum set of paths that may be interpreted on target. Effective
+target health is the conjunction of reviewed bucket-0 path health and current bucket-1 path health.
+A bucket-1 health failure may remove a path, but a bucket-1 pass can never revive a path that failed
+bucket-0 health. The preflight and target artifacts serialize the authorized and suppressed path
+lists and the exact conjunction rule. Diagnosing and reviving a preflight-suppressed path requires
+another prospective successor; it cannot happen inside the held-out run.
+
+Because v2 was designed after observing the v1 `L2H15_mean_component` health failure (31/64 probes),
+the v2 ceiling conservatively keeps that path suppressed even if the repeated deterministic v2
+health sample happens to cross 32/64. The repeated measurement is a reproducibility diagnostic, not
+a retry that can restore authorization. `L4H2` mean health also failed 31/64 in v1, but no named path
+depends on that mode; the distinct-route path depends on L4H2 noising, which passed.
 
 The preflight gate map is exact and ordered in the runner. There is no global maximum-width gate;
 strict constituent classifications and exact path calibration are the resolution standard.
@@ -340,8 +358,9 @@ and shared sign digests. Calibration records are checked trial by trial for cano
 shared-sign metadata, Holm algebra, declarations, per-surface counts and Clopper--Pearson bounds,
 plant successes, and aggregate hashes; the literal artifact hash pins the residual simulation bytes.
 Target inherits bucket-0 synthetic calibration and capability, then reruns the current-bucket model
-and construction invariants. At protocol freeze no target run is authorised; bucket 1 remains sealed
-until the reviewed preflight artifact receives its literal pin.
+and construction invariants. It applies the serialized bucket-0 live-health authorization ceiling
+before current-bucket inference. At protocol freeze no target run is authorised; bucket 1 remains
+sealed until the reviewed preflight artifact receives its literal pin.
 
 ## 10. Interpretation table
 

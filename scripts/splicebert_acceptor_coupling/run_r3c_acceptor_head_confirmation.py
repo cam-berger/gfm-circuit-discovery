@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""R3c: acceptor-only confirmation of fixed retrieval and delivery head candidates.
+"""R3c v2: acceptor-only confirmation of fixed retrieval and delivery head candidates.
 
 This instrument never constructs a donor readout.  Every model endpoint masks the G in
 the downstream intron-mate acceptor (``next_acceptor_pos - 1``), then compares the paired
@@ -7,8 +7,9 @@ upstream donor ``GT -> AC`` edit with the same edit at a distance-calipered non-
 donor motif.  Component interventions are whole-head within-example token-mean ablation
 and same-example corrupt-to-clean activation noising.
 
-The protocol is deliberately DRAFT.  A target invocation exits before inspecting user
-data paths while either literal seal pin below is absent.
+The v2 successor makes target health eligibility monotone: a target path must have passed
+both the reviewed bucket-0 health gate and its own current-bucket health gate.  A target
+invocation exits before inspecting user data paths while any literal seal pin below is absent.
 """
 
 from __future__ import annotations
@@ -112,10 +113,13 @@ TARGET_ATTEMPT_LEDGER = (
     "r3c_acceptor_head_confirmation"
 )
 
+RESULT_SCHEMA = "gfmcd.r3c.acceptor_head_confirmation/2"
+INSTRUMENT_REVISION = "r3c-v2-monotone-health-authorization"
+
 # These values remain literal ``None`` until a reviewed freeze.  Do not replace them from
 # a development run.  The normalized runner hash excludes only their assignment values.
-FROZEN_PROTOCOL_SHA256: str | None = "915b9c02239e0971cb9a2411e0e8d48940a9f5ac3d2230c52a69dc1660cc166d"
-FROZEN_INSTRUMENT_FINGERPRINT_SHA256: str | None = "0c33151845b12ec6d56c52c68c5357b3bceb67768d114bc0623ec3ae1487622a"
+FROZEN_PROTOCOL_SHA256: str | None = "4968e6a04175818a8585cd835026503ef63cc277996dde8dc32c6da55ed8a234"
+FROZEN_INSTRUMENT_FINGERPRINT_SHA256: str | None = "8050ec7bce63e541004d39157b1f828a257004783cab036a6b5cbe248a0740d4"
 FROZEN_PREFLIGHT_ARTIFACT_SHA256: str | None = None
 
 PREFLIGHT_N = 500
@@ -143,6 +147,7 @@ HISTORICAL_EXPECTED_EXAMPLE_ID_SHA256 = (
 CURRENT_TAG = "r3c-acceptor-head-confirmation-v1"
 GENE_BUCKET_SALT = "r3b-gene"
 TARGET_HOLDOUT_ID = "r3c-acceptor-head-confirmation-val-bucket1-first500"
+HISTORICAL_V1_HEALTH_SUPPRESSED_PATHS = ("L2H15_mean_component",)
 VALIDATION_CHROMOSOMES = tuple(CouplingConfig().val_chromosomes)
 HISTORICAL_EXCLUSION_RULE = (
     "exclude every gene represented by a row among the historical r1b-d0 first 1000 "
@@ -901,10 +906,8 @@ def boundary_face_suite_binding() -> dict[str, Any]:
     }
 
 
-def path_health_eligibility(
-    measurements: Mapping[str, Mapping[str, Mapping[str, Any]]]
-) -> dict[str, dict[str, Any]]:
-    """Apply health locally to only the component/mode rows used by each path."""
+def path_health_participants() -> dict[str, list[tuple[str, str]]]:
+    """Return the ordered component/mode health dependencies of every named path."""
     participants: dict[str, list[tuple[str, str]]] = {}
     for path_name, spec in named_path_specs().items():
         seen: list[tuple[str, str]] = []
@@ -920,6 +923,14 @@ def path_health_eligibility(
                 if key not in seen:
                     seen.append(key)
         participants[path_name] = seen
+    return participants
+
+
+def path_health_eligibility(
+    measurements: Mapping[str, Mapping[str, Mapping[str, Any]]]
+) -> dict[str, dict[str, Any]]:
+    """Apply live health locally to only the component/mode rows used by each path."""
+    participants = path_health_participants()
     return {
         path_name: {
             "ok": all(
@@ -934,6 +945,148 @@ def path_health_eligibility(
             ],
         }
         for path_name, entries in participants.items()
+    }
+
+
+def calibration_path_health_eligibility() -> dict[str, dict[str, Any]]:
+    """Exercise every frozen path in synthetic calibration, independent of live health.
+
+    Live health can only suppress a scientific declaration.  It must not make the
+    classifier's false-positive or planted-power calibration easier by silently removing
+    a path from the engineering preflight.
+    """
+    return {
+        path_name: {
+            "ok": True,
+            "participants": [f"{mode}|{head}" for mode, head in entries],
+            "failed_participants": [],
+        }
+        for path_name, entries in path_health_participants().items()
+    }
+
+
+def monotone_target_path_health(
+    current_health: Mapping[str, Mapping[str, Any]],
+    preflight_paths: Mapping[str, Mapping[str, Any]],
+) -> tuple[dict[str, dict[str, Any]], dict[str, Any]]:
+    """Authorize target paths only when both preflight and target live health pass.
+
+    A target may lose an otherwise authorized path when its own health fails, but it may
+    never gain a path whose bucket-0 health failed.  This prevents target outcomes from
+    reviving a path that lacked a live preflight authorization.
+    """
+    if tuple(current_health) != PATH_NAMES or tuple(preflight_paths) != PATH_NAMES:
+        raise ValueError("target health requires the exact seven-path registry")
+    effective: dict[str, dict[str, Any]] = {}
+    preflight_authorized: list[str] = []
+    current_healthy: list[str] = []
+    effective_authorized: list[str] = []
+    for path_name in PATH_NAMES:
+        current = current_health[path_name]
+        preflight = preflight_paths[path_name].get("health")
+        if not isinstance(preflight, Mapping):
+            raise ValueError(f"preflight health is missing for {path_name}")
+        current_participants = current.get("participants")
+        preflight_participants = preflight.get("participants")
+        if (
+            not isinstance(current.get("ok"), bool)
+            or not isinstance(preflight.get("ok"), bool)
+            or current_participants != preflight_participants
+        ):
+            raise ValueError(f"preflight/current health registry differs for {path_name}")
+        preflight_ok = bool(preflight["ok"])
+        current_ok = bool(current["ok"])
+        if preflight_ok:
+            preflight_authorized.append(path_name)
+        if current_ok:
+            current_healthy.append(path_name)
+        failed = list(
+            dict.fromkeys(
+                [
+                    *list(preflight.get("failed_participants", [])),
+                    *list(current.get("failed_participants", [])),
+                ]
+            )
+        )
+        effective[path_name] = {
+            "ok": preflight_ok and current_ok,
+            "participants": list(current_participants),
+            "failed_participants": failed,
+            "preflight_health_ok": preflight_ok,
+            "current_health_ok": current_ok,
+            "authorization_rule": "preflight_health_ok AND current_health_ok",
+        }
+        if effective[path_name]["ok"]:
+            effective_authorized.append(path_name)
+    authorization = {
+        "schema": "gfmcd.r3c.target_path_health_authorization/1",
+        "rule": "effective target health = reviewed preflight health AND current health",
+        "can_only_shrink_from_preflight": True,
+        "preflight_authorized_paths": preflight_authorized,
+        "preflight_suppressed_paths": [
+            name for name in PATH_NAMES if name not in preflight_authorized
+        ],
+        "current_healthy_paths": current_healthy,
+        "effective_authorized_paths": effective_authorized,
+        "effective_suppressed_paths": [
+            name for name in PATH_NAMES if name not in effective_authorized
+        ],
+    }
+    return effective, authorization
+
+
+def reviewed_preflight_path_health(
+    current_health: Mapping[str, Mapping[str, Any]],
+) -> dict[str, dict[str, Any]]:
+    """Carry the reviewed v1 health suppression into the prospective v2 ceiling.
+
+    V2 was created after observing the v1 bucket-0 L2H15 health failure.  Repeating the
+    same deterministic health sample may diagnose reproducibility, but it cannot turn that
+    observed failure into a fresh authorization.
+    """
+    if tuple(current_health) != PATH_NAMES:
+        raise ValueError("preflight health requires the exact seven-path registry")
+    effective: dict[str, dict[str, Any]] = {}
+    for path_name in PATH_NAMES:
+        current = current_health[path_name]
+        current_ok = current.get("ok")
+        if not isinstance(current_ok, bool):
+            raise ValueError(f"current preflight health is malformed for {path_name}")
+        historical_ok = path_name not in HISTORICAL_V1_HEALTH_SUPPRESSED_PATHS
+        participants = list(current.get("participants", []))
+        failed = list(current.get("failed_participants", []))
+        if not historical_ok:
+            failed = list(dict.fromkeys([*participants, *failed]))
+        effective[path_name] = {
+            "ok": historical_ok and current_ok,
+            "participants": participants,
+            "failed_participants": failed,
+            "reviewed_v1_health_ceiling_ok": historical_ok,
+            "current_v2_preflight_health_ok": current_ok,
+            "authorization_rule": "reviewed v1 health ceiling AND current v2 preflight health",
+        }
+    return effective
+
+
+def preflight_path_health_authorization(
+    observed_health: Mapping[str, Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Record the reviewed bucket-0 live-health ceiling for a future target."""
+    if tuple(observed_health) != PATH_NAMES:
+        raise ValueError("preflight health requires the exact seven-path registry")
+    authorized = [name for name in PATH_NAMES if observed_health[name].get("ok") is True]
+    return {
+        "schema": "gfmcd.r3c.preflight_path_health_authorization/1",
+        "rule": (
+            "reviewed v1 health ceiling AND current v2 bucket-0 health freezes the "
+            "maximum target-authorized path set"
+        ),
+        "can_only_shrink_at_target": True,
+        "historical_v1_suppressed_paths": list(
+            HISTORICAL_V1_HEALTH_SUPPRESSED_PATHS
+        ),
+        "preflight_authorized_paths": authorized,
+        "preflight_suppressed_paths": [name for name in PATH_NAMES if name not in authorized],
     }
 
 
@@ -2834,7 +2987,9 @@ def instrument_binding_payload(
     n_trials: int,
 ) -> dict[str, Any]:
     return {
-        "schema": "r3c-acceptor-head-confirmation-instrument-v1",
+        "schema": "r3c-acceptor-head-confirmation-instrument-v2",
+        "result_schema": RESULT_SCHEMA,
+        "instrument_revision": INSTRUMENT_REVISION,
         "hashes": {
             key: hashes[key]
             for key in (
@@ -2900,6 +3055,13 @@ def instrument_binding_payload(
             "mean_source": "clean",
             "noising_sources": ["paired_donor_corrupt", "pseudo_donor_corrupt"],
             "suppression": "affected component/mode and dependent paths only",
+            "synthetic_calibration": "all seven paths health-enabled",
+            "target_authorization": (
+                "reviewed preflight health AND current target health; target can only shrink"
+            ),
+            "reviewed_v1_suppressed_paths": list(
+                HISTORICAL_V1_HEALTH_SUPPRESSED_PATHS
+            ),
         },
         "independent_hook_capability_policy": {
             "candidate_outcomes_used": False,
@@ -3293,6 +3455,22 @@ def _validate_compact_classifier_audit(
     return supported
 
 
+def _validate_all_path_calibration_health(
+    calibration: Mapping[str, Any], expected_health: Mapping[str, bool]
+) -> None:
+    """Reject any production calibration that suppressed a frozen path by live health."""
+    planted = calibration.get("planted_power_by_path")
+    _require_preflight(
+        tuple(expected_health) == PATH_NAMES
+        and all(expected_health[name] is True for name in PATH_NAMES)
+        and calibration.get("health_eligible_paths") == list(PATH_NAMES)
+        and isinstance(planted, Mapping)
+        and tuple(planted) == PATH_NAMES
+        and all(planted[name].get("health_eligible") is True for name in PATH_NAMES),
+        "synthetic calibration must keep all seven paths health-enabled",
+    )
+
+
 def _validate_production_path_preflight(
     calibration: Any,
     *,
@@ -3302,6 +3480,7 @@ def _validate_production_path_preflight(
     expected_health: Mapping[str, bool],
 ) -> None:
     _require_preflight(isinstance(calibration, dict), "production calibration is missing")
+    _validate_all_path_calibration_health(calibration, expected_health)
     suite = boundary_face_surface_specs()
     _require_preflight(
         calibration.get("n_calibration") == PRODUCTION_RANDOMISATION
@@ -3535,8 +3714,9 @@ def validate_preflight_binding(
     record: Mapping[str, Any], fingerprint: str, binding_payload: Mapping[str, Any]
 ) -> None:
     expected = {
-        "schema": "gfmcd.r3c.acceptor_head_confirmation/1",
+        "schema": RESULT_SCHEMA,
         "experiment": "R3c_acceptor_head_confirmation",
+        "instrument_revision": INSTRUMENT_REVISION,
         "protocol_status": "FROZEN_PROTOCOL_AND_INSTRUMENT_VERIFIED",
         "stage": "preflight",
         "status": "DEVELOPMENT",
@@ -3716,10 +3896,17 @@ def validate_preflight_binding(
             )
             health_executed = health_executed and health["total"] > 0
             health_measurements[mode][name] = {"health": health}
-    expected_path_health = path_health_eligibility(health_measurements)
+    expected_path_health = reviewed_preflight_path_health(
+        path_health_eligibility(health_measurements)
+    )
     expected_health_ok = {
         name: bool(expected_path_health[name]["ok"]) for name in PATH_NAMES
     }
+    _require_preflight(
+        record.get("path_health_authorization")
+        == preflight_path_health_authorization(expected_path_health),
+        "bucket-0 path-health authorization differs",
+    )
 
     family = record.get("family")
     _require_preflight(
@@ -3838,7 +4025,7 @@ def validate_preflight_binding(
         n_examples=PREFLIGHT_N,
         n_genes=n_genes,
         ordered_gene_digest=ordered_gene_digest,
-        expected_health=expected_health_ok,
+        expected_health={name: True for name in PATH_NAMES},
     )
 
     capability = record.get("hook_capability")
@@ -4328,7 +4515,17 @@ def main() -> None:
 
     primitive, primitive_names = build_primitive_matrix(measurements)
     family, row_names = derive_family_from_primitives(primitive)
-    path_health = path_health_eligibility(measurements)
+    observed_path_health = path_health_eligibility(measurements)
+    if args.stage == "target":
+        assert preflight_record is not None
+        path_health, path_health_authorization = monotone_target_path_health(
+            observed_path_health, preflight_record["paths"]
+        )
+    else:
+        path_health = reviewed_preflight_path_health(observed_path_health)
+        path_health_authorization = preflight_path_health_authorization(
+            path_health
+        )
     family_gene_statistics = gene_sufficient_statistics(family, groups, row_names)
     inference_family, inference_groups = _reconstruct_cluster_array(
         family_gene_statistics
@@ -4352,7 +4549,7 @@ def main() -> None:
         calibration = r3c_path_preflight(
             primitive,
             groups,
-            path_health=path_health,
+            path_health=calibration_path_health_eligibility(),
             n_calibration=args.n_randomisation,
             n_trials=args.n_trials,
             seed=args.seed,
@@ -4400,8 +4597,9 @@ def main() -> None:
         verdict = "HELD_OUT_ACCEPTOR_HEAD_CONFIRMATION_COMPLETE"
 
     result = {
-        "schema": "gfmcd.r3c.acceptor_head_confirmation/1",
+        "schema": RESULT_SCHEMA,
         "experiment": "R3c_acceptor_head_confirmation",
+        "instrument_revision": INSTRUMENT_REVISION,
         "protocol_status": (
             "FROZEN_PROTOCOL_AND_INSTRUMENT_VERIFIED"
             if target_bindable_preflight
@@ -4467,6 +4665,7 @@ def main() -> None:
             for endpoint in DELIVERY_GAP_ENDPOINTS
         },
         "paths": paths_output,
+        "path_health_authorization": path_health_authorization,
         "path_family": inference["path_family"],
         "gates": gates,
         "all_gates_pass": all_gates_pass,
