@@ -21,7 +21,7 @@ import torch
 from gfmcd.adapters.splicebert import SpliceBertAdapter
 
 Head = tuple[int, int]
-EditMode = Literal["zero", "mean", "resample"]
+EditMode = Literal["zero", "mean", "within_example_mean", "resample"]
 
 
 def _split_context(context: torch.Tensor, num_heads: int) -> torch.Tensor:
@@ -89,6 +89,8 @@ def edit_heads(
                     replacement = torch.zeros_like(source)
                 elif mode == "mean":
                     replacement = source.mean(dim=(0, 1), keepdim=True).expand_as(source)
+                elif mode == "within_example_mean":
+                    replacement = source.mean(dim=1, keepdim=True).expand_as(source)
                 elif mode == "resample":
                     if source.shape[0] < 2:
                         raise ValueError("resample ablation requires batch size >= 2")
@@ -104,6 +106,130 @@ def edit_heads(
         for layer, layer_heads in by_layer.items():
             handles.append(
                 adapter.attention_self_modules[layer].register_forward_hook(make_hook(layer_heads))
+            )
+        yield
+    finally:
+        for handle in handles:
+            handle.remove()
+
+
+def _validate_layers(adapter: SpliceBertAdapter, layers: Iterable[int]) -> list[int]:
+    unique = sorted(set(int(layer) for layer in layers))
+    for layer in unique:
+        if not 0 <= layer < adapter.num_layers:
+            raise ValueError(f"layer out of range: {layer}")
+    return unique
+
+
+@contextmanager
+def edit_mlp_writes(
+    adapter: SpliceBertAdapter,
+    layers: Iterable[int],
+    *,
+    mode: EditMode = "zero",
+) -> Iterator[None]:
+    """Temporarily zero/mean/resample selected BERT MLP residual writes.
+
+    The hook edits ``layer.output.dense(intermediate)`` after the output projection (including
+    its learned bias) and before dropout plus residual-add/LayerNorm. This changes the component
+    write while leaving the incoming residual stream and every other block intact.
+    """
+    selected = _validate_layers(adapter, layers)
+    handles = []
+
+    def hook(_module, _inputs, output):
+        if not torch.is_tensor(output) or output.ndim != 3:
+            raise TypeError("MLP dense output must be a [B,S,D] tensor")
+        if mode == "zero":
+            return torch.zeros_like(output)
+        if mode == "mean":
+            return output.mean(dim=(0, 1), keepdim=True).expand_as(output)
+        if mode == "within_example_mean":
+            return output.mean(dim=1, keepdim=True).expand_as(output)
+        if mode == "resample":
+            if output.shape[0] < 2:
+                raise ValueError("resample ablation requires batch size >= 2")
+            return output.roll(shifts=1, dims=0)
+        raise ValueError(f"unknown mode: {mode}")
+
+    try:
+        for layer in selected:
+            dense = adapter.encoder_layers[layer].output.dense
+            handles.append(dense.register_forward_hook(hook))
+        yield
+    finally:
+        for handle in handles:
+            handle.remove()
+
+
+def capture_mlp_writes(
+    adapter: SpliceBertAdapter,
+    run_forward: Callable[[], object],
+) -> dict[int, torch.Tensor]:
+    """Run one forward pass and cache every post-projection MLP residual write."""
+    cache: dict[int, torch.Tensor] = {}
+    handles = []
+
+    def make_hook(layer: int):
+        def hook(_module, _inputs, output):
+            if not torch.is_tensor(output) or output.ndim != 3:
+                raise TypeError("MLP dense output must be a [B,S,D] tensor")
+            cache[layer] = output.detach().clone()
+
+        return hook
+
+    try:
+        for layer, encoder_layer in enumerate(adapter.encoder_layers):
+            handles.append(encoder_layer.output.dense.register_forward_hook(make_hook(layer)))
+        run_forward()
+    finally:
+        for handle in handles:
+            handle.remove()
+    missing = set(range(adapter.num_layers)) - set(cache)
+    if missing:
+        raise RuntimeError(f"failed to capture MLP writes for layers {sorted(missing)}")
+    return cache
+
+
+@contextmanager
+def patch_mlp_writes(
+    adapter: SpliceBertAdapter,
+    source_cache: Mapping[int, torch.Tensor],
+    layers: Iterable[int],
+    *,
+    token_mask: torch.Tensor | None = None,
+) -> Iterator[None]:
+    """Patch cached MLP writes into another aligned forward pass.
+
+    This is the MLP counterpart to :func:`patch_heads`.  The source and target batches must
+    contain the same examples in the same order and have aligned token coordinates.
+    """
+    selected = _validate_layers(adapter, layers)
+    handles = []
+
+    def make_hook(layer: int):
+        def hook(_module, _inputs, output):
+            source = source_cache[layer].to(device=output.device, dtype=output.dtype)
+            if source.shape != output.shape:
+                raise ValueError(
+                    f"source/target MLP-write shapes disagree at layer {layer}: "
+                    f"{tuple(source.shape)} vs {tuple(output.shape)}"
+                )
+            if token_mask is None:
+                return source.clone()
+            mask = token_mask.to(device=output.device, dtype=torch.bool)
+            if mask.shape != output.shape[:2]:
+                raise ValueError("token_mask must have shape [batch, sequence]")
+            return torch.where(mask[..., None], source, output)
+
+        return hook
+
+    try:
+        for layer in selected:
+            if layer not in source_cache:
+                raise KeyError(f"source cache has no MLP layer {layer}")
+            handles.append(
+                adapter.encoder_layers[layer].output.dense.register_forward_hook(make_hook(layer))
             )
         yield
     finally:
