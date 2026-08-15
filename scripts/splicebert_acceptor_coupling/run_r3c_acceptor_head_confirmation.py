@@ -120,7 +120,7 @@ INSTRUMENT_REVISION = "r3c-v2.1-monotone-health-early-preflight-authorization"
 # a development run.  The normalized runner hash excludes only their assignment values.
 FROZEN_PROTOCOL_SHA256: str | None = "c0239606079aa985fd173f31bee68ec154e162af54ede74ee5315033c8e22c38"
 FROZEN_INSTRUMENT_FINGERPRINT_SHA256: str | None = "178c888e2876ce9be0590ea112899dde24daf2ce5e35143c849ff3001e680eed"
-FROZEN_PREFLIGHT_ARTIFACT_SHA256: str | None = None
+FROZEN_PREFLIGHT_ARTIFACT_SHA256: str | None = "c0c9306fe894ce73bfd981a14c85e2aec6660da33f01d9716cee4327b3ff2d3e"
 
 PREFLIGHT_N = 500
 TARGET_N = 500
