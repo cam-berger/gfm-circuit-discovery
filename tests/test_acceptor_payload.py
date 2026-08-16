@@ -79,3 +79,34 @@ def test_without_carveout_matches_the_existing_hygiene_rule(minus_one, plus_thre
     """Regression guard: allow_written_motif=False must be exactly donor_alt_admissible."""
     x = make_example(minus_one=minus_one, plus_three=plus_three)
     assert arm_admissible(x, alt, allow_written_motif=False) == donor_alt_admissible(x, alt)
+
+
+from gfmcd.splicing.acceptor_payload import admissible_fractions, common_admissible_rows
+
+
+def test_common_rows_are_admissible_under_every_arm():
+    exs = [
+        make_example(minus_one="G", plus_three="A", ex_id="clean", gene_id="g1"),
+        make_example(minus_one="A", plus_three="A", ex_id="bad_gc", gene_id="g2"),
+        make_example(minus_one="G", plus_three="T", ex_id="bad_gg", gene_id="g3"),
+    ]
+    assert common_admissible_rows(exs, LADDER_ARMS) == [0]
+
+
+def test_common_rows_empty_arms_returns_all():
+    exs = [make_example(ex_id="a"), make_example(minus_one="A", ex_id="b")]
+    assert common_admissible_rows(exs, ()) == [0, 1]
+
+
+def test_admissible_fractions_are_per_arm_and_reported():
+    exs = [
+        make_example(minus_one="G", plus_three="A", ex_id="clean"),
+        make_example(minus_one="A", plus_three="A", ex_id="bad_gc"),
+    ]
+    fracs = admissible_fractions(exs, ("AC", "GC"))
+    assert fracs["AC"] == 1.0
+    assert fracs["GC"] == 0.5
+
+
+def test_admissible_fractions_empty_cohort_is_zero_not_a_crash():
+    assert admissible_fractions([], ("AC",)) == {"AC": 0.0}

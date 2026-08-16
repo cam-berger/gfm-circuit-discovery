@@ -14,7 +14,7 @@ carve-out is scoped to the ``written`` register of the treatment arm alone.
 
 from __future__ import annotations
 
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 
 from gfmcd.splicing.coupling import CouplingExample, planted_donor_motifs
 
@@ -58,3 +58,41 @@ def arm_admissible(
         if not (allow_written_motif and register == "written")
     }
     return not disqualifying
+
+
+def common_admissible_rows(
+    exs: Sequence[CouplingExample], arms: Sequence[str]
+) -> list[int]:
+    """Indices admissible under EVERY arm, so all arms share one row set.
+
+    Measuring each arm on its own admissible subset makes the arms incomparable:
+    admissibility runs from 0.37 (``GA``) to 0.842 (``GG``) in the recorded val ladder,
+    so per-arm subsets differ in both size and sequence composition.  The contrast is
+    only interpretable on rows every arm can construct.
+    """
+    return [
+        i
+        for i, x in enumerate(exs)
+        if all(
+            arm_admissible(x, alt, allow_written_motif=allows_written_motif(alt))
+            for alt in arms
+        )
+    ]
+
+
+def admissible_fractions(
+    exs: Sequence[CouplingExample], arms: Sequence[str]
+) -> dict[str, float]:
+    """Per-arm admissible fraction of the supplied cohort, for the artifact record.
+
+    Reported rather than assumed: a carve-out that quietly changed ``GC``'s
+    admissibility relative to its twins would bias the contrast even on a common row set,
+    because the common set would be driven by whichever arm is most restrictive.
+    """
+    total = len(exs)
+    out: dict[str, float] = {}
+    for alt in arms:
+        allow = allows_written_motif(alt)
+        n = sum(1 for x in exs if arm_admissible(x, alt, allow_written_motif=allow))
+        out[alt] = (n / total) if total else 0.0
+    return out
