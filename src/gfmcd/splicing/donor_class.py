@@ -148,3 +148,76 @@ def matching_balance(cohort: MatchedCohort) -> dict:
         "matched_on": [label for label, _ in FLANK_OFFSETS] + ["donor_acceptor_gap"],
         "outcome_blind": True,
     }
+
+
+def gboot_two_sample_ratio(
+    v_treatment,
+    genes_treatment: Sequence[str],
+    v_comparator,
+    genes_comparator: Sequence[str],
+    *,
+    n_draws: int = 2000,
+    seed: int = 0,
+    min_genes: int = 30,
+):
+    """``(estimate, lo, hi)`` for ``mean(treatment) / mean(comparator)``, clustered by gene.
+
+    The two arms live on different rows, so the paired estimator in ``acceptor_payload`` does
+    not apply.  They are nonetheless correlated through the gene -- most treatment genes also
+    carry a comparator intron -- so resampling the arms independently would break that
+    correlation and misstate the interval.  Genes are therefore drawn once, with replacement,
+    from the UNION of both arms' genes, and each drawn gene contributes its rows to BOTH sums.
+
+    Ratio of sums throughout, never a mean of per-row ratios: near-zero denominators make the
+    per-example ratio explode.
+    """
+    import numpy as _np
+
+    t = _np.asarray(v_treatment, dtype=float)
+    c = _np.asarray(v_comparator, dtype=float)
+    if len(t) != len(genes_treatment) or len(c) != len(genes_comparator):
+        raise ValueError("each arm's values and gene labels must be the same length")
+    if n_draws < 1:
+        raise ValueError("n_draws must be positive")
+    if not _np.isfinite(t).all() or not _np.isfinite(c).all():
+        raise ValueError("values contain non-finite entries")
+
+    t_rows: dict[str, list[int]] = {}
+    for i, g in enumerate(genes_treatment):
+        t_rows.setdefault(str(g), []).append(i)
+    c_rows: dict[str, list[int]] = {}
+    for i, g in enumerate(genes_comparator):
+        c_rows.setdefault(str(g), []).append(i)
+
+    keys = sorted(set(t_rows) | set(c_rows))
+    if len(keys) < min_genes:
+        raise ValueError(
+            f"at least {min_genes} independent gene clusters are required; got {len(keys)}"
+        )
+    denom = float(c.mean())
+    if not denom > 0.0:
+        raise ValueError("the comparator arm's mean must be strictly positive")
+    estimate = float(t.mean()) / denom
+
+    # Ratio of MEANS, not of sums: the comparator arm is k:1, so its total is inflated by k.
+    # Sums coincide with means only for equal-size arms, and k>1 would divide rho by k.
+    t_sum = _np.array([t[t_rows[k]].sum() if k in t_rows else 0.0 for k in keys])
+    c_sum = _np.array([c[c_rows[k]].sum() if k in c_rows else 0.0 for k in keys])
+    t_cnt = _np.array([float(len(t_rows[k])) if k in t_rows else 0.0 for k in keys])
+    c_cnt = _np.array([float(len(c_rows[k])) if k in c_rows else 0.0 for k in keys])
+
+    rng = _np.random.default_rng(seed)
+    draws = _np.empty(n_draws)
+    for i in range(n_draws):
+        picked = rng.integers(0, len(keys), len(keys))
+        nt, nc = t_cnt[picked].sum(), c_cnt[picked].sum()
+        if nt <= 0 or nc <= 0:
+            draws[i] = _np.nan
+            continue
+        d = c_sum[picked].sum() / nc
+        draws[i] = (t_sum[picked].sum() / nt) / d if d > 0 else _np.nan
+    draws = draws[_np.isfinite(draws)]
+    if draws.size == 0:
+        raise ValueError("every bootstrap draw had a non-positive comparator sum")
+    lo, hi = _np.quantile(draws, [0.025, 0.975])
+    return estimate, float(lo), float(hi)
