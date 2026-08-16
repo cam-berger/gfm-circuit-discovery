@@ -234,11 +234,34 @@ def eligible(examples: Iterable[CouplingExample], split: str) -> list[CouplingEx
 _DATASET_CACHE: dict = {}
 
 
-def _dataset(gtf: str, fasta: str) -> list[CouplingExample]:
-    """Memoised.  Parsing the 80MB GENCODE GTF takes ~40s and every script did it twice."""
-    key = (gtf, fasta)
+def _dataset(
+    gtf: str,
+    fasta: str,
+    *,
+    allowed_chromosomes: Sequence[str] | None = None,
+) -> list[CouplingExample]:
+    """Build a memoised cohort, optionally restricting chromosomes before sequence fetch.
+
+    Filtering a completed all-chromosome dataset by ``split`` is not sufficient for a sealed
+    experiment: :func:`build_coupling_dataset` has already read and materialised the reserved
+    chromosomes by then.  ``allowed_chromosomes`` is therefore part of the cache key and is
+    forwarded to the builder, which applies it while loading the GTF and before any FASTA fetch.
+    """
+    allowed = (
+        None
+        if allowed_chromosomes is None
+        else tuple(sorted({str(chromosome) for chromosome in allowed_chromosomes}))
+    )
+    if allowed == ():
+        raise ValueError("allowed_chromosomes must be non-empty when supplied")
+    key = (gtf, fasta, allowed)
     if key not in _DATASET_CACHE:
-        _DATASET_CACHE[key] = build_coupling_dataset(gtf, PyfaidxGenome(fasta), CouplingConfig())
+        _DATASET_CACHE[key] = build_coupling_dataset(
+            gtf,
+            PyfaidxGenome(fasta),
+            CouplingConfig(),
+            allowed_chromosomes=allowed,
+        )
     return _DATASET_CACHE[key]
 
 
@@ -284,6 +307,36 @@ def load_examples(
             f"min_effect={min_effect}; asked for {n}.  Raise --pool or lower n rather "
             "than silently analysing a smaller set.")
     return keep[:n], np.asarray(eff[:n])
+
+
+def load_examples_unscored(
+    gtf: str,
+    fasta: str,
+    split: str,
+    n: int | None,
+    *,
+    tag: str,
+    allowed_chromosomes: Sequence[str] | None = None,
+) -> list[CouplingExample]:
+    """Select eligible examples without constructing a task or evaluating the model.
+
+    This is the required loader for cohort construction, sealed-split authorization, and
+    every outcome-blind comparator screen.  ``load_examples(..., min_effect=None)`` retains
+    a historical return-value contract that computes coupling for the selected rows; it is
+    therefore not outcome-free despite performing no effect-based filtering.  ``n=None``
+    returns the exhaustive eligible split after the deterministic shuffle.
+    """
+    if n is not None and n < 1:
+        raise ValueError("n must be positive when supplied")
+    cfg = CouplingConfig()
+    dataset = (
+        _dataset(gtf, fasta)
+        if allowed_chromosomes is None
+        else _dataset(gtf, fasta, allowed_chromosomes=allowed_chromosomes)
+    )
+    examples = eligible(dataset, split)
+    stable_rng(tag, cfg.seed).shuffle(examples)
+    return examples if n is None else examples[:n]
 
 
 # --------------------------------------------------------------------------------------
