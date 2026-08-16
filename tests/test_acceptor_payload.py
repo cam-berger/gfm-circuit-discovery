@@ -110,3 +110,79 @@ def test_admissible_fractions_are_per_arm_and_reported():
 
 def test_admissible_fractions_empty_cohort_is_zero_not_a_crash():
     assert admissible_fractions([], ("AC",)) == {"AC": 0.0}
+
+
+import numpy as np
+
+from gfmcd.splicing.acceptor_payload import (
+    classify_difference,
+    gboot_rho_difference,
+    pooled_twin_effect,
+    rho,
+)
+
+
+def test_rho_is_ratio_of_sums_not_mean_of_ratios():
+    """Near-zero denominators make per-example ratios explode; ratio-of-means does not."""
+    v = np.array([1.0, 1.0])
+    ref = np.array([2.0, 1e-12])
+    assert rho(v, ref) == pytest.approx(2.0 / (2.0 + 1e-12))
+
+
+def test_pooled_twin_effect_is_the_rowwise_mean():
+    per_arm = {"GA": np.array([1.0, 3.0]), "GG": np.array([3.0, 5.0]), "GC": np.array([0.0, 0.0])}
+    assert pooled_twin_effect(per_arm, ("GA", "GG")) == pytest.approx(np.array([2.0, 4.0]))
+
+
+def test_identical_arms_give_exactly_zero_difference():
+    rng = np.random.default_rng(0)
+    v = rng.normal(1.0, 0.2, 60)
+    ref = rng.normal(1.0, 0.2, 60)
+    genes = [f"g{i // 3}" for i in range(60)]
+    est, lo, hi = gboot_rho_difference(v, v, ref, genes, n_draws=200, seed=0)
+    assert est == pytest.approx(0.0, abs=1e-12)
+    assert lo <= 0.0 <= hi
+
+
+def test_planted_difference_is_recovered():
+    rng = np.random.default_rng(1)
+    ref = np.abs(rng.normal(1.0, 0.05, 120)) + 0.5
+    twin = ref * 0.85
+    treat = ref * 0.35
+    genes = [f"g{i // 4}" for i in range(120)]
+    est, lo, hi = gboot_rho_difference(treat, twin, ref, genes, n_draws=400, seed=0)
+    assert est == pytest.approx(0.35 - 0.85, abs=0.02)
+    assert hi < 0.0
+
+
+def test_bootstrap_is_deterministic_under_a_fixed_seed():
+    rng = np.random.default_rng(2)
+    ref = np.abs(rng.normal(1.0, 0.1, 40)) + 0.5
+    a, b = ref * 0.4, ref * 0.8
+    genes = [f"g{i // 2}" for i in range(40)]
+    first = gboot_rho_difference(a, b, ref, genes, n_draws=100, seed=7)
+    second = gboot_rho_difference(a, b, ref, genes, n_draws=100, seed=7)
+    assert first == second
+
+
+def test_resampling_unit_is_the_gene_not_the_row():
+    """One gene carrying every row must collapse the interval to a point."""
+    ref = np.full(30, 1.0)
+    a, b = np.full(30, 0.4), np.full(30, 0.8)
+    est, lo, hi = gboot_rho_difference(a, b, ref, ["g0"] * 30, n_draws=50, seed=0)
+    assert lo == pytest.approx(est)
+    assert hi == pytest.approx(est)
+
+
+@pytest.mark.parametrize(
+    "lo,hi,expected",
+    [
+        (-0.50, -0.30, "MATERIAL_NEGATIVE"),
+        (-0.04, +0.03, "EQUIVALENT_WITHIN_SESOI"),
+        (-0.20, +0.10, "UNRESOLVED"),
+        (-0.05, +0.01, "UNRESOLVED"),
+        (+0.06, +0.20, "MATERIAL_POSITIVE"),
+    ],
+)
+def test_classification_treats_a_touched_boundary_as_unresolved(lo, hi, expected):
+    assert classify_difference(lo, hi, 0.05) == expected

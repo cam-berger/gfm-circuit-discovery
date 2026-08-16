@@ -16,6 +16,8 @@ from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
 
+import numpy as np
+
 from gfmcd.splicing.coupling import CouplingExample, planted_donor_motifs
 
 REFERENCE_ALT = "AC"
@@ -96,3 +98,71 @@ def admissible_fractions(
         n = sum(1 for x in exs if arm_admissible(x, alt, allow_written_motif=allow))
         out[alt] = (n / total) if total else 0.0
     return out
+
+
+def rho(v: np.ndarray, ref: np.ndarray) -> float:
+    """Ratio of means, i.e. ratio of sums on a common row set.
+
+    Never mean-of-ratios: near-zero denominators make the per-example ratio explode.
+    """
+    return float(np.sum(v) / max(float(np.sum(ref)), 1e-9))
+
+
+def pooled_twin_effect(
+    per_arm: Mapping[str, np.ndarray], twins: Sequence[str]
+) -> np.ndarray:
+    """Row-wise mean of the non-motif twin arms, on the common row set."""
+    if not twins:
+        raise ValueError("at least one twin arm is required")
+    return np.mean(np.vstack([np.asarray(per_arm[a], dtype=float) for a in twins]), axis=0)
+
+
+def gboot_rho_difference(
+    v_treatment: np.ndarray,
+    v_reference_arm: np.ndarray,
+    ref: np.ndarray,
+    genes: Sequence[str],
+    *,
+    n_draws: int = 2000,
+    seed: int = 0,
+) -> tuple[float, float, float]:
+    """``(estimate, lo, hi)`` for ``rho(treatment) - rho(reference_arm)``.
+
+    Both ratios are recomputed inside every draw on the same resampled genes, so their
+    correlation is preserved; subtracting two independently bootstrapped intervals would
+    overstate the width.  The randomisation unit is the gene, never the row.
+    """
+    t = np.asarray(v_treatment, dtype=float)
+    r = np.asarray(v_reference_arm, dtype=float)
+    d = np.asarray(ref, dtype=float)
+    if not (len(t) == len(r) == len(d) == len(genes)):
+        raise ValueError("all arrays and the gene list must be the same length")
+    if n_draws < 1:
+        raise ValueError("n_draws must be positive")
+
+    estimate = rho(t, d) - rho(r, d)
+
+    by: dict[str, list[int]] = {}
+    for i, g in enumerate(genes):
+        by.setdefault(str(g), []).append(i)
+    keys = list(by)
+    rng = np.random.default_rng(seed)
+    draws = np.empty(n_draws)
+    for i in range(n_draws):
+        picked = rng.choice(len(keys), len(keys), replace=True)
+        rows = [row for j in picked for row in by[keys[j]]]
+        denom = max(float(d[rows].sum()), 1e-9)
+        draws[i] = (t[rows].sum() / denom) - (r[rows].sum() / denom)
+    lo, hi = np.quantile(draws, [0.025, 0.975])
+    return estimate, float(lo), float(hi)
+
+
+def classify_difference(lo: float, hi: float, sesoi: float) -> str:
+    """Strict classification of a difference interval.  Touching a boundary is unresolved."""
+    if lo > sesoi:
+        return "MATERIAL_POSITIVE"
+    if hi < -sesoi:
+        return "MATERIAL_NEGATIVE"
+    if lo > -sesoi and hi < sesoi:
+        return "EQUIVALENT_WITHIN_SESOI"
+    return "UNRESOLVED"
