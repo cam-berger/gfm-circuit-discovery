@@ -223,11 +223,37 @@ class CouplingTask:
 # --------------------------------------------------------------------------------------
 # Examples
 # --------------------------------------------------------------------------------------
-def eligible(examples: Iterable[CouplingExample], split: str) -> list[CouplingExample]:
+DEFAULT_DONOR_MOTIFS: tuple[str, ...] = ("GT",)
+_KNOWN_DONOR_MOTIFS: frozenset[str] = frozenset(("GT", "GC"))
+
+
+def eligible(
+    examples: Iterable[CouplingExample],
+    split: str,
+    *,
+    donor_motifs: Sequence[str] = DEFAULT_DONOR_MOTIFS,
+) -> list[CouplingExample]:
+    """Rows of ``split`` with a constructible acceptor readout inside the gap window.
+
+    ``donor_motifs`` defaults to ``("GT",)``, which is the historical behaviour and must stay
+    the default: every cohort in this repository predating M1 was built through this filter, so
+    all of them are GT-only by construction even though ``build_coupling_dataset`` admits the
+    ``GC-AG`` minor class (``partner_data.DONOR_MOTIFS``).  Widening it changes which introns
+    exist for a study and is therefore an explicit, recorded choice, never a default.
+    """
+    allowed = tuple(donor_motifs)
+    if not allowed:
+        raise ValueError("donor_motifs must be non-empty")
+    unknown = sorted(set(allowed) - _KNOWN_DONOR_MOTIFS)
+    if unknown:
+        raise ValueError(
+            f"unknown donor motif(s) {unknown}; known motifs are "
+            f"{sorted(_KNOWN_DONOR_MOTIFS)}"
+        )
     return [x for x in examples
             if x.split == split
             and x.next_acceptor_pos is not None
-            and x.sequence[x.donor_pos:x.donor_pos + 2] == "GT"
+            and x.sequence[x.donor_pos:x.donor_pos + 2] in allowed
             and GAP_MIN <= (x.next_acceptor_pos - x.donor_pos) <= GAP_MAX]
 
 

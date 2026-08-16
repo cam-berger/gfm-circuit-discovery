@@ -125,70 +125,116 @@ determines whether the account contains an addressing element at all.
 
 ## 4. M1 — payload
 
-**Question.** The long-range input is the partner donor's `GT`. Is the acceptor readout reading
-*presence* ("something donor-shaped is at the address") or *identity* ("this particular motif")?
+**Question.** The long-range input is the partner donor. Does the acceptor readout depend on the donor
+being a *recognisable splice donor*, or only on the canonical `GT` bases being present?
 
-**Dropped arm.** Whether a `GT` *anywhere* would substitute is already answered by AC1's
-decoy-partner control (`+0.0147 [+0.0019, +0.0293]` against a paired `+0.9763`). The signal is
-address-bound. Do not spend on it.
+**Dropped arm.** Whether a donor *anywhere* would substitute is already answered by AC1's decoy-partner
+control (`+0.0147 [+0.0019, +0.0293]` against a paired `+0.9763`). The signal is address-bound.
 
-**Primary estimand — the missing `GC` cell.** `r2_donor_base_decomposition.json` already measures an
-operator ladder in which every arm that keeps the `G` and destroys the `T` is a **non-motif**
-substitution. The one such substitution that produces a *real* donor is absent, and it is absent by
-construction: `coupling.DONOR_ALTS = ("CC", "AA", "TA", "AC")` carries the comment "none is GT and none
-is GC", and `planted_donor_motifs()` rejects `GC` as a planted motif.
+### 4.1 Primary — real `GC-AG` introns, not synthetic constructs
 
-| alt | edit size | keeps `G` at `d` | destroys `T` | real donor motif | recorded ρ |
-|---|---:|---|---|---|---:|
-| `AC` (reference) | 2 | no | yes | no | 1.000 |
-| `AT` | 1 | no | no | no | `0.672 [0.648, 0.699]` |
-| `GA` | 1 | yes | yes | no | `0.857 [0.821, 0.892]` |
-| `GG` | 1 | yes | yes | no | `0.834 [0.807, 0.860]` |
-| **`GC`** | **1** | **yes** | **yes** | **yes** | **unmeasured — M1's target** |
+An earlier draft of this section proposed writing `GC` over a native `GT` donor. That design is
+**withdrawn as the primary**, because the construct does not resemble what it models. Measured on M1's
+own row sets: synthetic `GC` constructs carry `+5 G` at **63.2%** and the joint `−2A/−1G/+5G` context at
+**28.8%**, against real `GC` donors in the same flank cell at **90.9%** and **75.9%**. Real `GC` donors
+carry a compensating consensus that overwriting a `GT` does not create — unsurprising, since a weaker
+core motif needs stronger flanking support. A weak response to a synthetic `GC` would therefore be
+uninterpretable: it could mean the model does not treat `GC` as a donor, or that it does but requires the
+context the construct lacks.
 
-`GC` differs from `GA`/`GG` in exactly one property: whether the resulting dinucleotide is a splice
-donor the model may have learned. Edit size, edited position, and the keeps-`G`/destroys-`T` structure
-are identical, so the contrast isolates motif identity with no composition or edit-size confound.
+Real `GC-AG` introns are available and were simply never used. `coupling.DONOR_MOTIFS = ("GT", "GC")`, so
+the dataset builder admits both, and the raw cohort holds **3,627** `GC-AG` rows (**1.52%**). Every one
+is then discarded by `circuit.eligible`, which hardcodes `x.sequence[donor_pos:donor_pos+2] == "GT"`
+(`circuit.py:230`). One consequence is worth recording on its own: **no prior cohort in this repository
+— R1, R1b, R2, R3, R3c, AC1–AC8 — carries any `GC-AG` contamination.** They are GT-only by construction.
 
-- **ρ_GC ≈ ρ_GA ≈ ρ_GG (≈0.84)** ⇒ the model does not treat `GC` as a donor; the long-range payload is
-  **canonical-`GT` presence**.
-- **ρ_GC materially below the non-motif twins** ⇒ the model recognises `GC` as a functional donor; the
-  payload carries **donor identity**, not literal `GT`.
+The primary estimand is therefore an intervention on **native** donors:
 
-Primary contrast: `ρ_GC` against the pooled non-motif twins `{GA, GG}`, gene-clustered, with `GA` and
-`GG` re-measured on the same train cohort rather than imported from the val artifact.
+| arm | native donor | operator | post-intervention state |
+|---|---|---|---|
+| treatment | `GC` (real `GC-AG` intron) | `GG` | `GG` |
+| comparator | `GT` (real `GT-AG` intron) | `GG` | `GG` |
 
-This is the acceptor-side analogue of `C38`, and unlike `C38` it is a single-arm addition to an
-existing, already-precise ladder — the recorded half-widths are `0.036` (`GA`) and `0.027` (`GG`).
+Both arms land on an **identical** post-intervention state, so the only difference between them is the
+motif the model was reading beforehand — which is the estimand exactly. Contrast:
+`ρ = mean(Y_GC) / mean(Y_GT)`, where `Y = clean − destroyed` on the masked-acceptor-`G` margin.
 
-**No embedding interpolation.** An earlier draft proposed interpolating input embeddings for a dose
-curve. Dropped: the operator ladder *is* a dose axis in the model's native input space, using validated
-machinery, and a second instrument in embedding space would add surface without adding an axis.
+- **ρ ≈ 1** ⇒ the readout depends on a `GC` donor as much as a `GT` donor; the payload carries donor
+  identity, not literal `GT`.
+- **ρ ≈ 0** ⇒ destroying a real `GC` donor does not move the readout; the model tracks canonical `GT` only.
 
-**Hygiene carve-out — scoped to one register.** `planted_donor_motifs()` returns a dict keyed by
-register (`upstream`, `written`, `downstream`), so the carve-out is a filter on keys, not a waiver.
-For the `GC` arm the `written` register is the treatment and is accepted; `upstream` and `downstream`
-remain disqualifying. For every other arm, and for the pseudo-donor control in the same run, the rule
-is unchanged. Both dispositions are serialized per row.
+### 4.2 Why the operator is `GG`, and why `AC` would have been wrong
 
-For `alt="GC"` the only reachable non-`written` violation is `upstream = seq[d-1] + "G" == "AG"`, i.e.
-rows whose −1 exon base is `A`. These are dropped. Since the −1 base is `G` in ~82% of donors, `GC`
-admissibility should be high, but the realized fraction is recorded, not assumed — `GA`'s admissible
-fraction is only `0.37` while `GG`'s is `0.842`, so admissibility varies sharply by alt and is a
-reporting obligation.
+`GT` and `GC` share the `G` at `d` and differ at `d+1`. For an alt `XY` the edit size is
+`[X≠G] + [Y≠T]` on `GT` and `[X≠G] + [Y≠C]` on `GC`; these are equal **iff `Y ∉ {T, C}`**. So only alts
+ending in `A` or `G` are edit-size matched across the two motifs. The obvious choice, `AC`, is
+**2 substitutions on `GT` but 1 on `GC`** — it would confound motif class with edit size, which is
+precisely what `reverse_coupling.matched_operators()` exists to prevent.
 
-**Precision gate.** A preflight estimates the gene-clustered half-width achievable on the
-`ρ_GC` vs pooled-`{GA, GG}` contrast and compares it to the frozen SESOI; M1 proceeds only if the
-half-width can clear it, else it stops at `NOT_POWERABLE_ON_THIS_DESIGN`. The recorded ladder
-half-widths suggest this gate will pass comfortably, but `C38` is the cautionary case — there, raising
-n from 260 to 512 *widened* the dyadic half-width from `0.201` to `0.221` because variance was
-gene-heterogeneity-dominated. The gate exists so that failure mode is detected before the arm runs, not
-after.
+Exhaustive evaluation of all 16 alts on the real train cohort leaves two viable matched candidates:
 
-**Memorials.** The `AC` arm reproduces AC1's effect to tolerance on a train cohort (an unforced
-cross-artifact anchor on the measurement path); `alt == "GT"` is an exact no-op returning zero
-coupling; `edit_size` equals 1 for every single-base arm and 2 for `AC`; planted-positive sensitivity;
-permuted-label FPR.
+| alt | edit size | GC rows / genes | GT admissibility | filter interacts with `+3`? |
+|---|---|---:|---:|---|
+| `AA` | 2 on both | 208 / 175 | 0.547 | **yes** — excludes `+3 G` |
+| **`GG`** | **1 on both** | **182 / 153** | **0.837** | no — excludes only `+3 T/C` |
+
+`AG` is inadmissible everywhere (0 of 16 flank contexts): its written register *is* the acceptor motif.
+
+`GG` is frozen as the primary operator. `AA`'s filter excludes `+3 G`, which is 45% of `GT` rows but only
+6% of `GC` rows — it selects hard on the very confounder under test. `GG` excludes only `+3 T`/`+3 C`,
+rare in both arms. `GG` destroys the distinguishing base while holding the shared `G` fixed; AC2 records
+that destroying the `T` alone already recovers `0.834 [0.807, 0.860]` of full destruction on `GT`, so the
+partial operator retains most of the signal. `AA` is retained as a secondary robustness arm with its
+differential filtering disclosed.
+
+### 4.3 Cohort, and the matching that is not optional
+
+Train split (all chromosomes outside chr11/16/19 and the sealed chr8/9), operator-admissible on both arms:
+
+| | rows | genes |
+|---|---:|---:|
+| `GC` treatment arm | **182** | **153** |
+| `GT` comparator pool | 12,940 | 4,513 |
+| within-gene paired subset | 132 | 107 |
+
+**Matching is mandatory.** After `GG` filtering the arms remain grossly unbalanced on `+3`: `GC` is
+**A94/G6**, `GT` is **A50/G50**. An unmatched contrast would confound donor class with flanking context.
+The comparator set is matched on `+3`, `−1`, `+5`, and the donor–acceptor gap; the realized balance table
+is emitted in the artifact, not assumed.
+
+`140` of the `189` `GC` genes also carry a `GT-AG` intron, so a **within-gene paired** contrast is
+available on 107 genes (73% of the arm) and is the secondary robustness analysis — it controls
+gene-level expression and context exactly, at some cost in n.
+
+Projected gene-clustered half-width, scaling AC1's `0.0733` at 645 genes: **≈0.152** on 153 genes,
+**≈0.180** on the 107 paired genes. The question spans `ρ ≈ 0` to `ρ ≈ 1`, so this resolves the headline
+comfortably; it does **not** resolve fine gradations near `ρ = 1`, and no such gradation may be claimed.
+
+**Reserves.** Validation holds `79` `GC` rows / `65` genes for a held-out check. The sealed chr8/9 split
+holds only **22 rows / 20 genes** — below anything useful — so **M1 cannot be confirmed on the seal**, and
+that is an argument for leaving it shut rather than spending it here.
+
+### 4.4 Secondary — the synthetic construct arm
+
+The synthetic `GC`-write arm is retained as a secondary, since it is interventional where the primary is
+quasi-observational (donor class is a property of the intron, not something we assign). Its
+construct-context gap from §4.1 is reported with any result, and it may not be read as confirming the
+primary when it disagrees — the two fail in different directions, so agreement is evidence and
+disagreement is a finding.
+
+### 4.5 Required code change
+
+`circuit.eligible` hardcodes `== "GT"`. It gains an optional motif parameter **defaulting to GT-only**, so
+that every existing caller keeps byte-identical behaviour; a test asserts that equivalence directly
+against the current implementation rather than assuming it.
+
+### 4.6 Memorials
+
+The `GG` arm reproduces AC2's recorded `ρ = 0.834 [0.807, 0.860]` on `GT` within tolerance (an unforced
+cross-artifact anchor on the measurement path); `alt == "GT"` on a `GT` donor is an exact no-op returning
+zero coupling; `edit_size` equals 1 on both arms for `GG`; the two arms' post-intervention states are
+byte-identical at the donor dinucleotide; planted-positive sensitivity; permuted-label FPR. Any memorial
+that is architecture-forced is labelled `forced: true` and is not evidence (R7/R21).
 
 ## 5. M2 — address
 
