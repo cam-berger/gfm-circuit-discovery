@@ -181,3 +181,84 @@ def precision_gate(lo: float, hi: float, sesoi: float) -> str:
     powerable and the stage stops instead of spending the target cohort.
     """
     return "PROCEED" if half_width(lo, hi) < sesoi else "NOT_POWERABLE_ON_THIS_DESIGN"
+
+
+def planted_positive_check(
+    ref: np.ndarray,
+    genes: Sequence[str],
+    *,
+    planted_rho: float,
+    twin_rho: float,
+    sesoi: float,
+    n_draws: int = 400,
+    seed: int = 0,
+) -> dict:
+    """Sensitivity: a synthetic arm at ``planted_rho`` must classify MATERIAL_NEGATIVE.
+
+    Runs the production estimator and the production classifier, so a decision-layer bug
+    fails this check rather than surviving into a verdict.  Falsifiable: with
+    ``planted_rho == twin_rho`` there is nothing to detect and PASS must be False.
+    """
+    d = np.asarray(ref, dtype=float)
+    est, lo, hi = gboot_rho_difference(
+        d * planted_rho, d * twin_rho, d, genes, n_draws=n_draws, seed=seed
+    )
+    classification = classify_difference(lo, hi, sesoi)
+    return {
+        "PASS": classification == "MATERIAL_NEGATIVE",
+        "planted_rho": float(planted_rho),
+        "twin_rho": float(twin_rho),
+        "estimate": est,
+        "ci": [lo, hi],
+        "classification": classification,
+    }
+
+
+def permuted_label_fpr(
+    v_treatment: np.ndarray,
+    v_twin: np.ndarray,
+    ref: np.ndarray,
+    genes: Sequence[str],
+    *,
+    sesoi: float,
+    n_permutations: int = 200,
+    n_draws: int = 400,
+    seed: int = 0,
+    alpha: float = 0.05,
+    tolerance: float = 0.05,
+) -> dict:
+    """Specificity: swap the arm labels with one exchangeable sign per gene.
+
+    The arms are measured on the same rows, so under the null "GC behaves like a twin"
+    the two labels are exchangeable within a gene.  A material verdict on permuted labels
+    is a false positive; the rate should sit near ``alpha``.
+    """
+    t = np.asarray(v_treatment, dtype=float)
+    w = np.asarray(v_twin, dtype=float)
+    d = np.asarray(ref, dtype=float)
+    by: dict[str, list[int]] = {}
+    for i, g in enumerate(genes):
+        by.setdefault(str(g), []).append(i)
+    keys = list(by)
+    rng = np.random.default_rng(seed)
+
+    materials = 0
+    for p in range(n_permutations):
+        swap = rng.choice([False, True], size=len(keys))
+        a, b = t.copy(), w.copy()
+        for j, do_swap in enumerate(swap):
+            if do_swap:
+                rows = by[keys[j]]
+                a[rows], b[rows] = w[rows], t[rows]
+        _, lo, hi = gboot_rho_difference(a, b, d, genes, n_draws=n_draws, seed=seed + p)
+        if classify_difference(lo, hi, sesoi).startswith("MATERIAL_"):
+            materials += 1
+
+    fpr = materials / n_permutations
+    return {
+        "PASS": fpr <= alpha + tolerance,
+        "fpr": fpr,
+        "alpha": alpha,
+        "tolerance": tolerance,
+        "n_permutations": n_permutations,
+    }

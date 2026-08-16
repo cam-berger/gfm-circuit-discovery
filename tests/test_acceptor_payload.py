@@ -217,3 +217,56 @@ def test_gate_stops_when_the_interval_cannot_resolve_the_sesoi():
 def test_gate_boundary_case_is_a_stop_not_a_proceed():
     """A half-width exactly at the SESOI cannot distinguish equivalence from material."""
     assert precision_gate(-0.05, +0.05, 0.05) == "NOT_POWERABLE_ON_THIS_DESIGN"
+
+
+from gfmcd.splicing.acceptor_payload import permuted_label_fpr, planted_positive_check
+
+
+def _ref_and_genes(n=120, per_gene=4, seed=3):
+    rng = np.random.default_rng(seed)
+    ref = np.abs(rng.normal(1.0, 0.05, n)) + 0.5
+    genes = [f"g{i // per_gene}" for i in range(n)]
+    return ref, genes
+
+
+def test_planted_positive_is_recovered_as_material_negative():
+    ref, genes = _ref_and_genes()
+    out = planted_positive_check(
+        ref, genes, planted_rho=0.35, twin_rho=0.85, sesoi=0.05, n_draws=300, seed=0
+    )
+    assert out["classification"] == "MATERIAL_NEGATIVE"
+    assert out["PASS"] is True
+
+
+def test_planted_positive_check_can_fail_when_nothing_is_planted():
+    """Sensitivity must be falsifiable: an unplanted effect must not report PASS."""
+    ref, genes = _ref_and_genes()
+    out = planted_positive_check(
+        ref, genes, planted_rho=0.85, twin_rho=0.85, sesoi=0.05, n_draws=300, seed=0
+    )
+    assert out["PASS"] is False
+
+
+def test_permuted_label_fpr_is_near_alpha_under_the_null():
+    ref, genes = _ref_and_genes()
+    rng = np.random.default_rng(11)
+    noise = rng.normal(0.0, 0.01, len(ref))
+    v_a = ref * 0.85 + noise
+    v_b = ref * 0.85 - noise
+    out = permuted_label_fpr(
+        v_a, v_b, ref, genes, sesoi=0.05, n_permutations=60, n_draws=150, seed=0
+    )
+    assert out["fpr"] <= 0.15
+    assert out["PASS"] is True
+
+
+def test_permuted_label_fpr_is_deterministic_under_a_fixed_seed():
+    ref, genes = _ref_and_genes()
+    v_a, v_b = ref * 0.4, ref * 0.85
+    first = permuted_label_fpr(
+        v_a, v_b, ref, genes, sesoi=0.05, n_permutations=20, n_draws=80, seed=5
+    )
+    second = permuted_label_fpr(
+        v_a, v_b, ref, genes, sesoi=0.05, n_permutations=20, n_draws=80, seed=5
+    )
+    assert first == second
