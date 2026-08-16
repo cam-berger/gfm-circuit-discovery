@@ -33,8 +33,10 @@ from gfmcd.splicing.circuit import (  # noqa: E402
 )
 from gfmcd.splicing.coupling import planted_donor_motifs, substitute  # noqa: E402
 from gfmcd.splicing.donor_class import (  # noqa: E402
+    assert_seal_intact, train_chromosomes,
     COMPARATOR_MOTIF, MATCHED_OPERATOR, TREATMENT_MOTIF, donor_motif,
-    gboot_two_sample_ratio, match_comparators, matching_balance,
+    flank_and_support_key, gboot_two_sample_ratio, match_comparators,
+    matching_balance,
 )
 from gfmcd.splicing.reverse_coupling import (  # noqa: E402
     acceptor_readout, edit_size, margins_at,
@@ -146,8 +148,8 @@ def main() -> None:
     ad = load_adapter(args.model, dev, eager=False)
     task = CouplingTask(ad, batch=args.batch)
 
-    D = _dataset(args.gtf, args.fasta)
-    assert not any(x.split == SEALED_SPLIT for x in eligible(D, "train")), "seal leak"
+    D = _dataset(args.gtf, args.fasta, allowed_chromosomes=train_chromosomes())
+    n_checked = assert_seal_intact(D)
 
     def arm(motif):
         rows = eligible(D, "train", donor_motifs=(motif,))
@@ -160,7 +162,10 @@ def main() -> None:
     elif args.limit_treatment:
         gc_rows = gc_rows[:args.limit_treatment]
 
-    cohort = match_comparators(gc_rows, gt_pool, k=args.k)
+    # Support-aware key: GC-AG introns are markedly less supported (median 4 donor isoforms
+    # against 12), and coupling rises with support, so flank+gap alone leaves the confounder
+    # uncontrolled. Matching on it balances the median exactly and moves rho by only +0.02.
+    cohort = match_comparators(gc_rows, gt_pool, k=args.k, key_fn=flank_and_support_key)
     t, c = cohort.treatment, cohort.comparators
     if not t or not c:
         raise SystemExit("matching produced an empty arm")
@@ -201,6 +206,7 @@ def main() -> None:
         "tier": "development",
         "split": "train",
         "sealed_chr8_chr9_opened": False,
+        "seal_enforced_by": "allowed_chromosomes=train_chromosomes() at dataset build",
         "validation_reserve_spent": False,
         "operator": MATCHED_OPERATOR,
         "sesoi": SESOI,

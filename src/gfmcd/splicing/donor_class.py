@@ -246,3 +246,42 @@ def gboot_two_sample_ratio(
         raise ValueError("every bootstrap draw had a non-positive comparator sum")
     lo, hi = _np.quantile(draws, [0.025, 0.975])
     return estimate, float(lo), float(hi)
+
+
+#: Chromosomes a train-split donor-class assay may read. Derived once from
+#: ``CouplingConfig`` rather than hardcoded, so it cannot drift from the split definition.
+def train_chromosomes() -> tuple[str, ...]:
+    """Every chromosome outside the validation and SEALED test splits.
+
+    Passing this to ``circuit._dataset(..., allowed_chromosomes=...)`` is what actually
+    preserves the seal.  Filtering a completed all-chromosome dataset by split does NOT:
+    ``build_coupling_dataset`` has already fetched chr8/chr9 sequence from FASTA by then, so
+    a runner that filters afterwards has read the sealed split and any
+    ``sealed_chr8_chr9_opened: False`` it writes is false.
+    """
+    from gfmcd.splicing.coupling import CouplingConfig
+
+    cfg = CouplingConfig()
+    every = tuple(f"chr{i}" for i in range(1, 23)) + ("chrX", "chrY")
+    reserved = set(cfg.val_chromosomes) | set(cfg.test_chromosomes)
+    return tuple(c for c in every if c not in reserved)
+
+
+def assert_seal_intact(dataset) -> int:
+    """Fail loudly if any SEALED-split row was materialised. Returns the row count checked.
+
+    Checks ``chrom`` against the sealed chromosomes on the RAW dataset. A check written
+    against the output of ``eligible(D, "train")`` is a tautology -- that helper filters to
+    the requested split first, so no sealed row can survive to be tested.
+    """
+    from gfmcd.splicing.coupling import CouplingConfig
+
+    sealed = set(CouplingConfig().test_chromosomes)
+    rows = list(dataset)
+    leaked = sorted({x.chrom for x in rows if x.chrom in sealed})
+    if leaked:
+        raise AssertionError(
+            f"SEAL LEAK: sealed chromosomes materialised in the cohort: {leaked}. "
+            "Pass allowed_chromosomes=train_chromosomes() to _dataset."
+        )
+    return len(rows)

@@ -38,6 +38,7 @@ from gfmcd.splicing.circuit import (  # noqa: E402
 )
 from gfmcd.splicing.coupling import planted_donor_motifs, substitute  # noqa: E402
 from gfmcd.splicing.donor_class import (  # noqa: E402
+    assert_seal_intact, train_chromosomes,
     COMPARATOR_MOTIF, MATCHED_OPERATOR, TREATMENT_MOTIF, donor_motif,
     gboot_two_sample_ratio, match_comparators, matching_balance,
 )
@@ -47,6 +48,8 @@ CURRENT_TAG = "m2m3-donor-class-dissection-v1"
 SEED = 0
 N_BOOT = 2000
 MIN_GENES = 30
+#: Any size-1 selected set fixes the matched size; excluded from the sampled universe.
+LAYER_FOR_SIZE, HEAD_FOR_SIZE = 3, 1
 
 #: Fixed, pre-declared head set. Every entry has a prior standing in the record, so none is
 #: chosen by looking at this assay's outcome.
@@ -115,7 +118,8 @@ def main() -> None:
     ad = load_adapter(a.model, dev, eager=False)
     task = CouplingTask(ad, batch=a.batch)
 
-    D = _dataset(a.gtf, a.fasta)
+    D = _dataset(a.gtf, a.fasta, allowed_chromosomes=train_chromosomes())
+    n_checked = assert_seal_intact(D)
 
     def pool(motif):
         return [x for x in eligible(D, "train", donor_motifs=(motif,))
@@ -162,12 +166,13 @@ def main() -> None:
     # specificity control: same-size random head sets must not reproduce the profile
     rnd = []
     if not a.smoke:
-        try:
-            sets = matched_random_head_sets(ad, size=1, n_sets=a.n_random_sets, seed=SEED)
-        except Exception:
-            rng = np.random.default_rng(SEED)
-            sets = [[(int(rng.integers(0, 6)), int(rng.integers(0, 16)))]
-                    for _ in range(a.n_random_sets)]
+        # No fallback. The real helper DE-DUPLICATES and enumerates small universes; its own
+        # docstring records that sampling with replacement once overstated evidence 10.4x.
+        # A bare except here would silently swap that guarantee for the very defect it fixes.
+        sets = matched_random_head_sets(
+            ad, [(LAYER_FOR_SIZE, HEAD_FOR_SIZE)], n=a.n_random_sets, seed=SEED,
+            exclude_selected=True,
+        )
         for s in sets:
             ctx = lambda ss=s: edit_heads(ad, list(ss), mode=a.mode)
             yt, yc = treat.coupling(ctx), comp.coupling(ctx)
@@ -191,6 +196,7 @@ def main() -> None:
         "tier": "development",
         "split": "train",
         "sealed_chr8_chr9_opened": False,
+        "seal_enforced_by": "allowed_chromosomes=train_chromosomes() at dataset build",
         "validation_reserve_spent": False,
         "ablation_mode": a.mode,
         "operator": MATCHED_OPERATOR,

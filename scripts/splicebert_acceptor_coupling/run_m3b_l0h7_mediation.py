@@ -44,6 +44,7 @@ from gfmcd.splicing.circuit import (  # noqa: E402
 )
 from gfmcd.splicing.coupling import planted_donor_motifs, substitute  # noqa: E402
 from gfmcd.splicing.donor_class import (  # noqa: E402
+    assert_seal_intact, train_chromosomes,
     COMPARATOR_MOTIF, MATCHED_OPERATOR, TREATMENT_MOTIF, flank_and_support_key,
     match_comparators,
 )
@@ -163,7 +164,8 @@ def main() -> None:
     task = CouplingTask(ad, batch=a.batch)
     off = ad.prefix_tokens
 
-    D = _dataset(a.gtf, a.fasta)
+    D = _dataset(a.gtf, a.fasta, allowed_chromosomes=train_chromosomes())
+    n_checked = assert_seal_intact(D)
     pool = lambda m: [x for x in eligible(D, "train", donor_motifs=(m,))  # noqa: E731
                       if not planted_donor_motifs(x.sequence, x.donor_pos, MATCHED_OPERATOR)]
     gc_rows = pool(TREATMENT_MOTIF)
@@ -191,13 +193,17 @@ def main() -> None:
     y_gc_unmatched = _y_patched(task, gc, shuffled, HEAD, off, a.batch)
 
     res = {}
-    for name, rec, patched, src in (
-        ("forward_GC_gets_GT", y_gc, y_gc_from_gt, y_gt),
-        ("reverse_GT_gets_GC", y_gt, y_gt_from_gc, y_gc),
-        ("control_head_L0H%d" % CONTROL_HEAD, y_gc, y_gc_ctrl, y_gt),
-        ("unmatched_source", y_gc, y_gc_unmatched, y_gt),
+    # Cluster by the RECIPIENT arm's genes. Pairs are matched by flank stratum, not by gene,
+    # so the two arms' gene labels differ; reusing the GC labels for the GT-recipient contrast
+    # would split correlated GT rows across clusters and pool unrelated ones together.
+    gt_genes = [x.gene_id for x in gt]
+    for name, rec, patched, src, rec_genes in (
+        ("forward_GC_gets_GT", y_gc, y_gc_from_gt, y_gt, genes),
+        ("reverse_GT_gets_GC", y_gt, y_gt_from_gc, y_gc, gt_genes),
+        ("control_head_L0H%d" % CONTROL_HEAD, y_gc, y_gc_ctrl, y_gt, genes),
+        ("unmatched_source", y_gc, y_gc_unmatched, y_gt, genes),
     ):
-        est, lo, hi = gboot_transport(rec, patched, src, genes)
+        est, lo, hi = gboot_transport(rec, patched, src, rec_genes)
         res[name] = {"recipient_mean_Y": float(rec.mean()),
                      "patched_mean_Y": float(patched.mean()),
                      "source_mean_Y": float(src.mean()),
@@ -225,7 +231,8 @@ def main() -> None:
         "schema": "gfmcd.m3b.l0h7_mediation/1",
         "experiment": "m3b_l0h7_mediation",
         "tier": "development", "split": "train",
-        "sealed_chr8_chr9_opened": False, "validation_reserve_spent": False,
+        "sealed_chr8_chr9_opened": False,
+        "seal_enforced_by": "allowed_chromosomes=train_chromosomes() at dataset build", "validation_reserve_spent": False,
         "mediator": f"L{LAYER}H{HEAD}", "control_head": f"L{LAYER}H{CONTROL_HEAD}",
         "operator": MATCHED_OPERATOR, "donor_token_span": DONOR_TOKEN_SPAN,
         "cohort": {"tag": TAG, "n_pairs": len(gc), "n_genes": len(set(genes))},
