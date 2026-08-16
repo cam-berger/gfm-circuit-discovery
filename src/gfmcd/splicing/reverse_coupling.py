@@ -12,8 +12,9 @@ base is the ``G`` of its ``AG``, exactly as the donor's is the ``G`` of its ``GT
 THE OPERATOR IS NOT FREE TO CHOOSE.  R44 established that ``seq[d-1] == "G"`` at 81.0% of
 validation donors (the 5'SS consensus), so a donor substitution can destroy its target and
 *create* a motif one base away: ``CC`` plants a ``GC`` donor, ``TA`` plants a canonical
-``GT`` (95.5% on the atlas condition-B cohort), ``AA`` plants an ``AG`` (62.0%), and ``AC``
-plants nothing anywhere measured.  C42's acceptor-side alt-invariance does **not** transfer
+``GT`` (95.5% on the atlas condition-B cohort), and ``AA`` plants an ``AG`` (62.0%). ``AC``
+and ``AT`` are universally motif-clean; ``AC`` is the clean two-substitution operator and
+``AT`` the clean one-substitution operator (D8). C42's acceptor-side alt-invariance does **not** transfer
 to this direction -- AR1's ``DONA`` arm returned ``NOT_INVARIANT``.  ``MOTIF_CLEAN_DONOR_ALT``
 is therefore the default, and every construct is re-verified in its own flanking context by
 ``planted_donor_motifs`` rather than trusted from a constant.
@@ -196,7 +197,13 @@ def reverse_mlm_health(
                 js = [j for j, _ in sel]
                 pos = [p for _, p in sel]
                 sub = [seqs[j] for j in js]
-                enc = task.encode(sub, pos)
+                # Match the reverse behavioral forward pass: keep the acceptor G masked and
+                # add one non-site probe mask.  Encoding at ``pos`` alone would test a different
+                # single-mask policy and was the defect memorialized in ACR11.
+                readout = [base[j] for j in js]
+                enc = task.encode(sub, readout)
+                for row, p in enumerate(pos):
+                    enc["input_ids"][row, p + task.ad.prefix_tokens] = task.mask_id
                 with ctx():
                     logits = task.ad.model(**enc).logits.float()
                 for row, (j, p) in enumerate(sel):
