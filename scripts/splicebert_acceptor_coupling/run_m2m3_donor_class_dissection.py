@@ -108,6 +108,9 @@ def main() -> None:
     ap.add_argument("--k", type=int, default=1)
     ap.add_argument("--mode", default="mean", choices=("mean", "zero"))
     ap.add_argument("--n-random-sets", type=int, default=5)
+    ap.add_argument("--all-heads", action="store_true",
+                    help="scan every head; the pre-declared set cannot tell a "
+                         "head-specific asymmetry from a layer-wide one")
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--out", default=None)
     a = ap.parse_args()
@@ -131,7 +134,12 @@ def main() -> None:
     cohort = match_comparators(gc_rows, pool(COMPARATOR_MOTIF), k=a.k)
     treat, comp = Arm(task, cohort.treatment), Arm(task, cohort.comparators)
 
-    heads = HEAD_SET[:3] if a.smoke else HEAD_SET
+    if a.all_heads:
+        declared = {(l, h): n for l, h, n in HEAD_SET}
+        heads = [(l, h, declared.get((l, h), "unscreened"))
+                 for l in range(ad.num_layers) for h in range(ad.num_heads)]
+    else:
+        heads = HEAD_SET[:3] if a.smoke else HEAD_SET
 
     base_t, base_c = treat.coupling(_noop_ctx), comp.coupling(_noop_ctx)
     b_t, b_c = float(base_t.mean()), float(base_c.mean())
