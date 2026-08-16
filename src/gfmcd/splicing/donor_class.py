@@ -60,12 +60,36 @@ class MatchedCohort:
     k: int = 1
 
 
+def isoform_bin(x: CouplingExample) -> str:
+    """Coarsened donor transcript support, a proxy for constitutive-vs-alternative use.
+
+    GC-AG introns are markedly less supported than GT-AG (median 4 donor isoforms against
+    12 on the train cohort), and coupling strength rises with support, so leaving this
+    uncontrolled confounds donor class with intron quality.  Bins are coarse and fixed in
+    advance rather than fitted, so they cannot be tuned to an outcome.
+    """
+    n = int(x.n_isoforms_donor or 0)
+    if n <= 2:
+        return "iso<=2"
+    if n <= 5:
+        return "iso3-5"
+    if n <= 11:
+        return "iso6-11"
+    return "iso12+"
+
+
+def flank_and_support_key(x: CouplingExample) -> tuple[str, ...]:
+    """Flank stratum plus donor transcript-support bin."""
+    return flank_key(x) + (isoform_bin(x),)
+
+
 def match_comparators(
     treatment: Sequence[CouplingExample],
     pool: Sequence[CouplingExample],
     *,
     k: int = 1,
     gap_tol: int | None = None,
+    key_fn=None,
 ) -> MatchedCohort:
     """Match each treatment row to ``k`` comparators sharing its exact flank stratum.
 
@@ -82,9 +106,10 @@ def match_comparators(
     if gap_tol is not None and gap_tol < 0:
         raise ValueError("gap_tol must be non-negative when supplied")
 
+    key = key_fn or flank_key
     by_stratum: dict[tuple[str, ...], list[CouplingExample]] = defaultdict(list)
     for candidate in pool:
-        by_stratum[flank_key(candidate)].append(candidate)
+        by_stratum[key(candidate)].append(candidate)
     for rows in by_stratum.values():
         rows.sort(key=lambda r: r.example_id)
 
@@ -97,7 +122,7 @@ def match_comparators(
     for x in sorted(treatment, key=lambda r: r.example_id):
         target = _gap(x)
         candidates = [
-            c for c in by_stratum.get(flank_key(x), ())
+            c for c in by_stratum.get(key(x), ())
             if c.example_id not in used
             and (gap_tol is None or abs(_gap(c) - target) <= gap_tol)
         ]
