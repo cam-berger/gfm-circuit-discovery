@@ -1,5 +1,8 @@
 # M1 Payload Identity Implementation Plan
 
+> **Tier: T2 — implementation plan.** Working document for one stage; not a preregistration and not a
+> claim. Authorises no run. The binding authority is the spec it argues from.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Measure whether SpliceBERT's masked-acceptor readout treats a `GC` donor as a donor, by adding the one missing arm to an existing operator ladder and contrasting it against its two non-motif twins on a common row set.
