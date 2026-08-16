@@ -1,0 +1,150 @@
+"""Donor-class contrast primitives: real ``GC-AG`` treatment against matched ``GT-AG``.
+
+M1's primary estimand asks whether the masked-acceptor readout depends on the partner donor
+being a recognisable splice donor, or only on the canonical ``GT`` bases.  It intervenes on
+NATIVE donors -- the ``GC`` of a real ``GC-AG`` intron is destroyed, not written -- so there is
+no synthetic construct and no motif-hygiene carve-out.
+
+Two facts make matching mandatory rather than cosmetic.  The classes differ sharply in flanking
+context: after the ``GG`` operator filter the ``+3`` base is ``A`` in 94% of ``GC-AG`` rows but
+only 50% of ``GT-AG`` rows.  And ``GT`` and ``GC`` share the ``G`` at ``d``, so an alt is
+edit-size matched across them only when it ends in ``A`` or ``G``; ``GG`` is the operator of
+record because its own admissibility filter is nearly orthogonal to ``+3`` (it excludes only the
+rare ``+3 T``/``+3 C``), whereas ``AA`` would exclude ``+3 G`` and so select on the very
+confounder under test.
+
+Everything here is outcome-blind by construction: nothing in this module accepts, computes, or
+inspects a margin.
+"""
+
+from __future__ import annotations
+
+from collections import defaultdict
+from dataclasses import dataclass, field
+from typing import Sequence
+
+from gfmcd.splicing.coupling import CouplingExample
+
+TREATMENT_MOTIF = "GC"
+COMPARATOR_MOTIF = "GT"
+MATCHED_OPERATOR = "GG"
+
+#: Offsets from ``donor_pos`` of the flank bases the two classes differ on.
+FLANK_OFFSETS: tuple[tuple[str, int], ...] = (("-1", -1), ("+3", 2), ("+5", 4))
+
+
+def donor_motif(x: CouplingExample) -> str:
+    """The native donor dinucleotide at ``[donor_pos, donor_pos+2)``."""
+    return x.sequence[x.donor_pos:x.donor_pos + 2]
+
+
+def flank_key(x: CouplingExample) -> tuple[str, ...]:
+    """The discrete flank stratum this row belongs to, as ``(-1, +3, +5)`` bases."""
+    return tuple(x.sequence[x.donor_pos + off] for _, off in FLANK_OFFSETS)
+
+
+def _gap(x: CouplingExample) -> int:
+    if x.next_acceptor_pos is None:
+        raise ValueError(f"{x.example_id} has no intron-mate acceptor")
+    return int(x.next_acceptor_pos - x.donor_pos)
+
+
+@dataclass(frozen=True)
+class MatchedCohort:
+    """A treatment arm and its matched comparators, plus what matching discarded."""
+
+    treatment: list[CouplingExample] = field(default_factory=list)
+    comparators: list[CouplingExample] = field(default_factory=list)
+    pairs: list[tuple[str, list[str]]] = field(default_factory=list)
+    unmatched_treatment: list[str] = field(default_factory=list)
+    k: int = 1
+
+
+def match_comparators(
+    treatment: Sequence[CouplingExample],
+    pool: Sequence[CouplingExample],
+    *,
+    k: int = 1,
+    gap_tol: int | None = None,
+) -> MatchedCohort:
+    """Match each treatment row to ``k`` comparators sharing its exact flank stratum.
+
+    Within a stratum, comparators are chosen by nearest donor-acceptor gap; ties break on
+    ``example_id`` so the result is deterministic without a seed.  A comparator is consumed
+    once and never reused -- reuse would duplicate rows into the gene-clustered bootstrap and
+    understate variance.  A treatment row with no admissible partner is DROPPED and recorded in
+    ``unmatched_treatment``; it is never silently retained on an unmatched footing.
+
+    ``gap_tol`` optionally caps how far a partner's gap may sit from the treatment row's.
+    """
+    if k < 1:
+        raise ValueError("k must be positive")
+    if gap_tol is not None and gap_tol < 0:
+        raise ValueError("gap_tol must be non-negative when supplied")
+
+    by_stratum: dict[tuple[str, ...], list[CouplingExample]] = defaultdict(list)
+    for candidate in pool:
+        by_stratum[flank_key(candidate)].append(candidate)
+    for rows in by_stratum.values():
+        rows.sort(key=lambda r: r.example_id)
+
+    used: set[str] = set()
+    kept_treatment: list[CouplingExample] = []
+    kept_comparators: list[CouplingExample] = []
+    pairs: list[tuple[str, list[str]]] = []
+    unmatched: list[str] = []
+
+    for x in sorted(treatment, key=lambda r: r.example_id):
+        target = _gap(x)
+        candidates = [
+            c for c in by_stratum.get(flank_key(x), ())
+            if c.example_id not in used
+            and (gap_tol is None or abs(_gap(c) - target) <= gap_tol)
+        ]
+        if len(candidates) < k:
+            unmatched.append(x.example_id)
+            continue
+        candidates.sort(key=lambda c: (abs(_gap(c) - target), c.example_id))
+        chosen = candidates[:k]
+        used.update(c.example_id for c in chosen)
+        kept_treatment.append(x)
+        kept_comparators.extend(chosen)
+        pairs.append((x.example_id, [c.example_id for c in chosen]))
+
+    return MatchedCohort(
+        treatment=kept_treatment,
+        comparators=kept_comparators,
+        pairs=pairs,
+        unmatched_treatment=unmatched,
+        k=k,
+    )
+
+
+def matching_balance(cohort: MatchedCohort) -> dict:
+    """Realized flank composition of both arms after matching, for the artifact.
+
+    Reported rather than assumed: exact stratum matching should drive every entry to
+    agreement, so any residual imbalance here is a defect in the matcher and must surface.
+    """
+
+    def profile(rows: Sequence[CouplingExample]) -> dict:
+        out: dict = {}
+        total = max(len(rows), 1)
+        for label, off in FLANK_OFFSETS:
+            counts = {b: 0 for b in "ACGT"}
+            for r in rows:
+                base = r.sequence[r.donor_pos + off]
+                counts[base] = counts.get(base, 0) + 1
+            out[label] = {b: counts[b] / total for b in counts}
+        return out
+
+    return {
+        "n_treatment": len(cohort.treatment),
+        "n_comparator": len(cohort.comparators),
+        "n_unmatched_treatment": len(cohort.unmatched_treatment),
+        "k": cohort.k,
+        "treatment": profile(cohort.treatment),
+        "comparator": profile(cohort.comparators),
+        "matched_on": [label for label, _ in FLANK_OFFSETS] + ["donor_acceptor_gap"],
+        "outcome_blind": True,
+    }
