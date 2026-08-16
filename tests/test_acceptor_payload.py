@@ -197,3 +197,23 @@ def test_resampling_unit_is_the_gene_not_the_row():
 )
 def test_classification_treats_a_touched_boundary_as_unresolved(lo, hi, expected):
     assert classify_difference(lo, hi, 0.05) == expected
+
+
+from gfmcd.splicing.acceptor_payload import half_width, precision_gate
+
+
+def test_half_width_is_half_the_interval():
+    assert half_width(-0.10, +0.10) == pytest.approx(0.10)
+
+
+def test_gate_proceeds_when_the_interval_can_clear_the_sesoi():
+    assert precision_gate(-0.04, +0.04, 0.05) == "PROCEED"
+
+
+def test_gate_stops_when_the_interval_cannot_resolve_the_sesoi():
+    assert precision_gate(-0.30, +0.30, 0.05) == "NOT_POWERABLE_ON_THIS_DESIGN"
+
+
+def test_gate_boundary_case_is_a_stop_not_a_proceed():
+    """A half-width exactly at the SESOI cannot distinguish equivalence from material."""
+    assert precision_gate(-0.05, +0.05, 0.05) == "NOT_POWERABLE_ON_THIS_DESIGN"

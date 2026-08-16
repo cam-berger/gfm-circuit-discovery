@@ -166,3 +166,18 @@ def classify_difference(lo: float, hi: float, sesoi: float) -> str:
     if lo > -sesoi and hi < sesoi:
         return "EQUIVALENT_WITHIN_SESOI"
     return "UNRESOLVED"
+
+
+def half_width(lo: float, hi: float) -> float:
+    """Half the width of a confidence interval."""
+    return (float(hi) - float(lo)) / 2.0
+
+
+def precision_gate(lo: float, hi: float, sesoi: float) -> str:
+    """``PROCEED`` only when the achieved half-width is strictly inside the SESOI.
+
+    A half-width at or above the SESOI cannot separate equivalence from a material
+    difference whatever the point estimate turns out to be, so the design is not
+    powerable and the stage stops instead of spending the target cohort.
+    """
+    return "PROCEED" if half_width(lo, hi) < sesoi else "NOT_POWERABLE_ON_THIS_DESIGN"
