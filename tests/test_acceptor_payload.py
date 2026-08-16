@@ -166,9 +166,20 @@ def test_bootstrap_is_deterministic_under_a_fixed_seed():
 
 
 def test_resampling_unit_is_the_gene_not_the_row():
-    """One gene carrying every row must collapse the interval to a point."""
-    ref = np.full(30, 1.0)
-    a, b = np.full(30, 0.4), np.full(30, 0.8)
+    """One gene carrying every row must collapse the interval to a point.
+
+    The 30 rows are given non-constant, per-row values on purpose. With a single gene,
+    correct GENE-level resampling always draws that one gene and therefore always
+    includes all 30 rows, so every draw is identical and the interval collapses exactly
+    regardless of the row values. A WRONG row-level bootstrap, in contrast, draws
+    different subsets of these now-varying rows on each iteration, so its sums vary
+    across draws and the interval would NOT collapse (lo < est < hi). If the fixture
+    rows were constant instead, row-level resampling would also collapse by coincidence
+    and this test would fail to discriminate between the two implementations.
+    """
+    ref = np.linspace(0.5, 2.0, 30)
+    a = np.linspace(0.1, 0.9, 30)
+    b = np.linspace(0.3, 1.1, 30)
     est, lo, hi = gboot_rho_difference(a, b, ref, ["g0"] * 30, n_draws=50, seed=0)
     assert lo == pytest.approx(est)
     assert hi == pytest.approx(est)
