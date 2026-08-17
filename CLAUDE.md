@@ -49,21 +49,21 @@ The frozen one-sentence mechanism statement, its checkpoint caveats, and its sco
 
 | Question | File that owns the answer |
 |---|---|
-| What is claimed, in what words? | the five `CLAIMS.md` ledgers that carry rows: [donor circuit](studies/splicebert_partner_selection/CLAIMS.md) (`C*`, 45), [GTEx fine-tuning shift](studies/splicebert_gtex_finetune_shift/CLAIMS.md) (`GFS*`, 34), [Head–Context Atlas](studies/splicebert_head_context_atlas/CLAIMS.md) (`HCA*`, 21), [DNABERT-2 promoter](studies/dnabert_promoter/CLAIMS.md) (`DBP*`, 17 — the only **non-SpliceBERT** ledger; `DBP11`–`DBP17` are the fine-tuned extension), and [acceptor coupling](studies/splicebert_acceptor_coupling/CLAIMS.md) (`AC*`, 4 — the **reverse** direction; a masked *acceptor* readout, deliberately kept out of the donor ledger). A sixth, [positional boundary coherence](studies/splicebert_positional_boundary_coherence/CLAIMS.md), is deliberately **empty**: that study is a frozen design with no outcome |
+| What is claimed, in what words? | the seven `CLAIMS.md` ledgers that carry rows: [donor circuit](studies/splicebert_partner_selection/CLAIMS.md) (`C*`, 45), [GTEx fine-tuning shift](studies/splicebert_gtex_finetune_shift/CLAIMS.md) (`GFS*`, 34), [Head–Context Atlas](studies/splicebert_head_context_atlas/CLAIMS.md) (`HCA*`, 21), [DNABERT-2 promoter](studies/dnabert_promoter/CLAIMS.md) (`DBP*`, 17 — the only **non-SpliceBERT** ledger; `DBP11`–`DBP17` are the fine-tuned extension), [acceptor coupling](studies/splicebert_acceptor_coupling/CLAIMS.md) (descriptive `acceptor-coupling/*` records with immutable aliases `AC1`–`AC8` — the **reverse** direction), [positional boundary coherence](studies/splicebert_positional_boundary_coherence/CLAIMS.md) (`PBC1`, an instrument-unresolved construction result), and [positional-proxy modifiability](studies/splicebert_positional_proxy_modifiability/CLAIMS.md) (`PPM1`, a model-free capacity result) |
 | What was retracted or bounded, and why? | [`CORRECTIONS.md`](studies/splicebert_partner_selection/CORRECTIONS.md) — **R1–R47**. R1–R24 are table rows (some are ranges); R25–R47 are `##` sections later in the same file — scan both. The DNABERT-2 study keeps its own: [`DBPR1–DBPR11`](studies/dnabert_promoter/CORRECTIONS.md) — read those before quoting any `DBP*` prose, five of that arc's headline sentences are bounded or withdrawn there, and `DBPR11` bounds the fine-tuned Layer-10 endpoint to a band. |
 | Why was an experiment designed that way? | [`DECISIONS_A0.md`](studies/splicebert_partner_selection/DECISIONS_A0.md) and each study's `DECISIONS*.md` |
 | What is next, and what is deferred? | [`docs/ROADMAP.md`](docs/ROADMAP.md) |
-| Was a preregistered gate actually enforced? | [`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) — **read before citing any gate as enforced**; many runners departed from their frozen protocol. Covers the SpliceBERT donor/carrier arc only — `GFS*` gates are self-reported, not audited, the positional-boundary-coherence gates have never been executed, and the `DBP*` study **froze no preregistration at all** (DBPR8), so nothing in it may be cited as a preregistered result |
+| Was a preregistered gate actually enforced? | [`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) — **read before citing any gate as enforced**; many runners departed from their frozen protocol. Covers the SpliceBERT donor/carrier arc only — `GFS*` gates are self-reported, not audited; positional-boundary-coherence Phase I executed and stopped instrument-unresolved before any model outcome, leaving later phases unauthorized; and the `DBP*` study **froze no preregistration at all** (DBPR8), so nothing in it may be cited as a preregistered result |
 | Which artifact controls a claim? | [`results/RESULTS_INDEX.md`](results/RESULTS_INDEX.md) and `results/MANIFEST.csv` |
 
-Cite by ID; let the ledger carry the number, or it drifts. Seven study directories are in the tree and
-**five carry the record** ([study map](README.md#study-map)); one,
-[positional boundary coherence](studies/splicebert_positional_boundary_coherence/README.md), is a frozen
-design whose ledgers are empty by construction, and one,
-[exon-edge compatibility](studies/splicebert_exon_edge_compatibility/README.md), is an archive remnant
-whose claims live in the donor ledger as C43/C44. One record-carrying study is easy to miss because the
-study map still omits it: **acceptor coupling** (`AC*`, the reverse direction — a masked *acceptor*
-readout). Five earlier study directories left the working tree in
+Cite by descriptive evidence ID where one exists; retain short codes as immutable aliases. Let the
+ledger carry measured numbers, or they drift. Nine non-template study directories are in the tree and
+**seven carry records** ([study map](README.md#study-map));
+[acceptor context](studies/splicebert_acceptor_context/README.md) is design-only, and
+[exon-edge compatibility](studies/splicebert_exon_edge_compatibility/README.md) is an archive remnant
+whose claims live in the donor ledger as C43/C44. **Acceptor coupling** is the reverse direction — a
+masked *acceptor* readout — and its semantic catalog is mapped to historical `AC*`/`R*` aliases in its
+study ledger and results index. Five earlier study directories left the working tree in
 the 2026-07-31 cleanup and remain in Git history. A sixth arc, **exon-edge compatibility**, was
 consolidated on 2026-08-04 into two donor-ledger rows (**C43** behaviour, **C44** mediation-unresolved)
 plus twelve artifacts and two frozen protocols; its bulk stayed on `codex/intron-exon-phase` at

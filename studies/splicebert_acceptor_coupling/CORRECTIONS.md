@@ -243,7 +243,8 @@ artifact field rather than a conformance conclusion.
 Its large effect and recorded controls remain reportable with both R1b's `GO` and
 `verdict_under_R1_rule=INSTRUMENT_UNRESOLVED`, but protocol conformance and familywise FPR are unresolved.
 A successor must assign one exchangeable sign per gene and pass those signs through the actual decision
-path. The sealed split remains unopened.
+path. R1/R1b did not open the masked-acceptor target outcome on chr8/9; those chromosomes were not
+globally unspent because donor-side `C1` had already used them (`ACR18`).
 
 ## ACR9 — R3's calibration path cannot license AC4's partition (2026-08-11)
 
@@ -318,3 +319,47 @@ descriptive conclusion that this validation cohort responds to either donor base
 larger `GA`/`GG` than `AT`; they do not license a stable nucleotide-role or biological-mechanism claim.
 This supersedes only `ACR4`'s status disposition. Its numerical correction and the immutable R2
 artifact remain unchanged.
+
+The following entries retain their aliases from the archived correction sequence. The compact active
+record is therefore intentionally non-contiguous; the aliases preserve provenance rather than defining
+the reader-facing order.
+
+## Target health cannot revive a preflight failure (legacy alias `ACR16`; 2026-08-15)
+
+The first component-confirmation preflight scored `L2H15_mean_component` health at `31/64`, below the
+one-half floor, but its target rule could have restored the path if health passed on the later bucket.
+That would let a held-out observation authorize a path that the bindable preflight had rejected. No
+target outcome was opened under that rule.
+
+**Correction.** Target authorization is monotone: a target health check may remove a preflight-authorized
+path but cannot add one. The clean successor therefore records `L2H15_mean_component` as
+`HEALTH_FAILED` even though bucket-1 health passed `34/64` and its scientific endpoints would otherwise
+pass. Those endpoints are diagnostics, not support (`AC8`). Reopening this question requires a new,
+prospectively frozen diagnosis.
+
+## Authorization is checked before any target input (legacy alias `ACR17`; 2026-08-15)
+
+The next preflight passed its scientific, calibration, health-ceiling, and live-hook capability gates,
+but a target invocation missing the required preflight artifact inspected the supplied model path before
+rejecting the absent authorization input. It opened no bucket-1 outcome. Because moving the guard changes
+runner bytes, that preflight could not authorize the repaired runner.
+
+**Correction.** The completed successor checks mandatory authorization before inspecting any supplied
+model, GTF, FASTA, output, cohort, or preflight path, then uses a fresh clean preflight. Its compact
+[attestation](../../results/splicebert_acceptor_coupling/attestations/paired_donor_component_confirmation_v1.json)
+pins the exact archived package and execution commits; the active
+[audit](../../results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.audit.json) replays the
+decision twice. The 500-row / 304-gene target on validation chr11/16/19 supports only the bounded
+`L1H12` mean-ablation and `L4H11`/`L4H9`/`L4H7` noising patterns (`AC5`, `AC6`). Reused `L3H1` and the
+distinct-route path remain inconclusive (`AC7`), and `L2H15` remains health-ineligible (`AC8`). No
+address, post-`W_O` write, directed edge, delivery, mediation, circuit, or biological mechanism follows.
+
+## Chromosomes 8/9 were not globally unspent (legacy alias `ACR18`; 2026-08-17)
+
+Earlier acceptor-study prose called chr8/9 “unopened” or “unspent.” Donor-side `C1` had already used
+those chromosomes. What remained unopened by this acceptor program was the **masked-acceptor target
+outcome**, not a globally virgin chromosome split.
+
+**Correction.** State the endpoint-specific holdout and the prior donor-side use together. The held-out
+component record `AC5`–`AC8` does not use chr8/9 at all; it is a gene-disjoint bucket split within
+validation chromosomes 11/16/19.

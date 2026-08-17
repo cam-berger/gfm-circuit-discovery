@@ -40,15 +40,25 @@ import pytest
 
 REPO = Path(__file__).resolve().parents[1]
 
-CLAIMS_FILES = [
-    REPO / "studies/splicebert_partner_selection/CLAIMS.md",
-    REPO / "studies/splicebert_head_context_atlas/CLAIMS.md",
-    REPO / "studies/splicebert_gtex_finetune_shift/CLAIMS.md",
-    REPO / "studies/splicebert_positional_boundary_coherence/CLAIMS.md",
-]
+CLAIMS_FILES = sorted(
+    path
+    for path in (REPO / "studies").glob("*/CLAIMS.md")
+    if not path.parent.name.startswith("TEMPLATE_")
+)
 CORRECTIONS = REPO / "studies/splicebert_partner_selection/CORRECTIONS.md"
 MANIFEST_CSV = REPO / "results/MANIFEST.csv"
-CLAIM_ID_PATTERN = r"(C\d+|HCA\d+|GFS\d+|PBC\d+)"
+CLAIM_ROW_PATTERN = r"^\|\s*([A-Z]+\d+)\s*\|"
+CLAIM_ID_PREFIXES = {"C", "HCA", "GFS", "PBC", "AC", "DBP", "PPM"}
+
+# Experiment/run labels that collide with another established namespace and therefore must not be
+# stored in MANIFEST.csv's claim_id field. R4 is both an acceptor experiment label and a global
+# correction ID; treating the former as a claim silently resolves it to the unrelated latter.
+NONCLAIM_EXPERIMENT_IDS = {"R4"}
+SEMANTIC_EVIDENCE_ID_PATTERN = re.compile(
+    r"[a-z0-9]+(?:-[a-z0-9]+)*/"
+    r"[a-z0-9]+(?:-[a-z0-9]+)*/"
+    r"[a-z0-9]+(?:-[a-z0-9]+)*"
+)
 
 # IDs cited in prose that legitimately have no standalone defining row.
 CLAIM_ID_EXCEPTIONS = {
@@ -105,8 +115,16 @@ def _defined_claim_ids() -> set[str]:
     ids: set[str] = set()
     for f in CLAIMS_FILES:
         if f.exists():
-            ids |= set(re.findall(rf"^\|\s*{CLAIM_ID_PATTERN}\s*\|", f.read_text(), re.M))
+            ids |= set(re.findall(CLAIM_ROW_PATTERN, f.read_text(), re.M))
     return ids
+
+
+def _claim_id_pattern() -> str:
+    """Match governed claim families, never run/correction IDs."""
+    alternatives = "|".join(
+        sorted(map(re.escape, CLAIM_ID_PREFIXES), key=len, reverse=True)
+    )
+    return rf"(?:{alternatives})\d+"
 
 
 def _defined_correction_ids() -> set[str]:
@@ -135,7 +153,7 @@ def test_every_cited_claim_id_resolves() -> None:
     assert defined, "no claim rows parsed -- the CLAIMS.md row format changed"
     unresolved = {
         cid: files
-        for cid, files in _cited(rf"\b{CLAIM_ID_PATTERN}\b").items()
+        for cid, files in _cited(rf"\b({_claim_id_pattern()})\b").items()
         if cid not in defined and cid not in CLAIM_ID_EXCEPTIONS
     }
     assert not unresolved, "Claim IDs cited but never defined:\n" + "\n".join(
@@ -150,6 +168,32 @@ def test_claim_id_exceptions_are_still_needed() -> None:
     stale = sorted(set(CLAIM_ID_EXCEPTIONS) & defined)
     assert not stale, (
         f"{stale} now have defining rows; remove them from CLAIM_ID_EXCEPTIONS"
+    )
+
+
+def test_acceptor_catalog_covers_legacy_claim_aliases() -> None:
+    claims = REPO / "studies/splicebert_acceptor_coupling/CLAIMS.md"
+    text = claims.read_text()
+    catalog: dict[str, str] = {}
+    for line in text.splitlines():
+        if not line.startswith("| `acceptor-coupling/"):
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        assert len(cells) == 4, f"malformed acceptor evidence-catalog row: {line}"
+        semantic_id = cells[0].strip("`")
+        legacy_alias = cells[2].strip("`")
+        assert SEMANTIC_EVIDENCE_ID_PATTERN.fullmatch(semantic_id), (
+            f"invalid reader-facing evidence ID: {semantic_id}"
+        )
+        assert semantic_id not in catalog, f"duplicate evidence ID: {semantic_id}"
+        catalog[semantic_id] = legacy_alias
+
+    aliases = list(catalog.values())
+    assert len(aliases) == len(set(aliases)), "legacy aliases map to multiple evidence IDs"
+    defined_acceptor = {claim_id for claim_id in _defined_claim_ids() if claim_id.startswith("AC")}
+    assert set(aliases) == defined_acceptor, (
+        "acceptor evidence catalog and AC claim rows differ: "
+        f"catalog={sorted(aliases)}, claims={sorted(defined_acceptor)}"
     )
 
 
@@ -197,9 +241,23 @@ def test_manifest_claim_ids_resolve() -> None:
     seen: set[str] = set()
     with open(MANIFEST_CSV, newline="") as fh:
         for row in csv.DictReader(fh):
-            seen |= set(re.findall(rf"\b{CLAIM_ID_PATTERN}\b", row.get("claim_id") or ""))
+            seen |= set(re.findall(rf"\b({_claim_id_pattern()})\b", row.get("claim_id") or ""))
     unresolved = sorted(seen - defined - set(CLAIM_ID_EXCEPTIONS))
     assert not unresolved, f"MANIFEST.csv claim_ids with no defining row: {unresolved}"
+
+
+@pytest.mark.skipif(not MANIFEST_CSV.exists(), reason="MANIFEST.csv not present")
+def test_manifest_claim_ids_exclude_known_experiment_codes() -> None:
+    offenders: list[str] = []
+    with open(MANIFEST_CSV, newline="") as fh:
+        for row in csv.DictReader(fh):
+            claim_ids = set(re.findall(r"\bR\d+\b", row.get("claim_id") or ""))
+            collisions = sorted(claim_ids & NONCLAIM_EXPERIMENT_IDS)
+            if collisions:
+                offenders.append(f"{row.get('artifact')}: {', '.join(collisions)}")
+    assert not offenders, (
+        "experiment/run IDs used as MANIFEST claim_ids:\n  " + "\n  ".join(offenders)
+    )
 
 
 def test_gtex_controlling_artifact_references_exist() -> None:

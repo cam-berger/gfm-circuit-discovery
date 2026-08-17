@@ -167,6 +167,22 @@ refutation of the nucleosome bridge rather than support for it (C14, R17;
 [`docs/NOMENCLATURE.md`](docs/NOMENCLATURE.md)). The carrier's OV/behavioral function inside the model
 stays open; only its *corpus* origin is now licensed.
 
+### 5. Reciprocal masked-acceptor construction
+
+The reverse endpoint masks the acceptor `G` and intervenes on its paired donor. Its validation gate
+records a large pair-specific response, but the component account is deliberately partial. On a
+held-out 500-row / 304-gene validation cohort, `L1H12` is supported under within-example token-mean
+ablation and `L4H11`, `L4H9`, and `L4H7` are supported under same-example activation noising.
+`L3H1` reuse and a distinct-route hypothesis remain inconclusive because their Holm-adjusted path
+tests pass while the mandatory strict simultaneous-interval conjunctions fail; `L2H15` fails the
+frozen health requirement.
+
+These records are exposed under descriptive IDs such as
+`acceptor-coupling/components/l1h12-mean-ablation`; historical `AC5`–`AC8` and `R3c v2.1` labels are
+immutable aliases. They license neither a mirror image of the donor graph nor an acceptor-side address,
+payload, write, delivery, mediation, sufficiency, complete circuit, or biological mechanism. The exact
+raw packages remain hash-bound in the archive, with a compact active attestation and audit.
+
 ## Scope
 
 The core behavior is established for one SpliceBERT checkpoint, canonical internal short introns, both

@@ -17,6 +17,30 @@ named gate; the term stays, but only as a closed result.
 
 ---
 
+## Reader-facing evidence identifiers
+
+New evidence records use a descriptive, three-part identifier:
+
+```text
+<study>/<topic>/<plain-language-slug>
+```
+
+For example, `acceptor-coupling/components/l1h12-mean-ablation` says which study owns the record,
+which part of the evidence ladder it concerns, and what was measured. Each segment is lowercase
+kebab-case. The identifier names one immutable evidence record; a successor experiment gets a new
+identifier rather than silently changing the old record's scope.
+
+Short codes such as `AC5`, `C37`, `R3c`, and `M4d` remain where frozen protocols, artifacts, manifests,
+and historical prose already use them. They are **legacy aliases**, not the preferred reader-facing
+names. Run labels (`R3c v2.1`), claim aliases (`AC5`), and correction aliases (`ACR16`) name different
+objects and must not be substituted for one another. A current ledger should lead with the descriptive
+identifier or title and carry the short code only as a compatibility alias. This additive convention
+preserves immutable citations while stopping new public vocabulary from depending on local numbering.
+The acceptor study's current mappings are maintained in its
+[`CLAIMS.md`](../studies/splicebert_acceptor_coupling/CLAIMS.md#reader-facing-evidence-catalog).
+
+---
+
 ## The vocabulary
 
 | Term | Status | Sentence that must accompany it | Authoritative detail |

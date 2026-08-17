@@ -51,8 +51,15 @@ Neither supplies a native masked-acceptor operator estimate, component selection
 
 ## What is here
 
-Every arm is **verification tier**: validation split throughout, **sealed chr8/9 never opened and never
-spent**, so a confirmatory reverse-coupling claim still has a seal to spend if one is ever warranted.
+The descriptive evidence IDs in [`CLAIMS.md`](CLAIMS.md#reader-facing-evidence-catalog) are the preferred
+names. Codes such as `AC5` and `R3c v2.1` remain legacy aliases for immutable records, not the public
+storyline.
+
+The evidence from legacy runs `R1`, `R1b`, `R2`, and `R3` is **verification tier**; `R4` was never
+frozen. The held-out component target is prospectively bound and gene-disjoint, but it is a
+confirmatory bucket **within validation** chromosomes 11/16/19 rather than a chromosome-held-out target.
+This acceptor program did not open masked-acceptor outcomes on chr8/9, although donor-side `C1` had
+already used those chromosomes (`ACR18`).
 
 | arm | question | outcome |
 |---|---|---|
@@ -60,6 +67,7 @@ spent**, so a confirmatory reverse-coupling claim still has a seal to spend if o
 | **R1b** ([prereg](preregistrations/PREREGISTRATION_R1b_REVERSE_COUPLING_GATE.md), frozen) | the same, with `MDE80` gated on the control arms + three-draw verdict stability | bounded validation gate: the artifact says **`GO`**, but the frozen scope forbids claim promotion and the permutation memorial is row-wise rather than gene-wise (`ACR8`) → `AC1` |
 | **R2** | how does reverse coupling respond when each donor base is destroyed? | bounded post-outcome operator screen: either base changes the endpoint, sub-additively, with larger `T`-only interventions → `AC2` |
 | **R3** ([prereg](preregistrations/PREREGISTRATION_R3_PAIRED_COMPONENT_SCAN.md), frozen) | which of the 96 heads are **shared** between the two directions and which are **direction-specific**? | instrument unresolved: raw mean-ablation values nominate candidates, but the nominal partition and rank identifications are retracted because the calibration path did not implement the frozen familywise decision (`ACR9`) → `AC4` |
+| **Held-out component confirmation** (legacy `R3c v2.1`; [frozen protocol](preregistrations/DRAFT_R3C_ACCEPTOR_HEAD_CONFIRMATION.md)) | do seven prespecified masked-acceptor component/route paths survive a clean preflight and gene-disjoint target? | mixed bounded result: `L1H12` mean ablation and `L4H11`/`L4H9`/`L4H7` noising supported (`AC5`–`AC6`); reused `L3H1` and the distinct route inconclusive (`AC7`); `L2H15` health failed (`AC8`) |
 | **R4** ([retired draft](preregistrations/PREREGISTRATION_R4_EDGE_LEVEL_CAUSAL_CORE.md)) | historical question: do the two directions share their **edges**, or only their **components**? | never frozen; its exploratory execution used a defective objective and did not implement the proposed partition; no claim |
 
 R3 was intended to answer "same or different" as a **single paired estimand** rather than two screens:
@@ -77,6 +85,13 @@ run used a signed objective that rewarded over-recovery and never implemented th
 uncertainty-aware edge partition. See [`DECISIONS_R4_EDGE.md`](DECISIONS_R4_EDGE.md). No R4 result may be
 used to infer shared components, shared wiring, mediation, or a reverse circuit.
 
+The clean held-out successor resolves only part of the candidate screen. Its 500-row / 304-gene target
+supports bounded, intervention-specific patterns for `L1H12` under mean ablation and
+`L4H11`/`L4H9`/`L4H7` under same-example activation noising. It does **not** confirm reused `L3H1` or a
+distinct acceptor route, and `L2H15` receives no scientific verdict because its authorization health
+failed. Same-example noising is not delivery. The first missing bridge is direct evidence for a write,
+a directed edge, and delivery, followed by mediation; no reverse mechanism or circuit is established.
+
 - [`CLAIMS.md`](CLAIMS.md) — the claim ledger (`AC*`). Separate from the donor study's `C*` ledger on
   purpose: acceptor reconstruction is a different behaviour from donor reconstruction, and giving it
   its own ledger keeps C1–C42 from silently acquiring reverse-direction rows.
@@ -86,17 +101,24 @@ used to infer shared components, shared wiring, mediation, or a reverse circuit.
   including the two negative results about the instrument (`D10` signed objective, `D11`
   unimplemented partition).
 - [`CORRECTIONS.md`](CORRECTIONS.md) — `ACR*`. Never delete a correction; record, don't rewrite.
+- [Held-out component attestation](../../results/splicebert_acceptor_coupling/attestations/paired_donor_component_confirmation_v1.json)
+  — compact active index that pins the exact archived raw package by tag object, commit, path, size, and
+  SHA-256; paired with the independent
+  [decision audit](../../results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.audit.json).
 - [`preregistrations/`](preregistrations/) — `R1`, `R1b`, and `R3` are **frozen**; `R4` is a
-  **retired draft that was never frozen**.
-- `scripts/splicebert_acceptor_coupling/` — runners. `src/gfmcd/splicing/reverse_coupling.py` — the
-  reusable readout. `results/splicebert_acceptor_coupling/` — artifacts, each with a manifest.
+  **retired draft that was never frozen**; the held-out component protocol is also frozen.
+- `scripts/splicebert_acceptor_coupling/` — active historical runners for the earlier arms.
+  `src/gfmcd/splicing/reverse_coupling.py` — the reusable readout. The held-out component runner and
+  full packages remain in the pinned archive; the active results tree carries their compact attestation,
+  audit, and frozen protocol instead of dead execution code or 66 MB of calibration arrays.
 
 ## Scope, standing
 
-AC1–AC4 use one checkpoint (`SpliceBERT.1024nt`), canonical internal short introns, both strands, and the
-validation split. AC1 is a bounded behavior gate, AC2 a bounded post-outcome operator screen, AC3 is
-retracted, and AC4 is an instrument-unresolved candidate screen. They are model-internal, and **no
-external biological assay enters those records.** Nothing here is a claim about splicing, spliceosome
-biochemistry, or transcript abundance. Evidence never promotes across levels; read
+AC1–AC8 use one checkpoint (`SpliceBERT.1024nt`), canonical internal short introns, both strands, and
+validation data. AC1 is a bounded behavior gate, AC2 a bounded post-outcome operator screen, AC3 is
+retracted, AC4 is an instrument-unresolved candidate screen, and AC5–AC8 are the mixed held-out
+component record described above. They are model-internal, and **no external biological assay enters
+those records.** Nothing here is a claim about splicing, spliceosome biochemistry, or transcript
+abundance. Evidence never promotes across levels; read
 [`../../docs/EVIDENCE_LADDER.md`](../../docs/EVIDENCE_LADDER.md) and
 [`../../docs/NOMENCLATURE.md`](../../docs/NOMENCLATURE.md) before writing prose here.

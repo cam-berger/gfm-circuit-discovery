@@ -1,0 +1,375 @@
+{
+  "schema": "gfmcd.evidence_attestation/1",
+  "attestation_id": "acceptor-coupling/components/held-out-confirmation",
+  "records": [
+    {
+      "id": "acceptor-coupling/components/l1h12-mean-ablation",
+      "title": "L1H12 contributes under within-example mean ablation",
+      "summary": "On the 500-row, 304-gene held-out-within-validation target, within-example token-mean ablation of L1H12 produced a selective masked-acceptor-margin component pattern and passed the frozen seven-path decision rule (Holm-adjusted p = 0.00175).",
+      "record_kind": "finding",
+      "status": "supported",
+      "evidence_rung": "output-ov",
+      "review_tier": "confirmatory",
+      "claim_eligible": true,
+      "scope": "A component-level response to one head-output intervention at the masked acceptor G in validation chromosomes chr11, chr16, and chr19.",
+      "first_missing_bridge": "No edge or path intervention establishes what L1H12 writes, whether it mediates donor information, or where that information is delivered.",
+      "legacy_aliases": [
+        {
+          "type": "claim",
+          "id": "AC5"
+        },
+        {
+          "type": "run",
+          "id": "R3c v2.1"
+        },
+        {
+          "type": "protocol",
+          "id": "DRAFT_R3C_ACCEPTOR_HEAD_CONFIRMATION.md"
+        },
+        {
+          "type": "artifact",
+          "id": "r3c_acceptor_head_target_v2_1.json"
+        }
+      ],
+      "source_checks": [
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/schema",
+          "equals": "gfmcd.r3c.acceptor_head_confirmation/2"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_preflight_v2_1.json",
+          "pointer": "/stage",
+          "equals": "preflight"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_preflight_v2_1.json",
+          "pointer": "/status",
+          "equals": "DEVELOPMENT"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_preflight_v2_1.json",
+          "pointer": "/verdict",
+          "equals": "TARGET_BINDABLE_PREFLIGHT_GO"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_preflight_v2_1.json",
+          "pointer": "/git_authorization_identity/commit",
+          "equals": "bb22dff7e2f3ec4e3de73a8d45ad1740793b66f4"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/stage",
+          "equals": "target"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/status",
+          "equals": "CONFIRMATORY"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/verdict",
+          "equals": "HELD_OUT_ACCEPTOR_HEAD_CONFIRMATION_COMPLETE"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/n",
+          "equals": 500
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/n_genes",
+          "equals": 304
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/gene_bucket",
+          "equals": 1
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/cohort_audit/preconstruction_allowed_chromosomes",
+          "equals": [
+            "chr11",
+            "chr16",
+            "chr19"
+          ]
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/cohort_audit/selection_reads_model_outputs",
+          "equals": false
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/cohort_audit/sealed_chr8_chr9_opened",
+          "equals": false
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/cohort_audit/historical_reconstruction/immutable_identity/rows",
+          "equals": 974
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/cohort_audit/historical_reconstruction/immutable_identity/genes",
+          "equals": 645
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/cohort_audit/selection/ordered_rows_sha256",
+          "equals": "02d4c776d911f261bdd513e3c993a18cab8373e9d242b22ccbdf2fd90f448f8f"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/git_authorization_identity/commit",
+          "equals": "8dde21ce043d7d9e4835e7ccc5851d13a3af4a36"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/paths/L1H12_mean_component/classification",
+          "equals": "SUPPORTED"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/paths/L1H12_mean_component/holm_adjusted_p",
+          "equals": 0.0017495626093476631
+        }
+      ]
+    },
+    {
+      "id": "acceptor-coupling/components/l4-head-noising",
+      "title": "Three layer-4 heads contribute under same-example activation noising",
+      "summary": "Same-example corrupt-to-clean activation noising supported selective masked-acceptor-margin component patterns for L4H11, L4H9, and L4H7; every prespecified component passed the frozen seven-path decision rule (Holm-adjusted p = 0.00175).",
+      "record_kind": "finding",
+      "status": "supported",
+      "evidence_rung": "output-ov",
+      "review_tier": "confirmatory",
+      "claim_eligible": true,
+      "scope": "Component-level responses to same-example head-output noising at the masked acceptor G on the same held-out-within-validation target.",
+      "first_missing_bridge": "No path-specific rescue or edge intervention shows that these heads deliver a shared state, mediate a route, or form a distinct acceptor pathway.",
+      "legacy_aliases": [
+        {
+          "type": "claim",
+          "id": "AC6"
+        },
+        {
+          "type": "run",
+          "id": "R3c v2.1"
+        },
+        {
+          "type": "protocol",
+          "id": "DRAFT_R3C_ACCEPTOR_HEAD_CONFIRMATION.md"
+        },
+        {
+          "type": "artifact",
+          "id": "r3c_acceptor_head_target_v2_1.json"
+        }
+      ],
+      "source_checks": [
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/paths/L4H11_noising_component/classification",
+          "equals": "SUPPORTED"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/paths/L4H9_noising_component/classification",
+          "equals": "SUPPORTED"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/paths/L4H7_noising_component/classification",
+          "equals": "SUPPORTED"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/paths/L4H11_noising_component/holm_adjusted_p",
+          "equals": 0.0017495626093476631
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/paths/L4H9_noising_component/holm_adjusted_p",
+          "equals": 0.0017495626093476631
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/paths/L4H7_noising_component/holm_adjusted_p",
+          "equals": 0.0017495626093476631
+        }
+      ]
+    },
+    {
+      "id": "acceptor-coupling/components/route-hypotheses-inconclusive",
+      "title": "Reuse and distinct-route hypotheses remain inconclusive",
+      "summary": "The reused-L3H1 and distinct-acceptor-route conjunctions passed their Holm-adjusted p-value thresholds but failed mandatory strict simultaneous-interval concordance, so both remain inconclusive by method disagreement.",
+      "record_kind": "limit",
+      "status": "inconclusive",
+      "evidence_rung": "output-ov",
+      "review_tier": "confirmatory",
+      "claim_eligible": false,
+      "scope": "Two prespecified component-pattern conjunctions on the held-out-within-validation masked-acceptor target.",
+      "first_missing_bridge": "The frozen strict simultaneous-confidence-interval conjunction did not pass; therefore no reused component, distinct route, delivery, or mediation claim is licensed.",
+      "legacy_aliases": [
+        {
+          "type": "claim",
+          "id": "AC7"
+        },
+        {
+          "type": "run",
+          "id": "R3c v2.1"
+        },
+        {
+          "type": "protocol",
+          "id": "DRAFT_R3C_ACCEPTOR_HEAD_CONFIRMATION.md"
+        },
+        {
+          "type": "artifact",
+          "id": "r3c_acceptor_head_target_v2_1.json"
+        }
+      ],
+      "source_checks": [
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/paths/L3H1_reused_component/classification",
+          "equals": "INCONCLUSIVE_METHOD_DISAGREEMENT"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/paths/L3H1_reused_component/p_pass",
+          "equals": true
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/paths/L3H1_reused_component/strict_simultaneous_ci_pass",
+          "equals": false
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/paths/distinct_acceptor_route_candidate/classification",
+          "equals": "INCONCLUSIVE_METHOD_DISAGREEMENT"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/paths/distinct_acceptor_route_candidate/p_pass",
+          "equals": true
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/paths/distinct_acceptor_route_candidate/strict_simultaneous_ci_pass",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "acceptor-coupling/components/l2h15-health-ineligible",
+      "title": "L2H15 is ineligible after the frozen health gate",
+      "summary": "L2H15's target endpoints passed the scientific conjunction, but the monotone authorization rule retained the failed bucket-0 health result; the path is health-failed, not supported and not null.",
+      "record_kind": "limit",
+      "status": "ineligible",
+      "evidence_rung": "output-ov",
+      "review_tier": "confirmatory",
+      "claim_eligible": false,
+      "scope": "A prespecified L2H15 mean-ablation component path whose target numbers are diagnostic only because eligibility was frozen before target execution.",
+      "first_missing_bridge": "The prospectively bound preflight health authorization failed; a new diagnosis and frozen successor would be required before scientific interpretation.",
+      "legacy_aliases": [
+        {
+          "type": "claim",
+          "id": "AC8"
+        },
+        {
+          "type": "correction",
+          "id": "ACR16"
+        },
+        {
+          "type": "run",
+          "id": "R3c v2.1"
+        },
+        {
+          "type": "protocol",
+          "id": "DRAFT_R3C_ACCEPTOR_HEAD_CONFIRMATION.md"
+        },
+        {
+          "type": "artifact",
+          "id": "r3c_acceptor_head_target_v2_1.json"
+        }
+      ],
+      "source_checks": [
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/paths/L2H15_mean_component/classification",
+          "equals": "HEALTH_FAILED"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/paths/L2H15_mean_component/p_pass",
+          "equals": true
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/paths/L2H15_mean_component/strict_simultaneous_ci_pass",
+          "equals": true
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/paths/L2H15_mean_component/health/ok",
+          "equals": false
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/paths/L2H15_mean_component/health/preflight_health_ok",
+          "equals": false
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+          "pointer": "/paths/L2H15_mean_component/health/current_health_ok",
+          "equals": true
+        }
+      ]
+    }
+  ],
+  "archive": {
+    "tag": "archive/acceptor-inverse-coupling-2026-08-17",
+    "tag_object": "d71568c158e402cd14b3c816ef11110a508e2026",
+    "commit": "16a8bd0b2e716c229488cdf89be76ac97b174eac",
+    "execution_commits": [
+      "bb22dff7e2f3ec4e3de73a8d45ad1740793b66f4",
+      "8dde21ce043d7d9e4835e7ccc5851d13a3af4a36"
+    ],
+    "files": [
+      {
+        "path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_preflight_v2_1.json",
+        "size_bytes": 33361804,
+        "sha256": "c0c9306fe894ce73bfd981a14c85e2aec6660da33f01d9716cee4327b3ff2d3e"
+      },
+      {
+        "path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_preflight_v2_1.manifest.json",
+        "size_bytes": 9620,
+        "sha256": "4a53f96b365c7bed227c8e0c995cee65a022620994e8898bab988b354fce41bb"
+      },
+      {
+        "path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+        "size_bytes": 33412449,
+        "sha256": "ebd4bfd8c10cc0ccb218b3f1ceca634605903d8afbb5617de312087100627cc6"
+      },
+      {
+        "path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.manifest.json",
+        "size_bytes": 10319,
+        "sha256": "dc644901224227f03e683f7416587dccf3eedd700052b211089242b9b8d69cbe"
+      }
+    ]
+  },
+  "active_files": [
+    {
+      "path": "studies/splicebert_acceptor_coupling/preregistrations/DRAFT_R3C_ACCEPTOR_HEAD_CONFIRMATION.md",
+      "size_bytes": 24074,
+      "sha256": "c0239606079aa985fd173f31bee68ec154e162af54ede74ee5315033c8e22c38"
+    },
+    {
+      "path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.audit.json",
+      "size_bytes": 3092,
+      "sha256": "0363d02dced48d0d1a8ba56f1862be4a0cbb0b82eb508f9aeb87b8c61b05edb3"
+    }
+  ]
+}
