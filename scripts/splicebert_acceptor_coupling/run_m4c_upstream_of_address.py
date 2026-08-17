@@ -20,6 +20,26 @@ general "ablating anything perturbs attention" effect would show up rather than 
 
 Descriptive plus intervention on attention geometry, not on the margin. Development tier,
 train split; chr8/9 never read and the validation reserve is not spent.
+
+RECORDED OUTCOME (181 pairs / 152 genes; baseline L3H1 donor mass GC 0.1702, GT 0.4669):
+
+    probe   kind                  GC frac   GT frac   diff      95% CI
+    L0H14   class-specific         +0.383    +0.022   +0.361  [+0.255,+0.468]
+    L0H4    class-specific         +0.300    +0.090   +0.210  [+0.099,+0.325]
+    L0H3    class-specific         +0.199    -0.008   +0.206  [+0.121,+0.297]
+    L0H5    class-specific         +0.219    +0.025   +0.194  [+0.097,+0.287]
+    L1H6    class-specific         +0.100    +0.031   +0.069  [+0.011,+0.125]
+    L1H13   class-specific         +0.072    +0.037   +0.035  [-0.025,+0.098] ns
+    L1H12   shared load-bearing    +0.351    +0.232   +0.119  [-0.005,+0.249] ns
+    L2H15   shared load-bearing    +0.529    +0.387   +0.142  [-0.011,+0.290] ns
+    L0H0    contrast, inert        +0.005    +0.010   -0.005  ns
+    L5H7    contrast, inert, late  +0.000    +0.000   +0.000
+
+The prediction holds. Removing a class-specific early head costs the minor class 20-38% of
+L3H1's donor attention against 0-9% for canonical; five of six differentials are significant.
+The shared heads degrade addressing for BOTH classes with no significant differential, so
+this is not a generic "ablating anything perturbs attention" effect. L5H7 sits downstream of
+layer 3 and moves it by exactly +0.000 -- an architectural sanity check the design predicts.
 """
 
 from __future__ import annotations
