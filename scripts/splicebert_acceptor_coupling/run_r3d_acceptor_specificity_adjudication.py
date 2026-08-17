@@ -102,16 +102,18 @@ INSTRUMENT_REVISION = (
     "r3d-v1-train-endpoint-test-inversion-fixed-sequence-smoke-mechanics-split"
 )
 
-# Every value stays literal None until a reviewed freeze.  The normalized runner
-# fingerprint ignores only these assignments, never executable code.
-FROZEN_PROTOCOL_SHA256: str | None = None
-FROZEN_INSTRUMENT_FINGERPRINT_SHA256: str | None = None
+# The protocol/input/instrument pins authorize one bindable production preflight.
+# Its result-package pins remain None until that preflight is independently audited.
+# The normalized runner fingerprint ignores only these assignments, never executable
+# code.
+FROZEN_PROTOCOL_SHA256: str | None = "e319694f3f0b53695e787a67b5bcb6f1d016ac5e148e36e3050e090284f66592"
+FROZEN_INSTRUMENT_FINGERPRINT_SHA256: str | None = "0f35295643238e9360d22bfe550e981e7788fa0975a3a9fdfe96c5f5f94fa5de"
 FROZEN_PREFLIGHT_ARTIFACT_SHA256: str | None = None
 FROZEN_PREFLIGHT_MANIFEST_SHA256: str | None = None
-FROZEN_EXPOSED_GENE_REGISTRY_SHA256: str | None = None
-FROZEN_EXPOSED_GENE_REGISTRY_MANIFEST_SHA256: str | None = None
-FROZEN_R3C_V2_1_RUNNER_SHA256: str | None = None
-FROZEN_R3C_V2_1_PREFLIGHT_SHA256: str | None = None
+FROZEN_EXPOSED_GENE_REGISTRY_SHA256: str | None = "17ad316d5f9c478e37b91f34d87bc1d0c6a714f411947419e9dbcced2443598c"
+FROZEN_EXPOSED_GENE_REGISTRY_MANIFEST_SHA256: str | None = "745d7a31837c3575edcd9816464f82fc7f23b440b00b06fde4f6185a5f50afde"
+FROZEN_R3C_V2_1_RUNNER_SHA256: str | None = "25db5d95e7c5a99697f69d2153ec0d770571e3063106aa13c7f00f74e5065e31"
+FROZEN_R3C_V2_1_PREFLIGHT_SHA256: str | None = "c0c9306fe894ce73bfd981a14c85e2aec6660da33f01d9716cee4327b3ff2d3e"
 
 PREFLIGHT_N_GENES = 256
 TARGET_MIN_GENES = 2500

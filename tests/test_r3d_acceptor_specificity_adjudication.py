@@ -658,21 +658,30 @@ def test_clean_target_artifact_package_replays_target_not_preflight_stage(tmp_pa
         R3D._load_artifact_package(artifact, digest, None)
 
 
-def test_protocol_and_runner_keep_all_freeze_pins_literal_none():
-    pins = [
-        R3D.FROZEN_PROTOCOL_SHA256,
-        R3D.FROZEN_INSTRUMENT_FINGERPRINT_SHA256,
-        R3D.FROZEN_PREFLIGHT_ARTIFACT_SHA256,
-        R3D.FROZEN_PREFLIGHT_MANIFEST_SHA256,
-        R3D.FROZEN_EXPOSED_GENE_REGISTRY_SHA256,
-        R3D.FROZEN_EXPOSED_GENE_REGISTRY_MANIFEST_SHA256,
-        R3D.FROZEN_R3C_V2_1_RUNNER_SHA256,
-        R3D.FROZEN_R3C_V2_1_PREFLIGHT_SHA256,
-    ]
-    assert pins == [None] * 8
+def test_protocol_and_runner_freeze_bindable_preflight_only():
+    frozen_preflight_inputs = {
+        "protocol": R3D.FROZEN_PROTOCOL_SHA256,
+        "fingerprint": R3D.FROZEN_INSTRUMENT_FINGERPRINT_SHA256,
+        "registry": R3D.FROZEN_EXPOSED_GENE_REGISTRY_SHA256,
+        "registry_manifest": R3D.FROZEN_EXPOSED_GENE_REGISTRY_MANIFEST_SHA256,
+        "r3c_runner": R3D.FROZEN_R3C_V2_1_RUNNER_SHA256,
+        "r3c_preflight": R3D.FROZEN_R3C_V2_1_PREFLIGHT_SHA256,
+    }
+    assert frozen_preflight_inputs == {
+        "protocol": "e319694f3f0b53695e787a67b5bcb6f1d016ac5e148e36e3050e090284f66592",
+        "fingerprint": "0f35295643238e9360d22bfe550e981e7788fa0975a3a9fdfe96c5f5f94fa5de",
+        "registry": "17ad316d5f9c478e37b91f34d87bc1d0c6a714f411947419e9dbcced2443598c",
+        "registry_manifest": "745d7a31837c3575edcd9816464f82fc7f23b440b00b06fde4f6185a5f50afde",
+        "r3c_runner": "25db5d95e7c5a99697f69d2153ec0d770571e3063106aa13c7f00f74e5065e31",
+        "r3c_preflight": "c0c9306fe894ce73bfd981a14c85e2aec6660da33f01d9716cee4327b3ff2d3e",
+    }
+    assert R3D.FROZEN_PREFLIGHT_ARTIFACT_SHA256 is None
+    assert R3D.FROZEN_PREFLIGHT_MANIFEST_SHA256 is None
     assert R3D.PROTOCOL.name == "DRAFT_R3D_ACCEPTOR_SPECIFICITY_ADJUDICATION.md"
     protocol = R3D.PROTOCOL.read_text()
-    assert "DRAFT_NOT_FROZEN" in protocol
+    assert "FROZEN_FOR_BINDABLE_PREFLIGHT" in protocol
+    assert R3D.sha256_file(R3D.PROTOCOL) == R3D.FROZEN_PROTOCOL_SHA256
+    assert R3D.sha256_file(R3D.RUNNER) != R3D.normalized_runner_sha256()
     assert "14 primitive rows" in protocol
     assert "23 derived family rows" in protocol
     assert "Path B contains 28 decision edges" in protocol

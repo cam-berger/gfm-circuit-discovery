@@ -1,10 +1,12 @@
-# DRAFT R3d — prospective acceptor-specificity adjudication on train chromosomes
+# FROZEN R3d — prospective acceptor-specificity adjudication on train chromosomes
 
-> **Status: `DRAFT_NOT_FROZEN`.** The runner exists, but every literal freeze pin is
-> `None`; no R3d target is authorised. A smoke run, an immutable exposure registry, a
-> clean 256-gene preflight, review, and literal protocol/instrument/preflight pins are
-> required before target execution. Development smoke runs cannot authorise a target;
-> no R3d production preflight or target model/data run is recorded by this draft.
+> **Status: FROZEN_FOR_BINDABLE_PREFLIGHT (2026-08-16).** The estimands, cohort,
+> family, decision rules, engineering gates, and six protocol/input/instrument pins are
+> frozen for one clean 256-gene preflight. The R3d preflight artifact and manifest pins
+> remain `None`; target execution is therefore still impossible until that preflight is
+> independently reviewed and its exact package is pinned. The clean smoke is mechanics-
+> only and cannot authorise a target. No R3d production preflight or target result existed
+> when this protocol was frozen.
 
 R3d adjudicates the two R3c v2.1 paths that ended
 `INCONCLUSIVE_METHOD_DISAGREEMENT`: reuse of `L3H1` and the original distinct-route
@@ -45,7 +47,7 @@ but does not erase or block a healthy Path A.
 R3d calls R3c v2.1's own semantic preflight validator on that artifact and its recorded
 instrument binding; a top-level GO label or artifact byte pin alone is insufficient.
 
-The following runner literals remain `None` until freeze:
+The following runner literals are frozen before the production preflight:
 
 - `FROZEN_R3C_V2_1_RUNNER_SHA256`
 - `FROZEN_R3C_V2_1_PREFLIGHT_SHA256`
@@ -53,6 +55,10 @@ The following runner literals remain `None` until freeze:
 - `FROZEN_EXPOSED_GENE_REGISTRY_MANIFEST_SHA256`
 - `FROZEN_PROTOCOL_SHA256`
 - `FROZEN_INSTRUMENT_FINGERPRINT_SHA256`
+
+The following result-package literals remain `None` until the clean preflight is run,
+audited, and accepted:
+
 - `FROZEN_PREFLIGHT_ARTIFACT_SHA256`
 - `FROZEN_PREFLIGHT_MANIFEST_SHA256`
 
