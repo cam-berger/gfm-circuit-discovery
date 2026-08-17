@@ -1,0 +1,257 @@
+{
+  "command": [
+    "scripts/splicebert_acceptor_coupling/run_r3d_acceptor_specificity_adjudication.py",
+    "--stage",
+    "preflight",
+    "--gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+    "--fasta",
+    "/Users/cberg/Research/data/genomes/hg38.fa",
+    "--model",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+    "--device",
+    "mps",
+    "--batch",
+    "32",
+    "--seed",
+    "0",
+    "--n-randomisation",
+    "4000",
+    "--n-trials",
+    "200",
+    "--exposed-gene-registry",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/results/splicebert_acceptor_coupling/r3d_train_exposure_registry_v1.json",
+    "--r3c-preflight-artifact",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/results/splicebert_acceptor_coupling/r3c_acceptor_head_preflight_v2_1.json",
+    "--out",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/results/splicebert_acceptor_coupling/r3d_acceptor_specificity_preflight_v1.json"
+  ],
+  "config": {
+    "batch": 32,
+    "cohort_rows_sha256": "4335e870a993a0269da71d86a8944a9d42e62da64ca31a294cd6116b5e787145",
+    "family_row_order_sha256": "c59de61497cb2b3a0ae77dc83eeb76cf2071b7f677ffbc8283c7338966c3d58b",
+    "input_snapshot_sha256": "01739f897d0b82c5ecd83a1a16174d0578c209ff4209d9c87fc00d838dd3cdeb",
+    "instrument_fingerprint_sha256": "0f35295643238e9360d22bfe550e981e7788fa0975a3a9fdfe96c5f5f94fa5de",
+    "n_genes": 256,
+    "n_plant_trials": 500,
+    "n_randomisation": 4000,
+    "n_trials": 200,
+    "seed": 0,
+    "stage": "preflight",
+    "target_attempt_id": null
+  },
+  "created_at_utc": "2026-08-17T00:12:35.420866+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 24235,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_acceptor_coupling:r3d_acceptor_specificity_adjudication",
+  "git_commit": "3be2c5314361854a35fa7de21c766dd77ff398c6",
+  "git_dirty": false,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+      "sha256": "83fba3e9b03f0b8c958f3595c6c350adc55f468abf8b0e47b6d5284cfe13a453",
+      "size_bytes": 124527720
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa.fai",
+      "sha256": "3b425de206296a5c8053023fa5ca61da43cfe78c1737c12e58c83367c7e83c21",
+      "size_bytes": 19381
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/pyproject.toml",
+      "sha256": "bcd872b15c944e24372935963f0fdd9fa33613aa47c4c7119bb79ede4629fa30",
+      "size_bytes": 963
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/results/splicebert_acceptor_coupling/r3c_acceptor_head_preflight_v2_1.json",
+      "sha256": "c0c9306fe894ce73bfd981a14c85e2aec6660da33f01d9716cee4327b3ff2d3e",
+      "size_bytes": 33361804
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/results/splicebert_acceptor_coupling/r3c_acceptor_head_preflight_v2_1.manifest.json",
+      "sha256": "4a53f96b365c7bed227c8e0c995cee65a022620994e8898bab988b354fce41bb",
+      "size_bytes": 9620
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/results/splicebert_acceptor_coupling/r3d_train_exposure_registry_v1.json",
+      "sha256": "17ad316d5f9c478e37b91f34d87bc1d0c6a714f411947419e9dbcced2443598c",
+      "size_bytes": 47380
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/results/splicebert_acceptor_coupling/r3d_train_exposure_registry_v1.manifest.json",
+      "sha256": "745d7a31837c3575edcd9816464f82fc7f23b440b00b06fde4f6185a5f50afde",
+      "size_bytes": 87831
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/scripts/splicebert_acceptor_coupling/run_r3c_acceptor_head_confirmation.py",
+      "sha256": "25db5d95e7c5a99697f69d2153ec0d770571e3063106aa13c7f00f74e5065e31",
+      "size_bytes": 191383
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/scripts/splicebert_acceptor_coupling/run_r3d_acceptor_specificity_adjudication.py",
+      "sha256": "8ec168d4ab4a77dd2ffa1fd13a83daed44bc46bcd3540b5bc287aac54b39b776",
+      "size_bytes": 176524
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/src/gfmcd/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/src/gfmcd/adapters/__init__.py",
+      "sha256": "dd9fcb9a124f01c8e1e1f1283eafa0cafe8cedfc13ee6bb03da7a61b931cd127",
+      "size_bytes": 212
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/src/gfmcd/adapters/base.py",
+      "sha256": "ccd7a075114c89472139df4a4789a0783ab1f46c43eac88db302abb035158b85",
+      "size_bytes": 923
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/src/gfmcd/adapters/splicebert.py",
+      "sha256": "1c7959fdbfa621c6ad42599c3c579f10ab02acd9d608fb31d4eae2338f640b6d",
+      "size_bytes": 12546
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/src/gfmcd/circuits/__init__.py",
+      "sha256": "c3e146e8d891a849031e5260646a52fdbe27898ed1c4a8abdc8c5f231f4968a0",
+      "size_bytes": 621
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/src/gfmcd/circuits/guards.py",
+      "sha256": "885544ff2935e4f936ff76f1496c75a8ca7797b6b988ec23ca6ee2bb5ff6695e",
+      "size_bytes": 4506
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/src/gfmcd/circuits/hf_bert.py",
+      "sha256": "04f440e5350e89af40eadb968b57c10307a96ca041984afacb1f10dafc865e01",
+      "size_bytes": 17025
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/src/gfmcd/provenance.py",
+      "sha256": "05d3cd48d49a6357f29b72ac1636b23586a11bfb0b059ce97e36f8a9f87ac632",
+      "size_bytes": 3990
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/src/gfmcd/splicing/__init__.py",
+      "sha256": "0b3fe02366c10533969d66967fd9d160bdfa4cb26776236c3c7f76180b59e52b",
+      "size_bytes": 465
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/src/gfmcd/splicing/candidates.py",
+      "sha256": "4e769a307710228cb0268e6c103b3b803a19ae1efd7e9ffdda77d866d3c2dd3b",
+      "size_bytes": 5708
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/src/gfmcd/splicing/circuit.py",
+      "sha256": "1c2680a6187464b281ccb04f4c476ca3a6adc4248484620ce7250e112aa3f712",
+      "size_bytes": 34232
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/src/gfmcd/splicing/coupling.py",
+      "sha256": "3d2ad341029f5bd8982f112cd3629d02258dec5cc94d5f66bc98d3e7d98a69a9",
+      "size_bytes": 25881
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/src/gfmcd/splicing/dataset.py",
+      "sha256": "5fd012788f6afed3cb739e6717aef30ab756fa6c95bdc7424b124ef178d93a45",
+      "size_bytes": 10023
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/src/gfmcd/splicing/gtf.py",
+      "sha256": "9297071114b355bf86a4e50cfb509fec303496233b1b376d839324d124000f6c",
+      "size_bytes": 5932
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/src/gfmcd/splicing/io.py",
+      "sha256": "50444ae4f0fa05e6a2c44b36c11d8e575edd75ad9f197259dcec4bdcb492342a",
+      "size_bytes": 3315
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/src/gfmcd/splicing/paired_component.py",
+      "sha256": "a0dc83165378ac60a1d569a6ad5985c61dbc5287c4e24b0d38edddc4127c4a4e",
+      "size_bytes": 55013
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/src/gfmcd/splicing/reverse_coupling.py",
+      "sha256": "e2cf2fe06d85e186acd369eed9dd242a73742f597fb218268a65d85fbad38a9b",
+      "size_bytes": 10032
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/src/gfmcd/splicing/schema.py",
+      "sha256": "04c946c4f3d45ab712267e7a1ce5739540cc0e4dd81ba2db434c87f5ef7eba79",
+      "size_bytes": 6031
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/studies/splicebert_acceptor_coupling/preregistrations/DRAFT_R3D_ACCEPTOR_SPECIFICITY_ADJUDICATION.md",
+      "sha256": "e319694f3f0b53695e787a67b5bcb6f1d016ac5e148e36e3050e090284f66592",
+      "size_bytes": 24125
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/uv.lock",
+      "sha256": "47a96aca98a0be346c7d8e227f7ef1cda13c41a99e6b5a19ab01b12bd02d8961",
+      "size_bytes": 836629
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/config.json",
+      "sha256": "51ea51e42951f18cc1d3455d7111fe0a41cebad476ba8314afc161a0e956303e",
+      "size_bytes": 685
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/special_tokens_map.json",
+      "sha256": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+      "size_bytes": 125
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/tokenizer.json",
+      "sha256": "b380c8c93ba20313c0c0239b8c70f0c67253028ca76cfda4f55b46049abe4fa3",
+      "size_bytes": 2792
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/tokenizer_config.json",
+      "sha256": "a8f9a3828553689c1cb215689fc82af7551c1bb6ba642606612e834fda0c607c",
+      "size_bytes": 457
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/vocab.txt",
+      "sha256": "ba67bacb61d3de7d57e11e04ba59020a2cc67dbedbd9ae65715117b9fd4f30bc",
+      "size_bytes": 41
+    }
+  ],
+  "notes": [
+    "Masked acceptor G only; no masked-donor endpoint is constructed.",
+    "Canonical train chromosomes are restricted before example construction and FASTA-window fetch.",
+    "One outcome-blind hash-ranked row is selected per gene.",
+    "Target uses every eligible gene absent from the immutable two-class direct-exposure registry.",
+    "HCA18/broad Atlas, donor-circuit, and earlier R3 train candidate-generation exposures are outside the blacklist.",
+    "This is registry-disjoint, not candidate-selection-disjoint or globally gene-fresh.",
+    "Path B is tested only after Path A is supported.",
+    "Intervals invert the exact decision tests; R3d is not a sealed confirmation."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery-r3d-freeze/results/splicebert_acceptor_coupling/r3d_acceptor_specificity_preflight_v1.json",
+      "sha256": "7c89765e3cf4505b848788972c3a3ab6c3033dd3953d7d3fd4b6e1a527da9d31",
+      "size_bytes": 2418627
+    }
+  ],
+  "seeds": {
+    "health_probe_selection": 0,
+    "randomisation": 0
+  },
+  "status": "DEVELOPMENT"
+}
