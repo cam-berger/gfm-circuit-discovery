@@ -111,6 +111,9 @@ def main() -> None:
     ap.add_argument("--all-heads", action="store_true",
                     help="scan every head; the pre-declared set cannot tell a "
                          "head-specific asymmetry from a layer-wide one")
+    ap.add_argument("--dump-rows", action="store_true",
+                    help="store per-row Y under every ablation; required for a per-head CI "
+                         "and for a class-label permutation null")
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--out", default=None)
     a = ap.parse_args()
@@ -161,6 +164,11 @@ def main() -> None:
             "comparator_GT": {"mean_Y": mc, "abs_drop": b_c - mc,
                               "frac_drop": (b_c - mc) / b_c if b_c else None},
         }
+        if a.dump_rows:
+            per_head[f"L{layer}H{head}"]["rows"] = {
+                "treatment_Y": [float(v) for v in yt],
+                "comparator_Y": [float(v) for v in yc],
+            }
         print(f"  L{layer}H{head}: GC frac {(b_t-mt)/b_t:+.3f}   GT frac {(b_c-mc)/b_c:+.3f}",
               flush=True)
 
@@ -214,6 +222,10 @@ def main() -> None:
                    "n_treatment_genes": len(set(treat.genes)),
                    "n_comparator_genes": len(set(comp.genes)),
                    "balance": matching_balance(cohort)},
+        "baseline_rows": ({"treatment_Y": [float(v) for v in base_t],
+                           "comparator_Y": [float(v) for v in base_c],
+                           "treatment_genes": treat.genes,
+                           "comparator_genes": comp.genes} if a.dump_rows else None),
         "baseline": {"treatment_GC_mean_Y": b_t, "comparator_GT_mean_Y": b_c,
                      "rho": rho0[0], "rho_ci": [rho0[1], rho0[2]]},
         "per_head": per_head,
