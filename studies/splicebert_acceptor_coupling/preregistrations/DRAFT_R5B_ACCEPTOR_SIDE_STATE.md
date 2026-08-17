@@ -1,15 +1,17 @@
-# DRAFT R5b v2 — pre-unseal local-writer derivation and optional basis freeze
+# FROZEN R5b v2 — pre-unseal local-writer derivation and optional basis freeze
 
 > **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
 
-> **Status: DRAFT — MODEL-FREE AUDIT RUNNABLE; ALL SCORED STAGES HARD-BLOCKED.**
+> **Status: FROZEN FOR PREFLIGHT ONLY (2026-08-17); ALL SCORED STAGES HARD-BLOCKED.**
 > The v2 runner is
 > `scripts/splicebert_acceptor_coupling/run_r5b_acceptor_side_state.py`.
-> Its protocol, instrument, cohort, checkpoint, R3d, R5a-preflight, derivation,
-> validation, and outbound-package pins are literal `None`. Consequently
+> Its reviewed protocol, normalized instrument, cohort, checkpoint, historical-R3, and joint-stack
+> identities are pinned in source. The output-derived R5a-preflight, derivation, validation, and
+> outbound-package pins remain literal `None`. Consequently
 > `--stage derivation`, `--stage validation`, and `--stage freeze` stop before
 > resolving any caller-supplied artifact, cohort, genome, checkpoint, model, or
-> output path. Only `--stage audit` is currently authorized, and that stage loads
+> output path until their exact predecessor packages are reviewed and pinned. Only `--stage audit`
+> is currently authorized, and that stage loads
 > neither model nor genome and opens no chr8/chr9 data.
 
 ## 1. Question and estimand

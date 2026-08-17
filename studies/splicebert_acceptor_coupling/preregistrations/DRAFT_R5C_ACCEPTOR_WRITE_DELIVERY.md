@@ -1,11 +1,12 @@
-# R5c draft preregistration: acceptor-side write and delivery
+# FROZEN R5c preregistration: acceptor-side write and delivery
 
 > **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
 
-> **Status: DRAFT — DO NOT RUN SCORED STAGES.** Every literal protocol,
-> instrument, predecessor, target-receipt, and manifest pin in the runner is
-> `None`. Neither scored stage is authorized until this protocol and the exact
-> implementation have been independently reviewed, frozen, and pinned.
+> **Status: FROZEN FOR PREFLIGHT ONLY (2026-08-17); TARGET SEALED.** The reviewed protocol,
+> normalized instrument, and joint-stack identities are pinned in source. Every output-derived
+> predecessor, preflight, target-receipt, and manifest pin remains `None`. Neither scored stage is
+> authorized until its exact predecessor packages are independently reviewed and pinned; this
+> freeze does not unseal chr8/chr9 or authorize the target.
 
 ## 1. Question and claim boundary
 
@@ -350,11 +351,12 @@ inconsistent member fails closed and licenses no scientific claim. Inputs are
 snapshotted before execution and verified afterward; result and manifest are
 created without overwrite, and completion is written only after publication.
 
-## 13. Draft commands
+## 13. Frozen preflight commands
 
-These are interface sketches only. They remain hard closed while any required
-literal seal is `None`. Omit `--r5b-basis-bundle` for either nonvalidated R5b
-disposition.
+The interfaces below are frozen. Each stage remains hard closed while any of its
+output-derived predecessor seals is `None`; in particular this source/method freeze
+does not authorize target execution. Omit `--r5b-basis-bundle` for either
+nonvalidated R5b disposition.
 
 ```bash
 uv run python scripts/splicebert_acceptor_coupling/run_r5c_acceptor_write_delivery.py \

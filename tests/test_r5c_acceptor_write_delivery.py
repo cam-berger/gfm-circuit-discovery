@@ -2227,7 +2227,7 @@ def test_optional_uniform_random_failures_do_not_veto_primary_pair():
 
 def test_model_free_audit_binds_exact_r1c_handoffs_and_never_loads_data_or_model():
     audit = R5C.model_free_registry_audit()
-    assert audit["status"] == "DRAFT_MODEL_FREE_REGISTRY_AUDIT_PASS"
+    assert audit["status"] == "FROZEN_MODEL_FREE_REGISTRY_AUDIT_PASS"
     assert audit["model_loaded"] is False
     assert audit["annotation_read"] is False
     assert audit["fasta_read"] is False
@@ -2245,6 +2245,25 @@ def test_model_free_audit_binds_exact_r1c_handoffs_and_never_loads_data_or_model
         R5C.R5_CAPSTONE_COHORT_HANDOFF_SCHEMA
     )
     assert audit["cohort_contracts"]["target"]["chromosomes"] == ["chr8", "chr9"]
+
+
+def test_source_freeze_pins_r5c_method_but_no_output_derived_packages():
+    assert R5C.FROZEN_PROTOCOL_SHA256 == (
+        "98913630c476d848586f59bd72cd209c0d943ecd4b57231441642d5873eede3d"
+    )
+    assert R5C.FROZEN_INSTRUMENT_FINGERPRINT_SHA256 == (
+        "44ff7aad74cb08d6b3de7753fb8ee0acc8c8cc2e3c3032b2adc40210315f3324"
+    )
+    assert "> **Status: FROZEN FOR PREFLIGHT ONLY" in R5C.PROTOCOL.read_text()
+    output_pins = {
+        name: value
+        for name, value in vars(R5C).items()
+        if name.startswith("FROZEN_")
+        and name.endswith("_SHA256")
+        and name not in {"FROZEN_PROTOCOL_SHA256", "FROZEN_INSTRUMENT_FINGERPRINT_SHA256"}
+    }
+    assert output_pins
+    assert all(value is None for value in output_pins.values())
 
 
 def test_target_hard_stops_on_none_pins_before_user_paths_are_opened(tmp_path):
@@ -2800,9 +2819,13 @@ def test_target_preflight_replay_rederives_families_from_primitive_legs(
 def test_normalized_runner_hash_changes_for_code_but_not_literal_pin_values():
     source = SCRIPT.read_text()
     modified_pin = source.replace(
-        "FROZEN_PROTOCOL_SHA256: str | None = None",
+        (
+            'FROZEN_PROTOCOL_SHA256: str | None = '
+            '"98913630c476d848586f59bd72cd209c0d943ecd4b57231441642d5873eede3d"'
+        ),
         f'FROZEN_PROTOCOL_SHA256: str | None = "{_sha("e")}"',
     )
+    assert modified_pin != source
     assert R5C.normalized_runner_sha256(source) == R5C.normalized_runner_sha256(
         modified_pin
     )

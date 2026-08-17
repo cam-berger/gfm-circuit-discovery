@@ -899,17 +899,35 @@ def test_model_free_target_verifier_rejects_receipt_and_completion_tampering(
         )
 
 
-def test_successor_resets_every_seal_and_demotes_old_preflight_to_engineering_history() -> None:
+def test_successor_source_freeze_authorizes_only_a_fresh_preflight() -> None:
     assert r1c.HISTORICAL_ENGINEERING_PREFLIGHT_ARTIFACT_SHA256 == (
         "50cda24f0effcb8d9ce0ec9c766d3c6c20306ee8c07be27c182894e829fb6b6a"
     )
-    assert r1c.FROZEN_PROTOCOL_SHA256 is None
-    assert r1c.FROZEN_INSTRUMENT_FINGERPRINT_SHA256 is None
+    assert r1c.FROZEN_PROTOCOL_SHA256 == (
+        "2a2ac9dec6fb52b551cd87f96f7e3f07d6bc29431539011ebfaca2ce8c08da76"
+    )
+    assert r1c.FROZEN_INSTRUMENT_FINGERPRINT_SHA256 == (
+        "c0ecd2be972b953c216ca3075530d520ea9cf448a07c385c40d1f1984a1b6dcb"
+    )
     assert r1c.FROZEN_PREFLIGHT_ARTIFACT_SHA256 is None
-    assert r1c.FROZEN_R5_STACK_FINGERPRINT_SHA256 is None
-    assert "> **Status: DRAFT" in r1c.PROTOCOL.read_text()
-    with pytest.raises(r1c.TargetSealError, match="DRAFT"):
-        r1c.authorize_target("0" * 64, r1c.UNSEAL_ACKNOWLEDGEMENT)
+    assert r1c.FROZEN_R5_STACK_FINGERPRINT_SHA256 == (
+        "b89efd7c0d83d579aa7e0a2d36f8059c96913242a1c943ec64d87fe7590b00bc"
+    )
+    protocol_text = r1c.PROTOCOL.read_text()
+    assert "> **Status: FROZEN FOR PREFLIGHT ONLY" in protocol_text
+    authorized = r1c.authorize_production_stage(
+        "preflight",
+        protocol_sha256=r1c.sha256_file(r1c.PROTOCOL),
+        protocol_text=protocol_text,
+    )
+    assert authorized["stage"] == "preflight"
+    with pytest.raises(r1c.TargetSealError, match="preflight artifact"):
+        r1c.authorize_production_stage(
+            "target",
+            protocol_sha256=r1c.sha256_file(r1c.PROTOCOL),
+            protocol_text=protocol_text,
+            acknowledgement=r1c.UNSEAL_ACKNOWLEDGEMENT,
+        )
 
 
 def test_protocol_freeze_order_does_not_require_future_package_pins() -> None:
@@ -939,7 +957,7 @@ def test_cli_target_stops_before_touching_missing_model_or_genome(tmp_path: Path
         text=True,
     )
     assert completed.returncode != 0
-    assert "successor is DRAFT" in completed.stderr
+    assert "target requires a reviewed successor preflight artifact pin" in completed.stderr
     assert "does not exist" not in completed.stderr
     assert not (tmp_path / "must-not-write.json").exists()
 
@@ -970,7 +988,7 @@ def test_preflight_rejects_parameter_drift_before_reading_inputs(tmp_path: Path)
     assert "does not exist" not in completed.stderr
 
 
-def test_draft_preflight_stops_before_inspecting_existing_output_or_inputs(tmp_path: Path) -> None:
+def test_frozen_preflight_stops_before_inputs_when_worktree_is_not_clean(tmp_path: Path) -> None:
     output = tmp_path / "existing.json"
     output.write_text("do not overwrite\n")
     completed = subprocess.run(
@@ -992,8 +1010,108 @@ def test_draft_preflight_stops_before_inspecting_existing_output_or_inputs(tmp_p
         text=True,
     )
     assert completed.returncode != 0
-    assert "successor is DRAFT" in completed.stderr
+    assert "clean Git worktree" in completed.stderr
     assert output.read_text() == "do not overwrite\n"
+
+
+def test_frozen_preflight_rejects_instrument_drift_before_external_boundaries(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    touched: list[str] = []
+
+    class _StagedCheckpoint:
+        def cleanup(self) -> None:
+            touched.append("checkpoint-cleanup")
+
+    def inspect_output(path: Path) -> Path:
+        touched.append("output")
+        return path
+
+    def stage_checkpoint(*args: object, **kwargs: object) -> tuple[object, Path, dict]:
+        touched.append("model")
+        return _StagedCheckpoint(), tmp_path / "staged-model", {
+            "bundle_sha256": "checkpoint"
+        }
+
+    def construct_cohort(*args: object, **kwargs: object) -> list[object]:
+        touched.append("cohort")
+        raise AssertionError("cohort construction must follow frozen binding verification")
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            str(RUNNER),
+            "--stage",
+            "preflight",
+            "--out",
+            str(tmp_path / "preflight.json"),
+        ],
+    )
+    monkeypatch.setattr(r1c, "require_clean_production_worktree", lambda *a, **k: "commit")
+    monkeypatch.setattr(
+        r1c,
+        "downstream_r5_stack_identity",
+        lambda **kwargs: {
+            r1c.STACK_BINDING_FIELD: {},
+            r1c.STACK_FINGERPRINT_FIELD: r1c.FROZEN_R5_STACK_FINGERPRINT_SHA256,
+        },
+    )
+    monkeypatch.setattr(r1c, "verify_frozen_r5_stack", lambda stack: stack)
+    monkeypatch.setattr(r1c, "pick_device", lambda requested: "mps")
+    monkeypatch.setattr(
+        r1c,
+        "authorize_production_runtime",
+        lambda device: {"device": device, "verified": True},
+    )
+    monkeypatch.setattr(r1c, "guard_output_path", inspect_output)
+    monkeypatch.setattr(
+        r1c,
+        "checkpoint_files",
+        lambda model: (tmp_path / "model", tmp_path / "model", []),
+    )
+    monkeypatch.setattr(r1c, "snapshot_input_paths", lambda paths: {})
+    monkeypatch.setattr(
+        r1c,
+        "instrument_fingerprint",
+        lambda *args, **kwargs: {
+            "fingerprint_sha256": "source",
+            "checkpoint": {"bundle_sha256": "checkpoint"},
+        },
+    )
+    monkeypatch.setattr(
+        r1c,
+        "bind_runtime_contract",
+        lambda fingerprint, runtime: {
+            **fingerprint,
+            "fingerprint_sha256": "0" * 64,
+            "runtime_contract": runtime,
+        },
+    )
+    monkeypatch.setattr(
+        r1c,
+        "snapshot_record",
+        lambda snapshot, path: {
+            "sha256": r1c.FROZEN_PROTOCOL_SHA256,
+            "size_bytes": 1,
+        },
+    )
+    monkeypatch.setattr(
+        r1c, "read_snapshotted_bytes", lambda path, snapshot: r1c.PROTOCOL.read_bytes()
+    )
+    monkeypatch.setattr(r1c, "verify_checkpoint_inventory", lambda *a, **k: None)
+    monkeypatch.setattr(r1c, "verify_input_snapshot", lambda snapshot: None)
+    monkeypatch.setattr(r1c, "stage_checkpoint_bundle", stage_checkpoint)
+    monkeypatch.setattr(r1c, "load_examples_unscored", construct_cohort)
+    monkeypatch.setattr(
+        r1c,
+        "load_adapter",
+        lambda *args, **kwargs: touched.append("model-adapter"),
+    )
+
+    with pytest.raises(SystemExit, match="fingerprint differs from the reviewed pin"):
+        r1c.main()
+    assert touched == []
 
 
 def test_target_requires_both_frozen_hash_and_exact_acknowledgement() -> None:
@@ -1586,9 +1704,19 @@ def test_successor_binds_one_exact_downstream_r5_stack_and_requires_its_pin() ->
 
 
 def test_preflight_and_target_remain_sealed_until_the_whole_successor_is_frozen() -> None:
-    with pytest.raises(r1c.TargetSealError, match="DRAFT"):
+    with pytest.raises(r1c.TargetSealError, match="does not declare FROZEN"):
         r1c.authorize_production_stage(
             "preflight", protocol_sha256="a" * 64, protocol_text="> **Status: DRAFT"
+        )
+
+    with pytest.raises(r1c.TargetSealError, match="source/method freeze is incomplete"):
+        r1c.authorize_production_stage(
+            "preflight",
+            protocol_sha256="a" * 64,
+            protocol_text="> **Status: FROZEN FOR PREFLIGHT ONLY",
+            frozen_protocol_sha256=None,
+            frozen_instrument_fingerprint_sha256=None,
+            frozen_r5_stack_fingerprint_sha256=None,
         )
 
     frozen = {

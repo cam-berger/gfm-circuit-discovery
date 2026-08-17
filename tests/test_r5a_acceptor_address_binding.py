@@ -913,8 +913,25 @@ def test_target_stops_before_nonexistent_user_paths_are_opened():
     assert result.returncode != 0
     combined = result.stdout + result.stderr
     assert "R5a target authorization failed" in combined
-    assert "remains DRAFT" in combined
+    assert "requires all literal" in combined
     assert "No such file" not in combined
+
+
+def test_source_freeze_pins_only_precomputable_r5a_inputs():
+    assert R5A.FROZEN_PROTOCOL_SHA256 == (
+        "2981e40a65872914b5551d7b463d85b5203ef7630d66a1e9a0b24ae82c348ec6"
+    )
+    assert R5A.FROZEN_INSTRUMENT_FINGERPRINT_SHA256 == (
+        "59077228c551f38cda5e136a94e5522f79c4c3984947c156eeae78a0ab61604b"
+    )
+    assert R5A.FROZEN_CHECKPOINT_AGGREGATE_SHA256 == (
+        "fb2a04e0c9b5247b44f03cd23581632d5924b86fcafaffa4c6f2b8d01ae1da8d"
+    )
+    assert "> **Status: FROZEN FOR PREFLIGHT ONLY" in R5A.PROTOCOL.read_text()
+    assert R5A.FROZEN_R1C_PREFLIGHT_ARTIFACT_SHA256 is None
+    assert R5A.FROZEN_R1C_PREFLIGHT_MANIFEST_SHA256 is None
+    assert R5A.FROZEN_PREFLIGHT_ARTIFACT_SHA256 is None
+    assert R5A.FROZEN_PREFLIGHT_MANIFEST_SHA256 is None
 
 
 def test_checkpoint_aggregate_uses_ordered_relative_bundle(tmp_path):
@@ -930,6 +947,30 @@ def test_checkpoint_aggregate_uses_ordered_relative_bundle(tmp_path):
     ]
     assert identity["aggregate_sha256"] == R5A.canonical_sha256(
         identity["ordered_bundle"]
+    )
+
+
+def test_frozen_r5a_runner_identity_is_invariant_only_to_literal_pin_values(tmp_path):
+    source = SCRIPT.read_text()
+    modified_pin = source.replace(
+        (
+            'FROZEN_PROTOCOL_SHA256: str | None = '
+            '"2981e40a65872914b5551d7b463d85b5203ef7630d66a1e9a0b24ae82c348ec6"'
+        ),
+        'FROZEN_PROTOCOL_SHA256: str | None = "' + "0" * 64 + '"',
+    )
+    assert modified_pin != source
+    modified_path = tmp_path / SCRIPT.name
+    modified_path.write_text(modified_pin)
+    assert R5A._normalized_runner_sha256(SCRIPT) == R5A._normalized_runner_sha256(
+        modified_path
+    )
+
+    changed_code = source.replace("MARGIN_SESOI = 0.05", "MARGIN_SESOI = 0.051")
+    assert changed_code != source
+    modified_path.write_text(changed_code)
+    assert R5A._normalized_runner_sha256(SCRIPT) != R5A._normalized_runner_sha256(
+        modified_path
     )
 
 

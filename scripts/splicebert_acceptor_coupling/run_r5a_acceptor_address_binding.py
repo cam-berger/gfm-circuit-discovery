@@ -5,7 +5,7 @@ The only behavioral readout constructed by this program is the native masked-acc
 ``G`` margin.  QK logits and attention probabilities are internal mechanism readouts;
 they are never substituted for the behavioral endpoint.
 
-The checked-in protocol is deliberately DRAFT.  ``--mode model-free-audit`` binds the
+The checked-in protocol is frozen for preflight only. ``--mode model-free-audit`` binds the
 prospective instrument without opening genome or model data.  A target request is
 rejected before resolving the model, GTF, FASTA, output, or stage-preflight paths unless
 the exact R1c handoffs and all R5a freeze pins are present.
@@ -142,10 +142,11 @@ R1C_RUNNER = (
     / "scripts/splicebert_acceptor_coupling/run_r1c_sealed_reverse_behavior.py"
 )
 
-# Literal nonbinding values.  R1c package pins are owned by the shared cohort contract;
-# R5a owns only its method, checkpoint, and stage-preflight pins.
-FROZEN_PROTOCOL_SHA256: str | None = None
-FROZEN_INSTRUMENT_FINGERPRINT_SHA256: str | None = None
+# Reviewed method, checkpoint, and historical-R3 pins are binding at source freeze.
+# R1c package pins are owned by the shared cohort contract and remain unset until their
+# producing runs; R5a's own output-derived preflight pins likewise remain unset.
+FROZEN_PROTOCOL_SHA256: str | None = "2981e40a65872914b5551d7b463d85b5203ef7630d66a1e9a0b24ae82c348ec6"
+FROZEN_INSTRUMENT_FINGERPRINT_SHA256: str | None = "59077228c551f38cda5e136a94e5522f79c4c3984947c156eeae78a0ab61604b"
 FROZEN_PREFLIGHT_ARTIFACT_SHA256: str | None = None
 FROZEN_PREFLIGHT_MANIFEST_SHA256: str | None = None
 FROZEN_R1C_PREFLIGHT_ARTIFACT_SHA256 = SHARED_R1C_PREFLIGHT_ARTIFACT_SHA256
@@ -162,7 +163,7 @@ FROZEN_R3D_ATTEMPT_SHA256: str = R3D_TARGET_ATTEMPT_SHA256
 FROZEN_R3D_COMPLETION_SHA256: str = R3D_TARGET_COMPLETION_SHA256
 FROZEN_R3C_ARTIFACT_SHA256: str = R3C_PREFLIGHT_ARTIFACT_SHA256
 FROZEN_R3C_MANIFEST_SHA256: str = R3C_PREFLIGHT_MANIFEST_SHA256
-FROZEN_CHECKPOINT_AGGREGATE_SHA256: str | None = None
+FROZEN_CHECKPOINT_AGGREGATE_SHA256: str | None = "fb2a04e0c9b5247b44f03cd23581632d5924b86fcafaffa4c6f2b8d01ae1da8d"
 
 EXACT_ROWS = 400
 PRODUCTION_N = EXACT_ROWS
@@ -2700,7 +2701,7 @@ def authorize_model_scoring(stage: str) -> dict[str, Any]:
         raise SealError("model scoring requires preflight or target stage")
     if not _all_freeze_pins_present(include_preflight=stage == "target"):
         raise SealError(
-            "R5a remains DRAFT: model scoring requires all literal method, R1c "
+            "R5a scoring is hard closed: model scoring requires all literal method, R1c "
             "handoff, checkpoint, instrument, and stage-preflight pins"
         )
     protocol_text = PROTOCOL.read_text()

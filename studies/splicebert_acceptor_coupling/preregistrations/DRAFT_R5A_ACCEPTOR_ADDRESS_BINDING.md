@@ -1,9 +1,11 @@
-# DRAFT R5a v3 — masked-acceptor address binding on the exact R1c rows
+# FROZEN R5a v3 — masked-acceptor address binding on the exact R1c rows
 
 > **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
 
-> **Status: DRAFT; zero genome or model scoring authorized.** The literal method,
-> checkpoint, R1c-package, R5a-preflight, and target-receipt pins are incomplete. This
+> **Status: FROZEN FOR PREFLIGHT ONLY (2026-08-17); TARGET SEALED.** The reviewed method,
+> normalized instrument, checkpoint, historical-R3, and joint-stack identities are pinned in
+> source. Output-derived R1c-package and R5a-preflight pins remain `None`, so model scoring stays
+> hard-blocked until each exact predecessor package is independently reviewed and pinned. This
 > document does not unseal chr8/chr9 or authorize a target attempt.
 
 ## 1. Question and evidence boundary

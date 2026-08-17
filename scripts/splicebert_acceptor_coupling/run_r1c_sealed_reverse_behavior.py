@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 """R1c corrected reverse-behavior successor.
 
-Smoke and preflight use validation chromosomes only.  The sealed chr8/9 target is intentionally
-unreachable while the protocol is draft: there is no draft override.  See
+Smoke and preflight use validation chromosomes only. The source/method stack is frozen for a fresh
+preflight, while the sealed chr8/9 target remains unreachable until that exact passing preflight is
+reviewed and pinned; there is no override. See
 ``DRAFT_R1C_SEALED_REVERSE_BEHAVIOR_CONFIRMATION.md``.
 """
 
@@ -143,13 +144,13 @@ HISTORICAL_ENGINEERING_PREFLIGHT_ARTIFACT_SHA256 = (
     "50cda24f0effcb8d9ce0ec9c766d3c6c20306ee8c07be27c182894e829fb6b6a"
 )
 
-# Every successor seal starts unset.  Freezing is an intentional source change after
-# review, followed by a new clean strict-MPS preflight.  An acknowledgement alone can
-# never make the current runner open chr8/9.
-FROZEN_PROTOCOL_SHA256: str | None = None
-FROZEN_INSTRUMENT_FINGERPRINT_SHA256: str | None = None
+# The reviewed protocol, normalized instrument, and joint-stack seals are installed
+# for a new clean strict-MPS preflight. The output-derived preflight-artifact seal stays
+# unset until that run is independently reviewed; acknowledgement alone cannot open chr8/9.
+FROZEN_PROTOCOL_SHA256: str | None = "2a2ac9dec6fb52b551cd87f96f7e3f07d6bc29431539011ebfaca2ce8c08da76"
+FROZEN_INSTRUMENT_FINGERPRINT_SHA256: str | None = "c0ecd2be972b953c216ca3075530d520ea9cf448a07c385c40d1f1984a1b6dcb"
 FROZEN_PREFLIGHT_ARTIFACT_SHA256: str | None = None
-FROZEN_R5_STACK_FINGERPRINT_SHA256: str | None = None
+FROZEN_R5_STACK_FINGERPRINT_SHA256: str | None = "b89efd7c0d83d579aa7e0a2d36f8059c96913242a1c943ec64d87fe7590b00bc"
 UNSEAL_ACKNOWLEDGEMENT = "I_ACKNOWLEDGE_R1C_WILL_OPEN_SEALED_CHR8_CHR9"
 SEALED_CHROMOSOMES = frozenset({"chr8", "chr9"})
 VALIDATION_CHROMOSOMES = ("chr11", "chr16", "chr19")
@@ -761,8 +762,8 @@ def authorize_target(
     """Require a pinned frozen protocol *and* the exact seal-spend acknowledgement."""
     if frozen_protocol_sha256 is None:
         raise TargetSealError(
-            "R1c is DRAFT and target execution is hard-blocked. Review and freeze the protocol, "
-            "pin its exact SHA-256 in the runner, and rerun preflight before opening chr8/9."
+            "R1c target authorization lacks the reviewed protocol SHA-256 pin; "
+            "target execution is hard-blocked before opening chr8/9."
         )
     status_lines = [line.strip() for line in (protocol_text or "").splitlines()[:12]]
     if not any(line.startswith("> **Status: FROZEN") for line in status_lines):
@@ -805,7 +806,7 @@ def authorize_production_stage(
     missing = [name for name, value in core_pins.items() if value is None]
     if missing:
         raise TargetSealError(
-            "R1c successor is DRAFT; production requires reviewed pins for "
+            "R1c source/method freeze is incomplete; production requires reviewed pins for "
             + ", ".join(missing)
         )
     status_lines = [line.strip() for line in protocol_text.splitlines()[:12]]
@@ -842,7 +843,7 @@ def verify_frozen_instrument(
 ) -> None:
     if frozen_fingerprint_sha256 is None:
         raise TargetSealError(
-            "target requires a reviewed instrument fingerprint pinned in the runner"
+            "production requires a reviewed instrument fingerprint pinned in the runner"
         )
     if fingerprint_sha256 != frozen_fingerprint_sha256:
         raise TargetSealError(
@@ -4334,16 +4335,12 @@ def main() -> None:
         if args.stage == "target" and not args.preflight_artifact:
             raise SystemExit("target requires --preflight-artifact")
 
-    # Preflight may reject a stale destination now.  Target does not inspect output
-    # existence until its common-dir receipt has irreversibly spent the cohort.
+    # Neither production stage calculates or inspects caller output paths until the
+    # complete observed checkpoint/data/source/runtime binding has matched its seal.
+    # Target additionally waits to inspect output existence until its common-dir
+    # receipt has irreversibly spent the cohort.
     output = None
     manifest_path = None
-    if args.stage == "preflight":
-        output = guard_output_path(Path(args.out).resolve())
-        manifest_path = guard_output_path(output.with_suffix(".manifest.json"))
-    elif args.stage == "target":
-        output = Path(args.out).expanduser().resolve()
-        manifest_path = output.with_suffix(".manifest.json")
 
     pre_run_git = (
         {"git_commit": production_commit, "git_dirty": False}
@@ -4432,9 +4429,13 @@ def main() -> None:
     )
     preflight_record = None
     preflight_package = None
-    if args.stage == "target":
+    if args.stage in {"preflight", "target"}:
         try:
             verify_frozen_instrument(fingerprint["fingerprint_sha256"])
+        except TargetSealError as error:
+            raise SystemExit(str(error)) from error
+    if args.stage == "target":
+        try:
             preflight_package = verify_preflight_manifest(
                 args.preflight_artifact, input_snapshot
             )
@@ -4453,6 +4454,13 @@ def main() -> None:
         verify_input_snapshot(input_snapshot)
     except RuntimeError as error:
         raise SystemExit(str(error)) from error
+
+    if args.stage == "preflight":
+        output = guard_output_path(Path(args.out).resolve())
+        manifest_path = guard_output_path(output.with_suffix(".manifest.json"))
+    elif args.stage == "target":
+        output = Path(args.out).expanduser().resolve()
+        manifest_path = output.with_suffix(".manifest.json")
 
     target_receipt = None
     target_attempt = None

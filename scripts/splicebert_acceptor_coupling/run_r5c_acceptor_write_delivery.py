@@ -7,7 +7,7 @@ handoff, the supported R5a target, and the terminal pre-unseal R5b optional-basi
 disposition.  Dense writer and delivery evidence never depend on C2 availability.
 The only behavioral readout constructed here is the hard masked-acceptor-G margin.
 
-All literal pins are ``None`` while this protocol is draft, so scored stages stop
+Only precomputable source/method pins are installed at the preflight-only freeze, so scored stages stop
 before resolving user-supplied paths.  Target authorization and predecessor
 authentication precede an irreversible target-attempt receipt; only after that
 receipt may the R1c-tagged source examples, checkpoint, or output be inspected.
@@ -147,8 +147,8 @@ R5B_RUNNER = REPO / "scripts/splicebert_acceptor_coupling/run_r5b_acceptor_side_
 
 # Literal non-wildcard seals.  Target authorization checks all of these before it
 # even resolves a user-supplied path.  A development artifact may never fill them.
-FROZEN_PROTOCOL_SHA256: str | None = None
-FROZEN_INSTRUMENT_FINGERPRINT_SHA256: str | None = None
+FROZEN_PROTOCOL_SHA256: str | None = "98913630c476d848586f59bd72cd209c0d943ecd4b57231441642d5873eede3d"
+FROZEN_INSTRUMENT_FINGERPRINT_SHA256: str | None = "44ff7aad74cb08d6b3de7753fb8ee0acc8c8cc2e3c3032b2adc40210315f3324"
 FROZEN_R5A_PREFLIGHT_ARTIFACT_SHA256: str | None = None
 FROZEN_R5A_PREFLIGHT_MANIFEST_SHA256: str | None = None
 FROZEN_R5A_TARGET_ARTIFACT_SHA256: str | None = None
@@ -7054,7 +7054,7 @@ def model_free_registry_audit() -> dict[str, Any]:
     calibration = calibration_registry()
     return {
         "schema": AUDIT_SCHEMA,
-        "status": "DRAFT_MODEL_FREE_REGISTRY_AUDIT_PASS",
+        "status": "FROZEN_MODEL_FREE_REGISTRY_AUDIT_PASS",
         "model_loaded": False,
         "annotation_read": False,
         "fasta_read": False,

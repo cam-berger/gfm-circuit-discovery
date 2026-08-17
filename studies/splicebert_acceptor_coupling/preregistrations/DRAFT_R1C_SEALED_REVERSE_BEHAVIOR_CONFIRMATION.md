@@ -1,12 +1,13 @@
-# DRAFT R1c successor — acceptor-only paired-donor behavior confirmation
+# FROZEN R1c successor — acceptor-only paired-donor behavior confirmation
 
 > **Tier: T2 — provenance.** Supporting record: preregistrations, decision logs, correction ledgers, audits.
 
-> **Status: DRAFT — PREFLIGHT AND CHR8/9 TARGET BOTH SEALED.** This successor resets the protocol,
-> instrument, downstream-R5-stack, and preflight pins. The historical `50cda…` preflight is retained
-> only as engineering history and cannot authorize this successor. Preflight may run only after a
-> later review and freeze; target additionally requires a new passing successor preflight and the
-> explicit chr8/9 acknowledgement.
+> **Status: FROZEN FOR PREFLIGHT ONLY (2026-08-17); CHR8/9 TARGET SEALED.** The reviewed protocol,
+> normalized instrument, and complete downstream-R5-stack identities are pinned in source. The
+> historical `50cda…` preflight remains engineering history and cannot authorize this successor.
+> `FROZEN_PREFLIGHT_ARTIFACT_SHA256` remains `None`; target execution therefore remains impossible
+> until a new passing successor preflight is independently reviewed and pinned and the explicit
+> chr8/9 acknowledgement is supplied.
 
 ## 0. Question and evidence boundary
 
@@ -32,8 +33,9 @@ the create-only attempt receipt; it must never be expanded to “globally unseen
 “virgin chromosome split.” Every artifact serializes this distinction as part of the frozen method.
 
 The earlier v3 construction / `gfmcd.r1c.reverse_behavior/2` development artifact remains immutable
-historical development evidence. This v4 construction / schema 3 instrument is **unrun** as of this
-draft and cannot reinterpret, overwrite, or use the v3 bytes as target-binding preflight evidence.
+historical development evidence. This v4 construction / schema 3 instrument is **unrun** at this
+source/method freeze and cannot reinterpret, overwrite, or use the v3 bytes as target-binding preflight
+evidence.
 
 ## 1. Stages, fixed sizes, and seal
 
@@ -43,10 +45,11 @@ draft and cannot reinterpret, overwrite, or use the v3 bytes as target-binding p
    the complete fixed production path in §7. It writes an immutable artifact and sibling manifest and
    may not load chr8/9. The chromosome allowlist is applied while loading the GTF and before any FASTA
    fetch; filtering an already materialized all-chromosome dataset is forbidden.
-3. **Target:** sealed test chromosomes 8/9, exactly 400 outcome-blind retained examples. It is
-   unavailable while this protocol remains a draft.
+3. **Target:** sealed test chromosomes 8/9, exactly 400 outcome-blind retained examples. It remains
+   unavailable because `FROZEN_PREFLIGHT_ARTIFACT_SHA256` is `None`; only an independently reviewed,
+   passing successor preflight can supply that later seal.
 
-A future production preflight or target requires a clean worktree, strict Apple MPS execution, and
+A production preflight or target requires a clean worktree, strict Apple MPS execution, and
 `PYTORCH_ENABLE_MPS_FALLBACK` absent. A future target additionally requires all of the following
 before any chr8/9 cohort construction, target path calculation, model/tokenizer load, or output-path
 inspection (reading GTF/FASTA/FAI bytes only to establish the pre-read source identity is permitted):

@@ -4,6 +4,7 @@ import importlib.util
 import copy
 import hashlib
 import json
+import os
 from pathlib import Path
 import stat
 import subprocess
@@ -1023,11 +1024,91 @@ def test_model_free_audit_and_cli_never_need_model_genome_or_chr8_chr9(tmp_path)
     assert record["all_pass"] is True
 
 
-def test_scored_stage_seal_fails_before_supplied_paths_while_draft():
+def test_source_freeze_leaves_derivation_closed_until_r5a_preflight_exists():
+    assert r5b.FROZEN_PROTOCOL_SHA256 == (
+        "f84dd85570acfb010d77dd29f0a3f48a00967c9da9d69b0f907a98d4e141a6e8"
+    )
+    assert r5b.FROZEN_INSTRUMENT_FINGERPRINT_SHA256 == (
+        "f41942fb08cdb11b90569b4202d93e797a4631c90134b32d1c8c7a2a5190706a"
+    )
+    assert r5b.FROZEN_COHORT_INPUT_SHA256 == (
+        "b2cf20c92c9e3829c2eb00326748e3f96049b4f21f144c3fd79ed5076d881049"
+    )
+    assert r5b.FROZEN_COHORT_AUDIT_SHA256 == (
+        "8e98aaf8bbeb120cacfc4d32928e49a80f3cc10edc3e793cae8cec0fcb68b923"
+    )
+    assert r5b.FROZEN_R3D_ARTIFACT_SHA256 == (
+        "e33d37447cbba368a48beea108fc49c06c56adfbeef2c0f95f019c227d60cb88"
+    )
+    assert r5b.FROZEN_R3D_MANIFEST_SHA256 == (
+        "53f13aa4884b53a91eba6efa2091c7e7638672ed260bf6558f20547d88f899cd"
+    )
+    assert r5b.FROZEN_CHECKPOINT_AGGREGATE_SHA256 == (
+        "fb2a04e0c9b5247b44f03cd23581632d5924b86fcafaffa4c6f2b8d01ae1da8d"
+    )
+    assert "> **Status: FROZEN FOR PREFLIGHT ONLY" in r5b.PROTOCOL.read_text()
+    assert r5b.FROZEN_R5A_ARTIFACT_SHA256 is None
+    assert r5b.FROZEN_R5A_MANIFEST_SHA256 is None
     with pytest.raises(r5b.TargetSealError, match="literal freeze pins"):
         r5b.authorize_scored_stage("derivation", device="mps")
     with pytest.raises(ValueError, match="only defined for R5b scored stages"):
         r5b.authorize_scored_stage("target", device="mps")
+
+
+def test_frozen_r5b_full_reservation_audit_reconstructs_from_bound_inputs():
+    gtf = Path(os.environ.get("GFMCD_GTF", "/nonexistent/gencode.gtf.gz"))
+    fasta = Path(os.environ.get("GFMCD_FASTA", "/nonexistent/hg38.fa"))
+    if not gtf.is_file() or not fasta.is_file() or not Path(f"{fasta}.fai").is_file():
+        pytest.skip("exact frozen GTF/FASTA/FAI are unavailable")
+
+    results = REPO / "results/splicebert_acceptor_coupling"
+    common_dir = Path(
+        subprocess.check_output(
+            ["git", "rev-parse", "--git-common-dir"], cwd=REPO, text=True
+        ).strip()
+    )
+    if not common_dir.is_absolute():
+        common_dir = (REPO / common_dir).resolve()
+    receipt_root = common_dir / "gfmcd_target_attempts/r3d"
+    target_id = "b8ff2fedfd3add86c88d882a0b1c36788e2f41cafb583ff1179c4779d0d4f839"
+    required = {
+        "r3d_artifact": results / "r3d_acceptor_specificity_target_v1.json",
+        "r3d_manifest": results / "r3d_acceptor_specificity_target_v1.manifest.json",
+        "r3d_registry": results / "r3d_train_exposure_registry_v1.json",
+        "r3d_registry_manifest": results / "r3d_train_exposure_registry_v1.manifest.json",
+        "r3d_attempt": receipt_root / f"{target_id}.json",
+        "r3d_completion": receipt_root / f"{target_id}.completion.json",
+        "r3c_artifact": results / "r3c_acceptor_head_preflight_v2_1.json",
+        "r3c_manifest": results / "r3c_acceptor_head_preflight_v2_1.manifest.json",
+    }
+    if not all(path.is_file() for path in required.values()):
+        pytest.skip("exact authenticated historical R3 packages are unavailable")
+
+    r3d = r5b.load_r3d_entry_package(
+        required["r3d_artifact"],
+        required["r3d_manifest"],
+        registry_path=required["r3d_registry"],
+        registry_manifest_path=required["r3d_registry_manifest"],
+        attempt_path=required["r3d_attempt"],
+        completion_path=required["r3d_completion"],
+    )
+    r3c = r5b.load_r3c_exclusion_package(
+        required["r3c_artifact"], required["r3c_manifest"]
+    )
+    registry = r5b.derive_r5_exclusion_registry(r3c, r3d)
+    reservations, audit, source = r5b.build_r5b_residual_reservations(
+        gtf, fasta, exclusion_registry=registry
+    )
+    cohort_input = {
+        "source_identity": source,
+        "exclusion_registry_record_sha256": registry["record_sha256"],
+        "construction": "build_r5_reservations@r5-acceptor-mechanism-v1",
+    }
+    assert {bucket: len(rows) for bucket, rows in reservations.items()} == {0: 128, 1: 128}
+    assert audit["schema"] == "gfmcd.r5.acceptor_mechanism_cohort/3"
+    assert audit["sealed_chr8_chr9_opened"] is False
+    assert r5b.canonical_sha256(cohort_input) == r5b.FROZEN_COHORT_INPUT_SHA256
+    assert r5b.canonical_sha256(audit) == r5b.FROZEN_COHORT_AUDIT_SHA256
 
 
 def test_cli_has_no_external_scored_provider_or_self_attestation_path():
