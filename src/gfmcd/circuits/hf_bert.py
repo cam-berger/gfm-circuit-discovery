@@ -256,6 +256,97 @@ def edit_mlps(
             handle.remove()
 
 
+class CapturedScores:
+    """Box holding the most recent forward pass's PRE-SOFTMAX attention scores.
+
+    ``require()`` rather than a bare attribute read, because the failure mode here is
+    silent.  ``ALL_ATTENTION_FUNCTIONS.get_interface`` falls back to ``eager_attention_forward``
+    when it does not recognise the implementation name, so a mis-registered capture does not
+    raise -- it just runs the normal model and leaves this box empty.  Every consumer must go
+    through ``require()`` so that "the capture never fired" reads as an error rather than as a
+    missing measurement.
+    """
+
+    __slots__ = ("scores",)
+
+    def __init__(self) -> None:
+        self.scores: torch.Tensor | None = None
+
+    def require(self) -> torch.Tensor:
+        if self.scores is None:
+            raise RuntimeError(
+                "no attention scores were captured -- did a forward pass run inside the "
+                "capture_attention_scores(...) context, and is the custom attention "
+                "implementation registered?"
+            )
+        return self.scores
+
+
+@contextmanager
+def capture_attention_scores(
+    adapter: SpliceBertAdapter,
+    layer: int,
+    *,
+    head: int | None = None,
+) -> Iterator[CapturedScores]:
+    """Capture one layer's pre-softmax attention scores for the forward passes inside.
+
+    ``output_attentions=True`` returns POST-softmax probabilities, from which the pre-softmax
+    scores are recoverable only up to an additive per-row constant.  That constant is exactly
+    what distinguishes "the donor's key got worse" from "every competitor's key got better",
+    so any decomposition of an attention change into those two parts needs this.
+
+    NOT IMPLEMENTED VIA ``ALL_ATTENTION_FUNCTIONS``, deliberately.  Registering a custom
+    attention implementation and pointing ``config._attn_implementation`` at it does capture
+    the scores, but transformers builds the additive attention mask from a per-implementation
+    lookup keyed on that same name -- and hands an unrecognised name ``attention_mask=None``.
+    The model then runs with padding fully visible, silently, and only on batches that
+    actually contain padding.  Reading through a forward PRE-hook instead leaves the model in
+    genuine eager mode and cannot perturb it: this recomputes ``QK^T`` from the very inputs
+    the real attention is about to consume, and ``test_capture_attention_scores`` checks the
+    softmax of the result against the model's own reported probabilities.
+
+    Yields a :class:`CapturedScores` whose ``.scores`` is ``[B,H,S,S]`` (``head=None``) or
+    ``[B,S,S]`` (a single head), overwritten by each forward pass.  Composes with
+    ``edit_heads``/``edit_mlps``: those hooks run too, so the captured scores are those of the
+    intervened model.
+    """
+    if not 0 <= layer < adapter.num_layers:
+        raise ValueError(f"layer out of range: {layer}")
+    if head is not None and not 0 <= head < adapter.num_heads:
+        raise ValueError(f"head out of range: {head}")
+
+    module = adapter.attention_self_modules[layer]
+    head_dim = int(getattr(module, "attention_head_size", adapter.head_dim))
+    scaling = float(getattr(module, "scaling", head_dim ** -0.5))
+    box = CapturedScores()
+
+    def pre_hook(mod, args, kwargs):
+        hidden = kwargs.get("hidden_states", args[0] if args else None)
+        mask = kwargs.get("attention_mask", args[1] if len(args) > 1 else None)
+        if hidden is None:
+            raise RuntimeError("attention module received no hidden states to capture from")
+        shape = (*hidden.shape[:-1], -1, head_dim)
+        with torch.no_grad():
+            q = mod.query(hidden).view(*shape).transpose(1, 2)
+            k = mod.key(hidden).view(*shape).transpose(1, 2)
+            if head is not None:
+                # Slice BEFORE the matmul: the full [B,H,S,S] score tensor is ~270 MB at
+                # batch 4 on a 1024 nt window, and only one head is ever read.
+                q, k = q[:, head:head + 1], k[:, head:head + 1]
+            scores = torch.matmul(q, k.transpose(2, 3)) * scaling
+            if mask is not None:
+                scores = scores + mask
+        box.scores = scores[:, 0] if head is not None else scores
+        return None
+
+    handle = module.register_forward_pre_hook(pre_hook, with_kwargs=True)
+    try:
+        yield box
+    finally:
+        handle.remove()
+
+
 @dataclass(frozen=True)
 class HeadEffect:
     layer: int
