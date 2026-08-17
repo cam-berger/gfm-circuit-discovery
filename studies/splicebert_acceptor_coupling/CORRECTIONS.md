@@ -363,3 +363,108 @@ outcome**, not a globally virgin chromosome split.
 **Correction.** State the endpoint-specific holdout and the prior donor-side use together. The held-out
 component record `AC5`–`AC8` does not use chr8/9 at all; it is a gene-disjoint bucket split within
 validation chromosomes 11/16/19.
+
+## Frozen validation package and mechanism consumer disagree (legacy alias `ACR19`; 2026-08-17)
+
+The frozen validation preflight ran once from clean commit
+`9008ba3b923e5f8a272ba08bec0799444d44b24a` on 400 validation rows / 321 genes from chr11/16/19. It
+materialized no chr8/9 row and scored none of the planned target outcomes. Its 74,352,692-byte artifact
+has SHA-256 `1b27c4132c71a576c435b7b71f32831af9a44fbca6325931f35716ae4133cbdd`; its 11,370-byte manifest has
+SHA-256 `7412f3159e82f6ab0bbaa95e2796f41aa038eef4233efa7f09ec65867e39c45c`. The public verifier returned
+attestation SHA-256 `04be60c2239c98eefb01521f7a8a94a68f4d2cc4db5db8f1dddb5622f7378ce1`, and archived audits replayed
+the row algebra, inference, robustness bootstraps, and calibration. All 13 gates pass; `PREFLIGHT_GO` is
+genuine instrument-validation evidence.
+
+The authentic rows nevertheless contain six margin levels—three partner/common-leg `P_*` fields and
+three comparison `X_*` fields—while the frozen downstream consumer requires the same field to contain
+exactly the three `P_*` keys before projecting those keys. It therefore rejects the authentic package.
+Accepting six fields and then projecting would be a small code change, but it would alter the frozen
+joint stack `b89efd7c0d83d579aa7e0a2d36f8059c96913242a1c943ec64d87fe7590b00bc` after the validation
+outcome was observed. Rewriting the artifact or rerunning would violate the same one-run rule.
+
+**Correction.** `acceptor-coupling/instrument/frozen-handoff-schema-mismatch` (legacy `AC9`) is terminal
+`INSTRUMENT_UNRESOLVED` before target science. No repair or retry is part of this program; no target
+receipt or scored downstream reader/write/delivery artifact exists. This is an instrument failure, not
+positive or null behavior evidence. The compact
+[attestation](../../results/splicebert_acceptor_coupling/attestations/frozen_handoff_schema_mismatch_v1.json)
+binds the archived evidence.
+
+## Canonical coupling and natural-`GC` modifier cohorts have different scopes (legacy alias `ACR20`; 2026-08-17)
+
+The historical eligibility predicate requires a native `GT` donor. Canonical donor-side coupling and
+acceptor records AC1–AC9 therefore concern `GT-AG` introns. The natural donor-class study deliberately
+admits `GC-AG` introns and compares them with matched `GT-AG` controls.
+
+**Correction.** AC10–AC11 are modifier evidence on a widened, quasi-observational donor-class scope.
+They are not replications on the AC1–AC9 stratum, and they do not generalize the canonical mechanism to
+minor-class donors. No historical cohort or number changes.
+
+## Natural-`GC` validation numerically reproduces both endpoints but remains verification (legacy alias `ACR21`; 2026-08-17)
+
+The first and controlling run used the entire 67-pair / 56-treatment-gene validation reserve from clean
+commit `42954a67947ed7d2748c57816661b917cf5d78e8`, under protocol SHA-256
+`da326e4da94b5daa916f59f7268001e290ea00ab5ef2eb8da255c4dd477bf46a`. Its 3,663-byte artifact has
+SHA-256 `80150013b084cb659c7e3a0e1739573fd1a12e0c95c8cc433067ec9929d4051a`; its 2,216-byte manifest has
+SHA-256 `4e470908b93885133a817a12eee2b074c8008f3d0b3aafbfb4ac596ae27216df` and records a clean worktree.
+It produced the AC10 behavior ratio `0.2571` (upper bound `0.5402`, boundary `0.60`) and AC11 attention
+ratio `0.3755` (upper bound `0.5809`, boundary `0.70`).
+
+The protocol declared exactly one run, but the spent reserve was later rerun after a protocol-banner
+edit; that dirty second package is archive-only and does not control a claim. Even the clean first
+package does not byte-bind the checkpoint, does not cryptographically preserve ordered pairs or their
+comparator mapping, samples the union of arm genes in a way that can break cross-gene pairs, and stores
+neither rows nor draws for interval replay. Its invariant checks are not the full repository preflight.
+
+**Correction.** The original artifact's self-label is bounded down to held-out **verification**, not
+confirmation or establishment. AC10 and AC11 license behavior- and attention-modifier statements only;
+they do not license component necessity, a post-`W_O` write, mediation, delivery, or biology. The compact
+[attestation](../../results/splicebert_acceptor_coupling/attestations/natural_gc_validation_v1.json)
+preserves the clean first package and excludes the prohibited rerun from the active record.
+
+## Adaptive donor-class development does not complete a mechanism (legacy alias `ACR22`; 2026-08-17)
+
+The earlier natural donor-class work adaptively selected candidates on train data. Its matching,
+head-screen, transport, swap, attention-ablation, and MLP observations were not a single prospective
+family: several outputs were scratch-only, manifests were missing or dirty, the checkpoint was not
+byte-bound, repeated-gene dependence was incompletely handled, and required matched nulls and
+equivalence tests were absent. In particular, an uncomputed forward-minus-unmatched interval cannot be
+reported as “all transport null,” and a post-outcome MLP observation is not a registered write.
+
+**Correction.** Those archived development runs generate hypotheses only. No adaptive runner or scratch
+output is restored to the active tree, and no result from them repairs AC9 or promotes AC10–AC11 into a
+mechanism. The only carried development measurement is the separately bounded QK score diagnostic in
+ACR23.
+
+## QK score decomposition narrows candidates only nominally (legacy alias `ACR23`; 2026-08-17)
+
+The exact donor-versus-other pre-softmax log-sum-exp margin diagnostic reports nominal GC-minus-GT
+margin-shift intervals excluding zero for `L0H14` (`+0.4290 [+0.2684,+0.5882]`), `L0H5` (`+0.2502
+[+0.0946,+0.3967]`), and `L0H3` (`+0.2113 [+0.0644,+0.3537]`); intervals include zero for `L0H4`,
+`L1H6`, and `L1H13`, and `L2H15` shifts oppositely (`-0.4554 [-0.6977,-0.2223]`). Its algebra
+memorials pass, but the selected family is adaptive and uncorrected, there is no matched-size null or
+frozen preflight, and the bootstrap clusters only treatment genes despite repeated comparator genes.
+Some component intervals also discard undefined draws.
+
+The measurement is additionally intervention-dependent. It changes the historical mean-ablation batch
+size and scores `GC` and `GT` arms separately, so each arm receives a different batch×sequence-conditioned
+mean replacement. The resulting contrast is not intrinsic donor-class specificity. A donor-versus-other
+score change can originate in the acceptor query, donor keys, competitor keys, or their combination;
+it cannot be called donor-key evidence. The reported `1.5567×` “curvature ceiling” is only a
+collapsed-baseline homogeneous-small-shift toy calculation, and the score/curvature split depends on
+the chosen reference path.
+
+The archived 15,313-byte artifact has SHA-256
+`d1d960296e53be684909e129b6de3ae4ddc9b15e1a688c0813109d7db337f763`; its 2,189-byte manifest has
+SHA-256 `879b262b93ab108e545f350b071a62cd715bb7012872455f31ce76a1562af165`, records a dirty worktree,
+names base commit `b79570d68a5cde9a03f33af516fb369a26267892`, does not bind the checkpoint, and stores neither rows,
+pair map, margins, nor draws. Because the worktree was dirty, that commit does not identify the exact
+executed source bytes. The artifact uses historical non-standard `NaN` tokens. Post-run snapshot
+`773c9e8987e05e2605974004795f92f67425cd07` preserves recovered source bytes but is not the execution
+commit.
+
+**Correction.** `acceptor-coupling/natural-gc/qk-score-diagnostic` is a development diagnostic, not a
+claim and has no claim alias. It nominates three layer-0 score-margin candidates, leaves three earlier labels
+unresolved on this scale, and records one opposite-direction `L2H15` diagnostic. It licenses no class-
+specific head verdict, behavior, query-versus-key origin, write, route, mediation, delivery, or biology.
+Its compact [attestation](../../results/splicebert_acceptor_coupling/attestations/development/natural_gc_qk_score_diagnostic_v1.json)
+authenticates the historical bytes without accepting their categorical self-labels.

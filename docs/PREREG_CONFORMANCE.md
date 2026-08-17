@@ -48,7 +48,7 @@ this file existed, that question had no answer here short of reading 34 protocol
 > re-executable** — the source branch gitignored the raw rows both recompute from. Treat C43/C44 gates as
 > **self-reported, not audited**.
 
-> **A fourth arc is outside the table: SpliceBERT acceptor coupling (legacy AC1–AC8).** Its frozen R1, R1b,
+> **A fourth arc is outside the table: SpliceBERT acceptor coupling (legacy AC1–AC11).** Its frozen R1, R1b,
 > and R3 protocols are not represented below. A targeted source audit is recorded in that study's
 > correction ledger: R1/R1b are verification gates rather than claim-promoting protocols and their
 > nominal within-gene permutation is implemented row-wise (`ACR8`); AC3 reverses direction on a recorded
@@ -60,8 +60,17 @@ this file existed, that question had no answer here short of reading 34 protocol
 > package was independently replayed against the frozen protocol and clean execution state. The compact
 > active attestation authenticates the archived raw bytes and audit. It supports only `L1H12` mean-ablation
 > and `L4H11/H9/H7` noising under the declared interventions; `L3H1` reuse remains inconclusive and
-> `L2H15` is health-ineligible. Consult `studies/splicebert_acceptor_coupling/CORRECTIONS.md` before
-> quoting any part of the arc.
+> `L2H15` is health-ineligible.
+>
+> Two later records also remain outside the table. The frozen validation-to-mechanism program passed its
+> 13-gate validation instrument but failed the exact frozen consumer schema before target science; the
+> compact attestation authenticates that terminal handoff failure, but **no target or downstream mechanism
+> gate was enforced** (`ACR19`). The natural-`GC` protocol's clean first run numerically crossed its two
+> registered validation boundaries, but its one-run lifecycle was later violated and its checkpoint,
+> pair identity, bootstrap, and replay surface are incomplete (`ACR21`). Treat AC10–AC11 as bounded
+> verification, not confirmation. The related QK score diagnostic had no frozen protocol and is adaptive,
+> uncorrected development evidence only (`ACR22`, `ACR23`). Consult
+> `studies/splicebert_acceptor_coupling/CORRECTIONS.md` before quoting any part of the arc.
 
 > **A fifth protocol is outside the table: sourced-branchpoint × operational-pyrimidine acceptor
 > context.** `studies/splicebert_acceptor_context/DRAFT_PREREGISTRATION.md` is a draft design cited by the

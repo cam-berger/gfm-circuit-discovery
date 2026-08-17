@@ -189,27 +189,40 @@ and the protocol status index is
 
 ### Reciprocal masked-acceptor record
 
-The active tree retains the compact audit and frozen protocol for the held-out component
-confirmation, while its 33 MB preflight and 33 MB target packages remain immutable under the archive
-tag. The historical runner is not copied into current source: its frozen authorization binds the old
-execution tree and cannot authorize a new run from current master.
+The active tree retains compact attestations, the component audit, and the frozen protocols needed to
+review the masked-acceptor record. Large raw packages remain immutable under the archive tag. Historical
+runners are not copied into current source: their frozen authorization binds the archived execution
+tree, and the stopped programs cannot authorize a new run from current master.
 
 | Evidence family | Descriptive record | Legacy aliases |
 |---|---|---|
 | supported component interventions | `acceptor-coupling/components/l1h12-mean-ablation`; `acceptor-coupling/components/l4-head-noising` | `AC5`, `AC6`, `R3c v2.1` |
 | bounded component limits | `acceptor-coupling/components/route-hypotheses-inconclusive`; `acceptor-coupling/components/l2h15-health-ineligible` | `AC7`, `AC8`, `R3c v2.1` |
+| terminal pre-target instrument stop | `acceptor-coupling/instrument/frozen-handoff-schema-mismatch` | `AC9`, `R1c→R5` |
+| natural-`GC` behavior modifier | `acceptor-coupling/natural-gc/behavior-modifier` | `AC10`, `M6` |
+| natural-`GC` attention modifier | `acceptor-coupling/natural-gc/l3h1-attention-modifier` | `AC11`, `M6` |
+
+The development record `acceptor-coupling/natural-gc/qk-score-diagnostic` (legacy `M4d`) has no claim
+alias: it preserves nominal, unadjusted pre-softmax score-margin diagnostics and their limitations, not
+a promoted result.
 
 The review path is model- and genome-free:
 
 ```bash
 uv run python scripts/verify_archived_evidence.py \
-  results/splicebert_acceptor_coupling/attestations/paired_donor_component_confirmation_v1.json
-uv run pytest -q tests/test_acceptor_component_attestation.py
+  results/splicebert_acceptor_coupling/attestations/paired_donor_component_confirmation_v1.json \
+  results/splicebert_acceptor_coupling/attestations/frozen_handoff_schema_mismatch_v1.json \
+  results/splicebert_acceptor_coupling/attestations/natural_gc_validation_v1.json \
+  results/splicebert_acceptor_coupling/attestations/development/natural_gc_qk_score_diagnostic_v1.json
+uv run pytest -q tests/test_evidence_attestation.py \
+  tests/test_acceptor_component_attestation.py \
+  tests/test_acceptor_inverse_coupling_attestations.py
 ```
 
-The verifier authenticates the annotated archive tag, clean execution commits, raw package paths,
-byte sizes and SHA-256 digests, active audit/protocol, and the selected JSON facts summarized by the
-compact record. It does not rescore the model. For manual inspection, use
+The verifier authenticates the annotated archive tag, execution provenance, raw package paths, byte
+sizes and SHA-256 digests, active audit/protocol where present, and the selected JSON facts summarized
+by each compact record. It preserves dirty or historical-nonfinite provenance as a limitation rather
+than silently normalizing it. It does not rescore the model. For manual inspection, use
 `git show archive/acceptor-inverse-coupling-2026-08-17:<path>`; never recreate or rewrite the frozen
 package in place.
 

@@ -1,0 +1,220 @@
+{
+  "schema": "gfmcd.evidence_attestation/1",
+  "attestation_id": "acceptor-coupling/instrument/frozen-handoff-schema-mismatch",
+  "records": [
+    {
+      "id": "acceptor-coupling/instrument/frozen-handoff-schema-mismatch",
+      "title": "The frozen R1c package is incompatible with its frozen R5 consumer",
+      "summary": "R1c v4's authentic validation preflight reports PREFLIGHT_GO with all 13 gates passing on 400 rows and 321 genes, but each serialized row carries six margin levels while the exact frozen R5 consumer requires exactly three P_* levels. The canonical chain therefore closes as INSTRUMENT_UNRESOLVED before target scoring.",
+      "record_kind": "instrument",
+      "status": "instrument-unresolved",
+      "evidence_rung": "instrument",
+      "review_tier": "confirmatory",
+      "claim_eligible": false,
+      "scope": "A prospectively frozen package-to-consumer compatibility check on the chr11/16/19 validation preflight; the R1c chr8/chr9 masked-acceptor target and all R5 scientific stages remained unscored.",
+      "first_missing_bridge": "The frozen producer and consumer schemas do not compose, and the one-run no-post-outcome-redesign rule forbids repairing either side after the validation package was observed.",
+      "legacy_aliases": [
+        {
+          "type": "claim",
+          "id": "AC9"
+        },
+        {
+          "type": "correction",
+          "id": "ACR19"
+        },
+        {
+          "type": "run",
+          "id": "R1c v4"
+        },
+        {
+          "type": "protocol",
+          "id": "DRAFT_R1C_SEALED_REVERSE_BEHAVIOR_CONFIRMATION.md"
+        },
+        {
+          "type": "artifact",
+          "id": "r1c_reverse_behavior_preflight_v4.json"
+        }
+      ],
+      "source_checks": [
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json",
+          "pointer": "/schema",
+          "equals": "gfmcd.r1c.reverse_behavior/3"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json",
+          "pointer": "/stage",
+          "equals": "preflight"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json",
+          "pointer": "/status",
+          "equals": "DEVELOPMENT"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json",
+          "pointer": "/verdict",
+          "equals": "PREFLIGHT_GO"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json",
+          "pointer": "/n",
+          "equals": 400
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json",
+          "pointer": "/n_genes",
+          "equals": 321
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json",
+          "pointer": "/preconstruction_allowed_chromosomes",
+          "equals": [
+            "chr11",
+            "chr16",
+            "chr19"
+          ]
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json",
+          "pointer": "/sealed_split_opened",
+          "equals": false
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json",
+          "pointer": "/all_gates_pass",
+          "equals": true
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json",
+          "pointer": "/gates",
+          "equals": {
+            "downstream_acceptor_clean_margin_floor": true,
+            "exon_mate_acceptor_clean_margin_floor": true,
+            "health_clean_floor": true,
+            "health_corrupt_floor": true,
+            "health_damage_bounded": true,
+            "minimum_30_genes": true,
+            "observed_Y_PN_tost_and_strict_ci": true,
+            "production_path_core_boundary_fpr": true,
+            "production_path_core_plant_power": true,
+            "production_path_stronger_boundary_fpr": true,
+            "production_path_stronger_plant_power": true,
+            "raw_trimmed_gene_robustness": true,
+            "zero_GT_to_AC_planted_motifs": true
+          }
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json",
+          "pointer": "/protocol_sha256",
+          "equals": "2a2ac9dec6fb52b551cd87f96f7e3f07d6bc29431539011ebfaca2ce8c08da76"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json",
+          "pointer": "/r5_stack_fingerprint_sha256",
+          "equals": "b89efd7c0d83d579aa7e0a2d36f8059c96913242a1c943ec64d87fe7590b00bc"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json",
+          "pointer": "/target_authorization/pre_run_git_commit",
+          "equals": "9008ba3b923e5f8a272ba08bec0799444d44b24a"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json",
+          "pointer": "/target_authorization/pre_run_clean_worktree",
+          "equals": true
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json",
+          "pointer": "/freeze_authorization",
+          "equals": {
+            "authorization_ready": true,
+            "downstream_r5_stack_pinned": true,
+            "instrument_fingerprint_pinned": true,
+            "protocol_declares_frozen": true,
+            "protocol_hash_pinned": true,
+            "strict_mps_runtime_verified": true
+          }
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json",
+          "pointer": "/target_attempt",
+          "equals": null
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json",
+          "pointer": "/target_completion",
+          "equals": null
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json",
+          "pointer": "/rows/0/margin_levels",
+          "equals": {
+            "P_clean": 1.587268590927124,
+            "P_under_D": 0.8704203963279724,
+            "P_under_N": 2.1098148822784424,
+            "X_clean": 3.211984395980835,
+            "X_under_D": 2.6528453826904297,
+            "X_under_N": 3.5682692527770996
+          }
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.manifest.json",
+          "pointer": "/git_commit",
+          "equals": "9008ba3b923e5f8a272ba08bec0799444d44b24a"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.manifest.json",
+          "pointer": "/git_dirty",
+          "equals": false
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.manifest.json",
+          "pointer": "/outputs/0/size_bytes",
+          "equals": 74352692
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.manifest.json",
+          "pointer": "/outputs/0/sha256",
+          "equals": "1b27c4132c71a576c435b7b71f32831af9a44fbca6325931f35716ae4133cbdd"
+        }
+      ]
+    }
+  ],
+  "archive": {
+    "tag": "archive/acceptor-inverse-coupling-2026-08-17",
+    "tag_object": "d71568c158e402cd14b3c816ef11110a508e2026",
+    "commit": "16a8bd0b2e716c229488cdf89be76ac97b174eac",
+    "execution_commits": [
+      "9008ba3b923e5f8a272ba08bec0799444d44b24a"
+    ],
+    "files": [
+      {
+        "path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json",
+        "size_bytes": 74352692,
+        "sha256": "1b27c4132c71a576c435b7b71f32831af9a44fbca6325931f35716ae4133cbdd"
+      },
+      {
+        "path": "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.manifest.json",
+        "size_bytes": 11370,
+        "sha256": "7412f3159e82f6ab0bbaa95e2796f41aa038eef4233efa7f09ec65867e39c45c"
+      },
+      {
+        "path": "scripts/splicebert_acceptor_coupling/run_r1c_sealed_reverse_behavior.py",
+        "size_bytes": 203036,
+        "sha256": "28203db871fd2ffc1e80cbf71efb7a7079941fd4008373b89144f75750c49f3b"
+      },
+      {
+        "path": "src/gfmcd/splicing/acceptor_mechanism_cohort.py",
+        "size_bytes": 130458,
+        "sha256": "7307568901810b25cc2a84a18dac874565bccd48fcd865224ee2eef5481b8b49"
+      },
+      {
+        "path": "studies/splicebert_acceptor_coupling/preregistrations/DRAFT_R1C_SEALED_REVERSE_BEHAVIOR_CONFIRMATION.md",
+        "size_bytes": 34008,
+        "sha256": "2a2ac9dec6fb52b551cd87f96f7e3f07d6bc29431539011ebfaca2ce8c08da76"
+      }
+    ]
+  },
+  "active_files": []
+}

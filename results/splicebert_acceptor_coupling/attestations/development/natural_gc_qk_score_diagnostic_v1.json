@@ -1,0 +1,241 @@
+{
+  "schema": "gfmcd.evidence_attestation/1",
+  "attestation_id": "acceptor-coupling/natural-gc/qk-score-diagnostic",
+  "records": [
+    {
+      "id": "acceptor-coupling/natural-gc/qk-score-diagnostic",
+      "title": "Adaptive QK-score decomposition refines natural-donor candidates",
+      "summary": "On the adaptive 181-pair, 152-gene train cohort, nominal unadjusted GC-minus-GT score-margin intervals excluded zero for L0H14, L0H5, and L0H3; included zero for L0H4, L1H6, and L1H13; and shifted oppositely for L2H15. This is a selection-QK diagnostic, not a head verdict or claim.",
+      "record_kind": "diagnostic",
+      "status": "development",
+      "evidence_rung": "selection-qk",
+      "review_tier": "development",
+      "claim_eligible": false,
+      "scope": "Pre-softmax L3H1 donor-versus-other score-margin responses to historical arm-specific mean ablations on the adaptively selected train cohort.",
+      "first_missing_bridge": "The family was selected adaptively without multiplicity correction; treatment-only clustering omits comparator dependence, arms use different batch-conditioned interventions, execution was dirty and not source-bound, and rows, draws, and checkpoint bytes are absent.",
+      "legacy_aliases": [
+        {
+          "type": "correction",
+          "id": "ACR23"
+        },
+        {
+          "type": "run",
+          "id": "M4d"
+        },
+        {
+          "type": "artifact",
+          "id": "m4d_score_decomposition.json"
+        }
+      ],
+      "source_checks": [
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json",
+          "pointer": "/schema",
+          "equals": "gfmcd.m4d.score_decomposition/1"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json",
+          "pointer": "/tier",
+          "equals": "development"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json",
+          "pointer": "/split",
+          "equals": "train"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json",
+          "pointer": "/attention_impl",
+          "equals": "eager"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json",
+          "pointer": "/sealed_chr8_chr9_opened",
+          "equals": false
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json",
+          "pointer": "/validation_reserve_spent",
+          "equals": false
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json",
+          "pointer": "/reader",
+          "equals": "L3H1"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json",
+          "pointer": "/n_pairs",
+          "equals": 181
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json",
+          "pointer": "/n_genes",
+          "equals": 152
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json",
+          "pointer": "/memorials/softmax_identity/pass",
+          "equals": true
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json",
+          "pointer": "/memorials/m4c_baseline_agreement/pass",
+          "equals": true
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json",
+          "pointer": "/memorials/lse_decomposition_identity/pass",
+          "equals": true
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json",
+          "pointer": "/probes/L0H14/margin_shift",
+          "equals": {
+            "GC": 0.48100924387549104,
+            "GT": 0.051981832533412126,
+            "difference": 0.4290274113420788,
+            "ci": [
+              0.26835828929497346,
+              0.5881876510020364
+            ]
+          }
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json",
+          "pointer": "/probes/L0H5/margin_shift",
+          "equals": {
+            "GC": 0.28099090160210327,
+            "GT": 0.03077255511471984,
+            "difference": 0.25021834648738345,
+            "ci": [
+              0.09456241375593062,
+              0.39673034174685123
+            ]
+          }
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json",
+          "pointer": "/probes/L0H3/margin_shift",
+          "equals": {
+            "GC": 0.17340838324022922,
+            "GT": -0.037930582980408786,
+            "difference": 0.21133896622063805,
+            "ci": [
+              0.06436592265566,
+              0.35371369251122026
+            ]
+          }
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json",
+          "pointer": "/probes/L0H4/margin_shift",
+          "equals": {
+            "GC": 0.44740102898500883,
+            "GT": 0.33823330824487674,
+            "difference": 0.10916772074013213,
+            "ci": [
+              -0.09700238710530677,
+              0.310173669613979
+            ]
+          }
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json",
+          "pointer": "/probes/L1H6/margin_shift",
+          "equals": {
+            "GC": 0.15444867476337246,
+            "GT": 0.08318824091310575,
+            "difference": 0.07126043385026667,
+            "ci": [
+              -0.02362878693998345,
+              0.16951856180460226
+            ]
+          }
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json",
+          "pointer": "/probes/L1H13/margin_shift",
+          "equals": {
+            "GC": 0.13158464149975088,
+            "GT": 0.1403413265800241,
+            "difference": -0.008756685080273224,
+            "ci": [
+              -0.11815828158611592,
+              0.09723623288392326
+            ]
+          }
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json",
+          "pointer": "/probes/L2H15/margin_shift",
+          "equals": {
+            "GC": 0.46874653968907604,
+            "GT": 0.9241276954139244,
+            "difference": -0.45538115572484833,
+            "ci": [
+              -0.6976525417572375,
+              -0.22232480222256784
+            ]
+          }
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.manifest.json",
+          "pointer": "/git_commit",
+          "equals": "b79570d68a5cde9a03f33af516fb369a26267892"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.manifest.json",
+          "pointer": "/git_dirty",
+          "equals": true
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.manifest.json",
+          "pointer": "/config",
+          "equals": {
+            "n_boot": 2000,
+            "n_pairs": 181,
+            "reader": "L3H1"
+          }
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.manifest.json",
+          "pointer": "/inputs/0/missing",
+          "equals": true
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.manifest.json",
+          "pointer": "/outputs/0/size_bytes",
+          "equals": 15313
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.manifest.json",
+          "pointer": "/outputs/0/sha256",
+          "equals": "d1d960296e53be684909e129b6de3ae4ddc9b15e1a688c0813109d7db337f763"
+        }
+      ]
+    }
+  ],
+  "archive": {
+    "tag": "archive/acceptor-inverse-coupling-2026-08-17",
+    "tag_object": "d71568c158e402cd14b3c816ef11110a508e2026",
+    "commit": "16a8bd0b2e716c229488cdf89be76ac97b174eac",
+    "execution_commits": [
+      "b79570d68a5cde9a03f33af516fb369a26267892"
+    ],
+    "files": [
+      {
+        "path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json",
+        "size_bytes": 15313,
+        "sha256": "d1d960296e53be684909e129b6de3ae4ddc9b15e1a688c0813109d7db337f763",
+        "json_mode": "historical-nonfinite"
+      },
+      {
+        "path": "results/splicebert_acceptor_coupling/development/m4d_score_decomposition.manifest.json",
+        "size_bytes": 2189,
+        "sha256": "879b262b93ab108e545f350b071a62cd715bb7012872455f31ce76a1562af165"
+      }
+    ]
+  },
+  "active_files": []
+}
