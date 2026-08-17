@@ -1,12 +1,12 @@
 # FROZEN M6 — held-out confirmation of the donor-class result
 
+> **Tier: T1 — frozen protocol.** This spends the validation reserve. There is no second one.
+
 > **Status: FROZEN. Authorises exactly one run.** Runner SHA-256
 > `bdbf9c953b23c245734802890db88081ef8a3b1f58c6e4403004f4debaf36b08`
 > (`scripts/splicebert_acceptor_coupling/run_m6_validation_confirmation.py`). The runner refuses
 > to execute without `--protocol-sha256` matching this document. Re-running after any edit to
 > either file requires a new protocol and a cohort that no longer exists.
-
-> **Tier: T1 — frozen protocol.** This spends the validation reserve. There is no second one.
 
 ## 1. What is being confirmed, and what is not
 
