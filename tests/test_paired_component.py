@@ -29,8 +29,170 @@ from gfmcd.splicing.paired_component import (
     one_sided_boundary_sign_flip,
     simultaneous_family_decision,
     strict_interval_decision,
+    studentized_gene_bootstrap_tests,
+    studentized_gene_bootstrap_tost,
     tost_equivalence_test,
 )
+
+
+def test_studentized_bootstrap_requires_raw_and_trimmed_gene_effects():
+    groups = [f"g{index}" for index in range(80)]
+    stable = np.linspace(0.11, 0.19, len(groups))
+    result = studentized_gene_bootstrap_tests(
+        stable,
+        groups,
+        ["stable"],
+        boundaries=0.05,
+        alternatives="greater",
+        alpha=0.05,
+        trim_fraction=0.10,
+        n_draws=999,
+        seed=7,
+        namespace="robust-stable",
+        min_genes=30,
+    )["stable"]
+    assert result.raw.estimate > 0.05
+    assert result.trimmed.estimate > 0.05
+    assert result.raw.bound > 0.05
+    assert result.trimmed.bound > 0.05
+    assert result.joint_boundary_pass
+    assert result.joint_p_value == max(result.raw.p_value, result.trimmed.p_value)
+    assert result.inference_kind == "studentized_gene_bootstrap_asymptotic"
+
+    tail_driven = np.full(80, 0.03)
+    tail_driven[-1] = 4.0
+    fragile = studentized_gene_bootstrap_tests(
+        tail_driven,
+        groups,
+        ["tail_driven"],
+        boundaries=0.05,
+        alternatives="greater",
+        alpha=0.05,
+        trim_fraction=0.10,
+        n_draws=999,
+        seed=7,
+        namespace="robust-tail",
+        min_genes=30,
+    )["tail_driven"]
+    assert fragile.raw.estimate > 0.05
+    assert fragile.trimmed.estimate == pytest.approx(0.03)
+    assert not fragile.joint_boundary_pass
+    assert fragile.top_one_percent_deletion_estimate < 0.05
+
+
+def test_studentized_bootstrap_tost_requires_both_edges_for_both_estimators():
+    groups = [f"g{index}" for index in range(80)]
+    equivalent = np.linspace(-0.01, 0.01, 80)
+    result = studentized_gene_bootstrap_tost(
+        equivalent,
+        groups,
+        ["pseudo"],
+        sesoi=0.05,
+        alpha=0.05,
+        trim_fraction=0.10,
+        n_draws=999,
+        seed=11,
+        namespace="robust-tost",
+        min_genes=30,
+    )["pseudo"]
+    assert result.equivalence_pass
+    assert result.p_value == max(
+        result.lower_edge.joint_p_value,
+        result.upper_edge.joint_p_value,
+    )
+    assert result.lower_edge.raw.shared_resample_indices_sha256 == (
+        result.upper_edge.raw.shared_resample_indices_sha256
+    )
+
+    touching = studentized_gene_bootstrap_tost(
+        np.linspace(0.04, 0.06, 80),
+        groups,
+        ["pseudo"],
+        sesoi=0.05,
+        alpha=0.05,
+        trim_fraction=0.10,
+        n_draws=999,
+        seed=11,
+        namespace="robust-tost-touching",
+        min_genes=30,
+    )["pseudo"]
+    assert not touching.equivalence_pass
+
+
+def test_studentized_bootstrap_tost_reports_the_tested_equal_gene_mean():
+    groups = ["g0"] * 5 + [f"g{index}" for index in range(1, 40)]
+    values = np.concatenate((np.ones(5), np.linspace(-0.01, 0.01, 39)))
+    result = studentized_gene_bootstrap_tost(
+        values,
+        groups,
+        ["pseudo"],
+        sesoi=0.05,
+        alpha=0.05,
+        trim_fraction=0.10,
+        n_draws=199,
+        seed=17,
+        namespace="robust-tost-repeated-genes",
+        min_genes=30,
+    )["pseudo"]
+
+    expected_gene_mean = np.mean(
+        [np.mean(values[np.asarray(groups) == gene]) for gene in sorted(set(groups))]
+    )
+    assert np.mean(values) != pytest.approx(expected_gene_mean)
+    assert result.estimate == pytest.approx(expected_gene_mean)
+    assert result.estimate == result.lower_edge.raw.estimate
+    assert result.estimate == result.upper_edge.raw.estimate
+
+
+def test_studentized_bootstrap_serializes_empirical_point_mass_without_epsilon():
+    groups = [f"g{index}" for index in range(40)]
+    positive = studentized_gene_bootstrap_tests(
+        np.full(40, 0.20),
+        groups,
+        ["positive"],
+        boundaries=0.05,
+        alternatives="greater",
+        alpha=0.05,
+        trim_fraction=0.10,
+        n_draws=199,
+        seed=13,
+        namespace="robust-point-mass",
+        min_genes=30,
+    )["positive"]
+    assert positive.joint_boundary_pass
+    assert positive.raw.bound == pytest.approx(0.20)
+    assert positive.raw.standard_error == 0.0
+    assert positive.raw.degenerate_empirical_point_mass is True
+    assert positive.raw.p_value == pytest.approx(1 / 200)
+
+    equivalent = studentized_gene_bootstrap_tost(
+        np.zeros(40),
+        groups,
+        ["equivalent"],
+        sesoi=0.05,
+        alpha=0.05,
+        trim_fraction=0.10,
+        n_draws=199,
+        seed=13,
+        namespace="robust-point-mass-equivalence",
+        min_genes=30,
+    )["equivalent"]
+    assert equivalent.equivalence_pass
+    touching = studentized_gene_bootstrap_tests(
+        np.full(40, 0.05),
+        groups,
+        ["touching"],
+        boundaries=0.05,
+        alternatives="greater",
+        alpha=0.05,
+        trim_fraction=0.10,
+        n_draws=199,
+        seed=13,
+        namespace="robust-point-mass-touching",
+        min_genes=30,
+    )["touching"]
+    assert not touching.joint_boundary_pass
+    assert touching.raw.p_value == 1.0
 
 
 def _groups(n_genes: int = 80, per_gene: int = 3) -> list[str]:

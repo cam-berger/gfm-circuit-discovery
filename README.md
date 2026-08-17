@@ -133,8 +133,8 @@ including their separate terms, are summarized in [third-party assets](docs/THIR
 For development:
 
 ```bash
-uv sync --extra splicebert --extra biology --extra dev
-uv run --extra splicebert --extra biology --extra dev pytest
+uv sync --extra splicebert --extra biology --extra maxent --extra dev
+uv run --extra splicebert --extra biology --extra maxent --extra dev pytest
 ```
 
 Run experiments from the repository root. Result-producing scripts must write an immutable result and a

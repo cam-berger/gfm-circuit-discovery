@@ -45,6 +45,12 @@ TIER_EXEMPT_DIRS = (
 )
 
 FROZEN_UNTIERED_DOCS = {
+    "studies/splicebert_acceptor_coupling/preregistrations/DRAFT_R3C_ACCEPTOR_HEAD_CONFIRMATION.md":
+        ("results/splicebert_acceptor_coupling/r3c_acceptor_head_preflight_v2_1.manifest.json",
+         _PINNED_PROTOCOL_REASON),
+    "studies/splicebert_acceptor_coupling/preregistrations/DRAFT_R3D_ACCEPTOR_SPECIFICITY_ADJUDICATION.md":
+        ("results/splicebert_acceptor_coupling/r3d_acceptor_specificity_target_v1.manifest.json",
+         _PINNED_PROTOCOL_REASON),
     "studies/splicebert_gtex_finetune_shift/IMPLEMENTATION_ADDENDUM_JACOBIAN_SAE_BEHAVIOR_V1.md":
         ("results/splicebert_gtex_finetune_shift/jacobian_sae_behavior_preflight_v1.manifest.json",
          _PINNED_PROTOCOL_REASON),
@@ -81,18 +87,31 @@ HTML_ANCHOR = re.compile(r"""<(?:a\s+(?:name|id)|[^>]+\sid)=["']([^"']+)["']""",
 EXTERNAL_PREFIXES = ("http://", "https://", "mailto:", "doi:", "ftp:", "data:", "javascript:")
 
 
-def _tracked_markdown() -> list[Path]:
+def _tracked_markdown(repo: Path = REPO) -> list[Path]:
     output = subprocess.run(
-        ["git", "ls-files", "*.md"],
-        cwd=REPO,
+        ["git", "ls-files", "--cached", "--others", "--exclude-standard", "--", "*.md"],
+        cwd=repo,
         capture_output=True,
         text=True,
         check=True,
     ).stdout.splitlines()
-    # `git ls-files` includes paths deleted in the working tree until the index is updated.
+    # `git ls-files --cached` includes paths deleted in the working tree until the index is updated.
     # Repository hygiene should validate the tree that will remain, not crash on an intentional
     # deletion during a cleanup change.
-    return [candidate for path in output if (candidate := REPO / path).is_file()]
+    return [candidate for path in output if (candidate := repo / path).is_file()]
+
+
+def test_markdown_inventory_includes_untracked_nonignored_files(tmp_path) -> None:
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    subprocess.run(["git", "init", "-q", str(repo)], check=True)
+    tracked = repo / "tracked.md"
+    tracked.write_text("tracked\n")
+    subprocess.run(["git", "add", tracked.name], cwd=repo, check=True)
+    untracked = repo / "prospective-protocol.md"
+    untracked.write_text("untracked\n")
+
+    assert set(_tracked_markdown(repo)) == {tracked, untracked}
 
 
 def _github_slug(text: str) -> str:

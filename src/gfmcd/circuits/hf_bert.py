@@ -1,8 +1,9 @@
 """Causal head interventions for BERT-style genomic models.
 
-These utilities edit the **per-head context vectors before the attention output
-projection**.  They therefore intervene on a well-defined head output rather
-than zeroing an arbitrary slice of the residual stream.
+These utilities support two distinct intervention sites: per-head context vectors
+before the attention output projection, and an audited single-token delta after the
+projection in attention-block residual space.  Both sites are explicit; neither
+silently zeroes an arbitrary slice of the residual stream.
 
 The first real-model pass intentionally starts with head-level interventions.
 MLP features and edge-level mediation are added only after a reproducible
@@ -13,6 +14,7 @@ from __future__ import annotations
 
 from contextlib import contextmanager
 from dataclasses import asdict, dataclass
+from numbers import Integral
 import random
 from typing import Callable, Iterable, Iterator, Literal, Mapping
 
@@ -63,6 +65,111 @@ def _validate_heads(adapter: SpliceBertAdapter, heads: Iterable[Head]) -> list[H
         if not 0 <= head < adapter.num_heads:
             raise ValueError(f"head out of range: {head}")
     return unique
+
+
+def _attention_output_dense(adapter: SpliceBertAdapter, layer: int):
+    """Resolve the BERT attention output projection for one encoder layer."""
+
+    if not isinstance(layer, Integral) or isinstance(layer, bool):
+        raise TypeError("layer must be an integer")
+    index = int(layer)
+    if not 0 <= index < adapter.num_layers:
+        raise ValueError(f"layer out of range: {index}")
+    module = adapter.encoder_layers[index]
+    for path in ("attention.output.dense", "attention.dense", "self_attn.out_proj"):
+        current = module
+        for part in path.split("."):
+            if not hasattr(current, part):
+                break
+            current = getattr(current, part)
+        else:
+            if not hasattr(current, "weight") or not hasattr(
+                current, "register_forward_hook"
+            ):
+                raise TypeError(
+                    f"layer {index} attention output projection is not a hookable linear module"
+                )
+            return current
+    raise AttributeError(
+        f"layer {index} does not expose a supported attention output projection"
+    )
+
+
+def project_head_context_to_residual(
+    adapter: SpliceBertAdapter,
+    head: Head,
+    context: torch.Tensor,
+) -> torch.Tensor:
+    """Project one head context through its exact bias-free ``W_O`` block.
+
+    ``capture_head_outputs`` returns pre-projection context vectors.  This helper is the
+    explicit bridge to a residual-width writer variable.  The shared dense bias is
+    excluded because it cannot be assigned to an individual head.
+    """
+
+    layer, head_index = _validate_heads(adapter, [head])[0]
+    if not torch.is_tensor(context) or context.ndim < 1:
+        raise TypeError("context must be a tensor with a final head-width axis")
+    dense = _attention_output_dense(adapter, layer)
+    weight = dense.weight
+    if not torch.is_tensor(weight) or weight.ndim != 2:
+        raise TypeError("attention output projection weight must be a matrix")
+    hidden_out, hidden_in = map(int, weight.shape)
+    if hidden_in % adapter.num_heads:
+        raise ValueError("attention output width is not divisible by num_heads")
+    head_width = hidden_in // adapter.num_heads
+    if context.shape[-1] != head_width:
+        raise ValueError("context width differs from the selected W_O head block")
+    start = int(head_index) * head_width
+    block = weight[:, start : start + head_width]
+    return torch.nn.functional.linear(
+        context.to(device=block.device, dtype=block.dtype), block, bias=None
+    )
+
+
+@contextmanager
+def add_attention_output_delta(
+    adapter: SpliceBertAdapter,
+    layer: int,
+    delta: torch.Tensor,
+    *,
+    token_mask: torch.Tensor,
+) -> Iterator[None]:
+    """Add one residual-width vector per row at one selected token after ``W_O``.
+
+    This is the causal hook for a genuinely output-projected local writer.  Exactly one
+    token per row must be selected, preventing a query-local intervention from silently
+    becoming a whole-sequence patch.
+    """
+
+    dense = _attention_output_dense(adapter, layer)
+    if not torch.is_tensor(delta) or delta.ndim != 2:
+        raise TypeError("delta must have shape [batch, hidden]")
+    if not torch.is_tensor(token_mask) or token_mask.ndim != 2:
+        raise TypeError("token_mask must have shape [batch, sequence]")
+    if token_mask.shape[0] != delta.shape[0]:
+        raise ValueError("delta and token_mask batch sizes differ")
+    mask = token_mask.to(dtype=torch.bool)
+    if not torch.all(mask.sum(dim=1) == 1):
+        raise ValueError("token_mask must select exactly one token per row")
+
+    def hook(_module, _inputs, output):
+        if not torch.is_tensor(output) or output.ndim != 3:
+            raise TypeError("attention output projection must return [batch,sequence,hidden]")
+        if output.shape[:2] != mask.shape or output.shape[2] != delta.shape[1]:
+            raise ValueError("output-projection tensor differs from delta/token mask")
+        local_mask = mask.to(device=output.device)
+        local_delta = delta.to(device=output.device, dtype=output.dtype)
+        result = output.clone()
+        rows, tokens = local_mask.nonzero(as_tuple=True)
+        result[rows, tokens] = result[rows, tokens] + local_delta[rows]
+        return result
+
+    handle = dense.register_forward_hook(hook)
+    try:
+        yield
+    finally:
+        handle.remove()
 
 
 @contextmanager

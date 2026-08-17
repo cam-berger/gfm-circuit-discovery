@@ -5,9 +5,10 @@ The only behavioral readout constructed by this program is the native masked-acc
 ``G`` margin.  QK logits and attention probabilities are internal mechanism readouts;
 they are never substituted for the behavioral endpoint.
 
-The checked-in protocol is deliberately DRAFT.  ``--mode model-free-audit`` is the only
-mode available while any literal freeze/census pin is ``None``.  In particular, a target
-request is rejected before resolving the model, GTF, FASTA, or preflight paths.
+The checked-in protocol is deliberately DRAFT.  ``--mode model-free-audit`` binds the
+prospective instrument without opening genome or model data.  A target request is
+rejected before resolving the model, GTF, FASTA, output, or stage-preflight paths unless
+the exact R1c handoffs and all R5a freeze pins are present.
 """
 
 from __future__ import annotations
@@ -21,7 +22,6 @@ from pathlib import Path
 import re
 import subprocess
 import sys
-from types import SimpleNamespace
 from typing import Any, Callable, Mapping, Sequence
 
 import numpy as np
@@ -33,7 +33,6 @@ sys.path.insert(0, str(REPO / "src"))
 
 from gfmcd.circuits.hf_bert import (  # noqa: E402
     _merge_context,
-    edit_heads,
     patch_heads,
 )
 from gfmcd.provenance import ExperimentManifest, sha256_file  # noqa: E402
@@ -44,17 +43,25 @@ from gfmcd.splicing.acceptor_coupling_mechanism import (  # noqa: E402
     donor_window_positions,
 )
 from gfmcd.splicing.acceptor_mechanism_cohort import (  # noqa: E402
-    R5_ADJACENT_SALT,
+    FROZEN_R1C_PREFLIGHT_ARTIFACT_SHA256 as SHARED_R1C_PREFLIGHT_ARTIFACT_SHA256,
+    FROZEN_R1C_PREFLIGHT_MANIFEST_SHA256 as SHARED_R1C_PREFLIGHT_MANIFEST_SHA256,
+    FROZEN_R1C_TARGET_ARTIFACT_SHA256 as SHARED_R1C_TARGET_ARTIFACT_SHA256,
+    FROZEN_R1C_TARGET_ATTEMPT_SHA256 as SHARED_R1C_TARGET_ATTEMPT_SHA256,
+    FROZEN_R1C_TARGET_COMPLETION_SHA256 as SHARED_R1C_TARGET_COMPLETION_SHA256,
+    FROZEN_R1C_TARGET_MANIFEST_SHA256 as SHARED_R1C_TARGET_MANIFEST_SHA256,
+    R5CapstoneCohortError,
+    R5_CAPSTONE_COHORT_HANDOFF_SCHEMA,
     R5_DONOR_PSEUDO_CALIPER,
-    R5_EXPECTED_CENSUS_IDENTITY,
-    R5_EXPECTED_SOURCE_IDENTITY,
-    R5_ROWS_PER_BUCKET,
+    R5_PREFLIGHT_COHORT_HANDOFF_SCHEMA,
     R5_VALIDATION_CHROMOSOMES,
-    build_r5_reservations,
-    r5_census_identity,
-    validate_expected_r5_census_identity,
+    load_r1c_capstone_cohort_handoff,
+    load_r1c_preflight_cohort_handoff,
+    load_r1c_verified_target_common_legs,
+    materialize_r5_capstone_rows,
+    materialize_r5_preflight_rows,
+    validate_r5_capstone_cohort_handoff,
+    validate_r5_preflight_cohort_handoff,
     validate_expected_r5_source_identity,
-    validate_r5_reservation_audit,
 )
 from gfmcd.splicing.circuit import (  # noqa: E402
     DEFAULT_FASTA,
@@ -63,14 +70,11 @@ from gfmcd.splicing.circuit import (  # noqa: E402
     CouplingTask,
     load_adapter,
     load_examples_unscored,
-    matched_decoy_donor,
     pick_device,
 )
 from gfmcd.splicing.paired_component import (  # noqa: E402
     boundary_sign_flip_tests,
-    holm_adjust_named,
     intersection_union_pvalue,
-    one_sided_binomial_bounds,
     simultaneous_family_decision,
     strict_interval_decision,
 )
@@ -79,15 +83,34 @@ from gfmcd.splicing.provenance import (  # noqa: E402
     clamp_embed_component,
 )
 from gfmcd.splicing.r5_stack_binding import (  # noqa: E402
-    R3C_ENTRY_SCHEMA,
-    R3C_INSTRUMENT_REVISION,
     R5StackBindingError,
+    SHARED_R1C_PACKAGE_PIN_NAMES,
     build_r5_stack_binding,
+    normalized_literal_pin_source_sha256,
     r5_stack_fingerprint,
     stable_runtime_identity,
-    validate_r3c_target_health_contract,
-    validate_r3c_target_manifest_contract,
+    validate_r5_runtime_policy,
     validate_serialized_r5_stack,
+)
+from gfmcd.splicing.r5_target_ledger import (  # noqa: E402
+    R5TargetSpentError,
+    build_r5_biological_target_identity,
+    complete_r5_target_attempt,
+    reserve_r5_target_attempt,
+)
+from gfmcd.splicing.r5_upstream_provenance import (  # noqa: E402
+    R3C_PREFLIGHT_ARTIFACT_SHA256,
+    R3C_PREFLIGHT_MANIFEST_SHA256,
+    R3D_ENTRY_SCHEMA,
+    R3D_REGISTRY_ARTIFACT_SHA256,
+    R3D_REGISTRY_MANIFEST_SHA256,
+    R3D_TARGET_ARTIFACT_SHA256,
+    R3D_TARGET_ATTEMPT_SHA256,
+    R3D_TARGET_COMPLETION_SHA256,
+    R3D_TARGET_MANIFEST_SHA256,
+    R5_ENTRY_SCHEMA,
+    load_r3c_exclusion_package,
+    load_r3d_entry_package,
 )
 
 
@@ -107,11 +130,6 @@ R5C_PROTOCOL = (
     / "studies/splicebert_acceptor_coupling/preregistrations/"
     "DRAFT_R5C_ACCEPTOR_WRITE_DELIVERY.md"
 )
-R3C_RUNNER = (
-    REPO
-    / "scripts/splicebert_acceptor_coupling/"
-    "run_r3c_acceptor_head_confirmation.py"
-)
 MECHANISM_CORE = REPO / "src/gfmcd/splicing/acceptor_coupling_mechanism.py"
 COHORT_CORE = REPO / "src/gfmcd/splicing/acceptor_mechanism_cohort.py"
 STAT_CORE = REPO / "src/gfmcd/splicing/paired_component.py"
@@ -119,37 +137,49 @@ HOOK_CORE = REPO / "src/gfmcd/circuits/hf_bert.py"
 EMBED_CORE = REPO / "src/gfmcd/splicing/provenance.py"
 ASSAY_CORE = REPO / "src/gfmcd/splicing/reverse_coupling.py"
 CIRCUIT_CORE = REPO / "src/gfmcd/splicing/circuit.py"
+R1C_RUNNER = (
+    REPO
+    / "scripts/splicebert_acceptor_coupling/run_r1c_sealed_reverse_behavior.py"
+)
 
-# Literal nonbinding values.  A reviewed freeze replaces every value together; model
-# scoring cannot be requested while even one remains absent.  The model-free census is
-# intentionally the only route that can populate the future cohort pins.
+# Literal nonbinding values.  R1c package pins are owned by the shared cohort contract;
+# R5a owns only its method, checkpoint, and stage-preflight pins.
 FROZEN_PROTOCOL_SHA256: str | None = None
 FROZEN_INSTRUMENT_FINGERPRINT_SHA256: str | None = None
 FROZEN_PREFLIGHT_ARTIFACT_SHA256: str | None = None
-FROZEN_R3C_ARTIFACT_SHA256: str | None = None
+FROZEN_PREFLIGHT_MANIFEST_SHA256: str | None = None
+FROZEN_R1C_PREFLIGHT_ARTIFACT_SHA256 = SHARED_R1C_PREFLIGHT_ARTIFACT_SHA256
+FROZEN_R1C_PREFLIGHT_MANIFEST_SHA256 = SHARED_R1C_PREFLIGHT_MANIFEST_SHA256
+FROZEN_R1C_TARGET_ARTIFACT_SHA256 = SHARED_R1C_TARGET_ARTIFACT_SHA256
+FROZEN_R1C_TARGET_MANIFEST_SHA256 = SHARED_R1C_TARGET_MANIFEST_SHA256
+FROZEN_R1C_TARGET_ATTEMPT_SHA256 = SHARED_R1C_TARGET_ATTEMPT_SHA256
+FROZEN_R1C_TARGET_COMPLETION_SHA256 = SHARED_R1C_TARGET_COMPLETION_SHA256
+FROZEN_R3D_ARTIFACT_SHA256: str = R3D_TARGET_ARTIFACT_SHA256
+FROZEN_R3D_MANIFEST_SHA256: str = R3D_TARGET_MANIFEST_SHA256
+FROZEN_R3D_REGISTRY_ARTIFACT_SHA256: str = R3D_REGISTRY_ARTIFACT_SHA256
+FROZEN_R3D_REGISTRY_MANIFEST_SHA256: str = R3D_REGISTRY_MANIFEST_SHA256
+FROZEN_R3D_ATTEMPT_SHA256: str = R3D_TARGET_ATTEMPT_SHA256
+FROZEN_R3D_COMPLETION_SHA256: str = R3D_TARGET_COMPLETION_SHA256
+FROZEN_R3C_ARTIFACT_SHA256: str = R3C_PREFLIGHT_ARTIFACT_SHA256
+FROZEN_R3C_MANIFEST_SHA256: str = R3C_PREFLIGHT_MANIFEST_SHA256
 FROZEN_CHECKPOINT_AGGREGATE_SHA256: str | None = None
-FROZEN_COMPLETE_ELIGIBLE_GENES: int | None = None
-FROZEN_BUCKET_ELIGIBLE_GENES: tuple[int, int] | None = None
-FROZEN_SELECTED_COHORT_SHA256: tuple[str, str] | None = None
-FROZEN_CONSTRUCTION_SHA256: tuple[str, str] | None = None
-FROZEN_EXCLUDED_GENE_REGISTRY_SHA256: str | None = None
 
-PRODUCTION_N = 128
+EXACT_ROWS = 400
+PRODUCTION_N = EXACT_ROWS
 PRODUCTION_BATCH = 8
 PRODUCTION_SEED = 0
-PRODUCTION_RANDOMISATION = 4000
+PRODUCTION_RANDOMISATION = 10000
 PRODUCTION_CALIBRATION_TRIALS = 465
-MIN_GENES = 128
-SESOI = 0.05
+MIN_GENES = 30
+MARGIN_SESOI = 0.05
 STAGE_ALPHA = 0.05
-FAMILY_ALPHA = STAGE_ALPHA / 4.0
 DECOY_TOL = R5_DONOR_PSEUDO_CALIPER
 
 READER = (3, 1)
-ADDRESS_BUILDER = (2, 15)
+SECONDARY_READER = (2, 15)
 NEGATIVE_HEAD = (0, 2)
 SHIFT_HEADS = ("L3H1", "L0H2")
-SHIFT_COMPARISONS = ("paired_adjacent", "pseudo_adjacent")
+SHIFT_COMPARISONS = ("paired_pseudo",)
 SHIFT_MEASURES = ("qk_preference", "attention_preference", "acceptor_margin")
 SHIFT_CELLS = ("full", "word_shift", "position_shift", "joint_shift")
 SHIFT_QUANTITIES = (
@@ -163,10 +193,14 @@ SHIFT_QUANTITIES = (
 QK_ARMS = (
     ("L3H1", "paired"),
     ("L3H1", "pseudo"),
-    ("L3H1", "adjacent"),
     ("L0H2", "paired"),
 )
-WINDOWS = ("paired", "pseudo", "adjacent")
+L2_QK_ARMS = (
+    ("L2H15", "paired"),
+    ("L2H15", "pseudo"),
+    ("L0H2", "paired"),
+)
+WINDOWS = ("paired", "pseudo")
 ENDPOINTS = ("partner", "pseudo", "specific")
 AV_QUANTITIES = (
     "baseline",
@@ -180,27 +214,33 @@ AV_QUANTITIES = (
     "address_effect_at_value_plus",
     "interaction_AxV",
 )
-BUILDERS = ("L2H15", "L0H2")
-
-FAMILY_ORDER = ("position_shift", "qk_surgery", "attention_value", "l2_role")
-PATH_ORDER = (
-    "P_POSITION_SENSITIVE_L3_READER",
-    "P_POSITION_DOMINANT_L3_READER",
-    "P_QK_L3_READER",
-    "P_AV_DONOR_WINDOW_VALUE",
-    "P_L2H15_ADDRESS",
-    "P_L2H15_MIXED_AV",
+FAMILY_ORDER = (
+    "position_margin",
+    "qk_surgery",
+    "attention_value",
+    "l2h15_qk_secondary",
 )
+CORE_PATH_ORDER = (
+    "G1_POSITION_CAUSAL_MARGIN",
+    "G2_EXACT_QK_CAUSAL_MARGIN",
+    "G3_FIXED_V_AXV_CAUSAL_MARGIN",
+)
+SECONDARY_PATH_ORDER = ("S1_L2H15_EXACT_QK_SECONDARY",)
+ALL_PATH_ORDER = CORE_PATH_ORDER + SECONDARY_PATH_ORDER
+# Compatibility name for the headline fixed sequence.  Secondary failure never
+# invalidates the L3H1 core decision.
+PATH_ORDER = CORE_PATH_ORDER
 
 HOOK_ATOL = 1e-5
 MARGIN_ATOL = 1e-4
+SDPA_EAGER_COMMON_LEG_ATOL = 1e-4
 CALIBRATION_EPSILON = 0.01
 CALIBRATION_MAX_FALSE_POSITIVES = 5
 CALIBRATION_MIN_POWER_SUCCESSES = 441
 CALIBRATION_PRIMITIVE_NOISE_SD = 0.025
 HEALTH_MAX_EXAMPLES = 16
 HEALTH_PROBES_PER_EXAMPLE = 4
-HEALTH_FLOOR = 0.50
+HEALTH_NONINFERIORITY_MARGIN = 0.15
 
 
 class SealError(RuntimeError):
@@ -258,22 +298,50 @@ def av_row_name(window: str, quantity: str, endpoint: str) -> str:
     return f"AV|window={window}|quantity={quantity}|endpoint={endpoint}"
 
 
-def l2_row_name(builder: str, quantity: str, endpoint: str) -> str:
-    return f"L2|builder={builder}|quantity={quantity}|endpoint={endpoint}"
+def position_margin_contrast_name(control: str, quantity: str) -> str:
+    return (
+        "POSITION_MARGIN_CONTRAST|target=L3H1:paired_pseudo|"
+        f"control={control}|measure=acceptor_margin|quantity={quantity}"
+    )
+
+
+def qk_margin_contrast_name(
+    control: str, endpoint: str, *, target: str = "L3H1"
+) -> str:
+    return (
+        f"QK_MARGIN_CONTRAST|target={target}:paired|"
+        f"control={control}|endpoint={endpoint}"
+    )
+
+
+def av_margin_contrast_name(control: str, quantity: str, endpoint: str) -> str:
+    return (
+        "AV_MARGIN_CONTRAST|target=paired|"
+        f"control={control}|quantity={quantity}|endpoint={endpoint}"
+    )
 
 
 def family_row_names() -> dict[str, list[str]]:
     return {
-        "position_shift": [
-            position_row_name(head, comparison, measure, quantity)
+        "position_margin": [
+            position_row_name(head, comparison, "acceptor_margin", quantity)
             for head in SHIFT_HEADS
             for comparison in SHIFT_COMPARISONS
-            for measure in SHIFT_MEASURES
             for quantity in SHIFT_QUANTITIES
+        ]
+        + [
+            position_margin_contrast_name(control, quantity)
+            for control in ("L0H2:paired_pseudo",)
+            for quantity in SHIFT_QUANTITIES[:2]
         ],
         "qk_surgery": [
             qk_row_name(head, window, endpoint)
             for head, window in QK_ARMS
+            for endpoint in ENDPOINTS
+        ]
+        + [
+            qk_margin_contrast_name(control, endpoint)
+            for control in ("L3H1:pseudo", "L0H2:paired")
             for endpoint in ENDPOINTS
         ],
         "attention_value": [
@@ -281,11 +349,25 @@ def family_row_names() -> dict[str, list[str]]:
             for window in WINDOWS
             for quantity in AV_QUANTITIES
             for endpoint in ENDPOINTS
+        ]
+        + [
+            av_margin_contrast_name(control, quantity, endpoint)
+            for control in ("pseudo",)
+            for quantity in (
+                "joint_lift",
+                "address_effect_at_value_plus",
+                "value_effect_at_address_plus",
+            )
+            for endpoint in ENDPOINTS
         ],
-        "l2_role": [
-            l2_row_name(builder, quantity, endpoint)
-            for builder in BUILDERS
-            for quantity in AV_QUANTITIES
+        "l2h15_qk_secondary": [
+            qk_row_name(head, window, endpoint)
+            for head, window in L2_QK_ARMS
+            for endpoint in ENDPOINTS
+        ]
+        + [
+            qk_margin_contrast_name(control, endpoint, target="L2H15")
+            for control in ("L2H15:pseudo", "L0H2:paired")
             for endpoint in ENDPOINTS
         ],
     }
@@ -303,37 +385,29 @@ def _requirement(
 
 def named_path_specs() -> dict[str, dict[str, Any]]:
     position: dict[str, str] = {}
-    for measure in SHIFT_MEASURES:
+    for quantity in SHIFT_QUANTITIES[:2]:
+        _requirement(
+            position,
+            position_row_name(
+                "L3H1", "paired_pseudo", "acceptor_margin", quantity
+            ),
+            "MATERIAL_POSITIVE",
+        )
+    for head, comparison in (("L0H2", "paired_pseudo"),):
         for quantity in SHIFT_QUANTITIES[:2]:
             _requirement(
                 position,
-                position_row_name("L3H1", "paired_adjacent", measure, quantity),
-                "MATERIAL_POSITIVE",
-            )
-    for head, comparison in (
-        ("L3H1", "pseudo_adjacent"),
-        ("L0H2", "paired_adjacent"),
-        ("L0H2", "pseudo_adjacent"),
-    ):
-        for measure in SHIFT_MEASURES:
-            for quantity in SHIFT_QUANTITIES[:2]:
-                _requirement(
-                    position,
-                    position_row_name(head, comparison, measure, quantity),
-                    "EQUIVALENT_WITHIN_SESOI",
-                )
-
-    # Position sensitivity does not imply content irrelevance.  The stronger nested path
-    # adds the two content simple effects at the native and shifted position assignments.
-    # The interaction remains a corrected/reportable row but is not a logical prerequisite
-    # for either reading because the embedding LayerNorm makes additivity non-structural.
-    position_dominant = dict(position)
-    for measure in SHIFT_MEASURES:
-        for quantity in SHIFT_QUANTITIES[2:4]:
-            _requirement(
-                position_dominant,
-                position_row_name("L3H1", "paired_adjacent", measure, quantity),
+                position_row_name(
+                    head, comparison, "acceptor_margin", quantity
+                ),
                 "EQUIVALENT_WITHIN_SESOI",
+            )
+    for control in ("L0H2:paired_pseudo",):
+        for quantity in SHIFT_QUANTITIES[:2]:
+            _requirement(
+                position,
+                position_margin_contrast_name(control, quantity),
+                "MATERIAL_POSITIVE",
             )
 
     qk: dict[str, str] = {}
@@ -343,86 +417,83 @@ def named_path_specs() -> dict[str, dict[str, Any]]:
     for head, window in QK_ARMS[1:]:
         for endpoint in ENDPOINTS:
             _requirement(qk, qk_row_name(head, window, endpoint), "EQUIVALENT_WITHIN_SESOI")
+    for control in ("L3H1:pseudo", "L0H2:paired"):
+        for endpoint in ("partner", "specific"):
+            _requirement(
+                qk,
+                qk_margin_contrast_name(control, endpoint),
+                "MATERIAL_POSITIVE",
+            )
 
     av: dict[str, str] = {}
-    for quantity in ("joint_lift", "value_effect_at_address_plus"):
+    for quantity in (
+        "joint_lift",
+        "address_effect_at_value_plus",
+        "value_effect_at_address_plus",
+    ):
         for endpoint in ("partner", "specific"):
             _requirement(av, av_row_name("paired", quantity, endpoint), "MATERIAL_POSITIVE")
         _requirement(av, av_row_name("paired", quantity, "pseudo"), "EQUIVALENT_WITHIN_SESOI")
-        for window in ("pseudo", "adjacent"):
+        for window in ("pseudo",):
             for endpoint in ENDPOINTS:
                 _requirement(av, av_row_name(window, quantity, endpoint), "EQUIVALENT_WITHIN_SESOI")
+        for control in ("pseudo",):
+            for endpoint in ("partner", "specific"):
+                _requirement(
+                    av,
+                    av_margin_contrast_name(control, quantity, endpoint),
+                    "MATERIAL_POSITIVE",
+                )
 
-    l2_address: dict[str, str] = {}
-    for quantity in ("address_effect_at_value_plus", "joint_lift"):
-        for endpoint in ("partner", "specific"):
-            _requirement(
-                l2_address,
-                l2_row_name("L2H15", quantity, endpoint),
-                "MATERIAL_POSITIVE",
-            )
+    l2: dict[str, str] = {}
+    for endpoint in ("partner", "specific"):
         _requirement(
-            l2_address,
-            l2_row_name("L2H15", quantity, "pseudo"),
-            "EQUIVALENT_WITHIN_SESOI",
+            l2,
+            qk_row_name("L2H15", "paired", endpoint),
+            "MATERIAL_POSITIVE",
         )
-    for endpoint in ENDPOINTS:
-        _requirement(
-            l2_address,
-            l2_row_name("L2H15", "value_effect_at_address_plus", endpoint),
-            "EQUIVALENT_WITHIN_SESOI",
-        )
-    for quantity in AV_QUANTITIES:
+    _requirement(
+        l2,
+        qk_row_name("L2H15", "paired", "pseudo"),
+        "EQUIVALENT_WITHIN_SESOI",
+    )
+    for head, window in L2_QK_ARMS[1:]:
         for endpoint in ENDPOINTS:
             _requirement(
-                l2_address,
-                l2_row_name("L0H2", quantity, endpoint),
+                l2,
+                qk_row_name(head, window, endpoint),
                 "EQUIVALENT_WITHIN_SESOI",
             )
-
-    l2_mixed: dict[str, str] = {}
-    for quantity in (
-        "address_effect_at_value_plus",
-        "value_effect_at_address_plus",
-        "joint_lift",
-    ):
+    for control in ("L2H15:pseudo", "L0H2:paired"):
         for endpoint in ("partner", "specific"):
             _requirement(
-                l2_mixed,
-                l2_row_name("L2H15", quantity, endpoint),
+                l2,
+                qk_margin_contrast_name(control, endpoint, target="L2H15"),
                 "MATERIAL_POSITIVE",
-            )
-        _requirement(
-            l2_mixed,
-            l2_row_name("L2H15", quantity, "pseudo"),
-            "EQUIVALENT_WITHIN_SESOI",
-        )
-    for quantity in AV_QUANTITIES:
-        for endpoint in ENDPOINTS:
-            _requirement(
-                l2_mixed,
-                l2_row_name("L0H2", quantity, endpoint),
-                "EQUIVALENT_WITHIN_SESOI",
             )
 
     output = {
-        "P_POSITION_SENSITIVE_L3_READER": {
-            "family": "position_shift",
+        "G1_POSITION_CAUSAL_MARGIN": {
+            "family": "position_margin",
             "requirements": position,
         },
-        "P_POSITION_DOMINANT_L3_READER": {
-            "family": "position_shift",
-            "requirements": position_dominant,
+        "G2_EXACT_QK_CAUSAL_MARGIN": {
+            "family": "qk_surgery",
+            "requirements": qk,
         },
-        "P_QK_L3_READER": {"family": "qk_surgery", "requirements": qk},
-        "P_AV_DONOR_WINDOW_VALUE": {
+        "G3_FIXED_V_AXV_CAUSAL_MARGIN": {
             "family": "attention_value",
             "requirements": av,
         },
-        "P_L2H15_ADDRESS": {"family": "l2_role", "requirements": l2_address},
-        "P_L2H15_MIXED_AV": {"family": "l2_role", "requirements": l2_mixed},
+        "S1_L2H15_EXACT_QK_SECONDARY": {
+            "family": "l2h15_qk_secondary",
+            "requirements": l2,
+            "role": "secondary_upstream_reader_role",
+            "gates_l3_headline": False,
+            "historical_r3c_health_used": False,
+        },
     }
-    if tuple(output) != PATH_ORDER:
+    if tuple(output) != ALL_PATH_ORDER:
         raise RuntimeError("R5a path order drifted")
     rows = family_row_names()
     for path, spec in output.items():
@@ -476,82 +547,385 @@ def factorial_quantity_vectors(cells: Mapping[str, Any]) -> dict[str, np.ndarray
     return arrays | {name: np.asarray(value, dtype=float) for name, value in contrasts.items()}
 
 
-def build_family_matrices(measurements: Mapping[str, Any]) -> dict[str, np.ndarray]:
+def build_family_matrices(
+    measurements: Mapping[str, Any], *, families: Sequence[str] | None = None
+) -> dict[str, np.ndarray]:
     """Derive all four immutable families from raw intervention cells.
 
     ``specific`` and every factorial contrast are rebuilt here.  Callers cannot supply or
     overwrite a derived row, which makes stored primitive cells sufficient for exact replay.
     """
 
+    selected = FAMILY_ORDER if families is None else tuple(families)
+    if not selected or any(family not in FAMILY_ORDER for family in selected):
+        raise ValueError("families must be a nonempty ordered subset of FAMILY_ORDER")
+    if tuple(family for family in FAMILY_ORDER if family in selected) != selected:
+        raise ValueError("families must preserve the fixed R5a order")
     row_names = family_row_names()
     output: dict[str, np.ndarray] = {}
 
-    position_by_name: dict[str, np.ndarray] = {}
-    for head in SHIFT_HEADS:
-        for comparison in SHIFT_COMPARISONS:
-            for measure in SHIFT_MEASURES:
-                cells = measurements["position_shift"][head][comparison][measure]
+    if "position_margin" in selected:
+        position_by_name: dict[str, np.ndarray] = {}
+        for head in SHIFT_HEADS:
+            for comparison in SHIFT_COMPARISONS:
+                cells = measurements["position_shift"][head][comparison][
+                    "acceptor_margin"
+                ]
                 for quantity, values in shift_factorial_contrasts(cells).items():
                     position_by_name[
-                        position_row_name(head, comparison, measure, quantity)
+                        position_row_name(
+                            head, comparison, "acceptor_margin", quantity
+                        )
                     ] = values
-    output["position_shift"] = np.vstack(
-        [position_by_name[name] for name in row_names["position_shift"]]
-    )
-
-    qk_by_name: dict[str, np.ndarray] = {}
-    for head, window in QK_ARMS:
-        endpoints = endpoint_vectors(
-            measurements["qk_surgery"][head][window]["partner"],
-            measurements["qk_surgery"][head][window]["pseudo"],
+        for quantity in SHIFT_QUANTITIES[:2]:
+            target = position_by_name[
+                position_row_name(
+                    "L3H1", "paired_pseudo", "acceptor_margin", quantity
+                )
+            ]
+            position_by_name[
+                position_margin_contrast_name("L0H2:paired_pseudo", quantity)
+            ] = target - position_by_name[
+                position_row_name(
+                    "L0H2", "paired_pseudo", "acceptor_margin", quantity
+                )
+            ]
+        output["position_margin"] = np.vstack(
+            [position_by_name[name] for name in row_names["position_margin"]]
         )
-        for endpoint, values in endpoints.items():
-            qk_by_name[qk_row_name(head, window, endpoint)] = values
-    output["qk_surgery"] = np.vstack(
-        [qk_by_name[name] for name in row_names["qk_surgery"]]
-    )
 
-    av_by_name: dict[str, np.ndarray] = {}
-    for window in WINDOWS:
-        by_leg = {
-            leg: factorial_quantity_vectors(
-                measurements["attention_value"][window][leg]
-            )
-            for leg in ("partner", "pseudo")
-        }
-        for quantity in AV_QUANTITIES:
+    if "qk_surgery" in selected:
+        qk_by_name: dict[str, np.ndarray] = {}
+        for head, window in QK_ARMS:
             endpoints = endpoint_vectors(
-                by_leg["partner"][quantity], by_leg["pseudo"][quantity]
+                measurements["qk_surgery"][head][window]["partner"],
+                measurements["qk_surgery"][head][window]["pseudo"],
             )
             for endpoint, values in endpoints.items():
-                av_by_name[av_row_name(window, quantity, endpoint)] = values
-    output["attention_value"] = np.vstack(
-        [av_by_name[name] for name in row_names["attention_value"]]
-    )
+                qk_by_name[qk_row_name(head, window, endpoint)] = values
+        for control in ("L3H1:pseudo", "L0H2:paired"):
+            head, window = control.split(":")
+            for endpoint in ENDPOINTS:
+                qk_by_name[qk_margin_contrast_name(control, endpoint)] = (
+                    qk_by_name[qk_row_name("L3H1", "paired", endpoint)]
+                    - qk_by_name[qk_row_name(head, window, endpoint)]
+                )
+        output["qk_surgery"] = np.vstack(
+            [qk_by_name[name] for name in row_names["qk_surgery"]]
+        )
 
-    l2_by_name: dict[str, np.ndarray] = {}
-    for builder in BUILDERS:
-        by_leg = {
-            leg: factorial_quantity_vectors(measurements["l2_role"][builder][leg])
-            for leg in ("partner", "pseudo")
-        }
-        for quantity in AV_QUANTITIES:
+    if "attention_value" in selected:
+        av_by_name: dict[str, np.ndarray] = {}
+        for window in WINDOWS:
+            by_leg = {
+                leg: factorial_quantity_vectors(
+                    measurements["attention_value"][window][leg]
+                )
+                for leg in ("partner", "pseudo")
+            }
+            for quantity in AV_QUANTITIES:
+                endpoints = endpoint_vectors(
+                    by_leg["partner"][quantity], by_leg["pseudo"][quantity]
+                )
+                for endpoint, values in endpoints.items():
+                    av_by_name[av_row_name(window, quantity, endpoint)] = values
+        for control in ("pseudo",):
+            for quantity in (
+                "joint_lift",
+                "address_effect_at_value_plus",
+                "value_effect_at_address_plus",
+            ):
+                for endpoint in ENDPOINTS:
+                    av_by_name[
+                        av_margin_contrast_name(control, quantity, endpoint)
+                    ] = (
+                        av_by_name[av_row_name("paired", quantity, endpoint)]
+                        - av_by_name[av_row_name(control, quantity, endpoint)]
+                    )
+        output["attention_value"] = np.vstack(
+            [av_by_name[name] for name in row_names["attention_value"]]
+        )
+
+    if "l2h15_qk_secondary" in selected:
+        l2_by_name: dict[str, np.ndarray] = {}
+        for head, window in L2_QK_ARMS:
             endpoints = endpoint_vectors(
-                by_leg["partner"][quantity], by_leg["pseudo"][quantity]
+                measurements["qk_surgery"][head][window]["partner"],
+                measurements["qk_surgery"][head][window]["pseudo"],
             )
             for endpoint, values in endpoints.items():
-                l2_by_name[l2_row_name(builder, quantity, endpoint)] = values
-    output["l2_role"] = np.vstack(
-        [l2_by_name[name] for name in row_names["l2_role"]]
-    )
+                l2_by_name[qk_row_name(head, window, endpoint)] = values
+        for control in ("L2H15:pseudo", "L0H2:paired"):
+            head, window = control.split(":")
+            for endpoint in ENDPOINTS:
+                l2_by_name[
+                    qk_margin_contrast_name(control, endpoint, target="L2H15")
+                ] = (
+                    l2_by_name[qk_row_name("L2H15", "paired", endpoint)]
+                    - l2_by_name[qk_row_name(head, window, endpoint)]
+                )
+        output["l2h15_qk_secondary"] = np.vstack(
+            [l2_by_name[name] for name in row_names["l2h15_qk_secondary"]]
+        )
 
-    sizes = {"position_shift": 60, "qk_surgery": 12, "attention_value": 90, "l2_role": 60}
+    sizes = {
+        "position_margin": 12,
+        "qk_surgery": 15,
+        "attention_value": 69,
+        "l2h15_qk_secondary": 15,
+    }
     for family, expected in sizes.items():
+        if family not in selected:
+            continue
         if output[family].shape[0] != expected:
             raise RuntimeError(f"{family} family row count drifted")
         if not np.isfinite(output[family]).all():
             raise RuntimeError(f"{family} family contains non-finite values")
     return output
+
+
+def position_bridge_diagnostics(measurements: Mapping[str, Any]) -> dict[str, Any]:
+    """Summarize QK-logit and attention-probability bridges without a margin SESOI.
+
+    These are internal readouts in incompatible units.  They are signed candidate bridges,
+    never scientific gates, equivalence tests, or substitutes for the causal margin rows.
+    """
+
+    units = {
+        "qk_preference": "pre_softmax_logit_difference",
+        "attention_preference": "post_softmax_probability_difference",
+    }
+    rows: dict[str, Any] = {}
+    for head in SHIFT_HEADS:
+        for comparison in SHIFT_COMPARISONS:
+            for measure, unit in units.items():
+                contrasts = shift_factorial_contrasts(
+                    measurements["position_shift"][head][comparison][measure]
+                )
+                for quantity, vector in contrasts.items():
+                    values = np.asarray(vector, dtype=float)
+                    name = position_row_name(head, comparison, measure, quantity)
+                    rows[name] = {
+                        "unit": unit,
+                        "role": "SIGNED_DIAGNOSTIC_ONLY",
+                        "mean": float(np.mean(values)),
+                        "trimmed_mean_10pct": float(_trimmed_mean(values, 0.10)),
+                        "positive_fraction": float(np.mean(values > 0.0)),
+                        "zero_null_or_margin_sesoi_applied": False,
+                    }
+    return {
+        "schema": "gfmcd.r5a.position_bridge_diagnostics/2",
+        "decision_bearing": False,
+        "query_policy": "same numerical clean query vector in every 2x2 cell",
+        "shifted_native_query_included_in_decisions": False,
+        "scale_specific_thresholds": None,
+        "reason": (
+            "QK logits and attention probabilities have different units and no "
+            "model-free SESOI; only causal masked-acceptor margin interventions decide."
+        ),
+        "rows": rows,
+    }
+
+
+def _trimmed_mean(values: Any, proportion: float = 0.10) -> np.ndarray | float:
+    array = np.asarray(values, dtype=float)
+    n = array.shape[-1]
+    cut = int(np.floor(proportion * n))
+    if n - 2 * cut < 2:
+        raise ValueError("too few observations for the prespecified trimmed mean")
+    result = np.sort(array, axis=-1)[..., cut : n - cut].mean(axis=-1)
+    return float(result) if result.ndim == 0 else result
+
+
+def _location_and_se(values: Any, estimator: str) -> tuple[np.ndarray, np.ndarray]:
+    array = np.asarray(values, dtype=float)
+    n = array.shape[-1]
+    if n < 3 or not np.isfinite(array).all():
+        raise ValueError("studentized inference needs at least three finite genes")
+    if estimator == "mean":
+        location = array.mean(axis=-1)
+        se = array.std(axis=-1, ddof=1) / np.sqrt(n)
+    elif estimator == "trimmed_mean_10pct":
+        proportion = 0.10
+        cut = int(np.floor(proportion * n))
+        ordered = np.sort(array, axis=-1)
+        location = ordered[..., cut : n - cut].mean(axis=-1)
+        winsor = ordered.copy()
+        winsor[..., :cut] = ordered[..., cut : cut + 1]
+        winsor[..., n - cut :] = ordered[..., n - cut - 1 : n - cut]
+        se = winsor.std(axis=-1, ddof=1) / ((1.0 - 2.0 * proportion) * np.sqrt(n))
+    else:
+        raise ValueError(f"unknown estimator: {estimator}")
+    return np.asarray(location, dtype=float), np.asarray(se, dtype=float)
+
+
+def _gene_aggregate_matrix(
+    matrix: np.ndarray, groups: Sequence[str], *, min_genes: int
+) -> tuple[np.ndarray, list[str]]:
+    labels = sorted(set(map(str, groups)))
+    if len(labels) < min_genes:
+        raise ValueError(f"need at least {min_genes} independent genes")
+    group_array = np.asarray(list(map(str, groups)), dtype=object)
+    aggregated = np.stack(
+        [matrix[:, group_array == label].mean(axis=1) for label in labels], axis=1
+    )
+    return aggregated, labels
+
+
+def dual_estimator_studentized_bootstrap_inversion(
+    values: np.ndarray,
+    groups: Sequence[str],
+    names: Sequence[str],
+    requirements: Mapping[str, str],
+    *,
+    n_draws: int,
+    seed: int,
+    namespace: str,
+    min_genes: int,
+    alpha: float = STAGE_ALPHA,
+    sesoi: float = MARGIN_SESOI,
+) -> dict[str, Any]:
+    """Joint bootstrap-t inversion for the mean and 10%-trimmed mean.
+
+    The add-one values quantify finite-draw Monte Carlo error for a nonparametric
+    cluster bootstrap.  They are deliberately labelled approximate, never exact.
+    """
+
+    matrix = np.asarray(values, dtype=float)
+    if matrix.shape != (len(names), len(groups)) or not np.isfinite(matrix).all():
+        raise ValueError("bootstrap inversion requires a finite [row, observation] matrix")
+    if n_draws < 1:
+        raise ValueError("n_draws must be positive")
+    index = {name: i for i, name in enumerate(names)}
+    if not requirements or not set(requirements).issubset(index):
+        raise ValueError("requirements must be a nonempty subset of the row registry")
+    required_names = list(requirements)
+    gene_matrix, gene_labels = _gene_aggregate_matrix(
+        matrix[[index[name] for name in required_names]], groups, min_genes=min_genes
+    )
+    rng_seed = int.from_bytes(
+        hashlib.sha256(f"{namespace}|{seed}".encode("utf-8")).digest()[:8], "big"
+    )
+    rng = np.random.default_rng(rng_seed)
+    draw_indices = rng.integers(0, gene_matrix.shape[1], size=(n_draws, gene_matrix.shape[1]))
+    estimators = ("mean", "trimmed_mean_10pct")
+    observed = np.zeros((2, len(required_names)), dtype=float)
+    observed_se = np.zeros_like(observed)
+    t_star = np.zeros((2, len(required_names), n_draws), dtype=float)
+    for row_index, vector in enumerate(gene_matrix):
+        sampled = vector[draw_indices]
+        for estimator_index, estimator in enumerate(estimators):
+            theta, se = _location_and_se(vector, estimator)
+            boot_theta, boot_se = _location_and_se(sampled, estimator)
+            observed[estimator_index, row_index] = float(theta)
+            observed_se[estimator_index, row_index] = float(se)
+            numerator = boot_theta - float(theta)
+            t_star[estimator_index, row_index] = np.divide(
+                numerator,
+                boot_se,
+                out=np.where(numerator >= 0.0, np.inf, -np.inf),
+                where=boot_se > 0.0,
+            )
+            t_star[estimator_index, row_index][
+                (boot_se == 0.0) & (numerator == 0.0)
+            ] = 0.0
+    max_abs = np.max(np.abs(t_star), axis=(0, 1))
+    critical = float(np.quantile(max_abs, 1.0 - alpha, method="higher"))
+
+    edge_specs: list[tuple[int, int, str, float, str, str]] = []
+    for row_index, row in enumerate(required_names):
+        requirement = requirements[row]
+        for estimator_index, estimator in enumerate(estimators):
+            if requirement == "MATERIAL_POSITIVE":
+                edge_specs.append((estimator_index, row_index, row, sesoi, "greater", "material"))
+            elif requirement == "EQUIVALENT_WITHIN_SESOI":
+                edge_specs.extend(
+                    (
+                        (estimator_index, row_index, row, -sesoi, "greater", "lower"),
+                        (estimator_index, row_index, row, sesoi, "less", "upper"),
+                    )
+                )
+            else:
+                raise ValueError(f"invalid requirement: {requirement}")
+    signed_null = np.stack(
+        [
+            t_star[e, r] if alternative == "greater" else -t_star[e, r]
+            for e, r, _row, _boundary, alternative, _edge in edge_specs
+        ]
+    )
+    max_signed_null = np.max(signed_null, axis=0)
+    edge_records: dict[str, Any] = {}
+    p_by_row_estimator: dict[tuple[str, str], list[float]] = {}
+    for estimator_index, row_index, row, boundary, alternative, edge in edge_specs:
+        se = observed_se[estimator_index, row_index]
+        delta = observed[estimator_index, row_index] - boundary
+        t_observed = delta / se if se > 0.0 else (np.inf if delta > 0 else -np.inf)
+        signed_observed = t_observed if alternative == "greater" else -t_observed
+        p_value = float((1 + np.count_nonzero(max_signed_null >= signed_observed)) / (n_draws + 1))
+        estimator = estimators[estimator_index]
+        edge_name = f"{row}|estimator={estimator}|edge={edge}"
+        edge_records[edge_name] = {
+            "boundary": boundary,
+            "alternative": alternative,
+            "studentized_statistic": float(signed_observed),
+            "maxT_add_one_monte_carlo_p_value": p_value,
+        }
+        p_by_row_estimator.setdefault((row, estimator), []).append(p_value)
+
+    requirement_records: dict[str, Any] = {}
+    all_ci_pass = True
+    all_p_pass = True
+    for row_index, row in enumerate(required_names):
+        per_estimator: dict[str, Any] = {}
+        for estimator_index, estimator in enumerate(estimators):
+            estimate = observed[estimator_index, row_index]
+            se = observed_se[estimator_index, row_index]
+            interval = (float(estimate - critical * se), float(estimate + critical * se))
+            classification = strict_interval_decision(*interval, sesoi)
+            required = requirements[row]
+            p_value = max(p_by_row_estimator[(row, estimator)])
+            passed = classification == required and p_value < alpha
+            per_estimator[estimator] = {
+                "estimate": float(estimate),
+                "standard_error": float(se),
+                "simultaneous_bootstrap_t_ci": list(interval),
+                "classification": classification,
+                "max_edge_p_value": p_value,
+                "passed": bool(passed),
+            }
+            all_ci_pass &= classification == required
+            all_p_pass &= p_value < alpha
+        requirement_records[row] = {
+            "required": requirements[row],
+            "estimators": per_estimator,
+            "both_estimators_pass": all(item["passed"] for item in per_estimator.values()),
+        }
+    path_p = max(record["maxT_add_one_monte_carlo_p_value"] for record in edge_records.values())
+    return {
+        "schema": "gfmcd.r5a.dual_estimator_bootstrap_t/1",
+        "estimators": list(estimators),
+        "trim_fraction": 0.10,
+        "resampling_unit": "independent_gene",
+        "n_genes": len(gene_labels),
+        "ordered_gene_labels_sha256": canonical_sha256(gene_labels),
+        "B": n_draws,
+        "seed": seed,
+        "namespace": namespace,
+        "alpha": alpha,
+        "sesoi_logit_units": sesoi,
+        "simultaneous_max_abs_t_critical": critical,
+        "finite_draw_language": (
+            "nonparametric cluster bootstrap-t with add-one Monte Carlo p-values; "
+            "bootstrap inference is not exact and its finite-draw p-values are not exact"
+        ),
+        "shared_resample_index_sha256": _array_sha256(draw_indices),
+        "requirements": requirement_records,
+        "edge_tests": edge_records,
+        "path_iut_p_value": path_p,
+        "p_gate_pass": bool(all_p_pass),
+        "simultaneous_ci_gate_pass": bool(all_ci_pass),
+        "classification": "SUPPORTED" if all_p_pass and all_ci_pass else "NOT_SUPPORTED",
+    }
 
 
 def strict_family_inference(
@@ -565,7 +939,7 @@ def strict_family_inference(
     namespace: str = "r5a",
     min_genes: int = MIN_GENES,
 ) -> dict[str, Any]:
-    """Run boundary/TOST -> IUT -> Holm plus strict full-family CI agreement."""
+    """Evaluate one ordered scientific gate at the full stagewise alpha."""
 
     if family not in FAMILY_ORDER:
         raise ValueError(f"unknown R5a family: {family}")
@@ -573,172 +947,79 @@ def strict_family_inference(
     expected_names = family_row_names()[family]
     if list(names) != expected_names or matrix.shape != (len(names), len(groups)):
         raise ValueError("strict inference requires the exact ordered R5a family")
-    if n_draws < 1:
-        raise ValueError("n_draws must be positive")
-
-    decisions, interval_audit = simultaneous_family_decision(
+    matching = [(path, spec) for path, spec in named_path_specs().items() if spec["family"] == family]
+    if len(matching) != 1:
+        raise RuntimeError("each v2 family must implement exactly one fixed-sequence gate")
+    path, spec = matching[0]
+    robust = dual_estimator_studentized_bootstrap_inversion(
         matrix,
         groups,
         names,
-        sesoi=SESOI,
+        spec["requirements"],
         n_draws=n_draws,
-        alpha=FAMILY_ALPHA,
         seed=seed,
-        namespace=f"{namespace}:{family}:simultaneous-family",
+        namespace=f"{namespace}:{path}",
         min_genes=min_genes,
     )
-    family_paths = {
-        name: spec
-        for name, spec in named_path_specs().items()
-        if spec["family"] == family
+    active_controls: list[str] = []
+    unresolved: list[str] = []
+    inactive_targets: list[str] = []
+    for row, record in robust["requirements"].items():
+        classifications = {
+            item["classification"] for item in record["estimators"].values()
+        }
+        if record["required"] == "EQUIVALENT_WITHIN_SESOI" and classifications & {
+            "MATERIAL_POSITIVE", "MATERIAL_NEGATIVE"
+        }:
+            active_controls.append(row)
+        if "UNRESOLVED" in classifications:
+            unresolved.append(row)
+        if record["required"] == "MATERIAL_POSITIVE" and classifications & {
+            "EQUIVALENT_WITHIN_SESOI", "MATERIAL_NEGATIVE"
+        }:
+            inactive_targets.append(row)
+    if robust["classification"] == "SUPPORTED":
+        failure_mode = None
+    elif active_controls:
+        failure_mode = "NONSELECTIVE_OR_CONTROL_ACTIVE"
+    elif unresolved:
+        failure_mode = "SCIENTIFICALLY_UNRESOLVED"
+    elif inactive_targets:
+        failure_mode = "REQUIRED_TARGET_NOT_MATERIAL"
+    else:
+        failure_mode = "SCIENTIFICALLY_UNRESOLVED"
+    path_record = {
+        "family": family,
+        "requirements": dict(spec["requirements"]),
+        "fixed_sequence_alpha": STAGE_ALPHA,
+        "alpha_fragmented_across_families": False,
+        "robust_inference": robust,
+        "iut_p_value": robust["path_iut_p_value"],
+        "p_gate_pass": robust["p_gate_pass"],
+        "strict_simultaneous_ci_gate_pass": robust["simultaneous_ci_gate_pass"],
+        "active_equivalence_rows": active_controls,
+        "unresolved_rows": unresolved,
+        "inactive_material_rows": inactive_targets,
+        "failure_mode": failure_mode,
+        "classification": robust["classification"],
+        "gates_l3_headline": bool(spec.get("gates_l3_headline", True)),
+        "historical_r3c_health_used": bool(
+            spec.get("historical_r3c_health_used", False)
+        ),
     }
-    edge_keys: list[tuple[str, str, str]] = []
-    edge_values: list[np.ndarray] = []
-    boundaries: list[float] = []
-    alternatives: list[str] = []
-    index = {name: position for position, name in enumerate(names)}
-    seen: set[tuple[str, str]] = set()
-    for spec in family_paths.values():
-        for row, requirement in spec["requirements"].items():
-            key = (row, requirement)
-            if key in seen:
-                continue
-            seen.add(key)
-            if requirement == "MATERIAL_POSITIVE":
-                edge_keys.append((row, requirement, "boundary"))
-                edge_values.append(matrix[index[row]])
-                boundaries.append(SESOI)
-                alternatives.append("greater")
-            else:
-                for edge, boundary, alternative in (
-                    ("lower", -SESOI, "greater"),
-                    ("upper", SESOI, "less"),
-                ):
-                    edge_keys.append((row, requirement, edge))
-                    edge_values.append(matrix[index[row]])
-                    boundaries.append(boundary)
-                    alternatives.append(alternative)
-    edge_names = [f"{row}|requirement={kind}|edge={edge}" for row, kind, edge in edge_keys]
-    tests = boundary_sign_flip_tests(
-        np.vstack(edge_values),
-        groups,
-        edge_names,
-        boundaries=boundaries,
-        alternatives=alternatives,  # type: ignore[arg-type]
-        n_draws=n_draws,
-        seed=seed,
-        namespace=f"{namespace}:{family}:shared-boundary-edges",
-        min_genes=min_genes,
-    )
-    by_requirement: dict[tuple[str, str], list[Any]] = {}
-    for key, name in zip(edge_keys, edge_names):
-        by_requirement.setdefault(key[:2], []).append(tests[name])
-
-    raw_path_p: dict[str, float] = {}
-    for path, spec in family_paths.items():
-        raw_path_p[path] = intersection_union_pvalue(
-            [
-                max(test.p_value for test in by_requirement[(row, requirement)])
-                for row, requirement in spec["requirements"].items()
-            ]
-        )
-    adjusted = holm_adjust_named(raw_path_p)
-    paths: dict[str, Any] = {}
-    for path, spec in family_paths.items():
-        requirement_diagnostics = {
-            row: {
-                "required": requirement,
-                "strict_simultaneous_ci_classification": strict_interval_decision(
-                    *decisions[row].simultaneous_ci,
-                    SESOI,
-                ),
-            }
-            for row, requirement in spec["requirements"].items()
-        }
-        ci_pass = all(
-            item["strict_simultaneous_ci_classification"] == item["required"]
-            for item in requirement_diagnostics.values()
-        )
-        p_pass = adjusted[path] < FAMILY_ALPHA
-        active_equivalence_rows = [
-            row
-            for row, item in requirement_diagnostics.items()
-            if item["required"] == "EQUIVALENT_WITHIN_SESOI"
-            and item["strict_simultaneous_ci_classification"]
-            in {"MATERIAL_POSITIVE", "MATERIAL_NEGATIVE"}
-        ]
-        unresolved_rows = [
-            row
-            for row, item in requirement_diagnostics.items()
-            if item["strict_simultaneous_ci_classification"] == "UNRESOLVED"
-        ]
-        inactive_material_rows = [
-            row
-            for row, item in requirement_diagnostics.items()
-            if item["required"] == "MATERIAL_POSITIVE"
-            and item["strict_simultaneous_ci_classification"]
-            in {"EQUIVALENT_WITHIN_SESOI", "MATERIAL_NEGATIVE"}
-        ]
-        if p_pass and ci_pass:
-            failure_mode = None
-        elif active_equivalence_rows:
-            failure_mode = (
-                "CONTENT_ALSO_MATERIAL"
-                if path == "P_POSITION_DOMINANT_L3_READER"
-                else "NONSELECTIVE_OR_CONTROL_ACTIVE"
-            )
-        elif unresolved_rows:
-            failure_mode = "SCIENTIFICALLY_UNRESOLVED"
-        elif inactive_material_rows:
-            failure_mode = "REQUIRED_TARGET_NOT_MATERIAL"
-        else:
-            failure_mode = "SCIENTIFICALLY_UNRESOLVED"
-        paths[path] = {
-            "family": family,
-            "requirements": dict(spec["requirements"]),
-            "iut_p_value": raw_path_p[path],
-            "holm_adjusted_p_value": adjusted[path],
-            "holm_family_size": len(family_paths),
-            "family_alpha": FAMILY_ALPHA,
-            "p_gate_pass": p_pass,
-            "strict_simultaneous_ci_gate_pass": ci_pass,
-            "requirement_diagnostics": requirement_diagnostics,
-            "active_equivalence_rows": active_equivalence_rows,
-            "unresolved_rows": unresolved_rows,
-            "inactive_material_rows": inactive_material_rows,
-            "failure_mode": failure_mode,
-            "classification": "SUPPORTED" if p_pass and ci_pass else "NOT_SUPPORTED",
-        }
-
-    sign_digests = {test.sign_matrix_sha256 for test in tests.values()}
-    gene_digests = {test.ordered_gene_labels_sha256 for test in tests.values()}
-    if len(sign_digests) != 1 or len(gene_digests) != 1:
-        raise RuntimeError("R5a decision edges did not share one gene sign matrix")
     return {
         "family": family,
         "row_names": list(names),
         "row_order_sha256": canonical_sha256(list(names)),
-        "estimates": {
-            name: float(decisions[name].estimate) for name in names
+        "units": "masked_acceptor_G_margin_logit_units",
+        "descriptive_estimates": {
+            name: {
+                "mean": float(np.mean(matrix[index])),
+                "trimmed_mean_10pct": float(_trimmed_mean(matrix[index], 0.10)),
+            }
+            for index, name in enumerate(names)
         },
-        "simultaneous_decisions": {
-            name: decisions[name].to_dict() for name in names
-        },
-        "interval_calibration": interval_audit,
-        "boundary_tests": {
-            name: test.to_dict() for name, test in tests.items()
-        },
-        "boundary_randomisation_audit": {
-            "all_decision_edges_share_one_sign_matrix": True,
-            "B": n_draws,
-            "seed": seed,
-            "namespace": f"{namespace}:{family}:shared-boundary-edges",
-            "sign_matrix_sha256": next(iter(sign_digests)),
-            "ordered_gene_labels_sha256": next(iter(gene_digests)),
-            "edge_count": len(edge_names),
-            "edge_order_sha256": canonical_sha256(edge_names),
-        },
-        "paths": paths,
+        "paths": {path: path_record},
     }
 
 
@@ -754,8 +1035,21 @@ def infer_all_families(
     names = family_row_names()
     if tuple(matrices) != FAMILY_ORDER:
         raise ValueError(f"families must have exact order {FAMILY_ORDER}")
-    result = {
-        family: strict_family_inference(
+    result: dict[str, Any] = {}
+    paths: dict[str, Any] = {}
+    stopped_after: str | None = None
+    for gate_index, path in enumerate(CORE_PATH_ORDER, start=1):
+        family = named_path_specs()[path]["family"]
+        if stopped_after is not None:
+            record = {
+                "family": family,
+                "status": "NOT_TESTED_DUE_TO_PRIOR_SCIENTIFIC_STOP",
+                "prior_failed_gate": stopped_after,
+            }
+            result[family] = record
+            paths[path] = record
+            continue
+        record = strict_family_inference(
             matrices[family],
             groups,
             names[family],
@@ -765,80 +1059,133 @@ def infer_all_families(
             namespace=namespace,
             min_genes=min_genes,
         )
-        for family in FAMILY_ORDER
-    }
-    paths = {
-        path: result[spec["family"]]["paths"][path]
-        for path, spec in named_path_specs().items()
-    }
-    position_supported = (
-        paths["P_POSITION_SENSITIVE_L3_READER"]["classification"] == "SUPPORTED"
-    )
-    position_dominant = (
-        paths["P_POSITION_DOMINANT_L3_READER"]["classification"] == "SUPPORTED"
-    )
-    qk_supported = paths["P_QK_L3_READER"]["classification"] == "SUPPORTED"
-    av_supported = (
-        paths["P_AV_DONOR_WINDOW_VALUE"]["classification"] == "SUPPORTED"
-    )
-    address_supported = paths["P_L2H15_ADDRESS"]["classification"] == "SUPPORTED"
-    mixed_supported = paths["P_L2H15_MIXED_AV"]["classification"] == "SUPPORTED"
-    reader_paths = (
-        paths["P_POSITION_SENSITIVE_L3_READER"],
-        paths["P_QK_L3_READER"],
-        paths["P_AV_DONOR_WINDOW_VALUE"],
-    )
-    if position_supported and qk_supported and av_supported:
+        result[family] = record
+        path_record = record["paths"][path]
+        path_record["fixed_sequence_gate_index"] = gate_index
+        paths[path] = path_record
+        if path_record["classification"] != "SUPPORTED":
+            stopped_after = path
+    core_supported = stopped_after is None
+    tested = [
+        path
+        for path in CORE_PATH_ORDER
+        if paths[path].get("classification") is not None
+    ]
+    if core_supported:
         reader_decision = "L3H1_DONOR_LOCAL_READER_SUPPORTED"
-    elif any(
-        path["failure_mode"] == "NONSELECTIVE_OR_CONTROL_ACTIVE"
-        for path in reader_paths
-    ):
-        reader_decision = "NONSELECTIVE_OR_CONTROL_ACTIVE"
-    elif any(
-        path["failure_mode"] == "SCIENTIFICALLY_UNRESOLVED"
-        for path in reader_paths
-    ):
-        reader_decision = "SCIENTIFICALLY_UNRESOLVED"
     else:
-        reader_decision = "L3H1_DONOR_LOCAL_READER_NOT_SUPPORTED"
-    if address_supported:
-        l2_decision = "L2H15_ADDRESS_REUSE_SUPPORTED"
-    elif mixed_supported:
-        l2_decision = "L2H15_MIXED_AV"
-    elif any(
-        paths[path]["failure_mode"] == "NONSELECTIVE_OR_CONTROL_ACTIVE"
-        for path in ("P_L2H15_ADDRESS", "P_L2H15_MIXED_AV")
-    ):
-        l2_decision = "NONSELECTIVE_OR_CONTROL_ACTIVE"
-    elif any(
-        paths[path]["failure_mode"] == "SCIENTIFICALLY_UNRESOLVED"
-        for path in ("P_L2H15_ADDRESS", "P_L2H15_MIXED_AV")
-    ):
-        l2_decision = "SCIENTIFICALLY_UNRESOLVED"
+        failure = paths[stopped_after]["failure_mode"]
+        reader_decision = (
+            failure
+            if failure in {"NONSELECTIVE_OR_CONTROL_ACTIVE", "SCIENTIFICALLY_UNRESOLVED"}
+            else "L3H1_DONOR_LOCAL_READER_NOT_SUPPORTED"
+        )
+    secondary_path = SECONDARY_PATH_ORDER[0]
+    secondary_family = named_path_specs()[secondary_path]["family"]
+    if core_supported:
+        secondary_record = strict_family_inference(
+            matrices[secondary_family],
+            groups,
+            names[secondary_family],
+            family=secondary_family,
+            n_draws=n_draws,
+            seed=seed,
+            namespace=namespace,
+            min_genes=min_genes,
+        )
+        result[secondary_family] = secondary_record
+        secondary = secondary_record["paths"][secondary_path]
+        secondary["fixed_sequence_gate_index"] = len(CORE_PATH_ORDER) + 1
+        paths[secondary_path] = secondary
+        if secondary["classification"] == "SUPPORTED":
+            l2_decision = "L2H15_UPSTREAM_READER_ROLE_SUPPORTED"
+        elif secondary["failure_mode"] == "SCIENTIFICALLY_UNRESOLVED":
+            l2_decision = "L2H15_ROLE_UNRESOLVED"
+        else:
+            l2_decision = "L2H15_ROLE_NOT_SUPPORTED"
+        secondary_status = "EXECUTED_AND_CLASSIFIED"
     else:
-        l2_decision = "L2H15_ROLE_NOT_SUPPORTED"
+        secondary = {
+            "family": secondary_family,
+            "status": "NOT_TESTED_DUE_TO_PRIOR_CORE_SCIENTIFIC_STOP",
+            "prior_failed_gate": stopped_after,
+            "gates_l3_headline": False,
+            "historical_r3c_health_used": False,
+            "model_intervention_executed": False,
+        }
+        result[secondary_family] = secondary
+        paths[secondary_path] = secondary
+        l2_decision = "L2H15_NOT_TESTED_DUE_TO_PRIOR_CORE_STOP"
+        secondary_status = secondary["status"]
     return {
         "families": result,
         "paths": paths,
+        "fixed_sequence": {
+            "order": list(PATH_ORDER),
+            "alpha_each_reached_gate": STAGE_ALPHA,
+            "alpha_fragmented": False,
+            "tested_gates": tested,
+            "stopped_after": stopped_after,
+            "downstream_untested_after_stop": True,
+        },
+        "secondary_sequence": {
+            "order": list(SECONDARY_PATH_ORDER),
+            "runs_only_after_supported_l3_core": True,
+            "gates_l3_headline": False,
+            "status": secondary_status,
+            "historical_r3c_health_used": False,
+        },
         "decisions": {
-            "position_sensitive_reader": (
-                "POSITION_SENSITIVE_READER_SUPPORTED"
-                if position_supported
-                else "POSITION_SENSITIVE_READER_NOT_SUPPORTED"
-            ),
-            "position_dominance": (
-                "POSITION_DOMINANT_READER_SUPPORTED"
-                if position_dominant
-                else "POSITION_DOMINANCE_NOT_SUPPORTED"
-            ),
-            "reader": (
-                reader_decision
-            ),
-            "l2_role": l2_decision,
-            "opens_r5b": bool(position_supported and qk_supported and av_supported),
+            "reader": reader_decision,
+            "opens_r5b": bool(core_supported),
+            "l2h15_role": l2_decision,
         },
     }
+
+
+def fixed_sequence_stop_records(
+    classified_paths: Mapping[str, Any],
+    execution_log: Sequence[Mapping[str, Any]],
+    *,
+    instrument_stop: str | None,
+    scientific_stop: str | None,
+) -> dict[str, dict[str, Any]]:
+    """Describe unclassified gates without erasing whether surgery already ran."""
+
+    if instrument_stop is not None and scientific_stop is not None:
+        raise ValueError("an R5a run cannot have both an instrument and scientific stop")
+    executed = {
+        str(item["path"]): bool(item.get("model_intervention_executed"))
+        for item in execution_log
+    }
+    if not set(executed).issubset(PATH_ORDER):
+        raise ValueError("execution log contains an unknown R5a gate")
+    missing = [path for path in PATH_ORDER if path not in classified_paths]
+    if missing and instrument_stop is None and scientific_stop is None:
+        raise ValueError("missing R5a gates require an explicit stop")
+    records: dict[str, dict[str, Any]] = {}
+    stop_reason = instrument_stop or scientific_stop
+    for gate_index, path in enumerate(PATH_ORDER, start=1):
+        if path in classified_paths:
+            continue
+        family = named_path_specs()[path]["family"]
+        reached_instrument_failure = bool(
+            instrument_stop is not None and executed.get(path, False)
+        )
+        if reached_instrument_failure:
+            status = "INSTRUMENT_UNRESOLVED_AT_REACHED_GATE"
+        elif instrument_stop is not None:
+            status = "NOT_TESTED_DUE_TO_PRIOR_INSTRUMENT_FAILURE"
+        else:
+            status = "NOT_TESTED_DUE_TO_PRIOR_SCIENTIFIC_STOP"
+        records[path] = {
+            "family": family,
+            "status": status,
+            "prior_stop": stop_reason,
+            "model_intervention_executed": reached_instrument_failure,
+            "fixed_sequence_gate_index": gate_index,
+        }
+    return records
 
 
 def _synthetic_measurements(
@@ -846,23 +1193,19 @@ def _synthetic_measurements(
     *,
     position: tuple[float, float] = (0.0, 0.0),
     content: tuple[float, float] = (0.0, 0.0),
-    position_reference: tuple[float, float] = (0.0, 0.0),
     position_negative: tuple[float, float] = (0.0, 0.0),
     qk_partner: float = 0.0,
     qk_pseudo: float = 0.0,
     qk_control: float = 0.0,
+    l2_qk_partner: float = 0.0,
+    l2_qk_pseudo: float = 0.0,
     av_partner: float = 0.0,
     av_pseudo: float = 0.0,
     av_control: float = 0.0,
-    l2_mode: str = "zero",
-    l2_partner: float = 0.0,
-    l2_pseudo: float = 0.0,
-    l2_value: float = 0.0,
-    l2_control: float = 0.0,
 ) -> dict[str, Any]:
     """Build coherent primitive cells for classifier plants/boundary diagnostics."""
 
-    if n < 2 or l2_mode not in {"zero", "address", "mixed"}:
+    if n < 2:
         raise ValueError("invalid synthetic R5a configuration")
     zero = lambda value=0.0: np.full(n, float(value), dtype=float)
     shift = {
@@ -898,24 +1241,29 @@ def _synthetic_measurements(
                 "joint_shift": zero(),
             }
 
-    set_shift("L3H1", "paired_adjacent", position, content)
-    set_shift("L3H1", "pseudo_adjacent", position_reference)
+    set_shift("L3H1", "paired_pseudo", position, content)
     for comparison in SHIFT_COMPARISONS:
         set_shift("L0H2", comparison, position_negative)
 
+    all_qk_arms = tuple(dict.fromkeys((*QK_ARMS, *L2_QK_ARMS)))
     qk = {
         head: {
             window: {"partner": zero(), "pseudo": zero()}
-            for candidate, window in QK_ARMS
+            for candidate, window in all_qk_arms
             if candidate == head
         }
-        for head, _window in QK_ARMS
+        for head, _window in all_qk_arms
     }
     qk["L3H1"]["paired"] = {
         "partner": zero(qk_partner),
         "pseudo": zero(qk_pseudo),
     }
     qk["L3H1"]["pseudo"]["partner"] = zero(qk_control)
+    qk["L2H15"]["paired"] = {
+        "partner": zero(l2_qk_partner),
+        "pseudo": zero(l2_qk_pseudo),
+    }
+    qk["L2H15"]["pseudo"]["partner"] = zero(qk_control)
 
     def cells(address: float = 0.0, value: float = 0.0, joint: float = 0.0):
         return {
@@ -928,37 +1276,19 @@ def _synthetic_measurements(
     av = {
         window: {"partner": cells(), "pseudo": cells()} for window in WINDOWS
     }
-    av["paired"]["partner"] = cells(value=av_partner, joint=av_partner)
-    av["paired"]["pseudo"] = cells(value=av_pseudo, joint=av_pseudo)
-    av["pseudo"]["partner"] = cells(value=av_control, joint=av_control)
-
-    l2 = {
-        builder: {"partner": cells(), "pseudo": cells()} for builder in BUILDERS
-    }
-    if l2_mode == "address":
-        l2["L2H15"]["partner"] = cells(
-            address=l2_partner, joint=l2_partner + l2_value
-        )
-        l2["L2H15"]["pseudo"] = cells(address=l2_pseudo, joint=l2_pseudo)
-    elif l2_mode == "mixed":
-        l2["L2H15"]["partner"] = cells(
-            address=l2_partner,
-            value=l2_partner,
-            joint=2.0 * l2_partner,
-        )
-        l2["L2H15"]["pseudo"] = cells(
-            address=l2_pseudo,
-            value=l2_pseudo,
-            joint=2.0 * l2_pseudo,
-        )
-    l2["L0H2"]["partner"] = cells(
-        address=l2_control, joint=l2_control
+    av["paired"]["partner"] = cells(
+        address=av_partner, value=av_partner, joint=2.0 * av_partner
+    )
+    av["paired"]["pseudo"] = cells(
+        address=av_pseudo, value=av_pseudo, joint=2.0 * av_pseudo
+    )
+    av["pseudo"]["partner"] = cells(
+        address=av_control, value=av_control, joint=2.0 * av_control
     )
     return {
         "position_shift": shift,
         "qk_surgery": qk,
         "attention_value": av,
-        "l2_role": l2,
     }
 
 
@@ -997,415 +1327,88 @@ def classifier_calibration(
     n_trials: int = PRODUCTION_CALIBRATION_TRIALS,
     seed: int = PRODUCTION_SEED,
 ) -> dict[str, Any]:
-    """Exercise the exact production classifier on coherent boundary faces and plants.
+    """Replay strong coherent plants and exact-boundary non-rejection diagnostics.
 
-    The faces are implementation diagnostics, not a claim that a pointwise synthetic DGP
-    maximizes rejection over a nuisance continuum.  Nominal control comes from the closed
-    boundary tests, IUT paths, Holm correction, and four-family alpha allocation.
+    This is an implementation calibration, not an empirical type-I-error proof.  The
+    production decision is the dual-estimator bootstrap-t inversion itself.
     """
 
-    expected_upper = one_sided_binomial_bounds(
-        CALIBRATION_MAX_FALSE_POSITIVES,
-        PRODUCTION_CALIBRATION_TRIALS,
-        alpha=0.05,
-    )[1]
-    expected_lower = one_sided_binomial_bounds(
-        CALIBRATION_MIN_POWER_SUCCESSES,
-        PRODUCTION_CALIBRATION_TRIALS,
-        alpha=0.05,
-    )[0]
-    if not (
-        expected_upper <= FAMILY_ALPHA + CALIBRATION_EPSILON
-        and expected_lower >= 0.90
-    ):
-        raise RuntimeError("R5a frozen calibration trial/count formula drifted")
-    if n_genes < MIN_GENES or n_trials < 1:
-        raise ValueError("production calibration requires 128 genes and positive trials")
+    if n_genes < MIN_GENES or n_draws < 1 or n_trials < 1:
+        raise ValueError("R5a calibration requires its complete gene count and positive settings")
     groups = [f"calibration-gene-{index:03d}" for index in range(n_genes)]
-    surfaces = {
-        "position_material_boundary": {
-            "family": "position_shift",
-            "assigned_paths": [
-                "P_POSITION_SENSITIVE_L3_READER",
-                "P_POSITION_DOMINANT_L3_READER",
-            ],
-            "kwargs": {"position": (SESOI, SESOI)},
+    registry = {
+        "G1_POSITION_CAUSAL_MARGIN": {
+            "family": "position_margin",
+            "plant": {"position": (0.40, 0.40)},
+            "boundary": {"position": (MARGIN_SESOI, MARGIN_SESOI)},
         },
-        "position_content_lower_boundary": {
-            "family": "position_shift",
-            "assigned_paths": ["P_POSITION_DOMINANT_L3_READER"],
-            "kwargs": {
-                "position": (0.40, 0.40),
-                "content": (-SESOI, -SESOI),
-            },
-        },
-        "position_content_upper_boundary": {
-            "family": "position_shift",
-            "assigned_paths": ["P_POSITION_DOMINANT_L3_READER"],
-            "kwargs": {
-                "position": (0.40, 0.40),
-                "content": (SESOI, SESOI),
-            },
-        },
-        "position_reference_lower_boundary": {
-            "family": "position_shift",
-            "assigned_paths": [
-                "P_POSITION_SENSITIVE_L3_READER",
-                "P_POSITION_DOMINANT_L3_READER",
-            ],
-            "kwargs": {
-                "position": (0.40, 0.40),
-                "position_reference": (-SESOI, -SESOI),
-            },
-        },
-        "position_reference_upper_boundary": {
-            "family": "position_shift",
-            "assigned_paths": [
-                "P_POSITION_SENSITIVE_L3_READER",
-                "P_POSITION_DOMINANT_L3_READER",
-            ],
-            "kwargs": {
-                "position": (0.40, 0.40),
-                "position_reference": (SESOI, SESOI),
-            },
-        },
-        "position_negative_lower_boundary": {
-            "family": "position_shift",
-            "assigned_paths": [
-                "P_POSITION_SENSITIVE_L3_READER",
-                "P_POSITION_DOMINANT_L3_READER",
-            ],
-            "kwargs": {
-                "position": (0.40, 0.40),
-                "position_negative": (-SESOI, -SESOI),
-            },
-        },
-        "position_negative_upper_boundary": {
-            "family": "position_shift",
-            "assigned_paths": [
-                "P_POSITION_SENSITIVE_L3_READER",
-                "P_POSITION_DOMINANT_L3_READER",
-            ],
-            "kwargs": {
-                "position": (0.40, 0.40),
-                "position_negative": (SESOI, SESOI),
-            },
-        },
-        "qk_material_boundary": {
+        "G2_EXACT_QK_CAUSAL_MARGIN": {
             "family": "qk_surgery",
-            "assigned_paths": ["P_QK_L3_READER"],
-            "kwargs": {"qk_partner": SESOI},
+            "plant": {"qk_partner": 0.40},
+            "boundary": {"qk_partner": MARGIN_SESOI},
         },
-        "qk_pseudo_lower_boundary": {
-            "family": "qk_surgery",
-            "assigned_paths": ["P_QK_L3_READER"],
-            "kwargs": {"qk_partner": 0.40, "qk_pseudo": -SESOI},
-        },
-        "qk_pseudo_upper_boundary": {
-            "family": "qk_surgery",
-            "assigned_paths": ["P_QK_L3_READER"],
-            "kwargs": {"qk_partner": 0.40, "qk_pseudo": SESOI},
-        },
-        "qk_control_lower_boundary": {
-            "family": "qk_surgery",
-            "assigned_paths": ["P_QK_L3_READER"],
-            "kwargs": {"qk_partner": 0.40, "qk_control": -SESOI},
-        },
-        "qk_control_upper_boundary": {
-            "family": "qk_surgery",
-            "assigned_paths": ["P_QK_L3_READER"],
-            "kwargs": {"qk_partner": 0.40, "qk_control": SESOI},
-        },
-        "av_material_boundary": {
+        "G3_FIXED_V_AXV_CAUSAL_MARGIN": {
             "family": "attention_value",
-            "assigned_paths": ["P_AV_DONOR_WINDOW_VALUE"],
-            "kwargs": {"av_partner": SESOI},
-        },
-        "av_pseudo_lower_boundary": {
-            "family": "attention_value",
-            "assigned_paths": ["P_AV_DONOR_WINDOW_VALUE"],
-            "kwargs": {"av_partner": 0.40, "av_pseudo": -SESOI},
-        },
-        "av_pseudo_upper_boundary": {
-            "family": "attention_value",
-            "assigned_paths": ["P_AV_DONOR_WINDOW_VALUE"],
-            "kwargs": {"av_partner": 0.40, "av_pseudo": SESOI},
-        },
-        "av_control_lower_boundary": {
-            "family": "attention_value",
-            "assigned_paths": ["P_AV_DONOR_WINDOW_VALUE"],
-            "kwargs": {"av_partner": 0.40, "av_control": -SESOI},
-        },
-        "av_control_upper_boundary": {
-            "family": "attention_value",
-            "assigned_paths": ["P_AV_DONOR_WINDOW_VALUE"],
-            "kwargs": {"av_partner": 0.40, "av_control": SESOI},
-        },
-        "l2_address_material_boundary": {
-            "family": "l2_role",
-            "assigned_paths": ["P_L2H15_ADDRESS"],
-            "kwargs": {"l2_mode": "address", "l2_partner": SESOI},
-        },
-        "l2_address_value_lower_boundary": {
-            "family": "l2_role",
-            "assigned_paths": ["P_L2H15_ADDRESS"],
-            "kwargs": {
-                "l2_mode": "address",
-                "l2_partner": 0.40,
-                "l2_value": -SESOI,
-            },
-        },
-        "l2_address_value_upper_boundary": {
-            "family": "l2_role",
-            "assigned_paths": ["P_L2H15_ADDRESS"],
-            "kwargs": {
-                "l2_mode": "address",
-                "l2_partner": 0.40,
-                "l2_value": SESOI,
-            },
-        },
-        "l2_address_pseudo_lower_boundary": {
-            "family": "l2_role",
-            "assigned_paths": ["P_L2H15_ADDRESS"],
-            "kwargs": {
-                "l2_mode": "address",
-                "l2_partner": 0.40,
-                "l2_pseudo": -SESOI,
-            },
-        },
-        "l2_address_pseudo_upper_boundary": {
-            "family": "l2_role",
-            "assigned_paths": ["P_L2H15_ADDRESS"],
-            "kwargs": {
-                "l2_mode": "address",
-                "l2_partner": 0.40,
-                "l2_pseudo": SESOI,
-            },
-        },
-        "l2_negative_lower_boundary": {
-            "family": "l2_role",
-            "assigned_paths": ["P_L2H15_ADDRESS", "P_L2H15_MIXED_AV"],
-            "kwargs": {
-                "l2_mode": "address",
-                "l2_partner": 0.40,
-                "l2_control": -SESOI,
-            },
-        },
-        "l2_negative_upper_boundary": {
-            "family": "l2_role",
-            "assigned_paths": ["P_L2H15_ADDRESS", "P_L2H15_MIXED_AV"],
-            "kwargs": {
-                "l2_mode": "address",
-                "l2_partner": 0.40,
-                "l2_control": SESOI,
-            },
-        },
-        "l2_mixed_material_boundary": {
-            "family": "l2_role",
-            "assigned_paths": ["P_L2H15_MIXED_AV"],
-            "kwargs": {"l2_mode": "mixed", "l2_partner": SESOI},
-        },
-        "l2_mixed_pseudo_lower_boundary": {
-            "family": "l2_role",
-            "assigned_paths": ["P_L2H15_MIXED_AV"],
-            "kwargs": {
-                "l2_mode": "mixed",
-                "l2_partner": 0.40,
-                "l2_pseudo": -SESOI,
-            },
-        },
-        "l2_mixed_pseudo_upper_boundary": {
-            "family": "l2_role",
-            "assigned_paths": ["P_L2H15_MIXED_AV"],
-            "kwargs": {
-                "l2_mode": "mixed",
-                "l2_partner": 0.40,
-                "l2_pseudo": SESOI,
-            },
+            "plant": {"av_partner": 0.40},
+            "boundary": {"av_partner": MARGIN_SESOI},
         },
     }
-    plants = {
-        "P_POSITION_SENSITIVE_L3_READER": {
-            "family": "position_shift",
-            "kwargs": {"position": (0.40, 0.40), "content": (0.20, 0.20)},
-        },
-        "P_POSITION_DOMINANT_L3_READER": {
-            "family": "position_shift",
-            "kwargs": {"position": (0.40, 0.40)},
-        },
-        "P_QK_L3_READER": {
-            "family": "qk_surgery",
-            "kwargs": {"qk_partner": 0.40},
-        },
-        "P_AV_DONOR_WINDOW_VALUE": {
-            "family": "attention_value",
-            "kwargs": {"av_partner": 0.40},
-        },
-        "P_L2H15_ADDRESS": {
-            "family": "l2_role",
-            "kwargs": {"l2_mode": "address", "l2_partner": 0.40},
-        },
-        "P_L2H15_MIXED_AV": {
-            "family": "l2_role",
-            "kwargs": {"l2_mode": "mixed", "l2_partner": 0.40},
-        },
-    }
-    surface_counts = {name: 0 for name in surfaces}
-    surface_patterns = {name: [] for name in surfaces}
-    plant_counts = {name: 0 for name in plants}
-    plant_patterns = {name: [] for name in plants}
-    for trial in range(n_trials):
-        for surface_index, (name, spec) in enumerate(surfaces.items()):
+    records: dict[str, Any] = {}
+    for gate_index, (path, spec) in enumerate(registry.items()):
+        gate_records: dict[str, Any] = {}
+        for label in ("plant", "boundary"):
             rng = np.random.default_rng(
                 int.from_bytes(
                     hashlib.sha256(
-                        f"r5a-calibration|surface|{surface_index}|{trial}|{seed}".encode()
+                        f"r5a-v2-calibration|{path}|{label}|{seed}".encode("utf-8")
                     ).digest()[:8],
                     "big",
                 )
             )
-            outer_signs = rng.choice(
-                np.asarray([-1.0, 1.0]), size=n_genes, replace=True
-            )
             primitive = _add_centered_primitive_noise(
-                _synthetic_measurements(n_genes, **spec["kwargs"]),
+                _synthetic_measurements(n_genes, **spec[label]),
                 rng=rng,
                 scale=CALIBRATION_PRIMITIVE_NOISE_SD,
-                shared_gene_signs=outer_signs,
             )
-            family = build_family_matrices(primitive)[spec["family"]]
+            matrix = build_family_matrices(primitive)[spec["family"]]
             result = strict_family_inference(
-                family,
+                matrix,
                 groups,
                 family_row_names()[spec["family"]],
                 family=spec["family"],
                 n_draws=n_draws,
                 seed=seed,
-                namespace=f"r5a-calibration:surface:{name}:trial:{trial}",
+                namespace=f"r5a-v2-calibration:{path}:{label}",
                 min_genes=MIN_GENES,
             )
-            rejected = any(
-                result["paths"][path]["classification"] == "SUPPORTED"
-                for path in spec["assigned_paths"]
-            )
-            surface_counts[name] += int(rejected)
-            surface_patterns[name].append(int(rejected))
-        for plant_index, (path, spec) in enumerate(plants.items()):
-            rng = np.random.default_rng(
-                int.from_bytes(
-                    hashlib.sha256(
-                        f"r5a-calibration|plant|{plant_index}|{trial}|{seed}".encode()
-                    ).digest()[:8],
-                    "big",
-                )
-            )
-            outer_signs = rng.choice(
-                np.asarray([-1.0, 1.0]), size=n_genes, replace=True
-            )
-            primitive = _add_centered_primitive_noise(
-                _synthetic_measurements(n_genes, **spec["kwargs"]),
-                rng=rng,
-                scale=CALIBRATION_PRIMITIVE_NOISE_SD,
-                shared_gene_signs=outer_signs,
-            )
-            family = build_family_matrices(primitive)[spec["family"]]
-            result = strict_family_inference(
-                family,
-                groups,
-                family_row_names()[spec["family"]],
-                family=spec["family"],
-                n_draws=n_draws,
-                seed=seed,
-                namespace=f"r5a-calibration:plant:{path}:trial:{trial}",
-                min_genes=MIN_GENES,
-            )
-            supported = result["paths"][path]["classification"] == "SUPPORTED"
-            plant_counts[path] += int(supported)
-            plant_patterns[path].append(int(supported))
-    surface_records = {}
-    for name, count in surface_counts.items():
-        upper = one_sided_binomial_bounds(count, n_trials, alpha=0.05)[1]
-        surface_records[name] = {
-            "family": surfaces[name]["family"],
-            "assigned_paths": surfaces[name]["assigned_paths"],
-            "false_positive_trials": count,
-            "trials": n_trials,
-            "one_sided_95pct_clopper_pearson_upper": upper,
-            "engineering_limit": FAMILY_ALPHA + CALIBRATION_EPSILON,
-            "pass": count <= CALIBRATION_MAX_FALSE_POSITIVES
-            and upper <= FAMILY_ALPHA + CALIBRATION_EPSILON,
-            "pattern_sha256": canonical_sha256(surface_patterns[name]),
-        }
-    plant_records = {}
-    for path, count in plant_counts.items():
-        lower = one_sided_binomial_bounds(count, n_trials, alpha=0.05)[0]
-        plant_records[path] = {
-            "family": plants[path]["family"],
-            "successes": count,
-            "trials": n_trials,
-            "one_sided_95pct_clopper_pearson_lower": lower,
-            "power_floor": 0.90,
-            "pass": count >= CALIBRATION_MIN_POWER_SUCCESSES and lower >= 0.90,
-            "pattern_sha256": canonical_sha256(plant_patterns[path]),
+            classification = result["paths"][path]["classification"]
+            gate_records[label] = {
+                "classification": classification,
+                "pass": classification == ("SUPPORTED" if label == "plant" else "NOT_SUPPORTED"),
+            }
+        records[path] = {
+            "fixed_sequence_gate_index": gate_index + 1,
+            "family": spec["family"],
+            **gate_records,
+            "pass": gate_records["plant"]["pass"] and gate_records["boundary"]["pass"],
         }
     return {
-        "schema": "gfmcd.r5a.classifier_calibration/1",
+        "schema": "gfmcd.r5a.classifier_calibration/2",
         "production_classifier_used": True,
-        "primitive_cells_rebuilt_before_every_classifier": True,
-        "outer_null_uses_one_shared_sign_per_gene_across_all_primitive_rows": True,
-        "derived_rows_directly_shifted": False,
+        "calibration_kind": "strong-plant_and_boundary_nonrejection_implementation_check",
+        "not_a_global_type_i_error_proof": True,
+        "dual_estimators": ["mean", "trimmed_mean_10pct"],
+        "bootstrap_kind": "studentized nonparametric gene bootstrap; not exact",
         "n_genes": n_genes,
         "n_draws": n_draws,
-        "n_trials": n_trials,
-        "family_alpha": FAMILY_ALPHA,
-        "epsilon_cal": CALIBRATION_EPSILON,
-        "primitive_noise_sd": CALIBRATION_PRIMITIVE_NOISE_SD,
-        "trial_count_rule": (
-            "smallest N with CP-upper(floor(N*alpha_family),N)<=alpha_family+0.01 "
-            "and CP-lower(floor(.95*N),N)>=.90"
-        ),
-        "boundary_faces_are_implementation_diagnostics_not_global_lfc_proof": True,
-        "formal_nominal_control": (
-            "closed boundary tests + TOST/IUT + within-family Holm + four-family alpha allocation"
-        ),
-        "boundary_signature_registry": {
-            name: {
-                "family": spec["family"],
-                "assigned_paths": spec["assigned_paths"],
-                "primitive_kwargs": spec["kwargs"],
-            }
-            for name, spec in surfaces.items()
-        },
-        "boundary_signature_registry_sha256": canonical_sha256(
-            {
-                name: {
-                    "family": spec["family"],
-                    "assigned_paths": spec["assigned_paths"],
-                    "primitive_kwargs": spec["kwargs"],
-                }
-                for name, spec in surfaces.items()
-            }
-        ),
-        "boundary_signature_count": len(surfaces),
-        "plant_registry": {
-            path: {"family": spec["family"], "primitive_kwargs": spec["kwargs"]}
-            for path, spec in plants.items()
-        },
-        "plant_registry_sha256": canonical_sha256(
-            {
-                path: {
-                    "family": spec["family"],
-                    "primitive_kwargs": spec["kwargs"],
-                }
-                for path, spec in plants.items()
-            }
-        ),
-        "surfaces": surface_records,
-        "plants": plant_records,
-        "all_pass": all(item["pass"] for item in surface_records.values())
-        and all(item["pass"] for item in plant_records.values()),
+        "n_trials_argument_retained_for_stack_compatibility": n_trials,
+        "fixed_sequence_alpha": STAGE_ALPHA,
+        "alpha_fragmented": False,
+        "registry": registry,
+        "registry_sha256": canonical_sha256(registry),
+        "gates": records,
+        "all_pass": all(record["pass"] for record in records.values()),
     }
-
 
 def swap_component_tensor(
     captured: torch.Tensor,
@@ -1700,8 +1703,8 @@ def health_probe_positions(
     """Choose deterministic nucleotide probes away from every R5a site.
 
     Probe choice is annotation/sequence-only and is fixed before any model output is
-    examined.  A seven-token guard surrounds the acceptor query; every paired, pseudo,
-    and adjacent protected token receives a four-token guard on both sides.
+    examined.  A seven-token guard surrounds the acceptor query; every paired and
+    pseudo protected token receives a four-token guard on both sides.
     """
 
     if n_probe < 1:
@@ -1740,6 +1743,82 @@ def _top1_nucleotide_token_ids(
     return nucleotide_ids[nucleotide_logits.argmax(dim=-1)]
 
 
+def paired_noop_noninferiority(
+    noop_correct: Sequence[float],
+    intervention_correct: Sequence[float],
+    groups: Sequence[str],
+    *,
+    margin: float = HEALTH_NONINFERIORITY_MARGIN,
+    n_draws: int = PRODUCTION_RANDOMISATION,
+    seed: int = PRODUCTION_SEED,
+    namespace: str = "r5a-health",
+) -> dict[str, Any]:
+    """One-sided paired gene-bootstrap noninferiority against the exact hook no-op."""
+
+    noop = np.asarray(noop_correct, dtype=float)
+    intervention = np.asarray(intervention_correct, dtype=float)
+    labels = np.asarray(list(map(str, groups)), dtype=object)
+    if (
+        noop.shape != intervention.shape
+        or noop.ndim != 1
+        or labels.shape != noop.shape
+        or not np.isfinite(noop).all()
+        or not np.isfinite(intervention).all()
+    ):
+        raise ValueError("paired health vectors must be finite and shape matched")
+    gene_ids = sorted(set(labels.tolist()))
+    delta = np.asarray(
+        [
+            np.mean(intervention[labels == gene] - noop[labels == gene])
+            for gene in gene_ids
+        ],
+        dtype=float,
+    )
+    rng_seed = int.from_bytes(
+        hashlib.sha256(f"{namespace}|{seed}".encode("utf-8")).digest()[:8], "big"
+    )
+    rng = np.random.default_rng(rng_seed)
+    indices = rng.integers(0, len(delta), size=(n_draws, len(delta)))
+    observed, observed_se = _location_and_se(delta, "mean")
+    boot, boot_se = _location_and_se(delta[indices], "mean")
+    numerator = boot - float(observed)
+    t_star = np.divide(
+        numerator,
+        boot_se,
+        out=np.where(numerator >= 0.0, np.inf, -np.inf),
+        where=boot_se > 0.0,
+    )
+    t_star[(boot_se == 0.0) & (numerator == 0.0)] = 0.0
+    critical = float(np.quantile(t_star, 1.0 - STAGE_ALPHA, method="higher"))
+    lower = float(observed - critical * observed_se)
+    return {
+        "noop_accuracy": float(np.mean(noop)),
+        "intervention_accuracy": float(np.mean(intervention)),
+        "paired_gene_mean_difference": float(observed),
+        "one_sided_95pct_studentized_bootstrap_lower": lower,
+        "noninferiority_margin": float(margin),
+        "criterion": "lower_bound > -noninferiority_margin",
+        "pass": bool(lower > -margin),
+        "B": n_draws,
+        "resampling_unit": "gene",
+        "bootstrap_is_exact": False,
+    }
+
+
+def health_policy_registry() -> dict[str, Any]:
+    """Freeze core and secondary health gates without importing historical R3c health."""
+
+    return {
+        "core": {
+            "local_query_zero_L3H1": READER,
+            "local_query_zero_L0H2": NEGATIVE_HEAD,
+        },
+        "secondary": {"local_query_zero_L2H15": SECONDARY_READER},
+        "historical_r3c_health_used": False,
+        "secondary_failure_gates_l3_headline": False,
+    }
+
+
 def bounded_intervention_health(
     adapter,
     task: CouplingTask,
@@ -1747,29 +1826,21 @@ def bounded_intervention_health(
     *,
     seed: int = PRODUCTION_SEED,
 ) -> dict[str, Any]:
-    """Bound nucleotide MLM health for every intervention geometry.
-
-    Reader surgeries all replace a single acceptor-query head context, so the shared
-    local-query stress policy uses a zero replacement for L3H1 and L0H2.  Builder arms
-    are checked under their exact all-token within-example mean intervention, both alone
-    and combined with the L3H1 local-query stress.  These are plumbing/health controls;
-    candidate R5a outcomes never enter their definition.
-    """
+    """Compare each query-head stress to its paired exact-hook no-op."""
 
     selected = list(rows[:HEALTH_MAX_EXAMPLES])
     if len(selected) != HEALTH_MAX_EXAMPLES:
-        raise RuntimeError("R5a bounded health requires 16 selected examples")
-    policies: tuple[tuple[str, tuple[int, int] | None, tuple[int, int] | None], ...] = (
-        ("native", None, None),
-        ("local_query_zero_L3H1", None, READER),
-        ("local_query_zero_L0H2", None, NEGATIVE_HEAD),
-        ("builder_mean_L2H15", ADDRESS_BUILDER, None),
-        ("builder_mean_L2H15_plus_local_query_zero_L3H1", ADDRESS_BUILDER, READER),
-        ("builder_mean_L0H2", NEGATIVE_HEAD, None),
-        ("builder_mean_L0H2_plus_local_query_zero_L3H1", NEGATIVE_HEAD, READER),
+        raise RuntimeError("R5a paired health requires 16 selected examples")
+    policy_registry = health_policy_registry()
+    policies = tuple(
+        (name, head)
+        for family in ("core", "secondary")
+        for name, head in policy_registry[family].items()
     )
-    hits = {name: 0 for name, _builder, _query in policies}
-    totals = {name: 0 for name, _builder, _query in policies}
+    correct = {
+        name: {"noop": [], "intervention": [], "groups": []}
+        for name, _head in policies
+    }
     probe_registry: list[dict[str, Any]] = []
     for start in range(0, len(selected), task.batch):
         batch_rows = selected[start : start + task.batch]
@@ -1780,7 +1851,6 @@ def bounded_intervention_health(
             protected = (
                 *donor_window_positions(int(row.example.donor_pos)),
                 *donor_window_positions(int(row.pseudo_donor)),
-                *[int(value) for value in row.adjacent_window],
             )
             positions = health_probe_positions(
                 row.clean_sequence,
@@ -1791,13 +1861,11 @@ def bounded_intervention_health(
             )
             probes.append(positions)
             probe_registry.append(
-                {
-                    "example_id": str(row.example.example_id),
-                    "positions": positions,
-                }
+                {"example_id": str(row.example.example_id), "positions": positions}
             )
-            token_positions = [position + task.off for position in positions]
-            encoded["input_ids"][local_index, token_positions] = task.mask_id
+            encoded["input_ids"][
+                local_index, [position + task.off for position in positions]
+            ] = task.mask_id
 
         query_tokens = torch.tensor(
             [position + task.off for position in readout],
@@ -1806,63 +1874,67 @@ def bounded_intervention_health(
         )
         query_mask = torch.zeros_like(encoded["attention_mask"], dtype=torch.bool)
         query_mask[torch.arange(len(batch_rows), device=adapter.device), query_tokens] = True
-        zero_sources: dict[tuple[int, int], dict[int, torch.Tensor]] = {}
-        for query_head in (READER, NEGATIVE_HEAD):
+        for name, query_head in policies:
             layer, _head = query_head
             state = _capture_qkv_and_heads(adapter, encoded, layer=layer)
-            zero_sources[query_head] = {layer: torch.zeros_like(state["heads"])}
-
-        for name, builder, query_head in policies:
-            with ExitStack() as stack:
-                if builder is not None:
-                    stack.enter_context(
-                        edit_heads(adapter, [builder], mode="within_example_mean")
-                    )
-                if query_head is not None:
-                    layer, _head = query_head
-                    stack.enter_context(
-                        patch_heads(
-                            adapter,
-                            zero_sources[query_head],
-                            [query_head],
-                            token_mask=query_mask,
-                        )
-                    )
-                logits = adapter.model(**encoded).logits.float()
+            sources = {
+                "noop": {layer: state["heads"]},
+                "intervention": {layer: torch.zeros_like(state["heads"])},
+            }
+            logits_by_arm = {}
+            for arm, source in sources.items():
+                with patch_heads(
+                    adapter, source, [query_head], token_mask=query_mask
+                ):
+                    logits_by_arm[arm] = adapter.model(**encoded).logits.float()
             for local_index, (row, positions) in enumerate(zip(batch_rows, probes)):
                 token_positions = [position + task.off for position in positions]
-                predicted = _top1_nucleotide_token_ids(
-                    logits[local_index, token_positions], task.bid
-                )
                 target = torch.tensor(
                     [task.bid[row.clean_sequence[position]] for position in positions],
-                    device=predicted.device,
-                    dtype=predicted.dtype,
+                    device=adapter.device,
                 )
-                hits[name] += int((predicted == target).sum().item())
-                totals[name] += len(positions)
+                for arm, logits in logits_by_arm.items():
+                    predicted = _top1_nucleotide_token_ids(
+                        logits[local_index, token_positions], task.bid
+                    )
+                    correct[name][arm].extend(
+                        (predicted == target).float().cpu().tolist()
+                    )
+                correct[name]["groups"].extend(
+                    [str(row.example.gene_id)] * len(positions)
+                )
 
     records = {
-        name: {
-            "hits": hits[name],
-            "total": totals[name],
-            "accuracy": hits[name] / totals[name] if totals[name] else 0.0,
-            "floor": HEALTH_FLOOR,
-            "ok": bool(totals[name] and hits[name] / totals[name] >= HEALTH_FLOOR),
-        }
-        for name, _builder, _query in policies
+        name: paired_noop_noninferiority(
+            values["noop"],
+            values["intervention"],
+            values["groups"],
+            margin=HEALTH_NONINFERIORITY_MARGIN,
+            n_draws=PRODUCTION_RANDOMISATION,
+            seed=seed,
+            namespace=f"r5a-health:{name}",
+        )
+        for name, values in correct.items()
     }
+    core_names = tuple(policy_registry["core"])
+    secondary_names = tuple(policy_registry["secondary"])
+    core_all_pass = all(records[name]["pass"] for name in core_names)
+    secondary_all_pass = all(records[name]["pass"] for name in secondary_names)
     return {
-        "schema": "gfmcd.r5a.bounded_intervention_health/1",
+        "schema": "gfmcd.r5a.paired_noop_health/2",
         "candidate_outcomes_used": False,
+        "comparison": "intervention minus exact same-hook no-op on paired probes",
+        "absolute_accuracy_floor_used": False,
         "maximum_examples": HEALTH_MAX_EXAMPLES,
         "probes_per_example": HEALTH_PROBES_PER_EXAMPLE,
         "probe_registry": probe_registry,
         "probe_registry_sha256": canonical_sha256(probe_registry),
+        "policy_registry": policy_registry,
         "policies": records,
-        "all_pass": all(record["ok"] for record in records.values()),
+        "core_all_pass": core_all_pass,
+        "secondary_all_pass": secondary_all_pass,
+        "all_pass": core_all_pass and secondary_all_pass,
     }
-
 
 def _inject_query_context_margin(
     adapter,
@@ -1907,9 +1979,13 @@ def _head_rows(
     *,
     head: int,
     num_heads: int,
+    query_state: Mapping[str, Any] | None = None,
 ) -> tuple[torch.Tensor, torch.Tensor]:
+    """Construct a query-head row, optionally fixing Q to another captured state."""
+
+    query_source = state if query_state is None else query_state
     logits, attention = qk_attention_row(
-        state["query"],
+        query_source["query"],
         state["key"],
         head=head,
         query_positions=query_tokens,
@@ -1922,6 +1998,25 @@ def _head_rows(
     if row_sum_error >= HOOK_ATOL or not bool((attention.sum(dim=-1) > 0).all()):
         raise RuntimeError("R5a attention row is zero or does not sum to one")
     return logits, attention
+
+
+def _head_query_at_tokens(
+    state: Mapping[str, Any],
+    query_tokens: torch.Tensor,
+    *,
+    head: int,
+    num_heads: int,
+) -> torch.Tensor:
+    query = state["query"]
+    if query.ndim != 3 or query.shape[-1] % num_heads:
+        raise RuntimeError("R5a captured query tensor shape differs")
+    width = query.shape[-1] // num_heads
+    rows = torch.arange(query.shape[0], device=query.device)
+    return query[
+        rows,
+        query_tokens,
+        head * width : (head + 1) * width,
+    ]
 
 
 def _window_tensor(
@@ -1973,9 +2068,8 @@ def run_position_shift_batch(
     readout_positions: Sequence[int],
     paired_positions: Sequence[int],
     pseudo_positions: Sequence[int],
-    adjacent_positions: Sequence[int],
 ) -> tuple[dict[str, Any], dict[str, Any]]:
-    """Execute the exact 2x2 component shift and fixed-V behavior bridge."""
+    """Exchange paired/pseudo embeddings with clean numerical Q and V fixed."""
 
     device = adapter.device
     query_tokens = torch.tensor(
@@ -1986,7 +2080,6 @@ def run_position_shift_batch(
     windows = {
         "paired": _window_tensor(paired_positions, token_offset=task.off, device=device),
         "pseudo": _window_tensor(pseudo_positions, token_offset=task.off, device=device),
-        "adjacent": _window_tensor(adjacent_positions, token_offset=task.off, device=device),
     }
     components = capture_embed_components(
         adapter, lambda: adapter.model(**encoded)
@@ -2002,21 +2095,28 @@ def run_position_shift_batch(
     output: dict[str, Any] = {head: {} for head in SHIFT_HEADS}
     invariants: dict[str, Any] = {
         "query_token_never_clamped": True,
+        "decision_query_source": "numerically identical clean query row",
+        "shifted_native_query_role": "DESCRIPTIVE_ONLY",
+        "shifted_native_query_decision_bearing": False,
+        "clean_recipient_for_every_cell": True,
         "input_ids_sha256": _array_sha256(encoded["input_ids"].cpu().numpy()),
         "fixed_V_sha256_by_head": {},
+        "fixed_query_sha256_by_head": {},
+        "fixed_query_sha256_by_head_and_cell": {},
+        "fixed_query_assignment_max_abs_error": 0.0,
+        "shifted_native_query_change_max_abs_by_head_and_cell": {},
         "full_cell_margin_identity_max_abs": 0.0,
-        "attention_reconstruction_max_abs": 0.0,
+        "full_cell_attention_reconstruction_max_abs": 0.0,
         "component_swap_involution_max_abs": 0.0,
         "component_swap_assignment_max_abs": 0.0,
         "component_swap_outside_max_abs": 0.0,
         "bridge_reuses_one_clean_V_tensor_for_all_cells": True,
         "bridge_fixed_V_sha256_by_head_and_cell": {},
     }
-    for comparison, left_name in (
-        ("paired_adjacent", "paired"),
-        ("pseudo_adjacent", "pseudo"),
+    for comparison, left_name, right_name in (
+        ("paired_pseudo", "paired", "pseudo"),
     ):
-        left, right = windows[left_name], windows["adjacent"]
+        left, right = windows[left_name], windows[right_name]
         if any(
             int(query_tokens[row]) in set(torch.cat((left[row], right[row])).tolist())
             for row in range(len(query_tokens))
@@ -2074,6 +2174,22 @@ def run_position_shift_batch(
                 }
         for head_name in SHIFT_HEADS:
             layer, head = head_tuple(head_name)
+            fixed_query = _head_query_at_tokens(
+                clean_states[layer],
+                query_tokens,
+                head=head,
+                num_heads=adapter.num_heads,
+            )
+            fixed_query_sha256 = _array_sha256(
+                fixed_query.detach().cpu().numpy()
+            )
+            invariants["fixed_query_sha256_by_head"][head_name] = (
+                fixed_query_sha256
+            )
+            invariants["fixed_query_sha256_by_head_and_cell"][head_name] = {}
+            invariants[
+                "shifted_native_query_change_max_abs_by_head_and_cell"
+            ][head_name] = {}
             fixed_values = _head_values(clean_states[layer], head, adapter.num_heads)
             invariants["fixed_V_sha256_by_head"][head_name] = _array_sha256(
                 fixed_values.cpu().numpy()
@@ -2086,20 +2202,63 @@ def run_position_shift_batch(
                 measure: {} for measure in SHIFT_MEASURES
             }
             for cell in SHIFT_CELLS:
+                cell_fixed_query = _head_query_at_tokens(
+                    clean_states[layer],
+                    query_tokens,
+                    head=head,
+                    num_heads=adapter.num_heads,
+                )
+                cell_fixed_query_sha256 = _array_sha256(
+                    cell_fixed_query.detach().cpu().numpy()
+                )
+                invariants["fixed_query_sha256_by_head_and_cell"][head_name][
+                    cell
+                ] = cell_fixed_query_sha256
+                fixed_query_error = float(
+                    (cell_fixed_query.float() - fixed_query.float()).abs().max()
+                )
+                invariants["fixed_query_assignment_max_abs_error"] = max(
+                    invariants["fixed_query_assignment_max_abs_error"],
+                    fixed_query_error,
+                )
+                if cell_fixed_query_sha256 != fixed_query_sha256:
+                    raise RuntimeError("R5a fixed query digest drifted across G1 cells")
+                shifted_native_query = _head_query_at_tokens(
+                    states[cell][layer],
+                    query_tokens,
+                    head=head,
+                    num_heads=adapter.num_heads,
+                )
+                invariants[
+                    "shifted_native_query_change_max_abs_by_head_and_cell"
+                ][head_name][cell] = float(
+                    (shifted_native_query.float() - fixed_query.float()).abs().max()
+                )
                 qk, attention = _head_rows(
                     states[cell][layer],
                     encoded,
                     query_tokens,
                     head=head,
                     num_heads=adapter.num_heads,
+                    query_state=clean_states[layer],
                 )
-                native_attention = states[cell][layer]["attentions"][:, head]
-                rows = torch.arange(attention.shape[0], device=attention.device)
-                native_row = native_attention[rows, query_tokens]
-                error = float((native_row.float() - attention.float()).abs().max())
-                invariants["attention_reconstruction_max_abs"] = max(
-                    invariants["attention_reconstruction_max_abs"], error
-                )
+                if cell == "full":
+                    native_attention = states[cell][layer]["attentions"][:, head]
+                    rows = torch.arange(
+                        attention.shape[0], device=attention.device
+                    )
+                    native_row = native_attention[rows, query_tokens]
+                    error = float(
+                        (native_row.float() - attention.float()).abs().max()
+                    )
+                    invariants[
+                        "full_cell_attention_reconstruction_max_abs"
+                    ] = max(
+                        invariants[
+                            "full_cell_attention_reconstruction_max_abs"
+                        ],
+                        error,
+                    )
                 context = reconstruct_head_context(attention, fixed_values)
                 margin = _inject_query_context_margin(
                     adapter,
@@ -2124,8 +2283,9 @@ def run_position_shift_batch(
                 cell_values["acceptor_margin"][cell] = margin
             output[head_name][comparison] = cell_values
     invariants["ok"] = bool(
-        invariants["attention_reconstruction_max_abs"] < HOOK_ATOL
+        invariants["full_cell_attention_reconstruction_max_abs"] < HOOK_ATOL
         and invariants["full_cell_margin_identity_max_abs"] < MARGIN_ATOL
+        and invariants["fixed_query_assignment_max_abs_error"] == 0.0
         and invariants["component_swap_involution_max_abs"] == 0.0
         and invariants["component_swap_assignment_max_abs"] == 0.0
         and invariants["component_swap_outside_max_abs"] == 0.0
@@ -2142,7 +2302,8 @@ def run_qk_batch(
     readout_positions: Sequence[int],
     paired_positions: Sequence[int],
     pseudo_positions: Sequence[int],
-    adjacent_positions: Sequence[int],
+    *,
+    arms: Sequence[tuple[str, str]] = QK_ARMS,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     query_tokens = torch.tensor(
         [position + task.off for position in readout_positions],
@@ -2152,9 +2313,11 @@ def run_qk_batch(
     windows = {
         "paired": _window_tensor(paired_positions, token_offset=task.off, device=adapter.device),
         "pseudo": _window_tensor(pseudo_positions, token_offset=task.off, device=adapter.device),
-        "adjacent": _window_tensor(adjacent_positions, token_offset=task.off, device=adapter.device),
     }
-    layers = tuple(sorted({head_tuple(head)[0] for head, _ in QK_ARMS}))
+    selected_arms = tuple((str(head), str(window)) for head, window in arms)
+    if not selected_arms or any(window not in windows for _head, window in selected_arms):
+        raise ValueError("QK arms must be a nonempty paired/pseudo registry")
+    layers = tuple(sorted({head_tuple(head)[0] for head, _ in selected_arms}))
     encodings = {
         "clean": encoded_clean,
         "partner": encoded_partner,
@@ -2167,15 +2330,21 @@ def run_qk_batch(
         }
         for name, encoded in encodings.items()
     }
+    # Every capture carries the same complete-model logits.  Index through an actually
+    # requested layer so the separately registered L2H15/L0H2 family does not depend on
+    # L3H1 being present in its arm registry.
     clean_margin = task.margin(
-        states["clean"][READER[0]]["logits"], readout_positions
+        states["clean"][layers[0]]["logits"], readout_positions
     ).cpu().numpy()
-    output: dict[str, Any] = {head: {window: {} for h, window in QK_ARMS if h == head} for head, _ in QK_ARMS}
+    output: dict[str, Any] = {
+        head: {window: {} for candidate, window in selected_arms if candidate == head}
+        for head, _ in selected_arms
+    }
     maximum_unselected_error = 0.0
     maximum_selected_assignment_error = 0.0
     maximum_value_error = 0.0
     fixed_value_sha256_by_arm: dict[str, str] = {}
-    for head_name, window_name in QK_ARMS:
+    for head_name, window_name in selected_arms:
         layer, head = head_tuple(head_name)
         clean_logits, _ = _head_rows(
             states["clean"][layer], encoded_clean, query_tokens, head=head, num_heads=adapter.num_heads
@@ -2256,7 +2425,6 @@ def run_av_batch(
     readout_positions: Sequence[int],
     paired_positions: Sequence[int],
     pseudo_positions: Sequence[int],
-    adjacent_positions: Sequence[int],
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     query_tokens = torch.tensor(
         [position + task.off for position in readout_positions],
@@ -2266,7 +2434,6 @@ def run_av_batch(
     windows = {
         "paired": _window_tensor(paired_positions, token_offset=task.off, device=adapter.device),
         "pseudo": _window_tensor(pseudo_positions, token_offset=task.off, device=adapter.device),
-        "adjacent": _window_tensor(adjacent_positions, token_offset=task.off, device=adapter.device),
     }
     states = {
         "clean": _capture_qkv_and_heads(adapter, encoded_clean),
@@ -2382,122 +2549,28 @@ def run_av_batch(
     }
 
 
-def run_l2_batch(
-    adapter,
-    task: CouplingTask,
-    encoded_clean: Mapping[str, torch.Tensor],
-    encoded_partner: Mapping[str, torch.Tensor],
-    encoded_pseudo: Mapping[str, torch.Tensor],
-    readout_positions: Sequence[int],
-) -> tuple[dict[str, Any], dict[str, Any]]:
-    query_tokens = torch.tensor(
-        [position + task.off for position in readout_positions],
-        dtype=torch.long,
-        device=adapter.device,
-    )
-    output: dict[str, Any] = {builder: {} for builder in BUILDERS}
-    baseline_error = 0.0
-    for builder_name in BUILDERS:
-        builder = head_tuple(builder_name)
-        intact = {
-            "clean": _capture_qkv_and_heads(adapter, encoded_clean),
-            "partner": _capture_qkv_and_heads(adapter, encoded_partner),
-            "pseudo": _capture_qkv_and_heads(adapter, encoded_pseudo),
-        }
-        with edit_heads(adapter, [builder], mode="within_example_mean"):
-            ablated = {
-                "clean": _capture_qkv_and_heads(adapter, encoded_clean),
-                "partner": _capture_qkv_and_heads(adapter, encoded_partner),
-                "pseudo": _capture_qkv_and_heads(adapter, encoded_pseudo),
-            }
-        for leg, encoded in (("partner", encoded_partner), ("pseudo", encoded_pseudo)):
-            intact_coupling = (
-                task.margin(intact["clean"]["logits"], readout_positions)
-                - task.margin(intact[leg]["logits"], readout_positions)
-            ).cpu().numpy()
-            ablated_coupling = (
-                task.margin(ablated["clean"]["logits"], readout_positions)
-                - task.margin(ablated[leg]["logits"], readout_positions)
-            ).cpu().numpy()
-            cell_couplings: dict[str, np.ndarray] = {}
-            for state_name, state_encoded in (("clean", encoded_clean), (leg, encoded)):
-                intact_a = _head_rows(
-                    intact[state_name],
-                    state_encoded,
-                    query_tokens,
-                    head=READER[1],
-                    num_heads=adapter.num_heads,
-                )[1]
-                ablated_a = _head_rows(
-                    ablated[state_name],
-                    state_encoded,
-                    query_tokens,
-                    head=READER[1],
-                    num_heads=adapter.num_heads,
-                )[1]
-                intact_v = _head_values(intact[state_name], READER[1], adapter.num_heads)
-                ablated_v = _head_values(ablated[state_name], READER[1], adapter.num_heads)
-                contexts = av_four_cell_reconstruction(
-                    intact_a.cpu().numpy(),
-                    ablated_a.cpu().numpy(),
-                    intact_v.cpu().numpy(),
-                    ablated_v.cpu().numpy(),
-                )
-                margins: dict[str, np.ndarray] = {}
-                for cell in AV_CELL_ORDER:
-                    margins[cell] = _inject_query_context_margin(
-                        adapter,
-                        task,
-                        state_encoded,
-                        readout_positions,
-                        query_tokens,
-                        ablated[state_name]["heads"],
-                        layer=READER[0],
-                        head=READER[1],
-                        context=torch.as_tensor(
-                            contexts[cell], device=adapter.device, dtype=ablated_v.dtype
-                        ),
-                        outer_context=lambda builder=builder: edit_heads(
-                            adapter, [builder], mode="within_example_mean"
-                        ),
-                    )
-                if state_name == "clean":
-                    clean_margins = margins
-                else:
-                    corrupt_margins = margins
-            for cell in AV_CELL_ORDER:
-                cell_couplings[cell] = clean_margins[cell] - corrupt_margins[cell]
-            output[builder_name][leg] = {
-                cell: cell_couplings[cell] - ablated_coupling for cell in AV_CELL_ORDER
-            }
-            baseline_error = max(
-                baseline_error,
-                float(np.max(np.abs(output[builder_name][leg]["baseline"]))),
-            )
-            # This scalar is recorded only as path-continuity context, never inserted into
-            # the factorial family or used as a substitute for a frozen cell.
-            output[builder_name][leg]["native_builder_contribution"] = (
-                intact_coupling - ablated_coupling
-            )
-    return output, {
-        "baseline_rescue_max_abs_error": baseline_error,
-        "ok": baseline_error < MARGIN_ATOL,
-    }
-
-
 def _normalized_runner_sha256(path: Path = RUNNER) -> str:
     text = path.read_text()
     names = (
         "FROZEN_PROTOCOL_SHA256",
         "FROZEN_INSTRUMENT_FINGERPRINT_SHA256",
         "FROZEN_PREFLIGHT_ARTIFACT_SHA256",
+        "FROZEN_PREFLIGHT_MANIFEST_SHA256",
+        "FROZEN_R1C_PREFLIGHT_ARTIFACT_SHA256",
+        "FROZEN_R1C_PREFLIGHT_MANIFEST_SHA256",
+        "FROZEN_R1C_TARGET_ARTIFACT_SHA256",
+        "FROZEN_R1C_TARGET_MANIFEST_SHA256",
+        "FROZEN_R1C_TARGET_ATTEMPT_SHA256",
+        "FROZEN_R1C_TARGET_COMPLETION_SHA256",
+        "FROZEN_R3D_ARTIFACT_SHA256",
+        "FROZEN_R3D_MANIFEST_SHA256",
+        "FROZEN_R3D_REGISTRY_ARTIFACT_SHA256",
+        "FROZEN_R3D_REGISTRY_MANIFEST_SHA256",
+        "FROZEN_R3D_ATTEMPT_SHA256",
+        "FROZEN_R3D_COMPLETION_SHA256",
         "FROZEN_R3C_ARTIFACT_SHA256",
+        "FROZEN_R3C_MANIFEST_SHA256",
         "FROZEN_CHECKPOINT_AGGREGATE_SHA256",
-        "FROZEN_COMPLETE_ELIGIBLE_GENES",
-        "FROZEN_BUCKET_ELIGIBLE_GENES",
-        "FROZEN_SELECTED_COHORT_SHA256",
-        "FROZEN_CONSTRUCTION_SHA256",
-        "FROZEN_EXCLUDED_GENE_REGISTRY_SHA256",
     )
     for name in names:
         text, count = re.subn(
@@ -2517,7 +2590,6 @@ def instrument_binding_payload() -> dict[str, Any]:
         PROTOCOL,
         R5B_PROTOCOL,
         R5C_PROTOCOL,
-        R3C_RUNNER,
         MECHANISM_CORE,
         COHORT_CORE,
         STAT_CORE,
@@ -2531,11 +2603,21 @@ def instrument_binding_payload() -> dict[str, Any]:
         raise RuntimeError(f"R5a binding source missing: {missing[0]}")
     stack = build_r5_stack_binding(repo=REPO)
     return {
-        "schema": "gfmcd.r5a.instrument_binding/1",
+        "schema": "gfmcd.r5a.instrument_binding/2",
         "r5_stack_binding": stack,
         "r5_stack_fingerprint_sha256": r5_stack_fingerprint(stack),
         "normalized_runner_sha256": _normalized_runner_sha256(),
-        "source_sha256": {str(path.relative_to(REPO)): sha256_file(path) for path in sources},
+        "source_sha256": {
+            str(path.relative_to(REPO)): (
+                normalized_literal_pin_source_sha256(
+                    path,
+                    permitted_pin_names=SHARED_R1C_PACKAGE_PIN_NAMES,
+                )
+                if path == COHORT_CORE
+                else sha256_file(path)
+            )
+            for path in sources
+        },
         "constants": {
             "n": PRODUCTION_N,
             "batch": PRODUCTION_BATCH,
@@ -2546,27 +2628,27 @@ def instrument_binding_payload() -> dict[str, Any]:
             "calibration_primitive_noise_sd": CALIBRATION_PRIMITIVE_NOISE_SD,
             "health_maximum_examples": HEALTH_MAX_EXAMPLES,
             "health_probes_per_example": HEALTH_PROBES_PER_EXAMPLE,
-            "health_floor": HEALTH_FLOOR,
-            "sesoi": SESOI,
+            "health_noninferiority_margin": HEALTH_NONINFERIORITY_MARGIN,
+            "r1c_sdpa_to_r5a_eager_common_leg_atol": SDPA_EAGER_COMMON_LEG_ATOL,
+            "margin_sesoi": MARGIN_SESOI,
             "stage_alpha": STAGE_ALPHA,
-            "family_alpha": FAMILY_ALPHA,
+            "fixed_sequence_alpha_fragmented": False,
             "pseudo_caliper_nt": DECOY_TOL,
-            "cohort_schema": "gfmcd.r5.acceptor_mechanism_cohort/2",
-            "adjacent_window_policy": {
-                "salt": R5_ADJACENT_SALT,
-                "shells": 8,
-                "tokens_per_window": 4,
-                "maximum_absolute_offset_from_donor": 34,
-                "selection": "nearest admissible shell; hash-fixed side order within shell",
+            "cohort_handoffs": {
+                "preflight": R5_PREFLIGHT_COHORT_HANDOFF_SCHEMA,
+                "target": R5_CAPSTONE_COHORT_HANDOFF_SCHEMA,
+                "exact_ordered_rows": EXACT_ROWS,
+                "adjacent_diagnostic_required": False,
             },
             "reader": list(READER),
-            "address_builder": list(ADDRESS_BUILDER),
+            "secondary_reader": list(SECONDARY_READER),
             "negative_head": list(NEGATIVE_HEAD),
             "family_order": list(FAMILY_ORDER),
             "family_rows_sha256": {
                 name: canonical_sha256(rows) for name, rows in family_row_names().items()
             },
             "path_registry_sha256": canonical_sha256(named_path_specs()),
+            "health_policy_registry": health_policy_registry(),
             "behavioral_endpoint": "masked_acceptor_G_margin_only",
             "donor_readout_constructed": False,
         },
@@ -2574,27 +2656,40 @@ def instrument_binding_payload() -> dict[str, Any]:
 
 
 def _all_freeze_pins_present(*, include_preflight: bool = True) -> bool:
-    hash_pins = (
+    hash_pins: tuple[Any, ...] = (
         FROZEN_PROTOCOL_SHA256,
         FROZEN_INSTRUMENT_FINGERPRINT_SHA256,
+        FROZEN_R1C_PREFLIGHT_ARTIFACT_SHA256,
+        FROZEN_R1C_PREFLIGHT_MANIFEST_SHA256,
+        FROZEN_R3D_ARTIFACT_SHA256,
+        FROZEN_R3D_MANIFEST_SHA256,
+        FROZEN_R3D_REGISTRY_ARTIFACT_SHA256,
+        FROZEN_R3D_REGISTRY_MANIFEST_SHA256,
+        FROZEN_R3D_ATTEMPT_SHA256,
+        FROZEN_R3D_COMPLETION_SHA256,
         FROZEN_R3C_ARTIFACT_SHA256,
+        FROZEN_R3C_MANIFEST_SHA256,
         FROZEN_CHECKPOINT_AGGREGATE_SHA256,
-        FROZEN_EXCLUDED_GENE_REGISTRY_SHA256,
-    ) + ((FROZEN_PREFLIGHT_ARTIFACT_SHA256,) if include_preflight else ())
-    cohort_hashes = (FROZEN_SELECTED_COHORT_SHA256, FROZEN_CONSTRUCTION_SHA256)
+    )
+    if include_preflight:
+        hash_pins += (
+            FROZEN_R1C_TARGET_ARTIFACT_SHA256,
+            FROZEN_R1C_TARGET_MANIFEST_SHA256,
+            FROZEN_R1C_TARGET_ATTEMPT_SHA256,
+            FROZEN_R1C_TARGET_COMPLETION_SHA256,
+            FROZEN_PREFLIGHT_ARTIFACT_SHA256,
+            FROZEN_PREFLIGHT_MANIFEST_SHA256,
+        )
     return bool(
         all(_is_sha256(value) for value in hash_pins)
-        and isinstance(FROZEN_COMPLETE_ELIGIBLE_GENES, int)
-        and FROZEN_COMPLETE_ELIGIBLE_GENES >= 2 * PRODUCTION_N
-        and isinstance(FROZEN_BUCKET_ELIGIBLE_GENES, tuple)
-        and len(FROZEN_BUCKET_ELIGIBLE_GENES) == 2
-        and all(isinstance(value, int) and value >= PRODUCTION_N for value in FROZEN_BUCKET_ELIGIBLE_GENES)
-        and all(
-            isinstance(pair, tuple)
-            and len(pair) == 2
-            and all(_is_sha256(value) for value in pair)
-            for pair in cohort_hashes
-        )
+        and FROZEN_R3D_ARTIFACT_SHA256 == R3D_TARGET_ARTIFACT_SHA256
+        and FROZEN_R3D_MANIFEST_SHA256 == R3D_TARGET_MANIFEST_SHA256
+        and FROZEN_R3D_REGISTRY_ARTIFACT_SHA256 == R3D_REGISTRY_ARTIFACT_SHA256
+        and FROZEN_R3D_REGISTRY_MANIFEST_SHA256 == R3D_REGISTRY_MANIFEST_SHA256
+        and FROZEN_R3D_ATTEMPT_SHA256 == R3D_TARGET_ATTEMPT_SHA256
+        and FROZEN_R3D_COMPLETION_SHA256 == R3D_TARGET_COMPLETION_SHA256
+        and FROZEN_R3C_ARTIFACT_SHA256 == R3C_PREFLIGHT_ARTIFACT_SHA256
+        and FROZEN_R3C_MANIFEST_SHA256 == R3C_PREFLIGHT_MANIFEST_SHA256
     )
 
 
@@ -2605,8 +2700,8 @@ def authorize_model_scoring(stage: str) -> dict[str, Any]:
         raise SealError("model scoring requires preflight or target stage")
     if not _all_freeze_pins_present(include_preflight=stage == "target"):
         raise SealError(
-            "R5a remains DRAFT: model scoring requires all literal method, census, "
-            "construction, instrument, and preflight pins"
+            "R5a remains DRAFT: model scoring requires all literal method, R1c "
+            "handoff, checkpoint, instrument, and stage-preflight pins"
         )
     protocol_text = PROTOCOL.read_text()
     if "Status: FROZEN" not in protocol_text:
@@ -2630,136 +2725,368 @@ def authorize_model_scoring(stage: str) -> dict[str, Any]:
     }
 
 
-def _load_r3c_runner():
-    path = R3C_RUNNER
-    if not path.is_file():
-        raise RuntimeError("R5a requires the reviewed R3c cohort runner")
-    spec = importlib.util.spec_from_file_location("gfmcd_r3c_cohort_runtime", path)
+def load_authenticated_r1c_preflight_handoff(
+    artifact_path: str | Path,
+    manifest_path: str | Path,
+) -> dict[str, Any]:
+    """Authenticate R1c's exact nonsealed validation rows for method preflight only."""
+
+    try:
+        handoff = load_r1c_preflight_cohort_handoff(
+            artifact_path, manifest_path
+        )
+        verified = validate_r5_preflight_cohort_handoff(handoff)
+    except (R5CapstoneCohortError, OSError, RuntimeError, TypeError, ValueError) as exc:
+        raise RuntimeError(
+            f"R1c validation-preflight handoff authentication failed: {exc}"
+        ) from exc
+    if (
+        handoff.get("schema") != R5_PREFLIGHT_COHORT_HANDOFF_SCHEMA
+        or handoff.get("row_count") != EXACT_ROWS
+        or verified.get("row_count") != EXACT_ROWS
+        or verified.get("verified") is not True
+        or handoff.get("scientific_entry_authorized") is not False
+        or handoff.get("sealed_split_opened") is not False
+    ):
+        raise RuntimeError("R1c validation-preflight handoff disposition differs")
+    package_inputs = [
+        _pinned_input_identity(
+            artifact_path,
+            FROZEN_R1C_PREFLIGHT_ARTIFACT_SHA256,
+            label="R1c validation-preflight artifact",
+        ),
+        _pinned_input_identity(
+            manifest_path,
+            FROZEN_R1C_PREFLIGHT_MANIFEST_SHA256,
+            label="R1c validation-preflight manifest",
+        ),
+    ]
+    return {
+        "handoff": handoff,
+        "verified": verified,
+        "row_count": EXACT_ROWS,
+        "exact_order_preserved": True,
+        "scientific_entry_authorized": False,
+        "sealed_split_opened": False,
+        "package_inputs": package_inputs,
+    }
+
+
+def build_r5a_target_identity(
+    capstone_handoff: Mapping[str, Any],
+    *,
+    checkpoint_sha256: str,
+) -> dict[str, Any]:
+    """Bind R5a spend to R1c's exact sealed 400-row biological target."""
+
+    if capstone_handoff.get("row_count") != EXACT_ROWS:
+        raise RuntimeError("R5a target identity requires the exact 400-row handoff")
+    return build_r5_biological_target_identity(
+        stage="R5a",
+        checkpoint_sha256=checkpoint_sha256,
+        target_gene_ids_sha256=str(
+            capstone_handoff.get("sorted_unique_gene_ids_sha256")
+        ),
+        ordered_rows_sha256=str(
+            capstone_handoff.get("ordered_row_ids_sha256")
+        ),
+        construction_sha256=str(
+            capstone_handoff.get("capstone_construction_sha256")
+        ),
+        endpoint_policy="masked_acceptor_G_margin_only",
+    )
+
+
+R1C_CONFIRMED_BEHAVIOR_VERDICTS = frozenset(
+    {
+        "CONFIRMED_PAIRED_DONOR_ACCEPTOR_BEHAVIOR",
+        "CONFIRMED_DOWNSTREAM_ACCEPTOR_PREFERENCE",
+    }
+)
+R1C_VALID_SCIENTIFIC_NULL_VERDICTS = frozenset(
+    {
+        "PAIRED_DONOR_PATH_UNRESOLVED_ROBUSTNESS",
+        "PAIRED_DONOR_PATH_UNRESOLVED",
+        "NO_CONFIRMED_PAIRED_DONOR_PATH",
+    }
+)
+
+
+def _pinned_input_identity(
+    path_value: str | Path | None,
+    expected_sha256: str | None,
+    *,
+    label: str,
+) -> dict[str, Any]:
+    if path_value is None or not _is_sha256(expected_sha256):
+        raise RuntimeError(f"R5a requires a literal-pinned {label}")
+    path = Path(path_value).expanduser().resolve(strict=True)
+    observed = sha256_file(path)
+    if observed != expected_sha256:
+        raise RuntimeError(f"R5a {label} differs from its literal pin")
+    return {
+        "path": str(path),
+        "logical_name": path.name,
+        "size_bytes": path.stat().st_size,
+        "sha256": observed,
+    }
+
+
+def classify_r1c_target_behavior_gate(
+    attestation: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Classify only the public R1c successor attestation, never an invented schema."""
+
+    if attestation.get("schema") != "gfmcd.r1c.verified_target_handoff/1":
+        raise RuntimeError("R1c successor target attestation schema differs")
+    verdict = attestation.get("verdict")
+    if verdict in R1C_CONFIRMED_BEHAVIOR_VERDICTS:
+        if attestation.get("all_gates_pass") is not True:
+            raise RuntimeError("R1c confirmed verdict lacks passing frozen gates")
+        return {
+            "verdict": verdict,
+            "scientific_gate_pass": True,
+            "failure_is_scientific_not_instrumental": False,
+            "instrument_failure": False,
+        }
+    if verdict in R1C_VALID_SCIENTIFIC_NULL_VERDICTS:
+        return {
+            "verdict": verdict,
+            "scientific_gate_pass": False,
+            "failure_is_scientific_not_instrumental": True,
+            "instrument_failure": False,
+        }
+    if verdict == "INCONCLUSIVE":
+        raise RuntimeError("R1c target instrument was inconclusive")
+    raise RuntimeError("R1c successor target verdict is not prespecified")
+
+
+def _verify_r1c_successor_target_package(
+    artifact_path: str | Path,
+    manifest_path: str | Path,
+    attempt_path: str | Path,
+    completion_path: str | Path,
+    *,
+    preflight_artifact_path: str | Path,
+) -> dict[str, Any]:
+    spec = importlib.util.spec_from_file_location("_gfmcd_r1c_successor", R1C_RUNNER)
     if spec is None or spec.loader is None:
-        raise RuntimeError("could not load the R3c cohort runner")
+        raise RuntimeError("R1c successor verifier could not be loaded")
     module = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = module
     spec.loader.exec_module(module)
-    return module
+    verifier = getattr(module, "verify_successor_target_package", None)
+    if not callable(verifier):
+        raise RuntimeError("R1c successor target verifier is unavailable")
+    result = verifier(
+        artifact_path,
+        manifest_path,
+        attempt_path,
+        completion_path,
+        preflight_artifact_path=preflight_artifact_path,
+    )
+    if not isinstance(result, Mapping):
+        raise RuntimeError("R1c successor target verifier returned a malformed result")
+    return dict(result)
 
 
-def build_model_free_reservations(
-    gtf: str, fasta: str
-) -> tuple[dict[int, tuple[Any, ...]], dict[str, Any], dict[str, Any]]:
-    """Reconstruct historical/R3c exclusions and the exact shared R5 reservations."""
+def load_authenticated_r1c_target_handoff(
+    artifact_path: str | Path,
+    manifest_path: str | Path,
+    attempt_path: str | Path,
+    completion_path: str | Path,
+    preflight_artifact_path: str | Path,
+    preflight_manifest_path: str | Path,
+) -> dict[str, Any]:
+    """Authenticate the exact R1c six-file target package and scientific gate."""
 
+    specs = (
+        (artifact_path, FROZEN_R1C_TARGET_ARTIFACT_SHA256, "R1c target artifact"),
+        (manifest_path, FROZEN_R1C_TARGET_MANIFEST_SHA256, "R1c target manifest"),
+        (attempt_path, FROZEN_R1C_TARGET_ATTEMPT_SHA256, "R1c target attempt"),
+        (completion_path, FROZEN_R1C_TARGET_COMPLETION_SHA256, "R1c target completion"),
+        (
+            preflight_artifact_path,
+            FROZEN_R1C_PREFLIGHT_ARTIFACT_SHA256,
+            "R1c predecessor preflight artifact",
+        ),
+        (
+            preflight_manifest_path,
+            FROZEN_R1C_PREFLIGHT_MANIFEST_SHA256,
+            "R1c predecessor preflight manifest",
+        ),
+    )
+    package_inputs = [
+        _pinned_input_identity(path, pin, label=label)
+        for path, pin, label in specs
+    ]
+    attestation = _verify_r1c_successor_target_package(
+        artifact_path,
+        manifest_path,
+        attempt_path,
+        completion_path,
+        preflight_artifact_path=preflight_artifact_path,
+    )
+    behavior_gate = classify_r1c_target_behavior_gate(attestation)
+    if not behavior_gate["scientific_gate_pass"]:
+        return {
+            "handoff": None,
+            "verified": None,
+            "attestation": attestation,
+            "behavior_gate": behavior_gate,
+            "package_inputs": package_inputs,
+        }
+    try:
+        handoff = load_r1c_capstone_cohort_handoff(
+            artifact_path,
+            manifest_path,
+            attempt_path,
+            completion_path,
+            preflight_artifact_path,
+            preflight_manifest_path,
+        )
+        verified = validate_r5_capstone_cohort_handoff(handoff)
+    except (R5CapstoneCohortError, OSError, RuntimeError, TypeError, ValueError) as exc:
+        raise RuntimeError(f"R1c target handoff authentication failed: {exc}") from exc
+    if (
+        handoff.get("schema") != R5_CAPSTONE_COHORT_HANDOFF_SCHEMA
+        or handoff.get("row_count") != EXACT_ROWS
+        or verified.get("row_count") != EXACT_ROWS
+        or verified.get("verified") is not True
+    ):
+        raise RuntimeError("R1c target handoff disposition differs")
+    return {
+        "handoff": handoff,
+        "verified": verified,
+        "attestation": attestation,
+        "behavior_gate": behavior_gate,
+        "package_inputs": package_inputs,
+    }
+
+
+def load_exposure_packages(args: argparse.Namespace) -> dict[str, Any]:
+    """Authenticate R3 provenance without deriving an R5 cohort from exclusions."""
+
+    r3d = load_r3d_entry_package(
+        args.r3d_artifact,
+        args.r3d_manifest,
+        registry_path=args.r3d_registry,
+        registry_manifest_path=args.r3d_registry_manifest,
+        attempt_path=args.r3d_attempt,
+        completion_path=args.r3d_completion,
+    )
+    if r3d.get("attempt") is None or r3d.get("completion") is None:
+        raise RuntimeError(
+            "R5a requires the exact R3d target-attempt and completion receipts"
+        )
+    r3c = load_r3c_exclusion_package(args.r3c_artifact, args.r3c_manifest)
+    chain = {
+        "r3d_scientific_entry": r3d,
+        "r3c_exclusion_provenance": r3c,
+    }
+    chain["exposure_chain_sha256"] = canonical_sha256(
+        {
+            "r3d_package_contract_sha256": r3d["package_contract_sha256"],
+            "r3c_package_contract_sha256": r3c["package_contract_sha256"],
+        }
+    )
+    return chain
+
+
+def load_upstream_chain(
+    exposure_chain: Mapping[str, Any], r1c_package: Mapping[str, Any]
+) -> dict[str, Any]:
+    """Combine already-authenticated R3 provenance with the later R1c package."""
+
+    chain = dict(exposure_chain)
+    chain["r1c_package"] = dict(r1c_package)
+    chain["chain_sha256"] = canonical_sha256(
+        {
+            "exposure_chain_sha256": chain["exposure_chain_sha256"],
+            "r1c_package_sha256": canonical_sha256(
+                r1c_package.get("package_inputs", [])
+            ),
+            "r1c_handoff_record_sha256": (
+                r1c_package.get("handoff", {}) or {}
+            ).get("record_sha256"),
+        }
+    )
+    return chain
+
+
+def materialize_authenticated_cohort(
+    gtf: str,
+    fasta: str,
+    *,
+    stage: str,
+    handoff: Mapping[str, Any],
+) -> tuple[tuple[Any, ...], dict[str, Any], dict[str, Any]]:
+    """Materialize all 400 authenticated R1c rows in byte-frozen order."""
+
+    if stage not in {"preflight", "target"}:
+        raise ValueError("R5a cohort stage must be preflight or target")
     source_identity = validate_expected_r5_source_identity(gtf, fasta)
-    r3c = _load_r3c_runner()
-    common = {"gtf": gtf, "fasta": fasta, "n": r3c.PREFLIGHT_N}
-    _, _, _, bucket0_audit = r3c.load_cohort(
-        SimpleNamespace(stage="preflight", **common)
-    )
-    _, _, _, bucket1_audit = r3c.load_cohort(
-        SimpleNamespace(stage="target", **common)
-    )
-    historical = bucket0_audit["historical_reconstruction"]["excluded_gene_ids"]
-    r3c_genes = sorted(
-        set(bucket0_audit["selection"]["gene_ids"])
-        | set(bucket1_audit["selection"]["gene_ids"])
+    split = "val" if stage == "preflight" else "test"
+    allowed = R5_VALIDATION_CHROMOSOMES if stage == "preflight" else ("chr8", "chr9")
+    tag = (
+        "r1c-preflight-r1c-single-g-primary-family-v2"
+        if stage == "preflight"
+        else "r1c-target-r1c-single-g-primary-family-v2"
     )
     examples = load_examples_unscored(
         gtf,
         fasta,
-        "val",
+        split,
         None,
-        tag="r5-acceptor-mechanism-v1",
-        allowed_chromosomes=R5_VALIDATION_CHROMOSOMES,
+        tag=tag,
+        allowed_chromosomes=allowed,
     )
-    pseudo_donors = {
-        str(example.example_id): matched_decoy_donor(example) for example in examples
-    }
-    selected, audit = build_r5_reservations(
-        examples,
-        pseudo_donors,
-        historical_r3_gene_ids=historical,
-        r3c_gene_ids=r3c_genes,
-        rows_per_bucket=R5_ROWS_PER_BUCKET,
-        require_capacity=True,
+    materializer = (
+        materialize_r5_preflight_rows
+        if stage == "preflight"
+        else materialize_r5_capstone_rows
     )
-    validate_r5_reservation_audit(audit, rows_per_bucket=R5_ROWS_PER_BUCKET)
-    validate_expected_r5_census_identity(audit)
-    return selected, audit, source_identity
-
+    rows, audit = materializer(examples, handoff)
+    ordered_ids = [str(row.example.example_id) for row in rows]
+    expected_ids = [str(row["example_id"]) for row in handoff["rows"]]
+    if (
+        len(rows) != EXACT_ROWS
+        or ordered_ids != expected_ids
+        or audit.get("handoff_order_preserved") is not True
+        or audit.get("rows_filtered_or_reordered") is not False
+        or audit.get("adjacent_window_required") is not False
+    ):
+        raise RuntimeError("R5a cohort did not preserve the exact 400-row R1c handoff")
+    return tuple(rows), dict(audit), source_identity
 
 def model_free_audit(args: argparse.Namespace) -> dict[str, Any]:
-    """Run the shared annotation/sequence-only census without loading a model."""
+    """Publish the prospective binding state without opening genome or model data."""
 
-    _selected, audit, source_identity = build_model_free_reservations(
-        args.gtf, args.fasta
-    )
-    identity = r5_census_identity(audit)
     binding = instrument_binding_payload()
     return {
-        "schema": "gfmcd.r5a.model_free_audit/1",
+        "schema": "gfmcd.r5a.prospective_instrument_audit/2",
         "model_loaded": False,
         "model_outputs_read": False,
-        "allowed_chromosomes": list(R5_VALIDATION_CHROMOSOMES),
+        "genome_opened": False,
         "sealed_chr8_chr9_opened": False,
-        "pins_are_nonbinding_none": not _all_freeze_pins_present(),
+        "preflight_pins_ready": _all_freeze_pins_present(include_preflight=False),
+        "target_pins_ready": _all_freeze_pins_present(include_preflight=True),
+        "preflight_handoff": {
+            "schema": R5_PREFLIGHT_COHORT_HANDOFF_SCHEMA,
+            "row_count": EXACT_ROWS,
+            "scientific_entry_authorized": False,
+        },
+        "target_handoff": {
+            "schema": R5_CAPSTONE_COHORT_HANDOFF_SCHEMA,
+            "row_count": EXACT_ROWS,
+            "requires_prior_r5a_target_receipt_before_genome_or_model": True,
+        },
         "instrument_binding": binding,
         "instrument_fingerprint_sha256": canonical_sha256(binding),
         "r5_stack_binding": binding["r5_stack_binding"],
         "r5_stack_fingerprint_sha256": binding[
             "r5_stack_fingerprint_sha256"
         ],
-        "cohort_audit": audit,
-        "expected_census_identity": R5_EXPECTED_CENSUS_IDENTITY,
-        "observed_census_identity": identity,
-        "expected_source_identity": R5_EXPECTED_SOURCE_IDENTITY,
-        "observed_source_identity": source_identity,
-        "future_pin_payload": {
-            "complete_eligible_genes": identity["eligible_genes"],
-            "bucket_eligible_genes": [
-                identity["available_genes_by_bucket"]["0"],
-                identity["available_genes_by_bucket"]["1"],
-            ],
-            "selected_cohort_sha256": [
-                identity["selected_by_bucket"][str(bucket)]["ordered_rows_sha256"]
-                for bucket in (0, 1)
-            ],
-            "construction_sha256": [
-                identity["selected_by_bucket"][str(bucket)]["construction_sha256"]
-                for bucket in (0, 1)
-            ],
-            "excluded_gene_registry_sha256": identity[
-                "combined_excluded_gene_ids_sha256"
-            ],
-        },
     }
-
-
-def validate_frozen_cohort_pins(audit: Mapping[str, Any]) -> None:
-    identity = validate_expected_r5_census_identity(audit)
-    observed_counts = (
-        identity["available_genes_by_bucket"]["0"],
-        identity["available_genes_by_bucket"]["1"],
-    )
-    observed_rows = tuple(
-        identity["selected_by_bucket"][str(bucket)]["ordered_rows_sha256"]
-        for bucket in (0, 1)
-    )
-    observed_constructions = tuple(
-        identity["selected_by_bucket"][str(bucket)]["construction_sha256"]
-        for bucket in (0, 1)
-    )
-    if identity["eligible_genes"] != FROZEN_COMPLETE_ELIGIBLE_GENES:
-        raise RuntimeError("R5a complete eligible-gene pin differs")
-    if observed_counts != FROZEN_BUCKET_ELIGIBLE_GENES:
-        raise RuntimeError("R5a bucket-capacity pins differ")
-    if observed_rows != FROZEN_SELECTED_COHORT_SHA256:
-        raise RuntimeError("R5a selected-cohort pins differ")
-    if observed_constructions != FROZEN_CONSTRUCTION_SHA256:
-        raise RuntimeError("R5a construction pins differ")
-    if (
-        identity["combined_excluded_gene_ids_sha256"]
-        != FROZEN_EXCLUDED_GENE_REGISTRY_SHA256
-    ):
-        raise RuntimeError("R5a excluded-gene registry pin differs")
 
 
 def entry_behavior_inference(
@@ -2781,7 +3108,7 @@ def entry_behavior_inference(
         family,
         groups,
         names,
-        sesoi=SESOI,
+        sesoi=MARGIN_SESOI,
         n_draws=n_draws,
         alpha=STAGE_ALPHA,
         seed=seed,
@@ -2792,7 +3119,7 @@ def entry_behavior_inference(
         np.vstack((partner, pseudo, pseudo, partner - pseudo)),
         groups,
         ["partner", "pseudo_lower", "pseudo_upper", "specific"],
-        boundaries=[SESOI, -SESOI, SESOI, SESOI],
+        boundaries=[MARGIN_SESOI, -MARGIN_SESOI, MARGIN_SESOI, MARGIN_SESOI],
         alternatives=["greater", "greater", "less", "greater"],
         n_draws=n_draws,
         seed=seed,
@@ -2803,11 +3130,11 @@ def entry_behavior_inference(
         [edge.p_value for edge in edges.values()]
     )
     ci_pass = (
-        strict_interval_decision(*decisions["native_partner"].simultaneous_ci, SESOI)
+        strict_interval_decision(*decisions["native_partner"].simultaneous_ci, MARGIN_SESOI)
         == "MATERIAL_POSITIVE"
-        and strict_interval_decision(*decisions["native_pseudo"].simultaneous_ci, SESOI)
+        and strict_interval_decision(*decisions["native_pseudo"].simultaneous_ci, MARGIN_SESOI)
         == "EQUIVALENT_WITHIN_SESOI"
-        and strict_interval_decision(*decisions["native_specific"].simultaneous_ci, SESOI)
+        and strict_interval_decision(*decisions["native_specific"].simultaneous_ci, MARGIN_SESOI)
         == "MATERIAL_POSITIVE"
     )
     return {
@@ -2911,173 +3238,6 @@ def _clean_manifest_identity(path: Path, expected_sha256: str, *, label: str) ->
     }
 
 
-def derive_r5_exclusion_registry(
-    r3c_record: Mapping[str, Any],
-    *,
-    r3c_artifact_identity: Mapping[str, Any],
-    r3c_manifest_identity: Mapping[str, Any],
-) -> dict[str, Any]:
-    """Derive the only admissible R5 exclusion registry from authenticated R3c."""
-
-    cohort = r3c_record.get("cohort_audit", {})
-    historical = list(
-        map(
-            str,
-            cohort.get("historical_reconstruction", {}).get(
-                "excluded_gene_ids", []
-            ),
-        )
-    )
-    fixed = (
-        cohort.get("current_census", {})
-        .get("fixed_selection_gene_ids_by_bucket", {})
-    )
-    if not isinstance(fixed, Mapping) or set(fixed) != {"0", "1"}:
-        raise RuntimeError("R5a R3c entry lacks both fixed exclusion buckets")
-    per_bucket: dict[str, list[str]] = {}
-    for bucket in ("0", "1"):
-        genes = list(map(str, fixed[bucket].get("gene_ids", [])))
-        if (
-            genes != sorted(set(genes))
-            or fixed[bucket].get("gene_ids_sha256") != canonical_sha256(genes)
-        ):
-            raise RuntimeError(f"R5a R3c bucket-{bucket} gene registry differs")
-        per_bucket[bucket] = genes
-    r3c_genes = sorted(set(per_bucket["0"]) | set(per_bucket["1"]))
-    if historical != sorted(set(historical)):
-        raise RuntimeError("R5a historical R3 gene registry is not sorted/unique")
-    if (
-        len(historical) != R5_EXPECTED_CENSUS_IDENTITY["historical_r3_gene_count"]
-        or canonical_sha256(historical)
-        != R5_EXPECTED_CENSUS_IDENTITY["historical_r3_gene_ids_sha256"]
-        or len(r3c_genes) != R5_EXPECTED_CENSUS_IDENTITY["r3c_gene_count"]
-        or canonical_sha256(r3c_genes)
-        != R5_EXPECTED_CENSUS_IDENTITY["r3c_gene_ids_sha256"]
-    ):
-        raise RuntimeError("R5a derived exclusion registry differs from the frozen census")
-    payload = {
-        "schema": "gfmcd.r5.exclusion_registry/1",
-        "derivation": "authenticated R3c target cohort audit; no free gene-list input",
-        "r3c_artifact": dict(r3c_artifact_identity),
-        "r3c_manifest": dict(r3c_manifest_identity),
-        "source_identity": R5_EXPECTED_SOURCE_IDENTITY,
-        "historical_r3_gene_ids": historical,
-        "r3c_gene_ids_by_bucket": per_bucket,
-        "r3c_gene_ids": r3c_genes,
-        "expected_census_identity_sha256": canonical_sha256(
-            R5_EXPECTED_CENSUS_IDENTITY
-        ),
-    }
-    return payload | {"record_sha256": canonical_sha256(payload)}
-
-
-def _verify_r3c_entry(path_value: str | None) -> dict[str, Any]:
-    if path_value is None:
-        raise RuntimeError("R5a requires --r3c-artifact")
-    path = Path(path_value).resolve()
-    if not path.is_file() or sha256_file(path) != FROZEN_R3C_ARTIFACT_SHA256:
-        raise RuntimeError("R5a R3c entry artifact differs from its literal pin")
-    artifact_sha256 = sha256_file(path)
-    manifest_identity = _clean_manifest_identity(
-        path, artifact_sha256, label="R3c entry artifact"
-    )
-    record = json.loads(path.read_text())
-    if (
-        record.get("schema") != R3C_ENTRY_SCHEMA
-        or record.get("instrument_revision") != R3C_INSTRUMENT_REVISION
-        or record.get("stage") != "target"
-        or record.get("status") != "CONFIRMATORY"
-        or record.get("tier") != "HELD_OUT_TARGET"
-        or record.get("split") != "val"
-        or record.get("gene_bucket") != 1
-        or record.get("verdict")
-        != "HELD_OUT_ACCEPTOR_HEAD_CONFIRMATION_COMPLETE"
-        or record.get("all_gates_pass") is not True
-        or record.get("sealed_split_opened") is not False
-        or record.get("protocol_status")
-        != "FROZEN_PROTOCOL_AND_INSTRUMENT_VERIFIED"
-        or record.get("primary_estimand")
-        != "raw masked-acceptor-G logit-margin component drop"
-    ):
-        raise RuntimeError("R5a requires the sealed confirmatory acceptor-only R3c artifact")
-    construction = record.get("construction", {})
-    policy = construction.get("policy", {})
-    if (
-        construction.get("schema") != "gfmcd.r3c.acceptor_only_construction/1"
-        or construction.get("all_single_acceptor_G") is not True
-        or policy.get("readout") != "mask exactly one G at next_acceptor_pos - 1"
-        or policy.get("paired_operator") != "GT -> AC at donor_pos"
-        or policy.get("donor_readout_constructed") is not False
-        or record.get("instrument_binding_payload", {}).get("readout")
-        != "next_acceptor_pos - 1 only"
-    ):
-        raise RuntimeError("R5a requires R3c's exact acceptor-only/no-donor contract")
-    try:
-        validate_r3c_target_manifest_contract(
-            record,
-            json.loads(Path(manifest_identity["path"]).read_text()),
-        )
-    except (OSError, ValueError, R5StackBindingError) as exc:
-        raise RuntimeError("R5a R3c sibling manifest context differs") from exc
-    paths = record.get("paths", {})
-    l3 = paths.get("L3H1_reused_component", {}) if isinstance(paths, Mapping) else {}
-    try:
-        validate_r3c_target_health_contract(record)
-    except R5StackBindingError as exc:
-        raise RuntimeError(
-            "R5a requires monotone R3c target health and all-path calibration"
-        ) from exc
-    gates = record.get("preflight_gates", record.get("gates", {}))
-    if (
-        not isinstance(gates, Mapping)
-        or not gates
-        or any(value is not True for value in gates.values())
-    ):
-        raise RuntimeError("R5a R3c entry artifact contains a failed preflight gate")
-    hashes = record.get("hashes", {})
-    checkpoint_sha256 = hashes.get("checkpoint_aggregate_sha256")
-    sources = hashes.get("sources", {})
-    source_sha256 = {key: sources.get(key, {}).get("sha256") for key in ("gtf", "fasta")}
-    if not _is_sha256(checkpoint_sha256) or not all(
-        _is_sha256(value) for value in source_sha256.values()
-    ):
-        raise RuntimeError("R5a R3c entry artifact lacks exact checkpoint/source hashes")
-    for key in ("gtf", "fasta"):
-        observed = sources.get(key, {})
-        expected = R5_EXPECTED_SOURCE_IDENTITY[key]
-        if (
-            observed.get("sha256") != expected["sha256"]
-            or observed.get("size_bytes") != expected["size_bytes"]
-        ):
-            raise RuntimeError("R5a R3c entry uses the wrong source bytes")
-    artifact_identity = {
-        "path": str(path),
-        "size_bytes": path.stat().st_size,
-        "sha256": artifact_sha256,
-    }
-    exclusion_registry = derive_r5_exclusion_registry(
-        record,
-        r3c_artifact_identity=artifact_identity,
-        r3c_manifest_identity=manifest_identity,
-    )
-    return {
-        **artifact_identity,
-        "manifest": manifest_identity,
-        "L3H1_reused_component": l3,
-        "checkpoint_sha256": checkpoint_sha256,
-        "source_sha256": source_sha256,
-        "cohort_identity": {
-            "historical_r3_gene_ids_sha256": R5_EXPECTED_CENSUS_IDENTITY[
-                "historical_r3_gene_ids_sha256"
-            ],
-            "r3c_gene_ids_sha256": R5_EXPECTED_CENSUS_IDENTITY[
-                "r3c_gene_ids_sha256"
-            ],
-        },
-        "exclusion_registry_record": exclusion_registry,
-    }
-
-
 def _verify_bound_preflight(
     path_value: str | None,
     fingerprint: str,
@@ -3085,6 +3245,8 @@ def _verify_bound_preflight(
     stack_binding: Mapping[str, Any],
     stack_fingerprint: str,
 ) -> dict[str, Any]:
+    """Authenticate an instrument-only R5a preflight; no observed science may gate."""
+
     if path_value is None:
         raise RuntimeError("R5a target requires --preflight-artifact")
     path = Path(path_value).resolve()
@@ -3093,6 +3255,8 @@ def _verify_bound_preflight(
         raise RuntimeError("R5a target requires artifact and sibling manifest")
     if sha256_file(path) != FROZEN_PREFLIGHT_ARTIFACT_SHA256:
         raise RuntimeError("R5a preflight artifact bytes differ from the literal pin")
+    if sha256_file(manifest_path) != FROZEN_PREFLIGHT_MANIFEST_SHA256:
+        raise RuntimeError("R5a preflight manifest bytes differ from the literal pin")
     manifest = json.loads(manifest_path.read_text())
     expected_outputs = [
         item
@@ -3106,7 +3270,7 @@ def _verify_bound_preflight(
         raise RuntimeError("R5a preflight sibling manifest does not bind artifact bytes")
     record = json.loads(path.read_text())
     if (
-        record.get("schema") != "gfmcd.r5a.acceptor_address_binding/1"
+        record.get("schema") != "gfmcd.r5a.acceptor_address_binding/2"
         or record.get("stage") != "preflight"
         or record.get("status") != "PREFLIGHT_PASS"
         or record.get("instrument_fingerprint_sha256") != fingerprint
@@ -3119,54 +3283,54 @@ def _verify_bound_preflight(
         raise RuntimeError("R5a preflight joint R5 stack differs") from exc
     if record.get("r5_stack_fingerprint_sha256") != stack_fingerprint:
         raise RuntimeError("R5a preflight joint R5 stack fingerprint differs")
+    contract = record.get("r5_entry_contract")
+    cohort = record.get("cohort_handoff")
     if (
-        record.get("entry_behavior", {}).get("classification")
-        != "ENTRY_BEHAVIOR_CONFIRMED"
-        or record.get("clean_L3H1_path_continuity", {}).get("classification")
-        != "L3_PATH_CONFIRMED"
+        not isinstance(contract, Mapping)
+        or contract.get("schema") != R5_ENTRY_SCHEMA
+        or contract.get("claim_eligible") is not False
+        or contract.get("verdict") != "PREFLIGHT_PASS"
+        or record.get("scientific_entry_authorized") is not False
+        or record.get("r5a_opened_chr8_chr9") is not False
+        or record.get("observed_scientific_inference") is not None
+        or not isinstance(cohort, Mapping)
+        or cohort.get("schema") != R5_PREFLIGHT_COHORT_HANDOFF_SCHEMA
+        or cohort.get("row_count") != EXACT_ROWS
+        or cohort.get("scientific_entry_authorized") is not False
+        or cohort.get("sealed_split_opened") is not False
+        or cohort.get("handoff_order_preserved") is not True
     ):
-        raise RuntimeError("R5a preflight entry/path-continuity gate did not pass")
-    raw = record.get("raw_family_values")
-    groups = record.get("gene_ids")
-    if not isinstance(raw, Mapping) or not isinstance(groups, list):
-        raise RuntimeError("R5a preflight lacks replayable family rows")
-    matrices = {
-        family: np.asarray(raw[family], dtype=float) for family in FAMILY_ORDER
-    }
-    sufficient = record.get("gene_sufficient_statistics", {})
-    expected_matrix_hashes = sufficient.get("family_matrix_sha256", {})
-    if any(
-        _array_sha256(matrices[family]) != expected_matrix_hashes.get(family)
-        for family in FAMILY_ORDER
-    ):
-        raise RuntimeError("R5a preflight gene sufficient-statistic hashes differ")
-    replay = infer_all_families(
-        matrices,
-        groups,
-        n_draws=PRODUCTION_RANDOMISATION,
-        seed=PRODUCTION_SEED,
-        namespace="r5a:preflight:observed",
-        min_genes=MIN_GENES,
+        raise RuntimeError("R5a preflight nonentry handoff contract differs")
+    common_replay = record.get("same_row_r1c_common_leg_replay")
+    av_capability = record.get("capability", {}).get("families", {}).get(
+        "attention_value"
     )
-    if canonical_sha256(replay) != record.get("inference_sha256"):
-        raise RuntimeError("R5a preflight inference does not replay from stored rows")
+    if (
+        not isinstance(common_replay, Mapping)
+        or common_replay.get("source_execution") != "R1c eager=False (SDPA)"
+        or common_replay.get("replay_execution") != "R5a eager=True (hook-capable)"
+        or common_replay.get("atol") != SDPA_EAGER_COMMON_LEG_ATOL
+        or common_replay.get("pass") is not True
+        or common_replay.get("mismatch_disposition") != "INSTRUMENT_UNRESOLVED"
+        or not isinstance(av_capability, Mapping)
+        or av_capability.get("all_batches_ok") is not True
+        or float(av_capability.get("a_at_v_reconstruction_max_abs_error", np.inf))
+        >= HOOK_ATOL
+    ):
+        raise RuntimeError("R5a preflight SDPA/eager or A@V reconstruction gate differs")
     calibration = record.get("classifier_calibration")
     if (
         not isinstance(calibration, Mapping)
         or calibration.get("all_pass") is not True
         or calibration.get("n_genes") != PRODUCTION_N
         or calibration.get("n_draws") != PRODUCTION_RANDOMISATION
-        or calibration.get("n_trials") != PRODUCTION_CALIBRATION_TRIALS
-        or calibration.get("family_alpha") != FAMILY_ALPHA
-        or calibration.get("epsilon_cal") != CALIBRATION_EPSILON
-        or calibration.get("primitive_noise_sd")
-        != CALIBRATION_PRIMITIVE_NOISE_SD
-        or calibration.get("boundary_signature_count") != 27
-        or set(calibration.get("plants", {})) != set(PATH_ORDER)
-        or canonical_sha256(calibration.get("boundary_signature_registry", {}))
-        != calibration.get("boundary_signature_registry_sha256")
-        or canonical_sha256(calibration.get("plant_registry", {}))
-        != calibration.get("plant_registry_sha256")
+        or calibration.get("n_trials_argument_retained_for_stack_compatibility")
+        != PRODUCTION_CALIBRATION_TRIALS
+        or calibration.get("fixed_sequence_alpha") != STAGE_ALPHA
+        or calibration.get("alpha_fragmented") is not False
+        or set(calibration.get("gates", {})) != set(CORE_PATH_ORDER)
+        or canonical_sha256(calibration.get("registry", {}))
+        != calibration.get("registry_sha256")
     ):
         raise RuntimeError("R5a preflight classifier calibration is not passing")
     return {
@@ -3182,33 +3346,17 @@ def validate_bound_preflight_context(
     preflight: Mapping[str, Any],
     *,
     authorization: Mapping[str, Any],
-    r3c_entry: Mapping[str, Any],
+    upstream_chain: Mapping[str, Any],
     source_identity: Mapping[str, Any],
     checkpoint: Mapping[str, Any],
-    cohort_audit: Mapping[str, Any],
+    capstone_handoff: Mapping[str, Any],
     runtime: Mapping[str, Any],
 ) -> dict[str, Any]:
-    """Require the inherited bucket-0 preflight to match the current target context."""
+    """Bind target execution to the exact earlier nonentry instrument preflight."""
 
     record = preflight.get("record")
     if not isinstance(record, Mapping):
         raise RuntimeError("R5a preflight record is missing")
-    expected_bucket0 = cohort_audit["selected_by_bucket"]["0"]
-    r3c_fields = (
-        "sha256",
-        "size_bytes",
-        "checkpoint_sha256",
-        "source_sha256",
-        "cohort_identity",
-    )
-    r3c_matches = all(
-        record.get("r3c_entry", {}).get(field) == r3c_entry.get(field)
-        for field in r3c_fields
-    ) and all(
-        record.get("r3c_entry", {}).get("manifest", {}).get(field)
-        == r3c_entry.get("manifest", {}).get(field)
-        for field in ("sha256", "size_bytes")
-    )
     stored_checkpoint = record.get("checkpoint", {})
     checkpoint_matches = (
         stored_checkpoint.get("aggregate_sha256")
@@ -3217,7 +3365,9 @@ def validate_bound_preflight_context(
         == checkpoint.get("ordered_bundle")
     )
     checks = {
-        "bucket0_preflight": record.get("bucket") == 0,
+        "validation_preflight_nonentry": record.get("stage") == "preflight"
+        and record.get("scientific_entry_authorized") is False
+        and record.get("r5a_opened_chr8_chr9") is False,
         "instrument_fingerprint": record.get("instrument_fingerprint_sha256")
         == authorization["fingerprint"],
         "instrument_binding": record.get("instrument_binding")
@@ -3226,14 +3376,34 @@ def validate_bound_preflight_context(
         == authorization["r5_stack_binding"]
         and record.get("r5_stack_fingerprint_sha256")
         == authorization["r5_stack_fingerprint_sha256"],
-        "r3c_artifact_and_manifest": r3c_matches,
+        "upstream_exposure_provenance": record.get("upstream_chain", {}).get(
+            "exposure_chain_sha256"
+        )
+        == upstream_chain.get("exposure_chain_sha256"),
+        "r3d_path_a_scientific_entry": upstream_chain.get(
+            "r3d_scientific_entry", {}
+        ).get("entry", {}).get("classification")
+        == "SUPPORTED"
+        and upstream_chain.get("r3d_scientific_entry", {}).get("entry", {}).get(
+            "path_b_used_to_gate_entry"
+        )
+        is False,
+        "r1c_target_behavior_gate": upstream_chain.get("r1c_package", {})
+        .get("behavior_gate", {})
+        .get("scientific_gate_pass")
+        is True,
         "source_identity": record.get("source_identity") == source_identity,
         "checkpoint_identity": checkpoint_matches,
-        "cohort_census": record.get("cohort_audit") == cohort_audit,
-        "bucket0_cohort": record.get("construction_sha256")
-        == expected_bucket0["construction_sha256"]
-        and record.get("r5_entry_contract", {}).get("cohort_sha256")
-        == expected_bucket0["ordered_rows_sha256"],
+        "r1c_predecessor_package": record.get("cohort_handoff", {}).get(
+            "source_artifact_sha256"
+        )
+        == capstone_handoff.get("source", {}).get("preflight_artifact", {}).get(
+            "sha256"
+        )
+        and record.get("cohort_handoff", {}).get("source_manifest_sha256")
+        == capstone_handoff.get("source", {}).get("preflight_manifest", {}).get(
+            "sha256"
+        ),
         "runtime_identity": record.get("runtime_identity") == runtime,
         "acceptor_only": record.get("behavioral_endpoint")
         == "masked_acceptor_G_margin_only"
@@ -3290,7 +3460,7 @@ def verify_input_snapshots_after_run(
     git_before: Mapping[str, Any],
     source_before: Mapping[str, Any],
     checkpoint_before: Mapping[str, Any],
-    r3c_before: Mapping[str, Any],
+    upstream_before: Mapping[str, Any],
     preflight_before: Mapping[str, Any] | None,
 ) -> dict[str, Any]:
     """Rehash every long-lived input before permitting an immutable artifact."""
@@ -3301,15 +3471,20 @@ def verify_input_snapshots_after_run(
         raise RuntimeError("R5a GTF/FASTA input changed during the run")
     if canonical_sha256(checkpoint_after) != canonical_sha256(checkpoint_before):
         raise RuntimeError("R5a checkpoint input changed during the run")
-    if sha256_file(Path(str(r3c_before["path"]))) != r3c_before["sha256"]:
-        raise RuntimeError("R5a R3c entry artifact changed during the run")
-    r3c_manifest = r3c_before.get("manifest", {})
-    if (
-        not isinstance(r3c_manifest, Mapping)
-        or sha256_file(Path(str(r3c_manifest.get("path", ""))))
-        != r3c_manifest.get("sha256")
+    exposure_after = load_exposure_packages(args)
+    if exposure_after.get("exposure_chain_sha256") != upstream_before.get(
+        "exposure_chain_sha256"
     ):
-        raise RuntimeError("R5a R3c entry manifest changed during the run")
+        raise RuntimeError("R5a authenticated R3 provenance changed during the run")
+    package_inputs = upstream_before.get("r1c_package", {}).get(
+        "package_inputs", []
+    )
+    if not isinstance(package_inputs, list) or any(
+        not isinstance(identity, Mapping)
+        or sha256_file(Path(str(identity.get("path")))) != identity.get("sha256")
+        for identity in package_inputs
+    ):
+        raise RuntimeError("R5a authenticated R1c package changed during the run")
     if preflight_before is not None:
         if sha256_file(Path(str(preflight_before["path"]))) != preflight_before["sha256"]:
             raise RuntimeError("R5a bound preflight artifact changed during the run")
@@ -3328,76 +3503,382 @@ def verify_input_snapshots_after_run(
         "checked_after_model_and_inference": True,
         "source_identity_unchanged": True,
         "checkpoint_identity_unchanged": True,
-        "r3c_entry_unchanged": True,
+        "upstream_package_chain_unchanged": True,
         "bound_preflight_unchanged": preflight_before is not None,
         "instrument_binding_unchanged": True,
         "git_identity_unchanged": True,
     }
 
 
+def _compact_upstream_chain(chain: Mapping[str, Any]) -> dict[str, Any]:
+    r3d = chain["r3d_scientific_entry"]
+    r3c = chain["r3c_exclusion_provenance"]
+    r1c = chain["r1c_package"]
+    handoff = r1c.get("handoff") or {}
+    attestation = r1c.get("attestation")
+    return {
+        "chain_sha256": chain["chain_sha256"],
+        "exposure_chain_sha256": chain["exposure_chain_sha256"],
+        "r3d_scientific_entry": {
+            key: r3d[key]
+            for key in (
+                "artifact",
+                "manifest",
+                "generating_commit",
+                "publication_commit",
+                "entry",
+                "checkpoint_and_data",
+                "target_gene_count",
+                "target_gene_ids_sha256",
+                "registry",
+                "attempt",
+                "completion",
+                "package_contract_sha256",
+            )
+        },
+        "r1c_package": {
+            "behavior_gate": r1c.get("behavior_gate"),
+            "package_inputs": r1c.get("package_inputs"),
+            "attestation_sha256": (
+                attestation.get("attestation_sha256")
+                if isinstance(attestation, Mapping)
+                else None
+            ),
+            "handoff_schema": handoff.get("schema"),
+            "handoff_record_sha256": handoff.get("record_sha256"),
+            "row_count": handoff.get("row_count"),
+        },
+        "r3c_exclusion_provenance": {
+            key: r3c[key]
+            for key in (
+                "artifact",
+                "manifest",
+                "generating_commit",
+                "role",
+                "scientific_entry_authorized",
+                "historical_r3_gene_count",
+                "historical_r3_gene_ids_sha256",
+                "r3c_gene_count",
+                "r3c_gene_ids_sha256",
+                "package_contract_sha256",
+            )
+        },
+        "scientific_roles": {
+            "r3d_path_a": "prior component premise only",
+            "r3d_path_b": "candidate generation only; never gates R5a",
+            "r1c": (
+                "nonentry validation handoff" if r1c.get("behavior_gate") is None
+                else "sealed target masked-acceptor behavior gate"
+            ),
+            "r3c": "exclusion provenance only; never scientific entry",
+        },
+    }
+
+
+def _summarize_family_capability(
+    family: str, invariants: Sequence[Mapping[str, Any]]
+) -> dict[str, Any]:
+    if not invariants:
+        return {"status": "NOT_TESTED", "all_batches_ok": False}
+    if family == "position_margin":
+        return {
+            "all_batches_ok": all(item["ok"] for item in invariants),
+            "full_cell_attention_reconstruction_max_abs": _max_invariant(
+                invariants, "full_cell_attention_reconstruction_max_abs"
+            ),
+            "full_cell_margin_identity_max_abs": _max_invariant(
+                invariants, "full_cell_margin_identity_max_abs"
+            ),
+            "component_swap_involution_max_abs": _max_invariant(
+                invariants, "component_swap_involution_max_abs"
+            ),
+            "component_swap_assignment_max_abs": _max_invariant(
+                invariants, "component_swap_assignment_max_abs"
+            ),
+            "component_swap_outside_max_abs": _max_invariant(
+                invariants, "component_swap_outside_max_abs"
+            ),
+            "fixed_query_assignment_max_abs_error": _max_invariant(
+                invariants, "fixed_query_assignment_max_abs_error"
+            ),
+            "fixed_query_sha256_by_head_and_batch": [
+                item["fixed_query_sha256_by_head"] for item in invariants
+            ],
+            "fixed_query_sha256_by_head_and_cell_and_batch": [
+                item["fixed_query_sha256_by_head_and_cell"]
+                for item in invariants
+            ],
+            "shifted_native_query_change_max_abs_by_head_and_cell_and_batch": [
+                item[
+                    "shifted_native_query_change_max_abs_by_head_and_cell"
+                ]
+                for item in invariants
+            ],
+            "decision_query_source": "numerically identical clean query row",
+            "shifted_native_query_decision_bearing": False,
+            "clean_recipient_for_every_cell": all(
+                item["clean_recipient_for_every_cell"] for item in invariants
+            ),
+            "bridge_reuses_one_clean_V_tensor_for_all_cells": all(
+                item["bridge_reuses_one_clean_V_tensor_for_all_cells"]
+                for item in invariants
+            ),
+        }
+    if family in {"qk_surgery", "l2h15_qk_secondary"}:
+        return {
+            "all_batches_ok": all(item["ok"] for item in invariants),
+            "exactly_four_logits_replaced": all(
+                item["exactly_four_logits_replaced"] for item in invariants
+            ),
+            "selected_logit_assignment_max_abs_error": _max_invariant(
+                invariants, "selected_logit_assignment_max_abs_error"
+            ),
+            "unselected_logit_max_abs_error": _max_invariant(
+                invariants, "unselected_logit_max_abs_error"
+            ),
+            "fixed_value_max_abs_error": _max_invariant(
+                invariants, "fixed_value_max_abs_error"
+            ),
+            "same_clean_value_tensor_used_for_every_leg": all(
+                item["same_clean_value_tensor_used_for_every_leg"]
+                for item in invariants
+            ),
+        }
+    if family == "attention_value":
+        return {
+            "all_batches_ok": all(item["ok"] for item in invariants),
+            "a_at_v_reconstruction_max_abs_error": _max_invariant(
+                invariants, "a_at_v_reconstruction_max_abs_error"
+            ),
+            "baseline_inject_max_abs_error": _max_invariant(
+                invariants, "baseline_inject_max_abs_error"
+            ),
+            "value_window_assignment_max_abs_error": _max_invariant(
+                invariants, "value_window_assignment_max_abs_error"
+            ),
+            "value_outside_window_max_abs_error": _max_invariant(
+                invariants, "value_outside_window_max_abs_error"
+            ),
+            "address_source_scope": "complete L3H1 acceptor-query attention row",
+            "value_source_scope": "selected four-token window; recipient values elsewhere",
+        }
+    raise ValueError(f"unknown capability family: {family}")
+
+
+def _execute_family_measurements(
+    adapter,
+    task: CouplingTask,
+    rows: Sequence[Any],
+    *,
+    family: str,
+    batch_size: int,
+) -> tuple[dict[str, Any], dict[str, Any], dict[str, list[float]]]:
+    """Execute one query-fixed paired/pseudo family and replay its hook invariants."""
+
+    accumulator: dict[str, Any] = {}
+    invariants: list[dict[str, Any]] = []
+    restore_lift: dict[str, list[float]] = {"partner": [], "pseudo": []}
+    with torch.no_grad():
+        for start in range(0, len(rows), batch_size):
+            batch_rows = rows[start : start + batch_size]
+            readout = [int(row.acceptor_g) for row in batch_rows]
+            paired = [int(row.example.donor_pos) for row in batch_rows]
+            pseudo = [int(row.pseudo_donor) for row in batch_rows]
+            clean = task.encode([row.clean_sequence for row in batch_rows], readout)
+            partner = task.encode(
+                [row.paired_corrupt_sequence for row in batch_rows], readout
+            )
+            pseudo_encoded = task.encode(
+                [row.pseudo_corrupt_sequence for row in batch_rows], readout
+            )
+            if family == "position_margin":
+                values, check = run_position_shift_batch(
+                    adapter, task, clean, readout, paired, pseudo
+                )
+                key = "position_shift"
+            elif family in {"qk_surgery", "l2h15_qk_secondary"}:
+                values, check = run_qk_batch(
+                    adapter,
+                    task,
+                    clean,
+                    partner,
+                    pseudo_encoded,
+                    readout,
+                    paired,
+                    pseudo,
+                    arms=(QK_ARMS if family == "qk_surgery" else L2_QK_ARMS),
+                )
+                key = "qk_surgery"
+            elif family == "attention_value":
+                values, check = run_av_batch(
+                    adapter,
+                    task,
+                    clean,
+                    partner,
+                    pseudo_encoded,
+                    readout,
+                    paired,
+                    pseudo,
+                )
+                key = "attention_value"
+                for leg in ("partner", "pseudo"):
+                    restore_lift[leg].extend(
+                        np.asarray(
+                            check["clean_L3H1_same_example_restore_lift"][leg],
+                            dtype=float,
+                        ).tolist()
+                    )
+            else:
+                raise RuntimeError(f"unknown reached R5a family: {family}")
+            _accumulate_tree(accumulator, values)
+            invariants.append(check)
+    measurements = _finalize_tree(accumulator)
+    wrapper = {key: measurements}
+    matrix = build_family_matrices(wrapper, families=(family,))[family]
+    capability = _summarize_family_capability(family, invariants)
+    return {key: measurements}, capability, restore_lift
+
+
+def same_row_common_leg_replay(
+    rows: Sequence[Any],
+    native: Mapping[str, Sequence[float]],
+    common_leg_source: Mapping[str, Any],
+    *,
+    stage: str,
+) -> dict[str, Any]:
+    """Bound R1c SDPA common legs to R5a eager execution on the exact same rows."""
+
+    if stage not in {"preflight", "target"}:
+        raise ValueError("R5a common-leg replay stage differs")
+    common = common_leg_source.get(
+        "common_leg_rows" if stage == "preflight" else "rows"
+    )
+    if not isinstance(common, list) or len(common) != EXACT_ROWS:
+        raise RuntimeError("R1c preflight common-leg handoff is incomplete")
+    row_ids = [str(row.example.example_id) for row in rows]
+    common_ids = [str(row.get("example_id")) for row in common]
+    if row_ids != common_ids:
+        raise RuntimeError("R5a preflight common-leg order differs from R1c")
+    mapping = {
+        "clean": "P_clean",
+        "partner": "P_under_D",
+        "pseudo": "P_under_N",
+    }
+    errors = {
+        local: float(
+            np.max(
+                np.abs(
+                    np.asarray(native[local], dtype=float)
+                    - np.asarray(
+                        [row["margin_levels"][source] for row in common],
+                        dtype=float,
+                    )
+                )
+            )
+        )
+        for local, source in mapping.items()
+    }
+    return {
+        "role": "SDPA_TO_EAGER_COMMON_LEG_INSTRUMENT_REPLAY",
+        "stage": stage,
+        "source_execution": "R1c eager=False (SDPA)",
+        "replay_execution": "R5a eager=True (hook-capable)",
+        "scientific_entry_authorized": stage == "target",
+        "row_order_exact": True,
+        "max_abs_error_by_common_leg": errors,
+        "maximum_max_abs_error": max(errors.values()),
+        "atol": SDPA_EAGER_COMMON_LEG_ATOL,
+        "criterion": "maximum_max_abs_error <= atol",
+        "pass": max(errors.values()) <= SDPA_EAGER_COMMON_LEG_ATOL,
+        "mismatch_disposition": "INSTRUMENT_UNRESOLVED",
+        "mismatch_is_scientific_null": False,
+    }
+
+
+def same_row_preflight_margin_replay(
+    rows: Sequence[Any],
+    native: Mapping[str, Sequence[float]],
+    handoff: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Compatibility wrapper for the validation-preflight common-leg replay."""
+
+    return same_row_common_leg_replay(
+        rows, native, handoff, stage="preflight"
+    )
+
+
 def run_model_stage(
     args: argparse.Namespace,
     *,
     authorization: Mapping[str, Any],
-    output: Path,
+    rows: Sequence[Any],
+    cohort_materialization: Mapping[str, Any],
+    cohort_handoff: Mapping[str, Any],
+    upstream_chain: Mapping[str, Any],
+    bound_preflight: Mapping[str, Any] | None,
+    target_receipt: Mapping[str, Any] | None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
-    git_identity = _git_identity_clean()
-    r3c_entry = _verify_r3c_entry(args.r3c_artifact)
-    bound_preflight = (
-        _verify_bound_preflight(
-            args.preflight_artifact,
-            authorization["fingerprint"],
-            stack_binding=authorization["r5_stack_binding"],
-            stack_fingerprint=authorization["r5_stack_fingerprint_sha256"],
-        )
-        if args.stage == "target"
-        else None
-    )
-    reservations, cohort_audit, source_identity = build_model_free_reservations(
-        args.gtf, args.fasta
-    )
-    if r3c_entry["source_sha256"] != {
-        key: source_identity[key]["sha256"] for key in ("gtf", "fasta")
-    }:
-        raise RuntimeError("R5a source bytes differ from the sealed R3c entry source")
-    validate_frozen_cohort_pins(cohort_audit)
-    bucket = 0 if args.stage == "preflight" else 1
-    rows = list(reservations[bucket])
-    if len(rows) != PRODUCTION_N or len({row.example.gene_id for row in rows}) != MIN_GENES:
-        raise RuntimeError("R5a selected reservation is not exactly 128 one-row-per-gene rows")
+    """Run reached R5a gates in order; later interventions are never scored after a stop."""
 
+    git_identity = _git_identity_clean()
+    if upstream_chain["r3d_scientific_entry"]["entry"]["classification"] != "SUPPORTED":
+        raise RuntimeError("R5a requires authenticated R3d Path A support")
+    if upstream_chain["r3d_scientific_entry"]["entry"]["path_b_used_to_gate_entry"] is not False:
+        raise RuntimeError("R5a cannot use R3d Path B as scientific entry")
+    r1c_gate = upstream_chain.get("r1c_package", {}).get("behavior_gate")
+    if args.stage == "target" and (
+        not isinstance(r1c_gate, Mapping)
+        or r1c_gate.get("scientific_gate_pass") is not True
+    ):
+        raise RuntimeError("R1C_ACCEPTOR_BEHAVIOR_NOT_CONFIRMED: scientific stop before R5a")
+    if args.stage == "preflight" and r1c_gate is not None:
+        raise RuntimeError("R5a preflight cannot consume the sealed R1c target verdict")
+    if args.stage == "target" and target_receipt is None:
+        raise RuntimeError("R5a target model access requires a prior biological-spend receipt")
+    if args.stage == "preflight" and target_receipt is not None:
+        raise RuntimeError("R5a preflight must not carry a target receipt")
+
+    rows = list(rows)
+    source_identity = validate_expected_r5_source_identity(args.gtf, args.fasta)
+    if (
+        len(rows) != EXACT_ROWS
+        or cohort_handoff.get("row_count") != EXACT_ROWS
+        or cohort_materialization.get("handoff_order_preserved") is not True
+        or cohort_materialization.get("rows_filtered_or_reordered") is not False
+        or len({str(row.example.gene_id) for row in rows}) < MIN_GENES
+    ):
+        raise RuntimeError("R5a requires the exact ordered 400-row R1c handoff")
+
+    runtime_policy = validate_r5_runtime_policy(device=args.device)
     checkpoint = _checkpoint_identity(args.model)
     if checkpoint["aggregate_sha256"] != FROZEN_CHECKPOINT_AGGREGATE_SHA256:
         raise RuntimeError("R5a checkpoint bundle differs from its literal pin")
-    if checkpoint["aggregate_sha256"] != r3c_entry["checkpoint_sha256"]:
-        raise RuntimeError("R5a checkpoint differs from the sealed R3c entry checkpoint")
+    upstream_checkpoint = upstream_chain["r3d_scientific_entry"][
+        "checkpoint_and_data"
+    ]["checkpoint_aggregate_sha256"]
+    if checkpoint["aggregate_sha256"] != upstream_checkpoint:
+        raise RuntimeError("R5a checkpoint differs from authenticated R3d")
     runtime = stable_runtime_identity()
     preflight_context = (
         validate_bound_preflight_context(
             bound_preflight,
             authorization=authorization,
-            r3c_entry=r3c_entry,
+            upstream_chain=upstream_chain,
             source_identity=source_identity,
             checkpoint=checkpoint,
-            cohort_audit=cohort_audit,
+            capstone_handoff=cohort_handoff,
             runtime=runtime,
         )
         if bound_preflight is not None
         else None
     )
+
     device = pick_device(args.device)
     adapter = load_adapter(args.model, device, eager=True)
     adapter.model.eval()
     task = CouplingTask(adapter, batch=args.batch)
-    primitive_accumulator: dict[str, Any] = {
-        family: {} for family in FAMILY_ORDER
-    }
+    genes = [str(row.example.gene_id) for row in rows]
     native = {"clean": [], "partner": [], "pseudo": []}
-    l3_restore_lift = {"partner": [], "pseudo": []}
-    position_invariants: list[dict[str, Any]] = []
-    qk_invariants: list[dict[str, Any]] = []
-    av_invariants: list[dict[str, Any]] = []
-    l2_invariants: list[dict[str, Any]] = []
     full_mlm: dict[str, Any] | None = None
     output_projection: dict[str, Any] | None = None
     full_head_noop: dict[str, Any] | None = None
@@ -3406,9 +3887,6 @@ def run_model_stage(
         for start in range(0, len(rows), args.batch):
             batch_rows = rows[start : start + args.batch]
             readout = [row.acceptor_g for row in batch_rows]
-            paired = [int(row.example.donor_pos) for row in batch_rows]
-            pseudo = [int(row.pseudo_donor) for row in batch_rows]
-            adjacent_anchor = [int(row.adjacent_window[1]) for row in batch_rows]
             clean = task.encode([row.clean_sequence for row in batch_rows], readout)
             partner = task.encode(
                 [row.paired_corrupt_sequence for row in batch_rows], readout
@@ -3430,110 +3908,10 @@ def run_model_stage(
                     adapter, task, clean, state, readout
                 )
 
-            position_values, position_check = run_position_shift_batch(
-                adapter,
-                task,
-                clean,
-                readout,
-                paired,
-                pseudo,
-                adjacent_anchor,
-            )
-            qk_values, qk_check = run_qk_batch(
-                adapter,
-                task,
-                clean,
-                partner,
-                pseudo_encoded,
-                readout,
-                paired,
-                pseudo,
-                adjacent_anchor,
-            )
-            av_values, av_check = run_av_batch(
-                adapter,
-                task,
-                clean,
-                partner,
-                pseudo_encoded,
-                readout,
-                paired,
-                pseudo,
-                adjacent_anchor,
-            )
-            l2_values, l2_check = run_l2_batch(
-                adapter,
-                task,
-                clean,
-                partner,
-                pseudo_encoded,
-                readout,
-            )
-            _accumulate_tree(
-                primitive_accumulator["position_shift"], position_values
-            )
-            _accumulate_tree(primitive_accumulator["qk_surgery"], qk_values)
-            _accumulate_tree(
-                primitive_accumulator["attention_value"], av_values
-            )
-            _accumulate_tree(primitive_accumulator["l2_role"], l2_values)
-            position_invariants.append(position_check)
-            qk_invariants.append(qk_check)
-            av_invariants.append(av_check)
-            for leg in ("partner", "pseudo"):
-                l3_restore_lift[leg].extend(
-                    np.asarray(
-                        av_check["clean_L3H1_same_example_restore_lift"][leg],
-                        dtype=float,
-                    ).tolist()
-                )
-            l2_invariants.append(l2_check)
-            print(f"R5a {args.stage}: {min(start + args.batch, len(rows))}/{len(rows)}", flush=True)
-
         health = bounded_intervention_health(
-            adapter,
-            task,
-            rows,
-            seed=PRODUCTION_SEED,
+            adapter, task, rows, seed=PRODUCTION_SEED
         )
 
-    measurements = _finalize_tree(primitive_accumulator)
-    matrices = build_family_matrices(measurements)
-    genes = [str(row.example.gene_id) for row in rows]
-    inference = infer_all_families(
-        matrices,
-        genes,
-        n_draws=PRODUCTION_RANDOMISATION,
-        seed=PRODUCTION_SEED,
-        namespace=f"r5a:{args.stage}:observed",
-        min_genes=MIN_GENES,
-    )
-    entry = entry_behavior_inference(
-        native["clean"],
-        native["partner"],
-        native["pseudo"],
-        genes,
-        n_draws=PRODUCTION_RANDOMISATION,
-        seed=PRODUCTION_SEED,
-        namespace=f"r5a:{args.stage}:entry",
-    )
-    l3_restore_path = entry_behavior_inference(
-        np.zeros(len(genes), dtype=float),
-        -np.asarray(l3_restore_lift["partner"], dtype=float),
-        -np.asarray(l3_restore_lift["pseudo"], dtype=float),
-        genes,
-        n_draws=PRODUCTION_RANDOMISATION,
-        seed=PRODUCTION_SEED,
-        namespace=f"r5a:{args.stage}:clean-L3H1-restore",
-    )
-    l3_restore_path["classification"] = (
-        "L3_PATH_CONFIRMED"
-        if l3_restore_path["classification"] == "ENTRY_BEHAVIOR_CONFIRMED"
-        else "L3_PATH_NOT_CONFIRMED"
-    )
-    l3_restore_path["intervention"] = (
-        "same-example clean L3H1 acceptor-query context into matched corrupt recipient"
-    )
     if args.stage == "preflight":
         calibration = classifier_calibration(
             n_genes=PRODUCTION_N,
@@ -3541,11 +3919,267 @@ def run_model_stage(
             n_trials=PRODUCTION_CALIBRATION_TRIALS,
             seed=PRODUCTION_SEED,
         )
-        calibration_origin = "RUN_ON_BUCKET0_WITH_SYNTHETIC_PRIMITIVES"
+        calibration_origin = "RUN_ON_R1C_VALIDATION_HANDOFF_WITH_SYNTHETIC_PRIMITIVES"
     else:
         assert bound_preflight is not None
         calibration = bound_preflight["record"]["classifier_calibration"]
-        calibration_origin = "INHERITED_FROM_LITERAL_BUCKET0_PREFLIGHT"
+        calibration_origin = "INHERITED_FROM_LITERAL_R1C_HANDOFF_PREFLIGHT"
+
+    common_leg_source = (
+        cohort_handoff
+        if args.stage == "preflight"
+        else upstream_chain.get("r1c_package", {}).get("common_legs")
+    )
+    if not isinstance(common_leg_source, Mapping):
+        raise RuntimeError("R5a stage lacks the authorized R1c common-leg replay")
+    common_leg_replay = same_row_common_leg_replay(
+        rows,
+        native,
+        common_leg_source,
+        stage=args.stage,
+    )
+    base_capability_pass = bool(
+        full_mlm
+        and full_mlm["ok"]
+        and output_projection
+        and output_projection["ok"]
+        and full_head_noop
+        and full_head_noop["ok"]
+        and health["core_all_pass"]
+        and calibration["all_pass"]
+        and common_leg_replay["pass"] is True
+    )
+
+    primitive_measurements: dict[str, Any] = {}
+    matrices: dict[str, np.ndarray] = {}
+    family_capabilities: dict[str, Any] = {}
+    family_results: dict[str, Any] = {}
+    paths: dict[str, Any] = {}
+    execution_log: list[dict[str, Any]] = []
+    scientific_stop: str | None = None
+    instrument_stop: str | None = None
+    position_diagnostics: dict[str, Any] | None = None
+    l3_restore_lift = {"partner": [], "pseudo": []}
+
+    if not base_capability_pass:
+        instrument_stop = "BASE_CORE_INSTRUMENT_CAPABILITY"
+    else:
+        for gate_index, path in enumerate(CORE_PATH_ORDER, start=1):
+            family = named_path_specs()[path]["family"]
+            wrapper, capability, family_restore = _execute_family_measurements(
+                adapter,
+                task,
+                rows,
+                family=family,
+                batch_size=args.batch,
+            )
+            primitive_measurements.update(wrapper)
+            matrix = build_family_matrices(wrapper, families=(family,))[family]
+            matrices[family] = matrix
+            family_capabilities[family] = capability
+            for leg in l3_restore_lift:
+                l3_restore_lift[leg].extend(family_restore[leg])
+            execution_log.append(
+                {
+                    "gate_index": gate_index,
+                    "path": path,
+                    "family": family,
+                    "model_intervention_executed": True,
+                    "capability_pass": capability["all_batches_ok"],
+                }
+            )
+            if not capability["all_batches_ok"]:
+                instrument_stop = family
+                break
+            if args.stage == "preflight":
+                path_record = {
+                    "path": path,
+                    "family": family,
+                    "status": "PREFLIGHT_CAPABILITY_PASS",
+                    "classification": "NOT_SCIENTIFICALLY_CLASSIFIED",
+                    "model_intervention_executed": True,
+                    "scientific_entry_authorized": False,
+                    "fixed_sequence_gate_index": gate_index,
+                }
+                paths[path] = path_record
+                family_results[family] = path_record
+                if family == "position_margin":
+                    position_diagnostics = position_bridge_diagnostics(wrapper)
+                continue
+            result = strict_family_inference(
+                matrix,
+                genes,
+                family_row_names()[family],
+                family=family,
+                n_draws=PRODUCTION_RANDOMISATION,
+                seed=PRODUCTION_SEED,
+                namespace=f"r5a:{args.stage}:observed",
+                min_genes=MIN_GENES,
+            )
+            family_results[family] = result
+            path_record = result["paths"][path]
+            path_record["fixed_sequence_gate_index"] = gate_index
+            paths[path] = path_record
+            if family == "position_margin":
+                position_diagnostics = position_bridge_diagnostics(wrapper)
+            if path_record["classification"] != "SUPPORTED":
+                scientific_stop = path
+                break
+
+    secondary_path = SECONDARY_PATH_ORDER[0]
+    secondary_family = named_path_specs()[secondary_path]["family"]
+    inherited_secondary_ready = (
+        True
+        if args.stage == "preflight"
+        else bool(
+            bound_preflight
+            and bound_preflight["record"]
+            .get("secondary_prospective_eligibility", {})
+            .get("eligible_for_target")
+            is True
+        )
+    )
+    secondary_ready = bool(health["secondary_all_pass"] and inherited_secondary_ready)
+    if instrument_stop is not None or scientific_stop is not None:
+        secondary_record = {
+            "path": secondary_path,
+            "family": secondary_family,
+            "status": "NOT_TESTED_DUE_TO_CORE_STOP",
+            "classification": "NOT_TESTED",
+            "gates_l3_headline": False,
+            "historical_r3c_health_used": False,
+        }
+    elif not secondary_ready:
+        secondary_record = {
+            "path": secondary_path,
+            "family": secondary_family,
+            "status": "NOT_TESTED_SECONDARY_HEALTH_OR_PREFLIGHT",
+            "classification": "INSTRUMENT_UNRESOLVED",
+            "gates_l3_headline": False,
+            "historical_r3c_health_used": False,
+        }
+    else:
+        wrapper, secondary_capability, _restore = _execute_family_measurements(
+            adapter,
+            task,
+            rows,
+            family=secondary_family,
+            batch_size=args.batch,
+        )
+        primitive_measurements["l2_qk_surgery"] = wrapper["qk_surgery"]
+        secondary_matrix = build_family_matrices(
+            wrapper, families=(secondary_family,)
+        )[secondary_family]
+        matrices[secondary_family] = secondary_matrix
+        family_capabilities[secondary_family] = secondary_capability
+        if not secondary_capability["all_batches_ok"]:
+            secondary_record = {
+                "path": secondary_path,
+                "family": secondary_family,
+                "status": "SECONDARY_INSTRUMENT_UNRESOLVED",
+                "classification": "INSTRUMENT_UNRESOLVED",
+                "gates_l3_headline": False,
+                "historical_r3c_health_used": False,
+            }
+        elif args.stage == "preflight":
+            secondary_record = {
+                "path": secondary_path,
+                "family": secondary_family,
+                "status": "PREFLIGHT_CAPABILITY_PASS",
+                "classification": "NOT_SCIENTIFICALLY_CLASSIFIED",
+                "model_intervention_executed": True,
+                "gates_l3_headline": False,
+                "historical_r3c_health_used": False,
+            }
+        else:
+            secondary_result = strict_family_inference(
+                secondary_matrix,
+                genes,
+                family_row_names()[secondary_family],
+                family=secondary_family,
+                n_draws=PRODUCTION_RANDOMISATION,
+                seed=PRODUCTION_SEED,
+                namespace="r5a:target:observed-secondary",
+                min_genes=MIN_GENES,
+            )
+            family_results[secondary_family] = secondary_result
+            secondary_record = secondary_result["paths"][secondary_path]
+            secondary_record["gates_l3_headline"] = False
+            secondary_record["historical_r3c_health_used"] = False
+    paths[secondary_path] = secondary_record
+    family_results.setdefault(secondary_family, secondary_record)
+    family_capabilities.setdefault(
+        secondary_family,
+        {
+            "status": secondary_record["status"],
+            "all_batches_ok": None,
+        },
+    )
+
+    placeholders = fixed_sequence_stop_records(
+        paths,
+        execution_log,
+        instrument_stop=instrument_stop,
+        scientific_stop=scientific_stop,
+    )
+    for path, placeholder in placeholders.items():
+        family = placeholder["family"]
+        paths[path] = placeholder
+        family_results.setdefault(family, placeholder)
+        family_capabilities.setdefault(
+            family, {"status": placeholder["status"], "all_batches_ok": None}
+        )
+
+    if instrument_stop is not None:
+        status = "INSTRUMENT_UNRESOLVED"
+    elif scientific_stop is not None:
+        status = f"SCIENTIFIC_STOP_AFTER_{scientific_stop}"
+    elif args.stage == "preflight":
+        status = "PREFLIGHT_PASS"
+    else:
+        status = "L3H1_DONOR_LOCAL_READER_SUPPORTED"
+
+    inference = (
+        None
+        if args.stage == "preflight"
+        else {
+            "families": family_results,
+            "paths": paths,
+            "fixed_sequence": {
+                "order": list(CORE_PATH_ORDER),
+                "alpha_each_reached_gate": STAGE_ALPHA,
+                "alpha_fragmented": False,
+                "scientific_stop": scientific_stop,
+                "instrument_stop": instrument_stop,
+                "downstream_model_interventions_not_executed_after_stop": True,
+                "execution_log": execution_log,
+            },
+            "secondary_sequence": {
+                "order": list(SECONDARY_PATH_ORDER),
+                "gates_l3_headline": False,
+                "historical_r3c_health_used": False,
+                "record": secondary_record,
+            },
+            "decisions": {
+                "reader": (
+                    "L3H1_DONOR_LOCAL_READER_SUPPORTED"
+                    if status == "L3H1_DONOR_LOCAL_READER_SUPPORTED"
+                    else status
+                ),
+                "opens_r5b": status == "L3H1_DONOR_LOCAL_READER_SUPPORTED",
+                "l2h15_role": (
+                    "L2H15_UPSTREAM_READER_ROLE_SUPPORTED"
+                    if secondary_record.get("classification") == "SUPPORTED"
+                    else (
+                        "L2H15_ROLE_UNRESOLVED"
+                        if secondary_record.get("classification")
+                        in {"UNRESOLVED", "INSTRUMENT_UNRESOLVED"}
+                        else "L2H15_ROLE_NOT_SUPPORTED"
+                    )
+                ),
+            },
+        }
+    )
 
     input_snapshot = verify_input_snapshots_after_run(
         args,
@@ -3553,184 +4187,178 @@ def run_model_stage(
         git_before=git_identity,
         source_before=source_identity,
         checkpoint_before=checkpoint,
-        r3c_before=r3c_entry,
+        upstream_before=upstream_chain,
         preflight_before=bound_preflight,
     )
-
     capability = {
         "full_mlm_replay": full_mlm,
         "attention_output_projection": output_projection,
         "full_head_noop_replay": full_head_noop,
-        "position_shift": {
-            "all_batches_ok": all(item["ok"] for item in position_invariants),
-            "attention_reconstruction_max_abs": _max_invariant(
-                position_invariants, "attention_reconstruction_max_abs"
-            ),
-            "full_cell_margin_identity_max_abs": _max_invariant(
-                position_invariants, "full_cell_margin_identity_max_abs"
-            ),
-            "component_swap_involution_max_abs": _max_invariant(
-                position_invariants, "component_swap_involution_max_abs"
-            ),
-            "component_swap_assignment_max_abs": _max_invariant(
-                position_invariants, "component_swap_assignment_max_abs"
-            ),
-            "component_swap_outside_max_abs": _max_invariant(
-                position_invariants, "component_swap_outside_max_abs"
-            ),
-            "bridge_reuses_one_clean_V_tensor_for_all_cells": all(
-                item["bridge_reuses_one_clean_V_tensor_for_all_cells"]
-                for item in position_invariants
-            ),
-            "input_id_digest_by_batch": [
-                item["input_ids_sha256"] for item in position_invariants
-            ],
-            "fixed_V_digest_by_batch": [
-                item["fixed_V_sha256_by_head"] for item in position_invariants
-            ],
-            "fixed_V_digest_by_head_cell_and_batch": [
-                item["bridge_fixed_V_sha256_by_head_and_cell"]
-                for item in position_invariants
-            ],
-        },
-        "qk_surgery": {
-            "all_batches_ok": all(item["ok"] for item in qk_invariants),
-            "selected_logit_assignment_max_abs_error": _max_invariant(
-                qk_invariants, "selected_logit_assignment_max_abs_error"
-            ),
-            "unselected_logit_max_abs_error": _max_invariant(
-                qk_invariants, "unselected_logit_max_abs_error"
-            ),
-            "fixed_value_max_abs_error": _max_invariant(
-                qk_invariants, "fixed_value_max_abs_error"
-            ),
-            "fixed_clean_value_sha256_by_arm_and_batch": [
-                item["fixed_clean_value_sha256_by_arm"] for item in qk_invariants
-            ],
-            "same_clean_value_tensor_used_for_every_leg": all(
-                item["same_clean_value_tensor_used_for_every_leg"]
-                for item in qk_invariants
-            ),
-        },
-        "attention_value": {
-            "all_batches_ok": all(item["ok"] for item in av_invariants),
-            "a_at_v_reconstruction_max_abs_error": _max_invariant(
-                av_invariants, "a_at_v_reconstruction_max_abs_error"
-            ),
-            "baseline_inject_max_abs_error": _max_invariant(
-                av_invariants, "baseline_inject_max_abs_error"
-            ),
-            "value_window_assignment_max_abs_error": _max_invariant(
-                av_invariants, "value_window_assignment_max_abs_error"
-            ),
-            "value_outside_window_max_abs_error": _max_invariant(
-                av_invariants, "value_outside_window_max_abs_error"
-            ),
-            "address_source_scope": (
-                "complete L3H1 acceptor-query attention row"
-            ),
-            "value_source_scope": (
-                "selected four-token window; recipient values elsewhere"
-            ),
-            "clean_L3H1_restore_is_real_query_head_path": all(
-                item["clean_L3H1_restore_is_real_query_head_path"]
-                for item in av_invariants
-            ),
-        },
-        "l2_role": {
-            "all_batches_ok": all(item["ok"] for item in l2_invariants),
-            "baseline_rescue_max_abs_error": _max_invariant(
-                l2_invariants, "baseline_rescue_max_abs_error"
-            ),
-        },
-        "bounded_intervention_health": health,
+        "paired_noop_intervention_health": health,
+        "families": family_capabilities,
         "candidate_outcomes_used_to_define_capability": False,
         "behavioral_endpoint": "masked_acceptor_G_margin_only",
         "donor_readout_constructed": False,
+        "all_reached_capabilities_pass": instrument_stop is None,
     }
-    capability["all_pass"] = bool(
-        full_mlm and full_mlm["ok"]
-        and output_projection and output_projection["ok"]
-        and full_head_noop and full_head_noop["ok"]
-        and capability["position_shift"]["all_batches_ok"]
-        and capability["qk_surgery"]["all_batches_ok"]
-        and capability["attention_value"]["all_batches_ok"]
-        and capability["l2_role"]["all_batches_ok"]
-        and health["all_pass"]
-    )
-    instrument_gates = {
-        "exact_source_and_census_identity": True,
-        "exact_128_one_row_per_gene_both_strands": bool(
-            len(rows) == 128
-            and len(set(genes)) == 128
-            and {row.example.strand for row in rows} == {"+", "-"}
+    av_capability = family_capabilities.get("attention_value", {})
+    a_at_v_reconstruction = {
+        "role": "EXACT_QUERY_CONTEXT_CAPABILITY",
+        "reached_in_current_stage": isinstance(
+            av_capability.get("a_at_v_reconstruction_max_abs_error"), (int, float)
         ),
-        "full_hook_and_decoder_capability": bool(capability["all_pass"]),
+        "max_abs_error": av_capability.get(
+            "a_at_v_reconstruction_max_abs_error"
+        ),
+        "atol": HOOK_ATOL,
+        "pass": (
+            av_capability.get("all_batches_ok") is True
+            if "all_batches_ok" in av_capability
+            else None
+        ),
+        "frozen_preflight_pass": (
+            None
+            if bound_preflight is None
+            else bound_preflight["record"]
+            .get("a_at_v_reconstruction", {})
+            .get("pass")
+        ),
+    }
+    verified_handoff = upstream_chain["r1c_package"]["verified"]
+    construction_field = (
+        "preflight_construction_sha256"
+        if args.stage == "preflight"
+        else "capstone_construction_sha256"
+    )
+    construction_sha256 = str(verified_handoff[construction_field])
+    instrument_gates = {
+        "exact_source_identity": True,
+        "exact_400_row_handoff_order": bool(
+            len(rows) == EXACT_ROWS
+            and cohort_materialization.get("handoff_order_preserved") is True
+            and cohort_materialization.get("rows_filtered_or_reordered") is False
+        ),
+        "runtime_policy_mps_without_fallback": runtime_policy["verified"],
+        "base_hook_and_decoder_capability": bool(base_capability_pass),
         "classifier_calibration": bool(calibration["all_pass"]),
-        "bounded_intervention_health": bool(health["all_pass"]),
+        "core_paired_noop_intervention_health": bool(health["core_all_pass"]),
+        "same_row_validation_replay_or_target_behavior_gate": bool(
+            common_leg_replay["pass"]
+            and (
+                args.stage == "preflight"
+                or r1c_gate and r1c_gate.get("scientific_gate_pass") is True
+            )
+        ),
+        "reached_family_capabilities": instrument_stop is None,
         "inputs_rehashed_after_run": bool(
             input_snapshot["checked_after_model_and_inference"]
         ),
-        "r3c_entry_artifact_bound": True,
-        "immutable_method_and_cohort_pins": True,
-        "chr8_chr9_closed": True,
+        "r3d_path_a_and_stage_appropriate_r1c_handoff_bound": True,
+        "r3c_exclusion_provenance_only": upstream_chain[
+            "r3c_exclusion_provenance"
+        ]["scientific_entry_authorized"]
+        is False,
+        "immutable_method_and_handoff_pins": True,
+        "stage_data_boundary_respected": (
+            args.stage == "target"
+            or all(str(row.example.chrom).replace("chr", "") in {"11", "16", "19"} for row in rows)
+        ),
     }
     all_instrument = all(instrument_gates.values())
-    if not all_instrument:
-        status = "INSTRUMENT_UNRESOLVED"
-    elif entry["classification"] != "ENTRY_BEHAVIOR_CONFIRMED":
-        status = "ENTRY_BEHAVIOR_NOT_REPLICATED"
-    elif l3_restore_path["classification"] != "L3_PATH_CONFIRMED":
-        status = "L3_PATH_NOT_REPLICATED"
-    elif args.stage == "preflight":
-        status = "PREFLIGHT_PASS"
-    else:
-        status = inference["decisions"]["reader"]
-    selected_identity = cohort_audit["selected_by_bucket"][str(bucket)]
+    if all_instrument != (instrument_stop is None):
+        raise RuntimeError("R5a instrument disposition is internally inconsistent")
+
+    claim_eligible = bool(
+        args.stage == "target" and status == "L3H1_DONOR_LOCAL_READER_SUPPORTED"
+    )
     entry_contract = {
-        "schema": "gfmcd.r5.entry_contract/1",
+        "schema": R5_ENTRY_SCHEMA,
         "instrument_gates_pass": bool(all_instrument),
-        "claim_eligible": bool(
-            args.stage == "target"
-            and status == "L3H1_DONOR_LOCAL_READER_SUPPORTED"
-        ),
+        "claim_eligible": claim_eligible,
         "verdict": status,
+        "scientific_entry_order": (
+            [
+                "authenticated_R3d_Path_A_prior",
+                "authenticated_R1c_validation_preflight_nonentry",
+                "R5a_instrument_preflight",
+            ]
+            if args.stage == "preflight"
+            else [
+                "authenticated_R3d_Path_A_prior",
+                "sealed_R1c_chr8_chr9_acceptor_behavior",
+                *CORE_PATH_ORDER,
+            ]
+        ),
+        "r3d_path_b_used_to_gate": False,
+        "r3c_used_as_scientific_entry": False,
         "acceptor_G_only": True,
         "masked_donor_endpoint_constructed": False,
         "checkpoint_sha256": checkpoint["aggregate_sha256"],
-        "cohort_sha256": selected_identity["ordered_rows_sha256"],
-        "construction_sha256": selected_identity["construction_sha256"],
+        "target_gene_ids_sha256": verified_handoff[
+            "sorted_unique_gene_ids_sha256"
+        ],
+        "cohort_sha256": verified_handoff["cohort_sha256"],
+        "ordered_row_ids_sha256": verified_handoff["ordered_row_ids_sha256"],
+        "ordered_gene_ids_sha256": verified_handoff["ordered_gene_ids_sha256"],
+        "construction_sha256": construction_sha256,
         "r5_stack_fingerprint_sha256": authorization[
             "r5_stack_fingerprint_sha256"
         ],
-        "upstream_r3c_artifact_sha256": r3c_entry["sha256"],
-        "upstream_r3c_manifest_sha256": r3c_entry["manifest"]["sha256"],
+        "upstream_package_chain_sha256": upstream_chain["chain_sha256"],
     }
-    exclusion_registry_path = output.with_suffix(".exclusion-registry.json")
-    exclusion_registry_record = r3c_entry.pop("exclusion_registry_record")
-    exclusion_registry_bytes = (
-        json.dumps(exclusion_registry_record, indent=2, sort_keys=True) + "\n"
-    ).encode("utf-8")
-    exclusion_registry_identity = {
-        "path": str(exclusion_registry_path),
-        "size_bytes": len(exclusion_registry_bytes),
-        "sha256": hashlib.sha256(exclusion_registry_bytes).hexdigest(),
-        "record_sha256": exclusion_registry_record["record_sha256"],
+    if args.stage == "target":
+        entry_contract.update(
+            {
+                "capstone_cohort_schema": cohort_handoff["schema"],
+                "capstone_row_count": cohort_handoff["row_count"],
+                "capstone_cohort_sha256": cohort_handoff["cohort_sha256"],
+                "capstone_ordered_row_ids_sha256": cohort_handoff[
+                    "ordered_row_ids_sha256"
+                ],
+                "capstone_ordered_gene_ids_sha256": cohort_handoff[
+                    "ordered_gene_ids_sha256"
+                ],
+                "capstone_sorted_unique_gene_ids_sha256": cohort_handoff[
+                    "sorted_unique_gene_ids_sha256"
+                ],
+                "capstone_construction_sha256": cohort_handoff[
+                    "capstone_construction_sha256"
+                ],
+            }
+        )
+    source = cohort_handoff.get("source", {})
+    cohort_binding = {
+        "schema": cohort_handoff["schema"],
+        "row_count": cohort_handoff["row_count"],
+        "cohort_sha256": cohort_handoff["cohort_sha256"],
+        "ordered_row_ids_sha256": cohort_handoff["ordered_row_ids_sha256"],
+        "ordered_gene_ids_sha256": cohort_handoff["ordered_gene_ids_sha256"],
+        "sorted_unique_gene_ids_sha256": cohort_handoff[
+            "sorted_unique_gene_ids_sha256"
+        ],
+        "construction_sha256": construction_sha256,
+        "handoff_order_preserved": cohort_materialization[
+            "handoff_order_preserved"
+        ],
+        "rows_filtered_or_reordered": cohort_materialization[
+            "rows_filtered_or_reordered"
+        ],
+        "scientific_entry_authorized": args.stage == "target",
+        "sealed_split_opened": args.stage == "target",
+        "source_package_sha256": cohort_handoff["source_package_sha256"],
+        "source_artifact_sha256": source.get("artifact", {}).get("sha256"),
+        "source_manifest_sha256": source.get("manifest", {}).get("sha256"),
     }
-    entry_contract["exclusion_registry_sha256"] = exclusion_registry_identity[
-        "sha256"
-    ]
-    entry_contract["exclusion_registry_record_sha256"] = (
-        exclusion_registry_identity["record_sha256"]
-    )
     record = {
-        "schema": "gfmcd.r5a.acceptor_address_binding/1",
+        "schema": "gfmcd.r5a.acceptor_address_binding/2",
         "experiment": "R5a_acceptor_address_binding",
         "stage": args.stage,
         "status": status,
         "r5_entry_contract": entry_contract,
         "behavioral_endpoint": "masked_acceptor_G_margin_only",
         "donor_readout_constructed": False,
+        "masked_donor_endpoint_constructed": False,
+        "scientific_entry_authorized": claim_eligible,
         "instrument_fingerprint_sha256": authorization["fingerprint"],
         "instrument_binding": authorization["binding"],
         "r5_stack_binding": authorization["r5_stack_binding"],
@@ -3739,64 +4367,94 @@ def run_model_stage(
         ],
         "git": git_identity,
         "runtime_identity": runtime,
+        "runtime_policy": runtime_policy,
         "checkpoint": checkpoint,
         "source_identity": source_identity,
         "input_snapshot_after_run": input_snapshot,
-        "cohort_audit": cohort_audit,
-        "bucket": bucket,
+        "cohort_handoff": cohort_binding,
+        "cohort_materialization": cohort_materialization,
         "gene_ids": genes,
         "gene_ids_sha256": canonical_sha256(genes),
         "row_identity": [row.identity_record() for row in rows],
-        "construction_sha256": cohort_audit["selected_by_bucket"][str(bucket)][
-            "construction_sha256"
-        ],
-        "r3c_entry": r3c_entry,
-        "r5_exclusion_registry": {
-            "identity": exclusion_registry_identity,
-            "record": exclusion_registry_record,
-            "derived_from_authenticated_r3c": True,
-        },
+        "construction_sha256": construction_sha256,
+        "upstream_chain": _compact_upstream_chain(upstream_chain),
+        "target_attempt_receipt": target_receipt,
         "bound_preflight": (
             None
             if bound_preflight is None
             else {
-                key: value for key, value in bound_preflight.items() if key != "record"
+                key: value
+                for key, value in bound_preflight.items()
+                if key != "record"
             }
         ),
         "preflight_context": preflight_context,
         "native_margin_cells": native,
-        "entry_behavior": entry,
-        "clean_L3H1_path_continuity": l3_restore_path,
+        "same_row_preflight_margin_replay": (
+            common_leg_replay if args.stage == "preflight" else None
+        ),
+        "same_row_r1c_common_leg_replay": common_leg_replay,
+        "r1c_target_behavior_gate": r1c_gate,
         "capability": capability,
+        "a_at_v_reconstruction": a_at_v_reconstruction,
+        "preflight_capability_sequence": (
+            {path: paths[path] for path in ALL_PATH_ORDER}
+            if args.stage == "preflight"
+            else None
+        ),
+        "secondary_prospective_eligibility": {
+            "head": "L2H15",
+            "eligible_for_target": bool(
+                args.stage == "preflight"
+                and health["secondary_all_pass"]
+                and secondary_record.get("status") == "PREFLIGHT_CAPABILITY_PASS"
+            ),
+            "own_health_gate_pass": bool(health["secondary_all_pass"]),
+            "own_exact_qk_capability": secondary_record.get("status"),
+            "gates_l3_headline": False,
+            "historical_r3c_health_used": False,
+        },
         "classifier_calibration": calibration,
         "classifier_calibration_origin": calibration_origin,
-        "raw_primitive_measurements": _json_ready(measurements),
+        "raw_primitive_measurements": _json_ready(primitive_measurements),
+        "position_internal_bridge_diagnostics": position_diagnostics,
         "raw_family_values": {
-            family: matrices[family].tolist() for family in FAMILY_ORDER
+            family: matrix.tolist() for family, matrix in matrices.items()
         },
         "gene_sufficient_statistics": {
-            "schema": "gfmcd.r5a.gene_sufficient_statistics/1",
-            "aggregation": (
-                "one selected row per gene; raw_family_values are ordered [family-row,gene]"
-            ),
+            "schema": "gfmcd.r5a.gene_sufficient_statistics/2",
+            "aggregation": "row-level storage; inference aggregates repeated rows by gene",
             "ordered_gene_ids": genes,
-            "one_row_per_gene": len(set(genes)) == len(genes),
+            "repeated_genes_allowed": True,
             "family_matrix_sha256": {
-                family: _array_sha256(matrices[family]) for family in FAMILY_ORDER
+                family: _array_sha256(matrix)
+                for family, matrix in matrices.items()
             },
             "family_shapes": {
-                family: list(matrices[family].shape) for family in FAMILY_ORDER
+                family: list(matrix.shape)
+                for family, matrix in matrices.items()
             },
         },
         "family_row_names": family_row_names(),
+        "family_execution_status": {
+            family: family_results[family].get(
+                "status", "EXECUTED_AND_CLASSIFIED"
+            )
+            for family in FAMILY_ORDER
+        },
+        "observed_scientific_inference": inference,
         "inference": inference,
-        "inference_sha256": canonical_sha256(inference),
+        "inference_sha256": None if inference is None else canonical_sha256(inference),
         "instrument_gates": instrument_gates,
         "all_instrument_gates_pass": all_instrument,
-        "sealed_chr8_chr9_opened": False,
+        "r5a_opened_chr8_chr9": args.stage == "target",
+        "prior_sealed_r1c_chr8_chr9_result_consumed": args.stage == "target",
     }
+    if l3_restore_lift["partner"]:
+        record["same_example_l3_restore_diagnostic"] = {
+            leg: values for leg, values in l3_restore_lift.items()
+        }
     return record, git_identity
-
 
 def atomic_write_new(path: Path, data: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -3814,106 +4472,302 @@ def _parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--batch", type=int, default=PRODUCTION_BATCH)
     parser.add_argument("--seed", type=int, default=PRODUCTION_SEED)
     parser.add_argument("--draws", type=int, default=PRODUCTION_RANDOMISATION)
-    parser.add_argument("--device", default=None)
+    parser.add_argument("--device", default="mps")
     parser.add_argument("--gtf", default=DEFAULT_GTF)
     parser.add_argument("--fasta", default=DEFAULT_FASTA)
     parser.add_argument("--model", default=DEFAULT_MODEL)
+    parser.add_argument("--r3d-artifact")
+    parser.add_argument("--r3d-manifest")
+    parser.add_argument("--r3d-registry")
+    parser.add_argument("--r3d-registry-manifest")
+    parser.add_argument("--r3d-attempt")
+    parser.add_argument("--r3d-completion")
     parser.add_argument("--r3c-artifact")
+    parser.add_argument("--r3c-manifest")
+    parser.add_argument("--r1c-preflight-artifact")
+    parser.add_argument("--r1c-preflight-manifest")
+    parser.add_argument("--r1c-target-artifact")
+    parser.add_argument("--r1c-target-manifest")
+    parser.add_argument("--r1c-target-attempt")
+    parser.add_argument("--r1c-target-completion")
     parser.add_argument("--preflight-artifact")
     parser.add_argument("--out")
     return parser.parse_args(argv)
 
 
+def _output_paths(args: argparse.Namespace) -> tuple[Path | None, Path | None, Path | None]:
+    output = Path(args.out).expanduser().resolve() if args.out else None
+    manifest = output.with_suffix(".manifest.json") if output is not None else None
+    registry = None
+    if output is not None and any(
+        path is not None and path.exists() for path in (output, manifest, registry)
+    ):
+        raise SystemExit("R5a outputs are immutable; choose a fresh path")
+    return output, manifest, registry
+
+
+def _upstream_manifest_inputs(record: Mapping[str, Any]) -> list[dict[str, Any]]:
+    upstream = record["upstream_chain"]
+    r3d = upstream["r3d_scientific_entry"]
+    r1c = upstream["r1c_package"]
+    r3c = upstream["r3c_exclusion_provenance"]
+    values = [
+        r3d["artifact"],
+        r3d["manifest"],
+        r3d["registry"]["artifact"],
+        r3d["registry"]["manifest"],
+        r3d["attempt"],
+        r3d["completion"],
+        r3c["artifact"],
+        r3c["manifest"],
+        *r1c["package_inputs"],
+    ]
+    if any(not isinstance(value, Mapping) for value in values):
+        raise RuntimeError("R5a upstream manifest input identity is incomplete")
+    return [dict(value) for value in values]
+
+
+def _model_free_exposure_manifest_inputs(
+    record: Mapping[str, Any],
+) -> list[dict[str, Any]]:
+    exposed = record["authenticated_exposure_chain"]
+    keys = (
+        "r3d_artifact",
+        "r3d_manifest",
+        "r3d_registry_artifact",
+        "r3d_registry_manifest",
+        "r3d_attempt",
+        "r3d_completion",
+        "r3c_artifact",
+        "r3c_manifest",
+    )
+    values = [exposed.get(key) for key in keys]
+    if any(not isinstance(value, Mapping) for value in values):
+        raise RuntimeError("R5a model-free exposure manifest registry is incomplete")
+    return [dict(value) for value in values]
+
+
+def _target_receipt_manifest_input(record: Mapping[str, Any]) -> dict[str, Any] | None:
+    receipt = record.get("target_attempt_receipt")
+    if receipt is None:
+        return None
+    if not isinstance(receipt, Mapping) or not isinstance(
+        receipt.get("receipt_path"), str
+    ):
+        raise RuntimeError("R5a target attempt receipt identity is incomplete")
+    path = Path(receipt["receipt_path"]).expanduser().resolve(strict=True)
+    persisted = json.loads(path.read_text())
+    if persisted != {key: value for key, value in receipt.items() if key != "receipt_path"}:
+        raise RuntimeError("R5a target attempt receipt bytes drifted before publication")
+    return {
+        "path": str(path),
+        "size_bytes": path.stat().st_size,
+        "sha256": sha256_file(path),
+    }
+
+
+def _append_joint_stack_inputs(
+    manifest: ExperimentManifest, authorization: Mapping[str, Any]
+) -> None:
+    stack_binding = authorization.get("r5_stack_binding")
+    closure = (
+        stack_binding.get("local_python_closure", {}).get("files")
+        if isinstance(stack_binding, Mapping)
+        else None
+    )
+    protocols = (
+        stack_binding.get("protocols")
+        if isinstance(stack_binding, Mapping)
+        else None
+    )
+    if not isinstance(closure, Mapping) or not isinstance(protocols, Mapping):
+        raise RuntimeError("R5a joint stack lacks its exact source input registry")
+    existing = {
+        Path(str(item["path"])).expanduser().resolve()
+        for item in manifest.inputs
+        if isinstance(item, Mapping) and "path" in item
+    }
+    for relative in (*closure, *protocols):
+        source = (REPO / str(relative)).resolve()
+        try:
+            source.relative_to(REPO.resolve())
+        except ValueError as exc:
+            raise RuntimeError("R5a joint stack source escapes the repository") from exc
+        if not source.is_file():
+            raise RuntimeError(f"R5a joint stack source is missing: {relative}")
+        if source not in existing:
+            manifest.inputs.append(
+                {
+                    "path": str(source),
+                    "size_bytes": source.stat().st_size,
+                    "sha256": sha256_file(source),
+                }
+            )
+            existing.add(source)
+
+
 def main(argv: Sequence[str] | None = None) -> None:
     args = _parse_args(argv)
-    if args.n != PRODUCTION_N or args.seed != PRODUCTION_SEED or args.draws != PRODUCTION_RANDOMISATION:
-        raise SystemExit("R5a production n/seed/randomisation parameters are fixed")
+    if (
+        args.n != PRODUCTION_N
+        or args.seed != PRODUCTION_SEED
+        or args.draws != PRODUCTION_RANDOMISATION
+    ):
+        raise SystemExit("R5a production n/seed/bootstrap parameters are fixed")
     if args.batch != PRODUCTION_BATCH:
         raise SystemExit(f"R5a production batch is fixed at {PRODUCTION_BATCH}")
-    authorization = None
-    # Model authorization is deliberately first: no user-supplied model, data, entry,
-    # preflight, or output path is resolved, opened, or stat'ed before this check.
+
+    authorization: Mapping[str, Any] | None = None
+    upstream_chain: Mapping[str, Any] | None = None
+    bound_preflight: Mapping[str, Any] | None = None
+    target_receipt: Mapping[str, Any] | None = None
+
+    # Fail-closed seal validation is first.  In target mode, exact upstream packages and
+    # the bound preflight are then authenticated before the irreversible receipt, which
+    # itself precedes output, cohort, checkpoint, or model inspection.
     if args.mode == "model":
+        if args.out is None:
+            raise SystemExit("R5a model mode requires --out")
         try:
             authorization = authorize_model_scoring(args.stage)
         except SealError as exc:
             label = "target" if args.stage == "target" else "model"
             raise SystemExit(f"R5a {label} authorization failed: {exc}") from exc
+        # Scientific/prior order is executable order: authenticate exact R3d Path A
+        # and R3c nonentry provenance before touching either R1c handoff.
+        exposure_chain = load_exposure_packages(args)
+        if args.stage == "preflight":
+            r1c_package = load_authenticated_r1c_preflight_handoff(
+                args.r1c_preflight_artifact,
+                args.r1c_preflight_manifest,
+            )
+            r1c_package["behavior_gate"] = None
+            r1c_package["attestation"] = None
+        else:
+            r1c_package = load_authenticated_r1c_target_handoff(
+                args.r1c_target_artifact,
+                args.r1c_target_manifest,
+                args.r1c_target_attempt,
+                args.r1c_target_completion,
+                args.r1c_preflight_artifact,
+                args.r1c_preflight_manifest,
+            )
+            if not r1c_package["behavior_gate"]["scientific_gate_pass"]:
+                raise SystemExit(
+                    "R5a scientific stop: authenticated R1c target behavior was not "
+                    f"confirmed ({r1c_package['behavior_gate']['verdict']}); no R5a "
+                    "target receipt or reader intervention was opened"
+                )
+        upstream_chain = load_upstream_chain(exposure_chain, r1c_package)
+        if args.stage == "target":
+            bound_preflight = _verify_bound_preflight(
+                args.preflight_artifact,
+                authorization["fingerprint"],
+                stack_binding=authorization["r5_stack_binding"],
+                stack_fingerprint=authorization["r5_stack_fingerprint_sha256"],
+            )
+            assert FROZEN_CHECKPOINT_AGGREGATE_SHA256 is not None
+            assert r1c_package["handoff"] is not None
+            identity = build_r5a_target_identity(
+                r1c_package["handoff"],
+                checkpoint_sha256=FROZEN_CHECKPOINT_AGGREGATE_SHA256,
+            )
+            try:
+                target_receipt = reserve_r5_target_attempt(
+                    repo=REPO,
+                    identity=identity,
+                    attempt_context={
+                        "r5_stack_fingerprint_sha256": authorization[
+                            "r5_stack_fingerprint_sha256"
+                        ],
+                        "stage_preflight_artifact_sha256": bound_preflight["sha256"],
+                        "stage_preflight_manifest_sha256": bound_preflight[
+                            "manifest_sha256"
+                        ],
+                        "upstream_package_chain_sha256": upstream_chain[
+                            "chain_sha256"
+                        ],
+                    },
+                )
+            except R5TargetSpentError as exc:
+                raise SystemExit(f"R5a target is already spent: {exc}") from exc
+            # Outcome-bearing common legs are authorized only after this downstream
+            # stage's irreversible receipt.  They memorialize R1c SDPA execution for
+            # the exact same-row eager replay before R5a reader interpretation.
+            upstream_chain["r1c_package"]["common_legs"] = (
+                load_r1c_verified_target_common_legs(
+                    args.r1c_target_artifact,
+                    args.r1c_target_manifest,
+                    args.r1c_target_attempt,
+                    args.r1c_target_completion,
+                    args.r1c_preflight_artifact,
+                    args.r1c_preflight_manifest,
+                )
+            )
 
-    output = Path(args.out).resolve() if args.out else None
-    manifest_path = output.with_suffix(".manifest.json") if output is not None else None
-    exclusion_registry_path = (
-        output.with_suffix(".exclusion-registry.json")
-        if output is not None and args.mode == "model"
-        else None
-    )
-    if output is not None and (
-        output.exists()
-        or (manifest_path is not None and manifest_path.exists())
-        or (
-            exclusion_registry_path is not None
-            and exclusion_registry_path.exists()
-        )
-    ):
-        raise SystemExit("R5a outputs are immutable; choose a fresh path")
+    output, manifest_path, _registry_path = _output_paths(args)
 
     if args.mode == "model-free-audit":
         record = model_free_audit(args)
         payload = (json.dumps(record, indent=2, sort_keys=True) + "\n").encode("utf-8")
         if output is None:
             print(payload.decode("utf-8"), end="")
-        else:
-            assert manifest_path is not None
-            manifest = ExperimentManifest.create(
-                "splicebert_acceptor_coupling:r5a_model_free_audit",
-                list(sys.argv if argv is None else [str(RUNNER), *argv]),
-                repo=REPO,
-                status="MODEL_FREE_AUDIT",
-                config={
-                    "rows_per_bucket": PRODUCTION_N,
-                    "cohort_schema": "gfmcd.r5.acceptor_mechanism_cohort/2",
-                    "expected_census_sha256": canonical_sha256(
-                        R5_EXPECTED_CENSUS_IDENTITY
-                    ),
-                    "model_loaded": False,
-                    "sealed_chr8_chr9_opened": False,
-                },
-                seeds={"cohort": PRODUCTION_SEED},
-                notes=[
-                    "Annotation/sequence-only R5 census; no model outputs or chr8/chr9 accessed.",
-                    "Pins remain nonbinding None until the immutable audit is reviewed.",
-                ],
-            )
-            manifest.inputs = [
-                {
-                    "path": str(Path(args.gtf).resolve()),
-                    **record["observed_source_identity"]["gtf"],
-                },
-                {
-                    "path": str(Path(args.fasta).resolve()),
-                    **record["observed_source_identity"]["fasta"],
-                },
-            ]
-            manifest.outputs = [
-                {
-                    "path": str(output),
-                    "size_bytes": len(payload),
-                    "sha256": hashlib.sha256(payload).hexdigest(),
-                }
-            ]
-            manifest_bytes = (
-                json.dumps(manifest.to_dict(), indent=2, sort_keys=True) + "\n"
-            ).encode("utf-8")
-            atomic_write_new(output, payload)
-            atomic_write_new(manifest_path, manifest_bytes)
-            print(f"R5a model-free audit written to {output}")
+            return
+        assert manifest_path is not None
+        manifest = ExperimentManifest.create(
+            "splicebert_acceptor_coupling:r5a_model_free_audit",
+            list(sys.argv if argv is None else [str(RUNNER), *argv]),
+            repo=REPO,
+            status="PROSPECTIVE_INSTRUMENT_AUDIT",
+            config={
+                "exact_handoff_rows": EXACT_ROWS,
+                "preflight_cohort_schema": R5_PREFLIGHT_COHORT_HANDOFF_SCHEMA,
+                "target_cohort_schema": R5_CAPSTONE_COHORT_HANDOFF_SCHEMA,
+                "model_loaded": False,
+                "genome_opened": False,
+                "r5a_opened_chr8_chr9": False,
+            },
+            seeds={"instrument": PRODUCTION_SEED},
+            notes=[
+                "Prospective method binding only; no genome, model, or chr8/chr9 accessed.",
+                "R1c supplies exact ordered 400-row preflight and target handoffs.",
+            ],
+        )
+        manifest.inputs = []
+        manifest.outputs = [
+            {
+                "path": str(output),
+                "size_bytes": len(payload),
+                "sha256": hashlib.sha256(payload).hexdigest(),
+            }
+        ]
+        manifest_bytes = (
+            json.dumps(manifest.to_dict(), indent=2, sort_keys=True) + "\n"
+        ).encode("utf-8")
+        atomic_write_new(output, payload)
+        atomic_write_new(manifest_path, manifest_bytes)
+        print(f"R5a model-free audit written to {output}")
         return
 
-    if output is None or manifest_path is None:
-        raise SystemExit("R5a model mode requires a fresh --out path")
-    assert authorization is not None
+    assert output is not None and manifest_path is not None
+    assert authorization is not None and upstream_chain is not None
+    handoff = upstream_chain["r1c_package"]["handoff"]
+    assert isinstance(handoff, Mapping)
+    rows, cohort_materialization, _source_identity = materialize_authenticated_cohort(
+        args.gtf,
+        args.fasta,
+        stage=args.stage,
+        handoff=handoff,
+    )
     record, git_identity = run_model_stage(
-        args, authorization=authorization, output=output
+        args,
+        authorization=authorization,
+        rows=rows,
+        cohort_materialization=cohort_materialization,
+        cohort_handoff=handoff,
+        upstream_chain=upstream_chain,
+        bound_preflight=bound_preflight,
+        target_receipt=target_receipt,
     )
     result_bytes = (
         json.dumps(record, indent=2, sort_keys=True) + "\n"
@@ -3928,9 +4782,11 @@ def main(argv: Sequence[str] | None = None) -> None:
             "n": PRODUCTION_N,
             "batch": args.batch,
             "seed": PRODUCTION_SEED,
-            "n_randomisation": PRODUCTION_RANDOMISATION,
-            "n_calibration_trials": PRODUCTION_CALIBRATION_TRIALS,
-            "bucket": record["bucket"],
+            "n_bootstrap": PRODUCTION_RANDOMISATION,
+            "bootstrap_estimators": ["mean", "trimmed_mean_10pct"],
+            "bootstrap_exact": False,
+            "exact_handoff_rows": EXACT_ROWS,
+            "cohort_handoff_schema": record["cohort_handoff"]["schema"],
             "instrument_fingerprint_sha256": authorization["fingerprint"],
             "r5_stack_fingerprint_sha256": authorization[
                 "r5_stack_fingerprint_sha256"
@@ -3939,39 +4795,37 @@ def main(argv: Sequence[str] | None = None) -> None:
                 "aggregate_sha256"
             ],
             "construction_sha256": record["construction_sha256"],
+            "fixed_sequence_alpha": STAGE_ALPHA,
+            "alpha_fragmented": False,
             "family_row_order_sha256": {
                 family: canonical_sha256(rows)
                 for family, rows in family_row_names().items()
             },
             "path_registry_sha256": canonical_sha256(named_path_specs()),
         },
-        seeds={"randomisation": PRODUCTION_SEED, "calibration": PRODUCTION_SEED},
+        seeds={"bootstrap": PRODUCTION_SEED, "calibration": PRODUCTION_SEED},
         notes=[
-            "Every behavioral outcome is the single masked-acceptor-G margin; no donor readout is constructed.",
-            "R5a POSITION uses paired-to-adjacent word/position component swaps and a fixed-V margin bridge.",
-            "QK uses exact four-logit surgery; A/V uses complete address rows and four-token value windows.",
-            "Validation chromosomes chr11/chr16/chr19 only; chr8/chr9 remains closed.",
-            "The R3c-derived exclusion registry is a separate authenticated output of this manifest.",
+            "Every decision-bearing endpoint is a masked-acceptor-G margin intervention.",
+            "QK logits and attention probabilities are signed diagnostics in separate units.",
+            "R5a uses a fixed sequence and never executes a downstream intervention after a failed gate.",
+            "R3d Path A is prior component evidence; Path B does not gate. R3c is provenance only.",
+            "Preflight uses the exact R1c validation handoff without scientific entry; target uses the exact sealed R1c 400-row handoff.",
+            "L2H15 is a separate secondary reader-role family and never gates the L3H1 headline.",
+            "No masked-donor endpoint is constructed.",
         ],
     )
     manifest.git_commit = git_identity["commit"]
     manifest.git_dirty = False
+    source_paths = {
+        "gtf": Path(args.gtf).expanduser().resolve(),
+        "fasta": Path(args.fasta).expanduser().resolve(),
+        "fasta_fai": Path(f"{Path(args.fasta).expanduser()}.fai").resolve(),
+    }
     manifest.inputs = [
-        {
-            "path": str(Path(args.gtf).resolve()),
-            **record["source_identity"]["gtf"],
-        },
-        {
-            "path": str(Path(args.fasta).resolve()),
-            **record["source_identity"]["fasta"],
-        },
-        {
-            "path": record["r3c_entry"]["path"],
-            "sha256": record["r3c_entry"]["sha256"],
-            "size_bytes": Path(record["r3c_entry"]["path"]).stat().st_size,
-        },
-        dict(record["r3c_entry"]["manifest"]),
+        {"path": str(source_paths[key]), **identity}
+        for key, identity in record["source_identity"].items()
     ]
+    manifest.inputs.extend(_upstream_manifest_inputs(record))
     for filename, identity in record["checkpoint"]["files"].items():
         manifest.inputs.append(
             {
@@ -3996,66 +4850,41 @@ def main(argv: Sequence[str] | None = None) -> None:
                 "size_bytes": preflight_manifest.stat().st_size,
             }
         )
-    stack_binding = authorization.get("r5_stack_binding")
-    closure = (
-        stack_binding.get("local_python_closure", {}).get("files")
-        if isinstance(stack_binding, Mapping)
-        else None
-    )
-    protocols = (
-        stack_binding.get("protocols")
-        if isinstance(stack_binding, Mapping)
-        else None
-    )
-    if not isinstance(closure, Mapping) or not isinstance(protocols, Mapping):
-        raise RuntimeError("R5a joint stack lacks its exact source input registry")
-    existing_inputs = {
-        Path(str(item["path"])).expanduser().resolve()
-        for item in manifest.inputs
-        if isinstance(item, Mapping) and "path" in item
+    receipt_input = _target_receipt_manifest_input(record)
+    if receipt_input is not None:
+        manifest.inputs.append(receipt_input)
+    _append_joint_stack_inputs(manifest, authorization)
+
+    result_identity = {
+        "size_bytes": len(result_bytes),
+        "sha256": hashlib.sha256(result_bytes).hexdigest(),
     }
-    for relative in (*closure, *protocols):
-        source_path = (REPO / str(relative)).resolve()
-        try:
-            source_path.relative_to(REPO.resolve())
-        except ValueError as exc:
-            raise RuntimeError("R5a joint stack source escapes the repository") from exc
-        if not source_path.is_file():
-            raise RuntimeError(f"R5a joint stack source is missing: {relative}")
-        if source_path not in existing_inputs:
-            manifest.inputs.append(
-                {
-                    "path": str(source_path),
-                    "size_bytes": source_path.stat().st_size,
-                    "sha256": sha256_file(source_path),
-                }
-            )
-            existing_inputs.add(source_path)
-    registry_identity = record["r5_exclusion_registry"]["identity"]
-    registry_record = record["r5_exclusion_registry"]["record"]
-    registry_bytes = (
-        json.dumps(registry_record, indent=2, sort_keys=True) + "\n"
-    ).encode("utf-8")
-    if (
-        hashlib.sha256(registry_bytes).hexdigest() != registry_identity["sha256"]
-        or len(registry_bytes) != registry_identity["size_bytes"]
-    ):
-        raise RuntimeError("R5a exclusion-registry serialization drifted")
-    manifest.outputs = [
-        {
-            "path": str(output),
-            "size_bytes": len(result_bytes),
-            "sha256": hashlib.sha256(result_bytes).hexdigest(),
-        },
-        dict(registry_identity),
-    ]
+    manifest.outputs = [{"path": str(output), **result_identity}]
     manifest_bytes = (
         json.dumps(manifest.to_dict(), indent=2, sort_keys=True) + "\n"
     ).encode("utf-8")
+    manifest_identity = {
+        "size_bytes": len(manifest_bytes),
+        "sha256": hashlib.sha256(manifest_bytes).hexdigest(),
+    }
     atomic_write_new(output, result_bytes)
-    atomic_write_new(Path(registry_identity["path"]), registry_bytes)
     atomic_write_new(manifest_path, manifest_bytes)
-    print(f"R5a status={record['status']} -> {output}")
+
+    completion = None
+    if args.stage == "target":
+        assert target_receipt is not None
+        completion = complete_r5_target_attempt(
+            receipt=target_receipt,
+            result_identity=result_identity,
+            manifest_identity=manifest_identity,
+            official_disposition=record["status"],
+        )
+    suffix = (
+        ""
+        if completion is None
+        else f" completion={completion['completion_path']}"
+    )
+    print(f"R5a status={record['status']} -> {output}{suffix}")
 
 
 if __name__ == "__main__":

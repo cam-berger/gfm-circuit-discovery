@@ -1414,6 +1414,150 @@ def l3_to_u_mediation_estimands(
     }
 
 
+PRIMARY_LOCAL_WRITER_SITE_ID = "L3H1.output_projected@acceptor_query"
+
+
+def output_projected_head_contribution(
+    head_context: Any,
+    output_projection_weight: Any,
+    *,
+    head_index: int,
+    num_heads: int,
+) -> np.ndarray:
+    """Return one attention head's bias-free contribution after ``W_O``.
+
+    BERT concatenates the per-head context vectors and applies one output projection.
+    Consequently head ``h`` contributes ``context_h @ W_O[:, h_slice].T`` to the
+    residual-width dense output.  The dense bias is deliberately excluded because it is
+    shared by all heads and must not be attributed to any one writer component.
+
+    ``head_context`` may have arbitrary leading dimensions and must end in ``D_head``;
+    ``output_projection_weight`` must have shape ``[D_model, D_model]``.  The result has
+    the same leading dimensions followed by ``D_model``.
+    """
+
+    if not _is_integral_not_bool(head_index):
+        raise TypeError("head_index must be an integer")
+    if not _is_integral_not_bool(num_heads):
+        raise TypeError("num_heads must be an integer")
+    head = int(head_index)
+    heads = int(num_heads)
+    if heads < 1 or not 0 <= head < heads:
+        raise ValueError("head_index must lie in [0, num_heads)")
+    context = _finite_array("head_context", head_context)
+    weight = _finite_array("output_projection_weight", output_projection_weight)
+    if context.ndim < 1:
+        raise ValueError("head_context must have a final head-width axis")
+    if weight.ndim != 2 or weight.shape[0] != weight.shape[1]:
+        raise ValueError("output_projection_weight must be square [D_model,D_model]")
+    width = int(weight.shape[1])
+    if width % heads:
+        raise ValueError("output projection width is not divisible by num_heads")
+    head_width = width // heads
+    if context.shape[-1] != head_width:
+        raise ValueError(
+            "head_context width does not match the selected output-projection block"
+        )
+    start = head * head_width
+    block = weight[:, start : start + head_width]
+    return np.asarray(context @ block.T, dtype=np.float64)
+
+
+def _validate_local_writer_site_id(writer_site_id: Any) -> str:
+    if writer_site_id != PRIMARY_LOCAL_WRITER_SITE_ID:
+        raise ValueError(
+            "writer_site_id must name the frozen upstream local writer site "
+            f"{PRIMARY_LOCAL_WRITER_SITE_ID!r}"
+        )
+    return str(writer_site_id)
+
+
+def local_writer_dense_estimands(
+    *,
+    m_clean: Any,
+    m_corrupt: Any,
+    m_corrupt_with_clean_writer: Any,
+    m_clean_with_corrupt_writer: Any,
+    leg_id: str,
+    writer_site_id: str,
+) -> dict[str, Any]:
+    """Measure dense local-writer necessity and sufficiency before delivery.
+
+    The writer site is an explicitly named activation at or immediately after L3H1's
+    output-projected acceptor-query contribution.  It must therefore precede every
+    downstream component whose delivery role will later be tested.  ``S_writer`` restores
+    the clean writer activation into the donor-corrupt computation; ``N_writer`` replaces
+    the clean writer activation with its donor-corrupt counterpart.  Every margin is read
+    only after the rest of the network and complete MLM head have executed.
+    """
+
+    if not isinstance(leg_id, str) or not leg_id:
+        raise ValueError("leg_id must be a non-empty string")
+    writer_site_id = _validate_local_writer_site_id(writer_site_id)
+    cells = _same_shape_arrays(
+        m_clean=m_clean,
+        m_corrupt=m_corrupt,
+        m_corrupt_with_clean_writer=m_corrupt_with_clean_writer,
+        m_clean_with_corrupt_writer=m_clean_with_corrupt_writer,
+    )
+    estimands = {
+        "donor_effect": cells["m_clean"] - cells["m_corrupt"],
+        "S_writer": (
+            cells["m_corrupt_with_clean_writer"] - cells["m_corrupt"]
+        ),
+        "N_writer": cells["m_clean"] - cells["m_clean_with_corrupt_writer"],
+    }
+    return {
+        "leg_id": leg_id,
+        "writer_site_id": writer_site_id,
+        "cells": {name: _result(value) for name, value in cells.items()},
+        "estimands": {name: _result(value) for name, value in estimands.items()},
+    }
+
+
+def local_writer_subspace_estimands(
+    *,
+    m_clean: Any,
+    m_corrupt: Any,
+    m_corrupt_with_projected_writer: Any,
+    m_clean_without_projected_writer: Any,
+    leg_id: str,
+    writer_site_id: str,
+    basis_id: str,
+) -> dict[str, Any]:
+    """Measure a frozen low-rank component of the upstream local writer state.
+
+    This is nested compression/mediation evidence.  It never replaces the dense writer
+    path and a null result therefore cannot veto a supported dense write.
+    """
+
+    if not isinstance(leg_id, str) or not leg_id:
+        raise ValueError("leg_id must be a non-empty string")
+    writer_site_id = _validate_local_writer_site_id(writer_site_id)
+    if not isinstance(basis_id, str) or not basis_id:
+        raise ValueError("basis_id must be a non-empty string")
+    cells = _same_shape_arrays(
+        m_clean=m_clean,
+        m_corrupt=m_corrupt,
+        m_corrupt_with_projected_writer=m_corrupt_with_projected_writer,
+        m_clean_without_projected_writer=m_clean_without_projected_writer,
+    )
+    estimands = {
+        "donor_effect": cells["m_clean"] - cells["m_corrupt"],
+        "S_U": (
+            cells["m_corrupt_with_projected_writer"] - cells["m_corrupt"]
+        ),
+        "N_U": cells["m_clean"] - cells["m_clean_without_projected_writer"],
+    }
+    return {
+        "leg_id": leg_id,
+        "writer_site_id": writer_site_id,
+        "basis_id": basis_id,
+        "cells": {name: _result(value) for name, value in cells.items()},
+        "estimands": {name: _result(value) for name, value in estimands.items()},
+    }
+
+
 def _require_exact_record_keys(
     name: str,
     value: Any,
@@ -1489,6 +1633,87 @@ def replay_l3_to_u_mediation_record(record: Mapping[str, Any]) -> dict[str, Any]
     return replayed
 
 
+def replay_local_writer_dense_record(record: Mapping[str, Any]) -> dict[str, Any]:
+    """Recompute a dense local-writer record from its four primitive margins."""
+
+    top = _require_exact_record_keys(
+        "local-writer record",
+        record,
+        ("leg_id", "writer_site_id", "cells", "estimands"),
+    )
+    cells = _require_exact_record_keys(
+        "local-writer cells",
+        top["cells"],
+        (
+            "m_clean",
+            "m_corrupt",
+            "m_corrupt_with_clean_writer",
+            "m_clean_with_corrupt_writer",
+        ),
+    )
+    stored_estimands = _require_exact_record_keys(
+        "local-writer estimands",
+        top["estimands"],
+        ("donor_effect", "S_writer", "N_writer"),
+    )
+    replayed = local_writer_dense_estimands(
+        m_clean=cells["m_clean"],
+        m_corrupt=cells["m_corrupt"],
+        m_corrupt_with_clean_writer=cells["m_corrupt_with_clean_writer"],
+        m_clean_with_corrupt_writer=cells["m_clean_with_corrupt_writer"],
+        leg_id=top["leg_id"],
+        writer_site_id=top["writer_site_id"],
+    )
+    for name, value in replayed["estimands"].items():
+        _require_exact_replayed_numeric(
+            f"local-writer estimand {name}",
+            stored_estimands[name],
+            value,
+        )
+    return replayed
+
+
+def replay_local_writer_subspace_record(record: Mapping[str, Any]) -> dict[str, Any]:
+    """Recompute a nested local-writer subspace record from primitive margins."""
+
+    top = _require_exact_record_keys(
+        "local-writer subspace record",
+        record,
+        ("leg_id", "writer_site_id", "basis_id", "cells", "estimands"),
+    )
+    cells = _require_exact_record_keys(
+        "local-writer subspace cells",
+        top["cells"],
+        (
+            "m_clean",
+            "m_corrupt",
+            "m_corrupt_with_projected_writer",
+            "m_clean_without_projected_writer",
+        ),
+    )
+    stored_estimands = _require_exact_record_keys(
+        "local-writer subspace estimands",
+        top["estimands"],
+        ("donor_effect", "S_U", "N_U"),
+    )
+    replayed = local_writer_subspace_estimands(
+        m_clean=cells["m_clean"],
+        m_corrupt=cells["m_corrupt"],
+        m_corrupt_with_projected_writer=cells["m_corrupt_with_projected_writer"],
+        m_clean_without_projected_writer=cells["m_clean_without_projected_writer"],
+        leg_id=top["leg_id"],
+        writer_site_id=top["writer_site_id"],
+        basis_id=top["basis_id"],
+    )
+    for name, value in replayed["estimands"].items():
+        _require_exact_replayed_numeric(
+            f"local-writer subspace estimand {name}",
+            stored_estimands[name],
+            value,
+        )
+    return replayed
+
+
 def delivery_sandwich_estimands(
     *,
     m_minus: Any,
@@ -1529,6 +1754,58 @@ def delivery_sandwich_estimands(
     return {
         "leg_id": leg_id,
         "component_id": component_id,
+        "cells": {name: _result(value) for name, value in cells.items()},
+        "estimands": {name: _result(value) for name, value in estimands.items()},
+    }
+
+
+def local_writer_delivery_sandwich_estimands(
+    *,
+    m_corrupt: Any,
+    m_writer_restored: Any,
+    m_writer_restored_with_d_corrupt: Any,
+    m_corrupt_with_d_from_writer_restored: Any,
+    leg_id: str,
+    component_id: str,
+    writer_site_id: str,
+    writer_intervention_id: str,
+) -> dict[str, Any]:
+    """Test downstream delivery conditional on a query-local writer restoration.
+
+    Unlike :func:`delivery_sandwich_estimands`, the common positive leg is not an
+    unrestricted L3 rescue.  It is the donor-corrupt computation with only the frozen
+    upstream local-writer activation restored.  Candidate and comparator records can be
+    compared only when both the writer site and exact intervention identity agree.
+    """
+
+    if not isinstance(leg_id, str) or not leg_id:
+        raise ValueError("leg_id must be a non-empty string")
+    if not isinstance(component_id, str) or not component_id:
+        raise ValueError("component_id must be a non-empty string")
+    writer_site_id = _validate_local_writer_site_id(writer_site_id)
+    if not isinstance(writer_intervention_id, str) or not writer_intervention_id:
+        raise ValueError("writer_intervention_id must be a non-empty string")
+    cells = _same_shape_arrays(
+        m_corrupt=m_corrupt,
+        m_writer_restored=m_writer_restored,
+        m_writer_restored_with_d_corrupt=m_writer_restored_with_d_corrupt,
+        m_corrupt_with_d_from_writer_restored=m_corrupt_with_d_from_writer_restored,
+    )
+    estimands = {
+        "writer_rescue": cells["m_writer_restored"] - cells["m_corrupt"],
+        "N_d": (
+            cells["m_writer_restored"]
+            - cells["m_writer_restored_with_d_corrupt"]
+        ),
+        "S_d": (
+            cells["m_corrupt_with_d_from_writer_restored"] - cells["m_corrupt"]
+        ),
+    }
+    return {
+        "leg_id": leg_id,
+        "component_id": component_id,
+        "writer_site_id": writer_site_id,
+        "writer_intervention_id": writer_intervention_id,
         "cells": {name: _result(value) for name, value in cells.items()},
         "estimands": {name: _result(value) for name, value in estimands.items()},
     }
@@ -1578,6 +1855,61 @@ def replay_delivery_sandwich_record(record: Mapping[str, Any]) -> dict[str, Any]
     return replayed
 
 
+def replay_local_writer_delivery_sandwich_record(
+    record: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Recompute a writer-conditioned delivery record from primitive margins."""
+
+    top = _require_exact_record_keys(
+        "local-writer delivery record",
+        record,
+        (
+            "leg_id",
+            "component_id",
+            "writer_site_id",
+            "writer_intervention_id",
+            "cells",
+            "estimands",
+        ),
+    )
+    cells = _require_exact_record_keys(
+        "local-writer delivery cells",
+        top["cells"],
+        (
+            "m_corrupt",
+            "m_writer_restored",
+            "m_writer_restored_with_d_corrupt",
+            "m_corrupt_with_d_from_writer_restored",
+        ),
+    )
+    stored_estimands = _require_exact_record_keys(
+        "local-writer delivery estimands",
+        top["estimands"],
+        ("writer_rescue", "N_d", "S_d"),
+    )
+    replayed = local_writer_delivery_sandwich_estimands(
+        m_corrupt=cells["m_corrupt"],
+        m_writer_restored=cells["m_writer_restored"],
+        m_writer_restored_with_d_corrupt=cells[
+            "m_writer_restored_with_d_corrupt"
+        ],
+        m_corrupt_with_d_from_writer_restored=cells[
+            "m_corrupt_with_d_from_writer_restored"
+        ],
+        leg_id=top["leg_id"],
+        component_id=top["component_id"],
+        writer_site_id=top["writer_site_id"],
+        writer_intervention_id=top["writer_intervention_id"],
+    )
+    for name, value in replayed["estimands"].items():
+        _require_exact_replayed_numeric(
+            f"local-writer delivery estimand {name}",
+            stored_estimands[name],
+            value,
+        )
+    return replayed
+
+
 def delivery_candidate_route_gaps(
     candidate: Mapping[str, Any],
     donor_route: Mapping[str, Any],
@@ -1618,10 +1950,50 @@ def delivery_candidate_route_gaps(
     }
 
 
+def local_writer_delivery_gaps(
+    candidate: Mapping[str, Any],
+    comparator: Mapping[str, Any],
+) -> dict[str, float | np.ndarray]:
+    """Contrast delivery components under one byte-identical local-writer leg."""
+
+    left = replay_local_writer_delivery_sandwich_record(candidate)
+    right = replay_local_writer_delivery_sandwich_record(comparator)
+    identity_fields = ("leg_id", "writer_site_id", "writer_intervention_id")
+    if any(left[field] != right[field] for field in identity_fields):
+        raise ValueError(
+            "candidate and comparator must share the same local-writer intervention"
+        )
+    for name in ("m_corrupt", "m_writer_restored"):
+        left_cell = _finite_array(f"candidate.{name}", left["cells"][name])
+        right_cell = _finite_array(f"comparator.{name}", right["cells"][name])
+        if (
+            left_cell.shape != right_cell.shape
+            or _array_sha256(left_cell) != _array_sha256(right_cell)
+        ):
+            raise ValueError(
+                f"candidate and comparator do not share the {name} common leg"
+            )
+    arrays = _same_shape_arrays(
+        candidate_N=left["estimands"]["N_d"],
+        comparator_N=right["estimands"]["N_d"],
+        candidate_S=left["estimands"]["S_d"],
+        comparator_S=right["estimands"]["S_d"],
+    )
+    return {
+        "N_candidate_minus_comparator": _result(
+            arrays["candidate_N"] - arrays["comparator_N"]
+        ),
+        "S_candidate_minus_comparator": _result(
+            arrays["candidate_S"] - arrays["comparator_S"]
+        ),
+    }
+
+
 __all__ = [
     "AV_CELL_ORDER",
     "BASE_ORDER",
     "DONOR_WINDOW_OFFSETS",
+    "PRIMARY_LOCAL_WRITER_SITE_ID",
     "SVD_NUMERICAL_RANK_RELATIVE_TOLERANCE",
     "SVD_NUMERICAL_RANK_RULE",
     "CrossFitFold",
@@ -1646,11 +2018,16 @@ __all__ = [
     "fixed_calibration_overlap_null",
     "hard_g_margin_from_base_logits",
     "l3_to_u_mediation_estimands",
+    "local_writer_dense_estimands",
+    "local_writer_delivery_sandwich_estimands",
+    "local_writer_delivery_gaps",
+    "local_writer_subspace_estimands",
     "linear_mlm_base_logits",
     "linear_mlm_g_margin",
     "mean_squared_principal_cosine",
     "orthogonal_projector",
     "ordered_overlap_null_draw_identities",
+    "output_projected_head_contribution",
     "partner_pseudo_specific",
     "project_rows",
     "projector_diagnostics",
@@ -1658,6 +2035,9 @@ __all__ = [
     "reconstruct_attention_value",
     "replay_delivery_sandwich_record",
     "replay_l3_to_u_mediation_record",
+    "replay_local_writer_dense_record",
+    "replay_local_writer_delivery_sandwich_record",
+    "replay_local_writer_subspace_record",
     "replace_projected_component",
     "select_crossfit_outcome_rank",
     "select_linear_mlm_margin_inputs",

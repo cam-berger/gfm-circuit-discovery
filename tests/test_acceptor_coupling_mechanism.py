@@ -24,11 +24,16 @@ from gfmcd.splicing.acceptor_coupling_mechanism import (
     fixed_calibration_overlap_null,
     hard_g_margin_from_base_logits,
     l3_to_u_mediation_estimands,
+    local_writer_dense_estimands,
+    local_writer_subspace_estimands,
+    local_writer_delivery_sandwich_estimands,
+    local_writer_delivery_gaps,
     linear_mlm_base_logits,
     linear_mlm_g_margin,
     mean_squared_principal_cosine,
     orthogonal_projector,
     ordered_overlap_null_draw_identities,
+    output_projected_head_contribution,
     partner_pseudo_specific,
     project_rows,
     projector_diagnostics,
@@ -36,11 +41,136 @@ from gfmcd.splicing.acceptor_coupling_mechanism import (
     reconstruct_attention_value,
     replay_delivery_sandwich_record,
     replay_l3_to_u_mediation_record,
+    replay_local_writer_dense_record,
+    replay_local_writer_subspace_record,
+    replay_local_writer_delivery_sandwich_record,
     replace_projected_component,
     select_crossfit_outcome_rank,
     select_linear_mlm_margin_inputs,
     validate_svd_numerical_rank,
 )
+
+
+def test_output_projected_head_contribution_uses_exact_bias_free_wo_block():
+    context = np.asarray(
+        [
+            [[1.0, 2.0], [3.0, 4.0]],
+            [[-1.0, 0.5], [2.0, -3.0]],
+        ]
+    )
+    weight = np.arange(16, dtype=float).reshape(4, 4) / 10.0
+    projected = output_projected_head_contribution(
+        context,
+        weight,
+        head_index=1,
+        num_heads=2,
+    )
+    expected = context @ weight[:, 2:4].T
+    assert projected.shape == (2, 2, 4)
+    assert np.array_equal(projected, expected)
+
+    # A dense bias is not an input to the helper and therefore cannot be silently
+    # attributed to the selected head.
+    assert not np.array_equal(projected, expected + 7.0)
+    with pytest.raises(ValueError, match="does not match"):
+        output_projected_head_contribution(
+            np.ones((2, 3)), weight, head_index=1, num_heads=2
+        )
+    with pytest.raises(TypeError, match="head_index"):
+        output_projected_head_contribution(
+            np.ones((2, 2)), weight, head_index=True, num_heads=2
+        )
+
+
+def test_local_writer_dense_estimands_separate_write_from_later_delivery():
+    result = local_writer_dense_estimands(
+        m_clean=np.asarray([5.0, 7.0]),
+        m_corrupt=np.asarray([1.0, 2.0]),
+        m_corrupt_with_clean_writer=np.asarray([4.0, 5.5]),
+        m_clean_with_corrupt_writer=np.asarray([2.0, 3.0]),
+        leg_id="partner",
+        writer_site_id="L3H1.output_projected@acceptor_query",
+    )
+
+    assert result["writer_site_id"] == "L3H1.output_projected@acceptor_query"
+    assert np.array_equal(result["estimands"]["donor_effect"], [4.0, 5.0])
+    assert np.array_equal(result["estimands"]["S_writer"], [3.0, 3.5])
+    assert np.array_equal(result["estimands"]["N_writer"], [3.0, 4.0])
+    assert "final_residual" not in repr(result)
+
+    replayed = replay_local_writer_dense_record(result)
+    assert replayed["leg_id"] == result["leg_id"]
+    assert replayed["writer_site_id"] == result["writer_site_id"]
+    for block in ("cells", "estimands"):
+        for name in result[block]:
+            assert np.array_equal(replayed[block][name], result[block][name])
+    tampered = copy.deepcopy(result)
+    tampered["estimands"]["S_writer"][0] += 0.25
+    with pytest.raises(ValueError, match="primitive-cell replay"):
+        replay_local_writer_dense_record(tampered)
+
+
+def test_local_writer_subspace_is_nested_evidence_at_the_same_upstream_site():
+    record = local_writer_subspace_estimands(
+        m_clean=np.asarray([6.0, 8.0]),
+        m_corrupt=np.asarray([2.0, 3.0]),
+        m_corrupt_with_projected_writer=np.asarray([4.5, 6.0]),
+        m_clean_without_projected_writer=np.asarray([3.5, 5.0]),
+        leg_id="partner",
+        writer_site_id="L3H1.output_projected@acceptor_query",
+        basis_id="validation-frozen-rank4",
+    )
+    assert np.array_equal(record["estimands"]["S_U"], [2.5, 3.0])
+    assert np.array_equal(record["estimands"]["N_U"], [2.5, 3.0])
+    assert record["basis_id"] == "validation-frozen-rank4"
+    replayed = replay_local_writer_subspace_record(record)
+    assert replayed["writer_site_id"] == record["writer_site_id"]
+
+    wrong_site = copy.deepcopy(record)
+    wrong_site["writer_site_id"] = "final_residual@acceptor_query"
+    with pytest.raises(ValueError, match="upstream local writer site"):
+        replay_local_writer_subspace_record(wrong_site)
+
+
+def test_delivery_sandwich_is_conditioned_on_one_local_writer_common_leg():
+    candidate = local_writer_delivery_sandwich_estimands(
+        m_corrupt=np.asarray([1.0, 2.0]),
+        m_writer_restored=np.asarray([5.0, 6.0]),
+        m_writer_restored_with_d_corrupt=np.asarray([3.0, 4.5]),
+        m_corrupt_with_d_from_writer_restored=np.asarray([2.5, 3.0]),
+        leg_id="partner",
+        component_id="L4H11+L4H9",
+        writer_site_id="L3H1.output_projected@acceptor_query",
+        writer_intervention_id="dense-clean-into-corrupt",
+    )
+    assert np.array_equal(candidate["estimands"]["writer_rescue"], [4.0, 4.0])
+    assert np.array_equal(candidate["estimands"]["N_d"], [2.0, 1.5])
+    assert np.array_equal(candidate["estimands"]["S_d"], [1.5, 1.0])
+    replayed = replay_local_writer_delivery_sandwich_record(candidate)
+    assert replayed["writer_intervention_id"] == "dense-clean-into-corrupt"
+
+    changed_common_leg = copy.deepcopy(candidate)
+    changed_common_leg["cells"]["m_writer_restored"][0] += 0.5
+    with pytest.raises(ValueError, match="primitive-cell replay"):
+        replay_local_writer_delivery_sandwich_record(changed_common_leg)
+
+    comparator = local_writer_delivery_sandwich_estimands(
+        m_corrupt=np.asarray([1.0, 2.0]),
+        m_writer_restored=np.asarray([5.0, 6.0]),
+        m_writer_restored_with_d_corrupt=np.asarray([4.5, 5.5]),
+        m_corrupt_with_d_from_writer_restored=np.asarray([1.2, 2.2]),
+        leg_id="partner",
+        component_id="L4H0+L4H2",
+        writer_site_id="L3H1.output_projected@acceptor_query",
+        writer_intervention_id="dense-clean-into-corrupt",
+    )
+    gaps = local_writer_delivery_gaps(candidate, comparator)
+    assert np.array_equal(gaps["N_candidate_minus_comparator"], [1.5, 1.0])
+    assert np.allclose(gaps["S_candidate_minus_comparator"], [1.3, 0.8])
+
+    comparator["writer_intervention_id"] = "unrestricted-full-layer-rescue"
+    with pytest.raises(ValueError, match="same local-writer intervention"):
+        local_writer_delivery_gaps(candidate, comparator)
 
 
 def test_donor_window_is_the_fixed_four_token_support_and_checks_bounds():

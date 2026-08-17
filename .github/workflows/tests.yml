@@ -31,11 +31,11 @@ jobs:
           enable-cache: true
 
       - name: Install project
-        run: uv sync --locked --extra splicebert --extra biology --extra dev
+        run: uv sync --locked --extra splicebert --extra biology --extra maxent --extra dev
 
       - name: Run full test suite
         # Extras must be repeated here: bare `uv run pytest` re-syncs to the default
-        # dependency set and drops splicebert/biology/dev (incl. pytest itself), so the
+        # dependency set and drops splicebert/biology/maxent/dev (incl. pytest itself), so the
         # manifest guard and the data-gated suite would not actually run. See
         # docs/REVIEW_OPEN_QUESTIONS.md.
-        run: uv run --extra splicebert --extra biology --extra dev pytest
+        run: uv run --extra splicebert --extra biology --extra maxent --extra dev pytest

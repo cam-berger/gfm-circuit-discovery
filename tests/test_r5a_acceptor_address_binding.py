@@ -1,11 +1,12 @@
 from __future__ import annotations
 
+import hashlib
 import importlib.util
+import inspect
 import json
 from pathlib import Path
 import subprocess
 import sys
-from types import SimpleNamespace
 
 import numpy as np
 import pytest
@@ -16,203 +17,323 @@ SCRIPT = (
     Path(__file__).resolve().parents[1]
     / "scripts/splicebert_acceptor_coupling/run_r5a_acceptor_address_binding.py"
 )
-SPEC = importlib.util.spec_from_file_location("run_r5a_acceptor_address_binding", SCRIPT)
+SPEC = importlib.util.spec_from_file_location(
+    "run_r5a_acceptor_address_binding", SCRIPT
+)
+assert SPEC is not None
 R5A = importlib.util.module_from_spec(SPEC)
 assert SPEC.loader is not None
-sys.modules[SPEC.name] = R5A
 SPEC.loader.exec_module(R5A)
 
 
-def _zeros(n: int) -> np.ndarray:
-    return np.zeros(n, dtype=float)
+def _noisy_plant(
+    n: int = 40,
+    *,
+    position: tuple[float, float] = (0.40, 0.40),
+    qk_partner: float = 0.40,
+    qk_control: float = 0.0,
+    av_partner: float = 0.40,
+    l2_qk_partner: float = 0.0,
+):
+    return R5A._add_centered_primitive_noise(
+        R5A._synthetic_measurements(
+            n,
+            position=position,
+            qk_partner=qk_partner,
+            qk_control=qk_control,
+            av_partner=av_partner,
+            l2_qk_partner=l2_qk_partner,
+        ),
+        rng=np.random.default_rng(11),
+        scale=0.01,
+    )
 
 
-def _cells(n: int, values=(0.0, 0.0, 0.0, 0.0)):
-    return {
-        name: np.full(n, value, dtype=float)
-        for name, value in zip(R5A.AV_CELL_ORDER, values)
-    }
-
-
-def _measurements(n: int = 40, *, material_content: bool = False):
-    position = {
-        head: {
-            comparison: {
-                measure: {
-                    cell: _zeros(n) for cell in R5A.SHIFT_CELLS
-                }
-                for measure in R5A.SHIFT_MEASURES
-            }
-            for comparison in R5A.SHIFT_COMPARISONS
-        }
-        for head in R5A.SHIFT_HEADS
-    }
-    # full-position_shift and word_shift-joint_shift are both +0.40.  When
-    # material_content=True the content simple effects are also +0.40, so the basic
-    # position-sensitive path remains true while its nested dominance path must fail.
-    primary = (0.8, 0.4, 0.4, 0.0) if material_content else (0.4, 0.4, 0.0, 0.0)
-    for measure in R5A.SHIFT_MEASURES:
-        position["L3H1"]["paired_adjacent"][measure] = {
-            cell: np.full(n, value, dtype=float)
-            for cell, value in zip(R5A.SHIFT_CELLS, primary)
-        }
-
-    qk = {
-        head: {
-            window: {"partner": _zeros(n), "pseudo": _zeros(n)}
-            for h, window in R5A.QK_ARMS
-            if h == head
-        }
-        for head, _ in R5A.QK_ARMS
-    }
-    qk["L3H1"]["paired"]["partner"] = np.full(n, 0.4)
-
-    attention_value = {
-        window: {
-            "partner": _cells(n),
-            "pseudo": _cells(n),
-        }
-        for window in R5A.WINDOWS
-    }
-    attention_value["paired"]["partner"] = _cells(n, (0.0, 0.0, 0.4, 0.4))
-
-    l2_role = {
-        builder: {
-            "partner": _cells(n),
-            "pseudo": _cells(n),
-        }
-        for builder in R5A.BUILDERS
-    }
-    l2_role["L2H15"]["partner"] = _cells(n, (0.0, 0.4, 0.0, 0.4))
-    return {
-        "position_shift": position,
-        "qk_surgery": qk,
-        "attention_value": attention_value,
-        "l2_role": l2_role,
-    }
-
-
-def test_exact_four_families_and_closed_path_registry():
+def test_v3_registry_is_margin_only_exact_400_and_has_separate_l2_secondary():
     rows = R5A.family_row_names()
-    assert tuple(rows) == R5A.FAMILY_ORDER
+    assert tuple(rows) == R5A.FAMILY_ORDER == (
+        "position_margin",
+        "qk_surgery",
+        "attention_value",
+        "l2h15_qk_secondary",
+    )
     assert {name: len(value) for name, value in rows.items()} == {
-        "position_shift": 60,
-        "qk_surgery": 12,
-        "attention_value": 90,
-        "l2_role": 60,
+        "position_margin": 12,
+        "qk_surgery": 15,
+        "attention_value": 69,
+        "l2h15_qk_secondary": 15,
     }
-    assert all(len(value) == len(set(value)) for value in rows.values())
-    paths = R5A.named_path_specs()
-    assert tuple(paths) == R5A.PATH_ORDER
-    assert paths["P_POSITION_SENSITIVE_L3_READER"]["family"] == "position_shift"
-    assert paths["P_POSITION_DOMINANT_L3_READER"]["family"] == "position_shift"
-    assert R5A.FAMILY_ALPHA == pytest.approx(0.0125)
+    assert R5A.EXACT_ROWS == R5A.PRODUCTION_N == 400
+    assert R5A.MIN_GENES >= 30
+    assert tuple(R5A.named_path_specs()) == R5A.ALL_PATH_ORDER == (
+        "G1_POSITION_CAUSAL_MARGIN",
+        "G2_EXACT_QK_CAUSAL_MARGIN",
+        "G3_FIXED_V_AXV_CAUSAL_MARGIN",
+        "S1_L2H15_EXACT_QK_SECONDARY",
+    )
+    assert R5A.CORE_PATH_ORDER == R5A.ALL_PATH_ORDER[:3]
+    assert R5A.SECONDARY_PATH_ORDER == R5A.ALL_PATH_ORDER[3:]
+    decision_rows = [row for family in rows.values() for row in family]
+    assert all(
+        "measure=acceptor_margin" in row or not row.startswith("POSITION|")
+        for row in decision_rows
+    )
+    assert not any(
+        "qk_preference" in row or "attention_preference" in row
+        for row in decision_rows
+    )
+    assert not any("adjacent" in row.lower() for row in decision_rows)
+    assert all(
+        "target=L3H1:paired" not in row
+        for row in rows["l2h15_qk_secondary"]
+        if row.startswith("QK_MARGIN_CONTRAST")
+    )
+    runner = Path(R5A.RUNNER).read_text()
+    assert "L2H15" in runner
+    assert "L1H12" not in runner
 
 
-def test_position_sensitive_is_nested_below_position_dominant():
-    paths = R5A.named_path_specs()
-    sensitive = paths["P_POSITION_SENSITIVE_L3_READER"]["requirements"]
-    dominant = paths["P_POSITION_DOMINANT_L3_READER"]["requirements"]
-    assert set(sensitive.items()) < set(dominant.items())
-    assert not any("content_effect" in row for row in sensitive)
-    assert any("content_effect" in row for row in dominant)
-    for measure in R5A.SHIFT_MEASURES:
-        for quantity in R5A.SHIFT_QUANTITIES[:2]:
-            row = R5A.position_row_name(
-                "L3H1", "paired_adjacent", measure, quantity
-            )
-            assert sensitive[row] == "MATERIAL_POSITIVE"
-
-
-def test_all_derived_rows_replay_from_raw_cells_and_preserve_algebra():
-    matrices = R5A.build_family_matrices(_measurements(n=7))
+def test_raw_cells_replay_exact_factorials_and_target_minus_control_contrasts():
+    matrices = R5A.build_family_matrices(
+        R5A._synthetic_measurements(
+            7,
+            position=(0.40, 0.40),
+            qk_partner=0.40,
+            l2_qk_partner=0.40,
+            av_partner=0.40,
+        )
+    )
     names = R5A.family_row_names()
+    position = dict(zip(names["position_margin"], matrices["position_margin"]))
+    np.testing.assert_allclose(
+        position[
+            R5A.position_row_name(
+                "L3H1",
+                "paired_pseudo",
+                "acceptor_margin",
+                "position_effect_at_native_content",
+            )
+        ],
+        0.40,
+    )
+    np.testing.assert_allclose(
+        position[
+            R5A.position_margin_contrast_name(
+                "L0H2:paired_pseudo",
+                "position_effect_at_native_content",
+            )
+        ],
+        0.40,
+    )
+
     qk = dict(zip(names["qk_surgery"], matrices["qk_surgery"]))
     np.testing.assert_allclose(
-        qk[R5A.qk_row_name("L3H1", "paired", "specific")],
-        qk[R5A.qk_row_name("L3H1", "paired", "partner")]
-        - qk[R5A.qk_row_name("L3H1", "paired", "pseudo")],
+        qk[R5A.qk_margin_contrast_name("L0H2:paired", "specific")],
+        0.40,
     )
+
     av = dict(zip(names["attention_value"], matrices["attention_value"]))
-    np.testing.assert_allclose(
-        av[R5A.av_row_name("paired", "joint_lift", "partner")], 0.4
+    for quantity in (
+        "address_effect_at_value_plus",
+        "value_effect_at_address_plus",
+    ):
+        np.testing.assert_allclose(
+            av[R5A.av_row_name("paired", quantity, "specific")],
+            0.40,
+        )
+        np.testing.assert_allclose(
+            av[R5A.av_margin_contrast_name("pseudo", quantity, "specific")],
+            0.40,
+        )
+
+    l2 = dict(
+        zip(
+            names["l2h15_qk_secondary"],
+            matrices["l2h15_qk_secondary"],
+        )
     )
     np.testing.assert_allclose(
-        av[
-            R5A.av_row_name(
-                "paired", "value_effect_at_address_plus", "partner"
-            )
-        ],
-        0.4,
+        l2[R5A.qk_row_name("L2H15", "paired", "specific")],
+        0.40,
     )
-    l2 = dict(zip(names["l2_role"], matrices["l2_role"]))
     np.testing.assert_allclose(
         l2[
-            R5A.l2_row_name(
-                "L2H15", "address_effect_at_value_plus", "partner"
+            R5A.qk_margin_contrast_name(
+                "L0H2:paired", "specific", target="L2H15"
             )
         ],
-        0.4,
-    )
-    np.testing.assert_allclose(
-        l2[
-            R5A.l2_row_name(
-                "L2H15", "value_effect_at_address_plus", "partner"
-            )
-        ],
-        0.0,
+        0.40,
     )
 
 
-def test_boundary_tost_iut_holm_classifier_supports_basic_position_with_content_effect():
-    n = 40
-    matrices = R5A.build_family_matrices(
-        _measurements(n=n, material_content=True)
+def test_internal_qk_and_attention_bridges_have_units_but_no_decision_threshold():
+    primitive = R5A._synthetic_measurements(20, position=(0.40, 0.40))
+    diagnostic = R5A.position_bridge_diagnostics(primitive)
+    assert diagnostic["decision_bearing"] is False
+    assert diagnostic["query_policy"] == (
+        "same numerical clean query vector in every 2x2 cell"
     )
-    groups = [f"gene-{index:03d}" for index in range(n)]
-    result = R5A.infer_all_families(
-        matrices,
-        groups,
-        n_draws=399,
+    assert diagnostic["shifted_native_query_included_in_decisions"] is False
+    assert diagnostic["scale_specific_thresholds"] is None
+    assert diagnostic["rows"]
+    units = {record["unit"] for record in diagnostic["rows"].values()}
+    assert units == {
+        "pre_softmax_logit_difference",
+        "post_softmax_probability_difference",
+    }
+    assert all(
+        record["zero_null_or_margin_sesoi_applied"] is False
+        for record in diagnostic["rows"].values()
+    )
+
+
+def test_dual_estimator_bootstrap_rejects_tail_only_mean_and_is_not_exact():
+    values = np.zeros(100, dtype=float)
+    values[-10:] = 1.0
+    result = R5A.dual_estimator_studentized_bootstrap_inversion(
+        values[None, :],
+        [f"gene-{index:03d}" for index in range(100)],
+        ["target"],
+        {"target": "MATERIAL_POSITIVE"},
+        n_draws=999,
         seed=0,
-        namespace="r5a-unit",
-        min_genes=30,
+        namespace="tail-adversary",
+        min_genes=100,
     )
-    assert (
-        result["paths"]["P_POSITION_SENSITIVE_L3_READER"]["classification"]
-        == "SUPPORTED"
+    estimators = result["requirements"]["target"]["estimators"]
+    assert estimators["mean"]["estimate"] > R5A.MARGIN_SESOI
+    assert estimators["trimmed_mean_10pct"]["estimate"] == 0.0
+    assert result["classification"] == "NOT_SUPPORTED"
+    assert "not exact" in result["finite_draw_language"]
+    assert result["B"] == 999
+    assert R5A.PRODUCTION_RANDOMISATION >= 10_000
+
+
+def test_strong_coherent_plant_passes_all_three_ordered_gates():
+    n = 40
+    result = R5A.infer_all_families(
+        R5A.build_family_matrices(_noisy_plant(n)),
+        [f"gene-{index:03d}" for index in range(n)],
+        n_draws=199,
+        seed=0,
+        namespace="strong-plant",
+        min_genes=n,
     )
-    assert (
-        result["paths"]["P_POSITION_DOMINANT_L3_READER"]["classification"]
-        == "NOT_SUPPORTED"
+    assert all(
+        result["paths"][path]["classification"] == "SUPPORTED"
+        for path in R5A.PATH_ORDER
+    )
+    assert result["decisions"] == {
+        "reader": "L3H1_DONOR_LOCAL_READER_SUPPORTED",
+        "opens_r5b": True,
+        "l2h15_role": "L2H15_ROLE_NOT_SUPPORTED",
+    }
+    assert result["fixed_sequence"]["alpha_each_reached_gate"] == pytest.approx(
+        0.05
+    )
+    assert result["fixed_sequence"]["alpha_fragmented"] is False
+
+
+def test_l2h15_secondary_can_pass_without_becoming_headline_entry_requirement():
+    n = 40
+    result = R5A.infer_all_families(
+        R5A.build_family_matrices(_noisy_plant(n, l2_qk_partner=0.40)),
+        [f"gene-{index:03d}" for index in range(n)],
+        n_draws=199,
+        seed=0,
+        namespace="l2-secondary-plant",
+        min_genes=n,
+    )
+    assert result["decisions"] == {
+        "reader": "L3H1_DONOR_LOCAL_READER_SUPPORTED",
+        "opens_r5b": True,
+        "l2h15_role": "L2H15_UPSTREAM_READER_ROLE_SUPPORTED",
+    }
+    secondary = result["paths"]["S1_L2H15_EXACT_QK_SECONDARY"]
+    assert secondary["classification"] == "SUPPORTED"
+    assert secondary["gates_l3_headline"] is False
+    assert secondary["historical_r3c_health_used"] is False
+
+
+def test_l2h15_secondary_failure_does_not_invalidate_supported_l3_core():
+    n = 40
+    result = R5A.infer_all_families(
+        R5A.build_family_matrices(_noisy_plant(n)),
+        [f"gene-{index:03d}" for index in range(n)],
+        n_draws=199,
+        seed=0,
+        namespace="l2-secondary-null",
+        min_genes=n,
     )
     assert result["decisions"]["reader"] == "L3H1_DONOR_LOCAL_READER_SUPPORTED"
     assert result["decisions"]["opens_r5b"] is True
-    assert result["decisions"]["l2_role"] == "L2H15_ADDRESS_REUSE_SUPPORTED"
-    for family in R5A.FAMILY_ORDER:
-        audit = result["families"][family]["boundary_randomisation_audit"]
-        assert audit["all_decision_edges_share_one_sign_matrix"] is True
-        assert audit["B"] == 399
+    assert result["decisions"]["l2h15_role"] == "L2H15_ROLE_NOT_SUPPORTED"
+    assert result["secondary_sequence"]["gates_l3_headline"] is False
 
 
-def test_resolved_active_reader_control_is_not_collapsed_into_generic_null():
+def test_failed_gate_leaves_downstream_interventions_unexamined():
     n = 40
-    measurements = _measurements(n=n)
-    measurements["qk_surgery"]["L3H1"]["pseudo"]["partner"] = np.full(
-        n, 0.40
-    )
     result = R5A.infer_all_families(
-        R5A.build_family_matrices(measurements),
+        R5A.build_family_matrices(
+            _noisy_plant(n, position=(0.0, 0.0))
+        ),
         [f"gene-{index:03d}" for index in range(n)],
-        n_draws=399,
+        n_draws=199,
         seed=0,
-        namespace="r5a-active-control-unit",
-        min_genes=30,
+        namespace="fixed-sequence-stop",
+        min_genes=n,
     )
-    assert result["paths"]["P_QK_L3_READER"]["failure_mode"] == (
-        "NONSELECTIVE_OR_CONTROL_ACTIVE"
+    sequence = result["fixed_sequence"]
+    assert sequence["tested_gates"] == ["G1_POSITION_CAUSAL_MARGIN"]
+    assert sequence["stopped_after"] == "G1_POSITION_CAUSAL_MARGIN"
+    for path in R5A.PATH_ORDER[1:]:
+        assert result["paths"][path]["status"] == (
+            "NOT_TESTED_DUE_TO_PRIOR_SCIENTIFIC_STOP"
+        )
+
+
+def test_reached_instrument_failure_does_not_claim_its_surgery_was_unexecuted():
+    execution_log = [
+        {
+            "path": "G1_POSITION_CAUSAL_MARGIN",
+            "model_intervention_executed": True,
+            "capability_pass": False,
+        }
+    ]
+    records = R5A.fixed_sequence_stop_records(
+        {},
+        execution_log,
+        instrument_stop="position_margin",
+        scientific_stop=None,
     )
-    assert result["decisions"]["reader"] == "NONSELECTIVE_OR_CONTROL_ACTIVE"
+    reached = records["G1_POSITION_CAUSAL_MARGIN"]
+    assert reached["status"] == "INSTRUMENT_UNRESOLVED_AT_REACHED_GATE"
+    assert reached["model_intervention_executed"] is True
+    for path in R5A.PATH_ORDER[1:]:
+        assert records[path]["status"] == (
+            "NOT_TESTED_DUE_TO_PRIOR_INSTRUMENT_FAILURE"
+        )
+        assert records[path]["model_intervention_executed"] is False
+
+
+def test_active_qk_control_is_scientific_failure_not_generic_unresolved():
+    n = 40
+    result = R5A.infer_all_families(
+        R5A.build_family_matrices(
+            _noisy_plant(n, qk_control=0.20)
+        ),
+        [f"gene-{index:03d}" for index in range(n)],
+        n_draws=199,
+        seed=0,
+        namespace="active-control",
+        min_genes=n,
+    )
+    qk = result["paths"]["G2_EXACT_QK_CAUSAL_MARGIN"]
+    assert qk["classification"] == "NOT_SUPPORTED"
+    assert qk["failure_mode"] == "NONSELECTIVE_OR_CONTROL_ACTIVE"
+    assert result["paths"]["G3_FIXED_V_AXV_CAUSAL_MARGIN"]["status"] == (
+        "NOT_TESTED_DUE_TO_PRIOR_SCIENTIFIC_STOP"
+    )
 
 
 def test_shift_swaps_exact_component_windows_and_is_involutive():
@@ -223,17 +344,35 @@ def test_shift_swaps_exact_component_windows_and_is_involutive():
     rows = torch.arange(2)[:, None]
     torch.testing.assert_close(shifted[rows, left], captured[rows, right])
     torch.testing.assert_close(shifted[rows, right], captured[rows, left])
-    restored = R5A.swap_component_tensor(shifted, left, right)
-    torch.testing.assert_close(restored, captured)
+    torch.testing.assert_close(
+        R5A.swap_component_tensor(shifted, left, right), captured
+    )
     with pytest.raises(ValueError, match="disjoint"):
         R5A.swap_component_tensor(captured, left, left)
+
+
+def test_scientific_surgeries_require_only_paired_and_pseudo_windows():
+    for function in (
+        R5A.run_position_shift_batch,
+        R5A.run_qk_batch,
+        R5A.run_av_batch,
+    ):
+        assert "adjacent" not in inspect.signature(function).parameters
+    for function in (R5A.run_position_shift_batch, R5A.run_qk_batch, R5A.run_av_batch):
+        source = inspect.getsource(function)
+        assert '"adjacent"' not in source
+        assert "adjacent_positions" not in source
 
 
 def test_qk_row_and_exact_four_logit_surgery_are_numerically_explicit():
     query = torch.zeros(2, 8, 4)
     key = torch.zeros_like(query)
     query[:, 5, 2:] = torch.tensor([1.0, 2.0])
-    key[:, :, 2:] = torch.arange(16, dtype=torch.float32).reshape(2, 8, 1).expand(-1, -1, 2)
+    key[:, :, 2:] = (
+        torch.arange(16, dtype=torch.float32)
+        .reshape(2, 8, 1)
+        .expand(-1, -1, 2)
+    )
     logits, attention = R5A.qk_attention_row(
         query,
         key,
@@ -253,104 +392,122 @@ def test_qk_row_and_exact_four_logit_surgery_are_numerically_explicit():
     torch.testing.assert_close(edited[~mask], logits[~mask])
 
 
+def test_position_reader_uses_clean_query_with_shifted_keys():
+    clean_query = torch.zeros(1, 6, 4)
+    clean_query[0, 4, :2] = torch.tensor([1.0, 2.0])
+    shifted_query = clean_query.clone()
+    shifted_query[0, 4, :2] = torch.tensor([20.0, -10.0])
+    shifted_key = torch.arange(24, dtype=torch.float32).reshape(1, 6, 4)
+    encoded = {"attention_mask": torch.ones(1, 6)}
+    query_tokens = torch.tensor([4])
+    clean_state = {"query": clean_query, "key": shifted_key}
+    shifted_state = {"query": shifted_query, "key": shifted_key}
+
+    logits, attention = R5A._head_rows(
+        shifted_state,
+        encoded,
+        query_tokens,
+        head=0,
+        num_heads=2,
+        query_state=clean_state,
+    )
+    expected_logits, expected_attention = R5A.qk_attention_row(
+        clean_query,
+        shifted_key,
+        head=0,
+        query_positions=query_tokens,
+        attention_mask=encoded["attention_mask"],
+        num_heads=2,
+    )
+    shifted_native_logits, _ = R5A.qk_attention_row(
+        shifted_query,
+        shifted_key,
+        head=0,
+        query_positions=query_tokens,
+        attention_mask=encoded["attention_mask"],
+        num_heads=2,
+    )
+    torch.testing.assert_close(logits, expected_logits)
+    torch.testing.assert_close(attention, expected_attention)
+    assert not torch.equal(logits, shifted_native_logits)
+
+
+def test_position_capability_records_numerically_fixed_query_per_cell():
+    source = inspect.getsource(R5A.run_position_shift_batch)
+    assert "query_state=clean_states[layer]" in source
+    for field in (
+        "fixed_query_sha256_by_head",
+        "fixed_query_sha256_by_head_and_cell",
+        "fixed_query_assignment_max_abs_error",
+        "shifted_native_query_change_max_abs_by_head_and_cell",
+    ):
+        assert field in source
+
+
 class _TinyMLM(torch.nn.Module):
     def __init__(self):
         super().__init__()
-        self.cls = torch.nn.Linear(3, 7)
+        self.cls = torch.nn.Linear(3, 5, bias=False)
 
-    def forward(self, input_ids, attention_mask=None):
+    def forward(self, input_ids, **_kwargs):
         hidden = torch.nn.functional.one_hot(input_ids % 3, num_classes=3).float()
-        return SimpleNamespace(logits=self.cls(hidden))
+        return type("Result", (), {"logits": self.cls(hidden)})()
 
 
 def test_full_mlm_replay_uses_complete_cls_and_acceptor_margin_only():
     model = _TinyMLM()
-    adapter = SimpleNamespace(model=model)
+    adapter = type("Adapter", (), {"model": model})()
+    encoded = {"input_ids": torch.tensor([[0, 1, 2], [2, 1, 0]])}
 
     class Task:
-        bid = {"A": 0, "C": 1, "G": 2, "T": 3}
-
         @staticmethod
         def margin(logits, positions):
             rows = torch.arange(len(positions))
-            pos = torch.tensor(positions)
-            values = logits[rows, pos]
-            alt = values[:, [0, 1, 3]].max(dim=1).values
-            return values[:, 2] - alt
+            return logits[rows, positions, 2] - logits[rows, positions, 3]
 
-    encoded = {
-        "input_ids": torch.tensor([[0, 1, 2], [2, 1, 0]]),
-        "attention_mask": torch.ones(2, 3),
-    }
-    result = R5A.full_mlm_replay_capability(adapter, Task(), encoded, [1, 1])
+    result = R5A.full_mlm_replay_capability(
+        adapter, Task(), encoded, [1, 2]
+    )
     assert result["ok"] is True
     assert result["uses_complete_model_cls"] is True
     assert result["donor_readout_constructed"] is False
-    assert result["full_logits_max_abs_error"] == 0.0
-    assert result["acceptor_G_margin_max_abs_error"] == 0.0
 
 
-def test_target_stops_before_nonexistent_user_paths_are_opened():
-    result = subprocess.run(
-        [
-            sys.executable,
-            str(SCRIPT),
-            "--mode",
-            "model",
-            "--stage",
-            "target",
-            "--gtf",
-            "/definitely/not/r5a.gtf",
-            "--fasta",
-            "/definitely/not/r5a.fa",
-            "--model",
-            "/definitely/not/r5a-model",
-        ],
-        cwd=SCRIPT.parents[2],
-        text=True,
-        capture_output=True,
+def test_paired_noop_health_is_noninferiority_not_an_absolute_floor():
+    groups = [f"gene-{index // 4:02d}" for index in range(64)]
+    low = np.zeros(64)
+    same = R5A.paired_noop_noninferiority(
+        low,
+        low,
+        groups,
+        n_draws=499,
+        namespace="same-low-health",
     )
-    assert result.returncode != 0
-    combined = result.stdout + result.stderr
-    assert "R5a target authorization failed" in combined
-    assert "remains DRAFT" in combined
-    assert "No such file" not in combined
-
-
-def test_protocol_and_binding_freeze_position_assignment_and_adjacent_bank():
-    text = R5A.PROTOCOL.read_text()
-    assert "paired↔adjacent" in text or "paired-to-adjacent" in text
-    assert "position-sensitive" in text.lower()
-    assert "fixed" in text.lower() and "V" in text
-    payload = R5A.instrument_binding_payload()
-    policy = payload["constants"]["adjacent_window_policy"]
-    assert payload["constants"]["cohort_schema"] == "gfmcd.r5.acceptor_mechanism_cohort/2"
-    assert policy["salt"] == "r5-adjacent-bank-v2"
-    assert policy["shells"] == 8
-    assert payload["constants"]["behavioral_endpoint"] == "masked_acceptor_G_margin_only"
-    assert payload["constants"]["donor_readout_constructed"] is False
-
-
-def test_calibration_rebuilds_27_boundary_signatures_and_all_path_plants():
-    calibration = R5A.classifier_calibration(
-        n_genes=R5A.PRODUCTION_N,
-        n_draws=399,
-        n_trials=1,
-        seed=R5A.PRODUCTION_SEED,
+    assert same["noop_accuracy"] == 0.0
+    assert same["pass"] is True
+    damaged = R5A.paired_noop_noninferiority(
+        np.ones(64),
+        np.zeros(64),
+        groups,
+        n_draws=499,
+        namespace="damaged-health",
     )
-    assert calibration["production_classifier_used"] is True
-    assert calibration["primitive_cells_rebuilt_before_every_classifier"] is True
-    assert calibration["derived_rows_directly_shifted"] is False
-    assert len(calibration["surfaces"]) == 27
-    assert all(
-        record["false_positive_trials"] == 0
-        for record in calibration["surfaces"].values()
-    )
-    assert set(calibration["plants"]) == set(R5A.PATH_ORDER)
-    assert all(record["successes"] == 1 for record in calibration["plants"].values())
-    assert R5A.canonical_sha256(calibration["boundary_signature_registry"]) == (
-        calibration["boundary_signature_registry_sha256"]
-    )
+    assert damaged["pass"] is False
+    assert damaged["criterion"] == "lower_bound > -noninferiority_margin"
+    assert damaged["bootstrap_is_exact"] is False
+
+
+def test_health_registry_gives_l2h15_its_own_prospective_gate():
+    registry = R5A.health_policy_registry()
+    assert registry == {
+        "core": {
+            "local_query_zero_L3H1": (3, 1),
+            "local_query_zero_L0H2": (0, 2),
+        },
+        "secondary": {"local_query_zero_L2H15": (2, 15)},
+        "historical_r3c_health_used": False,
+        "secondary_failure_gates_l3_headline": False,
+    }
 
 
 def test_health_probe_positions_are_deterministic_and_exclude_guarded_sites():
@@ -369,14 +526,398 @@ def test_health_probe_positions_are_deterministic_and_exclude_guarded_sites():
         protected_positions=protected,
     )
     assert first == second
-    assert len(first) == R5A.HEALTH_PROBES_PER_EXAMPLE
     guarded = set(range(57, 64))
     for position in protected:
         guarded.update(range(position - 4, position + 5))
+    assert len(first) == R5A.HEALTH_PROBES_PER_EXAMPLE
     assert not set(first) & guarded
 
 
-def test_checkpoint_aggregate_matches_r3c_ordered_bundle_schema(tmp_path):
+def test_r1c_valid_scientific_null_is_a_distinct_stop():
+    result = R5A.classify_r1c_target_behavior_gate(
+        {
+            "schema": "gfmcd.r1c.verified_target_handoff/1",
+            "verdict": "NO_CONFIRMED_PAIRED_DONOR_PATH",
+            "all_gates_pass": True,
+        }
+    )
+    assert result["scientific_gate_pass"] is False
+    assert result["failure_is_scientific_not_instrumental"] is True
+    assert result["instrument_failure"] is False
+    with pytest.raises(RuntimeError, match="instrument was inconclusive"):
+        R5A.classify_r1c_target_behavior_gate(
+            {
+                "schema": "gfmcd.r1c.verified_target_handoff/1",
+                "verdict": "INCONCLUSIVE",
+                "all_gates_pass": False,
+            }
+        )
+
+
+def test_r1c_scientific_null_authenticates_all_six_files_without_building_target(
+    monkeypatch, tmp_path
+):
+    names = (
+        "target.json",
+        "target.manifest.json",
+        "attempt.json",
+        "completion.json",
+        "preflight.json",
+        "preflight.manifest.json",
+    )
+    paths = []
+    for index, name in enumerate(names):
+        path = tmp_path / name
+        path.write_text(json.dumps({"index": index}))
+        paths.append(path)
+    pin_names = (
+        "FROZEN_R1C_TARGET_ARTIFACT_SHA256",
+        "FROZEN_R1C_TARGET_MANIFEST_SHA256",
+        "FROZEN_R1C_TARGET_ATTEMPT_SHA256",
+        "FROZEN_R1C_TARGET_COMPLETION_SHA256",
+        "FROZEN_R1C_PREFLIGHT_ARTIFACT_SHA256",
+        "FROZEN_R1C_PREFLIGHT_MANIFEST_SHA256",
+    )
+    for pin_name, path in zip(pin_names, paths, strict=True):
+        monkeypatch.setattr(
+            R5A, pin_name, hashlib.sha256(path.read_bytes()).hexdigest()
+        )
+    monkeypatch.setattr(
+        R5A,
+        "_verify_r1c_successor_target_package",
+        lambda *_args, **_kwargs: {
+            "schema": "gfmcd.r1c.verified_target_handoff/1",
+            "verdict": "NO_CONFIRMED_PAIRED_DONOR_PATH",
+            "all_gates_pass": True,
+        },
+    )
+    monkeypatch.setattr(
+        R5A,
+        "load_r1c_capstone_cohort_handoff",
+        lambda *_args, **_kwargs: pytest.fail(
+            "scientific null must stop before capstone construction"
+        ),
+    )
+    result = R5A.load_authenticated_r1c_target_handoff(*paths)
+    assert result["handoff"] is None
+    assert result["behavior_gate"]["failure_is_scientific_not_instrumental"]
+    assert len(result["package_inputs"]) == 6
+
+
+def test_r1c_validation_handoff_is_exact_400_and_never_scientific_entry(
+    monkeypatch, tmp_path
+):
+    handoff = {
+        "schema": "gfmcd.r5.preflight_cohort_handoff/1",
+        "row_count": 400,
+        "record_sha256": "1" * 64,
+        "cohort_sha256": "2" * 64,
+        "ordered_row_ids_sha256": "3" * 64,
+        "ordered_gene_ids_sha256": "4" * 64,
+        "sorted_unique_gene_ids_sha256": "5" * 64,
+        "preflight_construction_sha256": "6" * 64,
+        "source_package_sha256": "7" * 64,
+        "scientific_entry_authorized": False,
+        "sealed_split_opened": False,
+    }
+    verified = handoff | {
+        "verified": True,
+        "checkpoint_sha256": "8" * 64,
+        "rows": [{"example_id": f"row-{index}"} for index in range(400)],
+    }
+    monkeypatch.setattr(
+        R5A, "load_r1c_preflight_cohort_handoff", lambda *_args: handoff
+    )
+    monkeypatch.setattr(
+        R5A, "validate_r5_preflight_cohort_handoff", lambda value: verified
+    )
+    artifact = tmp_path / "r1c.json"
+    manifest = tmp_path / "r1c.manifest.json"
+    artifact.write_text("{}")
+    manifest.write_text("{}")
+    monkeypatch.setattr(
+        R5A,
+        "FROZEN_R1C_PREFLIGHT_ARTIFACT_SHA256",
+        hashlib.sha256(artifact.read_bytes()).hexdigest(),
+    )
+    monkeypatch.setattr(
+        R5A,
+        "FROZEN_R1C_PREFLIGHT_MANIFEST_SHA256",
+        hashlib.sha256(manifest.read_bytes()).hexdigest(),
+    )
+    result = R5A.load_authenticated_r1c_preflight_handoff(artifact, manifest)
+    assert result["handoff"] is handoff
+    assert result["verified"] is verified
+    assert result["scientific_entry_authorized"] is False
+    assert result["row_count"] == 400
+    assert result["exact_order_preserved"] is True
+
+
+def test_r5a_target_identity_uses_exact_sealed_handoff_order():
+    handoff = {
+        "row_count": 400,
+        "sorted_unique_gene_ids_sha256": "1" * 64,
+        "ordered_row_ids_sha256": "2" * 64,
+        "capstone_construction_sha256": "3" * 64,
+    }
+    identity = R5A.build_r5a_target_identity(
+        handoff, checkpoint_sha256="4" * 64
+    )
+    assert identity["stage"] == "R5a"
+    assert identity["target_gene_ids_sha256"] == "1" * 64
+    assert identity["ordered_rows_sha256"] == "2" * 64
+    assert identity["construction_sha256"] == "3" * 64
+    assert identity["endpoint_policy"] == "masked_acceptor_G_margin_only"
+
+
+def test_materializer_preserves_all_400_target_rows_in_handoff_order(monkeypatch):
+    rows = [
+        type(
+            "Row",
+            (),
+            {
+                "example": type(
+                    "Example",
+                    (),
+                    {"example_id": f"row-{index:03d}"},
+                )()
+            },
+        )()
+        for index in range(400)
+    ]
+    handoff = {
+        "rows": [{"example_id": f"row-{index:03d}"} for index in range(400)]
+    }
+    observed = {}
+    monkeypatch.setattr(
+        R5A, "validate_expected_r5_source_identity", lambda *_args: {"ok": True}
+    )
+
+    def fake_examples(*_args, **kwargs):
+        observed.update(kwargs)
+        return [object()]
+
+    monkeypatch.setattr(R5A, "load_examples_unscored", fake_examples)
+    monkeypatch.setattr(
+        R5A,
+        "materialize_r5_capstone_rows",
+        lambda _examples, _handoff: (
+            tuple(rows),
+            {
+                "handoff_order_preserved": True,
+                "rows_filtered_or_reordered": False,
+                "adjacent_window_required": False,
+            },
+        ),
+    )
+    materialized, audit, source = R5A.materialize_authenticated_cohort(
+        "unused.gtf", "unused.fa", stage="target", handoff=handoff
+    )
+    assert materialized == tuple(rows)
+    assert audit["rows_filtered_or_reordered"] is False
+    assert source == {"ok": True}
+    assert observed == {
+        "tag": "r1c-target-r1c-single-g-primary-family-v2",
+        "allowed_chromosomes": ("chr8", "chr9"),
+    }
+
+    reordered = list(rows)
+    reordered[0], reordered[1] = reordered[1], reordered[0]
+    monkeypatch.setattr(
+        R5A,
+        "materialize_r5_capstone_rows",
+        lambda _examples, _handoff: (
+            tuple(reordered),
+            {
+                "handoff_order_preserved": True,
+                "rows_filtered_or_reordered": False,
+                "adjacent_window_required": False,
+            },
+        ),
+    )
+    with pytest.raises(RuntimeError, match="exact 400-row R1c handoff"):
+        R5A.materialize_authenticated_cohort(
+            "unused.gtf", "unused.fa", stage="target", handoff=handoff
+        )
+
+
+def test_sdpa_to_eager_common_leg_replay_is_exact_same_row_and_instrument_only():
+    rows = [
+        type(
+            "Row",
+            (),
+            {
+                "example": type(
+                    "Example",
+                    (),
+                    {"example_id": f"row-{index}"},
+                )()
+            },
+        )()
+        for index in range(400)
+    ]
+    native = {
+        "clean": np.linspace(-1.0, 1.0, 400),
+        "partner": np.linspace(-0.5, 0.5, 400),
+        "pseudo": np.linspace(-0.25, 0.25, 400),
+    }
+    common = {
+        "rows": [
+            {
+                "example_id": f"row-{index}",
+                "margin_levels": {
+                    "P_clean": native["clean"][index],
+                    "P_under_D": native["partner"][index],
+                    "P_under_N": native["pseudo"][index],
+                },
+            }
+            for index in range(400)
+        ]
+    }
+    result = R5A.same_row_common_leg_replay(
+        rows, native, common, stage="target"
+    )
+    assert result["pass"] is True
+    assert result["source_execution"] == "R1c eager=False (SDPA)"
+    assert result["replay_execution"] == "R5a eager=True (hook-capable)"
+    assert result["atol"] == R5A.SDPA_EAGER_COMMON_LEG_ATOL == 1e-4
+    assert result["mismatch_disposition"] == "INSTRUMENT_UNRESOLVED"
+    common["rows"][0]["margin_levels"]["P_clean"] += 2e-4
+    mismatch = R5A.same_row_common_leg_replay(
+        rows, native, common, stage="target"
+    )
+    assert mismatch["pass"] is False
+    assert mismatch["mismatch_is_scientific_null"] is False
+
+
+def test_target_ledger_reservation_precedes_output_cohort_and_model_inspection():
+    source = inspect.getsource(R5A.main)
+    reserve = source.index("reserve_r5_target_attempt(")
+    common_legs = source.index("load_r1c_verified_target_common_legs(")
+    output = source.index("_output_paths(args)")
+    cohort = source.index("materialize_authenticated_cohort(")
+    run = source.index("run_model_stage(")
+    complete = source.index("complete_r5_target_attempt(")
+    assert reserve < common_legs < output < cohort < run < complete
+    run_source = inspect.getsource(R5A.run_model_stage)
+    assert "load_examples_unscored(" not in run_source
+    assert "materialize_r5_capstone_rows(" not in run_source
+    assert run_source.index("target_receipt is None") < run_source.index("load_adapter(")
+
+
+def test_r3_provenance_authentication_precedes_r1c_without_duplicate_initial_load():
+    source = inspect.getsource(R5A.main)
+    r3 = source.index("load_exposure_packages(args)")
+    r1c = source.index("load_authenticated_r1c_preflight_handoff(")
+    combine = source.index("load_upstream_chain(")
+    assert r3 < r1c < combine
+    assert "load_exposure_packages(" not in inspect.getsource(R5A.load_upstream_chain)
+
+
+def test_manifests_bind_every_exposure_file_and_target_attempt_receipt(tmp_path):
+    keys = (
+        "r3d_artifact",
+        "r3d_manifest",
+        "r3d_registry_artifact",
+        "r3d_registry_manifest",
+        "r3d_attempt",
+        "r3d_completion",
+        "r3c_artifact",
+        "r3c_manifest",
+    )
+    exposed = {
+        key: {"path": f"/{key}.json", "size_bytes": 1, "sha256": "0" * 64}
+        for key in keys
+    }
+    exposed["exposure_chain_sha256"] = "1" * 64
+    assert [
+        item["path"]
+        for item in R5A._model_free_exposure_manifest_inputs(
+            {"authenticated_exposure_chain": exposed}
+        )
+    ] == [f"/{key}.json" for key in keys]
+
+    r3d_keys = (
+        "artifact",
+        "manifest",
+        "registry_artifact",
+        "registry_manifest",
+        "attempt",
+        "completion",
+    )
+    r1c_inputs = [
+        {"path": f"/r1c-{index}.json", "size_bytes": 1, "sha256": "2" * 64}
+        for index in range(6)
+    ]
+    upstream_record = {
+        "upstream_chain": {
+            "r3d_scientific_entry": {
+                "artifact": {"path": "/r3d-artifact.json"},
+                "manifest": {"path": "/r3d-manifest.json"},
+                "registry": {
+                    "artifact": {"path": "/r3d-registry-artifact.json"},
+                    "manifest": {"path": "/r3d-registry-manifest.json"},
+                },
+                "attempt": {"path": "/r3d-attempt.json"},
+                "completion": {"path": "/r3d-completion.json"},
+            },
+            "r3c_exclusion_provenance": {
+                "artifact": {"path": "/r3c-artifact.json"},
+                "manifest": {"path": "/r3c-manifest.json"},
+            },
+            "r1c_package": {"package_inputs": r1c_inputs},
+        }
+    }
+    manifest_inputs = R5A._upstream_manifest_inputs(upstream_record)
+    assert len(manifest_inputs) == len(r3d_keys) + 2 + 6
+    assert manifest_inputs[-6:] == r1c_inputs
+
+    receipt_path = tmp_path / "attempt.json"
+    persisted = {"schema": "gfmcd.r5.target_attempt_receipt/1", "token": "sealed"}
+    receipt_path.write_text(json.dumps(persisted))
+    identity = R5A._target_receipt_manifest_input(
+        {
+            "target_attempt_receipt": persisted
+            | {"receipt_path": str(receipt_path)}
+        }
+    )
+    assert identity == {
+        "path": str(receipt_path.resolve()),
+        "size_bytes": receipt_path.stat().st_size,
+        "sha256": hashlib.sha256(receipt_path.read_bytes()).hexdigest(),
+    }
+
+
+def test_target_stops_before_nonexistent_user_paths_are_opened():
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(SCRIPT),
+            "--mode",
+            "model",
+            "--stage",
+            "target",
+            "--gtf",
+            "/definitely/not/r5a.gtf",
+            "--fasta",
+            "/definitely/not/r5a.fa",
+            "--model",
+            "/definitely/not/r5a-model",
+            "--out",
+            "/definitely/not/r5a-output.json",
+        ],
+        cwd=SCRIPT.parents[2],
+        text=True,
+        capture_output=True,
+    )
+    assert result.returncode != 0
+    combined = result.stdout + result.stderr
+    assert "R5a target authorization failed" in combined
+    assert "remains DRAFT" in combined
+    assert "No such file" not in combined
+
+
+def test_checkpoint_aggregate_uses_ordered_relative_bundle(tmp_path):
     model = tmp_path / "model"
     nested = model / "nested"
     nested.mkdir(parents=True)
@@ -392,183 +933,79 @@ def test_checkpoint_aggregate_matches_r3c_ordered_bundle_schema(tmp_path):
     )
 
 
-def test_model_main_calls_executable_stage_and_writes_artifact(monkeypatch, tmp_path):
-    r3c = tmp_path / "r3c.json"
-    r3c.write_text("{}")
-    r3c_manifest = r3c.with_suffix(".manifest.json")
-    r3c_manifest.write_text("{}")
-    calls = []
-    writes = []
-
-    monkeypatch.setattr(
-        R5A,
-        "authorize_model_scoring",
-        lambda stage: {
-            "binding": {"stage": stage},
-            "fingerprint": "f" * 64,
-            "r5_stack_binding": {
-                "schema": "test",
-                "local_python_closure": {
-                    "files": {str(R5A.RUNNER.relative_to(R5A.REPO)): {}}
-                },
-                "protocols": {str(R5A.PROTOCOL.relative_to(R5A.REPO)): {}},
-            },
-            "r5_stack_fingerprint_sha256": "s" * 64,
-        },
+def test_protocol_freezes_units_sequence_upstream_roles_and_nonlicenses():
+    text = R5A.PROTOCOL.read_text()
+    required = (
+        "R3d",
+        "Path A",
+        "R1c",
+        "chr8",
+        "chr9",
+        "paired",
+        "pseudo",
+        "L0H2",
+        "L2H15",
+        "fixed-V",
+        "10%-trimmed",
+        "not exact",
+        "target-minus-control",
+        "masked-acceptor",
+        "masked-donor",
+        "paired no-op",
+        "scientific stop",
+        "instrument",
+    )
+    for phrase in required:
+        assert phrase.lower() in text.lower()
+    assert "0.05/4" not in text
+    assert "L1H12" not in text
+    assert "residual validation" not in text.lower()
+    assert "masked residual" not in text.lower()
+    assert "byte-identical clean q" in text.lower()
+    assert "shifted k" in text.lower()
+    assert "shifted cell would natively produce" in text.lower()
+    assert text.index("Authenticate the exact R3d target package") < text.index(
+        "Authenticate the exact two-file R1c"
     )
 
-    def fake_stage(args, *, authorization, output):
-        calls.append((args.stage, authorization["fingerprint"], output))
-        return (
-            {
-                "status": "PREFLIGHT_PASS",
-                "bucket": 0,
-                "construction_sha256": "c" * 64,
-                "source_identity": {
-                    "gtf": {"size_bytes": 1, "sha256": "a" * 64},
-                    "fasta": {"size_bytes": 1, "sha256": "b" * 64},
-                },
-                    "r3c_entry": {
-                        "path": str(r3c),
-                        "sha256": "d" * 64,
-                        "manifest": {
-                            "path": str(r3c_manifest),
-                            "size_bytes": r3c_manifest.stat().st_size,
-                            "sha256": "m" * 64,
-                        },
-                    },
-                "checkpoint": {
-                    "root": str(tmp_path),
-                    "files": {},
-                    "aggregate_sha256": "e" * 64,
-                },
-                    "bound_preflight": None,
-                    "r5_exclusion_registry": {
-                        "identity": {
-                            "path": str(
-                                output.with_suffix(".exclusion-registry.json")
-                            ),
-                            "size_bytes": len(
-                                (json.dumps({"record_sha256": "r" * 64}, indent=2, sort_keys=True) + "\n").encode()
-                            ),
-                            "sha256": R5A.hashlib.sha256(
-                                (json.dumps({"record_sha256": "r" * 64}, indent=2, sort_keys=True) + "\n").encode()
-                            ).hexdigest(),
-                            "record_sha256": "r" * 64,
-                        },
-                        "record": {"record_sha256": "r" * 64},
-                    },
-            },
-            {"commit": "1" * 40, "branch": "test", "dirty": False},
-        )
 
-    class DummyManifest:
-        def __init__(self):
-            self.git_commit = None
-            self.git_dirty = None
-            self.inputs = []
-            self.outputs = []
-
-        def to_dict(self):
-            return {
-                "git_commit": self.git_commit,
-                "git_dirty": self.git_dirty,
-                "inputs": self.inputs,
-                "outputs": self.outputs,
-            }
-
-    monkeypatch.setattr(R5A, "run_model_stage", fake_stage)
-    monkeypatch.setattr(
-        R5A.ExperimentManifest, "create", lambda *args, **kwargs: DummyManifest()
+def test_runner_binds_exact_upstream_artifact_and_manifest_pins():
+    assert (
+        R5A.FROZEN_R1C_PREFLIGHT_ARTIFACT_SHA256
+        == R5A.SHARED_R1C_PREFLIGHT_ARTIFACT_SHA256
     )
-    monkeypatch.setattr(
-        R5A, "atomic_write_new", lambda path, data: writes.append((path, data))
+    assert (
+        R5A.FROZEN_R1C_PREFLIGHT_MANIFEST_SHA256
+        == R5A.SHARED_R1C_PREFLIGHT_MANIFEST_SHA256
     )
-    output = tmp_path / "r5a.json"
-    R5A.main(
-        [
-            "--mode",
-            "model",
-            "--stage",
-            "preflight",
-            "--r3c-artifact",
-            str(r3c),
-            "--out",
-            str(output),
-        ]
+    assert (
+        R5A.FROZEN_R1C_TARGET_ARTIFACT_SHA256
+        == R5A.SHARED_R1C_TARGET_ARTIFACT_SHA256
     )
-    assert calls == [("preflight", "f" * 64, output.resolve())]
-    assert [path for path, _data in writes] == [
-        output.resolve(),
-        output.with_suffix(".exclusion-registry.json").resolve(),
-        output.with_suffix(".manifest.json").resolve(),
-    ]
-    manifest = json.loads(writes[-1][1])
-    manifest_inputs = {Path(item["path"]).resolve() for item in manifest["inputs"]}
-    assert R5A.RUNNER in manifest_inputs
-    assert R5A.PROTOCOL in manifest_inputs
-
-
-def test_exclusion_registry_is_derived_from_authenticated_r3c_only(monkeypatch):
-    historical = ["historical-a", "historical-b"]
-    by_bucket = {"0": ["r3c-a"], "1": ["r3c-b", "r3c-c"]}
-    r3c_union = sorted(by_bucket["0"] + by_bucket["1"])
-    monkeypatch.setattr(
-        R5A,
-        "R5_EXPECTED_CENSUS_IDENTITY",
-        {
-            "historical_r3_gene_count": len(historical),
-            "historical_r3_gene_ids_sha256": R5A.canonical_sha256(historical),
-            "r3c_gene_count": len(r3c_union),
-            "r3c_gene_ids_sha256": R5A.canonical_sha256(r3c_union),
-        },
+    assert (
+        R5A.FROZEN_R1C_TARGET_MANIFEST_SHA256
+        == R5A.SHARED_R1C_TARGET_MANIFEST_SHA256
     )
-    record = {
-        "cohort_audit": {
-            "historical_reconstruction": {"excluded_gene_ids": historical},
-            "current_census": {
-                "fixed_selection_gene_ids_by_bucket": {
-                    bucket: {
-                        "gene_ids": genes,
-                        "gene_ids_sha256": R5A.canonical_sha256(genes),
-                    }
-                    for bucket, genes in by_bucket.items()
-                }
-            },
-        }
-    }
-    registry = R5A.derive_r5_exclusion_registry(
-        record,
-        r3c_artifact_identity={
-            "path": "/r3c.json",
-            "size_bytes": 10,
-            "sha256": "a" * 64,
-        },
-        r3c_manifest_identity={
-            "path": "/r3c.manifest.json",
-            "size_bytes": 10,
-            "sha256": "b" * 64,
-        },
+    assert (
+        R5A.FROZEN_R1C_TARGET_ATTEMPT_SHA256
+        == R5A.SHARED_R1C_TARGET_ATTEMPT_SHA256
     )
-    assert registry["r3c_gene_ids"] == r3c_union
-    assert registry["derivation"].endswith("no free gene-list input")
-    payload = {key: value for key, value in registry.items() if key != "record_sha256"}
-    assert registry["record_sha256"] == R5A.canonical_sha256(payload)
-    changed = json.loads(json.dumps(record))
-    changed["cohort_audit"]["current_census"][
-        "fixed_selection_gene_ids_by_bucket"
-    ]["1"]["gene_ids"].append("unreviewed")
-    with pytest.raises(RuntimeError):
-        R5A.derive_r5_exclusion_registry(
-            changed,
-            r3c_artifact_identity={
-                "path": "/r3c.json",
-                "size_bytes": 10,
-                "sha256": "a" * 64,
-            },
-            r3c_manifest_identity={
-                "path": "/r3c.manifest.json",
-                "size_bytes": 10,
-                "sha256": "b" * 64,
-            },
-        )
+    assert (
+        R5A.FROZEN_R1C_TARGET_COMPLETION_SHA256
+        == R5A.SHARED_R1C_TARGET_COMPLETION_SHA256
+    )
+    assert R5A.FROZEN_R3D_ARTIFACT_SHA256 == R5A.R3D_TARGET_ARTIFACT_SHA256
+    assert R5A.FROZEN_R3D_MANIFEST_SHA256 == R5A.R3D_TARGET_MANIFEST_SHA256
+    assert (
+        R5A.FROZEN_R3D_REGISTRY_ARTIFACT_SHA256
+        == R5A.R3D_REGISTRY_ARTIFACT_SHA256
+    )
+    assert (
+        R5A.FROZEN_R3D_REGISTRY_MANIFEST_SHA256
+        == R5A.R3D_REGISTRY_MANIFEST_SHA256
+    )
+    assert R5A.FROZEN_R3D_ATTEMPT_SHA256 == R5A.R3D_TARGET_ATTEMPT_SHA256
+    assert R5A.FROZEN_R3D_COMPLETION_SHA256 == R5A.R3D_TARGET_COMPLETION_SHA256
+    assert R5A.FROZEN_R3C_ARTIFACT_SHA256 == R5A.R3C_PREFLIGHT_ARTIFACT_SHA256
+    assert R5A.FROZEN_R3C_MANIFEST_SHA256 == R5A.R3C_PREFLIGHT_MANIFEST_SHA256
+    assert R5A.R5_ENTRY_SCHEMA == "gfmcd.r5.entry_contract/2"

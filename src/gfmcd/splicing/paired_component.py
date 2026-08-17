@@ -540,6 +540,433 @@ def one_sided_boundary_sign_flip(
 
 
 @dataclass(frozen=True)
+class StudentizedBootstrapOneSided:
+    """One-sided studentized whole-gene bootstrap test and inverted bound."""
+
+    estimate: float
+    standard_error: float
+    boundary: float
+    alternative: Alternative
+    alpha: float
+    bound: float
+    bound_kind: BoundKind
+    critical_value: float
+    observed_studentized_statistic: float
+    p_value: float
+    exceedances: int
+    B: int
+    seed: int
+    namespace: str
+    bootstrap_studentized_sha256: str
+    shared_resample_indices_sha256: str
+    ordered_gene_labels_sha256: str
+    estimator: str
+    randomisation_unit: str = "gene"
+    inference_kind: str = "studentized_gene_bootstrap_asymptotic"
+    pvalue_rule: str = (
+        "one-sided add-one tail probability of centered studentized whole-gene "
+        "bootstrap draws; confidence bound uses the conservative upper empirical "
+        "quantile of the oriented studentized draws"
+    )
+    degenerate_empirical_point_mass: bool = False
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+@dataclass(frozen=True)
+class RobustGeneBootstrapTest:
+    """Conjunction of raw-mean and trimmed-mean boundary evidence."""
+
+    raw: StudentizedBootstrapOneSided
+    trimmed: StudentizedBootstrapOneSided
+    trim_fraction: float
+    joint_p_value: float
+    joint_boundary_pass: bool
+    median: float
+    quantiles: tuple[float, float, float, float, float]
+    boundary_exceedance_prevalence: float
+    top_one_percent_deletion_estimate: float
+    n_genes: int
+    inference_kind: str = "studentized_gene_bootstrap_asymptotic"
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+def _gene_mean_matrix(
+    family: np.ndarray,
+    groups: Sequence[str],
+    *,
+    min_genes: int,
+) -> tuple[tuple[str, ...], np.ndarray]:
+    labels, index, sizes, sums = _cluster_summary(
+        family, groups, min_genes=min_genes
+    )
+    return tuple(labels), sums / sizes[None, :]
+
+
+def _trimmed_location_and_se(
+    samples: np.ndarray,
+    *,
+    trim_fraction: float,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Return row-wise trimmed means and winsorized asymptotic standard errors."""
+
+    values = np.asarray(samples, dtype=float)
+    if values.ndim == 1:
+        values = values[None, :]
+    n = values.shape[1]
+    k = int(np.floor(float(trim_fraction) * n))
+    if k < 1 or 2 * k >= n - 1:
+        raise ValueError(
+            "trim_fraction must trim at least one observation while retaining two"
+        )
+    ordered = np.sort(values, axis=1)
+    retained = ordered[:, k : n - k]
+    estimate = retained.mean(axis=1)
+    winsorized = ordered.copy()
+    winsorized[:, :k] = ordered[:, [k]]
+    winsorized[:, n - k :] = ordered[:, [n - k - 1]]
+    standard_error = winsorized.std(axis=1, ddof=1) / (
+        (1.0 - 2.0 * float(trim_fraction)) * np.sqrt(float(n))
+    )
+    return estimate, standard_error
+
+
+def _raw_location_and_se(samples: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    values = np.asarray(samples, dtype=float)
+    if values.ndim == 1:
+        values = values[None, :]
+    return values.mean(axis=1), values.std(axis=1, ddof=1) / np.sqrt(values.shape[1])
+
+
+def studentized_gene_bootstrap_tests(
+    values: np.ndarray | Sequence[Sequence[float]],
+    groups: Sequence[str],
+    names: Sequence[str],
+    *,
+    boundaries: float | Sequence[float],
+    alternatives: Alternative | Sequence[Alternative],
+    alpha: float,
+    trim_fraction: float,
+    n_draws: int,
+    seed: int,
+    namespace: str,
+    min_genes: int = DEFAULT_MIN_GENES,
+) -> dict[str, RobustGeneBootstrapTest]:
+    """Require raw and trimmed gene effects to clear the same one-sided boundary.
+
+    Genes, rather than rows, are the estimand and resampling unit.  The function uses one
+    shared deterministic gene-resample matrix across every endpoint and both estimators.
+    It is an asymptotic studentized bootstrap procedure, not an exact randomisation test.
+    """
+
+    family = _as_family(values)
+    endpoint_names = _family_names(names, family.shape[0])
+    boundary = _boundary_vector(boundaries, family.shape[0])
+    alternative = _alternative_vector(alternatives, family.shape[0])
+    if not np.isfinite(alpha) or not 0.0 < float(alpha) < 1.0:
+        raise ValueError("alpha must lie in (0, 1)")
+    if not np.isfinite(trim_fraction) or not 0.0 < float(trim_fraction) < 0.5:
+        raise ValueError("trim_fraction must lie in (0, 0.5)")
+    if n_draws < 1:
+        raise ValueError("n_draws must be positive")
+    labels, gene_values = _gene_mean_matrix(
+        family, groups, min_genes=min_genes
+    )
+    n_genes = gene_values.shape[1]
+    # Validate the requested trim at the observed sample size before allocating draws.
+    _trimmed_location_and_se(gene_values[:1], trim_fraction=trim_fraction)
+    rng = np.random.default_rng(_seed(namespace, seed))
+    resample_indices = rng.integers(
+        0,
+        n_genes,
+        size=(int(n_draws), n_genes),
+        dtype=np.int64,
+    )
+    resample_digest = hashlib.sha256(
+        np.ascontiguousarray(resample_indices, dtype="<i8").tobytes(order="C")
+    ).hexdigest()
+    gene_digest = _string_sequence_sha256(labels)
+    results: dict[str, RobustGeneBootstrapTest] = {}
+
+    for endpoint_index, name in enumerate(endpoint_names):
+        endpoint = gene_values[endpoint_index]
+        raw_estimate, raw_se = _raw_location_and_se(endpoint)
+        trimmed_estimate, trimmed_se = _trimmed_location_and_se(
+            endpoint, trim_fraction=trim_fraction
+        )
+        raw_est = float(raw_estimate[0])
+        raw_standard_error = float(raw_se[0])
+        trim_est = float(trimmed_estimate[0])
+        trim_standard_error = float(trimmed_se[0])
+        direction = 1.0 if alternative[endpoint_index] == "greater" else -1.0
+        if np.all(endpoint == endpoint[0]):
+            # An exact empirical point mass has no studentization scale.  Do not
+            # crash (or add an arbitrary epsilon): its empirical bootstrap law is
+            # also a point mass, so the conservative one-sided bound is the point
+            # estimate itself and a strict boundary on the alternative side gets
+            # the add-one floor.  The record flags this branch explicitly.
+            estimate = float(endpoint[0])
+            oriented_distance = direction * (
+                estimate - float(boundary[endpoint_index])
+            )
+            strict_pass = oriented_distance > 0.0
+            at_boundary = oriented_distance == 0.0
+            exceedances = 0 if strict_pass else int(n_draws)
+            observed = (
+                0.0
+                if at_boundary
+                else (np.finfo(float).max if strict_pass else -np.finfo(float).max)
+            )
+
+            def point_mass(estimator: str) -> StudentizedBootstrapOneSided:
+                return StudentizedBootstrapOneSided(
+                    estimate=estimate,
+                    standard_error=0.0,
+                    boundary=float(boundary[endpoint_index]),
+                    alternative=alternative[endpoint_index],
+                    alpha=float(alpha),
+                    bound=estimate,
+                    bound_kind=("lower" if direction > 0 else "upper"),
+                    critical_value=0.0,
+                    observed_studentized_statistic=float(observed),
+                    p_value=float((1 + exceedances) / (n_draws + 1)),
+                    exceedances=exceedances,
+                    B=int(n_draws),
+                    seed=int(seed),
+                    namespace=str(namespace),
+                    bootstrap_studentized_sha256=_array_sha256(
+                        np.zeros(int(n_draws), dtype=float)
+                    ),
+                    shared_resample_indices_sha256=resample_digest,
+                    ordered_gene_labels_sha256=gene_digest,
+                    estimator=estimator,
+                    pvalue_rule=(
+                        "exact empirical point-mass branch; conservative bound equals "
+                        "the common gene value; strict alternative receives add-one floor"
+                    ),
+                    degenerate_empirical_point_mass=True,
+                )
+
+            raw = point_mass("unweighted_gene_mean")
+            trimmed = point_mass(
+                f"{100 * float(trim_fraction):g}%_trimmed_unweighted_gene_mean"
+            )
+            prevalence = (
+                np.mean(endpoint > raw.boundary)
+                if direction > 0
+                else np.mean(endpoint < raw.boundary)
+            )
+            results[name] = RobustGeneBootstrapTest(
+                raw=raw,
+                trimmed=trimmed,
+                trim_fraction=float(trim_fraction),
+                joint_p_value=float(max(raw.p_value, trimmed.p_value)),
+                joint_boundary_pass=bool(
+                    strict_pass and raw.p_value < float(alpha)
+                ),
+                median=estimate,
+                quantiles=(estimate, estimate, estimate, estimate, estimate),
+                boundary_exceedance_prevalence=float(prevalence),
+                top_one_percent_deletion_estimate=estimate,
+                n_genes=n_genes,
+            )
+            continue
+        if (
+            not np.isfinite(raw_standard_error)
+            or not np.isfinite(trim_standard_error)
+            or raw_standard_error <= 0.0
+            or trim_standard_error <= 0.0
+        ):
+            raise ValueError("studentized bootstrap requires positive finite standard errors")
+
+        sampled = endpoint[resample_indices]
+        raw_boot_estimate, raw_boot_se = _raw_location_and_se(sampled)
+        trim_boot_estimate, trim_boot_se = _trimmed_location_and_se(
+            sampled, trim_fraction=trim_fraction
+        )
+        if (
+            np.any(~np.isfinite(raw_boot_se))
+            or np.any(~np.isfinite(trim_boot_se))
+            or np.any(raw_boot_se <= 0.0)
+            or np.any(trim_boot_se <= 0.0)
+        ):
+            raise ValueError(
+                "a studentized bootstrap resample has zero or non-finite standard error"
+            )
+        def one(
+            estimator: str,
+            estimate: float,
+            standard_error: float,
+            boot_estimate: np.ndarray,
+            boot_se: np.ndarray,
+        ) -> StudentizedBootstrapOneSided:
+            oriented_bootstrap = direction * (boot_estimate - estimate) / boot_se
+            observed = direction * (
+                estimate - float(boundary[endpoint_index])
+            ) / standard_error
+            exceedances = int(np.count_nonzero(oriented_bootstrap >= observed))
+            critical = float(
+                np.quantile(
+                    oriented_bootstrap,
+                    1.0 - float(alpha),
+                    method="higher",
+                )
+            )
+            bound = float(estimate - direction * critical * standard_error)
+            return StudentizedBootstrapOneSided(
+                estimate=estimate,
+                standard_error=standard_error,
+                boundary=float(boundary[endpoint_index]),
+                alternative=alternative[endpoint_index],
+                alpha=float(alpha),
+                bound=bound,
+                bound_kind=("lower" if direction > 0 else "upper"),
+                critical_value=critical,
+                observed_studentized_statistic=float(observed),
+                p_value=float((1 + exceedances) / (n_draws + 1)),
+                exceedances=exceedances,
+                B=int(n_draws),
+                seed=int(seed),
+                namespace=str(namespace),
+                bootstrap_studentized_sha256=_array_sha256(oriented_bootstrap),
+                shared_resample_indices_sha256=resample_digest,
+                ordered_gene_labels_sha256=gene_digest,
+                estimator=estimator,
+            )
+
+        raw = one(
+            "unweighted_gene_mean",
+            raw_est,
+            raw_standard_error,
+            raw_boot_estimate,
+            raw_boot_se,
+        )
+        trimmed = one(
+            f"{100 * float(trim_fraction):g}%_trimmed_unweighted_gene_mean",
+            trim_est,
+            trim_standard_error,
+            trim_boot_estimate,
+            trim_boot_se,
+        )
+        if direction > 0:
+            boundary_pass = (
+                raw.bound > raw.boundary and trimmed.bound > trimmed.boundary
+            )
+            ordered_tail = np.sort(endpoint)[: max(1, n_genes - int(np.ceil(0.01 * n_genes)))]
+            prevalence = np.mean(endpoint > raw.boundary)
+        else:
+            boundary_pass = (
+                raw.bound < raw.boundary and trimmed.bound < trimmed.boundary
+            )
+            ordered_tail = np.sort(endpoint)[int(np.ceil(0.01 * n_genes)) :]
+            prevalence = np.mean(endpoint < raw.boundary)
+        joint_p = max(raw.p_value, trimmed.p_value)
+        results[name] = RobustGeneBootstrapTest(
+            raw=raw,
+            trimmed=trimmed,
+            trim_fraction=float(trim_fraction),
+            joint_p_value=float(joint_p),
+            joint_boundary_pass=bool(boundary_pass and joint_p < float(alpha)),
+            median=float(np.median(endpoint)),
+            quantiles=tuple(
+                float(item)
+                for item in np.quantile(endpoint, [0.01, 0.10, 0.50, 0.90, 0.99])
+            ),
+            boundary_exceedance_prevalence=float(prevalence),
+            top_one_percent_deletion_estimate=float(np.mean(ordered_tail)),
+            n_genes=n_genes,
+        )
+    return results
+
+
+@dataclass(frozen=True)
+class RobustGeneBootstrapTOST:
+    """Raw+trimmed two-one-sided equivalence test for one endpoint."""
+
+    estimate: float
+    sesoi: float
+    lower_edge: RobustGeneBootstrapTest
+    upper_edge: RobustGeneBootstrapTest
+    p_value: float
+    equivalence_pass: bool
+    inference_kind: str = "studentized_gene_bootstrap_asymptotic"
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+def studentized_gene_bootstrap_tost(
+    values: np.ndarray | Sequence[Sequence[float]],
+    groups: Sequence[str],
+    names: Sequence[str],
+    *,
+    sesoi: float,
+    alpha: float,
+    trim_fraction: float,
+    n_draws: int,
+    seed: int,
+    namespace: str,
+    min_genes: int = DEFAULT_MIN_GENES,
+) -> dict[str, RobustGeneBootstrapTOST]:
+    """Test strict equivalence for raw and trimmed gene estimands simultaneously."""
+
+    family = _as_family(values)
+    endpoint_names = _family_names(names, family.shape[0])
+    if not np.isfinite(sesoi) or float(sesoi) <= 0.0:
+        raise ValueError("sesoi must be positive and finite")
+    expanded_values = np.repeat(family, 2, axis=0)
+    expanded_names = tuple(
+        edge
+        for name in endpoint_names
+        for edge in (f"{name}|lower", f"{name}|upper")
+    )
+    expanded = studentized_gene_bootstrap_tests(
+        expanded_values,
+        groups,
+        expanded_names,
+        boundaries=tuple(
+            boundary
+            for _name in endpoint_names
+            for boundary in (-float(sesoi), float(sesoi))
+        ),
+        alternatives=tuple(
+            alternative
+            for _name in endpoint_names
+            for alternative in ("greater", "less")
+        ),
+        alpha=alpha,
+        trim_fraction=trim_fraction,
+        n_draws=n_draws,
+        seed=seed,
+        namespace=namespace,
+        min_genes=min_genes,
+    )
+    results: dict[str, RobustGeneBootstrapTOST] = {}
+    for index, name in enumerate(endpoint_names):
+        lower = expanded[f"{name}|lower"]
+        upper = expanded[f"{name}|upper"]
+        p_value = max(lower.joint_p_value, upper.joint_p_value)
+        if lower.raw.estimate != upper.raw.estimate:
+            raise RuntimeError("TOST edges disagree on the tested gene-mean estimand")
+        results[name] = RobustGeneBootstrapTOST(
+            estimate=float(lower.raw.estimate),
+            sesoi=float(sesoi),
+            lower_edge=lower,
+            upper_edge=upper,
+            p_value=float(p_value),
+            equivalence_pass=bool(
+                lower.joint_boundary_pass
+                and upper.joint_boundary_pass
+                and p_value < float(alpha)
+            ),
+        )
+    return results
+
+
+@dataclass(frozen=True)
 class CrossingBoundarySignFlipTest:
     """One-sided boundary test under the exactly invertible crossing convention.
 
@@ -1495,6 +1922,9 @@ __all__ = [
     "INVERTED_BOUNDARY_TOLERANCE_RULE",
     "INVERTED_BOUNDARY_TRANSITION_RULE",
     "TOSTEquivalenceTest",
+    "RobustGeneBootstrapTest",
+    "RobustGeneBootstrapTOST",
+    "StudentizedBootstrapOneSided",
     "add_one_max_abs_pvalues",
     "boundary_sign_flip_null_draws",
     "boundary_sign_flip_tests",
@@ -1512,5 +1942,7 @@ __all__ = [
     "one_sided_binomial_bounds",
     "simultaneous_family_decision",
     "strict_interval_decision",
+    "studentized_gene_bootstrap_tests",
+    "studentized_gene_bootstrap_tost",
     "tost_equivalence_test",
 ]

@@ -3,6 +3,7 @@
 from gfmcd.circuits.hf_bert import (
     HeadEffect,
     PatchEffect,
+    add_attention_output_delta,
     capture_mlp_writes,
     capture_head_outputs,
     edit_heads,
@@ -12,11 +13,13 @@ from gfmcd.circuits.hf_bert import (
     matched_random_head_sets,
     patch_heads,
     patch_mlp_writes,
+    project_head_context_to_residual,
 )
 
 __all__ = [
     "HeadEffect",
     "PatchEffect",
+    "add_attention_output_delta",
     "capture_mlp_writes",
     "capture_head_outputs",
     "edit_heads",
@@ -26,4 +29,5 @@ __all__ = [
     "matched_random_head_sets",
     "patch_heads",
     "patch_mlp_writes",
+    "project_head_context_to_residual",
 ]

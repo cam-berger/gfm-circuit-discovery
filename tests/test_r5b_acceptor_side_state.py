@@ -1,23 +1,18 @@
 from __future__ import annotations
 
 import importlib.util
+import copy
+import hashlib
 import json
 from pathlib import Path
+import stat
 import subprocess
 import sys
+from types import SimpleNamespace
 
 import numpy as np
 import pytest
 import torch
-
-from gfmcd.splicing.r5_stack_binding import (
-    R3C_HISTORICAL_HEALTH_SUPPRESSED_PATHS,
-    R3C_INSTRUMENT_REVISION,
-    R3C_PATH_HEALTH_RULE,
-    R3C_PATH_NAMES,
-    R3C_TARGET_HEALTH_RULE,
-    R3C_TARGET_HEALTH_SCHEMA,
-)
 
 
 REPO = Path(__file__).resolve().parents[1]
@@ -32,1087 +27,1863 @@ sys.modules[SPEC.name] = r5b
 SPEC.loader.exec_module(r5b)
 
 
-def _strong_primitive() -> np.ndarray:
-    offset = r5b._easy_causal_primitive_offset()
-    return np.repeat(offset[:, None], r5b.TARGET_N, axis=1)
-
-
-def test_acceptor_only_registries_are_exact_and_derived_rows_cannot_drift():
-    assert r5b.RANK_GRID == (1, 2, 4, 8, 16, 32)
-    assert len(r5b.causal_primitive_names()) == 70
-    assert len(r5b.causal_family_names()) == 136
-    assert len(r5b.causal_boundary_edge_registry()) == 76
-    primitive = np.arange(70 * 3, dtype=float).reshape(70, 3)
-    family, names = r5b.derive_causal_family(primitive)
-    lookup_p = {name: i for i, name in enumerate(r5b.causal_primitive_names())}
-    lookup_f = {name: i for i, name in enumerate(names)}
-    assert np.array_equal(
-        family[lookup_f["target|S|specific"]],
-        primitive[lookup_p["target|S|partner"]]
-        - primitive[lookup_p["target|S|pseudo"]],
-    )
-    assert np.array_equal(
-        family[lookup_f["target_minus_random|draw=07|N|partner"]],
-        primitive[lookup_p["target|N|partner"]]
-        - primitive[lookup_p["random|draw=07|N|partner"]],
-    )
+def test_primary_state_is_the_upstream_l3h1_output_projected_local_writer():
+    assert r5b.R5B_SCHEMA.endswith("/2")
+    assert r5b.WRITER_LAYER == 3
+    assert r5b.WRITER_HEAD == 1
+    assert r5b.WRITER_SITE_ID == r5b.PRIMARY_LOCAL_WRITER_SITE_ID
+    assert r5b.WRITER_SITE_ID == "L3H1.output_projected@acceptor_query"
+    assert r5b.DENSE_PATH_ROLE == "primary"
+    assert r5b.SUBSPACE_PATH_ROLE == "nested_candidate_only"
+    assert r5b.MIN_PRODUCTION_INFERENCE_DRAWS >= 10_000
     source = RUNNER.read_text()
-    assert "masked donor G margin" not in source
-    assert '"masked_donor_endpoint_constructed": False' in source
+    assert "final masked-acceptor residual" not in source
+    assert "final-residual U_A" not in source
+    assert "L2H15_ADDRESS_REUSE" not in source
+    assert "L2H15_mean_component" not in source
 
 
-def test_exact_two_fold_assignment_has_64_unique_genes_per_fold_and_is_deterministic():
-    genes = [f"gene-{index:03d}" for index in range(128)]
-    first = r5b.exact_two_fold_ids(genes)
-    second = r5b.exact_two_fold_ids(list(reversed(genes)))
-    by_gene_first = dict(zip(genes, first))
-    by_gene_second = dict(zip(reversed(genes), second))
-    assert by_gene_first == by_gene_second
-    assert tuple(np.bincount(first).tolist()) == (64, 64)
-    with pytest.raises(ValueError, match="128 unique"):
-        r5b.exact_two_fold_ids(genes[:-1] + [genes[0]])
-
-
-def test_crossfit_really_fits_only_opposite_fold_gene_means():
-    genes = [f"gene-{index:03d}" for index in range(128)]
-    folds = r5b.exact_two_fold_ids(genes)
-    rows = np.random.default_rng(4).normal(size=(128, 40))
-    fitted = r5b.crossfit_svd(
-        rows,
-        genes,
-        folds,
-        candidate_ranks=r5b.RANK_GRID,
-        diagnostic_energy_target=0.90,
-        group_average=True,
+def test_output_projected_head_contribution_is_exact_and_excludes_shared_bias():
+    torch.manual_seed(4)
+    context = torch.randn(3, 7, 12, dtype=torch.float64)
+    weight = torch.randn(12, 12, dtype=torch.float64)
+    bias = torch.randn(12, dtype=torch.float64)
+    contribution = r5b.output_projected_head_contribution(
+        context,
+        weight,
+        head_index=1,
+        num_heads=3,
     )
-    assert len(fitted.folds) == 2
-    for fold in fitted.folds:
-        assert fold.svd.n_fit_rows == 64
-        assert fold.derivation_matrix_policy == "gene_mean_rows"
-        assert len(fold.derivation_groups) == 64
-        assert len(fold.evaluation_groups) == 64
-        assert not set(fold.derivation_groups) & set(fold.evaluation_groups)
-    projected = r5b.crossfit_project(rows, fitted, rank=32)
-    assert projected.shape == rows.shape
-
-
-def test_private_refit_svd_enforces_frozen_relative_numerical_rank():
-    rank_one = np.outer(np.arange(1.0, 65.0), np.arange(1.0, 41.0))
-    with pytest.raises(r5b.InstrumentError, match="relative tolerance"):
-        r5b._svd_basis(rank_one, 32)
-    assert r5b.SVD_NUMERICAL_RANK_RELATIVE_TOLERANCE == pytest.approx(1e-10)
-
-
-def test_every_causal_boundary_case_is_primitive_coherent_and_single_edge_bound():
-    cases = r5b.causal_boundary_case_specs()
-    assert len(cases) == 76
-    assert len({case["case"] for case in cases}) == 76
-    assert all(len(case["primitive_offset_sha256"]) == 64 for case in cases)
-    plan = r5b.prospective_calibration_trial_count()
-    assert plan["N_cal"] >= 6 * 76
-    assert plan["scientific_fwer_claimed_from_calibration"] is False
-
-
-def test_rank_classifier_uses_boundary_iut_and_strict_complete_family_intervals():
-    genes = [f"gene-{index:03d}" for index in range(128)]
-    strong = r5b.infer_causal_rank_family(
-        _strong_primitive(),
-        genes,
-        rank=1,
-        n_draws=499,
-        seed=0,
-        namespace="test-r5b-strong",
-    )
-    assert strong["family_size"] == 136
-    assert len(strong["edge_tests"]) == 76
-    assert strong["path_iut_p_value"] == pytest.approx(1 / 500)
-    assert strong["random_control_gate"] is True
-
-    boundary_case = r5b.causal_boundary_case_specs()[0]
-    boundary = np.repeat(
-        np.asarray(boundary_case["primitive_offset"])[:, None], 128, axis=1
-    )
-    unresolved = r5b.infer_causal_rank_family(
-        boundary,
-        genes,
-        rank=1,
-        n_draws=499,
-        seed=0,
-        namespace="test-r5b-boundary",
-    )
-    assert unresolved["random_control_gate"] is False
-    assert unresolved["path_iut_p_value"] > r5b.RANK_ALPHA
-
-
-def test_overlap_family_uses_disjoint_fixed_calibration_pool_and_absolute_refit_gate():
-    observed = {rank: 0.80 for rank in r5b.RANK_GRID}
-    refit = r5b.RefitOverlapIntervals(
-        observed_by_rank=observed,
-        lower_by_rank={rank: 0.70 for rank in r5b.RANK_GRID},
-        simultaneous_deviation_critical=0.10,
-        bootstrap_sha256="a" * 64,
-        draw_ids_sha256="b" * 64,
-        n_draws=20,
-        seed=0,
-        namespace="test-refit",
-    )
-    result = r5b.overlap_family_inference(
-        observed,
-        refit,
-        width=64,
-        n_calibration=49,
-        n_test=49,
-        seed=0,
-    )
-    fixed = result["fixed_calibration"]
-    assert fixed["calibration_pool_sha256"] != fixed["test_pool_sha256"]
-    assert fixed["n_calibration_draws"] == 49
-    assert fixed["n_test_draws"] == 49
-    assert fixed["calibration_first_draw_identity"]["namespace"] == (
-        r5b.OVERLAP_CALIBRATION_NAMESPACE
-    )
-    assert fixed["test_first_draw_identity"]["namespace"] == (
-        r5b.OVERLAP_TEST_NAMESPACE
-    )
-    assert fixed["calibration_draw_identity_set_sha256"] != fixed[
-        "test_draw_identity_set_sha256"
-    ]
-    assert all(
-        row["absolute_overlap_pass"] for row in result["by_rank"].values()
-    )
-
-    touching = r5b.RefitOverlapIntervals(
-        observed_by_rank=observed,
-        lower_by_rank={rank: r5b.OVERLAP_SESOI for rank in r5b.RANK_GRID},
-        simultaneous_deviation_critical=0.60,
-        bootstrap_sha256="c" * 64,
-        draw_ids_sha256="d" * 64,
-        n_draws=20,
-        seed=0,
-        namespace="test-refit-touching",
-    )
-    touching_result = r5b.overlap_family_inference(
-        observed,
-        touching,
-        width=64,
-        n_calibration=49,
-        n_test=49,
-        seed=0,
-    )
-    assert not any(
-        row["random_overlap_gate"] for row in touching_result["by_rank"].values()
+    isolated = torch.zeros_like(context)
+    isolated[..., 4:8] = context[..., 4:8]
+    expected = torch.nn.functional.linear(isolated, weight, None)
+    assert torch.equal(contribution, expected)
+    assert torch.allclose(
+        torch.nn.functional.linear(context, weight, bias),
+        sum(
+            r5b.output_projected_head_contribution(
+                context, weight, head_index=head, num_heads=3
+            )
+            for head in range(3)
+        )
+        + bias,
     )
 
 
-def test_overlap_refit_calibration_starts_from_raw_matrices_and_exercises_all_routes():
-    calibration = r5b.run_overlap_refit_calibration(
-        width=64,
-        n_refit_draws=50,
-        n_calibration=49,
-        n_test=49,
-        seed=0,
-    )
-    assert calibration["all_pass"] is True
-    assert set(calibration["geometries"]) == {
-        "no_shared_subspace",
-        "absolute_overlap_boundary",
-        "strong_shared_subspace",
-    }
-    assert calibration["checks"]["touching_absolute_boundary_not_accepted"]
-    assert calibration["checks"]["strong_shared_subspace_detected_all_ranks"]
-    for record in calibration["geometries"].values():
-        assert len(record["raw_combined_sha256"]) == 64
-        assert record["inference"]["calibration_and_test_pools_disjoint"] is True
-
-
-class _ToyTransform(torch.nn.Module):
-    def forward(self, value: torch.Tensor) -> torch.Tensor:
-        return torch.tanh(value)
-
-
-class _ToyPredictions(torch.nn.Module):
-    def __init__(self) -> None:
-        super().__init__()
-        self.transform = _ToyTransform()
-        self.decoder = torch.nn.Linear(40, 8)
-
-    def forward(self, value: torch.Tensor) -> torch.Tensor:
-        return self.decoder(self.transform(value))
-
-
-class _ToyCLS(torch.nn.Module):
-    def __init__(self) -> None:
-        super().__init__()
-        self.predictions = _ToyPredictions()
-
-    def forward(self, value: torch.Tensor) -> torch.Tensor:
-        return self.predictions(value)
-
-
-def test_full_mlm_capability_covers_dense_head_transform_decoder_and_margin():
-    torch.manual_seed(2)
-    cls = _ToyCLS()
-    clean = np.random.default_rng(2).normal(size=(8, 40)).astype(np.float32)
-    corrupt = np.random.default_rng(3).normal(size=(8, 40)).astype(np.float32)
-    with torch.no_grad():
-        clean_logits = cls(torch.from_numpy(clean)).numpy()
-        corrupt_logits = cls(torch.from_numpy(corrupt)).numpy()
-    base_ids = {"A": 0, "C": 1, "G": 2, "T": 3}
-    capability = r5b.full_mlm_capability(
-        cls,
-        h_clean=clean,
-        h_partner_corrupt=corrupt,
-        native_clean_logits=clean_logits,
-        native_partner_logits=corrupt_logits,
-        dense_clean_patch_logits=clean_logits,
-        dense_self_patch_logits=corrupt_logits,
-        base_token_ids=base_ids,
-        device="cpu",
-        batch_size=3,
-        atol=1e-6,
-    )
-    assert capability["all_controls_pass"] is True
-    assert capability["masked_donor_endpoint_constructed"] is False
-    assert capability["candidate_projector_used"] is False
-
-    tampered = clean_logits.copy()
-    tampered[0, 0] += 0.1
-    failed = r5b.full_mlm_capability(
-        cls,
-        h_clean=clean,
-        h_partner_corrupt=corrupt,
-        native_clean_logits=clean_logits,
-        native_partner_logits=corrupt_logits,
-        dense_clean_patch_logits=tampered,
-        dense_self_patch_logits=corrupt_logits,
-        base_token_ids=base_ids,
-        device="cpu",
-        batch_size=4,
-        atol=1e-6,
-    )
-    assert failed["all_controls_pass"] is False
-
-
-def test_intervention_execution_scores_target_pseudo_adjacent_and_32_nested_controls():
-    torch.manual_seed(8)
-    cls = _ToyCLS()
-    scorer = r5b.FullMLMScorer(
-        cls,
-        {"A": 0, "C": 1, "G": 2, "T": 3},
-        device="cpu",
-        batch_size=32,
-    )
-    genes = tuple(f"gene-{index:03d}" for index in range(128))
-    folds = r5b.exact_two_fold_ids(genes)
-    per_fold_seen = {0: 0, 1: 0}
-    strands = []
-    for fold in folds:
-        strands.append("+" if per_fold_seen[int(fold)] % 2 == 0 else "-")
-        per_fold_seen[int(fold)] += 1
-    rng = np.random.default_rng(8)
-    h_partner = rng.normal(size=(128, 40))
-    delta_partner = rng.normal(size=(128, 40))
-    h_clean = h_partner + 0.15 * delta_partner
-    h_pseudo = h_clean - 0.01 * rng.normal(size=(128, 40))
-    h_adjacent_partner = rng.normal(size=(128, 40))
-    h_adjacent_clean = h_adjacent_partner + rng.normal(size=(128, 40))
-    capture = r5b.ResidualCapture(
-        genes=genes,
-        strands=tuple(strands),
-        example_ids=tuple(f"example-{index:03d}" for index in range(128)),
-        h_clean=h_clean,
-        h_partner_corrupt=h_partner,
-        h_pseudo_corrupt=h_pseudo,
-        h_adjacent_clean_mean=h_adjacent_clean,
-        h_adjacent_partner_corrupt_mean=h_adjacent_partner,
-        m_clean=scorer.margins(h_clean),
-        m_partner_corrupt=scorer.margins(h_partner),
-        m_pseudo_corrupt=scorer.margins(h_pseudo),
-        capability={"all_controls_pass": True},
-    )
-    fitted = r5b.crossfit_svd(
-        h_clean - h_partner,
-        genes,
-        folds,
-        candidate_ranks=r5b.RANK_GRID,
-        diagnostic_energy_target=0.90,
-        group_average=True,
-    )
-    adjacent = r5b.crossfit_svd(
-        h_adjacent_clean - h_adjacent_partner,
-        genes,
-        folds,
-        candidate_ranks=r5b.RANK_GRID,
-        diagnostic_energy_target=0.90,
-        group_average=True,
-    )
-    primitives, controls = r5b.intervention_primitives_by_rank(
-        capture,
-        scorer,
-        fitted,
-        adjacent,
-        folds,
-        seed=0,
-        binding="test-binding",
-    )
-    assert set(primitives) == set(r5b.RANK_GRID)
-    assert all(matrix.shape == (70, 128) for matrix in primitives.values())
-    target_projection = r5b.crossfit_project(
-        h_clean - h_partner, fitted, rank=1
-    )
-    expected_s = scorer.margins(h_partner + target_projection) - capture.m_partner_corrupt
-    expected_n = capture.m_clean - scorer.margins(h_clean - target_projection)
-    assert np.allclose(primitives[1][0], expected_s)
-    assert np.allclose(primitives[1][1], expected_n)
-    assert controls["draws_per_rank"] == 32
-    assert controls["nested_prefix_grid"] == list(r5b.RANK_GRID)
-    assert all(
-        draw["per_row_energy_match_max_abs"] < 1e-10
-        for rank in controls["basis_records_by_rank"].values()
-        for draw in rank.values()
-    )
-
-
-def test_runtime_bundle_binds_selected_slice_fold_map_and_exact_reservation(tmp_path):
-    genes = tuple(f"runtime-gene-{index:03d}" for index in range(128))
-    examples = tuple(f"runtime-example-{index:03d}" for index in range(128))
-    folds = r5b.exact_two_fold_ids(genes)
-    per_fold_seen = {0: 0, 1: 0}
-    strands = []
-    for fold in folds:
-        strands.append("+" if per_fold_seen[int(fold)] % 2 == 0 else "-")
-        per_fold_seen[int(fold)] += 1
-    rng = np.random.default_rng(17)
-    partner = rng.normal(size=(128, 40))
-    clean = partner + rng.normal(size=(128, 40))
-    capture = r5b.ResidualCapture(
-        genes=genes,
-        strands=tuple(strands),
-        example_ids=examples,
-        h_clean=clean,
-        h_partner_corrupt=partner,
-        h_pseudo_corrupt=clean.copy(),
-        h_adjacent_clean_mean=clean.copy(),
-        h_adjacent_partner_corrupt_mean=partner.copy(),
-        m_clean=np.ones(128),
-        m_partner_corrupt=np.zeros(128),
-        m_pseudo_corrupt=np.zeros(128),
-        capability={"all_controls_pass": True},
-    )
-    maximum, map_package = r5b._runtime_max_rank_arrays(
-        capture, binding="runtime-test", seed=0
-    )
-    max_bytes = r5b._npz_bytes(maximum)
-    max_path = tmp_path / "bucket1-runtime-max.npz"
-    max_path.write_bytes(max_bytes)
-    cohort_audit = {
-        "selected_by_bucket": {
-            "0": {
-                "ordered_rows_sha256": "0" * 64,
-                "construction_sha256": "1" * 64,
-                "gene_ids_sha256": "2" * 64,
+def test_scored_provider_replays_true_post_wo_contribution_in_residual_width():
+    rng = np.random.default_rng(5)
+    n, head_width, residual_width = 8, 3, 12
+    clean_context = rng.normal(size=(n, head_width))
+    corrupt_context = rng.normal(size=(n, head_width))
+    wo_block = rng.normal(size=(residual_width, head_width))
+    clean_writer = clean_context @ wo_block.T
+    corrupt_writer = corrupt_context @ wo_block.T
+    replay = r5b.replay_output_projected_writer_provider(
+        {
+            "writer_site_id": r5b.WRITER_SITE_ID,
+            "clean_head_context": clean_context,
+            "corrupt_head_context": corrupt_context,
+            "w_o_column_block": wo_block,
+            "clean_writer_contribution": clean_writer,
+            "corrupt_writer_contribution": corrupt_writer,
+            "writer_delta": clean_writer - corrupt_writer,
+            "numeric_provenance": {
+                "schema": "gfmcd.r5b.post_wo_numeric_provenance/1",
+                "checkpoint_operator_dtype": "float64",
+                "head_context_dtype": "float64",
+                "w_o_column_block_dtype": "float64",
+                "writer_contribution_dtype": "float64",
+                "replay_operator": "torch.nn.functional.linear",
+                "relative_tolerance": 0.0,
+                "absolute_tolerance": 1e-5,
             },
-            "1": {
-                "ordered_rows_sha256": "3" * 64,
-                "construction_sha256": "4" * 64,
-                "gene_ids_sha256": "5" * 64,
-            },
+            "bias_included": False,
         }
-    }
-    source = r5b.runtime_max_source_record(
-        maximum,
-        max_bytes,
-        bundle_path=max_path,
-        bucket=1,
-        cohort_audit=cohort_audit,
-        checkpoint_sha256="6" * 64,
-        map_record=map_package,
-        r5_stack_fingerprint_sha256="7" * 64,
     )
-    loaded = r5b.load_and_validate_runtime_max_source(source)
-    r5b.validate_runtime_max_source_binding(
-        source,
-        loaded,
-        map_package["crossfit_map"],
-        bucket=1,
-        cohort_audit=cohort_audit,
-        checkpoint_sha256="6" * 64,
-        r5_stack_fingerprint_sha256="7" * 64,
-    )
-    selected = r5b._selected_runtime_arrays(loaded, 8)
-    assert set(selected) == {
-        "selected_rank",
-        "selected_bases_by_fold",
-        "random_bases_by_draw_fold",
-        "row_fold_ids",
-        "ordered_row_ids",
+    assert replay["writer_delta"].shape == (n, residual_width)
+    assert replay["residual_width"] == residual_width
+    assert replay["head_width"] == head_width
+    assert replay["bias_included"] is False
+    assert replay["w_o_column_block_sha256"] == r5b.array_sha256(wo_block)
+    changed = copy.deepcopy(replay["provider_record"])
+    changed["writer_delta"][0][0] += 1.0
+    with pytest.raises(r5b.InstrumentError, match="post-W_O writer delta"):
+        r5b.replay_output_projected_writer_provider(changed)
+
+
+def test_float32_checkpoint_projection_replays_at_realistic_splicebert_width():
+    """JSON replay preserves the checkpoint's float32 64 -> 768 operator truth."""
+
+    generator = torch.Generator().manual_seed(20260817)
+    clean_context = torch.randn(5, 64, generator=generator, dtype=torch.float32)
+    corrupt_context = torch.randn(5, 64, generator=generator, dtype=torch.float32)
+    wo_block = torch.randn(768, 64, generator=generator, dtype=torch.float32)
+    clean_writer = torch.nn.functional.linear(clean_context, wo_block, None)
+    corrupt_writer = torch.nn.functional.linear(corrupt_context, wo_block, None)
+    record = {
+        "writer_site_id": r5b.WRITER_SITE_ID,
+        "clean_head_context": clean_context.numpy().tolist(),
+        "corrupt_head_context": corrupt_context.numpy().tolist(),
+        "w_o_column_block": wo_block.numpy().tolist(),
+        "clean_writer_contribution": clean_writer.numpy().tolist(),
+        "corrupt_writer_contribution": corrupt_writer.numpy().tolist(),
+        "writer_delta": (clean_writer - corrupt_writer).numpy().tolist(),
+        "numeric_provenance": {
+            "schema": "gfmcd.r5b.post_wo_numeric_provenance/1",
+            "checkpoint_operator_dtype": "float32",
+            "head_context_dtype": "float32",
+            "w_o_column_block_dtype": "float32",
+            "writer_contribution_dtype": "float32",
+            "replay_operator": "torch.nn.functional.linear",
+            "relative_tolerance": 0.0,
+            "absolute_tolerance": 1e-5,
+        },
+        "bias_included": False,
     }
-    assert selected["selected_rank"].shape == ()
-    assert int(selected["selected_rank"]) == 8
-    assert selected["selected_bases_by_fold"].shape == (2, 8, 40)
-    assert selected["random_bases_by_draw_fold"].shape == (32, 2, 8, 40)
-    selected_bytes = r5b._npz_bytes(selected)
-    contract = r5b.runtime_bundle_contract(
-        selected,
-        selected_bytes,
-        bundle_path=tmp_path / "bucket1-selected.npz",
-        bucket=1,
-        cohort_audit=cohort_audit,
-        checkpoint_sha256="6" * 64,
-        selected_rank=8,
-        crossfit_map_sha256=map_package["crossfit_map_sha256"],
-        source_payload_sha256=source["source_payload_sha256"],
-        source_artifact_sha256=None,
-        max_rank_source=source,
-        r5_stack_fingerprint_sha256="7" * 64,
+
+    replay = r5b.replay_output_projected_writer_provider(record)
+
+    assert replay["numeric_provenance"] == record["numeric_provenance"]
+    changed = copy.deepcopy(record)
+    changed["clean_writer_contribution"][0][0] += 1e-3
+    with pytest.raises(r5b.InstrumentError, match="post-W_O writer delta"):
+        r5b.replay_output_projected_writer_provider(changed)
+    changed_tolerance = copy.deepcopy(record)
+    changed_tolerance["numeric_provenance"]["absolute_tolerance"] = 1e-3
+    with pytest.raises(r5b.InstrumentError, match="numeric provenance"):
+        r5b.replay_output_projected_writer_provider(changed_tolerance)
+
+
+def test_disposition_schema_and_three_frozen_terminal_statuses_are_exported():
+    assert r5b.R5B_DISPOSITION_SCHEMA == (
+        "gfmcd.r5b.local_writer_basis_disposition/2"
     )
-    assert contract["schema"] == "gfmcd.r5b.r5c_runtime_contract/1"
-    assert contract["bucket"] == 1
-    assert contract["r5_stack_fingerprint_sha256"] == "7" * 64
-    assert contract["cohort_sha256"] == "3" * 64
-    assert set(contract["runtime_array_sha256"]) == {
-        "selected_bases_by_fold",
-        "random_bases_by_draw_fold",
-        "row_fold_ids",
-        "ordered_row_ids",
+    assert r5b.R5B_DISPOSITION_STATUSES == (
+        "VALIDATED_BASIS",
+        "NO_VALIDATED_BASIS_AT_FROZEN_THRESHOLDS",
+        "BASIS_INSTRUMENT_UNRESOLVED",
+    )
+    assert r5b.R5B_PATH_LOCAL_C2_BY_STATUS == {
+        "VALIDATED_BASIS": (
+            "EXECUTE_OPTIONAL_C2_WITH_AUTHENTICATED_FROZEN_LOCAL_WRITER_BASIS"
+        ),
+        "NO_VALIDATED_BASIS_AT_FROZEN_THRESHOLDS": (
+            "SKIP_OPTIONAL_C2_NO_VALIDATED_BASIS_DENSE_PRIMARY_UNAFFECTED"
+        ),
+        "BASIS_INSTRUMENT_UNRESOLVED": (
+            "SKIP_OPTIONAL_C2_BASIS_INSTRUMENT_UNRESOLVED_"
+            "DENSE_PRIMARY_UNAFFECTED"
+        ),
     }
-    assert "selected_rank" not in contract["runtime_array_shapes"]
-    changed = json.loads(json.dumps(source))
-    changed["crossfit_map_sha256"] = "f" * 64
-    with pytest.raises(r5b.InstrumentError, match="reservation binding differs"):
-        r5b.validate_runtime_max_source_binding(
-            changed,
-            loaded,
-            map_package["crossfit_map"],
-            bucket=1,
-            cohort_audit=cohort_audit,
-            checkpoint_sha256="6" * 64,
-            r5_stack_fingerprint_sha256="7" * 64,
+    assert callable(r5b.validate_local_writer_basis_disposition)
+
+
+def test_three_way_disposition_is_exact_and_dense_primary_never_depends_on_it():
+    assert r5b._disposition_for_replays(
+        {"instrument_failure": False},
+        {
+            "instrument_failure": False,
+            "candidate_validation": {
+                "status": "NESTED_CANDIDATE_VALIDATED_FOR_REFIT"
+            },
+        },
+    ) == "VALIDATED_BASIS"
+    assert r5b._disposition_for_replays(
+        {"instrument_failure": False},
+        {"instrument_failure": False, "candidate_validation": None},
+    ) == "NO_VALIDATED_BASIS_AT_FROZEN_THRESHOLDS"
+    assert r5b._disposition_for_replays(
+        {"instrument_failure": True},
+        {
+            "instrument_failure": False,
+            "candidate_validation": {
+                "status": "NESTED_CANDIDATE_VALIDATED_FOR_REFIT"
+            },
+        },
+    ) == "BASIS_INSTRUMENT_UNRESOLVED"
+
+
+def test_replace_local_writer_changes_only_the_frozen_query_rows():
+    dense = torch.arange(3 * 6 * 8, dtype=torch.float64).reshape(3, 6, 8)
+    current = torch.full((3, 8), 2.0, dtype=torch.float64)
+    replacement = torch.full((3, 8), 7.0, dtype=torch.float64)
+    positions = torch.tensor([1, 4, 2])
+    changed = r5b.replace_local_writer_at_queries(
+        dense,
+        current_writer=current,
+        replacement_writer=replacement,
+        query_positions=positions,
+    )
+    expected = dense.clone()
+    expected[torch.arange(3), positions] += 5.0
+    assert torch.equal(changed, expected)
+    with pytest.raises(ValueError, match="one query position"):
+        r5b.replace_local_writer_at_queries(
+            dense,
+            current_writer=current,
+            replacement_writer=replacement,
+            query_positions=torch.tensor([[1], [4], [2]]),
         )
 
 
-def test_genuine_preflight_runtime_source_authenticates_joint_stack_fingerprint(
-    tmp_path, monkeypatch
-):
-    genes = tuple(f"preflight-gene-{index:03d}" for index in range(128))
-    examples = tuple(f"preflight-example-{index:03d}" for index in range(128))
-    rng = np.random.default_rng(31)
-    partner = rng.normal(size=(128, 40))
-    clean = partner + rng.normal(size=(128, 40))
-    capture = r5b.ResidualCapture(
-        genes=genes,
-        strands=tuple("+" for _ in genes),
-        example_ids=examples,
-        h_clean=clean,
-        h_partner_corrupt=partner,
-        h_pseudo_corrupt=clean.copy(),
-        h_adjacent_clean_mean=clean.copy(),
-        h_adjacent_partner_corrupt_mean=partner.copy(),
-        m_clean=np.ones(128),
-        m_partner_corrupt=np.zeros(128),
-        m_pseudo_corrupt=np.zeros(128),
-        capability={"all_controls_pass": True},
+def test_real_dense_hook_replaces_exact_l3h1_contribution_and_records_provenance():
+    torch.manual_seed(9)
+    dense = torch.nn.Linear(12, 12, bias=True, dtype=torch.float64)
+    clean_context = torch.randn(2, 5, 12, dtype=torch.float64)
+    corrupt_context = torch.randn(2, 5, 12, dtype=torch.float64)
+    positions = torch.tensor([2, 3])
+    rows = torch.arange(2)
+    clean_all = r5b.output_projected_head_contribution(
+        clean_context, dense.weight, head_index=1, num_heads=3
     )
-    maximum, map_package = r5b._runtime_max_rank_arrays(
-        capture, binding="genuine-preflight", seed=0
+    clean_writer = clean_all[rows, positions]
+    expected = dense(corrupt_context).detach()
+    corrupt_all = r5b.output_projected_head_contribution(
+        corrupt_context, dense.weight, head_index=1, num_heads=3
     )
-    max_bytes = r5b._npz_bytes(maximum)
-    max_path = tmp_path / "preflight.runtime-max.npz"
-    max_path.write_bytes(max_bytes)
+    expected[rows, positions] += clean_writer - corrupt_all[rows, positions]
 
-    binding_payload = json.loads(json.dumps(r5b.instrument_binding_payload()))
-    local_fingerprint = r5b.instrument_fingerprint(binding_payload)
-    stack_fingerprint = binding_payload["r5_stack_fingerprint_sha256"]
-    assert local_fingerprint != stack_fingerprint
-    cohort_audit = {
-        "selected_by_bucket": {
-            "0": {
-                "ordered_rows_sha256": "1" * 64,
-                "construction_sha256": "2" * 64,
-                "gene_ids_sha256": "3" * 64,
-            }
-        }
+    with r5b.local_writer_dense_hook(
+        dense,
+        query_positions=positions,
+        replacement_writer=clean_writer,
+        head_index=1,
+        num_heads=3,
+    ) as audit:
+        observed = dense(corrupt_context)
+    assert torch.equal(observed, expected)
+    assert audit.calls == 1
+    assert audit.writer_site_id == r5b.WRITER_SITE_ID
+    assert audit.intervention_position == "before_L4_L5"
+    assert audit.current_writer_sha256 == r5b.array_sha256(
+        corrupt_all[rows, positions].detach().numpy()
+    )
+
+
+def _dense_record(leg: str, sufficiency: np.ndarray, necessity: np.ndarray):
+    zero = np.zeros_like(sufficiency)
+    return r5b.local_writer_dense_estimands(
+        m_clean=necessity,
+        m_corrupt=zero,
+        m_corrupt_with_clean_writer=sufficiency,
+        m_clean_with_corrupt_writer=zero,
+        leg_id=leg,
+        writer_site_id=r5b.WRITER_SITE_ID,
+    )
+
+
+def test_dense_primary_family_replays_cells_and_keeps_all_specificity_controls():
+    n = 12
+    partner = _dense_record("partner", np.full(n, 0.30), np.full(n, 0.28))
+    pseudo = _dense_record("pseudo", np.full(n, 0.01), np.full(n, -0.01))
+    adjacent = {
+        offset: _dense_record(
+            f"adjacent:{offset:+d}", np.zeros(n), np.zeros(n)
+        )
+        for offset in r5b.ADJACENT_TOKEN_OFFSETS
     }
-    source = r5b.runtime_max_source_record(
-        maximum,
-        max_bytes,
-        bundle_path=max_path,
-        bucket=0,
-        cohort_audit=cohort_audit,
-        checkpoint_sha256="4" * 64,
-        map_record=map_package,
-        r5_stack_fingerprint_sha256=stack_fingerprint,
+    family = r5b.build_dense_local_writer_family(
+        partner=partner,
+        pseudo=pseudo,
+        adjacent_by_offset=adjacent,
+        gene_generic=_dense_record(
+            "gene_generic", np.full(n, 0.20), np.full(n, 0.18)
+        ),
+        readout_axis=_dense_record(
+            "readout_axis", np.full(n, 0.15), np.full(n, 0.14)
+        ),
+        health={"clean_noop": np.zeros(n), "corrupt_noop": np.zeros(n)},
     )
-    record = {
-        "schema": "gfmcd.r5b.acceptor_side_state/1",
-        "stage": "preflight",
-        "target_bindable_preflight": True,
-        "all_instrument_gates_pass": True,
-        "calibration": {"all_pass": True},
-        "model_free_audit": {"all_pass": True},
-        "instrument_fingerprint_sha256": local_fingerprint,
-        "instrument_binding_payload": binding_payload,
-        "r5_stack_binding": binding_payload["r5_stack_binding"],
-        "r5_stack_fingerprint_sha256": stack_fingerprint,
-        "r5c_runtime_max_source_by_bucket": {"0": source},
-        "r5c_runtime_crossfit_map_by_bucket": {
-            "0": map_package["crossfit_map"]
-        },
-        "cohort_audit": cohort_audit,
-        "checkpoint_identity": {"bundle_sha256": "4" * 64},
-        "analysis": {
-            "capture_digests": {
-                "ordered_example_ids_sha256": source[
-                    "ordered_row_ids_sha256"
-                ]
-            },
-            "fold_assignment": {
-                "fold_ids": map_package["crossfit_map"]["row_fold_ids"]
-            },
-        },
+    assert family["writer_site_id"] == r5b.WRITER_SITE_ID
+    assert family["path_role"] == "primary"
+    endpoints = family["endpoints"]
+    assert np.array_equal(endpoints["partner|S"], np.full(n, 0.30))
+    assert np.array_equal(endpoints["partner|N"], np.full(n, 0.28))
+    assert np.allclose(endpoints["specific|S"], np.full(n, 0.29))
+    assert np.allclose(endpoints["specific|N"], np.full(n, 0.29))
+    assert set(name for name in endpoints if name.startswith("adjacent")) == {
+        f"adjacent|offset={offset:+d}|{estimand}"
+        for offset in r5b.ADJACENT_TOKEN_OFFSETS
+        for estimand in ("S", "N")
     }
-    artifact = tmp_path / "preflight.json"
-    artifact.write_text(json.dumps(record, sort_keys=True))
-    artifact_hash = r5b.sha256_file(artifact)
-    manifest = {
-        "git_dirty": False,
-        "outputs": [
-            {
-                "path": str(artifact),
-                "size_bytes": artifact.stat().st_size,
-                "sha256": artifact_hash,
-            },
-            {
-                "path": str(max_path),
-                "size_bytes": max_path.stat().st_size,
-                "sha256": r5b.sha256_file(max_path),
-            },
-        ],
+    assert {"gene_generic|S", "gene_generic|N"} <= set(endpoints)
+    assert {"readout_axis|S", "readout_axis|N"} <= set(endpoints)
+    assert "basis_id" not in family
+
+    changed = copy.deepcopy(partner)
+    changed["estimands"]["S_writer"][0] += 1.0
+    with pytest.raises(ValueError, match="replay"):
+        r5b.build_dense_local_writer_family(
+            partner=changed,
+            pseudo=pseudo,
+            adjacent_by_offset=adjacent,
+            gene_generic=_dense_record("gene_generic", np.zeros(n), np.zeros(n)),
+            readout_axis=_dense_record("readout_axis", np.zeros(n), np.zeros(n)),
+            health={"clean_noop": np.zeros(n), "corrupt_noop": np.zeros(n)},
+        )
+
+
+def test_studentized_family_requires_mean_and_ten_percent_trimmed_mean():
+    rng = np.random.default_rng(17)
+    genes = [f"gene-{index:03d}" for index in range(96)]
+    endpoints = {
+        "material": rng.normal(0.24, 0.025, len(genes)),
+        "equivalent": rng.normal(0.00, 0.006, len(genes)),
+        "health": rng.normal(0.00, 0.002, len(genes)),
     }
-    artifact.with_suffix(".manifest.json").write_text(json.dumps(manifest))
-    monkeypatch.setattr(r5b, "FROZEN_PREFLIGHT_ARTIFACT_SHA256", artifact_hash)
-    monkeypatch.setattr(
-        r5b,
-        "validate_analysis_replay",
-        lambda _analysis: {"all_replayed": True},
-    )
-
-    verified, package = r5b.verify_preflight_artifact(
-        artifact,
-        fingerprint=local_fingerprint,
-        binding_payload=binding_payload,
-    )
-    assert verified["r5_stack_fingerprint_sha256"] == stack_fingerprint
-    assert package["replay"]["all_replayed"] is True
-
-
-def test_checkpoint_digest_is_r3c_r5a_compatible_relative_path_bundle(tmp_path):
-    model = tmp_path / "model"
-    model.mkdir()
-    (model / "config.json").write_text("{}\n")
-    weights = model / "weights.bin"
-    weights.write_bytes(b"weights")
-    identity = r5b.checkpoint_identity(str(model))
-    expected = [
+    result = r5b.robust_studentized_family_inference(
+        endpoints,
         {
-            "relative_path": row["relative_path"],
-            "size_bytes": row["size_bytes"],
-            "sha256": row["sha256"],
+            "material": "material_positive",
+            "equivalent": "equivalent",
+            "health": "noninferior",
+        },
+        genes,
+        n_draws=1_999,
+        alpha=0.05,
+        seed=3,
+        tier="development",
+    )
+    assert result["all_requirements_pass"] is True
+    assert result["estimators"] == ["mean", "trimmed_mean_10pct"]
+    assert result["inference"] == "studentized cluster bootstrap inversion"
+    assert result["exact_test_claimed"] is False
+    assert result["one_row_per_gene"] is True
+
+    tail_driven = rng.normal(0.04, 0.003, len(genes))
+    tail_driven[:2] = 12.0
+    fragile = r5b.robust_studentized_family_inference(
+        {"material": tail_driven},
+        {"material": "material_positive"},
+        genes,
+        n_draws=1_999,
+        alpha=0.05,
+        seed=4,
+        tier="development",
+    )
+    assert fragile["by_endpoint"]["material"]["mean"]["observed"] > r5b.SESOI
+    assert fragile["by_endpoint"]["material"]["trimmed_mean_10pct"][
+        "observed"
+    ] < r5b.SESOI
+    assert fragile["all_requirements_pass"] is False
+
+    with pytest.raises(ValueError, match="at least 10000"):
+        r5b.robust_studentized_family_inference(
+            {"material": endpoints["material"]},
+            {"material": "material_positive"},
+            genes,
+            n_draws=9_999,
+            alpha=0.05,
+            seed=5,
+            tier="production",
+        )
+
+
+def test_dense_fixed_sequence_stops_on_health_before_scientific_patterns():
+    rng = np.random.default_rng(21)
+    n = 96
+    genes = [f"gene-{index:03d}" for index in range(n)]
+    partner = _dense_record(
+        "partner", rng.normal(0.25, 0.02, n), rng.normal(0.24, 0.02, n)
+    )
+    pseudo = _dense_record(
+        "pseudo", rng.normal(0.0, 0.005, n), rng.normal(0.0, 0.005, n)
+    )
+    adjacent = {
+        offset: _dense_record(
+            f"adjacent:{offset:+d}",
+            rng.normal(0.0, 0.005, n),
+            rng.normal(0.0, 0.005, n),
+        )
+        for offset in r5b.ADJACENT_TOKEN_OFFSETS
+    }
+    family = r5b.build_dense_local_writer_family(
+        partner=partner,
+        pseudo=pseudo,
+        adjacent_by_offset=adjacent,
+        gene_generic=_dense_record("gene_generic", np.zeros(n), np.zeros(n)),
+        readout_axis=_dense_record("readout_axis", np.zeros(n), np.zeros(n)),
+        health={
+            "clean_noop": rng.normal(-0.04, 0.003, n),
+            "corrupt_noop": rng.normal(0.0, 0.002, n),
+        },
+    )
+    decision = r5b.classify_dense_local_writer(
+        family, genes, n_draws=1_999, seed=9
+    )
+    assert decision["status"] == "INSTRUMENT_UNRESOLVED_NOOP_HEALTH"
+    assert decision["fixed_sequence"][0]["stage"] == "paired_noop_health"
+    assert decision["fixed_sequence"][0]["pass"] is False
+    assert decision["claim_eligible"] is False
+
+
+def test_low_rank_candidate_is_nested_derive_validate_then_union_refit_only():
+    rng = np.random.default_rng(31)
+    width = 40
+    latent = np.linalg.qr(rng.normal(size=(width, 6)))[0].T
+    bucket0 = rng.normal(size=(96, 6)) @ latent + rng.normal(
+        scale=0.02, size=(96, width)
+    )
+    bucket1 = rng.normal(size=(92, 6)) @ latent + rng.normal(
+        scale=0.02, size=(92, width)
+    )
+    derivation_fit = r5b.fit_local_writer_basis(
+        bucket0,
+        maximum_rank=max(r5b.RANK_GRID),
+        stage="derivation",
+        source_bucket=0,
+    )
+    outcomes = {
+        rank: {
+            "mean_partner_s": {1: 0.20, 2: 0.60, 4: 0.92, 8: 0.96, 16: 1.0, 32: 1.0}[rank],
+            "trimmed_partner_s": {1: 0.18, 2: 0.58, 4: 0.91, 8: 0.95, 16: 0.99, 32: 0.99}[rank],
+            "nested_path_pass": rank >= 4,
+            "crossfold_stability_pass": rank >= 4,
+            "all_rank_energy_random_controls_pass": rank >= 4,
         }
-        for row in identity["files"]
-    ]
-    assert [row["relative_path"] for row in expected] == [
-        "config.json",
-        "weights.bin",
-    ]
-    assert identity["bundle_sha256"] == r5b.canonical_sha256(expected)
-    assert "R3c-compatible" in identity["aggregate_schema"]
+        for rank in r5b.RANK_GRID
+    }
+    candidate = r5b.select_derivation_candidate_rank(
+        derivation_fit,
+        outcomes,
+        dense_development_status="DENSE_LOCAL_WRITER_DEVELOPMENT_SUPPORTED",
+    )
+    assert candidate["selected_rank"] == 4
+    assert candidate["path_role"] == "nested_candidate_only"
+    assert candidate["dense_path_depends_on_selection"] is False
+
+    validation = r5b.validate_frozen_candidate_on_bucket1(
+        candidate,
+        derivation_fit,
+        bucket1,
+        evaluated_ranks=[4],
+        nested_outcome_pass=True,
+        random_controls_pass=True,
+        n_overlap_draws=199,
+        seed=6,
+    )
+    assert validation["status"] == "NESTED_CANDIDATE_VALIDATED_FOR_REFIT"
+    assert validation["rank_refit_during_validation"] is False
+    assert validation["rank_rescanned_during_validation"] is False
+
+    row0 = [f"b0-{index:03d}" for index in range(len(bucket0))]
+    row1 = [f"b1-{index:03d}" for index in range(len(bucket1))]
+    frozen = r5b.mechanical_union_refit(
+        bucket0,
+        bucket1,
+        row_ids_bucket0=row0,
+        row_ids_bucket1=row1,
+        candidate=candidate,
+        validation=validation,
+        readout_axis=np.linspace(-1.0, 1.0, width),
+        seed=7,
+    )
+    assert frozen["selected_rank"] == 4
+    assert frozen["basis"].shape == (4, width)
+    assert frozen["random_bases"].shape == (
+        r5b.N_RANDOM_CONTROLS,
+        4,
+        width,
+    )
+    assert frozen["source_buckets"] == [0, 1]
+    assert frozen["fit_timing"] == "after_bucket1_validation_locked"
+    assert frozen["target_refit_forbidden"] is True
+    assert frozen["target_rank_selection_forbidden"] is True
+    assert frozen["gene_generic_axis"].shape == (width,)
+    assert frozen["readout_axis"].shape == (width,)
 
 
-def test_entry_chain_consumes_shared_r5_contract_and_binds_checkpoint(
-    tmp_path, monkeypatch
+def test_bucket0_candidate_outcomes_are_crossfit_one_row_per_gene():
+    genes = [f"gene-{index:03d}" for index in range(128)]
+    reversed_genes = list(reversed(genes))
+    first = r5b.exact_derivation_fold_ids(genes)
+    second = r5b.exact_derivation_fold_ids(reversed_genes)
+    assert dict(zip(genes, first)) == dict(zip(reversed_genes, second))
+    assert tuple(np.bincount(first).tolist()) == (64, 64)
+    rows = np.random.default_rng(37).normal(size=(128, 40))
+    package = r5b.fit_crossfit_derivation_bases(rows, genes, maximum_rank=32)
+    assert package["whole_bucket_fit"]["n_rows"] == 128
+    for fold in package["evaluation_folds"]:
+        assert fold["n_fit_rows"] == 64
+        assert fold["n_evaluation_rows"] == 64
+        assert not set(fold["fit_genes"]) & set(fold["evaluation_genes"])
+
+
+def test_target_cannot_fit_select_or_rescan_the_nested_basis():
+    rows = np.random.default_rng(41).normal(size=(64, 40))
+    with pytest.raises(r5b.TargetSealError, match="target"):
+        r5b.fit_local_writer_basis(
+            rows,
+            maximum_rank=8,
+            stage="target",
+            source_bucket=None,
+        )
+    fit = r5b.fit_local_writer_basis(
+        rows, maximum_rank=32, stage="derivation", source_bucket=0
+    )
+    with pytest.raises(ValueError, match="exactly once"):
+        r5b.validate_frozen_candidate_on_bucket1(
+            {"selected_rank": 4, "schema": r5b.R5B_SCHEMA + ".candidate"},
+            fit,
+            rows,
+            evaluated_ranks=[2, 4],
+            nested_outcome_pass=True,
+            random_controls_pass=True,
+            n_overlap_draws=199,
+            seed=0,
+        )
+
+
+def _subspace_record(
+    leg: str,
+    sufficiency: np.ndarray,
+    necessity: np.ndarray,
+    *,
+    basis_id: str = "frozen-U_A",
 ):
-    checkpoint = "a" * 64
-    source_identity = {
-        "gtf": {"label": "test-gtf", "size_bytes": 1, "sha256": "1" * 64},
-        "fasta": {"label": "test-fasta", "size_bytes": 2, "sha256": "2" * 64},
-    }
-    historical = ["historical"]
-    bucket_genes = {"0": ["r3c-a"], "1": ["r3c-b"]}
-    r3c_genes = ["r3c-a", "r3c-b"]
-    census = {
-        "historical_r3_gene_count": 1,
-        "historical_r3_gene_ids_sha256": r5b.canonical_sha256(historical),
-        "r3c_gene_count": 2,
-        "r3c_gene_ids_sha256": r5b.canonical_sha256(r3c_genes),
-    }
-    stack = {"schema": "gfmcd.r5.stack_binding/1", "runtime_identity": {"test": True}}
-    stack_fingerprint = r5b.canonical_sha256(stack)
-    monkeypatch.setattr(r5b, "R5_EXPECTED_SOURCE_IDENTITY", source_identity)
-    monkeypatch.setattr(r5b, "R5_EXPECTED_CENSUS_IDENTITY", census)
-    monkeypatch.setattr(r5b, "EXPECTED_COHORT_CENSUS", {"test": "census"})
-    monkeypatch.setattr(r5b, "build_r5_stack_binding", lambda **_kwargs: stack)
-    monkeypatch.setattr(r5b, "r5_stack_fingerprint", lambda value: r5b.canonical_sha256(value))
-    monkeypatch.setattr(
-        r5b,
-        "validate_serialized_r5_stack",
-        lambda record, current: {"verified": record["r5_stack_binding"] == current},
+    zero = np.zeros_like(sufficiency)
+    return r5b.local_writer_subspace_estimands(
+        m_clean=necessity,
+        m_corrupt=zero,
+        m_corrupt_with_projected_writer=sufficiency,
+        m_clean_without_projected_writer=zero,
+        leg_id=leg,
+        writer_site_id=r5b.WRITER_SITE_ID,
+        basis_id=basis_id,
     )
-    monkeypatch.setattr(
-        r5b,
-        "validate_expected_r5_census_identity",
-        lambda _audit: {"test": "census"},
+
+
+def test_nested_family_retains_all_rank_energy_nulls_and_does_not_gate_dense():
+    rng = np.random.default_rng(51)
+    n, width, rank = 64, 40, 4
+    delta = rng.normal(size=(n, width))
+    basis = np.linalg.qr(rng.normal(size=(width, rank)))[0].T
+    random_bases = np.stack(
+        [
+            np.linalg.qr(rng.normal(size=(width, rank)))[0].T
+            for _ in range(r5b.N_RANDOM_CONTROLS)
+        ]
     )
-    health_suppressed = set(R3C_HISTORICAL_HEALTH_SUPPRESSED_PATHS)
-    health_authorized = [
-        name for name in R3C_PATH_NAMES if name not in health_suppressed
+    projections = r5b.energy_matched_rank_random_projections(
+        delta, basis=basis, random_bases=random_bases
+    )
+    target_basis_id = projections["audit"]["target_basis_id"]
+    target_norm = np.linalg.norm(projections["target_projection"], axis=1)
+    random_norm = np.linalg.norm(projections["random_projections"], axis=2)
+    assert np.allclose(random_norm, target_norm[None, :], rtol=1e-12, atol=1e-12)
+    assert projections["rank"] == rank
+    assert projections["n_random_controls"] == r5b.N_RANDOM_CONTROLS
+
+    partner = _subspace_record(
+        "partner", np.full(n, 0.2), np.full(n, 0.19), basis_id=target_basis_id
+    )
+    pseudo = _subspace_record(
+        "pseudo", np.zeros(n), np.zeros(n), basis_id=target_basis_id
+    )
+    adjacent = {
+        offset: _subspace_record(
+            f"adjacent:{offset:+d}",
+            np.zeros(n),
+            np.zeros(n),
+            basis_id=target_basis_id,
+        )
+        for offset in r5b.ADJACENT_TOKEN_OFFSETS
+    }
+    random_records = {
+        draw: _subspace_record(
+            f"random:{draw:02d}",
+            np.full(n, 0.01),
+            np.full(n, 0.01),
+            basis_id=projections["audit"]["random_basis_ids"][draw],
+        )
+        for draw in range(r5b.N_RANDOM_CONTROLS)
+    }
+    family = r5b.build_nested_local_writer_family(
+        partner=partner,
+        pseudo=pseudo,
+        adjacent_by_offset=adjacent,
+        gene_generic=_subspace_record(
+            "gene_generic", np.full(n, 0.12), np.full(n, 0.11), basis_id=target_basis_id
+        ),
+        readout_axis=_subspace_record(
+            "readout_axis", np.full(n, 0.08), np.full(n, 0.07), basis_id=target_basis_id
+        ),
+        random_by_draw=random_records,
+        rank=rank,
+        projection_audit=projections["audit"],
+    )
+    assert family["path_role"] == "nested_candidate_only"
+    assert family["dense_path_depends_on_this_family"] is False
+    assert len(
+        [name for name in family["endpoints"] if name.startswith("target_minus_random")]
+    ) == 2 * r5b.N_RANDOM_CONTROLS
+    assert family["rank_energy_random_control_count"] == r5b.N_RANDOM_CONTROLS
+    decision = r5b.classify_nested_local_writer_family(
+        family,
+        [f"gene-{index:03d}" for index in range(n)],
+        n_draws=199,
+        seed=2,
+    )
+    assert decision["nested_path_pass"] is True
+    assert decision["dense_path_status_changed"] is False
+    assert decision["claim_eligible"] is False
+
+
+def test_v2_public_registries_bind_dense_and_every_nested_control_edge():
+    primitive = r5b.causal_primitive_names()
+    family = r5b.causal_family_names()
+    edges = r5b.causal_boundary_edge_registry()
+    assert len(primitive) == len(set(primitive))
+    assert len(family) == len(set(family))
+    assert len({row["edge_id"] for row in edges}) == len(edges)
+    assert any("dense|partner|S" == name for name in family)
+    assert any("nested|rank=4|target_minus_random|draw=31|N" == name for name in family)
+    assert all(row["estimator"] in r5b.ESTIMATOR_NAMES for row in edges)
+    assert {
+        row["requirement"] for row in edges
+    } == {"material_positive", "positive", "equivalent", "noninferior"}
+    calibration = r5b.prospective_calibration_trial_count()
+    assert calibration["decision_edge_count"] == len(edges)
+    assert calibration["trial_count"] >= 2 * len(edges)
+    assert calibration["scientific_error_control_claimed"] is False
+
+
+def test_frozen_runtime_bundle_authenticates_basis_controls_and_upstream_manifests(tmp_path):
+    rng = np.random.default_rng(61)
+    rank, width = 4, 40
+    basis = np.linalg.qr(rng.normal(size=(width, rank)))[0].T
+    random_bases = np.stack(
+        [
+            np.linalg.qr(rng.normal(size=(width, rank)))[0].T
+            for _ in range(r5b.N_RANDOM_CONTROLS)
+        ]
+    )
+    frozen = {
+        "schema": r5b.R5B_BASIS_BUNDLE_SCHEMA,
+        "writer_site_id": r5b.WRITER_SITE_ID,
+        "selected_rank": rank,
+        "basis": basis,
+        "random_bases": random_bases,
+        "gene_generic_axis": np.ones(width) / np.sqrt(width),
+        "readout_axis": np.linspace(-1, 1, width) / np.linalg.norm(np.linspace(-1, 1, width)),
+        "ordered_development_row_ids_sha256": "1" * 64,
+        "source_buckets": [0, 1],
+        "fit_timing": "after_bucket1_validation_locked",
+        "target_refit_forbidden": True,
+        "target_rank_selection_forbidden": True,
+        "target_basis_mutation_forbidden": True,
+    }
+    arrays = r5b.frozen_basis_runtime_arrays(frozen)
+    payload = r5b.npz_bytes(arrays)
+    path = tmp_path / "r5b-frozen-basis.npz"
+    path.write_bytes(payload)
+    bindings = {
+        name: {"artifact_sha256": char * 64, "manifest_sha256": char * 64}
+        for name, char in (
+            ("r5a_entry", "a"),
+            ("r5b_derivation", "b"),
+            ("r5b_validation", "c"),
+        )
+    }
+    contract = r5b.frozen_basis_runtime_contract(
+        frozen,
+        bundle_path=path,
+        bundle_bytes=payload,
+        checkpoint_sha256="d" * 64,
+        cohort_audit_sha256="e" * 64,
+        r5_stack_fingerprint_sha256="f" * 64,
+        artifact_bindings=bindings,
+        post_wo_writer_contract={
+            "writer_site_id": r5b.WRITER_SITE_ID,
+            "representation": (
+                "post_W_O_L3H1_additive_contribution_at_acceptor_query"
+            ),
+            "bias_included": False,
+            "residual_width": width,
+        },
+    )
+    assert contract["schema"] == r5b.R5B_BASIS_CONTRACT_SCHEMA
+    assert contract["basis_id"] == "sha256:" + r5b.array_sha256(basis, dtype=None)
+    assert contract["random_basis_ids"] == [
+        "sha256:" + r5b.array_sha256(random_bases[draw], dtype=None)
+        for draw in range(r5b.N_RANDOM_CONTROLS)
     ]
-    r3c_record = {
-        "schema": r5b.R3C_ENTRY_SCHEMA,
-        "instrument_revision": R3C_INSTRUMENT_REVISION,
-        "stage": "target",
-        "status": "CONFIRMATORY",
-        "tier": "HELD_OUT_TARGET",
-        "split": "val",
-        "gene_bucket": 1,
-        "verdict": "HELD_OUT_ACCEPTOR_HEAD_CONFIRMATION_COMPLETE",
-        "all_gates_pass": True,
-        "sealed_split_opened": False,
-        "protocol_status": "FROZEN_PROTOCOL_AND_INSTRUMENT_VERIFIED",
-        "primary_estimand": "raw masked-acceptor-G logit-margin component drop",
-        "paths": {
-            name: {
-                "classification": (
-                    "HEALTH_FAILED" if name in health_suppressed else "SUPPORTED"
-                ),
-                "health": {
-                    "ok": name not in health_suppressed,
-                    "preflight_health_ok": name not in health_suppressed,
-                    "current_health_ok": True,
-                    "authorization_rule": R3C_PATH_HEALTH_RULE,
-                },
-            }
-            for name in R3C_PATH_NAMES
-        },
-        "path_health_authorization": {
-            "schema": R3C_TARGET_HEALTH_SCHEMA,
-            "rule": R3C_TARGET_HEALTH_RULE,
-            "can_only_shrink_from_preflight": True,
-            "preflight_authorized_paths": health_authorized,
-            "preflight_suppressed_paths": list(
-                R3C_HISTORICAL_HEALTH_SUPPRESSED_PATHS
-            ),
-            "current_healthy_paths": list(R3C_PATH_NAMES),
-            "effective_authorized_paths": health_authorized,
-            "effective_suppressed_paths": list(
-                R3C_HISTORICAL_HEALTH_SUPPRESSED_PATHS
-            ),
-        },
-        "family": {
-            "production_path_preflight": {
-                "all_health_eligible_path_plants_powered": True,
-                "health_eligible_paths": list(R3C_PATH_NAMES),
-            }
-        },
-        "construction": {
-            "schema": "gfmcd.r3c.acceptor_only_construction/1",
-            "all_single_acceptor_G": True,
-            "ordered_rows_sha256": "3" * 64,
-            "policy": {
-                "readout": "mask exactly one G at next_acceptor_pos - 1",
-                "paired_operator": "GT -> AC at donor_pos",
-                "donor_readout_constructed": False,
-            },
-        },
-        "instrument_binding_payload": {"readout": "next_acceptor_pos - 1 only"},
-        "instrument_fingerprint_sha256": "4" * 64,
-        "input_snapshot_sha256": "5" * 64,
-        "git_authorization_identity": {"commit": "6" * 40, "dirty": False},
-        "gates": {"test_gate": True},
-        "hashes": {
-            "checkpoint_aggregate_sha256": checkpoint,
-            "sources": source_identity,
-        },
-        "cohort_audit": {
-            "historical_reconstruction": {"excluded_gene_ids": historical},
-            "current_census": {
-                "fixed_selection_gene_ids_by_bucket": {
-                    bucket: {
-                        "gene_ids": genes,
-                        "gene_ids_sha256": r5b.canonical_sha256(genes),
-                    }
-                    for bucket, genes in bucket_genes.items()
-                }
-            },
-        },
+    assert contract["target_policy"]["refit"] == "forbidden"
+    assert contract["target_policy"]["rank_selection"] == "forbidden"
+    assert contract["upstream_artifact_bindings"] == bindings
+    loaded = r5b.load_frozen_basis_runtime_bundle(path, contract=contract)
+    assert np.array_equal(loaded["frozen_basis"], basis)
+    assert np.array_equal(loaded["random_bases"], random_bases)
+
+    changed = copy.deepcopy(contract)
+    changed["upstream_artifact_bindings"]["r5b_validation"][
+        "manifest_sha256"
+    ] = "0" * 64
+    with pytest.raises(r5b.InstrumentError, match="contract digest"):
+        r5b.load_frozen_basis_runtime_bundle(path, contract=changed)
+
+    inconsistent_arrays = dict(arrays)
+    inconsistent_arrays["selected_rank"] = np.asarray(rank + 1, dtype="<i8")
+    inconsistent_payload = r5b.npz_bytes(inconsistent_arrays)
+    inconsistent_path = tmp_path / "r5b-inconsistent-rank.npz"
+    inconsistent_path.write_bytes(inconsistent_payload)
+    inconsistent_contract = copy.deepcopy(contract)
+    inconsistent_contract["bundle"] = {
+        "file_name": inconsistent_path.name,
+        "size_bytes": len(inconsistent_payload),
+        "sha256": hashlib.sha256(inconsistent_payload).hexdigest(),
     }
-    r3c_path = tmp_path / "r3c.json"
-    r5a_path = tmp_path / "r5a.json"
-    r3c_path.write_text(json.dumps(r3c_record))
-    r3c_manifest_path = r3c_path.with_suffix(".manifest.json")
-    r3c_manifest_path.write_text(
+    selected = inconsistent_arrays["selected_rank"]
+    inconsistent_contract["runtime_arrays"]["selected_rank"] = {
+        "shape": list(selected.shape),
+        "dtype": selected.dtype.str,
+        "sha256": r5b.array_sha256(selected, dtype=None),
+    }
+    inconsistent_contract["contract_sha256"] = r5b.canonical_sha256(
+        {
+            key: value
+            for key, value in inconsistent_contract.items()
+            if key != "contract_sha256"
+        }
+    )
+    with pytest.raises(r5b.InstrumentError, match="selected rank"):
+        r5b.load_frozen_basis_runtime_bundle(
+            inconsistent_path, contract=inconsistent_contract
+        )
+
+
+def test_r5b_declares_r5c_target_hooks_but_has_no_biological_target_stage():
+    hook = r5b.r5c_target_attempt_hook_locations()
+    assert hook["owner_stage"] == "R5c biological target"
+    assert hook["reserve_after"] == "all predecessor and upstream packages authenticated"
+    assert hook["reserve_before"] == "cohort/path/model/output inspection"
+    assert hook["complete_after"] == "immutable result and manifest publication"
+    assert hook["r5b_calls_target_ledger"] is False
+    for stage in ("audit", "derivation", "validation", "freeze"):
+        assert r5b.authorize_r5b_stage(stage) is None
+    with pytest.raises(ValueError, match="unknown R5b development stage"):
+        r5b.authorize_r5b_stage("target")
+
+
+def test_residual_bucket_receipt_and_completion_are_create_only(tmp_path):
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    subprocess.run(["git", "init", "-q", str(repo)], check=True)
+    identity = r5b.build_r5b_residual_attempt_identity(
+        stage="derivation",
+        checkpoint_sha256="1" * 64,
+        cohort_input_sha256="2" * 64,
+        cohort_audit_sha256="3" * 64,
+    )
+    completion_name = f"{identity['residual_attempt_key']}.completion.json"
+    context = {
+        "protocol_sha256": "4" * 64,
+        "instrument_fingerprint_sha256": "5" * 64,
+        "r5_stack_fingerprint_sha256": "6" * 64,
+        "r3d_artifact_sha256": "7" * 64,
+        "r3d_manifest_sha256": "8" * 64,
+        "r5a_preflight_artifact_sha256": "9" * 64,
+        "r5a_preflight_manifest_sha256": "a" * 64,
+        "predecessor_artifact_sha256": None,
+        "predecessor_manifest_sha256": None,
+        "predecessor_completion_sha256": None,
+        "requested_artifact_logical_name": "derivation.json",
+        "requested_manifest_logical_name": "derivation.manifest.json",
+        "declared_completion_logical_name": completion_name,
+        "scoring_origin": "direct_checkpoint_scoring_in_r5b_process",
+    }
+    receipt = r5b.reserve_r5b_residual_attempt(
+        repo=repo, identity=identity, method_context=context
+    )
+    with pytest.raises(r5b.ResidualAttemptSpentError, match="remains spent"):
+        r5b.reserve_r5b_residual_attempt(
+            repo=repo, identity=identity, method_context=context
+        )
+
+    artifact = tmp_path / "derivation.json"
+    artifact_record = {
+        "schema": r5b.R5B_DERIVATION_SCHEMA,
+        "stage": "derivation",
+        "status": "NO_DERIVATION_CANDIDATE_AT_FROZEN_THRESHOLDS",
+        "direct_model_scoring": True,
+        "external_provider_artifact_accepted": False,
+        "residual_attempt": r5b.residual_attempt_publication_identity(receipt),
+        "residual_completion": {"logical_name": completion_name},
+    }
+    artifact.write_text(json.dumps(artifact_record, sort_keys=True))
+    manifest = tmp_path / "derivation.manifest.json"
+    manifest.write_text(
         json.dumps(
             {
-                "experiment_id": "splicebert_acceptor_coupling:r3c_acceptor_head_confirmation",
-                "status": "CONFIRMATORY",
                 "git_dirty": False,
-                "git_commit": "6" * 40,
-                "config": {
-                    "stage": "target",
-                    "gene_bucket": 1,
-                    "instrument_fingerprint_sha256": "4" * 64,
-                    "construction_sha256": "3" * 64,
-                    "input_snapshot_sha256": "5" * 64,
-                },
                 "outputs": [
                     {
-                        "path": str(r3c_path),
-                        "size_bytes": r3c_path.stat().st_size,
-                        "sha256": r5b.sha256_file(r3c_path),
+                        "path": str(artifact),
+                        "size_bytes": artifact.stat().st_size,
+                        "sha256": r5b.sha256_file(artifact),
                     }
                 ],
-            }
+            },
+            sort_keys=True,
         )
     )
-    registry_payload = {
-        "schema": "gfmcd.r5.exclusion_registry/1",
-        "derivation": "authenticated R3c target cohort audit; no free gene-list input",
-        "r3c_artifact": {
-            "path": str(r3c_path),
-            "size_bytes": r3c_path.stat().st_size,
-            "sha256": r5b.sha256_file(r3c_path),
-        },
-        "r3c_manifest": {
-            "path": str(r3c_manifest_path),
-            "size_bytes": r3c_manifest_path.stat().st_size,
-            "sha256": r5b.sha256_file(r3c_manifest_path),
-        },
-        "source_identity": source_identity,
-        "historical_r3_gene_ids": historical,
-        "r3c_gene_ids_by_bucket": bucket_genes,
-        "r3c_gene_ids": r3c_genes,
-        "expected_census_identity_sha256": r5b.canonical_sha256(census),
+    completion = r5b.complete_r5b_residual_attempt(
+        receipt=receipt,
+        artifact_path=artifact,
+        manifest_path=manifest,
+        official_status=artifact_record["status"],
+    )
+    authenticated = r5b.verify_r5b_residual_completion(
+        artifact,
+        manifest,
+        completion["completion_path"],
+        expected_stage="derivation",
+    )
+    assert authenticated["authenticated"] is True
+    assert authenticated["completion_record"]["official_status"] == (
+        artifact_record["status"]
+    )
+    with pytest.raises(r5b.ResidualAttemptSpentError, match="remains spent"):
+        r5b.complete_r5b_residual_attempt(
+            receipt=receipt,
+            artifact_path=artifact,
+            manifest_path=manifest,
+            official_status=artifact_record["status"],
+        )
+
+
+def test_residual_bucket_receipt_is_durable_before_reservation_returns(
+    tmp_path, monkeypatch
+):
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    subprocess.run(["git", "init", "-q", str(repo)], check=True)
+    identity = r5b.build_r5b_residual_attempt_identity(
+        stage="derivation",
+        checkpoint_sha256="1" * 64,
+        cohort_input_sha256="2" * 64,
+        cohort_audit_sha256="3" * 64,
+    )
+    context = {
+        "protocol_sha256": "4" * 64,
+        "instrument_fingerprint_sha256": "5" * 64,
+        "r5_stack_fingerprint_sha256": "6" * 64,
+        "r3d_artifact_sha256": "7" * 64,
+        "r3d_manifest_sha256": "8" * 64,
+        "r5a_preflight_artifact_sha256": "9" * 64,
+        "r5a_preflight_manifest_sha256": "a" * 64,
+        "predecessor_artifact_sha256": None,
+        "predecessor_manifest_sha256": None,
+        "predecessor_completion_sha256": None,
+        "requested_artifact_logical_name": "derivation.json",
+        "requested_manifest_logical_name": "derivation.manifest.json",
+        "declared_completion_logical_name": (
+            f"{identity['residual_attempt_key']}.completion.json"
+        ),
+        "scoring_origin": "direct_checkpoint_scoring_in_r5b_process",
     }
-    registry_record = registry_payload | {
-        "record_sha256": r5b.canonical_sha256(registry_payload)
-    }
-    registry_path = tmp_path / "r5a.exclusion-registry.json"
-    registry_path.write_text(json.dumps(registry_record))
-    registry_identity = {
-        "path": str(registry_path),
-        "size_bytes": registry_path.stat().st_size,
-        "sha256": r5b.sha256_file(registry_path),
-        "record_sha256": registry_record["record_sha256"],
-    }
-    r5a_record = {
-        "schema": "gfmcd.r5a.acceptor_address_binding/1",
-        "stage": "target",
-        "status": "L3H1_DONOR_LOCAL_READER_SUPPORTED",
+    sync_kinds = []
+    real_fsync = r5b.os.fsync
+
+    def record_fsync(descriptor):
+        mode = r5b.os.fstat(descriptor).st_mode
+        sync_kinds.append("directory" if stat.S_ISDIR(mode) else "file")
+        real_fsync(descriptor)
+
+    monkeypatch.setattr(r5b.os, "fsync", record_fsync)
+    r5b.reserve_r5b_residual_attempt(
+        repo=repo,
+        identity=identity,
+        method_context=context,
+    )
+
+    assert sync_kinds == ["file", "directory"]
+
+
+def test_r5b_consumes_only_the_authenticated_r5a_v2_entry_contract(tmp_path, monkeypatch):
+    stack_fingerprint = "1" * 64
+    artifact = tmp_path / "r5a.json"
+    record = {
+        "schema": "gfmcd.r5a.acceptor_address_binding/2",
+        "stage": "preflight",
+        "status": "PREFLIGHT_PASS",
         "all_instrument_gates_pass": True,
-        "bucket": 1,
-        "instrument_fingerprint_sha256": "7" * 64,
-        "construction_sha256": "c" * 64,
-        "git": {"commit": "8" * 40, "dirty": False},
-        "r5_stack_binding": stack,
+        "behavioral_endpoint": "masked_acceptor_G_margin_only",
+        "donor_readout_constructed": False,
+        "masked_donor_endpoint_constructed": False,
+        "r5a_opened_chr8_chr9": False,
+        "scientific_entry_authorized": False,
+        "observed_scientific_inference": None,
         "r5_stack_fingerprint_sha256": stack_fingerprint,
-        "instrument_binding": {
-            "r5_stack_binding": stack,
-            "r5_stack_fingerprint_sha256": stack_fingerprint,
-        },
-        "runtime_identity": stack["runtime_identity"],
-        "checkpoint": {"aggregate_sha256": checkpoint},
-        "source_identity": source_identity,
-        "cohort_audit": {"test": "audit"},
-        "r3c_entry": {
-            "path": str(r3c_path),
-            "size_bytes": r3c_path.stat().st_size,
-            "sha256": r5b.sha256_file(r3c_path),
-            "manifest": {
-                "path": str(r3c_manifest_path),
-                "size_bytes": r3c_manifest_path.stat().st_size,
-                "sha256": r5b.sha256_file(r3c_manifest_path),
-            },
-        },
-        "r5_exclusion_registry": {
-            "identity": registry_identity,
-            "record": registry_record,
-            "derived_from_authenticated_r3c": True,
-        },
         "r5_entry_contract": {
-            "schema": "gfmcd.r5.entry_contract/1",
+            "schema": r5b.R5_ENTRY_SCHEMA,
             "instrument_gates_pass": True,
-            "claim_eligible": True,
-            "verdict": "L3H1_DONOR_LOCAL_READER_SUPPORTED",
+            "claim_eligible": False,
+            "verdict": "PREFLIGHT_PASS",
+            "scientific_entry_order": [
+                "authenticated_R3d_Path_A_prior",
+                "authenticated_R1c_validation_preflight_nonentry",
+                "R5a_instrument_preflight",
+            ],
+            "r3d_path_b_used_to_gate": False,
+            "r3c_used_as_scientific_entry": False,
             "acceptor_G_only": True,
             "masked_donor_endpoint_constructed": False,
-            "checkpoint_sha256": checkpoint,
-            "cohort_sha256": "b" * 64,
-            "construction_sha256": "c" * 64,
+            "checkpoint_sha256": "2" * 64,
+            "target_gene_ids_sha256": "3" * 64,
+            "cohort_sha256": "4" * 64,
+            "ordered_row_ids_sha256": "9" * 64,
+            "ordered_gene_ids_sha256": "a" * 64,
+            "construction_sha256": "5" * 64,
             "r5_stack_fingerprint_sha256": stack_fingerprint,
-            "upstream_r3c_artifact_sha256": r5b.sha256_file(r3c_path),
-            "upstream_r3c_manifest_sha256": r5b.sha256_file(r3c_manifest_path),
-            "exclusion_registry_sha256": registry_identity["sha256"],
-            "exclusion_registry_record_sha256": registry_identity["record_sha256"],
+            "upstream_package_chain_sha256": "6" * 64,
         },
     }
-    r5a_path.write_text(json.dumps(r5a_record))
-    r5a_manifest_path = r5a_path.with_suffix(".manifest.json")
-    r5a_manifest_path.write_text(
+    artifact.write_text(json.dumps(record, sort_keys=True))
+    manifest = artifact.with_suffix(".manifest.json")
+    manifest.write_text(
         json.dumps(
             {
-                "experiment_id": "splicebert_acceptor_coupling:r5a_acceptor_address_binding",
-                "status": "L3H1_DONOR_LOCAL_READER_SUPPORTED",
                 "git_dirty": False,
-                "git_commit": "8" * 40,
-                "config": {
-                    "stage": "target",
-                    "bucket": 1,
-                    "instrument_fingerprint_sha256": "7" * 64,
-                    "r5_stack_fingerprint_sha256": stack_fingerprint,
-                    "checkpoint_aggregate_sha256": checkpoint,
-                    "construction_sha256": "c" * 64,
-                },
                 "outputs": [
                     {
-                        "path": str(r5a_path),
-                        "size_bytes": r5a_path.stat().st_size,
-                        "sha256": r5b.sha256_file(r5a_path),
-                    },
-                    registry_identity,
+                        "path": "/relocated/original/r5a.json",
+                        "size_bytes": artifact.stat().st_size,
+                        "sha256": r5b.sha256_file(artifact),
+                    }
                 ],
             }
         )
     )
-    monkeypatch.setattr(r5b, "FROZEN_R3C_ARTIFACT_SHA256", r5b.sha256_file(r3c_path))
-    monkeypatch.setattr(r5b, "FROZEN_R5A_ARTIFACT_SHA256", r5b.sha256_file(r5a_path))
-    entry = r5b.verify_entry_artifacts(r3c_path, r5a_path)
+    monkeypatch.setattr(r5b, "FROZEN_R5A_ARTIFACT_SHA256", r5b.sha256_file(artifact))
+    monkeypatch.setattr(r5b, "FROZEN_R5A_MANIFEST_SHA256", r5b.sha256_file(manifest))
+    entry = r5b.verify_r5a_entry_package(
+        artifact, manifest, expected_stack_fingerprint=stack_fingerprint
+    )
     assert entry["entry_chain_pass"] is True
-    assert entry["checkpoint_sha256"] == checkpoint
-    assert entry["r5a_cohort_sha256"] == "b" * 64
-    assert entry["exclusion_registry"]["sha256"] == registry_identity["sha256"]
+    assert entry["r3d_path_a_prior_consumed_via_r5a"] is True
+    assert entry["r1c_validation_preflight_consumed_via_r5a"] is True
+    assert entry["sealed_target_result_consumed"] is False
+    assert entry["r3d_path_b_reopened"] is False
+    assert entry["r3c_reopened_as_scientific_entry"] is False
 
-    changed = json.loads(r5a_path.read_text())
-    changed["r5_entry_contract"]["checkpoint_sha256"] = "d" * 64
-    r5a_path.write_text(json.dumps(changed))
-    r5a_path.with_suffix(".manifest.json").write_text(
+    changed = copy.deepcopy(record)
+    changed["r5_entry_contract"]["r3d_path_b_used_to_gate"] = True
+    artifact.write_text(json.dumps(changed, sort_keys=True))
+    manifest.write_text(
         json.dumps(
             {
-                "experiment_id": "splicebert_acceptor_coupling:r5a_acceptor_address_binding",
-                "status": "L3H1_DONOR_LOCAL_READER_SUPPORTED",
                 "git_dirty": False,
-                "git_commit": "8" * 40,
-                "config": {
-                    "stage": "target",
-                    "bucket": 1,
-                    "instrument_fingerprint_sha256": "7" * 64,
-                    "r5_stack_fingerprint_sha256": stack_fingerprint,
-                    "checkpoint_aggregate_sha256": checkpoint,
-                    "construction_sha256": "c" * 64,
-                },
                 "outputs": [
                     {
-                        "path": str(r5a_path),
-                        "size_bytes": r5a_path.stat().st_size,
-                        "sha256": r5b.sha256_file(r5a_path),
-                    },
-                    registry_identity,
+                        "path": "/relocated/original/r5a.json",
+                        "size_bytes": artifact.stat().st_size,
+                        "sha256": r5b.sha256_file(artifact),
+                    }
                 ],
             }
         )
     )
-    monkeypatch.setattr(r5b, "FROZEN_R5A_ARTIFACT_SHA256", r5b.sha256_file(r5a_path))
-    with pytest.raises(r5b.TargetSealError, match="checkpoint identities differ"):
-        r5b.verify_entry_artifacts(r3c_path, r5a_path)
+    monkeypatch.setattr(r5b, "FROZEN_R5A_ARTIFACT_SHA256", r5b.sha256_file(artifact))
+    monkeypatch.setattr(r5b, "FROZEN_R5A_MANIFEST_SHA256", r5b.sha256_file(manifest))
+    with pytest.raises(r5b.TargetSealError, match="Path B"):
+        r5b.verify_r5a_entry_package(
+            artifact, manifest, expected_stack_fingerprint=stack_fingerprint
+        )
 
 
-def test_runner_fingerprint_normalization_removes_only_literal_seal_values(tmp_path):
-    first = tmp_path / "first.py"
-    second = tmp_path / "second.py"
-    template = (
-        "FROZEN_PROTOCOL_SHA256: str | None = {value}\n"
-        "FROZEN_INSTRUMENT_FINGERPRINT_SHA256: str | None = {value}\n"
-        "UNCHANGED = 'scientific-method'\n"
+def test_model_free_audit_and_cli_never_need_model_genome_or_chr8_chr9(tmp_path):
+    audit = r5b.run_model_free_audit(n_draws=199)
+    assert audit["all_pass"] is True
+    assert audit["model_loaded"] is False
+    assert audit["genome_opened"] is False
+    assert audit["sealed_chr8_chr9_opened"] is False
+    assert audit["primary_state"]["writer_site_id"] == r5b.WRITER_SITE_ID
+    assert audit["primary_state"]["dense_depends_on_low_rank"] is False
+
+    destination = tmp_path / "audit.json"
+    process = subprocess.run(
+        [
+            sys.executable,
+            str(RUNNER),
+            "--stage",
+            "audit",
+            "--out",
+            str(destination),
+            "--audit-draws",
+            "199",
+        ],
+        cwd=REPO,
+        text=True,
+        capture_output=True,
     )
-    first.write_text(template.format(value="None"))
-    second.write_text(template.format(value=repr("a" * 64)))
-    assert r5b.normalized_runner_record(first)["sha256"] == r5b.normalized_runner_record(
-        second
-    )["sha256"]
-    second.write_text(second.read_text().replace("scientific-method", "changed-method"))
-    assert r5b.normalized_runner_record(first)["sha256"] != r5b.normalized_runner_record(
-        second
-    )["sha256"]
+    assert process.returncode == 0, process.stderr
+    record = json.loads(destination.read_text())
+    assert record["schema"] == "gfmcd.r5b.model_free_audit/2"
+    assert record["all_pass"] is True
 
 
-def test_target_preflight_context_rejects_method_source_and_runtime_mismatch():
-    stack = {"schema": "gfmcd.r5.stack_binding/1"}
-    binding = {
-        "schema": "gfmcd.r5b.instrument_binding/1",
-        "r5_stack_binding": stack,
-        "r5_stack_fingerprint_sha256": r5b.canonical_sha256(stack),
-    }
-    fingerprint = r5b.canonical_sha256(binding)
-    entry = {
-        "r3c": {"sha256": "1" * 64},
-        "r5a": {"sha256": "2" * 64},
-        "checkpoint_sha256": "3" * 64,
-        "r5a_cohort_sha256": "4" * 64,
-        "r5a_construction_sha256": "5" * 64,
-        "r5_stack_binding": stack,
-        "r5_stack_fingerprint_sha256": binding[
-            "r5_stack_fingerprint_sha256"
+def test_scored_stage_seal_fails_before_supplied_paths_while_draft():
+    with pytest.raises(r5b.TargetSealError, match="literal freeze pins"):
+        r5b.authorize_scored_stage("derivation", device="mps")
+    with pytest.raises(ValueError, match="only defined for R5b scored stages"):
+        r5b.authorize_scored_stage("target", device="mps")
+
+
+def test_cli_has_no_external_scored_provider_or_self_attestation_path():
+    assert not hasattr(r5b, "derive_residual_writer_provider")
+    assert not hasattr(r5b, "validate_residual_writer_provider")
+    process = subprocess.run(
+        [
+            sys.executable,
+            str(RUNNER),
+            "--stage",
+            "derivation",
+            "--provider-artifact",
+            "fabricated-provider.json",
         ],
-        "exclusion_registry": {"sha256": "6" * 64},
-        "entry_chain_pass": True,
+        cwd=REPO,
+        text=True,
+        capture_output=True,
+    )
+    assert process.returncode != 0
+    assert "unrecognized arguments: --provider-artifact" in process.stderr
+
+
+class _TinySelfAttention(torch.nn.Module):
+    def forward(self, hidden):
+        return hidden + hidden.mean(dim=1, keepdim=True)
+
+
+class _TinyAttention(torch.nn.Module):
+    def __init__(self, width: int):
+        super().__init__()
+        self.self = _TinySelfAttention()
+        self.output = torch.nn.Module()
+        self.output.dense = torch.nn.Linear(width, width, bias=True)
+        with torch.no_grad():
+            self.output.dense.weight.copy_(torch.eye(width))
+            self.output.dense.bias.zero_()
+
+
+class _TinyLayer(torch.nn.Module):
+    def __init__(self, width: int):
+        super().__init__()
+        self.attention = _TinyAttention(width)
+
+    def forward(self, hidden):
+        context = self.attention.self(hidden)
+        return hidden + self.attention.output.dense(context)
+
+
+class _TinyPredictions(torch.nn.Module):
+    def __init__(self, width: int, vocab: int):
+        super().__init__()
+        self.decoder = torch.nn.Linear(width, vocab, bias=False)
+
+
+class _TinyCls(torch.nn.Module):
+    def __init__(self, width: int, vocab: int):
+        super().__init__()
+        self.predictions = _TinyPredictions(width, vocab)
+
+
+class _TinyBert(torch.nn.Module):
+    def __init__(self, *, width: int = 4, vocab: int = 6):
+        super().__init__()
+        torch.manual_seed(20260817)
+        self.embedding = torch.nn.Embedding(vocab, width)
+        self.layers = torch.nn.ModuleList([_TinyLayer(width) for _ in range(4)])
+        self.cls = _TinyCls(width, vocab)
+        self.forward_calls = 0
+
+    def forward(self, input_ids):
+        self.forward_calls += 1
+        hidden = self.embedding(input_ids)
+        for layer in self.layers:
+            hidden = layer(hidden)
+        # Keep the behavioral endpoints exactly null so this fast scorer test never
+        # enters the optional six-rank path. The decoder remains real and supplies the
+        # authenticated G-vs-A/C/T control axis.
+        logits = self.cls.predictions.decoder(hidden) * 0.0
+        return SimpleNamespace(logits=logits)
+
+
+class _TinyAdapter:
+    def __init__(self):
+        self.model = _TinyBert()
+        self.encoder_layers = self.model.layers
+        self.attention_self_modules = [
+            layer.attention.self for layer in self.encoder_layers
+        ]
+        self.num_layers = len(self.encoder_layers)
+        self.num_heads = 2
+        self.device = torch.device("cpu")
+
+
+class _TinyAcceptorTask:
+    off = 0
+    bid = {"A": 0, "C": 1, "G": 2, "T": 3}
+    mask_id = 4
+
+    def encode(self, sequences, positions):
+        ids = torch.tensor(
+            [[self.bid.get(base, 5) for base in sequence] for sequence in sequences],
+            dtype=torch.long,
+        )
+        for row, position in enumerate(positions):
+            ids[row, int(position)] = self.mask_id
+        return {"input_ids": ids}
+
+    def margin(self, logits, positions):
+        rows = torch.arange(len(positions), device=logits.device)
+        columns = torch.tensor(positions, device=logits.device)
+        values = logits[rows, columns]
+        alternatives = torch.stack(
+            [values[:, self.bid[base]] for base in "ACT"], dim=-1
+        ).max(dim=-1).values
+        return values[:, self.bid["G"]] - alternatives
+
+
+def _tiny_residual_rows(prefix="b0"):
+    return [
+        SimpleNamespace(
+            example=SimpleNamespace(
+                gene_id=f"{prefix}-gene-{index:03d}",
+                example_id=f"{prefix}-row-{index:03d}",
+            ),
+            acceptor_g=4,
+            clean_sequence="AACGTAAA",
+            paired_corrupt_sequence="ATCGTAAA",
+            pseudo_corrupt_sequence="AAGGTAAA",
+        )
+        for index in range(r5b.PRODUCTION_N)
+    ]
+
+
+def _supported_dense_family(n):
+    zero = np.zeros(n)
+    return r5b.build_dense_local_writer_family(
+        partner=_dense_record("partner", np.full(n, 0.30), np.full(n, 0.30)),
+        pseudo=_dense_record("pseudo", zero, zero),
+        adjacent_by_offset={
+            offset: _dense_record(f"adjacent:{offset:+d}", zero, zero)
+            for offset in r5b.ADJACENT_TOKEN_OFFSETS
+        },
+        gene_generic=_dense_record("gene_generic", zero, zero),
+        readout_axis=_dense_record("readout_axis", zero, zero),
+        health={"clean_noop": zero, "corrupt_noop": zero},
+    )
+
+
+def _captured_writer_fixture(*, rank_deficient, seed):
+    rng = np.random.default_rng(seed)
+    n, residual_width, head_width = r5b.PRODUCTION_N, 80, 40
+    if rank_deficient:
+        clean_context = np.outer(
+            np.linspace(0.5, 1.5, n), rng.normal(size=head_width)
+        )
+    else:
+        clean_context = rng.normal(size=(n, head_width))
+    corrupt_context = np.zeros_like(clean_context)
+    pseudo_context = clean_context.copy()
+    block = np.random.default_rng(991).normal(size=(residual_width, head_width))
+    clean_writer = clean_context @ block.T
+    corrupt_writer = corrupt_context @ block.T
+    pseudo_writer = pseudo_context @ block.T
+    provider_record = {
+        "writer_site_id": r5b.WRITER_SITE_ID,
+        "clean_head_context": clean_context,
+        "corrupt_head_context": corrupt_context,
+        "w_o_column_block": block,
+        "clean_writer_contribution": clean_writer,
+        "corrupt_writer_contribution": corrupt_writer,
+        "writer_delta": clean_writer - corrupt_writer,
+        "pseudo_head_context": pseudo_context,
+        "pseudo_writer_contribution": pseudo_writer,
+        "pseudo_delta": clean_writer - pseudo_writer,
+        "numeric_provenance": {
+            "schema": "gfmcd.r5b.post_wo_numeric_provenance/1",
+            "checkpoint_operator_dtype": "float64",
+            "head_context_dtype": "float64",
+            "w_o_column_block_dtype": "float64",
+            "writer_contribution_dtype": "float64",
+            "replay_operator": "torch.nn.functional.linear",
+            "relative_tolerance": 0.0,
+            "absolute_tolerance": 1e-5,
+        },
+        "bias_included": False,
     }
-    source = {"gtf": {"sha256": "7" * 64}}
-    cohort = {
-        "selected_by_bucket": {
-            "0": {
-                "ordered_rows_sha256": "8" * 64,
-                "construction_sha256": "9" * 64,
-            }
+    return {
+        "provider_record": provider_record,
+        "clean_writer": clean_writer,
+        "partner_writer": corrupt_writer,
+        "pseudo_writer": pseudo_writer,
+        "partner_delta": clean_writer - corrupt_writer,
+        "pseudo_delta": clean_writer - pseudo_writer,
+        "readout_axis": np.eye(1, residual_width, 0, dtype=np.float64)[0],
+    }
+
+
+def _nested_family_fixture(*, n, rank, projection_audit):
+    target_id = projection_audit["target_basis_id"]
+    zero = np.zeros(n)
+    random_ids = projection_audit["random_basis_ids"]
+    return r5b.build_nested_local_writer_family(
+        partner=_subspace_record(
+            "partner", np.full(n, 0.20), np.full(n, 0.20), basis_id=target_id
+        ),
+        pseudo=_subspace_record("pseudo", zero, zero, basis_id=target_id),
+        adjacent_by_offset={
+            offset: _subspace_record(
+                f"adjacent:{offset:+d}", zero, zero, basis_id=target_id
+            )
+            for offset in r5b.ADJACENT_TOKEN_OFFSETS
+        },
+        gene_generic=_subspace_record("gene_generic", zero, zero, basis_id=target_id),
+        readout_axis=_subspace_record("readout_axis", zero, zero, basis_id=target_id),
+        random_by_draw={
+            draw: _subspace_record(
+                f"random:{draw:02d}",
+                np.full(n, 0.01),
+                np.full(n, 0.01),
+                basis_id=random_ids[draw],
+            )
+            for draw in range(r5b.N_RANDOM_CONTROLS)
+        },
+        rank=rank,
+        projection_audit=projection_audit,
+    )
+
+
+class _CleanTestManifest:
+    git_dirty = False
+
+    def __init__(self):
+        self.inputs = []
+        self.outputs = []
+
+    def to_dict(self):
+        return {
+            "git_dirty": False,
+            "inputs": self.inputs,
+            "outputs": self.outputs,
+            "fixture": "clean-manifest",
         }
+
+
+def _publish_development_fixture(
+    tmp_path, monkeypatch, record, *, derivation=None
+):
+    stage = record["stage"]
+    attempt_repo = tmp_path / f"{stage}-attempt-repo"
+    attempt_repo.mkdir()
+    subprocess.run(["git", "init", "-q", str(attempt_repo)], check=True)
+    identity = r5b.build_r5b_residual_attempt_identity(
+        stage=stage,
+        checkpoint_sha256="1" * 64,
+        cohort_input_sha256="2" * 64,
+        cohort_audit_sha256="3" * 64,
+    )
+    output = tmp_path / f"{stage}.json"
+    predecessor = (None, None, None) if stage == "derivation" else (
+        "b" * 64,
+        "c" * 64,
+        "d" * 64,
+    )
+    receipt = r5b.reserve_r5b_residual_attempt(
+        repo=attempt_repo,
+        identity=identity,
+        method_context={
+            "protocol_sha256": "4" * 64,
+            "instrument_fingerprint_sha256": "5" * 64,
+            "r5_stack_fingerprint_sha256": "6" * 64,
+            "r3d_artifact_sha256": "7" * 64,
+            "r3d_manifest_sha256": "8" * 64,
+            "r5a_preflight_artifact_sha256": "9" * 64,
+            "r5a_preflight_manifest_sha256": "a" * 64,
+            "predecessor_artifact_sha256": predecessor[0],
+            "predecessor_manifest_sha256": predecessor[1],
+            "predecessor_completion_sha256": predecessor[2],
+            "requested_artifact_logical_name": output.name,
+            "requested_manifest_logical_name": output.with_suffix(
+                ".manifest.json"
+            ).name,
+            "declared_completion_logical_name": (
+                f"{identity['residual_attempt_key']}.completion.json"
+            ),
+            "scoring_origin": "direct_checkpoint_scoring_in_r5b_process",
+        },
+    )
+    monkeypatch.setattr(r5b, "PRODUCTION_INFERENCE_DRAWS", 199)
+    monkeypatch.setattr(r5b, "PRODUCTION_OVERLAP_DRAWS", 199)
+    monkeypatch.setattr(
+        r5b.ExperimentManifest,
+        "create",
+        lambda *_args, **_kwargs: _CleanTestManifest(),
+    )
+    return r5b.publish_residual_development_stage(
+        record,
+        derivation=derivation,
+        receipt=receipt,
+        output_path=output,
+        command=["r5b-test"],
+        input_paths=[],
+        authorization={
+            "instrument_fingerprint_sha256": "5" * 64,
+            "r5_stack_fingerprint_sha256": "6" * 64,
+        },
+    )
+
+
+def test_internal_derivation_scorer_runs_checkpoint_capture_and_post_wo_hooks():
+    adapter = _TinyAdapter()
+    record = r5b.score_r5b_derivation(
+        adapter,
+        _TinyAcceptorTask(),
+        _tiny_residual_rows(),
+        batch_size=r5b.PRODUCTION_N,
+        n_draws=199,
+        seed=0,
+    )
+    assert record["direct_model_scoring"] is True
+    assert record["external_provider_artifact_accepted"] is False
+    assert record["scored_provider"]["origin"] == (
+        "direct_checkpoint_scoring_in_this_r5b_process"
+    )
+    assert record["post_wo_writer_audit"]["residual_width"] == 4
+    assert record["post_wo_writer_audit"]["bias_included"] is False
+    assert record["status"] == "NO_DERIVATION_CANDIDATE_AT_FROZEN_THRESHOLDS"
+    assert adapter.model.forward_calls >= 20
+
+    tampered = copy.deepcopy(record)
+    tampered["scored_provider"]["genes"][0] = "different-gene"
+    with pytest.raises(r5b.InstrumentError, match="provider header"):
+        r5b._assert_development_record_replays(tampered)
+
+
+def test_rank_deficient_derivation_completes_as_basis_instrument_unresolved(
+    tmp_path, monkeypatch
+):
+    rows = _tiny_residual_rows("rank-deficient-b0")
+    captured = _captured_writer_fixture(rank_deficient=True, seed=71)
+    dense_family = _supported_dense_family(len(rows))
+    monkeypatch.setattr(
+        r5b,
+        "capture_residual_writer_state",
+        lambda *_args, **_kwargs: captured,
+    )
+    monkeypatch.setattr(
+        r5b,
+        "score_dense_local_writer_family",
+        lambda *_args, **_kwargs: dense_family,
+    )
+
+    record = r5b.score_r5b_derivation(
+        object(), object(), rows, batch_size=128, n_draws=199, seed=0
+    )
+
+    assert record["status"] == "BASIS_INSTRUMENT_UNRESOLVED"
+    assert record["dense_decision"]["status"] == (
+        "DENSE_LOCAL_WRITER_DEVELOPMENT_SUPPORTED"
+    )
+    assert record["nested_basis_instrument_failure"] == {
+        "schema": "gfmcd.r5b.optional_basis_instrument_failure/1",
+        "phase": "derivation",
+        "code": "INSUFFICIENT_NUMERICAL_RANK",
+        "message": (
+            "local-writer SVD is numerically rank deficient at relative "
+            "tolerance 1e-10"
+        ),
+        "optional_basis_only": True,
+        "dense_primary_unaffected": True,
+        "union_refit_performed": False,
     }
-    registry = {"sha256": "6" * 64}
-    checkpoint = {"bundle_sha256": "3" * 64}
-    runtime = {"python": "test"}
-    record = {
-        "bucket": 0,
-        "instrument_binding_payload": binding,
+    package = _publish_development_fixture(tmp_path, monkeypatch, record)
+    assert package["completion_record"]["official_status"] == (
+        "BASIS_INSTRUMENT_UNRESOLVED"
+    )
+
+    validation = r5b.score_r5b_validation(
+        object(),
+        object(),
+        _tiny_residual_rows("rank-deficient-b1"),
+        package["record"],
+        batch_size=128,
+        n_draws=199,
+        n_overlap_draws=199,
+        seed=0,
+    )
+    assert validation["status"] == "BASIS_INSTRUMENT_UNRESOLVED"
+    assert validation["candidate_validation"] is None
+    assert validation["nested_basis_instrument_failure"] is None
+    assert validation["scored_provider"]["nested_rank_families"] == {}
+    validation_package = _publish_development_fixture(
+        tmp_path, monkeypatch, validation, derivation=package["record"]
+    )
+    assert validation_package["completion_record"]["official_status"] == (
+        "BASIS_INSTRUMENT_UNRESOLVED"
+    )
+
+    monkeypatch.setattr(
+        r5b,
+        "fit_crossfit_derivation_bases",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            r5b.InstrumentError("unclassified scorer/core failure")
+        ),
+    )
+    with pytest.raises(r5b.InstrumentError, match="unclassified scorer/core failure"):
+        r5b.score_r5b_derivation(
+            object(), object(), rows, batch_size=128, n_draws=199, seed=0
+        )
+
+
+def test_rank_deficient_validation_completes_and_freezes_terminal_unresolved(
+    tmp_path, monkeypatch
+):
+    rows0 = _tiny_residual_rows("full-rank-b0")
+    rows1 = _tiny_residual_rows("rank-deficient-b1")
+    captured0 = _captured_writer_fixture(rank_deficient=False, seed=73)
+    captured1 = _captured_writer_fixture(rank_deficient=True, seed=79)
+    dense_family = _supported_dense_family(r5b.PRODUCTION_N)
+
+    def capture(_adapter, _task, rows, **_kwargs):
+        return captured0 if rows[0].example.example_id.startswith("full-rank") else captured1
+
+    monkeypatch.setattr(r5b, "capture_residual_writer_state", capture)
+    monkeypatch.setattr(
+        r5b,
+        "score_dense_local_writer_family",
+        lambda *_args, **_kwargs: dense_family,
+    )
+    monkeypatch.setattr(
+        r5b,
+        "score_nested_local_writer_family",
+        lambda _adapter, _task, rows, _captured, **kwargs: _nested_family_fixture(
+            n=len(rows),
+            rank=kwargs["rank"],
+            projection_audit=kwargs["projection_audit"],
+        ),
+    )
+
+    derivation = r5b.score_r5b_derivation(
+        object(), object(), rows0, batch_size=128, n_draws=199, seed=0
+    )
+    assert derivation["status"] == "DERIVATION_CANDIDATE_SELECTED"
+    derivation_package = _publish_development_fixture(
+        tmp_path, monkeypatch, derivation
+    )
+    frozen_derivation = derivation_package["record"]
+
+    validation = r5b.score_r5b_validation(
+        object(),
+        object(),
+        rows1,
+        frozen_derivation,
+        batch_size=128,
+        n_draws=199,
+        n_overlap_draws=199,
+        seed=0,
+    )
+
+    assert validation["status"] == "BASIS_INSTRUMENT_UNRESOLVED"
+    assert validation["dense_decision"]["status"] == (
+        "DENSE_LOCAL_WRITER_DEVELOPMENT_SUPPORTED"
+    )
+    assert validation["nested_basis_instrument_failure"]["phase"] == "validation"
+    assert validation["nested_basis_instrument_failure"]["code"] == (
+        "INSUFFICIENT_NUMERICAL_RANK"
+    )
+    validation_package = _publish_development_fixture(
+        tmp_path, monkeypatch, validation, derivation=frozen_derivation
+    )
+    assert validation_package["completion_record"]["official_status"] == (
+        "BASIS_INSTRUMENT_UNRESOLVED"
+    )
+
+    disposition, bundle = r5b.build_local_writer_basis_disposition(
+        frozen_derivation,
+        validation_package["record"],
+        development_packages={
+            "derivation": {
+                "artifact": derivation_package["artifact"],
+                "manifest": derivation_package["manifest"],
+            },
+            "validation": {
+                "artifact": validation_package["artifact"],
+                "manifest": validation_package["manifest"],
+            },
+        },
+        r3d_path_a_binding={
+            "artifact_sha256": "1" * 64,
+            "manifest_sha256": "2" * 64,
+        },
+        r5a_method_preflight_binding={
+            "artifact_sha256": "3" * 64,
+            "manifest_sha256": "4" * 64,
+        },
+        checkpoint_sha256="5" * 64,
+        cohort_audit_sha256="6" * 64,
+        r5_stack_fingerprint_sha256="7" * 64,
+        bundle_path=None,
+        seed=0,
+    )
+    assert disposition["status"] == "BASIS_INSTRUMENT_UNRESOLVED"
+    assert disposition["frozen_basis_runtime_contract"] is None
+    assert disposition["frozen_basis_sufficient_replay"] is None
+    assert disposition["sufficient_replay"][
+        "nested_basis_instrument_failures"
+    ]["validation"]["code"] == "INSUFFICIENT_NUMERICAL_RANK"
+    assert bundle is None
+
+    monkeypatch.setattr(
+        r5b,
+        "energy_matched_rank_random_projections",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            r5b.InstrumentError("unclassified validation scorer/core failure")
+        ),
+    )
+    with pytest.raises(
+        r5b.InstrumentError, match="unclassified validation scorer/core failure"
+    ):
+        r5b.score_r5b_validation(
+            object(),
+            object(),
+            rows1,
+            frozen_derivation,
+            batch_size=128,
+            n_draws=199,
+            n_overlap_draws=199,
+            seed=0,
+        )
+
+
+def test_derivation_cli_scores_after_authorization_then_publishes_and_completes(
+    tmp_path, monkeypatch
+):
+    events = []
+    artifact = tmp_path / "r5b-derivation.json"
+    gtf = tmp_path / "genes.gtf"
+    fasta = tmp_path / "genome.fa"
+    fai = tmp_path / "genome.fa.fai"
+    checkpoint = tmp_path / "checkpoint"
+    checkpoint.mkdir()
+    checkpoint_file = checkpoint / "weights.bin"
+    for path in (gtf, fasta, fai, checkpoint_file):
+        path.write_text(path.name)
+    upstream_paths = {
+        name: tmp_path / f"{name}.json"
+        for name in (
+            "r3d_artifact",
+            "r3d_manifest",
+            "r3d_registry",
+            "r3d_registry_manifest",
+            "r3d_attempt",
+            "r3d_completion",
+            "r3c_artifact",
+            "r3c_manifest",
+            "r5a_preflight_artifact",
+            "r5a_preflight_manifest",
+        )
+    }
+    for path in upstream_paths.values():
+        path.write_text("{}")
+
+    attempt_repo = tmp_path / "attempt-repo"
+    attempt_repo.mkdir()
+    subprocess.run(["git", "init", "-q", str(attempt_repo)], check=True)
+    checkpoint_hash = "b" * 64
+    protocol_hash = r5b.sha256_file(r5b.PROTOCOL)
+    fingerprint = "c" * 64
+    stack_fingerprint = "d" * 64
+    cohort_input_hash = "e" * 64
+    cohort_audit_hash = "f" * 64
+    upstream = {
+        "r3d": {
+            "artifact": {"sha256": "1" * 64},
+            "manifest": {"sha256": "2" * 64},
+            "checkpoint_and_data": {
+                "checkpoint_aggregate_sha256": checkpoint_hash
+            },
+        },
+        "r5a": {
+            "artifact": {"sha256": "3" * 64},
+            "manifest": {"sha256": "4" * 64},
+        },
+        "exclusion_registry": {"record_sha256": "5" * 64},
+        "chain_sha256": "6" * 64,
+    }
+    authorization = {
+        "stage": "derivation",
         "instrument_fingerprint_sha256": fingerprint,
-        "r5_stack_binding": stack,
-        "r5_stack_fingerprint_sha256": binding[
-            "r5_stack_fingerprint_sha256"
-        ],
-        "entry_chain": entry,
-        "source_identity": source,
-        "cohort_audit": cohort,
-        "cohort_registry_identity": registry,
-        "checkpoint_identity": checkpoint,
-        "runtime_identity": runtime,
-        "endpoint": "single masked acceptor G hard margin",
-        "masked_donor_endpoint_constructed": False,
-        "r5_entry_contract": {
-            "cohort_sha256": "8" * 64,
-            "construction_sha256": "9" * 64,
+        "r5_stack_fingerprint_sha256": stack_fingerprint,
+        "r5_stack_binding": {},
+    }
+    source_identity = {"fixture": "source"}
+    cohort_audit = {"fixture": "audit"}
+    adapter = _TinyAdapter()
+    receipt_holder = {}
+
+    def authorize(stage, *, device):
+        events.append("authorize")
+        assert stage == "derivation"
+        return authorization
+
+    def load_upstream(**_kwargs):
+        events.append("upstream")
+        return upstream
+
+    def reserve(args, supplied_authorization, supplied_upstream, *, predecessor):
+        events.append("reserve")
+        assert supplied_authorization is authorization
+        assert supplied_upstream is upstream
+        assert predecessor is None
+        identity = r5b.build_r5b_residual_attempt_identity(
+            stage="derivation",
+            checkpoint_sha256=checkpoint_hash,
+            cohort_input_sha256=cohort_input_hash,
+            cohort_audit_sha256=cohort_audit_hash,
+        )
+        receipt = r5b.reserve_r5b_residual_attempt(
+            repo=attempt_repo,
+            identity=identity,
+            method_context={
+                "protocol_sha256": protocol_hash,
+                "instrument_fingerprint_sha256": fingerprint,
+                "r5_stack_fingerprint_sha256": stack_fingerprint,
+                "r3d_artifact_sha256": "1" * 64,
+                "r3d_manifest_sha256": "2" * 64,
+                "r5a_preflight_artifact_sha256": "3" * 64,
+                "r5a_preflight_manifest_sha256": "4" * 64,
+                "predecessor_artifact_sha256": None,
+                "predecessor_manifest_sha256": None,
+                "predecessor_completion_sha256": None,
+                "requested_artifact_logical_name": artifact.name,
+                "requested_manifest_logical_name": artifact.with_suffix(
+                    ".manifest.json"
+                ).name,
+                "declared_completion_logical_name": (
+                    f"{identity['residual_attempt_key']}.completion.json"
+                ),
+                "scoring_origin": "direct_checkpoint_scoring_in_r5b_process",
+            },
+        )
+        receipt_holder["receipt"] = receipt
+        return receipt
+
+    class CleanManifest:
+        git_dirty = False
+
+        def __init__(self):
+            self.inputs = []
+            self.outputs = []
+
+        def to_dict(self):
+            return {
+                "git_dirty": False,
+                "inputs": self.inputs,
+                "outputs": self.outputs,
+                "fixture": "clean-manifest",
+            }
+
+    def create_manifest(*_args, **_kwargs):
+        events.append("manifest")
+        return CleanManifest()
+
+    monkeypatch.setattr(r5b, "PRODUCTION_BATCH", r5b.PRODUCTION_N)
+    monkeypatch.setattr(r5b, "PRODUCTION_INFERENCE_DRAWS", 199)
+    monkeypatch.setattr(r5b, "PRODUCTION_OVERLAP_DRAWS", 199)
+    monkeypatch.setattr(r5b, "FROZEN_PROTOCOL_SHA256", protocol_hash)
+    monkeypatch.setattr(r5b, "FROZEN_CHECKPOINT_AGGREGATE_SHA256", checkpoint_hash)
+    monkeypatch.setattr(r5b, "FROZEN_COHORT_INPUT_SHA256", cohort_input_hash)
+    monkeypatch.setattr(r5b, "FROZEN_COHORT_AUDIT_SHA256", cohort_audit_hash)
+    monkeypatch.setattr(r5b, "PINNED_CHECKPOINT_AGGREGATE_SHA256", checkpoint_hash)
+    monkeypatch.setattr(r5b, "authorize_scored_stage", authorize)
+    monkeypatch.setattr(r5b, "load_r5b_upstream_chain", load_upstream)
+    monkeypatch.setattr(r5b, "_reserve_stage_attempt", reserve)
+    monkeypatch.setattr(
+        r5b,
+        "build_r5b_residual_reservations",
+        lambda *_args, **_kwargs: (
+            {0: tuple(_tiny_residual_rows()), 1: tuple()},
+            cohort_audit,
+            source_identity,
+        ),
+    )
+    monkeypatch.setattr(
+        r5b,
+        "checkpoint_identity",
+        lambda _path: {
+            "root": str(checkpoint),
+            "files": [
+                {
+                    "relative_path": checkpoint_file.name,
+                    "size_bytes": checkpoint_file.stat().st_size,
+                    "sha256": r5b.sha256_file(checkpoint_file),
+                }
+            ],
+            "aggregate_schema": "fixture",
+            "aggregate_sha256": checkpoint_hash,
+        },
+    )
+    monkeypatch.setattr(r5b, "pick_device", lambda _value: torch.device("cpu"))
+
+    def load_model(*_args, **_kwargs):
+        events.append("model")
+        return adapter
+
+    monkeypatch.setattr(r5b, "load_adapter", load_model)
+    monkeypatch.setattr(r5b, "CouplingTask", lambda *_args, **_kwargs: _TinyAcceptorTask())
+    monkeypatch.setattr(
+        r5b, "validate_expected_r5_source_identity", lambda *_args: source_identity
+    )
+    monkeypatch.setattr(r5b, "instrument_fingerprint", lambda: fingerprint)
+    monkeypatch.setattr(r5b, "_stack_source_paths", lambda _authorization: [])
+    monkeypatch.setattr(r5b.ExperimentManifest, "create", create_manifest)
+
+    argv = [
+        "--stage",
+        "derivation",
+        "--out",
+        str(artifact),
+        "--model",
+        str(checkpoint),
+        "--gtf",
+        str(gtf),
+        "--fasta",
+        str(fasta),
+        "--batch",
+        str(r5b.PRODUCTION_N),
+        "--draws",
+        "199",
+        "--overlap-draws",
+        "199",
+    ]
+    for name, path in upstream_paths.items():
+        argv.extend([f"--{name.replace('_', '-')}", str(path)])
+    r5b.main(argv)
+
+    published = json.loads(artifact.read_text())
+    receipt = receipt_holder["receipt"]
+    completion = Path(receipt["receipt_path"]).with_suffix(".completion.json")
+    assert events.index("authorize") < events.index("reserve") < events.index("model")
+    assert events.index("model") < events.index("manifest")
+    assert adapter.model.forward_calls >= 20
+    assert published["direct_model_scoring"] is True
+    assert published["external_provider_artifact_accepted"] is False
+    assert published["scored_provider"]["origin"] == (
+        "direct_checkpoint_scoring_in_this_r5b_process"
+    )
+    assert artifact.with_suffix(".manifest.json").is_file()
+    assert completion.is_file()
+
+
+def _write_clean_json_publication(directory, name, record):
+    artifact = directory / name
+    artifact.write_text(json.dumps(record, indent=2, sort_keys=True) + "\n")
+    manifest = artifact.with_suffix(".manifest.json")
+    manifest.write_text(
+        json.dumps(
+            {
+                "git_dirty": False,
+                "outputs": [
+                    {
+                        "path": str(artifact),
+                        "size_bytes": artifact.stat().st_size,
+                        "sha256": r5b.sha256_file(artifact),
+                    }
+                ],
+            },
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n"
+    )
+    return artifact, manifest
+
+
+def test_nonvalidated_disposition_authenticates_exact_development_packages(
+    tmp_path, monkeypatch
+):
+    monkeypatch.setattr(r5b, "PRODUCTION_INFERENCE_DRAWS", 199)
+    monkeypatch.setattr(r5b, "PRODUCTION_OVERLAP_DRAWS", 199)
+    derivation = r5b.score_r5b_derivation(
+        _TinyAdapter(),
+        _TinyAcceptorTask(),
+        _tiny_residual_rows("b0"),
+        batch_size=r5b.PRODUCTION_N,
+        n_draws=199,
+        seed=0,
+    )
+    validation = r5b.score_r5b_validation(
+        _TinyAdapter(),
+        _TinyAcceptorTask(),
+        _tiny_residual_rows("b1"),
+        derivation,
+        batch_size=r5b.PRODUCTION_N,
+        n_draws=199,
+        n_overlap_draws=199,
+        seed=0,
+    )
+    derivation_path, derivation_manifest = _write_clean_json_publication(
+        tmp_path, "derivation.json", derivation
+    )
+    validation_path, validation_manifest = _write_clean_json_publication(
+        tmp_path, "validation.json", validation
+    )
+    packages = {
+        "derivation": {
+            "artifact": r5b._publication_identity(derivation_path),
+            "manifest": r5b._publication_identity(derivation_manifest),
+        },
+        "validation": {
+            "artifact": r5b._publication_identity(validation_path),
+            "manifest": r5b._publication_identity(validation_manifest),
         },
     }
-    assert r5b.validate_preflight_context(
-        record,
-        binding_payload=binding,
-        fingerprint=fingerprint,
-        entry_chain=entry,
-        source_identity=source,
-        cohort_audit=cohort,
-        registry_identity=registry,
-        checkpoint=checkpoint,
-        runtime=runtime,
-    )["all_match"]
-    for field, changed in (
-        ("instrument_fingerprint_sha256", "0" * 64),
-        ("source_identity", {"gtf": {"sha256": "0" * 64}}),
-        ("runtime_identity", {"python": "different"}),
-    ):
-        tampered = json.loads(json.dumps(record))
-        tampered[field] = changed
-        with pytest.raises(r5b.TargetSealError, match="context differs"):
-            r5b.validate_preflight_context(
-                tampered,
-                binding_payload=binding,
-                fingerprint=fingerprint,
-                entry_chain=entry,
-                source_identity=source,
-                cohort_audit=cohort,
-                registry_identity=registry,
-                checkpoint=checkpoint,
-                runtime=runtime,
-            )
-
-
-def test_sufficient_statistics_are_exact_one_row_per_gene_and_tamper_evident():
-    genes = [f"gene-{index:03d}" for index in range(128)]
-    primitive = np.random.default_rng(7).normal(size=(70, 128))
-    record = r5b.gene_sufficient_statistics(
-        primitive, r5b.causal_primitive_names(), genes
+    disposition, bundle = r5b.build_local_writer_basis_disposition(
+        derivation,
+        validation,
+        development_packages=packages,
+        r3d_path_a_binding={
+            "artifact_sha256": "1" * 64,
+            "manifest_sha256": "2" * 64,
+        },
+        r5a_method_preflight_binding={
+            "artifact_sha256": "3" * 64,
+            "manifest_sha256": "4" * 64,
+        },
+        checkpoint_sha256="5" * 64,
+        cohort_audit_sha256="6" * 64,
+        r5_stack_fingerprint_sha256="7" * 64,
+        bundle_path=None,
+        seed=0,
     )
-    replay, names, replay_genes = r5b.reconstruct_gene_sufficient_statistics(record)
-    assert tuple(names) == r5b.causal_primitive_names()
-    assert replay_genes == sorted(genes)
-    original_by_gene = {gene: primitive[:, i] for i, gene in enumerate(genes)}
-    assert np.allclose(
-        replay, np.stack([original_by_gene[gene] for gene in replay_genes], axis=1)
+    assert bundle is None
+    disposition_path, disposition_manifest = _write_clean_json_publication(
+        tmp_path, "disposition.json", disposition
     )
-    changed = json.loads(json.dumps(record))
-    changed["genes"][0]["sums"][0] += 0.01
-    with pytest.raises(ValueError, match="digest differs"):
-        r5b.reconstruct_gene_sufficient_statistics(changed)
-
-
-def test_model_free_audit_passes_without_model_data_or_bucket_access():
-    audit = r5b.run_model_free_audit()
-    assert audit["all_pass"] is True
-    assert audit["checks"]["no_model_or_data_access"] is True
-    assert audit["checks"]["no_masked_donor_endpoint_constructed"] is True
-    assert audit["cohort_contract"]["schema"] == "gfmcd.r5.acceptor_mechanism_cohort/2"
-
-
-@pytest.mark.parametrize("stage", ["preflight", "target"])
-def test_model_stage_hard_stops_on_literal_none_pins_before_accessing_paths(
-    tmp_path, stage
-):
-    missing = tmp_path / "must-not-be-opened.json"
-    command = [
-        sys.executable,
-        str(RUNNER),
-        "--stage",
-        stage,
-        "--gtf",
-        str(missing),
-        "--fasta",
-        str(missing),
-        "--exclusion-registry",
-        str(missing),
-        "--r3c-artifact",
-        str(missing),
-        "--r5a-artifact",
-        str(missing),
-        "--preflight-artifact",
-        str(missing),
-        "--out",
-        str(tmp_path / f"{stage}.json"),
-    ]
-    completed = subprocess.run(command, capture_output=True, text=True)
-    assert completed.returncode != 0
-    combined = completed.stdout + completed.stderr
-    assert "hard-blocked before path access" in combined
-    assert "No such file" not in combined
-    assert not (tmp_path / f"{stage}.json").exists()
-
-
-def test_atomic_output_refuses_overwrite(tmp_path):
-    destination = tmp_path / "artifact.json"
-    r5b.atomic_write_new(destination, b"first\n")
-    with pytest.raises(FileExistsError, match="refusing to overwrite"):
-        r5b.atomic_write_new(destination, b"second\n")
-    assert destination.read_bytes() == b"first\n"
-
-
-def test_result_manifest_authenticates_transient_runtime_bundle(tmp_path):
-    output = tmp_path / "audit.json"
-    bundle = tmp_path / "audit.runtime-max.npz"
-    payload = b"authenticated-runtime-bundle"
-    r5b._write_result_and_manifest(
-        {"schema": "test", "stage": "audit"},
-        output,
-        stage="audit",
-        input_paths=(RUNNER,),
-        git_identity=None,
-        extra_outputs={bundle: payload},
+    authenticated = r5b.validate_local_writer_basis_disposition(
+        disposition_path,
+        disposition_manifest,
+        derivation_artifact_path=derivation_path,
+        derivation_manifest_path=derivation_manifest,
+        validation_artifact_path=validation_path,
+        validation_manifest_path=validation_manifest,
     )
-    manifest = json.loads(output.with_suffix(".manifest.json").read_text())
-    by_path = {row["path"]: row for row in manifest["outputs"]}
-    assert set(by_path) == {str(output), str(bundle)}
-    assert by_path[str(bundle)]["size_bytes"] == len(payload)
-    assert by_path[str(bundle)]["sha256"] == r5b.hashlib.sha256(payload).hexdigest()
-    assert bundle.read_bytes() == payload
+    assert set(authenticated) == {
+        "authenticated",
+        "artifact",
+        "manifest",
+        "status",
+        "path_local_c2_disposition",
+        "frozen_basis_runtime_contract",
+        "dense_primary_unaffected",
+        "record",
+    }
+    assert authenticated["authenticated"] is True
+    assert authenticated["status"] == (
+        "NO_VALIDATED_BASIS_AT_FROZEN_THRESHOLDS"
+    )
+    assert authenticated["frozen_basis_runtime_contract"] is None
+    assert authenticated["dense_primary_unaffected"] is True

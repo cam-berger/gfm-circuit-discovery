@@ -1,10 +1,17 @@
 from types import SimpleNamespace
 
+import pytest
 import torch
 from torch import nn
 
 from gfmcd.adapters.splicebert import SpliceBertAdapter
-from gfmcd.circuits.hf_bert import capture_head_outputs, edit_heads, patch_heads
+from gfmcd.circuits.hf_bert import (
+    add_attention_output_delta,
+    capture_head_outputs,
+    edit_heads,
+    patch_heads,
+    project_head_context_to_residual,
+)
 
 
 class FakeTokenizer:
@@ -168,3 +175,42 @@ def test_residual_layer_capture_and_patch():
     with patch_layer_output(adapter, cache, 0):
         patched = adapter.forward(corrupt_batch, output_attentions=False).last_hidden_state
     assert not torch.allclose(corrupt, patched)
+
+
+def test_output_projected_head_bridge_and_query_local_delta_hook():
+    class OutputAttention(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.output = SimpleNamespace(dense=nn.Linear(4, 4, bias=True))
+
+    projection = OutputAttention().output.dense
+    with torch.no_grad():
+        projection.weight.copy_(torch.arange(16, dtype=torch.float32).reshape(4, 4) / 10)
+        projection.bias.copy_(torch.tensor([7.0, 8.0, 9.0, 10.0]))
+    adapter = SimpleNamespace(
+        num_layers=1,
+        num_heads=2,
+        encoder_layers=(SimpleNamespace(attention=SimpleNamespace(output=SimpleNamespace(dense=projection))),),
+    )
+    context = torch.tensor([[1.0, 2.0], [-1.0, 0.5]])
+    contribution = project_head_context_to_residual(adapter, (0, 1), context)
+    expected = torch.nn.functional.linear(context, projection.weight[:, 2:4], bias=None)
+    assert torch.equal(contribution, expected)
+    assert not torch.equal(contribution, expected + projection.bias)
+
+    merged = torch.arange(24, dtype=torch.float32).reshape(2, 3, 4) / 10
+    baseline = projection(merged)
+    mask = torch.tensor([[False, True, False], [False, False, True]])
+    delta = torch.tensor([[1.0, 2.0, 3.0, 4.0], [-4.0, -3.0, -2.0, -1.0]])
+    with add_attention_output_delta(adapter, 0, delta, token_mask=mask):
+        patched = projection(merged)
+    expected_patched = baseline.clone()
+    expected_patched[0, 1] += delta[0]
+    expected_patched[1, 2] += delta[1]
+    assert torch.equal(patched, expected_patched)
+    assert torch.equal(projection(merged), baseline)
+    with pytest.raises(ValueError, match="exactly one token"):
+        with add_attention_output_delta(
+            adapter, 0, delta, token_mask=torch.ones((2, 3), dtype=torch.bool)
+        ):
+            pass

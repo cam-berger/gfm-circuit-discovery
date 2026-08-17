@@ -155,14 +155,18 @@ def test_reverse_health_probes_are_masked_and_exclude_both_sites():
     """R8: an unmasked-probe health score once ROSE under ablation -- it measured copying.
 
     And a probe landing on either site would score the intervention rather than collateral
-    health, so both exclusions are load-bearing.
+    health, so both exclusions are load-bearing. ACR11 additionally requires the reverse
+    behavioral acceptor mask to remain present while the non-site probe is masked.
     """
     import inspect
 
     from gfmcd.splicing.reverse_coupling import reverse_mlm_health
 
     src = inspect.getsource(reverse_mlm_health)
-    assert "task.encode(sub, pos)" in src, "probes are no longer masked (encode masks them)"
+    assert "task.encode(sub, readout)" in src, "reverse health no longer masks the acceptor"
+    assert (
+        'enc["input_ids"][row, p + task.ad.prefix_tokens] = task.mask_id' in src
+    ), "non-site probes are no longer masked alongside the acceptor"
     assert "abs(p - b) > 3" in src, "probes no longer exclude the masked acceptor"
     assert "abs(p - x.donor_pos) > 3" in src, "probes no longer exclude the corrupted donor"
 
