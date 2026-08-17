@@ -468,7 +468,7 @@ def test_registered_builder_artifact_is_directly_consumable_by_runner():
     )
 
 
-def test_target_is_hard_blocked_before_nonexistent_caller_paths_are_inspected():
+def test_target_seal_opens_only_after_reviewed_preflight_is_pinned():
     completed = subprocess.run(
         [
             sys.executable,
@@ -497,9 +497,8 @@ def test_target_is_hard_blocked_before_nonexistent_caller_paths_are_inspected():
     )
     assert completed.returncode != 0
     output = completed.stdout + completed.stderr
-    assert "R3d is DRAFT and target execution is hard-blocked" in output
-    assert "No such file" not in output
-    assert "missing.gtf" not in output
+    assert "hard-blocked" not in output
+    assert "checkpoint path is missing: /definitely/missing-model" in output
 
 
 def test_bindable_preflight_requires_exact_current_hashes_and_fingerprint():
@@ -658,7 +657,7 @@ def test_clean_target_artifact_package_replays_target_not_preflight_stage(tmp_pa
         R3D._load_artifact_package(artifact, digest, None)
 
 
-def test_protocol_and_runner_freeze_bindable_preflight_only():
+def test_protocol_and_runner_bind_reviewed_preflight_package():
     frozen_preflight_inputs = {
         "protocol": R3D.FROZEN_PROTOCOL_SHA256,
         "fingerprint": R3D.FROZEN_INSTRUMENT_FINGERPRINT_SHA256,
@@ -675,8 +674,12 @@ def test_protocol_and_runner_freeze_bindable_preflight_only():
         "r3c_runner": "25db5d95e7c5a99697f69d2153ec0d770571e3063106aa13c7f00f74e5065e31",
         "r3c_preflight": "c0c9306fe894ce73bfd981a14c85e2aec6660da33f01d9716cee4327b3ff2d3e",
     }
-    assert R3D.FROZEN_PREFLIGHT_ARTIFACT_SHA256 is None
-    assert R3D.FROZEN_PREFLIGHT_MANIFEST_SHA256 is None
+    assert R3D.FROZEN_PREFLIGHT_ARTIFACT_SHA256 == (
+        "7c89765e3cf4505b848788972c3a3ab6c3033dd3953d7d3fd4b6e1a527da9d31"
+    )
+    assert R3D.FROZEN_PREFLIGHT_MANIFEST_SHA256 == (
+        "38b65671bd2bf3b4ea23aa6082a5e1c2841dda02386e6e582c664ee54ec00172"
+    )
     assert R3D.PROTOCOL.name == "DRAFT_R3D_ACCEPTOR_SPECIFICITY_ADJUDICATION.md"
     protocol = R3D.PROTOCOL.read_text()
     assert "FROZEN_FOR_BINDABLE_PREFLIGHT" in protocol
