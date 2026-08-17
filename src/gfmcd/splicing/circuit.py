@@ -45,6 +45,16 @@ try:
     from transformers.modeling_utils import ALL_ATTENTION_FUNCTIONS
 except ImportError:                                     # pragma: no cover - version-dependent
     ALL_ATTENTION_FUNCTIONS = None
+try:
+    # Newer transformers (verified on 5.13) builds the additive attention mask from a SECOND
+    # registry keyed on the SAME implementation name -- see the registration below, which is
+    # load-bearing, not housekeeping.  Versions predating ``masking_utils`` build the mask in
+    # ``BertModel.forward`` regardless of the implementation, so this import failing is not a
+    # defect: there is nothing to register there.
+    from transformers.masking_utils import ALL_MASK_ATTENTION_FUNCTIONS, eager_mask
+except ImportError:                                     # pragma: no cover - version-dependent
+    ALL_MASK_ATTENTION_FUNCTIONS = None
+    eager_mask = None
 
 from gfmcd.adapters.splicebert import SpliceBertAdapter
 from gfmcd.circuits.guards import (
@@ -398,6 +408,19 @@ def _rolled_attention_forward(module, query, key, value, attention_mask,
     spec = _ROLL.get(getattr(module, "layer_idx", -1))
     if spec is not None:
         heads, delta, lo, hi = spec
+        # A PADDED BATCH IS NOT A WELL-POSED ROLL.  The design holds CLS/SEP/PAD in place by
+        # keeping them OUTSIDE [lo, hi) -- which is true only if every sequence ends where the
+        # block ends.  Pad one and the short row's SEP and PAD columns sit INSIDE the block, so
+        # one nominal delta becomes a different intervention per row: that row loses its SEP
+        # mass and reads PAD values, and the loss is delta-dependent, i.e. exactly the shape of
+        # the mod-3 artefact this experiment exists to measure.  Refuse rather than bias.
+        # ``delta = 0`` moves nothing, so it stays legal and remains the calibration arm.
+        if delta and attention_mask is not None and bool((attention_mask[..., lo:hi] < 0).any()):
+            raise ValueError(
+                f"roll_attention(delta={delta}) got a padded batch: key columns in "
+                f"[{lo}, {hi}) are masked for some rows. Roll only uniform-length batches "
+                "(the period-3 runners use fixed-width windows), or shrink seq_len to the "
+                "shortest row.")
         w = w.clone()
         orig = w[:, heads, :, lo:hi]                     # nucleotide columns only
         blk = torch.roll(orig, shifts=delta, dims=-1)
@@ -429,6 +452,19 @@ def _rolled_attention_forward(module, query, key, value, attention_mask,
 
 if ALL_ATTENTION_FUNCTIONS is not None:
     ALL_ATTENTION_FUNCTIONS.register("gfmcd_roll", _rolled_attention_forward)
+if ALL_MASK_ATTENTION_FUNCTIONS is not None:
+    # THE MASK IS NOT OPTIONAL, AND REGISTERING THE IMPLEMENTATION DOES NOT REGISTER IT.
+    # transformers looks the mask BUILDER up by ``config._attn_implementation`` too, and for a
+    # name it does not know it returns NO MASK AT ALL rather than raising
+    # (``masking_utils._preprocess_mask_arguments`` early-exits on the unrecognised key).
+    # ``gfmcd_roll`` was such a name: ``_rolled_attention_forward`` ran with
+    # ``attention_mask=None`` and every PAD column was fully visible to the softmax.  On an
+    # equal-length batch there is nothing to mask, transformers skips the mask anyway, and the
+    # delta = 0 identity held to 3e-05 -- so the defect was invisible to a calibration that
+    # never padded.  With one shorter sequence in the batch the same identity broke by ~10
+    # logits.  Register the EAGER builder rather than a hand-rolled copy, so the mask is
+    # byte-for-byte the one real eager attention receives, dtype and fill conventions included.
+    ALL_MASK_ATTENTION_FUNCTIONS.register("gfmcd_roll", eager_mask)
 
 
 @contextmanager
@@ -442,7 +478,14 @@ def roll_attention(ad: SpliceBertAdapter, heads: Iterable[tuple[int, int]], delt
     ``delta = 0`` deliberately runs the FULL code path (roll by zero, zero the wrap,
     renormalise) rather than short-circuiting, so the calibration tests the machinery
     instead of testing that doing nothing does nothing.  It must reproduce the unhooked
-    model to numerical precision; ``tests/test_roll_identity.py`` asserts it.
+    model to numerical precision; ``tests/test_roll_identity.py`` asserts it ON A PADDED
+    BATCH AS WELL AS AN EQUAL-LENGTH ONE -- an equal-length batch has no padding to mask and
+    so cannot see a missing mask, which is how the mask this function is handed went missing
+    on transformers 5.13 without the calibration noticing.
+
+    ``seq_len`` is the width of the batch as tokenized, so ROLLING A PADDED BATCH IS REFUSED
+    at any delta != 0: the block would then cover a short row's SEP and PAD columns, and the
+    same nominal delta would be a different intervention per row.
     """
     if ALL_ATTENTION_FUNCTIONS is None:
         raise RuntimeError(
