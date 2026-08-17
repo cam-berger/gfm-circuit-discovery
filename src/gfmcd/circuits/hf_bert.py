@@ -199,6 +199,63 @@ def patch_heads(
             handle.remove()
 
 
+def _validate_mlp_layers(adapter, layers) -> list[int]:
+    out: list[int] = []
+    for layer in layers:
+        idx = int(layer)
+        if not 0 <= idx < adapter.num_layers:
+            raise ValueError(
+                f"layer {idx} is out of range for a {adapter.num_layers}-layer model"
+            )
+        out.append(idx)
+    return sorted(set(out))
+
+
+@contextmanager
+def edit_mlps(
+    adapter: SpliceBertAdapter,
+    layers: Iterable[int],
+    *,
+    mode: EditMode = "zero",
+) -> Iterator[None]:
+    """Temporarily zero/mean/resample selected layers' MLP WRITE into the residual stream.
+
+    The counterpart to :func:`edit_heads`, and the primitive whose absence made MLPs
+    "out of scope" for every component scan in this repository -- while ``HCA18`` reported
+    MLP writes dominating its acceptor-cluster signals. Coverage was incomplete by
+    construction; this closes that.
+
+    The hook sits on ``layer.output.dense``, whose result is exactly what ``BertOutput`` adds
+    to the residual before LayerNorm, so ablating it removes the MLP's contribution without
+    disturbing the residual path or the normalisation. ``mean`` averages over batch AND
+    sequence, identical to ``edit_heads(mode="mean")``, so head and MLP effects are measured
+    on one scale and may be compared directly.
+    """
+    selected = _validate_mlp_layers(adapter, layers)
+    if mode not in ("zero", "mean", "resample"):
+        raise ValueError(f"unknown mode: {mode}")
+    handles = []
+
+    def hook(_module, _inputs, output):
+        if mode == "zero":
+            return torch.zeros_like(output)
+        if mode == "mean":
+            return output.mean(dim=(0, 1), keepdim=True).expand_as(output).clone()
+        if output.shape[0] < 2:
+            raise ValueError("resample ablation requires batch size >= 2")
+        return output.roll(shifts=1, dims=0)
+
+    try:
+        for layer in selected:
+            handles.append(
+                adapter.encoder_layers[layer].output.dense.register_forward_hook(hook)
+            )
+        yield
+    finally:
+        for handle in handles:
+            handle.remove()
+
+
 @dataclass(frozen=True)
 class HeadEffect:
     layer: int
