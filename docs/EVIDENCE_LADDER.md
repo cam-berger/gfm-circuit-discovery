@@ -33,6 +33,8 @@ For positional mechanisms, the project records five compact columns:
 |---|:--:|:--:|:--:|:--:|:--:|---|
 | Period-3 clock | ✓ | ✓ | ✓ | ✓ | ✓ | Causal support for donor–acceptor routing |
 | Donor–acceptor computation | n/a | ✓ | ✓ | ✓ | ✓ | Directed information-routing circuit |
+| Reverse masked-acceptor dependence (`GT-AG`) | n/a | ? | ? | ? | bounded gate | The reciprocal behavior is real at the validation-gate level. Component interventions produced bounded, inconclusive, and health-failed candidates, but the prospectively frozen reader→write→delivery chain stopped before target (AC1–AC9). No causal rung above behavior is established. |
+| Natural donor-class modifier (`GC-AG` vs matched `GT-AG`) | n/a | ? | bounded | ? | bounded | Held-out behavior and L3H1 attention-geometry verification only (AC10–AC11). No `W_O` write, mediation, delivery, or biological mechanism. |
 | Multi-species ≈10.63 carrier | ✓ | ✓ | ✓ | null (donor coupling) | bounded (−0.033) | Real positional attention circuit, **not** part of the donor circuit. Both interventions ran (C37→C12). General function, general OV content, and biological meaning remain open; the `U_info` write test was never computed (R31). |
 | Human-only ≈10.2 candidate | ✓ | provisional | failed | — | null | Proposed chromatin circuit closed at attention |
 
@@ -73,6 +75,11 @@ multi-species ≈10.63 carrier no longer illustrates **?**: both its OV and Beha
 and biological meaning — and, specifically, whether it writes onto the donor readout `U_info`, which was
 never computed (**R31**) — not whether the experiments exist. These are three different epistemic states and
 the table must never be read as collapsing them.
+
+The reverse masked-acceptor rows are deliberately split. AC10's model-output ratio is behavior evidence;
+AC11's donor-attention ratio is routing/attention evidence. Observing both on the same held-out cohort does
+not fill the missing output/OV or mediation rungs. M1–M5 remain adaptive candidate generation and do not add
+checks to either row.
 
 **Relation to graded faithfulness.** The columns are an ordered record of *which* interventions have been run
 and survived. They are not a faithfulness measurement, and a row of ✓ across all five columns does **not**

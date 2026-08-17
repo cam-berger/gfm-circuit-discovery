@@ -1,0 +1,127 @@
+{
+  "schema": "gfmcd.m6.validation_confirmation/1",
+  "tier": "confirmatory",
+  "split": "val",
+  "sealed_chr8_chr9_opened": false,
+  "seal_enforced_by": "allowed_chromosomes=val at dataset build",
+  "validation_reserve_spent": true,
+  "protocol_sha256": "da326e4da94b5daa916f59f7268001e290ea00ab5ef2eb8da255c4dd477bf46a",
+  "alpha_per_endpoint": 0.025,
+  "n_pairs": 67,
+  "n_genes": 56,
+  "cohort": {
+    "tag": "m6-validation-confirmation-v1",
+    "row_sha256": "0dff7e6fd314d237407c926fd13e5784bfbbd9138b24b78ef74e288a922301d9",
+    "gene_sha256": "cb0fe02d5fda8ecbdcae454e2647e16fee43f259184de41f26c1541ced609b51",
+    "balance": {
+      "n_treatment": 67,
+      "n_comparator": 67,
+      "n_unmatched_treatment": 0,
+      "k": 1,
+      "treatment": {
+        "-1": {
+          "A": 0.0,
+          "C": 0.014925373134328358,
+          "G": 0.9552238805970149,
+          "T": 0.029850746268656716
+        },
+        "+3": {
+          "A": 0.8059701492537313,
+          "C": 0.0,
+          "G": 0.19402985074626866,
+          "T": 0.0
+        },
+        "+5": {
+          "A": 0.029850746268656716,
+          "C": 0.05970149253731343,
+          "G": 0.8208955223880597,
+          "T": 0.08955223880597014
+        }
+      },
+      "comparator": {
+        "-1": {
+          "A": 0.0,
+          "C": 0.014925373134328358,
+          "G": 0.9552238805970149,
+          "T": 0.029850746268656716
+        },
+        "+3": {
+          "A": 0.8059701492537313,
+          "C": 0.0,
+          "G": 0.19402985074626866,
+          "T": 0.0
+        },
+        "+5": {
+          "A": 0.029850746268656716,
+          "C": 0.05970149253731343,
+          "G": 0.8208955223880597,
+          "T": 0.08955223880597014
+        }
+      },
+      "matched_on": [
+        "-1",
+        "+3",
+        "+5",
+        "donor_acceptor_gap"
+      ],
+      "outcome_blind": true
+    }
+  },
+  "primary": {
+    "estimand": "mean(Y|GC-AG)/mean(Y|matched GT-AG), operator GG",
+    "rho": 0.2570867642398911,
+    "upper_bound": 0.5402253140142983,
+    "null": 0.6,
+    "verdict": "CONFIRMED",
+    "train_reference": [
+      0.242,
+      0.173,
+      0.326
+    ]
+  },
+  "secondary": {
+    "estimand": "L3H1 donor attention mass ratio at the readout token",
+    "ratio": 0.37554981086464917,
+    "upper_bound": 0.5808928386872912,
+    "null": 0.7,
+    "verdict": "CONFIRMED",
+    "train_reference": 0.3644
+  },
+  "memorials": {
+    "cohort_matches_the_frozen_census": {
+      "PASS": true,
+      "observed": {
+        "pairs": 67,
+        "genes": 56,
+        "row_sha256": "0dff7e6fd314d237407c926fd13e5784bfbbd9138b24b78ef74e288a922301d9",
+        "gene_sha256": "cb0fe02d5fda8ecbdcae454e2647e16fee43f259184de41f26c1541ced609b51"
+      },
+      "expected": {
+        "pairs": 67,
+        "genes": 56,
+        "row_sha256": "0dff7e6fd314d237407c926fd13e5784bfbbd9138b24b78ef74e288a922301d9",
+        "gene_sha256": "cb0fe02d5fda8ecbdcae454e2647e16fee43f259184de41f26c1541ced609b51"
+      },
+      "note": "the split may not have moved between freezing and spending"
+    },
+    "seal_never_materialised": {
+      "PASS": true,
+      "allowed_chromosomes": [
+        "chr11",
+        "chr16",
+        "chr19"
+      ]
+    },
+    "native_motifs_as_declared": {
+      "PASS": true
+    },
+    "edit_size_matched": {
+      "PASS": true
+    },
+    "matching_exactly_balanced": {
+      "PASS": true
+    }
+  },
+  "all_memorials_pass": true,
+  "licenses": "A held-out confirmation that this checkpoint's masked-acceptor readout depends substantially less on a minor-class donor, and that L3H1 attends to it substantially less. Quasi-observational; no component, mediation, route, or biological claim follows."
+}

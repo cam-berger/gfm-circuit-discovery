@@ -55,7 +55,18 @@ the target cohort, or accessing chr8/9.
 
 | ID | Current licensed claim | Evidence level | Controlling artifact(s) | Scope / first boundary |
 |---|---|---|---|---|
-| AC9 | **Closed — `INSTRUMENT_UNRESOLVED` before the R1c target.** The prospectively frozen R1c v4 validation preflight was a genuine `PREFLIGHT_GO`: all 13 gates passed on 400 rows / 321 genes, and independent replay reproduced its row algebra, 4,000-draw inference, 10,000-draw raw/trimmed gene bootstrap, and all 1,000 calibration trials. The exact frozen R1c→R5 handoff nevertheless rejects that authentic package: R1c `/3` rows serialize six `margin_levels` (`P_clean`, `P_under_D`, `P_under_N`, `X_clean`, `X_under_D`, `X_under_N`), while the bound R5 consumer asserts that the same field has exactly the three `P_*` keys before applying R1c's intended three-key common-leg projection. Because repairing the consumer or rewriting the rows would alter the frozen joint stack after observing the validation outcome, the one-run/no-redesign stop rule closes the chain. | **closed: instrument/package handoff — terminal `INSTRUMENT_UNRESOLVED`** (`ACR19`) | [`r1c_reverse_behavior_preflight_v4.json`](../../results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json), SHA-256 `1b27c4132c71a576c435b7b71f32831af9a44fbca6325931f35716ae4133cbdd`; [manifest](../../results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.manifest.json), SHA-256 `7412f3159e82f6ab0bbaa95e2796f41aa038eef4233efa7f09ec65867e39c45c`; verifier attestation SHA-256 `04be60c2239c98eefb01521f7a8a94a68f4d2cc4db5db8f1dddb5622f7378ce1`; [frozen R1c protocol](preregistrations/DRAFT_R1C_SEALED_REVERSE_BEHAVIOR_CONFIRMATION.md); `tests/test_acceptor_mechanism_cohort.py::test_reviewed_r1c_preflight_is_authentic_but_frozen_r5_handoff_rejects_its_six_margin_rows` | Validation chr11/16/19 only. This program did not open or score the R1c masked-acceptor target outcomes on chr8/9; the chromosomes were not globally virgin (`ACR18`). The R1c target preflight seal stayed unset, every shared R1c package pin stayed unset, and no R5a, R5b, or R5c scored artifact exists. R3d Path A was the sole admitted component prior in the frozen design; it was never activated downstream. `L2H15`, low-rank, H7, Claude's GC/GT candidates, early heads, and MLPs did not enter any gate. This is neither positive nor null evidence about paired-donor behavior, L3H1 reading/writing, L4H11+H9 delivery, or a biological mechanism. |
+| AC9 | **Closed — `INSTRUMENT_UNRESOLVED` before the R1c target.** The prospectively frozen R1c v4 validation preflight was a genuine `PREFLIGHT_GO`: all 13 gates passed on 400 rows / 321 genes, and independent replay reproduced its row algebra, 4,000-draw inference, 10,000-draw raw/trimmed gene bootstrap, and all 1,000 calibration trials. The exact frozen R1c→R5 handoff nevertheless rejects that authentic package: R1c `/3` rows serialize six `margin_levels` (`P_clean`, `P_under_D`, `P_under_N`, `X_clean`, `X_under_D`, `X_under_N`), while the bound R5 consumer asserts that the same field has exactly the three `P_*` keys before applying R1c's intended three-key common-leg projection. Because repairing the consumer or rewriting the rows would alter the frozen joint stack after observing the validation outcome, the one-run/no-redesign stop rule closes the chain. | **closed: instrument/package handoff — terminal `INSTRUMENT_UNRESOLVED`** (`ACR19`) | [`r1c_reverse_behavior_preflight_v4.json`](../../results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json), SHA-256 `1b27c4132c71a576c435b7b71f32831af9a44fbca6325931f35716ae4133cbdd`; [manifest](../../results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.manifest.json), SHA-256 `7412f3159e82f6ab0bbaa95e2796f41aa038eef4233efa7f09ec65867e39c45c`; verifier attestation SHA-256 `04be60c2239c98eefb01521f7a8a94a68f4d2cc4db5db8f1dddb5622f7378ce1`; [frozen R1c protocol](preregistrations/DRAFT_R1C_SEALED_REVERSE_BEHAVIOR_CONFIRMATION.md); `tests/test_acceptor_mechanism_cohort.py::test_reviewed_r1c_preflight_is_authentic_but_frozen_r5_handoff_rejects_its_six_margin_rows` | Validation chr11/16/19 only. This program did not open or score the R1c masked-acceptor target outcomes on chr8/9; the chromosomes were not globally virgin (`ACR18`). The R1c target preflight seal stayed unset, every shared R1c package pin stayed unset, and no R5a, R5b, or R5c scored artifact exists. R3d Path A was the sole admitted component prior in the frozen design; it was never activated downstream. `L2H15`, low-rank, H7, the natural donor-class candidates, early heads, and MLPs did not enter any gate. This is neither positive nor null evidence about paired-donor behavior, L3H1 reading/writing, L4H11+H9 delivery, or a biological mechanism. |
+
+## AC10–AC11 — natural donor-class modifier record
+
+These rows answer a narrower, orthogonal question: whether a natural minor-class `GC-AG` donor
+modifies the masked-acceptor behavior and L3H1 attention geometry relative to a matched canonical
+`GT-AG` donor. They do not repair AC9 or complete the canonical read→write→delivery chain.
+
+| ID | Current licensed claim | Evidence level | Controlling artifact(s) | Scope / first boundary |
+|---|---|---|---|---|
+| AC10 | **On the donor-class-development-held-out validation cohort, masked-acceptor coupling was substantially weaker for natural `GC-AG` donors than for matched `GT-AG` donors.** The prespecified ratio was `rho=0.2571`, with one-sided upper bound `0.5402` below the registered `0.60` boundary. | **bounded: held-out behavior verification** (`ACR20`, `ACR21`) | Recovered first-run [`m6_validation_confirmation.json`](../../results/splicebert_acceptor_coupling/m6_validation_confirmation.json), SHA-256 `80150013b084cb659c7e3a0e1739573fd1a12e0c95c8cc433067ec9929d4051a`; [manifest](../../results/splicebert_acceptor_coupling/m6_validation_confirmation.manifest.json), SHA-256 `4e470908b93885133a817a12eee2b074c8008f3d0b3aafbfb4ac596ae27216df`; original [M6 protocol](preregistrations/PREREGISTRATION_M6_VALIDATION_CONFIRMATION.md), SHA-256 `da326e4d…f46a` | Validation chr11/16/19; 67 matched pairs anchored by 56 treatment genes, the entire M6 reserve. The first run was clean at `42954a6` and numerically replicated the train direction, but donor class is quasi-observational; matching covers selected flanks, gap, and donor transcript support, not conservation, expression, or splicing efficiency. The checkpoint was not byte-bound, the stored cohort hash is order-insensitive and omits comparator pairing, the bootstrap does not preserve every matched pair, and row-level draws are absent. Therefore this is verification-grade bounded evidence, not clean confirmation. |
+| AC11 | **On the same cohort, L3H1 placed substantially less donor-directed attention mass on natural `GC-AG` donors than on matched `GT-AG` donors.** The prespecified attention ratio was `0.3755`, with one-sided upper bound `0.5809` below the registered `0.70` boundary. | **bounded: held-out attention-geometry verification** (`ACR21`) | Same recovered first-run M6 artifact, manifest, and original protocol as AC10 | Same 67 pairs / 56 treatment genes and the same provenance/inference limits as AC10. This establishes a bounded attention-geometry modifier only. It does not show that L3H1 is necessary, what it writes after `W_O`, whether it mediates the behavior, or whether L4H11/H9 delivers that state. |
 
 ## Terminal successor status
 
@@ -71,33 +82,23 @@ head+MLP family are not the current acceptor-only successor. R3c v2.1 creates on
 not alter AC1's bounded gate status, AC2's post-outcome status, AC3's retraction, or AC4's unresolved
 partition.
 
-### Comparison with Claude's inverse-margin branch
+## Integrated interpretation
 
-Claude's clean branch tip `b79570d` studies a different question: why natural GC-AG donors show weaker
-reverse coupling than matched GT-AG donors. Its M6 validation reserve numerically reproduced two
-prespecified modifier endpoints on 67 matched pairs / 56 genes: coupling ratio `0.2571` with one-sided
-upper bound `0.5402` against `0.60`, and L3H1 donor-attention ratio `0.3755` with upper bound `0.5809`
-against `0.70`. That is useful held-out **behavior plus attention-geometry replication**, but the
-registered package is not clean confirmatory evidence under its own protocol. The first authorised run
-used the frozen `da326e4d…` protocol; after seeing the result, the Tier banner was moved, the protocol
-hash changed to `8d91b570…`, and the same reserve was run a second time despite the literal “exactly one
-run / there is no second one” rule. The committed manifest is for that second run and records
-`git_dirty=true`; the checkpoint directory is also recorded as missing rather than byte-bound. The two
-runs agree numerically, so M6 is honest **provenance-broken held-out verification**, not a refutation of
-the effect and not a canonical confirmation.
+The combined record has one coherent progression. Canonical `GT-AG` masked-acceptor dependence is
+large but bounded at the validation-gate level (AC1); both donor bases affect it sub-additively in a
+post-outcome operator screen (AC2); and the original stratum claim is retracted (AC3). R3 nominates
+components without a valid partition (AC4). R3c then supports bounded `L1H12` mean-ablation and
+`L4H11/H9/H7` noising patterns (AC5–AC6), while leaving `L3H1` reuse and a distinct route inconclusive
+(AC7) and `L2H15` health-ineligible (AC8). The prospectively frozen R1c→R5 mechanism program stops at
+its authentic package handoff before target science (AC9).
 
-Claude's earlier support-matched train ratio near `0.242 [0.173,0.326]`, the post-outcome L0/L1 head
-family, and the later `MLP1` asymmetry remain development candidates. The all-head selection cohort
-retained a donor-support imbalance, the M3b transport-null narrative lacks a direct equivalence test,
-and neither M6 nor the development work tests a necessary-and-sufficient post-`W_O` local write or
-conditional delivery. It is therefore a useful **future GC/GT generalization hypothesis**, not an
-answer to how the canonical masked-acceptor margin is constructed.
-
-The frozen R1c→R5 program had the stronger causal question, a prospectively bound R3d Path-A prior,
-and an independently replayed validation instrument, but AC9 stopped it before any sealed behavior or
-mechanism outcome. The records must not be combined into a synthetic success: Claude supplies a
-candidate modifier without confirmation, while AC9 supplies a rigorous instrument stop without a
-scientific target. Neither establishes the complete canonical read→write→delivery chain.
+The natural donor-class arc adds a modifier, not a missing mechanism. AC10–AC11 show that `GC-AG`
+donors have both weaker reverse coupling and lower L3H1 donor attention than matched `GT-AG` donors
+on the M6 validation cohort. M1–M5 supply adaptive development candidates—early L0/L1 heads and an
+`MLP1` asymmetry—but no registered transport equivalence, post-`W_O` write, mediation, or delivery
+result (`ACR22`). The two arcs must therefore not be composed into a synthetic successful circuit.
+The strongest complete conclusion is: **reverse masked-acceptor dependence and natural donor-class
+heterogeneity reach behavior/attention evidence; causal construction of the margin remains unresolved.**
 
 ## AC1 draw stability — per-draw values, NOT intervals
 
@@ -133,7 +134,7 @@ population, and license nothing about generalisation.
   on chr8/9 were scored; it does not reserve or authorise another attempt under the same program.
   chr8/9 had already been used by donor `C1`, so this is an endpoint-outcome holdout rather than a
   globally virgin chromosome seal (`ACR18`). R3c's held-out bucket is within validation chr11/16/19.
-- **Nothing about splicing.** AC1–AC9 are model-internal; no external biological assay enters those records.
+- **Nothing about splicing.** AC1–AC11 are model-internal; no external biological assay enters those records.
 
 ## Interpretation guardrails
 
@@ -157,8 +158,8 @@ population, and license nothing about generalisation.
   its own frozen verifier, but the frozen downstream consumer rejects it. Changing either side after
   observing that package would create a new method. Under the one-run goal, the only licensed outcome
   is `INSTRUMENT_UNRESOLVED`; no R1c target or R5 stage may be inferred from the preflight estimates.
-- **Claude's GC/GT result is a secondary development hypothesis.** It neither repairs AC9 nor licenses
-  early-head, MLP, address, write, delivery, mediation, or canonical-margin claims.
+- **AC10–AC11 are modifier evidence, not a reverse circuit.** They neither repair AC9 nor license
+  early-head, MLP, address, post-`W_O` write, delivery, mediation, or canonical-margin construction.
 - **`[a, b]` is a confidence interval.** Spread across draws or seeds is written "range" or "SD".
 - **C42 does not transfer to this direction.** Its row scopes it to the acceptor operator; AR1's `DONA`
   returned `NOT_INVARIANT` and AC2 explains why. Never cite C42 in support of a donor-side operator.

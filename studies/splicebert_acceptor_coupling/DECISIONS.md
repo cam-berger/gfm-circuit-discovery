@@ -633,27 +633,32 @@ program never scored the R1c masked-acceptor target outcomes on chr8/9. The stro
 behavior result and cannot be promoted into evidence for L3H1 reading, a post-`W_O` write, conditional
 L4H11+H9 delivery, mediation, sufficiency, or a biological mechanism.
 
-### Comparison with Claude's development branch
+## 2026-08-17 — consolidate the natural donor-class modifier without promoting it into the stopped causal chain
 
-Claude's clean branch tip `b79570d` asks a different question: why natural GC-AG donors show a smaller
-reverse-coupling response than matched GT-AG donors. M6 numerically replicated the coupling modifier
-on 67 validation pairs / 56 genes (`rho=0.2571`, upper bound `0.5402` against `0.60`) and the L3H1
-donor-attention modifier (`0.3755`, upper bound `0.5809` against `0.70`). Those are useful held-out
-behavior and attention-geometry results. They are not clean confirmatory evidence under M6's own
-one-run protocol: after the first clean authorised run exposed the outcomes, the protocol's Tier banner
-was moved, its hash changed, and the exhausted reserve was run again despite the literal no-second-run
-rule. The committed package is that second run and its manifest records `git_dirty=true`; the model
-directory is not content-hashed. The two runs' scientific numbers are identical, so the honest status
-is **provenance-broken held-out verification**, not a failed replication and not canonical confirmation.
+The independent donor-class history at merge parent `b79570d` is retained in full, but its scientific
+record is reconciled rather than overlaid on AC9. The exact first M6 run—not the prohibited second
+run—is restored as the live compact package. It was produced cleanly at `42954a6` under the original
+protocol hash `da326e4d…f46a`; the artifact and manifest hashes are `80150013…051a` and
+`4e470908…16df`. The later source-branch package remains reachable through the merge parent as
+superseded provenance. `ACR21` records why the lifecycle, checkpoint, cohort-identity, bootstrap, and
+replay surface bound the evidence despite the numerical replication.
 
-Claude's six early heads and `MLP1` remain post-outcome development candidates. Their selection and
-clustering caveats remain, and neither M6 nor those scans test the post-`W_O` local write or conditional
-delivery required here. The branch therefore helps explain a natural-donor-class **modifier**, not how
-the canonical masked-acceptor margin is causally constructed.
+The ledger splits M6 by evidence rung. AC10 records the masked-acceptor behavior modifier
+(`rho=0.2571`, upper bound `0.5402` against `0.60`); AC11 records L3H1 donor-attention geometry
+(`0.3755`, upper bound `0.5809` against `0.70`). Both are bounded held-out verification on 67 matched
+pairs / 56 treatment genes. Neither is called confirmation, component necessity, mediation, or a
+mechanism. M1–M5 remain adaptive development: their reusable matching/estimator code and runners are
+kept, while scratch-only outcomes are not promoted into the results manifest (`ACR22`).
 
-The comparison therefore has no complete-mechanism winner. Claude contributes stronger numerical
-evidence for a narrow GC/GT modifier, bounded to verification grade by its lifecycle breach. This
-program contributes a more rigorous prospective causal specification and a fully replayed passing
-instrument, but stops at an immutable integration failure before producing a target scientific
-outcome. Neither record licenses the canonical complete mechanism, and this goal launches no GC/GT,
-early-head, or MLP follow-up.
+Two compatibility decisions keep the consolidated tree reviewable without invalidating the frozen
+R1c/R5 package. First, historical `circuit.eligible` remains byte-identical and GT-only; the natural
+modifier runners opt into `GC` through `donor_class.eligible_donor_motifs` (`ACR20`). Second, the
+duplicate MLP hook is not retained: M5 uses the already-reviewed `edit_mlp_writes` primitive. The exact
+historical M6 runner and source state remain recoverable at `42954a6`; current development runners are
+adapted only outside the frozen core.
+
+The scientific storyline is additive, not synthetic. AC1–AC8 delimit canonical `GT-AG` behavior and
+component candidates; AC9 closes the prospective read→post-`W_O` write→delivery adjudication before
+target; AC10–AC11 show that natural `GC-AG` donor class modulates behavior and attention. No combination
+of these rows establishes causal construction of the masked-acceptor margin, so no new scored target or
+follow-up is launched by this consolidation.

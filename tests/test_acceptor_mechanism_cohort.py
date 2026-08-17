@@ -936,7 +936,7 @@ def test_reviewed_r1c_preflight_is_authentic_but_frozen_r5_handoff_rejects_its_s
         )
 
 
-def test_ac9_is_the_single_terminal_outcome_and_indexes_only_instrument_evidence():
+def test_ac9_stays_terminal_while_ac10_ac11_index_only_modifier_evidence():
     claims = (
         REPO / "studies/splicebert_acceptor_coupling/CLAIMS.md"
     ).read_text()
@@ -946,12 +946,14 @@ def test_ac9_is_the_single_terminal_outcome_and_indexes_only_instrument_evidence
     manifest = json.loads((REPO / "results/MANIFEST.json").read_text())
 
     assert claims.count("| AC9 |") == 1
+    assert claims.count("| AC10 |") == 1
+    assert claims.count("| AC11 |") == 1
     assert "terminal `INSTRUMENT_UNRESOLVED`" in claims
-    assert "b79570d" in claims
-    assert "provenance-broken held-out verification" in claims
+    assert "Integrated interpretation" in claims
     assert "ACR18" in claims and "ACR19" in claims
-    assert "this goal launches no GC/GT" in decisions
-    assert "early-head, or MLP follow-up" in decisions
+    assert "ACR20" in claims and "ACR21" in claims
+    assert "No combination" in decisions
+    assert "establishes causal construction" in decisions
 
     ac9_rows = [
         row for row in manifest["rows"] if row.get("claim_id") == "AC9"
@@ -964,6 +966,16 @@ def test_ac9_is_the_single_terminal_outcome_and_indexes_only_instrument_evidence
     assert artifact_row["artifact"].endswith(
         "r1c_reverse_behavior_preflight_v4.json"
     )
+
+    modifier_rows = [
+        row for row in manifest["rows"] if row.get("claim_id") == "AC10;AC11"
+    ]
+    assert len(modifier_rows) == 2
+    modifier_artifact = next(row for row in modifier_rows if row["evidence_level"])
+    assert modifier_artifact["status"] == "canonical"
+    assert modifier_artifact["evidence_level"] == "Behaviour"
+    assert modifier_artifact["polarity"] == "bounded"
+    assert modifier_artifact["artifact"].endswith("m6_validation_confirmation.json")
 
     result_dir = REPO / "results/splicebert_acceptor_coupling"
     assert not list(result_dir.glob("r1c_*target*.json"))

@@ -159,8 +159,9 @@ share of artifacts the annotation actually used is not recorded at all.
    **R41**.
 
 Where a runner departed from its frozen protocol, the deviation is recorded in
-[`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) — which audits the **SpliceBERT donor/carrier
-arc only**. The GTEx fine-tuning study's gates (`GFS*`) are self-reported by its own ledger and
+[`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md). Its systematic audit covers the
+**SpliceBERT donor/carrier arc**; a scoped addendum records the M6 reverse masked-acceptor deviation.
+The GTEx fine-tuning study's gates (`GFS*`) are self-reported by its own ledger and
 `DECISIONS.md`, not independently audited. Read the conformance file before treating any preregistered
 gate as having been enforced.
 
@@ -181,6 +182,36 @@ The detailed command map is
 [`studies/splicebert_partner_selection/REPRODUCIBILITY.md`](studies/splicebert_partner_selection/REPRODUCIBILITY.md),
 and the protocol status index is
 [`studies/splicebert_partner_selection/preregistrations/README.md`](studies/splicebert_partner_selection/preregistrations/README.md).
+
+### Reverse masked-acceptor record
+
+| Claim family | Canonical runner(s) | Controlling output |
+|---|---|---|
+| AC1–AC4 behavior gate, operator, and component scan | `run_r1_reverse_coupling.py`, `run_r1b_reverse_coupling.py`, `run_r2_donor_base_decomposition.py`, `run_r3_paired_component_scan.py` | `results/splicebert_acceptor_coupling/r1*.json`, `r2_*.json`, `r3_*.json` plus manifests |
+| AC5–AC8 component adjudication | `run_r3c_acceptor_head_confirmation.py` and its package auditor | `r3c_acceptor_head_target_v2_1.json`, sibling manifest, and audit |
+| AC9 terminal R1c→R5 instrument outcome | `run_r1c_sealed_reverse_behavior.py` plus the model-free successor verifier | `r1c_reverse_behavior_preflight_v4.json` and manifest; the target and every R5 scored result are absent by design |
+| AC10–AC11 natural donor-class modifier | historical M6 runner at commit `42954a67947ed7d2748c57816661b917cf5d78e8` | recovered first-run `m6_validation_confirmation.json` and manifest |
+
+The M6 validation reserve is spent; **do not rerun it**. Review the controlling first-run package
+model-free instead:
+
+```bash
+sha256sum \
+  results/splicebert_acceptor_coupling/m6_validation_confirmation.json \
+  results/splicebert_acceptor_coupling/m6_validation_confirmation.manifest.json \
+  studies/splicebert_acceptor_coupling/preregistrations/PREREGISTRATION_M6_VALIDATION_CONFIRMATION.md
+uv run pytest -q tests/test_m6_validation_package.py
+git show 42954a67947ed7d2748c57816661b917cf5d78e8:scripts/splicebert_acceptor_coupling/run_m6_validation_confirmation.py | sha256sum
+git show 42954a67947ed7d2748c57816661b917cf5d78e8:studies/splicebert_acceptor_coupling/preregistrations/PREREGISTRATION_M6_VALIDATION_CONFIRMATION.md | sha256sum
+```
+
+Expected hashes are artifact `80150013…051a`, manifest `4e470908…6df`, historical runner
+`bdbf9c95…b08`, and original protocol `da326e4d…46a`. The manifest authenticates the first clean
+run, but records the checkpoint directory as missing rather than content-hashed. It also stores only
+summary statistics, so the confidence limits cannot be independently recomputed without the spent
+cohort/model run. The branch's later dirty rerun is retained only in Git history and is not indexed as
+controlling evidence. Read AC10–AC11 and ACR21 before quoting the artifact's immutable
+`CONFIRMED`/`confirmatory` self-label.
 
 ### Position/carrier record
 
@@ -218,6 +249,7 @@ required to audit the recorded claims are version-controlled.
 2. Run smoke/preflight gates before target data.
 3. Do not reopen the sealed chr8/9 test as a routine smoke check.
 4. Write a new immutable artifact; do not overwrite the controlling result.
+5. Do not rerun the spent M6 validation reserve; use its model-free package memorial above.
 5. Record checkpoint, tokenizer, dataset hashes, split, parameters, seed, command, and Git revision.
 6. Re-run the validator and the narrowest relevant tests, then `uv run pytest` when feasible.
 7. Update the live claim ledger only to the strongest level the new evidence licenses; preserve any

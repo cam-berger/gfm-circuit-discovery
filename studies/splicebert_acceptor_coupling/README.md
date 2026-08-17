@@ -36,10 +36,16 @@ questions:
 | Readout | Mask both bases of `AG` simultaneously and sum the `A`- and `G`-margins as `m_acc`. | Mask only the acceptor `G`, exactly mirroring C1's single-`G` margin as `Y_A`. |
 | Intervention | Corrupt fixed or heuristically located branch-point/PPT-labelled windows. | Replace the paired donor `GT` with a motif-clean alternative. |
 | Cohort | The same 200 GUE `splice_reconstructed` acceptor-test examples throughout Phases 0–5; Phase 0 also uses 200 label-2 controls, and the decoy comparison uses only examples with a downstream `AG`. | Historical R1/R1b/R3 use 974 paired validation exons / 645 genes; R3c/R3d and the R1c validation instrument use separate outcome-blind cohorts. The frozen R5 stages never scored a cohort. |
-| Status | Branch-local, exploratory, no live claim. | `AC1`–`AC8` preserve bounded, retracted, inconclusive, and health-failed evidence. `AC9` is the single terminal R1c→R5 outcome: instrument unresolved at the frozen package handoff, before the R1c target. |
+| Status | Branch-local, exploratory, no live claim. | `AC1`–`AC8` preserve bounded, retracted, inconclusive, and health-failed canonical-`GT` evidence; `AC9` is the terminal R1c→R5 handoff failure; `AC10`–`AC11` add bounded natural-`GC` behavior and attention modifiers. |
 
 The Sri pilot therefore cannot be cited as prior evidence for reciprocal donor→acceptor coupling, and
 `AC1`–`AC8` neither validate nor refute its branch-point/PPT hypotheses.
+
+Within the present paired-donor study, the **canonical construction arc** and the **natural donor-class
+modifier arc** must also stay separate. AC1–AC9 ask what can be established for canonical `GT-AG`
+introns and whether a reader→write→delivery account can be authorized. AC10–AC11 compare natural
+`GC-AG` introns with matched `GT-AG` introns. The latter changes biological stratum and reaches only
+behavior and attention geometry; it is not the missing causal mechanism (`ACR20`–`ACR22`).
 
 ### Corrections to the historical pilot
 
@@ -136,7 +142,10 @@ component prior. The frozen R1c v4 validation preflight then passed all 13 gates
 but the exact frozen R5 handoff rejected its authentic six-margin rows before any package pin or sealed
 target outcome was opened (`ACR19`). The canonical R1c→R5 program is therefore closed as terminal
 `INSTRUMENT_UNRESOLVED` (`AC9`); R5a/R5b/R5c have no scored artifact. R4 remains a retired,
-never-frozen draft with a historical exploratory execution; the BP arc is non-ledger evidence.
+never-frozen draft with a historical exploratory execution; the BP arc is non-ledger evidence. The
+M1–M5 natural donor-class runners are development-only candidate generators. M6 used a separate
+validation reserve and produced bounded AC10–AC11; its first clean package is retained, while its
+one-run lifecycle and audit limitations prevent confirmatory promotion (`ACR21`).
 
 | arm | question | outcome |
 |---|---|---|
@@ -149,6 +158,8 @@ never-frozen draft with a historical exploratory execution; the BP arc is non-le
 | **R3c v2.1** ([frozen protocol](preregistrations/DRAFT_R3C_ACCEPTOR_HEAD_CONFIRMATION.md)) | do fixed donor-reader and later-head candidates contribute selectively to the paired-donor-induced masked-acceptor margin under mean ablation and same-example noising? | clean [bucket-0 preflight](../../results/splicebert_acceptor_coupling/r3c_acceptor_head_preflight_v2_1.json) ([manifest](../../results/splicebert_acceptor_coupling/r3c_acceptor_head_preflight_v2_1.manifest.json)) and held-out-within-validation [r3c_acceptor_head_target_v2_1.json](../../results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json) ([r3c_acceptor_head_target_v2_1.manifest.json](../../results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.manifest.json); [r3c_acceptor_head_target_v2_1.audit.json](../../results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.audit.json)); supported only `L1H12` mean and `L4H11`/`L4H9`/`L4H7` noising component patterns → `AC5`/`AC6`; `L3H1` reuse and distinct route inconclusive, `L2H15` health-failed → `AC7`/`AC8` |
 | **R3d Path A** ([frozen protocol](preregistrations/DRAFT_R3D_ACCEPTOR_SPECIFICITY_ADJUDICATION.md)) | does a fresh registry-disjoint train target support the prespecified `L3H1` paired-versus-pseudo component conjunction? | supported on 3,909 target genes; used only as the sole component prior for the frozen R1c→R5 design. Path B was excluded from entry and is not promoted here. |
 | **R5a/R5b/R5c** ([frozen preflight-only protocols](preregistrations/)) | conditional on R1c behavior and R3d Path A, does L3H1 read the donor, write a post-`W_O` acceptor-query-local state, and do L4H11+H9 deliver it? | not run: the mandatory exact R1c→R5 package handoff failed before any scored R5 stage; no preflight, target, or result exists (`AC9`) |
+| **M1–M5 natural donor-class development** | why is reverse coupling weaker for natural `GC-AG` than matched `GT-AG`, and which early components might modulate L3H1 geometry? | adaptive train-split candidate generation only; no live claim, transport equivalence, post-`W_O` write, mediation, or delivery (`ACR22`) |
+| **M6 natural donor-class verification** ([original frozen protocol](preregistrations/PREREGISTRATION_M6_VALIDATION_CONFIRMATION.md)) | do the behavior ratio and L3H1 attention ratio reproduce on the donor-class-development-held-out validation reserve? | numerically yes on 67 pairs / 56 treatment genes, but bounded to verification by lifecycle, checkpoint, cohort-hash, bootstrap, and replay limits → `AC10`/`AC11`, `ACR21` |
 
 ### Current successor status and evidence boundary
 
@@ -213,7 +224,7 @@ uncommitted, and no `AC*` row was created. Engineering record:
 The final program was frozen as one ordered chain:
 
 1. **Prior:** R3d Path A alone supplied the prospective `L3H1` component premise. R3d Path B,
-   `L2H15`, H7, the optional low-rank basis, and Claude's GC/GT early heads were secondary only.
+   `L2H15`, H7, the optional low-rank basis, and the natural donor-class early-head candidates were secondary only.
 2. **Validation instrument:** R1c v4 passed its fresh validation preflight and exact replay.
 3. **Frozen package handoff:** the authentic R1c package failed the mandatory R5 schema contract.
 4. **R1c target behavior:** not tested; its masked-acceptor target outcomes on chr8/9 remained unscored
@@ -222,9 +233,9 @@ The final program was frozen as one ordered chain:
 
 The chain ends at step 3. The repository records one terminal outcome—AC9
 `INSTRUMENT_UNRESOLVED`—rather than repairing the parser, rerunning the preflight, substituting a
-secondary component, or turning validation estimates into a scientific result. Claude's natural-GC
-work remains a separate development-tier modifier hypothesis; no GC/GT, early-head, or MLP follow-up
-belongs to this closed program.
+secondary component, or turning validation estimates into a scientific result. The natural-GC arc
+is recorded separately as bounded AC10–AC11 modifier evidence; no GC/GT, early-head, or MLP
+result is inserted into this closed program.
 
 - [`CLAIMS.md`](CLAIMS.md) — the claim ledger (`AC*`). Separate from the donor study's `C*` ledger on
   purpose: acceptor reconstruction is a different behaviour from donor reconstruction, and giving it
@@ -235,8 +246,8 @@ belongs to this closed program.
   including the two negative results about the instrument (`D10` signed objective, `D11`
   unimplemented partition).
 - [`CORRECTIONS.md`](CORRECTIONS.md) — `ACR*`. Never delete a correction; record, don't rewrite.
-- [`preregistrations/`](preregistrations/) — `R1`, `R1b`, `R3`, `R3c v2.1`, R3d, and the
-  R1c/R5 source stack are frozen records; R3b remains an unrun draft and `R4` a **RETIRED DRAFT / NEVER
+- [`preregistrations/`](preregistrations/) — `R1`, `R1b`, `R3`, `R3c v2.1`, R3d, the
+  R1c/R5 source stack, and the original M6 protocol are frozen records; R3b remains an unrun draft and `R4` a **RETIRED DRAFT / NEVER
   FROZEN** record. AC9 closes the R1c/R5 chain before target, so the remaining `None` pins are terminal
   evidence rather than an invitation to execute it.
 - `scripts/splicebert_acceptor_coupling/` — runners. `src/gfmcd/splicing/reverse_coupling.py` — the
@@ -244,11 +255,14 @@ belongs to this closed program.
 
 ## Scope, standing
 
-AC1–AC9 use one checkpoint (`SpliceBERT.1024nt`), canonical internal short introns, and both strands.
+AC1–AC11 use one checkpoint lineage (`SpliceBERT.1024nt`), internal short introns, and both strands.
+AC1–AC9 are restricted to canonical `GT-AG`; AC10–AC11 are the explicit natural `GC-AG` versus
+matched-`GT-AG` exception (`ACR20`).
 AC1 is a bounded behavior gate, AC2 a bounded post-outcome operator screen, AC3 is retracted, AC4 is
 instrument-unresolved candidate generation, AC5/AC6 are bounded held-out component patterns, AC7/AC8
 preserve inconclusive or health-failed paths, and AC9 is a terminal package-handoff instrument failure
-before the R1c target cohort. They are model-internal, and **no external biological assay enters
+before the R1c target cohort. AC10/AC11 are bounded behavior/attention modifier evidence and do not
+establish causal construction. All are model-internal, and **no external biological assay enters
 those records.** The
 later non-ledger forward BP pilot uses longer spans and a literature-derived motif/window as an
 intervention stimulus; that is a biological prior, not external validation. Nothing here is a claim

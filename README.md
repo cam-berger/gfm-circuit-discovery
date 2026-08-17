@@ -23,6 +23,7 @@ gene-dyadic inference (R22).
 | Result | Evidence reached | Licensed interpretation | First missing bridge |
 |---|---|---|---|
 | Native donor–acceptor coupling | Behavior + specificity | A masked donor score depends on its own paired acceptor under canonical short-intron controls. | Wider biological and sequence-context transduction. |
+| Reverse masked-acceptor coupling AC1–AC11 | Bounded behavior + component interventions + attention geometry; causal chain unresolved | Canonical `GT-AG` introns show a large validation-gate reverse effect; natural `GC-AG` donors show weaker reverse coupling and lower L3H1 donor attention than matched `GT-AG` donors. | The prospectively frozen read→post-`W_O` write→delivery program stopped at an immutable package handoff before target; no mediated reverse mechanism is licensed. |
 | Donor graph A0→A12 | QK → attention → OV/mediation → behavior | An acceptor-local generator feeds L3H1, which binds payload to a mostly relative address and delivers a low-rank donor-side signal through a structured core. | Payload semantics; cross-context causal transfer. |
 | Period-3 carrier C8/C34/C35/C39 | Position → routing → mediation → behavior; origin corpus-attributed | A distributed relative-positional routing coordinate shapes L3H1's attention across the donor–acceptor span. Origin: built by multi-species pretraining, codon-linked (absent in human-only sibling and in ncRNA models, C39/C40). | Training *dynamics* (trajectory); upstream effects on payload construction. |
 | Coding-boundary phase C43/C44 | Behavior (replicated); mediation unresolved | Masked-donor partner coupling prefers **annotated** donor–acceptor codon reading-frame matches (`Ψ=+0.3901`, fresh outcome-blind replication) — but only inside a frozen **chimeric** crossed lattice at one span, with the resolution gate passing at its Monte-Carlo noise floor, and "only when matched" is **not** licensed. Whether the period-3 carrier implements it is **unresolved** (C44): four of the frozen authorization gates failed, the 384-block target was never exposed, and neither a positive, a null, nor an inverted conclusion is licensed. | A capable mechanism instrument. The local carrier/A-V/Q-K family is attempted-and-unresolved, not eliminated. |
@@ -61,6 +62,7 @@ Attribution ranks; intervention decides. See the [methodology](docs/METHODOLOGY.
 | Study | Status | Purpose |
 |---|---|---|
 | [`studies/splicebert_partner_selection/`](studies/splicebert_partner_selection/README.md) | **core record**; open limitations | The donor circuit and both positional carriers: claims, corrections, preregistrations, and the reproduction map. |
+| [`studies/splicebert_acceptor_coupling/`](studies/splicebert_acceptor_coupling/README.md) | consolidated bounded record; mechanism unresolved | Reverse paired-boundary behavior, canonical component adjudication, the stopped R1c→R5 causal program, and the natural `GC-AG`/`GT-AG` modifier evidence. |
 | [`studies/splicebert_positional_boundary_coherence/`](studies/splicebert_positional_boundary_coherence/README.md) | prospective; preregistered design, no new outcome | Tests a scoped causal link between period-3 and a composition-balanced coding-boundary preference; partial/full register concordance and mediation are strengthening tiers, while ≈10.63 is optional and non-vetoing. |
 | [`studies/splicebert_head_context_atlas/`](studies/splicebert_head_context_atlas/README.md) | discovery and internal validation complete | Multi-context head/MLP reuse atlas. Supplies the gene-disjoint cohort behind C41 and an independent rediscovery of L3H1; context-specific follow-ups remain exploratory. |
 | [`studies/splicebert_gtex_finetune_shift/`](studies/splicebert_gtex_finetune_shift/README.md) | native causal mechanism mapped; sparse-difference instrument bounded | What happens to the same encoder under supervised fine-tuning: late attention routes into a compact final-MLP code, and inherited positional-carrier use. |
@@ -92,6 +94,8 @@ study's prose that must not be reintroduced from Git history.
   register-relocation, mediation, freeze, and independent-audit entrypoints for the prospective successor
   study.
 - `scripts/splicebert_head_context_atlas/` — Atlas census, screening, mechanism, merge, and audit workflows.
+- `scripts/splicebert_acceptor_coupling/` — reverse-coupling gates, component adjudications,
+  frozen mechanism instruments, and natural donor-class development/verification runners.
 - `scripts/crossmodel/` — cross-model carrier runners (C39/C40). These require a separate environment;
   see [`REPRODUCE.md`](REPRODUCE.md).
 - `src/gfmcd/adapters/` — model access and hook interfaces.
@@ -102,6 +106,8 @@ study's prose that must not be reintroduced from Git history.
   `results/splicebert_head_context_atlas/` — immutable results, compact matrices, manifests, and audits.
 - `results/splicebert_positional_boundary_coherence/` — reserved for immutable successor-study artifacts;
   it is empty until a gated run is completed.
+- `results/splicebert_acceptor_coupling/` — the AC1–AC11 reverse-coupling artifacts, manifests,
+  exposure registry, and audits.
 - `results/origin-crossmodel/` and `results/origin-siblings/` — the carrier-origin natural experiments
   (C39/C40). These two use a `canonical/` subdirectory; the other result trees keep canonical artifacts
   at the subtree root. See [`results/RESULTS_INDEX.md`](results/RESULTS_INDEX.md).
@@ -125,10 +131,12 @@ including their separate terms, are summarized in [third-party assets](docs/THIR
    [corrections](studies/splicebert_partner_selection/CORRECTIONS.md) before quoting a result.
 4. Review the [Head–Context Atlas](studies/splicebert_head_context_atlas/README.md) for the current
    cross-context branch.
-5. Review the [GTEx fine-tuning-shift findings](studies/splicebert_gtex_finetune_shift/FINDINGS.md) for
+5. Review the [reverse acceptor-coupling ledger](studies/splicebert_acceptor_coupling/CLAIMS.md) for
+   the canonical `GT-AG` record, stopped causal chain, and natural donor-class modifier.
+6. Review the [GTEx fine-tuning-shift findings](studies/splicebert_gtex_finetune_shift/FINDINGS.md) for
    the supervised task representation and its current sparse/biological boundaries.
-6. Read the [transfer guide](docs/TRANSFER_GUIDE.md) for how to port the method to another GFM.
-7. Follow [`REPRODUCE.md`](REPRODUCE.md) for the canonical environment and claim→script→artifact map.
+7. Read the [transfer guide](docs/TRANSFER_GUIDE.md) for how to port the method to another GFM.
+8. Follow [`REPRODUCE.md`](REPRODUCE.md) for the canonical environment and claim→script→artifact map.
 
 For development:
 

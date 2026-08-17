@@ -161,6 +161,23 @@ refutation of the nucleosome bridge rather than support for it (C14, R17;
 [`docs/NOMENCLATURE.md`](docs/NOMENCLATURE.md)). The carrier's OV/behavioral function inside the model
 stays open; only its *corpus* origin is now licensed.
 
+### 5. Reverse masked-acceptor construction
+
+The reciprocal endpoint—masking the acceptor `G` and corrupting its paired donor—has a consolidated
+but incomplete record (`AC1`–`AC11`). For canonical `GT-AG` introns, the validation gate records a
+large pair-specific response; R3c supports bounded `L1H12` mean-ablation and `L4H11/H9/H7` noising
+patterns, while `L3H1` reuse remains inconclusive and `L2H15` health-ineligible. A prospectively frozen
+reader→post-`W_O` write→delivery program passed its R1c validation instrument but stopped at an
+immutable R1c→R5 package-contract failure before target. It supplies no target behavior, write,
+mediation, or delivery result.
+
+A separate natural donor-class comparison shows weaker reverse coupling (`rho=0.2571`, upper bound
+`0.5402`) and lower L3H1 donor attention (ratio `0.3755`, upper bound `0.5809`) for `GC-AG` than matched
+`GT-AG` donors on 67 validation pairs. Those are bounded behavior and attention-geometry modifiers,
+not a causal account. The early-head and `MLP1` hypotheses remain adaptive development candidates.
+Therefore the donor-side graph above must not be reflected across the intron: causal construction of
+the masked-acceptor margin remains unresolved.
+
 ## Scope
 
 The core behavior is established for one SpliceBERT checkpoint, canonical internal short introns, both

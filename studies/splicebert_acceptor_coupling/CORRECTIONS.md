@@ -604,3 +604,72 @@ shared R1c preflight/target package pins remain unset; no R1c target receipt exi
 R5c scored artifact exists; and the R1c masked-acceptor target outcomes remain unscored. The validation estimates do not become a
 behavior claim, and no null or positive inference about L3H1 reading/writing or L4H11+H9 delivery is
 licensed.
+
+## ACR20 — the canonical coupling cohorts are `GT-AG`-only; natural `GC-AG` is a separate modifier scope (2026-08-17)
+
+The historical `circuit.eligible` predicate requires the native donor motif to equal `GT`. Raw coupling
+construction admits natural `GC-AG` introns, but every historical caller that passed through this
+predicate discarded them before scoring. AC1–AC9 and the canonical donor-side coupling arc are therefore
+scoped to canonical `GT-AG` introns even where earlier prose did not say so explicitly.
+
+M1–M6 widen that scope deliberately. To preserve the byte-bound R1c/R5 implementation, the consolidated
+tree does not change `circuit.eligible`; it exposes the same split, paired-acceptor, motif, and gap rules
+through the outcome-blind `donor_class.eligible_donor_motifs` helper. Every donor-class runner opts into
+`GC` explicitly. Tests pin the historical GT-only predicate and the widened natural-donor predicate
+separately.
+
+This correction changes no historical cohort or number. It prevents AC10–AC11 from being read as a
+replication on the same biological stratum as AC1–AC9, and prevents the canonical `GT-AG` mechanism from
+silently generalizing to the minor donor class.
+
+## ACR21 — M6 numerically replicated both endpoints, but its one-run lifecycle and audit surface block confirmatory promotion (2026-08-17)
+
+M6 reserved 67 matched validation pairs / 56 treatment genes and declared exactly one run. The first run
+occurred at `2026-08-17T12:26:22Z` from clean commit
+`42954a67947ed7d2748c57816661b917cf5d78e8`, under protocol SHA-256
+`da326e4da94b5daa916f59f7268001e290ea00ab5ef2eb8da255c4dd477bf46a`. Its artifact SHA-256 is
+`80150013b084cb659c7e3a0e1739573fd1a12e0c95c8cc433067ec9929d4051a`; its manifest SHA-256 is
+`4e470908b93885133a817a12eee2b074c8008f3d0b3aafbfb4ac596ae27216df`, and that manifest records
+`git_dirty=false`.
+
+After those outcomes were visible, the protocol's Tier banner was moved, changing its hash to
+`8d91b570…8cd3`, and the already-spent reserve was run again despite the literal “there is no second
+one” rule. The second artifact (`726fafee…c32`) and manifest (`ba7a8d14…b06`) were committed on the
+source branch; the latter records `git_dirty=true`. The scientific values are identical across runs,
+but the files are not bit-identical because the serialized protocol hash differs. The consolidated
+tree restores the first clean package as the controlling artifact; the prohibited second package stays
+reachable through merge parent `b79570d` and is excluded from the live manifest.
+
+Five further limits prevent clean confirmatory language. The runner requires a nonempty
+`--protocol-sha256` but does not compare it with the protocol file. The alleged ordered treatment-ID
+hash sorts its input and is order-insensitive; comparator IDs and pair mapping are not sealed. The
+bootstrap samples the union of arm genes and can break one-to-one matched pairs when the two members
+have different genes. No row values or bootstrap draws are stored, so the interval is not independently
+replayable from the compact artifact. Finally, the manifest records the model directory as
+`missing:true`, not a byte-bound checkpoint, and M6 had invariants rather than the repository's full
+positive/negative/sensitivity/resolution preflight.
+
+**Disposition.** The large numerical replication remains useful: AC10 and AC11 are bounded held-out
+verification of a natural donor-class behavior and attention modifier. They are not established or
+confirmatory evidence, and they license no component necessity, write, mediation, route, or biology.
+
+## ACR22 — M1–M5 are adaptive development candidates, not evidence for a completed modifier mechanism (2026-08-17)
+
+M1–M5 were useful exploration on the train split, but their outcomes do not control a live claim.
+Most numerical outputs remained in scratch storage, most available manifests were dirty and did not
+byte-bind the checkpoint, and several decisive multi-head/audit outputs had no manifest. The 96-head
+selection used a cohort with strong donor-transcript-support imbalance and its pair-level bootstrap and
+permutation did not cluster repeated genes. Its mean-ablation intervention also averaged over batch and
+sequence, making results depend on batch composition; the offline label permutation did not recompute
+that intervention.
+
+The strongest honest development observations are an early-L0/L1 candidate family, a post-outcome
+`MLP1` candidate, and evidence that these early candidates modulate L3H1 attention geometry. M3b did
+not compute a confidence interval or equivalence test for forward-minus-unmatched transport, so “all
+six transport-null” is not licensed. M4's address/payload swaps and M4c's attention-level ablations use
+the same adaptive cohort and lack the prospective matched nulls needed for promotion. None measures the
+canonical post-`W_O` acceptor-query write or L4H11/H9 delivery contemplated by R5.
+
+The source branch is preserved as a merge parent, and the reusable donor-class matching, estimators, and
+development runners remain available for audit. Its scratch outcomes are not imported as canonical
+evidence. AC10–AC11 are the only live claims from this modifier arc.

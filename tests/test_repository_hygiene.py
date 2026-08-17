@@ -80,6 +80,17 @@ FROZEN_UNTIERED_DOCS = {
          _PINNED_PROTOCOL_REASON),
 }
 
+# The first clean M6 run authenticated this exact protocol hash in its config, but its compact
+# manifest did not record the protocol as a normal input path.  Its Tier line is ninth because the
+# later attempt to move it into the generic first-eight-line window happened after outcomes and
+# changed the frozen hash.  Keep this one exception exact and local; any byte edit must fail.
+HASH_PINNED_UNTIERED_DOCS = {
+    "studies/splicebert_acceptor_coupling/preregistrations/PREREGISTRATION_M6_VALIDATION_CONFIRMATION.md": (
+        "da326e4da94b5daa916f59f7268001e290ea00ab5ef2eb8da255c4dd477bf46a",
+        "exact protocol bytes supplied to the first clean, one-run M6 validation package",
+    ),
+}
+
 INLINE_LINK = re.compile(r"!?\[[^\]]*]\(([^)]+)\)")
 REFERENCE_DEFINITION = re.compile(r"^\s*\[[^\]]+]:\s*(?:<([^>]+)>|(\S+))", re.M)
 HEADING = re.compile(r"^\s{0,3}#{1,6}\s+(.+?)\s*#*\s*$", re.M)
@@ -194,6 +205,13 @@ def test_tier_exemptions_are_still_needed() -> None:
         assert list((REPO / directory).rglob("*.md")), (
             f"{directory} is exempted as generated output but contains no Markdown -- drop the entry"
         )
+    for relative, (expected_hash, reason) in HASH_PINNED_UNTIERED_DOCS.items():
+        assert reason.strip(), f"{relative} needs an explicit exception reason"
+        document = REPO / relative
+        assert document.is_file(), f"{relative} is hash-exempted but missing"
+        assert _sha256(document) == expected_hash, (
+            f"{relative} changed; the exact M6 frozen-protocol exception no longer applies"
+        )
 
 
 def test_every_document_has_a_tier_or_a_verified_frozen_exception() -> None:
@@ -204,11 +222,12 @@ def test_every_document_has_a_tier_or_a_verified_frozen_exception() -> None:
         and not relative.startswith(TIER_EXEMPT_DIRS)
         and not any("**Tier: T" in line for line in path.read_text(errors="ignore").splitlines()[:8])
     }
-    assert missing == set(FROZEN_UNTIERED_DOCS), (
+    expected = set(FROZEN_UNTIERED_DOCS) | set(HASH_PINNED_UNTIERED_DOCS)
+    assert missing == expected, (
         "Untiered Markdown set changed. Add a banner to a mutable document; for a frozen "
         "content-addressed input, add a manifest-backed exception with a reason:\n"
-        f"  observed-only={sorted(missing - set(FROZEN_UNTIERED_DOCS))}\n"
-        f"  stale-exceptions={sorted(set(FROZEN_UNTIERED_DOCS) - missing)}"
+        f"  observed-only={sorted(missing - expected)}\n"
+        f"  stale-exceptions={sorted(expected - missing)}"
     )
 
     for relative, (manifest_relative, reason) in FROZEN_UNTIERED_DOCS.items():
@@ -226,6 +245,9 @@ def test_every_document_has_a_tier_or_a_verified_frozen_exception() -> None:
             f"{relative} is exempt from the tier banner only because it is hash-pinned, "
             f"but {manifest_relative} does not bind its current bytes"
         )
+
+    for relative, (expected_hash, _) in HASH_PINNED_UNTIERED_DOCS.items():
+        assert _sha256(REPO / relative) == expected_hash
 
 
 def test_every_canonical_result_row_has_a_claim_id() -> None:

@@ -7,6 +7,8 @@ record of where the **executed code** departed from the **frozen protocol**, and
 claim's wording depends on the gap. It exists because a reviewer's hardest question about a
 preregistered project is not "what did you find" but "did you do what you said you would" — and until
 this file existed, that question had no answer here short of reading 34 protocols against 150 runners.
+The systematic table remains the donor/carrier audit; a scoped addendum below applies the same reading
+standard to the consolidated M6 natural donor-class validation package.
 
 > **Resolution update (2026-08-03).** The historical audit row below that calls the C41 tier
 > "unresolved" is closed by R32: the live ledger, preregistration index, G1 report, and decision log all
@@ -327,6 +329,19 @@ rows are in the JSON. `—` in the location column means the finding is about an
 
 None. Every one of the 25 audited families carries at least one. That is the honest headline of this
 document, and it is why the file exists rather than a note saying conformance was checked.
+
+## Scoped addendum — reverse masked-acceptor M6
+
+The systematic table above covers the donor/carrier arc. Consolidation of the natural donor-class
+modifier adds one separately audited validation family because its controlling package is now part of
+the canonical review surface.
+
+| Severity | Frozen surface | Executed deviation | Disposition |
+|---|---|---|---|
+| high | `studies/splicebert_acceptor_coupling/preregistrations/PREREGISTRATION_M6_VALIDATION_CONFIRMATION.md` | The protocol says the runner refuses a nonmatching `--protocol-sha256`; the runner only rejects a missing string and serializes any supplied value. The first command did supply the then-current exact hash, but enforcement was external rather than executable. | Keep the original protocol byte-exact and authenticate the first package in `tests/test_m6_validation_package.py`; downgrade AC10–AC11 to bounded verification. |
+| high | Same protocol: exactly one run, no second reserve | A clean first run at `42954a6` exposed the outcomes. Afterward the Tier line was moved, changing the protocol hash, and the same exhausted reserve was run again with a dirty tree. | The recovered first clean artifact/manifest control. The prohibited second package remains only in merge history and is excluded from `results/MANIFEST.*`. |
+| medium | §2 “ordered” cohort hashes and one-to-one matched design | The hash helper sorts IDs, so the stored treatment hashes are order-insensitive; comparator identities and pair mapping are not hashed. The bootstrap resamples the union of arm genes rather than matched pair/connected-gene clusters. | Treat the confidence bounds as recorded but not independently replayable from the compact package; state matching/inference limits in AC10–AC11 and ACR21. |
+| medium | Repository assay workflow | M6 ran five invariants but no registered positive/negative/sensitivity/resolution preflight, and its manifest records the checkpoint directory as `missing:true`. The result stores summaries, not row-level sufficient statistics or draws. | No confirmatory promotion. Behavior and attention geometry remain separate bounded rungs; no output/OV, mediation, route, or biological claim follows. |
 
 ## What this does not cover
 
