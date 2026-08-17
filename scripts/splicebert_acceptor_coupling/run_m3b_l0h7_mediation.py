@@ -154,6 +154,9 @@ def main() -> None:
     ap.add_argument("--model", default=DEFAULT_MODEL)
     ap.add_argument("--device", default=None)
     ap.add_argument("--batch", type=int, default=8)
+    ap.add_argument("--heads", default=None,
+                    help="comma list L:H to transport-test, e.g. 0:4,0:14,0:3. Defaults "
+                         "to the single historical L0H7.")
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--out", default=None)
     a = ap.parse_args()
@@ -191,6 +194,46 @@ def main() -> None:
     # unmatched donor: example-specific content vs a generic class axis
     shuffled = list(gt[1:]) + [gt[0]]
     y_gc_unmatched = _y_patched(task, gc, shuffled, HEAD, off, a.batch)
+
+    if a.heads:
+        # Multi-head mode. The scan audit found six family-wise-surviving asymmetric heads and
+        # only L0H5 had ever been transport-tested. For each head the decisive comparison is
+        # forward versus unmatched: equal transport means a class-GENERIC offset rather than
+        # example-specific content.
+        targets = [tuple(int(v) for v in t.split(":")) for t in a.heads.split(",")]
+        multi = {}
+        for L_, H_ in targets:
+            if L_ != LAYER:
+                raise SystemExit(f"this runner patches layer {LAYER} only; got L{L_}")
+            fwd = _y_patched(task, gc, gt, H_, off, a.batch)
+            unm = _y_patched(task, gc, shuffled, H_, off, a.batch)
+            e1, l1, h1 = gboot_transport(y_gc, fwd, y_gt, genes)
+            e2, l2, h2 = gboot_transport(y_gc, unm, y_gt, genes)
+            multi[f"L{L_}H{H_}"] = {
+                "forward": {"patched_mean_Y": float(fwd.mean()),
+                            "transport_fraction": e1, "ci": [l1, h1]},
+                "unmatched": {"patched_mean_Y": float(unm.mean()),
+                              "transport_fraction": e2, "ci": [l2, h2]},
+                "example_specific_excess": e1 - e2,
+            }
+            print(f"  L{L_}H{H_}: forward T={e1:+.3f} [{l1:+.3f},{h1:+.3f}]   "
+                  f"unmatched T={e2:+.3f} [{l2:+.3f},{h2:+.3f}]   "
+                  f"specific excess {e1 - e2:+.3f}", flush=True)
+        out = Path(a.out)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps({
+            "schema": "gfmcd.m3b.multi_head_transport/1",
+            "tier": "development", "split": "train",
+            "sealed_chr8_chr9_opened": False, "validation_reserve_spent": False,
+            "n_pairs": len(gc), "n_genes": len(set(genes)),
+            "baseline": {"GC_mean_Y": float(y_gc.mean()), "GT_mean_Y": float(y_gt.mean())},
+            "self_patch_max_abs_err": self_err,
+            "transport": multi,
+            "licenses": ("Development-tier transport tests for whether each head's donor-token "
+                         "output carries donor-class information. No route or biological claim."),
+        }, indent=2))
+        print(f"\nself-patch max abs err {self_err:.2e} -> {out}")
+        return
 
     res = {}
     # Cluster by the RECIPIENT arm's genes. Pairs are matched by flank stratum, not by gene,
