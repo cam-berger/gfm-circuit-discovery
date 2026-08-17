@@ -6,6 +6,7 @@ import copy
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
@@ -991,24 +992,33 @@ def test_preflight_rejects_parameter_drift_before_reading_inputs(tmp_path: Path)
 def test_frozen_preflight_stops_before_inputs_when_worktree_is_not_clean(tmp_path: Path) -> None:
     output = tmp_path / "existing.json"
     output.write_text("do not overwrite\n")
-    completed = subprocess.run(
-        [
-            sys.executable,
-            str(RUNNER),
-            "--stage",
-            "preflight",
-            "--gtf",
-            str(tmp_path / "must-not-read.gtf"),
-            "--fasta",
-            str(tmp_path / "must-not-read.fa"),
-            "--model",
-            str(tmp_path / "must-not-read-model"),
-            "--out",
-            str(output),
-        ],
-        capture_output=True,
-        text=True,
-    )
+    sentinel = REPO / "R1C_DIRTY_WORKTREE_TEST_SENTINEL"
+    assert not sentinel.exists()
+    sentinel.write_text("untracked on purpose\n")
+    environment = os.environ.copy()
+    environment.pop("PYTORCH_ENABLE_MPS_FALLBACK", None)
+    try:
+        completed = subprocess.run(
+            [
+                sys.executable,
+                str(RUNNER),
+                "--stage",
+                "preflight",
+                "--gtf",
+                str(tmp_path / "must-not-read.gtf"),
+                "--fasta",
+                str(tmp_path / "must-not-read.fa"),
+                "--model",
+                str(tmp_path / "must-not-read-model"),
+                "--out",
+                str(output),
+            ],
+            capture_output=True,
+            text=True,
+            env=environment,
+        )
+    finally:
+        sentinel.unlink(missing_ok=True)
     assert completed.returncode != 0
     assert "clean Git worktree" in completed.stderr
     assert output.read_text() == "do not overwrite\n"
