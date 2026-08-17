@@ -155,3 +155,51 @@ Superseded by the C2 idiom imported from `run_sealed_test.py`, which builds both
 **spurious distance-matched motifs** rather than real annotated sites (`matched_decoy_acceptor` for the
 readout arm, `matched_decoy_donor` for the corruption arm). **`+0.0434` must not be quoted.** It appears
 in `DECISIONS.md` as provenance only, labelled there.
+
+## ACR18 — "sealed chr8/9 not opened and not spent" is study-local and reads as globally virgin (2026-08-17)
+
+**Numbering note.** This entry is `ACR18`, not `ACR5`. Numbers `ACR5`–`ACR17` are allocated to the
+uncommitted `AC5`–`AC8` package on `berger/acceptor_coupling` and would collide on merge. The gap is
+deliberate and is itself information: it records that thirteen corrections exist on another branch.
+
+`AC1`'s scope column says **"sealed chr8/9 not opened and not spent"**, `AC4`'s says **"chr8/9
+unopened"**, and the *What is NOT claimed* section says **"chr8/9 is unspent, deliberately."** Every one
+of those is true *of this study* and false as a statement about the split.
+
+chr8/9 was opened, and spent, by the donor arc. `results/splicebert_coupling/sealed_test.json` carries
+`"split": "test"` and is the controlling artifact for `C1` (`+0.872 [0.771, 0.969]`), `C2`, and `C3`.
+Its scope column says so plainly — "Canonical short introns, sealed chr8/9 split".
+
+**What is wrong:** nothing numeric. No acceptor-study measurement touched chr8/9, and none of `AC1`–`AC8`
+is affected. What is wrong is that a reader arriving at the acceptor ledger will conclude the split is
+untouched and available as a fresh confirmatory cohort. It is not. It has been read once, by a
+behaviour-level assay in the opposite direction that identified no components — which is a *defensible*
+basis for reuse, but it must be disclosed and reasoned about, never inherited silently.
+
+**Disposition:** the three passages are amended to say "not opened *by this study*" with a pointer here.
+The claims themselves, their numbers, and their evidence levels are untouched.
+
+**Consequence for planning:** any acceptor-side confirmatory package that proposes to spend chr8/9 must
+state the `C1` overlap in its protocol. Separately, and measured rather than assumed: the split holds
+only **22** `GC-AG` rows across **20** genes, so it cannot confirm a donor-class result at any power.
+
+## ACR19 — every claim in this repository is implicitly scoped to `GT-AG` introns (2026-08-17)
+
+`circuit.eligible` has always filtered `x.sequence[donor_pos:donor_pos+2] == "GT"` (`circuit.py:230`).
+`coupling.DONOR_MOTIFS` admits `("GT", "GC")` and `build_coupling_dataset` materialises both, so the raw
+cohort holds **3,627** `GC-AG` rows (**1.52%**) — and `eligible` discarded every one before any study saw
+them.
+
+**What is wrong:** again, nothing numeric, and this is the good direction of error. No cohort in this
+repository is contaminated by the minor class; they are `GT-AG`-pure by construction. But no claim
+*covers* the minor class either, and none says so. `AC1`–`AC8`, the `R*` reverse series, and the donor
+arc's `C*` claims are all scoped to canonical introns, silently.
+
+**Disposition:** `eligible` gains an optional `donor_motifs` parameter defaulting to `("GT",)`, so every
+existing caller is byte-identical — verified by comparing ordered `example_id` lists against a literal
+copy of the historical predicate on train, val, and test. Widening it is now an explicit, recorded
+choice at each call site rather than an invisible default.
+
+**Scope of this entry:** it is filed here because the acceptor study found it, but the limitation is
+repo-wide. The donor study's ledger carries the same implicit scoping and needs its own `R`-numbered
+entry; that is the donor study's to write, not this one's.
