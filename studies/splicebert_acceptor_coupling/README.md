@@ -45,7 +45,8 @@ Within the present paired-donor study, the **canonical construction arc** and th
 modifier arc** must also stay separate. AC1–AC9 ask what can be established for canonical `GT-AG`
 introns and whether a reader→write→delivery account can be authorized. AC10–AC11 compare natural
 `GC-AG` introns with matched `GT-AG` introns. The latter changes biological stratum and reaches only
-behavior and attention geometry; M4d only refines adaptive QK candidates, and none is the missing
+behavior and attention geometry; M4d only records development diagnostics over adaptive QK candidates,
+under separate arm-conditioned interventions, and none is the missing
 causal mechanism (`ACR20`–`ACR23`).
 
 ### Corrections to the historical pilot
@@ -145,8 +146,8 @@ target outcome was opened (`ACR19`). The canonical R1c→R5 program is therefore
 `INSTRUMENT_UNRESOLVED` (`AC9`); R5a/R5b/R5c have no scored artifact. R4 remains a retired,
 never-frozen draft with a historical exploratory execution; the BP arc is non-ledger evidence. The
 M1–M5 natural donor-class runners are development-only candidate generators. The imported M4d
-score-margin package narrows M4c's broad head labels but remains non-claim development QK evidence;
-its post-selection intervals, clustering, batch-dependent intervention, and provenance limits are
+score-margin package diagnostically revises M4c's broad head labels but remains non-claim development
+QK evidence; its post-selection intervals, clustering, separate arm-conditioned interventions, and provenance limits are
 recorded in `ACR23`. M6 used a separate validation reserve and produced bounded AC10–AC11; its first
 clean package is retained, while its one-run lifecycle and audit limitations prevent confirmatory
 promotion (`ACR21`).

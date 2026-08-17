@@ -673,16 +673,17 @@ execution commit. The exact development artifact and manifest are retained under
 `results/splicebert_acceptor_coupling/development/` at SHA-256 `d1d96029…f763` and
 `879b262b…f165`.
 
-The score-margin identity is methodologically useful, and its pointwise results narrow M4c's broad
+The score-margin identity is methodologically useful, and its pointwise results diagnostically revise M4c's broad
 labels to three nominal layer-0 candidates (`L0H14`, `L0H5`, `L0H3`), three unresolved earlier labels
 (`L0H4`, `L1H6`, `L1H13`), and one opposite-direction `L2H15` diagnostic. They are not promoted. M4d
-changed the batch-dependent mean intervention from M4c's batch 2 to batch 4, clustered only treatment
-genes, omitted family correction and matched-size nulls, used an ordered reference-arm decomposition,
-and retained neither rows nor draws. Its score-row shifts cannot separate query from key effects. The
+changed the batch-dependent mean intervention from M4c's batch 2 to batch 4 and recomputed a distinct
+arm-conditioned replacement for GC and GT, so the contrast cannot establish intrinsic class specificity.
+It clustered only treatment genes, omitted family correction and matched-size nulls, used an ordered
+reference-arm decomposition, and retained neither rows nor draws. Its score-row shifts cannot separate query from key effects. The
 artifact's `1.5567x` “ceiling” is corrected to a collapsed-baseline toy benchmark (`ACR23`).
 
 The consolidation therefore adds no AC12 and changes no AC1–AC11 disposition. It also leaves the
 byte-bound R1c/R5 `hf_bert.py` untouched: the reviewed score capture lives in a new module, while the
 adapted development runner uses the consolidated donor-class eligibility helper, connected two-arm
-gene-component resampling, and strict JSON.
+gene-and-intervention-batch-component resampling, and strict JSON.
 No model, genome, cohort, or reserve is rerun for this integration.
