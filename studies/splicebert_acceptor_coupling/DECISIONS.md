@@ -350,3 +350,35 @@ externally-derived biological motif (`CTAAC`) into the *stimulus*, and takes its
 branchpoint literature. That is external biological content entering the input, which the scope
 sentence was probably written to exclude. **Not resolved here.** Either the arc belongs in a
 different study, or the scope sentence needs amending — a reviewer's call, not a cleanup pass's.
+
+## Held-out component confirmation returns a mixed bounded outcome (legacy run `R3c v2.1`; 2026-08-15)
+
+The successor to AC4 was narrowed to one masked-acceptor endpoint, ten heads, two intervention modes,
+a 62-row simultaneous-inference family, and seven named decision paths. It excludes historical R3 genes
+and divides the remaining validation cohort into a preflight bucket and a gene-disjoint target bucket.
+
+Two authorization defects were closed before target science. The first rule could have revived an
+`L2H15` preflight-health failure using target health; authorization is now monotone (`ACR16`). The next
+runner inspected a supplied model path before rejecting a missing preflight artifact; the repaired guard
+runs before any caller-supplied target input, and the changed runner required a fresh preflight (`ACR17`).
+Neither predecessor opened bucket-1 outcomes.
+
+The clean successor preflight authorized the 500-row / 304-gene bucket-1 target on validation
+chromosomes 11, 16, and 19. The active
+[attestation](../../results/splicebert_acceptor_coupling/attestations/paired_donor_component_confirmation_v1.json)
+pins the exact archived package, byte sizes, SHA-256 values, and clean execution commits. The
+[decision audit](../../results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.audit.json)
+reports `AUDIT_PASS_MIXED_SCIENTIFIC_OUTCOME` after two exact replays without rescoring the model or
+reopening the cohort.
+
+| Reader-facing evidence | Legacy alias | Frozen disposition |
+|---|---|---|
+| `acceptor-coupling/components/l1h12-mean-ablation` | `AC5` | `SUPPORTED` |
+| `acceptor-coupling/components/l4-head-noising` | `AC6` | `SUPPORTED` for `L4H11`, `L4H9`, and `L4H7` |
+| `acceptor-coupling/components/route-hypotheses-inconclusive` | `AC7` | `INCONCLUSIVE_METHOD_DISAGREEMENT` for reused `L3H1` and the distinct-route conjunction |
+| `acceptor-coupling/components/l2h15-health-ineligible` | `AC8` | `HEALTH_FAILED` under the monotone authorization ceiling |
+
+This result supports only bounded, intervention-specific component patterns. Same-example noising is not
+delivery. The failed registered conjunctions cannot be replaced post-outcome by supported secondary
+paths, and the record establishes no address, QK role, post-`W_O` write, directed edge, delivery,
+mediation, sufficiency, faithful circuit, or biological mechanism.

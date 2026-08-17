@@ -44,10 +44,12 @@ index. Evidence never promotes itself between rungs.
 
 ## `claim_id` values that are not claim IDs
 
-Most rows carry a ledger claim ID (`C*`, `HCA*`, `GFS*`, `IC1`, `ED1`). Six values do not resolve to a
-ledger row, because they name an **experiment arc** rather than a claim. They are listed here so a
-reader of the manifest is not left chasing an identifier that does not exist. `tests/test_ledger_consistency.py`
-only validates the `C*`/`HCA*`/`GFS*` forms, so these are not caught automatically.
+Most rows carry a ledger claim ID (`C*`, `HCA*`, `GFS*`, `AC*`, `DBP*`, `PPM*`, `IC1`, `ED1`). A
+small historical set instead names an experiment arc or correction. They remain compatibility values
+in the fixed eight-column manifest, but new compact evidence records separate descriptive IDs, claim
+aliases, experiment aliases, and correction aliases. The ledger-consistency test validates every live
+claim-ledger namespace; it no longer lets an experiment code resolve accidentally against an unrelated
+correction code.
 
 (A seventh, `ED1`, *was* an unresolved identifier until 2026-07-31: four canonical rows carried it with
 no defining row anywhere. It now has one — see the last section of the donor-circuit ledger.)
@@ -94,7 +96,7 @@ same change; the verifier fails otherwise.
 | `origin-siblings/` | [`RESULTS_INDEX.md`](origin-siblings/RESULTS_INDEX.md) | `studies/splicebert_partner_selection/CLAIMS.md` (C39) |
 | `origin-crossmodel/` | [`README.md`](origin-crossmodel/README.md) | `studies/splicebert_partner_selection/CLAIMS.md` (C40) |
 | `splicebert_gtex_finetune_shift/` | [`RESULTS_INDEX.md`](splicebert_gtex_finetune_shift/RESULTS_INDEX.md) | `studies/splicebert_gtex_finetune_shift/CLAIMS.md` (GFS1–GFS34) |
-| `splicebert_acceptor_coupling/` | no per-directory index; the five artifacts and their manifests are the `MANIFEST.csv` rows | `studies/splicebert_acceptor_coupling/CLAIMS.md` (AC1–AC4) |
+| `splicebert_acceptor_coupling/` | [`RESULTS_INDEX.md`](splicebert_acceptor_coupling/RESULTS_INDEX.md) — descriptive evidence IDs map to compact, hash-bound records; large immutable packages remain under the pinned archive tag | `studies/splicebert_acceptor_coupling/CLAIMS.md` (legacy aliases AC1–AC8) |
 | `splicebert_exon_edge_compatibility/` | [archive record](../studies/splicebert_exon_edge_compatibility/README.md) | `studies/splicebert_partner_selection/CLAIMS.md` (C43, C44) |
 | `splicebert_positional_boundary_coherence/` | [`RESULTS_INDEX.md`](splicebert_positional_boundary_coherence/RESULTS_INDEX.md) | `studies/splicebert_positional_boundary_coherence/CLAIMS.md` (`PBC1`, construction instrument-unresolved; no model claim) |
 | `dnabert_promoter/` | [`RESULTS_INDEX.md`](dnabert_promoter/RESULTS_INDEX.md) | `studies/dnabert_promoter/CLAIMS.md` (DBP1–DBP10) — the **second model** in the tree |

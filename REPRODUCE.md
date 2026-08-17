@@ -187,6 +187,32 @@ The detailed command map is
 and the protocol status index is
 [`studies/splicebert_partner_selection/preregistrations/README.md`](studies/splicebert_partner_selection/preregistrations/README.md).
 
+### Reciprocal masked-acceptor record
+
+The active tree retains the compact audit and frozen protocol for the held-out component
+confirmation, while its 33 MB preflight and 33 MB target packages remain immutable under the archive
+tag. The historical runner is not copied into current source: its frozen authorization binds the old
+execution tree and cannot authorize a new run from current master.
+
+| Evidence family | Descriptive record | Legacy aliases |
+|---|---|---|
+| supported component interventions | `acceptor-coupling/components/l1h12-mean-ablation`; `acceptor-coupling/components/l4-head-noising` | `AC5`, `AC6`, `R3c v2.1` |
+| bounded component limits | `acceptor-coupling/components/route-hypotheses-inconclusive`; `acceptor-coupling/components/l2h15-health-ineligible` | `AC7`, `AC8`, `R3c v2.1` |
+
+The review path is model- and genome-free:
+
+```bash
+uv run python scripts/verify_archived_evidence.py \
+  results/splicebert_acceptor_coupling/attestations/paired_donor_component_confirmation_v1.json
+uv run pytest -q tests/test_acceptor_component_attestation.py
+```
+
+The verifier authenticates the annotated archive tag, clean execution commits, raw package paths,
+byte sizes and SHA-256 digests, active audit/protocol, and the selected JSON facts summarized by the
+compact record. It does not rescore the model. For manual inspection, use
+`git show archive/acceptor-inverse-coupling-2026-08-17:<path>`; never recreate or rewrite the frozen
+package in place.
+
 #### BG1/BG2 acceptor-boundary grammar — development preflight failed; targets not opened
 
 The 2026-08-11 execution stopped at the complete development preflight, exactly as the frozen chain

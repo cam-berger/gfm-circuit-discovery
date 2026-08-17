@@ -22,6 +22,8 @@ jobs:
           # Provenance guards verify historical manifest revisions with
           # `git cat-file`; a depth-one checkout cannot satisfy them.
           fetch-depth: 0
+          # Compact evidence attestations resolve the pinned annotated archive tag.
+          fetch-tags: true
 
       - name: Set up Python
         uses: actions/setup-python@v6

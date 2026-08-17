@@ -48,15 +48,20 @@ this file existed, that question had no answer here short of reading 34 protocol
 > re-executable** — the source branch gitignored the raw rows both recompute from. Treat C43/C44 gates as
 > **self-reported, not audited**.
 
-> **A fourth arc is outside the table: SpliceBERT acceptor coupling (AC1–AC4).** Its frozen R1, R1b,
+> **A fourth arc is outside the table: SpliceBERT acceptor coupling (legacy AC1–AC8).** Its frozen R1, R1b,
 > and R3 protocols are not represented below. A targeted source audit is recorded in that study's
 > correction ledger: R1/R1b are verification gates rather than claim-promoting protocols and their
 > nominal within-gene permutation is implemented row-wise (`ACR8`); AC3 reverses direction on a recorded
 > draw (`ACR7`); and R3's specificity, permutation, planted-positive, equivalence, missing-noising, and
 > reverse-health paths do not implement the frozen familywise decision (`ACR9`, `ACR11`). Its exact dirty
 > code/checkpoint state is not reconstructible from the manifests (`ACR10`), and AC2 is a post-outcome
-> screen (`ACR12`). Treat artifact-level PASS fields as **self-reported, with the targeted corrections
-> controlling**, and consult `studies/splicebert_acceptor_coupling/CORRECTIONS.md` before quoting them.
+> screen (`ACR12`). Treat those earlier artifact-level PASS fields as **self-reported, with the targeted
+> corrections controlling**. The later held-out component confirmation is different: its 500-row target
+> package was independently replayed against the frozen protocol and clean execution state. The compact
+> active attestation authenticates the archived raw bytes and audit. It supports only `L1H12` mean-ablation
+> and `L4H11/H9/H7` noising under the declared interventions; `L3H1` reuse remains inconclusive and
+> `L2H15` is health-ineligible. Consult `studies/splicebert_acceptor_coupling/CORRECTIONS.md` before
+> quoting any part of the arc.
 
 > **A fifth protocol is outside the table: sourced-branchpoint × operational-pyrimidine acceptor
 > context.** `studies/splicebert_acceptor_context/DRAFT_PREREGISTRATION.md` is a draft design cited by the
