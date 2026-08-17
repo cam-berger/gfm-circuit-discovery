@@ -88,8 +88,9 @@ def _aligned_source(cache_layer, src_rows, rec_rows, off):
     return src, mask
 
 
-def _y_patched(task, rec_rows, src_rows, head, off, batch):
+def _y_patched(task, rec_rows, src_rows, head, off, batch, layer=None):
     """Coupling for the recipient arm with `head`'s donor-token output taken from source."""
+    layer = LAYER if layer is None else layer
     ys = []
     for i in range(0, len(rec_rows), batch):
         rec, src = rec_rows[i:i + batch], src_rows[i:i + batch]
@@ -97,10 +98,10 @@ def _y_patched(task, rec_rows, src_rows, head, off, batch):
         for seq_of in (lambda x: x.sequence,
                        lambda x: substitute(x.sequence, x.donor_pos, MATCHED_OPERATOR)):
             cache, _ = _capture(task, src, [seq_of(x) for x in src])
-            aligned, mask = _aligned_source(cache[LAYER], src, rec, off)
+            aligned, mask = _aligned_source(cache[layer], src, rec, off)
             pos = [acceptor_readout(x) for x in rec]
             enc = task.encode([seq_of(x) for x in rec], pos)
-            with torch.no_grad(), patch_heads(task.ad, {LAYER: aligned}, [(LAYER, head)],
+            with torch.no_grad(), patch_heads(task.ad, {layer: aligned}, [(layer, head)],
                                               token_mask=mask):
                 vals.append(task.margin(task.ad.model(**enc).logits.float(), pos)
                             .cpu().numpy())
@@ -203,10 +204,8 @@ def main() -> None:
         targets = [tuple(int(v) for v in t.split(":")) for t in a.heads.split(",")]
         multi = {}
         for L_, H_ in targets:
-            if L_ != LAYER:
-                raise SystemExit(f"this runner patches layer {LAYER} only; got L{L_}")
-            fwd = _y_patched(task, gc, gt, H_, off, a.batch)
-            unm = _y_patched(task, gc, shuffled, H_, off, a.batch)
+            fwd = _y_patched(task, gc, gt, H_, off, a.batch, layer=L_)
+            unm = _y_patched(task, gc, shuffled, H_, off, a.batch, layer=L_)
             e1, l1, h1 = gboot_transport(y_gc, fwd, y_gt, genes)
             e2, l2, h2 = gboot_transport(y_gc, unm, y_gt, genes)
             multi[f"L{L_}H{H_}"] = {
