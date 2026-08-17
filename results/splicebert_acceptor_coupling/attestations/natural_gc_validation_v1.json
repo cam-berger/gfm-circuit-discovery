@@ -1,0 +1,232 @@
+{
+  "schema": "gfmcd.evidence_attestation/1",
+  "attestation_id": "acceptor-coupling/natural-gc/validation-modifiers",
+  "records": [
+    {
+      "id": "acceptor-coupling/natural-gc/behavior-modifier",
+      "title": "Natural GC donors have a weaker masked-acceptor response",
+      "summary": "On the 67-pair, 56-treatment-gene validation cohort, the matched natural-GC versus canonical-GT masked-acceptor response ratio was 0.2571 with a one-sided upper bound of 0.5402, below the frozen 0.60 boundary.",
+      "record_kind": "finding",
+      "status": "bounded",
+      "evidence_rung": "behavior",
+      "review_tier": "verification",
+      "claim_eligible": true,
+      "scope": "Checkpoint-specific matched GC-AG versus GT-AG behavior on validation chromosomes chr11, chr16, and chr19, held out from the donor-class development arc.",
+      "first_missing_bridge": "Donor class is quasi-observational, the checkpoint was not byte-bound, comparator pair identity and row-level replay materials are absent, and no component intervention explains the modifier.",
+      "legacy_aliases": [
+        {
+          "type": "claim",
+          "id": "AC10"
+        },
+        {
+          "type": "correction",
+          "id": "ACR20"
+        },
+        {
+          "type": "correction",
+          "id": "ACR21"
+        },
+        {
+          "type": "run",
+          "id": "M6"
+        },
+        {
+          "type": "protocol",
+          "id": "PREREGISTRATION_M6_VALIDATION_CONFIRMATION.md"
+        },
+        {
+          "type": "artifact",
+          "id": "m6_validation_confirmation.json"
+        }
+      ],
+      "source_checks": [
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.json",
+          "pointer": "/schema",
+          "equals": "gfmcd.m6.validation_confirmation/1"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.json",
+          "pointer": "/split",
+          "equals": "val"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.json",
+          "pointer": "/sealed_chr8_chr9_opened",
+          "equals": false
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.json",
+          "pointer": "/validation_reserve_spent",
+          "equals": true
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.json",
+          "pointer": "/protocol_sha256",
+          "equals": "da326e4da94b5daa916f59f7268001e290ea00ab5ef2eb8da255c4dd477bf46a"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.json",
+          "pointer": "/n_pairs",
+          "equals": 67
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.json",
+          "pointer": "/n_genes",
+          "equals": 56
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.json",
+          "pointer": "/cohort/row_sha256",
+          "equals": "0dff7e6fd314d237407c926fd13e5784bfbbd9138b24b78ef74e288a922301d9"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.json",
+          "pointer": "/cohort/gene_sha256",
+          "equals": "cb0fe02d5fda8ecbdcae454e2647e16fee43f259184de41f26c1541ced609b51"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.json",
+          "pointer": "/primary",
+          "equals": {
+            "estimand": "mean(Y|GC-AG)/mean(Y|matched GT-AG), operator GG",
+            "rho": 0.2570867642398911,
+            "upper_bound": 0.5402253140142983,
+            "null": 0.6,
+            "verdict": "CONFIRMED",
+            "train_reference": [
+              0.242,
+              0.173,
+              0.326
+            ]
+          }
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.json",
+          "pointer": "/all_memorials_pass",
+          "equals": true
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.manifest.json",
+          "pointer": "/git_commit",
+          "equals": "42954a67947ed7d2748c57816661b917cf5d78e8"
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.manifest.json",
+          "pointer": "/git_dirty",
+          "equals": false
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.manifest.json",
+          "pointer": "/inputs/0/missing",
+          "equals": true
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.manifest.json",
+          "pointer": "/outputs/0/size_bytes",
+          "equals": 3663
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.manifest.json",
+          "pointer": "/outputs/0/sha256",
+          "equals": "80150013b084cb659c7e3a0e1739573fd1a12e0c95c8cc433067ec9929d4051a"
+        }
+      ]
+    },
+    {
+      "id": "acceptor-coupling/natural-gc/l3h1-attention-modifier",
+      "title": "Natural GC donors receive less L3H1 donor-directed attention",
+      "summary": "On the same 67-pair validation cohort, the matched natural-GC versus canonical-GT L3H1 donor-attention ratio was 0.3755 with a one-sided upper bound of 0.5809, below the frozen 0.70 boundary.",
+      "record_kind": "finding",
+      "status": "bounded",
+      "evidence_rung": "routing-attention",
+      "review_tier": "verification",
+      "claim_eligible": true,
+      "scope": "Checkpoint-specific L3H1 post-softmax attention geometry for matched GC-AG versus GT-AG donors on the same validation cohort.",
+      "first_missing_bridge": "Attention is a candidate generator: no held-out intervention establishes L3H1 necessity, its post-W_O write, behavioral mediation, or delivery to the masked acceptor.",
+      "legacy_aliases": [
+        {
+          "type": "claim",
+          "id": "AC11"
+        },
+        {
+          "type": "correction",
+          "id": "ACR21"
+        },
+        {
+          "type": "run",
+          "id": "M6"
+        },
+        {
+          "type": "protocol",
+          "id": "PREREGISTRATION_M6_VALIDATION_CONFIRMATION.md"
+        },
+        {
+          "type": "artifact",
+          "id": "m6_validation_confirmation.json"
+        }
+      ],
+      "source_checks": [
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.json",
+          "pointer": "/n_pairs",
+          "equals": 67
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.json",
+          "pointer": "/n_genes",
+          "equals": 56
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.json",
+          "pointer": "/secondary",
+          "equals": {
+            "estimand": "L3H1 donor attention mass ratio at the readout token",
+            "ratio": 0.37554981086464917,
+            "upper_bound": 0.5808928386872912,
+            "null": 0.7,
+            "verdict": "CONFIRMED",
+            "train_reference": 0.3644
+          }
+        },
+        {
+          "archived_path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.json",
+          "pointer": "/all_memorials_pass",
+          "equals": true
+        }
+      ]
+    }
+  ],
+  "archive": {
+    "tag": "archive/acceptor-inverse-coupling-2026-08-17",
+    "tag_object": "d71568c158e402cd14b3c816ef11110a508e2026",
+    "commit": "16a8bd0b2e716c229488cdf89be76ac97b174eac",
+    "execution_commits": [
+      "42954a67947ed7d2748c57816661b917cf5d78e8"
+    ],
+    "files": [
+      {
+        "path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.json",
+        "size_bytes": 3663,
+        "sha256": "80150013b084cb659c7e3a0e1739573fd1a12e0c95c8cc433067ec9929d4051a"
+      },
+      {
+        "path": "results/splicebert_acceptor_coupling/m6_validation_confirmation.manifest.json",
+        "size_bytes": 2216,
+        "sha256": "4e470908b93885133a817a12eee2b074c8008f3d0b3aafbfb4ac596ae27216df"
+      },
+      {
+        "path": "studies/splicebert_acceptor_coupling/preregistrations/PREREGISTRATION_M6_VALIDATION_CONFIRMATION.md",
+        "size_bytes": 5263,
+        "sha256": "da326e4da94b5daa916f59f7268001e290ea00ab5ef2eb8da255c4dd477bf46a"
+      }
+    ]
+  },
+  "active_files": [
+    {
+      "path": "studies/splicebert_acceptor_coupling/preregistrations/PREREGISTRATION_M6_VALIDATION_CONFIRMATION.md",
+      "size_bytes": 5263,
+      "sha256": "da326e4da94b5daa916f59f7268001e290ea00ab5ef2eb8da255c4dd477bf46a"
+    }
+  ]
+}

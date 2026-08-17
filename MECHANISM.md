@@ -183,6 +183,24 @@ immutable aliases. They license neither a mirror image of the donor graph nor an
 payload, write, delivery, mediation, sufficiency, complete circuit, or biological mechanism. The exact
 raw packages remain hash-bound in the archive, with a compact active attestation and audit.
 
+The prospective attempt to cross the next bridge is itself closed. Its validation preflight passed all
+13 registered gates on 400 rows / 321 genes, but the frozen producer serializes six margin fields while
+the frozen mechanism consumer requires exactly three before applying the intended three-field
+projection. The target was never scored and no reader, post-`W_O` write, or delivery stage ran. The
+semantic record `acceptor-coupling/instrument/frozen-handoff-schema-mismatch` (legacy `AC9`) is therefore
+a terminal **instrument failure before target science**, not a behavior null and not authorization to
+repair and retry.
+
+A separate natural-donor-class reserve adds heterogeneity, not mechanism. Natural `GC-AG` donors have a
+masked-acceptor behavior ratio `0.2571` (one-sided upper bound `0.5402`) and an `L3H1` donor-attention
+ratio `0.3755` (upper `0.5809`) relative to matched `GT-AG` donors. These are bounded verification
+records—`acceptor-coupling/natural-gc/behavior-modifier` and
+`acceptor-coupling/natural-gc/l3h1-attention-modifier` (legacy `AC10`/`AC11`)—with checkpoint,
+cohort-identity, bootstrap, and replay limitations. An adaptive pre-softmax QK score decomposition is
+development-only: it uses uncorrected candidate intervals and different arm-conditioned batch-mean
+interventions, so it neither establishes intrinsic class specificity nor localizes the change to a
+query or key. The diagnostic has no claim alias.
+
 ## Scope
 
 The core behavior is established for one SpliceBERT checkpoint, canonical internal short introns, both

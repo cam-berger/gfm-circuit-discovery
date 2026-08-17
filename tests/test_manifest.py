@@ -329,6 +329,67 @@ def test_repository_every_row_declares_a_legal_polarity():
     assert all(r["polarity"] for r in rows), "every row must carry a polarity"
 
 
+def test_repository_compact_acceptor_rows_preserve_semantic_scope():
+    """The compact archive indexes use descriptive IDs and do not promote diagnostics."""
+    component_ids = (
+        "acceptor-coupling/components/l1h12-mean-ablation;"
+        "acceptor-coupling/components/l4-head-noising;"
+        "acceptor-coupling/components/route-hypotheses-inconclusive;"
+        "acceptor-coupling/components/l2h15-health-ineligible"
+    )
+    expected = {
+        "results/splicebert_acceptor_coupling/attestations/"
+        "paired_donor_component_confirmation_v1.json": {
+            "claim_id": component_ids,
+            "status": "canonical",
+            "evidence_level": "OV/mediation",
+            "polarity": "bounded",
+        },
+        "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.audit.json": {
+            "claim_id": component_ids,
+            "status": "canonical",
+            "evidence_level": "OV/mediation",
+            "polarity": "bounded",
+        },
+        "results/splicebert_acceptor_coupling/attestations/frozen_handoff_schema_mismatch_v1.json": {
+            "claim_id": "acceptor-coupling/instrument/frozen-handoff-schema-mismatch",
+            "status": "canonical",
+            "evidence_level": "Instrument",
+            "polarity": "na",
+        },
+        "results/splicebert_acceptor_coupling/attestations/natural_gc_validation_v1.json": {
+            "claim_id": (
+                "acceptor-coupling/natural-gc/behavior-modifier;"
+                "acceptor-coupling/natural-gc/l3h1-attention-modifier"
+            ),
+            "status": "canonical",
+            "evidence_level": "Attention,Behaviour",
+            "polarity": "bounded",
+        },
+        "results/splicebert_acceptor_coupling/attestations/development/"
+        "natural_gc_qk_score_diagnostic_v1.json": {
+            "claim_id": "",
+            "status": "development",
+            "evidence_level": "QK",
+            "polarity": "na",
+        },
+    }
+    by_artifact = {
+        row["artifact"]: row
+        for row in vm.read_csv_rows(REPO / "results/MANIFEST.csv")
+    }
+    wrong = {
+        path: {
+            field: (by_artifact.get(path, {}).get(field), want)
+            for field, want in fields.items()
+            if by_artifact.get(path, {}).get(field) != want
+        }
+        for path, fields in expected.items()
+    }
+    wrong = {path: fields for path, fields in wrong.items() if fields}
+    assert wrong == {}, wrong
+
+
 def test_repository_polarity_matches_the_claim_ledger_on_the_non_positive_rows():
     """Pin the rows the column exists for, straight from `studies/*/CLAIMS.md` wording.
 
