@@ -16,7 +16,9 @@ claim_id,status,evidence_level,polarity,artifact,script,manifest,figure
   `OV/mediation`, `Behaviour`, `Biology`, `Directed circuit`); blank where the file is not itself
   evidence.
 - `polarity` — the *direction* of the evidence, so a null can never be silently re-read as a positive:
-  `positive`, `null`, `bounded`, `refutation`, and `na` (non-evidence rows).
+  `positive`, `null`, `bounded`, `refutation`, and `na`. Here `na` means that no directional scientific
+  inference applies; it covers provenance files and instrument/calibration outcomes that are evidence
+  about assay validity rather than positive or negative evidence about the scientific hypothesis.
   `tests/test_manifest.py` pins the non-positive polarities; adding a claim whose result is a null or a
   bound without setting this field is what that guard exists to catch. For the current tallies run
   `uv run python scripts/verify_manifest.py`, which prints them — they are deliberately not restated
@@ -95,7 +97,7 @@ same change; the verifier fails otherwise.
 | `origin-siblings/` | [`RESULTS_INDEX.md`](origin-siblings/RESULTS_INDEX.md) | `studies/splicebert_partner_selection/CLAIMS.md` (C39) |
 | `origin-crossmodel/` | [`README.md`](origin-crossmodel/README.md) | `studies/splicebert_partner_selection/CLAIMS.md` (C40) |
 | `splicebert_gtex_finetune_shift/` | [`RESULTS_INDEX.md`](splicebert_gtex_finetune_shift/RESULTS_INDEX.md) | `studies/splicebert_gtex_finetune_shift/CLAIMS.md` (GFS1–GFS34) |
-| `splicebert_acceptor_coupling/` | no per-directory index; the five artifacts and their manifests are the `MANIFEST.csv` rows | `studies/splicebert_acceptor_coupling/CLAIMS.md` (AC1–AC4) |
+| `splicebert_acceptor_coupling/` | no per-directory index; all 23 result, manifest, registry, and audit files are indexed by `MANIFEST.csv` | `studies/splicebert_acceptor_coupling/CLAIMS.md` (AC1–AC9) |
 | `splicebert_exon_edge_compatibility/` | [archive record](../studies/splicebert_exon_edge_compatibility/README.md) | `studies/splicebert_partner_selection/CLAIMS.md` (C43, C44) |
 
 The `dnabert2_reconstruction_atlas/` and `splicebert_visualizer/` trees were removed from the working

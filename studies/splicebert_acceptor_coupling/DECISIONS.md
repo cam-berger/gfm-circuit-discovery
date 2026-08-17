@@ -17,13 +17,13 @@ reconstruction. Filing reverse-direction rows in `splicebert_partner_selection/C
 C1–C42 — every one of which is scoped to a masked *donor* — silently acquire a second meaning. `AC*`
 rows here; `C*` rows stay where they are.
 
-**Two prior results are folded in rather than re-derived**, and the observation that opened this study
-is that they agree on something neither states. `AR1`'s `DONA` arm measured ρ ≈ 0.62 for every donor alt
-with `z[1] == "T"`; `E11` measured `Retention_A` of 3% at two substitutions against 22% at one. Those
-are the same dose-response — **a donor destroyed with one substitution leaves the `T` at `d+1` standing
-and retains most of its effect** — reached from different cohorts by different assays, on branches that
-do not cite each other. R1 treats edit size as a factor to be measured rather than a nuisance to be
-controlled away.
+**One prior operator result is folded in rather than re-derived.** `AR1`'s `DONA` arm measured
+ρ ≈ 0.62 for every donor alt with `z[1] == "T"`, motivating R1 to treat edit size as a factor rather
+than a nuisance. An early version of this decision log also imported a numerical comparison and verdict
+from the now-archived exon-edge compatibility prose. `R45` superseded that source record, so the imported
+comparison is withdrawn. Only `C43` and `C44` survive that consolidation: the former is a bounded
+masked-donor phase result in a chimeric crossed lattice and the latter is instrument-unresolved. Neither
+is evidence for native masked-acceptor operator retention or reciprocal symmetry.
 
 ### Pilot 1 — n = 200 val, 180 genes. DIAGNOSTIC, endpoints seen.
 
@@ -178,6 +178,13 @@ coupling responds to **either** base of the `GT`, sub-additively, with the `T` c
 
 ### R3 settled run — 974 exons / 645 genes, both readouts, 96 heads, all nine memorials PASS
 
+> **Historical artifact output; inferential reading withdrawn.** `ACR9` shows that the specificity,
+> permutation, planted-positive, and equivalence paths did not implement the frozen familywise rule, and
+> `ACR5` records the missing noising estimand. The table below preserves the raw mean-ablation values and
+> artifact labels as provenance. “All nine memorials pass,” the 73/17/4/2 partition, both rank
+> identifications, and direction-specific labels are not live claims. `ACR6` had already withdrawn
+> ordering below rank 1; `ACR9` supersedes that narrower disposition.
+
 `Y_D = +0.9792`, `Y_A = +0.9763` on identical introns — the two directions differ by `0.003` at the
 behaviour level, so nothing below is explicable by one being a bigger effect. Pseudo-couplings
 `+0.0264` / `+0.0147`.
@@ -210,7 +217,7 @@ none material. **The shortlist's direction transferred; its magnitudes did not**
 4.4×-weaker train cohort under a different estimand should be expected to do, and is a finding about
 the shortlist rather than about the mechanism.
 
-**The genuinely new result is `L2H5`.** It sits in the same layer as the forward addresser, is
+**Historical candidate note (not a result after `ACR9`): `L2H5`.** It sits in the same layer as the forward addresser, is
 `REVERSE_SPECIFIC` with the largest `|Δ|` in the scan, and its two arms have **opposite signs**:
 ablating it *raises* forward coupling (`frac_D = −0.070`) and *lowers* reverse coupling
 (`frac_A = +0.117`). The same shape appears at `L4H12` (`−0.081` / `+0.011`). Nothing in the record
@@ -352,3 +359,301 @@ externally-derived biological motif (`CTAAC`) into the *stimulus*, and takes its
 branchpoint literature. That is external biological content entering the input, which the scope
 sentence was probably written to exclude. **Not resolved here.** Either the arc belongs in a
 different study, or the scope sentence needs amending — a reviewer's call, not a cleanup pass's.
+
+## 2026-08-11 — corrected closeout instruments: what is ready, what remains unrun
+
+No model was run in this closeout. The work establishes executable, auditable successor designs; it
+does not yet establish R3b cohort capacity, creates no `AC*` row, and does not revisit any historical model outcome.
+The controlling status correction is `ACR13`.
+
+### Sri remains a historical hypothesis source, not a confirmation cohort
+
+Sri's branch and the paired-boundary program remain separate. Sri repeatedly used the same 200 GUE
+acceptor-test examples with a joint masked-`AG` local-context endpoint. The current study uses a
+single-`G` paired-donor endpoint. The branch's missing raw rows and gene-bound identifiers mean its
+sample cannot be intersected with either corrected successor cohort. Accordingly, the four Sri-only
+R3b registry entries (`L5H8`, `L3H5`, `L0H13`, `L0H14`) are frozen as exploratory hypotheses from
+commit `6a136390`, and nothing is described as a gene-disjoint replication of Sri.
+
+### R1c closes the behavior-instrument defects, not the behavior claim
+
+R1c is deliberately behavior-only. It replaces R1/R1b's near-floor primary spurious-`AG` readout with
+a live annotated exon-mate acceptor, keeps the legacy readout descriptive, applies one sign per gene,
+and binds the complete endpoint-scale-normalized decision path and runtime contract. The split is literal:
+
+- preflight: 400 outcome-blind rows on validation chr11/16/19;
+- target: 400 outcome-blind rows from the R1c endpoint-outcome-held-out chr8/9 cohort (`ACR18`).
+
+The target is unreachable while the protocol is draft or either reviewed pin is absent, and requires a
+fresh target-bindable preflight after freezing. No such preflight has run. Therefore R1c's strongest
+status is **implemented draft behavior-confirmation instrument**. It supplies no sealed result and
+does not promote AC1 beyond its bounded validation-gate wording.
+
+### R3b closes the component-instrument defects, not the component claim
+
+R3b starts by making the old exclusion population immutable: historical R3 must reconstruct to 974
+rows / 645 genes with ordered example-ID SHA-256
+`161dff038d747dbaa7b91a96d24b34d45f55de5482b5140410641354e46d2a8e`, after which every represented
+gene is excluded. Current pseudo controls are distance-calipered at 40 nt in both directions and are
+called non-partner sequence motifs because annotated overlap is recorded, not assumed absent.
+
+The runner now constructs the corrected outcome-blind census and requires a fixed first-500 prefix with
+at least 30 genes in each bucket. A temporary check was not published with an immutable artifact and
+manifest, so it cannot establish the exact counts or capacity. The first conformant preflight must bind
+that audit to the exact source and transformation bytes. Both planned buckets draw only from validation
+chr11/16/19:
+
+- bucket 0: development and future target-bindable preflight;
+- bucket 1: held-out within-validation target.
+
+This is not the R1c target cohort, and it scores none of those masked-acceptor target outcomes. R3b now implements matched-size
+head/MLP families, whole-gene endpoint-scale-normalized simultaneous inference, within-example token-mean ablation,
+same-row corrupt-to-clean noising, health-aware complete-path null/plant calibration, and exact
+two-pin preflight binding. None of those paths has been run on the model. Its strongest status is
+**implemented draft focused-component instrument; cohort capacity unestablished**. AC4's raw values
+remain candidate generators; its nominal partition, ranks, and direction labels remain retracted or
+instrument-unresolved exactly as recorded in `ACR9`/`ACR11`.
+
+### Promotion boundary
+
+R1c and R3b require separate freezes and separate passing preflights. R1c alone can spend the sealed
+chromosome target and at most establish the bounded reciprocal behavior. R3b's within-validation
+bucket target can at most nominate intervention-specific component necessity under its two estimands.
+Neither program by itself licenses address, payload, write, delivery, mediation, semantic transfer,
+generative faithfulness, biological correspondence, or a cellular splicing mechanism.
+
+## 2026-08-15 — R1c is redesigned around the masked acceptor, not a mirrored donor assay
+
+The first complete R1c development run exposed two instrument mistakes: the live upstream exon-mate
+acceptor responded to the paired-donor edit (`+0.3180`), so requiring it to be equivalent was invalid;
+and the effect-bearing raw-outcome plant returned `0/200`. `ACR14` records the artifact, hashes, exact
+diagnostic values, and non-evidence boundary. The failure is preserved; it is not converted into a
+behavior result.
+
+The pre-freeze successor asks the acceptor-only question as a readout-by-edit 2x2:
+
+| | real paired donor `D` | matched non-partner donor `N` |
+|---|---|---|
+| downstream intron-mate acceptor `P` | `Y_PD` | `Y_PN` |
+| upstream exon-mate acceptor `X` | `Y_XD` | `Y_XN` |
+
+The sole simultaneous family is `[Y_PD, Y_PN, S_P, I]`, where `S_P = Y_PD-Y_PN` and
+`I = S_P-(Y_XD-Y_XN)`. The core claim requires positive `Y_PD`, equivalent `Y_PN`, and positive `S_P`.
+The stronger downstream-preference claim adds positive `I`. `Y_XD`, `Y_XN`, and `S_X` remain
+descriptive and are not required equivalent. Both paths therefore use the exon-mate response without
+mistaking its existence for instrument failure. The masked-donor forward anchor is removed entirely;
+clean margins at both acceptors and non-site MLM health are the positive controls.
+
+`I` is restricted to outcome-blind dyads with
+`abs(exon_length - intron_length_down) <= 20 nt`, chosen before `Y_XN` or any target outcome was scored.
+A finite-pool full-GTF construction audit found 425 eligible rows / 339 genes among 1,501
+comparator-complete rows; the first 400 retain 321 genes. The production implementation now scans the
+entire already-allowed chromosome split before applying the same fixed filter, so capacity cannot
+depend on an arbitrary prescreen. It preserves the v2 deterministic cohort ordering while binding the
+new construction, exhaustive census, and ordered hashes. This audit is development-only and says
+nothing about chr8/9 target capacity.
+
+The plant was also fixed before `Y_XN` at raw-cell vector `[0.40, 0, 0, 0]`, which algebraically maps
+to primary `[0.40, 0, 0.40, 0.40]`. Every outer null/plant trial subtracts each cell's observed mean,
+applies one shared sign per whole gene across the four cell residuals, and derives `S_P`/`I` afterward.
+The conservative null still counts any material primary endpoint as a false positive; core and
+stronger plant power are scored separately. With 200 trials the exact one-sided 95% Clopper--Pearson
+boundaries are frozen: at most 4 null positives and at least 188 successes for each planted path.
+
+The post-redesign path has now run once as a draft development preflight on 400 validation rows / 321
+genes. It returned `PREFLIGHT_GO`: `Y_PD=+1.1947 [+1.0497,+1.3397]`,
+`Y_PN=-0.0033 [-0.0193,+0.0127]`, `S_P=+1.1980 [+1.0531,+1.3428]`, and
+`I=+0.9213 [+0.7488,+1.0938]`; the previously missing `Y_XN` cell was `+0.0122`. All gates passed,
+including 0/200 conservative null positives and exact-bound power for both planted paths. `ACR14`
+records the artifact hashes and scope.
+
+This is still a draft, dirty-worktree development result. Neither seal pin is installed and the R1c
+masked-acceptor target outcomes remain unscored, so it is not a target-bindable preflight and creates no `AC*` claim. A later sealed
+core result could establish bounded paired-donor dependence at the masked downstream acceptor; only the
+stronger path could add downstream-over-exon-mate preference. Neither behavior path licenses a component
+or an address/payload/write/delivery mechanism.
+
+## 2026-08-15 — v3 is retained as development history; v4 is the only forward R1c instrument
+
+The preceding entry records the v3 decision as it was made and the immutable artifact facts remain
+unchanged. A later inferential audit found that v3 joined SESOI-boundary interval classifications to a
+raw randomisation p-value at zero. It did not directly test material positivity at `+0.05` or `Y_PN`
+equivalence at both `-0.05` and `+0.05`. `ACR15` therefore withdraws the v3 artifact as valid
+target-binding evidence without deleting its `PREFLIGHT_GO` self-report, hashes, cohort, estimates, or
+historical calibration.
+
+A diagnostic replay of the stored sufficient rows, with no new model scoring, used explicit
+whole-gene boundary tests, `Y_PN` TOST, path IUT, Holm over the two nested paths, and strict
+simultaneous-CI concordance. At 2,000 shared sign draws all constituent boundary edges were `1/2001`,
+both adjusted path p-values were `2/2001`, and both paths were declared. The strict intervals were
+`Y_PD [1.0422,1.3472]`, `Y_PN [-0.0194,0.0128]`, `S_P [1.0458,1.3501]`, and
+`I [0.7418,1.1008]`. These are supportive diagnostics on already-observed development rows, not a new
+preflight, replication, or claim.
+
+The exact-path calibration first failed narrowly in its registered 200-trial window: the core worst
+surface was `5/200` with one-sided 95% Clopper--Pearson upper bound `0.05184`; the stronger worst
+surface was `4/200`, and the core/stronger plants succeeded `200/200` and `196/200`. The failure is
+preserved. Extending the same deterministic namespaces to 1,000 trials gave worst surfaces `10/1000`
+and `9/1000` (upper bounds `0.01690` and `0.01565`) and plant successes `1000/1000` and `982/1000`
+(lower bounds `0.9970` and `0.9734`). The design response was to improve audit precision, not to alter
+scientific alpha, SESOI, seed, or observed-data thresholds.
+
+A final statistics-only replay then exercised the hardened production implementation at 4,000 inner
+draws and 1,000 outer trials on the same retained v3 primitive rows. It gave core/stronger worst
+boundary counts `12/1000` and `18/1000` (upper bounds `0.01937` and `0.02658`) and plant successes
+`998/1000` and `983/1000` (lower bounds `0.99372` and `0.97461`), with compact trial-record SHA-256
+`ed620e46dc07250912678c16740de4204efabe0ef3791c486aef1ac3a1dbc2b9`. No model was loaded and no
+artifact was written; this is implementation verification on observed development residuals, not a
+fresh or target-binding v4 preflight.
+
+R1c v4 is now the sole forward behavior instrument. It binds arbitrary-boundary whole-gene sign tests,
+TOST/IUT/Holm, strict-CI concordance, 4,000 shared inner draws, the expanded 1,000-trial audit, and an
+exact reviewed preflight-artifact pin in addition to the protocol and instrument pins. It remains
+**DRAFT, unpinned, and unrun on the model**. No fresh v4 preflight or target exists; v3 cannot be
+grandfathered into the v4 target seal. The R1c target outcomes remain unscored (`ACR18`).
+
+### The component and mechanism path is acceptor-only
+
+R3c replaces R3b in the current forward path. R3b remains a never-frozen, unrun design record; its
+reciprocal donor endpoint and head+MLP family do not answer the revised acceptor-only question. R3c
+uses only the masked downstream-acceptor `G` margin, excludes historical R3 genes, fixes ten heads and
+two intervention modes, and tests a 62-row family through seven named paths with independent live-hook
+controls. The implementation and hard target seal exist. No conformant smoke, bucket-0 preflight, or
+bucket-1 target has run. A disclosed two-row developer execution exercised hook mechanics only; it did
+not satisfy the cohort, family, health, calibration, or decision gates and is not evidence. R3c does
+not score the R1c masked-acceptor target outcomes on chr8/9.
+
+R5a, R5b, and R5c are conditional future method drafts, not completed experiments. They respectively
+specify paired-donor address/value interventions, a cross-fitted acceptor-side residual state, and
+`L3H1` write plus conditional late-head delivery tests. They have no runner, frozen hashes, preflight,
+target artifact, or result. Their methods must be frozen before the first shared evaluation outcome;
+failure of an upstream gate closes the dependent stage rather than permitting a post-outcome component,
+rank, or route substitution.
+
+## 2026-08-15 — R3c v2.1 completes the held-out acceptor-only component target, but does not open the R5 chain
+
+Two predecessor failures remain part of the decision record. R3c v1's development preflight observed
+`L2H15_mean_component` health at `31/64` and suppressed its plant, but its target rule could have revived
+the path from bucket-1 health. No bucket-1 outcome was opened under v1; `ACR16` withdraws that
+authorization interpretation while preserving the v1 artifact SHA-256
+`b4d9172b911588f7ba83e7441564851b0111763e3c0ffea5931403dc27d3f913`. R3c v2 made health
+authorization monotone and its clean `r3c_acceptor_head_preflight_v2.json`
+(`r3c_acceptor_head_preflight_v2.manifest.json`)
+passed, but an invocation missing `--preflight-artifact` inspected the supplied model path before it
+failed. No bucket-1 outcome was opened under v2. `ACR17` preserves that authorization-order defect; the
+changed runner bytes required a fresh preflight rather than reusing v2.
+
+The v2.1 early guard runs before any caller-supplied model, GTF, FASTA, output, cohort, or preflight path
+is inspected. A fresh clean [v2.1 preflight](../../results/splicebert_acceptor_coupling/r3c_acceptor_head_preflight_v2_1.json)
+([manifest](../../results/splicebert_acceptor_coupling/r3c_acceptor_head_preflight_v2_1.manifest.json))
+then authorized the gene-disjoint [r3c_acceptor_head_target_v2_1.json](../../results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json)
+([r3c_acceptor_head_target_v2_1.manifest.json](../../results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.manifest.json);
+[r3c_acceptor_head_target_v2_1.audit.json](../../results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.audit.json)).
+The artifact / manifest SHA-256 pairs are
+`c0c9306fe894ce73bfd981a14c85e2aec6660da33f01d9716cee4327b3ff2d3e` /
+`4a53f96b365c7bed227c8e0c995cee65a022620994e8898bab988b354fce41bb` for preflight and
+`ebd4bfd8c10cc0ccb218b3f1ceca634605903d8afbb5617de312087100627cc6` /
+`dc644901224227f03e683f7416587dccf3eedd700052b211089242b9b8d69cbe` for target.
+The audit SHA-256 is `0363d02dced48d0d1a8ba56f1862be4a0cbb0b82eb508f9aeb87b8c61b05edb3`;
+it reports `AUDIT_PASS_MIXED_SCIENTIFIC_OUTCOME` after two exact replays without model rescoring or
+cohort reopening.
+
+The target stayed on validation chr11/16/19, used bucket 1 (500 rows / 304 genes), and did not score
+the R1c masked-acceptor target outcomes on chr8/9. Its native paired-donor effect was `+0.9749`, matched pseudo-donor effect `+0.0232`,
+and clean masked-acceptor margin `+3.5515`. It constructs exactly one masked acceptor `G` endpoint and
+no masked-donor endpoint. The seven frozen path dispositions are:
+
+| Path | Disposition | Decision |
+|---|---|---|
+| `L3H1_reused_component` | `INCONCLUSIVE_METHOD_DISAGREEMENT` | Holm-adjusted `p=0.02724` passes, but pseudo equivalence is not certified by the strict simultaneous intervals under either intervention. No reuse claim. |
+| `L2H15_mean_component` | `HEALTH_FAILED` | Current health passes `34/64`, but the reviewed v1 `31/64` failure keeps it outside the monotone authorized set. Numerical endpoints are diagnostic only. |
+| `L1H12_mean_component` | `SUPPORTED` | Mean-ablation partner / pseudo / specific effects are `+0.2407` / `-0.0040` / `+0.2447`; bounded component pattern (`AC5`). |
+| `L4H11_noising_component` | `SUPPORTED` | Noising partner / pseudo / specific effects are `+0.0952` / `+0.0018` / `+0.0934`; bounded component pattern (`AC6`). |
+| `L4H9_noising_component` | `SUPPORTED` | Noising partner / pseudo / specific effects are `+0.0917` / `+0.0011` / `+0.0905`; bounded component pattern (`AC6`). |
+| `L4H7_noising_component` | `SUPPORTED` | Noising partner / pseudo / specific effects are `+0.0790` / `+0.0002` / `+0.0788`; bounded component pattern (`AC6`). |
+| `distinct_acceptor_route_candidate` | `INCONCLUSIVE_METHOD_DISAGREEMENT` | Holm-adjusted `p=0.00200` passes, but the specific delivery-gap interval begins at `+0.0482`, below the `+0.05` boundary. No distinct-route claim. |
+
+This is a clear but limited result: R3c supports only the `L1H12` mean-ablation and
+`L4H11`/`L4H9`/`L4H7` same-example-noising component patterns. It does not support `L3H1` reuse, a
+distinct route, or `L2H15`; it establishes no address, payload, acceptor-side write, delivery,
+mediation, sufficiency, faithfulness, complete circuit, or biological mechanism. Same-example noising
+is not delivery.
+
+The existing R5 chain therefore stops. Its fail-closed runners have model-free audit evidence only,
+their literal pins remain unset, and R5a correctly rejects this R3c entry because supported `L3H1`
+reuse is mandatory. Supported secondary heads cannot be substituted after seeing the target. The next
+licensed design choice is either (a) a prospectively frozen, gene-disjoint clarification of the
+registered `L3H1` path, followed by the existing R5 chain only if it passes, or (b) a separately frozen
+acceptor-route mechanism program centered on `L4H11`/`L4H9`/`L4H7`. Option (b) must add restoration and
+mediation tests before using delivery language.
+
+## 2026-08-17 — the canonical causal adjudication closes at the frozen R1c→R5 handoff
+
+The choice above was resolved prospectively, not by substituting one of R3c's supported secondary
+heads. A separate R3d adjudication ran on a complete registry-disjoint train target and supported its
+registered `L3H1_reused_component` Path A. The exact target artifact and manifest have SHA-256
+`e33d37447cbba368a48beea108fc49c06c56adfbeef2c0f95f019c227d60cb88` and
+`53f13aa4884b53a91eba6efa2091c7e7638672ed260bf6558f20547d88f899cd`. Its distinct-route Path B was
+threshold-close and distribution-sensitive, so the final R1c→R5 design admitted **Path A only** as a
+component prior. `L2H15`, the optional low-rank state, H7, and all GC/GT or early-head hypotheses were
+fixed as secondary diagnostics and could not gate, rescue, or redesign the chain.
+
+The entire behavior→reader→post-`W_O` local-write→L4H11+H9-delivery stack was then frozen before a new
+outcome. The R1c validation preflight ran once from clean commit `9008ba3` with strict MPS execution and
+CPU fallback absent. It used 400 outcome-blind validation rows / 321 genes on chr11/16/19, materialized
+no chr8/9 row in that run, and scored none of the R1c target outcomes (`ACR18`). The result was a genuine `PREFLIGHT_GO`: all 13 registered gates passed. Three
+independent model-free checks authenticated or replayed the package, including exact row/cell/family
+algebra, the 4,000-draw sign tests and simultaneous intervals, both 10,000-draw whole-gene robustness
+families, and all 1,000 calibration trials. The controlling identities are:
+
+- artifact `1b27c4132c71a576c435b7b71f32831af9a44fbca6325931f35716ae4133cbdd`
+  (`74,352,692` bytes);
+- manifest `7412f3159e82f6ab0bbaa95e2796f41aa038eef4233efa7f09ec65867e39c45c`
+  (`11,370` bytes);
+- public-verifier attestation
+  `04be60c2239c98eefb01521f7a8a94a68f4d2cc4db5db8f1dddb5622f7378ce1`.
+
+That passing preflight did **not** authorise the sealed target. Before installing any consumer or target
+pin, the exact frozen cross-stage loader was exercised on the reviewed package. R1c `/3` correctly
+serializes six margin fields per row (`P_clean`, `P_under_D`, `P_under_N`, `X_clean`, `X_under_D`,
+`X_under_N`) and its own identity projects the three `P_*` common legs. The frozen R5 helper instead
+requires `margin_levels` to contain exactly those three keys before projection, so it rejects the
+authentic package with `R5CapstoneCohortError: R1c partner margin levels differ`.
+
+The technical change is obvious only **after** the validation result: accept the authentic six-field
+record and project the three common legs. That helper is part of the frozen joint stack
+`b89efd7c0d83d579aa7e0a2d36f8059c96913242a1c943ec64d87fe7590b00bc`. Patching it now creates a new
+method after an outcome; rewriting the artifact or rerunning the preflight violates the same one-run
+rule. The decision is therefore to make no repair, install no package pin, and stop. `ACR19` records the
+defect and `AC9` is the study's single terminal outcome: **`INSTRUMENT_UNRESOLVED` before sealed target**.
+
+Consequences are exact: the R1c target seal remains `None`; all shared R1c package pins remain `None`;
+no R1c target attempt or completion exists; no R5a, R5b, or R5c scored artifact exists; and this
+program never scored the R1c masked-acceptor target outcomes on chr8/9. The strong validation-preflight estimates are instrument evidence only. They are not a
+behavior result and cannot be promoted into evidence for L3H1 reading, a post-`W_O` write, conditional
+L4H11+H9 delivery, mediation, sufficiency, or a biological mechanism.
+
+### Comparison with Claude's development branch
+
+Claude's clean branch tip `b79570d` asks a different question: why natural GC-AG donors show a smaller
+reverse-coupling response than matched GT-AG donors. M6 numerically replicated the coupling modifier
+on 67 validation pairs / 56 genes (`rho=0.2571`, upper bound `0.5402` against `0.60`) and the L3H1
+donor-attention modifier (`0.3755`, upper bound `0.5809` against `0.70`). Those are useful held-out
+behavior and attention-geometry results. They are not clean confirmatory evidence under M6's own
+one-run protocol: after the first clean authorised run exposed the outcomes, the protocol's Tier banner
+was moved, its hash changed, and the exhausted reserve was run again despite the literal no-second-run
+rule. The committed package is that second run and its manifest records `git_dirty=true`; the model
+directory is not content-hashed. The two runs' scientific numbers are identical, so the honest status
+is **provenance-broken held-out verification**, not a failed replication and not canonical confirmation.
+
+Claude's six early heads and `MLP1` remain post-outcome development candidates. Their selection and
+clustering caveats remain, and neither M6 nor those scans test the post-`W_O` local write or conditional
+delivery required here. The branch therefore helps explain a natural-donor-class **modifier**, not how
+the canonical masked-acceptor margin is causally constructed.
+
+The comparison therefore has no complete-mechanism winner. Claude contributes stronger numerical
+evidence for a narrow GC/GT modifier, bounded to verification grade by its lifecycle breach. This
+program contributes a more rigorous prospective causal specification and a fully replayed passing
+instrument, but stops at an immutable integration failure before producing a target scientific
+outcome. Neither record licenses the canonical complete mechanism, and this goal launches no GC/GT,
+early-head, or MLP follow-up.

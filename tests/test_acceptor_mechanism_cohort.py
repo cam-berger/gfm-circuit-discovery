@@ -1,10 +1,16 @@
 from __future__ import annotations
 
 import copy
+import hashlib
+import importlib.util
+import json
+import sys
 from dataclasses import replace
+from pathlib import Path
 
 import pytest
 
+from gfmcd.splicing import acceptor_mechanism_cohort as cohort_module
 from gfmcd.splicing.acceptor_mechanism_cohort import (
     R1C_CELL_NAMES,
     R1C_CLAIM_BOUNDARY,
@@ -55,6 +61,10 @@ from gfmcd.splicing.acceptor_mechanism_cohort import (
     validate_r5_preflight_cohort_handoff,
 )
 from gfmcd.splicing.coupling import CouplingExample
+from gfmcd.splicing.r5_stack_binding import SHARED_R1C_PACKAGE_PIN_NAMES
+
+
+REPO = Path(__file__).resolve().parents[1]
 
 
 def _example(index: int, *, gene: str | None = None, strand: str = "+") -> CouplingExample:
@@ -858,6 +868,108 @@ def test_r1c_preflight_loader_fails_before_paths_while_prospective_pins_are_unse
             "/does/not/exist/r1c_preflight.json",
             "/does/not/exist/r1c_preflight.manifest.json",
         )
+
+
+def test_reviewed_r1c_preflight_is_authentic_but_frozen_r5_handoff_rejects_its_six_margin_rows():
+    runner_path = (
+        REPO
+        / "scripts/splicebert_acceptor_coupling/run_r1c_sealed_reverse_behavior.py"
+    )
+    spec = importlib.util.spec_from_file_location(
+        "r1c_terminal_handoff_audit", runner_path
+    )
+    assert spec is not None and spec.loader is not None
+    r1c = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = r1c
+    spec.loader.exec_module(r1c)
+
+    artifact_path = (
+        REPO
+        / "results/splicebert_acceptor_coupling/r1c_reverse_behavior_preflight_v4.json"
+    )
+    manifest_path = artifact_path.with_suffix(".manifest.json")
+    assert artifact_path.stat().st_size == 74_352_692
+    assert (
+        hashlib.sha256(artifact_path.read_bytes()).hexdigest()
+        == "1b27c4132c71a576c435b7b71f32831af9a44fbca6325931f35716ae4133cbdd"
+    )
+    assert manifest_path.stat().st_size == 11_370
+    assert (
+        hashlib.sha256(manifest_path.read_bytes()).hexdigest()
+        == "7412f3159e82f6ab0bbaa95e2796f41aa038eef4233efa7f09ec65867e39c45c"
+    )
+    verified = r1c.verify_successor_preflight_package(
+        artifact_path, manifest_path
+    )
+    record = verified["record"]
+    attestation = verified["attestation"]
+    assert (
+        attestation["attestation_sha256"]
+        == "04be60c2239c98eefb01521f7a8a94a68f4d2cc4db5db8f1dddb5622f7378ce1"
+    )
+    manifest = json.loads(manifest_path.read_text())
+
+    assert attestation["verdict"] == "PREFLIGHT_GO"
+    assert attestation["all_gates_pass"] is True
+    assert r1c.FROZEN_PREFLIGHT_ARTIFACT_SHA256 is None
+    assert all(
+        getattr(cohort_module, name) is None
+        for name in SHARED_R1C_PACKAGE_PIN_NAMES
+    )
+    assert set(record["rows"][0]["margin_levels"]) == {
+        "P_clean",
+        "P_under_D",
+        "P_under_N",
+        "X_clean",
+        "X_under_D",
+        "X_under_N",
+    }
+    with pytest.raises(
+        R5CapstoneCohortError, match="R1c partner margin levels differ"
+    ):
+        build_r5_preflight_cohort_handoff(
+            record,
+            manifest,
+            artifact_identity=attestation["artifact"],
+            manifest_identity=attestation["manifest"],
+            successor_attestation=attestation,
+        )
+
+
+def test_ac9_is_the_single_terminal_outcome_and_indexes_only_instrument_evidence():
+    claims = (
+        REPO / "studies/splicebert_acceptor_coupling/CLAIMS.md"
+    ).read_text()
+    decisions = (
+        REPO / "studies/splicebert_acceptor_coupling/DECISIONS.md"
+    ).read_text()
+    manifest = json.loads((REPO / "results/MANIFEST.json").read_text())
+
+    assert claims.count("| AC9 |") == 1
+    assert "terminal `INSTRUMENT_UNRESOLVED`" in claims
+    assert "b79570d" in claims
+    assert "provenance-broken held-out verification" in claims
+    assert "ACR18" in claims and "ACR19" in claims
+    assert "this goal launches no GC/GT" in decisions
+    assert "early-head, or MLP follow-up" in decisions
+
+    ac9_rows = [
+        row for row in manifest["rows"] if row.get("claim_id") == "AC9"
+    ]
+    assert len(ac9_rows) == 2
+    artifact_row = next(row for row in ac9_rows if row["evidence_level"])
+    assert artifact_row["evidence_level"] == "Instrument"
+    assert artifact_row["polarity"] == "na"
+    assert artifact_row["status"] == "canonical"
+    assert artifact_row["artifact"].endswith(
+        "r1c_reverse_behavior_preflight_v4.json"
+    )
+
+    result_dir = REPO / "results/splicebert_acceptor_coupling"
+    assert not list(result_dir.glob("r1c_*target*.json"))
+    assert not list(result_dir.glob("r5a_*.json"))
+    assert not list(result_dir.glob("r5b_*.json"))
+    assert not list(result_dir.glob("r5c_*.json"))
 
 
 def test_capstone_handoff_rederives_exact_r1c_rows_without_residual_bucket_or_genome():

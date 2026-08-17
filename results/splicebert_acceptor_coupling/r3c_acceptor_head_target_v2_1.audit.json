@@ -1,0 +1,80 @@
+{
+  "schema": "gfmcd.r3c.acceptor_head_confirmation.audit/1",
+  "status": "AUDIT_PASS_MIXED_SCIENTIFIC_OUTCOME",
+  "audited_artifact": {
+    "path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+    "size_bytes": 33412449,
+    "sha256": "ebd4bfd8c10cc0ccb218b3f1ceca634605903d8afbb5617de312087100627cc6"
+  },
+  "audited_manifest": {
+    "path": "results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.manifest.json",
+    "size_bytes": 10319,
+    "sha256": "dc644901224227f03e683f7416587dccf3eedd700052b211089242b9b8d69cbe"
+  },
+  "bound_preflight": {
+    "artifact_sha256": "c0c9306fe894ce73bfd981a14c85e2aec6660da33f01d9716cee4327b3ff2d3e",
+    "manifest_sha256": "4a53f96b365c7bed227c8e0c995cee65a022620994e8898bab988b354fce41bb"
+  },
+  "instrument": {
+    "revision": "r3c-v2.1-monotone-health-early-preflight-authorization",
+    "fingerprint_sha256": "178c888e2876ce9be0590ea112899dde24daf2ce5e35143c849ff3001e680eed",
+    "normalized_runner_sha256": "98c4c8fad5eb26363f7b4471be2d2bb9a8ec96818b6a269e3c974135e6a2a7cc",
+    "clean_provenance_commit": "8dde21ce043d7d9e4835e7ccc5851d13a3af4a36"
+  },
+  "replay_checks": {
+    "artifact_and_sibling_manifest": true,
+    "all_32_input_snapshot_entries": true,
+    "preflight_package_and_current_context": true,
+    "acceptor_only_construction": true,
+    "cohort_identity_and_gene_disjointness": true,
+    "monotone_preflight_and_target_health": true,
+    "gene_sufficient_statistics": true,
+    "exact_62_row_inference": true,
+    "shared_gene_sign_matrix": true,
+    "boundary_tests_tost_iut_and_holm": true,
+    "strict_simultaneous_interval_concordance": true,
+    "stored_path_classifications": true,
+    "all_instrument_gates": true
+  },
+  "cohort": {
+    "stage": "target",
+    "gene_bucket": 1,
+    "rows": 500,
+    "genes": 304,
+    "chromosomes": [
+      "chr11",
+      "chr16",
+      "chr19"
+    ],
+    "historical_r3_gene_overlap": 0,
+    "bucket_0_gene_overlap": 0,
+    "sealed_chr8_chr9_opened": false,
+    "masked_donor_endpoint_constructed": false
+  },
+  "path_classifications": {
+    "L3H1_reused_component": "INCONCLUSIVE_METHOD_DISAGREEMENT",
+    "L2H15_mean_component": "HEALTH_FAILED",
+    "L1H12_mean_component": "SUPPORTED",
+    "L4H11_noising_component": "SUPPORTED",
+    "L4H9_noising_component": "SUPPORTED",
+    "L4H7_noising_component": "SUPPORTED",
+    "distinct_acceptor_route_candidate": "INCONCLUSIVE_METHOD_DISAGREEMENT"
+  },
+  "licensed_result": "L1H12 under within-example token-mean ablation and L4H11, L4H9, and L4H7 under same-example activation noising are confirmed masked-acceptor-margin components under the declared interventions.",
+  "not_licensed": [
+    "L3H1 reuse",
+    "L2H15 component support",
+    "a distinct acceptor route",
+    "address or payload identity",
+    "write or delivery mediation",
+    "sufficiency",
+    "a directed or complete circuit",
+    "a biological mechanism"
+  ],
+  "audit_execution": {
+    "model_rescored": false,
+    "target_cohort_reopened": false,
+    "chr8_chr9_accessed": false,
+    "independent_exact_replays": 2
+  }
+}

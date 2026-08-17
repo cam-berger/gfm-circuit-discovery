@@ -1,0 +1,238 @@
+{
+  "command": [
+    "scripts/splicebert_acceptor_coupling/run_r3c_acceptor_head_confirmation.py",
+    "--stage",
+    "target",
+    "--n",
+    "500",
+    "--gtf",
+    "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+    "--fasta",
+    "/Users/cberg/Research/data/genomes/hg38.fa",
+    "--model",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+    "--device",
+    "cpu",
+    "--batch",
+    "32",
+    "--seed",
+    "0",
+    "--n-randomisation",
+    "4000",
+    "--n-trials",
+    "200",
+    "--preflight-artifact",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_acceptor_coupling/r3c_acceptor_head_preflight_v2_1.json",
+    "--out",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json"
+  ],
+  "config": {
+    "batch": 32,
+    "component_family_sha256": "7668dcab57a142284aaac7636a3de93d34ca250810f2f54318da0c4632e3d1bc",
+    "construction_sha256": "1da7b290d82a7247b5b1121e7494ac80f756c4fee7ed7c2bec0d988599ba3f73",
+    "family_row_order_sha256": "5b2f856f85404e702e702ef5ef2d606d26fe329d029eff357c7d281541c9ccc4",
+    "gene_bucket": 1,
+    "input_snapshot_sha256": "11057736d6b4eb62199a39219897214230ca92c932fa14c9c1b3a57b517aa76f",
+    "instrument_fingerprint_sha256": "178c888e2876ce9be0590ea112899dde24daf2ce5e35143c849ff3001e680eed",
+    "n": 500,
+    "n_randomisation": 4000,
+    "n_trials": 200,
+    "path_family_sha256": "38f50a564ffc07a529e0ffce01b6cc6d5f175018dc8c4288be5b52af1c84dfaf",
+    "seed": 0,
+    "stage": "target"
+  },
+  "created_at_utc": "2026-08-15T20:42:13.379370+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 60601,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_acceptor_coupling:r3c_acceptor_head_confirmation",
+  "git_commit": "8dde21ce043d7d9e4835e7ccc5851d13a3af4a36",
+  "git_dirty": false,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+      "sha256": "83fba3e9b03f0b8c958f3595c6c350adc55f468abf8b0e47b6d5284cfe13a453",
+      "size_bytes": 124527720
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/config.json",
+      "sha256": "51ea51e42951f18cc1d3455d7111fe0a41cebad476ba8314afc161a0e956303e",
+      "size_bytes": 685
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin",
+      "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d",
+      "size_bytes": 78883755
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/special_tokens_map.json",
+      "sha256": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+      "size_bytes": 125
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/tokenizer.json",
+      "sha256": "b380c8c93ba20313c0c0239b8c70f0c67253028ca76cfda4f55b46049abe4fa3",
+      "size_bytes": 2792
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/tokenizer_config.json",
+      "sha256": "a8f9a3828553689c1cb215689fc82af7551c1bb6ba642606612e834fda0c607c",
+      "size_bytes": 457
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/vocab.txt",
+      "sha256": "ba67bacb61d3de7d57e11e04ba59020a2cc67dbedbd9ae65715117b9fd4f30bc",
+      "size_bytes": 41
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_acceptor_coupling/r3c_acceptor_head_preflight_v2_1.json",
+      "sha256": "c0c9306fe894ce73bfd981a14c85e2aec6660da33f01d9716cee4327b3ff2d3e",
+      "size_bytes": 33361804
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_acceptor_coupling/r3c_acceptor_head_preflight_v2_1.manifest.json",
+      "sha256": "4a53f96b365c7bed227c8e0c995cee65a022620994e8898bab988b354fce41bb",
+      "size_bytes": 9620
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/pyproject.toml",
+      "sha256": "bcd872b15c944e24372935963f0fdd9fa33613aa47c4c7119bb79ede4629fa30",
+      "size_bytes": 963
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/scripts/splicebert_acceptor_coupling/run_r3c_acceptor_head_confirmation.py",
+      "sha256": "25db5d95e7c5a99697f69d2153ec0d770571e3063106aa13c7f00f74e5065e31",
+      "size_bytes": 191383
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/src/gfmcd/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/src/gfmcd/adapters/__init__.py",
+      "sha256": "dd9fcb9a124f01c8e1e1f1283eafa0cafe8cedfc13ee6bb03da7a61b931cd127",
+      "size_bytes": 212
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/src/gfmcd/adapters/base.py",
+      "sha256": "ccd7a075114c89472139df4a4789a0783ab1f46c43eac88db302abb035158b85",
+      "size_bytes": 923
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/src/gfmcd/adapters/splicebert.py",
+      "sha256": "1c7959fdbfa621c6ad42599c3c579f10ab02acd9d608fb31d4eae2338f640b6d",
+      "size_bytes": 12546
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/src/gfmcd/circuits/__init__.py",
+      "sha256": "c3e146e8d891a849031e5260646a52fdbe27898ed1c4a8abdc8c5f231f4968a0",
+      "size_bytes": 621
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/src/gfmcd/circuits/guards.py",
+      "sha256": "885544ff2935e4f936ff76f1496c75a8ca7797b6b988ec23ca6ee2bb5ff6695e",
+      "size_bytes": 4506
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/src/gfmcd/circuits/hf_bert.py",
+      "sha256": "04f440e5350e89af40eadb968b57c10307a96ca041984afacb1f10dafc865e01",
+      "size_bytes": 17025
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/src/gfmcd/provenance.py",
+      "sha256": "05d3cd48d49a6357f29b72ac1636b23586a11bfb0b059ce97e36f8a9f87ac632",
+      "size_bytes": 3990
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/src/gfmcd/splicing/__init__.py",
+      "sha256": "0b3fe02366c10533969d66967fd9d160bdfa4cb26776236c3c7f76180b59e52b",
+      "size_bytes": 465
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/src/gfmcd/splicing/candidates.py",
+      "sha256": "4e769a307710228cb0268e6c103b3b803a19ae1efd7e9ffdda77d866d3c2dd3b",
+      "size_bytes": 5708
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/src/gfmcd/splicing/circuit.py",
+      "sha256": "1c2680a6187464b281ccb04f4c476ca3a6adc4248484620ce7250e112aa3f712",
+      "size_bytes": 34232
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/src/gfmcd/splicing/coupling.py",
+      "sha256": "3d2ad341029f5bd8982f112cd3629d02258dec5cc94d5f66bc98d3e7d98a69a9",
+      "size_bytes": 25881
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/src/gfmcd/splicing/dataset.py",
+      "sha256": "5fd012788f6afed3cb739e6717aef30ab756fa6c95bdc7424b124ef178d93a45",
+      "size_bytes": 10023
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/src/gfmcd/splicing/gtf.py",
+      "sha256": "9297071114b355bf86a4e50cfb509fec303496233b1b376d839324d124000f6c",
+      "size_bytes": 5932
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/src/gfmcd/splicing/io.py",
+      "sha256": "50444ae4f0fa05e6a2c44b36c11d8e575edd75ad9f197259dcec4bdcb492342a",
+      "size_bytes": 3315
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/src/gfmcd/splicing/paired_component.py",
+      "sha256": "08ad1d78907f347291fa8faa17a4e2fe843f40454b2713c606a4f9911c63f4d0",
+      "size_bytes": 34102
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/src/gfmcd/splicing/reverse_coupling.py",
+      "sha256": "e2cf2fe06d85e186acd369eed9dd242a73742f597fb218268a65d85fbad38a9b",
+      "size_bytes": 10032
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/src/gfmcd/splicing/schema.py",
+      "sha256": "04c946c4f3d45ab712267e7a1ce5739540cc0e4dd81ba2db434c87f5ef7eba79",
+      "size_bytes": 6031
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/studies/splicebert_acceptor_coupling/preregistrations/DRAFT_R3C_ACCEPTOR_HEAD_CONFIRMATION.md",
+      "sha256": "c0239606079aa985fd173f31bee68ec154e162af54ede74ee5315033c8e22c38",
+      "size_bytes": 24074
+    },
+    {
+      "path": "/private/tmp/gfmcd-r3c-clean.9iVD34/uv.lock",
+      "sha256": "47a96aca98a0be346c7d8e227f7ef1cda13c41a99e6b5a19ab01b12bd02d8961",
+      "size_bytes": 836629
+    }
+  ],
+  "notes": [
+    "Masked acceptor G only; no donor readout is constructed.",
+    "Both paired and matched pseudo donor edits are GT->AC.",
+    "All historical R3 genes are excluded before current eligibility.",
+    "The current census requires only a donor pseudo, not an acceptor pseudo.",
+    "Path decisions use strict boundary tests, TOST/IUT, and Holm over seven claims.",
+    "The 62-row simultaneous envelope uses strict CI classification as a required concordance check.",
+    "Outer nulls center primitive rows before shared whole-gene sign flips.",
+    "Validation chromosomes chr11/16/19 only; sealed chr8/9 remains closed."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json",
+      "sha256": "ebd4bfd8c10cc0ccb218b3f1ceca634605903d8afbb5617de312087100627cc6",
+      "size_bytes": 33412449
+    }
+  ],
+  "seeds": {
+    "health_probe_selection": 0,
+    "randomisation": 0
+  },
+  "status": "CONFIRMATORY"
+}
