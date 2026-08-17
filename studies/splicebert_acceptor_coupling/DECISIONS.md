@@ -662,3 +662,27 @@ component candidates; AC9 closes the prospective read→post-`W_O` write→deliv
 target; AC10–AC11 show that natural `GC-AG` donor class modulates behavior and attention. No combination
 of these rows establishes causal construction of the masked-acceptor margin, so no new scored target or
 follow-up is launched by this consolidation.
+
+## 2026-08-17 — retain M4d as a score-margin correction, not a new claim
+
+The later Claude worktree added a useful log-odds/QK diagnostic after the natural donor-class branch
+had already been merged. It had no new branch commit: the full M4d execution ran once from a dirty
+worktree above `b79570d`. Post-run snapshot `773c9e8987e05e2605974004795f92f67425cd07`
+preserves the recovered runner, score arithmetic, capture hook, and tests, but is explicitly not the
+execution commit. The exact development artifact and manifest are retained under
+`results/splicebert_acceptor_coupling/development/` at SHA-256 `d1d96029…f763` and
+`879b262b…f165`.
+
+The score-margin identity is methodologically useful, and its pointwise results narrow M4c's broad
+labels to three nominal layer-0 candidates (`L0H14`, `L0H5`, `L0H3`), three unresolved earlier labels
+(`L0H4`, `L1H6`, `L1H13`), and one opposite-direction `L2H15` diagnostic. They are not promoted. M4d
+changed the batch-dependent mean intervention from M4c's batch 2 to batch 4, clustered only treatment
+genes, omitted family correction and matched-size nulls, used an ordered reference-arm decomposition,
+and retained neither rows nor draws. Its score-row shifts cannot separate query from key effects. The
+artifact's `1.5567x` “ceiling” is corrected to a collapsed-baseline toy benchmark (`ACR23`).
+
+The consolidation therefore adds no AC12 and changes no AC1–AC11 disposition. It also leaves the
+byte-bound R1c/R5 `hf_bert.py` untouched: the reviewed score capture lives in a new module, while the
+adapted development runner uses the consolidated donor-class eligibility helper, connected two-arm
+gene-component resampling, and strict JSON.
+No model, genome, cohort, or reserve is rerun for this integration.

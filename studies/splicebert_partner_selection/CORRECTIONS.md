@@ -1171,3 +1171,26 @@ and must be checked against the sha256 pins that bind the edited files — a gre
 because the pins that matter here are covered by exactly one test and the ED1 audit by none. And a
 sentinel default must keep the **type** the callers expect: `None` turns a designed skip into a crash,
 and the callers here are the memorials themselves.
+
+## R47 — the custom roll-attention path is not padding-safe; its only recorded caller used fixed-length unpadded windows (2026-08-17)
+
+A later cross-study audit found that the Transformers 5.13 custom-attention registry does not pass an
+effective additive padding mask into `gfmcd_roll`. A diagnostic `delta=0` identity check differed by
+about `13.51` logits when a length-98 sequence was batched with a padded length-34 sequence, although
+the same check on two equal-length sequences differed by only `1.72e-5`. The equal-length memorial
+therefore did not establish a generally padding-safe intervention. Any future variable-length caller
+must stop until the roll implementation either receives and applies the real mask or is replaced by a
+mask-authenticated intervention.
+
+This does **not** retract the recorded comb-shift result. The only tracked caller is
+`scripts/splicebert/run_comb_shift.py`; it consumes the coupling builder, whose
+`CouplingConfig.window_length` is fixed at 1,024 and whose construction rejects every sequence whose
+length differs from that value. Those batches contain no sequence-padding keys. M4d also does not use
+`gfmcd_roll`: it captures eager attention scores through a read-only pre-hook with an explicit mask
+memorial. The defect is therefore a bounded dormant-capability failure, not evidence about the
+acceptor result or a reason to rewrite a frozen result.
+
+**Disposition.** Preserve the frozen `circuit.py` bytes and the historical artifacts. A regression
+locks the present caller scope to the one fixed-length runner. Expanding `roll_attention` to any new
+caller, especially a variable-length one, requires a separately reviewed mask-correct implementation
+and a padded-batch `delta=0` identity gate before scientific use.

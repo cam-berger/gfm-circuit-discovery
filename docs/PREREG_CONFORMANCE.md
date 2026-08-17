@@ -343,6 +343,18 @@ the canonical review surface.
 | medium | §2 “ordered” cohort hashes and one-to-one matched design | The hash helper sorts IDs, so the stored treatment hashes are order-insensitive; comparator identities and pair mapping are not hashed. The bootstrap resamples the union of arm genes rather than matched pair/connected-gene clusters. | Treat the confidence bounds as recorded but not independently replayable from the compact package; state matching/inference limits in AC10–AC11 and ACR21. |
 | medium | Repository assay workflow | M6 ran five invariants but no registered positive/negative/sensitivity/resolution preflight, and its manifest records the checkpoint directory as `missing:true`. The result stores summaries, not row-level sufficient statistics or draws. | No confirmatory promotion. Behavior and attention geometry remain separate bounded rungs; no output/OV, mediation, route, or biological claim follows. |
 
+## Scoped addendum — M4d development score-margin follow-up
+
+M4d had no frozen protocol and does not control a claim. It ran once on the adaptive M4c train cohort
+from a dirty worktree, changed the batch-dependent mean intervention from batch 2 to batch 4, scored
+GC and GT separately under distinct arm-conditioned replacements, clustered
+only treatment genes, and applied no selected-family correction or matched-size null. The manifest did
+not byte-bind the checkpoint, while the result retained no row identities, pair map, margins, or draws.
+Its exact artifact is therefore indexed as development QK evidence with no claim ID. ACR23 narrows the
+prior candidate wording, withdraws the heterogeneous-shift “curvature ceiling” interpretation, and
+forbids query-versus-key, write, mediation, delivery, or behavior promotion. Post-run snapshot
+`773c9e8` preserves source retrievability but does not turn the dirty execution into a frozen run.
+
 ## What this does not cover
 
 - **The two unfrozen protocols** (`PREREGISTRATION_P3_4_CARRIER_ORIGIN.md`, deferred and explicitly not

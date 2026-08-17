@@ -1,0 +1,55 @@
+{
+  "command": [
+    "scripts/splicebert_acceptor_coupling/run_m4d_score_decomposition.py",
+    "--model",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt",
+    "--out",
+    "/private/tmp/claude-501/-Users-cberg-Research-projects-gfm-circuit-discovery--claude-worktrees-pr-audit-neurips-integration-630dfb/fee7d82b-0cbb-4d7c-95d4-7610592d772e/scratchpad/m4d_score_decomposition.json"
+  ],
+  "config": {
+    "n_boot": 2000,
+    "n_pairs": 181,
+    "reader": "L3H1"
+  },
+  "created_at_utc": "2026-08-17T13:55:03.459748+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro.local",
+    "pid": 99271,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert_acceptor_coupling:m4d_score_decomposition",
+  "git_commit": "b79570d68a5cde9a03f33af516fb369a26267892",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "missing": true,
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt"
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.annotation.gtf.gz",
+      "sha256": "83fba3e9b03f0b8c958f3595c6c350adc55f468abf8b0e47b6d5284cfe13a453",
+      "size_bytes": 124527720
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    }
+  ],
+  "notes": [
+    "Train split only; chr8/9 not opened; validation reserve not spent.",
+    "Pre-softmax scores read through a forward pre-hook; the model stays in genuine eager mode and is not perturbed by the measurement."
+  ],
+  "outputs": [
+    {
+      "path": "/private/tmp/claude-501/-Users-cberg-Research-projects-gfm-circuit-discovery--claude-worktrees-pr-audit-neurips-integration-630dfb/fee7d82b-0cbb-4d7c-95d4-7610592d772e/scratchpad/m4d_score_decomposition.json",
+      "sha256": "d1d960296e53be684909e129b6de3ae4ddc9b15e1a688c0813109d7db337f763",
+      "size_bytes": 15313
+    }
+  ],
+  "seeds": {
+    "bootstrap": 0
+  },
+  "status": "DEVELOPMENT"
+}

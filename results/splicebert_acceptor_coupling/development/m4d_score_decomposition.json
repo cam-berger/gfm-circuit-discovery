@@ -1,0 +1,532 @@
+{
+  "schema": "gfmcd.m4d.score_decomposition/1",
+  "tier": "development",
+  "split": "train",
+  "attention_impl": "eager",
+  "sealed_chr8_chr9_opened": false,
+  "validation_reserve_spent": false,
+  "reader": "L3H1",
+  "n_pairs": 181,
+  "n_genes": 152,
+  "baseline": {
+    "mass": {
+      "GC": 0.17015116624461255,
+      "GT": 0.4669067566393708
+    },
+    "margin": {
+      "GC": -3.2416604159630436,
+      "GT": -0.4279720262983662
+    }
+  },
+  "memorials": {
+    "softmax_identity": {
+      "statistic": "max |sigmoid(margin) - reported donor mass|",
+      "value": 1.3211280847080786e-08,
+      "threshold": 1e-05,
+      "pass": true,
+      "forced_by_architecture": false
+    },
+    "m4c_baseline_agreement": {
+      "statistic": "max |this baseline mass - M4c's recorded baseline|",
+      "value": 2.3683675021146655e-09,
+      "threshold": 0.0001,
+      "pass": true,
+      "forced_by_architecture": false
+    },
+    "curvature_ceiling": {
+      "statistic": "sup over all shifts of the curvature-only fractional-drop ratio",
+      "value": 1.556667326196081,
+      "note": "(1-p_GC)/(1-p_GT); attained as shift -> 0",
+      "forced_by_architecture": true,
+      "comment": "arithmetic given the two baselines, not an empirical result"
+    },
+    "lse_decomposition_identity": {
+      "statistic": "max |(d_donor_lse - d_other_lse) - d_margin| over probes and arms",
+      "value": 1.7763568394002505e-15,
+      "threshold": 1e-06,
+      "pass": true,
+      "forced_by_architecture": false
+    },
+    "downstream_head_is_inert": {
+      "statistic": "max |margin shift| from ablating L5H7, downstream of the reader",
+      "value": 0.0,
+      "threshold": 1e-06,
+      "pass": true,
+      "forced_by_architecture": true,
+      "comment": "plumbing check only; cannot support a scientific claim"
+    }
+  },
+  "probes": {
+    "L0H4": {
+      "kind": "class-specific",
+      "margin_shift": {
+        "GC": 0.44740102898500883,
+        "GT": 0.33823330824487674,
+        "difference": 0.10916772074013213,
+        "ci": [
+          -0.09700238710530677,
+          0.310173669613979
+        ]
+      },
+      "fractional_drop": {
+        "GC": 0.29690164547377906,
+        "GT": 0.08983144010001742,
+        "GT_under_GC_shifts": 0.14168012479117476
+      },
+      "decomposition": {
+        "treatment_drop": 0.29690164547377906,
+        "comparator_drop": 0.08983144010001742,
+        "swapped_drop": 0.14168012479117476,
+        "log_ratio": 1.1954658974307266,
+        "curvature": 0.7398290496659927,
+        "score_shift": 0.4556368477647339,
+        "verdict": "CURVATURE_DOMINATES"
+      },
+      "decomposition_ci": {
+        "curvature_ci": [
+          0.4513389149754082,
+          1.0313881472298547
+        ],
+        "score_shift_ci": [
+          -0.10012649314178207,
+          1.2458058687253875
+        ],
+        "n_usable_draws": 2000
+      },
+      "lse_shift": {
+        "GC": {
+          "donor": 0.57501362415365,
+          "other": 0.12761259516864115,
+          "donor_share_of_margin_shift": 1.2852308933176753
+        },
+        "GT": {
+          "donor": 0.49169967139539045,
+          "other": 0.15346636315051368,
+          "donor_share_of_margin_shift": 1.4537293028497535
+        }
+      }
+    },
+    "L0H5": {
+      "kind": "class-specific",
+      "margin_shift": {
+        "GC": 0.28099090160210327,
+        "GT": 0.03077255511471984,
+        "difference": 0.25021834648738345,
+        "ci": [
+          0.09456241375593062,
+          0.39673034174685123
+        ]
+      },
+      "fractional_drop": {
+        "GC": 0.22078204661526524,
+        "GT": 0.024963732125874327,
+        "GT_under_GC_shifts": 0.09626065365196579
+      },
+      "decomposition": {
+        "treatment_drop": 0.22078204661526524,
+        "comparator_drop": 0.024963732125874327,
+        "swapped_drop": 0.09626065365196579,
+        "log_ratio": 2.179751943880385,
+        "curvature": 0.8301163461421246,
+        "score_shift": 1.3496355977382604,
+        "verdict": "SCORE_SHIFT_DOMINATES"
+      },
+      "decomposition_ci": {
+        "curvature_ci": [
+          0.5490217141410338,
+          1.1555555958228132
+        ],
+        "score_shift_ci": [
+          0.28681884279497827,
+          3.57202767860924
+        ],
+        "n_usable_draws": 1811
+      },
+      "lse_shift": {
+        "GC": {
+          "donor": 0.37996842057365593,
+          "other": 0.0989775189715527,
+          "donor_share_of_margin_shift": 1.3522445687999878
+        },
+        "GT": {
+          "donor": 0.04725250439798386,
+          "other": 0.016479949283264024,
+          "donor_share_of_margin_shift": 1.5355404912535504
+        }
+      }
+    },
+    "L0H14": {
+      "kind": "class-specific",
+      "margin_shift": {
+        "GC": 0.48100924387549104,
+        "GT": 0.051981832533412126,
+        "difference": 0.4290274113420788,
+        "ci": [
+          0.26835828929497346,
+          0.5881876510020364
+        ]
+      },
+      "fractional_drop": {
+        "GC": 0.3835288388315371,
+        "GT": 0.021155906873796204,
+        "GT_under_GC_shifts": 0.16011449355449603
+      },
+      "decomposition": {
+        "treatment_drop": 0.3835288388315371,
+        "comparator_drop": 0.021155906873796204,
+        "swapped_drop": 0.16011449355449603,
+        "log_ratio": 2.897495665706612,
+        "curvature": 0.873525672978455,
+        "score_shift": 2.023969992728157,
+        "verdict": "SCORE_SHIFT_DOMINATES"
+      },
+      "decomposition_ci": {
+        "curvature_ci": [
+          0.6490901631880894,
+          1.1493722281907524
+        ],
+        "score_shift_ci": [
+          0.9593527046853454,
+          4.4632585847167325
+        ],
+        "n_usable_draws": 1736
+      },
+      "lse_shift": {
+        "GC": {
+          "donor": 0.5479833136848447,
+          "other": 0.06697406980935379,
+          "donor_share_of_margin_shift": 1.1392365545197085
+        },
+        "GT": {
+          "donor": 0.2316259850889003,
+          "other": 0.1796441525554882,
+          "donor_share_of_margin_shift": 4.45590264521781
+        }
+      }
+    },
+    "L0H3": {
+      "kind": "class-specific",
+      "margin_shift": {
+        "GC": 0.17340838324022922,
+        "GT": -0.037930582980408786,
+        "difference": 0.21133896622063805,
+        "ci": [
+          0.06436592265566,
+          0.35371369251122026
+        ]
+      },
+      "fractional_drop": {
+        "GC": 0.19659629054933647,
+        "GT": -0.007838910240376418,
+        "GT_under_GC_shifts": 0.07129009353751659
+      },
+      "decomposition": {
+        "treatment_drop": 0.19659629054933647,
+        "comparator_drop": -0.007838910240376418,
+        "swapped_drop": 0.07129009353751659,
+        "log_ratio": NaN,
+        "curvature": NaN,
+        "score_shift": NaN,
+        "verdict": "UNDEFINED"
+      },
+      "decomposition_ci": null,
+      "lse_shift": {
+        "GC": {
+          "donor": 0.10610585848979838,
+          "other": -0.06730252475043084,
+          "donor_share_of_margin_shift": 0.6118842498104945
+        },
+        "GT": {
+          "donor": -0.13056473197153004,
+          "other": -0.09263414899112127,
+          "donor_share_of_margin_shift": 3.44220208898363
+        }
+      }
+    },
+    "L1H13": {
+      "kind": "class-specific",
+      "margin_shift": {
+        "GC": 0.13158464149975088,
+        "GT": 0.1403413265800241,
+        "difference": -0.008756685080273224,
+        "ci": [
+          -0.11815828158611592,
+          0.09723623288392326
+        ]
+      },
+      "fractional_drop": {
+        "GC": 0.07103140920818463,
+        "GT": 0.03708625875376681,
+        "GT_under_GC_shifts": 0.04289982351878796
+      },
+      "decomposition": {
+        "treatment_drop": 0.07103140920818463,
+        "comparator_drop": 0.03708625875376681,
+        "swapped_drop": 0.04289982351878796,
+        "log_ratio": 0.6498756454237866,
+        "curvature": 0.5042544502882351,
+        "score_shift": 0.1456211951355515,
+        "verdict": "CURVATURE_DOMINATES"
+      },
+      "decomposition_ci": {
+        "curvature_ci": [
+          -0.1836721547829276,
+          0.9904464125529587
+        ],
+        "score_shift_ci": [
+          -0.871941061458008,
+          1.519528843501559
+        ],
+        "n_usable_draws": 1976
+      },
+      "lse_shift": {
+        "GC": {
+          "donor": -0.12732380323322243,
+          "other": -0.2589084447329733,
+          "donor_share_of_margin_shift": -0.9676190304737311
+        },
+        "GT": {
+          "donor": -0.0664258319562373,
+          "other": -0.20676715853626138,
+          "donor_share_of_margin_shift": -0.47331626096865054
+        }
+      }
+    },
+    "L1H6": {
+      "kind": "class-specific",
+      "margin_shift": {
+        "GC": 0.15444867476337246,
+        "GT": 0.08318824091310575,
+        "difference": 0.07126043385026667,
+        "ci": [
+          -0.02362878693998345,
+          0.16951856180460226
+        ]
+      },
+      "fractional_drop": {
+        "GC": 0.09621316210754693,
+        "GT": 0.030914900841005677,
+        "GT_under_GC_shifts": 0.0571762619842795
+      },
+      "decomposition": {
+        "treatment_drop": 0.09621316210754693,
+        "comparator_drop": 0.030914900841005677,
+        "swapped_drop": 0.0571762619842795,
+        "log_ratio": 1.1353278730239245,
+        "curvature": 0.5204273565829229,
+        "score_shift": 0.6149005164410015,
+        "verdict": "MIXED"
+      },
+      "decomposition_ci": {
+        "curvature_ci": [
+          -0.07725347653350267,
+          1.0328313492987422
+        ],
+        "score_shift_ci": [
+          -0.2281048017520677,
+          2.0944342396410924
+        ],
+        "n_usable_draws": 1981
+      },
+      "lse_shift": {
+        "GC": {
+          "donor": 0.3641896272241635,
+          "other": 0.20974095246079108,
+          "donor_share_of_margin_shift": 2.357997747679808
+        },
+        "GT": {
+          "donor": 0.317433753482747,
+          "other": 0.2342455125696412,
+          "donor_share_of_margin_shift": 3.815848850732669
+        }
+      }
+    },
+    "L1H12": {
+      "kind": "shared load-bearing",
+      "margin_shift": {
+        "GC": 0.5017080408478636,
+        "GT": 0.6435479242074286,
+        "difference": -0.14183988335956493,
+        "ci": [
+          -0.38687329603507914,
+          0.1050938308896075
+        ]
+      },
+      "fractional_drop": {
+        "GC": 0.3526994651292804,
+        "GT": 0.23530746674973535,
+        "GT_under_GC_shifts": 0.15924419580736948
+      },
+      "decomposition": {
+        "treatment_drop": 0.3526994651292804,
+        "comparator_drop": 0.23530746674973535,
+        "swapped_drop": 0.15924419580736948,
+        "log_ratio": 0.40472329261464823,
+        "curvature": 0.7951774739989625,
+        "score_shift": -0.3904541813843143,
+        "verdict": "CURVATURE_DOMINATES"
+      },
+      "decomposition_ci": {
+        "curvature_ci": [
+          0.4950916175882092,
+          1.1809744449222797
+        ],
+        "score_shift_ci": [
+          -0.8446834088106564,
+          -0.024812368302728146
+        ],
+        "n_usable_draws": 2000
+      },
+      "lse_shift": {
+        "GC": {
+          "donor": 0.6989651336598489,
+          "other": 0.19725709281198534,
+          "donor_share_of_margin_shift": 1.393171081090568
+        },
+        "GT": {
+          "donor": 0.8423597705192771,
+          "other": 0.1988118463118486,
+          "donor_share_of_margin_shift": 1.3089309107114258
+        }
+      }
+    },
+    "L2H15": {
+      "kind": "shared load-bearing",
+      "margin_shift": {
+        "GC": 0.46874653968907604,
+        "GT": 0.9241276954139244,
+        "difference": -0.45538115572484833,
+        "ci": [
+          -0.6976525417572375,
+          -0.22232480222256784
+        ]
+      },
+      "fractional_drop": {
+        "GC": 0.5311765586706116,
+        "GT": 0.38825473982390957,
+        "GT_under_GC_shifts": 0.13991572007553899
+      },
+      "decomposition": {
+        "treatment_drop": 0.5311765586706116,
+        "comparator_drop": 0.38825473982390957,
+        "swapped_drop": 0.13991572007553899,
+        "log_ratio": 0.3134327980506838,
+        "curvature": 1.334054226305435,
+        "score_shift": -1.020621428254751,
+        "verdict": "CURVATURE_DOMINATES"
+      },
+      "decomposition_ci": {
+        "curvature_ci": [
+          1.0152647478257306,
+          1.8391450216535759
+        ],
+        "score_shift_ci": [
+          -1.5704195182290808,
+          -0.6651702458838076
+        ],
+        "n_usable_draws": 2000
+      },
+      "lse_shift": {
+        "GC": {
+          "donor": 1.525440065014668,
+          "other": 1.0566935253255918,
+          "donor_share_of_margin_shift": 3.254296161901284
+        },
+        "GT": {
+          "donor": 1.7846540124498016,
+          "other": 0.8605263170358775,
+          "donor_share_of_margin_shift": 1.9311768506736944
+        }
+      }
+    },
+    "L0H0": {
+      "kind": "contrast, inert",
+      "margin_shift": {
+        "GC": 0.058826349396671376,
+        "GT": 0.013335979329089604,
+        "difference": 0.04549037006758179,
+        "ci": [
+          -0.06240852612309371,
+          0.14892539416481004
+        ]
+      },
+      "fractional_drop": {
+        "GC": 0.02439399638516715,
+        "GT": 0.013037401425292527,
+        "GT_under_GC_shifts": 0.02769429009680502
+      },
+      "decomposition": {
+        "treatment_drop": 0.02439399638516715,
+        "comparator_drop": 0.013037401425292527,
+        "swapped_drop": 0.02769429009680502,
+        "log_ratio": 0.6265147927970354,
+        "curvature": -0.12688920601976506,
+        "score_shift": 0.7534039988168004,
+        "verdict": "SCORE_SHIFT_DOMINATES"
+      },
+      "decomposition_ci": {
+        "curvature_ci": [
+          -2.330461703984252,
+          0.922883340732341
+        ],
+        "score_shift_ci": [
+          -0.668192947968101,
+          3.4692050296420605
+        ],
+        "n_usable_draws": 1314
+      },
+      "lse_shift": {
+        "GC": {
+          "donor": 0.265209130916678,
+          "other": 0.2063827815200066,
+          "donor_share_of_margin_shift": 4.508339096963997
+        },
+        "GT": {
+          "donor": 0.24054536362646134,
+          "other": 0.2272093842973718,
+          "donor_share_of_margin_shift": 18.037322771021604
+        }
+      }
+    },
+    "L5H7": {
+      "kind": "contrast, inert, late",
+      "margin_shift": {
+        "GC": 0.0,
+        "GT": 0.0,
+        "difference": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ]
+      },
+      "fractional_drop": {
+        "GC": 0.0,
+        "GT": 0.0,
+        "GT_under_GC_shifts": 0.0
+      },
+      "decomposition": {
+        "treatment_drop": 0.0,
+        "comparator_drop": 0.0,
+        "swapped_drop": 0.0,
+        "log_ratio": NaN,
+        "curvature": NaN,
+        "score_shift": NaN,
+        "verdict": "UNDEFINED"
+      },
+      "decomposition_ci": null,
+      "lse_shift": {
+        "GC": {
+          "donor": 0.0,
+          "other": 0.0,
+          "donor_share_of_margin_shift": null
+        },
+        "GT": {
+          "donor": 0.0,
+          "other": 0.0,
+          "donor_share_of_margin_shift": null
+        }
+      }
+    }
+  },
+  "licenses": "Development-tier attention geometry. Establishes whether M4c's class-differential head effects survive removal of the softmax curvature confound. No margin, route, mediation or biological claim follows, and nothing here is confirmatory."
+}

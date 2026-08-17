@@ -174,7 +174,10 @@ mediation, or delivery result.
 A separate natural donor-class comparison shows weaker reverse coupling (`rho=0.2571`, upper bound
 `0.5402`) and lower L3H1 donor attention (ratio `0.3755`, upper bound `0.5809`) for `GC-AG` than matched
 `GT-AG` donors on 67 validation pairs. Those are bounded behavior and attention-geometry modifiers,
-not a causal account. The early-head and `MLP1` hypotheses remain adaptive development candidates.
+not a causal account. A later development-only score-margin diagnostic narrows the early-head shorthand
+to nominal `L0H14`/`L0H5`/`L0H3` candidates, leaves `L0H4`/`L1H6`/`L1H13` unresolved, and finds an
+opposite-direction `L2H15` diagnostic. Its unadjusted adaptive family, incomplete clustering, and QK
+ambiguity prevent claim promotion (`ACR23`); the `MLP1` hypothesis likewise remains post-outcome.
 Therefore the donor-side graph above must not be reflected across the intron: causal construction of
 the masked-acceptor margin remains unresolved.
 

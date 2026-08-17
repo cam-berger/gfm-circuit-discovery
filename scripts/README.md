@@ -9,7 +9,7 @@ claim→evidence record is [`results/MANIFEST.csv`](../results/MANIFEST.csv) plu
 (donor circuit, C1–C44 + IC1), [`studies/splicebert_head_context_atlas/CLAIMS.md`](../studies/splicebert_head_context_atlas/CLAIMS.md)
 (Atlas, HCA1–HCA23), [`studies/splicebert_gtex_finetune_shift/CLAIMS.md`](../studies/splicebert_gtex_finetune_shift/CLAIMS.md)
 (GTEx fine-tuning shift, GFS1–GFS34), and [`CORRECTIONS.md`](../studies/splicebert_partner_selection/CORRECTIONS.md)
-(R1–R46). The per-claim command map with reproduction rules is
+(R1–R47). The per-claim command map with reproduction rules is
 [`studies/splicebert_partner_selection/REPRODUCIBILITY.md`](../studies/splicebert_partner_selection/REPRODUCIBILITY.md);
 the repo-level entry point is [`REPRODUCE.md`](../REPRODUCE.md).
 

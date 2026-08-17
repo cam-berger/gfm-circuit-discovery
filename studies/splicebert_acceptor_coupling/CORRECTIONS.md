@@ -673,3 +673,61 @@ canonical post-`W_O` acceptor-query write or L4H11/H9 delivery contemplated by R
 The source branch is preserved as a merge parent, and the reusable donor-class matching, estimators, and
 development runners remain available for audit. Its scratch outcomes are not imported as canonical
 evidence. AC10–AC11 are the only live claims from this modifier arc.
+
+## ACR23 — M4d diagnostically narrows M4c's head labels on the score-margin scale but remains development-only (2026-08-17)
+
+M4d followed M4c on the same adaptive train cohort by re-expressing L3H1 donor attention as the exact
+pre-softmax donor-versus-other log-sum-exp margin. The softmax reconstruction, M4c clean-baseline, and
+LSE algebra memorials passed. Under the historical batch-and-sequence mean-ablation intervention, the
+pointwise GC-minus-GT margin-shift intervals excluded zero for `L0H14` (`+0.4290
+[+0.2684,+0.5882]`), `L0H5` (`+0.2502 [+0.0946,+0.3967]`), and `L0H3` (`+0.2113
+[+0.0644,+0.3537]`). They included zero for `L0H4` (`+0.1092 [-0.0970,+0.3102]`), `L1H6`
+(`+0.0713 [-0.0236,+0.1695]`), and `L1H13` (`-0.0088 [-0.1182,+0.0972]`). `L2H15`
+shifted in the opposite direction (`-0.4554 [-0.6977,-0.2223]`), with the mean ablation reducing
+the score margin more for matched `GT` than for `GC`.
+
+These are nominal candidate refinements, not six head verdicts. The probes were chosen adaptively,
+the 2,000-draw percentile intervals were not corrected across the family, and no matched-size random
+head family, sensitivity/resolution preflight, or frozen protocol preceded the run. The bootstrap
+clustered only the 152 treatment genes. The 181 pairs actually contain 159 comparator genes and 131
+connected biological dependency components; 18 repeated comparator genes bridge distinct treatment
+clusters, so comparator-side dependence is omitted. Component intervals also discard undefined draws
+(`1736/2000` usable for `L0H14`, `1811/2000` for `L0H5`). “Three heads survive” and “three fail”
+are therefore too strong; the safe status is three layer-0 nominal candidates, three unresolved prior
+labels, and one opposite-direction `L2H15` diagnostic.
+
+M4d is not literally M4c re-read on another scale. M4c ran batch size 2; M4d used the default batch
+size 4. Because `edit_heads(mode="mean")` averages across both batch and sequence, changing the batch
+changes the intervention. M4d also scored the GC and GT arms separately, recomputing a different
+arm/batch/sequence-conditioned replacement for each arm. The resulting difference therefore compares
+two different interventions and cannot establish intrinsic donor-class specificity. Their aggregate
+clean baselines agree to `2.37e-9`, which supports consistency with the intended cohort and readout but
+does not authenticate row identity or intervention identity. The recorded `1.5567x` “curvature ceiling” is also withdrawn as
+a general bound: it is only a collapsed-mean-baseline, homogeneous-small-shift toy calculation, not a
+ceiling for the heterogeneous row-level baselines and shifts used by M4d. The reported curvature/score
+split is one GT-anchored arithmetic path through an interaction; reversing the reference path can
+reallocate the two terms. The donor-versus-other LSE values likewise do not identify a donor-key write:
+the upstream ablation can change the L3H1 acceptor query, donor keys, competitor keys, or combinations.
+
+The exact development artifact is
+[`m4d_score_decomposition.json`](../../results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json),
+SHA-256 `d1d960296e53be684909e129b6de3ae4ddc9b15e1a688c0813109d7db337f763`; its
+[manifest](../../results/splicebert_acceptor_coupling/development/m4d_score_decomposition.manifest.json)
+is SHA-256 `879b262b93ab108e545f350b071a62cd715bb7012872455f31ce76a1562af165`.
+The manifest records `git_dirty=true`, does not byte-bind the checkpoint, and stores no row IDs, pair
+map, margins, or draws; the artifact also uses literal non-standard JSON `NaN` values. Post-run snapshot
+`773c9e8987e05e2605974004795f92f67425cd07` preserves the recovered source bytes but is not the
+execution commit. The consolidated runner keeps the frozen R1c/R5 `hf_bert.py` byte-identical, moves
+read-only score capture to a new module, resamples connected two-arm biological gene components, and
+emits strict JSON for any future development replay. Those prospective repairs do not rewrite or
+retroactively revalidate the historical intervals.
+
+The artifact's immutable `licenses`, `kind`, and categorical decomposition `verdict` fields are
+historical development labels, not accepted class-specific or head verdicts.
+
+**Disposition.** ACR22's broad “early L0/L1 class-specific heads” shorthand is diagnostically narrowed to nominal
+score-margin candidates `L0H14`, `L0H5`, and `L0H3`; `L0H4`, `L1H6`, and `L1H13` remain unresolved on
+this scale. `L2H15` records an opposite-direction nominal diagnostic; class dependence remains
+unresolved. No AC12 is created. AC8 is not revived, AC9 is not
+repaired, and AC10–AC11 remain the only live natural donor-class claims. M4d licenses no behavior,
+query-versus-key origin, post-`W_O` write, route, mediation, delivery, or biological mechanism.

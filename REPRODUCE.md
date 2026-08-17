@@ -191,6 +191,7 @@ and the protocol status index is
 | AC5–AC8 component adjudication | `run_r3c_acceptor_head_confirmation.py` and its package auditor | `r3c_acceptor_head_target_v2_1.json`, sibling manifest, and audit |
 | AC9 terminal R1c→R5 instrument outcome | `run_r1c_sealed_reverse_behavior.py` plus the model-free successor verifier | `r1c_reverse_behavior_preflight_v4.json` and manifest; the target and every R5 scored result are absent by design |
 | AC10–AC11 natural donor-class modifier | historical M6 runner at commit `42954a67947ed7d2748c57816661b917cf5d78e8` | recovered first-run `m6_validation_confirmation.json` and manifest |
+| Non-claim M4d score-margin correction | reviewed runner in the current tree; recovered post-run source snapshot `773c9e8987e05e2605974004795f92f67425cd07` (execution-byte identity unverified) | `development/m4d_score_decomposition.json` and manifest; development QK only (`ACR23`) |
 
 The M6 validation reserve is spent; **do not rerun it**. Review the controlling first-run package
 model-free instead:
@@ -212,6 +213,30 @@ summary statistics, so the confidence limits cannot be independently recomputed 
 cohort/model run. The branch's later dirty rerun is retained only in Git history and is not indexed as
 controlling evidence. Read AC10–AC11 and ACR21 before quoting the artifact's immutable
 `CONFIRMED`/`confirmatory` self-label.
+
+M4d did not spend a reserve or create a claim. Review its exact historical package model-free:
+
+```bash
+sha256sum \
+  results/splicebert_acceptor_coupling/development/m4d_score_decomposition.json \
+  results/splicebert_acceptor_coupling/development/m4d_score_decomposition.manifest.json
+uv run pytest -q \
+  tests/test_m4d_score_decomposition_package.py \
+  tests/test_score_margin.py
+git show 773c9e8987e05e2605974004795f92f67425cd07:scripts/splicebert_acceptor_coupling/run_m4d_score_decomposition.py | sha256sum
+```
+
+Expected hashes are artifact `d1d96029…f763`, manifest `879b262b…f165`, and recovered-snapshot
+runner `b3570976…fb66`. Snapshot `773c9e8` was made after execution and preserves the recovered
+source bytes, but the manifest names only dirty parent `b79570d` and hashes no source files;
+execution-byte identity is therefore unverified. The checkpoint was not byte-bound, and
+the compact artifact stores no row IDs, pair map, margins, or draws, so its intervals cannot be
+recomputed model-free. It also contains literal non-standard JSON `NaN`; preserve those exact bytes
+rather than normalizing the historical artifact. The current runner relocates capture outside frozen
+`hf_bert.py`, corrects the old ceiling language and treatment-only clustering, and emits strict JSON
+for a future development replay.
+Read ACR23 before quoting any head label. Optional real-checkpoint capture tests are in
+`tests/test_capture_attention_scores.py`; they are not needed to authenticate the historical package.
 
 ### Position/carrier record
 

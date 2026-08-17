@@ -94,9 +94,15 @@ its authentic package handoff before target science (AC9).
 
 The natural donor-class arc adds a modifier, not a missing mechanism. AC10–AC11 show that `GC-AG`
 donors have both weaker reverse coupling and lower L3H1 donor attention than matched `GT-AG` donors
-on the M6 validation cohort. M1–M5 supply adaptive development candidates—early L0/L1 heads and an
-`MLP1` asymmetry—but no registered transport equivalence, post-`W_O` write, mediation, or delivery
-result (`ACR22`). The two arcs must therefore not be composed into a synthetic successful circuit.
+on the M6 validation cohort. M1–M5 supply adaptive development candidates, and M4d diagnostically narrows the broad
+early-head shorthand to nominal score-margin candidates `L0H14`, `L0H5`, and `L0H3`; `L0H4`, `L1H6`,
+and `L1H13` remain unresolved on that scale, while `L2H15` shifts in the opposite direction. Those
+pointwise intervals are post-selection, unadjusted, comparator-dependence-limited diagnostics—not
+head verdicts. GC and GT were scored separately under different arm-conditioned mean replacements,
+so these contrasts do not establish intrinsic donor-class specificity. The `MLP1` result remains
+post-outcome (`ACR22`, `ACR23`). No registered transport
+equivalence, post-`W_O` write, mediation, or delivery result exists. The two arcs must therefore not
+be composed into a synthetic successful circuit.
 The strongest complete conclusion is: **reverse masked-acceptor dependence and natural donor-class
 heterogeneity reach behavior/attention evidence; causal construction of the margin remains unresolved.**
 
@@ -160,6 +166,11 @@ population, and license nothing about generalisation.
   is `INSTRUMENT_UNRESOLVED`; no R1c target or R5 stage may be inferred from the preflight estimates.
 - **AC10–AC11 are modifier evidence, not a reverse circuit.** They neither repair AC9 nor license
   early-head, MLP, address, post-`W_O` write, delivery, mediation, or canonical-margin construction.
+- **M4d is a development correction, not AC12.** Its exact score-margin transform is useful, but the
+  adaptive family, arm-segregated batch-dependent interventions, treatment-only clustering, absent multiplicity
+  correction, ordered decomposition, and dirty/unbound package restrict it to candidate refinement.
+  Donor-versus-other QK scores do not distinguish acceptor-query changes from donor- or competitor-key
+  changes (`ACR23`).
 - **`[a, b]` is a confidence interval.** Spread across draws or seeds is written "range" or "SD".
 - **C42 does not transfer to this direction.** Its row scopes it to the acceptor operator; AR1's `DONA`
   returned `NOT_INVARIANT` and AC2 explains why. Never cite C42 in support of a donor-side operator.

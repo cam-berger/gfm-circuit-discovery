@@ -45,7 +45,8 @@ Within the present paired-donor study, the **canonical construction arc** and th
 modifier arc** must also stay separate. AC1–AC9 ask what can be established for canonical `GT-AG`
 introns and whether a reader→write→delivery account can be authorized. AC10–AC11 compare natural
 `GC-AG` introns with matched `GT-AG` introns. The latter changes biological stratum and reaches only
-behavior and attention geometry; it is not the missing causal mechanism (`ACR20`–`ACR22`).
+behavior and attention geometry; M4d only refines adaptive QK candidates, and none is the missing
+causal mechanism (`ACR20`–`ACR23`).
 
 ### Corrections to the historical pilot
 
@@ -143,9 +144,12 @@ but the exact frozen R5 handoff rejected its authentic six-margin rows before an
 target outcome was opened (`ACR19`). The canonical R1c→R5 program is therefore closed as terminal
 `INSTRUMENT_UNRESOLVED` (`AC9`); R5a/R5b/R5c have no scored artifact. R4 remains a retired,
 never-frozen draft with a historical exploratory execution; the BP arc is non-ledger evidence. The
-M1–M5 natural donor-class runners are development-only candidate generators. M6 used a separate
-validation reserve and produced bounded AC10–AC11; its first clean package is retained, while its
-one-run lifecycle and audit limitations prevent confirmatory promotion (`ACR21`).
+M1–M5 natural donor-class runners are development-only candidate generators. The imported M4d
+score-margin package narrows M4c's broad head labels but remains non-claim development QK evidence;
+its post-selection intervals, clustering, batch-dependent intervention, and provenance limits are
+recorded in `ACR23`. M6 used a separate validation reserve and produced bounded AC10–AC11; its first
+clean package is retained, while its one-run lifecycle and audit limitations prevent confirmatory
+promotion (`ACR21`).
 
 | arm | question | outcome |
 |---|---|---|
@@ -158,7 +162,7 @@ one-run lifecycle and audit limitations prevent confirmatory promotion (`ACR21`)
 | **R3c v2.1** ([frozen protocol](preregistrations/DRAFT_R3C_ACCEPTOR_HEAD_CONFIRMATION.md)) | do fixed donor-reader and later-head candidates contribute selectively to the paired-donor-induced masked-acceptor margin under mean ablation and same-example noising? | clean [bucket-0 preflight](../../results/splicebert_acceptor_coupling/r3c_acceptor_head_preflight_v2_1.json) ([manifest](../../results/splicebert_acceptor_coupling/r3c_acceptor_head_preflight_v2_1.manifest.json)) and held-out-within-validation [r3c_acceptor_head_target_v2_1.json](../../results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.json) ([r3c_acceptor_head_target_v2_1.manifest.json](../../results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.manifest.json); [r3c_acceptor_head_target_v2_1.audit.json](../../results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.audit.json)); supported only `L1H12` mean and `L4H11`/`L4H9`/`L4H7` noising component patterns → `AC5`/`AC6`; `L3H1` reuse and distinct route inconclusive, `L2H15` health-failed → `AC7`/`AC8` |
 | **R3d Path A** ([frozen protocol](preregistrations/DRAFT_R3D_ACCEPTOR_SPECIFICITY_ADJUDICATION.md)) | does a fresh registry-disjoint train target support the prespecified `L3H1` paired-versus-pseudo component conjunction? | supported on 3,909 target genes; used only as the sole component prior for the frozen R1c→R5 design. Path B was excluded from entry and is not promoted here. |
 | **R5a/R5b/R5c** ([frozen preflight-only protocols](preregistrations/)) | conditional on R1c behavior and R3d Path A, does L3H1 read the donor, write a post-`W_O` acceptor-query-local state, and do L4H11+H9 deliver it? | not run: the mandatory exact R1c→R5 package handoff failed before any scored R5 stage; no preflight, target, or result exists (`AC9`) |
-| **M1–M5 natural donor-class development** | why is reverse coupling weaker for natural `GC-AG` than matched `GT-AG`, and which early components might modulate L3H1 geometry? | adaptive train-split candidate generation only; no live claim, transport equivalence, post-`W_O` write, mediation, or delivery (`ACR22`) |
+| **M1–M5 natural donor-class development** | why is reverse coupling weaker for natural `GC-AG` than matched `GT-AG`, and which early components might modulate L3H1 geometry? | adaptive train-split candidate generation only. M4d's exact log-odds transform nominates `L0H14`/`L0H5`/`L0H3` only at the nominal, unadjusted score-margin level, leaves three earlier labels unresolved, and gives `L2H15` an opposite-direction diagnostic. No live claim, query-versus-key attribution, transport equivalence, post-`W_O` write, mediation, or delivery (`ACR22`, `ACR23`). |
 | **M6 natural donor-class verification** ([original frozen protocol](preregistrations/PREREGISTRATION_M6_VALIDATION_CONFIRMATION.md)) | do the behavior ratio and L3H1 attention ratio reproduce on the donor-class-development-held-out validation reserve? | numerically yes on 67 pairs / 56 treatment genes, but bounded to verification by lifecycle, checkpoint, cohort-hash, bootstrap, and replay limits → `AC10`/`AC11`, `ACR21` |
 
 ### Current successor status and evidence boundary
@@ -234,8 +238,8 @@ The final program was frozen as one ordered chain:
 The chain ends at step 3. The repository records one terminal outcome—AC9
 `INSTRUMENT_UNRESOLVED`—rather than repairing the parser, rerunning the preflight, substituting a
 secondary component, or turning validation estimates into a scientific result. The natural-GC arc
-is recorded separately as bounded AC10–AC11 modifier evidence; no GC/GT, early-head, or MLP
-result is inserted into this closed program.
+is recorded separately as bounded AC10–AC11 modifier evidence; M4d remains a development correction,
+and no GC/GT, early-head, or MLP result is inserted into this closed program.
 
 - [`CLAIMS.md`](CLAIMS.md) — the claim ledger (`AC*`). Separate from the donor study's `C*` ledger on
   purpose: acceptor reconstruction is a different behaviour from donor reconstruction, and giving it

@@ -78,8 +78,10 @@ the table must never be read as collapsing them.
 
 The reverse masked-acceptor rows are deliberately split. AC10's model-output ratio is behavior evidence;
 AC11's donor-attention ratio is routing/attention evidence. Observing both on the same held-out cohort does
-not fill the missing output/OV or mediation rungs. M1–M5 remain adaptive candidate generation and do not add
-checks to either row.
+not fill the missing output/OV or mediation rungs. M1–M5 remain adaptive candidate generation. M4d's
+pre-softmax score-margin transform refines three layer-0 candidates but, because its intervals are
+post-selection, unadjusted, and clustering-limited, does not promote the modifier's QK rung or add a
+check to either AC10/AC11 row (`ACR23`).
 
 **Relation to graded faithfulness.** The columns are an ordered record of *which* interventions have been run
 and survived. They are not a faithfulness measurement, and a row of ✓ across all five columns does **not**
