@@ -171,7 +171,8 @@ def test_claim_id_exceptions_are_still_needed() -> None:
     )
 
 
-def test_acceptor_catalog_covers_legacy_claim_aliases() -> None:
+def _acceptor_evidence_catalog() -> dict[str, str]:
+    """Return descriptive acceptor evidence ID -> legacy claim alias."""
     claims = REPO / "studies/splicebert_acceptor_coupling/CLAIMS.md"
     text = claims.read_text()
     catalog: dict[str, str] = {}
@@ -187,6 +188,11 @@ def test_acceptor_catalog_covers_legacy_claim_aliases() -> None:
         )
         assert semantic_id not in catalog, f"duplicate evidence ID: {semantic_id}"
         catalog[semantic_id] = legacy_alias
+    return catalog
+
+
+def test_acceptor_catalog_covers_legacy_claim_aliases() -> None:
+    catalog = _acceptor_evidence_catalog()
 
     aliases = list(catalog.values())
     assert len(aliases) == len(set(aliases)), "legacy aliases map to multiple evidence IDs"
@@ -194,6 +200,35 @@ def test_acceptor_catalog_covers_legacy_claim_aliases() -> None:
     assert set(aliases) == defined_acceptor, (
         "acceptor evidence catalog and AC claim rows differ: "
         f"catalog={sorted(aliases)}, claims={sorted(defined_acceptor)}"
+    )
+
+
+@pytest.mark.skipif(not MANIFEST_CSV.exists(), reason="MANIFEST.csv not present")
+def test_manifest_semantic_acceptor_ids_resolve() -> None:
+    """Descriptive IDs in the fixed claim_id column must resolve to the study catalog.
+
+    Multiple IDs are semicolon-separated. Their slash-separated internal structure must not
+    be split, flattened back to AC shorthand, or allowed to drift independently of CLAIMS.md.
+    """
+    catalog = _acceptor_evidence_catalog()
+    seen: set[str] = set()
+    malformed: list[tuple[str, str]] = []
+    with open(MANIFEST_CSV, newline="") as fh:
+        for row in csv.DictReader(fh):
+            raw = (row.get("claim_id") or "").strip()
+            if "acceptor-coupling/" not in raw:
+                continue
+            for semantic_id in (part.strip() for part in raw.split(";")):
+                if not SEMANTIC_EVIDENCE_ID_PATTERN.fullmatch(semantic_id):
+                    malformed.append((row.get("artifact") or "", semantic_id))
+                else:
+                    seen.add(semantic_id)
+
+    assert not malformed, f"malformed semantic acceptor IDs in MANIFEST.csv: {malformed}"
+    unresolved = sorted(seen - set(catalog))
+    assert not unresolved, (
+        "MANIFEST.csv semantic acceptor IDs absent from the CLAIMS.md catalog: "
+        f"{unresolved}"
     )
 
 

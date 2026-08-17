@@ -382,3 +382,50 @@ This result supports only bounded, intervention-specific component patterns. Sam
 delivery. The failed registered conjunctions cannot be replaced post-outcome by supported secondary
 paths, and the record establishes no address, QK role, post-`W_O` write, directed edge, delivery,
 mediation, sufficiency, faithful circuit, or biological mechanism.
+
+## 2026-08-17 — close the frozen mechanism handoff instead of repairing it after outcome
+
+The successor program froze behavior validation and the downstream reader → post-`W_O` write → delivery
+consumer as one stack. Its clean 400-row / 321-gene validation preflight passed all 13 gates, and the
+archived audits reproduced its statistical and calibration decisions. Before any target or downstream
+stage was opened, however, the authentic package failed the exact frozen consumer: producer rows contain
+six `P_*`/`X_*` margin fields while the consumer demands exactly three `P_*` fields before projecting
+those same fields.
+
+The obvious parser repair became obvious only after a successful validation outcome. It would change the
+frozen stack; rewriting the package or rerunning would violate the same one-run rule. The decision is to
+make no repair, install no target authorization, and stop. The semantic record
+`acceptor-coupling/instrument/frozen-handoff-schema-mismatch` (legacy `AC9`) is therefore terminal
+`INSTRUMENT_UNRESOLVED` before target science. No masked-acceptor target outcome on chr8/9 and no
+downstream reader, write, or delivery result exists (`ACR19`).
+
+## 2026-08-17 — keep natural donor-class modifiers orthogonal to the stopped mechanism program
+
+The natural donor-class reserve addresses a different question: whether `GC-AG` donor class modifies
+masked-acceptor behavior and `L3H1` attention relative to matched `GT-AG` donors. The clean first run on
+67 pairs / 56 treatment genes numerically crossed both preregistered boundaries: behavior ratio `0.2571`
+with upper bound `0.5402 < 0.60`, and attention ratio `0.3755` with upper bound `0.5809 < 0.70`.
+
+The decision is to retain that first clean package and the original protocol, while excluding the later
+prohibited rerun from the active record. Checkpoint, cohort-identity, bootstrap, and replay limitations
+bound both results to verification (`ACR21`). They become two records at their actual evidence rungs:
+`acceptor-coupling/natural-gc/behavior-modifier` (legacy `AC10`) and
+`acceptor-coupling/natural-gc/l3h1-attention-modifier` (legacy `AC11`). They do not repair AC9, show
+component necessity, or complete a route. Canonical `GT-AG` scope and the quasi-observational natural-
+`GC` comparison remain explicit and separate (`ACR20`).
+
+## 2026-08-17 — retain the QK score measurement as a development diagnostic, not a claim
+
+The archived pre-softmax donor-versus-other score diagnostic is useful because it replaces broad
+attention-probability shorthand with the exact score margin. It nominally prioritizes `L0H14`, `L0H5`,
+and `L0H3`; leaves `L0H4`, `L1H6`, and `L1H13` unresolved on that scale; and gives `L2H15` an
+opposite-direction diagnostic.
+
+It does not enter the claim ledger. The candidates were adaptive, their intervals are
+uncorrected and lack matched-size nulls, clustering omits comparator-side dependency, and the historical
+package is dirty and incomplete. More importantly, the `GC` and `GT` arms were scored under separately
+recomputed batch×sequence-conditioned mean replacements, so their difference is not intrinsic class
+specificity. The score change also cannot distinguish acceptor-query from donor- or competitor-key
+effects (`ACR22`, `ACR23`). The semantic ID
+`acceptor-coupling/natural-gc/qk-score-diagnostic` therefore names a development-only record. No model,
+genome, cohort, or reserve is rerun for this consolidation.

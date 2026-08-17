@@ -1,16 +1,16 @@
 {
-  "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc); DNABERT-2 Reconstruction Atlas infrastructure, narrow v1 behavior, multisource-v4 bounded development, context-margin-v1 replication, and promoter-classifier-v2 bounded replication rows appended 2026-07-27; promoter clean-behavior head-atlas, promoter-circuit, promoter address/payload, promoter source-localization, post-hoc source-performance, all-node accuracy, and low-rank L11MLP rows appended 2026-07-28. D12 preflight/development-predictions/confirmation rows (debt from commit ed8c131) and the D13 exploratory post-hoc composition-vs-position rows appended 2026-07-29 (MANIFEST coverage fix, task-1 fix round 1); all eight rows carry no claim_id because none has a CLAIMS.md entry. D13 task-4 promoter-composition supply/matching-feasibility audit rows (infrastructure, no claim_id yet) appended 2026-07-29. D13 Amendment 1 promoter-composition v2 supply/matching-feasibility audit rows (infrastructure, no claim_id yet) appended 2026-07-29. D13 task-5 promoter-composition preflight v2 rows (development, no claim_id yet; decision INSTRUMENT_UNRESOLVED -- planted-positive calibration failed) appended 2026-07-29. D14 arrangement-vs-composition rows appended 2026-07-29: Phase 0 exploratory summary, smoke gate (PREFLIGHT), and the sealed confirmatory v4 record (per-locus values embedded inline, since results/dnabert2_reconstruction_atlas/**/*.jsonl is gitignored for this study) (polarity 'refutation' - the study refutes arrangement as the carrier of the D12 TSS polarity). Superseded confirmation v1/v2 were deleted pre-claim (v1 lacked Holm and raw persistence; v2 carried a p-value extraction bug); v3 endpoints are bit-identical to v1. GFS rows appended 2026-07-28 (GTEx fine-tuning shift). Native-classifier GFS6\u2013GFS9 rows appended 2026-07-29. Final-layer mechanism GFS10\u2013GFS13 rows appended 2026-07-29. Context-localization GFS14\u2013GFS16 rows appended 2026-07-29. Complete L5 context-head census GFS17 rows appended 2026-07-29. Joint/path/low-rank GFS18 rows appended 2026-07-29. Per-seed alignment GFS19 and exact native-unit GFS20 rows appended 2026-07-29. Biological-feature GFS21 preflight and discovery rows appended 2026-07-29. Exact-dose biological construction GFS22 rows appended 2026-07-30 Positional-spectrum GFS23-GFS24 rows appended 2026-07-30. Named-carrier behavior GFS25 rows appended 2026-07-30. J-SAE GFS26-GFS34 rows appended 2026-07-30. R44 corruption-operator rows appended 2026-08-02 (AR1 acceptor-operator equivalence C42; planted-motif censuses; atlas and GTEx clean-alt re-runs; restored atlas discovery config and ranking input). Exon-edge consolidation rows appended 2026-08-04 (R45): 12 artifacts carried from codex/intron-exon-phase fd26cc1b for C43 (crossed direct-edge replication) and C44 (P3 relational-mediation development preflight). The script column is intentionally blank because the producing runners are archived and are pinned by path and sha256 inside each sibling manifest. C44 is indexed polarity=na and evidence_level=Instrument, NOT null: its preflight never exposed the mediation endpoint, so it has no evidence direction and a null polarity would assert the very conclusion its ledger row forbids. Positional-boundary-coherence family index appended 2026-08-10 (infrastructure, no claim_id): the study is a frozen design with no executed run, so the family contains its index and nothing else. DNABERT fine-tuned promoter extension rows appended 2026-08-13: checkpoint/test evaluation (DBP11-DBP12), validation-selected layer accessibility (DBP13), early causal ablation/restoration (DBP14), activation-source compatibility (DBP15), controlled TATA perturbation (DBP16), and bounded frozen/fine-tuned comparison (DBP17). DBPR11 remediation 2026-08-14: the unsourced self-fine-tuning row was removed from the performance comparison and the artifact renamed frozen_self_hf_performance.csv -> frozen_hf_performance.csv; the nine DBP14 rows carrying the undocumented evidence_level 'Causal' were mapped to 'OV/mediation', matching DBP15 and the documented ladder; and the layer-selection band artifact was added with its producing script and sibling manifest. Compact archived-evidence attestations for acceptor AC5\u2013AC8, their active audit/index, and the R4 experiment-ID cleanup were added 2026-08-17.",
-  "row_count": 1164,
+  "generated_by": "Phase A result classification (task A1 of docs/superpowers/plans/2026-07-22-publication-readiness.md), merged and path-normalised for review fix F2 (docs/REVIEW_2026-07-22.md \u00a74). Checked by scripts/verify_manifest.py. ED1 rows appended 2026-07-25 (exon-vs-intron definition arc); DNABERT-2 Reconstruction Atlas infrastructure, narrow v1 behavior, multisource-v4 bounded development, context-margin-v1 replication, and promoter-classifier-v2 bounded replication rows appended 2026-07-27; promoter clean-behavior head-atlas, promoter-circuit, promoter address/payload, promoter source-localization, post-hoc source-performance, all-node accuracy, and low-rank L11MLP rows appended 2026-07-28. D12 preflight/development-predictions/confirmation rows (debt from commit ed8c131) and the D13 exploratory post-hoc composition-vs-position rows appended 2026-07-29 (MANIFEST coverage fix, task-1 fix round 1); all eight rows carry no claim_id because none has a CLAIMS.md entry. D13 task-4 promoter-composition supply/matching-feasibility audit rows (infrastructure, no claim_id yet) appended 2026-07-29. D13 Amendment 1 promoter-composition v2 supply/matching-feasibility audit rows (infrastructure, no claim_id yet) appended 2026-07-29. D13 task-5 promoter-composition preflight v2 rows (development, no claim_id yet; decision INSTRUMENT_UNRESOLVED -- planted-positive calibration failed) appended 2026-07-29. D14 arrangement-vs-composition rows appended 2026-07-29: Phase 0 exploratory summary, smoke gate (PREFLIGHT), and the sealed confirmatory v4 record (per-locus values embedded inline, since results/dnabert2_reconstruction_atlas/**/*.jsonl is gitignored for this study) (polarity 'refutation' - the study refutes arrangement as the carrier of the D12 TSS polarity). Superseded confirmation v1/v2 were deleted pre-claim (v1 lacked Holm and raw persistence; v2 carried a p-value extraction bug); v3 endpoints are bit-identical to v1. GFS rows appended 2026-07-28 (GTEx fine-tuning shift). Native-classifier GFS6\u2013GFS9 rows appended 2026-07-29. Final-layer mechanism GFS10\u2013GFS13 rows appended 2026-07-29. Context-localization GFS14\u2013GFS16 rows appended 2026-07-29. Complete L5 context-head census GFS17 rows appended 2026-07-29. Joint/path/low-rank GFS18 rows appended 2026-07-29. Per-seed alignment GFS19 and exact native-unit GFS20 rows appended 2026-07-29. Biological-feature GFS21 preflight and discovery rows appended 2026-07-29. Exact-dose biological construction GFS22 rows appended 2026-07-30 Positional-spectrum GFS23-GFS24 rows appended 2026-07-30. Named-carrier behavior GFS25 rows appended 2026-07-30. J-SAE GFS26-GFS34 rows appended 2026-07-30. R44 corruption-operator rows appended 2026-08-02 (AR1 acceptor-operator equivalence C42; planted-motif censuses; atlas and GTEx clean-alt re-runs; restored atlas discovery config and ranking input). Exon-edge consolidation rows appended 2026-08-04 (R45): 12 artifacts carried from codex/intron-exon-phase fd26cc1b for C43 (crossed direct-edge replication) and C44 (P3 relational-mediation development preflight). The script column is intentionally blank because the producing runners are archived and are pinned by path and sha256 inside each sibling manifest. C44 is indexed polarity=na and evidence_level=Instrument, NOT null: its preflight never exposed the mediation endpoint, so it has no evidence direction and a null polarity would assert the very conclusion its ledger row forbids. Positional-boundary-coherence family index appended 2026-08-10 (infrastructure, no claim_id): the study is a frozen design with no executed run, so the family contains its index and nothing else. DNABERT fine-tuned promoter extension rows appended 2026-08-13: checkpoint/test evaluation (DBP11-DBP12), validation-selected layer accessibility (DBP13), early causal ablation/restoration (DBP14), activation-source compatibility (DBP15), controlled TATA perturbation (DBP16), and bounded frozen/fine-tuned comparison (DBP17). DBPR11 remediation 2026-08-14: the unsourced self-fine-tuning row was removed from the performance comparison and the artifact renamed frozen_self_hf_performance.csv -> frozen_hf_performance.csv; the nine DBP14 rows carrying the undocumented evidence_level 'Causal' were mapped to 'OV/mediation', matching DBP15 and the documented ladder; and the layer-selection band artifact was added with its producing script and sibling manifest. Compact archived-evidence attestations for acceptor AC5\u2013AC8, their active audit/index, and the R4 experiment-ID cleanup were added 2026-08-17. Compact archived-evidence attestations for the frozen acceptor handoff stop, natural-GC validation modifiers, and development-only QK diagnostic were added 2026-08-17; semantic evidence IDs replace AC shorthand on the new active manifest rows.",
+  "row_count": 1167,
   "status_counts": {
     "infrastructure": 23,
-    "canonical": 702,
+    "canonical": 704,
     "superseded": 180,
-    "development": 259
+    "development": 260
   },
   "polarity_counts": {
-    "na": 445,
+    "na": 447,
     "positive": 566,
-    "bounded": 112,
+    "bounded": 113,
     "null": 36,
     "refutation": 5
   },
@@ -2706,7 +2706,7 @@
       "figure": ""
     },
     {
-      "claim_id": "AC5;AC6;AC7;AC8",
+      "claim_id": "acceptor-coupling/components/l1h12-mean-ablation;acceptor-coupling/components/l4-head-noising;acceptor-coupling/components/route-hypotheses-inconclusive;acceptor-coupling/components/l2h15-health-ineligible",
       "status": "canonical",
       "evidence_level": "OV/mediation",
       "polarity": "bounded",
@@ -2716,7 +2716,37 @@
       "figure": ""
     },
     {
-      "claim_id": "AC5;AC6;AC7;AC8",
+      "claim_id": "acceptor-coupling/instrument/frozen-handoff-schema-mismatch",
+      "status": "canonical",
+      "evidence_level": "Instrument",
+      "polarity": "na",
+      "artifact": "results/splicebert_acceptor_coupling/attestations/frozen_handoff_schema_mismatch_v1.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "acceptor-coupling/natural-gc/behavior-modifier;acceptor-coupling/natural-gc/l3h1-attention-modifier",
+      "status": "canonical",
+      "evidence_level": "Attention,Behaviour",
+      "polarity": "bounded",
+      "artifact": "results/splicebert_acceptor_coupling/attestations/natural_gc_validation_v1.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "development",
+      "evidence_level": "QK",
+      "polarity": "na",
+      "artifact": "results/splicebert_acceptor_coupling/attestations/development/natural_gc_qk_score_diagnostic_v1.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "acceptor-coupling/components/l1h12-mean-ablation;acceptor-coupling/components/l4-head-noising;acceptor-coupling/components/route-hypotheses-inconclusive;acceptor-coupling/components/l2h15-health-ineligible",
       "status": "canonical",
       "evidence_level": "OV/mediation",
       "polarity": "bounded",
