@@ -1,0 +1,50 @@
+{
+  "clean": {
+    "mean": 0.6553929228056222,
+    "ci_lo": 0.25439275978156367,
+    "ci_hi": 1.0718889276694972,
+    "n": 200
+  },
+  "bp_only": {
+    "mean": 0.5080647000670433,
+    "ci_lo": 0.1059590874318965,
+    "ci_hi": 0.9229600845160891,
+    "n": 200
+  },
+  "ppt_only": {
+    "mean": -0.7708021420333534,
+    "ci_lo": -1.021177464918932,
+    "ci_hi": -0.5056792129550596,
+    "n": 200
+  },
+  "both": {
+    "mean": -0.744199971864,
+    "ci_lo": -0.9555211377241649,
+    "ci_hi": -0.5220567775163801,
+    "n": 200
+  },
+  "rand_ag": {
+    "mean": -0.6787196455779485,
+    "ci_lo": -0.7389288912079646,
+    "ci_hi": -0.6178520060114097,
+    "n": 200
+  },
+  "verdicts": {
+    "bp_only": {
+      "overlaps_floor": false,
+      "clearly_above_floor": true,
+      "verdict": "clearly ABOVE floor - retains real acceptor signal"
+    },
+    "ppt_only": {
+      "overlaps_floor": true,
+      "clearly_above_floor": false,
+      "verdict": "AT floor - indistinguishable from no-context baseline"
+    },
+    "both": {
+      "overlaps_floor": true,
+      "clearly_above_floor": false,
+      "verdict": "AT floor - indistinguishable from no-context baseline"
+    }
+  },
+  "gate_plausible": true
+}
