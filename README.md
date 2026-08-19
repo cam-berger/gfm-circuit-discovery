@@ -2,12 +2,12 @@
 
 ## Current paper draft
 
-[`tex/splicebert_neurips_2026.tex`](tex/splicebert_neurips_2026.tex) is the repository copy of the current
-anonymous NeurIPS 2026 main-track draft, *Mechanistic Discovery in Genomic Foundation Models*. The paper asks
-whether causal interpretability can turn a model-native genomic regularity into an experimentally
-distinguishable discovery hypothesis. SpliceBERT is the worked case: the manuscript establishes selective
-paired donor–acceptor dependence, resolves an **address → payload → write → delivery** computation, and then
-uses transfer and complement scrubbing to measure where that account stops.
+The current anonymous NeurIPS 2026 main-track draft is *Mechanistic Discovery in Genomic Foundation
+Models*. The paper asks whether causal interpretability can turn a model-native genomic regularity into an
+experimentally distinguishable discovery hypothesis. SpliceBERT is the worked case: the manuscript
+establishes selective paired donor–acceptor dependence, resolves an
+**address → payload → write → delivery** computation, and then uses transfer and complement scrubbing to
+measure where that account stops.
 
 The paper's biological proposal is prospective. Phase-aligned use of learned period-3 geometry and
 register-sensitive coupling in fixed-span chimeras are separate findings; no current experiment causally
@@ -22,8 +22,7 @@ evidence for a universal circuit architecture.
 
 The manuscript is the source of truth for the paper's organization and wording, not for scientific
 adjudication. The claim and correction ledgers, immutable result artifacts, and
-[`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) control the underlying evidence. See the
-[`tex/` guide](tex/README.md) for the author-kit contents, draft state, and build instructions.
+[`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) control the underlying evidence.
 
 ## Current mechanism
 
@@ -149,8 +148,6 @@ study's prose that must not be reintroduced from Git history.
   (C39/C40). These two use a `canonical/` subdirectory; the other result trees keep canonical artifacts
   at the subtree root. See [`results/RESULTS_INDEX.md`](results/RESULTS_INDEX.md).
 - `figures/splicebert/` — generated figures and declared provenance.
-- `tex/` — the current NeurIPS 2026 manuscript bundle, its figures and bibliography, the official author-kit
-  files, and paper-specific build and claim-editing guidance.
 - `tests/` — the memorial and analysis-logic suite. Many memorials are data-gated and skip without a
   local genome; see [`REPRODUCE.md`](REPRODUCE.md).
 - `configs/` — versioned study configurations and frozen phase configs.
@@ -168,13 +165,12 @@ including their separate terms, are summarized in [third-party assets](docs/THIR
 2. Read the one-file [current mechanism and limitations](MECHANISM.md).
 3. Use the [live claim ledger](studies/splicebert_partner_selection/CLAIMS.md); consult
    [corrections](studies/splicebert_partner_selection/CORRECTIONS.md) before quoting a result.
-4. Read the [paper guide](tex/README.md) before editing or building the NeurIPS manuscript.
-5. Review the [Head–Context Atlas](studies/splicebert_head_context_atlas/README.md) for the current
+4. Review the [Head–Context Atlas](studies/splicebert_head_context_atlas/README.md) for the current
    cross-context branch.
-6. Review the [GTEx fine-tuning-shift findings](studies/splicebert_gtex_finetune_shift/FINDINGS.md) for
+5. Review the [GTEx fine-tuning-shift findings](studies/splicebert_gtex_finetune_shift/FINDINGS.md) for
    the supervised task representation and its current sparse/biological boundaries.
-7. Read the [transfer guide](docs/TRANSFER_GUIDE.md) for how to port the method to another GFM.
-8. Follow [`REPRODUCE.md`](REPRODUCE.md) for the canonical environment and claim→script→artifact map.
+6. Read the [transfer guide](docs/TRANSFER_GUIDE.md) for how to port the method to another GFM.
+7. Follow [`REPRODUCE.md`](REPRODUCE.md) for the canonical environment and claim→script→artifact map.
 
 For development:
 

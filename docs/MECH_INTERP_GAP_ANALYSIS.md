@@ -199,8 +199,7 @@ against the full transplant.
 
 ## 3. Relation to the current paper draft
 
-The current anonymous NeurIPS 2026 main-track draft now lives at
-[`../tex/splicebert_neurips_2026.tex`](../tex/splicebert_neurips_2026.tex). Its purpose is not to claim that
+The current anonymous NeurIPS 2026 main-track draft's purpose is not to claim that
 the repository has exhausted the mechanistic-interpretability toolkit. It uses the interventions already in
 the scientific record to show an evidence-gated transition from model behavior, through causal organization
 and measured boundaries, to a testable biological hypothesis.

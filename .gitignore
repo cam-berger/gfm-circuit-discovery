@@ -82,14 +82,3 @@ results/splicebert_coupling/ic2_calibration_smoke.json
 # R4 Colab distribution archives are reproducible from build_bundle.py; the compact
 # artifacts of record are the reference panel and the result JSON plus their manifests.
 studies/splicebert_acceptor_coupling/colab_r4_package/dist/
-# The NeurIPS author-kit style used by the canonical draft is tracked in tex/.
-# It remains subject to its upstream terms; see tex/README.md and docs/THIRD_PARTY_ASSETS.md.
-
-# LaTeX build products.
-tex/*.aux
-tex/*.bbl
-tex/*.blg
-tex/*.log
-tex/*.out
-tex/*.pdf
-tex/*.synctex.gz
