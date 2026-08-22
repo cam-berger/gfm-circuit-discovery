@@ -7,11 +7,41 @@ We only use labels 0 and 2 here; label 1 is reserved for the later
 shared-transport check (next-steps item 4).
 """
 
+import hashlib
 import random
 
 import pandas as pd
 
-BASES = "ACGU"
+# The GUE `splice_reconstructed` windows are DNA (measured alphabet: A/C/G/T),
+# so corruption draws from the DNA alphabet too and every raw sequence string
+# stays homogeneous. multimolecule's RnaTokenizer declares
+# `replace_T_with_U: true`, so native T and injected T land on the same token
+# as U would; keeping the raw strings in one alphabet is what lets the
+# sequence-level helpers below (branch-point scoring, decoy search) work on
+# corrupted and clean sequences alike.
+BASES = "ACGT"
+
+# Positions [ag_start-1] is the -3 pyrimidine of the canonical YAG 3' splice
+# site (94.4% Y across this dataset's acceptor rows). It is part of the
+# acceptor consensus, not the tract, so every tract window stops short of it;
+# corrupting it confounds "the tract matters" with "the 3'ss consensus
+# matters". See the audit note in the study README.
+YAG_MINUS3_GUARD = 1
+
+
+def sequence_rng(sequence: str, seed: int) -> random.Random:
+    """Deterministic per-sequence RNG, stable across processes and machines.
+
+    NOT `random.Random(hash(sequence))`: CPython salts `str` hashing per
+    process (PEP 456), so a hash-derived seed silently redraws every
+    corruption on every run and no result is reproducible. blake2b of
+    `seed:sequence` gives the same intended behaviour - each sequence gets its
+    own independent stream, tied to the run seed - while actually being
+    reproducible from (sequence, seed) alone.
+    """
+    payload = f"{seed}:{sequence}".encode("ascii")
+    digest = hashlib.blake2b(payload, digest_size=8).digest()
+    return random.Random(int.from_bytes(digest, "big"))
 
 
 def load_gue_split(cfg) -> pd.DataFrame:
@@ -49,11 +79,11 @@ def sample_rows(df: pd.DataFrame, n: int, seed: int) -> pd.DataFrame:
 
 
 def _no_ag_choices(prev_base):
-    return "ACU" if prev_base == "A" else BASES
+    return "ACT" if prev_base == "A" else BASES
 
 
 def random_no_ag(length: int, rng: random.Random, prev_base=None) -> str:
-    """A random ACGU string with no 'AG' substring anywhere, including at the
+    """A random ACGT string with no 'AG' substring anywhere, including at the
     seam with `prev_base` (the real base immediately preceding this region)."""
     out = []
     prev = prev_base
@@ -121,7 +151,21 @@ def shuffle_region_in_place(sequence: str, start: int, end: int, rng: random.Ran
 # heuristic stand-in for a trained locator (branchpointer/LaBranchoR need
 # either genomic coordinates GUE doesn't carry, or a separate pretrained
 # model) - see README "Known approximations".
-_PYRIMIDINES = set("CU")
+#
+# UNRESOLVED (flagged 2026-08-22, deliberately NOT changed here): the offsets
+# implemented below are y(-2) U(-1) A(0) n(+1) y(+2), but "yUnAy" with the
+# branch-point A at offset 0 places them at y(-3) U(-2) n(-1) A(0) y(+1) -
+# the scored positions are shifted by one relative to the motif the docstring
+# names. Correcting the offsets changes which adenosine this locator selects,
+# i.e. it changes the instrument, so it is a design decision for the study
+# owner rather than a mechanical fix. Any Phase 3 branch-point conclusion is
+# conditional on resolving this.
+# Alphabet-agnostic: the input is DNA (T), the consensus is conventionally
+# written in RNA (U). Scoring only "U"/"CU" against a DNA sequence — as this
+# did until the 2026-08-22 audit — silently disables the highest-weight term
+# of the consensus and reduces the pyrimidine tests to "is it C".
+_PYRIMIDINES = frozenset("CTU")
+_URACIL = frozenset("TU")
 
 
 def _bp_score(sequence: str, p: int) -> float:
@@ -129,7 +173,7 @@ def _bp_score(sequence: str, p: int) -> float:
     if p - 2 >= 0 and sequence[p - 2] in _PYRIMIDINES:
         score += 1.0
     if p - 1 >= 0:
-        score += 2.0 if sequence[p - 1] == "U" else (0.5 if sequence[p - 1] == "C" else 0.0)
+        score += 2.0 if sequence[p - 1] in _URACIL else (0.5 if sequence[p - 1] == "C" else 0.0)
     if p + 2 < len(sequence) and sequence[p + 2] in _PYRIMIDINES:
         score += 1.0
     return score
@@ -153,6 +197,10 @@ def locate_branch_point(sequence: str, ag_start: int, search_from: int, search_t
 def locate_tract(sequence: str, bp_pos: int, ag_start: int, min_gap: int = 3):
     """The tract is the region between the branch point and the AG, leaving
     a small fixed gap (`min_gap`) immediately after the branch-point A for
-    the branch-point-region corruption window to occupy without overlap."""
-    start = min(bp_pos + min_gap, ag_start)
-    return start, ag_start
+    the branch-point-region corruption window to occupy without overlap.
+
+    The window stops `YAG_MINUS3_GUARD` short of the AG so it never contains
+    the -3 pyrimidine of the YAG consensus (see the constant's note)."""
+    end = max(bp_pos, ag_start - YAG_MINUS3_GUARD)
+    start = min(bp_pos + min_gap, end)
+    return start, end

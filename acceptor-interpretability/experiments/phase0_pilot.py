@@ -27,7 +27,6 @@ import sys
 from pathlib import Path
 
 import pandas as pd
-import random as pyrandom
 from tqdm import tqdm
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -41,14 +40,16 @@ from acceptors.data import (
     negative_rows,
     random_ag_variant,
     sample_rows,
+    sequence_rng,
 )
 from acceptors.metrics import m_acc
 from acceptors.model import SpliceBert
+from acceptors.provenance import write_run_manifest
 from acceptors.stats import bootstrap_ci
 
 
 def score_acceptor_sample(model, seq: str, c) -> dict:
-    rng = pyrandom.Random(hash(seq) & 0xFFFFFFFF)
+    rng = sequence_rng(seq, c.phase0.seed)
     ag0 = c.coords.ag_start
 
     clean = m_acc(model, seq, ag0)
@@ -68,7 +69,7 @@ def score_acceptor_sample(model, seq: str, c) -> dict:
 
 
 def score_negative_sample(model, seq: str, c) -> dict:
-    rng = pyrandom.Random(hash(seq) & 0xFFFFFFFF)
+    rng = sequence_rng(seq, c.phase0.seed)
     ag0 = c.coords.ag_start
     clean = m_acc(model, seq, ag0)
     bp_only = m_acc(model, corrupt_region(seq, c.coords.bp_start, c.coords.bp_end, rng), ag0)
@@ -95,7 +96,8 @@ def main():
     print(f"[phase0] {len(acc_df)} acceptor windows, {len(neg_df)} non-splice control windows")
 
     print(f"[phase0] loading {c.model.checkpoint} ...")
-    model = SpliceBert(c.model.checkpoint, c.model.device)
+    model = SpliceBert(c.model.checkpoint, c.model.device,
+                       revision=getattr(c.model, "revision", None))
     print(f"[phase0] device: {model.device}")
 
     acc_rows = [
@@ -134,8 +136,12 @@ def main():
     summary["both_control_nonsplice"] = summarize(
         "  -> non-splice control", neg_pd["clean"] - neg_pd["both"], c)
 
-    with open(out_dir / f"{c.output.prefix}_results.json", "w") as f:
+    result_path = out_dir / f"{c.output.prefix}_results.json"
+    with open(result_path, "w") as f:
         json.dump(summary, f, indent=2)
+    write_run_manifest(result_path, script=Path(__file__).name, config=c,
+                       sequences=list(acc_df["sequence"]), model=model,
+                       extra={"n_negative_cohort": len(neg_df)})
 
     print(f"\n[phase0] wrote {out_dir}/{c.output.prefix}_results.json "
           f"and per-sample CSVs to {out_dir}/")

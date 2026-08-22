@@ -18,12 +18,23 @@ def resolve_device(device_cfg: str) -> torch.device:
 class SpliceBert:
     """Thin wrapper: load once, reuse for every masked-margin query."""
 
-    def __init__(self, checkpoint: str, device_cfg: str = "auto"):
+    def __init__(self, checkpoint: str, device_cfg: str = "auto", revision: str = None):
         self.device = resolve_device(device_cfg)
-        self.tokenizer = RnaTokenizer.from_pretrained(checkpoint)
-        self.model = SpliceBertForMaskedLM.from_pretrained(checkpoint)
+        self.checkpoint = checkpoint
+        self.revision = revision
+        kwargs = {"revision": revision} if revision else {}
+        self.tokenizer = RnaTokenizer.from_pretrained(checkpoint, **kwargs)
+        self.model = SpliceBertForMaskedLM.from_pretrained(checkpoint, **kwargs)
         self.model.to(self.device)
         self.model.eval()
+
+        # The corruption alphabet in `acceptors.data` is DNA; this tokenizer is
+        # expected to fold T onto U so clean and corrupted bases are comparable.
+        # Assert it rather than relying on it silently.
+        assert getattr(self.tokenizer, "replace_T_with_U", False), (
+            f"{checkpoint} tokenizer does not declare replace_T_with_U; the DNA "
+            "corruption alphabet in acceptors.data would tokenize to <unk>."
+        )
 
         self.mask_id = self.tokenizer.mask_token_id
         self.base_ids = {

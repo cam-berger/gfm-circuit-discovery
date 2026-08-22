@@ -35,7 +35,6 @@ import sys
 from pathlib import Path
 
 import pandas as pd
-import random as pyrandom
 from tqdm import tqdm
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -46,15 +45,17 @@ from acceptors.data import (
     corrupt_region,
     load_gue_split,
     sample_rows,
+    sequence_rng,
     shuffle_region_in_place,
 )
 from acceptors.metrics import m_acc
 from acceptors.model import SpliceBert
+from acceptors.provenance import write_run_manifest
 from acceptors.stats import bootstrap_ci
 
 
 def score_sample(model, seq: str, c) -> dict:
-    rng = pyrandom.Random(hash(seq) & 0xFFFFFFFF)
+    rng = sequence_rng(seq, c.phase0.seed)
     ag0 = c.coords.ag_start
 
     clean = m_acc(model, seq, ag0)
@@ -86,7 +87,8 @@ def main():
     print(f"[phase1] {len(acc_df)} acceptor windows (same sample as phase0)")
 
     print(f"[phase1] loading {c.model.checkpoint} ...")
-    model = SpliceBert(c.model.checkpoint, c.model.device)
+    model = SpliceBert(c.model.checkpoint, c.model.device,
+                       revision=getattr(c.model, "revision", None))
     print(f"[phase1] device: {model.device}")
 
     rows = [score_sample(model, seq, c) for seq in tqdm(acc_df["sequence"], desc="control-fix conditions")]
@@ -142,8 +144,11 @@ def main():
     else:
         print("\n[phase1] results/phase0_results.json not found - skipping effect-vs-control comparison")
 
-    with open(out_dir / "phase1_results.json", "w") as f:
+    result_path = out_dir / "phase1_results.json"
+    with open(result_path, "w") as f:
         json.dump(summary, f, indent=2)
+    write_run_manifest(result_path, script=Path(__file__).name, config=c,
+                       sequences=list(acc_df["sequence"]), model=model)
     print(f"\n[phase1] wrote {out_dir}/phase1_results.json and {out_dir}/phase1_per_sample.csv")
 
 

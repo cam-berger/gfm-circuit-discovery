@@ -50,7 +50,6 @@ import sys
 from pathlib import Path
 
 import pandas as pd
-import random as pyrandom
 from tqdm import tqdm
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -62,10 +61,12 @@ from acceptors.data import (
     corrupt_region,
     load_gue_split,
     sample_rows,
+    sequence_rng,
     shuffle_region_in_place,
 )
 from acceptors.metrics import m_acc_from_logits
 from acceptors.model import SpliceBert
+from acceptors.provenance import write_run_manifest
 from acceptors.stats import bootstrap_ci, bootstrap_recovery_ci
 
 # Phase 4's order-sensitive hits get the full ladder; composition-sensitive
@@ -85,7 +86,7 @@ def layer_to_heads(head_dict):
 
 
 def score_sample(model, seq: str, c, mean_vectors):
-    rng = pyrandom.Random(hash(seq) & 0xFFFFFFFF)
+    rng = sequence_rng(seq, c.phase0.seed)
     ag0 = c.coords.ag_start
     raw_ag = [ag0, ag0 + 1]
     layers = sorted(set(l for l, _ in ALL_ABLATION_HEADS.values()))
@@ -160,7 +161,8 @@ def main():
     print(f"[phase5] {len(acc_df)} acceptor windows (same sample as phase0-4)")
 
     print(f"[phase5] loading {c.model.checkpoint} ...")
-    model = SpliceBert(c.model.checkpoint, c.model.device)
+    model = SpliceBert(c.model.checkpoint, c.model.device,
+                       revision=getattr(c.model, "revision", None))
     print(f"[phase5] device: {model.device}")
 
     ag0 = c.coords.ag_start
@@ -221,8 +223,15 @@ def main():
     summary["qv_split"] = qv_split
 
     summary["n"] = len(acc_df)
-    with open(out_dir / "phase5_results.json", "w") as f:
+    result_path = out_dir / "phase5_results.json"
+    with open(result_path, "w") as f:
         json.dump(summary, f, indent=2)
+    write_run_manifest(result_path, script=Path(__file__).name, config=c,
+                       sequences=list(acc_df["sequence"]), model=model,
+                       extra={"ablated_heads": sorted(ALL_ABLATION_HEADS),
+                              "heads_tested_of_96": len(ALL_ABLATION_HEADS),
+                              "head_source": "Phase 4 attention census - NOT an "
+                                             "ablation or attribution nomination"})
     print(f"\n[phase5] wrote {out_dir}/phase5_results.json and {out_dir}/phase5_per_sample.csv")
 
 

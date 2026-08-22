@@ -35,7 +35,6 @@ import sys
 from pathlib import Path
 
 import pandas as pd
-import random as pyrandom
 import torch
 from tqdm import tqdm
 
@@ -48,9 +47,11 @@ from acceptors.data import (
     corrupt_region,
     load_gue_split,
     sample_rows,
+    sequence_rng,
     shuffle_region_in_place,
 )
 from acceptors.model import SpliceBert
+from acceptors.provenance import write_run_manifest
 from acceptors.stats import bootstrap_ci
 
 DONOR_CIRCUIT_CANDIDATES = [(0, 2), (1, 14), (2, 7), (2, 0), (3, 10), (1, 1)]
@@ -73,7 +74,7 @@ NO_ATTENTION_MULTIPLE = 1.5  # clean mass must exceed uniform baseline by this m
 
 
 def score_sample(model, seq: str, c):
-    rng = pyrandom.Random(hash(seq) & 0xFFFFFFFF)
+    rng = sequence_rng(seq, c.phase0.seed)
     raw_ag = [c.coords.ag_start, c.coords.ag_start + 1]
 
     attn_clean, tok = model.masked_attentions_at(seq, raw_ag)
@@ -130,7 +131,8 @@ def main():
     print(f"[phase4] {len(acc_df)} acceptor windows (same sample as phase0/1/3)")
 
     print(f"[phase4] loading {c.model.checkpoint} ...")
-    model = SpliceBert(c.model.checkpoint, c.model.device)
+    model = SpliceBert(c.model.checkpoint, c.model.device,
+                       revision=getattr(c.model, "revision", None))
     print(f"[phase4] device: {model.device}")
 
     n_layers = model.model.config.num_hidden_layers
@@ -209,8 +211,14 @@ def main():
         "top_bp_heads": top_bp,
         "n": n,
     }
-    with open(out_dir / "phase4_results.json", "w") as f:
+    result_path = out_dir / "phase4_results.json"
+    with open(result_path, "w") as f:
         json.dump(summary, f, indent=2)
+    write_run_manifest(result_path, script=Path(__file__).name, config=c,
+                       sequences=list(acc_df["sequence"]), model=model,
+                       extra={"tested_heads": [f"L{l}H{h}" for l, h in CANDIDATE_HEADS],
+                              "nomination": "raw clean attention mass, top-k per region "
+                                            "- DESCRIPTIVE CENSUS, not a causal nomination"})
     print(f"\n[phase4] wrote {out_dir}/phase4_results.json and {out_dir}/phase4_per_sample.csv")
 
 

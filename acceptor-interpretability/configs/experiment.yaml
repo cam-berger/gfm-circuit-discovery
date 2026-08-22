@@ -19,8 +19,14 @@ data:
 coords:
   ag_start: 198                  # true acceptor AG occupies [198, 200)
   ag_len: 2
-  ppt_start: 183                 # polypyrimidine tract: ~3-17 nt upstream of the AG
-  ppt_end: 198
+  ppt_start: 183                 # polypyrimidine tract: ~4-17 nt upstream of the AG
+  # ppt_end is 197, NOT 198: position 197 is the -3 pyrimidine of the canonical
+  # YAG 3' splice site (94.4% Y across this dataset's acceptor rows) and belongs
+  # to the acceptor consensus, not the tract. Ending at 198 - as this did until
+  # the 2026-08-22 audit - confounds "the tract drives m_acc" with "destroying
+  # the 3'ss consensus drives m_acc". Keep this consistent with
+  # acceptors.data.YAG_MINUS3_GUARD.
+  ppt_end: 197
   bp_start: 160                  # branch-point region: ~18-40 nt upstream of the AG
   bp_end: 183
   decoy_search_from: 201         # search window for a downstream decoy AG

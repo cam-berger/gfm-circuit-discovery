@@ -27,6 +27,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from acceptors.stats import bootstrap_ci
 from acceptors.config import load_config
+from acceptors.provenance import write_run_manifest
 
 CONDITIONS = [
     ("clean", "clean (intact BP + PPT)"),
@@ -37,6 +38,11 @@ CONDITIONS = [
 ]
 
 
+def _sha256(path) -> str:
+    import hashlib
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
 def ci_overlap(a, b) -> bool:
     return a[0] <= b[1] and b[0] <= a[1]
 
@@ -44,7 +50,12 @@ def ci_overlap(a, b) -> bool:
 def main():
     c = load_config()
     out_dir = Path(c.output.results_dir)
-    acc_pd = pd.read_csv(out_dir / "phase0_per_sample_acceptor.csv")
+    upstream = out_dir / "phase0_per_sample_acceptor.csv"
+    if not upstream.exists():
+        raise SystemExit(
+            f"[phase2] {upstream} not found. Phase 2 derives from Phase 0's per-sample "
+            "absolute m_acc and runs no model of its own - run phase0_pilot.py first.")
+    acc_pd = pd.read_csv(upstream)
 
     print("[phase2] absolute m_acc by condition (mean, 95% bootstrap CI):")
     summary = {}
@@ -77,9 +88,16 @@ def main():
     summary["verdicts"] = verdicts
     summary["gate_plausible"] = gate_real
 
-    with open(out_dir / "phase2_results.json", "w") as f:
+    result_path = out_dir / "phase2_results.json"
+    with open(result_path, "w") as f:
         json.dump(summary, f, indent=2)
-    print(f"\n[phase2] wrote {out_dir}/phase2_results.json")
+    # No model run here: Phase 2 is a re-analysis of Phase 0's per-sample file,
+    # so its provenance is that file's identity, not a fresh cohort draw.
+    write_run_manifest(result_path, script=Path(__file__).name, config=c,
+                       sequences=[], model=None,
+                       extra={"derived_from": upstream.name,
+                              "derived_from_sha256": _sha256(upstream),
+                              "model_run": False})
 
 
 if __name__ == "__main__":

@@ -26,7 +26,6 @@ import sys
 from pathlib import Path
 
 import pandas as pd
-import random as pyrandom
 from tqdm import tqdm
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -39,9 +38,11 @@ from acceptors.data import (
     locate_branch_point,
     locate_tract,
     sample_rows,
+    sequence_rng,
 )
 from acceptors.metrics import m_acc
 from acceptors.model import SpliceBert
+from acceptors.provenance import write_run_manifest
 from acceptors.stats import bootstrap_ci
 
 BP_LEFT, BP_RIGHT = 2, 3  # BP corruption window: [bp_pos-BP_LEFT, bp_pos+BP_RIGHT)
@@ -49,7 +50,7 @@ FALLBACK_BP_OFFSET = 30   # used only if no 'A' found in the search window (rare
 
 
 def score_sample(model, seq: str, c) -> dict:
-    rng = pyrandom.Random(hash(seq) & 0xFFFFFFFF)
+    rng = sequence_rng(seq, c.phase0.seed)
     ag0 = c.coords.ag_start
 
     bp_pos = locate_branch_point(seq, ag0, c.coords.bp_search_from, c.coords.bp_search_to)
@@ -60,14 +61,24 @@ def score_sample(model, seq: str, c) -> dict:
     bp_start, bp_end = max(0, bp_pos - BP_LEFT), bp_pos + BP_RIGHT
     ppt_start, ppt_end = locate_tract(seq, bp_pos, ag0, min_gap=BP_RIGHT)
 
+    # The BP window is a fixed 5nt; the located tract is variable (~16-42nt).
+    # Comparing them directly confounds "which region" with "how much sequence
+    # was destroyed", so corrupt a tract window of exactly the BP window's
+    # length, anchored at the tract's 3' end, as the length-matched arm.
+    bp_len = bp_end - bp_start
+    ppt_matched_start = max(ppt_start, ppt_end - bp_len)
+
     clean = m_acc(model, seq, ag0)
     bp_real = m_acc(model, corrupt_region(seq, bp_start, bp_end, rng), ag0)
     ppt_real = m_acc(model, corrupt_region(seq, ppt_start, ppt_end, rng), ag0)
+    ppt_matched = m_acc(model, corrupt_region(seq, ppt_matched_start, ppt_end, rng), ag0)
     both_real = m_acc(model, corrupt_region(seq, bp_start, ppt_end, rng), ag0)
 
     return dict(
-        clean=clean, bp_real=bp_real, ppt_real=ppt_real, both_real=both_real,
+        clean=clean, bp_real=bp_real, ppt_real=ppt_real,
+        ppt_matched=ppt_matched, both_real=both_real,
         bp_pos=bp_pos, bp_distance_from_ag=ag0 - bp_pos, ppt_len=ppt_end - ppt_start,
+        bp_len=bp_len, ppt_matched_len=ppt_end - ppt_matched_start,
         fallback=fallback,
     )
 
@@ -89,7 +100,8 @@ def main():
     print(f"[phase3] {len(acc_df)} acceptor windows (same sample as phase0/phase1)")
 
     print(f"[phase3] loading {c.model.checkpoint} ...")
-    model = SpliceBert(c.model.checkpoint, c.model.device)
+    model = SpliceBert(c.model.checkpoint, c.model.device,
+                       revision=getattr(c.model, "revision", None))
     print(f"[phase3] device: {model.device}")
 
     rows = [score_sample(model, seq, c) for seq in tqdm(acc_df["sequence"], desc="real-coordinate conditions")]
@@ -108,10 +120,17 @@ def main():
     summary = {}
     summary["bp_real"] = summarize("BP disruption (real coords)", acc_pd["clean"] - acc_pd["bp_real"], c)
     summary["ppt_real"] = summarize("PPT disruption (real coords)", acc_pd["clean"] - acc_pd["ppt_real"], c)
+    summary["ppt_matched"] = summarize(
+        "PPT, length-matched to BP", acc_pd["clean"] - acc_pd["ppt_matched"], c)
     summary["both_real"] = summarize("BP+PPT both (real coords)", acc_pd["clean"] - acc_pd["both_real"], c)
+    # The only BP-vs-tract contrast that is not confounded with window size.
+    summary["bp_vs_ppt_length_matched"] = summarize(
+        "BP - PPT at equal window size", acc_pd["ppt_matched"] - acc_pd["bp_real"], c)
     summary["n_fallback"] = n_fallback
     summary["mean_bp_distance_from_ag"] = float(acc_pd["bp_distance_from_ag"].mean())
     summary["mean_ppt_len"] = float(acc_pd["ppt_len"].mean())
+    summary["mean_bp_len"] = float(acc_pd["bp_len"].mean())
+    summary["mean_ppt_matched_len"] = float(acc_pd["ppt_matched_len"].mean())
 
     phase0_path = out_dir / "phase0_results.json"
     if phase0_path.exists():
@@ -126,8 +145,11 @@ def main():
             fx, rl = phase0[fixed_key]["mean"], summary[real_key]["mean"]
             print(f"    {label:14s} {fx:+.3f}  ->  {rl:+.3f}  (delta = {rl - fx:+.3f})")
 
-    with open(out_dir / "phase3_results.json", "w") as f:
+    result_path = out_dir / "phase3_results.json"
+    with open(result_path, "w") as f:
         json.dump(summary, f, indent=2)
+    write_run_manifest(result_path, script=Path(__file__).name, config=c,
+                       sequences=list(acc_df["sequence"]), model=model)
     print(f"\n[phase3] wrote {out_dir}/phase3_results.json and {out_dir}/phase3_per_sample.csv")
 
 
