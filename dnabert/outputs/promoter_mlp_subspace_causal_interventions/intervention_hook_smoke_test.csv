@@ -1,3 +1,0 @@
-condition,requested_shift_magnitude,actual_shift_magnitude,probe_logit,probe_logit_change_vs_identity,special_first_max_change,special_last_max_change
-identity,0.0,0.0,5.39357108449508,0.0,0.0,0.0
-gc_pc1_positive_shift_0.10,0.1,0.10000000941913778,6.796589497822704,1.403018413327624,0.0,0.0

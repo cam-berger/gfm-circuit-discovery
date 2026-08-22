@@ -43,6 +43,11 @@ FIGDATA = REPO / "results/phase-lattice/p3_phase_surgery_confirmation_v1/figure_
 OUTBASE = FIGURE_DIR / "fig5_p3_phase_surgery_confirmation"
 
 
+def repo_path(path: str | Path) -> str:
+    """Store portable repository-relative paths in the figure receipt."""
+    return str(Path(path).resolve().relative_to(REPO))
+
+
 def build_figure_data(analysis: dict) -> dict:
     if analysis.get("schema") != "gfmcd.p3_phase_surgery.confirmation_analysis.v1":
         raise ValueError("wrong P3 confirmation-analysis schema")
@@ -299,7 +304,7 @@ def main() -> None:
         color=PERIOD3,
         fontweight="bold",
     )
-    panel_header(ax, "D", "Coding Enrichment")
+    panel_header(ax, "D", "Coding-Context Contrast")
     _open_axis(ax, grid_axis="x")
 
     FIGDATA.parent.mkdir(parents=True, exist_ok=True)
@@ -316,22 +321,22 @@ def main() -> None:
     provenance = {
         "schema": "gfmcd.figure_provenance.v1",
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
-        "script": {"path": str(Path(__file__)), "sha256": sha256_file(__file__)},
+        "script": {"path": repo_path(__file__), "sha256": sha256_file(__file__)},
         "sources": [
-            {"path": str(ANALYSIS), "sha256": analysis_sha},
-            {"path": str(PACKAGE), "sha256": package_sha},
+            {"path": repo_path(ANALYSIS), "sha256": analysis_sha},
+            {"path": repo_path(PACKAGE), "sha256": package_sha},
         ],
-        "outputs": [{"path": str(FIGDATA), "sha256": sha256_file(FIGDATA)}]
+        "outputs": [{"path": repo_path(FIGDATA), "sha256": sha256_file(FIGDATA)}]
         + [
             {
-                "path": str(OUTBASE.with_suffix(suffix)),
+                "path": repo_path(OUTBASE.with_suffix(suffix)),
                 "sha256": sha256_file(OUTBASE.with_suffix(suffix)),
             }
             for suffix in (".png", ".pdf")
         ],
         "claim_boundary": (
-            "Confirms present-day phase-aligned period-3 use in CDS blocks; "
-            "coding enrichment and origin remain unresolved."
+            "Supports present-day phase-aligned period-3 use in the tested "
+            "CDS-versus-upstream-intron contrast; coding specificity and origin remain unresolved."
         ),
     }
     OUTBASE.with_suffix(".provenance.json").write_text(

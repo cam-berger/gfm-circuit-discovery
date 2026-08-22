@@ -38,6 +38,12 @@ artifact (or, for the methods figure, the two method documents) and writes a pro
 as PDF+PNG with provenance. They compute nothing; every number is in an artifact. The canonical
 phase-lattice set listed above is unaffected by them.
 
+The older unprovenanced `paper/fig2_circuit_schematic` and its hand-packaged `viz/`
+inputs were removed in the 2026-08-22 evidence cleanup. The current
+`fig_full_circuit` and `workshop_edits/fig_full_circuit_edit` are generated directly
+from recorded result artifacts. The former hand-authored `fig_full_circuit.gv` was
+also removed; it was not the source of the current rendered figure.
+
 ## Style
 
 `figstyle.py` is the one style module: fonts, the validated palette as named tokens, DPI, and the
@@ -75,14 +81,14 @@ hand-placed drawing.
 
 1. **SpliceBERT contains a donor–acceptor information-routing circuit.**
 2. **A learned period-3 positional carrier acts as a distributed relative-positional routing coordinate
-   supporting that circuit.** C34/C35 refine the earlier clock figures; its present-day use is supported,
+   supporting that circuit.** C34/C35 refine the earlier carrier figures; its present-day use is supported,
    while C39/C40 associate its comparative origin with multi-species pretraining. Coding specificity and
    training dynamics remain open.
 3. **A separate ≈10.63 positional carrier forms a genuine attention circuit. Its donor-side arms were
    measured and returned boundaries, not positives; its general downstream use and biological meaning
-   remain unresolved, and its origin is corpus-attributed (C39/C40).**
+   remain unresolved; C39/C40 provide comparative training-lineage association, not causal origin.**
 
-The period-3 and ≈10.63 carrier planes are orthogonal. The period-3 clock has a demonstrated causal
+The period-3 and ≈10.63 carrier planes are orthogonal. The period-3 carrier has a demonstrated causal
 role in coupling. The ≈10.63 carrier reaches attention and goes no further on the evidence: its donor-side
 OV and behavioural arms returned a sub-SESOI non-detection and a small suppressive bound (C37→C12, R31), so
 the figures deliberately draw no arrow from it to splicing, chromatin, translation, or another behavior.
@@ -114,7 +120,7 @@ canonical phase-lattice set.
 - `studies/splicebert_partner_selection/CORRECTIONS.md` — full correction and supersession history
 - `../../MECHANISM.md` — current mechanism including post-figure C34/C35 refinements
 - `results/splicebert_coupling/` — donor–acceptor circuit results
-- `results/phase-lattice/RESULTS_INDEX.md` — positional clock and carrier results
+- `results/phase-lattice/RESULTS_INDEX.md` — positional carrier results
 - [`HAND_ASSETS.md`](HAND_ASSETS.md) — **T3 retirement record.** Hand-authored artwork removed from the
   active tree, and why the donor–acceptor binding illustration must not be recovered from Git history and
   cited: the content-addressed read it depicts is retracted as R15.

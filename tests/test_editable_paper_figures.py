@@ -42,7 +42,7 @@ def test_notebook_renderers_use_verified_artifacts_and_final_column_width() -> N
         assert phase_audit["minimum_text_pt"] >= 6.0
         assert not core_audit["text_sizes_below_threshold"]
         assert not phase_audit["text_sizes_below_threshold"]
-        assert len(core_data["sources"]) == 7
+        assert len(core_data["sources"]) == 6
         assert len(phase_data["sources"]) == 2
     finally:
         plt.close(core)
@@ -73,7 +73,7 @@ def test_edit_export_writes_vector_raster_and_source_hashed_provenance(tmp_path:
     provenance = json.loads(outputs["provenance"].read_text())
     assert provenance["schema"] == "gfmcd.figure_edit_provenance.v1"
     assert provenance["claim_boundary"] == "test boundary"
-    assert len(provenance["sources"]) == 7
+    assert len(provenance["sources"]) == 6
     assert all(len(source["sha256"]) == 64 for source in provenance["sources"])
 
 

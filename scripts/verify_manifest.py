@@ -29,6 +29,10 @@ ledgers' own status wording (`studies/*/CLAIMS.md`), which this script does not 
 enforces that the column exists and stays inside the vocabulary.
 
     uv run python scripts/verify_manifest.py
+
+When intentionally removing archived result families, use ``--prune-missing`` after staging the
+deletions. It removes only rows whose artifacts are no longer tracked, then regenerates the JSON
+serialization and summaries from the surviving CSV rows before running the normal checks.
 """
 
 from __future__ import annotations
@@ -106,6 +110,30 @@ def read_json_doc(path: Path) -> dict:
         if key not in doc:
             raise SystemExit(f"FAIL {path}: missing top-level key {key!r}")
     return doc
+
+
+def write_serializations(
+    csv_path: Path,
+    json_path: Path,
+    rows: list[dict[str, str]],
+) -> None:
+    """Write the two manifest serializations from one ordered row list."""
+    with csv_path.open("w", newline="") as fh:
+        writer = csv.DictWriter(fh, fieldnames=COLUMNS, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+
+    status_counts = dict(collections.Counter(row["status"] for row in rows))
+    polarity_counts = dict(collections.Counter(row["polarity"] for row in rows))
+    doc = {
+        "generated_by": "scripts/verify_manifest.py --prune-missing",
+        "row_count": len(rows),
+        "status_counts": status_counts,
+        "polarity_counts": polarity_counts,
+        "columns": COLUMNS,
+        "rows": rows,
+    }
+    json_path.write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n")
 
 
 def check_manifest(
@@ -187,6 +215,11 @@ def check_manifest(
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--repo", type=Path, default=Path(__file__).resolve().parents[1])
+    ap.add_argument(
+        "--prune-missing",
+        action="store_true",
+        help="drop rows for intentionally removed tracked artifacts and regenerate MANIFEST.json",
+    )
     args = ap.parse_args()
     repo = args.repo.resolve()
 
@@ -199,6 +232,10 @@ def main() -> None:
     csv_rows = read_csv_rows(csv_path)
     json_doc = read_json_doc(json_path)
     expected = tracked_result_files(repo)
+    if args.prune_missing:
+        csv_rows = [row for row in csv_rows if row["artifact"] in expected]
+        write_serializations(csv_path, json_path, csv_rows)
+        json_doc = read_json_doc(json_path)
     problems = check_manifest(repo, csv_rows, json_doc, expected)
 
     if problems:

@@ -12,7 +12,8 @@ table supplies a rotating coordinate system; a head chooses a phase from it thro
 bilinear form.  That is why this report says "carrier", never "phase".
 
 And the period-3 carrier lands on exactly THREE points -- 1026/342 = 3 exactly, so position p
-visits only three angles.  The three codon positions ARE those three stations.  The ~10.63
+visits only three angles, corresponding to position modulo 3.  This geometry does not identify
+codon phase or reading frame.  The ~10.63
 carrier has no such luck: 1026/96 = 10.6875 is not an integer, so it sweeps the whole circle.
 """
 from __future__ import annotations

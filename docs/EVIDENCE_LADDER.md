@@ -29,7 +29,7 @@ For positional mechanisms, the project records five compact columns:
 
 | Component | P | QK | Attention | OV / mediation | Behavior | Status |
 |---|:--:|:--:|:--:|:--:|:--:|---|
-| Period-3 clock | ✓ | ✓ | ✓ | ✓ | ✓ | Causal support for donor–acceptor routing |
+| Period-3 positional carrier | ✓ | ✓ | ✓ | ✓ | ✓ | Causal support for donor–acceptor routing |
 | Donor–acceptor computation | n/a | ✓ | ✓ | ✓ | ✓ | Directed information-routing circuit |
 | Multi-species ≈10.63 carrier | ✓ | ✓ | ✓ | null (donor coupling) | bounded (−0.033) | Real positional attention circuit, **not** part of the donor circuit. Both interventions ran (C37→C12). General function, general OV content, and biological meaning remain open; the `U_info` write test was never computed (R31). |
 | Human-only ≈10.2 candidate | ✓ | provisional | failed | — | null | Proposed chromatin circuit closed at attention |

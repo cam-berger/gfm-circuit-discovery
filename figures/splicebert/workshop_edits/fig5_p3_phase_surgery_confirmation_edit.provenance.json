@@ -1,6 +1,6 @@
 {
-  "claim_boundary": "Confirms present-day phase-aligned period-3 use in CDS blocks; coding specificity and reading-frame semantics remain unresolved.",
-  "created_at_utc": "2026-08-03T14:33:40.146439+00:00",
+  "claim_boundary": "Supports present-day phase-aligned period-3 use in the tested CDS-versus-upstream-intron contrast; coding specificity and reading-frame semantics remain unresolved.",
+  "created_at_utc": "2026-08-22T22:54:19.926659+00:00",
   "layout": {
     "context_xlim": [
       -0.42,
@@ -35,11 +35,11 @@
   "outputs": [
     {
       "path": "figures/splicebert/workshop_edits/fig5_p3_phase_surgery_confirmation_edit.pdf",
-      "sha256": "8b48ddfc9a717810ee8952be72243533e99c51a2d5dc07270aafa81a7e06e973"
+      "sha256": "811a375804c49ce5b10fef0e912890626adb633a1eeac0502c5459ca828abf13"
     },
     {
       "path": "figures/splicebert/workshop_edits/fig5_p3_phase_surgery_confirmation_edit.svg",
-      "sha256": "4922553fc14ef448daf73b8b08231bd8790c5b3a392dfe2e642aec2cff4c07df"
+      "sha256": "9495cceade54fcd8ed2b728ba4a10a6dcbb31a544d8384efdb379a8650a39886"
     },
     {
       "path": "figures/splicebert/workshop_edits/fig5_p3_phase_surgery_confirmation_edit.png",

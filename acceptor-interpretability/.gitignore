@@ -1,8 +1,0 @@
-__pycache__/
-*.pyc
-.ipynb_checkpoints/
-results/*.json
-results/*.csv
-!results/.gitkeep
-.cache/
-*.pt

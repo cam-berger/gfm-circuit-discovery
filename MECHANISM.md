@@ -7,9 +7,9 @@ correction history by
 
 ## Frozen mechanism statement
 
-> A structured, top-ranked causal core binds a predominantly relative positional address to an
-> acceptor-local payload, then delivers the resulting information to the donor readout within an
-> irreducibly distributed computation.
+> A structured, top-ranked causal core combines a predominantly relative positional address with an
+> acceptor-local payload, then delivers the resulting information to the donor readout within a
+> distributed computation under the tested interventions.
 
 ## Relation to the current paper
 
@@ -53,9 +53,9 @@ acceptor-local state → L0H7/H12/H10 → MLP0 → MLP1 → MLP2 payload
                                 masked-donor MLM margin
 ```
 
-The address is predominantly relative-offset based with a modest absolute-position component. The
+The address retains a substantial relative-offset signal with absolute-position and edge modulation. The
 payload is generated locally at the acceptor by a serial MLP-centered path. L3H1 combines the two and
-writes a compact donor-side representation; downstream heads transport that representation to the final
+writes a tested low-rank donor-side state; downstream heads transport that state to the final
 readout. Period-3 restoration experiments localize the carrier's effect across the span and show that,
 within the tested intervention, recovery runs through L3H1's attention pattern rather than
 carrier-dependent changes in its own values.
@@ -63,14 +63,15 @@ carrier-dependent changes in its own values.
 ## What “circuit” does and does not mean
 
 The named components are causally implicated in this behavior through necessity, mediation, and path
-tests. They form a **structured causal core within an irreducibly distributed computation**. They are not
+tests. They form a **structured causal core within distributed computation** under the tested node
+ranking and interventions. They are not
 claimed to be the smallest sufficient set.
 
 That distinction is empirical, not rhetorical. The small hand-built circuit is necessary but has
-faithfulness `F≈0.005` when the complement is scrubbed; the clean circuit outputs are sufficient when
-injected, but the sparse circuit cannot regenerate those outputs alone. A held-out size curve reaches
-90% faithfulness only near 72/103 nodes (grid-resolution; the sampled sizes bracket the 90% crossing to
-(64, 72]) and has no knee. Static ranking gives an upper bound on the
+faithfulness `F≈0.005` when the complement is scrubbed; the clean core outputs are sufficient when
+injected, but the nine-component core cannot regenerate those outputs alone. A held-out size curve reaches
+90% faithfulness at an interpolated 64.2 nodes; the first sampled grid point above 90% is 72/103, so
+the observed crossing is bracketed by (64, 72]. The curve has no knee. Static ranking gives an upper bound on the
 smallest faithful set, so **minimality remains unclaimed**.
 
 ## Strongest supported interpretation
@@ -119,13 +120,13 @@ components (C17/C18/C23), which were never intervened on, nor about earlier-laye
 example-specificity. A clean acceptor-side call would need the sealed chr8/9 cohort, which has not been
 opened.
 
-### 3. Carrier origin
+### 3. Carrier training-lineage association
 
 The period-3 carrier's present-day causal use is cleanly confirmed (C36). A single frozen checkpoint
-cannot say why training built it, but two published-checkpoint natural experiments now give
-*comparative* origin evidence without retraining (C39, C40):
+cannot say why it is present, but two published-checkpoint comparisons now provide
+training-lineage evidence without retraining (C39, C40):
 
-- **Corpus, not human sequence.** In the sibling stage-1 checkpoints — same architecture, stage, and
+- **Sibling-checkpoint contrast.** In the stage-1 checkpoints — same architecture, stage, and
   510-nt length, differing only in corpus — the period-3 carrier is strong in the 72-species model
   (band power 435× median) and undetected in the human-only model (6.2×, below a powered noise floor).
   This supports comparative attribution to *multi-species* pretraining. It does not isolate species
@@ -150,22 +151,21 @@ open and is NOT evaluable as preregistered (R36):** B1's `U_info`-projected writ
 never computed, and every per-head OV branch is scoped to **L0** readers — the red-team's fix for upstream
 position-propagation confounding — but no L0 head reaches Level A on this checkpoint (9 scanned, 0 passed).
 Whether the carrier writes a carrier-specific component onto the donor readout is therefore **unresolved**
-(protocol Endpoint B), not merely untested. Its **origin is now
-corpus-attributed** by the same sibling contrast (C39): the ≈10.63 band is strong in the 72-species
-stage-1 checkpoint (369× median) and undetected in the human-only stage-1 checkpoint (2.4×, powered
-null) — so the "multispecies" label is now measured, not asserted. This is corroborated on the input
-side: the model-free corpus spectrum finds no detectable ≈10.63 periodicity in 60 Mb of human genome at
-the preregistered period (all dinucleotide channels Z≈0.93–1.00, n.s., with a ≥5% detection floor,
-`corpus_spectrum.json`), and the carrier is likewise absent from the RNA-FM/RNA-BERT position
-embeddings (C40). The carrier is therefore a feature multi-species training manufactured, not a
-reflection of a human-sequence statistic.
+(protocol Endpoint B), not merely untested. C39 provides a comparative training-lineage association:
+the ≈10.63 band is strong in the 72-species stage-1 checkpoint (369× median) and undetected in the
+human-only stage-1 checkpoint (2.4× under the tested floor). The model-free corpus spectrum also finds
+no detectable ≈10.63 periodicity in 60 Mb of human genome at the preregistered period (all dinucleotide
+channels Z≈0.93–1.00, n.s., with a ≥5% detection floor), and the carrier is absent from the tested
+RNA-FM/RNA-BERT position embeddings (C40). These comparisons do not isolate species diversity from
+corpus size, composition, sampling, or optimization, and they do not establish training-time origin.
 
-"Corpus-attributed origin" does not reopen the nucleosomal reading: the ≈10.298-nt nucleosomal signal
+The training-lineage association does not reopen the nucleosomal reading: the ≈10.298-nt nucleosomal signal
 sits 0.33 nt from the ≈10.630 carrier — a gap ~7× the largest uncertainty on either side (two-grid
 sub-bin spread 0.045 nt; nucleosomal estimator spread 0.045 nt) — so the record holds that as a powered
 refutation of the nucleosome bridge rather than support for it (C14, R17;
 [`docs/NOMENCLATURE.md`](docs/NOMENCLATURE.md)). The carrier's OV/behavioral function inside the model
-stays open; only its *corpus* origin is now licensed.
+stays open. The sibling comparison associates the carrier with the tested corpus lineage; it does not
+establish its causal origin.
 
 ### 5. Reciprocal masked-acceptor construction
 

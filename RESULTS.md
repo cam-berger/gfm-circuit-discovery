@@ -1,8 +1,8 @@
 # Results and manuscript verification
 
 > **Current audit.** This document replaces the historical `RESULTS_VERIFICATION.md` snapshot, which
-> covered only C1--C26 as of 2026-07-16. It audits the current repository at commit
-> `10d4c377e9fef23d16976be631ceae3e0931d98e` and the supplied 411-line manuscript attachment with
+> covered only C1--C26 as of 2026-07-16. It audits the evidence state inherited from commit
+> `409e154` and the supplied 411-line manuscript attachment with
 > SHA-256 `0439a1c73f97679e151083ace0fbf4dc85e089d3e71bf9e98967240f18a6b8cf`.
 >
 > **Authority order.** Current claim and correction ledgers plus
@@ -10,7 +10,7 @@
 > manifests, which control over results indices, captions, and narrative summaries. Line numbers below
 > refer to the fingerprinted attachment and will change when the manuscript is edited.
 
-**Audit date:** 2026-08-20
+**Audit date:** 2026-08-22
 
 **Primary checkpoint:** SpliceBERT.1024nt, SHA-256 `2ad91428…0149d`
 
@@ -24,7 +24,7 @@ machine-readable artifacts. The strongest publication-safe synthesis is:
 
 > SpliceBERT contains a structured, top-ranked causal core for paired-acceptor-dependent masked-donor
 > prediction. Positional geometry supplies an address, acceptor-local values supply a distinct payload,
-> L3H1 binds them into a causally useful donor-side state, and later heads deliver that state. The named
+> L3H1 combines them into a causally useful donor-side state, and later heads deliver that state. The named
 > core is highly injectable but not a faithful autonomous generator; held-out static-ranking results show
 > a gradual, distributed faithfulness boundary rather than a compact circuit.
 
@@ -55,11 +55,11 @@ Section 4, especially these:
 
 | Check | Result |
 |---|---|
-| `uv run python scripts/verify_manifest.py` | **PASS**: exact coverage of all **1,167** `results/MANIFEST.csv` rows |
-| Manifest status census | 704 canonical, 260 development, 180 superseded, 23 infrastructure |
-| Manifest polarity census | 566 positive, 36 null, 5 refutation, 113 bounded, 447 not applicable |
-| `uv run --extra splicebert --extra biology --extra dev pytest -q` | **PASS**: **1,143 passed, 22 skipped** in 240.07 s |
-| Post-rename `uv run pytest -q tests/test_repository_hygiene.py tests/test_ledger_consistency.py` | **PASS**: **15 passed** |
+| `uv run python scripts/verify_manifest.py` | **PASS** after cleanup: exact coverage of all **1,108** `results/MANIFEST.csv` rows |
+| Manifest status census | 651 canonical, 256 development, 180 superseded, 21 infrastructure |
+| Manifest polarity census | 534 positive, 23 null, 5 refutation, 111 bounded, 435 not applicable |
+| `uv run --extra splicebert --extra biology --extra dev pytest -q` | **PASS**: **1,023 passed, 22 skipped** in 221.40 s |
+| Focused manifest, ledger, hygiene, figure-provenance, and DNABERT checks | **PASS**: **93 passed** |
 
 The skips are declared data/optional-environment skips, not test failures. No model intervention was
 rerun merely to restate a recorded result. Headline arithmetic was taken from, or recomputed directly
@@ -75,9 +75,10 @@ Passing memorial tests are regression locks on recorded values, not independent 
 Do not describe the repository as uniformly preregistered or say that all gates passed. The independent
 conformance audit covers 25 SpliceBERT-arc families and records **188 deviations, 157 medium-or-worse**;
 it states that none overturns a scientific result. Those deviations still constrain the evidential tier,
-provenance language, and strength of a claim. Notable paper-facing gaps include the unmanifested legacy
-`confirmation.json`, post-hoc/unmanifested parts of C27, the grid-snap deviation in C33, and the C36
-analysis code-pin and sensitivity-reporting omissions.
+provenance language, and strength of a claim. The unmanifested legacy `confirmation.json` was archived
+and removed from the active figure path in this cleanup. Remaining paper-facing gaps include
+post-hoc/unmanifested parts of C27, the grid-snap deviation in C33, and the C36 analysis code-pin and
+sensitivity-reporting omissions.
 
 ## 3. Data splits and example counts
 
@@ -162,14 +163,15 @@ because they use different rows.
 |---|---|---|
 | Acceptor coupling | GENCODE v50 comprehensive; val chr11/16/19; intended target chr8/9 | AC1 draw 0: 974 pairs/645 genes. AC5--AC8 target: 500 rows/304 genes on validation chromosomes. AC9 preflight: 400/321, then schema stop. **No chr8/9 acceptor target was scored.** |
 | Head-context atlas | GENCODE v50 comprehensive | Legacy usable train/val/test: 32,054/11,275/3,014 rows and 4,864/1,567/444 usable genes. Fresh gene-hash discovery: 11,807 packets/5,089 genes; internal validation: 4,019 packets/1,486 genes. Sealed chr8/9 confirmation not run. |
-| GTEx fine-tune shift | GENCODE v50 basic assay cohorts | Fixed validation cohort 400/334 genes, reused across five seeds (not 2,000 rows): chr11 98/83, chr16 94/82, chr19 208/169. Fresh train discovery/confirmation families use 128/200 rows; chr8/9 remain sealed. Fine-tuning training-set identities are not present in this repo. |
+| GTEx fine-tune shift | GENCODE v50 comprehensive assay cohorts | Fixed validation cohort 400/334 genes, reused across five seeds (not 2,000 rows): chr11 98/83, chr16 94/82, chr19 208/169. Fresh train discovery/confirmation families use 128/200 rows; chr8/9 remain sealed. Fine-tuning training-set identities are not present in this repo. |
 | C43 register assay | Designed fixed-span chimeras | Fresh replication 384 gene-disjoint blocks, 3,456 lattice cells, 2,304 native rows. C44 ran a 114-block development preflight; its 384-block target was never opened. |
 | Positional boundary coherence | Model-free capacity stop | Required 1,104 blocks; donor/acceptor gene ceilings 809/854; zero blocks selected and no model loaded. |
 | Positional proxy modifiability | Model-free capacity stop | Required 718 blocks; exact ceiling 726 but usable 25%-margin ceiling 544; no confirmatory cohort selected. |
 | DNABERT-2 promoter | GUE, not GENCODE | Raw train/dev/test 47,356/5,920/5,920; after exact duplicate/conflict/cross-split cleaning 47,149/5,856/5,865. No chromosome or gene metadata exists, so a chr-level breakdown cannot be recovered. |
 
-Legacy `acceptor-interpretability/`, `ntv3-interpretability/`, and top-level `dnabert/` cohorts are
-exploratory/unledgered and are not paper evidence.
+Legacy `acceptor-interpretability/`, `ntv3-interpretability/`, and top-level `dnabert/` cohorts were
+exploratory or superseded and were removed from the active tree. They remain recoverable at
+`archive/unsupported-exploratory-2026-08-22` and are not paper evidence.
 
 ## 4. Manuscript claim audit
 
@@ -307,8 +309,8 @@ for final asset resolution in place.
 | Figure asset | Disposition | Required caveat or repair |
 |---|---|---|
 | Workflow figure | Conceptual only | Do not let “biological hypothesis” imply an identified biological mechanism or uniqueness relative to sequence statistics. Resolve the missing source path. |
-| `fig_full_circuit` / paper circuit schematic | **Repair before main-text use** | Its provenance includes legacy `confirmation.json`, which has no producer or sibling manifest, and its caption reports the stale `64--72` crossing. Regenerate from manifest-backed sources and use `64.2 interpolated / 72 sampled`. |
-| `fig2_mechanism` | **Do not use as evidence in current form** | Provenance has `git_commit: null` and pins absolute paths in an obsolete external checkout. Regenerate inside this repo. |
+| `fig_full_circuit` / paper circuit schematic | **Repaired; usable with caption boundary** | Regenerated from six manifest-backed sources. The panel now distinguishes the preregistered 64.2-node interpolation from the first sampled crossing at 72 nodes and makes no minimality claim. |
+| `fig1_coupling`, `fig2_mechanism`, `fig3_circuit` | **Regenerated** | Provenance now uses repository-relative paths. `fig1_coupling` no longer depends on the unmanifested legacy `confirmation.json`; it uses the corrected scan and sealed test instead. |
 | `fig5_p3_phase_surgery_confirmation` | Usable with caveats | Replace “only within coding blocks” with the paired CDS-vs-upstream-intron wording; identify the 19-control arm as its n=150 subset. Keep Panel D's inconclusive coding-boundary result. The analyzer did not verify frozen code hashes, omitted strand/donor-phase sensitivity, and current `freeze_p3_phase_surgery_confirmation.py` plus `circuit.py` no longer match two frozen code pins. Prefer the current workshop edit plus provenance. |
 | C43 register figure/panel | Usable only at behavior rung | State fixed 120-nt chimeric span, 384 blocks, p-floor `1/100`, knife-edge MDE gate, failed one-sided mismatch equivalence, and stop-load rival. Never draw a P3 mediation arrow. |
 | DNABERT Figure 9 | Suitable for supplement | It cleanly shows the DBP7 no-knee/MLP-jump result. Caption must state one seed, no preregistration/calibration, validation/test n=128 each, and no shared mechanism. |
@@ -327,17 +329,17 @@ table is provenance, not a current scientific verification:
 - A4 is superseded by A11/C32, but A11's frozen classifier, post-hoc result wording, and manifest remain
   inconsistent; use the bounded geometry description above.
 - A6 is no longer unrun; C27 and C33 now define the injectability/faithfulness boundary.
-- The live ledger now extends through C44 plus IC1/ED1 and permanent corrections R1--R47.
+- The live ledger now extends through C44 plus IC1/ED1 and permanent corrections R1--R48.
 - “Information-specific circuit” is overstrong after C38/C41.
 - `U_info` does not license paired-intron semantics or donor identity.
-- The prior 120-pass/33-skip test baseline is obsolete; the current baseline is 1,143/22.
+- The prior 120-pass/33-skip test baseline is obsolete; the current baseline is 1,023/22.
 - The forward program has changed: acceptor AC9 is terminal by its old lifecycle, and a new successor is
   required for address--payload--write--delivery and symmetry work.
 
 ## 8. Complete live-ledger coverage index
 
-This index proves disposition coverage of the **130 claim rows in seven active ledgers**: 45 donor
-partner-selection rows (including IC1/ED1), 34 GTEx rows, 21 HCA rows, 17 DNABERT rows, 11 acceptor
+This index proves disposition coverage of the **123 claim rows in seven active ledgers**: 45 donor
+partner-selection rows (including IC1/ED1), 34 GTEx rows, 21 HCA rows, 10 DNABERT rows, 11 acceptor
 rows, PBC1, and PPM1. It is an index, not a substitute for the exact licensed wording in each ledger.
 
 ### 8.1 Donor partner-selection ledger: 45/45 rows
@@ -372,7 +374,7 @@ rows, PBC1, and PPM1. It is an index, not a substitute for the exact licensed wo
 | AC9 | Terminal old-program schema stop before target science; chr8/9 masked-acceptor endpoint unopened. |
 | AC10, AC11 | Bounded natural-GC behavior and attention modifiers with quasi-observational/provenance limits. |
 
-### 8.3 DNABERT-2 promoter ledger: 17/17 rows
+### 8.3 DNABERT-2 promoter ledger: 10/10 rows
 
 | IDs | Disposition in this audit |
 |---|---|
@@ -382,10 +384,6 @@ rows, PBC1, and PPM1. It is an index, not a substitute for the exact licensed wo
 | DBP6, DBP7 | Main bounded comparison: conditional five-node core plus no-knee, MLP-dominated standalone faithfulness. |
 | DBP8 | Class-level transfer; matched-versus-same-class difference nonsignificant (`p=0.252`). |
 | DBP9, DBP10 | Positional enrichment only and frozen TATA null; no TATA mechanism. |
-| DBP11, DBP12, DBP13 | Fine-tuned package/performance and late-layer band; provenance is notebook-bounded and a band is not a single localized layer. |
-| DBP14, DBP15 | Fine-tuned early causal dependence and class-conditioned transplant compatibility; supplementary until producers/manifests are repaired. |
-| DBP16 | Fine-tuned TATA assay is non-positive under a different design; not evidence of forgetting. |
-| DBP17 | Frozen-versus-fine-tuned comparison is descriptive, not an identified effect of fine-tuning. |
 
 ### 8.4 GTEx fine-tune-shift ledger: 34/34 rows
 
@@ -425,11 +423,12 @@ rows, PBC1, and PPM1. It is an index, not a substitute for the exact licensed wo
 | IDs | Disposition in this audit |
 |---|---|
 | PBC1 | Model-free necessary-capacity stop: zero blocks selected, no model loaded, no biological/model result. |
-| PPM1 | Model-free max-flow/capacity result only; pilots are unclaimed and cannot support a training conclusion. |
+| PPM1 | Model-free max-flow/capacity result only; exploratory pilots were archived and cannot support a training conclusion. |
 
 Prospective `splicebert_acceptor_context` and the template study contain no live result rows. Archived
-exon-edge prose is superseded except for consolidated C43/C44. The excluded legacy trees and unledgered
-notebooks remain provenance/motivation only.
+exon-edge prose is superseded except for consolidated C43/C44. Excluded legacy trees, unledgered
+notebooks, the PPM pilots, and the notebook-only fine-tuned DNABERT-2 extension are recoverable at
+`archive/unsupported-exploratory-2026-08-22`, not part of the active evidence tree.
 
 ## 9. Audit boundary
 

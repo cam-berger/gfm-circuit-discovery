@@ -1,9 +1,0 @@
-analysis,metric,value
-pooled_uncentered_svd,PC1 energy fraction,0.5707673884055393
-pooled_uncentered_svd,participation ratio,2.9888084498198104
-pooled_uncentered_svd,PC1 alignment with promoter direction,0.8943206838784015
-heldout_reconstruction,PC1 captured energy,0.44615952038898665
-heldout_reconstruction,PC1 promoter projection retained,0.9823440270004516
-heldout_reconstruction,4D captured energy,0.5905160906546474
-heldout_reconstruction,8D captured energy,0.6408652606350208
-heldout_reconstruction,16D captured energy,0.690299615336022

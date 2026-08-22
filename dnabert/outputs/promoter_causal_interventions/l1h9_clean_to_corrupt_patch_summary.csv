@@ -1,2 +1,0 @@
-component,number_of_pairs,mean_clean_logit,mean_corrupt_logit,mean_patched_logit,mean_rescue_amount,median_rescue_amount,mean_recovery_fraction,median_recovery_fraction,fraction_positive_rescue,fraction_at_least_25pct_recovery,fraction_at_least_50pct_recovery,fraction_full_or_over_recovery,fraction_patched_positive
-L1H9,189,7.39342354073619,1.024346879665004,-1.3597096376297442,-2.3840565172947477,-2.2413457270438615,-0.8538874547907029,-0.38003154603585904,0.31216931216931215,0.19047619047619047,0.10052910052910052,0.047619047619047616,0.42328042328042326

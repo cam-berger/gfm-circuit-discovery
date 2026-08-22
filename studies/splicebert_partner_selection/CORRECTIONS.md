@@ -1217,3 +1217,30 @@ not evidence that the pins verified at the time. Re-running them needs the build
 **Historical prose is left alone.** Sentences elsewhere in this file and in study READMEs that refer to
 a document's former tier (e.g. R33's "the same T1 sentence", R34 itself) describe what was true when
 written and are not rewritten. The vocabulary is retired going forward, not erased backward.
+
+## R48 — the repository-wide paper audit tightened six live donor claims without changing their numbers (2026-08-22)
+
+The paper audit recomputed the headline quantities from their machine-readable artifacts and found six
+places where the live ledger or top-level narrative licensed stronger wording than the stored estimand.
+No numerical result was overturned.
+
+- **C16:** the maximum matched random rank-8 recovery is `0.0530`, not `≤0.05`; rank 8 is tested, not
+  shown to be a saturation point.
+- **C19:** the phase analysis found no detectable main effect but did not establish equivalence, so
+  “insensitive” is withdrawn.
+- **C26:** `+0.875` is the A→B/B→A mean. The stored `[0.853,0.901]` interval is A→B only and cannot be
+  attached to that mean.
+- **C27:** `D(C without embed)=0.9864` and `F(C)=0.00539` use different component sets. The post-hoc
+  `N(C without embed)=0.9888` has no full manifest, confidence interval, or null family.
+- **C32:** common translations preserve a substantial relative-offset signal, but the frozen decision
+  is `MIXED` and the nonmonotonic change reaches 23.7%; purely or predominantly relative wording is
+  retired in favor of relative signal with absolute/edge modulation.
+- **C33:** the preregistered interpolation reaches 90% at `64.2` nodes; `72/103` is the first sampled
+  grid point above 90%. The static ranking is an upper-bound construction and does not prove that no
+  alternative compact circuit exists.
+
+C36 was also restated to carry its already-recorded R46 code-pin failure and omitted strand/donor-phase
+sensitivities inline. The licensed paper-level formulation is now **a structured, top-ranked causal core
+within distributed computation under the tested interventions**. “Irreducibly distributed” and “no
+sparse circuit exists” are retired from live summaries because the measured curve does not establish
+an impossibility result over alternative circuit searches.

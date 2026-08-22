@@ -3,16 +3,18 @@
 > History and retractions. Never cite as the current claim; the current
 > claim is in [`CLAIMS.md`](CLAIMS.md).
 
-`DBPR*` numbers are this study's corrections. Nothing here is ever deleted or edited away: a row that
-turns out wrong gets a later row, not a rewrite. Every entry records what was said, what the artifact
-actually supports, and what may be said instead.
+`DBPR*` numbers are this study's corrections. Historical rows remain here even when an unsupported
+artifact family leaves the active tree; archived files are recoverable from the Git tag named by the
+later correction. Every entry records what was said, what the artifact actually supported, and what may
+be said instead.
 
-The file now carries `DBPR1`–`DBPR11` in three dated blocks. The **eight entries in the table
+The file now carries `DBPR1`–`DBPR12` in four blocks. The **eight entries in the table
 immediately below** were opened on **2026-08-11**, during the integration review that gave this arc its
 first claim ledger; they correct the arc's own prose — the root-level `dnabert_readme.md` and
 `FROZEN_EXPERIMENT_REGISTRY.md` as they arrived — against the artifacts committed alongside it. Two
 later blocks follow: `DBPR9`–`DBPR10` (2026-08-13, the fine-tuned extension) and `DBPR11`
-(2026-08-14, the post-merge remediation). None of the eleven touches a `C*`, `HCA*` or `GFS*` claim.
+(2026-08-14, the post-merge remediation), followed by the active-tree archive disposition. None of
+these touches a `C*`, `HCA*` or `GFS*` claim.
 
 | ID | Retired / bounded statement | What the artifact supports | Status |
 |---|---|---|---|
@@ -114,3 +116,9 @@ records that the condition was briefly bypassed by an artifact rather than by pr
 | ID | Retired / bounded statement | What the artifact supports | Status |
 |---|---|---|---|
 | **DBPR11** | Four items entered the tree with PR #44. **(a)** `results/dnabert_promoter/finetuned/performance_comparison/frozen_self_hf_performance.csv` carried a row `Self-finetuned DNABERT (mean seeds 42/43/44),0.831,0.662,0.909,0.912,0.831` filed `canonical` against `DBP17`; the values are hand-typed literals from the source notebook with no checkpoint, pipeline, or upstream artifact anywhere in the repository, and its companion frozen row rounded `DBP3` to `0.81`/`0.892`. **(b)** `results/dnabert_promoter/RESULTS_INDEX.md`, a T1 canonical document, was committed truncated at line 81 inside an unterminated code fence, deleting its provenance-gap and figures sections. **(c)** `layer_localization/selected_endpoint.json` shipped an `interpretation` string asserting representational relocation to Layer 10, and a derived `layer_shift: 8` field. **(d)** Nine `DBP14` rows in `results/MANIFEST.csv` carried `evidence_level: Causal`, a value that is not a rung on the repository's ladder and that `DBP15`'s own rows do not use. | **(a)** No artifact supports any self-fine-tuning metric; `DBPR6` is unchanged and its restoration condition remains unmet. The two artifact-backed rows are `DBP3` (`results/dnabert_promoter/frozen/layer_probes/selected_layer_2_test_statistics.json`) and `DBP12` (`results/dnabert_promoter/finetuned/test/metrics.csv`). **(b)** The deleted sections are recoverable at `a42197aa^1`. **(c)** `layer_selection_band.json` shows the Layer-10 argmax leads its runner-up by `0.000998` balanced accuracy = `0.33` standard errors; layers 7–11 lie within one SE and 5–11 within two, and the test argmax is Layer 8. The relocation reading is bounded by `DBPR10`, and the within-state selection is not separated either. **(d)** `DBP14` and `DBP15` are the same class of intervention; `DBP15` files as `OV/mediation`. | **CORRECTED.** **(a)** The unsourced row was **removed**; the file now carries only the two artifact-backed rows at full precision, with `gue_task`, `sequence_length_nt`, `readout`, `n_test` and `source_artifact` columns making the non-comparability explicit, and was **renamed** `frozen_self_hf_performance.csv` → `frozen_hf_performance.csv` because the old name named a row that no longer exists. **(b)** Restored and extended. **(c)** `interpretation` and `layer_shift` **removed** from the artifact; interpretation lives in `DBP13`, and the artifact now points at `layer_selection_band.json` and sets `selection_is_not_separated`. **(d)** Remapped to `OV/mediation` in `MANIFEST.csv` and `MANIFEST.json`. `DBP13` is restated to report a band rather than a point; the seeded probe repeat that would settle it is still owed and is gated on a GPU run. |
+
+## Active-tree archive disposition
+
+| ID | Retired / bounded statement | What the record supports | Status |
+|---|---|---|---|
+| **DBPR12** | DBP11–DBP17 were presented as live study claims even though 52 of their artifacts were produced only by a notebook, lacked producing runners and sibling manifests, and were not reproducible from a clean checkout. The cross-state comparison also used unmatched tasks, lengths, cohorts, and readouts. | The historical measurements remain available for provenance, but they do not meet this repository's active-evidence standard. No fine-tuned result is used by the paper's supported DNABERT-2 comparison, which is DBP6–DBP8. | **ARCHIVED / REMOVED FROM THE LIVE LEDGER.** The artifacts, notebook, figures, and former DBP11–DBP17 wording are recoverable at `archive/unsupported-exploratory-2026-08-22`. Any successor is a new, preregistered, multi-seed, matched-task study with producing scripts and manifests. |

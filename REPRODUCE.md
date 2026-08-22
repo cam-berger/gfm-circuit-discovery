@@ -13,20 +13,11 @@ uv sync --extra splicebert --extra biology --extra dev
 uv run --extra splicebert --extra biology --extra dev pytest
 ```
 
-**Pass the extras on the `uv run` too.** A bare `uv run pytest` re-syncs to the default dependency set
-first, uninstalling `pytest` and `pyfaidx`. It does not merely report a smaller suite — it reports a
-**failing** one, because tests whose imports vanish error at collection. A red run from that command
-means you dropped the extras, not that the record is broken. The extras form is what
-`.github/workflows/tests.yml` executes. The baseline on this tree is **698 passed, 29 skipped** with
-`--extra maxent` added (it was 482/24 before the 2026-08-10 positional-boundary-coherence study, and
-648/46 before the 2026-07-31 cleanup, which removed the DNABERT-2 suite along with that study, a dead
-supervised-probe code island, and four memorial files whose artifact *and* runner had already been
-deleted — so those tests could never fire again). All skips are data-gated or optional-dependency; none
-is a failure. Treat the number as "the suite passes", not as a fixed constant.
-
-**Budget ~15 minutes single-threaded**, most of it the `pbc` tests (~11 min alone). CI's
-`timeout-minutes: 30` still clears it, but the margin is no longer generous — if that job starts timing
-out, split the `pbc` selection out rather than raising the ceiling blindly.
+**Pass the extras on the `uv run` too.** A bare `uv run pytest` may resolve a smaller dependency set and
+fail during collection. The extras form is what `.github/workflows/tests.yml` executes. On the
+2026-08-22 cleanup tree it reports **1,023 passed, 22 skipped** in 221.40 seconds. The exact duration and
+skip count depend on hardware, external data, and optional packages; the acceptance condition is a
+passing suite with every skip explained.
 
 Use `PYTHONHASHSEED=0` for cohort construction and any shuffle or selection path whose manifest declares
 determinism. Use `TOKENIZERS_PARALLELISM=false` for model runs when deterministic, quiet tokenization is
@@ -67,12 +58,10 @@ export GFMCD_FASTA=/path/to/hg38.fa
 export GFMCD_FASTA_FAI=/path/to/hg38.fa.fai
 ```
 
-**Set these before running the suite, or you will silently lose coverage rather than see a failure.**
-The genome-dependent tests are `skipif`-guarded on file existence, so with the variables unset they
-report as *skipped*, not failed: **13 memorials go quiet and the suite finishes in ~11 s instead of
-~90 s**. On a machine with the data, `pytest` should report **512 passed, 17 skipped**; if you see
-**499–500 passed, 29 skipped**, the variables are unset and the memorials did not run. Every runner also
-accepts `--gtf` / `--fasta`, which override the environment.
+**Set these before interpreting the suite as a real-data replay.** Genome-dependent tests are guarded on
+file existence and report as skipped when the inputs are absent. Read the skip reasons rather than
+comparing against a historical pass count. Every current primary runner also accepts `--gtf` and
+`--fasta`, which override the environment.
 
 **Four more checkpoints are needed for the origin claims, and this repository records no acquisition URL
 for any of them — including SpliceBERT itself.** C39 needs the stage-1 sibling pair `SpliceBERT.510nt` and
@@ -99,23 +88,17 @@ data/
   processed/splicebert_partner_selection/v1/                               # written by the cohort builders
 ```
 
-**Two specs disagree and this is unresolved.** The config above is repo-relative and names
-`GRCh38.primary_assembly.genome.fa`. Counted over all 219 tracked `*.manifest.json` files: **80** record
-the absolute `/Users/cberg/Research/data/genomes/hg38.fa`, **81** name `gencode.v50.basic.annotation.gtf.gz`,
-**24** name `gencode.v50.annotation.gtf.gz` (comprehensive, not basic), and none names the
-primary-assembly FASTA the config declares. The sequence content of hg38 and the GENCODE primary assembly
-is equivalent for these purposes, but **the basic-vs-comprehensive annotation split is not** — check which
-one a given manifest names before comparing to its artifact. Many manifests name neither, so for a large
-share of artifacts the annotation actually used is not recorded at all.
+Historical manifests do not use one uniform path convention: some record the original absolute hg38
+path, and the studies use both GENCODE v50 basic and comprehensive annotations. Those annotations are
+not interchangeable. Compare the input name and hash in the controlling manifest rather than assuming
+that the repository-level example layout governed every study.
 
 ### 2.2 Six limits on exact reproduction — read before comparing numbers
 
-1. **Code revision is not recoverable for almost every claim.** Of the 93 manifests referenced by
-   canonical `results/MANIFEST.csv` rows, exactly **one** records a revision with a clean working tree
-   (`results/phase-lattice/p3_phase_surgery_confirmation_v1/confirmation_analysis.manifest.json`, C36).
-   66 record a commit with `git_dirty: true`, 21 record no revision at all, and 5 record a revision with
-   no dirty flag. The comparability standard stated above is therefore **not attainable** for those 92;
-   compare against the recorded numbers and manifests, not against a rebuilt binary-identical run.
+1. **Many historical artifacts do not bind a clean code revision.** Some manifests record a dirty tree,
+   omit a revision, or omit the dirty flag. Exact code-state replay is therefore unavailable for those
+   rows. Compare against the recorded artifact and manifest, and treat missing code identity as a
+   provenance limitation rather than reconstructing it after the fact.
 2. **The `--out` defaults point at the record.** 56 runners default `--out` to a path that
    `results/MANIFEST.csv` lists as an artifact, and no runner checks whether the target already exists.
    Re-running any of them with defaults **overwrites the controlling artifact** — the opposite of the
@@ -123,15 +106,11 @@ share of artifacts the annotation actually used is not recorded at all.
    for new runners to call, and `tests/test_overwrite_guard.py` keeps the inventory of the 56 from growing,
    but the existing runners are pinned by their manifests and were deliberately not edited (R35) — so
    **always pass an explicit `--out` to a new path when reproducing.**
-3. **47 canonical result JSONs have no sibling `.manifest.json`.** The repo's own convention is that a
-   result-producing run writes an immutable artifact *and* a manifest recording checkpoint, tokenizer,
-   data hashes, split, parameters, seed, command, and revision. 47 of 429 canonical result JSONs predate
-   or skipped that step — including `results/p3_carrier_locus.json` (C34), `results/p3_av_decomposition.json`
-   (C35), and much of `results/phase-lattice/` (C8, C11, C13, C14, C15). Their `manifest` cell in
-   `results/MANIFEST.csv` is empty, and `scripts/verify_manifest.py` passes because it only checks that
-   *non-empty* reference paths resolve. For those claims the recorded numbers are the evidence and the
-   execution environment is not recoverable. This is a disclosed gap in the record, not an oversight of
-   this cleanup, and closing it would require re-running the affected experiments.
+3. **Some live canonical artifacts have no sibling manifest.** This includes
+   `results/p3_carrier_locus.json` (C34), `results/p3_av_decomposition.json` (C35), and parts of
+   `results/phase-lattice/` (C8, C11, C13, C14, C15). Their manifest cells remain blank; the cleanup does
+   not fabricate missing provenance. `scripts/verify_manifest.py` checks that declared references
+   resolve, not that every historical run has a manifest. Closing these gaps requires a new rerun.
 4. **Regenerable binary inputs are not committed.** Fitted dictionaries (`*.pt`) and activation captures
    (`*.npz`) were untracked on 2026-07-31 (~847 MB in the checkout, 268 MiB packed; `.gitignore` had
    always excluded them and they had been force-added). **One small `.npz` was deliberately kept** —
@@ -151,17 +130,11 @@ share of artifacts the annotation actually used is not recorded at all.
    `run_dyad_wavelength.py`, `run_human_carrier.py`, `run_postsoftmax.py`, `run_second_carrier.py`,
    `run_sibling_pspectrum.py`, `run_sibling_validate.py`, `run_splice_long.py`, `run_splice_profile.py`.
    **Read the source before invoking any of them** — do not probe them with `--help`.
-6. **Some runners hardcode absolute paths from the original machine.** 21 tracked files carry a
-   `/Users/cberg/...` constant. Most feed an argparse `default=` and are overridable with `--fasta` /
-   `--gtf`. Eight are **not** overridable without editing source: `measure_band_mass.py:46`,
-   `run_postsoftmax.py:380`, `run_dyad_real.py:57-58` (mm9 + the nucleosome dyad map),
-   `run_dyad_wavelength.py:120`, `run_splice_phasing.py:64-65`, `audit_ed1_provenance.py:56-58`,
-   `src/gfmcd/splicing/circuit.py:73-74`, and `run_g1_cross_example_transduction.py:94-95` — the **C41**
-   runner, which hardcodes the repository checkout path as well as the genome, so it will not run from
-   a clone or a git worktree. These were deliberately not rewritten: they are pinned by their manifests
-   and R35 records the standing decision not to edit a runner's defaults, since that changes what a
-   rerun does. Either edit the constant locally or place your data at the recorded paths. Logged as
-   **R41**.
+6. **Three retained model-free capacity runners preserve original-machine artifact paths.** They are
+   `audit_real_panel_capacity.py`, `run_real_panel_capacity.py`, and `run_pbc_v2_capacity.py`. The paths
+   bind large untracked census/cell inputs used by the recorded capacity stop; they are not portable
+   clean-checkout reruns. Current primary genome runners use environment variables or CLI paths. The
+   historical capacity result remains reviewable through its compact artifact, manifest, and audit.
 
 Where a runner departed from its frozen protocol, the deviation is recorded in
 [`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) — which audits the **SpliceBERT donor/carrier

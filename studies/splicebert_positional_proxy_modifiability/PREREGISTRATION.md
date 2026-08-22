@@ -8,7 +8,11 @@
 > whether identical-sequence relocation shows that the learned period-3 positional carrier causally supports
 > that change.
 
-**Status: FROZEN DESIGN 2026-08-11.** The question, geometry, operator, sign convention, estimands,
+**Status: CLOSED / NEVER EXECUTED.** This design was frozen on 2026-08-11, but its gate chain was never
+run and no result may be described as preregistered under it. Exploratory runs taken outside this
+protocol were archived at `archive/unsupported-exploratory-2026-08-22`.
+
+The question, geometry, operator, sign convention, estimands,
 thresholds, control families, multiplicity rules, gate chain, verdict vocabulary, and outcome language below
 are frozen before any model outcome, any pilot, and any continued-pretraining run. The executable package is
 **not** frozen by this document: implementation may be exercised on synthetic fixtures and the declared

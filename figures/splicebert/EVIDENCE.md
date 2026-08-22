@@ -41,7 +41,7 @@ CDS-minus-non-CDS-exon contrast is inconclusive, so the evidence reaches model b
 specificity or biological/training origin.
 
 **The donor–acceptor circuit** has no entry under P because it is *not* a positional component —
-it is the computation the clock serves. The donor arrives at L3H1 as content; the acceptor is
+it is the computation the positional component supports. The donor arrives at L3H1 as content; the acceptor is
 found by address.
 
 **Multi-species ≈10.63** reaches Attention cleanly, and its OV and Behaviour columns are **measured, not

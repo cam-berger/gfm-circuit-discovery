@@ -23,11 +23,12 @@ Re F[k] and Im F[k]. Circularity = σ₂/σ₁ of that plane:
 Both carriers are near-perfect circles: **0.977** and **0.992**. The table therefore does not
 *assign* a phase — it supplies a **rotating two-dimensional coordinate system**, and each head
 **chooses** its phase from that system via its QK bilinear form. Figure 3A shows six heads doing
-exactly that, and landing on their chosen codon position to within 0.76°.
+exactly that, landing on their chosen carrier-phase class to within 0.76°.
 
 The period-3 carrier visits **exactly three points**. This is not a plotting choice: 1026/342 = 3
-*exactly*, so position *p* can only take three angles. Those three stations **are** the three
-codon positions. The ≈10.63 carrier has no such luck — 1026/96 = 10.6875 is not an integer, so it
+*exactly*, so position *p* can only take three angles, corresponding to position modulo 3. This
+geometric fact does not identify codon phase or reading frame. The ≈10.63 carrier has no such
+constraint — 1026/96 = 10.6875 is not an integer, so it
 sweeps the entire circle.
 
 ## C — The two planes are disjoint

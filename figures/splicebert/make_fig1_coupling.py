@@ -1,8 +1,9 @@
 #!/usr/bin/env python
-"""Figure 1: partner-specific coupling and causal localization to L3H1.
+"""Figure 1: partner-specific coupling and load-bearing attention heads.
 
-Every plotted value is read from the recorded pair-category and confirmation
-artifacts. The figure reports raw logit differences as logit units.
+Every plotted value is read from the manifest-backed pair-category, corrected
+development-scan, and sealed-test artifacts. The figure reports raw pre-softmax
+logit differences as logit units.
 """
 from __future__ import annotations
 
@@ -30,7 +31,8 @@ from figstyle import (  # noqa: E402
 )
 
 CATEGORIES = HERE / "data" / "pair_categories.json"
-CONFIRMATION = REPO / "results" / "splicebert_coupling" / "confirmation.json"
+SCAN = REPO / "results" / "splicebert_coupling" / "development" / "ablation_scan.json"
+SEALED = REPO / "results" / "splicebert_coupling" / "sealed_test.json"
 OUT = HERE / "fig1_coupling"
 
 def _open_axis(ax) -> None:
@@ -44,7 +46,8 @@ def _open_axis(ax) -> None:
 
 def main() -> None:
     cats = json.loads(CATEGORIES.read_text())["categories"]
-    conf = json.loads(CONFIRMATION.read_text())
+    scan = json.loads(SCAN.read_text())
+    sealed = json.loads(SEALED.read_text())
 
     use_style()
     plt.rcParams.update(
@@ -107,9 +110,9 @@ def main() -> None:
 
     # B — horizontal ranking is readable at manuscript scale.
     ax = axes[1]
-    scan = conf["scan_top"]
-    names = [f"L{row['layer']}H{row['head']}" for row in scan][::-1]
-    values = np.asarray([row["recovery"] for row in scan][::-1])
+    scan_top = scan["heads"][:8]
+    names = [f"L{row['layer']}H{row['head']}" for row in scan_top][::-1]
+    values = np.asarray([row["specificity"] for row in scan_top][::-1])
     colors = [COUPLING if name == "L3H1" else MUT for name in names]
     y = np.arange(len(names))
     ax.hlines(y, 0, values, color=colors, linewidth=1.5, zorder=1)
@@ -124,74 +127,57 @@ def main() -> None:
     )
     ax.axvline(0, color=INK, linewidth=0.8)
     ax.set_yticks(y, names)
-    ax.set_xlabel("Recovered coupling (logit units)")
+    ax.set_xlabel("Partner-specific coupling loss\n(logit units)")
     ax.set_xlim(-0.02, 0.88)
     ax.text(values[-1] + 0.025, y[-1], f"{values[-1]:.3f}", va="center", color=COUPLING)
-    panel_header(ax, "B", "Coupling Strength")
+    panel_header(ax, "B", "Corrected Mean-Ablation Scan")
     _open_axis(ax)
 
-    # C — the factorial is the mechanistic sign test.
+    # C — sealed necessity estimates for the two nominated heads and their pair.
     ax = axes[2]
-    factorial = conf["factorial"]
-    xx = np.asarray([0.0, 1.0])
-    intact = np.asarray([factorial["M_CI"], factorial["M_XI"]])
-    ablated = np.asarray([factorial["M_CA"], factorial["M_XA"]])
-    ax.plot(
-        xx,
-        intact,
-        marker="o",
+    head_records = sealed["necessity"]["heads"]
+    keys = ["L3H1", "L2H15", "circuit C"]
+    labels = ["L3H1", "L2H15", "L3H1 + L2H15"]
+    means = np.asarray([head_records[key]["lost"] for key in keys])
+    lows = np.asarray([head_records[key]["lost_ci"][0] for key in keys])
+    highs = np.asarray([head_records[key]["lost_ci"][1] for key in keys])
+    yy = np.arange(len(keys))[::-1]
+    ax.errorbar(
+        means,
+        yy,
+        xerr=np.vstack((means - lows, highs - means)),
+        fmt="o",
         color=COUPLING,
+        markerfacecolor=COUPLING,
+        markeredgecolor="white",
+        markeredgewidth=0.7,
         markersize=5.5,
-        markeredgecolor="white",
-        markeredgewidth=0.7,
-        label="L3H1 intact",
+        capsize=2.4,
+        elinewidth=1.25,
+        zorder=3,
     )
-    ax.plot(
-        xx,
-        ablated,
-        marker="s",
-        color=DELETED,
-        markersize=5.2,
-        markeredgecolor="white",
-        markeredgewidth=0.7,
-        label="L3H1 ablated",
-    )
-    ax.set_xticks(xx, ["Intact\nacceptor", "Corrupted\nacceptor"])
-    ax.set_ylabel("Donor margin (logit units)")
-    ax.set_xlim(-0.18, 1.18)
-    ax.set_ylim(3.78, 5.48)
-    ax.legend(loc="upper right", frameon=False, handletextpad=0.45)
-    ax.annotate(
-        f"+{factorial['M_CI'] - factorial['M_CA']:.3f}",
-        xy=(0, np.mean([factorial["M_CI"], factorial["M_CA"]])),
-        xytext=(0.09, 4.86),
-        fontsize=7.3,
-        color=INK,
-    )
-    ax.annotate(
-        f"{factorial['M_XI'] - factorial['M_XA']:.3f}",
-        xy=(1, np.mean([factorial["M_XI"], factorial["M_XA"]])),
-        xytext=(0.78, 4.02),
-        fontsize=7.3,
-        color=INK,
-    )
-    ci = factorial["did_ci"]
+    ax.axvline(0, color=INK, linewidth=0.8)
+    ax.set_yticks(yy, labels)
+    ax.set_xlabel("Coupling removed (logit units)")
+    ax.set_xlim(0, 1.18)
+    pair = head_records["circuit C"]
     ax.text(
-        0.02,
-        0.04,
-        f"Interaction {factorial['did']:+.3f} [{ci[0]:.3f}, {ci[1]:.3f}]",
+        0.03,
+        0.05,
+        f"Pair removes {100 * pair['frac_lost']:.1f}% · health retained "
+        f"{100 * pair['health_retained']:.1f}%",
         transform=ax.transAxes,
         color=SEC,
         fontsize=7.2,
         va="bottom",
     )
-    panel_header(ax, "C", "Partner Dependence")
+    panel_header(ax, "C", "Sealed Necessity")
     _open_axis(ax)
 
     save_figure(
         fig,
         OUT,
-        sources=[CATEGORIES, CONFIRMATION],
+        sources=[CATEGORIES, SCAN, SEALED],
         formats=("png", "pdf"),
         dpi=450,
         bbox_inches="tight",
