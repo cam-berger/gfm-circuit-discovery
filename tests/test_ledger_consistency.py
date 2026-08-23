@@ -82,6 +82,34 @@ CLAIM_ID_EXCEPTIONS = {
         "consumer of head_effect_donor_valid_reanalysis_v1.json and is unaffected. The only remaining "
         "citation is R42, which quotes the row verbatim."
     ),
+    "DBP11": (
+        "Archived with the notebook-only DNABERT fine-tuned extension under DBPR12; historical "
+        "citations remain in the correction and archive records, but there is no live claim row."
+    ),
+    "DBP12": (
+        "Archived with the notebook-only DNABERT fine-tuned extension under DBPR12; cited only "
+        "while preserving the correction history."
+    ),
+    "DBP13": (
+        "Archived with the notebook-only DNABERT fine-tuned extension under DBPR12; cited only "
+        "while preserving the correction history."
+    ),
+    "DBP14": (
+        "Archived with the notebook-only DNABERT fine-tuned extension under DBPR12; cited only "
+        "while preserving the correction history."
+    ),
+    "DBP15": (
+        "Archived with the notebook-only DNABERT fine-tuned extension under DBPR12; cited only "
+        "while preserving the correction history."
+    ),
+    "DBP16": (
+        "Archived with the notebook-only DNABERT fine-tuned extension under DBPR12; cited only "
+        "while preserving the correction history."
+    ),
+    "DBP17": (
+        "Archived with the notebook-only DNABERT fine-tuned extension under DBPR12; historical "
+        "citations remain in the correction and archive records, but there is no live claim row."
+    ),
 }
 
 # Tokens matching \bR\d+\b that are not correction IDs.

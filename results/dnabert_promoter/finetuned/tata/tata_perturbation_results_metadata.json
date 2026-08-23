@@ -1,8 +1,0 @@
-{
-  "n_examples": 354,
-  "primary_effect": "excess_motif_damage = (baseline - motif_perturbed) - (baseline - control_perturbed)",
-  "replacement": "CGCGCG",
-  "control": "mirrored 6-nt sequence window",
-  "evidence_type": "paired biological sequence perturbation",
-  "baseline_source": "locked Stage 11.2 predictions"
-}

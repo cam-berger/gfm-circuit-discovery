@@ -104,7 +104,7 @@ same change; the verifier fails otherwise.
 | `splicebert_positional_boundary_coherence/` | [`RESULTS_INDEX.md`](splicebert_positional_boundary_coherence/RESULTS_INDEX.md) | `studies/splicebert_positional_boundary_coherence/CLAIMS.md` (`PBC1`, construction instrument-unresolved; no model claim) |
 | `dnabert_promoter/` | [`RESULTS_INDEX.md`](dnabert_promoter/RESULTS_INDEX.md) | `studies/dnabert_promoter/CLAIMS.md` (DBP1–DBP10) — the **second model** in the tree |
 | `splicebert_positional_clock/` | [`RESULTS_INDEX.md`](splicebert_positional_clock/RESULTS_INDEX.md) | `studies/splicebert_positional_proxy_modifiability/CLAIMS.md` (`PPM1`) — **provisional directory name**, and the construction-record namespace of that study, not a study of its own |
-| `splicebert_positional_proxy_modifiability/` | [`RESULTS_INDEX.md`](splicebert_positional_proxy_modifiability/RESULTS_INDEX.md) | `studies/splicebert_positional_proxy_modifiability/CLAIMS.md` (`PPM1` only) — its behavioural and continued-pretraining artifacts are **exploratory and carry no claim row** |
+| `splicebert_positional_proxy_modifiability/` | [`RESULTS_INDEX.md`](splicebert_positional_proxy_modifiability/RESULTS_INDEX.md) | No claim-bearing model output; PPM1 is controlled by the model-free `splicebert_positional_clock/` capacity artifacts |
 
 `splicebert_positional_boundary_coherence/` contains compact model-free construction records. Its audited
 census passed, but the frozen 1,104-block design failed a necessary globally unique source-gene capacity

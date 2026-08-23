@@ -3,9 +3,9 @@
 This directory contains the machine-readable record for two distinct positional mechanisms in
 SpliceBERT:
 
-1. a **period-3 clock** that causally supports donor–acceptor information routing; and
-2. a separate **≈10.63 positional carrier** that is read through post-softmax attention, but whose
-   downstream use and origin remain unknown.
+1. a **period-3 positional carrier** that causally supports donor–acceptor information routing; and
+2. a separate **≈10.63 positional carrier** that is read through post-softmax attention. Its donor-side
+   downstream use is bounded, and its training-lineage association is comparative rather than causal.
 
 Start with:
 
@@ -26,7 +26,7 @@ Start with:
 
 | Component | Position table | QK | Attention | OV / mediation | Behavior | Status |
 |---|:--:|:--:|:--:|:--:|:--:|---|
-| Period-3 clock | ✓ | ✓ | ✓ | ✓ | ✓ | Causal positional support for donor–acceptor routing |
+| Period-3 positional carrier | ✓ | ✓ | ✓ | ✓ | ✓ | Causal positional support for donor–acceptor routing |
 | Donor–acceptor computation | n/a | ✓ | ✓ | ✓ | ✓ | Paired-acceptor information causally affects donor prediction |
 | Multi-species ≈10.63 carrier | ✓ | ✓ | ✓ | null (donor) | small suppr. | Reaches attention; OV write onto the donor readout is NULL and deletion has a small *suppressive* coupling effect — **not part of the donor circuit** (C37, donor-scoped); general OV (MLM) + origin open |
 | Human-only ≈10.2 candidate | ✓ | provisional | failed | — | null | Proposed chromatin circuit closed at attention |
@@ -50,13 +50,13 @@ coupling). Its general OV content (MLM output) and biological origin remain unte
 | `second_carrier.json` | Separation of period-3 and ≈10.63 components |
 | `carrier_provenance.json` | Checkpoint chronology and cross-checkpoint comparison |
 
-### Period-3 clock and donor–acceptor circuit
+### Period-3 positional carrier and donor–acceptor circuit
 
 | File | Role |
 |---|---|
 | `fig_phase_data.json` | Consolidated period-3 representation and head-readout evidence |
 | `comb_shift.json` / `comb_shift.manifest.json` | Controlled phase-shift assay |
-| `carrier_dose.json` / `carrier_dose.manifest.json` | Dose–response deletion of the clock |
+| `carrier_dose.json` / `carrier_dose.manifest.json` | Dose–response deletion of the carrier |
 | `carrier_mediation.json` / `carrier_mediation.manifest.json` | Head restoration and size-matched nulls |
 | `results/splicebert_coupling/` | Coupling, ablation, rescue, path, and sealed-test results |
 

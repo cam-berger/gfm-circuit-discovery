@@ -101,16 +101,17 @@ this file existed, that question had no answer here short of reading 34 protocol
 > (2026-08-12). `studies/splicebert_positional_proxy_modifiability/PREREGISTRATION.md` HAS NEVER BEEN
 > EXECUTED. Every gate in it is *specified*, not enforced.**
 >
-> That study did produce work, and none of it ran under that protocol. Its construction record
+> That study did produce work, and none of it ran under that protocol. Its live construction record
 > (`PPM1`, the real-panel capacity finding and its independent audit) is model-free and predates the
-> protocol's gate chain. Its behavioural and training readings — the annotated-phase reproduction, the
+> protocol's gate chain. Its former behavioral and training readings — the annotated-phase reproduction, the
 > designed-register constructs, the period-3 attenuation ladders, the relocation reading, and the two
 > continued-pretraining pilots — are **exploratory engineering runs deliberately taken OUTSIDE the
-> frozen protocol**, not attempts to satisfy it. They are recorded in that study's `DECISIONS.md` and
-> carry no claim row.
+> frozen protocol**, not attempts to satisfy it. They carried no claim row and were removed from the
+> active tree; the complete record is recoverable at
+> `archive/unsupported-exploratory-2026-08-22`.
 >
 > So nothing in that protocol may be cited as a gate that was enforced, and no artifact in
-> `results/splicebert_positional_proxy_modifiability/` or `results/splicebert_positional_clock/` may be
+> `results/splicebert_positional_clock/` may be
 > read as having passed one. In particular the frozen relocation preflight — all three `S_r` oriented,
 > `Ω3` resolved, handedness superior to controls — **did not run in its frozen form**; what ran was an
 > exploratory version whose construct was later shown not to carry the behaviour. The training arms
@@ -192,7 +193,7 @@ rows are in the JSON. `—` in the location column means the finding is about an
 | high | `scripts/splicebert/run_sealed_test.py:448` | Both preregistered Faithfulness control arms (complement-94 and all-96 ceiling) were silently dropped from the sealed run, with no amendment — and the one place they exist shows the complement nearly matches the circuit | Do not edit the frozen prereg (its recorded sha256 for run_sealed_test.py still holds). Add an R-number to CORRECTIONS.md recording that §3's Faithfulness controls were not executed on the sealed split, that the only available com |
 | high | `studies/splicebert_partner_selection/preregistrations/PREREGISTRATION_SEALED.md:143` | The sealed protocol's freeze-hash memorial is broken at HEAD and cannot fire: circuit.py no longer hashes to the frozen value, nothing compares the hashes, and the drift is logged nowhere | Add an R-number to CORRECTIONS.md stating that circuit.py drifted post-seal at commit 6a5e80e by a purely additive change (roll_attention + a guarded ALL_ATTENTION_FUNCTIONS import) unrelated to the sealed arms, that the pre-seal |
 | high | `src/gfmcd/splicing/circuit.py:62` | The R15-retracted "content-addressed read" characterization is still asserted in live T1 source and is printed to stdout as the conclusion by the sealed runner — flagged as unfixed nine days ago and never actioned | Edit circuit.py:62 to "L3H1 -- the acceptor read (see R15: no content-addressed/pointer claim)" and rewrite the :495-510 docstring conclusion as conditional-and-retracted. Do NOT edit run_sealed_test.py — its recorded freeze hash |
-| high | `results/MANIFEST.csv:160` | confirmation.json is registered canonical for C1 and is the sole numeric input to a figure of record, yet it has no producing script, no sibling manifest, and the three places that name a producer all name the wrong one or a nonexistent one | Identify and commit the script that produced confirmation.json, or mark it in MANIFEST.csv/RESULTS_INDEX.md as a legacy pre-consolidation artifact with no live generator and add a sibling .manifest.json recording that status plus |
+| high | `results/splicebert_coupling/confirmation.json` (archived) | `confirmation.json` was registered canonical for C1 and was the sole numeric input to a figure of record, yet it had no producing script or sibling manifest, and the three places that named a producer named the wrong one or a nonexistent one. | **Resolved 2026-08-22:** archived under `archive/unsupported-exploratory-2026-08-22`, removed from the active tree and manifest, and replaced in `fig1_coupling` by the corrected scan plus the manifest-backed sealed test. |
 | medium | `results/splicebert_coupling/sealed_test.manifest.json:65` | The provenance manifest for the one-shot sealed unblinding is stamped EXPLORATORY with no git commit, no checkpoint hash and no seeds — while the sibling protocol in the same family enforces "status must not lie" | Results are immutable, so do not rewrite the manifests. Add a `sealed_test.provenance_correction.json` (or an explicit note in results/splicebert_coupling/RESULTS_INDEX.md) recording that status EXPLORATORY is the ExperimentManife |
 | medium | `results/splicebert_coupling/sealed_test.json:1` | The sealed artifact's patch_windows provenance lists four validated patch windows including two adjacent-shift controls that were never run as interventions, contrary to the guard module's own "run these automatically" contract | Either wire the two adjacent-shift windows into the mediation specs as reported (ungated) arms for any future run, or rename the provenance key to make its scope explicit (e.g. `patch_windows_validated`) and add a one-line note in |
 | | | | |
@@ -425,9 +426,9 @@ document, and it is why the file exists rather than a note saying conformance wa
   resolution, and target resolution. BG1 validation, its audit, BG2, and the BG2 audit were not run. This
   is an instrument result only; it supplies neither a positive nor a null boundary-grammar claim.
 
-- **DNABERT-2 promoter (`DBP1`–`DBP17`) — there is no protocol to audit.** This is a different kind of
+- **DNABERT-2 promoter (`DBP1`–`DBP10`) — there is no protocol to audit.** This is a different kind of
   absence from the BG1/BG2 bullet above, and a worse one. BG1/BG2 froze a protocol and has not run; the
-  DNABERT-2 study **ran, produced seventeen ledgered claims, and never froze a protocol at all**. Its prose
+  DNABERT-2 study **ran, produced ten live ledgered claims, and never froze a protocol at all**. Its prose
   nonetheless described "preregistered component conditions" for the confirmatory donor-matrix run, which
   is withdrawn under `DBPR8`. A reader scanning this file for "is this arc audited?" must read its
   absence as *no preregistration exists*, not as coverage pending.
@@ -440,19 +441,16 @@ document, and it is why the file exists rather than a note saying conformance wa
   `studies/dnabert_promoter/DECISIONS.md` § "Known departures from repository convention". No `DBP` row
   may be cited as a preregistered result, and none is.
 
-  The **fine-tuned extension** (`DBP11`–`DBP17`, landed 2026-08-14) inherits this position exactly and
-  adds nothing to it: it froze no protocol either, its endpoints were chosen after the sweep was seen,
-  and its 52 artifacts were produced by `notebooks/dnabert_finetuned_experiments.ipynb` rather than by
-  runners, so they carry no manifests and are not re-runnable from a clean checkout. Nothing in
-  `DBP11`–`DBP17` may be cited as preregistered or as gate-enforced. Two of its readings are bounded
-  further by `DBPR10` (the frozen/fine-tuned contrast is descriptive, not a fine-tuning effect) and
-  `DBPR11` (the Layer-10 endpoint is a band, not a point). The one exception, and the shape the rest
-  should take, is `layer_selection_band.json`, which has a producing script and a sibling manifest.
+  The former fine-tuned extension (`DBP11`–`DBP17`) froze no protocol, selected endpoints after the
+  sweep, and produced 52 artifacts from a notebook rather than runners. The files lacked manifests and
+  were not clean-checkout reproducible, and the comparison used an unmatched task and readout. They were
+  archived and removed from the live ledger under `DBPR12`; the historical record is recoverable at
+  `archive/unsupported-exploratory-2026-08-22`.
 
 ## Related records
 
 `studies/splicebert_partner_selection/CORRECTIONS.md` — R28 and R29–R35, the deviations whose claim
-wording moved · `studies/dnabert_promoter/CORRECTIONS.md` — `DBPR1`–`DBPR8`, the DNABERT-2 arc's
-withdrawals, of which `DBPR8` is the preregistration gap · `tests/test_hash_pin_ledger.py`,
+wording moved · `studies/dnabert_promoter/CORRECTIONS.md` — `DBPR1`–`DBPR12`, the DNABERT-2 arc's
+withdrawals and archive record, of which `DBPR8` is the preregistration gap · `tests/test_hash_pin_ledger.py`,
 `tests/test_ledger_consistency.py`, `tests/test_overwrite_guard.py` — the guards that now enforce what was
 previously prose.

@@ -1,13 +1,17 @@
 {
-  "git_commit": "a8aa70db427d520fd70822426445d786abf93e00",
+  "git_commit": "409e1547f94fdd999d312993988d7fb3894106bc",
   "sources": [
     {
-      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/figures/splicebert/data/pair_categories.json",
+      "path": "figures/splicebert/data/pair_categories.json",
       "sha256": "da6deacfaa4cdfc8edae3ed167cf6be9add046d8064a75b0322630e478c06287"
     },
     {
-      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_coupling/confirmation.json",
-      "sha256": "6d2f99830587358f6a655123edaa2fda92b0c255c84b2f6b0d77bb678b9904f5"
+      "path": "results/splicebert_coupling/development/ablation_scan.json",
+      "sha256": "6cf5ca6f76c576174ba16f5db47a833ed37e9c63859dbfb911f99fe07297e20f"
+    },
+    {
+      "path": "results/splicebert_coupling/sealed_test.json",
+      "sha256": "ebbf745e410d1881fc0649a53898338de90dfee07756f26e9b19ba92056098ef"
     }
   ]
 }

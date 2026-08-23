@@ -1,7 +1,7 @@
 # SpliceBERT findings of record
 
 This is the concise scientific narrative for the donor-circuit study. Exact live wording is controlled by
-[`CLAIMS.md`](CLAIMS.md); full superseded narratives and R1–R47 are preserved in
+[`CLAIMS.md`](CLAIMS.md); full superseded narratives and R1–R48 are preserved in
 [`CORRECTIONS.md`](CORRECTIONS.md). The repository-level [`../../MECHANISM.md`](../../MECHANISM.md) is the
 one-file reviewer account.
 
@@ -10,10 +10,10 @@ one-file reviewer account.
 | Finding | Strongest evidence | Current interpretation |
 |---|---|---|
 | Donor–acceptor coupling | sealed behavior + specificity | A masked donor score depends on its own paired acceptor in the canonical short-intron domain. |
-| Structured donor core | QK → attention → OV/mediation → behavior | Address/payload binding and low-rank delivery form a causal core, not a minimal or sparse-faithful whole circuit. |
+| Structured donor core | QK → attention → OV/mediation → behavior | Address/payload conjunction and low-rank delivery form a causal core, not a minimal or sparse-faithful whole circuit. |
 | Period-3 carrier | position → routing → mediation → clean confirmatory behavior | A distributed relative-positional routing coordinate is causally used in a phase-aligned manner; coding enrichment remains unresolved. |
 | Multispecies ≈10.63 carrier | position → QK → post-softmax attention | A distinct positional attention circuit; donor-scoped downstream arms are bounded, general function remains open, and comparative origin is associated with multi-species pretraining. |
-| Coding-boundary phase (C43/C44) | behavior, outcome-blind replication; mediation unresolved | Partner coupling prefers donor–acceptor codon reading-frame **matches** — inside a frozen chimeric crossed lattice at one span, and without licensing "only". Whether the period-3 carrier implements it is **unresolved**, not answered either way. |
+| Coding-boundary register (C43/C44) | behavior, outcome-blind replication; mediation unresolved | In a frozen chimeric crossed lattice at one span, partner coupling is greater when the annotated donor and acceptor boundary registers match. Whether the period-3 carrier implements this preference is **unresolved**, not answered either way. |
 | Human-only ≈10.2 proposal | position/QK; fails attention | The proposed chromatin-reader circuit is closed at the attention gate. |
 | Nucleosomal ≈10.298 signal | sequence-side biological assay | A strong biological signal exists but is distinct from the ≈10.63 carrier. |
 
@@ -51,10 +51,11 @@ reconstruct the behavior from a scrubbed complement: `F(C)=0.005`. The non-embed
 post-hoc necessity `N(C without embed)=0.989`, while injected clean outputs give
 `D(C without embed)=0.986`.
 
-A held-out backward-ranked size curve reaches 50/80/90/95% faithfulness at approximately
-34/56/72/80 of 103 nodes and has no knee. The named mechanism is therefore a **structured top-ranked
-core embedded in an irreducibly distributed computation**. Static ranking only upper-bounds the smallest
-faithful set; no minimal-circuit claim is made.
+A held-out backward-ranked size curve reaches 50/80/95% faithfulness at approximately 34/56/80 of 103
+nodes; the preregistered 90% interpolation is 64.2, and the first sampled point above 90% is 72. The
+curve has no knee. The named mechanism is therefore a **structured top-ranked core within distributed
+computation under the tested ranking**. Static ranking only upper-bounds the smallest faithful set; no
+minimal-circuit or impossibility claim is made.
 
 ## 4. Payload location is established; semantics are not
 
@@ -110,7 +111,8 @@ in CDS blocks, not coding specificity, reading-frame sensing, or training origin
 The separate multispecies **≈10.63** carrier reaches controlled post-softmax attention in eight heads. Its
 donor-side OV and behavioural arms ran (C37→C12) and returned a sub-SESOI non-detection and a small
 suppressive bound (−0.033 raw logit units), not positives; its **general** OV content and behavioural function remain
-unresolved, its biological origin is corpus-attributed (C39/C40), and the `U_info` write test was never
+unresolved. C39/C40 provide comparative training-lineage association, not biological or causal origin,
+and the `U_info` write test was never
 computed **and is not evaluable as preregistered** — every per-head OV branch is scoped to L0 readers and
 no L0 head reaches Level A on this checkpoint, so that branch sits at protocol Endpoint B (R31/R36). The
 human-only ≈10.2 proposal yields zero

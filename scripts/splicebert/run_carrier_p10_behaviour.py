@@ -42,7 +42,7 @@ from gfmcd.splicing.circuit import (  # noqa: E402
 )
 
 BAND_P10 = list(range(94, 101))     # the ≈10.63 carrier (7 bins; second_carrier.py / prereg D10)
-P3_BAND = list(range(339, 346))     # the period-3 clock, for M-p3contrast (the re-pointed-instrument positive)
+P3_BAND = list(range(339, 346))     # period-3 carrier, for M-p3contrast (the re-pointed-instrument positive)
 T_P10 = 1026 / 96
 SESOI_C = 0.05
 CHANCE = float(np.log(0.25))

@@ -1,32 +1,28 @@
 {
-  "git_commit": "a8aa70db427d520fd70822426445d786abf93e00",
+  "git_commit": "409e1547f94fdd999d312993988d7fb3894106bc",
   "sources": [
     {
-      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_coupling/a10_generator_edges.json",
+      "path": "results/splicebert_coupling/a10_generator_edges.json",
       "sha256": "bf20d274d30a3c1b63ff84ad9e1a4b5b403ed1f477ff7f4f673b5cc11ec5df3f"
     },
     {
-      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_coupling/a12_faithfulness_size.json",
+      "path": "results/splicebert_coupling/a12_faithfulness_size.json",
       "sha256": "6023774734367d79e9ecca60e756471dc68f53cd32c242f488c3fc5a7df127bc"
     },
     {
-      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_coupling/a3_l2h15_address_payload.json",
+      "path": "results/splicebert_coupling/a3_l2h15_address_payload.json",
       "sha256": "6b530d0d8b4a6226d01d88b0bec89c6ca352469bc9dba7155b97d8280bba0110"
     },
     {
-      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_coupling/confirmation.json",
-      "sha256": "6d2f99830587358f6a655123edaa2fda92b0c255c84b2f6b0d77bb678b9904f5"
-    },
-    {
-      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_coupling/donor_anchor.json",
+      "path": "results/splicebert_coupling/donor_anchor.json",
       "sha256": "7da48cd7f73ca6fbd12b23863ab43616c7dc31417b944727f371499ca10156ee"
     },
     {
-      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_coupling/readout_path.json",
+      "path": "results/splicebert_coupling/readout_path.json",
       "sha256": "37cb3860f70b190dcc740e097fb840953079d0693277767776332f0b2ed30aae"
     },
     {
-      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/phase-lattice/carrier_dose.json",
+      "path": "results/phase-lattice/carrier_dose.json",
       "sha256": "522bd2a0ab384d03a18266ad0a14cfb561fd88bdcb1e871ca0a1fef0ac202811"
     }
   ]

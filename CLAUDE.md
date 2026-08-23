@@ -37,9 +37,9 @@ ADDRESS   position-embedding geometry (predominantly relative offset + modest ab
 PAYLOAD   acceptor-local state → L0H7/H12/H10 → MLP0 (mediates) → MLP1 → MLP2 (C29, C31)
           ⇒ an ACCEPTOR-LOCAL payload, NOT explained by bulk composition, whose SEMANTIC IDENTITY IS
             UNRESOLVED (C30, bounded by R22 — never call it "splice-site strength"; that is withdrawn)
-BIND/DELIVER  address × payload at L3H1 → donor-side low-rank U_info → transporter heads → donor readout
-FAITHFULNESS  IRREDUCIBLY DISTRIBUTED (C33): no knee in the held-out size curve — a structured causal
-              core within an irreducibly distributed computation, not a sparse circuit; minimality unclaimed
+WRITE/DELIVER address × payload at L3H1 → donor-side low-rank U_info → transporter heads → donor readout
+FAITHFULNESS  DISTRIBUTED UNDER THE TESTED RANKING (C33): no knee in the held-out size curve — a
+              structured causal core within distributed computation; minimality unclaimed
 ```
 
 The frozen one-sentence mechanism statement, its checkpoint caveats, and its scope limits belong to
@@ -49,8 +49,8 @@ The frozen one-sentence mechanism statement, its checkpoint caveats, and its sco
 
 | Question | File that owns the answer |
 |---|---|
-| What is claimed, in what words? | the seven `CLAIMS.md` ledgers that carry rows: [donor circuit](studies/splicebert_partner_selection/CLAIMS.md) (`C*`, 45), [GTEx fine-tuning shift](studies/splicebert_gtex_finetune_shift/CLAIMS.md) (`GFS*`, 34), [Head–Context Atlas](studies/splicebert_head_context_atlas/CLAIMS.md) (`HCA*`, 21), [DNABERT-2 promoter](studies/dnabert_promoter/CLAIMS.md) (`DBP*`, 17 — the only **non-SpliceBERT** ledger; `DBP11`–`DBP17` are the fine-tuned extension), [acceptor coupling](studies/splicebert_acceptor_coupling/CLAIMS.md) (descriptive `acceptor-coupling/*` records with immutable aliases `AC1`–`AC11` — the **reverse** direction; the QK score diagnostic has no claim alias), [positional boundary coherence](studies/splicebert_positional_boundary_coherence/CLAIMS.md) (`PBC1`, an instrument-unresolved construction result), and [positional-proxy modifiability](studies/splicebert_positional_proxy_modifiability/CLAIMS.md) (`PPM1`, a model-free capacity result) |
-| What was retracted or bounded, and why? | [`CORRECTIONS.md`](studies/splicebert_partner_selection/CORRECTIONS.md) — **R1–R47**. R1–R24 are table rows (some are ranges); R25–R47 are `##` sections later in the same file — scan both. The DNABERT-2 study keeps its own: [`DBPR1–DBPR11`](studies/dnabert_promoter/CORRECTIONS.md) — read those before quoting any `DBP*` prose, five of that arc's headline sentences are bounded or withdrawn there, and `DBPR11` bounds the fine-tuned Layer-10 endpoint to a band. |
+| What is claimed, in what words? | the seven `CLAIMS.md` ledgers that carry rows: [donor circuit](studies/splicebert_partner_selection/CLAIMS.md) (`C*`, 45), [GTEx fine-tuning shift](studies/splicebert_gtex_finetune_shift/CLAIMS.md) (`GFS*`, 34), [Head–Context Atlas](studies/splicebert_head_context_atlas/CLAIMS.md) (`HCA*`, 21), [DNABERT-2 promoter](studies/dnabert_promoter/CLAIMS.md) (`DBP1`–`DBP10` — the only **non-SpliceBERT** ledger), [acceptor coupling](studies/splicebert_acceptor_coupling/CLAIMS.md) (descriptive `acceptor-coupling/*` records with immutable aliases `AC1`–`AC11` — the **reverse** direction; the QK score diagnostic has no claim alias), [positional boundary coherence](studies/splicebert_positional_boundary_coherence/CLAIMS.md) (`PBC1`, an instrument-unresolved construction result), and [positional-proxy modifiability](studies/splicebert_positional_proxy_modifiability/CLAIMS.md) (`PPM1`, a model-free capacity result) |
+| What was retracted or bounded, and why? | [`CORRECTIONS.md`](studies/splicebert_partner_selection/CORRECTIONS.md) — **R1–R48**. R1–R24 are table rows (some are ranges); R25–R48 are `##` sections later in the same file — scan both. The DNABERT-2 study keeps its own [`DBPR1–DBPR12`](studies/dnabert_promoter/CORRECTIONS.md); DBPR12 records removal of the non-reproducible notebook-only fine-tuned extension. |
 | Why was an experiment designed that way? | [`DECISIONS_A0.md`](studies/splicebert_partner_selection/DECISIONS_A0.md) and each study's `DECISIONS*.md` |
 | What is next, and what is deferred? | [`docs/ROADMAP.md`](docs/ROADMAP.md) |
 | Was a preregistered gate actually enforced? | [`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) — **read before citing any gate as enforced**; many runners departed from their frozen protocol. Covers the SpliceBERT donor/carrier arc only — `GFS*` gates are self-reported, not audited; positional-boundary-coherence Phase I executed and stopped instrument-unresolved before any model outcome, leaving later phases unauthorized; and the `DBP*` study **froze no preregistration at all** (DBPR8), so nothing in it may be cited as a preregistered result |
@@ -112,11 +112,9 @@ arc's sanctioned successor and inherits blacklists and geometry from it, never i
   `DBP*` study has **none**, see DBPR8). `src/gfmcd/{splicing,circuits,adapters}/` hold the assays,
   reusable primitives and model access; `src/gfmcd/dnabert/` holds the DNABERT-2 dataset and
   perturbation utilities.
-- **Every result writes a sibling `*.manifest.json`.** Use `gfmcd.provenance.ExperimentManifest`, or for
-  the DNABERT-2 study the wrapper `gfmcd.dnabert.write_run_manifest`, which is wired into all 15 canonical
-  `scripts/dnabert_promoter/` runners plus `analyze_finetuned_layer_selection.py`. Two gaps remain, both
-  disclosed rather than back-filled: ~104 frozen DNABERT-2 artifacts predate that wiring, and the 52
-  fine-tuned artifacts (`DBP11`–`DBP16`) came from `notebooks/dnabert_finetuned_experiments.ipynb` rather
-  than from runners, so they carry blank `script` *and* `manifest` columns truthfully (`DBPR11`). Porting
-  that notebook to `scripts/dnabert_promoter/` is the gating item before any fine-tuned row is promoted.
-  Never invent a provenance record for a run whose conditions were not captured.
+- **Every new result writes a sibling `*.manifest.json`.** Use
+  `gfmcd.provenance.ExperimentManifest`, or the DNABERT-2 wrapper
+  `gfmcd.dnabert.write_run_manifest`. Most historical frozen DNABERT-2 artifacts predate that wiring;
+  their blank manifest fields are disclosed rather than back-filled. The notebook-only fine-tuned
+  extension was archived under DBPR12. Never invent provenance for a run whose conditions were not
+  captured.

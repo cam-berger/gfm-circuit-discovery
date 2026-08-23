@@ -1,9 +1,0 @@
-experiment,result
-Full test performance,BA=0.935205; MCC=0.870487; AUC=0.984785
-Layer localization,Best layer=L10; test BA=0.932418; AUC=0.983282
-L0H8 ablation,BA 0.957031 -> 0.511719
-L0_MLP ablation,BA 0.957031 -> 0.816406
-Combined early ablation,BA 0.957031 -> 0.503906
-Activation restoration,ablated BA=0.503906; restore H8=0.816406; restore MLP=0.925781; restore both=0.957031
-Donor compatibility,opposite/same disruption ratio: H8=1.89x; MLP=8.57x; both=7.12x
-TATA perturbation,mean excess damage=-0.021874; p=0.162760

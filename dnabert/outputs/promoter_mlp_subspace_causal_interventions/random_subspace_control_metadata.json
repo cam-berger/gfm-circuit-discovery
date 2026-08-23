@@ -1,9 +1,0 @@
-{
-  "random_seed": 20260729,
-  "number_of_random_bases_per_rank": 20,
-  "random_control_ranks": [
-    1,
-    4
-  ],
-  "shift_norm_matching": "Each random intervention used the same sequence-level shift norm as the corresponding learned GC rank-1 or rank-4 full intervention."
-}
