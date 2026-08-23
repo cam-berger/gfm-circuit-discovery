@@ -1,8 +1,0 @@
-analysis,component,effect,metric,interpretation
-Best linear-readout layer,Layer 5 residual stream,0.8106375000000001,test ROC-AUC,Promoter information is most linearly accessible at Layer 5.
-Strongest mean-replaced branch,Layer 1 attention,7.7306429351009,mean Layer-5 probe-logit drop,Early attention carries sequence-specific information needed for the Layer-5 readout.
-Strongest MLP branch,Layer 1 MLP,7.56137214950234,mean Layer-5 probe-logit drop,Layer 1 MLP is also strongly required for the promoter-associated representation.
-Strongest attention head,L1H9,6.64592952611146,mean Layer-5 probe-logit drop,Dominant early attention-head candidate.
-Second strongest attention head,L1H2,5.89922504508884,mean Layer-5 probe-logit drop,Second dominant Layer-1 attention-head candidate.
-Top-head interaction,L1H9 + L1H2,-4.42674694687759,interaction term,Negative interaction supports redundancy or saturation rather than additivity.
-Cross-layer incremental contribution,L2H9 after L1H9 + L1H2,1.0770358621341618,incremental mean logit drop,L2H9 contributes additional partly independent promoter-relevant information.

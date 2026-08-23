@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""FIGURE 3 -- The period-3 clock becomes a biological circuit.
+"""FIGURE 3 -- causal use of the period-3 positional carrier.
 
 Reads ONLY results/phase-lattice/fig_report_data.json.
 
@@ -37,13 +37,13 @@ COMBS = D["combs"]
 DOM = D["dom_phase"]
 OFF = np.array(D["Rk_offsets"])
 
-c.txt(W / 2, 40, "The period-3 clock is load-bearing for donor-acceptor routing", size=22,
+c.txt(W / 2, 40, "The period-3 positional carrier supports donor-acceptor routing", size=22,
       fill=INK, anchor="middle", weight="700")
 c.txt(W / 2, 64, "SpliceBERT.1024nt", size=12.5, fill=MUT, anchor="middle")
 
 # ============================================================ A. six comb profiles
 AX, AY, AW, AH = 80, 118, 872, 272
-c.plabel(AX, AY - 14, "A", "Each comb head reads one codon position")
+c.plabel(AX, AY - 14, "A", "Each comb head reads one carrier phase")
 c.rect(AX, AY, AW, AH, fill=PANEL)
 
 MW = AW / 6
@@ -55,7 +55,7 @@ for i, h in enumerate(COMBS):
     pad = (hi - lo) * .16 or 1.0
     gx = lambda k: ox + (k - OFF[0]) / (OFF[-1] - OFF[0]) * ow            # noqa: E731
     gy = lambda v: oy + oh - (v - lo + pad) / (hi - lo + 2 * pad) * oh    # noqa: E731
-    # the teeth this head reads: offsets congruent to its codon position
+    # the teeth this head reads: offsets congruent to its carrier phase
     for k in OFF:
         if k % 3 == DOM[h]:
             c.line(gx(k), oy, gx(k), oy + oh, stroke=col, w=1, op=.16)
@@ -66,7 +66,7 @@ for i, h in enumerate(COMBS):
         if k % 3 == DOM[h]:
             c.dot(gx(k), gy(v), 2.8, col, rw=0)
     c.txt(ox + ow / 2, AY + 30, h, size=11.5, fill=INK, anchor="middle", weight="700")
-    c.txt(ox + ow / 2, AY + 44, f"codon {DOM[h]}", size=9.5, fill=col, anchor="middle",
+    c.txt(ox + ow / 2, AY + 44, f"phase {DOM[h]}", size=9.5, fill=col, anchor="middle",
           weight="700")
     c.txt(ox + ow / 2, oy + oh + 16, "-12", size=8.5, fill=MUT, anchor="start", cls="mono")
     c.txt(ox + ow, oy + oh + 16, "+12", size=8.5, fill=MUT, anchor="end", cls="mono")
@@ -84,7 +84,7 @@ for t in range(3):
     a = math.radians(90 - 120 * t)
     c.line(wcx, wcy, wcx + math.cos(a) * WR, wcy - math.sin(a) * WR, stroke=RULE, w=1, dash="3 3")
 
-# Heads of the SAME codon class land on the SAME point -- that IS the result.  So label the
+# Heads of the SAME carrier-phase class land on the SAME point -- that IS the result.  So label the
 # CLASS once, naming both heads, instead of stacking two labels on top of each other.
 klass: dict[int, list] = {}
 for hp in D["head_phases"]:
@@ -101,14 +101,14 @@ for dom, hps in sorted(klass.items()):
     ma = math.atan2(sum(math.sin(h["phase_pred"]) for h in hps),
                     sum(math.cos(h["phase_pred"]) for h in hps))
     lx, ly = wcx + math.cos(ma) * (WR + 47), wcy - math.sin(ma) * (WR + 47)
-    c.txt(lx, ly, f"codon {dom}", size=9.5, fill=col, anchor="middle", weight="700")
+    c.txt(lx, ly, f"phase {dom}", size=9.5, fill=col, anchor="middle", weight="700")
     c.txt(lx, ly + 13, "  ".join(h["head"] for h in hps), size=9, fill=col, anchor="middle",
           cls="mono")
 
 c.txt(PX + PW / 2, PY + 232,
       f"Predicted vs measured:  worst {D['worst_phase_err_deg']:.2f} deg", size=10.5,
       fill=INK, anchor="middle", weight="700", cls="mono")
-c.txt(PX + PW / 2, PY + 249, "against 120 deg between codon positions", size=10, fill=MUT,
+c.txt(PX + PW / 2, PY + 249, "against 120 deg between carrier phases", size=10, fill=MUT,
       anchor="middle")
 c.dot(PX + 78, PY + 262, 5, SLATE)
 c.txt(PX + 90, PY + 266, "predicted from QK", size=9.5, fill=SEC)

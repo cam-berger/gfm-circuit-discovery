@@ -139,95 +139,6 @@ hashes; until then the cleaned row counts are recoverable only indirectly, from 
 records which cohort a run read, so future artifacts state it on their own.
 
 
-## Fine-tuned extension decisions
-
-These entries record the design of the completed fine-tuned checkpoint analysis. They extend the frozen
-study record; they do not retroactively change D1–D13.
-
-## D14 — Treat the fine-tuned checkpoint as a distinct analyzed model state
-
-The analyzed task-specific checkpoint is `magicslabnu/DNABERT-2-finetuned-prom_300_all` at revision
-`7f2a5f5b8e7e6fffb2dcb396a77d1bc78b7f5f12`. It is instantiated through
-`quietflamingo/dnabert2-no-flashattention` at revision
-`813031b2bf86d9e960a027e2734c908009f31601` because that implementation is compatible with the current
-environment. State-dict loading is exact (zero missing/unexpected keys) and the classifier head is checked
-against the checkpoint. The model state is therefore pinned for analysis, but this does not by itself prove
-that it is the exact supervised descendant of the frozen assay state under a controlled training run.
-
-## D15 — Fine-tuned behaviour is GUE `prom_300_all`, 300 nt
-
-The fine-tuned checkpoint is evaluated on `leannmlindsey/GUE`, task `prom_300_all`, with 300-nt sequences
-and official split sizes `47,356 / 5,920 / 5,920`. This is deliberately recorded as a different scoped
-behaviour from D1's frozen `prom_core_all`, 70-nt assay. Exact cross-split overlaps are audited and a
-strict-unseen test sensitivity analysis is reported, but the frozen cleaner's policy is not silently
-ported to this separate package.
-
-## D16 — Layer probing is a representation assay, selected only on development data
-
-Masked-mean representations are extracted from all 12 encoder layers and each layer receives an independent
-`StandardScaler + LogisticRegression` probe. The endpoint is selected by development balanced accuracy
-with development ROC-AUC as tie-breaker. Test metrics remain descriptive. Layer 10 wins by the stated
-development rule; Layer 8 has slightly higher test BA and is not substituted post hoc. The probe is
-interpreted as linear accessibility, never as causal localization.
-
-**Amended 2026-08-14 (`DBPR11`).** The rule is kept, but its output is no longer reported as a point.
-The Layer-10 lead over Layer 7 is `0.000998` development BA = `0.33` standard errors, so the sweep does
-not separate layers 7–11 at one SE or 5–11 at two. `analyze_finetuned_layer_selection.py` computes that
-band from the committed metrics and writes
-`layer_localization/layer_selection_band.json` with a sibling manifest; `DBP13` now quotes the band.
-This is an unpaired bound — per-layer per-example predictions were not committed, so the tighter paired
-test cannot be run from the tree. Note also that the `dev` split now carries two selection roles: it
-selects this probe layer, and it is the split against which the third-party checkpoint's own model
-selection is undocumented.
-
-## D17 — Lock one balanced 256-example test cohort for targeted causal assays
-
-The targeted ablation and activation-restoration assays use a deterministic seed-42 cohort of 256 test
-examples, balanced `128/128` across non-promoter/promoter labels. Reusing one locked cohort makes the
-ablation and restoration conditions directly comparable. It does not substitute for multi-seed or
-multi-cohort robustness.
-
-## D18 — Intervene on `L0H8` before the attention output projection and on the Layer-0 MLP output
-
-For the 12-head, 768-dimensional encoder, head 8 occupies concatenated head slice `[512:576]`. The head
-intervention zeros that slice immediately before `attention.output.dense`. The MLP intervention zeros the
-Layer-0 `mlp.wo` output before residual addition and LayerNorm. These sites are chosen so the interventions
-target the branch outputs directly and are reproducible.
-
-## D19 — Restoration is evaluated in the joint-ablation background
-
-Clean `L0H8` and `L0_MLP` activations are cached, both branches are ablated, and then H8 alone, MLP alone,
-or both are restored. This design asks how much of the jointly corrupted computation each clean branch can
-recover. It is intentionally not used to rank branches as context-free causes: independent ablation and
-joint-background restoration answer different questions.
-
-## D20 — Align activation sources by nucleotide overlap, not raw BPE token index
-
-DNABERT-2 token boundaries vary across sequences, so transplanting activations by token index would mix
-different nucleotide spans. For each recipient token, the fine-tuned donor-matrix assay uses tokenizer
-offsets to find overlapping source-token nucleotide intervals and inserts an overlap-weighted source
-activation; `[CLS]` and `[SEP]` map to their corresponding special tokens. The primary contrast is
-same-class versus opposite-class source compatibility.
-
-## D21 — Use a paired motif-versus-mirrored-control TATA assay
-
-For each eligible `TATA[AT][AT]` promoter, the earliest occurrence is selected and replaced with `CGCGCG`.
-A mirrored 6-nt control window in the same sequence receives the same replacement, shifted deterministically
-if it overlaps the motif. The primary statistic is excess motif damage:
-`(baseline - motif_perturbed) - (baseline - control_perturbed)`. This controls local edit magnitude but is
-not the same perturbation design as D11's frozen 70-nt assay.
-
-## D22 — Cross-state comparison is descriptive until task and readout are matched
-
-The completed fine-tuned package does not make D1/D2 and D15 the same experiment. Frozen and fine-tuned
-states differ in GUE task configuration, sequence length, cohort treatment, and primary readout, and the
-frozen Layer-2 working choice is not a stable localization result. Therefore the current comparison is
-allowed to ask what each analyzed state looks like internally, but not to identify fine-tuning as the
-unique cause of their difference. A causal fine-tuning comparison requires a matched assay, ideally
-evaluating the exact pre-fine-tune parent and fine-tuned checkpoint on the same examples under the same
-representation/intervention definitions.
-
-
 ## Known departures from repository convention
 
 Recorded rather than quietly tolerated. Each blocks promotion of the affected rows.
@@ -238,4 +149,4 @@ Recorded rather than quietly tolerated. Each blocks promotion of the affected ro
 | 2 — memorials that can fail, on the measurement path | Identity controls are genuine and exact, but there are no arithmetic anchors of the `value_linearity` kind. | Identity-zero is necessary and was met; it is not sufficient as a memorial set. |
 | 3 — calibration for identification claims | **No planted-positive sensitivity and no permuted-label FPR** for the head ranking, group selection, or transplant matrix. | The identification claims (DBP5 especially) stay candidates. Calibration has caught decision-layer bugs in this repo before, and it needs GPU runs, so it is a gate rather than something this review could close. |
 | 4 — held-out plus multiple seeded draws | Validation→test discipline honoured; **single seed (42) throughout**. | Every effect is single-seed. Effect-existence is not established for any of them, and the endpoint margin is inside noise. |
-| 7 — every result writes a manifest | **Fixed forward for runners; extended forward once by the fine-tuned package.** `src/gfmcd/dnabert/manifest.py` is wired into all 15 canonical frozen runners plus `analyze_finetuned_layer_selection.py`, so a rerun writes hashed inputs/outputs, the probe sha256, split provenance, seed, command and git state; `tests/test_dnabert_manifest.py` pins the contract. The ~104 *existing* frozen artifacts still have none. **The fine-tuned extension added 52 more without manifests** (`DBPR11`): it was produced by `notebooks/dnabert_finetuned_experiments.ipynb` rather than by runners, so those rows carry blank `script` *and* blank `manifest`. `layer_selection_band.json` is the one fine-tuned artifact with both. | Historical rows carry a blank `manifest` column rather than a back-filled record — the run conditions were never captured, and inventing them would be worse than an honest blank. The fine-tuned rows are a **disclosed, accepted debt**, not an oversight: their inputs are pinned by revision in `finetuned/shared/`, but the assays are not re-runnable from the tree until the notebook is ported to `scripts/dnabert_promoter/`. That port is the gating item before any fine-tuned row is promoted past its current tier. |
+| 7 — every result writes a manifest | **Fixed forward for runners.** `src/gfmcd/dnabert/manifest.py` is wired into the canonical frozen runners, so a rerun records hashed inputs/outputs, probe sha256, split provenance, seed, command, and git state. Most historical frozen artifacts still predate this contract. | Historical rows keep blank manifest fields rather than invented provenance. Closing this gap requires rerunning the affected assays; until then every DBP claim carries the provenance limitation. |

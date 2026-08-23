@@ -1,2 +1,0 @@
-number_of_folds,mean_incremental_cv_r2,median_incremental_cv_r2,minimum_incremental_cv_r2,maximum_incremental_cv_r2,fraction_folds_improved
-10,0.05556029720009331,0.11442386735539017,-0.3433262993458077,0.24009543112036047,0.7

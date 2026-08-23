@@ -1,8 +1,7 @@
-"""Publication-width renderers used by ``notebooks/edit_neurips_paper_figures.ipynb``.
+"""Publication-width renderers for the editable paper figures.
 
-The notebook owns the editable configuration.  This module keeps the rendering,
-artifact validation, provenance, QA, and safe-promotion machinery in importable
-functions so that a notebook restart cannot leave part of a renderer undefined.
+This module owns rendering, artifact validation, provenance, QA, and safe-promotion
+in importable functions. Callers supply layout configuration explicitly.
 
 No scientific quantity is recomputed here.  Both figures read the immutable
 artifacts used by the paper and refuse to render if the recorded instrument gates
@@ -273,7 +272,7 @@ def default_core_layout() -> dict[str, Any]:
                 "xy": (0.50, 0.46),
                 "wh": (0.34, 0.14),
                 "title": "L3H1",
-                "subtitle": "binds + writes",
+                "subtitle": "reads + writes",
                 "role": "payload",
                 "emphasis": True,
             },
@@ -568,7 +567,7 @@ def render_core_figure(
             zorder=4,
         )
         faith.annotate(
-            "90% region\n64–72 nodes",
+            "90% threshold\n64.2 interpolated; 72 sampled",
             xy=(72, data["crossing_90"]["sampled"]),
             xytext=(45, 1.015),
             textcoords="data",

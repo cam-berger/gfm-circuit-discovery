@@ -1,8 +1,0 @@
-{
-  "bootstrap_seed": 43,
-  "number_of_bootstrap_samples": 5000,
-  "number_of_sequences": 378,
-  "number_of_components": 8,
-  "primary_statistic": "ratio of bootstrap mean blocked effect to bootstrap mean total intervention effect",
-  "important_limitation": "Restoring one branch to its clean output tests whether the branch transmits the intervention-induced difference, but correlated or redundant pathways can cause mediation fractions to overlap or exceed one."
-}

@@ -8,16 +8,11 @@
 > (`DBPR2`–`DBPR5`, `DBPR8`). The **numbers were verified and left exactly as they were** — every metric
 > and mean difference here reconciles to its artifact. What changed is what they are said to mean.
 
-## Fine-tuned extension pointer
+## Scope
 
-This file remains the **frozen** experiment registry. The later fine-tuned checkpoint analysis is not
-folded into these assay definitions because it studies a distinct 300-nt `prom_300_all` behaviour and
-readout. Its claim-grade record is in `CLAIMS.md` (DBP11–DBP17), its design decisions are D14–D22 in
-`DECISIONS.md`, and the concise descriptive comparison is
-[`FINETUNED_VS_FROZEN.md`](FINETUNED_VS_FROZEN.md).
-
-The old fine-tuning smoke metrics withdrawn under DBPR6 remain withdrawn. They are not replaced by editing
-this frozen registry; the later fine-tuned package is a separate evidentiary record.
+This registry covers only the frozen 70-nt `prom_core_all` assay and live claims DBP1–DBP10. The
+notebook-only fine-tuned extension was archived under DBPR12 and is recoverable at
+`archive/unsupported-exploratory-2026-08-22`; it is not part of this registry.
 
 ## Canonical assay
 

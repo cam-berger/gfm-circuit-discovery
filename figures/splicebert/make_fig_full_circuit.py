@@ -35,7 +35,6 @@ from figstyle import (  # noqa: E402
 A10 = REPO / "results" / "splicebert_coupling" / "a10_generator_edges.json"
 A12 = REPO / "results" / "splicebert_coupling" / "a12_faithfulness_size.json"
 A3 = REPO / "results" / "splicebert_coupling" / "a3_l2h15_address_payload.json"
-CONFIRMATION = REPO / "results" / "splicebert_coupling" / "confirmation.json"
 DONOR_ANCHOR = REPO / "results" / "splicebert_coupling" / "donor_anchor.json"
 READOUT_PATH = REPO / "results" / "splicebert_coupling" / "readout_path.json"
 CARRIER_DOSE = REPO / "results" / "phase-lattice" / "carrier_dose.json"
@@ -182,7 +181,7 @@ def main() -> None:
     )
 
     p3 = _node(
-        ax, (0.095, 0.18), (0.145, 0.18), "Period-3 code", "coordinate",
+        ax, (0.095, 0.18), (0.145, 0.18), "Period-3 component", "positional input",
         edge=PERIOD3, fill="#F3F8FC",
     )
     l2 = _node(
@@ -194,7 +193,7 @@ def main() -> None:
         edge=COUPLING, fill="white", linewidth=1.5,
     )
     l3 = _node(
-        ax, (0.625, 0.50), (0.100, 0.18), "L3H1", "binds + writes",
+        ax, (0.625, 0.50), (0.100, 0.18), "L3H1", "reads + writes",
         edge=COUPLING, fill="#F3EFF8", linewidth=1.7,
     )
     uinfo = _node(
@@ -242,13 +241,14 @@ def main() -> None:
     faith.fill_between(sizes, lows, highs, color=COUPLING, alpha=0.12, linewidth=0)
     faith.plot(sizes, values, color=COUPLING, marker="o", markersize=3.5)
     faith.axhline(0.9, color=MUT, linestyle="--", linewidth=1.0)
-    faith.axvline(72, color=MUT, linestyle=":", linewidth=1.0)
+    crossing_interpolated = 64.169
+    faith.axvline(crossing_interpolated, color=MUT, linestyle=":", linewidth=1.0)
     faith.scatter([72], [curve["72"]["F_H"]], s=36, color=COUPLING,
                   edgecolor="white", linewidth=0.7, zorder=4)
     faith.text(
         69,
         0.965,
-        "90% region\n64–72 nodes",
+        "90% threshold\n64.2 interpolated\n72 first sampled",
         ha="right",
         va="bottom",
         fontsize=7.0,
@@ -266,7 +266,7 @@ def main() -> None:
     save_figure(
         fig,
         OUT,
-        sources=[A10, A12, A3, CONFIRMATION, DONOR_ANCHOR, READOUT_PATH, CARRIER_DOSE],
+        sources=[A10, A12, A3, DONOR_ANCHOR, READOUT_PATH, CARRIER_DOSE],
         formats=("png", "pdf"),
         dpi=450,
         bbox_inches="tight",

@@ -1,4 +1,0 @@
-condition,mean_abs_prob_error_vs_baseline,recovery_fraction,prediction_match_baseline,delta_BA_vs_ablated
-restore_L0H8,0.2079944610595703,0.5529530048370361,0.8203125,0.3125
-restore_L0_MLP,0.05565521866083145,0.8803790211677551,0.9609375,0.421875
-restore_both,0.0,1.0,1.0,0.453125

@@ -1,16 +1,16 @@
 {
-  "git_commit": null,
+  "git_commit": "409e1547f94fdd999d312993988d7fb3894106bc",
   "sources": [
     {
-      "path": "/Users/cberg/Research/projects/test/GFM_SpliceBERT_Circuit_Discovery_Implementation/gfm_splicebert_implementation/results/splicebert_coupling/qkv.json",
+      "path": "results/splicebert_coupling/qkv.json",
       "sha256": "6e1c26f3975b922ba975d5469e31b13eb381a529e9cf5f4405650dfb88f06e45"
     },
     {
-      "path": "/Users/cberg/Research/projects/test/GFM_SpliceBERT_Circuit_Discovery_Implementation/gfm_splicebert_implementation/results/splicebert_coupling/sealed_val.json",
+      "path": "results/splicebert_coupling/sealed_val.json",
       "sha256": "d3a02e05c266fa3f624e174a39c305b89f5be891bd1bfc4f02341f365485bd6d"
     },
     {
-      "path": "/Users/cberg/Research/projects/test/GFM_SpliceBERT_Circuit_Discovery_Implementation/gfm_splicebert_implementation/results/splicebert_coupling/l2_accounting.json",
+      "path": "results/splicebert_coupling/l2_accounting.json",
       "sha256": "3902b1bc9a7ca6ae5d852db63c3a80789f6c24d062a2163b0103e34a2f2c6f35"
     }
   ]

@@ -23,13 +23,33 @@ def _sha256(p: Path) -> str:
 
 def figure_provenance(sources: Sequence[str | Path]) -> dict:
     try:
-        commit = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True,
-                                text=True).stdout.strip() or None
+        root_text = subprocess.run(
+            ["git", "rev-parse", "--show-toplevel"], capture_output=True, text=True
+        ).stdout.strip()
+        repo_root = Path(root_text).resolve() if root_text else None
+        commit = subprocess.run(
+            ["git", "rev-parse", "HEAD"], capture_output=True, text=True
+        ).stdout.strip() or None
     except Exception:
+        repo_root = None
         commit = None
+
+    def display_path(source: str | Path) -> str:
+        path = Path(source)
+        resolved = path.resolve()
+        if repo_root is not None:
+            try:
+                return str(resolved.relative_to(repo_root))
+            except ValueError:
+                pass
+        return str(path)
+
     return {
         "git_commit": commit,
-        "sources": [{"path": str(Path(s)), "sha256": _sha256(Path(s))} for s in sources],
+        "sources": [
+            {"path": display_path(source), "sha256": _sha256(Path(source))}
+            for source in sources
+        ],
     }
 
 

@@ -1,8 +1,0 @@
-{
-  "bootstrap_seed": 44,
-  "number_of_bootstrap_samples": 5000,
-  "interaction_definition": "joint blocked effect minus sum of corresponding individual blocked effects",
-  "negative_interaction_interpretation": "sub-additivity consistent with overlapping, redundant, or serial mediation",
-  "positive_interaction_interpretation": "super-additivity consistent with synergy",
-  "important_limitation": "Branch restoration changes downstream inputs, so interaction terms do not uniquely distinguish serial causation from representational redundancy."
-}

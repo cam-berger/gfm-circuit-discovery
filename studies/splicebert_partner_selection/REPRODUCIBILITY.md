@@ -6,7 +6,7 @@ below:** they were consolidated from the archived exon-edge arc (R45) and the ru
 artifacts are not in this tree — each artifact's sibling `*.manifest.json` pins its runner by path and
 sha256, recoverable from `codex/intron-exon-phase` at `fd26cc1b`. Neither is re-executable regardless: the
 source branch gitignored the raw rows both audits recompute from. The authoritative claim ledger is
-[`CLAIMS.md`](CLAIMS.md); correction/retraction history (R1–R47) is in [`CORRECTIONS.md`](CORRECTIONS.md);
+[`CLAIMS.md`](CLAIMS.md); correction/retraction history (R1–R48) is in [`CORRECTIONS.md`](CORRECTIONS.md);
 the machine-checkable claim→file index is [`../../results/MANIFEST.csv`](../../results/MANIFEST.csv)
 (953 rows, all paths resolve; `scripts/verify_manifest.py` passes). Repository-wide environment,
 checkpoint, and data requirements are defined in [`../../REPRODUCE.md`](../../REPRODUCE.md); this file is
@@ -44,7 +44,6 @@ artifact or intentionally supersede the old one in the index and claim ledger.
 
 | Claim | Canonical script | Indexed output |
 |---|---|---|
-| C1 raw coupling margin | `run_coupling.py` | `SBC/confirmation.json` |
 | C1/C2/C3/C4 sealed confirmation + specificity | `run_sealed_test.py` | `SBC/sealed_test.json`, `SBC/sealed_val.json` (+ manifests) |
 | C3 ablation scan (development) | `run_ablation_scan.py` | `SBC/development/ablation_scan.json` |
 | C4 subspace (development) | `run_subspace.py` | `SBC/development/subspace.json` |

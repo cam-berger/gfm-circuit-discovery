@@ -1,8 +1,0 @@
-# SpliceBERT checkpoint (masked-LM, via the `multimolecule` HF integration).
-# Architecture: 1026 position embeddings, 6 layers, 16 heads, hidden 512 —
-# the SpliceBERT.1024nt family used by the rest of this repository.
-checkpoint: multimolecule/splicebert
-# Pinned so a rerun cannot silently pick up a re-upload. Resolve drift with
-# `huggingface-cli scan-cache` or by comparing against the HF model API `sha`.
-revision: 8e3f4e5088b3bbf76876d8b931078d9f03caffdd
-device: auto        # auto | cpu | cuda

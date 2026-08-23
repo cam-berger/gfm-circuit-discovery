@@ -7,7 +7,7 @@ claim→evidence record is [`results/MANIFEST.csv`](../results/MANIFEST.csv) plu
 (donor circuit, C1–C44 + IC1), [`studies/splicebert_head_context_atlas/CLAIMS.md`](../studies/splicebert_head_context_atlas/CLAIMS.md)
 (Atlas, HCA1–HCA23), [`studies/splicebert_gtex_finetune_shift/CLAIMS.md`](../studies/splicebert_gtex_finetune_shift/CLAIMS.md)
 (GTEx fine-tuning shift, GFS1–GFS34), and [`CORRECTIONS.md`](../studies/splicebert_partner_selection/CORRECTIONS.md)
-(R1–R47). The per-claim command map with reproduction rules is
+(R1–R48). The per-claim command map with reproduction rules is
 [`studies/splicebert_partner_selection/REPRODUCIBILITY.md`](../studies/splicebert_partner_selection/REPRODUCIBILITY.md);
 the repo-level entry point is [`REPRODUCE.md`](../REPRODUCE.md).
 
@@ -47,7 +47,6 @@ resolves (`scripts/verify_manifest.py` passes).
 
 | Script | Claim(s) | Controlling artifact |
 |---|---|---|
-| `run_coupling.py` | C1 | `results/splicebert_coupling/confirmation.json` |
 | `run_sealed_test.py` | C1;C2;C3;C4 | `results/splicebert_coupling/sealed_test.json` (+ `sealed_val.json`) |
 | `run_ablation_scan.py` | C3 (development) | `results/splicebert_coupling/development/ablation_scan.json` |
 | `run_subspace.py` | C4 (development) | `results/splicebert_coupling/development/subspace.json` |
@@ -55,6 +54,9 @@ resolves (`scripts/verify_manifest.py` passes).
 | `run_l2_accounting.py`, `run_l1h12_probe.py`, `run_l1h12_route.py`, `run_l2_rescue.py` | C6 | `l2_accounting.json`, `l1h12_probe.json`, `l1h12_route.json` (+ dev `l2_rescue.json`) |
 | `run_qkv.py` | C22 | `results/splicebert_coupling/qkv.json` |
 | `run_completeness_null.py`, `run_faithfulness.py` | C7 (early completeness assay, superseded by C27/C33) | `completeness_null.json`, `faithfulness.json` |
+
+`run_coupling.py` is retained as an early exploratory assay runner. It does not
+produce the archived `confirmation.json` and is not the producer of a live C1 result.
 
 ## Donor readout / `U_info` and behavioural signature (C16–C19)
 

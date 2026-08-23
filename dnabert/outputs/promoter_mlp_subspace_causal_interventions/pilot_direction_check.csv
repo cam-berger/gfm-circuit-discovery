@@ -1,9 +1,0 @@
-source_class,basis_name,number_of_sequences,expected_direction_fraction,mean_full_logit_change
-non-promoter,gc_svd_rank1,4,0.5,0.4999973714416527
-non-promoter,gc_svd_rank2,4,0.5,0.4606635722396444
-non-promoter,gc_svd_rank4,4,0.5,0.16033921290102182
-non-promoter,promoter_direction_rank1,4,0.75,0.8673577091762114
-promoter,gc_svd_rank1,4,1.0,-5.323714525283905
-promoter,gc_svd_rank2,4,1.0,-5.6750864588792655
-promoter,gc_svd_rank4,4,1.0,-6.4223047205296755
-promoter,promoter_direction_rank1,4,1.0,-7.451616305396659

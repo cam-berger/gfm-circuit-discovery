@@ -1,5 +1,0 @@
-model,balanced_accuracy,roc_auc
-1-mer logistic regression,0.6725,0.72049375
-2-mer logistic regression,0.76,0.8304687499999999
-3-mer logistic regression,0.7637499999999999,0.8456
-DNABERT-2 layer 5,0.7350000000000001,0.8106375000000001

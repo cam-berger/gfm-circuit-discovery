@@ -15,7 +15,7 @@ Two things are RECOMPUTED here rather than copied, and both change a number:
      therefore not guaranteed to survive.  IT DOES NOT, IN ONE MODEL -- see below.
 
   2. THE POSITION-TABLE SPECTRA, for all three checkpoints, on the convention already used by
-     run_carrier_phase.py / run_carrier_geometry.py:
+     run_carrier_geometry.py:
          F = rfft(P - P.mean(0), axis=0)      <- FULL table, mean-centred rows
          power_rel[k] = |F[k]|^2.sum() / median(|F[1:]|^2.sum(1))
          period[k]    = N / k

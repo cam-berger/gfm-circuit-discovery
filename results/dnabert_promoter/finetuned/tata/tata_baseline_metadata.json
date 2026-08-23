@@ -1,7 +1,0 @@
-{
-  "n_eligible_promoters": 354,
-  "batch_size": 64,
-  "model": "magicslabnu/DNABERT-2-finetuned-prom_300_all",
-  "promoter_probability": "softmax(logits)[:,1]",
-  "purpose": "lock clean baseline before paired TATA perturbation"
-}

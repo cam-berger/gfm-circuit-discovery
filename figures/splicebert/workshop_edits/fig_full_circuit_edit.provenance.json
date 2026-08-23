@@ -1,6 +1,6 @@
 {
-  "claim_boundary": "Structured top-ranked causal core inside a broad interaction-dependent computation; not a complete sparse generator.",
-  "created_at_utc": "2026-08-03T14:33:39.784562+00:00",
+  "claim_boundary": "Structured top-ranked causal core inside distributed computation under the tested interventions; not a complete or proven minimal circuit.",
+  "created_at_utc": "2026-08-22T22:54:19.618119+00:00",
   "layout": {
     "edges": [
       {
@@ -101,7 +101,7 @@
         "emphasis": true,
         "id": "l3h1",
         "role": "payload",
-        "subtitle": "binds + writes",
+        "subtitle": "reads + writes",
         "title": "L3H1",
         "wh": [
           0.34,
@@ -146,15 +146,15 @@
   "outputs": [
     {
       "path": "figures/splicebert/workshop_edits/fig_full_circuit_edit.pdf",
-      "sha256": "9e7830acc60f75e13f9966060d5ebc04cc710c50ab8e70c9adf42dde27533005"
+      "sha256": "7e8986b74275dc9752043472d0d9122f3655e4dbae1f98153ec9313098228472"
     },
     {
       "path": "figures/splicebert/workshop_edits/fig_full_circuit_edit.svg",
-      "sha256": "2341a3d2d697dae8a67f0908da452b22dea184c0886b4428dc8bb643fc41b1a5"
+      "sha256": "f1a96a27a3851825bca3b8e8e1f46880b3993019485130abf881dea7fce04f76"
     },
     {
       "path": "figures/splicebert/workshop_edits/fig_full_circuit_edit.png",
-      "sha256": "f5a66078b2637ed5a4a71fdb41d2be945c2192a35b360b307f59b2dda3f7df43"
+      "sha256": "3fd92e2bd0b467f22b6dfbcfef7bcef97215961f60e6335089dda373a10ce3fd"
     }
   ],
   "renderer": "figures/splicebert/editable_paper_figures.py",
@@ -171,10 +171,6 @@
     {
       "path": "results/splicebert_coupling/a3_l2h15_address_payload.json",
       "sha256": "6b530d0d8b4a6226d01d88b0bec89c6ca352469bc9dba7155b97d8280bba0110"
-    },
-    {
-      "path": "results/splicebert_coupling/confirmation.json",
-      "sha256": "6d2f99830587358f6a655123edaa2fda92b0c255c84b2f6b0d77bb678b9904f5"
     },
     {
       "path": "results/splicebert_coupling/donor_anchor.json",

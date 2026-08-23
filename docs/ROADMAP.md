@@ -105,11 +105,13 @@ remain candidate generators; they are not BG1 evidence and cannot authorize BG2.
    confounded quantity the design excluded on purpose. **Disposition (2026-07-25): NOT PURSUED this
    cycle** — recorded as a bounded limitation at Endpoint B, not an active track. Its general downstream write and behavioral function
    also remain open (C12/C37). Separately, its
-   **origin is now corpus-attributed** (C39): strong in 72-species, absent in human-only, and **not
+   **comparative training-condition association is now measured** (C39): strong in the 72-species
+   sibling, absent in the human-only sibling, and **not
    detectable** in the human genome's own dinucleotide spectrum above that unanchored assay's 5–10%
    modulation floor (a sensitivity limit, not an established absence — R16/C15). The nucleosomal
    comparator, ≈10.298 nt, is measured in **mouse** ES-cell chromatin (Voong 2016, mm9), not in human;
-   it sits 0.33 nt from the carrier, a powered refutation (R30). Multi-species training built it.
+   it sits 0.33 nt from the carrier, a powered refutation (R30). The sibling comparison does not
+   establish that multi-species training built the carrier or isolate which corpus difference matters.
 6. **No human dyad-anchored nucleosome measurement exists in this record (R30).** The ≈10.298 comparator
    that carries the powered refutation is measured in mouse ES cells (Voong 2016, mm9); every dyad script
    in the tree is mm9. It has been argued that the refutation does not *depend* on the mouse estimate
@@ -184,8 +186,8 @@ ladder, and the exit condition below explicitly counts an honest qualified null 
 reached: a frozen representation (`DBP3`), a test-confirmed conditional causal core of five nodes
 (`DBP6`), and then three limits — **compactness refuted** with no knee in the held-out faithfulness curve
 (`DBP7`), transplant transfer that is **class-level only** (`DBP8`), and a **causal null** on the TATA
-bridge at n=71 (`DBP10`). The transferable finding is the *shape of the limit*: independently of the
-donor arc, a second model landed on C33's "structured causal core inside a distributed computation".
+bridge at n=71 (`DBP10`). The transferable finding is the *shape of the limit*: in this bounded,
+single-seed study, a second model also shows a structured causal core inside distributed computation.
 
 Three things gate promoting it beyond a first pass, all recorded in the study's `DECISIONS.md`:
 
@@ -194,15 +196,16 @@ Three things gate promoting it beyond a first pass, all recorded in the study's 
    committed, so the control cannot be verified without re-running it. A near-duplicate screen is the
    substantive follow-on; exact-hash matching does not provide one at 70 nt (`DBP2`).
 2. **Multiple seeds.** Everything is single-seed (42), and the endpoint margin is `0.0019` (`DBP4`).
-3. **Emit manifests.** 33 of 35 runners write none, leaving ~104 artifacts without a provenance record.
+3. **Close historical provenance.** Current canonical runners emit manifests, but most existing frozen
+   artifacts predate that integration and can only be repaired by rerunning their assays.
 
-A fourth, non-blocking item: no published figure exists for `DBP6`, `DBP7`, or `DBP8`. The faithfulness
-curve is the study's central negative result and currently exists only as a CSV.
+A fourth, non-blocking item is to rerun the canonical figure package after the provenance repair so its
+source chain is fully manifest-backed.
 
-**Deferred, not started:** the frozen-versus-fine-tuned DNABERT-2 comparison. An earlier draft of the
-arc's prose reported fine-tuning smoke metrics, but no fine-tuning code or artifact exists in this
-repository and those numbers are withdrawn (`DBPR6`). Freezing a preregistration is a prerequisite —
-this study froze none (`DBPR8`).
+**Future successor:** a matched frozen-versus-fine-tuned DNABERT-2 comparison. The notebook-only,
+unmatched extension formerly labeled DBP11–DBP17 was archived under DBPR12. A successor must freeze a
+protocol, use the same task/cohort/readout across states, run multiple seeds and calibration controls,
+and write producing scripts and manifests before any comparison is interpreted.
 
 Two earlier second-GFM attempts left the working tree in the 2026-07-31 cleanup; each remains in Git
 history and is revivable as a design asset.
@@ -218,7 +221,8 @@ history and is revivable as a design asset.
   five-lens red-team and its Colab package was locally dry-run validated, but **the model experiment was
   never run** and it needs CUDA.
 
-The only cross-model work that produced live claims is the carrier-origin pair **C39/C40**
+Apart from the DNABERT-2 promoter study, the only cross-model work that produced live claims is the
+carrier-sibling pair **C39/C40**
 (`scripts/crossmodel/`, `results/origin-siblings/`, `results/origin-crossmodel/`), which is a
 published-checkpoint natural experiment rather than a full second-model study.
 

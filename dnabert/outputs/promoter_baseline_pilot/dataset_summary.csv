@@ -1,4 +1,0 @@
-split,num_examples,label_0,label_1,mean_length,min_length,max_length
-train,47356,23705,23651,70.0,70,70
-test,5920,2952,2968,70.0,70,70
-dev,5920,2941,2979,70.0,70,70

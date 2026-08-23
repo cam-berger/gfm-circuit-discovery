@@ -58,16 +58,17 @@ causal model mechanism is not automatically a biological mechanism.
 |---|---|
 | [SpliceBERT partner selection](studies/splicebert_partner_selection/README.md) | Main donor-mechanism record |
 | [SpliceBERT acceptor coupling](studies/splicebert_acceptor_coupling/README.md) | Bounded reciprocal behavior and component evidence; mechanism handoff stopped before chr8/9 |
-| [DNABERT-2 promoter](studies/dnabert_promoter/README.md) | Bounded second-model comparison |
+| [DNABERT-2 promoter](studies/dnabert_promoter/README.md) | Bounded frozen-model comparison; notebook-only fine-tuned extension archived |
 | [Head–Context Atlas](studies/splicebert_head_context_atlas/README.md) | Component-reuse discovery and internal validation |
 | [GTEx fine-tuning shift](studies/splicebert_gtex_finetune_shift/README.md) | Fine-tuned readout and positional-carrier follow-up |
 | [Acceptor context](studies/splicebert_acceptor_context/README.md) | Prospective protocol; no result |
 | [Positional boundary coherence](studies/splicebert_positional_boundary_coherence/README.md) | Model-free capacity stop |
-| [Positional proxy modifiability](studies/splicebert_positional_proxy_modifiability/README.md) | Model-free capacity result; confirmatory model study not run |
+| [Positional proxy modifiability](studies/splicebert_positional_proxy_modifiability/README.md) | Model-free capacity result; frozen model protocol never run |
 | [Exon-edge compatibility](studies/splicebert_exon_edge_compatibility/README.md) | Archive record for live claims C43 and C44 |
 
-Legacy `acceptor-interpretability/`, `ntv3-interpretability/`, and top-level `dnabert/` results are exploratory
-or superseded and are not paper evidence. New studies should start from
+Legacy `acceptor-interpretability/`, `ntv3-interpretability/`, and top-level `dnabert/` results were
+exploratory or superseded and have been removed from the active tree. They remain recoverable at
+`archive/unsupported-exploratory-2026-08-22`. New studies should start from
 [`studies/TEMPLATE_REAL_GFM_STUDY/`](studies/TEMPLATE_REAL_GFM_STUDY/README.md).
 
 ## Repository layout

@@ -1,2 +1,0 @@
-donor_type,number_of_pairs,mean_donor_probe_logit,mean_patched_logit,mean_rescue_amount,median_rescue_amount,mean_recovery_fraction,median_recovery_fraction,fraction_positive_rescue,fraction_at_least_50pct_recovery,fraction_full_or_over_recovery,fraction_patched_positive
-non-promoter,189,-3.2551958004462316,1.3138850510131908,0.28953817134818677,-0.19069902159662488,-0.14538682529621064,-0.028100432142559646,0.49206349206349204,0.3544973544973545,0.2328042328042328,0.5185185185185185

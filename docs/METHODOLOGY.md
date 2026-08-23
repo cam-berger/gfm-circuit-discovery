@@ -70,15 +70,16 @@ circuit sizes `k ∈ {.001, .002, .005, .01, .02, .05, .1, .2, .5, 1}` (Mueller 
 
 **This project's A12 result already is that object, and should be reported as such.**
 `results/splicebert_coupling/a12_faithfulness_size.json` records held-out faithfulness with gene-bootstrap
-CIs at 17 circuit sizes over a 103-node graph: 90% of the effect requires about **72 of 103** nodes (grid-resolution — the sampled sizes bracket the 90% crossing to (64, 72]; 50% → 34,
+CIs at 17 circuit sizes over a 103-node graph: the preregistered interpolation reaches 90% at **64.2**
+nodes, while the first sampled grid point above 90% is **72 of 103** (crossing bracket (64, 72]; 50% → 34,
 80% → 56, 95% → 80), and the curve is gradual, with **no knee** (C33).
 
 The no-knee shape is the headline, not a caveat. It is a positive empirical statement about the model, not a
-report of a search that failed to find something. A knee would have said that a sparse subgraph carries the
-behavior; its absence, measured with tight CIs on a held-out split, says that **no sparse subgraph does at
-this granularity** — while an importance ranking computed without reference to the hand-built circuit places
-the identified mechanism at the top. The conclusion "a structured causal core within an irreducibly
-distributed computation" is only available *because* the whole curve was measured. Reporting a sparse graph
+report of a search that failed to find something. A knee would have supported a sparse subgraph under this
+ranking; its absence shows that **the tested static-ranking construction is distributed at this
+granularity** — while an importance ranking computed without reference to the hand-built circuit places
+the identified mechanism at the top. The conclusion "a structured causal core within distributed
+computation under the tested interventions" is available *because* the whole curve was measured. Reporting a sparse graph
 plus one faithfulness number, the common practice, would have concealed it.
 
 Two reporting rules follow.
