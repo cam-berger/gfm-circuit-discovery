@@ -1,0 +1,25 @@
+{
+  "git_commit": "ce2b9bca44c1beed0e9d07ff6cbca10d20fddd37",
+  "sources": [
+    {
+      "path": "results/dnabert_promoter/frozen/layer_probes/layer_probe_results.json",
+      "sha256": "7fbd0c69c2a05c7a8a57631969c44a8182c9ef9df94f391cc8728834effa65e7"
+    },
+    {
+      "path": "results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_summary.json",
+      "sha256": "ab7847f7e9f209d3a711ceafa2b9cbd394105bd24e7d76b22a5c24b7dae43776"
+    },
+    {
+      "path": "results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_statistics.json",
+      "sha256": "d1696fedfc88760eb259f0047ec6e579bf6c0ca44609a851b7414c731740d651"
+    },
+    {
+      "path": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/validation_faithfulness_curve_refined_128_curve.csv",
+      "sha256": "462415d26336c379647597ef2738e0472e6465c7578cb53f0998c1e52cb363ce"
+    },
+    {
+      "path": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/test_faithfulness_curve_confirmation_128_curve.csv",
+      "sha256": "70c16425f671c583083a653ea79ce9ed8c633fdd28cceda198cdff2f9f056cce"
+    }
+  ]
+}
