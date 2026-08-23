@@ -1,0 +1,21 @@
+{
+  "git_commit": "ece89d4070ef484bed504a1d1050d2ea3302de46",
+  "sources": [
+    {
+      "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/confirmation_analysis.json",
+      "sha256": "77959c53c9dd33d4ae3a591b19ba7e8c581a5f327080a1a53218056be82746e9"
+    },
+    {
+      "path": "results/splicebert_coupling/a2_address_payload.json",
+      "sha256": "40f992cd5328b05ea3615cd1c4c1c73e67f82ff404b56d999392b86da7cf5042"
+    },
+    {
+      "path": "results/splicebert_coupling/a12_faithfulness_size.json",
+      "sha256": "6023774734367d79e9ecca60e756471dc68f53cd32c242f488c3fc5a7df127bc"
+    },
+    {
+      "path": "results/phase-lattice/fig_report_data.json",
+      "sha256": "3bca5b20be7c51a158aa3214a288bf49f1bdd76636f412f6728e9ea9bd835057"
+    }
+  ]
+}

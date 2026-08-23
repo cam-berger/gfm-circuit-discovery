@@ -73,7 +73,7 @@
       "artifact": "results/dnabert_promoter/behavioral/all_layer_corruption/test_full_summary.json",
       "script": "scripts/dnabert_promoter/run_all_layer_corruption_trajectory.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure3_test_corruption_trajectory.pdf;figures/dnabert_promoter/figure3_test_corruption_trajectory.png"
+      "figure": ""
     },
     {
       "claim_id": "DBP5",
@@ -83,7 +83,7 @@
       "artifact": "results/dnabert_promoter/behavioral/all_layer_corruption/test_full_trajectory.csv",
       "script": "scripts/dnabert_promoter/run_all_layer_corruption_trajectory.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure3_test_corruption_trajectory.pdf;figures/dnabert_promoter/figure3_test_corruption_trajectory.png"
+      "figure": ""
     },
     {
       "claim_id": "DBP5",
@@ -93,7 +93,7 @@
       "artifact": "results/dnabert_promoter/behavioral/all_layer_corruption/validation_full_summary.json",
       "script": "scripts/dnabert_promoter/run_all_layer_corruption_trajectory.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure2_validation_corruption_trajectory.pdf;figures/dnabert_promoter/figure2_validation_corruption_trajectory.png"
+      "figure": ""
     },
     {
       "claim_id": "DBP5",
@@ -103,7 +103,7 @@
       "artifact": "results/dnabert_promoter/behavioral/all_layer_corruption/validation_full_trajectory.csv",
       "script": "scripts/dnabert_promoter/run_all_layer_corruption_trajectory.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure2_validation_corruption_trajectory.pdf;figures/dnabert_promoter/figure2_validation_corruption_trajectory.png"
+      "figure": ""
     },
     {
       "claim_id": "DBP5",
@@ -813,7 +813,7 @@
       "artifact": "results/dnabert_promoter/frozen/layer_probes/layer_probe_results.json",
       "script": "scripts/dnabert_promoter/run_frozen_layer_probes.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure1_frozen_layer_probe_validation.pdf;figures/dnabert_promoter/figure1_frozen_layer_probe_validation.png;figures/dnabert_promoter/paper_figure_workflow_transfer.pdf;figures/dnabert_promoter/paper_figure_workflow_transfer.png"
+      "figure": "figures/paper_figure_workflow_transfer.png"
     },
     {
       "claim_id": "DBP4",
@@ -903,7 +903,7 @@
       "artifact": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/test_candidate_circuit_confirmation_128_summary.json",
       "script": "scripts/dnabert_promoter/run_frozen_circuit_accounting.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure10_candidate_circuit_accounting.pdf;figures/dnabert_promoter/figure10_candidate_circuit_accounting.png"
+      "figure": ""
     },
     {
       "claim_id": "DBP6",
@@ -913,7 +913,7 @@
       "artifact": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/validation_candidate_circuit_128_summary.json",
       "script": "scripts/dnabert_promoter/run_frozen_circuit_accounting.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure10_candidate_circuit_accounting.pdf;figures/dnabert_promoter/figure10_candidate_circuit_accounting.png"
+      "figure": ""
     },
     {
       "claim_id": "DBP7",
@@ -963,7 +963,7 @@
       "artifact": "results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_statistics.json",
       "script": "scripts/dnabert_promoter/run_component_donor_matrix.py",
       "manifest": "results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_manifest.json",
-      "figure": "figures/dnabert_promoter/paper_figure_workflow_transfer.pdf;figures/dnabert_promoter/paper_figure_workflow_transfer.png"
+      "figure": "figures/paper_figure_workflow_transfer.png"
     },
     {
       "claim_id": "DBP8",
@@ -973,7 +973,7 @@
       "artifact": "results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_summary.json",
       "script": "scripts/dnabert_promoter/run_component_donor_matrix.py",
       "manifest": "results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_manifest.json",
-      "figure": "figures/dnabert_promoter/figure12_test_component_transplant_matrix.pdf;figures/dnabert_promoter/figure12_test_component_transplant_matrix.png;figures/dnabert_promoter/paper_figure_workflow_transfer.pdf;figures/dnabert_promoter/paper_figure_workflow_transfer.png"
+      "figure": "figures/paper_figure_workflow_transfer.png"
     },
     {
       "claim_id": "DBP8",
@@ -1013,7 +1013,7 @@
       "artifact": "results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/validation_component_donor_matrix_128_summary.json",
       "script": "scripts/dnabert_promoter/run_component_donor_matrix.py",
       "manifest": "results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/validation_component_donor_matrix_128_manifest.json",
-      "figure": "figures/dnabert_promoter/figure11_validation_component_transplant_matrix.pdf;figures/dnabert_promoter/figure11_validation_component_transplant_matrix.png"
+      "figure": ""
     },
     {
       "claim_id": "DBP8",
@@ -1053,7 +1053,7 @@
       "artifact": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/test_faithfulness_curve_confirmation_128_curve.csv",
       "script": "scripts/dnabert_promoter/run_frozen_faithfulness_curve.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure9_faithfulness_versus_circuit_size.pdf;figures/dnabert_promoter/figure9_faithfulness_versus_circuit_size.png;figures/dnabert_promoter/paper_figure_workflow_transfer.pdf;figures/dnabert_promoter/paper_figure_workflow_transfer.png"
+      "figure": "figures/paper_figure_workflow_transfer.png"
     },
     {
       "claim_id": "DBP7",
@@ -1073,7 +1073,7 @@
       "artifact": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/validation_faithfulness_curve_refined_128_curve.csv",
       "script": "scripts/dnabert_promoter/run_frozen_faithfulness_curve.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure9_faithfulness_versus_circuit_size.pdf;figures/dnabert_promoter/figure9_faithfulness_versus_circuit_size.png;figures/dnabert_promoter/paper_figure_workflow_transfer.pdf;figures/dnabert_promoter/paper_figure_workflow_transfer.png"
+      "figure": "figures/paper_figure_workflow_transfer.png"
     },
     {
       "claim_id": "DBP7",
@@ -1183,7 +1183,7 @@
       "artifact": "results/origin-crossmodel/canonical/carrier_pspectrum.json",
       "script": "scripts/crossmodel/run_carrier_pspectrum.py",
       "manifest": "results/origin-crossmodel/canonical/carrier_pspectrum.manifest.json",
-      "figure": "figures/origin-crossmodel/crossmodel_carrier_summary.png"
+      "figure": ""
     },
     {
       "claim_id": "C40",
@@ -1383,7 +1383,7 @@
       "artifact": "results/phase-lattice/band_mass.json",
       "script": "scripts/splicebert/measure_band_mass.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
+      "figure": "figures/headline.png"
     },
     {
       "claim_id": "C8",
@@ -1393,7 +1393,7 @@
       "artifact": "results/phase-lattice/carrier_dose.json",
       "script": "scripts/splicebert/run_carrier_dose.py",
       "manifest": "results/phase-lattice/carrier_dose.manifest.json",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
+      "figure": ""
     },
     {
       "claim_id": "C8",
@@ -1413,7 +1413,7 @@
       "artifact": "results/phase-lattice/carrier_geometry.json",
       "script": "scripts/splicebert/run_carrier_geometry.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
+      "figure": "figures/fig_3.png"
     },
     {
       "claim_id": "C9,C10",
@@ -1423,7 +1423,7 @@
       "artifact": "results/phase-lattice/carrier_mediation.json",
       "script": "scripts/splicebert/run_carrier_mediation.py",
       "manifest": "results/phase-lattice/carrier_mediation.manifest.json",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
+      "figure": ""
     },
     {
       "claim_id": "C9,C10",
@@ -1533,7 +1533,7 @@
       "artifact": "results/phase-lattice/carrier_subbin.json",
       "script": "scripts/splicebert/run_carrier_subbin.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
+      "figure": "figures/headline.png"
     },
     {
       "claim_id": "C8",
@@ -1543,7 +1543,7 @@
       "artifact": "results/phase-lattice/carrier_surgery.json",
       "script": "scripts/splicebert/run_carrier_surgery.py",
       "manifest": "results/phase-lattice/carrier_surgery.manifest.json",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
+      "figure": "figures/headline.png"
     },
     {
       "claim_id": "C8",
@@ -2153,7 +2153,7 @@
       "artifact": "results/phase-lattice/dyad_real.json",
       "script": "scripts/splicebert/run_dyad_real.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
+      "figure": ""
     },
     {
       "claim_id": "C14",
@@ -2163,7 +2163,7 @@
       "artifact": "results/phase-lattice/dyad_wavelength.json",
       "script": "scripts/splicebert/run_dyad_wavelength.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
+      "figure": ""
     },
     {
       "claim_id": "C8",
@@ -2183,7 +2183,7 @@
       "artifact": "results/phase-lattice/fig_report_data.json",
       "script": "scripts/splicebert/make_fig_report_data.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
+      "figure": "figures/headline.png;figures/fig_3.png"
     },
     {
       "claim_id": "C13",
@@ -2193,7 +2193,7 @@
       "artifact": "results/phase-lattice/human_carrier.json",
       "script": "scripts/splicebert/run_human_carrier.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
+      "figure": ""
     },
     {
       "claim_id": "C36",
@@ -2223,7 +2223,7 @@
       "artifact": "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json",
       "script": "scripts/splicebert/freeze_p3_phase_surgery_confirmation.py",
       "manifest": "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.manifest.json",
-      "figure": "figures/splicebert/fig5_p3_phase_surgery_confirmation.png"
+      "figure": "figures/headline.png;figures/fig_3.png"
     },
     {
       "claim_id": "C36",
@@ -2243,7 +2243,7 @@
       "artifact": "results/phase-lattice/p3_phase_surgery_confirmation_v1/confirmation_analysis.json",
       "script": "scripts/splicebert/analyze_p3_phase_surgery_confirmation.py",
       "manifest": "results/phase-lattice/p3_phase_surgery_confirmation_v1/confirmation_analysis.manifest.json",
-      "figure": "figures/splicebert/fig5_p3_phase_surgery_confirmation.png"
+      "figure": "figures/headline.png;figures/fig_3.png"
     },
     {
       "claim_id": "C36",
@@ -2291,9 +2291,9 @@
       "evidence_level": "Behaviour",
       "polarity": "positive",
       "artifact": "results/phase-lattice/p3_phase_surgery_confirmation_v1/figure_data.json",
-      "script": "scripts/splicebert/make_fig5_p3_phase_surgery_confirmation.py",
+      "script": "",
       "manifest": "",
-      "figure": "figures/splicebert/fig5_p3_phase_surgery_confirmation.png"
+      "figure": ""
     },
     {
       "claim_id": "C36",
@@ -2463,7 +2463,7 @@
       "artifact": "results/phase-lattice/postsoftmax.json",
       "script": "scripts/splicebert/run_postsoftmax.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
+      "figure": "figures/headline.png"
     },
     {
       "claim_id": "C11",
@@ -2473,7 +2473,7 @@
       "artifact": "results/phase-lattice/preflight_postsoftmax.json",
       "script": "scripts/splicebert/run_postsoftmax.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png"
+      "figure": "figures/headline.png"
     },
     {
       "claim_id": "C11",
@@ -2853,7 +2853,7 @@
       "artifact": "results/splicebert_coupling/a12_faithfulness_size.json",
       "script": "scripts/splicebert/run_a12_faithfulness_size.py",
       "manifest": "results/splicebert_coupling/a12_faithfulness_size.manifest.json",
-      "figure": ""
+      "figure": "figures/fig_3.png"
     },
     {
       "claim_id": "C33",
@@ -2893,7 +2893,7 @@
       "artifact": "results/splicebert_coupling/a2_address_payload.json",
       "script": "scripts/splicebert/run_a2_address_payload.py",
       "manifest": "results/splicebert_coupling/a2_address_payload.manifest.json",
-      "figure": ""
+      "figure": "figures/fig_3.png"
     },
     {
       "claim_id": "C23",
@@ -3163,7 +3163,7 @@
       "artifact": "results/splicebert_coupling/completeness_null.json",
       "script": "scripts/splicebert/run_completeness_null.py",
       "manifest": "results/splicebert_coupling/completeness_null.manifest.json",
-      "figure": "figures/splicebert/fig3_circuit.png"
+      "figure": ""
     },
     {
       "claim_id": "C7",
@@ -3173,7 +3173,7 @@
       "artifact": "results/splicebert_coupling/completeness_null.manifest.json",
       "script": "scripts/splicebert/run_completeness_null.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig3_circuit.png"
+      "figure": ""
     },
     {
       "claim_id": "C3",
@@ -4163,7 +4163,7 @@
       "artifact": "results/splicebert_coupling/l2_accounting.json",
       "script": "scripts/splicebert/run_l2_accounting.py",
       "manifest": "results/splicebert_coupling/l2_accounting.manifest.json",
-      "figure": "figures/splicebert/fig2_mechanism.png;figures/splicebert/fig3_circuit.png"
+      "figure": ""
     },
     {
       "claim_id": "C6",
@@ -4173,7 +4173,7 @@
       "artifact": "results/splicebert_coupling/l2_accounting.manifest.json",
       "script": "scripts/splicebert/run_l2_accounting.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig2_mechanism.png;figures/splicebert/fig3_circuit.png"
+      "figure": ""
     },
     {
       "claim_id": "",
@@ -4293,7 +4293,7 @@
       "artifact": "results/splicebert_coupling/position_profile.json",
       "script": "scripts/splicebert/run_position_profile.py",
       "manifest": "results/splicebert_coupling/position_profile.manifest.json",
-      "figure": "figures/splicebert/fig3_circuit.png"
+      "figure": ""
     },
     {
       "claim_id": "C5",
@@ -4303,7 +4303,7 @@
       "artifact": "results/splicebert_coupling/position_profile.manifest.json",
       "script": "scripts/splicebert/run_position_profile.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig3_circuit.png"
+      "figure": ""
     },
     {
       "claim_id": "C22",
@@ -4313,7 +4313,7 @@
       "artifact": "results/splicebert_coupling/qkv.json",
       "script": "scripts/splicebert/run_qkv.py",
       "manifest": "results/splicebert_coupling/qkv.manifest.json",
-      "figure": "figures/splicebert/fig2_mechanism.png"
+      "figure": ""
     },
     {
       "claim_id": "C22",
@@ -4323,7 +4323,7 @@
       "artifact": "results/splicebert_coupling/qkv.manifest.json",
       "script": "scripts/splicebert/run_qkv.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig2_mechanism.png"
+      "figure": ""
     },
     {
       "claim_id": "C5",
@@ -4333,7 +4333,7 @@
       "artifact": "results/splicebert_coupling/readout_path.json",
       "script": "scripts/splicebert/run_readout_path.py",
       "manifest": "results/splicebert_coupling/readout_path.manifest.json",
-      "figure": "figures/splicebert/fig3_circuit.png"
+      "figure": ""
     },
     {
       "claim_id": "C5",
@@ -4343,7 +4343,7 @@
       "artifact": "results/splicebert_coupling/readout_path.manifest.json",
       "script": "scripts/splicebert/run_readout_path.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig3_circuit.png"
+      "figure": ""
     },
     {
       "claim_id": "C1;C2;C3;C4",
@@ -4353,7 +4353,7 @@
       "artifact": "results/splicebert_coupling/sealed_test.json",
       "script": "scripts/splicebert/run_sealed_test.py",
       "manifest": "results/splicebert_coupling/sealed_test.manifest.json",
-      "figure": ""
+      "figure": "figures/headline.png"
     },
     {
       "claim_id": "C1;C2;C3;C4",
@@ -4373,7 +4373,7 @@
       "artifact": "results/splicebert_coupling/sealed_val.json",
       "script": "scripts/splicebert/run_sealed_test.py",
       "manifest": "results/splicebert_coupling/sealed_val.manifest.json",
-      "figure": "figures/splicebert/fig2_mechanism.png"
+      "figure": ""
     },
     {
       "claim_id": "C1;C3;C4",
@@ -4383,7 +4383,7 @@
       "artifact": "results/splicebert_coupling/sealed_val.manifest.json",
       "script": "scripts/splicebert/run_sealed_test.py",
       "manifest": "",
-      "figure": "figures/splicebert/fig2_mechanism.png"
+      "figure": ""
     },
     {
       "claim_id": "A4",
@@ -4513,7 +4513,7 @@
       "artifact": "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_audit.json",
       "script": "",
       "manifest": "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_audit.manifest.json",
-      "figure": ""
+      "figure": "figures/headline.png"
     },
     {
       "claim_id": "C43",

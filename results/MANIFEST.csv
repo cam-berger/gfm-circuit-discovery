@@ -3,10 +3,10 @@ claim_id,status,evidence_level,polarity,artifact,script,manifest,figure
 ,infrastructure,,na,results/MANIFEST.json,,,
 ,infrastructure,,na,results/RESULTS_INDEX.md,,,
 ,infrastructure,,na,results/dnabert_promoter/RESULTS_INDEX.md,,,
-DBP5,canonical,Behaviour,positive,results/dnabert_promoter/behavioral/all_layer_corruption/test_full_summary.json,scripts/dnabert_promoter/run_all_layer_corruption_trajectory.py,,figures/dnabert_promoter/figure3_test_corruption_trajectory.pdf;figures/dnabert_promoter/figure3_test_corruption_trajectory.png
-DBP5,canonical,Behaviour,positive,results/dnabert_promoter/behavioral/all_layer_corruption/test_full_trajectory.csv,scripts/dnabert_promoter/run_all_layer_corruption_trajectory.py,,figures/dnabert_promoter/figure3_test_corruption_trajectory.pdf;figures/dnabert_promoter/figure3_test_corruption_trajectory.png
-DBP5,canonical,Behaviour,positive,results/dnabert_promoter/behavioral/all_layer_corruption/validation_full_summary.json,scripts/dnabert_promoter/run_all_layer_corruption_trajectory.py,,figures/dnabert_promoter/figure2_validation_corruption_trajectory.pdf;figures/dnabert_promoter/figure2_validation_corruption_trajectory.png
-DBP5,canonical,Behaviour,positive,results/dnabert_promoter/behavioral/all_layer_corruption/validation_full_trajectory.csv,scripts/dnabert_promoter/run_all_layer_corruption_trajectory.py,,figures/dnabert_promoter/figure2_validation_corruption_trajectory.pdf;figures/dnabert_promoter/figure2_validation_corruption_trajectory.png
+DBP5,canonical,Behaviour,positive,results/dnabert_promoter/behavioral/all_layer_corruption/test_full_summary.json,scripts/dnabert_promoter/run_all_layer_corruption_trajectory.py,,
+DBP5,canonical,Behaviour,positive,results/dnabert_promoter/behavioral/all_layer_corruption/test_full_trajectory.csv,scripts/dnabert_promoter/run_all_layer_corruption_trajectory.py,,
+DBP5,canonical,Behaviour,positive,results/dnabert_promoter/behavioral/all_layer_corruption/validation_full_summary.json,scripts/dnabert_promoter/run_all_layer_corruption_trajectory.py,,
+DBP5,canonical,Behaviour,positive,results/dnabert_promoter/behavioral/all_layer_corruption/validation_full_trajectory.csv,scripts/dnabert_promoter/run_all_layer_corruption_trajectory.py,,
 DBP5,canonical,Behaviour,positive,results/dnabert_promoter/behavioral/probe_results/validation_full_summary.json,scripts/dnabert_promoter/run_behavioral_corruption_probe.py,,
 DBP8,canonical,OV/mediation,bounded,results/dnabert_promoter/causal/activation_restoration/validation_negative_class_donors_128_offset_1_summary.json,scripts/dnabert_promoter/run_negative_class_donor_controls.py,,
 DBP8,canonical,OV/mediation,bounded,results/dnabert_promoter/causal/activation_restoration/validation_negative_class_donors_128_statistics.md,scripts/dnabert_promoter/run_negative_class_donor_controls.py,,
@@ -77,7 +77,7 @@ DBP4,development,,na,results/dnabert_promoter/frozen/layer_probes/layer_6_test_p
 DBP4,development,,na,results/dnabert_promoter/frozen/layer_probes/layer_7_test_predictions.csv,scripts/dnabert_promoter/run_frozen_layer_probes.py,,
 DBP4,development,,na,results/dnabert_promoter/frozen/layer_probes/layer_8_test_predictions.csv,scripts/dnabert_promoter/run_frozen_layer_probes.py,,
 DBP4,development,,na,results/dnabert_promoter/frozen/layer_probes/layer_9_test_predictions.csv,scripts/dnabert_promoter/run_frozen_layer_probes.py,,
-DBP3,canonical,Representation,positive,results/dnabert_promoter/frozen/layer_probes/layer_probe_results.json,scripts/dnabert_promoter/run_frozen_layer_probes.py,,figures/dnabert_promoter/figure1_frozen_layer_probe_validation.pdf;figures/dnabert_promoter/figure1_frozen_layer_probe_validation.png;figures/dnabert_promoter/paper_figure_workflow_transfer.pdf;figures/dnabert_promoter/paper_figure_workflow_transfer.png
+DBP3,canonical,Representation,positive,results/dnabert_promoter/frozen/layer_probes/layer_probe_results.json,scripts/dnabert_promoter/run_frozen_layer_probes.py,,figures/paper_figure_workflow_transfer.png
 DBP4,development,,na,results/dnabert_promoter/frozen/layer_probes/regularization_sensitivity.json,scripts/dnabert_promoter/run_frozen_regularization_sensitivity.py,,
 DBP3,canonical,,na,results/dnabert_promoter/frozen/layer_probes/selected_layer_2_probe.joblib,scripts/dnabert_promoter/run_frozen_layer_probes.py,,
 DBP3,canonical,Representation,positive,results/dnabert_promoter/frozen/layer_probes/selected_layer_2_test_statistics.json,scripts/dnabert_promoter/run_frozen_test_statistics.py,,
@@ -86,24 +86,24 @@ DBP9,canonical,Biology,positive,results/dnabert_promoter/frozen_claim_tests/biol
 DBP10,development,Biology,null,results/dnabert_promoter/frozen_claim_tests/biological_features/tata_perturbations/probe_results/validation_tata_perturbation_exploratory_strata.json,scripts/dnabert_promoter/run_tata_perturbation_probe.py,,
 DBP10,canonical,Biology,null,results/dnabert_promoter/frozen_claim_tests/biological_features/tata_perturbations/probe_results/validation_tata_perturbation_summary.json,scripts/dnabert_promoter/run_tata_perturbation_probe.py,,
 DBP10,canonical,,na,results/dnabert_promoter/frozen_claim_tests/biological_features/tata_perturbations/validation_tata_perturbation_cohort.json,scripts/dnabert_promoter/build_tata_perturbation_cohort.py,,
-DBP6,canonical,OV/mediation,positive,results/dnabert_promoter/frozen_claim_tests/circuit_accounting/test_candidate_circuit_confirmation_128_summary.json,scripts/dnabert_promoter/run_frozen_circuit_accounting.py,,figures/dnabert_promoter/figure10_candidate_circuit_accounting.pdf;figures/dnabert_promoter/figure10_candidate_circuit_accounting.png
-DBP6,canonical,OV/mediation,positive,results/dnabert_promoter/frozen_claim_tests/circuit_accounting/validation_candidate_circuit_128_summary.json,scripts/dnabert_promoter/run_frozen_circuit_accounting.py,,figures/dnabert_promoter/figure10_candidate_circuit_accounting.pdf;figures/dnabert_promoter/figure10_candidate_circuit_accounting.png
+DBP6,canonical,OV/mediation,positive,results/dnabert_promoter/frozen_claim_tests/circuit_accounting/test_candidate_circuit_confirmation_128_summary.json,scripts/dnabert_promoter/run_frozen_circuit_accounting.py,,
+DBP6,canonical,OV/mediation,positive,results/dnabert_promoter/frozen_claim_tests/circuit_accounting/validation_candidate_circuit_128_summary.json,scripts/dnabert_promoter/run_frozen_circuit_accounting.py,,
 DBP7,canonical,OV/mediation,bounded,results/dnabert_promoter/frozen_claim_tests/component_faithfulness/test_component_faithfulness_confirmation_128_summary.json,scripts/dnabert_promoter/run_frozen_component_faithfulness.py,,
 DBP7,canonical,OV/mediation,bounded,results/dnabert_promoter/frozen_claim_tests/component_faithfulness/validation_component_faithfulness_128_summary.json,scripts/dnabert_promoter/run_frozen_component_faithfulness.py,,
 DBP8,canonical,,na,results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_manifest.json,scripts/dnabert_promoter/run_component_donor_matrix.py,,
 DBP8,canonical,OV/mediation,bounded,results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_per_example.csv,scripts/dnabert_promoter/run_component_donor_matrix.py,results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_manifest.json,
-DBP8,canonical,OV/mediation,bounded,results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_statistics.json,scripts/dnabert_promoter/run_component_donor_matrix.py,results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_manifest.json,figures/dnabert_promoter/paper_figure_workflow_transfer.pdf;figures/dnabert_promoter/paper_figure_workflow_transfer.png
-DBP8,canonical,OV/mediation,bounded,results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_summary.json,scripts/dnabert_promoter/run_component_donor_matrix.py,results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_manifest.json,figures/dnabert_promoter/figure12_test_component_transplant_matrix.pdf;figures/dnabert_promoter/figure12_test_component_transplant_matrix.png;figures/dnabert_promoter/paper_figure_workflow_transfer.pdf;figures/dnabert_promoter/paper_figure_workflow_transfer.png
+DBP8,canonical,OV/mediation,bounded,results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_statistics.json,scripts/dnabert_promoter/run_component_donor_matrix.py,results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_manifest.json,figures/paper_figure_workflow_transfer.png
+DBP8,canonical,OV/mediation,bounded,results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_summary.json,scripts/dnabert_promoter/run_component_donor_matrix.py,results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_manifest.json,figures/paper_figure_workflow_transfer.png
 DBP8,canonical,,na,results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/validation_component_donor_matrix_128_manifest.json,scripts/dnabert_promoter/run_component_donor_matrix.py,,
 DBP8,canonical,OV/mediation,bounded,results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/validation_component_donor_matrix_128_per_example.csv,scripts/dnabert_promoter/run_component_donor_matrix.py,results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/validation_component_donor_matrix_128_manifest.json,
 DBP8,canonical,OV/mediation,bounded,results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/validation_component_donor_matrix_128_statistics.json,scripts/dnabert_promoter/run_component_donor_matrix.py,results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/validation_component_donor_matrix_128_manifest.json,
-DBP8,canonical,OV/mediation,bounded,results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/validation_component_donor_matrix_128_summary.json,scripts/dnabert_promoter/run_component_donor_matrix.py,results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/validation_component_donor_matrix_128_manifest.json,figures/dnabert_promoter/figure11_validation_component_transplant_matrix.pdf;figures/dnabert_promoter/figure11_validation_component_transplant_matrix.png
+DBP8,canonical,OV/mediation,bounded,results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/validation_component_donor_matrix_128_summary.json,scripts/dnabert_promoter/run_component_donor_matrix.py,results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/validation_component_donor_matrix_128_manifest.json,
 DBP8,canonical,OV/mediation,bounded,results/dnabert_promoter/frozen_claim_tests/components/matched_vs_mismatched_restoration.csv,scripts/dnabert_promoter/run_missing_baseline_controls.py,,
 DBP8,canonical,OV/mediation,bounded,results/dnabert_promoter/frozen_claim_tests/components/matched_vs_mismatched_restoration.json,scripts/dnabert_promoter/run_missing_baseline_controls.py,,
 DBP8,development,,na,results/dnabert_promoter/frozen_claim_tests/components/negative_class_donor_inventory.csv,scripts/dnabert_promoter/run_negative_class_donor_controls.py,,
-DBP7,canonical,OV/mediation,bounded,results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/test_faithfulness_curve_confirmation_128_curve.csv,scripts/dnabert_promoter/run_frozen_faithfulness_curve.py,,figures/dnabert_promoter/figure9_faithfulness_versus_circuit_size.pdf;figures/dnabert_promoter/figure9_faithfulness_versus_circuit_size.png;figures/dnabert_promoter/paper_figure_workflow_transfer.pdf;figures/dnabert_promoter/paper_figure_workflow_transfer.png
+DBP7,canonical,OV/mediation,bounded,results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/test_faithfulness_curve_confirmation_128_curve.csv,scripts/dnabert_promoter/run_frozen_faithfulness_curve.py,,figures/paper_figure_workflow_transfer.png
 DBP7,canonical,OV/mediation,bounded,results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/test_faithfulness_curve_confirmation_128_summary.json,scripts/dnabert_promoter/run_frozen_faithfulness_curve.py,,
-DBP7,canonical,OV/mediation,bounded,results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/validation_faithfulness_curve_refined_128_curve.csv,scripts/dnabert_promoter/run_frozen_faithfulness_curve.py,,figures/dnabert_promoter/figure9_faithfulness_versus_circuit_size.pdf;figures/dnabert_promoter/figure9_faithfulness_versus_circuit_size.png;figures/dnabert_promoter/paper_figure_workflow_transfer.pdf;figures/dnabert_promoter/paper_figure_workflow_transfer.png
+DBP7,canonical,OV/mediation,bounded,results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/validation_faithfulness_curve_refined_128_curve.csv,scripts/dnabert_promoter/run_frozen_faithfulness_curve.py,,figures/paper_figure_workflow_transfer.png
 DBP7,canonical,OV/mediation,bounded,results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/validation_faithfulness_curve_refined_128_summary.json,scripts/dnabert_promoter/run_frozen_faithfulness_curve.py,,
 DBP1,canonical,,na,results/dnabert_promoter/frozen_claim_tests/registry/frozen_config.json,scripts/dnabert_promoter/run_environment_preflight.py,,
 DBP1,infrastructure,,na,results/dnabert_promoter/provenance/checkpoint_equivalence.md,scripts/dnabert_promoter/run_environment_preflight.py,,
@@ -114,7 +114,7 @@ DBP2,infrastructure,,na,results/dnabert_promoter/shared/split_manifest.json,scri
 ,infrastructure,,na,results/origin-crossmodel/README.md,,,
 C40,canonical,,na,results/origin-crossmodel/canonical/acquisition_validation.json,scripts/crossmodel/run_carrier_pspectrum.py,results/origin-crossmodel/canonical/acquisition_validation.manifest.json,
 C40,canonical,,na,results/origin-crossmodel/canonical/acquisition_validation.manifest.json,scripts/crossmodel/run_carrier_pspectrum.py,,
-C40,canonical,Representation,null,results/origin-crossmodel/canonical/carrier_pspectrum.json,scripts/crossmodel/run_carrier_pspectrum.py,results/origin-crossmodel/canonical/carrier_pspectrum.manifest.json,figures/origin-crossmodel/crossmodel_carrier_summary.png
+C40,canonical,Representation,null,results/origin-crossmodel/canonical/carrier_pspectrum.json,scripts/crossmodel/run_carrier_pspectrum.py,results/origin-crossmodel/canonical/carrier_pspectrum.manifest.json,
 C40,canonical,Representation,null,results/origin-crossmodel/canonical/carrier_pspectrum.manifest.json,scripts/crossmodel/run_carrier_pspectrum.py,,
 C40,canonical,Representation,na,results/origin-crossmodel/canonical/dnabert2_aliasing.json,scripts/crossmodel/run_dnabert2_aliasing.py,results/origin-crossmodel/canonical/dnabert2_aliasing.manifest.json,
 C40,canonical,Representation,na,results/origin-crossmodel/canonical/dnabert2_aliasing.manifest.json,scripts/crossmodel/run_dnabert2_aliasing.py,,
@@ -134,11 +134,11 @@ C39,canonical,,na,results/origin-siblings/canonical/sibling_validate.manifest.js
 C35,canonical,Behaviour,positive,results/p3_av_decomposition.json,scripts/splicebert/run_p3_av_decomposition.py,,
 C34,canonical,Behaviour,positive,results/p3_carrier_locus.json,scripts/splicebert/run_p3_carrier_locus.py,,
 ,infrastructure,,na,results/phase-lattice/RESULTS_INDEX.md,,,
-"C11,C13",canonical,Attention,null,results/phase-lattice/band_mass.json,scripts/splicebert/measure_band_mass.py,,figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png
-C8,canonical,Behaviour,positive,results/phase-lattice/carrier_dose.json,scripts/splicebert/run_carrier_dose.py,results/phase-lattice/carrier_dose.manifest.json,figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png
+"C11,C13",canonical,Attention,null,results/phase-lattice/band_mass.json,scripts/splicebert/measure_band_mass.py,,figures/headline.png
+C8,canonical,Behaviour,positive,results/phase-lattice/carrier_dose.json,scripts/splicebert/run_carrier_dose.py,results/phase-lattice/carrier_dose.manifest.json,
 C8,canonical,Behaviour,positive,results/phase-lattice/carrier_dose.manifest.json,scripts/splicebert/run_carrier_dose.py,,
-C11,canonical,Representation,positive,results/phase-lattice/carrier_geometry.json,scripts/splicebert/run_carrier_geometry.py,,figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png
-"C9,C10",canonical,OV/mediation,bounded,results/phase-lattice/carrier_mediation.json,scripts/splicebert/run_carrier_mediation.py,results/phase-lattice/carrier_mediation.manifest.json,figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png
+C11,canonical,Representation,positive,results/phase-lattice/carrier_geometry.json,scripts/splicebert/run_carrier_geometry.py,,figures/fig_3.png
+"C9,C10",canonical,OV/mediation,bounded,results/phase-lattice/carrier_mediation.json,scripts/splicebert/run_carrier_mediation.py,results/phase-lattice/carrier_mediation.manifest.json,
 "C9,C10",canonical,OV/mediation,bounded,results/phase-lattice/carrier_mediation.manifest.json,scripts/splicebert/run_carrier_mediation.py,,
 C37,canonical,OV/mediation,null,results/phase-lattice/carrier_ov_av.json,scripts/splicebert/run_carrier_ov_av.py,results/phase-lattice/carrier_ov_av.manifest.json,
 C37,canonical,OV/mediation,null,results/phase-lattice/carrier_ov_av.manifest.json,scripts/splicebert/run_carrier_ov_av.py,,
@@ -149,8 +149,8 @@ C37,canonical,Behaviour,bounded,results/phase-lattice/carrier_p10_behaviour_conf
 C37,canonical,Attention,positive,results/phase-lattice/carrier_preflight_r.json,scripts/splicebert/run_carrier_preflight_r.py,results/phase-lattice/carrier_preflight_r.manifest.json,
 C37,canonical,Attention,positive,results/phase-lattice/carrier_preflight_r.manifest.json,scripts/splicebert/run_carrier_preflight_r.py,,
 "C8,C11",canonical,Representation,positive,results/phase-lattice/carrier_provenance.json,scripts/splicebert/run_carrier_provenance.py,,
-C11,canonical,Representation,positive,results/phase-lattice/carrier_subbin.json,scripts/splicebert/run_carrier_subbin.py,,figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png
-C8,canonical,Behaviour,positive,results/phase-lattice/carrier_surgery.json,scripts/splicebert/run_carrier_surgery.py,results/phase-lattice/carrier_surgery.manifest.json,figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png
+C11,canonical,Representation,positive,results/phase-lattice/carrier_subbin.json,scripts/splicebert/run_carrier_subbin.py,,figures/headline.png
+C8,canonical,Behaviour,positive,results/phase-lattice/carrier_surgery.json,scripts/splicebert/run_carrier_surgery.py,results/phase-lattice/carrier_surgery.manifest.json,figures/headline.png
 C8,canonical,Behaviour,positive,results/phase-lattice/carrier_surgery.manifest.json,scripts/splicebert/run_carrier_surgery.py,,
 C8,canonical,Attention,positive,results/phase-lattice/comb_shift.json,scripts/splicebert/run_comb_shift.py,results/phase-lattice/comb_shift.manifest.json,
 C8,canonical,Attention,positive,results/phase-lattice/comb_shift.manifest.json,scripts/splicebert/run_comb_shift.py,,
@@ -211,21 +211,21 @@ P3-shift-diagnostic,development,Behaviour,na,results/phase-lattice/development/p
 P3-shift-diagnostic,development,Behaviour,na,results/phase-lattice/development/p3_shift_diagnostic_smoke_a1_20260721.json,scripts/splicebert/run_p3_shift_diagnostic.py,results/phase-lattice/development/p3_shift_diagnostic_smoke_a1_20260721.manifest.json,
 P3-shift-diagnostic,development,Behaviour,na,results/phase-lattice/development/p3_shift_diagnostic_smoke_a1_20260721.manifest.json,scripts/splicebert/run_p3_shift_diagnostic.py,,
 C14,canonical,Biology,refutation,results/phase-lattice/dyad_fpr.json,scripts/splicebert/run_dyad_fpr.py,,
-C14,canonical,Biology,refutation,results/phase-lattice/dyad_real.json,scripts/splicebert/run_dyad_real.py,,figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png
-C14,canonical,Biology,refutation,results/phase-lattice/dyad_wavelength.json,scripts/splicebert/run_dyad_wavelength.py,,figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png
+C14,canonical,Biology,refutation,results/phase-lattice/dyad_real.json,scripts/splicebert/run_dyad_real.py,,
+C14,canonical,Biology,refutation,results/phase-lattice/dyad_wavelength.json,scripts/splicebert/run_dyad_wavelength.py,,
 C8,canonical,Attention,positive,results/phase-lattice/fig_phase_data.json,scripts/splicebert/make_fig_phase_data.py,,
-"C8,C11,C13,C14",canonical,"Representation,QK,Attention,OV/mediation,Behaviour,Biology",refutation,results/phase-lattice/fig_report_data.json,scripts/splicebert/make_fig_report_data.py,,figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png
-C13,canonical,QK,null,results/phase-lattice/human_carrier.json,scripts/splicebert/run_human_carrier.py,,figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png
+"C8,C11,C13,C14",canonical,"Representation,QK,Attention,OV/mediation,Behaviour,Biology",refutation,results/phase-lattice/fig_report_data.json,scripts/splicebert/make_fig_report_data.py,,figures/headline.png;figures/fig_3.png
+C13,canonical,QK,null,results/phase-lattice/human_carrier.json,scripts/splicebert/run_human_carrier.py,,
 C36,canonical,Behaviour,positive,results/phase-lattice/p3_phase_surgery_confirmation_package_v1.audit.json,scripts/splicebert/audit_p3_phase_surgery_confirmation_package.py,results/phase-lattice/p3_phase_surgery_confirmation_package_v1.audit.manifest.json,
 C36,canonical,Behaviour,positive,results/phase-lattice/p3_phase_surgery_confirmation_package_v1.audit.manifest.json,scripts/splicebert/audit_p3_phase_surgery_confirmation_package.py,,
-C36,canonical,Behaviour,positive,results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json,scripts/splicebert/freeze_p3_phase_surgery_confirmation.py,results/phase-lattice/p3_phase_surgery_confirmation_package_v1.manifest.json,figures/splicebert/fig5_p3_phase_surgery_confirmation.png
+C36,canonical,Behaviour,positive,results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json,scripts/splicebert/freeze_p3_phase_surgery_confirmation.py,results/phase-lattice/p3_phase_surgery_confirmation_package_v1.manifest.json,figures/headline.png;figures/fig_3.png
 C36,canonical,Behaviour,positive,results/phase-lattice/p3_phase_surgery_confirmation_package_v1.manifest.json,scripts/splicebert/freeze_p3_phase_surgery_confirmation.py,,
-C36,canonical,Behaviour,positive,results/phase-lattice/p3_phase_surgery_confirmation_v1/confirmation_analysis.json,scripts/splicebert/analyze_p3_phase_surgery_confirmation.py,results/phase-lattice/p3_phase_surgery_confirmation_v1/confirmation_analysis.manifest.json,figures/splicebert/fig5_p3_phase_surgery_confirmation.png
+C36,canonical,Behaviour,positive,results/phase-lattice/p3_phase_surgery_confirmation_v1/confirmation_analysis.json,scripts/splicebert/analyze_p3_phase_surgery_confirmation.py,results/phase-lattice/p3_phase_surgery_confirmation_v1/confirmation_analysis.manifest.json,figures/headline.png;figures/fig_3.png
 C36,canonical,Behaviour,positive,results/phase-lattice/p3_phase_surgery_confirmation_v1/confirmation_analysis.manifest.json,scripts/splicebert/analyze_p3_phase_surgery_confirmation.py,,
 C36,canonical,Behaviour,positive,results/phase-lattice/p3_phase_surgery_confirmation_v1/confirmation_shards.archive.json,,,
 C36,canonical,Behaviour,positive,results/phase-lattice/p3_phase_surgery_confirmation_v1/confirmation_shards.tar.gz,,results/phase-lattice/p3_phase_surgery_confirmation_v1/confirmation_shards.archive.json,
 C36,canonical,Behaviour,positive,results/phase-lattice/p3_phase_surgery_confirmation_v1/direction_control_manifest.json,scripts/splicebert/run_p3_phase_surgery_confirmation.py,,
-C36,canonical,Behaviour,positive,results/phase-lattice/p3_phase_surgery_confirmation_v1/figure_data.json,scripts/splicebert/make_fig5_p3_phase_surgery_confirmation.py,,figures/splicebert/fig5_p3_phase_surgery_confirmation.png
+C36,canonical,Behaviour,positive,results/phase-lattice/p3_phase_surgery_confirmation_v1/figure_data.json,,,
 C36,canonical,Behaviour,positive,results/phase-lattice/p3_phase_surgery_confirmation_v1/matched_context_manifest.json,scripts/splicebert/run_p3_phase_surgery_confirmation.py,,
 C36,canonical,Behaviour,positive,results/phase-lattice/p3_phase_surgery_confirmation_v1/primary_manifest.json,scripts/splicebert/run_p3_phase_surgery_confirmation.py,,
 C36,canonical,Behaviour,positive,results/phase-lattice/p3_phase_surgery_confirmation_v1/run_complete.json,scripts/splicebert/run_p3_phase_surgery_confirmation.py,,
@@ -242,8 +242,8 @@ P3-shift-diagnostic,canonical,Attention,na,results/phase-lattice/p3_shift_diagno
 P3-shift-diagnostic,canonical,Attention,na,results/phase-lattice/p3_shift_diagnostic_v2.mod3.manifest.json,scripts/splicebert/analyze_p3_shift_mod3.py,,
 "C8,C11",canonical,Representation,positive,results/phase-lattice/phase_inventory.json,scripts/splicebert/run_phase_inventory.py,results/phase-lattice/phase_inventory.manifest.json,
 "C8,C11",canonical,Representation,positive,results/phase-lattice/phase_inventory.manifest.json,scripts/splicebert/run_phase_inventory.py,,
-"C11,C13",canonical,Attention,null,results/phase-lattice/postsoftmax.json,scripts/splicebert/run_postsoftmax.py,,figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png
-C11,canonical,Attention,positive,results/phase-lattice/preflight_postsoftmax.json,scripts/splicebert/run_postsoftmax.py,,figures/splicebert/fig1_summary.png;figures/splicebert/fig2_oscillators.png;figures/splicebert/fig3_clock_circuit.png
+"C11,C13",canonical,Attention,null,results/phase-lattice/postsoftmax.json,scripts/splicebert/run_postsoftmax.py,,figures/headline.png
+C11,canonical,Attention,positive,results/phase-lattice/preflight_postsoftmax.json,scripts/splicebert/run_postsoftmax.py,,figures/headline.png
 C11,canonical,Representation,positive,results/phase-lattice/second_carrier.json,scripts/splicebert/run_second_carrier.py,,
 C15,canonical,Biology,bounded,results/phase-lattice/splice_long.json,scripts/splicebert/run_splice_long.py,,
 C15,canonical,Biology,bounded,results/phase-lattice/splice_phasing.json,scripts/splicebert/run_splice_phasing.py,,
@@ -281,11 +281,11 @@ C31,canonical,Directed circuit,positive,results/splicebert_coupling/a10_generato
 C31,canonical,Directed circuit,positive,results/splicebert_coupling/a10_generator_edges.manifest.json,scripts/splicebert/run_a10_generator_edges.py,,
 C32,canonical,QK,positive,results/splicebert_coupling/a11_address_geometry.json,scripts/splicebert/run_a11_address_geometry.py,results/splicebert_coupling/a11_address_geometry.manifest.json,
 C32,canonical,QK,positive,results/splicebert_coupling/a11_address_geometry.manifest.json,scripts/splicebert/run_a11_address_geometry.py,,
-C33,canonical,Directed circuit,positive,results/splicebert_coupling/a12_faithfulness_size.json,scripts/splicebert/run_a12_faithfulness_size.py,results/splicebert_coupling/a12_faithfulness_size.manifest.json,
+C33,canonical,Directed circuit,positive,results/splicebert_coupling/a12_faithfulness_size.json,scripts/splicebert/run_a12_faithfulness_size.py,results/splicebert_coupling/a12_faithfulness_size.manifest.json,figures/fig_3.png
 C33,canonical,Directed circuit,positive,results/splicebert_coupling/a12_faithfulness_size.manifest.json,scripts/splicebert/run_a12_faithfulness_size.py,,
 C20;C22,canonical,QK,positive,results/splicebert_coupling/a1_token_position.json,scripts/splicebert/run_a1_token_position.py,results/splicebert_coupling/a1_token_position.manifest.json,
 C20;C22,canonical,QK,positive,results/splicebert_coupling/a1_token_position.manifest.json,scripts/splicebert/run_a1_token_position.py,,
-C23,canonical,OV/mediation,positive,results/splicebert_coupling/a2_address_payload.json,scripts/splicebert/run_a2_address_payload.py,results/splicebert_coupling/a2_address_payload.manifest.json,
+C23,canonical,OV/mediation,positive,results/splicebert_coupling/a2_address_payload.json,scripts/splicebert/run_a2_address_payload.py,results/splicebert_coupling/a2_address_payload.manifest.json,figures/fig_3.png
 C23,canonical,OV/mediation,positive,results/splicebert_coupling/a2_address_payload.manifest.json,scripts/splicebert/run_a2_address_payload.py,,
 C24,canonical,OV/mediation,positive,results/splicebert_coupling/a2b_payload_localization.json,scripts/splicebert/run_a2b_payload_localization.py,results/splicebert_coupling/a2b_payload_localization.manifest.json,
 C24,canonical,OV/mediation,positive,results/splicebert_coupling/a2b_payload_localization.manifest.json,scripts/splicebert/run_a2b_payload_localization.py,,
@@ -312,8 +312,8 @@ C38,canonical,Behaviour,bounded,results/splicebert_coupling/b3_cross_example_tra
 C38,canonical,Behaviour,bounded,results/splicebert_coupling/b3_cross_example_transduction.manifest.json,scripts/splicebert/run_b3_cross_example_transduction.py,,
 C38,canonical,Behaviour,bounded,results/splicebert_coupling/b3_cross_example_transduction_n512.json,scripts/splicebert/run_b3_cross_example_transduction.py,results/splicebert_coupling/b3_cross_example_transduction_n512.manifest.json,
 C38,canonical,Behaviour,bounded,results/splicebert_coupling/b3_cross_example_transduction_n512.manifest.json,scripts/splicebert/run_b3_cross_example_transduction.py,,
-C7,canonical,Directed circuit,bounded,results/splicebert_coupling/completeness_null.json,scripts/splicebert/run_completeness_null.py,results/splicebert_coupling/completeness_null.manifest.json,figures/splicebert/fig3_circuit.png
-C7,canonical,Directed circuit,bounded,results/splicebert_coupling/completeness_null.manifest.json,scripts/splicebert/run_completeness_null.py,,figures/splicebert/fig3_circuit.png
+C7,canonical,Directed circuit,bounded,results/splicebert_coupling/completeness_null.json,scripts/splicebert/run_completeness_null.py,results/splicebert_coupling/completeness_null.manifest.json,
+C7,canonical,Directed circuit,bounded,results/splicebert_coupling/completeness_null.manifest.json,scripts/splicebert/run_completeness_null.py,,
 C3,development,Attention,na,results/splicebert_coupling/development/ablation_scan.json,scripts/splicebert/run_ablation_scan.py,results/splicebert_coupling/development/ablation_scan.manifest.json,
 C3,development,Attention,na,results/splicebert_coupling/development/ablation_scan.manifest.json,scripts/splicebert/run_ablation_scan.py,,
 C3,development,Attention,na,results/splicebert_coupling/development/ablation_scan_bothstrand.json,scripts/splicebert/run_ablation_scan.py,,
@@ -412,8 +412,8 @@ C6,canonical,OV/mediation,positive,results/splicebert_coupling/l1h12_probe.json,
 C6,canonical,OV/mediation,positive,results/splicebert_coupling/l1h12_probe.manifest.json,scripts/splicebert/run_l1h12_probe.py,,
 C6,canonical,OV/mediation,positive,results/splicebert_coupling/l1h12_route.json,scripts/splicebert/run_l1h12_route.py,results/splicebert_coupling/l1h12_route.manifest.json,
 C6,canonical,OV/mediation,positive,results/splicebert_coupling/l1h12_route.manifest.json,scripts/splicebert/run_l1h12_route.py,,
-C6,canonical,OV/mediation,positive,results/splicebert_coupling/l2_accounting.json,scripts/splicebert/run_l2_accounting.py,results/splicebert_coupling/l2_accounting.manifest.json,figures/splicebert/fig2_mechanism.png;figures/splicebert/fig3_circuit.png
-C6,canonical,OV/mediation,positive,results/splicebert_coupling/l2_accounting.manifest.json,scripts/splicebert/run_l2_accounting.py,,figures/splicebert/fig2_mechanism.png;figures/splicebert/fig3_circuit.png
+C6,canonical,OV/mediation,positive,results/splicebert_coupling/l2_accounting.json,scripts/splicebert/run_l2_accounting.py,results/splicebert_coupling/l2_accounting.manifest.json,
+C6,canonical,OV/mediation,positive,results/splicebert_coupling/l2_accounting.manifest.json,scripts/splicebert/run_l2_accounting.py,,
 ,infrastructure,,na,results/splicebert_coupling/manifest.json,scripts/splicebert/run_coupling.py,,
 ,development,,na,results/splicebert_coupling/pa1_pilot.json,scripts/splicebert/run_pa1_pilot.py,results/splicebert_coupling/pa1_pilot.manifest.json,
 ,development,,na,results/splicebert_coupling/pa1_pilot.manifest.json,scripts/splicebert/run_pa1_pilot.py,,
@@ -425,16 +425,16 @@ C6,canonical,OV/mediation,positive,results/splicebert_coupling/l2_accounting.man
 ,development,,na,results/splicebert_coupling/pa1_step4.manifest.json,scripts/splicebert/run_pa1_step4.py,,
 ,development,,na,results/splicebert_coupling/pa1_step4_smoke.json,scripts/splicebert/run_pa1_step4.py,results/splicebert_coupling/pa1_step4_smoke.manifest.json,
 ,development,,na,results/splicebert_coupling/pa1_step4_smoke.manifest.json,scripts/splicebert/run_pa1_step4.py,,
-C5,canonical,Directed circuit,positive,results/splicebert_coupling/position_profile.json,scripts/splicebert/run_position_profile.py,results/splicebert_coupling/position_profile.manifest.json,figures/splicebert/fig3_circuit.png
-C5,canonical,Directed circuit,positive,results/splicebert_coupling/position_profile.manifest.json,scripts/splicebert/run_position_profile.py,,figures/splicebert/fig3_circuit.png
-C22,canonical,QK,positive,results/splicebert_coupling/qkv.json,scripts/splicebert/run_qkv.py,results/splicebert_coupling/qkv.manifest.json,figures/splicebert/fig2_mechanism.png
-C22,canonical,QK,positive,results/splicebert_coupling/qkv.manifest.json,scripts/splicebert/run_qkv.py,,figures/splicebert/fig2_mechanism.png
-C5,canonical,Directed circuit,positive,results/splicebert_coupling/readout_path.json,scripts/splicebert/run_readout_path.py,results/splicebert_coupling/readout_path.manifest.json,figures/splicebert/fig3_circuit.png
-C5,canonical,Directed circuit,positive,results/splicebert_coupling/readout_path.manifest.json,scripts/splicebert/run_readout_path.py,,figures/splicebert/fig3_circuit.png
-C1;C2;C3;C4,canonical,Behaviour,positive,results/splicebert_coupling/sealed_test.json,scripts/splicebert/run_sealed_test.py,results/splicebert_coupling/sealed_test.manifest.json,
+C5,canonical,Directed circuit,positive,results/splicebert_coupling/position_profile.json,scripts/splicebert/run_position_profile.py,results/splicebert_coupling/position_profile.manifest.json,
+C5,canonical,Directed circuit,positive,results/splicebert_coupling/position_profile.manifest.json,scripts/splicebert/run_position_profile.py,,
+C22,canonical,QK,positive,results/splicebert_coupling/qkv.json,scripts/splicebert/run_qkv.py,results/splicebert_coupling/qkv.manifest.json,
+C22,canonical,QK,positive,results/splicebert_coupling/qkv.manifest.json,scripts/splicebert/run_qkv.py,,
+C5,canonical,Directed circuit,positive,results/splicebert_coupling/readout_path.json,scripts/splicebert/run_readout_path.py,results/splicebert_coupling/readout_path.manifest.json,
+C5,canonical,Directed circuit,positive,results/splicebert_coupling/readout_path.manifest.json,scripts/splicebert/run_readout_path.py,,
+C1;C2;C3;C4,canonical,Behaviour,positive,results/splicebert_coupling/sealed_test.json,scripts/splicebert/run_sealed_test.py,results/splicebert_coupling/sealed_test.manifest.json,figures/headline.png
 C1;C2;C3;C4,canonical,Behaviour,positive,results/splicebert_coupling/sealed_test.manifest.json,scripts/splicebert/run_sealed_test.py,,
-C1;C3;C4,canonical,Behaviour,positive,results/splicebert_coupling/sealed_val.json,scripts/splicebert/run_sealed_test.py,results/splicebert_coupling/sealed_val.manifest.json,figures/splicebert/fig2_mechanism.png
-C1;C3;C4,canonical,Behaviour,positive,results/splicebert_coupling/sealed_val.manifest.json,scripts/splicebert/run_sealed_test.py,,figures/splicebert/fig2_mechanism.png
+C1;C3;C4,canonical,Behaviour,positive,results/splicebert_coupling/sealed_val.json,scripts/splicebert/run_sealed_test.py,results/splicebert_coupling/sealed_val.manifest.json,
+C1;C3;C4,canonical,Behaviour,positive,results/splicebert_coupling/sealed_val.manifest.json,scripts/splicebert/run_sealed_test.py,,
 A4,superseded,QK,na,results/splicebert_coupling/superseded/a4_address_geometry.json,scripts/splicebert/run_a4_address_geometry.py,results/splicebert_coupling/superseded/a4_address_geometry.manifest.json,
 A4,superseded,QK,na,results/splicebert_coupling/superseded/a4_address_geometry.manifest.json,scripts/splicebert/run_a4_address_geometry.py,,
 A9;R22,superseded,Representation,na,results/splicebert_coupling/superseded/a9_payload_semantics.json,scripts/splicebert/run_a9_payload_semantics.py,results/splicebert_coupling/superseded/a9_payload_semantics.manifest.json,
@@ -447,7 +447,7 @@ IC1,superseded,Behaviour,na,results/splicebert_coupling/superseded/preflight_ic1
 IC1,superseded,Behaviour,na,results/splicebert_coupling/superseded/preflight_ic1_v6_FAILED.json,scripts/splicebert/run_ic1_distal_intron_necessity.py,,
 C43,canonical,Behaviour,bounded,results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_analysis.json,,results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_analysis.manifest.json,
 C43,canonical,Behaviour,bounded,results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_analysis.manifest.json,,,
-C43,canonical,Behaviour,bounded,results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_audit.json,,results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_audit.manifest.json,
+C43,canonical,Behaviour,bounded,results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_audit.json,,results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_audit.manifest.json,figures/headline.png
 C43,canonical,Behaviour,bounded,results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_audit.manifest.json,,,
 C43,canonical,,na,results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_frozen_package.audit.json,,results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_frozen_package.audit.manifest.json,
 C43,canonical,,na,results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_frozen_package.audit.manifest.json,,,

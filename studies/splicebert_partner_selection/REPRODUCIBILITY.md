@@ -120,8 +120,9 @@ C36's full cohort/preflight machinery: `build_p3_closure_cohort.py`, `run_p3_clo
 `analyze_p3_phase_surgery_confirmation.py`, `audit_p3_phase_surgery_confirmation_smoke.py`,
 `audit_p3_phase_surgery_confirmation_package.py`, `freeze_p3_phase_surgery_confirmation.py`. Development
 and superseded cohorts live under `PL/development/` and `PL/superseded/`. The period-3 present-day-use
-family (C34/C35/C36) is DONE; only training/biological origin remains (deferred). Figure 5 via
-`make_fig5_p3_phase_surgery_confirmation.py` → `figures/splicebert/fig5_p3_phase_surgery_confirmation.png`.
+family (C34/C35/C36) is DONE; only training/biological origin remains (deferred). The current manuscript
+shows this result in [`figures/fig_3.png`](../../figures/fig_3.png), whose sidecar hashes the controlling
+analysis.
 
 ## ≈10.63 carrier and human-only ≈10.2 attention gate (C11–C13, C37)
 
@@ -166,7 +167,7 @@ and `G1_REPORT.md`.
 | C40 cross-model powered null (RNA-FM/RNA-BERT) + DNABERT-2 tokenizer aliasing | `scripts/crossmodel/run_carrier_pspectrum.py`, `run_reader_and_surgery.py`, `run_reader_freqcontrol.py`, `run_dnabert2_aliasing.py` | `results/origin-crossmodel/canonical/carrier_pspectrum.json`, `reader_and_surgery.json`, `reader_freqcontrol.json`, `dnabert2_aliasing.json` |
 
 C39/C40 are comparative corpus attribution (a frozen-checkpoint natural experiment), not training
-dynamics. Figure: `figures/origin-crossmodel/crossmodel_carrier_summary.png`. Index:
+dynamics. No standalone cross-model figure appears in the current paper. Index:
 `results/origin-siblings/RESULTS_INDEX.md`, `results/origin-crossmodel/README.md`.
 
 ## Cross-study positive control — Head–Context Atlas
@@ -190,11 +191,10 @@ their scripts, immutable JSON, and manifests.
 
 ## Figures
 
-Canonical paper figures are generated from recorded artifacts (`make_fig1_summary.py`,
-`make_fig2_oscillators.py`, `make_fig3_clock_circuit.py`,
-`make_fig5_p3_phase_surgery_confirmation.py`, `make_fig_phase_data.py`, `make_fig_report_data.py`;
-donor-circuit figure generators live in `figures/splicebert/`). A figure is explanatory; the JSON and
-manifest remain the scientific record. Sources documented under `figures/splicebert/README.md`.
+The active `figures/` directory contains the four current manuscript assets, each with an adjacent
+provenance sidecar. The DNABERT-2 composite has a checked-in generator; the three supplied
+SpliceBERT/conceptual composites have hashed source maps. A figure is explanatory; the JSON
+and manifest remain the scientific record.
 
 ## Validation checklist
 
@@ -204,7 +204,7 @@ Before merging a change to an active workflow:
 uv run pytest
 uv run python scripts/verify_manifest.py
 rg -n "VOID|SUPERSEDED|METHODS_AUDIT|MECHANISM.md|SEALED_TEST_RESULT" \
-  scripts studies/splicebert_partner_selection results/phase-lattice figures/splicebert
+  scripts studies/splicebert_partner_selection results/phase-lattice figures
 ```
 
 Then verify:

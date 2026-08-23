@@ -230,9 +230,9 @@ the organism and is the live anchor for it.
 **Sites corrected:** `README.md:44`, `docs/ROADMAP.md:69-70`, `docs/NOMENCLATURE.md:27`, and
 `docs/CARRIER_ORIGIN_SYNTHESIS_2026-07-23.md:55-58` — the last found only by the post-edit propagation grep,
 not by the review sweep, which is the failure mode this repo has to design against.
-**Deliberately left unchanged:** `figures/splicebert/fig_two_carriers.CAPTION.md:64-65` (stamped **T3 —
-historical, superseded**; it is a record of what was written then) and `data/NUCLEOSOME_MAP.md`, which was
-always correct and is the primary provenance document for the Voong map.
+**Deliberately left unchanged:** the former `fig_two_carriers` T3 caption (historical and superseded,
+now recoverable from Git history) and `data/NUCLEOSOME_MAP.md`, which was always correct and is the primary
+provenance document for the Voong map.
 
 **Addendum (2026-07-25) — the residual gap is now registered, not just disclosed.** Two follow-ups the
 first pass left open are closed as far as they can be without new data:
@@ -251,7 +251,7 @@ and it is the most likely line of attack on the project's flagship biological cl
 
 **(a) "Not run" — false.** `docs/EVIDENCE_LADDER.md:36` marked the carrier's OV/mediation and Behaviour
 cells **`?`**, and that document's own legend (`:61`) defines `?` as *"the defining intervention has **not**
-been run, so there is no evidence in either direction."* `figures/splicebert/EVIDENCE.md:45` stated it in
+been run, so there is no evidence in either direction."* The former figure evidence summary stated in
 prose: *"No OV-mediation experiment has been run, and no behavioural effect has been demonstrated."* **Both
 interventions ran on 2026-07-23** under B1 (C37, folded into C12), producing
 `results/phase-lattice/{carrier_ov_av,carrier_p10_behaviour_confirm,carrier_preflight_r}.json` with 8 rows in
@@ -280,8 +280,8 @@ on the frozen checkpoint; what changes is the **scope** of "does not write", whi
 the donor readout. The evidence ladder gains a **`bounded`** marker so a measured boundary is no longer
 recorded as an absence.
 **Sites corrected:** `CLAIMS.md:35` (C12), `docs/EVIDENCE_LADDER.md:36` and the marker legend at `:61-67`,
-`figures/splicebert/EVIDENCE.md:15,42-46`, `docs/BIOLOGICAL_BRIDGES.md:212-214`, `FINDINGS.md:109-110`,
-`figures/splicebert/README.md:83-84,86-87`.
+the former figure evidence summary and figure-family README (both later removed from the active tree),
+`docs/BIOLOGICAL_BRIDGES.md:212-214`, and the former `FINDINGS.md:109-110`.
 **Deliberately left carrying the superseded reading, as dated record:** `DECISIONS.md:126,192` (a T2
 chronology of pivots, explicitly "not a second claim ledger") and `DECISIONS_A0.md`. Read them through this
 entry.
@@ -507,8 +507,8 @@ phase-rotation 10.2525), also far inside the gap. No result artifact was edited 
 **Rule.** State the distinctness as the gap **relative to the measured spreads** — *carrier 10.63 ± 0.05,
 nucleosomal 10.30 ± 0.05, gap ~7× the larger uncertainty* — and never quote a ±0.005 carrier fit
 precision. `docs/NOMENCLATURE.md` §2 carries the guard. Corrected in `MECHANISM.md`,
-`RESULTS_VERIFICATION.md`, `docs/NOMENCLATURE.md`, `docs/BIOLOGICAL_BRIDGES.md`, and
-`figures/splicebert/fig4_carrier_circuit.CAPTION.md`. **Not** corrected, by frozen-record convention:
+`RESULTS_VERIFICATION.md`, `docs/NOMENCLATURE.md`, `docs/BIOLOGICAL_BRIDGES.md`, and the former carrier-
+circuit caption (now recoverable from Git history). **Not** corrected, by frozen-record convention:
 `PREREGISTRATION_B1_CARRIER_OV_BEHAVIOR.md:73` and the dated T2 review/handoff docs
 (`docs/REVIEW_2026-07-22.md:44,294`, `docs/OPEN_TRACKS_EXPANDED_2026-07-22.md:64`,
 `docs/TIER2_HANDOFF_2026-07-23.md:252`) — these are historical records of what was believed at their date.
@@ -525,8 +525,8 @@ distinctness argument is unaffected.
 
 ## R38 — the human-only "best head has `m_T = 0.001`" was L1H3's band mass, not an effect size (2026-07-31)
 
-**What was claimed.** `figures/splicebert/EVIDENCE.md` § "Why the human-only null is a null and not a
-blind instrument" answered the lone-reader power objection with *"the best human-only head has
+**What was claimed.** The former figure evidence summary's section "Why the human-only null is a null and
+not a blind instrument" answered the lone-reader power objection with *"the best human-only head has
 `m_T = 0.001`"* — i.e. the null is safe because the strongest human-only effect is ~0.
 
 **Why it was wrong.** `results/phase-lattice/fig_report_data.json` (`levelA.human_only`, 75 heads)
@@ -544,7 +544,8 @@ argument (eight Level-A heads multi-species) is untouched, and no artifact value
 
 **Rule.** `m_T` and band mass are separate quantities on separate scales — quote each with the head it
 belongs to. A power-objection rebuttal must report the best head's `p_exact` against its own null, not a
-bare effect size. Corrected in `figures/splicebert/EVIDENCE.md`.
+bare effect size. The former figure summary was corrected before its later removal; the live values remain
+in `docs/EVIDENCE_LADDER.md` and the claim ledger.
 
 ## R39 — four period-3 memorial test files were deleted, and the missing-artifact correction they were waiting for was never written (2026-07-31)
 

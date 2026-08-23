@@ -1,0 +1,13 @@
+{
+  "git_commit": "ece89d4070ef484bed504a1d1050d2ea3302de46",
+  "sources": [
+    {
+      "path": "docs/METHODOLOGY.md",
+      "sha256": "7a57b1b46bb971d2b3c3360dbe7561761783bab8446021db3cc467ff7e653603"
+    },
+    {
+      "path": "MECHANISM.md",
+      "sha256": "51f7cce2710baf70df8e9bcbeb4f948821f69456300750443e0953358cc01f78"
+    }
+  ]
+}

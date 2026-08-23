@@ -34,7 +34,8 @@ For positional mechanisms, the project records five compact columns:
 | Multi-species ≈10.63 carrier | ✓ | ✓ | ✓ | null (donor coupling) | bounded (−0.033) | Real positional attention circuit, **not** part of the donor circuit. Both interventions ran (C37→C12). General function, general OV content, and biological meaning remain open; the `U_info` write test was never computed (R31). |
 | Human-only ≈10.2 candidate | ✓ | provisional | failed | — | null | Proposed chromatin circuit closed at attention |
 
-The authoritative values and statistical conventions remain in [`figures/splicebert/EVIDENCE.md`](../figures/splicebert/EVIDENCE.md).
+The authoritative values and statistical conventions remain in the
+[`CLAIMS.md`](../studies/splicebert_partner_selection/CLAIMS.md) ledger and controlling result artifacts.
 
 ## The five columns in causal-abstraction terms
 

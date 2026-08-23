@@ -59,18 +59,13 @@ then the F2 guard is not CI-enforced.~~ Note this also means the documented-gree
 
 ## B3 — nomenclature (2026-07-22)
 
-The superseded phase captions and stale `fig4_carrier_circuit` asset were removed from the active tree
-on 2026-08-03; Git history preserves them. Two live nomenclature questions remain:
+The superseded phase captions and stale carrier-circuit assets were removed from the active tree;
+Git history preserves them. One live nomenclature question remains:
 
 1. **`data/NUCLEOSOME_MAP.md:36` calls the nucleosomal signal "10.67-nt".** Two defects in one phrase:
    the label is retired, and the nucleosomal signal is ≈10.298, not any 10.6x value. Rewording is a
    provenance-document change that touches how a measurement is described. **Decision required:** owner
    ruling on a wavelength-neutral rewording. Path is not owned by B3.
-
-2. **`figures/splicebert/EVIDENCE.md:49` says the human-only chromatin-circuit claim is "closed at
-   QK"; `CLAIMS.md` C13 and four other documents say "closed at the attention gate".** These are
-   different rungs of the evidence ladder, so this is not a free wording harmonisation. **Decision
-   required:** confirm the intended rung, then harmonise. Path is not owned by B3.
 
 ---
 
@@ -151,50 +146,9 @@ into `results/<subdir>/development/`. The following were deliberately **not** ap
 
 ---
 
-## D1 — figure system (2026-07-22)
+## D1 — figure system (2026-07-22; resolved 2026-08-23)
 
-Source: review §8.
-
-> **CORRECTION (2026-07-22, post-audit).** This section originally asserted that "the regenerated figures
-> are byte-identical to the ones they replace." **That statement was false.** Measurement showed
-> `fig1_coupling.pdf`, `fig2_mechanism.pdf`, `fig3_circuit.pdf` and
-> `fig5_p3_phase_surgery_confirmation.pdf` all differed from their committed bytes, and the four
-> `*.provenance.json` sidecars had been overwritten — replacing the original generation environment
-> (`git_commit: null`, original project path) with this worktree's commit and an ephemeral
-> `.claude/worktrees/` path, destroying the provenance record.
->
-> **All four figures, their provenance sidecars, their captions, and every modified `make_fig*.py` have
-> been reverted to their committed state and re-verified byte-identical to `HEAD`.** The style-module
-> refactor is therefore **not applied** to the figures of record. What remains from D1 is purely
-> additive and new: `figures/splicebert/figstyle.py`, plus three new figures
-> (`fig_carrier_heatmap`, `fig_evidence_ladder`, `fig_generator_graph`) and their generators.
->
-> **Decision required:** applying the style refactor to the four existing figures regenerates committed
-> figures of record and rewrites their provenance. That is an owner decision, not an automated one.
-
-Three further things could not be settled without a styling decision by the owner.
-
-1. **Three palettes are in use, and unifying them would restyle published panels.** The CVD-validated
-   SVG palette (`scripts/splicebert/figstyle.py`) uses `#0B6FB8` for the period-3 blue; the Okabe-Ito
-   matplotlib tokens (`src/gfmcd/figures/style.py`) use `#0072B2` for "signal"; the confirmation figure
-   uses `#3569a8`. All three are now named in one module (`figures/splicebert/figstyle.py`) instead of
-   three, so the disagreement is visible rather than hidden, but none of the values was changed.
-   **Decision required:** whether to re-colour `fig1_coupling`, `fig2_mechanism`, `fig3_circuit` and
-   `fig5_p3_phase_surgery_confirmation` onto the validated palette. That is a restyle, not a refactor,
-   and it changes committed figure files.
-
-2. **DPI is not uniform.** The project rcParams save rasters at 300 dpi; the confirmation figure was
-   authored at 240 and is still saved at 240 (`DPI_CONFIRMATION_PANEL`) so its PNG is unchanged.
-   **Decision required:** whether to standardize on 300.
-
-3. **The validated palette still physically lives under `scripts/splicebert/`.** `figures/splicebert/
-   figstyle.py` re-exports it rather than copying it, so there is exactly one definition of the
-   computed colours; the cost is that the study's style module depends on a file in the script tree.
-   Moving `scripts/splicebert/figstyle.py` into `figures/splicebert/` and collapsing the re-export
-   would be tidier, but that path was outside this task's ownership. **Decision required:** whether to
-   move it.
-
-Also recorded, not a decision: **Graphviz is not installed in this environment.**
-`make_fig_generator_graph.py` writes the data-derived DOT source unconditionally and renders PDF/PNG
-only when `dot` is on `PATH`. It reports the missing dependency and stops rather than substituting a
-hand-placed drawing, per review §8.
+The former multi-suite figure system and its palette/DPI questions were retired when the active figure
+tree was reduced to the four assets actually included by the workshop manuscript. Git history preserves
+the prior files and this review's original context. The active PNGs now have repository-relative, hashed
+source sidecars, and no styling decision remains open for deleted supplemental figures.

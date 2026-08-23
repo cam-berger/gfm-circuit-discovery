@@ -122,11 +122,11 @@ that the repository-level example layout governed every study.
    `native_context_per_seed_alignment_discovery_v1.json` (GFS19), and the J-SAE evaluation stages read
    their capture files. Re-run the first-stage runner to rebuild the input, then compare against the
    recorded hash in the manifest.
-5. **14 canonical-row runners have no `argparse` at all.** They take no flags, so `--help` is *not*
+5. **13 canonical-row runners have no `argparse` at all.** They take no flags, so `--help` is *not*
    handled: passing it does not print usage, it **starts a real run** against whatever paths are compiled
    in, and several of those runs write to a path `results/MANIFEST.csv` registers as an artifact (limit 2).
-   The affected runners are `make_fig5_p3_phase_surgery_confirmation.py`, `make_fig_phase_data.py`,
-   `make_fig_report_data.py`, `measure_band_mass.py`, `run_carrier_geometry.py`, `run_carrier_subbin.py`,
+   The affected runners are `make_fig_phase_data.py`, `make_fig_report_data.py`, `measure_band_mass.py`,
+   `run_carrier_geometry.py`, `run_carrier_subbin.py`,
    `run_dyad_wavelength.py`, `run_human_carrier.py`, `run_postsoftmax.py`, `run_second_carrier.py`,
    `run_sibling_pspectrum.py`, `run_sibling_validate.py`, `run_splice_long.py`, `run_splice_profile.py`.
    **Read the source before invoking any of them** — do not probe them with `--help`.

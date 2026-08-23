@@ -153,22 +153,17 @@ survivor=NO (C30 CLOSED-BOUNDED). Design/prereg asset only.
 |---|---|---|
 | `make_fig_phase_data.py` | C8 (period-3 figure data) | `phase-lattice/fig_phase_data.json` |
 | `make_fig_report_data.py` | C8,C11,C13,C14 (publication/correction summary) | `phase-lattice/fig_report_data.json` |
-| `make_fig5_p3_phase_surgery_confirmation.py` | C36 | `figures/splicebert/fig5_p3_phase_surgery_confirmation.png` |
-| `make_fig1_summary.py`, `make_fig2_oscillators.py`, `make_fig3_clock_circuit.py` | carrier/circuit paper figures (figure generators; PNGs are the MANIFEST-indexed figures) | `figures/splicebert/fig{1_summary,2_oscillators,3_clock_circuit}.png` |
-| `figstyle.py` | shared figure styling helper (not a runner) | — |
+| `scripts/dnabert_promoter/make_paper_figure_transfer.py` | DBP3, DBP7, DBP8 | `figures/paper_figure_workflow_transfer.png` plus hashed provenance |
 
-Note: `figures/splicebert/` also holds `make_fig1_coupling.py`, `make_fig2_mechanism.py`,
-`make_fig3_circuit.py`, `make_fig_carrier_heatmap.py`, `make_fig_full_circuit.py`,
-`make_fig_generator_graph.py`, `make_fig_evidence_ladder.py` (donor-circuit figure generators living
-beside their assets), documented in `figures/splicebert/README.md`.
+The active `figures/` directory contains only the four assets included by the
+current manuscript. Historical supplemental figure generators were removed with their outputs.
 
 ## Support / analysis companions (no standalone claim row)
 
 `run_exon_vs_intron.py` (development `exon_vs_intron.json`), `export_segment_attribution_bundle.py`
 (joint-mask screening-graph builder; imported by the Atlas representative-DAG builder),
-`run_pair_categories.py` (figure data
-`figures/splicebert/data/pair_categories.json`), `analyse_comb_shift.py` (comb-shift analysis companion),
-`calibration_audit.py`, `test_ic1_determinism.py` (determinism test).
+`analyse_comb_shift.py` (comb-shift analysis companion), `calibration_audit.py`,
+`test_ic1_determinism.py` (determinism test).
 
 ---
 
