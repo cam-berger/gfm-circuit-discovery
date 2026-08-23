@@ -313,7 +313,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_grouped_head_ablation/test_layer3_grouped_256_per_example.csv",
       "script": "scripts/dnabert_promoter/run_layer3_grouped_head_ablation.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure6_test_grouped_ablation.pdf;figures/dnabert_promoter/figure6_test_grouped_ablation.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -323,7 +323,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_grouped_head_ablation/test_layer3_grouped_256_summary.json",
       "script": "scripts/dnabert_promoter/run_layer3_grouped_head_ablation.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure6_test_grouped_ablation.pdf;figures/dnabert_promoter/figure6_test_grouped_ablation.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -333,7 +333,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_grouped_head_ablation/validation_layer3_grouped_256_per_example.csv",
       "script": "scripts/dnabert_promoter/run_layer3_grouped_head_ablation.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure5_validation_grouped_ablation.pdf;figures/dnabert_promoter/figure5_validation_grouped_ablation.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -343,7 +343,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_grouped_head_ablation/validation_layer3_grouped_256_summary.json",
       "script": "scripts/dnabert_promoter/run_layer3_grouped_head_ablation.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure5_validation_grouped_ablation.pdf;figures/dnabert_promoter/figure5_validation_grouped_ablation.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -353,7 +353,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_grouped_head_ablation/validation_layer3_grouped_smoke_16_per_example.csv",
       "script": "scripts/dnabert_promoter/run_layer3_grouped_head_ablation.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure5_validation_grouped_ablation.pdf;figures/dnabert_promoter/figure5_validation_grouped_ablation.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -363,7 +363,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_grouped_head_ablation/validation_layer3_grouped_smoke_16_summary.json",
       "script": "scripts/dnabert_promoter/run_layer3_grouped_head_ablation.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure5_validation_grouped_ablation.pdf;figures/dnabert_promoter/figure5_validation_grouped_ablation.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -373,7 +373,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_head_ablation/validation_layer3_head_256_per_example.csv",
       "script": "scripts/dnabert_promoter/run_layer3_head_ablation_scan.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure4_layer3_head_heatmap.pdf;figures/dnabert_promoter/figure4_layer3_head_heatmap.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -383,7 +383,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_head_ablation/validation_layer3_head_256_summary.json",
       "script": "scripts/dnabert_promoter/run_layer3_head_ablation_scan.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure4_layer3_head_heatmap.pdf;figures/dnabert_promoter/figure4_layer3_head_heatmap.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -393,7 +393,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_head_ablation/validation_layer3_head_smoke_8_per_example.csv",
       "script": "scripts/dnabert_promoter/run_layer3_head_ablation_scan.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure4_layer3_head_heatmap.pdf;figures/dnabert_promoter/figure4_layer3_head_heatmap.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -403,7 +403,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_head_ablation/validation_layer3_head_smoke_8_summary.json",
       "script": "scripts/dnabert_promoter/run_layer3_head_ablation_scan.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure4_layer3_head_heatmap.pdf;figures/dnabert_promoter/figure4_layer3_head_heatmap.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -413,7 +413,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/test_layer3_primary_donor_matrix_128_manifest.json",
       "script": "scripts/dnabert_promoter/run_layer3_primary_head_donor_matrix.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure8_test_donor_matrix.pdf;figures/dnabert_promoter/figure8_test_donor_matrix.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -423,7 +423,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/test_layer3_primary_donor_matrix_128_per_example.csv",
       "script": "scripts/dnabert_promoter/run_layer3_primary_head_donor_matrix.py",
       "manifest": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/test_layer3_primary_donor_matrix_128_manifest.json",
-      "figure": "figures/dnabert_promoter/figure8_test_donor_matrix.pdf;figures/dnabert_promoter/figure8_test_donor_matrix.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -433,7 +433,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/test_layer3_primary_donor_matrix_128_statistics.json",
       "script": "scripts/dnabert_promoter/run_layer3_primary_head_donor_matrix.py",
       "manifest": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/test_layer3_primary_donor_matrix_128_manifest.json",
-      "figure": "figures/dnabert_promoter/figure8_test_donor_matrix.pdf;figures/dnabert_promoter/figure8_test_donor_matrix.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -443,7 +443,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/test_layer3_primary_donor_matrix_128_summary.json",
       "script": "scripts/dnabert_promoter/run_layer3_primary_head_donor_matrix.py",
       "manifest": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/test_layer3_primary_donor_matrix_128_manifest.json",
-      "figure": "figures/dnabert_promoter/figure8_test_donor_matrix.pdf;figures/dnabert_promoter/figure8_test_donor_matrix.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -453,7 +453,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/validation_layer3_primary_donor_matrix_128_manifest.json",
       "script": "scripts/dnabert_promoter/run_layer3_primary_head_donor_matrix.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure7_validation_donor_matrix.pdf;figures/dnabert_promoter/figure7_validation_donor_matrix.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -463,7 +463,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/validation_layer3_primary_donor_matrix_128_per_example.csv",
       "script": "scripts/dnabert_promoter/run_layer3_primary_head_donor_matrix.py",
       "manifest": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/validation_layer3_primary_donor_matrix_128_manifest.json",
-      "figure": "figures/dnabert_promoter/figure7_validation_donor_matrix.pdf;figures/dnabert_promoter/figure7_validation_donor_matrix.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -473,7 +473,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/validation_layer3_primary_donor_matrix_128_statistics.json",
       "script": "scripts/dnabert_promoter/run_layer3_primary_head_donor_matrix.py",
       "manifest": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/validation_layer3_primary_donor_matrix_128_manifest.json",
-      "figure": "figures/dnabert_promoter/figure7_validation_donor_matrix.pdf;figures/dnabert_promoter/figure7_validation_donor_matrix.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -483,7 +483,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/validation_layer3_primary_donor_matrix_128_summary.json",
       "script": "scripts/dnabert_promoter/run_layer3_primary_head_donor_matrix.py",
       "manifest": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/validation_layer3_primary_donor_matrix_128_manifest.json",
-      "figure": "figures/dnabert_promoter/figure7_validation_donor_matrix.pdf;figures/dnabert_promoter/figure7_validation_donor_matrix.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -493,7 +493,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/validation_layer3_primary_donor_matrix_smoke_8_manifest.json",
       "script": "scripts/dnabert_promoter/run_layer3_primary_head_donor_matrix.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure7_validation_donor_matrix.pdf;figures/dnabert_promoter/figure7_validation_donor_matrix.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -503,7 +503,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/validation_layer3_primary_donor_matrix_smoke_8_per_example.csv",
       "script": "scripts/dnabert_promoter/run_layer3_primary_head_donor_matrix.py",
       "manifest": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/validation_layer3_primary_donor_matrix_smoke_8_manifest.json",
-      "figure": "figures/dnabert_promoter/figure7_validation_donor_matrix.pdf;figures/dnabert_promoter/figure7_validation_donor_matrix.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -513,7 +513,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/validation_layer3_primary_donor_matrix_smoke_8_statistics.json",
       "script": "scripts/dnabert_promoter/run_layer3_primary_head_donor_matrix.py",
       "manifest": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/validation_layer3_primary_donor_matrix_smoke_8_manifest.json",
-      "figure": "figures/dnabert_promoter/figure7_validation_donor_matrix.pdf;figures/dnabert_promoter/figure7_validation_donor_matrix.png"
+      "figure": ""
     },
     {
       "claim_id": "DBPR7",
@@ -523,7 +523,7 @@
       "artifact": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/validation_layer3_primary_donor_matrix_smoke_8_summary.json",
       "script": "scripts/dnabert_promoter/run_layer3_primary_head_donor_matrix.py",
       "manifest": "results/dnabert_promoter/causal/layer3_primary_head_donor_matrix/validation_layer3_primary_donor_matrix_smoke_8_manifest.json",
-      "figure": "figures/dnabert_promoter/figure7_validation_donor_matrix.pdf;figures/dnabert_promoter/figure7_validation_donor_matrix.png"
+      "figure": ""
     },
     {
       "claim_id": "DBP5",
@@ -813,7 +813,7 @@
       "artifact": "results/dnabert_promoter/frozen/layer_probes/layer_probe_results.json",
       "script": "scripts/dnabert_promoter/run_frozen_layer_probes.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure1_frozen_layer_probe_validation.pdf;figures/dnabert_promoter/figure1_frozen_layer_probe_validation.png"
+      "figure": "figures/dnabert_promoter/figure1_frozen_layer_probe_validation.pdf;figures/dnabert_promoter/figure1_frozen_layer_probe_validation.png;figures/dnabert_promoter/paper_figure_workflow_transfer.pdf;figures/dnabert_promoter/paper_figure_workflow_transfer.png"
     },
     {
       "claim_id": "DBP4",
@@ -963,7 +963,7 @@
       "artifact": "results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_statistics.json",
       "script": "scripts/dnabert_promoter/run_component_donor_matrix.py",
       "manifest": "results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_manifest.json",
-      "figure": ""
+      "figure": "figures/dnabert_promoter/paper_figure_workflow_transfer.pdf;figures/dnabert_promoter/paper_figure_workflow_transfer.png"
     },
     {
       "claim_id": "DBP8",
@@ -973,7 +973,7 @@
       "artifact": "results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_summary.json",
       "script": "scripts/dnabert_promoter/run_component_donor_matrix.py",
       "manifest": "results/dnabert_promoter/frozen_claim_tests/components/donor_matrix/test_component_donor_matrix_confirmation_128_manifest.json",
-      "figure": "figures/dnabert_promoter/figure12_test_component_transplant_matrix.pdf;figures/dnabert_promoter/figure12_test_component_transplant_matrix.png"
+      "figure": "figures/dnabert_promoter/figure12_test_component_transplant_matrix.pdf;figures/dnabert_promoter/figure12_test_component_transplant_matrix.png;figures/dnabert_promoter/paper_figure_workflow_transfer.pdf;figures/dnabert_promoter/paper_figure_workflow_transfer.png"
     },
     {
       "claim_id": "DBP8",
@@ -1053,7 +1053,7 @@
       "artifact": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/test_faithfulness_curve_confirmation_128_curve.csv",
       "script": "scripts/dnabert_promoter/run_frozen_faithfulness_curve.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure9_faithfulness_versus_circuit_size.pdf;figures/dnabert_promoter/figure9_faithfulness_versus_circuit_size.png"
+      "figure": "figures/dnabert_promoter/figure9_faithfulness_versus_circuit_size.pdf;figures/dnabert_promoter/figure9_faithfulness_versus_circuit_size.png;figures/dnabert_promoter/paper_figure_workflow_transfer.pdf;figures/dnabert_promoter/paper_figure_workflow_transfer.png"
     },
     {
       "claim_id": "DBP7",
@@ -1073,7 +1073,7 @@
       "artifact": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/validation_faithfulness_curve_refined_128_curve.csv",
       "script": "scripts/dnabert_promoter/run_frozen_faithfulness_curve.py",
       "manifest": "",
-      "figure": "figures/dnabert_promoter/figure9_faithfulness_versus_circuit_size.pdf;figures/dnabert_promoter/figure9_faithfulness_versus_circuit_size.png"
+      "figure": "figures/dnabert_promoter/figure9_faithfulness_versus_circuit_size.pdf;figures/dnabert_promoter/figure9_faithfulness_versus_circuit_size.png;figures/dnabert_promoter/paper_figure_workflow_transfer.pdf;figures/dnabert_promoter/paper_figure_workflow_transfer.png"
     },
     {
       "claim_id": "DBP7",

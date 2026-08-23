@@ -15,10 +15,9 @@ ROOT = Path("results/dnabert_promoter")
 OUTDIR = Path("figures/dnabert_promoter")
 OUTDIR.mkdir(parents=True, exist_ok=True)
 
-# Figures 4-8 below are built from the SUPERSEDED encoder-Layer-3 replicate under
-# results/dnabert_promoter/causal/layer3_*, not from the canonical Layer-2 suite. They therefore do
-# not depict the numbers in studies/dnabert_promoter/CLAIMS.md (DBP5-DBP8) - see DBPR7 and each
-# figure's .CAPTION.md. Figures 1-3 are canonical.
+# Every figure this script writes now depicts the canonical encoder-Layer-2 suite and the
+# numbers in studies/dnabert_promoter/CLAIMS.md. The superseded Layer-3 figures 4-8 were
+# retired on 2026-08-23; see the note where they used to be generated, below.
 
 
 def save_both(fig: plt.Figure, stem: str) -> None:
@@ -171,158 +170,23 @@ plot_corruption_trajectory(
 )
 
 
-# ---------------------------------------------------------------------
-# Figure 4: Layer-3 head heatmap (validation)
-# ---------------------------------------------------------------------
-head_summary_path = (
-    ROOT
-    / "causal"
-    / "layer3_head_ablation"
-    / "validation_layer3_head_256_summary.json"
-)
-head_summary = json.loads(head_summary_path.read_text())
-
-heads = head_summary["heads"]
-max_layer = max(item["layer"] for item in heads)
-max_head = max(item["head"] for item in heads)
-
-heat = np.full((max_layer + 1, max_head + 1), np.nan)
-for item in heads:
-    heat[item["layer"], item["head"]] = item["promoter_mean_damage"]
-
-fig, ax = plt.subplots(figsize=(10, 4))
-im = ax.imshow(heat, aspect="auto", cmap="coolwarm")
-ax.set_xlabel("Head")
-ax.set_ylabel("Layer")
-ax.set_title(
-    "Frozen DNABERT Layer-3 head ablation map\n"
-    "(promoter mean damage; more negative = more promoter-supporting)"
-)
-ax.set_xticks(range(max_head + 1))
-ax.set_yticks(range(max_layer + 1))
-
-# Highlight the locked six-head set
-primary_heads = {
-    (0, 8),
-    (1, 8),
-    (2, 3),
-    (2, 8),
-    (2, 9),
-    (3, 11),
-}
-for layer, head in primary_heads:
-    ax.text(
-        head,
-        layer,
-        "★",
-        ha="center",
-        va="center",
-        fontsize=14,
-    )
-
-cbar = fig.colorbar(im, ax=ax)
-cbar.set_label("Promoter mean damage")
-save_both(fig, "figure4_layer3_head_heatmap")
-
-
-# ---------------------------------------------------------------------
-# Figure 5 + 6: Grouped ablation (validation and test)
-# ---------------------------------------------------------------------
-def plot_grouped_ablation(summary_path: Path, stem: str, title: str) -> None:
-    data = json.loads(summary_path.read_text())
-    groups = data["groups"]
-
-    names = [item["name"] for item in groups]
-    damages = [item["promoter_mean_damage"] for item in groups]
-    fractions = [item["promoter_fraction_damaged"] for item in groups]
-
-    fig, ax = plt.subplots(figsize=(10, 5))
-    ax.bar(names, damages)
-    ax.set_ylabel("Promoter mean damage")
-    ax.set_title(title)
-    ax.tick_params(axis="x", rotation=45)
-    save_both(fig, stem)
-
-    fig, ax = plt.subplots(figsize=(10, 5))
-    ax.bar(names, fractions)
-    ax.set_ylabel("Fraction of promoters damaged")
-    ax.set_title(title + " — fraction damaged")
-    ax.tick_params(axis="x", rotation=45)
-    save_both(fig, stem + "_fractions")
-
-
-plot_grouped_ablation(
-    ROOT
-    / "causal"
-    / "layer3_grouped_head_ablation"
-    / "validation_layer3_grouped_256_summary.json",
-    "figure5_validation_grouped_ablation",
-    "Frozen DNABERT Layer-3 grouped ablation (validation)",
-)
-
-plot_grouped_ablation(
-    ROOT
-    / "causal"
-    / "layer3_grouped_head_ablation"
-    / "test_layer3_grouped_256_summary.json",
-    "figure6_test_grouped_ablation",
-    "Frozen DNABERT Layer-3 grouped ablation (test)",
-)
-
-
-# ---------------------------------------------------------------------
-# Figure 7 + 8: Donor matrix summary (validation and test)
-# ---------------------------------------------------------------------
-def plot_donor_matrix(summary_path: Path, stem: str, title: str) -> None:
-    data = json.loads(summary_path.read_text())
-    condition = data["results"]["PRIMARY_SIX_HEADS"]
-
-    donor_types = [
-        "matched_promoter",
-        "same_class_promoter",
-        "opposite_class_nonpromoter",
-        "zero_activation",
-        "self_corrupt",
-    ]
-
-    means = [
-        condition[name]["recovery_fraction"]["mean"]
-        for name in donor_types
-    ]
-    labels = [
-        "Matched promoter",
-        "Same-class promoter",
-        "Opposite-class non-promoter",
-        "Zero activation",
-        "Self-corrupt",
-    ]
-
-    fig, ax = plt.subplots(figsize=(9, 5))
-    ax.bar(labels, means)
-    ax.axhline(0.0, linestyle="--")
-    ax.set_ylabel("Mean recovery fraction")
-    ax.set_title(title)
-    ax.tick_params(axis="x", rotation=25)
-    save_both(fig, stem)
-
-
-plot_donor_matrix(
-    ROOT
-    / "causal"
-    / "layer3_primary_head_donor_matrix"
-    / "validation_layer3_primary_donor_matrix_128_summary.json",
-    "figure7_validation_donor_matrix",
-    "Frozen DNABERT Layer-3 donor matrix (validation)",
-)
-
-plot_donor_matrix(
-    ROOT
-    / "causal"
-    / "layer3_primary_head_donor_matrix"
-    / "test_layer3_primary_donor_matrix_128_summary.json",
-    "figure8_test_donor_matrix",
-    "Frozen DNABERT Layer-3 donor matrix (test)",
-)
+# Figures 4-8 used to be generated here: a head heatmap, grouped ablations, and donor
+# matrices built from the superseded encoder-Layer-3 replicate (`causal/layer3_*`). They
+# were retired on 2026-08-23 rather than kept behind a caption. Their captions already read
+# "Controls no claim. Do not quote.", and that was not enough -- `figure8_test_donor_matrix`
+# (`PRIMARY_SIX_HEADS` at Layer 3, matched recovery 0.258) went on being confused with the
+# canonical Layer-2 result behind DBP8 (0.879 for `L0 MLP + L0H8`), most recently in the
+# workshop manuscript. Regenerating them would recreate that hazard, so the code is gone too.
+#
+# The Layer-3 *result artifacts* are untouched under `results/dnabert_promoter/causal/layer3_*`
+# and stay indexed as DBPR7: immutability applies to measurements, not to artwork. The retired
+# figures remain in Git history -- find the commit that removed them and restore from its parent:
+#     git log --all --full-history --diff-filter=D -- \
+#         'figures/dnabert_promoter/figure8_test_donor_matrix.png'
+#     git checkout <that-commit>^ -- figures/dnabert_promoter/
+#
+# Canonical Layer-2 equivalents: head/grouped ablation live in the DBP5 artifacts; the
+# transplant matrix is figures 11 and 12 below.
 
 
 # ---------------------------------------------------------------------
