@@ -1,0 +1,9 @@
+{
+  "mean_selected_non_promoter_logit_change": 2.009983079507947,
+  "mean_selected_promoter_logit_change": -6.606273282319307,
+  "non_promoters": 128,
+  "output_file": "results/dnabert_promoter/causal/localization_cohorts/test_localization_256.csv",
+  "promoters": 128,
+  "rows": 256,
+  "selection_corruption": "mononucleotide"
+}

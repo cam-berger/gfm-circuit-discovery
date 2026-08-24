@@ -1,0 +1,155 @@
+{
+  "command": [
+    "unknown"
+  ],
+  "config": {
+    "cleaned_split_manifest": "results/dnabert_promoter/shared/clean/split_manifest.json",
+    "cleaning_report": "results/dnabert_promoter/shared/clean/cleaning_report.json",
+    "cohort": "results/dnabert_promoter/causal/localization_cohorts/validation_localization_256.csv",
+    "dataset_sha256_manifest": "results/dnabert_promoter/shared/dataset_sha256.json",
+    "historical_recovery": {
+      "cohort": {
+        "path": "results/dnabert_promoter/causal/localization_cohorts/validation_localization_256.csv",
+        "sha256": "377d0e7e2887d4868a7e99f7958cec38da0c974c2b9d992d4143d813df9aebcf",
+        "verification_method": "direct 'cohort' field recorded in the committed summary JSON"
+      },
+      "committed_summary": {
+        "path": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/validation_candidate_circuit_128_summary.json",
+        "sha256": "6cf7cfe5d62b7d1e071e2cd7c85bd7c3e6e6d0f6b96a075475753e299dd5b245"
+      },
+      "current_runner": {
+        "note": "the currently committed runner; used only to reproduce the summary from the raw rows above, not asserted to be byte-identical to whatever script version produced the original 2026-08-04/2026-08-05 run",
+        "path": "scripts/dnabert_promoter/run_frozen_circuit_accounting.py",
+        "sha256": "9c41ea6b706736c3424f3b94b068aa6ed0bea0517b075077f9698ac6513cf303"
+      },
+      "git_commit_role": "the top-level git_commit/git_dirty fields on this manifest record the repository state at recovery-verification time only (2026-08-24) and must not be read as the commit that originally produced this result.",
+      "model_name": "quietflamingo/dnabert2-no-flashattention",
+      "model_revision": "813031b2bf86d9e960a027e2734c908009f31601",
+      "original_run": {
+        "original_command": "unknown - not recorded in the recovered bundle",
+        "original_environment": "unknown - not recorded in the recovered bundle",
+        "original_git_commit": "unknown - not recorded in the recovered bundle; see git_commit_role below",
+        "original_seed": "unknown - seeds: {} reflects this runner's actual behavior (it takes no --seed CLI argument and is deterministic given a fixed cohort, frozen model, and frozen probe), not a placeholder for missing data.",
+        "reported_window": "2026-08-04 to 2026-08-05 (JupyterHub bundle, as reported; not independently verifiable from repository state)"
+      },
+      "probe": {
+        "note": "hash of the currently committed probe artifact. Identity to the exact probe used in the original run is not independently verifiable -- no probe hash was recorded at run time; continuity is inferred only from the constant PROBE_PATH used by every script version examined.",
+        "path": "results/dnabert_promoter/frozen/layer_probes/selected_layer_2_probe.joblib",
+        "sha256": "bd0d9e14e1935e3ebd8e2ce638ccd5a721feb9dc9a0895447d9b62080ce98b3b"
+      },
+      "raw_rows_reproduce_summary": {
+        "checks_matched": "8/8",
+        "method": "recomputed from the per_example.csv using the aggregation logic read directly out of the current runner script (mean/std(ddof=1)/median/min/max and the delivery/necessity/faithfulness/promoter-damage fraction definitions), then compared field-by-field to the committed summary JSON.",
+        "verification_date": "2026-08-24",
+        "verified": true
+      },
+      "recovered_historical_runner": {
+        "path": "scripts/dnabert_promoter/run_frozen_circuit_accounting.py",
+        "sha256": "bbd7f13df796f5549adf584697e7f72d098126632a883bf6134982ff9fda49b1"
+      },
+      "recovered_source_artifact": {
+        "per_example_csv": {
+          "destination": {
+            "available": true,
+            "path": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/validation_candidate_circuit_128_per_example.csv",
+            "sha256": "42429d40eb93f07c49ad6124f0b004c6ac223d8db0889d3b98edb8b76b4859de"
+          },
+          "recovered_tar_source": {
+            "available": true,
+            "path": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/validation_candidate_circuit_128_per_example.csv",
+            "sha256": "42429d40eb93f07c49ad6124f0b004c6ac223d8db0889d3b98edb8b76b4859de"
+          }
+        },
+        "summary_json": {
+          "content_verification": "destination and recovered_tar_source differ only in line endings (CRLF vs LF); byte content after CRLF->LF normalization and parsed-JSON equality were both confirmed identical on 2026-08-24. The committed file was not overwritten by the recovery copy.",
+          "destination": {
+            "available": true,
+            "path": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/validation_candidate_circuit_128_summary.json",
+            "sha256": "6cf7cfe5d62b7d1e071e2cd7c85bd7c3e6e6d0f6b96a075475753e299dd5b245"
+          },
+          "recovered_tar_source": {
+            "available": true,
+            "path": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/validation_candidate_circuit_128_summary.json",
+            "sha256": "5ac30ea59741ffcb4347e990d786b3f0d7d4da5d421a97b10f47cd9d3582ed3e"
+          }
+        }
+      },
+      "recovery_verification_date": "2026-08-24",
+      "selected_layer": 2,
+      "tokenizer_revision": "813031b2bf86d9e960a027e2734c908009f31601",
+      "tokenizer_revision_note": "tokenizer_revision equals model_revision: verified 2026-08-24 by reading src/gfmcd/adapters/dnabert.py DnaBertAdapter.from_pretrained, which passes the same `revision` argument to AutoTokenizer.from_pretrained and to AutoModel.from_pretrained / BertConfig.from_pretrained -- no separate tokenizer revision exists in this adapter.",
+      "verified_experiment_configuration": {
+        "cohort_split": "validation",
+        "device": "unknown - script default is cuda:0; not recorded",
+        "limit": 128,
+        "minimum_total_effect": "unknown exact value; script default is 1e-8. Not independently verifiable from data: no example approaches this threshold (observed minimum |total_effect| ~= 5.99), so the zero-NaN outcome is consistent with the default but equally consistent with any threshold below ~5.99",
+        "output_name_matches_filename": true,
+        "output_name_matches_script_default": true
+      }
+    },
+    "model_name": "quietflamingo/dnabert2-no-flashattention",
+    "model_revision": "813031b2bf86d9e960a027e2734c908009f31601",
+    "output_name": "validation_candidate_circuit_128",
+    "probe_path": "results/dnabert_promoter/frozen/layer_probes/selected_layer_2_probe.joblib",
+    "probe_sha256": "bd0d9e14e1935e3ebd8e2ce638ccd5a721feb9dc9a0895447d9b62080ce98b3b",
+    "selected_layer": 2,
+    "split_leakage_control": "leakage_controlled"
+  },
+  "created_at_utc": "2026-08-24T17:01:41.542086+00:00",
+  "environment": {
+    "hostname": "Envy",
+    "pid": 5884,
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.6"
+  },
+  "experiment_id": "dnabert_promoter_circuit_accounting",
+  "git_commit": "f028ef56400d6eaae557a15855da8861ffe1b516",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "results/dnabert_promoter/shared/split_manifest.json",
+      "sha256": "391bfa2f732fcbb50f2d8202a60266b3739386258b34bb5ce60167f19a13ed80",
+      "size_bytes": 628
+    },
+    {
+      "path": "results/dnabert_promoter/shared/dataset_sha256.json",
+      "sha256": "83b528d78938a3bbfeb6b5610bfa25af422846ac844d07a48958c218948fa707",
+      "size_bytes": 249
+    },
+    {
+      "path": "results/dnabert_promoter/shared/clean/cleaning_report.json",
+      "sha256": "d2849c1eecaa88f4771ca2b020f70390c0573e9d2a772e568fd3878d798f322d",
+      "size_bytes": 1135
+    },
+    {
+      "path": "results/dnabert_promoter/shared/clean/split_manifest.json",
+      "sha256": "ee59858fb686aa60b072c44906bc4064031c76bad19932aa88bf8cbd39ff12d7",
+      "size_bytes": 1006
+    },
+    {
+      "path": "results/dnabert_promoter/frozen/layer_probes/selected_layer_2_probe.joblib",
+      "sha256": "bd0d9e14e1935e3ebd8e2ce638ccd5a721feb9dc9a0895447d9b62080ce98b3b",
+      "size_bytes": 22877
+    }
+  ],
+  "notes": [
+    "This sibling manifest was created retroactively on 2026-08-24 during historical-artifact recovery verification (Phase 2), not written by a live run of the runner script. It documents recovery and verification provenance for a result recovered from a tar backup; it does not assert the original run's command, seed, environment, or git commit.",
+    "The `command` field is a literal sentinel, not a real invocation. The original command used to produce this result during the 2026-08-04/2026-08-05 JupyterHub run is unknown and unrecorded; it is not reconstructed or guessed here.",
+    "Top-level `git_commit`, `git_dirty`, `environment`, and `created_at_utc` are auto-populated by ExperimentManifest.create() and reflect the state of THIS repository at manifest-creation / recovery-verification time (2026-08-24), not the original run. They must not be read as identifying the commit, host, or environment that produced this result -- that information is unknown.",
+    "seeds: {} reflects this runner's actual behavior (it takes no --seed CLI argument and is deterministic given a fixed cohort, frozen model, and frozen probe), not a placeholder for missing data."
+  ],
+  "outputs": [
+    {
+      "path": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/validation_candidate_circuit_128_summary.json",
+      "sha256": "6cf7cfe5d62b7d1e071e2cd7c85bd7c3e6e6d0f6b96a075475753e299dd5b245",
+      "size_bytes": 2791
+    },
+    {
+      "path": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/validation_candidate_circuit_128_per_example.csv",
+      "sha256": "42429d40eb93f07c49ad6124f0b004c6ac223d8db0889d3b98edb8b76b4859de",
+      "size_bytes": 28743
+    }
+  ],
+  "seeds": {},
+  "status": "EXPLORATORY"
+}

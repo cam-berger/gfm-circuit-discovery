@@ -138,6 +138,34 @@ hashes; until then the cleaned row counts are recoverable only indirectly, from 
 `validation_rows` / `test_rows` in `frozen/layer_probes/all_layer_probe_results.json`. The manifest helper
 records which cohort a run read, so future artifacts state it on their own.
 
+**Status as of 2026-08-24 (D14):** `shared/clean/cleaning_report.json` and a compact cleaned-split hash
+manifest, `shared/clean/split_manifest.json`, now exist and are staged — the direct recoverability this
+section calls for is available; committing them is the remaining step.
+
+## D14 — Recover historical raw artifacts by verification against the preserved bundle, not by rerunning
+
+Ten canonical per-example datasets (D5's ablation scans and their `localization_cohorts`, D6's
+circuit-accounting, D7's component-faithfulness and faithfulness-curve, D10's TATA perturbation) were
+missing from the working tree while their committed summary JSONs remained. Two ways to close that gap
+were available: rerun the ten runners against the frozen model and probe, or recover the raw per-example
+CSVs byte-for-byte from the preserved 2026-08-04/2026-08-05 JupyterHub bundle and verify them against what
+is already committed. Recovery was chosen. A rerun would touch GPU inference against a frozen artifact for
+no scientific reason, and — since the original run's seed and environment are unknown (the runners take no
+`--seed` argument and are otherwise deterministic given a fixed cohort, frozen model, and frozen probe, so
+this is not expected to matter numerically, but was not assumed) — a rerun could not itself prove identity
+with the committed summaries the way byte-for-byte recovery plus independent hash and reproduction checks
+can.
+
+Two things follow from recovering rather than rerunning. First, the sibling recovery manifests this
+produced cannot honestly claim to be the manifest a live run would have written: the original command,
+seed, and execution environment are genuinely unknown and are recorded as such rather than inferred from
+the current repository state. Second, the standard `write_run_manifest()` helper was not called directly
+for these ten manifests — it stamps `command` from the calling process's own `sys.argv`, which for a
+retroactive recovery script would misrepresent an ad hoc invocation as the original experiment's command —
+so the manifests were built by calling the same underlying `ExperimentManifest` schema and enrichment
+logic by hand, with `command: ["unknown"]` and explicit notes distinguishing recovery-verification
+provenance (git commit, environment, timestamp — all real, but only for *this* recovery pass) from
+original-run provenance (command, seed, environment — all unknown, none fabricated).
 
 ## Known departures from repository convention
 

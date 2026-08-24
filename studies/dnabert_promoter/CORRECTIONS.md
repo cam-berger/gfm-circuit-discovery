@@ -8,13 +8,14 @@ artifact family leaves the active tree; archived files are recoverable from the 
 later correction. Every entry records what was said, what the artifact actually supported, and what may
 be said instead.
 
-The file now carries `DBPR1`–`DBPR12` in four blocks. The **eight entries in the table
+The file now carries `DBPR1`–`DBPR14` in five blocks. The **eight entries in the table
 immediately below** were opened on **2026-08-11**, during the integration review that gave this arc its
 first claim ledger; they correct the arc's own prose — the root-level `dnabert_readme.md` and
-`FROZEN_EXPERIMENT_REGISTRY.md` as they arrived — against the artifacts committed alongside it. Two
-later blocks follow: `DBPR9`–`DBPR10` (2026-08-13, the fine-tuned extension) and `DBPR11`
-(2026-08-14, the post-merge remediation), followed by the active-tree archive disposition. None of
-these touches a `C*`, `HCA*` or `GFS*` claim.
+`FROZEN_EXPERIMENT_REGISTRY.md` as they arrived — against the artifacts committed alongside it. Three
+later blocks follow: `DBPR9`–`DBPR10` (2026-08-13, the fine-tuned extension), `DBPR11`
+(2026-08-14, the post-merge remediation) and the active-tree archive disposition (`DBPR12`), then
+`DBPR13`–`DBPR14` (2026-08-24, frozen-side historical artifact recovery — unrelated to the fine-tuned
+archive). None of these touches a `C*`, `HCA*` or `GFS*` claim.
 
 | ID | Retired / bounded statement | What the artifact supports | Status |
 |---|---|---|---|
@@ -122,3 +123,55 @@ records that the condition was briefly bypassed by an artifact rather than by pr
 | ID | Retired / bounded statement | What the record supports | Status |
 |---|---|---|---|
 | **DBPR12** | DBP11–DBP17 were presented as live study claims even though 52 of their artifacts were produced only by a notebook, lacked producing runners and sibling manifests, and were not reproducible from a clean checkout. The cross-state comparison also used unmatched tasks, lengths, cohorts, and readouts. | The historical measurements remain available for provenance, but they do not meet this repository's active-evidence standard. No fine-tuned result is used by the paper's supported DNABERT-2 comparison, which is DBP6–DBP8. | **ARCHIVED / REMOVED FROM THE LIVE LEDGER.** The artifacts, notebook, figures, and former DBP11–DBP17 wording are recoverable at `archive/unsupported-exploratory-2026-08-22`. Any successor is a new, preregistered, multi-seed, matched-task study with producing scripts and manifests. |
+
+## Historical artifact recovery, 2026-08-24
+
+This block is unrelated to the fine-tuned archive disposition above: it covers only the frozen
+(`DBP1`–`DBP10`) study's raw-artifact recovery. Nothing here touches `DBP11`–`DBP17` or reopens the
+`DBPR12` archival.
+
+The frozen arc's ten canonical per-example datasets — the raw rows behind `DBP5`'s head/branch/grouped-head
+ablation scans and their `causal/localization_cohorts/` cohorts, `DBP6`'s circuit-accounting per-example
+rows, `DBP7`'s component-faithfulness and faithfulness-curve per-example rows, and `DBP10`'s TATA
+perturbation per-example row and cohort — had a working tree that carried only their committed summary
+JSONs, not the underlying per-example CSVs the summaries are aggregated from. These ten raw datasets were
+recovered byte-for-byte from a preserved 2026-08-04/2026-08-05 JupyterHub bundle (`C:\Algoverse\algoverse\tar`
+at recovery time), verified against the bundle by SHA-256, and confirmed to reproduce their already-committed
+summary JSONs exactly, field by field, using each experiment's own aggregation logic read out of its current
+runner script (mean/std/median/min/max and the delivery/necessity/faithfulness/promoter-damage fraction
+definitions) — 100% of checks matched across all ten datasets.
+
+Ten standard sibling recovery manifests (`*.manifest.json`, the repository's `ExperimentManifest` schema)
+were created for these ten datasets, since the runners' `write_run_manifest` wiring postdates the runs that
+produced them (`DECISIONS.md`'s “Known departures from repository convention” table, convention 7; see also
+`D14`). Each recovery manifest records,
+distinctly: the reported 2026-08-04/2026-08-05 recovery window; the recovered artifact's and the committed
+summary's SHA-256 hashes; the raw-to-summary reproduction result; the recovered *and* the current runner
+script hashes where the historical script version was itself recoverable (three of the ten runners; the
+other seven were not in the bundle); the model/revision/tokenizer-revision/selected-layer/probe/cohort
+provenance; and an explicit `unknown` for the original command, seed, and execution environment — none of
+which were fabricated. The manifests' own `git_commit`/`environment` fields, and their `created_at_utc`,
+record only the *recovery-verification* state (2026-08-24), never asserted as the state that produced the
+original result.
+
+`DBP2`'s previously-uncommitted residual provenance gap (noted in its own row above: “the cleaning stage's
+own `shared/clean/cleaning_report.json` and the cleaned split hashes are not committed”) is closed:
+`clean_promoter_cohort.py` was re-run (non-GPU, no model loaded) against the raw splits after their row
+counts and record hashes were confirmed to match the previously-committed values exactly, producing
+`shared/clean/cleaning_report.json`. Since that report carries no content hashes for the cleaned splits
+themselves, a compact `shared/clean/split_manifest.json` was created alongside it, reusing
+`gfmcd.dnabert.dataset.records_sha256` — the same hash function `shared/split_manifest.json` already uses
+for the raw splits — rather than introducing a second, incompatible hashing scheme. `results/MANIFEST.csv`
+and `.json` were extended with rows for all recovered and created files (`DBP2`/`DBP5`/`DBP6`/`DBP7`/`DBP9`/
+`DBP10`), and now record `split_leakage_control: leakage_controlled` for the ten recovery manifests instead
+of the previously-unrecorded value.
+
+No DNABERT model was loaded and no experiment was rerun at any point in this recovery. Every summary number
+and every claim's evidentiary status is exactly as committed before the recovery began, with two exceptions,
+each its own correction below: `DBP10`'s TATA headline magnitudes, and the `DBP8` tag on two artifacts its
+own claim text never cited.
+
+| ID | Retired / bounded statement | What the artifact supports | Status |
+|---|---|---|---|
+| **DBPR13** | `CLAIMS.md` (`DBP10`) and `FROZEN_EXPERIMENT_REGISTRY.md` quoted mean motif damage `-0.302`, matched-control damage `-0.376`, mean excess damage `0.074`, and one-sided paired p `0.2334` for the n=71 controlled TATA perturbation. | The recovered, committed `validation_tata_perturbation_summary.json` (per-example rows reproduce it exactly) gives mean motif damage `-0.288970`, matched-control damage `-0.324068`, mean excess damage `0.035098`, one-sided paired p `0.311089`, at the same n=71 and fraction-more-damaging `0.521`. The retired figures coincide to six digits with the `all` bucket of the separate `..._exploratory_strata.json`, suggesting they were transcribed from that file rather than the canonical per-example summary; that file's own numbers (including its positions-2-4 and `TATAAA`-subgroup figures) were not independently re-derived in this pass and are unchanged. | **CORRECTED** in `CLAIMS.md` and `FROZEN_EXPERIMENT_REGISTRY.md`. The conclusion is unchanged — still a causal null at the tested power, still not significant, no TATA-specific mechanistic claim licensed — only the quoted magnitudes change. |
+| **DBPR14** | `results/MANIFEST.csv`/`.json` tagged `causal/activation_restoration/validation_negative_class_donors_128_offset_1_summary.json` and its `_statistics.md` as `DBP8`, `canonical`, `OV/mediation`, `bounded`. | `DBP8`'s own `CLAIMS.md` row cites only the donor-matrix confirmation-package artifacts (`frozen_claim_tests/components/donor_matrix/*_confirmation_128_{statistics,summary}.json`, validation and test) as its evidence; neither `validation_negative_class_donors_128_*` file is named there. | **RECLASSIFIED** in `results/MANIFEST.csv`/`.json` to `status=development`, blank `claim_id`, blank `evidence_level`, `polarity=na`. Files retained, not deleted (mirrors `DBPR7`). `DBP8`'s claim text is unchanged and remains independently supported by the donor-matrix confirmation artifacts. |
