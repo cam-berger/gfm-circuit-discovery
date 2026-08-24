@@ -55,7 +55,7 @@ predated A0→A12 and R22–R24; current framing is controlled by the repository
 - Donor graph: [`../../results/splicebert_coupling/`](../../results/splicebert_coupling/)
 - Position/carrier index: [`../../results/phase-lattice/RESULTS_INDEX.md`](../../results/phase-lattice/RESULTS_INDEX.md)
 - Active runners: [`../../scripts/splicebert/`](../../scripts/splicebert/)
-- Current figures: [`../../figures/splicebert/`](../../figures/splicebert/README.md)
+- Current paper figures: [`headline.png`](../../figures/headline.png) and [`fig_3.png`](../../figures/fig_3.png)
 
 The reading rule is simple: artifacts and corrections bound the prose. Attribution, probes, attention,
 and spectra can generate a candidate; only a qualified intervention can promote it.

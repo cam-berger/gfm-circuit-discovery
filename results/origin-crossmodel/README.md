@@ -58,7 +58,7 @@ cast P to **float64** for numerical work and record that byte encoding (`f135d23
 same tensor, verified reproducible; the encodings differ, not the weights. Instruments:
 `src/gfmcd/crossmodel/`
 (`carrier_spectrum.py`, `reader_scan.py`); runners + tests: `scripts/crossmodel/`
-(`test_carrier_spectrum.py`, 7/7 pass). Figure: `figures/origin-crossmodel/`.
+(`test_carrier_spectrum.py`, 7/7 pass). No standalone figure from this family appears in the current paper.
 
 ## Claim scope (evidence firewall)
 

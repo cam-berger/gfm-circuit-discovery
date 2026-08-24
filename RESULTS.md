@@ -301,22 +301,17 @@ exploratory or superseded and were removed from the active tree. They remain rec
 
 ## 6. Figure audit
 
-The exact manuscript paths `fig0_workflow.png`, `fig_headline.png`, and `figure_2.png` do not exist in
-the current checkout. `fig5_p3_phase_surgery_confirmation.pdf` exists under `figures/splicebert/`, not at
-the manuscript root. Because there is no live `tex/` tree, this attachment cannot be compiled or checked
-for final asset resolution in place.
+The active `figures/` directory contains exactly the four raster assets used by the
+current workshop manuscript: the conceptual workflow, the SpliceBERT headline, the DNABERT-2 workflow
+transfer composite, and the positional/faithfulness composite. Each asset has a repository-relative,
+hash-checked provenance sidecar. Historical and supplementary figure suites remain recoverable from Git
+history but are no longer present in the active tree.
 
-| Figure asset | Disposition | Required caveat or repair |
-|---|---|---|
-| Workflow figure | Conceptual only | Do not let “biological hypothesis” imply an identified biological mechanism or uniqueness relative to sequence statistics. Resolve the missing source path. |
-| `fig_full_circuit` / paper circuit schematic | **Repaired; usable with caption boundary** | Regenerated from six manifest-backed sources. The panel now distinguishes the preregistered 64.2-node interpolation from the first sampled crossing at 72 nodes and makes no minimality claim. |
-| `fig1_coupling`, `fig2_mechanism`, `fig3_circuit` | **Regenerated** | Provenance now uses repository-relative paths. `fig1_coupling` no longer depends on the unmanifested legacy `confirmation.json`; it uses the corrected scan and sealed test instead. |
-| `fig5_p3_phase_surgery_confirmation` | Usable with caveats | Replace “only within coding blocks” with the paired CDS-vs-upstream-intron wording; identify the 19-control arm as its n=150 subset. Keep Panel D's inconclusive coding-boundary result. The analyzer did not verify frozen code hashes, omitted strand/donor-phase sensitivity, and current `freeze_p3_phase_surgery_confirmation.py` plus `circuit.py` no longer match two frozen code pins. Prefer the current workshop edit plus provenance. |
-| C43 register figure/panel | Usable only at behavior rung | State fixed 120-nt chimeric span, 384 blocks, p-floor `1/100`, knife-edge MDE gate, failed one-sided mismatch equivalence, and stop-load rival. Never draw a P3 mediation arrow. |
-| DNABERT Figure 9 | Suitable for supplement | It cleanly shows the DBP7 no-knee/MLP-jump result. Caption must state one seed, no preregistration/calibration, validation/test n=128 each, and no shared mechanism. |
-
-Stale captions and assets should also avoid “coding-phase clock,” “reading-frame sensor,” or equivalent
-wording. Figure provenance should use repository-relative source paths and current artifact hashes.
+The current captions preserve the required boundaries: the workflow is conceptual; the period-3 and
+register-preference findings are separate; the 90\% faithfulness statement distinguishes the 64.2-node
+interpolation from the first sampled crossing at 72/103; and the DNABERT-2 panel claims workflow transfer,
+not mechanism transfer. The C43 panel remains behavior-level evidence with the fixed 120-nt chimeric span,
+384 blocks, add-one resolution floor, and stop-load rival.
 
 ## 7. Supersession of the old verification file
 

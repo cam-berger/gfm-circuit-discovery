@@ -49,5 +49,7 @@ frozen/fine-tuned comparison were removed from the active tree under DBPR12. The
 `dnabert/` notebook tree was removed in the same cleanup. Both remain recoverable at Git tag
 `archive/unsupported-exploratory-2026-08-22`.
 
-Published active figures are in [`figures/dnabert_promoter/`](../../figures/dnabert_promoter/).
-Figures 1–3 and 9–12 are canonical. Figures 4–8 are explicitly superseded Layer-3 diagnostics.
+The current paper uses only
+[`figures/paper_figure_workflow_transfer.png`](../../figures/paper_figure_workflow_transfer.png) from this
+study. The former standalone diagnostic suite was removed from the active figure tree and remains
+recoverable from Git history; its controlling artifacts and statuses are unchanged here.

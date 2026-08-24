@@ -66,7 +66,7 @@ marked superseded result because its runners and endpoint are recoverable. It co
 | `scripts/dnabert_promoter/` | Frozen-model runners |
 | `src/gfmcd/adapters/dnabert.py`, `src/gfmcd/dnabert/` | Adapter, data, and perturbation utilities |
 | `configs/dnabert_promoter/base.json` | Frozen assay configuration |
-| `figures/dnabert_promoter/` | Canonical figures 1–3 and 9–12; figures 4–8 are marked superseded |
+| [`figures/paper_figure_workflow_transfer.png`](../../figures/paper_figure_workflow_transfer.png) | Current manuscript figure generated from the frozen Layer-2 artifacts |
 
 ## Instrument
 

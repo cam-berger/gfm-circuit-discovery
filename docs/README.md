@@ -36,8 +36,8 @@ dispositions are carried by C30 in `studies/splicebert_partner_selection/CLAIMS.
 red-team syntheses under `studies/splicebert_partner_selection/redteam/`.
 
 The detailed SpliceBERT record lives under
-[`studies/splicebert_partner_selection/`](../studies/splicebert_partner_selection/README.md); generated
-evidence summaries live under [`figures/splicebert/`](../figures/splicebert/README.md).
+[`studies/splicebert_partner_selection/`](../studies/splicebert_partner_selection/README.md); the four
+current manuscript assets live in `figures/`, each beside a hashed provenance sidecar.
 
 Protocol-vs-code conformance for every experiment family is recorded in
 [`PREREG_CONFORMANCE.md`](PREREG_CONFORMANCE.md) — 188 deviations across 25 families, only one of which

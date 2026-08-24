@@ -11,10 +11,8 @@ tied the two together.
 These checks are cheap, hermetic, and run on every push. They do not open an artifact's
 scientific content; they prove the figure set and the results tree still describe each other.
 
-Sidecar coverage is deliberately *not* asserted here: 21 of 32 published figure stems predate
-the sidecar convention, and failing on them would make this guard unrunnable rather than
-informative. What is asserted is that a sidecar which exists tells the truth, and that new
-sidecars record hashes.
+The active figure directory contains only manuscript figures, and every one must have a hashed
+sidecar. The checks below prove that the figure set and results tree still describe each other.
 """
 from __future__ import annotations
 
@@ -27,13 +25,6 @@ import pytest
 
 REPO = Path(__file__).resolve().parents[1]
 FIGURES = REPO / "figures"
-
-# One sidecar predates the hashing schema: it names free-text `data_sources` (one of which is
-# a prose description of a checkpoint, not a path) and has no generator in the tree. It is
-# grandfathered by name so the exemption stays visible and countable rather than silent. Any
-# sidecar added after this guard must use the hashing schema.
-UNHASHED_LEGACY = {"figures/origin-crossmodel/crossmodel_carrier_summary.provenance.json"}
-
 
 def _sha256(path: Path) -> str:
     digest = hashlib.sha256()
@@ -55,13 +46,17 @@ def test_sidecars_exist() -> None:
     assert _sidecars(), "no figure provenance sidecars found; the figure set lost its provenance"
 
 
+def test_every_paper_figure_has_a_sidecar() -> None:
+    rendered = sorted(FIGURES.glob("*.png"))
+    assert rendered, "no manuscript figures found"
+    missing = [path.name for path in rendered if not path.with_suffix(".provenance.json").exists()]
+    assert not missing, f"manuscript figures missing provenance sidecars: {missing}"
+
+
 @pytest.mark.parametrize("sidecar", _sidecars(), ids=lambda p: _rel(p))
 def test_recorded_source_hashes_are_current(sidecar: Path) -> None:
     """A recorded hash that no longer matches means the figure is stale, not the artifact."""
     record = json.loads(sidecar.read_text())
-    if _rel(sidecar) in UNHASHED_LEGACY:
-        pytest.skip("grandfathered pre-hashing sidecar")
-
     sources = record.get("sources")
     assert sources, f"{_rel(sidecar)} records no sources; a figure must name its artifacts"
 
@@ -93,9 +88,6 @@ def test_recorded_source_hashes_are_current(sidecar: Path) -> None:
 def test_recorded_source_paths_are_repository_relative(sidecar: Path) -> None:
     """An absolute path in a sidecar records one machine's filesystem, not a provenance."""
     record = json.loads(sidecar.read_text())
-    if _rel(sidecar) in UNHASHED_LEGACY:
-        pytest.skip("grandfathered pre-hashing sidecar")
-
     absolute = [
         item["path"] for item in record["sources"] if Path(item["path"]).is_absolute()
     ]
@@ -109,14 +101,4 @@ def test_sidecar_has_a_rendered_figure_beside_it(sidecar: Path) -> None:
     rendered = [stem.with_suffix(ext) for ext in (".png", ".pdf", ".svg")]
     assert any(path.exists() for path in rendered), (
         f"{_rel(sidecar)} has no rendered figure beside it"
-    )
-
-
-def test_legacy_exemption_list_is_not_stale() -> None:
-    """Delete the exemption when the figure it covers is regenerated, not before."""
-    present = {_rel(path) for path in _sidecars()}
-    unused = UNHASHED_LEGACY - present
-    assert not unused, (
-        f"UNHASHED_LEGACY names sidecars that no longer exist: {sorted(unused)}; "
-        "remove them from the exemption list"
     )

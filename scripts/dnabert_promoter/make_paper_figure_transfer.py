@@ -10,10 +10,10 @@ Every plotted value is read from a frozen artifact. Nothing is recomputed, and n
 transcribed: `_check` re-reads each number that reaches an axis and aborts on mismatch, so
 a figure that disagrees with the record cannot be written.
 
-    .venv/bin/python scripts/dnabert_promoter/make_paper_figure_transfer.py
+    uv run python scripts/dnabert_promoter/make_paper_figure_transfer.py
 
-Writes `figures/dnabert_promoter/paper_figure_workflow_transfer.{png,pdf}` and the
-`.provenance.json` sidecar that names and hashes all four source artifacts.
+Writes the manuscript asset `figures/paper_figure_workflow_transfer.png` and the
+`.provenance.json` sidecar that names and hashes all five source artifacts.
 
 Panel provenance
   A  frozen/layer_probes/layer_probe_results.json          - DBP1 layer selection
@@ -25,8 +25,6 @@ Panel provenance
        test_faithfulness_curve_confirmation_128_curve.csv            - DBP7 test
 
 Panel B plots the `L0_MLP_L0H8` component set only, which is what the manuscript discusses.
-The companion `L0_MLP` set is in `figures/dnabert_promoter/figure12_*`, which this figure
-does not supersede.
 """
 from __future__ import annotations
 
@@ -45,7 +43,7 @@ sys.path.insert(0, str(REPO / "src"))
 from gfmcd.figures.io import figure_provenance  # noqa: E402
 
 ROOT = REPO / "results" / "dnabert_promoter"
-OUTDIR = REPO / "figures" / "dnabert_promoter"
+OUTDIR = REPO / "figures"
 OUT = OUTDIR / "paper_figure_workflow_transfer"
 
 LAYER_PROBE = ROOT / "frozen" / "layer_probes" / "layer_probe_results.json"
@@ -248,15 +246,13 @@ def main() -> None:
 
     OUTDIR.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUT.with_suffix(".png"), dpi=300, bbox_inches="tight")
-    fig.savefig(OUT.with_suffix(".pdf"), bbox_inches="tight")
     plt.close(fig)
 
     sources = [LAYER_PROBE, DONOR_SUMMARY, DONOR_STATS, CURVE_VALIDATION, CURVE_TEST]
     OUT.with_suffix(".provenance.json").write_text(
         json.dumps(figure_provenance(sources), indent=2) + "\n")
 
-    for path in (OUT.with_suffix(".png"), OUT.with_suffix(".pdf"),
-                 OUT.with_suffix(".provenance.json")):
+    for path in (OUT.with_suffix(".png"), OUT.with_suffix(".provenance.json")):
         print("Saved:", path.relative_to(REPO))
     print(f"Panel B {COMPONENT}: " + ", ".join(
         f"{label.replace(chr(10), ' ')} {value:+.4f}"
