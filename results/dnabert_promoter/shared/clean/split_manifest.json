@@ -1,0 +1,23 @@
+{
+  "dataset_config": "prom_core_all",
+  "dataset_name": "leannmlindsey/GUE",
+  "hash_definition": "records_sha256() from gfmcd.dnabert.dataset -- SHA-256 of the sorted-key, compact-separator JSON encoding of the ordered [{source_index, sequence, label}, ...] list, identical to the raw-side shared/split_manifest.json convention.",
+  "source": "results/dnabert_promoter/shared/clean/{split}.csv, produced by clean_promoter_cohort.py",
+  "splits": {
+    "test": {
+      "output_file": "clean/test.csv",
+      "records_sha256": "21d83fbde32b338bcf2c609818fdecfd7636a6e38c72a38c887b1de66ec81dd2",
+      "rows": 5865
+    },
+    "train": {
+      "output_file": "clean/train.csv",
+      "records_sha256": "5c42bf5f6210bde34d741d8a9e9cd1e9bca60dcc2f204e5b1aee3d542448932e",
+      "rows": 47149
+    },
+    "validation": {
+      "output_file": "clean/validation.csv",
+      "records_sha256": "17752bbd87d97d4bd7c39029204fe10ad1d3129b6315bc92ae4cee3e85b5ba95",
+      "rows": 5856
+    }
+  }
+}

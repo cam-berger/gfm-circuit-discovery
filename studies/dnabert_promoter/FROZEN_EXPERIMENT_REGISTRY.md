@@ -390,11 +390,17 @@ Validation cohort:
 
 Results:
 
-- mean motif damage: -0.302244
-- mean matched-control damage: -0.376305
-- mean excess motif damage: 0.074060
+- mean motif damage: -0.288970
+- mean matched-control damage: -0.324068
+- mean excess motif damage: 0.035098
 - fraction motif disruption more damaging: 0.521
-- one-sided paired p-value: 0.233402
+- one-sided paired p-value: 0.311089
+
+(Corrected 2026-08-24 against the recovered canonical `validation_tata_perturbation_summary.json`;
+see `CORRECTIONS.md` DBPR11. The retired figures — mean motif damage -0.302244, mean matched-control
+damage -0.376305, mean excess motif damage 0.074060, p 0.233402 — coincided with the `all` bucket of
+`validation_tata_perturbation_exploratory_strata.json` rather than with the canonical per-example
+summary; that file was not itself re-verified in this pass.)
 
 Exploratory stratification by motif variant and motif position did not
 identify a coherent significant subgroup. In particular, starts at

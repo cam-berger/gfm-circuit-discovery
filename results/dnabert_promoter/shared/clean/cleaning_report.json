@@ -1,0 +1,48 @@
+{
+  "conflicting_hash_count": 64,
+  "policy": {
+    "deduplicate_within_split": true,
+    "precedence": [
+      "train",
+      "validation",
+      "test"
+    ],
+    "remove_conflicting_label_hashes_globally": true,
+    "remove_later_split_hashes_seen_earlier": true
+  },
+  "splits": {
+    "test": {
+      "input_rows": 5920,
+      "label_counts": {
+        "0": 2937,
+        "1": 2928
+      },
+      "output_rows": 5865,
+      "removed_conflicting": 9,
+      "removed_cross_split_duplicate": 44,
+      "removed_within_split_duplicate": 2
+    },
+    "train": {
+      "input_rows": 47356,
+      "label_counts": {
+        "0": 23636,
+        "1": 23513
+      },
+      "output_rows": 47149,
+      "removed_conflicting": 99,
+      "removed_cross_split_duplicate": 0,
+      "removed_within_split_duplicate": 108
+    },
+    "validation": {
+      "input_rows": 5920,
+      "label_counts": {
+        "0": 2919,
+        "1": 2937
+      },
+      "output_rows": 5856,
+      "removed_conflicting": 20,
+      "removed_cross_split_duplicate": 41,
+      "removed_within_split_duplicate": 3
+    }
+  }
+}

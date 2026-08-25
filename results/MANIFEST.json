@@ -1,17 +1,17 @@
 {
   "generated_by": "scripts/verify_manifest.py --prune-missing",
-  "row_count": 1108,
+  "row_count": 1137,
   "status_counts": {
-    "infrastructure": 21,
-    "canonical": 651,
-    "superseded": 180,
-    "development": 256
+    "infrastructure": 22,
+    "canonical": 677,
+    "development": 258,
+    "superseded": 180
   },
   "polarity_counts": {
-    "na": 435,
-    "positive": 534,
-    "bounded": 111,
-    "null": 23,
+    "na": 455,
+    "positive": 539,
+    "null": 24,
+    "bounded": 114,
     "refutation": 5
   },
   "columns": [
@@ -116,20 +116,20 @@
       "figure": ""
     },
     {
-      "claim_id": "DBP8",
-      "status": "canonical",
-      "evidence_level": "OV/mediation",
-      "polarity": "bounded",
+      "claim_id": "",
+      "status": "development",
+      "evidence_level": "",
+      "polarity": "na",
       "artifact": "results/dnabert_promoter/causal/activation_restoration/validation_negative_class_donors_128_offset_1_summary.json",
       "script": "scripts/dnabert_promoter/run_negative_class_donor_controls.py",
       "manifest": "",
       "figure": ""
     },
     {
-      "claim_id": "DBP8",
-      "status": "canonical",
-      "evidence_level": "OV/mediation",
-      "polarity": "bounded",
+      "claim_id": "",
+      "status": "development",
+      "evidence_level": "",
+      "polarity": "na",
       "artifact": "results/dnabert_promoter/causal/activation_restoration/validation_negative_class_donors_128_statistics.md",
       "script": "scripts/dnabert_promoter/run_negative_class_donor_controls.py",
       "manifest": "",
@@ -140,9 +140,39 @@
       "status": "canonical",
       "evidence_level": "Attention",
       "polarity": "positive",
+      "artifact": "results/dnabert_promoter/causal/branch_ablation/validation_localization_256_corrected_per_example.csv",
+      "script": "scripts/dnabert_promoter/run_branch_ablation_scan.py",
+      "manifest": "results/dnabert_promoter/causal/branch_ablation/validation_localization_256_corrected_summary.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP5",
+      "status": "canonical",
+      "evidence_level": "Attention",
+      "polarity": "positive",
       "artifact": "results/dnabert_promoter/causal/branch_ablation/validation_localization_256_corrected_summary.json",
       "script": "scripts/dnabert_promoter/run_branch_ablation_scan.py",
+      "manifest": "results/dnabert_promoter/causal/branch_ablation/validation_localization_256_corrected_summary.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP5",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert_promoter/causal/branch_ablation/validation_localization_256_corrected_summary.manifest.json",
+      "script": "",
       "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP5",
+      "status": "canonical",
+      "evidence_level": "Attention",
+      "polarity": "positive",
+      "artifact": "results/dnabert_promoter/causal/grouped_head_ablation/validation_grouped_heads_256_per_example.csv",
+      "script": "scripts/dnabert_promoter/run_grouped_head_ablation.py",
+      "manifest": "results/dnabert_promoter/causal/grouped_head_ablation/validation_grouped_heads_256_summary.manifest.json",
       "figure": ""
     },
     {
@@ -152,7 +182,27 @@
       "polarity": "positive",
       "artifact": "results/dnabert_promoter/causal/grouped_head_ablation/validation_grouped_heads_256_summary.json",
       "script": "scripts/dnabert_promoter/run_grouped_head_ablation.py",
+      "manifest": "results/dnabert_promoter/causal/grouped_head_ablation/validation_grouped_heads_256_summary.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP5",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert_promoter/causal/grouped_head_ablation/validation_grouped_heads_256_summary.manifest.json",
+      "script": "",
       "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP5",
+      "status": "canonical",
+      "evidence_level": "Attention",
+      "polarity": "positive",
+      "artifact": "results/dnabert_promoter/causal/head_ablation/validation_head_scan_256_layers_0_1_2_per_example.csv",
+      "script": "scripts/dnabert_promoter/run_head_ablation_scan.py",
+      "manifest": "results/dnabert_promoter/causal/head_ablation/validation_head_scan_256_layers_0_1_2_summary.manifest.json",
       "figure": ""
     },
     {
@@ -162,6 +212,16 @@
       "polarity": "positive",
       "artifact": "results/dnabert_promoter/causal/head_ablation/validation_head_scan_256_layers_0_1_2_summary.json",
       "script": "scripts/dnabert_promoter/run_head_ablation_scan.py",
+      "manifest": "results/dnabert_promoter/causal/head_ablation/validation_head_scan_256_layers_0_1_2_summary.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP5",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert_promoter/causal/head_ablation/validation_head_scan_256_layers_0_1_2_summary.manifest.json",
+      "script": "",
       "manifest": "",
       "figure": ""
     },
@@ -527,6 +587,46 @@
     },
     {
       "claim_id": "DBP5",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert_promoter/causal/localization_cohorts/test_localization_256.csv",
+      "script": "scripts/dnabert_promoter/build_localization_cohort.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP5",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert_promoter/causal/localization_cohorts/test_localization_256.json",
+      "script": "scripts/dnabert_promoter/build_localization_cohort.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP5",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert_promoter/causal/localization_cohorts/validation_localization_256.csv",
+      "script": "scripts/dnabert_promoter/build_localization_cohort.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP5",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert_promoter/causal/localization_cohorts/validation_localization_256.json",
+      "script": "scripts/dnabert_promoter/build_localization_cohort.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP5",
       "status": "development",
       "evidence_level": "",
       "polarity": "na",
@@ -880,8 +980,38 @@
       "status": "canonical",
       "evidence_level": "Biology",
       "polarity": "null",
+      "artifact": "results/dnabert_promoter/frozen_claim_tests/biological_features/tata_perturbations/probe_results/validation_tata_perturbation_per_example.csv",
+      "script": "scripts/dnabert_promoter/run_tata_perturbation_probe.py",
+      "manifest": "results/dnabert_promoter/frozen_claim_tests/biological_features/tata_perturbations/probe_results/validation_tata_perturbation_summary.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP10",
+      "status": "canonical",
+      "evidence_level": "Biology",
+      "polarity": "null",
       "artifact": "results/dnabert_promoter/frozen_claim_tests/biological_features/tata_perturbations/probe_results/validation_tata_perturbation_summary.json",
       "script": "scripts/dnabert_promoter/run_tata_perturbation_probe.py",
+      "manifest": "results/dnabert_promoter/frozen_claim_tests/biological_features/tata_perturbations/probe_results/validation_tata_perturbation_summary.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP10",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert_promoter/frozen_claim_tests/biological_features/tata_perturbations/probe_results/validation_tata_perturbation_summary.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP10",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert_promoter/frozen_claim_tests/biological_features/tata_perturbations/validation_tata_perturbation_cohort.csv",
+      "script": "scripts/dnabert_promoter/build_tata_perturbation_cohort.py",
       "manifest": "",
       "figure": ""
     },
@@ -896,13 +1026,63 @@
       "figure": ""
     },
     {
+      "claim_id": "DBP9",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert_promoter/frozen_claim_tests/biological_features/test_tata_like_eligible.csv",
+      "script": "scripts/dnabert_promoter/build_tata_perturbation_cohort.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP9",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert_promoter/frozen_claim_tests/biological_features/validation_tata_like_eligible.csv",
+      "script": "scripts/dnabert_promoter/build_tata_perturbation_cohort.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP6",
+      "status": "canonical",
+      "evidence_level": "OV/mediation",
+      "polarity": "positive",
+      "artifact": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/test_candidate_circuit_confirmation_128_per_example.csv",
+      "script": "scripts/dnabert_promoter/run_frozen_circuit_accounting.py",
+      "manifest": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/test_candidate_circuit_confirmation_128_summary.manifest.json",
+      "figure": ""
+    },
+    {
       "claim_id": "DBP6",
       "status": "canonical",
       "evidence_level": "OV/mediation",
       "polarity": "positive",
       "artifact": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/test_candidate_circuit_confirmation_128_summary.json",
       "script": "scripts/dnabert_promoter/run_frozen_circuit_accounting.py",
+      "manifest": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/test_candidate_circuit_confirmation_128_summary.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP6",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/test_candidate_circuit_confirmation_128_summary.manifest.json",
+      "script": "",
       "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP6",
+      "status": "canonical",
+      "evidence_level": "OV/mediation",
+      "polarity": "positive",
+      "artifact": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/validation_candidate_circuit_128_per_example.csv",
+      "script": "scripts/dnabert_promoter/run_frozen_circuit_accounting.py",
+      "manifest": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/validation_candidate_circuit_128_summary.manifest.json",
       "figure": ""
     },
     {
@@ -912,7 +1092,27 @@
       "polarity": "positive",
       "artifact": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/validation_candidate_circuit_128_summary.json",
       "script": "scripts/dnabert_promoter/run_frozen_circuit_accounting.py",
+      "manifest": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/validation_candidate_circuit_128_summary.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP6",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert_promoter/frozen_claim_tests/circuit_accounting/validation_candidate_circuit_128_summary.manifest.json",
+      "script": "",
       "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP7",
+      "status": "canonical",
+      "evidence_level": "OV/mediation",
+      "polarity": "bounded",
+      "artifact": "results/dnabert_promoter/frozen_claim_tests/component_faithfulness/test_component_faithfulness_confirmation_128_per_example.csv",
+      "script": "scripts/dnabert_promoter/run_frozen_component_faithfulness.py",
+      "manifest": "results/dnabert_promoter/frozen_claim_tests/component_faithfulness/test_component_faithfulness_confirmation_128_summary.manifest.json",
       "figure": ""
     },
     {
@@ -922,7 +1122,27 @@
       "polarity": "bounded",
       "artifact": "results/dnabert_promoter/frozen_claim_tests/component_faithfulness/test_component_faithfulness_confirmation_128_summary.json",
       "script": "scripts/dnabert_promoter/run_frozen_component_faithfulness.py",
+      "manifest": "results/dnabert_promoter/frozen_claim_tests/component_faithfulness/test_component_faithfulness_confirmation_128_summary.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP7",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert_promoter/frozen_claim_tests/component_faithfulness/test_component_faithfulness_confirmation_128_summary.manifest.json",
+      "script": "",
       "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP7",
+      "status": "canonical",
+      "evidence_level": "OV/mediation",
+      "polarity": "bounded",
+      "artifact": "results/dnabert_promoter/frozen_claim_tests/component_faithfulness/validation_component_faithfulness_128_per_example.csv",
+      "script": "scripts/dnabert_promoter/run_frozen_component_faithfulness.py",
+      "manifest": "results/dnabert_promoter/frozen_claim_tests/component_faithfulness/validation_component_faithfulness_128_summary.manifest.json",
       "figure": ""
     },
     {
@@ -932,6 +1152,16 @@
       "polarity": "bounded",
       "artifact": "results/dnabert_promoter/frozen_claim_tests/component_faithfulness/validation_component_faithfulness_128_summary.json",
       "script": "scripts/dnabert_promoter/run_frozen_component_faithfulness.py",
+      "manifest": "results/dnabert_promoter/frozen_claim_tests/component_faithfulness/validation_component_faithfulness_128_summary.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP7",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert_promoter/frozen_claim_tests/component_faithfulness/validation_component_faithfulness_128_summary.manifest.json",
+      "script": "",
       "manifest": "",
       "figure": ""
     },
@@ -1052,8 +1282,18 @@
       "polarity": "bounded",
       "artifact": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/test_faithfulness_curve_confirmation_128_curve.csv",
       "script": "scripts/dnabert_promoter/run_frozen_faithfulness_curve.py",
-      "manifest": "",
+      "manifest": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/test_faithfulness_curve_confirmation_128_summary.manifest.json",
       "figure": "figures/paper_figure_workflow_transfer.png"
+    },
+    {
+      "claim_id": "DBP7",
+      "status": "canonical",
+      "evidence_level": "OV/mediation",
+      "polarity": "bounded",
+      "artifact": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/test_faithfulness_curve_confirmation_128_per_example.csv",
+      "script": "scripts/dnabert_promoter/run_frozen_faithfulness_curve.py",
+      "manifest": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/test_faithfulness_curve_confirmation_128_summary.manifest.json",
+      "figure": ""
     },
     {
       "claim_id": "DBP7",
@@ -1062,6 +1302,16 @@
       "polarity": "bounded",
       "artifact": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/test_faithfulness_curve_confirmation_128_summary.json",
       "script": "scripts/dnabert_promoter/run_frozen_faithfulness_curve.py",
+      "manifest": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/test_faithfulness_curve_confirmation_128_summary.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP7",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/test_faithfulness_curve_confirmation_128_summary.manifest.json",
+      "script": "",
       "manifest": "",
       "figure": ""
     },
@@ -1072,8 +1322,18 @@
       "polarity": "bounded",
       "artifact": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/validation_faithfulness_curve_refined_128_curve.csv",
       "script": "scripts/dnabert_promoter/run_frozen_faithfulness_curve.py",
-      "manifest": "",
+      "manifest": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/validation_faithfulness_curve_refined_128_summary.manifest.json",
       "figure": "figures/paper_figure_workflow_transfer.png"
+    },
+    {
+      "claim_id": "DBP7",
+      "status": "canonical",
+      "evidence_level": "OV/mediation",
+      "polarity": "bounded",
+      "artifact": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/validation_faithfulness_curve_refined_128_per_example.csv",
+      "script": "scripts/dnabert_promoter/run_frozen_faithfulness_curve.py",
+      "manifest": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/validation_faithfulness_curve_refined_128_summary.manifest.json",
+      "figure": ""
     },
     {
       "claim_id": "DBP7",
@@ -1082,6 +1342,16 @@
       "polarity": "bounded",
       "artifact": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/validation_faithfulness_curve_refined_128_summary.json",
       "script": "scripts/dnabert_promoter/run_frozen_faithfulness_curve.py",
+      "manifest": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/validation_faithfulness_curve_refined_128_summary.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP7",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert_promoter/frozen_claim_tests/faithfulness_curve/validation_faithfulness_curve_refined_128_summary.manifest.json",
+      "script": "",
       "manifest": "",
       "figure": ""
     },
@@ -1102,6 +1372,26 @@
       "polarity": "na",
       "artifact": "results/dnabert_promoter/provenance/checkpoint_equivalence.md",
       "script": "scripts/dnabert_promoter/run_environment_preflight.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP2",
+      "status": "canonical",
+      "evidence_level": "",
+      "polarity": "bounded",
+      "artifact": "results/dnabert_promoter/shared/clean/cleaning_report.json",
+      "script": "scripts/dnabert_promoter/clean_promoter_cohort.py",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "DBP2",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/dnabert_promoter/shared/clean/split_manifest.json",
+      "script": "",
       "manifest": "",
       "figure": ""
     },
