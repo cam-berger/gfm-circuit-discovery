@@ -1,27 +1,34 @@
 # Mechanistic Discovery in Genomic Foundation Models
 
-This repository studies what genomic foundation models compute, using causal interventions rather than
-attention maps or probes alone. SpliceBERT is the main case study. Reciprocal masked-acceptor experiments
-and DNABERT-2 promoter experiments are smaller tests of how well the method transfers.
+Methods, code, and evidence for studying what genomic foundation models compute. The workflow starts
+with a biological computation and a measurable model behavior, then uses controlled interventions to
+identify the information, components, and paths that support it. SpliceBERT is the main worked example.
 
-The current checkout contains the research record, code, and figures, but not the live manuscript source.
-[`RESULTS.md`](RESULTS.md) contains the current evidence audit and a fact-check of the working paper draft.
+[Methodology](docs/METHODOLOGY.md) · [Mechanism](MECHANISM.md) · [Study index](studies/README.md) ·
+[Reproduction guide](REPRODUCE.md)
+
+![Conceptual workflow: define model behavior, intervene on internal states, test causal roles, and formulate bounded hypotheses.](figures/experiment_workflow.png)
+
+*Conceptual overview; the full [seven-stage method](docs/METHODOLOGY.md#the-seven-stage-workflow)
+specifies assay preflight, controls, and replication. [Figure sources](figures/experiment_workflow.provenance.json).*
 
 ## Main result
 
-On 400 sealed examples from chromosomes 8 and 9, corrupting the paired acceptor changes SpliceBERT's
-masked-donor logit margin by `+0.872 [0.771, 0.969]`. Matched non-partner controls are near zero.
+On 400 canonical short-intron examples from the sealed chromosome 8/9 test split, replacing the paired
+acceptor's `AG` with `CC` lowers the masked-donor margin. The mean clean-minus-corrupt difference is
+**0.872 logit units** (95% CI **[0.771, 0.969]**); matched non-partner controls are near zero.
+The margin is `logit(G) − max(logit(A), logit(C), logit(T))` at the masked donor `G`.
+See [C1–C2](studies/splicebert_partner_selection/CLAIMS.md#1-the-behaviour-and-its-specificity) and the
+[recorded result](results/splicebert_coupling/sealed_test.json).
 
 Causal interventions resolve this behavior into four roles:
 
-- **Address:** L3H1 selects the paired acceptor mainly from positional information, with L2H15 strengthening
-  the attention-side signal.
-- **Payload:** L3H1 reads causally relevant values from a four-token acceptor window. Earlier heads and MLPs
-  construct those values, but their biological meaning is still unknown.
-- **Write:** L3H1 combines address and payload into a donor-local state captured well by a tested rank-8
-  subspace.
-- **Delivery:** later heads, including L4H0, L4H2, and L5H11, carry that state toward the masked-token output
-  through their value-output paths.
+| Role | Supported account |
+|---|---|
+| **Address** | L3H1 selects the paired acceptor mainly through positional information; L2H15 strengthens the attention-side signal. |
+| **Payload** | Earlier heads and MLPs construct causally relevant values in a four-token acceptor window. Their biological meaning remains unresolved. |
+| **Write** | L3H1 combines address and payload into a donor-local state captured well by a tested rank-8 subspace. |
+| **Delivery** | Later heads, including L4H0, L4H2, and L5H11, carry that state toward the masked-token output through their value-output paths. |
 
 These components form a structured, top-ranked causal core inside a broader distributed computation. They
 are not a complete, minimal, or autonomous circuit. The held-out static-ranking curve has no sparse knee,
@@ -31,64 +38,64 @@ The learned period-3 positional direction and the boundary-register preference s
 are separate findings. No current experiment connects them, identifies reading frame, or establishes a
 cellular splicing mechanism.
 
-The reciprocal SpliceBERT experiments show paired-donor dependence on validation examples and several
-component effects, but not a reverse address → payload → write → delivery mechanism or symmetry. The
-DNABERT-2 study finds a different, MLP-heavy conditional causal core; it is a bounded comparison, not a
-replication of the SpliceBERT circuit.
+Reciprocal SpliceBERT experiments provide validation behavior and partial component evidence. DNABERT-2
+promoter experiments provide a bounded comparison with a different, MLP-heavy conditional causal core.
+Neither establishes a replication or symmetry of the donor mechanism. The
+[study index](studies/README.md) also covers context studies, fine-tuning comparisons, and stopped
+experiments.
 
-## Evidence and claims
+## Reading the evidence
 
 The claim ledgers and immutable result artifacts control the scientific record. Narrative summaries do not
 override them.
 
-- [`RESULTS.md`](RESULTS.md) — audited numbers, data splits, manuscript fact-check, and claim coverage
-- [`MECHANISM.md`](MECHANISM.md) — current mechanism and its limits
-- [Donor claim ledger](studies/splicebert_partner_selection/CLAIMS.md) — live SpliceBERT claims
-- [Correction ledger](studies/splicebert_partner_selection/CORRECTIONS.md) — retractions and corrections
-- [Preregistration conformance](docs/PREREG_CONFORMANCE.md) — where historical runs did and did not match
-  their frozen protocols
-- [Methodology](docs/METHODOLOGY.md) and [evidence ladder](docs/EVIDENCE_LADDER.md) — standards for new studies
+| To inspect… | Start with… |
+|---|---|
+| The mechanism and its limits | [MECHANISM.md](MECHANISM.md) |
+| Individual donor claims and corrections | [Claim ledger](studies/splicebert_partner_selection/CLAIMS.md) and [correction ledger](studies/splicebert_partner_selection/CORRECTIONS.md) |
+| Quantitative results and the manuscript audit | [RESULTS.md](RESULTS.md), dated 2026-08-22 |
+| Evidence from each study | [Study index](studies/README.md) and [artifact registry](results/MANIFEST.csv) |
+| Methods, evidence levels, and protocol deviations | [Documentation index](docs/README.md) |
+| Figures and their sources | [Figure index](figures/README.md) |
 
 Attention, attribution, probes, and spectra nominate candidates. Intervention establishes causal use. A
 causal model mechanism is not automatically a biological mechanism.
 
-## Study map
+## Reproduce and validate
 
-| Study | Status |
-|---|---|
-| [SpliceBERT partner selection](studies/splicebert_partner_selection/README.md) | Main donor-mechanism record |
-| [SpliceBERT acceptor coupling](studies/splicebert_acceptor_coupling/README.md) | Bounded reciprocal behavior and component evidence; mechanism handoff stopped before chr8/9 |
-| [DNABERT-2 promoter](studies/dnabert_promoter/README.md) | Bounded frozen-model comparison; notebook-only fine-tuned extension archived |
-| [Head–Context Atlas](studies/splicebert_head_context_atlas/README.md) | Component-reuse discovery and internal validation |
-| [GTEx fine-tuning shift](studies/splicebert_gtex_finetune_shift/README.md) | Fine-tuned readout and positional-carrier follow-up |
-| [Acceptor context](studies/splicebert_acceptor_context/README.md) | Prospective protocol; no result |
-| [Positional boundary coherence](studies/splicebert_positional_boundary_coherence/README.md) | Model-free capacity stop |
-| [Positional proxy modifiability](studies/splicebert_positional_proxy_modifiability/README.md) | Model-free capacity result; frozen model protocol never run |
-| [Exon-edge compatibility](studies/splicebert_exon_edge_compatibility/README.md) | Archive record for live claims C43 and C44 |
+Validate the artifact registry without model weights or third-party Python packages:
 
-Legacy `acceptor-interpretability/`, `ntv3-interpretability/`, and top-level `dnabert/` results were
-exploratory or superseded and have been removed from the active tree. They remain recoverable at
-`archive/unsupported-exploratory-2026-08-22`. New studies should start from
-[`studies/TEMPLATE_REAL_GFM_STUDY/`](studies/TEMPLATE_REAL_GFM_STUDY/README.md).
+```bash
+python3 scripts/verify_manifest.py
+```
+
+Install the locked environment and run the test suite:
+
+```bash
+uv sync --locked --extra splicebert --extra biology --extra dev
+uv run --locked --extra splicebert --extra biology --extra dev pytest
+```
+
+The full provenance checks require Git history and archive tags. Model checkpoints, hg38 FASTA, and
+GENCODE annotation are obtained separately. Tests requiring unavailable assets report skips;
+passing repository checks does not constitute a rerun of the model experiments. See
+[REPRODUCE.md](REPRODUCE.md) for dependencies, data, commands, and limits on exact reproduction.
 
 ## Repository layout
 
-- `src/gfmcd/` — reusable model adapters, circuit tools, and SpliceBERT assays
-- `scripts/` — experiment, audit, and figure entry points
-- `results/` — immutable results, manifests, and audits
-- `figures/` — generated figures and provenance
-- `tests/` — analysis checks and memorial tests
-- `docs/` — methodology, evidence rules, and study guidance
+| Directory | Contents |
+|---|---|
+| [`src/gfmcd/`](src/gfmcd/) | Model adapters, reusable circuit tools, and study assays |
+| [`scripts/`](scripts/README.md) | Experiment, audit, and figure entry points by study |
+| [`studies/`](studies/README.md) | Claim ledgers, protocols, decisions, and study guides |
+| [`results/`](results/) | Immutable results, manifests, and audits |
+| [`figures/`](figures/README.md) | Publication figures and source provenance |
+| [`tests/`](tests/) | Analysis tests, evidence-integrity checks, and regression guards |
+| [`docs/`](docs/README.md) | Methodology, evidence standards, and terminology |
 
-## Reproducing the repository
-
-```bash
-uv sync --extra splicebert --extra biology --extra dev
-uv run --extra splicebert --extra biology --extra dev pytest
-```
-
-The model checkpoint, hg38 FASTA, and GENCODE annotation are not committed. See
-[`REPRODUCE.md`](REPRODUCE.md) for setup, data requirements, and the claim-to-artifact map.
+For changes or a new model study, see [CONTRIBUTING.md](CONTRIBUTING.md). The live manuscript source is
+maintained separately; [RESULTS.md](RESULTS.md) audits a fingerprinted draft and records its outstanding
+corrections.
 
 Repository code is available under the [MIT License](LICENSE). External model and data terms are listed in
 [`docs/THIRD_PARTY_ASSETS.md`](docs/THIRD_PARTY_ASSETS.md).

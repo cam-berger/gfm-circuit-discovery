@@ -1,2 +1,2 @@
-results/splicebert_gtex_finetune_shift/sparse_transcoder_activation_capture_v1.npz filter=lfs diff=lfs merge=lfs -text
-results/splicebert_gtex_finetune_shift/sparse_transcoder_training_v1.pt filter=lfs diff=lfs merge=lfs -text
+# CSV writers use CRLF; recognize it without normalizing hash-bound artifact bytes.
+*.csv whitespace=trailing-space,space-before-tab,cr-at-eol

@@ -49,7 +49,7 @@ The frozen one-sentence mechanism statement, its checkpoint caveats, and its sco
 
 | Question | File that owns the answer |
 |---|---|
-| What is claimed, in what words? | the seven `CLAIMS.md` ledgers that carry rows: [donor circuit](studies/splicebert_partner_selection/CLAIMS.md) (`C*`, 45), [GTEx fine-tuning shift](studies/splicebert_gtex_finetune_shift/CLAIMS.md) (`GFS*`, 34), [Head–Context Atlas](studies/splicebert_head_context_atlas/CLAIMS.md) (`HCA*`, 21), [DNABERT-2 promoter](studies/dnabert_promoter/CLAIMS.md) (`DBP1`–`DBP10` — the only **non-SpliceBERT** ledger), [acceptor coupling](studies/splicebert_acceptor_coupling/CLAIMS.md) (descriptive `acceptor-coupling/*` records with immutable aliases `AC1`–`AC11` — the **reverse** direction; the QK score diagnostic has no claim alias), [positional boundary coherence](studies/splicebert_positional_boundary_coherence/CLAIMS.md) (`PBC1`, an instrument-unresolved construction result), and [positional-proxy modifiability](studies/splicebert_positional_proxy_modifiability/CLAIMS.md) (`PPM1`, a model-free capacity result) |
+| What is claimed, in what words? | The study-local claim ledgers linked from the [study index](studies/README.md). Each ledger owns its evidence levels, controlling artifacts, and scope; descriptive IDs retain their historical aliases. |
 | What was retracted or bounded, and why? | [`CORRECTIONS.md`](studies/splicebert_partner_selection/CORRECTIONS.md) — **R1–R48**. R1–R24 are table rows (some are ranges); R25–R48 are `##` sections later in the same file — scan both. The DNABERT-2 study keeps its own [`DBPR1–DBPR12`](studies/dnabert_promoter/CORRECTIONS.md); DBPR12 records removal of the non-reproducible notebook-only fine-tuned extension. |
 | Why was an experiment designed that way? | [`DECISIONS_A0.md`](studies/splicebert_partner_selection/DECISIONS_A0.md) and each study's `DECISIONS*.md` |
 | What is next, and what is deferred? | [`docs/ROADMAP.md`](docs/ROADMAP.md) |
@@ -57,8 +57,8 @@ The frozen one-sentence mechanism statement, its checkpoint caveats, and its sco
 | Which artifact controls a claim? | [`results/RESULTS_INDEX.md`](results/RESULTS_INDEX.md) and `results/MANIFEST.csv` |
 
 Cite by descriptive evidence ID where one exists; retain short codes as immutable aliases. Let the
-ledger carry measured numbers, or they drift. Nine non-template study directories are in the tree and
-**seven carry records** ([study map](README.md#study-map));
+ledger carry measured numbers, or they drift. The [study index](studies/README.md) distinguishes
+model evidence, prospective designs, construction results, and archive records;
 [acceptor context](studies/splicebert_acceptor_context/README.md) is design-only, and
 [exon-edge compatibility](studies/splicebert_exon_edge_compatibility/README.md) is an archive remnant
 whose claims live in the donor ledger as C43/C44. **Acceptor coupling** is the reverse direction — a
