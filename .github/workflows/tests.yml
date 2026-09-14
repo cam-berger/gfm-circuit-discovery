@@ -30,6 +30,10 @@ jobs:
         with:
           python-version-file: .python-version
 
+      - name: Check recorded artifact index
+        # The reviewer-facing integrity check requires only Python and Git.
+        run: python scripts/verify_manifest.py
+
       - name: Install uv
         uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
         with:
@@ -43,5 +47,5 @@ jobs:
         # Extras must be repeated here: bare `uv run pytest` re-syncs to the default
         # dependency set and drops splicebert/biology/dev (incl. pytest itself), so the
         # manifest guard and the data-gated suite would not actually run. See
-        # docs/REVIEW_OPEN_QUESTIONS.md.
-        run: uv run --extra splicebert --extra biology --extra dev pytest
+        # REPRODUCE.md, Environment.
+        run: uv run --locked --extra splicebert --extra biology --extra dev pytest -ra

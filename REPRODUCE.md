@@ -1,23 +1,57 @@
 # Reproducing the current scientific record
 
-This is the canonical repository-level entry point. Study-specific commands and historical environment
-snapshots remain in their manifests and reproduction maps, but new development should use the `uv`
-environment below.
+This guide separates review of the recorded evidence, software checks, and model/data replay.
+Study-specific commands and historical environments remain in the result manifests and reproduction
+maps. The environment below supports current development; it does not reconstruct an incompletely
+recorded historical environment.
+
+## Review the artifacts without installing the project
+
+Use a full Git clone with its history and annotated archive tags. Several provenance checks read old
+commits with `git cat-file`; source ZIP downloads and shallow clones cannot reproduce those checks.
+For an existing shallow clone, run `git fetch --unshallow --tags origin`; for a full clone with missing
+tags, run `git fetch --tags origin`.
+
+With Python 3.10 or newer and Git available, run this read-only check from the repository root:
+
+```bash
+python3 scripts/verify_manifest.py
+```
+
+This uses only the Python standard library. It checks result-index coverage, CSV/JSON agreement,
+declared status and polarity, and referenced paths. It does not validate scientific values or supply
+missing historical manifests. The [reciprocal masked-acceptor review command](#reciprocal-masked-acceptor-record)
+below also uses only the standard library and authenticates the compact attestations against their
+archived bytes. Both commands work offline once the required Git objects and tags are present; neither
+loads a model or opens genomic data.
 
 ## 1. Environment
 
-From the repository root:
+For software tests, install `uv` and run from the repository root. The checked-in
+[`.python-version`](.python-version) selects Python 3.13, as in
+[CI](.github/workflows/tests.yml). Initial setup requires access to the package sources or a populated
+local cache; checkpoints and genome files are not downloaded by these commands.
 
 ```bash
-uv sync --extra splicebert --extra biology --extra dev
-uv run --extra splicebert --extra biology --extra dev pytest
+uv sync --locked --extra splicebert --extra biology --extra dev
+uv run --locked --extra splicebert --extra biology --extra dev pytest -ra
 ```
 
 **Pass the extras on the `uv run` too.** A bare `uv run pytest` may resolve a smaller dependency set and
-fail during collection. The extras form is what `.github/workflows/tests.yml` executes. On the
-2026-08-22 cleanup tree it reports **1,023 passed, 22 skipped** in 221.40 seconds. The exact duration and
-skip count depend on hardware, external data, and optional packages; the acceptance condition is a
-passing suite with every skip explained.
+fail during collection. `--locked` requires the checked-in dependency resolution to remain unchanged.
+CI executes the same test command. `-ra` reports skipped tests and their reasons: tests requiring local
+models, genomic data, or optional packages may skip. A passing software suite is not a replay of those
+experiments. Test counts and duration depend on the revision, hardware, inputs, and optional packages.
+
+For a focused check of result-index integrity, figure-provenance path handling, and archived-evidence
+verification after installation:
+
+```bash
+uv run --locked --extra splicebert --extra biology --extra dev pytest -ra \
+  tests/test_manifest.py tests/test_figure_provenance.py \
+  tests/test_evidence_attestation.py tests/test_acceptor_component_attestation.py \
+  tests/test_acceptor_inverse_coupling_attestations.py
+```
 
 Use `PYTHONHASHSEED=0` for cohort construction and any shuffle or selection path whose manifest declares
 determinism. Use `TOKENIZERS_PARALLELISM=false` for model runs when deterministic, quiet tokenization is
@@ -34,8 +68,8 @@ now `pyproject.toml` plus `uv.lock`.
 | `maxentpy` 0.0.4 | MaxEntScan scoring: `run_a9_payload_semantics.py` (C30), `run_ic1_pilot2/3.py`, `run_ic2_feasibility.py`, `run_b2_payload_steering.py`, the atlas covariate builders, `src/gfmcd/splicing/{specificity,splice_landscape}.py`, and the positional-boundary-coherence Phase-I candidate scorer (`src/gfmcd/splicing/pbc_biology.py`) | Not on PyPI, but `pyproject.toml` ships a locked **`maxent` extra** pinning the exact commit the recorded runs used — add `--extra maxent` to your `uv sync`/`uv run`. MaxEnt tables sha256 `8b6d7b46…b7c00`. |
 | `multimolecule` 0.2.0 | the three cross-model carrier runners under `scripts/crossmodel/` (C39/C40) | A **separate** environment by design — the runners record `"environment": "gfmcd-mm (conda): python3.11 torch transformers multimolecule0.2.0"` in their manifests. Do not add it to the main env; build the side environment and run those scripts there. |
 
-The library modules import `maxentpy` lazily, so `import gfmcd` works without it; the four runners above
-import it at module level and will fail immediately if it is absent. `tests/test_pbc_phase1_real_data.py`
+The library modules import `maxentpy` lazily, so `import gfmcd` works without it; some historical runners
+import it at module level and fail immediately if it is absent. `tests/test_pbc_phase1_real_data.py`
 **skips** without it — a skipped run there is not a passing one, and what stops being checked (including
 the MaxEnt pin memorial) is listed at the top of that file.
 
@@ -63,13 +97,13 @@ file existence and report as skipped when the inputs are absent. Read the skip r
 comparing against a historical pass count. Every current primary runner also accepts `--gtf` and
 `--fasta`, which override the environment.
 
-**Four more checkpoints are needed for the origin claims, and this repository records no acquisition URL
-for any of them — including SpliceBERT itself.** C39 needs the stage-1 sibling pair `SpliceBERT.510nt` and
+Four more checkpoints are needed for the origin claims. C39 needs the stage-1 sibling pair `SpliceBERT.510nt` and
 `SpliceBERT-human.510nt`, which differ only in training corpus; C40 needs RNA-FM and RNA-BERT, loaded
 through `multimolecule` in the separate side environment. Their SHA-256 values are recorded in the
 manifests under `results/origin-siblings/` and `results/origin-crossmodel/`, so you can verify a candidate
-file — but you must locate it yourself from the upstream publications. Obtaining the right artifact is a
-prerequisite this document does not solve.
+file. Provider references and access limitations are listed in
+[`docs/THIRD_PARTY_ASSETS.md`](docs/THIRD_PARTY_ASSETS.md); exact historical checkpoint acquisition is
+not automated here. Confirm the file hash, tokenizer, and configuration before replay.
 
 Models, FASTA/GTF inputs, and large Atlas runtime shards are not committed. A rerun is comparable only
 when its manifest matches the checkpoint, tokenizer, data hashes, split, parameters, seed, and code
@@ -99,13 +133,12 @@ that the repository-level example layout governed every study.
    omit a revision, or omit the dirty flag. Exact code-state replay is therefore unavailable for those
    rows. Compare against the recorded artifact and manifest, and treat missing code identity as a
    provenance limitation rather than reconstructing it after the fact.
-2. **The `--out` defaults point at the record.** 56 runners default `--out` to a path that
-   `results/MANIFEST.csv` lists as an artifact, and no runner checks whether the target already exists.
-   Re-running any of them with defaults **overwrites the controlling artifact** — the opposite of the
-   immutability rule stated in §4 and in `README.md`. `gfmcd.artifact_guard.guard_output_path` now exists
-   for new runners to call, and `tests/test_overwrite_guard.py` keeps the inventory of the 56 from growing,
-   but the existing runners are pinned by their manifests and were deliberately not edited (R35) — so
-   **always pass an explicit `--out` to a new path when reproducing.**
+2. **Some historical `--out` defaults point at the record.** The retained inventory in
+   [`tests/data/unguarded_out_defaults.json`](tests/data/unguarded_out_defaults.json) lists runners
+   whose defaults can overwrite recorded artifacts. `tests/test_overwrite_guard.py` prevents that
+   inventory from growing. New runners use `gfmcd.artifact_guard.guard_output_path`, which refuses
+   existing output paths; historical runners pinned by their manifests were deliberately not edited
+   (R35). **Inspect the runner and pass an explicit `--out` to a new path when supported.**
 3. **Some live canonical artifacts have no sibling manifest.** This includes
    `results/p3_carrier_locus.json` (C34), `results/p3_av_decomposition.json` (C35), and parts of
    `results/phase-lattice/` (C8, C11, C13, C14, C15). Their manifest cells remain blank; the cleanup does
@@ -182,12 +215,12 @@ a promoted result.
 The review path is model- and genome-free:
 
 ```bash
-uv run python scripts/verify_archived_evidence.py \
+python3 scripts/verify_archived_evidence.py \
   results/splicebert_acceptor_coupling/attestations/paired_donor_component_confirmation_v1.json \
   results/splicebert_acceptor_coupling/attestations/frozen_handoff_schema_mismatch_v1.json \
   results/splicebert_acceptor_coupling/attestations/natural_gc_validation_v1.json \
   results/splicebert_acceptor_coupling/attestations/development/natural_gc_qk_score_diagnostic_v1.json
-uv run pytest -q tests/test_evidence_attestation.py \
+uv run --locked --extra splicebert --extra biology --extra dev pytest -ra tests/test_evidence_attestation.py \
   tests/test_acceptor_component_attestation.py \
   tests/test_acceptor_inverse_coupling_attestations.py
 ```
@@ -343,6 +376,7 @@ Drop `--extra maxent` and `tests/test_pbc_phase1_real_data.py` skips as a file.
 3. Do not reopen the sealed chr8/9 test as a routine smoke check.
 4. Write a new immutable artifact; do not overwrite the controlling result.
 5. Record checkpoint, tokenizer, dataset hashes, split, parameters, seed, command, and Git revision.
-6. Re-run the validator and the narrowest relevant tests, then `uv run pytest` when feasible.
+6. Re-run the validator and the narrowest relevant tests, then the full suite with the extras in §1
+   when feasible.
 7. Update the live claim ledger only to the strongest level the new evidence licenses; preserve any
    correction in `CORRECTIONS.md` or the appropriate decision log.

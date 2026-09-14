@@ -1,5 +1,5 @@
 {
-  "git_commit": "ece89d4070ef484bed504a1d1050d2ea3302de46",
+  "git_commit": "6c5b6f0568256cfd047fcaa531dd78b33ddcf980",
   "sources": [
     {
       "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/confirmation_analysis.json",
@@ -16,6 +16,40 @@
     {
       "path": "results/phase-lattice/fig_report_data.json",
       "sha256": "3bca5b20be7c51a158aa3214a288bf49f1bdd76636f412f6728e9ea9bd835057"
+    },
+    {
+      "path": "scripts/splicebert/make_mechanism_figure.py",
+      "sha256": "b09b1f84adfb49614419224e5a469571ac9f2a14b9ac35e62f12cfb37da2d999"
+    },
+    {
+      "path": "src/gfmcd/figures/style.py",
+      "sha256": "b8f678926b5cb0b8ee1c381ffec0179b6c7e00c835bb6e41b708fdafa35db015"
     }
+  ],
+  "renderer": {
+    "path": "scripts/splicebert/make_mechanism_figure.py",
+    "sha256": "b09b1f84adfb49614419224e5a469571ac9f2a14b9ac35e62f12cfb37da2d999"
+  },
+  "command": [
+    "python",
+    "scripts/splicebert/make_mechanism_figure.py",
+    "--overwrite"
+  ],
+  "git_dirty": true,
+  "environment": {
+    "python": "3.13.12",
+    "matplotlib": "3.11.0",
+    "numpy": "2.5.1"
+  },
+  "rendering": {
+    "A": "Recorded means \u00b11 gene SE; straight segments. Psi_C annotation uses its recorded 95% CI.",
+    "B": "Dimensionless recovery fractions and recorded 95% gene-bootstrap CIs; interaction has no recorded CI.",
+    "C": "All 17 measured sizes; straight segments and recorded 95% gene-bootstrap CIs. The 90% crossing is linearly interpolated.",
+    "D": "Only the two recorded singular values of the single period-3 Fourier bin; no unrecorded spectrum or energy-share claim."
+  },
+  "limitations": [
+    "A: C36 omits required strand/donor-phase sensitivities and has a frozen code-pin mismatch (R46); coding specificity remains unresolved.",
+    "B/C: original manifests record dirty producer trees and empty output lists; this render does not repair historical provenance.",
+    "D: fig_report_data.json has no sibling result manifest; single-frequency rank is structural, not causal evidence."
   ]
 }

@@ -1,31 +1,37 @@
 # SpliceBERT donor circuit and positional carriers
 
-This directory is the detailed provenance record for the repository's first worked example: how
+This study examines how
 SpliceBERT's masked-donor prediction depends on its paired acceptor, how the information is generated and
 routed, and where the evidence stops.
 
-For the shortest reviewer path, read the repository-level [`../../MECHANISM.md`](../../MECHANISM.md),
-then the compact [`CLAIMS.md`](CLAIMS.md).
+Start with the [mechanism overview](../../MECHANISM.md), then consult the [claim ledger](CLAIMS.md) for
+each result's evidence level, controlling artifacts, and scope.
 
 ## Current result
 
-> A structured, top-ranked causal core combines a positional address with an acceptor-local payload, then
-> delivers the resulting information to the donor readout within distributed computation under the
-> tested interventions.
+> A structured causal core within distributed computation under the tested interventions combines a
+> predominantly relative positional address with an acceptor-local payload and delivers the resulting
+> information to the donor readout.
 
-The named core is causally necessary and its clean outputs are sufficient when injected, but it is not a
-minimal or self-contained generator. The held-out faithfulness curve has no sparse knee. The primary
-semantic limitation is that the payload remains unnamed: it is acceptor-local and not bulk composition,
-but “splice-site strength” was withdrawn by R22.
+The donor mechanism is measured on the final multi-species `SpliceBERT.1024nt` checkpoint, using
+canonical short introns and a native masked-token logit margin. L3H1 combines attention address and
+acceptor value payload, writes a donor-local state, and feeds downstream transport heads.
+
+Clean outputs from the nine non-embedding spine nodes recover coupling when injected, while isolating
+the full hand-built component set preserves little standalone faithfulness. The held-out static-ranking
+curve places the identified mechanism at the top but has no sparse knee (C27/C33). Neither minimality nor
+an autonomous circuit is established. The acceptor-local payload is not explained by the tested bulk
+composition covariates; its semantic identity remains unresolved, and “splice-site strength” is withdrawn
+(C30/R22).
 
 ## Authoritative records
 
 | Record | Purpose |
 |---|---|
-| [`CLAIMS.md`](CLAIMS.md) | Compact live claims, evidence level, controlling artifact, and scope. |
+| [`CLAIMS.md`](CLAIMS.md) | Live claims, evidence levels, controlling artifacts, and scope. |
 | [`CORRECTIONS.md`](CORRECTIONS.md) | Full historical ledger and permanent R1–R48 correction record. R1–R24 are table rows; R25–R48 are `##` sections. |
 | [`FINDINGS.md`](FINDINGS.md) | Concise scientific narrative and limitations. |
-| [`P3_CLOSURE_CONFIRMATORY_REPORT.md`](P3_CLOSURE_CONFIRMATORY_REPORT.md) | Clean C36 design, result, provenance, and licensed claim. |
+| [`P3_CLOSURE_CONFIRMATORY_REPORT.md`](P3_CLOSURE_CONFIRMATORY_REPORT.md) | C36 design and result; read with the ledger's provenance and sensitivity bounds. |
 | [`DECISIONS_A0.md`](DECISIONS_A0.md) | Detailed A0→A12 rationale, amendments, and post-outcome adjudication. |
 | [`DECISIONS.md`](DECISIONS.md) | Earlier high-level chronology of methodological pivots. |
 | [`METHODS.md`](METHODS.md) | Study-specific discovery, preflight, intervention, and stopping rules. |
@@ -34,20 +40,30 @@ but “splice-site strength” was withdrawn by R22.
 | [`redteam/`](redteam/README.md) | P3 adversarial design reviews and execution synthesis. |
 | [`archive/`](archive/README.md) | Historical records preserved but not current entry points. |
 
-The original C16–C19 donor-circuit synthesis — a T3 historical document — is no longer in the tree. It
-predated A0→A12 and R22–R24; current framing is controlled by the repository-level
-[`../../MECHANISM.md`](../../MECHANISM.md) and the compact [`CLAIMS.md`](CLAIMS.md) above.
+The claim and correction ledgers control the scientific record; narrative summaries do not supersede
+them. [Preregistration conformance](../../docs/PREREG_CONFORMANCE.md) records departures between frozen
+protocols and executed code.
 
 ## Evidence boundaries
 
 - Donor coupling, the structured core, `U_info`, address/payload mediation, and period-3 carrier use
-  reach behavior-level causal evidence within their stated interventions.
+  have causal support within their stated interventions and data splits.
 - C34's confirm split is gate-qualified (R24). C36 provides nucleotide-invariant evidence that the
   learned P3 direction is used in the tested CDS-versus-upstream-intron contrast; coding specificity
-  remains unresolved, and the C36 code-pin caveat is recorded under R46/R48.
+  remains unresolved. Required strand and donor-phase sensitivities were not computed, and the current
+  source does not match one frozen code pin (R46/R48).
 - IC1 is outcome-aware deterministic verification, not confirmation.
-- The distinct multispecies ≈10.63 carrier stops at post-softmax attention.
-- Cross-example/context transduction and payload semantic identity are open.
+- The distinct ≈10.63 carrier has controlled post-softmax attention evidence. Its donor-coupling value
+  effects are below the declared meaningfulness threshold, and deletion produces a small suppressive
+  effect with underpowered equivalence. The general-MLM-output read is a bounded diagnostic; the
+  `U_info` write endpoint remains unresolved and unevaluable as scoped because no L0 reader qualified
+  (C12/C37, R31/R36).
+- Cross-example donor-state injection transfers a gene-generic readout axis; the example-specific
+  component is inert for the donor margin in the tested linear regime (C41, verification tier). This
+  bounds additive injection of the final-residual state, not earlier addressing or routing.
+- Cross-example acceptor-payload injection moves the donor margin, but its content-specific contribution
+  is unresolved at achieved validation precision (C38, verification tier). Payload semantic identity
+  remains closed-bounded under C30; transfer alone does not identify it.
 - No result here is a direct claim about spliceosome biochemistry or transcript abundance.
 
 ## Data and artifacts
@@ -57,5 +73,5 @@ predated A0→A12 and R22–R24; current framing is controlled by the repository
 - Active runners: [`../../scripts/splicebert/`](../../scripts/splicebert/)
 - Current paper figures: [`headline.png`](../../figures/headline.png) and [`fig_3.png`](../../figures/fig_3.png)
 
-The reading rule is simple: artifacts and corrections bound the prose. Attribution, probes, attention,
-and spectra can generate a candidate; only a qualified intervention can promote it.
+Attribution, probes, attention, and spectra nominate candidates. Interventions establish causal use at
+the tested evidence level.
