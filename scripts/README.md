@@ -19,6 +19,7 @@ scientific interpretation.
 | [splicebert_head_context_atlas/](splicebert_head_context_atlas/) | Cohort construction, component screens, validation, and conditional-path analyses | [Atlas study](../studies/splicebert_head_context_atlas/README.md) · [artifact index](../results/splicebert_head_context_atlas/RESULTS_INDEX.md) |
 | [splicebert_gtex_finetune_shift/](splicebert_gtex_finetune_shift/) | Readout transfer, native-classifier interventions, and positional/representation follow-ups | [Fine-tuning study](../studies/splicebert_gtex_finetune_shift/README.md) · [results and commands](../studies/splicebert_gtex_finetune_shift/RESULTS.md) |
 | [splicebert_positional_boundary_coherence/](splicebert_positional_boundary_coherence/) | Construction, freeze, and audit tools for the successor boundary-coherence design; execution stopped at model-free capacity | [Boundary-coherence study and gate chain](../studies/splicebert_positional_boundary_coherence/README.md) |
+| [splicebert_exon_edge_compatibility/](splicebert_exon_edge_compatibility/) | Model-free re-execution of C43's crossed-register target family from its archived raw rows (R49); no producing runner | [Archive record](../studies/splicebert_exon_edge_compatibility/README.md) · [R49](../studies/splicebert_partner_selection/CORRECTIONS.md) |
 | [splicebert_positional_clock/](splicebert_positional_clock/) | Retained model-free capacity analyses; the historical directory name is preserved | [Positional-proxy study](../studies/splicebert_positional_proxy_modifiability/README.md) · [artifact index](../results/splicebert_positional_clock/RESULTS_INDEX.md) |
 
 ## Main donor workflow
@@ -92,4 +93,6 @@ provenance.
 
 The [exon-edge archive record](../studies/splicebert_exon_edge_compatibility/README.md) explains why
 C43/C44 have no producing runners here. Their archived code remains archived; the successor study
-does not import it, and the failed C44 authorization path remains closed.
+does not import it, and the failed C44 authorization path remains closed. The
+`splicebert_exon_edge_compatibility/` directory holds only R49's raw-row packer and C43 reproduction
+script. The script transcribes the archived arithmetic and does not restore it.

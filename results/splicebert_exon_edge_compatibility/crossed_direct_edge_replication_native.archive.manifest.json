@@ -1,0 +1,66 @@
+{
+  "command": [
+    "scripts/splicebert_exon_edge_compatibility/pack_crossed_replication_cells.py",
+    "--binds",
+    "native_result_sha256",
+    "--source",
+    "/private/tmp/claude-501/-Users-cberg-Research-projects-gfm-circuit-discovery--claude-worktrees-great-joliot-ae34f2/ed460d41-fbf2-46c4-9731-1355e75236ae/scratchpad/native/crossed_direct_edge_replication_native.json",
+    "--out",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_native.json.gz",
+    "--retrieval",
+    "git show fd26cc1b:results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_native.json in the owner's local clone"
+  ],
+  "config": {
+    "archive_sha256": "f48153bafe45d7299f00764491cb62c8b1175ad64e32741c84d0d1c7daf06a25",
+    "archive_size_bytes": 183524,
+    "binds": "crossed_direct_edge_replication_audit.json native_result_sha256",
+    "compresslevel": 9,
+    "decompressed_sha256": "e67649a908789a26acb2086819ddd98eb9f374cd7e29db4749a4d57af665e79d",
+    "decompressed_size_bytes": 1094019,
+    "embedded_mtime": 0,
+    "embedded_name": "",
+    "extraction": "gzip -dk crossed_direct_edge_replication_native.json.gz",
+    "format": "gzip",
+    "source_retrieval": "git show fd26cc1b:results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_native.json in the owner's local clone"
+  },
+  "created_at_utc": "2026-10-21T02:04:29.656203+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro-3.local",
+    "pid": 58555,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert-exon-edge-compatibility:fresh-crossed-replication-native-archive",
+  "git_commit": "caa7bf5b3803fc69406d6780da5d5b9b995ae132",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/private/tmp/claude-501/-Users-cberg-Research-projects-gfm-circuit-discovery--claude-worktrees-great-joliot-ae34f2/ed460d41-fbf2-46c4-9731-1355e75236ae/scratchpad/native/crossed_direct_edge_replication_native.json",
+      "sha256": "e67649a908789a26acb2086819ddd98eb9f374cd7e29db4749a4d57af665e79d",
+      "size_bytes": 1094019
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/great-joliot-ae34f2/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_audit.json",
+      "sha256": "b2b15d99a87ac758a98fb82eeef1ba322a2813fd7133c119945ef1eee73113ac",
+      "size_bytes": 615345
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/great-joliot-ae34f2/scripts/splicebert_exon_edge_compatibility/pack_crossed_replication_cells.py",
+      "sha256": "0e712c9de9b769ffb5f2cf09b24d8d27ddb7e931dc70fa6e5ac6f01b5559c2b7",
+      "size_bytes": 5130
+    }
+  ],
+  "notes": [
+    "Native-source rows were tracked at fd26cc1b but not carried by R45; the audit recomputed gate 2 and the native floors from them.",
+    "The decompressed sha256, not the archive sha256, is what the audit binds."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/great-joliot-ae34f2/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_native.json.gz",
+      "sha256": "f48153bafe45d7299f00764491cb62c8b1175ad64e32741c84d0d1c7daf06a25",
+      "size_bytes": 183524
+    }
+  ],
+  "seeds": {},
+  "status": "ARCHIVED_RAW_ROWS"
+}

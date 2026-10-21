@@ -135,7 +135,13 @@ commit `fd26cc1b`, together with every runner that produced them. Consequently t
 sha256, so provenance is intact and the code is recoverable, but it is not in this tree. Both audits were
 already un-re-runnable on the source branch, whose own `.gitignore` excluded the raw rows they recompute
 from; the controlling numbers are re-derivable from per-block endpoint tables inside the artifacts. See
-[`CORRECTIONS.md` R45](../studies/splicebert_partner_selection/CORRECTIONS.md).
+[`CORRECTIONS.md` R45](../studies/splicebert_partner_selection/CORRECTIONS.md). **R49** (2026-10-16)
+added C43's raw cell rows as `crossed_direct_edge_replication_cells.json.gz`, with a manifest and a
+producing script. A model-free reproduction script now re-executes C43's target family from those rows,
+including all 99 pseudo-register controls, and matches the audit bit for bit. R49's addendum
+(2026-10-20) added the native-source rows as `crossed_direct_edge_replication_native.json.gz`, with a
+manifest, so gate 2 and the native floor calibration are recomputed too. R49 also records that the
+branch named above exists only in the owner's local clone and was never pushed to `origin`.
 
 **Layout convention.** Most trees keep their **canonical artifacts at the directory root**, with
 `development/` and `superseded/` subtrees beside them — the `canonical/`-subdirectory half of the 2026-07-22

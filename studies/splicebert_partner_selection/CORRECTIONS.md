@@ -1245,3 +1245,171 @@ sensitivities inline. The licensed paper-level formulation is now **a structured
 within distributed computation under the tested interventions**. “Irreducibly distributed” and “no
 sparse circuit exists” are retired from live summaries because the measured curve does not establish
 an impossibility result over alternative circuit searches.
+
+## R49 — C43's crossed-register endpoint and its 99 pseudo-register controls re-execute from a clean checkout; R45's retrieval pointer was wrong, `fd26cc1b` was never pushed (2026-10-16)
+
+**Outcome in one line: the raw rows behind C43's audit are now carried, and a one-command model-free
+script reproduces the controlling audit's target family bit for bit; separately, R45 told readers to
+retrieve the archived arc from `origin`, where it has never been.**
+
+**The pointer defect.** R45 records the archive as "`git show fd26cc1b:<path>`, branch
+`codex/intron-exon-phase`, pushed to `origin`", and the archive README repeated "(pushed to origin)".
+Checked 2026-10-16: `git ls-remote origin` lists 75 refs and no `codex/*` ref; 74 of those tips are present
+in this repository's object store while `fd26cc1b` is absent, so it is reachable from none of them, and
+the 75th (`refs/pull/30/head`, `872ed5db`) does not contain it. The commit,
+`fd26cc1b6c107dc8476a4b3d117ae897e2e86437`, exists only in the owner's local clone, on
+`codex/intron-exon-phase` and three local `claude/*` branches descended from it. Every
+`git show fd26cc1b:<path>` instruction in the tree therefore works on that one machine only. Sites that
+carry the pointer: R45 (history, not edited), `CLAIMS.md` §13's preamble ("The full arc remains
+retrievable at commit `fd26cc1b`"), `REPRODUCIBILITY.md`, `results/RESULTS_INDEX.md`,
+`docs/ROADMAP.md`, `docs/PREREG_CONFORMANCE.md`, `CLAUDE.md`, `AGENTS.md`, and — frozen, so not
+editable — the positional-boundary-coherence `PREREGISTRATION.md`, whose freshness-registry extraction
+commands also resolve against `fd26cc1b`. **Corrected pointer:** `fd26cc1b`, local to the owner's clone,
+not on `origin`. What any other reader can retrieve is what this entry carries. Making the rest
+retrievable requires pushing an archive ref, which is the owner's decision and is left open here.
+
+**What is carried.**
+- `results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cells.json.gz` —
+  4,127,096 bytes (sha256 `39ef65b7…41df`), a gzip with no embedded name or timestamp of the
+  54,229,415-byte raw cell rows the result audit recomputed from. It decompresses to sha256
+  `428ad5d6…40bf`, which is both the audit's `cells_result_sha256` and the audit manifest's input record;
+  that decompressed hash, not the archive hash, is the binding. The rows were gitignored at source and
+  were copied from the owner's working tree. Produced by
+  `scripts/splicebert_exon_edge_compatibility/pack_crossed_replication_cells.py`, which refuses any
+  other source bytes; its manifest is
+  `crossed_direct_edge_replication_cells.archive.manifest.json`. Committed beside the audit, as C36's
+  20.6 MB shard archive is: far under GitHub's 50 MB warning and 100 MB per-file limit, so neither LFS
+  nor a release asset is needed, and a release asset would need a tag and an extra download step.
+- `scripts/splicebert_exon_edge_compatibility/reproduce_crossed_direct_edge_replication.py` — one
+  command, model-free, writes a new JSON and its `ExperimentManifest`, and refuses to overwrite. It binds
+  the rows, the audit (against its manifest's output record) and `src/gfmcd/provenance.py` (against the
+  audit manifest's input record) before any arithmetic, then recomputes and compares against the audit:
+  `Ψ` with its interval, SD and both MDE80s; `M0`/`M+`/`M−`; the five simultaneous directional bounds;
+  both mismatch-equivalence intervals; AC-versus-AT sensitivity; all 99 pseudo-register control means,
+  the maximum control, the add-one `p`, and the paired-excess lower bound; leave-one-block, -chromosome
+  and -strand sensitivity; the 384-row block-endpoint table; the cell-only endpoints and pass flags of
+  gates 3–8; and the decision-table class.
+- `tests/test_c43_crossed_replication_reproduction.py` — eight memorials, three of them planted
+  defects: `+0.05` on one off-diagonal cell breaks `Ψ`, the pseudo controls and the endpoint table; an
+  effect inconsistent with its own margins by `1e-6` is rejected before inference; and a seed-shifted
+  family changes the control means while the recorded seed list stays the same.
+
+**Transcribed, not restored.** The archived arithmetic is transcribed into the script: the result
+auditor's raw-row reductions and the inference primitives of `phase_crossed_inference.py`, each named by
+the sha256 the audit manifest records for it (`7d0ca773…3492`, `02b93bdd…0cbc`). Restoring that module
+byte-identical at its original path was tried first, because it makes the audit manifest's input record
+resolve. It was withdrawn before commit: the frozen positional-boundary-coherence protocol states that no
+archived runner, module, test, or cohort is restored to the active tree, and `AGENTS.md` keeps the
+`phase_*` modules archived. Fidelity is shown by the output, not the bytes: every compared field is
+bit-identical to the audit.
+
+**Why not a tag.** Pushing a tag at `fd26cc1b` would not have made C43 executable. The raw rows were
+gitignored on that commit as well, so a tag carries the code without the data. Running it would also mean
+checking out a 3.4 M-line commit whose auditor needs the 48 MB cohort, the native rows, the freeze
+package and the model-run attestation chain. A tag is still the right fix for the pointer above.
+
+**How the 99 controls are reproduced without the cohort.** The frozen family is stored in the 48 MB
+cohort, which is not carried. The cohort records its rule, `balanced_pseudo_phase_assignments` over
+the preimage `crossed-phase-null-v1 NUL seed NUL block_id`, and its construction audit required the
+stored family to regenerate from that rule exactly. This was re-checked on 2026-10-16 against the
+cohort at `fd26cc1b` (sha256 `478838e6…d5ca`): all 99 seeds × 384 blocks regenerate identically. In a
+clean checkout the check is indirect but exact, because all 99 control means must equal the audit's.
+
+**Verified.** The test was a fresh clone at `caa7bf5` with only this change applied, a fresh `uv`
+environment, and no access to the owner's clone (Python 3.13.12, numpy 2.5.1, the numpy the audit
+recorded). It returned `REPRODUCED_BITWISE`: 25 of 25 compared fields bit-identical, maximum absolute
+deviation `0.0`, class `MATERIAL_PREFERENTIAL_POSITIVE`. Other numpy versions and platforms were **not**
+tested. The pass criterion is the audit's own `_close` tolerance (relative and absolute `1e-10`, discrete
+values exact). Bit-identity is reported separately, so a last-bit difference elsewhere reports
+`REPRODUCED_WITHIN_AUDIT_TOLERANCE` instead of failing.
+
+**Still attestation only.**
+- the stop-load diagnostics, which need the cohort;
+- gate 2 and the native floor calibration, which need the 1.09 MB native rows, present only at
+  `fd26cc1b`;
+- gate 1 (construction and freeze audits);
+- gate 9 (numerics and determinism, which are model-run records);
+- gate 10's hash chain, manifests and one-shot chronology;
+- the per-row source-ID checks against the cohort.
+
+Gate 8's lower bounds are recomputed, but its floors are read from the cell file's copy of the native
+calibration.
+
+**Ledger text this supersedes, left unedited.** C43's closing sentences say the independent audit is
+not re-executable from a clean checkout and that gates 2–9 survive only as recorded attestations. That
+is still true of the auditor, but it understates what now runs: the whole target family except stop
+load, and gates 3–7 in full, are re-derived from raw rows, and gate 8 is re-derived in part. §13's "The
+full arc remains retrievable at commit `fd26cc1b`" is false for anyone but the owner. Neither is edited
+by this entry. Amending them is a deliberate hand edit under this R number.
+
+**Rule.** A retrieval pointer is a claim. Verify it against the remote it names, with `git ls-remote`
+or a fresh clone, never against the author's own clone, where every local commit looks retrievable.
+
+**Addendum (2026-10-20) — gate 2 and the native floors re-execute from raw rows too.** The native-source
+rows are now carried as well. From them the reproduction script recomputes gate 2 and the gate-8 floor
+calibration, and matches the audit bit for bit. Two items leave the "Still attestation only" list above.
+
+- **Carried:** `results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_native.json.gz`
+  — 183,524 bytes (sha256 `f48153ba…6a25`), gzipped with the same settings as the cells archive, of the
+  1,094,019-byte native-source rows (2,304 rows, six per block). It decompresses to sha256
+  `e67649a9…e79d`, which is the audit's `native_result_sha256`, the cells header's `native_result_sha256`,
+  and the audit manifest's input record. Unlike the cell rows, these were tracked at `fd26cc1b`; they come
+  from `git show fd26cc1b:<path>` in the owner's clone, and R45 did not carry them. The archive's
+  manifest is `crossed_direct_edge_replication_native.archive.manifest.json`. The packer gained
+  `--binds` (default `cells_result_sha256`, so the cells command is unchanged) and `--retrieval`. The
+  cells archive was re-packed with it so both manifests record one packer; the gzip came out
+  byte-identical (`39ef65b7…41df`), and only its manifest changed.
+- **Recomputed:** the 384 native block means, transcribing the auditor's `recompute_native`. Their
+  source identities are checked against the IDs the cell rows carry, because the cohort the audit checked
+  them against is not carried. Also recomputed: the native floor calibration, transcribing
+  `calibrate_native_floors` from `phase_crossed_runner.py` (`f9edfd52…3174`); gate 2, native `C_AC` mean
+  `0.2968`, 95% interval `[0.2800, 0.3140]` against the frozen `> +0.05`, PASS; gate 8, now judged
+  against the recomputed floors rather than the cells header's copy; and the audit's two raw-row checks,
+  `raw_native_rows_and_block_arithmetic` and `native_floor_calibration`.
+- **Where the runner's hash comes from:** the audit manifest does not list that module. The freeze
+  package the audit binds (`freeze_package_sha256` `9c0f5591…53e7`) pins it, but the package is not
+  carried, so a clean checkout cannot check that hash. The auditor's `recompute_native` repeats the
+  same floor arithmetic statement for statement, and the audit manifest does pin the auditor.
+- **Compared against:** the audit JSON holds `native_source_c_ac`, gate 2's pass flag, the two raw-row
+  checks, `counts.native_rows`, and gate 8's `native_floor` values, and each is compared with it. It does
+  not hold the native block rows or the full floor calibration. Those are compared with the native
+  result's own copy and with the cells header's copy. The audit binds both by sha256, and it checked
+  both against its own recomputation at `1e-12`.
+- **One encoding is load-bearing.** The floors stratify on `chrom NUL strand`. Gate 2 and every other
+  bootstrap use `chrom:strand`. The two sort differently (`chr1` against `chr10`) and draw different
+  indices. A memorial swaps them and requires the floor comparison to break.
+- **What gate 8's floors can and cannot do.** A floor is `min(0, native lower 95% bound)`. Both native
+  lower bounds are positive (donor `3.577`, acceptor `2.836`), so both floors are exactly `0.0`. The
+  crossed lower bounds are `3.399` and `2.225`, and a floor is never above `0`. On this data, then, no
+  native-row value could have failed gate 8's pass flag. Recomputing the floors verifies the
+  calibration record. It does not test the gate, and the floor memorial is written against the recorded
+  floor value for that reason.
+- **Memorials**, now 15 in `tests/test_c43_crossed_replication_reproduction.py`. The new planted
+  defects:
+  - `+0.05` coupling on one native row breaks gate 2's endpoint, both raw-row checks and both floor
+    records, while no target field moves;
+  - `−0.3` coupling on every native row fails gate 2 and drops the class to `INSTRUMENT_UNRESOLVED`;
+  - `−4` logit units on the native donor margins makes the donor floor negative and breaks gate 8's
+    recorded floor, while its pass flag stays forced;
+  - `chrom:strand` floor strata break the floor calibration, while gate 2 does not move;
+  - swapped source IDs, a coupling inconsistent with its margins by `1e-6`, and re-serialized native
+    bytes are refused before inference.
+
+  Checked by hand and not committed: two mutants that restore the attestation (floors read from the
+  cells header, and native blocks read from the recorded table) each fail at least one of these
+  memorials.
+- **Verified:** in a fresh clone of `origin` at `caa7bf5`, with only R49 and this addendum applied. The
+  `uv` environment was fresh, with `--extra dev` only (Python 3.13.12, numpy 2.5.1), and the script
+  reads only files inside the clone. The reproduction command returned `REPRODUCED_BITWISE`: 33 of 33
+  compared fields bit-identical (R49's 25 plus eight native fields), maximum absolute deviation `0.0`,
+  class `MATERIAL_PREFERENTIAL_POSITIVE`. Other numpy versions and platforms were **not** tested.
+- **Still attestation only, replacing the list above:** the stop-load diagnostics; gate 1; gate 9;
+  gate 10's hash chain, manifests and one-shot chronology; and the per-row source-ID checks against the
+  cohort, for both cell and native rows. The native IDs are checked here against the cell rows, which
+  is a consistency check and not the cohort check.
+
+This addendum supersedes three statements above: the gate-2 and native-floor bullet; the sentence that
+gate 8's floors are read from the cell file's copy; and "gates 3–7 in full, … gate 8 … in part". Since
+this addendum, gates 2–8 are re-derived in full from raw rows. C43's "gates 2–9 survive as recorded
+attestations only" now understates the record further: of those, only gate 9 is still attestation. It is
+still not edited, for the same reason given above.
