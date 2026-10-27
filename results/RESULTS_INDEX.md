@@ -141,7 +141,9 @@ added C43's raw cell rows as `crossed_direct_edge_replication_cells.json.gz`, wi
 producing script. A model-free reproduction script now re-executes C43's target family from those rows,
 including all 99 pseudo-register controls, and matches the audit bit for bit. R49's addendum
 (2026-10-20) added the native-source rows as `crossed_direct_edge_replication_native.json.gz`, with a
-manifest, so gate 2 and the native floor calibration are recomputed too. R49 also records that the
+manifest, so gate 2 and the native floor calibration are recomputed too. **R56** (2026-10-27) added the
+replication cohort that the audit and both CC freezes pin, as `crossed_direct_edge_replication_cohort_v1.json.gz`
+with a manifest. R49 also records that the
 branch named above exists only in the owner's local clone and was never pushed to `origin`.
 
 **Layout convention.** Most trees keep their **canonical artifacts at the directory root**, with

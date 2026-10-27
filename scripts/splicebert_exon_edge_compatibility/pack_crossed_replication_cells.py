@@ -49,6 +49,11 @@ BINDINGS = {
         "Native-source rows were tracked at fd26cc1b but not carried by R45; the audit "
         "recomputed gate 2 and the native floors from them.",
     ),
+    "cohort_sha256": (
+        "cohort",
+        "The replication cohort existed only in a session-notes folder, where both CC "
+        "protocol freezes pinned it; the audit and the CC runs read it (R56).",
+    ),
 }
 
 

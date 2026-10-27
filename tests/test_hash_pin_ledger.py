@@ -31,6 +31,7 @@ Mutation checks (each of these makes this module fail, by construction):
 
 from __future__ import annotations
 
+import gzip
 import hashlib
 import importlib.util
 import json
@@ -218,9 +219,12 @@ REGISTER_OPERATOR_FREEZES = {
 # In-repo pins of those freezes known not to match this tree, each with its reason. Same contract
 # as the C36 ledger: a new drift fails, and so does an entry that verifies again.
 REGISTER_OPERATOR_KNOWN_DRIFT = {
-    "pyproject.toml": "frozen in a checkout carrying the uncommitted DNABERT-2 `einops` extra",
-    "uv.lock": "frozen in a checkout carrying the uncommitted DNABERT-2 `einops` extra",
+    "pyproject.toml": "frozen with the DNABERT-2 `einops` extra, which this record drops (R56)",
+    "uv.lock": "frozen with the DNABERT-2 `einops` extra, which this record drops (R56)",
 }
+# Where committed copies of the freezes' out-of-checkout inputs live (plain or gzip).
+REGISTER_OPERATOR_INPUT_ARCHIVE = "results/splicebert_exon_edge_compatibility"
+GENOME_MARKER = "/data/genomes/"
 
 
 def _git_ignores(relative: str) -> bool:
@@ -253,6 +257,26 @@ def test_register_operator_freeze_code_pins_match_the_tree(freeze: str) -> None:
         f"verifies again {sorted(set(REGISTER_OPERATOR_KNOWN_DRIFT) - drift)}"
     )
     assert verified >= REGISTER_OPERATOR_FREEZES[freeze], f"{freeze}: only {verified} pins checkable"
+
+
+@pytest.mark.parametrize("freeze", sorted(REGISTER_OPERATOR_FREEZES))
+def test_register_operator_freeze_external_inputs_are_committed(freeze: str) -> None:
+    """Every input a freeze pinned outside this checkout, other than the reference genome and
+    annotation (pinned in REPRODUCE.md), must have its bytes committed: never only on one disk."""
+    committed: set[str] = set()
+    for path in (REPO / REGISTER_OPERATOR_INPUT_ARCHIVE).iterdir():
+        if path.is_file():
+            committed.add(_sha256(path))
+            if path.suffix == ".gz":
+                committed.add(hashlib.sha256(gzip.decompress(path.read_bytes())).hexdigest())
+    pins = json.loads((REPO / freeze).read_text())["files"]
+    external = {
+        name: recorded for name, recorded in pins.items()
+        if (Path(name).is_absolute() or name.startswith(".claude/")) and GENOME_MARKER not in name
+    }
+    assert external, f"{freeze}: expected out-of-checkout inputs to check"
+    missing = sorted(name for name, recorded in external.items() if recorded not in committed)
+    assert not missing, f"{freeze}: inputs with no committed bytes: {missing}"
 
 
 def test_no_unpinned_atlas_protocol_doc_silently_joined_the_set() -> None:

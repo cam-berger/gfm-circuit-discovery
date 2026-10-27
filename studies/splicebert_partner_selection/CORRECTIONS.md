@@ -1628,3 +1628,25 @@ None of the artifacts named here is edited, and no provenance is back-filled.
   store. `grouped_stats.ratio_of_means` and
   `grouped_bootstrap_ratio` keep the sign; new code uses them, and `tests/test_ratio_sign.py` pins
   both behaviours.
+
+<a id="r56"></a>
+
+## R56 — the CC replication cohort is committed; the freezes' DNABERT-2 `einops` dependency is dropped (2026-10-27)
+
+Both CC protocol freezes and the C43 audit (`cohort_sha256`) pin
+`crossed_direct_edge_replication_cohort_v1.json` (48,290,248 bytes, sha256 `478838e6…`). Its only
+copy sat in a session-notes folder outside the repository. It is now committed as
+`results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cohort_v1.json.gz`
+(gzip level 9, no embedded name or time), written by the R49 packer, which refuses any source whose
+sha256 is not the audited one. With the cells and native rows already carried, every input the
+freezes pinned outside the checkout now has committed bytes, except the reference genome and
+annotation pinned in `REPRODUCE.md`; `tests/test_hash_pin_ledger.py` fails if one goes missing. R52's
+statement about the CC study's own raw requests, construction payloads and calibration streams is
+unchanged.
+
+The freezes also pin `pyproject.toml` and `uv.lock` bytes from a checkout that carried an uncommitted
+DNABERT-2 change: an `einops` dependency in the `dnabert` extra, its lock entries, and a rewritten
+comment. That change is dropped from this record and its bytes are not archived. The CC runners,
+analyzers and auditors call `verify_freeze` before running, so they refuse in any tree built from this
+history. The model-free scalar recomputation from the compact block table (R52) does not call it and is
+unaffected; no CC code path imports `einops`. The guard records the two pins as permanent known drift.
