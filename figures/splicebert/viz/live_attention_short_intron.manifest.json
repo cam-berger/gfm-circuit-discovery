@@ -1,0 +1,36 @@
+{
+  "artifact": {
+    "path": "figures/splicebert/viz/live_attention_short_intron.json",
+    "sha256": "7f4af7ec99fc99157d972dc4a132140a78ab70942a2fad1d0e1484ee2ea0c04f"
+  },
+  "assay": "live_attention_extraction_for_viz",
+  "checkpoint": {
+    "config_sha256": "0c446acd11d4a24ee813bb66fda4ab7da3f6a4da14a0d6aea53adb77e1700e65",
+    "hf_revision": "853c27d5206b694d8d8e9420e1ceb153dffac174",
+    "path": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt"
+  },
+  "claim_boundary": "One constructed sequence and one post-softmax forward pass; descriptive visualization only. No OV output, mediation, behavioral necessity, or cohort claim.",
+  "code_revision": "bbe116f0442e558d687a80aa028d20f4f85916fc+dirty",
+  "command": "scripts/splicebert/export_short_intron_attention.py --model data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt --intron 54 --out figures/splicebert/viz/live_attention_short_intron.json",
+  "data": {
+    "construction": "tiled real exonic flanks plus GT/body-prefix/AG constructed intron",
+    "sequence_count": 1,
+    "source_3_prime_exon": "AGGTGAGCAAGGGCGAGGAGCTGTTCACCGGGGTGGTGCCCATCCTG",
+    "source_5_prime_exon": "CAGGTGAGCACCTGCACAGCTGACCTGAAGATCACCGTGGACAAG",
+    "source_intron_body": "ACGTACGTACGTACGGCTAACGTTGCACGATCGATCGTACGATCGGCATCGATCGTACGTAGCTAGCTAGGCATCGTACGATCGATCGTTAGCACGATCGAT"
+  },
+  "parameters": {
+    "acceptor_nt": 126,
+    "attention_implementation": "eager",
+    "device": "cpu",
+    "donor_nt": 72,
+    "intron_nt": 54,
+    "round_decimals": 4,
+    "total_nt": 198,
+    "window": [
+      21,
+      177
+    ]
+  },
+  "seed": null
+}

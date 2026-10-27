@@ -46,6 +46,17 @@ and ledgers before using a figure in a manuscript.
 |---|---|
 | Positional and faithfulness figure | [make_mechanism_figure.py](../scripts/splicebert/make_mechanism_figure.py) |
 | DNABERT-2 comparison | [make_paper_figure_transfer.py](../scripts/dnabert_promoter/make_paper_figure_transfer.py) |
+| Submission 39 Fig. 2 (manuscript asset, not stored here) | [make_paper_headline_figure.py](../scripts/splicebert/make_paper_headline_figure.py) |
+| Submission 39 Fig. 3 (manuscript asset, not stored here) | [make_paper_fig3.py](../scripts/splicebert/make_paper_fig3.py) |
+
+The Submission 39 Fig. 2 renderer corrects the published raster, whose original renderer is lost. It
+keeps panel A (two labels moved), repaints part of B, and redraws C–E from recorded artifacts. Panels D–E read
+[`live_attention_val_window.json`](splicebert/viz/live_attention_val_window.json), one masked-donor
+validation window exported by
+[export_short_intron_attention.py](../scripts/splicebert/export_short_intron_attention.py)
+`--source val`. The earlier constructed, unmasked example it replaced is kept as
+[`live_attention_short_intron.json`](splicebert/viz/live_attention_short_intron.json). Both are
+descriptive single-example visualizations, not cohort evidence.
 
 To regenerate the committed mechanism figure from its recorded sources:
 

@@ -1,0 +1,54 @@
+{
+  "artifact": {
+    "path": "figures/splicebert/viz/live_attention_val_window.json",
+    "sha256": "d326c371c56b0a8ae0f5474d977fc80f39ba8edf7dc51273afce9c03a2cc2692"
+  },
+  "assay": "live_attention_extraction_for_viz",
+  "checkpoint": {
+    "config_sha256": "aa41bca4f2b745d75a57c10831f5759a0b6044af2e1b61d87a630a09e9779dc3",
+    "hf_revision": "853c27d5206b694d8d8e9420e1ceb153dffac174",
+    "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt"
+  },
+  "claim_boundary": "One validation example and one post-softmax forward pass; descriptive visualization only. No OV output, mediation, behavioral necessity, or cohort claim.",
+  "code_revision": "caa7bf5b3803fc69406d6780da5d5b9b995ae132+dirty",
+  "command": "scripts/splicebert/export_short_intron_attention.py --source val --model /Users/cberg/Research/projects/gfm-circuit-discovery/data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt --gtf /Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz --fasta /Users/cberg/Research/data/genomes/hg38.fa --device cpu",
+  "data": {
+    "construction": "real genomic window from the coupling dataset; donor G masked",
+    "example_id": "chr16:28498044-28498349:+:ENSG00000184730.14",
+    "fasta": {
+      "fai_sha256": "3b425de206296a5c8053023fa5ca61da43cfe78c1737c12e58c83367c7e83c21",
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa"
+    },
+    "gene_id": "ENSG00000184730.14",
+    "gtf": {
+      "path": "/Users/cberg/Research/data/genomes/gencode.v50.basic.annotation.gtf.gz",
+      "sha256": "5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7"
+    },
+    "selection": "first eligible val example after stable shuffle with tag 'fig2-attention-val-window'",
+    "sequence_count": 1,
+    "split": "val"
+  },
+  "parameters": {
+    "acceptor_nt": 524,
+    "attention_implementation": "eager",
+    "crop": [
+      426,
+      536
+    ],
+    "deltas": [
+      -55,
+      54
+    ],
+    "device": "cpu",
+    "donor_nt": 438,
+    "heads": [
+      "L2H15",
+      "L3H1"
+    ],
+    "intron_nt": 86,
+    "margin_nt": 12,
+    "round_decimals": 6,
+    "total_nt": 1024
+  },
+  "seed": null
+}

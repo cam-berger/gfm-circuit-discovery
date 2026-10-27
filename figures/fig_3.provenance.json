@@ -1,5 +1,5 @@
 {
-  "git_commit": "6c5b6f0568256cfd047fcaa531dd78b33ddcf980",
+  "git_commit": "caa7bf5b3803fc69406d6780da5d5b9b995ae132",
   "sources": [
     {
       "path": "results/phase-lattice/p3_phase_surgery_confirmation_v1/confirmation_analysis.json",
@@ -19,7 +19,7 @@
     },
     {
       "path": "scripts/splicebert/make_mechanism_figure.py",
-      "sha256": "b09b1f84adfb49614419224e5a469571ac9f2a14b9ac35e62f12cfb37da2d999"
+      "sha256": "4b3a38e7d0f5a5719915da066743ade5e9ba828352b25aa9744475d8f917be5d"
     },
     {
       "path": "src/gfmcd/figures/style.py",
@@ -28,7 +28,7 @@
   ],
   "renderer": {
     "path": "scripts/splicebert/make_mechanism_figure.py",
-    "sha256": "b09b1f84adfb49614419224e5a469571ac9f2a14b9ac35e62f12cfb37da2d999"
+    "sha256": "4b3a38e7d0f5a5719915da066743ade5e9ba828352b25aa9744475d8f917be5d"
   },
   "command": [
     "python",
@@ -37,9 +37,9 @@
   ],
   "git_dirty": true,
   "environment": {
-    "python": "3.13.12",
+    "python": "3.11.15",
     "matplotlib": "3.11.0",
-    "numpy": "2.5.1"
+    "numpy": "2.4.6"
   },
   "rendering": {
     "A": "Recorded means \u00b11 gene SE; straight segments. Psi_C annotation uses its recorded 95% CI.",
