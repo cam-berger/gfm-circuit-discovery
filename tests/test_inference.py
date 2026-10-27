@@ -21,6 +21,8 @@ from gfmcd import inference
 from gfmcd.inference import GroupedSample, holm
 from gfmcd.splicing import boundary_grammar, circuit, grouped_stats
 
+import legacy_grouped_stats as legacy
+
 REPO = Path(__file__).resolve().parents[1]
 
 
@@ -42,7 +44,8 @@ def _fixture(seed: int, shift: float):
     return numerator, denominator, groups
 
 
-# Captured from grouped_stats before it became an adapter (same fixtures, same calls).
+# Captured on macOS arm64 from grouped_stats before it became an adapter. Value anchors only:
+# exact parity is asserted against `legacy`, run on the same platform as the adapter.
 GOLDEN = {
     "mean": {"estimate": 0.34071397319729635, "ci_low": 0.2771151949451697,
              "ci_high": 0.4029760824215635, "n": 131, "n_groups": 40, "n_boot": 3000},
@@ -57,11 +60,20 @@ GOLDEN = {
 def test_grouped_stats_adapters_return_their_pre_module_outputs() -> None:
     num, den, groups = _fixture(7, 0.9)
     weak_num, weak_den, weak_groups = _fixture(8, 0.08)
-    assert grouped_stats.grouped_bootstrap(num, groups, n_boot=3000, seed=11) == GOLDEN["mean"]
-    assert grouped_stats.grouped_bootstrap_ratio(num, den, groups, n_boot=3000, seed=11) == GOLDEN["ratio"]
-    assert grouped_stats.grouped_signflip_pvalue(num - 0.3, groups, n_perm=2000, seed=11) == GOLDEN["signflip"]
-    assert grouped_stats.grouped_bootstrap_ratio(
-        weak_num, weak_den, weak_groups, n_boot=3000, seed=11) == GOLDEN["ratio_weak"]
+    calls = {
+        "mean": lambda m: m.grouped_bootstrap(num, groups, n_boot=3000, seed=11),
+        "ratio": lambda m: m.grouped_bootstrap_ratio(num, den, groups, n_boot=3000, seed=11),
+        "signflip": lambda m: m.grouped_signflip_pvalue(num - 0.3, groups, n_perm=2000, seed=11),
+        "ratio_weak": lambda m: m.grouped_bootstrap_ratio(weak_num, weak_den, weak_groups, n_boot=3000, seed=11),
+    }
+    for name, call in calls.items():
+        assert call(grouped_stats) == call(legacy), name  # bit-identical on this platform
+    for name in ("mean", "ratio", "signflip"):
+        assert calls[name](grouped_stats) == pytest.approx(GOLDEN[name], rel=1e-9)
+    # Near-zero denominators amplify cross-platform ulp differences: anchor only the counts here.
+    weak = calls["ratio_weak"](grouped_stats)
+    assert {k: weak[k] for k in ("n", "n_groups", "n_boot")} == {
+        k: GOLDEN["ratio_weak"][k] for k in ("n", "n_groups", "n_boot")}
 
 
 def test_first_seen_order_reproduces_circuit_gboot_exactly() -> None:
@@ -92,7 +104,7 @@ def test_ratio_refuses_a_bootstrap_that_passes_through_infinity() -> None:
         GroupedSample(num, groups).ratio(den, n_boot=3000, seed=11)
     lenient = GroupedSample(num, groups).ratio(den, n_boot=3000, seed=11, strict_sign=False)
     assert lenient.sign_changes > 0
-    assert lenient.legacy_dict() == GOLDEN["ratio_weak"]
+    assert lenient.legacy_dict() == legacy.grouped_bootstrap_ratio(num, den, groups, n_boot=3000, seed=11)
 
 
 def test_negative_denominator_keeps_its_sign() -> None:
