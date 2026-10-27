@@ -42,6 +42,27 @@ def grouped_bootstrap(
     }
 
 
+def ratio_of_means(numerator: np.ndarray, denominator: np.ndarray) -> float:
+    """Ratio of exon-weighted means, keeping the denominator's sign.
+
+    The byte-pinned ``circuit.ratio_of_means`` divides by ``max(sum, 1e-9)``, so a negative
+    denominator sum returns about +/-1e9 times the numerator instead of the ratio (R55). This
+    returns the arithmetic ratio and refuses only a zero denominator.
+    """
+
+    numerator_array = np.asarray(numerator, dtype=np.float64)
+    denominator_array = np.asarray(denominator, dtype=np.float64)
+    if numerator_array.shape != denominator_array.shape:
+        raise ValueError("numerator and denominator must have matched shapes")
+    keep = np.isfinite(numerator_array) & np.isfinite(denominator_array)
+    if not keep.any():
+        raise ValueError("no finite paired values")
+    denominator_mean = float(denominator_array[keep].mean())
+    if abs(denominator_mean) <= np.finfo(np.float64).eps:
+        raise ValueError("ratio denominator mean is zero")
+    return float(numerator_array[keep].mean()) / denominator_mean
+
+
 def grouped_signflip_pvalue(
     values: np.ndarray,
     groups: np.ndarray,

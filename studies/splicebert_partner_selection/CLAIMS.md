@@ -2,7 +2,7 @@
 
 This is the point-of-contact record for the strongest wording currently licensed by the evidence. Each
 row is deliberately limited to one claim, one evidence level, one controlling artifact set, and one
-scope boundary. Full numerical detail, superseded narratives, and permanent retractions R1–R52 are
+scope boundary. Full numerical detail, superseded narratives, and permanent retractions R1–R55 are
 preserved in [`CORRECTIONS.md`](CORRECTIONS.md); the experiment chronology is in
 [`DECISIONS_A0.md`](DECISIONS_A0.md).
 
@@ -96,7 +96,7 @@ Status vocabulary:
 
 | ID | Current licensed claim | Evidence level | Controlling artifact(s) | Scope / first boundary |
 |---|---|---|---|---|
-| C8 | A rank-2 learned period-3 position code causally supports coding prediction and donor–acceptor coupling; deletion changes coupling **0.946 → 0.027**. | established: position through behavior | `carrier_surgery.json`; `carrier_dose.json` | Model mechanism; no biological-origin claim; C36 supplies the clean phase-aligned-use confirmation. |
+| C8 | A rank-2 learned period-3 position code causally supports coding prediction and donor–acceptor coupling; deletion changes coupling **0.946 → 0.026** (R53). | established: position through behavior | `carrier_surgery.json`; `carrier_dose.json` | Model mechanism; no biological-origin claim; C36 supplies the clean phase-aligned-use confirmation. |
 | C9 | Restoring L2H15 or L3H1 after period-3 deletion recovers **0.363/0.348**, above the matched one-head null maximum **0.042**. | established: size-matched mediation | `carrier_mediation.json` | Single-head mediation under the carrier-deletion intervention. |
 | C10 | Six- and sixteen-head restorations do not independently strengthen C9 because their matched-null support is inadequate. | closed: bounded (permanent matched-null power limit) | `carrier_mediation.json` | No larger-set superiority claim. |
 | C34 | The period-3 carrier's coupling contribution is distributed across the donor–acceptor span; site-local restoration recovers only about 2–4%. | established on discovery; gate-qualified verification on confirm | `p3_carrier_locus.json` | Confirm M1 missed its frozen threshold (5.5% > 5%); not a clean confirmatory replication. |

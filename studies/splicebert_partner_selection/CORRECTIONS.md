@@ -1577,3 +1577,54 @@ in the [inventory](../../results/splicebert_register_operator_replication/RESULT
 The standalone `gfm-interp`
 supplement ships the same compact bytes, separate from its eight-family full-model
 reproduction contract. No MDE threshold was relaxed and no model was rerun.
+
+<a id="r53"></a>
+
+## R53 — C8's full-deletion coupling is `0.026`, not `0.027` (2026-10-27)
+
+`carrier_dose.json` stores the full deletion of bins 339–345 (`alpha=0.0`) as coupling `0.026459`,
+which rounds to `0.026`. The live record carried `0.027`, which no rounding of the artifact gives.
+C8, `RESULTS.md`, `FINDINGS.md` and `docs/BIOLOGICAL_BRIDGES.md` now read `0.026`. The historical C8
+row in this file's table, the dated `docs/REVIEW_2026-07-22.md`, and five frozen preregistrations that
+quote C8 (`B1_CARRIER_OV_BEHAVIOR_V2`, `DONOR_SIGNATURE`, `P3_CARRIER_CAUSAL_ROLE`, `P3_CLOSURE`,
+`PERIOD3_COMPUTATION`) are not edited; read their `0.027` as `0.026`. No conclusion, gate, or evidence
+level changes.
+
+<a id="r54"></a>
+
+## R54 — `R=0.136` restores all sixteen Layer-0 heads, not a six-head set (2026-10-27)
+
+`run_a10_generator_edges.py` defines the `L0heads_only` condition over
+`[(0, h) for h in range(ad.num_heads)]`. `a10_generator_edges.json` stores
+`mediation.R_L0heads_only_H=0.13585` and `R_L0heads_MLP0_H=0.35552` for that all-16 set.
+`L0_star_heldout={L0H7,H8,H10,H11,H12,H13}` is the held-out load-bearing list from singleton necessity;
+its joint restoration was never measured. `RESULTS.md` attributed `0.136` to the six-head list and is
+corrected. C31 is unaffected.
+
+<a id="r55"></a>
+
+## R55 — artifact self-descriptions and provenance gaps disclosed, one duplicate removed, a latent ratio defect bounded (2026-10-27)
+
+None of the artifacts named here is edited, and no provenance is back-filled.
+
+- **G1 tier label.** `g1_cross_example_transduction.json` records `evidential_tier: "confirmatory"`.
+  C41 is verification tier (R28/R32); the ledger governs.
+- **A11 verdict fields.** `a11_address_geometry.json` records `verdict` =
+  `predominantly_relative_with_modest_absolute_component` and `verdict_raw_script` = `ABSOLUTE`, with
+  a note that the script's label overstates. C32's frozen decision is `MIXED` (R48); the ledger governs.
+- **Duplicate removed.** `development/ablation_scan.manifest.json` records that
+  `ablation_scan_bothstrand.json`, a byte-identical copy, was removed. It had survived and was indexed.
+  It is now deleted and its index row pruned; `ablation_scan.json` holds the same bytes.
+- **No sibling manifest:** `a6_reconcile.json` (C27's `0.986`), `development/ar1_scores_val.json`,
+  `development/ed1_scores_val.json`, and in `results/phase-lattice/` `carrier_provenance.json`,
+  `carrier_subbin.json`, `corpus_spectrum.json`, `dyad_{fpr,real,wavelength}.json`,
+  `fig_phase_data.json`, `fig_report_data.json` and `second_carrier.json`. `sealed_test.manifest.json`
+  has `git_commit: null` and empty inputs and outputs.
+- **Latent ratio defect.** The byte-pinned `circuit.ratio_of_means` and `circuit.gboot_ratio` divide by
+  `max(sum(denominator), 1e-9)`, so a non-positive denominator sum returns about ±1e9 times the
+  numerator instead of the ratio. No committed result value exceeds 1e6 in magnitude, as a clamped
+  point estimate would unless its numerator were near zero. A perturbation inside the outer 2.5% of a
+  bootstrap interval cannot be excluded without per-example rows, which most donor artifacts do not
+  store. `grouped_stats.ratio_of_means` and
+  `grouped_bootstrap_ratio` keep the sign; new code uses them, and `tests/test_ratio_sign.py` pins
+  both behaviours.

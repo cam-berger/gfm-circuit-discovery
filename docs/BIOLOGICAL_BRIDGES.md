@@ -73,7 +73,7 @@ Only two claims are licensed:
 2. **Comparative origin:** the carrier is associated with the multi-species pretraining corpus; its
    training dynamics and biological semantics are unresolved.
 
-Deleting the direction changes coupling **0.946 → 0.027** (C8). C32, C34, and C35 localize its use to
+Deleting the direction changes coupling **0.946 → 0.026** (C8, R53). C32, C34, and C35 localize its use to
 mostly relative-offset geometry distributed across the donor–acceptor span and mediated primarily by
 L3H1's attention pattern within the tested intervention. Nucleotide-invariant local surgery confirms
 phase-aligned causal use in CDS blocks: **Ψ_C = +0.141 [0.110, 0.172] raw logit units**, n=943, and the

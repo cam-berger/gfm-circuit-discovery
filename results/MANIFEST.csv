@@ -345,7 +345,6 @@ C7,canonical,Directed circuit,bounded,results/splicebert_coupling/completeness_n
 C7,canonical,Directed circuit,bounded,results/splicebert_coupling/completeness_null.manifest.json,scripts/splicebert/run_completeness_null.py,,
 C3,development,Attention,na,results/splicebert_coupling/development/ablation_scan.json,scripts/splicebert/run_ablation_scan.py,results/splicebert_coupling/development/ablation_scan.manifest.json,
 C3,development,Attention,na,results/splicebert_coupling/development/ablation_scan.manifest.json,scripts/splicebert/run_ablation_scan.py,,
-C3,development,Attention,na,results/splicebert_coupling/development/ablation_scan_bothstrand.json,scripts/splicebert/run_ablation_scan.py,,
 ,development,,na,results/splicebert_coupling/development/ar1_scores_trainpilot2.json,scripts/splicebert/run_ar1_alt_robustness.py,,
 ,development,,na,results/splicebert_coupling/development/ar1_scores_val.json,scripts/splicebert/run_ar1_alt_robustness.py,,
 ,development,,na,results/splicebert_coupling/development/ar1_smoke.json,scripts/splicebert/run_ar1_alt_robustness.py,,

@@ -1,14 +1,14 @@
 {
   "generated_by": "scripts/verify_manifest.py --prune-missing",
-  "row_count": 1182,
+  "row_count": 1181,
   "status_counts": {
     "infrastructure": 44,
     "canonical": 690,
-    "development": 268,
+    "development": 267,
     "superseded": 180
   },
   "polarity_counts": {
-    "na": 496,
+    "na": 495,
     "positive": 539,
     "null": 24,
     "bounded": 118,
@@ -3481,16 +3481,6 @@
       "evidence_level": "Attention",
       "polarity": "na",
       "artifact": "results/splicebert_coupling/development/ablation_scan.manifest.json",
-      "script": "scripts/splicebert/run_ablation_scan.py",
-      "manifest": "",
-      "figure": ""
-    },
-    {
-      "claim_id": "C3",
-      "status": "development",
-      "evidence_level": "Attention",
-      "polarity": "na",
-      "artifact": "results/splicebert_coupling/development/ablation_scan_bothstrand.json",
       "script": "scripts/splicebert/run_ablation_scan.py",
       "manifest": "",
       "figure": ""
