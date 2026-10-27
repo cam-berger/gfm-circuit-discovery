@@ -1,0 +1,107 @@
+{
+  "command": [
+    "scripts/splicebert_register_operator_replication/audit_fidelity.py",
+    "--fidelity",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/historical_fidelity_v2.json.gz",
+    "--cohort",
+    "/Users/cberg/Library/Application Support/Claude/side-session-notes/local_669c6044-d2c1-4f6d-8cbc-6de10d94c331/cc-execution-inputs/crossed_direct_edge_replication_cohort_v1.json",
+    "--fasta",
+    "/Users/cberg/Research/data/genomes/hg38.fa",
+    "--cells",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/practical-hellman-b38d21/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cells.json.gz",
+    "--native",
+    "/Users/cberg/Library/Application Support/Claude/side-session-notes/local_669c6044-d2c1-4f6d-8cbc-6de10d94c331/cc-execution-inputs/crossed_direct_edge_replication_native.json",
+    "--historical-audit",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_audit.json",
+    "--freeze",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_register_operator_replication/protocol_freeze_v2.json",
+    "--out",
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/historical_fidelity_v2.audit.json"
+  ],
+  "config": {
+    "expected_blocks": 384,
+    "model_loaded": false,
+    "tolerances": {
+      "historical_inference_abs_rel": 1e-10,
+      "protected_log_probability_abs": 0.0001,
+      "raw_margin_abs": 0.0001,
+      "repeat_abs": 1e-08
+    }
+  },
+  "created_at_utc": "2026-10-17T04:00:27.962717+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro-2.local",
+    "pid": 27815,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert-register-operator-replication:fidelity-audit",
+  "git_commit": "dd24299e70e91424b07962bd03aa407a35bb0fe5",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/historical_fidelity_v2.json.gz",
+      "sha256": "db2ea0837af3ad5922e8701331ac6a3e7e1256a9800135a4a093dc731d3708a7",
+      "size_bytes": 27241334
+    },
+    {
+      "path": "/Users/cberg/Library/Application Support/Claude/side-session-notes/local_669c6044-d2c1-4f6d-8cbc-6de10d94c331/cc-execution-inputs/crossed_direct_edge_replication_cohort_v1.json",
+      "sha256": "478838e64a3a3eff2bca5868212852a5b833d0ccf74ff720bb15cd00cf6fd5ca",
+      "size_bytes": 48290248
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/.claude/worktrees/practical-hellman-b38d21/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cells.json.gz",
+      "sha256": "39ef65b76d16858e48774733c1f4cfff6c0375b5643694240c254462aa1e41df",
+      "size_bytes": 4127096
+    },
+    {
+      "path": "/Users/cberg/Library/Application Support/Claude/side-session-notes/local_669c6044-d2c1-4f6d-8cbc-6de10d94c331/cc-execution-inputs/crossed_direct_edge_replication_native.json",
+      "sha256": "e67649a908789a26acb2086819ddd98eb9f374cd7e29db4749a4d57af665e79d",
+      "size_bytes": 1094019
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_audit.json",
+      "sha256": "b2b15d99a87ac758a98fb82eeef1ba322a2813fd7133c119945ef1eee73113ac",
+      "size_bytes": 615345
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_register_operator_replication/protocol_freeze_v2.json",
+      "sha256": "f8d443cd1cad29af8ccb47a3c3b16278db8ed738ed0117d1df31ab86284cfd0d",
+      "size_bytes": 23433
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa.fai",
+      "sha256": "3b425de206296a5c8053023fa5ca61da43cfe78c1737c12e58c83367c7e83c21",
+      "size_bytes": 19381
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_register_operator_replication/audit_fidelity.py",
+      "sha256": "62133af0f56d8159bf7c9f75d258260cf78489c3d14c7c1e978ea5867cb1b637",
+      "size_bytes": 36899
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/provenance.py",
+      "sha256": "05d3cd48d49a6357f29b72ac1636b23586a11bfb0b059ce97e36f8a9f87ac632",
+      "size_bytes": 3990
+    }
+  ],
+  "notes": [],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/historical_fidelity_v2.audit.json",
+      "sha256": "3c9fd8290bfd7f1b74e4b26159f929b17e1f994b909abe706e2dfb06d4c6179e",
+      "size_bytes": 577297
+    }
+  ],
+  "seeds": {
+    "historical_bootstrap": 20260803,
+    "pseudo_first": 2026080401,
+    "pseudo_last": 2026080499
+  },
+  "status": "PASS"
+}

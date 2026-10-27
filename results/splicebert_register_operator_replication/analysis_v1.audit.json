@@ -1,0 +1,264 @@
+{
+  "auditor_sha256": "da6a653d1cca40378b4713335cf67d72fca5eff147b31c6a9640ba2a74a4eb34",
+  "authorized_for_cc": false,
+  "authorized_for_final_result": true,
+  "calibration_recount": {
+    "classification_counts": {
+      "development": {
+        "BOUNDED_NULL": 128,
+        "DETECTABLE_PREFERENCE_MATERIALITY_UNRESOLVED": 2,
+        "INCONCLUSIVE": 60,
+        "INSTRUMENT_UNRESOLVED": 1,
+        "MATERIAL_PREFERENTIAL_POSITIVE": 1,
+        "ONLY_WHEN_COHERENT_IN_FROZEN_DOMAIN": 64
+      },
+      "null": {
+        "BOUNDED_NULL": 978,
+        "INCONCLUSIVE": 22
+      },
+      "point05": {
+        "BOUNDED_NULL": 3,
+        "DETECTABLE_PREFERENCE_MATERIALITY_UNRESOLVED": 12,
+        "INCONCLUSIVE": 233,
+        "INSTRUMENT_UNRESOLVED": 4,
+        "MATERIAL_PREFERENTIAL_POSITIVE": 3,
+        "ONLY_WHEN_COHERENT_IN_FROZEN_DOMAIN": 1
+      },
+      "point15": {
+        "INSTRUMENT_UNRESOLVED": 4,
+        "MATERIAL_PREFERENTIAL_POSITIVE": 16,
+        "ONLY_WHEN_COHERENT_IN_FROZEN_DOMAIN": 236
+      }
+    },
+    "complete": true,
+    "execution_errors": [],
+    "noncoverage_counts": {
+      "bridge_diagnostics": 70,
+      "directions": 83,
+      "historical_phase_blind_ac_minus_at_linear": 33,
+      "historical_psi_ac_minus_at_linear": 29,
+      "mismatch_equivalence": 70,
+      "primary_psi": 62
+    },
+    "null_generator_diagnostics": {
+      "additive": {
+        "n": 500,
+        "noncoverage": {
+          "bridge_diagnostics": 38,
+          "directions": 51,
+          "historical_phase_blind_ac_minus_at_linear": 0,
+          "historical_psi_ac_minus_at_linear": 0,
+          "mismatch_equivalence": 28,
+          "primary_psi": 30
+        },
+        "positive": 0
+      },
+      "heterogeneous": {
+        "n": 500,
+        "noncoverage": {
+          "bridge_diagnostics": 32,
+          "directions": 32,
+          "historical_phase_blind_ac_minus_at_linear": 33,
+          "historical_psi_ac_minus_at_linear": 29,
+          "mismatch_equivalence": 42,
+          "primary_psi": 32
+        },
+        "positive": 0
+      }
+    },
+    "null_replay": {
+      "direction_noncoverage_by_endpoint": {
+        "additive": [
+          11,
+          7,
+          15,
+          15,
+          10
+        ],
+        "heterogeneous": [
+          10,
+          8,
+          7,
+          7,
+          7
+        ]
+      },
+      "interval_families_checked": 6000,
+      "maximum_absolute_interval_error": 5.412337245047638e-16,
+      "maximum_absolute_reduction_error": 0.0,
+      "no_new_seed_or_alternative_settings": true,
+      "null_raw_payloads_hash_verified": 1000,
+      "raw_reductions_checked": 1000
+    },
+    "passed": false,
+    "point05_detection_count": 255,
+    "point15_material_count": 252,
+    "positive_count": 0,
+    "realization_counts": {
+      "development": 256,
+      "null": 1000,
+      "plants": 512
+    },
+    "scope": "Independent recount; when requested, every consumed null raw payload and all six interval families independently replayed at frozen settings.",
+    "stratified_bootstrap_iid_variance_expectation": {
+      "n": 342,
+      "scope": "Equal-variance iid planning identity (N-H)/N; diagnostic, not a correction or proof of the observed family failure.",
+      "strata": 32,
+      "variance_ratio": 0.9064327485380117
+    },
+    "variance_scale_diagnostics": {
+      "additive": {
+        "both_direction_groups_fail": 1,
+        "direction_bootstrap_to_sampling_variance_ratio": [
+          0.9211286776105836,
+          0.9553399858056881,
+          0.8330041477272957,
+          0.8112977315157341,
+          0.9394202128137265
+        ],
+        "direction_empirical_sampling_sd": [
+          3.0043979211801654e-09,
+          2.949627105230319e-09,
+          0.006906011025877115,
+          0.006979634561190783,
+          0.00650004479773917
+        ],
+        "direction_root_mean_bootstrap_variance": [
+          2.883484389176606e-09,
+          2.883009631572372e-09,
+          0.006303051408856909,
+          0.006286701142140802,
+          0.0063000834188117584
+        ],
+        "only_first_two_directions_fail": 16,
+        "only_last_three_directions_fail": 34,
+        "primary_bootstrap_to_sampling_variance_ratio": 0.9201058614633885,
+        "primary_empirical_sampling_sd": 2.5996434007227497e-09,
+        "primary_root_mean_bootstrap_variance": 2.493633808972956e-09
+      },
+      "heterogeneous": {
+        "both_direction_groups_fail": 6,
+        "direction_bootstrap_to_sampling_variance_ratio": [
+          0.8471683194703519,
+          0.9072776516235515,
+          0.9155426545470783,
+          0.9902438562524741,
+          0.9272788296145908
+        ],
+        "direction_empirical_sampling_sd": [
+          0.01490066318770212,
+          0.014436852758447477,
+          0.02251831581503828,
+          0.02161902315267301,
+          0.022353642190641662
+        ],
+        "direction_root_mean_bootstrap_variance": [
+          0.013714830715696907,
+          0.013751264441537186,
+          0.02154642376235848,
+          0.02151330552280543,
+          0.021525510863891997
+        ],
+        "only_first_two_directions_fail": 11,
+        "only_last_three_directions_fail": 15,
+        "primary_bootstrap_to_sampling_variance_ratio": 0.8913020604010763,
+        "primary_empirical_sampling_sd": 0.01260374825155194,
+        "primary_root_mean_bootstrap_variance": 0.011899046869588746
+      }
+    }
+  },
+  "chronology": {
+    "frozen_at_utc": "2026-10-16T20:04:16.567499+00:00",
+    "stages": {
+      "calibration": {
+        "attempt_sha256": "c55f5b9c6081e9447bea8d9e2706e28418ba3d68350da912f371bb45cc0d2eab",
+        "attempt_start_timestamp_recorded": false,
+        "completed_manifest_utc": "2026-10-16T20:10:40.660889+00:00",
+        "filesystem_mtime_utc_corroboration": "2026-10-16T20:06:05.717653+00:00",
+        "limitation": "Attempt JSON omits UTC creation time; start order uses filesystem mtime as corroboration."
+      },
+      "cells": {
+        "attempt_present": false
+      },
+      "fidelity": {
+        "attempt_present": false
+      },
+      "native": {
+        "attempt_present": false
+      }
+    }
+  },
+  "classification": "INSTRUMENT_UNRESOLVED",
+  "cohort_tier": "outcome-aware operator verification",
+  "completed_at_utc": "2026-10-16T20:20:28.140313+00:00",
+  "failed_gates": [
+    "construction"
+  ],
+  "failures": [
+    {
+      "prerequisite": "calibration",
+      "recorded_failures": [
+        "coverage:directions"
+      ],
+      "state": "FAIL"
+    }
+  ],
+  "freeze_sha256": "82bc168e2246dff82519215203e02747f0209c289fa00c3e538613d95573d854",
+  "gates": {
+    "construction": false,
+    "corruption_robustness": null,
+    "crossed_lattice_capability": null,
+    "independent_audit": true,
+    "negative_control": null,
+    "numerics": null,
+    "phase_blind_site_health": null,
+    "protected_mlm_health": null,
+    "resolution": null,
+    "source_edge_positive_control": null
+  },
+  "model_evidence_complete": false,
+  "model_loaded": false,
+  "new_model_forwards": 0,
+  "observed_model_stages": {},
+  "passed": true,
+  "prerequisites": {
+    "calibration": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/statistical_calibration_v1.json",
+      "reported_status": "INSTRUMENT_UNRESOLVED",
+      "sha256": "4c13d30ee8dd79a1c16e52ced24f955fec7c8285b3bf2cd4400a776bf5959ee7",
+      "state": "FAIL"
+    },
+    "construction": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_register_operator_replication/planning/execution_construction_v3.audit.json",
+      "reported_status": "AUDIT_PASS",
+      "sha256": "76c50aeee82860d6fbeb8f75e7f4ceea30398efc33d5d83ef0c18afbf573fda9",
+      "state": "PASS"
+    },
+    "fidelity": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/historical_fidelity_v1.audit.json",
+      "state": "UNRUN"
+    },
+    "smoke": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/smoke_v1.json",
+      "reported_status": "PASS",
+      "sha256": "a56c986f3472588eb40c30c5114cf3ea9669734c75f389e79d60b6745128b5df",
+      "state": "PASS"
+    }
+  },
+  "reason": "A failed or unrun prerequisite/target stage prevents a complete CC inference; no primary estimate is invented.",
+  "schema": "gfmcd.register_operator.result_audit.v1",
+  "selected_blocks": 342,
+  "span_nt": 120,
+  "status": "PASS",
+  "stopped_run": true,
+  "unrun_gates": [
+    "source_edge_positive_control",
+    "crossed_lattice_capability",
+    "negative_control",
+    "resolution",
+    "corruption_robustness",
+    "protected_mlm_health",
+    "phase_blind_site_health",
+    "numerics"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "command": [
+    "-"
+  ],
+  "config": {},
+  "created_at_utc": "2026-10-16T19:49:51.136323+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro-2.local",
+    "pid": 78441,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "register-operator:execution-construction",
+  "git_commit": "dd24299e70e91424b07962bd03aa407a35bb0fe5",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Library/Application Support/Claude/side-session-notes/local_669c6044-d2c1-4f6d-8cbc-6de10d94c331/cc-execution-inputs/crossed_direct_edge_replication_cohort_v1.json",
+      "sha256": "478838e64a3a3eff2bca5868212852a5b833d0ccf74ff720bb15cd00cf6fd5ca",
+      "size_bytes": 48290248
+    },
+    {
+      "path": "studies/splicebert_register_operator_replication/planning/fallback342_selection_v1.json",
+      "sha256": "3d23980b8f5c13f5c82088ffc6a88fb93d0a5a68c4ed664b1c7c3e69dac04b78",
+      "size_bytes": 15474
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa.fai",
+      "sha256": "3b425de206296a5c8053023fa5ca61da43cfe78c1737c12e58c83367c7e83c21",
+      "size_bytes": 19381
+    },
+    {
+      "path": "src/gfmcd/splicing/register_operator_construction.py",
+      "sha256": "ee8c555d2c5e6dfa983fe61f0aa12ad911f0ed155f3d2b599c418300cf007978",
+      "size_bytes": 15668
+    },
+    {
+      "path": "src/gfmcd/splicing/register_operator_io.py",
+      "sha256": "e0c77e9ebb91b7521f7af383f4f4664a1d07540d6bb0b0414e0f299106d01f54",
+      "size_bytes": 2906
+    }
+  ],
+  "notes": [
+    "Actual input/source bytes are pinned; HEAD alone does not identify this dirty checkout.",
+    "uncompressed_json_sha256=b4e3f08d98db7329305b8eb7e5167b88c835c8d7d84a19e5b81f1dcafe1c5c49"
+  ],
+  "outputs": [
+    {
+      "path": "studies/splicebert_register_operator_replication/planning/execution_construction_v1.json.gz",
+      "sha256": "2a0e786f5619034981ecb94f166b4d63c838dd438555f1b62558ddfcc6cde3ee",
+      "size_bytes": 1705111
+    }
+  ],
+  "seeds": {},
+  "status": "CONSTRUCTED"
+}

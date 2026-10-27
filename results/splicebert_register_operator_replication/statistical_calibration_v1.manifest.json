@@ -1,0 +1,240 @@
+{
+  "command": [
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_register_operator_replication/calibrate_statistics.py",
+    "--selection",
+    "studies/splicebert_register_operator_replication/planning/fallback342_selection_v1.json",
+    "--specification",
+    "studies/splicebert_register_operator_replication/STATISTICAL_CALIBRATION.md",
+    "--freeze",
+    "studies/splicebert_register_operator_replication/protocol_freeze_v1.json",
+    "--out",
+    "results/splicebert_register_operator_replication/statistical_calibration_v1.json",
+    "--records-out",
+    "results/splicebert_register_operator_replication/statistical_calibration_v1.records.jsonl.gz"
+  ],
+  "config": {
+    "bit_generator": "PCG64",
+    "frozen_settings": {
+      "bit_generator": "PCG64",
+      "bootstrap_draws": 20000,
+      "bootstrap_seed": 20260803,
+      "capable_fixture_nominal_mde": 0.035,
+      "development_schedule": [
+        "additive_null",
+        "heterogeneous_null",
+        "plant_point05",
+        "plant_point15"
+      ],
+      "family_names": [
+        "primary_psi",
+        "directions",
+        "mismatch_equivalence",
+        "bridge_diagnostics",
+        "historical_psi_ac_minus_at_linear",
+        "historical_phase_blind_ac_minus_at_linear"
+      ],
+      "fpr_max": 38,
+      "n_blocks": 342,
+      "noncoverage_max_each_family": 71,
+      "plant_deltas": [
+        0.05,
+        0.15
+      ],
+      "plant_success_min": 216,
+      "pseudo_seeds": [
+        2026080401,
+        2026080402,
+        2026080403,
+        2026080404,
+        2026080405,
+        2026080406,
+        2026080407,
+        2026080408,
+        2026080409,
+        2026080410,
+        2026080411,
+        2026080412,
+        2026080413,
+        2026080414,
+        2026080415,
+        2026080416,
+        2026080417,
+        2026080418,
+        2026080419,
+        2026080420,
+        2026080421,
+        2026080422,
+        2026080423,
+        2026080424,
+        2026080425,
+        2026080426,
+        2026080427,
+        2026080428,
+        2026080429,
+        2026080430,
+        2026080431,
+        2026080432,
+        2026080433,
+        2026080434,
+        2026080435,
+        2026080436,
+        2026080437,
+        2026080438,
+        2026080439,
+        2026080440,
+        2026080441,
+        2026080442,
+        2026080443,
+        2026080444,
+        2026080445,
+        2026080446,
+        2026080447,
+        2026080448,
+        2026080449,
+        2026080450,
+        2026080451,
+        2026080452,
+        2026080453,
+        2026080454,
+        2026080455,
+        2026080456,
+        2026080457,
+        2026080458,
+        2026080459,
+        2026080460,
+        2026080461,
+        2026080462,
+        2026080463,
+        2026080464,
+        2026080465,
+        2026080466,
+        2026080467,
+        2026080468,
+        2026080469,
+        2026080470,
+        2026080471,
+        2026080472,
+        2026080473,
+        2026080474,
+        2026080475,
+        2026080476,
+        2026080477,
+        2026080478,
+        2026080479,
+        2026080480,
+        2026080481,
+        2026080482,
+        2026080483,
+        2026080484,
+        2026080485,
+        2026080486,
+        2026080487,
+        2026080488,
+        2026080489,
+        2026080490,
+        2026080491,
+        2026080492,
+        2026080493,
+        2026080494,
+        2026080495,
+        2026080496,
+        2026080497,
+        2026080498,
+        2026080499
+      ],
+      "repetitions": {
+        "development": 256,
+        "null": 1000,
+        "plants": 256
+      },
+      "runtime_packages": {
+        "numpy": "2.5.1",
+        "scipy": "1.18.0",
+        "torch": "2.13.0"
+      },
+      "streams": {
+        "development": 2026101601,
+        "null": 2026101602,
+        "plants": 2026101603
+      },
+      "truth_tolerance": 1e-10
+    },
+    "numpy": "2.5.1",
+    "smoke_only": false
+  },
+  "created_at_utc": "2026-10-16T20:10:40.660889+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro-2.local",
+    "pid": 90384,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert-register-operator-replication:statistical-calibration",
+  "git_commit": "dd24299e70e91424b07962bd03aa407a35bb0fe5",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_register_operator_replication/calibrate_statistics.py",
+      "sha256": "9ebfbe1635b2495617d74502faaf2de0b1c69ef4fa571413919cf24726e0ee13",
+      "size_bytes": 41361
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/register_operator_measurement.py",
+      "sha256": "139344309e07cab6b3d4c87a5fc437be8f20c00d54899cb435ebb71030339076",
+      "size_bytes": 14855
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/register_operator_statistics.py",
+      "sha256": "6f5394b710eb3fcd04cf112de37d0c5d89eefd68d07ae5a36d8bbdaba7879c99",
+      "size_bytes": 13155
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/provenance.py",
+      "sha256": "05d3cd48d49a6357f29b72ac1636b23586a11bfb0b059ce97e36f8a9f87ac632",
+      "size_bytes": 3990
+    },
+    {
+      "path": "studies/splicebert_register_operator_replication/protocol_freeze_v1.json",
+      "sha256": "82bc168e2246dff82519215203e02747f0209c289fa00c3e538613d95573d854",
+      "size_bytes": 14935
+    },
+    {
+      "path": "studies/splicebert_register_operator_replication/planning/fallback342_selection_v1.json",
+      "sha256": "3d23980b8f5c13f5c82088ffc6a88fb93d0a5a68c4ed664b1c7c3e69dac04b78",
+      "size_bytes": 15474
+    },
+    {
+      "path": "studies/splicebert_register_operator_replication/STATISTICAL_CALIBRATION.md",
+      "sha256": "2aa9a1d464197a8ee654346e610aa3dc2e2384a5e260f375843a49e20ad15fe4",
+      "size_bytes": 7029
+    }
+  ],
+  "notes": [
+    "No model is loaded; no new CC model outcome is computed.",
+    "Synthetic calibration cannot establish actual CC/max variance or biological validity.",
+    "Every stochastic realization is retained, including failures; outputs are exclusive-create."
+  ],
+  "outputs": [
+    {
+      "path": "results/splicebert_register_operator_replication/statistical_calibration_v1.json",
+      "sha256": "4c13d30ee8dd79a1c16e52ced24f955fec7c8285b3bf2cd4400a776bf5959ee7",
+      "size_bytes": 22310
+    },
+    {
+      "path": "results/splicebert_register_operator_replication/statistical_calibration_v1.attempt.json",
+      "sha256": "c55f5b9c6081e9447bea8d9e2706e28418ba3d68350da912f371bb45cc0d2eab",
+      "size_bytes": 11569
+    },
+    {
+      "path": "results/splicebert_register_operator_replication/statistical_calibration_v1.records.jsonl.gz",
+      "sha256": "2c941d6d7c2e7a2bf186c2d0223bba5258001baac226bb8188645c1f473e6ead",
+      "size_bytes": 640530386
+    }
+  ],
+  "seeds": {
+    "development": 2026101601,
+    "null": 2026101602,
+    "plants": 2026101603
+  },
+  "status": "INSTRUMENT_UNRESOLVED"
+}

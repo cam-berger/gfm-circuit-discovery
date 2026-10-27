@@ -1,0 +1,105 @@
+{
+  "command": [
+    "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_register_operator_replication/audit_results.py",
+    "--freeze",
+    "studies/splicebert_register_operator_replication/protocol_freeze_v1.json",
+    "--out",
+    "results/splicebert_register_operator_replication/analysis_v1.audit.json"
+  ],
+  "config": {
+    "bootstrap_draws": 20000,
+    "comparison_absolute_tolerance": 1e-10
+  },
+  "created_at_utc": "2026-10-16T20:20:28.193072+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro-2.local",
+    "pid": 94773,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert-register-operator-replication:independent-result-audit",
+  "git_commit": "dd24299e70e91424b07962bd03aa407a35bb0fe5",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "studies/splicebert_register_operator_replication/protocol_freeze_v1.json",
+      "sha256": "82bc168e2246dff82519215203e02747f0209c289fa00c3e538613d95573d854",
+      "size_bytes": 14935
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_register_operator_replication/audit_results.py",
+      "sha256": "da6a653d1cca40378b4713335cf67d72fca5eff147b31c6a9640ba2a74a4eb34",
+      "size_bytes": 62074
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/tests/test_register_operator_result_audit.py",
+      "sha256": "daaa179683db75c814a5c698cff85dd507e9dd64fa95001aefbdb57ab44c28d3",
+      "size_bytes": 6897
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_register_operator_replication/planning/execution_construction_v3.json.gz",
+      "sha256": "b5ce021419a00a7624b98e5c6dd7243bf59f34a20222a3f035ac925cb87d77a4",
+      "size_bytes": 1709747
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_register_operator_replication/planning/fallback342_selection_v1.json",
+      "sha256": "3d23980b8f5c13f5c82088ffc6a88fb93d0a5a68c4ed664b1c7c3e69dac04b78",
+      "size_bytes": 15474
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_register_operator_replication/planning/execution_construction_v3.audit.json",
+      "sha256": "76c50aeee82860d6fbeb8f75e7f4ceea30398efc33d5d83ef0c18afbf573fda9",
+      "size_bytes": 33148
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/smoke_v1.json",
+      "sha256": "a56c986f3472588eb40c30c5114cf3ea9669734c75f389e79d60b6745128b5df",
+      "size_bytes": 8860
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/statistical_calibration_v1.json",
+      "sha256": "4c13d30ee8dd79a1c16e52ced24f955fec7c8285b3bf2cd4400a776bf5959ee7",
+      "size_bytes": 22310
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_register_operator_replication/planning/execution_construction_v3.audit.manifest.json",
+      "sha256": "81552445c936ca4bc88726332b410508f68ebc99fb1375fa8c65bf66575f9fb8",
+      "size_bytes": 3486
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/smoke_v1.manifest.json",
+      "sha256": "c5c253dd3d9978b6a6aee0af9fcf75b0e4a7034c7991a1954dd0df4afd6fd873",
+      "size_bytes": 3265
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/statistical_calibration_v1.manifest.json",
+      "sha256": "a5004be22318dbfc0a8b9baf3c6d136d2a86fa921647b5c02ad9fe6c90e45b8f",
+      "size_bytes": 7056
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/statistical_calibration_v1.attempt.json",
+      "sha256": "c55f5b9c6081e9447bea8d9e2706e28418ba3d68350da912f371bb45cc0d2eab",
+      "size_bytes": 11569
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/statistical_calibration_v1.records.jsonl.gz",
+      "sha256": "2c941d6d7c2e7a2bf186c2d0223bba5258001baac226bb8188645c1f473e6ead",
+      "size_bytes": 640530386
+    }
+  ],
+  "notes": [
+    "Auditor imports neither producer measurement/reduction nor producer inference/classifier.",
+    "A stopped-run PASS means an honest independent audit; it does not turn a failed preflight into model evidence."
+  ],
+  "outputs": [
+    {
+      "path": "results/splicebert_register_operator_replication/analysis_v1.audit.json",
+      "sha256": "91bda8a6e3cced9f708a0b468e4c2af79f114368a1b45f7f84d29eb8eddbcb65",
+      "size_bytes": 8739
+    }
+  ],
+  "seeds": {
+    "bootstrap": 20260803
+  },
+  "status": "PASS"
+}

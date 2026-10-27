@@ -1,7 +1,7 @@
 # SpliceBERT findings of record
 
 This is the concise scientific narrative for the donor-circuit study. Exact live wording is controlled by
-[`CLAIMS.md`](CLAIMS.md); full superseded narratives and R1–R48 are preserved in
+[`CLAIMS.md`](CLAIMS.md); full superseded narratives and R1–R59 are preserved in
 [`CORRECTIONS.md`](CORRECTIONS.md). The repository-level [`../../MECHANISM.md`](../../MECHANISM.md) is the
 one-file reviewer account.
 
@@ -77,7 +77,7 @@ Therefore the payload is **acceptor-local and not bulk composition**, but its se
 
 ## 5. Period-3 carrier: distributed routing coordinate
 
-Deleting the rank-2 period-3 position band collapses coupling **0.946→0.027**. Matched single-head
+Deleting the rank-2 period-3 position band collapses coupling **0.946→0.026** (R53). Matched single-head
 restoration identifies L2H15/L3H1 as mediators (**0.363/0.348**, null max **0.042**).
 
 C34/C35 refine the role:

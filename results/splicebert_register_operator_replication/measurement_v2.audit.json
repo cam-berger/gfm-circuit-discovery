@@ -1,0 +1,118 @@
+{
+  "auditor_sha256": "050e3ab87698c2c6b5188123e522904f92fb50326bf8892e08985b34707f9a2a",
+  "authorized_for_inference": true,
+  "cc_raw_read": true,
+  "cells_sha256": "521889657aeeac5c822d81c95e7fffb087ed9287dbdb75918830e0c308daa9c9",
+  "execution_history": {
+    "passed": true,
+    "timeline": {
+      "cells": {
+        "attempt_created": "2026-10-17T04:03:03.611702+00:00",
+        "attempt_saved": "2026-10-17T04:03:03.644846+00:00",
+        "completed": "2026-10-17T04:24:54.886764+00:00",
+        "raw_manifest_created": "2026-10-17T04:24:57.103427+00:00"
+      },
+      "fidelity": {
+        "attempt_created": "2026-10-17T02:12:05.562641+00:00",
+        "attempt_saved": "2026-10-17T02:12:05.593603+00:00",
+        "completed": "2026-10-17T02:37:21.901106+00:00",
+        "raw_manifest_created": "2026-10-17T02:37:24.227396+00:00"
+      },
+      "freeze": "2026-10-17T02:02:59.589277+00:00",
+      "native": {
+        "attempt_created": "2026-10-17T04:01:02.727956+00:00",
+        "attempt_saved": "2026-10-17T04:01:02.758449+00:00",
+        "completed": "2026-10-17T04:02:33.949356+00:00",
+        "raw_manifest_created": "2026-10-17T04:02:34.156741+00:00"
+      }
+    }
+  },
+  "expected_blocks": 342,
+  "freeze_sha256": "f8d443cd1cad29af8ccb47a3c3b16278db8ed738ed0117d1df31ab86284cfd0d",
+  "historical_auditor_sha256": "62133af0f56d8159bf7c9f75d258260cf78489c3d14c7c1e978ea5867cb1b637",
+  "historical_inference_method": "original_c43_v1",
+  "inference_method": "finite-stratum-centered-residual-bootstrap-v2",
+  "measurement": {
+    "checks": 50,
+    "failed_checks": 0,
+    "first_failures": [],
+    "maximum_absolute_discrepancies": {},
+    "passed": true,
+    "request_audits": {
+      "cells": {
+        "checks": 1988809,
+        "failed_checks": 0,
+        "first_failures": [],
+        "maximum_absolute_discrepancies": {
+          "linear_margin": 0.0,
+          "max_margin": 0.0,
+          "repeat_linear_margin": 0.0,
+          "repeat_masked_logits": 0.0,
+          "repeat_max_margin": 0.0,
+          "repeat_true_base_log_probability": 0.0,
+          "true_base_log_probability": 4.824732364738793e-07
+        },
+        "passed": true,
+        "repeat_recomputed": {
+          "accuracy_identical": true,
+          "maximum": 0.0,
+          "maximum_absolute_differences": {
+            "linear_margin": 0.0,
+            "masked_logits": 0.0,
+            "max_margin": 0.0,
+            "true_base_log_probability": 0.0
+          },
+          "passed": true,
+          "threshold": 1e-08
+        },
+        "requests": {
+          "expected": 116964,
+          "observed": 116964
+        }
+      },
+      "native": {
+        "checks": 139957,
+        "failed_checks": 0,
+        "first_failures": [],
+        "maximum_absolute_discrepancies": {
+          "linear_margin": 0.0,
+          "max_margin": 0.0,
+          "repeat_linear_margin": 0.0,
+          "repeat_masked_logits": 0.0,
+          "repeat_max_margin": 0.0,
+          "repeat_true_base_log_probability": 0.0,
+          "true_base_log_probability": 2.6350743720371383e-07
+        },
+        "passed": true,
+        "repeat_recomputed": {
+          "accuracy_identical": true,
+          "maximum": 0.0,
+          "maximum_absolute_differences": {
+            "linear_margin": 0.0,
+            "masked_logits": 0.0,
+            "max_margin": 0.0,
+            "true_base_log_probability": 0.0
+          },
+          "passed": true,
+          "threshold": 1e-08
+        },
+        "requests": {
+          "expected": 8208,
+          "observed": 8208
+        }
+      }
+    }
+  },
+  "model_forward_count": 0,
+  "model_loaded": false,
+  "native_sha256": "bf2bd4ac4622cf128407fea11d9fab9d18b7774505c620f4dc81961f54f57cda",
+  "passed": true,
+  "schema": "gfmcd.register_operator.cc_measurement_audit.v2",
+  "selected_block_ids_sha256": "972d388cc031b6debdbb5b1c531afb7a8619630462f6bf4bb380d6a989417436",
+  "status": "PASS",
+  "tolerances": {
+    "log_probability_abs": 0.0001,
+    "repeat_abs": 1e-08,
+    "score_abs": 0.0001
+  }
+}

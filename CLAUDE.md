@@ -50,7 +50,7 @@ The frozen one-sentence mechanism statement, its checkpoint caveats, and its sco
 | Question | File that owns the answer |
 |---|---|
 | What is claimed, in what words? | The study-local claim ledgers linked from the [study index](studies/README.md). Each ledger owns its evidence levels, controlling artifacts, and scope; descriptive IDs retain their historical aliases. |
-| What was retracted or bounded, and why? | [`CORRECTIONS.md`](studies/splicebert_partner_selection/CORRECTIONS.md) — **R1–R48**. R1–R24 are table rows (some are ranges); R25–R48 are `##` sections later in the same file — scan both. The DNABERT-2 study keeps its own [`DBPR1–DBPR12`](studies/dnabert_promoter/CORRECTIONS.md); DBPR12 records removal of the non-reproducible notebook-only fine-tuned extension. |
+| What was retracted or bounded, and why? | [`CORRECTIONS.md`](studies/splicebert_partner_selection/CORRECTIONS.md) — **R1–R59** (the two numbers before R59 are reserved for unmerged DNABERT-2 work). R1–R24 are table rows (some are ranges); R25–R59 are `##` sections later in the same file — scan both. The DNABERT-2 study keeps its own [`DBPR1–DBPR12`](studies/dnabert_promoter/CORRECTIONS.md); DBPR12 records removal of the non-reproducible notebook-only fine-tuned extension. |
 | Why was an experiment designed that way? | [`DECISIONS_A0.md`](studies/splicebert_partner_selection/DECISIONS_A0.md) and each study's `DECISIONS*.md` |
 | What is next, and what is deferred? | [`docs/ROADMAP.md`](docs/ROADMAP.md) |
 | Was a preregistered gate actually enforced? | [`docs/PREREG_CONFORMANCE.md`](docs/PREREG_CONFORMANCE.md) — **read before citing any gate as enforced**; many runners departed from their frozen protocol. Covers the SpliceBERT donor/carrier arc only — `GFS*` gates are self-reported, not audited; positional-boundary-coherence Phase I executed and stopped instrument-unresolved before any model outcome, leaving later phases unauthorized; and the `DBP*` study **froze no preregistration at all** (DBPR8), so nothing in it may be cited as a preregistered result |
@@ -99,6 +99,8 @@ arc's sanctioned successor and inherits blacklists and geometry from it, never i
 - **Model:** SpliceBERT.1024nt, post-LayerNorm BERT-MLM (6L × 16H, hidden 512), **absolute learned
   position embeddings** (P=1026), checkpoint sha256 `2ad91428…0149d`. Post-LN ⇒ QKV linear in the
   layer-input residual, which is what makes exact reconstruct-inject possible.
+- **Open models through `gfmcd.models`** (`SPLICEBERT_1024`, `SPLICEBERT_510`, `SPLICEBERT_HUMAN_510`,
+  `DNABERT2`): files are hash-verified before loading; worktrees find weights via `GFMCD_DATA_ROOTS`.
 - **Second model:** DNABERT-2 (`quietflamingo/dnabert2-no-flashattention`, revision `813031b2…31601`,
   12 layers, BPE over nucleotides) behind `src/gfmcd/adapters/dnabert.py`, for the `DBP*` study only.
   Its adapter returns the **12 encoder-layer outputs with no embedding output**, so `hidden_states[i]`
@@ -112,9 +114,10 @@ arc's sanctioned successor and inherits blacklists and geometry from it, never i
   `DBP*` study has **none**, see DBPR8). `src/gfmcd/{splicing,circuits,adapters}/` hold the assays,
   reusable primitives and model access; `src/gfmcd/dnabert/` holds the DNABERT-2 dataset and
   perturbation utilities.
-- **Every new result writes a sibling `*.manifest.json`.** Use
-  `gfmcd.provenance.ExperimentManifest`, or the DNABERT-2 wrapper
-  `gfmcd.dnabert.write_run_manifest`. Most historical frozen DNABERT-2 artifacts predate that wiring;
+- **Every new result writes a sibling `*.manifest.json`.** Use `gfmcd.record.write`/`bind`: exclusive
+  writes, repo-relative paths, code and model bound by sha256; `python3 scripts/verify_records.py`
+  checks any manifest by content. Historical runners keep `gfmcd.provenance.ExperimentManifest` or the
+  DNABERT-2 wrapper `gfmcd.dnabert.write_run_manifest`. Most historical frozen DNABERT-2 artifacts predate that wiring;
   their blank manifest fields are disclosed rather than back-filled. The notebook-only fine-tuned
   extension was archived under DBPR12. Never invent provenance for a run whose conditions were not
   captured.

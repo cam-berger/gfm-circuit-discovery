@@ -29,7 +29,7 @@ composition covariates; its semantic identity remains unresolved, and “splice-
 | Record | Purpose |
 |---|---|
 | [`CLAIMS.md`](CLAIMS.md) | Live claims, evidence levels, controlling artifacts, and scope. |
-| [`CORRECTIONS.md`](CORRECTIONS.md) | Full historical ledger and permanent R1–R48 correction record. R1–R24 are table rows; R25–R48 are `##` sections. |
+| [`CORRECTIONS.md`](CORRECTIONS.md) | Full historical ledger and permanent R1–R59 correction record. R1–R24 are table rows; R25–R59 are `##` sections. |
 | [`FINDINGS.md`](FINDINGS.md) | Concise scientific narrative and limitations. |
 | [`P3_CLOSURE_CONFIRMATORY_REPORT.md`](P3_CLOSURE_CONFIRMATORY_REPORT.md) | C36 design and result; read with the ledger's provenance and sensitivity bounds. |
 | [`DECISIONS_A0.md`](DECISIONS_A0.md) | Detailed A0→A12 rationale, amendments, and post-outcome adjudication. |

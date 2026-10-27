@@ -46,6 +46,20 @@ and ledgers before using a figure in a manuscript.
 |---|---|
 | Positional and faithfulness figure | [make_mechanism_figure.py](../scripts/splicebert/make_mechanism_figure.py) |
 | DNABERT-2 comparison | [make_paper_figure_transfer.py](../scripts/dnabert_promoter/make_paper_figure_transfer.py) |
+| Submission 39 Fig. 2 (manuscript asset, not stored here) | [make_paper_headline_figure.py](../scripts/splicebert/make_paper_headline_figure.py) |
+| Submission 39 Fig. 3 (manuscript asset, not stored here) | [make_paper_fig3.py](../scripts/splicebert/make_paper_fig3.py) |
+
+The Submission 39 Fig. 2 renderer corrects the published raster, whose original renderer is lost. It
+keeps panel A (two labels moved), repaints part of B, and redraws C–E from recorded artifacts. It needs
+that published raster as `--base` (sha256 `f4a0472d4f68de07ea77fda9a4a4281fab62f4ed2806dc77510267493cfd73d5`,
+the 2026-10-05 manuscript Fig. 2), which is a manuscript asset and is not stored here, so this renderer
+cannot run from a clean checkout. Panels D–E read
+[`live_attention_val_window.json`](splicebert/viz/live_attention_val_window.json), one masked-donor
+validation window exported by
+[export_short_intron_attention.py](../scripts/splicebert/export_short_intron_attention.py)
+`--source val`. The earlier constructed, unmasked example it replaced is kept as
+[`live_attention_short_intron.json`](splicebert/viz/live_attention_short_intron.json). Both are
+descriptive single-example visualizations, not cohort evidence.
 
 To regenerate the committed mechanism figure from its recorded sources:
 

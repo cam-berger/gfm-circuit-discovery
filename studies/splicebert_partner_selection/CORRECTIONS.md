@@ -1245,3 +1245,428 @@ sensitivities inline. The licensed paper-level formulation is now **a structured
 within distributed computation under the tested interventions**. “Irreducibly distributed” and “no
 sparse circuit exists” are retired from live summaries because the measured curve does not establish
 an impossibility result over alternative circuit searches.
+
+## R49 — C43's crossed-register endpoint and its 99 pseudo-register controls re-execute from a clean checkout; R45's retrieval pointer was wrong, `fd26cc1b` was never pushed (2026-10-16)
+
+**Outcome in one line: the raw rows behind C43's audit are now carried, and a one-command model-free
+script reproduces the controlling audit's target family bit for bit; separately, R45 told readers to
+retrieve the archived arc from `origin`, where it has never been.**
+
+**The pointer defect.** R45 records the archive as "`git show fd26cc1b:<path>`, branch
+`codex/intron-exon-phase`, pushed to `origin`", and the archive README repeated "(pushed to origin)".
+Checked 2026-10-16: `git ls-remote origin` lists 75 refs and no `codex/*` ref; 74 of those tips are present
+in this repository's object store while `fd26cc1b` is absent, so it is reachable from none of them, and
+the 75th (`refs/pull/30/head`, `872ed5db`) does not contain it. The commit,
+`fd26cc1b6c107dc8476a4b3d117ae897e2e86437`, exists only in the owner's local clone, on
+`codex/intron-exon-phase` and three local `claude/*` branches descended from it. Every
+`git show fd26cc1b:<path>` instruction in the tree therefore works on that one machine only. Sites that
+carry the pointer: R45 (history, not edited), `CLAIMS.md` §13's preamble ("The full arc remains
+retrievable at commit `fd26cc1b`"), `REPRODUCIBILITY.md`, `results/RESULTS_INDEX.md`,
+`docs/ROADMAP.md`, `docs/PREREG_CONFORMANCE.md`, `CLAUDE.md`, `AGENTS.md`, and — frozen, so not
+editable — the positional-boundary-coherence `PREREGISTRATION.md`, whose freshness-registry extraction
+commands also resolve against `fd26cc1b`. **Corrected pointer:** `fd26cc1b`, local to the owner's clone,
+not on `origin`. What any other reader can retrieve is what this entry carries. Making the rest
+retrievable requires pushing an archive ref, which is the owner's decision and is left open here.
+
+**What is carried.**
+- `results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cells.json.gz` —
+  4,127,096 bytes (sha256 `39ef65b7…41df`), a gzip with no embedded name or timestamp of the
+  54,229,415-byte raw cell rows the result audit recomputed from. It decompresses to sha256
+  `428ad5d6…40bf`, which is both the audit's `cells_result_sha256` and the audit manifest's input record;
+  that decompressed hash, not the archive hash, is the binding. The rows were gitignored at source and
+  were copied from the owner's working tree. Produced by
+  `scripts/splicebert_exon_edge_compatibility/pack_crossed_replication_cells.py`, which refuses any
+  other source bytes; its manifest is
+  `crossed_direct_edge_replication_cells.archive.manifest.json`. Committed beside the audit, as C36's
+  20.6 MB shard archive is: far under GitHub's 50 MB warning and 100 MB per-file limit, so neither LFS
+  nor a release asset is needed, and a release asset would need a tag and an extra download step.
+- `scripts/splicebert_exon_edge_compatibility/reproduce_crossed_direct_edge_replication.py` — one
+  command, model-free, writes a new JSON and its `ExperimentManifest`, and refuses to overwrite. It binds
+  the rows, the audit (against its manifest's output record) and `src/gfmcd/provenance.py` (against the
+  audit manifest's input record) before any arithmetic, then recomputes and compares against the audit:
+  `Ψ` with its interval, SD and both MDE80s; `M0`/`M+`/`M−`; the five simultaneous directional bounds;
+  both mismatch-equivalence intervals; AC-versus-AT sensitivity; all 99 pseudo-register control means,
+  the maximum control, the add-one `p`, and the paired-excess lower bound; leave-one-block, -chromosome
+  and -strand sensitivity; the 384-row block-endpoint table; the cell-only endpoints and pass flags of
+  gates 3–8; and the decision-table class.
+- `tests/test_c43_crossed_replication_reproduction.py` — eight memorials, three of them planted
+  defects: `+0.05` on one off-diagonal cell breaks `Ψ`, the pseudo controls and the endpoint table; an
+  effect inconsistent with its own margins by `1e-6` is rejected before inference; and a seed-shifted
+  family changes the control means while the recorded seed list stays the same.
+
+**Transcribed, not restored.** The archived arithmetic is transcribed into the script: the result
+auditor's raw-row reductions and the inference primitives of `phase_crossed_inference.py`, each named by
+the sha256 the audit manifest records for it (`7d0ca773…3492`, `02b93bdd…0cbc`). Restoring that module
+byte-identical at its original path was tried first, because it makes the audit manifest's input record
+resolve. It was withdrawn before commit: the frozen positional-boundary-coherence protocol states that no
+archived runner, module, test, or cohort is restored to the active tree, and `AGENTS.md` keeps the
+`phase_*` modules archived. Fidelity is shown by the output, not the bytes: every compared field is
+bit-identical to the audit.
+
+**Why not a tag.** Pushing a tag at `fd26cc1b` would not have made C43 executable. The raw rows were
+gitignored on that commit as well, so a tag carries the code without the data. Running it would also mean
+checking out a 3.4 M-line commit whose auditor needs the 48 MB cohort, the native rows, the freeze
+package and the model-run attestation chain. A tag is still the right fix for the pointer above.
+
+**How the 99 controls are reproduced without the cohort.** The frozen family is stored in the 48 MB
+cohort, which is not carried. The cohort records its rule, `balanced_pseudo_phase_assignments` over
+the preimage `crossed-phase-null-v1 NUL seed NUL block_id`, and its construction audit required the
+stored family to regenerate from that rule exactly. This was re-checked on 2026-10-16 against the
+cohort at `fd26cc1b` (sha256 `478838e6…d5ca`): all 99 seeds × 384 blocks regenerate identically. In a
+clean checkout the check is indirect but exact, because all 99 control means must equal the audit's.
+
+**Verified.** The test was a fresh clone at `caa7bf5` with only this change applied, a fresh `uv`
+environment, and no access to the owner's clone (Python 3.13.12, numpy 2.5.1, the numpy the audit
+recorded). It returned `REPRODUCED_BITWISE`: 25 of 25 compared fields bit-identical, maximum absolute
+deviation `0.0`, class `MATERIAL_PREFERENTIAL_POSITIVE`. Other numpy versions and platforms were **not**
+tested. The pass criterion is the audit's own `_close` tolerance (relative and absolute `1e-10`, discrete
+values exact). Bit-identity is reported separately, so a last-bit difference elsewhere reports
+`REPRODUCED_WITHIN_AUDIT_TOLERANCE` instead of failing.
+
+**Still attestation only.**
+- the stop-load diagnostics, which need the cohort;
+- gate 2 and the native floor calibration, which need the 1.09 MB native rows, present only at
+  `fd26cc1b`;
+- gate 1 (construction and freeze audits);
+- gate 9 (numerics and determinism, which are model-run records);
+- gate 10's hash chain, manifests and one-shot chronology;
+- the per-row source-ID checks against the cohort.
+
+Gate 8's lower bounds are recomputed, but its floors are read from the cell file's copy of the native
+calibration.
+
+**Ledger text this supersedes, left unedited.** C43's closing sentences say the independent audit is
+not re-executable from a clean checkout and that gates 2–9 survive only as recorded attestations. That
+is still true of the auditor, but it understates what now runs: the whole target family except stop
+load, and gates 3–7 in full, are re-derived from raw rows, and gate 8 is re-derived in part. §13's "The
+full arc remains retrievable at commit `fd26cc1b`" is false for anyone but the owner. Neither is edited
+by this entry. Amending them is a deliberate hand edit under this R number.
+
+**Rule.** A retrieval pointer is a claim. Verify it against the remote it names, with `git ls-remote`
+or a fresh clone, never against the author's own clone, where every local commit looks retrievable.
+
+**Addendum (2026-10-20) — gate 2 and the native floors re-execute from raw rows too.** The native-source
+rows are now carried as well. From them the reproduction script recomputes gate 2 and the gate-8 floor
+calibration, and matches the audit bit for bit. Two items leave the "Still attestation only" list above.
+
+- **Carried:** `results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_native.json.gz`
+  — 183,524 bytes (sha256 `f48153ba…6a25`), gzipped with the same settings as the cells archive, of the
+  1,094,019-byte native-source rows (2,304 rows, six per block). It decompresses to sha256
+  `e67649a9…e79d`, which is the audit's `native_result_sha256`, the cells header's `native_result_sha256`,
+  and the audit manifest's input record. Unlike the cell rows, these were tracked at `fd26cc1b`; they come
+  from `git show fd26cc1b:<path>` in the owner's clone, and R45 did not carry them. The archive's
+  manifest is `crossed_direct_edge_replication_native.archive.manifest.json`. The packer gained
+  `--binds` (default `cells_result_sha256`, so the cells command is unchanged) and `--retrieval`. The
+  cells archive was re-packed with it so both manifests record one packer; the gzip came out
+  byte-identical (`39ef65b7…41df`), and only its manifest changed.
+- **Recomputed:** the 384 native block means, transcribing the auditor's `recompute_native`. Their
+  source identities are checked against the IDs the cell rows carry, because the cohort the audit checked
+  them against is not carried. Also recomputed: the native floor calibration, transcribing
+  `calibrate_native_floors` from `phase_crossed_runner.py` (`f9edfd52…3174`); gate 2, native `C_AC` mean
+  `0.2968`, 95% interval `[0.2800, 0.3140]` against the frozen `> +0.05`, PASS; gate 8, now judged
+  against the recomputed floors rather than the cells header's copy; and the audit's two raw-row checks,
+  `raw_native_rows_and_block_arithmetic` and `native_floor_calibration`.
+- **Where the runner's hash comes from:** the audit manifest does not list that module. The freeze
+  package the audit binds (`freeze_package_sha256` `9c0f5591…53e7`) pins it, but the package is not
+  carried, so a clean checkout cannot check that hash. The auditor's `recompute_native` repeats the
+  same floor arithmetic statement for statement, and the audit manifest does pin the auditor.
+- **Compared against:** the audit JSON holds `native_source_c_ac`, gate 2's pass flag, the two raw-row
+  checks, `counts.native_rows`, and gate 8's `native_floor` values, and each is compared with it. It does
+  not hold the native block rows or the full floor calibration. Those are compared with the native
+  result's own copy and with the cells header's copy. The audit binds both by sha256, and it checked
+  both against its own recomputation at `1e-12`.
+- **One encoding is load-bearing.** The floors stratify on `chrom NUL strand`. Gate 2 and every other
+  bootstrap use `chrom:strand`. The two sort differently (`chr1` against `chr10`) and draw different
+  indices. A memorial swaps them and requires the floor comparison to break.
+- **What gate 8's floors can and cannot do.** A floor is `min(0, native lower 95% bound)`. Both native
+  lower bounds are positive (donor `3.577`, acceptor `2.836`), so both floors are exactly `0.0`. The
+  crossed lower bounds are `3.399` and `2.225`, and a floor is never above `0`. On this data, then, no
+  native-row value could have failed gate 8's pass flag. Recomputing the floors verifies the
+  calibration record. It does not test the gate, and the floor memorial is written against the recorded
+  floor value for that reason.
+- **Memorials**, now 15 in `tests/test_c43_crossed_replication_reproduction.py`. The new planted
+  defects:
+  - `+0.05` coupling on one native row breaks gate 2's endpoint, both raw-row checks and both floor
+    records, while no target field moves;
+  - `−0.3` coupling on every native row fails gate 2 and drops the class to `INSTRUMENT_UNRESOLVED`;
+  - `−4` logit units on the native donor margins makes the donor floor negative and breaks gate 8's
+    recorded floor, while its pass flag stays forced;
+  - `chrom:strand` floor strata break the floor calibration, while gate 2 does not move;
+  - swapped source IDs, a coupling inconsistent with its margins by `1e-6`, and re-serialized native
+    bytes are refused before inference.
+
+  Checked by hand and not committed: two mutants that restore the attestation (floors read from the
+  cells header, and native blocks read from the recorded table) each fail at least one of these
+  memorials.
+- **Verified:** in a fresh clone of `origin` at `caa7bf5`, with only R49 and this addendum applied. The
+  `uv` environment was fresh, with `--extra dev` only (Python 3.13.12, numpy 2.5.1), and the script
+  reads only files inside the clone. The reproduction command returned `REPRODUCED_BITWISE`: 33 of 33
+  compared fields bit-identical (R49's 25 plus eight native fields), maximum absolute deviation `0.0`,
+  class `MATERIAL_PREFERENTIAL_POSITIVE`. Other numpy versions and platforms were **not** tested.
+- **Still attestation only, replacing the list above:** the stop-load diagnostics; gate 1; gate 9;
+  gate 10's hash chain, manifests and one-shot chronology; and the per-row source-ID checks against the
+  cohort, for both cell and native rows. The native IDs are checked here against the cell rows, which
+  is a consistency check and not the cohort check.
+
+This addendum supersedes three statements above: the gate-2 and native-floor bullet; the sentence that
+gate 8's floors are read from the cell file's copy; and "gates 3–7 in full, … gate 8 … in part". Since
+this addendum, gates 2–8 are re-derived in full from raw rows. C43's "gates 2–9 survive as recorded
+attestations only" now understates the record further: of those, only gate 9 is still attestation. It is
+still not edited, for the same reason given above.
+
+<a id="r50"></a>
+
+## R50 — the CC/max crossed-register verification stopped at statistical calibration, before model scoring (2026-10-16; draft)
+
+The owner requested a new crossed-register run using the paper's primary
+**AG→CC corruption and max-margin donor readout**, with AC as a bridge to C43 and
+linear margins retained for every cell. The owner then selected **120 nt only**
+and the **342-block motif-clean fallback**, explicitly as outcome-aware operator
+verification, with the **MDE80≤0.05** rule unchanged. The exact messages, census,
+selection and power risk are retained in
+[the new study's decisions](../splicebert_register_operator_replication/DECISIONS.md).
+The preferred fresh cohort had zero balanced capacity under the preserved exclusions.
+The original 384-block C43 row, protocol and artifacts were not modified.
+
+The new study's
+[source-bound v1 freeze](../splicebert_register_operator_replication/protocol_freeze_v1.json)
+has SHA-256 `82bc168e2246dff82519215203e02747f0209c289fa00c3e538613d95573d854`.
+Independent construction and post-freeze smoke checks passed. Full synthetic
+calibration then failed **five-direction simultaneous interval coverage**:
+**83/1,000** null realizations missed at least one known endpoint, exceeding the
+frozen maximum of **71**. The exact binomial 95% CI for that noncoverage rate is
+**[6.665%, 10.185%]**. All other coverage families passed: primary Ψ 62/1,000,
+mismatch 70/1,000, paired operator/readout contrasts 70/1,000, historical linear
+Ψ(AC−AT) 29/1,000, and historical phase-blind linear AC−AT 33/1,000. Full
+positive-decision false positives were 0/1,000; the two planted-signal checks
+passed at 255/256 and 252/256. Those passes do not waive the failed coverage gate.
+
+The [independent audit](../../results/splicebert_register_operator_replication/analysis_v1.audit.json)
+recounted all realizations and independently replayed all **1,000 consumed null
+raw payloads** and **6,000 interval families** at the frozen settings. Payload
+hashes matched, reduced values matched exactly, and the largest interval discrepancy
+was 5.413×10⁻¹⁶. Directional failures split into 51/500 additive and 32/500
+heterogeneous nulls. A finite-stratum variance underestimate is a plausible
+contributor, but neither it nor quantization has been established as the complete
+explanation. No alternative seed, threshold or inference procedure was evaluated.
+
+The audit is **PASS for verification of the stop**, and the run is
+**INSTRUMENT_UNRESOLVED, with `authorized_for_cc=false`**. No model was loaded.
+The 384-block historical AC/linear forward fidelity memorial, native CC controls,
+crossed CC scoring and target inference were not run. Target gate 1 fails the
+calibration prerequisite; gates 2–9 are unmeasured, and there is no target model
+evidence for a gate-10 audit. An audit of the stop cannot be substituted for a
+successful target-evidence audit. The
+[final stopped-run record](../../results/splicebert_register_operator_replication/result_v1.json),
+SHA-256 `1cd6df321679fb649bce5d49562a7a44b9c637c33d71e25ed7fd01e317b1dfc3`,
+therefore records all model endpoints as null.
+
+**Draft C45 records this failed attempt; it does not reclassify C43 or C44.** The
+failure is not a biological null, an inverted preference, evidence of operator
+equivalence, or a period-3 mechanism result. No new Ψ/CI, M0/M+/M−, directional
+bounds, pseudo-control p-value, AC bridge effect, or stop-load/Ψ association is
+available. The paper's L131 paragraph was not replaced by a CC/max result.
+[RESULTS.md](../splicebert_register_operator_replication/RESULTS.md) gives the full
+gate inventory and the wording supported for reporting the stopped attempt.
+
+All failed outputs remain immutable. The full local calibration realization stream
+is bound by SHA-256 `2c941d6d7c2e7a2bf186c2d0223bba5258001baac226bb8188645c1f473e6ead`
+in the calibration manifest; it is about 611 MiB and is excluded from Git. Compact
+results, manifests and the audit are local draft review artifacts, not committed
+or published evidence. A possible finite-stratum correction is documented as an
+**unimplemented, unvalidated candidate**. It would change the inherited inference
+procedure and needs a separate protocol and fresh validation; the consumed v1
+calibration cannot become fresh evidence for a repair. The failed v1 result must
+remain in the record regardless of any later outcome.
+
+<a id="r51"></a>
+
+## R51 — CC/max crossed verification completed, but its frozen resolution gate failed (2026-10-17; draft)
+
+Following the preserved v1 calibration failure in R50/C45, the owner explicitly
+answered **“authorized”** to the separately reviewed A1 inference repair. The
+choices **120 nt only**, **342 motif-clean frozen-cohort blocks**, **CC/max primary**,
+and **MDE80≤0.05** remained fixed. This is outcome-aware operator verification on
+2,394 globally distinct source genes, not a fresh outcome-blind biological replication.
+C43/C44 and the v1 artifacts/claim rows remain unchanged. R50's unexecuted-repair
+statements describe the decision state at that earlier stop.
+
+[A1](../splicebert_register_operator_replication/AMENDMENT_A1.md) applies the
+finite-stratum centered-residual correction only after complete endpoint formation,
+retaining paired endpoint resampling, point estimates, pseudo-control ranks, bootstrap indices
+and every decision threshold. It passed independent design review and one complete
+replay of consumed v1 simulations as development evidence. A new source-bound
+[v2 freeze](../splicebert_register_operator_replication/protocol_freeze_v2.json),
+SHA-256 `f8d443cd1cad29af8ccb47a3c3b16278db8ed738ed0117d1df31ab86284cfd0d`,
+preceded smoke and the single fresh calibration. Fresh family noncoverage counts were
+36/47/56/42/23/18 out of 1,000, each ≤71; full positive-decision false positives were
+0/1,000 (maximum 38 events), and planted checks were 252/256 and 253/256, each ≥216. Independent
+replay verified every null payload and all 6,000 interval families. This is passing
+synthetic validation of the declared procedure, not proof of general nominal coverage.
+
+Before any CC forward, full 384-block historical AC/linear fidelity passed:
+2,268,153 raw checks had zero failures, stored margins/protected log probabilities
+matched exactly, and 12,618 original-method inference fields were bitwise identical.
+Native CC preflight then passed at +0.333075 [0.311516, 0.355360]. The crossed run
+completed all 116,964 requests. The independent raw-measurement audit passed
+2,128,816 checks, and the result auditor reconstructed 125,172 native/crossed
+requests and compared 21,346 numeric inference fields (maximum discrepancy
+2.665×10⁻¹⁵), confirming the gate inventory below.
+
+**Resolution alone fails:** MDE80=**0.064708**, above the unchanged **0.05** limit.
+Construction/prerequisites, native positive control, crossed capability, AC bridge
+negative control, AC/AT robustness, protected MLM health, site health, numerics,
+and independent audit all pass. No gate is unrun. The corrected analytic MDE80 is
+0.064213; the uncorrected analytic diagnostic is 0.061178. Neither is an alternative
+gate, and no seed, cohort, threshold or operator was changed after the outcome.
+The frozen final classification is **`INSTRUMENT_UNRESOLVED`**.
+
+The retained primary measurements are **Ψ=+0.429719 [0.384891, 0.475976]**,
+M0/M+/M−=+0.376054/−0.068210/−0.039119. All five simultaneous directional lower
+bounds are positive (minimum +0.289480); target Ψ exceeds all 99 balanced pseudo
+controls (maximum +0.047619, add-one p=0.01, its floor), with paired excess lower95
++0.392682. Both mismatch-equivalence intervals extend outside ±0.05. Passing those
+pattern checks cannot waive the failed resolution gate or license “only when matched.”
+
+The prespecified AC/max bridge is +0.408252 [0.365822, 0.451663], and selected-cohort
+AC/linear is +0.392826 [0.353274, 0.433231]. The paired CC−AC/max Ψ contrast is
++0.021467 [0.012611, 0.030323] with the four-family simultaneous interval. The bridge-site
+AG→AC/max control is +0.015715 [−0.007279, 0.036435]. These distinct bridge quantities
+are not pooled with the pseudo-label null family. The frozen stop diagnostic gives
+Spearman ρ=−0.136205 (descriptive p=0.011688); high-stop blocks have Ψ=+0.340640
+(n=114) versus +0.474258 (n=228) at or below the canonical median 2/3. This diagnostic
+does not identify phase independently of stop composition.
+
+**Draft C46 records an audited resolution failure with measured endpoints.** It
+licenses no confirmed positive, bounded-null, inverted, operator-equivalence,
+mediation or period-3 mechanism conclusion. The complete
+[report](../splicebert_register_operator_replication/RESULTS.md) gives every endpoint,
+gate, sensitivity and paper-ready wording. The paper's L131 should not present this
+as confirmed CC/max preference; if replaced, it should state the estimate and the
+failed qualification. The following paragraph and conclusion also need that boundary
+if the paper uses the primary operator throughout. The manuscript was not edited.
+
+The [final record](../../results/splicebert_register_operator_replication/result_v2.json),
+SHA-256 `ba3433ab09bbeb2425e8d6b077c25b2ad997ba20f608c360bf367115a8ad8087`, and
+[independent audit](../../results/splicebert_register_operator_replication/analysis_v2.audit.json)
+have complete sibling manifests. Raw requests, both failed and passing calibration
+records, all source/data/checkpoint pins and attempts remain retained. All new evidence
+is local, uncommitted draft material, not a published claim or a replacement for the
+historical record. No additional span, biological cohort, carrier intervention,
+methodological retry, staging, commit or push followed this result.
+
+<a id="r52"></a>
+
+## R52 — Retrospective CC artifact registration (2026-10-17)
+
+The completed CC verification now has a [compact summary and scalar block table](../../results/splicebert_register_operator_replication/canonical/),
+source-bound derivation manifests, an artifact inventory, and entries in the global
+registry. The full execution prose remains byte-identical in
+[RESULTS_DETAIL.md](../splicebert_register_operator_replication/RESULTS_DETAIL.md);
+[RESULTS.md](../splicebert_register_operator_replication/RESULTS.md) is the concise
+entry point. C43/C44 and the C45/C46 rows retain their exact wording and values.
+The 0.05 MDE80 threshold, failed resolution gate, and `INSTRUMENT_UNRESOLVED`
+classification remain unchanged. Registration here is retrospective artifact
+bookkeeping, not a new preregistration or independent biological replication.
+
+Raw CC model requests, construction payloads and synthetic calibration streams
+remain locally preserved and hash-bound but are not included in Git. The compact
+block table permits all six scalar Psi/CI/MDE calculations; it does not supply a
+fresh raw-forward audit or recreate the other gates. Data availability is explicit
+in the [inventory](../../results/splicebert_register_operator_replication/RESULTS_INDEX.md).
+The standalone `gfm-interp`
+supplement ships the same compact bytes, separate from its eight-family full-model
+reproduction contract. No MDE threshold was relaxed and no model was rerun.
+
+<a id="r53"></a>
+
+## R53 — C8's full-deletion coupling is `0.026`, not `0.027` (2026-10-27)
+
+`carrier_dose.json` stores the full deletion of bins 339–345 (`alpha=0.0`) as coupling `0.026459`,
+which rounds to `0.026`. The live record carried `0.027`, which no rounding of the artifact gives.
+C8, `RESULTS.md`, `FINDINGS.md` and `docs/BIOLOGICAL_BRIDGES.md` now read `0.026`. The historical C8
+row in this file's table, the dated `docs/REVIEW_2026-07-22.md`, and five frozen preregistrations that
+quote C8 (`B1_CARRIER_OV_BEHAVIOR_V2`, `DONOR_SIGNATURE`, `P3_CARRIER_CAUSAL_ROLE`, `P3_CLOSURE`,
+`PERIOD3_COMPUTATION`) are not edited; read their `0.027` as `0.026`. No conclusion, gate, or evidence
+level changes.
+
+<a id="r54"></a>
+
+## R54 — `R=0.136` restores all sixteen Layer-0 heads, not a six-head set (2026-10-27)
+
+`run_a10_generator_edges.py` defines the `L0heads_only` condition over
+`[(0, h) for h in range(ad.num_heads)]`. `a10_generator_edges.json` stores
+`mediation.R_L0heads_only_H=0.13585` and `R_L0heads_MLP0_H=0.35552` for that all-16 set.
+`L0_star_heldout={L0H7,H8,H10,H11,H12,H13}` is the held-out load-bearing list from singleton necessity;
+its joint restoration was never measured. `RESULTS.md` attributed `0.136` to the six-head list and is
+corrected. C31 is unaffected.
+
+<a id="r55"></a>
+
+## R55 — artifact self-descriptions and provenance gaps disclosed, one duplicate removed, a latent ratio defect bounded (2026-10-27)
+
+None of the artifacts named here is edited, and no provenance is back-filled.
+
+- **G1 tier label.** `g1_cross_example_transduction.json` records `evidential_tier: "confirmatory"`.
+  C41 is verification tier (R28/R32); the ledger governs.
+- **A11 verdict fields.** `a11_address_geometry.json` records `verdict` =
+  `predominantly_relative_with_modest_absolute_component` and `verdict_raw_script` = `ABSOLUTE`, with
+  a note that the script's label overstates. C32's frozen decision is `MIXED` (R48); the ledger governs.
+- **Duplicate removed.** `development/ablation_scan.manifest.json` records that
+  `ablation_scan_bothstrand.json`, a byte-identical copy, was removed. It had survived and was indexed.
+  It is now deleted and its index row pruned; `ablation_scan.json` holds the same bytes.
+- **No sibling manifest:** `a6_reconcile.json` (C27's `0.986`), `development/ar1_scores_val.json`,
+  `development/ed1_scores_val.json`, and in `results/phase-lattice/` `carrier_provenance.json`,
+  `carrier_subbin.json`, `corpus_spectrum.json`, `dyad_{fpr,real,wavelength}.json`,
+  `fig_phase_data.json`, `fig_report_data.json` and `second_carrier.json`. `sealed_test.manifest.json`
+  has `git_commit: null` and empty inputs and outputs.
+- **Latent ratio defect.** The byte-pinned `circuit.ratio_of_means` and `circuit.gboot_ratio` divide by
+  `max(sum(denominator), 1e-9)`, so a non-positive denominator sum returns about ±1e9 times the
+  numerator instead of the ratio. No committed result value exceeds 1e6 in magnitude, as a clamped
+  point estimate would unless its numerator were near zero. A perturbation inside the outer 2.5% of a
+  bootstrap interval cannot be excluded without per-example rows, which most donor artifacts do not
+  store. `grouped_stats.ratio_of_means` and
+  `grouped_bootstrap_ratio` keep the sign; new code uses them, and `tests/test_ratio_sign.py` pins
+  both behaviours.
+
+<a id="r56"></a>
+
+## R56 — the CC replication cohort is committed; the freezes' DNABERT-2 `einops` dependency is dropped (2026-10-27)
+
+Both CC protocol freezes and the C43 audit (`cohort_sha256`) pin
+`crossed_direct_edge_replication_cohort_v1.json` (48,290,248 bytes, sha256 `478838e6…`). Its only
+copy sat in a session-notes folder outside the repository. It is now committed as
+`results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cohort_v1.json.gz`
+(gzip level 9, no embedded name or time), written by the R49 packer, which refuses any source whose
+sha256 is not the audited one. With the cells and native rows already carried, every input the
+freezes pinned outside the checkout now has committed bytes, except the reference genome and
+annotation pinned in `REPRODUCE.md`; `tests/test_hash_pin_ledger.py` fails if one goes missing. R52's
+statement about the CC study's own raw requests, construction payloads and calibration streams is
+unchanged.
+
+The freezes also pin `pyproject.toml` and `uv.lock` bytes from a checkout that carried an uncommitted
+DNABERT-2 change: an `einops` dependency in the `dnabert` extra, its lock entries, and a rewritten
+comment. That change is dropped from this record and its bytes are not archived. The CC runners,
+analyzers and auditors call `verify_freeze` before running, so they refuse in any tree built from this
+history. The model-free scalar recomputation from the compact block table (R52) does not call it and is
+unaffected; no CC code path imports `einops`. The guard records the two pins as permanent known drift.
+
+<a id="r59"></a>
+
+## R59 — C45, C46 and R50–R52 are committed records; their "draft" and "uncommitted" self-descriptions are retired (2026-10-27)
+
+These records were written while their artifacts were local and unreviewed, and they described
+themselves that way: "draft review material", "have not been committed or published", a "Draft
+licensed statement" column, "(…; draft)" headings, and "local, uncommitted draft material". The same
+wording appears in the CC study's `DECISIONS.md`, `RESULTS_DETAIL.md` and `AMENDMENT_A1.md`. They
+were committed with the Submission 39 consolidation, so those phrases describe their state before
+review, not their standing now.
+
+The headings, introductions and column headers of CLAIMS.md sections 14–15 are updated. The C45 and
+C46 rows are byte-identical, so the row sha256 values the CC study recorded still hold. R50 and R51
+are history and are not edited. `RESULTS_DETAIL.md` is hash-pinned (R52) and `AMENDMENT_A1.md` is a
+frozen protocol amendment; read their "draft" wording through this entry. No number, gate, evidence
+level or the `INSTRUMENT_UNRESOLVED` verdict changes: committed does not mean confirmed.
+
+The two numbers between R56 and this entry are reserved for the DNABERT-2 splice-transfer
+corrections, which land separately.

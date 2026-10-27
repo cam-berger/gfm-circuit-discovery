@@ -82,3 +82,15 @@ results/splicebert_coupling/ic2_calibration_smoke.json
 # R4 Colab distribution archives are reproducible from build_bundle.py; the compact
 # artifacts of record are the reference panel and the result JSON plus their manifests.
 studies/splicebert_acceptor_coupling/colab_r4_package/dist/
+
+# Register-operator calibration retains every synthetic realization locally.
+# Its compact result, manifest, and independent audit bind the full stream hash.
+results/splicebert_register_operator_replication/*.records.jsonl.gz
+
+studies/splicebert_register_operator_replication/planning/*.records.jsonl.gz
+
+# CC model requests and construction payloads remain local, hash-bound runtime data.
+results/splicebert_register_operator_replication/cells_v2.json.gz
+results/splicebert_register_operator_replication/native_v2.json.gz
+results/splicebert_register_operator_replication/historical_fidelity_v2.json.gz
+studies/splicebert_register_operator_replication/planning/execution_construction_v*.json.gz

@@ -34,10 +34,12 @@ Everything not carried — the study's own `CLAIMS.md`/`RESULTS.md`/`DECISIONS.m
 99.4 MB results tree including the 48 MB and 37 MB crossed cohorts — is at:
 
 ```
-commit fd26cc1b   branch codex/intron-exon-phase   (pushed to origin)
+commit fd26cc1b   branch codex/intron-exon-phase   (owner's local clone only; never pushed)
 ```
 
-Retrieve with `git show fd26cc1b:<path>`. Do **not** restore it to the active tree.
+On that clone, retrieve with `git show fd26cc1b:<path>`. Do **not** restore it to the active tree. An
+earlier version of this README, and R45, said the branch was pushed to `origin`; it was not
+([`CORRECTIONS.md` **R49**](../splicebert_partner_selection/CORRECTIONS.md)).
 
 ## What is here, and why
 
@@ -64,7 +66,8 @@ every such occurrence as **chimeric**; see `docs/NOMENCLATURE.md`.
 The controlling artifacts are under
 [`results/splicebert_exon_edge_compatibility/`](../../results/splicebert_exon_edge_compatibility/) —
 12 files, 4.0 MB. Their `script` column in `results/MANIFEST.csv` is blank by design; each sibling
-`*.manifest.json` pins its archived runner by path and sha256.
+`*.manifest.json` pins its archived runner by path and sha256. R49 added four more: C43's raw cell rows
+as a 4.1 MB gzip, its native-source rows as a 0.2 MB gzip, and the two archives' manifests.
 
 ## Known limitation of this archive
 
@@ -73,3 +76,18 @@ branch: that branch's own `.gitignore` excludes the 54 MB replication cell rows 
 shards (256 MB) the two audits recompute from. The headline numbers in `C43` and `C44` are re-derivable
 from the per-block endpoint tables carried **inside** the artifacts; the remaining gates survive as
 recorded attestations. Both ledger rows state this.
+
+**Since R49, C43's target family re-executes from a clean checkout.** The raw rows are carried as
+`crossed_direct_edge_replication_cells.json.gz` and `crossed_direct_edge_replication_native.json.gz`,
+and
+
+```bash
+uv run --extra dev python scripts/splicebert_exon_edge_compatibility/reproduce_crossed_direct_edge_replication.py --out <new path>.json
+```
+
+recomputes `Ψ`, `M0`/`M+`/`M−`, the five simultaneous directional bounds, all 99 pseudo-register
+controls, the add-one `p`, the native floor calibration, and gates 2–8 from them. It checks every
+value against the audit and reproduces it bit for bit. The script transcribes the archived arithmetic
+and does not restore it. What it cannot recompute, including the stop-load diagnostics and gates 1, 9
+and 10, is listed in R49 and its addendum. The auditor itself, and everything for C44, is still not
+re-executable.

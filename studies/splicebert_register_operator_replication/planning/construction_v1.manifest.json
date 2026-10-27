@@ -1,0 +1,52 @@
+{
+  "command": [
+    "/Users/cberg/Library/Application Support/Claude/side-session-notes/local_669c6044-d2c1-4f6d-8cbc-6de10d94c331/preserve_cc_design_evidence.py"
+  ],
+  "config": {
+    "checkpoint_loaded": false,
+    "new_model_outcomes": 0,
+    "receipt": "construction_v1.json"
+  },
+  "created_at_utc": "2026-10-16T18:53:47.524787+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro-2.local",
+    "pid": 72359,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert-register-operator-replication:preserved-design-receipt",
+  "git_commit": "dd24299e70e91424b07962bd03aa407a35bb0fe5",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Library/Application Support/Claude/side-session-notes/local_669c6044-d2c1-4f6d-8cbc-6de10d94c331/cc-design-census/design_construction_certificate.json",
+      "sha256": "53092da9acf25ffc9cf619f4a2439458d3b0eb723e856d7d7d9523237772939b",
+      "size_bytes": 457449
+    },
+    {
+      "path": "/Users/cberg/Library/Application Support/Claude/side-session-notes/local_669c6044-d2c1-4f6d-8cbc-6de10d94c331/preserve_cc_design_evidence.py",
+      "sha256": "7ccd26b31cb2fd403ef0b3b8a327704000eeddf665c058a5509cdf458d060478",
+      "size_bytes": 2016
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/provenance.py",
+      "sha256": "05d3cd48d49a6357f29b72ac1636b23586a11bfb0b059ce97e36f8a9f87ac632",
+      "size_bytes": 3990
+    }
+  ],
+  "notes": [
+    "Verbatim preservation of a model-free design receipt, not a new model experiment.",
+    "Underlying census and source/script/data hashes are embedded in the receipt.",
+    "Large scratch inputs and the reconstruction scripts remain in the user-specified external notes folder.",
+    "This command packages existing calculations; it does not claim to rerun their construction."
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_register_operator_replication/planning/construction_v1.json",
+      "sha256": "53092da9acf25ffc9cf619f4a2439458d3b0eb723e856d7d7d9523237772939b",
+      "size_bytes": 457449
+    }
+  ],
+  "seeds": {},
+  "status": "MODEL_FREE_DESIGN_ONLY_NOT_EXECUTION_AUTHORIZATION"
+}

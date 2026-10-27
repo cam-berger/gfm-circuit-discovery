@@ -94,7 +94,7 @@ def render(documents: list[dict]):
     fig.text(0.080, 0.923, "SpliceBERT.1024nt  ·  Recorded model-internal evidence", fontsize=11,
              color="#596872", va="top")
     titles = ("A  Phase-aligned use of the period-3 carrier",
-              "B  L3H1 address–payload binding",
+              "B  L3H1 address × payload reconstruction",
               "C  Static-ranking faithfulness",
               "D  Period-3 Fourier plane")
     for ax, title in zip(axes.flat, titles):

@@ -1,0 +1,83 @@
+{
+  "command": [
+    "scripts/splicebert_register_operator_replication/plan_power.py",
+    "--audit",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_audit.json",
+    "--out",
+    "studies/splicebert_register_operator_replication/planning/power_v1.json",
+    "--blocks",
+    "288",
+    "336",
+    "342",
+    "348",
+    "350",
+    "360",
+    "366",
+    "384",
+    "420",
+    "480",
+    "576",
+    "768",
+    "960"
+  ],
+  "config": {
+    "blocks": [
+      288,
+      336,
+      342,
+      348,
+      350,
+      360,
+      366,
+      384,
+      420,
+      480,
+      576,
+      768,
+      960
+    ],
+    "checkpoint_loaded": false,
+    "new_model_outcomes": 0,
+    "resolution_limit": 0.05
+  },
+  "created_at_utc": "2026-10-16T18:42:55.788003+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro-2.local",
+    "pid": 68791,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert-register-operator-replication:design-power",
+  "git_commit": "dd24299e70e91424b07962bd03aa407a35bb0fe5",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_audit.json",
+      "sha256": "b2b15d99a87ac758a98fb82eeef1ba322a2813fd7133c119945ef1eee73113ac",
+      "size_bytes": 615345
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_register_operator_replication/plan_power.py",
+      "sha256": "4743e99711899b040c5d5ccfdb60a2b0e521e492a092c66015a4ea4f943c8f87",
+      "size_bytes": 5911
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/provenance.py",
+      "sha256": "05d3cd48d49a6357f29b72ac1636b23586a11bfb0b059ce97e36f8a9f87ac632",
+      "size_bytes": 3990
+    }
+  ],
+  "notes": [
+    "Deterministic analytic calculation; no RNG seed or new data/model call.",
+    "Historical AC/linear values are used only after within-stratum centering."
+  ],
+  "outputs": [
+    {
+      "path": "studies/splicebert_register_operator_replication/planning/power_v1.json",
+      "sha256": "161d2307e6b1ad94e37d6af8263db3f421e6f80ce2209cd056c6166eff5722ad",
+      "size_bytes": 7173
+    }
+  ],
+  "seeds": {},
+  "status": "DESIGN_ONLY_NOT_EXECUTION_AUTHORIZATION"
+}

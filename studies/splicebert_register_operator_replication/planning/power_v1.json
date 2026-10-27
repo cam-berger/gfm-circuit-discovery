@@ -1,0 +1,276 @@
+{
+  "historical_gate_unchanged": true,
+  "historical_recorded_mde80": 0.04976963753538103,
+  "historical_variance": {
+    "blocks": 384,
+    "exact_empirical_bootstrap_mde80": 0.050081282064894685,
+    "exact_empirical_bootstrap_se": 0.017875821850845235,
+    "residual_df": 351,
+    "residual_sd": 0.3663900608927338,
+    "strata": 33,
+    "within_stratum_sse": 47.1188285290644
+  },
+  "limits": [
+    "AC/linear residual variance is a planning proxy, not CC/max-margin evidence.",
+    "No target sign or magnitude is used for selection or threshold tuning.",
+    "Square-root scaling assumes stable stratum proportions and variance.",
+    "This projects the scalar resolution gate, not joint power of all decision criteria.",
+    "No sample size, gate, historical verdict, or execution authorization is changed."
+  ],
+  "minimum_multiple_six_blocks": [
+    {
+      "analytic_mde_scaling": 390,
+      "recorded_mde_scaling": 384,
+      "sd_multiplier": 1.0
+    },
+    {
+      "analytic_mde_scaling": 468,
+      "recorded_mde_scaling": 462,
+      "sd_multiplier": 1.1
+    },
+    {
+      "analytic_mde_scaling": 558,
+      "recorded_mde_scaling": 552,
+      "sd_multiplier": 1.2
+    },
+    {
+      "analytic_mde_scaling": 654,
+      "recorded_mde_scaling": 648,
+      "sd_multiplier": 1.3
+    }
+  ],
+  "model_loaded": false,
+  "new_model_outcomes": 0,
+  "projections": [
+    {
+      "analytic_mde_scaling": [
+        0.05782888336305704,
+        0.06361177169936275,
+        0.06939466003566845,
+        0.07517754837197416
+      ],
+      "blocks": 288,
+      "equal_six_permutation_balance_possible": true,
+      "genes_required": 2016,
+      "recorded_mde_scaling": [
+        0.057469027257044676,
+        0.06321592998274915,
+        0.0689628327084536,
+        0.07470973543415808
+      ]
+    },
+    {
+      "analytic_mde_scaling": [
+        0.05353914256492072,
+        0.0588930568214128,
+        0.06424697107790486,
+        0.06960088533439694
+      ],
+      "blocks": 336,
+      "equal_six_permutation_balance_possible": true,
+      "genes_required": 2352,
+      "recorded_mde_scaling": [
+        0.05320598054894859,
+        0.05852657860384345,
+        0.0638471766587383,
+        0.06916777471363317
+      ]
+    },
+    {
+      "analytic_mde_scaling": [
+        0.05306742286260341,
+        0.05837416514886375,
+        0.06368090743512408,
+        0.06898764972138444
+      ],
+      "blocks": 342,
+      "equal_six_permutation_balance_possible": true,
+      "genes_required": 2394,
+      "recorded_mde_scaling": [
+        0.05273719625200889,
+        0.05801091587720979,
+        0.06328463550241067,
+        0.06855835512761156
+      ]
+    },
+    {
+      "analytic_mde_scaling": [
+        0.05260795600786337,
+        0.05786875160864971,
+        0.06312954720943603,
+        0.06839034281022238
+      ],
+      "blocks": 348,
+      "equal_six_permutation_balance_possible": true,
+      "genes_required": 2436,
+      "recorded_mde_scaling": [
+        0.05228058855593789,
+        0.05750864741153168,
+        0.06273670626712546,
+        0.06796476512271926
+      ]
+    },
+    {
+      "analytic_mde_scaling": [
+        0.05245743222007181,
+        0.057703175442079,
+        0.06294891866408617,
+        0.06819466188609336
+      ],
+      "blocks": 350,
+      "equal_six_permutation_balance_possible": false,
+      "genes_required": 2450,
+      "recorded_mde_scaling": [
+        0.05213100144374834,
+        0.05734410158812318,
+        0.062557201732498,
+        0.06777030187687284
+      ]
+    },
+    {
+      "analytic_mde_scaling": [
+        0.051723725705080874,
+        0.05689609827558897,
+        0.06206847084609705,
+        0.06724084341660513
+      ],
+      "blocks": 360,
+      "equal_six_permutation_balance_possible": true,
+      "genes_required": 2520,
+      "recorded_mde_scaling": [
+        0.05140186061901607,
+        0.05654204668091768,
+        0.06168223274281928,
+        0.0668224188047209
+      ]
+    },
+    {
+      "analytic_mde_scaling": [
+        0.051298008789027336,
+        0.056427809667930075,
+        0.0615576105468328,
+        0.06668741142573553
+      ],
+      "blocks": 366,
+      "equal_six_permutation_balance_possible": true,
+      "genes_required": 2562,
+      "recorded_mde_scaling": [
+        0.05097879284337067,
+        0.05607667212770774,
+        0.061174551412044795,
+        0.06627243069638188
+      ]
+    },
+    {
+      "analytic_mde_scaling": [
+        0.050081282064894685,
+        0.05508941027138416,
+        0.06009753847787362,
+        0.06510566668436309
+      ],
+      "blocks": 384,
+      "equal_six_permutation_balance_possible": true,
+      "genes_required": 2688,
+      "recorded_mde_scaling": [
+        0.04976963753538103,
+        0.05474660128891914,
+        0.05972356504245723,
+        0.06470052879599535
+      ]
+    },
+    {
+      "analytic_mde_scaling": [
+        0.047886864892886065,
+        0.052675551382174675,
+        0.05746423787146328,
+        0.06225292436075189
+      ],
+      "blocks": 420,
+      "equal_six_permutation_balance_possible": true,
+      "genes_required": 2940,
+      "recorded_mde_scaling": [
+        0.04758887572679225,
+        0.052347763299471474,
+        0.057106650872150694,
+        0.06186553844482992
+      ]
+    },
+    {
+      "analytic_mde_scaling": [
+        0.04479406043897822,
+        0.04927346648287605,
+        0.05375287252677386,
+        0.05823227857067169
+      ],
+      "blocks": 480,
+      "equal_six_permutation_balance_possible": true,
+      "genes_required": 3360,
+      "recorded_mde_scaling": [
+        0.04451531709785483,
+        0.048966848807640316,
+        0.05341838051742579,
+        0.05786991222721128
+      ]
+    },
+    {
+      "analytic_mde_scaling": [
+        0.04089119557446356,
+        0.04498031513190992,
+        0.04906943468935627,
+        0.05315855424680263
+      ],
+      "blocks": 576,
+      "equal_six_permutation_balance_possible": true,
+      "genes_required": 4032,
+      "recorded_mde_scaling": [
+        0.04063673888165083,
+        0.044700412769815914,
+        0.048764086657980994,
+        0.052827760546146074
+      ]
+    },
+    {
+      "analytic_mde_scaling": [
+        0.035412814158603256,
+        0.03895409557446358,
+        0.04249537699032391,
+        0.04603665840618423
+      ],
+      "blocks": 768,
+      "equal_six_permutation_balance_possible": true,
+      "genes_required": 5376,
+      "recorded_mde_scaling": [
+        0.03519244819846446,
+        0.038711693018310914,
+        0.04223093783815735,
+        0.045750182658003805
+      ]
+    },
+    {
+      "analytic_mde_scaling": [
+        0.031674183893281554,
+        0.03484160228260971,
+        0.038009020671937864,
+        0.04117643906126602
+      ],
+      "blocks": 960,
+      "equal_six_permutation_balance_possible": true,
+      "genes_required": 6720,
+      "recorded_mde_scaling": [
+        0.031477082586562614,
+        0.03462479084521888,
+        0.03777249910387514,
+        0.0409202073625314
+      ]
+    }
+  ],
+  "resolution_limit": 0.05,
+  "schema": "gfmcd.register_operator_replication.power_plan.v1",
+  "sd_multipliers": [
+    1.0,
+    1.1,
+    1.2,
+    1.3
+  ],
+  "status": "DESIGN_ONLY_NOT_EXECUTION_AUTHORIZATION"
+}

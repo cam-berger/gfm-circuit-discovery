@@ -1,0 +1,91 @@
+{
+  "command": [
+    "scripts/splicebert_register_operator_replication/run_model_v2.py",
+    "--freeze",
+    "studies/splicebert_register_operator_replication/protocol_freeze_v2.json",
+    "--stage",
+    "cells"
+  ],
+  "config": {
+    "batch_size": 16,
+    "inference_method": "finite-stratum-centered-residual-bootstrap-v2",
+    "stage": "cells"
+  },
+  "created_at_utc": "2026-10-17T04:24:57.103427+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro-2.local",
+    "pid": 28369,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "register-operator-v2:cells",
+  "git_commit": "dd24299e70e91424b07962bd03aa407a35bb0fe5",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "studies/splicebert_register_operator_replication/protocol_freeze_v2.json",
+      "sha256": "f8d443cd1cad29af8ccb47a3c3b16278db8ed738ed0117d1df31ab86284cfd0d",
+      "size_bytes": 23433
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_register_operator_replication/run_model_v2.py",
+      "sha256": "be68e012df5487a5d6ac9a2649d12869b8f2dd5efdbd13a66b63e9de4a58d550",
+      "size_bytes": 17166
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/smoke_v2.json",
+      "sha256": "b8b48e49f84849208b50565ed9e4a956509a8f8a730890ddfe85c02c37e468b9",
+      "size_bytes": 10992
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/statistical_calibration_v2.json",
+      "sha256": "e40a2236fbf8289b29e51a5435819d79198b88ea750552a5c8303efa27e2f147",
+      "size_bytes": 23888
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/statistical_calibration_v2.audit.json",
+      "sha256": "c7395eb250bbc67e639906fa52cfa44659c037f10e811badefdb9818bc6c23c6",
+      "size_bytes": 8137
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/historical_fidelity_v2.audit.json",
+      "sha256": "3c9fd8290bfd7f1b74e4b26159f929b17e1f994b909abe706e2dfb06d4c6179e",
+      "size_bytes": 577297
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/native_v2.json.gz",
+      "sha256": "bf2bd4ac4622cf128407fea11d9fab9d18b7774505c620f4dc81961f54f57cda",
+      "size_bytes": 1895868
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_register_operator_replication/planning/execution_construction_v3.json.gz",
+      "sha256": "b5ce021419a00a7624b98e5c6dd7243bf59f34a20222a3f035ac925cb87d77a4",
+      "size_bytes": 1709747
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_register_operator_replication/planning/execution_construction_v3.audit.json",
+      "sha256": "76c50aeee82860d6fbeb8f75e7f4ceea30398efc33d5d83ef0c18afbf573fda9",
+      "size_bytes": 33148
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/cells_v2.attempt.json",
+      "sha256": "519218dc712346711a497ba1033b0a7f13c3a93239113dc659b3b3cf9b6854ee",
+      "size_bytes": 2508
+    }
+  ],
+  "notes": [
+    "Actual input/source bytes are pinned; HEAD alone does not identify this dirty checkout.",
+    "uncompressed_json_sha256=723f068c3fe333d9d431045913b633ff1746576b731e11cb00ea07b4d9a0bbb7"
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/cells_v2.json.gz",
+      "sha256": "521889657aeeac5c822d81c95e7fffb087ed9287dbdb75918830e0c308daa9c9",
+      "size_bytes": 25447707
+    }
+  ],
+  "seeds": {
+    "bootstrap": 20260803
+  },
+  "status": "COMPLETE"
+}

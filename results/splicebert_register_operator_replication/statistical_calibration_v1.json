@@ -1,0 +1,855 @@
+{
+  "acceptance": {
+    "all_passed": false,
+    "checks": {
+      "coverage:bridge_diagnostics": true,
+      "coverage:directions": false,
+      "coverage:historical_phase_blind_ac_minus_at_linear": true,
+      "coverage:historical_psi_ac_minus_at_linear": true,
+      "coverage:mismatch_equivalence": true,
+      "coverage:primary_psi": true,
+      "detect_point05": true,
+      "full_decision_false_positive_rate": true,
+      "material_point15": true,
+      "no_execution_errors": true
+    },
+    "coverage_audit": {
+      "audit_alpha_each": 0.0016666666666666668,
+      "exact_false_failure_each_at_nominal": 0.001541587366992724,
+      "interpretation": "Binomial goodness-of-coverage acceptance; not proof of exact nominal coverage.",
+      "nominal_noncoverage": 0.05,
+      "threshold": 71,
+      "union_bound_false_failure": 0.009249524201956344
+    },
+    "execution_errors": [],
+    "failures": [
+      "coverage:directions"
+    ],
+    "full_decision_false_positive": {
+      "ci95": [
+        0.0,
+        0.0036820838968656708
+      ],
+      "count": 0,
+      "lower95_one_sided": 0.0,
+      "rate": 0.0,
+      "total": 1000,
+      "upper95_one_sided": 0.002991249545095295
+    },
+    "noncoverage_by_family": {
+      "bridge_diagnostics": {
+        "ci95": [
+          0.05497152491916993,
+          0.08761623348928461
+        ],
+        "count": 70,
+        "lower95_one_sided": 0.05718346769429195,
+        "rate": 0.07,
+        "total": 1000,
+        "upper95_one_sided": 0.0847388500018803
+      },
+      "directions": {
+        "ci95": [
+          0.06664893180887888,
+          0.10185329675537563
+        ],
+        "count": 83,
+        "lower95_one_sided": 0.06907630271790087,
+        "rate": 0.083,
+        "total": 1000,
+        "upper95_one_sided": 0.09878166751474009
+      },
+      "historical_phase_blind_ac_minus_at_linear": {
+        "ci95": [
+          0.02282238334945957,
+          0.046033981817023194
+        ],
+        "count": 33,
+        "lower95_one_sided": 0.024248544727076195,
+        "rate": 0.033,
+        "total": 1000,
+        "upper95_one_sided": 0.043878620530371636
+      },
+      "historical_psi_ac_minus_at_linear": {
+        "ci95": [
+          0.01950593732438462,
+          0.041384719116401916
+        ],
+        "count": 29,
+        "lower95_one_sided": 0.020821991694032944,
+        "rate": 0.029,
+        "total": 1000,
+        "upper95_one_sided": 0.0393318759187474
+      },
+      "mismatch_equivalence": {
+        "ci95": [
+          0.05497152491916993,
+          0.08761623348928461
+        ],
+        "count": 70,
+        "lower95_one_sided": 0.05718346769429195,
+        "rate": 0.07,
+        "total": 1000,
+        "upper95_one_sided": 0.0847388500018803
+      },
+      "primary_psi": {
+        "ci95": [
+          0.04786184811336121,
+          0.0787799496610325
+        ],
+        "count": 62,
+        "lower95_one_sided": 0.04992904948382041,
+        "rate": 0.062,
+        "total": 1000,
+        "upper95_one_sided": 0.07603407387212642
+      }
+    },
+    "point05_detection": {
+      "ci95": [
+        0.9784291096474665,
+        0.9999011072027765
+      ],
+      "count": 255,
+      "lower95_one_sided": 0.9816042301137263,
+      "rate": 0.99609375,
+      "total": 256,
+      "upper95_one_sided": 0.9997996556404107
+    },
+    "point15_material": {
+      "ci95": [
+        0.960479243466625,
+        0.9957267275142454
+      ],
+      "count": 252,
+      "lower95_one_sided": 0.9646027819421793,
+      "rate": 0.984375,
+      "total": 256,
+      "upper95_one_sided": 0.9946456816722111
+    }
+  },
+  "attempt_sha256": "c55f5b9c6081e9447bea8d9e2706e28418ba3d68350da912f371bb45cc0d2eab",
+  "classification_counts": {
+    "development": {
+      "BOUNDED_NULL": 128,
+      "DETECTABLE_PREFERENCE_MATERIALITY_UNRESOLVED": 2,
+      "INCONCLUSIVE": 60,
+      "INSTRUMENT_UNRESOLVED": 1,
+      "MATERIAL_PREFERENTIAL_POSITIVE": 1,
+      "ONLY_WHEN_COHERENT_IN_FROZEN_DOMAIN": 64
+    },
+    "null": {
+      "BOUNDED_NULL": 978,
+      "INCONCLUSIVE": 22
+    },
+    "plants": {
+      "point05": {
+        "BOUNDED_NULL": 3,
+        "DETECTABLE_PREFERENCE_MATERIALITY_UNRESOLVED": 12,
+        "INCONCLUSIVE": 233,
+        "INSTRUMENT_UNRESOLVED": 4,
+        "MATERIAL_PREFERENTIAL_POSITIVE": 3,
+        "ONLY_WHEN_COHERENT_IN_FROZEN_DOMAIN": 1
+      },
+      "point15": {
+        "INSTRUMENT_UNRESOLVED": 4,
+        "MATERIAL_PREFERENTIAL_POSITIVE": 16,
+        "ONLY_WHEN_COHERENT_IN_FROZEN_DOMAIN": 236
+      }
+    }
+  },
+  "development_stream_opened": true,
+  "freeze_sha256": "82bc168e2246dff82519215203e02747f0209c289fa00c3e538613d95573d854",
+  "heldout_stream_opened": true,
+  "model_loaded": false,
+  "new_model_outputs": 0,
+  "plant_stream_opened": true,
+  "records": {
+    "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/statistical_calibration_v1.records.jsonl.gz",
+    "sha256": "2c941d6d7c2e7a2bf186c2d0223bba5258001baac226bb8188645c1f473e6ead"
+  },
+  "schema": "gfmcd.register_operator.statistical_calibration.v1",
+  "scope": "Synthetic statistical capability only; actual CC/max variance and model gates remain unmeasured.",
+  "selection_sha256": "3d23980b8f5c13f5c82088ffc6a88fb93d0a5a68c4ed664b1c7c3e69dac04b78",
+  "settings": {
+    "bit_generator": "PCG64",
+    "bootstrap_draws": 20000,
+    "bootstrap_seed": 20260803,
+    "capable_fixture_nominal_mde": 0.035,
+    "development_schedule": [
+      "additive_null",
+      "heterogeneous_null",
+      "plant_point05",
+      "plant_point15"
+    ],
+    "family_names": [
+      "primary_psi",
+      "directions",
+      "mismatch_equivalence",
+      "bridge_diagnostics",
+      "historical_psi_ac_minus_at_linear",
+      "historical_phase_blind_ac_minus_at_linear"
+    ],
+    "fpr_max": 38,
+    "n_blocks": 342,
+    "noncoverage_max_each_family": 71,
+    "plant_deltas": [
+      0.05,
+      0.15
+    ],
+    "plant_success_min": 216,
+    "pseudo_seeds": [
+      2026080401,
+      2026080402,
+      2026080403,
+      2026080404,
+      2026080405,
+      2026080406,
+      2026080407,
+      2026080408,
+      2026080409,
+      2026080410,
+      2026080411,
+      2026080412,
+      2026080413,
+      2026080414,
+      2026080415,
+      2026080416,
+      2026080417,
+      2026080418,
+      2026080419,
+      2026080420,
+      2026080421,
+      2026080422,
+      2026080423,
+      2026080424,
+      2026080425,
+      2026080426,
+      2026080427,
+      2026080428,
+      2026080429,
+      2026080430,
+      2026080431,
+      2026080432,
+      2026080433,
+      2026080434,
+      2026080435,
+      2026080436,
+      2026080437,
+      2026080438,
+      2026080439,
+      2026080440,
+      2026080441,
+      2026080442,
+      2026080443,
+      2026080444,
+      2026080445,
+      2026080446,
+      2026080447,
+      2026080448,
+      2026080449,
+      2026080450,
+      2026080451,
+      2026080452,
+      2026080453,
+      2026080454,
+      2026080455,
+      2026080456,
+      2026080457,
+      2026080458,
+      2026080459,
+      2026080460,
+      2026080461,
+      2026080462,
+      2026080463,
+      2026080464,
+      2026080465,
+      2026080466,
+      2026080467,
+      2026080468,
+      2026080469,
+      2026080470,
+      2026080471,
+      2026080472,
+      2026080473,
+      2026080474,
+      2026080475,
+      2026080476,
+      2026080477,
+      2026080478,
+      2026080479,
+      2026080480,
+      2026080481,
+      2026080482,
+      2026080483,
+      2026080484,
+      2026080485,
+      2026080486,
+      2026080487,
+      2026080488,
+      2026080489,
+      2026080490,
+      2026080491,
+      2026080492,
+      2026080493,
+      2026080494,
+      2026080495,
+      2026080496,
+      2026080497,
+      2026080498,
+      2026080499
+    ],
+    "repetitions": {
+      "development": 256,
+      "null": 1000,
+      "plants": 256
+    },
+    "runtime_packages": {
+      "numpy": "2.5.1",
+      "scipy": "1.18.0",
+      "torch": "2.13.0"
+    },
+    "streams": {
+      "development": 2026101601,
+      "null": 2026101602,
+      "plants": 2026101603
+    },
+    "truth_tolerance": 1e-10
+  },
+  "smoke": {
+    "bootstrap_draws": 512,
+    "checks": [
+      {
+        "classification": "ONLY_WHEN_COHERENT_IN_FROZEN_DOMAIN",
+        "gates": {
+          "construction": true,
+          "corruption_robustness": true,
+          "crossed_lattice_capability": true,
+          "independent_audit": true,
+          "negative_control": true,
+          "numerics": true,
+          "phase_blind_site_health": true,
+          "protected_mlm_health": true,
+          "resolution": true,
+          "source_edge_positive_control": true
+        },
+        "name": "material_preference",
+        "passed": true,
+        "primary": {
+          "analytic_empirical_mde80": 9.674445914319081e-05,
+          "bootstrap_sd": 3.204858945593229e-05,
+          "ci95": [
+            0.14993206751015453,
+            0.1500582508742809
+          ],
+          "mde80": 8.978800872580869e-05,
+          "mean": 0.14999661842981976
+        }
+      },
+      {
+        "classification": "BOUNDED_NULL",
+        "gates": {
+          "construction": true,
+          "corruption_robustness": true,
+          "crossed_lattice_capability": true,
+          "independent_audit": true,
+          "negative_control": true,
+          "numerics": true,
+          "phase_blind_site_health": true,
+          "protected_mlm_health": true,
+          "resolution": true,
+          "source_edge_positive_control": true
+        },
+        "name": "bounded_null",
+        "passed": true,
+        "primary": {
+          "analytic_empirical_mde80": 9.672307941555948e-05,
+          "bootstrap_sd": 3.2041727945460645e-05,
+          "ci95": [
+            -6.791535351011639e-05,
+            5.818572309281999e-05
+          ],
+          "mde80": 8.976878537236917e-05,
+          "mean": -3.400776121352996e-06
+        }
+      },
+      {
+        "classification": "MATERIAL_INVERTED",
+        "gates": {
+          "construction": true,
+          "corruption_robustness": true,
+          "crossed_lattice_capability": true,
+          "independent_audit": true,
+          "negative_control": true,
+          "numerics": true,
+          "phase_blind_site_health": true,
+          "protected_mlm_health": true,
+          "resolution": true,
+          "source_edge_positive_control": true
+        },
+        "name": "material_inversion",
+        "passed": true,
+        "primary": {
+          "analytic_empirical_mde80": 9.674285706003515e-05,
+          "bootstrap_sd": 3.204785189431888e-05,
+          "ci95": [
+            -0.15006794631481168,
+            -0.14994179598159257
+          ],
+          "mde80": 8.978594235752644e-05,
+          "mean": -0.15000340673658583
+        }
+      },
+      {
+        "classification": "DETECTABLE_PREFERENCE_MATERIALITY_UNRESOLVED",
+        "gates": {
+          "construction": true,
+          "corruption_robustness": true,
+          "crossed_lattice_capability": true,
+          "independent_audit": true,
+          "negative_control": true,
+          "numerics": true,
+          "phase_blind_site_health": true,
+          "protected_mlm_health": true,
+          "resolution": true,
+          "source_edge_positive_control": true
+        },
+        "name": "detectable_materiality_unresolved",
+        "passed": true,
+        "primary": {
+          "analytic_empirical_mde80": 9.671318318095382e-05,
+          "bootstrap_sd": 3.203793759442615e-05,
+          "ci95": [
+            0.04993208597103754,
+            0.05005818588866128
+          ],
+          "mde80": 8.975816624442875e-05,
+          "mean": 0.04999659789933098
+        }
+      },
+      {
+        "classification": "DETECTABLE_BOUNDED_SUB_SESOI",
+        "gates": {
+          "construction": true,
+          "corruption_robustness": true,
+          "crossed_lattice_capability": true,
+          "independent_audit": true,
+          "negative_control": true,
+          "numerics": true,
+          "phase_blind_site_health": true,
+          "protected_mlm_health": true,
+          "resolution": true,
+          "source_edge_positive_control": true
+        },
+        "name": "detectable_sub_sesoi",
+        "passed": true,
+        "primary": {
+          "analytic_empirical_mde80": 9.67163960161457e-05,
+          "bootstrap_sd": 3.2039183379051964e-05,
+          "ci95": [
+            0.019932081798712413,
+            0.02005817625257704
+          ],
+          "mde80": 8.97616564610879e-05,
+          "mean": 0.01999659339586894
+        }
+      },
+      {
+        "classification": "INCONCLUSIVE",
+        "gates": {
+          "construction": true,
+          "corruption_robustness": true,
+          "crossed_lattice_capability": true,
+          "independent_audit": true,
+          "negative_control": true,
+          "numerics": true,
+          "phase_blind_site_health": true,
+          "protected_mlm_health": true,
+          "resolution": true,
+          "source_edge_positive_control": true
+        },
+        "name": "conflicting_direction",
+        "passed": true,
+        "primary": {
+          "analytic_empirical_mde80": 9.672103546913968e-05,
+          "bootstrap_sd": 3.2042337613194314e-05,
+          "ci95": [
+            0.1499320836530791,
+            0.15005818208058677
+          ],
+          "mde80": 8.977049343043184e-05,
+          "mean": 0.14999660187297398
+        }
+      },
+      {
+        "classification": "MATERIAL_PREFERENTIAL_POSITIVE",
+        "gates": {
+          "construction": true,
+          "corruption_robustness": true,
+          "crossed_lattice_capability": true,
+          "independent_audit": true,
+          "negative_control": true,
+          "numerics": true,
+          "phase_blind_site_health": true,
+          "protected_mlm_health": true,
+          "resolution": true,
+          "source_edge_positive_control": true
+        },
+        "name": "one_mismatch_fails_equivalence",
+        "passed": true,
+        "primary": {
+          "analytic_empirical_mde80": 9.674625120597792e-05,
+          "bootstrap_sd": 3.2049292866084375e-05,
+          "ci95": [
+            0.18993206289079453,
+            0.1900582682755258
+          ],
+          "mde80": 8.978997941461872e-05,
+          "mean": 0.18999662333064607
+        }
+      },
+      {
+        "name": "exactly_one_mismatch_equivalent",
+        "passed": true
+      },
+      {
+        "classification": "INSTRUMENT_UNRESOLVED",
+        "gates": {
+          "construction": true,
+          "corruption_robustness": true,
+          "crossed_lattice_capability": true,
+          "independent_audit": true,
+          "negative_control": true,
+          "numerics": true,
+          "phase_blind_site_health": true,
+          "protected_mlm_health": true,
+          "resolution": false,
+          "source_edge_positive_control": true
+        },
+        "name": "insufficient_resolution",
+        "passed": true,
+        "primary": {
+          "analytic_empirical_mde80": 0.8087583866853466,
+          "bootstrap_sd": 0.28212311775193033,
+          "ci95": [
+            -0.6666666666666666,
+            0.5
+          ],
+          "mde80": 0.7904021171755996,
+          "mean": 0.0
+        }
+      },
+      {
+        "name": "high_noise_observed_mde",
+        "observed_mde80": 0.7904021171755996,
+        "passed": true
+      },
+      {
+        "name": "misassigned_phase",
+        "passed": true
+      },
+      {
+        "name": "duplicate_phase",
+        "passed": true
+      },
+      {
+        "name": "missing_cell",
+        "passed": true
+      },
+      {
+        "name": "nonfinite_logit",
+        "passed": true
+      },
+      {
+        "classification": "INSTRUMENT_UNRESOLVED",
+        "gates": {
+          "construction": true,
+          "corruption_robustness": true,
+          "crossed_lattice_capability": true,
+          "independent_audit": true,
+          "negative_control": true,
+          "numerics": true,
+          "phase_blind_site_health": true,
+          "protected_mlm_health": false,
+          "resolution": true,
+          "source_edge_positive_control": true
+        },
+        "name": "failed_health",
+        "passed": true
+      },
+      {
+        "accuracy": {
+          "construct_correct": 2592,
+          "probe_pairs": 2592,
+          "retention_ratio": null,
+          "source_correct": 0
+        },
+        "gates": {
+          "construction": true,
+          "corruption_robustness": true,
+          "crossed_lattice_capability": true,
+          "independent_audit": true,
+          "negative_control": true,
+          "numerics": true,
+          "phase_blind_site_health": true,
+          "protected_mlm_health": false,
+          "resolution": true,
+          "source_edge_positive_control": true
+        },
+        "name": "zero_source_accuracy_denominator",
+        "passed": true
+      },
+      {
+        "classification": "INCONCLUSIVE",
+        "name": "failed_historical_sensitivity",
+        "passed": true,
+        "sensitivity": {
+          "bootstrap_sd": [
+            4.020266353189113e-08
+          ],
+          "critical_value": 1.9768058307622962,
+          "lower": [
+            0.1999999483426412
+          ],
+          "means": [
+            0.20000002781550089
+          ],
+          "method": "max-absolute-studentized whole-block bootstrap",
+          "names": [
+            "psi_ac_minus_at_linear"
+          ],
+          "upper": [
+            0.20000010728836057
+          ]
+        }
+      },
+      {
+        "classification": "BOUNDED_NULL",
+        "name": "tied_pseudo",
+        "passed": true,
+        "pseudo": {
+          "control_means": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "exact_add_one_one_sided_p": 1.0,
+          "maximum_control": 0.0,
+          "seeds": [
+            2026080401,
+            2026080402,
+            2026080403,
+            2026080404,
+            2026080405,
+            2026080406,
+            2026080407,
+            2026080408,
+            2026080409,
+            2026080410,
+            2026080411,
+            2026080412,
+            2026080413,
+            2026080414,
+            2026080415,
+            2026080416,
+            2026080417,
+            2026080418,
+            2026080419,
+            2026080420,
+            2026080421,
+            2026080422,
+            2026080423,
+            2026080424,
+            2026080425,
+            2026080426,
+            2026080427,
+            2026080428,
+            2026080429,
+            2026080430,
+            2026080431,
+            2026080432,
+            2026080433,
+            2026080434,
+            2026080435,
+            2026080436,
+            2026080437,
+            2026080438,
+            2026080439,
+            2026080440,
+            2026080441,
+            2026080442,
+            2026080443,
+            2026080444,
+            2026080445,
+            2026080446,
+            2026080447,
+            2026080448,
+            2026080449,
+            2026080450,
+            2026080451,
+            2026080452,
+            2026080453,
+            2026080454,
+            2026080455,
+            2026080456,
+            2026080457,
+            2026080458,
+            2026080459,
+            2026080460,
+            2026080461,
+            2026080462,
+            2026080463,
+            2026080464,
+            2026080465,
+            2026080466,
+            2026080467,
+            2026080468,
+            2026080469,
+            2026080470,
+            2026080471,
+            2026080472,
+            2026080473,
+            2026080474,
+            2026080475,
+            2026080476,
+            2026080477,
+            2026080478,
+            2026080479,
+            2026080480,
+            2026080481,
+            2026080482,
+            2026080483,
+            2026080484,
+            2026080485,
+            2026080486,
+            2026080487,
+            2026080488,
+            2026080489,
+            2026080490,
+            2026080491,
+            2026080492,
+            2026080493,
+            2026080494,
+            2026080495,
+            2026080496,
+            2026080497,
+            2026080498,
+            2026080499
+          ],
+          "target_exceeds_all": false,
+          "target_minus_mean_control": {
+            "lower95": 0.0,
+            "mean": 0.0
+          }
+        }
+      }
+    ],
+    "development_stream_opened": false,
+    "failures": [],
+    "heldout_stream_opened": false,
+    "model_loaded": false,
+    "new_model_outputs": 0,
+    "schema": "gfmcd.register_operator.statistical_calibration.v1",
+    "status": "SMOKE_PASS",
+    "stochastic_calibration_executed": false,
+    "synthetic": true
+  },
+  "status": "INSTRUMENT_UNRESOLVED",
+  "synthetic": true,
+  "wall_seconds": 276.09254533296917
+}

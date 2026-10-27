@@ -1,2 +1,4 @@
 # CSV writers use CRLF; recognize it without normalizing hash-bound artifact bytes.
 *.csv whitespace=trailing-space,space-before-tab,cr-at-eol
+# Retain the trailing blank line in this source-bound frozen construction runner.
+scripts/splicebert_register_operator_replication/build_construction.py whitespace=-blank-at-eof

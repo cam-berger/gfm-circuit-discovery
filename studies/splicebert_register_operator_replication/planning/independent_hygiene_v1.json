@@ -1,0 +1,3470 @@
+{
+  "archive_revision": "fd26cc1b6c107dc8476a4b3d117ae897e2e86437",
+  "block_hygiene": [
+    {
+      "block_id": "replication:chr10:+:b000",
+      "chrom": "chr10",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:+:b001",
+      "chrom": "chr10",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:+:b002",
+      "chrom": "chr10",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:+:b003",
+      "chrom": "chr10",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:+:b004",
+      "chrom": "chr10",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:+:b005",
+      "chrom": "chr10",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:+:b006",
+      "chrom": "chr10",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 0,
+          "role": "acceptors",
+          "source_id": "chr10:17233586-17233682:17233781-17233931:+:ENSG00000026025.18"
+        }
+      ],
+      "unsafe_target_acceptor_phases": [
+        0
+      ]
+    },
+    {
+      "block_id": "replication:chr10:+:b007",
+      "chrom": "chr10",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:+:b008",
+      "chrom": "chr10",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 1,
+          "role": "donors",
+          "source_id": "chr10:113578025-113578145:113578626-113578798:+:ENSG00000148702.17"
+        }
+      ],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:+:b009",
+      "chrom": "chr10",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:+:b010",
+      "chrom": "chr10",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:+:b011",
+      "chrom": "chr10",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:+:b012",
+      "chrom": "chr10",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:+:b013",
+      "chrom": "chr10",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:-:b000",
+      "chrom": "chr10",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:-:b001",
+      "chrom": "chr10",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:-:b002",
+      "chrom": "chr10",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:-:b003",
+      "chrom": "chr10",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:-:b004",
+      "chrom": "chr10",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [
+        {
+          "phase": 1,
+          "role": "donors",
+          "source_id": "chr10:124408740-124408965:124408541-124408634:-:ENSG00000065154.14"
+        }
+      ],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:-:b005",
+      "chrom": "chr10",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:-:b006",
+      "chrom": "chr10",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:-:b007",
+      "chrom": "chr10",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:-:b008",
+      "chrom": "chr10",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:-:b009",
+      "chrom": "chr10",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:-:b010",
+      "chrom": "chr10",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:-:b011",
+      "chrom": "chr10",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr10:-:b012",
+      "chrom": "chr10",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b000",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b001",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 0,
+          "role": "donors",
+          "source_id": "chr11:119069195-119069344:119069429-119069577:+:ENSG00000160695.18"
+        }
+      ],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b002",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b003",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b004",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b005",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 0,
+          "role": "donors",
+          "source_id": "chr11:65850750-65850855:65851057-65851160:+:ENSG00000172803.20"
+        }
+      ],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b006",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b007",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b008",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b009",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b010",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b011",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b012",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b013",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b014",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b015",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b016",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b017",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 0,
+          "role": "donors",
+          "source_id": "chr11:46367290-46367399:46367654-46367747:+:ENSG00000149091.17"
+        }
+      ],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b018",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b019",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b020",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b021",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:+:b022",
+      "chrom": "chr11",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:-:b000",
+      "chrom": "chr11",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:-:b001",
+      "chrom": "chr11",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:-:b002",
+      "chrom": "chr11",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:-:b003",
+      "chrom": "chr11",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:-:b004",
+      "chrom": "chr11",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:-:b005",
+      "chrom": "chr11",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:-:b006",
+      "chrom": "chr11",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:-:b007",
+      "chrom": "chr11",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:-:b008",
+      "chrom": "chr11",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:-:b009",
+      "chrom": "chr11",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:-:b010",
+      "chrom": "chr11",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:-:b011",
+      "chrom": "chr11",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:-:b012",
+      "chrom": "chr11",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:-:b013",
+      "chrom": "chr11",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:-:b014",
+      "chrom": "chr11",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:-:b015",
+      "chrom": "chr11",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:-:b016",
+      "chrom": "chr11",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:-:b017",
+      "chrom": "chr11",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:-:b018",
+      "chrom": "chr11",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr11:-:b019",
+      "chrom": "chr11",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr12:+:b000",
+      "chrom": "chr12",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr12:+:b001",
+      "chrom": "chr12",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr12:+:b002",
+      "chrom": "chr12",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr12:+:b003",
+      "chrom": "chr12",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 1,
+          "role": "donors",
+          "source_id": "chr12:9978965-9979064:9979335-9979524:+:ENSG00000172322.15"
+        }
+      ],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr12:+:b004",
+      "chrom": "chr12",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr12:+:b005",
+      "chrom": "chr12",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr12:+:b006",
+      "chrom": "chr12",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr12:+:b007",
+      "chrom": "chr12",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr12:+:b008",
+      "chrom": "chr12",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr12:-:b000",
+      "chrom": "chr12",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr12:-:b001",
+      "chrom": "chr12",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr12:-:b002",
+      "chrom": "chr12",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr12:-:b003",
+      "chrom": "chr12",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr12:-:b004",
+      "chrom": "chr12",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr12:-:b005",
+      "chrom": "chr12",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr12:-:b006",
+      "chrom": "chr12",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr12:-:b007",
+      "chrom": "chr12",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr12:-:b008",
+      "chrom": "chr12",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr12:-:b009",
+      "chrom": "chr12",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr12:-:b010",
+      "chrom": "chr12",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr14:+:b000",
+      "chrom": "chr14",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr14:+:b001",
+      "chrom": "chr14",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr14:-:b000",
+      "chrom": "chr14",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr14:-:b001",
+      "chrom": "chr14",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 2,
+          "role": "acceptors",
+          "source_id": "chr14:23564045-23564159:23563715-23563853:-:ENSG00000213983.14"
+        }
+      ],
+      "unsafe_target_acceptor_phases": [
+        2
+      ]
+    },
+    {
+      "block_id": "replication:chr15:+:b000",
+      "chrom": "chr15",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr15:+:b001",
+      "chrom": "chr15",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr15:-:b000",
+      "chrom": "chr15",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr15:-:b001",
+      "chrom": "chr15",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr15:-:b002",
+      "chrom": "chr15",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr15:-:b003",
+      "chrom": "chr15",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr15:-:b004",
+      "chrom": "chr15",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b000",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b001",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b002",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b003",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b004",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b005",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b006",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b007",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b008",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b009",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b010",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b011",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b012",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b013",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b014",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 2,
+          "role": "donors",
+          "source_id": "chr16:4335059-4335193:4335271-4335393:+:ENSG00000126603.11"
+        }
+      ],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b015",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b016",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b017",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b018",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b019",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b020",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:+:b021",
+      "chrom": "chr16",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 0,
+          "role": "acceptors",
+          "source_id": "chr16:29804813-29805026:29805120-29805174:+:ENSG00000079616.16"
+        }
+      ],
+      "unsafe_target_acceptor_phases": [
+        0
+      ]
+    },
+    {
+      "block_id": "replication:chr16:-:b000",
+      "chrom": "chr16",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:-:b001",
+      "chrom": "chr16",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:-:b002",
+      "chrom": "chr16",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [
+        {
+          "phase": 2,
+          "role": "acceptors",
+          "source_id": "chr16:48551385-48551482:48550792-48550915:-:ENSG00000102921.10"
+        }
+      ],
+      "unsafe_target_acceptor_phases": [
+        2
+      ]
+    },
+    {
+      "block_id": "replication:chr16:-:b003",
+      "chrom": "chr16",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:-:b004",
+      "chrom": "chr16",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:-:b005",
+      "chrom": "chr16",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:-:b006",
+      "chrom": "chr16",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:-:b007",
+      "chrom": "chr16",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:-:b008",
+      "chrom": "chr16",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:-:b009",
+      "chrom": "chr16",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:-:b010",
+      "chrom": "chr16",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:-:b011",
+      "chrom": "chr16",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:-:b012",
+      "chrom": "chr16",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:-:b013",
+      "chrom": "chr16",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:-:b014",
+      "chrom": "chr16",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:-:b015",
+      "chrom": "chr16",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:-:b016",
+      "chrom": "chr16",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:-:b017",
+      "chrom": "chr16",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr16:-:b018",
+      "chrom": "chr16",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:+:b000",
+      "chrom": "chr17",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:+:b001",
+      "chrom": "chr17",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:+:b002",
+      "chrom": "chr17",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:+:b003",
+      "chrom": "chr17",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:+:b004",
+      "chrom": "chr17",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:+:b005",
+      "chrom": "chr17",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:+:b006",
+      "chrom": "chr17",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:+:b007",
+      "chrom": "chr17",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [
+        {
+          "phase": 0,
+          "role": "acceptors",
+          "source_id": "chr17:16003830-16003887:16004203-16004262:+:ENSG00000011295.18"
+        }
+      ],
+      "unsafe_target_acceptor_phases": [
+        0
+      ]
+    },
+    {
+      "block_id": "replication:chr17:+:b008",
+      "chrom": "chr17",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:+:b009",
+      "chrom": "chr17",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 2,
+          "role": "donors",
+          "source_id": "chr17:32035564-32035639:32036023-32036143:+:ENSG00000185158.15"
+        }
+      ],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:-:b000",
+      "chrom": "chr17",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:-:b001",
+      "chrom": "chr17",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:-:b002",
+      "chrom": "chr17",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:-:b003",
+      "chrom": "chr17",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:-:b004",
+      "chrom": "chr17",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:-:b005",
+      "chrom": "chr17",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:-:b006",
+      "chrom": "chr17",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 0,
+          "role": "acceptors",
+          "source_id": "chr17:64005323-64005373:64005106-64005251:-:ENSG00000108622.13"
+        }
+      ],
+      "unsafe_target_acceptor_phases": [
+        0
+      ]
+    },
+    {
+      "block_id": "replication:chr17:-:b007",
+      "chrom": "chr17",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:-:b008",
+      "chrom": "chr17",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:-:b009",
+      "chrom": "chr17",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:-:b010",
+      "chrom": "chr17",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:-:b011",
+      "chrom": "chr17",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:-:b012",
+      "chrom": "chr17",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr17:-:b013",
+      "chrom": "chr17",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b000",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b001",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b002",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b003",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b004",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b005",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b006",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b007",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b008",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 1,
+          "role": "acceptors",
+          "source_id": "chr19:16093683-16093753:16093981-16094152:+:ENSG00000167460.20"
+        }
+      ],
+      "unsafe_target_acceptor_phases": [
+        1
+      ]
+    },
+    {
+      "block_id": "replication:chr19:+:b009",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b010",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b011",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b012",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b013",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b014",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b015",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b016",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b017",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b018",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 1,
+          "role": "donors",
+          "source_id": "chr19:11120091-11120233:11120372-11120522:+:ENSG00000130164.18"
+        }
+      ],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b019",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b020",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b021",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:+:b022",
+      "chrom": "chr19",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:-:b000",
+      "chrom": "chr19",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:-:b001",
+      "chrom": "chr19",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:-:b002",
+      "chrom": "chr19",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:-:b003",
+      "chrom": "chr19",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:-:b004",
+      "chrom": "chr19",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:-:b005",
+      "chrom": "chr19",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:-:b006",
+      "chrom": "chr19",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:-:b007",
+      "chrom": "chr19",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 0,
+          "role": "acceptors",
+          "source_id": "chr19:3494027-3494104:3493532-3493607:-:ENSG00000129932.12"
+        }
+      ],
+      "unsafe_target_acceptor_phases": [
+        0
+      ]
+    },
+    {
+      "block_id": "replication:chr19:-:b008",
+      "chrom": "chr19",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:-:b009",
+      "chrom": "chr19",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:-:b010",
+      "chrom": "chr19",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:-:b011",
+      "chrom": "chr19",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:-:b012",
+      "chrom": "chr19",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 0,
+          "role": "acceptors",
+          "source_id": "chr19:2767579-2767686:2767135-2767217:-:ENSG00000104969.13"
+        }
+      ],
+      "unsafe_target_acceptor_phases": [
+        0
+      ]
+    },
+    {
+      "block_id": "replication:chr19:-:b013",
+      "chrom": "chr19",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 2,
+          "role": "acceptors",
+          "source_id": "chr19:54178764-54178941:54178142-54178263:-:ENSG00000125505.19"
+        }
+      ],
+      "unsafe_target_acceptor_phases": [
+        2
+      ]
+    },
+    {
+      "block_id": "replication:chr19:-:b014",
+      "chrom": "chr19",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 0,
+          "role": "donors",
+          "source_id": "chr19:9857714-9857855:9857262-9857479:-:ENSG00000105088.11"
+        }
+      ],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:-:b015",
+      "chrom": "chr19",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:-:b016",
+      "chrom": "chr19",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:-:b017",
+      "chrom": "chr19",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr19:-:b018",
+      "chrom": "chr19",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b000",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b001",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b002",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 1,
+          "role": "donors",
+          "source_id": "chr1:6588277-6588442:6588707-6588844:+:ENSG00000204859.15"
+        }
+      ],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b003",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b004",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b005",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b006",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b007",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b008",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b009",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b010",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b011",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b012",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 0,
+          "role": "donors",
+          "source_id": "chr1:119392109-119392268:119392614-119392687:+:ENSG00000116882.17"
+        }
+      ],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b013",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b014",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b015",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b016",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b017",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b018",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 2,
+          "role": "donors",
+          "source_id": "chr1:23793007-23793039:23793126-23793216:+:ENSG00000011009.14"
+        }
+      ],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b019",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b020",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b021",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:+:b022",
+      "chrom": "chr1",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:-:b000",
+      "chrom": "chr1",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:-:b001",
+      "chrom": "chr1",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:-:b002",
+      "chrom": "chr1",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:-:b003",
+      "chrom": "chr1",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:-:b004",
+      "chrom": "chr1",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:-:b005",
+      "chrom": "chr1",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:-:b006",
+      "chrom": "chr1",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:-:b007",
+      "chrom": "chr1",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:-:b008",
+      "chrom": "chr1",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:-:b009",
+      "chrom": "chr1",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:-:b010",
+      "chrom": "chr1",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:-:b011",
+      "chrom": "chr1",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:-:b012",
+      "chrom": "chr1",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:-:b013",
+      "chrom": "chr1",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:-:b014",
+      "chrom": "chr1",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:-:b015",
+      "chrom": "chr1",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:-:b016",
+      "chrom": "chr1",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 2,
+          "role": "acceptors",
+          "source_id": "chr1:228409388-228409411:228409171-228409275:-:ENSG00000162931.14"
+        }
+      ],
+      "unsafe_target_acceptor_phases": [
+        2
+      ]
+    },
+    {
+      "block_id": "replication:chr1:-:b017",
+      "chrom": "chr1",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:-:b018",
+      "chrom": "chr1",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr1:-:b019",
+      "chrom": "chr1",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr22:-:b000",
+      "chrom": "chr22",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr22:-:b001",
+      "chrom": "chr22",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr22:-:b002",
+      "chrom": "chr22",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:+:b000",
+      "chrom": "chr2",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:+:b001",
+      "chrom": "chr2",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:+:b002",
+      "chrom": "chr2",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:+:b003",
+      "chrom": "chr2",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:+:b004",
+      "chrom": "chr2",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 2,
+          "role": "acceptors",
+          "source_id": "chr2:61162841-61162973:61163090-61163232:+:ENSG00000237651.9"
+        }
+      ],
+      "unsafe_target_acceptor_phases": [
+        2
+      ]
+    },
+    {
+      "block_id": "replication:chr2:+:b005",
+      "chrom": "chr2",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:+:b006",
+      "chrom": "chr2",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:+:b007",
+      "chrom": "chr2",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:+:b008",
+      "chrom": "chr2",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:+:b009",
+      "chrom": "chr2",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 1,
+          "role": "acceptors",
+          "source_id": "chr2:85541082-85541160:85541233-85541377:+:ENSG00000168906.15"
+        }
+      ],
+      "unsafe_target_acceptor_phases": [
+        1
+      ]
+    },
+    {
+      "block_id": "replication:chr2:+:b010",
+      "chrom": "chr2",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:+:b011",
+      "chrom": "chr2",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:+:b012",
+      "chrom": "chr2",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:+:b013",
+      "chrom": "chr2",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:+:b014",
+      "chrom": "chr2",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:-:b000",
+      "chrom": "chr2",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:-:b001",
+      "chrom": "chr2",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:-:b002",
+      "chrom": "chr2",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:-:b003",
+      "chrom": "chr2",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:-:b004",
+      "chrom": "chr2",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 0,
+          "role": "donors",
+          "source_id": "chr2:55643318-55643425:55643157-55643207:-:ENSG00000138035.17"
+        }
+      ],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:-:b005",
+      "chrom": "chr2",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:-:b006",
+      "chrom": "chr2",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:-:b007",
+      "chrom": "chr2",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:-:b008",
+      "chrom": "chr2",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:-:b009",
+      "chrom": "chr2",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:-:b010",
+      "chrom": "chr2",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:-:b011",
+      "chrom": "chr2",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr2:-:b012",
+      "chrom": "chr2",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr3:+:b000",
+      "chrom": "chr3",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr3:+:b001",
+      "chrom": "chr3",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr3:+:b002",
+      "chrom": "chr3",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr3:+:b003",
+      "chrom": "chr3",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 1,
+          "role": "donors",
+          "source_id": "chr3:143028339-143028410:143028486-143028646:+:ENSG00000163714.20"
+        }
+      ],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr3:+:b004",
+      "chrom": "chr3",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr3:+:b005",
+      "chrom": "chr3",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr3:+:b006",
+      "chrom": "chr3",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr3:-:b000",
+      "chrom": "chr3",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr3:-:b001",
+      "chrom": "chr3",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr3:-:b002",
+      "chrom": "chr3",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr3:-:b003",
+      "chrom": "chr3",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr3:-:b004",
+      "chrom": "chr3",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr3:-:b005",
+      "chrom": "chr3",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr3:-:b006",
+      "chrom": "chr3",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr3:-:b007",
+      "chrom": "chr3",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr3:-:b008",
+      "chrom": "chr3",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr3:-:b009",
+      "chrom": "chr3",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [
+        {
+          "phase": 1,
+          "role": "donors",
+          "source_id": "chr3:114131264-114131400:114131117-114131165:-:ENSG00000151577.14"
+        }
+      ],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr3:-:b010",
+      "chrom": "chr3",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr4:+:b000",
+      "chrom": "chr4",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr4:+:b001",
+      "chrom": "chr4",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr4:+:b002",
+      "chrom": "chr4",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr4:+:b003",
+      "chrom": "chr4",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr4:+:b004",
+      "chrom": "chr4",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr4:+:b005",
+      "chrom": "chr4",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr4:+:b006",
+      "chrom": "chr4",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr4:-:b000",
+      "chrom": "chr4",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr4:-:b001",
+      "chrom": "chr4",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr4:-:b002",
+      "chrom": "chr4",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr4:-:b003",
+      "chrom": "chr4",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr4:-:b004",
+      "chrom": "chr4",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr5:+:b000",
+      "chrom": "chr5",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr5:+:b001",
+      "chrom": "chr5",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr5:+:b002",
+      "chrom": "chr5",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr5:+:b003",
+      "chrom": "chr5",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr5:+:b004",
+      "chrom": "chr5",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr5:-:b000",
+      "chrom": "chr5",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr5:-:b001",
+      "chrom": "chr5",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr5:-:b002",
+      "chrom": "chr5",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr5:-:b003",
+      "chrom": "chr5",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr5:-:b004",
+      "chrom": "chr5",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr5:-:b005",
+      "chrom": "chr5",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr5:-:b006",
+      "chrom": "chr5",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr5:-:b007",
+      "chrom": "chr5",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr6:+:b000",
+      "chrom": "chr6",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr6:+:b001",
+      "chrom": "chr6",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr6:+:b002",
+      "chrom": "chr6",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr6:+:b003",
+      "chrom": "chr6",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr6:+:b004",
+      "chrom": "chr6",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr6:+:b005",
+      "chrom": "chr6",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 1,
+          "role": "acceptors",
+          "source_id": "chr6:73479935-73480126:73480292-73480367:+:ENSG00000135297.19"
+        }
+      ],
+      "unsafe_target_acceptor_phases": [
+        1
+      ]
+    },
+    {
+      "block_id": "replication:chr6:-:b000",
+      "chrom": "chr6",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr6:-:b001",
+      "chrom": "chr6",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr6:-:b002",
+      "chrom": "chr6",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 2,
+          "role": "acceptors",
+          "source_id": "chr6:52506031-52506136:52505598-52505745:-:ENSG00000065308.7"
+        }
+      ],
+      "unsafe_target_acceptor_phases": [
+        2
+      ]
+    },
+    {
+      "block_id": "replication:chr6:-:b003",
+      "chrom": "chr6",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr6:-:b004",
+      "chrom": "chr6",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr6:-:b005",
+      "chrom": "chr6",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr6:-:b006",
+      "chrom": "chr6",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr6:-:b007",
+      "chrom": "chr6",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr7:+:b000",
+      "chrom": "chr7",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr7:+:b001",
+      "chrom": "chr7",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr7:+:b002",
+      "chrom": "chr7",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr7:+:b003",
+      "chrom": "chr7",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr7:+:b004",
+      "chrom": "chr7",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr7:+:b005",
+      "chrom": "chr7",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr7:+:b006",
+      "chrom": "chr7",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr7:-:b000",
+      "chrom": "chr7",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr7:-:b001",
+      "chrom": "chr7",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr7:-:b002",
+      "chrom": "chr7",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 0,
+          "role": "acceptors",
+          "source_id": "chr7:2216218-2216287:2215884-2215995:-:ENSG00000002822.18"
+        },
+        {
+          "phase": 2,
+          "role": "acceptors",
+          "source_id": "chr7:99762040-99762267:99761464-99761528:-:ENSG00000160868.18"
+        }
+      ],
+      "unsafe_target_acceptor_phases": [
+        0,
+        2
+      ]
+    },
+    {
+      "block_id": "replication:chr7:-:b003",
+      "chrom": "chr7",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [
+        {
+          "phase": 0,
+          "role": "acceptors",
+          "source_id": "chr7:149494203-149494503:149493988-149494067:-:ENSG00000181220.20"
+        }
+      ],
+      "unsafe_target_acceptor_phases": [
+        0
+      ]
+    },
+    {
+      "block_id": "replication:chr7:-:b004",
+      "chrom": "chr7",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr7:-:b005",
+      "chrom": "chr7",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chr7:-:b006",
+      "chrom": "chr7",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:+:b000",
+      "chrom": "chrX",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:+:b001",
+      "chrom": "chrX",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:+:b002",
+      "chrom": "chrX",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:+:b003",
+      "chrom": "chrX",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:+:b004",
+      "chrom": "chrX",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:+:b005",
+      "chrom": "chrX",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:+:b006",
+      "chrom": "chrX",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:+:b007",
+      "chrom": "chrX",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:+:b008",
+      "chrom": "chrX",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [
+        {
+          "phase": 0,
+          "role": "acceptors",
+          "source_id": "chrX:16756662-16756721:16757167-16757309:+:ENSG00000169895.8"
+        }
+      ],
+      "unsafe_target_acceptor_phases": [
+        0
+      ]
+    },
+    {
+      "block_id": "replication:chrX:+:b009",
+      "chrom": "chrX",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:+:b010",
+      "chrom": "chrX",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:+:b011",
+      "chrom": "chrX",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:+:b012",
+      "chrom": "chrX",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:+:b013",
+      "chrom": "chrX",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:+:b014",
+      "chrom": "chrX",
+      "strand": "+",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:+:b015",
+      "chrom": "chrX",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:+:b016",
+      "chrom": "chrX",
+      "strand": "+",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:-:b000",
+      "chrom": "chrX",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:-:b001",
+      "chrom": "chrX",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:-:b002",
+      "chrom": "chrX",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:-:b003",
+      "chrom": "chrX",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:-:b004",
+      "chrom": "chrX",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:-:b005",
+      "chrom": "chrX",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:-:b006",
+      "chrom": "chrX",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:-:b007",
+      "chrom": "chrX",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:-:b008",
+      "chrom": "chrX",
+      "strand": "-",
+      "unsafe_cc_bridge": true,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:-:b009",
+      "chrom": "chrX",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:-:b010",
+      "chrom": "chrX",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:-:b011",
+      "chrom": "chrX",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:-:b012",
+      "chrom": "chrX",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    },
+    {
+      "block_id": "replication:chrX:-:b013",
+      "chrom": "chrX",
+      "strand": "-",
+      "unsafe_cc_bridge": false,
+      "unsafe_native_sources": [],
+      "unsafe_target_acceptor_phases": []
+    }
+  ],
+  "cohort_path": "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_cohort_v1.json",
+  "cohort_sha256": "478838e64a3a3eff2bca5868212852a5b833d0ccf74ff720bb15cd00cf6fd5ca",
+  "counts": {
+    "all_target_and_cc_bridge_clean_blocks": 318,
+    "all_target_and_native_clean_blocks": 350,
+    "all_target_native_and_cc_bridge_clean_blocks": 304,
+    "blocks": 384,
+    "cc_bridge_unsafe_blocks": 51,
+    "native_unsafe_blocks": 34,
+    "native_unsafe_sources": 35,
+    "target_unsafe_blocks": 18,
+    "target_unsafe_modules": 19
+  },
+  "fasta_expected_sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+  "fasta_index_sha256": "3b425de206296a5c8053023fa5ca61da43cfe78c1737c12e58c83367c7e83c21",
+  "fasta_path": "/Users/cberg/Research/data/genomes/hg38.fa",
+  "model_forward_count": 0,
+  "model_loaded": false,
+  "outcomes_read": false,
+  "retained_by_strand": {
+    "target_all_native_and_cc_bridge_clean": {
+      "+": 146,
+      "-": 158
+    },
+    "target_and_all_native_clean_ac_bridge": {
+      "+": 172,
+      "-": 178
+    },
+    "target_clean_only": {
+      "+": 184,
+      "-": 182
+    }
+  },
+  "retained_by_stratum": {
+    "target_all_native_and_cc_bridge_clean": {
+      "chr10:+": 9,
+      "chr10:-": 11,
+      "chr11:+": 18,
+      "chr11:-": 18,
+      "chr12:+": 8,
+      "chr12:-": 7,
+      "chr14:+": 2,
+      "chr14:-": 1,
+      "chr15:+": 1,
+      "chr15:-": 4,
+      "chr16:+": 17,
+      "chr16:-": 16,
+      "chr17:+": 6,
+      "chr17:-": 10,
+      "chr19:+": 18,
+      "chr19:-": 15,
+      "chr1:+": 18,
+      "chr1:-": 18,
+      "chr22:-": 3,
+      "chr2:+": 11,
+      "chr2:-": 11,
+      "chr3:+": 5,
+      "chr3:-": 10,
+      "chr4:+": 6,
+      "chr4:-": 5,
+      "chr5:+": 4,
+      "chr5:-": 6,
+      "chr6:+": 5,
+      "chr6:-": 7,
+      "chr7:+": 5,
+      "chr7:-": 5,
+      "chrX:+": 13,
+      "chrX:-": 11
+    },
+    "target_and_all_native_clean_ac_bridge": {
+      "chr10:+": 12,
+      "chr10:-": 12,
+      "chr11:+": 20,
+      "chr11:-": 20,
+      "chr12:+": 8,
+      "chr12:-": 11,
+      "chr14:+": 2,
+      "chr14:-": 1,
+      "chr15:+": 2,
+      "chr15:-": 5,
+      "chr16:+": 20,
+      "chr16:-": 18,
+      "chr17:+": 8,
+      "chr17:-": 13,
+      "chr19:+": 21,
+      "chr19:-": 15,
+      "chr1:+": 20,
+      "chr1:-": 19,
+      "chr22:-": 3,
+      "chr2:+": 13,
+      "chr2:-": 12,
+      "chr3:+": 6,
+      "chr3:-": 10,
+      "chr4:+": 7,
+      "chr4:-": 5,
+      "chr5:+": 5,
+      "chr5:-": 8,
+      "chr6:+": 5,
+      "chr6:-": 7,
+      "chr7:+": 7,
+      "chr7:-": 5,
+      "chrX:+": 16,
+      "chrX:-": 14
+    },
+    "target_clean_only": {
+      "chr10:+": 13,
+      "chr10:-": 13,
+      "chr11:+": 23,
+      "chr11:-": 20,
+      "chr12:+": 9,
+      "chr12:-": 11,
+      "chr14:+": 2,
+      "chr14:-": 1,
+      "chr15:+": 2,
+      "chr15:-": 5,
+      "chr16:+": 21,
+      "chr16:-": 18,
+      "chr17:+": 9,
+      "chr17:-": 13,
+      "chr19:+": 22,
+      "chr19:-": 16,
+      "chr1:+": 23,
+      "chr1:-": 19,
+      "chr22:-": 3,
+      "chr2:+": 13,
+      "chr2:-": 13,
+      "chr3:+": 7,
+      "chr3:-": 11,
+      "chr4:+": 7,
+      "chr4:-": 5,
+      "chr5:+": 5,
+      "chr5:-": 8,
+      "chr6:+": 5,
+      "chr6:-": 7,
+      "chr7:+": 7,
+      "chr7:-": 5,
+      "chrX:+": 16,
+      "chrX:-": 14
+    }
+  },
+  "schema": "c43.cc_geometry_hygiene_design_audit.v1",
+  "script_sha256": "a753b416789b5a43b3f061c5c4fa2b1d8fe8321308f67f92739286caebe311b8",
+  "verified_hash_counts": {
+    "complete_crossed_cells": 3456,
+    "fragments": 4992,
+    "native_windows": 2304
+  }
+}
