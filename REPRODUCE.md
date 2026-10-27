@@ -29,6 +29,9 @@ loads a model or opens genomic data.
 `verify_records.py`, also standard-library only, verifies every manifest record by content against
 tracked files, recovering records whose files moved. Records that cannot verify from a clean checkout
 are pinned in `tests/data/record_census.json`; pass manifest paths to see one record per line.
+`--pins` checks the same way every pin held outside result manifests (protocol freezes, packages,
+sidecars, attestations), including files inside committed archives; its exceptions are pinned in
+`tests/data/pin_census.json`.
 
 ## 1. Environment
 

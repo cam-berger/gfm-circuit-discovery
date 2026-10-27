@@ -6,7 +6,8 @@ moved, drifted, gone missing, or pointed at another machine, because records sto
 
     write(path, payload, ...)   result JSON (or .json.gz) plus sibling manifest, both exclusive
     bind(path, ...)             manifest for a file the caller just produced
-    verify(manifest_path)       classify every record; never raises (verify_all: many, one index)
+    verify(manifest_path)       classify every record; never raises (verify_all: many, one index;
+                                classify: any record-shaped dicts, e.g. gfmcd.pins)
     resolve(sha256, hint)       find bytes by content: path, tracked file, archive, data roots
 
 New manifests keep the keys ``provenance.ExperimentManifest`` writes (so existing readers work) and
@@ -28,6 +29,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+import tarfile
 import tempfile
 from typing import Any, Iterable, Mapping
 
@@ -111,9 +113,21 @@ def verify(manifest: str | Path, *, repo: str | Path | None = None, tracked_only
     not track, so the answer does not depend on what happens to sit on this disk."""
     root = Path(repo or REPO).resolve()
     index = _shared or _Index(root, tracked_only, data_roots)
-    document = json.loads(Path(manifest).read_text())
+    items = list(_records(json.loads(Path(manifest).read_text())))
+    return Report(_display(Path(manifest).resolve(), root), _classify(items, root, index))
+
+
+def classify(items: Iterable[Mapping], *, repo: str | Path | None = None, tracked_only: bool = False,
+             data_roots: Iterable[str | Path] | None = None) -> tuple[Check, ...]:
+    """Classify record-shaped dicts (``path`` or external ``name``, ``sha256``, optional
+    ``size_bytes``) with one shared index: the same statuses ``verify`` reports."""
+    root = Path(repo or REPO).resolve()
+    return _classify(list(items), root, _Index(root, tracked_only, data_roots))
+
+
+def _classify(items: list, root: Path, index: "_Index") -> tuple[Check, ...]:
     checks = []
-    for item in _records(document):
+    for item in items:
         recorded, sha = item.get("path") or item.get("name"), item["sha256"]
         relative = None if item.get("external") else repo_relative(recorded, root, exists=index.exists)
         if relative is None:
@@ -126,11 +140,14 @@ def verify(manifest: str | Path, *, repo: str | Path | None = None, tracked_only
             checks.append(Check(recorded, sha, "ok", relative))
             continue
         elsewhere = index.find(sha, item.get("size_bytes"))
-        if elsewhere is not None:
+        if isinstance(elsewhere, tuple):  # archived: report where, unpack nothing
+            archive, member = elsewhere
+            checks.append(Check(recorded, sha, "moved", f"{_display(archive, root)}!{member or ''}"))
+        elif elsewhere is not None:
             checks.append(Check(recorded, sha, "moved", _display(elsewhere, root)))
         else:
             checks.append(Check(recorded, sha, "drift" if index.usable(at_path) else "missing"))
-    return Report(_display(Path(manifest).resolve(), root), tuple(checks))
+    return tuple(checks)
 
 
 def verify_all(manifests: Iterable[str | Path] | None = None, *, repo: str | Path | None = None,
@@ -157,6 +174,8 @@ def resolve(sha256: str, hint: str | Path | None = None, *, size_bytes: int | No
         if relative is not None and index.usable(root / relative) and index.sha(root / relative) == sha256:
             return root / relative
     found = index.find(sha256, size_bytes)
+    if isinstance(found, tuple):
+        found = _materialize(found[0], sha256, found[1])
     if found is None and hint is not None:
         found = index.external(_basename(str(hint)), sha256)
     if found is None:
@@ -332,7 +351,7 @@ class _Index:
             if p.is_file():
                 self.by_size.setdefault(p.stat().st_size, []).append(p)
         self.archives = sorted(p for p in self.tracked if p.suffix == ".gz" and p.is_file())
-        self._inflated: dict[Path, str] = {}
+        self._inflated: dict[Path, dict[str, str | None]] = {}
         roots = data_roots if data_roots is not None else filter(
             None, os.environ.get("GFMCD_DATA_ROOTS", "").split(os.pathsep))
         self.data_roots = [Path(r) for r in roots]
@@ -347,7 +366,8 @@ class _Index:
     def sha(self, path: Path) -> str:
         return _hash_file(path)
 
-    def find(self, sha256: str, size: int | None = None) -> Path | None:
+    def find(self, sha256: str, size: int | None = None) -> Path | tuple[Path, str | None] | None:
+        """A tracked file holding these bytes, or ``(archive, member)`` when they are archived."""
         # Identical bytes have identical size, so a known size narrows the search to one bucket.
         sizes = [size] if isinstance(size, int) else sorted(self.by_size)
         for s in sizes:
@@ -356,16 +376,12 @@ class _Index:
                     return p
         return self._from_archive(sha256)
 
-    def _from_archive(self, sha256: str) -> Path | None:
+    def _from_archive(self, sha256: str) -> tuple[Path, str | None] | None:
         for archive in self.archives:
             if archive not in self._inflated:
-                digest = hashlib.sha256()
-                with gzip.open(archive, "rb") as handle:
-                    for chunk in iter(lambda: handle.read(1 << 20), b""):
-                        digest.update(chunk)
-                self._inflated[archive] = digest.hexdigest()
-            if self._inflated[archive] == sha256:
-                return _materialize(archive, sha256)
+                self._inflated[archive] = _archive_contents(archive)
+            if sha256 in self._inflated[archive]:
+                return archive, self._inflated[archive][sha256]
         return None
 
     def external(self, name: str, sha256: str) -> Path | None:
@@ -376,14 +392,41 @@ class _Index:
         return None
 
 
-def _materialize(archive: Path, sha256: str) -> Path:
+def _archive_contents(archive: Path) -> dict[str, str | None]:
+    """sha256 -> member name for a tar archive's regular files, or -> None for a plain gzip."""
+    if archive.name.endswith((".tar.gz", ".tgz")):
+        contents: dict[str, str | None] = {}
+        with tarfile.open(archive, "r:gz") as bundle:
+            for member in bundle:
+                if member.isfile():
+                    digest = hashlib.sha256()
+                    stream = bundle.extractfile(member)
+                    for chunk in iter(lambda: stream.read(1 << 20), b""):
+                        digest.update(chunk)
+                    contents.setdefault(digest.hexdigest(), member.name)
+        return contents
+    digest = hashlib.sha256()
+    with gzip.open(archive, "rb") as handle:
+        for chunk in iter(lambda: handle.read(1 << 20), b""):
+            digest.update(chunk)
+    return {digest.hexdigest(): None}
+
+
+def _materialize(archive: Path, sha256: str, member: str | None = None) -> Path:
+    """Write the archived bytes to the cache (never the tree) and return that path."""
     cache = Path(os.environ.get("GFMCD_CACHE", Path(tempfile.gettempdir()) / "gfmcd-record-cache"))
     target = cache / sha256
     if not (target.is_file() and _hash_file(target) == sha256):
         cache.mkdir(parents=True, exist_ok=True)
         partial = target.with_suffix(".partial")
-        with gzip.open(archive, "rb") as source, partial.open("wb") as sink:
-            for chunk in iter(lambda: source.read(1 << 20), b""):
-                sink.write(chunk)
+        if member is None:
+            with gzip.open(archive, "rb") as source, partial.open("wb") as sink:
+                for chunk in iter(lambda: source.read(1 << 20), b""):
+                    sink.write(chunk)
+        else:
+            with tarfile.open(archive, "r:gz") as bundle, partial.open("wb") as sink:
+                stream = bundle.extractfile(member)
+                for chunk in iter(lambda: stream.read(1 << 20), b""):
+                    sink.write(chunk)
         partial.replace(target)
     return target
