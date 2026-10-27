@@ -99,6 +99,8 @@ arc's sanctioned successor and inherits blacklists and geometry from it, never i
 - **Model:** SpliceBERT.1024nt, post-LayerNorm BERT-MLM (6L × 16H, hidden 512), **absolute learned
   position embeddings** (P=1026), checkpoint sha256 `2ad91428…0149d`. Post-LN ⇒ QKV linear in the
   layer-input residual, which is what makes exact reconstruct-inject possible.
+- **Open models through `gfmcd.models`** (`SPLICEBERT_1024`, `SPLICEBERT_510`, `SPLICEBERT_HUMAN_510`,
+  `DNABERT2`): files are hash-verified before loading; worktrees find weights via `GFMCD_DATA_ROOTS`.
 - **Second model:** DNABERT-2 (`quietflamingo/dnabert2-no-flashattention`, revision `813031b2…31601`,
   12 layers, BPE over nucleotides) behind `src/gfmcd/adapters/dnabert.py`, for the `DBP*` study only.
   Its adapter returns the **12 encoder-layer outputs with no embedding output**, so `hidden_states[i]`

@@ -141,7 +141,9 @@ that the repository-level example layout governed every study.
 
 The donor-arc and register-operator manifests hash the files below. The layout above names the GENCODE
 primary-assembly FASTA, but the hashed genome is UCSC `hg38.fa`; supply bytes that match these digests,
-whatever the file is called. `src/gfmcd/splicing/pbc_frozen_inputs.py` enforces the same four values.
+whatever the file is called. `src/gfmcd/splicing/pbc_frozen_inputs.py` enforces the same four values, and
+`gfmcd.models` verifies every checkpoint file before loading (set `GFMCD_DATA_ROOTS` to the directory
+holding `models/` when the weights are not inside the checkout).
 
 | Input | sha256 |
 |---|---|
