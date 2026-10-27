@@ -53,6 +53,13 @@ uv run --locked --extra splicebert --extra biology --extra dev pytest -ra \
   tests/test_acceptor_inverse_coupling_attestations.py
 ```
 
+C36's confirmatory analysis re-executes without a model from the committed shard archive. The command
+stages each package-pinned input by sha256 in a temporary directory, and requires byte-identical output:
+
+```bash
+uv run --locked --extra splicebert --extra dev python scripts/splicebert/replay_p3_phase_surgery_confirmation.py
+```
+
 Use `PYTHONHASHSEED=0` for cohort construction and any shuffle or selection path whose manifest declares
 determinism. Use `TOKENIZERS_PARALLELISM=false` for model runs when deterministic, quiet tokenization is
 required.
@@ -126,6 +133,17 @@ Historical manifests do not use one uniform path convention: some record the ori
 path, and the studies use both GENCODE v50 basic and comprehensive annotations. Those annotations are
 not interchangeable. Compare the input name and hash in the controlling manifest rather than assuming
 that the repository-level example layout governed every study.
+
+The donor-arc and register-operator manifests hash the files below. The layout above names the GENCODE
+primary-assembly FASTA, but the hashed genome is UCSC `hg38.fa`; supply bytes that match these digests,
+whatever the file is called. `src/gfmcd/splicing/pbc_frozen_inputs.py` enforces the same four values.
+
+| Input | sha256 |
+|---|---|
+| SpliceBERT.1024nt `pytorch_model.bin` | `2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d` |
+| `hg38.fa` | `5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51` |
+| `gencode.v50.basic.annotation.gtf.gz` | `5b9ad9aa71f6ab5d55123c51f74723644a895bc0cbaa9cee8fbc11bb9dec0bf7` |
+| `gencode.v50.annotation.gtf.gz` (comprehensive) | `83fba3e9b03f0b8c958f3595c6c350adc55f468abf8b0e47b6d5284cfe13a453` |
 
 ### 2.2 Six limits on exact reproduction — read before comparing numbers
 

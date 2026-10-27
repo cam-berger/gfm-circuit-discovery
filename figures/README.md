@@ -50,7 +50,10 @@ and ledgers before using a figure in a manuscript.
 | Submission 39 Fig. 3 (manuscript asset, not stored here) | [make_paper_fig3.py](../scripts/splicebert/make_paper_fig3.py) |
 
 The Submission 39 Fig. 2 renderer corrects the published raster, whose original renderer is lost. It
-keeps panel A (two labels moved), repaints part of B, and redraws C–E from recorded artifacts. Panels D–E read
+keeps panel A (two labels moved), repaints part of B, and redraws C–E from recorded artifacts. It needs
+that published raster as `--base` (sha256 `f4a0472d4f68de07ea77fda9a4a4281fab62f4ed2806dc77510267493cfd73d5`,
+the 2026-10-05 manuscript Fig. 2), which is a manuscript asset and is not stored here, so this renderer
+cannot run from a clean checkout. Panels D–E read
 [`live_attention_val_window.json`](splicebert/viz/live_attention_val_window.json), one masked-donor
 validation window exported by
 [export_short_intron_attention.py](../scripts/splicebert/export_short_intron_attention.py)
