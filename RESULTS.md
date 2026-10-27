@@ -324,7 +324,7 @@ table is provenance, not a current scientific verification:
 - A4 is superseded by A11/C32, but A11's frozen classifier, post-hoc result wording, and manifest remain
   inconsistent; use the bounded geometry description above.
 - A6 is no longer unrun; C27 and C33 now define the injectability/faithfulness boundary.
-- The live ledger now extends through C46 plus IC1/ED1 and permanent corrections R1--R56.
+- The live ledger now extends through C46 plus IC1/ED1 and permanent corrections R1--R59.
 - “Information-specific circuit” is overstrong after C38/C41.
 - `U_info` does not license paired-intron semantics or donor identity.
 - The prior 120-pass/33-skip test baseline is obsolete; the current baseline is 1,023/22.

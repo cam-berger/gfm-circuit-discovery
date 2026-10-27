@@ -1,7 +1,7 @@
 # SpliceBERT findings of record
 
 This is the concise scientific narrative for the donor-circuit study. Exact live wording is controlled by
-[`CLAIMS.md`](CLAIMS.md); full superseded narratives and R1–R56 are preserved in
+[`CLAIMS.md`](CLAIMS.md); full superseded narratives and R1–R59 are preserved in
 [`CORRECTIONS.md`](CORRECTIONS.md). The repository-level [`../../MECHANISM.md`](../../MECHANISM.md) is the
 one-file reviewer account.
 

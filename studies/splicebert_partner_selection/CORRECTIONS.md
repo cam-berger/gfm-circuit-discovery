@@ -1650,3 +1650,23 @@ comment. That change is dropped from this record and its bytes are not archived.
 analyzers and auditors call `verify_freeze` before running, so they refuse in any tree built from this
 history. The model-free scalar recomputation from the compact block table (R52) does not call it and is
 unaffected; no CC code path imports `einops`. The guard records the two pins as permanent known drift.
+
+<a id="r59"></a>
+
+## R59 — C45, C46 and R50–R52 are committed records; their "draft" and "uncommitted" self-descriptions are retired (2026-10-27)
+
+These records were written while their artifacts were local and unreviewed, and they described
+themselves that way: "draft review material", "have not been committed or published", a "Draft
+licensed statement" column, "(…; draft)" headings, and "local, uncommitted draft material". The same
+wording appears in the CC study's `DECISIONS.md`, `RESULTS_DETAIL.md` and `AMENDMENT_A1.md`. They
+were committed with the Submission 39 consolidation, so those phrases describe their state before
+review, not their standing now.
+
+The headings, introductions and column headers of CLAIMS.md sections 14–15 are updated. The C45 and
+C46 rows are byte-identical, so the row sha256 values the CC study recorded still hold. R50 and R51
+are history and are not edited. `RESULTS_DETAIL.md` is hash-pinned (R52) and `AMENDMENT_A1.md` is a
+frozen protocol amendment; read their "draft" wording through this entry. No number, gate, evidence
+level or the `INSTRUMENT_UNRESOLVED` verdict changes: committed does not mean confirmed.
+
+The two numbers between R56 and this entry are reserved for the DNABERT-2 splice-transfer
+corrections, which land separately.
