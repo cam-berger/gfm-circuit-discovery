@@ -67,6 +67,7 @@ REFERENCE_DEFINITION = re.compile(r"^\s*\[[^\]]+]:\s*(?:<([^>]+)>|(\S+))", re.M)
 HEADING = re.compile(r"^\s{0,3}#{1,6}\s+(.+?)\s*#*\s*$", re.M)
 HTML_ANCHOR = re.compile(r"""<(?:a\s+(?:name|id)|[^>]+\sid)=["']([^"']+)["']""", re.I)
 EXTERNAL_PREFIXES = ("http://", "https://", "mailto:", "doi:", "ftp:", "data:", "javascript:")
+SHA256_HEX = re.compile(r"[0-9a-f]{64}")
 
 
 def _tracked_markdown() -> list[Path]:
@@ -127,9 +128,42 @@ def _walk_dicts(value):
             yield from _walk_dicts(child)
 
 
+def _sha256_bound_paths() -> set[str]:
+    """Every path a tracked ``*.manifest.json`` binds to a sha256, as recorded (often absolute)."""
+    manifests = subprocess.run(
+        ["git", "ls-files", "*.manifest.json"],
+        cwd=REPO,
+        capture_output=True,
+        text=True,
+        check=True,
+    ).stdout.splitlines()
+    bound: set[str] = set()
+    for manifest in manifests:
+        if not (REPO / manifest).is_file():
+            continue
+        for record in _walk_dicts(json.loads((REPO / manifest).read_text())):
+            if isinstance(record.get("path"), str) and SHA256_HEX.fullmatch(str(record.get("sha256", ""))):
+                bound.add(record["path"])
+    return bound
+
+
+def _is_sealed_local_payload(target: Path, bound: set[str]) -> bool:
+    """A missing link target is legitimate only if git ignores it by design and a committed
+    manifest binds its bytes by sha256, so a reader who obtains the file can authenticate it."""
+    try:
+        relative = target.relative_to(REPO).as_posix()
+    except ValueError:
+        return False
+    ignored = subprocess.run(
+        ["git", "check-ignore", "-q", "--no-index", "--", relative], cwd=REPO
+    ).returncode == 0
+    return ignored and any(path == relative or path.endswith("/" + relative) for path in bound)
+
+
 def test_internal_markdown_links_and_anchors_resolve() -> None:
     failures: list[str] = []
     anchor_cache: dict[Path, set[str]] = {}
+    bound_paths: set[str] | None = None
     for source in _tracked_markdown():
         for raw in _local_links(source):
             if raw.startswith("<") and raw.endswith(">"):
@@ -142,7 +176,10 @@ def test_internal_markdown_links_and_anchors_resolve() -> None:
             target_text = unquote(target_text).split("?", 1)[0]
             target = (source if not target_text else source.parent / target_text).resolve()
             if not target.exists():
-                failures.append(f"{source.relative_to(REPO)} -> {raw}: missing target")
+                if bound_paths is None:
+                    bound_paths = _sha256_bound_paths()
+                if not _is_sealed_local_payload(target, bound_paths):
+                    failures.append(f"{source.relative_to(REPO)} -> {raw}: missing target")
                 continue
             if anchor and target.suffix.lower() == ".md":
                 known = anchor_cache.setdefault(target, _anchors(target))
@@ -150,6 +187,17 @@ def test_internal_markdown_links_and_anchors_resolve() -> None:
                     failures.append(f"{source.relative_to(REPO)} -> {raw}: missing anchor")
 
     assert not failures, "Broken local Markdown links:\n  " + "\n  ".join(failures)
+
+
+def test_sealed_local_payload_rule_requires_both_ignore_and_sha256_binding() -> None:
+    bound = _sha256_bound_paths()
+    cc_results = REPO / "results/splicebert_register_operator_replication"
+    # Ignored by design and bound by sha256 in cells_v2.manifest.json: a legitimate dead link.
+    assert _is_sealed_local_payload(cc_results / "cells_v2.json.gz", bound)
+    # Ignored (`*.records.jsonl.gz`) but bound by no manifest: still a broken link.
+    assert not _is_sealed_local_payload(cc_results / "unbound.records.jsonl.gz", bound)
+    # Not ignored: a typo or a deleted file, never excused.
+    assert not _is_sealed_local_payload(cc_results / "cells_v2.json", bound)
 
 
 def test_hash_pinned_protocol_documents_still_match_their_manifests() -> None:

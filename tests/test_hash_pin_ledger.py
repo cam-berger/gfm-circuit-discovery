@@ -35,6 +35,7 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+import subprocess
 
 import pytest
 
@@ -208,6 +209,50 @@ def test_repaired_pins_still_verify() -> None:
             f"(pin {e['recorded_sha256'][:12]}..., now {current[:12]}...). "
             "This document was repaired on 2026-08-14 and has since been edited again."
         )
+
+
+REGISTER_OPERATOR_FREEZES = {
+    "studies/splicebert_register_operator_replication/protocol_freeze_v1.json": 45,
+    "studies/splicebert_register_operator_replication/protocol_freeze_v2.json": 88,
+}
+# In-repo pins of those freezes known not to match this tree, each with its reason. Same contract
+# as the C36 ledger: a new drift fails, and so does an entry that verifies again.
+REGISTER_OPERATOR_KNOWN_DRIFT = {
+    "pyproject.toml": "frozen in a checkout carrying the uncommitted DNABERT-2 `einops` extra",
+    "uv.lock": "frozen in a checkout carrying the uncommitted DNABERT-2 `einops` extra",
+}
+
+
+def _git_ignores(relative: str) -> bool:
+    return subprocess.run(
+        ["git", "check-ignore", "-q", "--no-index", "--", relative], cwd=REPO
+    ).returncode == 0
+
+
+@pytest.mark.parametrize("freeze", sorted(REGISTER_OPERATOR_FREEZES))
+def test_register_operator_freeze_code_pins_match_the_tree(freeze: str) -> None:
+    """`verify_freeze` refuses to run a frozen CC runner if any pinned file changed, but only at
+    execution time. Check the real freezes here so an edit to pinned library code fails pytest."""
+    pins = json.loads((REPO / freeze).read_text())["files"]
+    drift: set[str] = set()
+    verified = 0
+    for name, recorded in pins.items():
+        if Path(name).is_absolute() or name.startswith(".claude/"):
+            continue  # outside this checkout: genome, session inputs, another worktree
+        path = REPO / name
+        if not path.is_file():
+            if not (_git_ignores(name) or any(m in name for m in MODEL_PATH_MARKERS)):
+                drift.add(name)  # a tracked input that disappeared, not environment
+            continue
+        if _sha256(path) == recorded:
+            verified += 1
+        else:
+            drift.add(name)
+    assert drift == set(REGISTER_OPERATOR_KNOWN_DRIFT), (
+        f"{freeze}: unexpected drift {sorted(drift - set(REGISTER_OPERATOR_KNOWN_DRIFT))}; "
+        f"verifies again {sorted(set(REGISTER_OPERATOR_KNOWN_DRIFT) - drift)}"
+    )
+    assert verified >= REGISTER_OPERATOR_FREEZES[freeze], f"{freeze}: only {verified} pins checkable"
 
 
 def test_no_unpinned_atlas_protocol_doc_silently_joined_the_set() -> None:
