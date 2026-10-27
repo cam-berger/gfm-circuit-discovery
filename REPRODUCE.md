@@ -16,14 +16,19 @@ With Python 3.10 or newer and Git available, run this read-only check from the r
 
 ```bash
 python3 scripts/verify_manifest.py
+python3 scripts/verify_records.py
 ```
 
-This uses only the Python standard library. It checks result-index coverage, CSV/JSON agreement,
+`verify_manifest.py` uses only the Python standard library. It checks result-index coverage, CSV/JSON agreement,
 declared status and polarity, and referenced paths. It does not validate scientific values or supply
 missing historical manifests. The [reciprocal masked-acceptor review command](#reciprocal-masked-acceptor-record)
 below also uses only the standard library and authenticates the compact attestations against their
 archived bytes. Both commands work offline once the required Git objects and tags are present; neither
 loads a model or opens genomic data.
+
+`verify_records.py`, also standard-library only, verifies every manifest record by content against
+tracked files, recovering records whose files moved. Records that cannot verify from a clean checkout
+are pinned in `tests/data/record_census.json`; pass manifest paths to see one record per line.
 
 ## 1. Environment
 

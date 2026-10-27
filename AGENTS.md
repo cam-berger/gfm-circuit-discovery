@@ -26,7 +26,7 @@ This is a method-first mechanistic-interpretability repository. SpliceBERT is th
 
 - Active SpliceBERT code belongs under `scripts/splicebert/`, `src/gfmcd/splicing/`, or the reusable adapter/circuit packages. Each study owns its own `scripts/<study>/` tree; do not add a second study's runners to `scripts/splicebert/`.
 - A new GFM gets an adapter under `src/gfmcd/adapters/` and a study directory created from `studies/TEMPLATE_REAL_GFM_STUDY/`.
-- Every result-producing run writes immutable machine-readable output plus a manifest containing checkpoint, data, parameters, seed, code revision, and command.
+- Every result-producing run writes immutable machine-readable output plus a manifest containing checkpoint, data, parameters, seed, code revision, and command. New runners write it with `gfmcd.record.write`/`bind`; never hand-roll a manifest or record an absolute in-repo path.
 - Figures must be generated from recorded artifacts and declare their sources.
 - New interval, sign-flip, and Holm code uses `gfmcd.inference` (`GroupedSample`, `holm`), naming its weighting. Do not write another bootstrap, and do not clamp a ratio's denominator; pinned and protocol-cited copies stay as they are.
 - Update the study claim ledger when evidence changes status. A summary document may point to the ledger but may not supersede it silently.

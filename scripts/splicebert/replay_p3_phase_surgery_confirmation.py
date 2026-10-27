@@ -18,7 +18,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 import shutil
 import subprocess
 import sys
@@ -26,12 +26,15 @@ import tarfile
 import tempfile
 
 REPO = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO / "src"))
+
+from gfmcd import record  # noqa: E402
+
 ANALYZER = REPO / "scripts/splicebert/analyze_p3_phase_surgery_confirmation.py"
 PACKAGE = "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json"
 AUDIT = "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.audit.json"
 RUN_DIR = "results/phase-lattice/p3_phase_surgery_confirmation_v1"
 TARGET = f"{RUN_DIR}/confirmation_analysis.json"
-SEARCH_ROOT = "results/phase-lattice"
 
 
 def sha256(path: Path) -> str:
@@ -42,23 +45,18 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def locate(record: dict) -> Path:
-    """The committed file holding a pinned record's bytes: its pinned path, else any same-hash file."""
-    pinned = REPO / record["path"]
-    if pinned.is_file() and sha256(pinned) == record["sha256"]:
-        return pinned
-    for candidate in sorted((REPO / SEARCH_ROOT).rglob(PurePosixPath(record["path"]).name)):
-        if candidate.is_file() and sha256(candidate) == record["sha256"]:
-            return candidate
-    raise FileNotFoundError(f"no committed file matches {record['path']} ({record['sha256'][:12]})")
+def locate(pin: dict) -> Path:
+    """The committed file holding a pinned record's bytes, found by content (tracked files only)."""
+    return record.resolve(pin["sha256"], hint=pin["path"], size_bytes=pin.get("size_bytes"),
+                          repo=REPO, tracked_only=True)
 
 
 def stage(root: Path) -> None:
     package = json.loads((REPO / PACKAGE).read_text())
-    for record in package["source_artifacts"].values():
-        destination = root / record["path"]
+    for pin in package["source_artifacts"].values():
+        destination = root / pin["path"]
         destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(locate(record), destination)
+        shutil.copyfile(locate(pin), destination)
     run_dir = root / RUN_DIR
     run_dir.mkdir(parents=True, exist_ok=True)
     for name in ("run_complete.json", "primary_manifest.json", "direction_control_manifest.json",

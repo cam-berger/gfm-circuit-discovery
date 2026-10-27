@@ -112,9 +112,10 @@ arc's sanctioned successor and inherits blacklists and geometry from it, never i
   `DBP*` study has **none**, see DBPR8). `src/gfmcd/{splicing,circuits,adapters}/` hold the assays,
   reusable primitives and model access; `src/gfmcd/dnabert/` holds the DNABERT-2 dataset and
   perturbation utilities.
-- **Every new result writes a sibling `*.manifest.json`.** Use
-  `gfmcd.provenance.ExperimentManifest`, or the DNABERT-2 wrapper
-  `gfmcd.dnabert.write_run_manifest`. Most historical frozen DNABERT-2 artifacts predate that wiring;
+- **Every new result writes a sibling `*.manifest.json`.** Use `gfmcd.record.write`/`bind`: exclusive
+  writes, repo-relative paths, code and model bound by sha256; `python3 scripts/verify_records.py`
+  checks any manifest by content. Historical runners keep `gfmcd.provenance.ExperimentManifest` or the
+  DNABERT-2 wrapper `gfmcd.dnabert.write_run_manifest`. Most historical frozen DNABERT-2 artifacts predate that wiring;
   their blank manifest fields are disclosed rather than back-filled. The notebook-only fine-tuned
   extension was archived under DBPR12. Never invent provenance for a run whose conditions were not
   captured.
