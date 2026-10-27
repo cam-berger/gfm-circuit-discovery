@@ -1,0 +1,125 @@
+{
+  "command": [
+    "scripts/splicebert_register_operator_replication/run_smoke_v2.py",
+    "--freeze",
+    "studies/splicebert_register_operator_replication/protocol_freeze_v2.json"
+  ],
+  "config": {},
+  "created_at_utc": "2026-10-17T02:03:53.927847+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro-2.local",
+    "pid": 21758,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "register-operator:smoke-v2",
+  "git_commit": "dd24299e70e91424b07962bd03aa407a35bb0fe5",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "studies/splicebert_register_operator_replication/protocol_freeze_v2.json",
+      "sha256": "f8d443cd1cad29af8ccb47a3c3b16278db8ed738ed0117d1df31ab86284cfd0d",
+      "size_bytes": 23433
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_register_operator_replication/run_smoke_v2.py",
+      "sha256": "75d595aa96b6f0954459abb4fcb59734a563829abceae8899dd69aa4e96be74d",
+      "size_bytes": 2840
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/tests/test_register_operator_calibration_v2.py",
+      "sha256": "0e9b0665d917933d1fda261a24801fe45594621cecd11b0a88bc212365c6e9e1",
+      "size_bytes": 5555
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/tests/test_register_operator_cc_measurement_audit.py",
+      "sha256": "1ab5a9ca9f3045ebd0907f5e47b04c4296a43d88b522ec87f92e3450a22a5cbd",
+      "size_bytes": 14074
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/tests/test_register_operator_cc_measurement_v2_audit.py",
+      "sha256": "a0fe62854cf6ef5e21cd38454bc62777a6f7198361651c29feb9c8efcee6cb11",
+      "size_bytes": 19631
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/tests/test_register_operator_construction_audit.py",
+      "sha256": "337372825766cfc96976c12411668a543370434a8f795bc28ed60622075dc9f4",
+      "size_bytes": 18404
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/tests/test_register_operator_execution_receipts_v2.py",
+      "sha256": "eeb121436645c4aae3ba609715f4459985dfdefe00d07e58c73144585c422fd4",
+      "size_bytes": 15078
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/tests/test_register_operator_fidelity_audit.py",
+      "sha256": "e3e9b751b4ce23dd2ac79e8043b1a383baf30730cb5b1442bf4f42457697e4db",
+      "size_bytes": 16143
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/tests/test_register_operator_measurement.py",
+      "sha256": "adec6019652f223400222c85adffc7c1eaa9f47dcf84430b97fd5fe07a783c0f",
+      "size_bytes": 6238
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/tests/test_register_operator_power_plan.py",
+      "sha256": "4d881eaf6932b7cfc1196bca7a9db08ebb4be20be279b0bd5463a156103ca1cc",
+      "size_bytes": 1851
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/tests/test_register_operator_repair_design.py",
+      "sha256": "8ba27fb701095850fdcf2972067bd413d42aa7e9d9b90b2bbac8a867a1c30eb1",
+      "size_bytes": 10736
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/tests/test_register_operator_result_audit.py",
+      "sha256": "daaa179683db75c814a5c698cff85dd507e9dd64fa95001aefbdb57ab44c28d3",
+      "size_bytes": 6897
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/tests/test_register_operator_result_v2_audit.py",
+      "sha256": "b87aac8b1ca35baff31c8c8e75b2ef5a0afb12f3b2d0051dbf596b2526877195",
+      "size_bytes": 14959
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/tests/test_register_operator_runtime_authorization.py",
+      "sha256": "b6ae97bfe82e475a8d5260dde55e121e74b8ffd9bae09de3a4e2f071c21405ed",
+      "size_bytes": 8787
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/tests/test_register_operator_runtime_v2.py",
+      "sha256": "af0d1f5ee11510396a233a2ee29540a9d79c7a2569517e39d01be4f9070ce93f",
+      "size_bytes": 20207
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/tests/test_register_operator_statistical_calibration.py",
+      "sha256": "c168dc203d117ea0bfe2e0a4ea71731cd4e9f1a96df221cf161ded8f1aee3fdb",
+      "size_bytes": 19568
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/tests/test_register_operator_statistics_v2.py",
+      "sha256": "05eddd845151f1cf65bfc83f1b2291b3617ecdc44607cc260c701d25ade81bd8",
+      "size_bytes": 8412
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/tests/test_motif_cleanliness.py",
+      "sha256": "570e69e2c19af9515c387e6c80dd142107e9d24232c38aecf1b49414901beae2",
+      "size_bytes": 4776
+    }
+  ],
+  "notes": [
+    "Actual input/source bytes are pinned; HEAD alone does not identify this dirty checkout.",
+    "uncompressed_json_sha256=b8b48e49f84849208b50565ed9e4a956509a8f8a730890ddfe85c02c37e468b9"
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/smoke_v2.json",
+      "sha256": "b8b48e49f84849208b50565ed9e4a956509a8f8a730890ddfe85c02c37e468b9",
+      "size_bytes": 10992
+    }
+  ],
+  "seeds": {
+    "bootstrap_toy": 20260803
+  },
+  "status": "PASS"
+}

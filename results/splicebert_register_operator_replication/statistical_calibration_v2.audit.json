@@ -1,0 +1,233 @@
+{
+  "auditor_sha256": "47e9997958004446b042405e6eb7f5104d6193d8b9407b331a70ceac84d964b5",
+  "authorized_for_cc": false,
+  "authorized_for_fidelity": true,
+  "calibration_passed": true,
+  "calibration_recount": {
+    "classification_counts": {
+      "development": {
+        "BOUNDED_NULL": 128,
+        "DETECTABLE_PREFERENCE_MATERIALITY_UNRESOLVED": 1,
+        "INCONCLUSIVE": 61,
+        "INSTRUMENT_UNRESOLVED": 2,
+        "MATERIAL_PREFERENTIAL_POSITIVE": 3,
+        "ONLY_WHEN_COHERENT_IN_FROZEN_DOMAIN": 61
+      },
+      "null": {
+        "BOUNDED_NULL": 987,
+        "INCONCLUSIVE": 13
+      },
+      "point05": {
+        "BOUNDED_NULL": 2,
+        "DETECTABLE_PREFERENCE_MATERIALITY_UNRESOLVED": 6,
+        "INCONCLUSIVE": 241,
+        "INSTRUMENT_UNRESOLVED": 3,
+        "MATERIAL_PREFERENTIAL_POSITIVE": 3,
+        "ONLY_WHEN_COHERENT_IN_FROZEN_DOMAIN": 1
+      },
+      "point15": {
+        "INSTRUMENT_UNRESOLVED": 3,
+        "MATERIAL_PREFERENTIAL_POSITIVE": 8,
+        "ONLY_WHEN_COHERENT_IN_FROZEN_DOMAIN": 245
+      }
+    },
+    "complete": true,
+    "execution_errors": [],
+    "noncoverage_counts": {
+      "bridge_diagnostics": 42,
+      "directions": 47,
+      "historical_phase_blind_ac_minus_at_linear": 18,
+      "historical_psi_ac_minus_at_linear": 23,
+      "mismatch_equivalence": 56,
+      "primary_psi": 36
+    },
+    "null_generator_diagnostics": {
+      "additive": {
+        "n": 500,
+        "noncoverage": {
+          "bridge_diagnostics": 21,
+          "directions": 23,
+          "historical_phase_blind_ac_minus_at_linear": 0,
+          "historical_psi_ac_minus_at_linear": 0,
+          "mismatch_equivalence": 27,
+          "primary_psi": 23
+        },
+        "positive": 0
+      },
+      "heterogeneous": {
+        "n": 500,
+        "noncoverage": {
+          "bridge_diagnostics": 21,
+          "directions": 24,
+          "historical_phase_blind_ac_minus_at_linear": 18,
+          "historical_psi_ac_minus_at_linear": 23,
+          "mismatch_equivalence": 29,
+          "primary_psi": 13
+        },
+        "positive": 0
+      }
+    },
+    "null_replay": {
+      "complete_inferences_checked": 1000,
+      "direct_index_memorials": 4,
+      "direction_noncoverage_by_endpoint": {
+        "additive": [
+          4,
+          6,
+          5,
+          4,
+          7
+        ],
+        "heterogeneous": [
+          5,
+          7,
+          8,
+          4,
+          3
+        ]
+      },
+      "interval_families_checked": 6000,
+      "maximum_absolute_interval_error": 8.881784197001252e-15,
+      "maximum_absolute_reduction_error": 0.0,
+      "maximum_direct_index_error": 1.1102230246251565e-16,
+      "no_new_seed_or_alternative_settings": true,
+      "null_raw_payloads_hash_verified": 1000,
+      "raw_reductions_checked": 1000
+    },
+    "passed": true,
+    "point05_detection_count": 252,
+    "point15_material_count": 253,
+    "positive_count": 0,
+    "realization_counts": {
+      "development": 256,
+      "null": 1000,
+      "plants": 512
+    },
+    "scope": "Independent recount; every consumed null raw payload, complete inference, all ten gates and all six calibration families are replayed when requested.",
+    "stratified_bootstrap_iid_variance_expectation": {
+      "corrected_variance_ratio": 1.0,
+      "n": 342,
+      "scope": "Conditional covariance is sum_h n_h S_h/N^2; unbiased for independent blocks within each stratum, not a finite-sample interval coverage guarantee.",
+      "strata": 32,
+      "uncorrected_variance_ratio": 0.9064327485380117
+    },
+    "variance_scale_diagnostics": {
+      "additive": {
+        "both_direction_groups_fail": 1,
+        "direction_bootstrap_to_sampling_variance_ratio": [
+          1.0508300495361749,
+          1.0607064931145875,
+          1.0207225900084882,
+          1.007703216237913,
+          0.9394951700346712
+        ],
+        "direction_empirical_sampling_sd": [
+          2.9703573399454084e-09,
+          2.9473618844855673e-09,
+          0.006548883000639017,
+          0.006603889117306305,
+          0.006837875396972768
+        ],
+        "direction_root_mean_bootstrap_variance": [
+          3.0449133664585795e-09,
+          3.035505866831824e-09,
+          0.006616389972823837,
+          0.006629275914042649,
+          0.006627785712092302
+        ],
+        "only_first_two_directions_fail": 9,
+        "only_last_three_directions_fail": 13,
+        "primary_bootstrap_to_sampling_variance_ratio": 1.0467743599205566,
+        "primary_empirical_sampling_sd": 2.5740494974311903e-09,
+        "primary_root_mean_bootstrap_variance": 2.6335613023269188e-09
+      },
+      "heterogeneous": {
+        "both_direction_groups_fail": 2,
+        "direction_bootstrap_to_sampling_variance_ratio": [
+          1.2113441276744918,
+          1.0078511540210906,
+          0.9656948540944152,
+          1.0159897510827,
+          1.1077335375702835
+        ],
+        "direction_empirical_sampling_sd": [
+          0.013118169829325625,
+          0.014384778009513106,
+          0.023018020454679492,
+          0.022570549975686843,
+          0.021615589493178163
+        ],
+        "direction_root_mean_bootstrap_variance": [
+          0.014437999358195864,
+          0.01444113616051188,
+          0.022619756749107656,
+          0.022750283091010605,
+          0.022750174713506533
+        ],
+        "only_first_two_directions_fail": 9,
+        "only_last_three_directions_fail": 13,
+        "primary_bootstrap_to_sampling_variance_ratio": 1.1542706919093146,
+        "primary_empirical_sampling_sd": 0.011653961050521192,
+        "primary_root_mean_bootstrap_variance": 0.012520665022055696
+      }
+    }
+  },
+  "calibration_sha256": "e40a2236fbf8289b29e51a5435819d79198b88ea750552a5c8303efa27e2f147",
+  "chronology": {
+    "frozen_at_utc": "2026-10-17T02:02:59.589277+00:00",
+    "scope": "Source-bound recorded UTC chronology; timestamps are not a cryptographic proof of wall-clock ordering.",
+    "stages": {
+      "calibration": {
+        "attempt_manifest_created_at_utc": "2026-10-17T02:04:30.673948+00:00",
+        "attempt_sha256": "65ce134110d19ca52e899c5067fcc51e65b775a48153f6ab39a99008f4a077a2",
+        "attempt_start_timestamp_recorded": true,
+        "completed_at_utc": "2026-10-17T02:08:50.178975+00:00",
+        "completed_manifest_utc": "2026-10-17T02:08:50.217367+00:00",
+        "created_at_utc": "2026-10-17T02:04:26.622987+00:00"
+      },
+      "cells": {
+        "attempt_present": false
+      },
+      "fidelity": {
+        "attempt_present": false
+      },
+      "native": {
+        "attempt_present": false
+      }
+    }
+  },
+  "classification": "CALIBRATION_CAPABLE",
+  "cohort_tier": "outcome-aware operator verification",
+  "completed_at_utc": "2026-10-17T02:11:37.619270+00:00",
+  "failures": [],
+  "freeze_sha256": "f8d443cd1cad29af8ccb47a3c3b16278db8ed738ed0117d1df31ab86284cfd0d",
+  "inference_method": "finite-stratum-centered-residual-bootstrap-v2",
+  "model_loaded": false,
+  "new_model_forwards": 0,
+  "passed": true,
+  "prerequisites": {
+    "calibration": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/statistical_calibration_v2.json",
+      "reported_status": "PASS",
+      "sha256": "e40a2236fbf8289b29e51a5435819d79198b88ea750552a5c8303efa27e2f147",
+      "state": "PASS"
+    },
+    "construction": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_register_operator_replication/planning/execution_construction_v3.audit.json",
+      "reported_status": "AUDIT_PASS",
+      "sha256": "76c50aeee82860d6fbeb8f75e7f4ceea30398efc33d5d83ef0c18afbf573fda9",
+      "state": "PASS"
+    },
+    "smoke": {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/smoke_v2.json",
+      "reported_status": "PASS",
+      "sha256": "b8b48e49f84849208b50565ed9e4a956509a8f8a730890ddfe85c02c37e468b9",
+      "state": "PASS"
+    }
+  },
+  "schema": "gfmcd.register_operator.calibration_audit.v2",
+  "selected_blocks": 342,
+  "span_nt": 120,
+  "started_at_utc": "2026-10-17T02:09:00.629960+00:00",
+  "status": "PASS"
+}

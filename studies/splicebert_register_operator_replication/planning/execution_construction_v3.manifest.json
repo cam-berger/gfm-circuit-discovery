@@ -1,0 +1,96 @@
+{
+  "command": [
+    "scripts/splicebert_register_operator_replication/build_construction.py",
+    "--cohort",
+    "/Users/cberg/Library/Application Support/Claude/side-session-notes/local_669c6044-d2c1-4f6d-8cbc-6de10d94c331/cc-execution-inputs/crossed_direct_edge_replication_cohort_v1.json",
+    "--selection",
+    "studies/splicebert_register_operator_replication/planning/fallback342_selection_v1.json",
+    "--fasta",
+    "/Users/cberg/Research/data/genomes/hg38.fa",
+    "--out",
+    "studies/splicebert_register_operator_replication/planning/execution_construction_v3.json.gz"
+  ],
+  "config": {
+    "acceptor_intron_flank": 64,
+    "acceptor_pos": 512,
+    "bridge_decoy_start": 11,
+    "donor_intron_flank": 32,
+    "donor_pos": 392,
+    "hash_collision_tie_break": "lexical full text",
+    "hash_preimage": "salt + NUL + namespace + NUL + text",
+    "hash_salt": "crossed-direct-edge-fresh-replication-v1",
+    "selected_blocks": 342,
+    "sequence_length": 1022,
+    "source_genes": 2688,
+    "span_nt": 120,
+    "target_blocks": 384,
+    "target_blocks_per_strand": 192
+  },
+  "created_at_utc": "2026-10-16T20:02:43.969977+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro-2.local",
+    "pid": 87817,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "register-operator:execution-construction",
+  "git_commit": "dd24299e70e91424b07962bd03aa407a35bb0fe5",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "/Users/cberg/Library/Application Support/Claude/side-session-notes/local_669c6044-d2c1-4f6d-8cbc-6de10d94c331/cc-execution-inputs/crossed_direct_edge_replication_cohort_v1.json",
+      "sha256": "478838e64a3a3eff2bca5868212852a5b833d0ccf74ff720bb15cd00cf6fd5ca",
+      "size_bytes": 48290248
+    },
+    {
+      "path": "studies/splicebert_register_operator_replication/planning/fallback342_selection_v1.json",
+      "sha256": "3d23980b8f5c13f5c82088ffc6a88fb93d0a5a68c4ed664b1c7c3e69dac04b78",
+      "size_bytes": 15474
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa",
+      "sha256": "5be01555d98347fdb3714dc84c6f77c9d8bc774adcf32c6f7a8fa06f5baf5e51",
+      "size_bytes": 3273481150
+    },
+    {
+      "path": "/Users/cberg/Research/data/genomes/hg38.fa.fai",
+      "sha256": "3b425de206296a5c8053023fa5ca61da43cfe78c1737c12e58c83367c7e83c21",
+      "size_bytes": 19381
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_register_operator_replication/build_construction.py",
+      "sha256": "d8eae88a9cee77f750bc0f66eba7034419501a628ab95aa29f9b1bd1cfaedced",
+      "size_bytes": 1992
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/register_operator_construction.py",
+      "sha256": "48906c9df2d785122a8f39df753cf5876f2baed8b8f850dbddeb6639905d9b7c",
+      "size_bytes": 16213
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/register_operator_statistics.py",
+      "sha256": "6f5394b710eb3fcd04cf112de37d0c5d89eefd68d07ae5a36d8bbdaba7879c99",
+      "size_bytes": 13155
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/splicing/register_operator_io.py",
+      "sha256": "c45c7115023476e31dd29b0221552e1d711d887dd699d6f86a157f2cad03d6a0",
+      "size_bytes": 4012
+    }
+  ],
+  "notes": [
+    "Actual input/source bytes are pinned; HEAD alone does not identify this dirty checkout.",
+    "uncompressed_json_sha256=5116ae68b374ca8636a6dc2c8e810d29bc540c15ca6f0590c42c8324ee4631c7"
+  ],
+  "outputs": [
+    {
+      "path": "studies/splicebert_register_operator_replication/planning/execution_construction_v3.json.gz",
+      "sha256": "b5ce021419a00a7624b98e5c6dd7243bf59f34a20222a3f035ac925cb87d77a4",
+      "size_bytes": 1709747
+    }
+  ],
+  "seeds": {
+    "bootstrap": 20260803
+  },
+  "status": "CONSTRUCTED"
+}

@@ -1413,3 +1413,167 @@ gate 8's floors are read from the cell file's copy; and "gates 3–7 in full, �
 this addendum, gates 2–8 are re-derived in full from raw rows. C43's "gates 2–9 survive as recorded
 attestations only" now understates the record further: of those, only gate 9 is still attestation. It is
 still not edited, for the same reason given above.
+
+<a id="r50"></a>
+
+## R50 — the CC/max crossed-register verification stopped at statistical calibration, before model scoring (2026-10-16; draft)
+
+The owner requested a new crossed-register run using the paper's primary
+**AG→CC corruption and max-margin donor readout**, with AC as a bridge to C43 and
+linear margins retained for every cell. The owner then selected **120 nt only**
+and the **342-block motif-clean fallback**, explicitly as outcome-aware operator
+verification, with the **MDE80≤0.05** rule unchanged. The exact messages, census,
+selection and power risk are retained in
+[the new study's decisions](../splicebert_register_operator_replication/DECISIONS.md).
+The preferred fresh cohort had zero balanced capacity under the preserved exclusions.
+The original 384-block C43 row, protocol and artifacts were not modified.
+
+The new study's
+[source-bound v1 freeze](../splicebert_register_operator_replication/protocol_freeze_v1.json)
+has SHA-256 `82bc168e2246dff82519215203e02747f0209c289fa00c3e538613d95573d854`.
+Independent construction and post-freeze smoke checks passed. Full synthetic
+calibration then failed **five-direction simultaneous interval coverage**:
+**83/1,000** null realizations missed at least one known endpoint, exceeding the
+frozen maximum of **71**. The exact binomial 95% CI for that noncoverage rate is
+**[6.665%, 10.185%]**. All other coverage families passed: primary Ψ 62/1,000,
+mismatch 70/1,000, paired operator/readout contrasts 70/1,000, historical linear
+Ψ(AC−AT) 29/1,000, and historical phase-blind linear AC−AT 33/1,000. Full
+positive-decision false positives were 0/1,000; the two planted-signal checks
+passed at 255/256 and 252/256. Those passes do not waive the failed coverage gate.
+
+The [independent audit](../../results/splicebert_register_operator_replication/analysis_v1.audit.json)
+recounted all realizations and independently replayed all **1,000 consumed null
+raw payloads** and **6,000 interval families** at the frozen settings. Payload
+hashes matched, reduced values matched exactly, and the largest interval discrepancy
+was 5.413×10⁻¹⁶. Directional failures split into 51/500 additive and 32/500
+heterogeneous nulls. A finite-stratum variance underestimate is a plausible
+contributor, but neither it nor quantization has been established as the complete
+explanation. No alternative seed, threshold or inference procedure was evaluated.
+
+The audit is **PASS for verification of the stop**, and the run is
+**INSTRUMENT_UNRESOLVED, with `authorized_for_cc=false`**. No model was loaded.
+The 384-block historical AC/linear forward fidelity memorial, native CC controls,
+crossed CC scoring and target inference were not run. Target gate 1 fails the
+calibration prerequisite; gates 2–9 are unmeasured, and there is no target model
+evidence for a gate-10 audit. An audit of the stop cannot be substituted for a
+successful target-evidence audit. The
+[final stopped-run record](../../results/splicebert_register_operator_replication/result_v1.json),
+SHA-256 `1cd6df321679fb649bce5d49562a7a44b9c637c33d71e25ed7fd01e317b1dfc3`,
+therefore records all model endpoints as null.
+
+**Draft C45 records this failed attempt; it does not reclassify C43 or C44.** The
+failure is not a biological null, an inverted preference, evidence of operator
+equivalence, or a period-3 mechanism result. No new Ψ/CI, M0/M+/M−, directional
+bounds, pseudo-control p-value, AC bridge effect, or stop-load/Ψ association is
+available. The paper's L131 paragraph was not replaced by a CC/max result.
+[RESULTS.md](../splicebert_register_operator_replication/RESULTS.md) gives the full
+gate inventory and the wording supported for reporting the stopped attempt.
+
+All failed outputs remain immutable. The full local calibration realization stream
+is bound by SHA-256 `2c941d6d7c2e7a2bf186c2d0223bba5258001baac226bb8188645c1f473e6ead`
+in the calibration manifest; it is about 611 MiB and is excluded from Git. Compact
+results, manifests and the audit are local draft review artifacts, not committed
+or published evidence. A possible finite-stratum correction is documented as an
+**unimplemented, unvalidated candidate**. It would change the inherited inference
+procedure and needs a separate protocol and fresh validation; the consumed v1
+calibration cannot become fresh evidence for a repair. The failed v1 result must
+remain in the record regardless of any later outcome.
+
+<a id="r51"></a>
+
+## R51 — CC/max crossed verification completed, but its frozen resolution gate failed (2026-10-17; draft)
+
+Following the preserved v1 calibration failure in R50/C45, the owner explicitly
+answered **“authorized”** to the separately reviewed A1 inference repair. The
+choices **120 nt only**, **342 motif-clean frozen-cohort blocks**, **CC/max primary**,
+and **MDE80≤0.05** remained fixed. This is outcome-aware operator verification on
+2,394 globally distinct source genes, not a fresh outcome-blind biological replication.
+C43/C44 and the v1 artifacts/claim rows remain unchanged. R50's unexecuted-repair
+statements describe the decision state at that earlier stop.
+
+[A1](../splicebert_register_operator_replication/AMENDMENT_A1.md) applies the
+finite-stratum centered-residual correction only after complete endpoint formation,
+retaining paired endpoint resampling, point estimates, pseudo-control ranks, bootstrap indices
+and every decision threshold. It passed independent design review and one complete
+replay of consumed v1 simulations as development evidence. A new source-bound
+[v2 freeze](../splicebert_register_operator_replication/protocol_freeze_v2.json),
+SHA-256 `f8d443cd1cad29af8ccb47a3c3b16278db8ed738ed0117d1df31ab86284cfd0d`,
+preceded smoke and the single fresh calibration. Fresh family noncoverage counts were
+36/47/56/42/23/18 out of 1,000, each ≤71; full positive-decision false positives were
+0/1,000 (maximum 38 events), and planted checks were 252/256 and 253/256, each ≥216. Independent
+replay verified every null payload and all 6,000 interval families. This is passing
+synthetic validation of the declared procedure, not proof of general nominal coverage.
+
+Before any CC forward, full 384-block historical AC/linear fidelity passed:
+2,268,153 raw checks had zero failures, stored margins/protected log probabilities
+matched exactly, and 12,618 original-method inference fields were bitwise identical.
+Native CC preflight then passed at +0.333075 [0.311516, 0.355360]. The crossed run
+completed all 116,964 requests. The independent raw-measurement audit passed
+2,128,816 checks, and the result auditor reconstructed 125,172 native/crossed
+requests and compared 21,346 numeric inference fields (maximum discrepancy
+2.665×10⁻¹⁵), confirming the gate inventory below.
+
+**Resolution alone fails:** MDE80=**0.064708**, above the unchanged **0.05** limit.
+Construction/prerequisites, native positive control, crossed capability, AC bridge
+negative control, AC/AT robustness, protected MLM health, site health, numerics,
+and independent audit all pass. No gate is unrun. The corrected analytic MDE80 is
+0.064213; the uncorrected analytic diagnostic is 0.061178. Neither is an alternative
+gate, and no seed, cohort, threshold or operator was changed after the outcome.
+The frozen final classification is **`INSTRUMENT_UNRESOLVED`**.
+
+The retained primary measurements are **Ψ=+0.429719 [0.384891, 0.475976]**,
+M0/M+/M−=+0.376054/−0.068210/−0.039119. All five simultaneous directional lower
+bounds are positive (minimum +0.289480); target Ψ exceeds all 99 balanced pseudo
+controls (maximum +0.047619, add-one p=0.01, its floor), with paired excess lower95
++0.392682. Both mismatch-equivalence intervals extend outside ±0.05. Passing those
+pattern checks cannot waive the failed resolution gate or license “only when matched.”
+
+The prespecified AC/max bridge is +0.408252 [0.365822, 0.451663], and selected-cohort
+AC/linear is +0.392826 [0.353274, 0.433231]. The paired CC−AC/max Ψ contrast is
++0.021467 [0.012611, 0.030323] with the four-family simultaneous interval. The bridge-site
+AG→AC/max control is +0.015715 [−0.007279, 0.036435]. These distinct bridge quantities
+are not pooled with the pseudo-label null family. The frozen stop diagnostic gives
+Spearman ρ=−0.136205 (descriptive p=0.011688); high-stop blocks have Ψ=+0.340640
+(n=114) versus +0.474258 (n=228) at or below the canonical median 2/3. This diagnostic
+does not identify phase independently of stop composition.
+
+**Draft C46 records an audited resolution failure with measured endpoints.** It
+licenses no confirmed positive, bounded-null, inverted, operator-equivalence,
+mediation or period-3 mechanism conclusion. The complete
+[report](../splicebert_register_operator_replication/RESULTS.md) gives every endpoint,
+gate, sensitivity and paper-ready wording. The paper's L131 should not present this
+as confirmed CC/max preference; if replaced, it should state the estimate and the
+failed qualification. The following paragraph and conclusion also need that boundary
+if the paper uses the primary operator throughout. The manuscript was not edited.
+
+The [final record](../../results/splicebert_register_operator_replication/result_v2.json),
+SHA-256 `ba3433ab09bbeb2425e8d6b077c25b2ad997ba20f608c360bf367115a8ad8087`, and
+[independent audit](../../results/splicebert_register_operator_replication/analysis_v2.audit.json)
+have complete sibling manifests. Raw requests, both failed and passing calibration
+records, all source/data/checkpoint pins and attempts remain retained. All new evidence
+is local, uncommitted draft material, not a published claim or a replacement for the
+historical record. No additional span, biological cohort, carrier intervention,
+methodological retry, staging, commit or push followed this result.
+
+<a id="r52"></a>
+
+## R52 — Retrospective CC artifact registration (2026-10-17)
+
+The completed CC verification now has a [compact summary and scalar block table](../../results/splicebert_register_operator_replication/canonical/),
+source-bound derivation manifests, an artifact inventory, and entries in the global
+registry. The full execution prose remains byte-identical in
+[RESULTS_DETAIL.md](../splicebert_register_operator_replication/RESULTS_DETAIL.md);
+[RESULTS.md](../splicebert_register_operator_replication/RESULTS.md) is the concise
+entry point. C43/C44 and the C45/C46 rows retain their exact wording and values.
+The 0.05 MDE80 threshold, failed resolution gate, and `INSTRUMENT_UNRESOLVED`
+classification remain unchanged. Registration here is retrospective artifact
+bookkeeping, not a new preregistration or independent biological replication.
+
+Raw CC model requests, construction payloads and synthetic calibration streams
+remain locally preserved and hash-bound but are not included in Git. The compact
+block table permits all six scalar Psi/CI/MDE calculations; it does not supply a
+fresh raw-forward audit or recreate the other gates. Data availability is explicit
+in the [inventory](../../results/splicebert_register_operator_replication/RESULTS_INDEX.md).
+The standalone `gfm-interp`
+supplement ships the same compact bytes, separate from its eight-family full-model
+reproduction contract. No MDE threshold was relaxed and no model was rerun.

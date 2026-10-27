@@ -93,6 +93,7 @@ same change; the verifier fails otherwise.
 
 | Directory | Index | Claim ledger |
 |---|---|---|
+| `splicebert_register_operator_replication/` | [RESULTS_INDEX.md](splicebert_register_operator_replication/RESULTS_INDEX.md) | `studies/splicebert_register_operator_replication/CLAIMS.md` (C45/C46; unresolved) |
 | `phase-lattice/` | [`RESULTS_INDEX.md`](phase-lattice/RESULTS_INDEX.md) | `studies/splicebert_partner_selection/CLAIMS.md` |
 | `splicebert_coupling/` | [`RESULTS_INDEX.md`](splicebert_coupling/RESULTS_INDEX.md) | `studies/splicebert_partner_selection/CLAIMS.md` |
 | `splicebert_head_context_atlas/` | [`RESULTS_INDEX.md`](splicebert_head_context_atlas/RESULTS_INDEX.md) | `studies/splicebert_head_context_atlas/CLAIMS.md` |

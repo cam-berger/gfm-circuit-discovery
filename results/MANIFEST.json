@@ -1,14 +1,14 @@
 {
   "generated_by": "scripts/verify_manifest.py --prune-missing",
-  "row_count": 1141,
+  "row_count": 1182,
   "status_counts": {
-    "infrastructure": 22,
-    "canonical": 681,
-    "development": 258,
+    "infrastructure": 44,
+    "canonical": 690,
+    "development": 268,
     "superseded": 180
   },
   "polarity_counts": {
-    "na": 455,
+    "na": 496,
     "positive": 539,
     "null": 24,
     "bounded": 118,
@@ -11431,6 +11431,416 @@
       "evidence_level": "",
       "polarity": "na",
       "artifact": "results/splicebert_positional_proxy_modifiability/RESULTS_INDEX.md",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "C45",
+      "status": "canonical",
+      "evidence_level": "Instrument",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/analysis_v1.audit.json",
+      "script": "",
+      "manifest": "results/splicebert_register_operator_replication/analysis_v1.audit.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/analysis_v1.audit.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "C46",
+      "status": "canonical",
+      "evidence_level": "Instrument",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/analysis_v2.audit.json",
+      "script": "",
+      "manifest": "results/splicebert_register_operator_replication/analysis_v2.audit.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/analysis_v2.audit.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "C46",
+      "status": "canonical",
+      "evidence_level": "Instrument",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/analysis_v2.json",
+      "script": "scripts/splicebert_register_operator_replication/analyze_results_v2.py",
+      "manifest": "results/splicebert_register_operator_replication/analysis_v2.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/analysis_v2.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "C46",
+      "status": "canonical",
+      "evidence_level": "Instrument",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/canonical/block_psi_v2.json",
+      "script": "scripts/splicebert_register_operator_replication/export_compact_result.py",
+      "manifest": "results/splicebert_register_operator_replication/canonical/block_psi_v2.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/canonical/block_psi_v2.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "C46",
+      "status": "canonical",
+      "evidence_level": "Instrument",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/canonical/summary_v2.json",
+      "script": "scripts/splicebert_register_operator_replication/export_compact_result.py",
+      "manifest": "results/splicebert_register_operator_replication/canonical/summary_v2.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/canonical/summary_v2.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/cells_v2.attempt.json",
+      "script": "scripts/splicebert_register_operator_replication/run_model_v2.py",
+      "manifest": "results/splicebert_register_operator_replication/cells_v2.attempt.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/cells_v2.attempt.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/cells_v2.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/historical_fidelity_v2.attempt.json",
+      "script": "scripts/splicebert_register_operator_replication/run_model_v2.py",
+      "manifest": "results/splicebert_register_operator_replication/historical_fidelity_v2.attempt.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/historical_fidelity_v2.attempt.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "C46",
+      "status": "canonical",
+      "evidence_level": "Instrument",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/historical_fidelity_v2.audit.json",
+      "script": "scripts/splicebert_register_operator_replication/audit_fidelity.py",
+      "manifest": "results/splicebert_register_operator_replication/historical_fidelity_v2.audit.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/historical_fidelity_v2.audit.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/historical_fidelity_v2.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "C46",
+      "status": "canonical",
+      "evidence_level": "Instrument",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/measurement_v2.audit.json",
+      "script": "scripts/splicebert_register_operator_replication/audit_cc_measurement_v2.py",
+      "manifest": "results/splicebert_register_operator_replication/measurement_v2.audit.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/measurement_v2.audit.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/native_v2.attempt.json",
+      "script": "scripts/splicebert_register_operator_replication/run_model_v2.py",
+      "manifest": "results/splicebert_register_operator_replication/native_v2.attempt.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/native_v2.attempt.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/native_v2.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "C45",
+      "status": "canonical",
+      "evidence_level": "Instrument",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/result_v1.json",
+      "script": "scripts/splicebert_register_operator_replication/record_stopped_run.py",
+      "manifest": "results/splicebert_register_operator_replication/result_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/result_v1.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "C46",
+      "status": "canonical",
+      "evidence_level": "Instrument",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/result_v2.json",
+      "script": "scripts/splicebert_register_operator_replication/record_result_v2.py",
+      "manifest": "results/splicebert_register_operator_replication/result_v2.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/result_v2.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/smoke_v1.json",
+      "script": "scripts/splicebert_register_operator_replication/run_smoke.py",
+      "manifest": "results/splicebert_register_operator_replication/smoke_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/smoke_v1.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/smoke_v2.json",
+      "script": "scripts/splicebert_register_operator_replication/run_smoke_v2.py",
+      "manifest": "results/splicebert_register_operator_replication/smoke_v2.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/smoke_v2.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/statistical_calibration_v1.attempt.json",
+      "script": "",
+      "manifest": "results/splicebert_register_operator_replication/statistical_calibration_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/statistical_calibration_v1.json",
+      "script": "",
+      "manifest": "results/splicebert_register_operator_replication/statistical_calibration_v1.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/statistical_calibration_v1.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/statistical_calibration_v2.attempt.json",
+      "script": "scripts/splicebert_register_operator_replication/calibrate_statistics_v2.py",
+      "manifest": "results/splicebert_register_operator_replication/statistical_calibration_v2.attempt.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/statistical_calibration_v2.attempt.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/statistical_calibration_v2.audit.json",
+      "script": "",
+      "manifest": "results/splicebert_register_operator_replication/statistical_calibration_v2.audit.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/statistical_calibration_v2.audit.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "development",
+      "evidence_level": "Instrument",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/statistical_calibration_v2.json",
+      "script": "",
+      "manifest": "results/splicebert_register_operator_replication/statistical_calibration_v2.manifest.json",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/statistical_calibration_v2.manifest.json",
+      "script": "",
+      "manifest": "",
+      "figure": ""
+    },
+    {
+      "claim_id": "",
+      "status": "infrastructure",
+      "evidence_level": "",
+      "polarity": "na",
+      "artifact": "results/splicebert_register_operator_replication/RESULTS_INDEX.md",
       "script": "",
       "manifest": "",
       "figure": ""

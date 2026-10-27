@@ -1,0 +1,64 @@
+{
+  "command": [
+    "scripts/splicebert_register_operator_replication/export_compact_result.py",
+    "--out-dir",
+    "results/splicebert_register_operator_replication/canonical"
+  ],
+  "config": {
+    "classification": "INSTRUMENT_UNRESOLVED",
+    "new_model_forwards": 0,
+    "threshold_changed": false
+  },
+  "created_at_utc": "2026-10-18T02:56:08.317779+00:00",
+  "experiment_id": "register-operator:compact-export-v2",
+  "git_commit": "dd24299e70e91424b07962bd03aa407a35bb0fe5",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "results/splicebert_register_operator_replication/result_v2.json",
+      "sha256": "ba3433ab09bbeb2425e8d6b077c25b2ad997ba20f608c360bf367115a8ad8087",
+      "size_bytes": 879494
+    },
+    {
+      "path": "results/splicebert_register_operator_replication/analysis_v2.audit.json",
+      "sha256": "b8e4cb7d13b911f67c9fa316364ed94e6538d56a056ca16c9417a093858d5dd5",
+      "size_bytes": 1275232
+    },
+    {
+      "path": "results/splicebert_register_operator_replication/measurement_v2.audit.json",
+      "sha256": "85155eb4298a161cf0baad7b78dbbfb52d30edd5a6b7b674633de537de15bc93",
+      "size_bytes": 4009
+    },
+    {
+      "path": "results/splicebert_register_operator_replication/statistical_calibration_v2.json",
+      "sha256": "e40a2236fbf8289b29e51a5435819d79198b88ea750552a5c8303efa27e2f147",
+      "size_bytes": 23888
+    },
+    {
+      "path": "results/splicebert_register_operator_replication/result_v1.json",
+      "sha256": "1cd6df321679fb649bce5d49562a7a44b9c637c33d71e25ed7fd01e317b1dfc3",
+      "size_bytes": 4239
+    },
+    {
+      "path": "studies/splicebert_register_operator_replication/protocol_freeze_v2.json",
+      "sha256": "f8d443cd1cad29af8ccb47a3c3b16278db8ed738ed0117d1df31ab86284cfd0d",
+      "size_bytes": 23433
+    },
+    {
+      "path": "scripts/splicebert_register_operator_replication/export_compact_result.py",
+      "sha256": "bd4e422d11c0d0cc8aa7a1c41a581f80545d0dd929a81a0d0e838d4c6291742f",
+      "size_bytes": 8104
+    }
+  ],
+  "outputs": [
+    {
+      "path": "results/splicebert_register_operator_replication/canonical/summary_v2.json",
+      "sha256": "7cd6fa0c3b770230af9902abb05b428471fcc79933764e99e3c391bddaeb4d40",
+      "size_bytes": 20915
+    }
+  ],
+  "seeds": {
+    "recorded_bootstrap": 20260803
+  },
+  "status": "DERIVED_REPORT"
+}

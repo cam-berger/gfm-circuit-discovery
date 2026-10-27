@@ -125,6 +125,10 @@ DASHES = "–—-"  # en dash, em dash, hyphen
 
 # Documents whose own header freezes them to a past state, so a stale-looking range is correct.
 FROZEN_SCOPE_DOCS = {
+    "studies/splicebert_register_operator_replication/RESULTS_DETAIL.md": (
+        "R52 preserves the completed execution report byte-for-byte, including the historical "
+        "v1 prose. Its SHA-256 is enforced in test_register_operator_compact_result.py."
+    ),
     "RESULTS_VERIFICATION.md": (
         'Header reads "this audit froze the C1-C26 record on 2026-07-16"; its "R1-R20" is an '
         "accurate snapshot of that date, not drift."

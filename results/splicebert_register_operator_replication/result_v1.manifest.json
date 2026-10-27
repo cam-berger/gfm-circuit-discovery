@@ -1,0 +1,65 @@
+{
+  "command": [
+    "scripts/splicebert_register_operator_replication/record_stopped_run.py",
+    "--freeze",
+    "studies/splicebert_register_operator_replication/protocol_freeze_v1.json",
+    "--audit",
+    "results/splicebert_register_operator_replication/analysis_v1.audit.json"
+  ],
+  "config": {},
+  "created_at_utc": "2026-10-16T20:22:10.996942+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro-2.local",
+    "pid": 96062,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "register-operator:audited-calibration-stop",
+  "git_commit": "dd24299e70e91424b07962bd03aa407a35bb0fe5",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "studies/splicebert_register_operator_replication/protocol_freeze_v1.json",
+      "sha256": "82bc168e2246dff82519215203e02747f0209c289fa00c3e538613d95573d854",
+      "size_bytes": 14935
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/statistical_calibration_v1.json",
+      "sha256": "4c13d30ee8dd79a1c16e52ced24f955fec7c8285b3bf2cd4400a776bf5959ee7",
+      "size_bytes": 22310
+    },
+    {
+      "path": "results/splicebert_register_operator_replication/analysis_v1.audit.json",
+      "sha256": "91bda8a6e3cced9f708a0b468e4c2af79f114368a1b45f7f84d29eb8eddbcb65",
+      "size_bytes": 8739
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_register_operator_replication/record_stopped_run.py",
+      "sha256": "1934144d6b8ec144841359cde4b15a74a6b86ea3c6feb573cb5d6a74f7f9ffa6",
+      "size_bytes": 4720
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/smoke_v1.json",
+      "sha256": "a56c986f3472588eb40c30c5114cf3ea9669734c75f389e79d60b6745128b5df",
+      "size_bytes": 8860
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/studies/splicebert_register_operator_replication/planning/execution_construction_v3.audit.json",
+      "sha256": "76c50aeee82860d6fbeb8f75e7f4ceea30398efc33d5d83ef0c18afbf573fda9",
+      "size_bytes": 33148
+    }
+  ],
+  "notes": [
+    "Actual input/source bytes are pinned; HEAD alone does not identify this dirty checkout.",
+    "uncompressed_json_sha256=1cd6df321679fb649bce5d49562a7a44b9c637c33d71e25ed7fd01e317b1dfc3"
+  ],
+  "outputs": [
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/results/splicebert_register_operator_replication/result_v1.json",
+      "sha256": "1cd6df321679fb649bce5d49562a7a44b9c637c33d71e25ed7fd01e317b1dfc3",
+      "size_bytes": 4239
+    }
+  ],
+  "seeds": {},
+  "status": "INSTRUMENT_UNRESOLVED"
+}

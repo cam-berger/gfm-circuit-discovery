@@ -1,0 +1,68 @@
+{
+  "command": [
+    "scripts/splicebert_register_operator_replication/plan_selected_power.py",
+    "--audit",
+    "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_audit.json",
+    "--selection",
+    "studies/splicebert_register_operator_replication/planning/fallback342_selection_v1.json",
+    "--out",
+    "studies/splicebert_register_operator_replication/planning/fallback342_power_v1.json"
+  ],
+  "config": {
+    "draws": 20000,
+    "model_loaded": false,
+    "numpy": "2.5.1"
+  },
+  "created_at_utc": "2026-10-16T18:53:47.851072+00:00",
+  "environment": {
+    "hostname": "Camerons-MacBook-Pro-2.local",
+    "pid": 72410,
+    "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.12"
+  },
+  "experiment_id": "splicebert-register-operator-replication:selected-design-power",
+  "git_commit": "dd24299e70e91424b07962bd03aa407a35bb0fe5",
+  "git_dirty": true,
+  "inputs": [
+    {
+      "path": "results/splicebert_exon_edge_compatibility/crossed_direct_edge_replication_audit.json",
+      "sha256": "b2b15d99a87ac758a98fb82eeef1ba322a2813fd7133c119945ef1eee73113ac",
+      "size_bytes": 615345
+    },
+    {
+      "path": "studies/splicebert_register_operator_replication/planning/fallback342_selection_v1.json",
+      "sha256": "3d23980b8f5c13f5c82088ffc6a88fb93d0a5a68c4ed664b1c7c3e69dac04b78",
+      "size_bytes": 15474
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_register_operator_replication/plan_selected_power.py",
+      "sha256": "44f1ff1fb5f91e6e6a4c3e9e091302b5f221d95dfae9a9dba49bf7b899078371",
+      "size_bytes": 4429
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/scripts/splicebert_register_operator_replication/plan_power.py",
+      "sha256": "4743e99711899b040c5d5ccfdb60a2b0e521e492a092c66015a4ea4f943c8f87",
+      "size_bytes": 5911
+    },
+    {
+      "path": "/Users/cberg/Research/projects/gfm-circuit-discovery/src/gfmcd/provenance.py",
+      "sha256": "05d3cd48d49a6357f29b72ac1636b23586a11bfb0b059ce97e36f8a9f87ac632",
+      "size_bytes": 3990
+    }
+  ],
+  "notes": [
+    "Selected IDs were fixed by sequence hygiene before this variance calculation.",
+    "No signed target estimate is reported or used for selection."
+  ],
+  "outputs": [
+    {
+      "path": "studies/splicebert_register_operator_replication/planning/fallback342_power_v1.json",
+      "sha256": "28ff783ce75f6968719cebe13741783f25884715afb4edb1a9964b8c56246cfd",
+      "size_bytes": 1616
+    }
+  ],
+  "seeds": {
+    "bootstrap": 20260803
+  },
+  "status": "HISTORICAL_VARIANCE_PLANNING_ONLY"
+}

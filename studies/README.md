@@ -18,6 +18,7 @@ manifests, audits, and corrections determine what can be reproduced or cited.
 | [DNABERT-2 promoter](dnabert_promoter/README.md) | Single-seed, frozen-encoder comparison on a different task and tokenizer; no frozen preregistration or replication of the SpliceBERT mechanism. | [Claims](dnabert_promoter/CLAIMS.md) |
 | [SpliceBERT Head–Context Atlas](splicebert_head_context_atlas/README.md) | Component reuse across sequence contexts, with discovery and internal validation. Does not establish donor-mechanism transfer across contexts. | [Claims](splicebert_head_context_atlas/CLAIMS.md) |
 | [SpliceBERT GTEx fine-tuning shift](splicebert_gtex_finetune_shift/README.md) | Comparison of original-MLM and native-classifier readouts across published fine-tuning seeds, with component and representation follow-ups. | [Claims](splicebert_gtex_finetune_shift/CLAIMS.md) |
+| [SpliceBERT CC/max crossed-register verification](splicebert_register_operator_replication/README.md) | Registered v2 artifacts: measured CC/max Ψ=+0.430, but frozen resolution failed; all other nine gates pass. Outcome-aware 342-block, 120-nt verification; no confirmed preference claim. | [Draft claims and retained v1 failure](splicebert_register_operator_replication/CLAIMS.md) |
 
 Sibling-checkpoint and cross-model positional-carrier comparisons belong to the donor study's ledger;
 their artifacts are indexed under [origin-siblings](../results/origin-siblings/RESULTS_INDEX.md) and

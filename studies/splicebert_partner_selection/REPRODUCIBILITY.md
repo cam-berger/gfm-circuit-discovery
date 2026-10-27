@@ -11,7 +11,7 @@ raw rows both audits recompute from. **C43's target family is, since R49:**
 recomputes `Ψ`, `M0`/`M+`/`M−`, the five directional bounds, all 99 pseudo-register controls, the
 add-one `p`, gates 2–8 and the native floor calibration from the carried raw rows. It checks each value
 against the audit and lists what stays attestation. The authoritative claim ledger is
-[`CLAIMS.md`](CLAIMS.md); correction/retraction history (R1–R49) is in [`CORRECTIONS.md`](CORRECTIONS.md);
+[`CLAIMS.md`](CLAIMS.md); correction/retraction history (R1–R52) is in [`CORRECTIONS.md`](CORRECTIONS.md);
 the machine-checkable claim→file index is [`../../results/MANIFEST.csv`](../../results/MANIFEST.csv)
 (953 rows, all paths resolve; `scripts/verify_manifest.py` passes). Repository-wide environment,
 checkpoint, and data requirements are defined in [`../../REPRODUCE.md`](../../REPRODUCE.md); this file is
