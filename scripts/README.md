@@ -1,6 +1,6 @@
 # Experiment and audit scripts
 
-Use the [reproduction guide](../REPRODUCE.md) for environment and data setup, then follow the owning
+Use the [reproduction guide](../docs/REPRODUCE.md) for environment and data setup, then follow the owning
 study's run map. This index locates entry points; a script's presence does not imply that its target
 experiment ran or that a stopped protocol may be resumed.
 
@@ -64,7 +64,7 @@ python3 scripts/verify_archived_evidence.py \
 ```
 
 Archive verification requires the pinned Git objects to be available locally. Consult the relevant
-attestation and [reproduction guide](../REPRODUCE.md) for acquisition and replay limits.
+attestation and [reproduction guide](../docs/REPRODUCE.md) for acquisition and replay limits.
 
 ## Figure rendering
 

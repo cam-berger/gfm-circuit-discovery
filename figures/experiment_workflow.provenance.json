@@ -3,11 +3,25 @@
   "sources": [
     {
       "path": "docs/METHODOLOGY.md",
+      "sha256": "53335b76b68304aa2ba32d4955ad978a7e7b8aac1c152d903f16ab04795f6d7f"
+    },
+    {
+      "path": "docs/MECHANISM.md",
+      "sha256": "13ff7c572e7a242b6a028e2776d3b7d5fd4235e9f4b98802a91212226651c3ea"
+    }
+  ],
+  "rendered_from_sources": [
+    {
+      "path": "docs/METHODOLOGY.md",
       "sha256": "7a57b1b46bb971d2b3c3360dbe7561761783bab8446021db3cc467ff7e653603"
     },
     {
       "path": "MECHANISM.md",
       "sha256": "51f7cce2710baf70df8e9bcbeb4f948821f69456300750443e0953358cc01f78"
     }
-  ]
+  ],
+  "source_rebinding": {
+    "date": "2026-10-27",
+    "note": "The image was not re-rendered. On 2026-10-27 the documentation was reorganized: MECHANISM.md moved to docs/MECHANISM.md, and both source documents were rewritten for length and readability without changing the workflow this conceptual figure depicts. `sources` names the current documents the figure illustrates. `rendered_from_sources` keeps the hashes recorded when the image was rendered at `git_commit`; those pins no longer verify and are listed in tests/data/pin_census.json. No in-tree renderer exists for this layout (figures/README.md)."
+  }
 }

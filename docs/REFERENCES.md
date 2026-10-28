@@ -1,6 +1,6 @@
 # References
 
-External works cited by [`docs/METHODOLOGY.md`](METHODOLOGY.md) and [`docs/EVIDENCE_LADDER.md`](EVIDENCE_LADDER.md).
+External works cited by [`docs/METHODOLOGY.md`](METHODOLOGY.md), including its [evidence ladder](METHODOLOGY.md#evidence-ladder).
 The final block holds method-context works that no methodology document cites and that no claim ledger
 carries.
 
@@ -43,8 +43,8 @@ precise formalization of **graded faithfulness**, and explicitly unifies activat
 mediation analysis, causal scrubbing, causal tracing, circuit analysis, distributed alignment search and
 steering within one causal-abstraction language.
 
-*Cited for:* the causal-abstraction framing of "circuit" and of graded faithfulness in `METHODOLOGY.md` and
-`EVIDENCE_LADDER.md`.
+*Cited for:* the causal-abstraction framing of "circuit" and of graded faithfulness in `METHODOLOGY.md`, including
+its evidence ladder.
 
 ## Chan et al., 2022 — causal scrubbing
 
@@ -194,7 +194,7 @@ BG1 tests — the directions were taken from this literature before any model fo
 model output — and nothing more. **No claim in any ledger cites them.** The BG1 development preflight
 failed and BG1 validation/BG2 stayed sealed, so these works license no statement about SpliceBERT; see
 `docs/NOMENCLATURE.md` (the `U2AF1` row, standing phrase 3) and
-`docs/BIOLOGICAL_BRIDGES.md` Bridge 4 for the wording constraints that apply if they ever do.
+`docs/METHODOLOGY.md` § "3′-boundary organisation and U2AF1-centred site recognition" for the wording constraints that apply if they ever do.
 
 Verified on 2026-08-10 by retrieving the Crossref DOI record and the open-access PMC full text for each,
 per the house rule at the head of this file.
