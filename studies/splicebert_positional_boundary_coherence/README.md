@@ -1,190 +1,54 @@
 # SpliceBERT positional boundary coherence
 
-> The model-free Phase-I construction ran on 2026-08-11 and stopped on an
-> independently audited frozen-capacity failure. No successor checkpoint or model outcome was opened.
+The model-free Phase-I construction ran on 2026-08-11 and stopped on an independently audited
+frozen-capacity failure. No successor checkpoint or model outcome was opened.
 
 ## Purpose
 
-This study asks one narrow mechanistic question:
+The study asks one narrow mechanistic question:
 
 > After prespecified balance of phase-correlated boundary sequence, does the learned period-3 positional
 > carrier causally support SpliceBERT's preference for matched annotated coding-boundary phase?
 
-The period-3 attenuation bridge is the primary paper target. A corrected directional Phase-II result can
-support a rough, assay-scoped link; clearing the frozen materiality threshold is a stronger tier and alone
-opens Phase III. Register relocation and route mediation are optional strengthening tests, not prerequisites
-for the scoped bridge. The distinct ≈10.63 carrier is an
-ancillary interaction arm: it is measured when its own instrument is capable, but its origin or general
-biological meaning need not be resolved for
-the period-3 result to close. The intended interpretation is a **sequence-encoded coding-boundary coherence
-prior**, not reading-frame sensing, translation, or spliceosomal biochemistry.
+The primary target is the period-3 attenuation bridge. A corrected directional Phase-II result can
+support a rough, assay-scoped link; clearing the frozen materiality threshold is a stronger tier and
+alone opens Phase III. Register relocation and route mediation are optional strengthening tests, not
+prerequisites for the scoped bridge. The distinct ≈10.63 carrier is an ancillary interaction arm whose
+origin and general biological meaning need not be resolved for the period-3 result to close. The intended
+interpretation is a sequence-encoded coding-boundary coherence prior, not reading-frame sensing,
+translation, or spliceosomal biochemistry.
 
-Because this checkpoint learned from a finite and potentially uneven corpus, incomplete conformity across
-the three annotated register orientations could be compatible with uneven training support. That is a
-limitation hypothesis, not an established cause: it never excuses a failed instrument, relaxes a frozen
-threshold, or promotes a result. Without a separately capable training-corpus analysis, outcome prose may
-name this only as one possible explanation.
+## Design
 
-The candidate biological narrative is kept separately in
-[`HYPOTHESIS_REGISTER.md`](HYPOTHESIS_REGISTER.md); it cannot promote a claim. The frozen design is
-[`PREREGISTRATION.md`](PREREGISTRATION.md). It must be read with the canonical
-[`METHODOLOGY.md`](../../docs/METHODOLOGY.md),
-[`EVIDENCE_LADDER.md`](../../docs/EVIDENCE_LADDER.md), and
-[`PREREG_CONFORMANCE.md`](../../docs/PREREG_CONFORMANCE.md).
+[`PREREGISTRATION.md`](PREREGISTRATION.md), with Amendments A1–A5, holds the full design and numerical
+rules. Every model outcome comes from the base `SpliceBERT.1024nt` checkpoint; `SpliceBERT.510nt` and the
+GTEx-fine-tuned checkpoints supply provenance only. Every model run's manifest records the checkpoint
+identity, and a mismatch is fatal. The behavior is the change in the masked-donor native logit margin
+when the joined true acceptor is corrupted `AG→AC`. The primary contrast `Ψ` compares matched with
+mismatched annotated boundary phase, after composition balance, in a chimeric 3×3 lattice of donor and
+acceptor phases at a fixed 120-nt span.
 
-The successor [`CLAIMS.md`](CLAIMS.md), [`RESULTS.md`](RESULTS.md), and [`DECISIONS.md`](DECISIONS.md)
-record the model-free construction stop as `PBC1`. That row is an instrument result only: it licenses no
-statement about coding-boundary preference, either positional carrier, or a biological mechanism.
+Prior records supply motivation, blacklists, and precedent, within limits. `C43` gives the behavioral
+motivation, sign-free sizing variance, and readout geometry, but not its target sign or magnitude or
+"independent replication" language. `C44` gives a failed-instrument warning, not its development `Ω`,
+route signs, or failed local states as calibration. `C36`, `C37`/`C12`, and `GFS25` give carrier and dose
+precedent, not coding specificity, a `U_info` write, a general biological function, or an imported
+confirmatory status. Their wording stays in the donor
+[`CLAIMS.md`](../splicebert_partner_selection/CLAIMS.md) and
+[`CORRECTIONS.md`](../splicebert_partner_selection/CORRECTIONS.md) (`R45`), and for `GFS25` in the
+[GTEx ledger](../splicebert_gtex_finetune_shift/CLAIMS.md), and the archived exon-edge
+code at `fd26cc1b` is never imported or executed.
 
-## Study identity
-
-| Field | Frozen scope |
-|---|---|
-| Model | Official base `SpliceBERT.1024nt`; `pytorch_model.bin` sha256 `2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d` |
-| Architecture | Six-layer, 16-head, hidden-size-512 post-LN BERT MLM with a learned absolute position table |
-| Sequence reference | hg38 plus GENCODE v50 basic transcript selection and v50 comprehensive local-safety annotation, all hash-bound |
-| Biological computation | Relative positional support for sequence-encoded coherence across a joined coding boundary |
-| Model-native behavior | Change in the masked-donor native logit margin when the joined true acceptor is corrupted `AG→AC` |
-| Primary contrast | Composition-balanced matched-vs-mismatched annotated boundary phase, `Ψ` |
-| Primary mechanism | Period-3 attenuation; register relocation and route-specific mediation are strengthening follow-ups |
-| Ancillary mechanism | ≈10.63 attenuation and its non-additive interaction with period-3 |
-| Primary geometry | Chimeric 3×3 donor-phase × acceptor-phase lattice at a fixed 120-nt donor→acceptor span |
-| Species / strand | Human; both strands; chromosome-by-strand sampling strata |
-
-Every conclusion is indexed by this checkpoint, behavior, construction, span, intervention, and held-out
-role. No result from another checkpoint is silently imported.
-
-## What is inherited—and what is not
-
-This is a successor study, not a continuation of an executable historical program.
-
-| Prior record | What may be used here | What may not be used here |
-|---|---|---|
-| `C43` | The behavioral motivation; sign-free block-variance input for prospective sizing; source-gene blacklist; exact chimeric readout and 120-nt continuity geometry | Its target sign or magnitude for selection, threshold tuning, pooling, or “independent replication” language |
-| `C44` | A failed-instrument warning; complete source-gene blacklist; the requirement that target exposure follow a capable preflight | Its development `Ω`, route signs, failed local A/V or Q/K states as calibration, or any old runner/module |
-| `C36` | Prior evidence that period-3 is causally used and that a nucleotide-invariant carrier intervention can be made | Coding specificity, a frame/codon reader, or authority to skip a new capability gate |
-| `C37` / `C12` | The nine base-checkpoint ≈10.63 reader identities and the fact that general function remains bounded/open | Stage-1 head identities, a `U_info` write, or a general biological function |
-| `GFS25` | A health-preserving dose/control precedent and the complete V1/V2 gene blacklist | Base-checkpoint coupling evidence, downstream route, biological semantics, or a confirmatory status import |
-
-The authoritative legacy wording remains in
-[`CLAIMS.md`](../splicebert_partner_selection/CLAIMS.md) (`C43`, `C44`) and
-[`CORRECTIONS.md`](../splicebert_partner_selection/CORRECTIONS.md) (`R45`). The archived exon-edge study's
-own `CLAIMS.md` and `RESULTS.md` prose is superseded and must not be quoted from history.
-
-### Hard archive boundary
-
-The exon-edge compatibility runners, `phase_*` / `p3_direct_edge_*` modules, tests, cohorts, and study prose
-at branch `codex/intron-exon-phase`, commit `fd26cc1b`, remain archived. They are not copied, imported,
-restored, edited, or executed. Historical data may contribute only version-normalized gene identifiers to
-the frozen freshness registry and sign-free variance to sample planning; both uses must be recorded by
-path, source revision, hash, and extraction command.
-
-## Checkpoint firewall
-
-1. All Phase-II and Phase-III outcomes use the base `SpliceBERT.1024nt` checkpoint above.
-2. Stage-1 `SpliceBERT.510nt` establishes the matched-corpus origin contrast for ≈10.63 but supplies no
-   target head, effect, or threshold here.
-3. The nine-reader ≈10.63 capability score is defined only from the base-checkpoint `C37` reader registry.
-4. The five GTEx-fine-tuned 1024-nt checkpoints supply precedent and blacklists only; their effects are not
-   pooled with or treated as priors for the base model.
-5. The optional model-free sequence-referent arm contains no SpliceBERT output and cannot promote a model
-   mechanism result.
-
-A manifest must record the checkpoint identity on every model run. A mismatch is fatal, not a warning.
-
-## Freshness and sealed chromosomes
-
-Before any new model output, construction creates a sorted version-normalized (`ENSG...` before the first
-dot) exclusion registry containing every source gene exposed in:
-
-- all predecessor and replication roles underlying `C43`;
-- all development, smoke, and reserved roles underlying `C44`, including the 384-block target shared with
-  `C43`;
-- both the stopped V1 and completed V2 `GFS25` cohorts; and
-- any earlier exon-edge cohort named by the `C43` source protocol's own registry.
-
-The registry is independently rederived and hash-bound. Missing provenance is a construction failure; it
-is never repaired by assuming that a missing source contributed no genes.
-
-`chr8` and `chr9` remain globally sealed and are excluded by default. No script may fall back to them when
-capacity is low. Their use requires explicit written owner approval, a pre-outcome protocol amendment, a
-new split name, and a repository-level statement that the earlier seal has been spent. `chrY` is excluded.
-
-## Three gated phases
-
-### Phase I — model-free construction and sequence discrimination
-
-Build fresh, gene-disjoint seven-source blocks. Each block contributes one authentic donor module for each
-annotated phase, one authentic acceptor module for each phase, one fixed bridge source, and the complete
-3×3 chimeric lattice. Selection and balance use sequence and annotation only. The primary target is exactly
-600 blocks at 120 nt; development and Phase-III confirmation roles are gene-disjoint and frozen before
-model access.
-
-Amendment A5 makes the already-required supply stop executable and auditable. After the frozen eligibility
-filters, any role/phase or source-union unique-gene deficit writes a compact capacity certificate with no
-selected blocks or cells. Its independent audit may validate `INSTRUMENT_UNRESOLVED`; it cannot authorize a
-target.
-
-The unweighted lattice must balance the prespecified donor, acceptor, pairwise, coding-position, splice-core,
-stop-load, and genomic covariates. Both maximum absolute standardized mean difference and an outcome-blind,
-nested group-cross-fitted classifier must pass. A planted imbalance must be detected and permuted labels
-must be rejected. Failure is `INSTRUMENT_UNRESOLVED`, not evidence against the biology.
-
-An independent optional arm may test whether a 10.5–10.8-nt spectrum exists in the hashed 72-species
-training CDS, if that corpus is obtainable. A proxy corpus is labelled as such. The comparative corpus
-association is already recorded by `C39`; this arm asks only whether a specific sequence-side referent is
-detectable. It neither authorizes nor blocks the causal phases.
-
-### Phase II — period-3-first attenuation factorial
-
-The full capable design has four identical-sequence worlds:
-
-| World | period-3 | ≈10.63 |
-|---|---|---|
-| `Y00` | intact | intact |
-| `Y10` | attenuated | intact |
-| `Y01` | intact | attenuated |
-| `Y11` | attenuated | attenuated |
-
-The primary period-3 endpoints are `Ψ00` and `N3 = Y00 − Y10`. The ancillary endpoints are
-`N10 = Y00 − Y01` and `J = Y11 − Y10 − Y01 + Y00`. Each carrier has an independent dose preflight,
-health gate, capability score, and intervention-matched null family.
-
-Period-3 capability is mandatory. If it fails, no target opens. If period-3 passes but ≈10.63 fails, the
-run is explicitly staged: only `Y00/Y10` may open, `Y01/Y11` remain unexecuted, and P10/N10/J are
-`OPTIONAL_INSTRUMENT_UNRESOLVED`. If both pass, the full 2×2 is mandatory. A P10 failure or capable null
-does not erase a valid P3 result.
-
-### Phase III — optional register strengthening and mediation
-
-A material, composition-balanced `Ψ00` plus a corrected, null-specific material `N3` closes the primary
-scoped causal bridge and authorizes a new
-period-3-only register-relocation instrument. Candidate localization occurs on development; all candidate
-heads/MLPs, signs, windows, doses, paths, and nulls are frozen before the Phase-III confirmation role opens.
-The original full-relocation target still requires cyclic relocation across all three registers, not just a
-positive mean, before causal necessity and rescue through a frozen route can be promoted.
-
-Amendment A3 adds a weaker, explicitly partial-concordance strengthening tier,
-`P3_REGISTER_PARTIAL_CONCORDANCE_SUPPORTED`. It requires a material
-aggregate register effect, positive point estimates for all three frozen orientations, simultaneous support
-for at least two of the three, full specificity/health/audit passage, superiority to the hidden-axis family,
-failure of common-mode and decoy controls to reproduce the partial pattern, and a resolved handedness
-contrast between the expected and opposite orientations. That tier strengthens the P3–boundary link but
-does not establish complete three-register relocation and cannot authorize route-mediation language. An
-opposite-only raw partial pattern is `P3_REGISTER_PARTIAL_HANDEDNESS_FALSIFIED` only when its own
-hidden-axis/paired-control specificity passes and a separately corrected family jointly resolves
-opposite-minus-expected handedness plus separation from common-mode and decoy; competing expected/opposite
-patterns or an unresolved handedness contrast are
-`P3_REGISTER_PARTIAL_HANDEDNESS_AMBIGUOUS`.
-
-The register sign is fixed before data: the rightward analytic ramp is
-`φ_r(t)=−(2πr/3)(t−d)/(a−d−1)` and predicts the ridge `δ=(p_A−p_D) mod 3=−r mod 3`.
-An independent pure-tone truth-table test must pass before development; signs are never relabelled from an
-observed ridge.
-
-The P10-modulated Phase-III arm is optional and opens only if material `N10` and a multiplicity-corrected
-material `J` also pass. The ≈10.63 sequence referent and general biological meaning may remain unresolved
-even if this model-interaction arm succeeds.
+Phase I builds fresh, gene-disjoint blocks from sequence and annotation only. It excludes every gene
+exposed in the `C43`, `C44` and `GFS25` cohorts, keeps `chr8` and `chr9` sealed with no fallback to them,
+and must pass composition-balance and calibration gates before any model access. Failure is
+`INSTRUMENT_UNRESOLVED`, not evidence against the biology. Phase II attenuates the carriers in four
+identical-sequence worlds (`Y00`, `Y10`, `Y01`, `Y11`). Its primary endpoints are `Ψ00` and
+`N3 = Y00 − Y10`, its ancillary ones `N10` and `J`. If period-3 passes its capability gates but ≈10.63
+fails, only `Y00/Y10` may open and P10/N10/J are `OPTIONAL_INSTRUMENT_UNRESOLVED`. Phase III is optional,
+opens only after a material, composition-balanced `Ψ00` and a corrected, null-specific material `N3`, and
+tests span-wide register relocation and route mediation with every candidate frozen before the
+confirmation role opens.
 
 ## Decision hierarchy
 
@@ -202,39 +66,21 @@ even if this model-interaction arm succeeds.
 No outcome licenses “SpliceBERT reads frame,” “the spliceosome checks phase,” “the model implements
 translation,” “≈10.63 is nucleosomal/α-helical,” or “period-3 and ≈10.63 are one oscillator.”
 
-## Code ownership
+## Code and artifact contract
 
-New implementation belongs only in:
-
-- `scripts/splicebert_positional_boundary_coherence/` for study runners, freeze, and audit entrypoints;
-- flat active modules `src/gfmcd/splicing/positional_boundary_coherence.py`,
-  `src/gfmcd/splicing/pbc_biology.py`, `src/gfmcd/splicing/pbc_freshness.py`,
-  `src/gfmcd/splicing/pbc_carrier_factorial.py`, and `src/gfmcd/splicing/pbc_register_*.py` for reusable
-  study logic;
-- `results/splicebert_positional_boundary_coherence/` for immutable compact artifacts and manifests; and
-- `tests/` for new logic and failure memorials.
-
-Do not add successor runners to `scripts/splicebert/`. Reusable generic primitives may be imported from
-the active tree, but an import from the archived exon-edge program is forbidden. Each executable must
-declare its stage (`construction`, `development`, `target`, `phase3_reserve`, or `mediation`) and refuse an
-output path that already exists.
-
-## Artifact contract
-
-Every result-producing stage writes:
-
-1. an immutable JSON result with per-block endpoints sufficient to rederive every reported statistic;
-2. a sibling manifest containing the command, code revision and dirty state, input hashes, checkpoint hash,
-   parameters, seeds, environment, exact sample counts, exclusions, and output hashes;
-3. a freeze/authorization artifact for any later stage; and
-4. an independently produced audit that recomputes gates, test families, decision class, chronology, and
-   hashes without importing the analysis verdict function.
-
-Large raw logits or activation captures remain local and are never evidence by themselves. The compact
-endpoint table, manifest, and audit must make each conclusion checkable from a clean checkout. An audit
-that depends on an uncommitted raw shard must say so and cannot be called clean-checkout re-executable.
+New code goes only in `scripts/splicebert_positional_boundary_coherence/`, the flat modules
+`src/gfmcd/splicing/positional_boundary_coherence.py` and `src/gfmcd/splicing/pbc_*.py`,
+`results/splicebert_positional_boundary_coherence/`, and `tests/`. Nothing is imported from the archived
+exon-edge program. Every result-producing stage writes an immutable JSON result with per-block endpoints,
+a sibling manifest, a freeze/authorization artifact for any later stage, and an independent audit that
+does not import the analysis verdict function. The compact endpoint table, manifest, and audit must make
+each conclusion checkable from a clean checkout.
+An audit that depends on an uncommitted raw shard must say so and cannot be called clean-checkout re-executable.
 
 ## Executable gate chain
+
+Each row is fail-closed. A producer cannot authorize its own dependent target, and no later stage infers
+a positive, negative, or bounded result from a failed instrument.
 
 | Stage | Producer | Independent check / authorization |
 |---|---|---|
@@ -250,13 +96,23 @@ that depends on an uncommitted raw shard must say so and cannot be called clean-
 | Register confirmation | `run_p3_register_target.py`, `assemble_p3_register_target.py`, `analyze_p3_register_relocation.py` | `audit_p3_register_relocation.py` |
 | Route mediation | `run_p3_register_mediation_target.py`, `assemble_p3_register_mediation_target.py`, `analyze_p3_register_mediation.py` | `audit_p3_register_mediation.py` |
 
-Each row is fail-closed. A producer cannot authorize its own dependent target, and no later stage infers a
-positive, negative, or bounded result from a failed instrument.
+## Status
 
-## Present status
+Stopped. Phase I executed and stopped instrument-unresolved before any model outcome: the A5 certificate
+and its 48-check independent audit show that donor phase 2 and acceptor phase 2 cannot supply the frozen
+1,104-block request (`PBC1`). No complete cohort exists, no model preflight ran or opened, no target is
+authorized, and no model endpoint was measured. Phases II and III are unauthorized. `PBC1` is an
+instrument result only and licenses no statement about coding-boundary preference, either positional
+carrier, or a biological mechanism. Any successor design must be separately preregistered; this frozen
+execution path remains closed.
 
-`PREREGISTRATION.md`, including pre-model Amendments A1–A5, freezes the design and numerical decision rules.
-The executed A5 certificate and its 48-check independent audit record `PBC1`: donor phase 2 and acceptor
-phase 2 cannot supply the frozen 1,104-block request. No complete cohort exists, no model preflight ran or
-opened, no target is authorized, and no model endpoint was measured. Any successor design must be separately
-preregistered; this frozen execution path remains closed.
+## Files
+
+- [`PREREGISTRATION.md`](PREREGISTRATION.md): the frozen design. Read it with the canonical
+  [`METHODOLOGY.md`](../../docs/METHODOLOGY.md), its [evidence
+  ladder](../../docs/METHODOLOGY.md#evidence-ladder), and
+  [`PREREG_CONFORMANCE.md`](../../docs/PREREG_CONFORMANCE.md).
+- [`HYPOTHESIS_REGISTER.md`](HYPOTHESIS_REGISTER.md): the candidate biological narrative and checkpoint
+  map, kept apart because it cannot promote a claim.
+- [`CLAIMS.md`](CLAIMS.md), [`RESULTS.md`](RESULTS.md), [`DECISIONS.md`](DECISIONS.md): the successor
+  ledger, results, and decisions, which record the construction stop as `PBC1`.

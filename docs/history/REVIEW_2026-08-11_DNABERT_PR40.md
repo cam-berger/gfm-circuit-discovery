@@ -1,8 +1,8 @@
 # Review 2026-08-11 — DNABERT-2 promoter arc (PR #40) against repository fundamentals
 
 > The integration review that gave the DNABERT-2 arc its ledgers. Not a claim
-> record: claims are in [`studies/dnabert_promoter/CLAIMS.md`](../studies/dnabert_promoter/CLAIMS.md) and
-> withdrawals in [`CORRECTIONS.md`](../studies/dnabert_promoter/CORRECTIONS.md).
+> record: claims are in [`studies/dnabert_promoter/CLAIMS.md`](../../studies/dnabert_promoter/CLAIMS.md) and
+> withdrawals in [`CORRECTIONS.md`](../../studies/dnabert_promoter/CORRECTIONS.md).
 
 **Subject.** PR #40, `padmaja/dnabert-clean-pipeline` → `master`: 185 files, +128,263 lines. Frozen
 DNABERT-2 promoter analysis — adapter, dataset and perturbation modules, 35 runners, ~109 result
@@ -93,7 +93,7 @@ from it.
 
 The common failure was reading a committed diagnostic as an unaddressed defect. Both would have been caught
 by one more question — *does anything downstream consume this?* — which is now the first check in
-[`REPO_SCRUB_PROCEDURE.md`](REPO_SCRUB_PROCEDURE.md) terms: trace the consumer before calling a file a
+[`REPO_SCRUB_PROCEDURE.md`](../CONTRIBUTING.md#auditing-a-branch) terms: trace the consumer before calling a file a
 finding.
 
 ## Checked and clean

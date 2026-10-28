@@ -2,7 +2,7 @@
 
 `MANIFEST.csv` and `MANIFEST.json` are the **machine-readable entry point** to this tree. They carry
 one row per tracked file under `results/`, with the column set fixed by
-[`docs/REVIEW_2026-07-22.md`](../docs/REVIEW_2026-07-22.md) §4 (fix F2):
+[`docs/REVIEW_2026-07-22.md`](../docs/history/REVIEW_2026-07-22.md) §4 (fix F2):
 
 ```
 claim_id,status,evidence_level,polarity,artifact,script,manifest,figure
@@ -149,11 +149,11 @@ branch named above exists only in the owner's local clone and was never pushed t
 **Layout convention.** Most trees keep their **canonical artifacts at the directory root**, with
 `development/` and `superseded/` subtrees beside them — the `canonical/`-subdirectory half of the 2026-07-22
 reorg was deliberately not applied, because frozen preregistrations and read-only ledgers name canonical
-artifacts by their current root path (see [`docs/REVIEW_OPEN_QUESTIONS.md`](../docs/REVIEW_OPEN_QUESTIONS.md) §C1).
+artifacts by their current root path (see [open decision C1 in `docs/ROADMAP.md`](../docs/ROADMAP.md#c1-leftovers-of-the-reverted-results-reorganization)).
 The two newest origin trees (`origin-siblings/`, `origin-crossmodel/`) are the exception: they additionally
 use a `canonical/` subdirectory. `results/MANIFEST.csv` classifies every artifact regardless of layout.
 
 `p3_carrier_locus.json` and `p3_av_decomposition.json` sit at the root of this tree and carry C34 and
 C35 respectively; both paths are quoted verbatim in `CLAIMS.md`, `CORRECTIONS.md` and `REPRODUCE.md`.
 
-The repository-level reproduction map is [`REPRODUCE.md`](../REPRODUCE.md).
+The repository-level reproduction map is [`docs/REPRODUCE.md`](../docs/REPRODUCE.md).

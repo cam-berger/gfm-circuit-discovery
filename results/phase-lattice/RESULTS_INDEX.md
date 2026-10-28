@@ -17,7 +17,7 @@ Start with:
   `scripts/verify_manifest.py` (run by `tests/test_manifest.py`) keeps it in step with the tree.
   The tables below are the human-readable view of the same tree and do not list every file;
   the manifest does.
-- `docs/EVIDENCE_LADDER.md` for the evidence ladder;
+- `docs/METHODOLOGY.md` (Evidence ladder) for the evidence ladder;
 - `figures/headline.png` and `figures/fig_3.png` for the current manuscript views of these results;
 - `studies/splicebert_partner_selection/CLAIMS.md` for the authoritative claim, correction, and
   retraction ledger.

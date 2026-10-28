@@ -14,7 +14,7 @@ against the audit and lists what stays attestation. The authoritative claim ledg
 [`CLAIMS.md`](CLAIMS.md); correction/retraction history (R1–R59) is in [`CORRECTIONS.md`](CORRECTIONS.md);
 the machine-checkable claim→file index is [`../../results/MANIFEST.csv`](../../results/MANIFEST.csv)
 (953 rows, all paths resolve; `scripts/verify_manifest.py` passes). Repository-wide environment,
-checkpoint, and data requirements are defined in [`../../REPRODUCE.md`](../../REPRODUCE.md); this file is
+checkpoint, and data requirements are defined in [`docs/REPRODUCE.md`](../../docs/REPRODUCE.md); this file is
 the study-level command map, detailed per claim family, and consistent with that top-level table. The
 script catalogue/index is [`../../scripts/README.md`](../../scripts/README.md).
 

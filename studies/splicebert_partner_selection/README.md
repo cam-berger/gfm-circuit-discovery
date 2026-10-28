@@ -1,77 +1,48 @@
 # SpliceBERT donor circuit and positional carriers
 
-This study examines how
-SpliceBERT's masked-donor prediction depends on its paired acceptor, how the information is generated and
-routed, and where the evidence stops.
+This study asks how SpliceBERT's masked-donor prediction depends on the donor's paired acceptor, how that
+information is generated and routed, and where the evidence stops. We mask the donor on the
+`SpliceBERT.1024nt` checkpoint, corrupt its paired acceptor in canonical short introns, and read the
+native masked-token logit margin. Attribution, probes, attention, and spectra nominate candidate
+components; interventions decide causal use at the tested evidence level. The frozen mechanism statement
+and its limits are in [`docs/MECHANISM.md`](../../docs/MECHANISM.md), and the [claim ledger](CLAIMS.md)
+gives every result's evidence level and scope.
 
-Start with the [mechanism overview](../../MECHANISM.md), then consult the [claim ledger](CLAIMS.md) for
-each result's evidence level, controlling artifacts, and scope.
+## Findings
 
-## Current result
+Corrupting the paired acceptor changes the masked-donor margin by +0.872 logit units [0.771, 0.969],
+while matched non-partner and other-donor controls change it by only +0.007/+0.005 (C1, C2). L3H1
+combines a predominantly relative positional address with an acceptor-local value payload, and its effect
+routes through a donor-side low-rank direction, `U_info`, to downstream transporter heads (C16–C18, C23,
+C32). Injecting clean outputs of the identified nodes recovers coupling, but the hand-built component
+set alone has little standalone faithfulness, and the held-out static-ranking faithfulness curve has no
+sparse knee. The mechanism is a structured causal core within distributed computation under the tested
+interventions; neither minimality nor an autonomous circuit is established (C27, C33). The acceptor-local payload is not
+explained by the tested bulk composition covariates; its semantic identity remains unresolved, and the
+label "splice-site strength" is withdrawn (C30, R22). A period-3 positional carrier contributes across
+the donor–acceptor span through L3H1's attention pattern, and its coding specificity remains unresolved
+(C34, C35, C36). C34's confirm split is gate-qualified (R24).
 
-> A structured causal core within distributed computation under the tested interventions combines a
-> predominantly relative positional address with an acceptor-local payload and delivers the resulting
-> information to the donor readout.
+## Status
 
-The donor mechanism is measured on the final multi-species `SpliceBERT.1024nt` checkpoint, using
-canonical short introns and a native masked-token logit margin. L3H1 combines attention address and
-acceptor value payload, writes a donor-local state, and feeds downstream transport heads.
+The A0 to A12 dissection is complete. Later results on cross-example transfer (C38, C41) and the separate
+≈10.63 carrier (C12, C37) are recorded with their limits in the ledger, and follow-up tracks are in the
+[roadmap](../../docs/ROADMAP.md). No result here is a direct claim about spliceosome biochemistry or
+transcript abundance.
 
-Clean outputs from the nine non-embedding spine nodes recover coupling when injected, while isolating
-the full hand-built component set preserves little standalone faithfulness. The held-out static-ranking
-curve places the identified mechanism at the top but has no sparse knee (C27/C33). Neither minimality nor
-an autonomous circuit is established. The acceptor-local payload is not explained by the tested bulk
-composition covariates; its semantic identity remains unresolved, and “splice-site strength” is withdrawn
-(C30/R22).
+## Files
 
-## Authoritative records
-
-| Record | Purpose |
-|---|---|
-| [`CLAIMS.md`](CLAIMS.md) | Live claims, evidence levels, controlling artifacts, and scope. |
-| [`CORRECTIONS.md`](CORRECTIONS.md) | Full historical ledger and permanent R1–R59 correction record. R1–R24 are table rows; R25–R59 are `##` sections. |
-| [`FINDINGS.md`](FINDINGS.md) | Concise scientific narrative and limitations. |
-| [`P3_CLOSURE_CONFIRMATORY_REPORT.md`](P3_CLOSURE_CONFIRMATORY_REPORT.md) | C36 design and result; read with the ledger's provenance and sensitivity bounds. |
-| [`DECISIONS_A0.md`](DECISIONS_A0.md) | Detailed A0→A12 rationale, amendments, and post-outcome adjudication. |
-| [`DECISIONS.md`](DECISIONS.md) | Earlier high-level chronology of methodological pivots. |
-| [`METHODS.md`](METHODS.md) | Study-specific discovery, preflight, intervention, and stopping rules. |
-| [`REPRODUCIBILITY.md`](REPRODUCIBILITY.md) | Detailed script/result map; repository setup is in [`../../REPRODUCE.md`](../../REPRODUCE.md). |
-| [`preregistrations/`](preregistrations/README.md) | Indexed frozen, completed, parked, superseded, and deferred protocols. |
-| [`redteam/`](redteam/README.md) | P3 adversarial design reviews and execution synthesis. |
-| [`archive/`](archive/README.md) | Historical records preserved but not current entry points. |
-
-The claim and correction ledgers control the scientific record; narrative summaries do not supersede
-them. [Preregistration conformance](../../docs/PREREG_CONFORMANCE.md) records departures between frozen
-protocols and executed code.
-
-## Evidence boundaries
-
-- Donor coupling, the structured core, `U_info`, address/payload mediation, and period-3 carrier use
-  have causal support within their stated interventions and data splits.
-- C34's confirm split is gate-qualified (R24). C36 provides nucleotide-invariant evidence that the
-  learned P3 direction is used in the tested CDS-versus-upstream-intron contrast; coding specificity
-  remains unresolved. Required strand and donor-phase sensitivities were not computed, and the current
-  source does not match one frozen code pin (R46/R48).
-- IC1 is outcome-aware deterministic verification, not confirmation.
-- The distinct ≈10.63 carrier has controlled post-softmax attention evidence. Its donor-coupling value
-  effects are below the declared meaningfulness threshold, and deletion produces a small suppressive
-  effect with underpowered equivalence. The general-MLM-output read is a bounded diagnostic; the
-  `U_info` write endpoint remains unresolved and unevaluable as scoped because no L0 reader qualified
-  (C12/C37, R31/R36).
-- Cross-example donor-state injection transfers a gene-generic readout axis; the example-specific
-  component is inert for the donor margin in the tested linear regime (C41, verification tier). This
-  bounds additive injection of the final-residual state, not earlier addressing or routing.
-- Cross-example acceptor-payload injection moves the donor margin, but its content-specific contribution
-  is unresolved at achieved validation precision (C38, verification tier). Payload semantic identity
-  remains closed-bounded under C30; transfer alone does not identify it.
-- No result here is a direct claim about spliceosome biochemistry or transcript abundance.
-
-## Data and artifacts
-
-- Donor graph: [`../../results/splicebert_coupling/`](../../results/splicebert_coupling/)
-- Position/carrier index: [`../../results/phase-lattice/RESULTS_INDEX.md`](../../results/phase-lattice/RESULTS_INDEX.md)
-- Active runners: [`../../scripts/splicebert/`](../../scripts/splicebert/)
-- Current paper figures: [`headline.png`](../../figures/headline.png) and [`fig_3.png`](../../figures/fig_3.png)
-
-Attribution, probes, attention, and spectra nominate candidates. Interventions establish causal use at
-the tested evidence level.
+- [`CLAIMS.md`](CLAIMS.md) and [`CORRECTIONS.md`](CORRECTIONS.md) (R1–R59): claims and corrections. They
+  control the record; narrative summaries do not supersede them.
+- [`FINDINGS.md`](FINDINGS.md): narrative. [`METHODS.md`](METHODS.md): study rules.
+  [`DECISIONS_A0.md`](DECISIONS_A0.md) and [`DECISIONS.md`](DECISIONS.md): design rationale.
+  [`P3_CLOSURE_CONFIRMATORY_REPORT.md`](P3_CLOSURE_CONFIRMATORY_REPORT.md): the C36 report.
+- [`REPRODUCIBILITY.md`](REPRODUCIBILITY.md): script and result map; setup is in
+  [`docs/REPRODUCE.md`](../../docs/REPRODUCE.md).
+- [`preregistrations/`](preregistrations/README.md), [`redteam/`](redteam/README.md),
+  [`archive/`](archive/README.md): protocols, design reviews, and historical records. Check
+  [preregistration conformance](../../docs/PREREG_CONFORMANCE.md) before citing a gate as enforced.
+- Artifacts in [`results/splicebert_coupling/`](../../results/splicebert_coupling/) and
+  [`results/phase-lattice/`](../../results/phase-lattice/RESULTS_INDEX.md); runners in
+  [`scripts/splicebert/`](../../scripts/splicebert/); figures
+  [`headline.png`](../../figures/headline.png) and [`fig_3.png`](../../figures/fig_3.png).

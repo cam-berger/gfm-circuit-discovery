@@ -2,6 +2,8 @@
  "_README": "Pins outside result manifests (gfmcd.pins) that do not verify from a clean checkout. tests/test_pins.py asserts the observed set is exactly this list. Regenerate only deliberately: python3 scripts/verify_records.py --pins --write-census",
  "floor_verified": 1822,
  "failures": [
+  {"path": "MECHANISM.md", "sha256": "51f7cce2710baf70df8e9bcbeb4f948821f69456300750443e0953358cc01f78", "source": "figures/experiment_workflow.provenance.json", "status": "missing"},
+  {"path": "docs/METHODOLOGY.md", "sha256": "7a57b1b46bb971d2b3c3360dbe7561761783bab8446021db3cc467ff7e653603", "source": "figures/experiment_workflow.provenance.json", "status": "drift"},
   {"path": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/config.json", "sha256": "51ea51e42951f18cc1d3455d7111fe0a41cebad476ba8314afc161a0e956303e", "source": "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json", "status": "missing"},
   {"path": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/pytorch_model.bin", "sha256": "2ad91428c318e6c49233154073ca7a35f5f7899c9f4be3444775bae3dba0149d", "source": "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json", "status": "missing"},
   {"path": "data/models/splicebert_official_archive/extracted/models/SpliceBERT.1024nt/special_tokens_map.json", "sha256": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3", "source": "results/phase-lattice/p3_phase_surgery_confirmation_package_v1.json", "status": "missing"},

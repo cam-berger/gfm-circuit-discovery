@@ -1,39 +1,40 @@
-# Transfer guide: applying the method to another GFM
+# Applying the method to another GFM
 
-SpliceBERT supplies a worked example and reusable tools. The next model must re-earn every scientific claim; architecture similarity is not evidence transfer.
+SpliceBERT supplies a worked example and reusable tools. A new model must establish every scientific
+claim again, because a similar architecture does not carry evidence across. The
+[DNABERT-2 promoter study](../studies/dnabert_promoter/README.md) is the first such port.
 
 ## What transfers
 
-- the biological-computation-first workflow;
-- the assay preflight and evidence ladder;
-- adapter, hook, ablation, patching, and provenance interfaces;
-- claim, decision, preregistration, result, and retraction discipline;
-- families of controls and matched-null logic.
+- the workflow that starts from a biological computation
+- the assay preflight and the evidence ladder
+- the adapter, hook, ablation, patching and provenance interfaces
+- claim, decision, preregistration, result and retraction discipline
+- families of controls and matched-null logic
 
 ## What does not transfer automatically
 
-- the donor–acceptor circuit components or layer/head identities;
-- a period-3 implementation;
-- the ≈10.63 carrier or any proposed biological meaning;
-- thresholds, detection floors, or null distributions;
-- conclusions across tokenizers, position schemes, species, objectives, or checkpoints.
+- the donor–acceptor circuit components and their layer and head identities
+- a period-3 implementation
+- the ≈10.63 carrier or any proposed biological meaning
+- thresholds, detection floors and null distributions
+- conclusions across tokenizers, position schemes, species, objectives or checkpoints
 
-## Choosing the next GFM
+## Choosing the next model
 
+Choose a computation the model demonstrably performs, not a model whose internals are merely convenient.
 Prefer a model with:
 
 1. a biologically meaningful native output or a defensible zero-shot behavioral metric;
-2. access to activations, attention logits/weights, and output projections;
+2. access to activations, attention logits and weights, and output projections;
 3. a stable public checkpoint and reconstructable preprocessing;
-4. enough architectural contrast with SpliceBERT to test method portability;
+4. enough architectural contrast with SpliceBERT to test whether the method ports;
 5. a computation that admits paired biological counterfactuals and negative controls;
-6. feasible compute for screening, ablation, patching, and replication.
-
-Do not select a model only because its internals are convenient. Select a computation the model demonstrably performs.
+6. feasible compute for screening, ablation, patching and replication.
 
 ## Adapter contract
 
-A model adapter should expose, without study-specific assumptions:
+An adapter exposes these capabilities without study-specific assumptions:
 
 | Capability | Requirement |
 |---|---|
@@ -45,45 +46,33 @@ A model adapter should expose, without study-specific assumptions:
 | Invariants | Shape, checksum, device, precision, and no-mutation checks |
 | Provenance | Complete run manifest including code revision, data, parameters, seed, and command |
 
-Architecture-specific code belongs in `src/gfmcd/adapters/`. Biological assay logic belongs in the study package, not the adapter.
+Architecture-specific code goes in `src/gfmcd/adapters/`; biological assay logic goes in the study
+package, not the adapter.
 
 ## Port sequence
 
-### Phase 0 — freeze the question
+For the general method, see [the seven-stage workflow](METHODOLOGY.md#the-seven-stage-workflow).
 
-Create a study from `studies/TEMPLATE_REAL_GFM_STUDY/`. Define the computation, native behavior, rivals, scope, controls, and stopping rules.
+0. Freeze the question. Create the study from `studies/TEMPLATE_REAL_GFM_STUDY/` and define the
+   computation, native behavior, rivals, scope, controls and stopping rules.
+1. Qualify the behavior. Show that the checkpoint performs the computation, and record baseline strength,
+   heterogeneity and failure cases. Stop if the behavior is absent or wholly explained by a simpler
+   baseline.
+2. Qualify the instrument. Build the adapter and preflight, then verify hooks and interventions with
+   injection/recovery tests, positive and negative controls, and protected metrics.
+3. Localize (exploratory). Screen layers, positions, heads, features, spectra or subspaces for a candidate
+   set. Freeze a confirmatory plan before using the same data for a definitive claim.
+4. Test causally. Run necessity, mediation, information-specificity and path tests, each against
+   appropriate nulls, and report collateral effects.
+5. Replicate sealed, then synthesize. Replicate on held-out data or an untouched checkpoint or model, and
+   compare the discovered algorithm with SpliceBERT's by computational motif, not by head number.
 
-### Phase 1 — behavioral qualification
+## Comparing models
 
-Show that the target checkpoint performs the computation. Record baseline strength, heterogeneity, and failure cases. Stop if behavior is absent or wholly explained by a simpler baseline.
+Compare models on the behavior implemented; information representation; addressing or routing strategy;
+redundancy and path structure; how concentrated or distributed the causal effect is; dependence on
+positional, sequence or contextual features; robustness across biological contexts; and the evidence
+level reached and the first unresolved bridge.
 
-### Phase 2 — instrument qualification
-
-Implement the adapter and preflight. Verify hooks and interventions with injection/recovery tests, positive and negative controls, and protected metrics.
-
-### Phase 3 — exploratory localization
-
-Screen layers, positions, heads, features, spectra, or subspaces. Treat the output as a candidate set. Freeze a confirmatory plan before using the same data to make a definitive claim.
-
-### Phase 4 — causal circuit tests
-
-Run necessity, mediation, information-specificity, and path tests. Compare every intervention with appropriate nulls and report collateral effects.
-
-### Phase 5 — sealed replication and synthesis
-
-Replicate on held-out data or an untouched checkpoint/model. Compare the discovered algorithm with SpliceBERT at the level of computational motifs, not matching head numbers.
-
-## Cross-model comparison axes
-
-Compare models on:
-
-- the behavior implemented;
-- information representation;
-- addressing or routing strategy;
-- redundancy and path structure;
-- causal concentration versus distribution;
-- dependence on positional, sequence, or contextual features;
-- robustness across biological contexts;
-- evidence level reached and first unresolved bridge.
-
-The program succeeds if the methodology yields an honest circuit, an honest null, or a clearly diagnosed instrument limit in another GFM. Reproducing the SpliceBERT finding is not required.
+A port succeeds if it yields a circuit, a null result or a clearly diagnosed instrument limit, each
+reported at the evidence level it reached. It does not have to reproduce the SpliceBERT finding.

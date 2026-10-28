@@ -13,7 +13,7 @@ A0→A12 arc is in `DECISIONS_A0.md`. Nothing in this index may be read as a cla
 ## Decoding the file namespace
 
 The review flagged this namespace as opaque to a reader who has not read `DECISIONS_A0.md`
-(`docs/REVIEW_2026-07-22.md` §2.2). The manifest is the fix — every file resolves to a claim — but
+(`docs/history/REVIEW_2026-07-22.md` §2.2). The manifest is the fix — every file resolves to a claim — but
 the prefixes decode as follows.
 
 | Prefix | Meaning |
@@ -32,7 +32,7 @@ Everything else is named for the assay it runs (`donor_*`, `ablation_scan`, `pat
 
 ## Where to start
 
-The claim → runner → artifact table is in [`../../REPRODUCE.md`](../../REPRODUCE.md) §3, and the
+The claim → runner → artifact table is in [`docs/REPRODUCE.md`](../../docs/REPRODUCE.md) §3, and the
 detailed command map in `studies/splicebert_partner_selection/REPRODUCIBILITY.md`.
 
 ## Integrity check

@@ -9,7 +9,7 @@ semantics and the four `status` values are defined in [`../RESULTS_INDEX.md`](..
 Authoritative claim wording lives in `studies/splicebert_head_context_atlas/CLAIMS.md`; the decision
 log is `DECISIONS.md` in the same directory. Nothing in this index may be read as a claim. The Atlas
 is infrastructure and the substrate for cross-context work, not a standalone headline
-(`docs/REVIEW_2026-07-22.md` §9).
+(`docs/history/REVIEW_2026-07-22.md` §9).
 
 ## Decoding the file namespace
 
@@ -35,7 +35,7 @@ tree, not the full runtime output.
 
 ## Where to start
 
-The stage → entry point → record table is in [`../../REPRODUCE.md`](../../REPRODUCE.md) §3.
+The stage → entry point → record table is in [`docs/REPRODUCE.md`](../../docs/REPRODUCE.md) §3.
 
 ## Integrity check
 

@@ -12,7 +12,7 @@ does not promote observational evidence to a causal claim.
 | [DNABERT-2 comparison](paper_figure_workflow_transfer.png) | A bounded workflow comparison with a conditional, MLP-heavy causal core. | [Provenance](paper_figure_workflow_transfer.provenance.json) |
 
 The [study index](../studies/README.md) links to each scientific record. The manuscript audit's
-[figure discussion](../RESULTS.md#6-figure-audit) describes the assets present at its stated audit date.
+[figure discussion](../docs/RESULTS.md#6-figure-audit) describes the assets present at its stated audit date.
 
 ## Reading the mechanism figure
 
@@ -72,5 +72,7 @@ The renderer writes PNG, SVG, and provenance together. To inspect a separate ren
 
 Regenerate an affected figure from its sources when those sources change, and inspect the rendering
 and provenance together. Source sidecars for the workflow and headline assets are retained, but an
-in-tree renderer for their current layouts is not available. Historical figure names and paths in
+in-tree renderer for their current layouts is not available. The workflow sidecar's sources were rebound to the
+reorganized docs on 2026-10-27 without re-rendering the image; its `rendered_from_sources` field keeps the
+hashes recorded at render time. Historical figure names and paths in
 immutable manifests remain part of the execution record.

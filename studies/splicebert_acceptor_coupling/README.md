@@ -1,146 +1,50 @@
-# SpliceBERT acceptor coupling — paired-boundary dependence read from the other end
+# SpliceBERT acceptor coupling
 
-## Why this study exists
+The [donor study](../splicebert_partner_selection/README.md) masks a donor and corrupts its intron-mate
+acceptor, and its account of that behavior is asymmetric. This study reads the same intron from the other
+end, to test whether the asymmetry belongs to the model or to the assay. It masks the `G` of the
+acceptor's `AG` (`next_acceptor_pos - 1`), corrupts the partner donor `[d, d+2)`, and reads the same
+native margin, `logit(G) − max(A, C, T)`, on `SpliceBERT.1024nt`. AC1–AC9 use canonical `GT-AG` internal
+short introns on both strands and validation data.
 
-`studies/splicebert_partner_selection` masks the **donor** and corrupts the intron-mate **acceptor**,
-in every confirmatory and mechanistic result it contains. The A0→A12 arc decomposed that behaviour into
-a positional address, an **acceptor-local** payload, and delivery to a **donor-side** readout. That
-account is stated asymmetrically throughout — and until this study, **nothing in the record tested
-whether the asymmetry is a property of the model or of the assay.**
+The corruption instrument does not mirror. The acceptor-side operator is alt-invariant within ±25% (C42),
+but 81.0% of validation donors have `seq[d-1] == "G"`, so donor-side alts such as `CC`, `TA`, and `AA`
+plant new splice motifs. Only `AC` (two substitutions) and `AT` (one) are motif-clean, and comparisons
+between the two directions must match substitution counts (R44).
 
-This study reads the same intron from the other end:
+## Findings
 
-| | mask | corrupt | quantity |
-|---|---|---|---|
-| donor study (C1) | `donor_pos` | partner acceptor `[p-2, p)` | `Y_D` |
-| **here** | `next_acceptor_pos - 1` | partner donor `[d, d+2)` | `Y_A` |
+Masked-acceptor dependence on the partner donor reaches a bounded behavior gate, and in a bounded
+post-outcome screen on the same validation cohort, destroying either donor base changes the endpoint
+sub-additively (AC1, AC2; both verification tier). The exploratory 96-head paired screen is
+instrument-unresolved and supplies candidates only (AC4). On a gene-disjoint target within validation chromosomes 11/16/19 (not chromosome-held-out), `L1H12`
+mean ablation and `L4H11`/`L4H9`/`L4H7` noising show bounded, intervention-specific effects, reused
+`L3H1` and a distinct route are inconclusive, and `L2H15` failed its health check; no reverse write,
+delivery, mediation, or circuit is established (AC5–AC8). The frozen handoff to write and delivery tests stopped
+before target science, because its validation rows violate the frozen consumer's schema (AC9). On one
+validation reserve, natural `GC-AG` donors are associated with weaker masked-acceptor coupling and lower
+`L3H1` donor attention than matched `GT-AG` donors (AC10, AC11; bounded verification). The comparison is
+quasi-observational and does not establish intrinsic class specificity, a causal component, write,
+delivery, splicing efficiency, or biology.
 
-Both readouts mask a `G` — the donor's is the `G` of its `GT`, the acceptor's the `G` of its `AG` — so
-the native masked-LM margin `logit(G) − max(A, C, T)` is used unchanged. The reversal is the
-substitution of one position list for another, and `tests/test_reverse_coupling_memorials.py` asserts
-at source level that `CouplingTask.encode`/`margin` contain nothing donor-specific.
+## Status
 
-## The one thing to know before designing anything here
+Stopped. Masked-acceptor dependence and natural donor-class heterogeneity are measured, but causal
+construction of the acceptor margin remains unresolved, and the mechanism program ended at a terminal
+instrument failure. These records must not be composed into a synthetic successful circuit, and nothing
+here is a claim about splicing, spliceosome biochemistry, or transcript abundance.
 
-**The instrument does not mirror.** The acceptor-side corruption operator is validated alt-invariant
-within ±25% (**C42**). The donor-side operator is **not**, and cannot be:
+## Files
 
-- R44 measured `seq[d-1] == "G"` at **81.0%** of validation donors (the 5'SS consensus). `CC` therefore
-  plants a `GC` donor one base upstream, `TA` plants a **canonical `GT`** (95.5% on the atlas
-  condition-B cohort), and `AA` plants an `AG` (62.0%). `AC` and `AT` are universally motif-clean;
-  `AC` is the clean two-substitution operator and `AT` the clean one-substitution operator.
-- `GT → AC` is **two** substitutions; `GT → AT` is **one** and leaves the `T` at `d+1` standing.
+- [`CLAIMS.md`](CLAIMS.md): the `AC*` ledger. Its [evidence
+  catalog](CLAIMS.md#reader-facing-evidence-catalog) maps legacy aliases to descriptive IDs.
+- [`CORRECTIONS.md`](CORRECTIONS.md): `ACR*` corrections. [`DECISIONS.md`](DECISIONS.md) and
+  [`DECISIONS_R4_EDGE.md`](DECISIONS_R4_EDGE.md): chronology and the retired R4 edge design.
+- [`preregistrations/`](preregistrations/): frozen protocols and the retired R4 draft.
+- [`attestations/`](../../results/splicebert_acceptor_coupling/attestations/): attestations for the
+  archived result packages.
+- `scripts/splicebert_acceptor_coupling/` and `src/gfmcd/splicing/reverse_coupling.py`: runners and the
+  reusable readout.
 
-C42 does not transfer — its own row scopes it to the acceptor operator. Every runner here uses
-`MOTIF_CLEAN_DONOR_ALT` and re-verifies admissibility per construct with `planted_donor_motifs`, never
-from a tuple. Any comparison between the two directions must match substitution counts;
-`reverse_coupling.matched_operators` exists so that mismatch cannot be introduced silently.
-
-## Prior operator evidence and the archived-edge boundary
-
-One earlier donor-operator sensitivity result is relevant to this study:
-
-| source | where | what it found | why it does not settle the question |
-|---|---|---|---|
-| `AR1` arm `DONA` | `splicebert_partner_selection`, `ar1_corruption_operator_sensitivity.json` | corrupt donor, read masked partner acceptor; verdict **`NOT_INVARIANT`**; every alt with `z[1] == "T"` at ρ ≈ 0.62 | declared "secondary and descriptive"; **no specificity control**; `n = 190` / 171 genes drawn entirely from the **19%** of donors lacking the consensus `G` |
-
-The archived exon-edge compatibility prose is not a second reciprocal-acceptor result and is not folded
-into this study. R45 carried only C43 and C44: C43 is a bounded **masked-donor** register-preference result
-in a chimeric crossed lattice, while C44 says its proposed period-3 implementation is instrument-unresolved.
-Neither supplies a native masked-acceptor operator estimate, component selection rule, or symmetry premise.
-
-## What is here
-
-The descriptive evidence IDs in [`CLAIMS.md`](CLAIMS.md#reader-facing-evidence-catalog) are the preferred
-names. Codes such as `AC5` and `R3c v2.1` remain legacy aliases for immutable records, not the public
-storyline.
-
-The evidence from legacy runs `R1`, `R1b`, `R2`, and `R3` is **verification tier**; `R4` was never
-frozen. The held-out component target is prospectively bound and gene-disjoint, but it is a
-confirmatory bucket **within validation** chromosomes 11/16/19 rather than a chromosome-held-out target.
-The later frozen mechanism program stopped before opening its masked-acceptor target outcomes on chr8/9,
-although donor-side `C1` had already used those chromosomes (`ACR18`). A separate natural-donor-class
-reserve compares `GC-AG` with matched canonical `GT-AG`; it is a modifier study, not a continuation of
-the stopped mechanism program.
-
-| arm | question | outcome |
-|---|---|---|
-| **R1** ([prereg](preregistrations/PREREGISTRATION_R1_REVERSE_COUPLING_GATE.md), frozen) | is there a reverse coupling, and is it specific? | `INSTRUMENT_UNRESOLVED` — from a power gate aimed at the effect rather than at the nulls. **Superseded; retained as provenance.** See `ACR1`. |
-| **R1b** ([prereg](preregistrations/PREREGISTRATION_R1b_REVERSE_COUPLING_GATE.md), frozen) | the same, with `MDE80` gated on the control arms + three-draw verdict stability | bounded validation gate: the artifact says **`GO`**, but the frozen scope forbids claim promotion and the permutation memorial is row-wise rather than gene-wise (`ACR8`) → `AC1` |
-| **R2** | how does reverse coupling respond when each donor base is destroyed? | bounded post-outcome operator screen: either base changes the endpoint, sub-additively, with larger `T`-only interventions → `AC2` |
-| **R3** ([prereg](preregistrations/PREREGISTRATION_R3_PAIRED_COMPONENT_SCAN.md), frozen) | which of the 96 heads are **shared** between the two directions and which are **direction-specific**? | instrument unresolved: raw mean-ablation values nominate candidates, but the nominal partition and rank identifications are retracted because the calibration path did not implement the frozen familywise decision (`ACR9`) → `AC4` |
-| **Held-out component confirmation** (legacy `R3c v2.1`; [frozen protocol](preregistrations/DRAFT_R3C_ACCEPTOR_HEAD_CONFIRMATION.md)) | do seven prespecified masked-acceptor component/route paths survive a clean preflight and gene-disjoint target? | mixed bounded result: `L1H12` mean ablation and `L4H11`/`L4H9`/`L4H7` noising supported (`AC5`–`AC6`); reused `L3H1` and the distinct route inconclusive (`AC7`); `L2H15` health failed (`AC8`) |
-| **Frozen mechanism handoff** (legacy `R1c→R5`) | can a validated behavior package enter prospective reader → write → delivery tests? | terminal instrument stop: the clean validation preflight passes all 13 gates, but its authentic six-margin rows violate the frozen consumer's three-field schema before target science → `acceptor-coupling/instrument/frozen-handoff-schema-mismatch` (`AC9`) |
-| **Natural-`GC` modifier verification** (legacy `M6`) | do natural `GC-AG` donors differ from matched `GT-AG` donors at behavior and `L3H1` attention? | bounded validation-reserve verification: behavior ratio `0.2571` (upper `0.5402 < 0.60`) and attention ratio `0.3755` (upper `0.5809 < 0.70`) → `acceptor-coupling/natural-gc/behavior-modifier` and `acceptor-coupling/natural-gc/l3h1-attention-modifier` (`AC10`–`AC11`) |
-| **Natural-`GC` QK score diagnostic** (legacy `M4d`) | which adaptive upstream candidates alter the exact pre-softmax donor-versus-other score margin? | development only: three nominal layer-0 candidates, three unresolved labels, and an opposite-direction `L2H15` diagnostic; no family correction, matched null, intrinsic class-specificity, or query-versus-key localization; no claim alias |
-| **R4** ([retired draft](preregistrations/PREREGISTRATION_R4_EDGE_LEVEL_CAUSAL_CORE.md)) | historical question: do the two directions share their **edges**, or only their **components**? | never frozen; its exploratory execution used a defective objective and did not implement the proposed partition; no claim |
-
-R3 was intended to answer "same or different" as a **single paired estimand** rather than two screens:
-both readouts are measured on the same exons in the same process, so `Δ(c) = frac_A(c) − frac_D(c)`
-has cohort, distance, composition and gene structure cancelling inside every contrast. Its primary
-estimand is **mean-ablation**, because the repository's two idioms disagree 45× on exactly the class of
-component at issue (forward `L2H15`: `+0.0115` noising vs `+0.5146` ablation) — a noising-primary sweep
-returns a false null for the addresser. **MLP writes were out of scope in R3.** More importantly, R3's
-permutation null, planted positive, one-direction specificity check, unadjusted equivalence rule, missing
-noising estimand, and mismatched reverse-health policy make the frozen decision `INCONCLUSIVE` (`ACR9`,
-`ACR11`). Its raw head effects remain candidate-generating measurements only.
-
-R4 did not close those gaps. Its protocol was never frozen and is now retired; the completed exploratory
-run used a signed objective that rewarded over-recovery and never implemented the preregistered
-uncertainty-aware edge partition. See [`DECISIONS_R4_EDGE.md`](DECISIONS_R4_EDGE.md). No R4 result may be
-used to infer shared components, shared wiring, mediation, or a reverse circuit.
-
-The clean held-out successor resolves only part of the candidate screen. Its 500-row / 304-gene target
-supports bounded, intervention-specific patterns for `L1H12` under mean ablation and
-`L4H11`/`L4H9`/`L4H7` under same-example activation noising. It does **not** confirm reused `L3H1` or a
-distinct acceptor route, and `L2H15` receives no scientific verdict because its authorization health
-failed. Same-example noising is not delivery. The first missing bridge is direct evidence for a write,
-a directed edge, and delivery, followed by mediation; no reverse mechanism or circuit is established.
-
-The attempted bridge does not change that conclusion. Its validation instrument passed, but the exact
-frozen producer and consumer disagree about whether a row contains six margin fields or exactly three.
-Because this was discovered after the validation outcome, the program closes rather than repairing and
-rerunning. No target behavior or mechanism result follows. The natural-`GC` comparison then adds bounded
-heterogeneity at behavior and attention rungs only; its adaptive QK diagnostic stays development-only.
-These records must not be composed into a synthetic successful circuit.
-
-- [`CLAIMS.md`](CLAIMS.md) — the claim ledger (`AC*`). Separate from the donor study's `C*` ledger on
-  purpose: acceptor reconstruction is a different behaviour from donor reconstruction, and giving it
-  its own ledger keeps C1–C42 from silently acquiring reverse-direction rows.
-- [`DECISIONS.md`](DECISIONS.md) — chronology, including both pilots and their numbers, and the
-  2026-08-08 BP arc (what it costs to leave the short-intron band; creates no claim row).
-- [`DECISIONS_R4_EDGE.md`](DECISIONS_R4_EDGE.md) — `D1`–`D11`, the edge-level R4 design record,
-  including the two negative results about the instrument (`D10` signed objective, `D11`
-  unimplemented partition).
-- [`CORRECTIONS.md`](CORRECTIONS.md) — `ACR*`. Never delete a correction; record, don't rewrite.
-- [Held-out component attestation](../../results/splicebert_acceptor_coupling/attestations/paired_donor_component_confirmation_v1.json)
-  — compact active index that pins the exact archived raw package by tag object, commit, path, size, and
-  SHA-256; paired with the independent
-  [decision audit](../../results/splicebert_acceptor_coupling/r3c_acceptor_head_target_v2_1.audit.json).
-- [Frozen handoff attestation](../../results/splicebert_acceptor_coupling/attestations/frozen_handoff_schema_mismatch_v1.json)
-  — authenticates the 74 MB validation package and exact schema failure from the archive; no active
-  target or mechanism runner is restored.
-- [Natural-`GC` modifier attestation](../../results/splicebert_acceptor_coupling/attestations/natural_gc_validation_v1.json)
-  and [original protocol](preregistrations/PREREGISTRATION_M6_VALIDATION_CONFIRMATION.md) — preserve the
-  clean first validation-reserve package; a later prohibited rerun is archive-only.
-- [QK score diagnostic attestation](../../results/splicebert_acceptor_coupling/attestations/development/natural_gc_qk_score_diagnostic_v1.json)
-  — preserves the historical non-standard JSON and dirty provenance as development evidence, without
-  accepting its categorical self-labels.
-- [`preregistrations/`](preregistrations/) — `R1`, `R1b`, and `R3` are **frozen**; `R4` is a
-  **retired draft that was never frozen**; the held-out component protocol is also frozen.
-- `scripts/splicebert_acceptor_coupling/` — active historical runners for the earlier arms.
-  `src/gfmcd/splicing/reverse_coupling.py` — the reusable readout. The held-out component runner and
-  full packages remain in the pinned archive; the active results tree carries their compact attestation,
-  audit, and frozen protocol instead of dead execution code or 66 MB of calibration arrays.
-
-## Scope, standing
-
-AC1–AC9 use `SpliceBERT.1024nt`, canonical `GT-AG` internal short introns, both strands, and validation
-data. AC1 is a bounded behavior gate, AC2 a bounded post-outcome operator screen, AC3 is retracted, AC4
-is an instrument-unresolved candidate screen, AC5–AC8 are the mixed held-out component record, and AC9
-is a terminal pre-target instrument failure. AC10–AC11 are the explicit natural-`GC` versus matched-
-`GT` exception and remain bounded behavior/attention modifiers. The QK score diagnostic is not a claim.
-All records are model-internal, and **no external biological assay enters them.** Nothing here is a
-claim about splicing, spliceosome biochemistry, or transcript abundance. Evidence never promotes across levels; read
-[`../../docs/EVIDENCE_LADDER.md`](../../docs/EVIDENCE_LADDER.md) and
-[`../../docs/NOMENCLATURE.md`](../../docs/NOMENCLATURE.md) before writing prose here.
+Read the [evidence ladder](../../docs/METHODOLOGY.md#evidence-ladder) and
+[`docs/NOMENCLATURE.md`](../../docs/NOMENCLATURE.md) before writing prose here.

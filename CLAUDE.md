@@ -15,8 +15,9 @@ was a *limit*: it independently reached the same "structured causal core inside 
 computation" shape that the donor arc reached at **C33**. No SpliceBERT number transfers to it, and it
 licenses nothing about any `C*`, `HCA*`, `AC*` or `GFS*` row.
 
+- Project story, in order: [`docs/README.md`](docs/README.md).
 - Method & rules: [`README.md`](README.md), [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md),
-  [`docs/EVIDENCE_LADDER.md`](docs/EVIDENCE_LADDER.md), [`docs/TRANSFER_GUIDE.md`](docs/TRANSFER_GUIDE.md).
+  [evidence ladder](docs/METHODOLOGY.md#evidence-ladder), [`docs/TRANSFER_GUIDE.md`](docs/TRANSFER_GUIDE.md).
 - **Never promote evidence** across levels (P → QK → Attention → OV/mediation → Behaviour → Biology).
   Attribution ranks; **intervention decides**. A position-table feature ≠ used by attention ≠ a causal
   computation ≠ a biological mechanism.
@@ -43,7 +44,7 @@ FAITHFULNESS  DISTRIBUTED UNDER THE TESTED RANKING (C33): no knee in the held-ou
 ```
 
 The frozen one-sentence mechanism statement, its checkpoint caveats, and its scope limits belong to
-[`MECHANISM.md`](MECHANISM.md) — quote from there, not from memory.
+[`docs/MECHANISM.md`](docs/MECHANISM.md) — quote from there, not from memory.
 
 ## Where the current state lives
 
@@ -91,7 +92,7 @@ arc's sanctioned successor and inherits blacklists and geometry from it, never i
 
 ## Environment, running & code layout
 
-- **`uv` is canonical** ([`REPRODUCE.md`](REPRODUCE.md)); run from the repo root —
+- **`uv` is canonical** ([`docs/REPRODUCE.md`](docs/REPRODUCE.md)); run from the repo root —
   `uv run python scripts/splicebert/run_<exp>.py ...`, and pass the extras on tests too
   (`uv run --extra splicebert --extra biology --extra dev pytest`; a bare `uv run pytest` fails).
 - `maxentpy` 0.0.4 (github kepbod/maxentpy, not PyPI) supplies MaxEntScan; `scripts/crossmodel/` needs a
